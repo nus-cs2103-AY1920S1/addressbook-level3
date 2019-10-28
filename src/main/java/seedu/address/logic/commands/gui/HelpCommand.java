@@ -24,7 +24,7 @@ import seedu.address.logic.commands.datamanagement.ViewModuleTagsCommand;
 import seedu.address.logic.commands.datamanagement.ViewTaggedCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.storage.ActivateStudyPlanCommand;
-import seedu.address.logic.commands.storage.CommitStudyPlanEditCommand;
+import seedu.address.logic.commands.storage.CommitStudyPlanCommand;
 import seedu.address.logic.commands.storage.CreateStudyPlanCommand;
 import seedu.address.logic.commands.storage.DefaultStudyPlanCommand;
 import seedu.address.logic.commands.storage.DeleteCommand;
@@ -63,7 +63,7 @@ public class HelpCommand extends Command {
             + "\nStudy plans and committing:\n"
             + CreateStudyPlanCommand.HELP_MESSAGE + "\n"
             + DeleteCommand.HELP_MESSAGE + "\n"
-            + CommitStudyPlanEditCommand.HELP_MESSAGE + "\n"
+            + CommitStudyPlanCommand.HELP_MESSAGE + "\n"
             + ViewCommitHistoryCommand.HELP_MESSAGE + "\n"
             + DeleteCommitCommand.HELP_MESSAGE + "\n"
             + RevertCommitCommand.HELP_MESSAGE + "\n"
@@ -124,8 +124,8 @@ public class HelpCommand extends Command {
             return new CommandResult(DescriptionCommand.MESSAGE_USAGE, false, false);
         case ValidModsCommand.COMMAND_WORD:
             return new CommandResult(ValidModsCommand.MESSAGE_USAGE, false, false);
-        case CommitStudyPlanEditCommand.COMMAND_WORD:
-            return new CommandResult(CommitStudyPlanEditCommand.MESSAGE_USAGE, false, false);
+        case CommitStudyPlanCommand.COMMAND_WORD:
+            return new CommandResult(CommitStudyPlanCommand.MESSAGE_USAGE, false, false);
         case CreateStudyPlanCommand.COMMAND_WORD:
             return new CommandResult(CreateStudyPlanCommand.MESSAGE_USAGE, false, false);
         case DeleteCommand.COMMAND_WORD:

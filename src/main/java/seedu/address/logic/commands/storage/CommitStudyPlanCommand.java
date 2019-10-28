@@ -10,7 +10,7 @@ import seedu.address.model.Model;
 /**
  * Commits current active study plan with a commit message.
  */
-public class CommitStudyPlanEditCommand extends Command {
+public class CommitStudyPlanCommand extends Command {
     public static final String COMMAND_WORD = "commit";
 
     public static final String HELP_MESSAGE = COMMAND_WORD + ": Committing edits to a study plan";
@@ -27,9 +27,9 @@ public class CommitStudyPlanEditCommand extends Command {
     private final String commitMessage;
 
     /**
-     * Creates a CommitStudyPlanEditCommand to commit with the specified {@code commitMessage}
+     * Creates a CommitStudyPlanCommand to commit with the specified {@code commitMessage}
      */
-    public CommitStudyPlanEditCommand(String commitMessage) {
+    public CommitStudyPlanCommand(String commitMessage) {
         requireNonNull(commitMessage);
         this.commitMessage = commitMessage;
     }
@@ -38,10 +38,6 @@ public class CommitStudyPlanEditCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        //        if (model.hasStudyPlan(toAdd)) {
-        //            throw new CommandException(MESSAGE_DUPLICATE_STUDYPLAN);
-        //        }
-
         model.commitActiveStudyPlan(commitMessage);
         return new CommandResult(String.format(MESSAGE_SUCCESS, commitMessage));
     }
@@ -49,7 +45,7 @@ public class CommitStudyPlanEditCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof CommitStudyPlanEditCommand // instanceof handles nulls
-                && commitMessage.equals(((CommitStudyPlanEditCommand) other).commitMessage));
+                || (other instanceof CommitStudyPlanCommand // instanceof handles nulls
+                && commitMessage.equals(((CommitStudyPlanCommand) other).commitMessage));
     }
 }

@@ -238,13 +238,26 @@ public class ModelManager implements Model {
             return false;
         }
 
-        // state check
+        // state checks
         ModelManager other = (ModelManager) obj;
-        return modulePlanner.equals(other.modulePlanner)
-                && userPrefs.equals(other.userPrefs)
-                && filteredStudyPlans.equals(other.filteredStudyPlans);
-    }
 
+        // check filtered study plans
+        try {
+            for (int i = 0; i < filteredStudyPlans.size(); i++) {
+                StudyPlan sp1 = filteredStudyPlans.get(i);
+                StudyPlan sp2 = other.filteredStudyPlans.get(i);
+                if (!sp1.getTitle().equals(sp2.getTitle())) {
+                    return false;
+                }
+            }
+        } catch (IndexOutOfBoundsException e) {
+
+            return false;
+        }
+
+        return modulePlanner.equals(other.modulePlanner)
+                && userPrefs.equals(other.userPrefs);
+    }
 
     @Override
     public boolean semesterHasModule(String moduleCode, SemesterName semesterName) {

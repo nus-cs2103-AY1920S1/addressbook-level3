@@ -37,7 +37,7 @@ public class Commit {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Commit // instanceof handles nulls
-                && commitMessage.equals(((Commit) other).commitMessage)
-                && studyPlan.equals(((Commit) other).getStudyPlan())); // state check
+                && commitMessage.equals(((Commit) other).commitMessage) // state check
+                && studyPlan.getIndex() == ((Commit) other).getStudyPlan().getIndex());
     }
 }

@@ -477,13 +477,42 @@ public class ModulePlanner implements ReadOnlyModulePlanner {
 
     @Override
     public boolean equals(Object other) {
+        /*
         return other == this // short circuit if same object
                 || (other instanceof ModulePlanner // instanceof handles nulls
                 && studyPlans.equals(((ModulePlanner) other).studyPlans));
+         */
+
+        if (other == this) {
+            // short circuit if same object
+            return true;
+        }
+
+        if (!(other instanceof ModulePlanner)) {
+            return false; // instanceof handles nulls
+        }
+
+        ModulePlanner otherMp = (ModulePlanner) other;
+        // check study plan list
+        try {
+            for (int i = 0; i < studyPlans.getSize(); i++) {
+                StudyPlan sp1 = studyPlans.asUnmodifiableObservableList().get(i);
+                StudyPlan sp2 = otherMp.studyPlans.asUnmodifiableObservableList().get(i);
+                if (!sp1.getTitle().equals(sp2.getTitle())) {
+                    return false;
+                }
+            }
+        } catch (IndexOutOfBoundsException e) {
+            return false;
+        }
+
+        // check version tracking manager
+        return versionTrackingManager.equals(((ModulePlanner) other).versionTrackingManager);
     }
 
     @Override
     public int hashCode() {
         return studyPlans.hashCode();
     }
+
 }

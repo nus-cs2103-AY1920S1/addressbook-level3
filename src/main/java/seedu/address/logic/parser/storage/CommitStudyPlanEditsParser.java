@@ -2,27 +2,27 @@ package seedu.address.logic.parser.storage;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
-import seedu.address.logic.commands.storage.CommitStudyPlanEditCommand;
+import seedu.address.logic.commands.storage.CommitStudyPlanCommand;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
- * Parses input arguments and creates a new CommitStudyPlanEditCommand object
+ * Parses input arguments and creates a new CommitStudyPlanCommand object
  */
-public class CommitStudyPlanEditsParser implements Parser<CommitStudyPlanEditCommand> {
+public class CommitStudyPlanEditsParser implements Parser<CommitStudyPlanCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the
-     * CommitStudyPlanEditCommand and returns an CommitStudyPlanEditCommand object for
+     * CommitStudyPlanCommand and returns an CommitStudyPlanCommand object for
      * execution.
      *
      * @throws ParseException if the user input does not conform the expected format
      */
-    public CommitStudyPlanEditCommand parse(String args) throws ParseException {
+    public CommitStudyPlanCommand parse(String args) throws ParseException {
         String commitName = args.trim();
         if (commitName.isEmpty()) {
             throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, CommitStudyPlanEditCommand.MESSAGE_USAGE));
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, CommitStudyPlanCommand.MESSAGE_USAGE));
         }
-        return new CommitStudyPlanEditCommand(commitName);
+        return new CommitStudyPlanCommand(commitName);
     }
 }

@@ -25,7 +25,7 @@ public class DeleteCommitCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1.3";
 
     public static final String MESSAGE_NO_MORE_STUDYPLAN = "You don't have any study plan currently. Create now!";
-    public static final String MESSAGE_DELETE_COMMIT_SUCCESS = "Deleted commit: %1$s";
+    public static final String MESSAGE_SUCCESS = "Deleted commit: %1$s";
     public static final String MESSAGE_INVALID_COMMIT_INDEX = "The commit number you've entered is invalid.";
     public static final String MESSAGE_NOT_ACTIVE_STUDY_PLAN = "The study plan index must be the active one!";
 
@@ -56,7 +56,7 @@ public class DeleteCommitCommand extends Command {
 
         try {
             model.deleteCommit(studyPlanIndex, commitNumber);
-            return new CommandResult(String.format(MESSAGE_DELETE_COMMIT_SUCCESS,
+            return new CommandResult(String.format(MESSAGE_SUCCESS,
                     studyPlanIndex + "." + commitNumber));
         } catch (CommitNotFoundException e) {
             return new CommandResult(MESSAGE_INVALID_COMMIT_INDEX);

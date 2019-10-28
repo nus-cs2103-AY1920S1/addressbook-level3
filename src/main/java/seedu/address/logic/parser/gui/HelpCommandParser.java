@@ -22,7 +22,7 @@ import seedu.address.logic.commands.datamanagement.ViewModuleTagsCommand;
 import seedu.address.logic.commands.datamanagement.ViewTaggedCommand;
 import seedu.address.logic.commands.gui.HelpCommand;
 import seedu.address.logic.commands.storage.ActivateStudyPlanCommand;
-import seedu.address.logic.commands.storage.CommitStudyPlanEditCommand;
+import seedu.address.logic.commands.storage.CommitStudyPlanCommand;
 import seedu.address.logic.commands.storage.CreateStudyPlanCommand;
 import seedu.address.logic.commands.storage.DefaultStudyPlanCommand;
 import seedu.address.logic.commands.storage.DeleteCommand;
@@ -63,7 +63,7 @@ public class HelpCommandParser implements Parser<HelpCommand> {
         case FindModuleCommand.COMMAND_WORD:
         case DescriptionCommand.COMMAND_WORD:
         case ValidModsCommand.COMMAND_WORD:
-        case CommitStudyPlanEditCommand.COMMAND_WORD:
+        case CommitStudyPlanCommand.COMMAND_WORD:
         case CreateStudyPlanCommand.COMMAND_WORD:
         case DeleteCommand.COMMAND_WORD:
         case TagModuleCommand.COMMAND_WORD:

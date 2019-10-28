@@ -81,13 +81,38 @@ public class CommitList {
         if (commits.size() == 0) {
             toReturn.append("There are zero commits in this study plan!");
         } else {
-            for (Commit commit : commits) {
-                int index = commits.indexOf(commit);
-                toReturn.append(String.format(commit.toString(), index) + "\n");
+            for (int i = 0; i < commits.size(); i++) { // do not change to for commit : commits due to Commit#equals()
+                Commit commit = commits.get(i);
+                toReturn.append(String.format(commit.toString(), i) + "\n");
             }
         }
 
         return toReturn.toString();
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true; // short circuit if identical objects
+        }
+
+        if (!(obj instanceof CommitList)) {
+            return false; // handle null pointers
+        }
+
+        // check all commits in the list
+        try {
+            for (int i = 0; i < commits.size(); i++) {
+                Commit commit1 = commits.get(i);
+                Commit commit2 = ((CommitList) obj).commits.get(i);
+                if (!commit1.equals(commit2)) {
+                    return false;
+                }
+            }
+        } catch (IndexOutOfBoundsException e) {
+            return false;
+        }
+
+        return true;
+    }
 }

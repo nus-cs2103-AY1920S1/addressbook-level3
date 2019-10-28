@@ -95,4 +95,30 @@ public class StudyPlanCommitManagerList {
         }
         return false;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) { // short circuit if identical objects
+            return true;
+        }
+
+        if (!(obj instanceof StudyPlanCommitManagerList)) {
+            return false; // handle null pointers
+        }
+
+        // check manager list
+        try {
+            for (int i = 0; i < studyPlanCommitManagers.size(); i++) {
+                StudyPlanCommitManager manager1 = studyPlanCommitManagers.get(i);
+                StudyPlanCommitManager manager2 = ((StudyPlanCommitManagerList) obj).studyPlanCommitManagers.get(i);
+                if (!manager1.equals(manager2)) {
+                    return false;
+                }
+            }
+        } catch (IndexOutOfBoundsException e) {
+            return false;
+        }
+
+        return true;
+    }
 }

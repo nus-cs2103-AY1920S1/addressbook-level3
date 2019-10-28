@@ -28,7 +28,7 @@ import seedu.address.logic.commands.datamanagement.ViewModuleTagsCommand;
 import seedu.address.logic.commands.datamanagement.ViewTaggedCommand;
 import seedu.address.logic.commands.gui.HelpCommand;
 import seedu.address.logic.commands.storage.ActivateStudyPlanCommand;
-import seedu.address.logic.commands.storage.CommitStudyPlanEditCommand;
+import seedu.address.logic.commands.storage.CommitStudyPlanCommand;
 import seedu.address.logic.commands.storage.CreateStudyPlanCommand;
 import seedu.address.logic.commands.storage.DefaultStudyPlanCommand;
 import seedu.address.logic.commands.storage.DeleteCommand;
@@ -123,7 +123,7 @@ public class ModulePlannerParser {
         case ValidModsCommand.COMMAND_WORD:
             return new ValidModsCommandParser().parse(arguments);
 
-        case CommitStudyPlanEditCommand.COMMAND_WORD:
+        case CommitStudyPlanCommand.COMMAND_WORD:
             return new CommitStudyPlanEditsParser().parse(arguments);
 
         case CreateStudyPlanCommand.COMMAND_WORD:

@@ -53,4 +53,11 @@ public class VersionTrackingManager {
     public void deleteStudyPlanCommitManagerByIndex(int index) throws StudyPlanCommitManagerNotFoundException {
         studyPlanCommitManagers.delete(index);
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        return this == obj
+                || ((obj instanceof VersionTrackingManager)
+                && studyPlanCommitManagers.equals(((VersionTrackingManager) obj).studyPlanCommitManagers));
+    }
 }

@@ -77,6 +77,7 @@ public class StudyPlanCommitManager {
     public boolean equals(Object obj) {
         return this == obj
                 || ((obj instanceof StudyPlanCommitManager)
-                && this.studyPlanIndex == ((StudyPlanCommitManager) obj).studyPlanIndex);
+                && this.studyPlanIndex == ((StudyPlanCommitManager) obj).studyPlanIndex)
+                && this.commitList.equals(((StudyPlanCommitManager) obj).commitList);
     }
 }
