@@ -114,11 +114,11 @@ Format: `view sort s/<a|c|d|x> [o/<a|d>]`
 
 === Managing transactions: `transaction`
 
-==== Add a transaction: `transaction out|in`
+==== Add a transaction: `txn out|in`
 
 Adds a new transaction of the specified amount and with the given description.
 
-Format: `transaction out|in x/<amount> d/<description> [a/<account>] [c/<category>] [w/<date>] [r/<d|w|m|y>]`
+Format: `txn out|in x/<amount> d/<description> [a/<account>] [c/<category>] [w/<date>] [r/<d|w|m|y>]`
 ****
 * If the account is not given, the transaction is inserted into the default account.
 * If the category is not given, the transaction is not categorized.
@@ -127,18 +127,18 @@ Format: `transaction out|in x/<amount> d/<description> [a/<account>] [c/<categor
 identical entries will be added either daily, weekly, monthly, or yearly.
 ****
 
-==== Edit a transaction: `transaction edit`
+==== Edit a transaction: `txn edit`
 
 Edits the specified transaction, setting the specified fields.
 If the ‘recurring’ field is modified, the app will ask if all previous recurring entries should be deleted.
 
-Format: `transaction edit <id> out|in [x/<amount>] [d/<description>] [a/<account>] [c/<category>] [w/<date>] [r/<d|w|m|y>]`
+Format: `txn edit <id> out|in [x/<amount>] [d/<description>] [a/<account>] [c/<category>] [w/<date>] [r/<d|w|m|y>]`
 
-==== Delete transaction(s): `transaction delete`
+==== Delete transaction(s): `txn delete`
 
-Deletes the transactions with the specified IDs.
+Deletes the transaction with the specified ID.
 
-Format: `transaction delete <id ...>`
+Format: `txn delete <id>`
 
 === Managing accounts: `account`
 
