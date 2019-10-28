@@ -51,6 +51,10 @@ class JsonAdaptedExpense {
         }
         final Amount amount = new Amount(this.amount);
 
-        return new Expense(personId, amount, description, involvedIds);
+        if (involvedIds.length > 0) {
+            return new Expense(personId, amount, description, involvedIds);
+        } else {
+            return new Expense(personId, amount, description);
+        }
     }
 }
