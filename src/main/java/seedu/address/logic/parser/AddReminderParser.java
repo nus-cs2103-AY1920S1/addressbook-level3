@@ -35,7 +35,8 @@ public class AddReminderParser {
 
         ReminderDescription reminderDescription = ParserUtil.parseReminderDescription(argMultimap
                 .getValue(PREFIX_REMINDER_DESCRIPTION).get());
-        Set<ReminderTime> reminderTimeSet = ParserUtil.parseReminderTimes(argMultimap.getAllValues(PREFIX_REMINDER_TIME));
+        Set<ReminderTime> reminderTimeSet = ParserUtil.parseReminderTimes(argMultimap
+                .getAllValues(PREFIX_REMINDER_TIME));
 
         Reminder reminder = new Reminder(reminderDescription, reminderTimeSet);
 

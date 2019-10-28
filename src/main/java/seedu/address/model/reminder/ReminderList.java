@@ -10,7 +10,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.reminder.exceptions.DuplicateReminderException;
 import seedu.address.model.reminder.exceptions.ReminderNotFoundException;
-import seedu.address.model.task.exceptions.DuplicateTaskException;
 import seedu.address.model.task.exceptions.TaskNotFoundException;
 
 /**
@@ -64,17 +63,6 @@ public class ReminderList implements Iterable<Reminder> {
         internalList.set(index, editedReminder);
     }
 
-    /**
-     * Removes the equivalent task from the list.
-     * The task must exist in the list.
-     */
-    public void remove(Reminder toRemove) {
-        requireNonNull(toRemove);
-        if (!internalList.remove(toRemove)) {
-            throw new ReminderNotFoundException();
-        }
-    }
-
     public void setReminder(ReminderList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
@@ -91,6 +79,17 @@ public class ReminderList implements Iterable<Reminder> {
         }
 
         internalList.setAll(reminders);
+    }
+
+    /**
+     * Removes the equivalent task from the list.
+     * The task must exist in the list.
+     */
+    public void remove(Reminder toRemove) {
+        requireNonNull(toRemove);
+        if (!internalList.remove(toRemove)) {
+            throw new ReminderNotFoundException();
+        }
     }
 
     /**

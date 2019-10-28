@@ -27,7 +27,7 @@ public class ReminderDescription {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof ReminderDescription // instanceof handles nulls
-                && fullReminderDescription.equals(((ReminderDescription) other).fullReminderDescription)); // state check
+                && fullReminderDescription.equals(((ReminderDescription) other).fullReminderDescription)); // state
     }
 
     @Override

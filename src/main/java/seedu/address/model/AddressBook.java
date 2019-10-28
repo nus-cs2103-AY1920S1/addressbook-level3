@@ -284,7 +284,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     /**
      * Replaces the given reminder {@code target} in the list with {@code editedReminder}.
      * {@code target} must exist in the address book.
-     * The reminder identity of {@code editedReminder} must not be the same as another existing reminder in the address book.
+     * The reminder identity of {@code editedReminder} must not be the same as another reminder in the address book.
      */
     public void setReminder(Reminder reminders, Reminder editedReminder) {
         requireNonNull(editedReminder);

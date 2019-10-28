@@ -28,7 +28,7 @@ public class ChangeTabCommand extends Command {
             + PREFIX_TAB_CHANGE + "earnings";
 
     public static final String MESSAGE_SUCCESS_CALENDAR = "Changed tab to CALENDAR";
-    public static final String MESSAGE_SUCCESS_TASK= "Changed tab to TASK";
+    public static final String MESSAGE_SUCCESS_TASK = "Changed tab to TASK";
     public static final String MESSAGE_SUCCESS_EARNINGS = "Changed tab to EARNINGS";
     public static final String MESSAGE_SUCCESS_STUDENT_PROFILE = "Changed tab to STUDENT_PROFILE";
     public static final String MESSAGE_SUCCESS_NOTEPAD = "Changed tab to NOTEPAD";
