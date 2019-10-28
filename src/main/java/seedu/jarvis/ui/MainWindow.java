@@ -23,6 +23,7 @@ import seedu.jarvis.model.Model;
 import seedu.jarvis.model.viewstatus.ViewType;
 import seedu.jarvis.ui.address.PersonListView;
 import seedu.jarvis.ui.cca.CcaListView;
+import seedu.jarvis.ui.finance.FinanceListView;
 import seedu.jarvis.ui.template.View;
 
 /**
@@ -33,9 +34,9 @@ public class MainWindow extends UiPart<Stage> {
 
     private static final String FXML = "MainWindow.fxml";
     private static final int PLANNER_INDEX = 0;
-    private static final int MODULES_INDEX = 1;
+    private static final int FINANCES_INDEX = 1;
     private static final int CCAS_INDEX = 2;
-    private static final int FINANCES_INDEX = 3;
+    private static final int MODULES_INDEX = 3;
     private static final String MESSAGE_VIEW_NOT_IMPLEMENTED = "View not yet implemented.";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
@@ -239,6 +240,11 @@ public class MainWindow extends UiPart<Stage> {
             toUpdatePlaceHolder = ccaContentPlaceholder;
             break;
 
+        case LIST_FINANCE:
+            newView = new FinanceListView(this, logic, model);
+            toUpdatePlaceHolder = financeContentPlaceholder;
+            break;
+
         default:
             resultDisplay.setFeedbackToUser(
                     String.format(MESSAGE_VIEW_NOT_IMPLEMENTED, currentViewType.toString()));
@@ -292,16 +298,16 @@ public class MainWindow extends UiPart<Stage> {
             tabPanePlaceHolder.getSelectionModel().select(PLANNER_INDEX);
             break;
 
+        case "financeContentPlaceholder" :
+            tabPanePlaceHolder.getSelectionModel().select(FINANCES_INDEX);
+            break;
+
         case "moduleContentPlaceholder":
             tabPanePlaceHolder.getSelectionModel().select(MODULES_INDEX);
             break;
 
         case "ccaContentPlaceholder" :
             tabPanePlaceHolder.getSelectionModel().select(CCAS_INDEX);
-            break;
-
-        case "financeContentPlaceholder" :
-            tabPanePlaceHolder.getSelectionModel().select(FINANCES_INDEX);
             break;
 
         default:
