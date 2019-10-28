@@ -11,7 +11,7 @@ import dream.fcard.model.exceptions.DeckNotFoundException;
 public class CreateCommand implements ResponseFunc {
 
     @Override
-    public boolean funcCall(String i, State s) throws DeckNotFoundException, DuplicateFoundException {
+    public boolean funcCall(String i, State s) throws DeckNotFoundException{
         return false;
     }
 }
