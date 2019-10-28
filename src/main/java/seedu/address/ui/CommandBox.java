@@ -1,5 +1,6 @@
 package seedu.address.ui;
 
+import java.util.Collections;
 import java.util.List;
 
 import javafx.fxml.FXML;
@@ -84,7 +85,7 @@ public class CommandBox extends UiPart<Region> {
      * @param pre The prefix of the command
      */
     public void enableSyntaxHighlightingForCommand(String com, List<Prefix> pre) {
-        commandTextField.createPattern(com, pre);
+        commandTextField.createPattern(com, pre, Collections.EMPTY_LIST);
     }
 
     /**

@@ -15,10 +15,8 @@ import seedu.address.model.Timekeeper;
 import seedu.address.model.category.Category;
 import seedu.address.model.expense.Description;
 import seedu.address.model.expense.Event;
-import seedu.address.model.expense.Expense;
 import seedu.address.model.expense.Price;
 import seedu.address.model.expense.Timestamp;
-import seedu.address.model.expense.util.UniqueIdentifierGenerator;
 
 
 /**

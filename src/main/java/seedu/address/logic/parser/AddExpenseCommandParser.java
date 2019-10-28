@@ -14,7 +14,6 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Timekeeper;
 import seedu.address.model.category.Category;
 import seedu.address.model.expense.Description;
-import seedu.address.model.expense.Event;
 import seedu.address.model.expense.Expense;
 import seedu.address.model.expense.Price;
 import seedu.address.model.expense.Timestamp;
@@ -51,13 +50,17 @@ public class AddExpenseCommandParser implements Parser<AddExpenseCommand> {
 
         if (isTimestampPresent) {
             Timestamp timestamp = ParserUtil.parseTimestamp(argMultimap.getValue(PREFIX_TIMESTAMP).get());
+            if (Timekeeper.isFutureTimestamp(timestamp)) {
+                throw new ParseException("Expense cannot be in the future");
+            }
             Expense expense = new Expense(description, price, category, timestamp,
                     UniqueIdentifierGenerator.generateRandomUniqueIdentifier());
-            return new seedu.address.logic.commands.expense.AddExpenseCommand(expense);
+            return new AddExpenseCommand(expense);
+
         } else {
             Expense expense = new Expense(description, price, category,
                     UniqueIdentifierGenerator.generateRandomUniqueIdentifier());
-            return new seedu.address.logic.commands.expense.AddExpenseCommand(expense);
+            return new AddExpenseCommand(expense);
         }
     }
 
