@@ -7,7 +7,10 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import javafx.scene.shape.Circle;
 import seedu.address.model.quiz.person.Question;
+
+import static javafx.scene.paint.Color.*;
 
 
 /**
@@ -40,6 +43,8 @@ public class QuestionCard extends UiPart<Region> {
     @FXML
     private Label category;
     @FXML
+    private Circle circleType;
+    @FXML
     private FlowPane tags;
 
     public QuestionCard(Question question, int displayedIndex, boolean showAnswer) {
@@ -54,7 +59,17 @@ public class QuestionCard extends UiPart<Region> {
             answer.setText(question.getMockAnswer().value);
         }
 
-        type.setText(question.getType().value);
+        String typeContent = question.getType().value;
+        type.setText(typeContent);
+
+        if (typeContent.equals("high")) {
+            circleType.setFill(RED);
+        } else if (typeContent.equals("normal")) {
+            circleType.setFill(ORANGE);
+        } else {
+            circleType.setFill(GREENYELLOW);
+        }
+
         category.setText(question.getCategory().value);
         question.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))

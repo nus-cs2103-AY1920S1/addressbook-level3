@@ -9,9 +9,9 @@
   }, {
     "name" : "What is always coming, but never arrives?",
     "comment" : "hello",
-    "answer" : "wonderful",
+    "answer" : "Tomorrow",
     "category" : "CS2131",
-    "type" : "high",
+    "type" : "normal",
     "tagged" : [ "pop", "lecture" ]
   }, {
     "name" : "Halloween party?",
@@ -25,7 +25,7 @@
     "comment" : "wahalo",
     "answer" : "Tomorrow",
     "category" : "CS2131",
-    "type" : "high",
+    "type" : "low",
     "tagged" : [ "lecture" ]
   }, {
     "name" : "What is always coming, but never arriving?",

@@ -131,11 +131,11 @@ public class Question {
         builder.append(getName())
                 .append("\nAnswer: ")
                 .append(getAnswer())
-                .append(" Category: ")
+                .append(", Category: ")
                 .append(getCategory())
-                .append(" Type: ")
+                .append(", Type: ")
                 .append(getType())
-                .append(" Tags: ");
+                .append(", Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();
     }
