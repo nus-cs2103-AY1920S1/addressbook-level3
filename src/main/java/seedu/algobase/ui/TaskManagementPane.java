@@ -34,7 +34,7 @@ public class TaskManagementPane extends UiPart<Region> {
     public TaskManagementPane(ObservableList<Task> taskList, ObservableStringValue plan,
                               ObservableIntegerValue solvedCount, ObservableIntegerValue unsolvedCount) {
         super(FXML);
-        currentPlan.setText(plan.getValue());
+        currentPlan.setText("Current Plan: " + plan.getValue());
         taskListView.setItems(taskList);
         taskListView.setCellFactory(listView -> new TaskListViewCell());
         taskProgressChart.setData(getChartData((int) solvedCount.getValue(), (int) unsolvedCount.getValue()));
@@ -78,7 +78,7 @@ public class TaskManagementPane extends UiPart<Region> {
      */
     private void addListenerForPlanName(ObservableStringValue s) {
         s.addListener((observable, oldValue, newValue) -> {
-            currentPlan.setText(newValue);
+            currentPlan.setText("Current Plan: " + newValue);
         });
     }
 

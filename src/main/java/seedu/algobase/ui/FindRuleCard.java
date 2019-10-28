@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import javafx.scene.text.TextAlignment;
 import seedu.algobase.model.searchrule.problemsearchrule.DifficultyIsInRangePredicate;
 import seedu.algobase.model.searchrule.problemsearchrule.ProblemSearchRule;
 
@@ -47,25 +48,35 @@ public class FindRuleCard extends UiPart<Region> {
         super(FXML);
         this.findRule = findRule;
         id.setText(displayedIndex + ". ");
+        id.setWrapText(true);
+        id.setTextAlignment(TextAlignment.JUSTIFY);
         ruleName.setText(findRule.getName().name);
+        ruleName.setWrapText(true);
+        ruleName.setTextAlignment(TextAlignment.JUSTIFY);
 
         if (findRule.getNamePredicate().isEmpty()) {
             problemName.setText(DEFAULT_PREDICATE);
         } else {
             problemName.setText(findRule.getNamePredicate().get().getKeywords().toString());
         }
+        problemName.setWrapText(true);
+        problemName.setTextAlignment(TextAlignment.JUSTIFY);
 
         if (findRule.getAuthorPredicate().isEmpty()) {
             author.setText(DEFAULT_PREDICATE);
         } else {
             author.setText(findRule.getAuthorPredicate().get().getKeyword().keyword);
         }
+        author.setWrapText(true);
+        author.setTextAlignment(TextAlignment.JUSTIFY);
 
         if (findRule.getDescriptionPredicate().isEmpty()) {
             description.setText(DEFAULT_PREDICATE);
         } else {
             description.setText(findRule.getDescriptionPredicate().get().getKeywords().toString());
         }
+        description.setWrapText(true);
+        description.setTextAlignment(TextAlignment.JUSTIFY);
 
         if (findRule.getDifficultyPredicate().isEmpty()) {
             difficulty.setText(DEFAULT_PREDICATE);
@@ -76,18 +87,24 @@ public class FindRuleCard extends UiPart<Region> {
             String difficultyString = String.format("%f - %f", lowerBound, upperBound);
             difficulty.setText(difficultyString);
         }
+        difficulty.setWrapText(true);
+        difficulty.setTextAlignment(TextAlignment.JUSTIFY);
 
         if (findRule.getSourcePredicate().isEmpty()) {
             source.setText(DEFAULT_PREDICATE);
         } else {
             source.setText(findRule.getSourcePredicate().get().getKeyword().keyword);
         }
+        source.setWrapText(true);
+        source.setTextAlignment(TextAlignment.JUSTIFY);
 
         if (findRule.getTagPredicate().isEmpty()) {
             tag.setText(DEFAULT_PREDICATE);
         } else {
             tag.setText(findRule.getTagPredicate().get().getKeywords().toString());
         }
+        tag.setWrapText(true);
+        tag.setTextAlignment(TextAlignment.JUSTIFY);
 
     }
 

@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import javafx.scene.text.TextAlignment;
 import seedu.algobase.model.tag.Tag;
 
 
@@ -27,7 +28,11 @@ public class TagCard extends UiPart<Region> {
         super(FXML);
         this.tag = tag;
         id.setText(displayedIndex + ". ");
+        id.setWrapText(true);
+        id.setTextAlignment(TextAlignment.JUSTIFY);
         tagName.setText(tag.getName());
+        tagName.setWrapText(true);
+        tagName.setTextAlignment(TextAlignment.JUSTIFY);
     }
 
     @Override
