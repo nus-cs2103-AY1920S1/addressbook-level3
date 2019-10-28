@@ -13,6 +13,10 @@ public class EventContainsKeyYearMonthPredicate implements Predicate<Event> {
         this.yearMonth = yearMonth;
     }
 
+    public String getYearMonth() {
+        return yearMonth.toString();
+    }
+
     /**
      * Checks if a YearMonth is currently within the range of the Event's start.
      *
@@ -26,7 +30,9 @@ public class EventContainsKeyYearMonthPredicate implements Predicate<Event> {
 
     @Override
     public boolean equals(Object other) {
-        return other == this; // short circuit if same object
+        return other == this // short circuit if same object
+                || (other instanceof EventContainsKeyYearMonthPredicate
+                && yearMonth.equals(((EventContainsKeyYearMonthPredicate) other).yearMonth));
     }
 
 }

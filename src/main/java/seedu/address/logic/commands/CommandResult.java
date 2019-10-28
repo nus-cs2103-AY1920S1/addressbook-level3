@@ -25,6 +25,8 @@ public class CommandResult {
 
     private final String type;
 
+    private final String uiInfo;
+
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
@@ -34,6 +36,19 @@ public class CommandResult {
         this.exit = exit;
         this.fetch = null;
         this.type = "";
+        this.uiInfo = "";
+    }
+
+    /**
+     * Constructs a {@code CommandResult} with the specified fields.
+     */
+    public CommandResult(String feedbackToUser, String inputType, String date) {
+        this.feedbackToUser = requireNonNull(feedbackToUser);
+        this.type = inputType;
+        this.uiInfo = date;
+        this.fetch = null;
+        this.exit = false;
+        this.showHelp = false;
     }
 
     /**
@@ -42,6 +57,7 @@ public class CommandResult {
     public CommandResult(String feedbackToUser, String inputType) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.type = inputType;
+        this.uiInfo = "";
         this.fetch = null;
         this.exit = false;
         this.showHelp = false;
@@ -56,7 +72,9 @@ public class CommandResult {
         this.fetch = fetch;
         this.exit = exit;
         this.type = "";
+        this.uiInfo = "";
     }
+
 
     /**
      * Constructs a {@code CommandResult} with the specified {@code feedbackToUser},
@@ -84,6 +102,10 @@ public class CommandResult {
 
     public String getType() {
         return type;
+    }
+
+    public String getUiChange() {
+        return uiInfo;
     }
 
     @Override

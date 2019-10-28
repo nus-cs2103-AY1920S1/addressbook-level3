@@ -1,5 +1,7 @@
 package seedu.address.ui;
 
+import java.time.LocalDate;
+import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 
@@ -79,8 +81,8 @@ public class ScheduleBox extends Tabs<AnchorPane> {
      */
     @FXML
     private void handlePickDate() throws ParseException, CommandException {
-        System.out.println(datePicker.getValue());
-
+        LocalDate currentDate = datePicker.getValue();
+        currentMonthYear.setText(monthName[currentDate.getMonth().getValue() - 1] + "," + currentDate.getYear());
         mainWindow.executeCommand(DisplayScheduleForDateCommand.COMMAND_WORD
                 + " " + CliSyntax.PREFIX_DATE
                 + datePicker.getValue().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
@@ -94,6 +96,7 @@ public class ScheduleBox extends Tabs<AnchorPane> {
      */
     @FXML
     private void onPrevClickButton() throws ParseException, CommandException {
+        datePicker.getEditor().clear();
         if (currentMonthInFocus == 0) {
             currentYearInFocus--;
             currentMonthInFocus = 11;
@@ -120,6 +123,7 @@ public class ScheduleBox extends Tabs<AnchorPane> {
      */
     @FXML
     private void onNextClickButton() throws ParseException, CommandException {
+        datePicker.getEditor().clear();
         if (currentMonthInFocus == 11) {
             currentYearInFocus++;
             currentMonthInFocus = 0;
@@ -148,4 +152,20 @@ public class ScheduleBox extends Tabs<AnchorPane> {
     private void generateSchedule() throws ParseException, CommandException {
         mainWindow.executeCommand(GenerateScheduleCommand.COMMAND_WORD);
     }
+
+
+    public void setLabelText(String text) {
+        if (text.length() > 7) {
+            LocalDate currentDate = LocalDate.parse(text);
+            currentMonthYear.setText(monthName[currentDate.getMonth().getValue() - 1] + "," + currentDate.getYear());
+            datePicker.getEditor().clear();
+        } else {
+            YearMonth currentYearMonth = YearMonth.parse(text);
+            currentMonthYear.setText(monthName[currentYearMonth.getMonth().getValue() - 1]
+                    + "," + currentYearMonth.getYear());
+            datePicker.getEditor().clear();
+        }
+    }
+
+
 }
