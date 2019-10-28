@@ -37,20 +37,41 @@ public class DateTime implements Comparable<DateTime> {
      */
     public static DateTime tryParseSimpleDateFormat(String dateString) {
         requireNonNull(dateString);
+        if (dateString.length() != DATETIME_FORMAT.length()) {
+            return null;
+        }
 
-        DateTime parsedDateTime;
         try {
-            if (dateString.length() != DATETIME_FORMAT.length()) {
-                throw new ParseException("invalid date format", -1);
-            }
             DATE_FORMATTER.setLenient(false);
             Date parseDate = DATE_FORMATTER.parse(dateString);
-            parsedDateTime = new DateTime(parseDate);
+            return new DateTime(parseDate);
         } catch (ParseException ex) {
-            parsedDateTime = null;
+            return null;
         }
-        return parsedDateTime;
     }
+
+    /**
+     * Gets new {@code DateTime} DateTime object which is {@code years}, {@code months}, {@code days}, {@code weeks},
+     * {@code hours} and {@code mins} later from the {@code current} one.
+     */
+    private static DateTime plusTime(DateTime current, int years, int months,
+                                     int weeks, int days, int hours, int minutes) {
+
+        LocalDateTime currentLocalDateTime = LocalDateTime.ofInstant(current.getTime().toInstant(),
+                ZoneId.systemDefault());
+
+        LocalDateTime newLocalDateTime = currentLocalDateTime
+                .plusYears(years)
+                .plusMonths(months)
+                .plusWeeks(weeks)
+                .plusDays(days)
+                .plusHours(hours)
+                .plusMinutes(minutes);
+
+        Date currentDate = Date.from(newLocalDateTime.atZone(ZoneId.systemDefault()).toInstant());
+        return new DateTime(currentDate);
+    }
+
     /**
      * gets another DateTime object which is one day later from current one.
      *
@@ -58,10 +79,7 @@ public class DateTime implements Comparable<DateTime> {
      * @return a {@code DateTime} new object which is one day later from given one.
      */
     public static DateTime plusOneDay(DateTime current) {
-        LocalDateTime currenLocalDateTime = LocalDateTime.ofInstant(current.getTime().toInstant(),
-                ZoneId.systemDefault());
-        Date currentDate = Date.from(currenLocalDateTime.plusDays(1).atZone(ZoneId.systemDefault()).toInstant());
-        return new DateTime(currentDate);
+        return plusTime(current, 0, 0, 0,1, 0, 0);
     }
 
     /**
@@ -71,10 +89,7 @@ public class DateTime implements Comparable<DateTime> {
      * @return a {@code DateTime} new object which is one week later from given one.
      */
     public static DateTime plusOneWeek(DateTime current) {
-        LocalDateTime currenLocalDateTime = LocalDateTime.ofInstant(current.getTime().toInstant(),
-                ZoneId.systemDefault());
-        Date currentDate = Date.from(currenLocalDateTime.plusWeeks(1).atZone(ZoneId.systemDefault()).toInstant());
-        return new DateTime(currentDate);
+        return plusTime(current, 0, 0, 1,0, 0, 0);
     }
 
     /**
@@ -84,10 +99,7 @@ public class DateTime implements Comparable<DateTime> {
      * @return a {@code DateTime} new object which is one month later from given one.
      */
     public static DateTime plusOneMonth(DateTime current) {
-        LocalDateTime currenLocalDateTime = LocalDateTime.ofInstant(current.getTime().toInstant(),
-                ZoneId.systemDefault());
-        Date currentDate = Date.from(currenLocalDateTime.plusMonths(1).atZone(ZoneId.systemDefault()).toInstant());
-        return new DateTime(currentDate);
+        return plusTime(current, 0, 1, 0,0, 0, 0);
     }
 
     /**
@@ -97,11 +109,19 @@ public class DateTime implements Comparable<DateTime> {
      * @return a {@code DateTime} new object which is one year later from given one.
      */
     public static DateTime plusOneYear(DateTime current) {
-        LocalDateTime currenLocalDateTime = LocalDateTime.ofInstant(current.getTime().toInstant(),
-                ZoneId.systemDefault());
-        Date currentDate = Date.from(currenLocalDateTime.plusYears(1).atZone(ZoneId.systemDefault()).toInstant());
-        return new DateTime(currentDate);
+        return plusTime(current, 1, 0, 0,0, 0, 0);
     }
+
+    /**
+     * gets another DateTime object which is 30 mins later from current one.
+     *
+     * @param current a given DateTime object
+     * @return a {@code DateTime} new object which is one year later from given one.
+     */
+    public static DateTime plusHalfHour(DateTime current) {
+        return plusTime(current, 1, 0, 0,0, 0, 30);
+    }
+
 
     public boolean before(DateTime other) {
         return compareTo(other) < 0;

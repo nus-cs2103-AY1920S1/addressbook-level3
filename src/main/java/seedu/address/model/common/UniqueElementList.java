@@ -25,7 +25,8 @@ import seedu.address.model.exceptions.EntryNotFoundException;
  */
 public class UniqueElementList<T extends Identical> implements Iterable<T> {
 
-    protected final ObservableList<T> internalList = FXCollections.observableList(new UniqueTreeList<>());
+    protected final UniqueTreeList<T> internalUniqueTreeList = new UniqueTreeList<>();
+    protected final ObservableList<T> internalList = FXCollections.observableList(internalUniqueTreeList);
     protected final ObservableList<T> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
 
@@ -93,6 +94,16 @@ public class UniqueElementList<T extends Identical> implements Iterable<T> {
 
     public T get(int index) {
         return internalList.get(index);
+    }
+
+    public Iterator<T> getUpperBound(Object o) {
+        requireNonNull(o);
+        return internalList.listIterator(internalUniqueTreeList.indexOfUpperBound(o));
+    }
+
+    public Iterator<T> getLowerBound(Object o) {
+        requireNonNull(o);
+        return internalList.listIterator(internalUniqueTreeList.indexOfLowerBound(o));
     }
 
     public void setAll(UniqueElementList replacement) {

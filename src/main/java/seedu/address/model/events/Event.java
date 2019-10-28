@@ -28,12 +28,19 @@ public class Event implements Identical<Event> {
         this.personId = personId;
         this.timing = timing;
 
-
-        if (!status.equals(new Status(Status.AppointmentStatuses.SETTLED)) && timing.hasMissedTiming()) {
+        if (!status.equals(Status.AppointmentStatuses.SETTLED) && timing.hasMissedTiming()) {
             this.status = new Status(Status.AppointmentStatuses.MISSED);
         } else {
             this.status = status;
         }
+    }
+
+    /**
+     * Every field must be present and not null.
+     * The end timing is presumed to be 30 mins after the {@code startTime}
+     */
+    public Event(ReferenceId personId, DateTime startTime, Status status) {
+        this(personId, new Timing(startTime, DateTime.plusHalfHour(startTime)), status);
     }
 
     public ReferenceId getPersonId() {
@@ -51,7 +58,6 @@ public class Event implements Identical<Event> {
     public boolean conflictsWith(Event otherEvent) {
         return getEventTiming().conflictsWith(otherEvent.getEventTiming());
     }
-
 
     /**
      * Returns true if both Event of the same patient and timing.

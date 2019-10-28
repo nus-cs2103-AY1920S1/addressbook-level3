@@ -19,6 +19,7 @@ import seedu.address.logic.commands.common.Command;
 import seedu.address.logic.commands.common.CommandHistory;
 import seedu.address.logic.commands.common.ReversibleActionPairCommand;
 import seedu.address.logic.commands.patients.EditPatientDetailsCommand;
+import seedu.address.logic.commands.patients.ListPatientCommand;
 import seedu.address.logic.commands.patients.RegisterPatientCommand;
 import seedu.address.logic.commands.patients.UnregisterPatientCommand;
 import seedu.address.logic.commands.utils.EditPersonDescriptor;
@@ -83,15 +84,15 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_find() throws Exception {
-        FindCommand command = (FindCommand) parser.parseCommand(
-                FindCommand.COMMAND_WORD + " foo",
+        ListPatientCommand command = (ListPatientCommand) parser.parseCommand(
+                ListPatientCommand.COMMAND_WORD + " foo",
                 model);
-        assertEquals(new FindCommand(new ContainsKeywordsPredicate("foo")), command);
+        assertEquals(new ListPatientCommand(new ContainsKeywordsPredicate("foo")), command);
 
-        command = (FindCommand) parser.parseCommand(
-                FindCommand.COMMAND_WORD + " foo bar",
+        command = (ListPatientCommand) parser.parseCommand(
+                ListPatientCommand.COMMAND_WORD + " foo bar",
                 model);
-        assertEquals(new FindCommand(new ContainsKeywordsPredicate("foo bar")), command);
+        assertEquals(new ListPatientCommand(new ContainsKeywordsPredicate("foo bar")), command);
     }
 
     @Test

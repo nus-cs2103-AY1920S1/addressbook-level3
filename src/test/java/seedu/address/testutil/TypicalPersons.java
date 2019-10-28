@@ -57,6 +57,36 @@ public class TypicalPersons {
             .withEmail("anna@example.com")
             .withAddress("4th street").build();
 
+    public static final Person STAFF_ALICE = new PersonBuilder().withId("S01A").withName("DR Alice Pauline")
+            .withAddress("123, Jurong West Ave 6, #08-111").withEmail("alice@example.com")
+            .withPhone("94351253")
+            .withTags("friends").build();
+    public static final Person STAFF_BENSON = new PersonBuilder().withId("S02B").withName("DR Benson Meier")
+            .withAddress("311, Clementi Ave 2, #02-25")
+            .withEmail("johnd@example.com").withPhone("98765432")
+            .withTags("owesMoney", "friends").build();
+    public static final Person STAFF_CARL = new PersonBuilder().withId("S03C").withName("DR Carl Kurz")
+            .withPhone("95352563")
+            .withEmail("heinz@example.com")
+            .withAddress("wall street").build();
+    public static final Person STAFF_DANIEL = new PersonBuilder().withId("S04D").withName("DR Daniel Meier")
+            .withPhone("87652533")
+            .withEmail("cornelia@example.com")
+            .withAddress("10th street")
+            .withTags("friends").build();
+    public static final Person STAFF_ELLE = new PersonBuilder().withId("S05E").withName("DR Elle Meyer")
+            .withPhone("9482224")
+            .withEmail("werner@example.com")
+            .withAddress("michegan ave").build();
+    public static final Person STAFF_FIONA = new PersonBuilder().withId("S06F").withName("DR Fiona Kunz")
+            .withPhone("9482427")
+            .withEmail("lydia@example.com")
+            .withAddress("little tokyo").build();
+    public static final Person STAFF_GEORGE = new PersonBuilder().withId("S07G").withName("DR George Best")
+            .withPhone("9482442")
+            .withEmail("anna@example.com")
+            .withAddress("4th street").build();
+
     // Manually added
     public static final Person HOON = new PersonBuilder().withId("08H").withName("Hoon Meier").withPhone("8482424")
             .withEmail("stefan@example.com").withAddress("little india").build();
@@ -78,43 +108,41 @@ public class TypicalPersons {
     } // prevents instantiation
 
     /**
-     * Returns an {@code AddressBook} with all the typical persons.
+     * Returns an {@code AddressBook} with all the typical patients.
      */
-    public static AddressBook getTypicalAddressBook() {
+    public static AddressBook getTypicalPatientAddressBook() {
         AddressBook ab = new AddressBook();
-        for (Person person : getTypicalPersons()) {
+        for (Person person : getTypicalPatients()) {
             ab.addPerson(person);
         }
         return ab;
     }
 
-    public static List<Person> getTypicalPersons() {
+    /**
+     * Returns an {@code AddressBook} with all the typical staff.
+     */
+    public static AddressBook getTypicalStaffAddressBook() {
+        AddressBook ab = new AddressBook();
+        for (Person person : getTypicalStaff()) {
+            ab.addPerson(person);
+        }
+        return ab;
+    }
+
+    public static List<Person> getTypicalPatients() {
         return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
     }
 
+    public static List<Person> getTypicalStaff() {
+        return new ArrayList<>(Arrays.asList(STAFF_ALICE, STAFF_BENSON, STAFF_CARL, STAFF_DANIEL,
+                STAFF_ELLE, STAFF_FIONA, STAFF_GEORGE));
+    }
+
     public static QueueManager getTypicalQueueManager() {
-        /*QueueManager qm = new QueueManager();
-        for (Person person : getTypicalPersons()) {
+        QueueManager qm = new QueueManager();
+        for (Person person : getTypicalPatients()) {
             qm.addPatient(person.getReferenceId());
         }
-        qm.addRoom(IDA.getReferenceId());
-        qm.addRoom(HOON.getReferenceId());
         return qm;
-        */
-        return new QueueManager();
-    }
-
-    /**
-     * Returns an {@code AppointmentBook} with all the typical appointments.
-     */
-    public static AppointmentBook getTypicalAppointmentBook() {
-        return new AppointmentBook();
-    }
-
-    /**
-     * Returns an {@code AppointmentBook} with all the typical Duty Roster.
-     */
-    public static AppointmentBook getTypicalDutyRosterBook() {
-        return new AppointmentBook();
     }
 }

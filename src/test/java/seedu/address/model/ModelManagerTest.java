@@ -4,8 +4,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.address.testutil.TypicalEvents.getTypicalAppointmentBook;
+import static seedu.address.testutil.TypicalEvents.getTypicalDutyRosterBook;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BENSON;
+import static seedu.address.testutil.TypicalPersons.getTypicalPatientAddressBook;
+import static seedu.address.testutil.TypicalPersons.getTypicalQueueManager;
 
 import java.nio.file.Paths;
 
@@ -115,11 +119,10 @@ public class ModelManagerTest {
     public void equals() {
         AddressBook patientAddressBook = new AddressBookBuilder().withPerson(ALICE).withPerson(BENSON).build();
         AddressBook staffAddressBook = new AddressBookBuilder().withPerson(ALICE).withPerson(BENSON).build();
-        AddressBook differentAddressBook = new AddressBook();
         UserPrefs userPrefs = new UserPrefs();
-        AppointmentBook appointmentBook = new AppointmentBook();
-        AppointmentBook dutyRosterBook = new AppointmentBook();
-        QueueManager queueManager = new QueueManager();
+        AppointmentBook appointmentBook = getTypicalAppointmentBook();
+        AppointmentBook dutyRosterBook = getTypicalDutyRosterBook();
+        QueueManager queueManager = getTypicalQueueManager();
 
         //appointmentBook.addEvent();
 
@@ -163,7 +166,7 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(new ModelManager(
                 patientAddressBook, staffAddressBook,
                 appointmentBook, dutyRosterBook,
-                new UserPrefs(), queueManager)));
+                userPrefs, new QueueManager())));
 
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();

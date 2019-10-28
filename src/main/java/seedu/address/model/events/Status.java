@@ -84,14 +84,14 @@ public class Status {
     public boolean equals(Object o) {
         if (o == this) {
             return true;
+        } else if (o instanceof Status) {
+            Status otherStatus = (Status) o;
+            return otherStatus.getSta().equals(this.getSta());
+        } else if (o instanceof AppointmentStatuses) {
+            return getSta().equals((AppointmentStatuses) o);
         }
 
-        if (!(o instanceof Status)) {
-            return false;
-        }
-
-        Status otherStatus = (Status) o;
-        return otherStatus.getSta().equals(this.getSta());
+        return false;
     }
 
     /**

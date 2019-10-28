@@ -1,9 +1,10 @@
 package seedu.address.testutil;
 
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
-import static seedu.address.testutil.TypicalPersons.getTypicalAppointmentBook;
-import static seedu.address.testutil.TypicalPersons.getTypicalDutyRosterBook;
+import static seedu.address.testutil.TypicalEvents.getTypicalAppointmentBook;
+import static seedu.address.testutil.TypicalEvents.getTypicalDutyRosterBook;
+import static seedu.address.testutil.TypicalPersons.getTypicalPatientAddressBook;
 import static seedu.address.testutil.TypicalPersons.getTypicalQueueManager;
+import static seedu.address.testutil.TypicalPersons.getTypicalStaffAddressBook;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -64,7 +65,7 @@ public class TestUtil {
      * Returns a {@code ModelManager} with all the typical persons and appointments.
      */
     public static ModelManager getTypicalModelManager() {
-        return new ModelManager(getTypicalAddressBook(), getTypicalAddressBook(),
+        return new ModelManager(getTypicalPatientAddressBook(), getTypicalStaffAddressBook(),
                 getTypicalAppointmentBook(), getTypicalDutyRosterBook(),
             new UserPrefs(), getTypicalQueueManager());
     }

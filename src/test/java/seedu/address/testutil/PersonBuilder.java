@@ -59,6 +59,7 @@ public class PersonBuilder {
         this.id = new PatientReferenceId(id);
         return this;
     }
+
     /**
      * Sets the {@code Name} of the {@code Person} that we are building.
      */

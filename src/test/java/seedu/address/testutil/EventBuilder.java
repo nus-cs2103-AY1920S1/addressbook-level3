@@ -1,5 +1,9 @@
 package seedu.address.testutil;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Date;
+
 import seedu.address.model.ReferenceId;
 import seedu.address.model.events.DateTime;
 import seedu.address.model.events.Event;
@@ -13,15 +17,16 @@ import seedu.address.model.person.parameters.PatientReferenceId;
 public class EventBuilder {
 
     public static final String DEFAULT_REFERENCE_ID = "1234567A";
-    public static final DateTime DEFAULT_STARTIMING = DateTime.tryParseSimpleDateFormat("01/11/2019 1800");
-    public static final DateTime DEFAULT_ENDTIMING = DateTime.tryParseSimpleDateFormat("01/11/2019 1900");
 
     private ReferenceId id;
     private Timing timing;
+    private Status status;
 
-    public EventBuilder() {
+    public EventBuilder(int afterYears, int afterMonth, int afterDays,
+                        int afterHours, int afterMinutes) {
         id = new PatientReferenceId(DEFAULT_REFERENCE_ID);
-        timing = new Timing(DEFAULT_STARTIMING, DEFAULT_ENDTIMING);
+        withStartTime(afterYears, afterMonth, afterDays, afterHours,afterMinutes, 30);
+        status = new Status("APPROVED");
     }
 
     /**
@@ -30,6 +35,7 @@ public class EventBuilder {
     public EventBuilder(Event personToCopy) {
         id = personToCopy.getPersonId();
         timing = personToCopy.getEventTiming();
+        status = personToCopy.getStatus();
     }
 
     /**
@@ -40,8 +46,36 @@ public class EventBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code PatientReferenceId} of the {@code Person} that we are building.
+     */
+    public EventBuilder withStartTime(int afterYears, int afterMonth, int afterDays,
+                                      int afterHours, int afterMinutes, int durationInMinutes) {
+
+        LocalDateTime currentLocalDateTime = LocalDateTime.ofInstant(new Date().toInstant(), ZoneId.systemDefault());
+
+        LocalDateTime newStartLocalDateTime = currentLocalDateTime
+                .plusYears(afterYears)
+                .plusMonths(afterMonth)
+                .plusDays(afterDays)
+                .plusHours(afterHours)
+                .plusMinutes(afterMinutes);
+
+        LocalDateTime newEndLocalDateTime = newStartLocalDateTime.plusMinutes(durationInMinutes);
+
+        Date startDate = Date.from(newStartLocalDateTime.atZone(ZoneId.systemDefault()).toInstant());
+        Date endDate = Date.from(newEndLocalDateTime.atZone(ZoneId.systemDefault()).toInstant());
+        this.timing = new Timing(new DateTime(startDate), new DateTime(endDate));
+        return this;
+    }
+
+    public EventBuilder withStatus(Status.AppointmentStatuses status) {
+        this.status = new Status(status);
+        return this;
+    }
+
     public Event build() {
-        return new Event(id, timing, new Status("APPROVED"));
+        return new Event(id, timing, status);
     }
 
 }
