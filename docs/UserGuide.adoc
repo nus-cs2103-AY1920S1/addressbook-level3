@@ -169,6 +169,7 @@ The options supported by this feature includes:
 . `d` - Option D for MCQ.
 
 Examples:
+
 * Open ended question - `question question/Which year did Singapore gain independence? answer/1965 type/open` +
 Creates an open ended question with topic _'Which year did Singapore gain independence?'_ with answer _'1965'_.
 * MCQ - `question question/Which year did Singapore gain independence? answer/1965 type/mcq a/1965 b/1963 c/1968 d/1970` +
@@ -194,6 +195,7 @@ The options supported by this feature includes:
 . `d` - Option D for MCQ.
 
 Examples:
+
 * `question 1 question/What is 1+1? answer/2` +
 Edits the first question in the list changing existing question topic to _'What is 1+1?'_ and answer to _'2'_.
 * `question 1 type/mcq a/1965 b/1963 c/1968 d/1970` +
@@ -209,6 +211,7 @@ The options supported by this feature includes:
 . `[INDEX]` - The question index as defined by the <<Feature-Question-List, list>> and <<Feature-Question-Find, `find`>>find commands.
 
 Example:
+
 * `question delete 1` +
 Deletes the first question in the list.
 
@@ -223,6 +226,7 @@ The options supported by this feature includes:
 _-This command does not require any additional options-_
 
 Example:
+
 * `question list` +
 Lists the question list.
 
@@ -241,6 +245,7 @@ The options supported by this feature includes:
 . `find` - Search term to find in the list of questions.
 
 Example:
+
 * `question find/What is 1+1?` +
 Searches through the question list to find questions close to the search term _'What is 1+1?'_.
 
@@ -255,6 +260,7 @@ The options supported by this feature includes:
 Follows the index as defined in the <<Feature-Question-List, list>> and <<Feature-Question-Find, `find`>>find commands.
 
 Example:
+
 * `question slideshow 1 2 3` +
 Starts a slideshow with questions containing index _'1'_, _'2'_ and _'3'_.
 
