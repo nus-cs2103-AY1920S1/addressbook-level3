@@ -76,7 +76,7 @@ public interface Model {
     boolean hasDoctor(Nric doctor);
 
     /**
-     * Returns true if a patient with the same NRIC as {@code patient} exists in the address book.
+     * Returns true if a patient with the specified Nric exists in ORGANice.
      */
     boolean hasPatient(Nric patient);
 
@@ -97,10 +97,6 @@ public interface Model {
      */
     void addPerson(Person person);
 
-    Patient getPatient(Nric patientNric) throws PersonNotFoundException;
-
-    Donor getDonor(Nric donorNric) throws PersonNotFoundException;
-
     /**
      * Replaces the given person {@code target} with {@code editedPerson}.
      * {@code target} must exist in ORGANice.
@@ -117,4 +113,36 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
+
+    /**
+     * Retrieves the {@code Patient} with the specified {@code Nric}
+     * @throws PersonNotFoundException if the {@code Patient} with the {@code Nric} cannot be found.
+     */
+    Patient getPatient(Nric patientNric) throws PersonNotFoundException;
+
+    /**
+     * Retrieves the {@code Donor} with the specified {@code Nric}
+     * @throws PersonNotFoundException if the {@code Donor} with the {@code Nric} cannot be found.
+     */
+    Donor getDonor(Nric donorNric) throws PersonNotFoundException;
+
+    /**
+     * Matches all Patients to all Donors in ORGANice.
+     */
+    void matchAllPatients();
+
+    /**
+     * Removes all MatchedDonor instances from ORGANice.
+     */
+    void removeMatches();
+
+    /**
+     * Match Donors to a specified Patient.
+     */
+    void matchDonors(Patient patient);
+
+    /**
+     * Retrieves the match list.
+     */
+    ObservableList<Person> getMatchList();
 }

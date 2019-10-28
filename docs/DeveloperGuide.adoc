@@ -153,89 +153,126 @@ Classes used by multiple components are in the `organice.commons` package.
 
 This section describes some noteworthy details on how certain features are implemented.
 
-// tag::undoredo[]
-=== [Proposed] Undo/Redo feature
-==== Proposed Implementation
+=== Matching feature
+This section describes how the matching feature is implemented.
 
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
+Matching is done by accessing `Patient` and `Donor` in `ModelManager`, then creating
+`MatchedPatient` and `MatchedDonor` objects to store the match results. The `MatchedPatient` and `MatchedDonor` objects
+are stored in a separate `listOfMatches` list.
+
+To facilitate the matching, the following methods were added to `ModelManager`:
+
+* `ModelManager#matchDonors(Patient patient)` -- Matches all donors in ORGANice with the specified Patient.
+For each Donor that matches the patient, a `MatchedDonor` objected is created and stored.
+* `ModelManager#matchPatients()` -- Matches all donors with all patients.
+
+After matching the patients and donors, the `MainWindow` decides which list to display via the `CommandResult#isMatch`
+method.
+
+==== Design considerations
+This section will explain the reason for having some aspects.
+
+===== Aspect: Bugs introduced
+This section explains why the current implementation is chosen.
+Previously, the matching feature was implemented by storing match results in the
+`Patient` and `Donor` objects.
+
+Each `Patient` and `Donor` has a `isMatch()` method, which checks if the match results should be displayed
+or if the `Patient` and `Donor` attributes should be displayed. The match results will be displayed when `isMatch()`
+evaluates to `true`.
+
+It was discovered that there were many bugs introduced via this approach. The root cause of the bugs could not be
+identified.
+
+// tag::formmode[]
+=== Add person `Form` mode feature
+==== Implementation
+
+The `Form` mode mechanism is facilitated by `FormUiManager`.
+It modifies the `CommandBox` as well as `PersonPanelListPlaceholder` each time a user input a specific attribute.
 Additionally, it implements the following operations:
 
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
+* `FormUiManager#getPersonField()` -- Modifies `CommandBox` and prompts the user to input a specific attribute.
+* `FormUiManager#setPersonDetails()` -- Sets the value for all required attributes of a specific type of person.
+* `FormUiManager#addDoctorToList()` -- Adds a doctor to the person list.
+* `FormUiManager#addPatientToList()` -- Adds a patient to the person list.
+* `FormUiManager#addDonorToList()` -- Adds a donor to the person list.
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+These operations are exposed in the `Logic` interface when the specific command is invoked by the user.
 
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
+Given below is an example usage scenario and how the `Form` mode mechanism behaves at each step:
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+Step 1. The user launches the application for the first time.
 
-image::UndoRedoState0.png[]
+Step 2. The user executes `add t/doctor` command to add a doctor in a `Form` mode. The `add` command calls `AddressBookParser#parseCommand()` that will return a new `AddCommand` instance.
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+Step 3. The `LogicManager` executes the command and notice that the `Command` is a `Form` type command and thus will create a new `FormUiManager` instance.
 
-image::UndoRedoState1.png[]
+Step 4. The `FormUiManager` changes the display of the application based on the type of the person specified in Step 1 by modifying the content of the `PersonListPanelPlaceholder` as well as the `CommandExecutor` in the `CommandBox` object by calling `FormUiManager#getPersonFields()`.
 
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+Step 5. The user inputs the attribute that is prompted until all the required attributes are specified.
 
-image::UndoRedoState2.png[]
+Step 6. The user confirms the details of the person and `FormUiManager#setPersonDetails()` will be called and depending on the type of the person specified, calling `FormUiManager#addDoctorToList()`, or `FormUiManager#addPatientToList()`, or `FormUiManager#addDonorToList()` respectively.
 
-[NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
-
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
-
-image::UndoRedoState3.png[]
-
-[NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
-
-The following sequence diagram shows how the undo operation works:
-
-image::UndoSequenceDiagram.png[]
-
-NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
-
-[NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
-
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
-
-image::UndoRedoState4.png[]
-
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
-
-image::UndoRedoState5.png[]
-
-The following activity diagram summarizes what happens when a user executes a new command:
-
-image::CommitActivityDiagram.png[]
+Step 7. `FormUiManager` calls the `AddressBookParser#parseCommand()` to add the person and save it in the `Storage` interface.
 
 ==== Design Considerations
+This section will explain the reason for having some aspects.
 
 ===== Aspect: How undo & redo executes
 
-* **Alternative 1 (current choice):** Saves the entire address book.
+* **Alternative 1 (current choice):** Use the same `add` command to do the `Form` mode.
 ** Pros: Easy to implement.
-** Cons: May have performance issues in terms of memory usage.
-* **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-** Cons: We must ensure that the implementation of each individual command are correct.
+** Cons: May not be the best approach since one command will have two different modes.
+* **Alternative 2:** Use a new command for the `Form` mode.
+** Pros: Will be less confusing for the user since there is a separate command for `Form` mode
+** Cons: We must creates a new parser and command classes just to deal with another `add` functionality.
 
-===== Aspect: Data structure to support the undo/redo commands
-
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
-* **Alternative 2:** Use `HistoryManager` for undo/redo
-** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
-// end::undoredo[]
+// end::formmode[]
 
 // tag::dataencryption[]
+=== Sort feature
+This section describes how the sort feature is implemented.
+
+Sorting is done by using `Comparators` in the `Logic` component.
+
+To facilitate the sorting, the following methods were added:
+
+{More to be added}
+
+Given below is the Sequence Diagram for the interactions with the `Logic` component for the `execute(sort/rate)`
+
+.Structure of the Logic Component when executing `sort` command
+
+image::SortSequenceDiagram.png[width=790]
+
+==== Design considerations
+This section will explain the reason for having some aspects.
+
+===== Aspect:
+
+=== Processing feature
+This section describes how the processing feature is implemented.
+
+Processing is done by accessing `Patient` and `Donor` in `ModelManager`, then creating an ArrayList named, `ProcessingList` to store the tasks needed to do.
+
+If the donor and patient pair had never been processed before, a default `ProcessingList` will be generated and it will belong to the patient and donor pair uniquely.
+
+If the user made any changes to the `ProcessingList`, the list will be saved to the donor as one of its attribute which takes in a parameter of the patient's NRIC.
+
+//Todo: additional feature such as add tasks, delete tasks etc
+
+==== Design considerations
+This section will explain the reason for having some aspects.
+
+===== Aspect: Method of storing the `ProcessingList`
+* **Alternative 1 (current choice):** Use ArrayList to store the tasks.
+** Pros: Easy to implement.
+** Cons: It is not the most efficient algorithm and the huge number of `ProcessingList` may take up a huge datafile at the end of the day.
+* **Alternative 2:** Use a new class that works like ArrayList.
+** Pros: Able to implement more specific methods for the ProcessingList.
+** Cons: More methods and test cases needed and it is harder to implement.
+
 === [Proposed] Data Encryption
 
 _{Explain here how the data encryption feature will be implemented}_
@@ -330,30 +367,36 @@ _{More to be added}_
 (For all use cases below, the *System* is the `ORGANice` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete patient/donor/doctor
+=== Use case: Add patient/donor/doctor in a form mode
 
-*MSS*
+*MSS:*
 
-1.  User requests to list patients/donors/doctors
-2.  ORGANice shows a list of patients/donors/doctors
-3.  User requests to delete a specific patient/donor/doctor in the list
-4.  ORGANice deletes the patient/donor/doctor
+1.  User requests to add a patient/doctor/donor in a form mode.
+2.  ORGANice shows a form depending on the type of person specified by the User.
+3.  OGRANice prompts the User to type in the required attributes one at a time.
+4.  User inputs in the attribute of the person prompted by ORGANice.
 +
+[none]Steps 3-4 are repeated until the user has inputted all the required attributes for a specific type of person.
+5.  ORGANice prompts the User to confirm the attributes of the person.
+6.  User confirms the attributes specified.
+7.  ORGANice adds the person to the list.
+
+
 Use case ends.
 
-*Extensions*
+*Extensions:*
 
+4a. The attribute that the User tries to input is not valid.
 [none]
-* 2a. The list is empty.
-+
-Use case ends.
+* 4a1. ORGANice shows a warning to the User and specifies the pattern of a valid input.
+* 4a2. User inputs a new value for the attribute.
+* Steps 4a1-4a2 are repeated until the input data is valid for the current attribute prompted by ORGANice.
+* Use case resumes from step 3 if there are more attributes to fill in, if not it will resumes from step 5.
 
-* 3a. The given NRIC is invalid.
-+
+*a. At any time, User chooses to abort the form.
 [none]
-** 3a1. ORGANice shows an error message.
-+
-Use case resumes at step 2.
+* *a1. ORGANice nullifies the form.
+* Use case ends.
 
 === Use case: Match a patient and a donor
 
@@ -373,6 +416,52 @@ Use case ends.
 +
 Use case ends.
 
+=== Use case: List all patients/donors/doctors
+
+*MSS*
+
+1.  User requests to list patients/donors/doctors.
+2.  ORGANice shows the list of patients/donors/doctors.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. ORGANice detects an invalid parameter.
++
+[none]
+** 1a1. ORGANice requests for correct parameter.
++
+** 1a2. User enters correct parameter.
++
+Steps 1a1-1a2 are repeated until the data entered are correct.
++
+Use case resumes at step 2.
+
+=== Use case: Sort
+
+*MSS*
+
+1.  User requests to sort the list of donors of a particular patient.
+2.  ORGANice sorts the list of donors according to the parameters.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. ORGANice detects invalid parameter(s).
++
+[none]
+** 1a1. ORGANice prompts for valid parameter(s).
++
+** 1a2. User enters correct parameter(s).
++
+Steps 1a1-1a2 are repeated until the data entered are correct.
++
+Use case resumes at step 2.
++
 _{More to be added}_
 
 [appendix]

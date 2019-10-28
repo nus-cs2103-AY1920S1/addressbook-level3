@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static organice.commons.util.AppUtil.checkArgument;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.HashSet;
 
 /**
@@ -14,9 +15,22 @@ public class BloodType {
 
     public static final HashSet<String> BLOOD_TYPES =
             new HashSet<>(Arrays.asList("A", "B", "AB", "O", "A+", "AB+", "B+", "O+"));
+
+    public static final BloodType BLOODTYPE_A = new BloodType("A");
+    public static final BloodType BLOODTYPE_B = new BloodType("B");
+    public static final BloodType BLOODTYPE_AB = new BloodType("AB");
+    public static final BloodType BLOODTYPE_O = new BloodType("O");
+
+
+    public static final HashMap<BloodType, HashSet<BloodType>> BLOOD_TYPES_MATCHES = BloodType.getBloodTypeMatches();
+
     public static final String MESSAGE_CONSTRAINTS =
             "Blood type should only have A, B, O or AB."
                     + "Positive blood types will have a '+' behind, it should not be blank";
+
+
+
+
     public final String value;
 
     /**
@@ -30,11 +44,35 @@ public class BloodType {
         value = bloodType.toUpperCase();
     }
 
+    public static HashMap<BloodType, HashSet<BloodType>> getBloodTypeMatches() {
+        HashMap hashMap = new HashMap<BloodType, HashSet<BloodType>>();
+
+        hashMap.put(BLOODTYPE_A, new HashSet<BloodType>(Arrays.asList(BLOODTYPE_O, BLOODTYPE_A)));
+        hashMap.put(BLOODTYPE_B, new HashSet<BloodType>(Arrays.asList(BLOODTYPE_O, BLOODTYPE_B)));
+        hashMap.put(BLOODTYPE_AB, new HashSet<BloodType>(Arrays.asList(BLOODTYPE_B, BLOODTYPE_A, BLOODTYPE_O,
+                BLOODTYPE_AB)));
+        hashMap.put(BLOODTYPE_O, new HashSet<BloodType>(Arrays.asList(BLOODTYPE_O)));
+        return hashMap;
+    }
+
     /**
      * Returns true if a given string is a valid blood type.
      */
     public static boolean isValidBloodType(String test) {
         return BLOOD_TYPES.contains(test.toUpperCase());
+    }
+
+    /**
+     * Returns true if a {@code BloodType} matches this blood type.
+     */
+    public boolean isBloodTypeMatch(BloodType match) {
+        HashSet<BloodType> matchingBloodTypes = BLOOD_TYPES_MATCHES.get(this);
+
+        if (matchingBloodTypes.contains(match)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override

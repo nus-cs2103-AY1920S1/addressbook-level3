@@ -201,6 +201,16 @@ public class AddCommandTest {
         }
 
         @Override
+        public boolean hasPatient(Nric patientNric) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Patient getPatient(Nric patientNric) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public boolean hasPerson(Person person) {
             throw new AssertionError("This method should not be called.");
         }
@@ -212,6 +222,26 @@ public class AddCommandTest {
 
         @Override
         public void setPerson(Person target, Person editedPerson) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Person> getMatchList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void matchDonors(Patient patient) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void matchAllPatients() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void removeMatches() {
             throw new AssertionError("This method should not be called.");
         }
 

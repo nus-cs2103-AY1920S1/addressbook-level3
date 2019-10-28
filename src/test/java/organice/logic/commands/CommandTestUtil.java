@@ -21,10 +21,12 @@ import java.util.List;
 
 import organice.commons.core.index.Index;
 import organice.logic.commands.exceptions.CommandException;
+import organice.logic.parser.MatchCommandParser;
 import organice.model.AddressBook;
 import organice.model.Model;
 import organice.model.person.NameContainsKeywordsPredicate;
 import organice.model.person.Person;
+import organice.model.person.Status;
 import organice.testutil.EditPersonDescriptorBuilder;
 
 /**
@@ -46,6 +48,7 @@ public class CommandTestUtil {
     public static final String VALID_NRIC_DONOR_JOHN = "T1312123P";
     public static final String VALID_NRIC_PATIENT_BOB = "G2222222B";
     public static final String VALID_NRIC_PATIENT_IRENE = "S1111112A";
+    public static final String VALID_NRIC_DONOR_IRENE_DONOR = "S9876543G";
 
     public static final String VALID_TYPE_DOCTOR_AMY = "doctor";
     public static final String VALID_TYPE_DONOR_JOHN = "donor";
@@ -60,12 +63,15 @@ public class CommandTestUtil {
     public static final String VALID_PRIORITY_PATIENT_BOB = "medium";
 
     public static final String VALID_BLOOD_TYPE_DONOR_JOHN = "A";
-    public static final String VALID_BLOOD_TYPE_PATIENT_BOB = "B+";
+    public static final String VALID_BLOOD_TYPE_PATIENT_BOB = "B";
     public static final String VALID_BLOOD_TYPE_PATIENT_IRENE = "O";
 
     public static final String VALID_TISSUE_TYPE_DONOR_JOHN = "1,2,3,4,5,6";
     public static final String VALID_TISSUE_TYPE_PATIENT_BOB = "7,8,9,10,11,12";
     public static final String VALID_TISSUE_TYPE_PATIENT_IRENE = "1,4,7,10,11,12";
+
+    public static final String COMPATIBLE_TISSUE_TYPE_IRENE = "1,4,5,6,10,11";
+    public static final String INCOMPATIBLE_TISSUE_TYPE_IRENE = "9,1,2,3,5,6";
 
     public static final String VALID_ORGAN_DONOR_JOHN = "kidney";
     public static final String VALID_ORGAN_PATIENT_BOB = "kidney";
@@ -76,6 +82,9 @@ public class CommandTestUtil {
 
     public static final String VALID_DOCTOR_IN_CHARGE_PATIENT_BOB = "S1111111A";
     public static final String VALID_DOCTOR_IN_CHARGE_PATIENT_IRENE = "S1231231B";
+
+    public static final String VALID_STATUS_DONOR_JOHN = Status.STATUS_NOT_PROCESSING;
+    public static final String VALID_STATUS_PATIENT_IRENE = Status.STATUS_NOT_PROCESSING;
 
     public static final String NAME_DESC_DOCTOR_AMY = " " + PREFIX_NAME + VALID_NAME_DOCTOR_AMY;
     public static final String NAME_DESC_DONOR_JOHN = " " + PREFIX_NAME + VALID_NAME_DONOR_JOHN;
@@ -129,6 +138,9 @@ public class CommandTestUtil {
     public static final String DOCTOR_IN_CHARGE_DESC_PATIENT_IRENE = " " + PREFIX_DOCTOR_IN_CHARGE
             + VALID_DOCTOR_IN_CHARGE_PATIENT_IRENE;
 
+    public static final String STATUS_DESC_DONOR_JOHN = VALID_STATUS_DONOR_JOHN;
+    public static final String STATUS_DESC_PATIENT_IRENE = VALID_STATUS_PATIENT_IRENE;
+
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
     public static final String INVALID_NRIC_DESC = " " + PREFIX_NRIC + "G123A"; // need exactly 7 numbers in nrics
@@ -141,9 +153,13 @@ public class CommandTestUtil {
     public static final String INVALID_ORGAN_DESC = " " + PREFIX_ORGAN + "heart";
     public static final String INVALID_DOCTOR_IN_CHARGE_DESC = " " + PREFIX_DOCTOR_IN_CHARGE + "S123B";
     public static final String INVALID_ORGAN_EXPIRY_DATE_DESC = " " + PREFIX_ORGAN_EXPIRY_DATE + "20.01.2020";
+    public static final String INVALID_STATUS_DESC = "procesin"; //typo spelling mistake
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
+
+    public static final String VALID_MATCHCOMMAND_ALL = " " + PREFIX_NRIC + MatchCommandParser.ALL;
+    public static final String INVALID_MATCHCOMMAND_ALL = " " + PREFIX_NRIC + "al";
 
     public static final EditCommand.EditPersonDescriptor DESC_DOCTOR_AMY;
     public static final EditCommand.EditPersonDescriptor DESC_PATIENT_BOB;

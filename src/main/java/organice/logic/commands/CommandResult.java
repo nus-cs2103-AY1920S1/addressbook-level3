@@ -17,6 +17,9 @@ public class CommandResult {
     /** The application should exit. */
     private final boolean exit;
 
+    /** This Command Result is marked as a Match Command */
+    private boolean isMatch;
+
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
@@ -24,6 +27,7 @@ public class CommandResult {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
+        this.isMatch = false;
     }
 
     /**
@@ -44,6 +48,14 @@ public class CommandResult {
 
     public boolean isExit() {
         return exit;
+    }
+
+    public void setMatch(boolean isMatch) {
+        this.isMatch = isMatch;
+    }
+
+    public boolean isMatch() {
+        return isMatch;
     }
 
     @Override

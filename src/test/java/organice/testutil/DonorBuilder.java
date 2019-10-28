@@ -8,6 +8,7 @@ import organice.model.person.Nric;
 import organice.model.person.Organ;
 import organice.model.person.OrganExpiryDate;
 import organice.model.person.Phone;
+import organice.model.person.Status;
 import organice.model.person.TissueType;
 import organice.model.person.Type;
 
@@ -20,12 +21,14 @@ public class DonorBuilder extends PersonBuilder {
     public static final String DEFAULT_TISSUE_TYPE = "1,2,3,4,5,6";
     public static final String DEFAULT_ORGAN = "kidney";
     public static final String DEFAULT_ORGAN_EXPIRY_DATE = "01-Jan-2020";
+    public static final String DEFAULT_STATUS = "not processing";
 
     private Age age;
     private BloodType bloodType;
     private TissueType tissueType;
     private Organ organ;
     private OrganExpiryDate organExpiryDate;
+    private Status status;
 
     public DonorBuilder() {
         super();
@@ -35,6 +38,7 @@ public class DonorBuilder extends PersonBuilder {
         tissueType = new TissueType(DEFAULT_TISSUE_TYPE);
         organ = new Organ(DEFAULT_ORGAN);
         organExpiryDate = new OrganExpiryDate(DEFAULT_ORGAN_EXPIRY_DATE);
+        status = new Status(DEFAULT_STATUS);
     }
 
     /**
@@ -47,6 +51,7 @@ public class DonorBuilder extends PersonBuilder {
         tissueType = donorToCopy.getTissueType();
         organ = donorToCopy.getOrgan();
         organExpiryDate = donorToCopy.getOrganExpiryDate();
+        status = donorToCopy.getStatus();
     }
 
     /**
@@ -115,7 +120,15 @@ public class DonorBuilder extends PersonBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code Status} of the {@code Donor} that we are building.
+     */
+    public DonorBuilder withStatus(String status) {
+        this.status = new Status(status);
+        return this;
+    }
+
     public Donor build() {
-        return new Donor(type, nric, name, phone, age, bloodType, tissueType, organ, organExpiryDate);
+        return new Donor(type, nric, name, phone, age, bloodType, tissueType, organ, organExpiryDate, status);
     }
 }

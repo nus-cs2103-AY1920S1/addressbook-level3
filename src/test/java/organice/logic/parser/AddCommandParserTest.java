@@ -94,7 +94,6 @@ import organice.model.person.Phone;
 import organice.model.person.Priority;
 import organice.model.person.TissueType;
 import organice.model.person.Type;
-
 import organice.testutil.DonorBuilder;
 import organice.testutil.PatientBuilder;
 

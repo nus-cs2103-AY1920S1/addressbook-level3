@@ -15,7 +15,11 @@ import organice.logic.commands.ExitCommand;
 import organice.logic.commands.FindCommand;
 import organice.logic.commands.HelpCommand;
 import organice.logic.commands.ListCommand;
+<<<<<<< HEAD
 import organice.logic.commands.ProcessingCommand;
+=======
+import organice.logic.commands.MatchCommand;
+>>>>>>> origin
 import organice.logic.parser.exceptions.ParseException;
 
 /**
@@ -63,8 +67,13 @@ public class AddressBookParser {
         case ListCommand.COMMAND_WORD:
             return new ListCommandParser().parse(arguments);
 
+<<<<<<< HEAD
         case ProcessingCommand.COMMAND_WORD:
             return new ProcessingCommandParser().parse(arguments);
+=======
+        case MatchCommand.COMMAND_WORD:
+            return new MatchCommandParser().parse(arguments);
+>>>>>>> origin
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();

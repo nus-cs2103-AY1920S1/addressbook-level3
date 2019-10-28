@@ -133,6 +133,23 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
+     * Swaps the PersonListPanel if a match command is executed.
+     */
+    public void handleMatch() {
+        personListPanel = new PersonListPanel(logic.getMatchList());
+        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+    }
+
+    /**
+     * Changes PersonListPanel to display normal persons.
+     */
+    public void handleNonMatches() {
+        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
+        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+    }
+
+
+    /**
      * Opens the help window or focuses on it if it's already opened.
      */
     @FXML
@@ -174,6 +191,12 @@ public class MainWindow extends UiPart<Stage> {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+
+            if (commandResult.isMatch()) {
+                handleMatch();
+            } else {
+                handleNonMatches();
+            }
 
             if (commandResult.isShowHelp()) {
                 handleHelp();

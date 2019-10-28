@@ -34,6 +34,11 @@ public interface Logic {
     ObservableList<Person> getFilteredPersonList();
 
     /**
+     * Returns a list of MatchedDonors
+     */
+    ObservableList<Person> getMatchList();
+
+    /**
      * Returns the user prefs' address book file path.
      */
     Path getAddressBookFilePath();

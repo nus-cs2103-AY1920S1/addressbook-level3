@@ -20,7 +20,8 @@
     "bloodType": "A",
     "tissueType": "1,2,3,4,5,6",
     "organ": "kidney",
-    "doctorInCharge": "S1532142A"
+    "doctorInCharge": "S1532142A",
+    "status": "not processing"
   }, {
     "type": "patient",
     "nric": "F6423467F",
@@ -28,30 +29,33 @@
     "phone" : "87652533",
     "age" : "34",
     "priority": "low",
-    "bloodType": "O+",
+    "bloodType": "O",
     "tissueType": "10,5,3,1,6,8",
     "organ": "kidney",
-    "doctorInCharge": "T5231426Q"
+    "doctorInCharge": "T5231426Q",
+    "status": "not processing"
   }, {
     "type": "donor",
     "nric": "S9374923S",
     "name" : "Elle Meyer",
     "phone" : "9482224",
     "age" : "13",
-    "bloodType": "O+",
+    "bloodType": "O",
     "tissueType": "10,5,3,1,6,8",
     "organ": "kidney",
-    "organExpiryDate": "10-May-2020"
+    "organExpiryDate": "10-May-2020",
+    "status": "not processing"
   }, {
     "type": "donor",
     "nric": "F9183156L",
     "name" : "Fiona Kunz",
     "phone" : "9482427",
     "age" : "25",
-    "bloodType": "AB+",
+    "bloodType": "AB",
     "tissueType": "7,2,3,9,6,8",
     "organ": "kidney",
-    "organExpiryDate": "10-Jun-2020"
+    "organExpiryDate": "10-Jun-2020",
+    "status": "not processing"
   }, {
     "type": "donor",
     "nric": "S1234567A",
@@ -61,6 +65,7 @@
     "bloodType": "B",
     "tissueType": "9,4,1,6,8,2",
     "organ": "kidney",
-    "organExpiryDate": "10-Dec-2030"
+    "organExpiryDate": "10-Dec-2030",
+    "status": "not processing"
   } ]
 }

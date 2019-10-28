@@ -31,6 +31,7 @@ import organice.model.person.OrganExpiryDate;
 import organice.model.person.Patient;
 import organice.model.person.Phone;
 import organice.model.person.Priority;
+import organice.model.person.Status;
 import organice.model.person.TissueType;
 import organice.model.person.Type;
 
@@ -84,8 +85,9 @@ public class AddCommandParser implements Parser<AddCommand> {
             Organ organ = ParserUtil.parseOrgan(argMultimap.getValue(PREFIX_ORGAN).get());
             OrganExpiryDate organExpiryDate =
                     ParserUtil.parseOrganExpiryDate(argMultimap.getValue(PREFIX_ORGAN_EXPIRY_DATE).get());
-
-            Donor donor = new Donor(type, nric, name, phone, age, bloodType, tissueType, organ, organExpiryDate);
+            Status status = new Status(Status.STATUS_NOT_PROCESSING);
+            Donor donor = new Donor(type, nric, name, phone, age, bloodType, tissueType, organ, organExpiryDate,
+                    status);
             return new AddCommand(donor);
         } else if (type.isPatient()) {
             arePrefixesPresentPatient(argMultimap);
@@ -100,9 +102,9 @@ public class AddCommandParser implements Parser<AddCommand> {
             Organ organ = ParserUtil.parseOrgan(argMultimap.getValue(PREFIX_ORGAN).get());
             DoctorInCharge doctorInCharge =
                     ParserUtil.parseDoctorInCharge(argMultimap.getValue(PREFIX_DOCTOR_IN_CHARGE).get());
-
+            Status status = new Status(Status.STATUS_NOT_PROCESSING);
             Patient patient = new Patient(type, nric, name, phone, age, priority,
-                    bloodType, tissueType, organ, doctorInCharge);
+                    bloodType, tissueType, organ, doctorInCharge, status);
             return new AddCommand(patient);
         } else {
             //TODO: refine error message later

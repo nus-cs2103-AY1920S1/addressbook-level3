@@ -45,8 +45,8 @@
       <Label fx:id="organ" styleClass="cell_small_label" text="\$organ" />
       <Label fx:id="doctorInCharge" styleClass="cell_small_label" text="\$doctorInCharge" />
     </VBox>
-      <rowConstraints>
-         <RowConstraints />
-      </rowConstraints>
+    <rowConstraints>
+      <RowConstraints />
+    </rowConstraints>
   </GridPane>
 </HBox>
