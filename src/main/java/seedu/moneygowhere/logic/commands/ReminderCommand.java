@@ -1,8 +1,5 @@
 package seedu.moneygowhere.logic.commands;
 
-import static seedu.moneygowhere.logic.parser.CliSyntax.PREFIX_DATE;
-import static seedu.moneygowhere.logic.parser.CliSyntax.PREFIX_MESSAGE;
-
 import seedu.moneygowhere.logic.commands.reminder.AddReminderCommand;
 import seedu.moneygowhere.logic.commands.reminder.DeleteReminderCommand;
 
