@@ -109,6 +109,11 @@ public class AddCommand extends UndoableCommand {
         model.addEntity(toAdd);
 
         if (toAdd instanceof Body) {
+            //@@author ambervoong
+            if (getCommandState() == UndoableCommandState.REDOABLE) {
+                toAdd.getIdNum().addMapping(toAdd);
+            }
+            //@@author
             SelectCommand selectCommand = new SelectCommand(toAdd.getIdNum().getIdNum());
             selectCommand.execute(model);
             Body body = (Body) toAdd;
