@@ -1,10 +1,10 @@
 package seedu.jarvis.model.cca.ccaprogress;
 
-import seedu.jarvis.model.cca.exceptions.CcaProgressNotSetException;
-
 import static seedu.jarvis.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.List;
+
+import seedu.jarvis.model.cca.exceptions.CcaProgressNotSetException;
 
 /**
  * Represents the progress of a CCA.

@@ -90,7 +90,7 @@ public class Cca {
      * Checks if the CcaProgress is already set.
      */
     public boolean containsProgress() {
-        return ! ccaProgress.ccaProgressListIsEmpty();
+        return !ccaProgress.ccaProgressListIsEmpty();
     }
 
     /**

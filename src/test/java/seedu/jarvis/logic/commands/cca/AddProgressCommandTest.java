@@ -8,6 +8,9 @@ import static seedu.jarvis.testutil.Assert.assertThrows;
 import static seedu.jarvis.testutil.cca.TypicalCcaMilestones.GRADE_ONE;
 import static seedu.jarvis.testutil.cca.TypicalCcaMilestones.TIGER;
 
+import java.util.List;
+import java.util.function.Predicate;
+
 import org.junit.jupiter.api.Test;
 
 import seedu.jarvis.commons.core.index.Index;
@@ -16,12 +19,9 @@ import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.model.cca.Cca;
 import seedu.jarvis.model.cca.CcaList;
 import seedu.jarvis.model.cca.CcaTracker;
-import seedu.jarvis.model.cca.ccaprogress.CcaMilestone;
 import seedu.jarvis.model.cca.ccaprogress.CcaMilestoneList;
 import seedu.jarvis.testutil.ModelStub;
 import seedu.jarvis.testutil.cca.CcaBuilder;
-
-import java.util.List;
 
 /**
  * AddProgressTest basically checks just 2 scenarios - adding a new {@code CcaProgress} and adding
@@ -38,59 +38,64 @@ public class AddProgressCommandTest {
         Index index = Index.fromOneBased(1);
         CcaMilestoneList ccaMilestoneList = new CcaMilestoneList();
         ccaMilestoneList.setMilestones(List.of(TIGER));
-        CommandResult commandResult = new AddProgressCommand(index,ccaMilestoneList ).execute(modelStub);
+        CommandResult commandResult = new AddProgressCommand(index, ccaMilestoneList).execute(modelStub);
 
-        assertEquals(String.format(AddProgressCommand.MESSAGE_SUCCESS, index.getOneBased()), commandResult.getFeedbackToUser());
+        assertEquals(String.format(AddProgressCommand.MESSAGE_SUCCESS, index.getOneBased()),
+                commandResult.getFeedbackToUser());
     }
 
-        @Test
-        public void execute_duplicateCcaProgress_throwsCommandException() throws Exception {
-            ModelStubAcceptingCcaAdded modelStub = new ModelStubAcceptingCcaAdded();
-            Cca validCca = new CcaBuilder().build();
-            new AddCcaCommand(validCca).execute(modelStub);
-            Index index = Index.fromOneBased(1);
-            CcaMilestoneList ccaMilestoneList = new CcaMilestoneList();
-            ccaMilestoneList.setMilestones(List.of(TIGER));
-            AddProgressCommand addProgressCommand = new AddProgressCommand(index,ccaMilestoneList );
-            addProgressCommand.execute(modelStub);
-            AddProgressCommand duplicateAddProgressCommand = new AddProgressCommand(index,ccaMilestoneList);
+    @Test
+    public void execute_duplicateCcaProgress_throwsCommandException() throws Exception {
+        ModelStubAcceptingCcaAdded modelStub = new ModelStubAcceptingCcaAdded();
+        Cca validCca = new CcaBuilder().build();
+        new AddCcaCommand(validCca).execute(modelStub);
+        Index index = Index.fromOneBased(1);
+        CcaMilestoneList ccaMilestoneList = new CcaMilestoneList();
+        ccaMilestoneList.setMilestones(List.of(TIGER));
+        AddProgressCommand addProgressCommand = new AddProgressCommand(index, ccaMilestoneList);
+        addProgressCommand.execute(modelStub);
+        AddProgressCommand duplicateAddProgressCommand = new AddProgressCommand(index, ccaMilestoneList);
 
-            assertThrows(CommandException.class,
-                    AddProgressCommand.MESSAGE_CCA_PROGRESS_ALREADY_SET, () -> duplicateAddProgressCommand.execute(modelStub));
-        }
+        assertThrows(CommandException.class,
+                AddProgressCommand.MESSAGE_CCA_PROGRESS_ALREADY_SET, () ->
+                        duplicateAddProgressCommand.execute(modelStub));
+    }
 
-        @Test
-        public void equals() {
-            CcaMilestoneList canoeingMilestoneList = new CcaMilestoneList();
-            canoeingMilestoneList.setMilestones(List.of(TIGER));
-            CcaMilestoneList guitarMilestoneList = new CcaMilestoneList();
-            guitarMilestoneList.setMilestones(List.of(GRADE_ONE));
-            AddProgressCommand addCanoeingProgressCommand = new AddProgressCommand(Index.fromOneBased(1), canoeingMilestoneList);
-            AddProgressCommand addGuitarProgressCommand = new AddProgressCommand(Index.fromOneBased(1), guitarMilestoneList);
+    @Test
+    public void equals() {
+        CcaMilestoneList canoeingMilestoneList = new CcaMilestoneList();
+        canoeingMilestoneList.setMilestones(List.of(TIGER));
+        CcaMilestoneList guitarMilestoneList = new CcaMilestoneList();
+        guitarMilestoneList.setMilestones(List.of(GRADE_ONE));
+        AddProgressCommand addCanoeingProgressCommand = new AddProgressCommand(Index.fromOneBased(1),
+                canoeingMilestoneList);
+        AddProgressCommand addGuitarProgressCommand = new AddProgressCommand(Index.fromOneBased(1),
+                guitarMilestoneList);
 
-            // same object -> returns true
-            assertTrue(addCanoeingProgressCommand.equals(addCanoeingProgressCommand));
+        // same object -> returns true
+        assertTrue(addCanoeingProgressCommand.equals(addCanoeingProgressCommand));
 
-            // same values -> returns true
-            AddProgressCommand addCanoeingProgressCommandCopy = new AddProgressCommand(Index.fromOneBased(1),
-                    canoeingMilestoneList);
-            assertTrue(addCanoeingProgressCommand.equals(addCanoeingProgressCommandCopy));
+        // same values -> returns true
+        AddProgressCommand addCanoeingProgressCommandCopy = new AddProgressCommand(Index.fromOneBased(1),
+                canoeingMilestoneList);
+        assertTrue(addCanoeingProgressCommand.equals(addCanoeingProgressCommandCopy));
 
-            // different types -> returns false
-            assertFalse(addCanoeingProgressCommand.equals(1));
+        // different types -> returns false
+        assertFalse(addCanoeingProgressCommand.equals(1));
 
-            // null -> returns false
-            assertFalse(addCanoeingProgressCommandCopy.equals(null));
+        // null -> returns false
+        assertFalse(addCanoeingProgressCommandCopy.equals(null));
 
-            // different commands -> returns false
-            assertFalse(addCanoeingProgressCommand.equals(addGuitarProgressCommand));
-        }
+        // different commands -> returns false
+        assertFalse(addCanoeingProgressCommand.equals(addGuitarProgressCommand));
+    }
 
     /**
      * A Model stub that always accept the Cca being added.
      */
     private class ModelStubAcceptingCcaAdded extends ModelStub {
-        private final CcaTracker ccaTracker = new CcaTracker();
+        private final CcaList ccaList = new CcaList();
+        private final CcaTracker ccaTracker = new CcaTracker(ccaList);
 
         @Override
         public boolean containsCca(Cca cca) {
@@ -122,6 +127,11 @@ public class AddProgressCommandTest {
         @Override
         public void addProgress(Cca targetCca, CcaMilestoneList toAddCcaMilestoneList) {
             ccaTracker.addProgress(targetCca, toAddCcaMilestoneList);
+        }
+
+        @Override
+        public void updateFilteredCcaList(Predicate<Cca> predicate) {
+            ccaTracker.updateFilteredCcaList(predicate);
         }
     }
 }

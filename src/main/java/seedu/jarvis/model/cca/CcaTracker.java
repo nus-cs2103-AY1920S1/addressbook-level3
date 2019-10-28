@@ -9,7 +9,6 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.jarvis.commons.core.index.Index;
-import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.model.cca.ccaprogress.CcaMilestoneList;
 
 /**

@@ -168,6 +168,9 @@ public class CcaList {
         return false;
     }
 
+    /**
+     * Checks if the progress in {@code Cca} at {@code targetIndex} can be incremented any further.
+     */
     public boolean ccaAtMaxIncrement(Index targetIndex) {
         Cca targetCca = getCca(targetIndex);
         if (targetCca.progressAtMaxIncrement()) {
