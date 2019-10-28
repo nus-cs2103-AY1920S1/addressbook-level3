@@ -26,11 +26,11 @@
                <ListView fx:id="recipeIndexListView" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefWidth="150.0" />
             </children>
          </StackPane>
-         <StackPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="SOMETIMES">
+         <StackPane maxWidth="1.7976931348623157E308" HBox.hgrow="SOMETIMES">
             <children>
                <ScrollPane prefHeight="200.0" prefWidth="200.0">
                   <content>
-                     <FlowPane fx:id="recipeListView" focusTraversable="true" prefHeight="200.0" prefWidth="200.0" />
+                     <FlowPane fx:id="recipeListView" focusTraversable="true" nodeOrientation="LEFT_TO_RIGHT" />
                   </content>
                </ScrollPane>
             </children>
