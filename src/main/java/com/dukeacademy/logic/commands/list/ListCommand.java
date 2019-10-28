@@ -6,7 +6,6 @@ import java.util.logging.Logger;
 import com.dukeacademy.commons.core.LogsCenter;
 import com.dukeacademy.logic.commands.Command;
 import com.dukeacademy.logic.commands.CommandResult;
-import com.dukeacademy.logic.commands.exceptions.CommandException;
 import com.dukeacademy.logic.question.QuestionsLogic;
 import com.dukeacademy.model.question.Question;
 
@@ -22,7 +21,7 @@ public class ListCommand implements Command {
     /**
      * Instantiates a new Attempt command.
      *
-     * @param questionsLogic         the questions logic
+     * @param questionsLogic the questions logic
      */
     public ListCommand(QuestionsLogic questionsLogic) {
         this.logger = LogsCenter.getLogger(ListCommand.class);
@@ -30,7 +29,7 @@ public class ListCommand implements Command {
     }
 
     @Override
-    public CommandResult execute() throws CommandException {
+    public CommandResult execute() {
         // Update status of question
         this.questionsLogic.filterQuestionsList(allQuestions);
         logger.info("Listing all questions...");

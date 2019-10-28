@@ -191,6 +191,11 @@ image::attempt.png[width="920"]
 * `view 2` +
 Opens the question page displaying the question with the id "2".
 
+=== List all questions: `showall`
+
+List all questions available in the whole database.
+
+*Format:* `showall`
 
 === Saving your work : `save` [_coming in v1.2_]
 
@@ -301,8 +306,8 @@ Your questions will be loaded the next time you open DukeAcademy.
 *Format:* `loadquestions [filename]`
 
 ****
-* Your text file should be copied into the home directory of DukeAcademy.
-* Your text file should follow the format specified at the bottom of the user guide.
+* Your text file should be located at the Desktop.
+* Your text file should follow the format specified at <<Custom-Questions>>.
 * The questions in the text file will only be loaded after entering this command.
 * Your text file will have to found in the home directory of DukeAcademy for it to be loaded.
 ****
@@ -348,7 +353,7 @@ level, solution, algorithm category. Check out ​ default_problem_set.txt​ fo
 * Timer: `timer [hhmmss]`
 * Load questions: ​`loadquestions​ [filename]`
 
-== Question text file format
+== Question storage file format
 
 image::samplequestions.png[width="920"]
 
@@ -362,3 +367,42 @@ image::samplequestions.png[width="920"]
 - input: the input for the test case
 - result: the expected result for the test case
 ****
+
+[[Custom-Questions]]
+== Load Your Custom Questions
+image::custom_questions.png[width="920"]
+
+* Create a .txt file.
+* The format of a question goes like follows:
+
+```
+Question::
+
+Title::
+
+Description::
+
+Difficulty::
+
+Topics::
+
+TestCase::
+
+Input::
+
+Output::
+```
+
+* It must be in the order appeared above.
+
+* Title, Description can be any non-empty string.
+
+* Difficulty can only be EASY, MEDIUM or HARD.
+
+* Topics can only be ARRAY, LINKED_LIST, HASHTABLE, TREE, GRAPH, RECURSION, DIVIDE_AND_CONQUER, DYNAMIC_PROGRAMMING, SORTING, or OTHERS.
+
+* One question can only have one title, description and difficulty. It can have multiple topics separated by `,`. It can have multiple test cases, each begin with a `TestCase::` identifier.
+
+* For sample questions, refer to the image above.
+
+

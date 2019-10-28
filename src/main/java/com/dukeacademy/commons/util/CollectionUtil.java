@@ -16,7 +16,7 @@ public class CollectionUtil {
      * Require all non null.
      *
      * @param items the items
-     * @see #requireAllNonNull(Collection) #requireAllNonNull(Collection)#requireAllNonNull(Collection)
+     * @see #requireAllNonNull(Collection)
      */
     public static void requireAllNonNull(Object... items) {
         requireNonNull(items);

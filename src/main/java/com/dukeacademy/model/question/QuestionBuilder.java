@@ -59,6 +59,7 @@ public class QuestionBuilder {
 
     /**
      * Returns a new builder with the isBookmarked boolean added.
+     *
      * @param isBookmarked the isBookmarked boolean to be added.
      * @return a new builder.
      */
@@ -131,5 +132,14 @@ public class QuestionBuilder {
     public QuestionBuilder withDescription(String description) {
         this.description = description;
         return this;
+    }
+
+    /**
+     * Gets title.
+     *
+     * @return the title
+     */
+    public String getTitle() {
+        return this.title;
     }
 }

@@ -13,6 +13,11 @@ public class Tag extends UiPart<Region> {
     @FXML
     private Label label;
 
+    /**
+     * Instantiates a new Tag.
+     *
+     * @param s the s
+     */
     public Tag(String s) {
         super(FXML);
         label.setText(s);

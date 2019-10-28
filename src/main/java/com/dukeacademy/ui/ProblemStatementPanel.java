@@ -9,7 +9,6 @@ import javafx.scene.control.TextArea;
 import javafx.scene.layout.Region;
 
 
-
 /**
  * The type Problem statement panel.
  */

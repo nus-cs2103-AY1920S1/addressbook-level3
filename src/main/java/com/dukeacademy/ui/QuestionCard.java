@@ -23,7 +23,6 @@ public class QuestionCard extends UiPart<Region> {
      *
      * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on QuestionBank level 4</a>
      */
-
     public final Question question;
 
     @FXML
@@ -41,6 +40,12 @@ public class QuestionCard extends UiPart<Region> {
     @FXML
     private FlowPane tags;
 
+    /**
+     * Instantiates a new Question card.
+     *
+     * @param question       the question
+     * @param displayedIndex the displayed index
+     */
     public QuestionCard(Question question, int displayedIndex) {
         super(FXML);
         this.question = question;

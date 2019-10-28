@@ -37,14 +37,15 @@ public class Question {
     /**
      * Every field must be present and not null.
      *
-     * @param title       the title
-     * @param status      the status
-     * @param difficulty  the difficulty
-     * @param topics      the topics
-     * @param testCases   the test cases
-     * @param userProgram the user program
+     * @param uuid         the uuid
+     * @param title        the title
+     * @param status       the status
+     * @param difficulty   the difficulty
+     * @param topics       the topics
+     * @param testCases    the test cases
+     * @param userProgram  the user program
      * @param isBookmarked the bookmark flag
-     * @param description the description
+     * @param description  the description
      */
     public Question(UUID uuid, String title, Status status, Difficulty difficulty, Set<Topic> topics,
                     List<TestCase> testCases, UserProgram userProgram,
@@ -68,6 +69,15 @@ public class Question {
 
     /**
      * Every field must be present and not null.
+     *
+     * @param title        the title
+     * @param status       the status
+     * @param difficulty   the difficulty
+     * @param topics       the topics
+     * @param testCases    the test cases
+     * @param userProgram  the user program
+     * @param isBookmarked the is bookmarked
+     * @param description  the description
      */
     public Question(String title, Status status, Difficulty difficulty, Set<Topic> topics,
                     List<TestCase> testCases, UserProgram userProgram,
@@ -155,6 +165,11 @@ public class Question {
         return new ArrayList<>(this.testCases);
     }
 
+    /**
+     * Is bookmarked boolean.
+     *
+     * @return the boolean
+     */
     public boolean isBookmarked() {
         return isBookmarked;
     }

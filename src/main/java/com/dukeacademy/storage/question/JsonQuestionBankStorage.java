@@ -11,9 +11,7 @@ import com.dukeacademy.MainApp;
 import com.dukeacademy.commons.core.LogsCenter;
 import com.dukeacademy.commons.exceptions.DataConversionException;
 import com.dukeacademy.commons.exceptions.IllegalValueException;
-import com.dukeacademy.commons.util.FileUtil;
 import com.dukeacademy.commons.util.JsonUtil;
-
 import com.dukeacademy.model.question.QuestionBank;
 
 
@@ -67,19 +65,8 @@ public class JsonQuestionBankStorage implements QuestionBankStorage {
 
     @Override
     public void saveQuestionBank(QuestionBank questionBank) throws IOException {
-        saveQuestionBank(questionBank, filePath);
+        QuestionBankStorage.saveQuestionBank(questionBank, filePath);
     }
 
-    /**
-     * Similar to {@link #saveQuestionBank(QuestionBank)}.
-     *
-     * @param filePath location of the data. Cannot be null.
-     */
-    public void saveQuestionBank(QuestionBank questionBank, Path filePath) throws IOException {
-        requireNonNull(questionBank);
-        requireNonNull(filePath);
 
-        FileUtil.createIfMissing(filePath);
-        JsonUtil.saveJsonFile(new JsonSerializableStandardQuestionBank(questionBank), filePath);
-    }
 }
