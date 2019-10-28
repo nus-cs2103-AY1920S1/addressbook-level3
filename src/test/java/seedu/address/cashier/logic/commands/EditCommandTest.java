@@ -1,20 +1,17 @@
-package seedu.address.cashier.commands;
+package seedu.address.cashier.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static seedu.address.cashier.commands.CommandTestUtil.assertCommandFailure;
-import static seedu.address.cashier.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.cashier.logic.commands.CommandTestUtil.assertCommandFailure;
+import static seedu.address.cashier.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.cashier.logic.commands.EditCommand;
 import seedu.address.cashier.model.ModelManager;
 import seedu.address.cashier.model.exception.NoSuchIndexException;
 import seedu.address.cashier.ui.CashierMessages;
 import seedu.address.person.model.Model;
 import seedu.address.person.model.UserPrefs;
-import seedu.address.stubs.InventoryModelStubAcceptingItemAdded;
-import seedu.address.stubs.TransactionModelStubAcceptingTransactionAdded;
 import seedu.address.testutil.TypicalItem;
 import seedu.address.testutil.TypicalTransactions;
 
@@ -25,19 +22,13 @@ public class EditCommandTest {
     private static final int INVALID_INDEX_1 = 0;
     private static final int INVALID_INDEX_2 = 100;
     private static final int INVALID_QUANTITY = -5;
-    private static final int INVALID_QUANTITY_STORYBOOK = 40;
+    private static final int INVALID_QUANTITY_STORYBOOK = 5000000;
 
     private ModelManager model = new ModelManager(TypicalItem.getTypicalInventoryList(),
             TypicalTransactions.getTypicalTransactionList());
 
     private Model personModel =
             new seedu.address.person.model.ModelManager(getTypicalAddressBook(), new UserPrefs());
-
-    private TransactionModelStubAcceptingTransactionAdded modelStubWithTransaction =
-            new TransactionModelStubAcceptingTransactionAdded(TypicalTransactions.getTypicalTransactions());
-
-    private InventoryModelStubAcceptingItemAdded inventoryModelStubAcceptingItemAdded =
-            new InventoryModelStubAcceptingItemAdded(TypicalItem.getTypicalItems());
 
     @Test
     public void constructor_invalidIndex_throwAssertionException() {

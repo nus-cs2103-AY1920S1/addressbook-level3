@@ -142,6 +142,130 @@ Examples:
 ** `find Alex Yeoh`
 ** `find Alex`
 
+=== Reimbursements
+The reimbursement tab displays all the reimbursements the treasurer needs to pay to people.
+Each reimbursement contains a person's name, the total amount the person needs to be reimbursed,
+description of the transactions related to the person and deadline for that reimbursement.
+
+The reimbursement records are automatically extracted from transactions history with negative amount of money.
+And each person only has one aggregated reimbursement in the reimbursement list.
+All the reimbursements in reimbursement tab have not been done. Once the reimbursement is done,
+that reimbursement record will not be displayed.
+
+A user can add deadline to a reimbursement, find a reimbursement by providing the person's name,
+let the app display full list, mark a reimbursement as done and sort reimbursement lists.
+
+==== Adding deadline to a reimbursement: `deadline p/[name] dt/dd-mmm-yyyy`
+This command helps to add a deadline to a reimbursement for the person.
+
+.Diagram of deadline command in reimbursement tab
+image::Reimbursement/ReimbursementDeadlineCommand.png[]
+
+[start = 2]
+. The tab will show the added deadline for the reimbursement if the person appears in reimbursement.
+Otherwise, Leo in the right box shows response that the person is not in reimbursement list.
+
+.Diagram of successful deadline command in reimbursement tab
+image::Reimbursement/ReimbursementDeadlineCommandSuccess.png[]
+
+[NOTE]
+The deadline date provided should be in the format of `dd-mmm-yyyy` e.g. `19-Dec-2019`.
+If you provide an invalid form e.g. `01-AAA-2019` or `19-DEC-2019` or `-1-Dec-2019`,
+Leo will remind you that the date is invalid.
+In another case, if you input an invalid date e.g. `31-Feb-2019`,
+our app helps to round it to `28-Feb-2019` and adds this deadline.
+
+[NOTE]
+If you want to modify the deadline for a reimbursement, you can use `deadline` command again
+to reassign deadline to a reimbursement.
+
+==== Finding a reimbursement for a person: `find p/[name]`
+This command helps to find out the reimbursement for the person.
+
+. Type `find p/[name]` into command box and press `enter` to execute it. e.g. `find p/Bernice Yu`
+
+.Diagram of find command in reimbursement tab
+image::Reimbursement/ReimbursementFindCommand.png[]
+[start = 2]
+. The tab will show the found reimbursement if the person appears in reimbursement.
+Otherwise, Leo in the right box shows response that the person is not in reimbursement list.
+
+.Diagram of successful find command in reimbursement tab
+image::Reimbursement/ReimbursementFindCommandSuccess.png[]
+
+==== Going back to display the full list: `Back`
+This command helps to display the full reimbursement list after `find` and `deadline` commands.
+
+. Type `back` into command box and press `enter` to execute it.
+
+.Diagram of back command in reimbursement tab
+image::Reimbursement/ReimbursementBackCommand.png[]
+
+[start = 2]
+. The tab will show the full reimbursement list.
+
+.Diagram of successful back command in reimbursement tab
+image::Reimbursement/ReimbursementBackCommandSuccess.png[]
+
+==== Marking a command as done: `done p/[name]`
+This command helps to mark a reimbursement as done and remove it from reimbursement list.
+
+. Type `done p/[name]` into command box and press `enter` to execute it. e.g. `done p/Roy Balakrishnan`
+
+.Diagram of done command in reimbursement tab
+image::Reimbursement/ReimbursementDoneCommand.png[]
+
+[start = 2]
+. The reimbursement for that person will be removed from the tab.
+
+.Diagram of successful done command in reimbursement tab
+image::Reimbursement/ReimbursementDoneCommandSuccess.png[]
+
+==== Sorting the list based on amount: `sort amount`
+This command helps to sort the reimbursement lists based on amount. And the
+list will be in descending order of the amount.
+
+. Type `sort amount` into command box and press `enter` to execute it.
+
+.Diagram of sort amount command in reimbursement tab
+image::Reimbursement/ReimbursementSortAmountCommand.png[]
+
+[start = 2]
+. The reimbursements are sorted in descending order of the amount.
+
+.Diagram of successful sort amount command in reimbursement tab
+image::Reimbursement/ReimbursementSortAmountCommandSuccess.png[]
+
+==== Sorting the list based on name: `sort name`
+This command helps to sort the reimbursement lists based on name.
+And the list will be in alphabetical order.
+
+. Type `sort name` into command box and press `enter` to execute it.
+
+.Diagram of sort name command in reimbursement tab
+image::Reimbursement/ReimbursementSortNameCommand.png[]
+
+[start = 2]
+. The reimbursements are sorted in alphabetical order of person's name.
+
+.Diagram of successful sort name command in reimbursement tab
+image::Reimbursement/ReimbursementSortNameCommandSuccess.png[]
+
+==== Sorting the list based on deadline: `sort date`
+This command helps to sort the reimbursement lists based on deadline.
+And the reimbursements with closer deadline will be at the front.
+
+. Type `sort date` into command box and press `enter` to execute it.
+
+.Diagram of sort date command in reimbursement tab
+image::Reimbursement/ReimbursementSortDateCommand.png[]
+
+[start = 2]
+. The reimbursements are sorted by deadline date.
+
+.Diagram of successful sort date command in reimbursement tab
+image::Reimbursement/ReimbursementSortDateCommandSuccess.png[]
+
 === Inventory
 
 ====
@@ -178,44 +302,129 @@ Examples:
 ** By total cost: `sort co`
 ** By price: `sort p`
 
-=== Reimbursements
 
-====
-* The reimbursement page contains details of reimbursement for each CCA member.
-* Each reimbursement record is represented by Person, Amount, Description and Status.
-* Once the person is reimbursed, the status can be modified from Pending to Completed.
-* This page helps the treasurer to directly retrieve the amount of reimbursement for each person from expenditure histories.
-* This page also contains a Manage People button. Once clicked, a pop up page will come out and show all the CCA members’ information.
-====
-
-* To find an reimbursement:
-`find p/PERSON`
-
-* To update status:
-`update p/PERSON`
-
-* To add a person:
-`add p/PERSON a/BANK_ACCOUNT_NUMBER`
 
 === Cashier
 
 ====
-* Cashier tab allows the cashier to key in and record the items sold from the inventory.
-* The columns will show the description of the item being sold, the amount per quantity, the quantity and the items subtotal.
-* At the side, just like other tabs, our mascot lion will reply and guide the user along to key in the correct inputs.
+* Cashier tab allows you to key in, calculate and record the items sold from the inventory.
+* To key in an item, it must first be recorded in the Inventory tab.
+* The columns will show the description of the item being sold, the price per quantity, the total quantity selected
+and the subtotal of that row of items.
+* The bottom row will display the name of the cashier who is in-charge of the sales, as well as the total amount of all
+the sales items in the table.
+* At the side, just like other tabs, our mascot lion 'Leo' will reply to indicate successful addition, deletion,
+edits of items.
+* Upon wrong inputs, Leo will also prompt you and guide you along to key in the correct inputs.
+* Upon successful checkout, the Inventory tab will be immediately updated with the remaining stock left in
+the Inventory.
+* After every checkout, the sales made will be recorded as one transaction with description "Items sold",
+category "Sales" and person being the cashier-in-charge. The Home tab will also be updated with this transaction.
+[NOTE]
+Items with zero price are not available for sale. Such items cannot be added into the table.
 ====
 
-* To add an item being sold:
-`add d/DESCRIPTION q/QUANTITY`
+* *To add an item being sold:*
+`add [c/CATEGORY] d/DESCRIPTION q/QUANTITY`
 
-* To delete an item being sold:
+The quantity of the item inputted must be not greater than the available stock in the inventory. Else, Leo will display
+a message prompting input of a smaller quantity or another item.
+
+The category field is optional. If you are unsure about the description of the desired item, you can refer to
+the Inventory tab or simply key in the category without the any other fields. Leo will display all the items in the
+specified category that are available for sale.
+
+Additionally, if a word is mistyped or does not match any of the items in the inventory, Leo will recommend
+some possible item descriptions you might be looking for.
+
+[NOTE]
+If both category and description are specified and valid, the system will allow the item to be added according the
+description even if the category of the item does not match with the specified category inputted.
+
+Examples:
+
+** `add c/food` -> Displays all items that are under the 'food' category
+** `add c/stationary d/pancake q/3` -> Adds 3 items of description "pancake"
+** `add d/pancake q/3` -> Adds 3 items of description "pancake"
+
+
+
+* *To delete an item being sold:*
 `delete INDEX`
 
-* To checkout:
+The specified index should correspond to the row index of the item on the table.
+
+Examples:
+
+** `delete 2` -> Deletes an item in row 2 of the table
+
+
+
+* *To edit the quantity of an item that already exists on the table:*
+`edit d/DESCRIPTION q/QUANTITY` OR `edit i/INDEX q/QUANTITY`
+
+There are 2 ways to edit an existing item - by its description or index according to the table.
+
+1. If you edit by index, the index must be a positive and be within the size of the table.
+
+2. If you edit by description, the specified description must already exist in the table.
+
+In addition, the quantity inputted should not exceed the available stock in the inventory.
+If the quantity is invalid, Leo will display the quantity of stock left.
+
+Examples:
+
+** `edit i/2 q/6` -> Updates the quantity of item at row 2 to 6
+** `edit d/book q/3` -> Updates the quantity of an existing item of description "book" to 3
+
+
+
+* *To set the cashier-in-charge:*
+`cashier NAME`
+
+The person to be set as the cashier must be an existing member of the club. This means that his/her details must be
+recorded via the Members tab and his/her name must be found on the Members tab. If you have yet to record the cashier
+as a member, go to Members tab to register him as a member before executing this command.
+
+[NOTE]
+This step must be executed before checking out. Else, checkout cannot proceed.
+
+Example:
+
+** cashier David Li -> Sets David Li as a cashier
+
+
+
+* *To checkout all the sales item:*
 `checkout AMOUNT_PAID_BY_CUSTOMER`
 
-** If the total cost of items is greater than the amount paid, the lion will give an error message.
-** Else, the lion will state the amount receive and calculate the change.
+The amount inputted is the amount that the customer will be paying. This amount must be greater than or equal to the
+total amount listed on the bottom row of the table. If the amount paid is greater than the total amount, Leo will display
+the amount of change that the cashier should return. +
+After checking out, all items in the table will be cleared and the cashier and total amount will be reset.
+
+[NOTE]
+Cashier must be set before checking out.
+
+Example:
+
+** checkout 850 -> Customer pays $850 to cashier
+
+
+
+* *To clear all the sales item:*
+`clear`
+
+This clears all the sales item in the table. After clearing, cashier will be reset as well.
+
+[CAUTION]
+This command is irreversible. Please use at your own discretion.
+
+Example:
+
+** clear
+
+
 
 === Overview
 

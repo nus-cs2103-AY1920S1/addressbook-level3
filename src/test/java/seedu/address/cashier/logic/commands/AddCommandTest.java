@@ -1,8 +1,8 @@
-package seedu.address.cashier.commands;
+package seedu.address.cashier.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static seedu.address.cashier.commands.CommandTestUtil.assertCommandFailure;
+import static seedu.address.cashier.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.cashier.ui.CashierMessages.MESSAGE_ADDED_ITEM;
 import static seedu.address.cashier.ui.CashierMessages.MESSAGE_INSUFFICIENT_STOCK;
 import static seedu.address.cashier.ui.CashierMessages.NO_SUCH_ITEM_FOR_SALE_CASHIER;
@@ -12,8 +12,6 @@ import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.cashier.logic.commands.AddCommand;
-import seedu.address.cashier.logic.commands.CommandResult;
 import seedu.address.cashier.logic.commands.exception.InsufficientAmountException;
 import seedu.address.cashier.model.ModelManager;
 import seedu.address.cashier.model.exception.NoSuchItemException;
@@ -57,9 +55,10 @@ public class AddCommandTest {
                 anotherItem.getQuantity());
         CommandResult commandResult = addCommand.execute(modelStubWithItem, personModel);
 
-        assertEquals(String.format(MESSAGE_ADDED_ITEM, anotherItem.getDescription()),
+        assertEquals(String.format(MESSAGE_ADDED_ITEM, anotherItem.getQuantity(), anotherItem.getDescription()),
                 commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(anotherItem), modelStubWithItem.getItemsAdded());
+        model.clearSalesList();
 
     }
 
@@ -76,7 +75,7 @@ public class AddCommandTest {
 
         String expectedMessage = CashierMessages.NO_SUCH_ITEM_CASHIER;
         assertCommandFailure(addCommand, modelStubWithItem, expectedMessage, personModel);
-
+        model.clearSalesList();
     }
 
     @Test
@@ -92,6 +91,7 @@ public class AddCommandTest {
         String message = String.format(MESSAGE_INSUFFICIENT_STOCK,
                 anotherItem.getQuantity(), anotherItem.getDescription());
         assertCommandFailure(addCommand, model, message, personModel);
+        model.clearSalesList();
     }
 
     @Test
@@ -108,6 +108,7 @@ public class AddCommandTest {
         String expectedMessage = NO_SUCH_ITEM_FOR_SALE_CASHIER;
 
         assertCommandFailure(addCommand, modelStubWithItem, expectedMessage, personModel);
+        model.clearSalesList();
     }
 
 }

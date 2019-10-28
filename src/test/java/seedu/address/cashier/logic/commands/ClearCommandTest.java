@@ -1,11 +1,9 @@
-package seedu.address.cashier.commands;
+package seedu.address.cashier.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.cashier.logic.commands.ClearCommand;
-import seedu.address.cashier.logic.commands.CommandResult;
 import seedu.address.cashier.ui.CashierMessages;
 import seedu.address.inventory.model.Item;
 import seedu.address.person.model.person.Person;

@@ -109,6 +109,7 @@ public class CommandTestUtil {
             seedu.address.reimbursement.storage.StorageManager reimbursementManager =
                     new seedu.address.reimbursement.storage.StorageManager(
                             File.createTempFile("testing", "tempReimbursement.txt"));
+
             seedu.address.reimbursement.logic.Logic reimbursementLogic =
                     new seedu.address.reimbursement.logic.LogicManager(reimbursementModel, reimbursementManager,
                             transactionModel, transactionManager, personModel);
