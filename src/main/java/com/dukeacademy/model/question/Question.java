@@ -175,6 +175,17 @@ public class Question {
     }
 
     /**
+     * Creates a new instance of the same question with a new isBookmarked attribute.
+     * This new instance has the same uuid as the previous instance.
+     * @param isBookmarked the isBookmarked to be updated to.
+     * @return a new instance of the question.
+     */
+    public Question withNewIsBookmarked(boolean isBookmarked) {
+        return new Question(this.uuid, this.title, this.status, this.difficulty, this.topics,
+                this.testCases, this.userProgram, isBookmarked, this.description);
+    }
+
+    /**
      * Creates a new instance of the same question with a new status. This new instance has the same uuid as the
      * previous instance.
      *
