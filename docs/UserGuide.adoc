@@ -643,7 +643,7 @@ Assigns worker with workerID W00001 to body with ID B00000002 with a task descri
 
 // tag::help[]
 
-==== View all commands: `help`
+==== View all commands: `help` `[coming in v2.0]`
 View a summary of all available commands and their flags. Use the `-v` flag to view the detailed description of all commands and their flags.
 
 Format: `help -flag`
