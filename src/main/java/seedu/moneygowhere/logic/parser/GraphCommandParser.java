@@ -4,11 +4,8 @@ import static seedu.moneygowhere.commons.core.Messages.MESSAGE_INVALID_COMMAND_F
 import static seedu.moneygowhere.logic.parser.CliSyntax.PREFIX_DATE;
 
 import java.util.List;
-import java.util.logging.Logger;
 import java.util.stream.Stream;
 
-import seedu.moneygowhere.commons.core.LogsCenter;
-import seedu.moneygowhere.logic.LogicManager;
 import seedu.moneygowhere.logic.commands.GraphCommand;
 import seedu.moneygowhere.logic.parser.exceptions.ParseException;
 import seedu.moneygowhere.model.spending.Date;
@@ -17,8 +14,6 @@ import seedu.moneygowhere.model.spending.Date;
  * Parses input arguments and creates a new GraphCommand object
  */
 public class GraphCommandParser implements Parser<GraphCommand> {
-
-    private final Logger logger = LogsCenter.getLogger(GraphCommandParser.class);
     /**
      * Parses the given {@code String} of arguments in the context of the GraphCommand
      * and returns a GraphCommand object
@@ -39,7 +34,6 @@ public class GraphCommandParser implements Parser<GraphCommand> {
 
             Date startDate = datesList.get(0);
             Date endDate = datesList.get(1);
-            logger.info(startDate.value + endDate.value);
             //Throw ParseException if startDate is later than endDate.
             if (startDate.compareTo(endDate) > 0) {
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,

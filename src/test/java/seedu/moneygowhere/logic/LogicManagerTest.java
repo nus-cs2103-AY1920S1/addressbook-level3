@@ -1,6 +1,6 @@
 package seedu.moneygowhere.logic;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.moneygowhere.commons.core.Messages.MESSAGE_INVALID_SPENDING_DISPLAYED_INDEX;
 import static seedu.moneygowhere.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.moneygowhere.logic.commands.CommandTestUtil.COST_DESC_AMY;
@@ -8,12 +8,14 @@ import static seedu.moneygowhere.logic.commands.CommandTestUtil.DATE_DESC_AMY;
 import static seedu.moneygowhere.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.moneygowhere.logic.commands.CommandTestUtil.REMARK_DESC_AMY;
 import static seedu.moneygowhere.testutil.Assert.assertThrows;
-import static seedu.moneygowhere.testutil.TypicalSpendings.*;
+import static seedu.moneygowhere.testutil.TypicalSpendings.AMY;
+import static seedu.moneygowhere.testutil.TypicalSpendings.APPLE;
+import static seedu.moneygowhere.testutil.TypicalSpendings.BANANA;
+import static seedu.moneygowhere.testutil.TypicalSpendings.DESSERT;
 
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.LinkedHashMap;
-import java.util.Map;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -22,9 +24,7 @@ import org.junit.jupiter.api.io.TempDir;
 
 import seedu.moneygowhere.logic.commands.AddCommand;
 import seedu.moneygowhere.logic.commands.CommandResult;
-import seedu.moneygowhere.logic.commands.GraphCommand;
 import seedu.moneygowhere.logic.commands.ListCommand;
-import seedu.moneygowhere.logic.commands.StatsCommand;
 import seedu.moneygowhere.logic.commands.exceptions.CommandException;
 import seedu.moneygowhere.logic.parser.exceptions.ParseException;
 import seedu.moneygowhere.model.Model;
@@ -33,7 +33,6 @@ import seedu.moneygowhere.model.ReadOnlySpendingBook;
 import seedu.moneygowhere.model.UserPrefs;
 import seedu.moneygowhere.model.spending.Date;
 import seedu.moneygowhere.model.spending.Spending;
-import seedu.moneygowhere.model.tag.Tag;
 import seedu.moneygowhere.storage.JsonSpendingBookStorage;
 import seedu.moneygowhere.storage.JsonUserPrefsStorage;
 import seedu.moneygowhere.storage.StorageManager;
@@ -130,21 +129,27 @@ public class LogicManagerTest {
 
     @Test
     public void getStatsData_success() {
+        model.addSpending(APPLE);
+        model.addSpending(BANANA);
+        model.addSpending(DESSERT);
         Date startDate = APPLE.getDate();
-        Date endDate = BANANA.getDate();
+        Date endDate = DESSERT.getDate();
         Predicate<Spending> expectedPredicate = s-> {
             return s.getDate().value.compareTo(startDate.value) >= 0
                 && s.getDate().value.compareTo(endDate.value) <= 0;
         };
         LinkedHashMap<String, Double> statsData = new LinkedHashMap<>();
-        statsData.put(APPLE.getTags().iterator().next().tagName, Double.parseDouble(APPLE.getCost().toString()) +
-            Double.parseDouble(BANANA.getCost().toString()));
+        statsData.put(APPLE.getTags().iterator().next().tagName, Double.parseDouble(APPLE.getCost().toString())
+            + Double.parseDouble(BANANA.getCost().toString()));
+        statsData.put(DESSERT.getTags().iterator().next().tagName, Double.parseDouble(DESSERT.getCost().toString()));
         model.updateFilteredSpendingList(expectedPredicate);
-        assertNotEquals(statsData, logic.getStatsData());
+        assertEquals(statsData, logic.getStatsData());
     }
 
     @Test
     public void getGraphData_success() {
+        model.addSpending(APPLE);
+        model.addSpending(BANANA);
         Date startDate = APPLE.getDate();
         Date endDate = BANANA.getDate();
         Predicate<Spending> expectedPredicate = s-> {
@@ -155,7 +160,7 @@ public class LogicManagerTest {
         graphData.put(APPLE.getDate().value, Double.parseDouble(APPLE.getCost().toString()));
         graphData.put(BANANA.getDate().value, Double.parseDouble(BANANA.getCost().toString()));
         model.updateFilteredSpendingList(expectedPredicate);
-        assertNotEquals(graphData, logic.getGraphData());
+        assertEquals(graphData, logic.getGraphData());
     }
 
     /**

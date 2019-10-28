@@ -1,7 +1,6 @@
 package seedu.moneygowhere.ui;
 
 import java.util.LinkedHashMap;
-import java.util.Map;
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
@@ -19,7 +18,6 @@ import seedu.moneygowhere.logic.commands.CommandResult;
 import seedu.moneygowhere.logic.commands.HelpCommand;
 import seedu.moneygowhere.logic.commands.exceptions.CommandException;
 import seedu.moneygowhere.logic.parser.exceptions.ParseException;
-import seedu.moneygowhere.model.spending.Date;
 
 /**
  * The Main Window. Provides the basic application layout containing

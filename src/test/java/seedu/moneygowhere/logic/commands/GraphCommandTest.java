@@ -9,9 +9,6 @@ import static seedu.moneygowhere.testutil.TypicalSpendings.BANANA;
 import static seedu.moneygowhere.testutil.TypicalSpendings.GLASSES;
 import static seedu.moneygowhere.testutil.TypicalSpendings.getTypicalSpendingBook;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;

@@ -1,17 +1,12 @@
 package seedu.moneygowhere.ui;
 
-import java.awt.*;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.function.Predicate;
 import java.util.logging.Logger;
-
-import com.sun.javafx.charts.Legend;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.geometry.Side;
 import javafx.scene.chart.PieChart;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;

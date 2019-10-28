@@ -4,7 +4,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.moneygowhere.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.moneygowhere.logic.commands.StatsCommand.MESSAGE_SUCCESS;
 import static seedu.moneygowhere.model.Model.PREDICATE_SHOW_ALL_SPENDINGS;
-import static seedu.moneygowhere.testutil.TypicalSpendings.*;
+import static seedu.moneygowhere.testutil.TypicalSpendings.APPLE;
+import static seedu.moneygowhere.testutil.TypicalSpendings.BANANA;
+import static seedu.moneygowhere.testutil.TypicalSpendings.GLASSES;
+import static seedu.moneygowhere.testutil.TypicalSpendings.getTypicalSpendingBook;
 
 import java.util.function.Predicate;
 
@@ -30,7 +33,7 @@ class StatsCommandTest {
 
     @Test
     public void execute_statsMessage_success() {
-         CommandResult expectedCommandResult = new CommandResult(MESSAGE_SUCCESS, false, true, false);
+        CommandResult expectedCommandResult = new CommandResult(MESSAGE_SUCCESS, false, true, false);
         assertCommandSuccess(new StatsCommand(), model, expectedCommandResult, expectedModel);
     }
 

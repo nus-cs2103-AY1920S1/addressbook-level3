@@ -20,7 +20,8 @@ public class StatsCommand extends Command {
     public static final String COMMAND_WORD = "stats";
     public static final String MESSAGE_SUCCESS = "Successfully updated the statistics panel.\n";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD  + ": Updates the statistics panel.\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+        + ": Updates the statistics panel.\n"
         + "Parameters: "
         + PREFIX_DATE + "DATE_START and"
         + PREFIX_DATE + "DATE_END\n"
@@ -29,7 +30,8 @@ public class StatsCommand extends Command {
         + PREFIX_DATE + "tomorrow ";
 
     public static final String MESSAGE_INVALID_DATERANGE = "Date range provided is invalid. "
-        + "Only 2 dates, DATE_START and DATE_END are to be provided with DATE_START being earlier or equal to DATE_END.\n"
+        + "Only 2 dates, DATE_START and DATE_END are to be provided with "
+        + "DATE_START being earlier or equal to DATE_END.\n"
         + "Example: " + COMMAND_WORD + " "
         + PREFIX_DATE + "today "
         + PREFIX_DATE + "tomorrow ";;
@@ -63,7 +65,7 @@ public class StatsCommand extends Command {
         //To reset the spending list to default after previous commands
         model.updateFilteredSpendingList(PREDICATE_SHOW_ALL_SPENDINGS);
         model.updateStatsPredicate(getStatsPredicate());
-        logger.log(Level.INFO, "Showing statistics from " + startDate  + " to " + endDate);
+        logger.log(Level.INFO, String.format("Showing statistics from %s to %s", startDate, endDate));
         return new CommandResult(MESSAGE_SUCCESS, false, true, false);
     }
 
@@ -72,8 +74,8 @@ public class StatsCommand extends Command {
             return PREDICATE_SHOW_ALL_SPENDINGS;
         } else {
             return s-> {
-                return s.getDate().value.compareTo(startDate.value) >= 0
-                    && s.getDate().value.compareTo(endDate.value) <= 0;
+                return s.getDate().compareTo(startDate) >= 0
+                    && s.getDate().compareTo(endDate) <= 0;
             };
         }
     }

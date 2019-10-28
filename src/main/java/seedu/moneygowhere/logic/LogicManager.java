@@ -3,7 +3,6 @@ package seedu.moneygowhere.logic;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.LinkedHashMap;
-import java.util.Map;
 import java.util.Set;
 import java.util.logging.Logger;
 
@@ -17,7 +16,6 @@ import seedu.moneygowhere.logic.parser.SpendingBookParser;
 import seedu.moneygowhere.logic.parser.exceptions.ParseException;
 import seedu.moneygowhere.model.Model;
 import seedu.moneygowhere.model.ReadOnlySpendingBook;
-import seedu.moneygowhere.model.spending.Date;
 import seedu.moneygowhere.model.spending.Spending;
 import seedu.moneygowhere.model.tag.Tag;
 import seedu.moneygowhere.storage.Storage;
@@ -70,11 +68,11 @@ public class LogicManager implements Logic {
         ObservableList<Spending> spendingList = model.getStatsList();
         LinkedHashMap<String, Double> graphData = new LinkedHashMap<>();
         for (Spending s : spendingList) {
-           if (graphData.containsKey(s.getDate().value)) {
-               graphData.put(s.getDate().value,
-                   graphData.get(s.getDate().value) + Double.parseDouble(s.getCost().toString()));
-           } else {
-               graphData.put(s.getDate().value, Double.parseDouble(s.getCost().toString()));
+            if (graphData.containsKey(s.getDate().value)) {
+                graphData.put(s.getDate().value,
+                    graphData.get(s.getDate().value) + Double.parseDouble(s.getCost().toString()));
+            } else {
+                graphData.put(s.getDate().value, Double.parseDouble(s.getCost().toString()));
             }
         }
         return graphData;
@@ -93,8 +91,8 @@ public class LogicManager implements Logic {
         for (Spending s : spendingList) {
             Set<Tag> tagSet = s.getTags();
             for (Tag t: tagSet) {
-                if (statsData.containsKey(t)) {
-                    statsData.put(t.tagName, statsData.get(t) + Double.parseDouble(s.getCost().toString()));
+                if (statsData.containsKey(t.tagName)) {
+                    statsData.put(t.tagName, statsData.get(t.tagName) + Double.parseDouble(s.getCost().toString()));
                 } else {
                     statsData.put(t.tagName, Double.parseDouble(s.getCost().toString()));
                 }

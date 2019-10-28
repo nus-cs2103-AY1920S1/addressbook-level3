@@ -13,7 +13,6 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import seedu.moneygowhere.commons.core.LogsCenter;
-import seedu.moneygowhere.model.spending.Date;
 
 /**
  * Controller for a graph page

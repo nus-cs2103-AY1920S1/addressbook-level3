@@ -4,11 +4,6 @@ import static java.util.Objects.requireNonNull;
 import static seedu.moneygowhere.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.moneygowhere.model.Model.PREDICATE_SHOW_ALL_SPENDINGS;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeMap;
-import java.util.TreeSet;
 import java.util.function.Predicate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -26,7 +21,8 @@ public class GraphCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Successfully updated the graph panel.\n";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD  + ": Updates the graph panel.\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+        + ": Updates the graph panel.\n"
         + "Parameters: "
         + PREFIX_DATE + "DATE_START and"
         + PREFIX_DATE + "DATE_END\n"
@@ -35,7 +31,8 @@ public class GraphCommand extends Command {
         + PREFIX_DATE + "tomorrow ";
 
     public static final String MESSAGE_INVALID_DATERANGE = "Date range provided is invalid. "
-        + "Only 2 dates, DATE_START and DATE_END are to be provided with DATE_START being earlier or equal to DATE_END.\n"
+        + "Only 2 dates, DATE_START and DATE_END are to be provided with "
+        + "DATE_START being earlier or equal to DATE_END.\n"
         + "Example: " + COMMAND_WORD + " "
         + PREFIX_DATE + "today "
         + PREFIX_DATE + "tomorrow ";;
@@ -69,7 +66,7 @@ public class GraphCommand extends Command {
         //To reset the spending list to default after previous commands
         model.updateFilteredSpendingList(PREDICATE_SHOW_ALL_SPENDINGS);
         model.updateStatsPredicate(getGraphPredicate());
-        logger.log(Level.INFO, "Showing graph from " + startDate  + " to " + endDate);
+        logger.log(Level.INFO, String.format("Showing statistics from %s to %s", startDate, endDate));
         return new CommandResult(MESSAGE_SUCCESS, true, false, false);
     }
 
