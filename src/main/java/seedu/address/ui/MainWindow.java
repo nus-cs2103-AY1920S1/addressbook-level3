@@ -33,6 +33,7 @@ public class MainWindow extends UiPart<Stage> {
     // Independent Ui parts residing in this Ui container
     private PersonListPanel personListPanel;
     private ActivityListPanel activityListPanel;
+    private PersonDetailsPanel personDetailsPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
@@ -155,6 +156,10 @@ public class MainWindow extends UiPart<Stage> {
             break;
         case LIST_CONTACT:
             contentContainer.getChildren().add(personListPanel.getRoot());
+            break;
+        case VIEW_CONTACT:
+            personDetailsPanel = new PersonDetailsPanel(newContext.getContact().get());
+            contentContainer.getChildren().add(personDetailsPanel.getRoot());
             break;
         default:
             // Do nothing (leave content container empty)

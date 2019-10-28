@@ -73,6 +73,7 @@ public class ViewCommandTest {
         Person personToView = model.getFilteredPersonList().get(INDEX_SECOND.getZeroBased());
         showPersonAtIndex(model, INDEX_SECOND);
 
+        showPersonAtIndex(expectedModel, INDEX_SECOND);
         Context newContactContext = new Context(personToView);
         expectedModel.setContext(newContactContext);
         expectedMessage = String.format(ViewCommand.MESSAGE_SUCCESS, "contact", personToView.getName());

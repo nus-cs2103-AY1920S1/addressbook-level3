@@ -52,6 +52,7 @@
 
 .content-display, .card-list {
     /* Suppress blue focus ring for result display */
+    -fx-background-color: transparent;
     -fx-focus-color: transparent;
     -fx-background-insets: 1, 1, 1, 1;
     -fx-border-color: #c0c0c0;
@@ -66,6 +67,10 @@
     -fx-highlight-fill: lightblue;
 }
 
+/*
+ *  ================ LIST CARD COMPONENTS ================
+ */
+
 .person-card, .activity-card {
     -fx-padding: 8;
     -fx-background-color: transparent;
@@ -79,7 +84,6 @@
 }
 
 .person-card .person-phone {
-    -fx-padding: 2 0 0 0;
     -fx-font-size: 15px;
 }
 
@@ -96,7 +100,56 @@
     -fx-font-size: 16px;
 }
 
+/*
+ *  ================ DISPLAY PANEL COMPONENTS ================
+ */
+
+.details-container {
+    /* Suppress blue focus ring for result display */
+    -fx-background-color: #dbdbdb;
+    -fx-focus-color: transparent;
+}
+
+.person-details {
+    /* Add horizontal divider to visually separate details of contact from activity listings */
+    -fx-border-color: linear-gradient(from 0% 0% to 100% 0%, #dbdbdb, #ababab, #dbdbdb);
+    -fx-border-width: 0 0 2px 0;
+}
+
+.person-details .image-container, .person-details .data-container {
+    /* Add internal padding */
+    -fx-padding: 8;
+}
+
+.person-details .person-name {
+    -fx-font-family: "Noto Sans CJK SC Black", "Segoe UI", sans-serif;
+    -fx-font-weight: bolder;
+    -fx-font-size: 23px;
+    -fx-text-alignment: center;
+}
+
+.person-details .tag-list {
+    -fx-padding: 0 0 4 0;
+}
+
+.person-details .person-phone-container {
+    -fx-padding: 0 0 2 0;
+}
+
+.person-details .person-phone {
+    -fx-padding: 0;
+    -fx-font-size: 18px;
+    -fx-text-alignment: center;
+}
+
+.person-details .person-address, .person-details .person-email {
+    -fx-padding: 0;
+    -fx-font-size: 15px;
+    -fx-text-alignment: center;
+}
+
 .tag-list {
+    -fx-padding: 0 0 2 0;
     -fx-hgap: 5;
     -fx-vgap: 3;
 }
