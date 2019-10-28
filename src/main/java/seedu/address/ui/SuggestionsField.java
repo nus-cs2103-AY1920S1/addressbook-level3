@@ -64,6 +64,7 @@ public class SuggestionsField extends TextField {
         }
     }
 
+    //Method below adapted from https://www.javatips.net/api/javafx.scene.control.custommenuitem
     /**
      * Populates {@code ContextMenu} with all found commands.
      * */

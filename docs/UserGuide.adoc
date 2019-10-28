@@ -265,6 +265,56 @@ Examples:
 * `deletenote 1`
 
 // end::delete[]
+
+=== Student List
+
+==== Add a student: 'add'
+
+Adds a student to TutorAid.
+Format: `add n/NAME pic/PICUTRE`
+
+Examples:
+
+* `add n/Caesar pic/caesar.jpg`
+
+[NOTE]
+The picture specified must be in either .jpg, .png or .bmp format. It must also be located in the same directory as TutorAid.
+
+==== Delete a student: 'delete'
+
+Deletes a student from TutorAid.
+Format: `delete INDEX`
+
+Examples:
+
+* `delete 1` (deletes the first student.)
+
+==== Edit a student: 'edit'
+
+Edits a Student's fields.
+Format: `edit INDEX n/NAME pic/PICTURE r/RESULT att/ATTENDANCE part/PARTICIPATION c/CLASS`
+
+[NOTE]
+User does not have to edit all fields of a Student. He can just edit whatever needs to be changed (see example).
+
+Examples:
+
+* `edit 1 r/20 att/10 part/10 c/CS2030`
+
+==== List students: 'list'
+
+List all students in TutorAid.
+Format: `list`
+
+==== Find a student: 'find'
+
+Find a student matching the supplied name
+Format: `find NAME`
+
+Examples:
+
+* `find Tom`
+
 === Clearing all entries : `clear`
 
 Clears all entries from the address book. +
@@ -279,6 +329,16 @@ Format: `exit`
 
 Address book data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
+
+=== Learning wrong commands as custom commands
+
+TutorAid is able to learn a wrongly supplied command to do what the user intended to do. +
+Format: `WRONG_COMMAND`
+
+Examples:
+
+* `ad` (instead of `add`) -> TutorAid will prompt the user what they meant. Type `add` now to be able
+to use `ad` as an `add` command in the future.
 
 // tag::dataencryption[]
 === Encrypting data files `[coming in v2.0]`
