@@ -1,5 +1,6 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CAUSE_OF_DEATH;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ORGANS_FOR_DONATION;
 
 import java.util.ArrayList;
@@ -71,13 +72,13 @@ public class ArgumentMultimap {
         boolean pass = true;
         try {
             for (Map.Entry<Prefix, List<String>> entry : argMultimap.entrySet()) {
-                if (entry.getValue() != null && !entry.getKey().toString().equals("")) {
-                    if (entry.getKey().equals(PREFIX_ORGANS_FOR_DONATION)) {
-                        if (!entry.getValue().equals(other.getMap().get(PREFIX_ORGANS_FOR_DONATION))) {
-                            pass = false;
-                            break;
-                        }
-                    } else if (!other.getValue(entry.getKey()).get().equalsIgnoreCase(entry.getValue().get(0))) {
+                if (entry.getKey().equals(PREFIX_ORGANS_FOR_DONATION)) {
+                    if (!entry.getValue().equals(other.getAllValues(entry.getKey()))) {
+                        pass = false;
+                        break;
+                    }
+                } else {
+                    if (!entry.getValue().get(0).equals(other.getValue(entry.getKey()).get())) {
                         pass = false;
                         break;
                     }

@@ -47,7 +47,15 @@ public class BodyContainsAttributesKeywordsPredicateTest {
                 PREFIX_FRIDGE_ID, PREFIX_FLAG, PREFIX_EMPLOYMENT_STATUS,
                 PREFIX_NAME, PREFIX_TAG, PREFIX_EMAIL, PREFIX_ADDRESS);
 
-        String bodyArgs2 = "-b /sex female /nric S1234567A /cod natural";
+        ArgumentMultimap bodyMap1copy = ArgumentTokenizer.tokenize(bodyArgs1, PREFIX_PHONE_NUMBER,
+                PREFIX_SEX, PREFIX_DATE_OF_BIRTH, PREFIX_DATE_JOINED, PREFIX_DESIGNATION, PREFIX_STATUS,
+                PREFIX_DATE_OF_DEATH, PREFIX_DATE_OF_ADMISSION, PREFIX_CAUSE_OF_DEATH,
+                PREFIX_BODY_DETAILS, PREFIX_NRIC, PREFIX_RELATIONSHIP, PREFIX_RELIGION,
+                PREFIX_NAME_NOK, PREFIX_PHONE_NOK, PREFIX_ORGANS_FOR_DONATION,
+                PREFIX_FRIDGE_ID, PREFIX_FLAG, PREFIX_EMPLOYMENT_STATUS,
+                PREFIX_NAME, PREFIX_TAG, PREFIX_EMAIL, PREFIX_ADDRESS);
+
+        String bodyArgs2 = "-b /sex female /nric S1834567A /cod natural";
         ArgumentMultimap bodyMap2 = ArgumentTokenizer.tokenize(bodyArgs2, PREFIX_PHONE_NUMBER,
                 PREFIX_SEX, PREFIX_DATE_OF_BIRTH, PREFIX_DATE_JOINED, PREFIX_DESIGNATION, PREFIX_STATUS,
                 PREFIX_DATE_OF_DEATH, PREFIX_DATE_OF_ADMISSION, PREFIX_CAUSE_OF_DEATH,
@@ -66,7 +74,7 @@ public class BodyContainsAttributesKeywordsPredicateTest {
 
         // same values -> returns true
         BodyContainsAttributesKeywordsPredicate firstPredicateCopy =
-                new BodyContainsAttributesKeywordsPredicate(bodyMap1);
+                new BodyContainsAttributesKeywordsPredicate(bodyMap1copy);
         assertTrue(firstPredicate.equals(firstPredicateCopy));
 
         // different types -> returns false

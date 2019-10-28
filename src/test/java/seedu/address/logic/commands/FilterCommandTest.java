@@ -72,7 +72,7 @@ public class FilterCommandTest {
                 PREFIX_FRIDGE_ID, PREFIX_EMPLOYMENT_STATUS, PREFIX_FLAG,
                 PREFIX_NAME, PREFIX_TAG, PREFIX_EMAIL, PREFIX_ADDRESS);
 
-        String bodyArgs2 = "-b /sex male /cod natural";
+        String bodyArgs2 = "-b /sex female /cod natural /nric S1234567A";
         ArgumentMultimap bodyMap2 = ArgumentTokenizer.tokenize(bodyArgs2, PREFIX_PHONE_NUMBER,
                 PREFIX_SEX, PREFIX_DATE_OF_BIRTH, PREFIX_DATE_JOINED, PREFIX_DESIGNATION, PREFIX_STATUS,
                 PREFIX_DATE_OF_DEATH, PREFIX_DATE_OF_ADMISSION, PREFIX_CAUSE_OF_DEATH,
@@ -81,24 +81,24 @@ public class FilterCommandTest {
                 PREFIX_FRIDGE_ID, PREFIX_EMPLOYMENT_STATUS, PREFIX_FLAG,
                 PREFIX_NAME, PREFIX_TAG, PREFIX_EMAIL, PREFIX_ADDRESS);
 
-        FilterCommand findFirstCommand = new FilterCommand(bodyMap1, BODY_FLAG);
-        FilterCommand findSecondCommand = new FilterCommand(bodyMap2, BODY_FLAG);
+        FilterCommand filterFirstCommand = new FilterCommand(bodyMap1, BODY_FLAG);
+        FilterCommand filterSecondCommand = new FilterCommand(bodyMap2, BODY_FLAG);
 
         // same object -> returns true
-        assertTrue(findFirstCommand.equals(findFirstCommand));
+        assertTrue(filterFirstCommand.equals(filterFirstCommand));
 
         // same values -> returns true
-        FilterCommand findFirstCommandCopy = new FilterCommand(bodyMap1, BODY_FLAG);
-        assertTrue(findFirstCommand.equals(findFirstCommandCopy));
+        FilterCommand filterFirstCommandCopy = new FilterCommand(bodyMap1, BODY_FLAG);
+        assertTrue(filterFirstCommand.equals(filterFirstCommandCopy));
 
         // different types -> returns false
-        assertFalse(findFirstCommand.equals(1));
+        assertFalse(filterFirstCommand.equals(1));
 
         // null -> returns false
-        assertFalse(findFirstCommand.equals(null));
+        assertFalse(filterFirstCommand.equals(null));
 
         // different person -> returns false
-        assertFalse(findFirstCommand.equals(findSecondCommand));
+        assertFalse(filterFirstCommand.equals(filterSecondCommand));
     }
 
     @Test

@@ -47,7 +47,16 @@ public class WorkerContainsAttributesKeywordsPredicateTest {
                 PREFIX_FRIDGE_ID, PREFIX_FLAG, PREFIX_EMPLOYMENT_STATUS,
                 PREFIX_NAME, PREFIX_TAG, PREFIX_EMAIL, PREFIX_ADDRESS);
 
-        String workerArgs2 = "-w /sex female /phoneNo 80080080 /dateJoined 12/12/2012";
+        ArgumentMultimap workerMap1copy = ArgumentTokenizer.tokenize(workerArgs1, PREFIX_PHONE_NUMBER,
+                PREFIX_SEX, PREFIX_DATE_OF_BIRTH, PREFIX_DATE_JOINED, PREFIX_DESIGNATION, PREFIX_STATUS,
+                PREFIX_DATE_OF_DEATH, PREFIX_DATE_OF_ADMISSION, PREFIX_CAUSE_OF_DEATH,
+                PREFIX_BODY_DETAILS, PREFIX_NRIC, PREFIX_RELATIONSHIP, PREFIX_RELIGION,
+                PREFIX_NAME_NOK, PREFIX_PHONE_NOK, PREFIX_ORGANS_FOR_DONATION,
+                PREFIX_FRIDGE_ID, PREFIX_FLAG, PREFIX_EMPLOYMENT_STATUS,
+                PREFIX_NAME, PREFIX_TAG, PREFIX_EMAIL, PREFIX_ADDRESS);
+
+
+        String workerArgs2 = "-w /sex female /phoneNo 80090080 /dateJoined 12/12/2012";
         ArgumentMultimap workerMap2 = ArgumentTokenizer.tokenize(workerArgs2, PREFIX_PHONE_NUMBER,
                 PREFIX_SEX, PREFIX_DATE_OF_BIRTH, PREFIX_DATE_JOINED, PREFIX_DESIGNATION, PREFIX_STATUS,
                 PREFIX_DATE_OF_DEATH, PREFIX_DATE_OF_ADMISSION, PREFIX_CAUSE_OF_DEATH,
@@ -66,7 +75,7 @@ public class WorkerContainsAttributesKeywordsPredicateTest {
 
         // same values -> returns true
         WorkerContainsAttributesKeywordsPredicate firstPredicateCopy =
-                new WorkerContainsAttributesKeywordsPredicate(workerMap1);
+                new WorkerContainsAttributesKeywordsPredicate(workerMap1copy);
         assertTrue(firstPredicate.equals(firstPredicateCopy));
 
         // different types -> returns false
