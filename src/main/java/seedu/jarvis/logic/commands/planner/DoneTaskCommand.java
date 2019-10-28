@@ -2,6 +2,8 @@ package seedu.jarvis.logic.commands.planner;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Optional;
+
 import seedu.jarvis.commons.core.Messages;
 import seedu.jarvis.commons.core.index.Index;
 import seedu.jarvis.logic.commands.Command;
@@ -65,6 +67,24 @@ public class DoneTaskCommand extends Command {
     @Override
     public String getCommandWord() {
         return COMMAND_WORD;
+    }
+
+    /**
+     * Gets the {@code Index} of the task that is done.
+     *
+     * @return {@code Index} of the task that is done.
+     */
+    public Index getTargetIndex() {
+        return targetIndex;
+    }
+
+    /**
+     * Gets the {@code Task} that was done wrapped in an {@code Optional}.
+     *
+     * @return {@code Task} that was done wrapped in an {@code Optional}.
+     */
+    public Optional<Task> getDoneTask() {
+        return Optional.ofNullable(doneTask);
     }
 
     @Override
