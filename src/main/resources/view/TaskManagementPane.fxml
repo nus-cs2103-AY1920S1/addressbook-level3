@@ -12,14 +12,14 @@
          <Label fx:id="currentPlan" styleClass="cell_big_label_white" text="\$currentPlan" />
       </children>
    </StackPane>
-   <StackPane layoutY="36.0" prefHeight="370.0" prefWidth="398.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+   <StackPane layoutY="36.0" prefHeight="270.0" prefWidth="398.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
       <children>
-          <ListView fx:id="taskListView" minHeight="342.0" minWidth="300.0" prefHeight="372.0" prefWidth="398.0" />
+          <ListView fx:id="taskListView" minHeight="242.0" minWidth="200.0" prefHeight="272.0" prefWidth="398.0" />
       </children>
    </StackPane>
-   <StackPane layoutX="14.0" layoutY="410.0" prefHeight="189.0" prefWidth="398.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="410.0">
+   <StackPane layoutX="14.0" layoutY="410.0" prefHeight="189.0" prefWidth="398.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="300.0">
       <children>
-         <PieChart fx:id="taskProgressChart" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="178.0" prefWidth="398.0" />
+         <PieChart fx:id="taskProgressChart" prefHeight="178.0" prefWidth="398.0" />
       </children>
    </StackPane>
 </AnchorPane>
