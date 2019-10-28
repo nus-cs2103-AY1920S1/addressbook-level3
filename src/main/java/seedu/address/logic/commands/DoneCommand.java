@@ -29,7 +29,7 @@ public class DoneCommand extends Command {
         }
 
         model.exitsServeMode();
-        return new CommandResult(MESSAGE_SUCCESS);
+        return new CommandResult(MESSAGE_SUCCESS, false, false, false, true);
     }
 
     @Override
