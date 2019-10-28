@@ -2,7 +2,6 @@ package seedu.address.logic.commands.clearcommand;
 
 import static java.util.Objects.requireNonNull;
 
-import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.UiChange;
 import seedu.address.logic.commands.UndoableCommand;

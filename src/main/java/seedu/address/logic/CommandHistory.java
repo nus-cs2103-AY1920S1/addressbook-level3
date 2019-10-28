@@ -56,6 +56,10 @@ public class CommandHistory {
         return commandHistory;
     }
 
+    public void clear() {
+        setList(new CommandHistory());
+    }
+
     /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */
