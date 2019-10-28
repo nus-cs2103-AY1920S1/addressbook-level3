@@ -32,18 +32,6 @@ public class Slot {
     public final String start;
     public final String end;
 
-    public Slot(String slot) {
-        requireNonNull(slot);
-        checkArgument(isValidSlot(slot), MESSAGE_CONSTRAINTS);
-        final Matcher matcher = SEPARATION_REGEX.matcher(slot);
-        if (!matcher.matches()) {
-            throw new IllegalArgumentException(MESSAGE_CONSTRAINTS);
-        }
-        this.date = matcher.group("date");
-        this.start = matcher.group("slot1");
-        this.end = matcher.group("slot2");
-    }
-
     /**
      * Constructs a {@code Slot} from the enforced format.
      *
@@ -57,6 +45,22 @@ public class Slot {
         this.date = date;
         this.start = start;
         this.end = end;
+    }
+
+    /**
+     * Factory method for constructing a {@code Slot} from a given String in the enforced format.
+     *
+     * @param slot The String in the format given in SEPARATION_REGEX.
+     */
+    public static Slot fromString(String slot) throws IllegalArgumentException {
+        requireNonNull(slot);
+        checkArgument(isValidSlot(slot), MESSAGE_CONSTRAINTS);
+        final Matcher matcher = SEPARATION_REGEX.matcher(slot);
+        if (!matcher.matches()) {
+            throw new IllegalArgumentException(MESSAGE_CONSTRAINTS);
+        }
+
+        return new Slot(matcher.group("date"), matcher.group("slot1"), matcher.group("slot2"));
     }
 
     /**

@@ -104,7 +104,7 @@ public class SampleDataUtil {
      */
     public static List<Slot> getTimeslotList(String...timeslots) {
         return Arrays.stream(timeslots)
-                .map(Slot::new)
+                .map(Slot::fromString)
                 .collect(Collectors.toList());
     }
 }

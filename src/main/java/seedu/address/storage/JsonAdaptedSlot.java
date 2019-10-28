@@ -11,32 +11,26 @@ import seedu.address.model.person.Slot;
  */
 public class JsonAdaptedSlot {
 
-    private final String date;
-    private final String start;
-    private final String end;
+    private final String slot;
 
     /**
-     * Constructs a {@code JsonAdaptedSlot} with the given {@code slot}s.
+     * Constructs a {@code JsonAdaptedSlot} with the given {@code slot}s
      */
     @JsonCreator
-    public JsonAdaptedSlot(String date, String start, String end) {
-        this.date = date;
-        this.start = start;
-        this.end = end;
+    public JsonAdaptedSlot(String slot) {
+        this.slot = slot;
     }
 
     /**
      * Converts a given {@code Slot} into this class for Jackson use.
      */
     public JsonAdaptedSlot(Slot source) {
-        date = source.date;
-        start = source.start;
-        end = source.end;
+        this.slot = source.toString();
     }
 
     @JsonValue
     public String getSlot() {
-        return String.format(Slot.STRING_FORMAT, date, start, end);
+        return this.slot;
     }
 
     /**
@@ -45,9 +39,6 @@ public class JsonAdaptedSlot {
      * @throws IllegalValueException if there were any data constraints violated in the adapted department.
      */
     public Slot toModelType() throws IllegalValueException {
-        if (!Slot.isValidSlot(String.format(Slot.STRING_FORMAT, date, start, end))) {
-            throw new IllegalValueException(Slot.MESSAGE_CONSTRAINTS);
-        }
-        return new Slot(date, start, end);
+        return Slot.fromString(this.slot);
     }
 }

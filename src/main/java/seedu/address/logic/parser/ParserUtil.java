@@ -200,7 +200,7 @@ public class ParserUtil {
         if (!Slot.isValidSlot(trimmedSlot)) {
             throw new ParseException(Slot.MESSAGE_CONSTRAINTS);
         }
-        return new Slot(trimmedSlot);
+        return Slot.fromString(trimmedSlot);
     }
 
     /**
