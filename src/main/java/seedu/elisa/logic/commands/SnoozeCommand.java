@@ -14,8 +14,6 @@ import seedu.elisa.logic.commands.exceptions.CommandException;
 import seedu.elisa.model.ItemModel;
 import seedu.elisa.model.item.VisualizeList;
 
-
-
 /**
  * Edits the details of an existing item in the item list.
  */
@@ -44,6 +42,7 @@ public class SnoozeCommand extends UndoableCommand {
 
     /**
 <<<<<<< HEAD
+<<<<<<< HEAD
      * @param hasIndex boolean that indicates if an index was specified.
      * @param index of the item to edit.
      * @param newReminderOccurrence LocalDateTime of new occurrence of reminder.
@@ -51,6 +50,11 @@ public class SnoozeCommand extends UndoableCommand {
      * @param index of the item to edit.
      * @param newReminderOccurrence LocalDateTime of new occurrence of reminder
 >>>>>>> Halfway adding SnoozeCommand
+=======
+     * @param hasIndex boolean that indicates if an index was specified.
+     * @param index of the item to edit.
+     * @param newReminderOccurrence LocalDateTime of new occurrence of reminder.
+>>>>>>> Add snooze command
      */
     public SnoozeCommand(boolean hasIndex, Index index, LocalDateTime newReminderOccurrence) {
         requireAllNonNull(hasIndex, newReminderOccurrence);

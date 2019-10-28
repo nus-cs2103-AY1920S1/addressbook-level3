@@ -47,7 +47,6 @@ public class SnoozeCommandParser implements Parser<SnoozeCommand> {
         }
 
         Index index;
-<<<<<<< HEAD
         boolean hasIndex;
 
         if (!description.isBlank()) {
@@ -61,14 +60,6 @@ public class SnoozeCommandParser implements Parser<SnoozeCommand> {
         } else {
             index = null;
             hasIndex = false;
-=======
-
-        try {
-            index = ParserUtil.parseIndex(description);
-        } catch (ParseException pe) {
-            //TODO: Auto snooze most recent reminder
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE), pe);
->>>>>>> Halfway adding SnoozeCommand
         }
 
         LocalDateTime newReminderOccurrence = null;
@@ -79,11 +70,7 @@ public class SnoozeCommandParser implements Parser<SnoozeCommand> {
             newReminderOccurrence = LocalDateTime.now().plus(defaultSnoozeDuration);
         }
 
-<<<<<<< HEAD
         return new SnoozeCommand(hasIndex, index, newReminderOccurrence);
-=======
-        return new SnoozeCommand(index, newReminderOccurrence);
->>>>>>> Halfway adding SnoozeCommand
     }
 
 }
