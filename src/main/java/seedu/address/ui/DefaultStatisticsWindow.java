@@ -29,7 +29,7 @@ public class DefaultStatisticsWindow extends UiPart<Stage> {
 
 
     /**
-     * Shows the Statistics Window.
+     * Shows the Default Statistics Window.
      * @throws IllegalStateException
      * <ul>
      *     <li>
@@ -52,21 +52,21 @@ public class DefaultStatisticsWindow extends UiPart<Stage> {
     }
 
     /**
-     * Returns true if the statistics Window is currently being shown.
+     * Returns true if the Default Statistics Window is currently being shown.
      */
     public boolean isShowing() {
         return getRoot().isShowing();
     }
 
     /**
-     * Hides the statistics Window.
+     * Hides the Default Statistics Window.
      */
     public void hide() {
         getRoot().hide();
     }
 
     /**
-     * Focuses on the statistics Window.
+     * Focuses on the Default Statistics Window.
      */
     public void focus() {
         getRoot().requestFocus();
