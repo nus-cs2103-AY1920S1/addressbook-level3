@@ -32,7 +32,7 @@ public class RateQuestionCommand extends Command {
             return new CommandResult(MESSAGE_SUCCESS_END_OF_TEST);
         }
 
-        String nextQuestion = model.getTestQuestion(model);
+        String nextQuestion = model.getTestQuestion();
         keyboardFlashCardsParser.setAwaitingAnswer(true);
         return new CommandResult(String.format(MESSAGE_SUCCESS, nextQuestion));
     }
