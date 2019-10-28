@@ -25,11 +25,12 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_RELIGION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.testutil.TypicalWorkers.ALICE;
 
 import org.junit.jupiter.api.Test;
+
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
-import static seedu.address.testutil.TypicalWorkers.ALICE;
 
 // @@author dalisc
 

@@ -176,8 +176,8 @@ public class AddressBookParserTest {
                         + bodyAttributes);
         assertEquals(new FilterCommand(bodyMap, BODY_FLAG), command1);
 
-        String workerArgs = "-b /sex male /phoneNo 80080080";
-        String workerAttributes = "/sex male /phoneNo 80080080";
+        String workerArgs = "-b /sex male /employmentStatus cleaning";
+        String workerAttributes = "/sex male /employmentStatus cleaning";
         ArgumentMultimap workerMap = ArgumentTokenizer.tokenize(workerArgs, PREFIX_PHONE_NUMBER,
                 PREFIX_SEX, PREFIX_DATE_OF_BIRTH, PREFIX_DATE_JOINED, PREFIX_DESIGNATION, PREFIX_STATUS,
                 PREFIX_DATE_OF_DEATH, PREFIX_DATE_OF_ADMISSION, PREFIX_CAUSE_OF_DEATH,
@@ -206,8 +206,8 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_unrecognisedInput_throwsParseException() {
-        assertThrows(ParseException.class, String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE), ()
-                -> parser.parseCommand(""));
+        assertThrows(ParseException.class, String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+            HelpCommand.MESSAGE_USAGE), () -> parser.parseCommand(""));
     }
 
     @Test
