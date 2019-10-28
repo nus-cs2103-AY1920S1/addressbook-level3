@@ -151,7 +151,7 @@ Examples:
 
 Updates a spending in the specified index in the list. +
 
-Format: `update i/INDEX [n/NAME] [c/COST] [d/DATE] [t/TAG]... [r/REMARKS]`
+Format: `edit i/INDEX [n/NAME] [c/COST] [d/DATE] [t/TAG]... [r/REMARKS]`
 
 ****
 * Edits the spending at the specified `INDEX`. The index refers to the index number shown in the displayed spending list. The index *must be a positive integer* 1, 2, 3, ...
@@ -481,8 +481,8 @@ Listed below is a summary of all available commands.
 | *Help* | `help` +
 | *Add* | `add n/NAME c/COST [d/DATE] [t/TAG]... [r/REMARKS]` +
 e.g. `add n/apple c/2.50 d/yesterday t/fruits r/expensive apple`
-| *Update* | `update i/INDEX [n/NAME] [c/COST] [t/TAG]... [r/REMARKS]` +
-e.g. `edit i/123 n/apple c/2.50 d/yesterday t/fruits r/expensive apple` +
+| *Edit* | `edit i/INDEX [n/NAME] [c/COST] [t/TAG]... [r/REMARKS]` +
+e.g. `edit 1 n/apple c/2.50 d/yesterday t/fruits r/expensive apple` +
 | *Delete* | `delete INDEX` +
 e.g. `delete 123`
 | *List* | `list [r/DATE_RANGE] [t/TAG] [c/COST_RANGE] [o/SORT_ORDER]` +
