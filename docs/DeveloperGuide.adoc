@@ -651,14 +651,14 @@ If the user input is incorrect due to any of the reasons above, the usage syntax
 
 The scenario below shows an example of how the feature works:
 
-Step 1. The user executes *list m/jan* to filter the list to bring up transactions of January.
+Step 1. The user executes *list m/01/2019* to filter the list to bring up transactions of January 2019.
 
 Step 2. The `**ListCommandParser**` will parse the arguments using the method `ListCommandParser#parse(String args)`.
 
 Step 3. Since user input is correct and the arguments have been parsed, a new `**ListCommand**` object will be created by the
 `**ListCommandParser**`.
 
-Step 4. This `**ListCommand**` object will contain a `**Predicate**` which is used to filter through each `**Transaction**`.
+Step 4. This `**ListCommand**` object will use a `**Predicate**` based on the specified month which is used to filter through each `**Transaction**`.
 
 Step 5. The final list of filtered transactions will be brought up.
 
@@ -672,11 +672,15 @@ image::list/ListActivityDiagram.png[]
 ===== Aspect: Using `**Predicate**` to improve extendability of the feature in the future
 
 * **Alternative 1 (current choice):** Create a new `**Predicate**` based on the arguments each time.
-** Pros: The filter feature could be easily improved in the future to further accommodate new arguments other than month and tag.
+** Pros: The filter feature could be added to and improved in the future to further accommodate new arguments other than month and tag,
+and still be able to filter by a combination of the different arguments.
 ** Cons: Not as easy to implement.
 * **Alternative 2:** Use a fixed `**Predicate**` written beforehand to filter the list for each argument.
 ** Pros: Straightforward to implement, a specific `**Predicate**` can be used for the specific argument.
 ** Cons: Not easily extendable as in the future if we want to filter by new arguments, we will have to write a new `**Predicate**` for each argument.
+
+Eventually we may decide to use a combination of both alternatives as it is possible that different arguments are easier to
+implement using different methods.
 // end::Filtering transactions[]
 
 // tag::undoredo[]
@@ -1392,10 +1396,10 @@ These instructions only provide a starting point for testers to work on; testers
 .. Prerequisites: At least one transaction in the list.
 .. Test case: `list` +
    Expected: The entire list of transactions will be shown.
-.. Test case: `list m/Jan` +
-   Expected: The list of transactions for January will be shown.
-.. Test case: `list m/Jan t/Food` +
-   Expected: The list of transactions related to food for January will be shown.
+.. Test case: `list m/01/2019` +
+   Expected: The list of transactions for January 2019 will be shown.
+.. Test case: `list m/01/2019 t/Food` +
+   Expected: The list of transactions related to food for January 2019 will be shown.
 
 === Tagging a transaction
 

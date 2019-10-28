@@ -308,11 +308,11 @@ Format: `list [m/MONTH] [t/TAG]`
 Examples:
 
 *  `list`
-*  `list m/Jan t/Food`
+*  `list m/01/2019 t/Food`
 
 Expected output:
 
-* Returns a list of all expenses for the current month.
+* Returns a list of all expenses.
 * Returns a list of all food expenses for the specified month.
 
 [[HelpTag]]
@@ -372,7 +372,7 @@ Example: `update i/1 n/Curry Laksa v/5 t/Lunch t/Dinner`
 * <<CloneTag, *Clone*>>: `clone i/INDEX` +
 Example: `clone i/1`
 * <<ListTag, *List*>>: `list [m/MONTH] [t/TAG]` +
-Example: `list m/Jan t/Food`
+Example: `list m/01/2019 t/Food`
 * <<TagTag,*Tag*>>: `tag i/INDEX t/TAG_NAME` +
 Example: `tag i/8 t/Debt`
 * <<UntagTag, *Untag*>>: `untag i/INDEX t/TAG_NAME` +

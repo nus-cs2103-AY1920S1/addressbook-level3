@@ -2,6 +2,7 @@ package thrift.logic.parser;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static thrift.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static thrift.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
@@ -92,7 +93,12 @@ public class ThriftParserTest {
     @Test
     public void parseCommand_list() throws Exception {
         assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD) instanceof ListCommand);
-        assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD + " m/jan") instanceof ListCommand);
+        assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD + " m/01/2019") instanceof ListCommand);
+        assertThrows(ParseException.class, () -> parser.parseCommand(ListCommand.COMMAND_WORD
+                + " m/jan r/remark"));
+        ListCommand command = (ListCommand) parser.parseCommand(ListCommand.COMMAND_WORD + " "
+                + CliSyntax.PREFIX_MONTH + "10/2019");
+        assertNotEquals(new ListCommand(ParserUtil.parseDate("09/2019")), command);
     }
 
     @Test

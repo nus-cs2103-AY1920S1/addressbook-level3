@@ -10,6 +10,7 @@ import static thrift.testutil.Assert.assertThrows;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
 import java.util.Stack;
@@ -206,6 +207,11 @@ public class AddExpenseCommandTest {
 
         @Override
         public String getCurrentMonthYear() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setCurrentMonthYear(Calendar monthYear) {
             throw new AssertionError("This method should not be called.");
         }
 

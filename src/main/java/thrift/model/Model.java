@@ -1,6 +1,7 @@
 package thrift.model;
 
 import java.nio.file.Path;
+import java.util.Calendar;
 import java.util.Optional;
 import java.util.function.Predicate;
 
@@ -139,6 +140,11 @@ public interface Model {
 
     /** Returns the current month and year in MMM yyyy format. */
     String getCurrentMonthYear();
+
+    /**
+     * Sets the CurrentMonthYear
+     */
+    void setCurrentMonthYear(Calendar monthYear);
 
     /** Returns the current month's budget. */
     double getCurrentMonthBudget();

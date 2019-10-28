@@ -180,6 +180,7 @@ public class LogicManager implements Logic {
                 || command instanceof BudgetCommand
                 || command instanceof CloneCommand
                 || command instanceof DeleteCommand
+                || command instanceof ListCommand
                 || command instanceof RedoCommand
                 || command instanceof UpdateCommand
                 || command instanceof UndoCommand) {

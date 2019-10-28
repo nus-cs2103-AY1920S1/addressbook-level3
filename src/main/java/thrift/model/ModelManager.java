@@ -35,13 +35,10 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<Transaction> filteredTransactions;
     private final PastUndoableCommands pastUndoableCommands;
-    private final Calendar currentMonthYear;
+    private Calendar currentMonthYear;
     private double balance;
     private double expense;
     private double income;
-
-    /** {@code Predicate} that always show the current month transactions */
-    private Predicate<Transaction> predicateShowCurrentMonthTransactions;
 
     /**
      * Initializes a ModelManager with the given thrift, userPrefs and pastUndoableCommands.
@@ -59,7 +56,6 @@ public class ModelManager implements Model {
         currentMonthYear = Calendar.getInstance();
         balance = 0;
         expense = 0;
-        predicateShowCurrentMonthTransactions = new TransactionIsInMonthYearPredicate(currentMonthYear);
     }
 
     public ModelManager() {
@@ -200,6 +196,11 @@ public class ModelManager implements Model {
         updateBalanceForCurrentMonth();
     }
 
+    @Override
+    public void setCurrentMonthYear(Calendar monthYear) {
+        this.currentMonthYear = monthYear;
+    }
+
     //=========== Filtered Transaction List Accessors =============================================================
     /**
      * Returns an unmodifiable view of the list of {@code Transaction} backed by the internal list of
@@ -213,7 +214,7 @@ public class ModelManager implements Model {
     /** Filters the view of the transaction list to only show transactions that occur in the current month. */
     @Override
     public void updateFilteredTransactionListToCurrentMonth() {
-        filteredTransactions.setPredicate(predicateShowCurrentMonthTransactions);
+        filteredTransactions.setPredicate(new TransactionIsInMonthYearPredicate(currentMonthYear));
         updateBalanceForCurrentMonth();
     }
 
