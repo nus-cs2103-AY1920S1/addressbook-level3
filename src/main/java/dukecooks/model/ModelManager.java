@@ -282,6 +282,17 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public Path getMealPlansFilePath() {
+        return userPrefs.getMealPlansFilePath();
+    }
+
+    @Override
+    public void setMealPlansFilePath(Path mealPlansFilePath) {
+        requireNonNull(mealPlansFilePath);
+        userPrefs.setMealPlansFilePath(mealPlansFilePath);
+    }
+
+    @Override
     public Path getWorkoutPlannerFilePath() {
         return userPrefs.getExercisesFilePath();
     }

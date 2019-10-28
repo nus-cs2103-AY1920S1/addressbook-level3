@@ -109,6 +109,17 @@ public interface Model {
      */
     void setRecipesFilePath(Path recipesFilePath);
 
+    //Recipe Book
+    /**
+     * Returns the user prefs' MealPlanBook file path.
+     */
+    Path getMealPlansFilePath();
+
+    /**
+     * Sets the user prefs' Duke Cooks Meal Plan file path.
+     */
+    void setMealPlansFilePath(Path recipesFilePath);
+
 
     /**
      * Returns the user prefs' Workout Planner file path.
