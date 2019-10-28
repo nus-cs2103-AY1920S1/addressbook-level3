@@ -6,8 +6,6 @@ import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalCards.CHARIZARD;
 import static seedu.address.testutil.TypicalCards.getTypicalWordBank;
 
-import java.io.File;
-import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -83,13 +81,15 @@ public class JsonWordBankStorageTest {
     /**
      * Saves {@code WordBank} at the specified {@code filePath}.
      */
-    private void saveWordBank(ReadOnlyWordBank wordBank, String filePath, String testFolder) throws DataConversionException, IllegalValueException {
+    private void saveWordBank(ReadOnlyWordBank wordBank, String filePath, String testFolder)
+            throws DataConversionException, IllegalValueException {
         new JsonWordBankListStorage(TEST_DATA_FOLDER, testFolder)
                 .saveWordBank(wordBank, addToTestDataPathIfNotNull(testFolder, filePath));
     }
 
     private java.util.Optional<ReadOnlyWordBank> readWordBank(String filePath, String testFolder) throws Exception {
-        return new JsonWordBankListStorage(TEST_DATA_FOLDER, testFolder).jsonToWordBank(addToTestDataPathIfNotNull(testFolder, filePath));
+        return new JsonWordBankListStorage(TEST_DATA_FOLDER, testFolder)
+                .jsonToWordBank(addToTestDataPathIfNotNull(testFolder, filePath));
     }
 
     private Path addToTestDataPathIfNotNull(String testFolder, String prefsFileInTestDataFolder) {

@@ -172,7 +172,8 @@ public class LogicManagerTest {
      * A stub class to throw an {@code IOException} when the save method is called.
      */
     private static class JsonWordBankListIoExceptionThrowingStub extends JsonWordBankListStorage {
-        private JsonWordBankListIoExceptionThrowingStub(Path filePath) throws DataConversionException, IllegalValueException {
+        private JsonWordBankListIoExceptionThrowingStub(Path filePath)
+                throws DataConversionException, IllegalValueException {
             super(filePath);
         }
 

@@ -78,7 +78,8 @@ public class JsonWordBankListStorage implements WordBankListStorage {
             wordBanksFilePath = filePath;
         } else {
             wordBanksFilePath = Paths.get(filePath.toString(), folder);
-        } try {
+        }
+        try {
             if (!filePath.toFile().exists()) {
                 Files.createDirectory(filePath);
             }
