@@ -6,17 +6,7 @@
     "title": "Alice Pauline",
     "content": "4th street"
   } ],
-  "tasks" : [ {
-    "heading" : "Edogawa Conan",
-    "date" : "2019-12-31",
-    "time" : "16:00",
-    "status" : "[N]"
-  }, {
-    "heading" : "Edogawa Conan",
-    "date" : "2019-12-31",
-    "time" : "16:00",
-    "status" : "[N]"
-  }],
+  "tasks" : [],
   "questions" : [ {
     "questionBody" : "body",
     "answer" : "abc",

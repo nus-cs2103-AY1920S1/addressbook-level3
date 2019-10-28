@@ -24,7 +24,6 @@ public class DoneTaskCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_SUCCESS = "Revision task marked as done: %1$s";
-    public static final String MESSAGE_TASK_NOT_FOUND = "The task does not exist";
 
     private final Index targetIndex;
 
@@ -43,6 +42,11 @@ public class DoneTaskCommand extends Command {
         }
 
         Task taskDone = lastShownList.get(targetIndex.getZeroBased());
+
+        if (taskDone.getStatus()) {
+            throw new CommandException(Messages.MESSAGE_TASK_ALREADY_DONE);
+        }
+
         model.markTaskAsDone(taskDone);
         model.updateFilteredTaskList(Model.PREDICATE_SHOW_ALL_TASKS);
         return new CommandResult(String.format(MESSAGE_SUCCESS, taskDone));

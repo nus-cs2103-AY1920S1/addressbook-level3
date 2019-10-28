@@ -10,6 +10,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 
+import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
@@ -29,18 +30,17 @@ public class AddTaskForQuestionCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a question revision task to NUStudy. "
             + "Parameters: "
-            + PREFIX_INDEX + "INDEX"
-            + PREFIX_DATE + "DATE"
-            + PREFIX_TIME + "TIME"
+            + PREFIX_INDEX + "INDEX "
+            + PREFIX_DATE + "DATE "
+            + PREFIX_TIME + "TIME "
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_INDEX + "1"
-            + PREFIX_DATE + "15/10/2019"
+            + PREFIX_INDEX + "1 "
+            + PREFIX_DATE + "15/10/2019 "
             + PREFIX_TIME + "1500";
 
     public static final String MESSAGE_SUCCESS = "Revision task added: %1$s";
-    public static final String MESSAGE_DUPLICATE_TASK = "This task already exists";
     public static final String MESSAGE_INDEX_OUT_OF_BOUND = "Index out of bound. Please key in an index within the"
-            + "range of 1 and size of question list";
+            + " range of 1 and size of question list";
 
     private Task toAdd;
 
@@ -58,7 +58,7 @@ public class AddTaskForQuestionCommand extends Command {
 
         toAdd = getQuestionTask(model);
         if (model.hasTask(toAdd)) {
-            throw new CommandException(MESSAGE_DUPLICATE_TASK);
+            throw new CommandException(Messages.MESSAGE_DUPLICATE_TASK);
         }
 
         model.addTask(toAdd);

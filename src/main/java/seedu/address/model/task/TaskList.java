@@ -8,7 +8,6 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.note.exceptions.NoteNotFoundException;
 import seedu.address.model.task.exceptions.DuplicateTaskException;
 import seedu.address.model.task.exceptions.TaskNotFoundException;
 
@@ -48,7 +47,7 @@ public class TaskList implements Iterable<Task> {
 
         int index = internalList.indexOf(target);
         if (index == -1) {
-            throw new NoteNotFoundException();
+            throw new TaskNotFoundException();
         }
 
         if (!target.equals(edited) && contains(edited)) {
@@ -82,10 +81,9 @@ public class TaskList implements Iterable<Task> {
      */
     public void setTasks(List<Task> tasks) {
         requireAllNonNull(tasks);
-        //if (!notesAreUnique(tasks)) {
-        //    throw new DuplicateTitleException();
-        //}
-
+        if (!tasksAreUnique(tasks)) {
+            throw new DuplicateTaskException();
+        }
         internalList.setAll(tasks);
     }
 
@@ -130,5 +128,19 @@ public class TaskList implements Iterable<Task> {
 
     public void clear() {
         internalList.clear();
+    }
+
+    /**
+     * Returns true if {@code tasks} contains only unique tasks.
+     */
+    private boolean tasksAreUnique(List<Task> tasks) {
+        for (int i = 0; i < tasks.size() - 1; i++) {
+            for (int j = i + 1; j < tasks.size(); j++) {
+                if (tasks.get(i).equals(tasks.get(j))) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 }

@@ -1,21 +1,18 @@
 package seedu.address.model.task;
 
-import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
-import seedu.address.model.task.exceptions.RedundantOperationException;
-
 /**
  * Represents a NUStudy revision task.
  */
 public class Task {
-    public static final String MESSAGE_DATE_CONSTRAINT = "Please follow Singapore local date format 'dd/MM/yyyy',"
-            + "with 1 <= dd <= 31, 1 <= MM <= 12, -9999 < yyyy < 9999";
-    public static final String MESSAGE_TIME_CONSTRAINT = "Please follow Singapore local time format 'HH/mm',"
+    public static final String MESSAGE_DATE_CONSTRAINT = "Please follow Singapore local date format 'dd/MM/yyyy', "
+            + "with 1 <= dd <= 31, 1 <= MM <= 12, 0 < yyyy < 9999";
+    public static final String MESSAGE_TIME_CONSTRAINT = "Please follow Singapore local time format 'HH/mm', "
             + "with 00 <= HH <= 23, 00 <= mm <= 59";
     public static final DateTimeFormatter FORMAT_FILE_DATE_STRING = DateTimeFormatter.ofPattern("dd MMMM yyyy");
     public static final DateTimeFormatter FORMAT_FILE_TIME_STRING = DateTimeFormatter.ofPattern("HH:mm");
@@ -35,7 +32,7 @@ public class Task {
     }
 
     public Task(Heading heading, LocalDate date, LocalTime time, boolean isDone) {
-        requireNonNull(date);
+        requireAllNonNull(heading, date, time, isDone);
         this.heading = heading;
         this.date = date;
         this.time = time;
@@ -85,7 +82,7 @@ public class Task {
         }
 
         Task otherTask = (Task) other;
-        return heading.equals(otherTask.getHeading())
+        return this.heading.equals(otherTask.getHeading())
                 && getDate().equals(otherTask.getDate())
                 && getTime().equals(otherTask.getTime())
                 && getStatusIcon().equals(otherTask.getStatusIcon());
@@ -97,10 +94,17 @@ public class Task {
      * @return The done task object.
      */
     public Task markAsDone() {
-        if (this.isDone) {
-            throw new RedundantOperationException("The task has already been marked done");
-        }
         this.isDone = true;
+        return this;
+    }
+
+    /**
+     * Marks the task as not done.
+     *
+     * @return The not done task object.
+     */
+    public Task markAsNotDone() {
+        this.isDone = false;
         return this;
     }
 
