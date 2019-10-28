@@ -35,6 +35,10 @@ public class FlashCardTestModel {
         return currentFlashCard.getAnswer().toString();
     }
 
+    public FlashCard getCurrentFlashCard() {
+        return currentFlashCard;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (obj == this) {

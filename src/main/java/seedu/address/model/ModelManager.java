@@ -231,6 +231,11 @@ public class ModelManager implements Model {
 
     }
 
+    @Override
+    public FlashCard getCurrentTestFlashCard() {
+        return flashCardTestModel.getCurrentFlashCard();
+    }
+
     //@@author LeowWB
     @Override
     public ObservableList<FlashCard> getFilteredFlashCardListNoCommit(Predicate<FlashCard> predicate) {

@@ -263,6 +263,11 @@ public class AddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
+        @Override
+        public FlashCard getCurrentTestFlashCard() {
+            throw new AssertionError("This method should not be called.");
+        }
+
         //@@author LeowWB
         public ObservableList<FlashCard> getFilteredFlashCardListNoCommit(Predicate<FlashCard> predicate) {
             throw new AssertionError("This method should not be called.");

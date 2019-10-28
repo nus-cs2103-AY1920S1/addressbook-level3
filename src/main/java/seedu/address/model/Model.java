@@ -142,6 +142,8 @@ public interface Model {
 
     String getTestAnswer();
 
+    FlashCard getCurrentTestFlashCard();
+
     /**
      * Replaces the given flashCard {@code target} with {@code editedFlashCard}.
      * {@code target} must exist in the address book.

@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import seedu.address.logic.parser.KeyboardFlashCardsParser;
 import seedu.address.model.Model;
+import seedu.address.model.flashcard.FlashCard;
 import seedu.address.model.flashcard.Rating;
 
 //@@author keiteo
@@ -30,7 +31,7 @@ public class RateQuestionCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         updateModelStatistics(model);
-        // TODO: implement flashcard rating
+        updateFlashCardRating(model.getCurrentTestFlashCard(), model);
 
         if (!model.hasTestFlashCard()) {
             keyboardFlashCardsParser.endTestMode();
@@ -65,5 +66,16 @@ public class RateQuestionCommand extends Command {
         if (rating.equals("easy")) {
             model.editStats(2);
         }
+    }
+
+    private void updateFlashCardRating(FlashCard flashCardToUpdate, Model model) {
+        assert flashCardToUpdate != null;
+        model.setFlashCard(flashCardToUpdate, createUpdatedFlashCard(flashCardToUpdate));
+    }
+
+    private FlashCard createUpdatedFlashCard(FlashCard flashCardToUpdate) {
+        return new FlashCard(flashCardToUpdate.getQuestion(),
+                flashCardToUpdate.getAnswer(),
+                rating, flashCardToUpdate.getCategories());
     }
 }
