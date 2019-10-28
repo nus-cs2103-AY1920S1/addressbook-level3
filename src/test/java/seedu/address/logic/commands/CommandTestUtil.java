@@ -9,6 +9,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_CAPACITY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COLOUR;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CONTACT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COST;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CUSTOMER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_IDENTITY_NUM;
@@ -36,6 +37,7 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.customer.Customer;
 import seedu.address.model.customer.predicates.CustomerNameContainsKeywordsPredicate;
+import seedu.address.model.order.Price;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.model.phone.Capacity;
@@ -88,9 +90,19 @@ public class CommandTestUtil {
     public static final String VALID_COST_IPHONE = "$1649";
     public static final String VALID_COST_SAMSUNG = "$1298";
     public static final String VALID_PRICE_IPHONE = "$2000";
+    public static final String VALID_PRICE_IPHONEXR = "$3000";
     public static final String VALID_PRICE_SAMSUNG = "$1500";
     public static final String VALID_TAG_NEW = "New";
+    public static final String VALID_TAG_USED = "Used";
     public static final String VALID_TAG_BESTSELLER = "Bestseller";
+
+    public static final String VALID_S_CUSTOMER_INDEX = "1";
+    public static final String VALID_S_PHONE_INDEX = "3";
+    public static final String VALID_S_CUSTOMER_INDEX_2 = "3";
+    public static final String VALID_S_PHONE_INDEX_2 = "4";
+    public static final String VALID_ORDER_PRICE = "$3000";
+    public static final Index VALID_CUSTOMER_INDEX = Index.fromOneBased(1);
+    public static final Index VALID_PHONE_INDEX = Index.fromOneBased(3);
 
     public static final int VALID_S_INDEX_MONDAY = 1;
     public static final int VALID_S_INDEX_FRIDAY = 2;
@@ -154,8 +166,9 @@ public class CommandTestUtil {
     public static final String COST_DESC_IPHONE = " " + PREFIX_COST + VALID_COST_IPHONE;
     public static final String COST_DESC_SAMSUNG = " " + PREFIX_COST + VALID_COST_SAMSUNG;
     public static final String PRICE_DESC_IPHONE = " " + PREFIX_PRICE + VALID_PRICE_IPHONE;
-    public static final String PRICE_DESC_SAMSUNG = " " + PREFIX_PRICE + VALID_PRICE_SAMSUNG;
+    public static final String PRICE_DESC_IPHONEXR = " " + PREFIX_PRICE + VALID_PRICE_IPHONEXR;
     public static final String TAG_DESC_NEW = " " + PREFIX_TAG + VALID_TAG_NEW;
+    public static final String TAG_DESC_USED = " " + PREFIX_TAG + VALID_TAG_USED;
     public static final String TAG_DESC_BESTSELLER = " " + PREFIX_TAG + VALID_TAG_BESTSELLER;
 
     public static final String INVALID_PHONE_NAME_DESC = " " + PREFIX_NAME + "iPhone &";
@@ -166,6 +179,15 @@ public class CommandTestUtil {
     public static final String INVALID_CAPACITY_DESC = " " + PREFIX_CAPACITY + "129";
     public static final String INVALID_COST_DESC = " " + PREFIX_COST + "20.789";
     public static final String INVALID_PRICE_DESC = " " + PREFIX_PRICE + "120.89";
+
+    public static final String CUSTOMER_INDEX_DESC = " " + PREFIX_CUSTOMER + VALID_S_CUSTOMER_INDEX;
+    public static final String PHONE_INDEX_DESC = " " + PREFIX_PHONE + VALID_S_PHONE_INDEX;
+    public static final String CUSTOMER_INDEX_DESC_2 = " " + PREFIX_CUSTOMER + VALID_S_CUSTOMER_INDEX_2;
+    public static final String PHONE_INDEX_DESC_2 = " " + PREFIX_PHONE + VALID_S_PHONE_INDEX_2;
+    public static final Price PRICE_DESC_VIPORDER = new Price(VALID_ORDER_PRICE);
+
+    public static final String INVALID_CUSTOMER_INDEX_DESC = " " + PREFIX_CUSTOMER + "-1";
+    public static final String INVALID_PHONE_INDEX_DESC = " " + PREFIX_PHONE + "-1";
 
     public static final String INDEX_DESC_MONDAY = " " + VALID_S_INDEX_MONDAY;
     public static final String INDEX_DESC_FRIDAY = " " + VALID_S_INDEX_FRIDAY;
@@ -183,7 +205,6 @@ public class CommandTestUtil {
     public static final String INVALID_DATE_DESC = " " + PREFIX_DATE + "2012.a.1"; // 'a' not allowed in dates
     public static final String INVALID_TIME_DESC = " " + PREFIX_TIME + "20.$"; // '$' not allowed in time
     public static final String INVALID_VENUE_DESC = " " + PREFIX_VENUE; // empty string not allowed for venues
-    public static final String INVALID_INDEX_DESC = " -1";
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
