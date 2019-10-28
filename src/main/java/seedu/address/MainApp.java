@@ -16,16 +16,20 @@ import seedu.address.commons.util.ConfigUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
-import seedu.address.model.AddressBook;
+import seedu.address.model.IntervieweeList;
+import seedu.address.model.InterviewerList;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyIntervieweeList;
+import seedu.address.model.ReadOnlyInterviewerList;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.Schedule;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.util.SampleDataUtil;
-import seedu.address.storage.AddressBookStorage;
-import seedu.address.storage.JsonAddressBookStorage;
+import seedu.address.storage.IntervieweeListStorage;
+import seedu.address.storage.InterviewerListStorage;
+import seedu.address.storage.JsonIntervieweeListStorage;
+import seedu.address.storage.JsonInterviewerListStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
@@ -58,8 +62,11 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
-        AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
-        storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        IntervieweeListStorage intervieweeListStorage = new JsonIntervieweeListStorage(
+                userPrefs.getIntervieweeListFilePath());
+        InterviewerListStorage interviewerListStorage = new JsonInterviewerListStorage(
+                userPrefs.getInterviewerListFilePath());
+        storage = new StorageManager(intervieweeListStorage, interviewerListStorage, userPrefsStorage);
 
         initLogging(config);
 
@@ -76,25 +83,53 @@ public class MainApp extends Application {
      * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-        Optional<ReadOnlyAddressBook> addressBookOptional;
-        ReadOnlyAddressBook initialData;
+        Optional<ReadOnlyIntervieweeList> intervieweeListOptional;
+        Optional<ReadOnlyInterviewerList> interviewerListOptional;
+        ReadOnlyIntervieweeList initialIntervieweeList;
+        ReadOnlyInterviewerList initialInterviewerList;
+
         try {
-            addressBookOptional = storage.readAddressBook();
-            if (!addressBookOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with a sample AddressBook");
+            intervieweeListOptional = storage.readIntervieweeList();
+
+            if (!intervieweeListOptional.isPresent()) {
+                logger.info("Interviewee data file not found, will be starting with a sample list of "
+                        + "Interviewees");
             }
-            initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
+
+            initialIntervieweeList = intervieweeListOptional.orElseGet(SampleDataUtil::getSampleIntervieweeList);
         } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
-            initialData = new AddressBook();
+            logger.warning("Interviewee data file not in the correct format. Will be starting with an "
+                    + "empty list of Interviewees");
+            initialIntervieweeList = new IntervieweeList();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
-            initialData = new AddressBook();
+            logger.warning("Problem while reading from the Interviewee data file. Will be starting with "
+                    + "an empty list of Interviewees");
+            initialIntervieweeList = new IntervieweeList();
         }
+
+        try {
+            interviewerListOptional = storage.readInterviewerList();
+
+            if (!interviewerListOptional.isPresent()) {
+                logger.info("Interviewer data file not found, will be starting with a sample list of "
+                        + "Interviewers");
+            }
+
+            initialInterviewerList = interviewerListOptional.orElseGet(SampleDataUtil::getSampleInterviewerList);
+        } catch (DataConversionException e) {
+            logger.warning("Interviewer data file not in the correct format. Will be starting with an "
+                    + "empty list of Interviewers");
+            initialInterviewerList = new InterviewerList();
+        } catch (IOException e) {
+            logger.warning("Problem while reading from the Interviewer data file. Will be starting with "
+                    + "an empty list of Interviewers");
+            initialInterviewerList = new InterviewerList();
+        }
+
         // For now ModelManager is always initialised with sample schedulesList first
         List<Schedule> schedules = SampleDataUtil.getSampleSchedulesList();
 
-        return new ModelManager(initialData, userPrefs, schedules);
+        return new ModelManager(initialIntervieweeList, initialInterviewerList, userPrefs, schedules);
     }
 
     private void initLogging(Config config) {
@@ -155,7 +190,8 @@ public class MainApp extends Application {
                     + "Using default user prefs");
             initializedPrefs = new UserPrefs();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
+            logger.warning("Problem while reading from the file. Will be starting with an empty list of "
+                    + "Interviewees and Interviewers");
             initializedPrefs = new UserPrefs();
         }
 

@@ -6,13 +6,14 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import seedu.address.model.AddressBook;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.IntervieweeList;
+import seedu.address.model.InterviewerList;
+import seedu.address.model.ReadOnlyIntervieweeList;
+import seedu.address.model.ReadOnlyInterviewerList;
 import seedu.address.model.Schedule;
 import seedu.address.model.person.Department;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
+import seedu.address.model.person.Interviewee;
+import seedu.address.model.person.Interviewer;
 import seedu.address.model.person.Slot;
 import seedu.address.model.tag.Tag;
 
@@ -20,6 +21,7 @@ import seedu.address.model.tag.Tag;
  * Contains utility methods for populating {@code AddressBook} with sample data.
  */
 public class SampleDataUtil {
+
     private static String[][] sampleFilledTable =
             new String[][]{
                     {"10/9/2019", "Welfare - Hazel", "Technical - Johnathan", "Publicity - Lucia"},
@@ -30,29 +32,34 @@ public class SampleDataUtil {
                     {"20:00-20:30", "Selina", "0", "0"},
                     {"20:30-21:00", "Natal", "0", "0"}};
 
-    public static Person[] getSamplePersons() {
-        return new Person[] {
-            new Person(new Name("Alex Yeoh"), new Phone("87438807"),
-                    getTagSet("friends")),
-            new Person(new Name("Bernice Yu"), new Phone("99272758"),
-                    getTagSet("colleagues", "friends")),
-            new Person(new Name("Charlotte Oliveiro"), new Phone("93210283"),
-                    getTagSet("neighbours")),
-            new Person(new Name("David Li"), new Phone("91031282"),
-                    getTagSet("family")),
-            new Person(new Name("Irfan Ibrahim"), new Phone("92492021"),
-                    getTagSet("classmates")),
-            new Person(new Name("Roy Balakrishnan"), new Phone("92624417"),
-                    getTagSet("colleagues"))
-        };
+    public static Interviewee[] getSampleInterviewees() {
+        // TODO: Expand this sample Interviewees list
+        return new Interviewee[0];
     }
 
-    public static ReadOnlyAddressBook getSampleAddressBook() {
-        AddressBook sampleAb = new AddressBook();
-        for (Person samplePerson : getSamplePersons()) {
-            sampleAb.addPerson(samplePerson);
+    public static Interviewer[] getSampleInterviewers() {
+        // TODO: Expand this sample Interviewers list
+        return new Interviewer[0];
+    }
+
+    public static ReadOnlyIntervieweeList getSampleIntervieweeList() {
+        IntervieweeList sampleIntervieweeList = new IntervieweeList();
+
+        for (Interviewee sampleInterviewee : getSampleInterviewees()) {
+            sampleIntervieweeList.addInterviewee(sampleInterviewee);
         }
-        return sampleAb;
+
+        return sampleIntervieweeList;
+    }
+
+    public static ReadOnlyInterviewerList getSampleInterviewerList() {
+        InterviewerList sampleInterviewerList = new InterviewerList();
+
+        for (Interviewer sampleInterviewer : getSampleInterviewers()) {
+            sampleInterviewerList.addInterviewer(sampleInterviewer);
+        }
+
+        return sampleInterviewerList;
     }
 
     public static List<Schedule> getSampleSchedulesList() {

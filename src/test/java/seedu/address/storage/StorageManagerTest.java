@@ -2,7 +2,8 @@ package seedu.address.storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalPersons.getTypicalIntervieweeList;
+import static seedu.address.testutil.TypicalPersons.getTypicalInterviewerList;
 
 import java.nio.file.Path;
 
@@ -11,8 +12,10 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.AddressBook;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.IntervieweeList;
+import seedu.address.model.InterviewerList;
+import seedu.address.model.ReadOnlyIntervieweeList;
+import seedu.address.model.ReadOnlyInterviewerList;
 import seedu.address.model.UserPrefs;
 
 public class StorageManagerTest {
@@ -24,9 +27,12 @@ public class StorageManagerTest {
 
     @BeforeEach
     public void setUp() {
-        JsonAddressBookStorage addressBookStorage = new JsonAddressBookStorage(getTempFilePath("ab"));
+        JsonIntervieweeListStorage intervieweeListStorage =
+                new JsonIntervieweeListStorage(getTempFilePath("intervieweeList"));
+        JsonInterviewerListStorage interviewerListStorage =
+                new JsonInterviewerListStorage(getTempFilePath("interviewerList"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
-        storageManager = new StorageManager(addressBookStorage, userPrefsStorage);
+        storageManager = new StorageManager(intervieweeListStorage, interviewerListStorage, userPrefsStorage);
     }
 
     private Path getTempFilePath(String fileName) {
@@ -48,21 +54,40 @@ public class StorageManagerTest {
     }
 
     @Test
-    public void addressBookReadSave() throws Exception {
+    public void intervieweeListReadSave() throws Exception {
         /*
          * Note: This is an integration test that verifies the StorageManager is properly wired to the
-         * {@link JsonAddressBookStorage} class.
-         * More extensive testing of UserPref saving/reading is done in {@link JsonAddressBookStorageTest} class.
+         * {@link JsonIntervieweeListStorage} class.
+         * More extensive testing of UserPref saving/reading is done in {@link JsonIntervieweeListStorageTest} class.
          */
-        AddressBook original = getTypicalAddressBook();
-        storageManager.saveAddressBook(original);
-        ReadOnlyAddressBook retrieved = storageManager.readAddressBook().get();
-        assertEquals(original, new AddressBook(retrieved));
+        IntervieweeList original = getTypicalIntervieweeList();
+        storageManager.saveIntervieweeList(original);
+        ReadOnlyIntervieweeList retrieved = storageManager.readIntervieweeList().get();
+        assertEquals(original, new IntervieweeList(retrieved));
     }
 
     @Test
-    public void getAddressBookFilePath() {
-        assertNotNull(storageManager.getAddressBookFilePath());
+    public void interviewerListReadSave() throws Exception {
+        /*
+         * Note: This is an integration test that verifies the StorageManager is properly wired to the
+         * {@link JsonInterviewerListStorage} class.
+         * More extensive testing of UserPref saving/reading is done in {@link JsonInterviewerListStorageTest} class.
+         */
+        InterviewerList original = getTypicalInterviewerList();
+        storageManager.saveInterviewerList(original);
+        ReadOnlyInterviewerList retrieved = storageManager.readInterviewerList().get();
+        assertEquals(original, new InterviewerList(retrieved));
+
+    }
+
+    @Test
+    public void getIntervieweeListFilePath() {
+        assertNotNull(storageManager.getIntervieweeListFilePath());
+    }
+
+    @Test
+    public void getInterviewerListFilePath() {
+        assertNotNull(storageManager.getInterviewerListFilePath());
     }
 
 }

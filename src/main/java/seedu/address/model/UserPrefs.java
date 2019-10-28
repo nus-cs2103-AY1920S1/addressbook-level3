@@ -14,7 +14,8 @@ import seedu.address.commons.core.GuiSettings;
 public class UserPrefs implements ReadOnlyUserPrefs {
 
     private GuiSettings guiSettings = new GuiSettings();
-    private Path addressBookFilePath = Paths.get("data" , "addressbook.json");
+    private Path intervieweeListFilePath = Paths.get("data", "interviewees.json");
+    private Path interviewerListFilePath = Paths.get("data", "interviewers.json");
 
     /**
      * Creates a {@code UserPrefs} with default values.
@@ -35,7 +36,8 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     public void resetData(ReadOnlyUserPrefs newUserPrefs) {
         requireNonNull(newUserPrefs);
         setGuiSettings(newUserPrefs.getGuiSettings());
-        setAddressBookFilePath(newUserPrefs.getAddressBookFilePath());
+        setIntervieweeListFilePath(newUserPrefs.getIntervieweeListFilePath());
+        setInterviewerListFilePath(newUserPrefs.getInterviewerListFilePath());
     }
 
     public GuiSettings getGuiSettings() {
@@ -47,13 +49,24 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         this.guiSettings = guiSettings;
     }
 
-    public Path getAddressBookFilePath() {
-        return addressBookFilePath;
+    @Override
+    public Path getIntervieweeListFilePath() {
+        return this.intervieweeListFilePath;
     }
 
-    public void setAddressBookFilePath(Path addressBookFilePath) {
-        requireNonNull(addressBookFilePath);
-        this.addressBookFilePath = addressBookFilePath;
+    @Override
+    public Path getInterviewerListFilePath() {
+        return this.interviewerListFilePath;
+    }
+
+    public void setIntervieweeListFilePath(Path intervieweeListFilePath) {
+        requireNonNull(intervieweeListFilePath);
+        this.intervieweeListFilePath = intervieweeListFilePath;
+    }
+
+    public void setInterviewerListFilePath(Path interviewerListFilePath) {
+        requireNonNull(interviewerListFilePath);
+        this.interviewerListFilePath = interviewerListFilePath;
     }
 
     @Override
@@ -68,19 +81,21 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         UserPrefs o = (UserPrefs) other;
 
         return guiSettings.equals(o.guiSettings)
-                && addressBookFilePath.equals(o.addressBookFilePath);
+                && this.intervieweeListFilePath.equals(o.intervieweeListFilePath)
+                && this.interviewerListFilePath.equals(o.interviewerListFilePath);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(guiSettings, addressBookFilePath);
+        return Objects.hash(guiSettings, intervieweeListFilePath, interviewerListFilePath);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Gui Settings : " + guiSettings);
-        sb.append("\nLocal data file location : " + addressBookFilePath);
+        sb.append("\nLocal interviewee data file location : " + intervieweeListFilePath);
+        sb.append("\nLocal interviewer data file location : " + interviewerListFilePath);
         return sb.toString();
     }
 

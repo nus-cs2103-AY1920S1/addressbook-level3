@@ -16,11 +16,8 @@ import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 
-import javafx.collections.transformation.FilteredList;
-
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.core.Messages;
 import seedu.address.model.person.Interviewee;
 import seedu.address.model.person.Interviewer;
 import seedu.address.model.person.Person;
@@ -33,33 +30,65 @@ public class ModelManager implements Model {
     public static final Schedule EMPTY_SCHEDULE = new Schedule("", new LinkedList<>());
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final AddressBook addressBook;
+    private final IntervieweeList intervieweeList;
+    private final InterviewerList interviewerList;
     private final UserPrefs userPrefs;
-    private final FilteredList<Person> filteredPersons;
     private final List<Schedule> schedulesList;
-    private List<Interviewee> intervieweesList;
 
     /**
-     * Initializes a ModelManager with the given addressBook and userPrefs.
+     * Initializes a ModelManager with the given intervieweeList, interviewerList, userPrefs and schedulesList.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs,
-                        List<Schedule> schedulesList) {
+    public ModelManager(ReadOnlyIntervieweeList intervieweeList, ReadOnlyInterviewerList interviewerList,
+                        ReadOnlyUserPrefs userPrefs, List<Schedule> schedulesList) {
         super();
-        requireAllNonNull(addressBook, userPrefs, schedulesList);
+        requireAllNonNull(intervieweeList, interviewerList, userPrefs, schedulesList);
 
-        logger.fine("Initializing with list of schedules: " + schedulesList + " and user prefs " + userPrefs);
+        logger.fine("Initialising with list of interviewees: " + intervieweeList
+                + ", list of interviewers: " + interviewerList
+                + ", user prefs: " + userPrefs
+                + " and schedules list: " + schedulesList
+        );
 
-        // TODO: Delete these later
-        this.addressBook = new AddressBook(addressBook);
-        filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
-
+        this.intervieweeList = new IntervieweeList(intervieweeList);
+        this.interviewerList = new InterviewerList(interviewerList);
         this.schedulesList = cloneSchedulesList(schedulesList);
         this.userPrefs = new UserPrefs(userPrefs);
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs(), new LinkedList<>());
+        this(new IntervieweeList(), new InterviewerList(), new UserPrefs(), new LinkedList<>());
     }
+
+    /* TODO: REMOVE THE FOLLOWING LINES AFTER THEIR USAGE IS REMOVED */
+    public ObservableList<Person> getFilteredPersonList() {
+        return null;
+    }
+
+    public void updateFilteredPersonList(Predicate<Person> predicate) {
+
+    }
+
+    public boolean hasPerson(Person person) {
+        return true;
+    }
+
+    public void deletePerson(Person person) {
+
+    }
+
+    public void addPerson(Person person) {
+
+    }
+
+    public Person getPerson(String name) throws NoSuchElementException {
+        return null;
+    }
+
+    public void setPerson(Person target, Person editedPerson) {
+
+    }
+
+    /* TODO: REMOVE ABOVE LINES */
 
     //=========== UserPrefs ==================================================================================
 
@@ -86,14 +115,57 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Path getAddressBookFilePath() {
-        return userPrefs.getAddressBookFilePath();
+    public Path getIntervieweeListFilePath() {
+        return userPrefs.getIntervieweeListFilePath();
     }
 
     @Override
-    public void setAddressBookFilePath(Path addressBookFilePath) {
-        requireNonNull(addressBookFilePath);
-        userPrefs.setAddressBookFilePath(addressBookFilePath);
+    public void setIntervieweeListFilePath(Path intervieweeListFilePath) {
+        requireNonNull(intervieweeListFilePath);
+        userPrefs.setIntervieweeListFilePath(intervieweeListFilePath);
+    }
+
+    @Override
+    public Path getInterviewerListFilePath() {
+        return userPrefs.getInterviewerListFilePath();
+    }
+
+    @Override
+    public void setInterviewerListFilePath(Path interviewerListFilePath) {
+        requireNonNull(interviewerListFilePath);
+        userPrefs.setInterviewerListFilePath(interviewerListFilePath);
+    }
+
+    @Override
+    public void emailInterviewee(Interviewee interviewee) throws IOException {
+        Desktop desktop = Desktop.getDesktop();
+        String intervieweeEmails = interviewee.getEmails().getAllEmails().values().stream()
+                .map((x) -> {
+                    StringBuilder output = new StringBuilder();
+                    for (int i = 0; i < x.size(); i++) {
+                        output.append(x.get(i));
+                        output.append("; ");
+                    }
+
+                    if (output.length() != 0) {
+                        output.delete(output.length() - 2, output.length());
+                    }
+
+                    return output.toString();
+                })
+                .reduce((x, y) -> x + "; " + y).get();
+
+        String sb = "mailto:"
+                + URLEncoder.encode(intervieweeEmails,
+                java.nio.charset.StandardCharsets.UTF_8.toString()).replace("+", "%20")
+                + "?cc=" + "copied@example.com" + "&subject="
+                + URLEncoder.encode("This is a test subject",
+                java.nio.charset.StandardCharsets.UTF_8.toString()).replace("+", "%20")
+                + "&body="
+                + URLEncoder.encode(intervieweeEmails,
+                java.nio.charset.StandardCharsets.UTF_8.toString()).replace("+", "%20");
+        URI uri = URI.create(sb);
+        desktop.mail(uri);
     }
 
     //=========== Schedule ================================================================================
@@ -112,20 +184,6 @@ public class ModelManager implements Model {
     @Override
     public List<Schedule> getSchedulesList() {
         return schedulesList;
-    }
-
-    /**
-     * Sets interviewee's data.
-     * @param list list of interviewees
-     */
-    public void setIntervieweesList(List<Interviewee> list) {
-        intervieweesList = cloneIntervieweesList(list);
-        logger.fine("interviewee's list is updated");
-    }
-
-    /** Returns the intervieweesList **/
-    public List<Interviewee> getIntervieweesList() {
-        return intervieweesList;
     }
 
     /**
@@ -150,53 +208,6 @@ public class ModelManager implements Model {
         return titlesLists;
     }
 
-    @Override
-    public Interviewee getInterviewee(String intervieweeName) throws NoSuchElementException {
-        Person person = getPerson(intervieweeName);
-
-        if (person instanceof Interviewee) {
-            return (Interviewee) person;
-        } else {
-            throw new NoSuchElementException(Messages.MESSAGE_INVALID_PERSON_NAME);
-        }
-    }
-
-    /**
-     * Emails the given Interviewee.
-     * The Interviewee must exist in the database.
-     */
-    @Override
-    public void emailInterviewee(Interviewee interviewee) throws IOException {
-        Desktop desktop = Desktop.getDesktop();
-        String intervieweeEmails = interviewee.getEmails().getAllEmails().values().stream()
-                .map((x) -> {
-                    StringBuilder output = new StringBuilder();
-                    for (int i = 0; i < x.size(); i++) {
-                        output.append(x.get(i));
-                        output.append("; ");
-                    }
-
-                    if (output.length() != 0) {
-                        output.delete(output.length() - 2, output.length());
-                    }
-
-                    return output.toString();
-                })
-                .reduce((x, y) -> x + "; " + y).get();
-
-        String sb = "mailto:"
-                + URLEncoder.encode(intervieweeEmails,
-                        java.nio.charset.StandardCharsets.UTF_8.toString()).replace("+", "%20")
-                + "?cc=" + "copied@example.com" + "&subject="
-                + URLEncoder.encode("This is a test subject",
-                        java.nio.charset.StandardCharsets.UTF_8.toString()).replace("+", "%20")
-                + "&body="
-                + URLEncoder.encode(intervieweeEmails,
-                        java.nio.charset.StandardCharsets.UTF_8.toString()).replace("+", "%20");
-        URI uri = URI.create(sb);
-        desktop.mail(uri);
-    }
-
     /**
      * Returns a list of interview slots assigned to the interviewee with the {@code intervieweeName}.
      */
@@ -213,7 +224,7 @@ public class ModelManager implements Model {
      * Returns the date of the first schedule in which the interviewer exists in, otherwise return empty string.
      */
     @Override
-    public String hasInterviewer(Interviewer interviewer) {
+    public String getInterviewerSchedule(Interviewer interviewer) {
         String date = "";
         for (Schedule schedule : schedulesList) {
             if (schedule.hasInterviewer(interviewer)) {
@@ -229,7 +240,7 @@ public class ModelManager implements Model {
      * be added into any of the schedule.
      */
     @Override
-    public void addInterviewer(Interviewer interviewer) {
+    public void addInterviewerSchedule(Interviewer interviewer) {
         for (Schedule schedule : schedulesList) {
             schedule.addInterviewer(interviewer);
         }
@@ -263,62 +274,100 @@ public class ModelManager implements Model {
         return listClone;
     }
 
-    //=========== AddressBook ================================================================================
+    //=========== IntervieweeList & InterviewerList ====================================================================
 
     @Override
-    public void setAddressBook(ReadOnlyAddressBook addressBook) {
-        this.addressBook.resetData(addressBook);
+    public void setIntervieweeList(List<Interviewee> interviewees) {
+        logger.fine("Updating list of interviewees: " + interviewees);
+        this.intervieweeList.setInterviewees(interviewees);
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return addressBook;
+    public void setInterviewerList(List<Interviewer> interviewers) {
+        logger.fine("Updating list of interviewers: " + interviewers);
+        this.interviewerList.setInterviewers(interviewers);
     }
 
     @Override
-    public boolean hasPerson(Person person) {
-        requireNonNull(person);
-        return addressBook.hasPerson(person);
+    public List<Interviewee> getInterviewees() {
+        return this.intervieweeList.getIntervieweeList();
     }
 
     @Override
-    public void deletePerson(Person target) {
-        addressBook.removePerson(target);
+    public List<Interviewer> getInterviewers() {
+        return this.interviewerList.getInterviewerList();
     }
 
     @Override
-    public void addPerson(Person person) {
-        addressBook.addPerson(person);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+    public Interviewee getInterviewee(String intervieweeName) throws NoSuchElementException {
+        return this.intervieweeList.getInterviewee(intervieweeName);
     }
 
     @Override
-    public Person getPerson(String name) throws NoSuchElementException {
-        return addressBook.getPerson(name);
+    public void setInterviewee(Interviewee target, Interviewee editedInterviewee) {
+        requireAllNonNull(target, editedInterviewee);
+        this.intervieweeList.setInterviewee(target, editedInterviewee);
     }
 
     @Override
-    public void setPerson(Person target, Person editedPerson) {
-        requireAllNonNull(target, editedPerson);
-
-        addressBook.setPerson(target, editedPerson);
-    }
-
-    //=========== Filtered Person List Accessors =============================================================
-
-    /**
-     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
-     * {@code versionedAddressBook}
-     */
-    @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return filteredPersons;
+    public Interviewer getInterviewer(String interviewerName) throws NoSuchElementException {
+        return this.interviewerList.getInterviewer(interviewerName);
     }
 
     @Override
-    public void updateFilteredPersonList(Predicate<Person> predicate) {
-        requireNonNull(predicate);
-        filteredPersons.setPredicate(predicate);
+    public void setInterviewer(Interviewer target, Interviewer editedInterviewer) {
+        requireAllNonNull(target, editedInterviewer);
+        this.interviewerList.setInterviewer(target, editedInterviewer);
+    }
+
+    @Override
+    public boolean hasInterviewee(Interviewee interviewee) {
+        return this.intervieweeList.hasInterviewee(interviewee);
+    }
+
+    @Override
+    public boolean hasInterviewer(Interviewer interviewer) {
+        return this.interviewerList.hasInterviewer(interviewer);
+    }
+
+    @Override
+    public void deleteInterviewee(Interviewee target) {
+        this.intervieweeList.removeInterviewee(target);
+    }
+
+    @Override
+    public void deleteInterviewer(Interviewer target) {
+        this.interviewerList.removeInterviewer(target);
+    }
+
+    @Override
+    public void addInterviewee(Interviewee interviewee) {
+        this.intervieweeList.addInterviewee(interviewee);
+    }
+
+    @Override
+    public void addInterviewer(Interviewer interviewer) {
+        this.interviewerList.addInterviewer(interviewer);
+    }
+
+    @Override
+    public ReadOnlyIntervieweeList getIntervieweeList() {
+        return this.intervieweeList;
+    }
+
+    @Override
+    public ReadOnlyInterviewerList getInterviewerList() {
+        return this.interviewerList;
+    }
+
+    @Override
+    public ObservableList<Interviewee> getObservableIntervieweeList() {
+        return this.intervieweeList.getIntervieweeList();
+    }
+
+    @Override
+    public ObservableList<Interviewer> getObservableInterviewerList() {
+        return this.interviewerList.getInterviewerList();
     }
 
     @Override
@@ -335,8 +384,9 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return addressBook.equals(other.addressBook)
-            && userPrefs.equals(other.userPrefs)
-            && filteredPersons.equals(other.filteredPersons);
+        return this.intervieweeList.equals(other.intervieweeList)
+                && this.interviewerList.equals(other.interviewerList)
+                && this.userPrefs.equals(other.userPrefs)
+                && this.schedulesList.equals(other.schedulesList);
     }
 }

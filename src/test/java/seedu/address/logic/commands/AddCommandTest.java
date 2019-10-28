@@ -19,9 +19,11 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.AddressBook;
+import seedu.address.model.IntervieweeList;
+import seedu.address.model.InterviewerList;
 import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyIntervieweeList;
+import seedu.address.model.ReadOnlyInterviewerList;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.Schedule;
 import seedu.address.model.person.Interviewee;
@@ -85,6 +87,37 @@ public class AddCommandTest {
      * A default model stub that have all of the methods failing.
      */
     private class ModelStub implements Model {
+        /* TODO: REMOVE THE FOLLOWING LINES AFTER THEIR USAGE IS REMOVED */
+        public ObservableList<Person> getFilteredPersonList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        public void updateFilteredPersonList(Predicate<Person> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        public boolean hasPerson(Person person) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        public void deletePerson(Person person) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        public void addPerson(Person person) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        public Person getPerson(String name) throws NoSuchElementException {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        public void setPerson(Person target, Person editedPerson) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        /* TODO: REMOVE ABOVE LINES */
+
         @Override
         public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
             throw new AssertionError("This method should not be called.");
@@ -106,22 +139,37 @@ public class AddCommandTest {
         }
 
         @Override
+        public Path getIntervieweeListFilePath() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setIntervieweeListFilePath(Path intervieweeListFilePath) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Path getInterviewerListFilePath() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setInterviewerListFilePath(Path interviewerListFilePath) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void emailInterviewee(Interviewee interviewee) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void setSchedulesList(List<Schedule> schedulesList) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public LinkedList<Schedule> getSchedulesList() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setIntervieweesList(List<Interviewee> intervieweesList) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public List<Interviewee> getIntervieweesList() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -137,81 +185,107 @@ public class AddCommandTest {
         }
 
         @Override
-        public void emailInterviewee(Interviewee interviewee) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public Interviewee getInterviewee(String intervieweeName) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public List<Slot> getInterviewSlots(String intervieweeName) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public String hasInterviewer(Interviewer interviewer) {
+        public String getInterviewerSchedule(Interviewer interviewer) {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public void addInterviewerSchedule(Interviewer interviewer) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setIntervieweeList(List<Interviewee> interviewees) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setInterviewerList(List<Interviewer> interviewers) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public List<Interviewee> getInterviewees() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public List<Interviewer> getInterviewers() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Interviewee getInterviewee(String name) throws NoSuchElementException {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setInterviewee(Interviewee target, Interviewee editedInterviewee) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Interviewer getInterviewer(String name) throws NoSuchElementException {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setInterviewer(Interviewer target, Interviewer editedInterviewer) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasInterviewee(Interviewee interviewee) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasInterviewer(Interviewer interviewer) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteInterviewee(Interviewee target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteInterviewer(Interviewer target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addInterviewee(Interviewee interviewee) {
+            throw new AssertionError("This method should not be called.");
+        }
+
         @Override
         public void addInterviewer(Interviewer interviewer) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public Path getAddressBookFilePath() {
+        public ReadOnlyIntervieweeList getIntervieweeList() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setAddressBookFilePath(Path addressBookFilePath) {
+        public ReadOnlyInterviewerList getInterviewerList() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void addPerson(Person person) {
+        public ObservableList<Interviewee> getObservableIntervieweeList() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setAddressBook(ReadOnlyAddressBook newData) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ReadOnlyAddressBook getAddressBook() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public boolean hasPerson(Person person) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void deletePerson(Person target) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public Person getPerson(String name) throws NoSuchElementException {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setPerson(Person target, Person editedPerson) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ObservableList<Person> getFilteredPersonList() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void updateFilteredPersonList(Predicate<Person> predicate) {
+        public ObservableList<Interviewer> getObservableInterviewerList() {
             throw new AssertionError("This method should not be called.");
         }
     }
@@ -253,8 +327,13 @@ public class AddCommandTest {
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
-            return new AddressBook();
+        public ReadOnlyIntervieweeList getIntervieweeList() {
+            return new IntervieweeList();
+        }
+
+        @Override
+        public ReadOnlyInterviewerList getInterviewerList() {
+            return new InterviewerList();
         }
     }
 

@@ -23,8 +23,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import seedu.address.model.AddressBook;
+import seedu.address.model.IntervieweeList;
+import seedu.address.model.InterviewerList;
 import seedu.address.model.person.Interviewee;
+import seedu.address.model.person.Interviewer;
 import seedu.address.model.person.Person;
 
 /**
@@ -40,6 +42,13 @@ public class TypicalPersons {
             .withTimeslots("16/10/2019 00:00-23:59")
             .withPersonalEmail("anson@gmail.com")
             .withNusWorkEmail("anson@u.nus.edu")
+            .build();
+
+    public static final Interviewer IAN = new InterviewerBuilder(new PersonBuilder().withName("Ian Scotch")
+            .withPhone("91234567").withTags("senior").build())
+            .withDepartment("Technical")
+            .withEmail("test@example.com")
+            .withAvailabilities("23/10/2019 00:00-23:59")
             .build();
 
     public static final Person ALICE = new PersonBuilder().withName("Alice Pauline")
@@ -76,14 +85,37 @@ public class TypicalPersons {
     private TypicalPersons() {} // prevents instantiation
 
     /**
-     * Returns an {@code AddressBook} with all the typical persons.
+     * Returns an {@code IntervieweeList} with all the typical Interviewees.
      */
-    public static AddressBook getTypicalAddressBook() {
-        AddressBook ab = new AddressBook();
-        for (Person person : getTypicalPersons()) {
-            ab.addPerson(person);
+    public static IntervieweeList getTypicalIntervieweeList() {
+        IntervieweeList iveelist = new IntervieweeList();
+
+        for (Interviewee interviewee : getTypicalInterviewees()) {
+            iveelist.addInterviewee(interviewee);
         }
-        return ab;
+
+        return iveelist;
+    }
+
+    /**
+     * Returns an {@code InterviewerList} with all the typical Interviewers.
+     */
+    public static InterviewerList getTypicalInterviewerList() {
+        InterviewerList iverlist = new InterviewerList();
+
+        for (Interviewer interviewer : getTypicalInterviewers()) {
+            iverlist.addInterviewer(interviewer);
+        }
+
+        return iverlist;
+    }
+
+    public static List<Interviewee> getTypicalInterviewees() {
+        return new ArrayList<>(Arrays.asList(ANSON));
+    }
+
+    public static List<Interviewer> getTypicalInterviewers() {
+        return new ArrayList<>(Arrays.asList(IAN));
     }
 
     public static List<Person> getTypicalPersons() {
