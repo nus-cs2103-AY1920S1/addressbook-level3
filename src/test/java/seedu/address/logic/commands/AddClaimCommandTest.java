@@ -1,9 +1,6 @@
 package seedu.address.logic.commands;
 
-import javafx.beans.InvalidationListener;
-import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
 import org.junit.jupiter.api.Test;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -16,15 +13,11 @@ import seedu.address.model.claim.Claim;
 import seedu.address.model.commanditem.CommandItem;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.income.Income;
-import seedu.address.testutil.ContactBuilder;
+import seedu.address.testutil.ClaimBuilder;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.ListIterator;
 import java.util.function.Predicate;
 
 import static java.util.Objects.requireNonNull;
@@ -32,45 +25,45 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static seedu.address.testutil.Assert.assertThrows;
 
-public class AddContactCommandTest {
+public class AddClaimCommandTest {
 
     @Test
     public void constructor_nullPerson_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new AddContactCommand(null));
+        assertThrows(NullPointerException.class, () -> new AddClaimCommand(null));
     }
 
     @Test
     public void execute_personAcceptedByModel_addSuccessful() throws Exception {
-        ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
-        Contact validPerson = new ContactBuilder().build();
+        ModelStubAcceptingClaimAdded modelStub = new ModelStubAcceptingClaimAdded();
+        Claim validClaim = new ClaimBuilder().build();
 
-        CommandResult commandResult = new AddContactCommand(validPerson).execute(modelStub);
+        CommandResult commandResult = new AddClaimCommand(validClaim).execute(modelStub);
 
-        assertEquals(String.format(AddContactCommand.MESSAGE_SUCCESS, validPerson), commandResult.getFeedbackToUser());
-        assertEquals(Arrays.asList(validPerson), modelStub.personsAdded);
+        assertEquals(String.format(AddClaimCommand.MESSAGE_SUCCESS, validClaim), commandResult.getFeedbackToUser());
+        assertEquals(Arrays.asList(validClaim), modelStub.claimsAdded);
     }
 
     @Test
     public void execute_duplicatePerson_throwsCommandException() {
-        Contact validPerson = new ContactBuilder().build();
-        AddContactCommand addContactCommand = new AddContactCommand(validPerson);
-        ModelStub modelStub = new ModelStubWithPerson(validPerson);
+        Claim validClaim = new ClaimBuilder().build();
+        AddClaimCommand addContactCommand = new AddClaimCommand(validClaim);
+        ModelStub modelStub = new ModelStubWithClaim(validClaim);
 
-        assertThrows(CommandException.class, AddContactCommand.MESSAGE_DUPLICATE_PERSON, () -> addContactCommand.execute(modelStub));
+        assertThrows(CommandException.class, AddClaimCommand.MESSAGE_DUPLICATE_CLAIM, () -> addContactCommand.execute(modelStub));
     }
 
     @Test
     public void equals() {
-        Contact alice = new ContactBuilder().withName("Alice").build();
-        Contact bob = new ContactBuilder().withName("Bob").build();
-        AddContactCommand addAliceCommand = new AddContactCommand(alice);
-        AddContactCommand addBobCommand = new AddContactCommand(bob);
+        Claim logistics = new ClaimBuilder().withDescription("Logistics").build();
+        Claim transport = new ClaimBuilder().withDescription("Transport").build();
+        AddClaimCommand addAliceCommand = new AddClaimCommand(logistics);
+        AddClaimCommand addBobCommand = new AddClaimCommand(transport);
 
         // same object -> returns true
         assertEquals(addAliceCommand, addAliceCommand);
 
         // same values -> returns true
-        AddContactCommand addAliceCommandCopy = new AddContactCommand(alice);
+        AddClaimCommand addAliceCommandCopy = new AddClaimCommand(logistics);
         assertEquals(addAliceCommand, addAliceCommandCopy);
 
         // different types -> returns false
@@ -79,7 +72,7 @@ public class AddContactCommandTest {
         // null -> returns false
         assertNotEquals(null, addAliceCommand);
 
-        // different person -> returns false
+        // different claims -> returns false
         assertNotEquals(addAliceCommand, addBobCommand);
     }
 
@@ -304,55 +297,56 @@ public class AddContactCommandTest {
     }
 
     /**
-     * A Model stub that contains a single person.
+     * A Model stub that contains a single claim.
      */
-    private class ModelStubWithPerson extends ModelStub {
-        private final Contact contact;
+    private class ModelStubWithClaim extends ModelStub {
+        private final Claim claim;
 
-        ModelStubWithPerson(Contact contact) {
-            requireNonNull(contact);
-            this.contact = contact;
+        ModelStubWithClaim(Claim claim) {
+            requireNonNull(claim);
+            this.claim = claim;
         }
 
         @Override
-        public boolean hasContact(Contact contact) {
-            requireNonNull(contact);
-            return this.contact.isSamePerson(contact);
+        public boolean hasClaim(Claim claim) {
+            requireNonNull(claim);
+            return this.claim.isSameClaim(claim);
+        }
+
+        @Override
+        public boolean hasContactFor(Claim toAdd) {
+            requireNonNull(toAdd);
+            return true;
         }
     }
 
     /**
      * A Model stub that always accept the person being added.
      */
-    private class ModelStubAcceptingPersonAdded extends ModelStub {
-        final ArrayList<Contact> personsAdded = new ArrayList<>();
+    private class ModelStubAcceptingClaimAdded extends ModelStub {
+        final ArrayList<Claim> claimsAdded = new ArrayList<>();
 
         @Override
-        public boolean hasContact(Contact contact) {
-            requireNonNull(contact);
-            return personsAdded.stream().anyMatch(contact::isSamePerson);
+        public boolean hasClaim(Claim claim) {
+            requireNonNull(claim);
+            return claimsAdded.stream().anyMatch(claim::isSameClaim);
         }
 
         @Override
-        public void addContact(Contact contact) {
-            requireNonNull(contact);
-            personsAdded.add(contact);
-        }
-
-        @Override
-        public void addAutocorrectSuggestion(AutocorrectSuggestion suggestion) {
-            return;
-        }
-
-        @Override
-        public ObservableList<AutocorrectSuggestion> getFilteredAutocorrectSuggestionList() {
-            return new FilteredList<AutocorrectSuggestion>(null);
+        public void addClaim(Claim claim) {
+            requireNonNull(claim);
+            claimsAdded.add(claim);
         }
 
         @Override
         public ReadOnlyFinSec getFinSec() {
             return new FinSec();
         }
-    }
 
+        @Override
+        public boolean hasContactFor(Claim toAdd) {
+            requireNonNull(toAdd);
+            return true;
+        }
+    }
 }
