@@ -4,11 +4,11 @@ import java.util.ArrayList;
 
 import dream.fcard.core.commons.core.LogsCenter;
 import dream.fcard.gui.Gui;
+import dream.fcard.logic.respond.commands.CreateCommand;
 import dream.fcard.logic.respond.commands.EditCommand;
 import dream.fcard.logic.storage.StorageManager;
 import dream.fcard.model.Deck;
 import dream.fcard.model.State;
-import dream.fcard.model.cards.FrontBackCard;
 import dream.fcard.model.exceptions.DeckNotFoundException;
 import dream.fcard.model.exceptions.IndexNotFoundException;
 import dream.fcard.util.FileReadWrite;
@@ -131,7 +131,6 @@ enum Responses {
     CREATE("(?i)^(create)?(\\s)+(deck/[\\S]+){1}[\\s]*", (commandInput, programState) -> {
         //System.out.println("Current command is CREATE_DECK");
         LogsCenter.getLogger(Responses.class).info("Current command is CREATE_DECK");
-
         /*
         if (programState.getCurrentState() != StateEnum.DEFAULT) {
             System.out.println("Create not allowed here");
@@ -140,8 +139,6 @@ enum Responses {
          */
 
         String deckName = commandInput.split("deck/")[1].trim();
-        LogsCenter.getLogger(Responses.class).info("CREATE_DECK: command parsing successful");
-
         if (programState.hasDeck(deckName)) {
             // REPORT DECK EXISTS
             LogsCenter.getLogger(Responses.class).warning("CREATE_DECK: Deck with same name exist - " + deckName);
@@ -169,7 +166,6 @@ enum Responses {
                 LogsCenter.getLogger(Responses.class).info("Current command is DECK_CREATE_MCQ_CARD");
 
 
-                //System.out.println(commandInput);
 
                 LogsCenter.getLogger(Responses.class).info("DECK_CREATE_MCQ_CARD: command execution successful");
                 Gui.showStatus("Deck created - ");
@@ -185,32 +181,8 @@ enum Responses {
                 System.out.println("Current command is DECK_CREATE_REG_CARD");
                 LogsCenter.getLogger(Responses.class).info("Current command is DECK_CREATE_REG_CARD");
 
-                String userInput = commandInput.replaceFirst("create deck/", "");
-
-                String[] userInputFields = userInput.trim().split(" front/");
-
-                String deckName = userInputFields[0];
-
-                String[] userCardFields = userInputFields[1].trim().split(" back/");
-
-                String front = userCardFields[0];
-                String back = userCardFields[1];
-
-                //System.out.println(deckName + " " + front + " " + back);
-
-                // Check if deck by the name exist
-                LogsCenter.getLogger(Responses.class).info("DECK_CREATE_REG_CARD: command parsing successful");
-                try {
-                    Deck deck = programState.getDeck(deckName);
-                    deck.addNewCard(new FrontBackCard(front, back));
-
-                    LogsCenter.getLogger(Responses.class).info("DECK_CREATE_REG_CARD: Card added to " + deckName);
-
-                } catch (DeckNotFoundException d) {
-                    // Throw exception to responder
-                    LogsCenter.getLogger(Responses.class).warning("DECK_CREATE_REG_CARD: Deck not found - " + deckName);
-                    Gui.showError(d.getMessage());
-                }
+                CreateCommand command = new CreateCommand();
+                command.funcCall(commandInput, programState);
 
                 LogsCenter.getLogger(Responses.class).info("DECK_CREATE_REG_CARD: command execution successful");
                 return true; // capture is valid, end checking other commands
