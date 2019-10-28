@@ -333,6 +333,11 @@ public class AddNoteCommandTest {
         public ObservableList<StackBarChartModel> getStackBarChartData() {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public ObservableList<PieChart.Data> getQnsPieChartData() {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**

@@ -245,6 +245,8 @@ public interface Model {
 
     ObservableList<QuizResult> getQuizResultList();
 
+    void generateQnsReport(Question question);
+
     ObservableList<Subject> getUniqueSubjectList();
 
     ObservableList<StackBarChartModel> getStackBarChartData();

@@ -34,6 +34,12 @@ public class StatsQns extends UiPart<Region> {
         quizResultDifficultyChart.setTitle("Difficulty levels");
     }
 
+    public StatsQns(ObservableList<QuizResult> quizResultList) {
+        super(FXML);
+        quizResultListView.setItems(quizResultList);
+        quizResultListView.setCellFactory(listView -> new StatsQns.QuizResultListViewCell());
+    }
+
     public void setMouseover() {
         quizResultDifficultyChart.getData().forEach(data -> {
             String value = "" + (int) data.getPieValue();

@@ -1,11 +1,18 @@
 package seedu.address.logic.commands.statistics;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.commands.statistics.Type.REPORT;
 
+import java.util.List;
+
+import seedu.address.commons.core.Messages;
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.question.Question;
+import seedu.address.model.quiz.exceptions.EmptyQuizResultListException;
 
 /**
  * Returns a report for questions.
@@ -21,10 +28,11 @@ public class GetReportCommand extends Command {
             + "5";
 
     public static final String MESSAGE_SUCCESS = "Here is a report of the question:";
+    public static final String MESSAGE_NO_REPORT = "There is no data available for this question. ";
 
-    private final int index;
+    private final Index index;
 
-    public GetReportCommand(int index) {
+    public GetReportCommand(Index index) {
         requireNonNull(index);
         this.index = index;
     }
@@ -32,7 +40,18 @@ public class GetReportCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        // need to extract data from storage
-        return new CommandResult(MESSAGE_SUCCESS);
+        List<Question> lastShownList = model.getFilteredQuestionList();
+        if (index.getZeroBased() >= lastShownList.size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_QUESTION_DISPLAYED_INDEX);
+        }
+        Question question = lastShownList.get(index.getZeroBased());
+        try {
+            model.generateQnsReport(question);
+        } catch (EmptyQuizResultListException e) {
+            throw new CommandException(MESSAGE_NO_REPORT);
+        }
+        CommandResult c = new CommandResult(MESSAGE_SUCCESS, 8);
+        c.setType(REPORT);
+        return c;
     }
 }

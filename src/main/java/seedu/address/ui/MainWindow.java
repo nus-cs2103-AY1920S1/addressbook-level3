@@ -206,8 +206,7 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Shows a pie chart and returns the value of the data
-     * in each slice of the chart when the mouse hovers over it.
+     * Shows the various charts depending on the type of command.
      */
     @FXML
     private void showStats(Type type) throws ParseException {
@@ -230,6 +229,11 @@ public class MainWindow extends UiPart<Stage> {
             statsPanelPlaceholder.getChildren().clear();
             stackBarChart = new StackBarChart(logic.getStackBarChartData(), logic.getUniqueSubjectList());
             statsPanelPlaceholder.getChildren().add(stackBarChart.getRoot());
+            break;
+        case REPORT:
+            statsPanelPlaceholder.getChildren().clear();
+            statsQns = new StatsQns(logic.getQuizResultList());
+            statsPanelPlaceholder.getChildren().add(statsQns.getRoot());
             break;
         default:
             throw new ParseException("Invalid type: " + type);

@@ -380,6 +380,14 @@ public class ModelManager implements Model {
         return quizResults.size();
     }
 
+    @Override
+    public void generateQnsReport(Question question) throws EmptyQuizResultListException {
+        quizResults = appData.getQnsReport(question);
+        if (quizResults.isEmpty()) {
+            throw new EmptyQuizResultListException();
+        }
+    }
+
     private int getTotalQuestionsCorrect() {
         int totalCorrectQns = 0;
         for (QuizResult q : quizResults) {
