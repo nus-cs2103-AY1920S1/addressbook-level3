@@ -1,9 +1,8 @@
 package seedu.address.model.claim;
 
-import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
 import static seedu.address.testutil.Assert.assertThrows;
+
+import org.junit.jupiter.api.Test;
 
 class DescriptionTest {
 

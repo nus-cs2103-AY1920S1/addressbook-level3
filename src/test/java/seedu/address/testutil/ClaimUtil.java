@@ -1,14 +1,14 @@
 package seedu.address.testutil;
 
-import seedu.address.logic.commands.AddClaimCommand;
-import seedu.address.model.claim.Claim;
-
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CASH;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+
+import seedu.address.logic.commands.AddClaimCommand;
+import seedu.address.model.claim.Claim;
 
 /**
  * A utility class for Claim.
@@ -35,7 +35,7 @@ public class ClaimUtil {
         sb.append(PREFIX_DESCRIPTION + claim.getDescription().text + " ");
 
         claim.getTags().stream().forEach(
-                s -> sb.append(PREFIX_TAG + s.tagName + " ")
+            s -> sb.append(PREFIX_TAG + s.tagName + " ")
         );
         return sb.toString();
     }

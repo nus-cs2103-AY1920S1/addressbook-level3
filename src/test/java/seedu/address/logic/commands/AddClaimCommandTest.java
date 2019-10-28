@@ -1,7 +1,20 @@
 package seedu.address.logic.commands;
 
-import javafx.collections.ObservableList;
+import static java.util.Objects.requireNonNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static seedu.address.testutil.Assert.assertThrows;
+
+import java.nio.file.Path;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.function.Predicate;
+
 import org.junit.jupiter.api.Test;
+
+import javafx.collections.ObservableList;
+
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.FinSec;
@@ -14,16 +27,6 @@ import seedu.address.model.commanditem.CommandItem;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.income.Income;
 import seedu.address.testutil.ClaimBuilder;
-
-import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.function.Predicate;
-
-import static java.util.Objects.requireNonNull;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static seedu.address.testutil.Assert.assertThrows;
 
 public class AddClaimCommandTest {
 
@@ -49,7 +52,8 @@ public class AddClaimCommandTest {
         AddClaimCommand addContactCommand = new AddClaimCommand(validClaim);
         ModelStub modelStub = new ModelStubWithClaim(validClaim);
 
-        assertThrows(CommandException.class, AddClaimCommand.MESSAGE_DUPLICATE_CLAIM, () -> addContactCommand.execute(modelStub));
+        assertThrows(CommandException.class,
+                AddClaimCommand.MESSAGE_DUPLICATE_CLAIM, () -> addContactCommand.execute(modelStub));
     }
 
     @Test

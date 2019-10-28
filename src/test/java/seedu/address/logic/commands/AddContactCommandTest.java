@@ -1,10 +1,20 @@
 package seedu.address.logic.commands;
 
-import javafx.beans.InvalidationListener;
-import javafx.collections.ListChangeListener;
+import static java.util.Objects.requireNonNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static seedu.address.testutil.Assert.assertThrows;
+
+import java.nio.file.Path;
+
+import java.util.ArrayList;
+import java.util.function.Predicate;
+
+import org.junit.jupiter.api.Test;
+
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
-import org.junit.jupiter.api.Test;
+
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.FinSec;
@@ -18,19 +28,6 @@ import seedu.address.model.contact.Contact;
 import seedu.address.model.income.Income;
 import seedu.address.testutil.ContactBuilder;
 
-import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.ListIterator;
-import java.util.function.Predicate;
-
-import static java.util.Objects.requireNonNull;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static seedu.address.testutil.Assert.assertThrows;
 
 public class AddContactCommandTest {
 
@@ -39,16 +36,17 @@ public class AddContactCommandTest {
         assertThrows(NullPointerException.class, () -> new AddContactCommand(null));
     }
 
-//    @Test
-//    public void execute_personAcceptedByModel_addSuccessful() throws Exception {
-//        ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
-//        Contact validPerson = new ContactBuilder().build();
-//
-//        CommandResult commandResult = new AddContactCommand(validPerson).execute(modelStub);
-//
-//        assertEquals(String.format(AddContactCommand.MESSAGE_SUCCESS, validPerson), commandResult.getFeedbackToUser());
-//        assertEquals(Arrays.asList(validPerson), modelStub.personsAdded);
-//    }
+    //    @Test
+    //    public void execute_personAcceptedByModel_addSuccessful() throws Exception {
+    //        ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
+    //        Contact validPerson = new ContactBuilder().build();
+    //
+    //        CommandResult commandResult = new AddContactCommand(validPerson).execute(modelStub);
+    //
+    //        assertEquals(String.format(AddContactCommand.MESSAGE_SUCCESS, validPerson),
+    //        commandResult.getFeedbackToUser());
+    //        assertEquals(Arrays.asList(validPerson), modelStub.personsAdded);
+    //    }
 
     @Test
     public void execute_duplicatePerson_throwsCommandException() {
@@ -56,7 +54,8 @@ public class AddContactCommandTest {
         AddContactCommand addContactCommand = new AddContactCommand(validPerson);
         ModelStub modelStub = new ModelStubWithPerson(validPerson);
 
-        assertThrows(CommandException.class, AddContactCommand.MESSAGE_DUPLICATE_PERSON, () -> addContactCommand.execute(modelStub));
+        assertThrows(CommandException.class,
+                AddContactCommand.MESSAGE_DUPLICATE_PERSON, () -> addContactCommand.execute(modelStub));
     }
 
     @Test
@@ -88,12 +87,12 @@ public class AddContactCommandTest {
      */
     private class ModelStub implements Model {
         @Override
-        public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
+        public ReadOnlyUserPrefs getUserPrefs() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyUserPrefs getUserPrefs() {
+        public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -118,12 +117,12 @@ public class AddContactCommandTest {
         }
 
         @Override
-        public void setFinSec(ReadOnlyFinSec finSec) {
+        public ReadOnlyFinSec getFinSec() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyFinSec getFinSec() {
+        public void setFinSec(ReadOnlyFinSec finSec) {
             throw new AssertionError("This method should not be called.");
         }
 
