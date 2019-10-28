@@ -1,27 +1,17 @@
 package dream.fcard.logic.exam;
 
-import java.util.Scanner;
-
 import dream.fcard.model.Deck;
+
 import dream.fcard.model.cards.FlashCard;
 
 /**
- * ...
+ * Singleton class that ensures that there is only ONE instance of exam.
  */
-public class ExamRunner implements Exam {
+public class ExamRunner {
 
-    private final int deckSize;
-    private final Scanner scanner;
-    private Deck deck;
-    private Result result;
-    private boolean examOngoing;
+    private static Exam exam;
 
-    public ExamRunner(Deck deck) {
-        this.deck = deck;
-        this.deckSize = deck.getCards().size();
-        this.scanner = new Scanner(System.in);
-        this.result = new Result(deckSize);
-    }
+    private ExamRunner() {
 
     /**
      * Exam driver method.
@@ -73,10 +63,14 @@ public class ExamRunner implements Exam {
             //Display the correct answer
             System.out.println("Correct Answer:" + card.getBack());
         } */
+
     }
 
-    private String promptUserInput() {
-        System.out.print("Your answer for this card:");
-        return scanner.nextLine();
+    public static void createExam(Deck deck) {
+        exam = new UntimedExam(deck.getSubsetForTest());
+    }
+
+    public static Exam getCurrentExam() {
+        return exam;
     }
 }
