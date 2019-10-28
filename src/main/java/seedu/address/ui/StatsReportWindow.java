@@ -8,7 +8,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-import seedu.address.commons.core.LogsCenter;;
+import seedu.address.commons.core.LogsCenter;
 
 /**
  * Controller for a statistics report page.
@@ -16,6 +16,7 @@ import seedu.address.commons.core.LogsCenter;;
 public class StatsReportWindow extends UiPart<Stage> {
 
     public static final String TIP = "Press 'Esc' to quit slideshow";
+    public static final String STATISTICS_PRINTABLE_DIRECTORY = "..\\statistics_reports";
 
     private static final Logger logger = LogsCenter.getLogger(StatsReportWindow.class);
     private static final String FXML = "StatsReportWindow.fxml";
@@ -61,6 +62,10 @@ public class StatsReportWindow extends UiPart<Stage> {
     public void setStatsCard(StatisticsCard statsCard) {
         this.statsCard = statsCard;
         statisticsPanelPlaceholder.getChildren().add(statsCard.getRoot());
+    }
+
+    public StackPane getStatisticsPanelPlaceholder() {
+        return statisticsPanelPlaceholder;
     }
 
     /**

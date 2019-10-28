@@ -7,8 +7,10 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.SnapshotParameters;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
+import javafx.scene.image.WritableImage;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
@@ -22,6 +24,8 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.question.Question;
 import seedu.address.model.student.Student;
+import seedu.address.storage.printable.StatisticsPrintable;
+
 
 /**
  * The Main Window. Provides the basic application layout containing a menu bar and space where
@@ -289,7 +293,7 @@ public class MainWindow extends UiPart<Stage> {
      * Opens the statistics report window or focuses on it if it's already opened.
      */
     @FXML
-    public void handleStats() {
+    public void handleStats(CommandResultType commandResultType) throws IOException {
         StatisticsCard statsCard = new StatisticsCard(logic.getProcessedStatistics());
         statsReportWindow.setStatsCard(statsCard);
         if (!statsReportWindow.isShowing()) {
@@ -297,6 +301,18 @@ public class MainWindow extends UiPart<Stage> {
         } else {
             statsReportWindow.focus();
         }
+        if (commandResultType.isPrintable()) {
+            makePrintableStatistics(commandResultType.getPrintableName());
+        }
+    }
+
+    /**
+     * Saves a printable statistics report file with the specified fileName.
+     */
+    public void makePrintableStatistics(String fileName) throws IOException {
+        WritableImage image = statsReportWindow.getStatisticsPanelPlaceholder()
+                .snapshot(new SnapshotParameters(), null);
+        logic.savePrintable(new StatisticsPrintable(image, fileName));
     }
 
     /**
@@ -347,7 +363,7 @@ public class MainWindow extends UiPart<Stage> {
                 handleSchedule();
                 break;
             case SHOW_STATISTIC:
-                handleStats();
+                handleStats(commandResultType);
                 break;
             case SHOW_QUIZ_QUESTIONS:
                 handleQuizQuestions();

@@ -14,6 +14,8 @@ public class CliSyntax {
     public static final Prefix PREFIX_ADDRESS = new Prefix("ad/");
     // END OF ADDRESS BOOK PREFIX
 
+    public static final Prefix PREFIX_PRINT = new Prefix("print/");
+
     // EVENT PREFIX
     public static final Prefix PREFIX_EVENT = new Prefix("event/");
     public static final Prefix PREFIX_EVENT_NAME = new Prefix("eventName/");

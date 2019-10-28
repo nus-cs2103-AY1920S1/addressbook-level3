@@ -34,7 +34,8 @@ public class StatisticsCommandParser implements Parser<StatisticsCommand> {
     public StatisticsCommand parse(String args) throws ParseException {
         requireNonNull(args);
 
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, CliSyntax.PREFIX_FILEPATH);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(
+                args, CliSyntax.PREFIX_FILEPATH, CliSyntax.PREFIX_PRINT);
 
         if (!arePrefixesPresent(argMultimap, CliSyntax.PREFIX_FILEPATH)
                 || !argMultimap.getPreamble().isEmpty()) {
@@ -43,9 +44,10 @@ public class StatisticsCommandParser implements Parser<StatisticsCommand> {
         }
 
         String filePath = argMultimap.getValue(CliSyntax.PREFIX_FILEPATH).orElse("");
+        String printableName = argMultimap.getValue(CliSyntax.PREFIX_PRINT).orElse("");
         HashMap<String, HashMap<String, Double>> data = dataParser.parseFile(filePath);
 
-        return new StatisticsAddCommand(new Statistics(data));
+        return new StatisticsAddCommand(new Statistics(data), printableName);
     }
 
     private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {

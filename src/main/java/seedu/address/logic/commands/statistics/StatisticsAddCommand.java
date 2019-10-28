@@ -21,22 +21,34 @@ public class StatisticsAddCommand extends StatisticsCommand {
     public static final String MESSAGE_SUCCESS = "Statistics Generated";
 
     private final Statistics toAdd;
+    private final String printableName;
 
     /**
      * Creates a StatisticsAddCommand to add the specified {@code Statistics}
      *
      * @param stats to set.
      */
-    public StatisticsAddCommand(Statistics stats) {
+    public StatisticsAddCommand(Statistics stats, String printableName) {
         requireNonNull(stats);
         toAdd = stats;
+        this.printableName = printableName;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         model.addStatistics(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), CommandResultType.SHOW_STATISTIC);
+        CommandResultType statisticsCommandResult = CommandResultType.SHOW_STATISTIC;
+        setPrintableAttributes(statisticsCommandResult);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), statisticsCommandResult);
+    }
+
+    public void setPrintableAttributes(CommandResultType commandResultType) {
+        if (!printableName.isEmpty()) {
+            String fileWithExtension = printableName.contains(".png") ? printableName : printableName + ".png";
+            commandResultType.setPrintable(true);
+            commandResultType.setPrintableName(fileWithExtension);
+        }
     }
 
     @Override
