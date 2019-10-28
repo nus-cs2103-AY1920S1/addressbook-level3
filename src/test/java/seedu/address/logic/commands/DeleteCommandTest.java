@@ -12,10 +12,10 @@ import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.address.logic.commands.DeleteCommand;
+import seedu.address.address.model.AddressBookModelManager;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.address.model.AddressBookModel;
-import seedu.address.address.model.AddressBookModelManager;
 import seedu.address.address.model.person.Person;
 import seedu.address.model.UserPrefs;
 

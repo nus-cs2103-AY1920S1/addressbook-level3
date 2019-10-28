@@ -5,8 +5,8 @@ import java.util.logging.Logger;
 
 import seedu.address.achievements.model.StatisticsModel;
 import seedu.address.achievements.model.StatisticsModelManager;
-import seedu.address.commons.core.LogsCenter;
 import seedu.address.address.model.AddressBookModel;
+import seedu.address.commons.core.LogsCenter;
 
 /**
  * Represents the in-memory addressBookModel of the address book data.
@@ -38,7 +38,7 @@ public class ModelManager implements Model {
         return new Supplier<StatisticsModel>() {
             @Override
             public StatisticsModel get() {
-                return new StatisticsModelManager(addressBookModel.getFilteredPersonList());
+                return new StatisticsModelManager(addressBookModel);
             }
         };
     }

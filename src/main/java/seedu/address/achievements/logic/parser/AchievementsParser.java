@@ -3,13 +3,14 @@ package seedu.address.achievements.logic.parser;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import seedu.address.achievements.logic.commands.GoToCommand;
 import seedu.address.achievements.logic.commands.HelpCommand;
 import seedu.address.achievements.model.StatisticsModel;
-import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.logic.commands.Command;
 import seedu.address.commons.core.Messages;
+import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.GoToCommand;
+import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.GoToParser;
+import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
  * Parses user input.

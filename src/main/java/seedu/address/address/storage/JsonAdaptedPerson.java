@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
 import seedu.address.address.model.country.Country;
 import seedu.address.address.model.person.Address;
 import seedu.address.address.model.person.Email;
@@ -38,9 +39,9 @@ public class JsonAdaptedPerson {
      */
     @JsonCreator
     public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
-            @JsonProperty("email") String email, @JsonProperty("address") String address,
-            @JsonProperty("remark") String remark, @JsonProperty("tagged") List<JsonAdaptedTag> tagged,
-            @JsonProperty("country") String country) {
+                             @JsonProperty("email") String email, @JsonProperty("address") String address,
+                             @JsonProperty("remark") String remark, @JsonProperty("tagged") List<JsonAdaptedTag> tagged,
+                             @JsonProperty("country") String country) {
         this.name = name;
         this.phone = phone;
         this.email = email;

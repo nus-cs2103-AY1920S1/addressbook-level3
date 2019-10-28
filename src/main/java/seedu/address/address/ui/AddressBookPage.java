@@ -13,9 +13,9 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import seedu.address.address.logic.AddressBookLogic;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.address.logic.AddressBookLogic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -79,8 +79,6 @@ public class AddressBookPage extends UiPart<Region> implements Page {
         this.primaryStage = primaryStage;
         this.addressBookLogic = addressBookLogic;
 
-        helpWindow = new HelpWindow();
-        codeWindow = new CodeWindow();
         addressBookScene = new Scene(addressBookBox);
 
         setAccelerators();

@@ -9,12 +9,12 @@
   <children>
       <VBox alignment="CENTER_LEFT" minWidth="160.0" HBox.hgrow="ALWAYS">
          <children>
-          <Label fx:id="title" wrapText="true" />
+          <Label fx:id="dataTitle" wrapText="true" />
          </children>
       </VBox>
       <VBox alignment="CENTER_RIGHT" minWidth="160.0" HBox.hgrow="ALWAYS">
          <children>
-            <Label fx:id="value" text="Label" />
+            <Label fx:id="dataValue" text="Label" />
          </children>
       </VBox>
   </children>

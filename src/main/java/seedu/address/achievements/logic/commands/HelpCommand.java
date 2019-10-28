@@ -1,8 +1,8 @@
 package seedu.address.achievements.logic.commands;
 
 import seedu.address.achievements.model.StatisticsModel;
-import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.CommandResult;
 
 /**
  * Format full help instructions for every command for display.
