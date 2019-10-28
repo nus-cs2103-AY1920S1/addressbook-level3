@@ -10,6 +10,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.algobase.commons.exceptions.IllegalValueException;
+import seedu.algobase.model.Id;
 import seedu.algobase.model.problem.Author;
 import seedu.algobase.model.problem.Description;
 import seedu.algobase.model.problem.Difficulty;
@@ -67,7 +68,7 @@ class JsonAdaptedProblem {
      * Converts a given {@code Problem} into this class for Jackson use.
      */
     public JsonAdaptedProblem(Problem problem) {
-        id = Long.toString(problem.getId());
+        id = problem.getId().toString();
         name = problem.getName().fullName;
         author = problem.getAuthor().value;
         weblink = problem.getWebLink().value;
@@ -91,7 +92,7 @@ class JsonAdaptedProblem {
             problemTags.add(tag.toModelType());
         }
 
-        final long modelId = retrieveId(id);
+        final Id modelId = retrieveId(id);
         final Name modelName = retrieveName(name);
         final Author modelAuthor = retrieveAuthor(author);
         final WebLink modelWebLink = retrieveWeblink(weblink);
@@ -112,14 +113,14 @@ class JsonAdaptedProblem {
      * @return id in long format.
      * @throws IllegalValueException if string format is invalid.
      */
-    public long retrieveId(String id) throws IllegalValueException {
+    public Id retrieveId(String id) throws IllegalValueException {
         if (id == null) {
             throw new IllegalValueException(
                 String.format(MISSING_FIELD_MESSAGE_FORMAT, "Id"));
         }
 
         try {
-            return Long.parseLong(id);
+            return Id.generateId(id);
         } catch (NumberFormatException e) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "Id"));
         }

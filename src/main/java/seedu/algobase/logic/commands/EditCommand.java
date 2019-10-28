@@ -20,6 +20,7 @@ import seedu.algobase.commons.core.Messages;
 import seedu.algobase.commons.core.index.Index;
 import seedu.algobase.commons.util.CollectionUtil;
 import seedu.algobase.logic.commands.exceptions.CommandException;
+import seedu.algobase.model.Id;
 import seedu.algobase.model.Model;
 import seedu.algobase.model.problem.Author;
 import seedu.algobase.model.problem.Description;
@@ -105,7 +106,7 @@ public class EditCommand extends Command {
     private static Problem createEditedProblem(Problem problemToEdit, EditProblemDescriptor editProblemDescriptor) {
         assert problemToEdit != null;
 
-        long id = problemToEdit.getId();
+        Id id = problemToEdit.getId();
         Name updatedName = editProblemDescriptor.getName().orElse(problemToEdit.getName());
         Author updatedAuthor = editProblemDescriptor.getAuthor().orElse(problemToEdit.getAuthor());
         WebLink updatedWebLink = editProblemDescriptor.getWebLink().orElse(problemToEdit.getWebLink());

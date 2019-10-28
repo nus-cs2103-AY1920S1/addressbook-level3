@@ -6,7 +6,7 @@ import java.time.LocalDate;
 import java.util.Objects;
 import java.util.Set;
 
-import seedu.algobase.commons.util.IdUtil;
+import seedu.algobase.model.Id;
 import seedu.algobase.model.problem.Author;
 import seedu.algobase.model.problem.Description;
 import seedu.algobase.model.problem.Difficulty;
@@ -23,7 +23,7 @@ import seedu.algobase.model.tag.Tag;
  */
 public class Task {
 
-    private final long id;
+    private final Id id;
     private final Problem problem;
     private final Boolean isSolved;
     private final LocalDate targetDate;
@@ -33,13 +33,13 @@ public class Task {
      */
     public Task(Problem problem, LocalDate targetDate, boolean isSolved) {
         requireAllNonNull(problem);
-        this.id = IdUtil.generateId();
+        this.id = Id.generateId();
         this.problem = problem;
         this.isSolved = isSolved;
         this.targetDate = targetDate;
     }
 
-    public Task(long id, Problem problem, LocalDate targetDate, boolean isSolved) {
+    public Task(Id id, Problem problem, LocalDate targetDate, boolean isSolved) {
         requireAllNonNull(id, problem);
         this.id = id;
         this.problem = problem;
@@ -54,14 +54,14 @@ public class Task {
     public static Task updateStatus(Task taskToUpdate, boolean isSolved) {
         assert taskToUpdate != null;
 
-        long id = taskToUpdate.id;
+        Id id = taskToUpdate.id;
         Problem problem = taskToUpdate.problem;
         LocalDate targetDate = taskToUpdate.targetDate;
 
         return new Task(id, problem, targetDate, isSolved);
     }
 
-    public long getId() {
+    public Id getId() {
         return id;
     }
 

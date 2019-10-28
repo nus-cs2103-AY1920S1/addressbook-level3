@@ -523,25 +523,44 @@ _Figure 3.3 Sequence Diagram for reflecting the tab changes_
 
 Step 6: A listener was added to the `displayTabIndex` field when the application was initialized. When a change in the value is detected, it triggers the `selectTab(1)` method with the value of the new index passed as an argument. This updates the selected tab in the UI.
 
+image::gui/SwitchTabsSequenceDiagram3.png[]
+_Figure 3.4 Sequence Diagram for storing new GUI state_
+
+Step 7: After the command is executed, the state of the GUI changes. This causes the `StorageManager` to save the modified GUI state as a new `JSON` file.
+This is done with the help of the `JsonSerializableGui`, `JsonSerializableTabManager` and `JsonSerializableTab` classes that are wrappers for the `GuiState`, `TabManager` and `TabData` classes.
+These wrapper classes can be converted into `JSON` format for storage without any data loss.
+
 ==== Design Considerations
 
-Aspect: Implementation of Tab Logic
+[width="100%",cols="33%,<33%,<33%",options="header",]
+|=======================================================================
+|Aspect| Alternative 1 (Current Choice) | Alternative 2
+| Implementation of Tab Logic |
+Implement Tab Logic separately within model and UI.
 
-* Alternative 1 (current choice): Implement Tab Logic separately within model and UI.
-** Pros: Modularizes the logic and reduces the need for tighter coupling between model and UI
-** Cons: Multiple sources of truth and more modules to be implemented
-* Alternative 2: Implement Tab Logic as a singular module
-** Pros: Single source of truth for state of tabs
-** Cons: Increasing coupling between Model and UI, which in turn reduces testability
+**Pros**: Modularizes the logic and reduces the need for tighter coupling between model and UI
 
-Aspect: How to update the tab in the UI
+**Cons**: Multiple sources of truth and more modules to be implemented
+|
+Implement Tab Logic as a singular module
 
-* Alternative 1 (current choice): Using a listener to detect changes to state of tab
-** Pros: Reduces coupling between the `TabManager` class and the UI
-** Cons: As callback functions are utilized, it is not immediately obvious how changes in state of TabManager leads to a change in the UI
-* Alternative 2:
-** Pros: Execution is sequential and it is easier to keep track of the flow of the program.
-** Cons: Increases coupling between the `TabManager` class and the UI and reduces testability.
+**Pros**: Single source of truth for state of tabs
+
+**Cons**: Increasing coupling between Model and UI, which in turn reduces testability
+| How to update the tab in the UI |
+Using a listener to detect changes to state of tab
+
+**Pros**: Reduces coupling between the `TabManager` class and the UI
+
+**Cons**: As callback functions are utilized, it is not immediately obvious how changes in state of TabManager leads to a change in the UI
+|
+Updating the UI synchronously
+
+**Pros**: Execution is sequential and it is easier to keep track of the flow of the program.
+
+**Cons**: Increases coupling between the `TabManager` class and the UI and reduces testability.
+|
+|=======================================================================
 
 // end::switchTab[]
 //@@author

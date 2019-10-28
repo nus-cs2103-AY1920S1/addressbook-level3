@@ -19,6 +19,7 @@ import seedu.algobase.commons.core.Messages;
 import seedu.algobase.commons.core.index.Index;
 import seedu.algobase.commons.util.CollectionUtil;
 import seedu.algobase.logic.commands.exceptions.CommandException;
+import seedu.algobase.model.Id;
 import seedu.algobase.model.Model;
 import seedu.algobase.model.plan.Plan;
 import seedu.algobase.model.plan.PlanDescription;
@@ -95,7 +96,7 @@ public class EditPlanCommand extends Command {
     private static Plan createEditedPlan(Plan planToEdit, EditPlanDescriptor editPlanDescriptor) {
         assert planToEdit != null;
 
-        long id = planToEdit.getId();
+        Id id = planToEdit.getId();
         PlanName updatedName = editPlanDescriptor.getPlanName().orElse(planToEdit.getPlanName());
         PlanDescription updatedDescription = editPlanDescriptor.getPlanDescription().orElse(
                 planToEdit.getPlanDescription());

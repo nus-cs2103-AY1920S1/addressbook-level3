@@ -30,6 +30,7 @@ class JsonSerializableAlgoBase {
     private final List<JsonAdaptedTag> tags = new ArrayList<>();
     private final List<JsonAdaptedProblemSearchRule> findRules = new ArrayList<>();
     private final List<JsonAdaptedPlan> plans = new ArrayList<>();
+    private final JsonAdaptedGuiState guiState;
 
     /**
      * Constructs a {@code JsonSerializableAlgoBase} with the given problems.
@@ -37,11 +38,13 @@ class JsonSerializableAlgoBase {
     @JsonCreator
     public JsonSerializableAlgoBase(@JsonProperty("problems") List<JsonAdaptedProblem> problems,
                                     @JsonProperty("tags") List<JsonAdaptedTag> tags,
-                                    @JsonProperty("findRules") List<JsonAdaptedProblemSearchRule> findRules,
-                                    @JsonProperty("plans") List<JsonAdaptedPlan> plans) {
+                                    @JsonProperty("plans") List<JsonAdaptedPlan> plans,
+                                    @JsonProperty("guiState") JsonAdaptedGuiState guiState,
+                                    @JsonProperty("findRules") List<JsonAdaptedProblemSearchRule> findRules) {
         this.problems.addAll(problems);
         this.tags.addAll(tags);
         this.plans.addAll(plans);
+        this.guiState = guiState;
         this.findRules.addAll(findRules);
     }
 
@@ -56,6 +59,7 @@ class JsonSerializableAlgoBase {
         findRules.addAll(
             source.getFindRules().stream().map(JsonAdaptedProblemSearchRule::new).collect(Collectors.toList()));
         plans.addAll(source.getPlanList().stream().map(JsonAdaptedPlan::new).collect(Collectors.toList()));
+        guiState = new JsonAdaptedGuiState(source.getGuiState());
     }
 
     /**
@@ -83,6 +87,9 @@ class JsonSerializableAlgoBase {
             Plan plan = jsonAdaptedPlan.toModelType(algoBase);
             algoBase.addPlan(plan);
         }
+
+        algoBase.setGuiState(guiState.toModelType(algoBase));
+
         for (JsonAdaptedProblemSearchRule jsonAdaptedProblemSearchRule: findRules) {
             ProblemSearchRule rule = jsonAdaptedProblemSearchRule.toModelType();
             if (algoBase.hasFindRule(rule)) {
@@ -90,6 +97,7 @@ class JsonSerializableAlgoBase {
             }
             algoBase.addFindRule(rule);
         }
+
         return algoBase;
     }
 

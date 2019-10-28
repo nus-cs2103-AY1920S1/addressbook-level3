@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.algobase.model.Model.PREDICATE_SHOW_ALL_PLANS;
 
 import seedu.algobase.model.Model;
+import seedu.algobase.model.ModelType;
 
 
 /**
@@ -25,6 +26,7 @@ public class ListPlanCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.updateFilteredPlanList(PREDICATE_SHOW_ALL_PLANS);
+        model.getGuiState().getTabManager().setDisplayTabPaneIndex(ModelType.PLAN.getDisplayTabPaneIndex());
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

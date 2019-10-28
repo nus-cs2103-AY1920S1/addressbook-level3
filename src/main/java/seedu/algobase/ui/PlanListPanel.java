@@ -8,6 +8,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.algobase.commons.core.LogsCenter;
+import seedu.algobase.model.gui.WriteOnlyTabManager;
 import seedu.algobase.model.plan.Plan;
 
 
@@ -18,13 +19,16 @@ public class PlanListPanel extends UiPart<Region> {
     private static final String FXML = "PlanListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(PlanListPanel.class);
 
+    private final WriteOnlyTabManager writeOnlyTabManager;
+
     @FXML
     private ListView<Plan> planListView;
 
-    public PlanListPanel(ObservableList<Plan> planList) {
+    public PlanListPanel(ObservableList<Plan> planList, WriteOnlyTabManager writeOnlyTabManager) {
         super(FXML);
         planListView.setItems(planList);
         planListView.setCellFactory(listView -> new PlanListViewCell());
+        this.writeOnlyTabManager = writeOnlyTabManager;
     }
 
     /**
@@ -39,7 +43,7 @@ public class PlanListPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new PlanCard(plan, getIndex() + 1).getRoot());
+                setGraphic(new PlanCard(plan, getIndex() + 1, writeOnlyTabManager).getRoot());
             }
         }
     }

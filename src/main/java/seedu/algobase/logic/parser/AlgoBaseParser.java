@@ -13,6 +13,7 @@ import seedu.algobase.logic.commands.AddTagCommand;
 import seedu.algobase.logic.commands.AddTaskCommand;
 import seedu.algobase.logic.commands.ApplyCommand;
 import seedu.algobase.logic.commands.ClearCommand;
+import seedu.algobase.logic.commands.CloseTabCommand;
 import seedu.algobase.logic.commands.Command;
 import seedu.algobase.logic.commands.DeleteCommand;
 import seedu.algobase.logic.commands.DeleteFindRuleCommand;
@@ -126,16 +127,6 @@ public class AlgoBaseParser {
         case RewindCommand.COMMAND_WORD:
             return new RewindCommandParser().parse(arguments);
 
-        //Util
-        case ClearCommand.COMMAND_WORD:
-            return new ClearCommand();
-
-        case ExitCommand.COMMAND_WORD:
-            return new ExitCommand();
-
-        case HelpCommand.COMMAND_WORD:
-            return new HelpCommandParser().parse(arguments);
-
         case AddTagCommand.COMMAND_WORD:
             return new AddTagCommandParser().parse(arguments);
 
@@ -148,11 +139,25 @@ public class AlgoBaseParser {
         case EditTagCommand.COMMAND_WORD:
             return new EditTagCommandParser().parse(arguments);
 
+        // Tab
         case SwitchTabCommand.COMMAND_WORD:
             return new SwitchTabCommandParser().parse(arguments);
 
         case OpenTabCommand.COMMAND_WORD:
             return new OpenTabCommandParser().parse(arguments);
+
+        case CloseTabCommand.COMMAND_WORD:
+            return new CloseTabCommandParser().parse(arguments);
+
+        // Util
+        case ClearCommand.COMMAND_WORD:
+            return new ClearCommand();
+
+        case ExitCommand.COMMAND_WORD:
+            return new ExitCommand();
+
+        case HelpCommand.COMMAND_WORD:
+            return new HelpCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

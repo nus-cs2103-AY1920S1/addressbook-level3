@@ -1,0 +1,49 @@
+@startuml
+!include ../style.puml
+
+box Storage STORAGE_COLOR_T1
+participant ":StorageManager" as StorageManager STORAGE_COLOR
+participant ":JsonAlgoBaseStorage" as JsonAlgoBaseStorage STORAGE_COLOR
+participant ":JsonSerializableAlgoBaseStorage" as JsonSerializableAlgoBaseStorage STORAGE_COLOR
+participant ":JsonSerializableGui" as JsonSerializableGui STORAGE_COLOR
+participant ":JsonSerializableTabManager" as JsonSerializableTabManager STORAGE_COLOR
+participant ":JsonSerializableTab" as JsonSerializableTab STORAGE_COLOR
+end box
+
+StorageManager -> JsonAlgoBaseStorage : saveAlgoBase(algoBase)
+activate JsonAlgoBaseStorage
+
+create JsonSerializableAlgoBaseStorage
+JsonAlgoBaseStorage -> JsonSerializableAlgoBaseStorage : saveAlgoBase(algoBase)
+activate JsonSerializableAlgoBaseStorage
+
+create JsonSerializableGui
+JsonSerializableAlgoBaseStorage -> JsonSerializableGui
+activate JsonSerializableGui
+
+create JsonSerializableTabManager
+JsonSerializableGui -> JsonSerializableTabManager
+activate JsonSerializableTabManager
+
+loop whileTabsExist
+    create JsonSerializableTab
+    JsonSerializableTabManager -> JsonSerializableTab
+    activate JsonSerializableTab
+
+    JsonSerializableTab --> JsonSerializableTabManager
+    deactivate JsonSerializableTab
+end
+
+JsonSerializableTabManager --> JsonSerializableGui : tabManager
+deactivate JsonSerializableTabManager
+
+JsonSerializableGui --> JsonSerializableAlgoBaseStorage : guiState
+deactivate JsonSerializableGui
+
+JsonSerializableAlgoBaseStorage --> JsonAlgoBaseStorage
+deactivate JsonSerializableAlgoBaseStorage
+
+JsonAlgoBaseStorage --> StorageManager
+deactivate JsonAlgoBaseStorage
+
+@enduml

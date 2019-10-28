@@ -1,10 +1,11 @@
-package seedu.algobase.ui;
+package seedu.algobase.ui.details;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Region;
 import seedu.algobase.model.problem.Problem;
+import seedu.algobase.ui.UiPart;
 
 /**
  * An UI component that displays detailed information of a {@code Problem}.
