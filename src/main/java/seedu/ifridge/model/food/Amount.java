@@ -157,6 +157,11 @@ public class Amount {
     public Amount reduceBy(Amount amt) {
         float resultantAmount = Amount.getValue(this) - Amount.getValue(amt);
         String unit = Amount.getUnit(this);
+
+        if (resultantAmount < 0) {
+            return new Amount(0 + unit);
+        }
+
         return new Amount(resultantAmount + unit);
     }
 

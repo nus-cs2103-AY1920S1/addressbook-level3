@@ -37,6 +37,15 @@ public class UniqueShoppingList implements Iterable<ShoppingItem> {
     }
 
     /**
+     * Get a shopping item from the list.
+     */
+    public ShoppingItem get(ShoppingItem shoppingItem) {
+        return internalList.stream().filter(x -> shoppingItem.getName().equals(x.getName()))
+                .findAny().orElse(null);
+    }
+
+
+    /**
      * Adds a person to the list.
      * The person must not already exist in the list.
      */

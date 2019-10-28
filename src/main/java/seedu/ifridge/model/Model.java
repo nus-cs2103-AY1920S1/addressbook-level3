@@ -259,6 +259,13 @@ public interface Model {
      */
     boolean hasShoppingItem(ShoppingItem shoppingItem);
 
+
+    /**
+     * Get the shopping item in the shopping list with the same name.
+     */
+    ShoppingItem getShoppingItem(ShoppingItem shoppingItem);
+
+
     /**
      * Deletes the given shoppingItem.
      * The shoppingItem must exist in the shopping list.
