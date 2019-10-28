@@ -388,6 +388,20 @@ Shows all possible commands.
 * `help add`
 Shows command usage for `add` command.
 
+==== Rewinding command: `rewind`
+
+Rewind back to a previous successfully executed command. +
+Format: `rewind INDEX`
+
+kbd:[Ctrl + ↑] is shortcut for `rewind 1`
+
+[NOTE]
+Since kbd:[Ctrl + ↑] is equivalent to executing `rewind 1`, you should not expect to rewind multiple commands back if you press the shortcut multiple times - it will always show you the last successfully executed command, if any. If you want to rewind several commands back
+
+* `find n/Sequences` +
+`rewind 1` +
+Execute `find` command first, then `rewind` back to the `find` command (now the content in the command box should be `find n/Sequences`)
+
 ==== Clearing all entries : `clear`
 
 Clears all entries from AlgoBase. +
