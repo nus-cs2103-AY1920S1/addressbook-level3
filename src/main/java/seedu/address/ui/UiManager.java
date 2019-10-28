@@ -199,9 +199,4 @@ public class UiManager implements Ui {
         Platform.exit();
         System.exit(1);
     }
-
-    public void startCalendar(Stage primaryStage) throws Exception {
-
-    }
-
 }
