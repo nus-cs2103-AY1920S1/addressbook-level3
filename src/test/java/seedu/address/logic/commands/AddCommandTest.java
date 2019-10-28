@@ -170,12 +170,6 @@ public class AddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
-        /*
-        @Override
-        public void updateFilteredIncidentList(Predicate<Incident> predicate) {
-            throw new AssertionError("This method should not be called.");
-        }*/
-
         @Override
         public boolean hasIncident(Incident incident) {
             throw new AssertionError("This method should not be called.");
@@ -183,6 +177,11 @@ public class AddCommandTest {
 
         @Override
         public void addIncident(Incident incident) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void removeIncident(Incident incident) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -205,8 +204,14 @@ public class AddCommandTest {
         public void setIncident(Incident target, Incident editedIncident) {
             throw new AssertionError("This method should not be called.");
         }
+
         @Override
         public ObservableList<Vehicle> getFilteredVehicleList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean ifAnyIncidentsSatisfyPredicate(Predicate<Incident> predicate) {
             throw new AssertionError("This method should not be called.");
         }
     }

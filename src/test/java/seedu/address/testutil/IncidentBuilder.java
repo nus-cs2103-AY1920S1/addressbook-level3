@@ -13,7 +13,7 @@ import seedu.address.model.vehicle.District;
 public class IncidentBuilder {
     public static final String DEFAULT_DISTRICT = "1";
     public static final String DEFAULT_CALLER = "85355255";
-    public static final String DEFAULT_DATETIME = "2008-09-15T15:53:00";
+    public static final String DEFAULT_DATETIME = "Sep 15, 2008, 03:53:00 PM";
     public static final String DEFAULT_DESC = "This is an incident description.";
     public static final String DEFAULT_ID = "0920080000";
 

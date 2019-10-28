@@ -11,6 +11,8 @@ public class CallerNumber extends Phone {
     public static final String MESSAGE_CONSTRAINTS =
             "Caller number should be of length 8, only contain numerical digits and should not be blank";
 
+    private static final int CALLER_NUMBER_LENGTH = 8;
+
     /**
      * Constructs a {@code CallerNumber}.
      *
@@ -27,7 +29,7 @@ public class CallerNumber extends Phone {
      * Checks if {@code caller} is a valid {@code CallerNumber}.
      */
     public static boolean isValidCaller(String caller) {
-        boolean correctLength = caller.length() == 8;
+        boolean correctLength = caller.length() == CALLER_NUMBER_LENGTH;
         boolean isNumber;
         try {
             Integer.parseInt(caller);

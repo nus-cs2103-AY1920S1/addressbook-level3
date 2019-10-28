@@ -127,7 +127,7 @@ public class IncidentManager implements ReadOnlyIncidentManager {
     //// incident-level operation
 
     /**
-     * Returns true if an incident with the same identity as {@code incident} exists in the address book.
+     * Returns true if an incident with the same identity as {@code incident} exists in the incident manager.
      */
     public boolean hasIncident(Incident incident) {
         requireNonNull(incident);
@@ -135,11 +135,19 @@ public class IncidentManager implements ReadOnlyIncidentManager {
     }
 
     /**
-     * Adds an incident to the address book.
-     * The incident must not already exist in the address book.
+     * Adds an incident to the incident manager.
+     * The incident must not already exist in the incident manager.
      */
     public void addIncident(Incident i) {
         incidents.add(i);
+    }
+
+    /**
+     * Removes an incident to the incident manager.
+     * The incident must not already exist in the incident manager.
+     */
+    public void removeIncident(Incident i) {
+        incidents.remove(i);
     }
 
     //// vehicle-level operation
