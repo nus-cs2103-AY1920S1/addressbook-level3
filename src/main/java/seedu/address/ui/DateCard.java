@@ -58,9 +58,17 @@ public class DateCard extends UiPart<Region> {
         String outputString = "";
         for (int i = 0; i < list.size(); i++) {
             Event currentEvent = list.get(i);
-            String eventDesc = (i + 1) + ") Event Name: " + currentEvent.getName().toString()
-                    + "  Venue: " + currentEvent.getVenue().toString() + "\n"
-                    + "Current Manpower List (ID) : " + currentEvent.getManpowerAllocatedList().toString() + "\n";
+            String eventDesc = "";
+            if (currentEvent.getManpowerAllocatedList().toString().length() < 1) {
+                String manpowerList = "No Allocated Staff";
+                eventDesc = (i + 1) + ") Event Name: " + currentEvent.getName().toString()
+                        + "  Venue: " + currentEvent.getVenue().toString() + "\n"
+                        + "Current Manpower List (ID) : " + manpowerList + "\n";
+            } else {
+                eventDesc = (i + 1) + ") Event Name: " + currentEvent.getName().toString()
+                        + "  Venue: " + currentEvent.getVenue().toString() + "\n"
+                        + "Current Manpower List (ID) : " + currentEvent.getManpowerAllocatedList().toString() + "\n";
+            }
             outputString = outputString + eventDesc + "\n";
         }
         return outputString;

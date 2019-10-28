@@ -58,9 +58,6 @@ public class EventManpowerAllocatedList {
         for (String s : manpowerList) {
             unprocessedList.append(s + " ");
         }
-        if (unprocessedList.toString().length() < 1) {
-            unprocessedList.append("No Manpower Allocated");
-        }
         return unprocessedList.toString().trim();
     }
 
