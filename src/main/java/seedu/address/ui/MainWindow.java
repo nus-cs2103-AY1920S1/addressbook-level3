@@ -103,7 +103,7 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillWithContacts() {
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
+        personListPanel = new PersonListPanel(logic.getFilteredContactList());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
@@ -164,7 +164,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     public void handleContactsList() {
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
+        personListPanel = new PersonListPanel(logic.getFilteredContactList());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
         UiManager.changeState("contacts");
         resultDisplay.setFeedbackToUser("All Contacts Listed");
@@ -177,6 +177,7 @@ public class MainWindow extends UiPart<Stage> {
     public void handleIncomesList() {
         incomeListPanel = new IncomeListPanel(logic.getFilteredIncomeList());
         personListPanelPlaceholder.getChildren().add(incomeListPanel.getRoot());
+        UiManager.changeState("incomes");
         resultDisplay.setFeedbackToUser("All Incomes Listed");
     }
 

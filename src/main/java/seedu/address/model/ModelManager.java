@@ -1,10 +1,12 @@
 package seedu.address.model;
 
+import static java.util.Objects.compare;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
 
+import java.util.Comparator;
 import java.util.Stack;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -30,9 +32,9 @@ public class ModelManager implements Model {
 
     private final FinSec finSec;
     private final UserPrefs userPrefs;
-    private final FilteredList<Contact> filteredContacts;
-    private final FilteredList<Claim> filteredClaims;
-    private final FilteredList<Income> filteredIncomes;
+    private FilteredList<Contact> filteredContacts;
+    private FilteredList<Claim> filteredClaims;
+    private FilteredList<Income> filteredIncomes;
     private final FilteredList<AutocorrectSuggestion> filteredSuggestions;
     private final FilteredList<CommandItem> filteredCommands;
     private Stack<String> savedCommand;
@@ -108,6 +110,8 @@ public class ModelManager implements Model {
         return finSec;
     }
 
+    //=========== Contact ================================================================================
+
     @Override
     public boolean hasContact(Contact contact) {
         requireNonNull(contact);
@@ -130,6 +134,21 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedContact);
 
         finSec.setContact(target, editedContact);
+    }
+
+    @Override
+    public void sortFilteredContactList() {
+        filteredContacts = new FilteredList<Contact>(this.finSec.getContactList().sorted());
+        updateFilteredContactList(p -> true);
+        UiManager.startWithContacts();
+    }
+
+    @Override
+    public void sortReverseFilteredContactList() {
+        Comparator<Contact> reverseComparator = Comparator.comparing(Contact::toString).reversed();
+        filteredContacts = new FilteredList<Contact>(this.finSec.getContactList().sorted(reverseComparator));
+        updateFilteredContactList(p -> true);
+        UiManager.startWithContacts();
     }
 
     //=========== Claims ================================================================================
@@ -176,6 +195,21 @@ public class ModelManager implements Model {
     public boolean hasContactFor(Claim claim) {
         requireNonNull(claim);
         return finSec.hasContact(claim.getName(), claim.getPhone());
+    }
+
+    @Override
+    public void sortFilteredClaimList() {
+        filteredClaims = new FilteredList<Claim>(this.finSec.getClaimList().sorted());
+        updateFilteredClaimList(p -> true);
+        UiManager.startWithClaims();
+    }
+
+    @Override
+    public void sortReverseFilteredClaimList() {
+        Comparator<Claim> reverseComparator = Comparator.comparing(Claim::toString).reversed();
+        filteredClaims = new FilteredList<Claim>(this.finSec.getClaimList().sorted(reverseComparator));
+        updateFilteredClaimList(p -> true);
+        UiManager.startWithClaims();
     }
 
     //=========== Suggestions ============================================================================
@@ -261,7 +295,19 @@ public class ModelManager implements Model {
         finSec.setIncome(target, editedIncome);
     }
 
+    @Override
+    public void sortFilteredIncomeList() {
+        filteredIncomes = new FilteredList<>(this.finSec.getIncomeList().sorted(new IncomeComparator()));
+        updateFilteredIncomeList(p -> true);
+        UiManager.startWithIncomes();
+    }
 
+    @Override
+    public void sortReverseFilteredIncomeList() {
+        filteredIncomes = new FilteredList<>(this.finSec.getIncomeList().sorted(new IncomeComparator().reversed()));
+        updateFilteredIncomeList(p -> true);
+        UiManager.startWithIncomes();
+    }
 
     //=========== Filtered FinSec List Accessors =============================================================
 
@@ -362,4 +408,12 @@ public class ModelManager implements Model {
     }
 
 
+}
+
+class IncomeComparator implements Comparator<Income> {
+    @Override
+    public int compare(Income income1, Income income2) {
+        return income1.getName().toString()
+                .compareTo(income2.getName().toString());
+    }
 }

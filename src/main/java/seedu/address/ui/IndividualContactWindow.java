@@ -46,10 +46,7 @@ public class IndividualContactWindow extends UiPart<Stage> {
         number.setText("Contact: " + contact.getPhone().toString());
         contact.getClaims().stream()
                 .forEach(id -> claims.getChildren().add(
-                        new Label(String.valueOf(Integer.parseInt(id.value) - 1) + " ")));
-        contact.getTags().stream()
-                .sorted(Comparator.comparing(tag -> tag.tagName))
-                .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+                        new Label(String.valueOf("Claim " + Integer.parseInt(id.value)) + " ")));
     }
 
     /**
