@@ -25,7 +25,7 @@ logic -> mw --:result
 
 mw -> sw ++: result
 sw -> sw ++: buildChart()
-sw -> mw --: statsWindow
+sw -> mw --: statsWindow/ defaultStatsWindow
 <- mw : CommandResult
 
 

@@ -67,7 +67,7 @@ public class StatsCommandParser implements Parser<StatsCommand> {
             default:
                 throw new ParseException("Wrong Statistic type for normal calculation mode, "
                         + "types here only include:\n"
-                        + "PROFIT, COST, REVENUE");
+                        + "profit, cost, revenue");
             }
         } else {
             switch (type) {
@@ -80,7 +80,7 @@ public class StatsCommandParser implements Parser<StatsCommand> {
             default:
                 throw new ParseException("Wrong Statistic type for no date calculation mode, "
                         + "default types here only include:\n"
-                        + "PROFIT, COST, REVENUE");
+                        + "profit, cost, revenue");
             }
         }
     }

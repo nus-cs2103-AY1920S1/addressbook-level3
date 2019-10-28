@@ -26,12 +26,15 @@ public class Messages {
     public static final String TIME_MESSAGE_CONSTRAINTS = "Time should only contain numbers in the format of HH.MM";
     public static final String DATE_MESSAGE_CONSTRAINTS =
             "Date should only contain numbers in the format of YYYY.MM.DD , and it should not be blank "
-                    + "for PROFIT, COST, REVENUE type";
+                    + "for profit,cost or revenue type";
     public static final String OPTIONAL_DATE_MESSAGE_CONSTRAINTS =
             "Date should have starting and ending in the format YYYY.MM.DD\n"
                     + "Example: d1/2018.10.05 d2/2019.04.12";
     public static final String STATS_MESSAGE_CONSTRAINTS =
-            "Stat type should only be either PROFIT, REVENUE or COST, and should not be blank.";
+            "Stat type should only be either profit, cost or revenue, and should not be blank.";
+    public static final String STATS_MESSAGE_CONSTRAINTS_NO_INVALID_CHAR = "Invalid input!\n"
+                    + "Either enter the default mode: generate-s s/{stat type} "
+                    + "or the date input mode: generate-s s/{stat type d1/yyyy.mm.dd d2/yyyy.mm.dd";
     public static final String MESSAGE_INVALID_DATE_INPUT_FORMAT =
             "Starting date should be lesser than that of ending date";
 }
