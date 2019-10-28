@@ -7,9 +7,9 @@ import seedu.address.model.Model;
 import seedu.address.model.quiz.QuizBank;
 
 /**
- * Represents a remove question command, specific to a quiz.
+ * Represents a delete question command, specific to a quiz.
  */
-public class QuizRemoveQuestionCommand extends QuizCommand {
+public class QuizDeleteQuestionCommand extends QuizCommand {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Removes an existing question from an existing quiz\n"
             + "Parameters:\n"
@@ -22,11 +22,11 @@ public class QuizRemoveQuestionCommand extends QuizCommand {
     private final int quizQuestionNumber;
 
     /**
-     * Creates a QuizRemoveQuestionCommand instance with the appropriate attributes.
+     * Creates a QuizDeleteQuestionCommand instance with the appropriate attributes.
      * @param quizId The identifier of the quiz.
      * @param quizQuestionNumber The question number of the quiz to be removed.
      */
-    public QuizRemoveQuestionCommand(String quizId, int quizQuestionNumber) {
+    public QuizDeleteQuestionCommand(String quizId, int quizQuestionNumber) {
         this.quizId = quizId;
         this.quizQuestionNumber = quizQuestionNumber;
     }
@@ -42,7 +42,7 @@ public class QuizRemoveQuestionCommand extends QuizCommand {
         if (!model.checkQuizExists(quizId)) {
             return new CommandResult(String.format(QUIZ_DOES_NOT_EXIST, quizId));
         } else {
-            boolean isSuccess = model.removeQuizQuestion(quizId, quizQuestionNumber);
+            boolean isSuccess = model.deleteQuizQuestion(quizId, quizQuestionNumber);
             if (isSuccess) {
                 QuizBank.setCurrentlyQueriedQuiz(quizId);
                 return new CommandResult(generateSuccessMessage(), CommandResultType.SHOW_QUIZ_ALL);
@@ -76,12 +76,12 @@ public class QuizRemoveQuestionCommand extends QuizCommand {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof QuizRemoveQuestionCommand)) {
+        if (!(other instanceof QuizDeleteQuestionCommand)) {
             return false;
         }
 
         // state check
-        QuizRemoveQuestionCommand e = (QuizRemoveQuestionCommand) other;
+        QuizDeleteQuestionCommand e = (QuizDeleteQuestionCommand) other;
         return this.quizId.equals(e.quizId);
     }
 

@@ -25,10 +25,10 @@ import seedu.address.logic.commands.quiz.QuizCommand;
 import seedu.address.logic.commands.quiz.QuizCreateAutomaticallyCommand;
 import seedu.address.logic.commands.quiz.QuizCreateManuallyCommand;
 import seedu.address.logic.commands.quiz.QuizExportCommand;
-import seedu.address.logic.commands.quiz.QuizListAnswersCommand;
+import seedu.address.logic.commands.quiz.QuizShowAnswersCommand;
 import seedu.address.logic.commands.quiz.QuizListQuestionsAndAnswersCommand;
-import seedu.address.logic.commands.quiz.QuizListQuestionsCommand;
-import seedu.address.logic.commands.quiz.QuizRemoveQuestionCommand;
+import seedu.address.logic.commands.quiz.QuizShowQuestionsCommand;
+import seedu.address.logic.commands.quiz.QuizDeleteQuestionCommand;
 
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
@@ -145,18 +145,18 @@ public class QuizCommandParser implements Parser<QuizCommand> {
      * @return Quiz remove question command if the parsing was successful.
      * @throws ParseException if the input was incorrectly formatted.
      */
-    private QuizRemoveQuestionCommand removeQuestionCommand(ArgumentMultimap argMultimap) throws ParseException {
+    private QuizDeleteQuestionCommand removeQuestionCommand(ArgumentMultimap argMultimap) throws ParseException {
         if (!arePrefixesPresent(argMultimap, PREFIX_QUIZ_ID)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(
                     String
-                            .format(MESSAGE_INVALID_COMMAND_FORMAT, QuizRemoveQuestionCommand.MESSAGE_USAGE));
+                            .format(MESSAGE_INVALID_COMMAND_FORMAT, QuizDeleteQuestionCommand.MESSAGE_USAGE));
         }
 
         String quizId = argMultimap.getValue(PREFIX_QUIZ_ID).orElse("");
         int quizQuestionNumber = Integer.parseInt(argMultimap.getValue(PREFIX_QUIZ_QUESTION_NUMBER).orElse(""));
 
-        return new QuizRemoveQuestionCommand(quizId, quizQuestionNumber);
+        return new QuizDeleteQuestionCommand(quizId, quizQuestionNumber);
     }
 
     /**
@@ -183,17 +183,17 @@ public class QuizCommandParser implements Parser<QuizCommand> {
      * @return Quiz list questions command if the parsing was successful.
      * @throws ParseException if the input was incorrectly formatted.
      */
-    private QuizListQuestionsCommand listQuestionsCommand(ArgumentMultimap argMultimap) throws ParseException {
+    private QuizShowQuestionsCommand listQuestionsCommand(ArgumentMultimap argMultimap) throws ParseException {
         if (!arePrefixesPresent(argMultimap, PREFIX_QUIZ_ID)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(
                     String
                             .format(MESSAGE_INVALID_COMMAND_FORMAT,
-                                    QuizListQuestionsCommand.MESSAGE_USAGE));
+                                    QuizShowQuestionsCommand.MESSAGE_USAGE));
         }
 
         String quizId = argMultimap.getValue(PREFIX_QUIZ_ID).orElse("");
-        return new QuizListQuestionsCommand(quizId);
+        return new QuizShowQuestionsCommand(quizId);
     }
 
     /**
@@ -202,17 +202,17 @@ public class QuizCommandParser implements Parser<QuizCommand> {
      * @return Quiz list answers command if the parsing was successful.
      * @throws ParseException if the input was incorrectly formatted.
      */
-    private QuizListAnswersCommand listAnswersCommand(ArgumentMultimap argMultimap) throws ParseException {
+    private QuizShowAnswersCommand listAnswersCommand(ArgumentMultimap argMultimap) throws ParseException {
         if (!arePrefixesPresent(argMultimap, PREFIX_QUIZ_ID)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(
                     String
                             .format(MESSAGE_INVALID_COMMAND_FORMAT,
-                                    QuizListAnswersCommand.MESSAGE_USAGE));
+                                    QuizShowAnswersCommand.MESSAGE_USAGE));
         }
 
         String quizId = argMultimap.getValue(PREFIX_QUIZ_ID).orElse("");
-        return new QuizListAnswersCommand(quizId);
+        return new QuizShowAnswersCommand(quizId);
     }
 
     /**

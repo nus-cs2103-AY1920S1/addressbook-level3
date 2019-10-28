@@ -111,8 +111,8 @@ public class SavedQuizzes implements ReadOnlyQuizzes {
      * @param questionNumber The question number of the question to be removed.
      * @return True if the question can be removed, else false.
      */
-    public boolean removeQuizQuestion(String quizId, int questionNumber) {
-        return QuizManager.removeQuizQuestion(quizId, questionNumber, quizzes);
+    public boolean deleteQuizQuestion(String quizId, int questionNumber) {
+        return QuizManager.deleteQuizQuestion(quizId, questionNumber, quizzes);
     }
 
     /**
