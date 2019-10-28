@@ -11,6 +11,7 @@ import static mams.logic.parser.CliSyntax.PREFIX_MODULE;
 import static mams.logic.parser.CliSyntax.PREFIX_STUDENT;
 
 import java.util.List;
+import java.util.Optional;
 
 import mams.commons.core.index.Index;
 import mams.logic.commands.exceptions.CommandException;
@@ -41,26 +42,19 @@ public class ViewCommand extends Command {
 
     public static final String MESSAGE_VIEW_SUCCESS = "Displayed items with ID: %1$s";
 
-    private Index appealIndex;
-    private Index moduleIndex;
-    private Index studentIndex;
+    private ViewCommandParameters params;
 
-    /**
-     * @param appealIndex Index of appeal on the displayed list to be expanded and viewed
-     * @param moduleIndex Index of module on the displayed list to be expanded and viewed
-     * @param studentIndex Index of student on the displayed list to be expanded and viewed
-     */
-    public ViewCommand(Index appealIndex, Index moduleIndex, Index studentIndex) {
-        this.appealIndex = appealIndex;
-        this.moduleIndex = moduleIndex;
-        this.studentIndex = studentIndex;
+    public ViewCommand(ViewCommandParameters params) {
+        this.params = params;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        // ViewCommandParser should ensure that they're not all null
-        assert isAnyNonNull(appealIndex, moduleIndex, studentIndex) : "ViewCommandParser should ensure "
-                + "at least one is non-null";
+        // Defensive check: ViewCommandParser should have ensured at least one parameter is present
+        if (!params.isAtLeastOneParameterPresent()) {
+            throw new CommandException(MESSAGE_USAGE);
+        }
+
         requireNonNull(model);
         StringBuilder displayedFeedback = new StringBuilder();
 
@@ -70,20 +64,20 @@ public class ViewCommand extends Command {
 
         verifyAllIndexesWithinBounds(lastShownAppealList, lastShownModuleList, lastShownStudentList);
 
-        if (appealIndex != null) {
-            Appeal appeal = lastShownAppealList.get(appealIndex.getZeroBased());
+        if (params.getAppealIndex().isPresent()) {
+            Appeal appeal = lastShownAppealList.get(params.getAppealIndex().get().getZeroBased());
             model.updateFilteredAppealList(appeal::equals);
             displayedFeedback.append(appeal.getAppealId());
             displayedFeedback.append(" ");
         }
-        if (moduleIndex != null) {
-            Module module = lastShownModuleList.get(moduleIndex.getZeroBased());
+        if (params.getModuleIndex().isPresent()) {
+            Module module = lastShownModuleList.get(params.getModuleIndex().get().getZeroBased());
             model.updateFilteredModuleList(module::equals);
             displayedFeedback.append(module.getModuleCode());
             displayedFeedback.append(" ");
         }
-        if (studentIndex != null) {
-            Student student = lastShownStudentList.get(studentIndex.getZeroBased());
+        if (params.getStudentIndex().isPresent()) {
+            Student student = lastShownStudentList.get(params.getStudentIndex().get().getZeroBased());
             model.updateFilteredStudentList(student::equals);
             displayedFeedback.append(student.getMatricId());
             displayedFeedback.append(" ");
@@ -105,25 +99,28 @@ public class ViewCommand extends Command {
                                               List<Module> lastShownModuleList,
                                               List<Student> lastShownStudentList) throws CommandException {
         StringBuilder errorMessage = new StringBuilder();
-        boolean hasError = false;
+        boolean indexOutOfBounds = false;
 
-        if (appealIndex != null && appealIndex.getZeroBased() >= lastShownAppealList.size()) {
+        if (params.getAppealIndex().isPresent()
+                && params.getAppealIndex().get().getZeroBased() >= lastShownAppealList.size()) {
             errorMessage.append(MESSAGE_INVALID_APPEAL_DISPLAYED_INDEX);
             errorMessage.append("\n");
-            hasError = true;
+            indexOutOfBounds = true;
         }
-        if (moduleIndex != null && moduleIndex.getZeroBased() >= lastShownModuleList.size()) {
+        if (params.getModuleIndex().isPresent()
+                && params.getModuleIndex().get().getZeroBased() >= lastShownModuleList.size()) {
             errorMessage.append(MESSAGE_INVALID_MODULE_DISPLAYED_INDEX);
             errorMessage.append("\n");
-            hasError = true;
+            indexOutOfBounds = true;
         }
-        if (studentIndex != null && studentIndex.getZeroBased() >= lastShownStudentList.size()) {
+        if (params.getStudentIndex().isPresent()
+                && params.getStudentIndex().get().getZeroBased() >= lastShownStudentList.size()) {
             errorMessage.append(MESSAGE_INVALID_STUDENT_DISPLAYED_INDEX);
             errorMessage.append("\n");
-            hasError = true;
+            indexOutOfBounds = true;
         }
 
-        if (hasError) {
+        if (indexOutOfBounds) {
             throw new CommandException(errorMessage.toString());
         }
     }
@@ -142,8 +139,65 @@ public class ViewCommand extends Command {
 
         // state check
         ViewCommand v = (ViewCommand) other;
-        return appealIndex.equals(v.appealIndex)
-                && moduleIndex.equals(v.moduleIndex)
-                && studentIndex.equals(v.studentIndex);
+        return params.equals(v.params);
+    }
+
+    /**
+     * Stores the details of the parsed parameters that a {@code ViewCommand} will operate on.
+     * This helps to avoid having too many unnecessary constructors (or passing of null-values)
+     * caused by the optional/combinatory nature of the parameters passed to ViewCommand.
+     */
+    public static class ViewCommandParameters {
+        private Index appealIndex;
+        private Index moduleIndex;
+        private Index studentIndex;
+
+        public void setAppealIndex(Index appealIndex) {
+            this.appealIndex = appealIndex;
+        }
+
+        public void setModuleIndex(Index moduleIndex) {
+            this.moduleIndex = moduleIndex;
+        }
+
+        public void setStudentIndex(Index studentIndex) {
+            this.studentIndex = studentIndex;
+        }
+
+        public Optional<Index> getAppealIndex() {
+            return Optional.ofNullable(appealIndex);
+        }
+
+        public Optional<Index> getModuleIndex() {
+            return Optional.ofNullable(moduleIndex);
+        }
+
+        public Optional<Index> getStudentIndex() {
+            return Optional.ofNullable(studentIndex);
+        }
+
+        public boolean isAtLeastOneParameterPresent() {
+            return isAnyNonNull(appealIndex, moduleIndex, studentIndex);
+        }
+
+        @Override
+        public boolean equals(Object other) {
+            // short circuit if same object
+            if (other == this) {
+                return true;
+            }
+
+            // instanceof handles nulls
+            if (!(other instanceof ViewCommandParameters)) {
+                return false;
+            }
+
+            // state check
+            ViewCommandParameters vp = (ViewCommandParameters) other;
+
+            return getAppealIndex().equals(vp.getAppealIndex())
+                    && getModuleIndex().equals(vp.getModuleIndex())
+                    && getStudentIndex().equals(vp.getStudentIndex());
+        }
     }
 }
