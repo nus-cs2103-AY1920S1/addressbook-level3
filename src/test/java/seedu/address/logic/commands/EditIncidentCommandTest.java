@@ -23,7 +23,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.EditCommand.EditIncident;
+import seedu.address.logic.commands.EditIncidentCommand.EditIncident;
 import seedu.address.model.IncidentManager;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -46,7 +46,7 @@ import java.awt.*;
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for EditCommand.
  */
-public class EditCommandTest {
+public class EditIncidentCommandTest {
 
     private Model model = new ModelManager(getTypicalIncidentManager(), new UserPrefs());
 
@@ -55,14 +55,14 @@ public class EditCommandTest {
 
         Incident editedIncident = new IncidentBuilder().build();
         EditIncident editor = new EditIncidentBuilder(editedIncident).build();
-        EditCommand editCommand = new EditCommand(INDEX_FIRST_ENTITY, editor);
+        EditIncidentCommand editIncidentCommand = new EditIncidentCommand(INDEX_FIRST_ENTITY, editor);
 
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_INCIDENT_SUCCESS, editedIncident);
+        String expectedMessage = String.format(EditIncidentCommand.MESSAGE_EDIT_INCIDENT_SUCCESS, editedIncident);
 
         Model expectedModel = new ModelManager(new IncidentManager(model.getIncidentManager()), new UserPrefs());
         expectedModel.setIncident(model.getFilteredIncidentList().get(0), editedIncident);
 
-        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(editIncidentCommand, model, expectedMessage, expectedModel);
     }
 
 
@@ -76,29 +76,29 @@ public class EditCommandTest {
 
         EditIncident editor = new EditIncidentBuilder().withCaller(DEFAULT_CALLER)
                 .withDistrict(DEFAULT_DISTRICT).build();
-        EditCommand editCommand = new EditCommand(indexLastIncident, editor);
+        EditIncidentCommand editIncidentCommand = new EditIncidentCommand(indexLastIncident, editor);
 
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_INCIDENT_SUCCESS, editedIncident);
+        String expectedMessage = String.format(EditIncidentCommand.MESSAGE_EDIT_INCIDENT_SUCCESS, editedIncident);
 
 
         Model expectedModel = new ModelManager(new IncidentManager(model.getIncidentManager()), new UserPrefs());
         expectedModel.setIncident(lastIncident, editedIncident);
 
 
-        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(editIncidentCommand, model, expectedMessage, expectedModel);
     }
 
 
 
     @Test
     public void execute_noFieldSpecifiedUnfilteredList_success() {
-        EditCommand editCommand = new EditCommand(INDEX_FIRST_ENTITY, new EditIncident());
+        EditIncidentCommand editIncidentCommand = new EditIncidentCommand(INDEX_FIRST_ENTITY, new EditIncident());
         Incident editedIncident = model.getFilteredIncidentList().get(INDEX_FIRST_ENTITY.getZeroBased());
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_INCIDENT_SUCCESS, editedIncident);
+        String expectedMessage = String.format(EditIncidentCommand.MESSAGE_EDIT_INCIDENT_SUCCESS, editedIncident);
         Model expectedModel = new ModelManager(new IncidentManager(model.getIncidentManager()), new UserPrefs());
 
 
-        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(editIncidentCommand, model, expectedMessage, expectedModel);
     }
 
 
@@ -108,14 +108,14 @@ public class EditCommandTest {
 
         Incident incidentInFilteredList = model.getFilteredIncidentList().get(INDEX_FIRST_ENTITY.getZeroBased());
         Incident editedIncident = new IncidentBuilder(incidentInFilteredList).withCaller(DEFAULT_CALLER).build();
-        EditCommand editCommand = new EditCommand(INDEX_FIRST_ENTITY,
+        EditIncidentCommand editIncidentCommand = new EditIncidentCommand(INDEX_FIRST_ENTITY,
                 new EditIncidentBuilder().withCaller(DEFAULT_CALLER).build());
 
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_INCIDENT_SUCCESS, editedIncident);
+        String expectedMessage = String.format(EditIncidentCommand.MESSAGE_EDIT_INCIDENT_SUCCESS, editedIncident);
         Model expectedModel = new ModelManager(new IncidentManager(model.getIncidentManager()), new UserPrefs());
         expectedModel.setIncident(model.getFilteredIncidentList().get(0), editedIncident);
 
-        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(editIncidentCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
@@ -123,9 +123,9 @@ public class EditCommandTest {
         Incident firstIncident = model.getFilteredIncidentList().get(INDEX_FIRST_ENTITY.getZeroBased());
         EditIncident editor = new EditIncidentBuilder(firstIncident).build();
 
-        EditCommand editCommand = new EditCommand(INDEX_SECOND_ENTITY, editor);
+        EditIncidentCommand editIncidentCommand = new EditIncidentCommand(INDEX_SECOND_ENTITY, editor);
 
-        assertCommandFailure(editCommand, model, EditCommand.MESSAGE_DUPLICATE_INCIDENT);
+        assertCommandFailure(editIncidentCommand, model, EditIncidentCommand.MESSAGE_DUPLICATE_INCIDENT);
     }
 
     @Test
@@ -134,9 +134,10 @@ public class EditCommandTest {
 
         // edit incident in filtered list into a duplicate in address book
         Incident incidentInList = model.getIncidentManager().getIncidentList().get(INDEX_FIRST_ENTITY.getZeroBased());
-        EditCommand editCommand = new EditCommand(INDEX_SECOND_ENTITY, new EditIncidentBuilder(incidentInList).build());
+        EditIncidentCommand editIncidentCommand = new EditIncidentCommand(INDEX_SECOND_ENTITY,
+                new EditIncidentBuilder(incidentInList).build());
 
-        assertCommandFailure(editCommand, model, EditCommand.MESSAGE_DUPLICATE_INCIDENT);
+        assertCommandFailure(editIncidentCommand, model, EditIncidentCommand.MESSAGE_DUPLICATE_INCIDENT);
     }
 
     @Test
@@ -145,9 +146,9 @@ public class EditCommandTest {
         //EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build();
         //EditCommand editCommand = new EditCommand(outOfBoundIndex, descriptor);
         EditIncident editor = new EditIncidentBuilder().withCaller(DEFAULT_CALLER).build();
-        EditCommand editCommand = new EditCommand(outOfBoundIndex, editor);
+        EditIncidentCommand editIncidentCommand = new EditIncidentCommand(outOfBoundIndex, editor);
 
-        assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_INCIDENT_INDEX);
+        assertCommandFailure(editIncidentCommand, model, Messages.MESSAGE_INVALID_INCIDENT_INDEX);
     }
 
     /**

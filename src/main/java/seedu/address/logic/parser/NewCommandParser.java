@@ -2,7 +2,7 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_AUTO;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_LOCATION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DISTRICT;
 
 import java.util.stream.Stream;
 
@@ -21,15 +21,15 @@ public class NewCommandParser implements Parser<NewCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public NewCommand parse(String args) throws ParseException {
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_LOCATION,
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_DISTRICT,
                 PREFIX_AUTO);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_LOCATION, PREFIX_AUTO)
+        if (!arePrefixesPresent(argMultimap, PREFIX_DISTRICT, PREFIX_AUTO)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, NewCommand.MESSAGE_USAGE));
         }
 
-        District location = ParserUtil.parseLocation(argMultimap.getValue(PREFIX_LOCATION).get());
+        District location = ParserUtil.parseLocation(argMultimap.getValue(PREFIX_DISTRICT).get());
         boolean isAuto = ParserUtil.parseAuto(argMultimap.getValue(PREFIX_AUTO).get());
 
         return new NewCommand(location, isAuto);

@@ -138,6 +138,18 @@ public interface Model {
      */
     void removeIncident(Incident incident);
 
+    /**
+     * Returns true if a vehicle of the same identity as (@code vehicle} exists in the incident manager.
+     */
+    boolean hasVehicle(Vehicle vehicle);
+
+    /**
+     * Replaces the given Vehicle {@code target} with {@code editedVehicle}.
+     * {@code target} must exist in the Incident Manager.
+     * The identity of {@code target} must not be the same as another vehicle in the Incident Manager
+     */
+    void setVehicle(Vehicle target, Vehicle editedVehicle);
+
     /** Returns an unmodifiable view of the filtered incident list */
     ObservableList<Incident> getFilteredIncidentList();
 

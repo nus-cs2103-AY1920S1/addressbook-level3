@@ -10,6 +10,7 @@ public class Messages {
     public static final String MESSAGE_INVALID_PERSON_DISPLAYED_INDEX = "The person index provided is invalid";
     public static final String MESSAGE_PERSONS_LISTED_OVERVIEW = "%1$d persons listed!";
     public static final String MESSAGE_INVALID_INCIDENT_INDEX = "The incident index provided is invalid";
+    public static final String MESSAGE_INVALID_VEHICLE_INDEX = "The vehicle index provided is invalid";
     public static final String MESSAGE_INCIDENTS_LISTED_OVERVIEW = "%1$d incidents listed!";
     public static final String MESSAGE_VEHICLES_LISTED_OVERVIEW = "%1$d vehicles listed!";
     public static final String MESSAGE_ACCESS_ADMIN = "You must be an admin to perform this operation. "
