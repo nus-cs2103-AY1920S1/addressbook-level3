@@ -75,7 +75,7 @@ public class AddCommandParserTest {
                 .withDesignation("").build();
         Body expectedBody = new BodyBuilder(JOHN).withCauseOfDeath("").withFridgeId("").withKinPhoneNumber("")
                 .withNric("").withNextOfKin("").withOrgansForDonation("").withRelationship("").withReligion("")
-                        .withStatus("").withDateOfBirth("").build();
+                        .withStatus("").withDateOfBirth("").withDetails("").build();
 
         // whitespace only preamble
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
@@ -130,7 +130,7 @@ public class AddCommandParserTest {
         //Body: no cause of death
         Body expectedBody = new BodyBuilder(JOHN).withCauseOfDeath("").withFridgeId("").withKinPhoneNumber("")
             .withNric("").withNextOfKin("").withOrgansForDonation("").withRelationship("").withReligion("")
-            .withStatus("").withDateOfBirth("").build();
+            .withStatus("").withDateOfBirth("").withDetails("").build();
         assertParseSuccess(parser, VALID_BODY_FLAG + NAME_DESC_JOHN + SEX_DESC_JOHN
                 + DATE_OF_ADMISSION_DESC_JOHN + DATE_OF_DEATH_DESC_JOHN, new AddCommand(expectedBody));
     }

@@ -19,7 +19,7 @@ import seedu.address.model.person.Name;
 //@@author ambervoong
 /**
  * Stores the details to update the body with. Each non-empty field value will replace the
- * corresponding field value of the body.
+ * corresponding field value of the body when applied.
  */
 public class UpdateBodyDescriptor implements UpdateEntityDescriptor {
     private Name name;
@@ -37,6 +37,8 @@ public class UpdateBodyDescriptor implements UpdateEntityDescriptor {
     private Name nextOfKin;
     private String relationship;
     private PhoneNumber kinPhoneNumber;
+
+    private String details;
 
     public UpdateBodyDescriptor() {
 
@@ -88,7 +90,7 @@ public class UpdateBodyDescriptor implements UpdateEntityDescriptor {
     @Override
     public boolean isAnyFieldEdited() {
         return CollectionUtil.isAnyNonNull(name, sex, nric, religion, causeOfDeath, organsForDonation, bodyStatus,
-                fridgeId, dateOfBirth, dateOfDeath, nextOfKin, relationship, kinPhoneNumber);
+                fridgeId, dateOfBirth, dateOfDeath, nextOfKin, relationship, kinPhoneNumber, details);
     }
 
     /**
@@ -112,6 +114,7 @@ public class UpdateBodyDescriptor implements UpdateEntityDescriptor {
         body.setNextOfKin(this.getNextOfKin().orElse(body.getNextOfKin().orElse(null)));
         body.setRelationship(this.getRelationship().orElse(body.getRelationship().orElse(null)));
         body.setKinPhoneNumber(this.getKinPhoneNumber().orElse(body.getKinPhoneNumber().orElse(null)));
+        body.setDetails(this.getDetails().orElse(body.getDetails().orElse(null)));
         return entity;
     }
 
@@ -218,6 +221,14 @@ public class UpdateBodyDescriptor implements UpdateEntityDescriptor {
 
     public void setKinPhoneNumber(PhoneNumber kinPhoneNumber) {
         this.kinPhoneNumber = kinPhoneNumber;
+    }
+
+    public Optional<String> getDetails() {
+        return Optional.ofNullable(details);
+    }
+
+    public void setDetails(String details) {
+        this.details = details;
     }
 
     @Override

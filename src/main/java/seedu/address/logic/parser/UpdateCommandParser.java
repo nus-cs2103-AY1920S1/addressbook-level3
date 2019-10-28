@@ -2,7 +2,7 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_BODY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_BODY_DETAILS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CAUSE_OF_DEATH;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_JOINED;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_OF_BIRTH;
@@ -29,7 +29,6 @@ import seedu.address.logic.commands.UpdateCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.parser.utility.UpdateBodyDescriptor;
 import seedu.address.logic.parser.utility.UpdateEntityDescriptor;
-import seedu.address.logic.parser.utility.UpdateFridgeDescriptor;
 import seedu.address.logic.parser.utility.UpdateWorkerDescriptor;
 import seedu.address.model.entity.IdentificationNumber;
 
@@ -40,12 +39,11 @@ import seedu.address.model.entity.IdentificationNumber;
 public class UpdateCommandParser implements Parser<UpdateCommand> {
 
     /**
-     *
-     * @param argsString
-     * @param prefixes
+     * Returns an {@code ArgumentMultimap} that tokenizes prefixes the command can receive.
+     * @param argsString string of arguments
      * @return
      */
-    private ArgumentMultimap tokenize(String argsString, Prefix... prefixes) {
+    private ArgumentMultimap tokenize(String argsString) {
         return ArgumentTokenizer.tokenize(argsString,
                 PREFIX_FLAG,
                 PREFIX_IDENTIFICATION_NUMBER,
@@ -62,11 +60,11 @@ public class UpdateCommandParser implements Parser<UpdateCommand> {
                 PREFIX_NAME_NOK,
                 PREFIX_RELATIONSHIP,
                 PREFIX_PHONE_NOK,
+                PREFIX_BODY_DETAILS,
                 PREFIX_PHONE_NUMBER, // Worker-only Fields
                 PREFIX_DATE_JOINED,
                 PREFIX_DESIGNATION,
-                PREFIX_EMPLOYMENT_STATUS,
-                PREFIX_BODY); // Fridge-only field
+                PREFIX_EMPLOYMENT_STATUS); // Fridge-only field
     }
 
     /**
@@ -106,7 +104,8 @@ public class UpdateCommandParser implements Parser<UpdateCommand> {
                     PREFIX_DATE_OF_DEATH,
                     PREFIX_NAME_NOK,
                     PREFIX_RELATIONSHIP,
-                    PREFIX_PHONE_NOK);
+                    PREFIX_PHONE_NOK,
+                    PREFIX_BODY_DETAILS);
             break;
         case "w":
             identificationNumber = IdentificationNumber.customGenerateId("W", Integer.parseInt(idNum));
@@ -117,11 +116,6 @@ public class UpdateCommandParser implements Parser<UpdateCommand> {
                     PREFIX_DATE_JOINED,
                     PREFIX_DESIGNATION,
                     PREFIX_EMPLOYMENT_STATUS);
-            break;
-        case "f":
-            identificationNumber = IdentificationNumber.customGenerateId("F", Integer.parseInt(idNum));
-            // Use /body ID instead of /id ID because /id is used for identifying the fridge itself.
-            arePrefixesPresent = arePrefixesPresent(argMultimap, PREFIX_STATUS, PREFIX_BODY);
             break;
         default:
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UpdateCommand.MESSAGE_USAGE));
@@ -141,8 +135,8 @@ public class UpdateCommandParser implements Parser<UpdateCommand> {
             updateEntityDescriptor = parseWorkerFields(new UpdateWorkerDescriptor(), argMultimap);
             return new UpdateCommand(identificationNumber, updateEntityDescriptor);
         case "f":
-            updateEntityDescriptor = parseFridgeFields(new UpdateFridgeDescriptor(), argMultimap);
-            return new UpdateCommand(identificationNumber, updateEntityDescriptor);
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, "INVALID FLAG: -f "
+                    + "is not valid for this command."));
         default:
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, "INVALID FLAG: \n"
                     + UpdateCommand.MESSAGE_USAGE));
@@ -212,6 +206,10 @@ public class UpdateCommandParser implements Parser<UpdateCommand> {
         if (!argMultimap.getValue(PREFIX_PHONE_NOK).orElse("").isEmpty()) {
             bodyDescriptor.setKinPhoneNumber(ParserUtil.parsePhoneNumber(argMultimap.getValue(PREFIX_PHONE_NOK).get()));
         }
+
+        String details = ParserUtil.parseStringFields(argMultimap.getValue(PREFIX_BODY_DETAILS).orElse(""));
+        bodyDescriptor.setDetails(details);
+
         if (!bodyDescriptor.isAnyFieldEdited()) {
             throw new ParseException(UpdateCommand.MESSAGE_NOT_EDITED);
         }
@@ -250,30 +248,5 @@ public class UpdateCommandParser implements Parser<UpdateCommand> {
             throw new ParseException(UpdateCommand.MESSAGE_NOT_EDITED);
         }
         return workerDescriptor;
-    }
-
-    /**
-     * Maps arguments to an UpdateFridgeDescriptor. The fields are all optional, provided at least one field was
-     * specified.
-     * @param fridgeDescriptor contains values for various fields in a Fridge.
-     * @param argMultimap contains mappings of arguments to their prefixes.
-     * @return an UpdateFridgeDescriptor containing the new Fridge values.
-     * @throws ParseException if none of the fields were changed.
-     */
-    private UpdateEntityDescriptor parseFridgeFields(UpdateFridgeDescriptor fridgeDescriptor,
-                                                     ArgumentMultimap argMultimap) throws ParseException {
-        if (!argMultimap.getValue(PREFIX_STATUS).orElse("").isEmpty()) {
-            fridgeDescriptor.setFridgeStatus(ParserUtil.parseFridgeStatus(argMultimap.getValue(PREFIX_STATUS).get()));
-        }
-        if (!argMultimap.getValue(PREFIX_BODY).orElse("").isEmpty()) {
-            String id = argMultimap.getValue(PREFIX_BODY).orElse(null);
-            IdentificationNumber bodyId = IdentificationNumber.customGenerateId("B",
-                    Integer.parseInt(id));
-            fridgeDescriptor.setBodyId(bodyId);
-        }
-        if (!fridgeDescriptor.isAnyFieldEdited()) {
-            throw new ParseException(UpdateCommand.MESSAGE_NOT_EDITED);
-        }
-        return fridgeDescriptor;
     }
 }

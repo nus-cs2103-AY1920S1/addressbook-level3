@@ -2,9 +2,13 @@ package seedu.address.model.entity;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.testutil.TypicalBodies.ALICE;
 import static seedu.address.testutil.TypicalBodies.JOHN;
+import static seedu.address.testutil.TypicalFridges.ALICE_FRIDGE;
 import static seedu.address.testutil.TypicalFridges.EMPTY_FRIDGE;
+import static seedu.address.testutil.TypicalWorkers.BENSON;
 import static seedu.address.testutil.TypicalWorkers.ZACH;
 
 import org.junit.jupiter.api.Test;
@@ -19,6 +23,9 @@ import seedu.address.testutil.WorkerBuilder;
 class UniqueIdentificationNumberMapsTest {
 
     private static UniqueIdentificationNumberMaps uniqueIds = new UniqueIdentificationNumberMaps();
+    private static Body body = ALICE;
+    private static Worker worker = BENSON;
+    private static Fridge fridge = ALICE_FRIDGE;
 
     @Test
     void addEntity_returnsIdOne() {
@@ -28,6 +35,24 @@ class UniqueIdentificationNumberMapsTest {
         assertEquals(2, uniqueIds.addEntity(new BodyBuilder().build()));
         assertEquals(2, uniqueIds.addEntity(new FridgeBuilder().build()));
     }
+
+    //@@author ambervoong
+    @Test
+    void addEntity_validCustomId_success() {
+        UniqueIdentificationNumberMaps.clearAllEntries();
+        uniqueIds.addEntity(body, 6);
+        uniqueIds.addEntity(worker, 2);
+        uniqueIds.addEntity(fridge, 6);
+        assertEquals(uniqueIds.getMapping("B", 6), body);
+        assertEquals(uniqueIds.getMapping("W", 2), worker);
+        assertEquals(uniqueIds.getMapping("F", 6), fridge);
+    }
+
+    @Test
+    void addEntity_nullEntity_failure() {
+        assertThrows(AssertionError.class, () -> uniqueIds.addEntity(null));
+    }
+    //@@author
 
     @Test
 

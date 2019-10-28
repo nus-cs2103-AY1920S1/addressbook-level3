@@ -33,6 +33,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.entity.IdentificationNumber;
+import seedu.address.model.entity.UniqueIdentificationNumberMaps;
 import seedu.address.model.entity.body.Body;
 import seedu.address.model.entity.fridge.Fridge;
 import seedu.address.model.entity.fridge.FridgeStatus;
@@ -48,10 +49,12 @@ import seedu.address.testutil.TypicalPersons;
  */
 public class DeleteCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
+        UniqueIdentificationNumberMaps.clearAllEntries();
+        Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+
         // Delete Body
         List<Body> bodyList = model.getFilteredBodyList();
         for (Body body : bodyList) {
@@ -62,12 +65,16 @@ public class DeleteCommandTest {
 
                 ModelManager expectedBodyModel = new ModelManager(model.getAddressBook(), new UserPrefs());
                 expectedBodyModel.deleteEntity(body);
-
+                for (Notif notif : expectedBodyModel.getFilteredNotifList()) {
+                    if (notif.getBody().equals(body)) {
+                        expectedBodyModel.deleteNotif(notif);
+                    }
+                }
                 assertCommandSuccess(deleteBodyCommand, model, expectedBodyMessage, expectedBodyModel);
                 if (!body.getFridgeId().equals(Optional.empty())) {
-                    checkIsBodyRemovedFromFridge(body);
+                    checkIsBodyRemovedFromFridge(body, model);
                 }
-                checkIsNotifRemovedFromList(body);
+                checkIsNotifRemovedFromList(body, model);
                 break;
             }
         }
@@ -93,6 +100,7 @@ public class DeleteCommandTest {
         List<Fridge> fridgeList = model.getFilteredFridgeList();
         for (Fridge fridge : fridgeList) {
             if (fridge.getIdNum().equals(THIRD_FRIDGE_ID_NUM)) {
+                System.out.println(fridge);
                 DeleteCommand deleteFridgeCommand = new DeleteCommand(
                         Index.fromZeroBased(THIRD_FRIDGE_ID_NUM.getIdNum()), "f");
                 String expectedFridgeMessage = String.format(DeleteCommand.MESSAGE_DELETE_ENTITY_SUCCESS, fridge);
@@ -108,6 +116,8 @@ public class DeleteCommandTest {
 
     @Test
     public void execute_invalidIndexUnfilteredList_throwsCommandException() throws CommandException {
+        UniqueIdentificationNumberMaps.clearAllEntries();
+        Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
         // Delete Body
         ClearCommand clearCommand = new ClearCommand();
@@ -258,7 +268,7 @@ public class DeleteCommandTest {
      * Checks if the body is removed from the fridge when the body is deleted.
      * @param body refers to the body which is deleted.
      */
-    private void checkIsBodyRemovedFromFridge(Body body) {
+    private void checkIsBodyRemovedFromFridge(Body body, Model model) {
         IdentificationNumber fridgeId = body.getFridgeId().get();
         List<Fridge> fridgeList = model.getFilteredFridgeList();
         for (Fridge fridge : fridgeList) {
@@ -274,7 +284,8 @@ public class DeleteCommandTest {
      * Checks if the notif is removed from the notif list the body is deleted.
      * @param body refers to the body which is deleted.
      */
-    private void checkIsNotifRemovedFromList(Body body) {
+    private void checkIsNotifRemovedFromList(Body body, Model model) {
+
         List<Notif> notifList = model.getFilteredNotifList();
         ArrayList<Notif> expectedToBeDeleted = new ArrayList<>();
         for (Notif notif : notifList) {

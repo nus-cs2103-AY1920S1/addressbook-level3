@@ -86,6 +86,7 @@ public class AddCommand extends UndoableCommand {
     private final Entity toAdd;
 
     private NotifCommand notifCommand;
+    private Fridge fridge;
 
     /**
      * Creates an AddCommand to add the specified {@code Body}, {@code Worker} or {@code Fridge}.
@@ -105,7 +106,6 @@ public class AddCommand extends UndoableCommand {
         }
 
         model.addEntity(toAdd);
-        toAdd.getIdNum().addMapping(toAdd);
 
         if (toAdd instanceof Body) {
             SelectCommand selectCommand = new SelectCommand(toAdd.getIdNum().getIdNum());
@@ -125,6 +125,7 @@ public class AddCommand extends UndoableCommand {
                 List<Fridge> fridgeList = model.getFilteredFridgeList();
                 for (Fridge fridge : fridgeList) {
                     if (fridge.getIdNum().equals(fridgeId.get())) {
+                        this.fridge = fridge;
                         fridge.setBody(body);
                     }
                 }
@@ -147,7 +148,12 @@ public class AddCommand extends UndoableCommand {
         }
         try {
             model.deleteEntity(toAdd);
-            notifCommand.removeNotif(model);
+            if (notifCommand != null) {
+                notifCommand.removeNotif(model);
+            }
+            if (fridge != null) {
+                fridge.setBody(null);
+            }
         } catch (NullPointerException e) {
             throw new CommandException(MESSAGE_ENTITY_NOT_FOUND);
         }

@@ -51,6 +51,8 @@ class JsonAdaptedBody {
     private final String relationship;
     private final String kinPhoneNumber;
 
+    private final String details;
+
     private final List<String> organsForDonation = new ArrayList<>();
 
     /**
@@ -71,7 +73,8 @@ class JsonAdaptedBody {
                            @JsonProperty("nextOfKin") String nextOfKin,
                            @JsonProperty("relationship") String relationship,
                            @JsonProperty("kinPhoneNumber") String kinPhoneNumber,
-                           @JsonProperty("organsForDonation") List<String> organsForDonation) {
+                           @JsonProperty("organsForDonation") List<String> organsForDonation,
+                           @JsonProperty("details") String details) {
         this.bodyIdNum = bodyIdNum;
         this.dateOfAdmission = dateOfAdmission;
         this.bodyStatus = bodyStatus;
@@ -86,6 +89,7 @@ class JsonAdaptedBody {
         this.nextOfKin = nextOfKin;
         this.relationship = relationship;
         this.kinPhoneNumber = kinPhoneNumber;
+        this.details = details;
 
         if (organsForDonation != null) {
             this.organsForDonation.addAll(organsForDonation);
@@ -106,6 +110,7 @@ class JsonAdaptedBody {
         nextOfKin = source.getNextOfKin().map(Name::toString).orElse(null);
         relationship = source.getRelationship().orElse(null);
         kinPhoneNumber = source.getKinPhoneNumber().map(PhoneNumber::toString).orElse(null);
+        details = source.getDetails().orElse(null);
 
         // Dates
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
@@ -192,6 +197,14 @@ class JsonAdaptedBody {
             actualCauseOfDeath = null;
         } else {
             actualCauseOfDeath = causeOfDeath;
+        }
+
+        // Convert details
+        final String actualDetails;
+        if (details == null) {
+            actualDetails = null;
+        } else {
+            actualDetails = details;
         }
 
         // Convert fridgeId
@@ -294,6 +307,7 @@ class JsonAdaptedBody {
         body.setRelationship(actualRelationship);
         body.setKinPhoneNumber(actualKinPhoneNumber);
         body.setOrgansForDonation(actualOrgansForDonation);
+        body.setDetails(actualDetails);
         return body;
     }
 }

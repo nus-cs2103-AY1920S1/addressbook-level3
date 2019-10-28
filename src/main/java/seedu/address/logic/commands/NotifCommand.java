@@ -1,11 +1,11 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.model.entity.body.BodyStatus.ARRIVED;
 import static seedu.address.model.entity.body.BodyStatus.CONTACT_POLICE;
 
 import java.util.Optional;
 import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
@@ -106,7 +106,8 @@ public class NotifCommand extends Command {
         Runnable changeUi = () -> Platform.runLater(() -> {
             if (body.getBodyStatus().equals(Optional.of(CONTACT_POLICE))) {
                 UpdateCommand up = new UpdateCommand(body.getIdNum(), new UpdateBodyDescriptor(body));
-                up.setUpdateFromNotif(true);
+                // This is so that when undone, the status goes back to ARRIVED.
+                body.setBodyStatus(ARRIVED);
                 try {
                     up.execute(model);
 
@@ -114,7 +115,6 @@ public class NotifCommand extends Command {
                     notifWindow.setTitle("Contact Police!");
                     notifWindow.setContent(notifContent);
                     notifWindow.display();
-                    ses.shutdown();
                 } catch (CommandException e) {
                     logger.info("Error updating the body and fridge ");
                 }

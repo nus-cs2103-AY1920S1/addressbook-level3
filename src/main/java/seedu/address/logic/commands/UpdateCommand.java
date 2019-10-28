@@ -2,7 +2,6 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_FRIDGE_DOES_NOT_EXIST;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_BODY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CAUSE_OF_DEATH;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_JOINED;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_OF_BIRTH;
@@ -44,13 +43,13 @@ import seedu.address.model.entity.worker.Worker;
 //@@author ambervoong
 
 /**
- * Updates the details of an existing body, worker, or fridge in Mortago.
+ * Updates the details of an existing body or worker in Mortago.
  */
 public class UpdateCommand extends UndoableCommand {
 
     public static final String COMMAND_WORD = "update";
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Updates the details of a body, worker, or fridge, identified "
+            + ": Updates the details of a body or worker, identified "
             + "by the identification number that was automatically assigned to the entity. "
             + "Existing fields will be overwritten by the input values.\n"
             + "Details that were not changed in this command will remain the same as before."
@@ -78,12 +77,7 @@ public class UpdateCommand extends UndoableCommand {
             + PREFIX_DATE_OF_BIRTH + "DATE OF BIRTH "
             + PREFIX_DATE_JOINED + "DATE JOINED "
             + PREFIX_DESIGNATION + "DESIGNATION "
-            + PREFIX_EMPLOYMENT_STATUS + "EMPLOYMENT STATUS"
-            + "\nUpdate fields for a Fridge object: \n"
-            + "Example: " + COMMAND_WORD + " "
-            + PREFIX_FLAG + "b "
-            + PREFIX_IDENTIFICATION_NUMBER + " 1 "
-            + PREFIX_BODY + " 2";
+            + PREFIX_EMPLOYMENT_STATUS + "EMPLOYMENT STATUS";
 
     public static final String MESSAGE_UPDATE_ENTITY_SUCCESS = "Edited Entity: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
@@ -91,17 +85,16 @@ public class UpdateCommand extends UndoableCommand {
 
     private final IdentificationNumber id;
     private final UpdateEntityDescriptor updateEntityDescriptor;
-
-    private Entity entity;
     private UpdateEntityDescriptor originalEntityDescriptor;
 
-    //@@author arjavibahety
-    private boolean updateFromNotif;
-    //@@author
+    private Entity entity;
+    private Fridge originalFridge;
+    private Fridge updatedFridge;
+
 
     /**
-     * Creates an UpdateCommand to update one or more fields in the specified {@code Body},
-     * {@code Worker} or {@code Fridge}.
+     * Creates an UpdateCommand to update one or more fields in the specified {@code Body} or
+     * {@code Worker}.
      *
      * @param id                     the identification number of the entity to update
      * @param updateEntityDescriptor details to edit the entity with
@@ -112,12 +105,11 @@ public class UpdateCommand extends UndoableCommand {
 
         this.id = id;
         this.updateEntityDescriptor = updateEntityDescriptor;
-        this.updateFromNotif = false;
     }
 
 
     /**
-     * Saves the original fields of the given {@code Entity} into an UpdateEntityDescriptor.
+     * Saves the original fields of the given {@code Entity} into an {@code UpdateEntityDescriptor}.
      *
      * @param entity the entity to save
      * @return an UpdateEntityDescriptor with the entity's current fields
@@ -128,8 +120,6 @@ public class UpdateCommand extends UndoableCommand {
             return new UpdateBodyDescriptor((Body) entity);
         } else if (entity instanceof Worker) {
             return new UpdateWorkerDescriptor((Worker) entity);
-        } else if (entity instanceof Fridge) {
-            return new UpdateFridgeDescriptor((Fridge) entity);
         } else {
             throw new CommandException("Could not find original entity.");
         }
@@ -143,21 +133,15 @@ public class UpdateCommand extends UndoableCommand {
         if (!model.hasEntity(entity)) {
             throw new CommandException(MESSAGE_ENTITY_NOT_FOUND);
         }
-        if (updateEntityDescriptor instanceof UpdateFridgeDescriptor) {
-            try {
-                UpdateFridgeDescriptor fridgeDescriptor = (UpdateFridgeDescriptor) updateEntityDescriptor;
-                getBodyFromId(model, fridgeDescriptor.getBodyId().orElse(null), fridgeDescriptor);
-            } catch (CommandException e) {
-                return new CommandResult(Messages.MESSAGE_INVALID_ENTITY_DISPLAYED_ID);
-            }
-        }
 
         try {
             this.originalEntityDescriptor = saveOriginalFields(entity);
+
             if (originalEntityDescriptor instanceof UpdateBodyDescriptor) {
                 UpdateBodyDescriptor originalBodyDescriptor = (UpdateBodyDescriptor) originalEntityDescriptor;
                 UpdateBodyDescriptor updateBodyDescriptor = (UpdateBodyDescriptor) updateEntityDescriptor;
-                if (!originalBodyDescriptor.getFridgeId().equals(updateBodyDescriptor.getFridgeId())) {
+                if (updateBodyDescriptor.getFridgeId().isPresent()
+                        && !originalBodyDescriptor.getFridgeId().equals(updateBodyDescriptor.getFridgeId())) {
                     handleUpdatingFridgeAndEntity(model, originalBodyDescriptor, updateBodyDescriptor);
                 } else {
                     model.setEntity(entity, updateEntityDescriptor.apply(entity));
@@ -165,25 +149,21 @@ public class UpdateCommand extends UndoableCommand {
             } else {
                 model.setEntity(entity, updateEntityDescriptor.apply(entity));
             }
+            //@@author shaoyi1997
             SelectCommand selectCommand = new SelectCommand(Integer.MAX_VALUE);
             selectCommand.execute(model);
+            //@@author
         } catch (NullPointerException e) {
             throw new CommandException(MESSAGE_ENTITY_NOT_FOUND);
         }
 
-
-        //@@author arjavibahety
-        if (!updateFromNotif) {
-            setUndoable();
-            model.addExecutedCommand(this);
-        }
-        //@@author
+        setUndoable();
+        model.addExecutedCommand(this);
 
         return new CommandResult(String.format(MESSAGE_UPDATE_ENTITY_SUCCESS, entity));
     }
 
     //@@author arjavibahety
-
     /**
      * Assigns body to the new fridge when fridgeId is updated and removes it from the old fridge.
      *
@@ -195,32 +175,31 @@ public class UpdateCommand extends UndoableCommand {
     private void handleUpdatingFridgeAndEntity(Model model, UpdateBodyDescriptor originalBodyDescriptor,
                                                UpdateBodyDescriptor updateBodyDescriptor) throws CommandException {
         List<Fridge> fridgeList = model.getFilteredFridgeList();
-        Fridge originalFridge = null;
-        Fridge updatedFridge = null;
         boolean initallyNoFridge = true;
         for (Fridge fridge : fridgeList) {
             if (Optional.ofNullable(fridge.getIdNum()).equals(originalBodyDescriptor.getFridgeId())) {
-                originalFridge = fridge;
+                this.originalFridge = fridge;
                 initallyNoFridge = false;
             }
             if (!(updateBodyDescriptor.getFridgeId() == null)) {
+
                 if (fridge.getIdNum().equals(updateBodyDescriptor.getFridgeId().get())) {
-                    updatedFridge = fridge;
+                    this.updatedFridge = fridge;
                 }
                 if (Optional.ofNullable(fridge.getIdNum()).equals(updateBodyDescriptor.getFridgeId())) {
-                    updatedFridge = fridge;
+                    this.updatedFridge = fridge;
                 }
             }
         }
 
-        if ((originalFridge != null && updatedFridge != null)) {
-            originalFridge.setBody(null);
-            updatedFridge.setBody((Body) entity);
+        if ((this.originalFridge != null && this.updatedFridge != null)) {
+            this.originalFridge.setBody(null);
+            this.updatedFridge.setBody((Body) entity);
             model.setEntity(entity, updateEntityDescriptor.apply(entity));
         } else if (initallyNoFridge) {
-            updatedFridge.setBody((Body) entity);
+            this.updatedFridge.setBody((Body) entity);
             model.setEntity(entity, updateEntityDescriptor.apply(entity));
-        } else if (updatedFridge == null) {
+        } else if (this.updatedFridge == null) {
             throw new CommandException(MESSAGE_FRIDGE_DOES_NOT_EXIST);
         }
 
@@ -230,7 +209,8 @@ public class UpdateCommand extends UndoableCommand {
     /**
      * Undoes the effects of the UpdateCommand. Only can be executed if this command was previously executed before.
      *
-     * @return result of undoing the command.
+     * @param model the model of Mortago
+     * @return result of undoing the command
      */
     @Override
     public CommandResult undo(Model model) throws CommandException {
@@ -239,6 +219,17 @@ public class UpdateCommand extends UndoableCommand {
         }
         try {
             model.setEntity(entity, originalEntityDescriptor.apply(entity));
+            if (entity instanceof Body) {
+                Body body = (Body) originalEntityDescriptor.apply(entity);
+                if ((originalFridge != null && updatedFridge != null)) {
+                    originalFridge.setBody(body);
+                    updatedFridge.setBody(null);
+                } else if (originalFridge == null && updatedFridge != null) {
+                    updatedFridge.setBody(null);
+                    body.setFridgeId(null);
+                    model.setEntity(entity, body);
+                }
+            }
         } catch (NullPointerException e) {
             throw new CommandException(MESSAGE_ENTITY_NOT_FOUND);
         }
@@ -247,6 +238,15 @@ public class UpdateCommand extends UndoableCommand {
         return new CommandResult(String.format(MESSAGE_UNDO_SUCCESS, entity));
     }
 
+    /**
+     * Returns an Entity given its IdentificationNumber if it exists in the {@code Model}.
+     *
+     * @param model      the model of Mortago
+     * @param id         the id given
+     * @param descriptor the descriptor given to UpdateCommmand, which is used to determine entity type
+     * @return the entity in Mortago
+     * @throws CommandException if the entity was not found in the Model
+     */
     public Entity getEntityFromId(Model model, IdentificationNumber id, UpdateEntityDescriptor descriptor)
             throws CommandException {
         if (descriptor instanceof UpdateBodyDescriptor) {
@@ -261,13 +261,6 @@ public class UpdateCommand extends UndoableCommand {
             for (Worker worker : lastShownList) {
                 if (worker.getIdNum().equals(id)) {
                     return worker;
-                }
-            }
-        } else if (descriptor instanceof UpdateFridgeDescriptor) {
-            List<Fridge> lastShownList = model.getFilteredFridgeList();
-            for (Fridge fridge : lastShownList) {
-                if (fridge.getIdNum().equals(id)) {
-                    return fridge;
                 }
             }
         }
@@ -299,12 +292,6 @@ public class UpdateCommand extends UndoableCommand {
         }
         throw new CommandException(Messages.MESSAGE_INVALID_ENTITY_DISPLAYED_ID);
     }
-
-    //@@author arjavibahety
-    public void setUpdateFromNotif(boolean updateFromNotif) {
-        this.updateFromNotif = updateFromNotif;
-    }
-    //@@
 
     @Override
     public boolean equals(Object other) {

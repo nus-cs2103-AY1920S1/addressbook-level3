@@ -82,7 +82,7 @@ public class IdentificationNumber {
     }
 
     public static IdentificationNumber generateNewFridgeId(Fridge fridge, int id) {
-        return new IdentificationNumber(fridge);
+        return new IdentificationNumber(fridge, id);
     }
 
     public static IdentificationNumber customGenerateId(String typeOfEntity, int idNum) {
