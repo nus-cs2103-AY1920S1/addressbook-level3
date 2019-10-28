@@ -11,6 +11,10 @@ public class Commitment extends Event {
         super(name, startDate, endDate, info, EVENT_TYPE);
     }
 
+    public Commitment(Name name, Date startDate, Date endDate) {
+        super(name, startDate, endDate, EVENT_TYPE);
+    }
+
     @Override
     public String toString() {
         if (isOneDay()) {

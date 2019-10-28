@@ -22,6 +22,10 @@ public class Event extends Interval<Date, Event> {
         this.eventType = eventType;
     }
 
+    public Event(Name name, Date startDate, Date endDate, EventType eventType) {
+        this(name, startDate, endDate, Optional.empty(), eventType);
+    }
+
     public boolean isBusy() {
         return eventType.isBusy();
     }

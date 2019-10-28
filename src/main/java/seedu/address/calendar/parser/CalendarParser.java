@@ -1,6 +1,7 @@
 package seedu.address.calendar.parser;
 
 import seedu.address.calendar.commands.AddCommand;
+import seedu.address.calendar.commands.DeleteCommand;
 import seedu.address.calendar.commands.ShowCommand;
 import seedu.address.calendar.commands.Command;
 import seedu.address.address.logic.commands.HelpCommand;
@@ -35,6 +36,7 @@ public class CalendarParser {
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
         // todo: think about how to deal with non-alphanumeric characters
+        // todo: allow adding of commitments that will result in clashes
         switch(commandWord) {
 
         case ShowCommand.COMMAND_WORD:
@@ -42,6 +44,9 @@ public class CalendarParser {
 
         case AddCommand.COMMAND_WORD:
             return new AddCommandParser().parse(arguments);
+
+        case DeleteCommand.COMMAND_WORD:
+            return new DeleteCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

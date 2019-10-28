@@ -2,25 +2,24 @@ package seedu.address.calendar.commands;
 
 import seedu.address.calendar.model.Calendar;
 import seedu.address.calendar.model.event.SchoolBreak;
-import seedu.address.calendar.model.event.exceptions.ClashException;
-import seedu.address.calendar.model.event.exceptions.DuplicateEventException;
 import seedu.address.calendar.parser.CliSyntax;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 
-public class AddSchoolBreakCommand extends AddCommand {
+import java.util.NoSuchElementException;
+
+public class DeleteSchoolBreakCommand extends DeleteCommand {
     public static final String COMMAND_WORD = "school_break";
-    public static final String MESSAGE_USAGE = AddCommand.COMMAND_WORD + " " + COMMAND_WORD
-            + ": Adds a school break to the specified date(s)"
+    public static final String MESSAGE_USAGE = DeleteCommand.COMMAND_WORD + " " + COMMAND_WORD
+            + ": Deletes the specified school break that happens on the specified date(s)"
             + CliSyntax.PREFIX_START_DAY + " START DAY "
             + "[" + CliSyntax.PREFIX_START_MONTH + " START MONTH] "
             + "[" + CliSyntax.PREFIX_START_YEAR + "START YEAR] "
             + "[" + CliSyntax.PREFIX_END_DAY + " START DAY] "
             + "[" + CliSyntax.PREFIX_END_MONTH + " START MONTH] "
             + "[" + CliSyntax.PREFIX_END_YEAR + "START YEAR] "
-            + CliSyntax.PREFIX_NAME + " NAME "
-            + "[" + CliSyntax.PREFIX_INFO + " INFO]" + "\n"
-            + "Example: " + AddCommand.COMMAND_WORD + " " + COMMAND_WORD + " " + CliSyntax.PREFIX_START_DAY + " 8 "
+            + CliSyntax.PREFIX_NAME + " NAME " + "\n"
+            + "Example: " + DeleteCommand.COMMAND_WORD + " " + COMMAND_WORD + " " + CliSyntax.PREFIX_START_DAY + " 8 "
             + CliSyntax.PREFIX_START_MONTH + " Dec " + CliSyntax.PREFIX_START_YEAR + " 2019 "
             + CliSyntax.PREFIX_END_DAY + " 12 " + CliSyntax.PREFIX_END_MONTH + " January "
             + CliSyntax.PREFIX_END_YEAR + " 2020 "
@@ -28,18 +27,18 @@ public class AddSchoolBreakCommand extends AddCommand {
 
     private SchoolBreak schoolBreak;
 
-    public AddSchoolBreakCommand(SchoolBreak schoolBreak) {
+    public DeleteSchoolBreakCommand(SchoolBreak schoolBreak) {
         this.schoolBreak = schoolBreak;
     }
 
     public CommandResult execute(Calendar calendar) throws CommandException {
         try {
-            calendar.addEvent(schoolBreak);
-        } catch (DuplicateEventException | ClashException e) {
+            calendar.deleteEvent(schoolBreak);
+        } catch (NoSuchElementException e) {
             throw new CommandException(e.getMessage());
         }
 
-        String formattedFeedback = String.format(MESSAGE_ADD_SUCCESS, schoolBreak.toString());
+        String formattedFeedback = String.format(MESSAGE_DELETE_SUCCESS, schoolBreak.toString());
         return new CommandResult(formattedFeedback);
     }
 }
