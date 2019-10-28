@@ -36,7 +36,7 @@ public class BankCommand extends HomeCommand {
         if (!model.hasWordBank(name)) {
             throw new CommandException(MESSAGE_INVALID_WORD_BANK_NAME);
         }
-        model.setWordBank(model.getWordBankFromName(name));
+        model.setCurrenWordBank(model.getWordBankFromName(name));
 
         WordBankStatisticsList wbStatsList = model.getWordBankStatisticsList();
         WordBankStatistics wbStats = wbStatsList.getWordBankStatistics(name);

@@ -82,7 +82,7 @@ public class LogicManager implements Logic, UiLogicHelper {
 
             if (commandResult instanceof CardCommandResult) {
                 CardCommandResult cardCommandResult = (CardCommandResult) commandResult;
-                cardCommandResult.updateStorage(storage, (WordBank) model.getWordBank());
+                cardCommandResult.updateStorage(storage, (WordBank) model.getCurrenWordBank());
             }
 
         } catch (IOException ioe) {
@@ -94,7 +94,7 @@ public class LogicManager implements Logic, UiLogicHelper {
 
     @Override
     public ReadOnlyWordBank getAddressBook() {
-        return model.getWordBank();
+        return model.getCurrenWordBank();
     }
 
     @Override
@@ -171,7 +171,7 @@ public class LogicManager implements Logic, UiLogicHelper {
 
     @Override
     public ReadOnlyWordBank getActiveWordBank() {
-        return model.getWordBank();
+        return model.getCurrenWordBank();
     }
 
     @Override
