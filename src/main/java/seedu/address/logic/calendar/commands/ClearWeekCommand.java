@@ -26,7 +26,7 @@ public class ClearWeekCommand extends Command {
         ArrayList<Task> deletedTaskList = new ArrayList<>();
 
         for (Task t: calendarModel.getFilteredTaskList()) {
-            if (t.getWeek() == GoCommand.getCurrentWeek()) {
+            if (t.getWeek() == GoCommand.getCurrentWeek() && !t.isPersistent()) {
                 deletedTaskList.add(t);
             }
         }
