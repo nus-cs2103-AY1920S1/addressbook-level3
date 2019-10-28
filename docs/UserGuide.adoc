@@ -12,7 +12,7 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/AY1920S1-CS2103T-W11-1/main/tree/master
+:repoURL: https://github.com/AY1920S1-CS2103T-W11-1/main
 
 By: `Team CS2103T-W11-1`      Since: `Sep 2019`      Licence: `MIT`
 
@@ -27,7 +27,7 @@ AlgoBase (AB) is for those who prefer to use a desktop app for managing algorith
 .  Copy the file to the folder you want to use as the home folder for your AlgoBase application.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
-image::UiStartProblem.png[width="80%"]
+image::Ui.png[width="80%"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will list all possible commands in the result window and open the help window.
@@ -37,12 +37,9 @@ e.g. typing *`help`* and pressing kbd:[Enter] will list all possible commands in
 * **`add`**`n/factorial d/define a function factorial that takes in a number and n and returns the factorial of the number t/recursion a/Halim` : adds a problem called 'factorial' tagged with 'recursion' and authored by 'Wee Han'
 * **`edit`**`1 src/LeetCode` : edits the first problem displayed and sets its source to 'LeetCode'
 * **`switchtab`**`t/display i/2` : switches to tag tab
-+
-image::UiStartTag.png[width="50%"]
-+
 * **`switchtab`**`t/display i/3` : switches to plan tab
 +
-image::UiStartPlan.png[width="50%"]
+image::UiStartPlan.png[width="60%"]
 +
 * **`findplan`**`n/CS2040` : finds plans that with name 'CS2040'
 * **`clear`** : resets Algobase
@@ -273,7 +270,7 @@ Format: `add n/NAME [d/DESCRIPTION] [start/START_DATE] [end/END_DATE]`
 
 Examples:
 
-* `addplan n/CS2040 d/past year questions in practical exams s/2019-01-01 e/3019-12-12`
+* `addplan n/CS2040 d/past year questions in practical exams start/2019-01-01 end/3019-12-12`
 
 ==== Deleting a plan : `deleteplan`
 
@@ -306,7 +303,7 @@ Examples:
 
 * `edit 1 d/past year questions of sit-in labs +
 Edits the description of the 1st plan to be `past year questions of sit-in labs` respectively.
-* `edit 2 s/2019-08-13` +
+* `edit 2 start/2019-08-13` +
 Edits the starting date of the 2nd plan to be `2019-08-13`.
 
 ==== Listing all plans : `listplan`
@@ -373,7 +370,7 @@ Examples:
 ==== Locating plans: `findplan`
 
 Finds plans fulfilling all provided constraints. +
-Format: `findplan [n/NAME] [d/DESCRIPTION] [start/RANGE_START] [end/RANGE_END]...`
+Format: `findplan [n/NAME] [d/DESCRIPTION] [start/RANGE_START] [end/RANGE_END]`
 
 * Name
 ** is case-insensitive.
@@ -471,7 +468,7 @@ Format: `rewind INDEX`
 kbd:[Ctrl + ↑] is shortcut for `rewind 1`
 
 [NOTE]
-Since kbd:[Ctrl + ↑] is equivalent to executing `rewind 1`, you should not expect to rewind multiple commands back if you press the shortcut multiple times - it will always show you the last successfully executed command, if any. If you want to rewind several commands back
+Since kbd:[Ctrl + ↑] is equivalent to executing `rewind 1`, you should not expect to rewind multiple commands back if you press the shortcut multiple times - it will always show you the last successfully executed command, if any. if you want to rewind several commands back, please use `rewind INDEX` instead.
 
 * `find n/Sequences` +
 `rewind 1` +
@@ -530,11 +527,13 @@ e.g. `deletetag 3`
 
 * *Add Training Plan* : `addplan n/NAME [d/DESCRIPTION] [start/START_DATE] [end/END_DATE]` +
 e.g. `addplan n/CS2040`
-* *Edit Training Plan* : `editplan INDEX [a/ADD_PROBLEM_INDEX_LIST] [d/DELETE_PROBLEM_INDEX_LIST] [n/NAME] [d/DESCRIPTION] [start/START_DATE] [end/END_DATE]` +
-e.g. `editplan 1 a/1 2 3 d/4 5 6 n/training set 1`
-* *Find Training Plan* : `findplan KEYWORD [MORE_KEYWORDS]` +
-e.g. `find training set`
+* *Edit Training Plan* : `editplan INDEX [n/NAME] [d/DESCRIPTION] [start/START_DATE] [end/END_DATE]` +
+e.g. `editplan 1 n/training start/2020-02-02`
+* *Find Training Plans* : `findplan [n/NAME] [d/DESCRIPTION] [start/RANGE_START] [end/RANGE_END]` +
+e.g. `find n/CS2040 start/2019-03-01 end/2019-03-31`
 * *List Training Plans* : `listplan`
+* *Delete Training Plan* : `deleteplan INDEX` +
+e.g. `deleteplan 2`
 * *Add Task to Training Plan* : `addtask plan/PLAN_INDEX prob/PROBLEM_INDEX` +
 e.g. `addtask plan/1 prob/2`
 * *Delete Task from Training Plan* : `deletetask plan/PLAN_INDEX task/TASK_INDEX` +
@@ -552,6 +551,9 @@ e.g. `movetask task/1 from/1 to/2`
 e.g. `export format/json path/.`
 * *Importing data* : `import format/FORMAT path/FILE_PATH` +
 e.g. `import format/json path/./steven_halim_secret.json`
+
+* *Rewind Command History* : `rewind INDEX` +
+e.g. `rewind 1`
 
 * *Help* : `help`
 * *Clear* : `clear`
