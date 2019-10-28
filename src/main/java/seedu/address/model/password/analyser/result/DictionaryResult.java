@@ -9,7 +9,7 @@ import seedu.address.model.password.analyser.match.Match;
 /**
  * Represents a result produced from dictionary analyser.
  */
-public class DictionaryResult extends BaseResult {
+public class DictionaryResult extends Result {
     private List<DictionaryMatch> matches;
 
 

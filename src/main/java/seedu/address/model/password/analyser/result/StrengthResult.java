@@ -5,7 +5,7 @@ import seedu.address.model.password.Password;
 /**
  * Represents a result produced from strength analyser.
  */
-public class StrengthResult extends BaseResult {
+public class StrengthResult extends Result {
 
     private boolean hasMinimumLength = false;
     private boolean hasLower = false;

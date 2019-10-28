@@ -22,7 +22,7 @@ public class SequenceAnalyser implements Analyser {
         ArrayList<SequenceResult> results = new ArrayList<>();
         for (Password acc : passwordList) {
             String password = acc.getPasswordValue().value;
-            List<SequenceMatch> matches = getAllSubseq(password);
+            List<SequenceMatch> matches = getAllMatches(password);
             if (matches.isEmpty()) {
                 results.add(new SequenceResult(acc, DESC_PASS, matches));
             } else {
@@ -32,7 +32,7 @@ public class SequenceAnalyser implements Analyser {
         this.results = results;
     }
 
-    private List<SequenceMatch> getAllSubseq(String password) {
+    private List<SequenceMatch> getAllMatches(String password) {
         ArrayList<SequenceMatch> matches = new ArrayList<>();
         getAllForwardSubseq(password, matches);
         getAllBackwardSubseq(password, matches);
@@ -120,7 +120,10 @@ public class SequenceAnalyser implements Analyser {
         StringBuilder reportBuilder = new StringBuilder();
         reportBuilder.append(MESSAGE_HEADER);
         reportBuilder.append(MESSAGE_COLUMNS);
+        //int count = 0;
         for (SequenceResult o : results) {
+            //reportBuilder.append(String.valueOf(count) + ". " +  o);
+            //count++;
             reportBuilder.append(o);
         }
         return reportBuilder.toString();

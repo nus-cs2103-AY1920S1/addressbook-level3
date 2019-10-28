@@ -21,7 +21,7 @@ public class SimilarityAnalyser implements Analyser {
     public void analyse(List<Password> passwordList) {
         ArrayList<SimilarityResult> results = new ArrayList<>();
         for (Password acc : passwordList) {
-            List<SimilarityMatch> matches = findSimilarPasswords(acc, passwordList);
+            List<SimilarityMatch> matches = getAllMatches(acc, passwordList);
             if (!matches.isEmpty()) {
                 results.add(new SimilarityResult(acc, DESC_FAIL, matches));
             } else {
@@ -37,7 +37,7 @@ public class SimilarityAnalyser implements Analyser {
      * @param passwordList the list of passwords
      * @return
      */
-    private List<SimilarityMatch> findSimilarPasswords(Password toCheck, List<Password> passwordList) {
+    private List<SimilarityMatch> getAllMatches(Password toCheck, List<Password> passwordList) {
         String s1 = toCheck.getPasswordValue().value;
         ArrayList<SimilarityMatch> matches = new ArrayList<>();
         for (Password acc : passwordList) {

@@ -1,31 +1,46 @@
 package seedu.address.model.password.analyser.match;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.AppUtil.checkArgument;
+
 /**
  * Represents a match found by an analyser which contains the start and end index as well as the match token.
  */
 public abstract class BaseMatch implements Match {
 
+    private static final String MESSAGE_CONSTRAINTS = "start index cannot be greater than end index.";
     private String token;
     private int startIndex;
     private int endIndex;
-    //private int rank;
 
+    /**
+     * Constructs a basic {@code Match}
+     *
+     * @param startIndex the start index in the {@code PasswordValue} which the match was found.
+     * @param endIndex the end index in the {@code PasswordValue} which the match was found.
+     * @param token the string in the {@code PasswordValue} which the match was found.
+     */
     public BaseMatch(int startIndex, int endIndex, String token) {
+        requireNonNull(token);
+        checkArgument(isValidMatch(startIndex, endIndex, token), MESSAGE_CONSTRAINTS);
         this.token = token;
         this.startIndex = startIndex;
         this.endIndex = endIndex;
-        //this.rank = rank; TODO : transfer
+    }
+
+    protected Boolean isValidMatch(int startIndex, int endIndex, String token){
+        return startIndex < endIndex && token != "";
     }
 
     public String getToken() {
         return token;
     }
 
-    public int getStart_index() {
+    public int getStartIndex() {
         return startIndex;
     }
 
-    public int getEnd_index() {
+    public int getEndIndex() {
         return endIndex;
     }
 
@@ -37,8 +52,4 @@ public abstract class BaseMatch implements Match {
                 + "End Index: " + this.endIndex + "\n";
     }
 
-    //    @Override
-    //    public int compareTo(Match o) {
-    //        return this.rank - o.rank;
-    //    }
 }

@@ -9,7 +9,7 @@ import seedu.address.model.password.analyser.match.SequenceMatch;
 /**
  * Represents a result produced from sequence analyser.
  */
-public class SequenceResult extends BaseResult {
+public class SequenceResult extends Result {
     private List<SequenceMatch> matches;
 
     public SequenceResult(Password password, String description, List<SequenceMatch> matches) {
