@@ -37,7 +37,7 @@ import seedu.address.model.contact.Email;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 
-public class EditFinSecCommandParserTest {
+public class EditContactCommandParserTest {
 
     private static final String TAG_EMPTY = " " + PREFIX_TAG;
 
