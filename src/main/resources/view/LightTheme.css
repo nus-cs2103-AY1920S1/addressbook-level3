@@ -6,7 +6,7 @@
 .label {
     -fx-font-size: 11.5pt;
     -fx-font-family: "Segoe UI Semibold";
-    -fx-text-fill: white;
+    -fx-text-fill: #000000;
     -fx-opacity: 0.9;
 }
 
@@ -28,6 +28,20 @@
 .label-header {
     -fx-font-size: 32pt;
     -fx-font-family: "Segoe UI Light";
+    -fx-text-fill: #000000;
+    -fx-opacity: 1;
+}
+
+.label-highlighted {
+    -fx-font-size: 12pt;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-text-fill: #5293ff;
+    -fx-opacity: 1;
+}
+
+.label-unhighlighted {
+    -fx-font-size: 12pt;
+    -fx-font-family: "Segoe UI Semibold";
     -fx-text-fill: #000000;
     -fx-opacity: 1;
 }
