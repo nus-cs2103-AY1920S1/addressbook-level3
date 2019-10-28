@@ -115,9 +115,12 @@ public class Reminder {
      */
     public static Reminder fromJson(String jsonString) throws IOException {
         JsonNode node = JsonUtil.getObjectMapper().readTree(jsonString);
-        String dateTimeString = node.get("dateTime").asText();
-        LocalDateTime dateTime = LocalDateTime.parse(dateTimeString);
+        String defaultDateTimeString = node.get("defaultDateTime").asText();
+        LocalDateTime dateTime = LocalDateTime.parse(defaultDateTimeString);
 
-        return new Reminder(dateTime);
+        String occurrenceDateTimeString = node.get("occurrenceDateTime").asText();
+        LocalDateTime occurenceDateTime = LocalDateTime.parse(occurrenceDateTimeString);
+
+        return new Reminder(dateTime, occurenceDateTime);
     }
 }
