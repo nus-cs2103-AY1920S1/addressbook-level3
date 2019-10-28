@@ -73,17 +73,28 @@ public class MainWindow extends UiPart<Stage> {
                 logic.getFilteredContactList());
         splitDisplayPanelPlaceholder.getChildren().add(splitDisplay.getRoot()); */
 
-        centralDisplay = new CentralDisplay(logic.getFilteredItinerary());
-        centralDisplayPlaceholder.getChildren().add(centralDisplay.getRoot());
-
-        resultDisplay = new ResultDisplay();
-        resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
+        updateUI();
 
         //StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getPlannerFilePath());
         //statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+    }
+
+    private void updateUI() {
+        updateCentralDisplay();
+        updateResultDisplay();
+    }
+
+    private void updateCentralDisplay() {
+        centralDisplay = new CentralDisplay(logic.getFilteredItinerary());
+        centralDisplayPlaceholder.getChildren().add(centralDisplay.getRoot());
+    }
+
+    private void updateResultDisplay() {
+        resultDisplay = new ResultDisplay();
+        resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
     }
 
     /**
@@ -154,9 +165,11 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     private void applyUiFocusChange(UiFocus uiFocus) {
+        updateUI();
         switch (uiFocus) {
         case AGENDA:
             centralDisplay.setFocusToAgenda();
+            break;
         default:
             throw new AssertionError(uiFocus.toString() + " is not handled in applyUiFocusChange.");
         }
