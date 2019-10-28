@@ -19,8 +19,6 @@ import seedu.address.model.commands.CommandObject;
 import seedu.address.model.commands.CommandWord;
 import seedu.address.model.earnings.Amount;
 import seedu.address.model.earnings.Date;
-import seedu.address.model.earnings.Month;
-import seedu.address.model.earnings.Week;
 import seedu.address.model.note.Content;
 import seedu.address.model.note.ModuleCode;
 import seedu.address.model.person.Attendance;
@@ -246,36 +244,6 @@ public class ParserUtil {
             throw new ParseException(Date.MESSAGE_CONSTRAINTS);
         }
         return new Date(trimmedDate);
-    }
-
-    /**
-     * Parses a {@code String month} into an {@code Month}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code month} is invalid.
-     */
-    public static Month parseMonth(String month) throws ParseException {
-        requireNonNull(month);
-        String trimmedMonth = month.trim();
-        if (!Month.isValidMonth(trimmedMonth)) {
-            throw new ParseException(Month.MESSAGE_CONSTRAINTS);
-        }
-        return new Month(trimmedMonth);
-    }
-
-    /**
-     * Parses a {@code String week} into an {@code Week}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code week} is invalid.
-     */
-    public static Week parseWeek(String week) throws ParseException {
-        requireNonNull(week);
-        String trimmedWeek = week.trim();
-        if (!Week.isValidWeekNum(trimmedWeek)) {
-            throw new ParseException(Week.MESSAGE_CONSTRAINTS);
-        }
-        return new Week(trimmedWeek);
     }
 
     /**
