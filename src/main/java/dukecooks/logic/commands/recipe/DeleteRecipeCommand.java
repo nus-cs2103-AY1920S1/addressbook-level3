@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 
+import dukecooks.commons.core.Event;
 import dukecooks.commons.core.Messages;
 import dukecooks.commons.core.index.Index;
 import dukecooks.logic.commands.CommandResult;
@@ -28,6 +29,8 @@ public class DeleteRecipeCommand extends DeleteCommand {
 
     private final Index targetIndex;
 
+    private static Event event;
+
     public DeleteRecipeCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
     }
@@ -43,6 +46,10 @@ public class DeleteRecipeCommand extends DeleteCommand {
 
         Recipe recipeToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deleteRecipe(recipeToDelete);
+
+        event = Event.getInstance();
+        event.set("recipe", "all");
+
         return new CommandResult(String.format(MESSAGE_DELETE_RECIPE_SUCCESS, recipeToDelete));
     }
 

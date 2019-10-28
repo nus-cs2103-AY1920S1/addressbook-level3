@@ -2,6 +2,7 @@ package dukecooks.logic.commands.recipe;
 
 import static java.util.Objects.requireNonNull;
 
+import dukecooks.commons.core.Event;
 import dukecooks.commons.core.Messages;
 import dukecooks.logic.commands.CommandResult;
 import dukecooks.logic.commands.FindCommand;
@@ -23,6 +24,8 @@ public class FindRecipeCommand extends FindCommand {
 
     private final RecipeNameContainsKeywordsPredicate predicate;
 
+    private static Event event;
+
     public FindRecipeCommand(RecipeNameContainsKeywordsPredicate predicate) {
         this.predicate = predicate;
     }
@@ -31,6 +34,10 @@ public class FindRecipeCommand extends FindCommand {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.updateFilteredRecipeList(predicate);
+
+        event = Event.getInstance();
+        event.set("recipe", "all");
+
         return new CommandResult(
                 String.format(Messages.MESSAGE_RECIPE_LISTED_OVERVIEW, model.getFilteredRecipeList().size()));
     }

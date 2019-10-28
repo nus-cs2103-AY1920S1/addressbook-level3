@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
+import dukecooks.commons.core.Event;
 import dukecooks.commons.core.Messages;
 import dukecooks.commons.core.index.Index;
 import dukecooks.commons.util.CollectionUtil;
@@ -53,6 +54,8 @@ public class EditRecipeCommand extends EditCommand {
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_RECIPE = "This recipe already exists in the Duke Cooks.";
 
+    private static Event event;
+
     private final Index index;
     private final EditRecipeDescriptor editRecipeDescriptor;
 
@@ -86,6 +89,10 @@ public class EditRecipeCommand extends EditCommand {
 
         model.setRecipe(recipeToEdit, editedRecipe);
         model.updateFilteredRecipeList(Model.PREDICATE_SHOW_ALL_RECIPES);
+
+        event = Event.getInstance();
+        event.set("recipe", "all");
+
         return new CommandResult(String.format(MESSAGE_EDIT_RECIPE_SUCCESS, editedRecipe));
     }
 

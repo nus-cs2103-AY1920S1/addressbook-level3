@@ -8,6 +8,7 @@ import static dukecooks.logic.parser.CliSyntax.PREFIX_NAME;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_PROTEIN;
 import static java.util.Objects.requireNonNull;
 
+import dukecooks.commons.core.Event;
 import dukecooks.logic.commands.AddCommand;
 import dukecooks.logic.commands.CommandResult;
 import dukecooks.logic.commands.exceptions.CommandException;
@@ -43,6 +44,8 @@ public class AddRecipeCommand extends AddCommand {
 
     private final Recipe toAdd;
 
+    private static Event event;
+
     /**
      * Creates an AddRecipeCommand to add the specified {@code Recipe}
      */
@@ -60,6 +63,10 @@ public class AddRecipeCommand extends AddCommand {
         }
 
         model.addRecipe(toAdd);
+
+        event = Event.getInstance();
+        event.set("recipe", "all");
+
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 
