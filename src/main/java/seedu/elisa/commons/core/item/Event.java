@@ -115,7 +115,7 @@ public class Event {
                 .append(getStartDateTime().toString())
                 .append("\nEnd DateTime: ")
                 .append(getEndDateTime().toString())
-                .append(" Duration: ")
+                .append("\nDuration: ")
                 .append(getDuration().toString());
 
         return builder.toString();
