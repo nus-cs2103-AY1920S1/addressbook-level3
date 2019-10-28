@@ -43,20 +43,20 @@ public class CommandTestUtil {
     public static final String VALID_TAG_FRIEND = "friend";
 
     //valid date fields
-    public static final String VALID_DATE_1 = PREFIX_DATE + "20/10/2019";
-    public static final String VALID_DATE_2 = PREFIX_DATE + "10/10/2021";
-    public static final String VALID_YEAR_MONTH_1 = PREFIX_YEAR_MONTH + "10/2019";
-    public static final String VALID_YEAR_MONTH_2 = PREFIX_YEAR_MONTH + "01/2019";
+    public static final String VALID_DATE_1 = " " + PREFIX_DATE + "20/10/2019";
+    public static final String VALID_DATE_2 = " " + PREFIX_DATE + "10/10/2021";
+    public static final String VALID_YEAR_MONTH_1 = " " + PREFIX_YEAR_MONTH + "10/2019";
+    public static final String VALID_YEAR_MONTH_2 = " " + PREFIX_YEAR_MONTH + "01/2019";
 
     //invalid date fields
-    public static final String INVALID_DATE_1 = PREFIX_DATE + "2019/10/29";
-    public static final String INVALID_DATE_2 = PREFIX_DATE + "20 Aug 2019";
-    public static final String INVALID_DATE_3 = PREFIX_DATE + "date";
-    public static final String INVALID_DATE_4 = PREFIX_DATE + "10/12";
-    public static final String INVALID_YEAR_MONTH_1 = PREFIX_YEAR_MONTH + "1/2019";
-    public static final String INVALID_YEAR_MONTH_2 = PREFIX_YEAR_MONTH + "2019/10";
-    public static final String INVALID_YEAR_MONTH_3 = PREFIX_YEAR_MONTH + "2019 August";
-    public static final String INVALID_YEAR_MONTH_4 = PREFIX_YEAR_MONTH + "August 2019";
+    public static final String INVALID_DATE_1 = " " + PREFIX_DATE + "2019/10/29";
+    public static final String INVALID_DATE_2 = " " + PREFIX_DATE + "20 Aug 2019";
+    public static final String INVALID_DATE_3 = " " + PREFIX_DATE + "date";
+    public static final String INVALID_DATE_4 = " " + PREFIX_DATE + "10/12";
+    public static final String INVALID_YEAR_MONTH_1 = " " + PREFIX_YEAR_MONTH + "1/2019";
+    public static final String INVALID_YEAR_MONTH_2 = " " + PREFIX_YEAR_MONTH + "2019/10";
+    public static final String INVALID_YEAR_MONTH_3 = " " + PREFIX_YEAR_MONTH + "2019 August";
+    public static final String INVALID_YEAR_MONTH_4 = " " + PREFIX_YEAR_MONTH + "August 2019";
 
     //valid event fields
     public static final String VALID_NAME_PARTY = "party";

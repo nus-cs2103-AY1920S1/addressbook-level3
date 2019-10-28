@@ -19,6 +19,7 @@ public class CommandParserTestUtil {
             Command command = parser.parse(userInput);
             assertEquals(expectedCommand, command);
         } catch (ParseException pe) {
+            System.out.println(userInput);
             throw new IllegalArgumentException("Invalid userInput.", pe);
         }
     }

@@ -13,6 +13,7 @@ import seedu.address.logic.commands.schedule.DisplayScheduleForYearMonthCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.parser.schedule.DisplayScheduleForYearMonthParser;
 import seedu.address.model.event.EventContainsKeyYearMonthPredicate;
+import seedu.address.model.event.EventDate;
 
 public class DisplayScheduleForYearMonthParserTest {
 
@@ -30,13 +31,13 @@ public class DisplayScheduleForYearMonthParserTest {
     @Test
     public void parse_invalidValue_failure() {
         // invalid Year Month format : Input - "1/2019"
-        assertParseFailure(parser, CommandTestUtil.INVALID_YEAR_MONTH_1, MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, CommandTestUtil.INVALID_YEAR_MONTH_1, EventDate.MESSAGE_CONSTRAINTS_MONTH);
         // invalid date format : Input - "2019/10"
-        assertParseFailure(parser, CommandTestUtil.INVALID_YEAR_MONTH_2, MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, CommandTestUtil.INVALID_YEAR_MONTH_2, EventDate.MESSAGE_CONSTRAINTS_MONTH);
         // invalid date format : Input - "2019 August"
-        assertParseFailure(parser, CommandTestUtil.INVALID_YEAR_MONTH_3, MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, CommandTestUtil.INVALID_YEAR_MONTH_3, EventDate.MESSAGE_CONSTRAINTS_MONTH);
         // invalid date format : Input - "August 2019"
-        assertParseFailure(parser, CommandTestUtil.INVALID_YEAR_MONTH_4, MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, CommandTestUtil.INVALID_YEAR_MONTH_4, EventDate.MESSAGE_CONSTRAINTS_MONTH);
     }
 
     @Test

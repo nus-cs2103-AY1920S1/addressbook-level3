@@ -26,7 +26,9 @@ public class EventContainsKeyYearMonthPredicate implements Predicate<Event> {
 
     @Override
     public boolean equals(Object other) {
-        return other == this; // short circuit if same object
+        return other == this // short circuit if same object
+                || (other instanceof EventContainsKeyYearMonthPredicate
+                && yearMonth.equals(((EventContainsKeyYearMonthPredicate) other).yearMonth));
     }
 
 }

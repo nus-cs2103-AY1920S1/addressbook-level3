@@ -35,6 +35,8 @@ public class DisplayScheduleForDateCommand extends Command {
 
     @Override
     public boolean equals(Object other) {
-        return other == this; // short circuit if same object
+        return other == this // short circuit if same object
+                || (other instanceof DisplayScheduleForDateCommand // instanceof handles nulls
+                && predicate.equals(((DisplayScheduleForDateCommand) other).predicate)); // state check
     }
 }
