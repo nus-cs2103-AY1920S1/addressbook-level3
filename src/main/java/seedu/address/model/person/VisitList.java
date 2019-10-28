@@ -47,7 +47,11 @@ public class VisitList {
 
     @Override
     public String toString() {
-        return records.toString();
+        if (records.isEmpty()) {
+            return "No past records";
+        } else {
+            return "Most Recent Visit: " + records.get(0).toString();
+        }
     }
 
     /**
@@ -75,9 +79,17 @@ public class VisitList {
 
     @Override
     public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof VisitList // instanceof handles nulls
-                && records.equals(((VisitList) other).records)); // state check
+
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof VisitList)) {
+            return false;
+        }
+
+        VisitList otherList = (VisitList) other;
+        return records.equals(otherList.records);
     }
 
     @Override

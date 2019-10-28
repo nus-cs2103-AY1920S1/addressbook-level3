@@ -301,6 +301,11 @@ The reminder entry will by default generate the prompt in 7 days if not specifie
 * `reminder Two Point Hospital closed d/7` +
 Creates a reminder “Two Point Hospital closed” that will display at launch for the next 7 days.
 
+==== Show Message of the Day box : `show`
+
+Shows a pop-up containing the message of the day text. +
+Format: `show`
+
 === *Optimization for Command-Line Interface (CLI) Users*
 VISIT being an application optimized for doctors who are comfortable with CLI, has support for features such as aliasing for commands to enable command entries which are often used to be stored and used quickly and easily.
 
@@ -397,6 +402,7 @@ e.g. `deletevisit 1 d/1`
 e.g. `followup 9 d/10`
 * *Creating a generic reminder* : `reminder TEXT [d/DAYS]` +
 e.g. `reminder Two Point Hospital closed d/7`
+* *Show Message of the Day* : `show`
 
 === *Optimization for Command-Line Interface (CLI) Users*
 

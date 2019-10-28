@@ -130,8 +130,13 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void addReminder(Reminder reminder) {
-        Reminder.addReminder(reminder);
+    public void addReminder(int type, String description, int days) {
+        userPrefs.addReminder(type, description, days);
+    }
+
+    @Override
+    public String outputReminders() {
+        return userPrefs.outputReminders();
     }
 
     @Override

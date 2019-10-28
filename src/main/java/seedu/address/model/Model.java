@@ -87,8 +87,15 @@ public interface Model {
 
     /**
      * Adds the given reminder.
+     * @param type Type of reminder - 0 for reminder and 1 for follow-up
+     * @param days Number of days for the reminder
      */
-    void addReminder(Reminder reminder);
+    void addReminder(int type, String description, int days);
+
+    /**
+     * Creates a String with all reminders and follow-ups for easy display.
+     */
+    String outputReminders();
 
     /**
      * Adds a given alias into the alias table.

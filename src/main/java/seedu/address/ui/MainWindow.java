@@ -37,8 +37,8 @@ public class MainWindow extends UiPart<Stage> {
     private MotdWindow motdWindow;
     private VisitRecordWindow visitWindow;
     private VisitListPanel visitListPanel;
-    private ProfilePanel profilePanel;
     private AliasListWindow aliasListWindow;
+    private ProfileWindow profilePanel;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -68,10 +68,12 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
-        visitWindow = new VisitRecordWindow();
+        visitWindow = new VisitRecordWindow(windowEvent -> {
+            resultDisplay.setFeedbackToUser(visitWindow.getMessage());
+        });
         visitListPanel = new VisitListPanel();
-        profilePanel = new ProfilePanel();
         aliasListWindow = new AliasListWindow();
+        profilePanel = new ProfileWindow();
     }
 
     public Stage getPrimaryStage() {
@@ -155,7 +157,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     public void handleMotd() {
-        motdWindow = new MotdWindow();
+        motdWindow = new MotdWindow(logic);
         if (!motdWindow.isShowing()) {
             motdWindow.show();
         } else {
@@ -262,6 +264,9 @@ public class MainWindow extends UiPart<Stage> {
             if (commandResult.isEditVisit()) {
                 visitWindow.setOldReportInfo(commandResult.getIdx(), commandResult.getReportIdx(),
                         commandResult.getOldReport(), logic);
+                if (visitListPanel.isShowing()) {
+                    visitListPanel.hide();
+                }
                 handleShowVisitForm();
             }
 

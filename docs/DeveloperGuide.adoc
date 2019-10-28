@@ -153,6 +153,8 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+[[aliasImplementation]]
+// tag::alias[]
 === Alias feature
 ==== Implementation
 The alias mechanism is facilitated by `AliasTable`.
@@ -188,8 +190,67 @@ image::ApplyAliasActivityDiagram.png[]
 [NOTE]
 An unfortunate side effect to matching the longest matching macro increases the time complexity of this operation to O(n) from O(1) if we used wholesale matching instead.
 
-// EXAMPLE TO BE REMOVED AFTER DG is finished for v1.3
+// end::alias[]
 
+[[followupImplementation]]
+// tag::followup[]
+=== Follow-up and Reminders feature
+==== Implementation
+Both mechanisms are facilitated by the `Reminder` class.
+
+It implements the following operations:
+
+* `Reminder#addReminder(reminder)` -- Adds a new reminder.
+* `Reminder#getReminders()` -- Retrieves the reminders for output.
+
+These operations are exposed in the `Model` interface as `Model#addReminder(reminder)` and `Model#getReminders()` respectively.
+
+The following sequence diagram shows how adding a follow-up or reminder works:
+
+image::AddReminderSequenceDiagram.png[]
+// end::followup[]
+
+[[profileImplementation]]
+// tag::profile[]
+=== Profile feature
+==== Implementation
+
+The profile feature allows the user to be able to see the full details of the patient as well as all relevant visit information (See <<visitImplementation, Visit Implementation>>) from a single panel. Attributes of the patient is extracted from the `Person` instance, including the `Name`, `Address`, `Phone`, `Email`, `Tags` and `VisitList`, which can be easily extended following the implementation detailed below. The patient profile feature is facilitated by `ProfileWindow`, which is instanced and instantly hidden (`hide()`) upon the instancing of `MainWindow` on VISIT's start up. +
+ +
+Given below is a simple example usage scenario demonstrate how Profile feature behaves and interacts with the other components.
+
+Step 1. The user executes `profile 3` command view the profile of the 3rd person shown in VISIT's current list. It extracts the `Person` instance from the filtered Person list from the current `model` and returns a `CommandResult` with the `Person` instance as an attribute. `MainWindow#executeCommand()` is called and the check for `CommandResult#isShowProfile()` passes, calling `ProfileWindow#setup()` which populates the hidden Profile Window with the attributes of the `Person` instance before `MainWindow#handleProfilePanel()` is called to show the Profile Window.
+
+image::Profile0.png[]
+_{Show activity diagram of opening profile window}_
+
+Step 2. After viewing the relevant information, the user presses the 'esc' key which closes the form. This causes an event handler in `ProfileWindow` which listens for a `KeyEvent.KEY_RELEASED` event where the event code equates to `KeyCode.ESCAPE` ('esc' key) to trigger, which hides the profile window.
+
+image::Profile1.png[]
+_{Show activity diagram of closing profile window}_
+
+[NOTE]
+The user is able to close the `ProfileWindow` form by clicking the 'x' on the top right of the form as well.
+
+This sequence diagram summarizes what happens when a user executes the Profile Command:
+
+image::ProfileSequenceDiagram.png[]
+_{Show extended sequence diagram of opening and closing profile window}_
+
+==== Design Considerations
+
+===== Aspect: How Profile shows the information from the patient
+
+* **Alternative 1 (current choice):** Does not create an explicit `Profile` instance.
+** Pros: Easy to implement, more straight forward (Just show data without the need to store what is essentially a clone of a `Person` instance).
+** Cons: May cause dependency issues as this increases coupling, with relation to the Profile and Patient class. Foreseeably, this may cause issues especially when patient attributes are to be added or removed.
+* **Alternative 2:** Create an explicit `Profile` instance every call.
+** Pros: Decreases coupling by cutting down on the direct calls to the `Person` instance.
+** Cons: We must ensure that the `Profile` instance generated is correct every time.
+
+// end::profile[]
+
+////
 // tag::undoredo[]
 === [Proposed] Undo/Redo feature
 ==== Proposed Implementation
@@ -278,7 +339,9 @@ image::CommitActivityDiagram.png[]
 _{Explain here how the data encryption feature will be implemented}_
 
 // end::dataencryption[]
+////
 
+[[visitImplementation]]
 // tag::visitationreport[]
 === Visitation Report feature
 ==== Implementation
@@ -289,7 +352,9 @@ The Visitation Report feature allows the user to `add`, `delete` and `edit` a `V
 * `VisitList#editRecord()` -- Replaces `VisitReport` object at given index in arraylist with given `VisitReport`
 * `VisitList#deleteRecord()` -- Deletes `VisitReport` by index from stored arraylist
 
+The class diagram below shows the new additions to the Person class.
 
+image::VisitClass0.png[]
 
 Given below is an example usage scenario and how every component of the Visitation Report feature behaves at each step.
 
@@ -310,6 +375,10 @@ image::EditVisit0.png[]
 If the user executes `editvisit 1` instead, a `CommandResult` with a `ObservableList<VisitReport>` object will be returned. `MainWindow#executeCommand()` runs and the check for `CommandResult#isEditVisit()` fails while the check for `CommandResult#isShowVisitList()` passes, calling `VisitListPanel#setup()` which populates the `VisitListPanel` with the contents of the `ObservableList<VisitReport>` object from `CommandResult#getObservableVisitList()`.`MainWindow#handleShowVisitList()` is then called to display a pop up list showing an indexed list of all visitation records of the person.
 
 Step 4. The user edits the form and presses `f2` on the keyboard or clicks the `submit` button to save the changes. The same mechanism mentioned in `Step 2` is used to update the contents of the edited visit report.
+
+The sequence diagram below shows how Step 3 and Step 4 works.
+
+image::EditVisit1.png[]
 
 Step 5. The user then decides that the report was beyond salvaging and decides to delete it. Executing the command `deletevisit 1 d/1`, `VisitList#deleteRecord()` deletes the entry from the arraylist and `Model#setPerson()` updates the person with the new `VisitList`. The `CommandResult#isShowVisitList()` check in  `MainWindow#executeCommand()` passes and a pop up list showing an indexed list of all visitation records of the person is displayed.
 
@@ -335,6 +404,36 @@ If the user executes `deletevisit 1` instead, the index value will be set to `-1
 ** Cons: Need to handle index out of bound errors.
 // end::visitationreport[]
 
+[[uiImplementation]]
+//tag::guiredesign[]
+=== [Proposed] GUI Redesign
+The GUI Redesign is done to include the new features made for the VISIT application, as well as improve the overall
+user experience with a easily readable interface that displays every important information in a glance.
+
+==== Current Implementation
+The current redesign of the GUI includes the addition of:
+
+* the `ReminderPanel` to display upcoming appointments
+* the `VisitRecordWindow` form for the user to enter the required information (as mentioned in Visitation Report feature)
+* the `ProfileWindow` to display the full profile information of a patient.
+
+In addition to these, VISIT's CSS theme is updated to fit current standards of GUI design,
+with a more pronounced color palette and a clearer font.
+
+The following is the updated class diagram of the Ui Component from these changes:
+
+image::UiRedesignClassDiagram.png[]
+
+1. The MainWindow has been updated to include the ReminderPanel
+2. Two new Windows, VisitRecordWindow and ProfileWindow, are in use in addition to the MainWindow
+
+==== Future Implementation
+
+<to be added>
+
+//end::guiredesign[]
+
+[[logImplementation]]
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
@@ -398,9 +497,11 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user |record down details of each <<visitation,visitation>> |keep track of the patients situation
 
+|`* * *` |user |set follow-up reminders |check in on my patients after some time or when their medication runs out
+
 |`* * *` |user |have daily reminders of important deadlines |keep track of appointments and visitations easily
 
-|`* * *` |user |set follow-up reminders |check in on my patients after some time or when their medication runs out
+|`* * *` |user |see list of reminders |keep track of what I need to keep track
 
 |`* * *` |user |have <<user-defined-macros,user-defined macros>> |streamline my diagnosis documentation
 
@@ -612,27 +713,6 @@ Use case resumes at step 1.
 Use case resumes at step 1.
 
 [discrete]
-=== Use case: View reminders
-
-*MSS*
-
-1.  User starts up AddressBook
-2.  Reminders are displayed
-
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 2. No reminders are set to show
-+
-[none]
-** 2a. AddressBook shows no reminder message.
-+
-Use case ends.
-
-[discrete]
 === Use case: View follow-up reminders
 
 *MSS*
@@ -649,7 +729,49 @@ Use case ends.
 * 2. No reminders are scheduled for the day
 +
 [none]
-** 2a. AddressBook shows no reminder message.
+** 2a. AddressBook shows no reminder message
++
+Use case ends.
+
+[discrete]
+=== Use case: View reminders
+
+*MSS*
+
+1.  User starts up AddressBook
+2.  Reminders are displayed
+
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2. No reminders are set to show
++
+[none]
+** 2a. AddressBook shows no reminder message
++
+Use case ends.
+
+[discrete]
+=== Use case: Open Message of the Day
+
+*MSS*
+
+1. User requests to open Message of the Day
+2. Message of the Day prompt opens with Follow-Up and Reminders details
+
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2. No follow-up or reminders active
++
+[none]
+** 2a. Message of the Day window shows no active follow-up or reminders
 +
 Use case ends.
 

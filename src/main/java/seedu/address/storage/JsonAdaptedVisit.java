@@ -60,6 +60,7 @@ class JsonAdaptedVisit {
         }
         VisitReport report = new VisitReport(visitDate);
         report.setName(new Name(name));
+        report.setDetails(medicine, diagnosis, remarks);
         return report;
     }
 

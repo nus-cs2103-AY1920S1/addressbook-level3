@@ -13,7 +13,7 @@
 
 <fx:root minWidth="450" resizable="false" title="Profile" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <icons>
-        <Image url="@/images/info_icon.png" />
+        <Image url="@/images/visitWindowIcon.png" />
     </icons>
     <scene>
         <Scene>
