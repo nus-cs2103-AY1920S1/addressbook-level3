@@ -5,6 +5,7 @@ import java.util.logging.Logger;
 
 import dream.fcard.core.commons.core.LogsCenter;
 ////import dream.fcard.logic.respond.commands.CreateCommand;
+import dream.fcard.gui.Gui;
 import dream.fcard.logic.respond.exception.DuplicateFoundException;
 import dream.fcard.logic.storage.StorageManager;
 import dream.fcard.model.Deck;
@@ -120,16 +121,18 @@ enum Responses {
         //          curr.viewDeck();
         //      }
         //  }
+
         ArrayList<Deck> decks = programState.getDecks();
         for (int i = 0; i < decks.size(); i++) {
+            Deck d = decks.get(i);
+            Gui.renderDeck(d);
+
             System.out.println("Deck #1: " + decks.get(i).getName());
         }
-
         return true; // capture is valid, end checking other commands
     }),
 
     CREATE("(?i)^(create)?(\\s)+(deck/[\\S]+){1}[\\s]*", (commandInput, programState) -> {
-
         //System.out.println("Current command is CREATE_DECK");
         LogsCenter.getLogger(Responses.class).info("Current command is CREATE_DECK");
 
@@ -138,10 +141,6 @@ enum Responses {
             System.out.println("Create not allowed here");
             return false;
         }
-        // dont intercept input if not default state
-        // note all commands should have something like this
-        // even import export
-
          */
 
         String deckName = commandInput.split("deck/")[1].trim();
@@ -150,7 +149,9 @@ enum Responses {
         if (programState.hasDeck(deckName)) {
             // REPORT DECK EXISTS
             LogsCenter.getLogger(Responses.class).warning("CREATE_DECK: Deck with same name exist - " + deckName);
+            Gui.showStatus("Error: Deck with same name exists - " + deckName);
 
+            return true;
             //System.out.println("Error: Deck with same name exist - " + deckName);
         } else {
             //programState.setCurrentState(StateEnum.CREATE_STATE_FRONT);
@@ -158,6 +159,7 @@ enum Responses {
             LogsCenter.getLogger(Responses.class).info("CREATED_DECK: Deck added - " + deckName);
             // PRINT INSTRUCTIONS TO USER HOW TO CREATE DECK
         }
+        Gui.showStatus("Deck created - " + deckName);
         LogsCenter.getLogger(Responses.class).info("CREATE_DECK: command execution successful");
         return true;
     }),
@@ -171,9 +173,11 @@ enum Responses {
                 System.out.println("Current command is DECK_CREATE_MCQ_CARD");
                 LogsCenter.getLogger(Responses.class).info("Current command is DECK_CREATE_MCQ_CARD");
 
+
                 //System.out.println(commandInput);
 
                 LogsCenter.getLogger(Responses.class).info("DECK_CREATE_MCQ_CARD: command execution successful");
+                Gui.showStatus("Deck created - ");
                 return true; // capture is valid, end checking other commands
             }),
 
