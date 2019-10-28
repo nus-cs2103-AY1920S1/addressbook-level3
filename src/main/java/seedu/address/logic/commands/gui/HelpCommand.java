@@ -16,8 +16,11 @@ import seedu.address.logic.commands.datamanagement.FindModuleCommand;
 import seedu.address.logic.commands.datamanagement.RemoveAllTagsCommand;
 import seedu.address.logic.commands.datamanagement.RemoveTagFromAllCommand;
 import seedu.address.logic.commands.datamanagement.RemoveTagFromModuleCommand;
+import seedu.address.logic.commands.datamanagement.RemoveTagFromStudyPlanCommand;
 import seedu.address.logic.commands.datamanagement.RenameTagCommand;
+import seedu.address.logic.commands.datamanagement.SortStudyPlansByPriorityTagCommand;
 import seedu.address.logic.commands.datamanagement.TagModuleCommand;
+import seedu.address.logic.commands.datamanagement.TagStudyPlanCommand;
 import seedu.address.logic.commands.datamanagement.ViewAllTagsCommand;
 import seedu.address.logic.commands.datamanagement.ViewDefaultTagsCommand;
 import seedu.address.logic.commands.datamanagement.ViewModuleTagsCommand;
@@ -84,11 +87,13 @@ public class HelpCommand extends Command {
             + DeleteTagCommand.HELP_MESSAGE + "\n"
             + ViewModuleTagsCommand.HELP_MESSAGE + "\n"
             + ViewTaggedCommand.HELP_MESSAGE + "\n"
+            + SortStudyPlansByPriorityTagCommand.HELP_MESSAGE + "\n"
+            + TagStudyPlanCommand.HELP_MESSAGE + "\n"
+            + RemoveTagFromStudyPlanCommand.HELP_MESSAGE + "\n"
             + "\nModule information:\n"
             + DescriptionCommand.HELP_MESSAGE + "\n"
             + ValidModsCommand.HELP_MESSAGE + "\n"
-            + "NOT YET: findmod - Finding modules using the module code\n"
-            + "NOT YET: getmodcode - Finding module code using keywords\n"
+            + FindModuleCommand.HELP_MESSAGE + "\n"
             + "\nGUI:\n"
             + "NOT YET: expand - Expanding a semester\n"
             + "NOT YET: collapse - Collapsing a semester\n"

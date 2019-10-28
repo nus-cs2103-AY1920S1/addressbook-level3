@@ -20,6 +20,7 @@ import seedu.address.ui.ResultViewType;
 public class FindModuleCommand extends Command {
 
     public static final String COMMAND_WORD = "findmod";
+    public static final String HELP_MESSAGE = COMMAND_WORD + ": Finding modules using the module code";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds the semester in which the specified module "
             + "is located at.\n"
