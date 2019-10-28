@@ -14,8 +14,8 @@ import seedu.savenus.model.wallet.Wallet;
 public class ClearCommand extends Command {
 
     public static final String COMMAND_WORD = "clear";
-    public static final String MESSAGE_SUCCESS = "Your menu, purchase history, savings account, wallet, likes and dislikes "
-            + "have been cleared!";
+    public static final String MESSAGE_SUCCESS = "Your menu, purchase history, savings account, wallet, "
+            + "likes and dislikes have been cleared!";
 
     @Override
     public CommandResult execute(Model model) {

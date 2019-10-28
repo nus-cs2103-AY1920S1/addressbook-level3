@@ -60,16 +60,6 @@ public interface Logic {
     Path getMenuFilePath();
 
     /**
-     * Returns the user prefs' purchase history file path.
-     */
-    Path getPurchaseHistoryFilePath();
-
-    /**
-     * Returns the user prefs' wallet file path.
-     */
-    Path getWalletFilePath();
-
-    /**
      * Returns the user prefs' GUI settings.
      */
     GuiSettings getGuiSettings();
