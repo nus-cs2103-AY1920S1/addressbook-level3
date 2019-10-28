@@ -22,7 +22,7 @@ public class RegisterPatientCommandIntegrationTest {
 
         Model model = TestUtil.getTypicalModelManager();
         Model expectedModel = TestUtil.getTypicalModelManager();
-        expectedModel.addPerson(validPerson);
+        expectedModel.addPatient(validPerson);
 
         assertCommandSuccess(command, model,
                 String.format(RegisterPatientCommand.MESSAGE_SUCCESS, validPerson), expectedModel);

@@ -62,15 +62,15 @@ public class EditPatientDetailsCommand extends ReversibleCommand {
             throw new CommandException(MESSAGE_NOT_EDITED);
         }
 
-        if (personToEdit == null || editedPerson == null || !model.hasExactPerson(personToEdit)) {
+        if (personToEdit == null || editedPerson == null || !model.hasExactPatient(personToEdit)) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
-        if (model.hasPerson(editedPerson) && !personToEdit.isSameAs(editedPerson)) {
+        if (model.hasPatient(editedPerson) && !personToEdit.isSameAs(editedPerson)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
 
-        model.setPerson(personToEdit, editedPerson);
+        model.setPatient(personToEdit, editedPerson);
         model.updateFilteredPatientList(PREDICATE_SHOW_ALL_PERSONS);
         return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedPerson));
     }

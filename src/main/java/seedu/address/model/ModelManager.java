@@ -191,30 +191,30 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean hasPerson(Person person) {
+    public boolean hasPatient(Person person) {
         requireNonNull(person);
         return patientAddressBook.hasPerson(person);
     }
 
     @Override
-    public boolean hasExactPerson(Person person) {
+    public boolean hasExactPatient(Person person) {
         requireNonNull(person);
         return patientAddressBook.hasExactPerson(person);
     }
 
     @Override
-    public void deletePerson(Person target) {
+    public void deletePatient(Person target) {
         patientAddressBook.removePerson(target);
     }
 
     @Override
-    public void addPerson(Person person) {
+    public void addPatient(Person person) {
         patientAddressBook.addPerson(person);
         updateFilteredPatientList(PREDICATE_SHOW_ALL_PERSONS);
     }
 
     @Override
-    public void setPerson(Person target, Person editedPerson) {
+    public void setPatient(Person target, Person editedPerson) {
         requireAllNonNull(target, editedPerson);
 
         patientAddressBook.setPerson(target, editedPerson);

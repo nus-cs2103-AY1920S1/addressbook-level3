@@ -42,7 +42,7 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public void addPerson(Person person) {
+    public void addPatient(Person person) {
         throw new AssertionError("This method should not be called.");
     }
 
@@ -57,7 +57,7 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public boolean hasPerson(Person person) {
+    public boolean hasPatient(Person person) {
         throw new AssertionError("This method should not be called.");
     }
 
@@ -67,17 +67,17 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public boolean hasExactPerson(Person person) {
+    public boolean hasExactPatient(Person person) {
         throw new AssertionError("This method should not be called.");
     }
 
     @Override
-    public void deletePerson(Person target) {
+    public void deletePatient(Person target) {
         throw new AssertionError("This method should not be called.");
     }
 
     @Override
-    public void setPerson(Person target, Person editedPerson) {
+    public void setPatient(Person target, Person editedPerson) {
         throw new AssertionError("This method should not be called.");
     }
 

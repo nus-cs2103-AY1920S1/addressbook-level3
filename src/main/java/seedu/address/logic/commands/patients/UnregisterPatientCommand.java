@@ -36,7 +36,7 @@ public class UnregisterPatientCommand extends ReversibleCommand {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        if (!model.hasExactPerson(toDelete)) {
+        if (!model.hasExactPatient(toDelete)) {
             throw new CommandException(String.format(Messages.MESSAGE_PERSON_NOT_FOUND, toDelete));
         }
 
@@ -44,7 +44,7 @@ public class UnregisterPatientCommand extends ReversibleCommand {
             throw new CommandException(String.format(MESSAGE_PERSON_IN_QUEUE_DELETE_FAILED, toDelete));
         }
 
-        model.deletePerson(toDelete);
+        model.deletePatient(toDelete);
         return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, toDelete));
     }
 

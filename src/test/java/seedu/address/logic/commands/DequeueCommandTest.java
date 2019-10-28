@@ -25,8 +25,8 @@ public class DequeueCommandTest {
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
-        model.addPerson(ALICE);
-        model.addPerson(BENSON);
+        model.addPatient(ALICE);
+        model.addPatient(BENSON);
         model.enqueuePatient(ALICE.getReferenceId());
         model.enqueuePatient(BENSON.getReferenceId());
         ReferenceId personToDelete = model.getQueueList().get(INDEX_FIRST_PERSON.getZeroBased());
@@ -35,8 +35,8 @@ public class DequeueCommandTest {
         String expectedMessage = String.format(DequeueCommand.MESSAGE_DEQUEUE_SUCCESS, personToDelete);
 
         ModelManager expectedModel = new ModelManager();
-        expectedModel.addPerson(ALICE);
-        expectedModel.addPerson(BENSON);
+        expectedModel.addPatient(ALICE);
+        expectedModel.addPatient(BENSON);
         expectedModel.enqueuePatient(BENSON.getReferenceId());
 
         assertCommandSuccess(dequeueCommand, model, expectedMessage, expectedModel);

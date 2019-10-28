@@ -63,31 +63,31 @@ public interface Model extends ReferenceIdResolver {
     /**
      * Returns true if a person with the same identity as {@code person} exists in the address book.
      */
-    boolean hasPerson(Person person);
+    boolean hasPatient(Person person);
 
     /**
      * Returns true if an exact {@code person} exists in the address book.
      */
-    boolean hasExactPerson(Person person);
+    boolean hasExactPatient(Person person);
 
     /**
      * Deletes the given person.
      * The person must exist in the address book.
      */
-    void deletePerson(Person target);
+    void deletePatient(Person target);
 
     /**
      * Adds the given person.
      * {@code person} must not already exist in the address book.
      */
-    void addPerson(Person person);
+    void addPatient(Person person);
 
     /**
      * Replaces the given person {@code target} with {@code editedPerson}.
      * {@code target} must exist in the address book.
      * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
      */
-    void setPerson(Person target, Person editedPerson);
+    void setPatient(Person target, Person editedPerson);
 
 
     //=========== Filtered Patient List Accessors =============================================================

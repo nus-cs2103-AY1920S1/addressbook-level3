@@ -16,7 +16,7 @@ public class ModelWithPersonStub extends ModelStub {
     }
 
     @Override
-    public boolean hasPerson(Person person) {
+    public boolean hasPatient(Person person) {
         requireNonNull(person);
         return this.person.isSameAs(person);
     }

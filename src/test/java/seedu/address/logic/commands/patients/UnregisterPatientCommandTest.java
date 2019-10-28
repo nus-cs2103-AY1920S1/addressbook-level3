@@ -43,14 +43,14 @@ public class UnregisterPatientCommandTest {
         assertCommandSuccess(removeFromQueueCommand, model, expectedMessage1, expectedModel);
 
         String expectedMessage2 = String.format(UnregisterPatientCommand.MESSAGE_DELETE_PERSON_SUCCESS, personToDelete);
-        expectedModel.deletePerson(personToDelete);
+        expectedModel.deletePatient(personToDelete);
         assertCommandSuccess(unregisterPatientCommand, model, expectedMessage2, expectedModel);
     }
 
     @Test
     public void execute_invalidUnfilteredList_throwsCommandException() {
         Person personToDelete = model.getFilteredPatientList().get(INDEX_FIRST_PERSON.getZeroBased());
-        model.deletePerson(personToDelete);
+        model.deletePatient(personToDelete);
         UnregisterPatientCommand unregisterPatientCommand = new UnregisterPatientCommand(personToDelete);
 
         assertCommandFailure(unregisterPatientCommand, model,

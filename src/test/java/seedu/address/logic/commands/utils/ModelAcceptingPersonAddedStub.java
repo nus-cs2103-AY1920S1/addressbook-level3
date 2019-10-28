@@ -15,13 +15,13 @@ public class ModelAcceptingPersonAddedStub extends ModelStub {
     public final ArrayList<Person> personsAdded = new ArrayList<>();
 
     @Override
-    public boolean hasPerson(Person person) {
+    public boolean hasPatient(Person person) {
         requireNonNull(person);
         return personsAdded.stream().anyMatch(person::isSameAs);
     }
 
     @Override
-    public void addPerson(Person person) {
+    public void addPatient(Person person) {
         requireNonNull(person);
         personsAdded.add(person);
     }
