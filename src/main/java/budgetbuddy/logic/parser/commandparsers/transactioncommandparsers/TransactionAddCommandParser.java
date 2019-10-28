@@ -11,7 +11,7 @@ import java.util.Date;
 import java.util.Optional;
 import java.util.stream.Stream;
 
-import budgetbuddy.logic.commands.transaction.TransactionAddCommand;
+import budgetbuddy.logic.commands.transactioncommands.TransactionAddCommand;
 import budgetbuddy.logic.parser.ArgumentMultimap;
 import budgetbuddy.logic.parser.ArgumentTokenizer;
 import budgetbuddy.logic.parser.CommandParser;
@@ -26,7 +26,7 @@ import budgetbuddy.model.transaction.Amount;
 import budgetbuddy.model.transaction.Transaction;
 
 /**
- * Parses input and
+ * Parses input and creates a new TransactionAddCommand
  */
 public class TransactionAddCommandParser implements CommandParser<TransactionAddCommand> {
     @Override

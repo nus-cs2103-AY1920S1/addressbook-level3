@@ -1,4 +1,4 @@
-package budgetbuddy.logic.commands.transaction;
+package budgetbuddy.logic.commands.transactioncommands;
 
 import static budgetbuddy.commons.util.CollectionUtil.requireAllNonNull;
 
@@ -18,13 +18,13 @@ import budgetbuddy.model.transaction.Transaction;
  */
 public class TransactionDeleteCommand extends Command {
 
-    public static final String COMMAND_WORD = "transaction delete";
+    public static final String COMMAND_WORD = "txn delete";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Deletes transactions with the specified IDs"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Deletes transactions with the specified ID"
             + "Parameters: "
             + "<id ..."
             + "Example: " + COMMAND_WORD + " "
-            + "5 7 13";
+            + "5";
 
     public static final String MESSAGE_DELETE_TRANSACTION_SUCCESS = "Deleted Person: %1$s";
 

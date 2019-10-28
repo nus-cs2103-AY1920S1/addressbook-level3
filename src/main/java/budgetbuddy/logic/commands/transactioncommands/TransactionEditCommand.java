@@ -1,4 +1,4 @@
-package budgetbuddy.logic.commands.transaction;
+package budgetbuddy.logic.commands.transactioncommands;
 
 /**
  * Represents a command to edit transactions.

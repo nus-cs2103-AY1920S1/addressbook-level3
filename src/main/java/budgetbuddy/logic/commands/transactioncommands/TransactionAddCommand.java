@@ -1,4 +1,4 @@
-package budgetbuddy.logic.commands.transaction;
+package budgetbuddy.logic.commands.transactioncommands;
 
 import static budgetbuddy.commons.util.CollectionUtil.requireAllNonNull;
 import static budgetbuddy.logic.parser.CliSyntax.DATE_EXAMPLE;
@@ -21,7 +21,7 @@ import budgetbuddy.model.transaction.Transaction;
  */
 public class TransactionAddCommand extends Command {
 
-    public static final String COMMAND_WORD = "transaction";
+    public static final String COMMAND_WORD = "txn";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a transaction.\n"
             + "Parameters: "
