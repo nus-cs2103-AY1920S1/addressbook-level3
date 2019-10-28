@@ -18,8 +18,11 @@ public class MemeClearCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
+
         model.clearMemes();
-        model.commitWeme();
-        return new CommandResult(MESSAGE_SUCCESS);
+        CommandResult result = new CommandResult(MESSAGE_SUCCESS);
+        model.commitWeme(result.getFeedbackToUser());
+
+        return result;
     }
 }

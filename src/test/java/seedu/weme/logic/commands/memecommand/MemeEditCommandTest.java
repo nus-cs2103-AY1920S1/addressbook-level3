@@ -45,7 +45,7 @@ public class MemeEditCommandTest {
 
         Model expectedModel = new ModelManager(new Weme(model.getWeme()), new UserPrefs());
         expectedModel.setMeme(model.getFilteredMemeList().get(0), editedMeme);
-        expectedModel.commitWeme();
+        expectedModel.commitWeme(expectedMessage);
 
         assertCommandSuccess(memeEditCommand, model, expectedMessage, expectedModel);
     }
@@ -81,7 +81,7 @@ public class MemeEditCommandTest {
         String expectedMessage = String.format(MemeEditCommand.MESSAGE_EDIT_MEME_SUCCESS, editedMeme);
 
         Model expectedModel = new ModelManager(new Weme(model.getWeme()), new UserPrefs());
-        expectedModel.commitWeme();
+        expectedModel.commitWeme(expectedMessage);
 
         assertCommandSuccess(memeEditCommand, model, expectedMessage, expectedModel);
     }
@@ -99,7 +99,7 @@ public class MemeEditCommandTest {
 
         Model expectedModel = new ModelManager(new Weme(model.getWeme()), new UserPrefs());
         expectedModel.setMeme(model.getFilteredMemeList().get(0), editedMeme);
-        expectedModel.commitWeme();
+        expectedModel.commitWeme(expectedMessage);
 
         assertCommandSuccess(memeEditCommand, model, expectedMessage, expectedModel);
     }

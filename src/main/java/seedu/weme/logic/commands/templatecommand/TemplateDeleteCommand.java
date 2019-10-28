@@ -43,8 +43,10 @@ public class TemplateDeleteCommand extends Command {
 
         Template templateToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deleteTemplate(templateToDelete);
-        model.commitWeme();
-        return new CommandResult(String.format(MESSAGE_DELETE_TEMPLATE_SUCCESS, templateToDelete));
+        CommandResult result = new CommandResult(String.format(MESSAGE_DELETE_TEMPLATE_SUCCESS, templateToDelete));
+        model.commitWeme(result.getFeedbackToUser());
+
+        return result;
     }
 
     @Override

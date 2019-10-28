@@ -64,9 +64,11 @@ public class TemplateEditCommand extends Command {
         }
 
         model.setTemplate(templateToEdit, editedTemplate);
-        model.commitWeme();
+        CommandResult result = new CommandResult(String.format(MESSAGE_EDIT_TEMPLATE_SUCCESS, editedTemplate));
+        model.commitWeme(result.getFeedbackToUser());
         model.updateFilteredTemplateList(PREDICATE_SHOW_ALL_TEMPLATES);
-        return new CommandResult(String.format(MESSAGE_EDIT_TEMPLATE_SUCCESS, editedTemplate));
+
+        return result;
     }
 
     @Override
