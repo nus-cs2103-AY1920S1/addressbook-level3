@@ -92,6 +92,7 @@ public class TaskListTest {
         TaskList expectedTaskList = new TaskList();
         expectedTaskList.add(CONAN_TASK_FOR_NOTE); //isDone field of CONAN_TASK_FOR_NOTE has been changed to true
         assertEquals(taskList, expectedTaskList);
+        CONAN_TASK_FOR_NOTE.markAsNotDone();
     }
 
     @Test

@@ -98,6 +98,16 @@ public class Task {
         return this;
     }
 
+    /**
+     * Marks the task as not done.
+     *
+     * @return The not done task object.
+     */
+    public Task markAsNotDone() {
+        this.isDone = false;
+        return this;
+    }
+
     public boolean getStatus() {
         return isDone;
     }

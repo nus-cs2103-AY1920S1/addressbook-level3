@@ -81,6 +81,9 @@ public class TaskList implements Iterable<Task> {
      */
     public void setTasks(List<Task> tasks) {
         requireAllNonNull(tasks);
+        if (!tasksAreUnique(tasks)) {
+            throw new DuplicateTaskException();
+        }
         internalList.setAll(tasks);
     }
 
@@ -125,5 +128,19 @@ public class TaskList implements Iterable<Task> {
 
     public void clear() {
         internalList.clear();
+    }
+
+    /**
+     * Returns true if {@code tasks} contains only unique tasks.
+     */
+    private boolean tasksAreUnique(List<Task> tasks) {
+        for (int i = 0; i < tasks.size() - 1; i++) {
+            for (int j = i + 1; j < tasks.size(); j++) {
+                if (tasks.get(i).equals(tasks.get(j))) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 }
