@@ -25,70 +25,58 @@ import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.transaction.BankAccountOperation;
 import seedu.address.model.transaction.Budget;
 import seedu.address.model.transaction.LedgerOperation;
-import seedu.address.model.transaction.Transaction;
-import seedu.address.testutil.TransactionBuilder;
+import seedu.address.testutil.BudgetBuilder;
 
-public class InCommandTest {
+public class SetCommandTest {
 
     @Test
-    public void constructor_nullTransaction_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new InCommand(null));
+    public void constructor_nullBudget_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> new SetCommand(null));
     }
 
     @Test
-    public void executeTransactionAcceptedByModeladdSuccessful() throws Exception {
-        ModelStubAcceptingTransactionAdded modelStub = new ModelStubAcceptingTransactionAdded();
-        BankAccountOperation validTransaction = new TransactionBuilder().build();
+    public void executeBudgetAcceptedByModeladdSuccessful() throws Exception {
+        ModelStubAcceptingBudgetAdded modelStub = new ModelStubAcceptingBudgetAdded();
+        Budget validBudget = new BudgetBuilder().build();
 
-        InCommand inCommand = new InCommand(validTransaction);
-        CommandResult commandResult = inCommand.execute(modelStub);
+        SetCommand setCommand = new SetCommand(validBudget);
+        CommandResult commandResult = setCommand.execute(modelStub);
 
-        assertEquals(String.format(InCommand.MESSAGE_SUCCESS, validTransaction), commandResult.getFeedbackToUser());
-        assertEquals(Arrays.asList(validTransaction), modelStub.transactionsAdded);
+        assertEquals(String.format(SetCommand.MESSAGE_SUCCESS, validBudget), commandResult.getFeedbackToUser());
+        assertEquals(Arrays.asList(validBudget), modelStub.budgetsAdded);
     }
-    /*
-    @Test
-    public void execute_duplicatePerson_throwsCommandException() {
-        BankAccountOperation validTransaction = new TransactionBuilder().build();
-        InCommand addCommand = new InCommand(validTransaction);
-        ModelStub modelStub = new ModelStubWithTransaction(validTransaction);
-
-        assertThrows(CommandException.class, InCommand.MESSAGE_DUPLICATE_PERSON, () -> addCommand.execute(modelStub));
-    }
-    */
 
     @Test
     public void equals() {
-        BankAccountOperation firstTransaction = new TransactionBuilder()
+        Budget firstBudget = new BudgetBuilder()
                 .withCategories("Food")
                 .withAmount("100")
                 .withDate("10102019")
                 .build();
-        BankAccountOperation secondTransaction = new TransactionBuilder()
+        Budget secondBudget = new BudgetBuilder()
                 .withCategories("Drinks")
                 .withAmount("80")
                 .withDate("10102019")
                 .build();
-        InCommand addFirstCommand = new InCommand(firstTransaction);
-        InCommand addSecondCommand = new InCommand(secondTransaction);
+        SetCommand setFirstCommand = new SetCommand(firstBudget);
+        SetCommand setSecondCommand = new SetCommand(secondBudget);
 
         // same object -> returns true
-        assertTrue(addFirstCommand.equals(addFirstCommand));
+        assertTrue(setFirstCommand.equals(setFirstCommand));
 
-        // same values -> returns true
-        InCommand addFirstCommandCopy = new InCommand(firstTransaction);
-        assertTrue(addFirstCommand.equals(addFirstCommandCopy));
+        // same values -> returns false
+        SetCommand setFirstCommandCopy = new SetCommand(firstBudget);
+        assertFalse(setFirstCommand.equals(setFirstCommandCopy));
 
         // different types -> returns false
-        assertFalse(addFirstCommand.equals(1));
+        assertFalse(setFirstCommand.equals(1));
 
         // null -> returns false
-        assertFalse(addFirstCommand.equals(null));
+        assertFalse(setFirstCommand.equals(null));
 
         // different person -> returns false
-        assertFalse(addFirstCommand.equals(addSecondCommand));
+        assertFalse(setFirstCommand.equals(setSecondCommand));
     }
-
 
     /**
      * A default model stub that have all of the methods failing.
@@ -214,6 +202,14 @@ public class InCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
+        public FilteredList<Budget> getFilteredBudgetist() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        public void updateFilteredBudgetList(Predicate<Budget> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
         @Override
         public void updateFilteredTransactionList(Predicate<BankAccountOperation> predicate) {
             throw new AssertionError("This method should not be called.");
@@ -233,31 +229,29 @@ public class InCommandTest {
     /**
      * A Model stub that contains a single transaction.
      */
-    private class ModelStubWithTransaction extends ModelStub {
-        private final Transaction transaction;
+    private class ModelStubWithBudget extends ModelStub {
+        private final Budget budget;
 
-        ModelStubWithTransaction(Transaction transaction) {
-            requireNonNull(transaction);
-            this.transaction = transaction;
+        ModelStubWithBudget(Budget budget) {
+            requireNonNull(budget);
+            this.budget = budget;
         }
 
-        @Override
-        public boolean hasTransaction(BankAccountOperation transaction) {
-            requireNonNull(transaction);
-            return this.transaction.isSameTransaction(transaction);
+        public boolean hasBudget(Budget budget) {
+            requireNonNull(budget);
+            return this.budget.isSameBudget(budget);
         }
     }
 
     /**
      * A Model stub that always accept the transaction being added.
      */
-    private class ModelStubAcceptingTransactionAdded extends ModelStub {
-        final ArrayList<BankAccountOperation> transactionsAdded = new ArrayList<>();
+    private class ModelStubAcceptingBudgetAdded extends ModelStub {
+        final ArrayList<Budget> budgetsAdded = new ArrayList<>();
 
-        @Override
-        public boolean hasTransaction(BankAccountOperation transaction) {
-            requireNonNull(transaction);
-            return transactionsAdded.stream().anyMatch(transaction::isSameTransaction);
+        public boolean hasBudget(Budget budget) {
+            requireNonNull(budget);
+            return budgetsAdded.stream().anyMatch(budget::isSameBudget);
         }
 
         @Override
@@ -265,15 +259,14 @@ public class InCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
-        @Override
-        public void handleOperation(BankAccountOperation transaction) {
-            addTransaction(transaction);
+        public void handleOperation(Budget budget) {
+            addBudget(budget);
         }
 
         @Override
-        public void addTransaction(BankAccountOperation transaction) {
-            requireNonNull(transaction);
-            transactionsAdded.add(transaction);
+        public void addBudget(Budget budget) {
+            requireNonNull(budget);
+            budgetsAdded.add(budget);
         }
 
         @Override
@@ -288,3 +281,5 @@ public class InCommandTest {
     }
 
 }
+
+
