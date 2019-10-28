@@ -7,6 +7,7 @@ import java.util.regex.Pattern;
 
 import seedu.address.diaryfeature.logic.commands.AddCommand;
 import seedu.address.diaryfeature.logic.commands.DeleteCommand;
+import seedu.address.diaryfeature.logic.commands.FindCommand;
 import seedu.address.diaryfeature.logic.commands.ListCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.ExitCommand;
@@ -56,6 +57,11 @@ public class DiaryBookParser {
 
         case ListCommand.COMMAND_WORD:
              return new ListCommand();
+
+        case FindCommand.COMMAND_WORD:
+            return new FindCommandParser().parse(arguments);
+
+
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

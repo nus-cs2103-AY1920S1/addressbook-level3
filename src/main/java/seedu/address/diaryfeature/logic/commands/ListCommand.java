@@ -16,7 +16,7 @@ public class ListCommand extends Command<DiaryModel> {
     @Override
     public CommandResult execute(DiaryModel diaryModel) {
         requireNonNull(diaryModel);
-        String allEntries = diaryModel.getEntriesAsString();
-        return new CommandResult(MESSAGE_SUCCESS + "\n" + allEntries);
+        diaryModel.updateFilteredDiaryList(diaryModel.PREDICATE_SHOW_ALL_EVENTS);
+        return new CommandResult(MESSAGE_SUCCESS);
     }
 }
