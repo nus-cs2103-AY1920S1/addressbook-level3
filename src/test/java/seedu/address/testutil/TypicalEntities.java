@@ -18,6 +18,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import seedu.address.model.IncidentManager;
+import seedu.address.model.incident.CallerNumber;
+import seedu.address.model.incident.Description;
 import seedu.address.model.incident.Incident;
 import seedu.address.model.incident.IncidentDateTime;
 import seedu.address.model.incident.IncidentId;
@@ -70,25 +72,34 @@ public class TypicalEntities {
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 
+    private static final IncidentDateTime firstValidDateTime = new IncidentDateTime("Dec 2, 2016, 2:30:40 PM");
+    private static final IncidentDateTime secondValidDateTime = new IncidentDateTime("Jan 4, 2016, 2:30:00 PM");
+
     private TypicalEntities() {} // prevents instantiation
 
     /**
-     * Returns an {@code IncidentManager} with all the typical persons.
+     * Returns an {@code IncidentManager} with all the typical incidents.
      */
     public static IncidentManager getTypicalIncidentManager() {
-        IncidentManager ab = new IncidentManager();
+        IncidentManager im = new IncidentManager();
         for (Person person : getTypicalPersons()) {
-            ab.addPerson(person);
+            im.addPerson(person);
         }
-        ab.addIncident(new Incident(new IncidentId(3, 2018), new District(6),
-                new IncidentDateTime("2018-03-03T10:15:30"), "Alex Yeoh"));
-        ab.addVehicle(new Vehicle(new VehicleType("Patrol Car"), new VehicleNumber("SBH3100F"),
+
+        im.addIncident(new Incident(ALICE, new District(2), firstValidDateTime,
+                new IncidentId(firstValidDateTime.getMonth(), firstValidDateTime.getYear()),
+                new CallerNumber("84738293"),
+                new Description("Pickpocket reported along the walkway in District 2")));
+
+        im.addVehicle(new Vehicle(new VehicleType("Patrol Car"), new VehicleNumber("SBH3100F"),
                 new District(16), new Availability("BUSY")));
 
-        ab.addIncident(new Incident(new IncidentId(2, 2019), new District(2),
-                new IncidentDateTime("2019-02-09T11:04:22"), "Alex Teo"));
+        im.addIncident(new Incident(BOB, new District(3), secondValidDateTime,
+                new IncidentId(secondValidDateTime.getMonth(), secondValidDateTime.getYear()),
+                new CallerNumber("90878965"),
+                new Description("Pickpocket spotted at the pasar malam in District 3")));
 
-        return ab;
+        return im;
     }
 
     public static List<Person> getTypicalPersons() {
