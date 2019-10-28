@@ -34,7 +34,7 @@ public class FindCommand extends Command {
             + "[" + PREFIX_TAG + "TAG]\n"
             + "Example:\n"
             + COMMAND_WORD
-            + PREFIX_AUTHOR + "Tung Kam Chuen";
+            + PREFIX_AUTHOR + " Tung Kam Chuen";
     public static final String MESSAGE_NO_CONSTRAINTS = "At least one search constraint should be provided.";
 
     /**

@@ -25,7 +25,7 @@ public class DifficultyIsInRangePredicate implements Predicate<Problem> {
     private final double lowerBound;
     private final double upperBound;
 
-    public DifficultyIsInRangePredicate(double lowerBound, double upperBound) {
+    public DifficultyIsInRangePredicate(double lowerBound, double upperBound) throws IllegalArgumentException {
         checkArgument(isValidDifficultyRange(lowerBound, upperBound), MESSAGE_CONSTRAINTS);
         this.lowerBound = lowerBound;
         this.upperBound = upperBound;

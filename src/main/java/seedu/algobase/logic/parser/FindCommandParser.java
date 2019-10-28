@@ -1,6 +1,7 @@
 package seedu.algobase.logic.parser;
 
 import static seedu.algobase.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.algobase.commons.core.Messages.MESSAGE_INVALID_DIFFICULTY_RANGE;
 import static seedu.algobase.commons.util.CollectionUtil.isArrayOfLength;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_AUTHOR;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
@@ -91,6 +92,10 @@ public class FindCommandParser implements Parser<FindCommand> {
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE), nfe);
             } catch (NullPointerException npe) {
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE), npe);
+            }  catch (IllegalArgumentException ire) {
+                throw new ParseException(
+                    String.format(MESSAGE_INVALID_DIFFICULTY_RANGE, DifficultyIsInRangePredicate.MESSAGE_CONSTRAINTS),
+                    ire);
             }
         }
 
