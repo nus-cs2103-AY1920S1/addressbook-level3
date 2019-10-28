@@ -61,9 +61,9 @@ public class LogicManagerTest {
     @Test
     public void execute_validCommand_success() throws Exception {
         final String listCommand = ListCommand.COMMAND_WORD;
-        final String expectedFeedback = String.format(ListCommand.MESSAGE_LIST_SUCCESS, " " + ListCommand.APPEALS
-                + " " + ListCommand.MODULES
-                + " " + ListCommand.STUDENTS);
+        final String expectedFeedback = ListCommand.MESSAGE_LIST_APPEALS_SUCCESS + "\n"
+                + ListCommand.MESSAGE_LIST_MODULES_SUCCESS + "\n"
+                + ListCommand.MESSAGE_LIST_STUDENTS_SUCCESS;
         assertCommandSuccess(listCommand, expectedFeedback, model);
 
         assertHistorySuccess(Arrays.asList(listCommand), Arrays.asList(expectedFeedback));

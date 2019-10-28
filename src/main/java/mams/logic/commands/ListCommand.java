@@ -11,11 +11,11 @@ public class ListCommand extends Command {
 
     public static final String COMMAND_WORD = "list";
 
-    public static final String MESSAGE_LIST_SUCCESS = "Listed all following items:%1$s";
+    public static final String MESSAGE_LIST_APPEALS_SUCCESS = "Listed all appeals";
+    public static final String MESSAGE_LIST_MODULES_SUCCESS = "Listed all modules";
+    public static final String MESSAGE_LIST_STUDENTS_SUCCESS = "Listed all students";
 
-    public static final String APPEALS = "appeals";
-    public static final String MODULES = "modules";
-    public static final String STUDENTS = "students";
+    public static final String NEWLINE = "\n";
 
     private final boolean showAppeals;
     private final boolean showModules;
@@ -35,21 +35,21 @@ public class ListCommand extends Command {
 
         if (showAppeals) {
             model.updateFilteredAppealList(Model.PREDICATE_SHOW_ALL_APPEALS);
-            msg.append(" ");
-            msg.append(APPEALS);
+            msg.append(MESSAGE_LIST_APPEALS_SUCCESS);
+            msg.append(NEWLINE);
         }
         if (showModules) {
             model.updateFilteredModuleList(Model.PREDICATE_SHOW_ALL_MODULES);
-            msg.append(" ");
-            msg.append(MODULES);
+            msg.append(MESSAGE_LIST_MODULES_SUCCESS);
+            msg.append(NEWLINE);
         }
         if (showStudents) {
             model.updateFilteredStudentList(Model.PREDICATE_SHOW_ALL_STUDENTS);
-            msg.append(" ");
-            msg.append(STUDENTS);
+            msg.append(MESSAGE_LIST_STUDENTS_SUCCESS);
+            msg.append(NEWLINE);
         }
 
-        return new CommandResult(String.format(MESSAGE_LIST_SUCCESS, msg));
+        return new CommandResult(msg.toString().trim());
     }
 
     @Override
@@ -65,9 +65,9 @@ public class ListCommand extends Command {
         }
 
         // state check
-        ListCommand v = (ListCommand) other;
-        return showAppeals == v.showAppeals
-                && showModules == v.showModules
-                && showStudents == v.showStudents;
+        ListCommand l = (ListCommand) other;
+        return showAppeals == l.showAppeals
+                && showModules == l.showModules
+                && showStudents == l.showStudents;
     }
 }

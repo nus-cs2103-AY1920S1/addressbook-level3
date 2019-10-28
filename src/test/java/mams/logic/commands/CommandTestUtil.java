@@ -17,6 +17,8 @@ import mams.commons.core.index.Index;
 import mams.logic.commands.exceptions.CommandException;
 import mams.model.Mams;
 import mams.model.Model;
+import mams.model.appeal.Appeal;
+import mams.model.module.Module;
 import mams.model.student.NameContainsKeywordsPredicate;
 import mams.model.student.Student;
 import mams.testutil.EditStudentDescriptorBuilder;
@@ -111,6 +113,32 @@ public class CommandTestUtil {
         assertEquals(expectedMams, actualModel.getMams());
         assertEquals(expectedFilteredList, actualModel.getFilteredStudentList());
     }
+    /**
+     * Updates {@code model}'s filtered list to show only the appeal at the given {@code targetIndex} in the
+     * {@code model}'s MAMS.
+     */
+    public static void showAppealAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredAppealList().size());
+
+        Appeal appeal = model.getFilteredAppealList().get(targetIndex.getZeroBased());
+        model.updateFilteredAppealList(appeal::equals);
+
+        assertEquals(1, model.getFilteredAppealList().size());
+    }
+
+    /**
+     * Updates {@code model}'s filtered list to show only the module at the given {@code targetIndex} in the
+     * {@code model}'s MAMS.
+     */
+    public static void showModuleAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredModuleList().size());
+
+        Module module = model.getFilteredModuleList().get(targetIndex.getZeroBased());
+        model.updateFilteredModuleList(module::equals);
+
+        assertEquals(1, model.getFilteredModuleList().size());
+    }
+
     /**
      * Updates {@code model}'s filtered list to show only the student at the given {@code targetIndex} in the
      * {@code model}'s MAMS.

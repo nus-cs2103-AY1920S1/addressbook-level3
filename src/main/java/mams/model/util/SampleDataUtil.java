@@ -42,11 +42,11 @@ public class SampleDataUtil {
     }
 
     public static ReadOnlyMams getSampleMams() {
-        Mams sampleAb = new Mams();
+        Mams sampleMams = new Mams();
         for (Student sampleStudent : getSampleStudents()) {
-            sampleAb.addStudent(sampleStudent);
+            sampleMams.addStudent(sampleStudent);
         }
-        return sampleAb;
+        return sampleMams;
     }
 
     /**
