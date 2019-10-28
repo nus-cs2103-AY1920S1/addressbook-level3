@@ -211,13 +211,11 @@ public class ProjectDashboard implements ReadOnlyProjectDashboard {
      * Called by getter methods in {@code ModelManager}
      */
     public void splitTasksByDeadline() {
-        tasksByDeadline.clearAll();
-        List<Task> placeholder = tasks.toStream()
+        tasksByDeadline.setTasks(tasks.toStream()
                 .filter(Task::hasDeadline)
                 .filter(task -> !(task.getTaskStatus().equals(TaskStatus.UNBEGUN)))
                 .filter(task -> DateTimeUtil.checkIfDueSoon(2, task.getDeadline()))
-                .collect(Collectors.toList());
-        tasksByDeadline.setTasks(placeholder);
+                .collect(Collectors.toList()));
     }
 
     /// Mapping util
