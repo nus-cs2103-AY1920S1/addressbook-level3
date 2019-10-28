@@ -1,5 +1,6 @@
 package cs.f10.t1.nursetraverse.logic.commands.visit;
 
+import static cs.f10.t1.nursetraverse.commons.core.Messages.MESSAGE_INVALID_PATIENT_DISPLAYED_INDEX;
 import static cs.f10.t1.nursetraverse.logic.commands.CommandTestUtil.assertCommandFailure;
 import static cs.f10.t1.nursetraverse.testutil.TypicalIndexes.INDEX_FIRST_PATIENT;
 import static cs.f10.t1.nursetraverse.testutil.TypicalIndexes.INDEX_SECOND_PATIENT;
@@ -10,7 +11,6 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import org.junit.jupiter.api.Test;
 
-import cs.f10.t1.nursetraverse.commons.core.Messages;
 import cs.f10.t1.nursetraverse.commons.core.index.Index;
 import cs.f10.t1.nursetraverse.commons.util.VisitTaskUtil;
 import cs.f10.t1.nursetraverse.logic.commands.CommandResult;
@@ -37,7 +37,7 @@ public class BeginVisitCommandTest {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPatientList().size() + 1);
         BeginVisitCommand command = new BeginVisitCommand(outOfBoundIndex);
 
-        assertCommandFailure(command, model, Messages.MESSAGE_INVALID_PATIENT_DISPLAYED_INDEX);
+        assertCommandFailure(command, model, MESSAGE_INVALID_PATIENT_DISPLAYED_INDEX);
     }
 
     @Test

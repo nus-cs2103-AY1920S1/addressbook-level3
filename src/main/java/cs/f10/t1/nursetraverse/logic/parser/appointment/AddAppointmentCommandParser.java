@@ -1,5 +1,6 @@
 package cs.f10.t1.nursetraverse.logic.parser.appointment;
 
+import static cs.f10.t1.nursetraverse.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static cs.f10.t1.nursetraverse.logic.parser.CliSyntax.PREFIX_APPOINTMENT_DESCRIPTION;
 import static cs.f10.t1.nursetraverse.logic.parser.CliSyntax.PREFIX_APPOINTMENT_END_DATE_AND_TIME;
 import static cs.f10.t1.nursetraverse.logic.parser.CliSyntax.PREFIX_APPOINTMENT_START_DATE_AND_TIME;
@@ -13,7 +14,6 @@ import static cs.f10.t1.nursetraverse.logic.parser.CliSyntax.PREFIX_RECUR_YEARS;
 
 import java.util.stream.Stream;
 
-import cs.f10.t1.nursetraverse.commons.core.Messages;
 import cs.f10.t1.nursetraverse.commons.core.index.Index;
 import cs.f10.t1.nursetraverse.logic.commands.appointment.AddAppointmentCommand;
 import cs.f10.t1.nursetraverse.logic.parser.ArgumentMultimap;
@@ -50,7 +50,7 @@ public class AddAppointmentCommandParser implements Parser<AddAppointmentCommand
         if (!arePrefixesPresent(argMultimap, PREFIX_PATIENT_INDEX,
                 PREFIX_APPOINTMENT_START_DATE_AND_TIME,
                 PREFIX_APPOINTMENT_END_DATE_AND_TIME) || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     AddAppointmentCommand.MESSAGE_USAGE));
         }
 

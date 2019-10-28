@@ -1,5 +1,6 @@
 package cs.f10.t1.nursetraverse.logic.commands;
 
+import static cs.f10.t1.nursetraverse.commons.core.Messages.MESSAGE_INVALID_PATIENT_DISPLAYED_INDEX;
 import static cs.f10.t1.nursetraverse.logic.parser.CliSyntax.PREFIX_FILENAME;
 import static cs.f10.t1.nursetraverse.logic.parser.CliSyntax.PREFIX_INDEXES;
 import static java.util.Objects.requireNonNull;
@@ -9,7 +10,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-import cs.f10.t1.nursetraverse.commons.core.Messages;
 import cs.f10.t1.nursetraverse.commons.core.index.Index;
 import cs.f10.t1.nursetraverse.importexport.CsvUtil;
 import cs.f10.t1.nursetraverse.importexport.exceptions.ExportingException;
@@ -72,7 +72,7 @@ public class ExportCommand extends Command {
 
             if (!indexesAllInBounds(targetIndexes.get(), lastShownList.size())) {
                 // If any index is out of bounds, throw an exception
-                throw new CommandException(Messages.MESSAGE_INVALID_PATIENT_DISPLAYED_INDEX);
+                throw new CommandException(MESSAGE_INVALID_PATIENT_DISPLAYED_INDEX);
             }
             // Else get a list of patients at the specified indexes
             lastShownList = model.getPatientsByIndexes(targetIndexes.get());

@@ -1,5 +1,6 @@
 package cs.f10.t1.nursetraverse.logic.parser.visit;
 
+import static cs.f10.t1.nursetraverse.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static cs.f10.t1.nursetraverse.logic.parser.CliSyntax.PREFIX_VISIT_REMARKS;
 import static cs.f10.t1.nursetraverse.logic.parser.CliSyntax.PREFIX_VISIT_TASK_FINISH;
 import static cs.f10.t1.nursetraverse.logic.parser.CliSyntax.PREFIX_VISIT_TASK_INDEX_AND_DETAIL;
@@ -11,7 +12,6 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import cs.f10.t1.nursetraverse.commons.core.Messages;
 import cs.f10.t1.nursetraverse.commons.core.index.Index;
 import cs.f10.t1.nursetraverse.logic.commands.visit.UpdateOngoingVisitCommand;
 import cs.f10.t1.nursetraverse.logic.commands.visit.UpdateOngoingVisitDescriptor;
@@ -59,7 +59,7 @@ public class UpdateOngoingVisitCommandParser implements Parser<UpdateOngoingVisi
                 parseIndexAndDetailPairs(argMultimap.getAllValues(PREFIX_VISIT_TASK_INDEX_AND_DETAIL)));
 
         if (!updateOngoingVisitDescriptor.isAnyFieldUpdated()) {
-            throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     UpdateOngoingVisitCommand.MESSAGE_USAGE));
         }
 
@@ -82,7 +82,7 @@ public class UpdateOngoingVisitCommandParser implements Parser<UpdateOngoingVisi
             return collector;
         } catch (ParseException pe) {
             throw new ParseException(
-                    String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                             UpdateOngoingVisitCommand.MESSAGE_USAGE), pe);
         }
     }
@@ -115,7 +115,7 @@ public class UpdateOngoingVisitCommandParser implements Parser<UpdateOngoingVisi
             return collector;
         } catch (ParseException pe) {
             throw new ParseException(
-                    String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                             UpdateOngoingVisitCommand.MESSAGE_USAGE), pe);
         }
     }

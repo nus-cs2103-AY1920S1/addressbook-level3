@@ -1,5 +1,7 @@
 package cs.f10.t1.nursetraverse.logic.parser;
 
+import static cs.f10.t1.nursetraverse.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static cs.f10.t1.nursetraverse.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -9,7 +11,6 @@ import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
-import cs.f10.t1.nursetraverse.commons.core.Messages;
 import cs.f10.t1.nursetraverse.logic.commands.AddCommand;
 import cs.f10.t1.nursetraverse.logic.commands.ClearCommand;
 import cs.f10.t1.nursetraverse.logic.commands.DeleteCommand;
@@ -115,13 +116,13 @@ public class PatientBookParserTest {
     @Test
     public void parseCommand_unrecognisedInput_throwsParseException() {
         Assert.assertThrows(ParseException.class, String
-                .format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
+                .format(MESSAGE_INVALID_COMMAND_FORMAT,
                         HelpCommand.MESSAGE_USAGE), () -> parser.parseCommand(""));
     }
 
     @Test
     public void parseCommand_unknownCommand_throwsParseException() {
-        Assert.assertThrows(ParseException.class, Messages.MESSAGE_UNKNOWN_COMMAND, () -> parser
+        Assert.assertThrows(ParseException.class, MESSAGE_UNKNOWN_COMMAND, () -> parser
                 .parseCommand("unknownCommand"));
     }
 }

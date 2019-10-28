@@ -1,5 +1,6 @@
 package cs.f10.t1.nursetraverse.logic.commands;
 
+import static cs.f10.t1.nursetraverse.commons.core.Messages.MESSAGE_PATIENTS_LISTED_OVERVIEW;
 import static cs.f10.t1.nursetraverse.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -10,7 +11,6 @@ import java.util.Collections;
 
 import org.junit.jupiter.api.Test;
 
-import cs.f10.t1.nursetraverse.commons.core.Messages;
 import cs.f10.t1.nursetraverse.model.Model;
 import cs.f10.t1.nursetraverse.model.ModelManager;
 import cs.f10.t1.nursetraverse.model.UserPrefs;
@@ -53,7 +53,7 @@ public class FindCommandTest {
 
     @Test
     public void execute_zeroKeywords_noPatientFound() {
-        String expectedMessage = String.format(Messages.MESSAGE_PATIENTS_LISTED_OVERVIEW, 0);
+        String expectedMessage = String.format(MESSAGE_PATIENTS_LISTED_OVERVIEW, 0);
         NameContainsKeywordsPredicate predicate = preparePredicate(" ");
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredPatientList(predicate);
@@ -63,7 +63,7 @@ public class FindCommandTest {
 
     @Test
     public void execute_multipleKeywords_multiplePatientsFound() {
-        String expectedMessage = String.format(Messages.MESSAGE_PATIENTS_LISTED_OVERVIEW, 3);
+        String expectedMessage = String.format(MESSAGE_PATIENTS_LISTED_OVERVIEW, 3);
         NameContainsKeywordsPredicate predicate = preparePredicate("Kurz Elle Kunz");
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredPatientList(predicate);

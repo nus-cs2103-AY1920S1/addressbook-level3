@@ -1,8 +1,9 @@
 package cs.f10.t1.nursetraverse.logic.parser;
 
+import static cs.f10.t1.nursetraverse.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+
 import org.junit.jupiter.api.Test;
 
-import cs.f10.t1.nursetraverse.commons.core.Messages;
 import cs.f10.t1.nursetraverse.logic.commands.DeleteCommand;
 import cs.f10.t1.nursetraverse.testutil.TypicalIndexes;
 
@@ -25,6 +26,6 @@ public class DeleteCommandParserTest {
     @Test
     public void parse_invalidArgs_throwsParseException() {
         CommandParserTestUtil.assertParseFailure(parser, "a", String
-                .format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+                .format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
     }
 }

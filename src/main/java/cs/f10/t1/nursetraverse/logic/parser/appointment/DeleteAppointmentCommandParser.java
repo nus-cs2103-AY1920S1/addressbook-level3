@@ -1,6 +1,7 @@
 package cs.f10.t1.nursetraverse.logic.parser.appointment;
 
-import cs.f10.t1.nursetraverse.commons.core.Messages;
+import static cs.f10.t1.nursetraverse.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+
 import cs.f10.t1.nursetraverse.commons.core.index.Index;
 import cs.f10.t1.nursetraverse.logic.commands.appointment.DeleteAppointmentCommand;
 import cs.f10.t1.nursetraverse.logic.parser.Parser;
@@ -23,7 +24,7 @@ public class DeleteAppointmentCommandParser implements Parser<DeleteAppointmentC
             return new DeleteAppointmentCommand(index);
         } catch (ParseException pe) {
             throw new ParseException(
-                    String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, DeleteAppointmentCommand.MESSAGE_USAGE), pe);
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteAppointmentCommand.MESSAGE_USAGE), pe);
         }
     }
 

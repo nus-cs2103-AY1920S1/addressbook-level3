@@ -1,8 +1,9 @@
 package cs.f10.t1.nursetraverse.logic.parser.appointment;
 
+import static cs.f10.t1.nursetraverse.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+
 import java.util.Arrays;
 
-import cs.f10.t1.nursetraverse.commons.core.Messages;
 import cs.f10.t1.nursetraverse.logic.commands.appointment.FindAppointmentCommand;
 import cs.f10.t1.nursetraverse.logic.parser.Parser;
 import cs.f10.t1.nursetraverse.logic.parser.exceptions.ParseException;
@@ -22,7 +23,7 @@ public class FindAppointmentCommandParser implements Parser<FindAppointmentComma
         String trimmedArgs = args.trim();
         if (trimmedArgs.isEmpty()) {
             throw new ParseException(
-                    String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, FindAppointmentCommand.MESSAGE_USAGE));
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindAppointmentCommand.MESSAGE_USAGE));
         }
 
         String[] nameKeywords = trimmedArgs.split("\\s+");

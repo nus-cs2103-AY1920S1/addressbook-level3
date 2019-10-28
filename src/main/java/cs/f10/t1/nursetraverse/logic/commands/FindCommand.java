@@ -1,8 +1,8 @@
 package cs.f10.t1.nursetraverse.logic.commands;
 
+import static cs.f10.t1.nursetraverse.commons.core.Messages.MESSAGE_PATIENTS_LISTED_OVERVIEW;
 import static java.util.Objects.requireNonNull;
 
-import cs.f10.t1.nursetraverse.commons.core.Messages;
 import cs.f10.t1.nursetraverse.model.Model;
 import cs.f10.t1.nursetraverse.model.patient.NameContainsKeywordsPredicate;
 
@@ -30,7 +30,7 @@ public class FindCommand extends Command {
         requireNonNull(model);
         model.updateFilteredPatientList(predicate);
         return new CommandResult(
-                String.format(Messages.MESSAGE_PATIENTS_LISTED_OVERVIEW, model.getFilteredPatientList().size()));
+                String.format(MESSAGE_PATIENTS_LISTED_OVERVIEW, model.getFilteredPatientList().size()));
     }
 
     @Override

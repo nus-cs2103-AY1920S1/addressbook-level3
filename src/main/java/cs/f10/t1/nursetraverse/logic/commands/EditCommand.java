@@ -1,5 +1,6 @@
 package cs.f10.t1.nursetraverse.logic.commands;
 
+import static cs.f10.t1.nursetraverse.commons.core.Messages.MESSAGE_INVALID_PATIENT_DISPLAYED_INDEX;
 import static cs.f10.t1.nursetraverse.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static cs.f10.t1.nursetraverse.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static cs.f10.t1.nursetraverse.logic.parser.CliSyntax.PREFIX_NAME;
@@ -16,7 +17,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-import cs.f10.t1.nursetraverse.commons.core.Messages;
 import cs.f10.t1.nursetraverse.commons.core.index.Index;
 import cs.f10.t1.nursetraverse.commons.util.CollectionUtil;
 import cs.f10.t1.nursetraverse.logic.commands.exceptions.CommandException;
@@ -77,7 +77,7 @@ public class EditCommand extends Command implements MutatorCommand {
         List<Patient> lastShownList = model.getStagedPatientList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PATIENT_DISPLAYED_INDEX);
+            throw new CommandException(MESSAGE_INVALID_PATIENT_DISPLAYED_INDEX);
         }
 
         Patient patientToEdit = lastShownList.get(index.getZeroBased());

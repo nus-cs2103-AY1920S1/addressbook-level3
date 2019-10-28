@@ -1,6 +1,7 @@
 package cs.f10.t1.nursetraverse.logic.parser;
 
-import cs.f10.t1.nursetraverse.commons.core.Messages;
+import static cs.f10.t1.nursetraverse.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+
 import cs.f10.t1.nursetraverse.commons.core.index.Index;
 import cs.f10.t1.nursetraverse.logic.commands.UndoCommand;
 import cs.f10.t1.nursetraverse.logic.parser.exceptions.ParseException;
@@ -24,7 +25,7 @@ public class UndoCommandParser implements Parser<UndoCommand> {
             Index index = ParserUtil.parseIndex(args);
             return new UndoCommand(index);
         } catch (ParseException pe) {
-            throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     UndoCommand.MESSAGE_USAGE), pe);
         }
     }

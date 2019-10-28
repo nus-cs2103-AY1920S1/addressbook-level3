@@ -1,12 +1,12 @@
 package cs.f10.t1.nursetraverse.logic.commands.visit;
 
+import static cs.f10.t1.nursetraverse.commons.core.Messages.MESSAGE_INVALID_PATIENT_DISPLAYED_INDEX;
 import static cs.f10.t1.nursetraverse.logic.parser.CliSyntax.PREFIX_PATIENT_INDEX;
 import static java.util.Objects.requireNonNull;
 
 import java.util.Date;
 import java.util.List;
 
-import cs.f10.t1.nursetraverse.commons.core.Messages;
 import cs.f10.t1.nursetraverse.commons.core.index.Index;
 import cs.f10.t1.nursetraverse.commons.util.VisitTaskUtil;
 import cs.f10.t1.nursetraverse.logic.commands.Command;
@@ -54,7 +54,7 @@ public class BeginVisitCommand extends Command implements MutatorCommand {
 
         //Verify Patient Index
         if (patientIndex.getZeroBased() >= fullPatientList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PATIENT_DISPLAYED_INDEX);
+            throw new CommandException(MESSAGE_INVALID_PATIENT_DISPLAYED_INDEX);
         }
 
         Patient patient = fullPatientList.get(patientIndex.getZeroBased());

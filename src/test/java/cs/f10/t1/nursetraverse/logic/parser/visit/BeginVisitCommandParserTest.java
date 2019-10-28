@@ -1,12 +1,12 @@
 package cs.f10.t1.nursetraverse.logic.parser.visit;
 
+import static cs.f10.t1.nursetraverse.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static cs.f10.t1.nursetraverse.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static cs.f10.t1.nursetraverse.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static cs.f10.t1.nursetraverse.testutil.TypicalIndexes.INDEX_FIRST_PATIENT;
 
 import org.junit.jupiter.api.Test;
 
-import cs.f10.t1.nursetraverse.commons.core.Messages;
 import cs.f10.t1.nursetraverse.logic.commands.visit.BeginVisitCommand;
 
 /**
@@ -27,7 +27,7 @@ public class BeginVisitCommandParserTest {
 
     @Test
     public void parse_invalidArgs_throwsParseException() {
-        assertParseFailure(parser, "a", String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
+        assertParseFailure(parser, "a", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                 BeginVisitCommand.MESSAGE_USAGE));
     }
 }

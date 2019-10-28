@@ -1,10 +1,10 @@
 package cs.f10.t1.nursetraverse.logic.commands.appointment;
 
+import static cs.f10.t1.nursetraverse.commons.core.Messages.MESSAGE_INVALID_APPOINTMENT_DISPLAYED_INDEX;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 
-import cs.f10.t1.nursetraverse.commons.core.Messages;
 import cs.f10.t1.nursetraverse.commons.core.index.Index;
 import cs.f10.t1.nursetraverse.logic.commands.Command;
 import cs.f10.t1.nursetraverse.logic.commands.CommandResult;
@@ -39,7 +39,7 @@ public class DeleteAppointmentCommand extends Command implements MutatorCommand 
         List<Appointment> fullAppointmentList = model.getStagedAppointmentList();
 
         if (targetIndex.getZeroBased() >= fullAppointmentList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_APPOINTMENT_DISPLAYED_INDEX);
+            throw new CommandException(MESSAGE_INVALID_APPOINTMENT_DISPLAYED_INDEX);
         }
 
         Appointment appointmentToDelete = fullAppointmentList.get(targetIndex.getZeroBased());
