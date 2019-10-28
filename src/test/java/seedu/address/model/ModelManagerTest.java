@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CUSTOMERS;
 import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.address.testutil.TypicalCustomers.BENSON;
+import static seedu.address.testutil.TypicalCustomers.CARL;
 import static seedu.address.testutil.TypicalCustomers.DANIEL;
 import static seedu.address.testutil.TypicalCustomers.FIONA;
 import static seedu.address.testutil.TypicalOrders.ORDERONE;
@@ -20,6 +22,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
@@ -31,8 +34,11 @@ import seedu.address.model.phone.Phone;
 import seedu.address.model.schedule.Schedule;
 import seedu.address.testutil.CustomerBookBuilder;
 import seedu.address.testutil.OrderBookBuilder;
+import seedu.address.testutil.OrderBuilder;
 import seedu.address.testutil.PhoneBookBuilder;
 import seedu.address.testutil.ScheduleBookBuilder;
+import seedu.address.testutil.ScheduleBuilder;
+import seedu.address.testutil.TypicalCustomers;
 
 public class ModelManagerTest {
 
@@ -44,6 +50,8 @@ public class ModelManagerTest {
         assertEquals(new GuiSettings(), modelManager.getGuiSettings());
         assertEquals(new AddressBook(), new AddressBook(modelManager.getAddressBook()));
     }
+
+    //=========== UserPrefs ==================================================================================
 
     @Test
     public void setUserPrefs_nullUserPrefs_throwsNullPointerException() {
@@ -75,6 +83,8 @@ public class ModelManagerTest {
         modelManager.setGuiSettings(guiSettings);
         assertEquals(guiSettings, modelManager.getGuiSettings());
     }
+
+    //=========== AddressBook ================================================================================
 
     @Test
     public void setAddressBookFilePath_nullPath_throwsNullPointerException() {
@@ -109,6 +119,8 @@ public class ModelManagerTest {
         assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredPersonList().remove(0));
     }
 
+    //=========== customerBook ================================================================================
+
     @Test
     public void hasCustomer_nullCustomer_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> modelManager.hasCustomer(null));
@@ -126,9 +138,91 @@ public class ModelManagerTest {
     }
 
     @Test
+    public void addCustomer_nullCustomer_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.addCustomer(null));
+    }
+
+    @Test
+    public void addCustomer_duplicateCustomerInCustomerBook_throwsDuplicateIdentityException() {
+        modelManager.addCustomer(BENSON);
+        assertTrue(modelManager.hasCustomer(BENSON));
+        assertThrows(DuplicateIdentityException.class, () -> modelManager.addCustomer(BENSON));
+    }
+
+    @Test
+    public void addCustomer_noSuchCustomerInCustomerBook_success() {
+        assertFalse(modelManager.hasCustomer(BENSON));
+        modelManager.addCustomer(BENSON);
+        assertTrue(modelManager.hasCustomer(BENSON));
+    }
+
+    @Test
+    public void deleteCustomer_nullCustomer_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.deleteCustomer(null));
+    }
+
+    @Test
+    public void deleteCustomer_customerNotInCustomerBook_throwsIdentityNotFoundException() {
+        assertThrows(IdentityNotFoundException.class, () -> modelManager.deleteCustomer(BENSON));
+    }
+
+    @Test
+    public void deleteCustomer_customerInCustomerBook_success() {
+        modelManager.addCustomer(BENSON);
+        modelManager.deleteCustomer(BENSON);
+        assertFalse(modelManager.hasCustomer(BENSON));
+    }
+
+    @Test
+    public void deleteCustomer_orderWithCustomerExistsInOrderBook_orderDeleted() {
+        modelManager.addCustomer(BENSON);
+        Order order = new OrderBuilder(VIPORDER).withCustomer(BENSON).build();
+        modelManager.addOrder(order);
+        modelManager.deleteCustomer(BENSON);
+        assertFalse(modelManager.hasOrder(order));
+    }
+
+    @Test
+    public void setCustomer_nullFields_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.setCustomer(null, null));
+    }
+
+    @Test
+    public void setCustomer_targetCustomerNotInCustomerBook_throwsIdentityNotFoundException() {
+        assertThrows(IdentityNotFoundException.class, () -> modelManager.setCustomer(BENSON, CARL));
+    }
+
+    @Test
+    public void setCustomer_editedCustomerAlreadyInCustomerBook_throwsDuplicateIdentityException() {
+        modelManager.addCustomer(BENSON);
+        modelManager.addCustomer(CARL);
+        assertThrows(DuplicateIdentityException.class, () -> modelManager.setCustomer(BENSON, CARL));
+    }
+
+    @Test
+    public void setCustomer_targetCustomerInCustomerBook_success() {
+        modelManager.addCustomer(BENSON);
+        modelManager.setCustomer(BENSON, CARL);
+        assertFalse(modelManager.hasCustomer(BENSON));
+        assertTrue(modelManager.hasCustomer(CARL));
+    }
+
+    @Test
+    public void setCustomer_orderWithCustomerExistsInOrderBook_customerInOrderReplaced() {
+        modelManager.addCustomer(BENSON);
+        Order order = new OrderBuilder(VIPORDER).withCustomer(BENSON).build();
+        modelManager.addOrder(order);
+        modelManager.setCustomer(BENSON, CARL);
+        Order editedOrder = new OrderBuilder(order).withCustomer(CARL).build();
+        assertTrue(modelManager.hasOrder(editedOrder));
+    }
+
+    @Test
     public void getFilteredCustomerList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredCustomerList().remove(0));
     }
+
+    //=========== phoneBook ================================================================================
 
     @Test
     public void hasPhone_nullPhone_throwsNullPointerException() {
@@ -151,6 +245,8 @@ public class ModelManagerTest {
         assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredPhoneList().remove(0));
     }
 
+    //=========== orderBook ================================================================================
+
     @Test
     public void hasOrder_nullOrder_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> modelManager.hasOrder(null));
@@ -172,6 +268,8 @@ public class ModelManagerTest {
         assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredOrderList().remove(0));
     }
 
+    //=========== scheduleBook ================================================================================
+
     @Test
     public void hasSchedule_nullSchedule_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> modelManager.hasSchedule(null));
@@ -189,9 +287,38 @@ public class ModelManagerTest {
     }
 
     @Test
+    public void newSchedule_scheduleNoConflictsInScheduleBook_returnsEmptyList() {
+        // set up schedule in model manager
+        modelManager.addSchedule(CBD_SCHEDULE);
+        assertTrue(modelManager.hasSchedule(CBD_SCHEDULE));
+
+        Calendar newCalendar = (Calendar) CBD_SCHEDULE.getCalendar().clone();
+        newCalendar.add(Calendar.HOUR_OF_DAY, 2);
+        Schedule newSchedule = new ScheduleBuilder(CBD_SCHEDULE).withCalendar(newCalendar).build();
+        List<Schedule> conflicts = modelManager.getConflictingSchedules(newSchedule);
+        assertEquals(0, conflicts.size());
+    }
+
+    @Test
+    public void newSchedule_scheduleHasConflictsInScheduleBook_returnsListWithOneConflict() {
+        // set up schedule in model manager
+        modelManager.addSchedule(CBD_SCHEDULE);
+        assertTrue(modelManager.hasSchedule(CBD_SCHEDULE));
+
+        Calendar newCalendar = (Calendar) CBD_SCHEDULE.getCalendar().clone();
+        newCalendar.add(Calendar.MINUTE, 10);
+        Schedule newSchedule = new ScheduleBuilder(CBD_SCHEDULE).withCalendar(newCalendar).build();
+        List<Schedule> conflicts = modelManager.getConflictingSchedules(newSchedule);
+        assertEquals(1, conflicts.size());
+        assertEquals(CBD_SCHEDULE, conflicts.get(0));
+    }
+
+    @Test
     public void getFilteredScheduleList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredScheduleList().remove(0));
     }
+
+    //=========== calendarDate ================================================================================
 
     @Test
     public void setCalendarDate_nullCalendarDate_throwsNullPointerException() {
