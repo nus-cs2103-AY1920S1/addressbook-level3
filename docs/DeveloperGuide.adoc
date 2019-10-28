@@ -1010,6 +1010,8 @@ necessary to carry out commands by the user.
 ** Cons: More code, will take time to replace current methods that deal with
    String `TaskDes` directly
 
+
+// tag:: ccatracker[]
 === CcaTracker Feature
 
 ==== Overview
@@ -1077,6 +1079,7 @@ For brevity's sake, we will illustrate only 1 specific command and its
 execution on model. The following activity diagram illustrates how a `Cca`'s
 progress is incremented when a user types in a `increase-progress` command:
 
+
 Given below is an example usage scenario of how increase-progress mechanism
 behaves.
 
@@ -1141,6 +1144,7 @@ the `currentProgress` variable being incremented by 1.
   `ArrayList`.
 ** Pros: Does not require predicates to be passed in.
 ** Cons: Might be more complicated when rendering in Javafx.
+// end::ccatracker[]
 
 === Logging
 
