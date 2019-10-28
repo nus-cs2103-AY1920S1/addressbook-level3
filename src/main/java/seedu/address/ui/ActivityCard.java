@@ -40,6 +40,7 @@ public class ActivityCard extends UiPart<Region> {
         id.setText("ID: " + activity.getPrimaryKey());
         index.setText("#" + displayedIndex);
         title.setText(activity.getTitle().toString());
+
         int numParticipants = activity.getParticipantIds().size();
         participantCount.setText(numParticipants + (numParticipants != 1 ? " participants" : " participant"));
     }

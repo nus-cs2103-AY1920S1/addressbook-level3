@@ -25,7 +25,7 @@ public class ActivityDetailsPanel extends UiPart<Region> {
     @FXML
     private Label title;
     @FXML
-    private FlowPane participants;
+    private FlowPane participantTags;
     @FXML
     private Label participantCount;
     @FXML
@@ -37,6 +37,10 @@ public class ActivityDetailsPanel extends UiPart<Region> {
         this.activity = viewedActivity;
         id.setText("ID: " + activity.getPrimaryKey());
         title.setText(activity.getTitle().toString());
+
+        participants.stream()
+            .map((participant) -> participant.getName().toString())
+            .forEach(name -> participantTags.getChildren().add(new Label(name)));
 
         int numParticipants = activity.getParticipantIds().size();
         participantCount.setText(numParticipants + (numParticipants != 1 ? " participants" : " participant"));

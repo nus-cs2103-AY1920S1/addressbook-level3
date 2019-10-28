@@ -27,13 +27,13 @@
       </VBox>
       <VBox fx:id="detailsView" styleClass="data-container" alignment="CENTER" GridPane.columnIndex="1">
         <Label fx:id="title" text="\$blank-title" styleClass="activity-title" wrapText="true" lineSpacing="0.0" />
-        <FlowPane alignment="CENTER" fx:id="participants" styleClass="participant-list" />
         <HBox alignment="CENTER" HBox.hgrow="ALWAYS" styleClass="activity-participant-count-container" spacing="6">
           <ImageView fitHeight="20" pickOnBounds="true" preserveRatio="true">
             <Image url="@../images/participant-count-icon.png" backgroundLoading="true"/>
           </ImageView>
           <Label fx:id="participantCount" text="\$count" styleClass="activity-participant-count" wrapText="true" />
         </HBox>
+        <FlowPane alignment="CENTER" fx:id="participantTags" styleClass="participant-list" />
         <HBox alignment="CENTER" HBox.hgrow="ALWAYS" styleClass="activity-spending-container" spacing="6">
           <ImageView fitHeight="20" pickOnBounds="true" preserveRatio="true">
             <Image url="@../images/spending-icon.png" backgroundLoading="true"/>
