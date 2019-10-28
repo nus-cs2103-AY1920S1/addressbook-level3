@@ -32,11 +32,14 @@ public class EventManager {
 
     private boolean addVacation(Event event) throws DuplicateEventException {
         if (vacations.containsKey(event)) {
+            System.out.println("\nDON'T THINK IT'S HERE");
             List<Event> requiredList = vacations.get(event);
             addVacation(event, requiredList);
         } else {
+            System.out.println("\nIT'S HERE");
             List<Event> newList = new ArrayList<>();
             newList.add(event);
+            vacations.put(event, newList);
         }
 
         vacationSchedule.insert(event);
@@ -71,8 +74,7 @@ public class EventManager {
 
     private boolean addEngagement(Event event, List<Event> requiredList) throws DuplicateEventException,
             ClashException {
-        boolean isDuplicate = requiredList.stream()
-                .anyMatch(item -> item.equals(event));
+        boolean isDuplicate = isDuplicateEvent(event, requiredList);
         if (isDuplicate) {
             throw new DuplicateEventException();
         }
@@ -106,8 +108,7 @@ public class EventManager {
     }
 
     private boolean addEngagementIgnoreClash(Event event, List<Event> requiredList) throws DuplicateEventException {
-        boolean isDuplicate = requiredList.stream()
-                .anyMatch(item -> item.equals(event));
+        boolean isDuplicate = isDuplicateEvent(event, requiredList);
         if (isDuplicate) {
             throw new DuplicateEventException();
         }
@@ -125,7 +126,7 @@ public class EventManager {
 
     private boolean isDuplicateEvent(Event event, List<Event> eventList) {
         return eventList.stream()
-                .anyMatch(item -> item.equals(event));
+                .anyMatch(item -> item.isIdentical(event));
     }
 
     public boolean remove(Event event) throws NoSuchElementException {

@@ -11,10 +11,6 @@ public class Holiday extends Event {
         super(name, startDate, endDate, info, EVENT_TYPE);
     }
 
-    public Holiday(Name name, Date date, Optional<Info> info) {
-        super(name, date, info, EVENT_TYPE);
-    }
-
     @Override
     public String toString() {
         if (isOneDay()) {

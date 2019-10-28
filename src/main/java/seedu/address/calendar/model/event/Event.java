@@ -22,14 +22,6 @@ public class Event extends Interval<Date, Event> {
         this.eventType = eventType;
     }
 
-    public Event(Name name, Date date, Optional<Info> info, EventType eventType) {
-        this(name, date, date, info, eventType);
-    }
-
-    public Event(Name name, Date date, EventType eventType) {
-        this(name, date, date, Optional.empty(), eventType);
-    }
-
     public boolean isBusy() {
         return eventType.isBusy();
     }
@@ -61,6 +53,14 @@ public class Event extends Interval<Date, Event> {
 
     boolean isOneDay() {
         return startDate.equals(endDate);
+    }
+
+    boolean isIdentical(Event event) {
+        boolean isSameDates = this.equals(event);
+        boolean isSameName = name.equals(event.name);
+        boolean isSameEventType = eventType.equals(event.eventType);
+
+        return isSameDates && isSameName && isSameEventType;
     }
 
     @Override

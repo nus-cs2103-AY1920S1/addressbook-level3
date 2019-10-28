@@ -1,6 +1,6 @@
 package seedu.address.calendar.parser;
 
-import seedu.address.calendar.commands.AddCommitmentCommand;
+import seedu.address.calendar.commands.AddCommand;
 import seedu.address.calendar.commands.ShowCommand;
 import seedu.address.calendar.commands.Command;
 import seedu.address.address.logic.commands.HelpCommand;
@@ -34,13 +34,13 @@ public class CalendarParser {
 
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
-
+        // todo: think about how to deal with non-alphanumeric characters
         switch(commandWord) {
 
         case ShowCommand.COMMAND_WORD:
             return new ShowParser().parse(arguments);
 
-        case AddCommitmentCommand.COMMAND_WORD:
+        case AddCommand.COMMAND_WORD:
             return new AddCommandParser().parse(arguments);
 
         default:

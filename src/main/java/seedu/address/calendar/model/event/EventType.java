@@ -5,8 +5,8 @@ import seedu.address.commons.exceptions.IllegalValueException;
 public enum EventType {
     COMMITMENT(true),
     HOLIDAY(false),
-    SCHOOL_BREAK(true),
-    TRIP(false);
+    SCHOOL_BREAK(false),
+    TRIP(true);
 
     public static final String MESSAGE_CONSTRAINTS = "Event type must be 'commitment', 'holiday', 'school_break'"
             + "or 'trip'. Note that it is not case sensitive.";

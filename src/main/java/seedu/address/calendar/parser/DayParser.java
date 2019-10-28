@@ -32,7 +32,9 @@ public class DayParser {
     }
 
     Optional<Day> parse(Optional<String> dayInput, Optional<MonthOfYear> month, Optional<Year> year) throws ParseException {
-        assert dayInput.isEmpty() : "Day should not be empty";
+        if (dayInput.isEmpty()) {
+            return Optional.empty();
+        }
 
         int dayOfMonth = parseDayOfMonth(dayInput.get());
 

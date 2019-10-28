@@ -57,6 +57,18 @@ public class Date implements IntervalPart<Date> {
         }
     }
 
+    public Day getDay() {
+        return day;
+    }
+
+    public Year getYear() {
+        return year;
+    }
+
+    public MonthOfYear getMonth() {
+        return month;
+    }
+
     public static Date getInstanceFromString(String dateString) throws IllegalValueException {
         final Matcher matcher = DATE_FORMAT.matcher(dateString.trim());
         if (!matcher.matches()) {
