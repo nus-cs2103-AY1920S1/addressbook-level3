@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import javafx.scene.image.Image;
 import seedu.address.MainApp;
+import seedu.address.logic.quiz.commands.exceptions.CommandException;
 
 /**
  * A container for App specific utility functions

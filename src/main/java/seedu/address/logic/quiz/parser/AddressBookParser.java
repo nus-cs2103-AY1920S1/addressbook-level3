@@ -17,7 +17,9 @@ import seedu.address.logic.quiz.commands.ExitCommand;
 import seedu.address.logic.quiz.commands.FindCommand;
 import seedu.address.logic.quiz.commands.HelpCommand;
 import seedu.address.logic.quiz.commands.ListCommand;
+import seedu.address.logic.quiz.commands.RedoCommand;
 import seedu.address.logic.quiz.commands.SwitchCommand;
+import seedu.address.logic.quiz.commands.UndoCommand;
 import seedu.address.logic.quiz.commands.ViewAnswerCommand;
 import seedu.address.logic.quiz.parser.exceptions.ParseException;
 
@@ -81,6 +83,11 @@ public class AddressBookParser {
         case SwitchCommand.COMMAND_WORD:
             return new SwitchCommandParser().parse(arguments);
 
+        case UndoCommand.COMMAND_WORD:
+            return new UndoCommand();
+
+        case RedoCommand.COMMAND_WORD:
+            return new RedoCommand();
         case ViewAnswerCommand.COMMAND_WORD:
             return new ViewAnswerCommandParser().parse(arguments);
 

@@ -8,6 +8,7 @@ import java.io.StringWriter;
 import java.util.Arrays;
 import java.util.Set;
 
+import seedu.address.logic.quiz.commands.exceptions.CommandException;
 import seedu.address.model.quiz.tag.Tag;
 
 /**
@@ -59,20 +60,19 @@ public class StringUtil {
 
         String preppedWord = word.trim();
         checkArgument(!preppedWord.isEmpty(), "Word parameter cannot be empty");
-        checkArgument(preppedWord.split("\\s+").length == 1, "Word parameter should be a single word");
 
         String preppedSentence = sentence;
         String[] wordsInPreppedSentence = preppedSentence.split("\\s+");
+
+        for (int i = 0; i < wordsInPreppedSentence.length; i++) {
+            wordsInPreppedSentence[i] = wordsInPreppedSentence[i].replaceAll("[^A-Za-z0-9]", "");
+        }
 
         if (Arrays.stream(wordsInPreppedSentence).anyMatch(preppedWord::equalsIgnoreCase)) {
             return true;
         } else if (allowTypo) {
             String firstLetter = Character.toString(preppedWord.charAt(0)).toLowerCase();
             String lastLetter = Character.toString(preppedWord.charAt(preppedWord.length() - 1)).toLowerCase();
-
-            for (int i = 0; i < wordsInPreppedSentence.length; i++) {
-                wordsInPreppedSentence[i] = wordsInPreppedSentence[i].replaceAll("[^A-Za-z0-9]", "");
-            }
 
             if (Arrays.stream(wordsInPreppedSentence)
                 .anyMatch(text -> text.startsWith(firstLetter) && text.endsWith(lastLetter))) {

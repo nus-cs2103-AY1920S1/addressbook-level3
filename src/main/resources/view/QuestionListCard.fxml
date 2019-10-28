@@ -33,7 +33,7 @@
                <font>
                   <Font size="14.0" />
                </font></Label>
-         <Label fx:id="type" style="-fx-border-color: #000000; -fx-label-padding: 3;" styleClass="cell_small_label" text="\$type">
+         <Label fx:id="type" style="-fx-border-color: #ffffff; -fx-border-radius: 3; -fx-label-padding: 3;" styleClass="cell_small_label" text="\$type">
                <font>
                   <Font size="14.0" />
                </font>

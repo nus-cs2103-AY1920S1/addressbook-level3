@@ -18,7 +18,7 @@ public class AddCommentCommandParser implements Parser<AddCommentCommand> {
      */
     public AddCommentCommand parse(String args) throws ParseException {
         String trimmedArgs = args.trim();
-        String[] arrParameters = trimmedArgs.split(" <comment>");
+        String[] arrParameters = trimmedArgs.split(" <val>");
 
         if (arrParameters.length != 2) {
             throw new ParseException(
@@ -36,6 +36,9 @@ public class AddCommentCommandParser implements Parser<AddCommentCommand> {
         }
 
         comment = arrParameters[1];
+        if (comment.contains("<val>")) {
+            throw new ParseException("Comment field shouldn't contain <val> instruction keyword");
+        }
 
         return new AddCommentCommand(index, comment);
     }

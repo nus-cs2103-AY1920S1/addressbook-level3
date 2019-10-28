@@ -112,9 +112,7 @@ public class Question {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                .append(" Comment: ")
-                .append(getComment())
-                .append(" Answer: ")
+                .append("\nAnswer: ")
                 .append(getAnswer())
                 .append(" Category: ")
                 .append(getCategory())

@@ -51,6 +51,7 @@ public class QuestionCard extends UiPart<Region> {
         if (showAnswer) {
             answer.setText(question.getAnswer().value);
         } else {
+
             answer.setText("-- Hidden --");
         }
 
