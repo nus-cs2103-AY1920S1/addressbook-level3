@@ -26,6 +26,8 @@ public class InfoCommand extends Command {
 
     public static final String CLEAR_INFO = COMMAND_INDICATOR + ClearCommand.COMMAND_WORD;
 
+    public static final String COLLAPSE_INFO = COMMAND_INDICATOR + CollapseCommand.COMMAND_WORD;
+
     public static final String CUSTOM_SORT_INFO = COMMAND_INDICATOR + CustomSortCommand.COMMAND_WORD;
 
     public static final String DEFAULT_INFO = COMMAND_INDICATOR + DefaultCommand.COMMAND_WORD;
@@ -38,11 +40,15 @@ public class InfoCommand extends Command {
 
     public static final String EXIT_INFO = COMMAND_INDICATOR + ExitCommand.COMMAND_WORD;
 
+    public static final String EXPAND_INFO = COMMAND_INDICATOR + ExpandCommand.COMMAND_WORD;
+
     public static final String FILTER_INFO = COMMAND_INDICATOR + FilterCommand.COMMAND_WORD;
 
     public static final String FIND_INFO = COMMAND_INDICATOR + FindCommand.COMMAND_WORD;
 
     public static final String HELP_INFO = COMMAND_INDICATOR + HelpCommand.COMMAND_WORD;
+
+    public static final String HISTORY_INFO = COMMAND_INDICATOR + HistoryCommand.COMMAND_WORD;
 
     public static final String INFO_INFO = COMMAND_INDICATOR + InfoCommand.COMMAND_WORD;
 
@@ -61,6 +67,8 @@ public class InfoCommand extends Command {
     public static final String SAVE_INFO = COMMAND_INDICATOR + SaveCommand.COMMAND_WORD;
 
     public static final String SORT_INFO = COMMAND_INDICATOR + SortCommand.COMMAND_WORD;
+
+    public static final String TOP_UP_INFO = COMMAND_INDICATOR + TopUpCommand.COMMAND_WORD;
 
     public static final String INVALID_COMMAND_ENTERED_MESSAGE = "Sorry, no information for such command exists!";
 
@@ -91,6 +99,8 @@ public class InfoCommand extends Command {
             return new CommandResult(BUY_INFO);
         case ClearCommand.COMMAND_WORD :
             return new CommandResult(CLEAR_INFO);
+        case CollapseCommand.COMMAND_WORD :
+            return new CommandResult(COLLAPSE_INFO);
         case CustomSortCommand.COMMAND_WORD :
             return new CommandResult(CUSTOM_SORT_INFO);
         case DefaultCommand.COMMAND_WORD :
@@ -103,12 +113,16 @@ public class InfoCommand extends Command {
             return new CommandResult(EDIT_INFO);
         case ExitCommand.COMMAND_WORD :
             return new CommandResult(EXIT_INFO);
+        case ExpandCommand.COMMAND_WORD :
+            return new CommandResult(EXPAND_INFO);
         case FilterCommand.COMMAND_WORD:
             return new CommandResult(FILTER_INFO);
         case FindCommand.COMMAND_WORD :
             return new CommandResult(FIND_INFO);
         case HelpCommand.COMMAND_WORD :
             return new CommandResult(HELP_INFO);
+        case HistoryCommand.COMMAND_WORD :
+            return new CommandResult(HISTORY_INFO);
         case InfoCommand.COMMAND_WORD :
             return new CommandResult(INFO_INFO);
         case LikeCommand.COMMAND_WORD :
@@ -127,6 +141,8 @@ public class InfoCommand extends Command {
             return new CommandResult(SAVE_INFO);
         case SortCommand.COMMAND_WORD :
             return new CommandResult(SORT_INFO);
+        case TopUpCommand.COMMAND_WORD :
+            return new CommandResult(TOP_UP_INFO);
         default :
             throw new CommandException(INVALID_COMMAND_ENTERED_MESSAGE);
         }
