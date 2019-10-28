@@ -130,13 +130,9 @@ class JsonAdaptedPerson {
         final List<String> modelProjectList = new ArrayList<>();
         modelProjectList.addAll(projects);
         List<TimeRange> timeRanges = new ArrayList<>();
-        timetable.forEach(x -> {
-            try {
-                timeRanges.add(x.toModelType());
-            } catch (IllegalValueException e) {
-                e.printStackTrace();
-            }
-        });
+        for (JsonAdaptedTimeRange timeRange : timetable) {
+            timeRanges.add(timeRange.toModelType());
+        }
         final TimeTable timeTable = new TimeTable(timeRanges);
 
         Person person = new Person(modelName, modelPhone, modelEmail, modelProfilePicture, modelAddress, modelTags, timeTable);

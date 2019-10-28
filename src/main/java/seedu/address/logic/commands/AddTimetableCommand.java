@@ -11,6 +11,7 @@ import seedu.address.model.timetable.TimeTable;
 import seedu.address.model.timetable.TimeTableInput;
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.List;
 
 import static java.util.Objects.requireNonNull;
@@ -23,34 +24,45 @@ public class AddTimetableCommand extends Command {
 
     public static final String COMMAND_WORD = "addTimetable";
 
-    public static final Prefix PREFIX_TIMETABLE = new Prefix("t/");
+    public static final Prefix PREFIX_FILEPATH = new Prefix("f/");
+    public static final Prefix PREFIX_NUSMODS_URL = new Prefix("n/");
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Add timetable to the person identified "
             + "by the index number used in the displayed person list. "
             + "Existing timetable will be overwritten by the input timetable.\n"
             + "Parameters: INDEX (must be a positive integer) "
-            + "[" + PREFIX_TIMETABLE + "FILEPATH]...\n"
-            + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_TIMETABLE + "/path/to/timetable/file ";
+            + "[" + PREFIX_FILEPATH + "FILEPATH] "
+            + "[" + PREFIX_NUSMODS_URL + "NUSMODS_URL]...\n"
+            + "Example:\n"
+            + COMMAND_WORD + " 1 " + PREFIX_FILEPATH + "/path/to/timetable/file\n"
+            + COMMAND_WORD + " 1 " + PREFIX_NUSMODS_URL + "https://nusmods.com/timetable/sem-1/share?CS2100=LAB:05,TUT:02,LEC:1&CS2101=&CS2103T=LEC:G13&CS2105=TUT:03,LEC:1&CS3241=TUT:05,LEC:1&CS3243=TUT:01,LEC:1&GEQ1000=TUT:D27";
 
     public static final String MESSAGE_ADD_TIMETABLE_SUCCESS = "Added Timetable: %s to Person: %s";
-    public static final String MESSAGE_NO_TIMETABLE = "A filepath to the timetable file must be provided.";
     public static final String MESSAGE_INVALID_FILEPATH = "Please provide a proper absolute filepath to the timetable file";
-    public static final String MESSAGE_NO_PERSON = "An index of the person must be inputted";
+    public static final String MESSAGE_INVALID_URL = "URL invalid. Please provide a proper URL to NUSMODs";
+    public static final String MESSAGE_NO_TIMETABLE_SOURCE = "Please provide either an NUSMods URL or a filepath to a timetable time";
 
     private final Index index;
     private final String absoluteFilepath;
+    private final URL url;
 
     /**
      * @param index of the person in the filtered person list to edit
      * @param absoluteFilepath absoluteFilepath to timetable file
      */
     public AddTimetableCommand(Index index, String absoluteFilepath) {
-        requireNonNull(index);
-        requireNonNull(absoluteFilepath);
+        this(index, absoluteFilepath, null);
+    }
 
+    public AddTimetableCommand(Index index, URL url) {
+        this(index, null, url);
+    }
+
+    public AddTimetableCommand(Index index, String absoluteFilepath, URL url) {
+        requireNonNull(index);
         this.index = index;
         this.absoluteFilepath = absoluteFilepath;
+        this.url = url;
     }
 
     @Override
@@ -65,10 +77,18 @@ public class AddTimetableCommand extends Command {
         Person personToEdit = lastShownList.get(index.getZeroBased());
 
         TimeTable timeTable = null;
-        try {
-            timeTable = new TimeTableInput().getTabletableFromFilepath(absoluteFilepath);
-        } catch (IOException e) {
-            throw new IllegalValueException(MESSAGE_INVALID_FILEPATH);
+        if (absoluteFilepath != null) {
+            try {
+                timeTable = new TimeTableInput().getTabletableFromFilepath(absoluteFilepath);
+            } catch (IOException e) {
+                throw new IllegalValueException(MESSAGE_INVALID_FILEPATH);
+            }
+        } else if (url != null) {
+            try {
+                timeTable = new TimeTableInput().getTimetableFromUrl(url);
+            } catch (IOException e) {
+                throw new CommandException(MESSAGE_INVALID_URL);
+            }
         }
 
         Person editedPerson = new Person(personToEdit.getName(), personToEdit.getPhone(), personToEdit.getEmail(), personToEdit.getProfilePicture(),

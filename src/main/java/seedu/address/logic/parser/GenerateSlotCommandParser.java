@@ -10,8 +10,7 @@ import java.time.LocalTime;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.commands.GenerateSlotCommand.PREFIX_DURATION;
-import static seedu.address.logic.commands.GenerateSlotCommand.PREFIX_TIMERANGE;
+import static seedu.address.logic.commands.GenerateSlotCommand.*;
 
 public class GenerateSlotCommandParser implements Parser<GenerateSlotCommand> {
     @Override
@@ -30,8 +29,7 @@ public class GenerateSlotCommandParser implements Parser<GenerateSlotCommand> {
                 timeRangeSpecified = new TimeRange(DayOfWeek.MONDAY, LocalTime.parse("00:00"), DayOfWeek.SUNDAY, LocalTime.parse("23:59"));
             } catch (IllegalValueException e) {
                 // Should never reach this place.
-                e.printStackTrace();
-                timeRangeSpecified = null;
+                throw new ParseException(MESSAGE_UNKNOWN_ERROR);
             }
         }
         return new GenerateSlotCommand(

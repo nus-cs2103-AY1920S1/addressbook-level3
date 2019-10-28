@@ -4,6 +4,9 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.AddTimetableCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
@@ -13,7 +16,7 @@ public class AddTimetableCommandParser implements Parser<AddTimetableCommand> {
     @Override
     public AddTimetableCommand parse(String args) throws ParseException {
         requireNonNull(args);
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, AddTimetableCommand.PREFIX_TIMETABLE);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, AddTimetableCommand.PREFIX_FILEPATH, AddTimetableCommand.PREFIX_NUSMODS_URL);
         Index index;
 
         try {
@@ -23,15 +26,19 @@ public class AddTimetableCommandParser implements Parser<AddTimetableCommand> {
         }
 
         String absoluteFilepath;
-        for (char c = 'a'; c <= 'z'; c++) {
-            System.out.println(c + "" + "/ :" + argMultimap.getValue(new Prefix(c + "" + "/")).isPresent());
-        }
-        if (argMultimap.getValue(AddTimetableCommand.PREFIX_TIMETABLE).isPresent()) {
-            absoluteFilepath = argMultimap.getValue(AddTimetableCommand.PREFIX_TIMETABLE).get();
+        URL url;
+        if (argMultimap.getValue(AddTimetableCommand.PREFIX_FILEPATH).isPresent()) {
+            absoluteFilepath = argMultimap.getValue(AddTimetableCommand.PREFIX_FILEPATH).get();
+            return new AddTimetableCommand(index, absoluteFilepath);
+        } else if (argMultimap.getValue(AddTimetableCommand.PREFIX_NUSMODS_URL).isPresent()) {
+            try {
+                url = new URL(argMultimap.getValue(AddTimetableCommand.PREFIX_NUSMODS_URL).get());
+                return new AddTimetableCommand(index, url);
+            } catch (MalformedURLException e) {
+                throw new ParseException(AddTimetableCommand.MESSAGE_INVALID_URL);
+            }
         } else {
-            throw new ParseException(AddTimetableCommand.MESSAGE_NO_TIMETABLE);
+            throw new ParseException(AddTimetableCommand.MESSAGE_NO_TIMETABLE_SOURCE);
         }
-
-        return new AddTimetableCommand(index, absoluteFilepath);
     }
 }

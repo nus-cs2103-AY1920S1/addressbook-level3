@@ -189,7 +189,7 @@ public class ParserUtil {
 
     /**
      * Parses {@code String timeRange} into a {@code TimeRange}.
-     * Example: parseTimeRange(MONDAY TUESDAY 1100 1500)
+     * Example: parseTimeRange(MONDAY 1100 TUESDAY 1500)
      * @param timeRange Format "DAYSTART TIMESTART DAYEND TIMEEND"
      */
     public static TimeRange parseTimeRange(String timeRange) throws ParseException {
