@@ -1,9 +1,11 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_RATING;
 
 import seedu.address.logic.parser.KeyboardFlashCardsParser;
 import seedu.address.model.Model;
+import seedu.address.model.flashcard.Rating;
 
 //@@author keiteo
 /**
@@ -14,11 +16,16 @@ public class RateQuestionCommand extends Command {
     public static final String COMMAND_WORD = "rate";
     public static final String MESSAGE_SUCCESS = "Rated successfully! Here's the next question:\n%s";
     public static final String MESSAGE_SUCCESS_END_OF_TEST = "End of test!";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Rates a flashcard and gets the next question."
+            + "Parameter: "
+            + PREFIX_RATING + "easy/good/bad";
 
     private final KeyboardFlashCardsParser keyboardFlashCardsParser;
+    private final Rating rating;
 
-    public RateQuestionCommand(KeyboardFlashCardsParser keyboardFlashCardsParser) {
+    public RateQuestionCommand(KeyboardFlashCardsParser keyboardFlashCardsParser, Rating rating) {
         this.keyboardFlashCardsParser = keyboardFlashCardsParser;
+        this.rating = rating;
     }
 
     @Override

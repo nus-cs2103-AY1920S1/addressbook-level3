@@ -83,6 +83,7 @@ public class KeyboardFlashCardsParser {
     private Command parseTestCommand(Matcher matcher) throws ParseException {
 
         final String commandWord = matcher.group("commandWord");
+        final String arguments = matcher.group("arguments");
         if (commandWord.equals(EndTestCommand.COMMAND_WORD)) {
             return new EndTestCommand(this);
         }
@@ -90,7 +91,7 @@ public class KeyboardFlashCardsParser {
             return new ShowAnswerCommand(this);
         }
         if (commandWord.equals(RateQuestionCommand.COMMAND_WORD) && !isAwaitingAnswer) {
-            return new RateQuestionCommand(this);
+            return new RateQuestionCommandParser(this).parse(arguments);
         }
         throw new ParseException(MESSAGE_UNKNOWN_TEST_COMMAND);
     }
