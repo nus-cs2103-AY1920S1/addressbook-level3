@@ -103,7 +103,7 @@ public class AddTemplateShoppingCommand extends Command {
     public void replacePreviousItem(ShoppingItem itemToEdit, ShoppingItem templateItem, Model model) {
         requireNonNull(itemToEdit);
         requireNonNull(templateItem);
-        assert(itemToEdit.getName().equals(templateItem.getName()));
+        assert(itemToEdit.isSameName(templateItem));
         Name name = itemToEdit.getName();
         Amount reqAmt = templateItem.getAmount().increaseBy(itemToEdit.getAmount());
 
