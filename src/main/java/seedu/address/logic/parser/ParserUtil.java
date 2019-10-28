@@ -281,9 +281,9 @@ public class ParserUtil {
         for (String reminderTime : reminderTimes) {
             reminderTimeList.add(parseReminderTime(reminderTime));
         }
-        return reminderTimeList;   
+        return reminderTimeList;
     }
-  
+    
     /**
      * Parses a {@code String username} into an {@code Username}.
      * Leading and trailing whitespaces will be trimmed.
