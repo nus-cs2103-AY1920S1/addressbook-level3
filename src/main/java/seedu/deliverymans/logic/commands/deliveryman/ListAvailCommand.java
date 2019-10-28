@@ -18,7 +18,8 @@ public class ListAvailCommand extends Command {
             + ": Lists all the deliverymen who are currently available.\n"
             + "Example: " + COMMAND_WORD;
 
-    public static final String MESSAGE_LIST_AVAIL_SUCCESS = "Listed all currently available deliverymen";
+    public static final String MESSAGE_LIST_AVAIL_SUCCESS = "Listed all currently available deliverymen.\n"
+            + "After any new changes made, use same command again to refresh an accurate list.";
 
     @Override
     public CommandResult execute(Model model) throws CommandException {

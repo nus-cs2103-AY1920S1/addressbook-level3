@@ -15,7 +15,7 @@ public class ListStatusCommand extends Command {
     public static final String COMMAND_WORD = "statuses";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Shows the 3 status lists of deliverymen "
-            + "in the order: AVAILABLE, DELIVERYING, UNAVAILABLE from left to right.\n"
+            + "in the order: AVAILABLE, DELIVERING, UNAVAILABLE from left to right.\n"
             + "Example: " + COMMAND_WORD;
 
     public static final String MESSAGE_SUCCESS = "Listed the available, delivering and unavailable deliverymen";

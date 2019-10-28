@@ -27,6 +27,7 @@ import seedu.deliverymans.model.database.ReadOnlyOrderBook;
 import seedu.deliverymans.model.database.ReadOnlyRestaurantDatabase;
 import seedu.deliverymans.model.database.RestaurantDatabase;
 import seedu.deliverymans.model.deliveryman.Deliveryman;
+import seedu.deliverymans.model.deliveryman.exceptions.InvalidStatusChangeException;
 import seedu.deliverymans.model.order.Order;
 import seedu.deliverymans.model.restaurant.Restaurant;
 
@@ -294,12 +295,13 @@ public class ModelManager implements Model {
     @Override
     public void deleteDeliveryman(Deliveryman target) {
         deliverymenDatabase.removeDeliveryman(target);
+        deliverymenDatabase.updateStatusList();
     }
 
     @Override
     public void addDeliveryman(Deliveryman deliveryman) {
         deliverymenDatabase.addDeliveryman(deliveryman);
-        updateFilteredDeliverymenList(PREDICATE_SHOW_ALL_DELIVERYMEN);
+        updateAvailableDeliverymenList(PREDICATE_SHOW_ALL_DELIVERYMEN);
     }
 
     @Override
@@ -312,11 +314,20 @@ public class ModelManager implements Model {
     public void setDeliveryman(Deliveryman target, Deliveryman editedDeliveryman) {
         requireAllNonNull(target, editedDeliveryman);
         deliverymenDatabase.setDeliveryman(target, editedDeliveryman);
+        deliverymenDatabase.updateStatusList();
+        updateAvailableDeliverymenList(PREDICATE_SHOW_ALL_DELIVERYMEN);
+    }
+
+    @Override
+    public void switchDeliverymanStatus(Deliveryman deliveryman) throws InvalidStatusChangeException {
+        requireNonNull(deliveryman);
+        deliverymenDatabase.switchDeliverymanStatus(deliveryman);
+        deliverymenDatabase.updateStatusList();
     }
 
     @Override
     public void showAvailableDeliverymen() {
-        deliverymenDatabase.setAsAvailable();
+        deliverymenDatabase.resetAvailableList();
     }
 
     @Override
@@ -487,9 +498,9 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void updateStatusFilteredDeliverymenList(Predicate<Deliveryman> predicate) {
+    public void updateAvailableDeliverymenList(Predicate<Deliveryman> predicate) {
         requireNonNull(predicate);
-        statusSortedDeliverymen.setPredicate(predicate);
+        availableDeliverymen.setPredicate(predicate);
     }
 
     @Override

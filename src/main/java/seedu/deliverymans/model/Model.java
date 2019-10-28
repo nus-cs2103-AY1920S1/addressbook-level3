@@ -13,6 +13,7 @@ import seedu.deliverymans.model.database.ReadOnlyDeliverymenDatabase;
 import seedu.deliverymans.model.database.ReadOnlyOrderBook;
 import seedu.deliverymans.model.database.ReadOnlyRestaurantDatabase;
 import seedu.deliverymans.model.deliveryman.Deliveryman;
+import seedu.deliverymans.model.deliveryman.exceptions.InvalidStatusChangeException;
 import seedu.deliverymans.model.order.Order;
 import seedu.deliverymans.model.restaurant.Restaurant;
 
@@ -317,7 +318,7 @@ public interface Model {
      */
     void showAvailableDeliverymen();
 
-    void updateStatusFilteredDeliverymenList(Predicate<Deliveryman> predicate);
+    void updateAvailableDeliverymenList(Predicate<Deliveryman> predicate);
 
     ObservableList<Deliveryman> getAvailableMenList();
 
@@ -329,6 +330,8 @@ public interface Model {
      * Method for order assignment by OrderManager.
      */
     Deliveryman getOneAvailableDeliveryman();
+
+    void switchDeliverymanStatus(Deliveryman target) throws InvalidStatusChangeException;
 
     //=========== Order Methods =============================================================
 

@@ -1,9 +1,13 @@
 package seedu.deliverymans.model.deliveryman;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.deliverymans.model.deliveryman.deliverymanstatus.UniqueStatusList.AVAILABLE_STATUS;
+import static seedu.deliverymans.model.deliveryman.deliverymanstatus.UniqueStatusList.UNAVAILABLE_STATUS;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-// import javafx.collections.transformation.SortedList;
 import seedu.deliverymans.model.deliveryman.deliverymanstatus.UniqueStatusList;
+import seedu.deliverymans.model.deliveryman.exceptions.InvalidStatusChangeException;
 
 /**
  * A list that primarily focuses on the status of the deliverymen.
@@ -13,41 +17,22 @@ import seedu.deliverymans.model.deliveryman.deliverymanstatus.UniqueStatusList;
  */
 public class StatusManager {
 
-    private final UniqueDeliverymanList deliverymen;
-    private final UniqueStatusList statuses;
-
-    private ObservableList<Deliveryman> availableMen = FXCollections.observableArrayList();
-    private ObservableList<Deliveryman> unavailableMen = FXCollections.observableArrayList();
-    private ObservableList<Deliveryman> deliveringMen = FXCollections.observableArrayList();
-
-    public StatusManager(UniqueDeliverymanList deliverymenList) {
-        deliverymen = deliverymenList;
-        statuses = new UniqueStatusList();
-        initDeliverymenList(deliverymenList);
-        initStatusLists();
-    }
-
-    // ====== Methods to initialise all the lists when app is opened ==============================================
-    /**
-     * Initialise the deliverymen list when app is re-opened.
-     */
-    public void initDeliverymenList(UniqueDeliverymanList deliverymenList) {
-        for (Deliveryman man: deliverymenList) {
-            deliverymen.add(man);
-        }
-    }
+    private final ObservableList<Deliveryman> availableMen = FXCollections.observableArrayList();
+    private final ObservableList<Deliveryman> unavailableMen = FXCollections.observableArrayList();
+    private final ObservableList<Deliveryman> deliveringMen = FXCollections.observableArrayList();
 
     /**
-     * Initialise all the statuses of every deliveryman when app is re-opened.
+     * Initialise all the status lists of every deliveryman when app is re-opened.
+     * Can only be called by higher-level classes that uses this class (ie. DeliverymenDatabase)
      */
-    public void initStatusLists() {
-        for (Deliveryman man: deliverymen) {
+    public void initStatusLists(UniqueDeliverymanList deliverymenList) {
+        for (Deliveryman man : deliverymenList) {
             switch (man.getStatus().getDescription()) {
             case "AVAILABLE":
-                availableMen.add(man);
+                updateStatusOf(man, "AVAILABLE");
                 break;
             case "UNAVAILABLE":
-                availableMen.add(man);
+                updateStatusOf(man, "UNAVAILABLE");
                 break;
             case "DELIVERING":
                 deliveringMen.add(man);
@@ -57,6 +42,21 @@ public class StatusManager {
             }
         }
     }
+
+    /**
+     * To be added
+     */
+    public void switchDeliverymanStatus(Deliveryman deliveryman) throws InvalidStatusChangeException {
+        String status = deliveryman.getStatus().getDescription();
+        if (status.equals(AVAILABLE_STATUS)) {
+            updateStatusOf(deliveryman, UNAVAILABLE_STATUS);
+        } else if (status.equals(UNAVAILABLE_STATUS)) {
+            updateStatusOf(deliveryman, AVAILABLE_STATUS);
+        } else {
+            throw new InvalidStatusChangeException();
+        }
+    }
+
     public void addAvailableMan(Deliveryman deliveryman) {
         availableMen.add(deliveryman);
     }
@@ -67,6 +67,35 @@ public class StatusManager {
 
     public void addDeliveringMan(Deliveryman deliveryman) {
         deliveringMen.add(deliveryman);
+    }
+
+    /**
+     * Removes a deliveryman from the relevant status list.
+     * Guarantees: Deliveryman exists in one of the 3 status lists.
+     */
+    public void removeDeliveryman(Deliveryman target) {
+        requireNonNull(target);
+
+        for (Deliveryman man: availableMen) {
+            if (target.isSameDeliveryman(man)) {
+                availableMen.remove(man);
+                return;
+            }
+        }
+
+        for (Deliveryman man: unavailableMen) {
+            if (target.isSameDeliveryman(man)) {
+                unavailableMen.remove(man);
+                return;
+            }
+        }
+
+        for (Deliveryman man: deliveringMen) {
+            if (target.isSameDeliveryman(man)) {
+                deliveringMen.remove(man);
+                return;
+            }
+        }
     }
 
     /**
@@ -88,6 +117,14 @@ public class StatusManager {
      */
     public ObservableList<Deliveryman> listDeliveringMen() {
         return deliveringMen;
+    }
+
+    /**
+     * Returns true if the list contains an equivalent deliveryman as the given argument.
+     */
+    public boolean contains(Deliveryman toCheck) {
+        requireNonNull(toCheck);
+        return availableMen.stream().anyMatch(toCheck::isSameDeliveryman);
     }
 
     // ========== Methods for Order assignment ===================================================================
@@ -134,19 +171,42 @@ public class StatusManager {
     public void assignStatusTagTo(Deliveryman deliveryman, String strNewStatus) {
         switch (strNewStatus) {
         case "AVAILABLE":
-            deliveryman.setStatusTo(statuses.getAvailableTag());
+            deliveryman.setStatusTo(UniqueStatusList.getAvailableTag());
             availableMen.add(deliveryman);
             break;
         case "UNAVAILABLE":
-            deliveryman.setStatusTo(statuses.getUnavailableTag());
+            deliveryman.setStatusTo(UniqueStatusList.getUnavailableTag());
             unavailableMen.add(deliveryman);
             break;
         case "DELIVERING":
-            deliveryman.setStatusTo(statuses.getDeliveringTag());
+            deliveryman.setStatusTo(UniqueStatusList.getDeliveringTag());
             deliveringMen.add(deliveryman);
             break;
         default:
             return;
+        }
+    }
+
+    /**
+     * Scans through the lists to check if they are correctly updated. Otherwise, correct the discrepancies.
+     */
+    public void scanStatusLists() {
+        for (Deliveryman man: availableMen) {
+            if (!man.getStatus().getDescription().equals("AVAILABLE")) {
+                availableMen.remove(man);
+            }
+        }
+
+        for (Deliveryman man: unavailableMen) {
+            if (!man.getStatus().getDescription().equals("UNAVAILABLE")) {
+                unavailableMen.remove(man);
+            }
+        }
+
+        for (Deliveryman man: deliveringMen) {
+            if (!man.getStatus().getDescription().equals("DELIVERING")) {
+                deliveringMen.remove(man);
+            }
         }
     }
 

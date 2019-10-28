@@ -29,8 +29,8 @@ public class DeliverymanCard extends UiPart<Region> {
     private Label phone;
     @FXML
     private FlowPane tags;
-    //@FXML
-    //private Label statusTag;
+    @FXML
+    private Label statusTag;
 
     public DeliverymanCard(Deliveryman deliveryman, int displayedIndex) {
         super(FXML);
@@ -41,7 +41,7 @@ public class DeliverymanCard extends UiPart<Region> {
         deliveryman.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
-        //statusTag.setText(deliveryman.getStatus().getDescription());
+        statusTag.setText(deliveryman.getStatus().getDescription());
     }
 
     @Override

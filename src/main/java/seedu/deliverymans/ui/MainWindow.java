@@ -208,7 +208,7 @@ public class MainWindow extends UiPart<Stage> {
             listPanelPlaceholder.getChildren().add(restaurantListPanel.getRoot());
             break;
         case DELIVERYMENSTATUS:
-            availableDeliverymenListPanel = new AvailableDeliverymenListPanel(logic.getAvailableDeliverymenList());
+            availableDeliverymenListPanel = new AvailableDeliverymenListPanel(logic.getUnavailableDeliverymenList());
             listPanelPlaceholder.getChildren().add(availableDeliverymenListPanel.getRoot());
             unavailableDeliverymenListPanel = new UnavailableDeliverymenListPanel(logic.getAvailableDeliverymenList());
             statisticsPlaceholder.getChildren().add(unavailableDeliverymenListPanel.getRoot());

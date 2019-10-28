@@ -13,7 +13,7 @@ endif::[]
 
 == About
 
-*DeliveryMANS* is an acronym for Delivery MAnagement System. This system is for administrators in food delivery services to manage the restaurants, customers and deliverymen using their food delivery services.
+*DeliveryMANS* is an acronym for Delivery MANagement System. This system is for administrators in food delivery services to manage the restaurants, customers and deliverymen using their food delivery services.
 
 === All-in-one UI
 
