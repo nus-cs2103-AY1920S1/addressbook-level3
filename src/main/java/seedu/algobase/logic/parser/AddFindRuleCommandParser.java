@@ -1,28 +1,29 @@
 package seedu.algobase.logic.parser;
 
 import static seedu.algobase.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.algobase.commons.core.Messages.MESSAGE_INVALID_DIFFICULTY_RANGE;
-import static seedu.algobase.commons.core.Messages.MESSAGE_INVALID_KEYWORD_FORMAT;
 import static seedu.algobase.commons.core.Messages.MESSAGE_INVALID_NAME_FORMAT;
 import static seedu.algobase.commons.util.CollectionUtil.isAnyNonNull;
-import static seedu.algobase.commons.util.CollectionUtil.isArrayOfLength;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_AUTHOR;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_DIFFICULTY;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_SOURCE;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.algobase.logic.parser.ParserUtil.parseAuthorPredicate;
+import static seedu.algobase.logic.parser.ParserUtil.parseDescriptionPredicate;
+import static seedu.algobase.logic.parser.ParserUtil.parseDifficultyPredicate;
+import static seedu.algobase.logic.parser.ParserUtil.parseNamePredicate;
+import static seedu.algobase.logic.parser.ParserUtil.parseSourcePredicate;
+import static seedu.algobase.logic.parser.ParserUtil.parseTagPredicate;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import seedu.algobase.logic.commands.AddFindRuleCommand;
 import seedu.algobase.logic.parser.exceptions.ParseException;
 import seedu.algobase.model.searchrule.problemsearchrule.AuthorMatchesKeywordPredicate;
 import seedu.algobase.model.searchrule.problemsearchrule.DescriptionContainsKeywordsPredicate;
 import seedu.algobase.model.searchrule.problemsearchrule.DifficultyIsInRangePredicate;
-import seedu.algobase.model.searchrule.problemsearchrule.Keyword;
 import seedu.algobase.model.searchrule.problemsearchrule.Name;
 import seedu.algobase.model.searchrule.problemsearchrule.NameContainsKeywordsPredicate;
 import seedu.algobase.model.searchrule.problemsearchrule.ProblemSearchRule;
@@ -40,17 +41,6 @@ public class AddFindRuleCommandParser implements Parser<AddFindRuleCommand> {
         return Arrays.asList(keywords);
     }
 
-    private void checkKeywordString(String keyword) throws ParseException {
-        if (!Keyword.isValidKeyword(keyword)) {
-            throw new ParseException(String.format(MESSAGE_INVALID_KEYWORD_FORMAT, Keyword.MESSAGE_CONSTRAINTS));
-        }
-    }
-
-    private void checkKeywordStringList(List<String> keywords) throws ParseException {
-        if (keywords.stream().anyMatch(keyword -> !Keyword.isValidKeyword(keyword))) {
-            throw new ParseException(String.format(MESSAGE_INVALID_KEYWORD_FORMAT, Keyword.MESSAGE_CONSTRAINTS));
-        }
-    }
 
     /**
      * Parses the given {@code String} of arguments in the context of the AddFindRuleCommand
@@ -71,23 +61,8 @@ public class AddFindRuleCommandParser implements Parser<AddFindRuleCommand> {
 
         final DifficultyIsInRangePredicate difficultyIsInRangePredicate;
         if (argumentMultimap.getValue(PREFIX_DIFFICULTY).isPresent()) {
-            String[] difficultyBounds = argumentMultimap.getValue(PREFIX_DIFFICULTY).get().split("-");
-            if (!isArrayOfLength(difficultyBounds, 2)) {
-                throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddFindRuleCommand.MESSAGE_USAGE));
-            }
-            try {
-                double lowerBound = Double.parseDouble(difficultyBounds[0]);
-                double upperBound = Double.parseDouble(difficultyBounds[1]);
-                difficultyIsInRangePredicate = new DifficultyIsInRangePredicate(lowerBound, upperBound);
-            } catch (NumberFormatException | NullPointerException nfe) {
-                throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddFindRuleCommand.MESSAGE_USAGE), nfe);
-            } catch (IllegalArgumentException ire) {
-                throw new ParseException(
-                    String.format(MESSAGE_INVALID_DIFFICULTY_RANGE, DifficultyIsInRangePredicate.MESSAGE_CONSTRAINTS),
-                    ire);
-            }
+            difficultyIsInRangePredicate = parseDifficultyPredicate(argumentMultimap.getValue(PREFIX_DIFFICULTY).get(),
+                AddFindRuleCommand.MESSAGE_USAGE);
         } else {
             difficultyIsInRangePredicate = null;
         }
@@ -99,50 +74,41 @@ public class AddFindRuleCommandParser implements Parser<AddFindRuleCommand> {
 
         final NameContainsKeywordsPredicate nameContainsKeywordsPredicate;
         if (argumentMultimap.getValue(PREFIX_NAME).isPresent()) {
-            List<String> nameKeywords = getArgumentValueAsList(argumentMultimap.getValue(PREFIX_NAME).get());
-            checkKeywordStringList(nameKeywords);
-            List<Keyword> keywords = nameKeywords.stream().map(Keyword::new).collect(Collectors.toList());
-            nameContainsKeywordsPredicate = new NameContainsKeywordsPredicate(keywords);
+            nameContainsKeywordsPredicate = parseNamePredicate(argumentMultimap.getValue(PREFIX_NAME).get(),
+                AddFindRuleCommand.MESSAGE_USAGE);
         } else {
             nameContainsKeywordsPredicate = null;
         }
 
         final AuthorMatchesKeywordPredicate authorMatchesKeywordPredicate;
         if (argumentMultimap.getValue(PREFIX_AUTHOR).isPresent()) {
-            String authorKeyword = argumentMultimap.getValue(PREFIX_AUTHOR).get();
-            checkKeywordString(authorKeyword);
-            authorMatchesKeywordPredicate = new AuthorMatchesKeywordPredicate(new Keyword(authorKeyword));
+            authorMatchesKeywordPredicate = parseAuthorPredicate(argumentMultimap.getValue(PREFIX_AUTHOR).get(),
+                AddFindRuleCommand.MESSAGE_USAGE);
         } else {
             authorMatchesKeywordPredicate = null;
         }
 
         final DescriptionContainsKeywordsPredicate descriptionContainsKeywordsPredicate;
         if (argumentMultimap.getValue(PREFIX_DESCRIPTION).isPresent()) {
-            List<String> descriptionKeywords =
-                getArgumentValueAsList(argumentMultimap.getValue(PREFIX_DESCRIPTION).get());
-            checkKeywordStringList(descriptionKeywords);
-            List<Keyword> keywords = descriptionKeywords.stream().map(Keyword::new).collect(Collectors.toList());
-            descriptionContainsKeywordsPredicate =
-                new DescriptionContainsKeywordsPredicate(keywords);
+            descriptionContainsKeywordsPredicate = parseDescriptionPredicate(
+                argumentMultimap.getValue(PREFIX_DESCRIPTION).get(),
+                AddFindRuleCommand.MESSAGE_USAGE);
         } else {
             descriptionContainsKeywordsPredicate = null;
         }
 
         final SourceMatchesKeywordPredicate sourceMatchesKeywordPredicate;
         if (argumentMultimap.getValue(PREFIX_SOURCE).isPresent()) {
-            String sourceKeyword = argumentMultimap.getValue(PREFIX_SOURCE).get();
-            checkKeywordString(sourceKeyword);
-            sourceMatchesKeywordPredicate = new SourceMatchesKeywordPredicate(new Keyword(sourceKeyword));
+            sourceMatchesKeywordPredicate = parseSourcePredicate(argumentMultimap.getValue(PREFIX_SOURCE).get(),
+                AddFindRuleCommand.MESSAGE_USAGE);
         } else {
             sourceMatchesKeywordPredicate = null;
         }
 
         final TagIncludesKeywordsPredicate tagIncludesKeywordsPredicate;
         if (argumentMultimap.getValue(PREFIX_TAG).isPresent()) {
-            List<String> tagKeywords = getArgumentValueAsList(argumentMultimap.getValue(PREFIX_TAG).get());
-            checkKeywordStringList(tagKeywords);
-            List<Keyword> keywords = tagKeywords.stream().map(Keyword::new).collect(Collectors.toList());
-            tagIncludesKeywordsPredicate = new TagIncludesKeywordsPredicate(keywords);
+            tagIncludesKeywordsPredicate = parseTagPredicate(argumentMultimap.getValue(PREFIX_TAG).get(),
+                AddFindRuleCommand.MESSAGE_USAGE);
         } else {
             tagIncludesKeywordsPredicate = null;
         }
