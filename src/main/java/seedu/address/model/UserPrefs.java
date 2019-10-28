@@ -140,7 +140,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     public String getAliases(boolean reusable) {
         return aliasTable.getAlias(reusable);
     }
-  
+
     public void addReminder(int type, String description, int days) {
         reminders.addReminder(type, description, days);
     }
