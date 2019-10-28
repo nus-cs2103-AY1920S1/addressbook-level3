@@ -3,7 +3,6 @@ package dream.fcard.model.cards;
 import java.util.ArrayList;
 
 import dream.fcard.model.TestCase;
-import dream.fcard.model.exceptions.IndexNotFoundException;
 
 /**
  * Card that evaluates input as javascript code whose output has to match back of card.
@@ -19,7 +18,7 @@ public class JavaCard extends FlashCard {
     }
 
     @Override
-    public Boolean evaluate(String in) throws IndexNotFoundException {
+    public Boolean evaluate(String in) {
         //TODO: Evaluating Java code can be done inside here
         return null;
     }

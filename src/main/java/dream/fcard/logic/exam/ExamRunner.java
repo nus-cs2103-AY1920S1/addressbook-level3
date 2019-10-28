@@ -4,8 +4,6 @@ import java.util.Scanner;
 
 import dream.fcard.model.Deck;
 import dream.fcard.model.cards.FlashCard;
-import dream.fcard.model.exceptions.IndexNotFoundException;
-
 
 /**
  * ...
@@ -29,7 +27,7 @@ public class ExamRunner implements Exam {
      * Exam driver method.
      */
     @Override
-    public void initExam() throws IndexNotFoundException {
+    public void initExam() {
         System.out.println("Beginning test:");
         this.examOngoing = true;
     }
@@ -46,7 +44,7 @@ public class ExamRunner implements Exam {
                 result.mark(nextCard.evaluate(answer));
                 System.out.println(nextCard.getBack());
                 deck.getCards().remove(0);
-            } catch (IndexOutOfBoundsException | IndexNotFoundException e) {
+            } catch (IndexOutOfBoundsException e) {
                 this.examOngoing = false;
 
             }
