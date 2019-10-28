@@ -1,8 +1,11 @@
-package dream.fcard.gui.controllers.windows.editors;
+package dream.fcard.gui.components;
 
 import java.io.IOException;
+import java.util.function.Consumer;
 
-import dream.fcard.gui.controllers.windows.MainWindow;
+import dream.fcard.core.Main;
+import dream.fcard.model.cards.JavascriptCard;
+import dream.fcard.util.datastructures.Pair;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -10,15 +13,15 @@ import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-/**
- * The application for the JavaScript Editor.
- */
-public class JsEditorApplication extends Application {
+public class JsTestRunnerApplication extends Application {
+
+    Consumer<Pair<Integer, Pair<Integer, Integer>>> sendResult;
+    JavascriptCard card;
 
     @Override
-    public void start(Stage stage) throws IOException {
+    public void start(Stage stage) {
         try {
-            FXMLLoader fxmlloader = new FXMLLoader(MainWindow.class.getResource("/view/Windows/JsEditor.fxml"));
+            FXMLLoader fxmlloader = new FXMLLoader(Main.class.getResource("/view/Windows/JsTestEvaluator.fxml"));
             AnchorPane ap = fxmlloader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
@@ -26,15 +29,25 @@ public class JsEditorApplication extends Application {
             TextArea textArea = (TextArea) ap.getChildren().get(2);
             textArea.setText(boilerPlate());
             ap.getChildren().get(2).requestFocus();
+            ((JsTestEvaluator) fxmlloader.getController()).setCodeReturner(sendResult);
+            ((JsTestEvaluator) fxmlloader.getController()).setCard(card);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
 
     }
+
+    public JsTestRunnerApplication(Consumer<Pair<Integer, Pair<Integer, Integer>>> sendResult, JavascriptCard c) {
+        super();
+        this.sendResult = sendResult;
+        this.card = c;
+    }
+
     /**
      * The boilerplate JavaScript code for the user when the editor is first loaded.
-     * @return basic class code
+     *
+     * @return basic code
      */
     private String boilerPlate() {
         return "//use print() to print text";

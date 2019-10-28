@@ -4,11 +4,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.function.Consumer;
 
+import dream.fcard.gui.components.JavaEditorApplication;
+import dream.fcard.gui.components.JsEditorApplication;
 import dream.fcard.gui.controllers.displays.CreateDeckDisplay;
 import dream.fcard.gui.controllers.displays.DeckDisplay;
 import dream.fcard.gui.controllers.displays.NoDecksDisplay;
-import dream.fcard.gui.controllers.windows.editors.JavaEditorApplication;
-import dream.fcard.gui.controllers.windows.editors.JsEditorApplication;
+
 import dream.fcard.logic.respond.Responder;
 import dream.fcard.logic.storage.StorageManager;
 import dream.fcard.model.ConsumerSchema;
@@ -177,19 +178,15 @@ public class MainWindow extends VBox {
     }
 
     /**
-     * Opens the JavaEditorController Editor.
+     * Opens the Code Editor.
      */
     @FXML
     public void openEditor(boolean isJava) {
         Stage stage = new Stage();
-        try {
-            if (isJava) {
-                (new JavaEditorApplication()).start(stage);
-            } else {
-                (new JsEditorApplication()).start(stage);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
+        if (isJava) {
+            (new JavaEditorApplication()).start(stage);
+        } else {
+            (new JsEditorApplication()).start(stage);
         }
 
     }

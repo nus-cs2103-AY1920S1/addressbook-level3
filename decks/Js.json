@@ -1,0 +1,10 @@
+{
+    "cards": [
+        {
+            "back": "assert(f(5),10);assert(f(1),6);assert(f(2),7);",
+            "front": "Write a function f that adds 5 to a number.",
+            "type": "javascript"
+        }
+    ],
+    "name": "Js"
+}

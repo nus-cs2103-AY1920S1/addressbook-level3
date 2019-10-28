@@ -4,6 +4,15 @@
             "back": "Because",
             "front": "Why",
             "type": "front-back"
+        },
+        {
+            "back": "1",
+            "front": "Choose the answer blue",
+            "type": "multiple-choice",
+            "choices": [
+                "Blue",
+                "Red"
+            ]
         }
     ],
     "name": "My First Deck"

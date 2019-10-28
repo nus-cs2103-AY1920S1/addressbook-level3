@@ -13,7 +13,7 @@
         <TextField fx:id="questionField" layoutX="22.0" layoutY="136.0" />
         <Label layoutX="22.0" layoutY="107.0" text="Type your question" />
         <VBox fx:id="answerContainer" layoutX="22.0" layoutY="196.0" prefHeight="94.0" prefWidth="502.0" />
-        <Label layoutX="24.0" layoutY="166.0" text="Add your answers" />
+        <Label fx:id="addAnswerLabel" layoutX="24.0" layoutY="171.0" text="Add your answers" />
       <ChoiceBox fx:id="cardTypeSelector" layoutX="21.0" layoutY="73.0" prefWidth="150.0" />
       <Label layoutX="22.0" layoutY="48.0" text="Type of Card" />
       <Button fx:id="onAddQuestion" layoutX="434.0" layoutY="136.0" mnemonicParsing="false" text="Add Question" />

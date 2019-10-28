@@ -44,8 +44,7 @@ public class McqOptionsSetter extends ScrollPane {
             fxmlLoader.setRoot(this);
             fxmlLoader.load();
             rows = new ArrayList<>();
-            addNewRow.accept(true);
-            renderOptions();
+            addNewRow();
         } catch (IOException e) {
             e.printStackTrace();
         }

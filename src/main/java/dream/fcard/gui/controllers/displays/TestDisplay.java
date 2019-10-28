@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.function.Consumer;
 
 import dream.fcard.gui.controllers.cards.BasicFrontBackCard;
+import dream.fcard.gui.controllers.cards.JsCard;
 import dream.fcard.gui.controllers.cards.McqCard;
 import dream.fcard.gui.controllers.cards.McqCardBack;
 import dream.fcard.gui.controllers.cards.SimpleCardBack;
@@ -12,6 +13,7 @@ import dream.fcard.model.ConsumerSchema;
 import dream.fcard.model.Deck;
 import dream.fcard.model.State;
 import dream.fcard.model.cards.FlashCard;
+import dream.fcard.model.cards.JavascriptCard;
 import dream.fcard.model.cards.MultipleChoiceCard;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -74,6 +76,10 @@ public class TestDisplay extends AnchorPane {
             seeFrontOfFrontBackCard();
         } else if (typeOfCard.equals("MultipleChoiceCard")) {
             seeFrontOfMcqCard(-1);
+        } else if (typeOfCard.equals("JavascriptCard")) {
+            cardDisplay.getChildren().clear();
+            JsCard jsCard = new JsCard((JavascriptCard) cardOnDisplay);
+            cardDisplay.getChildren().add(jsCard);
         }
     }
 

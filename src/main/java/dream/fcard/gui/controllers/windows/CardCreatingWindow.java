@@ -1,20 +1,29 @@
 package dream.fcard.gui.controllers.windows;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.function.Consumer;
 
+import org.mozilla.javascript.tools.shell.JSConsole;
+
+import dream.fcard.gui.controllers.displays.JsFileUploader;
 import dream.fcard.gui.controllers.displays.McqOptionsSetter;
+import dream.fcard.gui.controllers.displays.TestCaseUploader;
 import dream.fcard.model.ConsumerSchema;
 import dream.fcard.model.Deck;
 import dream.fcard.model.State;
+import dream.fcard.model.TestCase;
 import dream.fcard.model.cards.FrontBackCard;
+import dream.fcard.model.cards.JavaCard;
+import dream.fcard.model.cards.JavascriptCard;
 import dream.fcard.model.cards.MultipleChoiceCard;
 import dream.fcard.model.exceptions.DuplicateInChoicesException;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
@@ -32,9 +41,19 @@ public class CardCreatingWindow extends AnchorPane {
     private ChoiceBox<String> cardTypeSelector;
     @FXML
     private Button onAddQuestion;
+    @FXML
+    private Label addAnswerLabel;
+    
+    private final String frontBack = "Front-back";
+    private final String mcq = "MCQ";
+    //private final String java = "Java";
+    private final String js = "JavaScript";
 
     private TextArea frontBackTextArea;
     private McqOptionsSetter mcqOptionsSetter;
+    private TestCaseUploader testCaseUploader;
+    private JsFileUploader jsFileUploader;
+
     private String cardType = "";
     private Deck tempDeck = new Deck();
     private Consumer<Integer> incrementCounterInParent;
@@ -48,15 +67,15 @@ public class CardCreatingWindow extends AnchorPane {
             fxmlLoader.setController(this);
             fxmlLoader.setRoot(this);
             fxmlLoader.load();
-            cardTypeSelector.getItems().addAll("Front-back", "MCQ");
+            cardTypeSelector.getItems().addAll(frontBack, mcq, js);
             cardTypeSelector.setOnAction(e -> {
                 String currentlySelected = cardTypeSelector.getValue();
                 if (!cardType.equals(currentlySelected)) {
                     cardType = currentlySelected;
-                    changeInputBox(cardType.equals("MCQ"));
+                    changeInputBox(cardType);
                 }
             });
-            cardTypeSelector.setValue("Front-back");
+            cardTypeSelector.setValue(frontBack);
             onAddQuestion.setOnAction(e -> {
                 try {
                     addCardToDeck();
@@ -66,24 +85,29 @@ public class CardCreatingWindow extends AnchorPane {
             });
             this.incrementCounterInParent = incrementCounterInParent;
         } catch (IOException e) {
-            //TODO: replace with logger
             e.printStackTrace();
         }
     }
 
     /**
-     * Changes the input box from a textbox to the MCQ setter and vice versa.
+     * Changes the input box according to the card the user is making.
      *
-     * @param isMcq whether the user is trying to create an MCQ card
+     * @param cardType the type of card the user is making.
      */
-    void changeInputBox(boolean isMcq) {
+    void changeInputBox(String cardType) {
         answerContainer.getChildren().clear();
-        if (!isMcq) {
+        if (cardType.equals(frontBack)) {
             frontBackTextArea = new TextArea();
             answerContainer.getChildren().add(frontBackTextArea);
-        } else {
+            addAnswerLabel.setText("Add your answer");
+        } else if (cardType.equals(mcq)) {
             mcqOptionsSetter = new McqOptionsSetter();
             answerContainer.getChildren().add(mcqOptionsSetter);
+            addAnswerLabel.setText("Enter your options");
+        } else if (cardType.equals(js)) {
+            jsFileUploader = new JsFileUploader();
+            answerContainer.getChildren().add(jsFileUploader);
+            addAnswerLabel.setText("Upload your test file");
         }
     }
 
@@ -92,8 +116,7 @@ public class CardCreatingWindow extends AnchorPane {
      * @throws DuplicateInChoicesException if the user enters the same multiple choice option more than once.
      */
     void addCardToDeck() throws DuplicateInChoicesException {
-        State state = State.getState();
-        if (cardType.equals("MCQ")) {
+        if (cardType.equals(mcq)) {
             //validation - non-empty question, at least one non-empty option, and a designated right answer
             if (questionField.getText().isBlank()) {
                 displayMessage.accept("You need to enter a question!");
@@ -111,7 +134,7 @@ public class CardCreatingWindow extends AnchorPane {
             ArrayList<String> choices = mcqOptionsSetter.getChoices();
             MultipleChoiceCard mcqCard = new MultipleChoiceCard(front, back, choices);
             tempDeck.addNewCard(mcqCard);
-        } else { //front-back
+        } else if (cardType.equals(frontBack)) {
             // validation - non-empty fields
             if (questionField.getText().isBlank()) {
                 displayMessage.accept("You need to enter a question!");
@@ -122,10 +145,43 @@ public class CardCreatingWindow extends AnchorPane {
             }
 
             String front = questionField.getText();
-            String back = frontBackTextArea.getText(); // I don't think NullPointerException will happen
+            String back = frontBackTextArea.getText();
             FrontBackCard card = new FrontBackCard(front, back);
             tempDeck.addNewCard(card);
+        } else if (cardType.equals(js)) {
+            if (questionField.getText().isBlank()) {
+                displayMessage.accept("You need to enter a question!");
+                return;
+            } if (!jsFileUploader.hasFile()) {
+                displayMessage.accept("You need to upload a JS file");
+                return;
+            }
+            try {
+                String testCases = jsFileUploader.getAssertions();
+                String front = questionField.getText();
+                JavascriptCard card = new JavascriptCard(front, testCases);
+                tempDeck.addNewCard(card);
+            } catch (FileNotFoundException e) {
+                displayMessage.accept("I could not read in your file. Please try again");
+                return;
+            }
+
         }
+        //else if (cardType.equals(java)) {
+        //    //validation - all files uploaded
+        //    if (questionField.getText().isBlank()) {
+        //        displayMessage.accept("You need to enter a question!");
+        //        return;
+        //    }
+        //    //for more specific file-hunting, the error messages are printed within JavaTestCaseInputRow so
+        //    //we don't need to directly handle checking for missing files here.
+        //    if (testCaseUploader.hasNoMissingFiles()) {
+        //        ArrayList<TestCase> cases = testCaseUploader.getTestCases();
+        //        String front = questionField.getText();
+        //        JavaCard card = new JavaCard(front, cases);
+        //        tempDeck.addNewCard(card);
+        //    }
+        //}
         incrementCounterInParent.accept(1);
         clearFields();
     }
@@ -143,6 +199,16 @@ public class CardCreatingWindow extends AnchorPane {
             answerContainer.getChildren().clear();
             answerContainer.getChildren().add(mcqOptionsSetter);
         }
+        if (jsFileUploader != null) {
+            jsFileUploader = new JsFileUploader();
+            answerContainer.getChildren().clear();
+            answerContainer.getChildren().add(jsFileUploader);
+        }
+        //if (testCaseUploader != null) {
+        //    testCaseUploader = new TestCaseUploader();
+        //    answerContainer.getChildren().clear();
+        //    answerContainer.getChildren().add(testCaseUploader);
+        //}
     }
 
     /**

@@ -13,7 +13,6 @@ import org.mozilla.javascript.tools.shell.Global;
  * Returns output as a string.
  */
 public class JavascriptRunner {
-
     /**
      * Evaluates JS code from a given filepath. Uses FileImporter to read in the file.
      * @param filepath
@@ -21,7 +20,7 @@ public class JavascriptRunner {
      */
     public static String evaluateFromFile(String filepath) throws IOException {
 
-        BufferedReader reader = FileImporter.readJsFile(filepath);
+        BufferedReader reader = FileImporter.readFile(filepath);
         if (reader == null) {
             return "Error: File/filepath invalid, please try again.";
         }
