@@ -15,8 +15,8 @@ import seedu.address.testutil.TypicalPersons;
 import seedu.address.ui.PersonCard;
 
 public class PersonCardTest extends ApplicationTest {
-    final String NAME_ID = "#name";
-    final String INITIALS_ID = "#personId .label";
+    private static final String NAME_ID = "#name";
+    private static final String INITIALS_ID = "#personId .label";
     private Person alice = TypicalPersons.ALICE;
 
     @Override

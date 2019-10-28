@@ -2,12 +2,29 @@ language: java
 matrix:
   include:
     - jdk: openjdk11
+    # Headed Linux
+    - os: linux
+      dist: trusty
+      jdk: openjdk11
+    # Headless Linux
+    - os: linux
+      dist: trusty
+      jdk: openjdk11
+      env:
+        - _JAVA_OPTIONS="-Djava.awt.headless=true -Dtestfx.robot=glass -Dtestfx.headless=true -Dprism.order=sw -Dprism.text=t2k -Dtestfx.setup.timeout=2500"
+    # Headless macOS
+    - os: osx
+      osx_image: xcode9
+      env:
+        - _JAVA_OPTIONS="-Djava.awt.headless=true -Dtestfx.robot=glass -Dtestfx.headless=true -Dprism.order=sw -Dprism.text=t2k -Dtestfx.setup.timeout=2500"
+    # Headed macOS is not currently possible on Travis.
 
 services:
   - xvfb
 
 before_script:
     export AUTHOR_NAME="$(git log -1 $TRAVIS_COMMIT --pretty="%aN")"
+    - if [[ "${TRAVIS_OS_NAME}" == osx ]]; then brew update; brew cask reinstall caskroom/versions/java8; fi
 
 script: >-
     ./config/travis/run-checks.sh &&
