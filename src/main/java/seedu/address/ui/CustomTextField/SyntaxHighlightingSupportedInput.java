@@ -18,7 +18,7 @@ public class SyntaxHighlightingSupportedInput {
         this.command = command;
         this.prefixes = new ArrayList<>(requiredPrefixes);
         this.prefixes.addAll(optionalPrefixes);
-        this.pattern = compileCommandPattern(command, requiredPrefixes);
+        this.pattern = compileCommandPattern(command, prefixes);
     }
 
     public String getDescription(String pre) {

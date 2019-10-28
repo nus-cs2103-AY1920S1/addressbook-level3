@@ -83,9 +83,10 @@ public class CommandBox extends UiPart<Region> {
      * Adds a command to enable syntax highlighting for
      * @param com The command word of the command
      * @param pre The prefix of the command
+     * @param optionalPrefixes
      */
-    public void enableSyntaxHighlightingForCommand(String com, List<Prefix> pre) {
-        commandTextField.createPattern(com, pre, Collections.EMPTY_LIST);
+    public void enableSyntaxHighlightingForCommand(String com, List<Prefix> pre, List<Prefix> optionalPrefixes) {
+        commandTextField.createPattern(com, pre, optionalPrefixes);
     }
 
     /**

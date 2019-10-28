@@ -1,6 +1,7 @@
 package seedu.address.logic.commands.general;
 
 import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.CommandGroup;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.Model;
 import seedu.address.ui.panel.PanelName;
@@ -10,7 +11,7 @@ import seedu.address.ui.panel.PanelName;
  */
 public class HelpCommand extends Command {
 
-    public static final String COMMAND_WORD = "help";
+    public static final String COMMAND_WORD = "help" + CommandGroup.GENERAL;;
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Shows program usage instructions.\n"
             + "Example: " + COMMAND_WORD;

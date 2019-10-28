@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import seedu.address.logic.parser.ArgumentMultimap;
@@ -30,14 +31,14 @@ public class AutofillSupportedInput {
     }
 
     /**
-     * Returns a String[] of size 3 if there are prefixes missing, otherwise return null.
+     * Returns an Optional String[] of size 3 if there are prefixes missing, otherwise Optional empty.
      * The String at index 0 is the completion text
      * The String at index 1 is a string containing the missing required prefixes with the argument's description.
      * The String in index 2 is a string containing the missing optional prefixes with the argument's description.
      * @param input The string to check for prefixes.
      * @param delimiter The delimiter used when joining the prefixes in the string.
      */
-    public String[] completion(String input, String delimiter) {
+    public Optional<String[]> completion(String input, String delimiter) {
         ArrayList<Prefix> prefixes = new ArrayList<>(requiredPrefixToIsPresentMapping.keySet());
         prefixes.addAll(optionalPrefixToIsPresentMapping.keySet());
         Prefix[] prefixArray = prefixes.toArray(new Prefix[]{});
@@ -61,11 +62,15 @@ public class AutofillSupportedInput {
                 }) // [ p/ <desc>]
                 .collect(Collectors.joining(delimiter));
 
+        if (optionalPrefixes.isBlank() && prefixSuggestion.isBlank()) {
+            return Optional.empty();
+        }
+
         String completion = requiredPrefixToIsPresentMapping.entrySet().stream()
                 .filter(x -> !x.getValue()) // missing prefixes
                 .map(x -> x.getKey().getPrefix())
                 .collect(Collectors.joining(" "));
 
-        return new String[]{completion, prefixSuggestion, optionalPrefixes};
+        return Optional.of(new String[]{completion, prefixSuggestion, optionalPrefixes});
     }
 }

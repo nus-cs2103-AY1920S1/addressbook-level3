@@ -6,6 +6,7 @@ import java.util.List;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.CommandGroup;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.UndoableCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -18,7 +19,7 @@ import seedu.address.ui.expense.ExpenseListPanel;
  */
 public class DeleteExpenseCommand extends UndoableCommand {
 
-    public static final String COMMAND_WORD = "deleteexpense";
+    public static final String COMMAND_WORD = "delete" + CommandGroup.EXPENSE;
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the expense identified by the index number used in the displayed expense list.\n"

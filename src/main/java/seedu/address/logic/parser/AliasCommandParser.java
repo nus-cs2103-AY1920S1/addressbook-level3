@@ -4,7 +4,13 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ALIAS_ALIAS_INPUT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ALIAS_ALIAS_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CATEGORY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TIMESTAMP;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
 
@@ -17,6 +23,12 @@ import seedu.address.logic.parser.exceptions.ParseException;
  * Parses input arguments and creates a new AddExpenseCommand object
  */
 public class AliasCommandParser implements Parser<AddAliasCommand> {
+
+    public static final List<Prefix> REQUIRED_PREFIXES = Collections.unmodifiableList(List.of(
+            PREFIX_ALIAS_ALIAS_NAME, PREFIX_ALIAS_ALIAS_INPUT
+    ));
+
+    public static final List<Prefix> OPTIONAL_PREFIXES = Collections.unmodifiableList(List.of());
 
     /**
      * Parses the given {@code String} of arguments in the context of the AddExpenseCommand

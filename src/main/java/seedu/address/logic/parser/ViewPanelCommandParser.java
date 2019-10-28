@@ -1,6 +1,7 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import seedu.address.logic.commands.ui.ViewPanelCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -20,10 +21,14 @@ public class ViewPanelCommandParser implements Parser<ViewPanelCommand> {
     public ViewPanelCommand parse(String userInput) throws ParseException {
         requireNonNull(userInput);
 
+        if (userInput.isBlank()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ViewPanelCommand.MESSAGE_USAGE));
+        }
+
         if (!PanelName.isValidPanelName(userInput.trim())) {
             throw new ParseException(String.format(PanelName.MESSAGE_NAME_FORMAT, userInput));
         }
 
-        return new ViewPanelCommand(new PanelName(userInput));
+        return new ViewPanelCommand(new PanelName(userInput.trim()));
     }
 }

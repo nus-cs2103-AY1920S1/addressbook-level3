@@ -6,6 +6,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TIMESTAMP;
 
+import seedu.address.logic.commands.CommandGroup;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.UndoableCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -17,7 +18,7 @@ import seedu.address.model.expense.Event;
  */
 public class AddEventCommand extends UndoableCommand {
 
-    public static final String COMMAND_WORD = "addevent";
+    public static final String COMMAND_WORD = "add" + CommandGroup.EVENT;;
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Adds an event to MooLah. \n"

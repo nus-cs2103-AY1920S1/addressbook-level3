@@ -382,14 +382,12 @@ public class CommandTextField extends Region {
                     break;
                 }
             }
-
-        } else {
-//            currentCommand.setValue("");
         }
+
         if (change.isReplaced()) {
             visibleTextArea.replaceText(change.getRangeStart(), change.getRangeEnd(), change.getText());
-        }else if (change.isDeleted()) {
-                visibleTextArea.deleteText(change.getRangeStart(), change.getRangeEnd());
+        } else if (change.isDeleted()) {
+            visibleTextArea.deleteText(change.getRangeStart(), change.getRangeEnd());
         } else if (change.isAdded()) {
             visibleTextArea.insertText(change.getRangeStart(), change.getText());
         }

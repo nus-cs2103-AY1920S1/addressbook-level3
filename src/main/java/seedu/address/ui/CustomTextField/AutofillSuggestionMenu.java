@@ -1,6 +1,7 @@
 package seedu.address.ui.CustomTextField;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Supplier;
 
 import javafx.beans.property.SimpleStringProperty;
@@ -74,9 +75,6 @@ public class AutofillSuggestionMenu extends ContextMenu {
 
             if (currentMatchingText.get().length() > 0) {
                 showSuggestions();
-                getItems().stream().forEach(menuItem -> {
-                    System.out.println(menuItem.getId());
-                });
             } else {
                 hide();
             }
@@ -172,17 +170,17 @@ public class AutofillSuggestionMenu extends ContextMenu {
         if (currentCommand.length().get() > 0) {
             AutofillSupportedInput c = matchingSuggestions.get(0);
 
-            String[] textForCompletionGraphicOptional = c.completion(match, "\n");
-            if (textForCompletionGraphicOptional == null) {
+            Optional<String[]> textForCompletionGraphicOptional = c.completion(match, "\n");
+            if (!textForCompletionGraphicOptional.isPresent()) {
                 return;
             }
-            String textForCompletion = textForCompletionGraphicOptional[0];
-            String textForGraphicRequired = textForCompletionGraphicOptional[1];
-            String textForGraphicOptional = textForCompletionGraphicOptional[2];
+            String textForCompletion = textForCompletionGraphicOptional.get()[0];
+            String textForGraphicRequired = textForCompletionGraphicOptional.get()[1];
+            String textForGraphicOptional = textForCompletionGraphicOptional.get()[2];
 
             TextFlow graphic = getGraphic(
-                    textForGraphicRequired,
-                    "\n",
+                    match + "\n",
+                    textForGraphicRequired + "\n",
                     textForGraphicOptional);
 
             MenuItem item = new MenuItem();
@@ -191,7 +189,7 @@ public class AutofillSuggestionMenu extends ContextMenu {
             m.getItems().add(item);
 
         } else {
-            for (String suggestion : commandSuggestion) {
+            for (String suggestion : commandSuggestion.sorted((s1, s2) -> s1.length() - s2.length())) {
                 String completion = suggestion.replaceFirst(match, "");
                 TextFlow graphic = getGraphic("", match, completion);
                 MenuItem item = new MenuItem();

@@ -3,6 +3,7 @@ package seedu.address.logic.commands.event;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_EVENTS;
 
+import seedu.address.logic.commands.CommandGroup;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.UndoableCommand;
 import seedu.address.model.Model;
@@ -13,7 +14,7 @@ import seedu.address.ui.event.EventListPanel;
  */
 public class ListEventsCommand extends UndoableCommand {
 
-    public static final String COMMAND_WORD = "listevent";
+    public static final String COMMAND_WORD = "list" + CommandGroup.EVENT;
 
     public static final String MESSAGE_SUCCESS = "Listed all events";
 

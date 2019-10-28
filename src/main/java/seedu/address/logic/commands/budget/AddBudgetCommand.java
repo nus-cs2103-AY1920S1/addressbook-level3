@@ -6,6 +6,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PERIOD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_START_DATE;
 
+import seedu.address.logic.commands.CommandGroup;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.UndoableCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -18,7 +19,7 @@ import seedu.address.ui.budget.BudgetPanel;
  */
 public class AddBudgetCommand extends UndoableCommand {
 
-    public static final String COMMAND_WORD = "addbudget";
+    public static final String COMMAND_WORD = "add" + CommandGroup.BUDGET;
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an budget to MooLah.\n"
             + "Parameters: "

@@ -7,6 +7,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PERIOD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SECOND_START_DATE;
 
 import java.time.Period;
+import java.util.Collections;
+import java.util.List;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.statistics.StatsCompareCommand;
@@ -17,6 +19,12 @@ import seedu.address.model.expense.Timestamp;
  * Parses input arguments and creates a new StatsCompareCommand object
  */
 public class StatsCompareCommandParser implements Parser<StatsCompareCommand> {
+
+    public static final List<Prefix> REQUIRED_PREFIXES = Collections.unmodifiableList(List.of(
+            PREFIX_FIRST_START_DATE, PREFIX_SECOND_START_DATE, PREFIX_PERIOD
+    ));
+
+    public static final List<Prefix> OPTIONAL_PREFIXES = Collections.unmodifiableList(List.of());
 
     /**
      * Parses the given {@code String} of arguments in the context of the StatsCompareCommand

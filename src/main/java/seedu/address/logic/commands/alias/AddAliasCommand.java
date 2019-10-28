@@ -5,6 +5,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_ALIAS_ALIAS_INPUT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ALIAS_ALIAS_NAME;
 
 import seedu.address.commons.core.Alias;
+import seedu.address.logic.commands.CommandGroup;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.UndoableCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -15,7 +16,7 @@ import seedu.address.model.Model;
  */
 public class AddAliasCommand extends UndoableCommand {
 
-    public static final String COMMAND_WORD = "addalias";
+    public static final String COMMAND_WORD = "add" + CommandGroup.ALIAS;
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Create a shortcut for commonly used Commands.\n"
             + "Parameters: " + PREFIX_ALIAS_ALIAS_NAME

@@ -3,6 +3,8 @@ package seedu.address.logic.parser;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 import seedu.address.logic.commands.expense.FindExpenseCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -12,6 +14,9 @@ import seedu.address.model.expense.DescriptionContainsKeywordsPredicate;
  * Parses input arguments and creates a new FindCommand object
  */
 public class FindCommandParser implements Parser<FindExpenseCommand> {
+
+    public static final List<Prefix> REQUIRED_PREFIXES = Collections.unmodifiableList(List.of());
+    public static final List<Prefix> OPTIONAL_PREFIXES = Collections.unmodifiableList(List.of());
 
     /**
      * Parses the given {@code String} of arguments in the context of the FindCommand

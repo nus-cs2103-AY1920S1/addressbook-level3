@@ -11,7 +11,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PERIOD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SECOND_START_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_START_DATE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TIMESTAMP;
 
 import java.util.Collections;
 import java.util.List;
@@ -40,9 +39,36 @@ import javafx.util.Duration;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
+import seedu.address.logic.commands.CommandGroup;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.RedoCommand;
+import seedu.address.logic.commands.UndoCommand;
+import seedu.address.logic.commands.alias.AddAliasCommand;
+import seedu.address.logic.commands.budget.AddBudgetCommand;
+import seedu.address.logic.commands.budget.SwitchBudgetCommand;
+import seedu.address.logic.commands.event.AddEventCommand;
+import seedu.address.logic.commands.event.ListEventsCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.expense.AddExpenseCommand;
+import seedu.address.logic.commands.expense.ClearExpenseCommand;
+import seedu.address.logic.commands.expense.DeleteExpenseCommand;
+import seedu.address.logic.commands.expense.EditExpenseCommand;
+import seedu.address.logic.commands.expense.FindExpenseCommand;
+import seedu.address.logic.commands.expense.ListExpenseCommand;
+import seedu.address.logic.commands.general.ExitCommand;
+import seedu.address.logic.commands.general.HelpCommand;
+import seedu.address.logic.commands.statistics.StatsCommand;
+import seedu.address.logic.commands.statistics.StatsCompareCommand;
 import seedu.address.logic.commands.ui.ViewPanelCommand;
+import seedu.address.logic.parser.AddBudgetCommandParser;
+import seedu.address.logic.parser.AddEventCommandParser;
+import seedu.address.logic.parser.AddExpenseCommandParser;
+import seedu.address.logic.parser.AliasCommandParser;
+import seedu.address.logic.parser.EditCommandParser;
+import seedu.address.logic.parser.GenericCommandWord;
+import seedu.address.logic.parser.StatsCommandParser;
+import seedu.address.logic.parser.StatsCompareCommandParser;
+import seedu.address.logic.parser.SwitchBudgetCommandParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Timekeeper;
 import seedu.address.model.budget.Budget;
@@ -87,6 +113,9 @@ public class MainWindow extends UiPart<Stage> {
 
     // Ui parts which are always displayed
     private ResultDisplay resultDisplay;
+    private CommandBox commandBox;
+
+    // Popup windows
     private HelpWindow helpWindow;
     private StatsWindow statsWindow;
 
@@ -165,32 +194,9 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        ExpenseListPanel expenseListPanel;
-        BudgetListPanel budgetListPanel;
-
-        singlePanelView = new SinglePanelView();
-        expenseListPanel = new ExpenseListPanel(logic.getFilteredExpenseList(), true);
-        budgetListPanel = new BudgetListPanel(logic.getFilteredBudgetList());
-
-        if (logic.getPrimaryBudget() != null) {
-            singlePanelView.setPanel(BudgetPanel.PANEL_NAME, new BudgetPanel(logic.getPrimaryBudget()));
-        } else {
-            singlePanelView.setPanel(BudgetPanel.PANEL_NAME, new PlaceholderPanel());
-        }
-
-        singlePanelView.setPanel(PanelName.ALIASES_PANEL, new PlaceholderPanel());
-        singlePanelView.setPanel(BudgetListPanel.PANEL_NAME, budgetListPanel);
-        singlePanelView.setPanel(ExpenseListPanel.PANEL_NAME, expenseListPanel);
-        singlePanelView.setPanel(PanelName.EVENTS_PANEL, new PlaceholderPanel());
-        singlePanelView.setPanel(PanelName.STATISTICS_PANEL, new PlaceholderPanel());
-        panelPlaceholder.getChildren().add(singlePanelView.getRoot());
-
-        // startup panel = expense list panel
-        try {
-            singlePanelView.viewPanel(ExpenseListPanel.PANEL_NAME);
-        } catch (UnmappedPanelException e) {
-            // should not be thrown
-        }
+        // fill inner UiParts
+        commandBox = new CommandBox(this::executeCommand);
+        commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -198,68 +204,140 @@ public class MainWindow extends UiPart<Stage> {
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getMooLahFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
-        CommandBox commandBox = new CommandBox(this::executeCommand);
-        enableSyntaxHighlighting(commandBox);
+        singlePanelView = new SinglePanelView();
+        panelPlaceholder.getChildren().add(singlePanelView.getRoot());
 
-        commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+        // fill single panel view
+        if (logic.getPrimaryBudget() != null) {
+            singlePanelView.setPanel(BudgetPanel.PANEL_NAME, new BudgetPanel(logic.getPrimaryBudget()));
+        } else {
+            singlePanelView.setPanel(BudgetPanel.PANEL_NAME, new PlaceholderPanel());
+        }
+
+        singlePanelView.setPanel(PanelName.ALIASES_PANEL, new PlaceholderPanel());
+        singlePanelView.setPanel(ExpenseListPanel.PANEL_NAME,
+                new ExpenseListPanel(logic.getFilteredExpenseList(), true));
+        singlePanelView.setPanel(BudgetListPanel.PANEL_NAME,
+                new BudgetListPanel(logic.getFilteredBudgetList()));
+        singlePanelView.setPanel(PanelName.EVENTS_PANEL, new PlaceholderPanel());
+        singlePanelView.setPanel(PanelName.STATISTICS_PANEL, new PlaceholderPanel());
+
+        // startup panel = expense list panel
+        try {
+            changePanel(ExpenseListPanel.PANEL_NAME);
+        } catch (UnmappedPanelException e) {
+            // should not be thrown
+        }
+
+        // enable syntax highlighting
+        enableSyntaxHighlighting();
+
     }
 
     /**
-     * Enables syntax highlighting for a set of commands in a specified commandBox.
-     * @param commandBox The commandBox to enable syntax highlighting in.
+     * Enables syntax highlighting for a built in commands.
      */
-    private void enableSyntaxHighlighting(CommandBox commandBox) {
+
+    private void enableSyntaxHighlighting() {
         commandBox.importSyntaxStyleSheet(getRoot().getScene());
 
-        // add supported commands (not all yet)
-        commandBox.enableSyntaxHighlightingForCommand("add",
-                List.of(PREFIX_DESCRIPTION, PREFIX_PRICE, PREFIX_CATEGORY));
-        commandBox.enableSyntaxHighlightingForCommand("alias",
-                List.of(PREFIX_ALIAS_ALIAS_NAME, PREFIX_ALIAS_ALIAS_INPUT));
-        commandBox.enableSyntaxHighlightingForCommand("addbudget",
-                List.of(PREFIX_DESCRIPTION, PREFIX_PRICE, PREFIX_START_DATE, PREFIX_PERIOD));
-        commandBox.enableSyntaxHighlightingForCommand("switchbudget",
-                List.of(PREFIX_DESCRIPTION));
-        commandBox.enableSyntaxHighlightingForCommand("pastperiod",
-                List.of(PREFIX_TIMESTAMP));
-        commandBox.enableSyntaxHighlightingForCommand("event",
-                List.of(PREFIX_DESCRIPTION, PREFIX_PRICE, PREFIX_CATEGORY, PREFIX_TIMESTAMP));
-        commandBox.enableSyntaxHighlightingForCommand("statscompare",
-                List.of(PREFIX_FIRST_START_DATE, PREFIX_SECOND_START_DATE, PREFIX_PERIOD));
-        commandBox.enableSyntaxHighlightingForCommand("undo",
+        // expense commands
+        commandBox.enableSyntaxHighlightingForCommand(
+                AddExpenseCommand.COMMAND_WORD,
+                AddExpenseCommandParser.REQUIRED_PREFIXES,
+                AddExpenseCommandParser.OPTIONAL_PREFIXES);
+
+        commandBox.enableSyntaxHighlightingForCommand(
+                DeleteExpenseCommand.COMMAND_WORD,
+                Collections.emptyList(),
                 Collections.emptyList());
-        commandBox.enableSyntaxHighlightingForCommand("redo",
+
+        commandBox.enableSyntaxHighlightingForCommand(
+                EditExpenseCommand.COMMAND_WORD,
+                EditCommandParser.REQUIRED_PREFIXES,
+                EditCommandParser.OPTIONAL_PREFIXES);
+
+        commandBox.enableSyntaxHighlightingForCommand(
+                FindExpenseCommand.COMMAND_WORD,
+                Collections.emptyList(),
                 Collections.emptyList());
-        commandBox.enableSyntaxHighlightingForCommand("listbudgets",
+
+        commandBox.enableSyntaxHighlightingForCommand(
+                ListExpenseCommand.COMMAND_WORD,
+                Collections.emptyList(),
                 Collections.emptyList());
-        commandBox.enableSyntaxHighlightingForCommand("listevents",
+
+        commandBox.enableSyntaxHighlightingForCommand(
+                ClearExpenseCommand.COMMAND_WORD,
+                Collections.emptyList(),
                 Collections.emptyList());
-        commandBox.enableSyntaxHighlightingForCommand("deletebudget",
+
+        // event commands
+        commandBox.enableSyntaxHighlightingForCommand(
+                AddEventCommand.COMMAND_WORD,
+                AddEventCommandParser.REQUIRED_PREFIXES,
+                AddEventCommandParser.OPTIONAL_PREFIXES);
+
+        commandBox.enableSyntaxHighlightingForCommand(
+                ListEventsCommand.COMMAND_WORD,
+                Collections.emptyList(),
                 Collections.emptyList());
-        commandBox.enableSyntaxHighlightingForCommand("deletefrombudget",
+
+        // budget commands
+        commandBox.enableSyntaxHighlightingForCommand(
+                AddBudgetCommand.COMMAND_WORD,
+                AddBudgetCommandParser.REQUIRED_PREFIXES,
+                AddBudgetCommandParser.OPTIONAL_PREFIXES);
+
+        commandBox.enableSyntaxHighlightingForCommand(
+                SwitchBudgetCommand.COMMAND_WORD,
+                SwitchBudgetCommandParser.REQUIRED_PREFIXES,
+                SwitchBudgetCommandParser.OPTIONAL_PREFIXES);
+
+        // alias commands
+        commandBox.enableSyntaxHighlightingForCommand(
+                AddAliasCommand.COMMAND_WORD,
+                AliasCommandParser.REQUIRED_PREFIXES,
+                AliasCommandParser.OPTIONAL_PREFIXES);
+
+        // stats commands
+        commandBox.enableSyntaxHighlightingForCommand(
+                StatsCommand.COMMAND_WORD,
+                StatsCommandParser.REQUIRED_PREFIXES,
+                StatsCommandParser.OPTIONAL_PREFIXES);
+
+        commandBox.enableSyntaxHighlightingForCommand(
+                StatsCompareCommand.COMMAND_WORD,
+                StatsCompareCommandParser.REQUIRED_PREFIXES,
+                StatsCompareCommandParser.OPTIONAL_PREFIXES);
+
+        // general commands
+        commandBox.enableSyntaxHighlightingForCommand(
+                UndoCommand.COMMAND_WORD,
+                Collections.emptyList(),
                 Collections.emptyList());
-        commandBox.enableSyntaxHighlightingForCommand("list",
+
+        commandBox.enableSyntaxHighlightingForCommand(
+                RedoCommand.COMMAND_WORD,
+                Collections.emptyList(),
                 Collections.emptyList());
-        commandBox.enableSyntaxHighlightingForCommand("delete",
+
+        commandBox.enableSyntaxHighlightingForCommand(
+                HelpCommand.COMMAND_WORD,
+                Collections.emptyList(),
                 Collections.emptyList());
-        commandBox.enableSyntaxHighlightingForCommand("edit",
+
+        commandBox.enableSyntaxHighlightingForCommand(
+                ExitCommand.COMMAND_WORD,
+                Collections.emptyList(),
                 Collections.emptyList());
-        commandBox.enableSyntaxHighlightingForCommand("editfrombudget",
+
+        commandBox.enableSyntaxHighlightingForCommand(
+                ViewPanelCommand.COMMAND_WORD,
+                Collections.emptyList(),
                 Collections.emptyList());
-        commandBox.enableSyntaxHighlightingForCommand("editbudget",
-                Collections.emptyList());
-        commandBox.enableSyntaxHighlightingForCommand("view",
-                Collections.emptyList());
-        commandBox.enableSyntaxHighlightingForCommand("clear",
-                Collections.emptyList());
-        commandBox.enableSyntaxHighlightingForCommand("find",
-                Collections.emptyList());
-        commandBox.enableSyntaxHighlightingForCommand("exit",
-                Collections.emptyList());
-        commandBox.enableSyntaxHighlightingForCommand("help",
-                Collections.emptyList());
-        commandBox.enableSyntaxHighlightingForCommand("stats",
-                Collections.emptyList());
+
         commandBox.enableSyntaxHighlighting();
     }
 
@@ -282,10 +360,55 @@ public class MainWindow extends UiPart<Stage> {
      */
     private void changePanel(PanelName panelName) throws UnmappedPanelException {
         // updates the budget panel to display the primary budget.
+        configureGenericCommands(panelName);
+        singlePanelView.viewPanel(panelName);
+    }
+
+    private void configureGenericCommands(PanelName panelName) {
+        commandBox.disableSyntaxHighlightingForCommand(GenericCommandWord.ADD);
+        commandBox.disableSyntaxHighlightingForCommand(GenericCommandWord.DELETE);
+        commandBox.disableSyntaxHighlightingForCommand(GenericCommandWord.LIST);
         if (panelName.equals(BudgetPanel.PANEL_NAME)) {
             singlePanelView.setPanel(BudgetPanel.PANEL_NAME, new BudgetPanel(logic.getPrimaryBudget()));
+            commandBox.enableSyntaxHighlightingForCommand(
+                    GenericCommandWord.ADD,
+                    AddExpenseCommandParser.REQUIRED_PREFIXES,
+                    AddExpenseCommandParser.OPTIONAL_PREFIXES);
+        } else if (panelName.equals(ExpenseListPanel.PANEL_NAME)) {
+            commandBox.enableSyntaxHighlightingForCommand(
+                    GenericCommandWord.ADD,
+                    AddExpenseCommandParser.REQUIRED_PREFIXES,
+                    AddExpenseCommandParser.OPTIONAL_PREFIXES);
+            commandBox.enableSyntaxHighlightingForCommand(
+                    GenericCommandWord.LIST,
+                    AddExpenseCommandParser.REQUIRED_PREFIXES,
+                    AddExpenseCommandParser.OPTIONAL_PREFIXES);
+            commandBox.enableSyntaxHighlightingForCommand(
+                    GenericCommandWord.DELETE,
+                    AddExpenseCommandParser.REQUIRED_PREFIXES,
+                    AddExpenseCommandParser.OPTIONAL_PREFIXES);
+        } else if (panelName.equals(BudgetListPanel.PANEL_NAME)) {
+            commandBox.enableSyntaxHighlightingForCommand(
+                    GenericCommandWord.ADD,
+                    AddBudgetCommandParser.REQUIRED_PREFIXES,
+                    AddBudgetCommandParser.OPTIONAL_PREFIXES);
+        } else if (panelName.equals(PanelName.EVENTS_PANEL)) {
+            commandBox.enableSyntaxHighlightingForCommand(
+                    GenericCommandWord.ADD,
+                    AddEventCommandParser.REQUIRED_PREFIXES,
+                    AddEventCommandParser.OPTIONAL_PREFIXES);
+            commandBox.enableSyntaxHighlightingForCommand(
+                    GenericCommandWord.LIST,
+                    Collections.emptyList(),
+                    Collections.emptyList());
+        } else if (panelName.equals(PanelName.ALIASES_PANEL)) {
+            commandBox.enableSyntaxHighlightingForCommand(
+                    GenericCommandWord.ADD,
+                    AliasCommandParser.REQUIRED_PREFIXES,
+                    AliasCommandParser.OPTIONAL_PREFIXES);
+        } else if (panelName.equals(PanelName.STATISTICS_PANEL)) {
+            // does not use generic commands
         }
-        singlePanelView.viewPanel(panelName);
     }
 
     /**
@@ -348,21 +471,12 @@ public class MainWindow extends UiPart<Stage> {
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException,
             UnmappedPanelException {
         try {
+            String commandGroup = decideCommandGroup();
 
             Budget primaryBudget = logic.getPrimaryBudget();
             boolean initialIsNear = primaryBudget.isNear();
             boolean initialIsExceeded = primaryBudget.isExceeded();
 
-            String commandGroup = "";
-            if (BudgetPanel.PANEL_NAME.equals(singlePanelView.getCurrentPanelName())) {
-                commandGroup = "budget";
-            } else if (ExpenseListPanel.PANEL_NAME.equals(singlePanelView.getCurrentPanelName())) {
-                commandGroup = "expense";
-            } else if (PanelName.EVENTS_PANEL.equals(singlePanelView.getCurrentPanelName())) {
-                commandGroup = "event";
-            } else if (BudgetListPanel.PANEL_NAME.equals(singlePanelView.getCurrentPanelName())) {
-                commandGroup = "budget";
-            }
             CommandResult commandResult = logic.execute(commandText, commandGroup);
 
             if (commandResult.isViewRequest()) {
@@ -400,6 +514,21 @@ public class MainWindow extends UiPart<Stage> {
                     + String.format(ViewPanelCommand.SHOW_AVAILABLE_PANELS, singlePanelView.toString()));
             throw e;
         }
+    }
+
+    public String decideCommandGroup() {
+        if (BudgetPanel.PANEL_NAME.equals(singlePanelView.getCurrentPanelName())) {
+            return CommandGroup.EXPENSE;
+        } else if (ExpenseListPanel.PANEL_NAME.equals(singlePanelView.getCurrentPanelName())) {
+            return CommandGroup.EVENT;
+        } else if (PanelName.EVENTS_PANEL.equals(singlePanelView.getCurrentPanelName())) {
+            return CommandGroup.ALIAS;
+        } else if (PanelName.ALIASES_PANEL.equals(singlePanelView.getCurrentPanelName())) {
+            return CommandGroup.ALIAS;
+        } else if (PanelName.STATISTICS_PANEL.equals(singlePanelView.getCurrentPanelName())) {
+            return CommandGroup.STATISTIC;
+        }
+        return CommandGroup.GENERAL;
     }
 
     /**

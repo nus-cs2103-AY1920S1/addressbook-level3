@@ -4,12 +4,17 @@ import static java.util.Objects.requireNonNull;
 
 import java.io.Serializable;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import seedu.address.commons.exceptions.RecursiveAliasException;
+import seedu.address.logic.commands.RedoCommand;
+import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.alias.AddAliasCommand;
 import seedu.address.logic.commands.budget.AddBudgetCommand;
+import seedu.address.logic.commands.budget.SwitchBudgetCommand;
 import seedu.address.logic.commands.event.AddEventCommand;
+import seedu.address.logic.commands.event.ListEventsCommand;
 import seedu.address.logic.commands.expense.AddExpenseCommand;
 import seedu.address.logic.commands.expense.ClearExpenseCommand;
 import seedu.address.logic.commands.expense.DeleteExpenseCommand;
@@ -18,6 +23,7 @@ import seedu.address.logic.commands.expense.FindExpenseCommand;
 import seedu.address.logic.commands.expense.ListExpenseCommand;
 import seedu.address.logic.commands.general.ExitCommand;
 import seedu.address.logic.commands.general.HelpCommand;
+import seedu.address.logic.commands.ui.ViewPanelCommand;
 
 
 /**
@@ -27,6 +33,24 @@ import seedu.address.logic.commands.general.HelpCommand;
 public class AliasMappings implements Serializable {
 
     private Map<String, Alias> aliasNameToAliasMap;
+
+    private static final List<String> RESERVED_COMMAND_WORDS = List.of(
+            // event
+            AddEventCommand.COMMAND_WORD, ListEventsCommand.COMMAND_WORD,
+            //expense
+            AddExpenseCommand.COMMAND_WORD, DeleteExpenseCommand.COMMAND_WORD,
+            ListExpenseCommand.COMMAND_WORD, FindExpenseCommand.COMMAND_WORD,
+            EditExpenseCommand.COMMAND_WORD, ClearExpenseCommand.COMMAND_WORD,
+            // budget
+            AddBudgetCommand.COMMAND_WORD, SwitchBudgetCommand.COMMAND_WORD,
+            // alias
+            AddAliasCommand.COMMAND_WORD,
+            // general
+            HelpCommand.COMMAND_WORD, ExitCommand.COMMAND_WORD,
+            UndoCommand.COMMAND_WORD, RedoCommand.COMMAND_WORD,
+            ViewPanelCommand.COMMAND_WORD
+    );
+
 
     // Constructors
     public AliasMappings() {
@@ -70,32 +94,8 @@ public class AliasMappings implements Serializable {
      */
     public boolean aliasUsesReservedName(Alias alias) {
         String aliasName = alias.getAliasName();
-        switch (aliasName) {
-        case AddEventCommand.COMMAND_WORD:
-            // fallthrough
-        case AddExpenseCommand.COMMAND_WORD:
-            // fallthrough
-        case AddAliasCommand.COMMAND_WORD:
-            // fallthrough
-        case AddBudgetCommand.COMMAND_WORD:
-            // fallthrough
-        case EditExpenseCommand.COMMAND_WORD:
-            // fallthrough
-        case DeleteExpenseCommand.COMMAND_WORD:
-            // fallthrough
-        case ClearExpenseCommand.COMMAND_WORD:
-            // fallthrough
-        case FindExpenseCommand.COMMAND_WORD:
-            // fallthrough
-        case ListExpenseCommand.COMMAND_WORD:
-            // fallthrough
-        case ExitCommand.COMMAND_WORD:
-            // fallthrough
-        case HelpCommand.COMMAND_WORD:
-            return true;
-        default:
-            return false;
-        }
+
+        return RESERVED_COMMAND_WORDS.contains(aliasName);
     }
 
     /**
