@@ -70,7 +70,7 @@ public class EditVehicleCommand extends Command {
         if (!editedVehicle.equals(vehicleToEdit) && model.hasVehicle(vehicleToEdit)) {
             throw new CommandException(MESSAGE_DUPLICATE_VEHICLE);
         }
-        if(editedVehicle.equals(vehicleToEdit)) {
+        if (editedVehicle.equals(vehicleToEdit)) {
             throw new CommandException(MESSAGE_VEHICLE_NOT_EDITED);
         }
 

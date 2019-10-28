@@ -20,6 +20,7 @@ import seedu.address.model.person.Password;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Username;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.vehicle.Availability;
 import seedu.address.model.vehicle.District;
 import seedu.address.model.vehicle.VehicleNumber;
 import seedu.address.model.vehicle.VehicleType;
@@ -182,6 +183,19 @@ public class ParserUtil {
     }
 
     /**
+     * Parses a {@code String avail} into a {@code Availability}.
+     * Input will be checked for validity.
+     * Leading and trailing white spaces will be trimmed.
+     */
+    public static Availability parseAvailability(String avail) throws ParseException {
+        requireNonNull(avail);
+        String trimmedAvail = avail.trim();
+        if (!trimmedAvail.equalsIgnoreCase("available") && !trimmedAvail.equalsIgnoreCase("busy")) {
+            throw new ParseException(Availability.MESSAGE_CONSTRAINTS);
+        }
+        return new Availability(trimmedAvail);
+    }
+    /**
      * Parses a {@code String description} into a {@code Description}.
      * Leading and trailing white spaces will be trimmed.
      * Will not be checked for validity as Description can vary widely
@@ -190,7 +204,7 @@ public class ParserUtil {
     public static Description parseDescription(String description) {
         requireNonNull(description);
         String trimmedDescription = description.trim();
-        return new Description(description);
+        return new Description(trimmedDescription);
     }
 
     /**

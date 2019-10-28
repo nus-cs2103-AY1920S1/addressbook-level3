@@ -150,6 +150,11 @@ public interface Model {
      */
     void setVehicle(Vehicle target, Vehicle editedVehicle);
 
+    /**
+     * Adds a {@code Vehicle toAdd} to the Incident Manager.
+     */
+    void addVehicle(Vehicle toAdd);
+
     /** Returns an unmodifiable view of the filtered incident list */
     ObservableList<Incident> getFilteredIncidentList();
 
