@@ -46,7 +46,7 @@ public class EditPlanCommand extends Command {
             + "Example:\n"
             + COMMAND_WORD + " 1 "
             + PREFIX_DESCRIPTION + "future questions of CS2040 "
-            + PREFIX_START_DATE + "2019/01/01"
+            + PREFIX_START_DATE + "2019/01/01 "
             + PREFIX_END_DATE + "3019/12/12";
 
     public static final String MESSAGE_EDIT_PLAN_SUCCESS = "Plan [%1$s] edited.";

@@ -255,7 +255,7 @@ Examples:
 ==== Adding a plan: `addplan`
 
 Generates a new plan. +
-Format: `add n/NAME [d/DESCRIPTION] [s/START_DATE] [e/END_DATE]`
+Format: `add n/NAME [d/DESCRIPTION] [start/START_DATE] [end/END_DATE]`
 
 * Plans cannot have duplicate names.
 * `START_DATE` and `END_DATE` should be in the format of `yyyy-MM-dd`
@@ -285,7 +285,7 @@ Deletes the 1st problem in the results of the `findplan` command (will be introd
 ==== Editing a plan : `editplan`
 
 Edits an existing plan. +
-Format: `editplan INDEX [n/NAME] [d/DESCRIPTION] [s/START_DATE] [e/END_DATE]`
+Format: `editplan INDEX [n/NAME] [d/DESCRIPTION] [start/START_DATE] [end/END_DATE]`
 
 * Edits the plan at the specified `INDEX`. The index refers to the index number shown in the displayed plan list. The index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
@@ -362,7 +362,7 @@ Examples:
 ==== Locating plans: `findplan`
 
 Finds plans fulfilling all provided constraints. +
-Format: `findplan [n/NAME] [d/DESCRIPTION] [s/RANGE_START] [e/RANGE_END]...`
+Format: `findplan [n/NAME] [d/DESCRIPTION] [start/RANGE_START] [end/RANGE_END]...`
 
 * Name
 ** is case-insensitive.
@@ -517,9 +517,9 @@ e.g. `addtag n/sssp`
 * *Delete Tag* : `deletetag INDEX` +
 e.g. `deletetag 3`
 
-* *Add Training Plan* : `addplan n/NAME [d/DESCRIPTION] [s/START_DATE] [e/END_DATE]` +
+* *Add Training Plan* : `addplan n/NAME [d/DESCRIPTION] [start/START_DATE] [end/END_DATE]` +
 e.g. `addplan n/CS2040`
-* *Edit Training Plan* : `editplan INDEX [a/ADD_PROBLEM_INDEX_LIST] [d/DELETE_PROBLEM_INDEX_LIST] [n/NAME] [d/DESCRIPTION] [s/START_DATE] [e/END_DATE]` +
+* *Edit Training Plan* : `editplan INDEX [a/ADD_PROBLEM_INDEX_LIST] [d/DELETE_PROBLEM_INDEX_LIST] [n/NAME] [d/DESCRIPTION] [start/START_DATE] [end/END_DATE]` +
 e.g. `editplan 1 a/1 2 3 d/4 5 6 n/training set 1`
 * *Find Training Plan* : `findplan KEYWORD [MORE_KEYWORDS]` +
 e.g. `find training set`
