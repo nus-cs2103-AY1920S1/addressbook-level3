@@ -8,6 +8,8 @@ import dream.fcard.model.cards.FlashCard;
  */
 public interface Exam {
 
-    public FlashCard nextCard();
+    public FlashCard getCurrentCard();
+
+    public void parseUserInputAndGrade(String answer);
 
 }
