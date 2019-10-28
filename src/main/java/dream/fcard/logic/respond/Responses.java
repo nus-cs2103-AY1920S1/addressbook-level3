@@ -151,6 +151,7 @@ enum Responses {
             LogsCenter.getLogger(Responses.class).info("CREATED_DECK: Deck added - " + deckName);
             // PRINT INSTRUCTIONS TO USER HOW TO CREATE DECK
         }
+
         Gui.showStatus("Deck created - " + deckName);
         LogsCenter.getLogger(Responses.class).info("CREATE_DECK: command execution successful");
         return true;
@@ -160,15 +161,16 @@ enum Responses {
             + "(deck/[\\S]+){1}(\\s)*"
             + "(front/[\\S\\s]+){1}(\\s)*"
             + "(back/[\\S\\s]+){1}(\\s)*"
-            + "((choice/[\\S\\s]+)(\\s)*)+" , (commandInput, programState) -> {
+            + "((choice/[\\S\\s]+)(\\s)*){1,}" , (commandInput, programState) -> {
 
                 System.out.println("Current command is DECK_CREATE_MCQ_CARD");
                 LogsCenter.getLogger(Responses.class).info("Current command is DECK_CREATE_MCQ_CARD");
 
+                CreateCommand command = new CreateCommand();
+                command.funcCall(commandInput, programState);
 
-
+                Gui.showStatus("MCQ Card created");
                 LogsCenter.getLogger(Responses.class).info("DECK_CREATE_MCQ_CARD: command execution successful");
-                Gui.showStatus("Deck created - ");
                 return true; // capture is valid, end checking other commands
             }),
 
@@ -184,6 +186,7 @@ enum Responses {
                 CreateCommand command = new CreateCommand();
                 command.funcCall(commandInput, programState);
 
+                Gui.showStatus("Front Back card created.");
                 LogsCenter.getLogger(Responses.class).info("DECK_CREATE_REG_CARD: command execution successful");
                 return true; // capture is valid, end checking other commands
             }),
