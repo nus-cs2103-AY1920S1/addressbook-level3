@@ -1,12 +1,33 @@
 @startuml
 
-(*)  --> "check input"
-If "input is verbose" then
---> [Yes] "turn on verbosity"
---> "run command"
-else
---> "run command"
-Endif
--->(*)
+scale 0.4
+start
+:User executes a command to delete a policy;
+
+fork
+    :Create BinItem object from person;
+    :Add BinItem to UniqueBinItemList;
+fork again
+    :Iterate through UniqueBinItemList;
+    repeat
+    if () then ([Is Person object])
+        if () then ([Has deleted policy])
+            :Remove policy from Person object;
+        else ([else])
+            :Do nothing;
+        endif
+    else ([else])
+        :Do nothing;
+    endif
+    repeat while () is ([Has next item])
+end fork
+
+:User chooses to restore the deleted policy;
+
+:Unwrap policy from BinItem;
+
+:Add policy back to UniquePolicyList;
+
+stop
 
 @enduml

@@ -10,13 +10,13 @@ participant ":Model" as Model MODEL_COLOR
 participant "itemToRestore:BinItem" as BinItem MODEL_COLOR
 participant ":AddressBook" as AddressBook MODEL_COLOR
 participant ":UniqueBinItemList" as UniqueBinItemList MODEL_COLOR
-participant ":UniquePersonList" as UniquePersonList MODEL_COLOR
+participant ":UniquePolicyList" as UniquePolicyList MODEL_COLOR
 end box
 
 [-> RestoreCommand : execute()
 activate RestoreCommand
 
-RestoreCommand -> Model : RestorePerson(1)
+RestoreCommand -> Model : deleteBinItem(itemToRestore)
 activate Model
 
 Model -> AddressBook : removeBinItem(itemToRestore)
@@ -37,14 +37,14 @@ activate BinItem
 BinItem --> Model : p
 deactivate BinItem
 
-Model -> Model : addPerson(p)
+Model -> Model : addPolicy(p)
 activate Model
 
-Model -> UniquePersonList : addPerson(p)
-activate UniquePersonList
+Model -> UniquePolicyList : addPolicy(p)
+activate UniquePolicyList
 
-UniquePersonList --> Model
-deactivate UniquePersonList
+UniquePolicyList --> Model
+deactivate UniquePolicyList
 deactivate Model
 
 Model --> RestoreCommand
