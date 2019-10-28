@@ -58,23 +58,23 @@ public class TypicalTransactions {
 
     //Transactions for reimbursements
     //general
-    public static final Transaction ALICE_TRANSACTION_10 = new TransactionBuilder(TypicalPersons.ALICE)
+    public static Transaction ALICE_TRANSACTION_10 = new TransactionBuilder(TypicalPersons.ALICE)
             .withId(10)
             .withAmount(-20.0)
             .withDate("14-Feb-2019")
             .build();
-    public static final Transaction ELLE_TRANSACTION_11 = new TransactionBuilder(TypicalPersons.ELLE)
+    public static Transaction ELLE_TRANSACTION_11 = new TransactionBuilder(TypicalPersons.ELLE)
             .withId(11)
             .withAmount(-100)
             .withDescription("food")
             .withDate("12-Jun-2019")
             .build();
-    public static final Transaction ALICE_TRANSACTION_12 = new TransactionBuilder(TypicalPersons.ALICE)
+    public static Transaction ALICE_TRANSACTION_12 = new TransactionBuilder(TypicalPersons.ALICE)
             .withId(12)
             .withAmount(-30.0)
             .withDate("14-Oct-2019")
             .build();
-    public static final Transaction BOB_TRANSACTION_13 = new TransactionBuilder(TypicalPersons.BOB)
+    public static Transaction BOB_TRANSACTION_13 = new TransactionBuilder(TypicalPersons.BOB)
             .withId(13)
             .withAmount(-50.0)
             .withDate("26-Oct-2019")
@@ -122,6 +122,31 @@ public class TypicalTransactions {
                 FIONA_TRANSACTION_8, ALICE_TRANSACTION_3, GEORGE_TRANSACTION_7, ELLE_TRANSACTION_6,
                 BENSON_TRANSACTION_2, ALICE_TRANSACTION_4, CARL_TRANSACTION_5));
         return new TransactionList(transactionArrayList);
+    }
+
+    public static void resetTransactionsForReimbursement() {
+        //Transactions for reimbursements
+        ALICE_TRANSACTION_10 = new TransactionBuilder(TypicalPersons.ALICE)
+                .withId(10)
+                .withAmount(-20.0)
+                .withDate("14-Feb-2019")
+                .build();
+        ELLE_TRANSACTION_11 = new TransactionBuilder(TypicalPersons.ELLE)
+                .withId(11)
+                .withAmount(-100)
+                .withDescription("food")
+                .withDate("12-Jun-2019")
+                .build();
+        ALICE_TRANSACTION_12 = new TransactionBuilder(TypicalPersons.ALICE)
+                .withId(12)
+                .withAmount(-30.0)
+                .withDate("14-Oct-2019")
+                .build();
+        BOB_TRANSACTION_13 = new TransactionBuilder(TypicalPersons.BOB)
+                .withId(13)
+                .withAmount(-50.0)
+                .withDate("26-Oct-2019")
+                .build();
     }
 
 }

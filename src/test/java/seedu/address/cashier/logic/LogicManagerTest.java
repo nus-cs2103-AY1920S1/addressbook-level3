@@ -6,19 +6,25 @@ import static seedu.address.cashier.ui.CashierMessages.NO_SUCH_COMMAND;
 import static seedu.address.cashier.ui.CashierMessages.NO_SUCH_INDEX_CASHIER;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalTransactions.resetTransactionsForReimbursement;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.address.cashier.logic.commands.ClearCommand;
 import seedu.address.cashier.logic.commands.CommandResult;
+import seedu.address.cashier.logic.commands.exception.NoCashierFoundException;
 import seedu.address.cashier.model.Model;
 import seedu.address.cashier.model.ModelManager;
 import seedu.address.cashier.storage.Storage;
 import seedu.address.cashier.storage.StorageManager;
+import seedu.address.inventory.model.Item;
 import seedu.address.person.model.UserPrefs;
+import seedu.address.person.model.person.Person;
+import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.TypicalItem;
 import seedu.address.testutil.TypicalTransactions;
 
@@ -64,6 +70,41 @@ public class LogicManagerTest {
             throw new AssertionError("This method should not throw an exception.");
         }
 
+    }
+
+    @Test
+    public void getCashier_successful() throws NoCashierFoundException {
+        resetTransactionsForReimbursement();
+        Person p = new PersonBuilder().build();
+        model.setCashier(p);
+        assertEquals(String.valueOf(p.getName()), logic.getCashier());
+    }
+
+    @Test
+    public void getCashier_failure() throws NoCashierFoundException {
+        resetTransactionsForReimbursement();
+        model.resetCashier();
+        assertEquals("", logic.getCashier());
+    }
+
+    @Test
+    public void getAmount_successful() {
+        resetTransactionsForReimbursement();
+        double amount = model.getTotalAmount();
+        assertEquals(String.valueOf(amount), logic.getAmount());
+    }
+
+    @Test
+    public void getSalesList_successful() throws Exception {
+        resetTransactionsForReimbursement();
+        ArrayList<Item> list = model.getSalesList();
+        assertEquals(list, logic.getSalesList());
+    }
+
+    @Test
+    public void getInventoryList_successful() throws Exception {
+        resetTransactionsForReimbursement();
+        assertEquals(logic.getInventoryList(), model.getInventoryList());
     }
 
     @Test

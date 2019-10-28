@@ -70,5 +70,4 @@ public class LogicManagerTest {
         assertEquals(reimbursementList.toString(), logic.getFilteredList().toString());
     }
 
-
 }

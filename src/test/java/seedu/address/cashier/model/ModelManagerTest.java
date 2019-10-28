@@ -155,6 +155,19 @@ public class ModelManagerTest {
     }
 
     @Test
+    public void addItemByDescription_existingSimilarItem_validItem_successful() throws NoSuchItemException {
+        setInventoryList();
+        int qtyAdded = 5;
+
+        modelManager.addItem(FISH_BURGER.getDescription(), qtyAdded);
+        modelManager.addItem(FISH_BURGER.getDescription(), 3);
+        assertEquals(1, modelManager.getSalesList().size());
+        Item itemAdded = modelManager.findItemByIndex(1);
+        assertEquals(8, itemAdded.getQuantity());
+        modelManager.clearSalesList();
+    }
+
+    @Test
     public void addItemByDescription_invalidItem_failure() {
         assertThrows(NoSuchItemException.class, () -> modelManager.addItem(PHONE_CASE.getDescription(), 5));
     }
@@ -365,6 +378,25 @@ public class ModelManagerTest {
     }
 
     @Test
+    public void getRecommendedItemThatEndSimilarly_successful() throws NoSuchIndexException {
+        setInventoryList2();
+        for (int i = 0; i < modelManager.getInventoryList().size(); i++) {
+            System.out.println(modelManager.getInventoryList().getiArrayList().get(i));
+        }
+        ArrayList<String> expectedList = new ArrayList<>();
+        expectedList.add(BURGER_AND_CHIPS.getDescription());
+        expectedList.add(CHIPS.getDescription());
+
+        // incomplete description
+        ArrayList<String> actualList = modelManager.getRecommendedItems("chips");
+        assertEquals(expectedList.size(), actualList.size());
+        for (int i = 0; i < actualList.size(); i++) {
+            assertEquals(expectedList.get(i), actualList.get(i));
+        }
+        modelManager.clearSalesList();
+    }
+
+    @Test
     public void checkoutAsTransaction_successful() throws NoItemToCheckoutException {
         setInventoryList();
         Person p = new PersonBuilder().build();
@@ -422,7 +454,7 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void equals() {
+    public void equals_successful() {
         // same values -> returns true
         modelManager = new ModelManager(TypicalItem.getTypicalInventoryList(),
                 TypicalTransactions.getTypicalTransactionList());
@@ -449,6 +481,59 @@ public class ModelManagerTest {
 
         modelManager.clearSalesList();
     }
+
+    @Test
+    public void equalsSalesList_successful() {
+        modelManager.addItem(CHIPS);
+        modelManager.addItem(BURGER_AND_CHIPS);
+
+        ArrayList<Item> list = new ArrayList<>();
+        list.add(CHIPS);
+        list.add(BURGER_AND_CHIPS);
+        assertTrue(modelManager.equalsSalesList(list));
+        modelManager.clearSalesList();
+    }
+
+    @Test
+    public  void equalsSalesList_differentSize_failure() {
+        modelManager.addItem(CHIPS);
+
+        ArrayList<Item> list = new ArrayList<>();
+        list.add(CHIPS);
+        list.add(BURGER_AND_CHIPS);
+        assertFalse(modelManager.equalsSalesList(list));
+        modelManager.clearSalesList();
+    }
+
+    @Test
+    public  void equalsSalesList_differentItems_failure() {
+        modelManager.addItem(CHIPS);
+        modelManager.addItem(STORYBOOK);
+
+        ArrayList<Item> list = new ArrayList<>();
+        list.add(CHIPS);
+        list.add(BURGER_AND_CHIPS);
+        assertFalse(modelManager.equalsSalesList(list));
+        modelManager.clearSalesList();
+    }
+
+    @Test
+    public void getCombination_successful() {
+        char[] arr = "Goat".toCharArray();
+        ArrayList<String> arr2 = modelManager.getCombination(arr, arr.length);
+
+        ArrayList<String> expectedArr = new ArrayList<>();
+        expectedArr.add("Goa");
+        expectedArr.add("oat");
+        expectedArr.add("Goat");
+    }
+
+    @Test
+    public void getSubtotal_successful() {
+        double subtotal = CHIPS.getQuantity() * CHIPS.getPrice();
+        assertEquals(modelManager.getSubtotal(CHIPS), subtotal);
+    }
+
 }
 
 

@@ -63,7 +63,9 @@ public class ReimbursementTest {
         Reimbursement reimbursementAlice20 = TypicalReimbursements.ALICE_REIMBURSEMENT_20;
         Reimbursement reimbursementElle = TypicalReimbursements.ELLE_REIMBURSEMENT_100;
         Reimbursement reimbursementAlice30 = TypicalReimbursements.ALICE_REIMBURSEMENT_30;
-
+        System.out.println(reimbursementAlice20);
+        System.out.println(reimbursementAlice30);
+        System.out.println(reimbursementAlice20.comparePerson(reimbursementAlice30));
         assertTrue(reimbursementAlice20.comparePerson(reimbursementAlice30));
         assertFalse(reimbursementAlice20.comparePerson(reimbursementElle));
     }
