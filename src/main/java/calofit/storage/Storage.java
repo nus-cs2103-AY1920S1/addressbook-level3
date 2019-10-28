@@ -8,11 +8,12 @@ import calofit.commons.exceptions.DataConversionException;
 import calofit.model.ReadOnlyUserPrefs;
 import calofit.model.UserPrefs;
 import calofit.model.dish.ReadOnlyDishDatabase;
+import calofit.model.meal.ReadOnlyMealLog;
 
 /**
  * API of the Storage component
  */
-public interface Storage extends DishDatabaseStorage, UserPrefsStorage {
+public interface Storage extends DishDatabaseStorage, MealLogStorage, UserPrefsStorage {
 
     @Override
     Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;
@@ -29,4 +30,12 @@ public interface Storage extends DishDatabaseStorage, UserPrefsStorage {
     @Override
     void saveDishDatabase(ReadOnlyDishDatabase dishDatabase) throws IOException;
 
+    @Override
+    Path getMealLogFilePath();
+
+    @Override
+    Optional<ReadOnlyMealLog> readMealLog() throws DataConversionException, IOException;
+
+    @Override
+    void saveMealLog(ReadOnlyMealLog mealLog) throws IOException;
 }
