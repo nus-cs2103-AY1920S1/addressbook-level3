@@ -8,6 +8,7 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.NoSuchElementException;
 import java.util.PriorityQueue;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -395,7 +396,7 @@ public class ItemModelManager implements ItemModel {
             //Old reminder must be in active since it already rang.
             //Find the old reminder from activeReminders and remove it.
             activeReminders.remove(item);
-            //Put the new reminder in futureReminders.
+            //Put the new reminder in futureReminders if it will be rung later.
             futureReminders.add(newItem);
         }
 
@@ -619,5 +620,9 @@ public class ItemModelManager implements ItemModel {
 
     public Item getItem(int index) {
         return this.visualList.get(index);
+    }
+
+    public Item getLatestOccurredReminder() throws NoSuchElementException {
+        return activeReminders.getLatestOccurredReminder();
     }
 }

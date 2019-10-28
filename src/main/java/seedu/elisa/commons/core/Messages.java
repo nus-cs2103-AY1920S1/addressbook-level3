@@ -17,4 +17,5 @@ public class Messages {
             + "It should be in the format of \"(Positive Integer).(Time unit).later\""
             + "Eg. \"3.hour.later\" or \"10.min.later\"";
 
+    public static final String MESSAGE_NO_PREVIOUS_REMINDER = "There ain't no recent reminder to snooze buddy...";
 }
