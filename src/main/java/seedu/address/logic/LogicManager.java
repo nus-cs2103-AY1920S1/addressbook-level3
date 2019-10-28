@@ -202,4 +202,12 @@ public class LogicManager implements Logic {
         return model.getBackground();
     }
 
+    //=========== Motivational Quotes =============================================================
+
+    @Override
+    public List<String> getMotivationalQuotesList() {
+        return model.getMotivationalQuotesList();
+    }
+
+
 }

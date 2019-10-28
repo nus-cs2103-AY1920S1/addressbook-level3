@@ -7,6 +7,7 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.image.Image?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
@@ -61,6 +62,15 @@
                                    styleClass="pane-with-border" VBox.vgrow="ALWAYS"/>
                     </items>
                 </SplitPane>
+
+                <AnchorPane styleClass="pane-with-border">
+                    <VBox fx:id="motivationalQuotesPlaceholder" alignment="BOTTOM_LEFT" VBox.vgrow="ALWAYS">
+                        <padding>
+                            <Insets top="0" right="10" bottom="0" left="10"/>
+                        </padding>
+                    </VBox>
+                </AnchorPane>
+
             </VBox>
         </Scene>
     </scene>

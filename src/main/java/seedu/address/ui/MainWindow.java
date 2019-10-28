@@ -59,6 +59,7 @@ public class MainWindow extends UiPart<Stage> {
     private HelpWindow helpWindow;
     private MainDisplayPane mainDisplayPane;
     private ReminderListPanel reminderListPanel;
+    private MotivationalQuotesLabel motivationalQuotesLabel;
 
     @FXML
     private Scene scene;
@@ -80,6 +81,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane reminderListPlaceholder;
+
+    @FXML
+    private VBox motivationalQuotesPlaceholder;
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -243,6 +247,9 @@ public class MainWindow extends UiPart<Stage> {
         reminderListPanel = new ReminderListPanel(logic.getPastReminderList());
         reminderListPlaceholder.getChildren().add(reminderListPanel.getRoot());
         logic.schedule();
+
+        motivationalQuotesLabel = new MotivationalQuotesLabel(logic.getMotivationalQuotesList());
+        motivationalQuotesPlaceholder.getChildren().add(motivationalQuotesLabel.getRoot());
     }
 
     /**
