@@ -32,7 +32,7 @@ public class CommandBox extends UiPart<Region> {
         super(FXML);
         this.commandExecutor = commandExecutor;
         new GraphGenerator(logic);
-        this.commandTextField = new AutoCompleteTextField();
+
 //        this.commandTextField = new AutoCompleteTextField(new GraphGenerator(logic));
 
 //        commandTextField.textProperty().addListener((observable, oldValue, newValue) -> {
