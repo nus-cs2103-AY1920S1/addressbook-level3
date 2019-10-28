@@ -58,6 +58,10 @@ public class CustomerContainsKeywordsPredicateTest {
                 new CustomerContainsKeywordsPredicate(Collections.singletonList("12345678"));
         assertTrue(predicate.test(new CustomerBuilder().withContactNumber("12345678").build()));
 
+        // one keyword that matches tags
+        predicate = new CustomerContainsKeywordsPredicate(Collections.singletonList("Rich"));
+        assertTrue(predicate.test(new CustomerBuilder().withTags("Rich").build()));
+
         // Multiple keywords
         predicate = new CustomerContainsKeywordsPredicate(Arrays.asList("Alice", "Bob"));
         assertTrue(predicate.test(new CustomerBuilder().withName("Alice Bob").build()));
@@ -94,6 +98,5 @@ public class CustomerContainsKeywordsPredicateTest {
         // Non-matching keyword
         predicate = new CustomerContainsKeywordsPredicate(Arrays.asList("Carol"));
         assertFalse(predicate.test(new CustomerBuilder().withName("Alice Bob").build()));
-
     }
 }
