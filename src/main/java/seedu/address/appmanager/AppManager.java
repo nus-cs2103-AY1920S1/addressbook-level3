@@ -7,7 +7,7 @@ import java.nio.file.Path;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 
-import seedu.address.appmanager.timer.GameTimerInterface;
+import seedu.address.appmanager.timer.GameTimer;
 import seedu.address.commons.core.GuiSettings;
 
 import seedu.address.logic.Logic;
@@ -29,13 +29,13 @@ import seedu.address.statistics.WordBankStatistics;
 import seedu.address.storage.Storage;
 
 /**
- * Class that wraps around the entire apps logic and the GameTimerImpl. This is done to separate all logic
- * of the game away from the GameTimerImpl entirely, and to separate all GameTimerImpl from the UI itself.
+ * Class that wraps around the entire apps logic and the GameTimerManager. This is done to separate all logic
+ * of the game away from the GameTimerManager entirely, and to separate all GameTimerManager from the UI itself.
  */
 public class AppManager {
 
     private Logic logic;
-    private GameTimerInterface gameTimer = null;
+    private GameTimer gameTimer = null;
     private TimerDisplayCallBack timerDisplayCallBack = null;
     // Call-back method to update ResultDisplay in MainWindow
     private HintDisplayCallBack hintDisplayCallBack = null;
@@ -53,7 +53,7 @@ public class AppManager {
     }
 
     private void setGameTimer(long timeAllowedPerQuestion, int hintFormatSize) {
-        gameTimer = GameTimerInterface.getInstance("Time Left", timeAllowedPerQuestion,
+        gameTimer = GameTimer.getInstance("Time Left", timeAllowedPerQuestion,
                 this.mainWindowExecuteCallBack,
                 this.timerDisplayCallBack,
                 this::requestHintAndCallBack);
@@ -64,7 +64,7 @@ public class AppManager {
     }
 
     /**
-     * Checks if a GameTimerImpl currently exists and terminates it if present.
+     * Checks if a GameTimer currently exists and terminates it if present.
      */
     private void abortAnyExistingGameTimer() {
         if (this.gameTimer != null) {
@@ -74,7 +74,7 @@ public class AppManager {
     }
 
     /**
-     * Processes the input command commandText by passing it through the GameManager's main logic.
+     * Processes the input command commandText by passing it through the AppManager's main logic.
      *
      * @param commandText The command as entered by the user.
      * @return the result of the command execution.
@@ -106,7 +106,7 @@ public class AppManager {
             }
         }
 
-        // GameTimerImpl is always abort when a new command is entered while Game is running.
+        // GameTimerManager is always abort when a new command is entered while Game is running.
         abortAnyExistingGameTimer();
 
         if (commandResult.isPromptingGuess()) {
@@ -203,7 +203,7 @@ public class AppManager {
     }
 
     /**
-     * Call-back functional interface for the GameManager to periodically update the TimerDisplay
+     * Call-back functional interface for the AppManager to periodically update the TimerDisplay
      * component of the UI.
      */
     @FunctionalInterface
@@ -212,7 +212,7 @@ public class AppManager {
     }
 
     /**
-     * Call-back functional interface from GameManager to MainWindow to update the HintDisplay
+     * Call-back functional interface from AppManager to MainWindow to update the HintDisplay
      * component of the UI.
      */
     @FunctionalInterface
@@ -221,7 +221,7 @@ public class AppManager {
     }
 
     /**
-     * Call-back functional interface from GameManager to MainWindow, represents the GameManager sending
+     * Call-back functional interface from AppManager to MainWindow, represents the AppManager sending
      * a command to the app as though it were another user.
      */
     @FunctionalInterface
@@ -230,7 +230,7 @@ public class AppManager {
     }
 
     /**
-     * Call-back functional interface from GameManager to MainWindow to update the QuestionDisplay component
+     * Call-back functional interface from AppManager to MainWindow to update the QuestionDisplay component
      * of the UI.
      */
     @FunctionalInterface

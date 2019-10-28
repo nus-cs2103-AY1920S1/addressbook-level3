@@ -12,7 +12,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 /**
  * Represents a countdown timer that runs during a Game session (if enabled).
  */
-public class GameTimerImpl implements GameTimerInterface {
+public class GameTimerManager implements GameTimer {
 
     private Timer timer;
     private long totalTimeGiven; // the initial time allocated for the timer.
@@ -28,41 +28,22 @@ public class GameTimerImpl implements GameTimerInterface {
     private long nextTimeForHint = -100L;
 
     /**
-     * Creates a new GameTimerImpl instance, but does not run it yet.
+     * Creates a new GameTimerManager instance, but does not run it yet.
      *
      * @param mainMessage String of the message intended to be shown on UI.
      * @param durationInMs Duration that the Timer runs for, in milliseconds.
      * @param mainWindowExecuteCallBack call-back function to send 'skip" command back to MainWindow.
      */
-    public GameTimerImpl(String mainMessage, long durationInMs,
-                         AppManager.MainWindowExecuteCallBack mainWindowExecuteCallBack,
-                         AppManager.TimerDisplayCallBack timerDisplayCallBack,
-                         RequestUpdateHintCallBack requestUpdateHintCallBack) {
+    public GameTimerManager(String mainMessage, long durationInMs,
+                            AppManager.MainWindowExecuteCallBack mainWindowExecuteCallBack,
+                            AppManager.TimerDisplayCallBack timerDisplayCallBack,
+                            RequestUpdateHintCallBack requestUpdateHintCallBack) {
         this.mainMessage = mainMessage;
         this.mainWindowExecuteCallBack = mainWindowExecuteCallBack;
         this.timerDisplayCallBack = timerDisplayCallBack;
         this.requestUpdateHintCallBack = requestUpdateHintCallBack;
         this.totalTimeGiven = durationInMs;
         this.timeLeft = totalTimeGiven;
-        this.timer = new Timer(true);
-    }
-
-    /**
-     * Creates a GameTimerImpl without callback to update hint. Todo: Give a more detailed description
-     * @param mainMessage
-     * @param durationInMs
-     * @param mainWindowExecuteCallBack
-     * @param timerDisplayCallBack
-     */
-    public GameTimerImpl(String mainMessage, long durationInMs,
-                         AppManager.MainWindowExecuteCallBack mainWindowExecuteCallBack,
-                         AppManager.TimerDisplayCallBack timerDisplayCallBack) {
-        this.mainMessage = mainMessage;
-        this.mainWindowExecuteCallBack = mainWindowExecuteCallBack;
-        this.timerDisplayCallBack = timerDisplayCallBack;
-        this.totalTimeGiven = durationInMs;
-        this.timeLeft = totalTimeGiven;
-        this.requestUpdateHintCallBack = () -> {};
         this.timer = new Timer(true);
     }
 

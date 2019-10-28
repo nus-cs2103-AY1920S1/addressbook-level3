@@ -11,14 +11,14 @@ import org.testfx.framework.junit5.Start;
 import javafx.application.Platform;
 import javafx.stage.Stage;
 
-import seedu.address.appmanager.timer.GameTimerImpl;
-import seedu.address.appmanager.timer.GameTimerInterface;
+import seedu.address.appmanager.timer.GameTimer;
+import seedu.address.appmanager.timer.GameTimerManager;
 import seedu.address.logic.commands.CommandResult;
 
 @ExtendWith(ApplicationExtension.class)
-public class GameTimerImplTest {
+public class GameTimerTest {
 
-    private GameTimerInterface dummyTimer;
+    private GameTimer dummyTimer;
     private MainWindowStub mainWindowStub;
     private TimerDisplayStub timerDisplayStub;
     private HintDisplayStub hintDisplayStub;
@@ -39,9 +39,9 @@ public class GameTimerImplTest {
 
             AppManager.MainWindowExecuteCallBack dummyMainCallBack = mainWindowStub::execute;
             AppManager.TimerDisplayCallBack dummyTimerCallBack = timerDisplayStub::updateTimerDisplay;
-            GameTimerImpl.RequestUpdateHintCallBack dummyHintCallBack = hintDisplayStub::requestHint;
+            GameTimerManager.RequestUpdateHintCallBack dummyHintCallBack = hintDisplayStub::requestHint;
 
-            dummyTimer = GameTimerInterface.getInstance("Dummy Message",
+            dummyTimer = GameTimer.getInstance("Dummy Message",
                     10, dummyMainCallBack, dummyTimerCallBack, dummyHintCallBack);
             dummyTimer.run();
             try {
@@ -67,9 +67,9 @@ public class GameTimerImplTest {
 
             AppManager.MainWindowExecuteCallBack dummyMainCallBack = mainWindowStub::execute;
             AppManager.TimerDisplayCallBack dummyTimerCallBack = timerDisplayStub::updateTimerDisplay;
-            GameTimerImpl.RequestUpdateHintCallBack dummyHintCallBack = hintDisplayStub::requestHint;
+            GameTimerManager.RequestUpdateHintCallBack dummyHintCallBack = hintDisplayStub::requestHint;
 
-            dummyTimer = GameTimerInterface.getInstance("Dummy Message",
+            dummyTimer = GameTimer.getInstance("Dummy Message",
                     10, dummyMainCallBack, dummyTimerCallBack, dummyHintCallBack);
             dummyTimer.run();
             Platform.runLater(() -> {
@@ -89,9 +89,9 @@ public class GameTimerImplTest {
 
             AppManager.MainWindowExecuteCallBack dummyMainCallBack = mainWindowStub::execute;
             AppManager.TimerDisplayCallBack dummyTimerCallBack = timerDisplayStub::updateTimerDisplay;
-            GameTimerImpl.RequestUpdateHintCallBack dummyHintCallBack = hintDisplayStub::requestHint;
+            GameTimerManager.RequestUpdateHintCallBack dummyHintCallBack = hintDisplayStub::requestHint;
 
-            dummyTimer = GameTimerInterface.getInstance("Dummy Message",
+            dummyTimer = GameTimer.getInstance("Dummy Message",
                     1000, dummyMainCallBack, dummyTimerCallBack, dummyHintCallBack);
             dummyTimer.abortTimer();
             // abortTimer() is supposed to pass timeLeft = 0 to the timerDisplay.

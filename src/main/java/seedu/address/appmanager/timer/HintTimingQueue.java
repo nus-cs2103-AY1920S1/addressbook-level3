@@ -7,7 +7,7 @@ import seedu.address.model.appsettings.DifficultyEnum;
 
 
 /**
- * Class that represents a queue of timestamps for the GameTimerImpl to request for more hints.
+ * Class that represents a queue of timestamps for the GameTimer to request for more hints.
  */
 public class HintTimingQueue {
     private Queue<Long> hintTimesQueue;
