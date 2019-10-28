@@ -45,6 +45,9 @@ public class CommandTestUtil {
     public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_TAG_FRIEND = "friend";
     public static final String VALID_REMINDER_MESSAGE = "Pay Bill";
+    public static final String VALID_REMINDER_COMMAND_WORD_ADD = "add";
+    public static final String VALID_REMINDER_COMMAND_WORD_DELETE = "delete";
+    public static final String INVALID_REMINDER_COMMAND_WORD = "bla bla";
 
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
@@ -58,11 +61,14 @@ public class CommandTestUtil {
     public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
     public static final String REMINDER_MESSAGE_DESC_VALID = " " + PREFIX_MESSAGE + VALID_REMINDER_MESSAGE;
+    public static final String COMMAND_WORD_DESC_ADD = " " + VALID_REMINDER_COMMAND_WORD_ADD;
+    public static final String COMMAND_WORD_DESC_DELETE = " " + VALID_REMINDER_COMMAND_WORD_DELETE;
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_DATE_DESC = " " + PREFIX_DATE + " "; // blank date
     public static final String INVALID_COST_DESC = " " + PREFIX_COST; // empty string not allowed for cost
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
+    public static final String INVALID_COMMAND_WORD_DESC = " " + INVALID_REMINDER_COMMAND_WORD;
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";

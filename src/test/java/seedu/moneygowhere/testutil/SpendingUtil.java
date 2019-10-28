@@ -12,6 +12,7 @@ import java.util.Set;
 import seedu.moneygowhere.logic.commands.AddCommand;
 import seedu.moneygowhere.logic.commands.EditCommand.EditSpendingDescriptor;
 import seedu.moneygowhere.logic.commands.ReminderCommand;
+import seedu.moneygowhere.logic.commands.reminder.AddReminderCommand;
 import seedu.moneygowhere.model.reminder.Reminder;
 import seedu.moneygowhere.model.spending.Spending;
 import seedu.moneygowhere.model.tag.Tag;
@@ -31,8 +32,9 @@ public class SpendingUtil {
     /**
      * Returns a reminder command string for adding the {@code Reminder}.
      */
-    public static String getReminderCommand(Reminder reminder) {
-        return ReminderCommand.COMMAND_WORD + " " + getReminderDetails(reminder);
+    public static String getAddReminderCommand(Reminder reminder) {
+        return ReminderCommand.COMMAND_WORD + " " + AddReminderCommand.COMMAND_WORD + " "
+                + getReminderDetails(reminder);
     }
 
     /**

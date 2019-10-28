@@ -1,16 +1,14 @@
 package seedu.moneygowhere.logic.parser;
 
 import static seedu.moneygowhere.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.moneygowhere.logic.parser.CliSyntax.PREFIX_DATE;
-import static seedu.moneygowhere.logic.parser.CliSyntax.PREFIX_MESSAGE;
 
-import java.util.stream.Stream;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import seedu.moneygowhere.logic.commands.ReminderCommand;
+import seedu.moneygowhere.logic.commands.reminder.AddReminderCommand;
+import seedu.moneygowhere.logic.commands.reminder.DeleteReminderCommand;
 import seedu.moneygowhere.logic.parser.exceptions.ParseException;
-import seedu.moneygowhere.model.reminder.Reminder;
-import seedu.moneygowhere.model.reminder.ReminderMessage;
-import seedu.moneygowhere.model.spending.Date;
 
 /**
  * Parses input arguments and creates a new AddCommand object
@@ -18,33 +16,31 @@ import seedu.moneygowhere.model.spending.Date;
 public class ReminderCommandParser implements Parser<ReminderCommand> {
 
     /**
+     * Used for initial separation of command word and args.
+     */
+    private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
+
+    /**
      * Parses the given {@code String} of arguments in the context of the AddCommand and returns an AddCommand object
      * for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
     public ReminderCommand parse(String args) throws ParseException {
-        ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_DATE, PREFIX_MESSAGE);
+        final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(args.trim());
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_DATE, PREFIX_MESSAGE)
-                || !argMultimap.getPreamble().isEmpty()) {
+        if (!matcher.matches()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ReminderCommand.MESSAGE_USAGE));
         }
 
-        Date date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get());
-        ReminderMessage message = ParserUtil.parseMessage(argMultimap.getValue(PREFIX_MESSAGE).get());
+        final String secondaryCommandWord = matcher.group("commandWord");
+        final String arguments = matcher.group("arguments");
 
-        Reminder reminder = new Reminder(date, message);
-
-        return new ReminderCommand(reminder);
+        if (secondaryCommandWord.equals(AddReminderCommand.COMMAND_WORD)) {
+            return new AddReminderCommandParser().parse(arguments);
+        } else if (secondaryCommandWord.equals(DeleteReminderCommand.COMMAND_WORD)) {
+            return new DeleteReminderCommandParser().parse(arguments);
+        } else {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ReminderCommand.MESSAGE_USAGE));
+        }
     }
-
-    /**
-     * Returns true if none of the prefixes contains empty {@code Optional} values in the given {@code
-     * ArgumentMultimap}.
-     */
-    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
-    }
-
 }
