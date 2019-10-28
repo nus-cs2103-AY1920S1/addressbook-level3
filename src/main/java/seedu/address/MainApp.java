@@ -205,7 +205,7 @@ public class MainApp extends Application {
                     UpdateCommand up = new UpdateCommand(notif.getBody().getIdNum(), new UpdateBodyDescriptor(body));
                     up.setUpdateFromNotif(true);
                     up.execute(model);
-                    // storage.saveAddressBook(model.getAddressBook());
+                    storage.saveAddressBook(model.getAddressBook());
                 } else {
                     NotifCommand notifCommand = new NotifCommand(notif, notifPeriod, TimeUnit.MILLISECONDS);
                     notifCommand.execute(model);
