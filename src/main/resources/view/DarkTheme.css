@@ -123,16 +123,24 @@
     -fx-border-width: 2;
 }
 
-.card:focused > .stack-pane-days {
-    -fx-background-color: #588fa8;
+.card:focused > .remind {
+    -fx-background-color: #b59f30;
 }
 
 .remind {
     -fx-background-color: #9c892a;
 }
 
+.card:focused > .expired {
+    -fx-background-color: #934d59;
+}
+
 .expired {
-    -fx-background-color: #8a4857;
+    -fx-background-color: #80444e;
+}
+
+.card:focused > .healthy {
+    -fx-background-color: #729d53;
 }
 
 .healthy {

@@ -1,5 +1,7 @@
 package io.xpire.logic.commands;
 
+import static io.xpire.commons.core.Messages.MESSAGE_REMINDER_THRESHOLD_EXCEEDED;
+import static io.xpire.commons.core.Messages.MESSAGE_THRESHOLD_ITEM_EXPIRED;
 import static io.xpire.commons.util.CollectionUtil.requireAllNonNull;
 import static java.util.Objects.requireNonNull;
 
@@ -54,14 +56,38 @@ public class SetReminderCommand extends Command {
         }
 
         Item itemToSetReminder = lastShownList.get(this.index.getZeroBased());
-        Item editedItem = itemToSetReminder;
-        editedItem.setReminderThreshold(this.threshold);
 
-        model.setItem(itemToSetReminder, editedItem);
+        if (itemToSetReminder.isExpired()) {
+            throw new CommandException(MESSAGE_THRESHOLD_ITEM_EXPIRED);
+        }
+
+        ReminderThreshold finalThreshold = getValidThreshold(itemToSetReminder);
+
+        itemToSetReminder.setReminderThreshold(finalThreshold);
+
+        model.setItem(itemToSetReminder, itemToSetReminder);
         model.updateFilteredItemList(Model.PREDICATE_SHOW_ALL_ITEMS);
-        return new CommandResult(this.threshold.getValue() > 0
-                ? String.format(MESSAGE_SUCCESS_SET, this.index.getOneBased(), this.threshold)
-                : String.format(MESSAGE_SUCCESS_RESET, this.index.getOneBased()));
+        if (isThresholdExceeded(itemToSetReminder)) {
+            return new CommandResult(MESSAGE_REMINDER_THRESHOLD_EXCEEDED);
+        } else {
+            return new CommandResult(this.threshold.getValue() > 0
+                    ? String.format(MESSAGE_SUCCESS_SET, this.index.getOneBased(), this.threshold)
+                    : String.format(MESSAGE_SUCCESS_RESET, this.index.getOneBased()));
+        }
+    }
+
+    private boolean isThresholdExceeded(Item item) {
+        return !ReminderThreshold.isValidReminderThreshold(
+                this.threshold.toString(), item.getExpiryDate());
+    }
+
+    private ReminderThreshold getValidThreshold(Item item) {
+        if (isThresholdExceeded(item)) {
+            return new ReminderThreshold(item.getExpiryDate().getStatus());
+        } else {
+            return this.threshold;
+        }
+
     }
 
     @Override
