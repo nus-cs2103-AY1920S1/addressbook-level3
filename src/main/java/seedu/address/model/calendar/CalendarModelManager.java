@@ -16,6 +16,7 @@ import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.logic.calendar.commands.GoCommand;
 import seedu.address.model.calendar.task.Task;
 
 /**
@@ -135,7 +136,9 @@ public class CalendarModelManager implements CalendarModel {
      */
     @Override
     public ObservableList<Task> getFilteredTaskList() {
-        return filteredTasks;
+        FilteredList<Task> currentTasks = new FilteredList<>(filteredTasks);
+        currentTasks.setPredicate(task -> task.isPersistent() || task.getWeek() == GoCommand.getCurrentWeek());
+        return currentTasks;
     }
 
     @Override

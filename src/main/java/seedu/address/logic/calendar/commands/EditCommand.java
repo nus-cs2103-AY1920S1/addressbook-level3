@@ -81,6 +81,11 @@ public class EditCommand extends Command {
         Task taskToEdit = lastShownList.get(index.getZeroBased());
         Task editedTask = createEditedPerson(taskToEdit, editPersonDescriptor);
 
+        if (!taskToEdit.getTaskDeadline().getValue().equals(editedTask.getTaskDeadline().getValue())
+            && taskToEdit.isPersistent()) {
+            throw new CommandException("Cant edit deadline of module task");
+        }
+
         if (!taskToEdit.isSameTask(editedTask) && calendarModel.hasTask(editedTask)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
