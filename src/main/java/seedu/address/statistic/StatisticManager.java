@@ -32,6 +32,7 @@ public class StatisticManager implements Statistic {
     @Override
     public XYChart.Series<String, Number> calculateTotalProfitOnCompletedGraph(ReadOnlyDataBook<Order> orderBook,
                                                                                 StatsPayload statsPayload) {
+        requireAllNonNull(orderBook, statsPayload);
         //filter the list of orders to be only the orders within the starting and ending date.
         //dummy data here to test, should be passing orderBook straight in
         List<Order> listOfFilteredOrders = getFilteredOrderListByDate(orderBook,
@@ -56,6 +57,7 @@ public class StatisticManager implements Statistic {
     @Override
     public XYChart.Series<String, Number> calculateTotalRevenueOnCompletedGraph(ReadOnlyDataBook<Order> orderBook,
                                                                      StatsPayload statsPayload) {
+        requireAllNonNull(orderBook, statsPayload);
         //filter the list of orders to be only the orders within the starting and ending date.
         //dummy data here to test, should be passing orderBook straight in
         List<Order> listOfFilteredOrders = getFilteredOrderListByDate(orderBook,
@@ -81,6 +83,7 @@ public class StatisticManager implements Statistic {
     @Override
     public XYChart.Series<String, Number> calculateTotalCostOnCompletedGraph(ReadOnlyDataBook<Order> orderBook,
                                                                                StatsPayload statsPayload) {
+        requireAllNonNull(orderBook, statsPayload);
         //filter the list of orders to be only the orders within the starting and ending date.
         //dummy data here to test, should be passing orderBook straight in
         List<Order> listOfFilteredOrders = getFilteredOrderListByDate(orderBook,
@@ -89,7 +92,7 @@ public class StatisticManager implements Statistic {
 
         // returns a list of Months between starting and ending date.
         List<Calendar> listOfMonth = DateUtil.getListOfYearMonth(statsPayload);
-        //listOfMonth.forEach(x -> System.out.println(x));
+
         XYChart.Series<String, Number> series = new XYChart.Series<>();
 
         // loops through the list of months, for each month, calculate the cost for all orders in that month
@@ -106,6 +109,7 @@ public class StatisticManager implements Statistic {
     @Override
     public String calculateTotalProfitOnCompleted(ReadOnlyDataBook<Order> orderBook,
                                                   StatsPayload statsPayload) {
+        requireAllNonNull(orderBook, statsPayload);
         double revenue = this.getTotalRevenue(orderBook, statsPayload);
         double cost = this.getTotalCost(orderBook, statsPayload);
         double totalProfit = revenue - cost;
@@ -161,22 +165,20 @@ public class StatisticManager implements Statistic {
         double[] doubleProfitList =
                 StatisticManager.checkIfOrderIsPresent(orderList.stream())
                         .filter(currentOrder ->
-                               DateUtil.extractMonth(currentOrder) == month.get(2)
-                                        && DateUtil.extractYear(currentOrder) == month.get(1))
+                               DateUtil.extractMonth(currentOrder) == month.get(Calendar.MONTH)
+                                        && DateUtil.extractYear(currentOrder) == month.get(Calendar.YEAR))
                         .map(currentOrder ->
                                 profitFormatter.format(MoneyUtil.convertToDouble(currentOrder.getPrice())
                                 -
                                 MoneyUtil.convertToDouble(currentOrder.getPhone().getCost())))
                         .collect(Collectors.toList())
                         .stream()
-                        .mapToDouble(d -> Double.parseDouble(d)).toArray();
+                        .mapToDouble(Double::parseDouble).toArray();
         return StatUtils.sum(doubleProfitList);
     }
 
     /**
      * Takes in an orderlist, calculates the revenue of all orders in this month
-     * @param orderList list of Orders
-     * @param month the month
      */
     private static double calculateRevenueByMonth(List<Order> orderList, Calendar month) {
         double[] doubleRevenueList =
@@ -221,7 +223,6 @@ public class StatisticManager implements Statistic {
 
     /*-----Methods that deal with returning double[]----*/
     private static double[] getDoubleOrderPriceArray(ReadOnlyDataBook<Order> orderBook, StatsPayload statsPayload) {
-        ObservableList<Order> orderList = orderBook.getList();
         List<Double> completedOrderPriceList = getFilteredOrderListByDate(orderBook, statsPayload)
                 .map(currentOrder -> MoneyUtil.convertToDouble(currentOrder.getPrice()))
                 .collect(Collectors.toList());
@@ -247,13 +248,11 @@ public class StatisticManager implements Statistic {
     private static Stream<Order> getFilteredOrderListByDate(ReadOnlyDataBook<Order> orderBook,
                                                             StatsPayload statsPayload) {
         ObservableList<Order> orderList = orderBook.getList();
-        Stream<Order> filteredOrderListByDate =
-                StatisticManager.checkIfOrderIsPresent(orderList.stream())
-                        .filter(currentOrder -> statsPayload.getStartingDate().compareTo(
-                                currentOrder.getSchedule().get().getCalendar()) <= 0)
-                        .filter(currentOrder -> statsPayload.getEndingDate().compareTo(
-                                currentOrder.getSchedule().get().getCalendar()) > 0);
-        return filteredOrderListByDate;
+        return StatisticManager.checkIfOrderIsPresent(orderList.stream())
+                .filter(currentOrder -> statsPayload.getStartingDate().compareTo(
+                        currentOrder.getSchedule().get().getCalendar()) <= 0)
+                .filter(currentOrder -> statsPayload.getEndingDate().compareTo(
+                        currentOrder.getSchedule().get().getCalendar()) > 0);
     }
 }
 
