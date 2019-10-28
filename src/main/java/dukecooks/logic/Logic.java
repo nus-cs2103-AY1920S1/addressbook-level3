@@ -12,6 +12,7 @@ import dukecooks.model.dashboard.components.Dashboard;
 import dukecooks.model.diary.ReadOnlyDiary;
 import dukecooks.model.diary.components.Diary;
 import dukecooks.model.health.components.Record;
+import dukecooks.model.mealplan.ReadOnlyMealPlanBook;
 import dukecooks.model.profile.ReadOnlyUserProfile;
 import dukecooks.model.profile.person.Person;
 import dukecooks.model.recipe.ReadOnlyRecipeBook;
@@ -36,9 +37,16 @@ public interface Logic {
     /**
      * Returns RecipeBook.
      *
-     * @see RecipeModel#getRecipeBook()
+     * @see Model#getRecipeBook()
      */
     ReadOnlyRecipeBook getRecipeBook();
+
+    /**
+     * Returns MealPlanBook.
+     *
+     * @see Model#getMealPlanBook()
+     */
+    ReadOnlyMealPlanBook getMealPlanBook();
 
     /**
      * Returns TodoRecords.
