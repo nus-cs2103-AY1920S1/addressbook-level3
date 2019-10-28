@@ -2,42 +2,40 @@ package seedu.address.calendar.commands;
 
 import seedu.address.calendar.model.Calendar;
 import seedu.address.calendar.model.event.Trip;
-import seedu.address.calendar.model.event.exceptions.ClashException;
-import seedu.address.calendar.model.event.exceptions.DuplicateEventException;
 import seedu.address.calendar.parser.CliSyntax;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 
-public class AddTripCommand extends AddCommand {
+import java.util.NoSuchElementException;
+
+public class DeleteTripCommand extends DeleteCommand {
     public static final String COMMAND_WORD = "trip";
-    public static final String MESSAGE_USAGE = AddCommand.COMMAND_WORD + " " + COMMAND_WORD
-            + ": Adds a trip to the specified date(s)"
+    public static final String MESSAGE_USAGE = DeleteCommand.COMMAND_WORD + " " + COMMAND_WORD
+            + ": Deletes the specified trip that happens on the specified date(s)"
             + CliSyntax.PREFIX_START_DAY + " START DAY "
             + "[" + CliSyntax.PREFIX_START_MONTH + " START MONTH] "
             + "[" + CliSyntax.PREFIX_START_YEAR + "START YEAR] "
             + "[" + CliSyntax.PREFIX_END_DAY + " START DAY] "
             + "[" + CliSyntax.PREFIX_END_MONTH + " START MONTH] "
             + "[" + CliSyntax.PREFIX_END_YEAR + "START YEAR] "
-            + CliSyntax.PREFIX_NAME + " NAME "
-            + "[" + CliSyntax.PREFIX_INFO + " INFO]" + "\n"
-            + "Example: " + AddCommand.COMMAND_WORD + " " + COMMAND_WORD + " " + CliSyntax.PREFIX_START_DAY + " 9 "
-            + CliSyntax.PREFIX_START_MONTH + " Dec " + CliSyntax.PREFIX_NAME + " 1 day at Johor "
-            + CliSyntax.PREFIX_INFO + " with friends";
+            + CliSyntax.PREFIX_NAME + " NAME " + "\n"
+            + "Example: " + DeleteCommand.COMMAND_WORD + " " + COMMAND_WORD + " " + CliSyntax.PREFIX_START_DAY + " 9 "
+            + CliSyntax.PREFIX_START_MONTH + " Dec " + CliSyntax.PREFIX_NAME + " 1 day at Johor";
 
     private Trip trip;
 
-    public AddTripCommand(Trip trip) {
+    public DeleteTripCommand(Trip trip) {
         this.trip = trip;
     }
 
     public CommandResult execute(Calendar calendar) throws CommandException {
         try {
-            calendar.addEvent(trip);
-        } catch (DuplicateEventException | ClashException e) {
+            calendar.deleteEvent(trip);
+        } catch (NoSuchElementException e) {
             throw new CommandException(e.getMessage());
         }
 
-        String formattedFeedback = String.format(MESSAGE_ADD_SUCCESS, trip.toString());
+        String formattedFeedback = String.format(MESSAGE_DELETE_SUCCESS, trip.toString());
         return new CommandResult(formattedFeedback);
     }
 }
