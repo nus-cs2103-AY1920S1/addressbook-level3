@@ -27,8 +27,7 @@ public class AddMemberCommand extends Command {
             + PREFIX_NAME + "John Doe "
             + PREFIX_PHONE + "98765432 "
             + PREFIX_EMAIL + "johnd@example.com "
-            + PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25 "
-            + PREFIX_TAG + "Co-Team Leader ";
+            + PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25 ";
 
     public static final String MESSAGE_SUCCESS = "New member added to %2$s";
     public static final String MESSAGE_SUCCESS_MISSING_FIELDS = MESSAGE_SUCCESS + " (Please remember to fill in remaining information for member)";
