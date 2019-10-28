@@ -1,5 +1,11 @@
 package seedu.address.testutil;
 
+import static seedu.address.logic.commands.CommandTestUtil.VALID_AMOUNT_FUNDRAISING;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_AMOUNT_SHIRTSALES;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_FUNDRAISING;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_SHIRTSALES;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_FUNDRAISING;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_SHIRTSALES;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
@@ -15,6 +21,7 @@ import java.util.List;
 
 import seedu.address.model.FinSec;
 import seedu.address.model.contact.Contact;
+import seedu.address.model.income.Income;
 
 /**
  * A utility class containing a list of {@code FinSec} objects to be used in tests.
@@ -54,6 +61,14 @@ public class TypicalObjects {
             .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB)
             .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
 
+    public static final Income INCOME_1 = new IncomeBuilder().withName(VALID_NAME_AMY)
+            .withPhone(VALID_PHONE_AMY).withDescription(VALID_DESCRIPTION_FUNDRAISING)
+            .withAmount(VALID_AMOUNT_FUNDRAISING).withDate(VALID_DATE_FUNDRAISING).build();
+
+    public static final Income INCOME_2 = new IncomeBuilder().withName(VALID_NAME_BOB)
+            .withPhone(VALID_PHONE_BOB).withDescription(VALID_DESCRIPTION_SHIRTSALES)
+            .withAmount(VALID_AMOUNT_SHIRTSALES).withDate(VALID_DATE_SHIRTSALES).build();
+
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 
     private TypicalObjects() {} // prevents instantiation
@@ -63,13 +78,25 @@ public class TypicalObjects {
      */
     public static FinSec getTypicalFinSec() {
         FinSec fs = new FinSec();
+
+        //adding contacts into a test finsec
         for (Contact contact : getTypicalContacts()) {
             fs.addContact(contact);
         }
+
+        //adding the incomes into a test finsec
+        for (Income income : getTypicalIncomes()) {
+            fs.addIncome(income);
+        }
+
         return fs;
     }
 
     public static List<Contact> getTypicalContacts() {
         return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
+    }
+
+    public static List<Income> getTypicalIncomes() {
+        return new ArrayList<>(Arrays.asList(INCOME_1, INCOME_2));
     }
 }

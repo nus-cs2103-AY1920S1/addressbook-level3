@@ -1,6 +1,5 @@
 package seedu.address.testutil;
 
-import seedu.address.commons.exceptions.ViewException;
 import seedu.address.model.View;
 
 /**
@@ -8,54 +7,10 @@ import seedu.address.model.View;
  */
 public class Views {
 
-    private static View firstView;
+    public static final View FIRST_VIEW = new View("contacts", 1);
 
-    static {
-        try {
-            firstView = new View("contacts", 1);
-        } catch (ViewException e) {
-            e.printStackTrace();
-        }
-    }
+    public static final View SECOND_VIEW = new View("claims", 2);
 
-    private static View secondView;
+    public static final View THIRD_VIEW = new View("incomes", 3);
 
-    static {
-        try {
-            secondView = new View("claims", 2);
-        } catch (ViewException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private static View thirdView;
-
-    static {
-        try {
-            thirdView = new View("incomes", 3);
-        } catch (ViewException e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * Gets the view
-     */
-    public static View getFirstView() {
-        return firstView;
-    }
-
-    /**
-     * Gets the view
-     */
-    public static View getSecondView() {
-        return secondView;
-    }
-
-    /**
-     * Gets the view
-     */
-    public static View getThirdView() {
-        return thirdView;
-    }
 }
