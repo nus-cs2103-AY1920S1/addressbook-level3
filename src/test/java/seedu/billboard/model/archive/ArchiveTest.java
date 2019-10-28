@@ -35,11 +35,6 @@ public class ArchiveTest {
     }
 
     @Test
-    public void setArchive_nullExpenseList_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> archive.setArchive(null));
-    }
-
-    @Test
     public void getArchiveName_correctArchiveNameReturned_success() {
         assertEquals(VALID_ARCHIVE_TAXES, archive.getArchiveName());
     }
@@ -47,6 +42,18 @@ public class ArchiveTest {
     @Test
     public void getArchiveName_incorrectArchiveNameReturned_fail() {
         assertNotEquals(VALID_ARCHIVE_DINNER, archive.getArchiveName());
+    }
+
+    @Test
+    public void setArchive_nullExpenseList_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> archive.setArchive(null));
+    }
+
+    @Test
+    public void setArchive_emptyExpenseList_success() {
+        archive.add(TAXES);
+        archive.setArchive(new ArrayList<>());
+        assertEquals(new ArrayList<>(), archive.asUnmodifiableObservableList());
     }
 
     @Test
@@ -60,13 +67,28 @@ public class ArchiveTest {
     }
 
     @Test
-    public void equals_sameArchive_success() {
+    public void equals_sameObject_success() {
+        assertEquals(archive, archive);
+    }
+
+    @Test
+    public void equals_sameValues_success() {
         assertEquals(new Archive(VALID_ARCHIVE_TAXES, new ArrayList<>()), archive);
     }
 
     @Test
-    public void equals_differentArchive_fail() {
+    public void equals_differentTypes_failure() {
+        assertNotEquals(1, archive);
+    }
+
+    @Test
+    public void equals_differentArchive_failure() {
         assertNotEquals(new Archive(VALID_ARCHIVE_DINNER, new ArrayList<>()), archive);
+    }
+
+    @Test
+    public void equals_null_failure() {
+        assertNotEquals(null, archive);
     }
 
     @Test
