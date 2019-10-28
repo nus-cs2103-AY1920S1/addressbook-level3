@@ -18,10 +18,19 @@ import com.dukeacademy.testexecutor.exceptions.IncorrectCanonicalNameException;
  * from the root classpath. Guarantees that the contents of the JavaFile matches the canonical name at creation.
  */
 public class JavaFile {
-    private static Logger logger = LogsCenter.getLogger(JavaFile.class);
-    private String canonicalName;
-    private String classPath;
+    private static final Logger logger = LogsCenter.getLogger(JavaFile.class);
+    private final String canonicalName;
+    private final String classPath;
 
+    /**
+     * Instantiates a new Java file.
+     *
+     * @param canonicalName the canonical name
+     * @param classPath     the class path
+     * @throws FileNotFoundException           the file not found exception
+     * @throws IncorrectCanonicalNameException the incorrect canonical name exception
+     * @throws JavaFileCreationException       the java file creation exception
+     */
     public JavaFile(String canonicalName, String classPath) throws FileNotFoundException,
             IncorrectCanonicalNameException, JavaFileCreationException {
         this.canonicalName = canonicalName;
@@ -38,18 +47,38 @@ public class JavaFile {
         }
     }
 
+    /**
+     * Gets canonical name.
+     *
+     * @return the canonical name
+     */
     public String getCanonicalName() {
         return this.canonicalName;
     }
 
+    /**
+     * Gets class path.
+     *
+     * @return the class path
+     */
     public String getClassPath() {
         return this.classPath;
     }
 
+    /**
+     * Gets absolute path.
+     *
+     * @return the absolute path
+     */
     public String getAbsolutePath() {
         return Paths.get(classPath).resolve(canonicalName.replace(".", File.separator) + ".java").toString();
     }
 
+    /**
+     * Gets file.
+     *
+     * @return the file
+     */
     public File getFile() {
         return new File(this.getAbsolutePath());
     }

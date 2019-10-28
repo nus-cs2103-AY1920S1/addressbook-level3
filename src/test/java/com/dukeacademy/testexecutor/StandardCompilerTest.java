@@ -20,17 +20,16 @@ import com.dukeacademy.testexecutor.exceptions.IncorrectCanonicalNameException;
 import com.dukeacademy.testexecutor.models.JavaFile;
 
 class StandardCompilerTest {
-    @TempDir
-    public Path tempFolder;
+    @TempDir public Path tempFolder;
 
-    private UserProgram validProgram = new UserProgram("ValidTest",
+    private final UserProgram validProgram = new UserProgram("ValidTest",
             "public class ValidTest {\n"
                     + "\tpublic static void main(String args[]) {"
                     + "\t\tSystem.out.println(\"Hello world\");"
                     + "\t}"
                     + "\n}");
 
-    private UserProgram nestedProgram = new UserProgram("ValidTest1",
+    private final UserProgram nestedProgram = new UserProgram("ValidTest1",
             "public class ValidTest1 {\n"
                     + "\tclass NestedClass {\n"
                     + "\t\tprivate int x = 0;\n"
@@ -40,13 +39,12 @@ class StandardCompilerTest {
                     + "\t}"
                     + "\n}");
 
-    private UserProgram compileErrorProgram = new UserProgram("FooBar",
+    private final UserProgram compileErrorProgram = new UserProgram("FooBar",
             "public class FooBar {\n\t"
                     + "int a  = \"I am a string!\"\n"
                     + "}");
 
-    @Test
-    public void testCompileProgram() throws CompilerException, CompilerFileContentException,
+    @Test void testCompileProgram() throws CompilerException, CompilerFileContentException,
             IOException, JavaFileCreationException, IncorrectCanonicalNameException {
         Path testFolder = tempFolder.resolve("compile_test");
         testFolder.toFile().mkdirs();
@@ -75,8 +73,7 @@ class StandardCompilerTest {
         assertTrue(validClassFilePath2.toFile().exists());
     }
 
-    @Test
-    public void testCompileProgram_invalid() throws IOException, JavaFileCreationException,
+    @Test void testCompileProgram_invalid() throws IOException, JavaFileCreationException,
             IncorrectCanonicalNameException {
         Path testFolder = tempFolder.resolve("compileInvalid_test");
         testFolder.toFile().mkdirs();

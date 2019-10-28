@@ -14,11 +14,10 @@ import com.dukeacademy.model.question.QuestionBank;
 import com.dukeacademy.model.question.StandardQuestionBank;
 import com.dukeacademy.storage.question.JsonQuestionBankStorage;
 
-public class JsonQuestionBankStorageTest {
+class JsonQuestionBankStorageTest {
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonQuestionBankStorageTest");
 
-    @Test
-    public void readQuestionBank_nullFilePath_throwsNullPointerException() {
+    @Test void readQuestionBank_nullFilePath_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> readQuestionBank(null));
     }
 
@@ -32,29 +31,26 @@ public class JsonQuestionBankStorageTest {
                 : null;
     }
 
-    @Test
-    public void read_missingFile_emptyResult() throws Exception {
+    @Test void read_missingFile_emptyResult() throws Exception {
         assertFalse(readQuestionBank("NonExistentFile.json").isPresent());
     }
 
-    @Test
-    public void read_notJsonFormat_exceptionThrown() {
+    @Test void read_notJsonFormat_exceptionThrown() {
         assertThrows(DataConversionException.class, () -> readQuestionBank("notJsonFormatQuestionBank.json"));
     }
 
     @Test
-    public void readQuestionBank_invalidQuestionQuestionBank_throwDataConversionException() {
+    void readQuestionBank_invalidQuestionQuestionBank_throwDataConversionException() {
         assertThrows(DataConversionException.class, () -> readQuestionBank("invalidQuestionQuestionBank.json"));
     }
 
     @Test
-    public void readQuestionBank_invalidAndValidQuestionQuestionBank_throwDataConversionException() {
+    void readQuestionBank_invalidAndValidQuestionQuestionBank_throwDataConversionException() {
         assertThrows(DataConversionException.class, () -> readQuestionBank(
             "invalidAndValidQuestionQuestionBank.json"));
     }
 
-    @Test
-    public void readAndSaveQuestionBank_allInOrder_success() throws Exception {
+    @Test void readAndSaveQuestionBank_allInOrder_success() throws Exception {
         // Path filePath = testFolder.resolve("TempQuestionBank.json");
         // StandardQuestionBank original = getTypicalQuestionBank();
         // JsonQuestionBankStorage
@@ -81,8 +77,7 @@ public class JsonQuestionBankStorageTest {
 
     }
 
-    @Test
-    public void saveQuestionBank_nullQuestionBank_throwsNullPointerException() {
+    @Test void saveQuestionBank_nullQuestionBank_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> saveQuestionBank(null, "SomeFile.json"));
     }
 
@@ -100,8 +95,7 @@ public class JsonQuestionBankStorageTest {
         }
     }
 
-    @Test
-    public void saveQuestionBank_nullFilePath_throwsNullPointerException() {
+    @Test void saveQuestionBank_nullFilePath_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> saveQuestionBank(new StandardQuestionBank(), null));
     }
 

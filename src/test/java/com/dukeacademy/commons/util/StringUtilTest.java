@@ -11,12 +11,11 @@ import org.junit.jupiter.api.Test;
 
 import com.dukeacademy.commons.exceptions.IllegalValueException;
 
-public class StringUtilTest {
+class StringUtilTest {
 
     //---------------- Tests for isNonZeroUnsignedInteger --------------------------------------
 
-    @Test
-    public void isNonZeroUnsignedInteger() {
+    @Test void isNonZeroUnsignedInteger() {
 
         // EP: empty strings
         assertFalse(StringUtil.isNonZeroUnsignedInteger("")); // Boundary value
@@ -57,25 +56,22 @@ public class StringUtilTest {
      * The four test cases below test one invalid input at a time.
      */
 
-    @Test
-    public void containsWordIgnoreCase_nullWord_throwsNullPointerException() {
+    @Test void containsWordIgnoreCase_nullWord_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> StringUtil.containsWordIgnoreCase("typical sentence", null));
     }
 
-    @Test
-    public void containsWordIgnoreCase_emptyWord_throwsIllegalArgumentException() {
+    @Test void containsWordIgnoreCase_emptyWord_throwsIllegalArgumentException() {
         assertThrows(IllegalArgumentException.class, "Word parameter cannot be empty", ()
             -> StringUtil.containsWordIgnoreCase("typical sentence", "  "));
     }
 
     @Test
-    public void containsWordIgnoreCase_multipleWords_throwsIllegalArgumentException() {
+    void containsWordIgnoreCase_multipleWords_throwsIllegalArgumentException() {
         assertThrows(IllegalArgumentException.class, "Word parameter should be a single word", ()
             -> StringUtil.containsWordIgnoreCase("typical sentence", "aaa BBB"));
     }
 
-    @Test
-    public void containsWordIgnoreCase_nullSentence_throwsNullPointerException() {
+    @Test void containsWordIgnoreCase_nullSentence_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> StringUtil.containsWordIgnoreCase(null, "abc"));
     }
 
@@ -104,8 +100,7 @@ public class StringUtilTest {
      * The test method below tries to verify all above with a reasonably low number of test cases.
      */
 
-    @Test
-    public void containsWordIgnoreCase_validInputs_correctResult() {
+    @Test void containsWordIgnoreCase_validInputs_correctResult() {
 
         // Empty sentence
         assertFalse(StringUtil.containsWordIgnoreCase("", "abc")); // Boundary case
@@ -132,14 +127,12 @@ public class StringUtilTest {
      * Equivalence Partitions: null, valid throwable object
      */
 
-    @Test
-    public void getDetails_exceptionGiven() {
+    @Test void getDetails_exceptionGiven() {
         assertTrue(StringUtil.getDetails(new FileNotFoundException("file not found"))
             .contains("java.io.FileNotFoundException: file not found"));
     }
 
-    @Test
-    public void getDetails_nullGiven_throwsNullPointerException() {
+    @Test void getDetails_nullGiven_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> StringUtil.getDetails(null));
     }
 

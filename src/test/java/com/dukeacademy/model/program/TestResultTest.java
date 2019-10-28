@@ -13,21 +13,21 @@ import org.junit.jupiter.api.Test;
 import com.dukeacademy.testexecutor.models.CompileError;
 
 class TestResultTest {
-    private List<TestCaseResult> resultsSetA = List.of(new TestCaseResult[] {
+    private final List<TestCaseResult> resultsSetA = List.of(new TestCaseResult[] {
             TestCaseResult.getSuccessfulTestCaseResult("1", "2"),
             TestCaseResult.getFailedTestCaseResult("2", "200", "300"),
             TestCaseResult.getErroredTestCaseResult("4", "20", "TestFailed"),
             TestCaseResult.getFailedTestCaseResult("2", "3", "1")
     });
 
-    private List<TestCaseResult> resultsSetB = List.of(new TestCaseResult[] {
+    private final List<TestCaseResult> resultsSetB = List.of(new TestCaseResult[] {
             TestCaseResult.getSuccessfulTestCaseResult("70", "2"),
             TestCaseResult.getFailedTestCaseResult("2", "2278", "abc"),
             TestCaseResult.getErroredTestCaseResult("55", "007", "Bond"),
             TestCaseResult.getSuccessfulTestCaseResult("2", "3")
     });
 
-    private List<TestCaseResult> allSuccessResultSet = List.of(new TestCaseResult[] {
+    private final List<TestCaseResult> allSuccessResultSet = List.of(new TestCaseResult[] {
             TestCaseResult.getSuccessfulTestCaseResult("70", "2"),
             TestCaseResult.getSuccessfulTestCaseResult("70", "2"),
             TestCaseResult.getSuccessfulTestCaseResult("70", "2"),

@@ -13,6 +13,7 @@ import com.dukeacademy.logic.commands.CommandResult;
 import com.dukeacademy.logic.commands.exceptions.CommandException;
 import com.dukeacademy.logic.commands.exceptions.InvalidCommandArgumentsException;
 import com.dukeacademy.logic.commands.exceptions.InvalidCommandKeywordException;
+import com.dukeacademy.logic.problemstatement.ProblemStatementLogic;
 import com.dukeacademy.logic.program.ProgramSubmissionLogic;
 import com.dukeacademy.logic.question.QuestionsLogic;
 import com.dukeacademy.model.program.TestCaseResult;
@@ -24,6 +25,7 @@ import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
@@ -31,24 +33,29 @@ import javafx.stage.Stage;
  * The Main Window. Provides the basic application layout containing
  * a menu bar and space where other JavaFX elements can be placed.
  */
-public class MainWindow extends UiPart<Stage> {
+class MainWindow extends UiPart<Stage> {
 
     private static final String FXML = "MainWindow.fxml";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
-    private Stage primaryStage;
-    private CommandLogic commandLogic;
-    private QuestionsLogic questionsLogic;
-    private ProgramSubmissionLogic programSubmissionLogic;
+    private final Stage primaryStage;
+    private final CommandLogic commandLogic;
+    private final QuestionsLogic questionsLogic;
+    private final ProgramSubmissionLogic programSubmissionLogic;
+    private final ProblemStatementLogic problemStatementLogic;
 
     // Independent Ui parts residing in this Ui container
     private QuestionListPanel questionListPanel;
     private ResultDisplay resultDisplay;
-    private HelpWindow helpWindow;
+    private final HelpWindow helpWindow;
     private Editor editorPanel;
     private CodeResultPanel codeResultPanel;
-    private ProfilePage profilePage;
+    private ProblemStatementPanel problemStatementPanel;
+    private HomePage homePage;
+
+    @FXML
+    private StackPane problemStatementPlaceholder;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -72,10 +79,23 @@ public class MainWindow extends UiPart<Stage> {
     private AnchorPane codeResultPanelPlaceholder;
 
     @FXML
-    private AnchorPane profilePlaceholder;
+    private HBox activityWindowPlaceholder;
 
+    @FXML
+    private AnchorPane homePagePlaceholder;
+
+    /**
+     * Instantiates a new Main window.
+     *
+     * @param primaryStage           the primary stage
+     * @param commandLogic           the command logic
+     * @param questionsLogic         the questions logic
+     * @param programSubmissionLogic the program submission logic
+     * @param problemStatementLogic  the problem statement logic
+     */
     public MainWindow(Stage primaryStage, CommandLogic commandLogic, QuestionsLogic questionsLogic,
-                      ProgramSubmissionLogic programSubmissionLogic) {
+                      ProgramSubmissionLogic programSubmissionLogic,
+                      ProblemStatementLogic problemStatementLogic) {
         super(FXML, primaryStage);
 
         // Set dependencies
@@ -83,6 +103,7 @@ public class MainWindow extends UiPart<Stage> {
         this.commandLogic = commandLogic;
         this.questionsLogic = questionsLogic;
         this.programSubmissionLogic = programSubmissionLogic;
+        this.problemStatementLogic = problemStatementLogic;
 
         // Configure the UI
         setWindowDefaultSize();
@@ -92,7 +113,11 @@ public class MainWindow extends UiPart<Stage> {
         helpWindow = new HelpWindow();
     }
 
-
+    /**
+     * Gets primary stage.
+     *
+     * @return the primary stage
+     */
     public Stage getPrimaryStage() {
         return primaryStage;
     }
@@ -146,7 +171,8 @@ public class MainWindow extends UiPart<Stage> {
                 new StatusBarFooter(Path.of("hello"));
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
-        CommandBox commandBox = new CommandBox(this::executeCommand);
+        CommandBox commandBox = new CommandBox(
+            commandText -> executeCommand(commandText));
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
         editorPanel = new Editor(programSubmissionLogic.getCurrentQuestionObservable());
@@ -164,8 +190,12 @@ public class MainWindow extends UiPart<Stage> {
         codeResultPanel = new CodeResultPanel(programSubmissionLogic.getTestResultObservable());
         codeResultPanelPlaceholder.getChildren().add(codeResultPanel.getRoot());
 
-        profilePage = new ProfilePage();
-        profilePlaceholder.getChildren().add(profilePage.getRoot());
+        problemStatementPanel = new ProblemStatementPanel(
+            problemStatementLogic.getProblemStatementObservable());
+        problemStatementPlaceholder.getChildren().add(problemStatementPanel.getRoot());
+
+        homePage = new HomePage(questionsLogic.getFilteredQuestionsList());
+        homePagePlaceholder.getChildren().add(homePage.getRoot());
     }
 
     /**
@@ -178,8 +208,7 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Opens the help window or focuses on it if it's already opened.
      */
-    @FXML
-    public void handleHelp() {
+    @FXML private void handleHelp() {
         if (!helpWindow.isShowing()) {
             helpWindow.show();
         } else {
@@ -187,6 +216,9 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    /**
+     * Show.
+     */
     void show() {
         primaryStage.show();
     }
@@ -200,20 +232,40 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
+    /**
+     * Gets person list panel.
+     *
+     * @return the person list panel
+     */
     public QuestionListPanel getPersonListPanel() {
         return questionListPanel;
     }
 
+    /**
+     * Gets editor panel.
+     *
+     * @return the editor panel
+     */
     public Editor getEditorPanel() {
         return editorPanel;
     }
 
+    /**
+     * Gets run code result panel.
+     *
+     * @return the run code result panel
+     */
     public CodeResultPanel getRunCodeResultPanel() {
         return codeResultPanel;
     }
 
-    public ProfilePage getProfilePage() {
-        return profilePage;
+    /**
+     * Gets home page.
+     *
+     * @return the home page
+     */
+    public HomePage getHomePage() {
+        return homePage;
     }
 
     /**
@@ -232,6 +284,11 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isExit()) {
                 handleExit();
+            }
+
+            if (commandResult.isView()) {
+                problemStatementPanel.setProblemStatement(questionsLogic
+                    .getProblemStatement());
             }
 
             return commandResult;

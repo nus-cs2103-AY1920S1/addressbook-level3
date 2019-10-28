@@ -28,20 +28,17 @@ import com.dukeacademy.testutil.TypicalQuestions;
 import javafx.collections.ObservableList;
 
 class SubmitCommandTest {
-    @TempDir
-    public Path tempFolder;
+    @TempDir public Path tempFolder;
 
     private MockQuestionsLogic questionsLogic;
     private ProgramSubmissionLogic submissionLogic;
 
-    @BeforeEach
-    public void initializeTest() throws LogicCreationException {
+    @BeforeEach void initializeTest() throws LogicCreationException {
         this.questionsLogic = MockQuestionsLogic.getMockQuestionsLogicWithTypicalQuestions();
         this.submissionLogic = new ProgramSubmissionLogicManager(tempFolder.toString());
     }
 
-    @Test
-    public void execute() throws IOException, CommandException {
+    @Test void execute() throws IOException, CommandException {
         SubmitCommand command = new SubmitCommand(questionsLogic, submissionLogic);
 
         // Check that an exception is thrown if the question is not set previously

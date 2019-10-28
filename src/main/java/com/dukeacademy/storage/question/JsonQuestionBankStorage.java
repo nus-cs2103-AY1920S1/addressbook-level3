@@ -5,7 +5,10 @@ import static java.util.Objects.requireNonNull;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
+import java.util.logging.Logger;
 
+import com.dukeacademy.MainApp;
+import com.dukeacademy.commons.core.LogsCenter;
 import com.dukeacademy.commons.exceptions.DataConversionException;
 import com.dukeacademy.commons.exceptions.IllegalValueException;
 import com.dukeacademy.commons.util.FileUtil;
@@ -13,14 +16,22 @@ import com.dukeacademy.commons.util.JsonUtil;
 
 import com.dukeacademy.model.question.QuestionBank;
 
+
 /**
  * A class to access QuestionBank data stored as a json file on the hard disk.
  */
 public class JsonQuestionBankStorage implements QuestionBankStorage {
-    private Path filePath;
+    private static final Logger logger = LogsCenter.getLogger(MainApp.class);
+    private final Path filePath;
 
+    /**
+     * Instantiates a new Json question bank storage.
+     *
+     * @param filePath the file path
+     */
     public JsonQuestionBankStorage(Path filePath) {
         this.filePath = filePath;
+        logger.info("file path becomes:" + filePath);
     }
 
     public Path getQuestionBankFilePath() {

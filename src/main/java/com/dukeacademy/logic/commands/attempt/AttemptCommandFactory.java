@@ -10,9 +10,15 @@ import com.dukeacademy.logic.question.QuestionsLogic;
  * Factory class to represent all the necessary components for creating an AttemptCommand instance.
  */
 public class AttemptCommandFactory implements CommandFactory {
-    private QuestionsLogic questionsLogic;
-    private ProgramSubmissionLogic programSubmissionLogic;
+    private final QuestionsLogic questionsLogic;
+    private final ProgramSubmissionLogic programSubmissionLogic;
 
+    /**
+     * Instantiates a new Attempt command factory.
+     *
+     * @param questionsLogic         the questions logic
+     * @param programSubmissionLogic the program submission logic
+     */
     public AttemptCommandFactory(QuestionsLogic questionsLogic, ProgramSubmissionLogic programSubmissionLogic) {
         this.questionsLogic = questionsLogic;
         this.programSubmissionLogic = programSubmissionLogic;

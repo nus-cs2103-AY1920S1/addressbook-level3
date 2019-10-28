@@ -14,6 +14,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class UserPrefs extends ReadOnlyUserPrefs {
     private final Path appDirectoryPath;
 
+    /**
+     * Instantiates a new User prefs.
+     *
+     * @param appDirectoryPath the app directory path
+     */
     @JsonCreator
     public UserPrefs(@JsonProperty("appDirectoryPath") String appDirectoryPath) {
         requireAllNonNull(appDirectoryPath);
@@ -22,6 +27,8 @@ public class UserPrefs extends ReadOnlyUserPrefs {
 
     /**
      * Creates a {@code UserPrefs} with default values.
+     *
+     * @param appDirectoryPath the app directory path
      */
     public UserPrefs(Path appDirectoryPath) {
         requireAllNonNull(appDirectoryPath);

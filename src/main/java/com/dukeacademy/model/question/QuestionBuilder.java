@@ -18,12 +18,15 @@ public class QuestionBuilder {
     private String title;
     private Status status;
     private Difficulty difficulty;
-    private Set<Topic> topics = new HashSet<>();
-    private List<TestCase> testCases = new ArrayList<>();
+    private final Set<Topic> topics = new HashSet<>();
+    private final List<TestCase> testCases = new ArrayList<>();
+    private boolean isBookmarked;
     private UserProgram userProgram = new UserProgram("Main", "");
+    private String description;
 
     /**
      * Returns a builder with the title added.
+     *
      * @param title the title to be added.
      * @return a new builder.
      */
@@ -34,6 +37,7 @@ public class QuestionBuilder {
 
     /**
      * Returns a builder with the status added.
+     *
      * @param status the status to be added.
      * @return a new builder.
      */
@@ -44,6 +48,7 @@ public class QuestionBuilder {
 
     /**
      * Returns a new builder with the difficulty added.
+     *
      * @param difficulty the difficulty to be added.
      * @return a new builder.
      */
@@ -53,7 +58,18 @@ public class QuestionBuilder {
     }
 
     /**
+     * Returns a new builder with the isBookmarked boolean added.
+     * @param isBookmarked the isBookmarked boolean to be added.
+     * @return a new builder.
+     */
+    public QuestionBuilder withIsBookmarked(boolean isBookmarked) {
+        this.isBookmarked = isBookmarked;
+        return this;
+    }
+
+    /**
      * Returns a new builder with the topics added.
+     *
      * @param topics the topics to be added.
      * @return a new builder.
      */
@@ -64,6 +80,7 @@ public class QuestionBuilder {
 
     /**
      * Returns a new builder with the test cases added.
+     *
      * @param testCases the test cases to be added.
      * @return a new builder.
      */
@@ -74,6 +91,7 @@ public class QuestionBuilder {
 
     /**
      * Returns a new builder with the user program added.
+     *
      * @param userProgram the user program to be added.
      * @return a new builder.
      */
@@ -84,6 +102,7 @@ public class QuestionBuilder {
 
     /**
      * Builds the specified attributes into a new question.
+     *
      * @return the newly built question.
      */
     public Question build() {
@@ -99,6 +118,18 @@ public class QuestionBuilder {
             throw new IllegalArgumentException("Difficulty cannot be null.");
         }
 
-        return new Question(title, status, difficulty, topics, testCases, userProgram);
+        return new Question(title, status, difficulty, topics, testCases,
+            userProgram, isBookmarked, description);
+    }
+
+    /**
+     * With description question builder.
+     *
+     * @param description the description
+     * @return the question builder
+     */
+    public QuestionBuilder withDescription(String description) {
+        this.description = description;
+        return this;
     }
 }

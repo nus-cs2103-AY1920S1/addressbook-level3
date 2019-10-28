@@ -16,11 +16,18 @@ import com.dukeacademy.model.question.entities.Status;
  * ProgramSubmissionLogic instance.
  */
 public class AttemptCommand implements Command {
-    private Logger logger;
-    private QuestionsLogic questionsLogic;
-    private ProgramSubmissionLogic programSubmissionLogic;
-    private int index;
+    private final Logger logger;
+    private final QuestionsLogic questionsLogic;
+    private final ProgramSubmissionLogic programSubmissionLogic;
+    private final int index;
 
+    /**
+     * Instantiates a new Attempt command.
+     *
+     * @param index                  the index
+     * @param questionsLogic         the questions logic
+     * @param programSubmissionLogic the program submission logic
+     */
     public AttemptCommand(int index, QuestionsLogic questionsLogic, ProgramSubmissionLogic programSubmissionLogic) {
         this.logger = LogsCenter.getLogger(AttemptCommand.class);
         this.index = index - 1;
@@ -40,7 +47,7 @@ public class AttemptCommand implements Command {
             this.programSubmissionLogic.setCurrentQuestion(questionToAttempt);
 
             String feedback = "Attempting question " + (index + 1) + " : " + questionToAttempt.getTitle();
-            return new CommandResult(feedback, false, false);
+            return new CommandResult(feedback, false, false, false, false);
         } catch (IndexOutOfBoundsException e) {
             throw new CommandException("Index " + (index + 1) + " entered out of range for current list of questions.");
         }

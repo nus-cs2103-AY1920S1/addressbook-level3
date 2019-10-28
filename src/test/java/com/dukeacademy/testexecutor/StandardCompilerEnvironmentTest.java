@@ -22,14 +22,12 @@ import com.dukeacademy.testexecutor.exceptions.IncorrectCanonicalNameException;
 import com.dukeacademy.testexecutor.models.JavaFile;
 
 class StandardCompilerEnvironmentTest {
-    @TempDir
-    public Path tempFolder;
+    @TempDir public Path tempFolder;
 
     /**
      * A folder should be created at the location path of the environment
      */
-    @Test
-    public void testConstructor() throws CreateEnvironmentException {
+    @Test void testConstructor() throws CreateEnvironmentException {
         Path environmentPath = tempFolder.resolve("constructor_test");
         new StandardCompilerEnvironment(environmentPath);
         assertTrue(environmentPath.toFile().exists());
@@ -44,8 +42,7 @@ class StandardCompilerEnvironmentTest {
      * User programs should be successfully written to created Java files. Returned JavaFile instance should also have
      * the correct canonical name and classpath.
      */
-    @Test
-    public void testCreateJavaFile() throws JavaFileCreationException, IOException, CreateEnvironmentException,
+    @Test void testCreateJavaFile() throws JavaFileCreationException, IOException, CreateEnvironmentException,
             IncorrectCanonicalNameException {
         Path environmentPath = tempFolder.resolve("createJavaFile_test");
         StandardCompilerEnvironment environment = new StandardCompilerEnvironment(environmentPath);
@@ -80,8 +77,7 @@ class StandardCompilerEnvironmentTest {
     /**
      * Created Java files should be returned with the correct attribute values.
      */
-    @Test
-    public void testGetJavaFile() throws JavaFileCreationException, IOException, CreateEnvironmentException,
+    @Test void testGetJavaFile() throws JavaFileCreationException, IOException, CreateEnvironmentException,
             IncorrectCanonicalNameException {
         Path environmentPath = tempFolder.resolve("getJavaFile_test");
         StandardCompilerEnvironment environment = new StandardCompilerEnvironment(environmentPath);
@@ -105,8 +101,7 @@ class StandardCompilerEnvironmentTest {
     /**
      * After closing, the folder in which the environment was created should be deleted.
      */
-    @Test
-    public void testClose() throws CreateEnvironmentException {
+    @Test void testClose() throws CreateEnvironmentException {
         Path environmentPath = tempFolder.resolve("close_test");
         StandardCompilerEnvironment environment = new StandardCompilerEnvironment(environmentPath);
 
@@ -124,8 +119,7 @@ class StandardCompilerEnvironmentTest {
     /**
      * After clearing, all files previously found in the environment should be deleted.
      */
-    @Test
-    public void testClearEnvironment() throws IOException, ClearEnvironmentException, CreateEnvironmentException {
+    @Test void testClearEnvironment() throws IOException, ClearEnvironmentException, CreateEnvironmentException {
         Path environmentPath = tempFolder.resolve("clear_test");
         StandardCompilerEnvironment environment = new StandardCompilerEnvironment(environmentPath);
 

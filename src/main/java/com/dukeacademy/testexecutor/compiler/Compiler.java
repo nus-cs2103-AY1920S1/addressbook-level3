@@ -12,10 +12,11 @@ import com.dukeacademy.testexecutor.models.JavaFile;
 public interface Compiler {
     /**
      * Compiles the given java file into a Java Class file. Note that the Java file cannot be empty.
+     *
      * @param file the java file to be compiled
      * @return the compiled class file
-     * @throws CompilerException if the file fails to compile due to compiler error
+     * @throws CompilerException            if the file fails to compile due to compiler error
      * @throws CompilerFileContentException if the file fails to compile due to its contents
      */
-    public ClassFile compileJavaFile(JavaFile file) throws CompilerException, CompilerFileContentException;
+    ClassFile compileJavaFile(JavaFile file) throws CompilerException, CompilerFileContentException;
 }

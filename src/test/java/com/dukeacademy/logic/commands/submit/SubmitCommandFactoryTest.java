@@ -18,26 +18,22 @@ import com.dukeacademy.logic.program.exceptions.LogicCreationException;
 import com.dukeacademy.testutil.MockQuestionsLogic;
 
 class SubmitCommandFactoryTest {
-    @TempDir
-    public Path tempFolder;
+    @TempDir public Path tempFolder;
 
     private MockQuestionsLogic questionsLogic;
     private ProgramSubmissionLogic submissionLogic;
 
-    @BeforeEach
-    public void initializeTest() throws LogicCreationException {
+    @BeforeEach void initializeTest() throws LogicCreationException {
         this.questionsLogic = MockQuestionsLogic.getMockQuestionsLogicWithTypicalQuestions();
         this.submissionLogic = new ProgramSubmissionLogicManager(tempFolder.toString());
     }
 
-    @Test
-    public void getCommandWord() {
+    @Test void getCommandWord() {
         SubmitCommandFactory factory = new SubmitCommandFactory(questionsLogic, submissionLogic);
         assertEquals("submit", factory.getCommandWord());
     }
 
-    @Test
-    public void getCommand() throws InvalidCommandArgumentsException {
+    @Test void getCommand() throws InvalidCommandArgumentsException {
         SubmitCommandFactory factory = new SubmitCommandFactory(questionsLogic, submissionLogic);
         Command command = factory.getCommand("    ");
         assertTrue(command instanceof SubmitCommand);

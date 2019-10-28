@@ -10,6 +10,9 @@ import java.util.logging.Level;
  */
 public class Config {
 
+    /**
+     * The constant DEFAULT_CONFIG_FILE.
+     */
     public static final Path DEFAULT_CONFIG_FILE = Paths.get("config.json");
 
     // Config values customizable through config file
@@ -17,26 +20,56 @@ public class Config {
     private Mode mode = Mode.PRODUCTION;
     private Path userPrefsFilePath = Paths.get("preferences.json");
 
+    /**
+     * Gets log level.
+     *
+     * @return the log level
+     */
     public Level getLogLevel() {
         return logLevel;
     }
 
+    /**
+     * Sets log level.
+     *
+     * @param logLevel the log level
+     */
     public void setLogLevel(Level logLevel) {
         this.logLevel = logLevel;
     }
 
+    /**
+     * Gets user prefs file path.
+     *
+     * @return the user prefs file path
+     */
     public Mode getMode() {
         return this.mode;
     }
 
+    /**
+     * Sets mode.
+     *
+     * @param mode the mode
+     */
     public void setMode(Mode mode) {
         this.mode = mode;
     }
 
+    /**
+     * Gets user prefs file path.
+     *
+     * @return the user prefs file path
+     */
     public Path getUserPrefsFilePath() {
         return userPrefsFilePath;
     }
 
+    /**
+     * Sets user prefs file path.
+     *
+     * @param userPrefsFilePath the user prefs file path
+     */
     public void setUserPrefsFilePath(Path userPrefsFilePath) {
         this.userPrefsFilePath = userPrefsFilePath;
     }

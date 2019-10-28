@@ -9,6 +9,12 @@ public class UserProgram {
     private final String canonicalName;
     private final String sourceCode;
 
+    /**
+     * Instantiates a new User program.
+     *
+     * @param canonicalName the canonical name
+     * @param sourceCode    the source code
+     */
     public UserProgram(String canonicalName, String sourceCode) {
         requireAllNonNull(canonicalName, sourceCode);
 
@@ -16,10 +22,20 @@ public class UserProgram {
         this.sourceCode = sourceCode;
     }
 
+    /**
+     * Gets canonical name.
+     *
+     * @return the canonical name
+     */
     public String getCanonicalName() {
         return this.canonicalName;
     }
 
+    /**
+     * Gets source code.
+     *
+     * @return the source code
+     */
     public String getSourceCode() {
         return this.sourceCode;
     }

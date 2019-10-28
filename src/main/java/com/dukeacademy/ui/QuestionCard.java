@@ -13,7 +13,7 @@ import javafx.scene.layout.Region;
 /**
  * An UI component that displays information of a {@code Question}.
  */
-public class QuestionCard extends UiPart<Region> {
+class QuestionCard extends UiPart<Region> {
 
     private static final String FXML = "QuestionListCard.fxml";
 
@@ -25,7 +25,7 @@ public class QuestionCard extends UiPart<Region> {
      * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on QuestionBank level 4</a>
      */
 
-    public final Question question;
+    private final Question question;
 
     @FXML
     private HBox cardPane;
@@ -34,21 +34,25 @@ public class QuestionCard extends UiPart<Region> {
     @FXML
     private Label id;
     @FXML
-    private Label topic;
-    @FXML
     private Label difficulty;
     @FXML
     private Label status;
     @FXML
     private FlowPane tags;
 
+    /**
+     * Instantiates a new Question card.
+     *
+     * @param question       the question
+     * @param displayedIndex the displayed index
+     */
     public QuestionCard(Question question, int displayedIndex) {
         super(FXML);
         this.question = question;
         id.setText(displayedIndex + ". ");
         title.setText(question.getTitle());
-        difficulty.setText(question.getDifficulty().toString());
-        status.setText(question.getStatus().toString());
+        difficulty.setText("Difficulty: " + question.getDifficulty().toString());
+        status.setText("Status: " + question.getStatus().toString());
         question.getTopics().stream()
                 .sorted(Comparator.comparing(Enum::toString))
                 .forEach(topic-> tags.getChildren().add(new Label(topic.toString())));

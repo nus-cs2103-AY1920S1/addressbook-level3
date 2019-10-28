@@ -1,7 +1,7 @@
 == Duke Academy
 :site-section: ReadMe
 :stylesDir: stylesheets
-Data structure Practice App for your outstanding school results
+All in one Java programming platform to practise on Data Structures and Algorithms
 
 https://travis-ci.org/AY1920S1-CS2103T-F14-1/main[image:https://travis-ci.org/AY1920S1-CS2103T-F14-1/main.svg?branch=master[Build Status]]
 https://coveralls.io/github/AY1920S1-CS2103T-F14-1/main?branch=master[image:https://coveralls.io/repos/github/AY1920S1-CS2103T-F14-1/main/badge.svg?branch=master[Coverage Status]]
@@ -19,9 +19,9 @@ endif::[]
 == What is Duke Academy?
 
 [none]
-* *Duke Academy* is a desktop application to auto-grade Data Structure & Algorithms problems.
-* It is a Java application intended for students learning Data Structure & Algorithms to practice their coding skills.
-* It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
+* *Duke Academy* is a Java programming platform equipped with a library of programming questions related to the field of Data Structures and Algorithms, as well as an automated judging system.
+* It is mainly aimed at students who want to practise solving programming questions related to the field of Data Structures and Algorithms.
+* It has a GUI (Graphic User Interface) but most of the user interactions happen through a CLI (Command Line Interface).
 
 == Preview
 
@@ -55,16 +55,16 @@ endif::[]
 
 == Quick Start
 * Open terminal and type `java -jar dukeacademy.jar` to start the app.
-* Type `list` in the command box. Open a question by `view <question ID>`, e.g. `view 2103`. Attempt the question by `attempt <question ID>`, e.g. `attempt 2103`.
-* Start your first Duke Academy code!
-* For any help, type `help`.
+* Type `list` in the command box. Open a question by `view <question ID>`, e.g. `view 8`. Attempt the question by `attempt <question ID>`, e.g. `attempt 8`.
+* Now start working on your first submission on Duke Academy!
+* If you require any help with the commands, enter `help`.
 
 == See Also
 
-* For students and educators, please refer to the <<UserGuide#, user guide>>.
-* This is an open source project. To contribute, please refer to the <<DeveloperGuide#, developer guide>> to get familiar with the code base.
-* <<AboutUs#, About Us>>
-* <<ContactUs#, Contact Us>>
+* For students and educators, please refer to the https://github.com/AY1920S1-CS2103T-F14-1/main/blob/master/docs/UserGuide.adoc[User Guide].
+* This is an open source project. To contribute, please refer to the https://github.com/AY1920S1-CS2103T-F14-1/main/blob/master/docs/DeveloperGuide.adoc[Developer Guide] to get familiar with the code base.
+* https://github.com/AY1920S1-CS2103T-F14-1/main/blob/master/docs/AboutUs.adoc[About Us]
+* https://github.com/AY1920S1-CS2103T-F14-1/main/blob/master/docs/ContactUs.adoc[Contact Us]
 
 == Acknowledgements
 

@@ -36,15 +36,13 @@ import com.dukeacademy.testexecutor.executor.ProgramExecutor;
 import com.dukeacademy.testexecutor.executor.StandardProgramExecutor;
 
 class TestExecutorTest {
-    @TempDir
-    public Path tempFolder;
+    @TempDir public Path tempFolder;
     private TestExecutor executor;
 
     /**
      * Reinitialize test entities.
      */
-    @BeforeEach
-    public void initialize() throws CreateEnvironmentException {
+    @BeforeEach void initialize() throws CreateEnvironmentException {
         CompilerEnvironment environment = new StandardCompilerEnvironment(tempFolder.resolve("test"));
         Compiler compiler = new StandardCompiler();
         ProgramExecutor executor = new StandardProgramExecutor();
@@ -55,8 +53,7 @@ class TestExecutorTest {
     /**
      * Deletes any remnant files after each test.
      */
-    @AfterEach
-    public void close() throws IOException {
+    @AfterEach void close() throws IOException {
         Files.walk(tempFolder)
                 .filter(path -> !path.equals(tempFolder))
                 .map(Path::toFile)
@@ -67,8 +64,7 @@ class TestExecutorTest {
     /**
      * Run test cases against a simple program to calculate fibonacci.
      */
-    @Test
-    public void runTestCasesFib() throws IOException, TestExecutorException,
+    @Test void runTestCasesFib() throws IOException, TestExecutorException,
             IncorrectCanonicalNameException, EmptyUserProgramException {
         // Load test cases
         Path rootFolder = Paths.get("src", "test", "data", "TestPrograms", "fib");
@@ -92,8 +88,7 @@ class TestExecutorTest {
     /**
      * Run test cases against a simple program to check for duplicates.
      */
-    @Test
-    public void runTestCasesDuplicates() throws IOException, TestExecutorException,
+    @Test void runTestCasesDuplicates() throws IOException, TestExecutorException,
             IncorrectCanonicalNameException, EmptyUserProgramException {
         // Load test cases
         Path rootFolder = Paths.get("src", "test", "data", "TestPrograms", "duplicates");
@@ -117,8 +112,7 @@ class TestExecutorTest {
     /**
      * Runs test cases against a program that relies on a nested class.
      */
-    @Test
-    public void runTestCaseNestedClass() throws IOException, TestExecutorException,
+    @Test void runTestCaseNestedClass() throws IOException, TestExecutorException,
             IncorrectCanonicalNameException, EmptyUserProgramException {
         // Load test cases
         Path rootFolder = Paths.get("src", "test", "data", "TestPrograms", "nested");
@@ -142,8 +136,7 @@ class TestExecutorTest {
     /**
      * Runs test cases against a program that is packaged.
      */
-    @Test
-    public void runTestCasePackaged() throws IOException, EmptyUserProgramException, TestExecutorException,
+    @Test void runTestCasePackaged() throws IOException, EmptyUserProgramException, TestExecutorException,
             IncorrectCanonicalNameException {
         // Load test cases
         Path rootFolder = Paths.get("src", "test", "data", "TestPrograms", "packaged");
@@ -167,8 +160,7 @@ class TestExecutorTest {
     /**
      * Runs test cases against a program that will give a wrong answer.
      */
-    @Test
-    public void runIncorrectProgram() throws IOException, TestExecutorException,
+    @Test void runIncorrectProgram() throws IOException, TestExecutorException,
             IncorrectCanonicalNameException, EmptyUserProgramException {
         // Load test cases
         Path rootFolder = Paths.get("src", "test", "data", "TestPrograms", "incorrect");
@@ -195,8 +187,7 @@ class TestExecutorTest {
     /**
      * Runs test cases against programs that will result in a compile error.
      */
-    @Test
-    public void testCompileError() throws TestExecutorException, IncorrectCanonicalNameException,
+    @Test void testCompileError() throws TestExecutorException, IncorrectCanonicalNameException,
             EmptyUserProgramException {
         // Compile error due to unrecognized symbol
         UserProgram program = new UserProgram("CompileError", "public class CompileError {\n"
@@ -216,8 +207,7 @@ class TestExecutorTest {
     /**
      * Run test cases against programs that will result in a runtime error.
      */
-    @Test
-    public void testRuntimeError() throws IOException, TestExecutorException,
+    @Test void testRuntimeError() throws IOException, TestExecutorException,
             IncorrectCanonicalNameException, EmptyUserProgramException {
         // Load test cases - index out of bounds program
         Path programPath = Paths.get("src", "test", "data",
@@ -246,8 +236,7 @@ class TestExecutorTest {
     /**
      * Tests that an empty program will throw an error
      */
-    @Test
-    public void testEmptyProgramException() {
+    @Test void testEmptyProgramException() {
         assertThrows(EmptyUserProgramException.class, () -> executor
                 .runTestCases(new ArrayList<>(), new UserProgram("Main", "")));
     }
@@ -255,8 +244,7 @@ class TestExecutorTest {
     /**
      * Tests that a program with a non-matching canonical name will throw an error
      */
-    @Test
-    public void testIncorrectClassNameException() {
+    @Test void testIncorrectClassNameException() {
         UserProgram invalidProgram = new UserProgram("Main", "public class Man {}");
         assertThrows(IncorrectCanonicalNameException.class, () -> executor
                 .runTestCases(new ArrayList<>(), invalidProgram));

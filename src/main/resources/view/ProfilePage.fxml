@@ -59,19 +59,7 @@
                         </TextFlow>
                         <ScrollPane layoutX="333.0" layoutY="133.0" prefHeight="200.0" prefWidth="200.0">
                           <content>
-                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0">
-                                 <children>
-                                    <Text fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="66. Essence of recursion" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0">
-                                       <font>
-                                          <Font name="Century Gothic" size="14.0" />
-                                       </font>
-                                    </Text>
-                                    <Text fontSmoothingType="LCD" layoutX="10.0" layoutY="10.0" strokeType="OUTSIDE" strokeWidth="0.0" text="2. Valid Sudoku" AnchorPane.topAnchor="35.0">
-                                       <font>
-                                          <Font name="Century Gothic" size="13.0" />
-                                       </font>
-                                    </Text>
-                                 </children></AnchorPane>
+                            <AnchorPane fx:id="attempting" minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
                           </content>
                         </ScrollPane>
                         <Text fontSmoothingType="LCD" layoutX="338.0" layoutY="121.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Currently attempting:">
@@ -94,19 +82,9 @@
           </Tab>
             <Tab text="Bookmarked Questions">
                <content>
-                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                  <AnchorPane fx:id="bookmarked" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
                         <Button layoutX="488.0" layoutY="14.0" mnemonicParsing="false" onAction="#onCloseButtonClick" text="Close" />
-                        <Text fontSmoothingType="LCD" layoutX="11.0" layoutY="26.09375" strokeType="OUTSIDE" strokeWidth="0.0" text="2. Valid Sudoku" AnchorPane.leftAnchor="11.0" AnchorPane.topAnchor="10.0">
-                           <font>
-                              <Font name="Century Gothic" size="16.0" />
-                           </font>
-                        </Text>
-                        <Text fontSmoothingType="LCD" layoutX="11.0" layoutY="54.09375" strokeType="OUTSIDE" strokeWidth="0.0" text="3. Palindrome Number" AnchorPane.leftAnchor="11.0">
-                           <font>
-                              <Font name="Century Gothic" size="16.0" />
-                           </font>
-                        </Text>
                      </children>
                   </AnchorPane>
                </content>

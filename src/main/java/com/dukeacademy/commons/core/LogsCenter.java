@@ -12,13 +12,13 @@ import java.util.logging.SimpleFormatter;
  * Configures and manages loggers and handlers, including their logging level
  * Named {@link Logger}s can be obtained from this class<br>
  * These loggers have been configured to output messages to the console and a {@code .log} file by default,
- *   at the {@code INFO} level. A new {@code .log} file with a new numbering will be created after the log
- *   file reaches 5MB big, up to a maximum of 5 files.<br>
+ * at the {@code INFO} level. A new {@code .log} file with a new numbering will be created after the log
+ * file reaches 5MB big, up to a maximum of 5 files.<br>
  */
 public class LogsCenter {
     private static final int MAX_FILE_COUNT = 5;
     private static final int MAX_FILE_SIZE_IN_BYTES = (int) (Math.pow(2, 20) * 5); // 5MB
-    private static final String LOG_FILE = "addressbook.log";
+    private static final String LOG_FILE = "questionbank.log";
     private static Level currentLogLevel = Level.INFO;
     private static final Logger logger = LogsCenter.getLogger(LogsCenter.class);
     private static FileHandler fileHandler;
@@ -29,6 +29,8 @@ public class LogsCenter {
      * Loggers obtained *AFTER* this initialization will have their logging level changed<br>
      * Logging levels for existing loggers will only be updated if the logger with the same name
      * is requested again from the LogsCenter.
+     *
+     * @param config the config
      */
     public static void init(Config config) {
         currentLogLevel = config.getLogLevel();
@@ -37,8 +39,11 @@ public class LogsCenter {
 
     /**
      * Creates a logger with the given name.
+     *
+     * @param name the name
+     * @return the logger
      */
-    public static Logger getLogger(String name) {
+    private static Logger getLogger(String name) {
         Logger logger = Logger.getLogger(name);
         logger.setUseParentHandlers(false);
 
@@ -51,6 +56,10 @@ public class LogsCenter {
 
     /**
      * Creates a Logger for the given class name.
+     *
+     * @param <T>   the type parameter
+     * @param clazz the clazz
+     * @return the logger
      */
     public static <T> Logger getLogger(Class<T> clazz) {
         if (clazz == null) {

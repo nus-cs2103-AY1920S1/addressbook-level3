@@ -27,9 +27,11 @@ public class JsonAdaptedQuestionTest {
     private final String validTitle = "Test question";
     private final String validStatus = Status.ATTEMPTED.toString();
     private final String validDifficulty = Difficulty.EASY.toString();
+    private final boolean validIsBookmarked = true;
     private final List<String> validTopics = new ArrayList<>();
     private final List<JsonAdaptedTestCase> validTestCases = new ArrayList<>();
     private final JsonAdaptedUserProgram validUserProgram = new JsonAdaptedUserProgram("Test", "");
+    private final String validDescription = "Test Description";
 
     @BeforeEach
     void populateTopicsAndTestCases() {
@@ -41,10 +43,10 @@ public class JsonAdaptedQuestionTest {
         this.validTestCases.add(new JsonAdaptedTestCase("3", "3"));
     }
 
-    @Test
-    public void toModel() throws Exception {
-        JsonAdaptedQuestion jsonQuestion = new JsonAdaptedQuestion(validTitle, validStatus, validDifficulty,
-                validTopics, validTestCases, validUserProgram);
+    @Test void toModel() throws Exception {
+        JsonAdaptedQuestion jsonQuestion = new JsonAdaptedQuestion(validTitle,
+            validStatus, validDifficulty, validIsBookmarked,
+            validTopics, validTestCases, validUserProgram, validDescription);
         Question question = jsonQuestion.toModel();
 
         assertEquals(this.validTitle, question.getTitle());
@@ -66,12 +68,16 @@ public class JsonAdaptedQuestionTest {
     @Test
     public void toModelInvalid() {
         assertThrows(IllegalValueException.class, () -> new JsonAdaptedQuestion(null, validStatus,
-                validDifficulty, validTopics, validTestCases, validUserProgram).toModel());
+                validDifficulty, validIsBookmarked, validTopics, validTestCases,
+            validUserProgram, validDescription).toModel());
         assertThrows(IllegalValueException.class, () -> new JsonAdaptedQuestion(validTitle, null,
-                validDifficulty, validTopics, validTestCases, validUserProgram).toModel());
+                validDifficulty, validIsBookmarked, validTopics,
+            validTestCases, validUserProgram, validDescription).toModel());
         assertThrows(IllegalValueException.class, () -> new JsonAdaptedQuestion(validTitle, validStatus,
-                null, validTopics, validTestCases, validUserProgram).toModel());
+                null, validIsBookmarked, validTopics, validTestCases,
+            validUserProgram, validDescription).toModel());
         assertThrows(NullPointerException.class, () -> new JsonAdaptedQuestion(validTitle, validStatus,
-                validDifficulty, validTopics, validTestCases, null).toModel());
+                validDifficulty, validIsBookmarked, validTopics,
+            validTestCases, null, validDescription).toModel());
     }
 }

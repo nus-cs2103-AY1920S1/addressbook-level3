@@ -13,12 +13,11 @@ import com.dukeacademy.testutil.TestUtil;
 /**
  * Tests JSON Read and Write
  */
-public class JsonUtilTest {
+class JsonUtilTest {
 
     private static final Path SERIALIZATION_FILE = TestUtil.getFilePathInSandboxFolder("serialize.json");
 
-    @Test
-    public void serializeObjectToJsonFile_noExceptionThrown() throws IOException {
+    @Test void serializeObjectToJsonFile_noExceptionThrown() throws IOException {
         SerializableTestClass serializableTestClass = new SerializableTestClass();
         serializableTestClass.setTestValues();
 
@@ -27,8 +26,7 @@ public class JsonUtilTest {
         assertEquals(FileUtil.readFromFile(SERIALIZATION_FILE), SerializableTestClass.JSON_STRING_REPRESENTATION);
     }
 
-    @Test
-    public void deserializeObjectFromJsonFile_noExceptionThrown() throws IOException {
+    @Test void deserializeObjectFromJsonFile_noExceptionThrown() throws IOException {
         FileUtil.writeToFile(SERIALIZATION_FILE, SerializableTestClass.JSON_STRING_REPRESENTATION);
 
         SerializableTestClass serializableTestClass = JsonUtil

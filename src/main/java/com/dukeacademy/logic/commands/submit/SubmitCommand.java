@@ -25,6 +25,12 @@ public class SubmitCommand implements Command {
     private final QuestionsLogic questionsLogic;
     private final ProgramSubmissionLogic programSubmissionLogic;
 
+    /**
+     * Instantiates a new Submit command.
+     *
+     * @param questionsLogic         the questions logic
+     * @param programSubmissionLogic the program submission logic
+     */
     public SubmitCommand(QuestionsLogic questionsLogic, ProgramSubmissionLogic programSubmissionLogic) {
         this.logger = LogsCenter.getLogger(SubmitCommand.class);
         this.questionsLogic = questionsLogic;
@@ -84,8 +90,6 @@ public class SubmitCommand implements Command {
         } else {
             feedback = feedback + "failed";
         }
-
-        logger.info("Test execution succeeded : " + isSuccessful);
-        return new CommandResult(feedback, false, false);
+        return new CommandResult(feedback, false, false, false, false);
     }
 }

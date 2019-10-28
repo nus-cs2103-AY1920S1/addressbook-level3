@@ -19,16 +19,29 @@ public class AppParameters {
 
     private Path configPath;
 
+    /**
+     * Gets config path.
+     *
+     * @return the config path
+     */
     public Path getConfigPath() {
         return configPath;
     }
 
+    /**
+     * Sets config path.
+     *
+     * @param configPath the config path
+     */
     public void setConfigPath(Path configPath) {
         this.configPath = configPath;
     }
 
     /**
      * Parses the application command-line parameters.
+     *
+     * @param parameters the parameters
+     * @return the app parameters
      */
     public static AppParameters parse(Application.Parameters parameters) {
         AppParameters appParameters = new AppParameters();

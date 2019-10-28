@@ -23,20 +23,17 @@ import com.dukeacademy.testutil.TypicalQuestions;
 import javafx.collections.ObservableList;
 
 class ExitCommandTest {
-    @TempDir
-    public Path tempFolder;
+    @TempDir public Path tempFolder;
 
     private MockQuestionsLogic questionsLogic;
     private ProgramSubmissionLogic submissionLogic;
 
-    @BeforeEach
-    public void initializeTest() throws LogicCreationException {
+    @BeforeEach void initializeTest() throws LogicCreationException {
         this.questionsLogic = MockQuestionsLogic.getMockQuestionsLogicWithTypicalQuestions();
         this.submissionLogic = new ProgramSubmissionLogicManager(tempFolder.toString());
     }
 
-    @Test
-    public void execute() {
+    @Test void execute() {
         ExitCommand command = new ExitCommand(questionsLogic, submissionLogic);
         UserProgram program = new UserProgram("Main", "abc123");
         this.submissionLogic.setUserProgramSubmissionChannel(() -> program);
@@ -63,19 +60,18 @@ class ExitCommandTest {
      * Helper method to compare an observable list to a list for equality.
      * @param observableList the observable list to be compared.
      * @param questionList the question list to be compared.
-     * @return true if both lists are equal.
      */
-    private boolean matchListData(ObservableList<Question> observableList, List<Question> questionList) {
+    private void matchListData(ObservableList<Question> observableList, List<Question> questionList) {
         if (observableList.size() != questionList.size()) {
-            return false;
+            return;
         }
 
         if (observableList.size() == 0) {
-            return true;
+            return;
         }
 
-        return IntStream.range(0, observableList.size())
-                .mapToObj(i -> observableList.get(i).checkContentsEqual(questionList.get(i)))
-                .reduce((x, y) -> x && y).get();
+        IntStream.range(0, observableList.size()).mapToObj(
+            i -> observableList.get(i).checkContentsEqual(questionList.get(i)))
+                 .reduce((x, y) -> x && y).get();
     }
 }

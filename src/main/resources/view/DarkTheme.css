@@ -153,7 +153,23 @@
     -fx-text-fill: white;
 }
 
+.profile-display {
+    -fx-background-color: transparent;
+    -fx-font-family: "Segoe UI Light";
+    -fx-font-size: 13pt;
+    -fx-text-fill: black;
+}
+
+.text-area, .text-area .viewport, .text-area .content {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+}
+
 .result-display .label {
+    -fx-text-fill: black;
+}
+
+.profile-display .label {
     -fx-text-fill: black;
 }
 

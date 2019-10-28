@@ -14,8 +14,8 @@ import org.junit.jupiter.api.Test;
 import com.dukeacademy.commons.exceptions.DataConversionException;
 import com.dukeacademy.model.prefs.UserPrefs;
 
-public class JsonUserPrefsStorageTest {
-    private Path testDataRootPath = Paths.get("src", "test", "data", "JsonUserPrefsStorageTest");
+class JsonUserPrefsStorageTest {
+    private final Path testDataRootPath = Paths.get("src", "test", "data", "JsonUserPrefsStorageTest");
 
     @Test
     void getUserPrefsFilePath() {

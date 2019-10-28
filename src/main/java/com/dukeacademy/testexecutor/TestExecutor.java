@@ -34,10 +34,17 @@ public class TestExecutor {
     private static final String messageTestExecutorFailed = "Test executor failed unexpectedly.";
 
     private final Logger logger;
-    private CompilerEnvironment environment;
-    private Compiler compiler;
-    private ProgramExecutor executor;
+    private final CompilerEnvironment environment;
+    private final Compiler compiler;
+    private final ProgramExecutor executor;
 
+    /**
+     * Instantiates a new Test executor.
+     *
+     * @param environment the environment
+     * @param compiler    the compiler
+     * @param executor    the executor
+     */
     public TestExecutor(CompilerEnvironment environment, Compiler compiler, ProgramExecutor executor) {
         this.environment = environment;
         this.compiler = compiler;
@@ -58,6 +65,7 @@ public class TestExecutor {
      * @return a result instance.
      * @throws TestExecutorException           if the test executor fails unexpectedly.
      * @throws IncorrectCanonicalNameException if the canonical name of the UserProgram does not match its source code.
+     * @throws EmptyUserProgramException       the empty user program exception
      */
     public TestResult runTestCases(List<TestCase> testCases, UserProgram program) throws TestExecutorException,
             IncorrectCanonicalNameException, EmptyUserProgramException {

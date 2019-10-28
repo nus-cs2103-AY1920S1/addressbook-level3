@@ -49,6 +49,12 @@ public class StandardCompilerEnvironment implements CompilerEnvironment {
 
     private boolean isClosed;
 
+    /**
+     * Instantiates a new Standard compiler environment.
+     *
+     * @param locationPath the location path
+     * @throws CreateEnvironmentException the create environment exception
+     */
     public StandardCompilerEnvironment(Path locationPath) throws CreateEnvironmentException {
         this.locationPath = locationPath;
         this.createdFiles = new ArrayList<>();

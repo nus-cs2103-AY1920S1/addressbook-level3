@@ -27,7 +27,13 @@ public class QuestionsLogicManager implements QuestionsLogic {
     private final QuestionBankStorage storage;
     private final QuestionBank questionBank;
     private final FilteredList<Question> filteredList;
+    private String problemStatement = "";
 
+    /**
+     * Instantiates a new Questions logic manager.
+     *
+     * @param storage the storage
+     */
     public QuestionsLogicManager(QuestionBankStorage storage) {
         this.logger = LogsCenter.getLogger(QuestionsLogicManager.class);
         this.storage = storage;
@@ -35,6 +41,11 @@ public class QuestionsLogicManager implements QuestionsLogic {
         this.filteredList = new FilteredList<>(questionBank.getReadOnlyQuestionListObservable());
     }
 
+    /**
+     * Gets question bank.
+     *
+     * @return the question bank
+     */
     public QuestionBank getQuestionBank() {
         return new StandardQuestionBank(this.questionBank);
     }
@@ -115,15 +126,17 @@ public class QuestionsLogicManager implements QuestionsLogic {
      * @return the loaded question bank.
      */
     private QuestionBank loadQuestionsFromStorage() {
+        logger.info("storage instance built. trying to load questions / "
+            + "samples");
         try {
-            return this.storage.readQuestionBank().orElseGet(() -> {
-                logger.info("Unable to find json file: " + storage.getQuestionBankFilePath()
-                        + ".\n Loading sample data instead...");
-                return SampleDataUtil.getSampleQuestionBank();
-            });
+            return this.storage.readQuestionBank().get();
         } catch (IOException | DataConversionException e) {
             logger.info("Unable to load question bank from: " + storage.getQuestionBankFilePath()
-                    + ".\n Loading sample data instead...");
+                + ".\n Loading sample data instead...");
+            return SampleDataUtil.getSampleQuestionBank();
+        } catch (NullPointerException e) {
+            logger.info("Unable to find json file: " + storage.getQuestionBankFilePath()
+                + ".\n Loading sample data instead...");
             return SampleDataUtil.getSampleQuestionBank();
         }
     }
@@ -138,5 +151,13 @@ public class QuestionsLogicManager implements QuestionsLogic {
         } catch (IOException e) {
             logger.info("Unable to save question data to: " + storage.getQuestionBankFilePath());
         }
+    }
+
+    public String getProblemStatement() {
+        return problemStatement;
+    }
+
+    public void setProblemStatement(String problemStatement) {
+        this.problemStatement = problemStatement;
     }
 }

@@ -17,14 +17,12 @@ import com.dukeacademy.logic.program.exceptions.LogicCreationException;
 import com.dukeacademy.testutil.MockQuestionsLogic;
 
 class AttemptCommandFactoryTest {
-    @TempDir
-    public Path tempFolder;
+    @TempDir public Path tempFolder;
 
     private MockQuestionsLogic questionsLogic;
     private ProgramSubmissionLogic submissionLogic;
 
-    @BeforeEach
-    public void initializeTest() throws LogicCreationException {
+    @BeforeEach void initializeTest() throws LogicCreationException {
         this.questionsLogic = MockQuestionsLogic.getMockQuestionsLogicWithTypicalQuestions();
         this.submissionLogic = new ProgramSubmissionLogicManager(tempFolder.toString());
     }
@@ -32,6 +30,7 @@ class AttemptCommandFactoryTest {
     @Test
     void getCommandWord() {
         AttemptCommandFactory factory = new AttemptCommandFactory(questionsLogic, submissionLogic);
+        System.out.println(factory.getCommandWord());
         assertEquals("attempt", factory.getCommandWord());
     }
 

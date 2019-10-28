@@ -6,10 +6,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
-public class FileUtilTest {
+class FileUtilTest {
 
-    @Test
-    public void isValidPath() {
+    @Test void isValidPath() {
         // valid path
         assertTrue(FileUtil.isValidPath("valid/file/path"));
 

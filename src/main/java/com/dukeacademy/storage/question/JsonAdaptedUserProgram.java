@@ -11,6 +11,12 @@ public class JsonAdaptedUserProgram {
     private final String canonicalName;
     private final String sourceCode;
 
+    /**
+     * Instantiates a new Json adapted user program.
+     *
+     * @param canonicalName the canonical name
+     * @param sourceCode    the source code
+     */
     @JsonCreator
     public JsonAdaptedUserProgram(@JsonProperty("canonicalName") String canonicalName,
                                   @JsonProperty("sourceCode") String sourceCode) {
@@ -18,11 +24,21 @@ public class JsonAdaptedUserProgram {
         this.sourceCode = sourceCode;
     }
 
+    /**
+     * Instantiates a new Json adapted user program.
+     *
+     * @param userProgram the user program
+     */
     public JsonAdaptedUserProgram(UserProgram userProgram) {
         this.canonicalName = userProgram.getCanonicalName();
         this.sourceCode = userProgram.getSourceCode();
     }
 
+    /**
+     * To model user program.
+     *
+     * @return the user program
+     */
     public UserProgram toModel() {
         return new UserProgram(canonicalName, sourceCode);
     }
