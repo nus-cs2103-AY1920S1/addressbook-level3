@@ -46,7 +46,7 @@ public class ExerciseCard extends UiPart<Region> {
         this.exercise = exercise;
         id.setText(displayedIndex + ". ");
         exerciseName.setText(exercise.getExerciseName().exerciseName);
-        if(!exercise.getMusclesTrained().getSecondaryMuscles().isEmpty()) {
+        if (!exercise.getMusclesTrained().getSecondaryMuscles().isEmpty()) {
             secondaryMuscles.setText(getSecondaryLabelText());
         } else {
             secondaryMuscles.setText("Secondary Muscles: None");
