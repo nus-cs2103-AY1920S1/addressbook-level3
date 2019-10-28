@@ -27,7 +27,13 @@ as well as a set of rules to simplify expense tracking through automation.
 
 == Quick Start
 
-Nothing to see here.
+====
+*Launching for the first time*
+
+* A default account will created.
+* Type `transaction out x/100 d/This is my first transaction!` to add a new spending.
+* To view your accounts, type `account list`
+====
 
 [[Features]]
 == Features
@@ -35,7 +41,8 @@ Nothing to see here.
 ====
 *Command Format*
 
-* Words within `<>` brackets are parameters to be supplied by the user.
+* Commands start with a category, and a command type usually follows, e.g. `rule add`
+* Words written using `<>` brackets are parameters to be supplied by the user.
 * Parameters within `[]` brackets are optional and can be omitted.
 * `|` indicates that a choice must be made between two parameters.
 * `...` indicates a variable number (at least 1) of the specified parameter.
@@ -163,49 +170,6 @@ If the type is omitted, it defaults to a total report.
 * Your goal progress will also be shown in both reports.
 ****
 
-=== Managing budgets: `budget`
-
-Displays or sets the budget for the specified period.
-If the period is omitted, it defaults to the entire current month.
-
-Format: `budget [[f/<from date>] [t/<to date>] | [p/<this month|last month|this week|last week|today|yesterday>]] [<amount>|unset]`
-
-==== View budgets
-
-To view budgets, omit `[<amount>|unset]` from the command.
-All budgets overlapping the period specified will be displayed.
-
-==== Set budgets
-
-To set a budget, specify the `[<amount>]`. Note that budgets cannot overlap.
-
-==== Remove budgets
-
-To unset a budget, specify `[unset]`.
-
-=== Goal setting: `goal`
-
-==== Add a goal: `goal add`
-
-Adds a goal on the specified account to reach the specified amount by the target date or at the end of the specified period.
-
-Format: `goal add [a/<account>] [[d/<target date>] | [p/<this week|this month|next month|this year>]] x/[+]<amount>`
-****
-* If the account is omitted, the default account is set.
-* If the period is omitted, the target date is set to the last day of the current month.
-* If + is specified before amount, then the target amount is set as amount more than the current balance in the target account.
-****
-
-==== View goals: `goal list`
-
-List all goals.
-
-==== Delete goal(s): `goal delete`
-
-Deletes the goals with the specified goal IDs. Goal IDs can be retrieved from `goal list`.
-
-Format: `goal delete <id ...>`
-
 === Tracking loans: `loan`
 
 ==== Add a new loan: `loan out|in`
@@ -273,27 +237,42 @@ Format: `loan split [me/<your name> w/<date> d/<description>] n/<name> x/<amount
 ==== Add a new rule: `rule add`
 
 Adds a new rule to the rule engine.
-A rule can be formed with both scripts and expressions.
+A rule can be formed using either expressions or scripts, or both.
 
-Format: `rule add pred/<expression | script> act/<expression | script>`
+Format: `rule add pred/<expression | script name> act/<expression | script name>`
+
+Refer to <<Scripting>> for script usage.
 ****
-* Expression Format:
-** Predicate: <attribute> <predicate operator> <value>
-** Action: <action operator> <value>
-* Script:
-** Specify name of script.
+*Expression Formatting Guide:*
+
+* Predicate: In the order of `<attribute> <predicate operator> <value>`
+** An attribute can be one of the following:
+*** `inamt` : Transaction amount inwards
+*** `outamt` : Transaction amount outwards
+*** `desc` : Transaction description
+** A predicate operator can be one of the following:
+*** `=` : equality operator
+*** `<` , `\<=`  , `>=` , `>` : inequality operators
+*** `contains` : string comparison operator
+** A value can be a number or a string of length not more than 50 characters
+
+* Action: In the order of `<action operator> <value>`
+** An action operator can be one of the following:
+*** `setcategory` : Adds a category to the transaction
+*** `setdesc` : Sets the description of the transaction
+** A value is as described in a predicate expression
 ****
 
 ==== List rules: `rule list`
 
-Displays a list of all rules, sorted by the date a rule was added.
+Displays the list of all existing rules, sorted by the order in which a rule was added.
 
 Format: `rule list`
 
 ==== Edit a rule: `rule edit`
 
 Edits the specified fields in the rule with the specified ID.
-Both predicate and action can be modified.
+Both the predicate and action can be modified.
 
 Format: `rule edit <rule ID> [pred/<expression | script>] [act/<expression | script>]`
 
@@ -328,6 +307,7 @@ If the path is omitted, a file browser is opened for you to select where to save
 * The file is a comma-separated values file.
 ****
 
+[[Scripting]]
 === Scripting: `script`
 
 ==== Evaluate a script: `script eval`

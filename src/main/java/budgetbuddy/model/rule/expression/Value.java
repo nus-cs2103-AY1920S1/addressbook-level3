@@ -10,7 +10,8 @@ public class Value {
 
     private static final String SPECIAL_CHARACTERS = "!#$%&'*+/=?`{|}~^.-";
     public static final String MESSAGE_CONSTRAINTS =
-            "Values should either be numerical ( or contain alphanumeric characters and these special characters,\n"
+            "Values should either be numerical, "
+            + "or contain alphanumeric characters including these special characters,\n"
             + "excluding the parentheses, (" + SPECIAL_CHARACTERS + "),\n"
             + "of length not more than 50 characters, "
             + "and should not be blank";
