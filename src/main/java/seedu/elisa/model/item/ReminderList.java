@@ -40,4 +40,8 @@ public class ReminderList extends VisualizeList {
         ReminderList rl = new ReminderList();
         return super.deepCopy(rl);
     }
+
+    public boolean belongToList(Item item) {
+        return item.hasReminder();
+    }
 }

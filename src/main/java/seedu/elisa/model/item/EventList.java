@@ -40,4 +40,8 @@ public class EventList extends VisualizeList {
         EventList el = new EventList();
         return super.deepCopy(el);
     }
+
+    public boolean belongToList(Item item) {
+        return item.hasEvent();
+    }
 }

@@ -1,5 +1,7 @@
 package seedu.elisa.model.item;
 
+import seedu.elisa.commons.core.item.Item;
+
 /**
  * Object class to store all the items that are calendars within the program
  */
@@ -21,6 +23,10 @@ public class CalendarList extends VisualizeList {
     @Override
     public VisualizeList sort() {
         return null;
+    }
+
+    public boolean belongToList(Item item) {
+        return item.hasEvent();
     }
 
 }
