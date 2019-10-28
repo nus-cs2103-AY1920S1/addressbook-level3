@@ -335,6 +335,9 @@ in this one, we do not think the added functionality of allowing the user to ext
 
 === [underline]#Timer Feature#
 
+.Screenshot of the `Timer` component in action as seen through the `UI`.
+image::TimerDGScreenshot.png[]
+
 ==== Implementation Overview
 
 The `Timer` component utilizes the `java.util.Timer` API to simulate a stopwatch during a `Game`. It also relies on
