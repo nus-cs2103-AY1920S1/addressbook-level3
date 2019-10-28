@@ -30,7 +30,18 @@ public class FlashCardCell extends HBox {
 
         // temporarily, show only the front of the flashcard
         // todo: show both front and back of flashcard
-        flashCardDisplay = new FlashCardDisplay(flashCard.getFront());
+
+        //@@author:huiminlim
+        // Put here temporary to tide over
+        StringBuilder builder = new StringBuilder();
+        builder.append("Front: ");
+        builder.append(flashCard.getFront());
+        builder.append("\n");
+        builder.append("Back: ");
+        builder.append(flashCard.getBack());
+        //@author
+
+        flashCardDisplay = new FlashCardDisplay(builder.toString());
 
         // let flashCardDisplay take up the maximum horizontal space in the row
         //HBox.setHgrow(flashCardDisplay, Priority.ALWAYS);
