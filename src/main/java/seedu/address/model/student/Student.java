@@ -19,6 +19,7 @@ public class Student {
     private final Name name;
     private final Phone phone;
     private final Email email;
+    private DisplayPicture displayPicture;
 
     // Data fields
     private final ParentPhone parentPhone;
@@ -39,6 +40,7 @@ public class Student {
         this.address = address;
         this.medicalCondition = medicalCondition;
         this.tags.addAll(tags);
+        this.displayPicture = new DisplayPicture();
     }
 
     public Name getName() {
@@ -63,6 +65,10 @@ public class Student {
 
     public MedicalCondition getMedicalCondition() {
         return medicalCondition;
+    }
+
+    public String getDisplayPicture() {
+        return displayPicture.getImage();
     }
 
     /**

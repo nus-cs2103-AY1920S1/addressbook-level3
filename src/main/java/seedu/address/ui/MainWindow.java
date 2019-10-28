@@ -52,9 +52,6 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane studentListPanelPlaceholder;
 
     @FXML
-    private StackPane assignmentListPanelPlaceholder;
-
-    @FXML
     private StackPane combinedListPanelPlaceholder;
 
     @FXML
@@ -62,6 +59,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane reminderListPanelPlaceholder;
+
+    @FXML
+    private StackPane assignmentListPanelPlaceholder;
 
     @FXML
     private StackPane statusbarPlaceholder;
