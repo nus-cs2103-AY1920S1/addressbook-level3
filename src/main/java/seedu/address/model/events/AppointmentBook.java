@@ -3,6 +3,7 @@ package seedu.address.model.events;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
+import java.util.ListIterator;
 
 import javafx.collections.ObservableList;
 
@@ -15,10 +16,10 @@ import seedu.address.model.common.UniqueElementList;
  */
 public class AppointmentBook implements ReadOnlyAppointmentBook {
 
-    private final UniqueElementList<Event> events;
+    private final UniqueEventList events;
 
     public AppointmentBook() {
-        events = new UniqueElementList<>();
+        events = new UniqueEventList();
     }
 
     /**
@@ -104,6 +105,16 @@ public class AppointmentBook implements ReadOnlyAppointmentBook {
     @Override
     public ObservableList<Event> getEventList() {
         return events.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public int countNumberOfEventsInConflict(Event event) {
+        return events.countNumberOfEventsInConflict(event);
+    }
+
+    @Override
+    public boolean allowedToSchedule(Event event, int maxNumberOfConcurrentEvents) {
+        return allowedToSchedule(event, maxNumberOfConcurrentEvents);
     }
 
     @Override

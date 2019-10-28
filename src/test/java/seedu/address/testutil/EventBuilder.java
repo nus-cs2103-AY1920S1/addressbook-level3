@@ -59,13 +59,16 @@ public class EventBuilder {
                 .plusMonths(afterMonth)
                 .plusDays(afterDays)
                 .plusHours(afterHours)
-                .plusMinutes(afterMinutes);
+                .plusMinutes(afterMinutes)
+                .withSecond(0)
+                .withNano(0);
 
         LocalDateTime newEndLocalDateTime = newStartLocalDateTime.plusMinutes(durationInMinutes);
 
-        Date startDate = Date.from(newStartLocalDateTime.atZone(ZoneId.systemDefault()).toInstant());
-        Date endDate = Date.from(newEndLocalDateTime.atZone(ZoneId.systemDefault()).toInstant());
-        this.timing = new Timing(new DateTime(startDate), new DateTime(endDate));
+        this.timing = new Timing(
+                DateTime.FromLocalDateTime(newStartLocalDateTime),
+                DateTime.FromLocalDateTime(newEndLocalDateTime));
+
         return this;
     }
 

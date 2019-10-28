@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.function.Predicate;
 
@@ -61,9 +62,8 @@ public class AppointmentsCommand extends NonActionableCommand {
     private void autoMissEvent(ObservableList<Event> filteredEventList, Model model) {
         for (Event ev : filteredEventList) {
             Timing evTiming = ev.getEventTiming();
-            Date current = new Date();
             if (!ev.getStatus().equals(new Status(Status.AppointmentStatuses.SETTLED))
-                    && evTiming.getEndTime().getTime().before(current)) {
+                    && evTiming.getEndTime().getTime().isBefore(LocalDateTime.now())) {
                 Event newAppt = new Appointment(ev.getPersonId(), ev.getEventTiming(),
                         new Status(Status.AppointmentStatuses.MISSED));
                 model.setAppointment(ev, newAppt);

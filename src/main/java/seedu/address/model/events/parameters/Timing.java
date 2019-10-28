@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Objects;
 
@@ -39,15 +40,14 @@ public class Timing implements Comparable<Timing> {
      */
     public static boolean isValidTiming(DateTime testStart, DateTime testEnd) {
         requireAllNonNull(testStart, testEnd);
-        return testStart.getTime().before(testEnd.getTime());
+        return testStart.getTime().isBefore(testEnd.getTime());
     }
 
     /**
      * Returns true if the start dateTime is before the end dateTime.
      */
     public static boolean isValidTimingFromCurrentTime(DateTime testStart, DateTime testEnd) {
-        Date current = new Date();
-        return isValidTiming(testStart, testEnd) && testStart.getTime().after(current);
+        return isValidTiming(testStart, testEnd) && testStart.getTime().isAfter(LocalDateTime.now());
     }
 
     public DateTime getStartTime() {
@@ -62,8 +62,7 @@ public class Timing implements Comparable<Timing> {
      * Returns true if the endtime is before current time.
      */
     public Boolean hasMissedTiming() {
-        Date current = new Date();
-        return getEndTime().getTime().before(current);
+        return getEndTime().getTime().isBefore(LocalDateTime.now());
     }
 
     /**
@@ -130,12 +129,12 @@ public class Timing implements Comparable<Timing> {
     @Override
     public int compareTo(Timing t) {
         requireNonNull(t);
-        int cmpStartTimingResult = t.getStartTime().compareTo(getStartTime());
+        int cmpStartTimingResult = getStartTime().compareTo(t.getStartTime());
         if (cmpStartTimingResult != 0) {
             return cmpStartTimingResult;
         }
 
-        return t.getEndTime().compareTo(getEndTime());
+        return getEndTime().compareTo(t.getEndTime());
     }
 
     @Override

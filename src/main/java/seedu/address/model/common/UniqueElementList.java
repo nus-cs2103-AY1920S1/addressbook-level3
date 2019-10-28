@@ -7,6 +7,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -96,14 +97,12 @@ public class UniqueElementList<T extends Identical> implements Iterable<T> {
         return internalList.get(index);
     }
 
-    public Iterator<T> getUpperBound(Object o) {
-        requireNonNull(o);
-        return internalList.listIterator(internalUniqueTreeList.indexOfUpperBound(o));
+    public int getUpperBound(Object o) {
+        return internalUniqueTreeList.indexOfUpperBound(o);
     }
 
-    public Iterator<T> getLowerBound(Object o) {
-        requireNonNull(o);
-        return internalList.listIterator(internalUniqueTreeList.indexOfLowerBound(o));
+    public int getLowerBound(Object o) {
+        return internalUniqueTreeList.indexOfLowerBound(o);
     }
 
     public void setAll(UniqueElementList replacement) {
@@ -136,6 +135,10 @@ public class UniqueElementList<T extends Identical> implements Iterable<T> {
     @Override
     public Iterator<T> iterator() {
         return internalList.iterator();
+    }
+
+    public ListIterator<T> listIterator(int index) {
+        return internalUniqueTreeList.listIterator(index);
     }
 
     @Override

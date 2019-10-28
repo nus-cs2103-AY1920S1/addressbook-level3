@@ -2,10 +2,11 @@ package seedu.address.model.events.parameters;
 
 import static java.util.Objects.requireNonNull;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.temporal.ChronoUnit;
 import java.util.Date;
 
 /**
@@ -17,15 +18,16 @@ public class DateTime implements Comparable<DateTime> {
     public static final String DATETIME_FORMAT = "dd/MM/yy HHmm";
     public static final String MESSAGE_CONSTRAINTS =
             "date time must be follow the format of '" + DATETIME_FORMAT + "'.";
-    private static final SimpleDateFormat DATE_FORMATTER = new SimpleDateFormat(DATETIME_FORMAT);
-    private final Date time;
+    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern(DATETIME_FORMAT);
 
-    public DateTime(Date date) {
+    private final LocalDateTime time;
+
+    private DateTime(LocalDateTime date) {
         requireNonNull(date);
         time = date;
     }
 
-    public Date getTime() {
+    public LocalDateTime getTime() {
         return time;
     }
 
@@ -42,25 +44,20 @@ public class DateTime implements Comparable<DateTime> {
         }
 
         try {
-            DATE_FORMATTER.setLenient(false);
-            Date parseDate = DATE_FORMATTER.parse(dateString);
-            return new DateTime(parseDate);
-        } catch (ParseException ex) {
+            return new DateTime(LocalDateTime.parse(dateString, DATE_FORMATTER));
+        } catch (DateTimeParseException ex) {
             return null;
         }
     }
 
     /**
-     * Gets new {@code DateTime} DateTime object which is {@code years}, {@code months}, {@code days}, {@code weeks},
+     * Gets new {@code DateTime} object which is {@code years}, {@code months}, {@code days}, {@code weeks},
      * {@code hours} and {@code mins} later from the {@code current} one.
      */
     private static DateTime plusTime(DateTime current, int years, int months,
                                      int weeks, int days, int hours, int minutes) {
 
-        LocalDateTime currentLocalDateTime = LocalDateTime.ofInstant(current.getTime().toInstant(),
-                ZoneId.systemDefault());
-
-        LocalDateTime newLocalDateTime = currentLocalDateTime
+        LocalDateTime newLocalDateTime = current.getTime()
                 .plusYears(years)
                 .plusMonths(months)
                 .plusWeeks(weeks)
@@ -68,8 +65,14 @@ public class DateTime implements Comparable<DateTime> {
                 .plusHours(hours)
                 .plusMinutes(minutes);
 
-        Date currentDate = Date.from(newLocalDateTime.atZone(ZoneId.systemDefault()).toInstant());
-        return new DateTime(currentDate);
+        return FromLocalDateTime(newLocalDateTime);
+    }
+
+    /**
+     * Returns new {@code DateTime} object from a {@code LocalDateTime} object.
+     */
+    public static DateTime FromLocalDateTime(LocalDateTime localDateTime) {
+        return new DateTime(localDateTime.withSecond(0).withNano(0));
     }
 
     /**
@@ -134,7 +137,11 @@ public class DateTime implements Comparable<DateTime> {
     @Override
     public int compareTo(DateTime d) {
         requireNonNull(d);
-        return getTime().compareTo(d.getTime());
+        long deltaSeconds = getTime().until(d.getTime(), ChronoUnit.MINUTES);
+        if (deltaSeconds == 0) {
+            return 0;
+        }
+        return (deltaSeconds > 0) ? -1 : 1;
     }
 
     @Override

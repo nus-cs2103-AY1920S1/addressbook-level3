@@ -6,23 +6,23 @@ import java.util.function.Predicate;
 import seedu.address.model.events.Event;
 
 /**
- * Tests that a {@code Event}'s {@code ReferenceId} matches the given {@code ReferenceId}.
+ * Tests whether an {@code Event}'s {@code Timing} is in conflict with the given event's timing.
  */
-public class SettledEventPredicate implements Predicate<Event> {
+public class EventsInConflictPredicate implements Predicate<Event> {
     private final Date currentTime;
 
-    public SettledEventPredicate() {
+    public EventsInConflictPredicate() {
         this.currentTime = new Date();
     }
 
     @Override
     public boolean test(Event event) {
-        return event.getStatus().isSettled();
+        return false;
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-            || other instanceof SettledEventPredicate; // instanceof handles nulls
+            || other instanceof EventsInConflictPredicate; // instanceof handles nulls
     }
 }

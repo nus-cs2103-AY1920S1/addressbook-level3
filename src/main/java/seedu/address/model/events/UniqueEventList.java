@@ -2,7 +2,9 @@ package seedu.address.model.events;
 
 import static java.util.Objects.requireNonNull;
 
-import javafx.collections.ObservableList;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ListIterator;
 
 import seedu.address.model.common.UniqueElementList;
 
@@ -22,8 +24,103 @@ public class UniqueEventList extends UniqueElementList<Event> {
     /**
      * Returns a list of {@code Event} whose timing is in conflict with the given {@code event}.
      */
-    public ObservableList<Event> inConflictWith(Event toCheck) {
+    public List<Event> getEventsInConflict(Event toCheck) {
         requireNonNull(toCheck);
-        return null;
+        SearchEvent searchEvent = new SearchEvent(toCheck);
+        List<Event> listOfConflictingEvents = new ArrayList<>();
+
+        int indexOfLowerBound = getLowerBound(searchEvent);
+        int indexOfUpperBound = getUpperBound(searchEvent);
+        ListIterator<Event> iterator = listIterator(indexOfLowerBound);
+
+        while (iterator.nextIndex() <= indexOfUpperBound) {
+            listOfConflictingEvents.add(iterator.next());
+        }
+
+        return listOfConflictingEvents;
     }
+
+    /**
+     * Returns a list of {@code Event} whose timing is in conflict with the given {@code event}.
+     */
+    public int countNumberOfEventsInConflict(Event toCheck) {
+        requireNonNull(toCheck);
+        SearchEvent searchEvent = new SearchEvent(toCheck);
+        int indexOfLowerBound = getLowerBound(searchEvent);
+        int indexOfUpperBound = getUpperBound(searchEvent);
+        return indexOfUpperBound - indexOfLowerBound + 1;
+    }
+
+    /**
+     * Returns true if the number of unique events which timings are in conflict
+     * is lesser or equal to {@code maxNumberofConcurrentEvents} and the events in conflict does not
+     * involve the same person given in {@code event}.
+     */
+    public boolean allowedToSchedule(Event toCheck, int maxNumberOfConcurrentEvents) {
+        SearchEvent searchEvent = new SearchEvent(toCheck);
+        int indexOfLowerBound = getLowerBound(searchEvent);
+        int indexOfUpperBound = getUpperBound(searchEvent);
+
+        if (maxNumberOfConcurrentEvents <= indexOfUpperBound - indexOfLowerBound + 1) {
+            return false;
+        }
+
+        ListIterator<Event> iterator = listIterator(indexOfLowerBound);
+
+        while (iterator.nextIndex() <= indexOfUpperBound) {
+            if (toCheck.getPersonId().isSameAs(iterator.next().getPersonId())) {
+                return false;
+            }
+        }
+        return true;
+    }
+}
+
+class SearchEvent extends Event {
+    public SearchEvent(Event event) {
+        super(event.getPersonId(), event.getEventTiming(), event.getStatus());
+    }
+
+    /**
+     * Returns true if both Event of the same timing.
+     * This defines a weaker notion of equality between two events.
+     */
+    public boolean isSameAs(Event otherEvent) {
+        if (otherEvent == this) {
+            return true;
+        }
+
+        return otherEvent != null
+                && otherEvent.getEventTiming().equals(getEventTiming())
+                && otherEvent.getStatus().equals(getStatus());
+    }
+
+    /**
+     * Returns true if both events have the same timing.
+     * This defines a stronger notion of equality between two events.
+     */
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof Event)) {
+            return false;
+        }
+
+        Event otherEvent = (Event) other;
+        return otherEvent.getEventTiming().equals(getEventTiming())
+                && otherEvent.getStatus().equals(getStatus());
+    }
+
+    @Override
+    public int compareTo(Event o) {
+        requireNonNull(o);
+        if (conflictsWith(o)) {
+            return 0;
+        }
+        return getEventTiming().compareTo(o.getEventTiming());
+    }
+
 }

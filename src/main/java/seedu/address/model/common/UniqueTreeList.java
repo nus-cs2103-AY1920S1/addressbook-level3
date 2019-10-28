@@ -276,13 +276,13 @@ public class UniqueTreeList<E extends Identical> extends AbstractList<E> {
                 return -1;
             }
 
-            int cmp = value.compareTo(element);
-            if (cmp < 0) {
+            int cmp = element.compareTo(value);
+            if (cmp > 0) {
                 if (getLeftSubTree() == null) {
                     return -1;
                 }
                 return left.indexOf(element, index + left.relativePosition);
-            } else if (cmp > 0) {
+            } else if (cmp < 0) {
                 if (getRightSubTree() == null) {
                     return -1;
                 }
@@ -293,27 +293,25 @@ public class UniqueTreeList<E extends Identical> extends AbstractList<E> {
         }
 
         /**
-         * Gets the index of an the last element which is smaller or equal to the specified object {@code o}
-         */
-        int indexOfUpperBound(Identical<E> element, final int index) {
+          * Gets the index of an the last element which is smaller or equal to the specified object {@code o}
+          */
+        public int indexOfUpperBound(Identical<E> element, final int index) {
             if (value == null) {
                 return -1;
             }
 
-            int cmp = value.compareTo(element);
+            int cmp = element.compareTo(value);
             if (cmp > 0) {
+                if (getLeftSubTree() == null) {
+                    return index - 1;
+                }
+                return left.indexOfUpperBound(element, index + left.relativePosition);
+            } else {
                 if (getRightSubTree() == null) {
                     return index;
                 }
                 return right.indexOfUpperBound(element, index + right.relativePosition);
-            } else if (cmp < 0) {
-                if (getLeftSubTree() == null) {
-                    return index;
-                }
-                return left.indexOfUpperBound(element, index + left.relativePosition);
             }
-
-            return index;
         }
 
         /**
@@ -324,20 +322,18 @@ public class UniqueTreeList<E extends Identical> extends AbstractList<E> {
                 return -1;
             }
 
-            int cmp = value.compareTo(element);
-            if (cmp > 0) {
+            int cmp = element.compareTo(value);
+            if (cmp >= 0) {
                 if (getLeftSubTree() == null) {
                     return index;
                 }
-                return left.indexOfUpperBound(element, index + left.relativePosition);
-            } else if (cmp < 0) {
+                return left.indexOfLowerBound(element, index + left.relativePosition);
+            } else {
                 if (getRightSubTree() == null) {
-                    return index;
+                    return index + 1;
                 }
-                return right.indexOfUpperBound(element, index + right.relativePosition);
+                return right.indexOfLowerBound(element, index + right.relativePosition);
             }
-
-            return index;
         }
 
         /**
