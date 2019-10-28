@@ -20,7 +20,6 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.CommandResultType;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.question.Question;
 import seedu.address.model.student.Student;
 
 /**
@@ -205,14 +204,6 @@ public class MainWindow extends UiPart<Stage> {
         quizQuestionListPanel = new QuizQuestionListPanel(logic.getQuestionsInQuiz(), DisplayType.QUESTIONS);
         mainPanelPlaceholder.getChildren().add(quizQuestionListPanel.getRoot());
         quizQuestionListPanel.getRoot().toFront();
-//        quizWindow = new QuizWindow();
-//        ObservableList<Question> questions = logic.getQuestionsInQuiz();
-//        quizWindow.setQuestionsInQuiz(questions);
-//        if (!quizWindow.isShowing()) {
-//            quizWindow.show();
-//        } else {
-//            quizWindow.focus();
-//        }
     }
 
     /**
@@ -223,14 +214,6 @@ public class MainWindow extends UiPart<Stage> {
         quizQuestionListPanel = new QuizQuestionListPanel(logic.getQuestionsInQuiz(), DisplayType.ANSWERS);
         mainPanelPlaceholder.getChildren().add(quizQuestionListPanel.getRoot());
         quizQuestionListPanel.getRoot().toFront();
-//        quizWindow = new QuizWindow();
-//        ObservableList<Question> questions = logic.getQuestionsInQuiz();
-//        quizWindow.setAnswersInQuiz(questions);
-//        if (!quizWindow.isShowing()) {
-//            quizWindow.show();
-//        } else {
-//            quizWindow.focus();
-//        }
     }
 
     /**
@@ -241,14 +224,6 @@ public class MainWindow extends UiPart<Stage> {
         quizQuestionListPanel = new QuizQuestionListPanel(logic.getQuestionsInQuiz(), DisplayType.ALL);
         mainPanelPlaceholder.getChildren().add(quizQuestionListPanel.getRoot());
         quizQuestionListPanel.getRoot().toFront();
-//        quizWindow = new QuizWindow();
-//        ObservableList<Question> questions = logic.getQuestionsInQuiz();
-//        quizWindow.setQuestionsAndAnswersInQuiz(questions);
-//        if (!quizWindow.isShowing()) {
-//            quizWindow.show();
-//        } else {
-//            quizWindow.focus();
-//        }
     }
 
     /**
