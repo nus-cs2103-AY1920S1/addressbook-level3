@@ -16,7 +16,7 @@ import seedu.elisa.model.item.VisualizeList;
 public class SortCommand extends UndoableCommand {
 
     public static final String COMMAND_WORD = "sort";
-    public static final String MESSAGE_SUCCESS = "Item list has been sorted!";
+    public static final String MESSAGE_SUCCESS = "%s has been sorted!";
     private VisualizeList beforeSort;
     private Optional<Comparator<Item>> comparator;
 
@@ -33,7 +33,7 @@ public class SortCommand extends UndoableCommand {
         } else {
             model.sort();
         }
-        return new CommandResult(MESSAGE_SUCCESS);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, beforeSort.getClass().getSimpleName()));
     }
 
     @Override
