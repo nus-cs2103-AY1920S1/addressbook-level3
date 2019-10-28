@@ -38,7 +38,6 @@ import seedu.address.testutil.OrderBuilder;
 import seedu.address.testutil.PhoneBookBuilder;
 import seedu.address.testutil.ScheduleBookBuilder;
 import seedu.address.testutil.ScheduleBuilder;
-import seedu.address.testutil.TypicalCustomers;
 
 public class ModelManagerTest {
 

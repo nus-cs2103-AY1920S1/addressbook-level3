@@ -23,12 +23,14 @@ import static seedu.address.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.List;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.editcommand.EditCommand;
 import seedu.address.logic.commands.editcommand.EditCustomerCommand.EditCustomerDescriptor;
 import seedu.address.logic.commands.editcommand.EditPhoneCommand.EditPhoneDescriptor;
+import seedu.address.logic.commands.editcommand.EditScheduleCommand.EditScheduleDescriptor;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
@@ -42,6 +44,7 @@ import seedu.address.model.phone.predicates.IdentityNumberContainsKeywordsPredic
 import seedu.address.testutil.EditCustomerDescriptorBuilder;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.EditPhoneDescriptorBuilder;
+import seedu.address.testutil.EditScheduleDescriptorBuilder;
 
 /**
  * Contains helper methods for testing commands.
@@ -102,6 +105,10 @@ public class CommandTestUtil {
     public static final String VALID_TAG_EVERYDAY = "Bag";
     public static final Index VALID_INDEX_MONDAY = Index.fromOneBased(VALID_S_INDEX_MONDAY);
     public static final Index VALID_INDEX_FRIDAY = Index.fromOneBased(VALID_S_INDEX_FRIDAY);
+    public static final Calendar VALID_CALENDAR_MONDAY = new Calendar.Builder()
+            .setDate(2019, 11, 17).setTimeOfDay(13, 0, 0).build();
+    public static final Calendar VALID_CALENDAR_FRIDAY = new Calendar.Builder()
+            .setDate(2020, 6, 1).setTimeOfDay(19, 30, 0).build();
     public static final boolean VALID_ALLOW_EVERYDAY = true;
     public static final boolean VALID_DISALLOW_EVERYDAY = false;
 
@@ -187,6 +194,8 @@ public class CommandTestUtil {
     public static final EditCustomerDescriptor DESC_BEN;
     public static final EditPhoneDescriptor DESC_IPHONE;
     public static final EditPhoneDescriptor DESC_SAMSUNG;
+    public static final EditScheduleDescriptor DESC_MONDAY;
+    public static final EditScheduleDescriptor DESC_FRIDAY;
 
     static {
         DESC_AMY = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
@@ -213,6 +222,12 @@ public class CommandTestUtil {
                 .withBrand(VALID_BRAND_SAMSUNG).withCapacity(VALID_CAPACITY_SAMSUNG).withCost(VALID_COST_SAMSUNG)
                 .withColour(VALID_COLOUR_SAMSUNG).withSerialNumber(VALID_SERIAL_NUMBER_SAMSUNG)
                 .withIdentityNumber(VALID_IDENTITY_NUMBER_SAMSUNG).build();
+
+        DESC_MONDAY = new EditScheduleDescriptorBuilder().withDate(VALID_CALENDAR_MONDAY)
+                .withTime(VALID_CALENDAR_MONDAY).withVenue(VALID_VENUE_MONDAY).withTags(VALID_TAG_EVERYDAY).build();
+
+        DESC_FRIDAY = new EditScheduleDescriptorBuilder().withDate(VALID_CALENDAR_FRIDAY)
+                .withTime(VALID_CALENDAR_FRIDAY).withVenue(VALID_VENUE_FRIDAY).withTags(VALID_TAG_EVERYDAY).build();
     }
 
     /**

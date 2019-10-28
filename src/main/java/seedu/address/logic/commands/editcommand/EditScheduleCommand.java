@@ -173,7 +173,8 @@ public class EditScheduleCommand extends Command {
         // state check
         EditScheduleCommand e = (EditScheduleCommand) other;
         return index.equals(e.index)
-                && editScheduleDescriptor.equals(e.editScheduleDescriptor);
+                && editScheduleDescriptor.equals(e.editScheduleDescriptor)
+                && canClash == e.canClash;
     }
 
     /**
