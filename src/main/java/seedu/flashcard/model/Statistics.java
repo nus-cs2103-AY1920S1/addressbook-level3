@@ -46,7 +46,8 @@ public class Statistics {
                     score.getCorrectAnswers()));
 
             wrongSeries.setName("wrong");
-            wrongSeries.getData().add(new XYChart.Data<>(flashcard.getQuestion().shortenForLabel(), score.getWrongAnswers()));
+            wrongSeries.getData().add(new XYChart.Data<>(flashcard.getQuestion().shortenForLabel(),
+                score.getWrongAnswers()));
         }
     }
 
