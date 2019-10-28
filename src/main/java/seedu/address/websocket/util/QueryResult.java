@@ -14,10 +14,6 @@ public class QueryResult {
         this.responseResult = responseResult;
     }
 
-    public Integer getResponseCode() {
-        return this.responseCode;
-    }
-
     public String getResponseResult() {
         return this.responseResult;
     }

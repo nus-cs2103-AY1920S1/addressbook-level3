@@ -1,30 +1,33 @@
 package seedu.address.websocket.util;
 
 import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.io.Reader;
 import java.net.URL;
 import java.net.URLConnection;
+import java.nio.file.Path;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Logger;
 
-import org.json.simple.parser.JSONParser;
-
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.websocket.CacheFileNames;
+import seedu.address.commons.util.FileUtil;
 
 /**
  * This class is used to get an image from a api response
  */
 public class ImageQuery {
+
+    private static final Logger logger = LogsCenter.getLogger(ImageQuery.class);
+
     /**
      * This mthod checks if the API response is valid then saves it into the directory
      * @param imageUrl
      * @param filePath
      */
+
     public static void execute(String imageUrl, String filePath) {
         try {
             if (isValid(imageUrl)) {
@@ -33,7 +36,7 @@ public class ImageQuery {
                 throw new IllegalValueException(imageUrl + "Not identifiable by gmaps");
             }
         } catch (IllegalValueException | IOException e) {
-            e.printStackTrace();
+            logger.warning(e.getMessage());
         }
     }
 
@@ -53,15 +56,11 @@ public class ImageQuery {
                 String key = entry.getKey();
                 if (key != null && key.equals("X-Staticmap-API-Warning")) {
                     isValid = false;
-                    JSONParser parser;
-                    parser = new JSONParser();
                     String name = imageUrl.split("center=")[1].split("&")[0].split("NUS_")[1];
-                    try {
-                        Reader reader = new FileReader(CacheFileNames.GMAPS_IMAGE_DIR + name + ".png");
-                        System.out.println(name + " not available on gmaps but manually added");
-                    } catch (IOException e) {
-                        System.out.println(name + " not on gmaps and not added");
-                        e.printStackTrace();
+                    if (FileUtil.isFileExists(Path.of(FileUtil.imagePath(name)))) {
+                        logger.fine(name + " not available on gmaps but manually added");
+                    } else {
+                        logger.warning(name + " not on gmaps and not added");
                     }
                 }
             }

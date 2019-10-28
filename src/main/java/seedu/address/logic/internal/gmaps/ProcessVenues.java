@@ -67,7 +67,6 @@ public class ProcessVenues {
                     + "getVenuesJsonArray");
         } else {
             for (int i = 0; i < venuesNusMods.size(); i++) {
-                System.out.println("Processing " + venuesNusMods.get(i) + " " + i + "/" + venuesNusMods.size());
                 Location currLocation = getLocation(i);
                 venues.add(currLocation);
             }
@@ -90,15 +89,10 @@ public class ProcessVenues {
             try {
                 String validLocation = sanitizeLocation.sanitize(locationName);
                 currLocation.setValidLocation(validLocation);
-                System.out.println(locationName + " identified as " + validLocation);
             } catch (TimeBookInvalidLocation e) {
                 System.out.println(e.getMessage());
             }
             return currLocation;
         }
-    }
-    public static void main(String[] args) {
-        ProcessVenues processVenues = new ProcessVenues().process();
-        processVenues.generateImages();
     }
 }
