@@ -36,7 +36,7 @@ public class ViewCommand extends Command {
     private final CommandSubType type;
 
     public ViewCommand(CommandSubType type, Index targetIndex) {
-        requireAllNonNull(type);
+        requireAllNonNull(type, targetIndex);
         this.type = type;
         this.targetIndex = targetIndex;
     }
@@ -50,7 +50,7 @@ public class ViewCommand extends Command {
         case CONTACT:
             List<Person> listedPersons = model.getFilteredPersonList();
 
-            if (targetIndex.getZeroBased() >= listedPersons.size()) {
+            if (targetIndex.getOneBased() > listedPersons.size()) {
                 throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAY_INDEX);
             }
 
@@ -58,11 +58,12 @@ public class ViewCommand extends Command {
             Context newContactContext = new Context(personToView);
             model.setContext(newContactContext);
 
-            return new CommandResult(String.format(MESSAGE_SUCCESS, "contact"), newContactContext);
+            return new CommandResult(String.format(MESSAGE_SUCCESS, "contact", personToView.getName()),
+                    newContactContext);
         case ACTIVITY:
             List<Activity> listedActivities = model.getFilteredActivityList();
 
-            if (targetIndex.getZeroBased() >= listedActivities.size()) {
+            if (targetIndex.getOneBased() > listedActivities.size()) {
                 throw new CommandException(Messages.MESSAGE_INVALID_ACTIVITY_DISPLAY_INDEX);
             }
 
@@ -70,7 +71,8 @@ public class ViewCommand extends Command {
             Context newActivityContext = new Context(activityToView);
             model.setContext(newActivityContext);
 
-            return new CommandResult(String.format(MESSAGE_SUCCESS, "activity"), newActivityContext);
+            return new CommandResult(String.format(MESSAGE_SUCCESS, "activity", activityToView.getTitle()),
+                    newActivityContext);
         default:
             throw new CommandException(MESSAGE_UNKNOWN_VIEW_TYPE);
         }
@@ -78,8 +80,19 @@ public class ViewCommand extends Command {
 
     @Override
     public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof ViewCommand // instanceof handles nulls
-                && type.equals(((ViewCommand) other).type)); // state check
+        // short circuit if same object
+        if (other == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(other instanceof ViewCommand)) {
+            return false;
+        }
+
+        // state check
+        ViewCommand v = (ViewCommand) other;
+        return type.equals(v.type)
+            && targetIndex.equals(v.targetIndex);
     }
 }

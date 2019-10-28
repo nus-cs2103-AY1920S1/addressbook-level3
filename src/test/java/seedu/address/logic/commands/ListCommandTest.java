@@ -1,5 +1,7 @@
 package seedu.address.logic.commands;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
 import static seedu.address.testutil.Assert.assertThrows;
@@ -68,5 +70,23 @@ public class ListCommandTest {
 
         assertCommandSuccess(new ListCommand(CommandSubType.ACTIVITY),
                 model, expectedResult, expectedModel);
+    }
+
+    @Test
+    public void equals() {
+        ListCommand listPersons = new ListCommand(CommandSubType.CONTACT);
+        ListCommand listActivities = new ListCommand(CommandSubType.ACTIVITY);
+
+        // identity -> returns true
+        assertTrue(listPersons.equals(listPersons));
+
+        // same values -> returns true
+        assertTrue(listActivities.equals(new ListCommand(CommandSubType.ACTIVITY)));
+
+        // different CommandSubType -> returns false
+        assertFalse(listPersons.equals(listActivities));
+
+        // null -> returns false
+        assertFalse(listActivities.equals(null));
     }
 }
