@@ -106,11 +106,11 @@ class EditReminderCommandTest {
 
         // same values -> returns true
         //TODO: Check what's go wrong here
-        //EditReminderCommand.EditReminderDescriptor copyDescriptor =
-        //        new EditReminderCommand.EditReminderDescriptor(desc_Open);
-        //EditReminderCommand commandWithSameValues =
-        //        new EditReminderCommand(INDEX_FIRST_REMINDER, copyDescriptor);
-        //assertTrue(standardCommand.equals(commandWithSameValues));
+        EditReminderCommand.EditReminderDescriptor copyDescriptor =
+                new EditReminderCommand.EditReminderDescriptor(descOpen);
+        EditReminderCommand commandWithSameValues =
+                new EditReminderCommand(INDEX_FIRST_REMINDER, copyDescriptor);
+        assertTrue(standardCommand.equals(commandWithSameValues));
 
         // same object -> returns true
         assertTrue(standardCommand.equals(standardCommand));
