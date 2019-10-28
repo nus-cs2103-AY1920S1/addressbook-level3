@@ -1,10 +1,14 @@
 package seedu.elisa.logic.commands;
 
-
 import seedu.elisa.commons.core.Messages;
+
 import seedu.elisa.logic.commands.exceptions.CommandException;
 import seedu.elisa.model.ElisaCommandHistory;
 import seedu.elisa.model.ItemModel;
+
+/**
+ * Class for redoing a previously undone command
+ * */
 
 public class RedoCommand extends Command {
     public static final String COMMAND_WORD = "redo";
