@@ -52,14 +52,14 @@ public class ExpandedModuleCard extends UiPart<Region> {
         lecturerName.setText(module.getLecturerName());
         timeSlot.setText(module.getModuleTimeTableToString());
         enrolment.setText(Integer.toString(module.getCurrentEnrolment()));
-        quota.setText(Integer.toString(module.getQuota()));
+        quota.setText(module.getQuota());
         setEnrolmentProgressBar();
         moduleDescription.setText(module.getModuleDescription());
         studentsEnrolled.setText(formatStudentEnrolmentToText());
     }
 
     private void setEnrolmentProgressBar() {
-        double percentageFilled = (double) module.getCurrentEnrolment() / module.getQuota();
+        double percentageFilled = (double) module.getCurrentEnrolment() / module.getQuotaInt();
         quotaBar.setProgress(percentageFilled);
     }
 
