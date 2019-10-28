@@ -1,6 +1,7 @@
 package seedu.address.logic.commands.staff;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.OmniPanelTab.DOCTORS_TAB;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ID;
@@ -54,6 +55,7 @@ public class RegisterStaffCommand extends ReversibleCommand {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+        model.setTabListing(DOCTORS_TAB);
 
         if (model.hasStaff(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);

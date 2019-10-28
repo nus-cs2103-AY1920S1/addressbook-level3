@@ -14,6 +14,7 @@ import seedu.address.model.Model;
  */
 public class CommandHistory {
 
+    public static final int COMMAND_HISTORY_MEMORY_LIMIT = 50;
     public static final String MESSAGE_NO_UNDO_HISTORY_ERROR = "Nothing to undo!";
     public static final String MESSAGE_NO_REDO_HISTORY_ERROR = "Nothing to redo!";
 
@@ -45,6 +46,11 @@ public class CommandHistory {
      */
     public void addToCommandHistory(ReversibleActionPairCommand command) {
         requireNonNull(command);
+
+        while (commandHistory.size() >= COMMAND_HISTORY_MEMORY_LIMIT) {
+            commandHistory.remove(0);
+        }
+
         commandHistory.add(command);
         commandRedoHistory.clear();
     }

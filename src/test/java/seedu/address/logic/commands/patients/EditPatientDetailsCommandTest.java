@@ -37,6 +37,7 @@ public class EditPatientDetailsCommandTest {
 
         Model expectedModel = TestUtil.getTypicalModelManager();
         expectedModel.setPatient(personToEdit, BOB);
+        expectedModel.changePatientRefIdInQueue(personToEdit.getReferenceId(), BOB.getReferenceId());
         String expectedMessage = String.format(EditPatientDetailsCommand.MESSAGE_EDIT_PERSON_SUCCESS, BOB);
 
         assertCommandSuccess(editPatientDetailsCommand, model, expectedMessage, expectedModel);

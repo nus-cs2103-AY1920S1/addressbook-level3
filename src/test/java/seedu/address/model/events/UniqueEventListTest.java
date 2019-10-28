@@ -47,18 +47,21 @@ class UniqueEventListTest {
 
     @Test
     void getEventsInConflict() {
-        assertEquals(Arrays.asList(EVENT_ALICE), eventList.getEventsInConflict(EVENT_ALICE));
-        assertEquals(Arrays.asList(EVENT_BENSON), eventList.getEventsInConflict(EVENT_BENSON));
-        assertEquals(Arrays.asList(EVENT_CARL), eventList.getEventsInConflict(EVENT_CARL));
+        assertEquals(Arrays.asList(EVENT_ALICE), eventList.getListOfEventsInConflict(EVENT_ALICE));
+        assertEquals(Arrays.asList(EVENT_BENSON), eventList.getListOfEventsInConflict(EVENT_BENSON));
+        assertEquals(Arrays.asList(EVENT_CARL), eventList.getListOfEventsInConflict(EVENT_CARL));
 
-        assertEquals(Arrays.asList(EVENT_DANIEL, EVENT_ELLE, EVENT_FIONA), eventList.getEventsInConflict(EVENT_DANIEL));
-        assertEquals(Arrays.asList(EVENT_DANIEL, EVENT_ELLE, EVENT_FIONA), eventList.getEventsInConflict(EVENT_ELLE));
         assertEquals(Arrays.asList(EVENT_DANIEL, EVENT_ELLE, EVENT_FIONA),
-                eventList.getEventsInConflict(EVENT_FIONA));
-        assertEquals(Arrays.asList(EVENT_GEORGE), eventList.getEventsInConflict(EVENT_GEORGE));
+                eventList.getListOfEventsInConflict(EVENT_DANIEL));
+        assertEquals(Arrays.asList(EVENT_DANIEL, EVENT_ELLE, EVENT_FIONA),
+                eventList.getListOfEventsInConflict(EVENT_ELLE));
+        assertEquals(Arrays.asList(EVENT_DANIEL, EVENT_ELLE, EVENT_FIONA),
+                eventList.getListOfEventsInConflict(EVENT_FIONA));
+        assertEquals(Arrays.asList(EVENT_GEORGE),
+                eventList.getListOfEventsInConflict(EVENT_GEORGE));
 
         assertEquals(Arrays.asList(),
-                eventList.getEventsInConflict(
+                eventList.getListOfEventsInConflict(
                 new EventBuilder(EVENT_DANIEL)
                         .withStartTime(1, 0, 0, 0, 0, 30)
                         .build()));

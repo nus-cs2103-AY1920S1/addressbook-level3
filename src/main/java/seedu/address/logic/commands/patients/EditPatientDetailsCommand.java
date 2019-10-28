@@ -70,6 +70,10 @@ public class EditPatientDetailsCommand extends ReversibleCommand {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
 
+        if (model.isPatientInQueue(personToEdit.getReferenceId())) {
+            model.changePatientRefIdInQueue(personToEdit.getReferenceId(), editedPerson.getReferenceId());
+        }
+
         model.setPatient(personToEdit, editedPerson);
         model.updateFilteredPatientList(PREDICATE_SHOW_ALL_PERSONS);
         return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedPerson));

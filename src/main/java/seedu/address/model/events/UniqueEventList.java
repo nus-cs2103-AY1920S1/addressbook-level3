@@ -24,16 +24,23 @@ public class UniqueEventList extends UniqueElementList<Event> {
     /**
      * Returns a list of {@code Event} whose timing is in conflict with the given {@code event}.
      */
-    public List<Event> getEventsInConflict(Event toCheck) {
+    public ListIterator<Event> getEventsInConflict(Event toCheck) {
         requireNonNull(toCheck);
         SearchEvent searchEvent = new SearchEvent(toCheck);
-        List<Event> listOfConflictingEvents = new ArrayList<>();
 
         int indexOfLowerBound = getLowerBound(searchEvent);
         int indexOfUpperBound = getUpperBound(searchEvent);
-        ListIterator<Event> iterator = listIterator(indexOfLowerBound);
+        return listIterator(indexOfLowerBound, indexOfUpperBound);
+    }
 
-        while (iterator.nextIndex() <= indexOfUpperBound) {
+    /**
+     * Returns a list of {@code Event} whose timing is in conflict with the given {@code event}.
+     */
+    public List<Event> getListOfEventsInConflict(Event toCheck) {
+        ListIterator<Event> iterator = getEventsInConflict(toCheck);
+        List<Event> listOfConflictingEvents = new ArrayList<>();
+
+        while (iterator.hasNext()) {
             listOfConflictingEvents.add(iterator.next());
         }
 

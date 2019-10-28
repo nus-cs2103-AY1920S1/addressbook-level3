@@ -6,6 +6,7 @@ import java.util.AbstractList;
 import java.util.Collection;
 import java.util.ConcurrentModificationException;
 import java.util.Iterator;
+import java.util.List;
 import java.util.ListIterator;
 import java.util.NoSuchElementException;
 
@@ -69,6 +70,11 @@ public class UniqueTreeList<E extends Identical> extends AbstractList<E> {
     public ListIterator<E> listIterator(int index) {
         checkInterval(index, 0, size());
         return new TreeListIterator<>(this, index);
+    }
+
+    public ListIterator<E> listIterator(int index, int endIndex) {
+        checkInterval(index, 0, size());
+        return new RangedTreeListIterator<>(this, index, endIndex);
     }
 
     @Override
@@ -292,6 +298,7 @@ public class UniqueTreeList<E extends Identical> extends AbstractList<E> {
             return index;
         }
 
+        //@@author sakurablossom
         /**
           * Gets the index of an the last element which is smaller or equal to the specified object {@code o}
           */
@@ -314,6 +321,7 @@ public class UniqueTreeList<E extends Identical> extends AbstractList<E> {
             }
         }
 
+        //@@author sakurablossom
         /**
          * Gets the index of an the first element which is larger or equal to the specified object {@code o}
          */
@@ -739,7 +747,7 @@ public class UniqueTreeList<E extends Identical> extends AbstractList<E> {
         /**
          * The index of the next node to be returned.
          */
-        private int nextIndex;
+        protected int nextIndex;
         /**
          * Cache of the last node that was returned by {@link #next()}
          * or {@link #previous()}.
@@ -875,6 +883,40 @@ public class UniqueTreeList<E extends Identical> extends AbstractList<E> {
             currentIndex = -1;
             nextIndex++;
             expectedModCount++;
+        }
+    }
+
+    /**
+     * A range-limited list iterator over the linked list.
+     */
+    //@@author sakurablossom
+    static class RangedTreeListIterator<E extends Identical> extends TreeListIterator<E> {
+
+        private final int startIndex;
+        private final int endIndex;
+
+        /**
+         * Create a ListIterator for a list.
+         *
+         * @param parent  the parent list
+         * @param fromIndex  the index to start at
+         * @param lastIndex  the index to start at
+         */
+        protected RangedTreeListIterator(final UniqueTreeList<E> parent, final int fromIndex, final int lastIndex)
+                throws IndexOutOfBoundsException {
+            super(parent, fromIndex);
+            startIndex = fromIndex;
+            endIndex = lastIndex;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return super.hasNext() && this.nextIndex <= endIndex;
+        }
+
+        @Override
+        public boolean hasPrevious() {
+            return super.hasPrevious() && this.nextIndex >= startIndex;
         }
     }
 

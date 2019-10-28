@@ -133,6 +133,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void changePatientRefIdInQueue(ReferenceId idToEdit, ReferenceId editedId) {
+        queueManager.setPatientInQueue(idToEdit, editedId);
+    }
+
+    @Override
     public void addRoom(Room room) {
         queueManager.addRoom(room);
     }

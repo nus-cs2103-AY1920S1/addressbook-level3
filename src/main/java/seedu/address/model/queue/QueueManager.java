@@ -1,6 +1,7 @@
 package seedu.address.model.queue;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import javafx.collections.ObservableList;
 
@@ -77,12 +78,17 @@ public class QueueManager {
         queueList.remove(0);
     }
 
-    public void addRoom(Room room) {
-        roomList.add(room);
-    }
-
     public boolean hasId(ReferenceId id) {
         return queueList.contains(id);
+    }
+
+    public void setPatientInQueue(ReferenceId target, ReferenceId editedId) {
+        queueList.setPerson(target, editedId);
+    }
+
+
+    public void addRoom(Room room) {
+        roomList.add(room);
     }
 
     public void removeRoom(Room target) {
@@ -99,7 +105,6 @@ public class QueueManager {
 
     public void setRoom(Room target, Room editedRoom) {
         requireNonNull(editedRoom);
-
         roomList.set(target, editedRoom);
     }
 

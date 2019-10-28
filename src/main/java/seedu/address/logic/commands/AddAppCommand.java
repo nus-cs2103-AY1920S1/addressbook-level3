@@ -76,6 +76,8 @@ public class AddAppCommand extends ReversibleCommand {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+
+
         if (eventList == null) {
             addOneEvent(model, toAdd);
             model.updateFilteredAppointmentList(new EventContainsRefIdPredicate(toAdd.getPersonId()));

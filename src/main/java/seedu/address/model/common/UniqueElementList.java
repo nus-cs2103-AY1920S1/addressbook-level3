@@ -105,7 +105,7 @@ public class UniqueElementList<T extends Identical> implements Iterable<T> {
         return internalUniqueTreeList.indexOfLowerBound(o);
     }
 
-    public void setAll(UniqueElementList replacement) {
+    public void setAll(UniqueElementList<T> replacement) {
         requireNonNull(replacement);
         internalList.clear();
         internalList.addAll(replacement.internalList);
@@ -139,6 +139,10 @@ public class UniqueElementList<T extends Identical> implements Iterable<T> {
 
     public ListIterator<T> listIterator(int index) {
         return internalUniqueTreeList.listIterator(index);
+    }
+
+    public ListIterator<T> listIterator(int index, int endIndex) {
+        return internalUniqueTreeList.listIterator(index, endIndex);
     }
 
     @Override

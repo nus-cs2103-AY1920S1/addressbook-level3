@@ -1,11 +1,14 @@
 package seedu.address.model.person;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.Optional;
+import java.util.HashMap;
+import java.util.List;
 
 import seedu.address.model.ReferenceId;
 import seedu.address.model.common.UniqueElementList;
+import seedu.address.model.exceptions.DuplicateEntryException;
 import seedu.address.model.exceptions.EntryNotFoundException;
 
 /**
@@ -21,12 +24,20 @@ import seedu.address.model.exceptions.EntryNotFoundException;
  */
 public class UniquePersonList extends UniqueElementList<Person> {
 
+    private HashMap<ReferenceId, Person> personHashMap = new HashMap<>();
+
+    @Override
+    public boolean contains(Person toCheck) {
+        return contains(toCheck.getReferenceId());
+    }
+
     /**
      * Returns true if the list contains an  person whose reference id is equivalent to the given argument.
      */
     public boolean contains(ReferenceId toCheck) {
         requireNonNull(toCheck);
-        return internalList.stream().anyMatch(p -> p.isSameAs(toCheck));
+        assert personHashMap.size() == internalList.size();
+        return personHashMap.containsKey(toCheck);
     }
 
     /**
@@ -34,12 +45,68 @@ public class UniquePersonList extends UniqueElementList<Person> {
      */
     public Person getPerson(ReferenceId id) throws EntryNotFoundException {
         requireNonNull(id);
-        Optional<Person> result = internalList.stream().filter(p -> p.isSameAs(id)).findFirst();
-
-        if (result.isEmpty()) {
+        Person result = personHashMap.get(id);
+        if (result == null) {
             throw new EntryNotFoundException();
         }
 
-        return result.get();
+        return result;
     }
+
+    @Override
+    public boolean containsExact(Person toCheck) {
+        requireNonNull(toCheck);
+        assert personHashMap.size() == internalList.size();
+        return toCheck.equals(personHashMap.get(toCheck.getReferenceId()));
+    }
+
+    @Override
+    public void add(Person toAdd) {
+        super.add(toAdd);
+        personHashMap.put(toAdd.getReferenceId(), toAdd);
+        assert personHashMap.size() == internalList.size();
+    }
+
+    @Override
+    public void set(Person target, Person editedElement) {
+        requireAllNonNull(target, editedElement);
+
+        if (target.compareTo(editedElement) != 0 && contains(editedElement)) {
+            throw new DuplicateEntryException();
+        }
+
+        remove(target);
+        add(editedElement);
+    }
+
+    @Override
+    public void remove(Person toRemove) {
+        requireNonNull(toRemove);
+        if (!internalList.remove(toRemove)) {
+            throw new EntryNotFoundException();
+        }
+        personHashMap.remove(toRemove.getReferenceId());
+        assert personHashMap.size() == internalList.size();
+    }
+
+    @Override
+    public void setAll(UniqueElementList<Person> replacement) {
+        requireNonNull(replacement);
+        super.setAll(replacement);
+        personHashMap.clear();
+        for (Person person : replacement) {
+            personHashMap.put(person.getReferenceId(), person);
+        }
+    }
+
+    @Override
+    public void setAll(List<Person> elements) {
+        requireAllNonNull(elements);
+        super.setAll(elements);
+        personHashMap.clear();
+        for (Person person : elements) {
+            personHashMap.put(person.getReferenceId(), person);
+        }
+    }
+
 }
