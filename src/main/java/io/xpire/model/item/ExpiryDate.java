@@ -57,6 +57,10 @@ public class ExpiryDate {
         return String.valueOf(offset);
     }
 
+    public boolean isExpired() {
+        return Long.parseLong(getStatus()) <= 0;
+    }
+
     public LocalDate getDate() {
         return this.date;
     }

@@ -7,7 +7,6 @@ import io.xpire.model.item.Item;
 import io.xpire.model.item.ReminderDate;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
@@ -67,9 +66,22 @@ public class ItemCard extends UiPart<Region> {
         this.item.getTags()
                 .forEach(tag -> this.tags.getChildren().add(new Label(tag.getTagName())));
 
-         this.status.setText(item.getExpiryDate().getStatus());
+        this.status.setText(item.getExpiryDate().getStatus());
 
-        box.setOnMouseClicked(e -> {box.requestFocus();});
+        box.setOnMouseClicked(e -> box.requestFocus());
+        this.setColor();
+    }
+
+    private void setColor() {
+        long remainingDays = Long.parseLong(item.getExpiryDate().getStatus());
+        int reminderThreshold = item.getReminderThreshold().getValue();
+        if (item.isExpired()) {
+            days.getStyleClass().add("expired");
+        } else if (item.hasReminderThreshold() && remainingDays < reminderThreshold) {
+            days.getStyleClass().add("remind");
+        } else {
+            days.getStyleClass().add("healthy");
+        }
     }
 
     @Override
