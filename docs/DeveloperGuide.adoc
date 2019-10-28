@@ -671,7 +671,7 @@ Use case ends.
 === Use case: Edit person
 Guarantees: +
 
-1. Person is editted even if input fields might be invalid (see 3a).
+1. Person is edited even if input fields might be invalid (see 3a).
 
 *MSS*
 

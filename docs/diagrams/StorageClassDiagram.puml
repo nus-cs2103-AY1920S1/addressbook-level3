@@ -1,5 +1,6 @@
 @startuml
 !include style.puml
+scale 0.5
 skinparam arrowThickness 1.1
 skinparam arrowColor STORAGE_COLOR
 skinparam classBackgroundColor STORAGE_COLOR
@@ -19,8 +20,11 @@ StorageManager o--> AddressBookStorage
 JsonUserPrefsStorage .left.|> UserPrefsStorage
 JsonAddressBookStorage .left.|> AddressBookStorage
 JsonAddressBookStorage .down.> JsonSerializableAddressBookStorage
-JsonSerializableAddressBookStorage .left.> JsonSerializablePerson
-JsonSerializablePerson .down.> JsonAdaptedTag
-JsonSerializableAddressBookStorage .right.> JsonSerializablePolicy
-JsonSerializablePolicy .down.> JsonAdaptedTag
+JsonSerializableAddressBookStorage .down.> JsonAdaptedPerson
+JsonAdaptedPerson .down.> JsonAdaptedTag
+JsonSerializableAddressBookStorage .down.> JsonAdaptedPolicy
+JsonAdaptedPolicy .down.> JsonAdaptedTag
+JsonSerializableAddressBookStorage .down.> JsonAdaptedBinItem
+JsonAdaptedBinItem .left.> JsonAdaptedPerson
+JsonAdaptedBinItem .right.> JsonAdaptedPolicy
 @enduml

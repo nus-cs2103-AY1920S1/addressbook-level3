@@ -1,5 +1,6 @@
 @startuml
 !include style.puml
+scale 1.33
 skinparam arrowThickness 1.1
 skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
@@ -39,6 +40,16 @@ Class Price
 Class StartAge
 Class UniquePolicyList
 }
+
+Package BinItem {
+Class BinItem
+Class UniqueBinItemList
+}
+
+note bottom of BinItem
+    <size:8>Detailed class diagram</size>
+    <size:8>below under bin feature</size>
+end note
 
 Package Tag {
 Class Tag
@@ -82,6 +93,10 @@ Policy *--> Price
 Policy *--> StartAge
 Policy *--> "*" Tag
 
+AddressBook *--> "1" UniqueBinItemList
+UniqueBinItemList o--> "*" BinItem
+
 ModelManager -->"1" Person : filtered list
 ModelManager -->"1" Policy : filtered list
+ModelManager -->"1" BinItem : filtered list
 @enduml
