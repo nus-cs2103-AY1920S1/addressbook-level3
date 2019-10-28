@@ -156,12 +156,12 @@ The `add_earnings` command allows for tutors to add their earnings into TutorAid
 
 The format for the `add_earnings` command is as follows:
 
- add_earnings d/<DATE> c/<CLASSID> amt/<AMOUNT>
+ add_earnings d/<DATE> type/<TYPE> c/<CLASSID> amt/<AMOUNT>
 
 *Overview*
 
 The add claim `add_earnings` mechanism is facilitated by `AddEarningsCommand` and `AddEarningsCommandParser`, taking in the
-following input from the user: `Date`, `ClassId`, `Amount`, which will construct `Earnings` objects.
+following input from the user: `Date`, `Type`, `ClassId`, `Amount`, which will construct `Earnings` objects.
 
 .Add Earnings Command Sequence Diagram
 image::AddEarningsSequenceDiagram.png[]
@@ -177,12 +177,14 @@ enter the correct format of the respectives objects.
 ** `date` would use `ParserUtil#parseDate()` to ensure that the date typed by the user is in the correct format of
 DD/MM/YYYY.
 
+** `type` would use `ParserUtil#parseType()` to ensure that the type entered by the user is valid.
+
 ** `classId` would use `ParserUtil#parseClassId()` to ensure that the class id typed in by the user is in the correct format.
 
 ** `amount` would use `ParserUtil#parseAmount()` to ensure that the amount entered by the user is in the correct format with
 2 decimal places to represent the cents.
 
-* After validation of the individual objects, an `Earnings` object would be created with the parameters `date`, `classId`
+* After validation of the individual objects, an `Earnings` object would be created with the parameters `date`, `type`, `classId`
  and `amount`.
 
 * `AddEarningsCommandParser` would then return a `AddEarningsCommand` object with the parameter, `Earnings` object.
@@ -204,8 +206,8 @@ earned $50.00.
 the given command is `add_earnings`, thus, `AddEarningsCommandParser` object would be created with the user's input.
 
 * Step 4: `AddEarningsCommandParser` performs a validation check on each of the respective objects through
-`AddEarningsCommandParser#parse()`. In this case, it would use `ParserUtil#parseDate()`, `ParserUtil#parseClassId()` and
-`ParserUtil#parseAmount()`. It would then return a `AddEarningsCommand` object with an `Earnings` object.
+`AddEarningsCommandParser#parse()`. In this case, it would use `ParserUtil#parseDate()`, `ParserUtil#parseType()`, `ParserUtil#parseClassId()`
+and `ParserUtil#parseAmount()`. It would then return a `AddEarningsCommand` object with an `Earnings` object.
 
 * Step 5: `LogicManager` would execute `AddEarningsCommand#execute`. In this particular method, the `Earnings` object will be
 check with the rest of the prior `Earnings` object, to ensure that there is no duplicate `Earnings` object. If there are no similar

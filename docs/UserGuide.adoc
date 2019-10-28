@@ -183,20 +183,20 @@ Example:
 ==== Add Earnings: `add_earnings`
 
 Adds Earnings to the list of earnings. +
-Format: `add_earnings d/DATE c/CLASSID amt/AMOUNT`
+Format: `add_earnings d/DATE type/TYPE c/CLASSID amt/AMOUNT`
 
 Examples:
 
-* `add_earnings d/19/09/2019 c/CS2103T amt/50.70`
+* `add_earnings d/19/09/2019 type/lab c/CS2103T amt/50.70`
 
 ==== Update Earnings: `update_earnings`
 
-Update Earnings in the list of earnings. +
-Format: `update_earnings d/DATE c/CLASSID amt/(NEW_AMOUNT)`
+Update Earnings in the list of earnings by adding one of the parameters at least. +
+Format: `update_earnings d/DATE c/CLASSID amt/NEW_AMOUNT type/TYPE`
 
 Examples:
 
-* `update_earnings d/14/04/2020 C/CS2103T amt/63.20`
+* `update_earnings d/14/04/2020 C/CS2103T amt/63.20 type/lab`
 
 ==== Delete Earnings: `delete_earnings`
 
@@ -210,11 +210,11 @@ Examples:
 ==== Find Earnings: `find_earnings`
 
 Find Earnings in the list of earnings. +
-Format: `find_earnings k/keywords, ...`
+Format: `find_earnings keywords, ...`
 
 Examples:
 
-* `find_earnings k/CS2103T, k/CS1231`
+* `find_earnings CS2103T, CS1231`
 
 ==== Claim Earnings: `claim_earnings`
 
