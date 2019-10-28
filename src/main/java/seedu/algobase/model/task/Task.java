@@ -152,9 +152,7 @@ public class Task {
         }
 
         Task otherTask = (Task) other;
-        return otherTask.getProblem().equals(getProblem())
-                && otherTask.getIsSolved().equals(getIsSolved())
-                && otherTask.getTargetDate().equals(getTargetDate());
+        return otherTask.getProblem().equals(getProblem());
     }
 
     @Override
