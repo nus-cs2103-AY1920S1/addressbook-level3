@@ -23,9 +23,10 @@ public class SendMailCommand extends Command {
     public static final String MESSAGE_FAILURE = "Failed to send email.\n"
             + "Please check your internet connection and ensure that the following has been modified to your account security settings:\n"
             + "  - Enable Less secure app access\n"
-            + "  - Disable the 2-Step Verification when Signing into your Google account";
+            + "  - Disable the 2-Step Verification when Signing into your Google account\n"
+            + "  - Please ensure the recipient's email address is correct";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a meeting to the project. \n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sends Mail to recipient. \n"
             + "Parameters: "
             + PREFIX_RECIPIENT + "RECIPIENT EMAIL ADDRESS "
             + PREFIX_SUBJECT + "SUBJECT "

@@ -43,6 +43,10 @@ public class AddProjectMeetingCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
+        if (!model.isCheckedOut()) {
+            throw new CommandException(model.checkoutConstrain());
+        }
+
         Project projectToEdit = model.getWorkingProject().get();
         List<String> members = projectToEdit.getMemberNames();
         List<Task> taskList = projectToEdit.getTasks();

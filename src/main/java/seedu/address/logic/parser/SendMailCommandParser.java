@@ -6,7 +6,9 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import java.util.stream.Stream;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.*;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_RECIPIENT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_SUBJECT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MESSAGE;
 
 public class SendMailCommandParser implements Parser<SendMailCommand> {
 
