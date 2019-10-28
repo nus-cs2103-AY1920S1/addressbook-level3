@@ -141,7 +141,14 @@ public class EventManager {
         }
         List<Event> requiredList = engagements.get(event);
         if (!isDuplicateEvent(event, requiredList)) {
-            throw new NoSuchElementException("There is no such event at this time.");
+            String requiredListStr = requiredList.stream()
+                    .map(Event::toString)
+                    .reduce("", (prev, curr) -> prev + "- " + curr + "\n")
+                    .trim();
+            String exceptionMessage = String.format("There is no such commitment/trip at this time. "
+                    + "Commitments/trips at this time:\n%s",
+                    requiredListStr);
+            throw new NoSuchElementException(exceptionMessage);
         }
         requiredList.remove(event);
         try {
@@ -158,7 +165,14 @@ public class EventManager {
         }
         List<Event> requiredList = vacations.get(event);
         if (!isDuplicateEvent(event, requiredList)) {
-            throw new NoSuchElementException("There is no such vacation at this time.");
+            String requiredListStr = requiredList.stream()
+                    .map(Event::toString)
+                    .reduce("", (prev, curr) -> prev + "- " + curr + "\n")
+                    .trim();
+            String exceptionMessage = String.format("There is no such vacation at this time. "
+                    + "Vacations at this time:\n%s",
+                    requiredListStr);
+            throw new NoSuchElementException(exceptionMessage);
         }
         requiredList.remove(event);
         try {
