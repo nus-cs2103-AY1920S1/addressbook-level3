@@ -73,7 +73,8 @@ public class MainWindow extends UiPart<Stage> {
                 logic.getFilteredContactList());
         splitDisplayPanelPlaceholder.getChildren().add(splitDisplay.getRoot()); */
 
-        updateUI();
+        updateCentralDisplay();
+        updateResultDisplay();
 
         //StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getPlannerFilePath());
         //statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
@@ -82,13 +83,8 @@ public class MainWindow extends UiPart<Stage> {
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
     }
 
-    private void updateUI() {
-        updateCentralDisplay();
-        updateResultDisplay();
-    }
-
     private void updateCentralDisplay() {
-        centralDisplay = new CentralDisplay(logic.getFilteredItinerary());
+        centralDisplay = new CentralDisplay(logic.getFilteredItinerary(), logic.getItinerary().getStartDateProperty());
         centralDisplayPlaceholder.getChildren().add(centralDisplay.getRoot());
     }
 
@@ -164,8 +160,10 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    /**
+     * Updates the UI and changes the focus to the relevant tab.
+     */
     private void applyUiFocusChange(UiFocus uiFocus) {
-        updateUI();
         switch (uiFocus) {
         case AGENDA:
             centralDisplay.setFocusToAgenda();

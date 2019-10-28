@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.time.LocalDate;
 import java.util.List;
 
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ObservableList;
 
 import seedu.address.model.day.Day;
@@ -20,7 +21,7 @@ import seedu.address.model.itineraryitem.activity.Activity;
 public class Itinerary implements ReadOnlyItinerary {
     private final UniqueDayList days;
     private Name name;
-    private LocalDate startDate;
+    private SimpleObjectProperty<LocalDate> startDateProperty;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -35,7 +36,7 @@ public class Itinerary implements ReadOnlyItinerary {
 
     public Itinerary() {
         this.name = new Name("Untitled");
-        this.startDate = LocalDate.now();
+        this.startDateProperty = new SimpleObjectProperty<>(LocalDate.now());
     }
 
     /**
@@ -51,7 +52,11 @@ public class Itinerary implements ReadOnlyItinerary {
     }
 
     public LocalDate getStartDate() {
-        return this.startDate;
+        return this.startDateProperty.getValue();
+    }
+
+    public SimpleObjectProperty<LocalDate> getStartDateProperty() {
+        return this.startDateProperty;
     }
 
     public void setName(Name name) {
@@ -61,7 +66,7 @@ public class Itinerary implements ReadOnlyItinerary {
 
     public void setStartDate(LocalDate date) {
         requireNonNull(date);
-        this.startDate = date;
+        this.startDateProperty.setValue(date);
     }
 
     //// For DAY list overwrite

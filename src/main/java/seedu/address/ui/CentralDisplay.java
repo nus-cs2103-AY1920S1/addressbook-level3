@@ -1,6 +1,10 @@
 package seedu.address.ui;
 
 import javafx.beans.Observable;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
@@ -15,6 +19,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 import jfxtras.internal.scene.control.skin.agenda.AgendaDaysFromDisplayedSkin;
 import jfxtras.scene.control.agenda.Agenda;
+import jfxtras.scene.control.agenda.icalendar.ICalendarAgenda;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.day.ActivityWithTime;
@@ -49,8 +54,10 @@ public class CentralDisplay extends UiPart<Region> {
     @FXML
     private Tab agendaTab;
 
-    public CentralDisplay(ObservableList<Day> dayList) {
-//    public CentralDisplay() {
+    @FXML
+    private Tab testTab;
+
+    public CentralDisplay(ObservableList<Day> dayList, SimpleObjectProperty<LocalDate> startDate) {
         super(FXML);
         Agenda agenda = new Agenda() {
             @Override
@@ -69,12 +76,22 @@ public class CentralDisplay extends UiPart<Region> {
         // disables right click editing
         agenda.setEditAppointmentCallback((appointment) -> null);
 //        agenda.setBackground(new Background(new BackgroundFill(Color.rgb(40, 40, 40), CornerRadii.EMPTY, Insets.EMPTY)));
-
         agendaTab.setContent(agenda);
+
+        // set up listeners that will update the agenda
+        dayList.addListener((ListChangeListener<Day>) c -> updateAgenda(agenda, dayList));
+        startDate.addListener((observable, oldValue, newValue) -> agenda.setDisplayedLocalDateTime(newValue.atStartOfDay()));
     }
 
     public void setFocusToAgenda() {
         tabDisplay.getSelectionModel().select(agendaTab);
+    }
+
+    private void updateAgenda(Agenda agenda, ObservableList<Day> dayList) {
+        agenda.appointments().clear();
+        for (Day day : dayList) {
+            addAppointmentsWithDay(agenda, day);
+        }
     }
 
     private void addAppointmentsWithDay(Agenda agenda, Day day) {
