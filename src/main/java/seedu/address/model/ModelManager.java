@@ -299,6 +299,14 @@ public class ModelManager implements Model {
 
     //=========== Filtered Reminder List Accessors =============================================================
 
+    /**
+     *  Checks if the task exists in the addressbook.
+     */
+    public boolean hasReminder(Reminder reminder) {
+        requireNonNull(reminder);
+        return addressBook.hasReminder(reminder);
+    }
+
     @Override
     public void addReminder(Reminder reminder) {
         addressBook.addReminder(reminder);
@@ -315,6 +323,12 @@ public class ModelManager implements Model {
         requireNonNull(predicate);
         filteredReminder.setPredicate(predicate);
         UiManager.startReminders();
+    }
+
+    @Override
+    public void setReminder(Reminder reminder, Reminder editedReminder) {
+        requireAllNonNull(reminder, editedReminder);
+        addressBook.setReminder(reminder, editedReminder);
     }
 
     public ObservableList<Reminder> getFilteredReminderList() {
