@@ -255,7 +255,6 @@ Format: `budget`
 .FinSec calculates your budget from the income and claim totals on the left while simultaneously displaying a graph of the income, claim and budget values for the current month on the right
 image::UG-BudgetExample.PNG[width="800"]
 
-
 === Resolving claims
 
 Resolves claims
