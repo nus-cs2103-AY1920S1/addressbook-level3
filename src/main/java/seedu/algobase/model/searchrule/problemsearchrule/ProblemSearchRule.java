@@ -1,8 +1,7 @@
 package seedu.algobase.model.searchrule.problemsearchrule;
 
 import static java.util.Objects.requireNonNull;
-
-import java.util.Optional;
+import static seedu.algobase.commons.util.AppUtil.optionalEquals;
 
 /**
  * Represents a search rule on finding {@code Problem} in AlgoBase.
@@ -39,19 +38,6 @@ public class ProblemSearchRule extends FindProblemDescriptor {
 
         return other != null
             && other.getName().equals(getName());
-    }
-
-    /**
-     * Returns true if two {@code Optional} are both present and have the same content or are both empty.
-     * @param first optional object
-     * @param second optional object
-     */
-    private boolean optionalEquals(Optional first, Optional second) {
-        if (first.isPresent()) {
-            return second.isPresent() && first.get().equals(second.get());
-        } else {
-            return second.isEmpty();
-        }
     }
 
     @Override
