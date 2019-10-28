@@ -181,12 +181,12 @@ public class LineChartPanel extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof LineChart)) {
+        if (!(other instanceof LineChartPanel)) {
             return false;
         }
 
         // state check
-        LineChart chart = (LineChart) other;
-        return this.lineChart.equals(chart);
+        LineChartPanel otherLineChart = (LineChartPanel) other;
+        return this.lineChart.equals(otherLineChart.lineChart);
     }
 }

@@ -73,7 +73,7 @@
                                <DropShadow blurType="GAUSSIAN" height="40.81" offsetY="5.0" radius="19.7025" spread="0.18" width="40.0" />
                            </effect>
                         </StackPane>
-                      <StackPane fx:id="lineChartPanelPlaceholder" maxHeight="100.0" prefHeight="100.0" styleClass="stack-pane">
+                      <StackPane fx:id="lineChartPanelPlaceholder" minHeight="50.0" maxHeight="300.0" styleClass="stack-pane">
                           <padding>
                               <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
                           </padding>
