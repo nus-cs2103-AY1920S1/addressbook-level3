@@ -37,7 +37,7 @@ public class EditIncomeCommand extends Command {
     public static final String COMMAND_WORD = "edit_income";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the income "
-            + "by the index number used in the displayed claim list. "
+            + "by the index number used in the displayed income list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_DESCRIPTION + "DESCRIPTION] "
@@ -77,7 +77,7 @@ public class EditIncomeCommand extends Command {
         List<Income> lastShownList = model.getFilteredIncomeList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_CLAIM_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_INCOME_DISPLAYED_INDEX);
         }
 
         Income incomeToEdit = lastShownList.get(index.getZeroBased());
@@ -117,7 +117,7 @@ public class EditIncomeCommand extends Command {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof EditClaimCommand)) {
+        if (!(other instanceof EditIncomeCommand)) {
             return false;
         }
 
