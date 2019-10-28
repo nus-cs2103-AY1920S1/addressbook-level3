@@ -13,6 +13,10 @@ public class EventContainsKeyDatePredicate implements Predicate<Event> {
         this.date = date;
     }
 
+    public String getDate() {
+        return date.toString();
+    }
+
     /**
      * Checks if a date is currently within the range of the Event's start and end date.
      *

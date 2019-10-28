@@ -361,22 +361,34 @@ Examples:
 Generates the contract for Event_ID 005.
 
 === Schedule
-==== View Schedule for a specific date
+==== Display Schedule for a specific date
 Displays the events for the specific date
 
-Format: `view_schedule on/DDMMYYYY`
+Format: `display_schedule_date on/dd/MM/yyyy`
 
 Examples:
-* `view_schedule on/02`
+* `display_schedule on/02/12/2019`
 
 ****
-* on/ represents the date in DDMMYYYY that the user wants to display
+* on/ represents the date in dd/MM/yyyy that the user wants to display
 ****
 
-=== Display Entire Schedule
-Displays all the dates that has an event.
+==== Display Schedule for a specific Month and Year
+Displays the events for the Month and Year
 
-Format: `display_schedule`
+Format: `display_schedule for/MM/yyyy`
+
+Examples:
+* `display_schedule for/12/2019`
+
+****
+* for/ represents the month and year in MM/yyyy that the user wants to display
+****
+
+=== Generate Entire Schedule
+Generate a new list which shows all the dates that has an event as well as all the events that are on that corresponding date.
+
+Format: `generate_schedule`
 
 === Miscellaneous
 
