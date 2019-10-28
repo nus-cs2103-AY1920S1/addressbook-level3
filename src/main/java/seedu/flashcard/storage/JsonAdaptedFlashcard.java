@@ -16,6 +16,7 @@ import seedu.flashcard.model.flashcard.Definition;
 import seedu.flashcard.model.flashcard.Flashcard;
 import seedu.flashcard.model.flashcard.McqFlashcard;
 import seedu.flashcard.model.flashcard.Question;
+import seedu.flashcard.model.flashcard.Score;
 import seedu.flashcard.model.flashcard.ShortAnswerFlashcard;
 import seedu.flashcard.model.tag.Tag;
 
@@ -30,6 +31,7 @@ public class JsonAdaptedFlashcard {
     private final String definition;
     private final String answer;
     private final String type;
+    private final String score;
     private final List<JsonAdaptedChoice> choices = new ArrayList<>();
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
@@ -42,6 +44,7 @@ public class JsonAdaptedFlashcard {
                                 @JsonProperty("definition") String definition,
                                 @JsonProperty("tagged") List<JsonAdaptedTag> tagged,
                                 @JsonProperty("answer") String answer,
+                                @JsonProperty("score") String score,
                                 @JsonProperty("type") String type) {
         this.question = question;
         if (choices != null) {
@@ -53,6 +56,7 @@ public class JsonAdaptedFlashcard {
         }
         this.answer = answer;
         this.type = type;
+        this.score = score;
     }
 
     /**
@@ -72,13 +76,9 @@ public class JsonAdaptedFlashcard {
         } else {
             type = "ShortAnswerFlashcard";
         }
+        score = new JsonAdaptedScore(source.getScore()).getScore();
     }
 
-    /**
-     * Converts this Jackson-friendly adapted flashcard object into the model's {@code Flashcard} object.
-     *
-     * @throws IllegalValueException if there were any data constraints violated in the adapted flashcard.
-     */
     /**
      * Converts this Jackson-friendly adapted flashcard object into the model's {@code Flashcard} object.
      *
@@ -117,6 +117,18 @@ public class JsonAdaptedFlashcard {
 
         final List<Choice> flashcardChoices = new ArrayList<>();
 
+        if (score == null) {
+            throw new IllegalValueException(
+                String.format(MISSING_FIELD_MESSAGE_FORMAT, Score.class.getSimpleName()));
+        }
+        if (!Score.isValidScore(score)) {
+            throw new IllegalValueException(Definition.MESSAGE_CONSTRAINTS);
+        }
+        String[] splitScore = score.split(" ");
+        int correctAnswer = Integer.parseInt(splitScore[0]);
+        int wrongAnswer = Integer.parseInt(splitScore[1]);
+        final Score modelScore = new Score(correctAnswer, wrongAnswer);
+
         for (JsonAdaptedChoice choice : choices) {
             flashcardChoices.add(choice.toModelType());
         }
@@ -124,9 +136,9 @@ public class JsonAdaptedFlashcard {
         final List<Choice> modelChoices = new ArrayList<>(flashcardChoices);
 
         if (type.equals("McqFlashcard")) {
-            return new McqFlashcard(modelQuestion, modelChoices, modelDefinition, modelTags, modelAnswer);
+            return new McqFlashcard(modelQuestion, modelChoices, modelDefinition, modelTags, modelAnswer, modelScore);
         } else {
-            return new ShortAnswerFlashcard(modelQuestion, modelDefinition, modelTags, modelAnswer);
+            return new ShortAnswerFlashcard(modelQuestion, modelDefinition, modelTags, modelAnswer, modelScore);
         }
     }
 }
