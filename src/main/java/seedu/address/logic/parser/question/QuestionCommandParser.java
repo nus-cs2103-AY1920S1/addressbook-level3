@@ -5,6 +5,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_EMPTY_QUESTION_DISPLAY
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_QUESTION_DISPLAYED_INDEX;
 import static seedu.address.commons.core.Messages.MESSAGE_MISSING_QUESTION_OPTIONS;
+import static seedu.address.commons.core.Messages.MESSAGE_MISSING_TEXT_SEARCH;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ANSWER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DELETE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FIND;
@@ -79,6 +80,10 @@ public class QuestionCommandParser implements Parser<QuestionCommand> {
         } else if (argMultimap.getValue(PREFIX_DELETE).isPresent()) { // Delete command
             return deleteCommand(argMultimap);
         } else if (argMultimap.getValue(PREFIX_FIND).isPresent()) { // Find command
+            if (argMultimap.getValue(PREFIX_FIND).orElse("").isEmpty()) {
+                throw new ParseException(MESSAGE_MISSING_TEXT_SEARCH);
+            }
+
             return new QuestionFindCommand(argMultimap.getValue(PREFIX_FIND).orElse(""));
         } else if (isEdit) { // Edit command
             return editCommand(index, argMultimap);
@@ -111,19 +116,18 @@ public class QuestionCommandParser implements Parser<QuestionCommand> {
         String typeName = argMultimap.getValue(PREFIX_TYPE).orElse("");
 
         // Only for mcq
-        // TODO: Check missing options and throw exception if necessary
         String optionA = argMultimap.getValue(PREFIX_OPTIONA).orElse("");
         String optionB = argMultimap.getValue(PREFIX_OPTIONB).orElse("");
         String optionC = argMultimap.getValue(PREFIX_OPTIONC).orElse("");
         String optionD = argMultimap.getValue(PREFIX_OPTIOND).orElse("");
 
-        if (optionA.isEmpty() || optionB.isEmpty() || optionC.isEmpty() || optionD.isEmpty()) {
-            throw new ParseException(
-                String
-                    .format(MESSAGE_MISSING_QUESTION_OPTIONS));
-        }
-
         if (typeName.equals("mcq")) {
+            if (optionA.isEmpty() || optionB.isEmpty() || optionC.isEmpty() || optionD.isEmpty()) {
+                throw new ParseException(
+                    String
+                        .format(MESSAGE_MISSING_QUESTION_OPTIONS));
+            }
+
             return new QuestionAddCommand(question, answer, typeName, optionA, optionB, optionC,
                 optionD);
         }
