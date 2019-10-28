@@ -103,7 +103,7 @@ public class ShowCard extends UiPart<Region> {
                 && show.equals(card.show);
     }
 
-    public void setMainWindow(MainWindow mainWindow){
+    public void setMainWindow(MainWindow mainWindow) {
         this.mainWindow = mainWindow;
     }
 
@@ -131,7 +131,7 @@ public class ShowCard extends UiPart<Region> {
             try {
                 mainWindow.executeCommand("watch " + displayedIndex);
             } catch (CommandException | ParseException | OnlineConnectionException e) {
-
+                //do nothing for now
             }
         }
     }

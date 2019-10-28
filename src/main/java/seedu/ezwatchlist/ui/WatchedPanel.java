@@ -27,7 +27,7 @@ public class WatchedPanel extends UiPart<Region> {
         watchedListView.setCellFactory(listView -> new WatchedListViewCell());
     }
 
-    public void setMainWindow(MainWindow mainWindow){
+    public void setMainWindow(MainWindow mainWindow) {
         this.mainWindow = mainWindow;
     }
 

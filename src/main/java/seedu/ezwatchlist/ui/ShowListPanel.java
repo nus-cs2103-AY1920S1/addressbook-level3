@@ -27,7 +27,7 @@ public class ShowListPanel extends UiPart<Region> {
         showListView.setCellFactory(listView -> new ShowListViewCell());
     }
 
-    public void setMainWindow(MainWindow mainWindow){
+    public void setMainWindow(MainWindow mainWindow) {
         this.mainWindow = mainWindow;
     }
 

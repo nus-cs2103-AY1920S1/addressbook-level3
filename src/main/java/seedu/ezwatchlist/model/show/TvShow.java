@@ -53,7 +53,7 @@ public class TvShow extends Show {
     public int getLastWatchedSeasonEpisode() {
         int cumulativeNumberOfEpisodes = 0;
         int lastWatchedSeasonNum = getLastWatchedSeasonNum();
-        for (int seasonNum = 1; seasonNum < lastWatchedSeasonNum ; seasonNum++) {
+        for (int seasonNum = 1; seasonNum < lastWatchedSeasonNum; seasonNum++) {
             cumulativeNumberOfEpisodes += tvSeasons.get(seasonNum).getTotalNumOfEpisodes();
         }
         int episodeNum = numOfEpisodesWatched - cumulativeNumberOfEpisodes;

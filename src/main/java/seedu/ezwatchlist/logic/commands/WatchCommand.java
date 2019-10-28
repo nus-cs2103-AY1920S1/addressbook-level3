@@ -116,7 +116,7 @@ public class WatchCommand extends Command {
      * edited with {@code editShowDescriptor}.
      */
     private Show createEditedShow(Show showToEdit, WatchShowDescriptor watchShowDescriptor, boolean isToggle,
-                                  boolean seasonsArePresent, boolean episodesArePresent) throws CommandException{
+                                  boolean seasonsArePresent, boolean episodesArePresent) throws CommandException {
         assert showToEdit != null;
 
         Name name = showToEdit.getName();
@@ -150,8 +150,8 @@ public class WatchCommand extends Command {
                 throw new CommandException(String.format(MESSAGE_INVALID_SEASON_NUMBER,
                         showToEdit.getNumOfSeasons(), showToEdit.getName()));
             }
-            if (seasonsArePresent && episodesArePresent &&
-                    !isValidEpisodeNumberOfSeason(showToEdit, numOfEpisodesWatched, numOfSeasonsWatched)) {
+            if (seasonsArePresent && episodesArePresent
+                    && !isValidEpisodeNumberOfSeason(showToEdit, numOfEpisodesWatched, numOfSeasonsWatched)) {
                 throw new CommandException(String.format(MESSAGE_INVALID_EPISODE_NUMBER_OF_SEASON,
                         showToEdit.getNumOfSeasons(),
                         showToEdit.getName(),
@@ -191,6 +191,14 @@ public class WatchCommand extends Command {
         }
     }
 
+    /**
+     * Calculates the total number of episodes watched given the season
+     * number and number of episodes watched in that particular season.
+     * @param show The show to be edited.
+     * @param numOfSeasons the number of seasons provided by the user.
+     * @param numOfEpisodes the number of episodes of the season provided by the user.
+     * @return the total number of episodes watched.
+     */
     private int calcEpisodesWatched(Show show, int numOfSeasons, int numOfEpisodes) {
         int numOfEpisodesWatched = 0;
         for (int seasonNum = 1; seasonNum < numOfSeasons; seasonNum++) {
@@ -200,10 +208,16 @@ public class WatchCommand extends Command {
         return numOfEpisodesWatched;
     }
 
+    /**
+     * Calculates the total number of episodes watched given the number of seasons watched.
+     * @param show The show to be edited.
+     * @param numOfSeasons the number of seasons provided by the user.
+     * @return the total number of episodes watched.
+     */
     private int calcEpisodesWatched(Show show, int numOfSeasons) {
         int numOfEpisodesWatched = 0;
         for (int seasonNum = 1; seasonNum <= numOfSeasons; seasonNum++) {
-            numOfEpisodesWatched += show.getTvSeasons().get(seasonNum - 1).getTotalNumOfEpisodes();
+            numOfEpisodesWatched += show.getNumOfEpisodesOfSeason(seasonNum);
         }
         return numOfEpisodesWatched;
     }
