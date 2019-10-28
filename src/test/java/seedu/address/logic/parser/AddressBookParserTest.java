@@ -162,7 +162,7 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_filter() throws Exception {
-        String bodyArgs = "-b /sex male /cod natural";
+        String bodyArgs = " -b /sex male /cod natural";
         String bodyAttributes = "/sex male /cod natural";
         ArgumentMultimap bodyMap = ArgumentTokenizer.tokenize(bodyArgs, PREFIX_PHONE_NUMBER,
                 PREFIX_SEX, PREFIX_DATE_OF_BIRTH, PREFIX_DATE_JOINED, PREFIX_DESIGNATION, PREFIX_STATUS,
@@ -176,7 +176,7 @@ public class AddressBookParserTest {
                         + bodyAttributes);
         assertEquals(new FilterCommand(bodyMap, BODY_FLAG), command1);
 
-        String workerArgs = "-b /sex male /employmentStatus cleaning";
+        String workerArgs = " -w /sex male /employmentStatus cleaning";
         String workerAttributes = "/sex male /employmentStatus cleaning";
         ArgumentMultimap workerMap = ArgumentTokenizer.tokenize(workerArgs, PREFIX_PHONE_NUMBER,
                 PREFIX_SEX, PREFIX_DATE_OF_BIRTH, PREFIX_DATE_JOINED, PREFIX_DESIGNATION, PREFIX_STATUS,

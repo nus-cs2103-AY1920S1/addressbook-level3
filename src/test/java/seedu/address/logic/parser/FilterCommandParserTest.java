@@ -48,7 +48,7 @@ public class FilterCommandParserTest {
 
     @Test
     public void parse_validArgs_returnsFilterCommand() {
-        String bodyArgs = "-b /sex male /cod natural";
+        String bodyArgs = " -b /sex male /cod natural";
         ArgumentMultimap bodyMap = ArgumentTokenizer.tokenize(bodyArgs, PREFIX_PHONE_NUMBER,
                 PREFIX_SEX, PREFIX_DATE_OF_BIRTH, PREFIX_DATE_JOINED, PREFIX_DESIGNATION, PREFIX_STATUS,
                 PREFIX_DATE_OF_DEATH, PREFIX_DATE_OF_ADMISSION, PREFIX_CAUSE_OF_DEATH,
@@ -57,7 +57,7 @@ public class FilterCommandParserTest {
                 PREFIX_FRIDGE_ID, PREFIX_FLAG, PREFIX_EMPLOYMENT_STATUS,
                 PREFIX_NAME, PREFIX_TAG, PREFIX_EMAIL, PREFIX_ADDRESS);
 
-        String workerArgs = "-w /sex female /employmentStatus cleaning";
+        String workerArgs = " -w /sex female /employmentStatus cleaning";
         ArgumentMultimap workerMap = ArgumentTokenizer.tokenize(workerArgs, PREFIX_PHONE_NUMBER,
                 PREFIX_SEX, PREFIX_DATE_OF_BIRTH, PREFIX_DATE_JOINED, PREFIX_DESIGNATION, PREFIX_STATUS,
                 PREFIX_DATE_OF_DEATH, PREFIX_DATE_OF_ADMISSION, PREFIX_CAUSE_OF_DEATH,
