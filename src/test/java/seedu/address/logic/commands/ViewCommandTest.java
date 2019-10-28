@@ -25,7 +25,7 @@ public class ViewCommandTest {
     public void execute_validFeature_success() {
         Feature feature = new FeatureBuilder().build();
         ViewCommand viewCommand = new ViewCommand(feature);
-        String expectedMessage = viewCommand.MESSAGE_SUCCESS_1;
+        String expectedMessage = viewCommand.MESSAGE_SUCCESS_CALENDAR;
 
         assertCommandSuccess(viewCommand, model, expectedMessage, expectedModel);
     }

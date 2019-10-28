@@ -195,7 +195,7 @@ public class MainWindow extends UiPart<Stage> {
                     featureBoxPlaceholder.getChildren().add(attendance.getRoot());
                     break;
                 case "performance":
-                    PerformancePanel performance = new PerformancePanel(logic.getPerformance());
+                    PerformancePanel performance = new PerformancePanel(commandResult.getModel());
                     featureBoxPlaceholder.getChildren().clear();
                     featureBoxPlaceholder.getChildren().add(performance.getRoot());
                     break;
