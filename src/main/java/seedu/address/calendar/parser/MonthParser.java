@@ -34,7 +34,7 @@ class MonthParser {
         MonthOfYear month;
 
         if (matcher.group(MONTH_NUM_KEY) != null) {
-            String monthNum = matcher.group(MONTH_NUM_PATTERN);
+            String monthNum = matcher.group(MONTH_NUM_KEY);
             month = convertMonthNum(monthNum);
         } else {
             String monthStr = matcher.group(MONTH_STR_KEY);

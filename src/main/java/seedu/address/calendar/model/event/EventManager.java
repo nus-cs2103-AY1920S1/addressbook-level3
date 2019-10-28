@@ -185,26 +185,18 @@ public class EventManager {
     }
 
     public String suggest(EventQuery eventQuery) {
-        Stream<Event> availableSlots = vacationSchedule.getCollisions(eventQuery).stream();
-        Deque<EventQuery> availableBlocks = findBlocks(availableSlots);
-        Stream<Event> engagedSlots = engagedSchedule.getCollisions(eventQuery).stream();
-        Deque<EventQuery> engagedBlocks = findBlocks(engagedSlots);
-        return findSuitableBlocks(availableBlocks, engagedBlocks).stream()
+        return suggestBlocks(eventQuery)
                 .map(Object::toString)
                 .reduce("", (prev, curr) ->  prev + curr + "\n")
                 .trim();
     }
 
     public String suggest(EventQuery eventQuery, int minPeriod) {
-        Stream<Event> availableSlots = vacationSchedule.getCollisions(eventQuery).stream();
-        Deque<EventQuery> availableBlocks = findBlocks(availableSlots);
-        Stream<Event> engagedSlots = engagedSchedule.getCollisions(eventQuery).stream();
-        Deque<EventQuery> engagedBlocks = findBlocks(engagedSlots);
-        return findSuitableBlocks(availableBlocks, engagedBlocks).stream()
+        return suggestBlocks(eventQuery)
                 .filter(block -> {
                     Date startDate = block.getStart();
                     Date endDate = block.getEnd();
-                    long period = DateUtil.daysBetween(startDate, endDate);
+                    long period = DateUtil.daysBetween(startDate, endDate) + 1;
                     return period >= minPeriod;
                 })
                 .map(Object::toString)
@@ -214,7 +206,51 @@ public class EventManager {
                 .trim();
     }
 
-    private Deque<EventQuery> findBlocks(Stream<Event> originalSlots) {
+    public Stream<EventQuery> suggestBlocks(EventQuery eventQuery) {
+        List<Event> availableSlots = vacationSchedule.getCollisions(eventQuery);
+        Stream<EventQuery> availableConstrainedSlots = getConstrainedSlots(availableSlots, eventQuery).stream();
+        Deque<EventQuery> availableBlocks = findBlocks(availableConstrainedSlots);
+
+        List<Event> engagedSlots = engagedSchedule.getCollisions(eventQuery);
+        Stream<EventQuery> engagedConstrainedSlots = getConstrainedSlots(engagedSlots, eventQuery).stream();
+        Deque<EventQuery> engagedBlocks = findBlocks(engagedConstrainedSlots);
+
+        return findSuitableBlocks(availableBlocks, engagedBlocks).stream();
+    }
+
+    private List<EventQuery> getConstrainedSlots(List<Event> eventList, EventQuery eventQuery) {
+        List<EventQuery> constrainedEventList = new LinkedList<>();
+        Date earliestStartDate = eventQuery.getStart();
+        Date latestEndDate = eventQuery.getEnd();
+        for (Event event: eventList) {
+            Date startDate;
+            Date endDate;
+            Date eventStartDate = event.getStart();
+            Date eventEndDate = event.getEnd();
+            if (eventQuery.isStartsAfter(eventStartDate)) {
+                startDate = earliestStartDate;
+            } else {
+                startDate = eventStartDate;
+            }
+
+            if (event.isEndsAfter(latestEndDate)) {
+                endDate = latestEndDate;
+            } else {
+                endDate = eventEndDate;
+            }
+            boolean isValidTime = EventQuery.isValidEventTime(startDate, endDate);
+
+            if (!isValidTime) {
+                continue;
+            }
+
+            EventQuery constrainedSlot = new EventQuery(startDate, endDate);
+            constrainedEventList.add(constrainedSlot);
+        }
+        return constrainedEventList;
+    }
+
+    private Deque<EventQuery> findBlocks(Stream<EventQuery> originalSlots) {
         LinkedList<EventQuery> availableBlocks = new LinkedList<>();
         originalSlots.sorted()
                 .forEach(current -> {

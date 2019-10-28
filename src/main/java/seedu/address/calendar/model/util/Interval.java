@@ -67,7 +67,12 @@ public class Interval<S extends IntervalPart<S>, T> implements Comparable<Interv
 
         return false;
     }
-
+    /*
+    public boolean isEncloses(Interval<S, ?> newInterval) {
+        S newIntervalStart = newInterval.getStart();
+        return !isStartsAfter(newIntervalStart) && !newInterval.isEndsAfter(end);
+    }
+    */
     @Override
     public boolean equals(Object obj) {
         if (obj == this) {
