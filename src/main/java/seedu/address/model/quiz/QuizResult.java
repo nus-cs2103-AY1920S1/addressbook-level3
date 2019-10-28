@@ -57,7 +57,7 @@ public class QuizResult {
     }
 
     public String getResultToString() {
-        return result ? "Correct": "Incorrect";
+        return result ? "Correct" : "Incorrect";
     }
 
     /**
