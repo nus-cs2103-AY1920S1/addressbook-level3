@@ -6,6 +6,7 @@ import java.util.Objects;
 
 import seedu.address.model.ExpenseList;
 import seedu.address.model.expense.Amount;
+import seedu.address.model.expense.Currency;
 import seedu.address.model.expense.Date;
 import seedu.address.model.expense.Expense;
 import seedu.address.model.expense.Name;
@@ -18,6 +19,7 @@ public class Budget {
 
     // Identity fields
     private final Name name;
+    private final Currency currency;
 
     // Data Fields
     private final Date startDate;
@@ -31,9 +33,10 @@ public class Budget {
     /**
      * Every field must be present and not null.
      */
-    public Budget(Name name, Amount amount, Amount amountLeft, Date startDate, Date endDate, ExpenseList expenseList) {
+    public Budget(Name name, Amount amount, Amount amountLeft, Currency currency, Date startDate, Date endDate, ExpenseList expenseList) {
         requireAllNonNull(name, amount, startDate, endDate);
         this.name = name;
+        this.currency = currency;
         this.amount = amount;
         this.amountLeft = amountLeft;
         this.startDate = startDate;
@@ -51,6 +54,10 @@ public class Budget {
 
     public Amount getAmountLeft() {
         return amountLeft;
+    }
+
+    public Currency getCurrency() {
+        return currency;
     }
 
     public Date getStartDate() {
