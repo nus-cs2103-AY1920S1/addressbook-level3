@@ -29,9 +29,12 @@ public class StatsParseUtilTest {
 
     @Test
     public void isValidCheckCorrect() {
-        assertTrue(StatsParseUtil.isValidStatType("PROFIT"));
-        assertTrue(StatsParseUtil.isValidStatType("COST"));
-        assertTrue(StatsParseUtil.isValidStatType("REVENUE"));
+        assertTrue(StatsParseUtil.isValidStatType("profit"));
+        assertTrue(StatsParseUtil.isValidStatType("cost"));
+        assertTrue(StatsParseUtil.isValidStatType("revenue"));
+        assertFalse(StatsParseUtil.isValidStatType("PROFIT"));
+        assertFalse(StatsParseUtil.isValidStatType("COST"));
+        assertFalse(StatsParseUtil.isValidStatType("REVENUE"));
         assertFalse(StatsParseUtil.isValidStatType("REVEN"));
         assertFalse(StatsParseUtil.isValidStatType("  "));
         assertFalse(StatsParseUtil.isValidStatType("dadawawdn udhuksehakhiuihqkaahkiakiwkjahdkja"));
