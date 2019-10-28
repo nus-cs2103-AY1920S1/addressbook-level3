@@ -67,7 +67,7 @@ public class Cca {
      * @return true if the cca progresslist is empty.
      */
     public boolean ccaProgressListIsEmpty() {
-        return ccaProgress.ccaProgressListIsEmpty();
+        return ccaProgress.ccaMilestoneListIsEmpty();
     }
 
     /**
@@ -91,7 +91,7 @@ public class Cca {
      * Checks if the CcaProgress is already set.
      */
     public boolean containsProgress() {
-        return !ccaProgress.ccaProgressListIsEmpty();
+        return !ccaProgress.ccaMilestoneListIsEmpty();
     }
 
     /**

@@ -42,14 +42,13 @@ public class CcaCard extends UiPart<Region> {
         this.cca = cca;
         id.setText(displayedIndex + ". ");
         name.setText(cca.getName().fullName);
-        setProgressBar();
     }
 
     private void setProgressBar() {
-        try{
+        try {
             double ccaProgressPercentage = cca.getCcaProgressPercentage();
             progressBar.setProgress(ccaProgressPercentage);
-        }catch (MaxProgressNotSetException e) {
+        } catch (MaxProgressNotSetException e) {
             progressBar.setProgress(ZERO_PROGRESS);
         }
     }
