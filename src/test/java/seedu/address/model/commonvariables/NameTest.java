@@ -1,12 +1,10 @@
-package seedu.address.model.contact;
+package seedu.address.model.commonvariables;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
-
-import seedu.address.model.commonvariables.Name;
 
 public class NameTest {
 
