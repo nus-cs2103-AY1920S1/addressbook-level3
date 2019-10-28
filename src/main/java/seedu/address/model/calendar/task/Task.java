@@ -21,15 +21,11 @@ public abstract class Task {
     private final TaskDescription taskDescription;
 
     // Data fields
+    private final boolean isPersistent;
     private final TaskDeadline taskDeadline;
     private final TaskTime taskTime;
     private final Set<TaskTag> taskTags = new HashSet<>();
     private final int week;
-    protected final boolean isPersistent;
-
-    public boolean isPersistent() {
-        return isPersistent;
-    }
 
     /**
      * Every field must be present and not null.
@@ -78,6 +74,10 @@ public abstract class Task {
 
     public int getWeek() {
         return week;
+    }
+
+    public boolean isPersistent() {
+        return isPersistent;
     }
 
     /**

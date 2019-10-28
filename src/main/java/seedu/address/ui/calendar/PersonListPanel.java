@@ -43,7 +43,7 @@ public class PersonListPanel extends UiPart<Region> {
         super(FXML);
 
         this.mainTaskList = taskList;
-        weekTaskList = taskList.filtered(task -> task.getWeek() == GoCommand.getCurrentWeek());
+        weekTaskList = taskList.filtered(task -> task.getWeek() == GoCommand.getCurrentWeek() || task.isPersistent());
 
         FilteredList<Task> mondayTaskList =
             weekTaskList.filtered(task -> task.getTaskDay().toString().equals("monday"));
