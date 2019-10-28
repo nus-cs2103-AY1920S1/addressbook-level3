@@ -173,7 +173,9 @@ public class Module {
         return timeSlot;
     }
 
-    public String getQuota() { return quota;}
+    public String getQuota() {
+        return quota;
+    }
 
     public int getQuotaInt() {
         return Integer.parseInt(quota);
