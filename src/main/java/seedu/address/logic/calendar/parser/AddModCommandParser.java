@@ -10,7 +10,6 @@ import static seedu.address.logic.calendar.parser.CliSyntax.PREFIX_TASKTITLE;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import seedu.address.logic.calendar.commands.AddCommand;
 import seedu.address.logic.calendar.commands.AddModCommand;
 import seedu.address.logic.calendar.commands.GoCommand;
 import seedu.address.logic.calendar.parser.exceptions.ParseException;
@@ -24,13 +23,13 @@ import seedu.address.model.calendar.task.TaskTime;
 import seedu.address.model.calendar.task.TaskTitle;
 
 /**
- * Parses input arguments and creates a new AddCommand object
+ * Parses input arguments and creates a new AddModCommand object
  */
 public class AddModCommandParser {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the AddCommand
-     * and returns an AddCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the AddModCommand
+     * and returns an AddModCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
     public AddModCommand parse(String args) throws ParseException {
@@ -40,7 +39,7 @@ public class AddModCommandParser {
 
         if (!arePrefixesPresent(argMultimap, PREFIX_TASKTITLE, PREFIX_TASKTIME, PREFIX_TASKDAY,
             PREFIX_TASKDESCRIPTION) || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddModCommand.MESSAGE_USAGE));
         }
 
         TaskTitle taskTitle = ParserUtil.parseTitle(argMultimap.getValue(PREFIX_TASKTITLE).get());
