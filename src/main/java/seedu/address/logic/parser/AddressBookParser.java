@@ -213,7 +213,7 @@ public class AddressBookParser {
 
             case DeleteReminderCommand.COMMAND_WORD:
                 return new DeleteReminderParser().parse(arguments);
-                
+
             case ListTasksBasedOnDateCommand.COMMAND_WORD:
                 return new ListTasksBasedOnDateCommandParser().parse(arguments);
 
