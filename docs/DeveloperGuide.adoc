@@ -71,6 +71,7 @@ image::ArchitectureSequenceDiagram.png[]
 
 The sections below give more details of each component.
 
+//@@author jiayushe
 [[Design-Ui]]
 === UI component
 
@@ -79,7 +80,9 @@ image::UiClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/algobase/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts
+e.g.`CommandBox`, `ResultDisplay`, `DetailsTabPane`, `DisplayTabPane`, `TaskManagementPane`, `StatusBarFooter` etc.
+All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
@@ -110,6 +113,7 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 image::DeleteSequenceDiagram.png[]
 
 NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+//@@author
 
 //@@author le0tan
 [[Design-Model]]
@@ -146,7 +150,6 @@ image::design/model/ProblemSearchRulePackageDiagram.png[width="60%"]
 
 .Structure of the PlanSearchRule Package
 image::design/model/PlanSearchRulePackageDiagram.png[width='60%']
-
 //@@author
 
 //@@author jiayushe
@@ -162,16 +165,16 @@ The `Storage` component,
 
 * can store `UserPref` objects in json format.
 * can retrieve `UserPref` objects from json format.
-* can store the AlgoBase app data including `Plan`, `Problem`, `Tag`, `Task` objects in relational manner in json format.
-* can retrieve `Plan`, `Problem`, `Tag`, `Task` objects from json format.
+* can store the AlgoBase app data including `GuiState`, `Plan`, `Problem`, `ProblemSearchRule`, `Tag`, `Task` objects in relational manner in json format.
+* can retrieve `GuiState`, `Plan`, `Problem`, `ProblemSearchRule`, `Tag`, `Task` objects from json format.
 
 [[Design-Commons]]
 === Common classes
 
 Classes used by multiple components are in the `seedu.algobase.commons` package.
 
-It contains utility files for configuration `ConfigUtil`, file handling `FileUtil`, ID generation `IdUtil`,
-JSON storage `JsonUtil`, string manipulation `StringUtil` and others.
+It contains utility files for configuration `ConfigUtil`, file handling `FileUtil`,
+JSON storage `JsonUtil`, string manipulation `StringUtil` and others including `AppUtil` and `CollectionUtil`.
 //@@author
 
 == Implementation
