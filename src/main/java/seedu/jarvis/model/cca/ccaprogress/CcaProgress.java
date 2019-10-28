@@ -5,6 +5,7 @@ import static seedu.jarvis.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.List;
 
 import seedu.jarvis.model.cca.exceptions.CcaProgressNotSetException;
+import seedu.jarvis.model.cca.exceptions.MaxProgressNotSetException;
 
 /**
  * Represents the progress of a CCA.
@@ -22,8 +23,22 @@ public class CcaProgress {
         return ccaMilestoneList;
     }
 
-    public CcaCurrentProgress getCcaCurrentProgress() {
+    public CcaCurrentProgress getCcaCurrentProgress() throws MaxProgressNotSetException {
         return ccaCurrentProgress;
+    }
+
+    /**
+     * Gets the current progress percentage of the Cca.
+     */
+    public double getCcaProgressPercentage() {
+        if (ccaMilestoneListIsEmpty()) {
+            throw new MaxProgressNotSetException();
+        }
+
+        int ccaCurrentProgressInt = ccaCurrentProgress.getCurrentProgress();
+        double ccaProgressPercentage = ccaCurrentProgressInt / ccaMilestoneList.size();
+
+        return ccaProgressPercentage;
     }
 
     /**
@@ -34,7 +49,6 @@ public class CcaProgress {
         requireAllNonNull(milestones);
 
         ccaMilestoneList.setMilestones(milestones);
-        ccaCurrentProgress.setMaxProgress(milestones.size());
     }
 
     /**
@@ -45,14 +59,12 @@ public class CcaProgress {
         requireAllNonNull(ccaMilestoneList);
 
         this.ccaMilestoneList.setMilestones(ccaMilestoneList);
-        ccaCurrentProgress.setMaxProgress(ccaMilestoneList.size());
     }
 
     /**
      * Replaces the values of the current progress with the values from {@code ccaCurrentProgress}.
      */
     public void setCcaCurrentProgress(CcaCurrentProgress ccaCurrentProgress) {
-        this.ccaCurrentProgress.setMaxProgress(ccaCurrentProgress.getMaxProgress());
         this.ccaCurrentProgress.setCurrentProgress(ccaCurrentProgress.getCurrentProgress());
     }
 
@@ -61,7 +73,7 @@ public class CcaProgress {
      *
      * @return true of the {@code CcaMilestoneList} is empty.
      */
-    public boolean ccaProgressListIsEmpty() {
+    public boolean ccaMilestoneListIsEmpty() {
         if (ccaMilestoneList.size() == 0) {
             return true;
         }
@@ -73,7 +85,7 @@ public class CcaProgress {
      * Increases the progress by 1 {@code Milestone}.
      */
     public void increaseProgress() {
-        if (ccaProgressListIsEmpty()) {
+        if (ccaMilestoneListIsEmpty()) {
             throw new CcaProgressNotSetException();
         }
         ccaCurrentProgress.increaseProgress();
@@ -83,7 +95,11 @@ public class CcaProgress {
      * Checks if the Cca progress is at max.
      */
     public boolean progressAtMax() {
-        return ccaCurrentProgress.progressAtMax();
+        if (ccaCurrentProgress.getCurrentProgress() == ccaMilestoneList.size()) {
+            return true;
+        }
+
+        return false;
     }
 
     @Override

@@ -2,9 +2,11 @@ package seedu.jarvis.ui.cca;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.jarvis.model.cca.Cca;
+import seedu.jarvis.model.cca.exceptions.MaxProgressNotSetException;
 import seedu.jarvis.ui.UiPart;
 
 /**
@@ -13,6 +15,7 @@ import seedu.jarvis.ui.UiPart;
 public class CcaCard extends UiPart<Region> {
 
     private static final String FXML = "CcaListCard.fxml";
+    private static final double ZERO_PROGRESS = 0;
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -30,6 +33,8 @@ public class CcaCard extends UiPart<Region> {
     private Label name;
     @FXML
     private Label id;
+    @FXML
+    private ProgressBar progressBar;
 
 
     public CcaCard(Cca cca, int displayedIndex) {
@@ -37,6 +42,15 @@ public class CcaCard extends UiPart<Region> {
         this.cca = cca;
         id.setText(displayedIndex + ". ");
         name.setText(cca.getName().fullName);
+    }
+
+    private void setProgressBar() {
+        try {
+            double ccaProgressPercentage = cca.getCcaProgressPercentage();
+            progressBar.setProgress(ccaProgressPercentage);
+        } catch (MaxProgressNotSetException e) {
+            progressBar.setProgress(ZERO_PROGRESS);
+        }
     }
 
     @Override
