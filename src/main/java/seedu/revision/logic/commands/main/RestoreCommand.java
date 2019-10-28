@@ -21,7 +21,7 @@ public class RestoreCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Shows program usage instructions.\n"
             + "Example: " + COMMAND_WORD;
 
-    public static final String SHOWING_CONFIRMATION_MESSAGE = "Restore successful!";
+    public static final String SHOWING_CONFIRMATION_MESSAGE = " ";
 
     /**
      * Executes the command and returns the result message.

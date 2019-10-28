@@ -26,7 +26,7 @@ public class CommandResult {
     private final boolean showRestore;
 
     /** To pass the Model. */
-    private static Model model = null;
+    private static Model model;
 
     /**
      * Constructs a {@code CommandResult} with the specified fields.
@@ -86,9 +86,13 @@ public class CommandResult {
         return start;
     }
 
-    public boolean isShowRestore(Model passedModel) {
-        passedModel = model;
-        return showRestore; }
+    public boolean isShowRestore() {
+        return showRestore;
+    }
+
+    public Model getModel() {
+        return model;
+    }
 
     @Override
     public boolean equals(Object other) {

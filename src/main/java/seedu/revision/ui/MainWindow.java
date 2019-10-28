@@ -24,7 +24,10 @@ import seedu.revision.logic.QuizLogic;
 import seedu.revision.logic.commands.exceptions.CommandException;
 import seedu.revision.logic.commands.main.CommandResult;
 import seedu.revision.logic.parser.exceptions.ParseException;
+import seedu.revision.model.AddressBook;
 import seedu.revision.model.Model;
+import seedu.revision.model.ReadOnlyAddressBook;
+import seedu.revision.model.util.SampleDataUtil;
 
 
 /**
@@ -112,15 +115,9 @@ public class MainWindow extends Window {
         Optional<ButtonType> result = alert.showAndWait();
 
         if (result.get() == confirmRestore) {
-            //do something
-
-            passedModel.setAddressBookFilePath(Paths.get("data/addressbookRestore.json"));
-
-            File jsonFile = new File("data/addressbook.json");
-            exists = jsonFile.exists();
-            if (exists) {
-                jsonFile.delete();
-            }
+            ReadOnlyAddressBook sampleData;
+            sampleData = SampleDataUtil.getSampleAddressBook();
+            passedModel.setAddressBook(new AddressBook(sampleData));
         }
     }
 
@@ -152,7 +149,8 @@ public class MainWindow extends Window {
                 handleStart();
             }
 
-            if (commandResult.isShowRestore(passedModel)) {
+            if (commandResult.isShowRestore()) {
+                passedModel = commandResult.getModel();
                 handleRestore(passedModel);
             }
 
