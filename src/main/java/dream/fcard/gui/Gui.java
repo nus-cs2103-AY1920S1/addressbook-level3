@@ -13,6 +13,7 @@ import dream.fcard.gui.components.FlashCardDisplay;
 import dream.fcard.gui.components.ScrollablePane;
 import dream.fcard.gui.components.StatusBar;
 import dream.fcard.gui.components.TitleBar;
+import dream.fcard.logic.stats.Statistics;
 import dream.fcard.model.Deck;
 import dream.fcard.model.State;
 import dream.fcard.model.cards.FlashCard;
@@ -206,7 +207,7 @@ public class Gui {
      * Renders the statistics of the user in the GUI.
      * Takes in a Statistics object as parameter.
      */
-    public static void renderStats() {
+    public static void renderStats(Statistics stats) {
         // can only be done when Statistics class is implemented
         setTitle("Your Stats");
     }

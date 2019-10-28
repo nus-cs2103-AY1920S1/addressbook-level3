@@ -1,5 +1,6 @@
 package dream.fcard.model.cards;
 
+import dream.fcard.logic.stats.Statistics;
 import dream.fcard.util.json.JsonInterface;
 import dream.fcard.util.json.jsontypes.JsonValue;
 
@@ -22,6 +23,11 @@ public abstract class FlashCard implements JsonInterface, Comparable<FlashCard> 
      * Number indicating priority level of FlashCard.
      */
     protected Integer priority;
+
+    /**
+     * Statistics object for card.
+     */
+    protected Statistics cardStats;
 
     /**
      * Return true if the input matches the FlashCard answer.
@@ -100,4 +106,8 @@ public abstract class FlashCard implements JsonInterface, Comparable<FlashCard> 
      * @return Boolean value, true if FlashCard has choices, else return false.
      */
     public abstract boolean hasChoices();
+
+    public Statistics getStatistics() {
+        return cardStats;
+    }
 }

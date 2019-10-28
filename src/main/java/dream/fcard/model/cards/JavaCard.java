@@ -2,6 +2,7 @@ package dream.fcard.model.cards;
 
 import java.util.ArrayList;
 
+import dream.fcard.logic.stats.CardStats;
 import dream.fcard.model.TestCase;
 
 /**
@@ -15,6 +16,7 @@ public class JavaCard extends FlashCard {
     public JavaCard(String question, ArrayList<TestCase> testCases) {
         this.question = question;
         this.testCases = testCases;
+        this.cardStats = new CardStats();
     }
 
     @Override

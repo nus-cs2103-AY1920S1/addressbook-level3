@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 
+import dream.fcard.logic.stats.CardStats;
 import dream.fcard.logic.storage.Schema;
 import dream.fcard.model.exceptions.DuplicateInChoicesException;
 import dream.fcard.model.exceptions.IndexNotFoundException;
@@ -63,6 +64,7 @@ public class MultipleChoiceCard extends FrontBackCard {
             throw new IndexNotFoundException("Choice provided is invalid - " + answerIndex);
         }
         priority = LOW_PRIORITY;
+        cardStats = new CardStats();
     }
     //@author
 

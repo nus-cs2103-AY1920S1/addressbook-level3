@@ -122,27 +122,19 @@ enum Responses {
         return true;
     }),
     STATS("(?i)^(stats)?(\\s)*(deck/[\\w\\p{Punct}]+)?(\\s)*", (commandInput, programState) -> {
-        System.out.println("Current command is STATS");
-        // ArrayList<Deck> allDecks = programState.getDecks();
-        // String inputName = *name of deck to find*;
-        // for (Deck curr : allDecks) {
-        //      if(curr.getName().equals(inputName) {
-        //         System.out.println(curr.getStats());
-        //      }
-        // }
+        LogsCenter.getLogger(Responses.class).info("Current command is STATS");
+        String deckName = commandInput.replaceFirst("(?i)^(stats)?(\\s)*deck/", "");
+        if(deckName.strip().equals("")) {
+            Gui.renderStats(programState.getStatistics());
+        } else {
+            Gui.renderStats(programState.getDeck(deckName).getStatistics());
+        }
+
         return true; // capture is valid, end checking other commands
     }),
+
     VIEW("(?i)^(view)?(\\s)*(deck/[\\S\\p{Punct}]+){1}?(\\s)*", (commandInput, programState) -> {
         LogsCenter.getLogger(Responses.class).info("Current command is VIEW");
-        /*
-        ArrayList<Deck> decks = programState.getDecks();
-        for (int i = 0; i < decks.size(); i++) {
-                Deck d = decks.get(i);
-                Gui.renderDeck(d);
-
-            System.out.println("Deck #1: " + decks.get(i).getName());
-        }
-         */
         String deckName = commandInput.replaceFirst("(?i)^(view)?(\\s)*deck/", "");
         //System.out.println(test.trim());
         Deck d = programState.getDeck(deckName);

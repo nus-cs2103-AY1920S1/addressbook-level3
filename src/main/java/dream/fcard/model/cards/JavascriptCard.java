@@ -2,6 +2,7 @@ package dream.fcard.model.cards;
 
 import static dream.fcard.model.cards.Priority.LOW_PRIORITY;
 
+import dream.fcard.logic.stats.CardStats;
 import dream.fcard.logic.stats.Statistics;
 import dream.fcard.logic.storage.Schema;
 import dream.fcard.util.json.jsontypes.JsonObject;
@@ -17,7 +18,6 @@ public class JavascriptCard extends FlashCard {
 
     protected String front;
     protected String back;
-    protected Statistics stats;
 
 
     /**
@@ -29,8 +29,7 @@ public class JavascriptCard extends FlashCard {
         front = frontString;
         back = outputString;
         priority = LOW_PRIORITY;
-        stats = new Statistics();
-
+        cardStats = new CardStats();
     }
 
     /**
