@@ -1,7 +1,5 @@
 package seedu.address.financialtracker.model.expense;
 
-import seedu.address.financialtracker.ui.CountriesDropdown;
-
 public class Expense {
 
     private Date date;
@@ -20,7 +18,7 @@ public class Expense {
         this.amount = amount;
         this.desc = desc;
         this.type = type;
-        this.country = new Country(CountriesDropdown.getDropdownText());
+        this.country = null;
     }
 
     /**
@@ -57,6 +55,10 @@ public class Expense {
 
     public Type getType() {
         return type;
+    }
+
+    public void setCountry(Country country) {
+        this.country = country;
     }
 
     /**

@@ -23,9 +23,9 @@ public class FinancialTrackerHelpWindow extends UiPart<Stage> {
     private static final String HELP = "help";
     private static final String GOTO_MESSAGE = "goto [page]";
     private static final String EXIT_MESSAGE = "exit";
-    private static final String ADD_MESSAGE = "add a/[amount] d/[description] (and select drop down menu)";
+    private static final String ADD_MESSAGE = "add a/[amount] d/[description] t/[type of expenditure]";
     private static final String DELETE_MESSAGE = "delete [index]";
-    private static final String EDIT_MESSAGE = "edit [index] [type]/[details] or c/[(Select from drop down menu)]";
+    private static final String EDIT_MESSAGE = "edit [index] [prefix: 'a/', 'd/' or 't/']/[details] ";
 
     private static final Logger logger = LogsCenter.getLogger(FinancialTrackerHelpWindow.class);
     private static final String FXML = "FinancialTrackerHelpWindow.fxml";

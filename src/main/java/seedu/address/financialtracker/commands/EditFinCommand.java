@@ -10,16 +10,15 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.financialtracker.model.Model;
 import seedu.address.financialtracker.model.expense.Amount;
-import seedu.address.financialtracker.model.expense.Country;
 import seedu.address.financialtracker.model.expense.Date;
 import seedu.address.financialtracker.model.expense.Description;
 import seedu.address.financialtracker.model.expense.Expense;
 import seedu.address.financialtracker.model.expense.Time;
 import seedu.address.financialtracker.model.expense.Type;
+import seedu.address.financialtracker.parser.CliSyntax;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.financialtracker.parser.CliSyntax;
 
 /**
  * Edits the details of an existing expense in the itinerary.
@@ -35,6 +34,8 @@ public class EditFinCommand extends Command<Model> {
             + "[" + CliSyntax.PREFIX_AMOUNT + "AMOUNT] "
             + "[" + CliSyntax.PREFIX_DESCRIPTION + "DESCRIPTION] "
             + "[" + CliSyntax.PREFIX_TYPE + "TYPE] "
+            + "[" + CliSyntax.PREFIX_DATE + "DATE] "
+            + "[" + CliSyntax.PREFIX_TIME + "TIME] "
             + "Example: " + COMMAND_WORD + " 1 "
             + CliSyntax.PREFIX_AMOUNT + "4"
             + CliSyntax.PREFIX_TYPE + "dinner";
@@ -61,7 +62,7 @@ public class EditFinCommand extends Command<Model> {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Expense> lastShownList = model.getFilteredExpenseList();
+        List<Expense> lastShownList = model.getExpenseList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
@@ -75,7 +76,6 @@ public class EditFinCommand extends Command<Model> {
         }
 
         model.setExpense(expenseToEdit, editedExpense);
-        model.updateFilteredExpenseList(Model.PREDICATE_SHOW_ALL_EVENTS);
         return new CommandResult(String.format(MESSAGE_EDIT_EXPENSE_SUCCESS, editedExpense));
     }
 
@@ -125,7 +125,6 @@ public class EditFinCommand extends Command<Model> {
         private Amount amount;
         private Description description;
         private Type type;
-        private boolean country = false; //Note: this is just an indicator
 
         public EditExpenseDescriptor() {}
 
@@ -139,14 +138,13 @@ public class EditFinCommand extends Command<Model> {
             setAmount(toCopy.amount);
             setDescription(toCopy.description);
             setType(toCopy.type);
-            toCopy.country = this.country;
         }
 
         /**
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(amount, description, type) || country;
+            return CollectionUtil.isAnyNonNull(date, time, amount, description, type);
         }
 
         public void setDate(Date date) {
@@ -189,10 +187,6 @@ public class EditFinCommand extends Command<Model> {
             return Optional.ofNullable(type);
         }
 
-        public void setCountry() {
-            this.country = true;
-        }
-
         @Override
         public boolean equals(Object other) {
             // short circuit if same object
@@ -212,8 +206,7 @@ public class EditFinCommand extends Command<Model> {
                     && getDate().equals(e.getDate())
                     && getTime().equals(e.getTime())
                     && getDescription().equals(e.getDescription())
-                    && getType().equals(e.getType())
-                    && country == e.country;
+                    && getType().equals(e.getType());
         }
     }
 }

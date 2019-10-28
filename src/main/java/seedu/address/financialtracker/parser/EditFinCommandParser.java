@@ -2,7 +2,6 @@ package seedu.address.financialtracker.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.financialtracker.parser.CliSyntax.PREFIX_AMOUNT;
-import static seedu.address.financialtracker.parser.CliSyntax.PREFIX_COUNTRY;
 import static seedu.address.financialtracker.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.financialtracker.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.financialtracker.parser.CliSyntax.PREFIX_TIME;
@@ -29,7 +28,7 @@ public class EditFinCommandParser implements Parser<EditFinCommand> {
     public EditFinCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_AMOUNT, PREFIX_DESCRIPTION, PREFIX_TYPE, PREFIX_COUNTRY,
+                ArgumentTokenizer.tokenize(args, PREFIX_AMOUNT, PREFIX_DESCRIPTION, PREFIX_TYPE,
                         PREFIX_DATE, PREFIX_TIME);
 
         Index index;
@@ -50,10 +49,6 @@ public class EditFinCommandParser implements Parser<EditFinCommand> {
         }
         if (argMultimap.getValue(PREFIX_TYPE).isPresent()) {
             editExpenseDescriptor.setType(ParserUtil.parseType(argMultimap.getValue(PREFIX_TYPE).get()));
-        }
-
-        if (argMultimap.getValue(PREFIX_COUNTRY).isPresent()) {
-            editExpenseDescriptor.setCountry();
         }
 
         if (argMultimap.getValue(PREFIX_DATE).isPresent()) {

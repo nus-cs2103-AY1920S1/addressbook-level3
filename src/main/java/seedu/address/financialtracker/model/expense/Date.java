@@ -1,5 +1,6 @@
 package seedu.address.financialtracker.model.expense;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 /**
@@ -16,9 +17,16 @@ public class Date {
      * otherwise " " (a blank string) becomes a valid input.
      */
     public static final String VALIDATION_REGEX = "^(3[01]|[12][0-9]|0[1-9])(1[0-2]|0[1-9])[0-9]{4}$";
+    private static final SimpleDateFormat sdfDate = new SimpleDateFormat("ddMMyyyy");
     public final String value;
+    public java.util.Date valueToCompare;
 
     public Date(String date) {
+        try {
+            this.valueToCompare = sdfDate.parse(date);
+        } catch (ParseException e) {
+            assert false : "date format should be always correct";
+        }
         this.value = formatDate(date);
     }
 
@@ -42,7 +50,6 @@ public class Date {
     }
 
     public static Date getCurrentDate() {
-        SimpleDateFormat sdfDate = new SimpleDateFormat("ddMMyyyy");
         java.util.Date now = new java.util.Date();
         String value = sdfDate.format(now);
         return new Date(value);
