@@ -25,6 +25,12 @@ public class UserPrefsTest {
     }
 
     @Test
+    public void setMealPlanFilePath_nullPath_throwsNullPointerException() {
+        UserPrefs userPrefs = new UserPrefs();
+        Assert.assertThrows(NullPointerException.class, () -> userPrefs.setMealPlanFilePath(null));
+    }
+
+    @Test
     public void setDiaryFilePath_nullPath_throwsNullPointerException() {
         UserPrefs userPrefs = new UserPrefs();
         Assert.assertThrows(NullPointerException.class, () -> userPrefs.setDiaryFilePath(null));

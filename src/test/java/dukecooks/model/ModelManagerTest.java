@@ -25,6 +25,7 @@ import dukecooks.commons.core.GuiSettings;
 import dukecooks.model.dashboard.DashboardRecords;
 import dukecooks.model.diary.DiaryRecords;
 import dukecooks.model.diary.components.DiaryNameContainsKeywordsPredicate;
+import dukecooks.model.mealplan.MealPlanBook;
 import dukecooks.model.profile.UserProfile;
 import dukecooks.model.recipe.RecipeBook;
 import dukecooks.model.recipe.components.RecipeNameContainsKeywordsPredicate;
@@ -46,6 +47,7 @@ public class ModelManagerTest {
         Assertions.assertEquals(new GuiSettings(), modelManager.getGuiSettings());
         Assertions.assertEquals(new DashboardRecords(), new DashboardRecords(modelManager.getDashboardRecords()));
         Assertions.assertEquals(new RecipeBook(), new RecipeBook(modelManager.getRecipeBook()));
+        Assertions.assertEquals(new MealPlanBook(), new MealPlanBook(modelManager.getMealPlanBook()));
         Assertions.assertEquals(new UserProfile(), new UserProfile(modelManager.getUserProfile()));
         Assertions.assertEquals(new WorkoutPlanner(), new WorkoutPlanner(modelManager.getWorkoutPlanner()));
         Assertions.assertEquals(new DiaryRecords(), new DiaryRecords(modelManager.getDiaryRecords()));
@@ -61,6 +63,7 @@ public class ModelManagerTest {
         UserPrefs userPrefs = new UserPrefs();
         userPrefs.setDashboardFilePath(Paths.get("address/book/file/path"));
         userPrefs.setRecipesFilePath(Paths.get("address/book/file/path"));
+        userPrefs.setMealPlansFilePath(Paths.get("address/book/file/path"));
         userPrefs.setUserProfileFilePath(Paths.get("address/book/file/path"));
         userPrefs.setDiaryFilePath(Paths.get("address/book/file/path"));
         userPrefs.setGuiSettings(new GuiSettings(1, 2, 3, 4));
@@ -71,6 +74,7 @@ public class ModelManagerTest {
         UserPrefs oldUserPrefs = new UserPrefs(userPrefs);
         userPrefs.setDashboardFilePath(Paths.get("new/address/book/file/path"));
         userPrefs.setRecipesFilePath(Paths.get("new/address/book/file/path"));
+        userPrefs.setMealPlansFilePath(Paths.get("new/address/book/file/path"));
         userPrefs.setUserProfileFilePath(Paths.get("new/address/book/file/path"));
         userPrefs.setExercisesFilePath(Paths.get("new/address/book/file/path"));
         userPrefs.setDiaryFilePath(Paths.get("new/address/book/file/path"));
@@ -105,6 +109,11 @@ public class ModelManagerTest {
     }
 
     @Test
+    public void setMealPlansFilePath_nullPath_throwsNullPointerException() {
+        Assert.assertThrows(NullPointerException.class, () -> modelManager.setMealPlansFilePath(null));
+    }
+
+    @Test
     public void setDiaryFilePath_nullPath_throwsNullPointerException() {
         Assert.assertThrows(NullPointerException.class, () -> modelManager.setDiaryFilePath(null));
     }
@@ -131,6 +140,13 @@ public class ModelManagerTest {
     }
 
     @Test
+    public void setMealPlansFilePath_validPath_setsMealPlansFilePath() {
+        Path path = Paths.get("address/book/file/path");
+        modelManager.setMealPlansFilePath(path);
+        assertEquals(path, modelManager.getMealPlansFilePath());
+    }
+
+    @Test
     public void setDiaryFilePath_validPath_setsDiaryFilePath() {
         Path path = Paths.get("address/book/file/path");
         modelManager.setDiaryFilePath(path);
@@ -145,6 +161,16 @@ public class ModelManagerTest {
     @Test
     public void hasDiary_nullDiary_throwsNullPointerException() {
         Assert.assertThrows(NullPointerException.class, () -> modelManager.hasDiary(null));
+    }
+
+    @Test
+    public void hasRecipe_nullRecipe_throwsNullPointerException() {
+        Assert.assertThrows(NullPointerException.class, () -> modelManager.hasRecipe(null));
+    }
+
+    @Test
+    public void hasMealPlan_nullMealPlan_throwsNullPointerException() {
+        Assert.assertThrows(NullPointerException.class, () -> modelManager.hasMealPlan(null));
     }
 
     public void hasPerson_nullPerson_throwsNullPointerException() {
@@ -162,6 +188,17 @@ public class ModelManagerTest {
     }
 
     @Test
+    public void hasRecipe_recipeNotInDukeCooks_returnsFalse() {
+        assertFalse(modelManager.hasRecipe(OMELETTE));
+    }
+
+    @Test
+    public void hasMealPlan_mealPlanNotInDukeCooks_returnsFalse() {
+        assertFalse(modelManager.hasRecipe(OMELETTE));
+    }
+    //TODO: finish mealplan testutil
+
+    @Test
     public void hasPerson_personInDukeCooks_returnsTrue() {
         modelManager.addExercise(ABS_ROLLOUT);
         assertTrue(modelManager.hasExercise(ABS_ROLLOUT));
@@ -172,6 +209,19 @@ public class ModelManagerTest {
         modelManager.addDiary(ALL_MEAT);
         assertTrue(modelManager.hasDiary(ALL_MEAT));
     }
+
+    @Test
+    public void hasRecipe_recipeInDukeCooks_returnsTrue() {
+        modelManager.addRecipe(OMELETTE);
+        assertTrue(modelManager.hasRecipe(OMELETTE));
+    }
+
+    @Test
+    public void hasMealPlan_mealPlanInDukeCooks_returnsTrue() {
+        modelManager.addRecipe(OMELETTE);
+        assertTrue(modelManager.hasRecipe(OMELETTE));
+    }
+    //TODO: finish mealplan testutil
 
     @Test
     public void hasDashboard_dashboardInDukeCooks_returnsTrue() {
@@ -189,6 +239,12 @@ public class ModelManagerTest {
     }
 
     @Test
+    public void getFilteredMealPlanList_modifyList_throwsUnsupportedOperationException() {
+        Assert.assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredMealPlanList()
+                .remove(0));
+    }
+
+    @Test
     public void getFilteredDiaryList_modifyList_throwsUnsupportedOperationException() {
         Assert.assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredDiaryList().remove(0));
     }
@@ -202,6 +258,8 @@ public class ModelManagerTest {
                 .withDashboard(TASK1).withDashboard(TASK2).build();
         RecipeBook recipeBook = new RecipeBookBuilder().withRecipe(MILO).withRecipe(OMELETTE).build();
         RecipeBook differentRecipeBook = new RecipeBook();
+
+        //TODO: finish mealplan testutil
 
         DiaryRecords diaryRecords = new DiaryRecordBuilder().withDiary(BOB_DIARY).build();
         DiaryRecords differentDiaryRecords = new DiaryRecords();
