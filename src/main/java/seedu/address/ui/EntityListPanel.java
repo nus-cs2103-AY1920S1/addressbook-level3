@@ -41,7 +41,6 @@ public class EntityListPanel extends UiPart<Region> {
             } else if (firstItem instanceof Team) {
                 prefix = PrefixType.T;
                 listView.setCellFactory(listView -> new TeamListViewCell());
-
             } else if (firstItem instanceof Mentor) {
                 prefix = PrefixType.M;
                 listView.setCellFactory(listView -> new MentorListViewCell());
@@ -109,5 +108,4 @@ public class EntityListPanel extends UiPart<Region> {
             }
         }
     }
-
 }

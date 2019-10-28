@@ -27,10 +27,8 @@ public class ExportCommand extends Command {
     public static final String MESSAGE_INVALID_PATH_EXCEPTION =
             "Invalid file path: %s - Exported all data to %s"; // %s -> this.csvFilePath
     public static final String MESSAGE_EMPTY_DATA = "No data to export. File was not created.";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": exports Alfred data to a CSV file. "
-            + "Parameters: "
-            + "[ENTITY] "
-            + PREFIX_FILE_PATH + "[FILE_PATH]\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": exports Alfred data to a CSV file.\n"
+            + "Format: " + COMMAND_WORD + " [ENTITY] [" + PREFIX_FILE_PATH + "FILE_PATH]\n"
             + "\tExample 1: " + COMMAND_WORD
             + " (Creates AlfredData/Alfred_Entity_List.csv at current working directory)\n"
             + "\tExample 2 (Windows): " + COMMAND_WORD + " " + PREFIX_FILE_PATH + "C:/Users/USER"

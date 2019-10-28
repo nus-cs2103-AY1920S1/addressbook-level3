@@ -54,15 +54,17 @@ public class ImportCommand extends Command implements TrackableState {
     public static final String CAUSE_INVALID_DATA = "Invalid data format";
     public static final String CAUSE_DUPLICATE_ENTITY = "This entity already exists in Alfred";
     public static final String ASSERTION_FAILED_NOT_CSV = "File given is not a CSV file.";
-    public static final String POSTFIX_ERROR_FILE = "_Error";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Loads data in CSV file into Alfred"
-            + " Parameters: "
-            + PREFIX_FILE_PATH + "CSV_FILE_NAME\n"
-            + "\tExample (Windows): " + COMMAND_WORD
-            + " " + PREFIX_FILE_PATH + "C:/Users/USER/AlfredData/Alfred.csv\n";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Loads data in CSV file into Alfred\n"
+            + "Format: " + COMMAND_WORD + " "
+            + PREFIX_FILE_PATH + "CSV_FILE_PATH [" + PREFIX_FILE_PATH + "ERROR_FILE_PATH]\n"
+            + "\tExample 1 (Windows): " + COMMAND_WORD + " "
+            + PREFIX_FILE_PATH + "C:/Users/USER/AlfredData/Alfred.csv\n"
+            + "\tExample 2 (Windows) " + COMMAND_WORD + " "
+            + PREFIX_FILE_PATH + "Alfred.csv " + PREFIX_FILE_PATH + "Alfred_Errors.csv";
 
     private Path csvFilePath;
+    private boolean shouldCreateErrorFile;
     private Path errorFilePath;
     private Queue<String> teamBuffers;
     private ErrorTracker errors;
@@ -71,7 +73,7 @@ public class ImportCommand extends Command implements TrackableState {
         assert csvFilePath.toLowerCase().endsWith(".csv") : ASSERTION_FAILED_NOT_CSV;
 
         this.csvFilePath = Paths.get(csvFilePath);
-        this.errorFilePath = Paths.get(this.insertErrorPostfix(csvFilePath));
+        this.shouldCreateErrorFile = false;
         this.teamBuffers = new LinkedList<>();
         this.errors = new ErrorTracker();
     }
@@ -81,14 +83,10 @@ public class ImportCommand extends Command implements TrackableState {
         assert errorFilePath.toLowerCase().endsWith(".csv") : ASSERTION_FAILED_NOT_CSV;
 
         this.csvFilePath = Paths.get(csvFilePath);
+        this.shouldCreateErrorFile = true;
         this.errorFilePath = Paths.get(errorFilePath);
         this.teamBuffers = new LinkedList<>();
         this.errors = new ErrorTracker();
-    }
-
-    private String insertErrorPostfix(String csvFilePath) {
-        // 4 -> length of ".csv"
-        return new StringBuilder(csvFilePath).insert(csvFilePath.length() - 4, POSTFIX_ERROR_FILE).toString();
     }
 
     @Override
@@ -104,16 +102,7 @@ public class ImportCommand extends Command implements TrackableState {
             throw new CommandException(MESSAGE_IO_EXCEPTION);
         }
         if (!errors.isEmpty()) {
-            // Create csv file containing all lines unable to be loaded
-            File errorFile = this.errorFilePath.toFile();
-            String errorFileMessage;
-            try {
-                FileUtil.createFile(errorFilePath);
-                CsvUtil.writeToCsv(errorFile, false, errors.toCsvString());
-                errorFileMessage = String.format(MESSAGE_ERROR_FILE_CREATED, this.errorFilePath.toString());
-            } catch (IOException ioe) {
-                errorFileMessage = MESSAGE_ERROR_FILE_NOT_CREATED;
-            }
+            String errorFileMessage = this.createErrorFile();
             // Return result message
             String message = String.join(
                     "\n",
@@ -223,6 +212,26 @@ public class ImportCommand extends Command implements TrackableState {
         } else if (entityToAdd instanceof Team) {
             model.addTeam((Team) entityToAdd);
         }
+    }
+
+    /**
+     * Creates a CSV file containing all of the lines in user-provided CSV file
+     * that were not able to be imported into Alfred.
+     */
+    private String createErrorFile() {
+        String errorFileMessage = MESSAGE_ERROR_FILE_NOT_CREATED;
+        if (this.shouldCreateErrorFile) {
+            // Create csv file containing all lines unable to be loaded
+            File errorFile = this.errorFilePath.toFile();
+            try {
+                FileUtil.createFile(errorFilePath);
+                CsvUtil.writeToCsv(errorFile, false, errors.toCsvString());
+                errorFileMessage = String.format(MESSAGE_ERROR_FILE_CREATED, this.errorFilePath.toString());
+            } catch (IOException ioe) {
+                return errorFileMessage;
+            }
+        }
+        return errorFileMessage;
     }
 
     @Override

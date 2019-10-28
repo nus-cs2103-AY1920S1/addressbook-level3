@@ -20,6 +20,12 @@ public class ImportCommandParserTest {
     public void parse_validParameterPassedIn_validCommandReturned() {
         String path = TestUtil.getFilePathInSandboxFolder("Alfred.csv").toString();
         assertParseSuccess(parser, " " + PREFIX_FILE_PATH + path, new ImportCommand(path));
+
+        String errorFilePath = TestUtil.getFilePathInSandboxFolder("Alfred_Error.csv").toString();
+        assertParseSuccess(
+                parser,
+                " " + PREFIX_FILE_PATH + path + " " + PREFIX_FILE_PATH + errorFilePath,
+                new ImportCommand(path, errorFilePath));
     }
 
     @Test
@@ -29,7 +35,7 @@ public class ImportCommandParserTest {
         assertParseFailure(parser, path, String.format(MESSAGE_INVALID_COMMAND_FORMAT, ImportCommand.MESSAGE_USAGE));
 
         // Preamble must be blank
-        path = "mentor" + PREFIX_FILE_PATH + "Alfred.csv";
+        path = "mentor " + PREFIX_FILE_PATH + "Alfred.csv";
         assertParseFailure(parser, path, String.format(MESSAGE_INVALID_COMMAND_FORMAT, ImportCommand.MESSAGE_USAGE));
 
         // PREFIX_FILE_PATH is not present
@@ -37,7 +43,20 @@ public class ImportCommandParserTest {
         assertParseFailure(parser, path, String.format(MESSAGE_INVALID_COMMAND_FORMAT, ImportCommand.MESSAGE_USAGE));
 
         // File name is blank
-        path = " " + PREFIX_FILE_PATH.getPrefix();
+        path = " " + PREFIX_FILE_PATH;
+        assertParseFailure(parser, path, String.format(MESSAGE_INVALID_COMMAND_FORMAT, ImportCommand.MESSAGE_USAGE));
+
+        // no files are present
+        path = "";
+        assertParseFailure(parser, path, String.format(MESSAGE_INVALID_COMMAND_FORMAT, ImportCommand.MESSAGE_USAGE));
+
+        // errorFile is not a csv file
+        path = " " + PREFIX_FILE_PATH + "Alfred.csv " + PREFIX_FILE_PATH + "AlfredError.txt";
+        assertParseFailure(parser, path, String.format(MESSAGE_INVALID_COMMAND_FORMAT, ImportCommand.MESSAGE_USAGE));
+
+        // More than two files are present
+        path = " " + PREFIX_FILE_PATH + "Alfred.csv " + PREFIX_FILE_PATH + "AlfredError.csv "
+                + PREFIX_FILE_PATH + "RandomFile.csv";
         assertParseFailure(parser, path, String.format(MESSAGE_INVALID_COMMAND_FORMAT, ImportCommand.MESSAGE_USAGE));
     }
 
