@@ -356,14 +356,9 @@ public class ModelManager implements Model {
         addressBook.setReminder(reminder, editedReminder);
     }
 
-    public ObservableList<Reminder> getFilteredReminderList() {
-        return filteredReminder;
-    }
-
     public Account getAccount() {
         return account;
     }
-
 
     public void isLoggedIn() {
         loggedIn = true;
