@@ -29,7 +29,7 @@ class JsonAdaptedReminder {
      */
     @JsonCreator
     public JsonAdaptedReminder(@JsonProperty("description") String description,
-                           @JsonProperty("reminderTimes") List<JsonAdaptedReminderTime> reminderTimes) {
+                           @JsonProperty("times") List<JsonAdaptedReminderTime> reminderTimes) {
         this.description = description;
         if (reminderTimes != null) {
             this.reminderTimes.addAll(reminderTimes);

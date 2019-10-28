@@ -294,7 +294,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     public void handleCalendarTask() throws ParseException, CommandException {
-        String userCommand = "change_tab tab/calendar";
+        String userCommand = "change_tab tab/task";
         executeCommand(userCommand);
     }
 

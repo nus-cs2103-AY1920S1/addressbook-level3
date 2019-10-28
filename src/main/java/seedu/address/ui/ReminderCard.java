@@ -36,6 +36,7 @@ public class ReminderCard extends UiPart<Region> {
         description.setText(reminders.getDescription().toString());
         //date.setText(reminders.getDate().dateNum);
         //amount.setText(reminders.getAmount().amount);
+        //times.setText("1");
         reminders.getTime().stream()
                 .sorted(Comparator.comparing(reminderTime -> reminderTime.fullTime))
                 .forEach(reminderTime -> times.getChildren().add(new Label(reminderTime.fullTime)));

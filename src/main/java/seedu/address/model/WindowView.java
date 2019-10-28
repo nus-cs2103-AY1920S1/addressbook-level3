@@ -16,7 +16,7 @@ public class WindowView {
      * otherwise " " (a blank string) becomes a valid input.
      */
     public static final String VALIDATION_REGEX =
-            "calendar|earnings|student_profile|notepad|reminders";
+            "calendar|earnings|student_profile|notepad|reminders|task";
     private static String tab;
     private static int indexNumber;
 
@@ -53,6 +53,8 @@ public class WindowView {
             index = 4;
         } else if (tab.equals("reminders")) {
             index = 5;
+        } else if (tab.equals("task")) {
+            index = 6;
         }
         new WindowView(tab, index);
     }
