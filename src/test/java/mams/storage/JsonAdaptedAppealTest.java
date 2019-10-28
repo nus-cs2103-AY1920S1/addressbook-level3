@@ -22,7 +22,7 @@ public class JsonAdaptedAppealTest {
     private static final String VALID_ACADEMIC_YEAR = TypicalAppeals.APPEAL2.getAcademicYear();
     private static final int VALID_WORKLOAD = TypicalAppeals.APPEAL2.getStudentWorkload();
     private static final String VALID_DESCRIPTION = TypicalAppeals.APPEAL2.getAppealDescription();
-    private static final String VALID_MODULES = TypicalAppeals.APPEAL2.getModule_to_drop();
+    private static final String VALID_MODULES = TypicalAppeals.APPEAL2.getModuleToDrop();
     private static final boolean VALID_IS_RESOLVED = TypicalAppeals.APPEAL2.isResolved();
     private static final String VALID_REMARK = TypicalAppeals.APPEAL2.getRemark();
 

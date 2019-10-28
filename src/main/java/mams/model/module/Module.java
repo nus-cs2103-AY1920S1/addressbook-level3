@@ -173,7 +173,11 @@ public class Module {
         return timeSlot;
     }
 
-    public int getQuota() {
+    public String getQuota() {
+        return quota;
+    }
+
+    public int getQuotaInt() {
         return Integer.parseInt(quota);
     }
 
@@ -387,7 +391,7 @@ public class Module {
 
         builder.append(getCurrentEnrolment())
                 .append("/")
-                .append(getQuota());
+                .append(getQuotaInt());
 
         return builder.toString();
     }

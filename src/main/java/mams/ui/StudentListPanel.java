@@ -40,6 +40,8 @@ public class StudentListPanel extends UiPart<Region> {
             if (empty || student == null) {
                 setGraphic(null);
                 setText(null);
+            } else if (studentList.size() == 1) {
+                setGraphic(new ExpandedStudentCard(student).getRoot());
             } else {
                 setGraphic(new StudentCard(student, getIndex() + 1).getRoot());
             }

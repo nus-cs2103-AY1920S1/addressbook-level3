@@ -123,15 +123,24 @@
     -fx-text-fill: white;
 }
 
+.label.cell_small_label {
+    -fx-font-family: "Roboto Mono for Powerline";
+    -fx-font-size: 13px;
+    -fx-tile-alignment: CENTER;
+}
+
+.cell_small_label.description_text {
+    -fx-wrap-text: true;
+}
+
 .label.cell_big_label {
     -fx-font-family: "Segoe UI Semibold";
     -fx-font-size: 16px;
 }
 
-.label.cell_small_label {
-    -fx-font-family: "Roboto Mono for Powerline";
-    -fx-font-size: 13px;
-    -fx-tile-alignment: CENTER;
+.label.cell_bigger_label {
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-size: 25px;
 }
 
 .cell_small_label.green-text-label {
@@ -140,6 +149,38 @@
 
 .cell_small_label.yellow-text-label {
     -fx-text-fill: #EFF88B;
+}
+
+.cell_big_label.green-text-label {
+    -fx-text-fill: #4FF77A;
+}
+
+.cell_big_label.yellow-text-label {
+    -fx-text-fill: #EFF88B;
+}
+
+.cell_big_label.orange-text-label {
+    -fx-text-fill: #FEB86C;
+}
+
+.cell_big_label.pink-text-label {
+    -fx-text-fill: #FA77C3;
+}
+
+.cell_bigger_label.green-text-label {
+    -fx-text-fill: #4FF77A;
+}
+
+.cell_bigger_label.yellow-text-label {
+    -fx-text-fill: #EFF88B;
+}
+
+.cell_bigger_label.blue-text-label {
+    -fx-text-fill: #86ACC9;
+}
+
+.cell_bigger_label.pink-text-label {
+    -fx-text-fill: #FA77C3;
 }
 
 .label.prefix-label {

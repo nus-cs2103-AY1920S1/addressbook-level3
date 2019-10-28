@@ -47,8 +47,8 @@ public class RejectCommand extends Reject {
                     appealToReject.getAppealDescription(),
                     appealToReject.getPreviousModule(),
                     appealToReject.getNewModule(),
-                    appealToReject.getModule_to_add(),
-                    appealToReject.getModule_to_drop(),
+                    appealToReject.getModuleToAdd(),
+                    appealToReject.getModuleToDrop(),
                     true,
                     "REJECTED",
                     reason);

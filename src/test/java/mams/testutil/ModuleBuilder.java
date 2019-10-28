@@ -46,7 +46,7 @@ public class ModuleBuilder {
         moduleDescription = moduleToCopy.getModuleDescription();
         lecturerName = moduleToCopy.getLecturerName();
         timeSlot = moduleToCopy.getTimeSlot();
-        quota = Integer.toString(moduleToCopy.getQuota());
+        quota = Integer.toString(moduleToCopy.getQuotaInt());
         students = new HashSet<>(moduleToCopy.getStudents());
     }
 
@@ -112,6 +112,6 @@ public class ModuleBuilder {
      */
     public Module build() {
         return new Module(moduleCode, moduleName, moduleDescription, lecturerName,
-                timeSlot , quota, students);
+                timeSlot, quota, students);
     }
 }
