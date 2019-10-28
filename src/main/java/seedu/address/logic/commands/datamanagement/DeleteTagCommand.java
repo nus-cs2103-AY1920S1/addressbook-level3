@@ -9,17 +9,17 @@ import seedu.address.model.Model;
 import seedu.address.model.tag.UserTag;
 
 /**
- * Deletes a tag completely from the study plan.
+ * Deletes a module tag completely from the study plan.
  */
 public class DeleteTagCommand extends Command {
 
-    public static final String COMMAND_WORD = "deletetag";
-    public static final String HELP_MESSAGE = COMMAND_WORD + ": Deleting a tag";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + " : Deletes the tag with the specified tag name "
+    public static final String COMMAND_WORD = "deletemodtag";
+    public static final String HELP_MESSAGE = COMMAND_WORD + ": Deleting a module tag";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + " : Deletes the module tag with the specified tag name "
             + "Parameters: "
             + "TAG_NAME \n"
             + "Example: "
-            + "delete exchange";
+            + "deletemodtag exchange";
 
     public static final String MESSAGE_SUCCESS = "Tag %1$s has been deleted";
     public static final String MESSAGE_TAG_NOT_FOUND = "There is no [%1$s] tag in this study plan";
@@ -28,7 +28,7 @@ public class DeleteTagCommand extends Command {
     private final String tagName;
 
     /**
-     * Creates an {@code DeleteTagCommand} to delete the tag with the given name.
+     * Creates an {@code DeleteTagCommand} to delete the module tag with the given name.
      * @param tagName
      */
     public DeleteTagCommand(String tagName) {

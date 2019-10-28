@@ -25,10 +25,10 @@ public class FindModuleCommandParserTest {
         // no leading and trailing whitespaces
         FindModuleCommand expectedFindCommand =
                 new FindModuleCommand(new ModuleBuilder().build().getModuleCode().toString());
-        assertParseSuccess(parser, "findmod CS1231", expectedFindCommand);
+        assertParseSuccess(parser, "findmod CS1231S", expectedFindCommand);
 
         // multiple whitespaces between keywords
-        assertParseSuccess(parser, "findmod     CS1231     ", expectedFindCommand);
+        assertParseSuccess(parser, "findmod     CS1231S     ", expectedFindCommand);
     }
 
 }

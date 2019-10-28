@@ -14,11 +14,11 @@ import seedu.address.ui.ResultViewType;
  */
 public class ViewAllTagsCommand extends Command {
 
-    public static final String COMMAND_WORD = "viewalltags";
-    public static final String HELP_MESSAGE = COMMAND_WORD + ": Viewing all tags";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + " : Shows all tags in the study plan. "
+    public static final String COMMAND_WORD = "viewallmodtags";
+    public static final String HELP_MESSAGE = COMMAND_WORD + ": Viewing all module tags";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + " : Shows all module tags in the study plan. "
             + "Example: "
-            + "viewalltags";
+            + "viewallmodtags";
 
     public static final String MESSAGE_SUCCESS = "All tags shown";
 

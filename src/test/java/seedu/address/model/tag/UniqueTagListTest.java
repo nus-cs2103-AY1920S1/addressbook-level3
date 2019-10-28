@@ -234,6 +234,27 @@ public class UniqueTagListTest {
     }
 
     @Test
+    public void containsPriorityTag_returnsTrue() {
+        UniqueTagList uniqueTagList = new UniqueTagList();
+        uniqueTagList.addTag(new TagBuilder().buildPriorityHighTag());
+        assertTrue(uniqueTagList.containsPriorityTag());
+    }
+
+    @Test
+    public void containsPriorityTag_returnsFalse() {
+        UniqueTagList uniqueTagList = new UniqueTagList();
+        assertFalse(uniqueTagList.containsPriorityTag());
+    }
+
+    @Test
+    public void getPriorityTag_success() {
+        UniqueTagList uniqueTagList = new UniqueTagList();
+        PriorityTag priorityTag = new TagBuilder().buildPriorityHighTag();
+        uniqueTagList.addTag(priorityTag);
+        assertEquals(priorityTag, uniqueTagList.getPriorityTag());
+    }
+
+    @Test
     public void equals() {
         // no tags in both lists
         UniqueTagList otherUniqueTagList = new UniqueTagList();

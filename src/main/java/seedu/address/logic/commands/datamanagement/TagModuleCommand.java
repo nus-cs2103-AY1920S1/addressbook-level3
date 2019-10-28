@@ -15,16 +15,17 @@ import seedu.address.model.tag.UserTag;
  */
 public class TagModuleCommand extends Command {
 
-    public static final String COMMAND_WORD = "addtag";
+    public static final String COMMAND_WORD = "tagmod";
     public static final String HELP_MESSAGE = COMMAND_WORD + ": Adding a tag to a module";
     public static final String MESSAGE_USAGE = COMMAND_WORD + " : Adds the specified tag to the specified module. "
             + "Parameters: "
             + "MODULE CODE "
             + "TAG_NAME \n"
             + "Example: "
-            + "tag CS3230 exchange";
+            + "tagmod CS3230 exchange";
 
     public static final String MESSAGE_SUCCESS_TAG_CREATED = "A new tag %1$s has been created and added to module %2$s";
+    public static final String MESSAGE_MODULE_DOES_NOT_EXIST = "This module does not exist.";
     public static final String MESSAGE_SUCCESS = "Tag %1$s has been added to module %2$s";
     public static final String MESSAGE_EXISTING_TAG = "Tag %1$s is already attached to %2$s";
     public static final String MESSAGE_INVALID_DEFAULT_TAG_MODIFICATION = "Default tags cannot be added";
@@ -47,6 +48,10 @@ public class TagModuleCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+
+        if (!model.isValidModuleCode(this.moduleCode)) {
+            throw new CommandException(MESSAGE_MODULE_DOES_NOT_EXIST);
+        }
 
         Tag toAdd;
         if (!model.activeSpContainsModuleTag(tagName)) {

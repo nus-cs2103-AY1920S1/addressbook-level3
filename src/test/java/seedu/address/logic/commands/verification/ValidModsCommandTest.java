@@ -22,6 +22,7 @@ import seedu.address.model.semester.Semester;
 import seedu.address.model.semester.SemesterName;
 import seedu.address.model.semester.UniqueSemesterList;
 import seedu.address.model.studyplan.StudyPlan;
+import seedu.address.model.tag.PriorityTag;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.tag.UserTag;
@@ -224,6 +225,21 @@ public class ValidModsCommandTest {
 
         @Override
         public void addStudyPlanTagToSp(Tag tag, int index) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void removeStudyPlanTagFromSp(Tag tag, int index) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean spContainsPriorityTag(int index) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public PriorityTag getPriorityTagFromSp(int index) {
             throw new AssertionError("This method should not be called.");
         }
 

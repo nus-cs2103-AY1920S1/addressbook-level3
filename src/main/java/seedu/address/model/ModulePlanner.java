@@ -18,6 +18,7 @@ import seedu.address.model.studyplan.StudyPlan;
 import seedu.address.model.studyplan.Title;
 import seedu.address.model.studyplan.UniqueStudyPlanList;
 import seedu.address.model.studyplan.exceptions.StudyPlanNotFoundException;
+import seedu.address.model.tag.PriorityTag;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.tag.UserTag;
@@ -400,6 +401,18 @@ public class ModulePlanner implements ReadOnlyModulePlanner {
 
     public void addStudyPlanTagToSp(Tag tag, int index) {
         studyPlans.getStudyPlanByIndex(index).addStudyPlanTag(tag);
+    }
+
+    public void removeStudyPlanTagFromSp(Tag tag, int index) {
+        studyPlans.getStudyPlanByIndex(index).removeStudyPlanTag(tag);
+    }
+
+    public boolean spContainsPriorityTag(int index) {
+        return studyPlans.getStudyPlanByIndex(index).containsPriorityTag();
+    }
+
+    public PriorityTag getPriorityTagFromSp(int index) {
+        return studyPlans.getStudyPlanByIndex(index).getPriorityTag();
     }
 
     public boolean activeSpContainsModuleTag(String tagName) {

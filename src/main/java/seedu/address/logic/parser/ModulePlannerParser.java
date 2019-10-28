@@ -20,6 +20,7 @@ import seedu.address.logic.commands.datamanagement.RemoveAllTagsCommand;
 import seedu.address.logic.commands.datamanagement.RemoveTagFromAllCommand;
 import seedu.address.logic.commands.datamanagement.RemoveTagFromModuleCommand;
 import seedu.address.logic.commands.datamanagement.RenameTagCommand;
+import seedu.address.logic.commands.datamanagement.SortStudyPlansByPriorityTagCommand;
 import seedu.address.logic.commands.datamanagement.TagModuleCommand;
 import seedu.address.logic.commands.datamanagement.ViewAllTagsCommand;
 import seedu.address.logic.commands.datamanagement.ViewDefaultTagsCommand;
@@ -196,6 +197,9 @@ public class ModulePlannerParser {
 
         case RenameTagCommand.COMMAND_WORD:
             return new RenameTagCommandParser().parse(arguments);
+
+        case SortStudyPlansByPriorityTagCommand.COMMAND_WORD:
+            return new SortStudyPlansByPriorityTagCommand();
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

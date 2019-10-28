@@ -18,7 +18,7 @@ public class ModuleBuilder {
     public static final int DEFAULT_MC_COUNT = 4;
     public static final Color DEFAULT_COLOR = Color.RED;
     public static final boolean DEFAULT_PREREQS_SATISFIED = true;
-    public static final String DEFAULT_MODULE_CODE = "CS1231";
+    public static final String DEFAULT_MODULE_CODE = "CS1231S";
     public static final PrereqTree DEFAULT_PREREQ_TREE = null;
 
     private ModuleCode moduleCode;

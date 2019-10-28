@@ -36,11 +36,11 @@ public class RemoveTagFromAllCommandTest {
         String validTagNameOne = validTagOne.getTagName();
 
         // construct two modules with the user tag and one module without
-        Module cs1231 = new ModuleBuilder().withTags(validTagOne).build();
+        Module cs1231s = new ModuleBuilder().withTags(validTagOne).build();
         Module cs2100 = new ModuleBuilder().withModuleCode("CS2100").withTags(validTagOne).build();
         Module cs3230 = new ModuleBuilder().withModuleCode("CS3230").build();
         HashMap<String, Module> moduleHashMap = new HashMap<String, Module>();
-        moduleHashMap.put("CS1231", cs1231);
+        moduleHashMap.put("CS1231S", cs1231s);
         moduleHashMap.put("CS2100", cs2100);
         moduleHashMap.put("CS3230", cs3230);
 
@@ -52,11 +52,11 @@ public class RemoveTagFromAllCommandTest {
         model.activateFirstStudyPlan();
 
         // construct three expected modules with no user tags
-        Module expectedCS1231 = new ModuleBuilder().build();
+        Module expectedCS1231S = new ModuleBuilder().build();
         Module expectedCS2100 = new ModuleBuilder().withModuleCode("CS2100").build();
         Module expectedCS3230 = new ModuleBuilder().withModuleCode("CS3230").build();
         HashMap<String, Module> expectedModuleHashMap = new HashMap<String, Module>();
-        expectedModuleHashMap.put("CS1231", expectedCS1231);
+        expectedModuleHashMap.put("CS1231S", expectedCS1231S);
         expectedModuleHashMap.put("CS2100", expectedCS2100);
         expectedModuleHashMap.put("CS3230", expectedCS3230);
 
@@ -98,10 +98,10 @@ public class RemoveTagFromAllCommandTest {
         String validTagNameOne = validTagOne.getTagName();
 
         // construct two modules with no user tags
-        Module cs1231 = new ModuleBuilder().build();
+        Module cs1231s = new ModuleBuilder().build();
         Module cs2100 = new ModuleBuilder().withModuleCode("CS2100").build();
         HashMap<String, Module> moduleHashMap = new HashMap<String, Module>();
-        moduleHashMap.put("CS1231", cs1231);
+        moduleHashMap.put("CS1231S", cs1231s);
         moduleHashMap.put("CS2100", cs2100);
 
         // construct model containing study plan with the user tag

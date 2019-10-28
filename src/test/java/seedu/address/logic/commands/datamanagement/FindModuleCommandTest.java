@@ -82,6 +82,21 @@ public class FindModuleCommandTest {
     }
 
     @Test
+    public void execute_moduleDoesNotExist_throwsCommandException() {
+        // construct model containing study plan
+        StudyPlan studyPlan = new StudyPlanBuilder().build();
+        Model model = new ModelManager(new ModulePlannerBuilder().withStudyPlan(studyPlan).build(),
+                new UserPrefs(), TypicalModulesInfo.getTypicalModulesInfo());
+        model.activateFirstStudyPlan();
+
+        // construct command to find non-existent module
+        FindModuleCommand findModuleCommand = new FindModuleCommand("CS3333");
+
+        assertThrows(CommandException.class, () -> findModuleCommand.execute(model),
+                String.format(FindModuleCommand.MESSAGE_MODULE_DOES_NOT_EXIST, "CS3333"));
+    }
+
+    @Test
     public void equals() {
         FindModuleCommand findModuleCommand = new FindModuleCommand("CS3230");
         FindModuleCommand findOtherModuleCommand = new FindModuleCommand("CS2103");

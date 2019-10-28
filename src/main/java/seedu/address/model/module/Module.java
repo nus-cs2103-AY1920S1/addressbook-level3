@@ -169,9 +169,6 @@ public class Module implements Cloneable {
     /**
      * This method verifies previous semester codes against the prerequisite tree, but does not update its
      * {@code prereqsSatisfied} property, instead returning a boolean value.
-     * <p>
-     * =======
-     * >>>>>>> upstream/undoredo-fix
      *
      * @param prevSemCodes Codes of modules taken in previous semesters
      */

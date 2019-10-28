@@ -17,7 +17,7 @@ import seedu.address.model.tag.exceptions.InvalidTagNameException;
  */
 public class RenameTagCommand extends Command {
 
-    public static final String COMMAND_WORD = "renametag";
+    public static final String COMMAND_WORD = "renamemodtag";
     public static final String HELP_MESSAGE = COMMAND_WORD + ": Renaming an existing tag";
     public static final String MESSAGE_USAGE = COMMAND_WORD + " : Renames the tag with the specified original name "
             + "with the specified new name. "
@@ -25,7 +25,7 @@ public class RenameTagCommand extends Command {
             + "ORIGINAL_TAG_NAME "
             + "NEW_TAG_NAME \n"
             + "Example: "
-            + "rename t/exchange t/SEP";
+            + "renamemodtag exchange SEP";
 
     public static final String MESSAGE_SUCCESS = "Tag [%1$s] renamed to %2$s";
     public static final String MESSAGE_TAG_NOT_FOUND = "There is no [%1$s] tag in this study plan";

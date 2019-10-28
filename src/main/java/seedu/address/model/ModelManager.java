@@ -20,6 +20,7 @@ import seedu.address.model.semester.SemesterName;
 import seedu.address.model.semester.UniqueSemesterList;
 import seedu.address.model.studyplan.StudyPlan;
 import seedu.address.model.studyplan.exceptions.StudyPlanNotFoundException;
+import seedu.address.model.tag.PriorityTag;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.tag.UserTag;
@@ -305,6 +306,18 @@ public class ModelManager implements Model {
 
     public void addStudyPlanTagToSp(Tag tag, int index) {
         modulePlanner.addStudyPlanTagToSp(tag, index);
+    }
+
+    public void removeStudyPlanTagFromSp(Tag tag, int index) {
+        modulePlanner.removeStudyPlanTagFromSp(tag, index);
+    }
+
+    public PriorityTag getPriorityTagFromSp(int index) {
+        return modulePlanner.getPriorityTagFromSp(index);
+    }
+
+    public boolean spContainsPriorityTag(int index) {
+        return modulePlanner.spContainsPriorityTag(index);
     }
 
     public boolean activeSpContainsModuleTag(String tagName) {

@@ -31,10 +31,10 @@ public class RemoveAllTagsCommandTest {
         Tag validTagTwo = new TagBuilder().buildUserTag("otherTag");
 
         // construct two modules with two user tags
-        Module cs1231 = new ModuleBuilder().withTags(validTagOne, validTagTwo).build();
+        Module cs1231s = new ModuleBuilder().withTags(validTagOne, validTagTwo).build();
         Module cs2100 = new ModuleBuilder().withModuleCode("CS2100").withTags(validTagOne, validTagTwo).build();
         HashMap<String, Module> moduleHashMap = new HashMap<String, Module>();
-        moduleHashMap.put("CS1231", cs1231);
+        moduleHashMap.put("CS1231S", cs1231s);
         moduleHashMap.put("CS2100", cs2100);
 
         // construct model containing study plan with two user tags
@@ -45,10 +45,10 @@ public class RemoveAllTagsCommandTest {
         model.activateFirstStudyPlan();
 
         // construct two expected modules without any user tags
-        Module expectedCS1231 = new ModuleBuilder().build();
+        Module expectedCS1231S = new ModuleBuilder().build();
         Module expectedCS2100 = new ModuleBuilder().withModuleCode("CS2100").build();
         HashMap<String, Module> expectedModuleHashMap = new HashMap<String, Module>();
-        expectedModuleHashMap.put("CS1231", expectedCS1231);
+        expectedModuleHashMap.put("CS1231S", expectedCS1231S);
         expectedModuleHashMap.put("CS2100", expectedCS2100);
 
         // construct expected model containing study plan with two user tags and expected modules
@@ -68,10 +68,10 @@ public class RemoveAllTagsCommandTest {
     @Test
     public void execute_noUserTagsPresentInStudyPlanAndModules_throwsException() {
         // construct two modules with no user tags
-        Module cs1231 = new ModuleBuilder().build();
+        Module cs1231s = new ModuleBuilder().build();
         Module cs2100 = new ModuleBuilder().withModuleCode("CS2100").build();
         HashMap<String, Module> moduleHashMap = new HashMap<String, Module>();
-        moduleHashMap.put("CS1231", cs1231);
+        moduleHashMap.put("CS1231S", cs1231s);
         moduleHashMap.put("CS2100", cs2100);
 
         // construct model containing study plan with no user tags

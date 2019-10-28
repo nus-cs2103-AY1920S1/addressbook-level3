@@ -2,6 +2,8 @@ package seedu.address.ui;
 
 //import java.util.logging.Logger;
 
+import java.util.Comparator;
+
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
@@ -23,6 +25,11 @@ public class TagListPanel extends UiPart<Region> {
 
     public TagListPanel(ObservableList<Tag> tags) {
         super(FXML);
+        tags.sort(new Comparator<Tag>() {
+            public int compare(Tag tag1, Tag tag2) {
+                return tag1.getTagName().compareTo(tag2.getTagName());
+            }
+        });
         tagListView.setItems(tags);
         tagListView.setCellFactory(listView -> new TagListViewCell());
     }

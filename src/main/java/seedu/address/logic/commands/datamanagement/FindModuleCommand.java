@@ -29,6 +29,7 @@ public class FindModuleCommand extends Command {
             + "findmod cs3230";
 
     public static final String MESSAGE_SUCCESS = "%1$s is currently located in the following locations";
+    public static final String MESSAGE_MODULE_DOES_NOT_EXIST = "This module does not exist.";
     public static final String MESSAGE_MODULE_NOT_FOUND = "%1$s is not in the current study plan";
 
     private String moduleCode;
@@ -43,6 +44,10 @@ public class FindModuleCommand extends Command {
         requireNonNull(model);
 
         HashMap<String, Module> moduleHashMap = model.getModulesFromActiveSp();
+
+        if (!model.isValidModuleCode(this.moduleCode)) {
+            throw new CommandException(MESSAGE_MODULE_DOES_NOT_EXIST);
+        }
 
         if (!moduleHashMap.containsKey(moduleCode)) {
             throw new CommandException(String.format(MESSAGE_MODULE_NOT_FOUND, moduleCode));

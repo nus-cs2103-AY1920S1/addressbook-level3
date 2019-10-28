@@ -68,10 +68,10 @@ public class RenameTagCommandTest {
         String validTagNameThree = validTagThree.getTagName();
 
         // construct modules with user tags
-        Module cs1231 = new ModuleBuilder().withTags(validTagOne).build();
+        Module cs1231s = new ModuleBuilder().withTags(validTagOne).build();
         Module cs2100 = new ModuleBuilder().withModuleCode("CS2100").withTags(validTagOne, validTagTwo).build();
         HashMap<String, Module> moduleHashMap = new HashMap<String, Module>();
-        moduleHashMap.put("CS1231", cs1231);
+        moduleHashMap.put("CS1231S", cs1231s);
         moduleHashMap.put("CS2100", cs2100);
 
         // construct model containing study plan with one user tag
@@ -82,11 +82,11 @@ public class RenameTagCommandTest {
         model.activateFirstStudyPlan();
 
         // construct two expected modules with renamed user tag
-        Module expectedCS1231 = new ModuleBuilder().withTags(validTagThree).build();
+        Module expectedCS1231S = new ModuleBuilder().withTags(validTagThree).build();
         Module expectedCS2100 = new ModuleBuilder().withModuleCode("CS2100")
                 .withTags(validTagThree, validTagTwo).build();
         HashMap<String, Module> expectedModuleHashMap = new HashMap<String, Module>();
-        expectedModuleHashMap.put("CS1231", expectedCS1231);
+        expectedModuleHashMap.put("CS1231S", expectedCS1231S);
         expectedModuleHashMap.put("CS2100", expectedCS2100);
 
         // construct expected model containing study plan with renamed user tag

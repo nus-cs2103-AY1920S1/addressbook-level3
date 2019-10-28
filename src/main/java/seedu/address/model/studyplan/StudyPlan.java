@@ -21,10 +21,12 @@ import seedu.address.model.semester.UniqueSemesterList;
 import seedu.address.model.semester.exceptions.SemesterAlreadyBlockedException;
 import seedu.address.model.semester.exceptions.SemesterNotFoundException;
 import seedu.address.model.tag.DefaultTag;
+import seedu.address.model.tag.PriorityTag;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.tag.UserTag;
 import seedu.address.model.tag.exceptions.InvalidTagException;
+import seedu.address.model.tag.exceptions.TagNotFoundException;
 
 /**
  * Represents a study plan in the module planner.
@@ -478,7 +480,8 @@ public class StudyPlan implements Cloneable {
         if (other == null) {
             return false;
         } else {
-            return this.index == other.index && this.modules == other.modules;
+            return this.index == other.index && this.modules == other.modules
+                    && this.studyPlanTags == other.studyPlanTags;
         }
     }
 
@@ -575,13 +578,23 @@ public class StudyPlan implements Cloneable {
     }
 
     /**
-     * Adds a tag to the list of study plan tags.
+     * Adds a priority tag to the list of study plan tags.
      */
     public void addStudyPlanTag(Tag tag) throws InvalidTagException {
         if (!tag.isDefault() && !tag.isPriority()) {
             throw new InvalidTagException("Only priority tags or focus area tags can be attached to a study plan");
         }
         studyPlanTags.addTag(tag);
+    }
+
+    /**
+     * Removes a priority tag from the list of study plan tags.
+     */
+    public void removeStudyPlanTag(Tag tag) throws TagNotFoundException {
+        if (!studyPlanTags.contains(tag)) {
+            throw new TagNotFoundException();
+        }
+        studyPlanTags.removeTag(tag);
     }
 
     /**
@@ -599,6 +612,14 @@ public class StudyPlan implements Cloneable {
      */
     public boolean containsStudyPlanTag(String tagName) {
         return studyPlanTags.containsTagWithName(tagName);
+    }
+
+    public boolean containsPriorityTag() {
+        return studyPlanTags.containsPriorityTag();
+    }
+
+    public PriorityTag getPriorityTag() {
+        return studyPlanTags.getPriorityTag();
     }
 
     /**

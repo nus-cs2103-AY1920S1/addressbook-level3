@@ -45,9 +45,9 @@ public class RemoveTagFromModuleCommandTest {
         Tag validTagTwo = new TagBuilder().buildUserTag("otherUserTag");
 
         // construct a module
-        Module cs1231 = new ModuleBuilder().withTags(validTagOne, validTagTwo).build();
+        Module cs1231s = new ModuleBuilder().withTags(validTagOne, validTagTwo).build();
         HashMap<String, Module> moduleHashMap = new HashMap<String, Module>();
-        moduleHashMap.put("CS1231", cs1231);
+        moduleHashMap.put("CS1231S", cs1231s);
 
         // construct model containing study plan with two user tags
         StudyPlan studyPlan = new StudyPlanBuilder().withModuleTags(validTagOne, validTagTwo)
@@ -57,9 +57,9 @@ public class RemoveTagFromModuleCommandTest {
         model.activateFirstStudyPlan();
 
         // construct the expected module with only one user tag
-        Module expectedCS1231 = new ModuleBuilder().withTags(validTagTwo).build();
+        Module expectedCS1231S = new ModuleBuilder().withTags(validTagTwo).build();
         HashMap<String, Module> expectedModuleHashMap = new HashMap<String, Module>();
-        expectedModuleHashMap.put("CS1231", expectedCS1231);
+        expectedModuleHashMap.put("CS1231S", expectedCS1231S);
 
         // construct expected model containing study plan with two user tags and the expected module
         StudyPlan expectedStudyPlan = new StudyPlanBuilder().withModuleTags(validTagOne, validTagTwo)
@@ -71,11 +71,11 @@ public class RemoveTagFromModuleCommandTest {
         expectedModel.addToHistory();
 
         // construct command to remove the user tag from the module
-        RemoveTagFromModuleCommand removeTagFromModuleCommand = new RemoveTagFromModuleCommand("CS1231",
+        RemoveTagFromModuleCommand removeTagFromModuleCommand = new RemoveTagFromModuleCommand("CS1231S",
                 validTagNameOne);
         assertCommandSuccess(removeTagFromModuleCommand, model,
                 String.format(RemoveTagFromModuleCommand.MESSAGE_SUCCESS, validTagOne,
-                        cs1231.getModuleCode().toString()), expectedModel);
+                        cs1231s.getModuleCode().toString()), expectedModel);
     }
 
     @Test
@@ -83,9 +83,9 @@ public class RemoveTagFromModuleCommandTest {
         String validTagName = new TagBuilder().buildTestUserTag().getTagName();
 
         // construct a module with no user tags
-        Module cs1231 = new ModuleBuilder().build();
+        Module cs1231s = new ModuleBuilder().build();
         HashMap<String, Module> moduleHashMap = new HashMap<String, Module>();
-        moduleHashMap.put("CS1231", cs1231);
+        moduleHashMap.put("CS1231S", cs1231s);
 
         // construct model containing a study plan with no user tags
         StudyPlan studyPlan = new StudyPlanBuilder().withModules(moduleHashMap).build();
@@ -94,10 +94,10 @@ public class RemoveTagFromModuleCommandTest {
         model.activateFirstStudyPlan();
 
         // construct command to remove the user tag from the module
-        RemoveTagFromModuleCommand removeTagFromModuleCommand = new RemoveTagFromModuleCommand("CS1231",
+        RemoveTagFromModuleCommand removeTagFromModuleCommand = new RemoveTagFromModuleCommand("CS1231S",
                 validTagName);
         assertThrows(CommandException.class, () -> removeTagFromModuleCommand.execute(model),
-                String.format(RemoveTagFromModuleCommand.MESSAGE_TAG_NOT_FOUND, cs1231.getModuleCode().toString(),
+                String.format(RemoveTagFromModuleCommand.MESSAGE_TAG_NOT_FOUND, cs1231s.getModuleCode().toString(),
                         validTagName));
     }
 
@@ -108,9 +108,9 @@ public class RemoveTagFromModuleCommandTest {
         String validTagNameOne = validTagOne.getTagName();
 
         // construct a module with no user tags
-        Module cs1231 = new ModuleBuilder().build();
+        Module cs1231s = new ModuleBuilder().build();
         HashMap<String, Module> moduleHashMap = new HashMap<String, Module>();
-        moduleHashMap.put("CS1231", cs1231);
+        moduleHashMap.put("CS1231S", cs1231s);
 
         // construct model containing study plan with one user tag
         StudyPlan studyPlan = new StudyPlanBuilder().withModuleTags(validTagOne)
@@ -120,10 +120,10 @@ public class RemoveTagFromModuleCommandTest {
         model.activateFirstStudyPlan();
 
         // construct command to remove the user tag from the module
-        RemoveTagFromModuleCommand removeTagFromModuleCommand = new RemoveTagFromModuleCommand("CS1231",
+        RemoveTagFromModuleCommand removeTagFromModuleCommand = new RemoveTagFromModuleCommand("CS1231S",
                 validTagNameOne);
         assertThrows(CommandException.class, () -> removeTagFromModuleCommand.execute(model),
-                String.format(RemoveTagFromModuleCommand.MESSAGE_TAG_NOT_FOUND, cs1231.getModuleCode().toString(),
+                String.format(RemoveTagFromModuleCommand.MESSAGE_TAG_NOT_FOUND, cs1231s.getModuleCode().toString(),
                         validTagNameOne));
     }
 
@@ -132,9 +132,9 @@ public class RemoveTagFromModuleCommandTest {
         String validDefaultTagName = new TagBuilder().buildDefaultCoreTag().getTagName();
 
         // construct a module with no user tags
-        Module cs1231 = new ModuleBuilder().build();
+        Module cs1231s = new ModuleBuilder().build();
         HashMap<String, Module> moduleHashMap = new HashMap<String, Module>();
-        moduleHashMap.put("CS1231", cs1231);
+        moduleHashMap.put("CS1231S", cs1231s);
 
         // construct model containing study plan with no user tags
         StudyPlan studyPlan = new StudyPlanBuilder().withModules(moduleHashMap).build();
@@ -143,18 +143,37 @@ public class RemoveTagFromModuleCommandTest {
         model.activateFirstStudyPlan();
 
         // construct command to remove the tag from the module
-        RemoveTagFromModuleCommand removeTagFromModuleCommand = new RemoveTagFromModuleCommand("CS1231",
+        RemoveTagFromModuleCommand removeTagFromModuleCommand = new RemoveTagFromModuleCommand("CS1231S",
                 validDefaultTagName);
         assertThrows(CommandException.class, () -> removeTagFromModuleCommand.execute(model),
                 RemoveTagFromModuleCommand.MESSAGE_INVALID_DEFAULT_TAG_MODIFICATION);
     }
 
     @Test
+    public void execute_moduleDoesNotExist_throwsCommandException() {
+        Tag validTagOne = new TagBuilder().buildTestUserTag();
+        String validTagNameOne = validTagOne.getTagName();
+
+        // construct model containing study plan
+        StudyPlan studyPlan = new StudyPlanBuilder().withModuleTags(validTagOne).build();
+        Model model = new ModelManager(new ModulePlannerBuilder().withStudyPlan(studyPlan).build(),
+                new UserPrefs(), TypicalModulesInfo.getTypicalModulesInfo());
+        model.activateFirstStudyPlan();
+
+        // construct command to find non-existent module
+        RemoveTagFromModuleCommand removeTagFromModuleCommand =
+                new RemoveTagFromModuleCommand("CS3333", validTagNameOne);
+
+        assertThrows(CommandException.class, () -> removeTagFromModuleCommand.execute(model),
+                String.format(RemoveTagFromModuleCommand.MESSAGE_MODULE_DOES_NOT_EXIST, "CS3333"));
+    }
+
+    @Test
     public void equals() {
         RemoveTagFromModuleCommand removeUserTagFromModuleCommand =
-                new RemoveTagFromModuleCommand("CS1231", "testUserTag");
+                new RemoveTagFromModuleCommand("CS1231S", "testUserTag");
         RemoveTagFromModuleCommand removeOtherUserTagFromModuleCommand =
-                new RemoveTagFromModuleCommand("CS1231", "otherUserTag");
+                new RemoveTagFromModuleCommand("CS1231S", "otherUserTag");
         RemoveTagFromModuleCommand removeUserTagFromOtherModuleCommand =
                 new RemoveTagFromModuleCommand("CS2100", "testUserTag");
 
@@ -163,7 +182,7 @@ public class RemoveTagFromModuleCommandTest {
 
         // same values -> returns true
         RemoveTagFromModuleCommand removeUserTagFromModuleCommandCopy =
-                new RemoveTagFromModuleCommand("CS1231", "testUserTag");
+                new RemoveTagFromModuleCommand("CS1231S", "testUserTag");
         assertTrue(removeUserTagFromModuleCommand.equals(removeUserTagFromModuleCommandCopy));
 
         // different types -> returns false

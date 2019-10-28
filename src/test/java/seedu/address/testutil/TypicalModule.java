@@ -22,7 +22,7 @@ public class TypicalModule {
             .withName("Database Systems")
             .withColor(Color.RED)
             .withPrereqsSatisfied(true)
-            .withPrereqTree(ParserUtil.parsePrereqTree("(AND (OR CS1020 CS2020 CS2030 CS2040) CS1231)"))
+            .withPrereqTree(ParserUtil.parsePrereqTree("(AND (OR CS1020 CS2020 CS2030 CS2040) CS1231S)"))
             .withMcCount(4)
             .withTags("Database")
             .build();

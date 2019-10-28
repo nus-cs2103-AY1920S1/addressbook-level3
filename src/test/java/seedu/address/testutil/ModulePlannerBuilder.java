@@ -28,6 +28,16 @@ public class ModulePlannerBuilder {
         return this;
     }
 
+    /**
+     * Adds new {@code StudyPlan}s to the {@code ModulePlanner} that we are building.
+     */
+    public ModulePlannerBuilder withStudyPlans(StudyPlan... studyPlans) {
+        for (StudyPlan studyPlan : studyPlans) {
+            modulePlanner.addStudyPlan(studyPlan);
+        }
+        return this;
+    }
+
     public ModulePlanner build() {
         return modulePlanner;
     }

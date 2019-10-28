@@ -23,6 +23,7 @@ public class ViewModuleTagsCommand extends Command {
             + "viewtags CS3230";
 
     public static final String MESSAGE_SUCCESS = "All tags for the module shown";
+    public static final String MESSAGE_MODULE_DOES_NOT_EXIST = "This module does not exist.";
     public static final String MESSAGE_NO_TAGS_FOUND = "This module does not have any tags";
     private final String moduleCode;
 
@@ -37,6 +38,10 @@ public class ViewModuleTagsCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+
+        if (!model.isValidModuleCode(this.moduleCode)) {
+            throw new CommandException(MESSAGE_MODULE_DOES_NOT_EXIST);
+        }
 
         UniqueTagList tags = model.getModuleTagsFromActiveSp(moduleCode);
 

@@ -5,7 +5,7 @@ import static java.util.Objects.requireNonNull;
 /**
  * Represents a priority Tag.
  */
-public class PriorityTag implements Tag {
+public class PriorityTag implements Tag, Comparable<PriorityTag> {
 
     private PriorityTagType priorityTagType;
 
@@ -86,6 +86,11 @@ public class PriorityTag implements Tag {
      */
     public String toString() {
         return '[' + getTagName() + ']';
+    }
+
+    @Override
+    public int compareTo(PriorityTag other) {
+        return priorityTagType.compareTo(other.priorityTagType);
     }
 
 }

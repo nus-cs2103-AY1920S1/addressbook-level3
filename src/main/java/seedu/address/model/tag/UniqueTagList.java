@@ -34,6 +34,9 @@ public class UniqueTagList implements Iterable<Tag>, Cloneable {
             FXCollections.unmodifiableObservableList(internalList);
     private final HashMap<String, Tag> mapTags = new HashMap<String, Tag>();
 
+    private boolean containsPriorityTag = false;
+    private PriorityTag priorityTag = null;
+
     /**
      * Constructs a {@code UniqueTagList}.
      */
@@ -67,6 +70,10 @@ public class UniqueTagList implements Iterable<Tag>, Cloneable {
         requireNonNull(toAdd);
         if (contains(toAdd)) {
             throw new DuplicateTagException();
+        }
+        if (toAdd.isPriority()) {
+            containsPriorityTag = true;
+            priorityTag = (PriorityTag) toAdd;
         }
         internalList.add(toAdd);
         mapTags.put(toAdd.getTagName().toUpperCase(), toAdd);
@@ -139,6 +146,10 @@ public class UniqueTagList implements Iterable<Tag>, Cloneable {
         }
         if (!internalList.remove(toRemove)) {
             throw new TagNotFoundException();
+        }
+        if (toRemove.isPriority()) {
+            containsPriorityTag = false;
+            priorityTag = null;
         }
         mapTags.remove(toRemove.getTagName());
     }
@@ -250,4 +261,13 @@ public class UniqueTagList implements Iterable<Tag>, Cloneable {
         mapTags.remove(originalTagName.toUpperCase());
         mapTags.put(newTagName.toUpperCase(), tag);
     }
+
+    public boolean containsPriorityTag() {
+        return containsPriorityTag;
+    }
+
+    public PriorityTag getPriorityTag() {
+        return priorityTag;
+    }
+
 }

@@ -130,15 +130,31 @@ public class ViewModuleTagsCommandTest {
     }
 
     @Test
+    public void execute_moduleDoesNotExist_throwsCommandException() {
+        // construct model containing study plan
+        StudyPlan studyPlan = new StudyPlanBuilder().build();
+        Model model = new ModelManager(new ModulePlannerBuilder().withStudyPlan(studyPlan).build(),
+                new UserPrefs(), TypicalModulesInfo.getTypicalModulesInfo());
+        model.activateFirstStudyPlan();
+
+        // construct command to find non-existent module
+        ViewModuleTagsCommand viewModuleTagsCommand =
+                new ViewModuleTagsCommand("CS3333");
+
+        assertThrows(CommandException.class, () -> viewModuleTagsCommand.execute(model),
+                String.format(ViewModuleTagsCommand.MESSAGE_MODULE_DOES_NOT_EXIST, "CS3333"));
+    }
+
+    @Test
     public void equals() {
-        ViewModuleTagsCommand viewModuleTagsCommand = new ViewModuleTagsCommand("CS1231");
+        ViewModuleTagsCommand viewModuleTagsCommand = new ViewModuleTagsCommand("CS1231S");
         ViewModuleTagsCommand viewOtherModuleTagsCommand = new ViewModuleTagsCommand("CS3230");
 
         // same object -> returns true
         assertTrue(viewModuleTagsCommand.equals(viewModuleTagsCommand));
 
         // same values -> returns true
-        ViewModuleTagsCommand viewModuleTagsCommandCopy = new ViewModuleTagsCommand("CS1231");
+        ViewModuleTagsCommand viewModuleTagsCommandCopy = new ViewModuleTagsCommand("CS1231S");
         assertTrue(viewModuleTagsCommand.equals(viewModuleTagsCommandCopy));
 
         // different types -> returns false

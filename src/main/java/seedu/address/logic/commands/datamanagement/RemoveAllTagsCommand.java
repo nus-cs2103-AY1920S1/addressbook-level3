@@ -18,15 +18,15 @@ import seedu.address.model.tag.UniqueTagList;
  */
 public class RemoveAllTagsCommand extends Command {
 
-    public static final String COMMAND_WORD = "removealltags";
+    public static final String COMMAND_WORD = "removeallmodtags";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + " : Removes all user-created tags from all modules "
             + "Example: "
-            + "removealltags";
+            + "removeallmodtags";
 
     public static final String MESSAGE_SUCCESS = "All the tags that you have created have been removed from "
             + "all modules";
-    public static final String MESSAGE_NO_TAGS_TO_REMOVE = "You have not created any tags to be removed";
+    public static final String MESSAGE_NO_TAGS_TO_REMOVE = "You have not created any module tags to be removed";
 
     @Override
     public CommandResult execute(Model model) throws CommandException {

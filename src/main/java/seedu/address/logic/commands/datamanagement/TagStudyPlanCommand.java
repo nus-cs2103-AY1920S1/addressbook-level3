@@ -14,7 +14,7 @@ import seedu.address.model.tag.PriorityTagType;
  */
 public class TagStudyPlanCommand extends Command {
 
-    public static final String COMMAND_WORD = "tagstudyplan";
+    public static final String COMMAND_WORD = "tagsp";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + " : Adds a tag of the specified priority to "
             + "the study plan of the specified index. "
@@ -22,7 +22,7 @@ public class TagStudyPlanCommand extends Command {
             + "PRIORITY_TYPE "
             + "STUDY_PLAN_INDEX \n"
             + "Example: "
-            + "tagstudyplan high 1";
+            + "tagsp priority_high 1";
 
     public static final String MESSAGE_SUCCESS = "Tag %1$s has been added to %2$s";
     public static final String MESSAGE_TAG_ALREADY_EXISTS = "%1%s already has the tag %2$s";
@@ -47,6 +47,10 @@ public class TagStudyPlanCommand extends Command {
         if (model.spContainsStudyPlanTag(priorityLevel, index)) {
             throw new CommandException(String.format(MESSAGE_TAG_ALREADY_EXISTS, model.getStudyPlan(index),
                     priorityTag));
+        }
+
+        if (model.spContainsPriorityTag(index)) {
+            model.removeStudyPlanTagFromSp(model.getPriorityTagFromSp(index), index);
         }
 
         model.addStudyPlanTagToSp(priorityTag, index);

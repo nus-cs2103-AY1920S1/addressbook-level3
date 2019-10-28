@@ -65,10 +65,10 @@ public class DeleteTagCommandTest {
         Tag validTagTwo = new TagBuilder().buildUserTag("otherUserTag");
 
         // construct two modules with two user tags
-        Module cs1231 = new ModuleBuilder().withTags(validTagOne, validTagTwo).build();
+        Module cs1231s = new ModuleBuilder().withTags(validTagOne, validTagTwo).build();
         Module cs2100 = new ModuleBuilder().withModuleCode("CS2100").withTags(validTagOne, validTagTwo).build();
         HashMap<String, Module> moduleHashMap = new HashMap<String, Module>();
-        moduleHashMap.put("CS1231", cs1231);
+        moduleHashMap.put("CS1231S", cs1231s);
         moduleHashMap.put("CS2100", cs2100);
 
         // construct model containing study plan with two user tags
@@ -79,10 +79,10 @@ public class DeleteTagCommandTest {
         model.activateFirstStudyPlan();
 
         // construct two expected modules with only one user tag
-        Module expectedCS1231 = new ModuleBuilder().withTags(validTagTwo).build();
+        Module expectedCS1231S = new ModuleBuilder().withTags(validTagTwo).build();
         Module expectedCS2100 = new ModuleBuilder().withModuleCode("CS2100").withTags(validTagTwo).build();
         HashMap<String, Module> expectedModuleHashMap = new HashMap<String, Module>();
-        expectedModuleHashMap.put("CS1231", expectedCS1231);
+        expectedModuleHashMap.put("CS1231S", expectedCS1231S);
         expectedModuleHashMap.put("CS2100", expectedCS2100);
 
         // construct expected model containing study plan with only one user tag
