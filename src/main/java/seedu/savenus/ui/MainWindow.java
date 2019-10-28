@@ -269,19 +269,26 @@ public class MainWindow extends UiPart<Stage> {
             }
 
             if (commandResult.getFeedbackToUser().equals(InfoCommand.ADD_INFO)
+                    || commandResult.getFeedbackToUser().equals(InfoCommand.AUTO_SORT_INFO)
                     || commandResult.getFeedbackToUser().equals(InfoCommand.BUDGET_INFO)
                     || commandResult.getFeedbackToUser().equals(InfoCommand.BUY_INFO)
                     || commandResult.getFeedbackToUser().equals(InfoCommand.CLEAR_INFO)
+                    || commandResult.getFeedbackToUser().equals(InfoCommand.CUSTOM_SORT_INFO)
                     || commandResult.getFeedbackToUser().equals(InfoCommand.DEFAULT_INFO)
                     || commandResult.getFeedbackToUser().equals(InfoCommand.DELETE_INFO)
+                    || commandResult.getFeedbackToUser().equals(InfoCommand.DISLIKE_INFO)
                     || commandResult.getFeedbackToUser().equals(InfoCommand.EDIT_INFO)
                     || commandResult.getFeedbackToUser().equals(InfoCommand.EXIT_INFO)
                     || commandResult.getFeedbackToUser().equals(InfoCommand.FILTER_INFO)
                     || commandResult.getFeedbackToUser().equals(InfoCommand.FIND_INFO)
                     || commandResult.getFeedbackToUser().equals(InfoCommand.HELP_INFO)
                     || commandResult.getFeedbackToUser().equals(InfoCommand.INFO_INFO)
+                    || commandResult.getFeedbackToUser().equals(InfoCommand.LIKE_INFO)
                     || commandResult.getFeedbackToUser().equals(InfoCommand.LIST_INFO)
+                    || commandResult.getFeedbackToUser().equals(InfoCommand.MAKE_SORT_INFO)
                     || commandResult.getFeedbackToUser().equals(InfoCommand.RECOMMEND_INFO)
+                    || commandResult.getFeedbackToUser().equals(InfoCommand.REMOVEDISLIKE_INFO)
+                    || commandResult.getFeedbackToUser().equals(InfoCommand.REMOVELIKE_INFO)
                     || commandResult.getFeedbackToUser().equals(InfoCommand.SAVE_INFO)
                     || commandResult.getFeedbackToUser().equals(InfoCommand.SORT_INFO)) {
                 if (infoWindow.isShowing()) {

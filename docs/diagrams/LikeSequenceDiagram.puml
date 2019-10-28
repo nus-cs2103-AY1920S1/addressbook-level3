@@ -1,6 +1,9 @@
 @startuml
 !include style.puml
 
+skinparam MinClassWidth 0
+skinparam ParticipantPadding 0
+
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant ":SaveNusParser" as SaveNusParser LOGIC_COLOR
@@ -16,22 +19,19 @@ end box
 
 box Storage STORAGE_COLOR_T1
 participant ":Storage" as Storage STORAGE_COLOR
-participant ":JsonRecsStorage" as JsonRecsStorage STORAGE_COLOR
-participant ":JsonSerializableRecs" as JsonSerializableRecs STORAGE_COLOR
-participant ":JsonAdaptedRecs" as JsonAdaptedRecs STORAGE_COLOR
 end box
 
-legend top right
+legend top
 Legend:
 * CS: categorySet
 * TS: tagSet
 * LS: locationSet
 end legend
 
-[-> LogicManager : execute("like c/Western")
+[-> LogicManager : execute("like c/Thai")
 activate LogicManager
 
-LogicManager -> SaveNusParser : parseCommand("like c/Western")
+LogicManager -> SaveNusParser : parseCommand("like c/Thai")
 activate SaveNusParser
 
 create PreferenceCommandParser
@@ -41,7 +41,7 @@ activate PreferenceCommandParser
 PreferenceCommandParser --> SaveNusParser
 deactivate PreferenceCommandParser
 
-SaveNusParser -> PreferenceCommandParser : parse("c/Western", true)
+SaveNusParser -> PreferenceCommandParser : parse("c/Thai", true)
 activate PreferenceCommandParser
 
 create LikeCommand
@@ -87,26 +87,6 @@ deactivate LikeCommand
 
 LogicManager -> Storage : saveRecs(model.getRecommendationSystem().getUserRecommendations())
 activate Storage
-
-Storage -> JsonRecsStorage : saveRecs(recs)
-activate JsonRecsStorage
-
-create JsonSerializableRecs
-JsonRecsStorage -> JsonSerializableRecs
-activate JsonSerializableRecs
-
-create JsonAdaptedRecs
-JsonSerializableRecs -> JsonAdaptedRecs
-activate JsonAdaptedRecs
-
-JsonAdaptedRecs --> JsonSerializableRecs
-deactivate JsonAdaptedRecs
-
-JsonSerializableRecs --> JsonRecsStorage
-deactivate JsonSerializableRecs
-
-JsonRecsStorage --> Storage
-deactivate JsonRecsStorage
 
 Storage --> LogicManager
 deactivate Storage

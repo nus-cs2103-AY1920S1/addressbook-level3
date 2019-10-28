@@ -18,15 +18,21 @@ public class InfoCommand extends Command {
 
     public static final String ADD_INFO = COMMAND_INDICATOR + AddCommand.COMMAND_WORD;
 
+    public static final String AUTO_SORT_INFO = COMMAND_INDICATOR + AutoSortCommand.COMMAND_WORD;
+
     public static final String BUDGET_INFO = COMMAND_INDICATOR + BudgetCommand.COMMAND_WORD;
 
     public static final String BUY_INFO = COMMAND_INDICATOR + BuyCommand.COMMAND_WORD;
 
     public static final String CLEAR_INFO = COMMAND_INDICATOR + ClearCommand.COMMAND_WORD;
 
+    public static final String CUSTOM_SORT_INFO = COMMAND_INDICATOR + CustomSortCommand.COMMAND_WORD;
+
     public static final String DEFAULT_INFO = COMMAND_INDICATOR + DefaultCommand.COMMAND_WORD;
 
     public static final String DELETE_INFO = COMMAND_INDICATOR + DeleteCommand.COMMAND_WORD;
+
+    public static final String DISLIKE_INFO = COMMAND_INDICATOR + DislikeCommand.COMMAND_WORD;
 
     public static final String EDIT_INFO = COMMAND_INDICATOR + EditCommand.COMMAND_WORD;
 
@@ -40,9 +46,17 @@ public class InfoCommand extends Command {
 
     public static final String INFO_INFO = COMMAND_INDICATOR + InfoCommand.COMMAND_WORD;
 
+    public static final String LIKE_INFO = COMMAND_INDICATOR + LikeCommand.COMMAND_WORD;
+
     public static final String LIST_INFO = COMMAND_INDICATOR + ListCommand.COMMAND_WORD;
 
+    public static final String MAKE_SORT_INFO = COMMAND_INDICATOR + MakeSortCommand.COMMAND_WORD;
+
     public static final String RECOMMEND_INFO = COMMAND_INDICATOR + RecommendCommand.COMMAND_WORD;
+
+    public static final String REMOVEDISLIKE_INFO = COMMAND_INDICATOR + RemoveDislikeCommand.COMMAND_WORD;
+
+    public static final String REMOVELIKE_INFO = COMMAND_INDICATOR + RemoveLikeCommand.COMMAND_WORD;
 
     public static final String SAVE_INFO = COMMAND_INDICATOR + SaveCommand.COMMAND_WORD;
 
@@ -69,16 +83,22 @@ public class InfoCommand extends Command {
         switch(input) {
         case AddCommand.COMMAND_WORD :
             return new CommandResult(ADD_INFO);
+        case AutoSortCommand.COMMAND_WORD :
+            return new CommandResult(AUTO_SORT_INFO);
         case BudgetCommand.COMMAND_WORD :
             return new CommandResult(BUDGET_INFO);
         case BuyCommand.COMMAND_WORD :
             return new CommandResult(BUY_INFO);
         case ClearCommand.COMMAND_WORD :
             return new CommandResult(CLEAR_INFO);
+        case CustomSortCommand.COMMAND_WORD :
+            return new CommandResult(CUSTOM_SORT_INFO);
         case DefaultCommand.COMMAND_WORD :
             return new CommandResult(DEFAULT_INFO);
         case DeleteCommand.COMMAND_WORD :
             return new CommandResult(DELETE_INFO);
+        case DislikeCommand.COMMAND_WORD :
+            return new CommandResult(DISLIKE_INFO);
         case EditCommand.COMMAND_WORD :
             return new CommandResult(EDIT_INFO);
         case ExitCommand.COMMAND_WORD :
@@ -91,10 +111,18 @@ public class InfoCommand extends Command {
             return new CommandResult(HELP_INFO);
         case InfoCommand.COMMAND_WORD :
             return new CommandResult(INFO_INFO);
+        case LikeCommand.COMMAND_WORD :
+            return new CommandResult(LIKE_INFO);
         case ListCommand.COMMAND_WORD :
             return new CommandResult(LIST_INFO);
+        case MakeSortCommand.COMMAND_WORD :
+            return new CommandResult(MAKE_SORT_INFO);
         case RecommendCommand.COMMAND_WORD :
             return new CommandResult(RECOMMEND_INFO);
+        case RemoveDislikeCommand.COMMAND_WORD :
+            return new CommandResult(REMOVEDISLIKE_INFO);
+        case RemoveLikeCommand.COMMAND_WORD :
+            return new CommandResult(REMOVELIKE_INFO);
         case SaveCommand.COMMAND_WORD :
             return new CommandResult(SAVE_INFO);
         case SortCommand.COMMAND_WORD :

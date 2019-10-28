@@ -1,4 +1,4 @@
-= $aveNUS - User Guide
+= *$aveNUS - User Guide*
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -20,14 +20,16 @@ By: `Team-F13-2`      Since: `Sep 2019`      Licence: `MIT`
 
 == Introduction
 
-* $aveNUS is a desktop financial planning app that allows *NUS students* to *plan their meals according
+$aveNUS is a desktop financial planning app that allows *NUS students* to *plan their meals according
 to the amount of budget they set aside per meal* in NUS. With $aveNUS, you can more effectively manage your expenses,
 save your favourite meal options within NUS, edit meal options, and even receive recommendations
 for meals that suit your budget.
-* More importantly, $aveNUS is optimized for those who prefer to
+
+More importantly, $aveNUS is optimized for those who prefer to
 work on a Command Line Interface (CLI) while still having the benefits of a
 Graphical User Interface (GUI).
-* Interested in our app? <<Quick Start>> to get started. Enjoy!
+
+Interested in our app? <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
 
@@ -53,18 +55,20 @@ endif::[]
 You can download Java 11 from
 https://www.oracle.com/technetwork/java/javase/downloads/jdk11-downloads-5066655.html[here].
 .  Copy the file to the folder you want to use as the home folder for $aveNUS.
-.  Double-click the file to start the app. The GUI should appear in a few seconds.
-+
+.  Double-click the file to start the app. The Graphical User Interface (GUI) should appear in a few seconds.
+
+.The GUI of $aveNUS
 image::Ui.png[width="790"]
-+
+
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* First, *add* a food item into the menu by typing **`add n/Halal chicken rice p/3.00 d/chicken and rice c/Malay` and
-click kbd:[Enter]
+* First, *add* a food item into the menu by typing `add n/Halal chicken rice p/3.00 d/chicken and rice c/Malay` and
+press kbd:[Enter]
 * You should see that a food item panel appear on the right of the window as shown below in Figure 1.2:
 
+.The food pane of $aveNUS
 image::Figure_1.2_mockup_add.png[width="790"]
 
 * Now, try typing `delete 1` and then click kbd:[Enter]. Now the card labelled "1. Halal chicken rice"
@@ -91,17 +95,23 @@ is provided in the command descriptions.
 [[Features]]
 == Features
 
+This section highlights the commands that $aveNUS supports. These include information about the command's
+function, format as well as example usages of the command.
+
 === General Commands
 
-==== Help
+$aveNUS provides the user with a set of commands that are not feature-specific to
+enhance the user's experience as a whole.
 
-Display the help screen that contains helpful information on how to use the application. +
+==== Viewing Help: `help`
+
+Display the help screen that contains helpful information on how to use the application.
 
 ****
 *Format*: `help`
 ****
 
-==== History
+==== Viewing History: `history`
 
 Display within the grey box right below the command line box, a list of
 commands that were recently typed in order of which was most recent.
@@ -119,7 +129,7 @@ ifdef::env-github[| :white_check_mark: a| You will see a list of commands that y
 ifndef::env-github[a| icon:check[role="green", size="2x"] a| You will see a list of commands that you have previously typed in the grey box right below the Command Line.]
 |===
 
-==== Info
+==== Viewing information about a Command: `info`
 
 Displays the information of the command specified.
 
@@ -134,7 +144,7 @@ ifdef::env-github[| :white_check_mark: a| You will see a window pop-up specifyin
 ifndef::env-github[a| icon:check[role="green", size="2x"] a| You will see a window pop-up specifying the details of the command you wanted more information about.]
 |===
 
-==== Collapse
+==== Collapse the food card: `collapse`
 
 Makes the Food Card more compacted, depending on the user's preference.
 
@@ -148,7 +158,7 @@ ifdef::env-github[| :white_check_mark: a| You will see a compacted box for the f
 ifndef::env-github[a| icon:check[role="green", size="2x"] a| You will see a compacted box for the food items displayed in the food menu.]
 |===
 
-==== Exit
+==== Exiting the application: `exit`
 Exits the app. +
 
 ****
@@ -161,7 +171,7 @@ ifdef::env-github[| :white_check_mark: a| Application closes.]
 ifndef::env-github[a| icon:check[role="green", size="2x"] a| Application closes.]
 |===
 
-==== Expand
+==== Expanding the food card: `expand`
 Makes the Food Display Card expend, such that each line only has one attribute of the food item.
 
 ****
@@ -175,32 +185,33 @@ ifndef::env-github[a| icon:check[role="green", size="2x"] a| You will see an exp
 
 === Food Items
 
-==== Add
+[[add]]
+==== Add a food item: `add`
 Adds a food item to the food list. Note: Price must be in integer or double value with at most 2 decimal places.
 Note: Opening Hours must be in HHMM format.
 Note: NAME, PRICE and CATEGORY are mandatory fields.
 
 [NOTE]
 The list of recommendations would be cleared if you use the this command. You can re-enable recommendations
-by using the `recommend` command again (see <<Recommend>>).
+by using the `recommend` command again (see <<Getting a list of recommended food items: `recommend`>>).
 
 ****
 *Format*: `add n/NAME d/DESCRIPTION p/PRICE c/CATEGORY l/LOCATION o/OPENING HOURS r/RESTRICTIONS` +
 *Example*: `add n/Chicken Rice d/Rice with Chicken p/2.50 c/Chinese l/NUS o/0800 2000 r/NIL`
 ****
 
-==== List
+==== List all food items: `list`
 List all the food items in the list.
 
 [NOTE]
 The list of recommendations would be cleared if you use the this command. You can re-enable recommendations
-by using the `recommend` command again (see <<Recommend>>).
+by using the `recommend` command again (see <<Getting a list of recommended food items: `recommend`>>).
 
 ****
 *Format*: `list`
 ****
 
-==== Edit
+==== Edit a food item: `edit`
 Edits a food item at a INDEX based on a specific FIELD or fields. INDEX must be a positive integer. At least one FIELD must be given.
 
 ****
@@ -208,7 +219,7 @@ Edits a food item at a INDEX based on a specific FIELD or fields. INDEX must be 
 *Example*: `edit 2 n/Fried Rice`
 ****
 
-==== Find
+==== Finds food items based on keywords: `find`
 Finds a food items based on a specific FIELD or fields. At least one FIELD must be given.
 
 ****
@@ -216,7 +227,7 @@ Finds a food items based on a specific FIELD or fields. At least one FIELD must 
 *Example*: `find n/Chicken d/Rice`
 ****
 
-==== Filter
+==== Filters food items based on criteria: `filter`
 Filters the food items based on the criteria specified. Note: You can need to
 have at least one of a `FIELD`, `QUANTIFIER` and `VALUE`.
 
@@ -225,7 +236,7 @@ have at least one of a `FIELD`, `QUANTIFIER` and `VALUE`.
 *Example*: `filter PRICE LESS_THAN 4.00 CATEGORY EQUALS_TO Halal`
 ****
 
-==== Delete
+==== Deletes a food item: `delete`
 Deletes a food items based on the given INDEX. INDEX must be a positive integer.
 Note: You are allowed to have more than one `INDEX`.
 
@@ -234,8 +245,8 @@ Note: You are allowed to have more than one `INDEX`.
 *Example*: `delete 2`
 ****
 
-==== Clear
-Clears all the food items in the list.
+==== Clears wallet purchase history and food items: `clear`
+Clears wallet, purchase history and food items in the application.
 
 ****
 *Format*: `clear`
@@ -255,7 +266,7 @@ THe directions are as followed: `ASCENDING` or `DESCENDING`.
 Ordering of pairs matters! For example, specifying: `PRICE ASC NAME DESC` sorts the food items first based on
 price in ascending order. Following which, sorts the food items based on names in descending order.
 
-==== Sort
+==== Sorts food items based on fields: `sort`
 Sorts all the food items by some specific FIELD.
 
 Note: You can have more than one pair of FIELD and DIRECTION.
@@ -265,7 +276,7 @@ Note: You can have more than one pair of FIELD and DIRECTION.
 *Example*: `sort PRICE ASCENDING`
 ****
 
-==== MakeSort
+==== Make your own custom comparator: `makesort`
 Create your own custom comparator, which will be stored within the storage of the application, using specific
 FIELD and DIRECTION.
 
@@ -274,14 +285,14 @@ FIELD and DIRECTION.
 *Example*: `makesort PRICE ASCENDING`
 ****
 
-==== CustomSort
+==== Sort based on your custom comparator: `customsort`
 Sort Using your own custom comparator, which you have creating from MakeSort.
 
 ****
 *Format*: `customsort`
 ****
 
-==== AutoSort
+==== Auto sorts list based on custom comparator: `autosort`
 Turns on and off auto sorting, based on your own custom comparator, every time you make changes to the food list.
 There are only two states, ON or OFF.
 
@@ -290,7 +301,7 @@ There are only two states, ON or OFF.
 *Example*: `autosort ON`
 ****
 
-==== Default
+==== Sorts food items based on natural order: `default`
 Sorts the food items based on their default ordering, where it is based on ascending price, name and then category.
 
 ****
@@ -299,7 +310,7 @@ Sorts the food items based on their default ordering, where it is based on ascen
 
 === Budgeting
 
-==== Budget
+==== Sets budget for a number of days: `budget`
 Allows the user to set a budget AMOUNT for food expenses for a certain number
 of DAYS. DAYS must be a positive integer. AMOUNT must be a positive integer or double with 2 decimal places.
 
@@ -308,7 +319,7 @@ of DAYS. DAYS must be a positive integer. AMOUNT must be a positive integer or d
 *Example*: `budget 100.00 10`
 ****
 
-==== Buy
+==== Buy a food item: `buy`
 Allows users to log a food expense into the application.
 ****
 *Format*: `buy FOOD_INDEX` +
@@ -321,18 +332,18 @@ Make sure you have enough money in your wallet for the purchase.
 [NOTE]
 If the purchase was successful, you should be able to see the update in your purchase history immediately.
 
-==== Topup
-Allows users to topup the money into their wallet.
+==== Top up money into wallet: `topup`
+Allows users to top up the money into their wallet.
 ****
 *Format*: `topup AMOUNT` +
 *Example*: `topup 10`
 ****
 
 [NOTE]
-If the topup was successful, you should be able to see the update in your wallet immediately.
+If the top up was successful, you should be able to see the update in your wallet immediately.
 
 
-==== Save
+==== Saves money into savings account: `save`
 Allows users to log an amount of money to save in his savings account from user's wallet.
 
 ****
@@ -355,7 +366,7 @@ ifndef::env-github[a| icon:check[role="green", size="2x"] a| You will see a succ
 If you click the "Savings" tab on the right panel, you will be able to view your savings history.
 Also the amount saved is deducted from your wallet.
 
-==== Withdraw
+==== Withdraws money from savings account: `withdraw`
 Allows users to log an amount of money to withdraw from his savings account into his wallet.
 
 ****
@@ -604,64 +615,84 @@ Yes you can do this by using the `clear` command.
 Unfortunately you are unable to change the app’s language
 
 == Command Summary
-
 |===
-| Command | Description
-| Add <<Add>>
+| Command | Description | Example Usage
+| <<Add a food item: `add`, `add`>>
 | Add food item.
-| AutoSort <<AutoSort>>
+| `add n/Chicken Rice d/Rice with Chicken p/2.50 c/Chinese l/NUS o/0800 2000 r/NIL`
+| <<Auto sorts list based on custom comparator: `autosort`, `autosort`>>
 | Allows the user to sort every time the food list is changed. This is based on a created custom comparator.
-| Budget <<Budget>>
-| Allows the user to set a budget amount for food expenses for a certain number
-of days.
-| Buy <<Buy>>
+| `autosort ON`
+| <<Sets budget for a number of days: `budget`, `budget`>>
+| Allows the user to set a budget amount for food expenses for a certain number of days.
+| `budget 100.00 10`
+| <<Buy a food item: `buy`, `buy`>>
 | Allows users the log a food expense into the application.
-| Clear <<Clear>>
-| Clears all food item
-| Collapse <<Collapse>>
+| `buy 1`
+| <<Clears wallet purchase history and food items: `clear`, `clear`>>
+| Clears wallet, purchase history and food items.
+| `clear`
+| <<Collapse the food card: `collapse`, `collapse`>>
 | Makes the Food Card more or less compact, depending on the user's preference.
-| CustomSort <<CustomSort>>
+| `collapse`
+| <<Sort based on your custom comparator: `customsort`, `customsort`>>
 | Sorts items based on a created custom comparator.
-| Default <<Default>>
+| `customsort`
+| <<Sorts food items based on natural order: `default`, `default`>>
 | Sorts the food items based on their natural ordering.
-| Delete <<Delete>>
+| `default`
+| <<Deletes a food item: `delete`, `delete`>>
 | Deletes a food items based on the given index.
-| Dislike <<Adding likes and dislikes to the recommendation system: `like` or `dislike`>>
-| Specifies the user's disliked categories, tags and locations
-| Edit <<Edit>>
+| `delete 2`
+| <<Adding likes and dislikes to the recommendation system: `like` or `dislike`, `dislike`>>
+| Specifies the user's disliked categories, tags and locations.
+| `dislike c/International t/Spicy l/The Deck l/The Terrace`
+| <<Edit a food item: `edit`, `edit`>>
 | Edits a food item at a index based on a specific field or fields.
-| Exit <<Exit>>
+| `edit 2 n/Fried Rice`
+| <<ExitExiting the application: `exit`, `exit`>>
 | Exits the app.
-| Filter <<Filter>>
+| `exit`
+| <<Filters food items based on criteria: `filter`, `filter`>>
 | Filters the food items based on the criteria specified.
-| Find <<Find>>
+| `filter PRICE LESS_THAN 4.00 CATEGORY EQUALS_TO Halal`
+| <<Finds food items based on keywords: `find`, `find`>>
 | Finds food items based on specified fields.
-| Help <<Help>>
+| `find n/Chicken d/Rice`
+| <<Viewing Help: `help`, `help`>>
 | Display possible uses of the application.
-| History <<History>>
+| `help`
+| <<Viewing History: `history`, `history`>>
 | Displays the list of commands that has been typed by the user.
-| Info <<Info>>
+| `history`
+| <<Viewing information about a Command: `info`, `info`>>
 | Displays the information of the command specified.
-| Like <<Adding likes and dislikes to the recommendation system: `like` or `dislike`>>
-| Specifies the user's liked categories, tags and locations
-| List <<List>>
-| List all saved food items
-| MakeSort <<MakeSort>>
+| `info edit`
+| <<Adding likes and dislikes to the recommendation system: `like` or `dislike`, `like`>>
+| Specifies the user's liked categories, tags and locations.
+| `like c/Chinese c/Western t/Healthy l/Univeristy Town`
+| <<List all food items: `list`, `list`>>
+| List all saved food items.
+| `list`
+| <<Make your own custom comparator: `makesort`, `makesort`>>
 | Makes the custom comparator based on some specified fields and directions.
-| Recommend <<Getting a list of recommended food items: `recommend`>>
+| `makesort PRICE ASCENDING`
+| <<Getting a list of recommended food items: `recommend`, `recommend`>>
 | Recommend a food item, based on the user's budget.
-| Redo <<Redo>>
-| Redo a command a specified number of times.
-| Removedislike <<Removing likes and dislikes from the recommendation system: `removelike` and `removedislike`>>
-| Remove dislikes from the user's specified dislikes or clears the dislikes list
-| Removelike <<Removing likes and dislikes from the recommendation system: `removelike` and `removedislike`>>
-| Remove likes from the user's specified likes or clears the likes list
-| Sort <<Sort>>
+| `recommend`
+| <<Removing likes and dislikes from the recommendation system: `removelike` or `removedislike`, `removedislike`>>
+| Remove dislikes from the user's specified dislikes or clears the dislikes list.
+| `removedislike c/Chinese t/Cheap t/Healthy l/The Deck`
+| <<Removing likes and dislikes from the recommendation system: `removelike` or `removedislike`, `removelike`>>
+| Remove likes from the user's specified likes or clears the likes list.
+| `removelike c/Japanese t/Spicy t/Healthy l/The Tea Party`
+| <<Sorts food items based on fields: `sort`, `sort`>>
 | Sort all the food items by some specified fields and directions.
-| Save <<Save>>
+| `sort PRICE ASCENDING`
+| <<Saves money into savings account: `save`, `save`>>
 | Saves a specified amount of money from the user's wallet into his savings account.
-| Topup <<Topup>>
-| Allows users to topup the money into their wallet.
-| Tutorial <<Tutorial>>
-| Give users a brief guide on how to use the application.
+| `save 10`
+| <<Top up money into wallet: `topup`, `topup`>>
+| Allows users to top up the money into their wallet.
+| `topup 10`
 |===

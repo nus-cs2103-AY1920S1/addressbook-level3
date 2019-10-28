@@ -106,7 +106,7 @@ public class PreferenceCommandTest {
     }
 
     @Test
-    public void likeCommand_executeSuccess_contains() throws CommandException {
+    public void likeCommand_executeSuccessAndList_contains() throws CommandException {
         CommandResult result =
                 new LikeCommand(LIKED_CATEGORY_SET, LIKED_TAG_SET, LIKED_LOCATION_SET, false).execute(model);
 
@@ -121,16 +121,38 @@ public class PreferenceCommandTest {
         for (Location l : LIKED_LOCATION_SET) {
             assertTrue(result.getFeedbackToUser().contains(l.location));
         }
+
+        result = new LikeCommand(true).execute(model);
+        for (Category c : LIKED_CATEGORY_SET) {
+            assertTrue(result.getFeedbackToUser().contains(c.category));
+        }
+        for (Tag t : LIKED_TAG_SET) {
+            assertTrue(result.getFeedbackToUser().contains(t.tagName));
+        }
+        for (Location l : LIKED_LOCATION_SET) {
+            assertTrue(result.getFeedbackToUser().contains(l.location));
+        }
     }
 
     @Test
-    public void dislikeCommand_executeSuccess_contains() throws CommandException {
+    public void dislikeCommand_executeSuccessAndList_contains() throws CommandException {
         CommandResult result =
                 new DislikeCommand(DISLIKED_CATEGORY_SET, DISLIKED_TAG_SET, DISLIKED_LOCATION_SET, false)
                         .execute(model);
 
         assertTrue(result.getFeedbackToUser().contains(DislikeCommand.MESSAGE_SUCCESS));
 
+        for (Category c : DISLIKED_CATEGORY_SET) {
+            assertTrue(result.getFeedbackToUser().contains(c.category));
+        }
+        for (Tag t : DISLIKED_TAG_SET) {
+            assertTrue(result.getFeedbackToUser().contains(t.tagName));
+        }
+        for (Location l : DISLIKED_LOCATION_SET) {
+            assertTrue(result.getFeedbackToUser().contains(l.location));
+        }
+
+        result = new DislikeCommand(true).execute(model);
         for (Category c : DISLIKED_CATEGORY_SET) {
             assertTrue(result.getFeedbackToUser().contains(c.category));
         }
@@ -204,7 +226,7 @@ public class PreferenceCommandTest {
     @Test
     public void wrong_execute_error() {
         assertThrows(
-            AssertionError.class, () ->
+                AssertionError.class, () ->
                         new PreferenceCommand(LIKED_CATEGORY_SET, LIKED_TAG_SET, LIKED_LOCATION_SET, false)
                                 .execute(model)
         );

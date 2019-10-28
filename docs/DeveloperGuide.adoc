@@ -1,4 +1,4 @@
-= $aveNUS - Developer Guide
+= *$aveNUS - Developer Guide*
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -82,11 +82,14 @@ image::UiClassDiagram.png[]
 
 The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `FoodListPanel`, `PurchaseListPanel`, `SavingsHistoryPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
+There are pop-up windows that appeared when the calls the `InfoCommand` or `HelpCommand` which is a new window with their own stages. The CSS files for each pop-up windows is taken from the `MainWindow` which ensures that they always match the theme of the `MainWindow` should the user decide to switch the theme while either pop-up window is open.
+
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/savenus/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
 The `UI` component,
 
 * Executes user commands using the `Logic` component.
+* Responds to the user's keyboard and mouse input.
 * Listens for changes to `Model` data so that the UI can be updated with the modified data.
 
 [[Design-Logic]]
@@ -186,8 +189,63 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
 
-=== Savings feature
+=== Sorting feature
+The Sorting feature allows users to sort their food items based on certain `FIELD` and `DIRECTION`.
 
+****
+1. The `FIELD` are as follows: `NAME`, `DESCRIPTION`, `PRICE`, `CATEGORY`, `LOCATION`, `OPENING_HOURS`, `RESTRICTIONS`.
+2. The `DIRECTION` are as follows: `ASCENDING` or `DESCENDING`.
+****
+
+First and foremost, they will be able to sort the food items based on their default ordering.
+The default ordering is based on ascending price, name and then category. This is done using the `default` command.+
+
+Not only that, they will be able to implement their own custom comparator using `makesort`. From this, they should be able to use `customsort` and autosort`.  +
+`customsort` sorts the food items based on the custom comparator, where `autosort` sorts the food items every time there is an edit to the food list.
+
+==== Classes for sorting feature in Model
+
+The Sorting feature was implemented with a new set of classes introduced to the Model. +
+
+.Sorting class diagram in Sort component.
+image::SortingClassDiagram.png[width=500]
+
+From the model, the `CustomSorter` stores the comparator for `autosort` and `makesort`. +
+
+From which, you will need to call `makesort FIELD DIRECTION` to create the custom comparator. The `CustomSorter` contains a `FoodComparator`. +
+
+The `FoodComparator` stores fields which will be needed for various `FOOD` to be compared. The `DefaultComparator` helps to sort food items based on their natural ordering. This is called via the `default` command.
+Finally, the `FieldComparator` helps to compare between various `FIELD`.
+
+==== Creation of new Custom Comparator
+
+The user may wish to create a new custom comparator. This can be done with the `makesort` command.
+
+The sequence diagram for interactions between the Logic, Model and Storage components when a user executes the `makesort` command is shown below.
+
+.Sequence diagram for sample makesort command
+image::MakeSortSequenceDiagram.png[]
+
+The user may want to create a new custom comparator. This can be done with the `makesort` command.
+
+The fields are stored in the SavingsAccount in the CustomSorter object, which stores the necessary
+as a list.
+
+The current implementation for creating a new CustomSorter is done by overwriting the existing CustomSorter, with a new
+CustomSorter with the desired fields.
+
+The command is read as a text string from the command box in the UI and then is executed by calling MainWindow#executeCommand(),
+which passes this string (named commandText) to the Logic component by calling Logic#execute(Model model).
+
+The following activity diagram below summarizes how the save command works
+
+.Activity diagram for a sample save command
+image::MakeSortActivityDiagram.png[]
+
+If fields are given, the original CustomSorter is overridden by a new CustomSorter with new fields. Else, the original
+CustomSorter is overridden by a new CustomSorter with no fields.
+
+=== Savings feature
 The Savings feature allows users to save a specified amount of money from their wallet into their Savings Account using the `save AMOUNT` command, where `AMOUNT` is a user defined amount of money to deposit into the user's Savings Account.
 The Savings feature also allows the user to withdraw from his savings account either into his wallet or withdraw the money completely from the $aveNUS app.
 Using the `withdraw AMOUNT`, users will be able to transfer their money into their $aveNUS wallets, and using "withdraw out AMOUNT", the user can withdraw the
@@ -308,9 +366,11 @@ more accurately.
 
 ==== Classes for recommendation feature in Model
 
-With the recommendation feature, a new set of classes were added. A singleton class `RecommendationSystem` encapsulates
-the methods and classes related to this feature. This `RecommendationSystem` class implements the interface `Recommender`
-which specifies the behaviour of the system, which include the ability to generate recommendation values.
+With the recommendation feature, a new set of classes were added.
+
+A singleton class `RecommendationSystem` encapsulates the methods and classes related to this feature.
+This `RecommendationSystem` class implements the interface `Recommender` which specifies the behaviour of the system,
+and include the ability to generate recommendation values.
 
 Additionally, the `RecommendationSystem` class also contains a class `UserRecommendations`, which include the likes and
 dislikes of the user. The functionality of `UserRecommendations` is specified by the `Recommendations` interface,
@@ -358,24 +418,29 @@ A similar execution sequence is performed for a dislike command by replacing ins
 ==== Displaying recommendations
 
 After customizing the user's likes and dislikes, users can obtain a personalized list of recommendations
-using the `recommend` command. Each food is passed to the recommendation system and it calculates the
-recommendation value based on the table below:
+using the `recommend` command.
+
+Each food is passed to the recommendation system and it calculates the recommendation value based on the tables below:
 
 include::UserGuide.adoc[tag=recommendationbonus]
 
+{empty} +
+
 include::UserGuide.adoc[tag=recommendationpenalty]
 
-The sequence diagram below shows how a sample Food is passed into `RecommendationSystem` to output a
+The activity diagram below shows how a sample Food is passed into `RecommendationSystem` to output a
 recommendation value:
 
-.Sequence diagram for `calculateRecommendation`
-image::RecValueSequenceDiagram.png[width=400]
+.Activity diagram for `calculateRecommendation`
+image::RecValueActivityDiagram.png[width=600]
 
 The calculated recommendation values are used to sort the food items when the `recommend` command
 is executed. Food with similar recommendation values are sorted based on their price.
 
 ===== Design Considerations
+Detailed below are the design considerations taken into account when engineering the `calculateRecommendation()` function.
 
+.Design considerations of the calculateRecommendation() function
 [cols="20,40,40"]
 |===
 |Aspect |Alternative 1 |Alternative 2
@@ -429,13 +494,15 @@ Refer to the guide <<DevOps#, here>>.
 
 *Target user profile*:
 
-* has a need to manage a significant number of food items
-* has trouble tracking expenditure over a period of time
-* wants meal recommendations within their specified budget
-* prefer desktop apps over other types
-* can type fast
-* prefers typing over mouse input
-* is reasonably comfortable using CLI apps
+* Has a need to manage a significant number of food items
+* Has trouble tracking expenditure over a period of time
+* Wants to know how much money they have saved
+* Wants meal recommendations within their specified budget
+* Prefer desktop apps over other types
+* Can type fast
+* Prefers typing over mouse input
+* Reasonably comfortable using CLI apps
+* Able to read graphs and data.
 
 *Value proposition*: manage expenditure and get recommendations faster than a typical mouse/GUI driven app
 

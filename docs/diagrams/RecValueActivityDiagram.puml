@@ -1,0 +1,20 @@
+@startuml
+!include style.puml
+
+(*) --> Recommendation value is requested
+partition "Matching Like Bonuses" {
+    --> Liked tag bonus is applied
+    --> Liked category bonus is applied
+    --> Matching liked location bonus is applied
+}
+
+partition "Matching Dislike Penalties"  {
+    -right-> Disliked tag penalty is applied
+    -up-> Disliked category penalty is applied
+    -up-> Disliked location penalty is applied
+}
+
+-right-> Matching food purchase bonus is applied
+--> Matching food purchase time penalty is applied
+--> (*)
+@enduml

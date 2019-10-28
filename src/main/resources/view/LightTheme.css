@@ -1,5 +1,5 @@
 .background {
-    -fx-background-color: #dfe3ee;
+    -fx-background-color: #8b9dc3;
 }
 
 .menu-item {
@@ -88,13 +88,19 @@
 .vbox-tab-pane-with-border {
     -fx-background-color: #dfe3ee;
     -fx-border-color: #8b9dc3;
-    -fx-border-style: solid none none none;
+    -fx-border-width: 1 1 0 0;
+}
+
+.vbox-inner-tab-pane-with-border {
+    -fx-background-color: #dfe3ee;
+    -fx-border-color: #8b9dc3;
+    -fx-border-width: 1 0 0 0;
 }
 
 .tab-pane-with-border {
     -fx-background-color: #dfe3ee;
     -fx-border-color: #8b9dc3;
-    -fx-border-width: 1 1 1 1;
+    -fx-border-width: 1 0 1 0;
 }
 
 .account-balance {

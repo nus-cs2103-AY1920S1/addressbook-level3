@@ -10,19 +10,26 @@ import javafx.stage.StageStyle;
 import seedu.savenus.commons.core.LogsCenter;
 import seedu.savenus.logic.commands.InfoCommand;
 import seedu.savenus.model.info.AddInfo;
+import seedu.savenus.model.info.AutoSortInfo;
 import seedu.savenus.model.info.BudgetInfo;
 import seedu.savenus.model.info.BuyInfo;
 import seedu.savenus.model.info.ClearInfo;
+import seedu.savenus.model.info.CustomSortInfo;
 import seedu.savenus.model.info.DefaultInfo;
 import seedu.savenus.model.info.DeleteInfo;
+import seedu.savenus.model.info.DislikeInfo;
 import seedu.savenus.model.info.EditInfo;
 import seedu.savenus.model.info.ExitInfo;
 import seedu.savenus.model.info.FilterInfo;
 import seedu.savenus.model.info.FindInfo;
 import seedu.savenus.model.info.HelpInfo;
 import seedu.savenus.model.info.InfoInfo;
+import seedu.savenus.model.info.LikeInfo;
 import seedu.savenus.model.info.ListInfo;
+import seedu.savenus.model.info.MakeSortInfo;
 import seedu.savenus.model.info.RecommendInfo;
+import seedu.savenus.model.info.RemoveDislikeInfo;
+import seedu.savenus.model.info.RemoveLikeInfo;
 import seedu.savenus.model.info.SaveInfo;
 import seedu.savenus.model.info.SortInfo;
 
@@ -120,6 +127,12 @@ public class InfoWindow extends UiPart<Stage> {
             usageExample.setText(AddInfo.USAGE);
             output.setText(AddInfo.OUTPUT);
             break;
+        case InfoCommand.AUTO_SORT_INFO :
+            commandWord.setText(AutoSortInfo.COMMAND_WORD);
+            infoMessage.setText(AutoSortInfo.INFORMATION);
+            usageExample.setText(AutoSortInfo.USAGE);
+            output.setText(AutoSortInfo.OUTPUT);
+            break;
         case InfoCommand.BUDGET_INFO :
             commandWord.setText(BudgetInfo.COMMAND_WORD);
             infoMessage.setText(BudgetInfo.INFORMATION);
@@ -138,6 +151,12 @@ public class InfoWindow extends UiPart<Stage> {
             usageExample.setText(ClearInfo.USAGE);
             output.setText(ClearInfo.OUTPUT);
             break;
+        case InfoCommand.CUSTOM_SORT_INFO :
+            commandWord.setText(CustomSortInfo.COMMAND_WORD);
+            infoMessage.setText(CustomSortInfo.INFORMATION);
+            usageExample.setText(CustomSortInfo.USAGE);
+            output.setText(CustomSortInfo.OUTPUT);
+            break;
         case InfoCommand.DEFAULT_INFO :
             commandWord.setText(DefaultInfo.COMMAND_WORD);
             infoMessage.setText(DefaultInfo.INFORMATION);
@@ -149,6 +168,12 @@ public class InfoWindow extends UiPart<Stage> {
             infoMessage.setText(DeleteInfo.INFORMATION);
             usageExample.setText(DeleteInfo.USAGE);
             output.setText(DeleteInfo.OUTPUT);
+            break;
+        case InfoCommand.DISLIKE_INFO :
+            commandWord.setText(DislikeInfo.COMMAND_WORD);
+            infoMessage.setText(DislikeInfo.INFORMATION);
+            usageExample.setText(DislikeInfo.USAGE);
+            output.setText(DislikeInfo.OUTPUT);
             break;
         case InfoCommand.EDIT_INFO :
             commandWord.setText(EditInfo.COMMAND_WORD);
@@ -186,17 +211,41 @@ public class InfoWindow extends UiPart<Stage> {
             usageExample.setText(InfoInfo.USAGE);
             output.setText(InfoInfo.OUTPUT);
             break;
+        case InfoCommand.LIKE_INFO :
+            commandWord.setText(LikeInfo.COMMAND_WORD);
+            infoMessage.setText(LikeInfo.INFORMATION);
+            usageExample.setText(LikeInfo.USAGE);
+            output.setText(LikeInfo.OUTPUT);
+            break;
         case InfoCommand.LIST_INFO :
             commandWord.setText(ListInfo.COMMAND_WORD);
             infoMessage.setText(ListInfo.INFORMATION);
             usageExample.setText(ListInfo.USAGE);
             output.setText(ListInfo.OUTPUT);
             break;
+        case InfoCommand.MAKE_SORT_INFO :
+            commandWord.setText(MakeSortInfo.COMMAND_WORD);
+            infoMessage.setText(MakeSortInfo.INFORMATION);
+            usageExample.setText(MakeSortInfo.USAGE);
+            output.setText(MakeSortInfo.OUTPUT);
+            break;
         case InfoCommand.RECOMMEND_INFO :
             commandWord.setText(RecommendInfo.COMMAND_WORD);
             infoMessage.setText(RecommendInfo.INFORMATION);
             usageExample.setText(RecommendInfo.USAGE);
             output.setText(RecommendInfo.OUTPUT);
+            break;
+        case InfoCommand.REMOVEDISLIKE_INFO :
+            commandWord.setText(RemoveDislikeInfo.COMMAND_WORD);
+            infoMessage.setText(RemoveDislikeInfo.INFORMATION);
+            usageExample.setText(RemoveDislikeInfo.USAGE);
+            output.setText(RemoveDislikeInfo.OUTPUT);
+            break;
+        case InfoCommand.REMOVELIKE_INFO :
+            commandWord.setText(RemoveLikeInfo.COMMAND_WORD);
+            infoMessage.setText(RemoveLikeInfo.INFORMATION);
+            usageExample.setText(RemoveLikeInfo.USAGE);
+            output.setText(RemoveLikeInfo.OUTPUT);
             break;
         case InfoCommand.SAVE_INFO:
             commandWord.setText(SaveInfo.COMMAND_WORD);
