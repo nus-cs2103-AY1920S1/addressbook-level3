@@ -21,20 +21,20 @@ public class AppSettings implements ReadOnlyAppSettings {
 
 
     /**
-     * Creates a {@code UserPrefs} with default values.
+     * Creates a {@code AppSettings} with default values.
      */
     public AppSettings() {}
 
     /**
-     * Creates a {@code UserPrefs} with the prefs in {@code userPrefs}.
+     * Creates a {@code AppSettings} with the prefs in {@code appSettings}.
      */
-    public AppSettings(ReadOnlyAppSettings userPrefs) {
+    public AppSettings(ReadOnlyAppSettings appSettings) {
         this();
-        resetData(userPrefs);
+        resetData(appSettings);
     }
 
     /**
-     * Resets the existing data of this {@code UserPrefs} with {@code newAppSettings}.
+     * Resets the existing data of this {@code AppSettings} with {@code newAppSettings}.
      */
     public void resetData(ReadOnlyAppSettings newAppSettings) {
         requireNonNull(newAppSettings);

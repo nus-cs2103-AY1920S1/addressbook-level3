@@ -1,8 +1,9 @@
 package seedu.address.logic.commands.settingcommands;
 
+import static java.util.Objects.requireNonNull;
+
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.SettingsCommand;
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.appsettings.ThemeEnum;
 
@@ -19,11 +20,12 @@ public class ThemeCommand extends SettingsCommand {
     private final ThemeEnum theme;
 
     public ThemeCommand(ThemeEnum theme) {
+        requireNonNull(theme);
         this.theme = theme;
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model) {
         model.setDefaultTheme(this.theme);
         return new CommandResult("Theme now set to: " + theme);
     }

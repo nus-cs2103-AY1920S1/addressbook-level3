@@ -1,4 +1,4 @@
-= AddressBook Level 3 - Developer Guide
+= Dukemon - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -197,7 +197,7 @@ The `Storage` component,
 [[Design-Commons]]
 === Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `seedu.Dukemon.commons` package.
 
 == Implementation
 
@@ -220,23 +220,26 @@ These operations are implemented in `SpecificModeParser` aided by `ClassUtil` to
 
 Given below is an example usage scenario and how the AutoCompletion mechanism behaves at each step.
 
-Step 1. The user launches the application. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+Step 1. The user launches the application. The `VersionedDukemon` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
 
 Replace image with state of ParserManager
 
 
-Step 2. The user enters `start difficult` command to begin the game. The `LogicManager` passes string to `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+Step 2. The user enters `start difficult` command to begin the game. The `LogicManager` passes string to `Model#commitDukemon()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `DukemonStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
 
 
-Step 3. The user executes `stop` to abruptly end the game. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+Step 3. The user executes `stop` to abruptly end the game. The `add` command also calls `Model#commitDukemon()`, causing another modified address book state to be saved into the `DukemonStateList`.
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoDukemon()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
 
 
 The following sequence diagram shows how the AutoComplete operation works:
 
 image::AutoCompleteSequenceDiagram.png[]
 
+NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+The `redo` command does the opposite -- it calls `Model#redoDukemon()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
 
 
 The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
@@ -317,12 +320,12 @@ We believe that software design principles exist for a reason. Furthermore, whil
 How to store information regarding the different settings
 | **Storing it inside the enumerations that make up the choices for the settings** +
 _Pros:_ +
-Having the information stored inside the enum allows for immutablilty, such that no other class can change the properties of the enums. Only the developer can change the values of the enums and it will subsequently affect all the methods and functionality that relies on said enum.
+Having the information stored inside the enum allows for immutablilty, such that no other class can change the properties of the enums. Only the developer can change the values of the enums and it will subsequently affect all the methods and functionality that relies on said enum. +
 _Cons:_ +
 In the case that the user wants to customise certain continuous settings such as time limit, they are unable to as those settings are already defined by the developer to be discrete options.
 | **Storing it inside the classes that implement the settings** +
 _Pros_ +
-The information is easily accessible from within the class itself and there is no need for extra import classes to handle the enums in alternative 1.
+The information is easily accessible from within the class itself and there is no need for extra import classes to handle the enums in alternative 1. +
 _Cons_ +
 Unlike Alternative 1, the developer can create an extension to the class implementing the setting to allow the user to customise their settings even further, allowing for continuous values to be used rather than discrete values.
 3+| **Why did we choose Alternative 1:** +
@@ -476,7 +479,7 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `Dukemon` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
 === Use case: Delete person
@@ -484,9 +487,9 @@ _{More to be added}_
 *MSS*
 
 1.  User requests to list persons
-2.  AddressBook shows a list of persons
+2.  Dukemon shows a list of persons
 3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+4.  Dukemon deletes the person
 +
 Use case ends.
 
@@ -500,7 +503,7 @@ Use case ends.
 * 3a. The given index is invalid.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 3a1. Dukemon shows an error message.
 +
 Use case resumes at step 2.
 

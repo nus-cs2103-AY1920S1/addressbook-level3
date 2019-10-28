@@ -1,8 +1,9 @@
 package seedu.address.logic.commands.settingcommands;
 
+import static java.util.Objects.requireNonNull;
+
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.SettingsCommand;
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.appsettings.DifficultyEnum;
 
@@ -19,11 +20,12 @@ public class DifficultyCommand extends SettingsCommand {
     private final DifficultyEnum difficulty;
 
     public DifficultyCommand(DifficultyEnum difficulty) {
+        requireNonNull(difficulty);
         this.difficulty = difficulty;
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model) {
         model.setDefaultDifficulty(this.difficulty);
         return new CommandResult("Difficulty is now set to: " + difficulty);
     }

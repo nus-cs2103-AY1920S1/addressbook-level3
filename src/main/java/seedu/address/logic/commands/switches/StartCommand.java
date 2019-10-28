@@ -57,7 +57,7 @@ public class StartCommand extends SwitchCommand {
     @Override
     public CommandResult execute(Model model) throws CommandException {
 
-        if (model.getWordBank() == null) {
+        if (model.getCurrentWordBank() == null) {
             throw new CommandException(MESSAGE_WORDBANK_NOT_LOADED);
         }
 
@@ -67,7 +67,7 @@ public class StartCommand extends SwitchCommand {
         }
 
 
-        String wordBankName = model.getWordBank().getName();
+        String wordBankName = model.getCurrentWordBank().getName();
         WordBankList wbList = model.getWordBankList();
         WordBank wordBank = wbList.getWordBankFromName(wordBankName);
 
