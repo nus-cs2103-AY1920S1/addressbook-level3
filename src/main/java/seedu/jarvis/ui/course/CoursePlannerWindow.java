@@ -3,32 +3,33 @@ package seedu.jarvis.ui.course;
 import javafx.fxml.FXML;
 import javafx.scene.control.SplitPane;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Region;
-import javafx.scene.layout.StackPane;
 import seedu.jarvis.logic.Logic;
-import seedu.jarvis.ui.UiPart;
+import seedu.jarvis.model.Model;
+import seedu.jarvis.ui.MainWindow;
+import seedu.jarvis.ui.template.View;
 
-public class CoursePlannerWindow extends UiPart<Region> {
+/**
+ * Contains the Course Planner in Jarvis.
+ */
+public class CoursePlannerWindow extends View<AnchorPane> {
     private static final String FXML = "CoursePlannerWindow.fxml";
 
-    private Logic logic;
-
-    // Independent Ui parts residing in this Ui container
     private CourseListPanel courseListPanel;
     private CourseTextDisplay courseTextDisplay;
 
     @FXML
     private SplitPane courseSplitPane;
 
-    public CoursePlannerWindow(Logic logic) {
-        super(FXML);
-        this.logic = logic;
+    public CoursePlannerWindow(MainWindow mainWindow, Logic logic, Model model) {
+        super(FXML, mainWindow, logic, model);
     }
 
-    public void fillInnerParts() {
+    @Override
+    public void fillPage() {
         courseListPanel = new CourseListPanel(logic.getUnfilteredCourseList());
-        courseTextDisplay = new CourseTextDisplay();
-        courseTextDisplay.setFeedbackToUser(logic.getCourseTextDisplay());
+
+        courseTextDisplay = new CourseTextDisplay(logic);
+
         courseSplitPane.getItems().addAll(
             courseListPanel.getRoot(),
             courseTextDisplay.getRoot()
