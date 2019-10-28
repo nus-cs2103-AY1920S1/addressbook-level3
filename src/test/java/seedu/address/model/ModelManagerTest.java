@@ -8,7 +8,6 @@ import static seedu.address.testutil.TypicalEvents.getTypicalAppointmentBook;
 import static seedu.address.testutil.TypicalEvents.getTypicalDutyRosterBook;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BENSON;
-import static seedu.address.testutil.TypicalPersons.getTypicalPatientAddressBook;
 import static seedu.address.testutil.TypicalPersons.getTypicalQueueManager;
 
 import java.nio.file.Paths;

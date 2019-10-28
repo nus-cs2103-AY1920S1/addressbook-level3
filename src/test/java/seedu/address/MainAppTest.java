@@ -7,9 +7,11 @@ import org.testfx.assertions.api.Assertions;
 import org.testfx.framework.junit5.ApplicationExtension;
 import org.testfx.framework.junit5.ApplicationTest;
 import org.testfx.framework.junit5.Init;
-import seedu.address.ui.autocomplete.AutoCompleter;
 
 import javafx.scene.input.KeyCode;
+
+import seedu.address.ui.autocomplete.AutoCompleter;
+
 
 @ExtendWith(ApplicationExtension.class)
 public class MainAppTest extends ApplicationTest {

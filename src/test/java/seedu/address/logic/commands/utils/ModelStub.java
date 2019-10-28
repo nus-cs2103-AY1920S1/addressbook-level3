@@ -107,6 +107,11 @@ public class ModelStub implements Model {
     }
 
     @Override
+    public boolean hasStaff(ReferenceId id) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
     public boolean hasExactStaff(Person person) {
         throw new AssertionError("This method should not be called.");
     }
@@ -306,8 +311,4 @@ public class ModelStub implements Model {
         throw new AssertionError("This method should not be called.");
     }
 
-    @Override
-    public boolean hasStaff(ReferenceId id) {
-        throw new AssertionError("This method should not be called.");
-    }
 }
