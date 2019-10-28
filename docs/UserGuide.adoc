@@ -95,9 +95,14 @@ Format: `listpeople`
 Shows a list of all current policies. +
 Format: `listpolicy`
 
+=== Listing all bin items: `listbin`
+
+Shows a list of all items in the bin. +
+Format: `listbin`
+
 === Listing command history : `history`
 
-Shows a list of all previously entered (valid) commands.
+Shows a list of all previously entered (valid) commands. +
 Format: `history`
 
 === Editing a person : `edit`
@@ -339,6 +344,7 @@ Format: `delete INDEX`
 * Deletes the person at the specified `INDEX`.
 * The index refers to the index number shown in the displayed person list.
 * The index *must be a positive integer* 1, 2, 3, ...
+* Deleted persons are moved into the bin, where they stay there for 30 days before being removed forever.
 ****
 
 Examples:
@@ -359,6 +365,7 @@ Format: `deletepolicy INDEX`
 * Deletes the policy at the specified `INDEX`.
 * The index refers to the index number shown in the displayed policy list.
 * The index *must be a positive integer* 1, 2, 3, ...
+* Deleted policies are moved into the bin, where they stay there for 30 days before being removed forever.
 ****
 
 Examples:
@@ -650,48 +657,29 @@ Expected Output: +
 
 image::PolicyPopBreakdown.png[width="400", align="left"]
 
-=== List Recycling Bin: `bin`
-Shows recently deleted contacts that are stored inside `bin`.
-
-Format:
-`bin`
-
-****
-* Items inside the bin can be restored within its expiration time, which is 30 days since it has been deleted,
-after which it is removed forever.
-****
-
-Examples:
-
-`bin`
-
-Expected Output: +
-```
-1. Contact 1 expires in 30 mins
-2. Contact 2 expires in 5 days
-3. Contact 3 expires in 30 days
-```
-
-
-=== Restore Recycling Bin: `restore`
-Restores the contact specified by the user.
+=== Restore Deleted Items: `restore`
+Restores an item (person or policy) in the bin specified by the user.
 
 Format:
 `restore INDEX`
 
 ****
+* Restores the item at the specified INDEX.
+* The index refers to the index number shown in the displayed bin list.
+* The index must be a positive integer 1, 2, 3, …​
 * Mass restoration by field is also possible by specifying `field:value`.
 ****
 
 Examples:
 
 `restore 1` +
-Restores first index of contacts listed in `bin`
+
+Restores first index of the list of bin items.
 
 Expected Output: +
 ```
-The following contact has been restored:
-Contact 1
+Restored item: David Georgia NRIC: S0000010T Phone: 94820001 Email: davegeorge@example.com Address: 10th Fly street
+Date of birth: 5 March 1980 Gender: Male Date deleted: 22 Oct 2019 at 09:57 PM Expiry Date: 21 Nov 2019 at 09:57 PM
 ```
 
 === Undo recently entered commands
@@ -811,6 +799,7 @@ e.g. `add n/John Doe ic/S9999999J p/98765432 e/johnd@example.com a/John street, 
 e.g. `add pol n/SeniorCare d/care for seniors c/months/10 pr/$50000 [sa/50 ea/75]`
 * *List People* : `listpeople`
 * *List Policy* : `listpolicy`
+* *List Bin Items* : `listbin`
 * *List Command History*: `history`
 * *Edit Person* : `edit INDEX [n/NAME] [ic/NRIC] [p/PHONE] [e/EMAIL] [a/ADDRESS] [dob/DATE_OF_BIRTH]` +
 e.g. `edit 2 n/James Lee e/jameslee@example.com`
@@ -834,6 +823,8 @@ e.g. `addpolicytag 2 t/lifeinsurance`
 e.g. `delete 3`
 * *Delete Policy* : `deletepolicy INDEX` +
 e.g. `deletepolicy 3`
+* *Restore Deleted Items* : `restore INDEX` +
+e.g. `restore 3`
 * *Unassign Policy* : `unassignpolicy INDEX pol/POLICY NAME` +
 e.g. `unassignpolicy 2 pol/Health insurance`
 * *Delete Tag From Person* : `deletetag INDEX t/TAG [MORE_TAGS]` +
