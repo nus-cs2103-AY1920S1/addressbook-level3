@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+import java.time.LocalDateTime;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -31,6 +32,26 @@ public interface Model {
     Predicate<Note> PREDICATE_SHOW_NO_NOTES = unused -> false;
 
     Predicate<Task> PREDICATE_SHOW_ALL_TASKS = unused -> true;
+
+    Predicate<Task> PREDICATE_SHOW_DONE_TASKS = Task::getStatus;
+
+    Predicate<Task> PREDICATE_SHOW_NOT_DONE_TASKS = task -> !task.getStatus();
+
+    Predicate<Task> PREDICATE_SHOW_OVERDUE_TASKS = new Predicate<Task>() {
+        LocalDateTime now = LocalDateTime.now();
+        @Override
+        public boolean test(Task task) {
+            if (task.getStatus()) {
+                return false;
+            }
+            LocalDateTime taskDateTime = LocalDateTime.of(task.getDate(), task.getTime());
+            if (taskDateTime.compareTo(now) < 0) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    };
 
     /**
      * {@code Predicate} that always evaluate to true
