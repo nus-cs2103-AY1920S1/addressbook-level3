@@ -105,11 +105,11 @@
 }
 
 .list-cell:filled:even {
-    -fx-background-color: #3c3e3f;
+    -fx-background-color: #383838;
 }
 
 .list-cell:filled:odd {
-    -fx-background-color: #515658;
+    -fx-background-color: #383838;
 }
 
 .list-cell:filled:selected {
@@ -375,7 +375,7 @@
 .calendar-label-header {
     -fx-font-size: 14pt;
     -fx-font-family: "Segoe UI Light";
-    -fx-text-fill: white;
+    -fx-text-fill: #cccccc;
     -fx-opacity: 1;
 }
 
@@ -397,7 +397,7 @@
     -fx-background-color: #9e9edb;
     -fx-padding: 5 5 5 10;
     -fx-border-color: white;
-    -fx-border-width: 1;
+    -fx-border-width: 1.5;
     -fx-border-radius: 10;
     -fx-background-radius: 10;
 }
@@ -414,7 +414,7 @@
     -fx-background-color: #ffcccc;
     -fx-padding: 5 5 5 10;
     -fx-border-color: white;
-    -fx-border-width: 1;
+    -fx-border-width: 1.5;
     -fx-border-radius: 10;
     -fx-background-radius: 10;
 }
@@ -431,11 +431,4 @@
     -fx-background-color: #383854;
 }
 
-/*.todoTaskCard .list-cell:filled:even {*/
-/*    -fx-background-color: #3c3e3f;*/
-/*}*/
-
-/*.todoTaskCard .list-cell:filled:odd {*/
-/*    -fx-background-color: #515658;*/
-/*}*/
 

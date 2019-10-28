@@ -16,7 +16,7 @@ import seedu.address.model.calendar.task.Task;
  */
 public class PersonCard extends UiPart<Region> {
 
-    private static final String FXML = "CalendarListCard.fxml";
+    private static final String FXML = "ToDoTaskListCard.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
