@@ -20,6 +20,8 @@
       <stylesheets>
         <URL value="@DarkTheme.css" />
         <URL value="@Extensions.css" />
+        <URL value="@LightTheme.css" />
+        <URL value="@ExtensionsLight.css" />
       </stylesheets>
 
       <VBox>
