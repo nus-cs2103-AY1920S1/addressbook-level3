@@ -16,10 +16,6 @@ public class ExpiryDateTrackerBuilder {
         xpire = new Xpire();
     }
 
-    public ExpiryDateTrackerBuilder(Xpire xpire) {
-        this.xpire = xpire;
-    }
-
     /**
      * Adds a new {@code Item} to the {@code ExpiryDateTracker} that we are building.
      */

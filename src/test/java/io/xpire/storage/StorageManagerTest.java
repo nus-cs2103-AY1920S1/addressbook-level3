@@ -51,8 +51,8 @@ public class StorageManagerTest {
     public void expiryDateTrackerReadSave() throws Exception {
         /*
          * Note: This is an integration test that verifies the StorageManager is properly wired to the
-         * {@link JsonAddressBookStorage} class.
-         * More extensive testing of UserPref saving/reading is done in {@link JsonAddressBookStorageTest} class.
+         * {@link JsonXpireStorage} class.
+         * More extensive testing of UserPref saving/reading is done in {@link JsonXpireStorageTest} class.
          */
         Xpire original = TypicalItems.getTypicalExpiryDateTracker();
         storageManager.saveXpire(original);

@@ -9,7 +9,7 @@ end box
 
 box Model MODEL_COLOR_T1
 participant ":Model" as Model MODEL_COLOR
-participant ":VersionedXpire" as VersionedXpire MODEL_COLOR
+participant ":StackManager" as StackManager MODEL_COLOR
 end box
 [-> LogicManager : execute(undo)
 activate LogicManager
@@ -30,15 +30,15 @@ deactivate XpireParser
 LogicManager -> UndoCommand : execute()
 activate UndoCommand
 
-UndoCommand -> Model : undoXpire()
+UndoCommand -> Model : undo()
 activate Model
 
-Model -> VersionedXpire : undo()
-activate VersionedXpire
+Model -> StackManager : updateModel(prevState)
+activate StackManager
 
-VersionedXpire -> VersionedXpire :resetData(ReadOnlyXpire)
-VersionedXpire --> Model :
-deactivate VersionedXpire
+StackManager -> StackManager :resetData(cloneModel)
+StackManager --> Model :
+deactivate StackManager
 
 Model --> UndoCommand
 deactivate Model

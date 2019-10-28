@@ -1,9 +1,8 @@
 package io.xpire.model.item;
 
-import static io.xpire.logic.CommandParserItemUtil.VALID_QUANTITY_APPLE;
-import static io.xpire.logic.CommandParserItemUtil.VALID_QUANTITY_BANANA;
-
-import static io.xpire.logic.CommandParserItemUtil.VALID_QUANTITY_EXPIRING_FISH;
+import static io.xpire.testutil.TypicalItemsFields.VALID_QUANTITY_APPLE;
+import static io.xpire.testutil.TypicalItemsFields.VALID_QUANTITY_BANANA;
+import static io.xpire.testutil.TypicalItemsFields.VALID_QUANTITY_EXPIRING_FISH;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;

@@ -1,20 +1,20 @@
 package io.xpire.logic.parser;
 
-import static io.xpire.logic.CommandParserItemUtil.INVALID_EXPIRY_DATE;
-import static io.xpire.logic.CommandParserItemUtil.INVALID_EXPIRY_DATE_RANGE;
-import static io.xpire.logic.CommandParserItemUtil.INVALID_NAME;
-import static io.xpire.logic.CommandParserItemUtil.INVALID_QUANTITY;
-import static io.xpire.logic.CommandParserItemUtil.INVALID_REMINDER_THRESHOLD;
-import static io.xpire.logic.CommandParserItemUtil.INVALID_TAG;
-import static io.xpire.logic.CommandParserItemUtil.VALID_EXPIRY_DATE_KIWI;
-import static io.xpire.logic.CommandParserItemUtil.VALID_NAME_JELLY;
-import static io.xpire.logic.CommandParserItemUtil.VALID_QUANTITY_JELLY;
-import static io.xpire.logic.CommandParserItemUtil.VALID_REMINDER_THRESHOLD_JELLY;
-import static io.xpire.logic.CommandParserItemUtil.VALID_TAG_DRINK;
-import static io.xpire.logic.CommandParserItemUtil.VALID_TAG_FRUIT;
 import static io.xpire.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 import static io.xpire.testutil.Assert.assertThrows;
 import static io.xpire.testutil.TypicalIndexes.INDEX_FIRST_ITEM;
+import static io.xpire.testutil.TypicalItemsFields.INVALID_EXPIRY_DATE;
+import static io.xpire.testutil.TypicalItemsFields.INVALID_EXPIRY_DATE_RANGE;
+import static io.xpire.testutil.TypicalItemsFields.INVALID_NAME;
+import static io.xpire.testutil.TypicalItemsFields.INVALID_QUANTITY;
+import static io.xpire.testutil.TypicalItemsFields.INVALID_REMINDER_THRESHOLD;
+import static io.xpire.testutil.TypicalItemsFields.INVALID_TAG;
+import static io.xpire.testutil.TypicalItemsFields.VALID_EXPIRY_DATE_KIWI;
+import static io.xpire.testutil.TypicalItemsFields.VALID_NAME_JELLY;
+import static io.xpire.testutil.TypicalItemsFields.VALID_QUANTITY_JELLY;
+import static io.xpire.testutil.TypicalItemsFields.VALID_REMINDER_THRESHOLD_JELLY;
+import static io.xpire.testutil.TypicalItemsFields.VALID_TAG_DRINK;
+import static io.xpire.testutil.TypicalItemsFields.VALID_TAG_FRUIT;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 

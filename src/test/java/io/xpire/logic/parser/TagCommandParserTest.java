@@ -1,11 +1,11 @@
 package io.xpire.logic.parser;
 
-import static io.xpire.logic.CommandParserItemUtil.INVALID_TAG;
-import static io.xpire.logic.CommandParserItemUtil.VALID_TAG_FRIDGE;
-import static io.xpire.logic.CommandParserItemUtil.VALID_TAG_FRUIT;
 import static io.xpire.logic.parser.CommandParserTestUtil.assertEqualsParseSuccess;
 import static io.xpire.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static io.xpire.testutil.TypicalIndexes.INDEX_FIRST_ITEM;
+import static io.xpire.testutil.TypicalItemsFields.INVALID_TAG;
+import static io.xpire.testutil.TypicalItemsFields.VALID_TAG_FRIDGE;
+import static io.xpire.testutil.TypicalItemsFields.VALID_TAG_FRUIT;
 
 import org.junit.jupiter.api.Test;
 

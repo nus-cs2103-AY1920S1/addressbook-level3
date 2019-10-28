@@ -1,12 +1,12 @@
 package io.xpire.model.item;
 
-import static io.xpire.logic.CommandParserItemUtil.VALID_EXPIRY_DATE_KIWI;
-import static io.xpire.logic.CommandParserItemUtil.VALID_NAME_APPLE;
-import static io.xpire.logic.CommandParserItemUtil.VALID_NAME_BANANA;
-import static io.xpire.logic.CommandParserItemUtil.VALID_TAG_DRINK;
 import static io.xpire.testutil.Assert.assertThrows;
 import static io.xpire.testutil.TypicalItems.EXPIRED_APPLE;
 import static io.xpire.testutil.TypicalItems.KIWI;
+import static io.xpire.testutil.TypicalItemsFields.VALID_EXPIRY_DATE_KIWI;
+import static io.xpire.testutil.TypicalItemsFields.VALID_NAME_APPLE;
+import static io.xpire.testutil.TypicalItemsFields.VALID_NAME_BANANA;
+import static io.xpire.testutil.TypicalItemsFields.VALID_TAG_DRINK;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 

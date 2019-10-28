@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1">
    <Label styleClass="panel-header" text="View" textFill="WHITE">
       <VBox.margin>
          <Insets bottom="10.0" left="5.0" right="5.0" top="5.0" />

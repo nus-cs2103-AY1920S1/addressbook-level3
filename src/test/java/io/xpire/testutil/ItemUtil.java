@@ -21,11 +21,11 @@ public class ItemUtil {
     public static String getItemDetails(Item item) {
         StringBuilder sb = new StringBuilder("");
         sb.append(item.getName().toString() + "|");
-        sb.append(item.getExpiryDate().toString() + "|");
+        sb.append(item.getExpiryDate().toString()).append("|");
         sb.append(item.getQuantity().toString());
         if (!item.getTags().isEmpty()) {
             sb.append("|");
-            item.getTags().stream().forEach(s -> sb.append(s.getTagName() + " "));
+            item.getTags().forEach(s -> sb.append(s.getTagName() + " "));
         }
         return sb.toString();
     }

@@ -1,10 +1,10 @@
 package io.xpire.model;
 
-import static io.xpire.logic.CommandParserItemUtil.VALID_EXPIRY_DATE_APPLE;
-import static io.xpire.logic.CommandParserItemUtil.VALID_TAG_FRUIT;
 import static io.xpire.testutil.Assert.assertThrows;
 import static io.xpire.testutil.TypicalItems.EXPIRED_APPLE;
 import static io.xpire.testutil.TypicalItems.getTypicalExpiryDateTracker;
+import static io.xpire.testutil.TypicalItemsFields.VALID_EXPIRY_DATE_APPLE;
+import static io.xpire.testutil.TypicalItemsFields.VALID_TAG_FRUIT;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
