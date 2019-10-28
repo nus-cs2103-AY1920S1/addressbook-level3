@@ -150,9 +150,9 @@ The `Person`,
 The `Incident`,
 
 * represents an incident report in the incident manager.
-* contains fields
-*
-*
+* contains the attributes `CallerNumber`, `Description`, `IncidentDateTime` and IncidentId`.
+* Also contains a `Person` object representing the 'Operator' who filed the incident and a `District` which represents the location of the incident.
+* Has three states encapsulated by a `Status` enum - `INCOMPLETE_DRAFT` (report not completely filled and not submitted), `COMPLETE_DRAFT` (report completely filled but not submitted), and `SUBMITTED_REPORT` (report completely filled and submitted).
 
 [[Design-Vehicle]]
 ==== Incident component
