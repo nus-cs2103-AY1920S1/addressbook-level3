@@ -295,12 +295,13 @@ public class ModelManager implements Model {
     @Override
     public void deleteDeliveryman(Deliveryman target) {
         deliverymenDatabase.removeDeliveryman(target);
+        deliverymenDatabase.updateStatusList();
     }
 
     @Override
     public void addDeliveryman(Deliveryman deliveryman) {
         deliverymenDatabase.addDeliveryman(deliveryman);
-        updateFilteredDeliverymenList(PREDICATE_SHOW_ALL_DELIVERYMEN);
+        updateAvailableDeliverymenList(PREDICATE_SHOW_ALL_DELIVERYMEN);
     }
 
     @Override
@@ -313,17 +314,20 @@ public class ModelManager implements Model {
     public void setDeliveryman(Deliveryman target, Deliveryman editedDeliveryman) {
         requireAllNonNull(target, editedDeliveryman);
         deliverymenDatabase.setDeliveryman(target, editedDeliveryman);
+        deliverymenDatabase.updateStatusList();
+        updateAvailableDeliverymenList(PREDICATE_SHOW_ALL_DELIVERYMEN);
     }
 
     @Override
     public void switchDeliverymanStatus(Deliveryman deliveryman) throws InvalidStatusChangeException {
         requireNonNull(deliveryman);
         deliverymenDatabase.switchDeliverymanStatus(deliveryman);
-        updateFilteredDeliverymenList(PREDICATE_SHOW_ALL_DELIVERYMEN);
+        deliverymenDatabase.updateStatusList();
     }
+
     @Override
     public void showAvailableDeliverymen() {
-        deliverymenDatabase.setAsAvailable();
+        deliverymenDatabase.resetAvailableList();
     }
 
     @Override

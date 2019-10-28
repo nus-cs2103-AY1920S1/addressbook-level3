@@ -71,8 +71,7 @@ public class DeliverymenDatabase implements ReadOnlyDeliverymenDatabase {
      */
     public void addDeliveryman(Deliveryman man) {
         deliverymen.add(man);
-        statusManager.addAvailableMan(man);
-        //statusManager.updateStatusOf(man,"UNAVAILABLE");
+        statusManager.addUnavailableMan(man);
     }
     /**
      * Replaces the given deliveryman {@code target} in the list with {@code editedDeliveryman}.
@@ -83,6 +82,7 @@ public class DeliverymenDatabase implements ReadOnlyDeliverymenDatabase {
     public void setDeliveryman(Deliveryman target, Deliveryman editedDeliveryman) {
         requireNonNull(editedDeliveryman);
         deliverymen.setDeliveryman(target, editedDeliveryman);
+        statusManager.removeDeliveryman(target);
     }
 
     /**
@@ -91,6 +91,7 @@ public class DeliverymenDatabase implements ReadOnlyDeliverymenDatabase {
      */
     public void removeDeliveryman(Deliveryman key) {
         deliverymen.remove(key);
+        statusManager.removeDeliveryman(key);
     }
 
     // ========= Methods related to list command =================================================================
@@ -124,15 +125,24 @@ public class DeliverymenDatabase implements ReadOnlyDeliverymenDatabase {
     }
 
     /**
-     * Sets the status list in ModelManager to display available deliverymen. For the implementation of lista command.
+     * Sets the status list in ModelManager to display available deliverymen.
+     * Called by the lista command.
      */
-    public void setAsAvailable() {
+    public void resetAvailableList() {
+        statusSortedList.clear();
         for (Deliveryman man: statusManager.listAvailableMen()) {
             if (contains(man)) {
                 continue;
             }
             statusSortedList.add(man);
         }
+    }
+
+    /**
+     * Called when there are changes made to the status list. (by Delete, StatusSwitch commands)
+     */
+    public void updateStatusList() {
+        resetAvailableList();
     }
 
     /**
@@ -182,6 +192,5 @@ public class DeliverymenDatabase implements ReadOnlyDeliverymenDatabase {
     public int hashCode() {
         return deliverymen.hashCode();
     }
-
 
 }

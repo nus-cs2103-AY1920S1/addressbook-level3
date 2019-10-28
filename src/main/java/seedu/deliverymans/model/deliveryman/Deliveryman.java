@@ -23,7 +23,7 @@ public class Deliveryman {
     private final Phone phone;
 
     // Data fields
-    private final DeliveryHistory deliveryHistory;
+    private final DeliveryRecord deliveryHistory;
     private final Set<Tag> tags = new HashSet<>();
     private StatusTag status;
 
@@ -44,7 +44,7 @@ public class Deliveryman {
         this.name = name;
         this.phone = phone;
         this.tags.addAll(tags);
-        this.status = status; // editing field will affect status
+        this.status = status; // editing other fields will affect status
         deliveryHistory = null;
     }
 
@@ -55,10 +55,6 @@ public class Deliveryman {
     public Set<Tag> getTags() {
         return Collections.unmodifiableSet(tags);
     }
-
-    public void setStatusTo(StatusTag status) {
-        this.status = status;
-    } // this class should have all attributes as final?
 
     public Name getName() {
         return name;
@@ -72,6 +68,10 @@ public class Deliveryman {
         return status;
     }
 
+    public void setStatusTo(StatusTag status) {
+        this.status = status;
+    }
+
     /**
      * Returns true if both persons of the same name have at least one other identity field that is the same.
      * This defines a weaker notion of equality between two persons.
@@ -83,7 +83,8 @@ public class Deliveryman {
 
         return otherDeliveryman != null
                 && otherDeliveryman.getName().equals(getName())
-                && otherDeliveryman.getPhone().equals(getPhone());
+                && otherDeliveryman.getPhone().equals(getPhone())
+                && otherDeliveryman.getStatus().getDescription().equals(getStatus().getDescription());
     }
 
     /**
@@ -104,6 +105,7 @@ public class Deliveryman {
         return otherPerson.getName().equals(getName())
                 && otherPerson.getPhone().equals(getPhone())
                 && otherPerson.getTags().equals(getTags());
+
     }
 
     @Override

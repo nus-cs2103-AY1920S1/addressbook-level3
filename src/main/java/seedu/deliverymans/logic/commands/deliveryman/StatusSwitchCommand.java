@@ -1,6 +1,7 @@
 package seedu.deliverymans.logic.commands.deliveryman;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.deliverymans.model.Model.PREDICATE_SHOW_ALL_DELIVERYMEN;
 
 import java.util.List;
 
@@ -9,6 +10,7 @@ import seedu.deliverymans.commons.core.index.Index;
 import seedu.deliverymans.logic.commands.Command;
 import seedu.deliverymans.logic.commands.CommandResult;
 import seedu.deliverymans.logic.commands.exceptions.CommandException;
+import seedu.deliverymans.logic.parser.universal.Context;
 import seedu.deliverymans.model.Model;
 import seedu.deliverymans.model.deliveryman.Deliveryman;
 import seedu.deliverymans.model.deliveryman.exceptions.InvalidStatusChangeException;
@@ -46,11 +48,13 @@ public class StatusSwitchCommand extends Command {
         Deliveryman deliverymanToEdit = lastShownList.get(targetIndex.getZeroBased());
         try {
             model.switchDeliverymanStatus(deliverymanToEdit);
+            model.updateFilteredDeliverymenList(PREDICATE_SHOW_ALL_DELIVERYMEN);
+            model.updateAvailableDeliverymenList(PREDICATE_SHOW_ALL_DELIVERYMEN);
         } catch (InvalidStatusChangeException isce) {
             throw new InvalidStatusChangeException();
         }
 
-        return new CommandResult(String.format(MESSAGE_CHANGE_STATUS_SUCCESS, deliverymanToEdit));
+        return new CommandResult(String.format(MESSAGE_CHANGE_STATUS_SUCCESS, deliverymanToEdit), Context.DELIVERYMEN);
     }
 
     @Override
@@ -60,4 +64,3 @@ public class StatusSwitchCommand extends Command {
                 && targetIndex.equals(((StatusSwitchCommand) other).targetIndex)); // state check
     }
 }
-

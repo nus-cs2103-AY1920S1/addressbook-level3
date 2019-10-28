@@ -56,7 +56,8 @@ public class UniqueStatusList {
         return other == this // short circuit if same object
                 || (other instanceof UniqueStatusList // instanceof handles nulls
                 && availableTag.equals(((StatusTag) other).description)
-                && unavailableTag.equals(((StatusTag) other).description)); // state check
+                && unavailableTag.equals(((StatusTag) other).description))
+                && deliveringTag.equals(((StatusTag) other).description); // state check
     }
 
     @Override
