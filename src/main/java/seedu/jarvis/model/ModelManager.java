@@ -20,21 +20,23 @@ import seedu.jarvis.model.address.ReadOnlyAddressBook;
 import seedu.jarvis.model.address.person.Person;
 import seedu.jarvis.model.cca.Cca;
 import seedu.jarvis.model.cca.CcaTracker;
-import seedu.jarvis.model.cca.ccaprogress.CcaProgressList;
+import seedu.jarvis.model.cca.ccaprogress.CcaMilestoneList;
 import seedu.jarvis.model.course.Course;
 import seedu.jarvis.model.course.CoursePlanner;
-import seedu.jarvis.model.financetracker.FinanceTracker;
-import seedu.jarvis.model.financetracker.MonthlyLimit;
-import seedu.jarvis.model.financetracker.exceptions.InstallmentNotFoundException;
-import seedu.jarvis.model.financetracker.exceptions.PurchaseNotFoundException;
-import seedu.jarvis.model.financetracker.installment.Installment;
-import seedu.jarvis.model.financetracker.purchase.Purchase;
+import seedu.jarvis.model.finance.FinanceTracker;
+import seedu.jarvis.model.finance.MonthlyLimit;
+import seedu.jarvis.model.finance.exceptions.InstallmentNotFoundException;
+import seedu.jarvis.model.finance.exceptions.PurchaseNotFoundException;
+import seedu.jarvis.model.finance.installment.Installment;
+import seedu.jarvis.model.finance.purchase.Purchase;
 import seedu.jarvis.model.history.HistoryManager;
 import seedu.jarvis.model.planner.Planner;
 import seedu.jarvis.model.planner.TaskList;
 import seedu.jarvis.model.planner.tasks.Task;
 import seedu.jarvis.model.userprefs.ReadOnlyUserPrefs;
 import seedu.jarvis.model.userprefs.UserPrefs;
+import seedu.jarvis.model.viewstatus.ViewStatus;
+import seedu.jarvis.model.viewstatus.ViewType;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -49,6 +51,7 @@ public class ModelManager implements Model {
     private final CoursePlanner coursePlanner;
     private final CcaTracker ccaTracker;
     private final Planner planner;
+    private ViewStatus viewStatus;
 
 
     /**
@@ -69,6 +72,7 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         this.planner = new Planner(planner);
         this.coursePlanner = new CoursePlanner(coursePlanner);
+        this.viewStatus = new ViewStatus(ViewType.HOME_PAGE);
     }
 
     public ModelManager() {
@@ -76,6 +80,15 @@ public class ModelManager implements Model {
                 new UserPrefs(), new Planner(), new CoursePlanner());
     }
 
+    //=========== ViewStatus ==================================================================================
+
+    public ViewStatus getViewStatus() {
+        return viewStatus;
+    }
+
+    public void setViewStatus(ViewType viewType) {
+        viewStatus.setViewType(viewType);
+    }
 
     //=========== UserPrefs ==================================================================================
 
@@ -569,8 +582,8 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void addProgress(Cca targetCca, CcaProgressList toAddCcaProgressList) {
-        ccaTracker.addProgress(targetCca, toAddCcaProgressList);
+    public void addProgress(Cca targetCca, CcaMilestoneList toAddCcaMilestoneList) {
+        ccaTracker.addProgress(targetCca, toAddCcaMilestoneList);
     }
 
     @Override

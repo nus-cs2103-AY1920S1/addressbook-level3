@@ -10,6 +10,8 @@ import seedu.jarvis.storage.history.commands.address.JsonAdaptedAddAddressComman
 import seedu.jarvis.storage.history.commands.address.JsonAdaptedClearAddressCommand;
 import seedu.jarvis.storage.history.commands.address.JsonAdaptedDeleteAddressCommand;
 import seedu.jarvis.storage.history.commands.address.JsonAdaptedEditAddressCommand;
+import seedu.jarvis.storage.history.commands.course.JsonAdaptedAddCourseCommand;
+import seedu.jarvis.storage.history.commands.course.JsonAdaptedDeleteCourseCommand;
 
 /**
  * Abstract class that represents a Jackson-Friendly command.
@@ -20,10 +22,14 @@ import seedu.jarvis.storage.history.commands.address.JsonAdaptedEditAddressComma
         property = "type"
 )
 @JsonSubTypes({
+        // addressbook
         @JsonSubTypes.Type(value = JsonAdaptedAddAddressCommand.class, name = "JsonAdaptedAddAddressCommand"),
         @JsonSubTypes.Type(value = JsonAdaptedClearAddressCommand.class, name = "JsonAdaptedClearAddressCommand"),
         @JsonSubTypes.Type(value = JsonAdaptedDeleteAddressCommand.class, name = "JsonAdaptedDeleteAddressCommand"),
-        @JsonSubTypes.Type(value = JsonAdaptedEditAddressCommand.class, name = "JsonAdaptedEditAddressCommand")
+        @JsonSubTypes.Type(value = JsonAdaptedEditAddressCommand.class, name = "JsonAdaptedEditAddressCommand"),
+        // courseplanner
+        @JsonSubTypes.Type(value = JsonAdaptedAddCourseCommand.class, name = "JsonAdaptedAddCourseCommand"),
+        @JsonSubTypes.Type(value = JsonAdaptedDeleteCourseCommand.class, name = "JsonAdaptedDeleteCourseCommand")
 })
 public abstract class JsonAdaptedCommand implements JsonAdapter<Command> {
     /**

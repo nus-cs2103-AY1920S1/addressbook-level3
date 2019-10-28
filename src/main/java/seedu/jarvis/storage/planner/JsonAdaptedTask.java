@@ -35,7 +35,7 @@ import seedu.jarvis.storage.commons.core.JsonAdaptedTag;
 })
 public abstract class JsonAdaptedTask implements JsonAdapter<Task> {
 
-    public static final String MESSAGE_INVALID_ATTRIBUTES = "Invalid attributes.";
+    public static final String MESSAGE_INVALID_ATTRIBUTES = "Invalid task attributes.";
 
     protected final String description;
     protected final String priority;

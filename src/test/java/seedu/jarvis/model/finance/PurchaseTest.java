@@ -6,9 +6,9 @@ import java.time.LocalDate;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.jarvis.model.financetracker.purchase.Purchase;
-import seedu.jarvis.model.financetracker.purchase.PurchaseDescription;
-import seedu.jarvis.model.financetracker.purchase.PurchaseMoneySpent;
+import seedu.jarvis.model.finance.purchase.Purchase;
+import seedu.jarvis.model.finance.purchase.PurchaseDescription;
+import seedu.jarvis.model.finance.purchase.PurchaseMoneySpent;
 
 /**
  * Tests purchase class.

@@ -11,6 +11,9 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.Tab?>
 <fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
          title="Address App" minWidth="450" minHeight="600" onCloseRequest="#handleExit">
   <icons>
@@ -46,13 +49,33 @@
           </padding>
         </StackPane>
 
-        <VBox fx:id="personList" styleClass="pane-with-border" minWidth="340" prefWidth="340" VBox.vgrow="ALWAYS">
-          <padding>
-            <Insets top="10" right="10" bottom="10" left="10" />
-          </padding>
-          <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
-        </VBox>
-
+        <HBox>
+          <TabPane fx:id="tabPanePlaceHolder"  layoutX="3.0" layoutY="2.0" tabClosingPolicy="UNAVAILABLE">
+            <tabs>
+              <Tab text="Planner" >
+                <content>
+                  <StackPane fx:id="plannerContentPlaceholder" minHeight="-Infinity" minWidth="-Infinity" VBox.vgrow="ALWAYS" />
+                </content>
+              </Tab>
+              <Tab text="Modules">
+                <content>
+                  <StackPane fx:id="moduleContentPlaceholder" minHeight="-Infinity" minWidth="-Infinity" VBox.vgrow="ALWAYS" />
+                </content>
+              </Tab>
+              <Tab text="Ccas">
+                <content>
+                  <StackPane fx:id="ccaContentPlaceholder" minHeight="-Infinity" minWidth="-Infinity" VBox.vgrow="ALWAYS" />
+                </content>
+              </Tab>
+              <Tab text="Finances">
+                <content>
+                  <StackPane fx:id="financeContentPlaceholder" minHeight="-Infinity" minWidth="-Infinity" VBox.vgrow="ALWAYS" />
+                </content>
+              </Tab>
+            </tabs>
+          </TabPane>
+          <StackPane fx:id="historyDisplayPlaceHolder" VBox.vgrow="NEVER" styleClass="pane-with-border"/>
+        </HBox>
         <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
       </VBox>
     </Scene>

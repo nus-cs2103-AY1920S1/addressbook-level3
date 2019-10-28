@@ -21,7 +21,7 @@ import seedu.jarvis.model.address.AddressBook;
 import seedu.jarvis.model.address.ReadOnlyAddressBook;
 import seedu.jarvis.model.cca.CcaTracker;
 import seedu.jarvis.model.course.CoursePlanner;
-import seedu.jarvis.model.financetracker.FinanceTracker;
+import seedu.jarvis.model.finance.FinanceTracker;
 import seedu.jarvis.model.history.HistoryManager;
 import seedu.jarvis.model.planner.Planner;
 import seedu.jarvis.model.userprefs.ReadOnlyUserPrefs;
@@ -35,6 +35,8 @@ import seedu.jarvis.storage.cca.CcaTrackerStorage;
 import seedu.jarvis.storage.cca.JsonCcaTrackerStorage;
 import seedu.jarvis.storage.course.CoursePlannerStorage;
 import seedu.jarvis.storage.course.JsonCoursePlannerStorage;
+import seedu.jarvis.storage.finance.FinanceTrackerStorage;
+import seedu.jarvis.storage.finance.JsonFinanceTrackerStorage;
 import seedu.jarvis.storage.history.HistoryManagerStorage;
 import seedu.jarvis.storage.history.JsonHistoryManagerStorage;
 import seedu.jarvis.storage.planner.JsonPlannerStorage;
@@ -75,9 +77,10 @@ public class MainApp extends Application {
         CcaTrackerStorage ccaTrackerStorage = new JsonCcaTrackerStorage(userPrefs.getCcaTrackerFilePath());
         CoursePlannerStorage coursePlannerStorage = new JsonCoursePlannerStorage(userPrefs.getCoursePlannerFilePath());
         PlannerStorage plannerStorage = new JsonPlannerStorage(userPrefs.getPlannerFilePath());
+        FinanceTrackerStorage financeTrackerStorage = new JsonFinanceTrackerStorage(userPrefs.getFinanceTrackerPath());
 
         storage = new StorageManager(addressBookStorage, userPrefsStorage, historyManagerStorage, ccaTrackerStorage,
-                coursePlannerStorage, plannerStorage);
+                coursePlannerStorage, plannerStorage, financeTrackerStorage);
 
         initLogging(config);
 
@@ -85,7 +88,7 @@ public class MainApp extends Application {
 
         logic = new LogicManager(model, storage);
 
-        ui = new UiManager(logic);
+        ui = new UiManager(logic, model);
     }
 
     /**
@@ -100,7 +103,8 @@ public class MainApp extends Application {
         CcaTracker ccaTracker = readCcaTracker(storage);
         CoursePlanner coursePlanner = readCoursePlanner(storage);
         Planner planner = readPlanner(storage);
-        return new ModelManager(ccaTracker, historyManager, new FinanceTracker(), addressBook,
+        FinanceTracker financeTracker = readFinanceTracker(storage);
+        return new ModelManager(ccaTracker, historyManager, financeTracker, addressBook,
                 userPrefs, planner, coursePlanner);
     }
 
@@ -171,6 +175,18 @@ public class MainApp extends Application {
             return storage.readPlanner().orElseGet(Planner::new);
         } catch (DataConversionException | IOException e) {
             return new Planner();
+        }
+    }
+
+    /**
+     * Gets the {@code FinanceTracker} from storage.
+     * An empty {@code FinanceTracker} is used if errors occur when reading {@code Storage}'s planner.
+     */
+    private FinanceTracker readFinanceTracker(Storage storage) {
+        try {
+            return storage.readFinanceTracker().orElseGet(FinanceTracker::new);
+        } catch (DataConversionException | IOException e) {
+            return new FinanceTracker();
         }
     }
 

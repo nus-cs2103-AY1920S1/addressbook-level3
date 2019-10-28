@@ -7,7 +7,7 @@ import seedu.jarvis.logic.commands.Command;
 import seedu.jarvis.logic.commands.CommandResult;
 import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.model.Model;
-import seedu.jarvis.model.financetracker.PurchaseNameContainsKeywordsPredicate;
+import seedu.jarvis.model.finance.PurchaseNameContainsKeywordsPredicate;
 
 /**
  * Finds and lists all purchases in FinanceTracker whose description contains any of the argument keywords.

@@ -75,6 +75,7 @@ public class LogicManager implements Logic {
             storage.saveCcaTracker(model.getCcaTracker());
             storage.saveCoursePlanner(model.getCoursePlanner());
             storage.savePlanner(model.getPlanner());
+            storage.saveFinanceTracker(model.getFinanceTracker());
             storage.saveHistoryManager(model.getHistoryManager());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
