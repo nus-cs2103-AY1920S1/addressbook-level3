@@ -1,0 +1,67 @@
+@startuml
+!include style.puml
+
+box UI UI_COLOR_T1
+participant ":CommandBox" as CommandBox UI_COLOR
+end box
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+end box
+
+
+box ParserManager MODEL_COLOR_T1
+participant ":ParserManager" as ParserManager LOGIC_COLOR
+participant "u:SpecificModeParser" as SpecificModeParser LOGIC_COLOR
+participant "u:SwtichModeParser" as SwitchModeParser LOGIC_COLOR
+participant ":ClassUtil" as ClassUtil2 MODEL_COLOR
+participant ":ClassUtil" as ClassUtil MODEL_COLOR
+end box
+
+
+
+
+[-> CommandBox : keystroke "st"
+activate CommandBox
+
+CommandBox -> LogicManager : getMenuItems("st")
+
+activate LogicManager
+
+LogicManager -> ParserManager : getAutoFill("st")
+activate ParserManager
+
+
+ParserManager -> SpecificModeParser : getAutoFill("st")
+activate SpecificModeParser
+
+SpecificModeParser -> ClassUtil2 : getAttribute("COMMAND_WORD")
+activate ClassUtil2
+ClassUtil2 -> SpecificModeParser : List<String>
+deactivate ClassUtil2
+
+SpecificModeParser --> ParserManager : List<AutoFill>
+deactivate SpecificModeParser
+
+ParserManager -> SwitchModeParser : getAutoFill("st")
+activate SwitchModeParser
+
+SwitchModeParser -> ClassUtil : getAttribute("COMMAND_WORD")
+activate ClassUtil
+ClassUtil -> SwitchModeParser : List<String>
+deactivate ClassUtil
+
+SwitchModeParser --> ParserManager : List<AutoFill>
+deactivate SwitchModeParser
+
+ParserManager --> LogicManager : List<AutoFill>
+deactivate ParserManager
+
+LogicManager --> CommandBox : List<Action>
+deactivate LogicManager
+
+
+
+[<--CommandBox : Update CommandBox
+
+@enduml
