@@ -259,6 +259,7 @@ public class ModelManager implements Model {
 
     @Override
     public void addBudget(Budget budget) {
+        budget.setSpent(filteredExpenses, filteredIncomes);
         versionedAddressBook.addBudget(budget);
         updateFilteredEntryList(PREDICATE_SHOW_ALL_ENTRIES);
     }

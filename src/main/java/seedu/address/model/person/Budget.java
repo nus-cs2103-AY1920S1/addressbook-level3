@@ -2,6 +2,7 @@ package seedu.address.model.person;
 
 import java.util.Set;
 
+import javafx.collections.transformation.FilteredList;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -12,16 +13,39 @@ public class Budget extends Entry {
     private static final String ENTRY_TYPE = "Budget";
 
     private Amount spent;
+    private final Period period;
+    private final Date startDate;
+    private final Date endDate;
 
-    public Budget(Category cat, Description desc, Date date, Amount amount, Set<Tag> tags) {
-        super(cat, desc, date, amount, tags);
+
+    /*
+    Date - start date
+    Period - time period for which budget is effective
+    private end date = start date + period
+
+    loop through income/ expense list
+    - if income/budget is in same cat as budget && date is within start date - end date
+    - budget add/minus income/budget
+
+    LocalDate functions - plusDays(long daysToAdd)
+                        - plusWeeks(long weeksToAdd)
+                        - plusMonths(long monthsToAdd)
+                        - plusYears(long yearsToAdd)
+
+     Parser e.g. 10d/ 2m/ 1y
+     */
+    public Budget(Category cat, Description desc, Date startDate, Period period, Amount amount, Set<Tag> tags) {
+        super(cat, desc, startDate, amount, tags);
+        this.startDate = startDate;
+        this.period = period;
+        endDate = startDate.plus(period);
         spent = new Amount(0);
     }
 
     /**
      * Returns amount spent out of the budget.
      *
-     * TODO: display on UI side panel
+     * TODO: display on UI side panel with amount allocated to budget
      *
      * @return amount Amount spent (calculated from expenses)
      */
@@ -33,7 +57,25 @@ public class Budget extends Entry {
         return this.ENTRY_TYPE;
     }
 
+    public Period getPeriod() {
+        return period;
+    }
 
+    public void setSpent(FilteredList<Expense> filteredExpenses, FilteredList<Income> filteredIncomes) {
+        double spentAmount = 0;
+        ExpenseMatchesBudgetPredicate expenseMatchesBudgetPredicate = new ExpenseMatchesBudgetPredicate(getCategory(), startDate, endDate);
+        IncomeMatchesBudgetPredicate incomeMatchesBudgetPredicate = new IncomeMatchesBudgetPredicate(getCategory(), startDate, endDate);
+        filteredExpenses.setPredicate(expenseMatchesBudgetPredicate);
+        filteredIncomes.setPredicate(incomeMatchesBudgetPredicate);
+        for (Expense expense : filteredExpenses) {
+            spentAmount += expense.getAmount().value;
+        }
+        for (Income income : filteredIncomes) {
+            spentAmount -= income.getAmount().value;
+        }
+
+        spent = new Amount(spentAmount);
+    }
 
     /**
      * Returns true if both budgets have the same data fields.

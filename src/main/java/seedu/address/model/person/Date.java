@@ -86,6 +86,37 @@ public class Date {
         return new Date(this.getDate().plus(freq.getPeriod()));
     }
 
+    public Date plus(Period period) {
+        LocalDate newDate;
+        long duration = period.getDuration();
+        switch(period.getInterval()) {
+        case 'd':
+            newDate = date.plusDays(duration);
+            break;
+        case 'm':
+            newDate = date.plusMonths(duration);
+            break;
+        case 'y':
+            newDate = date.plusYears(duration);
+            break;
+        default:
+            newDate = date;
+        }
+        return new Date(newDate);
+    }
+
+    public boolean isBefore(Date other) {
+        return date.isBefore(other.date);
+    }
+
+    public boolean isAfter(Date other) {
+        return date.isAfter(other.date);
+    }
+
+    public boolean isEqual(Date other) {
+        return date.isEqual(other.date);
+    }
+
     @Override
     public String toString() {
         return fullTime;

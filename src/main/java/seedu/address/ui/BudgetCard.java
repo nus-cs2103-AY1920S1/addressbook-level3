@@ -48,7 +48,7 @@ public class BudgetCard extends UiPart<Region> {
         String descWithType = budget.getDesc().fullDesc;
         desc.setText(descWithType);
         date.setText(budget.getDate().toString());
-        spent.setText("spent: $" + budget.getSpent().value);
+        spent.setText("left: $" + (budget.getAmount().value - budget.getSpent().value));
 
         budget.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))

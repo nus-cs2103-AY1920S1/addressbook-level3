@@ -23,7 +23,8 @@ public class Category {
      * is not in the existing lists if its a new Category to be added, and that it is in the existing list
      * if it's a Category created for Entry.
      *
-     * @param desc A valid name.
+     * @param categoryName A valid  category name.
+     * @param categoryType A valid category type.
      */
     public Category(String categoryName, String categoryType) {
         requireNonNull(categoryName);
