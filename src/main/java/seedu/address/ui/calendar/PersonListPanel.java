@@ -90,11 +90,14 @@ public class PersonListPanel extends UiPart<Region> {
             } else {
                 for (int i = 0; i < weekTaskList.size(); i++) {
                     if (weekTaskList.get(i).equals(task)) {
-                        setGraphic(new PersonCard(task, i + 1).getRoot());
+                        if (task.isPersistent()) {
+                            setGraphic(new ModuleTaskCard(task, i + 1).getRoot());
+                        } else {
+                            setGraphic(new PersonCard(task, i + 1).getRoot());
+                        }
                         break;
                     }
                 }
-                // setGraphic(new PersonCard(task, getIndex() + 1).getRoot());
             }
         }
     }

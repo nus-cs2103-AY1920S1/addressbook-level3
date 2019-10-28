@@ -371,3 +371,10 @@
 .pie_chart_design .label {
     -fx-text-fill: black;
 }
+
+
+
+.moduleTaskCard {
+    -fx-background-color: #995B57;
+    -fx-text-fill: black;
+}
