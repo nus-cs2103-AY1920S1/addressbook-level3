@@ -21,6 +21,7 @@ import seedu.address.model.question.Question;
 import seedu.address.model.statistics.Statistics;
 import seedu.address.model.student.Student;
 import seedu.address.storage.Storage;
+import seedu.address.storage.printable.NjoyPrintable;
 
 /**
  * The main LogicManager of the app.
@@ -60,6 +61,11 @@ public class LogicManager implements Logic {
         }
 
         return commandResult;
+    }
+
+    @Override
+    public void savePrintable(NjoyPrintable printable) throws IOException {
+        storage.savePrintable(printable);
     }
 
     @Override
