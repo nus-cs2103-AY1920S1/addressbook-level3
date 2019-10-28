@@ -1,6 +1,6 @@
 package dream.fcard.logic.exam;
 
-import dream.fcard.model.exceptions.IndexNotFoundException;
+import dream.fcard.model.cards.FlashCard;
 
 /**
  * Interface to define behaviour of exams.
@@ -8,6 +8,6 @@ import dream.fcard.model.exceptions.IndexNotFoundException;
  */
 public interface Exam {
 
-    public void nextCard();
+    public FlashCard nextCard(int index);
 
 }

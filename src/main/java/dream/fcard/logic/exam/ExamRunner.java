@@ -9,22 +9,21 @@ import dream.fcard.model.exceptions.IndexNotFoundException;
 
 
 /**
- * ...
+ * Singleton class that ensures that there is only ONE instance of exam.
  */
 public class ExamRunner {
 
-    private Deck deck;
+    private static Exam exam;
 
-    public ExamRunner(Deck deck) {
-        this.deck = deck;
+    private ExamRunner() {
+
     }
 
-    /**
-     * Exam driver method.
-     */
-    public UntimedExam initExam() throws IndexNotFoundException {
-        ArrayList<FlashCard> deckForTest = this.deck.getSubsetForTest();
-        UntimedExam exam = new UntimedExam(deckForTest);
+    public static void createExam(Deck deck) {
+        exam = new UntimedExam(deck.getSubsetForTest());
+    }
+
+    public static Exam getCurrentExam() {
         return exam;
     }
 }
