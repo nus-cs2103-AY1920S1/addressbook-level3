@@ -87,6 +87,20 @@ public class Cca {
     }
 
     /**
+     * Checks if the CcaProgress is already set.
+     */
+    public boolean containsProgress() {
+        return ! ccaProgress.ccaProgressListIsEmpty();
+    }
+
+    /**
+     * Checks if the CcaProgress is at max.
+     */
+    public boolean progressAtMaxIncrement() {
+        return ccaProgress.progressAtMax();
+    }
+
+    /**
      * Returns true if both ccas of the same name have at least one other identity field that is the same.
      * This defines a weaker notion of equality between two ccas.
      */
@@ -137,5 +151,4 @@ public class Cca {
                 .append(getEquipmentList());
         return builder.toString();
     }
-
 }

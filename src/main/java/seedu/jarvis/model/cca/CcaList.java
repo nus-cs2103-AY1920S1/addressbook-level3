@@ -156,6 +156,27 @@ public class CcaList {
         cca.increaseProgress();
     }
 
+    /**
+     * Checks if {@code} Cca contains progress already.
+     */
+    public boolean ccaContainsProgress(Index targetIndex) {
+        Cca targetCca = getCca(targetIndex);
+        if (targetCca.containsProgress()) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public boolean ccaAtMaxIncrement(Index targetIndex) {
+        Cca targetCca = getCca(targetIndex);
+        if (targetCca.progressAtMaxIncrement()) {
+            return true;
+        }
+
+        return false;
+    }
+
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
@@ -173,6 +194,4 @@ public class CcaList {
         }
         return sb.toString();
     }
-
-
 }

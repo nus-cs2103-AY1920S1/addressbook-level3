@@ -67,4 +67,8 @@ public interface CcaTrackerModel {
     public void addProgress(Cca targetCca, CcaMilestoneList toAddCcaMilestoneList);
 
     public void increaseProgress(Index index);
+
+    public boolean ccaContainsProgress(Index targetIndex);
+
+    public boolean ccaAtMaxIncrement(Index targetIndex);
 }

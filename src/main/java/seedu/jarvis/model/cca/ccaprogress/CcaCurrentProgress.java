@@ -79,6 +79,15 @@ public class CcaCurrentProgress {
         return currentProgress / maxProgress;
     }
 
+    /**
+     * Returns true if currentProgress == maxProgress.
+     */
+    public boolean progressAtMax() {
+        if (currentProgress == maxProgress) {
+            return true;
+        }
+        return false;
+    }
 
     //// util methods
 
@@ -123,5 +132,4 @@ public class CcaCurrentProgress {
         return otherCcaCurrentProgress.maxProgress == this.maxProgress
                 && otherCcaCurrentProgress.currentProgress == this.currentProgress;
     }
-
 }

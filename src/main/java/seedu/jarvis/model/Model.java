@@ -1,5 +1,6 @@
 package seedu.jarvis.model;
 
+import seedu.jarvis.commons.core.index.Index;
 import seedu.jarvis.model.address.AddressModel;
 import seedu.jarvis.model.cca.CcaTrackerModel;
 import seedu.jarvis.model.course.CoursePlannerModel;

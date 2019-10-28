@@ -87,7 +87,7 @@ public class CcaTracker {
         return ccaList.asUnmodifiableObservableList();
     }
 
-    public Cca getCca(Index index) throws CommandException {
+    public Cca getCca(Index index) {
         requireNonNull(index);
 
         return ccaList.getCca(index);
@@ -158,6 +158,23 @@ public class CcaTracker {
     public void increaseProgress(Index index) {
         requireNonNull(index);
         ccaList.increaseProgress(index);
+    }
+
+    /**
+     * Checks if the Cca at {@code TargetIndex} contains a {@CcaProgress} already.
+     *
+     * @return true if the Cca at {@code TargetIndex} contains a {@CcaProgress} already.
+     */
+    public boolean ccaContainsProgress(Index targetIndex) {
+        return ccaList.ccaContainsProgress(targetIndex);
+    }
+
+    /**
+     *
+     * @return
+     */
+    public boolean ccaAtMaxIncrement(Index index) {
+        return ccaList.ccaAtMaxIncrement(index);
     }
 
     /**
