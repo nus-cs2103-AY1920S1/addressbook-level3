@@ -25,7 +25,7 @@ public class TypicalModules {
     public static final Module CS1020 = new ModuleBuilder()
             .withModuleCode("CS1020").withModuleName("Data Structures and Algorithms Is")
             .withModuleDescription("test3").withLecturerName("Tan Sun Teck")
-            .withTimeSlot("21,20,55,56,57").withQuota("200")
+            .withTimeSlot("21,20,57,58,59").withQuota("200")
             .withTags("A5802229H,A1748370H,A5524592H").build();
 
     private TypicalModules() {} // prevents instantiation
