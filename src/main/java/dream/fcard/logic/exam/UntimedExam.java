@@ -1,12 +1,12 @@
 package dream.fcard.logic.exam;
 
-import dream.fcard.model.Deck;
-import dream.fcard.model.cards.FlashCard;
-import dream.fcard.model.exceptions.IndexNotFoundException;
-
 import java.util.ArrayList;
-import java.util.Scanner;
 
+import dream.fcard.model.cards.FlashCard;
+
+/**
+ * Untimed Exam mode.
+ */
 public class UntimedExam implements Exam {
 
     private final ArrayList<FlashCard> testDeck;

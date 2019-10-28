@@ -222,7 +222,7 @@ enum Responses {
 
 
 
-    TEST("(?i)^(test)?(\\\\s)+(duration/[\\\\w\\\\p{Punct}]+)?(\\\\s)+(deck/[\\\\w\\\\p{Punct}]+){1}(\\\\s)*", (
+    TEST("(?i)^(test)?(\\s)+(duration/[\\w\\p{Punct}]+)?(\\s)+(deck/[\\w\\p{Punct}]+){1}(\\s)*", (
             commandInput, programState) -> {
         System.out.println("Current command is TEST");
         ArrayList<Deck> allDecks = programState.getDecks();
