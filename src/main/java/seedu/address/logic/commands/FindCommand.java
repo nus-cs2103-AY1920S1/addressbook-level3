@@ -1,10 +1,10 @@
 //@@author SakuraBlossom
 package seedu.address.logic.commands;
 
-import java.util.function.Predicate;
-
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.OmniPanelTab.PATIENTS_TAB;
+
+import java.util.function.Predicate;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.common.CommandResult;

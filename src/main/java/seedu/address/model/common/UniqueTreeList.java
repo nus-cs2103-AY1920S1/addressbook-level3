@@ -79,6 +79,9 @@ public class UniqueTreeList<E extends Identical> extends AbstractList<E> {
         return root.indexOf((Identical) o, root.relativePosition);
     }
 
+    /**
+     * Gets the index of an the last element which is smaller or equal to the specified object {@code o}
+     */
     public int indexOfUpperBound(Object o) {
         if (root == null || !(o instanceof Identical)) {
             return -1;
@@ -86,6 +89,9 @@ public class UniqueTreeList<E extends Identical> extends AbstractList<E> {
         return root.indexOfUpperBound((Identical) o, root.relativePosition);
     }
 
+    /**
+     * Gets the index of an the first element which is larger or equal to the specified object {@code o}
+     */
     public int indexOfLowerBound(Object o) {
         if (root == null || !(o instanceof Identical)) {
             return -1;
@@ -121,7 +127,7 @@ public class UniqueTreeList<E extends Identical> extends AbstractList<E> {
         }
         size++;
         return true;
-}
+    }
 
     @Override
     public boolean addAll(final Collection<? extends E> c) {
@@ -287,7 +293,7 @@ public class UniqueTreeList<E extends Identical> extends AbstractList<E> {
         }
 
         /**
-         * Locate the index which is the upper bound of the specified object.
+         * Gets the index of an the last element which is smaller or equal to the specified object {@code o}
          */
         int indexOfUpperBound(Identical<E> element, final int index) {
             if (value == null) {
@@ -310,6 +316,9 @@ public class UniqueTreeList<E extends Identical> extends AbstractList<E> {
             return index;
         }
 
+        /**
+         * Gets the index of an the first element which is larger or equal to the specified object {@code o}
+         */
         public int indexOfLowerBound(Identical<E> element, final int index) {
             if (value == null) {
                 return -1;

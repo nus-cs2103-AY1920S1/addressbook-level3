@@ -8,8 +8,8 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import seedu.address.model.common.Identical;
 import seedu.address.model.ReferenceId;
+import seedu.address.model.common.Identical;
 import seedu.address.model.common.Tag;
 import seedu.address.model.person.parameters.Address;
 import seedu.address.model.person.parameters.Email;

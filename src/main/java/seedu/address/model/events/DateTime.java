@@ -79,7 +79,7 @@ public class DateTime implements Comparable<DateTime> {
      * @return a {@code DateTime} new object which is one day later from given one.
      */
     public static DateTime plusOneDay(DateTime current) {
-        return plusTime(current, 0, 0, 0,1, 0, 0);
+        return plusTime(current, 0, 0, 0, 1, 0, 0);
     }
 
     /**
@@ -89,7 +89,7 @@ public class DateTime implements Comparable<DateTime> {
      * @return a {@code DateTime} new object which is one week later from given one.
      */
     public static DateTime plusOneWeek(DateTime current) {
-        return plusTime(current, 0, 0, 1,0, 0, 0);
+        return plusTime(current, 0, 0, 1, 0, 0, 0);
     }
 
     /**
@@ -99,7 +99,7 @@ public class DateTime implements Comparable<DateTime> {
      * @return a {@code DateTime} new object which is one month later from given one.
      */
     public static DateTime plusOneMonth(DateTime current) {
-        return plusTime(current, 0, 1, 0,0, 0, 0);
+        return plusTime(current, 0, 1, 0, 0, 0, 0);
     }
 
     /**
@@ -109,7 +109,7 @@ public class DateTime implements Comparable<DateTime> {
      * @return a {@code DateTime} new object which is one year later from given one.
      */
     public static DateTime plusOneYear(DateTime current) {
-        return plusTime(current, 1, 0, 0,0, 0, 0);
+        return plusTime(current, 1, 0, 0, 0, 0, 0);
     }
 
     /**
@@ -119,7 +119,7 @@ public class DateTime implements Comparable<DateTime> {
      * @return a {@code DateTime} new object which is one year later from given one.
      */
     public static DateTime plusHalfHour(DateTime current) {
-        return plusTime(current, 1, 0, 0,0, 0, 30);
+        return plusTime(current, 1, 0, 0, 0, 0, 30);
     }
 
 

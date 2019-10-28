@@ -94,7 +94,8 @@ public class EditPatientDetailsCommandParser implements Parser<ReversibleActionP
      *
      * @throws ParseException if the user input does not conform the expected format
      */
-    public static EditPersonDescriptor createEditedPersonDescriptor(ArgumentMultimap argMultimap) throws ParseException {
+    public static EditPersonDescriptor createEditedPersonDescriptor(ArgumentMultimap argMultimap)
+            throws ParseException {
 
         EditPersonDescriptor editPersonDescriptor = new EditPersonDescriptor();
 

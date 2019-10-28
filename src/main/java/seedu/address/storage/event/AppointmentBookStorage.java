@@ -5,8 +5,8 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.events.AppointmentBook;
 import seedu.address.model.ReadOnlyAppointmentBook;
+import seedu.address.model.events.AppointmentBook;
 
 /**
  * Represents a storage for {@link AppointmentBook}.

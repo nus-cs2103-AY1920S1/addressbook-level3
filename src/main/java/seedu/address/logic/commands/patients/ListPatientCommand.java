@@ -1,6 +1,9 @@
 //@@author SakuraBlossom
 package seedu.address.logic.commands.patients;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.OmniPanelTab.PATIENTS_TAB;
+
 import java.util.function.Predicate;
 
 import seedu.address.commons.core.Messages;
@@ -8,8 +11,6 @@ import seedu.address.logic.commands.common.CommandResult;
 import seedu.address.logic.commands.common.NonActionableCommand;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
-import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.core.OmniPanelTab.PATIENTS_TAB;
 
 /**
  * Finds and lists all persons in address book whose name contains any of the argument keywords.

@@ -16,7 +16,6 @@ import seedu.address.logic.commands.ChangeAppCommand;
 import seedu.address.logic.commands.DequeueCommand;
 import seedu.address.logic.commands.EnqueueCommand;
 import seedu.address.logic.commands.ExitCommand;
-import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.MissAppCommand;
 import seedu.address.logic.commands.NextCommand;

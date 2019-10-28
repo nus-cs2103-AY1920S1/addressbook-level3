@@ -5,7 +5,6 @@ import java.util.function.Predicate;
 
 import seedu.address.model.ReferenceId;
 import seedu.address.model.events.Event;
-import seedu.address.model.person.predicates.ContainsKeywordsPredicate;
 
 /**
  * Tests that a {@code Event}'s {@code ReferenceId} matches the given {@code ReferenceId}.
