@@ -19,7 +19,7 @@ import seedu.algobase.model.plan.Plan;
 import seedu.algobase.model.task.Task;
 
 /**
- * Marks a Task identified using its index in the Plan and the Plan index as done.
+ * Moves a Task from one Plan to another.
  */
 public class MoveTaskCommand extends Command {
 

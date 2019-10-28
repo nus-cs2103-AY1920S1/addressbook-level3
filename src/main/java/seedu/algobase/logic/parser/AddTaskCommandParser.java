@@ -6,7 +6,6 @@ import static seedu.algobase.logic.parser.CliSyntax.PREFIX_PLAN;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_PROBLEM;
 
 import java.time.LocalDate;
-import java.util.stream.Stream;
 
 import seedu.algobase.commons.core.index.Index;
 import seedu.algobase.logic.commands.AddTaskCommand;
@@ -26,8 +25,8 @@ public class AddTaskCommandParser implements Parser<AddTaskCommand> {
         ArgumentMultimap argMultimap =
             ArgumentTokenizer.tokenize(args, PREFIX_PLAN, PREFIX_PROBLEM, PREFIX_DUE_DATE);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_PLAN)
-            || !arePrefixesPresent(argMultimap, PREFIX_PROBLEM)
+        if (!ParserUtil.arePrefixesPresent(argMultimap, PREFIX_PLAN)
+            || !ParserUtil.arePrefixesPresent(argMultimap, PREFIX_PROBLEM)
             || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddTaskCommand.MESSAGE_USAGE));
         }
@@ -47,7 +46,7 @@ public class AddTaskCommandParser implements Parser<AddTaskCommand> {
         }
 
         LocalDate targetDate;
-        if (arePrefixesPresent(argMultimap, PREFIX_DUE_DATE)) {
+        if (ParserUtil.arePrefixesPresent(argMultimap, PREFIX_DUE_DATE)) {
             targetDate = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DUE_DATE).get());
         } else {
             targetDate = null;
@@ -57,14 +56,6 @@ public class AddTaskCommandParser implements Parser<AddTaskCommand> {
             new AddTaskCommand.AddTaskDescriptor(planIndex, problemIndex, targetDate);
 
         return new AddTaskCommand(addTaskDescriptor);
-    }
-
-    /**
-     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
-     * {@code ArgumentMultimap}.
-     */
-    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 
 }

@@ -201,7 +201,7 @@ Given below is an example usage scenario and how the mechanism for adding tasks 
 
 The following activity diagram summarizes what happens when a user executes the `AddTask` command:
 
-.Activity Diagram for the Execution of `AddTask` Command
+.Activity Diagram for the Execution of `AddTaskCommand`
 image::task/AddTaskCommandActivityDiagram.png[]
 
 Step 1. The user launches the application.
@@ -215,7 +215,7 @@ stored in `AlgoBase`.
 
 The following sequence diagram shows how the `addtask` operation works:
 
-.Sequence Diagram for the Execution of `AddTask` Command
+.Sequence Diagram for the Execution of `AddTaskCommand`
 image::task/AddTaskSequenceDiagram.png[]
 
 ==== Design Considerations
@@ -271,7 +271,7 @@ Step 2. The user executes `addtag t/easy` to add a tag named [easy] which have n
 
 The following sequence diagram shows how the `deletetag` operation works:
 
-.Sequence Diagram for `AddTag` command
+.Sequence Diagram for `AddTagCommand`
 image::AddTagSequenceDiagram.png[]
 
 Step 3. The user decides to execute the command `listtag` to show a tag list in the GUI of algobase. The `listtag` command calls Model#listtag(), causing the taglist shows the current components of uniqueTagList. Commands that do not modify the address book, such as `listtag`, will not call `Model#addTag()`, `Model#deleteTag()` or `Model#editTag()`. Thus the `uniqueTagList` remains unchanged.
@@ -284,7 +284,7 @@ Step 5. The user executes `deletetag t/hard` to delete the current tag [easy] in
 
 The following activity diagram summarizes what happens when a user executes a new tag modifying command
 
-.Activity Diagram for `AddTag` command
+.Activity Diagram for tag commands
 image::TagActivityDiagram.png[]
 
 ==== Design considerations

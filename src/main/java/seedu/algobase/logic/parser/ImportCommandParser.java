@@ -4,8 +4,6 @@ import static seedu.algobase.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMA
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_FORMAT;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_PATH;
 
-import java.util.stream.Stream;
-
 import seedu.algobase.commons.util.FileUtil.Format;
 import seedu.algobase.logic.commands.ImportCommand;
 import seedu.algobase.logic.parser.exceptions.ParseException;
@@ -24,8 +22,8 @@ public class ImportCommandParser implements Parser<ImportCommand> {
         ArgumentMultimap argMultimap =
             ArgumentTokenizer.tokenize(args, PREFIX_FORMAT, PREFIX_PATH);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_FORMAT)
-            || !arePrefixesPresent(argMultimap, PREFIX_PATH)
+        if (!ParserUtil.arePrefixesPresent(argMultimap, PREFIX_FORMAT)
+            || !ParserUtil.arePrefixesPresent(argMultimap, PREFIX_PATH)
             || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ImportCommand.MESSAGE_USAGE));
         }
@@ -36,16 +34,8 @@ public class ImportCommandParser implements Parser<ImportCommand> {
             return new ImportCommand(format, path);
         } catch (ParseException pe) {
             throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, ImportCommand.MESSAGE_USAGE), pe);
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, ImportCommand.MESSAGE_USAGE), pe);
         }
-    }
-
-    /**
-     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
-     * {@code ArgumentMultimap}.
-     */
-    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 
 }

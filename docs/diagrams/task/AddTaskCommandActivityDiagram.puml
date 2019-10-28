@@ -2,7 +2,7 @@
 
 start
 
-:User executes an AddTask command;
+:User executes an AddTaskCommand;
 
 if () then ([command is valid])
 	:Instantiate an AddTaskCommand with a corresponding AddTaskDescriptor;

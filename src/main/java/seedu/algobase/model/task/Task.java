@@ -52,7 +52,7 @@ public class Task {
      * with an updated {@code isSolved}.
      */
     public static Task updateStatus(Task taskToUpdate, boolean isSolved) {
-        assert taskToUpdate != null;
+        requireAllNonNull(taskToUpdate, isSolved);
 
         Id id = taskToUpdate.id;
         Problem problem = taskToUpdate.problem;
@@ -66,7 +66,7 @@ public class Task {
      * with an updated {@code targetDate}.
      */
     public static Task updateDueDate(Task taskToUpdate, LocalDate targetDate) {
-        assert taskToUpdate != null;
+        requireAllNonNull(taskToUpdate, targetDate);
 
         Id id = taskToUpdate.id;
         Problem problem = taskToUpdate.problem;

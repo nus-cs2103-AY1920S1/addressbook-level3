@@ -75,13 +75,7 @@ public class Plan {
      * @return number of solved tasks.
      */
     public int getSolvedTaskCount() {
-        int solvedCount = 0;
-        for (Task task : this.getTasks()) {
-            if (task.getIsSolved()) {
-                solvedCount++;
-            }
-        }
-        return solvedCount;
+        return (int) this.getTasks().stream().filter((task) -> task.getIsSolved()).count();
     }
 
     /**
@@ -89,13 +83,7 @@ public class Plan {
      * @return number of unsolved tasks.
      */
     public int getUnsolvedTaskCount() {
-        int unsolvedCount = 0;
-        for (Task task : this.getTasks()) {
-            if (!task.getIsSolved()) {
-                unsolvedCount++;
-            }
-        }
-        return unsolvedCount;
+        return (int) this.getTasks().stream().filter((task) -> !task.getIsSolved()).count();
     }
 
     public Id getId() {

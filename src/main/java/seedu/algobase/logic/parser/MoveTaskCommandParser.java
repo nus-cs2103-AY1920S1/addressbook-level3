@@ -5,8 +5,6 @@ import static seedu.algobase.logic.parser.CliSyntax.PREFIX_PLAN_FROM;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_PLAN_TO;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_TASK;
 
-import java.util.stream.Stream;
-
 import seedu.algobase.commons.core.index.Index;
 import seedu.algobase.logic.commands.MoveTaskCommand;
 import seedu.algobase.logic.parser.exceptions.ParseException;
@@ -25,9 +23,9 @@ public class MoveTaskCommandParser implements Parser<MoveTaskCommand> {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args,
             PREFIX_PLAN_FROM, PREFIX_PLAN_TO, PREFIX_TASK);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_PLAN_FROM)
-            || !arePrefixesPresent(argMultimap, PREFIX_PLAN_TO)
-            || !arePrefixesPresent(argMultimap, PREFIX_TASK)
+        if (!ParserUtil.arePrefixesPresent(argMultimap, PREFIX_PLAN_FROM)
+            || !ParserUtil.arePrefixesPresent(argMultimap, PREFIX_PLAN_TO)
+            || !ParserUtil.arePrefixesPresent(argMultimap, PREFIX_TASK)
             || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                 MoveTaskCommand.MESSAGE_USAGE));
@@ -61,14 +59,6 @@ public class MoveTaskCommandParser implements Parser<MoveTaskCommand> {
             new MoveTaskCommand.MoveTaskDescriptor(taskIndex, planFromIndex, planToIndex);
 
         return new MoveTaskCommand(moveTaskDescriptor);
-    }
-
-    /**
-     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
-     * {@code ArgumentMultimap}.
-     */
-    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 
 }
