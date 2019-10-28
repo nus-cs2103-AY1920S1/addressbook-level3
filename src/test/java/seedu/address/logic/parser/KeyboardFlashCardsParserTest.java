@@ -25,12 +25,15 @@ import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.FindQuestionCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.RateQuestionCommand;
+import seedu.address.logic.commands.StartCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.category.CategoryContainsAnyKeywordsPredicate;
 import seedu.address.model.flashcard.AnswerContainsAnyKeywordsPredicate;
 import seedu.address.model.flashcard.FlashCard;
 import seedu.address.model.flashcard.QuestionContainsAnyKeywordsPredicate;
 import seedu.address.model.flashcard.QuestionOrAnswerContainsAnyKeywordsPredicate;
+import seedu.address.model.flashcard.Rating;
 import seedu.address.testutil.EditFlashCardDescriptorBuilder;
 import seedu.address.testutil.FlashCardBuilder;
 import seedu.address.testutil.FlashCardUtil;
@@ -132,5 +135,19 @@ public class KeyboardFlashCardsParserTest {
     @Test
     public void parseCommand_unknownCommand_throwsParseException() {
         assertThrows(ParseException.class, MESSAGE_UNKNOWN_COMMAND, () -> parser.parseCommand("unknownCommand"));
+    }
+
+    //@@author keiteo
+    @Test
+    public void parseCommand_startNoParameter_success() throws Exception {
+        StartCommand command = (StartCommand) parser.parseCommand("start");
+        assertEquals(new StartCommand(parser), command);
+    }
+
+    @Test
+    public void parseCommand_rateQuestion() throws Exception {
+        parser.startTestMode();
+        RateQuestionCommand command = (RateQuestionCommand) parser.parseCommand("rate good");
+        assertEquals(new RateQuestionCommand(parser, new Rating("good")), command);
     }
 }

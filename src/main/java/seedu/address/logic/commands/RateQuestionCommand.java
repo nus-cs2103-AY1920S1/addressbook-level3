@@ -16,7 +16,7 @@ public class RateQuestionCommand extends Command {
     public static final String COMMAND_WORD = "rate";
     public static final String MESSAGE_SUCCESS = "Rated successfully! Here's the next question:\n%s";
     public static final String MESSAGE_SUCCESS_END_OF_TEST = "End of test!";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Rates a flashcard and gets the next question."
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Rates a flashcard and gets the next question.\n"
             + "Parameter: "
             + PREFIX_RATING + "easy/good/bad";
 
@@ -42,5 +42,14 @@ public class RateQuestionCommand extends Command {
         String nextQuestion = model.getTestQuestion();
         keyboardFlashCardsParser.setAwaitingAnswer(true);
         return new CommandResult(String.format(MESSAGE_SUCCESS, nextQuestion));
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof RateQuestionCommand // instanceof handles nulls
+                && rating.equals(((RateQuestionCommand) other).rating)
+                && keyboardFlashCardsParser
+                        .equals(((RateQuestionCommand) other).keyboardFlashCardsParser)); // state check
     }
 }

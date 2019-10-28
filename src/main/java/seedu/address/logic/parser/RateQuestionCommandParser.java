@@ -25,7 +25,8 @@ public class RateQuestionCommandParser implements Parser<RateQuestionCommand> {
      */
     public RateQuestionCommand parse(String args) throws ParseException {
         requireNonNull(keyboardFlashCardsParser);
-        String getFirstWord = args.split("\\s+")[0];
+        String getFirstWord = args.trim().split("\\s+")[0];
+
         switch (getFirstWord) {
         case Rating.EASY:
         case Rating.GOOD:
