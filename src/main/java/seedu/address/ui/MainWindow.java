@@ -207,7 +207,6 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Fills up all the placeholders of this window.
      */
-
     void fillCalendar() throws IOException {
 
         fullCalendarView = new FullCalendarView(YearMonth.now());
@@ -227,7 +226,9 @@ public class MainWindow extends UiPart<Stage> {
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
     }
 
-
+    /**
+     * Fills up all the placeholders of this window.
+     */
     void fillNotes() {
         notesListPanel = new NotesListPanel(logic.getFilteredNotesList());
         personListPanelPlaceholder.getChildren().add(notesListPanel.getRoot());
