@@ -363,7 +363,7 @@ If no valid search restriction is provided by the user, `FindCommandParser` will
 Step 3. `LogicManager` invokes `execute()` method of the returned `FindCommand`. `FindCommand` updates the problem list with user’s search restrictions.
 
 .Sequence Diagram for the Execution of `find` Command
-image::find/FindCommandSequenceDiagram.png[]
+image::find/FindCommandSequenceDiagram.png[width="70%"]
 
 ==== Design Considerations
 
@@ -395,6 +395,74 @@ image::find/FindCommandSequenceDiagram.png[]
 ** Cons: If we are to add more predicates, it’s more likely that we forget to check `null` value of the new predicate.
 
 // end::find[]
+
+// tag::savefindrule[]
+
+=== Save Find Rules Feature
+
+AlgoBase provides many ways to organizing your problems including tags and plans. However, both organizing features require persistent user involvement - if the user added a new problem belonging to a category, the user needs to manually assign a tag to the problem or add the problem to a plan. Since AlgoBase's `find` command enables the user to filter problems with great flexibility, we allow them to save certain find rules so that they can re-apply these rules to quickly locate problems of their need.
+
+This section will describe in detail the current implementation and design considerations of the save find rules (or problem search rules) feature of AlgoBase.
+
+The following activity diagram summarizes what happens when a user executes `addfindrule` command:
+
+.Activity Diagram for the Execution of `addfindrule` Command
+image::savefindrule/AddFindRuleActivityDiagram.png[width="70%"]
+
+==== Current Implementation
+
+The save find rules feature is facilitated by the following classes:
+
+* `ProblemSearchRule` +
+It stores both the `Name` of the find rule and all predicates included in this find rule. A `ProblemSearchRule` doesn't have to include all possible predicates as the user may not provide all of them. Missing predicates will be stored as `null` in this class.
+* `UniqueFindRuleList` +
+It stores the find rules and makes sure that every find rule in this list has a unique name.
+** `UniqueFindRuleList` stores a `ObservableList<ProblemSearchRule>` for UI purposes.
+
+[NOTE]
+Except for `ProblemSearchRule`, we refer to these rules as `FindRule` in all other places. This is to prevent possible naming conflicts if AlgoBase is to support saving find rules on other items (e.g. Plans, etc.). `FindRule` corresponds to `FindCommand`. Thus, if you are to implement saving find plan rules, name them as `PlanSearchRule`, `AddFindPlanRuleCommand`, `UniqueFindPlanRuleList`, etc.
+
+Under the category of save find rules feature, we have the following `Command` classes and their corresponding `Parser` classes:
+
+* `AddFindRuleCommand`
+* `DeleteFindRuleCommand`
+* `ApplyCommand` +
+It applies a problem-finding rule by specifying the index of the displayed find rule.
+
+Since these commands share similar implementations, we will only take `AddFindRuleCommand` as an example since it's the most complicated one among the three.
+
+===== Implementation of `addfindrule` feature
+
+The `addfindrule` feature is facilitated by `AddFindRuleCommand` and `AddFindRuleCommandParser` class.
+
+.Class Diagram for Add Find Rule Feature
+image::savefindrule/AddFindRuleClassDiagram.png[width="70%"]
+
+The sequence diagram below shows the high-level abstraction of how AlgoBase processes the request when user types in `addfindrule rule1 n/Sequences`:
+
+.High-level Sequence Diagram for the Execution of `addfindrule rule1 n/Sequences`
+image::savefindrule/HighLevelAddFindRuleSequenceDiagram.png[width="70%"]
+
+The sequence diagram below illustrates the interaction between the `Logic` and `Model` component when executing `AddFindRuleCommand`. Notice that the constructor for `AddFindRuleCommand` requires `Name` to be non-null and accepts null values for other predicates. Thus if the predicate is not present in the arguments, `AddFindRuleCommandParser` will pass null to the constructor of `AddFindRuleCommand`.
+
+.Sequence Diagram for the Execution of `addfindrule` Command
+image::savefindrule/AddFindRuleSequenceDiagram.png[width="70%"]
+
+==== Design Considerations
+
+===== Aspect: To implement `ProblemSearchRule` as a subclass of `FindProblemDescriptor` or implement it as a immutable concrete class.
+
+Since AlgoBase is forked from AddressBook 3, it also inherits AB3's design choice on all data classes - they are all immutable classes with all fields being `final`. However, `ProblemSearchRule` is essentially saving the information of a command input, where the user may provide any number of predicates as the argument. We implement mutable `FindProblemDescriptor` to accommodate variable user inputs, now we have to consider whether to keep `ProblemSearchRule` immutable or not.
+
+* **Alternative 1 (current choice):** `ProblemSearchRule` extends `FindProblemDescriptor` with an additional field `name`
+** Pros: Drastically reduces the amount of duplicate code as `ProblemSearchRule` shares most fields with `FindProblemDescriptor`
+** Cons: `ProblemSearchRule` as a data class is no longer immutable. We have to be careful not to call any setters it inherits from `FindProblemDescriptor`.
+* **Alternative 2:** `ProblemSearchRule` as an individual class with immutable fields.
+** Pros: Provides good protection over unexpected changes to the data fields.
+** Cons: Lots of repeated code.
+
+// end::savefindrule[]
+
 //@@author
 
 //@@author tiuweehan

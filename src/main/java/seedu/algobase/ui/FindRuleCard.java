@@ -40,6 +40,8 @@ public class FindRuleCard extends UiPart<Region> {
     private Label difficulty;
     @FXML
     private Label source;
+    @FXML
+    private Label tag;
 
     public FindRuleCard(ProblemSearchRule findRule, int displayedIndex) {
         super(FXML);
@@ -81,6 +83,12 @@ public class FindRuleCard extends UiPart<Region> {
             source.setText(findRule.getSourcePredicate().get().getKeyword().keyword);
         }
 
+        if (findRule.getTagPredicate().isEmpty()) {
+            tag.setText(DEFAULT_PREDICATE);
+        } else {
+            tag.setText(findRule.getTagPredicate().get().getKeywords().toString());
+        }
+
     }
 
     /**
@@ -104,6 +112,7 @@ public class FindRuleCard extends UiPart<Region> {
                 : "fx:id=\"difficulty\" was not injected: check your FXML file 'FindRuleListCard.fxml'.";
         assert source != null
                 : "fx:id=\"source\" was not injected: check your FXML file 'FindRuleListCard.fxml'.";
+        assert tag != null : "fx:id=\"tag\" was not injected: check your FXML file 'FindRuleListCard.fxml'.";
     }
 
     @Override

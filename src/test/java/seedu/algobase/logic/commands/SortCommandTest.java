@@ -42,8 +42,13 @@ class SortCommandTest {
     }
 
     @Test
-    public void constructor_nullPerson_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new SortCommand(null, null));
+    public void constructor_nullMethod_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> new SortCommand(null, SortCommand.SortingOrder.ascend));
+    }
+
+    @Test
+    public void constructor_nullOrder_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> new SortCommand(SortCommand.SortingMethod.byName, null));
     }
 
     @Test

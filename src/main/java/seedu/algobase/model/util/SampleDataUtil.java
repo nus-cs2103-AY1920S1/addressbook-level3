@@ -8,7 +8,9 @@ import java.util.stream.Collectors;
 
 import seedu.algobase.model.AlgoBase;
 import seedu.algobase.model.Id;
+import seedu.algobase.model.ModelType;
 import seedu.algobase.model.ReadOnlyAlgoBase;
+import seedu.algobase.model.gui.TabData;
 import seedu.algobase.model.plan.Plan;
 import seedu.algobase.model.plan.PlanDescription;
 import seedu.algobase.model.plan.PlanName;
@@ -106,6 +108,13 @@ public class SampleDataUtil {
             tasks
         );
         sampleAb.addPlan(samplePlan2);
+
+        sampleAb.getGuiState()
+            .getTabManager()
+            .addDetailsTabData(
+                new TabData(ModelType.PROBLEM, sampleAb.getProblemList().get(0).getId())
+            );
+
         return sampleAb;
     }
 

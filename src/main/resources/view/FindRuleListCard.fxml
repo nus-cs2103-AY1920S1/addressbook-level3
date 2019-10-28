@@ -56,6 +56,12 @@
                   <Label fx:id="source" styleClass="cell_small_label" text="\$source" />
             </children>
          </HBox>
+         <HBox layoutX="25.0" layoutY="100.0">
+            <children>
+               <Label text="Tag:" />
+               <Label fx:id="tag" styleClass="cell_small_label" text="\$tag" />
+            </children>
+         </HBox>
         </VBox>
       <rowConstraints>
          <RowConstraints />

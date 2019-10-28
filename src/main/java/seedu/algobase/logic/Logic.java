@@ -46,7 +46,7 @@ public interface Logic {
     ObservableList<Problem> getProcessedProblemList();
 
     /** Returns an unmodifiable view of the filtered list of tags */
-    ObservableList<Tag> getFilteredTagList();
+    ObservableList<Tag> getProcessedTagList();
 
     /** Returns an unmodifiable view of the filtered list of plans */
     ObservableList<Plan> getProcessedPlanList();

@@ -60,6 +60,9 @@ Format: `add n/NAME [a/AUTHOR] [w/WEBLINK] [d/DESCRIPTION] [diff/DIFFICULTY] [sr
 
 * `DIFFICULTY` should be an integer or decimal in the range of (0, 5] (left open right close range)
 
+[NOTE]
+Don't provide extreme values like `5.00000...01` as difficulty range as computers can't store decimals exactly and some round-off error is unavoidable.
+
 [TIP]
 A problem can have any number of tags (including 0)
 
@@ -117,6 +120,9 @@ Format: `sort m/METHOD [ord/ORDER]`
 * ORDER can be `ascend` or `descend` representing ascending and descending order. The default is in ascending order.
 * String-based values (i.e. `name`, `author`, etc.) are sorted alphabetically.
 
+[NOTE]
+If sorted by ascending order (i.e. the default order), empty fields will have the highest priority, which means if you execute `sort m/weblink`, the first few results would be (if any) without web links.
+
 Examples:
 
 * `sort m/name`
@@ -149,7 +155,16 @@ Format: `find [n/NAME] [a/AUTHOR] [d/DESCRIPTION] [src/SOURCE] [diff/LOWER_BOUND
 ** Tags are considered equal only when the tag strings are exactly matched.
 * Difficulty
 ** matches problems with `LOWER_BOUND \<= difficulty \<= UPPER_BOUND`
-** Note that you should provide both bounds. If you want to match problems with exact difficulty `1.5`, please use `diff/1.5-1.5`
+
+[TIP]
+If you want to match problems with exact difficulty `1.5`, please use `diff/1.5-1.5`
+
+[NOTE]
+When providing the search restrictions, you should ensure that keywords are non-blank and difficulty range is valid (as specified in `add` command). Also at least one search restriction should be provided.
+
+[NOTE]
+Words are separated by empty spaces. Thus if we have a sentence "Hello, world!", we have two words `Hello,` and `world!`.
+
 
 Examples:
 
@@ -205,19 +220,19 @@ Deletes the 2nd find rule in the displayed list.
 
 === Tags
 
-==== Creating new tags: `newtag`
+==== Creating new tags: `addtag`
 
 Generates a new tag. +
-Format: `newtag n/NAME`
+Format: `addtag n/NAME`
 
 Examples:
 
 * `newtag n/sssp`
 
-==== Listing tags: `lstag`
+==== Listing tags: `listtag`
 
 Displays a list of all existing tags. +
-Format: `lstag`
+Format: `listtag`
 
 ==== Deleting new tags: `deletetag`
 
@@ -226,6 +241,14 @@ Format: `deletetag INDEX`
 Examples:
 
 * `deletetag 1`
+
+==== Editing tags: `edittag`
+
+Edits an existing tag. +
+Format: `edittag INDEX t/NAME`
+Examples:
+
+* `edittag 1 t/difficult`
 
 === Training Plans
 
@@ -416,17 +439,24 @@ There is no need to save manually.
 
 == Command Summary
 
-* *Add* `add n/NAME [d/DESCRIPTION] [a/AUTHOR] [t/TAG]...` +
+* *Add Problem* `add n/NAME [d/DESCRIPTION] [a/AUTHOR] [t/TAG]...` +
 e.g. `add  n/factorial d/define a function factorial that takes in a number n and returns the factorial of the number t/recursion a/Wee Han`
-* *List* : `list` +
-* *Edit* : `edit INDEX [d/DESCRIPTION] [a/AUTHOR] [t/TAG]...` +
+* *List Problems* : `list` +
+* *Edit Problems* : `edit INDEX [d/DESCRIPTION] [a/AUTHOR] [t/TAG]...` +
 e.g. `edit 2 n/permutations t/`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find factorial permutations`
-* *Delete* : `delete INDEX` +
+* *Delete Problem* : `delete INDEX` +
 e.g. `delete 3`
-* *Sort* : `sort m/METHOD [d/DIRECTION]` +
-e.g. `sort m/alphabetical d/ASC`
+
+* *Sort Problems* : `sort m/METHOD [ord/ORDER]` +
+e.g. `sort m/difficulty ord/ascend`
+* *Find Problems* : `find [n/NAME] [a/AUTHOR] [d/DESCRIPTION] [src/SOURCE] [diff/LOWER_BOUND-UPPER_BOUND] [t/TAG]…` +
+e.g. `find t/algorithm diff/2.0-4.0`
+* *Add Find Rule*: `addfindrule RULE_NAME [n/NAME] [a/AUTHOR] [d/DESCRIPTION] [src/SOURCE] [diff/LOWER_BOUND-UPPER_BOUND] [t/TAG]…` +
+e.g. `addfindrule MediumDiffAlgo t/algorithm diff/2.0-4.0`
+* *Apply Find Rule*: `apply INDEX` +
+e.g. `apply 2`
+* *Delete Find Rule*: `deletefindrule INDEX` +
+e.g. `deletefindrule 2`
 
 * *New Tag* : `addtag n/NAME` +
 e.g. `addtag n/sssp`

@@ -24,7 +24,7 @@ public class EditTagCommand extends Command {
             + "by the index number used in the displayed Tag list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
-            + "[" + PREFIX_TAG + "TAG] "
+            + "[" + PREFIX_TAG + "TAG] \n"
             + "Example: " + COMMAND_WORD + " 1 " + PREFIX_TAG + "Easy";
     public static final String MESSAGE_EDIT_TAG_SUCCESS = "Edited Tag: %1$s";
     public static final String MESSAGE_DUPLICATE_TAG = "This Tag already exists in the algobase.";
