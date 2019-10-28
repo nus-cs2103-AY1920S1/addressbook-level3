@@ -64,9 +64,9 @@ public class SetCommandTest {
         // same object -> returns true
         assertTrue(setFirstCommand.equals(setFirstCommand));
 
-        // same values -> returns true
+        // same values -> returns false
         SetCommand setFirstCommandCopy = new SetCommand(firstBudget);
-        assertTrue(setFirstCommand.equals(setFirstCommandCopy));
+        assertFalse(setFirstCommand.equals(setFirstCommandCopy));
 
         // different types -> returns false
         assertFalse(setFirstCommand.equals(1));
@@ -175,6 +175,11 @@ public class SetCommandTest {
         @Override
         public boolean hasTransaction(BankAccountOperation transaction) {
             throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasBudget(Budget budget) {
+            throw new AssertionError("This method should not be calld.");
         }
 
         @Override
