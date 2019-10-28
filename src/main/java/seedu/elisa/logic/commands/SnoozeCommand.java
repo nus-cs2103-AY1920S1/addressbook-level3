@@ -18,10 +18,12 @@ import seedu.elisa.model.tag.Tag;
 import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.Set;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.elisa.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.elisa.logic.parser.CliSyntax.*;
 
 /**
@@ -43,6 +45,7 @@ public class SnoozeCommand extends UndoableCommand {
     public static final String MESSAGE_SNOOZED_REMINDER_SUCCESS = "Snoozed Reminder: %1$s,"
             + " because someone is real lazy...";
 
+    private final boolean hasIndex;
     private final Index index;
     private final LocalDateTime newReminderOccurrence;
 
@@ -50,13 +53,14 @@ public class SnoozeCommand extends UndoableCommand {
     private Item snoozedItem;
 
     /**
+     * @param hasIndex boolean that indicates if an index was specified.
      * @param index of the item to edit.
-     * @param newReminderOccurrence LocalDateTime of new occurrence of reminder
+     * @param newReminderOccurrence LocalDateTime of new occurrence of reminder.
      */
-    public SnoozeCommand(Index index, LocalDateTime newReminderOccurrence) {
-        requireNonNull(index);
-        requireNonNull(newReminderOccurrence);
+    public SnoozeCommand(boolean hasIndex, Index index, LocalDateTime newReminderOccurrence) {
+        requireAllNonNull(hasIndex, newReminderOccurrence);
 
+        this.hasIndex = hasIndex;
         this.index = index;
         this.newReminderOccurrence = newReminderOccurrence;
     }
@@ -70,17 +74,26 @@ public class SnoozeCommand extends UndoableCommand {
             // should not enter here as itemType is definitely valid.
         }
 
-        VisualizeList lastShownList = model.getVisualList();
+        if (hasIndex) {
+            VisualizeList lastShownList = model.getVisualList();
 
-        if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
+            if (index.getZeroBased() >= lastShownList.size()) {
+                throw new CommandException(Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
+            }
+
+            oldItem = lastShownList.get(index.getZeroBased());
+            snoozedItem = oldItem.changeReminder(
+                    oldItem.getReminder().get().changeOccurrenceDateTime(newReminderOccurrence));
+        } else {
+            try {
+                oldItem = model.getLatestOccurredReminder();
+            } catch (NoSuchElementException e) {
+                throw new CommandException(Messages.MESSAGE_NO_PREVIOUS_REMINDER);
+            }
+
+            snoozedItem = oldItem.changeReminder(
+                    oldItem.getReminder().get().changeOccurrenceDateTime(newReminderOccurrence));
         }
-
-        //Here onwards
-        Item oldItem = lastShownList.get(index.getZeroBased());
-        this.oldItem = oldItem;
-        snoozedItem = oldItem.changeReminder(
-                oldItem.getReminder().get().changeOccurrenceDateTime(newReminderOccurrence));
 
         model.replaceItem(oldItem, snoozedItem);
         return new CommandResult(String.format(MESSAGE_SNOOZED_REMINDER_SUCCESS, snoozedItem));

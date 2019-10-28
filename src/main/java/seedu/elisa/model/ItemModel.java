@@ -3,6 +3,7 @@ package seedu.elisa.model;
 import java.nio.file.Path;
 import java.time.LocalDateTime;
 import java.util.Comparator;
+import java.util.NoSuchElementException;
 
 import seedu.elisa.commons.core.GuiSettings;
 import seedu.elisa.commons.core.item.Item;
@@ -123,4 +124,6 @@ public interface ItemModel {
     void updateCommandHistory(Command command);
 
     public EventList getEventList();
+
+    Item getLatestOccurredReminder() throws NoSuchElementException;
 }
