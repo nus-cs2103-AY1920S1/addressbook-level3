@@ -1,0 +1,36 @@
+@startuml
+start
+repeat
+:User wants to report incident(s);
+
+if () then ([create an incident report])
+    :User executes 'new' command;
+    if () then ([assign vehicle(s) manually])
+        :User chooses vehicle to dispatch;
+    else ([assign vehicle(s) automatically])
+        :System dispatches closest available vehicle;
+    endif
+    :New incomplete draft incident report created;
+else ([fill or submit an incident report])
+    if () then ([fill an incident report])
+        :User executes 'fill' command;
+        if() then ([no parameters])
+            :All draft incident reports listed;
+            :User executes 'fill' command with parameters;
+        else ([with parameters])
+        endif
+        :Specified draft incident report completely filled;
+else ([submit an incident report])
+    :User executes 'submit' command;
+    if() then ([no parameters])
+    :All completely filled draft incident reports listed;
+    :User executes 'submit' command with parameters;
+    else ([with parameters])
+    endif
+    :Specified draft incident report submitted;
+endif
+endif
+repeat while () is ([report another incident])
+-> [end session];
+stop
+@enduml
