@@ -3,7 +3,6 @@ package seedu.savenus.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.savenus.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.math.BigDecimal;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Set;
@@ -14,12 +13,12 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.savenus.commons.core.GuiSettings;
 import seedu.savenus.commons.core.LogsCenter;
-import seedu.savenus.logic.commands.exceptions.CommandException;
 import seedu.savenus.model.commandhistory.CommandHistory;
 import seedu.savenus.model.food.Category;
 import seedu.savenus.model.food.Food;
 import seedu.savenus.model.food.FoodFilter;
 import seedu.savenus.model.food.Location;
+import seedu.savenus.model.food.Price;
 import seedu.savenus.model.food.Tag;
 import seedu.savenus.model.menu.Menu;
 import seedu.savenus.model.menu.ReadOnlyMenu;
@@ -37,6 +36,9 @@ import seedu.savenus.model.userprefs.UserPrefs;
 import seedu.savenus.model.wallet.DaysToExpire;
 import seedu.savenus.model.wallet.RemainingBudget;
 import seedu.savenus.model.wallet.Wallet;
+import seedu.savenus.model.wallet.exceptions.BudgetAmountOutOfBoundsException;
+import seedu.savenus.model.wallet.exceptions.BudgetDurationOutOfBoundsException;
+import seedu.savenus.model.wallet.exceptions.InsufficientFundsException;
 
 /**
  * Represents the in-memory model of the menu data.
@@ -184,6 +186,14 @@ public class ModelManager implements Model {
         return menu.getFoodList();
     }
 
+    @Override
+    public void buyFood(Food foodToBuy) throws InsufficientFundsException {
+        requireNonNull(foodToBuy);
+        this.deductFromWallet(foodToBuy.getPrice());
+        Purchase purchaseToAdd = new Purchase(foodToBuy);
+        this.addPurchase(purchaseToAdd);
+    }
+
     //=========== PurchaseHistory Methods =========================================================================
 
     @Override
@@ -227,37 +237,24 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public RemainingBudget getRemainingBudget() {
-        return wallet.getRemainingBudget();
-    }
-
-    @Override
-    public void setRemainingBudget(RemainingBudget newRemainingBudget) throws CommandException {
+    public void setWallet(RemainingBudget newRemainingBudget, DaysToExpire newDaysToExpire)
+            throws BudgetDurationOutOfBoundsException, BudgetAmountOutOfBoundsException {
         requireNonNull(newRemainingBudget);
-        if (newRemainingBudget.getRemainingBudgetAmount().compareTo(new BigDecimal(1000000.00)) == 1) {
-            throw new CommandException(RemainingBudget.FLOATING_POINT_CONSTRAINTS);
-        }
         wallet.setRemainingBudget(newRemainingBudget);
-    }
-
-    @Override
-    public int getDaysToExpire() {
-        return wallet.getNumberOfDaysToExpire();
-    }
-
-    @Override
-    public void setDaysToExpire(DaysToExpire newDaysToExpire) throws CommandException {
         requireNonNull(newDaysToExpire);
-        if (newDaysToExpire.getDaysToExpire() > 365) {
-            throw new CommandException(DaysToExpire.INTEGER_CONSTRAINTS);
-        }
         wallet.setDaysToExpire(newDaysToExpire);
     }
 
     @Override
-    public void buyFood(Food foodToBuy) throws CommandException {
-        requireNonNull(foodToBuy);
-        wallet.deduct(foodToBuy.getPrice());
+    public void deductFromWallet(Price priceToDeduct) throws InsufficientFundsException {
+        requireNonNull(priceToDeduct);
+        wallet.deduct(priceToDeduct);
+    }
+
+    @Override
+    public void deductFromWallet(Savings savings) throws InsufficientFundsException {
+        requireNonNull(savings);
+        wallet.deduct(savings);
     }
 
     //=========== Filtered Food List Accessors =============================================================
@@ -270,8 +267,8 @@ public class ModelManager implements Model {
     public ObservableList<Food> getFilteredFoodList() {
         // Update the Recommendation System's purchase history and budget
         RecommendationSystem.getInstance().updatePurchaseHistory(purchaseHistory.getPurchaseHistoryList());
-        RecommendationSystem.getInstance().updateDaysToExpire(getDaysToExpire());
-        RecommendationSystem.getInstance().updateBudget(getRemainingBudget().getRemainingBudgetAmount());
+        RecommendationSystem.getInstance().updateDaysToExpire(getWallet().getNumberOfDaysToExpire());
+        RecommendationSystem.getInstance().updateBudget(getWallet().getRemainingBudgetAmount());
 
         return filteredFoods
                 .filtered(RecommendationSystem.getInstance().getRecommendationPredicate())
@@ -364,11 +361,6 @@ public class ModelManager implements Model {
         savingsAccount.addSavings(savings);
     }
 
-    @Override
-    public void deductFromWallet(Savings savings) throws CommandException {
-        requireNonNull(savings);
-        wallet.deduct(savings);
-    }
 
     /**
      * Returns an unmodifiable Savings Account of the user.

@@ -7,6 +7,8 @@ import seedu.savenus.model.Model;
 import seedu.savenus.model.wallet.DaysToExpire;
 import seedu.savenus.model.wallet.RemainingBudget;
 import seedu.savenus.model.wallet.Wallet;
+import seedu.savenus.model.wallet.exceptions.BudgetAmountOutOfBoundsException;
+import seedu.savenus.model.wallet.exceptions.BudgetDurationOutOfBoundsException;
 
 
 /**
@@ -40,8 +42,13 @@ public class BudgetCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        model.setRemainingBudget(newRemainingBudget);
-        model.setDaysToExpire(newDaysToExpire);
+        try {
+            model.setWallet(newRemainingBudget, newDaysToExpire);
+        } catch (BudgetAmountOutOfBoundsException e) {
+            throw new CommandException(e.getMessage());
+        } catch (BudgetDurationOutOfBoundsException e) {
+            throw new CommandException(e.getMessage());
+        }
 
         return new CommandResult(newDaysToExpire.getDaysToExpire() == 0
                 ? String.format(MESSAGE_SET_REMAININGBUDGET_SUCCESS,

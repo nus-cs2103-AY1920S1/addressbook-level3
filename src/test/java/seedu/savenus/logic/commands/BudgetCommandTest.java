@@ -41,8 +41,8 @@ public class BudgetCommandTest {
         ModelManager expectedModel = new ModelManager(model.getMenu(), new UserPrefs(), new UserRecommendations(),
                 new PurchaseHistory(), new Wallet(), new CustomSorter(), new SavingsAccount());
         try {
-            expectedModel.setRemainingBudget(testRemainingBudget);
-            expectedModel.setDaysToExpire(testDaysToExpire);
+            expectedModel.getWallet().setRemainingBudget(testRemainingBudget);
+            expectedModel.getWallet().setDaysToExpire(testDaysToExpire);
         } catch (Exception e) {
             return;
         }

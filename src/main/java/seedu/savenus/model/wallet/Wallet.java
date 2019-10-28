@@ -5,10 +5,12 @@ import java.math.BigDecimal;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.StringProperty;
 
-import seedu.savenus.commons.core.Messages;
 import seedu.savenus.logic.commands.exceptions.CommandException;
 import seedu.savenus.model.food.Price;
 import seedu.savenus.model.savings.Savings;
+import seedu.savenus.model.wallet.exceptions.BudgetAmountOutOfBoundsException;
+import seedu.savenus.model.wallet.exceptions.BudgetDurationOutOfBoundsException;
+import seedu.savenus.model.wallet.exceptions.InsufficientFundsException;
 
 
 /**
@@ -69,7 +71,10 @@ public class Wallet {
      * Set {@code remainingBudget} with user's input.
      * @param newRemainingBudget New {@code RemainingBudget} created from user's input
      */
-    public void setRemainingBudget(RemainingBudget newRemainingBudget) {
+    public void setRemainingBudget(RemainingBudget newRemainingBudget) throws BudgetAmountOutOfBoundsException {
+        if (newRemainingBudget.getRemainingBudgetAmount().compareTo(new BigDecimal(1000000.00)) == 1) {
+            throw new BudgetAmountOutOfBoundsException();
+        }
         remainingBudget.setRemainingBudget(newRemainingBudget);
     }
 
@@ -98,7 +103,10 @@ public class Wallet {
      * Set {@code daysToExpire} with user's input.
      * @param newDaysToExpire New {@code DaysToExpire} created from user's input
      */
-    public final void setDaysToExpire(DaysToExpire newDaysToExpire) {
+    public final void setDaysToExpire(DaysToExpire newDaysToExpire) throws BudgetDurationOutOfBoundsException {
+        if (newDaysToExpire.getDaysToExpire() > 365) {
+            throw new BudgetDurationOutOfBoundsException();
+        }
         daysToExpire.setDaysToExpire(newDaysToExpire);
     }
 
@@ -114,10 +122,10 @@ public class Wallet {
      * @param price {@code Price} to be deducted
      * @throws CommandException Throws {@code CommandException} if there are insufficient funds in user's {@code Wallet}
      */
-    public void deduct(Price price) throws CommandException {
+    public void deduct(Price price) throws InsufficientFundsException {
         // Check whether wallet has enough funds
         if (new BigDecimal(price.toString()).compareTo(getRemainingBudgetAmount()) == 1) {
-            throw new CommandException(Messages.MESSAGE_INSUFFICIENT_FUNDS + " to make purchase!");
+            throw new InsufficientFundsException();
         } else {
             BigDecimal remainingBudget = getRemainingBudgetAmount().subtract(new BigDecimal(price.toString()));
             setRemainingBudget(new RemainingBudget(remainingBudget.toString()));
@@ -130,10 +138,10 @@ public class Wallet {
      * @param savings {@code Savings} to be deducted
      * @throws CommandException Throws {@code CommandException} if there are insufficient funds in user's {@code Wallet}
      */
-    public void deduct(Savings savings) throws CommandException {
+    public void deduct(Savings savings) throws InsufficientFundsException {
         // Check whether wallet has enough funds to be saved
         if (new BigDecimal(savings.toString()).compareTo(getRemainingBudgetAmount()) == 1) {
-            throw new CommandException(Messages.MESSAGE_INSUFFICIENT_FUNDS + " to add to savings account!");
+            throw new InsufficientFundsException();
         } else {
             // If enough funds, subtract from the wallet the amount to be saved.
             BigDecimal remainingBudget = getRemainingBudgetAmount().subtract(new BigDecimal(savings.toString()));

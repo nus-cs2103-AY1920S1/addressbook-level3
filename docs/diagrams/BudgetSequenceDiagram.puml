@@ -1,0 +1,110 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":SaveNusParser" as SaveNusParser LOGIC_COLOR
+participant ":BudgetCommandParser" as BudgetCommandParser LOGIC_COLOR
+participant "d:BudgetCommand" as BudgetCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant ":Wallet" as Wallet MODEL_COLOR
+end box
+
+box Storage STORAGE_COLOR_T1
+participant ":Storage" as Storage STORAGE_COLOR
+participant ":JsonWalletStorage" as JsonWalletStorage STORAGE_COLOR
+participant ":JsonSerializableWallet" as JsonSerializableWallet STORAGE_COLOR
+participant ":JsonAdaptedWallet" as JsonAdaptedWallet STORAGE_COLOR
+end box
+
+[-> LogicManager : execute("budget 100 10")
+activate LogicManager
+
+LogicManager -> SaveNusParser : parseCommand("budget 100 10")
+activate SaveNusParser
+
+create BudgetCommandParser
+SaveNusParser -> BudgetCommandParser
+activate BudgetCommandParser
+
+BudgetCommandParser --> SaveNusParser
+deactivate BudgetCommandParser
+
+SaveNusParser -> BudgetCommandParser : parse("10.00")
+activate BudgetCommandParser
+
+create BudgetCommand
+BudgetCommandParser -> BudgetCommand
+activate BudgetCommand
+
+BudgetCommand --> BudgetCommandParser : d
+deactivate BudgetCommand
+
+BudgetCommandParser --> SaveNusParser : d
+deactivate BudgetCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+BudgetCommandParser -[hidden]-> SaveNusParser
+destroy BudgetCommandParser
+
+SaveNusParser --> LogicManager : d
+deactivate SaveNusParser
+
+LogicManager -> BudgetCommand : execute()
+activate BudgetCommand
+
+BudgetCommand -> Model : setRemainingBudget(RemainingBudget remainingbudget)
+activate Model
+
+BudgetCommand -> Model : setDaysToExpire(DaysToExpire DaysToExpire)
+activate Model
+
+Model --> BudgetCommand
+deactivate Model
+
+create CommandResult
+BudgetCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> BudgetCommand
+deactivate CommandResult
+
+BudgetCommand --> LogicManager : result
+deactivate BudgetCommand
+
+[<--LogicManager
+deactivate LogicManager
+
+LogicManager -> Storage : saveWallet(model.getWallet())
+activate Storage
+
+Storage -> JsonWalletStorage : saveWallet(ReadOnlyWallet Wallet)
+activate JsonWalletStorage
+
+create JsonSerializableWallet
+JsonWalletStorage -> JsonSerializableWallet
+activate JsonSerializableWallet
+
+create JsonAdaptedWallet
+JsonSerializableWallet -> JsonAdaptedWallet
+activate JsonAdaptedWallet
+
+JsonAdaptedWallet --> JsonSerializableWallet
+deactivate JsonAdaptedWallet
+
+JsonSerializableWallet --> JsonWalletStorage
+deactivate JsonSerializableWallet
+
+JsonWalletStorage --> Storage
+deactivate JsonWalletStorage
+
+Storage --> LogicManager
+deactivate Storage
+
+[<--LogicManager
+deactivate LogicManager
+
+@enduml

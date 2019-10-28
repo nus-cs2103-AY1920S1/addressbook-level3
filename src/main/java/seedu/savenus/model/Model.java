@@ -7,10 +7,10 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.savenus.commons.core.GuiSettings;
-import seedu.savenus.logic.commands.exceptions.CommandException;
 import seedu.savenus.model.food.Category;
 import seedu.savenus.model.food.Food;
 import seedu.savenus.model.food.Location;
+import seedu.savenus.model.food.Price;
 import seedu.savenus.model.food.Tag;
 import seedu.savenus.model.menu.ReadOnlyMenu;
 import seedu.savenus.model.purchase.Purchase;
@@ -23,6 +23,7 @@ import seedu.savenus.model.userprefs.ReadOnlyUserPrefs;
 import seedu.savenus.model.wallet.DaysToExpire;
 import seedu.savenus.model.wallet.RemainingBudget;
 import seedu.savenus.model.wallet.Wallet;
+import seedu.savenus.model.wallet.exceptions.InsufficientFundsException;
 
 /**
  * The API of the Model component.
@@ -142,6 +143,11 @@ public interface Model {
     Wallet getWallet();
 
     /**
+     * Set user's wallet
+     */
+    void setWallet(RemainingBudget remainingBudget, DaysToExpire daysToExpire);
+
+    /**
      * Returns the user prefs' wallet file path.
      */
     Path getWalletFilePath();
@@ -175,31 +181,21 @@ public interface Model {
     void removePurchase(Purchase target);
 
     /**
-     * Getter for current user's {@code RemainingBudget}
+     * Deduct money from wallet.
      */
-    RemainingBudget getRemainingBudget();
+    void deductFromWallet(Price price) throws InsufficientFundsException;
 
     /**
-     * Setter for current user's {@code Budget} to new {@code Budget}
+     * Deduct money from wallet.
      */
-    void setRemainingBudget(RemainingBudget newRemainingBudget) throws CommandException;
-
-    /**
-     * Getter for current user's {@code daysToExpire}
-     */
-    int getDaysToExpire();
-
-    /**
-     * Setter for current user's {@code DaysToExpire} to new {@code DaysToExpire}
-     */
-    void setDaysToExpire(DaysToExpire newDaysToExpire) throws CommandException;
+    void deductFromWallet(Savings savings) throws InsufficientFundsException;
 
     /**
      * Buy Food.
      *
      * @param foodToBuy Food to buy
      */
-    void buyFood(Food foodToBuy) throws CommandException;
+    void buyFood(Food foodToBuy) throws InsufficientFundsException;
 
     /**
      * Returns an unmodifiable view of the filtered food list
@@ -279,11 +275,6 @@ public interface Model {
      * Add money from wallet to savings account.
      */
     void addToSavings(Savings savings);
-
-    /**
-     * Deduct money from wallet.
-     */
-    void deductFromWallet(Savings savings) throws CommandException;
 
     /**
      * Return an unmodifiable version of the user's SavingsAccount.

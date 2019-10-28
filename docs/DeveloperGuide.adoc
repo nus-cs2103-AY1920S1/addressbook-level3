@@ -296,14 +296,64 @@ The following activity diagram below summarizes how the save command works
 .Activity diagram for a sample save command
 image::SaveActivityDiagram.png[]
 
+==== Classes for Budget Tracking feature in Model
+
+The Budget Tracking feature was implemented with the following classes.
+
+===== Wallet
+
+****
+`Wallet` is a class containing the user's current budget, i.e., storing the user's budget amount and budget duration.
+****
+
+===== RemainingBudget
+
+****
+`RemainingBudget` stores a user's remaining budget amount. It contains an `ObservableValue` which allows the UI to track of the amount of money left in the current budget.
+The maximum budget amount has been set to 1 million dollars.
+
+Also, in order to avoid possible loss of precision errors, calculations regarding the budget amount is done using Java's `BigDecimal` class instead of `Double`.
+****
+
+===== DaysToExpire
+
+****
+`DaysToExpire` stores a user's remaining budget duration. It contains an `ObservableValue` which allows the UI to track of the number of days before the current budget expires.
+The maximum budget duration has been set to 1 year (365 days).
+
+Due to development constraints, we have decided to only update the budget duration every time the application is started up instead of constantly monitoring the current time to update this property.
+****
+
+.Wallet-related class diagram in Model component.
+image::WalletClassDiagram.png[width=400]
+
+==== *Setting a Budget*
+
+A budget can be set using the `budget` command which takes a budget amount, and an optional budget duration.
+
+For example, `budget 100 10` will set the user's budget, with $100.00 for 10 days.
+
+The command is read as a text string from the command box in the UI and then is executed by calling MainWindow#executeCommand(),
+which passes this string (named commandText) to the Logic component by calling Logic#execute(Model model).
+
+The sequence diagram for interactions between the Logic, Model and Storage components when a user executes the `buy 1` command is shown below.
+
+.Sequence diagram for `budget 100 10` command
+image::BudgetSequenceDiagram.png[]
+
+The following activity diagram below summarizes how `budget 100 10` commands works
+
+.Activity diagram for a `budget` command
+image::BudgetActivityDiagram.png[]
+
 ==== Classes for Purchase Tracking feature in Model
 
-The Purchase Tracking feature was implemented with a new set of classes introduced to the Model.
+The Purchase Tracking feature was implemented with the following classes.
 
 ===== PurchaseHistory
 
 ****
-`PurchaseHistory` is a singleton class containing a `PurchaseHistoryList`.
+`PurchaseHistory` contains a `PurchaseHistoryList` and serves as an encapsulation for Purchase-related methods and fields.
 ****
 
 ===== PurchaseHistoryList
@@ -345,7 +395,7 @@ which passes this string (named commandText) to the Logic component by calling L
 
 The sequence diagram for interactions between the Logic, Model and Storage components when a user executes the `buy 1` command is shown below.
 
-.Sequence diagram for `buy 1 command
+.Sequence diagram for `buy 1` command
 image::BuySequenceDiagram.png[]
 
 The following activity diagram below summarizes how `buy` commands works
