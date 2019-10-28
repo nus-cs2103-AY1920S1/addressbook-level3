@@ -59,12 +59,5 @@ public class StatsDisplay extends UiPart<ScrollPane> {
         individualCards.getData().addAll(statistics.getCorrectSeries(), statistics.getWrongSeries());
 
         pieCharts.getChildren().addAll(completion, accuracy);
-
-
-
-
     }
-
-
-
 }
