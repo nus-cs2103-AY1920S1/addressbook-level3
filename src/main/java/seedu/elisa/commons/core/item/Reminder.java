@@ -1,6 +1,7 @@
 package seedu.elisa.commons.core.item;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.elisa.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -18,38 +19,62 @@ import seedu.elisa.commons.util.JsonUtil;
  */
 public class Reminder {
 
-    private final LocalDateTime dateTime;
+    private final LocalDateTime defaultDateTime;
+    private final LocalDateTime occurrenceDateTime;
 
     /**
-     * Constructs a {@code Task}.
+     * Constructs a {@code Reminder}.
      *
-     * @param dateTime A valid LocalDateTime object.
+     * @param defaultDateTime A valid LocalDateTime object.
      */
-    public Reminder(LocalDateTime dateTime) {
-        requireNonNull(dateTime);
-        this.dateTime = dateTime;
+    public Reminder(LocalDateTime defaultDateTime) {
+        requireNonNull(defaultDateTime);
+        this.defaultDateTime = defaultDateTime;
+        occurrenceDateTime = defaultDateTime;
     }
 
-
-    public LocalDateTime getDateTime() {
-        return dateTime;
+    /**
+     * Constructs a {@code Reminder}.
+     *
+     * @param defaultDateTime A valid LocalDateTime object that stores the original DateTime is intended to occur.
+     * @param occurrenceDateTime A valid LocalDateTime object for the reminder to occur.
+     */
+    private Reminder(LocalDateTime defaultDateTime, LocalDateTime occurrenceDateTime) {
+        requireAllNonNull(defaultDateTime, occurrenceDateTime);
+        this.defaultDateTime = defaultDateTime;
+        this.occurrenceDateTime = occurrenceDateTime;
     }
+
+    public LocalDateTime getDefaultDateTime() {
+        return defaultDateTime;
+    }
+
+    public LocalDateTime getOccurrenceDateTime() { return occurrenceDateTime; }
 
     /**
      * Changes the dateTime that the reminder occurs. Removes the previous reminder so it does not occur.
      * @param dateTime A LocalDateTime object which dictates the dateTime the reminder occurs.
      * @return A new Reminder with the new dateTime for the reminder.
      */
-    public Reminder changeDateTime(LocalDateTime dateTime) {
+    public Reminder changeOccurrenceDateTime(LocalDateTime dateTime) {
         //When Reminder is implemented, the previous reminder notification should also be removed here
-        return new Reminder(dateTime);
+        return new Reminder(defaultDateTime, dateTime);
+    }
+
+    /**
+     * Changes the default dateTime of the reminder.
+     * @param dateTime A LocalDateTime object which dictates the default dateTime of the Reminder.
+     * @return A new Reminder with the new default dateTime for the reminder.
+     */
+    public Reminder changeDefaultDateTime(LocalDateTime dateTime) {
+        return new Reminder(dateTime, occurrenceDateTime);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append("\nReminder DateTime: ")
-                .append(getDateTime().format(DateTimeFormatter.ofPattern("dd/MM/uuuu HH:mm")));
+                .append(getDefaultDateTime().format(DateTimeFormatter.ofPattern("dd/MM/uuuu HH:mm")));
         return builder.toString();
     }
 
@@ -64,13 +89,13 @@ public class Reminder {
         }
 
         Reminder otherReminder = (Reminder) other;
-        return otherReminder.getDateTime().equals(getDateTime());
+        return otherReminder.getDefaultDateTime().equals(getDefaultDateTime());
     }
 
     //Possibility of high number of hash collisions and as a result slower performance
     @Override
     public int hashCode() {
-        return Objects.hash(dateTime);
+        return Objects.hash(defaultDateTime);
     }
 
     /**
