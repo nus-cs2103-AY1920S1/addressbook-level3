@@ -3,13 +3,10 @@ package dukecooks.ui;
 import dukecooks.model.diary.components.Page;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.text.Text;
-
-import java.io.File;
 
 /**
  * An UI component that displays information of a {@code Diary}.

@@ -163,7 +163,7 @@ public class MainWindow extends UiPart<Stage> {
         recipeListPanel = new RecipeListPanel(logic.getFilteredRecipeList());
         recordListPanel = new RecordListPanel(logic.getFilteredRecordList());
         exerciseListPanel = new ExerciseListPanel(logic.getFilteredExerciseList());
-        diaryListPanel = new DiaryListPanel(logic.getFilteredDiaryList());
+        diaryListPanel = new DiaryListPanel(logic.getFilteredDiaryList(), 0);
     }
 
     /**

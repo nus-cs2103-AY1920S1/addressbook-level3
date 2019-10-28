@@ -27,6 +27,19 @@ public class Page {
     }
 
     /**
+     * Returns true if both persons of the same diaryName have at least one other identity field that is the same.
+     * This defines a weaker notion of equality between two persons.
+     */
+    public boolean isSamePage(Page otherPage) {
+        if (otherPage == this) {
+            return true;
+        }
+
+        return otherPage != null
+                && otherPage.getTitle().equals(getTitle());
+    }
+
+    /**
      * Returns true if both Pages have the same identity fields.
      * This defines a stronger notion of equality between two pages.
      */

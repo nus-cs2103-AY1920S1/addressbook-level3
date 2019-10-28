@@ -36,49 +36,35 @@ public class DiaryListPanel extends UiPart<Region> {
 
 
 
-    public DiaryListPanel(ObservableList<Diary> diaryList) {
+    public DiaryListPanel(ObservableList<Diary> diaryList, int targetIndex) {
         super(FXML);
         diaryListView.setItems(diaryList);
         diaryListView.setCellFactory(listView -> new DiaryListViewCell());
-        initializePageFlowPaneView(diaryList);
+        initializePageFlowPaneView(diaryList, targetIndex);
     }
 
     /**
-     * Initialises FlowPane for pages
-     * Gives the overview of pages
+     * Initialises Diary FlowPane Config, with a pageList
+     * Gives the overview of pages in that specified diary
      */
-    void initializePageFlowPaneView(ObservableList<Diary> diaryList) {
+    void initializePageFlowPaneView(ObservableList<Diary> diaryList, int targetIndex) {
         pageFlowPane.setHgap(5);
         pageFlowPane.setVgap(5);
         pageFlowPane.setPadding(new Insets(10, 10, 10, 10));
 
-        // Creates a Page Card for each Diary record and adds to FlowPane
+        ObservableList<Page> pageList = diaryList.get(targetIndex).getPages();
+
+        // Creates a Page Card for Diary and adds to FlowPane
         int i = 0;
-        for (Diary diary : diaryList) {
-            // Check if diary page list is empty
-            if (!diary.getPages().isEmpty()) {
-                Page currentPage = diary.getPages().get(i);
-                pageFlowPane.getChildren().add(new PageCard(currentPage, i).getRoot());
-                i++;
-            } else {
-                // Create empty page card?
-            }
+        for (Page page : pageList) {
+            pageFlowPane.getChildren().add(new PageCard(page, i).getRoot());
+            i++;
         }
 
-        //add listener for new changes
-        diaryList.addListener((ListChangeListener<Diary>) c -> {
+        // add listener for new page changes
+        pageList.addListener((ListChangeListener<Page>) c -> {
             pageFlowPane.getChildren().clear();
-            int x = 0;
-            for (Diary r: diaryList) {
-                // Check if diary page list is empty
-                if (!r.getPages().isEmpty()) {
-                    Page currentPage = r.getPages().get(x);
-                    pageFlowPane.getChildren().add(new PageCard(currentPage, x).getRoot());
-                    x++;
-                } else {
-                    // Create empty page card?
-                }
-            }
+            initializePageFlowPaneView(diaryList, targetIndex);
         });
     }
 

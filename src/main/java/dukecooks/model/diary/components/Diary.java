@@ -1,5 +1,6 @@
 package dukecooks.model.diary.components;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import static dukecooks.commons.util.CollectionUtil.requireAllNonNull;
@@ -18,7 +19,7 @@ public class Diary {
     private final DiaryName diaryName;
 
     // Data fields
-    private final ArrayList<Page> pages;
+    private final ObservableList<Page> pages;
 
     /**
      * Every field must be present and not null.
@@ -26,13 +27,13 @@ public class Diary {
     public Diary(DiaryName diaryName) {
         requireAllNonNull(diaryName);
         this.diaryName = diaryName;
-        this.pages = new ArrayList<>();
+        this.pages = FXCollections.observableArrayList();
     }
 
     /**
      * Overloaded constructor for custom list of pages.
      */
-    public Diary(DiaryName diaryName, ArrayList<Page> pages) {
+    public Diary(DiaryName diaryName, ObservableList<Page> pages) {
         requireAllNonNull(diaryName);
         this.diaryName = diaryName;
         this.pages = pages;
@@ -42,6 +43,9 @@ public class Diary {
         return diaryName;
     }
 
+    public ObservableList<Page> getPages() {
+        return pages;
+    }
 
 
     /**

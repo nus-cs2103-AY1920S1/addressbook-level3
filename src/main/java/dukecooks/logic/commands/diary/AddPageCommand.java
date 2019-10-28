@@ -14,6 +14,7 @@ import dukecooks.model.Model;
 import dukecooks.model.diary.components.Diary;
 import dukecooks.model.diary.components.DiaryName;
 import dukecooks.model.diary.components.Page;
+import javafx.collections.ObservableList;
 
 
 /**
@@ -64,7 +65,7 @@ public class AddPageCommand extends AddCommand {
         }
 
         // add page to diary
-        ArrayList<Page> newPageList = wantedDiary.getPages();
+        ObservableList<Page> newPageList = wantedDiary.getPages();
         newPageList.add(pageToAdd);
         model.setDiary(wantedDiary, new Diary(wantedDiary.getDiaryName(), newPageList));
         return new CommandResult(String.format(MESSAGE_SUCCESS, pageToAdd));

@@ -11,6 +11,8 @@ import dukecooks.commons.exceptions.IllegalValueException;
 import dukecooks.model.diary.components.Diary;
 import dukecooks.model.diary.components.DiaryName;
 import dukecooks.model.diary.components.Page;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 /**
  * Jackson-friendly version of {@link Diary}.
@@ -49,7 +51,7 @@ class JsonAdaptedDiary {
      * @throws IllegalValueException if there were any data constraints violated in the adapted diary.
      */
     public Diary toModelType() throws IllegalValueException {
-        final ArrayList<Page> modelPages = new ArrayList<>();
+        final ObservableList<Page> modelPages = FXCollections.observableArrayList();
         for (JsonAdaptedPage page : pages) {
             modelPages.add(page.toModelType());
         }
