@@ -89,6 +89,11 @@ public class EditCommand extends Command {
                 && editTransactionDescriptor.equals(((EditCommand) other).editTransactionDescriptor);
     }
 
+    @Override
+    public String toString() {
+        return COMMAND_WORD;
+    }
+
     /**
      * Stores the details to edit the transaction with. Each non-empty field value will replace the
      * corresponding field value of the transaction.

@@ -29,7 +29,6 @@ import seedu.address.transaction.logic.commands.DeleteCommand;
 import seedu.address.transaction.logic.commands.DeleteIndexCommand;
 import seedu.address.transaction.logic.commands.DeleteNameCommand;
 import seedu.address.transaction.logic.commands.EditCommand;
-import seedu.address.transaction.logic.commands.ExitCommand;
 import seedu.address.transaction.logic.commands.FindCommand;
 import seedu.address.transaction.logic.commands.SortCommand;
 import seedu.address.transaction.logic.commands.SortNameCommand;
@@ -77,8 +76,8 @@ class TransactionTabParserTest {
 
     @Test
     public void parseCommand_exit() throws Exception {
-        assertTrue(parser.parseCommand(ExitCommand.COMMAND_WORD, personModel) instanceof ExitCommand);
-        assertTrue(parser.parseCommand(ExitCommand.COMMAND_WORD + " 3", personModel) instanceof ExitCommand);
+        assertTrue(parser.parseCommand(BackCommand.COMMAND_WORD, personModel) instanceof BackCommand);
+        assertTrue(parser.parseCommand(BackCommand.COMMAND_WORD + " 3", personModel) instanceof BackCommand);
     }
 
     @Test

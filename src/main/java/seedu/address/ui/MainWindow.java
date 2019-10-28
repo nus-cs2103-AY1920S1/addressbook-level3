@@ -222,6 +222,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     private OverallCommandResult executeCommand(String commandText) throws Exception {
         try {
+            logger.info("User input:" + commandText);
             OverallCommandResult commandResult;
             if (isUiCommand(commandText)) {
                 commandResult = uiLogic.execute(commandText);

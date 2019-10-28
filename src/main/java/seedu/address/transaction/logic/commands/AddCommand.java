@@ -34,4 +34,9 @@ public class AddCommand extends Command {
                 || (other instanceof AddCommand // instanceof handles nulls
                 && transaction.equals(((AddCommand) other).transaction));
     }
+
+    @Override
+    public String toString() {
+        return COMMAND_WORD;
+    }
 }

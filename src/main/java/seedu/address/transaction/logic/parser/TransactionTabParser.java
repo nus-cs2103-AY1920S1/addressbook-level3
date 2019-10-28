@@ -9,7 +9,6 @@ import seedu.address.transaction.logic.commands.BackCommand;
 import seedu.address.transaction.logic.commands.Command;
 import seedu.address.transaction.logic.commands.DeleteCommand;
 import seedu.address.transaction.logic.commands.EditCommand;
-import seedu.address.transaction.logic.commands.ExitCommand;
 import seedu.address.transaction.logic.commands.FindCommand;
 import seedu.address.transaction.logic.commands.SortCommand;
 import seedu.address.transaction.logic.commands.exception.NoSuchSortException;
@@ -64,9 +63,6 @@ public class TransactionTabParser {
 
         case FindCommand.COMMAND_WORD:
             return new FindCommandParser().parse(arguments);
-
-        case ExitCommand.COMMAND_WORD:
-            return new ExitCommand();
 
         case BackCommand.COMMAND_WORD:
             return new BackCommand();
