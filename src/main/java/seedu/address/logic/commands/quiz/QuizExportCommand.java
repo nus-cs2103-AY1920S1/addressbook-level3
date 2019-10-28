@@ -3,8 +3,10 @@ package seedu.address.logic.commands.quiz;
 import java.io.IOException;
 
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.CommandResultType;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.quiz.QuizBank;
 
 /**
  * Represents an export command, specific to a quiz.
@@ -38,7 +40,8 @@ public class QuizExportCommand extends QuizCommand {
         boolean isSuccess = model.exportQuiz(quizId);
 
         if (isSuccess) {
-            return new CommandResult(generateSuccessMessage(quizId));
+            QuizBank.setCurrentlyQueriedQuiz(quizId);
+            return new CommandResult(generateSuccessMessage(quizId), CommandResultType.SHOW_QUIZ_ALL);
         } else {
             return new CommandResult(generateFailureMessage(quizId));
         }

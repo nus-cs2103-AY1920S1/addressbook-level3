@@ -1,8 +1,10 @@
 package seedu.address.logic.commands.quiz;
 
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.CommandResultType;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.quiz.QuizBank;
 
 /**
  * Represents an quiz create command (automatic).
@@ -47,8 +49,9 @@ public class QuizCreateAutomaticallyCommand extends QuizCommand {
         if (model.checkQuizExists(quizId)) {
             return new CommandResult(String.format(QUIZ_ALREADY_EXISTS, quizId));
         }
+        QuizBank.setCurrentlyQueriedQuiz(quizId);
         model.createQuizAutomatically(quizId, numQuestions, type);
-        return new CommandResult(generateSuccessMessage());
+        return new CommandResult(generateSuccessMessage(), CommandResultType.SHOW_QUIZ_ALL);
     }
 
     /**

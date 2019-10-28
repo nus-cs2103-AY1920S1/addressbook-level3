@@ -38,7 +38,8 @@ public class QuizListQuestionsAndAnswersCommand extends QuizCommand {
             return new CommandResult(String.format(QUIZ_DOES_NOT_EXIST, quizId));
         }
         QuizBank.setCurrentlyQueriedQuiz(quizId);
-        return new CommandResult("Starting quiz view.", CommandResultType.SHOW_QUIZ_ALL);
+        return new CommandResult("Showing questions and answers for " + quizId + ".",
+                CommandResultType.SHOW_QUIZ_ALL);
     }
 
     /**

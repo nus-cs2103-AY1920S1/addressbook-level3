@@ -1,8 +1,10 @@
 package seedu.address.logic.commands.quiz;
 
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.CommandResultType;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.quiz.QuizBank;
 
 /**
  * Represents an add question command, specific to a quiz.
@@ -47,7 +49,8 @@ public class QuizAddQuestionCommand extends QuizCommand {
         } else {
             boolean isSuccess = model.addQuizQuestion(quizId, questionNumber, quizQuestionNumber);
             if (isSuccess) {
-                return new CommandResult(generateSuccessMessage());
+                QuizBank.setCurrentlyQueriedQuiz(quizId);
+                return new CommandResult(generateSuccessMessage(), CommandResultType.SHOW_QUIZ_ALL);
             } else {
                 return new CommandResult(generateFailureMessage());
             }
