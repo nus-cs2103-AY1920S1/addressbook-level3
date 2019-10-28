@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 //import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -29,14 +30,13 @@ public class FlashCardTestModelTest {
         assertFalse(flashCardTestModel.isEmpty());
     }
 
-    /*
     @Test
     public void getQuestion_validTestList_success() {
         flashCardTestModel = new FlashCardTestModel(testList);
+        Model model = new ModelManager();
         String expectedOutput = "0 + 10";
-        assertEquals(expectedOutput, flashCardTestModel.getQuestion());
+        assertEquals(expectedOutput, flashCardTestModel.getQuestion(model));
     }
-    */
 
     @Test
     public void equals() {
