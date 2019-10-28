@@ -34,6 +34,8 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.customer.Customer;
 import seedu.address.model.customer.predicates.CustomerContainsKeywordsPredicate;
+import seedu.address.model.order.Order;
+import seedu.address.model.order.predicates.OrderContainsKeywordsPredicate;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.model.phone.Capacity;
@@ -273,7 +275,7 @@ public class CommandTestUtil {
 
     /**
      * Updates {@code model}'s filtered list to show only the customer at the given {@code targetIndex} in the
-     * {@code model}'s address book.
+     * {@code model}'s customer book.
      */
     public static void showCustomerAtIndex(Model model, Index targetIndex) {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredCustomerList().size());
@@ -287,7 +289,7 @@ public class CommandTestUtil {
 
     /**
      * Updates {@code model}'s filtered list to show only the phone at the given {@code targetIndex} in the
-     * {@code model}'s address book.
+     * {@code model}'s phone book.
      */
     public static void showPhoneAtIndex(Model model, Index targetIndex) {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredPhoneList().size());
@@ -297,6 +299,20 @@ public class CommandTestUtil {
         model.updateFilteredPhoneList(new PhoneContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
         assertEquals(1, model.getFilteredPhoneList().size());
+    }
+
+    /**
+     * Updates {@code model}'s filtered list to show only the order at the given {@code targetIndex} in the
+     * {@code model}'s order book.
+     */
+    public static void showOrderAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredOrderList().size());
+
+        Order order = model.getFilteredOrderList().get(targetIndex.getZeroBased());
+        final String[] splitName = order.getId().toString().split("\\s+");
+        model.updateFilteredOrderList(new OrderContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+
+        assertEquals(1, model.getFilteredOrderList().size());
     }
 
 
