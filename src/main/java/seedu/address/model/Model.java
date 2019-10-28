@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.commands.CommandObject;
 import seedu.address.model.earnings.Earnings;
+import seedu.address.model.note.Notes;
 import seedu.address.model.person.Person;
 import seedu.address.model.reminder.Reminder;
 import seedu.address.model.task.Task;
@@ -28,6 +29,7 @@ public interface Model {
 
     Predicate<Reminder> PREDICATE_SHOW_ALL_REMINDERS = unused -> true;
 
+    Predicate<Notes> PREDICATE_SHOW_ALL_NOTES = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -156,7 +158,8 @@ public interface Model {
     /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Reminder> getFilteredReminderList();
 
-
+    /** Returns an unmodifiable view of the filtered notes list */
+    ObservableList<Notes> getFilteredNotesList();
 
     /**
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.
@@ -166,6 +169,11 @@ public interface Model {
 
     void updateFilteredCalendarList();
 
+    boolean userHasLoggedIn();
+
+    void isLoggedIn();
+
+    void isLoggedOut();
 
     void saveCommand(String command);
 
@@ -223,10 +231,31 @@ public interface Model {
     void deleteReminder(Reminder reminder);
 
     boolean hasReminder(Reminder reminder);
+  
     /**
      * Replaces the given person {@code target} with {@code editedPerson}.
      * {@code target} must exist in the address book.
      * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
      */
     void setReminder(Reminder reminder, Reminder editedReminder);
+
+    boolean hasNotes(Notes note);
+
+    void addNotes(Notes note);
+
+    void updateFilteredNotesList(Predicate<Notes> predicate);
+
+    /**
+     * Deletes the given person.
+     * The person must exist in the address book.
+     */
+    void deleteNotes(Notes target);
+
+    /**
+     * Replaces the given notes {@code target} with {@code editedNote}.
+     * {@code target} must exist in the address book.
+     * The note identity of {@code editedNote} must not be the same as another existing note in the address book.
+     */
+    void setNotes(Notes target, Notes editedNote);
+
 }

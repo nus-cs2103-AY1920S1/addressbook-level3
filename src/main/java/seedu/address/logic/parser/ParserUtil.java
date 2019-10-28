@@ -3,14 +3,14 @@ package seedu.address.logic.parser;
 import static java.util.Objects.requireNonNull;
 
 import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.TreeMap;
+import java.util.TreeSet;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.WindowView;
+import seedu.address.model.account.Username;
 import seedu.address.model.classid.ClassId;
 import seedu.address.model.commands.CommandAction;
 import seedu.address.model.commands.CommandObject;
@@ -19,6 +19,8 @@ import seedu.address.model.earnings.Amount;
 import seedu.address.model.earnings.Date;
 import seedu.address.model.earnings.Month;
 import seedu.address.model.earnings.Week;
+import seedu.address.model.note.Content;
+import seedu.address.model.note.ModuleCode;
 import seedu.address.model.person.Attendance;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Participation;
@@ -27,9 +29,7 @@ import seedu.address.model.person.Result;
 import seedu.address.model.reminder.ReminderDescription;
 import seedu.address.model.reminder.ReminderTime;
 import seedu.address.model.task.Marking;
-import seedu.address.model.task.TaskDescription;
 import seedu.address.model.task.TaskTime;
-
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -175,16 +175,6 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String taskDescription} into a {@code TaskDescription}.
-     * Leading and trailing whitespaces will be trimmed.
-     */
-    public static TaskDescription parseTaskDescription(String taskDescription) {
-        requireNonNull(taskDescription);
-        String trimmedTaskDescription = taskDescription.trim();
-        return new TaskDescription(trimmedTaskDescription);
-    }
-
-    /**
      * Parses a {@code String taskTime} into a {@code TaskTime}.
      * Leading and trailing whitespaces will be trimmed.
      *
@@ -202,9 +192,9 @@ public class ParserUtil {
     /**
      * Parses {@code Collection<String> taskTimes} into a {@code Set<TaskTime>}.
      */
-    public static Set<TaskTime> parseTaskTimes(Collection<String> taskTimes) throws ParseException {
+    public static TreeSet<TaskTime> parseTaskTimes(Collection<String> taskTimes) throws ParseException {
         requireNonNull(taskTimes);
-        final Set<TaskTime> taskTimeList = new HashSet<>();
+        final TreeSet<TaskTime> taskTimeList = new TreeSet<>(TaskTime::compareTo);
         for (String taskTime : taskTimes) {
             taskTimeList.add(parseTaskTime(taskTime));
         }
@@ -321,5 +311,48 @@ public class ParserUtil {
             reminderTimeList.add(parseReminderTime(reminderTime));
         }
         return reminderTimeList;
+    /**
+     * Parses a {@code String username} into an {@code Username}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code username} is invalid.
+     */
+    public static Username parseUsername(String username) throws ParseException {
+        requireNonNull(username);
+        String trimmedUsername = username.trim();
+        if (!Username.isValidUsername(trimmedUsername)) {
+            throw new ParseException(Username.MESSAGE_CONSTRAINTS);
+        }
+        return new Username(trimmedUsername);
+    }
+
+    /**
+     * Parses a {@code String code} into an {@code ModuleCode}.
+     * @param code String of module code.
+     * @return ModuleCode.
+     * @throws ParseException if the given {@code code} is invalid.
+     */
+    public static ModuleCode parseModuleCode(String code) throws ParseException {
+        requireNonNull(code);
+        String trimmedCode = code.trim();
+        if (!ModuleCode.isValidModuleCode(trimmedCode)) {
+            throw new ParseException(Name.MESSAGE_CONSTRAINTS);
+        }
+        return new ModuleCode(trimmedCode);
+    }
+
+    /**
+     * Parses a {@code String content} into an {@code Content}.
+     * @param content String of content.
+     * @return Content.
+     * @throws ParseException if the given {@code code} is invalid.
+     */
+    public static Content parseContent(String content) throws ParseException {
+        requireNonNull(content);
+        String trimmedContent = content.trim();
+        if (!Content.isValidContent(trimmedContent)) {
+            throw new ParseException(Name.MESSAGE_CONSTRAINTS);
+        }
+        return new Content(trimmedContent);
     }
 }

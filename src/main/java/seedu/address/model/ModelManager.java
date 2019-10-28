@@ -10,10 +10,13 @@ import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.account.Account;
 import seedu.address.model.commands.CommandObject;
 import seedu.address.model.earnings.Earnings;
+import seedu.address.model.note.Notes;
 import seedu.address.model.person.Person;
 import seedu.address.model.reminder.Reminder;
 import seedu.address.model.task.Task;
@@ -23,16 +26,20 @@ import seedu.address.ui.UiManager;
  * Represents the in-memory model of the address book data.
  */
 public class ModelManager implements Model {
+
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
+    private static boolean loggedIn = false;
 
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
+    private Account account;
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<Earnings> filteredEarnings;
     private final FilteredList<CommandObject> filteredCommands;
     private Stack<String> savedCommand;
     private final FilteredList<Task> filteredTasks;
     private final FilteredList<Reminder> filteredReminder;
+    private final FilteredList<Notes> filteredNotes;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -51,12 +58,22 @@ public class ModelManager implements Model {
         savedCommand = new Stack<String>();
         filteredTasks = new FilteredList<>(this.addressBook.getTaskList());
         filteredReminder = new FilteredList<>(this.addressBook.getReminderList());
-
+        filteredNotes = new FilteredList<>(this.addressBook.getNotesList());
     }
 
     public ModelManager() {
         this(new AddressBook(), new UserPrefs());
+    }
 
+    /*public ModelManager(Account acc) {
+        this(new AddressBook(), new UserPrefs());
+        this.account = acc;
+    }*/
+
+    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs, Account acc) {
+        this(addressBook, userPrefs);
+        this.account = acc;
+        loggedIn = true;
     }
 
     //=========== UserPrefs ==================================================================================
@@ -242,6 +259,14 @@ public class ModelManager implements Model {
         return filteredCommands;
     }
 
+    public ObservableList<Reminder> getFilteredReminderList() {
+        return filteredReminder;
+    }
+
+    public ObservableList<Notes> getFilteredNotesList() {
+        return filteredNotes;
+    }
+
     @Override
     public void updateFilteredEarningsList(Predicate<Earnings> predicate) {
         requireNonNull(predicate);
@@ -335,4 +360,52 @@ public class ModelManager implements Model {
         return filteredReminder;
     }
 
+    public Account getAccount() {
+        return account;
+    }
+
+
+    public void isLoggedIn() {
+        loggedIn = true;
+    }
+
+    public void isLoggedOut() {
+        loggedIn = false;
+    }
+
+    @Override
+    public boolean userHasLoggedIn() {
+        return loggedIn;
+    }
+
+    @Override
+    public boolean hasNotes(Notes note) {
+        requireNonNull(note);
+        return addressBook.hasNotes(note);
+    }
+
+    @Override
+    public void addNotes(Notes notes) {
+        addressBook.addNotes(notes);
+        updateFilteredNotesList(PREDICATE_SHOW_ALL_NOTES);
+    }
+
+    @Override
+    public void deleteNotes(Notes target) {
+        addressBook.removeNotes(target);
+    }
+
+    @Override
+    public void setNotes(Notes target, Notes editedNote) {
+        requireAllNonNull(target, editedNote);
+
+        addressBook.setNotes(target, editedNote);
+    }
+
+    @Override
+    public void updateFilteredNotesList(Predicate<Notes> predicate) {
+        requireNonNull(predicate);
+        filteredNotes.setPredicate(predicate);
+        UiManager.startNotes();
+    }
 }

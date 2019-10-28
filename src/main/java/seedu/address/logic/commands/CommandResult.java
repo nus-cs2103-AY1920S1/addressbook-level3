@@ -25,7 +25,7 @@ public class CommandResult {
 
     private boolean showEarnings;
     private Earnings earnings;
-
+    private boolean userRegister = false;
     private boolean showTasks;
     private Task task;
 
@@ -100,6 +100,14 @@ public class CommandResult {
 
     public Earnings getEarnings() {
         return earnings;
+    }
+
+    public void userRegistering() {
+        userRegister = !userRegister;
+    }
+
+    public boolean isRegister() {
+        return userRegister;
     }
 
     public boolean isTasks() {

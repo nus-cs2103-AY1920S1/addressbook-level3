@@ -73,7 +73,7 @@ public class SuggestionsField extends TextField {
         while (count < matchingCommands.size()) {
             String commandWord = matchingCommands.get(count);
             Label commandDescription = new Label(
-                    commandWord + " - executes a " + commandList.get(commandWord) + " command."
+                    commandWord + " - executes a <" + commandList.get(commandWord) + "> command."
             );
             CustomMenuItem commandMenuItem = new CustomMenuItem(commandDescription, false);
             itemsToDisplay.push(commandMenuItem);

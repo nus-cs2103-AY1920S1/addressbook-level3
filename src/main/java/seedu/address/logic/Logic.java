@@ -10,6 +10,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.commands.CommandObject;
 import seedu.address.model.earnings.Earnings;
+import seedu.address.model.note.Notes;
 import seedu.address.model.person.Person;
 import seedu.address.model.reminder.Reminder;
 import seedu.address.model.task.Task;
@@ -26,9 +27,7 @@ public interface Logic {
      * @throws CommandException If an error occurs during command execution.
      * @throws ParseException If an error occurs during parsing.
      */
-    CommandResult execute(String commandText) throws CommandException, ParseException;
-
-    CommandResult executeUnknown(String commandText) throws CommandException, ParseException;
+    CommandResult execute(String commandText, boolean isUnknown) throws CommandException, ParseException;
 
     /**
      * Returns the AddressBook.
@@ -52,6 +51,8 @@ public interface Logic {
     /** Returns an unmodifiable view of the filtered list of reminders */
     ObservableList<Reminder> getFilteredReminderList();
 
+    /** Returns an unmodifiable view of the filtered list of notes */
+    ObservableList<Notes> getFilteredNotesList();
 
     /**
      * Returns the user prefs' address book file path.
