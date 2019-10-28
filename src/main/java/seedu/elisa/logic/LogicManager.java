@@ -51,7 +51,7 @@ public class LogicManager implements Logic {
     }
 
     /**
-     * Shutdown threads for Reminders and AutoRescheduleManager
+     * Shutdown threads for Reminders, PriorityMode and AutoRescheduleManager
      */
     public final void shutdown() {
         checker.shutdown();

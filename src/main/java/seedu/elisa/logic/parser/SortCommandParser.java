@@ -38,7 +38,8 @@ public class SortCommandParser {
                     .compareTo(item2.getItemDescription().getDescription());
             break;
         case PRIORITY:
-            // waiting for priority to be moved out to the item level
+            comparator = (item1, item2) -> item1.getPriority().compareTo(item2.getPriority());
+            break;
         default:
             throw new ParseException("The flag given for sort command is incorrect. "
                     + "Example usage: \"sort desc\"");
