@@ -42,6 +42,36 @@ public class StringUtil {
     }
 
     /**
+     * Returns true if the {@code sentence} contains {@code str}.
+     *   Ignores case, as long as word in sentence matches partially the given string.
+     *   <br>examples:<pre>
+     *       containsPartialWordIgnoreCase("ABc def", "abc") == true
+     *       containsPartialWordIgnoreCase("ABc def", "DEF") == true
+     *       containsPartialWordIgnoreCase("ABc def", "AB") == true
+     *       </pre>
+     * @param sentence cannot be null
+     * @param str cannot be null, cannot be empty, must be a single str
+     */
+    public static boolean containsPartialWordIgnoreCase(String sentence, String str) {
+        requireNonNull(sentence);
+        requireNonNull(str);
+
+        String preppedWord = str.trim().toLowerCase();
+        checkArgument(!preppedWord.isEmpty(), "Word parameter cannot be empty");
+        checkArgument(preppedWord.split("\\s+").length == 1, "Word parameter should be a single str");
+
+        String preppedSentence = sentence;
+        String[] wordsInPreppedSentence = preppedSentence.split("\\s+");
+
+        for (int i = 0; i < wordsInPreppedSentence.length; i++) {
+            wordsInPreppedSentence[i] = wordsInPreppedSentence[i].toLowerCase();
+        }
+
+        return Arrays.stream(wordsInPreppedSentence)
+                .anyMatch(word -> word.contains(preppedWord));
+    }
+
+    /**
      * Returns true if the {@code sentence} contains the {@code word}.
      *   Ignores case, but a full word match is required.
      *   <br>examples:<pre>

@@ -15,6 +15,12 @@ public class LogEntryMatchLogEntryTypesPredicate implements Predicate<LogEntry> 
 
     @Override
     public boolean test(LogEntry logEntry) {
+
+        // If not specified, return all entries
+        if (entryTypes.size() == 0) {
+            return true;
+        }
+
         return entryTypes.stream()
                 .anyMatch(type -> logEntry.getLogEntryType().equalsIgnoreCase(type));
     }

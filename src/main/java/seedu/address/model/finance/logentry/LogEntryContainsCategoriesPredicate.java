@@ -10,38 +10,44 @@ import seedu.address.commons.util.StringUtil;
  * {@code From}, {@code To} matches any of the keywords given.
  */
 public class LogEntryContainsCategoriesPredicate implements Predicate<LogEntry> {
-    private final List<String> keywords;
+    private final List<String> categories;
 
-    public LogEntryContainsCategoriesPredicate(List<String> keywords) {
-        this.keywords = keywords;
+    public LogEntryContainsCategoriesPredicate(List<String> categories) {
+        this.categories = categories;
     }
 
     @Override
     public boolean test(LogEntry logEntry) {
-        boolean descriptionMatch = keywords.stream()
+
+        // If not specified, return all entries
+        if (categories.size() == 0) {
+            return true;
+        }
+
+        boolean descriptionMatch = categories.stream()
                 .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(logEntry.getDescription().value, keyword));
-        boolean tMethodMatch = keywords.stream()
+        boolean tMethodMatch = categories.stream()
                 .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(logEntry.getTransactionMethod().value, keyword));
         boolean fromMatch = false;
         boolean toMatch = false;
         boolean placeMatch = false;
         if (logEntry instanceof SpendLogEntry) {
-            placeMatch = keywords.stream()
+            placeMatch = categories.stream()
                     .anyMatch(keyword -> StringUtil.containsWordIgnoreCase((
                             (SpendLogEntry) logEntry).getPlace().value, keyword));
         }
         if (logEntry instanceof IncomeLogEntry) {
-            fromMatch = keywords.stream()
+            fromMatch = categories.stream()
                     .anyMatch(keyword -> StringUtil.containsWordIgnoreCase((
                             (IncomeLogEntry) logEntry).getFrom().name, keyword));
         }
         if (logEntry instanceof BorrowLogEntry) {
-            fromMatch = keywords.stream()
+            fromMatch = categories.stream()
                     .anyMatch(keyword -> StringUtil.containsWordIgnoreCase((
                             (BorrowLogEntry) logEntry).getFrom().name, keyword));
         }
         if (logEntry instanceof LendLogEntry) {
-            toMatch = keywords.stream()
+            toMatch = categories.stream()
                     .anyMatch(keyword -> StringUtil.containsWordIgnoreCase((
                             (LendLogEntry) logEntry).getTo().name, keyword));
         }
@@ -53,7 +59,7 @@ public class LogEntryContainsCategoriesPredicate implements Predicate<LogEntry> 
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof LogEntryContainsCategoriesPredicate // instanceof handles nulls
-                && keywords.equals(((LogEntryContainsCategoriesPredicate) other).keywords)); // state check
+                && categories.equals(((LogEntryContainsCategoriesPredicate) other).categories)); // state check
     }
 
 }

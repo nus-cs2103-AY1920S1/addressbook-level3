@@ -30,20 +30,42 @@ public class FindCommandParser implements Parser<FindCommand> {
                 ArgumentTokenizer.tokenize(args, PREFIX_SORT, PREFIX_FILTER,
                         PREFIX_KEYWORD, PREFIX_CATEGORY);
 
+        String sortAttr = FindCommand.SORT_DEFAULT_ATTR;
+        if (argMultimap.getValue(PREFIX_SORT).isPresent()) {
+            sortAttr = ParserUtil.parseSort(argMultimap.getValue(PREFIX_SORT).get());
+        }
+
+        ArrayList<String> filterTypes = new ArrayList<String>();
+        if (argMultimap.getValue(PREFIX_FILTER).isPresent()) {
+            filterTypes = ParserUtil.parseFilterTypes(argMultimap.getValue(PREFIX_FILTER).get());
+        }
+
+        String[] catsToFind = null;
+        if (argMultimap.getValue(PREFIX_CATEGORY).isPresent()) {
+            catsToFind = argMultimap.getValue(PREFIX_CATEGORY).get().trim().split("\\s+");
+        }
+
+        String[] keywords = null;
+        if (argMultimap.getValue(PREFIX_KEYWORD).isPresent()) {
+            keywords = argMultimap.getValue(PREFIX_KEYWORD).get().trim().split("\\s+");
+        }
+
         // At least one field present
-        if (!argMultimap.getPreamble().isEmpty()) {
+        boolean isSortAttrSpecified = sortAttr != FindCommand.SORT_DEFAULT_ATTR;
+        boolean isFilterTypeSpecified = filterTypes.size() == 0;
+        boolean isCatsToFindSpecified = catsToFind != null;
+        boolean isKeywordFieldSpecified = keywords != null;
+        if (!isSortAttrSpecified && !isFilterTypeSpecified
+            && !isCatsToFindSpecified && !isKeywordFieldSpecified) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
         }
 
-        String sortAttr = ParserUtil.parseSort(argMultimap.getValue(PREFIX_SORT).get());
-        ArrayList<String> filterTypes = ParserUtil.parseFilterTypes(argMultimap.getValue(PREFIX_FILTER).get());
-        String[] catsToFind = argMultimap.getValue(PREFIX_CATEGORY).get().trim().split("\\s+");
-        String[] keywords = argMultimap.getValue(PREFIX_KEYWORD).get().trim().split("\\s+");
-
         return new FindCommand(sortAttr,
                 new LogEntryMatchLogEntryTypesPredicate(filterTypes),
-                new LogEntryContainsKeywordsPredicate(Arrays.asList(keywords)),
-                new LogEntryContainsCategoriesPredicate(Arrays.asList(catsToFind)));
+                new LogEntryContainsKeywordsPredicate(
+                        keywords == null ? new ArrayList<String>() : Arrays.asList(keywords)),
+                new LogEntryContainsCategoriesPredicate(
+                        catsToFind == null ? new ArrayList<String>() : Arrays.asList(catsToFind)));
     }
 
 }

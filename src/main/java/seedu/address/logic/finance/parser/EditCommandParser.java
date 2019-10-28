@@ -50,6 +50,7 @@ public class EditCommandParser implements Parser<EditCommand> {
         }
 
         EditLogEntryDescriptor editLogEntryDescriptor = new EditCommand.EditLogEntryDescriptor();
+
         if (argMultimap.getValue(PREFIX_AMOUNT).isPresent()) {
             editLogEntryDescriptor.setAmount(ParserUtil.parseAmount(argMultimap.getValue(PREFIX_AMOUNT).get()));
         }

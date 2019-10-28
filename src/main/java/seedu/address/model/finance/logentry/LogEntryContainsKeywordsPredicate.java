@@ -8,6 +8,7 @@ import seedu.address.commons.util.StringUtil;
 /**
  * Tests that a {@code LogEntry}'s {@code Description}, {@code Place}, {@code TransactionMethod},
  * {@code From}, {@code To} matches any of the keywords given.
+ * Partial word match is allowed for {@code Description}.
  */
 public class LogEntryContainsKeywordsPredicate implements Predicate<LogEntry> {
     private final List<String> keywords;
@@ -18,10 +19,17 @@ public class LogEntryContainsKeywordsPredicate implements Predicate<LogEntry> {
 
     @Override
     public boolean test(LogEntry logEntry) {
+
+        // If not specified, return all entries
+        if (keywords.size() == 0) {
+            return true;
+        }
+
         boolean descriptionMatch = keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(logEntry.getDescription().value, keyword));
+                .anyMatch(keyword -> StringUtil.containsPartialWordIgnoreCase(logEntry.getDescription().value, keyword));
         boolean tMethodMatch = keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(logEntry.getTransactionMethod().value, keyword));
+                .anyMatch(transactionMethod -> StringUtil.containsWordIgnoreCase(
+                        logEntry.getTransactionMethod().value, transactionMethod));
         boolean fromMatch = false;
         boolean toMatch = false;
         boolean placeMatch = false;
