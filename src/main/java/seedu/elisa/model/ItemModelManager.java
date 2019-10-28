@@ -346,6 +346,23 @@ public class ItemModelManager implements ItemModel {
         return item;
     }
 
+    /**
+     * Deletes an item from the program.
+     * @param item the item to be deleted.
+     * @return the item that was deleted from the program
+     */
+    public Item deleteItem(Item item) {
+        visualList.removeItemFromList(item);
+        itemStorage.remove(item);
+        taskList.removeItemFromList(item);
+        eventList.removeItemFromList(item);
+        reminderList.removeItemFromList(item);
+        if (priorityMode) {
+            getNextTask();
+        }
+        return item;
+    }
+
     public ItemIndexWrapper getIndices(int index) {
         Item item = visualList.get(index);
         return new ItemIndexWrapper(item, index, itemStorage.indexOf(item), taskList.indexOf(item),
