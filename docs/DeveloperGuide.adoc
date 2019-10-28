@@ -61,7 +61,7 @@ Holds the data of live game sessions in-memory.
 * <<Design-Storage,*`Storage`*>>: +
 Reads data from, and writes data to, the local hard disk.
 
-For the components UI, Logic, Model and Game:
+For the components UI, Logic, Model, Timer and Game:
 
 * Defines its _API_ in an `interface` with the same name as the Component.
 * Exposes its functionality using a `{Component Name}Manager` class.
@@ -106,6 +106,22 @@ The `UI` component,
 [[Design-Timer]]
 === Timer component
 
+[[fig-TimerClassDiagram]]
+.Structure of the Timer Component
+image::TimerClassDiagram.png[]
+
+*API* :
+link:{repoURL}/blob/master/src/main/java/seedu/address/appmanager/timer/GameTimer.java[`GameTimer.java`]
+
+The `Timer` consists of a `GameTimer` that will keep track of time elapsed via an internal countdown timer
+and notify the `AppManager`, who will notify the `UI` components.
+
+* Dealing with the internal countdown timer that runs during a game session.
+* Periodically triggering _callbacks_ that will notify either the `AppManager` component.
+* Gets timestamps to trigger `Hints` via a `HintTimingQueue`
+
+_Due to the fact that the timer has to work closely with the `UI` and `AppManager` (without being
+coupled directly), it is separated from the `Logic`, `Model` and `Game` components._
 
 [[Design-Logic]]
 === Logic component
@@ -188,7 +204,7 @@ Classes used by multiple components are in the `seedu.Dukemon.commons` package.
 This section describes some noteworthy details on how certain features are implemented.
 
 // tag::undoredo[]
-=== AutoComplete feature for command execution
+=== [underline]#AutoComplete Feature# (for command execution)
 ==== Implementation
 
 The AutoComplete is facilitated by `ParserManager`.
@@ -251,7 +267,7 @@ The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, whic
 // end::undoredo[]
 
 // tag::settings[]
-=== Settings
+=== [underline]#Settings Feature#
 ==== Implementation
 `AppSettings` was a class that was created to be integrated into the `Model` of the app. It currently contains these functionalities:
 
@@ -316,6 +332,94 @@ Unlike Alternative 1, the developer can create an extension to the class impleme
 The considerations for this aspect was mainly down to how much customisability we wanted to grant our users. While having more customisability is better in some cases,
 in this one, we do not think the added functionality of allowing the user to extensively customise their experience with our application to be particularly impactful not necessary. Moreover, alternative 2 makes for a less organised code base and we wanted to avoid that as much as possible.
 |===
+
+=== [underline]#Timer Feature#
+
+.Screenshot of the `Timer` component in action as seen through the `UI`.
+image::TimerDGScreenshot.png[]
+
+==== Implementation Overview
+
+The `Timer` component utilizes the `java.util.Timer` API to simulate a stopwatch during a `Game`. It also relies on
+using _Functional Interfaces_ as _callbacks_ to periodically notify other components in the system. Using _callbacks_
+allows the `Timer` to enact changes in other components of the system without directly holding a reference to those
+components.
+
+Internally, the `Timer`
+works by using the method `java.util.Timer.schedule()` that will schedule `java.util.TimerTasks` at a fixed rate.
+
+An _Observer Pattern_ is loosly followed between the `Timer` and the other components. As opposed to defining an
+_Observable_ interface, the `AppManager` simply passes in _method pointers_ into the `Timer` to _callback_ when an
+event is triggered. The `AppManager` thus works closely with the `Timer` as the main hub to enact changes based on
+signals given by the `Timer`.
+
+[NOTE]
+To avoid
+synchronization issues with the `UI` component, all
+`TimerTasks` (such as requesting to refresh a component of the `UI`) are forced to run on the *JavaFX Application Thread* using
+`Platform.runLater()`.
+
+
+.Class diagram reflecting how the callback-functions are organized in the Timer component.
+image::TimerClassDiagramCallbacks.png[]
+
+The three main events that are currently triggered by the `Timer` component which require a _callback_ are:
+
+1. Time has elapsed, _callback_ to `AppManager` to update and display the new timestamp on the `UI`.
+2. Time has run out (_reached zero_), _callback_ to `AppManager` to skip over to next `Card`.
+3. Time has reached a point where `Hints` are to be given to the User, _callback_ to `AppManager` to retrieve a hint
+and display accordingly on the `UI`.
+
+The call-backs for each of these events are implemented as nested _Functional Interfaces_
+within the  `GameTimer` interface, which is concretized via the `GameTimerManager`.
+
+==== Flow of Events
+
+This section describes the sequential flow of events in the life cycle of a `GameTimer` object.
+
+.Sequence diagram describing the flow of registering and executing callbacks between the different components
+image::TimerSequenceDiagram1.png[]
+
+The `UI` component first registers callbacks with the `AppManager`, who then registers callbacks with
+the `Timer` component. Periodically, the `Timer` will notify the `AppManager` to perform tasks to notify
+the `UI` component. This is to provide better abstraction between the `UI` and `Timer`.
+
+A `GameTimer` instance is created by the `AppManager` for every `Card` of a `Game`.
+The `AppManager` provides information regarding the duration in which the `Timer` should run for, and whether
+to trigger `Hints` at the point when a `GameTimer` instance is created.
+
+==== Design Considerations
+
+There were a few considerations for designing the `Timer` this way.
+
+|===
+||**Alternative 1**|**Alternative 2**
+|**Aspect 1**: +
+Where and How to effect changes to the `Ui` and other components when the `Timer` triggers an event.
+| **Holding a reference to `Ui` and other components directly inside `GameTimer` itself**: +
+
+_Pros:_ +
+Straightforward and direct, can perform many different tasks on the dependent components.  +
+
+_Cons:_ +
+Poor abstraction and high potential for cyclic dependencies, resulting in high coupling.
+
+|**Using _Functional Interfaces_ as Call-backs to notify components indirectly.** +
+
+_Pros:_ +
+Maintains abstraction and minimal coupling between `Timer` and other components  +
+
+_Cons:_ +
+Relies on developer to register correct call-back methods with the `Timer`. Different actions need to be
+implemented as different call-backs separately. Possible overhead in performing few levels of call-backs.
+
+3+|**Why did we choose Alternative 2:** +
+To ensure better extendability of our code for future expansion, we felt it was important to maintain as much
+abstraction between components. This is also to make life easier when there comes a need to
+debug and resolve problems in the code.
+ +
+|===
+
 
 // end::settings[]
 

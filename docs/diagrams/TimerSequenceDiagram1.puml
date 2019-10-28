@@ -1,0 +1,61 @@
+@startuml
+!include style.puml
+
+box UI UI_COLOR_T1
+participant ":MainWindow" as MainWindow UI_COLOR
+end box
+
+
+box AppManager APPMANAGER_COLOR_T1
+participant ":AppManager" as AppManager APPMANAGER_COLOR
+end box
+
+box Timer TIMER_COLOR_T1
+participant ":GameTimer" as GameTimer TIMER_COLOR
+
+end box
+
+
+[-> MainWindow : initialize
+activate MainWindow
+MainWindow -> AppManager : register callback methods
+activate AppManager
+AppManager --> MainWindow
+deactivate AppManager
+
+deactivate MainWindow
+
+
+AppManager -> AppManager : create new \nGameTimer instance
+activate AppManager
+
+AppManager -> GameTimer : resgister callback methods
+activate GameTimer
+GameTimer --> AppManager
+deactivate GameTimer
+AppManager --> AppManager
+deactivate AppManager
+
+AppManager -> GameTimer : run()
+activate GameTimer
+
+GameTimer -> AppManager : Callback to\n update timestamp
+note right: Time elapsed, GameTimer \n performs a call-back \n to AppManager
+
+activate AppManager
+AppManager -> MainWindow : Callback to\n update timestamp
+note right: AppManager performs\na call-back to MainWindow
+
+activate MainWindow
+[<- MainWindow : update\n UI Component
+
+MainWindow --> AppManager
+deactivate MainWindow
+AppManager --> GameTimer
+
+deactivate  AppManager
+
+GameTimer --> AppManager
+deactivate GameTimer
+
+@enduml

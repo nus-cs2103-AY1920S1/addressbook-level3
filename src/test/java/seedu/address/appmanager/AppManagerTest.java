@@ -126,7 +126,7 @@ class AppManagerTest {
     void setTimerDisplayCallBack() {
         TimerDisplayStub timerDisplayStub = new TimerDisplayStub();
         AppManager.TimerDisplayCallBack dummyCallBack = timerDisplayStub::updateTimerDisplay;
-        dummyAppManager.setTimerDisplayCallBack(dummyCallBack);
+        dummyAppManager.registerTimerDisplayCallBack(dummyCallBack);
         try {
             final Field field = dummyAppManager.getClass().getDeclaredField("timerDisplayCallBack");
             field.setAccessible(true);
@@ -138,14 +138,14 @@ class AppManagerTest {
 
     @Test
     void setTimerDisplayCallBack_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> dummyAppManager.setTimerDisplayCallBack(null));
+        assertThrows(NullPointerException.class, () -> dummyAppManager.registerTimerDisplayCallBack(null));
     }
 
     @Test
     void setHintDisplayCallBack() {
         HintDisplayStub hintDisplayStub = new HintDisplayStub();
         AppManager.HintDisplayCallBack dummyCallBack = hintDisplayStub::updateHintDisplay;
-        dummyAppManager.setHintDisplayCallBack(dummyCallBack);
+        dummyAppManager.registerHintDisplayCallBack(dummyCallBack);
         try {
             final Field field = dummyAppManager.getClass().getDeclaredField("hintDisplayCallBack");
             field.setAccessible(true);
@@ -157,14 +157,14 @@ class AppManagerTest {
 
     @Test
     void setHintDisplayCallBack_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> dummyAppManager.setHintDisplayCallBack(null));
+        assertThrows(NullPointerException.class, () -> dummyAppManager.registerHintDisplayCallBack(null));
     }
 
     @Test
     void setMainWindowExecuteCallBack() {
         MainWindowStub mainWindowStub = new MainWindowStub();
         AppManager.MainWindowExecuteCallBack dummyCallBack = mainWindowStub::execute;
-        dummyAppManager.setMainWindowExecuteCallBack(dummyCallBack);
+        dummyAppManager.registerMainWindowExecuteCallBack(dummyCallBack);
         try {
             final Field field = dummyAppManager.getClass().getDeclaredField("mainWindowExecuteCallBack");
             field.setAccessible(true);
@@ -176,14 +176,14 @@ class AppManagerTest {
 
     @Test
     void setMainWindowExecuteCallBack_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> dummyAppManager.setMainWindowExecuteCallBack(null));
+        assertThrows(NullPointerException.class, () -> dummyAppManager.registerMainWindowExecuteCallBack(null));
     }
 
     @Test
     void setQuestionDisplayCallBack() {
         QuestionDisplayStub questionDisplayStub = new QuestionDisplayStub();
         AppManager.QuestionDisplayCallBack dummyCallBack = questionDisplayStub::updateQuestionDisplay;
-        dummyAppManager.setQuestionDisplayCallBack(dummyCallBack);
+        dummyAppManager.registerQuestionDisplayCallBack(dummyCallBack);
         try {
             final Field field = dummyAppManager.getClass().getDeclaredField("questionDisplayCallBack");
             field.setAccessible(true);
@@ -195,7 +195,7 @@ class AppManagerTest {
 
     @Test
     void setQuestionDisplayCallBack_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> dummyAppManager.setQuestionDisplayCallBack(null));
+        assertThrows(NullPointerException.class, () -> dummyAppManager.registerQuestionDisplayCallBack(null));
     }
 
     private class LogicStub implements Logic {
