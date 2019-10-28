@@ -27,6 +27,7 @@ public class SetCommand extends Command {
             + PREFIX_CATEGORY + "food expenditure ";
 
     public static final String MESSAGE_SUCCESS = "New budget successfully set: %1$s";
+    public static final String MESSAGE_DUPLICATE = "This budget already exists: %1$s";
 
     private Budget budget;
 
@@ -39,9 +40,13 @@ public class SetCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        model.addBudget(budget);
-        model.commitBankAccount();
-        return new CommandResult(String.format(MESSAGE_SUCCESS, budget));
+        if (model.hasBudget(budget)) {
+            return new CommandResult(String.format(MESSAGE_DUPLICATE, budget));
+        } else {
+            model.addBudget(budget);
+            model.commitBankAccount();
+            return new CommandResult(String.format(MESSAGE_SUCCESS, budget));
+        }
     }
 
 

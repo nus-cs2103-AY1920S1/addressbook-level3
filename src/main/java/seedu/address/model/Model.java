@@ -99,6 +99,12 @@ public interface Model {
     boolean hasTransaction(BankAccountOperation transaction);
 
     /**
+     * Returns true if a budget with the same identity as {@code budget} exists in the bank account.
+     * @param budget
+     */
+    boolean hasBudget(Budget budget);
+
+    /**
      * Deletes the given transaction.
      * The transaction must exist in the bank account.
      * @param transaction
