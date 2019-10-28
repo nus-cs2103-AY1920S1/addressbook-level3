@@ -5,7 +5,7 @@ import static seedu.algobase.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_END_DATE;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_START_DATE;
-import static seedu.algobase.logic.parser.ParserUtil.arePrefixesPresent;
+import static seedu.algobase.logic.parser.ParserUtil.hasPrefixesPresent;
 import static seedu.algobase.logic.parser.ParserUtil.parseDate;
 
 import java.time.LocalDate;
@@ -46,7 +46,8 @@ public class FindPlanCommandParser implements Parser {
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_DESCRIPTION,
                         PREFIX_START_DATE, PREFIX_END_DATE);
 
-        if (!arePrefixesPresent(argumentMultimap, PREFIX_NAME)
+        if (!hasPrefixesPresent(argumentMultimap, PREFIX_NAME, PREFIX_DESCRIPTION,
+                PREFIX_START_DATE, PREFIX_END_DATE)
                 || !argumentMultimap.getPreamble().isBlank()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindPlanCommand.MESSAGE_USAGE));
         }

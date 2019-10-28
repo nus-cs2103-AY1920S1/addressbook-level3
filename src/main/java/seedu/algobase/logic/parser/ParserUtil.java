@@ -269,6 +269,14 @@ public class ParserUtil {
         return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 
+    /**
+     * Returns true if some of the prefixes contain present {@code Optional} values in the given
+     * {@code ArgumentMultimap}.
+     */
+    public static boolean hasPrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
+        return Stream.of(prefixes).anyMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
+    }
+
     /** Parses a {@code String date} into an {@code LocalDate}.
      *
      * @throws ParseException if the given {@code date} is invalid.
