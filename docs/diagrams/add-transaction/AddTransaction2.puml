@@ -10,6 +10,7 @@ package "Transactions List" {
     class transaction1 as "__:Income__" {
         <color:#white>Description: "Bursary"
         <color:#white>Value: 500
+        <color:#white>Date: dd/mm/yyyy
         <color:#white>Remark: "Awarded for doing well in school"
     }
     class transaction2 as "__:Expense__" {

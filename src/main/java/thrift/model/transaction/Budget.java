@@ -13,7 +13,7 @@ public class Budget {
 
     public static final SimpleDateFormat BUDGET_DATE_FORMAT = new SimpleDateFormat("MM/yyyy");
     public static final String DATE_CONSTRAINTS = "Month should be in the following format: MM/yyyy."
-            + ", where MM is an integer between 1-12";
+            + ", where MM is an integer between 01-12";
     public static final String VALIDATION_REGEX = "^(0[1-9]|10|11|12)\\/\\d{4}$";
 
     private Calendar period;

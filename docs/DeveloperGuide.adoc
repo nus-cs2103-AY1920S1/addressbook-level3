@@ -202,11 +202,10 @@ We allow users to add `**Expense**`/`**Income**` transactions into `**THRIFT**` 
 requests from the user at the back-end.
 
 ==== Implementation
-We store every single `**Transaction**` added by the user into `**ObservableList<Transaction>**`, which is a list object in `**TransactionList**`. This list gets updated whenever the user
-adds, updates or removes a `**Transaction**` from it. We used an `**ObservableList**` because whenever there are changes to the list, any other component
+We store every single `**Transaction**` added by the user into an `**ObservableList<Transaction>**`, which is a list object in `**TransactionList**`. We used an `**ObservableList**` because whenever there are changes to the list, any other component
 of `**THRIFT**` using it will automatically reflect its changes.
 
-We implemented adding a `**Transaction**` through the following commands: **add_expense**/**add_income**. This adding process leverages on polymorphism: `**Expense**` and `**Income**` are both subclasses of the abstract class `**Transaction**`.
+We implemented adding a `**Transaction**` through the following commands: **add_expense**/**add_income**. This process leverages on polymorphism: `**Expense**` and `**Income**` are both subclasses of the abstract class `**Transaction**`.
 Each `**Transaction**` contains the following mandatory fields: `**Description**`, `**TransactionDate**` and `**Value**`; as well as optional fields: `**Remark**`,
 and `**Set<Tag>**`. The following class diagram depicts this relation:
 
@@ -233,13 +232,8 @@ If the user input is incorrect due to any of the reasons above, the usage syntax
 
 We will demonstrate how a `**Transaction**` is added into `**THRIFT**` and how the back-end handles each step of the process:
 
-Step 1. The user launches the application for the first time. `**THRIFT**` does not contain any other `**Transaction**` and the user is
-about to add their own. An empty transaction list is initialized.
-
-image::add-transaction/AddTransaction0.png[]
-
-Step 2. The user executes **add_expense n/Laksa v/3.50** to insert an `**Expense**` with `**Description**` set to "Laksa"
-and `**Value**` set to "3.50". The `**TransactionDate**` is set to the user's current system date in the form "dd/mm/yyyy".
+Step 1. The user executes **add_expense n/Laksa v/3.50** to insert an `**Expense**` with its `**Description**` set to "Laksa"
+and its `**Value**` set to "3.50". The `**TransactionDate**` is set to the user's current system date in the form "dd/mm/yyyy".
 The input is now checked and an attempt to parse each parameter occurs:
 
 * `**Description**` is parsed by `AddTransactionCommandParser#parseTransactionDescription(ArgumentMultimap)`
@@ -253,10 +247,8 @@ The transaction list now contains 1 `**Transaction**` object.
 
 image::add-transaction/AddTransaction1.png[]
 
-Step 3. The user executes **add_income n/Bursary v/500 r/Awarded for doing well in school** to insert an `**Income**` with
-the `**Description**` set to "Bursary", `**Value**` set to "500" and `**Remark**` set to "Awarded for doing well in school".
-The `**TransactionDate**` is set to the user's current system date in the form "dd/mm/yyyy". The input is now checked in
-a similar fashion as in Step 2 except for:
+Step 2. The user executes **add_income n/Bursary v/500 r/Awarded for doing well in school** to insert an `**Income**`.
+The input is now checked in a similar fashion as in Step 2 except that:
 
 * `**Remark**` is parsed by `AddTransactionCommandParser#parseTransactionRemark(ArgumentMultimap)`
 
@@ -297,10 +289,10 @@ are applied when restoring `**THRIFT**` data from the data file.
 ** Cons: Requires the developer to manually negate the `**Value**` whenever calculations are done with a `**Expense**` object.
 
 * **Alternative 2:** Allow only negative amount in `**Expense**` object and only positive amount in `**Income**` object
-** Pros: Calculations become trivial: to get balance, sum up the entire `**List<Transaction>**`.
-** Cons: Overhead to parse user input to allow only a single negative symbol and no other symbols.
+** Pros: Calculating the balance becomes trivial - simply sum up the entire `**List<Transaction>**`.
+** Cons: Parsing the user input to allow only a single negative symbol and no other symbols causes an overhead.
 
-Alternative 1 was chosen because we want to keep the transaction list "clean" - only positive integers are stored.
+Alternative 1 was chosen because we want to keep the transaction list clean - only positive integers are stored.
 //end::addtransaction[]
 
 //tag::setbudget[]
@@ -703,7 +695,7 @@ In order to ensure a seamless experience, we propose a new `**Keystore**` module
 be interacting closely with the `**Logic**` and `**Storage**` modules. The class diagram below gives an overview of how the
 new `**Keystore**` would fit in:
 
-image::encryption/EncryptionClassDiagram.png[]
+image::encryption/EncryptionClassDiagram.png[,250]
 
 We recommend that the `**KeystoreManager**` implements the following methods:
 
