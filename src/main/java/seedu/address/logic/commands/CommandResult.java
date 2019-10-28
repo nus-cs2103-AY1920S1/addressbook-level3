@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.Objects;
 
 import seedu.address.model.person.PanelName;
+import seedu.address.ui.FontName;
 
 /**
  * Represents the result of a command execution.
@@ -19,8 +20,13 @@ public class CommandResult {
     /** The application should exit. */
     private final boolean exit;
 
+    /** For toggling the panels. */
     private final PanelName panelName;
     private final boolean togglePanel;
+
+    /** For changing the font. */
+    private final FontName fontName;
+    private final boolean changeFont;
 
     /**
      * Constructs a {@code CommandResult} with the specified fields.
@@ -31,6 +37,8 @@ public class CommandResult {
         this.exit = exit;
         this.panelName = null;
         this.togglePanel = false;
+        this.fontName = null;
+        this.changeFont = false;
     }
 
     /**
@@ -41,12 +49,30 @@ public class CommandResult {
         this(feedbackToUser, false, false);
     }
 
+    /**
+     * Constructs a {@code CommandResult} with the specified fields, and other fields are set to their default value.
+     */
     public CommandResult(String feedbackToUser, PanelName panelName, boolean togglePanel) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = false;
         this.exit = false;
         this.panelName = panelName;
         this.togglePanel = togglePanel;
+        this.fontName = null;
+        this.changeFont = false;
+    }
+
+    /**
+     * Constructs a {@code CommandResult} with the specified fields, and other fields are set to their default value.
+     */
+    public CommandResult(String feedbackToUser, FontName fontName, boolean changeFont) {
+        this.feedbackToUser = feedbackToUser;
+        this.showHelp = false;
+        this.exit = false;
+        this.panelName = null;
+        this.togglePanel = false;
+        this.fontName = fontName;
+        this.changeFont = changeFont;
     }
 
     public String getFeedbackToUser() {
@@ -69,6 +95,14 @@ public class CommandResult {
         return this.panelName;
     }
 
+    public boolean isChangeFont() {
+        return changeFont;
+    }
+
+    public FontName getFontName() {
+        return fontName;
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -84,12 +118,15 @@ public class CommandResult {
         return feedbackToUser.equals(otherCommandResult.feedbackToUser)
                 && showHelp == otherCommandResult.showHelp
                 && exit == otherCommandResult.exit
-                && togglePanel == otherCommandResult.togglePanel;
+                && panelName == otherCommandResult.panelName
+                && togglePanel == otherCommandResult.togglePanel
+                && fontName == otherCommandResult.fontName
+                && changeFont == otherCommandResult.changeFont;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(feedbackToUser, showHelp, exit, panelName, togglePanel);
+        return Objects.hash(feedbackToUser, showHelp, exit, panelName, togglePanel, fontName, changeFont);
     }
 
 }

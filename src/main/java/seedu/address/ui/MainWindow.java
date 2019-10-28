@@ -83,9 +83,9 @@ public class MainWindow extends UiPart<Stage> {
 
         helpWindow = new HelpWindow();
 
-        /*String style = "-fx-font-family: ";
-        style += "Verdana";
-        window.setStyle(style);*/
+        String style = "-fx-font-family: ";
+        style += "verdana";
+        window.setStyle(style);
     }
 
     public Stage getPrimaryStage() {
