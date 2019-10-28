@@ -36,9 +36,9 @@ end box
 
 box "Model" MODEL_COLOR_T1
 participant ":Model" as Model MODEL_COLOR
-FindCommand -> Model : update
 [-> FindCommand : executed by LogicManager
 activate FindCommand
+FindCommand -> Model : update
 activate Model
 Model --> FindCommand
 deactivate Model

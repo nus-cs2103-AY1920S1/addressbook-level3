@@ -16,9 +16,6 @@ import static seedu.algobase.logic.parser.ParserUtil.parseNamePredicate;
 import static seedu.algobase.logic.parser.ParserUtil.parseSourcePredicate;
 import static seedu.algobase.logic.parser.ParserUtil.parseTagPredicate;
 
-import java.util.Arrays;
-import java.util.List;
-
 import seedu.algobase.logic.commands.AddFindRuleCommand;
 import seedu.algobase.logic.parser.exceptions.ParseException;
 import seedu.algobase.model.searchrule.problemsearchrule.AuthorMatchesKeywordPredicate;
@@ -34,13 +31,6 @@ import seedu.algobase.model.searchrule.problemsearchrule.TagIncludesKeywordsPred
  * Parses input arguments and creates a new AddFindRuleCommand object
  */
 public class AddFindRuleCommandParser implements Parser<AddFindRuleCommand> {
-
-    private List<String> getArgumentValueAsList(String argValue) {
-        String trimmedArg = argValue.trim();
-        String[] keywords = trimmedArg.split("\\s+");
-        return Arrays.asList(keywords);
-    }
-
 
     /**
      * Parses the given {@code String} of arguments in the context of the AddFindRuleCommand
