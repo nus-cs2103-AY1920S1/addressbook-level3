@@ -54,7 +54,7 @@ public class FilterCommand extends Command {
     }
 
     @Override
-    public boolean equals(Object other) {
+    public boolean equals(Object other) {g
         return other == this // short circuit if same object
                 || (other instanceof FilterCommand // instanceof handles nulls
                 && bodyPredicate.equals(((FilterCommand) other).bodyPredicate)
