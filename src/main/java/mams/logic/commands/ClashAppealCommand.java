@@ -91,7 +91,7 @@ public class ClashAppealCommand extends ClashCommand {
      * @return a module object of the requested module in this appeal
      */
     private Module getRequestedModule(Appeal appeal, List<Module> moduleList) throws CommandException {
-        String moduleToAdd = appeal.getModule_to_add();
+        String moduleToAdd = appeal.getModuleToAdd();
         List<Module> modulesToCheckList = moduleList.stream()
                 .filter(m -> m.getModuleCode().equalsIgnoreCase(moduleToAdd)).collect(Collectors.toList());
 

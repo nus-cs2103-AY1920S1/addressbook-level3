@@ -10,15 +10,23 @@ import mams.model.appeal.Appeal;
  * An UI component that displays information of an {@code Appeal}.
  */
 public class AppealCard extends UiPart<Region> {
+    public static final String STATUS_APPROVED = "Approved";
+    public static final String STATUS_REJECTED = "Rejected";
+
+    public static final String APPROVED_ICON = "\uD83D\uDC4D";
+    public static final String REJECTED_ICON = "\uD83D\uDC4E";
+
+    public static final String STATUS_RESOLVED = "\u2713" + " Resolved";
+    public static final String STATUS_UNRESOLVED = "\u2718" + " Unresolved";
+
+    public static final String STATUS_BASE_STYLE_CLASS = "prefix-label";
+    public static final String REJECTED_STYLE_CLASS = "prefix_red";
+    public static final String APPROVED_STYLE_CLASS = "prefix_sky_blue";
+
+    public static final String UNRESOLVED_STYLE_CLASS = "prefix_pink";
+    public static final String RESOLVED_STYLE_CLASS = "prefix_green";
 
     private static final String FXML = "AppealListCard.fxml";
-
-    private static final String STATUS_RESOLVED = "\u2713" + " Resolved";
-    private static final String STATUS_UNRESOLVED = "\u2718" + " Unresolved";
-
-    // TODO define own style classes as extensions so that future changes to prefix don't affect this in regression
-    private static final String UNRESOLVED_STYLE_CLASS = "prefix_pink";
-    private static final String RESOLVED_STYLE_CLASS = "prefix_green";
 
     public final Appeal appeal;
 
@@ -35,7 +43,11 @@ public class AppealCard extends UiPart<Region> {
     @FXML
     private Label academicYear;
     @FXML
-    private Label status;
+    private Label approvalIcon;
+    @FXML
+    private Label approvalStatus;
+    @FXML
+    private Label resolvedStatus;
 
     public AppealCard(Appeal appeal, int displayedIndex) {
         super(FXML);
@@ -45,16 +57,34 @@ public class AppealCard extends UiPart<Region> {
         studentId.setText(appeal.getStudentId());
         appealType.setText(appeal.getAppealType());
         academicYear.setText(appeal.getAcademicYear());
-        setStatusDisplay(status, appeal.isResolved());
+        // TODO change once aaron implements getter method
+        setApprovalStatusDisplay(approvalIcon, approvalStatus, appeal.isResolved(),
+                appeal.getResult().equals("APPROVED"));
+        setResolvedStatusDisplay(resolvedStatus, appeal.isResolved());
     }
 
-    private static void setStatusDisplay(Label status, boolean isResolved) {
+    public static void setResolvedStatusDisplay(Label resolvedStatus, boolean isResolved) {
         if (isResolved) {
-            status.setText(STATUS_RESOLVED);
-            status.getStyleClass().add(RESOLVED_STYLE_CLASS);
+            resolvedStatus.setText(STATUS_RESOLVED);
+            resolvedStatus.getStyleClass().add(RESOLVED_STYLE_CLASS);
         } else {
-            status.setText(STATUS_UNRESOLVED);
-            status.getStyleClass().add(UNRESOLVED_STYLE_CLASS);
+            resolvedStatus.setText(STATUS_UNRESOLVED);
+            resolvedStatus.getStyleClass().add(UNRESOLVED_STYLE_CLASS);
+        }
+    }
+
+    public static void setApprovalStatusDisplay(Label approvalIcon, Label approvalStatus,
+                                                boolean isResolved, boolean isApproved) {
+        if (isResolved) {
+            if (isApproved) {
+                approvalIcon.setText(APPROVED_ICON);
+                approvalStatus.setText(STATUS_APPROVED);
+                approvalStatus.getStyleClass().addAll(STATUS_BASE_STYLE_CLASS, APPROVED_STYLE_CLASS);
+            } else {
+                approvalIcon.setText(REJECTED_ICON);
+                approvalStatus.setText(STATUS_REJECTED);
+                approvalStatus.getStyleClass().addAll(STATUS_BASE_STYLE_CLASS, REJECTED_STYLE_CLASS);
+            }
         }
     }
 

@@ -27,27 +27,28 @@
         </Label>
         <Label fx:id="name" text="\$first" styleClass="cell_big_label" />
       </HBox>
-      <FlowPane fx:id="tags" />
-      <HBox spacing="3">
+      <FlowPane fx:id="appealTags" />
+      <HBox spacing="3" alignment="CENTER_LEFT">
         <padding>
           <Insets top="1" bottom="1" />
         </padding>
         <Label fx:id="matricPrefix" styleClass="prefix-label, prefix_purple" text="Matric. No" />
         <Label fx:id="matricId" styleClass="cell_small_label" text="\$matricId" />
       </HBox>
-      <HBox spacing="3">
+      <HBox spacing="3" alignment="CENTER_LEFT">
         <padding>
           <Insets top="1" bottom="1" />
         </padding>
         <Label fx:id="creditsPrefix" styleClass="prefix-label,  prefix_purple" text="Credits" />
         <Label fx:id="credits" styleClass="cell_small_label" text="\$credits" />
       </HBox>
-      <HBox spacing="3">
+      <HBox spacing="3" alignment="CENTER_LEFT">
         <padding>
           <Insets top="1" bottom="1" />
         </padding>
-        <Label fx:id="prevModsPrefix" styleClass="prefix-label, prefix_purple" text="Modules Taken" />
-        <Label fx:id="prevMods" styleClass="cell_small_label" text="\$prevMods" />
+        <Label fx:id="currentModulesPrefix" styleClass="prefix-label,  prefix_purple" text="Currently Taking" />
+        <Label fx:id="numberOfMods" styleClass="cell_small_label" text="\$numberOfMods" />
+        <Label fx:id="numberOfModsSuffix" styleClass="cell_small_label" text=" module(s)" />
       </HBox>
     </VBox>
   </GridPane>
