@@ -28,6 +28,7 @@ import java.util.List;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.editcommand.EditCommand;
 import seedu.address.logic.commands.editcommand.EditCustomerCommand.EditCustomerDescriptor;
+import seedu.address.logic.commands.editcommand.EditOrderCommand.EditOrderDescriptor;
 import seedu.address.logic.commands.editcommand.EditPhoneCommand.EditPhoneDescriptor;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
@@ -42,8 +43,11 @@ import seedu.address.model.phone.Capacity;
 import seedu.address.model.phone.Phone;
 import seedu.address.model.phone.predicates.PhoneContainsKeywordsPredicate;
 import seedu.address.testutil.EditCustomerDescriptorBuilder;
+import seedu.address.testutil.EditOrderDescriptorBuilder;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.EditPhoneDescriptorBuilder;
+import seedu.address.testutil.TypicalCustomers;
+import seedu.address.testutil.TypicalPhones;
 
 /**
  * Contains helper methods for testing commands.
@@ -189,6 +193,8 @@ public class CommandTestUtil {
     public static final EditCustomerDescriptor DESC_BEN;
     public static final EditPhoneDescriptor DESC_IPHONE;
     public static final EditPhoneDescriptor DESC_SAMSUNG;
+    public static final EditOrderDescriptor DESC_ORDER_IPHONE;
+    public static final EditOrderDescriptor DESC_ORDER_SAMSUNG;
 
     static {
         DESC_AMY = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
@@ -215,6 +221,14 @@ public class CommandTestUtil {
                 .withBrand(VALID_BRAND_SAMSUNG).withCapacity(VALID_CAPACITY_SAMSUNG).withCost(VALID_COST_SAMSUNG)
                 .withColour(VALID_COLOUR_SAMSUNG).withSerialNumber(VALID_SERIAL_NUMBER_SAMSUNG)
                 .withIdentityNumber(VALID_IDENTITY_NUMBER_SAMSUNG).build();
+
+        DESC_ORDER_IPHONE = new EditOrderDescriptorBuilder()
+                .withCustomer(TypicalCustomers.ALICE).withPhone(TypicalPhones.IPHONEPRO11)
+                .withPrice(VALID_PRICE_IPHONE).withTags(VALID_TAG_NEW).build();
+
+        DESC_ORDER_SAMSUNG = new EditOrderDescriptorBuilder()
+                .withCustomer(TypicalCustomers.ALICE).withPhone(TypicalPhones.ANDROIDONE)
+                .withPrice(VALID_PRICE_SAMSUNG).withTags(VALID_TAG_BESTSELLER).build();
     }
 
     /**
