@@ -6,20 +6,7 @@ import static seedu.elisa.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import seedu.elisa.logic.commands.ClearCommand;
-import seedu.elisa.logic.commands.Command;
-import seedu.elisa.logic.commands.DeleteCommand;
-import seedu.elisa.logic.commands.DoneCommand;
-import seedu.elisa.logic.commands.DownCommand;
-import seedu.elisa.logic.commands.EditCommand;
-import seedu.elisa.logic.commands.ExitCommand;
-import seedu.elisa.logic.commands.FindCommand;
-import seedu.elisa.logic.commands.JokeCommand;
-import seedu.elisa.logic.commands.PriorityCommand;
-import seedu.elisa.logic.commands.ShowCommand;
-import seedu.elisa.logic.commands.SortCommand;
-import seedu.elisa.logic.commands.UndoCommand;
-import seedu.elisa.logic.commands.UpCommand;
+import seedu.elisa.logic.commands.*;
 
 import seedu.elisa.logic.parser.exceptions.ParseException;
 
@@ -84,6 +71,9 @@ public class ElisaParser {
 
         case UndoCommand.COMMAND_WORD:
             return new UndoCommand(elisaCommandHistory);
+
+        case RedoCommand.COMMAND_WORD:
+            return new RedoCommand(elisaCommandHistory);
 
         case ShowCommand.COMMAND_WORD:
             return new ShowCommandParser().parse(description, flags);

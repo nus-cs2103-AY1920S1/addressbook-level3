@@ -65,7 +65,9 @@ public class ElisaCommandHistoryManager implements ElisaCommandHistory {
 
     @Override
     public UndoableCommand popRedo() {
-        return redoStack.pop();
+        UndoableCommand command = redoStack.pop();
+        pushUndo(command);
+        return command;
     }
 
     @Override

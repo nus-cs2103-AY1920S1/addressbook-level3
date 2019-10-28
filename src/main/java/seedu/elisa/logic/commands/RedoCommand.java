@@ -1,9 +1,10 @@
-package seedu.address.logic.commands;
+package seedu.elisa.logic.commands;
 
-import seedu.address.commons.core.Messages;
-import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.ElisaCommandHistory;
-import seedu.address.model.ItemModel;
+
+import seedu.elisa.commons.core.Messages;
+import seedu.elisa.logic.commands.exceptions.CommandException;
+import seedu.elisa.model.ElisaCommandHistory;
+import seedu.elisa.model.ItemModel;
 
 public class RedoCommand extends Command {
     public static final String COMMAND_WORD = "redo";
