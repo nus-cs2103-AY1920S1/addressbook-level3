@@ -19,11 +19,6 @@ public class TransactionBuilder {
     public static final String DEFAULT_AMOUNT = "1";
     public static final String DEFAULT_DATE = "10102019";
 
-    public static final String DEFAULT_NAME = "Alice Pauline";
-    public static final String DEFAULT_PHONE = "85355255";
-    public static final String DEFAULT_EMAIL = "alice@gmail.com";
-    public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
-
     private Amount amount;
     private Date date;
     private Set<Category> categories;
@@ -35,7 +30,7 @@ public class TransactionBuilder {
     }
 
     /**
-     * Initializes the PersonBuilder with the data of {@code personToCopy}.
+     * Initializes the TransactionBuilder with the data of {@code transactionToCopy}.
      */
     public TransactionBuilder(Transaction transactionToCopy) {
         amount = transactionToCopy.getAmount();
@@ -61,7 +56,7 @@ public class TransactionBuilder {
     }
 
     /**
-     * Sets the {@code Address} of the {@code Person} that we are building.
+     * Sets the {@code Date} of the {@code Transaction} that we are building.
      */
     public TransactionBuilder withDate(String date) {
         this.date = new Date(date);

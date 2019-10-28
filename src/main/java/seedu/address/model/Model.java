@@ -113,6 +113,12 @@ public interface Model {
      */
     void setTransaction(BankAccountOperation transactionTarget, BankAccountOperation transactionEdit);
 
+    /**
+     * Replaces the given budget {@code budget} with {@code editedBudget}.
+     * {@code target} must exist in the bank account.
+     * The budget identity of {@code editedBudget} must not be
+     * the same as another existing budget in the bank account.
+     */
     void setBudget(Budget budgetTarget, Budget budgetEdit);
 
     /**
@@ -157,7 +163,6 @@ public interface Model {
     /**
      * Deletes the given budget.
      * The budget must exist in the bank account.
-     * @param Budget
      */
     void deleteBudget(Budget budgetToDelete);
 }
