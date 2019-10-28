@@ -97,12 +97,4 @@ public class StatsManager implements Stats {
         setLikeData(newData.getObservableLikeData());
     }
 
-    /**
-     * Returns a copy of the current Stats.
-     */
-    @Override
-    public Stats getStats() {
-        Stats newStats = new StatsManager(this);
-        return newStats;
-    }
 }

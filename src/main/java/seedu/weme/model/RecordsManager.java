@@ -43,27 +43,27 @@ public class RecordsManager implements Records {
 
     @Override
     public Set<String> getPaths() {
-        return pathRecords;
+        return new HashSet<>(pathRecords);
     }
 
     @Override
     public Set<String> getDescriptions() {
-        return descriptionRecords;
+        return new HashSet<>(descriptionRecords);
     }
 
     @Override
     public Set<String> getTags() {
-        return tagRecords;
+        return new HashSet<>(tagRecords);
     }
 
     @Override
     public Set<String> getNames() {
-        return nameRecords;
+        return new HashSet<>(nameRecords);
     }
 
     @Override
     public void addPath(ImagePath path) {
-        this.pathRecords.add(path.toString());
+        pathRecords.add(path.toString());
     }
 
     @Override
@@ -76,9 +76,7 @@ public class RecordsManager implements Records {
     @Override
     public void addTags(Set<Tag> tags) {
         for (Tag tag: tags) {
-            if (!tag.toString().isEmpty()) {
-                tagRecords.add(tag.getTagName());
-            }
+            tagRecords.add(tag.getTagName());
         }
     }
 
@@ -94,10 +92,10 @@ public class RecordsManager implements Records {
     public void resetRecords(Records records) {
         requireNonNull(records);
 
-        pathRecords = new HashSet<>();
-        descriptionRecords = new HashSet<>();
-        tagRecords = new HashSet<>();
-        nameRecords = new HashSet<>();
+        pathRecords.clear();
+        descriptionRecords.clear();
+        tagRecords.clear();
+        nameRecords.clear();
 
         pathRecords.addAll(records.getPaths());
         descriptionRecords.addAll(records.getDescriptions());

@@ -284,7 +284,7 @@ public class Weme implements ReadOnlyWeme {
 
     @Override
     public Stats getStats() {
-        return stats.getStats();
+        return stats;
     }
 
     public int getLikesByMeme(Meme meme) {
