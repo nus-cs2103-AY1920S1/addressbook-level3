@@ -5,10 +5,10 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_ORDERS_LISTED_OVERVIEW;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalOrders.ORDERONE;
-import static seedu.address.testutil.TypicalOrders.ORDERTWO;
-import static seedu.address.testutil.TypicalOrders.ORDERTHREE;
 import static seedu.address.testutil.TypicalCustomers.getTypicalCustomerBook;
+import static seedu.address.testutil.TypicalOrders.ORDERONE;
+import static seedu.address.testutil.TypicalOrders.ORDERTHREE;
+import static seedu.address.testutil.TypicalOrders.ORDERTWO;
 import static seedu.address.testutil.TypicalOrders.getTypicalOrderBook;
 import static seedu.address.testutil.TypicalPhones.getTypicalPhoneBook;
 import static seedu.address.testutil.TypicalSchedules.getTypicalScheduleBook;
@@ -22,8 +22,8 @@ import seedu.address.model.DataBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.order.predicates.OrderContainsKeywordsPredicate;
 import seedu.address.model.order.Order;
+import seedu.address.model.order.predicates.OrderContainsKeywordsPredicate;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code FindOrderCommand}.
