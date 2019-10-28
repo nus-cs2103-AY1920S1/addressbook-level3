@@ -11,6 +11,7 @@ import dukecooks.logic.commands.diary.FindDiaryCommand;
 import dukecooks.logic.commands.exercise.FindExerciseByIntensityCommand;
 import dukecooks.logic.commands.exercise.FindExerciseByMuscleCommand;
 import dukecooks.logic.commands.exercise.FindExerciseCommand;
+import dukecooks.logic.commands.mealplan.FindMealPlanCommand;
 import dukecooks.logic.commands.recipe.FindRecipeCommand;
 import dukecooks.logic.parser.dashboard.FindTaskCommandParser;
 import dukecooks.logic.parser.diary.FindDiaryCommandParser;
@@ -18,6 +19,7 @@ import dukecooks.logic.parser.exceptions.ParseException;
 import dukecooks.logic.parser.exercise.FindExerciseByIntensityCommandParser;
 import dukecooks.logic.parser.exercise.FindExerciseByMuscleCommandParser;
 import dukecooks.logic.parser.exercise.FindExerciseCommandParser;
+import dukecooks.logic.parser.mealplan.FindMealPlanCommandParser;
 import dukecooks.logic.parser.recipe.FindRecipeCommandParser;
 
 /**
@@ -51,6 +53,9 @@ public class FindCommandParser implements Parser<FindCommand> {
 
         case FindRecipeCommand.VARIANT_WORD:
             return new FindRecipeCommandParser().parse(arguments);
+
+        case FindMealPlanCommand.VARIANT_WORD:
+            return new FindMealPlanCommandParser().parse(arguments);
 
         case FindExerciseCommand.VARIANT_WORD:
             return new FindExerciseCommandParser().parse(arguments);
