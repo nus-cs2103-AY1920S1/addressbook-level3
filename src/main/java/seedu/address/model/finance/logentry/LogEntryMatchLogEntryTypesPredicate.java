@@ -7,6 +7,7 @@ import java.util.function.Predicate;
  * Tests that a {@code LogEntry}'s type matches any of the log entry types specified by user.
  */
 public class LogEntryMatchLogEntryTypesPredicate implements Predicate<LogEntry> {
+
     private final List<String> entryTypes;
 
     public LogEntryMatchLogEntryTypesPredicate(List<String> entryTypes) {
@@ -20,6 +21,7 @@ public class LogEntryMatchLogEntryTypesPredicate implements Predicate<LogEntry> 
         if (entryTypes.size() == 0) {
             return true;
         }
+        String currType = logEntry.getLogEntryType();
 
         return entryTypes.stream()
                 .anyMatch(type -> logEntry.getLogEntryType().equalsIgnoreCase(type));

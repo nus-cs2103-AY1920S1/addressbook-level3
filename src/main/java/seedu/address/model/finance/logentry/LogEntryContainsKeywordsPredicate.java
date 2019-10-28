@@ -11,6 +11,7 @@ import seedu.address.commons.util.StringUtil;
  * Partial word match is allowed for {@code Description}.
  */
 public class LogEntryContainsKeywordsPredicate implements Predicate<LogEntry> {
+
     private final List<String> keywords;
 
     public LogEntryContainsKeywordsPredicate(List<String> keywords) {
@@ -26,7 +27,8 @@ public class LogEntryContainsKeywordsPredicate implements Predicate<LogEntry> {
         }
 
         boolean descriptionMatch = keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsPartialWordIgnoreCase(logEntry.getDescription().value, keyword));
+                .anyMatch(keyword -> StringUtil.containsPartialWordIgnoreCase(
+                        logEntry.getDescription().value, keyword));
         boolean tMethodMatch = keywords.stream()
                 .anyMatch(transactionMethod -> StringUtil.containsWordIgnoreCase(
                         logEntry.getTransactionMethod().value, transactionMethod));

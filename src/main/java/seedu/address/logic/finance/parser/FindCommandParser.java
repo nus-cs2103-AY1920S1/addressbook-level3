@@ -2,9 +2,9 @@ package seedu.address.logic.finance.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.finance.parser.FinanceCliSyntax.PREFIX_CATEGORY;
-import static seedu.address.logic.finance.parser.FinanceCliSyntax.PREFIX_FILTER;
 import static seedu.address.logic.finance.parser.FinanceCliSyntax.PREFIX_KEYWORD;
 import static seedu.address.logic.finance.parser.FinanceCliSyntax.PREFIX_SORT;
+import static seedu.address.logic.finance.parser.FinanceCliSyntax.PREFIX_TYPE;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -27,7 +27,7 @@ public class FindCommandParser implements Parser<FindCommand> {
      */
     public FindCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_SORT, PREFIX_FILTER,
+                ArgumentTokenizer.tokenize(args, PREFIX_SORT, PREFIX_TYPE,
                         PREFIX_KEYWORD, PREFIX_CATEGORY);
 
         String sortAttr = FindCommand.SORT_DEFAULT_ATTR;
@@ -35,9 +35,9 @@ public class FindCommandParser implements Parser<FindCommand> {
             sortAttr = ParserUtil.parseSort(argMultimap.getValue(PREFIX_SORT).get());
         }
 
-        ArrayList<String> filterTypes = new ArrayList<String>();
-        if (argMultimap.getValue(PREFIX_FILTER).isPresent()) {
-            filterTypes = ParserUtil.parseFilterTypes(argMultimap.getValue(PREFIX_FILTER).get());
+        String[] logEntryTypesToFind = null;
+        if (argMultimap.getValue(PREFIX_TYPE).isPresent()) {
+            logEntryTypesToFind = argMultimap.getValue(PREFIX_TYPE).get().trim().split("\\s+");
         }
 
         String[] catsToFind = null;
@@ -52,16 +52,17 @@ public class FindCommandParser implements Parser<FindCommand> {
 
         // At least one field present
         boolean isSortAttrSpecified = sortAttr != FindCommand.SORT_DEFAULT_ATTR;
-        boolean isFilterTypeSpecified = filterTypes.size() == 0;
+        boolean isLogEntryTypeSpecified = logEntryTypesToFind != null;
         boolean isCatsToFindSpecified = catsToFind != null;
         boolean isKeywordFieldSpecified = keywords != null;
-        if (!isSortAttrSpecified && !isFilterTypeSpecified
+        if (!isSortAttrSpecified && !isLogEntryTypeSpecified
             && !isCatsToFindSpecified && !isKeywordFieldSpecified) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
         }
 
         return new FindCommand(sortAttr,
-                new LogEntryMatchLogEntryTypesPredicate(filterTypes),
+                new LogEntryMatchLogEntryTypesPredicate(
+                        logEntryTypesToFind == null ? new ArrayList<String>() : Arrays.asList(logEntryTypesToFind)),
                 new LogEntryContainsKeywordsPredicate(
                         keywords == null ? new ArrayList<String>() : Arrays.asList(keywords)),
                 new LogEntryContainsCategoriesPredicate(
