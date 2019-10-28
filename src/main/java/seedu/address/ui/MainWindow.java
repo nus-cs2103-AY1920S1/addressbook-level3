@@ -213,7 +213,7 @@ public class MainWindow extends UiPart<Stage> {
         fullCalendarView = new FullCalendarView(YearMonth.now());
         personListPanelPlaceholder.getChildren().add(fullCalendarView.getRoot());
         personListPanelPlaceholder.getChildren().add(fullCalendarView.getView());
-      
+
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
@@ -226,8 +226,8 @@ public class MainWindow extends UiPart<Stage> {
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
     }
-  
-      
+
+
     void fillNotes() {
         notesListPanel = new NotesListPanel(logic.getFilteredNotesList());
         personListPanelPlaceholder.getChildren().add(notesListPanel.getRoot());
