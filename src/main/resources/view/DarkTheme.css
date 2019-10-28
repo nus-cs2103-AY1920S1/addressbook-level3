@@ -374,13 +374,3 @@
     -fx-background-radius: 2;
     -fx-font-size: 11;
 }
-
-#priorityPane {
-    -fx-background-color: #C85E63;
-    -fx-border-width: 0;
-    -fx-font-size: 110;
-}
-
-#notes {
-    -fx-background-color: #C85E63;
-}

@@ -275,7 +275,8 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Opens the statistics report window or focuses on it if it's already opened.
+     * Opens the statistics report window or focuses on it if it's already opened. Saves printable
+     * report if specified by user.
      */
     @FXML
     public void handleStats(CommandResultType commandResultType) throws IOException {
