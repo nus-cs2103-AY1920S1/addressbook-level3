@@ -92,12 +92,12 @@ public class FindCommandParserTest {
         assertParseFailure(parser, INVALID_DATE_DESC, Date.MESSAGE_CONSTRAINTS);
 
         // one Date only
-        assertParseFailure(parser, " " + PREFIX_DATE + "1/1/2019", Date.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, " " + PREFIX_DATE + "1/1/2019", FindCommandParser.DATE_RANGE_MESSAGE_CONSTRAINTS);
 
         // one Cost only
-        assertParseFailure(parser, " " + PREFIX_COST + "1.00", Cost.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, " " + PREFIX_COST + "1.00", FindCommandParser.COST_RANGE_MESSAGE_CONSTRAINTS);
 
         // Cost max > min
-        assertParseFailure(parser, " " + PREFIX_COST + "2.00-1.00", Cost.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, " " + PREFIX_COST + "2.00-1.00", FindCommandParser.COST_RANGE_MESSAGE_CONSTRAINTS);
     }
 }
