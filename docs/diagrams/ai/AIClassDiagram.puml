@@ -1,0 +1,28 @@
+@startuml
+!include ../style.puml
+
+skinparam arrowThickness 1.1
+
+
+package Model MODEL_COLOR_T1 {
+    Class Data MODEL_COLOR_T3
+    Class Thrift MODEL_COLOR
+}
+
+package Logic LOGIC_COLOR_T1 {
+    Class LogicManager LOGIC_COLOR
+    Class AI as "           AI           " LOGIC_COLOR_T3
+}
+
+package Storage STORAGE_COLOR_T1 {
+    Class StorageManager STORAGE_COLOR
+}
+
+StorageManager -right[STORAGE_COLOR]- LogicManager
+LogicManager -up[LOGIC_COLOR]- AI
+Data -left- AI
+Thrift -up[MODEL_COLOR]- Data
+Thrift -left[MODEL_COLOR]- LogicManager
+
+
+@enduml

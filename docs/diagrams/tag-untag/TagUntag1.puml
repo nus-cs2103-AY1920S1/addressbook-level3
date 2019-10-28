@@ -1,0 +1,39 @@
+@startuml
+
+!include ../style.puml
+
+skinparam arrowThickness 1.1
+skinparam classBackgroundColor MODEL_COLOR
+
+package "Filtered Transactions List" {
+    class transaction as "__:Expense__" {
+        Description: "Laksa"
+        Value: 3.50
+        Date: 21/03/2019
+        Remarks: Penang Laksa
+    }
+
+    class transaction2 as "__:Expense__" {
+            Description: "Humble Bundle"
+            Value: 12.00
+            Date: 21/03/2019
+            Remarks: Crash Bandicoot
+            Tags: [Fun]
+     }
+
+    class blank as "hidden" {
+        PLACEHOLDER TEXT
+    }
+}
+
+
+
+blank -right- blank
+transaction -[hidden]right- transaction2
+
+
+show members
+hide blank
+
+
+@enduml

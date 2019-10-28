@@ -149,6 +149,8 @@ NOTE: Assume 2nd command occurs after 1st
 [[TagTag]]
 === Tagging a transaction: `tag`
 
+The `tag` command allows you to tag a `Transaction` entry.
+
 ==== Command Syntax:
 
 `tag i/INDEX t/TAG_NAME...`
@@ -160,24 +162,22 @@ NOTE: Assume 2nd command occurs after 1st
 
 ==== Example:
 
-1. You want to tag the entry displayed at index 8 with the tag _Debt_.
-2. You run `tag i/8 t/Debt`.
+1. You want to tag "Credit Card" (the entry displayed at index 2) with the tag _Debt_.
 
-Expected output:
 
-NOTE: Assume entry at index 8 of the list displayed on the GUI is +
-`[-] Student Loan ($12,000.00) Date: 10/10/2019 Remarks:  Tags:`
-....
-Updated Transaction: [-] Student Loan ($12,000.00) Date: 10/10/2019 Remarks:  Tags: [Debt]
+2. You type `tag i/2 t/Debt` into the command input and press **Enter**..
 
-Original: [-] Student Loan ($12,000.00) Date: 10/10/2019 Remarks:  Tags:
-....
+
+3. You now see that the entry has been tagged.
+
 
 // end::tag[]
 
 // tag::untag[]
 [[UntagTag]]
 === Untagging a transaction: `untag`
+
+The `untag` command allows you to un-tag a `Transaction` entry.
 
 ==== Command Syntax:
 
@@ -191,23 +191,21 @@ Original: [-] Student Loan ($12,000.00) Date: 10/10/2019 Remarks:  Tags:
 
 ==== Example:
 
-1. You want to untag the tag _Important_ from the entry displayed at index 7.
-2. You run `untag i/7 t/Important`.
+1. You want to untag the tag _Important_ from "Humble Bundle" (the entry displayed at index 3).
 
-**Expected output:**
 
-NOTE: Assume entry at index 7 of the list displayed on the GUI is +
-`[-]  DoTA Arcanas ($49.00) Date: 10/10/2019 Remarks:  Tags: [Game][Important]`
-....
-Updated Transaction: [-]  DoTA Arcanas ($49.00) Date: 10/10/2019 Remarks:  Tags: [Game]
+2. You type `untag i/3 t/Important` into the command input and press **Enter**.
 
-Original: [-]  DoTA Arcanas ($49.00) Date: 10/10/2019 Remarks:  Tags: [Game][Important]
-....
+
+3. You see that the entry has been been un-tagged.
+
 // end::untag[]
 
 // tag::convert[]
 [[ConvertTag]]
 === Converting currency: `convert`
+
+The convert command allows you to convert money from one currency to another.
 
 ====  Command Syntax
 
@@ -221,13 +219,14 @@ Original: [-]  DoTA Arcanas ($49.00) Date: 10/10/2019 Remarks:  Tags: [Game][Imp
 ==== Example
 
 1. You want to convert SGD1000 to USD.
-2. You run `convert v/1000 c/USD`.
 
-**Expected output:**
-....
-Converting from SGD1,000.00
-To USD: USD726.28
-....
+
+2. You type `convert v/1000 c/USD` into the command input and press **Enter**.
+
+
+3. The conversion message is displayed on the GUI.
+
+
 // end::convert[]
 
 // tag::clone[]

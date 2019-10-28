@@ -387,24 +387,28 @@ since `**Budget**` is not really related to `**Transaction**` in the real world.
 
 // tag::taguntag[]
 === Tag/Untag feature
+
+We allow the user to add and remove custom `**Tag**` objects in `**Transaction**` entries so that they can categorise and partition the entries to their own liking.
+The following sections describe how this feature is implemented and the design considerations that led up to the solution.
+
 ==== Implementation
 
-The **tag**/**untag** command performs modifications on existing `**Transaction**` entries. Due to polymorphism, both **Expense**` and `**Income**` objects extends the abstract class `**Transaction**`, and are treated the same way in the context of the **tag**/**untag** command.
+The **tag**/**untag** command performs modifications on existing `**Transaction**` entries. Due to polymorphism, both `**Expense**` and `**Income**` objects extends the abstract class `**Transaction**`, and are treated the same way in the context of the **tag**/**untag** command.
 
-.A Class Diagram illustrating the implementation of Tags inside a Transaction
-image::tag-untag/Polymorphism.png[]
+.A class diagram illustrating the implementation of `**Tag**` inside a `**Transaction**`
+image::tag-untag/TagPolymorphism.png[]
 
-Due to the usage of  polymorphism, many of the driver functions in `THRIFT` uses `Transaction` for both `Expense`
-and `Income` objects. For example, when tagging a new `Expense`/`Income`, the `TagCommandParser` will treat them as the same object:
+Due to polymorphic nature of `**Transaction**`, many of the driver functions in `**THRIFT**` uses the `**Transaction**` class for both `**Expense**`
+and `**Income**` objects. For example, when tagging a new `**Expense**`/`**Income**` object, the `**TagCommandParser**` will treat them as the same object:
 
-.An Sequence Diagram showing how the TagCommandParser is called
+.An sequence diagram showing how the `**TagCommandParser**` is called
 image::tag-untag/TagSequence.png[]
 
 When a user enters a **tag**/**untag** command, it is parsed by the respective `TagCommandParser#parse(String args)` and `UntagCommandParser#parse(String args)` parsers and returns a `**TagCommand**` command object or a `**UntagCommand**` command object  respectively, which will be executed. For both commands, the following conditions will cause a `**ParseException**` to be thrown by their respective parsers:
 
 . Missing parameters
 . Incorrect syntax (i.e. missing prefix, if it is required)
-. Illegal values in parameters (i.e. special characters and symbols entered for an integer-only field)
+. Illegal values in parameters (i.e. non-alphanumeric values given for `**Tag**` names)
 . Multiple occurrences of parameters which only expects a single entry
 
 [NOTE]
@@ -412,9 +416,9 @@ If the user input is incorrect due to any of the reasons above, the correspondin
 
 The following is an example on how a `**Tag**` is added and removed from a `**Transaction**`, with details on the processes in the backend.
 
-Step 1. The user launches the application with data from previous sessions. THRIFT contains only one `**Transaction**` containing no tags and the user is going to perform tagging and un-tagging operations on it.
+Step 1. The user launches the application with data from previous sessions. THRIFT contains two `**Transaction**` objects and the user is going to perform tagging and un-tagging operations on one of them.
 
-image::tag-untag/TagUntagTransactionWoTag.png[]
+image::tag-untag/TagUntag1.png[]
 
 Step 2. The user executes the command **tag i/1 t/Delicious** to tag the `**Transaction**` at `**Index**` 1 with the `**Tag**` "Delicious". The input is checked with a `**TagCommandParser**` parser and an attempt to parse each parameter occurs:
 
@@ -424,11 +428,11 @@ Step 2. The user executes the command **tag i/1 t/Delicious** to tag the `**Tran
 TIP: `**ParserUtil**` is a class that contains useful functions for parsing the inputs from the user.
 
 [NOTE]
-Tags that already exist inside the specified `**Transaction**` will be ignored, and if that results in no tags being updated, an error will be shown to the user.
+Tags that already exist inside the specified `**Transaction**` will be ignored, and if that results in no tags being added, an error will be shown to the user.
 
-Since the user input is valid, a `**TagCommand**` command object is created and executed. As a result, a copy of the `**Transaction**` object with the specified `**Tag**` inside replaces the original in the `**TransactionList**` at the same position.
+Since the user input is valid, a `**TagCommand**` command object is created and executed. As a result, a copy of the `**Transaction**` object with the specified `**Tag**` added replaces the original in the `**TransactionList**` at the same position.
 
-image::tag-untag/TagUntagTransactionWTag.png[]
+image::tag-untag/TagUntag2.png[]
 
 Step 3. The user realises that the `**Tag**` added was not appropriate. The user then executes the command **untag i/1 t/Delicious** to untag the `**Tag**` "Delicious" from the `**Transaction**` at `**Index**` 1. The input is now checked with a `**UntagCommandParser**` parser and similarly, an attempt to parse each parameter occurs.
 
@@ -436,27 +440,33 @@ Step 3. The user realises that the `**Tag**` added was not appropriate. The user
 * `**Tag**` strings are parsed by `ParserUtil#parseTags(Collection<String>)` which calls `ParserUtil#parseTag(String)` iteratively for every string in the collection
 
 [NOTE]
-Tags that do not exist inside the specified `**Transaction**` will be ignored, and if that results in no tags being updated, an error will be shown to the user.
+Tags that do not exist inside the specified `**Transaction**` will be ignored, and if that results in no tags being deleted, an error will be shown to the user.
 
-Again, since the user input is valid, a `**UntagCommand**` command object is created and executed. As a result, a copy of the `**Transaction**` object without the specified `**Tag**` replaces the original in the `**TransactionList**` at the same position.
+Again, since the user input is valid, a `**UntagCommand**` command object is created and executed. As a result, a copy of the `**Transaction**` object with the specified `**Tag**` deleted replaces the original in the `**TransactionList**` at the same position.
 
-image::tag-untag/TagUntagTransactionWoTag.png[]
+image::tag-untag/TagUntag1.png[]
 
-The following activity diagrams summarises what happens when the user executes a command to **tag** or **untag** a `**Transaction**`.
+The following activity diagrams summarises what happens when the user executes a command to **tag** a `**Transaction**`.
 
-.Activity Diagram of the Tagging process
+.Activity diagram of the tagging process
 image::tag-untag/TagActivity.png[]
 
-.Activity Diagram of the Un-tagging process
-image::tag-untag/UntagActivity.png[]
+The **untag** command follows the same flow except for the following differences:
+
+* Continues with the operation only if at least some `**Tag**` objects exist in `**Transaction**` to be un-tagged
+
+* Ignores `**Tag**` objects that do not already exist in the `**Transaction**` as they are not valid for deletion
 
 ==== Design considerations
 
 ===== Aspect: Mutability of `**Transaction**` objects
 
+The mutability of the `**Transaction**` objects will affect how well the code follows convention, and here are two designs that can be considered:
+
 * **Alternative 1: (current choice)**: Create a copy of the `**Transaction**` object with modified tags and replace the original in the `**TransactionList**`
 ** Pros: Adheres to the Open-Closed principle of the SOLID design principles, guarantees the resultant `**Transaction**` to be as expected and not modified incorrectly during the **tag**/**untag** process.
 ** Cons: Creates a copy of the `**Transaction**` during the **tag**/**untag** process and increases the space complexity of the process.
+
 * **Alternative 2**: Modify the `**Transaction**` object directly to modify tags.
 ** Pros: Modifies the `**Transaction**` object in place, thus the space complexity of the process is constant.
 ** Cons: Violates the Open-Closed principle of the SOLID design principles, the `**Transaction**` object can be modified incorrectly during the **tag**/**untag** process.
@@ -464,6 +474,7 @@ image::tag-untag/UntagActivity.png[]
 Alternative 1 was chosen as we want to ensure the correctness of the **tag**/**untag** process.
 
 ===== Aspect: Uniqueness of `**Tag**` objects within a `**Transaction**`
+The uniqueness of `**Tag**` objects within a `**Transaction**`  will determine how meaningful a tag is, and here are two designs that can be considered:
 
 * **Alternative 1:** Do not check if the `**Tag**` objects exist(s) within a `**Transaction**` when adding `**Tag**` objects and implicitly allow duplicates.
 ** Pros: Results in a simpler implementation of **tag** command, as there is no need to check for potential duplicates.
@@ -472,6 +483,9 @@ Alternative 1 was chosen as we want to ensure the correctness of the **tag**/**u
 * **Alternative 2: (current choice)** Check if the `**Tag**` objects exist(s) within a `**Transaction**` when adding `**Tag**` objects, explicitly prevent duplicates.
 ** Pros: Makes each tag more meaningful as they are unique.
 ** Cons: Results in a more complex implementation of the **tag** command, as there is a need to check for potential duplicates.
+
+Alternative 2 was chosen as we want to ensure that tags are meaningful to the user.
+
 // end:taguntag[]
 
 === Updating transactions
@@ -717,6 +731,52 @@ We believe that both alternatives have reasonable pros and cons and choosing eit
 The added data security will assure the user that their data is safe and allows them to use `**THRIFT**` with a peace of mind.
 
 // end::dataencryption[]
+
+//tag::ai[]
+=== [Proposed] Artificial Intelligence (AI)
+Artificial intelligence (AI) is the simulation of human intelligence processes by machines such as computer systems. AI tries to mimic the learning process of humans in order to perform self-correction.
+We want `**THRIFT**` to possess the ability to make calculated decisions and provide the user with appropriate recommendations under the appropriate situations.
+This way, we can enhance the user experience and make our application more effective.
+
+The following sections will describe how we plan to implement this feature and the possible design considerations.
+
+==== Proposed Implementation
+Adhering to the Open-Closed principle, we will not modify the existing architecture but extend it.
+The following class diagram illustrates how we propose to do it, by adding 2 new classes to the existing architecture:
+
+image::ai/AiClassDiagram.png[]
+
+The new classes will have the following roles:
+
+* `**AI**`: Analyses data from the `**Data**` and perform machine learning on it.
+If the need arises, feedback to the `**Data**` class to morph the data inside.
+Modifies the actions taken by the `**LogicManager**` class based on the machine learning model.
+
+* `**Data**`:  Collects data from `**Thrift**` and formats to it to a form understandable by the `**AI**` class.
+It can be modified by the `**AI**` class in the process of machine learning.
+
+==== Design consideration
+
+===== Aspect: Portability of the learning model
+
+The portability of the learning model will determine the complexity of the implementation and the following designs can be considered:
+
+* *Alternative 1*: Include the machine learning algorithms and models with the application
+** Pros: Allows the application to be portable and self-contained
+** Cons: Results in a larger application size
+
+* *Alternative 2*: Develop the machine learning algorithms and models as a separate application,
+which can be offloaded to a remote location
+** Pros: Allows the main application to be smaller in size
+** Cons: The application is no longer portable and self-contained,
+and have to depend on the availability of the remote application
+
+We believe that both alternatives can be considered as choosing either option brings a different benefit to `**THRIFT**`.
+A hybrid implementation of both alternatives can also be considered.
+Regardless of what is eventually chosen, the user experience will be improved by artificial intelligence.
+
+
+//end::ai[]
 
 === Logging
 

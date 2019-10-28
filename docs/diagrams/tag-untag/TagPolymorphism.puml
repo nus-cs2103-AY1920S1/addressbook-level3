@@ -6,15 +6,19 @@ skinparam classBackgroundColor MODEL_COLOR
 
 show members
 
+
 abstract class Transaction {
-    Description
-    TransactionDate
-    Value
-    Remark
-    Set<Tag>
+    - Description
+    - TransactionDate
+    - Value
+    - Remark
+    - Set<Tag>
 }
 
+Set o-- Tag
+Transaction o-right- Set
 Transaction <|-- Income
 Transaction <|-- Expense
+
 
 @enduml
