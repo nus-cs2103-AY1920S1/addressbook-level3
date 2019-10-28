@@ -20,6 +20,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
@@ -33,6 +34,7 @@ import seedu.address.testutil.CustomerBookBuilder;
 import seedu.address.testutil.OrderBookBuilder;
 import seedu.address.testutil.PhoneBookBuilder;
 import seedu.address.testutil.ScheduleBookBuilder;
+import seedu.address.testutil.ScheduleBuilder;
 
 public class ModelManagerTest {
 
@@ -44,6 +46,8 @@ public class ModelManagerTest {
         assertEquals(new GuiSettings(), modelManager.getGuiSettings());
         assertEquals(new AddressBook(), new AddressBook(modelManager.getAddressBook()));
     }
+
+    //=========== UserPrefs ==================================================================================
 
     @Test
     public void setUserPrefs_nullUserPrefs_throwsNullPointerException() {
@@ -75,6 +79,8 @@ public class ModelManagerTest {
         modelManager.setGuiSettings(guiSettings);
         assertEquals(guiSettings, modelManager.getGuiSettings());
     }
+
+    //=========== AddressBook ================================================================================
 
     @Test
     public void setAddressBookFilePath_nullPath_throwsNullPointerException() {
@@ -109,6 +115,8 @@ public class ModelManagerTest {
         assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredPersonList().remove(0));
     }
 
+    //=========== customerBook ================================================================================
+
     @Test
     public void hasCustomer_nullCustomer_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> modelManager.hasCustomer(null));
@@ -129,6 +137,8 @@ public class ModelManagerTest {
     public void getFilteredCustomerList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredCustomerList().remove(0));
     }
+
+    //=========== phoneBook ================================================================================
 
     @Test
     public void hasPhone_nullPhone_throwsNullPointerException() {
@@ -151,6 +161,8 @@ public class ModelManagerTest {
         assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredPhoneList().remove(0));
     }
 
+    //=========== orderBook ================================================================================
+
     @Test
     public void hasOrder_nullOrder_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> modelManager.hasOrder(null));
@@ -172,6 +184,27 @@ public class ModelManagerTest {
         assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredOrderList().remove(0));
     }
 
+    //=========== scheduleBook ================================================================================
+
+    @Test
+    public void addSchedule_nullSchedule_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.addSchedule(null));
+    }
+
+    @Test
+    public void addSchedule_duplicateScheduleInScheduleBook_throwsDuplicateIdentityException() {
+        modelManager.addSchedule(MONDAY_SCHEDULE);
+        assertTrue(modelManager.hasSchedule(MONDAY_SCHEDULE));
+        assertThrows(DuplicateIdentityException.class, () -> modelManager.addSchedule(MONDAY_SCHEDULE));
+    }
+
+    @Test
+    public void addSchedule_noSuchScheduleInScheduleBook_success() {
+        assertFalse(modelManager.hasSchedule(MONDAY_SCHEDULE));
+        modelManager.addSchedule(MONDAY_SCHEDULE);
+        assertTrue(modelManager.hasSchedule(MONDAY_SCHEDULE));
+    }
+
     @Test
     public void hasSchedule_nullSchedule_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> modelManager.hasSchedule(null));
@@ -189,9 +222,55 @@ public class ModelManagerTest {
     }
 
     @Test
+    public void deleteSchedule_nullSchedule_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.deleteSchedule(null));
+    }
+
+    @Test
+    public void deleteSchedule_scheduleNotInScheduleBook_throwsIdentityNotFoundException() {
+        assertThrows(IdentityNotFoundException.class, () -> modelManager.deleteSchedule(MONDAY_SCHEDULE));
+    }
+
+    @Test
+    public void deleteSchedule_scheduleInScheduleBook_success() {
+        modelManager.addSchedule(MONDAY_SCHEDULE);
+        modelManager.deleteSchedule(MONDAY_SCHEDULE);
+        assertFalse(modelManager.hasSchedule(MONDAY_SCHEDULE));
+    }
+
+    @Test
+    public void newSchedule_scheduleNoConflictsInScheduleBook_returnsEmptyList() {
+        // set up schedule in model manager
+        modelManager.addSchedule(CBD_SCHEDULE);
+        assertTrue(modelManager.hasSchedule(CBD_SCHEDULE));
+
+        Calendar newCalendar = (Calendar) CBD_SCHEDULE.getCalendar().clone();
+        newCalendar.add(Calendar.HOUR_OF_DAY, 2);
+        Schedule newSchedule = new ScheduleBuilder(CBD_SCHEDULE).withCalendar(newCalendar).build();
+        List<Schedule> conflicts = modelManager.getConflictingSchedules(newSchedule);
+        assertEquals(0, conflicts.size());
+    }
+
+    @Test
+    public void newSchedule_scheduleHasConflictsInScheduleBook_returnsListWithOneConflict() {
+        // set up schedule in model manager
+        modelManager.addSchedule(CBD_SCHEDULE);
+        assertTrue(modelManager.hasSchedule(CBD_SCHEDULE));
+
+        Calendar newCalendar = (Calendar) CBD_SCHEDULE.getCalendar().clone();
+        newCalendar.add(Calendar.MINUTE, 10);
+        Schedule newSchedule = new ScheduleBuilder(CBD_SCHEDULE).withCalendar(newCalendar).build();
+        List<Schedule> conflicts = modelManager.getConflictingSchedules(newSchedule);
+        assertEquals(1, conflicts.size());
+        assertEquals(CBD_SCHEDULE, conflicts.get(0));
+    }
+
+    @Test
     public void getFilteredScheduleList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredScheduleList().remove(0));
     }
+
+    //=========== calendarDate ================================================================================
 
     @Test
     public void setCalendarDate_nullCalendarDate_throwsNullPointerException() {
