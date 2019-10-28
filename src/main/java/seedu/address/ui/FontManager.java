@@ -8,26 +8,34 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * Represents a Font Manager to manage fonts.
+ */
 public class FontManager {
 
     public static final List<FontName> fonts = generateFontNames();
-    public static final String MESSAGE_CONSTRAINTS = "Font name should be one of the following: "
-            + fonts.toString();
+    public static final String MESSAGE_CONSTRAINTS = "Font name should be one of the following: " + fonts.toString();
 
     public FontName currentFontName;
 
+    /**
+     * Empty constructor for FontManager class.
+     */
     public FontManager() {}
 
-    public FontManager(FontName currentFontName) {
+    /*public FontManager(FontName currentFontName) {
         requireAllNonNull(fonts, currentFontName);
         checkArgument(isValidFontName(currentFontName), MESSAGE_CONSTRAINTS);
         this.currentFontName = currentFontName;
-    }
+    }*/
 
+    /**
+     * Generates a list of {@code FontName} from their string equivalents.
+     * @return
+     */
     private static List<FontName> generateFontNames() {
         List<String> fontNameStrings = new ArrayList<>(Arrays.asList("arial", "calibri", "cambria", "candara",
-                "garamond", "georgia", "rockwell", "segoe UI", "segoe UI light", "segoe UI semilight",
-                "segoe UI semibold", "serif", "verdana"));
+                "garamond", "georgia", "rockwell", "segoe UI", "serif", "verdana"));
         List<FontName> fontNames = new ArrayList<>(0);
         for (String fontNameString : fontNameStrings) {
             fontNames.add(new FontName(fontNameString));
@@ -54,6 +62,13 @@ public class FontManager {
      */
     private static boolean isValidFontName(FontName test) {
         return fonts.contains(test);
+    }
+
+    /**
+     * Returns true if specified font name exists in the list of valid font names.
+     */
+    public static boolean isValidFontName(String test) {
+        return fonts.contains(new FontName(test));
     }
 
     @Override

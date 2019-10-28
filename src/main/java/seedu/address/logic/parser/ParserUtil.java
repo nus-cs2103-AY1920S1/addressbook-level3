@@ -18,6 +18,8 @@ import seedu.address.model.person.PanelName;
 import seedu.address.model.person.SortSequence;
 import seedu.address.model.person.SortType;
 import seedu.address.model.tag.Tag;
+import seedu.address.ui.FontManager;
+import seedu.address.ui.FontName;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -143,7 +145,7 @@ public class ParserUtil {
     }
 
     /**
-     * Parses {@code String panelNamee} into a {@code PanelName}.
+     * Parses {@code String panelName} into a {@code PanelName}.
      */
     public static PanelName parsePanelName(String panelName) throws ParseException {
         requireNonNull(panelName);
@@ -152,6 +154,7 @@ public class ParserUtil {
             throw new ParseException(PanelName.MESSAGE_CONSTRAINTS);
         }
 
+        // TODO rewrite this
         // standardise panel names
         ArrayList<String> aliasesForWishlist = new ArrayList<>(Arrays.asList("wishlist", "wish", "wishes", "w"));
         if (aliasesForWishlist.contains(trimmedPanelName)) {
@@ -169,6 +172,18 @@ public class ParserUtil {
         }
 
         return new PanelName(trimmedPanelName);
+    }
+
+    /**
+     * Parses {@code String fontName} into a {@code FontName}.
+     */
+    public static FontName parseFontName(String fontName) throws ParseException {
+        requireNonNull(fontName);
+        String trimmedFontName = fontName.trim();
+        if (!FontManager.isValidFontName(trimmedFontName)) {
+            throw new ParseException(FontManager.MESSAGE_CONSTRAINTS);
+        }
+        return new FontName(fontName);
     }
 
 }

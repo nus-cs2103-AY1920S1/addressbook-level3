@@ -10,6 +10,7 @@ import seedu.address.logic.commands.AddCategoryCommand;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.AddExpenseReminderCommand;
 import seedu.address.logic.commands.BudgetListCommand;
+import seedu.address.logic.commands.ChangeFontCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteBudgetCommand;
@@ -163,6 +164,9 @@ public class AddressBookParser {
 
         case HistoryCommand.COMMAND_WORD:
             return new HistoryCommand();
+
+        case ChangeFontCommand.COMMAND_WORD:
+            return new ChangeFontCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

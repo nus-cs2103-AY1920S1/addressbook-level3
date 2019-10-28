@@ -83,10 +83,6 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
-
-        String style = "-fx-font-family: ";
-        style += "verdana";
-        window.setStyle(style);
     }
 
     public Stage getPrimaryStage() {
@@ -279,6 +275,12 @@ public class MainWindow extends UiPart<Stage> {
                         + Arrays.toString(fontManager.getFonts().toArray());
                 resultDisplay.setFeedbackToUser(resultToBeDisplayed);
                 logger.info("Listed all fonts");
+            }
+
+            if (commandResult.isChangeFont()) {
+                String fontNameString = commandResult.getFontName().toString();
+                String style = "-fx-font-family: " + fontNameString;
+                window.setStyle(style);
             }
 
             return commandResult;
