@@ -19,27 +19,27 @@ public class AddCommand extends Command {
 
     public static final String MESSAGE_USAGE_MAIN = COMMAND_WORD + ": Adds a eatery to the address book. "
             + "Parameters: "
-            + PREFIX_NAME + "NAME "
-            + PREFIX_ADDRESS + "ADDRESS "
-            + PREFIX_CATEGORY + "CATEGORY "
-            + "[" + PREFIX_TAG + "TAG]...\n"
+            + PREFIX_NAME + " NAME "
+            + PREFIX_ADDRESS + " ADDRESS "
+            + PREFIX_CATEGORY + " CATEGORY "
+            + "[" + PREFIX_TAG + " TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_NAME + "John Doe "
-            + PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25 "
-            + PREFIX_CATEGORY + "Chinese "
-            + PREFIX_TAG + "friends "
-            + PREFIX_TAG + "owesMoney";
+            + PREFIX_NAME + " John Doe "
+            + PREFIX_ADDRESS + " 311, Clementi Ave 2, #02-25 "
+            + PREFIX_CATEGORY + " Chinese "
+            + PREFIX_TAG + " friends "
+            + PREFIX_TAG + " owesMoney";
 
     public static final String MESSAGE_USAGE_TODO = COMMAND_WORD + ": Adds a eatery to the todo list. "
         + "Parameters: "
-        + PREFIX_NAME + "NAME "
-        + PREFIX_ADDRESS + "ADDRESS "
-        + "[" + PREFIX_TAG + "TAG]...\n"
+        + PREFIX_NAME + " NAME "
+        + PREFIX_ADDRESS + " ADDRESS "
+        + "[" + PREFIX_TAG + " TAG]...\n"
         + "Example: " + COMMAND_WORD + " "
-        + PREFIX_NAME + "John Doe "
-        + PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25 "
-        + PREFIX_TAG + "friends "
-        + PREFIX_TAG + "owesMoney";
+        + PREFIX_NAME + " John Doe "
+        + PREFIX_ADDRESS + " 311, Clementi Ave 2, #02-25 "
+        + PREFIX_TAG + " friends "
+        + PREFIX_TAG + " owesMoney";
 
     public static final String MESSAGE_SUCCESS = "New eatery added: %1$s";
     public static final String MESSAGE_DUPLICATE_EATERY = "This eatery already exists in the address book";

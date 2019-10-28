@@ -43,14 +43,14 @@ public class Category {
      * else it returns the existing Category object.
      */
     public static Category create(String name) {
-        Category cat = categories.get(name);
+        Category category = categories.get(name);
 
-        if (cat == null) {
-            Category newCat = new Category(name);
-            categories.put(newCat.getName(), newCat);
-            return newCat;
+        if (category == null) {
+            Category newCategory = new Category(name);
+            categories.put(newCategory.getName(), newCategory);
+            return newCategory;
         } else {
-            return cat;
+            return category;
         }
     }
 

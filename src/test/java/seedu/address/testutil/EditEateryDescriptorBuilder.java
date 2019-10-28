@@ -6,6 +6,7 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.EditCommand.EditEateryDescriptor;
 import seedu.address.model.eatery.Address;
+import seedu.address.model.eatery.Category;
 import seedu.address.model.eatery.Eatery;
 import seedu.address.model.eatery.Name;
 import seedu.address.model.eatery.Tag;
@@ -32,6 +33,7 @@ public class EditEateryDescriptorBuilder {
         descriptor = new EditEateryDescriptor();
         descriptor.setName(eatery.getName());
         descriptor.setAddress(eatery.getAddress());
+        descriptor.setCategory(eatery.getCategory());
         descriptor.setTags(eatery.getTags());
     }
 
@@ -48,6 +50,14 @@ public class EditEateryDescriptorBuilder {
      */
     public EditEateryDescriptorBuilder withAddress(String address) {
         descriptor.setAddress(new Address(address));
+        return this;
+    }
+
+    /**
+     * Sets the {@code Category} of the {@code EditEateryDescriptor} that we are building.
+     */
+    public EditEateryDescriptorBuilder withCategory(String category) {
+        descriptor.setCategory(new Category(category));
         return this;
     }
 
