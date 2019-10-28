@@ -59,6 +59,6 @@ public class QuizModeCommand extends Command {
             throw new CommandException(INSUFFICIENT_QUESTION);
         }
 
-        return new CommandResult(MESSAGE_SUCCESS, false, false, true, false);
+        return new CommandResult(MESSAGE_SUCCESS, 4);
     }
 }

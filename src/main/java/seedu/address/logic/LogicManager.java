@@ -18,7 +18,9 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAppData;
 import seedu.address.model.note.Note;
 import seedu.address.model.question.Question;
-import seedu.address.model.statistics.TempStatsQnsModel;
+import seedu.address.model.question.Subject;
+import seedu.address.model.quiz.QuizResult;
+import seedu.address.model.statistics.StackBarChartModel;
 import seedu.address.model.task.Task;
 import seedu.address.storage.Storage;
 
@@ -81,13 +83,23 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ObservableList<PieChart.Data> getStatsChartData() {
-        return model.getStatsChartData();
+    public ObservableList<PieChart.Data> getStatsPieChartData() {
+        return model.getStatsPieChartData();
     }
 
     @Override
-    public ObservableList<TempStatsQnsModel> getStatsQnsList() {
-        return model.getStatsQnsList();
+    public ObservableList<StackBarChartModel> getStackBarChartData() {
+        return model.getStackBarChartData();
+    }
+
+    @Override
+    public ObservableList<Subject> getUniqueSubjectList() {
+        return model.getUniqueSubjectList();
+    }
+
+    @Override
+    public ObservableList<QuizResult> getQuizResultList() {
+        return model.getQuizResultList();
     }
 
     @Override
@@ -131,5 +143,15 @@ public class LogicManager implements Logic {
     @Override
     public ObservableList<Question> getFilteredQuizQuestionList() {
         return model.getFilteredQuizQuestionList();
+    }
+
+    @Override
+    public ObservableList<Question> getOneQuizQuestionAsList() {
+        return model.getOneQuizQuestionAsList();
+    }
+
+    @Override
+    public void removeOneQuizQuestion() {
+        model.removeOneQuizQuestion();
     }
 }

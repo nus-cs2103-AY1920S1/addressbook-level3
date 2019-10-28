@@ -9,7 +9,8 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_TITLE_BOB;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.commands.EditNoteCommand.EditNoteDescriptor;
+import seedu.address.logic.commands.note.EditNoteCommand;
+import seedu.address.logic.commands.note.EditNoteCommand.EditNoteDescriptor;
 import seedu.address.testutil.EditNoteDescriptorBuilder;
 
 public class EditNoteDescriptorTest {

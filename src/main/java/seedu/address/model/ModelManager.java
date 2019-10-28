@@ -4,6 +4,8 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -11,6 +13,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.scene.chart.PieChart;
+import javafx.util.Pair;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.note.Note;
@@ -19,7 +22,9 @@ import seedu.address.model.question.Difficulty;
 import seedu.address.model.question.Question;
 import seedu.address.model.question.Subject;
 import seedu.address.model.quiz.QuizResult;
-import seedu.address.model.statistics.TempStatsQnsModel;
+import seedu.address.model.quiz.QuizResultFilter;
+import seedu.address.model.quiz.exceptions.EmptyQuizResultListException;
+import seedu.address.model.statistics.StackBarChartModel;
 import seedu.address.model.task.Task;
 
 /**
@@ -35,7 +40,8 @@ public class ModelManager implements Model {
     private final FilteredList<Question> filteredQuizQuestions;
     private final FilteredList<QuizResult> filteredQuizResults;
     private final FilteredList<Task> filteredTasks;
-    private ObservableList<TempStatsQnsModel> statsQnsList;
+    private QuizResultFilter quizResultFilter;
+    private ObservableList<QuizResult> quizResults;
 
     /**
      * Initializes a ModelManager with the given appData and userPrefs.
@@ -119,6 +125,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void clearNotes() {
+        appData.clearNotes();
+    }
+
+    @Override
     public void addNote(Note note) {
         appData.addNote(note);
         updateFilteredNoteList(PREDICATE_SHOW_ALL_NOTES);
@@ -178,15 +189,35 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Answer showQuizAnswer(int index) {
-        return appData.showQuizAnswer(index);
+    public ObservableList<Question> getOneQuizQuestionAsList() {
+        return appData.getOneQuizQuestionAsList();
     }
 
     @Override
-    public boolean checkQuizAnswer(int index, Answer answer) {
+    public Question getOneQuizQuestion() {
+        return appData.getOneQuizQuestion();
+    }
+
+    @Override
+    public void removeOneQuizQuestion() {
+        appData.removeOneQuizQuestion();
+    }
+
+    @Override
+    public int getSize() {
+        return appData.getSize();
+    }
+
+    @Override
+    public Answer showQuizAnswer() {
+        return appData.showQuizAnswer();
+    }
+
+    @Override
+    public boolean checkQuizAnswer(Answer answer) {
         requireNonNull(answer);
 
-        return appData.checkQuizAnswer(index, answer);
+        return appData.checkQuizAnswer(answer);
     }
 
     @Override
@@ -199,6 +230,19 @@ public class ModelManager implements Model {
     @Override
     public void clearQuizQuestionList() {
         appData.clearQuizQuestionList();
+    }
+
+    @Override
+    public void filterQuizResult(QuizResultFilter quizResultFilter) throws EmptyQuizResultListException {
+        this.quizResults = appData.filterQuizResult(quizResultFilter);
+    }
+
+    @Override
+    public void updateQuizResultFilter(QuizResultFilter quizResultFilter) throws EmptyQuizResultListException {
+        if (filteredQuizResults.isEmpty()) {
+            throw new EmptyQuizResultListException();
+        }
+        this.quizResultFilter = quizResultFilter;
     }
 
     //=========== Filtered Note List Accessors =============================================================
@@ -319,46 +363,65 @@ public class ModelManager implements Model {
     }
 
     //=========== Statistics ===============================================================================
-    /*@Override
-    public void setStatistics() {
-        filteredQuizResults = new FilteredList<>(this.appData.getQuizResultList());
-    }*/
-
     @Override
-    public ObservableList<TempStatsQnsModel> getStatsQnsList() {
-        return statsQnsList;
+    public ObservableList<QuizResult> getQuizResultList() {
+        return quizResults;
     }
 
     @Override
     public int getTotalQuestionsDone() {
-        return appData.getTotalQuestionsDone();
+        return quizResults.size();
     }
 
-    @Override
     public int getTotalQuestionsCorrect() {
-        return appData.getTotalQuestionsCorrect();
+        int totalCorrectQns = 0;
+        for (QuizResult q : quizResults) {
+            if (q.getResult()) {
+                totalCorrectQns++;
+            }
+        }
+        return totalCorrectQns;
     }
 
-    @Override
     public int getTotalQuestionsIncorrect() {
-        return appData.getTotalQuestionsIncorrect();
+        int totalIncorrectQns = 0;
+        for (QuizResult q : quizResults) {
+            if (!q.getResult()) {
+                totalIncorrectQns++;
+            }
+        }
+        return totalIncorrectQns;
     }
 
     @Override
-    public void setCorrectQnsList() {
-        statsQnsList = appData.getCorrectQns();
-    }
-
-    @Override
-    public void setIncorrectQnsList() {
-        statsQnsList = appData.getIncorrectQns();
-    }
-
-    @Override
-    public ObservableList<PieChart.Data> getStatsChartData() {
+    public ObservableList<PieChart.Data> getStatsPieChartData() {
         ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
         pieChartData.add(new PieChart.Data("Correct", getTotalQuestionsCorrect()));
         pieChartData.add(new PieChart.Data("Incorrect", getTotalQuestionsIncorrect()));
         return pieChartData;
+    }
+
+    @Override
+    public ObservableList<Subject> getUniqueSubjectList() {
+        return appData.getUniqueSubjectList();
+    }
+
+    @Override
+    public ObservableList<StackBarChartModel> getStackBarChartData() {
+        List<Difficulty> uniqueDifficultyList = appData.getUniqueDifficultyList();
+        List<Subject> uniqueSubjectList = getUniqueSubjectList();
+        List<StackBarChartModel> barChartData = new ArrayList<>();
+
+        for (Difficulty d : uniqueDifficultyList) {
+            List<Pair<Subject, Integer>> dataListPerDifficulty = new ArrayList<>();
+            for (Subject s : uniqueSubjectList) {
+                quizResultFilter.setOperation(s, d);
+                filterQuizResult(quizResultFilter);
+                int n = quizResults.size();
+                dataListPerDifficulty.add(new Pair<>(s, n));
+            }
+            barChartData.add(new StackBarChartModel(d, dataListPerDifficulty));
+        }
+        return FXCollections.observableArrayList(barChartData);
     }
 }

@@ -3,8 +3,8 @@ package seedu.address.testutil;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CONTENT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
 
-import seedu.address.logic.commands.AddNoteCommand;
-import seedu.address.logic.commands.EditNoteCommand;
+import seedu.address.logic.commands.note.AddNoteCommand;
+import seedu.address.logic.commands.note.EditNoteCommand;
 import seedu.address.model.note.Note;
 
 /**

@@ -1,44 +1,42 @@
 package seedu.address.model.task;
 
-import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
-import seedu.address.model.note.Note;
-import seedu.address.model.task.exceptions.RedundantOperationException;
-
 /**
- * Represents a NUStudy revision task. Its
+ * Represents a NUStudy revision task.
  */
-public abstract class Task {
-    public static final String MESSAGE_DATE_CONSTRAINT = "Please follow Singapore local date format 'dd/MM/yyyy',"
-            + "with 1 <= dd <= 31, 1 <= MM <= 12, -9999 < yyyy < 9999";
-    public static final String MESSAGE_TIME_CONSTRAINT = "Please follow Singapore local time format 'HH/mm',"
+public class Task implements Comparable<Task> {
+    public static final String MESSAGE_DATE_CONSTRAINT = "Please follow Singapore local date format 'dd/MM/yyyy', "
+            + "with 1 <= dd <= 31, 1 <= MM <= 12, 0 < yyyy < 9999";
+    public static final String MESSAGE_TIME_CONSTRAINT = "Please follow Singapore local time format 'HH/mm', "
             + "with 00 <= HH <= 23, 00 <= mm <= 59";
     public static final DateTimeFormatter FORMAT_FILE_DATE_STRING = DateTimeFormatter.ofPattern("dd MMMM yyyy");
     public static final DateTimeFormatter FORMAT_FILE_TIME_STRING = DateTimeFormatter.ofPattern("HH:mm");
     public static final DateTimeFormatter FORMAT_USER_INPUT_DATE = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     public static final DateTimeFormatter FORMAT_USER_INPUT_TIME = DateTimeFormatter.ofPattern("HHmm");
 
-
+    protected Heading heading;
     private boolean isDone;
     private LocalDate date;
     private LocalTime time;
 
     Task(LocalDate date, LocalTime time) {
-        requireNonNull(date);
+        requireAllNonNull(date, time);
         this.isDone = false;
         this.date = date;
         this.time = time;
     }
 
-    public Task(LocalDate date, LocalTime time, boolean isDone) {
-        requireNonNull(date);
-        this.isDone = isDone;
+    public Task(Heading heading, LocalDate date, LocalTime time, boolean isDone) {
+        requireAllNonNull(heading, date, time, isDone);
+        this.heading = heading;
         this.date = date;
         this.time = time;
+        this.isDone = isDone;
     }
 
     public static boolean isValidStatusIcon(String status) {
@@ -55,7 +53,11 @@ public abstract class Task {
     }
 
     @Override
-    public abstract String toString();
+    public String toString() {
+        return getStatusIcon() + " " + heading.toString() + " by: "
+                + getDate().format(FORMAT_FILE_DATE_STRING) + " "
+                + getTime().format(FORMAT_FILE_TIME_STRING);
+    }
 
     public LocalDate getDate() {
         return date;
@@ -65,12 +67,26 @@ public abstract class Task {
         return time;
     }
 
+    public Heading getHeading() {
+        return heading;
+    }
+
     @Override
-    public abstract boolean equals(Object other);
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
 
-    public abstract Note getNote();
+        if (!(other instanceof Task)) {
+            return false;
+        }
 
-    public abstract void setNote(Note note);
+        Task otherTask = (Task) other;
+        return this.heading.equals(otherTask.getHeading())
+                && getDate().equals(otherTask.getDate())
+                && getTime().equals(otherTask.getTime())
+                && getStatusIcon().equals(otherTask.getStatusIcon());
+    }
 
     /**
      * Marks the task as done.
@@ -78,10 +94,42 @@ public abstract class Task {
      * @return The done task object.
      */
     public Task markAsDone() {
-        if (this.isDone) {
-            throw new RedundantOperationException("The task has already been marked done");
-        }
         this.isDone = true;
         return this;
+    }
+
+    /**
+     * Marks the task as not done.
+     *
+     * @return The not done task object.
+     */
+    public Task markAsNotDone() {
+        this.isDone = false;
+        return this;
+    }
+
+    public boolean getStatus() {
+        return isDone;
+    }
+
+    @Override
+    public int compareTo(Task task) {
+        int compareDate = this.getDate().compareTo(task.getDate());
+        if (compareDate != 0) {
+            return compareDate;
+        }
+
+        int compareTime = this.getTime().compareTo(task.getTime());
+        if (compareTime != 0) {
+            return compareTime;
+        }
+
+        if (this.getStatus() && !task.getStatus()) {
+            return -1;
+        } else if (!this.getStatus() && task.getStatus()) {
+            return 1;
+        } else {
+            return 0;
+        }
     }
 }

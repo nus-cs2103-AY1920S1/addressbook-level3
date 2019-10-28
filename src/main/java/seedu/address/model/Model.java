@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+import java.time.LocalDateTime;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -12,7 +13,8 @@ import seedu.address.model.question.Difficulty;
 import seedu.address.model.question.Question;
 import seedu.address.model.question.Subject;
 import seedu.address.model.quiz.QuizResult;
-import seedu.address.model.statistics.TempStatsQnsModel;
+import seedu.address.model.quiz.QuizResultFilter;
+import seedu.address.model.statistics.StackBarChartModel;
 import seedu.address.model.task.Task;
 
 /**
@@ -29,7 +31,30 @@ public interface Model {
      */
     Predicate<Note> PREDICATE_SHOW_NO_NOTES = unused -> false;
 
+    Predicate<Task> PREDICATE_SHOW_NO_TASKS = task -> false;
+
     Predicate<Task> PREDICATE_SHOW_ALL_TASKS = unused -> true;
+
+    Predicate<Task> PREDICATE_SHOW_DONE_TASKS = Task::getStatus;
+
+    Predicate<Task> PREDICATE_SHOW_NOT_DONE_TASKS = task -> !task.getStatus();
+
+    Predicate<Task> PREDICATE_SHOW_OVERDUE_TASKS = new Predicate<Task>() {
+        @Override
+        public boolean test(Task task) {
+            LocalDateTime now = LocalDateTime.now();
+            System.out.println(now.toString());
+            if (task.getStatus()) {
+                return false;
+            }
+            LocalDateTime taskDateTime = LocalDateTime.of(task.getDate(), task.getTime());
+            if (taskDateTime.compareTo(now) < 0) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    };
 
     /**
      * {@code Predicate} that always evaluate to true
@@ -85,6 +110,11 @@ public interface Model {
      * Deletes the given existing lecture note.
      */
     void deleteNote(Note target);
+
+    /**
+     * Clears all lecture notes.
+     */
+    void clearNotes();
 
     /**
      * Adds the given (not yet existing) lecture note.
@@ -176,12 +206,30 @@ public interface Model {
      */
     void setQuizQuestionList(ObservableList<Question> quizQuestionList);
 
+    /**
+     * Gets one question from the list and return a new list contains this question.
+     */
+    ObservableList<Question> getOneQuizQuestionAsList();
+
+    /**
+     * Return the number of remaining quiz questions.
+     */
+    int getSize();
+
+    Question getOneQuizQuestion();
+
+    void removeOneQuizQuestion();
+
     void setTask(Task target, Task editedTask);
 
     /**
      * Returns an unmodifiable view of the filtered quiz question list.
      */
     ObservableList<Question> getFilteredQuizQuestionList();
+
+    void filterQuizResult(QuizResultFilter quizResultFilter);
+
+    void updateQuizResultFilter(QuizResultFilter quizResultFilter);
 
     /**
      * Returns an unmodifiable view of the filtered quiz result list.
@@ -191,7 +239,7 @@ public interface Model {
     /**
      * Checks the an answer input by user and return the boolean value as the result.
      */
-    boolean checkQuizAnswer(int index, Answer answer);
+    boolean checkQuizAnswer(Answer answer);
 
     void addQuizResult(QuizResult quizResult);
 
@@ -207,7 +255,7 @@ public interface Model {
     /**
      * Returns an answer for question in quiz with specific {@code index}.
      */
-    Answer showQuizAnswer(int index);
+    Answer showQuizAnswer();
 
     /**
      * Returns the total number of questions answered.
@@ -215,29 +263,13 @@ public interface Model {
     int getTotalQuestionsDone();
 
     /**
-     * Returns the total number of questions answered correctly.
-     */
-    int getTotalQuestionsCorrect();
-
-    /**
-     * Returns the total number of questions answered incorrectly.
-     */
-    int getTotalQuestionsIncorrect();
-
-    /**
-     * Returns an unmodifiable view of a list correct questions.
-     */
-    void setCorrectQnsList();
-
-    /**
-     * Returns an unmodifiable view of a list incorrect questions.
-     */
-    void setIncorrectQnsList();
-
-    /**
      * Returns an unmodifiable view of the pie chart data.
      */
-    ObservableList<PieChart.Data> getStatsChartData();
+    ObservableList<PieChart.Data> getStatsPieChartData();
 
-    ObservableList<TempStatsQnsModel> getStatsQnsList();
+    ObservableList<QuizResult> getQuizResultList();
+
+    ObservableList<Subject> getUniqueSubjectList();
+
+    ObservableList<StackBarChartModel> getStackBarChartData();
 }

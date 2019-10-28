@@ -5,7 +5,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.question.Answer;
+import seedu.address.model.question.Difficulty;
 import seedu.address.model.question.QuestionBody;
+import seedu.address.model.question.Subject;
 import seedu.address.model.quiz.QuizResult;
 
 /**
@@ -16,6 +18,8 @@ class JsonAdaptedQuizResult {
 
     private final String answer;
     private final String questionBody;
+    private final String subject;
+    private final String difficulty;
     private final String quizTime;
     private final String result;
 
@@ -25,9 +29,12 @@ class JsonAdaptedQuizResult {
     @JsonCreator
     public JsonAdaptedQuizResult(@JsonProperty("answer") String answer,
                                  @JsonProperty("questionBody") String questionBody,
+                                 @JsonProperty("subject") String subject, @JsonProperty("difficulty") String difficulty,
                                  @JsonProperty("quizTime") String quizTime, @JsonProperty("result") String result) {
         this.answer = answer;
         this.questionBody = questionBody;
+        this.subject = subject;
+        this.difficulty = difficulty;
         this.quizTime = quizTime;
         this.result = result;
     }
@@ -38,6 +45,8 @@ class JsonAdaptedQuizResult {
     public JsonAdaptedQuizResult(QuizResult source) {
         answer = source.getAnswer().toString();
         questionBody = source.getQuestionBody().toString();
+        subject = source.getSubject().toString();
+        difficulty = source.getDifficulty().toString();
         quizTime = source.getQuizTime();
         result = String.valueOf(source.getResult());
     }
@@ -59,6 +68,18 @@ class JsonAdaptedQuizResult {
         }
         final QuestionBody modelQuestionBody = new QuestionBody(questionBody);
 
+        if (subject == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Subject.class.getSimpleName()));
+        }
+        final Subject modelSubject = new Subject(subject);
+
+        if (difficulty == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Difficulty.class.getSimpleName()));
+        }
+        final Difficulty modelDifficulty = new Difficulty(difficulty);
+
         if (quizTime == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "quizTime"));
         }
@@ -69,6 +90,7 @@ class JsonAdaptedQuizResult {
         }
         final boolean modelResult = Boolean.parseBoolean(result);
 
-        return new QuizResult(modelAnswer, modelQuestionBody, modelQuizTime, modelResult);
+        return new QuizResult(modelAnswer, modelQuestionBody, modelSubject, modelDifficulty, modelQuizTime,
+                modelResult);
     }
 }

@@ -21,7 +21,12 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.statistics.Type;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.ui.statistics.StatsChart;
+import seedu.address.ui.panels.NoteListPanel;
+import seedu.address.ui.panels.QuestionListPanel;
+import seedu.address.ui.panels.QuizQuestionListPanel;
+import seedu.address.ui.panels.TaskListPanel;
+import seedu.address.ui.statistics.StackBarChart;
+import seedu.address.ui.statistics.StatsPieChart;
 import seedu.address.ui.statistics.StatsQnsList;
 
 /**
@@ -44,8 +49,9 @@ public class MainWindow extends UiPart<Stage> {
     private QuizQuestionListPanel quizQuestionListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
-    private StatsChart statsChart;
-    private StatsQnsList statsQnsList;
+    private StatsPieChart statsPieChart;
+    private StackBarChart stackBarChart;
+    private StatsQnsList quizResultList;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -64,9 +70,6 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane questionListPanelPlaceholder;
-
-    @FXML
-    private StackPane quizQuestionListPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -133,9 +136,6 @@ public class MainWindow extends UiPart<Stage> {
         questionListPanel = new QuestionListPanel(logic.getFilteredQuestionList());
         questionListPanelPlaceholder.getChildren().add(questionListPanel.getRoot());
 
-        quizQuestionListPanel = new QuizQuestionListPanel(logic.getFilteredQuizQuestionList());
-        quizQuestionListPanelPlaceholder.getChildren().add(quizQuestionListPanel.getRoot());
-
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
@@ -187,6 +187,27 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
+     * Shows a list of quiz questions, replace the panel of questions.
+     */
+    @FXML
+    private void showQuiz() {
+        questionListPanelPlaceholder.getChildren().clear();
+        quizQuestionListPanel = new QuizQuestionListPanel(logic.getOneQuizQuestionAsList());
+        questionListPanelPlaceholder.getChildren().add(quizQuestionListPanel.getRoot());
+    }
+
+    /**
+     * Shows a list of questions when the quiz mode is not activated.
+     */
+    @FXML
+    private void showQuestion() {
+        questionListPanelPlaceholder.getChildren().clear();
+        questionListPanel = new QuestionListPanel(logic.getFilteredQuestionList());
+        questionListPanelPlaceholder.getChildren().add(questionListPanel.getRoot());
+
+    }
+
+    /**
      * Shows a pie chart and returns the value of the data
      * in each slice of the chart when the mouse hovers over it.
      */
@@ -195,10 +216,11 @@ public class MainWindow extends UiPart<Stage> {
         mainPanel.setVisible(false);
         stats.setVisible(true);
         switch (type) {
-        case CHART:
-            statsChart = new StatsChart(logic.getStatsChartData(), logic.getTotalQuestionsDone());
-            statsPanelPlaceholder.getChildren().add(statsChart.getRoot());
-            statsChart.getChart().getData().forEach(data -> {
+        case STATS:
+            statsPanelPlaceholder.getChildren().clear();
+            statsPieChart = new StatsPieChart(logic.getStatsPieChartData(), logic.getTotalQuestionsDone());
+            statsPanelPlaceholder.getChildren().add(statsPieChart.getRoot());
+            statsPieChart.getChart().getData().forEach(data -> {
                 String value = "" + (int) data.getPieValue();
                 Tooltip toolTip = new Tooltip(value);
                 toolTip.setStyle("-fx-font-size: 20");
@@ -208,8 +230,13 @@ public class MainWindow extends UiPart<Stage> {
             break;
         case QUESTIONS:
             statsPanelPlaceholder.getChildren().clear();
-            statsQnsList = new StatsQnsList(logic.getStatsQnsList());
-            statsPanelPlaceholder.getChildren().add(statsQnsList.getLabel());
+            quizResultList = new StatsQnsList(logic.getQuizResultList());
+            statsPanelPlaceholder.getChildren().add(quizResultList.getLabel());
+            break;
+        case OVERVIEW:
+            statsPanelPlaceholder.getChildren().clear();
+            stackBarChart = new StackBarChart(logic.getStackBarChartData(), logic.getUniqueSubjectList());
+            statsPanelPlaceholder.getChildren().add(stackBarChart.getRoot());
             break;
         default:
             throw new ParseException("Invalid type: " + type);
@@ -249,9 +276,11 @@ public class MainWindow extends UiPart<Stage> {
                 handleExit();
             }
 
-            //if (commandResult.isQuiz()) {
-            //
-            //}
+            if (commandResult.isQuiz()) {
+                showQuiz();
+            } else {
+                showQuestion();
+            }
 
             if (commandResult.isShowStats()) {
                 showStats(commandResult.getType());

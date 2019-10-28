@@ -8,15 +8,17 @@ import static seedu.address.testutil.Assert.assertThrows;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
 import javafx.scene.chart.PieChart;
+
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.note.AddNoteCommand;
 import seedu.address.model.AppData;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAppData;
@@ -27,12 +29,12 @@ import seedu.address.model.question.Difficulty;
 import seedu.address.model.question.Question;
 import seedu.address.model.question.Subject;
 import seedu.address.model.quiz.QuizResult;
-import seedu.address.model.statistics.TempStatsQnsModel;
+import seedu.address.model.quiz.QuizResultFilter;
+import seedu.address.model.statistics.StackBarChartModel;
 import seedu.address.model.task.Task;
 import seedu.address.testutil.NoteBuilder;
 
 public class AddNoteCommandTest {
-
     @Test
     public void constructor_nullNote_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new AddNoteCommand(null));
@@ -46,7 +48,7 @@ public class AddNoteCommandTest {
         CommandResult commandResult = new AddNoteCommand(validNote).execute(modelStub);
 
         assertEquals(String.format(AddNoteCommand.MESSAGE_SUCCESS, validNote), commandResult.getFeedbackToUser());
-        assertEquals(Arrays.asList(validNote), modelStub.notesAdded);
+        assertEquals(Collections.singletonList(validNote), modelStub.notesAdded);
     }
 
     @Test
@@ -158,6 +160,11 @@ public class AddNoteCommandTest {
         }
 
         @Override
+        public void clearNotes() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void setNote(Note target, Note editedNote) {
             throw new AssertionError("This method should not be called.");
         }
@@ -175,11 +182,6 @@ public class AddNoteCommandTest {
         @Override
         public void updateFilteredNoteList(Predicate<Note> predicate) {
             throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ObservableList<PieChart.Data> getStatsChartData() {
-            throw new AssertionError("This method should not be called");
         }
 
         @Override
@@ -208,7 +210,7 @@ public class AddNoteCommandTest {
         }
 
         @Override
-        public boolean checkQuizAnswer(int index, Answer answer) {
+        public boolean checkQuizAnswer(Answer answer) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -253,6 +255,26 @@ public class AddNoteCommandTest {
         }
 
         @Override
+        public ObservableList<Question> getOneQuizQuestionAsList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Question getOneQuizQuestion() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void removeOneQuizQuestion() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public int getSize() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void clearTaskList() {
             throw new AssertionError("This method should not be called.");
         }
@@ -263,7 +285,17 @@ public class AddNoteCommandTest {
         }
 
         @Override
-        public Answer showQuizAnswer(int index) {
+        public void filterQuizResult(QuizResultFilter quizResultFilter) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateQuizResultFilter(QuizResultFilter quizResultFilter) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Answer showQuizAnswer() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -273,7 +305,7 @@ public class AddNoteCommandTest {
         }
 
         @Override
-        public ObservableList getFilteredQuizResultList() {
+        public ObservableList<QuizResult> getFilteredQuizResultList() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -283,27 +315,22 @@ public class AddNoteCommandTest {
         }
 
         @Override
-        public int getTotalQuestionsCorrect() {
+        public ObservableList<PieChart.Data> getStatsPieChartData() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public int getTotalQuestionsIncorrect() {
+        public ObservableList<QuizResult> getQuizResultList() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setCorrectQnsList() {
+        public ObservableList<Subject> getUniqueSubjectList() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setIncorrectQnsList() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ObservableList<TempStatsQnsModel> getStatsQnsList() {
+        public ObservableList<StackBarChartModel> getStackBarChartData() {
             throw new AssertionError("This method should not be called.");
         }
     }

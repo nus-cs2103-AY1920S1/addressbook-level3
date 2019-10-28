@@ -7,6 +7,7 @@ import static seedu.address.testutil.TypicalAppData.getTypicalAppData;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import seedu.address.logic.commands.note.AddNoteCommand;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;

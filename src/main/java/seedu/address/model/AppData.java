@@ -18,8 +18,9 @@ import seedu.address.model.question.Subject;
 import seedu.address.model.question.UniqueQuestionList;
 import seedu.address.model.quiz.QuizQuestionList;
 import seedu.address.model.quiz.QuizResult;
+import seedu.address.model.quiz.QuizResultFilter;
 import seedu.address.model.quiz.QuizResultList;
-import seedu.address.model.statistics.TempStatsQnsModel;
+import seedu.address.model.quiz.exceptions.EmptyQuizResultListException;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.TaskList;
 
@@ -87,6 +88,7 @@ public class AppData implements ReadOnlyAppData {
 
         setNotes(newData.getNoteList());
         setQuestions(newData.getQuestionList());
+        setQuizResults(newData.getQuizResultList());
         setTasks(newData.getTaskList());
     }
 
@@ -120,7 +122,7 @@ public class AppData implements ReadOnlyAppData {
     /**
      * Retrieves {@code title} from the note list. The note must exists.
      *
-     * @param title The note with the same tile to be retrieved.
+     * @param title The note with the same title to be retrieved.
      * @return The note with the same title as specified in input.
      */
     public Note getNote(Note title) {
@@ -134,10 +136,18 @@ public class AppData implements ReadOnlyAppData {
         notes.remove(title);
     }
 
+    /**
+     * Clears all lecture notes.
+     */
+    public void clearNotes() {
+        notes.setNotes(new UniqueNoteList());
+    }
+
     //// question operations
 
     /**
-     * Returns true if a question with the same identity as {@code question} exists in the address book.
+     * Returns true if a question with the same identity as {@code question} exists in this set
+     * of application data.
      */
     public boolean hasQuestion(Question question) {
         requireNonNull(question);
@@ -165,7 +175,7 @@ public class AppData implements ReadOnlyAppData {
 
     /**
      * Removes {@code key} from this {@code AppData}.
-     * {@code key} must exist in the address book.
+     * {@code key} must exist in the application data.
      */
     public void removeQuestion(Question key) {
         questions.remove(key);
@@ -202,17 +212,36 @@ public class AppData implements ReadOnlyAppData {
     }
 
     /**
+     * Gets one question from the list and return a new list contains this question.
+     */
+    public ObservableList<Question> getOneQuizQuestionAsList() {
+        return quiz.getOneQuizQuestionAsList();
+    }
+
+    public Question getOneQuizQuestion() {
+        return quiz.getOneQuizQuestion();
+    }
+
+    public void removeOneQuizQuestion() {
+        quiz.removeOneQuizQuestion();
+    }
+
+    public int getSize() {
+        return quiz.getSize();
+    }
+
+    /**
      * Returns an answer for the question in quiz with specific {@code index}.
      */
-    public Answer showQuizAnswer(int index) {
-        return quiz.showAnswer(index);
+    public Answer showQuizAnswer() {
+        return quiz.showAnswer();
     }
 
     /**
      * Checks the answer input by user and return a boolean value as the result.
      */
-    public boolean checkQuizAnswer(int index, Answer answer) {
-        return quiz.checkQuizAnswer(index, answer);
+    public boolean checkQuizAnswer(Answer answer) {
+        return quiz.checkQuizAnswer(answer);
     }
 
     /**
@@ -222,12 +251,30 @@ public class AppData implements ReadOnlyAppData {
         quiz.clearQuizQuestionList();
     }
 
+    // Quiz Result operations
+    public void setQuizResults(List<QuizResult> quizResults) {
+        this.quizResults.setQuizResults(quizResults);
+    }
+
     public void addQuizResult(QuizResult quizResult) {
         quizResults.add(quizResult);
     }
 
     public boolean hasQuizResult(QuizResult quizResult) {
         return quizResults.contains(quizResult);
+    }
+
+    public ObservableList<QuizResult> filterQuizResult(QuizResultFilter quizResultFilter)
+            throws EmptyQuizResultListException {
+        return quizResults.filterQuizResult(quizResultFilter);
+    }
+
+    public ObservableList<Subject> getUniqueSubjectList() {
+        return quizResults.getUniqueSubjectList();
+    }
+
+    public ObservableList<Difficulty> getUniqueDifficultyList() {
+        return quizResults.getUniqueDifficultyList();
     }
 
     // util methods
@@ -256,26 +303,6 @@ public class AppData implements ReadOnlyAppData {
     @Override
     public ObservableList<QuizResult> getQuizResultList() {
         return quizResults.asUnmodifiableObservableList();
-    }
-
-    public int getTotalQuestionsDone() {
-        return quizResults.getTotalQuestionsDone();
-    }
-
-    public int getTotalQuestionsCorrect() {
-        return quizResults.getTotalQuestionsCorrect();
-    }
-
-    public int getTotalQuestionsIncorrect() {
-        return quizResults.getTotalQuestionsIncorrect();
-    }
-
-    public ObservableList<TempStatsQnsModel> getCorrectQns() {
-        return quizResults.getCorrectQns();
-    }
-
-    public ObservableList<TempStatsQnsModel> getIncorrectQns() {
-        return quizResults.getIncorrectQns();
     }
 
     @Override

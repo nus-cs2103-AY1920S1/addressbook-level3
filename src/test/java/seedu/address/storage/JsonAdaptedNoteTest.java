@@ -27,14 +27,14 @@ public class JsonAdaptedNoteTest {
     @Test
     public void toModelType_invalidTitle_throwsIllegalValueException() {
         JsonAdaptedNote note =
-                new JsonAdaptedNote(INVALID_TITLE, VALID_CONTENT);
+                new JsonAdaptedNote(INVALID_TITLE, VALID_CONTENT, null);
         String expectedMessage = Title.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, note::toModelType);
     }
 
     @Test
     public void toModelType_nullTitle_throwsIllegalValueException() {
-        JsonAdaptedNote note = new JsonAdaptedNote(null, VALID_CONTENT);
+        JsonAdaptedNote note = new JsonAdaptedNote(null, VALID_CONTENT, null);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Title.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, note::toModelType);
     }
@@ -42,14 +42,14 @@ public class JsonAdaptedNoteTest {
     @Test
     public void toModelType_invalidContent_throwsIllegalValueException() {
         JsonAdaptedNote note =
-                new JsonAdaptedNote(VALID_TITLE, INVALID_CONTENT);
+                new JsonAdaptedNote(VALID_TITLE, INVALID_CONTENT, null);
         String expectedMessage = Content.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, note::toModelType);
     }
 
     @Test
     public void toModelType_nullContent_throwsIllegalValueException() {
-        JsonAdaptedNote note = new JsonAdaptedNote(VALID_TITLE, null);
+        JsonAdaptedNote note = new JsonAdaptedNote(VALID_TITLE, null, null);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Content.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, note::toModelType);
     }

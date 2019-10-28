@@ -63,6 +63,9 @@ image::ArchitectureSequenceDiagram.png[]
 .Class diagram of the `UI` component
 image::UiClassDiagram.png[]
 
+.Detailed class diagram for `Panels` package
+image::PanelPackageClassDiagram.png[]
+
 _API:_ link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
 The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`,
@@ -126,23 +129,290 @@ This section describes some finer details on how certain features are implemente
 
 // tag::lecimage[]
 === Image support for lecture notes
+
+Usually, we do not learn best from just text; we rely on images that our minds can process more easily.
+As such, implementing images in lecture notes was considered very important. Although some lecture notes
+have multiple images, it is always possible to combine them using basic image editing software like the
+GNU Image Manipulation Program (GIMP) and Paint, so the implementation was limited to at most image per note.
+
 ==== Implementation
 
-(Implementation of image support for lecture notes)
+Instead of a custom class to represent an image, JavaFX's `scene.image.Image` is used instead.
+This is out of necessity, since an `ImageView` is needed to display an image in the GUI and it requires
+an `Image` object, not just a `String` path to the image. No significant coupling is introduced
+by this choice because `Image` objects can exist without a GUI to display them.
 
-image::UndoRedoState0.png[]
+The dialog brought up to let the user choose a file returns `null` if the dialog is closed
+_without_ choosing a file (i.e. clicking the close button). Treating `null` as "no image" would surprise the user who
+decides to edit a lecture note's image but then decides not to – the image would simply disappear without
+warning. Therefore the value `i/none` has to be explicitly provided to remove the image, and `EditNoteDescriptor`
+has an additional field `isImageRemoved` to track this. If the image comes out as `null` but `i/none` was
+not provided, the image is unchanged.
+
+The static method `selectImage()` in `AppUtil` opens up a dialog allowing the user to choose the necessary image.
+This is possible because `FileChooser#showOpenDialog()`, which shows the dialog, can be fed an argument of `null`
+instead of having to rely on a `Window` object, which is the domain of the `UI` module.
+
+.Sequence diagram for the execution of `EditNoteCommandParser`
+image::ImageSelectionSequenceDiagram.png[]
+
+The diagram above shows how `EditNoteCommandParser` creates an `EditNoteCommand`. It first
+creates an `EditNoteDescriptor` to hold details of what changes in the note, setting the new
+title (provided by the `t/` argument) and content (`c/`) as necessary. If `i/none` is present,
+the `EditNoteDescriptor` is set to remove the image and no dialog is shown. If `i/` is
+otherwise provided, `EditNoteCommandParser` calls the static method `NoteImageSelector#selectImage()`,
+opening up the image selection dialog; the returned `Image` object is then set in the `EditNoteDescriptor`.
+An `EditNoteCommand` containing the `EditNoteDescriptor` is finally returned for execution.
+
+Images are only referenced, not embedded, in the JSON file holding application data. These references are
+Uniform Resource Identifiers (URIs) of system files, e.g. `file:data/picture.png`. Since NUStudy is meant to be portable,
+we cannot use absolute paths, since they would break when the images are moved or deleted. Instead we copy images
+into its data folder, side-by-side with the JSON file, upon execution of any `addnote` or `editnote` command with
+an image. The references are then changed to point to these local copies, becoming relative URIs.
+
+'''
+
+Unlike `Title` and `Content`, which are wrappers around `String` objects, both the use of a JavaFX
+built-in object and the system-dependent implementation of graphics-related objects required me to
+make certain critical decisions on the implementation of image support.
 
 ==== Design considerations: where to place the image?
 
-* _Alternative 1:_ Images are shown within each lecture note in the first column, and each lecture note
+* _Alternative 1 (current choice):_ Images are shown within each lecture note in the first column, and each lecture note
 shows all of its title, content and image
 ** Pros: Easier to implement (FXML does not have to reach into other places)
-** Cons: Scrolling through lecture notes, all with images, takes time
-* _Alternative 2:_ Place the images in the second column, below their corresponding title and content.
-** Pros: More visually appealing, and by keeping just one note in the second column it becomes a
-kind of flash card
-** Cons: Harder to implement (FXML must reach into the object representing the second column)
+** Cons: Scrolling through lecture notes, all with images, takes time, but this downside is alleviated
+by the `findnote` command
+* _Alternative 2:_ Place the images in the second column, below their corresponding title and content
+** Pros: More visually appealing, since by keeping just one note in the second column it becomes a kind of flash card
+** Cons: Harder to implement (FXML must reach into the object representing the second column),
+need to have a separate `NotePreview` JavaFX object since images are only going to be displayed
+in the second column
+
+==== Design considerations: when to copy images into the local folder
+* _Alternative 1 (current choice):_ Images are copied when the command is executed, i.e. `Command#execute()`
+** Pros: Effects a better separation of concerns (image selection is not execution of the command, image
+copying may be thought of as a side effect of command execution)
+** Cons: Need to adapt the file copying code to each command
+* _Alternative 2:_ Images are copied when the image is selected, i.e. `NoteImageSelector#selectImage()`
+** Pros: Compared to alternative 1, has less time between initial image selection and the copy into
+application data. There is a potential application risk if
+** Cons: `selectImage()` has two only loosely related responsibilities (worse separation of concerns),
+impossible to take into account user preferences for where the application data is stored
 // end::lecimage[]
+
+=== Question management feature
+==== Current implementation
+
+The question management feature is facilitated by `Model`.
+The question-related commands extend `Command` with the question object if necessary.
+The commands update the `Model` which is implemented by `ModelManager`.
+This in turn updates `AppData` which stores all the questions internally as `UniqueQuestionList`.
+Local data will be updated in the end by `LogicManager`.
+The commands include:
+
+* `AddQuestionCommand` -- Adds a new question to the app.
+* `DeleteQuestionCommand` -- Deletes an existing question in the app.
+* `ListQuestionCommand` -- Views the list of all questions available.
+* `EditQuestionCommand` -- Edits an existing question in the app. (to be implemented)
+* `FindQuestionCommand` -- Finds a question with a specified keyword. (to be implemented)
+
+These operations are exposed in the `Model` interface as `Model#addQuestion(Question question)`,
+`Model#deleteQuestion(Question question)`, `Model#getFilteredQuestionList()` and
+`Model#setQuestion(Question target, Question editedQuestion)` respectively.
+
+Given below is an example usage scenario and how the question mechanism behaves at each step.
+
+Step 1. The user launches the application for the first time. The app will load all existing information from storage.
+
+Step 2. The user executes `addq q/QUESTION a/ANSWER s/SUBJECT d/DIFFICULTY` command to add a new question to the app.
+The `addq` command calls `Model#addQuestion(Question question)`, causing the `AppData` to be updated with the new question.
+
+Step 3. The user executes `deleteq 5` command to delete the 5th question in the app. The `deleteq` command calls `Model#deleteQuestion(Question target)`
+and `Model#updateFilteredQuestionList(Predicate<Question> predicate)`, causing the `AppData` to be updated with the
+target question removed.
+
+Step 4. The user executes `editq 2 a/NEW_ANSWER` command to edit the answer of the 2nd question in the app.
+The `editq` command calls `Model#setQuestion(Question target, Question editedQuestion)` and
+`Model#updateFilteredQuestionList(Predicate<Question> predicate)`, causing the `AppData` to be updated with the original
+question being replaced by the edited question.
+
+The following sequence diagram shows how the `addq` operation works:
+
+image::AddQuestionSequenceDiagram.png[]
+
+The following activity diagram summarizes what happens when a user executes a new command:
+
+image::AddQuestionActivityDiagram.png[]
+
+===== Design considerations: How `addq`/`deleteq`/`editq` commands execute
+* _Alternative 1 (current choice):_ Update the internal storage `UniqueQuestionList` in `AppData` first, then save the updated appData
+in local storage when the command finishes executing.
+** Pros: Easy to implement.
+** Cons: Need the extra step to ensure that the internal list is correctly maintained.
+* _Alternative 2:_ Update the local storage directly when the command is executing.
+** Pros: No need to implement the internal list.
+** Cons: Will access local memory more frequently. May have performance issues in terms of memory usage.
+
+===== Design considerations: Data structure to support the question commands
+* _Alternative 1 (current choice):_ Use a `UniqueQuestionList` to store questions in `AppData`.
+** Pros: Cater to the question model specifically. Question list operations are encapsulated in one class.
+** Cons: Logic is duplicated as other models also implement similar list structure.
+* _Alternative 2:_ Use Java list to store the questions.
+** Pros: Do not need to maintain a separate list class.
+** Cons: Violates Single Responsibility Principle and Separation of Concerns as the model needs to maintain various
+list operations.
+
+=== Quiz mode for revision
+==== Implementation
+
+The quiz mode feature is facilitated by `Model`.
+The quiz-related commands extend `Command` with specific question object.
+The commands update the `Model` which is implemented by `ModelManager`.
+This in turn updates `AppData` which stores filtered specific questions internally as `QuizQuestionList`.
+Local data will be updated in the end by `LogicManager`.
+The commands include:
+
+* `QuizModeCommand` -- Enters the quiz mode with questions selected by user.
+* `QuizCheckAnswer` -- Checks the correctness of answer entered by user.
+* `QuizShowAnswerCommand` -- Shows the answer for current question.
+* `QuitQuizModeCommand` -- Quits the quiz mode.
+
+These operations are exposed in the `Model` interface as `Model#getQuizQuestions(int numOfQuestions, Subject subject
+Difficulty difficulty)`, `Model#setQuizQuestionList(ObservableList<Question> quizQuestionList)`,
+`Model#showQuizAnswer(int index)`, `Model#getFilteredQuizQuestionList()`, `Model#getFilteredQuizResultList()`,
+`Model#checkQuizAnswer(int index, Answer answer)`, `Model#addQuizResult(QuizResult quizResult)`,
+`Model#getFilteredQuizResultList()` and `Model#clearQuizQuestionList()` respectively.
+
+Given below is an example usage scenario and how the question mechanism behaves at each step.
+
+Step 1. The user launches the application for the first time. The app will load all existing information from storage.
+
+Step 2. The user executes `quiz n/NUMBER OF QUESTIONS d/DIFFICULTY s/SUBJECT` command to enter quiz mode of the app.
+The `quiz` command calls `Model#getQuizQuestions(int numOfQuestions, Subject subject Difficulty difficulty)` and
+`Model#setQuizQuestionList(ObservableList<Question> quizQuestionList)`, causing the `AppData` to be updated with
+a list of specific question selected by user for quiz.
+
+Step 3. The user executes `INDEX:ANSWER` to answer the question. It calls `Model#checkQuizAnswer(int index,
+Answer answer)` and `Model#addQuizResult(QuizResult quizResult)`, causing the `AppData` to be updated with the result
+of the answer.
+
+Step 4. The user executes `show 2` command to show the answer of 2nd quiz question in the app. The `show` command calls
+`Model#showQuizAnswer(int index)`, causing the `AppData` to display the answer on the Ui.
+
+Step 5. The user executes `quit` command to exit from the quiz mode. The `quit` command calls
+`Model#clearQuizQuestionList()`, causing the `AppData` to clear all quiz question list and return to normal mode.
+
+The following sequence diagram shows how the `quiz` operation works:
+
+image::QuizModeSequenceDiagram.png[]
+
+The following activity diagram summarizes what happens when a user executes a new command for quiz:
+
+image::QuizModeActivityDiagram.png[]
+
+==== Design Considerations
+
+===== Aspect: How to store the quiz results
+* **Alternative 1 (current choice):** Update the internal storage `QuizResultList` in `AppData` first, then save the
+updated appData in local storage when the command finishes executing.
+** Pros: Easy to implement.
+** Cons: Need the extra step to ensure that the internal list is correctly maintained.
+* **Alternative 2:** Update the local storage directly when the command is executing.
+** Pros: No need to implement the internal list.
+** Cons: Will access local memory more frequently. May have performance issues in terms of memory usage.
+
+===== Aspect: Data structure to support the quiz commands
+* **Alternative 1 (current choice):** Use `QuizQuestionList` and `QuizResultList` to store data in `AppData`.
+** Pros: Cater to the quiz model specifically. Quiz question and result list operations are encapsulated in one class.
+** Cons: Logic is duplicated as other models also implement similar list structure.
+* **Alternative 2:** Use Java list to store the quiz questions and results.
+** Pros: Do not need to maintain a separate list class.
+** Cons: Violates Single Responsibility Principle and Separation of Concerns as the model needs to maintain various
+list operations.
+
+=== Statistics feature
+==== Implementation
+
+The statistics feature gathers data stored from quizzes done in NUStudy to analyse and return an output.
+The different commands supported by the statistics feature are used to filter the type of statistics the user wants.
+These commands include:
+
+* `GetQnsCommand` -- Gets all questions answered correctly/incorrectly.
+* `GetReportCommand` -- Returns a report of the specified question.
+* `GetStatisticsCommand` -- Returns a general overview of how well the user has answered quiz questions.
+
+Given below is an example usage scenario and how the statistics mechanism behaves at each step.
+
+Step 1. The user launches the application.
+The app will attempt to read past data from any quizzes done and store it internally to a `quizResults` list.
+
+Step 2. The user executes `stats s/CS2103T` command to get the statistics of all quiz questions done for CS2103T.
+The `stats` command creates a new `commandResult` setting the type of command to `CHART`.
+
+The following class diagram shows how the `GetStatisticsCommand` and `CommandResult` class are related.
+
+image::StatisticsClassDiagram.png[]
+
+Step 3. The `commandResult` will call the relevant methods to filter the `quizResults` list and create the relevant outputs.
+It will then show a statistics panel, hiding all notes and tasks.
+
+The following sequence diagram shows how the statistics operation works:
+
+image::StatisticsSequenceDiagram.png[]
+
+Step 4. The user now decides to stop viewing statistics and decides to view all notes and tasks again using the `listnote` command.
+The statistics panel will now be hidden.
+
+The following activity diagram summarizes what happens when a user executes the statistics command:
+
+image::StatisticsActivityDiagram.png[]
+
+==== Design Considerations
+
+===== Aspect: How statistics are shown
+* **Alternative 1 (current choice):** Hide all other panels and only show statistics.
+** Pros: Less scrolling needed, more information can be shown in one panel.
+** Cons: More methods are needed to deal with hiding and showing the different panels leading to more room for errors.
+* **Alternative 2:** Place statistics in the main window with notes and tasks.
+** Pros: Easy to implement.
+** Cons: The number of notes and tasks that can be seen without scrolling will be decreased.
+The charts will be small and condensed making it difficult to see the data at first glance.
+
+=== Add revision task
+==== Implementation
+`AddTaskForNoteCommand` is implemented to add a task for lecture notes revision with the command `radd`. It extends `Command` class and adds a
+`Task` for lecture notes revision to the `TaskList` kept in `AppData` model, which wraps all application data.
+
+The `TaskList` is essentially a list of `Task`. `TaskList` supports the `add(Task)` operation and this operation is
+exposed to `AppData#addTask(Task)`.
+
+The following sequence diagram illustrates how `radd` command is executed:
+
+image::AddTaskSequenceDiagram.png[]
+
+==== Design considerations
+===== Aspect: Design of `Task`
+* **Alternative 1 (current implementation):** implement `Task` as abstract class with two subclasses to support task for
+notes and questions respectively.
+** Pros: It allows polymorphism to support different behaviours of task for `Note` and task for `Question`. Fields and
+methods in common are concretely implemented to reduce duplicate code snippets.
+** Cons: We need to implement two different `AddTask` commands to support addition of the two different types of tasks.
+
+
+The class diagram below illustrates how `Task` class is designed:
+
+image::TaskClassDiagram.png[]
+
+* **Alternative 2:** design `Task` as an interface to be implemented by two different classes.
+** Pros: More flexible design. Less exposure of internal properties of Task to client.
+** Cons: We need to implement all methods in the interface and hence more code snippets are needed. Both implementing
+classes have to include the field in common such as `isDone`, which results in duplicate code snippets.
+
+* **Alternative 3:** wrap everything in one concrete `Task` class to support both lecture notes and questions.
+** Pros: Less code to write.
+** Cons: It violates the principle of Separation of Concern. Hard to maintain or extend in the future if more types of
+tasks are needed.
 
 === Logging
 
@@ -290,7 +560,7 @@ Use case ends
 [none]
 * 1a. Student also gives `-i` in the command
 [none]
-** 1a1. Application brings up a file selection dialogue
+** 1a1. Application brings up a file selection dialog
 ** 1a2. Student selects the image they wish to include in the lecture note
 ** 1a3. Application accepts the image
 * Use case resumes from step 2
