@@ -15,6 +15,7 @@ import java.util.Set;
 
 import seedu.revision.model.AddressBook;
 import seedu.revision.model.answerable.Answerable;
+import seedu.revision.model.answerable.answer.Answer;
 import seedu.revision.model.answerable.answer.McqAnswer;
 
 /**

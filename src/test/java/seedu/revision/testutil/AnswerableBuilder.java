@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import seedu.revision.model.answerable.Answerable;
+import seedu.revision.model.answerable.answer.Answer;
 import seedu.revision.model.answerable.answer.McqAnswer;
 import seedu.revision.model.category.Category;
 import seedu.revision.model.answerable.Difficulty;
