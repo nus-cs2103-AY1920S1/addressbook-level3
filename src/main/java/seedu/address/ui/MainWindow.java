@@ -72,7 +72,7 @@ public class MainWindow extends UiPart<Stage> {
                 logic.getFilteredContactList());
         splitDisplayPanelPlaceholder.getChildren().add(splitDisplay.getRoot()); */
 
-        centralDisplay = new CentralDisplay();
+        centralDisplay = new CentralDisplay(logic.getFilteredItinerary());
         centralDisplayPlaceholder.getChildren().add(centralDisplay.getRoot());
 
         resultDisplay = new ResultDisplay();
@@ -143,7 +143,7 @@ public class MainWindow extends UiPart<Stage> {
             if (commandResult.isExit()) {
                 handleExit();
             }
-
+            fillInnerParts();
             return commandResult;
         } catch (CommandException | ParseException e) {
             logger.info("Invalid command: " + commandText);
