@@ -2,6 +2,8 @@ package seedu.jarvis.logic.commands.finance;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Optional;
+
 import seedu.jarvis.commons.core.Messages;
 import seedu.jarvis.commons.core.index.Index;
 import seedu.jarvis.logic.commands.Command;
@@ -32,16 +34,23 @@ public class RemoveInstallmentCommand extends Command {
 
     private final Index targetIndex;
 
-    private Installment toDelete;
+    private Installment deletedInstallment;
 
     /**
      * Creates a {@code RemoveInstallmentCommand} and sets the targetIndex to the {@code Index}
      * of the {@code Installment} to be deleted.
      *
-     * @param targetIndex of the {@code Purchase} to be deleted
+     * @param targetIndex {@code Index} of the {@code Purchase} to be deleted.
+     * @param deletedInstallment Installment that was deleted, which can be null.
      */
-    public RemoveInstallmentCommand(Index targetIndex) {
+    public RemoveInstallmentCommand(Index targetIndex, Installment deletedInstallment) {
+        requireNonNull(targetIndex);
         this.targetIndex = targetIndex;
+        this.deletedInstallment = deletedInstallment;
+    }
+
+    public RemoveInstallmentCommand(Index targetIndex) {
+        this(targetIndex, null);
     }
 
     /**
@@ -67,6 +76,24 @@ public class RemoveInstallmentCommand extends Command {
     }
 
     /**
+     * Gets the {@code Index} of the {@code Installment} to be deleted.
+     *
+     * @return {@code Index} of the {@code Installment} to be deleted.
+     */
+    public Index getTargetIndex() {
+        return targetIndex;
+    }
+
+    /**
+     * Gets the {@code Installment} that was deleted wrapped in an {@code Optional}.
+     *
+     * @return {@code Installment} that was deleted wrapped in an {@code Optional}.
+     */
+    public Optional<Installment> getDeletedInstallment() {
+        return Optional.ofNullable(deletedInstallment);
+    }
+
+    /**
      * Deletes {@code Installment} from finance tracker.
      *
      * @param model {@code Model} which the command should operate on.
@@ -78,9 +105,9 @@ public class RemoveInstallmentCommand extends Command {
         requireNonNull(model);
 
         try {
-            toDelete = model.getInstallment(targetIndex.getOneBased());
+            deletedInstallment = model.getInstallment(targetIndex.getOneBased());
             model.deleteInstallment(targetIndex.getOneBased());
-            return new CommandResult(String.format(MESSAGE_DELETE_INSTALLMENT_SUCCESS, toDelete));
+            return new CommandResult(String.format(MESSAGE_DELETE_INSTALLMENT_SUCCESS, deletedInstallment));
         } catch (InstallmentNotFoundException e) {
             throw new CommandException(Messages.MESSAGE_INVALID_INSTALLMENT_DISPLAYED_INDEX);
         }
@@ -99,13 +126,14 @@ public class RemoveInstallmentCommand extends Command {
     public CommandResult executeInverse(Model model) throws CommandException {
         requireNonNull(model);
 
-        if (model.hasInstallment(toDelete)) {
-            throw new CommandException(String.format(MESSAGE_INVERSE_INSTALLMENT_TO_ADD_ALREADY_EXIST, toDelete));
+        if (model.hasInstallment(deletedInstallment)) {
+            throw new CommandException(String.format(MESSAGE_INVERSE_INSTALLMENT_TO_ADD_ALREADY_EXIST,
+                    deletedInstallment));
         }
 
-        model.addInstallment(targetIndex.getZeroBased(), toDelete);
+        model.addInstallment(targetIndex.getZeroBased(), deletedInstallment);
 
-        return new CommandResult(String.format(MESSAGE_INVERSE_SUCCESS_ADD, toDelete));
+        return new CommandResult(String.format(MESSAGE_INVERSE_SUCCESS_ADD, deletedInstallment));
     }
 
     @Override
