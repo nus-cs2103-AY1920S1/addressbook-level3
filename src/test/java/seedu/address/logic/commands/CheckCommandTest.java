@@ -21,14 +21,14 @@ class CheckCommandTest {
     //        Claim claimToCheck = model.getFilteredClaimList().get(INDEX_FIRST_PERSON.getZeroBased());
     //        CheckCommand checkCommand = new CheckCommand(INDEX_FIRST_PERSON);
     //
-    //        String expectedMessage = String.format(DeleteContactCommand.MESSAGE_DELETE_PERSON_SUCCESS, checkCommand);
+    //        String expectedMessage = String.format(CheckCommand.MESSAGE_SUCCESS_CLAIM, checkCommand);
     //
     //        ModelManager expectedModel = new ModelManager(model.getFinSec(), new UserPrefs());
-    //        expectedModel.handleClaim(claimToCheck);
+    //        Model.handleClaim(claimToCheck);
     //
     //        assertCommandSuccess(checkCommand, model, expectedMessage, expectedModel);
     //    }
-
+    //
     //    @Test
     //    public void execute_invalidIndexUnfilteredList_throwsCommandException() {
     //        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredClaimList().size() + 1);
