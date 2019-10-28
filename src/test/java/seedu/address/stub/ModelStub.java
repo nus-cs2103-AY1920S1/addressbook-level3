@@ -3,6 +3,7 @@ package seedu.address.stub;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Optional;
+import java.util.Set;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -169,5 +170,15 @@ public class ModelStub implements Model {
     @Override
     public void updateFilteredActivityList(Predicate<? super Activity> predicate) {
         throw new AssertionError("This method (updateFilteredActivityList) should not be called.");
+    }
+
+    @Override
+    public Set<Person> getAssociatedPersons(Activity activity) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public Set<Activity> getAssociatedActivities(Person person) {
+        throw new AssertionError("This method should not be called.");
     }
 }

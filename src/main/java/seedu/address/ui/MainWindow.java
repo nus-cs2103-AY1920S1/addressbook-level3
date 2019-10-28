@@ -3,6 +3,7 @@ package seedu.address.ui;
 import static java.util.Objects.requireNonNull;
 
 import java.util.Optional;
+import java.util.Set;
 import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
@@ -16,6 +17,8 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Context;
 import seedu.address.model.ContextType;
+import seedu.address.model.activity.Activity;
+import seedu.address.model.person.Person;
 
 /**
  * The Main Window. Provides the basic application layout containing a status
@@ -159,11 +162,15 @@ public class MainWindow extends UiPart<Stage> {
             contentContainer.getChildren().add(personListPanel.getRoot());
             break;
         case VIEW_CONTACT:
-            personDetailsPanel = new PersonDetailsPanel(newContext.getContact().get());
+            Person viewedContact = newContext.getContact().get();
+            Set<Activity> associatedActivities = logic.getAssociatedActivities(viewedContact);
+            personDetailsPanel = new PersonDetailsPanel(viewedContact, associatedActivities);
             contentContainer.getChildren().add(personDetailsPanel.getRoot());
             break;
         case VIEW_ACTIVITY:
-            activityDetailsPanel = new ActivityDetailsPanel(newContext.getActivity().get());
+            Activity viewedActivity = newContext.getActivity().get();
+            Set<Person> associatedPersons = logic.getAssociatedPersons(viewedActivity);
+            activityDetailsPanel = new ActivityDetailsPanel(viewedActivity, associatedPersons);
             contentContainer.getChildren().add(activityDetailsPanel.getRoot());
             break;
         default:

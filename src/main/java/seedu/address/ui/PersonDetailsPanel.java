@@ -1,12 +1,14 @@
 package seedu.address.ui;
 
 import java.util.Comparator;
+import java.util.Set;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Region;
+import seedu.address.model.activity.Activity;
 import seedu.address.model.person.Person;
 
 /**
@@ -32,7 +34,7 @@ public class PersonDetailsPanel extends UiPart<Region> {
     @FXML
     private FlowPane tags;
 
-    public PersonDetailsPanel(Person viewedPerson) {
+    public PersonDetailsPanel(Person viewedPerson, Set<Activity> activities) {
         super(FXML);
 
         this.person = viewedPerson;

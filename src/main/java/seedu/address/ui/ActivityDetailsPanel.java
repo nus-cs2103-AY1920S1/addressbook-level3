@@ -1,11 +1,14 @@
 package seedu.address.ui;
 
+import java.util.Set;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Region;
 import seedu.address.model.activity.Activity;
+import seedu.address.model.person.Person;
 
 /**
  * Panel displaying details of a contact.
@@ -28,7 +31,7 @@ public class ActivityDetailsPanel extends UiPart<Region> {
     @FXML
     private Label spending;
 
-    public ActivityDetailsPanel(Activity viewedActivity) {
+    public ActivityDetailsPanel(Activity viewedActivity, Set<Person> participants) {
         super(FXML);
 
         this.activity = viewedActivity;
