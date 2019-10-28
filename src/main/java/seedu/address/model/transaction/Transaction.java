@@ -83,4 +83,9 @@ public abstract class Transaction implements UndoableAction {
     @Override
     public abstract boolean equals(Object obj);
 
+    @Override
+    public String toString() {
+        return String.format("%s $%s on %s", this.description.toString(), this.amount.toString(), this.date.toString());
+    }
+
 }
