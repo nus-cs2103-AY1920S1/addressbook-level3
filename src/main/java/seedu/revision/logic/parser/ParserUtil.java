@@ -14,9 +14,6 @@ import seedu.revision.model.answerable.Difficulty;
 import seedu.revision.model.answerable.Question;
 import seedu.revision.model.answerable.QuestionType;
 import seedu.revision.model.answerable.answer.Answer;
-import seedu.revision.model.answerable.answer.McqAnswer;
-import seedu.revision.model.answerable.answer.SaqAnswer;
-import seedu.revision.model.answerable.answer.TrueFalseAnswer;
 import seedu.revision.model.category.Category;
 import seedu.revision.model.quiz.Mode;
 
@@ -58,9 +55,6 @@ public class ParserUtil {
         }
         return answerList;
     }
-
-
-
 
     /**
      * Parses {@code questionType} into an {@code QuestionType} and returns it. Leading and trailing whitespaces will be

@@ -14,17 +14,16 @@ import java.util.List;
 import seedu.revision.model.AddressBook;
 import seedu.revision.model.answerable.Answerable;
 import seedu.revision.model.answerable.answer.Answer;
-import seedu.revision.model.answerable.answer.McqAnswer;
 
 /**
  * A utility class containing a list of {@code Answerable} objects to be used in tests.
  */
 public class TypicalAnswerables {
-    private static final Answer correctAnswer = new McqAnswer("Brownfield");
+    private static final Answer correctAnswer = new Answer("Brownfield");
     private static final ArrayList<Answer> defaultCorrectAnswerList = new ArrayList<>(Arrays.asList(correctAnswer));
-    private static final Answer wrongAnswerA = new McqAnswer("Greenfield");
-    private static final Answer wrongAnswerB = new McqAnswer("Blackfield");
-    private static final Answer wrongAnswerC = new McqAnswer("Whitefield");
+    private static final Answer wrongAnswerA = new Answer("Greenfield");
+    private static final Answer wrongAnswerB = new Answer("Blackfield");
+    private static final Answer wrongAnswerC = new Answer("Whitefield");
     private static final ArrayList<Answer> defaultWrongAnswerList = new ArrayList<>(
             Arrays.asList(wrongAnswerA, wrongAnswerB, wrongAnswerC));
 

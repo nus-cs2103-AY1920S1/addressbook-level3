@@ -41,22 +41,17 @@ public class EditCommand extends Command {
             + "by the index number used in the displayed answerable list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
-            + " " + PREFIX_QUESTION_TYPE + " (compulsory, can only be mcq, tf, or saq) "
             + "[" + PREFIX_QUESTION + "QUESTION] "
             + "[" + PREFIX_DIFFICULTY + "DIFFICULTY] "
             + "[" + PREFIX_CATEGORY + "ADDRESS] "
             + "[" + PREFIX_CATEGORY + "category]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_QUESTION_TYPE + "mcq"
+            + PREFIX_QUESTION + "Blackfield or Whitefield?"
             + PREFIX_DIFFICULTY + "1";
 
     public static final String MESSAGE_EDIT_ANSWERABLE_SUCCESS = "Edited Answerable: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_ANSWERABLE = "This question already exists in the test bank.";
-    public static final String MESSAGE_INVALID_MCQ = "MCQ Must have 1 correct answer and 3 wrong answers. All of which "
-            + "cannot be blank.";
-    public static final String MESSAGE_INVALID_TRUEFALSE = "T/F Questions can only have true/false as their answers.";
-    public static final String MESSAGE_INVALID_SAQ = "SAQ answers cannot be blank.";
 
     private final Index index;
     private final EditAnswerableDescriptor editAnswerableDescriptor;
@@ -98,20 +93,19 @@ public class EditCommand extends Command {
 
     private boolean validateEditCommand(Answerable answerableToEdit, Answerable editedAnswerable)
             throws CommandException {
-        //TODO: Use more descriptive error statements
         if (answerableToEdit instanceof Mcq) {
             if (!Mcq.isValidMcq((Mcq) editedAnswerable)) {
-                throw new CommandException(MESSAGE_INVALID_MCQ);
+                throw new CommandException(Mcq.MESSAGE_CONSTRAINTS);
             }
         }
         if (answerableToEdit instanceof Saq) {
             if (!Saq.isValidSaq((Saq) editedAnswerable)) {
-                throw new CommandException(MESSAGE_INVALID_SAQ);
+                throw new CommandException(Saq.MESSAGE_CONSTRAINTS);
             }
         }
         if (answerableToEdit instanceof TrueFalse) {
             if (!TrueFalse.isValidTrueFalse((TrueFalse) editedAnswerable)) {
-                throw new CommandException(MESSAGE_INVALID_TRUEFALSE);
+                throw new CommandException(TrueFalse.MESSAGE_CONSTRAINTS);
             }
         }
 
@@ -129,16 +123,18 @@ public class EditCommand extends Command {
         Question updatedQuestion = editAnswerableDescriptor.getQuestion().orElse(answerableToEdit.getQuestion());
         ArrayList<Answer> updatedCorrectAnswerList = editAnswerableDescriptor.getCorrectAnswerList()
                 .orElse(answerableToEdit.getCorrectAnswerList());
+        ArrayList<Answer> updatedWrongAnswerList = editAnswerableDescriptor.getWrongAnswerList()
+                .orElse(answerableToEdit.getWrongAnswerList());
         Difficulty updatedDifficulty = editAnswerableDescriptor.getDifficulty().orElse(answerableToEdit
                 .getDifficulty());
         Set<Category> updatedCategories = editAnswerableDescriptor.getCategories().orElse(answerableToEdit
                 .getCategories());
 
         if (answerableToEdit instanceof Mcq) {
-            ArrayList<Answer> updatedWrongAnswerList = editAnswerableDescriptor.getWrongAnswerList()
-                    .orElse(answerableToEdit.getWrongAnswerList());
             return new Mcq(updatedQuestion, updatedCorrectAnswerList, updatedWrongAnswerList, updatedDifficulty,
                     updatedCategories);
+        } else if (answerableToEdit instanceof TrueFalse){
+            return new TrueFalse(updatedQuestion, updatedCorrectAnswerList, updatedDifficulty, updatedCategories);
         } else {
             return new Saq(updatedQuestion, updatedCorrectAnswerList, updatedDifficulty, updatedCategories);
         }

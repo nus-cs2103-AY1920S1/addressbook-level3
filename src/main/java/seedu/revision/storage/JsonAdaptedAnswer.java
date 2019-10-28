@@ -39,7 +39,11 @@ class JsonAdaptedAnswer {
      * @throws IllegalValueException if there were any data constraints violated in the adapted category.
      */
     public Answer toModelType() throws IllegalValueException {
+        if (!Answer.isValidAnswer(answer)) {
+            throw new IllegalValueException(Answer.MESSAGE_CONSTRAINTS);
+        }
         return new Answer(answer);
     }
+
 
 }

@@ -1,7 +1,6 @@
 package seedu.revision.model.answerable;
 
 import seedu.revision.model.answerable.answer.Answer;
-import seedu.revision.model.answerable.answer.McqAnswer;
 import seedu.revision.model.category.Category;
 
 import java.util.ArrayList;
@@ -33,8 +32,8 @@ public class Mcq extends Answerable {
      */
     public static boolean isValidMcq(Mcq mcq) {
         requireNonNull(mcq);
-        if (mcq.getCorrectAnswerList().contains(McqAnswer.emptyMcqAnswer())
-                || mcq.getWrongAnswerList().contains(McqAnswer.emptyMcqAnswer())) {
+        if (mcq.getCorrectAnswerList().contains(Answer.emptyAnswer())
+                || mcq.getWrongAnswerList().contains(Answer.emptyAnswer())) {
             return false;
         }
         if (mcq.getWrongAnswerList().size() != 3) {

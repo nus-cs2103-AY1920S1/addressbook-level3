@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Set;
 
 import seedu.revision.model.answerable.answer.Answer;
-import seedu.revision.model.answerable.answer.SaqAnswer;
 import seedu.revision.model.category.Category;
 
 import static java.util.Objects.requireNonNull;
@@ -14,6 +13,8 @@ import static java.util.Objects.requireNonNull;
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Saq extends Answerable {
+
+    public static final String MESSAGE_CONSTRAINTS = "SAQs should not be blank.";
 
     /**
      * Every field must be present and not null.
@@ -30,8 +31,8 @@ public class Saq extends Answerable {
      */
     public static boolean isValidSaq(Saq saq) {
         requireNonNull(saq);
-        if (saq.getCorrectAnswerList().contains(SaqAnswer.emptySaqAnswer())
-                || saq.getWrongAnswerList().contains(SaqAnswer.emptySaqAnswer())) {
+        if (saq.getCorrectAnswerList().contains(Answer.emptyAnswer())
+                || saq.getWrongAnswerList().contains(Answer.emptyAnswer())) {
             return false;
         }
         return true;

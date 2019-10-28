@@ -12,9 +12,7 @@ import static seedu.revision.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import seedu.revision.commons.core.index.Index;
 import seedu.revision.logic.commands.exceptions.CommandException;
@@ -24,10 +22,8 @@ import seedu.revision.logic.parser.exceptions.ParseException;
 import seedu.revision.model.AddressBook;
 import seedu.revision.model.Model;
 import seedu.revision.model.answerable.answer.Answer;
-import seedu.revision.model.answerable.answer.McqAnswer;
 import seedu.revision.model.answerable.predicates.QuestionContainsKeywordsPredicate;
 import seedu.revision.model.answerable.Answerable;
-import seedu.revision.model.answerable.predicates.QuestionContainsKeywordsPredicate;
 import seedu.revision.testutil.EditAnswerableDescriptorBuilder;
 
 /**
@@ -69,9 +65,9 @@ public class CommandTestUtil {
     public static final EditCommand.EditAnswerableDescriptor DESC_ALPHA;
     public static final EditCommand.EditAnswerableDescriptor DESC_BETA;
 
-    private static final Answer correctAnswer = new McqAnswer("CORRECT");
+    private static final Answer correctAnswer = new Answer("CORRECT");
     private static final ArrayList<Answer> defaultCorrectAnswerList = new ArrayList<>(Arrays.asList(correctAnswer));
-    private static final Answer wrongAnswer = new McqAnswer("WRONG");
+    private static final Answer wrongAnswer = new Answer("WRONG");
     private static final ArrayList<Answer> defaultWrongAnswerList = new ArrayList<>(Arrays.asList(wrongAnswer));
 
     static {

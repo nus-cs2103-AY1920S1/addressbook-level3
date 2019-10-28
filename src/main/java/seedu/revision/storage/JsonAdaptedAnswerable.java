@@ -92,12 +92,12 @@ class JsonAdaptedAnswerable {
 
         final List<Answer> correctAnswers = new ArrayList<>();
         for (JsonAdaptedAnswer correctAnswer : correctAnswerSet) {
-            correctAnswers.add(correctAnswer.toModelType(questionType));
+            correctAnswers.add(correctAnswer.toModelType());
         }
 
         final List<Answer> wrongAnswers = new ArrayList<>();
         for (JsonAdaptedAnswer wrongAnswer : wrongAnswerSet) {
-            wrongAnswers.add(wrongAnswer.toModelType(questionType));
+            wrongAnswers.add(wrongAnswer.toModelType());
         }
 
         if (question == null) {

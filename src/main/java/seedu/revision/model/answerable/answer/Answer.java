@@ -5,19 +5,15 @@ import static seedu.revision.commons.util.AppUtil.checkArgument;
 
 public class Answer {
 
-    String MESSAGE_CONSTRAINTS = "Answers should not be repeated";
-    String TYPE_NOT_FOUND = "Question types can only be tf, mcq, or saq";
+    public static String MESSAGE_CONSTRAINTS = "Answers should not be repeated";
+//    String TYPE_NOT_FOUND = "Question types can only be tf, mcq, or saq";
     public static final String VALIDATION_REGEX = "(.*\\n*.*)*";
-
-    static boolean isValidAnswer(String test, String validationRegex) {
-        return test.matches(validationRegex);
-    }
 
     public final String answer;
     /**
-     * Constructs a {@code McqAnswer}.
+     * Constructs a {@code Ansewr}.
      *
-     * @param answer A valid mcq answer.
+     * @param answer A valid answer.
      */
     public Answer(String answer) {
         requireNonNull(answer);
@@ -25,7 +21,7 @@ public class Answer {
         this.answer = answer;
     }
 
-    public boolean isValidAnswer(String test) {
+    public static boolean isValidAnswer(String test) {
         return test.matches(VALIDATION_REGEX);
     }
 
@@ -44,8 +40,8 @@ public class Answer {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof McqAnswer // instanceof handles nulls
-                && answer.equals(((McqAnswer) other).answer)); // state check
+                || (other instanceof Answer // instanceof handles nulls
+                && answer.equals(((Answer) other).answer)); // state check
     }
 
     /**

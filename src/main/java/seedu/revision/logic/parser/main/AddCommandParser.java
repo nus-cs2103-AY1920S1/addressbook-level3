@@ -1,5 +1,6 @@
 package seedu.revision.logic.parser.main;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.revision.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.revision.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.revision.logic.parser.CliSyntax.PREFIX_CORRECT;
@@ -12,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Set;
 import java.util.stream.Stream;
 
+import seedu.revision.logic.commands.exceptions.CommandException;
 import seedu.revision.logic.commands.main.AddCommand;
 import seedu.revision.logic.parser.ArgumentMultimap;
 import seedu.revision.logic.parser.ArgumentTokenizer;
@@ -69,20 +71,24 @@ public class AddCommandParser implements Parser<AddCommand> {
         switch (questionType.getType()) {
         case "mcq":
             answerable = new Mcq(question, correctAnswerList, wrongAnswerList, difficulty, categories);
-            return new AddCommand(answerable);
+            break;
         case "tf":
             answerable = new TrueFalse(question, correctAnswerList, difficulty, categories);
-            return new AddCommand(answerable);
+            break;
         case "saq":
             answerable = new Saq(question, correctAnswerList, difficulty, categories);
-            return new AddCommand(answerable);
+            break;
         default:
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
+
+        requireNonNull(answerable);
+        validateAnswerable(answerable);
+        return new AddCommand(answerable);
     }
 
     /**
-     * Validates that the question to be added is either an MCQ or SAQ.
+     * Validates that the question to be added is either an MCQ, TrueFalse or SAQ.
      * @param questionType type of question to be added.
      * @param argMultimap
      * @return true or false
@@ -96,26 +102,23 @@ public class AddCommandParser implements Parser<AddCommand> {
 
         if (arePrefixesPresent(argMultimap, PREFIX_QUESTION, PREFIX_CORRECT, PREFIX_CATEGORY,
                 PREFIX_DIFFICULTY) && argMultimap.getPreamble().isEmpty()) {
+            this.correctAnswerList = ParserUtil.parseAnswers(argMultimap.getAllValues(PREFIX_CORRECT));
 
             switch (type.toLowerCase()) {
             case "mcq":
                 if (numCorrect == 1 && numWrong == 3 && arePrefixesPresent(argMultimap, PREFIX_WRONG)) {
-                    this.correctAnswerList = ParserUtil.parseAnswers(argMultimap.getAllValues(PREFIX_CORRECT), type);
-                    this.wrongAnswerList = ParserUtil.parseAnswers(argMultimap.getAllValues(PREFIX_WRONG), type);
+                    this.wrongAnswerList = ParserUtil.parseAnswers(argMultimap.getAllValues(PREFIX_WRONG));
                     return true;
                 } else {
                     throw new ParseException(Mcq.MESSAGE_CONSTRAINTS);
                 }
             case "tf":
-                if (numCorrect == 1 || numWrong == 0) {
-                    this.correctAnswerList = ParserUtil.parseAnswers(argMultimap.getAllValues(PREFIX_CORRECT), type);
+                if (numCorrect == 1 && numWrong <= 1) {
                     return true;
                 } else {
                     throw new ParseException(TrueFalse.MESSAGE_CONSTRAINTS);
                 }
-
             case "saq":
-                this.correctAnswerList = ParserUtil.parseAnswers(argMultimap.getAllValues(PREFIX_CORRECT), type);
                 return true;
             default:
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
@@ -125,6 +128,26 @@ public class AddCommandParser implements Parser<AddCommand> {
         }
     }
 
+    private boolean validateAnswerable(Answerable answerableToAdd)
+            throws ParseException {
+        if (answerableToAdd instanceof Mcq) {
+            if (!Mcq.isValidMcq((Mcq) answerableToAdd)) {
+                throw new ParseException(Mcq.MESSAGE_CONSTRAINTS);
+            }
+        }
+        if (answerableToAdd instanceof Saq) {
+            if (!Saq.isValidSaq((Saq) answerableToAdd)) {
+                throw new ParseException(Saq.MESSAGE_CONSTRAINTS);
+            }
+        }
+        if (answerableToAdd instanceof TrueFalse) {
+            if (!TrueFalse.isValidTrueFalse((TrueFalse) answerableToAdd)) {
+                throw new ParseException(TrueFalse.MESSAGE_CONSTRAINTS);
+            }
+        }
+
+        return true;
+    }
     /**
      * Returns true if none of the prefixes contains empty {@code Optional} values in the given
      * {@code ArgumentMultimap}.
