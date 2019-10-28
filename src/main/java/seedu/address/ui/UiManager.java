@@ -11,6 +11,7 @@ import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
+import seedu.address.logic.commands.exceptions.CommandException;
 
 /**
  * The manager of the UI component.
@@ -40,11 +41,31 @@ public class UiManager implements Ui {
         try {
             mainWindow = new MainWindow(primaryStage, logic);
             mainWindow.show(); //This should be called before creating other UI parts
-            mainWindow.fillInnerParts();
+            mainWindow.fillInnerParts("list");
 
         } catch (Throwable e) {
             logger.severe(StringUtil.getDetails(e));
             showFatalErrorDialogAndShutdown("Fatal error during initializing", e);
+        }
+    }
+
+    public void changeViewingList(String commandWord) throws CommandException {
+        if (commandWord.equals("list")) {
+            try {
+                mainWindow.fillInnerParts("list");
+            } catch (Throwable e) {
+                logger.severe(StringUtil.getDetails(e));
+                showFatalErrorDialogAndShutdown("Fatal error while trying to show expense list", e);
+            }
+        } else if (commandWord.equals("listbudgets")) {
+            try {
+                mainWindow.fillInnerParts("listbudgets");
+            } catch (Throwable e) {
+                logger.severe(StringUtil.getDetails(e));
+                showFatalErrorDialogAndShutdown("Fatal error while trying to show budget list", e);
+            }
+        } else {
+            throw new CommandException("An error occurred while trying to show the list requested");
         }
     }
 

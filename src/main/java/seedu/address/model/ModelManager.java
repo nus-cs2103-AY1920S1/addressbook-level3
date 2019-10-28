@@ -4,10 +4,13 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
@@ -26,11 +29,14 @@ public class ModelManager implements Model {
     private final ExpenseList expenseList;
     private final BudgetList budgetList;
     private final UserPrefs userPrefs;
+    private final FilteredList<Expense> defaultFilteredExpenses;
     private final FilteredList<Expense> filteredExpenses;
     private final FilteredList<Budget> filteredBudgets;
 
+    private static String VIEW_STATE = "list";
+
     /**
-     * Initializes a ModelManager with the given expenseList and userPrefs.
+     * Initializes a ModelManager with the given expenseList, budgetlist and userPrefs.
      */
     public ModelManager(ReadOnlyExpenseList expenseList, ReadOnlyBudgetList budgetList, ReadOnlyUserPrefs userPrefs) {
         super();
@@ -42,12 +48,21 @@ public class ModelManager implements Model {
         this.expenseList = new ExpenseList(expenseList);
         this.budgetList = new BudgetList(budgetList);
         this.userPrefs = new UserPrefs(userPrefs);
+        defaultFilteredExpenses = new FilteredList<>(this.expenseList.getExpenseList());
         filteredExpenses = new FilteredList<>(this.expenseList.getExpenseList());
         filteredBudgets = new FilteredList<>(this.budgetList.getBudgetList());
     }
 
     public ModelManager() {
         this(new ExpenseList(), new BudgetList(), new UserPrefs());
+    }
+
+    public void setViewState(String state) {
+        this.VIEW_STATE = state;
+    }
+
+    public String getViewState() {
+        return VIEW_STATE;
     }
 
     //=========== UserPrefs ==================================================================================
@@ -152,6 +167,21 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public ObservableList<Expense> getFilteredFullExpenseList() {
+        ArrayList<Expense> list = new ArrayList<>();
+        for (Expense expense : this.expenseList.getExpenseList()) {
+            list.add(expense);
+        }
+        for (Budget budget : this.budgetList.getBudgetList()) {
+            for (Expense expense : budget.getExpenseList().getExpenseList()) {
+                list.add(expense);
+            }
+        }
+        Collections.sort(list);
+        return FXCollections.observableList(list);
+    }
+
+    @Override
     public void updateFilteredExpenseList(Predicate<Expense> predicate) {
         requireNonNull(predicate);
         filteredExpenses.setPredicate(predicate);
@@ -179,6 +209,12 @@ public class ModelManager implements Model {
     }
 
     //=========== BudgetList ================================================================================
+
+
+    public void viewBudget(Budget target) {
+//        filteredExpenses.removeAll();
+//        filteredExpenses.addAll(target.getExpenseList().getExpenseList());
+    }
 
     @Override
     public void setBudgetList(ReadOnlyBudgetList budgetList) {

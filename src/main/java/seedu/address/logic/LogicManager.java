@@ -14,6 +14,8 @@ import seedu.address.logic.parser.MymParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyExpenseList;
+import seedu.address.model.budget.Budget;
+import seedu.address.model.budget.ReadOnlyBudgetList;
 import seedu.address.model.expense.Expense;
 import seedu.address.storage.Storage;
 
@@ -69,8 +71,28 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public ObservableList<Expense> getFilteredFullExpenseList() {
+        return model.getFilteredFullExpenseList();
+    }
+
+    @Override
     public Path getExpenseListFilePath() {
         return model.getExpenseListFilePath();
+    }
+
+    @Override
+    public ReadOnlyBudgetList getBudgetList() {
+        return model.getBudgetList();
+    }
+
+    @Override
+    public ObservableList<Budget> getFilteredBudgetList() {
+        return model.getFilteredBudgetList();
+    }
+
+    @Override
+    public Path getBudgetListFilePath() {
+        return model.getBudgetListFilePath();
     }
 
     @Override

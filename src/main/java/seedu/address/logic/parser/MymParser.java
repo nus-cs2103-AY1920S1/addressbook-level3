@@ -11,11 +11,14 @@ import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.commands.EditBudgetCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.ViewBudgetCommand;
+import seedu.address.logic.commands.ViewBudgetListCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -62,6 +65,15 @@ public class MymParser {
 
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
+
+        case ViewBudgetCommand.COMMAND_WORD:
+            return new ViewBudgetCommandParser().parse(arguments);
+
+        case ViewBudgetListCommand.COMMAND_WORD:
+            return new ViewBudgetListCommand();
+
+        case EditBudgetCommand.COMMAND_WORD:
+            return new EditBudgetCommandParser().parse(arguments);
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();

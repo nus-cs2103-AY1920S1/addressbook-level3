@@ -18,6 +18,10 @@ public interface Model {
     Predicate<Expense> PREDICATE_SHOW_ALL_EXPENSES = unused -> true;
     Predicate<Budget> PREDICATE_SHOW_ALL_BUDGETS = unused -> true;
 
+    void setViewState(String state);
+
+    String getViewState();
+
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
      */
@@ -84,6 +88,9 @@ public interface Model {
     /** Returns an unmodifiable view of the filtered expense list */
     ObservableList<Expense> getFilteredExpenseList();
 
+    /** Returns an unmodifiable view of the filtered full expense list that includes those in budgets */
+    ObservableList<Expense> getFilteredFullExpenseList();
+
     /**
      * Updates the filter of the filtered expense list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
@@ -112,6 +119,8 @@ public interface Model {
      * Returns true if a budget with the same identity as {@code budget} exists in the budget list.
      */
     boolean hasBudget(Budget budget);
+
+    void viewBudget(Budget target);
 
     /**
      * Deletes the given budget.
