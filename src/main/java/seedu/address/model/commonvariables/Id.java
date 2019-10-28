@@ -10,7 +10,7 @@ public class Id {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Id should only contain numbers";
-    public static final String VALIDATION_REGEX = "\\d";
+    public static final String VALIDATION_REGEX = "\\d+";
     private static Integer idCount = 0;
     public final String value;
 
@@ -33,7 +33,7 @@ public class Id {
      * Returns the idcount as integer
      * @return
      */
-    public Integer getIdCount() {
+    public static Integer getIdCount() {
         return idCount;
     }
 

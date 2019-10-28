@@ -39,10 +39,13 @@ public class CommandTestUtil {
     public static final String VALID_EMAIL_BOB = "bob@example.com";
     public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_TAG_FRIEND = "friend";
+    public static final String VALID_DESCRIPTION_LOGISTICS = "Logistics";
     public static final String VALID_DESCRIPTION_SHIRTSALES = "Shirt sales";
     public static final String VALID_DESCRIPTION_FUNDRAISING = "Annual fundraising";
+    public static final String VALID_AMOUNT_LOGISTICS = "152.82";
     public static final String VALID_AMOUNT_SHIRTSALES = "100.10";
     public static final String VALID_AMOUNT_FUNDRAISING = "10000";
+    public static final String VALID_DATE_LOGISTICS = "15-12-2019";
     public static final String VALID_DATE_SHIRTSALES = "11-11-2019";
     public static final String VALID_DATE_FUNDRAISING = "01-01-2019";
 
@@ -56,14 +59,15 @@ public class CommandTestUtil {
     public static final String EMAIL_DESC_BOB = " " + PREFIX_EMAIL + VALID_EMAIL_BOB;
     public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
+    public static final String DESCRIPTION_DESC_LOGISTICS = " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION_LOGISTICS;
     public static final String DESCRIPTION_DESC_SHIRTSALES = " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION_SHIRTSALES;
     public static final String DESCRIPTION_DESC_FUNDRAISING = " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION_FUNDRAISING;
+    public static final String AMOUNT_DESC_LOGISTICS = " " + PREFIX_CASH + VALID_AMOUNT_LOGISTICS;
     public static final String AMOUNT_DESC_SHIRTSALES = " " + PREFIX_CASH + VALID_DESCRIPTION_SHIRTSALES;
     public static final String AMOUNT_DESC_FUNDRAISING = " " + PREFIX_CASH + VALID_DESCRIPTION_FUNDRAISING;
+    public static final String DATE_DESC_LOGISTICS = " " + PREFIX_DATE + VALID_DATE_LOGISTICS;
     public static final String DATE_DESC_SHIRTSALES = " " + PREFIX_DATE + VALID_DESCRIPTION_SHIRTSALES;
     public static final String DATE_DESC_FUNDRAISING = " " + PREFIX_DATE + VALID_DESCRIPTION_FUNDRAISING;
-
-
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
@@ -72,7 +76,6 @@ public class CommandTestUtil {
     public static final String INVALID_DESCRIPTION_DESC = " " + PREFIX_DESCRIPTION + "Sal3szz!!"; //'3' not allowed
     public static final String INVALID_AMOUNT_DESC = " " + PREFIX_CASH + "100.333"; // > 2 decimal places not allowed
     public static final String INVALID_DATE_DESC = " " + PREFIX_DATE + "111-13-2019"; // invalid dates not allowed
-
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";

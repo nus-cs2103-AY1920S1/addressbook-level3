@@ -39,13 +39,13 @@ public class ClaimPlotter {
         claimSeries.add(1, startingExpenses);
         double currentExpenses = startingExpenses;
         List<Claim> approvedClaimsInCurrentMonthList = findApprovedClaimsInCurrentMonth();
-        for (Claim claim : approvedClaimsInCurrentMonthList) {
-            for (int day = 2; day <= 31; day++) {
+        for (int day = 2; day <= 31; day++) {
+            for (Claim claim : approvedClaimsInCurrentMonthList) {
                 if (claim.getDate().date.getDayOfMonth() == day) {
                     currentExpenses += Double.parseDouble(claim.getAmount().value);
                 }
-                claimSeries.add(day, currentExpenses);
             }
+            claimSeries.add(day, currentExpenses);
         }
         return claimSeries;
     }

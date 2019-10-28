@@ -7,7 +7,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
+
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.logic.parser.FinSecParser;
 
 /**
  * Controller for a help page
@@ -16,13 +18,14 @@ public class HelpWindow extends UiPart<Stage> {
 
     public static final String USERGUIDE_URL = "https://ay1920s1-cs2103t-w12-1.github.io/main/UserGuide.html";
     public static final String HELP_MESSAGE = "The 'help' command format is as follows: "
-            + "help cmd/COMMAND type/TYPE\n\nCommand List: \n[help], [goto], [find], [delete], [list], [exit],\n"
-            + "[add_contact], [edit_contact], [add_claim], [edit_claim], [add_income], [edit_income]\n\n"
+            + "help cmd/COMMAND type/TYPE\n\nCommand List: \n"
+            + FinSecParser.getCommandList().keySet().toString().replace(", ", "]\n[")
+            + "\n\n"
             + "Type List:\n"
             + "[brief] (gives a brief description)\n"
             + "[guide] (opens up our user guide on your browser) \n"
             + "[api] (for advanced users who want to know the inner workings of the command) \n\n"
-            + "Example: help cmd/add type/guide\n"
+            + "Example: help cmd/add_contact type/guide\n"
             + "For more information you can refer to the user guide by clicking on the button";
 
     private static final Logger logger = LogsCenter.getLogger(HelpWindow.class);

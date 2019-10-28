@@ -38,13 +38,13 @@ public class IncomePlotter {
         incomeSeries.add(1, startingIncome);
         double currentIncome = startingIncome;
         List<Income> approvedIncomesInCurrentMonthList = findIncomesInCurrentMonth();
-        for (Income income : approvedIncomesInCurrentMonthList) {
-            for (int day = 2; day <= 31; day++) {
+        for (int day = 2; day <= 31; day++) {
+            for (Income income : approvedIncomesInCurrentMonthList) {
                 if (income.getDate().date.getDayOfMonth() == day) {
                     currentIncome += Double.parseDouble(income.getAmount().value);
                 }
-                incomeSeries.add(day, currentIncome);
             }
+            incomeSeries.add(day, currentIncome);
         }
         return incomeSeries;
     }
