@@ -24,8 +24,8 @@ import seedu.address.model.Model;
 import seedu.address.model.ReferenceId;
 import seedu.address.model.events.Appointment;
 import seedu.address.model.events.Event;
-import seedu.address.model.events.Status;
-import seedu.address.model.events.Timing;
+import seedu.address.model.events.parameters.Status;
+import seedu.address.model.events.parameters.Timing;
 
 /**
  * Parses input arguments and creates a new AddCommand object

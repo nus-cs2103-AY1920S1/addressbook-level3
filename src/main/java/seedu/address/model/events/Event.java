@@ -7,6 +7,9 @@ import java.util.Objects;
 
 import seedu.address.model.ReferenceId;
 import seedu.address.model.common.Identical;
+import seedu.address.model.events.parameters.DateTime;
+import seedu.address.model.events.parameters.Status;
+import seedu.address.model.events.parameters.Timing;
 
 /**
  * Represents an event involving a single Person.

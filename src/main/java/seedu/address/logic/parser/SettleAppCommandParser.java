@@ -12,7 +12,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.events.Appointment;
 import seedu.address.model.events.Event;
-import seedu.address.model.events.Status;
+import seedu.address.model.events.parameters.Status;
 
 
 /**
