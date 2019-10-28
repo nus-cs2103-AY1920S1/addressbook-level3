@@ -222,7 +222,7 @@ public class ModelManager implements Model {
 
     @Override
     public String getTestQuestion() {
-        return flashCardTestModel.getQuestion(this);
+        return flashCardTestModel.getQuestion();
     }
 
     @Override
