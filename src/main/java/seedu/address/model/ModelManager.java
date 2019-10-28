@@ -209,6 +209,19 @@ public class ModelManager implements Model {
         return !filteredIncidents.filtered(predicate).isEmpty();
     }
 
+    //=========== Vehicles ================================================================================
+
+    @Override
+    public boolean hasVehicle(Vehicle vehicle) {
+        requireNonNull(vehicle);
+        return incidentManager.hasVehicle(vehicle);
+    }
+
+    @Override
+    public void setVehicle(Vehicle target, Vehicle editedVehicle) {
+        requireAllNonNull(target, editedVehicle);
+        incidentManager.setVehicle(target, editedVehicle);
+    }
     //=========== Filtered Vehicle List Accessors =============================================================
 
     /**
