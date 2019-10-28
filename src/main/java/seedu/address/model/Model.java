@@ -112,4 +112,10 @@ public interface Model {
      * @return Command that alias has been applied to.
      */
     String applyAlias(String commandText);
+
+    /**
+     * Gets a list of existing user-defined aliases in either a user-friendly or reusable form.
+     * @return list of existing user-defined aliases.
+     */
+    String getAliases(boolean reusable);
 }

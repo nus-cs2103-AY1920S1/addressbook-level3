@@ -38,6 +38,7 @@ public class MainWindow extends UiPart<Stage> {
     private VisitRecordWindow visitWindow;
     private VisitListPanel visitListPanel;
     private ProfilePanel profilePanel;
+    private AliasListWindow aliasListWindow;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -70,6 +71,7 @@ public class MainWindow extends UiPart<Stage> {
         visitWindow = new VisitRecordWindow();
         visitListPanel = new VisitListPanel();
         profilePanel = new ProfilePanel();
+        aliasListWindow = new AliasListWindow();
     }
 
     public Stage getPrimaryStage() {
@@ -217,6 +219,18 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    /**
+     * Opens the list of existing user-defined aliases or focuses on it if it's already opened.
+     */
+    @FXML
+    public void handleAliasListWindow() {
+        if (!aliasListWindow.isShowing()) {
+            aliasListWindow.show();
+        } else {
+            aliasListWindow.focus();
+        }
+    }
+
     public PersonListPanel getPersonListPanel() {
         return personListPanel;
     }
@@ -259,6 +273,10 @@ public class MainWindow extends UiPart<Stage> {
             if (commandResult.isShowProfile()) {
                 profilePanel.setup(commandResult.getProfilePerson());
                 handleProfilePanel();
+            }
+            if (commandResult.isShowAliasList()) {
+                aliasListWindow.setup(commandResult.getFeedbackToUser());
+                handleAliasListWindow();
             }
 
             if (commandResult.isExit()) {

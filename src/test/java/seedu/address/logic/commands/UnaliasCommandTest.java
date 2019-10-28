@@ -130,6 +130,11 @@ public class UnaliasCommandTest {
         }
 
         @Override
+        public String getAliases(boolean reusable) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void setAddressBook(ReadOnlyAddressBook newData) {
             throw new AssertionError("This method should not be called.");
         }

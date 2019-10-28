@@ -110,4 +110,8 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     public String applyAlias(String commandText) {
         return aliasTable.applyAlias(commandText);
     }
+
+    public String getAliases(boolean reusable) {
+        return aliasTable.getAlias(reusable);
+    }
 }
