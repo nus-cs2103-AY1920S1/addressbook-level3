@@ -99,10 +99,11 @@ public class ModelManagerTest {
                 new ProjectDashboardBuilder().withTask(ORDER_SHIRTS).withTask(PRINT_POSTERS).build();
         ProjectDashboard differentProjectDashboard = new ProjectDashboard();
         UserPrefs userPrefs = new UserPrefs();
+        UserSettings userSettings = new UserSettings();
 
         // same values -> returns true
-        modelManager = new ModelManager(projectDashboard, userPrefs);
-        ModelManager modelManagerCopy = new ModelManager(projectDashboard, userPrefs);
+        modelManager = new ModelManager(projectDashboard, userPrefs, userSettings);
+        ModelManager modelManagerCopy = new ModelManager(projectDashboard, userPrefs, userSettings);
         assertTrue(modelManager.equals(modelManagerCopy));
 
         // same object -> returns true
@@ -115,12 +116,12 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(5));
 
         // different projectDashboard -> returns false
-        assertFalse(modelManager.equals(new ModelManager(differentProjectDashboard, userPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(differentProjectDashboard, userPrefs, userSettings)));
 
         // different filteredList -> returns false
         String[] keywords = ORDER_SHIRTS.getName().fullName.split("\\s+");
         modelManager.updateFilteredTasksList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
-        assertFalse(modelManager.equals(new ModelManager(projectDashboard, userPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(projectDashboard, userPrefs, userSettings)));
 
         // resets modelManager to initial state for upcoming tests
         modelManager.updateFilteredTasksList(PREDICATE_SHOW_ALL_TASKS);
@@ -128,6 +129,6 @@ public class ModelManagerTest {
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
         differentUserPrefs.setProjectDashboardFilePath(Paths.get("differentFilePath"));
-        assertFalse(modelManager.equals(new ModelManager(projectDashboard, differentUserPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(projectDashboard, differentUserPrefs, userSettings)));
     }
 }

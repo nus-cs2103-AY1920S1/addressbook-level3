@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.UserSettings;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for ListCommand.
@@ -22,8 +23,8 @@ public class ListCommandTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalProjectDashboard(), new UserPrefs());
-        expectedModel = new ModelManager(model.getProjectDashboard(), new UserPrefs());
+        model = new ModelManager(getTypicalProjectDashboard(), new UserPrefs(), new UserSettings());
+        expectedModel = new ModelManager(model.getProjectDashboard(), new UserPrefs(), new UserSettings());
     }
 
     @Test

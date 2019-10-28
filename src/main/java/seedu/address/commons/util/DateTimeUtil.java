@@ -34,10 +34,12 @@ public class DateTimeUtil {
         return displayFormatterTwelveHour;
     }
 
-
-
     public static DateTimeFormatter getDefaultFormatter() {
         return defaultFormatter;
+    }
+
+    public static void switchDisplayFormat(DateTimeFormatter newFormat) {
+        defaultDisplayFormat = newFormat;
     }
 
     /**
@@ -45,13 +47,15 @@ public class DateTimeUtil {
      * Currently used only in {@code DateTimeUtilTest}.
      * TODO implement with ENUM instead!
      */
-    public static void switchDisplayFormat(int format) {
-        if (format == 0) {
-            defaultDisplayFormat = displayFormatterTwentyFourHour;
-        } else {
-            defaultDisplayFormat = displayFormatterTwelveHour;
-        }
+    /*
+    public static void switchDisplayFormatToTwentyFour() {
+        defaultDisplayFormat = displayFormatterTwentyFourHour;
     }
+
+    public static void switchDisplayFormatToTwelve() {
+        defaultDisplayFormat = displayFormatterTwelveHour;
+    }
+    */
 
     /**
      * Parses the date time given by the user.
@@ -70,7 +74,7 @@ public class DateTimeUtil {
      */
     public static String displayDateTime(LocalDateTime dateTime) {
         requireNonNull(dateTime);
-        return displayFormatterTwentyFourHour.format(dateTime);
+        return defaultDisplayFormat.format(dateTime);
     }
 
     /**

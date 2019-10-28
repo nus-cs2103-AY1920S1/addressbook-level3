@@ -2,6 +2,7 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.time.Clock;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -17,6 +18,8 @@ import seedu.address.model.inventory.InvName;
 import seedu.address.model.inventory.Price;
 import seedu.address.model.member.MemberId;
 import seedu.address.model.member.MemberName;
+import seedu.address.model.settings.ClockFormat;
+import seedu.address.model.settings.Theme;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.task.Name;
 import seedu.address.model.task.TaskStatus;
@@ -160,8 +163,9 @@ public class ParserUtil {
 
         return new MemberId(trimmedId);
     }
+
     /**
-     * Parses {@code dateTime} into an {@code DateTime} and returns it. Leading and trailing whitespaces will be
+     * Parses {@code dateTime} into an {@code LocalDateTime} and returns it. Leading and trailing whitespaces will be
      * trimmed.
      * @throws DateTimeParseException if the input string is not in the valid format.
      */
@@ -172,4 +176,43 @@ public class ParserUtil {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-d HH:mm");
         return LocalDateTime.parse(trimmedDate, formatter);
     }
+
+    /**
+     * Parses {@code theme} into a {@code Theme} and returns it. Leading and trailing whitespaces will be
+     * trimmed.
+     * @throws ParseException if the given {@code theme}'s code is invalid.
+     */
+    public static Theme parseTheme(String theme) throws ParseException {
+        requireNonNull(theme);
+        String trimmedAndUpperCaseTheme = theme.trim().toUpperCase();
+        Theme appTheme;
+
+        try {
+            appTheme = Theme.valueOf(trimmedAndUpperCaseTheme);
+        } catch (IllegalArgumentException e) {
+            throw new ParseException(Theme.MESSAGE_CONSTRAINTS);
+        }
+
+        return appTheme;
+    }
+
+    /**
+     * Parses {@code clock} into a {@code ClockFormat} and returns it. Leading and trailing whitespaces will be
+     * trimmed.
+     * @throws ParseException if the given {@code clock}'s format is invalid.
+     */
+    public static ClockFormat parseClock(String clock) throws ParseException {
+        requireNonNull(clock);
+        String trimmedAndUpperCaseClock = clock.trim().toUpperCase();
+        ClockFormat clockFormat;
+
+        try {
+            clockFormat = ClockFormat.valueOf(trimmedAndUpperCaseClock);
+        } catch (IllegalArgumentException e) {
+            throw new ParseException(ClockFormat.MESSAGE_CONSTRAINTS);
+        }
+
+        return clockFormat;
+    }
+
 }

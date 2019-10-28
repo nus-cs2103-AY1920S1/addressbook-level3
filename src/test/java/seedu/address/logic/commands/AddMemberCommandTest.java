@@ -20,6 +20,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ProjectDashboard;
 import seedu.address.model.ReadOnlyProjectDashboard;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.UserSettings;
 import seedu.address.model.inventory.Inventory;
 import seedu.address.model.mapping.InvMemMapping;
 import seedu.address.model.mapping.InvTasMapping;
@@ -27,6 +28,8 @@ import seedu.address.model.mapping.TasMemMapping;
 import seedu.address.model.mapping.Mapping;
 import seedu.address.model.member.Member;
 import seedu.address.model.member.MemberId;
+import seedu.address.model.settings.ClockFormat;
+import seedu.address.model.settings.Theme;
 import seedu.address.model.statistics.Statistics;
 import seedu.address.model.task.Task;
 import seedu.address.testutil.MemberBuilder;
@@ -315,8 +318,38 @@ public class AddMemberCommandTest {
         public void setStatistics(Statistics newStats) {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public UserSettings getUserSettings() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Path getUserSettingsFilePath() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Theme getCurrentTheme() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setCurrentTheme(Theme newTheme) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ClockFormat getCurrentClockFormat() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setClockFormat(ClockFormat newClockFormat) {
+            throw new AssertionError("This method should not be called.");
+        }
     }
-//TILL HERE
+
     /**
      * A Model stub that contains a single task.
      */
