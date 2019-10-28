@@ -10,29 +10,21 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.reminder.exceptions.DuplicateReminderException;
 import seedu.address.model.reminder.exceptions.ReminderNotFoundException;
+import seedu.address.model.task.exceptions.TaskNotFoundException;
 
 /**
- * A list of earnings that enforces uniqueness between its elements and does not allow nulls.
- * An earnings is considered unique by comparing using
- * {@code Earnings#isSameEarnings(Earnings)}. As such, adding and updating of
- * earnings uses Earnings#isSameEarnings(Earnings) for equality
- * so as to ensure that the earnings being added or updated is
- * unique in terms of identity in the UniqueEarningsList. However,
- * the removal of a person uses Earnings#equals(Object) so
- * as to ensure that the earning with exactly the same fields will be removed.
- *
+ * This whole class is NOT NEEDED
  * Supports a minimal set of list operations.
  *
  * @see Reminder#isSameReminder(Reminder)
  */
-public class UniqueReminderList implements Iterable<Reminder> {
-
+public class ReminderList implements Iterable<Reminder> {
     private final ObservableList<Reminder> internalList = FXCollections.observableArrayList();
     private final ObservableList<Reminder> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
 
     /**
-     * Returns true if the list contains an equivalent person as the given argument.
+     * Returns true if the list contains an equivalent task as the given argument.
      */
     public boolean contains(Reminder toCheck) {
         requireNonNull(toCheck);
@@ -40,8 +32,8 @@ public class UniqueReminderList implements Iterable<Reminder> {
     }
 
     /**
-     * Adds a person to the list.
-     * The person must not already exist in the list.
+     * Adds a task to the list.
+     * The task must not already exist in the list.
      */
     public void add(Reminder toAdd) {
         requireNonNull(toAdd);
@@ -52,36 +44,35 @@ public class UniqueReminderList implements Iterable<Reminder> {
     }
 
     /**
-     * Replaces the person {@code target} in the list with {@code editedPerson}.
+     * Replaces the task {@code target} in the list with {@code editedTask}.
      * {@code target} must exist in the list.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the list.
+     * The task identity of {@code editedTask} must not be the same as another existing task in the list.
      */
-    public void setReminder(Reminder target, Reminder editedEarnings)
-            throws ReminderNotFoundException, DuplicateReminderException {
-        requireAllNonNull(target, editedEarnings);
+    public void setReminder(Reminder target, Reminder editedReminder) {
+        requireAllNonNull(target, editedReminder);
 
         int index = internalList.indexOf(target);
         if (index == -1) {
-            throw new ReminderNotFoundException();
+            throw new TaskNotFoundException();
         }
 
-        if (!target.isSameReminder(editedEarnings) && contains(editedEarnings)) {
+        if (!target.isSameReminder(editedReminder) && contains(editedReminder)) {
             throw new DuplicateReminderException();
         }
 
-        internalList.set(index, editedEarnings);
+        internalList.set(index, editedReminder);
     }
 
-    public void setReminder(UniqueReminderList replacement) {
+    public void setReminder(ReminderList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
     }
 
     /**
-     * Replaces the contents of this list with {@code persons}.
-     * {@code persons} must not contain duplicate persons.
+     * Replaces the contents of this list with {@code tasks}.
+     * {@code tasks} must not contain duplicate tasks.
      */
-    public void setReminder(List<Reminder> reminders) throws DuplicateReminderException {
+    public void setReminders(List<Reminder> reminders) {
         requireAllNonNull(reminders);
         if (!remindersAreUnique(reminders)) {
             throw new DuplicateReminderException();
@@ -91,10 +82,10 @@ public class UniqueReminderList implements Iterable<Reminder> {
     }
 
     /**
-     * Removes the equivalent person from the list.
-     * The person must exist in the list.
+     * Removes the equivalent task from the list.
+     * The task must exist in the list.
      */
-    public void remove(Reminder toRemove) throws ReminderNotFoundException {
+    public void remove(Reminder toRemove) {
         requireNonNull(toRemove);
         if (!internalList.remove(toRemove)) {
             throw new ReminderNotFoundException();
@@ -116,8 +107,8 @@ public class UniqueReminderList implements Iterable<Reminder> {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof UniqueReminderList // instanceof handles nulls
-                && internalList.equals(((UniqueReminderList) other).internalList));
+                || (other instanceof ReminderList // instanceof handles nulls
+                && internalList.equals(((ReminderList) other).internalList));
     }
 
     @Override
@@ -126,7 +117,7 @@ public class UniqueReminderList implements Iterable<Reminder> {
     }
 
     /**
-     * Returns true if {@code persons} contains only unique persons.
+     * Returns true if {@code persons} contains only unique tasks.
      */
     private boolean remindersAreUnique(List<Reminder> reminders) {
         for (int i = 0; i < reminders.size() - 1; i++) {
