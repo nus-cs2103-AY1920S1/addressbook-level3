@@ -100,7 +100,7 @@ public class FindCommandParser implements Parser<FindCommand> {
             List<String> tags = argMultimap.getAllValues(PREFIX_TAG);
             tags = tags.stream().map(String::trim).collect(Collectors.toList());
 
-            if (tags.isEmpty()) {
+            if (tags.isEmpty() || tags.stream().anyMatch(String::isEmpty)) {
                 throw new ParseException(Tag.MESSAGE_CONSTRAINTS);
             }
 
