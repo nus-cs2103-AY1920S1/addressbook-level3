@@ -1,16 +1,13 @@
 package dream.fcard.logic.respond;
 
 import java.util.ArrayList;
-import java.util.logging.Logger;
 
 import dream.fcard.core.commons.core.LogsCenter;
-////import dream.fcard.logic.respond.commands.CreateCommand;
 import dream.fcard.gui.Gui;
-import dream.fcard.logic.respond.exception.DuplicateFoundException;
+import dream.fcard.logic.respond.commands.EditCommand;
 import dream.fcard.logic.storage.StorageManager;
 import dream.fcard.model.Deck;
 import dream.fcard.model.State;
-//import dream.fcard.model.StateEnum;
 import dream.fcard.model.cards.FrontBackCard;
 import dream.fcard.model.exceptions.DeckNotFoundException;
 import dream.fcard.model.exceptions.IndexNotFoundException;
@@ -21,7 +18,6 @@ import dream.fcard.util.FileReadWrite;
  */
 enum Responses {
     LOGGER(".*", (commandInput, programState) -> {
-        logger = LogsCenter.getLogger(Responses.class);
         return false;
     }),
     HELP("(?i)^(help)?(\\s)*(command/[\\w\\p{Punct}]+)?(\\s)*", (commandInput, programState) -> {
@@ -149,8 +145,7 @@ enum Responses {
         if (programState.hasDeck(deckName)) {
             // REPORT DECK EXISTS
             LogsCenter.getLogger(Responses.class).warning("CREATE_DECK: Deck with same name exist - " + deckName);
-            Gui.showStatus("Error: Deck with same name exists - " + deckName);
-
+            Gui.showError("Error: Deck with same name exists - " + deckName);
             return true;
             //System.out.println("Error: Deck with same name exist - " + deckName);
         } else {
@@ -214,7 +209,7 @@ enum Responses {
                 } catch (DeckNotFoundException d) {
                     // Throw exception to responder
                     LogsCenter.getLogger(Responses.class).warning("DECK_CREATE_REG_CARD: Deck not found - " + deckName);
-                    throw new DeckNotFoundException(d.getMessage());
+                    Gui.showError(d.getMessage());
                 }
 
                 LogsCenter.getLogger(Responses.class).info("DECK_CREATE_REG_CARD: command execution successful");
@@ -255,85 +250,26 @@ enum Responses {
                 //System.out.println("Current command is EDIT, edit card in deck");
                 LogsCenter.getLogger(Responses.class).info("Current command is EDIT_DECK_EDIT_CARD, edit card in deck");
 
-                //System.out.println(commandInput);
-
-                String userFields = commandInput.replaceFirst("edit(\\s)+deck/", "");
-                String[] splitUserFields = userFields.split(" action/");
-
-                String deckName = splitUserFields[0].trim();
-
-                splitUserFields = splitUserFields[1].split(" index/");
-                String action = splitUserFields[0].trim();
-
-                boolean hasFront = splitUserFields[1].contains("front/");
-                boolean hasBack = splitUserFields[1].contains("back/");
-
-                String index = "";
-                String front = "";
-                String back = "";
-
-                if (hasFront && hasBack) {
-                    //System.out.println("detect front and back");
-                    //System.out.println(splitUserFields[0]);
-
-                    splitUserFields = splitUserFields[1].split(" front/");
-                    index = splitUserFields[0].trim();
-
-                    //System.out.println(splitUserFields[0]);
-
-                    splitUserFields = splitUserFields[1].split(" back/");
-                    front = splitUserFields[0].trim();
-                    back = splitUserFields[1].trim();
-                }
-
-                if (hasFront && !hasBack) {
-                    splitUserFields = splitUserFields[1].split(" front/");
-                    index = splitUserFields[0].trim();
-                    front = splitUserFields[1].trim();
-                }
-
-                if (!hasFront && hasBack) {
-                    splitUserFields = splitUserFields[1].split(" back/");
-                    index = splitUserFields[0].trim();
-                    back = splitUserFields[1].trim();
-                }
-
-                if (!hasBack && !hasFront) {
-                    LogsCenter.getLogger(Responses.class).warning("EDIT_DECK_EDIT_CARD: No changes to front back");
-                    return true;
-                }
-
-                LogsCenter.getLogger(Responses.class).info("EDIT_DECK_EDIT_CARD: command parsing successful");
-                //System.out.println("Parsing completed");
-
-                //System.out.println(deckName + "." + action + "." + index + "." + front + "." + back + ".");
-
                 try {
-                    Deck deck = programState.getDeck(deckName);
-                    //System.out.println("Deck obtained");
+                    EditCommand command = new EditCommand();
+                    command.funcCall(commandInput, programState);
 
-                    int parsedInteger = Integer.parseInt(index);
-                    //System.out.println(parsedInteger);
-
-                    if (hasFront) {
-                        deck.editFrontCardFromDeck(front, parsedInteger);
-                        //System.out.println("Edit front card successsfullly");
-                    }
-
-                    if (hasBack) {
-                        deck.editBackCardInDeck(back, parsedInteger);
-                        //System.out.println("Edit back card successsfullly");
-                    }
-
-                    System.out.println("Edit card successsfullly");
                 } catch (DeckNotFoundException d) {
+
                     System.out.println("Error: " + d.getMessage());
+                    LogsCenter.getLogger(Responses.class).info("EDIT_DECK_EDIT_CARD: Deck not found");
+                    Gui.showStatus(d.getMessage());
+
                 } catch (NumberFormatException n) {
                     System.out.println("Error: " + n.getMessage());
+                    LogsCenter.getLogger(Responses.class).info("EDIT_DECK_EDIT_CARD: Index not valid");
+                    Gui.showStatus(n.getMessage());
+
                 } catch (IndexNotFoundException i) {
                     System.out.println("Error: " + i.getMessage());
+                    LogsCenter.getLogger(Responses.class).info("EDIT_DECK_EDIT_CARD: Index not correct");
+                    Gui.showStatus(i.getMessage());
                 }
-
 
                 LogsCenter.getLogger(Responses.class).info("EDIT_DECK_EDIT_CARD: command execution successful");
                 return true; // capture is valid, end checking other commands
@@ -346,32 +282,24 @@ enum Responses {
                 //System.out.println("Current command is EDIT, removing deck");
                 LogsCenter.getLogger(Responses.class).info("Current command is EDIT_DECK_REMOVE_CARD, removing deck");
 
-                //System.out.println(commandInput);
-
-                String userFields = commandInput.replaceFirst("edit(\\s)+deck/", "");
-                String[] splitUserFields = userFields.split(" action/");
-
-                String deckName = splitUserFields[0].trim();
-
-                splitUserFields = splitUserFields[1].split(" index/");
-                String action = splitUserFields[0].trim();
-
-                String index = splitUserFields[1].trim();
-
-                //System.out.println(deckName + "." + action + "." + index + ".");
-                LogsCenter.getLogger(Responses.class).info("EDIT_DECK_REMOVE_CARD: command parsing successful");
                 try {
-                    Deck deck = programState.getDeck(deckName);
-                    int parsedInteger = Integer.parseInt(index);
-                    deck.removeCardFromDeck(parsedInteger);
-
+                    EditCommand command = new EditCommand();
+                    command.funcCall(commandInput, programState);
                 } catch (DeckNotFoundException d) {
-                    LogsCenter.getLogger(Responses.class).info("EDIT_DECK_REMOVE_CARD: Deck not found " + deckName);
-                    System.out.println("In edit command, not deck found - " + deckName);
 
-                } catch (NumberFormatException | IndexNotFoundException n) {
-                    LogsCenter.getLogger(Responses.class).info("EDIT_DECK_REMOVE_CARD: Invalid index provided" + index);
-                    System.out.println(n.getMessage());
+                    System.out.println("Error: " + d.getMessage());
+                    LogsCenter.getLogger(Responses.class).info("EDIT_DECK_REMOVE_CARD: Deck not found");
+                    Gui.showStatus(d.getMessage());
+
+                } catch (NumberFormatException n) {
+                    System.out.println("Error: " + n.getMessage());
+                    LogsCenter.getLogger(Responses.class).info("EDIT_DECK_REMOVE_CARD: Index not valid");
+                    Gui.showStatus(n.getMessage());
+
+                } catch (IndexNotFoundException i) {
+                    System.out.println("Error: " + i.getMessage());
+                    LogsCenter.getLogger(Responses.class).info("EDIT_DECK_REMOVE_CARD: Index not correct");
+                    Gui.showStatus(i.getMessage());
                 }
 
                 LogsCenter.getLogger(Responses.class).info("EDIT_DECK_REMOVE_CARD: command execution successful");
@@ -384,11 +312,10 @@ enum Responses {
 
         // violates some rules, but workaround to prevent illegal forward reference
         LogsCenter.getLogger(Responses.class).warning("Unknown command entered.");
-
+        Gui.showError("Sorry, I don't know what is this command.");
         return false;
     });
 
-    private static Logger logger;
     private String regex;
     private ResponseFunc func;
 
@@ -410,9 +337,8 @@ enum Responses {
             if (i.matches(regex)) {
                 return func.funcCall(i, s);
             }
-        } catch (DeckNotFoundException | DuplicateFoundException d) {
+        } catch (DeckNotFoundException | IndexNotFoundException d) {
             System.out.println(d.getMessage());
-
             // gui handle
         }
         return false;

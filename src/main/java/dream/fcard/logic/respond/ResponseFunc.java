@@ -1,8 +1,8 @@
 package dream.fcard.logic.respond;
 
-import dream.fcard.logic.respond.exception.DuplicateFoundException;
 import dream.fcard.model.State;
 import dream.fcard.model.exceptions.DeckNotFoundException;
+import dream.fcard.model.exceptions.IndexNotFoundException;
 
 /**
  * Interface for lambdas or commands classes for Responses enum.
@@ -12,8 +12,8 @@ public interface ResponseFunc {
     /**
      * Lambda's signature interface.
      *
-     * @param i input string
-     * @param s state object
+     * @param commandInput string
+     * @param programState state object
      */
-    boolean funcCall(String i, State s) throws DeckNotFoundException, DuplicateFoundException;
+    boolean funcCall(String commandInput, State programState) throws DeckNotFoundException, IndexNotFoundException;
 }
