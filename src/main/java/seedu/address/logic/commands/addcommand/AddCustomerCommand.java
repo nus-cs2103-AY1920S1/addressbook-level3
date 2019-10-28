@@ -6,9 +6,9 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
-import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.UiChange;
+import seedu.address.logic.commands.UndoableCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.customer.Customer;
@@ -16,7 +16,7 @@ import seedu.address.model.customer.Customer;
 /**
  * Adds a customer to SML.
  */
-public class AddCustomerCommand extends Command {
+public class AddCustomerCommand extends UndoableCommand {
 
     public static final String COMMAND_WORD = "add-c";
 
@@ -47,7 +47,7 @@ public class AddCustomerCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult executeUndoableCommand(Model model) throws CommandException {
         requireNonNull(model);
 
         if (model.hasCustomer(toAdd)) {

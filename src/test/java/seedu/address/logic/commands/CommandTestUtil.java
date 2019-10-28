@@ -4,11 +4,18 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ALLOW;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_BRAND;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CAPACITY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_COLOUR;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CONTACT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_COST;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_IDENTITY_NUM;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_SERIAL_NUM;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_VENUE;
@@ -124,6 +131,34 @@ public class CommandTestUtil {
     public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
     public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for addresses
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
+
+    public static final String PHONE_NAME_DESC_IPHONE = " " + PREFIX_NAME + VALID_PHONE_NAME_IPHONE;
+    public static final String PHONE_NAME_DESC_SAMSUNG = " " + PREFIX_NAME + VALID_PHONE_NAME_SAMSUNG;
+    public static final String IDENTITY_NUM_DESC_IPHONE = " " + PREFIX_IDENTITY_NUM + VALID_IDENTITY_NUMBER_IPHONE;
+    public static final String IDENTITY_NUM_DESC_SAMSUNG = " " + PREFIX_IDENTITY_NUM + VALID_IDENTITY_NUMBER_SAMSUNG;
+    public static final String SERIAL_NUM_DESC_IPHONE = " " + PREFIX_SERIAL_NUM + VALID_SERIAL_NUMBER_IPHONE;
+    public static final String SERIAL_NUM_DESC_SAMSUNG = " " + PREFIX_SERIAL_NUM + VALID_SERIAL_NUMBER_SAMSUNG;
+    public static final String BRAND_DESC_IPHONE = " " + PREFIX_BRAND + VALID_BRAND_IPHONE;
+    public static final String BRAND_DESC_SAMSUNG = " " + PREFIX_BRAND + VALID_BRAND_SAMSUNG;
+    public static final String COLOUR_DESC_IPHONE = " " + PREFIX_COLOUR + VALID_COLOUR_IPHONE;
+    public static final String COLOUR_DESC_SAMSUNG = " " + PREFIX_COLOUR + VALID_COLOUR_SAMSUNG;
+    public static final String CAPACITY_DESC_IPHONE = " " + PREFIX_CAPACITY + "128";
+    public static final String CAPACITY_DESC_SAMSUNG = " " + PREFIX_CAPACITY + "256";
+    public static final String COST_DESC_IPHONE = " " + PREFIX_COST + VALID_COST_IPHONE;
+    public static final String COST_DESC_SAMSUNG = " " + PREFIX_COST + VALID_COST_SAMSUNG;
+    public static final String PRICE_DESC_IPHONE = " " + PREFIX_PRICE + VALID_PRICE_IPHONE;
+    public static final String PRICE_DESC_SAMSUNG = " " + PREFIX_PRICE + VALID_PRICE_SAMSUNG;
+    public static final String TAG_DESC_NEW = " " + PREFIX_TAG + VALID_TAG_NEW;
+    public static final String TAG_DESC_BESTSELLER = " " + PREFIX_TAG + VALID_TAG_BESTSELLER;
+
+    public static final String INVALID_PHONE_NAME_DESC = " " + PREFIX_NAME + "iPhone &";
+    public static final String INVALID_IDENTITY_NUM_DESC = " " + PREFIX_IDENTITY_NUM + "123019238901283098190212312";
+    public static final String INVALID_SERIAL_NUM_DESC = " " + PREFIX_SERIAL_NUM + "&&&&&&";
+    public static final String INVALID_BRAND_DESC = " " + PREFIX_BRAND + "";
+    public static final String INVALID_COLOUR_DESC = " " + PREFIX_COLOUR + "";
+    public static final String INVALID_CAPACITY_DESC = " " + PREFIX_CAPACITY + "129";
+    public static final String INVALID_COST_DESC = " " + PREFIX_COST + "20.789";
+    public static final String INVALID_PRICE_DESC = " " + PREFIX_PRICE + "120.89";
 
     public static final String INDEX_DESC_MONDAY = " " + VALID_S_INDEX_MONDAY;
     public static final String INDEX_DESC_FRIDAY = " " + VALID_S_INDEX_FRIDAY;

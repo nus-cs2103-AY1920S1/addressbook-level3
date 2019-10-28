@@ -1,9 +1,8 @@
-package seedu.address.commons.util;
+package seedu.address.statistic;
 
 import java.util.Calendar;
 
 import seedu.address.logic.commands.statisticcommand.StatisticType;
-import seedu.address.statistic.StatsPayload;
 
 /**
  * A utility class to help with building Stat Payloads objects.

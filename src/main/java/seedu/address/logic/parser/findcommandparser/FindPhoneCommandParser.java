@@ -6,9 +6,9 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_BRAND;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CAPACITY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COLOUR;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COST;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_IDENTITYNUM;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONENAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_SERIALNUM;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_IDENTITY_NUM;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_SERIAL_NUM;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Arrays;
@@ -42,14 +42,14 @@ public class FindPhoneCommandParser implements Parser<FindPhoneCommand> {
     public FindPhoneCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_IDENTITYNUM, PREFIX_SERIALNUM, PREFIX_PHONENAME,
+                ArgumentTokenizer.tokenize(args, PREFIX_IDENTITY_NUM, PREFIX_SERIAL_NUM, PREFIX_PHONE_NAME,
                         PREFIX_BRAND, PREFIX_CAPACITY, PREFIX_COLOUR, PREFIX_COST, PREFIX_TAG);
 
         //dummy predicate
         Predicate<Phone> predicate = x -> false;
-        if (!argMultimap.getValue(PREFIX_IDENTITYNUM).isPresent()
-                && !argMultimap.getValue(PREFIX_SERIALNUM).isPresent()
-                && !argMultimap.getValue(PREFIX_PHONENAME).isPresent()
+        if (!argMultimap.getValue(PREFIX_IDENTITY_NUM).isPresent()
+                && !argMultimap.getValue(PREFIX_SERIAL_NUM).isPresent()
+                && !argMultimap.getValue(PREFIX_PHONE_NAME).isPresent()
                 && !argMultimap.getValue(PREFIX_BRAND).isPresent()
                 && !argMultimap.getValue(PREFIX_CAPACITY).isPresent()
                 && !argMultimap.getValue(PREFIX_COLOUR).isPresent()
@@ -77,20 +77,20 @@ public class FindPhoneCommandParser implements Parser<FindPhoneCommand> {
 
         }
 
-        if (argMultimap.getValue(PREFIX_IDENTITYNUM).isPresent()) {
-            String[] keywords = argMultimap.getValue(PREFIX_IDENTITYNUM).get().split("\\s+");
+        if (argMultimap.getValue(PREFIX_IDENTITY_NUM).isPresent()) {
+            String[] keywords = argMultimap.getValue(PREFIX_IDENTITY_NUM).get().split("\\s+");
 
             predicate = predicate.or(new IdentityNumberContainsKeywordsPredicate(Arrays.asList(keywords)));
         }
 
-        if (argMultimap.getValue(PREFIX_SERIALNUM).isPresent()) {
-            String[] keywords = argMultimap.getValue(PREFIX_SERIALNUM).get().split("\\s+");
+        if (argMultimap.getValue(PREFIX_SERIAL_NUM).isPresent()) {
+            String[] keywords = argMultimap.getValue(PREFIX_SERIAL_NUM).get().split("\\s+");
 
             predicate = predicate.or(new SerialNumberContainsKeywordsPredicate(Arrays.asList(keywords)));
         }
 
-        if (argMultimap.getValue(PREFIX_PHONENAME).isPresent()) {
-            String[] keywords = argMultimap.getValue(PREFIX_PHONENAME).get().split("\\s+");
+        if (argMultimap.getValue(PREFIX_PHONE_NAME).isPresent()) {
+            String[] keywords = argMultimap.getValue(PREFIX_PHONE_NAME).get().split("\\s+");
 
             predicate = predicate.or(new PhoneNameContainsKeywordsPredicate(Arrays.asList(keywords)));
         }
