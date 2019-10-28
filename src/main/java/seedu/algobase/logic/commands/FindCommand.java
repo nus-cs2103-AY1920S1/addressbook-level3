@@ -34,7 +34,7 @@ public class FindCommand extends Command {
             + "[" + PREFIX_TAG + "TAG]\n"
             + "Example:\n"
             + COMMAND_WORD
-            + PREFIX_AUTHOR + "Tung Kam Chuen";
+            + PREFIX_AUTHOR + " Tung Kam Chuen";
     public static final String MESSAGE_NO_CONSTRAINTS = "At least one search constraint should be provided.";
 
     /**
@@ -43,9 +43,12 @@ public class FindCommand extends Command {
      */
     private static final Predicate<Problem> ALWAYS_TRUE_PROBLEM_PREDICATE = problem -> true;
     private final Predicate<Problem> predicate;
+    private final FindProblemDescriptor descriptor;
 
     public FindCommand(FindProblemDescriptor findProblemDescriptor) {
         requireNonNull(findProblemDescriptor);
+        // Creates a defensive copy of the original descriptor.
+        this.descriptor = new FindProblemDescriptor(findProblemDescriptor);
         this.predicate = findProblemDescriptor.getFindProblemPredicate();
     }
 
@@ -61,7 +64,7 @@ public class FindCommand extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof FindCommand // instanceof handles nulls
-                && predicate.equals(((FindCommand) other).predicate)); // state check
+                && descriptor.equals(((FindCommand) other).descriptor)); // state check
     }
 
 }
