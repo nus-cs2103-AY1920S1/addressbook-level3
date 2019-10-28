@@ -3,26 +3,21 @@ package seedu.address.ui.graphs;
 import seedu.address.model.customer.Customer;
 import seedu.address.ui.Node;
 
-import java.util.Arrays;
 import java.util.List;
-
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 public class CustomerContactNumberNode extends Node<Customer> {
 
-    private static CustomerContactNumberNode theOne = null;
-
-    public static CustomerContactNumberNode getInstance(List<Customer> backingList) {
-        if (theOne == null) {
-            theOne = new CustomerContactNumberNode(backingList);
-        }
-        return theOne;
+    public CustomerContactNumberNode(List<Customer> backingList) {
+        super(backingList);
     }
 
-    private CustomerContactNumberNode(List<Customer> backingList) {
-        super(backingList);
-        this.getEdges().put(PREFIX_EMAIL, CustomerEmailNode.getInstance(backingList));
-        this.getValues().addAll(Arrays.asList("98765432", "99999999", "88888888"));
+    @Override
+    public SortedSet<String> getValues() {
+        SortedSet<String> values = new TreeSet<>();
+        backingList.forEach(customer -> values.add(customer.getContactNumber().toString()));
+        return values;
     }
 
 }

@@ -2,54 +2,64 @@ package seedu.address.ui;
 
 import seedu.address.logic.parser.Prefix;
 
-import java.util.Optional;
+import java.util.List;
+import java.util.SortedSet;
+import java.util.TreeSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Represents a graph using an adjacency list.
+ * Represents a graph implemented as an {@link Edge} list.
  */
-public abstract class Graph {
+public class Graph<T> {
 
-    private final String commandWord;
-    private final Node startNode;
-    private final Pattern prefixPattern = Pattern.compile(" [a-z]/");
+    private static final Pattern prefixPattern = Pattern.compile(" [a-z]/");
 
-    public String lastMatchEnd;
+    private final Node<T> startingNode;
+    private final List<Edge<T>> edges;
 
-    public Graph(String commandWord, Node startNode) {
-        this.commandWord = commandWord;
-        this.startNode = startNode;
+    private Node<T> currentNode;
+    public String wordToCompare;
+
+    public Graph(Node<T> startingNode, List<Edge<T>> edges) {
+        this.startingNode = startingNode;
+        this.edges = edges;
     }
 
-    public String getCommandWord() {
-        return commandWord;
-    }
-
-    public Node getStartNode() {
-        return startNode;
-    }
-
-    public Node process(String input) {
-        lastMatchEnd = "";
+    public SortedSet<String> process(String input) {
+        resetCurrentNode();
+        SortedSet<String> values = new TreeSet<>();
         Matcher matcher = prefixPattern.matcher(input);
-        Node currentNode = startNode;
         while (matcher.find()) {
-            String prefix = matcher.group().trim();
-            Optional<Node> nextNode = currentNode.traverse(new Prefix(prefix));
-            if (nextNode.isEmpty() || nextNode.get().isEnd()) {
-                break;
-            } else {
-                currentNode = nextNode.get();
-            }
-            lastMatchEnd = input.substring(matcher.end());
+            Prefix prefix = new Prefix(matcher.group().trim());
+            traverse(prefix);
+            wordToCompare = input.substring(matcher.end());
         }
-        return currentNode;
+        if (input.endsWith(" ")) {
+            // prefixes
+            edges.forEach(edge -> {
+                if (edge.getSource().equals(currentNode)) {
+                    values.add(edge.getWeight().toString());
+                }
+            });
+            wordToCompare = "";
+        } else {
+            values.addAll(currentNode.getValues());
+        }
+        return values;
     }
 
-    @Override
-    public String toString() {
-        return "Graph: " + this.commandWord;
+    private void resetCurrentNode() {
+        currentNode = startingNode;
+    }
+
+    private void traverse(Prefix prefix) {
+        for (Edge<T> edge : edges) {
+            if (edge.getWeight().equals(prefix) && edge.getSource().equals(currentNode)) {
+                currentNode = edge.getDestination();
+                break;
+            }
+        }
     }
 
 }

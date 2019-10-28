@@ -2,23 +2,18 @@ package seedu.address.ui;
 
 import java.util.List;
 import java.util.SortedSet;
-import java.util.TreeSet;
 
 /**
  * Represents a node in a {@link Graph}.
  */
-public class Node {
+public abstract class Node<T> {
 
-    private final List<?> backingList;
+    protected final List<T> backingList;
 
-    public Node(List<?> backingList) {
+    public Node(List<T> backingList) {
         this.backingList = backingList;
     }
 
-    public SortedSet<String> getValues() {
-        SortedSet<String> values = new TreeSet<>();
-        backingList.forEach(obj -> values.add(obj.toString()));
-        return values;
-    }
+    public abstract SortedSet<String> getValues();
 
 }

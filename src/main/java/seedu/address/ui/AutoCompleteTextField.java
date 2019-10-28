@@ -9,6 +9,8 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
 
+import javafx.event.Event;
+import javafx.event.EventType;
 import javafx.geometry.Side;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.CustomMenuItem;
@@ -19,7 +21,6 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
-import seedu.address.logic.parser.Prefix;
 
 //@@author uberSaiyan-reused
 //StackOverflow answer on writing an autocomplete text field from
@@ -29,15 +30,13 @@ import seedu.address.logic.parser.Prefix;
  * Represents a JavaFX TextField with auto-complete drop down menu built-in.
  */
 public class AutoCompleteTextField extends TextField {
-    private final SortedSet<String> entries;
-    private ContextMenu entriesPopup;
-    private final GraphGenerator graphGenerator;
+    public final SortedSet<String> entries;
+    public final ContextMenu entriesPopup;
 
-    public AutoCompleteTextField(GraphGenerator graphGenerator) {
+    public AutoCompleteTextField() {
         super();
         this.entries = new TreeSet<>();
         this.entriesPopup = new ContextMenu();
-        this.graphGenerator = graphGenerator;
 
         setListener();
     }
@@ -55,18 +54,18 @@ public class AutoCompleteTextField extends TextField {
                 int firstSpace = enteredText.indexOf(" ");
                 if (firstSpace != -1) {
                     String commandWord = enteredText.substring(0, firstSpace);
-                    Optional<Graph> graph = graphGenerator.getGraph(commandWord);
+//                    GraphGenerator graphGenerator = new GraphGenerator(logic);
+                    GraphGenerator graphGenerator = GraphGenerator.getInstance();
+                    Optional<Graph<?>> graph = graphGenerator.getGraph(commandWord);
                     if (graph.isPresent()) {
                         String remaining = enteredText.substring(firstSpace);
-                        Node graphNode = graph.get().process(remaining);
+                        SortedSet<String> values = graph.get().process(remaining);
+                        entries.clear();
+                        entries.addAll(values);
                         if (remaining.endsWith(" ")) {
-                            entries.clear();
-                            entries.addAll(graphNode.getPrefixes().stream().map(prefix -> prefix.toString()).collect(Collectors.toList()));
                             stringToCompare = "";
                         } else {
-                            entries.clear();
-                            entries.addAll(graphNode.getValues());
-                            stringToCompare = graph.get().lastMatchEnd;
+                            stringToCompare = graph.get().wordToCompare;
                         }
                     }
                 } else {
@@ -99,7 +98,7 @@ public class AutoCompleteTextField extends TextField {
      * @param searchResults A list of strings that match {@code searchWord}.
      * @param searchWord The word being matched against.
      */
-    private void populatePopup(List<String> searchResults, String searchWord) {
+    public void populatePopup(List<String> searchResults, String searchWord) {
         List<CustomMenuItem> menuItems = new ArrayList<>();
         int maxEntries = 5;
         int count = Math.min(searchResults.size(), maxEntries);
@@ -115,7 +114,7 @@ public class AutoCompleteTextField extends TextField {
             item.setOnAction(actionEvent -> {
                 setText(getText().substring(0, getText().lastIndexOf(searchWord)) + result);
                 positionCaret(getText().length());
-                refreshDropdown();
+                fireEvent(new Event(EventType.ROOT));
             });
         }
 
@@ -133,30 +132,37 @@ public class AutoCompleteTextField extends TextField {
      * @param filter A word to highlight.
      * @return A highlighted TextFlow.
      */
-    private static TextFlow buildTextFlow(String text, String filter) {
-        int filterIndex = text.toLowerCase().indexOf(filter.toLowerCase());
-        Text textBefore = new Text(text.substring(0, filterIndex));
-        Text textAfter = new Text(text.substring(filterIndex + filter.length()));
-        Text textFilter = new Text(text.substring(filterIndex, filterIndex + filter.length()));
-        textFilter.setFill(Color.YELLOW);
-        textFilter.setFont(Font.font("Helvetica", FontWeight.BOLD, 12));
-        return new TextFlow(textBefore, textFilter, textAfter);
+    public static TextFlow buildTextFlow(String text, String filter) {
+        if (filter.equals("")) {
+            Text wholeText = new Text(text);
+            wholeText.setFill(Color.CYAN);
+            wholeText.setFont(Font.font("Helvetica", FontWeight.BOLD, 12));
+            return new TextFlow(wholeText);
+        } else {
+            int filterIndex = text.toLowerCase().indexOf(filter.toLowerCase());
+            Text textBefore = new Text(text.substring(0, filterIndex));
+            Text textAfter = new Text(text.substring(filterIndex + filter.length()));
+            Text textFilter = new Text(text.substring(filterIndex, filterIndex + filter.length()));
+            textFilter.setFill(Color.YELLOW);
+            textFilter.setFont(Font.font("Helvetica", FontWeight.BOLD, 12));
+            return new TextFlow(textBefore, textFilter, textAfter);
+        }
     }
 
     /**
      * Sets the command box style to use the default style.
      */
-    private void setStyleToDefault() {
+    public void setStyleToDefault() {
         this.getStyleClass().remove(ERROR_STYLE_CLASS);
     }
 
-    private int compareEntries(String firstMatch, String secondMatch, String text) {
+    public int compareEntries(String firstMatch, String secondMatch, String text) {
         int firstIndex = firstMatch.indexOf(text);
         int secondIndex = secondMatch.indexOf(text);
         return firstIndex - secondIndex;
     }
 
-    private void refreshDropdown() {
+    public void refreshDropdown() {
         entriesPopup.hide();
         entriesPopup.show(AutoCompleteTextField.this, Side.BOTTOM, 0, 0);
     }

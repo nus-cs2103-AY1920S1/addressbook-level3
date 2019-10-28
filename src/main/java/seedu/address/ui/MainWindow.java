@@ -57,9 +57,6 @@ public class MainWindow extends UiPart<Stage> {
     private CalendarPanel calendarPanel;
     private ArchivedOrderListPanel archiveOrderListPanel;
 
-    // Autocomplete graphs generator
-    private GraphGenerator graphGenerator;
-
     @FXML
     private StackPane commandBoxPlaceholder;
 
@@ -91,8 +88,6 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
-
-        this.graphGenerator = new GraphGenerator(logic);
     }
 
     public Stage getPrimaryStage() {
@@ -154,7 +149,7 @@ public class MainWindow extends UiPart<Stage> {
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
-        CommandBox commandBox = new CommandBox(this::executeCommand, graphGenerator);
+        CommandBox commandBox = new CommandBox(this::executeCommand, logic);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
     }
 
