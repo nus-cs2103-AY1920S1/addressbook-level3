@@ -22,7 +22,7 @@
             <children>
                    <Label fx:id="id" styleClass="cell_big_label" text="\\$id" HBox.hgrow="ALWAYS">
                   <padding>
-                     <Insets left="5.0" top="5.0" />
+                     <Insets left="2.0" top="5.0" />
                   </padding>
                    </Label>
                    <Label fx:id="incidentId" styleClass="cell_big_label" text="\\$incidentId" underline="true" wrapText="true">

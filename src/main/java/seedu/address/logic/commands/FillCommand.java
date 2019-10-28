@@ -17,7 +17,7 @@ import seedu.address.model.incident.Description;
 import seedu.address.model.incident.Incident;
 
 /**
- * Generates a new incident report.
+ * Fills a draft incident report, if specified, otherwise lists all draft incident reports ready for filling.
  */
 public class FillCommand extends Command {
 

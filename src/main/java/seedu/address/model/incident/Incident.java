@@ -237,7 +237,6 @@ public class Incident {
     // TODO: more refined toString method
     @Override
     public String toString() {
-        return /*"Incident datetime:" + incidentDateTime.toString() +
-                "\n + */"Incident Description: " + description.toString();
+        return "Incident #" + id.getId();
     }
 }

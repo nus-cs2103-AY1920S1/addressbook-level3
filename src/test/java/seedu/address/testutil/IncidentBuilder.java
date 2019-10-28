@@ -13,9 +13,9 @@ import seedu.address.model.vehicle.District;
 public class IncidentBuilder {
     public static final String DEFAULT_DISTRICT = "1";
     public static final String DEFAULT_CALLER = "85355255";
-    public static final String DEFAULT_DATETIME = "Sep 15, 2008, 03:53:00 PM";
+    public static final String DEFAULT_DATETIME = "Dec 2, 2016, 2:30:40 PM";
     public static final String DEFAULT_DESC = "This is an incident description.";
-    public static final String DEFAULT_ID = "0920080000";
+    public static final String DEFAULT_ID = "1220160001";
 
     private District district;
     private IncidentDateTime dateTime;
@@ -55,6 +55,14 @@ public class IncidentBuilder {
      */
     public IncidentBuilder withDescription(String desc) {
         this.desc = new Description(desc);
+        return this;
+    }
+
+    /**
+     * Sets the {@code IncidentId} of the {@code Incident} that we are building.
+     */
+    public IncidentBuilder withId(String id) {
+        this.id = new IncidentId(id);
         return this;
     }
 

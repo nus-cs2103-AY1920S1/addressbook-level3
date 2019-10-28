@@ -6,6 +6,7 @@ import seedu.address.model.incident.CallerNumber;
 import seedu.address.model.incident.Description;
 import seedu.address.model.incident.Incident;
 import seedu.address.model.incident.IncidentDateTime;
+import seedu.address.model.incident.IncidentId;
 import seedu.address.model.vehicle.District;
 
 /**
@@ -65,6 +66,13 @@ public class EditIncidentBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code CallerNumber} of the {@code EditIncidentBuilder} that we are building.
+     */
+    public EditIncidentBuilder withId(String id) {
+        editor.setId(new IncidentId(id));
+        return this;
+    }
 
     public EditIncident build() {
         return editor;
