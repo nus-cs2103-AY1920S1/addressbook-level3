@@ -22,7 +22,7 @@ treasurerPro (tP) is for those who *prefer to use a desktop app for managing the
 More importantly, tP is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI).
 If you can type fast, tP can get your expense management tasks done faster than traditional GUI apps.
 Interested?
-Jump to the <<Quick Start>> to get started.
+Let's move on to <<Quick Start>> to get started.
 Enjoy!
 
 == Quick Start
@@ -36,9 +36,9 @@ The GUI should appear in a few seconds.
 image::Ui.png[width="790"]
 +
 . Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`go /home`* and pressing kbd:[Enter] will take you to the Home tab.
+e.g. typing *`go /members`* and pressing kbd:[Enter] will take you to the Members tab.
 
-. Refer to <<Features>> for details of each command.
+. Refer to <<Features>> for details of commands for each tab.
 
 [[Features]]
 == Features
@@ -90,7 +90,7 @@ Examples:
 `add dt/January 1st 2019, 07:00PM d/Printer ink c/Miscellaneous a/3.50 p/Janelle`
 
 
-If the added transaction is negative which indicates a spending, it will be shown in the Reimbursement Tab as a pending reimbursement
+If the added transaction has a negative amount which indicates a spending, it will be shown in the Reimbursement Tab as a pending reimbursement
 record for the member that spent it. If there is an existing reimbursement record for that member still pending, the amount
 of the newly added transaction will be added to the existing pending reimbursement amount.
 

@@ -37,7 +37,7 @@ public class TransactionLogicStub implements Logic {
 
     @Override
     public void setTransaction(Transaction transaction, Transaction newTransaction) {
-
+        throw new AssertionError("This method should not be called.");
     }
 
     @Override
@@ -52,6 +52,6 @@ public class TransactionLogicStub implements Logic {
 
     @Override
     public void addTransaction(Transaction transaction) {
-
+        throw new AssertionError("This method should not be called.");
     }
 }
