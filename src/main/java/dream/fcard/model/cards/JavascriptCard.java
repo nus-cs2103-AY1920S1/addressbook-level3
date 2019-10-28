@@ -6,10 +6,12 @@ import dream.fcard.logic.stats.Statistics;
 import dream.fcard.logic.storage.Schema;
 import dream.fcard.util.json.jsontypes.JsonObject;
 import dream.fcard.util.json.jsontypes.JsonValue;
-import javafx.scene.Node;
 
 /**
  * Card that evaluates input as javascript code whose output has to match back of card.
+ * Format of back of card is a string of assert functions, e.g. "assert(f(4),10); assert(f(14),20);"
+ * which evaluate will then run against the user's typed code (user will have to define a function f
+ * in a popup editor window)
  */
 public class JavascriptCard extends FlashCard {
 
@@ -61,31 +63,12 @@ public class JavascriptCard extends FlashCard {
 
     /**
      *
-     * @return
-     */
-    @Override
-    public Node renderFront() {
-        // temporary
-        return null;
-    }
-
-    /**
-     *
-     * @return
-     */
-    @Override
-    public Node renderBack() {
-        // temporary
-        return null;
-    }
-
-    /**
-     *
      * @param in input
      * @return
      */
     @Override
     public Boolean evaluate(String in) {
+
         return null;
     }
 
@@ -119,5 +102,16 @@ public class JavascriptCard extends FlashCard {
      */
     public String getBack() {
         return back;
+    }
+
+    /**
+     * Returns boolean value false.
+     * Since no choices exist in this class.
+     *
+     * @return Boolean value false.
+     */
+    @Override
+    public boolean hasChoices() {
+        return false;
     }
 }

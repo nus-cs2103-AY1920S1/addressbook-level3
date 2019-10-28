@@ -17,7 +17,7 @@ import dream.fcard.util.FileReadWrite;
 
 public class ResponsesTest {
     @Test
-    void rootTest() {
+    void rootTest() throws Exception {
         String path = FileReadWrite.resolve("./", "./testDir");
         new File(path).mkdirs();
         // make directory for testing
@@ -31,12 +31,12 @@ public class ResponsesTest {
     }
 
     @Test
-    void rootNoPathTest() {
+    void rootNoPathTest() throws Exception {
         assertEquals(true, Responses.ROOT_NO_PATH.call("root", new State()));
     }
 
     @Test
-    void importTest() {
+    void importTest() throws Exception {
         String deckName = "test123";
         String path = FileReadWrite.normalizePath("~/" + deckName + ".json");
         String root = FileReadWrite.normalizePath("~/testDir");
@@ -71,12 +71,12 @@ public class ResponsesTest {
     }
 
     @Test
-    void importNoPathTest() {
+    void importNoPathTest() throws Exception {
         assertEquals(true, Responses.IMPORT_NO_PATH.call("import", new State()));
     }
 
     @Test
-    void exportTest() {
+    void exportTest() throws Exception {
         String deckName = "test123";
         String path = FileReadWrite.normalizePath("~");
         String exportPath = FileReadWrite.resolve(path, "./" + deckName + ".json");
@@ -112,12 +112,12 @@ public class ResponsesTest {
     }
 
     @Test
-    void exportNoPathTest() {
+    void exportNoPathTest() throws Exception {
         assertEquals(true, Responses.EXPORT_NO_PATH.call("export deck/ test", new State()));
     }
 
     @Test
-    void exportNoDeckTest() {
+    void exportNoDeckTest() throws Exception {
         assertEquals(true, Responses.EXPORT_NO_DECK.call("export", new State()));
     }
 }

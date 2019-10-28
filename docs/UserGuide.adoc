@@ -59,7 +59,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Words in `UPPER_CASE` are the parameters to be supplied by the user.
 * Items in square brackets are optional.
 * Items with `…` after them can be used multiple times including zero times.
-* Parameters can be in any order.
+* Commands are case-sensitive.
 ====
 
 === Show help page for commands available : `help`
@@ -165,8 +165,6 @@ The edit command allows the user to change, add or remove the flashcards in any 
 
 ****
 * You can select the following options depending on your choice of action for `action`: `add`, `change`, `remove`
-
-* For options `add`, you must furnish the options `front` and `back`, and any input to `index` will be ignored
 
 * For options `remove`, you must furnish the options `index`, which corresponds to the index of the flashcard, and any input to `front` and `back` will be ignored
 

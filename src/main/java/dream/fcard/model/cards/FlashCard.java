@@ -1,62 +1,69 @@
 package dream.fcard.model.cards;
 
-import dream.fcard.model.exceptions.IndexNotFoundException;
 import dream.fcard.util.json.JsonInterface;
 import dream.fcard.util.json.jsontypes.JsonValue;
-import javafx.scene.Node;
 
 /**
  * Interface all flash card types must implement.
  */
 public abstract class FlashCard implements JsonInterface, Comparable<FlashCard> {
+
+    /**
+     * Text to display in front of FlashCard.
+     */
     protected String front;
+
+    /**
+     * Text to display in back of FlashCard.
+     */
     protected String back;
+
+    /**
+     * Number indicating priority level of FlashCard.
+     */
     protected Integer priority;
 
     /**
-     * Returns render of front of this flash card.
+     * Return true if the input matches the FlashCard answer.
+     * Else returns false.
      *
-     * @return JavaFX Node
+     * @param in String input fron user.
+     * @return Boolean value, true if user input matches FlashCard answer, else return false.
      */
-    public abstract Node renderFront();
+    public abstract Boolean evaluate(String in);
 
     /**
-     * Returns render of back of this flash card
+     * Returns front text of card.
      *
-     * @return JavaFX Node
-     */
-    public abstract Node renderBack();
-
-    /**
-     * Evaluate if the input matches the card
-     *
-     * @param in input
-     * @return true if its a valid match
-     */
-    public abstract Boolean evaluate(String in) throws IndexNotFoundException;
-
-    /**
-     * @return
+     * @return String of front text of card.
      */
     public abstract String getFront();
 
     /**
-     * @return
+     * Return back text of card.
+     *
+     * @return String of back text of card.
      */
     public abstract String getBack();
 
     /**
-     * @param newText
+     * Set the front text of card.
+     *
+     * @param newText String of new text to replace in front.
      */
     public abstract void editFront(String newText);
 
     /**
-     * @param newText
+     * Set the back text of card.
+     *
+     * @param newText String of new text to replace in back.
      */
     public abstract void editBack(String newText);
 
     /**
-     * @return
+     * Returns JsonValue out of this Flashcard.
+     *
+     * @return JsonValue of flashcard.
      */
     @Override
     public JsonValue toJson() {
@@ -64,12 +71,12 @@ public abstract class FlashCard implements JsonInterface, Comparable<FlashCard> 
     }
 
     /**
-     * Checks if this card has higher priority than other card.
+     * Returns an integer value after checking if this card has higher priority than other card.
      * If this card has higher priority, return a positive number.
      * If this card has lower priority, return a negative number.
      *
-     * @param otherCard
-     * @return
+     * @param otherCard FlashCard object to be compared to.
+     * @return Integer value indicating comparison.
      */
     @Override
     public int compareTo(FlashCard otherCard) {
@@ -77,10 +84,20 @@ public abstract class FlashCard implements JsonInterface, Comparable<FlashCard> 
     }
 
     /**
-     * @return
+     * Returns priority level of flashcard.
+     *
+     * @return Integer value of priority level.
      */
     public int getPriority() {
         return priority;
     }
 
+    /**
+     * Returns boolean value after checking if FlashCard has choice parameters.
+     * If FlashCard has choice parameters (in ArrayList), return true.
+     * Else return false.
+     *
+     * @return Boolean value, true if FlashCard has choices, else return false.
+     */
+    public abstract boolean hasChoices();
 }
