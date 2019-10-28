@@ -17,6 +17,8 @@ import org.junit.jupiter.api.io.TempDir;
 //import seedu.address.logic.commands.switches.HomeCommand;
 //import seedu.address.logic.commands.switches.OpenCommand;
 
+import seedu.address.commons.exceptions.DataConversionException;
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
@@ -42,7 +44,7 @@ public class LogicManagerTest {
     private Logic logic;
 
     @BeforeEach
-    public void setUp() {
+    public void setUp() throws DataConversionException, IllegalValueException {
         JsonWordBankListStorage addressBookStorage =
                 new JsonWordBankListStorage(temporaryFolder.resolve("addressBook.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
@@ -170,7 +172,7 @@ public class LogicManagerTest {
      * A stub class to throw an {@code IOException} when the save method is called.
      */
     private static class JsonWordBankListIoExceptionThrowingStub extends JsonWordBankListStorage {
-        private JsonWordBankListIoExceptionThrowingStub(Path filePath) {
+        private JsonWordBankListIoExceptionThrowingStub(Path filePath) throws DataConversionException, IllegalValueException {
             super(filePath);
         }
 

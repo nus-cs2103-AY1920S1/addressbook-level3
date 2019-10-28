@@ -6,6 +6,8 @@ import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalCards.CHARIZARD;
 import static seedu.address.testutil.TypicalCards.getTypicalWordBank;
 
+import java.io.File;
+import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -26,27 +28,37 @@ public class JsonWordBankStorageTest {
 
     @Test
     public void readWordBank_nullFilePath_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> toModelType(null));
+        assertThrows(NullPointerException.class, () -> readWordBank(null, "firstTest"));
     }
 
     @Test
     public void read_nonExistentFile_emptyResult() throws Exception {
-        assertFalse(toModelType("NonExistentFile.json").isPresent());
+        assertFalse(readWordBank("NonExistentFile.json", "secondTest").isPresent());
     }
 
     @Test
     public void read_notJsonWordBankFormat_exceptionThrown() {
-        assertThrows(DataConversionException.class, () -> toModelType("notJsonFormatWordBank.json"));
+        assertThrows(DataConversionException.class, () -> readWordBank("notJsonFormatWordBank.json", "thirdTest"));
     }
 
     @Test
     public void readWordBank_invalidWordBank_throwIllegalValueException() {
-        assertThrows(IllegalValueException.class, () -> toModelType("invalidWordBank.json"));
+        assertThrows(IllegalValueException.class, () -> readWordBank("invalidWordBank.json", "fourthTest"));
     }
 
     @Test
     public void readWordBank_invalidAndValidCardsWordBank_throwIllegalValueException() {
-        assertThrows(IllegalValueException.class, () -> toModelType("invalidAndValidCardsWordBank.json"));
+        assertThrows(IllegalValueException.class, () -> readWordBank("invalidAndValidCardsWordBank.json", "fifthTest"));
+    }
+
+    @Test
+    public void saveWordBank_nullWordBank_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> saveWordBank(null, "SomeFile.json", "sixthTest"));
+    }
+
+    @Test
+    public void saveWordBank_nullFilePath_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> saveWordBank(new WordBank("test"), null, "seventhTest"));
     }
 
     @Test
@@ -68,36 +80,21 @@ public class JsonWordBankStorageTest {
         assertEquals(original, readBack);
     }
 
-
-    @Test
-    public void saveWordBank_nullWordBank_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> saveWordBanks(null, "SomeFile.json"));
-    }
-
-    @Test
-    public void saveWordBank_nullFilePath_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> saveWordBanks(new WordBank("test"), null));
-    }
-
     /**
      * Saves {@code WordBank} at the specified {@code filePath}.
      */
-    private void saveWordBanks(ReadOnlyWordBank wordBank, String filePath) {
-        //        try {
-        new JsonWordBankListStorage(Paths.get(filePath))
-                .saveWordBank(wordBank, addToTestDataPathIfNotNull(filePath));
-        //        } catch (IOException ioe) {
-        //            throw new AssertionError("There should not be an error writing to the file.", ioe);
-        //        }
+    private void saveWordBank(ReadOnlyWordBank wordBank, String filePath, String testFolder) throws DataConversionException, IllegalValueException {
+        new JsonWordBankListStorage(TEST_DATA_FOLDER, testFolder)
+                .saveWordBank(wordBank, addToTestDataPathIfNotNull(testFolder, filePath));
     }
 
-    private java.util.Optional<ReadOnlyWordBank> toModelType(String filePath) throws Exception {
-        return new JsonWordBankListStorage(TEST_DATA_FOLDER).jsonToWordBank(addToTestDataPathIfNotNull(filePath));
+    private java.util.Optional<ReadOnlyWordBank> readWordBank(String filePath, String testFolder) throws Exception {
+        return new JsonWordBankListStorage(TEST_DATA_FOLDER, testFolder).jsonToWordBank(addToTestDataPathIfNotNull(testFolder, filePath));
     }
 
-    private Path addToTestDataPathIfNotNull(String prefsFileInTestDataFolder) {
+    private Path addToTestDataPathIfNotNull(String testFolder, String prefsFileInTestDataFolder) {
         return prefsFileInTestDataFolder != null
-                ? TEST_DATA_FOLDER.resolve(prefsFileInTestDataFolder)
+                ? TEST_DATA_FOLDER.resolve(testFolder).resolve(prefsFileInTestDataFolder)
                 : null;
     }
 

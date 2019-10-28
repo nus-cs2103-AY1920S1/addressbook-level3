@@ -34,13 +34,24 @@ public class JsonWordBankListStorage implements WordBankListStorage {
     private Path wordBanksFilePath; // default : data/wordBanks
 
     /**
-     * Storage that contains all information related to word banks.
+     * Creates information related to word banks.
      * It also initialises the folder and sample data if necessary.
      *
      * @param filePath of storage. By default, it is at data folder.
      */
-    public JsonWordBankListStorage(Path filePath) {
-        initData(filePath);
+    public JsonWordBankListStorage(Path filePath) throws DataConversionException, IllegalValueException {
+        initDataByDefault(filePath);
+        initWordBankList();
+    }
+
+    /**
+     * Creates information related to word bank at specified folder.
+     *
+     * @param filePath of storage. By default, it is at data folder.
+     * @param folder specifies another layer of folder to contain word banks.
+     */
+    public JsonWordBankListStorage(Path filePath, String folder) throws DataConversionException, IllegalValueException {
+        initData(filePath, folder);
         initWordBankList();
     }
 
@@ -51,9 +62,23 @@ public class JsonWordBankListStorage implements WordBankListStorage {
      *
      * @param filePath of storage. By default, it is data.
      */
-    private void initData(Path filePath) {
-        wordBanksFilePath = Paths.get(filePath.toString(), "wordBanks");
-        try {
+    private void initDataByDefault(Path filePath) {
+        initData(filePath, "wordBanks");
+    }
+
+    /**
+     * Creates the wordBanks folder if it has not been initialised.
+     * By default, it is located at data/wordBanks
+     * Also creates a sample.json file if there are no word banks when initialising.
+     *
+     * @param filePath of storage. By default, it is data.
+     */
+    private void initData(Path filePath, String folder) {
+        if (folder.equals("")) {
+            wordBanksFilePath = filePath;
+        } else {
+            wordBanksFilePath = Paths.get(filePath.toString(), folder);
+        } try {
             if (!filePath.toFile().exists()) {
                 Files.createDirectory(filePath);
             }
@@ -84,7 +109,7 @@ public class JsonWordBankListStorage implements WordBankListStorage {
      * Initialise word bank list from the word banks directory on creation
      * All json files will initialise a word bank.
      */
-    private void initWordBankList() {
+    private void initWordBankList() throws DataConversionException, IllegalValueException {
         List<WordBank> wordBankList = new ArrayList<>();
         File wordBanksDirectory = wordBanksFilePath.toFile();
         String[] pathArray = wordBanksDirectory.list();
@@ -95,9 +120,12 @@ public class JsonWordBankListStorage implements WordBankListStorage {
                 ReadOnlyWordBank readOnlyWordBank = null;
                 try {
                     readOnlyWordBank = jsonToWordBank(wordBankPath).get();
-                } catch (DataConversionException | IllegalValueException e) {
+                } catch (DataConversionException e) {
+                    throw e;
+                } catch (IllegalValueException e) {
                     logger.info("Failed to initialise word bank list");
                     e.printStackTrace();
+                    throw e;
                 }
                 WordBank wbToAdd = (WordBank) readOnlyWordBank;
                 wordBankList.add(wbToAdd);
