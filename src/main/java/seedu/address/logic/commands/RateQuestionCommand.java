@@ -30,7 +30,8 @@ public class RateQuestionCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
 
-        // TODO: implement stats here
+        updateModel(model);
+        // TODO: implement flashcard rating
 
         if (!model.hasTestFlashCard()) {
             keyboardFlashCardsParser.endTestMode();
@@ -49,5 +50,21 @@ public class RateQuestionCommand extends Command {
                 && rating.equals(((RateQuestionCommand) other).rating)
                 && keyboardFlashCardsParser
                         .equals(((RateQuestionCommand) other).keyboardFlashCardsParser)); // state check
+    }
+
+    /** Updates statistics in the model. */
+    private void updateModel(Model model) {
+        requireNonNull(model);
+        String rating = this.rating.toString();
+        assert rating.equals("good") || rating.equals("hard") || rating.equals("easy");
+        if (rating.equals("good")) {
+            model.editStats(0);
+        }
+        if (rating.equals("hard")) {
+            model.editStats(1);
+        }
+        if (rating.equals("easy")) {
+            model.editStats(2);
+        }
     }
 }
