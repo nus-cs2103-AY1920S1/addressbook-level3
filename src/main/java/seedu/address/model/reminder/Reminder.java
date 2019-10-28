@@ -2,19 +2,16 @@ package seedu.address.model.reminder;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.Objects;
-import java.util.TreeSet;
-
-import seedu.address.model.classid.ClassId;
-import seedu.address.model.task.Task;
-import seedu.address.model.task.TaskTime;
+import java.util.Set;
 
 /**
- * Represents a Task in the calendar.
+ * Represents a Reminder in the calendar.
  */
 public class Reminder {
     // Identity fields
-
     private final ReminderDescription reminderDescription;
     private final Set<ReminderTime> reminderTimeSet = new HashSet<>();
 
@@ -26,6 +23,8 @@ public class Reminder {
         this.reminderDescription = reminderDescription;
         reminderTimeSet.addAll(reminderTime);
     }
+
+
 
     public ReminderDescription getDescription() {
         return reminderDescription;
@@ -46,7 +45,7 @@ public class Reminder {
         }
 
         return otherReminder != null
-                && otherReminder.getClassId().equals(getClassId());
+                && otherReminder.getDescription().equals(getDescription());
     }
 
     /**
@@ -62,7 +61,7 @@ public class Reminder {
         if (!(other instanceof Reminder)) {
             return false;
         }
-      
+
         Reminder otherReminder = (Reminder) other;
         return otherReminder.getDescription().equals(getDescription())
                 && otherReminder.getTime().equals(getTime());
@@ -77,8 +76,8 @@ public class Reminder {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(" Module: ")
-                .append(getClassId())
+        builder.append(" Description: ")
+                .append(getDescription())
                 .append(" Time: ")
                 .append(getTime());
         return builder.toString();
