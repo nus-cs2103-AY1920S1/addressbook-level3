@@ -35,20 +35,19 @@ public class ReadDisplayPassword extends UiPart<Region> {
     @FXML
     private Label lastAccessed;
 
+    public ReadDisplayPassword() {
+        super(FXML);
+    }
 
     public void setLogic(Logic logic) {
         this.logic = logic;
-    }
-
-    public ReadDisplayPassword() {
-        super(FXML);
     }
 
     /**
      *
      * @param password
      */
-    public void setFeedbackToUser(Password password) {
+    public void setFeedbackToUser(Password password, Index index) {
         requireNonNull(password);
         description.setText(password.getDescription().value);
         username.setText(password.getUsername().value);

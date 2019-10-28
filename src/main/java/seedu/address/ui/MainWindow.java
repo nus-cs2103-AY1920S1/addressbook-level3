@@ -4,6 +4,7 @@ import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
@@ -88,6 +89,15 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private VBox readList;
 
+    @FXML
+    private Button b1;
+    @FXML
+    private Button b2;
+    @FXML
+    private Button b3;
+    @FXML
+    private Button b4;
+
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -154,49 +164,63 @@ public class MainWindow extends UiPart<Stage> {
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
-
         fillInnerPartsWithMode();
     }
 
     /**
-     * Fills up the placeholder of this placeholder
-     *
-     * @param object
+     * Toggles button according to logic.
      */
-    void fillReadParts(Object object) {
+    void toggleButton() {
+        b1.setDisable(false);
+        b2.setDisable(false);
+        b3.setDisable(false);
+        b4.setDisable(false);
         switch (logic.getMode()) {
         case PASSWORD:
-            readDisplayPassword = new ReadDisplayPassword();
-            readListPanelPlaceholder.getChildren().add(readDisplayPassword.getRoot());
-            readDisplayPassword.setFeedbackToUser((Password) object);
+            b1.setDisable(true);
+            break;
+        case FILE:
+            b2.setDisable(true);
+            break;
+        case CARD:
+            b3.setDisable(true);
             break;
         case NOTE:
-            //TODO: something
+            b4.setDisable(true);
             break;
         default:
+            b1.setDisable(false);
+            b2.setDisable(false);
+            b3.setDisable(false);
+            b4.setDisable(false);
+
         }
     }
 
+    /**
+     * Fills up all the read display of this window.
+     * @param object Object to be read
+     * @param index Index of the object in the filtered list
+     */
     void fillReadParts(Object object, Index index) {
         if (object instanceof Password) {
             readDisplayPassword = new ReadDisplayPassword();
             readDisplayPassword.setLogic(logic);
             readListPanelPlaceholder.getChildren().add(readDisplayPassword.getRoot());
-            readDisplayPassword.setFeedbackToUser((Password) object);
+            readDisplayPassword.setFeedbackToUser((Password) object, index);
         } else if (object instanceof Note) {
             readDisplayNote = new readDisplayNote();
             readDisplayNote.setLogic(logic);
             readListPanelPlaceholder.getChildren().add(readDisplayNote.getRoot());
             readDisplayNote.setFeedbackToUser((Note) object, index);
-
         }
-
     }
 
     /**
      * Fills up all the placeholders of this window using the current mode.
      */
     void fillInnerPartsWithMode() {
+        toggleButton();
         switch (logic.getMode()) {
         case FILE:
             fileListPanel = new FileListPanel(logic.getFilteredFileList());
@@ -326,6 +350,7 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isRead()) {
                 readList.setVisible(true);
+                readListPanelPlaceholder.getChildren().clear();
                 readList.setMinWidth(340);
                 fillReadParts(commandResult.getObject(), commandResult.getIndex());
             }
