@@ -31,7 +31,7 @@ public class SampleDataUtil {
     // ============================= Grocery Item Sample List ============================= //
     public static GroceryItem[] getSampleGroceryItems() {
         return new GroceryItem[] {
-            new GroceryItem(new Name("Minced beef"), new Amount("300g"), new ExpiryDate("30/09/2019"),
+            new GroceryItem(new Name("Minced Beef"), new Amount("300g"), new ExpiryDate("30/09/2019"),
                     getTagSet("meat")),
             new GroceryItem(new Name("Spaghetti"), new Amount("1unit"), new ExpiryDate("20/11/2019"),
                     getTagSet("dish", "dinner")),
@@ -181,14 +181,31 @@ public class SampleDataUtil {
 
     // =============================== Template List Sample =============================== //
 
-    public static TemplateItem[] getSampleTemplateItems() {
-        return new TemplateItem[] {
-            new TemplateItem(new Name("Minced Beef"), new Amount("300g")),
-            new TemplateItem(new Name("FullFat Milk"), new Amount("1L")),
-            new TemplateItem(new Name("Red Wine"), new Amount("1L")),
-            new TemplateItem(new Name("Minced Chicken"), new Amount("300g")),
-            new TemplateItem(new Name("Tomato"), new Amount("2units"))
+    public static TemplateItem[] getSampleTemplateItems(int num) {
+        TemplateItem[] sampleItems1 = {
+                new TemplateItem(new Name("Minced Beef"), new Amount("300g")),
+                new TemplateItem(new Name("FullFat Milk"), new Amount("1L")),
+                new TemplateItem(new Name("Eggplant"), new Amount("3units"))
         };
+        TemplateItem[] sampleItems2 = {
+                new TemplateItem(new Name("Orange juice"), new Amount("500ml")),
+                new TemplateItem(new Name("Roast Beef"), new Amount("1kg")),
+                new TemplateItem(new Name("Red Wine"), new Amount("1L"))
+        };
+        TemplateItem[] sampleItems3 = {
+                new TemplateItem(new Name("Minced Chicken"), new Amount("300g")),
+                new TemplateItem(new Name("Tomato"), new Amount("2units")),
+                new TemplateItem(new Name("Apples"), new Amount("2units"))
+        };
+
+        switch(num) {
+            case 1:
+                return sampleItems1;
+            case 2:
+                return sampleItems2;
+            default:
+                return sampleItems3;
+        }
     }
 
     /**
@@ -205,10 +222,12 @@ public class SampleDataUtil {
 
     public static ReadOnlyTemplateList getSampleTemplateList() {
         TemplateList sampleAc = new TemplateList();
+        int templateNum = 1;
         for (UniqueTemplateItems sampleTemplates: getSampleTemplates()) {
-            for (TemplateItem sampleTemplateItem : getSampleTemplateItems()) {
+            for (TemplateItem sampleTemplateItem : getSampleTemplateItems(templateNum)) {
                 sampleTemplates.add(sampleTemplateItem);
             }
+            templateNum++;
             sampleAc.addTemplate(sampleTemplates);
         }
         return sampleAc;
@@ -222,7 +241,7 @@ public class SampleDataUtil {
             new ShoppingItem(new Name("FullFat Milk"), new Amount("3L")),
             new ShoppingItem(new Name("White Wine"), new Amount("0.5L")),
             new ShoppingItem(new Name("Minced Chicken"), new Amount("1000g")),
-            new ShoppingItem(new Name("Applex"), new Amount("2units"))
+            new ShoppingItem(new Name("Apples"), new Amount("2units"))
         };
     }
 
@@ -237,7 +256,7 @@ public class SampleDataUtil {
     // ============================= Bought Item Sample List ============================= //
     public static GroceryItem[] getSampleBoughtItems() {
         return new GroceryItem[] {
-            new GroceryItem(new Name("Minced beef"), new Amount("300g"), new ExpiryDate("30/09/2019"),
+            new GroceryItem(new Name("Minced Beef"), new Amount("300g"), new ExpiryDate("30/09/2019"),
                     getTagSet()),
             new GroceryItem(new Name("Spaghetti"), new Amount("1unit"), new ExpiryDate("20/11/2019"),
                     getTagSet()),
