@@ -1,5 +1,5 @@
 .background {
-    -fx-background-color: derive(#61045F, 20%);
+    -fx-background-color: linear-gradient(to right, #AA076B, #61045F);
     background-color: #383838; /* Used in the default.html file */
 }
 
@@ -42,7 +42,7 @@
 .table-view {
     -fx-base: #61045F;
     -fx-control-inner-background: #61045F;
-    -fx-background-color: #61045F;
+    -fx-background-color: linear-gradient(to right, #AA076B, #61045F);
     -fx-table-cell-border-color: transparent;
     -fx-table-header-border-color: transparent;
     -fx-padding: 5;
@@ -74,20 +74,20 @@
 }
 
 .split-pane:horizontal .split-pane-divider {
-    -fx-background-color: derive(#61045F, 20%);
+    -fx-background-color: linear-gradient(to right, #AA076B, #61045F);
     -fx-border-color: transparent transparent transparent #4d4d4d;
 }
 
 .split-pane {
     -fx-border-radius: 1;
     -fx-border-width: 1;
-    -fx-background-color: derive(#61045F, 20%);
+    -fx-background-color: linear-gradient(to right, #AA076B, #61045F);
 }
 
 .list-view {
     -fx-background-insets: 0;
     -fx-padding: 0;
-    -fx-background-color: derive(#61045F, 30%);
+    -fx-background-color: linear-gradient(to right, #AA076B, #61045F);
 }
 
 .list-cell {
@@ -98,15 +98,15 @@
 }
 
 .list-cell:filled:even {
-    -fx-background-color: #f68991;
+    -fx-background-color: linear-gradient(to right, #c44751, #c471ed, #128fb0);
 }
 
 .list-cell:filled:odd {
-    -fx-background-color: #f64f59;
+    -fx-background-color: linear-gradient(to left, #c44751, #c471ed, #128fb0);
 }
 
 .list-cell:filled:selected {
-    -fx-background-color: #b48fdb;
+    -fx-background-color: #128fb0;
 }
 
 .list-cell:filled:selected #cardPane {
@@ -131,21 +131,21 @@
 }
 
 .stack-pane {
-    -fx-background-color: derive(#61045F, 20%);
+    -fx-background-color:  derive(#61045F, 50%);
 }
 
 .pane-with-border {
-    -fx-background-color: derive(#61045F, 50%);
+    -fx-background-color: linear-gradient(to right, #AA076B, #61045F);
     -fx-border-color: derive(#61045F, 10%);
     -fx-border-top-width: 1px;
 }
 
 .status-bar {
-    -fx-background-color: derive(#61045F, 30%);
+    -fx-background-color:  derive(#61045F, 50%);
 }
 
 .result-display {
-    -fx-background-color: #AA076B;
+    -fx-background-color:  derive(#61045F, 50%);;
     -fx-font-family: "Segoe UI Light";
     -fx-font-size: 13pt;
     -fx-text-fill: white;
@@ -339,7 +339,7 @@
 }
 
 #resultDisplay .content {
-    -fx-background-color: transparent, #AA076B, transparent, #AA076B;
+    -fx-background-color: transparent,  derive(#61045F, 50%), transparent,  derive(#61045F, 50%);
     -fx-background-radius: 0;
 }
 
