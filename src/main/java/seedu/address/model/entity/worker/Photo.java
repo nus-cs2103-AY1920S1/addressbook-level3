@@ -13,7 +13,6 @@ import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.util.FileUtil;
-import seedu.address.logic.parser.exceptions.ParseException;
 
 //@@ author shaoyi1997
 /**
@@ -37,18 +36,18 @@ public class Photo {
         if (pathToPhoto.equals(PATH_TO_EXAMPLE_PHOTO)) {
             originalDirectory = PATH_TO_EXAMPLE_PHOTO;
             dataDirectory = PATH_TO_EXAMPLE_PHOTO;
-            return;
+        } else {
+            this.originalDirectory = pathToPhoto;
+            File photo = new File(originalDirectory);
+            this.dataDirectory = PATH_TO_DATA_DIRECTORY + photo.getName();
+            copyToDataDirectory(Paths.get(originalDirectory), Paths.get(this.dataDirectory));
         }
-        this.originalDirectory = pathToPhoto;
-        File photo = new File(originalDirectory);
-        this.dataDirectory = PATH_TO_DATA_DIRECTORY + photo.getName();
-        copyToDataDirectory(Paths.get(originalDirectory), Paths.get(this.dataDirectory));
     }
 
     /**
      * Copies the photo from the {@code originalPath} to the {@code dataDirPath}.
      *
-     * @throws ParseException if unable to copy the file.
+     * @throws IllegalArgumentException if unable to copy the file.
      */
     private void copyToDataDirectory(Path originalPath, Path dataDirPath) throws IllegalArgumentException {
         try {
