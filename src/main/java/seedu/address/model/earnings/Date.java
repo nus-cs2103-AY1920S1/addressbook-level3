@@ -50,7 +50,7 @@ public class Date {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Week // instanceof handles nulls
+                || (other instanceof Date // instanceof handles nulls
                 && dateNum.equals(((Date) other).dateNum)); // state check
     }
 

@@ -64,6 +64,7 @@ public class SuggestionsField extends TextField {
         }
     }
 
+    //Method below adapted from https://www.javatips.net/api/javafx.scene.control.custommenuitem
     /**
      * Populates {@code ContextMenu} with all found commands.
      * */
@@ -73,7 +74,7 @@ public class SuggestionsField extends TextField {
         while (count < matchingCommands.size()) {
             String commandWord = matchingCommands.get(count);
             Label commandDescription = new Label(
-                    commandWord + " - executes a " + commandList.get(commandWord) + " command."
+                    commandWord + " - executes a <" + commandList.get(commandWord) + "> command."
             );
             CustomMenuItem commandMenuItem = new CustomMenuItem(commandDescription, false);
             itemsToDisplay.push(commandMenuItem);

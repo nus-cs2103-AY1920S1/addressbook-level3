@@ -11,8 +11,8 @@ public class Marking {
     public static final String MESSAGE_CONSTRAINTS =
             "Marks should only be 'Y' or 'N'";
 
-    private static String status;
-    private static boolean isMarked;
+    private String status;
+    private boolean isMarked;
 
 
     public Marking(String marking) {
@@ -57,7 +57,7 @@ public class Marking {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || other instanceof Marking // instanceof handles nulls
-                && ((Marking) other).isMarked == this.isMarked; // state check
+                || (other instanceof Marking // instanceof handles nulls
+                && ((Marking) other).isMarked == this.isMarked); // state check
     }
 }

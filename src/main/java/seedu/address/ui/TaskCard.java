@@ -31,10 +31,10 @@ public class TaskCard extends UiPart<Region> {
     private Label description;
     @FXML
     private Label id;
-    /*
+
     @FXML
-    private Label classid;
-     */
+    private Label classId;
+
     @FXML
     private FlowPane times;
     @FXML
@@ -44,12 +44,11 @@ public class TaskCard extends UiPart<Region> {
         super(FXML);
         this.task = task;
         id.setText(displayedIndex + ". ");
-        description.setText(task.getDescription().fullTaskDescription);
-        //classid.setText(person.getClassId().value);
+        classId.setText(task.getClassId().value);
         mark.setText("Marking Status: " + task.getMarking().getStatus());
         task.getTime().stream()
-                .sorted(Comparator.comparing(taskTime -> taskTime.fullTime))
-                .forEach(taskTime -> times.getChildren().add(new Label(taskTime.fullTime)));
+                .sorted(Comparator.comparing(taskTime -> taskTime))
+                .forEach(taskTime -> times.getChildren().add(new Label(taskTime.fullTime + " || ")));
     }
 
     @Override

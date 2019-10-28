@@ -9,7 +9,6 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Amount {
 
-
     public static final String MESSAGE_CONSTRAINTS =
             "Amount numbers should only contain numbers, and it should have only 2 decimal points";
     public static final String VALIDATION_REGEX = "^\\d+(\\.\\d{2})?$";
@@ -51,4 +50,16 @@ public class Amount {
         return amount.hashCode();
     }
 
+    /**
+     * Adds every amount created into total earnings.
+     *
+     * @param amt Amount to be added into total earnings.
+     * @return New total earnings.
+     */
+    public Amount addAmount(Amount amt) {
+        double localAmt = Double.parseDouble(this.amount);
+        double variableAmt = Double.parseDouble(amt.amount);
+        double totalAmt = localAmt + variableAmt;
+        return new Amount(Double.toString(totalAmt));
+    }
 }

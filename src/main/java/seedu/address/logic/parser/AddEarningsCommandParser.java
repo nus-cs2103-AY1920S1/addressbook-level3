@@ -5,6 +5,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.address.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CLASSID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TYPE;
 
 import java.util.stream.Stream;
 
@@ -14,6 +15,7 @@ import seedu.address.model.classid.ClassId;
 import seedu.address.model.earnings.Amount;
 import seedu.address.model.earnings.Date;
 import seedu.address.model.earnings.Earnings;
+import seedu.address.model.earnings.Type;
 
 /**
  * Parses input arguments and creates a new AddEarningsCommand object
@@ -29,9 +31,9 @@ public class AddEarningsCommandParser implements Parser<AddEarningsCommand> {
     public AddEarningsCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args,
-                PREFIX_DATE, PREFIX_CLASSID, PREFIX_AMOUNT);
+                PREFIX_DATE, PREFIX_CLASSID, PREFIX_AMOUNT, PREFIX_TYPE);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_DATE, PREFIX_CLASSID, PREFIX_AMOUNT)
+        if (!arePrefixesPresent(argMultimap, PREFIX_DATE, PREFIX_CLASSID, PREFIX_AMOUNT, PREFIX_TYPE)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddEarningsCommand.MESSAGE_USAGE));
         }
@@ -39,8 +41,9 @@ public class AddEarningsCommandParser implements Parser<AddEarningsCommand> {
         Date date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get());
         ClassId classId = ParserUtil.parseClassId(argMultimap.getValue(PREFIX_CLASSID).get());
         Amount amount = ParserUtil.parseAmount(argMultimap.getValue(PREFIX_AMOUNT).get());
+        Type type = ParserUtil.parseType(argMultimap.getValue(PREFIX_TYPE).get());
 
-        Earnings earnings = new Earnings(date, classId, amount);
+        Earnings earnings = new Earnings(date, classId, amount, type);
 
         return new AddEarningsCommand(earnings);
     }

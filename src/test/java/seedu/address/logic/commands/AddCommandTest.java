@@ -19,9 +19,11 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
+//import seedu.address.model.ReadOnlyCalendar;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.commands.CommandObject;
 import seedu.address.model.earnings.Earnings;
+import seedu.address.model.note.Notes;
 import seedu.address.model.person.Person;
 import seedu.address.model.reminder.Reminder;
 import seedu.address.model.task.Task;
@@ -168,6 +170,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public void addNotes(Notes notes) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void setAddressBook(ReadOnlyAddressBook newData) {
             throw new AssertionError("This method should not be called.");
         }
@@ -188,7 +195,17 @@ public class AddCommandTest {
         }
 
         @Override
+        public boolean hasNotes(Notes notes) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void deletePerson(Person target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteNotes(Notes target) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -198,7 +215,22 @@ public class AddCommandTest {
         }
 
         @Override
+        public void setNotes(Notes target, Notes editedNote) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void setEarnings(Earnings target, Earnings editedEarnings) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setReminder(Reminder reminders, Reminder editedReminders) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteReminder(Reminder reminders) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -218,7 +250,17 @@ public class AddCommandTest {
         }
 
         @Override
+        public ObservableList<Notes> getFilteredNotesList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void updateFilteredPersonList(Predicate<Person> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredNotesList(Predicate<Notes> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -228,6 +270,24 @@ public class AddCommandTest {
         }
 
         @Override
+        public boolean userHasLoggedIn() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void isLoggedIn() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void isLoggedOut() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        /*@Override
+        public ReadOnlyCalendar getCalendar() {
+        }*/
+
         public void setTask(Task target, Task editedTask) {
 
         }
@@ -255,6 +315,26 @@ public class AddCommandTest {
         @Override
         public void deleteTask(Task target) {
 
+        }
+
+        @Override
+        public void addReminder(Reminder reminder) {
+
+        }
+
+        @Override
+        public boolean hasReminder(Reminder reminders) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredReminderList(Predicate<Reminder> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredCalendarList() {
+            throw new AssertionError("This method should not be called.");
         }
     }
 

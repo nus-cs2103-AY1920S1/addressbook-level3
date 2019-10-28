@@ -1,5 +1,7 @@
 package seedu.address.ui;
 
+import java.io.IOException;
+import java.time.YearMonth;
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
@@ -8,6 +10,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
@@ -29,6 +32,7 @@ public class MainWindow extends UiPart<Stage> {
 
     private Stage primaryStage;
     private Logic logic;
+    private LoginWindow loginWindow;
     private boolean unknown;
 
     // Independent Ui parts residing in this Ui container
@@ -40,6 +44,8 @@ public class MainWindow extends UiPart<Stage> {
     private HelpWindow helpWindow;
     private ReminderWindow reminderWindow;
     private ReminderBox reminderBox;
+    private FullCalendarView fullCalendarView;
+    private NotesListPanel notesListPanel;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -49,7 +55,6 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane personListPanelPlaceholder;
-    //private StackPane earningsListPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -59,6 +64,10 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane statusbarPlaceholder;
+
+    @FXML
+    private Pane calendarPane;
+
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -75,7 +84,6 @@ public class MainWindow extends UiPart<Stage> {
         helpWindow = new HelpWindow();
         this.unknown = false;
         reminderWindow = new ReminderWindow();
-
     }
 
     public Stage getPrimaryStage() {
@@ -197,6 +205,48 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
+     * Fills up all the placeholders of this window.
+     */
+    void fillCalendar() throws IOException {
+
+        fullCalendarView = new FullCalendarView(YearMonth.now());
+        personListPanelPlaceholder.getChildren().add(fullCalendarView.getRoot());
+        personListPanelPlaceholder.getChildren().add(fullCalendarView.getView());
+
+        resultDisplay = new ResultDisplay();
+        resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
+
+        reminderBox = new ReminderBox();
+        //reminderBoxPlaceholder.getChildren().add(reminderBox.getRoot());
+
+        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
+        statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
+
+        CommandBox commandBox = new CommandBox(this::executeCommand);
+        commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+    }
+
+    /**
+     * Fills up all the placeholders of this window.
+     */
+    void fillNotes() {
+        notesListPanel = new NotesListPanel(logic.getFilteredNotesList());
+        personListPanelPlaceholder.getChildren().add(notesListPanel.getRoot());
+
+        resultDisplay = new ResultDisplay();
+        resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
+
+        reminderBox = new ReminderBox();
+        //reminderBoxPlaceholder.getChildren().add(reminderBox.getRoot());
+
+        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
+        statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
+
+        CommandBox commandBox = new CommandBox(this::executeCommand);
+        commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+    }
+
+    /**
      * Sets the default size based on {@code guiSettings}.
      */
     private void setWindowDefaultSize(GuiSettings guiSettings) {
@@ -264,7 +314,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     public void handleCalendarTask() throws ParseException, CommandException {
-        String userCommand = "change_tab tab/calendar";
+        String userCommand = "change_tab tab/task";
         executeCommand(userCommand);
     }
 
@@ -293,8 +343,12 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
-    private void handleUnknown() {
-        this.unknown = !this.unknown;
+    private void setUnknownFalse() {
+        this.unknown = false;
+    }
+
+    private void setUnknownTrue() {
+        this.unknown = true;
     }
 
     public EarningsListPanel getEarningsListPanel() {
@@ -316,39 +370,33 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Executes the command and returns the result.
      *
-     * @see seedu.address.logic.Logic#execute(String)
+     * @see seedu.address.logic.Logic#execute(String, boolean)
      */
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
+            CommandResult commandResult = logic.execute(commandText, this.unknown);
             if (this.unknown) {
-                CommandResult commandResult = logic.executeUnknown(commandText);
                 if (!commandResult.isUnknown()) {
-                    handleUnknown();
+                    setUnknownFalse();
                 }
-                logger.info("Result: " + commandResult.getFeedbackToUser());
-                resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
-                reminderBox.setFeedbackToUser(commandResult.getFeedbackToUser());
-                return commandResult;
-            } else {
-                CommandResult commandResult = logic.execute(commandText);
-                logger.info("Result: " + commandResult.getFeedbackToUser());
-                resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
-                reminderBox.setFeedbackToUser(commandResult.getFeedbackToUser());
-
-                if (commandResult.isShowHelp()) {
-                    handleHelp();
-                }
-
-                if (commandResult.isExit()) {
-                    handleExit();
-                }
-
-                if (commandResult.isUnknown()) {
-                    handleUnknown();
-                }
-
-                return commandResult;
             }
+            logger.info("Result: " + commandResult.getFeedbackToUser());
+            resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+            reminderBox.setFeedbackToUser(commandResult.getFeedbackToUser());
+
+            if (commandResult.isShowHelp()) {
+                handleHelp();
+            }
+
+            if (commandResult.isExit()) {
+                handleExit();
+            }
+
+            if (commandResult.isUnknown()) {
+                setUnknownTrue();
+            }
+
+            return commandResult;
 
         } catch (CommandException | ParseException e) {
             logger.info("Invalid command: " + commandText);
@@ -356,5 +404,17 @@ public class MainWindow extends UiPart<Stage> {
             reminderBox.setFeedbackToUser(e.getMessage());
             throw e;
         }
+    }
+
+    public void hide() {
+        primaryStage.hide();
+    }
+
+    /**
+     * Shows the login window.
+     */
+    public void showLogin() {
+        loginWindow = new LoginWindow(new Stage(), logic);
+        loginWindow.show();
     }
 }

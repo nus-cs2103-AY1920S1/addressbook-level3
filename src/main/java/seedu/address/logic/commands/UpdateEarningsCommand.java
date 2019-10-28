@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CLASSID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TYPE;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_EARNINGS;
 
 import java.util.List;
@@ -18,6 +19,7 @@ import seedu.address.model.classid.ClassId;
 import seedu.address.model.earnings.Amount;
 import seedu.address.model.earnings.Date;
 import seedu.address.model.earnings.Earnings;
+import seedu.address.model.earnings.Type;
 
 /**
  * Edits earnings to the address book.
@@ -31,14 +33,15 @@ public class UpdateEarningsCommand extends Command {
             + "Existing values will be overwritten by the input values.\n"
 
             + "Parameters: INDEX (must be a positive integer) "
-            + PREFIX_DATE + "DATE "
-            + PREFIX_CLASSID + "CLASSID "
+            + PREFIX_DATE + "NEW_DATE "
+            + PREFIX_TYPE + "NEW_TYPE "
+            + PREFIX_CLASSID + "NEW_CLASSID "
             + PREFIX_AMOUNT + "NEW_AMOUNT(in dollars) \n"
 
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_DATE + "03/05/2020 "
-            + PREFIX_CLASSID + "CS2103T "
-            + PREFIX_AMOUNT + "$76.10";
+            + "or " + COMMAND_WORD + " "
+            + PREFIX_CLASSID + "CS2103T";
 
     public static final String MESSAGE_UPDATE_SUCCESS = "Earnings updated: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
@@ -91,8 +94,9 @@ public class UpdateEarningsCommand extends Command {
         Date updatedDate = editEarningsDescriptor.getDate().orElse(earningsToEdit.getDate());
         ClassId updatedClassId = editEarningsDescriptor.getClassId().orElse(earningsToEdit.getClassId());
         Amount updatedAmount = editEarningsDescriptor.getAmount().orElse(earningsToEdit.getAmount());
+        Type updatedType = editEarningsDescriptor.getType().orElse(earningsToEdit.getType());
 
-        return new Earnings(updatedDate, updatedClassId, updatedAmount);
+        return new Earnings(updatedDate, updatedClassId, updatedAmount, updatedType);
     }
 
     @Override
@@ -122,6 +126,7 @@ public class UpdateEarningsCommand extends Command {
         private Date date;
         private ClassId classId;
         private Amount amount;
+        private Type type;
 
         public EditEarningsDescriptor() {}
 
@@ -133,6 +138,7 @@ public class UpdateEarningsCommand extends Command {
             setDate(toCopy.date);
             setClassId(toCopy.classId);
             setAmount(toCopy.amount);
+            setType(toCopy.type);
         }
 
         /**
@@ -166,6 +172,14 @@ public class UpdateEarningsCommand extends Command {
             return Optional.ofNullable(amount);
         }
 
+        public void setType(Type type) {
+            this.type = type;
+        }
+
+        public Optional<Type> getType() {
+            return Optional.ofNullable(type);
+        }
+
         @Override
         public boolean equals(Object other) {
             // short circuit if same object
@@ -183,7 +197,8 @@ public class UpdateEarningsCommand extends Command {
 
             return getDate().equals(e.getDate())
                     && getClassId().equals(e.getClassId())
-                    && getAmount().equals(e.getAmount());
+                    && getAmount().equals(e.getAmount())
+                    && getType().equals(e.getType());
         }
     }
 }

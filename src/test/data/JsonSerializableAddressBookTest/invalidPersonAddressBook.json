@@ -9,5 +9,7 @@
   } ],
   "earning" : [ ],
   "commands" : [ ],
-  "tasks" : [ ]
+  "tasks" : [ ],
+  "reminders": [ ],
+  "notes" : [ ]
 }

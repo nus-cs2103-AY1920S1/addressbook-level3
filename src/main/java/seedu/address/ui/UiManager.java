@@ -21,6 +21,7 @@ public class UiManager implements Ui {
 
     private static final Logger logger = LogsCenter.getLogger(UiManager.class);
     private static final String ICON_APPLICATION = "/images/address_book_32.png";
+    private static boolean loggedInSuccessful = false;
 
     private static MainWindow mainWindow;
 
@@ -41,12 +42,21 @@ public class UiManager implements Ui {
         try {
             mainWindow = new MainWindow(primaryStage, logic);
             mainWindow.show(); //This should be called before creating other UI parts
-            mainWindow.fillStudents();
+
+            //mainWindow.fillStudents();
+            mainWindow.fillTasks();
+            mainWindow.hide();
+            mainWindow.showLogin();
+            //mainWindow.show();
 
         } catch (Throwable e) {
             logger.severe(StringUtil.getDetails(e));
             showFatalErrorDialogAndShutdown("Fatal error during initializing", e);
         }
+    }
+
+    public void isAbleToLoginSuccessfully() {
+        loggedInSuccessful = true;
     }
 
     /**
@@ -94,6 +104,67 @@ public class UiManager implements Ui {
         }
     }
 
+    /**
+     * To change tab to reminder tab.
+     */
+    public static void startReminders() {
+        logger.info("Changing to Reminders...");
+
+        try {
+            mainWindow.show(); //This should be called before creating other UI parts
+            mainWindow.fillReminders();
+        } catch (Throwable e) {
+            logger.severe(StringUtil.getDetails(e));
+            showFatalErrorDialogAndShutdown("Fatal error during initializing", e);
+        }
+    }
+
+    /**
+     * To change tab to notepad tab/
+     */
+    public static void startNotes() {
+        logger.info("Changing to Notes...");
+
+        try {
+            mainWindow.show(); //This should be called before creating other UI parts
+            mainWindow.fillNotes();
+        } catch (Throwable e) {
+            logger.severe(StringUtil.getDetails(e));
+            showFatalErrorDialogAndShutdown("Fatal error during initializing", e);
+        }
+    }
+
+    /**
+     * To change tab to calendar tab.
+     */
+    public static void startCalendar() {
+        logger.info("Changing to Calendar...");
+
+        try {
+            mainWindow.show();
+            mainWindow.fillCalendar();
+        } catch (Throwable e) {
+            logger.severe(StringUtil.getDetails(e));
+            showFatalErrorDialogAndShutdown("Fatal error during initializing", e);
+        }
+    }
+
+    /**
+     * To change tab to login window.
+     */
+    public static void startLoginWindow() {
+        logger.info("Changing to Login...");
+
+        try {
+            mainWindow.show(); //This should be called before creating other UI parts
+            mainWindow.hide();
+            mainWindow.showLogin();
+        } catch (Throwable e) {
+            logger.severe(StringUtil.getDetails(e));
+            showFatalErrorDialogAndShutdown("Fatal error during initializing", e);
+        }
+    }
+
     private Image getImage(String imagePath) {
         return new Image(MainApp.class.getResourceAsStream(imagePath));
     }
@@ -128,5 +199,4 @@ public class UiManager implements Ui {
         Platform.exit();
         System.exit(1);
     }
-
 }
