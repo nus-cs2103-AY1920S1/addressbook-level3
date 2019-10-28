@@ -94,14 +94,6 @@ public class CommandTestUtil {
             + VALID_EMPLOYMENT_STATUS_ZACH;
     public static final String EMPLOYMENT_STATUS_DESC_XENIA = " " + PREFIX_EMPLOYMENT_STATUS + " "
             + VALID_EMPLOYMENT_STATUS_XENIA;
-    public static final String DATE_OF_ADMISSION_DESC_ZACH = " " + PREFIX_DATE_OF_ADMISSION + " "
-            + VALID_DATE_OF_ADMISSION_JOHN;
-    public static final String DATE_OF_ADMISSION_DESC_XENIA = " " + PREFIX_DATE_OF_ADMISSION + " "
-            + VALID_DATE_OF_ADMISSION_JANE;
-    public static final String DATE_OF_DEATH_DESC_ZACH = " " + PREFIX_DATE_OF_DEATH + " "
-        + VALID_DATE_OF_DEATH_JOHN;
-    public static final String DATE_OF_DEATH_DESC_XENIA = " " + PREFIX_DATE_OF_DEATH + " "
-        + VALID_DATE_OF_DEATH_JANE;
 
     public static final String NAME_DESC_JOHN = " " + PREFIX_NAME + " " + VALID_NAME_JOHN;
     public static final String NAME_DESC_JANE = " " + PREFIX_NAME + " " + VALID_NAME_JANE;
@@ -131,6 +123,7 @@ public class CommandTestUtil {
     public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
     public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for addresses
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
+    public static final String INVALID_SEX_DESC = " " + PREFIX_SEX + "trans"; // genders are not allowed
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";

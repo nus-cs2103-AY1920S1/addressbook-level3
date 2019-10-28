@@ -4,14 +4,15 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import seedu.address.model.entity.fridge.Fridge;
+import seedu.address.model.entity.body.Body;
 
+//@@ author shaoyi1997
 /**
  * An UI component that displays information of a {@code Body}.
  */
-public class FridgeCard extends UiPart<Region> {
+public class BodyCard extends UiPart<Region> {
 
-    private static final String FXML = "FridgeListCard.fxml";
+    private static final String FXML = "BodyListCard.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -21,23 +22,29 @@ public class FridgeCard extends UiPart<Region> {
      * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on AddressBook level 4</a>
      */
 
-    public final Fridge fridge;
+    public final Body body;
 
     @FXML
     private HBox cardPane;
     @FXML
-    private Label status;
+    private Label name;
     @FXML
     private Label id;
     @FXML
-    private Label fridgeId;
+    private Label bodyId;
+    @FXML
+    private Label dateOfAdmission;
+    @FXML
+    private Label bodyStatus;
 
-    public FridgeCard(Fridge fridge, int displayedIndex) {
+    public BodyCard(Body body, int displayedIndex) {
         super(FXML);
-        this.fridge = fridge;
+        this.body = body;
         id.setText(displayedIndex + ". ");
-        fridgeId.setText(fridge.getIdNum().toString());
-        status.setText(fridge.getFridgeStatus().toString());
+        name.setText(body.getName().toString());
+        bodyId.setText(body.getIdNum().toString());
+        dateOfAdmission.setText(body.getDateOfAdmission().toString());
+        bodyStatus.setText(body.getBodyStatus().toString());
     }
 
     @Override
@@ -53,8 +60,10 @@ public class FridgeCard extends UiPart<Region> {
         }
 
         // state check
-        FridgeCard card = (FridgeCard) other;
+        BodyCard card = (BodyCard) other;
         return id.getText().equals(card.id.getText())
-                && fridge.equals(card.fridge);
+                && body.equals(card.body);
     }
 }
+//@@ author
+

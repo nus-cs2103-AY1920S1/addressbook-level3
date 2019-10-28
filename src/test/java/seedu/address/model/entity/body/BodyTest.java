@@ -144,8 +144,8 @@ class BodyTest {
 
     @Test
     void getSetReligion() {
-        ALICE.setReligion(Religion.SIKHISM);
-        assertEquals(Religion.SIKHISM, ALICE.getReligion().get());
+        ALICE.setReligion("Islam");
+        assertEquals("Islam", ALICE.getReligion().get());
     }
 
     @Test

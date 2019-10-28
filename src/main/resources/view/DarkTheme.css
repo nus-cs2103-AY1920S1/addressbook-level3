@@ -537,8 +537,11 @@
 }
 
 #dateBox {
-    -fx-background-color: #FF7597;
-    -fx-background-radius: 10;
+    -fx-background-color: transparent;
+    -fx-background-radius: 7;
+    -fx-border-color: #FF0266;
+    -fx-border-width: 1;
+    -fx-border-radius: 7;
 }
 
 #organs {
@@ -556,8 +559,9 @@
 }
 
 #NOK {
-    -fx-text-fill: #444444;
-    -fx-background-color: #FF7597;
+    -fx-text-fill: white;
+    -fx-background-color: transparent;
+    -fx-border-color: #FF0266;
     -fx-padding: 22 20 22 40;
     -fx-border-radius: 5;
     -fx-background-radius: 5;
@@ -591,4 +595,22 @@
     -fx-background-image: url("../images/minimise.png");
     -fx-background-repeat: no-repeat;
     -fx-background-position: center;
+}
+
+#workerCardPane .label {
+    -fx-font-size: 10;
+}
+
+#workerLessImptInfoHeaders {
+    -fx-font-weight: bold;
+    -fx-font-size: 10;
+}
+
+#workerImptInfo .label {
+    -fx-font-size: 13
+}
+
+#displayPhotoPlaceholder .label {
+    -fx-text-fill: #121212;
+    -fx-font-size: 15;
 }

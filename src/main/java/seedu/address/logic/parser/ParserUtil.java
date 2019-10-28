@@ -18,8 +18,8 @@ import seedu.address.model.entity.PhoneNumber;
 import seedu.address.model.entity.Sex;
 import seedu.address.model.entity.body.BodyStatus;
 import seedu.address.model.entity.body.Nric;
-import seedu.address.model.entity.body.Religion;
 import seedu.address.model.entity.fridge.FridgeStatus;
+import seedu.address.model.entity.worker.Photo;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -94,7 +94,7 @@ public class ParserUtil {
         }
         String trimmedPhone = phone.trim();
         if (!PhoneNumber.isValidPhoneNumber(trimmedPhone)) {
-            throw new ParseException(PhoneNumber.VALID_NUMBER);
+            throw new ParseException(PhoneNumber.MESSAGE_CONSTRAINTS);
         }
         return new PhoneNumber(trimmedPhone);
     }
@@ -156,6 +156,7 @@ public class ParserUtil {
         return tagSet;
     }
 
+    //@@ author shaoyi1997
     /**
      * Parses {@code String date} into a {@code Date date}.
      *
@@ -232,7 +233,6 @@ public class ParserUtil {
 
     /**
      * Parses a {@code String id} into an {@code IdentificationNumber}.
-     *
      */
     public static List<String> parseOrgansForDonation(String stringOfOrgans) {
         requireNonNull(stringOfOrgans);
@@ -242,18 +242,6 @@ public class ParserUtil {
         String trimmedOrgans = stringOfOrgans.trim();
         String[] arrayOforgans = trimmedOrgans.split("\\s*,\\s*");
         return Arrays.asList(arrayOforgans);
-    }
-
-    /**
-     * Parses {@code String religion} to return the corresponding {@code Religion}.
-     */
-    public static Religion parseReligion(String religion) throws ParseException {
-        requireNonNull(religion);
-        if (religion.isEmpty()) {
-            return null;
-        }
-        String trimmedReligion = religion.trim();
-        return Religion.parseReligion(trimmedReligion);
     }
 
     /**
@@ -294,4 +282,25 @@ public class ParserUtil {
         }
         return field;
     }
+
+    /**
+     * Parses a {@code String pathToPhoto} into a {@code Photo}.
+     */
+    public static Photo parsePhoto(String pathToPhoto) throws ParseException {
+        requireNonNull(pathToPhoto);
+        if (pathToPhoto.isEmpty()) {
+            return null;
+        }
+        String trimmedPath = pathToPhoto.trim();
+        if (Photo.isValidPhoto(trimmedPath)) {
+            try {
+                return new Photo(trimmedPath);
+            } catch (IllegalArgumentException e) {
+                throw new ParseException(Photo.MESSAGE_CONSTRAINTS);
+            }
+        } else {
+            throw new ParseException(Photo.MESSAGE_CONSTRAINTS);
+        }
+    }
+    //@@ author
 }

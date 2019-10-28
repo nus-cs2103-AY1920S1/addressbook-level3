@@ -105,6 +105,7 @@ public class FindCommandTest {
         FindCommand command = new FindCommand(predicateList, BODY_FLAG);
         expectedModel.updateFilteredBodyList(predicate);
         assertCommandSuccess(command, model, expectedResult, expectedModel);
+        System.out.println(model.getFilteredBodyList());
         assertEquals(Arrays.asList(ALICE, BOB), model.getFilteredBodyList());
     }
 
