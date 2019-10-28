@@ -25,6 +25,9 @@ public interface Model {
     /** {@code Predicate} for filtering draft incident reports */
     Predicate<Incident> PREDICATE_SHOW_DRAFT_INCIDENT_REPORTS = Incident::isDraft;
 
+    /** {@code Predicate} for filtering complete incident reports */
+    Predicate<Incident> PREDICATE_SHOW_COMPLETE_INCIDENT_REPORTS = Incident::isCompleteDraft;
+
     /**
      * Sets the {@code Person} that is logged into the {@code Session}.
      */
@@ -84,33 +87,34 @@ public interface Model {
     ReadOnlyIncidentManager getIncidentManager();
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     * Returns true if a person with the same identity as {@code person} exists in the incident manager.
      */
     boolean hasPerson(Person person);
 
     /**
      * Deletes the given person.
-     * The person must exist in the address book.
+     * The person must exist in the incident manager.
      */
     void deletePerson(Person target);
 
     /**
      * Adds the given person.
-     * {@code person} must not already exist in the address book.
+     * {@code person} must not already exist in the incident manager.
      */
     void addPerson(Person person);
 
     /**
      * Replaces the given person {@code target} with {@code editedPerson}.
-     * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * {@code target} must exist in the incident manager.
+     * The person identity of {@code editedPerson} must not be the same as another existing person in the incident
+     * manager.
      */
     void setPerson(Person target, Person editedPerson);
 
     /**
      * Replaces the given incident {@code target} with {@code editedIncident}.
-     * {@code target} must exit in the address book.
-     * Incident details of {@code target} must not be the same as another existing incident in address book.
+     * {@code target} must exit in the incident manager.
+     * Incident details of {@code target} must not be the same as another existing incident in incident manager.
      */
     void setIncident(Incident target, Incident editedIncident);
 
@@ -118,18 +122,27 @@ public interface Model {
     ObservableList<Person> getFilteredPersonList();
 
     /**
-     * Returns true if an incident with the same identity as {@code incident} exists in the address book.
+     * Returns true if an incident with the same identity as {@code incident} exists in the incident manager.
      */
     boolean hasIncident(Incident incident);
 
     /**
      * Adds the given incident.
-     * {@code incident} must not already exist in the address book.
+     * {@code incident} must not already exist in the incident manager.
      */
     void addIncident(Incident incident);
 
+    /**
+     * Removes the given incident.
+     * The {@code incident} must exist in the incident manager.
+     */
+    void removeIncident(Incident incident);
+
     /** Returns an unmodifiable view of the filtered incident list */
     ObservableList<Incident> getFilteredIncidentList();
+
+    /** Returns true if incident list contains incidents filtered by given predicate */
+    boolean ifAnyIncidentsSatisfyPredicate(Predicate<Incident> predicate);
 
     /** Returns an unmodifiable view of the filtered vehicle list */
     ObservableList<Vehicle> getFilteredVehicleList();

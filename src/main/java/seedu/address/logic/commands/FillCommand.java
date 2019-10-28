@@ -4,10 +4,10 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CALLER_NUMBER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
+import static seedu.address.model.Model.PREDICATE_SHOW_DRAFT_INCIDENT_REPORTS;
 
-import java.util.function.Predicate;
+import java.util.List;
 
-import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -26,13 +26,14 @@ public class FillCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Fills incident report drafts.\n"
             + "Use " + COMMAND_WORD + " without parameters to list all drafts.\n"
             + "Use " + COMMAND_WORD + " with parameters: "
-            + COMMAND_WORD + " i/INDEX (positive integer) " + PREFIX_CALLER_NUMBER + "CALLER NUMBER "
+            + COMMAND_WORD + " INDEX (must be a positive integer) " + PREFIX_CALLER_NUMBER + "CALLER NUMBER "
             + PREFIX_DESCRIPTION + "DESCRIPTION " + "to fill a given draft.\n"
             + "Existing completed reports will be overwritten. Submitted reports can be edited using 'edit' command.";
 
-    public static final String MESSAGE_FILL_DRAFT_SUCCESS = "Incident report filled: %1$s";
-    public static final String MESSAGE_DRAFTS_LISTED_SUCCESS = "Incident report drafts listed!";
-    public static final String MESSAGE_NO_DRAFTS_TO_FILL = "No drafts present in the system!";
+    private static final String MESSAGE_FILL_DRAFT_SUCCESS = "Incident report filled: %1$s";
+    private static final String MESSAGE_NO_DRAFTS_TO_FILL = "No drafts present in the system";
+    private static final String MESSAGE_INCIDENT_HAS_BEEN_SUBMITTED = "This incident cannot be filled as it has been"
+            + " submitted. Please use the 'edit' command instead.";
 
     private final Index targetIndex;
     private final CallerNumber callerNumber;
@@ -48,48 +49,64 @@ public class FillCommand extends Command {
         this.description = description;
     }
 
-    /**
-     * Creates a FillCommand to list {@code Incident} drafts.
-     */
-    // TODO merge with listIncident command in the future, remove null assignments.
-    public FillCommand() {
-        this.targetIndex = null;
-        this.callerNumber = null;
-        this.description = null;
-    }
-
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        // predicate to obtain draft incident reports
-        Predicate<Incident> predicate = Incident::isDraft;
-
-        // show filtered drafts
-        model.updateFilteredIncidentList(predicate);
-
-        // get filtered list
-        FilteredList<Incident> temp = model.getFilteredIncidentList().filtered(predicate);
-
-        if (temp.isEmpty()) {
+        if (!model.ifAnyIncidentsSatisfyPredicate(PREDICATE_SHOW_DRAFT_INCIDENT_REPORTS)) {
             return new CommandResult(MESSAGE_NO_DRAFTS_TO_FILL);
         }
 
-        // fill chosen draft
-        if (this.targetIndex != null && this.callerNumber != null && this.description != null) {
+        // there are drafts to be filled. Get the last shown list.
+        List<Incident> lastShownList = model.getFilteredIncidentList();
 
-            if (targetIndex.getZeroBased() >= temp.size()) {
-                throw new CommandException(Messages.MESSAGE_INVALID_INCIDENT_INDEX);
-            }
-
-            Incident toFill = temp.get(targetIndex.getZeroBased());
-            Incident updatedIncident = Incident.updateReport(toFill, callerNumber, description);
-            model.setIncident(toFill, updatedIncident);
-            return new CommandResult(String.format(MESSAGE_FILL_DRAFT_SUCCESS, toFill));
+        // throw exception if index specified is out of bounds
+        if (targetIndex.getZeroBased() >= lastShownList.size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_INCIDENT_INDEX);
         }
 
-        return new CommandResult(MESSAGE_DRAFTS_LISTED_SUCCESS);
+        Incident toFill = lastShownList.get(targetIndex.getZeroBased());
+        return new CommandResult(processReportFilling(model, toFill));
     }
+
+    /**
+     * Processes filling of the given incident report. The report is filled if it is a draft and not filled if it has
+     * already been submitted.
+     * @param model current model to be modified by command
+     * @param toFill incident report to be filled
+     * @return the string representing the command result
+     */
+    private String processReportFilling(Model model, Incident toFill) {
+        // if incident has already been submitted, do not allow update
+        if (toFill.isSubmitted()) {
+            return MESSAGE_INCIDENT_HAS_BEEN_SUBMITTED;
+        }
+
+        // update incident as it is a draft
+        Incident updatedIncident = fillReport(toFill, callerNumber, description);
+
+        // old incident is removed from the list, and replaced by the updated incident
+        // updated incident is appended to front of the list
+        model.removeIncident(toFill);
+        model.addIncident(updatedIncident);
+        return String.format(MESSAGE_FILL_DRAFT_SUCCESS, toFill);
+    }
+
+    /**
+     * Returns a new updated incident report by filling callerNumber and description fields.
+     * Triggered by 'fill' command.
+     * @param toUpdate the incident to be filled.
+     * @param callerNumber phone number of the caller reporting the incident.
+     * @param description description of this incident.
+     * @return updated incident report.
+     */
+    private Incident fillReport(Incident toUpdate, CallerNumber callerNumber, Description description) {
+        Incident updatedIncident = new Incident(toUpdate.getOperator(), toUpdate.getDistrict(),
+                toUpdate.getIncidentDateTime(), toUpdate.getIncidentId(), callerNumber, description);
+        updatedIncident.setStatusAsComplete();
+        return updatedIncident;
+    }
+
 
     @Override
     public boolean equals(Object other) {

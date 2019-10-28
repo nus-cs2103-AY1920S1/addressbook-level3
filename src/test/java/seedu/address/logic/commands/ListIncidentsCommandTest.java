@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showIncidentAtIndex;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_INCIDENTS;
 import static seedu.address.testutil.TypicalEntities.getTypicalIncidentManager;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_ENTITY;
 
@@ -28,12 +29,14 @@ public class ListIncidentsCommandTest {
 
     @Test
     public void execute_listIsNotFiltered_showsSameList() {
-        assertCommandSuccess(new ListIncidentsCommand(), model, ListIncidentsCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new ListIncidentsCommand(PREDICATE_SHOW_ALL_INCIDENTS), model,
+                ListIncidentsCommand.MESSAGE_ALL_INCIDENTS, expectedModel);
     }
 
     @Test
     public void execute_listIsFiltered_showsEverything() {
         showIncidentAtIndex(model, INDEX_FIRST_ENTITY);
-        assertCommandSuccess(new ListIncidentsCommand(), model, ListIncidentsCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new ListIncidentsCommand(PREDICATE_SHOW_ALL_INCIDENTS), model,
+                ListIncidentsCommand.MESSAGE_ALL_INCIDENTS, expectedModel);
     }
 }
