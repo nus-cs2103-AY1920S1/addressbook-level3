@@ -148,7 +148,7 @@
 }
 
 .status-bar { /* bottom bar */
-    -fx-background-color: #41b3a3 ;
+    -fx-background-color: #aaa9ad;
 }
 
 .result-display {
@@ -190,7 +190,7 @@
 }
 
 .context-menu { /*top bar */
-    -fx-background-color: #41b3a3;
+    -fx-background-color: #e8a87c ;
 }
 
 .context-menu .label {
@@ -198,7 +198,7 @@
 }
 
 .menu-bar { /*top bar */
-    -fx-background-color: #41b3a3;
+    -fx-background-color: #e8a87c ;
 }
 
 .menu-bar .label {
@@ -340,7 +340,7 @@
 #resultDisplay .content {
     -fx-background-color: transparent, #65737e, transparent, #65737e;
     -fx-background-radius: 0;
-    -fx-border-color: #41b3a3;
+    -fx-border-color: #e8a87c;
     -fx-border-width: 2;
 }
 
@@ -351,7 +351,7 @@
 
 #tags .label {
     -fx-text-fill: white;
-    -fx-background-color: #e27d60 ;
+    -fx-background-color: #ff5a5a;
     -fx-padding: 1 3 1 3;
     -fx-border-radius: 2;
     -fx-background-radius: 2;
