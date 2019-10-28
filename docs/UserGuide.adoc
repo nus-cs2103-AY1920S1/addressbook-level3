@@ -27,7 +27,7 @@ AlgoBase (AB) is for those who prefer to use a desktop app for managing algorith
 .  Copy the file to the folder you want to use as the home folder for your AlgoBase application.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
-image::Ui.png[width="790"]
+image::UiStartProblem.png[width="80%"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will list all possible commands in the result window and open the help window.
@@ -35,6 +35,17 @@ e.g. typing *`help`* and pressing kbd:[Enter] will list all possible commands in
 
 * *`list`* : lists all problems
 * **`add`**`n/factorial d/define a function factorial that takes in a number and n and returns the factorial of the number t/recursion a/Halim` : adds a problem called 'factorial' tagged with 'recursion' and authored by 'Wee Han'
+* **`edit`**`1 src/LeetCode` : edits the first problem displayed and sets its source to 'LeetCode'
+* **`switchtab`**`t/display i/2` : switches to tag tab
++
+image::UiStartTag.png[width="50%]
++
+* **`switchtab`**`t/display i/3` : switches to plan tab
++
+image::UiStartPlan.png[width="50%]
++
+* **`findplan`**`n/CS2040` : finds plans that with name 'CS2040'
+* **`clear`** : resets Algobase
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
