@@ -353,17 +353,17 @@ Instantiation of the `Event` object when the app is started will be more complic
 ** Alternative 2 would make sense if our app is utilizing a DBMS and it would be a best practice to separate the information.
 However, as we are constrained with not utilizing a DBMS, Alternative 1 is a logically simpler and more efficent solution from a software engineering standpoint.
 
-// tag::displayschedule[]
-=== Display Schedule feature
+// tag::generateschedule[]
+=== Generate Schedule feature
 ==== Proposed Implementation
 
-The Display Schedule Feature is implemented to allow users to view all dates and the specific events for those dates listed.
-The feature is facilitated by a `DistinctDatesProcessor` and requires the use of a new Object - `DistinctDate`, as well as
-an internal ObservableList - `distinctDatesList` found in the `ModelManager`.
+The Generate Schedule Feature is implemented to allow users to have an overview of view all dates that has an event and the
+specific events for those dates listed. The feature is facilitated by a `DistinctDatesProcessor` and requires the use of a
+new Object - `DistinctDate`, as well as an internal ObservableList - `distinctDatesList` found in the `ModelManager`.
 
 It processes the entire list of Events in the `EventList` when the command is called. The `DistinctDateProcessor` will then
 process through these events to create specific `DistinctDate` Objects which stores a list of events which occurs on the date
-they are representing. These DistinctDate Objects are then used to be represented on the GUI.
+they are representing. These DistinctDate Objects are then used to be displayed on the GUI.
 
 Additionally, The DistinctDateProcessor contains the following operations:
 
@@ -374,52 +374,93 @@ Additionally, The DistinctDateProcessor contains the following operations:
 The following class diagrams shows how the `DistinctDate` class and utility `DistinctDateProcessor` class is implemented:
 
 ._Class Diagram for DistinctDate_
-image::DistinctDateClassDiagram.png[]
+image::DistinctDateClassDiagram.png[align="center", width = "300"]
 ._Class Diagram for DistinctDateProcessor_
-image::DistinctDateProcessorClassDiagram.png[]
-
+image::DistinctDateProcessorClassDiagram.png[align="center", width = "300"]
 
 Given below is an example usage scenario and how the display schedule mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time. The `distinctDatesList` will be initialized based on the initial event book state.
+._Program flow of the Generate Schedule Feature_
+image::GenerateScheduleFlowChart.png[align="center", width = "300"]
 
-Step 2. The user executes `add_ev n/Free Cofee ...` to add a new event into the Eventlist. The distinctDatesList will be reinitialised with an empty list (all its existing inputs will be flushed).
+**Step 1**. The user launches the application for the first time.
+
+**Step 2**. The `distinctDatesList` will be initialized based on the initial event book state.
+
+**Step 3**. The user executes `add_ev n/Free Coffee ...` to add a new event into the Eventlist.
+The distinctDatesList will not be updated, and will not contain the new event that is added.
+[NOTE]
+Any command that alters the eventBook will not change the distinctDatesList. The distinctDatesList will continue to store the
+original list until the User requires it by calling the "generate_schedule" command. Where the distinctDateList will be generated
+again using the current EventList
+
+
+**Step 4**. The user executes `generate_schedule` to see all the dates and the respective events on those dates.
+
+**Step 5**. The distinctDateList will be generated again based on the current list of events in the EventList and is displayed on a separate window.
+
+**Step 6**. The user now decides to close the app, the current state of the EventBook and EmployeeBook will be stored,
+however the DistinctDateList would not.
 
 [NOTE]
-If a command that alters the eventBook will cause the distinctDatesList to be flushed. User will be required to input "display_schedule" command again to generate the new list of schedule.
+Note that the Display Schedule Feature does not load and store the DistinctDate Objects. It processes and generates the list when
+it is called upon or when the application starts.
 
-Step 3. The user executes `display_schedule` to see all dates and the respective events on those dates. The distinctDateList will be generated again based on the current list of events in the EventList.
+**Step 5**. Done.
 
-Step 4. The user now decides to close the app, the current state of the EventBook and EmployeeBook will be stored, however the DistinctDateList would not.
+The following sequence diagram shows how the `generate_schedule` operation works:
 
-[NOTE]
-Note that the Display Schedule Feature does not load and store the DistinctDate Objects. It processes and generates the list when it is called upon or when the application starts.
+._Sequence Diagram for generate_schedule Command_
+image::GenerateScheduleSequenceDiagram.png[]
 
-
-The following sequence diagram shows how the display operation works:
-
-._Sequence Diagram for DisplaySchedule Command_
-image::DisplayScheduleSequenceDiagram.png[]
-
-NOTE: The lifeline for `DisplayScheduleCommand` ends at the destroy marker (X).
+NOTE: The lifeline for `GenerateScheduleCommand` ends at the destroy marker (X).
 
 ==== Design Considerations
 
-===== Aspect: How Display Schedule executes
+[width="100%", options="header" cols="3, 4, 4"]
+|========================================================================================
+|Feature      |Alternative 1 | Alternative 2
+|Data Structure to support Generate Schedule Command
+|Generates and Processes the DistinctDate Object upon `generate_schedule` command. (Current choice)
 
-* **Alternative 1 (current choice):** Generates and Processes the DistinctDate Object upon start up and command call.
-** Pros: Easy to implement and requires less Storage Capacity.
-** Cons: May have performance issues in terms of speed and time Complexity. The program will have to iterate through the entire list of events, whenever display_schedule command is called.
-* **Alternative 2:** Creates and Stores the DistinctDate object whenever a new event is added.
-** Pros: Will require less processing, Do not have to create a new list of DistinctDate object everytime it is called
-** Cons: May have performance issues in terms of Storage needed, requires new storage unit to store a new entity which is not as important.
-Can cause speed and time complexity issues as well, Whenever edits are made to the existing eventList - add_ev, delete_ev etc
-the program is required to process through all DistinctDate Object to make the neccesary changes.
+*Pros*: Easy to implement and requires less Storage Capacity and storage infrastructure to support the entire feature.
 
-* **Decision:** Alternative 1
+*Cons*: May have performance issues in terms of speed and time Complexity. The program will have to iterate through the entire list of events and create
+the corresponding `DistinctDate` objects, whenever `generate_schedule` command is called.
+
+**Decision: Alternative 1
 ** Alternative 1 makes more logical sense and will be more efficient as compared to Alternative 2. Alternative 1 requires less intermediate processing and storage units to support the feature.
-Processing is only done when it is needed.
-// end::displayschedule[]
+Processing is only done when it is needed. Looking at the use case of the `generate_schedule` command, it is likely to be used when the users have finalise all the events and details before generating
+the schedule.
+
+|Creates and Stores the DistinctDate object whenever a new event is added.
+
+*Pros*: Do not have to create a new list of DistinctDate object every time it is called.
+
+*Cons*: May have performance issues in terms of storage and processing needed, requires new storage unit to store a new entity which is not as important
+and frequently used. This implementation can cause speed and time complexity issues as well, whenever edits are made to the existing eventList - add_ev, delete_ev etc
+the program is required to process through all DistinctDate Object to make the necessary changes. If the user does not even want to call the `generate_schedule` command
+after the changes, then this process is actually unnecessary.
+
+| UI Decisions for Generate Schedule Command
+| Display Directly on the Schedule Tab, update the list when `generate_schedule` command is called
+
+*Pros*: Users are able to view the generated schedule directly from the application's schedule tab, without the need of another window.
+
+*Cons*: May cause confusion, as the list being displayed might be outdated, if user forgets to call the `generate_schedule` command after altering the events.
+
+| Display on a separate window, generates and display the list on the new window when `generate_schedule` command is called. (Current choice)
+
+*Pros*: Allows for better user experience, since the generated list is only displayed when the user needs it. Ensures that the list being
+displayed is always updated as of when the user needs it, since the window is only produced when `generate_schedule` command is called.
+
+*Cons*: Harder to implement, requires additional JavaFx windows and implementations. Will require additional windows being opened.
+
+**Decision: Alternative 2
+** Alternative 2 is a cleaner and more user friendly approach compared to Alternative 1. Alternative 2 helps to prevent the Schedule Tab from being filled with too many list and information.
+Alternative 2 also helps prevent user confusion, as the list that is displayed is always updated as of when it is called upon.
+|========================================================================================
+// end::generateschedule[]
 
 === Finance
 ==== Implementation

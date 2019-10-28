@@ -3,11 +3,13 @@ package seedu.address.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MANPOWER_TO_ADD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_YEAR_MONTH;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
@@ -39,6 +41,22 @@ public class CommandTestUtil {
     public static final String VALID_ADDRESS_BOB = "Block 123, Bobby Street 3";
     public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_TAG_FRIEND = "friend";
+
+    //valid date fields
+    public static final String VALID_DATE_1 = " " + PREFIX_DATE + "20/10/2019";
+    public static final String VALID_DATE_2 = " " + PREFIX_DATE + "10/10/2021";
+    public static final String VALID_YEAR_MONTH_1 = " " + PREFIX_YEAR_MONTH + "10/2019";
+    public static final String VALID_YEAR_MONTH_2 = " " + PREFIX_YEAR_MONTH + "01/2019";
+
+    //invalid date fields
+    public static final String INVALID_DATE_1 = " " + PREFIX_DATE + "2019/10/29";
+    public static final String INVALID_DATE_2 = " " + PREFIX_DATE + "20 Aug 2019";
+    public static final String INVALID_DATE_3 = " " + PREFIX_DATE + "date";
+    public static final String INVALID_DATE_4 = " " + PREFIX_DATE + "10/12";
+    public static final String INVALID_YEAR_MONTH_1 = " " + PREFIX_YEAR_MONTH + "1/2019";
+    public static final String INVALID_YEAR_MONTH_2 = " " + PREFIX_YEAR_MONTH + "2019/10";
+    public static final String INVALID_YEAR_MONTH_3 = " " + PREFIX_YEAR_MONTH + "2019 August";
+    public static final String INVALID_YEAR_MONTH_4 = " " + PREFIX_YEAR_MONTH + "August 2019";
 
     //valid event fields
     public static final String VALID_NAME_PARTY = "party";

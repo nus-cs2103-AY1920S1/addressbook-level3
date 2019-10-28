@@ -252,6 +252,7 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.getType().equals("Schedule")) {
                 selectionModel.select(1);
+                scheduleBox.setLabelText(commandResult.getUiChange());
             }
             if (!commandResult.getType().equals("Schedule")) {
                 selectionModel.select(0);
@@ -274,8 +275,4 @@ public class MainWindow extends UiPart<Stage> {
             throw e;
         }
     }
-
-
-
-
 }

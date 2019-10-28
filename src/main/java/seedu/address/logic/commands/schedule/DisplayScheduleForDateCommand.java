@@ -30,11 +30,13 @@ public class DisplayScheduleForDateCommand extends Command {
         model.updateFilteredScheduledEventList(predicate);
         return new CommandResult(
                 String.format(Messages.MESSAGE_EVENTS_LISTED_OVERVIEW,
-                        model.getFilteredScheduledEventList().size()), "Schedule");
+                        model.getFilteredScheduledEventList().size()), "Schedule", predicate.getDate());
     }
 
     @Override
     public boolean equals(Object other) {
-        return other == this; // short circuit if same object
+        return other == this // short circuit if same object
+                || (other instanceof DisplayScheduleForDateCommand // instanceof handles nulls
+                && predicate.equals(((DisplayScheduleForDateCommand) other).predicate)); // state check
     }
 }

@@ -24,8 +24,7 @@ public class DateCard extends UiPart<Region> {
 
     @FXML
     private HBox cardPane;
-    @FXML
-    private Label id;
+
     @FXML
     private Label dateLabel;
     @FXML
@@ -37,7 +36,6 @@ public class DateCard extends UiPart<Region> {
         this.date = distinctDate;
         this.mainWindow = mainWindow;
         this.index = displayedIndex - 1;
-        id.setText(displayedIndex + ". ");
         dateLabel.setText(date.getDate().toString());
         eventsLabel.setText(generateString(distinctDate));
 
@@ -59,7 +57,19 @@ public class DateCard extends UiPart<Region> {
         List<Event> list = date.getListOfEvents();
         String outputString = "";
         for (int i = 0; i < list.size(); i++) {
-            outputString = outputString + list.get(i) + "\n";
+            Event currentEvent = list.get(i);
+            String eventDesc = "";
+            if (currentEvent.getManpowerAllocatedList().toString().length() < 1) {
+                String manpowerList = "No Allocated Staff";
+                eventDesc = (i + 1) + ") Event Name: " + currentEvent.getName().toString()
+                        + "  Venue: " + currentEvent.getVenue().toString() + "\n"
+                        + "Current Manpower List (ID) : " + manpowerList + "\n";
+            } else {
+                eventDesc = (i + 1) + ") Event Name: " + currentEvent.getName().toString()
+                        + "  Venue: " + currentEvent.getVenue().toString() + "\n"
+                        + "Current Manpower List (ID) : " + currentEvent.getManpowerAllocatedList().toString() + "\n";
+            }
+            outputString = outputString + eventDesc + "\n";
         }
         return outputString;
     }
@@ -78,7 +88,7 @@ public class DateCard extends UiPart<Region> {
 
         // state check
         DateCard card = (DateCard) other;
-        return id.getText().equals(card.id.getText())
+        return index.equals(card.index)
                 && date.equals(card.date);
     }
 }
