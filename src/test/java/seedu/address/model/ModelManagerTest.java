@@ -5,8 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CUSTOMERS;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalCustomers.BENSON;
-import static seedu.address.testutil.TypicalCustomers.CARL;
 import static seedu.address.testutil.TypicalCustomers.DANIEL;
 import static seedu.address.testutil.TypicalCustomers.FIONA;
 import static seedu.address.testutil.TypicalOrders.ORDERONE;
@@ -34,7 +32,6 @@ import seedu.address.model.phone.Phone;
 import seedu.address.model.schedule.Schedule;
 import seedu.address.testutil.CustomerBookBuilder;
 import seedu.address.testutil.OrderBookBuilder;
-import seedu.address.testutil.OrderBuilder;
 import seedu.address.testutil.PhoneBookBuilder;
 import seedu.address.testutil.ScheduleBookBuilder;
 import seedu.address.testutil.ScheduleBuilder;
@@ -137,86 +134,6 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void addCustomer_nullCustomer_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> modelManager.addCustomer(null));
-    }
-
-    @Test
-    public void addCustomer_duplicateCustomerInCustomerBook_throwsDuplicateIdentityException() {
-        modelManager.addCustomer(BENSON);
-        assertTrue(modelManager.hasCustomer(BENSON));
-        assertThrows(DuplicateIdentityException.class, () -> modelManager.addCustomer(BENSON));
-    }
-
-    @Test
-    public void addCustomer_noSuchCustomerInCustomerBook_success() {
-        assertFalse(modelManager.hasCustomer(BENSON));
-        modelManager.addCustomer(BENSON);
-        assertTrue(modelManager.hasCustomer(BENSON));
-    }
-
-    @Test
-    public void deleteCustomer_nullCustomer_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> modelManager.deleteCustomer(null));
-    }
-
-    @Test
-    public void deleteCustomer_customerNotInCustomerBook_throwsIdentityNotFoundException() {
-        assertThrows(IdentityNotFoundException.class, () -> modelManager.deleteCustomer(BENSON));
-    }
-
-    @Test
-    public void deleteCustomer_customerInCustomerBook_success() {
-        modelManager.addCustomer(BENSON);
-        modelManager.deleteCustomer(BENSON);
-        assertFalse(modelManager.hasCustomer(BENSON));
-    }
-
-    @Test
-    public void deleteCustomer_orderWithCustomerExistsInOrderBook_orderDeleted() {
-        modelManager.addCustomer(BENSON);
-        Order order = new OrderBuilder(VIPORDER).withCustomer(BENSON).build();
-        modelManager.addOrder(order);
-        modelManager.deleteCustomer(BENSON);
-        assertFalse(modelManager.hasOrder(order));
-    }
-
-    @Test
-    public void setCustomer_nullFields_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> modelManager.setCustomer(null, null));
-    }
-
-    @Test
-    public void setCustomer_targetCustomerNotInCustomerBook_throwsIdentityNotFoundException() {
-        assertThrows(IdentityNotFoundException.class, () -> modelManager.setCustomer(BENSON, CARL));
-    }
-
-    @Test
-    public void setCustomer_editedCustomerAlreadyInCustomerBook_throwsDuplicateIdentityException() {
-        modelManager.addCustomer(BENSON);
-        modelManager.addCustomer(CARL);
-        assertThrows(DuplicateIdentityException.class, () -> modelManager.setCustomer(BENSON, CARL));
-    }
-
-    @Test
-    public void setCustomer_targetCustomerInCustomerBook_success() {
-        modelManager.addCustomer(BENSON);
-        modelManager.setCustomer(BENSON, CARL);
-        assertFalse(modelManager.hasCustomer(BENSON));
-        assertTrue(modelManager.hasCustomer(CARL));
-    }
-
-    @Test
-    public void setCustomer_orderWithCustomerExistsInOrderBook_customerInOrderReplaced() {
-        modelManager.addCustomer(BENSON);
-        Order order = new OrderBuilder(VIPORDER).withCustomer(BENSON).build();
-        modelManager.addOrder(order);
-        modelManager.setCustomer(BENSON, CARL);
-        Order editedOrder = new OrderBuilder(order).withCustomer(CARL).build();
-        assertTrue(modelManager.hasOrder(editedOrder));
-    }
-
-    @Test
     public void getFilteredCustomerList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredCustomerList().remove(0));
     }
@@ -270,6 +187,25 @@ public class ModelManagerTest {
     //=========== scheduleBook ================================================================================
 
     @Test
+    public void addSchedule_nullSchedule_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.addSchedule(null));
+    }
+
+    @Test
+    public void addSchedule_duplicateScheduleInScheduleBook_throwsDuplicateIdentityException() {
+        modelManager.addSchedule(MONDAY_SCHEDULE);
+        assertTrue(modelManager.hasSchedule(MONDAY_SCHEDULE));
+        assertThrows(DuplicateIdentityException.class, () -> modelManager.addSchedule(MONDAY_SCHEDULE));
+    }
+
+    @Test
+    public void addSchedule_noSuchScheduleInScheduleBook_success() {
+        assertFalse(modelManager.hasSchedule(MONDAY_SCHEDULE));
+        modelManager.addSchedule(MONDAY_SCHEDULE);
+        assertTrue(modelManager.hasSchedule(MONDAY_SCHEDULE));
+    }
+
+    @Test
     public void hasSchedule_nullSchedule_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> modelManager.hasSchedule(null));
     }
@@ -283,6 +219,23 @@ public class ModelManagerTest {
     public void hasSchedule_scheduleInScheduleBook_returnsTrue() {
         modelManager.addSchedule(CBD_SCHEDULE);
         assertTrue(modelManager.hasSchedule(CBD_SCHEDULE));
+    }
+
+    @Test
+    public void deleteSchedule_nullSchedule_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.deleteSchedule(null));
+    }
+
+    @Test
+    public void deleteSchedule_scheduleNotInScheduleBook_throwsIdentityNotFoundException() {
+        assertThrows(IdentityNotFoundException.class, () -> modelManager.deleteSchedule(MONDAY_SCHEDULE));
+    }
+
+    @Test
+    public void deleteSchedule_scheduleInScheduleBook_success() {
+        modelManager.addSchedule(MONDAY_SCHEDULE);
+        modelManager.deleteSchedule(MONDAY_SCHEDULE);
+        assertFalse(modelManager.hasSchedule(MONDAY_SCHEDULE));
     }
 
     @Test

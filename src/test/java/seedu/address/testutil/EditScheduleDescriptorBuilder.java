@@ -39,16 +39,23 @@ public class EditScheduleDescriptorBuilder {
     /**
      * Sets the {@code Date} of the {@code EditScheduleDescriptor} that we are building.
      */
-    public EditScheduleDescriptorBuilder withDate(Calendar date) {
-        descriptor.setDate(date);
+    public EditScheduleDescriptorBuilder withDate(Calendar calendar) {
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int date = calendar.get(Calendar.DAY_OF_MONTH);
+        Calendar newCalendar = new Calendar.Builder().setDate(year, month, date).build();
+        descriptor.setDate(newCalendar);
         return this;
     }
 
     /**
      * Sets the {@code Time} of the {@code EditScheduleDescriptor} that we are building.
      */
-    public EditScheduleDescriptorBuilder withTime(Calendar time) {
-        descriptor.setTime(time);
+    public EditScheduleDescriptorBuilder withTime(Calendar calendar) {
+        int hour = calendar.get(Calendar.HOUR_OF_DAY);
+        int min = calendar.get(Calendar.MINUTE);
+        Calendar newCalendar = new Calendar.Builder().setTimeOfDay(hour, min, 0).build();
+        descriptor.setTime(newCalendar);
         return this;
     }
 
