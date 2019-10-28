@@ -32,6 +32,7 @@ import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ListCategoryCommand;
 import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.ListFontCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SortCommand;
 import seedu.address.logic.commands.StatisticsCommand;
@@ -120,6 +121,9 @@ public class AddressBookParser {
 
         case ListCategoryCommand.COMMAND_WORD:
             return new ListCategoryCommand();
+
+        case ListFontCommand.COMMAND_WORD:
+            return new ListFontCommand();
 
         case WishListCommand.COMMAND_WORD:
             return new WishListCommand();

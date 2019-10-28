@@ -26,6 +26,7 @@ public class CommandResult {
 
     /** For changing the font. */
     private final FontName fontName;
+    private final boolean listFonts;
     private final boolean changeFont;
 
     /**
@@ -38,6 +39,7 @@ public class CommandResult {
         this.panelName = null;
         this.togglePanel = false;
         this.fontName = null;
+        this.listFonts = false;
         this.changeFont = false;
     }
 
@@ -59,19 +61,21 @@ public class CommandResult {
         this.panelName = panelName;
         this.togglePanel = togglePanel;
         this.fontName = null;
+        this.listFonts = false;
         this.changeFont = false;
     }
 
     /**
      * Constructs a {@code CommandResult} with the specified fields, and other fields are set to their default value.
      */
-    public CommandResult(String feedbackToUser, FontName fontName, boolean changeFont) {
+    public CommandResult(String feedbackToUser, FontName fontName, boolean listFonts, boolean changeFont) {
         this.feedbackToUser = feedbackToUser;
         this.showHelp = false;
         this.exit = false;
         this.panelName = null;
         this.togglePanel = false;
         this.fontName = fontName;
+        this.listFonts = listFonts;
         this.changeFont = changeFont;
     }
 
@@ -99,6 +103,10 @@ public class CommandResult {
         return changeFont;
     }
 
+    public boolean isListFonts() {
+        return listFonts;
+    }
+
     public FontName getFontName() {
         return fontName;
     }
@@ -121,12 +129,13 @@ public class CommandResult {
                 && panelName == otherCommandResult.panelName
                 && togglePanel == otherCommandResult.togglePanel
                 && fontName == otherCommandResult.fontName
+                && listFonts == otherCommandResult.listFonts
                 && changeFont == otherCommandResult.changeFont;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(feedbackToUser, showHelp, exit, panelName, togglePanel, fontName, changeFont);
+        return Objects.hash(feedbackToUser, showHelp, exit, panelName, togglePanel, fontName, listFonts, changeFont);
     }
 
 }

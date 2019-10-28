@@ -1,5 +1,6 @@
 package seedu.address.ui;
 
+import java.util.Arrays;
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
@@ -211,6 +212,7 @@ public class MainWindow extends UiPart<Stage> {
         default:
             break;
         }
+        logger.info("Toggled " + panelName + " side panel");
     }
 
     /**
@@ -237,6 +239,7 @@ public class MainWindow extends UiPart<Stage> {
             sidePanelsPlaceHolder.setManaged(true);
             sidePanelsPlaceHolder.setVisible(true);
         }
+        logger.info("Toggled entire side panel");
     }
 
     public EntryListPanel getEntryListPanel() {
@@ -268,6 +271,14 @@ public class MainWindow extends UiPart<Stage> {
                 String panelNameString = panelName.getName();
                 togglePanel(panelNameString);
                 toggleEntireSidePanelIfNecessary();
+            }
+
+            if (commandResult.isListFonts()) {
+                FontManager fontManager = new FontManager();
+                String resultToBeDisplayed = commandResult.getFeedbackToUser() + ": "
+                        + Arrays.toString(fontManager.getFonts().toArray());
+                resultDisplay.setFeedbackToUser(resultToBeDisplayed);
+                logger.info("Listed all fonts");
             }
 
             return commandResult;

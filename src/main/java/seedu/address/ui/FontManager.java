@@ -16,6 +16,8 @@ public class FontManager {
 
     public FontName currentFontName;
 
+    public FontManager() {}
+
     public FontManager(FontName currentFontName) {
         requireAllNonNull(fonts, currentFontName);
         checkArgument(isValidFontName(currentFontName), MESSAGE_CONSTRAINTS);
@@ -23,8 +25,9 @@ public class FontManager {
     }
 
     private static List<FontName> generateFontNames() {
-        List<String> fontNameStrings = new ArrayList<>(Arrays.asList("arial", "calibri", "cambria", "candara", "garamond", "georgia", "rockwell", "segoe UI",
-                "segoe UI light", "segoe UI semilight", "segoe UI semibold", "serif", "verdana"));
+        List<String> fontNameStrings = new ArrayList<>(Arrays.asList("arial", "calibri", "cambria", "candara",
+                "garamond", "georgia", "rockwell", "segoe UI", "segoe UI light", "segoe UI semilight",
+                "segoe UI semibold", "serif", "verdana"));
         List<FontName> fontNames = new ArrayList<>(0);
         for (String fontNameString : fontNameStrings) {
             fontNames.add(new FontName(fontNameString));
