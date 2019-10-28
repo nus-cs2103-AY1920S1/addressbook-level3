@@ -20,10 +20,15 @@ public class RecipeListPanel extends UiPart<Region> {
     @FXML
     private ListView<Recipe> recipeListView;
 
+    @FXML
+    private ListView<Recipe> recipeIndexListView;
+
     public RecipeListPanel(ObservableList<Recipe> recipeList) {
         super(FXML);
         recipeListView.setItems(recipeList);
+        recipeIndexListView.setItems(recipeList);
         recipeListView.setCellFactory(listView -> new RecipeListViewCell());
+        recipeIndexListView.setCellFactory(listView -> new RecipeIndexListViewCell());
     }
 
     /**
@@ -39,6 +44,23 @@ public class RecipeListPanel extends UiPart<Region> {
                 setText(null);
             } else {
                 setGraphic(new RecipeCard(recipe, getIndex() + 1).getRoot());
+            }
+        }
+    }
+
+    /**
+     * Custom {@code ListCell} that displays the graphics of a {@code Recipe} using a {@code RecipeIndexCard}.
+     */
+    class RecipeIndexListViewCell extends ListCell<Recipe> {
+        @Override
+        protected void updateItem(Recipe recipe, boolean empty) {
+            super.updateItem(recipe, empty);
+
+            if (empty || recipe == null) {
+                setGraphic(null);
+                setText(null);
+            } else {
+                setGraphic(new RecipeIndexCard(recipe, getIndex() + 1).getRoot());
             }
         }
     }

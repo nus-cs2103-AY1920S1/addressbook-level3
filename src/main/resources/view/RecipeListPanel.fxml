@@ -1,7 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
-<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-  <ListView fx:id="recipeListView" VBox.vgrow="ALWAYS" />
+<?import javafx.scene.text.Font?>
+
+<VBox xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <Label fx:id="title" maxHeight="-Infinity" minHeight="74.0" prefHeight="74.0" text="Overview" textFill="#797373">
+      <font>
+         <Font name="Devanagari Sangam MN" size="36.0" />
+      </font>
+      <padding>
+         <Insets bottom="5.0" left="5.0" top="5.0" />
+      </padding>
+   </Label>
+   <HBox>
+      <children>
+         <StackPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0">
+            <children>
+               <ListView fx:id="recipeIndexListView" />
+            </children>
+         </StackPane>
+         <StackPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
+            <children>
+              <ListView fx:id="recipeListView" />
+            </children>
+         </StackPane>
+      </children>
+   </HBox>
 </VBox>
