@@ -33,6 +33,7 @@ import budgetbuddy.storage.rules.JsonRuleStorage;
 import budgetbuddy.storage.rules.RuleStorage;
 import budgetbuddy.storage.scripts.FlatfileScriptsStorage;
 import budgetbuddy.storage.scripts.ScriptsStorage;
+import budgetbuddy.storage.scripts.exceptions.ScriptsStorageException;
 import budgetbuddy.ui.Ui;
 import budgetbuddy.ui.UiManager;
 import javafx.application.Application;
@@ -145,7 +146,7 @@ public class MainApp extends Application {
     private ScriptLibrary initScriptLibrary(Storage storage) {
         try {
             return storage.readScripts();
-        } catch (IOException e) {
+        } catch (IOException | ScriptsStorageException e) {
             logger.warning("Problem while reading scripts. Starting with empty script library.");
             return new ScriptLibraryManager();
         }

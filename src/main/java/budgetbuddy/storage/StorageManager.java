@@ -16,6 +16,7 @@ import budgetbuddy.model.UserPrefs;
 import budgetbuddy.storage.loans.LoansStorage;
 import budgetbuddy.storage.rules.RuleStorage;
 import budgetbuddy.storage.scripts.ScriptsStorage;
+import budgetbuddy.storage.scripts.exceptions.ScriptsStorageException;
 
 /**
  * Manages storage of AddressBook data in local storage.
@@ -126,7 +127,7 @@ public class StorageManager implements Storage {
     }
 
     @Override
-    public ScriptLibrary readScripts(Path scriptsPath) throws IOException {
+    public ScriptLibrary readScripts(Path scriptsPath) throws IOException, ScriptsStorageException {
         return scriptsStorage.readScripts(scriptsPath);
     }
 

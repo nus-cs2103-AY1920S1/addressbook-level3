@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 
 import budgetbuddy.model.ScriptLibrary;
+import budgetbuddy.storage.scripts.exceptions.ScriptsStorageException;
 
 /**
  * Represents storage for {@link budgetbuddy.model.ScriptLibrary}.
@@ -22,7 +23,7 @@ public interface ScriptsStorage {
      * @return the scripts
      * @throws IOException if an IO exception occurs
      */
-    default ScriptLibrary readScripts() throws IOException {
+    default ScriptLibrary readScripts() throws IOException, ScriptsStorageException {
         return readScripts(getScriptsPath());
     }
 
@@ -33,7 +34,7 @@ public interface ScriptsStorage {
      * @return the scripts
      * @throws IOException if an IO exception occurs
      */
-    ScriptLibrary readScripts(Path scriptsPath) throws IOException;
+    ScriptLibrary readScripts(Path scriptsPath) throws IOException, ScriptsStorageException;
 
     /**
      * Saves scripts to the path returned by {@link #getScriptsPath()}.
