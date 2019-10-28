@@ -28,6 +28,12 @@ public class FetchWindow extends UiPart<Stage> {
 
     private static final Logger logger = LogsCenter.getLogger(FetchWindow.class);
     private static final String FXML = "FetchWindow.fxml";
+    private final Logic logic;
+    private final int eventOneBasedIndex;
+    private final Integer index;
+    private ObservableList<Employee> employeeList;
+    private ObservableList<Event> filteredEventList;
+    private Event event;
 
     @FXML
     private ListView<Employee> personListView;
@@ -60,36 +66,34 @@ public class FetchWindow extends UiPart<Stage> {
      */
     public FetchWindow(Stage root, Logic logic, Integer index) {
         super(FXML, root);
-        ObservableList<Employee> employeeList = logic.getFilteredEmployeeList();
-        ObservableList<Event> filteredEventList = logic.getFilteredEventList();
-        Event event = logic.getFilteredEventList().get(index);
-        updateCards(event, employeeList, filteredEventList);
+        this.logic = logic;
+        this.index = index;
+        this.eventOneBasedIndex = index + 1;
+
+        employeeList = logic.getFilteredEmployeeList();
+        filteredEventList = logic.getFilteredEventList();
+        updateCards();
+
         EventHandler<MouseEvent> handleAllocate = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent e) {
-                int oneBasedIndex = index + 1;
                 try {
-                    logic.execute("allocate " + oneBasedIndex);
-                    Event event = logic.getFilteredEventList().get(index);
-                    updateCards(event, employeeList, filteredEventList);
-                } catch (CommandException ex) {
-                    logger.fine("This should not appear!");
-                } catch (ParseException ex) {
+                    logic.execute("allocate " + eventOneBasedIndex);
+                    updateCards();
+                } catch (CommandException | ParseException ex) {
                     logger.fine("This should not appear!");
                 }
             }
         };
+
         EventHandler<MouseEvent> handleFree = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent e) {
                 int oneBasedIndex = index + 1;
                 try {
                     logic.execute("free " + oneBasedIndex);
-                    Event event = logic.getFilteredEventList().get(index);
-                    updateCards(event, employeeList, filteredEventList);
-                } catch (CommandException ex) {
-                    logger.fine("This should not appear!");
-                } catch (ParseException ex) {
+                    updateCards();
+                } catch (CommandException | ParseException ex) {
                     logger.fine("This should not appear!");
                 }
             }
@@ -108,14 +112,14 @@ public class FetchWindow extends UiPart<Stage> {
     /**
      * Updates the EmployeeCard and EventDescriptions.
      */
-    public void updateCards(Event event, ObservableList<Employee> employeeList,
-                            ObservableList<Event> filteredEventList) {
+    public void updateCards() {
+        event = filteredEventList.get(index);
         ObservableList<Employee> employeeListForEvent = getEmployeeListForEvent(event, employeeList);
         eventDescription.setText(event.toStringWithNewLine());
         personListView.setItems(employeeList.filtered(x -> event.isAvailableForEvent(x, filteredEventList)));
-        personListView.setCellFactory(listView -> new PersonListViewCell());
+        personListView.setCellFactory(listView -> new AvailablePersonListViewCell(this));
         eventListView.setItems(employeeListForEvent);
-        eventListView.setCellFactory(listView -> new PersonListViewCell());
+        eventListView.setCellFactory(listView -> new CurrentPersonListViewCell(this));
     }
 
     /**
@@ -154,7 +158,7 @@ public class FetchWindow extends UiPart<Stage> {
     }
 
     /**
-     * Focuses on the help window.
+     * Focuses on the fetch window.
      */
     public void focus() {
         getRoot().requestFocus();
@@ -163,7 +167,11 @@ public class FetchWindow extends UiPart<Stage> {
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code Employee} using a {@code EmployeeCard}.
      */
-    class PersonListViewCell extends ListCell<Employee> {
+    class AvailablePersonListViewCell extends ListCell<Employee> {
+        private FetchWindow fetchWindow;
+        AvailablePersonListViewCell(FetchWindow fetchWindow) {
+            this.fetchWindow = fetchWindow;
+        }
         @Override
         protected void updateItem(Employee employee, boolean empty) {
             super.updateItem(employee, empty);
@@ -171,25 +179,32 @@ public class FetchWindow extends UiPart<Stage> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new EmployeeCard(employee, getIndex() + 1).getRoot());
+                setGraphic(new EmployeeCard(employee, getIndex() + 1, logic, event,
+                        eventOneBasedIndex, fetchWindow, true).getRoot());
             }
         }
     }
 
     /**
-     * Custom {@code ListCell} that displays the graphics of a {@code Event} using a {@code EventCard}.
+     * Custom {@code ListCell} that displays the graphics of a {@code Employee} using a {@code EmployeeCard}.
      */
-    class EventListViewCell extends ListCell<Event> {
+    class CurrentPersonListViewCell extends ListCell<Employee> {
+        private FetchWindow fetchWindow;
+        CurrentPersonListViewCell(FetchWindow fetchWindow) {
+            this.fetchWindow = fetchWindow;
+        }
         @Override
-        protected void updateItem(Event event, boolean empty) {
-            super.updateItem(event, empty);
-            if (empty || event == null) {
+        protected void updateItem(Employee employee, boolean empty) {
+            super.updateItem(employee, empty);
+            if (empty || employee == null) {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new EventCard(event, getIndex() + 1, null).getRoot());
+                setGraphic(new EmployeeCard(employee, getIndex() + 1, logic, event,
+                        eventOneBasedIndex, fetchWindow, false).getRoot());
             }
         }
     }
+
 
 }

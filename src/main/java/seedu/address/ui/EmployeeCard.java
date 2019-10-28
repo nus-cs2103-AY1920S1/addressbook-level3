@@ -1,13 +1,21 @@
 package seedu.address.ui;
 
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EMPLOYEE_ID;
+
 import java.util.Comparator;
 
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import seedu.address.logic.Logic;
 import seedu.address.model.employee.Employee;
+import seedu.address.model.event.Event;
+
 
 /**
  * An UI component that displays information of a {@code Employee}.
@@ -53,6 +61,35 @@ public class EmployeeCard extends UiPart<Region> {
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }
+
+    public EmployeeCard(Employee employee, int displayedIndex, Logic logic, Event event, int eventOneBasedIndex,
+                         FetchWindow fetchWindow, boolean isAllocate) {
+        this(employee, displayedIndex);
+        EventHandler<MouseEvent> eventHandler = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
+                    if (mouseEvent.getClickCount() == 2) {
+                        try {
+                            if (isAllocate && (event.getCurrentManpowerCount() < event.getManpowerNeeded().value)) {
+                                logic.execute("allocatem " + eventOneBasedIndex
+                                        + " " + PREFIX_EMPLOYEE_ID + employee.getEmployeeId());
+                            } else {
+                                logic.execute("free " + eventOneBasedIndex
+                                        + " " + PREFIX_EMPLOYEE_ID + employee.getEmployeeId());
+                            }
+
+                            fetchWindow.updateCards();
+                        } catch (Exception e) {
+                            e.printStackTrace(); //this should not be called
+                        }
+                    }
+                }
+            }
+        };
+        cardPane.addEventFilter(MouseEvent.MOUSE_CLICKED, eventHandler);
+    }
+
 
     @Override
     public boolean equals(Object other) {
