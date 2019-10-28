@@ -42,6 +42,9 @@ public class UiManager implements Ui {
         try {
             mainWindow = new MainWindow(primaryStage, logic);
             mainWindow.show(); //This should be called before creating other UI parts
+
+            //mainWindow.fillStudents();
+            mainWindow.fillTasks();
             mainWindow.hide();
             mainWindow.showLogin();
             //mainWindow.show();
@@ -165,6 +168,10 @@ public class UiManager implements Ui {
         showAlertDialogAndWait(Alert.AlertType.ERROR, title, e.getMessage(), e.toString());
         Platform.exit();
         System.exit(1);
+    }
+
+    public void startCalendar(Stage primaryStage) throws Exception {
+
     }
 
 }

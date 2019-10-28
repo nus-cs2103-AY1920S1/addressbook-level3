@@ -2,10 +2,8 @@ package seedu.address.model.task;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.Objects;
-import java.util.Set;
+import java.util.TreeSet;
 
 import seedu.address.model.classid.ClassId;
 
@@ -15,13 +13,13 @@ import seedu.address.model.classid.ClassId;
 public class Task {
     // Identity fields
     private final ClassId classId;
-    private final Set<TaskTime> taskTimeSet = new HashSet<>();
+    private final TreeSet<TaskTime> taskTimeSet = new TreeSet<>(TaskTime::compareTo);
     private final Marking marking;
 
     /**
      * Every field must be present and not null.
      */
-    public Task(ClassId id, Set<TaskTime> taskTimes, Marking mark) {
+    public Task(ClassId id, TreeSet<TaskTime> taskTimes, Marking mark) {
         requireAllNonNull(id, taskTimes, mark);
         classId = id;
         taskTimeSet.addAll(taskTimes);
@@ -32,8 +30,8 @@ public class Task {
         return classId;
     }
 
-    public Set<TaskTime> getTime() {
-        return Collections.unmodifiableSet(taskTimeSet);
+    public TreeSet<TaskTime> getTime() {
+        return taskTimeSet;
     }
 
     public Marking getMarking() {

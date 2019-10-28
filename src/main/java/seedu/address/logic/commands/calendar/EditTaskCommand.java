@@ -5,11 +5,9 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_MARKING;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_TIME;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_TASKS;
 
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
+import java.util.TreeSet;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
@@ -27,7 +25,7 @@ import seedu.address.model.task.TaskTime;
  * command to update the existing tasks.
  */
 public class EditTaskCommand extends Command {
-    public static final String COMMAND_WORD = "editTask";
+    public static final String COMMAND_WORD = "edit_task";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the task identified "
             + "by the index number used in the displayed task list. "
@@ -88,7 +86,7 @@ public class EditTaskCommand extends Command {
         ClassId updatedClassId = editTaskDescriptor.getClassId().orElse(taskToEdit.getClassId());
         Marking updatedMarking = editTaskDescriptor.getMarking()
                 .orElse(taskToEdit.getMarking());
-        Set<TaskTime> updatedTimes = editTaskDescriptor.getTaskTimes().orElse(taskToEdit.getTime());
+        TreeSet<TaskTime> updatedTimes = editTaskDescriptor.getTaskTimes().orElse(taskToEdit.getTime());
 
         return new Task(updatedClassId, updatedTimes, updatedMarking);
     }
@@ -118,7 +116,7 @@ public class EditTaskCommand extends Command {
     public static class EditTaskDescriptor {
         private ClassId classId;
         private Marking marking;
-        private Set<TaskTime> taskTimes;
+        private TreeSet<TaskTime> taskTimes;
 
         public EditTaskDescriptor() {}
 
@@ -147,12 +145,12 @@ public class EditTaskCommand extends Command {
             return Optional.ofNullable(marking);
         }
 
-        public void setTaskTimes(Set<TaskTime> taskTimes) {
-            this.taskTimes = (taskTimes != null) ? new HashSet<>(taskTimes) : null;
+        public void setTaskTimes(TreeSet<TaskTime> taskTimes) {
+            this.taskTimes = (taskTimes != null) ? new TreeSet<>(taskTimes) : null;
         }
 
-        public Optional<Set<TaskTime>> getTaskTimes() {
-            return (taskTimes != null) ? Optional.of(Collections.unmodifiableSet(taskTimes)) : Optional.empty();
+        public Optional<TreeSet<TaskTime>> getTaskTimes() {
+            return (taskTimes != null) ? Optional.of(taskTimes) : Optional.empty();
         }
 
         public void setClassId(ClassId classId) {
