@@ -232,8 +232,9 @@ public class MainWindow extends UiPart<Stage> {
             break;
         case REPORT:
             statsPanelPlaceholder.getChildren().clear();
-            statsQns = new StatsQns(logic.getQuizResultList());
+            statsQns = new StatsQns(logic.getQuizResultList(), logic.getStatsPieChartData());
             statsPanelPlaceholder.getChildren().add(statsQns.getRoot());
+            statsQns.setMouseover();
             break;
         default:
             throw new ParseException("Invalid type: " + type);

@@ -31,13 +31,7 @@ public class StatsQns extends UiPart<Region> {
         quizResultListView.setItems(quizResultList);
         quizResultListView.setCellFactory(listView -> new StatsQns.QuizResultListViewCell());
         quizResultDifficultyChart.setData(data);
-        quizResultDifficultyChart.setTitle("Difficulty levels");
-    }
-
-    public StatsQns(ObservableList<QuizResult> quizResultList) {
-        super(FXML);
-        quizResultListView.setItems(quizResultList);
-        quizResultListView.setCellFactory(listView -> new StatsQns.QuizResultListViewCell());
+        quizResultDifficultyChart.setTitle("Break down of questions");
     }
 
     public void setMouseover() {

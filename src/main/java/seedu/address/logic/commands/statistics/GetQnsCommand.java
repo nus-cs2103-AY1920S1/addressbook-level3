@@ -15,7 +15,7 @@ import seedu.address.model.quiz.exceptions.EmptyQuizResultListException;
  * Gets questions that have been answered correctly/incorrectly by subject.
  */
 public class GetQnsCommand extends Command {
-    public static final String COMMAND_WORD = "questions";
+    public static final String COMMAND_WORD = "question";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Gets all questions that have been answered "
             + "correctly/incorrectly for a particular subject by using either -c/-i respectively.\n"

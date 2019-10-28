@@ -208,25 +208,29 @@ Format: `quit`
 
 ==== Get statistics for subjects : `stats`
 
-Returns a pie chart of the number of questions that have been answered correctly and incorrectly.
+Returns a panel containing a break down of the questions by its results.
 You can choose to get the statistics for a difficulty level by adding `d/` or
-get the statistics of different subjects by adding `s/`. +
+get the statistics of different subjects by adding `s/`.
+Typing any other non-statistics command will close this panel. +
 Format: `stats [d/DIFFICULTY] [s/SUBJECT1] [s/SUBJECT2]...`
 
-==== Get questions with correct/incorrect answers: `questions`
-Gets all questions that have been answered correctly/incorrectly by using `-c/-i` respectively.
-Either one of `-c` or `-i` must be used, you can also filter by subjects by adding `s/`. +
-Format: `questions [-c] [-i] [s/SUBJECT1] [s/SUBJECT2]...`
+==== Get questions with correct/incorrect answers: `question`
+Get a panel containing all questions that have been answered correctly/incorrectly by using `-c/-i` respectively.
+Either one of `-c` or `-i` must be used. You can also filter by subjects by adding `s/`.
+Typing any other non-statistics command will close this panel. +
+Format: `question [-c] [-i] [s/SUBJECT1] [s/SUBJECT2]...`
 
 ==== Get a report for individual questions: `report`
-Returns a report of how well you have answered a particular question,
-the number of times the question has been attempted and the past answers to the question. +
+Returns a panel containing a report of how well you have answered a particular question,
+the number of times the question has been attempted and the past answers to the question.
+Typing any other non-statistics command will close this panel. +
 Format: `report INDEX`
 
-==== Get overview of questions attempted: `overviewq`
-Gets an overview of the types of questions that have been attempted overall.
-A stacked bar graph, sorted by subjects will be returned.
-You can also add a `dt/` field to get questions that you have done within that time period. +
+==== Get overview of questions attempted: `overview`
+Get an overview of the types of questions that have been attempted overall.
+A panel containing a stacked bar graph, sorted by subjects will be returned.
+You can also add a `dt/` field to get questions that you have done within that time period.
+Typing any other non-statistics command will close this panel. +
 Format: `overview [dt/START_DATE] [dt/END_DATE]`
 
 === Revision tasks

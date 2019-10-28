@@ -19,7 +19,7 @@ public class QuizResult {
     private final QuestionBody questionBody;
     private final Subject subject;
     private final Difficulty difficulty;
-    private final String quizTime; // need to convert to date object
+    private final String quizTime;
     private final boolean result;
 
     public QuizResult(Answer answer, QuestionBody questionBody, Subject subject, Difficulty difficulty,
@@ -57,7 +57,7 @@ public class QuizResult {
     }
 
     public String getResultToString() {
-        return result ? "Correct":"Incorrect";
+        return result ? "Correct": "Incorrect";
     }
 
     /**
