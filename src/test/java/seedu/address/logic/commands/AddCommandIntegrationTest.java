@@ -58,7 +58,6 @@ public class AddCommandIntegrationTest {
         expectedModel.addExecutedCommand(addCommand);
 
         UndoCommand undoCommand = new UndoCommand();
-
         String expectedMessage = String.format(MESSAGE_UNDO_SUCCESS, TYPICAL_BODY);
         assertCommandSuccess(undoCommand, model, expectedMessage, expectedModel);
     }
