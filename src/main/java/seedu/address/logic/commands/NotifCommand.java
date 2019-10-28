@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.model.entity.body.BodyStatus.CONTACT_POLICE;
 
+import java.io.IOException;
 import java.util.Optional;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -16,6 +17,7 @@ import seedu.address.logic.parser.utility.UpdateBodyDescriptor;
 import seedu.address.model.Model;
 import seedu.address.model.entity.body.Body;
 import seedu.address.model.notif.Notif;
+import seedu.address.storage.Storage;
 import seedu.address.ui.NotifWindow;
 import seedu.address.ui.NotificationButton;
 
@@ -31,6 +33,7 @@ public class NotifCommand extends Command {
     private static final Logger logger = LogsCenter.getLogger(NotifCommand.class);
 
     private static ScheduledExecutorService ses = Executors.newScheduledThreadPool(1);
+    private static Storage storageManager;
 
     private Notif toAdd;
     private long period;
@@ -86,6 +89,7 @@ public class NotifCommand extends Command {
      * @param model refers to the ModelManager
      */
     public void startSesChangeBodyStatusUi(Model model) throws CommandException {
+
         Body body = toAdd.getBody();
         String notifContent = "Body Id: " + body.getIdNum()
                 + "\nName: " + body.getName()
@@ -102,13 +106,13 @@ public class NotifCommand extends Command {
                     notifWindow.setContent(notifContent);
                     notifWindow.display();
                     // ses.shutdown();
-                } catch (CommandException e) {
+                    storageManager.saveAddressBook(model.getAddressBook());
+                } catch (CommandException | IOException e) {
                     logger.info("Error updating the body and fridge ");
                 }
             }
             NotificationButton.getInstanceOfNotifButton().setIconNumber(model.getNumberOfNotifs());
         });
-
         ses.schedule(changeUi, period, timeUnit);
     }
 
@@ -121,6 +125,10 @@ public class NotifCommand extends Command {
 
     public ScheduledExecutorService getSes() {
         return ses;
+    }
+
+    public static void setStorage(Storage storage) {
+        storageManager = storage;
     }
 }
 

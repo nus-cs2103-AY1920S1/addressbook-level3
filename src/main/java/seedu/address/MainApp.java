@@ -189,7 +189,8 @@ public class MainApp extends Application {
      * @param model refers to the model in use.
      * @throws CommandException if an error occurs during command execution.
      */
-    private void initializeNotifCommand(Model model) throws CommandException {
+    private void initializeNotifCommand(Model model) throws CommandException, IOException {
+        NotifCommand.setStorage(storage);
         List<Notif> notifList = model.getFilteredNotifList();
         long period = AddCommand.NOTIF_PERIOD * 1000;
         for (Notif notif : notifList) {
@@ -204,6 +205,7 @@ public class MainApp extends Application {
                     UpdateCommand up = new UpdateCommand(notif.getBody().getIdNum(), new UpdateBodyDescriptor(body));
                     up.setUpdateFromNotif(true);
                     up.execute(model);
+                    // storage.saveAddressBook(model.getAddressBook());
                 } else {
                     NotifCommand notifCommand = new NotifCommand(notif, notifPeriod, TimeUnit.MILLISECONDS);
                     notifCommand.execute(model);
