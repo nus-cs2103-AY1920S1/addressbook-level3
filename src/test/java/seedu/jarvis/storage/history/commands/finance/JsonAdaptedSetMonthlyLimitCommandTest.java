@@ -1,4 +1,4 @@
-package seedu.jarvis.storage.history.commands.course;
+package seedu.jarvis.storage.history.commands.finance;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Test;
 
 import seedu.jarvis.logic.commands.finance.SetMonthlyLimitCommand;
 import seedu.jarvis.model.finance.MonthlyLimit;
-import seedu.jarvis.storage.finance.JsonAdaptedSetMonthlyLimitCommand;
 
 /**
  * Tests the behaviour of {@code SetMonthlyLimitCommand}.
