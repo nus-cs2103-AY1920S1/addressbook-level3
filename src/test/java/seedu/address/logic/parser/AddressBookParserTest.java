@@ -32,6 +32,7 @@ import seedu.address.logic.commands.UpdateCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.parser.utility.UpdateBodyDescriptor;
 import seedu.address.model.entity.Sex;
+import seedu.address.model.entity.UniqueIdentificationNumberMaps;
 import seedu.address.model.entity.body.Body;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.BodyBuilder;
@@ -87,6 +88,7 @@ public class AddressBookParserTest {
     //@@author ambervoong
     @Test
     public void parseCommand_update() throws Exception {
+        UniqueIdentificationNumberMaps.clearAllEntries();
         Body body = new BodyBuilder().build();
         UpdateBodyDescriptor descriptor = new UpdateBodyDescriptor();
         descriptor.setSex(Sex.MALE);
@@ -100,13 +102,18 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_undo() throws Exception {
         assertTrue(parser.parseCommand(UndoCommand.COMMAND_WORD) instanceof UndoCommand);
+        assertTrue(parser.parseCommand(UndoCommand.SHORTCUT_WORD) instanceof UndoCommand);
         assertTrue(parser.parseCommand(UndoCommand.COMMAND_WORD + " 1") instanceof UndoCommand);
+        assertTrue(parser.parseCommand(UndoCommand.SHORTCUT_WORD + " 1") instanceof UndoCommand);
     }
 
     @Test
     public void parseCommand_redo() throws Exception {
         assertTrue(parser.parseCommand(RedoCommand.COMMAND_WORD) instanceof RedoCommand);
+        assertTrue(parser.parseCommand(RedoCommand.SHORTCUT_WORD) instanceof RedoCommand);
         assertTrue(parser.parseCommand(RedoCommand.COMMAND_WORD + " 1") instanceof RedoCommand);
+        assertTrue(parser.parseCommand(RedoCommand.SHORTCUT_WORD + " 1") instanceof RedoCommand);
+
     }
     //@@author
 

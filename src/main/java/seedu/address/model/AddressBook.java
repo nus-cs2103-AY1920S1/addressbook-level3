@@ -92,6 +92,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void setNotif(List<Notif> notifs) {
         this.notifs.setNotifs(notifs);
+        indicateModified();
     }
 
     /**
@@ -114,6 +115,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         setWorkers(newData.getWorkerList());
         setBodies(newData.getBodyList());
         setFridges(newData.getFridgeList());
+        setNotif(newData.getNotifList());
     }
 
     //// person-level operations
@@ -189,6 +191,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void addNotif(Notif n) {
         notifs.add(n);
+        indicateModified();
     }
 
     /**
@@ -206,7 +209,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     public String toString() {
         return entities.asUnmodifiableObservableListWorker().size() + " workers\n"
                 + entities.asUnmodifiableObservableListBody().size() + " bodies\n"
-                + entities.asUnmodifiableObservableListFridge().size() + " fridges";
+                + entities.asUnmodifiableObservableListFridge().size() + " fridges\n"
+                + notifs.asUnmodifiableObservableListNotif().size() + " notifs";
         // TODO: refine later
     }
 

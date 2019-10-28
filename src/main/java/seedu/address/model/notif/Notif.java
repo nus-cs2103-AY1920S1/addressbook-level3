@@ -4,7 +4,10 @@ import static seedu.address.model.entity.body.BodyStatus.ARRIVED;
 
 import java.util.Objects;
 import java.util.Optional;
+import java.util.logging.Logger;
 
+import seedu.address.commons.core.LogsCenter;
+import seedu.address.logic.commands.NotifCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.entity.body.Body;
 import seedu.address.model.entity.body.BodyStatus;
@@ -16,6 +19,8 @@ import seedu.address.model.entity.body.BodyStatus;
  * Guarantees: body is guanranteed to be present.
  */
 public class Notif {
+    private static final Logger logger = LogsCenter.getLogger(NotifCommand.class);
+
     private Body body;
     private Runnable alert;
 
@@ -27,9 +32,9 @@ public class Notif {
                 if (body.getBodyStatus().equals(Optional.of(ARRIVED))) {
                     try {
                         body.setBodyStatus(BodyStatus.parseBodyStatus(
-                                "pending police report"));
+                                "contact police"));
                     } catch (ParseException exp) {
-                        // todo what to do here?
+                        logger.info("Error updating the body and fridge ");
                     }
                 }
             }
@@ -90,3 +95,4 @@ public class Notif {
     }
 
 }
+//@@author

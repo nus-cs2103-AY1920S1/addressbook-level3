@@ -2,6 +2,7 @@ package seedu.address.model.entity.worker;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.model.entity.Sex.FEMALE;
 import static seedu.address.testutil.TypicalWorkers.ALICE;
@@ -15,6 +16,7 @@ import static seedu.address.testutil.WorkerBuilder.DEFAULT_PHONE;
 import static seedu.address.testutil.WorkerBuilder.DEFAULT_SEX;
 
 import java.util.Date;
+import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 
@@ -22,6 +24,8 @@ import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.entity.IdentificationNumber;
 import seedu.address.model.entity.PhoneNumber;
+import seedu.address.model.entity.Sex;
+import seedu.address.model.entity.UniqueIdentificationNumberMaps;
 import seedu.address.model.person.Name;
 import seedu.address.testutil.WorkerBuilder;
 
@@ -53,6 +57,26 @@ class WorkerTest {
             .withEmploymentStatus(WorkerBuilder.DEFAULT_EMPLOYMENT_STATUS).build();
         assertTrue(ALICE.isSameWorker(editedAlice));
     }
+
+    //@@author ambervoong
+    @Test
+    void generateNewStoredWorker_correctParameters_success() throws ParseException {
+        Name name = new Name(DEFAULT_NAME);
+        Date dateJoined = ParserUtil.parseDate("01/11/2019");
+        Worker actual = Worker.generateNewStoredWorker(name, Sex.MALE, dateJoined, 5);
+        assertEquals(IdentificationNumber.customGenerateId("W", 5), actual.getIdNum());
+        assertEquals(name, actual.getName());
+        assertEquals(Optional.empty(), actual.getPhone());
+    }
+
+    @Test
+    void generateNewStoredBody_wrongParameters_failure() throws ParseException {
+        Name name = new Name(DEFAULT_NAME);
+        Date dateJoined = ParserUtil.parseDate("01/11/2019");
+        assertThrows(IllegalArgumentException.class, () -> Worker.generateNewStoredWorker(name,
+                Sex.MALE, dateJoined, -1));
+    }
+    //@@author
 
     @Test
     public void equals() {
@@ -90,7 +114,9 @@ class WorkerTest {
 
     @Test
     void gettersAndSetters_correct() throws ParseException {
-        assertEquals(IdentificationNumber.customGenerateId("W", 1), ALICE.getIdNum());
+        UniqueIdentificationNumberMaps.clearAllEntries();
+        assertEquals(IdentificationNumber.customGenerateId("W", 1),
+                new WorkerBuilder().build().getIdNum());
         Worker testWorker = new WorkerBuilder().build();
 
         // Name
@@ -123,6 +149,7 @@ class WorkerTest {
 
     @Test
     void toString_correct() throws ParseException {
+        UniqueIdentificationNumberMaps.clearAllEntries();
         assertEquals(DEFAULT_NAME + " Worker ID: W00001" + " Sex: " + DEFAULT_SEX + " Phone: " + DEFAULT_PHONE
                 + " Date of Birth: " + ParserUtil.parseDate(DEFAULT_DATE_OF_BIRTH)
                 + " Date Joined: " + ParserUtil.parseDate(DEFAULT_DATE_JOINED)

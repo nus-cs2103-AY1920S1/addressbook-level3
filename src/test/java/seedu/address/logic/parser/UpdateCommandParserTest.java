@@ -23,6 +23,7 @@ import seedu.address.logic.parser.utility.UpdateFridgeDescriptor;
 import seedu.address.logic.parser.utility.UpdateWorkerDescriptor;
 import seedu.address.model.entity.IdentificationNumber;
 import seedu.address.model.entity.Sex;
+import seedu.address.model.entity.UniqueIdentificationNumberMaps;
 import seedu.address.model.entity.body.Body;
 import seedu.address.model.entity.fridge.Fridge;
 import seedu.address.model.entity.worker.Worker;
@@ -197,10 +198,12 @@ public class UpdateCommandParserTest {
 
     @Test
     public void parseWorker_fieldsPresent_success() throws ParseException {
+        UniqueIdentificationNumberMaps.clearAllEntries();
         Worker worker = new WorkerBuilder().build();
         UpdateWorkerDescriptor descriptor = new UpdateWorkerDescriptor();
         descriptor.setDateJoined(ParserUtil.parseDate("01/02/1313"));
 
+        System.out.println(worker.getIdNum());
         // Update command only requires one field to be specified at minimum
         assertParseSuccess(parser, " " + PREFIX_FLAG + "w " + PREFIX_IDENTIFICATION_NUMBER + " 1 "
                         + PREFIX_DATE_JOINED + " 01/02/1313",

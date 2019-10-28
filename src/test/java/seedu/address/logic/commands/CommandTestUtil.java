@@ -26,6 +26,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.entity.Entity;
+import seedu.address.model.entity.IdentificationNumber;
 import seedu.address.model.entity.body.Body;
 import seedu.address.model.entity.body.BodyNameContainsKeywordsPredicate;
 import seedu.address.model.entity.fridge.Fridge;
@@ -224,7 +225,7 @@ public class CommandTestUtil {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredPersonList().size());
 
         Person person = model.getFilteredPersonList().get(targetIndex.getZeroBased());
-        final String[] splitName = person.getName().fullName.split("\\s+");
+        final String[] splitName = person.getName().toString().split("\\s+");
         model.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
         assertEquals(1, model.getFilteredPersonList().size());
@@ -236,9 +237,9 @@ public class CommandTestUtil {
      */
     public static void showBodyAtIndex(Model model, Index targetIndex) {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredBodyList().size());
-
-        Body body = model.getFilteredBodyList().get(targetIndex.getZeroBased());
-        final String[] splitName = body.getName().fullName.split("\\s+");
+        IdentificationNumber id = IdentificationNumber.customGenerateId("B", targetIndex.getOneBased());
+        Body body = (Body) id.getMapping();
+        final String[] splitName = body.getName().toString().split("\\s+");
         model.updateFilteredBodyList(new BodyNameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
         assertEquals(1, model.getFilteredBodyList().size());
