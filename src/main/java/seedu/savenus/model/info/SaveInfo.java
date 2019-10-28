@@ -2,7 +2,6 @@ package seedu.savenus.model.info;
 
 import seedu.savenus.logic.commands.SaveCommand;
 
-//@@author fatclarence
 /**
  * Contains information on Save command.
  */
@@ -11,7 +10,7 @@ public class SaveInfo {
     public static final String COMMAND_WORD = SaveCommand.COMMAND_WORD;
 
     public static final String INFORMATION = "Save command allows you to save a specified "
-            + "amount of money from the wallet into the savings account.\n"
+            + "amount of money from the wallet into the savings account.\n\n"
             + "The Savings information will depend on the following factors:\n"
             + "Wallet amount\n"
             + "Amount specified\n\n";
