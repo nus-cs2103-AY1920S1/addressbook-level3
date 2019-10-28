@@ -52,7 +52,7 @@ import seedu.address.logic.util.AutoFillAction;
 import seedu.address.logic.util.ModeEnum;
 
 /**
- * Parses user input.
+ * Manages SpecificMode Parsers depending on internal state
  */
 public class ParserManager {
 
@@ -61,13 +61,28 @@ public class ParserManager {
      */
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
+
+    /**
+     * Used to maintain internal state.
+     */
     private ModeEnum mode;
     private boolean gameIsOver;
     private boolean bankLoaded;
 
+    /**
+     * Used to parse SwitchCommands.
+     */
     private SpecificModeParser switchParser;
+
+    /**
+     * Used to parse Commands belonging to current Mode.
+     */
     private SpecificModeParser currentParser;
 
+    /**
+     * Empty constructor that initialises switchParser
+     * and sets currentParser to HomeMode
+     */
     public ParserManager() {
         this.mode = ModeEnum.HOME;
         this.gameIsOver = true;
@@ -79,10 +94,19 @@ public class ParserManager {
         this.currentParser = setCurrentParser(this.mode);
     }
 
+    /**
+     * Gets current mode from internal state.
+     * @return ModeEnum representing current mode
+     */
     public ModeEnum getMode() {
         return mode;
     }
 
+    /**
+     * Constructs and returns a SpecificModeParser matching mode parameter.
+     * @param mode current mode
+     * @return SpecificModeParser that matches mode
+     */
     private SpecificModeParser setCurrentParser(ModeEnum mode) {
 
         SpecificModeParser temp = new SpecificModeParser();
@@ -122,14 +146,20 @@ public class ParserManager {
 
 
     /**
-     * Updates the current state of the Model and ParserManager based on whether
-     * {@code getHasBank} is true, and whether {@code gameIsOver}.
+     * Updates the current state of ParserManager based on input booleans.
+     * @param bankLoaded if bank is loaded
+     * @param gameIsOver if game is over
      */
     public void updateState(boolean bankLoaded, boolean gameIsOver) {
         this.bankLoaded = bankLoaded;
         this.gameIsOver = gameIsOver;
     }
 
+    /**
+     * Gets AutoFillAction objects based on input string.
+     * @param input current user input
+     * @return List of AutoFillActions
+     */
     public List<AutoFillAction> getAutoFill(String input) {
         List<AutoFillAction> temp = new ArrayList<>();
         if (gameIsOver && bankLoaded) {
@@ -169,6 +199,10 @@ public class ParserManager {
         throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
     }
 
+    /**
+     * Gets a list of modes available to switch to based on internal state
+     * @return a list of ModeEnum
+     */
     public List<ModeEnum> getModes() {
         List<ModeEnum> temp = new ArrayList<>();
         if (gameIsOver && bankLoaded) {
