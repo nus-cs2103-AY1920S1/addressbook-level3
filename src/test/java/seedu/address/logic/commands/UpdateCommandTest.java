@@ -244,6 +244,7 @@ public class UpdateCommandTest {
         String expectedMessage = MESSAGE_INVALID_ENTITY_DISPLAYED_ID;
 
         assertCommandFailure(updateCommand, model, expectedMessage);
+
     }
 
     // Note that a Fridge's status is automatically set to UNOCCUPIED if does not contain a body.
