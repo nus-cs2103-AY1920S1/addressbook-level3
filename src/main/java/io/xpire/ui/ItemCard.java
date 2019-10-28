@@ -31,7 +31,7 @@ public class ItemCard extends UiPart<Region> {
     @FXML
     private HBox cardPane;
     @FXML
-    private AnchorPane box;
+    private HBox box;
     @FXML
     private Label name;
     @FXML
@@ -61,6 +61,7 @@ public class ItemCard extends UiPart<Region> {
         }
         this.item.getTags()
                 .forEach(tag -> this.tags.getChildren().add(new Label(tag.getTagName())));
+        // this.remainingDays.setTest();
 
         box.setOnMouseClicked(e -> box.requestFocus());
     }
