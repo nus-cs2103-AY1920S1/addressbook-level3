@@ -3,6 +3,7 @@ package seedu.ezwatchlist.api;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Scanner;
 import java.util.Set;
 
 import info.movito.themoviedbapi.TmdbApi;
@@ -251,5 +252,18 @@ public class ApiMain implements ApiInterface {
             actors.add(actor);
         }
         return actors;
+    }
+
+    public static void main(String[] args) throws OnlineConnectionException {
+        Scanner sc = new Scanner(System.in);
+        String input = sc.next();
+        ApiMain m = new ApiMain();
+        List<TvShow> shows = m.getTvShowByName(input);
+        System.out.println();
+        for (int i = 1; i < shows.size(); i++) {
+            TvShow s = shows.get(i);
+            s.getGenres().getGenres().forEach(x -> System.out.println(x));
+
+        }
     }
 }
