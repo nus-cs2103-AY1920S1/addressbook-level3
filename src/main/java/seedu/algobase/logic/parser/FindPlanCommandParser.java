@@ -46,7 +46,8 @@ public class FindPlanCommandParser implements Parser {
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_DESCRIPTION,
                         PREFIX_START_DATE, PREFIX_END_DATE);
 
-        if (!arePrefixesPresent(argumentMultimap, PREFIX_NAME)
+        if (!arePrefixesPresent(argumentMultimap, PREFIX_NAME, PREFIX_DESCRIPTION,
+                PREFIX_START_DATE, PREFIX_END_DATE)
                 || !argumentMultimap.getPreamble().isBlank()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindPlanCommand.MESSAGE_USAGE));
         }
