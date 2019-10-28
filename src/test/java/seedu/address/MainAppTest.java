@@ -7,6 +7,7 @@ import org.testfx.assertions.api.Assertions;
 import org.testfx.framework.junit5.ApplicationExtension;
 import org.testfx.framework.junit5.ApplicationTest;
 import org.testfx.framework.junit5.Init;
+import seedu.address.ui.autocomplete.AutoCompleter;
 
 import javafx.scene.input.KeyCode;
 
@@ -64,10 +65,15 @@ public class MainAppTest extends ApplicationTest {
     public void autoCompleterTest(FxRobot robot) {
         var aco = robot.lookup("#autoCompleteOverlay").queryListView();
 
+        int expectedSearchResultSize = new AutoCompleter().update("a").getSuggestions().size();
         robot.clickOn("#commandTextField");
-        robot.write('a').type(KeyCode.UP);
+        robot.write('a');
         Assertions.assertThat(aco).isVisible();
-        Assertions.assertThat(aco.getSelectionModel().getSelectedIndex()).isEqualTo(3);
+        Assertions.assertThat(aco.getSelectionModel().getSelectedIndex()).isEqualTo(0);
+
+        robot.type(KeyCode.UP);
+        Assertions.assertThat(aco.getSelectionModel().getSelectedIndex())
+                .isEqualTo(expectedSearchResultSize - 1);
 
         robot.type(KeyCode.DOWN);
         Assertions.assertThat(aco.getSelectionModel().getSelectedIndex()).isEqualTo(0);
@@ -93,7 +99,7 @@ public class MainAppTest extends ApplicationTest {
     @Test
     public void enqueueAndDequeueTest(FxRobot robot) {
         robot.clickOn("#commandTextField").write("register i/001A n/John Doe p/98765432"
-                + " e/johnd@example.com a/311, Clementi Ave 2, #02-25 t/friends t/owesMoney").type(KeyCode.ENTER);
+                + " e/johnd@example.com a/311, Clementi Ave 2, #02-25").type(KeyCode.ENTER);
         robot.clickOn("#commandTextField").write("enqueue 001A").type(KeyCode.ENTER);
         Assertions.assertThat(lookup("#queueListView").queryListView()).hasExactlyNumItems(1);
         robot.write("dequeue 1").type(KeyCode.ENTER);
