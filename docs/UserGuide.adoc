@@ -227,15 +227,15 @@ facilitate the competition session will be presented in order below:
 This feature handles the entire flow of each session during Meet Day. It allows event organisers to submit an Athlete’s Squat, Bench, Deadlift attempts, as well as the success of their lifts. It will show the relevant information to prepare for the athletes lift (displaying name, weight, etc).
 The flow of events, and the commands to facilitate the competition session will be presented in order below:
 
-==== Prepare for a new session: `loadSess`
+==== Prepare for a new session: `session`
 Loads the session of SBD lifts for the given name of the competition (provided it exists), separated by a space.
 This will load all the athletes who are participating in this competition, and start the session associated with this competition.
 
-Format: `loadSess COMPETITION_NAME`
+Format: `session COMPETITION_NAME`
 
 Example:
 
-* `loadSess Test of Strength 2019`
+* `session Test of Strength 2019`
 
 ==== Submit attempts: `attempts`
 Submits all 9 attempts for the 3 lifts, separating the lifts by a single space, and the attempts for each lift with a slash.
@@ -251,44 +251,20 @@ Examples:
 
 * `attempts n/marcustay s/90/200/205 b/135/140/145 d/210/220/230`
 
-==== Starts the session `start`
-The session can be started after all participating athletes have submitted their 9 attempts for their 3 lifts.
-This command will sort the athletes and the weight they are attempting in increasing order, after being sorted in this order:
-Squat Attempts 1,2,3 , Bench Attempts 1,2,3 , Deadlift Attempts 1,2,3.
-
-Format: `start`
-
-Example:
-
-* `start`
-
 ==== Update lift or no lift: `lift`
-Updates whether the athlete succeeds in his attempt, or fails it.
+Updates whether the athlete succeeds in his/her attempt, or fails it.
+The lift updated will be the one that was just called up.
 
-Format: `lift n/NAME ATTEMPT_INDEX Y/N`
+Format: `lift Y/N`
 
 Examples:
 
-* `lift n/christabel teo 8 N`
+* `lift N`
 
-* `lift n/shawn koh 3 Y`
+* `lift Y`
 
 ==== Get the next lifter in line: `next`
 Retrieves the next lifter according to weight lifted for that attempt, the weights he/she is going for that particular lift and attempt.
+If there are no more attempts to be made by any lifter, this command will trigger the end of the competition.
 
-Format: `next`
-
-Example:
-
-* `next`
-
-==== End the current session: `end`
-Ends the ongoing session, and resets all data stored in the old session. 
-
-(This command will also be triggered when the user keys in `next` when there are no more attempts to be made by any participants.)
-
-Format: `end`
-
-Example:
-
-* `end`
+Format/Example: `next`
