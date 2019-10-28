@@ -72,7 +72,7 @@ Types include: +
 Examples: +
 `help cmd/add_contact type/brief` would show you a brief description of what the
 `add_contact` command does and how to use it+
-`help cmd/goto type/api` opens up a page in your browser 
+`help cmd/goto type/api` opens up a page in your browser
 and displays our API for the `goto` command+
 `help cmd/help type/guide` opens up a page in your browser and brings you right here! :smiley:
 
