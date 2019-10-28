@@ -127,6 +127,7 @@ An outline of how a command is processed through `Logic` is as follows:
 . The command execution can affect the `Model` (e.g. adding a person, transaction).
 . The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui` (not depicted).
 
+[[GeneralLogicSD]]
 A general sequence diagram depicting the above outline is shown below:
 
 .Sequence Diagram for execution within `Logic`.
