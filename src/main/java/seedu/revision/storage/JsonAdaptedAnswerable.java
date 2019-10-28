@@ -10,13 +10,14 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.revision.commons.exceptions.IllegalValueException;
-import seedu.revision.model.answerable.Answer;
 import seedu.revision.model.answerable.Answerable;
 
 import seedu.revision.model.answerable.Difficulty;
 import seedu.revision.model.answerable.Mcq;
 import seedu.revision.model.answerable.Question;
 import seedu.revision.model.answerable.Saq;
+import seedu.revision.model.answerable.TrueFalse;
+import seedu.revision.model.answerable.answer.Answer;
 import seedu.revision.model.category.Category;
 
 /**
@@ -62,6 +63,8 @@ class JsonAdaptedAnswerable {
             wrongAnswerSet.addAll(source.getWrongAnswerList().stream()
                     .map(JsonAdaptedAnswer::new)
                     .collect(Collectors.toList()));
+        } else if (source instanceof TrueFalse)  {
+            questionType = "tf";
         } else {
             questionType = "saq";
         }
@@ -86,18 +89,22 @@ class JsonAdaptedAnswerable {
         for (JsonAdaptedCategory category : categories) {
             answerableTags.add(category.toModelType());
         }
+
         final List<Answer> correctAnswers = new ArrayList<>();
         for (JsonAdaptedAnswer correctAnswer : correctAnswerSet) {
-            correctAnswers.add(correctAnswer.toModelType());
+            correctAnswers.add(correctAnswer.toModelType(questionType));
         }
+
         final List<Answer> wrongAnswers = new ArrayList<>();
         for (JsonAdaptedAnswer wrongAnswer : wrongAnswerSet) {
-            wrongAnswers.add(wrongAnswer.toModelType());
+            wrongAnswers.add(wrongAnswer.toModelType(questionType));
         }
+
         if (question == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     Question.class.getSimpleName()));
         }
+
         if (!Question.isValidQuestion(question)) {
             throw new IllegalValueException(Question.MESSAGE_CONSTRAINTS);
         }

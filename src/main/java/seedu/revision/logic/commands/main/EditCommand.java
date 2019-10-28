@@ -2,8 +2,11 @@ package seedu.revision.logic.commands.main;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.revision.logic.parser.CliSyntax.PREFIX_CATEGORY;
-import static seedu.revision.logic.parser.CliSyntax.PREFIX_DIFFICULTY;
+import static seedu.revision.logic.parser.CliSyntax.PREFIX_CORRECT;
 import static seedu.revision.logic.parser.CliSyntax.PREFIX_QUESTION;
+import static seedu.revision.logic.parser.CliSyntax.PREFIX_DIFFICULTY;
+import static seedu.revision.logic.parser.CliSyntax.PREFIX_QUESTION_TYPE;
+import static seedu.revision.logic.parser.CliSyntax.PREFIX_WRONG;
 import static seedu.revision.model.Model.PREDICATE_SHOW_ALL_ANSWERABLE;
 
 import java.util.ArrayList;
@@ -18,13 +21,14 @@ import seedu.revision.commons.core.index.Index;
 import seedu.revision.commons.util.CollectionUtil;
 import seedu.revision.logic.commands.Command;
 import seedu.revision.logic.commands.exceptions.CommandException;
+import seedu.revision.logic.parser.ParserUtil;
 import seedu.revision.model.Model;
-import seedu.revision.model.answerable.Answer;
 import seedu.revision.model.answerable.Answerable;
 import seedu.revision.model.answerable.Difficulty;
 import seedu.revision.model.answerable.Mcq;
 import seedu.revision.model.answerable.Question;
 import seedu.revision.model.answerable.Saq;
+import seedu.revision.model.answerable.answer.Answer;
 import seedu.revision.model.category.Category;
 
 /**
@@ -38,12 +42,14 @@ public class EditCommand extends Command {
             + "by the index number used in the displayed answerable list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
+            + " " + PREFIX_QUESTION_TYPE + " (compulsory, can only be mcq, tf, or saq) "
             + "[" + PREFIX_QUESTION + "QUESTION] "
             + "[" + PREFIX_DIFFICULTY + "DIFFICULTY] "
             + "[" + PREFIX_CATEGORY + "ADDRESS] "
             + "[" + PREFIX_CATEGORY + "category]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_DIFFICULTY + "91234567 ";
+            + PREFIX_QUESTION_TYPE + "mcq"
+            + PREFIX_DIFFICULTY + "1";
 
     public static final String MESSAGE_EDIT_ANSWERABLE_SUCCESS = "Edited Answerable: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
@@ -89,8 +95,8 @@ public class EditCommand extends Command {
      * Creates and returns a {@code Answerable} with the details of {@code answerableToEdit}
      * edited with {@code editAnswerableDescriptor}.
      */
-    private static Answerable createEditedAnswerable(Answerable answerableToEdit,
-                                                     EditAnswerableDescriptor editAnswerableDescriptor) {
+    private static Answerable createEditedAnswerable(
+            Answerable answerableToEdit, EditAnswerableDescriptor editAnswerableDescriptor) {
         assert answerableToEdit != null;
 
         Question updatedQuestion = editAnswerableDescriptor.getQuestion().orElse(answerableToEdit.getQuestion());

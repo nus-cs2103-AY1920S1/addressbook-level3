@@ -19,6 +19,11 @@ import seedu.revision.logic.commands.exceptions.CommandException;
 import seedu.revision.logic.commands.main.CommandResult;
 import seedu.revision.logic.parser.exceptions.ParseException;
 import seedu.revision.model.answerable.Answerable;
+import seedu.revision.model.answerable.Mcq;
+import seedu.revision.model.answerable.TrueFalse;
+import seedu.revision.ui.answers.AnswersGridPane;
+import seedu.revision.ui.answers.McqAnswersGridPane;
+import seedu.revision.ui.answers.TfAnswersGridPane;
 
 
 /**
@@ -63,7 +68,14 @@ public class StartQuizWindow extends Window {
         answerableIterator = filteredAnswerableList.iterator();
         currentAnswerable = answerableIterator.next();
 
-        answersGridPane = new AnswersGridPane(currentAnswerable);
+        if (currentAnswerable instanceof Mcq) {
+            answersGridPane = new McqAnswersGridPane(AnswersGridPane.MCQ_GRID_PANE_FXML, currentAnswerable);
+        } else if (currentAnswerable instanceof TrueFalse) {
+            answersGridPane = new TfAnswersGridPane(AnswersGridPane.TF_GRID_PANE_FXML, currentAnswerable);
+        } else {
+
+        }
+
         answerableListPanelPlaceholder.getChildren().add(answersGridPane.getRoot());
 
         questionDisplay = new ResultDisplay();
@@ -135,10 +147,13 @@ public class StartQuizWindow extends Window {
      */
     @FXML
     protected void handleExit() {
-        //TODO: Need to restore the list to normal state. List gets filtered when quiz starts.
         mainWindow = new MainWindow(getPrimaryStage(), mainLogic, quizLogic);
         mainWindow.show();
         mainWindow.fillInnerParts();
+        mainWindow.resultDisplay.setFeedbackToUser("You attempted these questions." +
+                "Type 'list' to view your full list of questions again.");
+        resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
+
     }
 
     public AnswerableListPanel getAnswerableListPanel() {
@@ -155,7 +170,7 @@ public class StartQuizWindow extends Window {
         try {
             CommandResult commandResult = quizLogic.execute(commandText, currentAnswerable);
             logger.info("Question result: " + commandResult.getFeedbackToUser());
-            if (commandResult.getFeedbackToUser() == "correct") {
+            if (commandResult.getFeedbackToUser().equalsIgnoreCase("correct")) {
                 // TODO: KhiangLeon use the updateStatistics() method here or in McqInputCommand#execute.
                 //  Both has access to the answerable.
                 score++;

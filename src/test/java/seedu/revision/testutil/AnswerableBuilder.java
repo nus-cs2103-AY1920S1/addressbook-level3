@@ -5,8 +5,9 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
-import seedu.revision.model.answerable.Answer;
 import seedu.revision.model.answerable.Answerable;
+import seedu.revision.model.answerable.answer.Answer;
+import seedu.revision.model.answerable.answer.McqAnswer;
 import seedu.revision.model.answerable.Difficulty;
 import seedu.revision.model.answerable.Mcq;
 import seedu.revision.model.answerable.Question;
@@ -21,8 +22,8 @@ public class AnswerableBuilder {
     public static final String DEFAULT_QUESTION = "Greenfield projects are easier than brownfield projects";
     public static final String DEFAULT_DIFFICULTY = "1";
     public static final String DEFAULT_CATEGORY = "CATEGORY";
-    private static final Answer defaultCorrectAnswerSet = new Answer("CORRECT");
-    private static final Answer defaultWrongAnswerSet = new Answer("WRONG");
+    private static final Answer defaultCorrectAnswerSet = new McqAnswer("CORRECT");
+    private static final Answer defaultWrongAnswerSet = new McqAnswer("WRONG");
 
     private Question question;
     private ArrayList<Answer> correctAnswerList;
@@ -36,9 +37,9 @@ public class AnswerableBuilder {
         difficulty = new Difficulty(DEFAULT_DIFFICULTY);
         correctAnswerList = new ArrayList<>(Arrays.asList(defaultCorrectAnswerSet));
         wrongAnswerList = new ArrayList<>();
-        wrongAnswerList.add(new Answer("Wrong answer A"));
-        wrongAnswerList.add(new Answer("Wrong answer B"));
-        wrongAnswerList.add(new Answer("Wrong answer C"));
+        wrongAnswerList.add(new McqAnswer("Wrong answer A"));
+        wrongAnswerList.add(new McqAnswer("Wrong answer B"));
+        wrongAnswerList.add(new McqAnswer("Wrong answer C"));
         categories = new HashSet<>();
         categories.add(new Category(DEFAULT_CATEGORY));
     }

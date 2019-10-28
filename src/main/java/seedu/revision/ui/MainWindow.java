@@ -53,8 +53,8 @@ public class MainWindow extends Window {
             startQuizWindow.show();
             startQuizWindow.fillInnerParts();
         } else {
-            resultDisplay.setFeedbackToUser("Cannot initialise quiz with empty question bank.");
-            throw new CommandException("Cannot initialise quiz with empty question bank.");
+            throw new CommandException("No questions were found matching that category/difficulty" +
+                    "Quiz start aborted. Type 'list' to view your full list of questions again.");
         }
     }
     /**

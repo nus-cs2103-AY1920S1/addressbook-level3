@@ -10,9 +10,12 @@ import java.util.Set;
 import seedu.revision.commons.core.index.Index;
 import seedu.revision.commons.util.StringUtil;
 import seedu.revision.logic.parser.exceptions.ParseException;
-import seedu.revision.model.answerable.Answer;
 import seedu.revision.model.answerable.Difficulty;
 import seedu.revision.model.answerable.Question;
+import seedu.revision.model.answerable.answer.Answer;
+import seedu.revision.model.answerable.answer.McqAnswer;
+import seedu.revision.model.answerable.answer.SaqAnswer;
+import seedu.revision.model.answerable.answer.TfAnswer;
 import seedu.revision.model.category.Category;
 import seedu.revision.model.quiz.Mode;
 
@@ -23,29 +26,54 @@ public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
 
+
     /**
      * Parses a {@code String answer} into a {@code Answer}.
      * Leading and trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code answer} is invalid.
      */
-    public static Answer parseAnswer(String answer) throws ParseException {
+    private static Answer parseAnswer(String answer, String type ) throws ParseException {
         requireNonNull(answer);
         String trimmedAnswer = answer.trim();
-        if (!Answer.isValidAnswer(trimmedAnswer)) {
-            throw new ParseException(Answer.MESSAGE_CONSTRAINTS);
+        boolean answerIsValid;
+
+        switch (type) {
+        case "tf":
+            answerIsValid = Answer.isValidAnswer(trimmedAnswer, TfAnswer.VALIDATION_REGEX);
+            if (!answerIsValid) {
+                throw new ParseException(TfAnswer.MESSAGE_CONSTRAINTS);
+            } else {
+                return new TfAnswer(trimmedAnswer);
+            }
+        case "saq":
+            answerIsValid = Answer.isValidAnswer(trimmedAnswer, SaqAnswer.VALIDATION_REGEX);
+            if (!answerIsValid) {
+                throw new ParseException(SaqAnswer.MESSAGE_CONSTRAINTS);
+            } else {
+                return new SaqAnswer(trimmedAnswer);
+            }
+        case "mcq":
+            answerIsValid = Answer.isValidAnswer(trimmedAnswer, McqAnswer.VALIDATION_REGEX);
+            if (!answerIsValid) {
+                throw new ParseException(SaqAnswer.MESSAGE_CONSTRAINTS);
+            } else {
+                return new McqAnswer(trimmedAnswer);
+            }
+        default:
+            throw new ParseException(QuestionType.MESSAGE_CONSTRAINTS);
         }
-        return new Answer(trimmedAnswer);
     }
+
 
     /**
      * Parses {@code Collection<String> answers} into a {@code Set<Answer>}.
      */
-    public static ArrayList<Answer> parseAnswers(Collection<String> answers) throws ParseException {
+    public static ArrayList<Answer> parseAnswers(Collection<String> answers, String type) throws ParseException {
         requireNonNull(answers);
         final ArrayList<Answer> answerList = new ArrayList<>();
         for (String answer : answers) {
-            Answer newAnswer = parseAnswer(answer);
+            Answer newAnswer = parseAnswer(answer, type);
             if (answerList.contains(newAnswer)) {
                 throw new ParseException(Answer.MESSAGE_CONSTRAINTS);
             }
@@ -53,6 +81,9 @@ public class ParserUtil {
         }
         return answerList;
     }
+
+
+
 
     /**
      * Parses {@code questionType} into an {@code QuestionType} and returns it. Leading and trailing whitespaces will be

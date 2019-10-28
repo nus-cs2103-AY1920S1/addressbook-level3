@@ -1,23 +1,16 @@
-package seedu.revision.ui;
+package seedu.revision.ui.answers;
 
 import java.util.ArrayList;
 import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.layout.Region;
 import seedu.revision.commons.core.LogsCenter;
-import seedu.revision.model.answerable.answer.Answer;
 import seedu.revision.model.answerable.Answerable;
+import seedu.revision.model.answerable.answer.Answer;
 
-/**
- * Shows available answers/options to the user during quiz.
- */
-public class AnswersGridPane extends UiPart<Region> {
-
-    private static final String FXML = "AnswersGridPane.fxml";
-    public final Answerable answerable;
-    private final Logger logger = LogsCenter.getLogger(AnswersGridPane.class);
+public class McqAnswersGridPane extends AnswersGridPane {
+    private final Logger logger = LogsCenter.getLogger(McqAnswersGridPane.class);
 
     @FXML
     private Button option1;
@@ -28,10 +21,8 @@ public class AnswersGridPane extends UiPart<Region> {
     @FXML
     private Button option4;
 
-
-    public AnswersGridPane(Answerable answerable) {
-        super(FXML);
-        this.answerable = answerable;
+    public McqAnswersGridPane(String fxml, Answerable answerable) {
+        super(fxml, answerable);
         ArrayList<Answer> answerList = answerable.getCombinedAnswerList();
         option1.setText(answerList.get(0).toString());
         option2.setText(answerList.get(1).toString());
@@ -40,10 +31,6 @@ public class AnswersGridPane extends UiPart<Region> {
         this.getRoot().getStyleClass().add("option-label");
     }
 
-    /**
-     * Updates the grid pane with updated answers.
-     * @param answerable the question to be answered.
-     */
     public void updateAnswers(Answerable answerable) {
         ArrayList<Answer> answerList = answerable.getCombinedAnswerList();
         option1.setText(answerList.get(0).toString());
@@ -61,11 +48,11 @@ public class AnswersGridPane extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof AnswersGridPane)) {
+        if (!(other instanceof McqAnswersGridPane)) {
             return false;
         }
         // state check
-        AnswersGridPane answersGrid = (AnswersGridPane) other;
+        McqAnswersGridPane answersGrid = (McqAnswersGridPane) other;
         return answerable.equals(answersGrid.answerable);
     }
 }

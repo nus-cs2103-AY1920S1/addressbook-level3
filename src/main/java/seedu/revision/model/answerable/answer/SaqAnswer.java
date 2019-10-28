@@ -1,4 +1,5 @@
-package seedu.revision.model.answerable;
+package seedu.revision.model.answerable.answer;
+
 
 import static java.util.Objects.requireNonNull;
 import static seedu.revision.commons.util.AppUtil.checkArgument;
@@ -7,24 +8,18 @@ import static seedu.revision.commons.util.AppUtil.checkArgument;
  * Represents a Answer in the revision tool.
  * Guarantees: immutable; name is valid as declared in {@link #isValidAnswer(String)}
  */
-public class Answer {
+public class SaqAnswer implements Answer {
 
     public static final String MESSAGE_CONSTRAINTS = "Answers should not be blank";
     public static final String VALIDATION_REGEX = "(.*\n*.*)*";
 
-    private String answer;
-
+    public final String answer;
     /**
-     * Default Constructor for Answer.
-     */
-    public Answer() {}
-
-    /**
-     * Constructs a {@code Answer}.
+     * Constructs a {@code SaqAnswer}.
      *
-     * @param answer A valid category name.
+     * @param answer A valid saq answer.
      */
-    public Answer(String answer) {
+    public SaqAnswer(String answer) {
         requireNonNull(answer);
         checkArgument(isValidAnswer(answer), MESSAGE_CONSTRAINTS);
         this.answer = answer;
@@ -33,20 +28,16 @@ public class Answer {
     /**
      * Returns true if a given string is a valid category name.
      */
-    public static boolean isValidAnswer(String test) {
+    @Override
+    public boolean isValidAnswer(String test) {
         return test.matches(VALIDATION_REGEX);
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Answer // instanceof handles nulls
-                && answer.equals(((Answer) other).answer)); // state check
-    }
-
-    @Override
-    public int hashCode() {
-        return answer.hashCode();
+                || (other instanceof SaqAnswer // instanceof handles nulls
+                && answer.equals(((SaqAnswer) other).answer)); // state check
     }
 
     /**
@@ -54,6 +45,11 @@ public class Answer {
      */
     public String toString() {
         return answer;
+    }
+
+    @Override
+    public int hashCode() {
+        return answer.hashCode();
     }
 
 }

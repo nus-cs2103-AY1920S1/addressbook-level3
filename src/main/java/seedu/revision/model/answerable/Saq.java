@@ -3,6 +3,7 @@ package seedu.revision.model.answerable;
 import java.util.ArrayList;
 import java.util.Set;
 
+import seedu.revision.model.answerable.answer.Answer;
 import seedu.revision.model.category.Category;
 
 /**
@@ -37,5 +38,4 @@ public class Saq extends Answerable {
         getCategories().forEach(builder::append);
         return builder.toString();
     }
-
 }

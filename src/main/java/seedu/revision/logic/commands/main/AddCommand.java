@@ -27,7 +27,7 @@ public class AddCommand extends Command {
             + PREFIX_DIFFICULTY + "DIFFICULTY "
             + PREFIX_CATEGORY + "[CATEGORY]...\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_QUESTION_TYPE + "mcq"
+            + PREFIX_QUESTION_TYPE + "mcq "
             + PREFIX_QUESTION + "Which of the following gives us the highest intensity of testing? "
             + PREFIX_WRONG + "50% statement coverage "
             + PREFIX_CORRECT + "100% path coverage "

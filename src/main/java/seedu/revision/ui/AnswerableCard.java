@@ -7,8 +7,8 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import seedu.revision.model.answerable.Answer;
 import seedu.revision.model.answerable.Answerable;
+import seedu.revision.model.answerable.answer.Answer;
 
 /**
  * An UI component that displays information of a {@code Answerable}.

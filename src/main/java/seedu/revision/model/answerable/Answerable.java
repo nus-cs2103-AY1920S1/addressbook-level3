@@ -11,22 +11,23 @@ import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import seedu.revision.model.answerable.answer.Answer;
 import seedu.revision.model.category.Category;
+
 /**
  * Represents a Answerable in the Test Bank.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public abstract class Answerable {
 
-    private static final Logger logger = Logger.getLogger(Answerable.class.getName());
+    protected final Question question;
+    protected final Difficulty difficulty;
+    protected final ArrayList<Answer> correctAnswerList;
+    protected final ArrayList<Answer> wrongAnswerList;
+    protected final ArrayList<Answer> combinedAnswerList;
+    protected final Set<Category> categories = new HashSet<>();
 
-    private final Question question;
-    private final Difficulty difficulty;
-
-    private final ArrayList<Answer> correctAnswerList;
-    private final ArrayList<Answer> wrongAnswerList;
-    private final ArrayList<Answer> combinedAnswerList;
-    private final Set<Category> categories = new HashSet<>();
+    private final static Logger logger = Logger.getLogger(Answerable.class.getName());
 
     /**
      * Every field must be present and not null.
