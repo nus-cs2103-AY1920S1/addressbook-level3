@@ -23,7 +23,7 @@ public class StatsParseUtil {
     /**
      * list of valid stat types
      */
-    private static final String regexList = "\\bPROFIT\\b|\\bCOST\\b|\\bREVENUE\\b";
+    private static final String regexList = "\\bprofit\\b|\\bcost\\b|\\brevenue\\b";
 
     /**
      * Returns true if a given string is a valid Stat Type.

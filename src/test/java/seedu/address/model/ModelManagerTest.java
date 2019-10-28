@@ -26,7 +26,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.customer.Customer;
-import seedu.address.model.customer.predicates.CustomerNameContainsKeywordsPredicate;
+import seedu.address.model.customer.predicates.CustomerContainsKeywordsPredicate;
 import seedu.address.model.order.Order;
 import seedu.address.model.phone.Phone;
 import seedu.address.model.schedule.Schedule;
@@ -339,7 +339,7 @@ public class ModelManagerTest {
 
         // different filteredList -> returns false
         String[] keywords = DANIEL.getCustomerName().fullName.split("\\s+");
-        modelManager.updateFilteredCustomerList(new CustomerNameContainsKeywordsPredicate(Arrays.asList(keywords)));
+        modelManager.updateFilteredCustomerList(new CustomerContainsKeywordsPredicate(Arrays.asList(keywords)));
         assertFalse(modelManager.equals(new ModelManager(customerBook, phoneBook, orderBook, scheduleBook,
                 archivedOrderBook, userPrefs)));
 

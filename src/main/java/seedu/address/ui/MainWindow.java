@@ -49,6 +49,7 @@ public class MainWindow extends UiPart<Stage> {
     private HelpWindow helpWindow;
     private TabPanel tabPanel;
     private StatisticsWindow statsWindow;
+    private DefaultStatisticsWindow defaultStatsWindow;
 
     //real panels
     private CustomerListPanel customerListPanel;
@@ -202,18 +203,18 @@ public class MainWindow extends UiPart<Stage> {
             switch (statsPayload.getStatisticType()) {
             case PROFIT:
                 String totalProfitResult = this.logic.calculateTotalProfit(statsPayload);
-                this.statsWindow = new StatisticsWindow(totalProfitResult, "Total Profit");
-                this.statsWindow.show();
+                this.defaultStatsWindow = new DefaultStatisticsWindow(totalProfitResult, "Total Profit");
+                this.defaultStatsWindow.show();
                 break;
             case REVENUE:
                 String totalRevenueResult = this.logic.calculateTotalRevenue(statsPayload);
-                this.statsWindow = new StatisticsWindow(totalRevenueResult, "Total Revenue");
-                this.statsWindow.show();
+                this.defaultStatsWindow = new DefaultStatisticsWindow(totalRevenueResult, "Total Revenue");
+                this.defaultStatsWindow.show();
                 break;
             case COST:
                 String totalCostResult = this.logic.calculateTotalCost(statsPayload);
-                this.statsWindow = new StatisticsWindow(totalCostResult, "Total Cost");
-                this.statsWindow.show();
+                this.defaultStatsWindow = new DefaultStatisticsWindow(totalCostResult, "Total Cost");
+                this.defaultStatsWindow.show();
                 break;
             default:
                 throw new EnumNotPresentException("Enum not present in stat command");

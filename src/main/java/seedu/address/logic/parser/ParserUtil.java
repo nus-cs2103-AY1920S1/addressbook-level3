@@ -315,20 +315,26 @@ public class ParserUtil {
      */
     public static StatisticType parseStatsType(String statsInput) throws ParseException {
         requireNonNull(statsInput);
+        System.out.println(statsInput);
+
         String trimmedStatsType = statsInput.trim();
+        String[] checkInvalidChara = trimmedStatsType.split(" ");
+        if (checkInvalidChara.length > 1) {
+            throw new ParseException(Messages.STATS_MESSAGE_CONSTRAINTS_NO_INVALID_CHAR);
+        }
         if (!StatsParseUtil.isValidStatType(trimmedStatsType)) {
             throw new ParseException(Messages.STATS_MESSAGE_CONSTRAINTS);
         }
         switch (trimmedStatsType) {
-        case "PROFIT":
+        case "profit":
             return StatisticType.PROFIT;
-        case "COST":
+        case "cost":
             return StatisticType.COST;
-        case "REVENUE":
+        case "revenue":
             return StatisticType.REVENUE;
         default:
             throw new ParseException("Invalid type of Statistics. Only possible ones include:\n"
-                    + "PROFIT, COST, REVENUE");
+                    + "profit, cost , revenue");
         }
     }
 

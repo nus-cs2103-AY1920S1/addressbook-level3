@@ -175,12 +175,12 @@ Accepts two types of input: Without date input and with date input +
 
 Generates the statistics with no date input. +
 Used for calculating `total profit` , `total Revenue` and `total Cost`. +
-Format: `generate-s s/STAT` +
-Type for `STAT` includes: `PROFIT`, `REVENUE`, `COST` +
+Format: `generate-s s/stat` +
+Type for `stat` includes: `profit`, `revenue`, `cost` +
 
 Generates the statistics with date input in chart format (in pop-up modal dialog). +
-Format: `generate-s s/STAT d1/YYYY.MM.DD d2/YYYY.MM.DD` +
-Example: `generate-s s/REVENUE d1/2019.10.16 d2/2019.11.21` +
+Format: `generate-s s/stat d1/YYYY.MM.DD d2/YYYY.MM.DD` +
+Example: `generate-s s/revenue d1/2019.10.16 d2/2019.11.21` +
 Format for date is in YYYY.MM.DD e.g `2019.05.12`
 
 
