@@ -196,7 +196,7 @@ Displays a list of all spending and their information such as name, date, cost, 
 Format: `list`
 
 [NOTE]
-List is sorted by descending order of date, followed by descending order of cost.
+List is sorted by descending order of date, followed by descending order of cost and lastly, by ascending order of name.
 
 [NOTE]
 This command is implicitly invoked upon application start up, and can be used to reset the view after find or sort.
