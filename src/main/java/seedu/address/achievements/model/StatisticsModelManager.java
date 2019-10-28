@@ -1,21 +1,26 @@
 package seedu.address.achievements.model;
 
-import javafx.beans.binding.Bindings;
-import javafx.beans.binding.IntegerBinding;
-import javafx.collections.ObservableList;
-import seedu.address.address.model.person.Person;
+import javafx.scene.chart.XYChart;
+import seedu.address.address.model.AddressBookStatisticsModel;
 
+/**
+ * Represents the in-memory statisticsModel.
+ */
 public class StatisticsModelManager implements StatisticsModel {
 
-    private final ObservableList<Person> filteredPersonList;
+    private final AddressBookStatisticsModel addressBookStatisticsModel;
 
-    public StatisticsModelManager(ObservableList<Person> filteredPersonList) {
-        this.filteredPersonList = filteredPersonList;
-        IntegerBinding sizeProperty = Bindings.size(filteredPersonList);
+    public StatisticsModelManager(AddressBookStatisticsModel addressBookStatisticsModel) {
+        this.addressBookStatisticsModel = addressBookStatisticsModel;
     }
 
     @Override
     public int getTotalPersons() {
-        return filteredPersonList.size();
+        return addressBookStatisticsModel.getTotalPersons();
+    }
+
+    @Override
+    public XYChart.Series<Integer, String> getAddressChartData() {
+        return addressBookStatisticsModel.getAddressChartData();
     }
 }
