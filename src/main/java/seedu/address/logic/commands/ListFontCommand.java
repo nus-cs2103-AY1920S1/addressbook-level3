@@ -5,13 +5,14 @@ import static java.util.Objects.requireNonNull;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 
+/**
+ * Lists all available fonts.
+ */
 public class ListFontCommand extends Command {
 
     public static final String COMMAND_WORD = "listFont";
 
     public static final String MESSAGE_SUCCESS = "Listed all fonts";
-
-    //private final FontName fontName;
 
     public ListFontCommand() {
     }

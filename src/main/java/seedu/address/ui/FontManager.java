@@ -13,10 +13,10 @@ import java.util.Objects;
  */
 public class FontManager {
 
-    public static final List<FontName> fonts = generateFontNames();
-    public static final String MESSAGE_CONSTRAINTS = "Font name should be one of the following: " + fonts.toString();
+    public static final List<FontName> FONTS = generateFontNames();
+    public static final String MESSAGE_CONSTRAINTS = "Font name should be one of the following: " + FONTS.toString();
 
-    public FontName currentFontName;
+    private FontName currentFontName;
 
     /**
      * Empty constructor for FontManager class.
@@ -44,7 +44,7 @@ public class FontManager {
     }
 
     public List<FontName> getFonts() {
-        return fonts;
+        return FONTS;
     }
 
     public FontName getCurrentFontName() {
@@ -61,14 +61,14 @@ public class FontManager {
      * Returns true if specified font name exists in the list of valid font names.
      */
     private static boolean isValidFontName(FontName test) {
-        return fonts.contains(test);
+        return FONTS.contains(test);
     }
 
     /**
      * Returns true if specified font name exists in the list of valid font names.
      */
     public static boolean isValidFontName(String test) {
-        return fonts.contains(new FontName(test));
+        return FONTS.contains(new FontName(test));
     }
 
     @Override
@@ -80,7 +80,7 @@ public class FontManager {
 
     @Override
     public int hashCode() {
-        return Objects.hash(fonts, currentFontName);
+        return Objects.hash(FONTS, currentFontName);
     }
 
 }

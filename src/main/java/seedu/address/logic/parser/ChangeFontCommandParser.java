@@ -12,6 +12,11 @@ import seedu.address.ui.FontName;
  */
 public class ChangeFontCommandParser implements Parser<ChangeFontCommand> {
 
+    /**
+     * Parses the given {@code String} of arguments in the context of ChangeFontCommand and
+     * returns a ChangeFontCommand object for execution.
+     * @throws ParseException if the user does not conform to the expected format
+     */
     public ChangeFontCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args);
@@ -21,7 +26,9 @@ public class ChangeFontCommandParser implements Parser<ChangeFontCommand> {
         try {
             fontName = ParserUtil.parseFontName(argMultimap.getPreamble());
         } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ChangeFontCommand.MESSAGE_USAGE), pe);
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, ChangeFontCommand.MESSAGE_USAGE),
+                    pe);
         }
 
         return new ChangeFontCommand(fontName);

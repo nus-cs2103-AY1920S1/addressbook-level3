@@ -252,7 +252,8 @@ public class MainWindow extends UiPart<Stage> {
      */
     private String handleListFonts(String oldFeedbackToUser) {
         FontManager fontManager = new FontManager();
-        String feedbackToUserWithFontList = oldFeedbackToUser + ": " + Arrays.toString(fontManager.getFonts().toArray());
+        String feedbackToUserWithFontList = oldFeedbackToUser + ": "
+                + Arrays.toString(fontManager.getFonts().toArray());
         logger.info("Listed all fonts");
         return feedbackToUserWithFontList;
     }
