@@ -1,11 +1,11 @@
-package seedu.address.achievements.model;
+package seedu.address.address.model;
 
 import javafx.scene.chart.XYChart;
 
 /**
- * The API of the StatisticsModel component.
+ * Restricted view of address book model for generating statistics.
  */
-public interface StatisticsModel {
+public interface AddressBookStatisticsModel {
 
     /**
      * Get statistics of number of total contacts in Address Book.

@@ -1,20 +1,19 @@
 package seedu.address.address.logic.commands;
 
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.address.logic.parser.CliSyntax.PREFIX_REMARK;
 import static seedu.address.address.model.AddressBookModel.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.List;
 
-import seedu.address.commons.core.Messages;
-import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.address.model.AddressBookModel;
 import seedu.address.address.model.person.Person;
 import seedu.address.address.model.person.Remark;
+import seedu.address.commons.core.Messages;
+import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
+import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.exceptions.CommandException;
 
 /**
  * Changes the remark of an existing person in the address book.
@@ -38,7 +37,7 @@ public class RemarkCommand extends Command<AddressBookModel> {
     private final Remark remark;
 
     /**
-     * @param index of the person in the filtered person list to edit the remark
+     * @param index  of the person in the filtered person list to edit the remark
      * @param remark of the person to be updated to
      */
     public RemarkCommand(Index index, Remark remark) {
@@ -47,6 +46,7 @@ public class RemarkCommand extends Command<AddressBookModel> {
         this.index = index;
         this.remark = remark;
     }
+
     @Override
     public CommandResult execute(AddressBookModel addressBookModel) throws CommandException {
         List<Person> lastShownList = addressBookModel.getFilteredPersonList();
