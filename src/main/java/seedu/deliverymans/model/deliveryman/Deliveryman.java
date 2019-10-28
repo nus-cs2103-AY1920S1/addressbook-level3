@@ -23,7 +23,7 @@ public class Deliveryman {
     private final Phone phone;
 
     // Data fields
-    private final DeliveryRecord deliveryHistory;
+    private final DeliveryRecord deliveryRecord;
     private final Set<Tag> tags = new HashSet<>();
     private StatusTag status;
 
@@ -36,7 +36,7 @@ public class Deliveryman {
         this.phone = phone;
         this.tags.addAll(tags);
         status = new StatusTag("UNAVAILABLE"); // editing field will affect status
-        deliveryHistory = null;
+        deliveryRecord = new DeliveryRecord(name);
     }
 
     public Deliveryman(Name name, Phone phone, Set<Tag> tags, StatusTag status) {
@@ -45,7 +45,7 @@ public class Deliveryman {
         this.phone = phone;
         this.tags.addAll(tags);
         this.status = status; // editing other fields will affect status
-        deliveryHistory = null;
+        deliveryRecord = new DeliveryRecord(name);
     }
 
     /**

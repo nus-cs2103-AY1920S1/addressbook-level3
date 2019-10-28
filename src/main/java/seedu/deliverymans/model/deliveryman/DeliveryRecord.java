@@ -13,6 +13,7 @@ public class DeliveryRecord {
     private Name name;
     private LocalDateTime timeJoined;
     private int noOrdersCompleted;
+    private int noOrdersUncompleted;
 
     public DeliveryRecord(Name name) {
         this.name = name;
@@ -30,6 +31,10 @@ public class DeliveryRecord {
 
     public int getNoOrdersCompleted() {
         return noOrdersCompleted;
+    }
+
+    public int getNoOrdersUncompleted() {
+        return noOrdersUncompleted;
     }
 
     /**
@@ -64,7 +69,6 @@ public class DeliveryRecord {
                 .append(getNoOrdersCompleted());
         return builder.toString();
     }
-
 
     @Override
     public int hashCode() {
