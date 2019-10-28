@@ -2,6 +2,7 @@
 
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Scene?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
@@ -9,65 +10,62 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.Scene?>
 <?import javafx.stage.Stage?>
-<fx:root minHeight="600" minWidth="450" onCloseRequest="#handleExit" title="ExerHealth App" type="javafx.stage.Stage"
-         xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+
+<?import javafx.scene.control.Label?>
+<fx:root minHeight="600" minWidth="450" onCloseRequest="#handleExit" title="ExerHealth App" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <icons>
-        <Image url="@/images/ExerHealth.png"/>
+        <Image url="@/images/ExerHealth.png" />
     </icons>
     <scene>
         <Scene>
             <stylesheets>
-                <URL value="@DarkTheme.css"/>
-                <URL value="@Extensions.css"/>
+                <URL value="@DarkTheme.css" />
+                <URL value="@Extensions.css" />
             </stylesheets>
 
             <VBox>
                 <MenuBar fx:id="menuBar" VBox.vgrow="NEVER">
                     <Menu mnemonicParsing="false" text="File">
-                        <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit"/>
+                        <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
                     </Menu>
                     <Menu mnemonicParsing="false" text="Help">
-                        <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help"/>
+                        <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
                     </Menu>
                     <Menu mnemonicParsing="false" text="View">
-                        <MenuItem fx:id="resolveWindowMenuItem" mnemonicParsing="false"
-                                  onAction="#handleResolve" text="Resolve"/>
+                        <MenuItem fx:id="resolveWindowMenuItem" mnemonicParsing="false" onAction="#handleResolve" text="Resolve" />
                     </Menu>
                 </MenuBar>
 
                 <StackPane fx:id="commandBoxPlaceholder" styleClass="pane-with-border" VBox.vgrow="NEVER">
                     <padding>
-                        <Insets bottom="5" left="10" right="10" top="5"/>
+                        <Insets bottom="5" left="10" right="10" top="5" />
                     </padding>
                 </StackPane>
 
-                <StackPane fx:id="resultDisplayPlaceholder" maxHeight="100" minHeight="100" prefHeight="100"
-                           styleClass="pane-with-border" VBox.vgrow="NEVER">
+                <StackPane fx:id="resultDisplayPlaceholder" maxHeight="100" minHeight="100" prefHeight="100" styleClass="pane-with-border" VBox.vgrow="NEVER">
                     <padding>
-                        <Insets bottom="5" left="10" right="10" top="5"/>
+                        <Insets bottom="5" left="10" right="10" top="5" />
                     </padding>
                 </StackPane>
                 <BorderPane prefHeight="58.0" prefWidth="410.0" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
                     <left>
-                        <StackPane fx:id="regimeListPanelPlaceholder" BorderPane.alignment="CENTER"/>
+                        <StackPane fx:id="exerciseListPanelPlaceholder"  BorderPane.alignment="CENTER" />
                     </left>
                     <center>
                         <BorderPane>
                             <top>
-                                <StackPane fx:id="resultPanelPlaceholder" BorderPane.alignment="CENTER"/>
+                                <StackPane fx:id="resultPanelPlaceholder" BorderPane.alignment="CENTER" >
+                                        <Label text="Select an exercise to display its info"/>
+                                </StackPane>
                             </top>
-                            <bottom>
-                                <StackPane fx:id="suggestionPanelPlaceholder" BorderPane.alignment="CENTER"/>
-                            </bottom>
                         </BorderPane>
                     </center>
                     <right>
-                        <StackPane fx:id="scheduleListPanelPlaceholder" BorderPane.alignment="CENTER"/>
+                        <StackPane fx:id="scheduleListPanelPlaceholder" BorderPane.alignment="CENTER" />
                     </right>
                     <bottom>
-                        <StackPane fx:id="statusbarPlaceholder" BorderPane.alignment="CENTER"/>
+                        <StackPane fx:id="statusbarPlaceholder" BorderPane.alignment="CENTER" />
                     </bottom>
                 </BorderPane>
             </VBox>

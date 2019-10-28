@@ -4,10 +4,10 @@ import static java.util.Objects.requireNonNull;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_REMOVE_CUSTOM;
 import static seedu.exercise.model.property.PropertyBook.getCustomProperties;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 
 import seedu.exercise.logic.commands.exceptions.CommandException;
 import seedu.exercise.model.Model;
@@ -68,7 +68,7 @@ public class CustomRemoveCommand extends CustomCommand {
      * @return a new map consisting of the updated custom properties
      */
     private Map<String, String> updateCustomProperties(Map<String, String> oldPropertiesMap) {
-        Map<String, String> updatedMap = new HashMap<>();
+        Map<String, String> updatedMap = new TreeMap<>();
         List<CustomProperty> newCustomProperties = getCustomProperties();
         for (CustomProperty customProperty : newCustomProperties) {
             String propertyName = customProperty.getFullName();

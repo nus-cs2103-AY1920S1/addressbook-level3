@@ -12,7 +12,7 @@ import seedu.exercise.model.resource.Exercise;
 /**
  * An UI component that displays information of a {@code Exercise}.
  */
-public class ExerciseCard extends UiPart<Region> {
+public class ExerciseListCard extends UiPart<Region> {
 
     private static final String FXML = "ExerciseListCard.fxml";
 
@@ -37,24 +37,22 @@ public class ExerciseCard extends UiPart<Region> {
     @FXML
     private Label calories;
     @FXML
-    private Label quantity;
-    @FXML
-    private Label unit;
+    private Label quantityAndUnit;
+
     @FXML
     private FlowPane tags;
 
-    public ExerciseCard(Exercise exercise, int displayedIndex) {
+    public ExerciseListCard(Exercise exercise, int displayedIndex) {
         super(FXML);
         this.exercise = exercise;
         id.setText(displayedIndex + ". ");
         name.setText(exercise.getName().fullName);
         date.setText(exercise.getDate().toString());
         calories.setText(exercise.getCalories().value + " kcal");
-        quantity.setText(exercise.getQuantity().value);
-        unit.setText(exercise.getUnit().unit);
+        quantityAndUnit.setText(exercise.getQuantity().value + " " + exercise.getUnit().unit);
         exercise.getMuscles().stream()
-                .sorted(Comparator.comparing(muscle -> muscle.muscleName))
-                .forEach(muscle -> tags.getChildren().add(new Label(muscle.muscleName)));
+            .sorted(Comparator.comparing(muscle -> muscle.muscleName))
+            .forEach(muscle -> tags.getChildren().add(new Label(muscle.muscleName)));
     }
 
     @Override
@@ -65,13 +63,13 @@ public class ExerciseCard extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof ExerciseCard)) {
+        if (!(other instanceof ExerciseListCard)) {
             return false;
         }
 
         // state check
-        ExerciseCard card = (ExerciseCard) other;
+        ExerciseListCard card = (ExerciseListCard) other;
         return id.getText().equals(card.id.getText())
-                && exercise.equals(card.exercise);
+            && exercise.equals(card.exercise);
     }
 }

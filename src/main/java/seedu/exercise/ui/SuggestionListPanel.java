@@ -3,6 +3,7 @@ package seedu.exercise.ui;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
@@ -16,7 +17,7 @@ public class SuggestionListPanel extends UiPart<Region> {
     private static final String FXML = "SuggestionListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(SuggestionListPanel.class);
 
-    @javafx.fxml.FXML
+    @FXML
     private ListView<Exercise> suggestionListView;
 
     public SuggestionListPanel(ObservableList<Exercise> exerciseList) {
@@ -26,7 +27,7 @@ public class SuggestionListPanel extends UiPart<Region> {
     }
 
     /**
-     * Custom {@code ListCell} that displays the graphics of a {@code Exercise} using a {@code ExerciseCard}.
+     * Custom {@code ListCell} that displays the graphics of a {@code Exercise} using a {@code ExerciseInfoPanel}.
      */
     class SuggestionListViewCell extends ListCell<Exercise> {
         @Override
@@ -37,7 +38,7 @@ public class SuggestionListPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new ExerciseCard(exercise, getIndex() + 1).getRoot());
+                setGraphic(new ExerciseListCard(exercise, getIndex() + 1).getRoot());
             }
         }
     }

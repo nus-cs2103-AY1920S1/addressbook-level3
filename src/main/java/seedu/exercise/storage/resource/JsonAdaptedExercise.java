@@ -1,11 +1,11 @@
 package seedu.exercise.storage.resource;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -34,7 +34,7 @@ public class JsonAdaptedExercise extends JsonAdaptedResource<Exercise> {
     private final String quantity;
     private final String unit;
     private final List<JsonAdaptedMuscle> muscles = new ArrayList<>();
-    private final Map<String, String> customProperties = new HashMap<>();
+    private final Map<String, String> customProperties = new TreeMap<>();
 
     /**
      * Constructs a {@code JsonAdaptedExercise} with the given exercise details.
@@ -130,7 +130,7 @@ public class JsonAdaptedExercise extends JsonAdaptedResource<Exercise> {
         final Unit modelUnit = new Unit(unit);
 
         final Set<Muscle> modelMuscles = new HashSet<>(personMuscles);
-        final Map<String, String> modelCustomProperties = new HashMap<>(customProperties);
+        final Map<String, String> modelCustomProperties = new TreeMap<>(customProperties);
         return new Exercise(modelName, modelDate, modelCalories, modelQuantity, modelUnit, modelMuscles,
             modelCustomProperties);
     }

@@ -1,13 +1,16 @@
 package seedu.exercise.ui;
 
+import java.util.Optional;
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import seedu.exercise.commons.core.GuiSettings;
@@ -16,6 +19,7 @@ import seedu.exercise.logic.Logic;
 import seedu.exercise.logic.commands.CommandResult;
 import seedu.exercise.logic.commands.exceptions.CommandException;
 import seedu.exercise.logic.parser.exceptions.ParseException;
+import seedu.exercise.model.resource.Exercise;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -32,12 +36,10 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private ScheduleListPanel scheduleListPanel;
-    private RegimeListPanel regimeListPanel;
+    private ExerciseListPanel exerciseListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private ResolveWindow resolveWindow;
-    private ExerciseListPanel resultPanel;
-    private SuggestionListPanel suggestionPanel;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -55,7 +57,7 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane resultDisplayPlaceholder;
 
     @FXML
-    private StackPane regimeListPanelPlaceholder;
+    private StackPane exerciseListPanelPlaceholder;
 
     @FXML
     private StackPane statusbarPlaceholder;
@@ -78,8 +80,14 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.setTitle("ExerHealth");
 
         setAccelerators();
-
         helpWindow = new HelpWindow();
+
+        exerciseListPanelPlaceholder.addEventFilter(MouseEvent.MOUSE_CLICKED, mouseEvent -> {
+            Optional<Exercise> selectedExercise = exerciseListPanel.getSelectedExercise();
+            if (selectedExercise.isPresent()) {
+                updateDisplayPanel(new ExerciseInfoPanel(selectedExercise.get()));
+            }
+        });
     }
 
     public Stage getPrimaryStage() {
@@ -92,6 +100,7 @@ public class MainWindow extends UiPart<Stage> {
 
     /**
      * Sets the accelerator of a MenuItem.
+     *
      * @param keyCombination the KeyCombination value of the accelerator
      */
     private void setAccelerator(MenuItem menuItem, KeyCombination keyCombination) {
@@ -120,8 +129,6 @@ public class MainWindow extends UiPart<Stage> {
         });
     }
 
-
-
     /**
      * Fills up all the placeholders of this window.
      */
@@ -137,14 +144,8 @@ public class MainWindow extends UiPart<Stage> {
         scheduleListPanel = new ScheduleListPanel(logic.getFilteredScheduleList());
         scheduleListPanelPlaceholder.getChildren().add(scheduleListPanel.getRoot());
 
-        resultPanel = new ExerciseListPanel(logic.getFilteredExerciseList());
-        resultPanelPlaceholder.getChildren().add(resultPanel.getRoot());
-
-        regimeListPanel = new RegimeListPanel(logic.getFilteredRegimeList());
-        regimeListPanelPlaceholder.getChildren().add(regimeListPanel.getRoot());
-
-        suggestionPanel = new SuggestionListPanel(logic.getSuggestedExerciseList());
-        suggestionPanelPlaceholder.getChildren().add(suggestionPanel.getRoot());
+        exerciseListPanel = new ExerciseListPanel(logic.getFilteredExerciseList());
+        exerciseListPanelPlaceholder.getChildren().add(exerciseListPanel.getRoot());
     }
 
     /**
@@ -194,19 +195,11 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private void handleExit() {
         GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
-                (int) primaryStage.getX(), (int) primaryStage.getY());
+            (int) primaryStage.getX(), (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
         resolveWindow.hideAndClearPanels();
         primaryStage.hide();
-    }
-
-    public ScheduleListPanel getScheduleListPanel() {
-        return scheduleListPanel;
-    }
-
-    public RegimeListPanel getRegimeListPanel() {
-        return regimeListPanel;
     }
 
     /**
@@ -219,6 +212,7 @@ public class MainWindow extends UiPart<Stage> {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+            displayDefaultLabel();
 
             shouldShowWindowsBasedOnCommandResult(commandResult);
             shouldExitAppBasedOnCommandResult(commandResult);
@@ -249,5 +243,15 @@ public class MainWindow extends UiPart<Stage> {
         if (commandResult.isExit()) {
             handleExit();
         }
+    }
+
+    private void updateDisplayPanel(ExerciseInfoPanel newExerciseDisplay) {
+        resultPanelPlaceholder.getChildren().clear();
+        resultPanelPlaceholder.getChildren().add(newExerciseDisplay.getRoot());
+    }
+
+    private void displayDefaultLabel() {
+        resultPanelPlaceholder.getChildren().clear();
+        resultPanelPlaceholder.getChildren().add(new Label("Select an exercise to display its info"));
     }
 }

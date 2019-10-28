@@ -88,15 +88,19 @@
 }
 
 .list-view {
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
     -fx-background-insets: 0;
     -fx-padding: 0;
     -fx-background-color: derive(#1d1d1d, 20%);
 }
 
 .list-cell {
-    -fx-label-padding: 0 0 0 0;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-label-padding: 5 5 5 5;
     -fx-graphic-text-gap : 0;
-    -fx-padding: 0 0 0 0;
+    -fx-padding: 5 5 5 5;
 }
 
 .list-cell:filled:even {

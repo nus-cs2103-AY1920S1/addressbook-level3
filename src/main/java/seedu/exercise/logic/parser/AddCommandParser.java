@@ -9,7 +9,7 @@ import static seedu.exercise.logic.parser.CliSyntax.PREFIX_MUSCLE;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_QUANTITY;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_UNIT;
-import static seedu.exercise.logic.parser.CliSyntax.combinePrefixes;
+import static seedu.exercise.logic.parser.CliSyntax.getPrefixesSet;
 
 import java.util.List;
 import java.util.Map;
@@ -43,9 +43,9 @@ public class AddCommandParser implements Parser<AddCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public AddCommand parse(String args) throws ParseException {
-        Prefix[] allPrefixes = combinePrefixes(PREFIX_CATEGORY, PREFIX_INDEX);
+        Prefix[] commandPrefixes = getPrefixesSet();
         ArgumentMultimap argMultimap =
-            ArgumentTokenizer.tokenize(args, allPrefixes);
+            ArgumentTokenizer.tokenize(args, commandPrefixes);
 
         if (!argMultimap.arePrefixesPresent(PREFIX_CATEGORY) || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));

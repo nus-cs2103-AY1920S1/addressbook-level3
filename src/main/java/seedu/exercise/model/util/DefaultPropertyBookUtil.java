@@ -1,7 +1,9 @@
 package seedu.exercise.model.util;
 
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_CALORIES;
+import static seedu.exercise.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_DATE;
+import static seedu.exercise.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_MUSCLE;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_QUANTITY;
@@ -49,6 +51,8 @@ public class DefaultPropertyBookUtil {
         defaultPrefixes.add(PREFIX_QUANTITY);
         defaultPrefixes.add(PREFIX_MUSCLE);
         defaultPrefixes.add(PREFIX_UNIT);
+        defaultPrefixes.add(PREFIX_INDEX);
+        defaultPrefixes.add(PREFIX_CATEGORY);
         return defaultPrefixes;
     }
 

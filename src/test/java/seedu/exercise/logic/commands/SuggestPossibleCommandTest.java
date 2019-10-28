@@ -4,10 +4,10 @@ import static seedu.exercise.logic.commands.CommandTestUtil.assertCommandSuccess
 import static seedu.exercise.model.util.DefaultPropertyBookUtil.getDefaultPropertyBook;
 import static seedu.exercise.testutil.exercise.TypicalExercises.getTypicalExerciseBook;
 
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -30,20 +30,20 @@ public class SuggestPossibleCommandTest {
     @BeforeEach
     public void setUp() {
         model = new ModelManager(getTypicalExerciseBook(), new ReadOnlyResourceBook<>(),
-                getTypicalExerciseBook(), new ReadOnlyResourceBook<>(),
-                new UserPrefs(), getDefaultPropertyBook());
+            getTypicalExerciseBook(), new ReadOnlyResourceBook<>(),
+            new UserPrefs(), getDefaultPropertyBook());
         expectedModel = new ModelManager(model.getExerciseBookData(), new ReadOnlyResourceBook<>(),
-                getTypicalExerciseBook(), new ReadOnlyResourceBook<>(),
-                new UserPrefs(), getDefaultPropertyBook());
+            getTypicalExerciseBook(), new ReadOnlyResourceBook<>(),
+            new UserPrefs(), getDefaultPropertyBook());
         targetMuscles = new HashSet<>();
-        targetCustomProperties = new HashMap<>();
+        targetCustomProperties = new TreeMap<>();
     }
 
     @Test
     public void execute_suggestPossible_success() {
         expectedModel.updateSuggestedExerciseList(getPredicate());
         assertCommandSuccess(new SuggestPossibleCommand(targetMuscles, targetCustomProperties),
-                model, SuggestPossibleCommand.MESSAGE_SUCCESS, expectedModel);
+            model, SuggestPossibleCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     @Test
@@ -52,7 +52,7 @@ public class SuggestPossibleCommandTest {
         targetMuscles.add(chest);
         expectedModel.updateSuggestedExerciseList(getPredicate());
         assertCommandSuccess(new SuggestPossibleCommand(targetMuscles, targetCustomProperties),
-                model, SuggestPossibleCommand.MESSAGE_SUCCESS, expectedModel);
+            model, SuggestPossibleCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     private Predicate<Exercise> getMusclePredicate() {

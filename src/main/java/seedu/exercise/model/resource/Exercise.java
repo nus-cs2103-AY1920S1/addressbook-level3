@@ -3,11 +3,11 @@ package seedu.exercise.model.resource;
 import static seedu.exercise.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
+import java.util.TreeMap;
 
 import seedu.exercise.model.property.Calories;
 import seedu.exercise.model.property.Date;
@@ -32,7 +32,7 @@ public class Exercise extends Resource {
 
     // Optional fields
     private final Set<Muscle> muscles = new HashSet<>();
-    private final Map<String, String> customProperties = new HashMap<>();
+    private final Map<String, String> customProperties = new TreeMap<>();
 
     /**
      * Every field must be present and not null.

@@ -30,8 +30,7 @@
             <FlowPane fx:id="tags" />
             <Label fx:id="date" styleClass="cell_small_label" text="\$date" />
             <Label fx:id="calories" styleClass="cell_small_label" text="\$calories" />
-            <Label fx:id="quantity" styleClass="cell_small_label" text="\$quantity" />
-            <Label fx:id="unit" styleClass="cell_small_label" text="\$unit" />
+            <Label fx:id="quantityAndUnit" styleClass="cell_small_label" text="\$quantity" />
         </VBox>
     </GridPane>
 </HBox>

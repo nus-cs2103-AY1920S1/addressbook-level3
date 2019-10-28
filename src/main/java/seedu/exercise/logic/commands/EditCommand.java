@@ -11,12 +11,12 @@ import static seedu.exercise.logic.parser.CliSyntax.PREFIX_QUANTITY;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_UNIT;
 
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+import java.util.TreeMap;
 
 import seedu.exercise.commons.core.Messages;
 import seedu.exercise.commons.core.index.Index;
@@ -134,9 +134,9 @@ public class EditCommand extends Command implements UndoableCommand, PayloadCarr
         Quantity updatedQuantity = editExerciseDescriptor.getQuantity().orElse(exerciseToEdit.getQuantity());
         Unit updatedUnit = editExerciseDescriptor.getUnit().orElse(exerciseToEdit.getUnit());
         Set<Muscle> updatedMuscles = editExerciseDescriptor.getMuscles().orElse(exerciseToEdit.getMuscles());
-        Map<String, String> updatedCustomProperties = new HashMap<>(exerciseToEdit.getCustomProperties());
+        Map<String, String> updatedCustomProperties = new TreeMap<>(exerciseToEdit.getCustomProperties());
         Map<String, String> newCustomProperties = editExerciseDescriptor.getCustomProperties()
-            .orElse(new HashMap<>());
+            .orElse(new TreeMap<>());
         updatedCustomProperties.putAll(newCustomProperties);
 
         return new Exercise(updatedName, updatedDate, updatedCalories, updatedQuantity, updatedUnit,
@@ -269,7 +269,7 @@ public class EditCommand extends Command implements UndoableCommand, PayloadCarr
          * Sets {@code customProperties} to this object's {@code customProperties}.
          */
         public void setCustomProperties(Map<String, String> customProperties) {
-            this.customProperties = (customProperties != null) ? new HashMap<>(customProperties) : null;
+            this.customProperties = (customProperties != null) ? new TreeMap<>(customProperties) : null;
         }
 
         @Override

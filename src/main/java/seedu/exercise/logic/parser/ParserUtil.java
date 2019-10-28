@@ -9,11 +9,11 @@ import static seedu.exercise.model.property.PropertyBook.getCustomProperties;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 
 import seedu.exercise.commons.core.index.Index;
 import seedu.exercise.commons.util.StringUtil;
@@ -172,9 +172,9 @@ public class ParserUtil {
         requireNonNull(category);
         String trimmedCategory = category.trim();
         if (!trimmedCategory.equals(ADD_CATEGORY_EXERCISE)
-                && !trimmedCategory.equals(ADD_CATEGORY_REGIME)) {
+            && !trimmedCategory.equals(ADD_CATEGORY_REGIME)) {
             throw new ParseException("Category can only be \'" + ADD_CATEGORY_EXERCISE + "\'"
-                    + " or \'" + ADD_CATEGORY_REGIME + "\'");
+                + " or \'" + ADD_CATEGORY_REGIME + "\'");
         }
         return trimmedCategory;
     }
@@ -188,7 +188,7 @@ public class ParserUtil {
         throws ParseException {
         requireNonNull(customProperties);
         List<CustomProperty> allCustomProperties = getCustomProperties();
-        final Map<String, String> customPropertiesMap = new HashMap<>();
+        final Map<String, String> customPropertiesMap = new TreeMap<>();
         for (CustomProperty property : allCustomProperties) {
             String propertyName = property.getFullName();
             if (customProperties.containsKey(propertyName)) {
@@ -269,9 +269,9 @@ public class ParserUtil {
         requireNonNull(suggestType);
         String trimmedSuggestType = suggestType.trim();
         if (!trimmedSuggestType.equals(SUGGEST_TYPE_BASIC)
-                && !trimmedSuggestType.equals(SUGGEST_TYPE_POSSIBLE)) {
+            && !trimmedSuggestType.equals(SUGGEST_TYPE_POSSIBLE)) {
             throw new ParseException("Suggest type can only be \'" + SUGGEST_TYPE_BASIC + "\'"
-                    + " or \'" + SUGGEST_TYPE_POSSIBLE + "\'");
+                + " or \'" + SUGGEST_TYPE_POSSIBLE + "\'");
         }
         return trimmedSuggestType;
     }

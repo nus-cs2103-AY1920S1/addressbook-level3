@@ -3,14 +3,12 @@ package seedu.exercise.logic.parser;
 import static java.util.Objects.requireNonNull;
 import static seedu.exercise.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_CALORIES;
-import static seedu.exercise.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_DATE;
-import static seedu.exercise.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_MUSCLE;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_QUANTITY;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_UNIT;
-import static seedu.exercise.logic.parser.CliSyntax.combinePrefixes;
+import static seedu.exercise.logic.parser.CliSyntax.getPrefixesSet;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -37,8 +35,8 @@ public class EditCommandParser implements Parser<EditCommand> {
      */
     public EditCommand parse(String args) throws ParseException {
         requireNonNull(args);
-        Prefix[] allPrefixes = combinePrefixes(PREFIX_CATEGORY, PREFIX_INDEX);
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, allPrefixes);
+        Prefix[] commandPrefixes = getPrefixesSet();
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, commandPrefixes);
 
         Index index;
 

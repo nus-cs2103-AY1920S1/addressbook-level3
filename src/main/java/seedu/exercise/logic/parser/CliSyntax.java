@@ -47,11 +47,8 @@ public class CliSyntax {
      * Returns an array that contains the prefixes in {@code PREFIXES_SET} and {@code otherPrefixes}.
      * This prefix array can be used for {@link ArgumentTokenizer#tokenize}.
      */
-    public static Prefix[] combinePrefixes(Prefix... otherPrefixes) {
-        int setSize = PREFIXES_SET.size();
-        int numOfOtherPrefixes = otherPrefixes.length;
-        Prefix[] prefixArray = PREFIXES_SET.toArray(new Prefix[setSize + numOfOtherPrefixes]);
-        System.arraycopy(otherPrefixes, 0, prefixArray, setSize, numOfOtherPrefixes);
+    public static Prefix[] getPrefixesSet() {
+        Prefix[] prefixArray = PREFIXES_SET.toArray(new Prefix[PREFIXES_SET.size()]);
         return prefixArray;
     }
 }

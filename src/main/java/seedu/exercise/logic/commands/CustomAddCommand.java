@@ -28,7 +28,7 @@ public class CustomAddCommand extends CustomCommand {
     public static final String MESSAGE_DUPLICATE_FULL_NAME = "This full name has been used for an "
         + "existing property";
     public static final String MESSAGE_DUPLICATE_PREFIX_NAME = "This prefix name has been used for an "
-        + "existing property";
+        + "existing parameter in add/edit command";
 
     private final CustomProperty toAdd;
 

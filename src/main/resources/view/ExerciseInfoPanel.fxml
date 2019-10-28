@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="cardPane" prefHeight="400.0" prefWidth="306.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <VBox prefHeight="250.0" prefWidth="190.0" AnchorPane.bottomAnchor="152.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Label fx:id="name" prefHeight="44.0" prefWidth="187.0" styleClass="cell_big_label" text="$name">
+               <font>
+                  <Font name="Dubai Regular" size="24.0" />
+               </font>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" top="5.0" />
+               </padding>
+            </Label>
+            <HBox prefHeight="50.0" prefWidth="190.0">
+               <children>
+                  <ImageView fx:id="dateImage" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@/images/calendar.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets left="5.0" />
+                     </HBox.margin>
+                  </ImageView>
+                  <Label fx:id="date" text="$date" textFill="#746c6c">
+                     <padding>
+                        <Insets left="5.0" top="7.0" />
+                     </padding>
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox prefHeight="50.0" prefWidth="190.0">
+               <children>
+                  <ImageView fx:id="caloriesImage" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@/images/calories.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets left="5.0" />
+                     </HBox.margin>
+                  </ImageView>
+                  <Label fx:id="calories" text="$calories" textFill="#746c6c">
+                     <padding>
+                        <Insets left="5.0" top="7.0" />
+                     </padding>
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox prefHeight="50.0" prefWidth="190.0">
+               <children>
+                  <ImageView fx:id="quantityAndUnitImage" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@/images/stretching-exercises.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets left="5.0" />
+                     </HBox.margin>
+                  </ImageView>
+                  <Label fx:id="quantityAndUnit" text="$quantityAndUnit" textFill="#746c6c">
+                     <padding>
+                        <Insets left="5.0" top="7.0" />
+                     </padding>
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox prefHeight="50.0" prefWidth="190.0">
+               <children>
+                  <ImageView fx:id="muscleImage" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@/images/muscles.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets left="5.0" />
+                     </HBox.margin>
+                  </ImageView>
+                  <FlowPane fx:id="tags" prefHeight="45.0" prefWidth="146.0">
+                     <padding>
+                        <Insets left="5.0" top="7.0" />
+                     </padding></FlowPane>
+               </children>
+            </HBox>
+         </children>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </VBox>
+      <VBox layoutY="248.0" prefHeight="152.0" prefWidth="292.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="248.0">
+         <children>
+            <Label text="Other properties:">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" />
+               </padding>
+            </Label>
+            <StackPane fx:id="customProperties" prefHeight="107.0" prefWidth="286.0" style="-fx-border-color: #FFFFFF; -fx-border-radius: 10; -fx-background-radius: 10;" />
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>
