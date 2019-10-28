@@ -12,19 +12,24 @@ import seedu.address.model.classid.ClassId;
  */
 public class Earnings {
 
+    private static Amount totalEarnings = new Amount("0.00");
+
     // Identity fields
     private final Date date;
     private final ClassId classId;
     private final Amount amount;
+    private final Type type;
 
     /**
      * Every field must be present and not null.
      */
-    public Earnings(Date date, ClassId classId, Amount amount) {
+    public Earnings(Date date, ClassId classId, Amount amount, Type type) {
         requireAllNonNull(date, classId, amount);
         this.date = date;
         this.classId = classId;
         this.amount = amount;
+        this.type = type;
+        addToTotalEarnings();
     }
 
     public Date getDate() {
@@ -39,6 +44,17 @@ public class Earnings {
         return amount;
     }
 
+    public Type getType() {
+        return type;
+    }
+
+    public void addToTotalEarnings() {
+        totalEarnings = totalEarnings.addAmount(this.amount);
+    }
+
+    public static Amount getTotalEarnings() {
+        return totalEarnings;
+    }
     /**
      * Returns true if both earnings of the same date and classId have an identity field that is the same.
      * This defines a weaker notion of equality between two earnings.
@@ -50,7 +66,8 @@ public class Earnings {
 
         return otherEarnings != null
                 && otherEarnings.getDate().equals(getDate())
-                && otherEarnings.getClassId().equals(getClassId());
+                && otherEarnings.getClassId().equals(getClassId())
+                && otherEarnings.getType().equals(getType());
     }
 
     /**
@@ -70,7 +87,8 @@ public class Earnings {
         Earnings otherEarnings = (Earnings) other;
         return otherEarnings.getDate().equals(getDate())
                 && otherEarnings.getClassId().equals(getClassId())
-                && otherEarnings.getAmount().equals(getAmount());
+                && otherEarnings.getAmount().equals(getAmount())
+                && otherEarnings.getType().equals(getType());
     }
 
     @Override
@@ -84,6 +102,8 @@ public class Earnings {
         final StringBuilder builder = new StringBuilder();
         builder.append(" Date: ")
                 .append(getDate())
+                .append(" Type: ")
+                .append(getType())
                 .append(" ClassId: ")
                 .append(getClassId())
                 .append(" Amount: ")

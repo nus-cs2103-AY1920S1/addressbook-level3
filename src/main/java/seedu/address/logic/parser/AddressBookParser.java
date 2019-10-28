@@ -27,6 +27,7 @@ import seedu.address.logic.commands.LoginCommand;
 import seedu.address.logic.commands.LogoutCommand;
 import seedu.address.logic.commands.NewCommand;
 import seedu.address.logic.commands.RegisterAccountCommand;
+import seedu.address.logic.commands.TotalEarningsCommand;
 import seedu.address.logic.commands.UnknownCommand;
 import seedu.address.logic.commands.UpdateEarningsCommand;
 import seedu.address.logic.commands.calendar.AddTaskCommand;
@@ -104,6 +105,7 @@ public class AddressBookParser {
         AddressBookParser.commandList.put(EditTaskCommand.COMMAND_WORD, EditTaskCommand.COMMAND_WORD);
         AddressBookParser.commandList.put(FindTaskCommand.COMMAND_WORD, FindTaskCommand.COMMAND_WORD);
         AddressBookParser.commandList.put(LogoutCommand.COMMAND_WORD, LogoutCommand.COMMAND_WORD);
+        AddressBookParser.commandList.put(TotalEarningsCommand.COMMAND_WORD, TotalEarningsCommand.COMMAND_WORD);
     }
 
     /**
@@ -226,6 +228,9 @@ public class AddressBookParser {
 
             case EditNotesCommand.COMMAND_WORD:
                 return new EditNotesCommandParser().parse(arguments);
+
+            case TotalEarningsCommand.COMMAND_WORD:
+                return new TotalEarningsCommand();
 
             default:
                 throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

@@ -20,7 +20,9 @@ public class ClassIdContainKeywordPredicate implements Predicate<Earnings> {
     @Override
     public boolean test(Earnings earnings) {
         return keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(earnings.getClassId().value, keyword));
+                .anyMatch(keyword -> StringUtil.containsIgnoreCase(earnings.getClassId().value + " "
+                        + earnings.getAmount().amount + " " + earnings.getDate().dateNum
+                        + " " + earnings.getType().type, keyword));
     }
 
     @Override
