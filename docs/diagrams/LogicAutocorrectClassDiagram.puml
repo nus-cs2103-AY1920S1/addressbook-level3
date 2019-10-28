@@ -1,0 +1,49 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor LOGIC_COLOR_T4
+skinparam classBackgroundColor LOGIC_COLOR
+
+package Logic {
+
+package Command {
+Class XYZCommand
+Class SelectSuggestionCommand
+Class CommandResult
+Class "{abstract}\nCommand" as Command
+}
+
+Interface Logic <<Interface>>
+Class LogicManager
+Class Finder
+}
+
+package Model{
+Class HiddenModel #FFFFFF
+}
+
+Class HiddenOutside #FFFFFF
+HiddenOutside ..> Logic
+
+LogicManager ..|> Logic
+
+XYZCommand --|> Command
+SelectSuggestionCommand --|> Command
+XYZCommand ..> SelectSuggestionCommand : creates >
+SelectSuggestionCommand ..> XYZCommand : calls >
+LogicManager .up.> SelectSuggestionCommand : executes >
+LogicManager .left[hidden].> Command : executes >
+XYZCommand ..> Finder
+
+Finder -->"1" Model
+
+LogicManager --> Model
+Command ..> Model
+note bottom of XYZCommand: XYZCommand = AddCommand, \nFindCommand, etc
+
+Model ..>"0..*" Command : stores >
+
+Logic ..> CommandResult
+LogicManager ..> CommandResult
+Command ..> CommandResult
+@enduml
