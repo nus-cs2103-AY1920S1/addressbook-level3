@@ -283,7 +283,7 @@ public class ParserUtil {
         }
         return reminderTimeList;
     }
-    
+
     /**
      * Parses a {@code String username} into an {@code Username}.
      * Leading and trailing whitespaces will be trimmed.
