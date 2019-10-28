@@ -15,6 +15,7 @@ import seedu.weme.model.ModelContext;
 import seedu.weme.model.ReadOnlyWeme;
 import seedu.weme.model.meme.Meme;
 import seedu.weme.model.statistics.Stats;
+import seedu.weme.model.template.MemeCreation;
 import seedu.weme.model.template.Template;
 
 /**
@@ -71,6 +72,13 @@ public interface Logic {
      * @param context the context to switch to
      */
     void setContext(ModelContext context);
+
+    /**
+     * Returns the current meme creation session.
+     *
+     * @return the current meme creation session.
+     */
+    MemeCreation getMemeCreation();
 
     /**
      * Returns the user prefs' Weme file path.

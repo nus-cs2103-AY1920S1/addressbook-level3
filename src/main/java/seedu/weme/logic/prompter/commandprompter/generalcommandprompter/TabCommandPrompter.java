@@ -1,6 +1,6 @@
 package seedu.weme.logic.prompter.commandprompter.generalcommandprompter;
 
-import static seedu.weme.logic.parser.util.ParserUtil.MESSAGE_INVALID_CONTEXT;
+import static seedu.weme.logic.parser.util.ParserUtil.MESSAGE_INVALID_TAB;
 import static seedu.weme.logic.prompter.util.PrompterUtil.CONTEXTS;
 import static seedu.weme.logic.prompter.util.PrompterUtil.findSimilarContexts;
 
@@ -25,7 +25,7 @@ public class TabCommandPrompter implements Prompter {
         StringBuilder prompt = new StringBuilder();
         List<String> possibleContexts = findSimilarContexts(context);
         if (possibleContexts.isEmpty()) {
-            throw new PromptException(MESSAGE_INVALID_CONTEXT);
+            throw new PromptException(MESSAGE_INVALID_TAB);
         }
         for (String possibleContext: possibleContexts) {
             prompt.append(possibleContext + '\n');

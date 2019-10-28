@@ -1,5 +1,8 @@
 package seedu.weme.model.util;
 
+import java.awt.image.BufferedImage;
+import java.awt.image.ColorModel;
+import java.awt.image.WritableRaster;
 import java.io.IOException;
 import java.nio.file.Path;
 
@@ -58,4 +61,21 @@ public class ImageUtil {
         } while (FileUtil.isFileExists(newPath));
         return newPath;
     }
+
+    /**
+     * Returns a copy of {@code toCopy}.
+     * @param toCopy the {@code BufferedImage} to copy
+     * @return the copied {@code BufferedImage}
+     */
+    public static BufferedImage copyBufferedImage(BufferedImage toCopy) {
+        if (toCopy == null) {
+            return null;
+        } else {
+            ColorModel cm = toCopy.getColorModel();
+            WritableRaster raster = toCopy.copyData(toCopy.getRaster().createCompatibleWritableRaster());
+            boolean isAlphaPremultiplied = cm.isAlphaPremultiplied();
+            return new BufferedImage(cm, raster, isAlphaPremultiplied, null);
+        }
+    }
+
 }

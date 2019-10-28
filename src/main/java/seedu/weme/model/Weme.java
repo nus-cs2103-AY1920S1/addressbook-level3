@@ -10,7 +10,6 @@ import java.util.Set;
 
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
-
 import seedu.weme.model.imagePath.ImagePath;
 import seedu.weme.model.meme.Description;
 import seedu.weme.model.meme.Meme;
@@ -19,6 +18,7 @@ import seedu.weme.model.statistics.Stats;
 import seedu.weme.model.statistics.StatsManager;
 import seedu.weme.model.statistics.TagWithCount;
 import seedu.weme.model.tag.Tag;
+import seedu.weme.model.template.MemeCreation;
 import seedu.weme.model.template.Name;
 import seedu.weme.model.template.Template;
 import seedu.weme.model.template.UniqueTemplateList;
@@ -37,6 +37,7 @@ public class Weme implements ReadOnlyWeme {
     private final UniqueTemplateList templates;
     private final Stats stats;
     private final Records records;
+    private final MemeCreation memeCreation;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -52,6 +53,7 @@ public class Weme implements ReadOnlyWeme {
         templates = new UniqueTemplateList();
         stats = new StatsManager();
         records = new RecordsManager();
+        memeCreation = new MemeCreation();
     }
 
     public Weme() {}
@@ -64,6 +66,8 @@ public class Weme implements ReadOnlyWeme {
         resetData(toBeCopied);
     }
 
+    //// overwrite operations
+
     public void setStats(Stats replacement) {
         stats.resetData(replacement);
     }
@@ -71,7 +75,19 @@ public class Weme implements ReadOnlyWeme {
     public void setRecords(Records replacement) {
         records.resetRecords(replacement);
     }
-    //// list overwrite operations
+
+    /**
+     * Resets the existing data of this {@code Weme} with {@code newData}.
+     */
+    public void resetData(ReadOnlyWeme newData) {
+        requireNonNull(newData);
+
+        setMemes(newData.getMemeList());
+        setTemplates(newData.getTemplateList());
+        setStats(newData.getStats());
+        setRecords(newData.getRecords());
+        setMemeCreation(newData.getMemeCreation());
+    }
 
     /**
      * Replaces the contents of the meme list with {@code memes}.
@@ -89,16 +105,8 @@ public class Weme implements ReadOnlyWeme {
         this.templates.setTemplates(templates);
     }
 
-    /**
-     * Resets the existing data of this {@code Weme} with {@code newData}.
-     */
-    public void resetData(ReadOnlyWeme newData) {
-        requireNonNull(newData);
-
-        setMemes(newData.getMemeList());
-        setTemplates(newData.getTemplateList());
-        setStats(newData.getStats());
-        setRecords(newData.getRecords());
+    public void startMemeCreation(Template template) throws IOException {
+        memeCreation.startWithTemplate(template);
     }
 
     //// meme-level operations
@@ -224,6 +232,24 @@ public class Weme implements ReadOnlyWeme {
      */
     public void removeTemplate(Template key) {
         templates.remove(key);
+    }
+
+    //// Meme Creation methods
+
+    @Override
+    public MemeCreation getMemeCreation() {
+        return memeCreation;
+    }
+
+    /**
+     * Replaces the current meme creation session with {@code memeCreation}
+     */
+    public void setMemeCreation(MemeCreation replacement) {
+        memeCreation.resetSession(replacement);
+    }
+
+    public void abortMemeCreation() {
+        memeCreation.abort();
     }
 
     //// util methods

@@ -3,11 +3,11 @@ package seedu.weme.model;
 import java.util.List;
 
 import javafx.collections.ObservableList;
-
 import seedu.weme.model.meme.Meme;
 import seedu.weme.model.statistics.Stats;
 import seedu.weme.model.statistics.TagWithCount;
 import seedu.weme.model.tag.Tag;
+import seedu.weme.model.template.MemeCreation;
 import seedu.weme.model.template.Template;
 
 /**
@@ -55,9 +55,16 @@ public interface ReadOnlyWeme {
      */
     List<TagWithCount> getTagsWithCountList();
 
-    /** Return records of Weme.
+    /** Returns records of Weme.
      * @return
      */
     Records getRecords();
+
+    /**
+     * Returns the current meme creation session.
+     *
+     * @return the current meme creation session
+     */
+    MemeCreation getMemeCreation();
 
 }

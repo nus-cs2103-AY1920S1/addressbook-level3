@@ -1,6 +1,6 @@
 package seedu.weme.ui;
 
-import static seedu.weme.logic.parser.util.ParserUtil.MESSAGE_INVALID_CONTEXT;
+import static seedu.weme.logic.parser.util.ParserUtil.MESSAGE_INVALID_TAB;
 
 import java.util.logging.Logger;
 
@@ -23,6 +23,8 @@ public class TabBar extends UiPart<Region> {
     private VBox memesTab;
     @FXML
     private VBox templatesTab;
+    @FXML
+    private VBox createTab;
     @FXML
     private VBox statisticsTab;
     @FXML
@@ -58,6 +60,8 @@ public class TabBar extends UiPart<Region> {
             return memesTab;
         case CONTEXT_TEMPLATES:
             return templatesTab;
+        case CONTEXT_CREATE:
+            return createTab;
         case CONTEXT_STATISTICS:
             return statisticsTab;
         case CONTEXT_EXPORT:
@@ -67,7 +71,7 @@ public class TabBar extends UiPart<Region> {
         case CONTEXT_PREFERENCES:
             return preferencesTab;
         default:
-            throw new IllegalArgumentException(MESSAGE_INVALID_CONTEXT);
+            throw new IllegalArgumentException(MESSAGE_INVALID_TAB);
         }
     }
 

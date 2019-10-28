@@ -1,6 +1,7 @@
 package seedu.weme.logic.parser.util;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.weme.model.ModelContext.CONTEXT_CREATE;
 import static seedu.weme.model.ModelContext.CONTEXT_EXPORT;
 import static seedu.weme.model.ModelContext.CONTEXT_IMPORT;
 import static seedu.weme.model.ModelContext.CONTEXT_MEMES;
@@ -14,6 +15,7 @@ import java.util.Set;
 
 import seedu.weme.commons.core.index.Index;
 import seedu.weme.commons.util.StringUtil;
+import seedu.weme.logic.parser.contextparser.CreateParser;
 import seedu.weme.logic.parser.contextparser.ExportParser;
 import seedu.weme.logic.parser.contextparser.ImportParser;
 import seedu.weme.logic.parser.contextparser.MemeParser;
@@ -25,6 +27,7 @@ import seedu.weme.model.ModelContext;
 import seedu.weme.model.imagePath.ImagePath;
 import seedu.weme.model.meme.Description;
 import seedu.weme.model.tag.Tag;
+import seedu.weme.model.template.Coordinates;
 import seedu.weme.model.template.Name;
 
 /**
@@ -32,15 +35,17 @@ import seedu.weme.model.template.Name;
  */
 public class ParserUtil {
 
-    public static final String MESSAGE_INVALID_CONTEXT = "Tab provided is not a valid tab.";
+    public static final String MESSAGE_INVALID_TAB = "Tab provided is not a valid tab.";
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
     public static final String MESSAGE_INVALID_FILEPATH = "File not found or invalid file path given.";
     public static final String MESSAGE_INVALID_DIRECTORYPATH = "Invalid directory path given.";
+    public static final String MESSAGE_INVALID_COORDINATES = "Coorinates must be numbers between 0 and 1 inclusive";
 
     public static final MemeParser MEMES_PARSER = new MemeParser();
     public static final TemplateParser TEMPLATE_PARSER = new TemplateParser();
     public static final ImportParser IMPORT_PARSER = new ImportParser();
     public static final ExportParser EXPORT_PARSER = new ExportParser();
+    public static final CreateParser CREATE_PARSER = new CreateParser();
 
     /**
      * Returns a Parser depending on the given ModelContext.
@@ -57,6 +62,8 @@ public class ParserUtil {
             return EXPORT_PARSER;
         case CONTEXT_TEMPLATES:
             return TEMPLATE_PARSER;
+        case CONTEXT_CREATE:
+            return CREATE_PARSER;
         case CONTEXT_STATISTICS:
         case CONTEXT_PREFERENCES:
             // TODO: This is a temporary placeholder until all tabs have been implemented
@@ -68,16 +75,19 @@ public class ParserUtil {
     }
 
     /**
-     * Parses {@code context} into a {@code ModelContext} and returns it. Leading and trailing whitespaces will be
-     * trimmed.
-     * @throws ParseException if the specified context is invalid (Not one of the enums).
+     * Parses {@code context} into a {@code ModelContext} that has its own tab and returns it.
+     *
+     * Leading and trailing whitespaces will be trimmed.
+     * @throws ParseException if the specified context does not corresponds to a tab
      */
-    public static ModelContext parseContext(String context) throws ParseException {
+    public static ModelContext parseTab(String context) throws ParseException {
         String trimmedContext = context.trim();
         if (trimmedContext.equals(CONTEXT_MEMES.getContextName())) {
             return CONTEXT_MEMES;
         } else if (trimmedContext.equals(CONTEXT_TEMPLATES.getContextName())) {
             return CONTEXT_TEMPLATES;
+        } else if (trimmedContext.equals(CONTEXT_CREATE.getContextName())) {
+            return CONTEXT_CREATE;
         } else if (trimmedContext.equals(CONTEXT_STATISTICS.getContextName())) {
             return CONTEXT_STATISTICS;
         } else if (trimmedContext.equals(CONTEXT_EXPORT.getContextName())) {
@@ -87,7 +97,7 @@ public class ParserUtil {
         } else if (trimmedContext.equals(CONTEXT_PREFERENCES.getContextName())) {
             return CONTEXT_PREFERENCES;
         }
-        throw new ParseException(MESSAGE_INVALID_CONTEXT);
+        throw new ParseException(MESSAGE_INVALID_TAB);
     }
 
     /**
@@ -101,6 +111,25 @@ public class ParserUtil {
             throw new ParseException(MESSAGE_INVALID_INDEX);
         }
         return Index.fromOneBased(Integer.parseInt(trimmedIndex));
+    }
+
+    /**
+     * Parses {@code x} and {@code y} into a {@code Coorinates} and returns it.
+     * @throws ParseException if x or y is not between 0 to 1
+     */
+    public static Coordinates parseCoordinates(String x, String y) throws ParseException {
+        float xVal;
+        float yVal;
+        try {
+            xVal = Float.parseFloat(x);
+            yVal = Float.parseFloat(y);
+        } catch (NumberFormatException nfe) {
+            throw new ParseException(MESSAGE_INVALID_COORDINATES);
+        }
+        if (xVal < 0 || xVal > 1 || yVal < 0 || yVal > 1) {
+            throw new ParseException(MESSAGE_INVALID_COORDINATES);
+        }
+        return new Coordinates(xVal, yVal);
     }
 
     /**

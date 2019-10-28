@@ -11,6 +11,7 @@ Copyright by Jan Jan Kovařík - http://glyphicons.com/
 Copyright by Icons8 - https://icons8.com/
 - doge_tab.png
 - template_tab.png
-- archive_tab.png
+- create_tab.png
 - statistics_tab.png
-- storage_tab.png
+- export_tab.png
+- import_tab.png

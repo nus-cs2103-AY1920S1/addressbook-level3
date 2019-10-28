@@ -18,6 +18,6 @@ public class TabCommandParser implements Parser<TabCommand> {
      */
     @Override
     public TabCommand parse(String userInput) throws ParseException {
-        return new TabCommand(ParserUtil.parseContext(userInput));
+        return new TabCommand(ParserUtil.parseTab(userInput));
     }
 }
