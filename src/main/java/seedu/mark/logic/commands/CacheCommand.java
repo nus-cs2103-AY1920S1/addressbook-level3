@@ -6,7 +6,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
 
 import net.dankito.readability4j.Readability4J;
@@ -30,6 +29,8 @@ public class CacheCommand extends Command {
             + "Parameters: INDEX";
 
     public static final String MESSAGE_SUCCESS = "Bookmark's contents successfully cached!";
+    public static final String MESSAGE_OVERWRITTEN =
+            "Previous cache successfully overwritten! Use the undo command to get it back.";
     public static final String MESSAGE_FAILURE =
             "Unable to cache bookmark's content. Check the URL and your internet connection and try again!";
 
@@ -55,7 +56,6 @@ public class CacheCommand extends Command {
 
         Bookmark bookmarkToCache = lastShownList.get(index.getZeroBased());
         String urlString = bookmarkToCache.getUrl().value;
-        List<CachedCopy> updatedCachedCopies = new ArrayList<>(bookmarkToCache.getCachedCopies());
         String content = "";
         try {
             URL url = new URL(urlString);
@@ -70,17 +70,18 @@ public class CacheCommand extends Command {
         } catch (IOException e) {
             return new CommandResult(MESSAGE_FAILURE);
         }
-
+        boolean hasPreviousCachedCopies = !bookmarkToCache.getCachedCopies().isEmpty();
         CachedCopy cached = new CachedCopy(content);
-        updatedCachedCopies.add(cached);
         Bookmark cachedBookmark = new Bookmark(bookmarkToCache.getName(), bookmarkToCache.getUrl(),
                 bookmarkToCache.getRemark(), bookmarkToCache.getFolder(), bookmarkToCache.getTags(),
-                updatedCachedCopies);
+                List.of(cached));
 
         model.setBookmark(bookmarkToCache, cachedBookmark);
         model.updateCurrentDisplayedCache(cachedBookmark);
-        model.saveMark(MESSAGE_SUCCESS);
-        return new CommandResult(MESSAGE_SUCCESS);
+
+        String message = hasPreviousCachedCopies ? MESSAGE_OVERWRITTEN : MESSAGE_SUCCESS;
+        model.saveMark(message);
+        return new CommandResult(message);
     }
 
     @Override
