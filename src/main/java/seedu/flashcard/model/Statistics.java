@@ -42,11 +42,11 @@ public class Statistics {
             }
 
             correctSeries.setName("correct");
-            correctSeries.getData().add(new XYChart.Data<>(flashcard.getQuestion().toString(),
+            correctSeries.getData().add(new XYChart.Data<>(flashcard.getQuestion().shortenForLabel(),
                     score.getCorrectAnswers()));
 
             wrongSeries.setName("wrong");
-            wrongSeries.getData().add(new XYChart.Data<>(flashcard.getQuestion().toString(), score.getWrongAnswers()));
+            wrongSeries.getData().add(new XYChart.Data<>(flashcard.getQuestion().shortenForLabel(), score.getWrongAnswers()));
         }
     }
 
