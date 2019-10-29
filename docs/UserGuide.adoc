@@ -299,26 +299,37 @@ Possible Parameters: `id`/`op`/`desc`
 Format: `find-i op/KEYWORD` +
 Lists all incidents whereby the operator name contains the given keyword
 
-* Example usage and expected outcome:
+* Example of Successful Usage and Expected Outcome:
 
 image::findIncidentsCommandWithOperatorParameter.png[]
 
+* Example of Failed Usage and Expected Outcome:
+
+image::findIncidentsCommandWithOperatorParameterFailed.png[]
 
 **By Description** +
 Format: `find-i desc/KEYWORD` +
 Lists all incidents whereby the incident description contains the given keyword
 
-* Example usage and expected outcome:
+* Example of Successful Usage and Expected Outcome:
 
 image::findIncidentsCommandWithDescriptionParameter.png[]
+
+* Example of Failed Usage and Expected Outcome:
+
+image::findIncidentsCommandWithDescriptionParameterFailed.png[]
 
 **By ID**
 Format: `find-i id/KEYWORD` +
 Lists all incidents whereby the incident ID is an exact match with the given keyword
 
-* Example usage and expected outcome:
+* Example of Successful Usage and Expected Outcome:
 
 image::findIncidentsCommandWithIdParameter.png[]
+
+* Example of Failed Usage and Expected Outcome:
+
+image::findIncidentsCommandWithIdParameterFailed.png[]
 
 * Requires an exact ID match
 * Example of Failed Usage:
