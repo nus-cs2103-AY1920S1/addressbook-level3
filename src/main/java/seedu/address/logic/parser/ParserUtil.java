@@ -2,8 +2,11 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import seedu.address.commons.core.Messages;
@@ -135,11 +138,11 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String district} into a {@code District}.
-     * Leading and trailing white spaces will be trimmed.
-     * User input should be a number.
-     *
-     * throws ParseException if the given {@code district} is invalid.
+     * Used only when creating incidents, as this is the only situation where only
+     * 1 input is allowed for district input.
+     * @param district
+     * @return
+     * @throws ParseException
      */
     public static District parseLocation(String district) throws ParseException {
         requireNonNull(district);
@@ -150,6 +153,31 @@ public class ParserUtil {
                 throw new ParseException(District.MESSAGE_CONSTRAINTS);
             }
             return new District(dist);
+        } catch (NumberFormatException e) {
+            throw new ParseException(District.MESSAGE_CONSTRAINTS);
+        }
+    }
+
+    /**
+     * Parses a {@code String district} into a list of {@code Districts}.
+     * Leading and trailing white spaces will be trimmed.
+     * User input should be a number.
+     *
+     * throws ParseException if the given {@code district} is invalid.
+     */
+    public static List<District> parseLocations(String district) throws ParseException {
+        requireNonNull(district);
+        try {
+            List<String> splittedD = Arrays.asList(district.trim().split("\\s"));
+            List<District> districts = new ArrayList<>();
+            for (String d: splittedD) {
+                int dist = Integer.parseInt(d);
+                if (!District.isValidDistrict(dist)) {
+                    throw new ParseException(District.MESSAGE_CONSTRAINTS);
+                }
+                districts.add(new District(dist));
+            }
+            return districts;
         } catch (NumberFormatException e) {
             throw new ParseException(District.MESSAGE_CONSTRAINTS);
         }

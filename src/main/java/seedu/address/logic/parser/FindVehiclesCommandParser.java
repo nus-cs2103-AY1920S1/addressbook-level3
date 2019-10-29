@@ -5,6 +5,7 @@ import static seedu.address.logic.parser.CliSyntax.SEARCH_PREFIX_DISTRICT;
 import static seedu.address.logic.parser.CliSyntax.SEARCH_PREFIX_VNUM;
 import static seedu.address.logic.parser.CliSyntax.SEARCH_PREFIX_VTYPE;
 
+import java.util.List;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.FindVehiclesCommand;
@@ -32,7 +33,8 @@ public class FindVehiclesCommandParser implements Parser<FindVehiclesCommand> {
         ArgumentMultimap argVNumMap = ArgumentTokenizer.tokenize(args, SEARCH_PREFIX_VNUM);
 
         if (arePrefixesPresent(argDistrictMap, SEARCH_PREFIX_DISTRICT)) {
-            District districtKeywords = ParserUtil.parseLocation(argDistrictMap.getValue(SEARCH_PREFIX_DISTRICT).get());
+            List<District> districtKeywords =
+                    ParserUtil.parseLocations(argDistrictMap.getValue(SEARCH_PREFIX_DISTRICT).get());
             return new FindVehiclesCommand(new DistrictKeywordsPredicate(districtKeywords));
         } else if (arePrefixesPresent(argVTypeMap, SEARCH_PREFIX_VTYPE)) {
             VehicleType vTypeKeywords = ParserUtil.parseVType(argVTypeMap.getValue(SEARCH_PREFIX_VTYPE).get());

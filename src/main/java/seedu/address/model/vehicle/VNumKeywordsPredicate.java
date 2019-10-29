@@ -1,6 +1,7 @@
 package seedu.address.model.vehicle;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -13,7 +14,7 @@ public class VNumKeywordsPredicate implements Predicate<Vehicle> {
     private final List<String> keywords = new ArrayList<>();
 
     public VNumKeywordsPredicate(VehicleNumber vNumKeywords) {
-        this.keywords.add(vNumKeywords.toString());
+        this.keywords.addAll(Arrays.asList(vNumKeywords.toString().split("\\s+")));
     }
 
     @Override
