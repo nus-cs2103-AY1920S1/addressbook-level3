@@ -184,8 +184,8 @@ public class AddressBookParser {
         case StartTimeTrialCommand.COMMAND_WORD:
             return new StartTimeTrialCommandParser().parse(arguments);
 
-            case ShowFlashcardAnswerCommand.COMMAND_WORD:
-                return new ShowFlashcardAnswerCommand();
+        case ShowFlashcardAnswerCommand.COMMAND_WORD:
+            return new ShowFlashcardAnswerCommand();
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

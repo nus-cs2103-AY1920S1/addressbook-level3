@@ -3,15 +3,12 @@ package seedu.address.logic.commands.flashcard;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.SHOW;
 
-import java.util.List;
-
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.commandresults.FlashcardCommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.flashcard.Flashcard;
 import seedu.address.ui.FlashcardTabWindowController;
 
 /**
