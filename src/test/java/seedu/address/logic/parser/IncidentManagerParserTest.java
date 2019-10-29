@@ -16,7 +16,7 @@ import org.junit.jupiter.api.Test;
 import seedu.address.logic.commands.AddCommand;
 // import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteCommand;
-import seedu.address.logic.commands.EditCommand;
+import seedu.address.logic.commands.EditIncidentCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindPersonsCommand;
 import seedu.address.logic.commands.HelpCommand;
@@ -60,10 +60,10 @@ public class IncidentManagerParserTest {
     @Test
     public void parseCommand_edit() throws Exception {
         Incident incident = new IncidentBuilder().build();
-        EditCommand.EditIncident editor = new EditIncidentBuilder().build();
-        EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
+        EditIncidentCommand.EditIncident editor = new EditIncidentBuilder().build();
+        EditIncidentCommand command = (EditIncidentCommand) parser.parseCommand(EditIncidentCommand.COMMAND_WORD + " "
                 + INDEX_FIRST_ENTITY.getOneBased() + " " + IncidentUtil.getEditIncidentDetails(editor));
-        assertEquals(new EditCommand(INDEX_FIRST_ENTITY, editor), command);
+        assertEquals(new EditIncidentCommand(INDEX_FIRST_ENTITY, editor), command);
     }
 
     @Test
