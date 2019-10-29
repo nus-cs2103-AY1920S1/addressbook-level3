@@ -36,6 +36,7 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private SpendingListPanel spendingListPanel;
+    private ReminderListPanel reminderListPanel;
     private ResultDisplay resultDisplay;
     private GraphWindow graphWindow;
     private StatsWindow statsWindow;
@@ -48,6 +49,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane spendingListPanelPlaceholder;
+
+    @FXML
+    private StackPane reminderListPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -117,6 +121,9 @@ public class MainWindow extends UiPart<Stage> {
     void fillInnerParts() {
         spendingListPanel = new SpendingListPanel(logic.getFilteredSpendingList());
         spendingListPanelPlaceholder.getChildren().add(spendingListPanel.getRoot());
+
+        reminderListPanel = new ReminderListPanel(logic.getSortedReminderList());
+        reminderListPanelPlaceholder.getChildren().add(reminderListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());

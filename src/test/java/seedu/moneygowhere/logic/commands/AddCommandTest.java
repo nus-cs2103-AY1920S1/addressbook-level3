@@ -173,9 +173,9 @@ public class AddCommandTest {
         }
 
         @Override
-        public List<Reminder> getReminderList() {
+        public ObservableList<Reminder> getSortedReminderList() {
             throw new AssertionError("This method should not be called.");
-        };
+        }
     }
 
     /**

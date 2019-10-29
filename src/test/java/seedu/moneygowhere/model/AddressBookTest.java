@@ -104,7 +104,7 @@ public class AddressBookTest {
      */
     private static class SpendingBookStub implements ReadOnlySpendingBook {
         private final ObservableList<Spending> spendings = FXCollections.observableArrayList();
-        private final List<Reminder> reminders = new ArrayList<>();
+        private final ObservableList<Reminder> reminders = FXCollections.observableArrayList();
         private final Budget budget = new Budget(0);
         SpendingBookStub(Collection<Spending> spendings) {
             this.spendings.setAll(spendings);
@@ -116,7 +116,7 @@ public class AddressBookTest {
         }
 
         @Override
-        public List<Reminder> getReminderList() {
+        public ObservableList<Reminder> getReminderList() {
             return reminders;
         }
 

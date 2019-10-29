@@ -7,5 +7,7 @@ public enum SortAttribute {
     NAME,
     COST,
     DATE,
-    REMARK
+    DEADLINE,
+    REMARK,
+    REMINDER_MESSAGE
 }

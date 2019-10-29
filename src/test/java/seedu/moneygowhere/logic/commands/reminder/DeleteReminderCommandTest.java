@@ -27,7 +27,7 @@ public class DeleteReminderCommandTest {
 
     @Test
     public void execute_validIndexList_success() {
-        Reminder reminderToDelete = model.getReminderList().get(INDEX_FIRST_REMINDER.getZeroBased());
+        Reminder reminderToDelete = model.getSortedReminderList().get(INDEX_FIRST_REMINDER.getZeroBased());
         DeleteReminderCommand deleteReminderCommand = new DeleteReminderCommand(INDEX_FIRST_REMINDER);
 
         String expectedMessage = String.format(DeleteReminderCommand.MESSAGE_DELETE_REMINDER_SUCCESS, reminderToDelete);
@@ -42,7 +42,7 @@ public class DeleteReminderCommandTest {
 
     @Test
     public void execute_invalidIndexList_throwsCommandException() {
-        Index outOfBoundIndex = Index.fromOneBased(model.getReminderList().size() + 1);
+        Index outOfBoundIndex = Index.fromOneBased(model.getSortedReminderList().size() + 1);
         DeleteReminderCommand deleteReminderCommand = new DeleteReminderCommand(outOfBoundIndex);
 
         assertCommandFailure(deleteReminderCommand, model, Messages.MESSAGE_INVALID_REMINDER_DISPLAYED_INDEX);

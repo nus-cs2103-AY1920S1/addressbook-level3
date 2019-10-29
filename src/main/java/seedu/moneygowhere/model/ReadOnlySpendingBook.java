@@ -13,8 +13,8 @@ import seedu.moneygowhere.model.spending.Spending;
 public interface ReadOnlySpendingBook {
 
     /**
-     * Returns an unmodifiable view of the persons list.
-     * This list will not contain any duplicate persons.
+     * Returns an unmodifiable view of the spending list.
+     * This list will not contain any duplicate spending.
      */
     ObservableList<Spending> getSpendingList();
 
@@ -24,7 +24,8 @@ public interface ReadOnlySpendingBook {
     Budget getBudget();
 
     /**
-     * Returns a modifiable view of the reminders list.
+     * Returns an unmodifiable view of the reminder list.
      */
-    List<Reminder> getReminderList();
+    ObservableList<Reminder> getReminderList();
+
 }

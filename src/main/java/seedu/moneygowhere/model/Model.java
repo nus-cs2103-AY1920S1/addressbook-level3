@@ -123,6 +123,6 @@ public interface Model {
      */
     boolean hasReminder(Reminder reminder);
 
-    /** Returns an unmodifiable view of the filtered Spending list */
-    List<Reminder> getReminderList();
+    /** Returns an unmodifiable view of the sorted Reminder list */
+    ObservableList<Reminder> getSortedReminderList();
 }
