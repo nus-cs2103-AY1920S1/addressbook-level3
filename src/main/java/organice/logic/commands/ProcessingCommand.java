@@ -77,8 +77,9 @@ public class ProcessingCommand extends Command {
                 taskList = donor.getProcessingList(patientNRIC);
 
                 donor.setStatus("processing");
+                patient.setStatus("processing");
             }
-            return new CommandResult(taskList.toString());
+            return new CommandResult(taskList.display());
         } catch (PersonNotFoundException pne) {
             return new CommandResult(MESSAGE_NOT_PROCESSED);
         }

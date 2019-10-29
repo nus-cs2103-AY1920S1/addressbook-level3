@@ -114,15 +114,21 @@ public class Donor extends Person {
 
     public void setProcessingList(String newProcessingList) {
         if (newProcessingList.isEmpty()) {
-            this.processingTodoList = new TaskList("");
+            this.processingTodoList = processingTodoList;
         } else {
             TaskList updatedProcessingList = new TaskList("");
             String taskString[] = newProcessingList.split("\n");
-            taskString[0] = "";
             for (int i = 0; i < taskString.length; i++ ) {
                 String currentTaskString = taskString[i];
-                currentTaskString.substring(2);
-                updatedProcessingList.add(new Task(currentTaskString));
+                if (!currentTaskString.isEmpty()) {
+                    currentTaskString.substring(2);
+                    String taskDes[] = currentTaskString.split("]");
+                    Task toBeAddedTask = new Task(taskDes[1]);
+                    if (taskDes[0].equals("[\u2713")) {
+                        toBeAddedTask.markAsDone(toBeAddedTask);
+                    }
+                    updatedProcessingList.add(toBeAddedTask);
+                }
             }
             this.processingTodoList = updatedProcessingList;
         }

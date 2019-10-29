@@ -81,7 +81,7 @@ public class ProcessingMarkDoneCommand extends Command {
                 model.getFilteredPersonList();
                 donor.markTaskAsDone(taskNumber);
             }
-            return new CommandResult(donor.getProcessingList(patientNRIC).toString());
+            return new CommandResult(donor.getProcessingList(patientNRIC).display());
         } catch (PersonNotFoundException pne) {
             return new CommandResult(MESSAGE_NOT_PROCESSED);
         }

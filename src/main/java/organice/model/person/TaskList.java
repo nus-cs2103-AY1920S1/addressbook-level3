@@ -44,8 +44,7 @@ public class TaskList {
         return processingTodoList;
     }
 
-    @Override
-    public String toString() {
+    public String display() {
         int count = 1;
         String tasks = "";
         for (int i = 0; i < listOfTask.size(); i++) {
@@ -55,6 +54,17 @@ public class TaskList {
         }
         return ("Here are the tasks in for the patient and donor:\n" + tasks);
     }
+
+    @Override
+    public String toString() {
+        String tasks = "";
+        for (int i = 0; i < listOfTask.size(); i++) {
+        Task t = listOfTask.get(i);
+        tasks = tasks + t.toString() + "\n";
+        }
+        return tasks;
+    }
+
 
     @Override
     public boolean equals(Object other) {
