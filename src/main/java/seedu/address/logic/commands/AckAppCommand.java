@@ -1,3 +1,4 @@
+//@@author woon17
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
@@ -22,16 +23,15 @@ public class AckAppCommand extends ReversibleCommand {
             + "Parameters: KEYWORD \n"
             + "Example: " + COMMAND_WORD + " 001A";
 
-    public static final String MESSAGE_SUCCESS = "this appointmeent has been acked: %1$s";
-    public static final String MESSAGE_UNDO_SUCCESS = "this appointmeent has been unacked: %1$s";
-    public static final String MESSAGE_DUPLICATE_ACKED = "the upcoming appointment has been acked already.";
+    public static final String MESSAGE_SUCCESS = "This appointmeent has been acked: %1$s";
+    public static final String MESSAGE_DUPLICATE_ACKED = "The upcoming appointment has been acked already.";
 
     private final Event eventToEdit;
     private final Event editedEvent;
 
 
     /**
-     * Creates an AckAppCommand to add the specified {@code Person}
+     * Creates an AckAppCommand to add the specified {@code Event}
      */
     public AckAppCommand(Event eventToEdit, Event editedEvent) {
         requireNonNull(eventToEdit);
