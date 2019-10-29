@@ -12,7 +12,7 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3
+:repoURL: https://github.com/AY1920S1-CS2103T-W12-3/main
 
 By: `AY1920S1-CS2103T-W12-3`      Since: `SEPT 2019`      Licence: `MIT`
 
@@ -57,9 +57,9 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Parameters can be in any order e.g. if the command specifies `AMOUNT n/ITEM`, `n/ITEM AMOUNT` is also acceptable.
 ====
 
-=== Splitting expense with multiple people: `split`
+=== Splitting a Bill with Friends : `split`
 
-Split expenses with you friends +
+Split a bill with your friends +
 Format: `split [f/FLAG] $/AMOUNT n/NAME1 [n/NAME2]... [s/SHARE]`
 
 
@@ -75,7 +75,7 @@ Examples:
 * `split $/1000 n/Amy n/Betty n/Catherine n/Dan`
 * `split $/100 f/loan n/Albert n/Bernard n/Clement s/2 s/1 s/7`
 
-=== Settling up with a friend: `pay`
+=== Settling Up with a Friend : `pay`
 
 Send money to 1 friend +
 Format: `pay $/AMOUNT n/NAME1`
@@ -84,7 +84,7 @@ Examples:
 
 * `pay $/2.5 n/Albert`
 
-=== Logging expense: `out`
+=== Logging Expense : `out`
 
 Adds an expenditure of personal finance +
 Format: `out $/AMOUNT n/ITEM [c/CATEGORY]`
@@ -94,7 +94,7 @@ Examples:
 * `out $/29 n/taxi c/transport`
 * `out $/12 n/burger`
 
-=== Logging finance input: `in`
+=== Logging Income : `in`
 
 Adds an income of personal finance +
 Format: `in $/AMOUNT n/ITEM [c/CATEGORY]`
@@ -104,7 +104,7 @@ Examples:
 * `in $/200 n/mom c/family`
 * `in $/120 n/work`
 
-=== Setting a budget: `set`
+=== Setting a Budget : `set`
 
 Sets a budget for a particular category till the given deadline +
 Format: `set $/AMOUNT d/DATE c/CATEGORY`
@@ -119,7 +119,7 @@ Examples:
 * `set $/100 c/shopping`
 * `set $/50 c/food`
 
-=== Displaying view: `view`
+=== Display View : `view`
 
 Shows all possible views (spending, projection and loan). +
 Format: `view KEYWORD [TIMEFRAME]`
@@ -139,7 +139,7 @@ Examples:
 * `view spending`
 
 // tag::delete[]
-=== Deleting Finance: `delete`
+=== Deleting Finance : `delete`
 
 Deletes the specified income or expenditure from the finance manager. +
 Format: `delete INDEX`
@@ -156,7 +156,7 @@ Examples:
 
 * `delete 1`
 
-=== Updating Finance: `update`
+=== Updating Finance : `update`
 
 Updates the specified income or expenditure from the finance manager. +
 Format: `update --TYPE $/AMOUNT1 $/AMOUNT2 n/ITEM [c/CATEGORY]`
@@ -175,10 +175,24 @@ Examples:
 * `update --out $/100 300 n/transport`
 * `update --in $/60 70 n/dad`
 
-=== Filtering based on categories: `filter`
+=== Sorting transactions : `sort`
+
+Sorts all transactions with given `PREDICATE` +
+Format: `sort PREDICATE`
+
+****
+* Only able to `sort` by `date` and `amount` in v1.3.
+****
+
+Examples:
+
+* `sort amount`
+* `sort date`
+
+=== Filtering Transactions : `filter`
 
 Shows all relevant transactions with given `CATEGORY` +
-Format: `filter CATEGORY`
+Format: `filter CATEGORY...`
 
 ****
 * `CATEGORY` input accepts `CATEGORY` you have used in In or Out transactions before.
@@ -187,11 +201,11 @@ Format: `filter CATEGORY`
 Examples:
 
 * `filter food`
-* `filter transport`
+* `filter transport allowance`
 
-=== Projecting balance based on transactions: `project`
+=== Projecting Balance : `project`
 
-Projects future balace based on past In or Out transactions +
+Projects future balance based on past In or Out transactions +
 Format: `project d/DATE`
 
 ****
@@ -202,37 +216,37 @@ Examples:
 
 * `project d/10012019`
 
-=== Redoing the past entry : `redo`
+=== Redoing the Last Command : `redo`
 
-Redoes the latest entry +
+Redo the last command +
 Format: `redo`
 
-=== Undoing the past entry : `undo`
+=== Undoing the Last Command : `undo`
 
-Undoes the latest entry. +
+Undo the last command. +
 Format: `undo`
 
-=== Clearing all entries : `clear`
+=== Clearing All Entries : `clear`
 
 Clears all entries from the Bank Account. +
 Format: `clear`
 
-=== Listing all entries : `list`
+=== Listing All Entries : `list`
 
 Lists all entries from the Bank Account. +
 Format: `list`
 
-=== Viewing help : `help`
+=== Viewing Help : `help`
 
 Opens help page for list of usable commands +
 Format: `help`
 
-=== Exiting the program : `exit`
+=== Exiting the Application : `exit`
 
 Exits the program. +
 Format: `exit`
 
-=== Saving the data
+=== Saving the Data
 
 PalPay data is saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
@@ -243,28 +257,30 @@ _{explain how the user can enable/disable data encryption}_
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Bank Account folder.
 
 == Command Summary
 
 * *Split* `split [FLAG] $/AMOUNT n/NAME1 [n/NAME2]...` +
-e.g. `split $/1000 n/Amy n/Betty n/Catherine n/Dan`
-* *Out* : `out $/AMOUNT n/ITEM [c/CATEGORY]` +
-e.g. `out $/20 n/coke c/drink`
-* *In* `in $/AMOUNT n/ITEM [c/CATEGORY]` +
-e.g. `in $/100 n/allowance`
+Example: `split $/1000 n/Amy n/Betty n/Catherine n/Dan`
+* *Out* : `out $/AMOUNT n/ITEM d/DATE [c/CATEGORY]` +
+Example: `out $/20 n/coke d/19112019 c/drink c/lunch`
+* *In* `in $/AMOUNT n/ITEM d/DATE [c/CATEGORY]` +
+Example: `in $/100 n/allowance d/11112019 c/income`
 * *Set* : `set $/AMOUNT d/DATE c/CATEGORY` +
-e.g. `set $/100 d/10102019 c/food`
-* *View* : `view []` +
-e.g. `view projection`
+Example: `set $/100 d/10102019 c/food`
+* *View* : `view TAB` +
+Example: `view transaction`
 * *Delete* : `delete --TYPE AMOUNT n/ITEM [c/CATEGORY]` +
-e.g. `delete --in $/200 n/waiter c/work`
+Example: `delete --in $/200 n/waiter c/work`
 * *Update* : `update --TYPE AMOUNT1 AMOUNT2 n/ITEM [c/CATEGORY]` +
-e.g. `update --out $/100 $/300 n/transport`
-* *Filter* : `filter CATEGORY` +
-e.g. `filter food`
+Example: `update --out $/100 $/300 n/transport`
+* *Sort* : `sort PREDICATE` +
+Example: `sort amount`
+* *Filter* : `filter CATEGORY...` +
+Example: `filter food`
 * *Project* : `project DURATION` +
-e.g. `project 10`
+Example: `project 10`
 * *Redo* : `redo`
 * *Undo* : `undo`
 * *Clear* : `clear`
