@@ -2,10 +2,13 @@ package seedu.address.ui.budget;
 
 import java.util.logging.Logger;
 
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.layout.StackPane;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.budget.Budget;
+import seedu.address.model.budget.UniqueBudgetList;
+import seedu.address.model.expense.Expense;
 import seedu.address.ui.expense.ExpenseListPanel;
 import seedu.address.ui.panel.Panel;
 import seedu.address.ui.panel.PanelName;

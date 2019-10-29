@@ -207,7 +207,6 @@ public class MainWindow extends UiPart<Stage> {
         singlePanelView = new SinglePanelView();
         panelPlaceholder.getChildren().add(singlePanelView.getRoot());
 
-
         // fill single panel view
         if (logic.getPrimaryBudget() != null) {
             singlePanelView.setPanel(BudgetPanel.PANEL_NAME, new BudgetPanel(logic.getPrimaryBudget()));
@@ -353,13 +352,21 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    private void refreshPrimaryBudgetPanel() {
+        // refreshes the budget panel
+        if (logic.getPrimaryBudget() == null) {
+            singlePanelView.setPanel(BudgetPanel.PANEL_NAME, new PlaceholderPanel());
+        } else {
+            singlePanelView.setPanel(BudgetPanel.PANEL_NAME, new BudgetPanel(logic.getPrimaryBudget()));
+        }
+    }
+
     /**
      * Changes the currently viewed Panel in the MainWindow.
      * @param panelName The Panel Name of assigned to the Panel.
      * @throws UnmappedPanelException if there is no Panel assigned to the specified Panel Name.
      */
     private void changePanel(PanelName panelName) throws UnmappedPanelException {
-        // updates the budget panel to display the primary budget.
         configureGenericCommands(panelName);
         singlePanelView.viewPanel(panelName);
     }
@@ -369,7 +376,6 @@ public class MainWindow extends UiPart<Stage> {
         commandBox.disableSyntaxHighlightingForCommand(GenericCommandWord.DELETE);
         commandBox.disableSyntaxHighlightingForCommand(GenericCommandWord.LIST);
         if (panelName.equals(BudgetPanel.PANEL_NAME)) {
-            singlePanelView.setPanel(BudgetPanel.PANEL_NAME, new BudgetPanel(logic.getPrimaryBudget()));
             commandBox.enableSyntaxHighlightingForCommand(
                     GenericCommandWord.ADD,
                     AddExpenseCommandParser.REQUIRED_PREFIXES,
@@ -480,6 +486,7 @@ public class MainWindow extends UiPart<Stage> {
             CommandResult commandResult = logic.execute(commandText, commandGroup);
 
             if (commandResult.isViewRequest()) {
+                refreshPrimaryBudgetPanel();
                 changePanel(commandResult.viewRequest());
             }
 
@@ -516,7 +523,7 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
-    public String decideCommandGroup() {
+    private String decideCommandGroup() {
         if (BudgetPanel.PANEL_NAME.equals(singlePanelView.getCurrentPanelName())) {
             return CommandGroup.EXPENSE;
         } else if (ExpenseListPanel.PANEL_NAME.equals(singlePanelView.getCurrentPanelName())) {

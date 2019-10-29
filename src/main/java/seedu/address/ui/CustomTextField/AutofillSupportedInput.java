@@ -12,9 +12,10 @@ import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Prefix;
 
 public class AutofillSupportedInput {
-    Map<Prefix, Boolean> requiredPrefixToIsPresentMapping;
-    Map<Prefix, Boolean> optionalPrefixToIsPresentMapping;
-    String command;
+    private Map<Prefix, Boolean> requiredPrefixToIsPresentMapping;
+    private Map<Prefix, Boolean> optionalPrefixToIsPresentMapping;
+
+    private String command;
 
     AutofillSupportedInput(String commandWord, List<Prefix> requiredPrefixes, List<Prefix> optionalPrefixes) {
         this.command = commandWord;
@@ -28,6 +29,10 @@ public class AutofillSupportedInput {
         for (Prefix p : optionalPrefixes) {
             optionalPrefixToIsPresentMapping.put(p, false);
         }
+    }
+
+    public String getCommand() {
+        return command;
     }
 
     /**

@@ -39,7 +39,6 @@ public class AutofillSuggestionMenu extends ContextMenu {
     private Color matchColour;
     private Color completionColour;
 
-
     /**
      * Constructor for the {@code AutofillSuggestionMenu}.
      * @param textInputControl The textInputControl which this autofill menu is bound to.
@@ -53,11 +52,12 @@ public class AutofillSuggestionMenu extends ContextMenu {
         currentCommandWordStringProperty.addListener((observableValue, s, t1) -> {
             currentCommand.setValue(t1);
         });
+        currentMatchingText = new SimpleStringProperty();
+
         supportedCommandWords = FXCollections.observableArrayList();
         autofillSupportedInputList = FXCollections.observableArrayList();
         autofillSupportedInputs = new FilteredList<>(autofillSupportedInputList);
         commandSuggestions = new FilteredList<>(supportedCommandWords);
-        currentMatchingText = new SimpleStringProperty();
 
         matchColour = Color.RED;
         completionColour = Color.ORANGE;
@@ -65,8 +65,8 @@ public class AutofillSuggestionMenu extends ContextMenu {
         textInputControl.textProperty().addListener((a, b, text) -> {
             currentMatchingText.setValue(text.trim());
 
-            autofillSupportedInputs.setPredicate(x -> {
-                Supplier<Boolean> bool = () -> x.command.equals(currentCommand.get());
+            autofillSupportedInputs.setPredicate(supportedInput -> {
+                Supplier<Boolean> bool = () -> supportedInput.getCommand().equals(currentCommand.get());
                 return bool.get();
             });
 
@@ -84,16 +84,17 @@ public class AutofillSuggestionMenu extends ContextMenu {
     }
 
      void addCommand(String command, List<Prefix> requiredPrefixes, List<Prefix> optionalPrefixes) {
-        supportedCommandWords.removeIf(x -> x.equals(command));
+        supportedCommandWords.removeIf(commandName -> commandName.equals(command));
         supportedCommandWords.add(command);
 
-        autofillSupportedInputList.removeIf(x -> x.command.equals(command));
+        autofillSupportedInputList
+                .removeIf(commandName -> commandName.getCommand().equals(command));
         autofillSupportedInputList.add(new AutofillSupportedInput(command, requiredPrefixes, optionalPrefixes));
     }
 
      void removeCommand(String command) {
-        supportedCommandWords.removeIf(x -> x.equals(command));
-        autofillSupportedInputList.removeIf(x -> x.command.equals(command));
+        supportedCommandWords.removeIf(commandName -> commandName.equals(command));
+        autofillSupportedInputList.removeIf(supportedInput -> supportedInput.getCommand().equals(command));
     }
 
     /**

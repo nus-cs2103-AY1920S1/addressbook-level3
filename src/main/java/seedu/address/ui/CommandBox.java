@@ -1,5 +1,7 @@
 package seedu.address.ui;
 
+import static seedu.address.ui.CustomTextField.CommandTextField.ERROR_STYLE_CLASS;
+
 import java.util.Collections;
 import java.util.List;
 
@@ -21,12 +23,10 @@ import seedu.address.ui.panel.exceptions.UnmappedPanelException;
  */
 public class CommandBox extends UiPart<Region> {
 
-    public static final String ERROR_STYLE_CLASS = "error";
     private static final String FXML = "CommandBox.fxml";
 
     private final CommandExecutor commandExecutor;
     private final CommandTextField commandTextField;
-
 
     @FXML
     private StackPane commandInputAreaPlaceholder;

@@ -53,6 +53,8 @@ public class CommandTextField extends Region {
     private static final String COMMAND_WORD_STYLE = "command-word";
     private static final String PLACEHOLDER_STYLE = "placeholder";
     private static final String STRING_STYLE = "string";
+    public static final String ERROR_STYLE_CLASS = "error";
+
     private static final String CSS_FILE_PATH = "/view/syntax-highlighting.css";
 
     private static InputMap<Event> consumeCopyPasteEvent = InputMap.consume(EventPattern.anyOf(

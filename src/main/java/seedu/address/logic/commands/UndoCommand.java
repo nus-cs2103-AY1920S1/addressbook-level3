@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.ui.panel.PanelName;
 
 /**
  * Undoes the previous model-changing command, effectively reverting the model to its previous state.
@@ -25,6 +26,6 @@ public class UndoCommand extends Command {
         // prevModel guaranteed to be present due to previous validation.
         Model prevModel = model.rollbackModel().get();
         model.resetData(prevModel);
-        return new CommandResult(MESSAGE_SUCCESS);
+        return new CommandResult(MESSAGE_SUCCESS, false, false, true, PanelName.CURRENT);
     }
 }

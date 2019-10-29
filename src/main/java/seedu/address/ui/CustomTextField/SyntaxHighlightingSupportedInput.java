@@ -10,6 +10,7 @@ public class SyntaxHighlightingSupportedInput {
 
     static final String PLACE_HOLDER_REGEX = "(?<placeholder><[^>]+>)";
     private static final String INPUT_PATTERN_TEMPLATE = "(?<COMMAND>%s)|" + PLACE_HOLDER_REGEX + "|%s(?<arg>\\S+)";
+
     private String command;
     private List<Prefix> prefixes;
     private Pattern pattern;
@@ -19,6 +20,10 @@ public class SyntaxHighlightingSupportedInput {
         this.prefixes = new ArrayList<>(requiredPrefixes);
         this.prefixes.addAll(optionalPrefixes);
         this.pattern = compileCommandPattern(command, prefixes);
+    }
+
+    public String getCommand() {
+        return command;
     }
 
     public String getDescription(String pre) {
@@ -35,8 +40,7 @@ public class SyntaxHighlightingSupportedInput {
     }
 
     public Prefix getPrefix(String pre) {
-        Prefix matching = prefixes.stream().filter(x -> x.toString().equals(pre)).findFirst().orElse(null);
-        return matching;
+        return prefixes.stream().filter(x -> x.toString().equals(pre)).findFirst().orElse(null);
     }
 
     public int getPrefixCount() {
