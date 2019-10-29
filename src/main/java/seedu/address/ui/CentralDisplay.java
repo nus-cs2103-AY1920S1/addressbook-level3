@@ -54,6 +54,16 @@ public class CentralDisplay extends UiPart<Region> {
         // initialising agenda
         Agenda agenda = new Agenda() {
             @Override
+            /**
+             * Return the path to the CSS file so things are setup right
+             */
+            public String getUserAgentStylesheet()
+            {
+                return Agenda.class.getResource("/view/" + Agenda.class.getSimpleName() + ".css")
+                        .toExternalForm();
+            }
+
+            @Override
             public Skin<?> createDefaultSkin() {
                 return new AgendaWeekSkin(this) {
                     @Override
