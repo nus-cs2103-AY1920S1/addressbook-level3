@@ -166,7 +166,7 @@ public class ModelManager implements UndoRedoListener {
      */
     private void notifyEventListListeners() {
         this.eventListListeners.forEach(listener ->
-                listener.onEventListChange(this.getEventList(), this.getTaskList()));
+                listener.onEventListChange(this.getEventList()));
     }
 
     /**
@@ -174,7 +174,7 @@ public class ModelManager implements UndoRedoListener {
      */
     private void notifyTaskListListeners() {
         this.taskListListeners.forEach(listener ->
-                listener.onTaskListChange(this.getEventList(), this.getTaskList()));
+                listener.onTaskListChange(this.getTaskList()));
     }
 
     @Override

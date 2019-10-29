@@ -26,6 +26,11 @@ import seedu.address.model.tasks.TaskSource;
  */
 public class UndoRedoManager implements EventListListener, TaskListListener {
 
+    // These are deep copies of ModelManager's eventlist and tasklist.
+    // Updated in onEventListChange & onTaskListChange
+    private List<EventSource> events;
+    private List<TaskSource> tasks;
+
     /**
      * Deep-copies of mainEventList are stored to this list
      * every time a state-changing command is executed.
@@ -73,12 +78,14 @@ public class UndoRedoManager implements EventListListener, TaskListListener {
     }
 
     /**
-     * Appends a copy of a UndoState to this UndoRedoManager.
+     * Creates an UndoRedoState containing the current events and tasks.
+     * Appends it to this undoStateList.
      */
-    private void commit(UndoRedoState state) {
+    private void commit() {
+        clearFutureHistory();
         assert currentStateIndex >= undoStateList.size() - 1
                 : "Pointer always points to end of list during commit; All future states must have been discarded.";
-        undoStateList.add(state);
+        undoStateList.add(new UndoRedoState(this.events, this.tasks));
         currentStateIndex++;
     }
 
@@ -123,9 +130,11 @@ public class UndoRedoManager implements EventListListener, TaskListListener {
     }
 
     @Override
-    public void onEventListChange(List<EventSource> events, List<TaskSource> tasks) {
+    public void onEventListChange(List<EventSource> events) {
+        this.events = events;
+
         /*
-        Ignores the EventList when it is equal to getCurrentState().
+        Don't commit when the EventList when it is equal to getCurrentState().
         This will be true every undo/redo.
         Explanation: undo/redo will update ModelManager's EventList, which in turn will notify this method,
         causing an unwanted feedback loop.
@@ -134,14 +143,15 @@ public class UndoRedoManager implements EventListListener, TaskListListener {
             return;
         }
 
-        clearFutureHistory();
-        commit(new UndoRedoState(events, tasks));
+        commit();
     }
 
     @Override
-    public void onTaskListChange(List<EventSource> events, List<TaskSource> tasks) {
+    public void onTaskListChange(List<TaskSource> tasks) {
+        this.tasks = tasks;
+
         /*
-        Ignores the TaskList when it is equal to getCurrentState().
+        Don't commit when the TaskList when it is equal to getCurrentState().
         This will be true every undo/redo.
         Explanation: undo/redo will update ModelManager's TaskList, which in turn will notify this method,
         causing an unwanted feedback loop.
@@ -150,8 +160,7 @@ public class UndoRedoManager implements EventListListener, TaskListListener {
             return;
         }
 
-        clearFutureHistory();
-        commit(new UndoRedoState(events, tasks));
+        commit();
     }
 
     @Override

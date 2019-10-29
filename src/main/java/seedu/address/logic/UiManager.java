@@ -127,13 +127,13 @@ public class UiManager implements Ui, UserOutputListener, EventListListener, Tas
     }
 
     @Override
-    public void onEventListChange(List<EventSource> events, List<TaskSource> tasks) {
-        this.mainWindow.onEventListChange(events, tasks);
+    public void onEventListChange(List<EventSource> events) {
+        this.mainWindow.onEventListChange(events);
     }
 
     @Override
-    public void onTaskListChange(List<EventSource> events, List<TaskSource> tasks) {
-        this.mainWindow.onTaskListChange(events, tasks);
+    public void onTaskListChange(List<TaskSource> tasks) {
+        this.mainWindow.onTaskListChange(tasks);
     }
 
     @Override
