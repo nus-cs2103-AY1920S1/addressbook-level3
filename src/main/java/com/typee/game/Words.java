@@ -13,8 +13,9 @@ public class Words {
                                            "was", "set", "at", "oil", "grow", "need", "call", "no", "said", "hard",
                                            "almost", "house", "idea", "form", "just", "something", "help", "every",
                                            "again", "in", "the", "earth", "one", "came", "up", "very", "people",
-                                           "other", "alert", "area", "should", "hello", "fix", "rice", "type", "chicken",
-                                           "there", "and", "back", "ring", "blink", "grass", "fly", "sprint", "attack"};
+                                           "other", "alert", "area", "should", "hello", "fix", "rice", "type",
+                                           "chicken", "there", "and", "back", "ring", "blink", "grass", "fly", "sprint",
+                                           "attack"};
 
     public static String get(int index) {
         return words[index];
