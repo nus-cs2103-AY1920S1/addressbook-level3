@@ -40,7 +40,7 @@ public class AutofillSupportedCommand {
      * Returns a list of missing prefixes to add to the auto completion suggestions.
      * @param input The string to check for prefixes.
      */
-    public List<Prefix> getMissingPrefixes(String input) {
+    public List<Prefix>[] getMissingPrefixes(String input) {
         ArrayList<Prefix> prefixes = new ArrayList<>(requiredPrefixToIsPresentMapping.keySet());
         prefixes.addAll(optionalPrefixToIsPresentMapping.keySet());
         Prefix[] prefixArray = prefixes.toArray(new Prefix[]{});
@@ -48,21 +48,22 @@ public class AutofillSupportedCommand {
         // tokenize to find prefixes
         ArgumentMultimap argumentMultimap = ArgumentTokenizer.tokenize(input, prefixArray);
 
-        ArrayList<Prefix> remaining = new ArrayList<>();
+        ArrayList<Prefix> missingReq = new ArrayList<>();
+        ArrayList<Prefix> missingOpt = new ArrayList<>();
 
         // find missing required prefixes
         requiredPrefixToIsPresentMapping.forEach((p, v) -> {
             if (argumentMultimap.getValue(p).isEmpty()) {
-                remaining.add(p);
+                missingReq.add(p);
             }
         });
 
         // find missing optional prefixes
         optionalPrefixToIsPresentMapping.forEach((p, v) -> {
             if (argumentMultimap.getValue(p).isEmpty()) {
-                remaining.add(p);
+                missingOpt.add(p);
             }
         });
-        return remaining;
+        return (List<Prefix>[])new List[]{missingReq, missingOpt};
     }
 }

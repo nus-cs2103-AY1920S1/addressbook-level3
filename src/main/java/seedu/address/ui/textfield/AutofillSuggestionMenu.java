@@ -186,21 +186,31 @@ public class AutofillSuggestionMenu extends ContextMenu {
                              FilteredList<String> commandSuggestion, String match) {
         m.getItems().clear();
         if (currentCommand.length().get() > 0) {
-            m.getItems().addAll(new SeparatorMenuItem());
             AutofillSupportedCommand c = matchingSuggestions.get(0);
-            for (Prefix p : c.getMissingPrefixes(match)) {
-                TextFlow graphic;
-                if (c.isRequired(p)) {
-                    graphic = requiredPrefixGraphic(p);
-                } else {
-                    graphic = optionalPrefixGraphic(p);
-                }
+            List<Prefix>[] missing = c.getMissingPrefixes(match);
+            for (Prefix p : missing[0]) {
+                TextFlow graphic = requiredPrefixGraphic(p);
                 MenuItem item = new MenuItem();
                 // if ends with space can add prefix
                 if (match.replaceAll(PLACEHOLDER_REGEX, "").stripTrailing().length() < match.length()) {
                     item.setId(p.getPrefix());
-
-                // else add a white space in order for it to be properly parsed as a prefix
+                    // else add a white space in order for it to be properly parsed as a prefix
+                } else {
+                    item.setId(" " + p.getPrefix());
+                }
+                item.setGraphic(graphic);
+                m.getItems().add(item);
+            }
+            if (missing[0].size() > 0 && missing[1].size() > 0) {
+                m.getItems().add(new SeparatorMenuItem());
+            }
+            for (Prefix p : missing[1]) {
+                TextFlow graphic = optionalPrefixGraphic(p);
+                MenuItem item = new MenuItem();
+                // if ends with space can add prefix
+                if (match.replaceAll(PLACEHOLDER_REGEX, "").stripTrailing().length() < match.length()) {
+                    item.setId(p.getPrefix());
+                    // else add a white space in order for it to be properly parsed as a prefix
                 } else {
                     item.setId(" " + p.getPrefix());
                 }
