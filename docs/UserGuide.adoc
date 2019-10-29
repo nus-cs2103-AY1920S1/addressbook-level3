@@ -47,6 +47,7 @@ Format: `checkout INDEX`
 Example:
 
 * `checkout 1`
+
 === Adding Items
 
 This section deals with adding information to the application.
@@ -60,10 +61,9 @@ Example:
 
 * `addProject n/CS2103 project s/Software engeering project`
 
-==== 2. Add a person to your contacts: `add`
+==== 2. Add a person: `add`
 
 Adds a person to your contacts.
-
 When you add a person to your contacts, it will automatically change to displaying your list of contacts. +
 Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
 
@@ -81,7 +81,7 @@ Examples:
 Adding a member can be done in 2 ways, you can either add a new person to your contacts and to your current project,
 or you can simply add an existing person from your contacts to your current project.
 
-==== 3.1 Add a new person to your contacts and project: `addMember` [Checkout]
+==== 3.1 Add a new member: `addMember` [Checkout]
 
 This command is similar to adding a person to your contacts shown previously, except that you have to
 checked out into a project. +
@@ -98,19 +98,24 @@ Example:
 
 * `addMember n/Betsy Crowe e/betsycrowe@example.com t/friend t/criminal`
 
-==== 3.2 Add a person from contacts to a project: `addFromContacts` [Checkout]
+
+==== 3.2 Add from your contacts: `addFromContacts` [Checkout]
+
 
 This command helps to add a person you already saved in your contacts into your project, reducing the need
 to type his information all over again. All you need to do is enter the index he is listed at. +
 Format: `addFromContacts INDEX`
 
-`INDEX` is the number which the person is listed at, and it should be a postive integer eg. 1, 2, 3, ....
+
+`INDEX` is the number which the person is listed at, and it should be a positive integer eg. 1, 2, 3, ....
+
 
 Example:
 
 * `addFromContacts 1`
 
-==== 4. Add a timetable for a person: `addTimeTable`
+==== 4. Add a timetable: `addTimeTable`
+
 
 Adds a timetable for the specified person, to record down their schedule. +
 Format : `addTimetable INDEX [n/NUSMODS_SHARE_URL] [f/FILEPATH_TO_TIMETABLE]`
@@ -120,7 +125,9 @@ Example:
 * `addTimetable 3 f//home/john/Desktop/aliceTimetable.txt addTimetable 2
 n/https://nusmods.com/timetable/sem-1/share?CS2100=LAB:05,TUT:02,LEC:1&CS2101=&CS2103T=LEC:G13&CS2105=TUT:03,LEC:1&CS3241=TUT:05,LEC:1&CS3243=TUT:01,LEC:1&GEQ1000=TUT:D27 __`
 
-==== 5. Add a task to your project: `addTask` [Checkout]
+
+==== 5. Add a task: `addTask` [Checkout]
+
 
 Adds an unchecked task to the list of tasks of your current working project. +
 Format: `addTask s/DESCRIPTION c/TIME`
@@ -138,7 +145,9 @@ Format: `Format: addProjectMeeting [c/ dd/MM/yyyy HHmm] [s/MEETING_DESCRIPTION]`
 
 This section deals with editing information shown on the application.
 
-==== 1. Editing a person : `edit`
+
+==== 1. Edit a person : `edit`
+
 
 Edits an existing person in the address book. +
 Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
@@ -162,7 +171,9 @@ Edits the name of the 2nd person to be `Betsy Crower` and clears all existing ta
 
 This section deals with removing information within the application.
 
-==== 1. Deleting a person from contacts : `delete`
+
+==== 1. Deleting a person: `delete`
+
 
 Deletes the specified person from your contacts. +
 Format: `delete INDEX`
@@ -182,7 +193,8 @@ Deletes the 2nd person in the address book.
 `delete 1` +
 Deletes the 1st person in the results of the `find` command.
 
-==== 2. Removing a member from a project: `removeMember` [Checkout]
+==== 2. Remove a member: `removeMember` [Checkout]
+
 
 Removes the specified person from the current working project. +
 Format: `removeMember NAME`
@@ -193,7 +205,9 @@ Example:
 
 * `removeMember John Doe`
 
-==== 3. Deleting a task from a project: `deleteTask` [Checkout]
+
+==== 3. Delete a task: `deleteTask` [Checkout]
+
 
 Deletes the specified task from the current working project.  +
 Format: `deleteTask INDEX`
@@ -206,7 +220,9 @@ Example:
 
 === Finding
 
-==== 1. Finding a person by name: `find`
+
+==== 1. Find a person by name: `find`
+
 
 Finds persons whose names contain any of the given keywords. +
 Format: `find KEYWORD [MORE_KEYWORDS]`
