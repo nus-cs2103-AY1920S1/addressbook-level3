@@ -22,7 +22,7 @@ import seedu.mark.storage.StorageStub;
 class DeleteCacheCommandTest {
 
     @Test
-    void execute_valid_deleteSuccess() throws Exception {
+    public void execute_valid_deleteSuccess() throws Exception {
         Bookmark validBookmark = new BookmarkBuilder().withCachedCopy(new CachedCopy("<html>")).build();
         ModelStubAcceptingBookmarkAdded modelStub = new ModelStubAcceptingBookmarkAdded(validBookmark);
 
@@ -34,7 +34,7 @@ class DeleteCacheCommandTest {
     }
 
     @Test
-    void execute_noOfflineCopy_deleteFailure() throws Exception {
+    public void execute_noOfflineCopy_deleteFailure() throws Exception {
         Bookmark validBookmark = new BookmarkBuilder().build();
         ModelStubAcceptingBookmarkAdded modelStub = new ModelStubAcceptingBookmarkAdded(validBookmark);
 
@@ -45,7 +45,7 @@ class DeleteCacheCommandTest {
     }
 
     @Test
-    void testEquals() {
+    public void testEquals() {
         DeleteCacheCommand command = new DeleteCacheCommand(INDEX_FIRST_BOOKMARK);
         DeleteCacheCommand other = new DeleteCacheCommand(INDEX_FIRST_BOOKMARK);
         assertEquals(command, other);
