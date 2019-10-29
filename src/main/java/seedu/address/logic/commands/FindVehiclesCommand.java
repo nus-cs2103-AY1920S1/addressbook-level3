@@ -30,7 +30,7 @@ public class FindVehiclesCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Searches for vehicles by district "
             + "in the same district as entered by user. \n"
             + "Parameters: "
-            + SEARCH_PREFIX_DISTRICT + "districtNumber";
+            + SEARCH_PREFIX_DISTRICT + "[district numbers separated by whitespace]";
 
     private final Predicate<Vehicle> predicate;
     private Incident draft; // only if this command is used by NewCommand
@@ -76,8 +76,8 @@ public class FindVehiclesCommand extends Command {
      */
     public void autoAssign(Model model) {
         assert(this.draft != null && isAuto);
-        ObservableList<Vehicle> nearbyVehicles = model.getFilteredVehicleList().filtered(
-                vehicle -> vehicle.getDistrict().equals(draft.getDistrict())
+        ObservableList<Vehicle> nearbyVehicles = model.getFilteredVehicleList()
+                .filtered(vehicle -> vehicle.getDistrict().equals(draft.getDistrict())
         );
 
         if (nearbyVehicles.size() > 0) {
