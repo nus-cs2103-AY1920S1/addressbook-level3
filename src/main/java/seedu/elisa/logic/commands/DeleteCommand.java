@@ -7,7 +7,6 @@ import seedu.elisa.commons.core.index.Index;
 import seedu.elisa.commons.core.item.Item;
 import seedu.elisa.logic.commands.exceptions.CommandException;
 import seedu.elisa.model.AutoRescheduleManager;
-import seedu.elisa.model.AutoReschedulePeriod;
 import seedu.elisa.model.ItemIndexWrapper;
 import seedu.elisa.model.ItemModel;
 import seedu.elisa.model.RescheduleTask;
@@ -47,7 +46,7 @@ public class DeleteCommand extends UndoableCommand {
         Item itemDeleted = model.deleteItem(targetIndex.getZeroBased());
 
         if (itemDeleted.hasAutoReschedule()) { // also ensures that itemDeleted has an Event.
-            RescheduleTask.removeFromAllTask(itemDeleted.getEvent().get());
+            RescheduleTask.removeFromAllTasks(itemDeleted.getEvent().get());
         }
 
         return new CommandResult(String.format(MESSAGE_DELETE_ITEM_SUCCESS, itemDeleted));

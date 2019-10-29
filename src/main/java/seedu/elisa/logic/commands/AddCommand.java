@@ -58,7 +58,7 @@ public abstract class AddCommand extends UndoableCommand {
 
         if (toAdd.hasAutoReschedule()) {
             Event event = toAdd.getEvent().get(); // if autoReschedule is present, item definitely has an event.
-            RescheduleTask.removeFromAllTask(toAdd.getEvent().get());
+            RescheduleTask.removeFromAllTasks(toAdd.getEvent().get());
         }
     }
 }

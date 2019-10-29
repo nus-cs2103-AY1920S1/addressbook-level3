@@ -16,27 +16,46 @@ import seedu.elisa.logic.LogicManager;
  * Task to reschedule an event.
  */
 public class RescheduleTask extends TimerTask {
-    public static LinkedList<RescheduleTask> allTasks = new LinkedList<>();
+    private static LinkedList<RescheduleTask> allTasks = new LinkedList<>();
     private final Logger logger = LogsCenter.getLogger(LogicManager.class);
     private ItemModel model;
     private Item item;
     private Event event;
     private AutoReschedulePeriod period;
 
-    public static void removeFromAllTask(Event event) {
+    /**
+     * Creates a RescheduleTask to reschedule this item automatically, in intervals of the given period.
+     * Requirements: Item must have an Event.
+     * @param item who's event is to be rescheduled
+     * @param period interval of rescheduling
+     * @param model which consist of this item
+     */
+    public RescheduleTask(Item item, AutoReschedulePeriod period, ItemModel model) {
+        this.item = item;
+        this.event = item.getEvent().get();
+        this.period = period;
+        this.model = model;
+    }
+
+    /**
+     * Adds this {@code task} to the list of allTasks.
+     * @param task to be added
+     */
+    public static void addToAllTasks(RescheduleTask task) {
+        allTasks.add(task);
+    }
+
+    /**
+     * Removes the RescheduleTask of this event from the list of allTasks.
+     * @param event to be removed
+     */
+    public static void removeFromAllTasks(Event event) {
         for (RescheduleTask task : RescheduleTask.allTasks) {
             if (task.getEvent().equals(event)) {
                 task.cancel();
                 RescheduleTask.allTasks.remove(task);
             }
         }
-    }
-
-    public RescheduleTask(Item item, AutoReschedulePeriod period, ItemModel model) {
-        this.item = item;
-        this.event = item.getEvent().get();
-        this.period = period;
-        this.model = model;
     }
 
     public LocalDateTime getStartTime() {

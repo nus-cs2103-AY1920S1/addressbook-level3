@@ -112,7 +112,7 @@ public class AutoRescheduleManager {
                 LocalDateTime updatedTime = getUpdatedDateTime(task.getEvent());
             }
 
-            RescheduleTask.allTasks.add(task);
+            RescheduleTask.addToAllTasks(task);
             timer.scheduleAtFixedRate(task, delay.toMillis(), task.getLongPeriod());
         } catch (Exception e) {
             logger.warning("----------------[Failed to schedule Event][" + task.getEvent() + "]");
