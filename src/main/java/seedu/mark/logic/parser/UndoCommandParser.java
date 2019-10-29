@@ -11,7 +11,7 @@ import seedu.mark.logic.parser.exceptions.ParseException;
  */
 public class UndoCommandParser implements Parser<UndoCommand> {
     /**
-     * Parses the given {@code String} of arguments in the context of the GotoCommand
+     * Parses the given {@code String} of arguments in the context of the UndoCommand
      * and returns a UndoCommand object for execution.
      * @throws ParseException if the user input does not conform to the expected format
      */
@@ -22,7 +22,7 @@ public class UndoCommandParser implements Parser<UndoCommand> {
                 return new UndoCommand(1);
             }
             if (!StringUtil.isNonZeroUnsignedInteger(trimmedArgs)) {
-                throw new ParseException("Step is not a non-zero unsigned integer.");
+                throw new ParseException("The number of steps " + trimmedArgs + " is not a non-zero unsigned integer.");
             }
             int step = Integer.parseInt(trimmedArgs);
             return new UndoCommand(step);

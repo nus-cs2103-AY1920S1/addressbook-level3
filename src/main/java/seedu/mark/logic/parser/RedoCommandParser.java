@@ -11,8 +11,8 @@ import seedu.mark.logic.parser.exceptions.ParseException;
  */
 public class RedoCommandParser implements Parser<RedoCommand> {
     /**
-     * Parses the given {@code String} of arguments in the context of the GotoCommand
-     * and returns a UndoCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the RedoCommand
+     * and returns a RedoCommand object for execution.
      * @throws ParseException if the user input does not conform to the expected format
      */
     public RedoCommand parse(String args) throws ParseException {

@@ -21,7 +21,7 @@ import seedu.mark.model.reminder.Reminder;
  */
 public interface Model {
     /**
-     * {@code Predicate} that always evaluate to true
+     * {@code Predicate} that always evaluates to true
      */
     Predicate<Bookmark> PREDICATE_SHOW_ALL_BOOKMARKS = unused -> true;
 
@@ -159,7 +159,7 @@ public interface Model {
     /**
      * Returns true if the model has previous Mark states to restore.
      *
-     * @param steps The number of steps to check
+     * @param steps The number of previous Mark states to check
      */
     boolean canUndoMark(int steps);
 
@@ -168,7 +168,7 @@ public interface Model {
     /**
      * Returns true if the model has undone Mark states to restore.
      *
-     * @param steps The number of steps to check
+     * @param steps The number of undone Mark states to check
      */
     boolean canRedoMark(int steps);
 

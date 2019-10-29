@@ -16,14 +16,14 @@ public class RedoCommand extends Command {
     public static final String COMMAND_WORD = "redo";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Redoes previous undo commands by the given number of steps. "
-            + "If not specified, the default number of steps is 1. \n"
+            + ": Redoes a given number of previous undo commands. "
+            + "If not specified, the default number of commands to redo is 1. \n"
             + "Parameters: [STEP] (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 2";
 
     public static final String MESSAGE_SUCCESS = "Action(s) successfully redone: \n%1$s";
     public static final String MESSAGE_FAILURE = "Not enough commands to redo! "
-            + "Only %1$s remaining undo command(s).\";";
+            + "Only %1$s remaining undo command(s).";
 
     private final int steps;
 
