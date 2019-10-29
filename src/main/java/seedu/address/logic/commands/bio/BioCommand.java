@@ -3,7 +3,7 @@ package seedu.address.logic.commands.bio;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.Model;
-import sugarmummy.commons.ui.DisplayPaneType;
+import seedu.address.ui.DisplayPaneType;
 
 /**
  * Displays information on user's biography.

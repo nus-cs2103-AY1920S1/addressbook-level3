@@ -1,14 +1,14 @@
 package seedu.address.logic.commands.aesthetics;
 
 import static java.util.Objects.requireNonNull;
-import static sugarmummy.commons.core.Messages.MESSAGE_BACKGROUND_COLOUR_NO_ARGS_REQUIREMENT;
+import static seedu.address.commons.core.Messages.MESSAGE_BACKGROUND_COLOUR_NO_ARGS_REQUIREMENT;
 
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.aesthetics.Background;
-import sugarmummy.commons.ui.DisplayPaneType;
+import seedu.address.ui.DisplayPaneType;
 
 /**
  * Edits the details of an existing user in the address book.

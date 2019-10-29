@@ -5,7 +5,7 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 import seedu.address.commons.exceptions.DataConversionException;
-import sugarmummy.commons.core.Config;
+import seedu.address.commons.core.Config;
 
 /**
  * A class for accessing the Config File.

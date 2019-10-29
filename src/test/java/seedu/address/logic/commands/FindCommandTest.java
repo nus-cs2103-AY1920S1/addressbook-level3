@@ -8,7 +8,7 @@ import static seedu.address.testutil.TypicalPersons.CARL;
 import static seedu.address.testutil.TypicalPersons.ELLE;
 import static seedu.address.testutil.TypicalPersons.FIONA;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
-import static sugarmummy.commons.core.Messages.MESSAGE_RECORDS_LISTED_OVERVIEW;
+import static seedu.address.commons.core.Messages.MESSAGE_RECORDS_LISTED_OVERVIEW;
 
 import java.util.Arrays;
 import java.util.Collections;

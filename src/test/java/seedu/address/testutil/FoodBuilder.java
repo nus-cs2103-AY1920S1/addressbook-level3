@@ -1,6 +1,6 @@
 package seedu.address.testutil;
 
-import sugarmummy.commons.logic.parser.exceptions.ParseException;
+import seedu.address.logic.parser.exceptions.ParseException;
 import sugarmummy.recmfood.model.Calorie;
 import sugarmummy.recmfood.model.Fat;
 import sugarmummy.recmfood.model.Food;

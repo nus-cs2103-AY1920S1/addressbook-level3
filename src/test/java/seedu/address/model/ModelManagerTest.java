@@ -19,7 +19,7 @@ import seedu.address.model.bio.UserList;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.record.UniqueRecordList;
 import seedu.address.testutil.AddressBookBuilder;
-import sugarmummy.commons.core.GuiSettings;
+import seedu.address.commons.core.GuiSettings;
 import sugarmummy.recmfood.model.UniqueFoodList;
 
 public class ModelManagerTest {

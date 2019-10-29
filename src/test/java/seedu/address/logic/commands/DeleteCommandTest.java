@@ -15,8 +15,8 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.bio.UserList;
 import seedu.address.model.record.UniqueRecordList;
-import sugarmummy.commons.core.Messages;
-import sugarmummy.commons.core.index.Index;
+import seedu.address.commons.core.Messages;
+import seedu.address.commons.core.index.Index;
 import sugarmummy.recmfood.model.UniqueFoodList;
 
 /**

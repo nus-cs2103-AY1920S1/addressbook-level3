@@ -23,12 +23,12 @@ import seedu.address.model.bio.User;
 import seedu.address.model.calendar.CalendarEntry;
 import seedu.address.model.person.Person;
 import seedu.address.model.record.Record;
-import sugarmummy.commons.core.GuiSettings;
-import sugarmummy.commons.core.LogsCenter;
-import sugarmummy.commons.logic.parser.SugarMummyParser;
-import sugarmummy.commons.logic.parser.exceptions.ParseException;
-import sugarmummy.commons.storage.Storage;
-import sugarmummy.commons.ui.DisplayPaneType;
+import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.core.LogsCenter;
+import seedu.address.logic.parser.SugarMummyParser;
+import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.storage.Storage;
+import seedu.address.ui.DisplayPaneType;
 import sugarmummy.recmfood.model.Food;
 
 /**

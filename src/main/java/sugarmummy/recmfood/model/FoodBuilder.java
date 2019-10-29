@@ -1,6 +1,6 @@
 package sugarmummy.recmfood.model;
 
-import sugarmummy.commons.logic.parser.exceptions.ParseException;
+import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
  * A utility class to help with building Food objects.

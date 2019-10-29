@@ -8,7 +8,7 @@ import java.util.Objects;
 
 import seedu.address.model.aesthetics.Background;
 import seedu.address.model.aesthetics.Colour;
-import sugarmummy.commons.core.GuiSettings;
+import seedu.address.commons.core.GuiSettings;
 
 /**
  * Represents User's preferences.

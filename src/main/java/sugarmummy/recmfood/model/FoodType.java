@@ -1,6 +1,6 @@
 package sugarmummy.recmfood.model;
 
-import sugarmummy.commons.logic.parser.exceptions.ParseException;
+import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
  * Represents all useful food types for categorizing food recommendations.

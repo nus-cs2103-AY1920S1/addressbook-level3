@@ -20,9 +20,9 @@ import seedu.address.model.bio.User;
 import seedu.address.model.calendar.CalendarEntry;
 import seedu.address.model.person.Person;
 import seedu.address.model.record.Record;
-import sugarmummy.commons.core.GuiSettings;
-import sugarmummy.commons.logic.parser.exceptions.ParseException;
-import sugarmummy.commons.ui.DisplayPaneType;
+import seedu.address.commons.core.GuiSettings;
+import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.ui.DisplayPaneType;
 import sugarmummy.recmfood.model.Food;
 
 /**

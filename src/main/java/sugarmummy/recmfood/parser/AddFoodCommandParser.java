@@ -1,17 +1,17 @@
 package sugarmummy.recmfood.parser;
 
-import static sugarmummy.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AddFoodCommand;
-import sugarmummy.commons.logic.parser.ArgumentMultimap;
-import sugarmummy.commons.logic.parser.ArgumentTokenizer;
-import sugarmummy.commons.logic.parser.CliSyntax;
-import sugarmummy.commons.logic.parser.Parser;
-import sugarmummy.commons.logic.parser.ParserUtil;
-import sugarmummy.commons.logic.parser.Prefix;
-import sugarmummy.commons.logic.parser.exceptions.ParseException;
+import seedu.address.logic.parser.ArgumentMultimap;
+import seedu.address.logic.parser.ArgumentTokenizer;
+import seedu.address.logic.parser.CliSyntax;
+import seedu.address.logic.parser.Parser;
+import seedu.address.logic.parser.ParserUtil;
+import seedu.address.logic.parser.Prefix;
+import seedu.address.logic.parser.exceptions.ParseException;
 import sugarmummy.recmfood.exception.FoodNotSuitableException;
 import sugarmummy.recmfood.model.Calorie;
 import sugarmummy.recmfood.model.Fat;

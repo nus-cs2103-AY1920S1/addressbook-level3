@@ -14,7 +14,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import seedu.address.commons.exceptions.DataConversionException;
-import sugarmummy.commons.core.Config;
+import seedu.address.commons.core.Config;
 
 public class ConfigUtilTest {
 

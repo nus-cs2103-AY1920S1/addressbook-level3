@@ -1,7 +1,7 @@
 package sugarmummy.recmfood.parser;
 
-import static sugarmummy.commons.logic.parser.CliSyntax.FLAGS;
-import static sugarmummy.commons.logic.parser.CliSyntax.PREFIX_FOOD;
+import static seedu.address.logic.parser.CliSyntax.FLAGS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FOOD;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -10,11 +10,11 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import seedu.address.logic.commands.RecmFoodCommand;
-import sugarmummy.commons.logic.parser.ArgumentMultimap;
-import sugarmummy.commons.logic.parser.ArgumentTokenizer;
-import sugarmummy.commons.logic.parser.Flag;
-import sugarmummy.commons.logic.parser.Parser;
-import sugarmummy.commons.logic.parser.exceptions.ParseException;
+import seedu.address.logic.parser.ArgumentMultimap;
+import seedu.address.logic.parser.ArgumentTokenizer;
+import seedu.address.logic.parser.Flag;
+import seedu.address.logic.parser.Parser;
+import seedu.address.logic.parser.exceptions.ParseException;
 import sugarmummy.recmfood.model.FoodNameContainsKeywordsPredicate;
 import sugarmummy.recmfood.model.FoodType;
 import sugarmummy.recmfood.model.FoodTypeIsWantedPredicate;

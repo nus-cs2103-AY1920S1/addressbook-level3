@@ -1,14 +1,14 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static sugarmummy.commons.logic.parser.CliSyntax.PREFIX_BLOODSUGAR_CONCENTRATION;
-import static sugarmummy.commons.logic.parser.CliSyntax.PREFIX_DATETIME;
-import static sugarmummy.commons.logic.parser.CliSyntax.PREFIX_RECORDTYPE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_BLOODSUGAR_CONCENTRATION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATETIME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_RECORDTYPE;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.record.Record;
-import sugarmummy.commons.ui.DisplayPaneType;
+import seedu.address.ui.DisplayPaneType;
 
 /**
  * Adds a record to the record list.

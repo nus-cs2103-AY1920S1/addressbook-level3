@@ -12,8 +12,8 @@ import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import seedu.address.MainApp;
-import sugarmummy.commons.core.LogsCenter;
-import sugarmummy.commons.ui.UiPart;
+import seedu.address.commons.core.LogsCenter;
+import seedu.address.ui.UiPart;
 import sugarmummy.recmfood.model.Food;
 
 /**

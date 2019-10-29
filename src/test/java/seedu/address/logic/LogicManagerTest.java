@@ -2,8 +2,8 @@ package seedu.address.logic;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.testutil.Assert.assertThrows;
-import static sugarmummy.commons.core.Messages.MESSAGE_INVALID_RECORD_DISPLAYED_INDEX;
-import static sugarmummy.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_RECORD_DISPLAYED_INDEX;
+import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -22,12 +22,12 @@ import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.record.UniqueRecordList;
 import seedu.address.storage.bio.JsonUserListStorage;
-import sugarmummy.commons.logic.parser.exceptions.ParseException;
-import sugarmummy.commons.storage.JsonAddressBookStorage;
-import sugarmummy.commons.storage.JsonCalendarStorage;
-import sugarmummy.commons.storage.JsonRecordListStorage;
-import sugarmummy.commons.storage.JsonUserPrefsStorage;
-import sugarmummy.commons.storage.StorageManager;
+import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.storage.JsonAddressBookStorage;
+import seedu.address.storage.JsonCalendarStorage;
+import seedu.address.storage.JsonRecordListStorage;
+import seedu.address.storage.JsonUserPrefsStorage;
+import seedu.address.storage.StorageManager;
 import sugarmummy.recmfood.model.UniqueFoodList;
 import sugarmummy.recmfood.storage.JsonFoodListStorage;
 

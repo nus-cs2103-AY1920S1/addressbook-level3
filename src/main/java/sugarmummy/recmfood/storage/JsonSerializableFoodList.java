@@ -9,7 +9,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import sugarmummy.commons.storage.JsonSerializableContent;
+import seedu.address.storage.JsonSerializableContent;
 import sugarmummy.recmfood.model.Food;
 import sugarmummy.recmfood.model.UniqueFoodList;
 

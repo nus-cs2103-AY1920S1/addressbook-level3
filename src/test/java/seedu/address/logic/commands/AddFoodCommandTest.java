@@ -35,7 +35,7 @@ import seedu.address.model.record.RecordType;
 import seedu.address.model.record.UniqueRecordList;
 import seedu.address.model.statistics.AverageType;
 import seedu.address.testutil.FoodBuilder;
-import sugarmummy.commons.core.GuiSettings;
+import seedu.address.commons.core.GuiSettings;
 import sugarmummy.recmfood.model.Food;
 import sugarmummy.recmfood.model.UniqueFoodList;
 

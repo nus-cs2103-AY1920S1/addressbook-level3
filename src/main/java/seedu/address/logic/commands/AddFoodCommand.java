@@ -1,16 +1,16 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static sugarmummy.commons.logic.parser.CliSyntax.PREFIX_CALORIE;
-import static sugarmummy.commons.logic.parser.CliSyntax.PREFIX_FAT;
-import static sugarmummy.commons.logic.parser.CliSyntax.PREFIX_FOOD;
-import static sugarmummy.commons.logic.parser.CliSyntax.PREFIX_FOOD_TYPE;
-import static sugarmummy.commons.logic.parser.CliSyntax.PREFIX_GI;
-import static sugarmummy.commons.logic.parser.CliSyntax.PREFIX_SUGAR;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CALORIE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FOOD;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FOOD_TYPE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_GI;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_SUGAR;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import sugarmummy.commons.ui.DisplayPaneType;
+import seedu.address.ui.DisplayPaneType;
 import sugarmummy.recmfood.model.Food;
 
 /**
