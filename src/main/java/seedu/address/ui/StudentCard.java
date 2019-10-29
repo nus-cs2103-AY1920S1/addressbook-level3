@@ -54,11 +54,11 @@ public class StudentCard extends UiPart<Region> {
         this.student = student;
         id.setText(displayedIndex + ". ");
         name.setText(student.getName().fullName);
-        phone.setText(student.getPhone().value);
-        parentPhone.setText(student.getParentPhone().value);
-        address.setText(student.getAddress().value);
-        email.setText(student.getEmail().value);
-        medicalCondition.setText(student.getMedicalCondition().value);
+        phone.setText("(P): " + student.getPhone().value);
+        parentPhone.setText("(PP): " + student.getParentPhone().value);
+        address.setText("(A): " + student.getAddress().value);
+        email.setText("(E): " + student.getEmail().value);
+        medicalCondition.setText("(M): " + student.getMedicalCondition().value);
         student.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));

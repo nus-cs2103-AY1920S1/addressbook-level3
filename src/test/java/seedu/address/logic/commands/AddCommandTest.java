@@ -21,6 +21,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyClassroom;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.assignment.Assignment;
+import seedu.address.model.assignment.AssignmentDeadline;
 import seedu.address.model.assignment.AssignmentName;
 import seedu.address.model.assignment.UniqueAssignmentList;
 import seedu.address.model.lesson.Lesson;
@@ -307,7 +308,8 @@ public class AddCommandTest {
         @Override
         public ObservableList<Assignment> getFilteredAssignmentList() {
             AssignmentName assignmentName = new AssignmentName("Dummy Assignment");
-            Assignment dummyAssignment = new Assignment(assignmentName);
+            AssignmentDeadline assignmentDeadline = new AssignmentDeadline("01/02/03 0456");
+            Assignment dummyAssignment = new Assignment(assignmentName, assignmentDeadline);
             assignments.add(dummyAssignment);
             return assignments.asUnmodifiableObservableList();
         }

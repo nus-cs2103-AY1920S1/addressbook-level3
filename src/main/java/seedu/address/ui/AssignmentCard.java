@@ -30,6 +30,8 @@ public class AssignmentCard extends UiPart<Region> {
     @FXML
     private Label id;
     @FXML
+    private Label deadline;
+    @FXML
     private Label grades;
     @FXML
     private Label completionStatus;
@@ -44,6 +46,7 @@ public class AssignmentCard extends UiPart<Region> {
             completionStatus.setText("Not Completed");
         }
         name.setText(assignment.getAssignmentName().assignmentName);
+        deadline.setText("Deadline: " + assignment.getAssignmentDeadline().assignmentDeadline);
         grades.setText(assignment.gradesMapToString());
     }
 
