@@ -335,14 +335,14 @@ public class SwitchOperation {
      */
     private seedu.address.model.finance.Model initModelManager(seedu.address.storage.finance.Storage storage,
                                                             seedu.address.model.finance.ReadOnlyUserPrefs userPrefs) {
-        Optional<seedu.address.model.finance.ReadOnlyFinanceLog> addressBookOptional;
+        Optional<seedu.address.model.finance.ReadOnlyFinanceLog> financeLogOptional;
         seedu.address.model.finance.ReadOnlyFinanceLog initialData;
         try {
-            addressBookOptional = storage.readFinanceLog();
-            if (!addressBookOptional.isPresent()) {
+            financeLogOptional = storage.readFinanceLog();
+            if (!financeLogOptional.isPresent()) {
                 System.out.println("Data file not found. Will be starting with a sample FinanceLog");
             }
-            initialData = addressBookOptional
+            initialData = financeLogOptional
                     .orElseGet(seedu.address.model.finance.util.SampleDataUtil::getSampleFinanceLog);
         } catch (DataConversionException e) {
             System.out.println("Data file not in the correct format. Will be starting with an empty FinanceLog");

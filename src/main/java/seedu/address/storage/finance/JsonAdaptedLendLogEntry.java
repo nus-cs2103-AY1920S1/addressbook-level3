@@ -128,6 +128,7 @@ class JsonAdaptedLendLogEntry extends JsonAdaptedLogEntry {
             newLogEntry.markAsRepaid();
         }
         if (isRepaid.equals("true")) {
+            assert repaidDate != null;
             newLogEntry.markAsRepaid();
             newLogEntry.setRepaidDate(repaidDate, tDate);
         }
