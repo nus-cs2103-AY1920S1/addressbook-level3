@@ -23,7 +23,7 @@ public class JsonAdaptedDeleteAddressCommand extends JsonAdaptedCommand implemen
 
     /**
      * Constructs a {@code JsonAdaptedDeleteAddressCommand} with the given {@code Index} of the person to delete, and
-     * {@code JsonAdaptedPerson} that was deleted.
+     * {@code Person} that was deleted.
      *
      * @param targetIndex {@code Index} of the {@code Person} to be deleted.
      * @param deletedPerson {@code Person} that was deleted, which may be null.

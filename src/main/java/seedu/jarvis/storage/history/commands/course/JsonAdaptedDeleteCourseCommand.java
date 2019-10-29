@@ -9,11 +9,12 @@ import seedu.jarvis.logic.commands.course.DeleteCourseCommand;
 import seedu.jarvis.storage.JsonAdapter;
 import seedu.jarvis.storage.commons.core.JsonAdaptedIndex;
 import seedu.jarvis.storage.course.JsonAdaptedCourse;
+import seedu.jarvis.storage.history.commands.JsonAdaptedCommand;
 
 /**
  * Jackson-friendly version of {@link DeleteCourseCommand}.
  */
-public class JsonAdaptedDeleteCourseCommand implements JsonAdapter<Command> {
+public class JsonAdaptedDeleteCourseCommand extends JsonAdaptedCommand implements JsonAdapter<Command> {
     private final JsonAdaptedCourse course;
     private final JsonAdaptedIndex targetIndex;
 

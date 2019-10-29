@@ -1,6 +1,7 @@
 package seedu.jarvis.logic.commands.cca;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.jarvis.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.jarvis.logic.parser.CliSyntax.CcaTrackerCliSyntax.PREFIX_CCA_NAME;
 import static seedu.jarvis.logic.parser.CliSyntax.CcaTrackerCliSyntax.PREFIX_CCA_TYPE;
 import static seedu.jarvis.logic.parser.CliSyntax.CcaTrackerCliSyntax.PREFIX_EQUIPMENT_NAME;
@@ -59,15 +60,25 @@ public class EditCcaCommand extends Command {
     private Cca editedCca;
 
     /**
-     * @param index of the {@code Cca} in the {@code CcaList} to edit
+     * @param targetIndex of the {@code Cca} in the {@code CcaList} to edit
+     * @param editCcaDescriptor details to edit the {@code cca} with
+     * @param originalCca cca before the edit.
+     * @param editedCca cca after the edit.
+     */
+    public EditCcaCommand(Index targetIndex, EditCcaDescriptor editCcaDescriptor, Cca originalCca, Cca editedCca) {
+        requireAllNonNull(targetIndex, targetIndex);
+        this.targetIndex = targetIndex;
+        this.editCcaDescriptor = editCcaDescriptor;
+        this.originalCca = originalCca;
+        this.editedCca = editedCca;
+    }
+
+    /**
+     * @param targetIndex of the {@code Cca} in the {@code CcaList} to edit
      * @param editCcaDescriptor details to edit the {@code cca} with
      */
-    public EditCcaCommand(Index index, EditCcaDescriptor editCcaDescriptor) {
-        requireNonNull(index);
-        requireNonNull(editCcaDescriptor);
-
-        this.targetIndex = index;
-        this.editCcaDescriptor = new EditCcaDescriptor(editCcaDescriptor);
+    public EditCcaCommand(Index targetIndex, EditCcaDescriptor editCcaDescriptor) {
+        this(targetIndex, editCcaDescriptor, null, null);
     }
 
     /**
@@ -78,6 +89,42 @@ public class EditCcaCommand extends Command {
     @Override
     public String getCommandWord() {
         return COMMAND_WORD;
+    }
+
+    /**
+     * Gets the {@code Index} of the cca to be edited.
+     *
+     * @return {@code Index} of the cca to be edited.
+     */
+    public Index getTargetIndex() {
+        return targetIndex;
+    }
+
+    /**
+     * Gets the {@code EditCcaDescriptor} to edit the cca.
+     *
+     * @return {@code EditCcaDescriptor} to edit the cca.
+     */
+    public EditCcaDescriptor getEditCcaDescriptor() {
+        return editCcaDescriptor;
+    }
+
+    /**
+     * Gets the original {@code Cca} before the edit.
+     *
+     * @return Original {@code Cca} before the edit.
+     */
+    public Optional<Cca> getOriginalCca() {
+        return Optional.ofNullable(originalCca);
+    }
+
+    /**
+     * Gets the {@code Cca} after the edit.
+     *
+     * @return {@code Cca} after the edit.
+     */
+    public Optional<Cca> getEditedCca() {
+        return Optional.ofNullable(editedCca);
     }
 
     /**
