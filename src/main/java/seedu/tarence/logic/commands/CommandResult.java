@@ -2,8 +2,11 @@ package seedu.tarence.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Map;
 import java.util.Objects;
 
+import seedu.tarence.model.student.Student;
+import seedu.tarence.model.tutorial.Assignment;
 import seedu.tarence.model.tutorial.Tutorial;
 
 /**
@@ -25,11 +28,23 @@ public class CommandResult {
     /** The application should display attendance */
     private boolean hasAttendanceDisplay;
 
+    /** The application should display assignment */
+    private boolean hasAssignmentDisplay;
+
     /** The attendance to be displayed by the application */
     private Tutorial tutorialAttendanceToDisplay;
 
     /** The type of tab to display **/
     private TabNames tabToDisplay;
+
+    /** The type of assignment format to display **/
+    private DisplayFormat assignmentDisplayFormat;
+
+    /** The type of assignment to display **/
+    private Assignment assignmentToDisplay;
+
+    /** The type of student's scores to display **/
+    private Map<Student, Integer> studentScores;
 
     /**
      * Constructs a {@code CommandResult} with the specified fields.
@@ -40,6 +55,7 @@ public class CommandResult {
         this.exit = exit;
         this.hasAttendanceDisplay = false;
         this.changeTabs = false;
+        this.hasAssignmentDisplay = false;
     }
 
     /**
@@ -59,6 +75,7 @@ public class CommandResult {
         this.showHelp = false;
         this.exit = false;
         this.changeTabs = false;
+        this.hasAssignmentDisplay = false;
         this.tutorialAttendanceToDisplay = tutorialAttendanceToDisplay;
         this.hasAttendanceDisplay = true;
     }
@@ -72,8 +89,27 @@ public class CommandResult {
         this.showHelp = false;
         this.exit = false;
         this.hasAttendanceDisplay = false;
+        this.hasAssignmentDisplay = false;
         this.tabToDisplay = tabToDisplay;
         this.changeTabs = true;
+    }
+
+    /**
+     * Constructs a {@code CommandResult} with the specified {@code feedbackToUser} and
+     * a specified {@code assignment}, {@code studentScores}, {@code displayFormat} and
+     * other fields set to their default value.
+     */
+    public CommandResult(String feedbackToUser, Assignment assignment, Map<Student, Integer> studentScores,
+                         DisplayFormat displayFormat) {
+        this.feedbackToUser = requireNonNull(feedbackToUser);
+        this.showHelp = false;
+        this.exit = false;
+        this.changeTabs = false;
+        this.hasAttendanceDisplay = false;
+        this.hasAssignmentDisplay = true;
+        this.assignmentToDisplay = assignment;
+        this.assignmentDisplayFormat = displayFormat;
+        this.studentScores = studentScores;
     }
 
     public String getFeedbackToUser() {
@@ -96,12 +132,28 @@ public class CommandResult {
         return changeTabs;
     }
 
+    public boolean isAssignmentDisplay() {
+        return hasAssignmentDisplay;
+    }
+
     public TabNames getTabToDisplay() {
         return this.tabToDisplay;
     }
 
     public Tutorial getTutorialAttendance() {
         return this.tutorialAttendanceToDisplay;
+    }
+
+    public DisplayFormat getAssignmentDisplayFormat() {
+        return this.assignmentDisplayFormat;
+    }
+
+    public Assignment getAssignmentToDisplay() {
+        return this.assignmentToDisplay;
+    }
+
+    public Map<Student, Integer> getStudentScores() {
+        return this.studentScores;
     }
 
     @Override
@@ -120,12 +172,14 @@ public class CommandResult {
                 && showHelp == otherCommandResult.showHelp
                 && exit == otherCommandResult.exit
                 && hasAttendanceDisplay == otherCommandResult.hasAttendanceDisplay
-                && changeTabs == otherCommandResult.changeTabs;
+                && changeTabs == otherCommandResult.changeTabs
+                && hasAssignmentDisplay == otherCommandResult.hasAssignmentDisplay;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(feedbackToUser, showHelp, exit, hasAttendanceDisplay, changeTabs);
+        return Objects.hash(feedbackToUser, showHelp, exit, hasAttendanceDisplay, changeTabs,
+                hasAssignmentDisplay);
     }
 
     @Override

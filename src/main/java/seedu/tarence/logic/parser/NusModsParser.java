@@ -1,6 +1,5 @@
 package seedu.tarence.logic.parser;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -21,6 +20,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.stream.JsonReader;
 
+import seedu.tarence.MainApp;
 import seedu.tarence.logic.parser.exceptions.ParseException;
 import seedu.tarence.model.module.ModCode;
 import seedu.tarence.model.student.Student;
@@ -32,7 +32,7 @@ import seedu.tarence.model.tutorial.Week;
  * Handles parsing of NUSMods urls.
  */
 public class NusModsParser {
-    private static final String LESSONS_JSON_URL = "./src/main/resources/nusmods/lessons.json";
+    private static final String LESSONS_JSON_URL = "/nusmods/lessons.json";
     private static Map<String, Map<String, Map<String, Tutorial>>> lessonMap = NusModsParser.load();
 
     /**
@@ -41,7 +41,7 @@ public class NusModsParser {
     public static Map<String, Map<String, Map<String, Tutorial>>> load() {
         Map<String, Map<String, Map<String, Tutorial>>> lessonMap = new HashMap<>();
         try (
-            InputStream stream = new FileInputStream(LESSONS_JSON_URL);
+            InputStream stream = MainApp.class.getResourceAsStream(LESSONS_JSON_URL);
             JsonReader reader = new JsonReader(new InputStreamReader(stream, "UTF-8"));
         ) {
             Gson gson = new GsonBuilder().create();
@@ -49,12 +49,12 @@ public class NusModsParser {
             reader.beginArray();
             while (reader.hasNext()) {
                 ModObject mod = gson.fromJson(reader, ModObject.class);
-                
+
                 if (!lessonMap.containsKey(mod.moduleCode)) {
                     lessonMap.put(mod.moduleCode, new HashMap<>());
                 }
                 for (LessonObject lesson : mod.lessons) {
-                    String lessonTypeCode = lesson.lessonType.substring(0,3).toUpperCase();
+                    String lessonTypeCode = lesson.lessonType.substring(0, 3).toUpperCase();
                     if (!lessonMap.get(mod.moduleCode).containsKey(lessonTypeCode)) {
                         lessonMap.get(mod.moduleCode).put(lessonTypeCode, new HashMap<>());
                     }
@@ -107,10 +107,13 @@ public class NusModsParser {
         return tutorials;
     }
 
+    /**
+     * Intermediate object parsed from JSON. Contains LessonObjects.
+     */
     class ModObject {
         final List<LessonObject> lessons;
         final String moduleCode;
-        
+
         ModObject(List<LessonObject> lessons, String moduleCode) {
             this.moduleCode = moduleCode;
             this.lessons = lessons;

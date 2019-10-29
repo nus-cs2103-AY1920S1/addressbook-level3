@@ -8,14 +8,7 @@ import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import seedu.tarence.logic.commands.Command;
 import seedu.tarence.logic.commands.ModelStub;
-import seedu.tarence.logic.parser.PartialInput;
-import seedu.tarence.model.module.Module;
-import seedu.tarence.model.student.Student;
-import seedu.tarence.model.tutorial.Tutorial;
 
 class InputHistoryHandlerTest {
 
@@ -49,72 +42,10 @@ class InputHistoryHandlerTest {
 
     //CHECKSTYLE:OFF: VisibilityModifier
     private static class ModelStubInputHistoryHandler extends ModelStub {
-        final ArrayList<Module> modules = new ArrayList<>();
-        final ArrayList<Tutorial> tutorials = new ArrayList<>();
-        final ArrayList<Student> students = new ArrayList<>();
 
         List<String> inputHistory = new ArrayList<>();
         boolean isInputChanged = true;
-        PartialInput suggestedCompletions;
-
-        private List<Command> suggestedCommands = new ArrayList<>();
         private int inputHistoryIndex = 0;
-
-        @Override
-        public void addModule(Module module) {
-            modules.add(module);
-        }
-
-        @Override
-        public void addTutorial(Tutorial tutorial) {
-            tutorials.add(tutorial);
-        }
-
-        @Override
-        public void addStudent(Student student) {
-            students.add(student);
-        }
-
-        @Override
-        public ObservableList<Module> getFilteredModuleList() {
-            ObservableList<Module> list = FXCollections.observableArrayList();
-            list.addAll(modules);
-            return list;
-        }
-
-        @Override
-        public ObservableList<Tutorial> getFilteredTutorialList() {
-            ObservableList<Tutorial> list = FXCollections.observableArrayList();
-            list.addAll(tutorials);
-            return list;
-        }
-
-        @Override
-        public ObservableList<Student> getFilteredStudentList() {
-            ObservableList<Student> list = FXCollections.observableArrayList();
-            list.addAll(students);
-            return list;
-        }
-
-        @Override
-        public void storeSuggestedCompletions(PartialInput suggestedCompletions) {
-            this.suggestedCompletions = suggestedCompletions;
-        }
-
-        @Override
-        public PartialInput getSuggestedCompletions() {
-            return suggestedCompletions;
-        }
-
-        @Override
-        public void deleteSuggestedCompletions() {
-            suggestedCompletions = null;
-        }
-
-        @Override
-        public boolean hasSuggestedCompletions() {
-            return suggestedCompletions == null;
-        }
 
         @Override
         public void setInputChangedToTrue() {

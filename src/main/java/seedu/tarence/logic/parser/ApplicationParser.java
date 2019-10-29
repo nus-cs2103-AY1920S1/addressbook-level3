@@ -16,6 +16,7 @@ import seedu.tarence.logic.commands.ConfirmYesCommand;
 import seedu.tarence.logic.commands.DeleteModuleCommand;
 import seedu.tarence.logic.commands.DeleteStudentCommand;
 import seedu.tarence.logic.commands.DeleteTutorialCommand;
+import seedu.tarence.logic.commands.DisplayAssignmentScoreCommand;
 import seedu.tarence.logic.commands.DisplayAttendanceCommand;
 import seedu.tarence.logic.commands.EditCommand;
 import seedu.tarence.logic.commands.ExitCommand;
@@ -121,6 +122,8 @@ public class ApplicationParser {
             return new SetSemStartCommandParser().parse(arguments);
         } else if (ChangeTabCommand.isMatchingCommandWord(commandWord)) {
             return new ChangeTabCommand(arguments);
+        } else if (DisplayAssignmentScoreCommand.isMatchingCommandWord(commandWord)) {
+            return new DisplayAssignmentScoreCommandParser().parse(arguments);
         } else if (ImportCommand.isMatchingCommandWord(commandWord)) {
             return new ImportCommandParser().parse(arguments);
         } else {

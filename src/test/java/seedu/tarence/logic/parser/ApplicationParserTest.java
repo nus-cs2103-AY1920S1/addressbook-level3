@@ -16,6 +16,7 @@ import org.junit.jupiter.api.Test;
 import seedu.tarence.logic.commands.AddStudentCommand;
 import seedu.tarence.logic.commands.ChangeTabCommand;
 import seedu.tarence.logic.commands.DeleteStudentCommand;
+import seedu.tarence.logic.commands.DisplayAssignmentScoreCommand;
 import seedu.tarence.logic.commands.DisplayAttendanceCommand;
 import seedu.tarence.logic.commands.EditCommand;
 import seedu.tarence.logic.commands.EditCommand.EditStudentDescriptor;
@@ -104,6 +105,13 @@ public class ApplicationParserTest {
         String validChangeStudentCommand = " stu";
         assertTrue(parser.parseCommand(ChangeTabCommand.COMMAND_WORD + validChangeStudentCommand)
                 instanceof ChangeTabCommand);
+    }
+
+    @Test
+    public void parseCommand_displayAssignmentScore() throws Exception {
+        String validDisplayAssignmentCommand = " i/1 n/Lab01 f/g";
+        assertTrue(parser.parseCommand(DisplayAssignmentScoreCommand.COMMAND_WORD
+                + validDisplayAssignmentCommand) instanceof DisplayAssignmentScoreCommand);
     }
 
     @Test

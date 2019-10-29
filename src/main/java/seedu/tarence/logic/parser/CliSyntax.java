@@ -11,6 +11,7 @@ public class CliSyntax {
     public static final Prefix PREFIX_END_DATE = new Prefix("ed/");
     public static final Prefix PREFIX_FILE = new Prefix("f/");
     public static final Prefix PREFIX_INDEX = new Prefix("i/");
+    public static final Prefix PREFIX_FORMAT = new Prefix("f/");
     public static final Prefix PREFIX_MATNO = new Prefix("mat/");
     public static final Prefix PREFIX_NUSID = new Prefix("nusid/");
     public static final Prefix PREFIX_SCORE = new Prefix("score/");

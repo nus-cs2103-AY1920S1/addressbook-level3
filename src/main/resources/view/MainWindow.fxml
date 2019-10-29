@@ -16,6 +16,7 @@
 
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.Label?>
 <fx:root minHeight="700" minWidth="840" onCloseRequest="#handleExit" title="T.A.rence" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <icons>
         <Image url="@/images/TArenceicon.png" />
@@ -95,6 +96,12 @@
                     </Tab>
                         <Tab fx:id="assignmentTab" closable="false" text="Assignment">
                             <content>
+                                <VBox>
+                                    <StackPane fx:id="assignmentPanelPlaceholder" VBox.vgrow="ALWAYS" />
+                                    <padding>
+                                        <Insets bottom="10" left="10" right="10" top="10" />
+                                    </padding>
+                                </VBox>
                             </content>
                         </Tab>
                 </tabs>

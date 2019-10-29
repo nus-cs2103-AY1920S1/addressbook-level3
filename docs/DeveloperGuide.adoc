@@ -92,8 +92,8 @@ The `UI` component,
 === Logic component
 
 [[fig-LogicClassDiagram]]
-.Structure of the Logic Component
-image::LogicClassDiagram.png[]
+.Structure of the Logic Component (for regular commands only)
+image::LogicRegularCommandClassDiagram.png[]
 
 *API* :
 link:{repoURL}/blob/master/src/main/java/seedu/tarence/logic/Logic.java[`Logic.java`]
@@ -234,6 +234,9 @@ image::EditCommandSequenceDiagram.png[]
 
 Autocorrect lets T.A.rence find similar commands to the user's input, allowing it to catch minor typing mistakes.
 
+.Structure of the Autocorrect portion of the Logic component
+image::LogicAutocorrectClassDiagram.png[]
+
 ==== Implementation
 
 Autocorrect is implemented at the `Command` level: when `Command` objects are executed, they attempt to find their data values from the application's storage. If these values are not found, they search for lexically similar alternatives, and construct new `Command`s with these suggested values. The user is then prompted to choose one of these suggestions via a single numerical input.
@@ -260,6 +263,9 @@ NOTE: The lifelines for `SelectSuggestionCommand` and `AddStudentCommand` should
 === Autocomplete feature
 
 Autoomplete provides an autofill feature similar to that found in most common CLIs.
+
+.Structure of the Autocomplete portion of the Logic component
+image::LogicAutocompleteClassDiagram.png[]
 
 ==== Implementation
 

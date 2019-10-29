@@ -9,10 +9,12 @@ import static seedu.tarence.logic.parser.CliSyntax.PREFIX_TUTORIAL_NAME;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import seedu.tarence.commons.core.Messages;
 import seedu.tarence.commons.core.index.Index;
 import seedu.tarence.logic.commands.CommandResult;
+import seedu.tarence.logic.commands.DisplayFormat;
 import seedu.tarence.logic.commands.exceptions.CommandException;
 import seedu.tarence.model.Model;
 import seedu.tarence.model.module.ModCode;
@@ -112,8 +114,11 @@ public class SetAssignmentScoreCommand extends AssignmentCommand {
             throw new CommandException(e.getMessage());
         }
 
+        Map<Student, Integer> scores = targetTutorial.getAssignmentScores(targetAssignment);
+
         return new CommandResult(
-                    String.format(MESSAGE_SET_SCORE_SUCCESS, targetStudent.getName(), score.get()));
+                    String.format(MESSAGE_SET_SCORE_SUCCESS, targetStudent.getName(), score.get()), targetAssignment,
+                scores, DisplayFormat.GRAPH);
     }
 
     /**

@@ -5,9 +5,16 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
 import org.junit.jupiter.api.Test;
 
+import seedu.tarence.model.builder.StudentBuilder;
 import seedu.tarence.model.builder.TutorialBuilder;
+import seedu.tarence.model.student.Student;
+import seedu.tarence.model.tutorial.Assignment;
 import seedu.tarence.model.tutorial.Tutorial;
 
 public class CommandResultTest {
@@ -53,6 +60,7 @@ public class CommandResultTest {
 
         // Show attendance feature is set
         assertTrue(commandResult.isShowAttendance());
+        assertTrue(tutorial.equals(commandResult.getTutorialAttendance()));
 
         // Same tutorial is received
         assertTrue(tutorial.equals(commandResult.getTutorialAttendance()));
@@ -60,7 +68,28 @@ public class CommandResultTest {
         // Set tab to display
         commandResult = new CommandResult("feedback", TabNames.MODULES);
         assertTrue(TabNames.MODULES.equals(commandResult.getTabToDisplay()));
+        assertTrue(commandResult.isChangeTabs());
         assertFalse(TabNames.STUDENTS.equals(commandResult.getTabToDisplay()));
+
+        // Set assignment to display
+        Assignment dummyAssignment =
+                new Assignment("Dummy assignment", 10,
+                        new Date(1991 / 1 / 1), new Date(1992 / 1 / 1));
+        Map<Student, Integer> dummyMap = new HashMap<>();
+        Student alice1 = new StudentBuilder().withName("Alice Pauline")
+                .withEmail("alice@example.com").withMatricNum("A0123456X").withNusnetId("e0123456")
+                .build();
+        Student alice2 = new StudentBuilder().withName("Alice Pauline2")
+                .withEmail("alice@example.com").withMatricNum("A0123456X").withNusnetId("e0123456")
+                .build();
+        dummyMap.put(alice1, 5);
+        dummyMap.put(alice2, 5);
+        commandResult = new CommandResult("feedback", dummyAssignment, dummyMap, DisplayFormat.GRAPH);
+        assertTrue(DisplayFormat.GRAPH.equals(commandResult.getAssignmentDisplayFormat()));
+        assertFalse(DisplayFormat.TABLE.equals(commandResult.getAssignmentDisplayFormat()));
+        assertTrue(dummyMap.equals(commandResult.getStudentScores()));
+        assertTrue(dummyAssignment.equals(commandResult.getAssignmentToDisplay()));
+        assertTrue(commandResult.isAssignmentDisplay());
     }
 
     @Test
