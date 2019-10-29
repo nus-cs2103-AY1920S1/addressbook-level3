@@ -2,6 +2,7 @@ package dukecooks.ui;
 
 import java.util.logging.Logger;
 
+import dukecooks.commons.core.Event;
 import dukecooks.commons.core.LogsCenter;
 import dukecooks.model.recipe.components.Recipe;
 import javafx.collections.ListChangeListener;
@@ -98,6 +99,16 @@ public class RecipeListPanel extends UiPart<Region> {
         default:
             throw new AssertionError("Something's Wrong! Invalid recipe book!");
         }
+    }
+
+    /**
+     * Switch to meal plan page.
+     */
+    @FXML
+    private void switchMealPlan() {
+        Event event;
+        event = Event.getInstance();
+        event.set("mealPlan", "all");
     }
 
     /**
