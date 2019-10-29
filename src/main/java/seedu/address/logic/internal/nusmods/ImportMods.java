@@ -7,9 +7,13 @@ import org.json.simple.JSONArray;
 
 import seedu.address.commons.core.AppSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.module.AcadYear;
 import seedu.address.model.module.Module;
+import seedu.address.model.module.ModuleList;
 import seedu.address.model.module.ModuleSummary;
 import seedu.address.model.module.ModuleSummaryList;
+import seedu.address.model.module.exceptions.ModuleNotFoundException;
 import seedu.address.websocket.Cache;
 import seedu.address.websocket.NusModsApi;
 import seedu.address.websocket.NusModsParser;
@@ -24,44 +28,71 @@ public class ImportMods {
      * Main driver.
      */
     public static void main(String[] args) {
-        importMods();
+        importMods(AppSettings.DEFAULT_ACAD_YEAR);
     }
 
     /**
-     * Method to import detailed data of all nus modules for the default academic year.
+     * Imports detailed data of all nus modules for the given academic year.
+     * Incrementally caches each module into the detailed modules file.
+     * To re-import all modules, delete the existing detailed modules file before executing this method.
      */
-    public static void importMods() {
-        NusModsApi api = new NusModsApi(AppSettings.DEFAULT_ACAD_YEAR);
+    public static void importMods(AcadYear year) {
+        NusModsApi api = new NusModsApi(year);
+        ModuleSummaryList moduleSummaries = null;
+
+        // try to get module summaries from api, then local file
         Optional<JSONArray> moduleSummaryJsonOptional = api.getModuleList();
-
-        if (!moduleSummaryJsonOptional.isPresent()) {
-            logger.severe("No module summaries, can't scrape all detailed modules.");
-            return;
-        }
-
-        ModuleSummaryList moduleSummaries = NusModsParser.parseModuleSummaryList(
-                moduleSummaryJsonOptional.get(), api.getAcadYear());
-
-        // loop through every mod in moduleSummaries, attempt to load from Cache, which will call api and save to file
-        // if module is missing.
-        int total = moduleSummaries.getModuleSummaries().size();
-        int found = 0;
-        int failed = 0;
-        int curr = 0;
-        for (ModuleSummary modSummary : moduleSummaries.getModuleSummaries()) {
-            curr += 1;
-            Optional<Module> moduleOptional = Cache.loadModule(modSummary.getModuleId());
-
-            if (!moduleOptional.isPresent()) {
-                failed += 1;
-                logger.severe("[" + curr + "/" + total + "] Hmm could not get detailed data for this module: "
-                        + modSummary);
-                break;
-            } else {
-                found += 1;
-                logger.info("[" + curr + "/" + total + "] Found this module: " + modSummary);
+        if (moduleSummaryJsonOptional.isPresent()) {
+            try {
+                moduleSummaries = NusModsParser.parseModuleSummaryList(
+                        moduleSummaryJsonOptional.get(), year);
+            } catch (ParseException e) {
+                logger.info("Failed to parse module summaries: " + e.getMessage());
             }
         }
-        logger.info("Modules found/failed/total: [" + found + "/" + failed + "/" + total + "]");
+        if (moduleSummaries != null) {
+            Optional<ModuleSummaryList> moduleSummaryListOptional = Cache.loadModuleSummaryList();
+            if (!moduleSummaryListOptional.isPresent()) {
+                logger.severe("No module summaries, can't scrape all detailed modules.");
+                return;
+            }
+            moduleSummaries = moduleSummaryListOptional.get();
+        }
+
+        // load detailed modules data from local file
+        ModuleList moduleList = new ModuleList();
+        Optional<ModuleList> moduleListOptional = Cache.loadModuleList();
+        if (moduleListOptional.isPresent()) {
+            moduleList = moduleListOptional.get();
+        }
+
+        // Cache module if missing from local file
+        int foundFromFile = 0;
+        int foundFromApi = 0;
+        int failed = 0;
+        int curr = 0;
+        int total = moduleSummaries.getModuleSummaries().size();
+        for (ModuleSummary modSummary : moduleSummaries.getModuleSummaries()) {
+            curr += 1;
+            try {
+                moduleList.findModule(modSummary.getModuleId());
+                foundFromFile += 1;
+                logger.info("[" + curr + "/" + total + "] Found in file: " + modSummary);
+            } catch (ModuleNotFoundException e) {
+                Optional<Module> moduleOptional = Cache.loadModule(modSummary.getModuleId());
+                if (!moduleOptional.isPresent()) {
+                    failed += 1;
+                    logger.severe("[" + curr + "/" + total + "] Hmm could not get detailed data for this module: "
+                            + modSummary);
+                    break;
+                } else {
+                    foundFromApi += 1;
+                    logger.info("[" + curr + "/" + total + "] Found from API: " + modSummary);
+                }
+            }
+
+        }
+        logger.info("Modules foundFromFile/foundFromApi/failed/total: [" + foundFromFile + "/"
+                + foundFromApi + "/" + failed + "/" + total + "]");
     }
 }

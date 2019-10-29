@@ -18,6 +18,7 @@ import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.JsonUtil;
 import seedu.address.commons.util.SimpleJsonUtil;
 import seedu.address.commons.util.StringUtil;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.module.AcadCalendar;
 import seedu.address.model.module.Holidays;
 import seedu.address.model.module.Module;
@@ -82,8 +83,7 @@ public class Cache {
         requireNonNull(pathName);
 
         Path fullPath = Path.of(pathName);
-        Optional<Object> objOptional = SimpleJsonUtil.readJsonFile(fullPath);
-        return objOptional;
+        return SimpleJsonUtil.readJsonFile(fullPath);
     }
 
     /**
@@ -142,7 +142,12 @@ public class Cache {
         if (objOptional.isPresent()) {
             JSONObject moduleSummariesJson = (JSONObject) objOptional.get();
             JSONArray moduleSummariesSingleYear = (JSONArray) moduleSummariesJson.get(api.getAcadYear().toString());
-            return Optional.of(NusModsParser.parseModuleSummaryList(moduleSummariesSingleYear, api.getAcadYear()));
+            try {
+                return Optional.of(NusModsParser.parseModuleSummaryList(moduleSummariesSingleYear, api.getAcadYear()));
+            } catch (ParseException e) {
+                logger.severe("Failed to parse module summaries: " + e.getMessage());
+                return Optional.empty();
+            }
         }
 
         logger.info("Module summaries not found in cache, getting from API...");
@@ -150,7 +155,12 @@ public class Cache {
         if (arrOptional.isPresent()) {
             modulesSummariesJson.put(api.getAcadYear(), arrOptional.get());
             save(modulesSummariesJson, CacheFileNames.MODULES_SUMMARY);
-            return Optional.of(NusModsParser.parseModuleSummaryList(arrOptional.get(), api.getAcadYear()));
+            try {
+                return Optional.of(NusModsParser.parseModuleSummaryList(arrOptional.get(), api.getAcadYear()));
+            } catch (ParseException e) {
+                logger.severe("Failed to parse module summaries: " + e.getMessage());
+                return Optional.empty();
+            }
         }
 
         logger.severe("Failed to module summaries from API!");
@@ -169,8 +179,12 @@ public class Cache {
             JSONObject modulesJson = (JSONObject) objOptional.get();
             for (Object key : modulesJson.keySet()) {
                 JSONObject moduleJson = (JSONObject) modulesJson.get(key);
-                Module module = NusModsParser.parseModule(moduleJson);
-                moduleList.addModule(module);
+                try {
+                    Module module = NusModsParser.parseModule(moduleJson);
+                    moduleList.addModule(module);
+                } catch (ParseException e) {
+                    logger.severe("Failed to parse module: " + e.getMessage());
+                }
             }
             return Optional.of(moduleList);
         }
@@ -192,17 +206,25 @@ public class Cache {
             modulesJson = (JSONObject) objOptional.get();
             if (modulesJson.containsKey(moduleId.toString())) { // found moduleId in cached file
                 JSONObject moduleJson = (JSONObject) modulesJson.get(moduleId.toString());
-                return Optional.of(NusModsParser.parseModule(moduleJson));
+                try {
+                    return Optional.of(NusModsParser.parseModule(moduleJson));
+                } catch (ParseException e) {
+                    logger.severe("Failed to parse module from cache: " + e.getMessage());
+                }
             }
         }
 
         logger.info("Module " + moduleId + " not found in cache, getting from API...");
         Optional<JSONObject> jsonObjFromApiOptional = api.getModule(moduleId.getModuleCode());
         if (jsonObjFromApiOptional.isPresent()) { // found module from API
-            Module module = NusModsParser.parseModule(jsonObjFromApiOptional.get());
-            modulesJson.put(module.getModuleId(), jsonObjFromApiOptional.get());
-            save(modulesJson, CacheFileNames.MODULES);
-            return Optional.of(module);
+            try {
+                Module module = NusModsParser.parseModule(jsonObjFromApiOptional.get());
+                modulesJson.put(module.getModuleId(), jsonObjFromApiOptional.get());
+                save(modulesJson, CacheFileNames.MODULES);
+                return Optional.of(module);
+            } catch (ParseException e) {
+                logger.severe("Failed to parse module: " + e.getMessage());
+            }
         }
 
         logger.severe("Failed to get module from API! Unable to add mod to schedules.");

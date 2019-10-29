@@ -98,7 +98,7 @@ abstract class NusModSuggester extends Suggester {
     protected static Predicate<Module> createPredicateModuleSemesterNoContains(final String searchTerm) {
         return (module) -> {
             return module.getSemesterData().stream().anyMatch(semester -> {
-                return semester.getSemesterNo().getSemesterNo().contains(searchTerm);
+                return semester.getSemesterNo().semesterNo().contains(searchTerm);
             });
         };
     }

@@ -62,11 +62,10 @@ public class Timeslot {
         LocalDateTime otherStartTime = other.getStartTime();
         LocalDateTime otherEndTime = other.getEndTime();
 
-        if ((otherStartTime.isBefore(startTime) && otherEndTime.isBefore(startTime))
-                || (otherStartTime.isAfter(endTime) && otherEndTime.isAfter(endTime))) {
-            return false;
-        } else {
+        if (otherStartTime.isBefore(endTime) && otherEndTime.isAfter(startTime)) {
             return true;
+        } else {
+            return false;
         }
     }
 

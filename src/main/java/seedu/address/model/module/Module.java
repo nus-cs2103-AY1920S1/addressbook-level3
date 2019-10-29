@@ -60,15 +60,18 @@ public class Module {
         return "AY" + moduleId + " " + title;
     }
 
-    /**
-     * Returns true if both modules are the same instance of module.
-     */
-    public boolean equals(Module other) {
-        if (other == this) {
-            return true;
-        } else if (other == null) {
+    @Override
+    public boolean equals(Object other) {
+        if (!(other instanceof Module)) {
             return false;
-        } else if (other.getModuleId().equals(this.getModuleId())) {
+        }
+        Module m = (Module) other;
+        if (m == this) {
+            return true;
+        } else if (m.moduleId.equals(this.moduleId)
+                && m.title.equals(this.title)
+                && m.description.equals(this.description)
+                && m.semesterData.equals(this.semesterData)) {
             return true;
         } else {
             return false;
