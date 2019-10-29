@@ -77,7 +77,7 @@ public class TransactionList implements Iterable<Transaction> {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Transaction // instanceof handles nulls
+                || (other instanceof TransactionList // instanceof handles nulls
                 && internalList.equals(((TransactionList) other).internalList));
     }
 

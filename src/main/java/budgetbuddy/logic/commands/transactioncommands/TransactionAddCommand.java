@@ -66,14 +66,14 @@ public class TransactionAddCommand extends Command {
         Account realToAccount;
 
         if (toAccount != null) {
-            // FIXME
+            // TODO
             realToAccount = model.getAccountsManager().getAccount(toAccount.getName());
         } else {
             realToAccount = model.getAccountsManager().getActiveAccount();
         }
 
         if (realToAccount == null) {
-            // FIXME more specific message
+            // TODO more specific message
             throw new CommandException(MESSAGE_FAILURE);
         }
 

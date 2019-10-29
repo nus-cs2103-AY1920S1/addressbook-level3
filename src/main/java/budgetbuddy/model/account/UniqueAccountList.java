@@ -209,7 +209,7 @@ public class UniqueAccountList implements Iterable<Account> {
      * Returns true if the two accounts are identical, or have the same name.
      */
     private static boolean accountsAreEquivalent(Account a1, Account a2) {
-        if (a1 == null && a2 != null || a1 != null && a2 == null)  {
+        if (a1 == null && a2 != null || a1 != null && a2 == null) {
             return false;
         }
 

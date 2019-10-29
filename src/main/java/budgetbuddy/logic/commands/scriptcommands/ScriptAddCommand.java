@@ -64,7 +64,7 @@ public class ScriptAddCommand extends Command {
             );
         } else {
             // TODO
-            return new CommandResult("TODO FIXME", CommandCategory.SCRIPT);
+            return new CommandResult("TODO TODO", CommandCategory.SCRIPT);
         }
     }
 

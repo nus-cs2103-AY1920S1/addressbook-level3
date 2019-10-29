@@ -31,7 +31,7 @@ public class AccountsManager {
         this.accounts = new UniqueAccountList();
         filteredAccounts = new FilteredList<>(this.getAccounts());
         activeAccountIndex = Index.fromZeroBased(0);
-        // FIXME add proper default data
+        // TODO add proper default data
         addAccount(new Account(new Name("Default"), new Description("Default"), new TransactionList()));
     }
 

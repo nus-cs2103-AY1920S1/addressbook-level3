@@ -38,7 +38,7 @@ public class ViewFilterCommandParser implements CommandParser<ViewFilterCommand>
 
         //if arguments are not present, return empty Optionals
 
-        // FIXME handle accounts
+        // TODO handle accounts
 
         Optional<String> optionalCategoryString = argMultimap.getValue(PREFIX_CATEGORY);
         Optional<Category> optionalCategory =
