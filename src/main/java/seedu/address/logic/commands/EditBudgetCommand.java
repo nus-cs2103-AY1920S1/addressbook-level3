@@ -20,7 +20,12 @@ import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.person.*;
+import seedu.address.model.person.Amount;
+import seedu.address.model.person.Budget;
+import seedu.address.model.person.Category;
+import seedu.address.model.person.Date;
+import seedu.address.model.person.Description;
+import seedu.address.model.person.Period;
 import seedu.address.model.tag.Tag;
 
 

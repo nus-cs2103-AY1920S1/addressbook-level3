@@ -11,7 +11,14 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.*;
+
+import seedu.address.model.person.Amount;
+import seedu.address.model.person.Date;
+import seedu.address.model.person.Description;
+import seedu.address.model.person.PanelName;
+import seedu.address.model.person.Period;
+import seedu.address.model.person.SortSequence;
+import seedu.address.model.person.SortType;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -95,7 +102,7 @@ public class ParserUtil {
      * @param period the time as a String.
      * @return the specified time as Date.
      */
-    public static Period parsePeriods(String period) throws ParseException{
+    public static Period parsePeriods(String period) throws ParseException {
         requireNonNull(period);
         String trimmedPeriod = period.trim();
 

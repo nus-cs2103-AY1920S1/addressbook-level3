@@ -86,6 +86,12 @@ public class Date {
         return new Date(this.getDate().plus(freq.getPeriod()));
     }
 
+    /**
+     * Adds a specified number of days/ months/ years to a Date
+     *
+     * @param period Period
+     * @return Date new Date after the addition of the period
+     */
     public Date plus(Period period) {
         LocalDate newDate;
         long duration = period.getDuration();

@@ -74,6 +74,9 @@ public class Budget extends Entry {
         updateSpent();
     }
 
+    /**
+     * Updates the amount spent for a Budget
+     */
     public void updateSpent() {
         double spentAmount = 0;
         for (Expense expense : filteredExpenses) {
