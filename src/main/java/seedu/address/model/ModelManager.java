@@ -166,20 +166,20 @@ public class ModelManager implements Model {
         return filteredExpenses;
     }
 
-    @Override
-    public ObservableList<Expense> getFilteredFullExpenseList() {
-        ArrayList<Expense> list = new ArrayList<>();
-        for (Expense expense : this.expenseList.getExpenseList()) {
-            list.add(expense);
-        }
-        for (Budget budget : this.budgetList.getBudgetList()) {
-            for (Expense expense : budget.getExpenseList().getExpenseList()) {
-                list.add(expense);
-            }
-        }
-        Collections.sort(list);
-        return FXCollections.observableList(list);
-    }
+//    @Override
+//    public ObservableList<Expense> getFilteredFullExpenseList() {
+//        ArrayList<Expense> list = new ArrayList<>();
+//        for (Expense expense : this.expenseList.getExpenseList()) {
+//            list.add(expense);
+//        }
+//        for (Budget budget : this.budgetList.getBudgetList()) {
+//            for (Expense expense : budget.getExpenseList().getExpenseList()) {
+//                list.add(expense);
+//            }
+//        }
+//        Collections.sort(list);
+//        return FXCollections.observableList(list);
+//    }
 
     @Override
     public void updateFilteredExpenseList(Predicate<Expense> predicate) {

@@ -70,10 +70,10 @@ public class LogicManager implements Logic {
         return model.getFilteredExpenseList();
     }
 
-    @Override
-    public ObservableList<Expense> getFilteredFullExpenseList() {
-        return model.getFilteredFullExpenseList();
-    }
+//    @Override
+//    public ObservableList<Expense> getFilteredFullExpenseList() {
+//        return model.getFilteredFullExpenseList();
+//    }
 
     @Override
     public Path getExpenseListFilePath() {
