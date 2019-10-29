@@ -95,6 +95,7 @@ public class UpdateBodyDescriptor implements UpdateEntityDescriptor {
     /**
      * Changes a {@code Body}'s fields according to the descriptor to the updated values in the
      * {@code UpdateEntityDescriptor} object if they are present and uses the existing values in the body otherwise.
+     * Guarantees: the given entity exists.
      */
     @Override
     public Entity apply(Entity entity) {
@@ -114,6 +115,27 @@ public class UpdateBodyDescriptor implements UpdateEntityDescriptor {
         body.setRelationship(this.getRelationship().orElse(body.getRelationship().orElse(null)));
         body.setKinPhoneNumber(this.getKinPhoneNumber().orElse(body.getKinPhoneNumber().orElse(null)));
         body.setDetails(this.getDetails().orElse(body.getDetails().orElse(null)));
+        return entity;
+    }
+
+    @Override
+    public Entity applyOriginal(Entity entity) {
+        assert entity != null;
+        Body body = (Body) entity;
+        body.setName(this.getName().orElse(null));
+        body.setSex(this.getSex().orElse(null));
+        body.setNric(this.getNric().orElse(null));
+        body.setReligion(this.getReligion().orElse(null));
+        body.setCauseOfDeath(this.getCauseOfDeath().orElse(null));
+        body.setOrgansForDonation(this.getOrgansForDonation().orElse(null));
+        body.setBodyStatus(this.getBodyStatus().orElse(null));
+        body.setFridgeId(this.getFridgeId().orElse(null));
+        body.setDateOfBirth(this.getDateOfBirth().orElse(null));
+        body.setDateOfDeath(this.getDateOfDeath().orElse(null));
+        body.setNextOfKin(this.getNextOfKin().orElse(null));
+        body.setRelationship(this.getRelationship().orElse(null));
+        body.setKinPhoneNumber(this.getKinPhoneNumber().orElse(null));
+        body.setDetails(this.getDetails().orElse(null));
         return entity;
     }
 

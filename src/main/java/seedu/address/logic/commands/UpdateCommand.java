@@ -140,8 +140,10 @@ public class UpdateCommand extends UndoableCommand {
             if (originalEntityDescriptor instanceof UpdateBodyDescriptor) {
                 UpdateBodyDescriptor originalBodyDescriptor = (UpdateBodyDescriptor) originalEntityDescriptor;
                 UpdateBodyDescriptor updateBodyDescriptor = (UpdateBodyDescriptor) updateEntityDescriptor;
+
                 if (updateBodyDescriptor.getFridgeId().isPresent()
                         && !originalBodyDescriptor.getFridgeId().equals(updateBodyDescriptor.getFridgeId())) {
+
                     handleUpdatingFridgeAndEntity(model, originalBodyDescriptor, updateBodyDescriptor);
                 } else {
                     model.setEntity(entity, updateEntityDescriptor.apply(entity));
@@ -149,10 +151,12 @@ public class UpdateCommand extends UndoableCommand {
             } else {
                 model.setEntity(entity, updateEntityDescriptor.apply(entity));
             }
+
             //@@author shaoyi1997
             SelectCommand selectCommand = new SelectCommand(Integer.MAX_VALUE);
             selectCommand.execute(model);
             //@@author
+
         } catch (NullPointerException e) {
             throw new CommandException(MESSAGE_ENTITY_NOT_FOUND);
         }
@@ -218,16 +222,15 @@ public class UpdateCommand extends UndoableCommand {
             throw new CommandException(MESSAGE_NOT_EXECUTED_BEFORE);
         }
         try {
-            model.setEntity(entity, originalEntityDescriptor.apply(entity));
+            model.setEntity(entity, originalEntityDescriptor.applyOriginal(entity));
             if (entity instanceof Body) {
-                Body body = (Body) originalEntityDescriptor.apply(entity);
+                Body body = (Body) originalEntityDescriptor.applyOriginal(entity);
                 if ((originalFridge != null && updatedFridge != null)) {
                     originalFridge.setBody(body);
                     updatedFridge.setBody(null);
                 } else if (originalFridge == null && updatedFridge != null) {
                     updatedFridge.setBody(null);
                     body.setFridgeId(null);
-                    model.setEntity(entity, body);
                 }
             }
         } catch (NullPointerException e) {

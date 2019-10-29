@@ -1,5 +1,6 @@
 package seedu.address.storage;
 
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_ENTITY_DISPLAYED_INDEX;
 import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_DATE;
 
 import java.text.SimpleDateFormat;
@@ -215,7 +216,7 @@ class JsonAdaptedBody {
                 int parsedInt = Integer.parseInt(fridgeId);
                 actualFridgeId = IdentificationNumber.customGenerateId("F", parsedInt);
             } catch (NumberFormatException e) {
-                throw new IllegalValueException(IdentificationNumber.MESSAGE_CONSTRAINTS);
+                throw new IllegalValueException(MESSAGE_INVALID_ENTITY_DISPLAYED_INDEX);
             }
         }
 

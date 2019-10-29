@@ -27,7 +27,7 @@ public class JsonAdaptedWorkerTest {
     @Test
     public void toModelType_invalidName_throwsIllegalValueException() {
         JsonAdaptedWorker worker = new JsonAdaptedWorker(VALID_WORKER_ID, INVALID_NAME, VALID_SEX, VALID_DATE_JOINED,
-                null, null, null, null);
+                null, null, null, null, null);
 
         String expectedMessage = Name.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, worker::toModelType);

@@ -56,6 +56,7 @@ public class Worker implements Entity {
         this.photo = Optional.empty();
     }
 
+    //@@author ambervoong
     /**
      * Generates a new Worker with bare-minimum attributes and a custom ID. Only used for creating a Worker
      * from storage.
@@ -74,6 +75,7 @@ public class Worker implements Entity {
         worker.workerIdNum = IdentificationNumber.generateNewWorkerId(worker, id);
         return worker;
     }
+    //@@author
 
     public IdentificationNumber getIdNum() {
         return workerIdNum;

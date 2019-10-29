@@ -39,26 +39,6 @@ public class AddCommandIntegrationTest {
         assertCommandSuccess(new AddCommand(validPerson), model,
                 String.format(AddCommand.MESSAGE_SUCCESS, validPerson), expectedModel);
     }
-    /*
-    //@@author ambervoong
-    @Test
-    public void undo_previouslyExecuted_success() throws CommandException {
-        UniqueIdentificationNumberMaps.clearAllEntries();
-        ClearCommand clearCommand = new ClearCommand();
-        clearCommand.execute(model);
-        UndoableCommand addCommand = TYPICAL_ADD_COMMAND;
-        Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-
-        addCommand.execute(model);
-
-        Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-        expectedModel.addExecutedCommand(addCommand);
-
-        UndoCommand undoCommand = new UndoCommand();
-        String expectedMessage = String.format(MESSAGE_UNDO_SUCCESS, TYPICAL_BODY);
-        assertCommandSuccess(undoCommand, model, expectedMessage, expectedModel);
-    }
-    */
 
     @Test
     public void undo_notExecutedBefore_undoFailureException() {

@@ -1,6 +1,7 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_ENTITY_DISPLAYED_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CAUSE_OF_DEATH;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_JOINED;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_OF_BIRTH;
@@ -19,7 +20,6 @@ import seedu.address.logic.commands.UpdateCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.parser.utility.UpdateBodyDescriptor;
 import seedu.address.logic.parser.utility.UpdateWorkerDescriptor;
-import seedu.address.model.entity.IdentificationNumber;
 import seedu.address.model.entity.Sex;
 import seedu.address.model.entity.UniqueIdentificationNumberMaps;
 import seedu.address.model.entity.body.Body;
@@ -38,31 +38,33 @@ public class UpdateCommandParserTest {
 
     @Test
     public void parse_missingParts_failure() {
+        String expectedError = String.format(MESSAGE_INVALID_ENTITY_DISPLAYED_INDEX + ". Please give a "
+                + "positive non-zero number.");
         // no index specified
-        assertParseFailure(parser, DEFAULT_NAME, IdentificationNumber.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, DEFAULT_NAME, expectedError);
 
         // no field specified
-        assertParseFailure(parser, "1", IdentificationNumber.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, "1", expectedError);
 
         // no index and no field specified
-        assertParseFailure(parser, "", IdentificationNumber.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, "", expectedError);
 
         // negative index
-        assertParseFailure(parser, "-5", IdentificationNumber.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, "-5", expectedError);
 
         // zero index
-        assertParseFailure(parser, "0", IdentificationNumber.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, "0", expectedError);
 
         // invalid arguments being parsed as preamble
-        assertParseFailure(parser, "1 some random string", IdentificationNumber.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, "1 some random string", expectedError);
 
         // invalid prefix being parsed as preamble
-        assertParseFailure(parser, "1 i/ string", IdentificationNumber.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, "1 i/ string", expectedError);
 
         // invalid characters
-        assertParseFailure(parser, "@#!$!@#$raf3,1947889''", IdentificationNumber.MESSAGE_CONSTRAINTS);
-        assertParseFailure(parser, " شتا تاتا تاتا [كاملة", IdentificationNumber.MESSAGE_CONSTRAINTS);
-        assertParseFailure(parser, "汉字汉字汉字", IdentificationNumber.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, "@#!$!@#$raf3,1947889''", expectedError);
+        assertParseFailure(parser, " شتا تاتا تاتا [كاملة", expectedError);
+        assertParseFailure(parser, "汉字汉字汉字", expectedError);
 
     }
 
@@ -103,7 +105,9 @@ public class UpdateCommandParserTest {
 
     @Test
     public void parseBody_fieldsPresent_success() {
-        Body expectedBody = new BodyBuilder(ALICE).build();
+        UniqueIdentificationNumberMaps.clearAllEntries();
+
+        Body expectedBody = new BodyBuilder(ALICE).build(1);
         UpdateBodyDescriptor descriptor = new UpdateBodyDescriptor();
         descriptor.setSex(Sex.MALE);
 
@@ -133,21 +137,23 @@ public class UpdateCommandParserTest {
 
     @Test
     public void parse_invalidId_failure() {
+        String expectedError = String.format(MESSAGE_INVALID_ENTITY_DISPLAYED_INDEX + ". Please give a "
+                + "positive non-zero number.");
         assertParseFailure(parser, " " + PREFIX_FLAG + "b " + PREFIX_IDENTIFICATION_NUMBER + " -1 "
                         + PREFIX_SEX + " male",
-                IdentificationNumber.MESSAGE_CONSTRAINTS);
+                expectedError);
         assertParseFailure(parser, " " + PREFIX_FLAG + "b " + PREFIX_IDENTIFICATION_NUMBER + " 0 "
                         + PREFIX_SEX + " male",
-                IdentificationNumber.MESSAGE_CONSTRAINTS);
+                expectedError);
         assertParseFailure(parser, " " + PREFIX_FLAG + "b " + PREFIX_IDENTIFICATION_NUMBER + " abc "
                         + PREFIX_SEX + " male",
-                IdentificationNumber.MESSAGE_CONSTRAINTS);
+                expectedError);
         assertParseFailure(parser, " " + PREFIX_FLAG + "b " + PREFIX_IDENTIFICATION_NUMBER + " "
                         + PREFIX_SEX + " male",
-                IdentificationNumber.MESSAGE_CONSTRAINTS);
+                expectedError);
         assertParseFailure(parser, " " + PREFIX_FLAG + "b " + PREFIX_IDENTIFICATION_NUMBER + ""
                         + PREFIX_SEX + " male",
-                IdentificationNumber.MESSAGE_CONSTRAINTS);
+                expectedError);
     }
 
     @Test
@@ -164,7 +170,7 @@ public class UpdateCommandParserTest {
 
         // Invalid date
         assertParseFailure(parser, " " + PREFIX_FLAG + "b " + PREFIX_IDENTIFICATION_NUMBER + " 1 "
-                        + PREFIX_DATE_OF_BIRTH + "12//1212",
+                        + PREFIX_DATE_OF_BIRTH + "ءىءءءى!@!$#%ىىىىىىىىى",
                 "Wrong date format");
         assertParseFailure(parser, " " + PREFIX_FLAG + "b " + PREFIX_IDENTIFICATION_NUMBER + " 1 "
                         + PREFIX_DATE_OF_BIRTH + "1aaa1212",

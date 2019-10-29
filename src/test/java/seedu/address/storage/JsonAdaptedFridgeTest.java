@@ -1,13 +1,13 @@
 package seedu.address.storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_ENTITY_DISPLAYED_INDEX;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.entity.IdentificationNumber;
 import seedu.address.model.entity.body.Body;
 import seedu.address.model.entity.fridge.Fridge;
 import seedu.address.testutil.BodyBuilder;
@@ -59,12 +59,12 @@ public class JsonAdaptedFridgeTest {
     @Test
     public void toModelType_invalidFridgeId_throwsIllegalValueException() {
         JsonAdaptedFridge fridge = new JsonAdaptedFridge(INVALID_FRIDGE_ID, VALID_FRIDGE_STATUS, VALID_BODY_ID);
-        assertThrows(IllegalValueException.class, IdentificationNumber.MESSAGE_CONSTRAINTS, fridge::toModelType);
+        assertThrows(IllegalValueException.class, MESSAGE_INVALID_ENTITY_DISPLAYED_INDEX, fridge::toModelType);
     }
 
     @Test
     public void toModelType_invalidBodyId_throwsIllegalValueException() {
         JsonAdaptedFridge fridge = new JsonAdaptedFridge(VALID_FRIDGE_ID, VALID_FRIDGE_STATUS, INVALID_BODY_ID);
-        assertThrows(IllegalValueException.class, IdentificationNumber.MESSAGE_CONSTRAINTS, fridge::toModelType);
+        assertThrows(IllegalValueException.class, MESSAGE_INVALID_ENTITY_DISPLAYED_INDEX, fridge::toModelType);
     }
 }

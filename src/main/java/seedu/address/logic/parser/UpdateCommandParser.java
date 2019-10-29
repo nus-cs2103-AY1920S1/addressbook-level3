@@ -2,6 +2,7 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_ENTITY_DISPLAYED_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_BODY_DETAILS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CAUSE_OF_DEATH;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_JOINED;
@@ -18,6 +19,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NRIC;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ORGANS_FOR_DONATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE_NOK;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE_NUMBER;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PHOTO;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RELATIONSHIP;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RELIGION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SEX;
@@ -31,6 +33,7 @@ import seedu.address.logic.parser.utility.UpdateBodyDescriptor;
 import seedu.address.logic.parser.utility.UpdateEntityDescriptor;
 import seedu.address.logic.parser.utility.UpdateWorkerDescriptor;
 import seedu.address.model.entity.IdentificationNumber;
+import seedu.address.model.entity.worker.Photo;
 
 //@@author ambervoong
 /**
@@ -64,7 +67,8 @@ public class UpdateCommandParser implements Parser<UpdateCommand> {
                 PREFIX_PHONE_NUMBER, // Worker-only Fields
                 PREFIX_DATE_JOINED,
                 PREFIX_DESIGNATION,
-                PREFIX_EMPLOYMENT_STATUS); // Fridge-only field
+                PREFIX_PHOTO,
+                PREFIX_EMPLOYMENT_STATUS);
     }
 
     /**
@@ -84,7 +88,8 @@ public class UpdateCommandParser implements Parser<UpdateCommand> {
 
         if (idNum == null || idNum.isEmpty() || idNum.chars().anyMatch(Character::isLetter)
                 || Integer.parseInt(idNum) <= 0) {
-            throw new ParseException(IdentificationNumber.MESSAGE_CONSTRAINTS);
+            throw new ParseException(MESSAGE_INVALID_ENTITY_DISPLAYED_INDEX + ". Please give a "
+                    + "positive non-zero number.");
         }
 
         boolean arePrefixesPresent;
@@ -115,7 +120,8 @@ public class UpdateCommandParser implements Parser<UpdateCommand> {
                     PREFIX_DATE_OF_BIRTH,
                     PREFIX_DATE_JOINED,
                     PREFIX_DESIGNATION,
-                    PREFIX_EMPLOYMENT_STATUS);
+                    PREFIX_EMPLOYMENT_STATUS,
+                    PREFIX_PHOTO);
             break;
         default:
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UpdateCommand.MESSAGE_USAGE));
@@ -244,6 +250,10 @@ public class UpdateCommandParser implements Parser<UpdateCommand> {
         if (!argMultimap.getValue(PREFIX_EMPLOYMENT_STATUS).orElse("").isEmpty()) {
             workerDescriptor.setEmploymentStatus(argMultimap.getValue(PREFIX_EMPLOYMENT_STATUS).get());
         }
+
+        Photo photo = ParserUtil.parsePhoto(argMultimap.getValue(PREFIX_PHOTO).orElse(""));
+        workerDescriptor.setPhoto(photo);
+
         if (!workerDescriptor.isAnyFieldEdited()) {
             throw new ParseException(UpdateCommand.MESSAGE_NOT_EDITED);
         }
