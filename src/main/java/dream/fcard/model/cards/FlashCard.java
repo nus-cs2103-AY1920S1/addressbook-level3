@@ -88,17 +88,4 @@ public abstract class FlashCard implements JsonInterface {
     //public int getPriority() {
     //    return priority;
     //}
-
-    /**
-     * Returns boolean value after checking if FlashCard has choice parameters.
-     * If FlashCard has choice parameters (in ArrayList), return true.
-     * Else return false.
-     *
-     * @return Boolean value, true if FlashCard has choices, else return false.
-     */
-    //public abstract boolean hasChoices();
-
-    //public Statistics getStatistics() {
-    //    return cardStats;
-    //}
 }

@@ -61,7 +61,6 @@ public class MultipleChoiceCard extends FrontBackCard {
             throw new IndexNotFoundException("Choice provided is invalid - " + answerIndex);
         }
         //priority = LOW_PRIORITY;
-        //cardStats = new CardStats();
     }
     //@author
 

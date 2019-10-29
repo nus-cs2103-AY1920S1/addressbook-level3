@@ -25,7 +25,6 @@ public class JavascriptCard extends FlashCard {
         front = frontString;
         back = outputString;
         //priority = LOW_PRIORITY;
-        //cardStats = new CardStats();
     }
 
     /**
