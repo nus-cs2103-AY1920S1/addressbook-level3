@@ -20,10 +20,10 @@ import seedu.address.model.aesthetics.Background;
 import seedu.address.model.aesthetics.Colour;
 import seedu.address.model.bio.User;
 import seedu.address.model.calendar.CalendarEntry;
-import seedu.address.model.food.Food;
 import seedu.address.model.person.Person;
 import seedu.address.model.record.Record;
 import seedu.address.ui.DisplayPaneType;
+import sugarmummy.recmfood.model.Food;
 
 /**
  * API of the Logic component

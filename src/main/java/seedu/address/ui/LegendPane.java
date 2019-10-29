@@ -105,6 +105,7 @@ public class LegendPane extends UiPart<Region> {
 
     /**
      * Returns the maximum average value in averageMap.
+     *
      * @param averageMap a {@code AverageMap} object that maps time period to the respective average values.
      */
     private double findMax(ObservableMap<LocalDate, Double> averageMap) {

@@ -13,6 +13,7 @@ import seedu.address.model.YearMonth;
 import seedu.address.model.bio.User;
 import seedu.address.model.calendar.YearMonthDay;
 import seedu.address.ui.bio.BioPane;
+import sugarmummy.recmfood.ui.FoodFlowPanel;
 
 /**
  * A class containing enumerations, storing the possible Main Display Panes to be displayed to the user.
@@ -66,7 +67,7 @@ public class MainDisplayPane {
                 newPaneIsToBeCreated);
         case AVERAGE:
             return getMappedPane(displayPaneType, () -> new AverageGraphPane(logic.getAverageMap(),
-                            logic.getAverageType(), logic.getRecordType()), newPaneIsToBeCreated);
+                logic.getAverageType(), logic.getRecordType()), newPaneIsToBeCreated);
         default:
             return null;
         }
@@ -78,7 +79,7 @@ public class MainDisplayPane {
     public UiPart<Region> get(DisplayPaneType displayPaneType, boolean newPaneIsToBeCreated,
                               YearMonth yearMonth, Optional<YearMonthDay> yearMonthDay, boolean isShowingWeek) {
         return getMappedPane(displayPaneType, () -> new CalendarMonthScrollPanel(yearMonth, yearMonthDay, isShowingWeek,
-                logic.getFilteredCalendarEntryList()), newPaneIsToBeCreated);
+            logic.getFilteredCalendarEntryList()), newPaneIsToBeCreated);
 
     }
 

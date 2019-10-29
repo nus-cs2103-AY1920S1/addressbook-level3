@@ -23,13 +23,13 @@ public class CalendarCommand extends Command {
     public static final String COMMAND_WORD = "calendar";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Shows a calendar of a month with a list of calendar "
-            + "entries on a day/ in a week/in the month."
-            + "Parameters: "
-            + "[" + PREFIX_YEAR_MONTH + "YEAR_MONTH]"
-            + "[" + PREFIX_YEAR_MONTH_DAY + "YEAR_MONTH_DAY]"
-            + "[" + PREFIX_YEAR_MONTH_WEEK + "YEAR_MONTH_WEEK]\n"
-            + "Example: " + COMMAND_WORD + " "
-            + PREFIX_YEAR_MONTH + "2019-12";
+        + "entries on a day/ in a week/in the month."
+        + "Parameters: "
+        + "[" + PREFIX_YEAR_MONTH + "YEAR_MONTH]"
+        + "[" + PREFIX_YEAR_MONTH_DAY + "YEAR_MONTH_DAY]"
+        + "[" + PREFIX_YEAR_MONTH_WEEK + "YEAR_MONTH_WEEK]\n"
+        + "Example: " + COMMAND_WORD + " "
+        + PREFIX_YEAR_MONTH + "2019-12";
 
     public static final String MESSAGE_SUCCESS = "Calendar of %1$s shown";
 
@@ -61,7 +61,7 @@ public class CalendarCommand extends Command {
         requireNonNull(model);
         if (yearMonthDay.isPresent()) {
             return new CalendarCommandResult(String.format(MESSAGE_SUCCESS, yearMonth),
-                    yearMonthDay.get(), isShowingWeek);
+                yearMonthDay.get(), isShowingWeek);
         } else {
             return new CalendarCommandResult(String.format(MESSAGE_SUCCESS, yearMonth), yearMonth);
         }

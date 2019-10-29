@@ -25,11 +25,11 @@ import seedu.address.model.aesthetics.Background;
 import seedu.address.model.aesthetics.Colour;
 import seedu.address.model.bio.User;
 import seedu.address.model.calendar.CalendarEntry;
-import seedu.address.model.food.Food;
 import seedu.address.model.person.Person;
 import seedu.address.model.record.Record;
+import seedu.address.storage.Storage;
 import seedu.address.ui.DisplayPaneType;
-import sugarmummy.storage.Storage;
+import sugarmummy.recmfood.model.Food;
 
 /**
  * The main LogicManager of the app.

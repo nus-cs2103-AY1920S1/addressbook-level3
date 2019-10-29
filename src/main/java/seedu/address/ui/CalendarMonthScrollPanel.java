@@ -81,7 +81,7 @@ public class CalendarMonthScrollPanel extends UiPart<Region> {
     private void initializeDailyCalendarEntries(YearMonthDay yearMonthDay,
                                                 ObservableList<CalendarEntry> calendarEntries) {
         monthlyCalendarEntries.getChildren().add(new DailyCalendarEntries(yearMonthDay.getYearMonthDay(),
-                calendarEntries).getRoot());
+            calendarEntries).getRoot());
     }
 
     /**
@@ -111,7 +111,7 @@ public class CalendarMonthScrollPanel extends UiPart<Region> {
      */
     private void setStyle() {
         calendarMonthPanel.setBackground(new Background(
-                new BackgroundFill(Color.GRAY, CornerRadii.EMPTY, Insets.EMPTY)));
+            new BackgroundFill(Color.GRAY, CornerRadii.EMPTY, Insets.EMPTY)));
         calendarMonthPanel.setGridLinesVisible(true);
         ColumnConstraints columnConstraints = new ColumnConstraints();
         columnConstraints.setPercentWidth(100.0 / numberOfColumns);
@@ -146,7 +146,7 @@ public class CalendarMonthScrollPanel extends UiPart<Region> {
         }
         for (; currentDate.getMonthValue() == month; currentDate = currentDate.plusDays(1)) {
             calendarMonthPanel.add(new CalendarMonthDayCard(currentDate, calendarEntries).getRoot(),
-                    colNum, rowNum, 1, 1);
+                colNum, rowNum, 1, 1);
             colNum++;
             if (colNum == numberOfColumns) {
                 rowNum++;

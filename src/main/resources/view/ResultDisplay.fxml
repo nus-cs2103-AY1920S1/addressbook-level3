@@ -6,7 +6,8 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<HBox xmlns:fx="http://javafx.com/fxml/1" fx:id="placeHolder" HBox.hgrow="ALWAYS" maxHeight="Infinity" VBox.vgrow="ALWAYS"
+<HBox xmlns:fx="http://javafx.com/fxml/1" fx:id="placeHolder" HBox.hgrow="ALWAYS" maxHeight="Infinity"
+      VBox.vgrow="ALWAYS"
       alignment="TOP_LEFT" styleClass="pane-with-border" xmlns="http://javafx.com/javafx/8">
     <children>
         <ScrollPane fx:id="scrollPane" fitToWidth="true" pannable="false" styleClass="profile-scroll"

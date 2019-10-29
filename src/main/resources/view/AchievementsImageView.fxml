@@ -2,5 +2,6 @@
 
 
 <?import javafx.scene.image.ImageView?>
-<ImageView xmlns:fx="http://javafx.com/fxml/1" fx:id="achievementsImageView" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true"
+<ImageView xmlns:fx="http://javafx.com/fxml/1" fx:id="achievementsImageView" fitHeight="100.0" fitWidth="100.0"
+           pickOnBounds="true"
            preserveRatio="true" xmlns="http://javafx.com/javafx/8"/>

@@ -41,7 +41,7 @@ public class CalendarEntryListCard extends UiPart<Region> {
     private void initializeEvent(Event event) {
         if (event.getEndingDateTime().isPresent()) {
             this.dateTime.setText(dateTimeFormatter.format(event.getTime()) + " - "
-                    + dateTimeFormatter.format(event.getEndingDateTime().get().getTime()));
+                + dateTimeFormatter.format(event.getEndingDateTime().get().getTime()));
         } else {
             this.dateTime.setText(DateTimeFormatter.ofPattern("HH:mm").format(calendarEntry.getTime()));
         }

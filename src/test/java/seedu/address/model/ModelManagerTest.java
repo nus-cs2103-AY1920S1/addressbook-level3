@@ -4,10 +4,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
-import static seedu.address.model.food.TypicalFoods.FOODS;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BENSON;
+import static sugarmummy.recmfood.model.TypicalFoods.FOODS;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -17,10 +17,10 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.bio.UserList;
-import seedu.address.model.food.UniqueFoodList;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.record.UniqueRecordList;
 import seedu.address.testutil.AddressBookBuilder;
+import sugarmummy.recmfood.model.UniqueFoodList;
 
 public class ModelManagerTest {
 
