@@ -1,583 +1,4518 @@
 {
-  "2019/2020 CS2103T" : {
-    "moduleCode" : "CS2103T",
-    "aliases" : [ "CS2103" ],
+  "2019/2020 CS2100" : {
+    "moduleCode" : "CS2100",
     "semesterData" : [ {
-      "examDate" : "2019-11-29T01:00:00.000Z",
+      "examDate" : "2019-11-28T01:00:00.000Z",
       "semester" : 1,
       "examDuration" : 120,
       "timetable" : [ {
-        "venue" : "COM1-0210",
+        "venue" : "COM1-0113",
         "weeks" : [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ],
-        "size" : 20,
-        "classNo" : "G12",
-        "startTime" : "1100",
-        "endTime" : "1200",
-        "day" : "Friday",
-        "lessonType" : "Lecture"
+        "size" : 21,
+        "classNo" : "05",
+        "startTime" : "1600",
+        "endTime" : "1700",
+        "day" : "Monday",
+        "lessonType" : "Laboratory"
       }, {
-        "venue" : "COM1-0210",
+        "venue" : "COM1-0113",
         "weeks" : [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ],
-        "size" : 20,
-        "classNo" : "G09",
+        "size" : 21,
+        "classNo" : "06",
+        "startTime" : "1700",
+        "endTime" : "1800",
+        "day" : "Monday",
+        "lessonType" : "Laboratory"
+      }, {
+        "venue" : "COM1-0113",
+        "weeks" : [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ],
+        "size" : 21,
+        "classNo" : "07",
+        "startTime" : "1200",
+        "endTime" : "1300",
+        "day" : "Thursday",
+        "lessonType" : "Laboratory"
+      }, {
+        "venue" : "COM1-0207",
+        "weeks" : [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ],
+        "size" : 21,
+        "classNo" : "02",
         "startTime" : "1400",
         "endTime" : "1500",
-        "day" : "Friday",
-        "lessonType" : "Lecture"
+        "day" : "Tuesday",
+        "lessonType" : "Tutorial"
       }, {
-        "venue" : "COM1-0210",
+        "venue" : "COM2-0108",
         "weeks" : [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ],
-        "size" : 20,
-        "classNo" : "G06",
+        "size" : 21,
+        "classNo" : "03",
         "startTime" : "1100",
         "endTime" : "1200",
-        "day" : "Thursday",
-        "lessonType" : "Lecture"
-      }, {
-        "venue" : "COM1-0210",
-        "weeks" : [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ],
-        "size" : 20,
-        "classNo" : "G07",
-        "startTime" : "1300",
-        "endTime" : "1400",
-        "day" : "Friday",
-        "lessonType" : "Lecture"
-      }, {
-        "venue" : "COM1-0210",
-        "weeks" : [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ],
-        "size" : 20,
-        "classNo" : "G03",
-        "startTime" : "1300",
-        "endTime" : "1400",
         "day" : "Wednesday",
-        "lessonType" : "Lecture"
+        "lessonType" : "Tutorial"
       }, {
-        "venue" : "COM1-0210",
+        "venue" : "COM1-0207",
         "weeks" : [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ],
-        "size" : 20,
-        "classNo" : "G04",
-        "startTime" : "1200",
-        "endTime" : "1300",
-        "day" : "Thursday",
-        "lessonType" : "Lecture"
-      }, {
-        "venue" : "COM1-0210",
-        "weeks" : [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ],
-        "size" : 20,
-        "classNo" : "G02",
-        "startTime" : "1200",
-        "endTime" : "1300",
-        "day" : "Wednesday",
-        "lessonType" : "Lecture"
-      }, {
-        "venue" : "AS6-0210",
-        "weeks" : [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ],
-        "size" : 20,
-        "classNo" : "G05",
-        "startTime" : "1400",
-        "endTime" : "1600",
-        "day" : "Friday",
-        "lessonType" : "Lecture"
-      }, {
-        "venue" : "COM1-0216",
-        "weeks" : [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ],
-        "size" : 20,
-        "classNo" : "G06",
-        "startTime" : "1200",
-        "endTime" : "1400",
-        "day" : "Tuesday",
-        "lessonType" : "Lecture"
-      }, {
-        "venue" : "COM1-0216",
-        "weeks" : [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ],
-        "size" : 20,
-        "classNo" : "G06",
-        "startTime" : "1200",
-        "endTime" : "1400",
-        "day" : "Friday",
-        "lessonType" : "Lecture"
-      }, {
-        "venue" : "COM1-0217",
-        "weeks" : [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ],
-        "size" : 20,
-        "classNo" : "G07",
-        "startTime" : "1600",
-        "endTime" : "1800",
-        "day" : "Monday",
-        "lessonType" : "Lecture"
-      }, {
-        "venue" : "COM1-0201",
-        "weeks" : [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ],
-        "size" : 20,
-        "classNo" : "G13",
-        "startTime" : "1000",
-        "endTime" : "1200",
-        "day" : "Friday",
-        "lessonType" : "Lecture"
-      }, {
-        "venue" : "AS6-0210",
-        "weeks" : [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ],
-        "size" : 20,
-        "classNo" : "G04",
-        "startTime" : "1200",
-        "endTime" : "1400",
-        "day" : "Tuesday",
-        "lessonType" : "Lecture"
-      }, {
-        "venue" : "AS6-0210",
-        "weeks" : [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ],
-        "size" : 20,
-        "classNo" : "G05",
-        "startTime" : "1400",
-        "endTime" : "1600",
-        "day" : "Tuesday",
-        "lessonType" : "Lecture"
-      }, {
-        "venue" : "AS6-0208",
-        "weeks" : [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ],
-        "size" : 20,
-        "classNo" : "G01",
-        "startTime" : "0800",
+        "size" : 21,
+        "classNo" : "05",
+        "startTime" : "0900",
         "endTime" : "1000",
         "day" : "Monday",
-        "lessonType" : "Lecture"
+        "lessonType" : "Tutorial"
       }, {
-        "venue" : "AS6-0208",
+        "venue" : "COM2-0108",
         "weeks" : [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ],
-        "size" : 20,
-        "classNo" : "G01",
-        "startTime" : "0800",
-        "endTime" : "1000",
-        "day" : "Thursday",
-        "lessonType" : "Lecture"
-      }, {
-        "venue" : "I3-AUD",
-        "weeks" : [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ],
-        "size" : 20,
-        "classNo" : "G13",
-        "startTime" : "1600",
-        "endTime" : "1800",
-        "day" : "Friday",
-        "lessonType" : "Lecture"
-      }, {
-        "venue" : "I3-AUD",
-        "weeks" : [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ],
-        "size" : 20,
-        "classNo" : "G08",
-        "startTime" : "1600",
-        "endTime" : "1800",
-        "day" : "Friday",
-        "lessonType" : "Lecture"
-      }, {
-        "venue" : "I3-AUD",
-        "weeks" : [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ],
-        "size" : 20,
-        "classNo" : "G07",
-        "startTime" : "1600",
-        "endTime" : "1800",
-        "day" : "Friday",
-        "lessonType" : "Lecture"
-      }, {
-        "venue" : "I3-AUD",
-        "weeks" : [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ],
-        "size" : 20,
-        "classNo" : "G03",
-        "startTime" : "1600",
-        "endTime" : "1800",
-        "day" : "Friday",
-        "lessonType" : "Lecture"
-      }, {
-        "venue" : "I3-AUD",
-        "weeks" : [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ],
-        "size" : 20,
-        "classNo" : "G11",
-        "startTime" : "1600",
-        "endTime" : "1800",
-        "day" : "Friday",
-        "lessonType" : "Lecture"
-      }, {
-        "venue" : "I3-AUD",
-        "weeks" : [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ],
-        "size" : 20,
-        "classNo" : "G01",
-        "startTime" : "1600",
-        "endTime" : "1800",
-        "day" : "Friday",
-        "lessonType" : "Lecture"
-      }, {
-        "venue" : "I3-AUD",
-        "weeks" : [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ],
-        "size" : 20,
-        "classNo" : "G04",
-        "startTime" : "1600",
-        "endTime" : "1800",
-        "day" : "Friday",
-        "lessonType" : "Lecture"
-      }, {
-        "venue" : "I3-AUD",
-        "weeks" : [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ],
-        "size" : 20,
-        "classNo" : "G10",
-        "startTime" : "1600",
-        "endTime" : "1800",
-        "day" : "Friday",
-        "lessonType" : "Lecture"
-      }, {
-        "venue" : "COM1-0216",
-        "weeks" : [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ],
-        "size" : 20,
-        "classNo" : "G13",
-        "startTime" : "1000",
-        "endTime" : "1200",
-        "day" : "Tuesday",
-        "lessonType" : "Lecture"
-      }, {
-        "venue" : "AS3-0611",
-        "weeks" : [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ],
-        "size" : 20,
-        "classNo" : "G12",
-        "startTime" : "1000",
-        "endTime" : "1200",
-        "day" : "Thursday",
-        "lessonType" : "Lecture"
-      }, {
-        "venue" : "AS3-0611",
-        "weeks" : [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ],
-        "size" : 20,
-        "classNo" : "G12",
-        "startTime" : "1000",
-        "endTime" : "1200",
-        "day" : "Monday",
-        "lessonType" : "Lecture"
-      }, {
-        "venue" : "COM1-0216",
-        "weeks" : [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ],
-        "size" : 20,
-        "classNo" : "G03",
-        "startTime" : "1200",
-        "endTime" : "1400",
-        "day" : "Monday",
-        "lessonType" : "Lecture"
-      }, {
-        "venue" : "COM1-0217",
-        "weeks" : [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ],
-        "size" : 20,
-        "classNo" : "G07",
-        "startTime" : "1600",
-        "endTime" : "1800",
-        "day" : "Thursday",
-        "lessonType" : "Lecture"
-      }, {
-        "venue" : "AS3-0611",
-        "weeks" : [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ],
-        "size" : 20,
-        "classNo" : "G08",
-        "startTime" : "1200",
-        "endTime" : "1400",
-        "day" : "Monday",
-        "lessonType" : "Lecture"
-      }, {
-        "venue" : "AS3-0611",
-        "weeks" : [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ],
-        "size" : 20,
-        "classNo" : "G08",
-        "startTime" : "1200",
-        "endTime" : "1400",
-        "day" : "Thursday",
-        "lessonType" : "Lecture"
-      }, {
-        "venue" : "AS3-0610",
-        "weeks" : [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ],
-        "size" : 20,
-        "classNo" : "G09",
-        "startTime" : "1500",
-        "endTime" : "1700",
-        "day" : "Monday",
-        "lessonType" : "Lecture"
-      }, {
-        "venue" : "AS3-0610",
-        "weeks" : [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ],
-        "size" : 20,
-        "classNo" : "G09",
-        "startTime" : "1500",
-        "endTime" : "1700",
-        "day" : "Thursday",
-        "lessonType" : "Lecture"
-      }, {
-        "venue" : "AS6-0208",
-        "weeks" : [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ],
-        "size" : 20,
-        "classNo" : "G10",
-        "startTime" : "0800",
-        "endTime" : "1000",
-        "day" : "Tuesday",
-        "lessonType" : "Lecture"
-      }, {
-        "venue" : "AS3-0610",
-        "weeks" : [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ],
-        "size" : 20,
-        "classNo" : "G10",
-        "startTime" : "0800",
-        "endTime" : "1000",
-        "day" : "Friday",
-        "lessonType" : "Lecture"
-      }, {
-        "venue" : "COM1-0216",
-        "weeks" : [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ],
-        "size" : 20,
-        "classNo" : "G02",
-        "startTime" : "1000",
-        "endTime" : "1200",
-        "day" : "Thursday",
-        "lessonType" : "Lecture"
-      }, {
-        "venue" : "COM1-0210",
-        "weeks" : [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ],
-        "size" : 20,
-        "classNo" : "G05",
+        "size" : 21,
+        "classNo" : "07",
         "startTime" : "1000",
         "endTime" : "1100",
-        "day" : "Thursday",
-        "lessonType" : "Lecture"
+        "day" : "Wednesday",
+        "lessonType" : "Tutorial"
       }, {
-        "venue" : "COM1-0210",
+        "venue" : "COM1-0207",
         "weeks" : [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ],
-        "size" : 20,
-        "classNo" : "G10",
-        "startTime" : "1300",
-        "endTime" : "1400",
-        "day" : "Thursday",
-        "lessonType" : "Lecture"
+        "size" : 21,
+        "classNo" : "09",
+        "startTime" : "1000",
+        "endTime" : "1100",
+        "day" : "Monday",
+        "lessonType" : "Tutorial"
       }, {
-        "venue" : "COM1-0210",
+        "venue" : "COM1-0207",
         "weeks" : [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ],
-        "size" : 20,
-        "classNo" : "G11",
+        "size" : 21,
+        "classNo" : "04",
+        "startTime" : "0800",
+        "endTime" : "0900",
+        "day" : "Monday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "COM1-0208",
+        "weeks" : [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ],
+        "size" : 21,
+        "classNo" : "06",
         "startTime" : "0900",
         "endTime" : "1000",
         "day" : "Thursday",
-        "lessonType" : "Lecture"
+        "lessonType" : "Tutorial"
       }, {
-        "venue" : "COM1-B103",
+        "venue" : "COM1-0208",
         "weeks" : [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ],
-        "size" : 20,
-        "classNo" : "G13",
-        "startTime" : "1700",
-        "endTime" : "1800",
-        "day" : "Thursday",
-        "lessonType" : "Lecture"
+        "size" : 21,
+        "classNo" : "10",
+        "startTime" : "1500",
+        "endTime" : "1600",
+        "day" : "Friday",
+        "lessonType" : "Tutorial"
       }, {
-        "venue" : "COM1-0210",
+        "venue" : "COM1-0208",
         "weeks" : [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ],
-        "size" : 20,
-        "classNo" : "G01",
+        "size" : 21,
+        "classNo" : "11",
+        "startTime" : "1400",
+        "endTime" : "1500",
+        "day" : "Friday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "COM1-0208",
+        "weeks" : [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ],
+        "size" : 21,
+        "classNo" : "12",
+        "startTime" : "1000",
+        "endTime" : "1100",
+        "day" : "Tuesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "COM1-0208",
+        "weeks" : [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ],
+        "size" : 21,
+        "classNo" : "13",
         "startTime" : "1100",
         "endTime" : "1200",
+        "day" : "Tuesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "COM2-0108",
+        "weeks" : [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ],
+        "size" : 21,
+        "classNo" : "14",
+        "startTime" : "1400",
+        "endTime" : "1500",
+        "day" : "Wednesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "COM1-0113",
+        "weeks" : [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ],
+        "size" : 21,
+        "classNo" : "03",
+        "startTime" : "1400",
+        "endTime" : "1500",
+        "day" : "Monday",
+        "lessonType" : "Laboratory"
+      }, {
+        "venue" : "COM1-0113",
+        "weeks" : [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ],
+        "size" : 21,
+        "classNo" : "15",
+        "startTime" : "1100",
+        "endTime" : "1200",
+        "day" : "Thursday",
+        "lessonType" : "Laboratory"
+      }, {
+        "venue" : "COM1-0208",
+        "weeks" : [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ],
+        "size" : 21,
+        "classNo" : "08",
+        "startTime" : "1100",
+        "endTime" : "1200",
+        "day" : "Friday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "COM1-0113",
+        "weeks" : [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ],
+        "size" : 21,
+        "classNo" : "02",
+        "startTime" : "1300",
+        "endTime" : "1400",
+        "day" : "Monday",
+        "lessonType" : "Laboratory"
+      }, {
+        "venue" : "COM1-0113",
+        "weeks" : [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ],
+        "size" : 21,
+        "classNo" : "08",
+        "startTime" : "1300",
+        "endTime" : "1400",
+        "day" : "Thursday",
+        "lessonType" : "Laboratory"
+      }, {
+        "venue" : "COM1-0113",
+        "weeks" : [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ],
+        "size" : 21,
+        "classNo" : "10",
+        "startTime" : "1500",
+        "endTime" : "1600",
+        "day" : "Thursday",
+        "lessonType" : "Laboratory"
+      }, {
+        "venue" : "COM1-0113",
+        "weeks" : [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ],
+        "size" : 21,
+        "classNo" : "13",
+        "startTime" : "1000",
+        "endTime" : "1100",
+        "day" : "Monday",
+        "lessonType" : "Laboratory"
+      }, {
+        "venue" : "COM1-0113",
+        "weeks" : [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ],
+        "size" : 21,
+        "classNo" : "14",
+        "startTime" : "1100",
+        "endTime" : "1200",
+        "day" : "Monday",
+        "lessonType" : "Laboratory"
+      }, {
+        "venue" : "COM1-0113",
+        "weeks" : [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ],
+        "size" : 21,
+        "classNo" : "01",
+        "startTime" : "1200",
+        "endTime" : "1300",
+        "day" : "Monday",
+        "lessonType" : "Laboratory"
+      }, {
+        "venue" : "I3-AUD",
+        "weeks" : [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ],
+        "size" : 314,
+        "classNo" : "1",
+        "startTime" : "0900",
+        "endTime" : "1000",
         "day" : "Wednesday",
         "lessonType" : "Lecture"
       }, {
-        "venue" : "COM1-0210",
+        "venue" : "COM1-0113",
         "weeks" : [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ],
-        "size" : 20,
-        "classNo" : "G08",
-        "startTime" : "1200",
-        "endTime" : "1300",
-        "day" : "Friday",
-        "lessonType" : "Lecture"
-      }, {
-        "venue" : "COM1-0216",
-        "weeks" : [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ],
-        "size" : 20,
-        "classNo" : "G03",
-        "startTime" : "1200",
-        "endTime" : "1400",
+        "size" : 21,
+        "classNo" : "12",
+        "startTime" : "1700",
+        "endTime" : "1800",
         "day" : "Thursday",
-        "lessonType" : "Lecture"
+        "lessonType" : "Laboratory"
       }, {
-        "venue" : "AS6-0210",
+        "venue" : "COM1-0208",
         "weeks" : [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ],
-        "size" : 20,
-        "classNo" : "G04",
-        "startTime" : "1200",
-        "endTime" : "1400",
+        "size" : 21,
+        "classNo" : "01",
+        "startTime" : "1000",
+        "endTime" : "1100",
         "day" : "Friday",
-        "lessonType" : "Lecture"
+        "lessonType" : "Tutorial"
       }, {
-        "venue" : "I3-AUD",
+        "venue" : "COM1-0113",
         "weeks" : [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ],
-        "size" : 20,
-        "classNo" : "G02",
-        "startTime" : "1600",
-        "endTime" : "1800",
-        "day" : "Friday",
-        "lessonType" : "Lecture"
-      }, {
-        "venue" : "I3-AUD",
-        "weeks" : [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ],
-        "size" : 20,
-        "classNo" : "G09",
-        "startTime" : "1600",
-        "endTime" : "1800",
-        "day" : "Friday",
-        "lessonType" : "Lecture"
-      }, {
-        "venue" : "I3-AUD",
-        "weeks" : [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ],
-        "size" : 20,
-        "classNo" : "G12",
-        "startTime" : "1600",
-        "endTime" : "1800",
-        "day" : "Friday",
-        "lessonType" : "Lecture"
-      }, {
-        "venue" : "I3-AUD",
-        "weeks" : [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ],
-        "size" : 20,
-        "classNo" : "G06",
-        "startTime" : "1600",
-        "endTime" : "1800",
-        "day" : "Friday",
-        "lessonType" : "Lecture"
-      }, {
-        "venue" : "AS3-0610",
-        "weeks" : [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ],
-        "size" : 20,
-        "classNo" : "G11",
-        "startTime" : "1400",
+        "size" : 21,
+        "classNo" : "04",
+        "startTime" : "1500",
         "endTime" : "1600",
-        "day" : "Friday",
-        "lessonType" : "Lecture"
+        "day" : "Monday",
+        "lessonType" : "Laboratory"
       }, {
-        "venue" : "AS3-0610",
+        "venue" : "COM1-0113",
         "weeks" : [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ],
-        "size" : 20,
-        "classNo" : "G11",
+        "size" : 21,
+        "classNo" : "09",
         "startTime" : "1400",
-        "endTime" : "1600",
+        "endTime" : "1500",
+        "day" : "Thursday",
+        "lessonType" : "Laboratory"
+      }, {
+        "venue" : "I3-AUD",
+        "weeks" : [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ],
+        "size" : 314,
+        "classNo" : "1",
+        "startTime" : "1600",
+        "endTime" : "1800",
         "day" : "Tuesday",
         "lessonType" : "Lecture"
       }, {
-        "venue" : "COM1-0216",
+        "venue" : "COM1-0113",
         "weeks" : [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ],
-        "size" : 20,
-        "classNo" : "G02",
-        "startTime" : "1000",
-        "endTime" : "1200",
-        "day" : "Monday",
-        "lessonType" : "Lecture"
-      }, {
-        "venue" : "I3-AUD",
-        "weeks" : [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ],
-        "size" : 20,
-        "classNo" : "G05",
+        "size" : 21,
+        "classNo" : "11",
         "startTime" : "1600",
-        "endTime" : "1800",
-        "day" : "Friday",
-        "lessonType" : "Lecture"
+        "endTime" : "1700",
+        "day" : "Thursday",
+        "lessonType" : "Laboratory"
+      }, {
+        "venue" : "COM2-0108",
+        "weeks" : [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ],
+        "size" : 21,
+        "classNo" : "15",
+        "startTime" : "1500",
+        "endTime" : "1600",
+        "day" : "Wednesday",
+        "lessonType" : "Tutorial"
       } ]
     }, {
-      "examDate" : "2020-04-25T05:00:00.000Z",
+      "examDate" : "2020-04-30T05:00:00.000Z",
       "semester" : 2,
       "examDuration" : 120,
       "timetable" : [ {
-        "venue" : "COM1-0201",
+        "venue" : "COM1-0114",
+        "weeks" : [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ],
+        "size" : 22,
+        "classNo" : "08",
+        "startTime" : "1200",
+        "endTime" : "1300",
+        "day" : "Tuesday",
+        "lessonType" : "Laboratory"
+      }, {
+        "venue" : "COM1-0114",
+        "weeks" : [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ],
+        "size" : 22,
+        "classNo" : "07",
+        "startTime" : "1400",
+        "endTime" : "1500",
+        "day" : "Monday",
+        "lessonType" : "Laboratory"
+      }, {
+        "venue" : "COM1-0113",
+        "weeks" : [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ],
+        "size" : 22,
+        "classNo" : "06",
+        "startTime" : "1000",
+        "endTime" : "1100",
+        "day" : "Friday",
+        "lessonType" : "Laboratory"
+      }, {
+        "venue" : "COM1-0114",
+        "weeks" : [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ],
+        "size" : 22,
+        "classNo" : "09",
+        "startTime" : "1700",
+        "endTime" : "1800",
+        "day" : "Monday",
+        "lessonType" : "Laboratory"
+      }, {
+        "venue" : "COM1-0203",
+        "weeks" : [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ],
+        "size" : 20,
+        "classNo" : "11",
+        "startTime" : "1500",
+        "endTime" : "1600",
+        "day" : "Monday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "COM1-0203",
+        "weeks" : [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ],
+        "size" : 20,
+        "classNo" : "02",
+        "startTime" : "0800",
+        "endTime" : "0900",
+        "day" : "Friday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "COM1-0114",
+        "weeks" : [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ],
+        "size" : 20,
+        "classNo" : "01",
+        "startTime" : "1100",
+        "endTime" : "1200",
+        "day" : "Wednesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "COM1-0113",
+        "weeks" : [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ],
+        "size" : 20,
+        "classNo" : "15",
+        "startTime" : "0800",
+        "endTime" : "0900",
+        "day" : "Friday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "COM1-0114",
         "weeks" : [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ],
         "size" : 20,
         "classNo" : "06",
         "startTime" : "1200",
         "endTime" : "1300",
+        "day" : "Friday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "COM1-0201",
+        "weeks" : [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ],
+        "size" : 20,
+        "classNo" : "10",
+        "startTime" : "0900",
+        "endTime" : "1000",
         "day" : "Tuesday",
         "lessonType" : "Tutorial"
       }, {
-        "venue" : "COM1-0201",
+        "venue" : "COM1-0114",
         "weeks" : [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ],
         "size" : 20,
-        "classNo" : "05",
+        "classNo" : "13",
+        "startTime" : "1000",
+        "endTime" : "1100",
+        "day" : "Wednesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "COM1-0113",
+        "weeks" : [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ],
+        "size" : 20,
+        "classNo" : "14",
         "startTime" : "1100",
         "endTime" : "1200",
+        "day" : "Tuesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "COM1-B103",
+        "weeks" : [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ],
+        "size" : 20,
+        "classNo" : "04",
+        "startTime" : "1100",
+        "endTime" : "1200",
+        "day" : "Wednesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "COM1-0113",
+        "weeks" : [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ],
+        "size" : 22,
+        "classNo" : "12",
+        "startTime" : "0900",
+        "endTime" : "1000",
+        "day" : "Wednesday",
+        "lessonType" : "Laboratory"
+      }, {
+        "venue" : "COM1-0113",
+        "weeks" : [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ],
+        "size" : 20,
+        "classNo" : "08",
+        "startTime" : "1200",
+        "endTime" : "1300",
         "day" : "Monday",
         "lessonType" : "Tutorial"
       }, {
-        "venue" : "COM1-0201",
+        "venue" : "COM1-0114",
+        "weeks" : [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ],
+        "size" : 22,
+        "classNo" : "02",
+        "startTime" : "1500",
+        "endTime" : "1600",
+        "day" : "Tuesday",
+        "lessonType" : "Laboratory"
+      }, {
+        "venue" : "COM1-0113",
+        "weeks" : [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ],
+        "size" : 22,
+        "classNo" : "01",
+        "startTime" : "0800",
+        "endTime" : "0900",
+        "day" : "Wednesday",
+        "lessonType" : "Laboratory"
+      }, {
+        "venue" : "COM1-0114",
+        "weeks" : [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ],
+        "size" : 22,
+        "classNo" : "03",
+        "startTime" : "1600",
+        "endTime" : "1700",
+        "day" : "Friday",
+        "lessonType" : "Laboratory"
+      }, {
+        "venue" : "COM1-0114",
+        "weeks" : [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ],
+        "size" : 22,
+        "classNo" : "04",
+        "startTime" : "0900",
+        "endTime" : "1000",
+        "day" : "Monday",
+        "lessonType" : "Laboratory"
+      }, {
+        "venue" : "COM1-0114",
+        "weeks" : [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ],
+        "size" : 22,
+        "classNo" : "05",
+        "startTime" : "1300",
+        "endTime" : "1400",
+        "day" : "Wednesday",
+        "lessonType" : "Laboratory"
+      }, {
+        "venue" : "COM1-0113",
         "weeks" : [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ],
         "size" : 20,
-        "classNo" : "01",
+        "classNo" : "12",
+        "startTime" : "1700",
+        "endTime" : "1800",
+        "day" : "Thursday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "COM1-0113",
+        "weeks" : [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ],
+        "size" : 22,
+        "classNo" : "11",
+        "startTime" : "1000",
+        "endTime" : "1100",
+        "day" : "Thursday",
+        "lessonType" : "Laboratory"
+      }, {
+        "venue" : "COM1-0113",
+        "weeks" : [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ],
+        "size" : 20,
+        "classNo" : "03",
+        "startTime" : "1000",
+        "endTime" : "1100",
+        "day" : "Tuesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "COM1-0203",
+        "weeks" : [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ],
+        "size" : 20,
+        "classNo" : "09",
         "startTime" : "1600",
         "endTime" : "1700",
         "day" : "Monday",
         "lessonType" : "Tutorial"
       }, {
-        "venue" : "COM1-0201",
+        "venue" : "COM1-0113",
         "weeks" : [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ],
-        "size" : 20,
-        "classNo" : "02",
-        "startTime" : "1000",
-        "endTime" : "1100",
-        "day" : "Monday",
-        "lessonType" : "Tutorial"
+        "size" : 22,
+        "classNo" : "10",
+        "startTime" : "0900",
+        "endTime" : "1000",
+        "day" : "Friday",
+        "lessonType" : "Laboratory"
       }, {
-        "venue" : "COM1-0201",
+        "venue" : "I3-AUD",
         "weeks" : [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ],
-        "size" : 20,
-        "classNo" : "03",
-        "startTime" : "1400",
-        "endTime" : "1500",
+        "size" : 200,
+        "classNo" : "2",
+        "startTime" : "1500",
+        "endTime" : "1600",
+        "day" : "Wednesday",
+        "lessonType" : "Lecture"
+      }, {
+        "venue" : "I3-AUD",
+        "weeks" : [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ],
+        "size" : 200,
+        "classNo" : "1",
+        "startTime" : "1600",
+        "endTime" : "1800",
         "day" : "Tuesday",
+        "lessonType" : "Lecture"
+      }, {
+        "venue" : "I3-AUD",
+        "weeks" : [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ],
+        "size" : 200,
+        "classNo" : "2",
+        "startTime" : "1000",
+        "endTime" : "1200",
+        "day" : "Monday",
+        "lessonType" : "Lecture"
+      }, {
+        "venue" : "COM1-0113",
+        "weeks" : [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ],
+        "size" : 22,
+        "classNo" : "13",
+        "startTime" : "1100",
+        "endTime" : "1200",
+        "day" : "Thursday",
+        "lessonType" : "Laboratory"
+      }, {
+        "venue" : "COM1-0113",
+        "weeks" : [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ],
+        "size" : 20,
+        "classNo" : "05",
+        "startTime" : "1200",
+        "endTime" : "1300",
+        "day" : "Friday",
         "lessonType" : "Tutorial"
       }, {
-        "venue" : "COM1-0201",
+        "venue" : "COM1-0113",
         "weeks" : [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ],
         "size" : 20,
         "classNo" : "07",
-        "startTime" : "1400",
-        "endTime" : "1500",
-        "day" : "Wednesday",
+        "startTime" : "1300",
+        "endTime" : "1400",
+        "day" : "Tuesday",
         "lessonType" : "Tutorial"
       }, {
         "venue" : "I3-AUD",
         "weeks" : [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ],
-        "size" : 160,
+        "size" : 200,
         "classNo" : "1",
+        "startTime" : "1400",
+        "endTime" : "1500",
+        "day" : "Wednesday",
+        "lessonType" : "Lecture"
+      } ]
+    } ],
+    "moduleCredit" : "4",
+    "prerequisite" : "CS1010 or its equivalent",
+    "prereqTree" : "CS1010",
+    "description" : "The objective of this module is to familiarise students with the fundamentals of computing devices. Through this module students will understand the basics of data representation, and how the various parts of a computer work, separately and with each other. This allows students to understand the issues in computing devices, and how these issues affect the implementation of solutions. Topics covered include data representation systems, combinational and sequential circuit design techniques, assembly language, processor execution cycles, pipelining, memory hierarchy and input/output systems.",
+    "workload" : [ 3, 1, 1, 3, 2 ],
+    "title" : "Computer Organisation",
+    "acadYear" : "2019/2020",
+    "faculty" : "Computing",
+    "preclusion" : "CS1104 or Students from Department of ECE",
+    "fulfillRequirements" : [ "CS6284", "CS2106", "CS3210", "CS3237", "EE5902" ],
+    "department" : "Computer Science"
+  },
+  "2019/2020 GER1000" : {
+    "preclusion" : "GER1000E, GER1000K, GER1000W, GER1000R, GER1000S, GER1000T, GER1000P, GER1000B",
+    "moduleCode" : "GER1000",
+    "semesterData" : [ {
+      "examDate" : "2019-11-23T05:00:00.000Z",
+      "semester" : 1,
+      "examDuration" : 120,
+      "timetable" : [ {
+        "venue" : "E4-04-03",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D36",
         "startTime" : "1400",
         "endTime" : "1600",
         "day" : "Friday",
-        "lessonType" : "Lecture"
+        "lessonType" : "Tutorial"
       }, {
-        "venue" : "COM1-0201",
-        "weeks" : [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ],
-        "size" : 20,
-        "classNo" : "08",
-        "startTime" : "1500",
+        "venue" : "TP-SR7",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E30",
+        "startTime" : "1000",
+        "endTime" : "1200",
+        "day" : "Friday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "E4-04-03",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E07",
+        "startTime" : "1200",
+        "endTime" : "1400",
+        "day" : "Tuesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "E4-04-03",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E08",
+        "startTime" : "1400",
+        "endTime" : "1600",
+        "day" : "Tuesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "AS1-0210",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D07",
+        "startTime" : "1200",
+        "endTime" : "1400",
+        "day" : "Tuesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "AS1-0210",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E32",
+        "startTime" : "1200",
+        "endTime" : "1400",
+        "day" : "Friday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "E4-04-03",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D26",
+        "startTime" : "1400",
+        "endTime" : "1600",
+        "day" : "Thursday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR7",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E03",
+        "startTime" : "1000",
+        "endTime" : "1200",
+        "day" : "Tuesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "E4-04-03",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E26",
+        "startTime" : "1200",
+        "endTime" : "1400",
+        "day" : "Thursday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR7",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E12",
+        "startTime" : "1400",
         "endTime" : "1600",
         "day" : "Wednesday",
         "lessonType" : "Tutorial"
       }, {
-        "venue" : "COM1-0201",
-        "weeks" : [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ],
-        "size" : 20,
-        "classNo" : "04",
+        "venue" : "E4-04-03",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E02",
+        "startTime" : "1200",
+        "endTime" : "1400",
+        "day" : "Monday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR7",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E36",
+        "startTime" : "1600",
+        "endTime" : "1800",
+        "day" : "Wednesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "AS1-0210",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D33",
+        "startTime" : "1400",
+        "endTime" : "1600",
+        "day" : "Friday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR7",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D01",
+        "startTime" : "1000",
+        "endTime" : "1200",
+        "day" : "Tuesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "AS1-0210",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E18",
+        "startTime" : "1000",
+        "endTime" : "1200",
+        "day" : "Wednesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR7",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D10",
+        "startTime" : "1200",
+        "endTime" : "1400",
+        "day" : "Wednesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR7",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E39",
+        "startTime" : "1000",
+        "endTime" : "1200",
+        "day" : "Monday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR7",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E41",
+        "startTime" : "1600",
+        "endTime" : "1800",
+        "day" : "Tuesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "AS1-0210",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E35",
+        "startTime" : "1000",
+        "endTime" : "1200",
+        "day" : "Tuesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "AS1-0210",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E09",
+        "startTime" : "1200",
+        "endTime" : "1400",
+        "day" : "Tuesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "AS1-0210",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E10",
+        "startTime" : "1400",
+        "endTime" : "1600",
+        "day" : "Tuesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "E4-04-03",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D13",
+        "startTime" : "1000",
+        "endTime" : "1200",
+        "day" : "Wednesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "E4-04-03",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D06",
+        "startTime" : "1400",
+        "endTime" : "1600",
+        "day" : "Tuesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "AS1-0210",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E19",
+        "startTime" : "1200",
+        "endTime" : "1400",
+        "day" : "Wednesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR7",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E01",
+        "startTime" : "1200",
+        "endTime" : "1400",
+        "day" : "Monday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR7",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E40",
+        "startTime" : "1400",
+        "endTime" : "1600",
+        "day" : "Tuesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR7",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D30",
+        "startTime" : "1000",
+        "endTime" : "1200",
+        "day" : "Friday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "E4-04-03",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D12",
         "startTime" : "0800",
-        "endTime" : "0900",
+        "endTime" : "1000",
+        "day" : "Wednesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "E4-04-03",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E06",
+        "startTime" : "1000",
+        "endTime" : "1200",
+        "day" : "Tuesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "E4-04-03",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E17",
+        "startTime" : "1400",
+        "endTime" : "1600",
+        "day" : "Wednesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "E4-04-03",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E16",
+        "startTime" : "1200",
+        "endTime" : "1400",
+        "day" : "Wednesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "E4-04-03",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E14",
+        "startTime" : "0800",
+        "endTime" : "1000",
+        "day" : "Wednesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "E4-04-03",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D24",
+        "startTime" : "1000",
+        "endTime" : "1200",
+        "day" : "Thursday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "E4-04-03",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D14",
+        "startTime" : "1200",
+        "endTime" : "1400",
+        "day" : "Wednesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "E4-04-03",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D15",
+        "startTime" : "1400",
+        "endTime" : "1600",
+        "day" : "Wednesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR7",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E23",
+        "startTime" : "1200",
+        "endTime" : "1400",
+        "day" : "Thursday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "E4-04-03",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D34",
+        "startTime" : "1600",
+        "endTime" : "1800",
+        "day" : "Thursday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "AS1-0210",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D18",
+        "startTime" : "1400",
+        "endTime" : "1600",
+        "day" : "Wednesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "AS1-0210",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D19",
+        "startTime" : "1600",
+        "endTime" : "1800",
+        "day" : "Wednesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "AS1-0210",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D29",
+        "startTime" : "1600",
+        "endTime" : "1800",
+        "day" : "Thursday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR7",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E31",
+        "startTime" : "1200",
+        "endTime" : "1400",
+        "day" : "Friday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "AS1-0210",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E33",
+        "startTime" : "1400",
+        "endTime" : "1600",
+        "day" : "Friday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "AS1-0210",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E38",
+        "startTime" : "1200",
+        "endTime" : "1400",
+        "day" : "Monday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "E4-04-03",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D25",
+        "startTime" : "1200",
+        "endTime" : "1400",
+        "day" : "Thursday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "E4-04-03",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E25",
+        "startTime" : "1000",
+        "endTime" : "1200",
+        "day" : "Thursday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR7",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E11",
+        "startTime" : "1000",
+        "endTime" : "1200",
+        "day" : "Wednesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "AS1-0210",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D32",
+        "startTime" : "1200",
+        "endTime" : "1400",
+        "day" : "Friday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "E4-04-03",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E15",
+        "startTime" : "1000",
+        "endTime" : "1200",
+        "day" : "Wednesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR7",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D02",
+        "startTime" : "1200",
+        "endTime" : "1400",
+        "day" : "Tuesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "AS1-0210",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D16",
+        "startTime" : "1000",
+        "endTime" : "1200",
+        "day" : "Wednesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "E4-04-03",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D03",
+        "startTime" : "0800",
+        "endTime" : "1000",
+        "day" : "Tuesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "E4-04-03",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D04",
+        "startTime" : "1000",
+        "endTime" : "1200",
+        "day" : "Tuesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "E4-04-03",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D05",
+        "startTime" : "1200",
+        "endTime" : "1400",
+        "day" : "Tuesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR7",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D20",
+        "startTime" : "1000",
+        "endTime" : "1200",
+        "day" : "Thursday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR7",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D22",
+        "startTime" : "1900",
+        "endTime" : "2100",
+        "day" : "Thursday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR7",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E13",
+        "startTime" : "1900",
+        "endTime" : "2100",
+        "day" : "Thursday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR7",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E42",
+        "startTime" : "0800",
+        "endTime" : "1000",
+        "day" : "Thursday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "E4-04-03",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E24",
+        "startTime" : "0800",
+        "endTime" : "1000",
+        "day" : "Thursday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR7",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E22",
+        "startTime" : "1000",
+        "endTime" : "1200",
+        "day" : "Thursday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "AS1-0210",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E21",
+        "startTime" : "1600",
+        "endTime" : "1800",
+        "day" : "Wednesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "AS1-0210",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E28",
+        "startTime" : "1000",
+        "endTime" : "1200",
+        "day" : "Thursday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "AS1-0210",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D27",
+        "startTime" : "1000",
+        "endTime" : "1200",
+        "day" : "Thursday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "AS1-0210",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D28",
+        "startTime" : "1200",
+        "endTime" : "1400",
+        "day" : "Thursday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "AS1-0210",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E20",
+        "startTime" : "1400",
+        "endTime" : "1600",
+        "day" : "Wednesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "E4-04-03",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D35",
+        "startTime" : "1200",
+        "endTime" : "1400",
+        "day" : "Friday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "AS1-0210",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D08",
+        "startTime" : "1400",
+        "endTime" : "1600",
+        "day" : "Tuesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR7",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E04",
+        "startTime" : "1200",
+        "endTime" : "1400",
+        "day" : "Tuesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "AS1-0210",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D17",
+        "startTime" : "1200",
+        "endTime" : "1400",
+        "day" : "Wednesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR7",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D09",
+        "startTime" : "1000",
+        "endTime" : "1200",
+        "day" : "Wednesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "AS1-0210",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E34",
+        "startTime" : "0800",
+        "endTime" : "1000",
+        "day" : "Tuesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "AS1-0210",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E43",
+        "startTime" : "0800",
+        "endTime" : "1000",
+        "day" : "Thursday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "E4-04-03",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D23",
+        "startTime" : "0800",
+        "endTime" : "1000",
+        "day" : "Thursday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR7",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D21",
+        "startTime" : "1200",
+        "endTime" : "1400",
+        "day" : "Thursday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR7",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D31",
+        "startTime" : "1200",
+        "endTime" : "1400",
+        "day" : "Friday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "E4-04-03",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E05",
+        "startTime" : "0800",
+        "endTime" : "1000",
+        "day" : "Tuesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "AS1-0210",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E37",
+        "startTime" : "1600",
+        "endTime" : "1800",
+        "day" : "Thursday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "AS1-0210",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E29",
+        "startTime" : "1200",
+        "endTime" : "1400",
+        "day" : "Thursday",
+        "lessonType" : "Tutorial"
+      } ]
+    }, {
+      "examDate" : "2020-04-27T05:00:00.000Z",
+      "semester" : 2,
+      "examDuration" : 120,
+      "timetable" : [ {
+        "venue" : "ERC-SR10",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D73",
+        "startTime" : "1000",
+        "endTime" : "1200",
+        "day" : "Tuesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR6",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E11",
+        "startTime" : "1000",
+        "endTime" : "1200",
+        "day" : "Monday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR6",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E12",
+        "startTime" : "1200",
+        "endTime" : "1400",
+        "day" : "Monday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "AS1-0210",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D20",
+        "startTime" : "1400",
+        "endTime" : "1600",
+        "day" : "Tuesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR6",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E10",
+        "startTime" : "0800",
+        "endTime" : "1000",
+        "day" : "Monday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "E4-04-03",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D05",
+        "startTime" : "0800",
+        "endTime" : "1000",
+        "day" : "Monday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR6",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D15",
+        "startTime" : "1200",
+        "endTime" : "1400",
+        "day" : "Monday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "AS1-0210",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D19",
+        "startTime" : "1200",
+        "endTime" : "1400",
+        "day" : "Tuesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "AS1-0210",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D17",
+        "startTime" : "0800",
+        "endTime" : "1000",
+        "day" : "Tuesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "AS1-0210",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D18",
+        "startTime" : "1000",
+        "endTime" : "1200",
+        "day" : "Tuesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR4",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D12",
+        "startTime" : "1400",
+        "endTime" : "1600",
+        "day" : "Monday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "AS1-0210",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D01",
+        "startTime" : "0800",
+        "endTime" : "1000",
+        "day" : "Monday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "E4-04-03",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D08",
+        "startTime" : "1400",
+        "endTime" : "1600",
+        "day" : "Monday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR4",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D11",
+        "startTime" : "1200",
+        "endTime" : "1400",
+        "day" : "Monday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "AS1-0210",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E16",
+        "startTime" : "1400",
+        "endTime" : "1600",
+        "day" : "Thursday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR4",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E07",
+        "startTime" : "0800",
+        "endTime" : "1000",
+        "day" : "Monday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR4",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E08",
+        "startTime" : "1000",
+        "endTime" : "1200",
+        "day" : "Monday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "AS1-0210",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D03",
+        "startTime" : "1200",
+        "endTime" : "1400",
+        "day" : "Monday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "AS1-0210",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D04",
+        "startTime" : "1400",
+        "endTime" : "1600",
+        "day" : "Monday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "ERC-SR10",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E52",
+        "startTime" : "0800",
+        "endTime" : "1000",
+        "day" : "Friday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "ERC-SR9CAM",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D75",
+        "startTime" : "1000",
+        "endTime" : "1200",
+        "day" : "Tuesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "AS1-0210",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E33",
+        "startTime" : "1200",
+        "endTime" : "1400",
+        "day" : "Friday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR4",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D30",
+        "startTime" : "1400",
+        "endTime" : "1600",
+        "day" : "Tuesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR4",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E27",
+        "startTime" : "1600",
+        "endTime" : "1800",
+        "day" : "Thursday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR4",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D31",
+        "startTime" : "1600",
+        "endTime" : "1800",
+        "day" : "Tuesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR6",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D34",
+        "startTime" : "1600",
+        "endTime" : "1800",
+        "day" : "Tuesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "AS1-0210",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D39",
+        "startTime" : "1600",
+        "endTime" : "1800",
+        "day" : "Wednesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR4",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D27",
+        "startTime" : "0800",
+        "endTime" : "1000",
+        "day" : "Tuesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR4",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D28",
+        "startTime" : "1000",
+        "endTime" : "1200",
+        "day" : "Tuesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR4",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D29",
+        "startTime" : "1200",
+        "endTime" : "1400",
+        "day" : "Tuesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR4",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E26",
+        "startTime" : "1400",
+        "endTime" : "1600",
+        "day" : "Thursday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR6",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D32",
+        "startTime" : "0800",
+        "endTime" : "1000",
+        "day" : "Tuesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "AS1-0210",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D36",
+        "startTime" : "1000",
+        "endTime" : "1200",
+        "day" : "Wednesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "AS1-0210",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D37",
+        "startTime" : "1200",
+        "endTime" : "1400",
+        "day" : "Wednesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "AS1-0210",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D38",
+        "startTime" : "1400",
+        "endTime" : "1600",
+        "day" : "Wednesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "AS1-0210",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E13",
+        "startTime" : "0800",
+        "endTime" : "1000",
+        "day" : "Thursday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "E4-04-03",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E18",
+        "startTime" : "0800",
+        "endTime" : "1000",
+        "day" : "Thursday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "AS1-0210",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E14",
+        "startTime" : "1000",
+        "endTime" : "1200",
+        "day" : "Thursday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "AS1-0210",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E15",
+        "startTime" : "1200",
+        "endTime" : "1400",
+        "day" : "Thursday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "E4-04-03",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E21",
+        "startTime" : "1400",
+        "endTime" : "1600",
+        "day" : "Thursday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "E4-04-03",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D25",
+        "startTime" : "1400",
+        "endTime" : "1600",
+        "day" : "Tuesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "E4-04-03",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E22",
+        "startTime" : "1600",
+        "endTime" : "1800",
+        "day" : "Thursday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR4",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D85",
+        "startTime" : "1900",
+        "endTime" : "2100",
+        "day" : "Thursday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR4",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E41",
+        "startTime" : "0800",
+        "endTime" : "1000",
+        "day" : "Friday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "E4-04-03",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E04",
+        "startTime" : "0800",
+        "endTime" : "1000",
+        "day" : "Monday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "E4-04-03",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E05",
+        "startTime" : "1000",
+        "endTime" : "1200",
+        "day" : "Monday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR4",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E43",
+        "startTime" : "1200",
+        "endTime" : "1400",
+        "day" : "Friday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "ERC-SR10",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E53",
+        "startTime" : "1000",
+        "endTime" : "1200",
+        "day" : "Friday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "E4-04-03",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D62",
+        "startTime" : "1600",
+        "endTime" : "1800",
+        "day" : "Thursday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "AS1-0210",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D53",
+        "startTime" : "0800",
+        "endTime" : "1000",
+        "day" : "Thursday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR4",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D64",
+        "startTime" : "1000",
+        "endTime" : "1200",
+        "day" : "Thursday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "AS1-0210",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D54",
+        "startTime" : "1000",
+        "endTime" : "1200",
+        "day" : "Thursday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR4",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D65",
+        "startTime" : "1200",
+        "endTime" : "1400",
+        "day" : "Thursday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR4",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D66",
+        "startTime" : "1400",
+        "endTime" : "1600",
+        "day" : "Thursday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR6",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E46",
+        "startTime" : "1200",
+        "endTime" : "1400",
+        "day" : "Friday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "E4-04-03",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D61",
+        "startTime" : "1400",
+        "endTime" : "1600",
+        "day" : "Thursday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR6",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D51",
+        "startTime" : "1200",
+        "endTime" : "1400",
+        "day" : "Wednesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "E4-04-03",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E39",
+        "startTime" : "1400",
+        "endTime" : "1600",
+        "day" : "Friday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "AS1-0210",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D56",
+        "startTime" : "1400",
+        "endTime" : "1600",
+        "day" : "Thursday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "AS1-0210",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D57",
+        "startTime" : "1600",
+        "endTime" : "1800",
+        "day" : "Thursday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "E4-04-03",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E38",
+        "startTime" : "1200",
+        "endTime" : "1400",
+        "day" : "Friday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR6",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E47",
+        "startTime" : "1400",
+        "endTime" : "1600",
+        "day" : "Friday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "E4-04-03",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D58",
+        "startTime" : "0800",
+        "endTime" : "1000",
+        "day" : "Thursday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR4",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D45",
+        "startTime" : "0800",
+        "endTime" : "1000",
+        "day" : "Wednesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR6",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D50",
+        "startTime" : "1000",
+        "endTime" : "1200",
+        "day" : "Wednesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR6",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E28",
+        "startTime" : "1000",
+        "endTime" : "1200",
+        "day" : "Thursday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR4",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D48",
+        "startTime" : "1400",
+        "endTime" : "1600",
+        "day" : "Wednesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR4",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D49",
+        "startTime" : "1600",
+        "endTime" : "1800",
+        "day" : "Wednesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR6",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E30",
+        "startTime" : "1600",
+        "endTime" : "1800",
+        "day" : "Thursday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "E4-04-03",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D42",
+        "startTime" : "1200",
+        "endTime" : "1400",
+        "day" : "Wednesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "E4-04-03",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D43",
+        "startTime" : "1400",
+        "endTime" : "1600",
+        "day" : "Wednesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "AS1-0210",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E01",
+        "startTime" : "0800",
+        "endTime" : "1000",
+        "day" : "Monday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR4",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D67",
+        "startTime" : "1600",
+        "endTime" : "1800",
+        "day" : "Thursday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "AS1-0210",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E32",
+        "startTime" : "1000",
+        "endTime" : "1200",
+        "day" : "Friday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "ERC-SR10",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D80",
+        "startTime" : "1200",
+        "endTime" : "1400",
+        "day" : "Wednesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "ERC-SR11",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D74",
+        "startTime" : "1200",
+        "endTime" : "1400",
+        "day" : "Tuesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "ERC-SR10",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D76",
+        "startTime" : "1200",
+        "endTime" : "1400",
+        "day" : "Tuesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "ERC-SR10",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D78",
+        "startTime" : "0800",
+        "endTime" : "1000",
+        "day" : "Wednesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR4",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E57",
+        "startTime" : "1900",
+        "endTime" : "2100",
+        "day" : "Thursday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "ERC-SR10",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D71",
+        "startTime" : "1200",
+        "endTime" : "1400",
+        "day" : "Monday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "ERC-SR10",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D81",
+        "startTime" : "1400",
+        "endTime" : "1600",
+        "day" : "Wednesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "ERC-SR11",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D82",
+        "startTime" : "1400",
+        "endTime" : "1600",
+        "day" : "Wednesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "ERC-SR8",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E51",
+        "startTime" : "1400",
+        "endTime" : "1600",
+        "day" : "Thursday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "ERC-SR10",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E55",
+        "startTime" : "1200",
+        "endTime" : "1400",
+        "day" : "Friday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "ERC-SR10",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E50",
+        "startTime" : "0800",
+        "endTime" : "1000",
+        "day" : "Thursday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "AS1-0210",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D21",
+        "startTime" : "1600",
+        "endTime" : "1800",
+        "day" : "Tuesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR6",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D16",
+        "startTime" : "1400",
+        "endTime" : "1600",
+        "day" : "Monday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR6",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D14",
+        "startTime" : "1000",
+        "endTime" : "1200",
+        "day" : "Monday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "E4-04-03",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D06",
+        "startTime" : "1000",
+        "endTime" : "1200",
+        "day" : "Monday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR4",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D10",
+        "startTime" : "1000",
+        "endTime" : "1200",
+        "day" : "Monday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "AS1-0210",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D02",
+        "startTime" : "1000",
+        "endTime" : "1200",
+        "day" : "Monday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR4",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E09",
+        "startTime" : "1200",
+        "endTime" : "1400",
+        "day" : "Monday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR6",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D33",
+        "startTime" : "1400",
+        "endTime" : "1600",
+        "day" : "Tuesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR4",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E25",
+        "startTime" : "1200",
+        "endTime" : "1400",
+        "day" : "Thursday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "AS1-0210",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D35",
+        "startTime" : "0800",
+        "endTime" : "1000",
+        "day" : "Wednesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "E4-04-03",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E20",
+        "startTime" : "1200",
+        "endTime" : "1400",
+        "day" : "Thursday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "E4-04-03",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D22",
+        "startTime" : "0800",
+        "endTime" : "1000",
+        "day" : "Tuesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "E4-04-03",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D23",
+        "startTime" : "1000",
+        "endTime" : "1200",
+        "day" : "Tuesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR4",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E24",
+        "startTime" : "1000",
+        "endTime" : "1200",
+        "day" : "Thursday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR4",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E42",
+        "startTime" : "1000",
+        "endTime" : "1200",
+        "day" : "Friday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "E4-04-03",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E06",
+        "startTime" : "1200",
+        "endTime" : "1400",
+        "day" : "Monday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR4",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E45",
+        "startTime" : "1600",
+        "endTime" : "1800",
+        "day" : "Friday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR6",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D68",
+        "startTime" : "1000",
+        "endTime" : "1200",
+        "day" : "Thursday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "E4-04-03",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D59",
+        "startTime" : "1000",
+        "endTime" : "1200",
+        "day" : "Thursday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR6",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E48",
+        "startTime" : "1600",
+        "endTime" : "1800",
+        "day" : "Friday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "E4-04-03",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E37",
+        "startTime" : "1000",
+        "endTime" : "1200",
+        "day" : "Friday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "E4-04-03",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D44",
+        "startTime" : "1600",
+        "endTime" : "1800",
+        "day" : "Wednesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR6",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E29",
+        "startTime" : "1200",
+        "endTime" : "1400",
+        "day" : "Thursday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR4",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D46",
+        "startTime" : "1000",
+        "endTime" : "1200",
+        "day" : "Wednesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "E4-04-03",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D41",
+        "startTime" : "1000",
+        "endTime" : "1200",
+        "day" : "Wednesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "E4-04-03",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E40",
+        "startTime" : "1600",
+        "endTime" : "1800",
+        "day" : "Friday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "AS1-0210",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E02",
+        "startTime" : "1000",
+        "endTime" : "1200",
+        "day" : "Monday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR4",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D63",
+        "startTime" : "0800",
+        "endTime" : "1000",
+        "day" : "Thursday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "AS1-0210",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E03",
+        "startTime" : "1200",
+        "endTime" : "1400",
+        "day" : "Monday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR6",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D70",
+        "startTime" : "1600",
+        "endTime" : "1800",
+        "day" : "Thursday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "AS1-0210",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E31",
+        "startTime" : "0800",
+        "endTime" : "1000",
+        "day" : "Friday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "ERC-SR8",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D84",
+        "startTime" : "1400",
+        "endTime" : "1600",
+        "day" : "Thursday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "ERC-SR10",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D83",
+        "startTime" : "0800",
+        "endTime" : "1000",
+        "day" : "Thursday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR6",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D13",
+        "startTime" : "0800",
+        "endTime" : "1000",
+        "day" : "Monday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR4",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D09",
+        "startTime" : "0800",
+        "endTime" : "1000",
+        "day" : "Monday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "AS1-0210",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E17",
+        "startTime" : "1600",
+        "endTime" : "1800",
+        "day" : "Thursday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "AS1-0210",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E34",
+        "startTime" : "1400",
+        "endTime" : "1600",
+        "day" : "Friday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "E4-04-03",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E19",
+        "startTime" : "1000",
+        "endTime" : "1200",
+        "day" : "Thursday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "E4-04-03",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D24",
+        "startTime" : "1200",
+        "endTime" : "1400",
+        "day" : "Tuesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR4",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E23",
+        "startTime" : "0800",
+        "endTime" : "1000",
+        "day" : "Thursday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "E4-04-03",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D26",
+        "startTime" : "1600",
+        "endTime" : "1800",
+        "day" : "Tuesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR4",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E44",
+        "startTime" : "1400",
+        "endTime" : "1600",
+        "day" : "Friday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "E4-04-03",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D60",
+        "startTime" : "1200",
+        "endTime" : "1400",
+        "day" : "Thursday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "E4-04-03",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E36",
+        "startTime" : "0800",
+        "endTime" : "1000",
+        "day" : "Friday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "AS1-0210",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E35",
+        "startTime" : "1600",
+        "endTime" : "1800",
+        "day" : "Friday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR6",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D52",
+        "startTime" : "1600",
+        "endTime" : "1800",
+        "day" : "Wednesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "AS1-0210",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D55",
+        "startTime" : "1200",
+        "endTime" : "1400",
+        "day" : "Thursday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "ERC-ALR",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D77",
+        "startTime" : "1400",
+        "endTime" : "1600",
+        "day" : "Tuesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "ERC-SR10",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D79",
+        "startTime" : "1000",
+        "endTime" : "1200",
+        "day" : "Wednesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "ERC-GLR",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E54",
+        "startTime" : "1000",
+        "endTime" : "1200",
+        "day" : "Friday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "ERC-SR10",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D72",
+        "startTime" : "1400",
+        "endTime" : "1600",
+        "day" : "Monday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "E4-04-03",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D07",
+        "startTime" : "1200",
+        "endTime" : "1400",
+        "day" : "Monday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "ERC-SR10",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E56",
+        "startTime" : "1400",
+        "endTime" : "1600",
+        "day" : "Friday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR4",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D47",
+        "startTime" : "1200",
+        "endTime" : "1400",
+        "day" : "Wednesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR6",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D69",
+        "startTime" : "1200",
+        "endTime" : "1400",
+        "day" : "Thursday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "ERC-SR10",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E49",
+        "startTime" : "1200",
+        "endTime" : "1400",
+        "day" : "Monday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "E4-04-03",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D40",
+        "startTime" : "0800",
+        "endTime" : "1000",
         "day" : "Wednesday",
         "lessonType" : "Tutorial"
       } ]
     } ],
     "moduleCredit" : "4",
-    "prerequisite" : "For SoC students only. (CS1020 or its equivalent) or CS2020 or (CS2030 and (CS2040 or its equivalent))",
-    "prereqTree" : {
-      "or" : [ "CS1020", "CS2020", {
-        "and" : [ "CS2030", "CS2040" ]
-      } ]
-    },
-    "description" : "This module introduces the necessary conceptual and analytical tools for systematic and rigorous development of software systems. It covers four main areas of software development, namely object-oriented system analysis, object-oriented system modelling and design, implementation, and testing, with emphasis on system modelling and design and implementation of software modules that work cooperatively to fulfill the requirements of the system. Tools and techniques for software development, such as Unified Modelling Language (UML), program specification, and testing methods, will be taught. Major software engineering issues such as modularisation criteria, program correctness, and software quality will also be covered.",
+    "description" : "This module aims to equip undergraduates with basic reasoning skills on using data to address real world issues. What are some potential complications to keep in mind as we plan what data to collect and how to use them to address our particular issue? When two things are related (e.g. smoking and cancer), how can we tell whether the relationship is causal (e.g. smoking causes cancer)? How can quantitative reasoning help us deal with uncertainty or elucidate complex relationships? These and other questions will be discussed using real world examples.",
     "workload" : [ 2, 1, 0, 3, 4 ],
-    "title" : "Software Engineering",
+    "attributes" : {
+      "su" : true
+    },
+    "fulfillRequirements" : [ "PR4206", "PR3144" ],
+    "title" : "Quantitative Reasoning",
+    "department" : "Office of Sr Dy Pres and Provost",
     "acadYear" : "2019/2020",
-    "faculty" : "Computing",
-    "corequisite" : "Students have to read CS2101 Effective Communication for Computing Professionals at the same time as this module",
-    "preclusion" : "CS2103, CS2113, CS2113T, IS2101 or its equivalent.",
-    "fulfillRequirements" : [ "CP3880", "CS3283", "CS3203", "IS4234", "BT3102", "IS4302" ],
-    "department" : "Computer Science"
+    "faculty" : "NUS"
+  },
+  "2019/2020 GEQ1000" : {
+    "preclusion" : "GEQ1000H, GEQ1000E, GEQ1000K, GEQ1000W, GEQ1000R, GEQ1000S, GEQ1000T, GEQ1000P",
+    "moduleCode" : "GEQ1000",
+    "semesterData" : [ {
+      "semester" : 1,
+      "timetable" : [ {
+        "venue" : "TP-SR4",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D49",
+        "startTime" : "1200",
+        "endTime" : "1400",
+        "day" : "Friday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR4",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E05",
+        "startTime" : "1600",
+        "endTime" : "1800",
+        "day" : "Monday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR5",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E08",
+        "startTime" : "1200",
+        "endTime" : "1400",
+        "day" : "Monday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR5",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E44",
+        "startTime" : "1400",
+        "endTime" : "1600",
+        "day" : "Friday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR6",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D59",
+        "startTime" : "1200",
+        "endTime" : "1400",
+        "day" : "Friday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR4",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E39",
+        "startTime" : "1000",
+        "endTime" : "1200",
+        "day" : "Friday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR6",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D57",
+        "startTime" : "0800",
+        "endTime" : "1000",
+        "day" : "Friday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR4",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E41",
+        "startTime" : "1400",
+        "endTime" : "1600",
+        "day" : "Friday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR5",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D36",
+        "startTime" : "0800",
+        "endTime" : "1000",
+        "day" : "Thursday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR5",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D54",
+        "startTime" : "1200",
+        "endTime" : "1400",
+        "day" : "Friday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR5",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E38",
+        "startTime" : "1600",
+        "endTime" : "1800",
+        "day" : "Thursday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR4",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D05",
+        "startTime" : "1600",
+        "endTime" : "1800",
+        "day" : "Tuesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR6",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D26",
+        "startTime" : "0800",
+        "endTime" : "1000",
+        "day" : "Wednesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR5",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D56",
+        "startTime" : "1600",
+        "endTime" : "1800",
+        "day" : "Friday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR4",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D48",
+        "startTime" : "1000",
+        "endTime" : "1200",
+        "day" : "Friday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR4",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E25",
+        "startTime" : "1400",
+        "endTime" : "1600",
+        "day" : "Wednesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR4",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E26",
+        "startTime" : "1600",
+        "endTime" : "1800",
+        "day" : "Wednesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR4",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E31",
+        "startTime" : "1000",
+        "endTime" : "1200",
+        "day" : "Thursday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR4",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E32",
+        "startTime" : "1200",
+        "endTime" : "1400",
+        "day" : "Thursday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR5",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D25",
+        "startTime" : "1600",
+        "endTime" : "1800",
+        "day" : "Wednesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR4",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D04",
+        "startTime" : "1400",
+        "endTime" : "1600",
+        "day" : "Tuesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR5",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D38",
+        "startTime" : "1200",
+        "endTime" : "1400",
+        "day" : "Thursday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR4",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E24",
+        "startTime" : "1200",
+        "endTime" : "1400",
+        "day" : "Wednesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR4",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E33",
+        "startTime" : "1400",
+        "endTime" : "1600",
+        "day" : "Thursday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR4",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E34",
+        "startTime" : "1600",
+        "endTime" : "1800",
+        "day" : "Thursday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR4",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D17",
+        "startTime" : "1000",
+        "endTime" : "1200",
+        "day" : "Wednesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR5",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D06",
+        "startTime" : "0800",
+        "endTime" : "1000",
+        "day" : "Tuesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR5",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D09",
+        "startTime" : "1400",
+        "endTime" : "1600",
+        "day" : "Tuesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR5",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D24",
+        "startTime" : "1400",
+        "endTime" : "1600",
+        "day" : "Wednesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR5",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E30",
+        "startTime" : "1600",
+        "endTime" : "1800",
+        "day" : "Wednesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR5",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E42",
+        "startTime" : "1000",
+        "endTime" : "1200",
+        "day" : "Friday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR4",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D03",
+        "startTime" : "1200",
+        "endTime" : "1400",
+        "day" : "Tuesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR5",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E06",
+        "startTime" : "0800",
+        "endTime" : "1000",
+        "day" : "Monday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR4",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E18",
+        "startTime" : "1600",
+        "endTime" : "1800",
+        "day" : "Tuesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR4",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D51",
+        "startTime" : "1600",
+        "endTime" : "1800",
+        "day" : "Friday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR4",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E15",
+        "startTime" : "1000",
+        "endTime" : "1200",
+        "day" : "Tuesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR6",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D41",
+        "startTime" : "0800",
+        "endTime" : "1000",
+        "day" : "Thursday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR6",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D42",
+        "startTime" : "1000",
+        "endTime" : "1200",
+        "day" : "Thursday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR6",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D44",
+        "startTime" : "1400",
+        "endTime" : "1600",
+        "day" : "Thursday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR6",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E48",
+        "startTime" : "1400",
+        "endTime" : "1600",
+        "day" : "Wednesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR4",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D34",
+        "startTime" : "1400",
+        "endTime" : "1600",
+        "day" : "Thursday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR6",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E14",
+        "startTime" : "1600",
+        "endTime" : "1800",
+        "day" : "Monday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR6",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E46",
+        "startTime" : "1200",
+        "endTime" : "1400",
+        "day" : "Friday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR6",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E47",
+        "startTime" : "1400",
+        "endTime" : "1600",
+        "day" : "Friday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR5",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E36",
+        "startTime" : "1200",
+        "endTime" : "1400",
+        "day" : "Thursday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR6",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D15",
+        "startTime" : "1600",
+        "endTime" : "1800",
+        "day" : "Tuesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR6",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D27",
+        "startTime" : "1000",
+        "endTime" : "1200",
+        "day" : "Wednesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR5",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D39",
+        "startTime" : "1400",
+        "endTime" : "1600",
+        "day" : "Thursday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR5",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D40",
+        "startTime" : "1600",
+        "endTime" : "1800",
+        "day" : "Thursday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR5",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E21",
+        "startTime" : "1400",
+        "endTime" : "1600",
+        "day" : "Tuesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR5",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E22",
+        "startTime" : "1600",
+        "endTime" : "1800",
+        "day" : "Tuesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR4",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E01",
+        "startTime" : "0800",
+        "endTime" : "1000",
+        "day" : "Monday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR4",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E02",
+        "startTime" : "1000",
+        "endTime" : "1200",
+        "day" : "Monday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR4",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E04",
+        "startTime" : "1400",
+        "endTime" : "1600",
+        "day" : "Monday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR4",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D02",
+        "startTime" : "1000",
+        "endTime" : "1200",
+        "day" : "Tuesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR6",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D45",
+        "startTime" : "1600",
+        "endTime" : "1800",
+        "day" : "Thursday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR4",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D33",
+        "startTime" : "1200",
+        "endTime" : "1400",
+        "day" : "Thursday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR4",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D31",
+        "startTime" : "0800",
+        "endTime" : "1000",
+        "day" : "Thursday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR4",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E03",
+        "startTime" : "1200",
+        "endTime" : "1400",
+        "day" : "Monday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR5",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E29",
+        "startTime" : "1400",
+        "endTime" : "1600",
+        "day" : "Wednesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR4",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E40",
+        "startTime" : "1200",
+        "endTime" : "1400",
+        "day" : "Friday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR5",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D07",
+        "startTime" : "1000",
+        "endTime" : "1200",
+        "day" : "Tuesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR5",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D52",
+        "startTime" : "0800",
+        "endTime" : "1000",
+        "day" : "Friday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR5",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E37",
+        "startTime" : "1400",
+        "endTime" : "1600",
+        "day" : "Thursday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR4",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D18",
+        "startTime" : "1200",
+        "endTime" : "1400",
+        "day" : "Wednesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR4",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D47",
+        "startTime" : "0800",
+        "endTime" : "1000",
+        "day" : "Friday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR5",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D55",
+        "startTime" : "1400",
+        "endTime" : "1600",
+        "day" : "Friday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR4",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E23",
+        "startTime" : "1000",
+        "endTime" : "1200",
+        "day" : "Wednesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR4",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D16",
+        "startTime" : "0800",
+        "endTime" : "1000",
+        "day" : "Wednesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR5",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E43",
+        "startTime" : "1200",
+        "endTime" : "1400",
+        "day" : "Friday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR5",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E07",
+        "startTime" : "1000",
+        "endTime" : "1200",
+        "day" : "Monday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR5",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E09",
+        "startTime" : "1400",
+        "endTime" : "1600",
+        "day" : "Monday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR5",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E28",
+        "startTime" : "1200",
+        "endTime" : "1400",
+        "day" : "Wednesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR4",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E17",
+        "startTime" : "1400",
+        "endTime" : "1600",
+        "day" : "Tuesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR4",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D50",
+        "startTime" : "1400",
+        "endTime" : "1600",
+        "day" : "Friday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR6",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E45",
+        "startTime" : "1000",
+        "endTime" : "1200",
+        "day" : "Friday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR6",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D29",
+        "startTime" : "1400",
+        "endTime" : "1600",
+        "day" : "Wednesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR4",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D35",
+        "startTime" : "1600",
+        "endTime" : "1800",
+        "day" : "Thursday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR6",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E11",
+        "startTime" : "1000",
+        "endTime" : "1200",
+        "day" : "Monday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR6",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D28",
+        "startTime" : "1200",
+        "endTime" : "1400",
+        "day" : "Wednesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR5",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E35",
+        "startTime" : "1000",
+        "endTime" : "1200",
+        "day" : "Thursday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR4",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E16",
+        "startTime" : "1200",
+        "endTime" : "1400",
+        "day" : "Tuesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR6",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D61",
+        "startTime" : "1600",
+        "endTime" : "1800",
+        "day" : "Friday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR6",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D46",
+        "startTime" : "1900",
+        "endTime" : "2100",
+        "day" : "Thursday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR5",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D21",
+        "startTime" : "0800",
+        "endTime" : "1000",
+        "day" : "Wednesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR6",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D43",
+        "startTime" : "1200",
+        "endTime" : "1400",
+        "day" : "Thursday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR6",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D12",
+        "startTime" : "1000",
+        "endTime" : "1200",
+        "day" : "Tuesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR4",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D20",
+        "startTime" : "1600",
+        "endTime" : "1800",
+        "day" : "Wednesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR5",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E10",
+        "startTime" : "1600",
+        "endTime" : "1800",
+        "day" : "Monday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR5",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D23",
+        "startTime" : "1200",
+        "endTime" : "1400",
+        "day" : "Wednesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR5",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D53",
+        "startTime" : "1000",
+        "endTime" : "1200",
+        "day" : "Friday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR5",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D37",
+        "startTime" : "1000",
+        "endTime" : "1200",
+        "day" : "Thursday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR5",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E20",
+        "startTime" : "1200",
+        "endTime" : "1400",
+        "day" : "Tuesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR5",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E27",
+        "startTime" : "1000",
+        "endTime" : "1200",
+        "day" : "Wednesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR6",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D58",
+        "startTime" : "1000",
+        "endTime" : "1200",
+        "day" : "Friday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR6",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E12",
+        "startTime" : "1200",
+        "endTime" : "1400",
+        "day" : "Monday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR6",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E13",
+        "startTime" : "1400",
+        "endTime" : "1600",
+        "day" : "Monday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR6",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D13",
+        "startTime" : "1200",
+        "endTime" : "1400",
+        "day" : "Tuesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR5",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D10",
+        "startTime" : "1600",
+        "endTime" : "1800",
+        "day" : "Tuesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR6",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D60",
+        "startTime" : "1400",
+        "endTime" : "1600",
+        "day" : "Friday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR5",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D22",
+        "startTime" : "1000",
+        "endTime" : "1200",
+        "day" : "Wednesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR6",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D11",
+        "startTime" : "0800",
+        "endTime" : "1000",
+        "day" : "Tuesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR6",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D14",
+        "startTime" : "1400",
+        "endTime" : "1600",
+        "day" : "Tuesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR4",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D19",
+        "startTime" : "1400",
+        "endTime" : "1600",
+        "day" : "Wednesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR4",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D32",
+        "startTime" : "1000",
+        "endTime" : "1200",
+        "day" : "Thursday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR5",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D08",
+        "startTime" : "1200",
+        "endTime" : "1400",
+        "day" : "Tuesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR4",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D01",
+        "startTime" : "0800",
+        "endTime" : "1000",
+        "day" : "Tuesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR5",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E19",
+        "startTime" : "1000",
+        "endTime" : "1200",
+        "day" : "Tuesday",
+        "lessonType" : "Tutorial"
+      } ]
+    }, {
+      "semester" : 2,
+      "timetable" : [ {
+        "venue" : "",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E22",
+        "startTime" : "1200",
+        "endTime" : "1400",
+        "day" : "Friday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E23",
+        "startTime" : "1400",
+        "endTime" : "1600",
+        "day" : "Thursday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR7",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E24",
+        "startTime" : "1000",
+        "endTime" : "1200",
+        "day" : "Wednesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR7",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E26",
+        "startTime" : "1600",
+        "endTime" : "1800",
+        "day" : "Tuesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR7",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E29",
+        "startTime" : "1400",
+        "endTime" : "1600",
+        "day" : "Wednesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E18",
+        "startTime" : "1400",
+        "endTime" : "1600",
+        "day" : "Friday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR7",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E20",
+        "startTime" : "1600",
+        "endTime" : "1800",
+        "day" : "Friday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR7",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D29",
+        "startTime" : "1600",
+        "endTime" : "1800",
+        "day" : "Thursday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR7",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D25",
+        "startTime" : "1400",
+        "endTime" : "1600",
+        "day" : "Friday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR7",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D14",
+        "startTime" : "1400",
+        "endTime" : "1600",
+        "day" : "Thursday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D01",
+        "startTime" : "1600",
+        "endTime" : "1800",
+        "day" : "Friday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR7",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D26",
+        "startTime" : "0800",
+        "endTime" : "1000",
+        "day" : "Wednesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E12",
+        "startTime" : "1400",
+        "endTime" : "1600",
+        "day" : "Wednesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR7",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E03",
+        "startTime" : "1400",
+        "endTime" : "1600",
+        "day" : "Friday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D20",
+        "startTime" : "0800",
+        "endTime" : "1000",
+        "day" : "Friday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D22",
+        "startTime" : "0800",
+        "endTime" : "1000",
+        "day" : "Monday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D18",
+        "startTime" : "1400",
+        "endTime" : "1600",
+        "day" : "Thursday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D11",
+        "startTime" : "1400",
+        "endTime" : "1600",
+        "day" : "Tuesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D05",
+        "startTime" : "1400",
+        "endTime" : "1600",
+        "day" : "Friday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D06",
+        "startTime" : "0800",
+        "endTime" : "1000",
+        "day" : "Wednesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR7",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D07",
+        "startTime" : "1200",
+        "endTime" : "1400",
+        "day" : "Monday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR7",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D04",
+        "startTime" : "1000",
+        "endTime" : "1200",
+        "day" : "Tuesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E09",
+        "startTime" : "1400",
+        "endTime" : "1600",
+        "day" : "Tuesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E13",
+        "startTime" : "1200",
+        "endTime" : "1400",
+        "day" : "Thursday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D23",
+        "startTime" : "1000",
+        "endTime" : "1200",
+        "day" : "Tuesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D24",
+        "startTime" : "1200",
+        "endTime" : "1400",
+        "day" : "Tuesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR7",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D27",
+        "startTime" : "1000",
+        "endTime" : "1200",
+        "day" : "Friday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E04",
+        "startTime" : "1000",
+        "endTime" : "1200",
+        "day" : "Tuesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E05",
+        "startTime" : "0800",
+        "endTime" : "1000",
+        "day" : "Friday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E07",
+        "startTime" : "0800",
+        "endTime" : "1000",
+        "day" : "Tuesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E08",
+        "startTime" : "1600",
+        "endTime" : "1800",
+        "day" : "Monday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E15",
+        "startTime" : "1000",
+        "endTime" : "1200",
+        "day" : "Monday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D15",
+        "startTime" : "0800",
+        "endTime" : "1000",
+        "day" : "Thursday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D08",
+        "startTime" : "1400",
+        "endTime" : "1600",
+        "day" : "Monday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D10",
+        "startTime" : "1200",
+        "endTime" : "1400",
+        "day" : "Friday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D09",
+        "startTime" : "1600",
+        "endTime" : "1800",
+        "day" : "Wednesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR7",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E21",
+        "startTime" : "0800",
+        "endTime" : "1000",
+        "day" : "Wednesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR7",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E25",
+        "startTime" : "0800",
+        "endTime" : "1000",
+        "day" : "Monday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR7",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E28",
+        "startTime" : "0800",
+        "endTime" : "1000",
+        "day" : "Friday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR7",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E17",
+        "startTime" : "1200",
+        "endTime" : "1400",
+        "day" : "Thursday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR7",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D30",
+        "startTime" : "1400",
+        "endTime" : "1600",
+        "day" : "Wednesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR7",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D16",
+        "startTime" : "1000",
+        "endTime" : "1200",
+        "day" : "Wednesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR7",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D21",
+        "startTime" : "1400",
+        "endTime" : "1600",
+        "day" : "Tuesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D17",
+        "startTime" : "1200",
+        "endTime" : "1400",
+        "day" : "Thursday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D13",
+        "startTime" : "1600",
+        "endTime" : "1800",
+        "day" : "Monday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR7",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D19",
+        "startTime" : "1400",
+        "endTime" : "1600",
+        "day" : "Monday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E11",
+        "startTime" : "1200",
+        "endTime" : "1400",
+        "day" : "Wednesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E01",
+        "startTime" : "1000",
+        "endTime" : "1200",
+        "day" : "Thursday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E16",
+        "startTime" : "1000",
+        "endTime" : "1200",
+        "day" : "Wednesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E19",
+        "startTime" : "1600",
+        "endTime" : "1800",
+        "day" : "Friday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR7",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D28",
+        "startTime" : "1000",
+        "endTime" : "1200",
+        "day" : "Thursday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D02",
+        "startTime" : "0800",
+        "endTime" : "1000",
+        "day" : "Tuesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E02",
+        "startTime" : "0800",
+        "endTime" : "1000",
+        "day" : "Thursday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E10",
+        "startTime" : "1400",
+        "endTime" : "1600",
+        "day" : "Monday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E06",
+        "startTime" : "0800",
+        "endTime" : "1000",
+        "day" : "Monday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E27",
+        "startTime" : "1600",
+        "endTime" : "1800",
+        "day" : "Tuesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D12",
+        "startTime" : "1400",
+        "endTime" : "1600",
+        "day" : "Wednesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "",
+        "weeks" : [ 1, 3, 5, 7, 9, 11, 13 ],
+        "size" : 25,
+        "classNo" : "D03",
+        "startTime" : "1200",
+        "endTime" : "1400",
+        "day" : "Wednesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E14",
+        "startTime" : "1200",
+        "endTime" : "1400",
+        "day" : "Tuesday",
+        "lessonType" : "Tutorial"
+      }, {
+        "venue" : "TP-SR7",
+        "weeks" : [ 2, 4, 6, 8, 10, 12 ],
+        "size" : 25,
+        "classNo" : "E30",
+        "startTime" : "1000",
+        "endTime" : "1200",
+        "day" : "Friday",
+        "lessonType" : "Tutorial"
+      } ]
+    } ],
+    "moduleCredit" : "4",
+    "description" : "There are many ways to ask questions, and many kinds of questions that different disciplines investigate. For a start, this module introduces six dominant modes of questioning from the perspective of computational thinking, design thinking, engineering, philosophy, science, and social sciences. These six perspectives serve as a starting point to introduce all undergraduate students to different modes of questioning across these disciplines, and provide an initial exposure to how scholars from these disciplines pursue specific lines of questioning of everyday issues. We emphasize that while there is only limited time and space within one module to devote to specific disciplinary lines of investigations, we encourage all students to actively think about other lines of questioning, other questions that need to be asked, particularly in disciplines not represented in this introductory platform as we move through this journey together. We expect that in future subsequent offerings, other disciplinary modes of investigations may also be introduced.",
+    "workload" : [ 2, 2, 0, 0, 6 ],
+    "title" : "Asking Questions",
+    "department" : "Office of Sr Dy Pres and Provost",
+    "acadYear" : "2019/2020",
+    "faculty" : "NUS"
+  },
+  "2019/2020 CFG1002" : {
+    "moduleCode" : "CFG1002",
+    "semesterData" : [ {
+      "semester" : 1,
+      "timetable" : [ {
+        "venue" : "LT7",
+        "weeks" : [ 7, 8, 9, 10, 11, 12 ],
+        "size" : 300,
+        "classNo" : "15",
+        "startTime" : "1400",
+        "endTime" : "1600",
+        "day" : "Wednesday",
+        "lessonType" : "Lecture"
+      }, {
+        "venue" : "CFG_CARSPA",
+        "weeks" : [ 1, 2, 3, 4, 5, 6 ],
+        "size" : 50,
+        "classNo" : "03",
+        "startTime" : "1400",
+        "endTime" : "1600",
+        "day" : "Tuesday",
+        "lessonType" : "Lecture"
+      }, {
+        "venue" : "",
+        "weeks" : [ 1, 2, 3, 4, 5, 6 ],
+        "size" : 100,
+        "classNo" : "08",
+        "startTime" : "1800",
+        "endTime" : "2000",
+        "day" : "Wednesday",
+        "lessonType" : "Lecture"
+      }, {
+        "venue" : "LT7",
+        "weeks" : [ 1, 2, 3, 4, 5, 6 ],
+        "size" : 300,
+        "classNo" : "06",
+        "startTime" : "1400",
+        "endTime" : "1600",
+        "day" : "Wednesday",
+        "lessonType" : "Lecture"
+      }, {
+        "venue" : "YI-PAR-TYO",
+        "weeks" : [ 1, 2, 3, 4, 5, 6 ],
+        "size" : 70,
+        "classNo" : "05",
+        "startTime" : "1600",
+        "endTime" : "1800",
+        "day" : "Tuesday",
+        "lessonType" : "Lecture"
+      }, {
+        "venue" : "LT14",
+        "weeks" : [ 1, 2, 3, 4, 5, 6 ],
+        "size" : 150,
+        "classNo" : "09",
+        "startTime" : "1200",
+        "endTime" : "1400",
+        "day" : "Thursday",
+        "lessonType" : "Lecture"
+      }, {
+        "venue" : "LT34",
+        "weeks" : [ 7, 8, 9, 10, 11, 12 ],
+        "size" : 250,
+        "classNo" : "21",
+        "startTime" : "1400",
+        "endTime" : "1600",
+        "day" : "Friday",
+        "lessonType" : "Lecture"
+      }, {
+        "venue" : "YI-PAR-TYO",
+        "weeks" : [ 7, 8, 9, 10, 11, 12 ],
+        "size" : 70,
+        "classNo" : "18",
+        "startTime" : "1000",
+        "endTime" : "1200",
+        "day" : "Thursday",
+        "lessonType" : "Lecture"
+      }, {
+        "venue" : "LT34",
+        "weeks" : [ 1, 2, 3, 4, 5, 6 ],
+        "size" : 250,
+        "classNo" : "02",
+        "startTime" : "1200",
+        "endTime" : "1400",
+        "day" : "Monday",
+        "lessonType" : "Lecture"
+      }, {
+        "venue" : "",
+        "weeks" : [ 1, 2, 3, 4, 5, 6 ],
+        "size" : 100,
+        "classNo" : "11",
+        "startTime" : "1200",
+        "endTime" : "1400",
+        "day" : "Friday",
+        "lessonType" : "Lecture"
+      }, {
+        "venue" : "KRH-READRM",
+        "weeks" : [ 1, 2, 3, 4, 5, 6 ],
+        "size" : 30,
+        "classNo" : "22",
+        "startTime" : "1800",
+        "endTime" : "2000",
+        "day" : "Tuesday",
+        "lessonType" : "Lecture"
+      }, {
+        "venue" : "LT32",
+        "weeks" : [ 7, 8, 9, 10, 11, 12 ],
+        "size" : 250,
+        "classNo" : "17",
+        "startTime" : "1600",
+        "endTime" : "1800",
+        "day" : "Wednesday",
+        "lessonType" : "Lecture"
+      }, {
+        "venue" : "LT7",
+        "weeks" : [ 7, 8, 9, 10, 11, 12 ],
+        "size" : 300,
+        "classNo" : "16",
+        "startTime" : "1600",
+        "endTime" : "1800",
+        "day" : "Wednesday",
+        "lessonType" : "Lecture"
+      }, {
+        "venue" : "YI-PAR-TYO",
+        "weeks" : [ 7, 8, 9, 10, 11, 12 ],
+        "size" : 80,
+        "classNo" : "14",
+        "startTime" : "1400",
+        "endTime" : "1600",
+        "day" : "Tuesday",
+        "lessonType" : "Lecture"
+      }, {
+        "venue" : "KRH-READRM",
+        "weeks" : [ 7, 8, 9, 10, 11, 12 ],
+        "size" : 30,
+        "classNo" : "23",
+        "startTime" : "1800",
+        "endTime" : "2000",
+        "day" : "Tuesday",
+        "lessonType" : "Lecture"
+      }, {
+        "venue" : "LT14",
+        "weeks" : [ 7, 8, 9, 10, 11, 12 ],
+        "size" : 150,
+        "classNo" : "12",
+        "startTime" : "1000",
+        "endTime" : "1200",
+        "day" : "Monday",
+        "lessonType" : "Lecture"
+      }, {
+        "venue" : "",
+        "weeks" : [ 7, 8, 9, 10, 11, 12 ],
+        "size" : 100,
+        "classNo" : "20",
+        "startTime" : "1200",
+        "endTime" : "1400",
+        "day" : "Thursday",
+        "lessonType" : "Lecture"
+      }, {
+        "venue" : "LT7",
+        "weeks" : [ 1, 2, 3, 4, 5, 6 ],
+        "size" : 300,
+        "classNo" : "07",
+        "startTime" : "1600",
+        "endTime" : "1800",
+        "day" : "Wednesday",
+        "lessonType" : "Lecture"
+      }, {
+        "venue" : "CFG_CARSPA",
+        "weeks" : [ 7, 8, 9, 10, 11, 12 ],
+        "size" : 50,
+        "classNo" : "13",
+        "startTime" : "1400",
+        "endTime" : "1600",
+        "day" : "Tuesday",
+        "lessonType" : "Lecture"
+      }, {
+        "venue" : "LT14",
+        "weeks" : [ 7, 8, 9, 10, 11, 12 ],
+        "size" : 150,
+        "classNo" : "19",
+        "startTime" : "1200",
+        "endTime" : "1400",
+        "day" : "Thursday",
+        "lessonType" : "Lecture"
+      }, {
+        "venue" : "LT14",
+        "weeks" : [ 1, 2, 3, 4, 5, 6 ],
+        "size" : 150,
+        "classNo" : "01",
+        "startTime" : "1000",
+        "endTime" : "1200",
+        "day" : "Monday",
+        "lessonType" : "Lecture"
+      }, {
+        "venue" : "LT28",
+        "weeks" : [ 1, 2, 3, 4, 5, 6 ],
+        "size" : 250,
+        "classNo" : "10",
+        "startTime" : "1800",
+        "endTime" : "2000",
+        "day" : "Thursday",
+        "lessonType" : "Lecture"
+      }, {
+        "venue" : "YI-PAR-TYO",
+        "weeks" : [ 1, 2, 3, 4, 5, 6 ],
+        "size" : 80,
+        "classNo" : "04",
+        "startTime" : "1400",
+        "endTime" : "1600",
+        "day" : "Tuesday",
+        "lessonType" : "Lecture"
+      }, {
+        "venue" : "",
+        "weeks" : [ 7, 8, 9, 10, 11, 12 ],
+        "size" : 80,
+        "classNo" : "24",
+        "startTime" : "1800",
+        "endTime" : "2000",
+        "day" : "Wednesday",
+        "lessonType" : "Lecture"
+      } ]
+    }, {
+      "semester" : 2,
+      "timetable" : [ {
+        "venue" : "LT34",
+        "weeks" : [ 1, 2, 3, 4, 5, 6 ],
+        "size" : 250,
+        "classNo" : "03",
+        "startTime" : "1600",
+        "endTime" : "1800",
+        "day" : "Tuesday",
+        "lessonType" : "Lecture"
+      }, {
+        "venue" : "LT14",
+        "weeks" : [ 1, 2, 3, 4, 5, 6 ],
+        "size" : 150,
+        "classNo" : "01",
+        "startTime" : "1000",
+        "endTime" : "1200",
+        "day" : "Tuesday",
+        "lessonType" : "Lecture"
+      }, {
+        "venue" : "LT27",
+        "weeks" : [ 7, 8, 9, 10, 11, 12 ],
+        "size" : 250,
+        "classNo" : "14",
+        "startTime" : "1400",
+        "endTime" : "1600",
+        "day" : "Wednesday",
+        "lessonType" : "Lecture"
+      }, {
+        "venue" : "",
+        "weeks" : [ 7, 8, 9, 10, 11, 12 ],
+        "size" : 50,
+        "classNo" : "15",
+        "startTime" : "1400",
+        "endTime" : "1600",
+        "day" : "Thursday",
+        "lessonType" : "Lecture"
+      }, {
+        "venue" : "YI-PAR-TYO",
+        "weeks" : [ 7, 8, 9, 10, 11, 12 ],
+        "size" : 80,
+        "classNo" : "16",
+        "startTime" : "1400",
+        "endTime" : "1600",
+        "day" : "Thursday",
+        "lessonType" : "Lecture"
+      }, {
+        "venue" : "LT29",
+        "weeks" : [ 7, 8, 9, 10, 11, 12 ],
+        "size" : 250,
+        "classNo" : "17",
+        "startTime" : "1800",
+        "endTime" : "2000",
+        "day" : "Thursday",
+        "lessonType" : "Lecture"
+      }, {
+        "venue" : "",
+        "weeks" : [ 7, 8, 9, 10, 11, 12 ],
+        "size" : 100,
+        "classNo" : "10",
+        "startTime" : "1200",
+        "endTime" : "1400",
+        "day" : "Monday",
+        "lessonType" : "Lecture"
+      }, {
+        "venue" : "YI-PAR-TYO",
+        "weeks" : [ 1, 2, 3, 4, 5, 6 ],
+        "size" : 80,
+        "classNo" : "07",
+        "startTime" : "1400",
+        "endTime" : "1600",
+        "day" : "Thursday",
+        "lessonType" : "Lecture"
+      }, {
+        "venue" : "LT29",
+        "weeks" : [ 1, 2, 3, 4, 5, 6 ],
+        "size" : 250,
+        "classNo" : "08",
+        "startTime" : "1800",
+        "endTime" : "2000",
+        "day" : "Thursday",
+        "lessonType" : "Lecture"
+      }, {
+        "venue" : "",
+        "weeks" : [ 1, 2, 3, 4, 5, 6 ],
+        "size" : 100,
+        "classNo" : "02",
+        "startTime" : "1200",
+        "endTime" : "1400",
+        "day" : "Tuesday",
+        "lessonType" : "Lecture"
+      }, {
+        "venue" : "LT10",
+        "weeks" : [ 7, 8, 9, 10, 11, 12 ],
+        "size" : 150,
+        "classNo" : "13",
+        "startTime" : "1000",
+        "endTime" : "1200",
+        "day" : "Wednesday",
+        "lessonType" : "Lecture"
+      }, {
+        "venue" : "LT14",
+        "weeks" : [ 7, 8, 9, 10, 11, 12 ],
+        "size" : 150,
+        "classNo" : "11",
+        "startTime" : "1000",
+        "endTime" : "1200",
+        "day" : "Tuesday",
+        "lessonType" : "Lecture"
+      }, {
+        "venue" : "LT27",
+        "weeks" : [ 1, 2, 3, 4, 5, 6 ],
+        "size" : 250,
+        "classNo" : "05",
+        "startTime" : "1400",
+        "endTime" : "1600",
+        "day" : "Wednesday",
+        "lessonType" : "Lecture"
+      }, {
+        "venue" : "",
+        "weeks" : [ 1, 2, 3, 4, 5, 6 ],
+        "size" : 50,
+        "classNo" : "06",
+        "startTime" : "1400",
+        "endTime" : "1600",
+        "day" : "Thursday",
+        "lessonType" : "Lecture"
+      }, {
+        "venue" : "",
+        "weeks" : [ 1, 2, 3, 4, 5, 6 ],
+        "size" : 100,
+        "classNo" : "09",
+        "startTime" : "1800",
+        "endTime" : "2000",
+        "day" : "Thursday",
+        "lessonType" : "Lecture"
+      }, {
+        "venue" : "LT34",
+        "weeks" : [ 7, 8, 9, 10, 11, 12 ],
+        "size" : 250,
+        "classNo" : "12",
+        "startTime" : "1600",
+        "endTime" : "1800",
+        "day" : "Tuesday",
+        "lessonType" : "Lecture"
+      }, {
+        "venue" : "LT10",
+        "weeks" : [ 1, 2, 3, 4, 5, 6 ],
+        "size" : 150,
+        "classNo" : "04",
+        "startTime" : "1000",
+        "endTime" : "1200",
+        "day" : "Wednesday",
+        "lessonType" : "Lecture"
+      } ]
+    } ],
+    "moduleCredit" : "2",
+    "description" : "Career Catalyst will establish an important first touch point as part of a three/four-year roadmap to engage and prepare students in creating multiple pathways for themselves. Students will be equipped with essential skills and knowledge to make informed decisions on specialisations, develop soft skills as well as gain overseas exposure and real-world industry experience.\n\nThis module consists of four lectures and two e-seminars spread across the first six weeks of the freshmen academic year, aimed to provide an early introduction to the concepts of career planning, personal branding and industry awareness. Students will learn to develop a strategy to maximise their time and resources while in University, be confident in mapping out a career plan and work towards strengthening their fit to achieve their career aspirations.",
+    "workload" : [ 2, 0, 0, 2, 1 ],
+    "fulfillRequirements" : [ "UTC2501" ],
+    "title" : "Career Catalyst",
+    "department" : "Office of Sr Dy Pres and Provost",
+    "acadYear" : "2019/2020",
+    "faculty" : "NUS"
   },
   "2019/2020 CS2103T" : {
     "moduleCode" : "CS2103T",
