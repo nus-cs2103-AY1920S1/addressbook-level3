@@ -79,10 +79,11 @@ Examples:
 
 * `delete 1`
 
-=== Suggesting Meal options
+=== Suggesting Meal options: `suggest`
 
 Suggest possible meals based on user calorie intake budget. +
-The available meals will be shown under the "Suggested Meals" section of the application.
+The available meals will be shown under the "Suggested Meals" section of the application. +
+Format: `sugggest`
 
 === Setting calorie intake budget: `set`
 
