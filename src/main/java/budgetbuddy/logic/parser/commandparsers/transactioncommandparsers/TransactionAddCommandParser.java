@@ -18,13 +18,14 @@ import budgetbuddy.logic.parser.CommandParser;
 import budgetbuddy.logic.parser.CommandParserUtil;
 import budgetbuddy.logic.parser.Prefix;
 import budgetbuddy.logic.parser.exceptions.ParseException;
-import budgetbuddy.model.AccountsManager;
 import budgetbuddy.model.account.Account;
 import budgetbuddy.model.attributes.Category;
 import budgetbuddy.model.attributes.Description;
 import budgetbuddy.model.attributes.Direction;
+import budgetbuddy.model.attributes.Name;
 import budgetbuddy.model.transaction.Amount;
 import budgetbuddy.model.transaction.Transaction;
+import budgetbuddy.model.transaction.TransactionList;
 
 /**
  * Parses input and creates a new TransactionAddCommand
@@ -66,7 +67,7 @@ public class TransactionAddCommandParser implements CommandParser<TransactionAdd
         Optional<String> optionalAccount = argMultimap.getValue(PREFIX_ACCOUNT);
         Account account = optionalAccount.isPresent()
                 ? CommandParserUtil.parseAccount(optionalAccount.get())
-                : AccountsManager.getDefaultAccount();
+                : new Account(new Name("DEFAULT"), new TransactionList());
 
         Optional<String> optionalCategory = argMultimap.getValue(PREFIX_CATEGORY);
         Category category = optionalCategory.isPresent()
