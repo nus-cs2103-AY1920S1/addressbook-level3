@@ -16,7 +16,7 @@ import dukecooks.model.recipe.components.Recipe;
 /**
  * An Immutable Exercise Catalogue that is serializable to JSON format.
  */
-@JsonRootName(value = "exercisecatalogue")
+@JsonRootName(value = "recipebook")
 class JsonSerializableRecipeBook {
 
     public static final String MESSAGE_DUPLICATE_RECIPE = "Recipes list contains duplicate recipe(s).";

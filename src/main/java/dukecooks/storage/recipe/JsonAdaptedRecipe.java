@@ -21,7 +21,7 @@ import dukecooks.model.recipe.components.RecipeName;
 /**
  * Jackson-friendly version of {@link Recipe}.
  */
-class JsonAdaptedRecipe {
+public class JsonAdaptedRecipe {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Recipe's %s field is missing!";
 

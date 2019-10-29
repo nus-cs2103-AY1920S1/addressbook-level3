@@ -16,7 +16,7 @@ import dukecooks.model.mealplan.components.MealPlan;
 /**
  * An Immutable Exercise Catalogue that is serializable to JSON format.
  */
-@JsonRootName(value = "exercisecatalogue")
+@JsonRootName(value = "mealplanbook")
 class JsonSerializableMealPlanBook {
 
     public static final String MESSAGE_DUPLICATE_MEALPLAN = "Meal Plans list contains duplicate meal plan(s).";
