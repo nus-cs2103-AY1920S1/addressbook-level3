@@ -90,37 +90,39 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 ==== Accessing project dashboard page: `home` +
 This command brings you to the project dashboard page, where tasks are displayed. +
+
 Format: `home` +
+
 Calling the 'home' command will bring you to the following page:
 
 image::Home.png[width=790]
 
 
 ==== Accessing time management page: `calendar` +
-This brings you to the time management page where calendar and meeting times are displayed +
-Format: `calendar`
 This command brings you to the time management page where calendar and meeting times are displayed +
+
 Format: `calendar` +
+
 Calling the 'calendar' command will bring you to the following page:
 +
 image::Calendar.png[width=790]
 +
 
 ==== Accessing settings page: `settings` (Coming in v1.3) +
-This brings you to the settings page  +
-Format: `settings`
 This command brings you to the settings page  +
+
 Format: `settings` +
+
 Calling the 'settings' command will bring you to the following page:
 +
 image::Settings.png[width=790]
 +
 
 ==== View help: `help` +
-Displays a list of possible commands for the user +
-Format: `help`
 This command displays a list of possible commands that you can execute +
+
 Format: `help` +
+
 Calling the 'help' command will bring you to the following page:
 +
 image::Help.png[width=790]
@@ -132,7 +134,7 @@ image::Help.png[width=790]
 
 ==== Add a member: `add-member` +
 To add a member to the list of team members in +Work, use the command 'add-member' following the format below. +
-Format: `add-member mn/MEMBER_NAME mi/MEMBER_ID mt/TAGS`
+Format: `add-member mn/MEMBER_NAME mi/MEMBER_ID mt/TAGS`+
 
 Example: `add-member mn/Gabriel Seow mi/GS mt/Programmer` will result in the following: 
 +
@@ -149,7 +151,7 @@ add-member mn/Gabriel Seow mi/GS mt/Programmer mt/Ui Designer
 
 ==== List existing members: `list-members` +
 To get a list of all members added to +Work, used the command 'list-members' following the format below. +
-Format: `list-members`
+Format: `list-members` +
 
 Example: 'list-members' will result in the following:
 +
@@ -158,7 +160,7 @@ image::ListMembers.png[width="790"]
 
 ==== Remove a member: `remove-member` +
 To remove a member from the project, and subsequently remove him from associated tasks, use the 'remove-member' command in the format below. +
-Format: `remove-member [mi/MEMBER_ID]`
+Format: `remove-member [mi/MEMBER_ID]` +
 
 Example: 'remove-member mi/GS' will result in the following:
 +
@@ -170,7 +172,7 @@ This indicates that the member 'Gabriel Seow' with member ID 'GS' has been remov
 
 ==== Assign a task to a member: `assign` +
 To assign a task to a specific team member, use the 'assign' command in the format below. +
-Format: `assign ti/TASK_ID mi/MEMBER_ID`
+Format: `assign ti/TASK_ID mi/MEMBER_ID` +
 
 Example: 'assign ti/1 mi/GS' will result in the following: 
 +
@@ -181,7 +183,7 @@ This indicates that the task TASK NAME with task id 1 has been assigned to team 
 
 ==== Remove a task from a member: `fire` +
 To remove a task from a specific team member, use the 'fire' command in the format below. +
-Format: `fire ti/TASK_ID mi/MEMBER_ID`
+Format: `fire ti/TASK_ID mi/MEMBER_ID` +
 
 Example: 'fire ti/1 mi/GS' will result in the following: 
 +
@@ -375,9 +377,10 @@ File explorer pops up, triggering a message to allow the user to save the pdf fi
 
 ==== Getting statistics of members: `member-stats` +
 To get statistics relating to the members in +Work, use the statistics command following the format below. +
+
 Format: `member-stats` +
 
-Calling the 'member-stats' command will result in the following: 
+Calling the 'member-stats' command will result in the statistics being display as follows: 
 
 image::MemberStats.png[width="790"]
 
@@ -386,7 +389,7 @@ image::MemberStats.png[width="790"]
 To get statistics relating to the tasks in +Work, use the statistics command following the format below. +
 Format: `task-stats` +
 
-Calling the 'task-stats' command will result in the following: 
+Calling the 'task-stats' command will result in the statistics being displayed as follows: 
 
 image::TaskStats.png[width="790"]
 
