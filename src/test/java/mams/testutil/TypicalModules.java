@@ -26,8 +26,7 @@ public class TypicalModules {
             .withModuleCode("CS1020").withModuleName("Data Structures and Algorithms Is")
             .withModuleDescription("test3").withLecturerName("Tan Sun Teck")
             .withTimeSlot("21,20,57,58,59").withQuota("200")
-            .withTags("A5802229H").build();
-
+            .withTags("A5802229").build();
     private TypicalModules() {} // prevents instantiation
 
     public static Mams getTypicalMams() {
