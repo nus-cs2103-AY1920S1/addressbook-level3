@@ -8,14 +8,12 @@ import static seedu.address.testutil.Assert.assertThrows;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -23,6 +21,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ProjectDashboard;
 import seedu.address.model.ReadOnlyProjectDashboard;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.UserSettings;
 import seedu.address.model.inventory.InvName;
 import seedu.address.model.inventory.Inventory;
 import seedu.address.model.inventory.Price;
@@ -33,6 +32,8 @@ import seedu.address.model.mapping.Mapping;
 import seedu.address.model.member.Member;
 import seedu.address.model.member.MemberId;
 import seedu.address.model.member.MemberName;
+import seedu.address.model.settings.ClockFormat;
+import seedu.address.model.settings.Theme;
 import seedu.address.model.statistics.Statistics;
 import seedu.address.model.task.Task;
 import seedu.address.testutil.InventoryBuilder;
@@ -346,6 +347,37 @@ public class AddInventoryCommandTest {
 
         @Override
         public void setStatistics(Statistics newStats) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public UserSettings getUserSettings() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Path getUserSettingsFilePath() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Theme getCurrentTheme() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setCurrentTheme(Theme newTheme) {
+
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ClockFormat getCurrentClockFormat() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setClockFormat(ClockFormat newClockFormat) {
             throw new AssertionError("This method should not be called.");
         }
     }

@@ -21,7 +21,6 @@ import seedu.address.model.mapping.TasMemMapping;
 /**
  * An Immutable ProjectDashboard that is serializable to JSON format.
  */
-// TODO change serializable object root name
 @JsonRootName(value = "projectdashboard")
 class JsonSerializableProjectDashboard {
 

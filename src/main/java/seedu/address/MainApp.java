@@ -20,15 +20,18 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.ProjectDashboard;
 import seedu.address.model.ReadOnlyProjectDashboard;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.ReadOnlyUserSettings;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.util.SampleMemberDataUtil;
+import seedu.address.model.UserSettings;
 import seedu.address.model.util.SampleTaskDataUtil;
 import seedu.address.storage.JsonProjectDashboardStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
+import seedu.address.storage.JsonUserSettingsStorage;
 import seedu.address.storage.ProjectDashboardStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
 import seedu.address.storage.UserPrefsStorage;
+import seedu.address.storage.UserSettingsStorage;
 import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager;
 
@@ -49,7 +52,7 @@ public class MainApp extends Application {
 
     @Override
     public void init() throws Exception {
-        logger.info("=============================[ Initializing ProjectDashboard ]===========================");
+        logger.info("=============================[ Initializing +Work ]===========================");
         super.init();
 
         AppParameters appParameters = AppParameters.parse(getParameters());
@@ -59,7 +62,8 @@ public class MainApp extends Application {
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         ProjectDashboardStorage projectDashboardStorage =
                 new JsonProjectDashboardStorage(userPrefs.getProjectDashboardFilePath());
-        storage = new StorageManager(projectDashboardStorage, userPrefsStorage);
+        UserSettingsStorage userSettingsStorage = new JsonUserSettingsStorage(userPrefs.getUserSettingsFilePath());
+        storage = new StorageManager(projectDashboardStorage, userPrefsStorage, userSettingsStorage);
 
         initLogging(config);
 
@@ -71,29 +75,35 @@ public class MainApp extends Application {
     }
 
     /**
-     * Returns a {@code ModelManager} with the data from {@code storage}'s project dashboard and {@code userPrefs}. <br>
+     * Returns a {@code ModelManager} with the data from {@code storage}'s project dashboard, user settings
+     * and {@code userPrefs}. <br>
      * The data from the sample project dashboard will be used instead if {@code storage}'s project dashboard
-     * is not found, or an project dashboard will be used instead if errors occur when reading {@code storage}'s
+     * is not found, or a new project will be used instead if errors occur when reading {@code storage}'s
      * project dashboard.
+     * Similarly, default user settings will be used instead if {@code storage}'s user settings is not found.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
         Optional<ReadOnlyProjectDashboard> projectDashboardOptional;
         ReadOnlyProjectDashboard initialData;
+        Optional<UserSettings> userSettingsOptional;
+        ReadOnlyUserSettings userSettings = null;
         try {
             projectDashboardOptional = storage.readProjectDashBoard();
             if (!projectDashboardOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample ProjectDashboard");
             }
             initialData = projectDashboardOptional.orElseGet(SampleTaskDataUtil::getSampleProjectDashboard);
+            userSettingsOptional = storage.readUserSettings();
+            userSettings = userSettingsOptional.orElse(new UserSettings());
         } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty ProjectDashboard");
+            logger.warning("Data file not in the correct format. Will be starting with an empty Project");
             initialData = new ProjectDashboard();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty ProjectDashboard");
+            logger.warning("Problem while reading from the file. Will be starting with an empty Project");
             initialData = new ProjectDashboard();
         }
 
-        return new ModelManager(initialData, userPrefs);
+        return new ModelManager(initialData, userPrefs, userSettings);
     }
 
     private void initLogging(Config config) {
@@ -136,6 +146,38 @@ public class MainApp extends Application {
         return initializedConfig;
     }
 
+//    /**
+//     * Returns a {@code UserSettings} using the file at {@code storage}'s user settings file path,
+//     * or a new {@code UserSettings} with default configuration if errors occur when
+//     * reading from the file.
+//     */
+//    protected UserSettings initPrefs(UserSettingsStorage storage) {
+//        Path settingsFilePath = storage.getUserSettingsFilePath();
+//        logger.info("Using settings file : " + settingsFilePath);
+//
+//        UserSettings initialisedSettings;
+//        try {
+//            Optional<UserSettings> settingsOptional = storage.readUserSettings();
+//            initialisedSettings = settingsOptional.orElse(new UserSettings());
+//        } catch (DataConversionException e) {
+//            logger.warning("UserSettings file at " + settingsFilePath + " is not in the correct format. "
+//                    + "Using default user settings");
+//            initialisedSettings = new UserSettings();
+//        } catch (IOException e) {
+//            logger.warning("Problem while reading from the file. Will be starting with an empty Project");
+//            initialisedSettings = new UserSettings();
+//        }
+//
+//        //Update prefs file in case it was missing to begin with or there are new/unused fields
+//        try {
+//            storage.saveUserSettings(initialisedSettings);
+//        } catch (IOException e) {
+//            logger.warning("Failed to save settings file : " + StringUtil.getDetails(e));
+//        }
+//
+//        return initialisedSettings;
+//    }
+
     /**
      * Returns a {@code UserPrefs} using the file at {@code storage}'s user prefs file path,
      * or a new {@code UserPrefs} with default configuration if errors occur when
@@ -176,7 +218,7 @@ public class MainApp extends Application {
 
     @Override
     public void stop() {
-        logger.info("============================ [ Stopping Project Dashboard ] =============================");
+        logger.info("============================ [ Stopping +Work ] =============================");
         try {
             storage.saveUserPrefs(model.getUserPrefs());
         } catch (IOException e) {

@@ -71,7 +71,6 @@ public class UserViewMain {
     }
 
     /**
-<<<<<<< HEAD
      * Shows the user the list of inventories.
      *
      * @return the task list pane
@@ -85,4 +84,15 @@ public class UserViewMain {
         userViewNavigator.loadTaskStatsView(logic);
         return userViewController.getCurrentView();
     }
+
+    /**
+     * Shows the user the current settings.
+     *
+     * @return the settings view
+     */
+    public Pane loadSettingsView() {
+        userViewNavigator.loadSettingsView(logic);
+        return userViewController.getCurrentView();
+    }
+
 }
