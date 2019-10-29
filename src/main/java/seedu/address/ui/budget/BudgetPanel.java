@@ -2,17 +2,10 @@ package seedu.address.ui.budget;
 
 import java.util.logging.Logger;
 
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.ReadOnlyObjectProperty;
-import javafx.beans.value.ObservableObjectValue;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.budget.Budget;
-import seedu.address.model.budget.UniqueBudgetList;
-import seedu.address.model.expense.Expense;
 import seedu.address.ui.expense.ExpenseListPanel;
 import seedu.address.ui.panel.Panel;
 import seedu.address.ui.panel.PanelName;
@@ -32,14 +25,12 @@ public class BudgetPanel extends Panel {
     private ExpenseListPanel expenseListPanel;
 
     private BudgetCard budgetCard;
-    private Region root;
 
     public BudgetPanel(Budget budget) {
         super(FXML);
         expenseListPanel = new ExpenseListPanel(budget.getExpenses(), false);
         expenseListPanelPlaceholder.getChildren().add(expenseListPanel.getRoot());
         budgetCard = new BudgetCard(budget);
-        root = budgetCard.getRoot();
         budgetCardPlaceholder.getChildren().add(budgetCard.getRoot());
     }
 

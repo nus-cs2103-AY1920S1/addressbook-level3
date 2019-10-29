@@ -51,8 +51,6 @@ public interface Logic {
 
     Budget getPrimaryBudget();
 
-    ObservableObjectValue<Budget> primaryBudgetProperty();
-
     /**
      * Returns the user prefs' MooLah file path.
      */

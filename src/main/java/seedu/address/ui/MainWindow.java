@@ -208,7 +208,7 @@ public class MainWindow extends UiPart<Stage> {
         panelPlaceholder.getChildren().add(singlePanelView.getRoot());
 
         // fill single panel view
-        singlePanelView.setPanel(BudgetPanel.PANEL_NAME, new BudgetPanel(logic.primaryBudgetProperty()));
+        singlePanelView.setPanel(BudgetPanel.PANEL_NAME, new BudgetPanel(logic.getPrimaryBudget()));
 
         singlePanelView.setPanel(PanelName.ALIASES_PANEL, new PlaceholderPanel());
         singlePanelView.setPanel(ExpenseListPanel.PANEL_NAME,
@@ -468,17 +468,19 @@ public class MainWindow extends UiPart<Stage> {
             String commandGroup = decideCommandGroup();
 
             Budget primaryBudget = logic.getPrimaryBudget();
-            boolean initialIsNear = primaryBudget.isNear();
-            boolean initialIsExceeded = primaryBudget.isExceeded();
+            System.out.println(primaryBudget.getDescription());
 
             CommandResult commandResult = logic.execute(commandText, commandGroup);
-
-            if (commandResult.isViewRequest()) {
-                changePanel(commandResult.viewRequest());
-            }
+            boolean initialIsNear = primaryBudget.isNear();
+            boolean initialIsExceeded = primaryBudget.isExceeded();
+            System.out.println(logic.getPrimaryBudget().getDescription());
+            singlePanelView.setPanel(BudgetPanel.PANEL_NAME, new BudgetPanel(primaryBudget));
+            changePanel(commandResult.viewRequest());
+            System.out.println(logic.getPrimaryBudget().getDescription());
 
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+            System.out.println(logic.getPrimaryBudget().getDescription());
 
             if (commandResult.isShowHelp()) {
                 handleHelp();
@@ -514,9 +516,9 @@ public class MainWindow extends UiPart<Stage> {
         if (BudgetPanel.PANEL_NAME.equals(singlePanelView.getCurrentPanelName())) {
             return CommandGroup.EXPENSE;
         } else if (ExpenseListPanel.PANEL_NAME.equals(singlePanelView.getCurrentPanelName())) {
-            return CommandGroup.EVENT;
+            return CommandGroup.EXPENSE;
         } else if (PanelName.EVENTS_PANEL.equals(singlePanelView.getCurrentPanelName())) {
-            return CommandGroup.ALIAS;
+            return CommandGroup.EVENT;
         } else if (PanelName.ALIASES_PANEL.equals(singlePanelView.getCurrentPanelName())) {
             return CommandGroup.ALIAS;
         } else if (PanelName.STATISTICS_PANEL.equals(singlePanelView.getCurrentPanelName())) {

@@ -210,10 +210,6 @@ public class MooLah implements ReadOnlyMooLah {
         return budgets.getPrimaryBudget();
     }
 
-    public ObservableObjectValue<Budget> primaryBudgetProperty() {
-        return budgets.primaryBudgetPropertyProperty();
-    }
-
     /**
      * Switches the primary budget to the budget with the specified name.
      *

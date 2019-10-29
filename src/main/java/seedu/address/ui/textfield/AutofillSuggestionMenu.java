@@ -1,7 +1,6 @@
-package seedu.address.ui.CustomTextField;
+package seedu.address.ui.textfield;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.function.Supplier;
 
 import javafx.beans.property.SimpleStringProperty;
@@ -15,6 +14,7 @@ import javafx.scene.Node;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
@@ -22,15 +22,16 @@ import javafx.stage.Window;
 import seedu.address.logic.parser.Prefix;
 
 /**
- * Context Menu to show suggestions to replace text in a Text Area.
+ * Context Menu to show suggestions to replace text in a Text Area. Cycle through suggestions using TAB key and press
+ * ENTER to finalize choice.
  */
 public class AutofillSuggestionMenu extends ContextMenu {
 
     private StringProperty currentCommand;
-    private FilteredList<AutofillSupportedInput> autofillSupportedInputs;
+    private FilteredList<AutofillSupportedCommand> autofillSupportedCommands;
     private FilteredList<String> commandSuggestions;
 
-    private ObservableList<AutofillSupportedInput> autofillSupportedInputList;
+    private ObservableList<AutofillSupportedCommand> autofillSupportedCommandList;
     private ObservableList<String> supportedCommandWords;
 
     private TextInputControl textInputControl;
@@ -55,17 +56,17 @@ public class AutofillSuggestionMenu extends ContextMenu {
         currentMatchingText = new SimpleStringProperty();
 
         supportedCommandWords = FXCollections.observableArrayList();
-        autofillSupportedInputList = FXCollections.observableArrayList();
-        autofillSupportedInputs = new FilteredList<>(autofillSupportedInputList);
+        autofillSupportedCommandList = FXCollections.observableArrayList();
+        autofillSupportedCommands = new FilteredList<>(autofillSupportedCommandList);
         commandSuggestions = new FilteredList<>(supportedCommandWords);
 
-        matchColour = Color.RED;
-        completionColour = Color.ORANGE;
+        matchColour = Color.ORANGE;
+        completionColour = Color.WHITE;
 
         textInputControl.textProperty().addListener((a, b, text) -> {
             currentMatchingText.setValue(text.trim());
 
-            autofillSupportedInputs.setPredicate(supportedInput -> {
+            autofillSupportedCommands.setPredicate(supportedInput -> {
                 Supplier<Boolean> bool = () -> supportedInput.getCommand().equals(currentCommand.get());
                 return bool.get();
             });
@@ -75,7 +76,14 @@ public class AutofillSuggestionMenu extends ContextMenu {
 
             if (currentMatchingText.get().length() > 0) {
                 showSuggestions();
+                textInputControl.requestFocus();
             } else {
+                hide();
+            }
+        });
+
+        addEventFilter(KeyEvent.ANY, keyEvent -> {
+            if (keyEvent.getCode().isArrowKey()) {
                 hide();
             }
         });
@@ -87,22 +95,22 @@ public class AutofillSuggestionMenu extends ContextMenu {
         supportedCommandWords.removeIf(commandName -> commandName.equals(command));
         supportedCommandWords.add(command);
 
-        autofillSupportedInputList
+        autofillSupportedCommandList
                 .removeIf(commandName -> commandName.getCommand().equals(command));
-        autofillSupportedInputList.add(new AutofillSupportedInput(command, requiredPrefixes, optionalPrefixes));
+        autofillSupportedCommandList.add(new AutofillSupportedCommand(command, requiredPrefixes, optionalPrefixes));
     }
 
      void removeCommand(String command) {
         supportedCommandWords.removeIf(commandName -> commandName.equals(command));
-        autofillSupportedInputList.removeIf(supportedInput -> supportedInput.getCommand().equals(command));
+        autofillSupportedCommandList.removeIf(supportedInput -> supportedInput.getCommand().equals(command));
     }
 
     /**
      * Show the context menu.
      */
     private void showSuggestions() {
-        if (autofillSupportedInputs.size() > 0 || commandSuggestions.size() > 0) {
-            this.show(textInputControl, Side.LEFT, 0,0);
+        if (autofillSupportedCommands.size() > 0 || commandSuggestions.size() > 0) {
+            this.show(textInputControl, Side.LEFT, 0,20);
         } else {
             hide();
         }
@@ -117,7 +125,7 @@ public class AutofillSuggestionMenu extends ContextMenu {
 
         String completion = menuItem.getId();
         for (Character c : completion.toCharArray()) {
-            textInputControl.appendText(c.toString());
+            textInputControl.insertText(textInputControl.getLength(), c.toString());
         }
     }
 
@@ -126,7 +134,7 @@ public class AutofillSuggestionMenu extends ContextMenu {
         if (currentMatchingText.get().isEmpty()) {
             return;
         }
-        populateList(this, autofillSupportedInputs, commandSuggestions, currentMatchingText.get());
+        populateList(this, autofillSupportedCommands, commandSuggestions, currentMatchingText.get());
         super.show(anchor, side, dx, dy);
     }
 
@@ -137,7 +145,7 @@ public class AutofillSuggestionMenu extends ContextMenu {
         if (currentMatchingText.get().isEmpty()) {
             return;
         }
-        populateList(this, autofillSupportedInputs, commandSuggestions, currentMatchingText.get());
+        populateList(this, autofillSupportedCommands, commandSuggestions, currentMatchingText.get());
         super.show();
     }
 
@@ -146,7 +154,7 @@ public class AutofillSuggestionMenu extends ContextMenu {
         if (currentMatchingText.get().isEmpty()) {
             return;
         }
-        populateList(this, autofillSupportedInputs, commandSuggestions, currentMatchingText.get());
+        populateList(this, autofillSupportedCommands, commandSuggestions, currentMatchingText.get());
         super.show(owner);
     }
 
@@ -155,7 +163,7 @@ public class AutofillSuggestionMenu extends ContextMenu {
         if (currentMatchingText.get().isEmpty()) {
             return;
         }
-        populateList(this, autofillSupportedInputs, commandSuggestions, currentMatchingText.get());
+        populateList(this, autofillSupportedCommands, commandSuggestions, currentMatchingText.get());
         super.show(ownerWindow, anchorX, anchorY);
     }
 
@@ -165,29 +173,40 @@ public class AutofillSuggestionMenu extends ContextMenu {
      * @param matchingSuggestions The list of suggestions.
      * @param match The matching text.
      */
-    public void populateList(ContextMenu m, FilteredList<AutofillSupportedInput> matchingSuggestions,
+    public void populateList(ContextMenu m, FilteredList<AutofillSupportedCommand> matchingSuggestions,
                              FilteredList<String> commandSuggestion, String match) {
         m.getItems().clear();
         if (currentCommand.length().get() > 0) {
-            AutofillSupportedInput c = matchingSuggestions.get(0);
-
-            Optional<String[]> textForCompletionGraphicOptional = c.completion(match, "\n");
-            if (!textForCompletionGraphicOptional.isPresent()) {
-                return;
+            AutofillSupportedCommand c = matchingSuggestions.get(0);
+            for (Prefix p : c.getMissingPrefixes(match)) {
+                TextFlow graphic = getGraphic("", match.replaceAll("<[^>]+>", ""), " " + p.getPrefix() + "<" + p.getDescriptionOfArgument() + ">");
+                MenuItem item = new MenuItem();
+                if (match.replaceAll("<[^>]+>", "").stripTrailing().length() < match.length()) {
+                    item.setId(p.getPrefix());
+                } else {
+                    item.setId(" " + p.getPrefix());
+                }
+                item.setGraphic(graphic);
+                m.getItems().add(item);
             }
-            String textForCompletion = textForCompletionGraphicOptional.get()[0];
-            String textForGraphicRequired = textForCompletionGraphicOptional.get()[1];
-            String textForGraphicOptional = textForCompletionGraphicOptional.get()[2];
 
-            TextFlow graphic = getGraphic(
-                    match + "\n",
-                    textForGraphicRequired + "\n",
-                    textForGraphicOptional);
-
-            MenuItem item = new MenuItem();
-            item.setId(textForCompletion);
-            item.setGraphic(graphic);
-            m.getItems().add(item);
+//            Optional<String[]> textForCompletionGraphicOptional = c.completion(match, "\n");
+//            if (!textForCompletionGraphicOptional.isPresent()) {
+//                return;
+//            }
+//            String textForCompletion = textForCompletionGraphicOptional.get()[0];
+//            String textForGraphicRequired = textForCompletionGraphicOptional.get()[1];
+//            String textForGraphicOptional = textForCompletionGraphicOptional.get()[2];
+//
+//            TextFlow graphic = getGraphic(
+//                    match + "\n",
+//                    textForGraphicRequired + "\n",
+//                    textForGraphicOptional);
+//
+//            MenuItem item = new MenuItem();
+//            item.setId(textForCompletion);
+//            item.setGraphic(graphic);
+//            m.getItems().add(item);
 
         } else {
             for (String suggestion : commandSuggestion.sorted((s1, s2) -> s1.length() - s2.length())) {

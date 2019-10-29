@@ -281,11 +281,6 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public ObservableObjectValue<Budget> primaryBudgetProperty() {
-        return mooLah.primaryBudgetProperty();
-    }
-
-    @Override
     public void switchBudgetTo(Description targetDescription) {
         mooLah.switchBudgetTo(targetDescription);
     }

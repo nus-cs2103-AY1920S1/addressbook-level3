@@ -26,6 +26,6 @@ public class UndoCommand extends Command {
         // prevModel guaranteed to be present due to previous validation.
         Model prevModel = model.rollbackModel().get();
         model.resetData(prevModel);
-        return new CommandResult(MESSAGE_SUCCESS, false, false, true, PanelName.CURRENT);
+        return new CommandResult(MESSAGE_SUCCESS);
     }
 }

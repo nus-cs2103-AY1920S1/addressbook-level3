@@ -1,4 +1,4 @@
-package seedu.address.ui.CustomTextField;
+package seedu.address.ui.textfield;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,7 +63,7 @@ public class SyntaxHighlightingSupportedInput {
         int count = 0;
         for (Prefix prefix : prefixes) {
             count++;
-            prefixesPatterns.append(String.format("(?<prefix%s>%s)|", count, prefix.getPrefix()));
+            prefixesPatterns.append(String.format("(?<prefix%s> %s)|", count, prefix.getPrefix()));
         }
 
         return Pattern.compile(String.format(INPUT_PATTERN_TEMPLATE, commandWord, prefixesPatterns.toString()));

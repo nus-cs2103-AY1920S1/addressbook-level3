@@ -125,11 +125,6 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ObservableObjectValue<Budget> primaryBudgetProperty() {
-        return model.primaryBudgetProperty();
-    }
-
-    @Override
     public Path getMooLahFilePath() {
         return model.getMooLahFilePath();
     }

@@ -1,8 +1,7 @@
 package seedu.address.ui;
 
-import static seedu.address.ui.CustomTextField.CommandTextField.ERROR_STYLE_CLASS;
+import static seedu.address.ui.textfield.CommandTextField.ERROR_STYLE_CLASS;
 
-import java.util.Collections;
 import java.util.List;
 
 import javafx.fxml.FXML;
@@ -15,7 +14,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.ui.CustomTextField.CommandTextField;
+import seedu.address.ui.textfield.CommandTextField;
 import seedu.address.ui.panel.exceptions.UnmappedPanelException;
 
 /**
@@ -36,11 +35,12 @@ public class CommandBox extends UiPart<Region> {
         this.commandExecutor = commandExecutor;
         // calls #setStyleToDefault() whenever there is a change to the text of the command box.
         commandTextField = new CommandTextField();
-        commandTextField.textProperty()
+        commandTextField
+                .textProperty()
                 .addListener((unused1, unused2, unused3) -> setStyleToDefault());
         commandInputAreaPlaceholder.getChildren().add(commandTextField);
 
-        commandTextField.addEventFilter(KeyEvent.KEY_PRESSED, keyEvent -> {
+        commandTextField.addEventHandler(KeyEvent.KEY_PRESSED, keyEvent -> {
             if (keyEvent.getCode().equals(KeyCode.ENTER)) {
                 handleCommandEntered();
             }
@@ -62,7 +62,7 @@ public class CommandBox extends UiPart<Region> {
                 return;
             }
             commandExecutor.execute(input);
-            commandTextField.clear();
+            commandTextField.commitAndFlush();
         } catch (CommandException | ParseException | UnmappedPanelException e) {
             setStyleToIndicateCommandFailure();
         }

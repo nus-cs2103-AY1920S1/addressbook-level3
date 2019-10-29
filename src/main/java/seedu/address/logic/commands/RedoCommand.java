@@ -26,6 +26,6 @@ public class RedoCommand extends Command {
         // nextModel is guaranteed to be present due to previous validation.
         Model nextModel = model.migrateModel().get();
         model.resetData(nextModel);
-        return new CommandResult(MESSAGE_SUCCESS, false, false, true, PanelName.CURRENT);
+        return new CommandResult(MESSAGE_SUCCESS);
     }
 }

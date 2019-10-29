@@ -173,8 +173,6 @@ public interface Model {
 
     Budget getPrimaryBudget();
 
-    ObservableObjectValue<Budget> primaryBudgetProperty();
-
     void addBudget(Budget budget);
 
     void switchBudgetTo(Description description);

@@ -1,7 +1,10 @@
-package seedu.address.ui.CustomTextField;
+package seedu.address.ui.textfield;
 
 import static javafx.scene.input.KeyCode.C;
+import static javafx.scene.input.KeyCode.DOWN;
 import static javafx.scene.input.KeyCode.ENTER;
+import static javafx.scene.input.KeyCode.TAB;
+import static javafx.scene.input.KeyCode.UP;
 import static javafx.scene.input.KeyCode.V;
 import static javafx.scene.input.KeyCode.Y;
 import static javafx.scene.input.KeyCombination.SHIFT_ANY;
@@ -9,7 +12,7 @@ import static javafx.scene.input.KeyCombination.SHORTCUT_ANY;
 import static javafx.scene.input.KeyCombination.SHORTCUT_DOWN;
 import static org.fxmisc.wellbehaved.event.EventPattern.keyPressed;
 import static org.fxmisc.wellbehaved.event.EventPattern.keyReleased;
-import static seedu.address.ui.CustomTextField.SyntaxHighlightingSupportedInput.PLACE_HOLDER_REGEX;
+import static seedu.address.ui.textfield.SyntaxHighlightingSupportedInput.PLACE_HOLDER_REGEX;
 
 import java.time.Duration;
 import java.util.Collection;
@@ -17,6 +20,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -29,6 +33,7 @@ import org.fxmisc.wellbehaved.event.InputMap;
 import org.fxmisc.wellbehaved.event.Nodes;
 import org.reactfx.Subscription;
 
+import javafx.beans.property.ReadOnlyStringProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.event.Event;
@@ -37,6 +42,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
@@ -62,6 +68,9 @@ public class CommandTextField extends Region {
             keyPressed(V, SHIFT_ANY, SHORTCUT_DOWN),
             keyReleased(C, SHIFT_ANY, SHORTCUT_DOWN),
             keyReleased(V, SHIFT_ANY, SHORTCUT_DOWN)));
+    private static InputMap<Event> consumeTabKey = InputMap.consume(EventPattern.anyOf(
+            keyPressed(TAB, SHIFT_ANY, SHORTCUT_ANY)));
+
     private static InputMap<Event> consumeEnterKeyEvent = InputMap.consume(EventPattern.anyOf(
             keyPressed(ENTER, SHIFT_ANY, SHORTCUT_ANY),
             keyReleased(ENTER, SHIFT_ANY, SHORTCUT_ANY)));
@@ -73,8 +82,9 @@ public class CommandTextField extends Region {
 
     private TextField functionalTextField;
     private StyleClassedTextArea visibleTextArea;
-    private Map<String, SyntaxHighlightingSupportedInput> stringToSupportedCommands;
+    private InputHistory inputHistory;
 
+    private Map<String, SyntaxHighlightingSupportedInput> stringToSupportedCommands;
     private AutofillSuggestionMenu autofillMenu;
     private StringProperty currentCommand;
 
@@ -101,9 +111,27 @@ public class CommandTextField extends Region {
         visibleTextArea.setId("styled");
         visibleTextArea.setDisable(true);
         visibleTextArea.setShowCaret(Caret.CaretVisibility.ON);
-        functionalTextField.caretPositionProperty().addListener((observableValue, number, t1) -> {
-            visibleTextArea.displaceCaret((int)t1);
+        functionalTextField.caretPositionProperty().addListener((unused1, unused2, position) -> {
+            visibleTextArea.displaceCaret((int) position);
             visibleTextArea.requestFollowCaret();
+        });
+
+        // --------- input history -------
+        inputHistory = new InputHistory();
+        functionalTextField.addEventFilter(KeyEvent.KEY_PRESSED, keyEvent -> {
+            if (keyEvent.getCode().equals(UP)) {
+                try {
+                    replaceWithPreviousInput();
+                } catch (NoSuchElementException ignore) {
+                    // ignore
+                }
+            } else if (keyEvent.getCode().equals(DOWN)) {
+                try {
+                    replaceWithNextInput();
+                } catch (NoSuchElementException ignore) {
+                    // ignore
+                }
+            }
         });
 
         // to overlay elements
@@ -121,8 +149,8 @@ public class CommandTextField extends Region {
 
         // ----- sizing ------
 
-        functionalTextField.fontProperty().addListener((observableValue, font, t1) -> {
-            double h = t1.getSize() + 5;
+        functionalTextField.fontProperty().addListener((unused1, unused2, font) -> {
+            double h = font.getSize() + 5;
             visibleTextArea.setPrefHeight(h);
             visibleTextArea.setMaxHeight(h);
             visibleTextArea.setMinHeight(h);
@@ -131,20 +159,22 @@ public class CommandTextField extends Region {
             functionalTextField.setMinHeight(h);
         });
 
-        widthProperty().addListener((observableValue, number, t1) -> {
-            functionalTextField.setPrefWidth(t1.doubleValue());
-            functionalTextField.setMinWidth(t1.doubleValue());
-            functionalTextField.setMaxWidth(t1.doubleValue());
+        widthProperty().addListener((unused1, unused2, width) -> {
+            functionalTextField.setPrefWidth(width.doubleValue());
+            functionalTextField.setMinWidth(width.doubleValue());
+            functionalTextField.setMaxWidth(width.doubleValue());
 
-            visibleTextArea.setPrefWidth(t1.doubleValue());
-            visibleTextArea.setMinWidth(t1.doubleValue());
-            visibleTextArea.setMaxWidth(t1.doubleValue());
+            visibleTextArea.setPrefWidth(width.doubleValue());
+            visibleTextArea.setMinWidth(width.doubleValue());
+            visibleTextArea.setMaxWidth(width.doubleValue());
         });
 
         Nodes.addInputMap(functionalTextField, consumeCopyPasteEvent);
         Nodes.addInputMap(functionalTextField, consumeUndoRedoEvent);
+        Nodes.addInputMap(functionalTextField, consumeTabKey);
         Nodes.addInputMap(visibleTextArea, consumeUndoRedoEvent);
         Nodes.addInputMap(visibleTextArea, consumeEnterKeyEvent);
+        Nodes.addInputMap(visibleTextArea, consumeTabKey);
     }
 
     /**
@@ -156,6 +186,33 @@ public class CommandTextField extends Region {
     }
 
     /**
+     * Commits the text to history and clears the text field.
+     */
+    public void commitAndFlush() {
+        String input = getText();
+        inputHistory.push(input);
+        clear();
+    }
+
+    public void replaceWithPreviousInput() throws NoSuchElementException {
+        String previous = inputHistory.getPreviousInput();
+        // if no exception thrown
+        clear();
+        for (Character character : previous.toCharArray()) {
+            functionalTextField.insertText(functionalTextField.getLength(), character.toString());
+        }
+    }
+
+    public void replaceWithNextInput() throws NoSuchElementException {
+        String next = inputHistory.getNextInput();
+        // if no exception thrown
+        clear();
+        for (Character character : next.toCharArray()) {
+            functionalTextField.insertText(functionalTextField.getLength(), character.toString());
+        }
+    }
+
+    /**
      * Filters placeholders from input before returning value.
      * @return The text property value of the text area with placeholders replaced with an empty String.
      */
@@ -163,7 +220,7 @@ public class CommandTextField extends Region {
         return functionalTextField.getText().replaceAll(PLACE_HOLDER_REGEX, "");
     }
 
-    public StringProperty textProperty() {
+    public ReadOnlyStringProperty textProperty() {
         return functionalTextField.textProperty();
     }
 
@@ -200,7 +257,7 @@ public class CommandTextField extends Region {
     public void importStyleSheet(Scene parentSceneOfNode) {
         parentSceneOfNode
                 .getStylesheets()
-                .add(CommandTextField.class.getResource("/view/syntax-highlighting.css").toExternalForm());
+                .add(CommandTextField.class.getResource(CSS_FILE_PATH).toExternalForm());
         enableSyntaxHighlighting();
     }
 
@@ -350,19 +407,26 @@ public class CommandTextField extends Region {
             if (command.find()) {
                 String cmd = command.group("COMMAND");
                 currentCommand.setValue(cmd);
-                if (change.isAdded()) {
-                    String beforecaret = change.getControlNewText().substring(0, change.getRangeEnd() + 1);
-                    List<String> tokens = List.of(beforecaret.split("\\s+"));
-                    String possiblePrefix = tokens.get(tokens.size() - 1);
-                    if (stringToSupportedCommands.get(cmd).getPrefix(possiblePrefix) != null) {
-                        String desc = stringToSupportedCommands.get(cmd).getDescription(possiblePrefix);
-                        if (beforecaret.endsWith(" " + possiblePrefix)) {
-                            change.setText(change.getText() + " <" + desc + ">");
-                        }
-                    }
-                }
             } else {
                 currentCommand.setValue("");
+            }
+
+
+            // find prefixes
+            // find arguments
+            // if no args insert placeholder
+            // if no prefix remove placeholder
+            if (!currentCommand.get().isBlank() && change.isAdded()) {
+                String cmd = currentCommand.get();
+                String beforecaret = change.getControlNewText().substring(0, change.getRangeEnd() + 1);
+                List<String> tokens = List.of(beforecaret.split("\\s+"));
+                String possiblePrefix = tokens.get(tokens.size() - 1);
+                if (stringToSupportedCommands.get(cmd).getPrefix(possiblePrefix) != null) {
+                    String desc = stringToSupportedCommands.get(cmd).getDescription(possiblePrefix);
+                    if (beforecaret.endsWith(" " + possiblePrefix)) {
+                        change.setText(change.getText() + "<" + desc + ">");
+                    }
+                }
             }
 
             Pattern placeHolderPattern = Pattern.compile(PLACE_HOLDER_REGEX);
@@ -370,8 +434,12 @@ public class CommandTextField extends Region {
             // replace the entire placeholder if change occurs within it
             while (placeholder.find()) {
                 // find group until caret lies inside
-                if (change.getCaretPosition() <= placeholder.end()
-                        && change.getCaretPosition() >= placeholder.start()) {
+                if ((change.isAdded()
+                        && change.getControlCaretPosition() <= placeholder.end()
+                        && change.getControlCaretPosition() >= placeholder.start())
+                || ((change.isDeleted()
+                        && change.getControlCaretPosition() <= placeholder.end()
+                        && change.getControlCaretPosition() >= placeholder.start()))) {
 
                     String before = change.getControlText().substring(0, placeholder.start());
                     String mid = change.getText();

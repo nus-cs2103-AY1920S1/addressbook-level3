@@ -42,7 +42,7 @@ public class SinglePanelView extends UiPart<Region> implements PanelManager {
     public void viewPanel(PanelName panelName) throws UnmappedPanelException {
         requireNonNull(panelName);
         if (panelName.equals(PanelName.CURRENT)) {
-            if (currentPanel == null) {
+            if (getCurrentPanel() == null) {
                 throw new UnmappedPanelException(panelName);
             }
         } else if (!hasPanel(panelName)) {
@@ -82,7 +82,9 @@ public class SinglePanelView extends UiPart<Region> implements PanelManager {
         panelNamePanelHashMap.put(panelName, panel);
         panelPlaceholder.getChildren().add(panel.getRoot());
         // prevent new panel from being shown unless requested to be viewed.
-        panel.hide();
+        if (!getCurrentPanelName().equals(panelName)) {
+            panel.hide();
+        }
         return panelPlaceholder.getChildren().contains(panel.getRoot());
     }
 

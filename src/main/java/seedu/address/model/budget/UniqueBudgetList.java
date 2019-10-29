@@ -6,8 +6,6 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.Iterator;
 import java.util.List;
 
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.budget.exceptions.BudgetNotFoundException;
@@ -34,11 +32,6 @@ public class UniqueBudgetList implements Iterable<Budget> {
     private final ObservableList<Budget> internalList = FXCollections.observableArrayList();
     private final ObservableList<Budget> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
-    private final ObjectProperty<Budget> primaryBudgetProperty;
-
-    public UniqueBudgetList() {
-        primaryBudgetProperty = new SimpleObjectProperty<>(Budget.createDefaultBudget());
-    }
 
     /**
      * Returns true if the list contains an equivalent budget as the given argument.
@@ -104,8 +97,6 @@ public class UniqueBudgetList implements Iterable<Budget> {
             }
         }
         budget.setPrimary();
-        primaryBudgetProperty.setValue(budget);
-        // primaryBudget = budget;
         Budget b1 = Budget.deepCopy(budget);
         b1.setToPrimary();
         setBudget(budget, b1);
@@ -121,10 +112,6 @@ public class UniqueBudgetList implements Iterable<Budget> {
             }
         }
         return primaryBudget;
-    }
-
-    public ObjectProperty<Budget> primaryBudgetPropertyProperty() {
-        return primaryBudgetProperty;
     }
 
     /**

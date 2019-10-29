@@ -4,10 +4,11 @@
 }
 
 #SyntaxBox .text-field {
-    -fx-opacity: 1;
+    -fx-opacity: .3;
     -fx-padding: 0;
     -fx-font-size: 20px;
     -fx-font-family: Monospaced;
+    -fx-text-fill: none;
 }
 
 .error {
