@@ -21,10 +21,6 @@ public interface Model {
     Predicate<Expense> PREDICATE_SHOW_ALL_EXPENSES = unused -> true;
     Predicate<Budget> PREDICATE_SHOW_ALL_BUDGETS = unused -> true;
 
-    String getViewState();
-
-    void setViewState(String state);
-
     /**
      * Returns the user prefs.
      */
@@ -152,8 +148,6 @@ public interface Model {
      */
     ObservableList<Budget> getFilteredBudgetList();
 
-    ObservableList<Expense> getExpenseListFromBudget(Budget budget);
-
     /**
      * Updates the filter of the filtered budget list to filter by the given {@code predicate}.
      *
@@ -166,4 +160,6 @@ public interface Model {
     Optional<Budget> getBudgetExpenseFallsInto(Expense expense);
 
     boolean expenseFallsIntoABudget(Expense expense);
+
+    ObservableList<Expense> getExpenseListFromBudget(Budget budgetToView);
 }

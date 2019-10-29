@@ -5,6 +5,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.address.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CURRENCY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditBudgetCommand;
 import seedu.address.logic.commands.EditBudgetCommand.EditBudgetDescriptor;
@@ -31,7 +32,8 @@ public class EditBudgetCommandParser implements Parser<EditBudgetCommand> {
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditBudgetCommand.MESSAGE_USAGE), pe);
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditBudgetCommand.MESSAGE_USAGE),
+                pe);
         }
 
         EditBudgetDescriptor editBudgetDescriptor = new EditBudgetDescriptor();
@@ -51,5 +53,4 @@ public class EditBudgetCommandParser implements Parser<EditBudgetCommand> {
 
         return new EditBudgetCommand(index, editBudgetDescriptor);
     }
-    
 }

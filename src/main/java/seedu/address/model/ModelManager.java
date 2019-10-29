@@ -26,7 +26,6 @@ import seedu.address.model.expense.Expense;
 public class ModelManager implements Model {
 
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
-    private static String VIEW_STATE = "list";
     private final ExpenseList expenseList;
     private final BudgetList budgetList;
     private final UserPrefs userPrefs;
@@ -54,14 +53,6 @@ public class ModelManager implements Model {
 
     public ModelManager() {
         this(new ExpenseList(), new BudgetList(), new UserPrefs());
-    }
-
-    public String getViewState() {
-        return VIEW_STATE;
-    }
-
-    public void setViewState(String state) {
-        this.VIEW_STATE = state;
     }
 
     //=========== UserPrefs ==================================================================================
@@ -255,6 +246,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public ObservableList<Expense> getExpenseListFromBudget(Budget budgetToView) {
+        return budgetToView.getObservableExpenseList();
+    }
+
+    @Override
     public boolean hasBudgetPeriodClash(Budget budget) {
         requireNonNull(budget);
         return budgetList.hasBudgetPeriodClash(budget);
@@ -269,11 +265,6 @@ public class ModelManager implements Model {
     @Override
     public ObservableList<Budget> getFilteredBudgetList() {
         return filteredBudgets;
-    }
-
-    @Override
-    public ObservableList<Expense> getExpenseListFromBudget(Budget budget) {
-        return budget.getObservableExpenseList();
     }
 
     @Override

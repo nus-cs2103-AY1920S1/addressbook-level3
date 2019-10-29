@@ -79,9 +79,7 @@ public class EditBudgetCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        String viewState = model.getViewState();
 
-//        if (viewState.equals("listbudgets")) {
         List<Budget> lastShownList = model.getFilteredBudgetList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
@@ -98,9 +96,6 @@ public class EditBudgetCommand extends Command {
         model.setBudget(budgetToEdit, editedBudget);
         model.updateFilteredBudgetList(PREDICATE_SHOW_ALL_BUDGETS);
         return new CommandResult(String.format(MESSAGE_EDIT_BUDGET_SUCCESS, editedBudget));
-//        } else {
-//            throw new CommandException(MESSAGE_EDIT_BUDGET_ERROR);
-//        }
     }
 
     @Override

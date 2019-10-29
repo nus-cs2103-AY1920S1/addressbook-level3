@@ -89,7 +89,8 @@ class JsonAdaptedBudget {
         final Amount modelAmountLeft = new Amount(amountLeft);
 
         if (currency == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Currency.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                Currency.class.getSimpleName()));
         }
         if (!Currency.isValidCurrency(currency)) {
             throw new IllegalValueException(Currency.MESSAGE_CONSTRAINTS);

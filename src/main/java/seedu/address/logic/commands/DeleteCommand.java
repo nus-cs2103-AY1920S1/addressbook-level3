@@ -8,7 +8,6 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.budget.Budget;
 import seedu.address.model.expense.Expense;
 
 /**
@@ -36,31 +35,27 @@ public class DeleteCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        String viewState = model.getViewState();
 
-        if (viewState.equals("list")) {
-            List<Expense> lastShownList = model.getFilteredExpenseList();
+        // TODO: add context-aware delete syntax
+        List<Expense> lastShownList = model.getFilteredExpenseList();
 
-            if (targetIndex.getZeroBased() >= lastShownList.size()) {
-                throw new CommandException(Messages.MESSAGE_INVALID_EXPENSE_DISPLAYED_INDEX);
-            }
-
-            Expense expenseToDelete = lastShownList.get(targetIndex.getZeroBased());
-            model.deleteExpense(expenseToDelete);
-            return new CommandResult(String.format(MESSAGE_DELETE_EXPENSE_SUCCESS, expenseToDelete));
-        } else if (viewState.equals("listbudgets")) {
-            List<Budget> lastShownList = model.getFilteredBudgetList();
-
-            if (targetIndex.getZeroBased() >= lastShownList.size()) {
-                throw new CommandException(Messages.MESSAGE_INVALID_BUDGET_DISPLAYED_INDEX);
-            }
-
-            Budget budgetToDelete = lastShownList.get(targetIndex.getZeroBased());
-            model.deleteBudget(budgetToDelete);
-            return new CommandResult(String.format(MESSAGE_DELETE_BUDGET_SUCCESS, budgetToDelete));
-        } else {
-            throw new CommandException(MESSAGE_DELETE_ERROR);
+        if (targetIndex.getZeroBased() >= lastShownList.size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_EXPENSE_DISPLAYED_INDEX);
         }
+
+        Expense expenseToDelete = lastShownList.get(targetIndex.getZeroBased());
+        model.deleteExpense(expenseToDelete);
+        return new CommandResult(String.format(MESSAGE_DELETE_EXPENSE_SUCCESS, expenseToDelete));
+
+        //            List<Budget> lastShownList = model.getFilteredBudgetList();
+        //
+        //            if (targetIndex.getZeroBased() >= lastShownList.size()) {
+        //                throw new CommandException(Messages.MESSAGE_INVALID_BUDGET_DISPLAYED_INDEX);
+        //            }
+        //
+        //            Budget budgetToDelete = lastShownList.get(targetIndex.getZeroBased());
+        //            model.deleteBudget(budgetToDelete);
+        //            return new CommandResult(String.format(MESSAGE_DELETE_BUDGET_SUCCESS, budgetToDelete));
     }
 
     @Override
