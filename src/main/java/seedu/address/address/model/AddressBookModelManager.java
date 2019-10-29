@@ -124,7 +124,7 @@ public class AddressBookModelManager implements AddressBookModel {
         TreeUtil treeUtil = new TreeUtil();
         filteredPersons.stream().forEach(p -> treeUtil.add(p.getCountry().toString()));
         series.getData().addAll(treeUtil.stream().map(
-                ip -> new XYChart.Data<Integer, String>(ip.getKey(), ip.getValue())).collect(Collectors.toList()));
+            ip -> new XYChart.Data<Integer, String>(ip.getKey(), ip.getValue())).collect(Collectors.toList()));
         return series;
     }
 

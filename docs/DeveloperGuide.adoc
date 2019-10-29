@@ -439,21 +439,22 @@ This sequential approach in implementing the `SearchCommand` will ensure that al
 based on the specific search condition and only the filtered list will be given as a result.
 
 === Financial Tracker
-The financial tracker feature in TravEzy allows users to keep track of their financial expenses with appropriate categorized expenditure and country.
+The Financial Tracker feature in TravEzy allows users to keep track of their financial expenses with appropriate categorized expenditure and country.
 
-Current, the itinerary feature supports the basic commands of add, delete and summary.
+*Architecture:*
 
 .Architecture Diagram of the Financial Tracker feature
 image::FinancialTrackerDiagram.png[]
 
 The Architecture Diagram given above explains the high-level design of the financial tracker feature.
-Inputs given by the user are channeled from the text UI and parsed by Command Parser before different commands are formed which generates
-the model and updates the FinancialTracker object which contains the expense list.
+Inputs given by the user are channeled from the `textUI` and parsed by `CommandParser` before different commands are formed which generates
+the `Model` and updates the `FinancialTracker` object which contains the expense list.
 
-The text UI, log centre and storage all stem from the common package of the main TravEzy application.
-However, in the parser package of itinerary, it contains various parser objects for the different command.
+The `textUI`, `Log Centre` and `Storage` all stem from the common package of the main TravEzy application.
 This is to ensure that each command in financial tracker have only one parser validating the command.
-The GUI also collaborate with Model Class directly, which will be changed to only communicate with Logic class in later time.
+The GUI also collaborate with `Model` Class directly, which will be changed to only communicate with `Logic` class in later time.
+
+*Financial Tracker Class Diagram*
 
 .Class Diagram of the Financial Tracker feature
 image::FinancialTrackerClassDiagram.png[]
@@ -466,6 +467,22 @@ It exposes an unmodifiable `ObservableList<Expense>` that can be 'observed' e.g.
 [NOTE]
 Each time a new `Country` is selected from the javafx drop down menu, an expense list will be generated for that specific country, this
 implementation is to ease categorising and sorting.
+
+*Sequence Diagram example*
+
+.Sequence Diagram of the Financial Tracker feature
+image::FinancialTrackerSummaryCommandDiagram.png[]
+
+The above sequence diagram shows the sequence of events that will take place when a user calls `Summary` command.
+Note that that above sequence of events are very likely to those for the other commands in Financial Tracker feature.
+
+*Activity Diagram example*
+
+.Activity Diagram of the Financial Tracker feature
+image::FinancialTrackerActivityDiagram.png[]
+
+The above activity shows how `edits` command works.
+
 
 === Diary
 

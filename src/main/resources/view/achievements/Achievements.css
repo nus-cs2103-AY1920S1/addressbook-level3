@@ -111,3 +111,26 @@
 .default-color0.chart-bar {
   -fx-bar-fill: #C471ED;
 }
+
+/* Result Display */
+
+.result-display {
+  -fx-background-color: transparent;
+  -fx-font-family: "Segoe UI";
+  -fx-font-size: 13pt;
+  -fx-text-fill: black;
+}
+
+.result-display .label {
+  -fx-text-fill: black !important;
+}
+
+/* Command Box Text Field */
+
+.text-field {
+  -fx-font-size: 12pt;
+  -fx-font-family: "Segoe UI";
+}
+.error {
+    -fx-text-fill: #61045F !important; /* The error class should always override the default text-fill style */
+}

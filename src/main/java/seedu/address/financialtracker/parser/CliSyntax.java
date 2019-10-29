@@ -14,6 +14,5 @@ public class CliSyntax {
     public static final Prefix PREFIX_TIME = new Prefix("time/");
     public static final Prefix PREFIX_TYPE = new Prefix(("t/"));
     public static final Prefix PREFIX_AMOUNT = new Prefix("a/");
-    public static final Prefix PREFIX_COUNTRY = new Prefix("c/");
 
 }

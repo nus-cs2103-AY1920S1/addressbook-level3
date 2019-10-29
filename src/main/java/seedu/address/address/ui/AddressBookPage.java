@@ -80,10 +80,8 @@ public class AddressBookPage extends UiPart<Region> implements Page {
         this.addressBookLogic = addressBookLogic;
 
         addressBookScene = new Scene(addressBookBox);
-
-        setAccelerators();
-
         fillInnerParts();
+        setAccelerators();
     }
 
     private void setAccelerators() {
@@ -126,6 +124,9 @@ public class AddressBookPage extends UiPart<Region> implements Page {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
+        this.helpWindow = new HelpWindow();
+        this.codeWindow = new CodeWindow();
+
         personListPanel = new PersonListPanel(addressBookLogic.getFilteredPersonList());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
