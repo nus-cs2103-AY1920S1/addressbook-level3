@@ -17,6 +17,7 @@ import seedu.address.model.person.SortSequence;
 import seedu.address.model.person.SortType;
 import seedu.address.model.person.Wish;
 import seedu.address.model.person.WishReminder;
+import seedu.address.model.statistics.StatisticsManager;
 
 /**
  * The API of the Model component.
@@ -30,6 +31,10 @@ public interface Model {
     Predicate<Budget> PREDICATE_SHOW_ALL_BUDGETS = unused -> true;
     Predicate<AutoExpense> PREDICATE_SHOW_ALL_AUTOEXPENSES = unused -> true;
     Predicate<ExpenseReminder> PREDICATE_SHOW_ALL_EXPENSE_REMINDERS = unused -> true;
+
+    void setStats(StatisticsManager stats);
+
+    StatisticsManager getStats();
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.

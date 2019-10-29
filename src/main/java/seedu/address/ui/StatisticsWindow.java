@@ -18,15 +18,10 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.PanelName;
 
-/**
- * The Main Window. Provides the basic application layout containing
- * a menu bar and space where other JavaFX elements can be placed.
- */
-public class MainWindow extends UiPart<Stage> {
+public class StatisticsWindow extends UiPart<Stage> {
 
-    private static final String FXML = "MainWindow.fxml";
+    private static final String FXML = "Statistics.fxml";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
@@ -34,10 +29,10 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private EntryListPanel entryListPanel;
-    private WishListPanel wishListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private StatisticsTable expenseStats;
+    private StatisticsTable incomeStats;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -46,7 +41,7 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
-    private StackPane entryListPanelPlaceholder;
+    private StackPane statisticsPanelListHolder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -55,21 +50,15 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane statusbarPlaceholder;
 
     @FXML
+    private VBox expenseTablePlaceholder;
+
+    @FXML
+    private VBox incomeTablePlaceholder;
+
+    @FXML
     private HBox window;
 
-    @FXML
-    private VBox sidePanelsPlaceHolder;
-
-    @FXML
-    private VBox wishesPlaceHolder;
-
-    @FXML
-    private VBox budgetsPlaceHolder;
-
-    @FXML
-    private VBox remindersPlaceHolder;
-
-    public MainWindow(Stage primaryStage, Logic logic) {
+    public StatisticsWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
 
         // Set dependencies
@@ -127,28 +116,20 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-
-        entryListPanel = new EntryListPanel(logic.getFilteredEntryList());
-        entryListPanelPlaceholder.getChildren().add(entryListPanel.getRoot());
-        System.out.println(entryListPanel.getRoot());
+        this.expenseStats = new StatisticsTable(logic.getListOfStatsForExpense());
+        this.incomeStats = new StatisticsTable(logic.getListOfStatsForIncome());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
+
+        expenseTablePlaceholder.getChildren().add(this.expenseStats.getRoot());
+        incomeTablePlaceholder.getChildren().add(this.incomeStats.getRoot());
 
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
-
-        WishListPanel wishListPanel = new WishListPanel(logic.getFilteredEntryList());
-        wishesPlaceHolder.getChildren().add(wishListPanel.getRoot());
-
-        BudgetPanel budgetsPanel = new BudgetPanel(logic.getFilteredEntryList());
-        budgetsPlaceHolder.getChildren().add(budgetsPanel.getRoot());
-
-        ReminderPanel reminderPanel = new ReminderPanel(logic.getFilteredEntryList());
-        remindersPlaceHolder.getChildren().add(reminderPanel.getRoot());
     }
 
     /**
@@ -192,56 +173,6 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Calls the togglePlaceHolder method with the place holder of the specified panel.
-     * @param panelName name of the specified panel to be toggled.
-     */
-    private void togglePanel(String panelName) {
-        switch (panelName) {
-        case "wishlist":
-            togglePlaceHolder(wishesPlaceHolder);
-            break;
-        case "budget":
-            togglePlaceHolder(budgetsPlaceHolder);
-            break;
-        case "reminder":
-            togglePlaceHolder(remindersPlaceHolder);
-            break;
-        default:
-            break;
-        }
-    }
-
-    /**
-     * Toggles the isVisible and isManaged properties of the specified place holder.
-     * @param placeHolder specified place holder to be toggled.
-     */
-    private void togglePlaceHolder(VBox placeHolder) {
-        boolean isManaged = placeHolder.isManaged();
-        placeHolder.setManaged(!isManaged);
-        boolean isVisible = placeHolder.isVisible();
-        placeHolder.setVisible(!isVisible);
-    }
-
-    /**
-     * Sets both the isVisible and isManaged properties the side panel place holder to false if none of the side panels
-     * are visible and managed.
-     * Otherwise, both of those properties are set to true.
-     */
-    private void toggleEntireSidePanelIfNecessary() {
-        if (!wishesPlaceHolder.isManaged() && !budgetsPlaceHolder.isManaged() && !remindersPlaceHolder.isManaged()) {
-            sidePanelsPlaceHolder.setManaged(false);
-            sidePanelsPlaceHolder.setVisible(false);
-        } else { // any one of the side panels are managed and visible
-            sidePanelsPlaceHolder.setManaged(true);
-            sidePanelsPlaceHolder.setVisible(true);
-        }
-    }
-
-    public EntryListPanel getEntryListPanel() {
-        return entryListPanel;
-    }
-
-    /**
      * Executes the command and returns the result.
      *
      * @see seedu.address.logic.Logic#execute(String)
@@ -260,19 +191,6 @@ public class MainWindow extends UiPart<Stage> {
             if (commandResult.isExit()) {
                 handleExit();
             }
-
-            if (commandResult.isTogglePanel()) {
-                PanelName panelName = commandResult.getPanelName();
-                String panelNameString = panelName.getName();
-                togglePanel(panelNameString);
-                toggleEntireSidePanelIfNecessary();
-            }
-
-            if (commandResult.isToggleStats()) {
-                StatisticsWindow stats = new StatisticsWindow(primaryStage, logic);
-                stats.fillInnerParts();
-            }
-
             return commandResult;
         } catch (CommandException | ParseException | IllegalArgumentException e) {
             logger.info("Invalid command: " + commandText);
@@ -280,4 +198,5 @@ public class MainWindow extends UiPart<Stage> {
             throw e;
         }
     }
+
 }

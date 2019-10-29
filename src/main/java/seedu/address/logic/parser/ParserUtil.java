@@ -87,8 +87,8 @@ public class ParserUtil {
         if (splitStartAndEnd.length == 1) {
             listOfPeriods.add(new Date(period));
         } else if (splitStartAndEnd.length == 2) {
-            listOfPeriods.add(new Date(splitStartAndEnd[0]));
-            listOfPeriods.add(new Date(splitStartAndEnd[1]));
+            listOfPeriods.add(new Date(splitStartAndEnd[0].trim()));
+            listOfPeriods.add(new Date(splitStartAndEnd[1].trim()));
         } else {
             //TODO
         }

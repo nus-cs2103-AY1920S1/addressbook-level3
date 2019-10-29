@@ -25,6 +25,7 @@ import seedu.address.model.person.SortSequence;
 import seedu.address.model.person.SortType;
 import seedu.address.model.person.Wish;
 import seedu.address.model.person.WishReminder;
+import seedu.address.model.statistics.StatisticsManager;
 import seedu.address.model.util.EntryComparator;
 
 /**
@@ -48,7 +49,7 @@ public class ModelManager implements Model {
     private final ExpenseTrackerManager expenseTrackers;
     private final VersionedAddressBook versionedAddressBook;
     private final FilteredList<WishReminder> filteredWishReminders;
-
+    public StatisticsManager stats;
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
@@ -61,7 +62,6 @@ public class ModelManager implements Model {
         versionedAddressBook = new VersionedAddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         incomeCategoryList = versionedAddressBook.getIncomeCategoryList();
-        System.out.println(incomeCategoryList.size());
         expenseCategoryList = versionedAddressBook.getExpenseCategoryList();
         filteredExpenses = new FilteredList<>(versionedAddressBook.getExpenseList());
         filteredIncomes = new FilteredList<>(versionedAddressBook.getIncomeList());
@@ -84,6 +84,15 @@ public class ModelManager implements Model {
 
     // =========== UserPrefs
     // ==================================================================================
+    @Override
+    public void setStats(StatisticsManager stats) {
+        this.stats = stats;
+    }
+
+    @Override
+    public StatisticsManager getStats(){
+        return stats;
+    }
 
     @Override
     public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {

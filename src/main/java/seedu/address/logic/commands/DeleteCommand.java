@@ -41,6 +41,7 @@ public class DeleteCommand extends Command {
 
         Entry entryToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deleteEntry(entryToDelete);
+        model.getStats().testStats();
         model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_DELETE_ENTRY_SUCCESS, entryToDelete));
     }

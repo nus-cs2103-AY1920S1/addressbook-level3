@@ -32,6 +32,10 @@ public class Category {
         this.categoryType = categoryType;
     }
 
+    public String getCategoryName() {
+        return this.categoryName;
+    }
+
     /**
      * Returns the truth value for whether the categoryType specified is in the Validation List.
      */

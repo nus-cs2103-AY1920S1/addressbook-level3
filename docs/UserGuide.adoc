@@ -245,27 +245,17 @@ Example:
 * `viewHistory -- cat income --period 11/9/2019`
 * `viewHistory -- cat expenditure --period ,2 21/9/2019`
 
-==== Sorting Time : `sortTime`
+==== Sorting : `sort`
 
-List of expenditure/ income currently displayed by viewHistory will be sorted according to time in increasing/ decreasing order.
+Sorts the aforementioned list currently displayed according to SortType which can be `amount, time, description, tags and category` ,
+and SortSequence which can be in `ascending, descending` order.
 
-Format: `sortTime order <ascending || descending>`
-
-Example:
-
-* `sortTime ascending`
-* `sortTime descending`
-
-==== Sorting Amount : `sortAmt`
-
-List of expenditure/ income currently displayed by viewHistory will be sorted according to amount in increasing/ decreasing order.
-
-Format: `sortAmt order <ascending || descending>`
+Format: `sort typ/<SortType> s/<SortSequence>`
 
 Example:
 
-* `sortAmt ascending`
-* `sortAmt descending`
+* `sort typ/amount s/ascending`
+* `sort typ/category s/descending`
 
 ==== Search : `search`
 

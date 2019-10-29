@@ -21,6 +21,7 @@ public class CommandResult {
 
     private final PanelName panelName;
     private final boolean togglePanel;
+    private final boolean toggleStats;
 
     /**
      * Constructs a {@code CommandResult} with the specified fields.
@@ -31,6 +32,7 @@ public class CommandResult {
         this.exit = exit;
         this.panelName = null;
         this.togglePanel = false;
+        this.toggleStats = false;
     }
 
     /**
@@ -41,12 +43,22 @@ public class CommandResult {
         this(feedbackToUser, false, false);
     }
 
+    public CommandResult(String feedbackToUser, boolean toggleStats) {
+        this.feedbackToUser = requireNonNull(feedbackToUser);
+        this.showHelp = false;
+        this.exit = false;
+        this.togglePanel = false;
+        this.panelName = null;
+        this.toggleStats = toggleStats;
+    }
+
     public CommandResult(String feedbackToUser, PanelName panelName, boolean togglePanel) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = false;
         this.exit = false;
         this.panelName = panelName;
         this.togglePanel = togglePanel;
+        this.toggleStats = false;
     }
 
     public String getFeedbackToUser() {
@@ -63,6 +75,10 @@ public class CommandResult {
 
     public boolean isTogglePanel() {
         return togglePanel;
+    }
+
+    public boolean isToggleStats() {
+        return toggleStats;
     }
 
     public PanelName getPanelName() {

@@ -3,6 +3,7 @@ package seedu.address.model.statistics;
 import java.util.function.Predicate;
 
 import seedu.address.model.person.Entry;
+import seedu.address.model.person.Expense;
 
 /**
  * Filters the entrylist predicates based on the int day.
