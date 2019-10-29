@@ -2,8 +2,8 @@ package mams.ui;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.logging.Logger;
 import java.util.Random;
+import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -22,15 +22,15 @@ public class HelpWindow extends UiPart<Stage> {
     public static final String USERGUIDE_URL = "https://ay1920s1-cs2103-t11-2.github.io/main/UserGuide.html";
     public static final String HELP_MESSAGE = "Refer to the user guide: " + USERGUIDE_URL;
 
-    private static final Logger logger = LogsCenter.getLogger(HelpWindow.class);
-    private static final String FXML = "HelpWindow.fxml";
-
     public static final String YELLOW_LABEL_STYLE_CLASS = "prefix_yellow";
     public static final String PURPLE_LABEL_STYLE_CLASS = "prefix_purple";
     public static final String RED_LABEL_STYLE_CLASS = "prefix_red";
     public static final String SKY_BLUE_LABEL_CLASS = "prefix_sky_blue";
     public static final String PINK_LABEL_STYLE_CLASS = "prefix_pink";
     public static final String GREEN_LABEL_STYLE_CLASS = "prefix_green";
+
+    private static final Logger logger = LogsCenter.getLogger(HelpWindow.class);
+    private static final String FXML = "HelpWindow.fxml";
 
     public static final List<String> LABEL_STYLES = Arrays.asList(YELLOW_LABEL_STYLE_CLASS,
             PURPLE_LABEL_STYLE_CLASS, RED_LABEL_STYLE_CLASS, SKY_BLUE_LABEL_CLASS,
@@ -139,12 +139,12 @@ public class HelpWindow extends UiPart<Stage> {
     @FXML
     private void handleKeyPress(KeyEvent keyEvent) {
         switch (keyEvent.getCode()) {
-            case ESCAPE:
-                keyEvent.consume();
-                hide();
-                break;
-            default:
-                break;
+        case ESCAPE:
+            keyEvent.consume();
+            hide();
+            break;
+        default:
+            break;
         }
     }
 }
