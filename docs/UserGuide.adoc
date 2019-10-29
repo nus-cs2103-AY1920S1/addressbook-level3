@@ -41,6 +41,17 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 [[Features]]
 == Features
 
+=== Overview
+
+==== Clutter-free (Customer, Phone, Order)
+
+==== Save Time (Schedule)
+
+==== Track your sales performance
+
+[[Commands]]
+== Commands
+
 ====
 *Command Format*
 
@@ -53,6 +64,36 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 === Viewing help : `help`
 Lists out the commands you need to navigate SML. +
 Format: `help`
+
+
+=== Customer Commands
+Commands that work on customers in your list.
+
+==== Add a customer : `add-c`
+Adds a customer to the address book. +
+Format: `add-c n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…`
+[TIP]
+A person can have any number of tags, including 0.
+
+==== Delete a customer : `delete-c`
+Deletes a customer in the address book. +
+Format: `delete-c INDEX`
+
+==== Find a customer : `find-c`
+Finds customers whose names contain any of the given keywords. +
+Format: `find-c KEYWORD [MORE_KEYWORDS]`
+
+==== List the customers : `list-c`
+List every single customer in SML. +
+Format: `list-c`
+
+==== Edit a customer : `edit-c`
+Edits an existing customer. +
+Format: `edit-c INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…`
+
+==== Copy customer field : `copy-c`
+Copies a customer field to clipboard. +
+Format: `copy-c <field>`
 
 === Phone Commands
 Commands that work on phones that you have in your inventory.
@@ -112,34 +153,6 @@ Format: `copy-o <field>`
 Duplicate an order of the specified index. +
 Format: `duplicate-o INDEX`
 
-=== Customer Commands
-Commands that work on customers in your list.
-
-==== Add a customer : `add-c`
-Adds a customer to the address book. +
-Format: `add-c n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…`
-[TIP]
-A person can have any number of tags, including 0.
-
-==== Delete a customer : `delete-c`
-Deletes a customer in the address book. +
-Format: `delete-c INDEX`
-
-==== Find a customer : `find-c`
-Finds customers whose names contain any of the given keywords. +
-Format: `find-c KEYWORD [MORE_KEYWORDS]`
-
-==== List the customers : `list-c`
-List every single customer in SML. +
-Format: `list-c`
-
-==== Edit a customer : `edit-c`
-Edits an existing customer. +
-Format: `edit-c INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…`
-
-==== Copy customer field : `copy-c`
-Copies a customer field to clipboard. +
-Format: `copy-c <field>`
 
 === Schedule Commands
 
