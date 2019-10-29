@@ -8,7 +8,7 @@ import java.util.function.Consumer;
 import dream.fcard.gui.controllers.displays.JsFileUploader;
 import dream.fcard.gui.controllers.displays.McqOptionsSetter;
 import dream.fcard.gui.controllers.displays.TestCaseUploader;
-import dream.fcard.model.ConsumerSchema;
+import dream.fcard.logic.respond.ConsumerSchema;
 import dream.fcard.model.Deck;
 import dream.fcard.model.State;
 import dream.fcard.model.cards.FrontBackCard;

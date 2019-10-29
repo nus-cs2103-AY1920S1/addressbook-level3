@@ -6,7 +6,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Consumer;
 
 import dream.fcard.gui.controllers.windows.MainWindow;
-import dream.fcard.model.ConsumerSchema;
+import dream.fcard.logic.respond.ConsumerSchema;
+import dream.fcard.logic.respond.Dispatcher;
 import dream.fcard.model.State;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -45,6 +46,7 @@ public class McqOptionsSetter extends ScrollPane {
             fxmlLoader.load();
             rows = new ArrayList<>();
             addNewRow();
+            Dispatcher.addConsumer(ConsumerSchema.ADD_NEW_ROW_MCQ, addNewRow);
         } catch (IOException e) {
             e.printStackTrace();
         }

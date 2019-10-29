@@ -5,7 +5,7 @@ import java.util.function.Consumer;
 
 import dream.fcard.gui.controllers.windows.CardCreatingWindow;
 import dream.fcard.gui.controllers.windows.MainWindow;
-import dream.fcard.model.ConsumerSchema;
+import dream.fcard.logic.respond.ConsumerSchema;
 import dream.fcard.model.Deck;
 import dream.fcard.model.State;
 import javafx.fxml.FXML;
