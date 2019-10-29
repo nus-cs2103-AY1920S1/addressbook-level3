@@ -175,23 +175,28 @@ public class MainWindow extends UiPart<Stage> {
 
         //Get property.addListener
 
-        logic.getActiveRemindersListProperty().addListener(new ListChangeListener<Item>() {
+        //Create a ListChangeListener for activeReminders
+        ListChangeListener<Item> activeRemindersListener = new ListChangeListener<Item>() {
             @Override
             public void onChanged(Change<? extends Item> c) {
-                System.out.println("Change Detected");
                 while (c.next()) {
-                    for (Item newItem : c.getAddedSubList()) {
-                        Platform.runLater(() -> {
-                            resultDisplay.setFeedbackToUser(newItem.getReminderMessage());
-                            reminderAlarm.play(50);
-                        });
-                    }
+                    createReminders(c);
                 }
             }
-        });
-        //to listen for change in active
-        //while !active.isEmpty()
-        //resultDisplay.setFeedbackToUser(property.popReminder.getReminderMessage);
+
+            private void createReminders(Change<? extends Item> c) {
+                for (Item newItem : c.getAddedSubList()) {
+                    Platform.runLater(() -> {
+                        //Populate resultDisplay with reminder textbox
+                        resultDisplay.setFeedbackToUser(newItem.getReminderMessage());
+                    });
+                }
+            }
+        };
+
+
+        //Binds a ListChangeListener to activeRemindersList
+        logic.getActiveRemindersListProperty().addListener(activeRemindersListener);
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());

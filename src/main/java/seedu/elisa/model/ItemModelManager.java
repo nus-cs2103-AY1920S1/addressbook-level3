@@ -6,7 +6,6 @@ import java.nio.file.Path;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.PriorityQueue;
@@ -25,6 +24,7 @@ import seedu.elisa.model.exceptions.IllegalListException;
 import seedu.elisa.model.item.ActiveRemindersList;
 import seedu.elisa.model.item.CalendarList;
 import seedu.elisa.model.item.EventList;
+import seedu.elisa.model.item.FutureRemindersList;
 import seedu.elisa.model.item.ReminderList;
 import seedu.elisa.model.item.TaskList;
 import seedu.elisa.model.item.VisualizeList;
@@ -51,7 +51,7 @@ public class ItemModelManager implements ItemModel {
     //These three lists must be synchronized
     private ReminderList pastReminders;
     private ActiveRemindersList activeReminders;
-    private ArrayList<Item> futureReminders;
+    private FutureRemindersList futureReminders;
 
     private Timer timer = null;
 
@@ -67,77 +67,11 @@ public class ItemModelManager implements ItemModel {
         this.userPrefs = new UserPrefs(userPrefs);
         this.elisaCommandHistory = elisaCommandHistory;
 
-        //Bryan Reminder
-        pastReminders = new ReminderList();
-
-        activeReminders = new ActiveRemindersList(new ReminderList());
-
         this.jokeList = new JokeList();
-        /*
-        activeReminders = new ListPropertyBase<Item>(new ReminderList()) {
-            @Override
-            public Object getBean() {
-                return null;
-            }
 
-            @Override
-            public String getName() {
-                return null;
-            }
-
-            public synchronized Item popReminder() {
-                if(!isEmpty()) {
-                    return remove(0);
-                } else {
-                    //Should have this throw an exception
-                    return null;
-                }
-            }
-
-            public synchronized void addReminders(Collection<Item> reminders) {
-                for (Item item:reminders) {
-                    add(0, item);
-                }
-            }
-        };
-        */
-
-        futureReminders = new ArrayList<Item>();
-
-        //Bryan Reminder
         pastReminders = new ReminderList();
-
         activeReminders = new ActiveRemindersList(new ReminderList());
-        /*
-        activeReminders = new ListPropertyBase<Item>(new ReminderList()) {
-            @Override
-            public Object getBean() {
-                return null;
-            }
-
-            @Override
-            public String getName() {
-                return null;
-            }
-
-            public synchronized Item popReminder() {
-                if(!isEmpty()) {
-                    return remove(0);
-                } else {
-                    //Should have this throw an exception
-                    return null;
-                }
-            }
-
-            public synchronized void addReminders(Collection<Item> reminders) {
-                for (Item item:reminders) {
-                    add(0, item);
-                }
-            }
-        };
-        */
-
-        futureReminders = new ArrayList<Item>();
+        futureReminders = new FutureRemindersList();
 
         updateLists();
     }
@@ -176,7 +110,7 @@ public class ItemModelManager implements ItemModel {
     }
 
     @Override
-    public final ArrayList<Item> getFutureRemindersList() {
+    public final FutureRemindersList getFutureRemindersList() {
         return futureReminders;
     }
 
