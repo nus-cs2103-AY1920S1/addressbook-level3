@@ -1,0 +1,80 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":WatchListParser" as WatchListParser LOGIC_COLOR
+participant ":WatchCommandParser" as WatchCommandParser LOGIC_COLOR
+participant "w:WatchCommand" as WatchCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("watch 1")
+activate LogicManager
+
+LogicManager -> WatchListParser : parseCommand("watch 1")
+activate WatchListParser
+
+create WatchCommandParser
+WatchListParser -> WatchCommandParser
+activate WatchCommandParser
+
+WatchCommandParser --> WatchListParser
+deactivate WatchCommandParser
+
+WatchListParser -> WatchCommandParser : parse("1")
+activate WatchCommandParser
+
+create WatchCommand
+WatchCommandParser -> WatchCommand
+activate WatchCommand
+
+WatchCommand --> WatchCommandParser : w
+deactivate WatchCommand
+
+WatchCommandParser --> WatchListParser : w
+deactivate WatchCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+WatchCommandParser -[hidden]-> WatchListParser
+destroy WatchCommandParser
+
+WatchListParser --> LogicManager : w
+deactivate WatchListParser
+
+LogicManager -> WatchCommand : execute()
+activate WatchCommand
+
+WatchCommand -> Model : getFilteredShowList()
+activate Model
+
+Model --> WatchCommand
+deactivate Model
+
+WatchCommand -> WatchCommand : createEditedShow(showToEdit)
+activate WatchCommand
+WatchCommand --> WatchCommand
+deactivate WatchCommand
+
+WatchCommand -> Model : setShow(showToEdit, EditedShow)
+activate Model
+
+Model --> WatchCommand
+deactivate Model
+
+create CommandResult
+WatchCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> WatchCommand
+deactivate CommandResult
+
+WatchCommand --> LogicManager : result
+deactivate WatchCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml
