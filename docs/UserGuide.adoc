@@ -150,9 +150,9 @@ It is possible to add a member with multiple tags following this format: +
 
 ==== Set image for member: `set-image` +
 To set a profile picture for a member in +Work, use the command `set-image` following the format below. +
-Format: `set-image im/IMAGE_URL` +
+Format: `set-image mi/MEMBER_ID im/IMAGE_URL` +
 
-Example: `set-image im/C:\Users\Lynn\Desktop\Y2S1\CS2103T\tP\newUserImage.png` will result in the following: 
+Example: `set-image mi/NM im/C:\Users\Lynn\Desktop\Y2S1\CS2103T\tP\NewUserImage.png` will result in the following: 
 
 image::SetImage.png[width="790"]
 
