@@ -14,8 +14,6 @@ import seedu.address.model.util.Date;
  */
 public class Projection {
 
-    private static final int RECOMMENDED_MINIMUM_TRANSACTIONS = 4;
-
     public final ObservableList<BankAccountOperation> transactionHistory;
     public final Date date;
     public final Model model;

@@ -29,13 +29,32 @@ public class CommandResult {
     private final Tab switchTab;
 
     /**
+     * Warning(s) for a permissible yet potentially problematic command
+     */
+    private final String warnings;
+
+    /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, Tab switchTab) {
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, Tab switchTab, String... warnings) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
         this.switchTab = switchTab;
+        StringBuilder sb = new StringBuilder();
+        for (String warning : warnings) {
+            sb.append(warning + '\n');
+        }
+        this.warnings = sb.toString();
+
+    }
+
+    /**
+     * Constructs a {@code CommandResult} with the specified {@code feedbackToUser}, {@code warnings}
+     * and other fields set to their default value.
+     */
+    public CommandResult(String feedbackToUser, String... warnings) {
+        this(feedbackToUser, false, false, null, warnings);
     }
 
     /**
@@ -47,7 +66,7 @@ public class CommandResult {
     }
 
     public String getFeedbackToUser() {
-        return feedbackToUser;
+        return feedbackToUser.concat(warnings);
     }
 
     public boolean isShowHelp() {
