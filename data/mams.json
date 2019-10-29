@@ -2,7 +2,7 @@
   "students" : [ {
     "name" : "Celina Conyers  ",
     "credits" : "21",
-    "prevMods" : "CS1010, CS2101",
+    "prevMods" : "CS1010, CS1020",
     "matricId" : "A0180000",
     "tagged" : [ "CS1231", "CS1010", "CS2030", "CS2040" ]
   }, {
@@ -226,7 +226,7 @@
     "credits" : "21",
     "prevMods" : "CS1010, CS2101",
     "matricId" : "A0180037",
-    "tagged" : [ "CS1231", "CS2106", "CS3202" ]
+    "tagged" : [ "CS1231", "CS2106" ]
   }, {
     "name" : "Shawnna Schaible  ",
     "credits" : "24",
