@@ -20,7 +20,7 @@ public class CheckoutCommand extends Command {
             + "by the index number used in the displayed project list. "
             + "Parameters: INDEX (must be a positive integer) "
             + "Example: " + COMMAND_WORD + " 1 ";
-    public static final String MESSAGE_CHECKOUT_SUCCESS = "Switched to project: %1$s";
+    public static final String MESSAGE_CHECKOUT_SUCCESS = "Switched to project:\n%1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
 
     private final Index index;

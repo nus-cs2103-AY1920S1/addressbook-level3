@@ -34,7 +34,7 @@ public class AddSpendingCommand extends Command {
             + "[" + PREFIX_EXPENSE + "EXPENSE]...\n"
             + "[" + PREFIX_TIME + "TIME]...s\n"
             + "Example: " + COMMAND_WORD
-            + "1 s/bought pizza for the team ex/60.00 c/20/10/19";
+            + "1 s/bought pizza for the team ex/60.00 c/20/10/2019 1600";
     public static final String MESSAGE_SUCCESS = "New expense added";
 
     public AddSpendingCommand(Index index, Spending toAdd) {

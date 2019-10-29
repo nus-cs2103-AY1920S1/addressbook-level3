@@ -1,5 +1,7 @@
 package seedu.address.logic.commands;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 
 import static java.util.Objects.requireNonNull;
@@ -12,6 +14,10 @@ public class CommandResult {
     private final String feedbackToUser;
 
     private final String commandWord;
+
+    private final boolean changeInUi;
+
+    private final boolean back;
 
     /** Help information should be shown to the user. */
     private final boolean showHelp;
@@ -27,6 +33,27 @@ public class CommandResult {
         this.showHelp = showHelp;
         this.exit = exit;
         this.commandWord = commandWord;
+        List<String> list = Arrays.asList(CheckoutCommand.COMMAND_WORD,
+                ListCommand.COMMAND_WORD,
+                ListBudgetCommand.COMMAND_WORD,
+                AddProjectCommand.COMMAND_WORD);
+        if (list.contains(commandWord)) {
+            this.changeInUi = true;
+        } else {
+            this.changeInUi = false;
+        }
+        if (commandWord.equals(BackCommand.COMMAND_WORD)) {
+            back = true;
+        } else {
+            back = false;
+        }
+    }
+
+    /**
+     * Find out whether a change in Ui is needed.
+     */
+    public boolean changeNeeded() {
+        return changeInUi;
     }
 
     /**
@@ -51,6 +78,10 @@ public class CommandResult {
 
     public boolean isExit() {
         return exit;
+    }
+
+    public boolean isBack() {
+        return back;
     }
 
     @Override

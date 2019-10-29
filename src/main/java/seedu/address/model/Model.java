@@ -24,6 +24,11 @@ public interface Model {
     void setWorkingProject(Project project);
 
     /**
+     * Remove the working project.
+     */
+    void removeWorkingProject();
+
+    /**
      * Get the current working project.
      */
     Optional<Project> getWorkingProject();

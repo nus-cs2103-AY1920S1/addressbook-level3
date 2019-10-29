@@ -94,11 +94,8 @@ public class Project {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getTitle())
-                .append(" Project Title: ")
-                .append(getTitle())
-                .append(" Description: ")
-                .append(getDescription())
-                .append(" Members: ");
+                .append("\n")
+                .append(getDescription());
 
         for (String a : members) {
             builder.append(a + ",");
