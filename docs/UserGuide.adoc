@@ -47,7 +47,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * *`workers`* : switches to the workers tab
 * **`add -w`**`/name John Doe /dob 17-05-1980` :
 adds a worker named John Doe (with his date of birth) to the management system.
-* **`delete -w`**`2` : deletes the worker with staff ID W000002
+* **`delete -w`**`2` : deletes the worker with worker ID W000002
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
@@ -546,7 +546,7 @@ Format: `exit`
 ==== Generate report for a specific body: `genReport`
 Generate an individual report in a PDF filename `Report <body_ID>.pdf` located in `Mortago` file.
 
-Format: `genReport bodyID`
+Format: `genReport bodyId`
 
 Example:
 
@@ -613,7 +613,7 @@ Display of all archived worker entries, in order of archive date
 Give workers feedback (for the manager’s own reference), and can display a history of all feedback entered.
 
 Format:
-`feedback /id workerID /details details`
+`feedback /workerId workerId /details details`
 `feedback`
 
 Example:
@@ -635,7 +635,7 @@ Format: `assign /bodyId bodyId /workerId workerId /task taskDescription`
 Example:
 
 * `assign /bodyId 2 /workerId 1 /task send blood sample to lab for analysis` +
-Assigns worker with workerID W00001 to body with ID B00000002 with a task description.
+Assigns worker with worker ID W00001 to body with ID B00000002 with a task description.
 
 // end::assign[]
 
@@ -714,7 +714,7 @@ Lists emergency help hotlines.
 
 * *Generate report* : `genReport`
     ** Generate an individual report in a PDF. +
-    Format: `genReport bodyID`
+    Format: `genReport bodyId`
 * *Generate all reports* : `genReports`
     ** Generate all individual reports in a PDF. +
     Format: `genReports`
@@ -730,7 +730,7 @@ Lists emergency help hotlines.
     Format: `archives -flag`
 * *Give and view feedback* : `feedback` `[coming in v2.0]`
     * Give workers feedback and displays a history of all feedback entered.
-    Format: `feedback /id workerID /notes notes`, feedback`
+    Format: `feedback /workerId workerId /notes notes`, feedback`
 * *Assign tasks* : `assign` `[coming in v2.0]`
     ** Assign a body and task to a worker.
     Format: `assign /bodyId bodyId /workerId workerId /task taskDescription`
@@ -743,7 +743,11 @@ Lists emergency help hotlines.
 == Glossary
 *Attribute* : In Mortago, an attribute is the property of a body, fridge or worker. +
 
-*Body/bodies* : a corpse +
+*Body* : a corpse +
+
+*Worker* : an employee working in the mortuary +
+
+*Fridge* : a refrigerator used to store a body in the mortuary +
 
 *Command Line Interface (CLI)* : a text-based user interface (UI) used to view and manage computer files +
 
