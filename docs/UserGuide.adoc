@@ -28,7 +28,6 @@ Jump to <<Getting Started>> to get started.
 
 . *Manage your classes* easily with just a few strokes of your keyboard.
 .. Attendance taking
-//.. Note taking
 .. Record student scores
 . *Create questions* that allows you to start in-class activities and distribute quizzes to your students.
 Simply define a type, a topic and an answer and you are all set.
@@ -42,9 +41,12 @@ Simply define a type, a topic and an answer and you are all set.
 .. Schedule classes
 .. Class Reminders
 .. Repeatable daily/monthly and even yearly
+. *Notes Manager* to act as lightweight, digital Post-It to easily identify your priorities.
+.. Keep track of your reminders.
+.. View in a glance the important tasks.
 . *Statistics* provide a comprehensive view of your students' performance.
-.. View underperforming students
-.. Trends of the academic year
+.. Understand the academic performance of your class.
+.. View honourable students and identify the struggling students in one look.
 
 == Getting Started
 
@@ -71,7 +73,7 @@ _If you are not able to run the application using the method above, use the foll
 
 *Command Format*
 ====
-All commands start with a forward slash “/” followed by the command name. Certain commands may include additional options and will be specified in the description. An optional field will be marked ​(optional) b​ eside the field.
+All commands start with a forward slash “/” followed by the command name. Certain commands may include additional options and will be specified in the description. An optional field will be marked ​(optional) beside the field.
 ====
 
 === Student ​- `/student`
@@ -483,6 +485,151 @@ Example:
 * `event export directory/Users/John/Desktop` +
 Exports your events into your Desktop with the file name: `nJoy_Event_Schedule.ics`
 
+=== Notes - `notes`
+
+==== Creating a note
+
+Create lightweight, digital notes and reminders quickly and easily as specified. +
+Format: `note note/... desc/... priority/... (optional)`
+
+The options supported by this feature includes:
+
+. `note` - The note title.
+. `desc` - The description of the note.
+. `priority(optional)` - The level of priority placed on this note. It can be of type `unmarked`, `low`, `medium` or `high`. It is by default set to unmarked if field is omitted.
+
+[NOTE]
+All priority fields can be in either lowercase or UPPERCASE. (e.g. `note note/sample title desc/sample desc priority/low` is the same as e.g. `note note/sample title desc/sample desc priority/LOW`).
+
+[NOTE]
+`priority` levels are distinguishable by their colour in the User Interface. `unmarked` or default notes have grey panels, while `low`, `medium` and `high` priority notes have green, yellow and red panels respectively.
+
+[NOTE]
+The notes panel on the User Interface only supports title and description of limited length. Notes that exceed this length will be truncated. For information on how to view these notes, see <<Feature-Note-List, notes list>> command.
+
+Examples:
+
+* *Unmarked Note*: `note note/Friday morning class 6A desc/give back prelim papers` +
+Creates an unmarked note with title _'Friday morning class 6A'_ with description _'give back prelim papers'_.
+* *High priority note*: `note note/Tuesday 1pm desc/Science Conference priority/high` +
+Creates a high priority note with title _'Tuesday 1pm'_ with description _'Science Conference'_.
+
+==== Editing a note
+
+Edit a note currently stored. All fields are *optional*. +
+Format: `note [INDEX] note/... desc/... priority/...`
+
+[NOTE]
+To change the priority of a `high`, `medium` or `low` note to the default status, the prefix `priority/` is to be followed by `unmarked`. (e.g. note 2 priority/unmarked).
+
+The options supported by this feature includes:
+
+. `[INDEX]` - The note index as shown in the User Interface. The topmost note has index 1, followed by 2 and so on.
+. `note` - The note title.
+. `desc` - The description of the note.
+. `priority` - The level of priority placed on this note. It can be of type `unmarked`, `low`, `medium` or `high`.
+
+Examples:
+
+* `note 1 note/changed title` +
+Edits the first note in the list to the title _'changed title'_.
+* `note 2 desc/give speech priority/unmarked` +
+Edits the description of the second note in the list to _’give speech’_ of unmarked/default priority.
+
+==== Deleting a note
+
+Delete a note from the notes list. +
+Format: `note delete [INDEX]`
+
+The options supported by this feature includes:
+
+. `[INDEX]` - The note index as shown in the User Interface. The topmost note has index 1, followed by 2 and so on.
+
+Example:
+
+* `note delete 1` +
+Deletes the first note in the list.
+
+
+[[Feature-Note-List]]
+==== Listing notes
+
+Display the list of notes in the command result box. +
+Format: `note list`
+
+[NOTE]
+The note is rendered on the User Interface on load. However, note lengths that exceed the size of allocated panel might have their content truncated. Using the list function is useful in this case to see the full content of the notes.
+
+The options supported by this feature includes: +
+*_-This command does not support any additional options-_*
+
+Example:
+
+* `note list` +
+Lists the notes.
+
+=== Statistics - `statistics`
+
+==== Generating a Statistics report
+
+Create statistics reports of student scores using excel data files. The statistics generated is based
+on the calculated weighted score of the input data. +
+Format: `statistics file/... print/...(optional)`
+
+The options supported by this feature includes:
+
+. `file` - The absolute/relative file path of the data file.
+. `print(optional)` - The filename of the printable report you wish to generate.
+
+[NOTE]
+The statistics feature only supports file type in the ‘Excel’ format. Data files are to end with the _’.xlsx’_ extension.
+
+[NOTE]
+The `print` option allows the generation of a _'.png'_ file containing a snapshot of the statistics report generated. Regardless of the print specifications, a new window is opened with the statistics report.
+
+[NOTE]
+The statistics report is stored in the same place as where the JAR file is installed. The report can be found under a newly created `printable` directory. If the directory exists beforehand, no new directory is created.
+
+[NOTE]
+Filenames without _`.png`_ extension will automatically have the extension appended to the end of the file name.
+
+[NOTE]
+If the file name specified already exists in the printable directory, it will overwrite the existing file.
+
+Examples:
+
+* *View Statistics Report (without saving)*: `statistics file/C:\Users\SampleUser\Desktop\6B Prelim Scores.xlsx` +
+Shows the statistics report for excel file named _’6B Prelim Scores’_.
+
+* *View and Save Statistics Report*: `statistics file/C:\Users\SampleUser\Desktop\6B Prelim Scores.xlsx print/6B Prelim Performance Report` +
+Shows the statistics report for excel file named _’6B Prelim Scores’_. It also saves an image file containing a snapshot of the statistics report in the _’printable’_ directory with name _’6B Prelim Performance Report’_.
+
+*Data File Specifications*
+
+The data file needs to be specified in the following format to ensure that the statistics report is successfully generated. +
+
+[WARNING]
+Failure to adhere to the following specifications might result in either the excel file being rejected or erroneous statistics.
+
+* *Data starts at cell A1.*
+* *First row begins with the cell `Students`, followed by their names. (e.g. row 1 of 4 cells having `Students`, `Jason`, `Mike` and `Peter`)*
+* *First column states the different subjects starting from the second topmost cell. (e.g column 1 of 4 cells having `Students`, `Math`, `Science` and `English`.)*
+* *All student names have unique identifiers. (e.g. two students named Jason should be identified as `Jason 1` and `Jason 2`)*
+* *All students have a corresponding score for all subjects*
+* *All scores are numeric characters (integer or decimals)*
+
+[WARNING]
+Failure to adhere to the following specifications might result in some of the statistical data generated not being useful to the user.
+
+* *All scores should be in percentage terms. (0 ~ 100)*
+
+The statistics report generated uses weighted average scores across the different subjects to perform analysis. All scores carry equal weight. The statistics generated
+allow you to see some of the common descriptive statistics and their relative distributions both in terms of frequency and percentile terms.
+
+The figure below illustrates a sample data set that fulfills all of the above specifications.
+
+image::ExcelFormat.png[]
+
 === Help ​-​ `help`
 
 Opens up the help window. +
@@ -508,3 +655,10 @@ Note that all fields all mandatory unless stated otherwise.​
 * *Listing a Quiz* : `quiz list quizID/...`
 * *Showing only Questions of a Quiz* : `quiz showQuestions quizID/...`
 * *Showing only Answers of a Quiz* : `quiz showAnswers quizID/...`
+* *Creating a Note* : `note note/... desc/...`
+* *Creating a Note with Priority* : `note note/... desc/... priority/...`
+* *Editing a Note* : `note [INDEX] note/... desc/... priority/...`
+* *Deleting a Note* : `note delete [INDEX]`
+* *Listing Notes* : `note list`
+* *Generating Statistics* : `statistics file/...`
+* *Generating Statistics and Saving* : `statistics file/... print/...`

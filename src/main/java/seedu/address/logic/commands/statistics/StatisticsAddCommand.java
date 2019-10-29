@@ -47,7 +47,7 @@ public class StatisticsAddCommand extends StatisticsCommand {
 
     public void setPrintableAttributes(CommandResultType commandResultType) {
         if (!printableName.isEmpty()) {
-            String fileWithExtension = printableName.contains(".png") ? printableName : printableName + ".png";
+            String fileWithExtension = printableName.endsWith(".png") ? printableName : printableName + ".png";
             commandResultType.setPrintable(true);
             commandResultType.setPrintableName(fileWithExtension);
         }
