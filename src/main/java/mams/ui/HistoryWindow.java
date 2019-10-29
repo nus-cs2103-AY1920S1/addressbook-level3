@@ -129,4 +129,11 @@ public class HistoryWindow extends UiPart<Stage> {
     public void focus() {
         getRoot().requestFocus();
     }
+
+    /**
+     * Closes the history window.
+     */
+    public void close() {
+        getRoot().close();
+    }
 }

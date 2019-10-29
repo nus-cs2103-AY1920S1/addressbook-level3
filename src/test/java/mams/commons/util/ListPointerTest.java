@@ -13,16 +13,16 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 /**
- * Although the ListElementPointer is primarily used to iterate a List of InputOutput
+ * Although the ListPointer is primarily used to iterate a List of InputOutput
  * objects in MAMS, the unit tests will focus only on seeing if it works with String since
- * it is not within the scope of a ListElementPointer unit test to check if it works with InputOutput.
+ * it is not within the scope of a ListPointer unit test to check if it works with InputOutput.
  */
-public class ListElementPointerTest {
+public class ListPointerTest {
     private static final String FIRST_ELEMENT = "first";
     private static final String SECOND_ELEMENT = "second";
 
     private List<String> stringElements;
-    private ListElementPointer<String> stringPointer;
+    private ListPointer<String> stringPointer;
 
     @BeforeEach
     public void setUp() {
@@ -34,15 +34,15 @@ public class ListElementPointerTest {
     @Test
     public void constructor_defensiveCopy_backingListUnmodified() {
         List<String> list = new ArrayList<>();
-        stringPointer = new ListElementPointer<String>(list);
+        stringPointer = new ListPointer<String>(list);
         list.add(FIRST_ELEMENT);
-        ListElementPointer<String> emptyPointer = new ListElementPointer<>(Collections.emptyList());
+        ListPointer<String> emptyPointer = new ListPointer<>(Collections.emptyList());
         assertEquals(emptyPointer, stringPointer);
     }
 
     @Test
     public void emptyList() {
-        stringPointer = new ListElementPointer<String>(new ArrayList<>());
+        stringPointer = new ListPointer<String>(new ArrayList<>());
         assertCurrentFailure();
         assertPreviousFailure();
         assertNextFailure();
@@ -54,7 +54,7 @@ public class ListElementPointerTest {
     public void singleElementList() {
         List<String> list = new ArrayList<>();
         list.add(FIRST_ELEMENT);
-        stringPointer = new ListElementPointer<String>(list);
+        stringPointer = new ListPointer<String>(list);
 
         assertCurrentSuccess(FIRST_ELEMENT);
         assertPreviousFailure();
@@ -68,7 +68,7 @@ public class ListElementPointerTest {
 
     @Test
     public void multipleElementsList() {
-        stringPointer = new ListElementPointer<String>(stringElements);
+        stringPointer = new ListPointer<String>(stringElements);
         String thirdElement = "third";
         stringPointer.add(thirdElement);
 
@@ -84,13 +84,13 @@ public class ListElementPointerTest {
 
     @Test
     public void equals() {
-        ListElementPointer firstPointer = new ListElementPointer<String>(stringElements);
+        ListPointer firstPointer = new ListPointer<String>(stringElements);
 
         // same object -> returns true
         assertTrue(firstPointer.equals(firstPointer));
 
         // same values -> returns true
-        ListElementPointer firstPointerCopy = new ListElementPointer<String>(stringElements);
+        ListPointer firstPointerCopy = new ListPointer<String>(stringElements);
         assertTrue(firstPointer.equals(firstPointerCopy));
 
         // different types -> returns false
@@ -100,8 +100,8 @@ public class ListElementPointerTest {
         assertFalse(firstPointer.equals(null));
 
         // different elements -> returns false
-        ListElementPointer differentElementPointer =
-                new ListElementPointer<String>(Collections.singletonList(SECOND_ELEMENT));
+        ListPointer differentElementPointer =
+                new ListPointer<String>(Collections.singletonList(SECOND_ELEMENT));
         assertFalse(firstPointer.equals(differentElementPointer));
 
         // different index -> returns false

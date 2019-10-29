@@ -10,7 +10,7 @@ import static mams.logic.commands.CommandTestUtil.showAppealAtIndex;
 import static mams.logic.commands.CommandTestUtil.showModuleAtIndex;
 import static mams.logic.commands.CommandTestUtil.showStudentAtIndex;
 import static mams.testutil.TypicalIndexes.INDEX_FIRST;
-import static mams.testutil.TypicalIndexes.INDEX_ONE_MILLION;
+import static mams.testutil.TypicalIndexes.INDEX_MAX_INT;
 import static mams.testutil.TypicalIndexes.INDEX_SECOND;
 import static mams.testutil.TypicalIndexes.INDEX_THIRD;
 import static mams.testutil.TypicalMams.getTypicalMams;
@@ -87,26 +87,26 @@ public class ViewCommandTest {
 
     @Test
     public void verifyAllIndexesWithinBounds_outOfBounds_exceptionThrown() {
-        // appeal index out of bounds at an impossibly high number (one million)
-        params.setAppealIndex(INDEX_ONE_MILLION);
+        // appeal index out of bounds at an impossibly high number (Integer.MAX_VALUE)
+        params.setAppealIndex(INDEX_MAX_INT);
         assertThrows(AssertionError.class, () -> assertWithinBoundsSuccess(params, model));
 
         // appeal index just outside bounds of list (size of list + 1)
         params.setAppealIndex(Index.fromOneBased(model.getFilteredAppealList().size() + 1));
         assertThrows(AssertionError.class, () -> assertWithinBoundsSuccess(params, model));
 
-        // module index out of bounds at an impossibly high number (one million)
+        // module index out of bounds at an impossibly high number (Integer.MAX_VALUE)
         params = new ViewCommand.ViewCommandParameters();
-        params.setModuleIndex(INDEX_ONE_MILLION);
+        params.setModuleIndex(INDEX_MAX_INT);
         assertThrows(AssertionError.class, () -> assertWithinBoundsSuccess(params, model));
 
         // module index just outside bounds of list (size of list + 1)
         params.setModuleIndex(Index.fromOneBased(model.getFilteredModuleList().size() + 1));
         assertThrows(AssertionError.class, () -> assertWithinBoundsSuccess(params, model));
 
-        // student index out of bounds at an impossibly high number (one million)
+        // student index out of bounds at an impossibly high number (Integer.MAX_VALUE)
         params = new ViewCommand.ViewCommandParameters();
-        params.setStudentIndex(INDEX_ONE_MILLION);
+        params.setStudentIndex(INDEX_MAX_INT);
         assertThrows(AssertionError.class, () -> assertWithinBoundsSuccess(params, model));
 
         // student index just outside bounds of list (size of list + 1)
@@ -121,6 +121,11 @@ public class ViewCommandTest {
         assertThrows(AssertionError.class, () -> assertWithinBoundsSuccess(params, model));
     }
 
+    /**
+     * It is {@code ViewCommandParser}'s responsibility to check that the {@code ViewCommandParameter} object
+     * contains at least one actionable Index. However, ViewCommand should defensively check the condition
+     * as well.
+     */
     @Test
     public void execute_viewCommandParameterHasNoIndexes_throwsException() {
         ViewCommand viewCommand = new ViewCommand(params);
@@ -248,34 +253,34 @@ public class ViewCommandTest {
         // student index out of bounds
         params.setAppealIndex(INDEX_FIRST);
         params.setModuleIndex(INDEX_FIRST);
-        params.setStudentIndex(INDEX_ONE_MILLION); // out of bounds
+        params.setStudentIndex(INDEX_MAX_INT); // out of bounds
         assertCommandFailure(new ViewCommand(params),
                 model, MESSAGE_INVALID_STUDENT_DISPLAYED_INDEX);
         assertEquals(model, expectedModel);
 
         // module index out of bounds
         params.setStudentIndex(INDEX_FIRST);
-        params.setModuleIndex(INDEX_ONE_MILLION); // out of bounds
+        params.setModuleIndex(INDEX_MAX_INT); // out of bounds
         assertCommandFailure(new ViewCommand(params),
                 model, MESSAGE_INVALID_MODULE_DISPLAYED_INDEX);
         assertEquals(model, expectedModel);
 
         // appeal index out of bounds
         params.setModuleIndex(INDEX_FIRST);
-        params.setAppealIndex(INDEX_ONE_MILLION); // out of bounds
+        params.setAppealIndex(INDEX_MAX_INT); // out of bounds
         assertCommandFailure(new ViewCommand(params),
                 model, MESSAGE_INVALID_APPEAL_DISPLAYED_INDEX);
         assertEquals(model, expectedModel);
 
         // both appeal and module index out of bounds
-        params.setModuleIndex(INDEX_ONE_MILLION);
+        params.setModuleIndex(INDEX_MAX_INT);
         assertCommandFailure(new ViewCommand(params),
                 model, MESSAGE_INVALID_APPEAL_DISPLAYED_INDEX + "\n"
                         + MESSAGE_INVALID_MODULE_DISPLAYED_INDEX);
         assertEquals(model, expectedModel);
 
         // all indexes out of bounds
-        params.setStudentIndex(INDEX_ONE_MILLION);
+        params.setStudentIndex(INDEX_MAX_INT);
         assertCommandFailure(new ViewCommand(params),
                 model, MESSAGE_INVALID_APPEAL_DISPLAYED_INDEX + "\n"
                         + MESSAGE_INVALID_MODULE_DISPLAYED_INDEX + "\n"

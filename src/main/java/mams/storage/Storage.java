@@ -5,6 +5,7 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 import mams.commons.exceptions.DataConversionException;
+import mams.logic.ReadOnlyCommandHistory;
 import mams.model.ReadOnlyMams;
 import mams.model.ReadOnlyUserPrefs;
 import mams.model.UserPrefs;
@@ -12,7 +13,7 @@ import mams.model.UserPrefs;
 /**
  * API of the Storage component
  */
-public interface Storage extends MamsStorage, UserPrefsStorage {
+public interface Storage extends MamsStorage, UserPrefsStorage, CommandHistoryStorage {
 
     @Override
     Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;
@@ -28,5 +29,11 @@ public interface Storage extends MamsStorage, UserPrefsStorage {
 
     @Override
     void saveMams(ReadOnlyMams mams) throws IOException;
+
+    @Override
+    Optional<ReadOnlyCommandHistory> readCommandHistory() throws DataConversionException, IOException;
+
+    @Override
+    void saveCommandHistory(ReadOnlyCommandHistory commandHistory) throws IOException;
 
 }

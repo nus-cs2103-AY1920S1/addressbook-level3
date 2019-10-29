@@ -6,11 +6,16 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 /** Class that stores the history of all user inputs into MAMS */
-public class CommandHistory {
+public class CommandHistory implements ReadOnlyCommandHistory {
     private final ObservableList<InputOutput> inputOutputHistory = FXCollections.observableArrayList();
     private final ObservableList<InputOutput> unmodifiableInputOutputHistory =
             FXCollections.unmodifiableObservableList(inputOutputHistory);
 
+    public CommandHistory() {}
+
+    public CommandHistory(ReadOnlyCommandHistory commandHistory) {
+        this.inputOutputHistory.addAll(commandHistory.getInputOutputHistory());
+    }
 
     /**
      * Adds the entered input text from the user and the resulting command feedback into a list.

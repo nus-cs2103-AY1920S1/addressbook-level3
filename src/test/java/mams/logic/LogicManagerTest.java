@@ -24,6 +24,7 @@ import mams.model.Model;
 import mams.model.ModelManager;
 import mams.model.ReadOnlyMams;
 import mams.model.UserPrefs;
+import mams.storage.JsonCommandHistoryStorage;
 import mams.storage.JsonMamsStorage;
 import mams.storage.JsonUserPrefsStorage;
 import mams.storage.StorageManager;
@@ -42,7 +43,9 @@ public class LogicManagerTest {
         JsonMamsStorage mamsStorage =
                 new JsonMamsStorage(temporaryFolder.resolve("mams.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
-        StorageManager storage = new StorageManager(mamsStorage, userPrefsStorage);
+        JsonCommandHistoryStorage commandHistoryStorage =
+                new JsonCommandHistoryStorage(temporaryFolder.resolve("commandHistory.json"));
+        StorageManager storage = new StorageManager(mamsStorage, userPrefsStorage, commandHistoryStorage);
         logic = new LogicManager(model, storage);
     }
 
@@ -76,7 +79,9 @@ public class LogicManagerTest {
                 new JsonMamsIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionMams.json"));
         JsonUserPrefsStorage userPrefsStorage =
                 new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
-        StorageManager storage = new StorageManager(mamsStorage, userPrefsStorage);
+        JsonCommandHistoryStorage commandHistoryStorage =
+                new JsonCommandHistoryStorage(temporaryFolder.resolve("ioExceptionCommandHistory.json"));
+        StorageManager storage = new StorageManager(mamsStorage, userPrefsStorage, commandHistoryStorage);
         logic = new LogicManager(model, storage);
 
         // Execute add command removed, to be implemented with new test later.

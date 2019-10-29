@@ -2,11 +2,13 @@ package mams.logic;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.Optional;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import mams.commons.core.GuiSettings;
 import mams.commons.core.LogsCenter;
+import mams.commons.exceptions.DataConversionException;
 import mams.logic.commands.Command;
 import mams.logic.commands.CommandResult;
 import mams.logic.commands.exceptions.CommandException;
@@ -32,10 +34,23 @@ public class LogicManager implements Logic {
     private final CommandHistory commandHistory;
 
     public LogicManager(Model model, Storage storage) {
+        Optional<ReadOnlyCommandHistory> commandHistoryOptional;
+        ReadOnlyCommandHistory startingCommandHistory;
+
         this.model = model;
         this.storage = storage;
         this.mamsParser = new MamsParser();
-        this.commandHistory = new CommandHistory();
+        try { // attempt to load CommandHistory from disk
+            commandHistoryOptional = storage.readCommandHistory();
+            if (!commandHistoryOptional.isPresent()) {
+                logger.info("Command history data file not found. Starting with a blank command history...");
+            }
+            startingCommandHistory = commandHistoryOptional.orElseGet(CommandHistory::new);
+        } catch (IOException | DataConversionException e) {
+            logger.warning("Problem while reading from the file. Will be starting with an empty MAMS");
+            startingCommandHistory = new CommandHistory();
+        }
+        this.commandHistory = new CommandHistory(startingCommandHistory);
     }
 
     @Override
@@ -55,6 +70,12 @@ public class LogicManager implements Logic {
             throw e; // after getting message, rethrow. stacktrace is not lost
         } catch (IOException ioe) {
             commandHistory.add(commandText, ioe.getMessage());
+            throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
+        }
+
+        try {
+            storage.saveCommandHistory(commandHistory);
+        } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
         return commandResult;

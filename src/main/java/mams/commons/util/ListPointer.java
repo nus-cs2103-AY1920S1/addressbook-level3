@@ -5,17 +5,18 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 /**
- * Class representing an iterable pointer to a List.
+ * Class representing an iterable pointer to a List. Now adapted to take in any List of generic variable T,
+ * makes a defensive copy of it internally, then returns an iterable pointer to the internal List.
  */
-public class ListElementPointer<T> {
+public class ListPointer<T> {
     private List<T> list;
     private int index;
 
     /**
-     * Constructs {@code ListElementPointer}, and initialize cursor
+     * Constructs {@code ListPointer}, and initialize cursor
      * to point to the last element in {@code list}.
      */
-    public ListElementPointer(List<T> list) {
+    public ListPointer(List<T> list) {
         this.list = new ArrayList<>(list);
         index = this.list.size() - 1;
     }
@@ -98,12 +99,12 @@ public class ListElementPointer<T> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof ListElementPointer)) {
+        if (!(other instanceof ListPointer)) {
             return false;
         }
 
         // state check
-        ListElementPointer iterator = (ListElementPointer) other;
+        ListPointer iterator = (ListPointer) other;
         return list.equals(iterator.list) && index == iterator.index;
     }
 }

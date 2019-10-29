@@ -7,7 +7,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Region;
-import mams.commons.util.ListElementPointer;
+import mams.commons.util.ListPointer;
 import mams.logic.InputOutput;
 import mams.logic.Logic;
 import mams.logic.commands.CommandResult;
@@ -25,7 +25,7 @@ public class CommandBox extends UiPart<Region> {
     private final CommandExecutor commandExecutor;
     private final List<InputOutput> commandHistory;
 
-    private ListElementPointer<InputOutput> commandHistoryPointer;
+    private ListPointer<InputOutput> commandHistoryPointer;
 
     @FXML
     private TextField commandTextField;
@@ -34,7 +34,7 @@ public class CommandBox extends UiPart<Region> {
         super(FXML);
         this.commandExecutor = commandExecutor;
         this.commandHistory = commandHistory;
-        this.commandHistoryPointer = new ListElementPointer<InputOutput>(commandHistory);
+        this.commandHistoryPointer = new ListPointer<InputOutput>(commandHistory);
         // calls #setStyleToDefault() whenever there is a change to the text of the command box.
         commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
     }
@@ -109,7 +109,7 @@ public class CommandBox extends UiPart<Region> {
      * Initializes the history snapshot.
      */
     private void initHistory() {
-        commandHistoryPointer = new ListElementPointer<InputOutput>(commandHistory);
+        commandHistoryPointer = new ListPointer<InputOutput>(commandHistory);
         // add an empty string to represent the most-recent end of historySnapshot, to be shown to
         // the user if she tries to navigate past the most-recent end of the historySnapshot.
         commandHistoryPointer.add(new InputOutput("", ""));

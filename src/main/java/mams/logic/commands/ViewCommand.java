@@ -34,11 +34,11 @@ public class ViewCommand extends Command {
             + "Parameters: KEYWORD "
             + " [" + PREFIX_APPEAL + "INDEX" + "] "
             + " [" + PREFIX_MODULE + "INDEX" + "] "
-            + "  [" + PREFIX_STUDENT + "INDEX" + "]\n"
+            + " [" + PREFIX_STUDENT + "INDEX" + "]\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_APPEAL + "1 "
             + PREFIX_MODULE + "11 "
-            + PREFIX_STUDENT + "10\n";
+            + PREFIX_STUDENT + "10";
 
     public static final String MESSAGE_VIEW_SUCCESS = "Displayed items with ID: %1$s";
 
@@ -51,7 +51,7 @@ public class ViewCommand extends Command {
     /**
      * Execute ViewCommand and displays the expanded view of items in the specified indexes.
      *
-     * In the case of multiple specifed indexes:
+     * In the case of multiple specified indexes:
      * If at least one of the parameters are out of bounds, then no lists will be updated.
      * That is to say, even if the appealIndex was valid, but the supplied studentIndex in
      * ViewCommandParameters was out of bounds, then appeal list will not be updated and an
@@ -59,7 +59,7 @@ public class ViewCommand extends Command {
      * will have to go back and delete the appeal list argument from the previous command
      * before he can reuse the command. (Remember that if ViewCommand is performed successfully on an appeal,
      * the new displayed appeal list now only has one item with an Index of 1, so the old Index is no
-     * longer valid, and old command is no longer reusable)
+     * longer valid, and old command is hence no longer reusable)
      */
     @Override
     public CommandResult execute(Model model) throws CommandException {
