@@ -6,10 +6,6 @@ public abstract class AddCommand extends Command {
     public static final String COMMAND_WORD = "add";
     public static final String MESSAGE_ADD_SUCCESS = "Added: %s";
     // todo: how to use month and year shown by calendar instead? Possible: pass in this as arg when calling parser
-    public static final String MESSAGE_DATE_RESTRICTION = "Start date must not be after end date. "
-            + "Note that START DAY is compulsory. However, START MONTH and START YEAR are not. "
-            + "If they are not specified, the current month and/or year will be used. "
-            + "If any fields (day, month or year) of end date are not specified, those from the start date are used.";
     public static final String MESSAGE_VALID_TYPES = "The only valid event types are 'commitment', 'holiday', "
             + "'school_break' and 'trip'.";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds the specified event (commitment, holiday, "

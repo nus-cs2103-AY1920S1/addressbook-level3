@@ -140,7 +140,9 @@ public class EventManager {
         if (!engagements.containsKey(event)) {
             throw new NoSuchElementException("There is no event at this time.");
         }
+
         List<Event> requiredList = engagements.get(event);
+
         if (!isDuplicateEvent(event, requiredList)) {
             String requiredListStr = requiredList.stream()
                     .map(Event::toString)
@@ -151,7 +153,12 @@ public class EventManager {
                     requiredListStr);
             throw new NoSuchElementException(exceptionMessage);
         }
+
         requiredList.remove(event);
+        if (requiredList.isEmpty()) {
+            engagements.remove(event);
+        }
+
         try {
             engagedSchedule.remove(event);
         } catch (NoSuchElementException e) {
@@ -164,7 +171,9 @@ public class EventManager {
         if (!vacations.containsKey(event)) {
             throw new NoSuchElementException("There is no vacation at this time.");
         }
+
         List<Event> requiredList = vacations.get(event);
+
         if (!isDuplicateEvent(event, requiredList)) {
             String requiredListStr = requiredList.stream()
                     .map(Event::toString)
@@ -175,13 +184,27 @@ public class EventManager {
                     requiredListStr);
             throw new NoSuchElementException(exceptionMessage);
         }
+
         requiredList.remove(event);
+        if (requiredList.isEmpty()) {
+            vacations.remove(event);
+        }
+
         try {
             vacationSchedule.remove(event);
         } catch (NoSuchElementException e) {
             assert false : "This event should exist in vacationSchedule";
         }
         return true;
+    }
+
+    public boolean isAvailable(EventQuery eventQuery) {
+        Event placeHolderEvent = Event.getEventPlaceHolder(eventQuery);
+        boolean hasNoEventsPlanned = !engagedSchedule.hasCollision(placeHolderEvent);
+        System.out.println("HAS NO EVENTS: " + hasNoEventsPlanned);
+        boolean hasVacation = vacationSchedule.hasCollision(placeHolderEvent);
+        System.out.println("HAS VACATION: " + hasVacation);
+        return hasNoEventsPlanned && hasVacation;
     }
 
     public String suggest(EventQuery eventQuery) {
@@ -261,17 +284,29 @@ public class EventManager {
                         return;
                     }
                     EventQuery previous = availableBlocks.getLast();
+                    Date previousStart = previous.getStart();
                     Date currentStart = current.getStart();
                     Date currentEnd = current.getEnd();
+
+                    boolean currentStartsDayAfter = currentStart.equals(previous.getEnd().getNextDate());
+
+                    if (currentStartsDayAfter) {
+                        EventQuery joinedBlock = new EventQuery(previousStart, currentEnd);
+                        availableBlocks.removeLast();
+                        availableBlocks.add(joinedBlock);
+                        return;
+                    }
+
                     if (!previous.isOverlap(current)) {
                         availableBlocks.add(new EventQuery(currentStart, currentEnd));
                         return;
                     }
-                    Date previousStart = previous.getStart();
+
                     boolean isPrevEndsLater = previous.isEndsAfter(currentEnd);
                     if (isPrevEndsLater) {
                         return;
                     }
+
                     EventQuery joinedBlock = new EventQuery(previousStart, currentEnd);
                     availableBlocks.removeLast();
                     availableBlocks.add(joinedBlock);

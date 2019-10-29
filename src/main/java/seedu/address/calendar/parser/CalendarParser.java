@@ -37,7 +37,7 @@ public class CalendarParser {
         switch(commandWord) {
 
         case ShowCommand.COMMAND_WORD:
-            return new ShowParser().parse(arguments);
+            return new ShowCommandParser().parse(arguments);
 
         case AddCommand.COMMAND_WORD:
             return new AddCommandParser().parse(arguments);
@@ -47,6 +47,9 @@ public class CalendarParser {
 
         case SuggestCommand.COMMAND_WORD:
             return new SuggestCommandParser().parse(arguments);
+
+        case CheckCommand.COMMAND_WORD:
+            return new CheckCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

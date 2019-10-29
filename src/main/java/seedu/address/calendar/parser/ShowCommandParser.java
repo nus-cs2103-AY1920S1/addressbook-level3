@@ -9,7 +9,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 
 import java.util.Optional;
 
-public class ShowParser {
+public class ShowCommandParser {
     private static final String MESSAGE_INVALID_COMMAND_FORMAT = "Incorrect month/year format. %s";
 
     ShowCommand parse(String args) throws ParseException {

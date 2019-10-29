@@ -72,6 +72,10 @@ public class Calendar {
         return events.remove(event);
     }
 
+    public boolean isAvailable(EventQuery eventQuery) {
+        return events.isAvailable(eventQuery);
+    }
+
     public String suggest(EventQuery eventQuery) {
         return events.suggest(eventQuery);
     }

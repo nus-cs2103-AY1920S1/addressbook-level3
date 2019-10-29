@@ -12,10 +12,6 @@ public class SuggestCommand extends Command {
     public static final String COMMAND_WORD = "suggest";
     public static final String MESSAGE_SUGGESTION_SUCCESS = "Here is a list of suggestion for you:\n%s";
     public static final String MESSAGE_SUGGESTION_FAILED = "No available block that meets your constraints.";
-    public static final String MESSAGE_DATE_RESTRICTION = "Start date must not be after end date. "
-            + "Note that START DAY is compulsory. However, START MONTH and START YEAR are not. "
-            + "If they are not specified, the current month and/or year will be used. "
-            + "If any fields (day, month or year) of end date are not specified, those from the start date are used.";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Suggests when you can travel "
             + "during a period of time specified by the start and end date. "
             + "If you need the suggested block of time to be of a minimum number of days, please specify it. "

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.NoSuchElementException;
-
+// todo: remove debug message
 public class IntervalSearchTree<S extends IntervalPart<S>, T extends Interval<S, T>> {
     private Node root = null;
     private HashMap<Interval, Integer> intervalTracker = new HashMap<>();
@@ -27,15 +27,15 @@ public class IntervalSearchTree<S extends IntervalPart<S>, T extends Interval<S,
 
         if (compare == 0) {
             incrementInterval(interval);
+            return root;
         } else if (compare > 0) {
-            updateRootMaxVal(interval, root);
             root.rightNode = insert(interval, rightSubtree);
         } else {
-            updateRootMaxVal(interval, root);
             root.leftNode = insert(interval, leftSubtree);
         }
 
-        root.height = computeHeight(leftSubtree, rightSubtree);
+        updateRootMaxVal(root.leftNode, root, root.rightNode);
+        root.height = computeHeight(root.leftNode, root.rightNode);
         return avlBalance(root);
     }
 
@@ -70,10 +70,13 @@ public class IntervalSearchTree<S extends IntervalPart<S>, T extends Interval<S,
         if (compare == 0) {
             decrementInterval(interval);
             if (leftSubtree == null) {
+                // todo: need to update max value
                 return rightSubtree;
             } else if (rightSubtree == null) {
+                // todo: need to update max value (compare with current and left child (if any)
                 return leftSubtree;
             } else {
+                // todo: need to update max value
                 Node rootPointer = root;
                 root = findMin(rootPointer.rightNode);
                 root.rightNode = deleteMin(rootPointer.rightNode);
@@ -85,8 +88,8 @@ public class IntervalSearchTree<S extends IntervalPart<S>, T extends Interval<S,
             root.leftNode = remove(interval, leftSubtree);
         }
 
-        updateRootMaxVal(leftSubtree, root, rightSubtree);
-        root.height = computeHeight(leftSubtree, rightSubtree);
+        updateRootMaxVal(root.leftNode, root, root.rightNode);
+        root.height = computeHeight(root.leftNode, root.rightNode);
         return avlBalance(root);
     }
 
@@ -108,13 +111,24 @@ public class IntervalSearchTree<S extends IntervalPart<S>, T extends Interval<S,
     }
 
     private T getCollision(T newInterval, Node subtreeRoot) {
+        System.out.println("\nnew");
+
         if (subtreeRoot == null || newInterval.isStartsAfter(subtreeRoot.max)) {
+            System.out.println("\n in order:");
+            traverse(root);
+            System.out.println("\n pre order: ");
+            preOrder(root);
             return null;
         }
 
         T currentInterval = subtreeRoot.interval;
+        System.out.println("\n\n hey");
+        System.out.println("new interval: " + newInterval);
+        System.out.println("Current interval: " + currentInterval);
 
         if (currentInterval.isOverlap(newInterval)) {
+            System.out.println("overlaps");
+            traverse(root);
             return currentInterval;
         }
 
@@ -122,10 +136,34 @@ public class IntervalSearchTree<S extends IntervalPart<S>, T extends Interval<S,
         Node rightSubtree = subtreeRoot.rightNode;
 
         if (leftSubtree != null && !newInterval.isStartsAfter(leftSubtree.max)) {
+            System.out.println("left: " + leftSubtree.max);
             return getCollision(newInterval, leftSubtree);
         } else {
+            System.out.println("next");
             return getCollision(newInterval, rightSubtree);
         }
+    }
+
+    public void traverse(Node node) {
+        if (node == null) {
+            return;
+        }
+        traverse(node.leftNode);
+        System.out.println(node.interval);
+        System.out.println(node.max);
+        System.out.println(" height: " + node.height);
+        traverse(node.rightNode);
+    }
+
+    public void preOrder(Node node) {
+        if (node == null) {
+            return;
+        }
+        System.out.println(node.interval);
+        System.out.println(node.max);
+        System.out.println(" height: " + node.height);
+        preOrder(node.leftNode);
+        preOrder(node.rightNode);
     }
 
     public List<T> getCollisions(Interval<S, ?> newInterval) {
@@ -140,6 +178,7 @@ public class IntervalSearchTree<S extends IntervalPart<S>, T extends Interval<S,
         }
 
         T currentInterval = subtreeRoot.interval;
+
         if (currentInterval.isOverlap(newInterval)) {
             collisions.add(currentInterval);
         }
@@ -160,12 +199,6 @@ public class IntervalSearchTree<S extends IntervalPart<S>, T extends Interval<S,
 
     /* Helper functions that maintain interval tree. */
 
-    private void updateRootMaxVal(T interval, Node root) {
-        if (interval.isEndsAfter(root.max)) {
-            root.max = interval.getEnd();
-        }
-    }
-
     private void updateRootMaxVal(Node toUpdate, Node otherNode) {
         if (otherNode == null) {
             return;
@@ -179,30 +212,33 @@ public class IntervalSearchTree<S extends IntervalPart<S>, T extends Interval<S,
         }
 
         if (leftSubtree == null) {
-            root.max = getMaxIntervalPart(root, rightSubtree);
+            root.max = getMaxIntervalPart(root.interval.getEnd(), rightSubtree.max);
             return;
         }
 
         if (rightSubtree == null) {
-            root.max = getMaxIntervalPart(root, leftSubtree);
+            root.max = getMaxIntervalPart(root.interval.getEnd(), leftSubtree.max);
             return;
         }
 
-        S intermediateMax = getMaxIntervalPart(leftSubtree, rightSubtree);
-        root.max = getMaxIntervalPart(root, intermediateMax);
+        S maxBetweenLeftAndRight = getMaxIntervalPart(leftSubtree.max, rightSubtree.max);
+        root.max = getMaxIntervalPart(root.interval.getEnd(), maxBetweenLeftAndRight);
     }
 
-    private S getMaxIntervalPart(Node toUpdate, Node otherNode) {
-        S otherNodeMax = otherNode.max;
-        return getMaxIntervalPart(toUpdate, otherNodeMax);
+    private S getMaxIntervalPart(Node current, Node other) {
+        S currentEnd = current.interval.getEnd();
+        S otherMax = other.max;
+        return getMaxIntervalPart(currentEnd, otherMax);
     }
 
-    private S getMaxIntervalPart(Node toUpdate, S otherMax) {
-        S toUpdateMax = toUpdate.max;
-        if (otherMax.compareTo(toUpdateMax) > 0) {
-            return otherMax.copy();
+    private S getMaxIntervalPart(S currentEnd, S otherMax) {
+        if (currentEnd.compareTo(otherMax) < 0) {
+            System.out.println("\ninside, currentEnd: " + currentEnd + " other: " + otherMax);
+            return otherMax;
+        } else {
+            System.out.println("\nnext inside, currentEnd: " + currentEnd + " other: " + otherMax);
+            return currentEnd;
         }
-        return toUpdateMax;
     }
 
     /* Helper functions that maintain balanced AVL tree. */
@@ -272,10 +308,10 @@ public class IntervalSearchTree<S extends IntervalPart<S>, T extends Interval<S,
         Node rightSubtree = root.rightNode;
         root.rightNode = rightSubtree.leftNode;
         // update root's max value
-        updateRootMaxVal(root, rightSubtree.leftNode);
+        updateRootMaxVal(root.leftNode, root, rightSubtree.leftNode);
         rightSubtree.leftNode = root;
         // update rightSubtree's max value
-        updateRootMaxVal(rightSubtree, root);
+        updateRootMaxVal(rightSubtree.rightNode, rightSubtree, root);
 
         // update height
         root.height = computeHeight(root.leftNode, root.rightNode);
@@ -288,10 +324,10 @@ public class IntervalSearchTree<S extends IntervalPart<S>, T extends Interval<S,
         Node leftSubtree = root.leftNode;
         root.leftNode = leftSubtree.rightNode;
         // update root's max value
-        updateRootMaxVal(root, leftSubtree.rightNode);
+        updateRootMaxVal(root.leftNode, root, leftSubtree.leftNode);
         leftSubtree.rightNode = root;
         // update leftSubtree's max value
-        updateRootMaxVal(leftSubtree, root);
+        updateRootMaxVal(leftSubtree.leftNode, leftSubtree, root);
 
         // update height
         root.height = computeHeight(root.leftNode, root.rightNode);
@@ -320,4 +356,48 @@ public class IntervalSearchTree<S extends IntervalPart<S>, T extends Interval<S,
         }
 
     }
+
+    /* Methods that perform basic operations. */
+    /*
+    public Node insert(T interval) {
+        root = insert(interval, root);
+        return root;
+    }
+
+    private Node insert(T interval, Node root) {
+        if (root == null) {
+            return new Node(interval);
+        }
+
+        int compare = interval.compareTo(root.interval);
+
+        if (compare == 0) {
+            // do nothing
+        } else if (compare < 0) {
+            root.leftNode = insert(interval, root.leftNode);
+        } else {
+
+        }
+    }
+
+    private class Node {
+        private S max;
+        private int height;
+        private T interval;
+        private Node leftNode;
+        private Node rightNode;
+
+        public Node(T interval, S max, int height) {
+            this.interval = interval;
+            leftNode = null;
+            rightNode = null;
+            this.max = max;
+            this.height = height;
+        }
+
+        public Node(T interval) {
+            this(interval, interval.getEnd(), 1);
+        }
+
+    }*/
 }

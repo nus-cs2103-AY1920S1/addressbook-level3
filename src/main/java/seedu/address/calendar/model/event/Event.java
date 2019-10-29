@@ -26,6 +26,12 @@ public class Event extends Interval<Date, Event> {
         this(name, startDate, endDate, Optional.empty(), eventType);
     }
 
+    public static Event getEventPlaceHolder(EventQuery eventQuery) {
+        Name name = new Name("");
+        EventType eventType = null;
+        return new Event(name, eventQuery.getStart(), eventQuery.getEnd(), Optional.empty(), eventType);
+    }
+
     public boolean isBusy() {
         return eventType.isBusy();
     }
