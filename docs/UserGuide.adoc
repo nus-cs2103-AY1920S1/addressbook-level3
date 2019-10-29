@@ -59,10 +59,25 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 * The user specifies the type of parameter given through a prefix. The list of allowed prefixes can be found in the table below: 
 
+[%header,cols=2*] 
+.List of Prefixes
+|===
+|Prefix
+|Description
 * Parameters can be given in any order
+|mn/
+|Member name
+|mi/
+|Member ID (set by you)
+|mt/
+|Member tag
+|tn/
+|Task name
+|s/
+|Task status
+|===
 
-** Example: If the command specifies `[t/TASK_NAME] [m/MEMBER_NAME]`, +
-`[m/MEMBER_NAME] [t/TASK_NAME]` is also acceptable`
+** Example: In `add-task tn/TASK_NAME s/TASK_STATUS`, the user inputs the name of the task after tn/ and inputs the status of the task after s/ , such as: `add task t/Finish Project Draft s/undone`
 
 * Date and Time is specified in the format `dd-mm-yyyy hh:mm`
 
@@ -73,20 +88,41 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 === Universal Commands
 
 ==== Accessing project dashboard page: `home` +
-This brings you to the project dashboard page +
-Format: `home`
-
+This command brings you to the project dashboard page, where tasks are displayed. +
+Format: `home` +
+Calling the 'home' command will bring you to the following page:
++
+image:: Home.png[width=790]
++
 ==== Accessing time management page: `calendar` +
 This brings you to the time management page where calendar and meeting times are displayed +
 Format: `calendar`
+This command brings you to the time management page where calendar and meeting times are displayed +
+Format: `calendar` +
+Calling the 'calendar' command will bring you to the following page:
++
+image::Calendar.png[width=790]
++
 
 ==== Accessing settings page: `settings` (Coming in v1.3) +
 This brings you to the settings page  +
 Format: `settings`
+This command brings you to the settings page  +
+Format: `settings` +
+Calling the 'settings' command will bring you to the following page:
++
+image::Settings.png[width=790]
++
 
 ==== View help: `help` +
 Displays a list of possible commands for the user +
 Format: `help`
+This command displays a list of possible commands that you can execute +
+Format: `help` +
+Calling the 'help' command will bring you to the following page:
++
+image::Help.png[width=790]
++
 
 '''
 
