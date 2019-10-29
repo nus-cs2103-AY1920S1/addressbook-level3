@@ -9,6 +9,7 @@ import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_RUNNING_TIME;
 import static seedu.ezwatchlist.model.Model.PREDICATE_SHOW_ALL_SHOWS;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -23,12 +24,14 @@ import seedu.ezwatchlist.model.Model;
 import seedu.ezwatchlist.model.actor.Actor;
 import seedu.ezwatchlist.model.show.Date;
 import seedu.ezwatchlist.model.show.Description;
+import seedu.ezwatchlist.model.show.Genres;
 import seedu.ezwatchlist.model.show.IsWatched;
 import seedu.ezwatchlist.model.show.Movie;
 import seedu.ezwatchlist.model.show.Name;
 import seedu.ezwatchlist.model.show.Poster;
 import seedu.ezwatchlist.model.show.RunningTime;
 import seedu.ezwatchlist.model.show.Show;
+import seedu.ezwatchlist.model.show.TvSeason;
 import seedu.ezwatchlist.model.show.TvShow;
 
 /**
@@ -105,17 +108,24 @@ public class EditCommand extends Command {
         RunningTime updatedRunningTime = editShowDescriptor.getRunningTime().orElse(showToEdit.getRunningTime());
         Set<Actor> updatedActors = editShowDescriptor.getActors().orElse(showToEdit.getActors());
         Poster updatedPoster = editShowDescriptor.getPoster().orElse(showToEdit.getPoster());
+        Genres updatedGenres = editShowDescriptor.getGenres().orElse(showToEdit.getGenres());
 
         if (showToEdit.getType().equals("Movie")) {
             Movie editedShow = new Movie(updatedName, updatedDescription, updatedIsWatched,
                     updatedDateOfRelease, updatedRunningTime, updatedActors);
             editedShow.setPoster(updatedPoster);
             return editedShow;
-        } else { //showToEdit.type.equals("Tv show")
+        } else { //Tv show
+            int updatedNumberOfEpisodesWatched = showToEdit.getNumOfEpisodesWatched();
+            int updatedTotalNumOfEpisodes = showToEdit.getTotalNumOfEpisodes();
+            List<TvSeason> updatedSeasons = editShowDescriptor.getSeasons().orElse(showToEdit.getTvSeasons());
+
             TvShow editedShow = new TvShow(updatedName, updatedDescription, updatedIsWatched,
-                    updatedDateOfRelease, updatedRunningTime, updatedActors, showToEdit.getNumOfEpisodesWatched(),
-                    showToEdit.getTotalNumOfEpisodes(), showToEdit.getTvSeasons());
+                    updatedDateOfRelease, updatedRunningTime, updatedActors, updatedNumberOfEpisodesWatched,
+                    updatedTotalNumOfEpisodes, updatedSeasons);
             editedShow.setPoster(updatedPoster);
+            editedShow.setGenres(updatedGenres);
+
             return editedShow;
         }
     }
@@ -151,6 +161,10 @@ public class EditCommand extends Command {
         private RunningTime runningTime;
         private Set<Actor> actors;
         private Poster poster;
+        private Genres genres;
+        private int numOfEpisodesWatched;
+        private int totalNumOfEpisodes;
+        private List<TvSeason> seasons;
 
         public EditShowDescriptor() {}
 
@@ -167,6 +181,10 @@ public class EditCommand extends Command {
             setRunningTime(toCopy.runningTime);
             setActors(toCopy.actors);
             setPoster(toCopy.poster);
+            setGenres(toCopy.genres);
+            setNumOfEpisodesWatched(toCopy.numOfEpisodesWatched);
+            setTotalNumOfEpisodes(toCopy.totalNumOfEpisodes);
+            setSeasons(toCopy.seasons);
         }
 
         /**
@@ -232,6 +250,31 @@ public class EditCommand extends Command {
             return Optional.ofNullable(poster);
         }
 
+        public void setGenres(Genres genres) {
+            this.genres = genres;
+        }
+
+        public Optional<Genres> getGenres() {
+            return Optional.ofNullable(genres);
+        }
+
+        public void setNumOfEpisodesWatched(int numOfEpisodesWatched) {
+            this.numOfEpisodesWatched = numOfEpisodesWatched;
+        }
+
+        public int getNumOfEpisodesWatched() {
+            return numOfEpisodesWatched;
+        }
+
+        public void setTotalNumOfEpisodes(int totalNumOfEpisodes) {
+            this.totalNumOfEpisodes = totalNumOfEpisodes;
+        }
+
+        public int getTotalNumOfEpisodes() {
+            return totalNumOfEpisodes;
+        }
+
+
         /**
          * Sets {@code actors} to this object's {@code actors}.
          * A defensive copy of {@code actors} is used internally.
@@ -247,6 +290,23 @@ public class EditCommand extends Command {
          */
         public Optional<Set<Actor>> getActors() {
             return (actors != null) ? Optional.of(Collections.unmodifiableSet(actors)) : Optional.empty();
+        }
+
+        /**
+         * Sets {@code seasons} to this object's {@code seasons}.
+         * A defensive copy of {@code seasons} is used internally.
+         */
+        public void setSeasons(List<TvSeason> seasons) {
+            this.seasons = (seasons != null) ? new ArrayList<>(seasons) : null;
+        }
+
+        /**
+         * Returns an unmodifiable season set, which throws {@code UnsupportedOperationException}
+         * if modification is attempted.
+         * Returns {@code Optional#empty()} if {@code season} is null.
+         */
+        public Optional<List<TvSeason>> getSeasons() {
+            return (seasons != null) ? Optional.of(Collections.unmodifiableList(seasons)) : Optional.empty();
         }
 
         @Override

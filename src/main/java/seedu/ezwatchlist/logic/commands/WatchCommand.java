@@ -19,6 +19,7 @@ import seedu.ezwatchlist.model.Model;
 import seedu.ezwatchlist.model.actor.Actor;
 import seedu.ezwatchlist.model.show.Date;
 import seedu.ezwatchlist.model.show.Description;
+import seedu.ezwatchlist.model.show.Genres;
 import seedu.ezwatchlist.model.show.IsWatched;
 import seedu.ezwatchlist.model.show.Movie;
 import seedu.ezwatchlist.model.show.Name;
@@ -127,12 +128,14 @@ public class WatchCommand extends Command {
         Poster poster = showToEdit.getPoster();
         int totalNumOfEpisodes = showToEdit.getTotalNumOfEpisodes();
         List<TvSeason> seasons = showToEdit.getTvSeasons();
+        Genres genres = showToEdit.getGenres();
 
         if (showToEdit.getType().equals("Movie")) {
 
             IsWatched updatedIsWatched = new IsWatched(!showToEdit.isWatched().value);
             Movie editedShow = new Movie(name, description, updatedIsWatched, dateOfRelease, runningTime, actors);
             editedShow.setPoster(poster);
+            editedShow.setGenres(genres);
 
             return editedShow;
         } else { //show is a tv show
@@ -186,6 +189,7 @@ public class WatchCommand extends Command {
             TvShow editedShow = new TvShow(name, description, updatedIsWatched, dateOfRelease, runningTime,
                     actors, numOfEpisodesWatched, totalNumOfEpisodes, seasons);
             editedShow.setPoster(poster);
+            editedShow.setGenres(genres);
 
             return editedShow;
         }
@@ -245,6 +249,7 @@ public class WatchCommand extends Command {
         private RunningTime runningTime;
         private Set<Actor> actors;
         private Poster poster;
+        private Genres genres;
         private int numOfEpisodesWatched;
         private int numOfSeasonsWatched;
         private int totalNumOfEpisodes;
@@ -265,6 +270,7 @@ public class WatchCommand extends Command {
             setRunningTime(toCopy.runningTime);
             setActors(toCopy.actors);
             setPoster(toCopy.poster);
+            setGenres(toCopy.genres);
             setNumOfEpisodesWatched(toCopy.numOfEpisodesWatched);
             setNumOfSeasonsWatched(toCopy.numOfSeasonsWatched);
             setTotalNumOfEpisodes(toCopy.totalNumOfEpisodes);
@@ -332,6 +338,14 @@ public class WatchCommand extends Command {
 
         public Optional<Poster> getPoster() {
             return Optional.ofNullable(poster);
+        }
+
+        public void setGenres(Genres genres) {
+            this.genres = genres;
+        }
+
+        public Optional<Genres> getGenres() {
+            return Optional.ofNullable(genres);
         }
 
         public void setNumOfEpisodesWatched(int numOfEpisodesWatched) {
