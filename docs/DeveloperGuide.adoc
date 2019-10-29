@@ -492,6 +492,45 @@ In Figure 2, the user first launches the app. After the user input a search comm
 *** Cons: User has to input either a name or actor to be searched.
 *** Cons: Logic is repetitive when searching based on actor or name.
 
+[[Implementation]]
+=== [Feature] Add feature
+==== Implementation
+The `AddCommand` extends `Command` and uses `AddCommandParser` to process the command entered by the user.
+
+There are two different ways of using add feature and both have different outcome.
+1. Adding show in the WatchList.
+2. Adding show found from online search.
+
+Given below is an example usage of scenario 1 and how the add mechanism behaves at each step.
+
+Step 1. The user launches the application and executes `add n/Joker...` command to add a show in the WatchList with the name "Joker".
+
+Step 2. Entering the command calls AddCommandParser#parse().
+
+Step 3. A new `AddCommand` is created, with the show to be added in AddCommand.
+
+Step 4. The `AddCommand#execute()` method is called, referencing the current model and add the show given by user to the `filteredShowList` found in model.
+
+
+The following activity diagram summarises the workflow of Add:
+
+image::AddActivityDiagram.png[]
+
+_Figure 3: Activity Diagram of `AddCommand`_
+
+In Figure 3, the user first launches the app. After the user input a add command, the program runs and add the show input by user into WatchList.
+
+==== Design Considerations
+
+===== Aspect: How `AddCommand` executes
+** Current choice: Create a show object and add it to a `filteredShowList` found in ModelManager.
+*** Pros: Easy to implement and make use of.
+*** Cons: May have performance issues in terms of memory usage.
+
+
+
+
+
 == Documentation
 
 Refer to the guide <<Documentation#, here>>.
