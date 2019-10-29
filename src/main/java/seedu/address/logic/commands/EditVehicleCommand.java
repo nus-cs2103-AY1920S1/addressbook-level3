@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_AVAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DISTRICT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_VNUM;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_VTYPE;
@@ -33,10 +34,11 @@ public class EditVehicleCommand extends Command {
             + "[" + PREFIX_DISTRICT + "VEHICLE DISTRICT] "
             + "[" + PREFIX_VTYPE + "VEHICLE NUMBER] "
             + "[" + PREFIX_VNUM + "VEHICLE TYPE] "
-            + "Example: " + COMMAND_WORD + "1"
-            + PREFIX_DISTRICT + "2"
-            + PREFIX_VTYPE + "Ambulance"
-            + PREFIX_VNUM + "5903S";
+            + "[" + PREFIX_AVAIL + "AVAILABILITY]\n"
+            + "Example: " + COMMAND_WORD + " 1 "
+            + PREFIX_DISTRICT + "2 "
+            + PREFIX_VTYPE + "Ambulance "
+            + PREFIX_VNUM + "5903S ";
 
 
     public static final String MESSAGE_DUPLICATE_VEHICLE = "This vehicle already exists in the address book.";
@@ -67,10 +69,11 @@ public class EditVehicleCommand extends Command {
         Vehicle vehicleToEdit = listOfVehicle.get(index.getZeroBased());
         Vehicle editedVehicle = createEditedVehicle(vehicleToEdit, editVehicle);
 
-        if (!editedVehicle.equals(vehicleToEdit) && model.hasVehicle(vehicleToEdit)) {
+        if (!editedVehicle.equals(vehicleToEdit) && model.hasVehicle(editedVehicle)) {
             throw new CommandException(MESSAGE_DUPLICATE_VEHICLE);
         }
-        if (editedVehicle.equals(vehicleToEdit)) {
+        if (editedVehicle.equals(vehicleToEdit) && editedVehicle.getDistrict().equals(vehicleToEdit.getDistrict())
+                && editedVehicle.getAvailability().equals(vehicleToEdit.getAvailability())) {
             throw new CommandException(MESSAGE_VEHICLE_NOT_EDITED);
         }
 
@@ -88,7 +91,7 @@ public class EditVehicleCommand extends Command {
         District vehicleDistrict = editDetails.getVehicleDistrict().orElse(vehicleToEdit.getDistrict());
         VehicleNumber vehicleNumber = editDetails.getVehicleNumber().orElse(vehicleToEdit.getVehicleNumber());
         VehicleType vehicleType = editDetails.getVehicleType().orElse(vehicleToEdit.getVehicleType());
-        Availability vehicleAvailability = vehicleToEdit.getAvailability();
+        Availability vehicleAvailability = editDetails.getVehicleAvailability().orElse(vehicleToEdit.getAvailability());
 
         return new Vehicle(vehicleType, vehicleNumber, vehicleDistrict, vehicleAvailability);
     }
@@ -101,6 +104,7 @@ public class EditVehicleCommand extends Command {
         private VehicleType vehicleType;
         private VehicleNumber vehicleNumber;
         private District vehicleDistrict;
+        private Availability vehicleAvailability;
 
         public EditVehicle() {
         }
@@ -109,6 +113,7 @@ public class EditVehicleCommand extends Command {
             this.vehicleDistrict = copy.vehicleDistrict;
             this.vehicleType = copy.vehicleType;
             this.vehicleNumber = copy.vehicleNumber;
+            this.vehicleAvailability = copy.vehicleAvailability;
         }
 
         public void setVehicleType(VehicleType vt) {
@@ -133,6 +138,14 @@ public class EditVehicleCommand extends Command {
 
         public Optional<District> getVehicleDistrict() {
             return Optional.ofNullable(this.vehicleDistrict);
+        }
+
+        public Optional<Availability> getVehicleAvailability() {
+            return Optional.ofNullable(this.vehicleAvailability);
+        }
+
+        public void setVehicleAvailability(Availability a) {
+            this.vehicleAvailability = a;
         }
 
         @Override
