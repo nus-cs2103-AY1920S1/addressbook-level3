@@ -5,6 +5,7 @@ import static seedu.ichifund.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import seedu.ichifund.logic.commands.Command;
 import seedu.ichifund.logic.commands.budget.AddBudgetCommand;
 import seedu.ichifund.logic.commands.budget.DeleteBudgetCommand;
+import seedu.ichifund.logic.commands.budget.FindBudgetCommand;
 import seedu.ichifund.logic.parser.FeatureParser;
 import seedu.ichifund.logic.parser.exceptions.ParseException;
 
@@ -33,6 +34,9 @@ public class BudgetFeatureParser implements FeatureParser {
 
         case DeleteBudgetCommand.COMMAND_WORD:
             return new DeleteBudgetCommandParser().parse(arguments);
+
+        case FindBudgetCommand.COMMAND_WORD:
+            return new FindBudgetCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
