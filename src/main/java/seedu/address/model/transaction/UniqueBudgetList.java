@@ -8,8 +8,8 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.person.exceptions.DuplicatePersonException;
-import seedu.address.model.person.exceptions.PersonNotFoundException;
+import seedu.address.model.transaction.exceptions.BudgetNotFoundException;
+import seedu.address.model.transaction.exceptions.DuplicateBudgetException;
 
 /**
  * A list of budgets that enforces uniqueness between its elements and does not allow nulls.
@@ -45,7 +45,7 @@ public class UniqueBudgetList implements Iterable<Budget> {
     public void add(Budget toAdd) {
         requireNonNull(toAdd);
         if (contains(toAdd)) {
-            throw new DuplicatePersonException();
+            throw new DuplicateBudgetException();
         }
         internalList.add(toAdd);
     }
@@ -61,11 +61,11 @@ public class UniqueBudgetList implements Iterable<Budget> {
 
         int index = internalList.indexOf(target);
         if (index == -1) {
-            throw new PersonNotFoundException();
+            throw new BudgetNotFoundException();
         }
 
         if (!target.equals(editedTransaction) && contains(editedTransaction)) {
-            throw new DuplicatePersonException();
+            throw new DuplicateBudgetException();
         }
 
         internalList.set(index, editedTransaction);
@@ -78,7 +78,7 @@ public class UniqueBudgetList implements Iterable<Budget> {
     public void remove(Budget toRemove) {
         requireNonNull(toRemove);
         if (!internalList.remove(toRemove)) {
-            throw new PersonNotFoundException();
+            throw new BudgetNotFoundException();
         }
     }
 
@@ -88,8 +88,8 @@ public class UniqueBudgetList implements Iterable<Budget> {
      */
     public void setBudgets(List<Budget> budgets) {
         requireAllNonNull(budgets);
-        if (!transactionsAreUnique(budgets)) {
-            throw new DuplicatePersonException();
+        if (!budgetsAreUnique(budgets)) {
+            throw new DuplicateBudgetException();
         }
 
         internalList.setAll(budgets);
@@ -121,9 +121,9 @@ public class UniqueBudgetList implements Iterable<Budget> {
     }
 
     /**
-     * Returns true if {@code transactions} contains only unique transactions.
+     * Returns true if {@code budgets} contains only unique budgets.
      */
-    private boolean transactionsAreUnique(List<Budget> budgets) {
+    private boolean budgetsAreUnique(List<Budget> budgets) {
         for (int i = 0; i < budgets.size() - 1; i++) {
             for (int j = i + 1; j < budgets.size(); j++) {
                 if (budgets.get(i).equals(budgets.get(j))) {

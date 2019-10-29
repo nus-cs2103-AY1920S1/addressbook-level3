@@ -43,4 +43,9 @@ public class InTransaction extends Transaction implements BankAccountOperation {
             return false;
         }
     }
+
+    @Override
+    public String toString() {
+        return String.format("In transaction of %s", super.toString());
+    }
 }

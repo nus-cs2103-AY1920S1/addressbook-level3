@@ -15,24 +15,19 @@ import seedu.address.model.util.SampleDataUtil;
 /**
  * A utility class to help with building Transaction objects.
  */
-public class TransactionBuilder {
+public class BankOperationBuilder {
 
     public static final String DEFAULT_AMOUNT = "100";
     public static final String DEFAULT_DATE = "10102019";
     public static final String DEFAULT_CATEGORY = "category";
     public static final String DEFAULT_DESCRIPTION = "milk";
 
-    public static final String DEFAULT_NAME = "Alice Pauline";
-    public static final String DEFAULT_PHONE = "85355255";
-    public static final String DEFAULT_EMAIL = "alice@gmail.com";
-    public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
-
     private Description description;
     private Amount amount;
     private Date date;
     private Set<Category> categories;
 
-    public TransactionBuilder() {
+    public BankOperationBuilder() {
         amount = new Amount(Double.parseDouble(DEFAULT_AMOUNT));
         date = new Date(DEFAULT_DATE);
         description = new Description(DEFAULT_DESCRIPTION);
@@ -41,9 +36,9 @@ public class TransactionBuilder {
     }
 
     /**
-     * Initializes the TransactionBuilder with the data of {@code transactionToCopy}.
+     * Initializes the BankOperationBuilder with the data of {@code transactionToCopy}.
      */
-    public TransactionBuilder(BankAccountOperation transactionToCopy) {
+    public BankOperationBuilder(BankAccountOperation transactionToCopy) {
         amount = transactionToCopy.getAmount();
         date = transactionToCopy.getDate();
         description = transactionToCopy.getDescription();
@@ -53,7 +48,7 @@ public class TransactionBuilder {
     /**
      * Sets the {@code amount} of the {@code Transaction} that we are building.
      */
-    public TransactionBuilder withAmount(String amount) {
+    public BankOperationBuilder withAmount(String amount) {
         this.amount = new Amount(Double.parseDouble(amount));
         return this;
     }
@@ -62,7 +57,7 @@ public class TransactionBuilder {
      * Parses the {@code categories} into a {@code Set<Category>}
      * and set it to the {@code Transaction} that we are building.
      */
-    public TransactionBuilder withCategories(String... categories) {
+    public BankOperationBuilder withCategories(String... categories) {
         this.categories = SampleDataUtil.getCategorySet(categories);
         return this;
     }
@@ -70,7 +65,7 @@ public class TransactionBuilder {
     /**
      * Sets the {@code date} of the {@code Transaction} that we are building.
      */
-    public TransactionBuilder withDate(String date) {
+    public BankOperationBuilder withDate(String date) {
         this.date = new Date(date);
         return this;
     }
@@ -78,7 +73,7 @@ public class TransactionBuilder {
     /**
      * Sets the {@code description} of the {@code Transaction} that we are building.
      */
-    public TransactionBuilder withDescription(String description) {
+    public BankOperationBuilder withDescription(String description) {
         this.description = new Description(description);
         return this;
     }

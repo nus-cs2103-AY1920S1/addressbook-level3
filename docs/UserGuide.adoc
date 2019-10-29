@@ -1,4 +1,4 @@
-= PalPay - User Guide
+﻿= PalPay - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -12,7 +12,7 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3
+:repoURL: https://github.com/AY1920S1-CS2103T-W12-3/main
 
 By: `AY1920S1-CS2103T-W12-3`      Since: `SEPT 2019`      Licence: `MIT`
 
@@ -57,9 +57,9 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Parameters can be in any order e.g. if the command specifies `AMOUNT n/ITEM`, `n/ITEM AMOUNT` is also acceptable.
 ====
 
-=== Splitting expense with multiple people: `split`
+=== Splitting a Bill with Friends : `split`
 
-Split expenses with you friends +
+Split a bill with your friends +
 Format: `split [f/FLAG] $/AMOUNT n/NAME1 [n/NAME2]... [s/SHARE]`
 
 
@@ -75,7 +75,7 @@ Examples:
 * `split $/1000 n/Amy n/Betty n/Catherine n/Dan`
 * `split $/100 f/loan n/Albert n/Bernard n/Clement s/2 s/1 s/7`
 
-=== Settling up with a friend: `pay`
+=== Settling Up with a Friend : `pay`
 
 To send money to 1 friend +
 Format: `pay $/AMOUNT n/NAME1`
@@ -84,20 +84,36 @@ Examples:
 
 * `pay $/2.5 n/Albert`
 
-=== Logging expense: `out`
+=== Logging Expense : `out`
 
-To add an expenditure of personal finance to your Bank Account, enter the command: +
-Format: `out $/AMOUNT n/ITEM [c/CATEGORY]`
+Adds an expenditure of personal finance +
+Format: `out $/AMOUNT n/ITEM d/DATE [c/CATEGORY]`
+
+****
+* `AMOUNT` inputs the value of the expenditure
+* `ITEM` inputs the description of the expenditure
+* `DATE` accepts the date of this transaction
+* `CATEGORY` accepts the CATEGORY for this expenditure
+* `in` will update the Bank Account with a net **negative** amount (e.g. `out n/milk $/2 d/10102019` will **decrease** Bank Acount balance by $2)
+****
 
 Examples:
 * `out $/100 n/milk c/food`
 * `out $/29 n/taxi c/transport`
 * `out $/12 n/burger`
 
-=== Logging finance input: `in`
+=== Logging Income : `in`
 
-To add an income of personal finance to your Bank Account, enter the command: +
-Format: `in $/AMOUNT n/ITEM [c/CATEGORY]`
+Adds an income of personal finance +
+Format: `in $/AMOUNT n/ITEM d/DATE [c/CATEGORY]`
+
+****
+* `AMOUNT` inputs the value of the income
+* `ITEM` inputs the description of the income
+* `DATE` accepts the date of this transaction
+* `CATEGORY` accepts the CATEGORY for this income
+* `in` will update the Bank Account with a net positive amount (e.g. `in n/work $/1000 d/10102019` will **increase** Bank Acount balance by $1000)
+****
 
 Examples:
 
@@ -105,7 +121,7 @@ Examples:
 * `in $/200 n/mom c/family`
 * `in $/120 n/work`
 
-=== Setting a budget: `set`
+=== Setting a Budget : `set`
 
 To set a budget for a particular category till a certain date, enter the command: +
 Format: `set $/AMOUNT d/DATE c/CATEGORY`
@@ -121,7 +137,7 @@ Examples:
 * `set $/100 c/shopping`
 * `set $/50 c/food`
 
-=== Displaying view: `view`
+=== Display View : `view`
 
 To show all possible views (spending, projection and loan), enter the command: +
 Format: `view KEYWORD [TIMEFRAME]`
@@ -141,46 +157,63 @@ Examples:
 * `view spending`
 
 // tag::delete[]
-=== Deleting Finance: `delete`
+=== Deleting Finance : `delete`
 
-To delete the specified income or expenditure from your Bank Account, enter the command: +
-Format: `delete INDEX`
-
-****
-* `TYPE` only accepts `in` or `out`. (e.g. `delete --out ...` refers to deleting an *expenditure*)
-* Deletes the item from the given category with it's given amount.
-* If there is no given category, it will only search for given type with it's corresponding amount.
-* If AMOUNT/ITEM/CATEGORY or a combination of any of the 3 does not match, no operation will be performed
-* example `delete --in 200 n/mom t/allowance` will delete income of *200* from type: *mom* and category: *allowance*.
-****
-
-Examples:
-
-* `delete 1`
-
-=== Updating Finance: `update`
-
-To update any specific income or expenditure from the Bank Account, enter the command: +
-Format: `update --TYPE $/AMOUNT1 $/AMOUNT2 n/ITEM [c/CATEGORY]`
+Deletes the specified Transaction or Budget from the finance manager. +
+Format: `delete TYPE+INDEX`
 
 ****
-* `TYPE` only accepts `in` or `out`. (e.g. `update --out ...` refers to deleting an *expenditure*) *`AMOUNT1` is the new amount you want to update the current in/out with.
-* Updates the item from the given category with it's given amount.
-* If there is no given category, it will only search for given type with it's corresponding amount.
-* If AMOUNT/ITEM/CATEGORY or a combination of any of the 3 does not match, no operation will be performed
-* example `update --in $/100 $/200 n/mom c/allowance` will update income of *200* to *100* from type: *mom* and category: *allowance*.
+* `INDEX` refers to the target item number. (Items are sorted starting from the **latest** input added)
+* `TYPE` only accepts `t` (Transaction) or `b` (Budget). (e.g. `delete --b1` refers to deleting an *Budget* of index 1)
+* `TYPE+INDEX` requires the TYPE and INDEX to be placed in sequential order (e.g. `delete --b 1` or `delete --1` or `delete --1b` will not work)
+* Nothing will be deleted if the transaction or budget with `INDEX` does not exists.
+* example `delete --t1` will delete the first transaction from the list of transactions.
 ****
 
 Examples:
 
-* `update --out $/10 $/20 n/coke c/drinks`
-* `update --out $/100 300 n/transport`
-* `update --in $/60 70 n/dad`
+* `delete t1`
+* `delete b3`
 
-=== Filtering based on categories: `filter`
+=== Updating Finance : `update`
 
-To show all relevant transactions with given `CATEGORY` on the screen, enter the command: +
-Format: `filter CATEGORY`
+Updates the specified income or expenditure from the finance manager. +
+Format: `update TYPE+INDEX [$/AMOUNT] [d/date] [n/ITEM] [c/CATEGORY]`
+
+
+****
+* `INDEX` refers to the target item number. (Items are sorted starting from the **latest** input added)
+* `TYPE` only accepts `t` (Transaction) or `b` (Budget). (e.g. `update --b1 ...` refers to updating a *Budget* of index 1)
+* `TYPE+INDEX` requires the TYPE and INDEX to be placed in sequential order (e.g. `update --b 1 ..` or `update --1 ..` or `update --1b ..` will not work)
+* `update` requires at least one field to be updated but also allows more than one field to be updated (e.g. `update t1 $/20 d/10102019 n/milk` and `update t1 $/10` will both be accepted but `update t1` will not be accepted)
+* Nothing will be updated if the transaction or budget with `INDEX` does not exists.
+* example `update --t1 $/3000 d/10102019` will update the first transaction from the list of transactions by changing it's *Amount* to $1000 and *Date* to 10/10/2019.
+****
+
+Examples:
+
+* `update t1 $/20 n/coke c/drinks d/12122019`
+* `update b2 $/300`
+* `update t4 $/30 d/12102019`
+
+=== Sorting Transactions : `sort`
+
+Sorts all transactions with given `PREDICATE` +
+Format: `sort PREDICATE`
+
+****
+* Only able to `sort` by `date` and `amount` in v1.3.
+****
+
+Examples:
+
+* `sort amount`
+* `sort date`
+
+=== Filtering Transactions : `filter`
+
+Shows all relevant transactions with given `CATEGORY` +
+Format: `filter CATEGORY...`
 
 ****
 * `CATEGORY` input accepts `CATEGORY` you have used in In or Out transactions before.
@@ -189,11 +222,11 @@ Format: `filter CATEGORY`
 Examples:
 
 * `filter food`
-* `filter transport`
+* `filter transport allowance`
 
-=== Projecting balance based on transactions: `project`
+=== Projecting Balance : `project`
 
-To project your future balance based on past `InTransaction` or `OutTransactions`, enter the command: +
+Projects future balance based on past In or Out transactions +
 Format: `project d/DATE`
 
 ****
@@ -205,37 +238,37 @@ Examples:
 * `project d/10012019`
 
 //TODO: command explanation talk to the user "to do....., do ...."
-=== Redoing the past entry : `redo`
+=== Redoing the Last Command : `redo`
 
-Redoes the latest entry +
+Redo the last command +
 Format: `redo`
 
-=== Undoing the past entry : `undo`
+=== Undoing the Last Command : `undo`
 
-Undoes the latest entry. +
+Undo the last command. +
 Format: `undo`
 
-=== Clearing all entries : `clear`
+=== Clearing All Entries : `clear`
 
 Clears all entries from the Bank Account. +
 Format: `clear`
 
-=== Listing all entries : `list`
+=== Listing All Entries : `list`
 
 Lists all entries from the Bank Account. +
 Format: `list`
 
-=== Viewing help : `help`
+=== Viewing Help : `help`
 
 Opens help page for list of usable commands +
 Format: `help`
 
-=== Exiting the program : `exit`
+=== Exiting the Application : `exit`
 
 Exits the program. +
 Format: `exit`
 
-=== Saving the data
+=== Saving the Data
 
 PalPay data is saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
@@ -246,28 +279,30 @@ _{explain how the user can enable/disable data encryption}_
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Bank Account folder.
 
 == Command Summary
 
 * *Split* `split [FLAG] $/AMOUNT n/NAME1 [n/NAME2]...` +
-e.g. `split $/1000 n/Amy n/Betty n/Catherine n/Dan`
-* *Out* : `out $/AMOUNT n/ITEM [c/CATEGORY]` +
-e.g. `out $/20 n/coke c/drink`
-* *In* `in $/AMOUNT n/ITEM [c/CATEGORY]` +
-e.g. `in $/100 n/allowance`
+Example: `split $/1000 n/Amy n/Betty n/Catherine n/Dan`
+* *Out* : `out $/AMOUNT n/ITEM d/DATE [c/CATEGORY]` +
+Example: `out $/20 n/coke d/19112019 c/drink c/lunch`
+* *In* `in $/AMOUNT n/ITEM d/DATE [c/CATEGORY]` +
+Example: `in $/100 n/allowance d/11112019 c/income`
 * *Set* : `set $/AMOUNT d/DATE c/CATEGORY` +
-e.g. `set $/100 d/10102019 c/food`
-* *View* : `view []` +
-e.g. `view projection`
+Example: `set $/100 d/10102019 c/food`
+* *View* : `view TAB` +
+Example: `view transaction`
 * *Delete* : `delete --TYPE AMOUNT n/ITEM [c/CATEGORY]` +
-e.g. `delete --in $/200 n/waiter c/work`
+Example: `delete --in $/200 n/waiter c/work`
 * *Update* : `update --TYPE AMOUNT1 AMOUNT2 n/ITEM [c/CATEGORY]` +
-e.g. `update --out $/100 $/300 n/transport`
-* *Filter* : `filter CATEGORY` +
-e.g. `filter food`
+Example: `update --out $/100 $/300 n/transport`
+* *Sort* : `sort PREDICATE` +
+Example: `sort amount`
+* *Filter* : `filter CATEGORY...` +
+Example: `filter food`
 * *Project* : `project DURATION` +
-e.g. `project 10`
+Example: `project 10`
 * *Redo* : `redo`
 * *Undo* : `undo`
 * *Clear* : `clear`

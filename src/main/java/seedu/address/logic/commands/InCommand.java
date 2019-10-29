@@ -31,6 +31,7 @@ public class InCommand extends Command {
             + PREFIX_CATEGORY + "owesMoney";
 
     public static final String MESSAGE_SUCCESS = "New transaction added: %1$s";
+    public static final String MESSAGE_DUPLICATE = "This transaction already exists: %1$s";
 
     private final BankAccountOperation transaction;
 
@@ -43,9 +44,13 @@ public class InCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        model.handleOperation(transaction);
-        model.commitBankAccount();
-        return new CommandResult(String.format(MESSAGE_SUCCESS, transaction));
+        if (model.hasTransaction(transaction)) {
+            return new CommandResult(String.format(MESSAGE_DUPLICATE, transaction));
+        } else {
+            model.handleOperation(transaction);
+            model.commitBankAccount();
+            return new CommandResult(String.format(MESSAGE_SUCCESS, transaction));
+        }
     }
 
     @Override

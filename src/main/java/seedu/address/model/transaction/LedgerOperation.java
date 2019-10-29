@@ -14,4 +14,8 @@ public interface LedgerOperation {
     Date getDate();
 
     Amount getAmount();
+
+    UniquePersonList getPeopleInvolved();
+
+    Description getDescription();
 }
