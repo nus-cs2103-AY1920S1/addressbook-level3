@@ -435,19 +435,32 @@ This feature allows editing of a specific Restaurant's details and Food menu und
 ==== Implementation
 * **Model**:
 ModelManager now contains a editingRestaurantList in addition to the filteredRestaurantList, which stores
-and allows access to the Restaurant currently under EditMode.
+and allows access to the Restaurant currently under EditMode. Upon calling of edit command, the restaurant
+referenced by the index will be placed in the editingRestaurantList.
 
 * **Logic**:
 The Logic for EditMode is facilitated by `Context` enum type.
 A different Parser will parse the userInput based on the current context.
-The `editmode` command will change the current context to `Editing`,
-and commands for EditMode can only be accessed if under `Editing` Context.
+
+UserInput will first be parsed by the universal parser first. If command word in userinput matches
+none of the universal commands, then the context specific parser will parse it based on the context
+universal parser is in, either EDITING or RESTAURANT. The reason why universal parser always parses
+userinput first is because
+the universal commands are supposed to be accessible in all context.
+
+The `switch` command will change the current context to `Restaurant`, while
+the `editmode` command will change the current context to `Editing`,
+the `exitedit` command will exit the `Editing` context and return to the `Restaurant` context.
+and commands for EditMode can only be accessed / unlocked if under `Editing` Context.
 
 * **UI**:
 Current context will be passed to UI by the command result returned by `editmode` command.
 Changes to the UI for EditMode is made accordingly if under `Editing` Context.
 An extra StackPane showing the restaurant under EditMode will be displayed,
-while the StackPane displaying the list of Restaurants originally will be filled with the restaurant's Food menu instead.
+while the StackPane displaying the list of Restaurants originally will be filled with the
+restaurant's Food menu instead.
+Once `Editing` context is exited, the stackpane will be hidden, and the list of restaurants will be shown
+again
 
 ==== Design Considerations
 * **Alternative 1:**

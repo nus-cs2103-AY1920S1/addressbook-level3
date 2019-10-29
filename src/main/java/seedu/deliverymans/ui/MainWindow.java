@@ -247,8 +247,9 @@ public class MainWindow extends UiPart<Stage> {
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
             Context nextContext = commandResult.getContext();
+            boolean isNewContext = nextContext != null && nextContext != currentContext;
 
-            if (nextContext != null && nextContext != currentContext) {
+            if (isNewContext) {
                 changeContext(nextContext);
             }
 
