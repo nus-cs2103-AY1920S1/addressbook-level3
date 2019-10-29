@@ -8,6 +8,7 @@ import seedu.ifridge.logic.commands.grocerylist.FindGroceryCommand;
 import seedu.ifridge.logic.parser.Parser;
 import seedu.ifridge.logic.parser.exceptions.ParseException;
 import seedu.ifridge.model.food.NameContainsKeywordsPredicate;
+import seedu.ifridge.model.food.TagContainsKeywordsPredicate;
 
 /**
  * Parses input arguments and creates a new FindCommand object
@@ -26,9 +27,10 @@ public class FindGroceryCommandParser implements Parser<FindGroceryCommand> {
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindGroceryCommand.MESSAGE_USAGE));
         }
 
-        String[] nameKeywords = trimmedArgs.split("\\s+");
+        String[] keywords = trimmedArgs.split("\\s+");
 
-        return new FindGroceryCommand(new NameContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
+        return new FindGroceryCommand(new NameContainsKeywordsPredicate(Arrays.asList(keywords)),
+                new TagContainsKeywordsPredicate(Arrays.asList(keywords)));
     }
 
 }
