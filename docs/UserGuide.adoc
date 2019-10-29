@@ -35,9 +35,9 @@ image::Ui.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* **`add-member m/Abhinav Ramnath`** : Adds a member with name "Abhinav Ramnath" to the project.
+* **`add-member mn/Abhinav Ramnath`** : Adds a member with name "Abhinav Ramnath" to the project.
 * **`add-task tn/Finish up milestone setting`** : Adds a task with name "Finish up milestone" to the project.
-* **`assign-member ti/5 mi/SL`** : Assigns the project member "Seah Lynn" (With member id "SL"), to the fifth task.
+* **`assign ti/5 mi/SL`** : Assigns the project member "Seah Lynn" (With member id "SL"), to the fifth task.
 * **`doing-task ti/3`** : Changes status of task three to `doing`:
 
 .  Refer to <<Features>> for details of each command.
@@ -74,6 +74,8 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 |mt/
 |Member tag
 |tn/
+|Image URL
+|im/
 |Task name
 |s/
 |Task status
@@ -140,12 +142,22 @@ Example: `add-member mn/New Member mi/NM mt/UG` will result in the following:
 
 image::AddMember.png[width="790"]
 
-+
 [NOTE]
-* Adding a member tag is optional in the adding of a new member.
-* It is possible to add a member with multiple tags following this format: +
+Adding a member tag is optional in the adding of a new member.
+[NOTE]
+It is possible to add a member with multiple tags following this format: +
 `add-member mn/New Member mi/NM mt/UG mt/DG mt/...`
 
+==== Set image for member: `set-image` +
+To set a profile picture for a member in +Work, use the command `set-image` following the format below. +
+Format: `set-image im/IMAGE_URL` +
+
+Example: `set-image im/C:\Users\Lynn\Desktop\Y2S1\CS2103T\tP\newUserImage.png` will result in the following: 
+
+image::SetImage.png[width="790"]
+
+[NOTE]
+Image URL refers to the folder path of the image stored in your computer, and should end with .png
 
 ==== List existing members: `list-members` +
 To get a list of all members added to +Work, used the command `list-members` following the format below. +
@@ -165,7 +177,7 @@ Example: `remove-member mi/GS` will result in the following:
 image::RemoveMember.png[width="790"]
 
 
-This indicates that the member 'New Member' with member ID 'NM' has been removed from the project and from associated tasks. 
+As seen from above, the member 'New Member' with member ID 'NM' has been removed from the project. 
 
 
 ==== Assign a task to a member: `assign` +
