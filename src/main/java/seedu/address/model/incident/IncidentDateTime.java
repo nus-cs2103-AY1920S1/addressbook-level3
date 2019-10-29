@@ -15,12 +15,13 @@ import java.time.format.FormatStyle;
 public class IncidentDateTime {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "IncidentDateTimes should only take in a LocalDateTime string with Medium Date and Time format and it"
-                    + " should not be blank. E.g. 'Dec 20, 2016, 2:30:40 PM'";
+            "IncidentDateTimes should only take in a valid ISO date string, return LocalDateTime, "
+                    + "and it should not be blank e.g. 2018-09-24T17:48:00";
 
     // format style settings
+    private static final DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
     private static final FormatStyle dateTimeStyle = FormatStyle.MEDIUM;
-    private static final DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedDateTime(dateTimeStyle);
+    private static final DateTimeFormatter displayFormatter = DateTimeFormatter.ofLocalizedDateTime(dateTimeStyle);
 
     public final LocalDateTime incidentDateTime;
 
@@ -67,6 +68,13 @@ public class IncidentDateTime {
         return incidentDateTime.format(formatter);
     }
 
+    /**
+     * Returns string for easily readable GUI display.
+     * @return string representing date and time in readable format.
+     */
+    public String toDisplayString() {
+        return incidentDateTime.format(displayFormatter);
+    }
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
