@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static seedu.address.testutil.TypicalEvents.EVENT_ALICE;
 import static seedu.address.testutil.TypicalEvents.EVENT_BENSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_EVENT;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_EVENT;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -24,8 +25,7 @@ class ChangeAppCommandTest {
     @Test
     public void execute_validUnfilteredList_success() throws Exception {
         model.deleteAppointment(EVENT_BENSON);
-
-        Event eventToChange = model.getFilteredAppointmentList().get(INDEX_SECOND_EVENT.getZeroBased());
+        Event eventToChange = model.getFilteredAppointmentList().get(INDEX_FIRST_EVENT.getZeroBased());
         Event eventChanged = new EventBuilder(EVENT_BENSON).withId(eventToChange.getPersonId().toString()).build();
         CommandResult commandResult = new ChangeAppCommand(eventToChange, eventChanged).execute(model);
         assertEquals(String.format(ChangeAppCommand.MESSAGE_SUCCESS, eventChanged),

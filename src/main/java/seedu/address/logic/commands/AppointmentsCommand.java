@@ -40,7 +40,6 @@ public class AppointmentsCommand extends NonActionableCommand {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        autoMissEvent(model.getFilteredAppointmentList(), model);
         model.setTabListing(OmniPanelTab.APPOINTMENTS_TAB);
         model.updateFilteredAppointmentList(predicate);
         return new CommandResult(
@@ -52,22 +51,5 @@ public class AppointmentsCommand extends NonActionableCommand {
         return other == this // short circuit if same object
                 || (other instanceof AppointmentsCommand // instanceof handles nulls
                 && predicate.equals(((AppointmentsCommand) other).predicate)); // state check
-    }
-
-    /**
-     * checks all the appointments that before the current time and then make them as missed.
-     *
-     * @param filteredEventList which is the eventList contains the referenceId
-     */
-    private void autoMissEvent(ObservableList<Event> filteredEventList, Model model) throws CommandException {
-        for (Event ev : filteredEventList) {
-            Timing evTiming = ev.getEventTiming();
-            if (!ev.getStatus().equals(new Status(Status.AppointmentStatuses.SETTLED))
-                    && evTiming.getEndTime().getTime().isBefore(LocalDateTime.now())) {
-                Event newAppt = new Appointment(ev.getPersonId(), ev.getEventTiming(),
-                        new Status(Status.AppointmentStatuses.MISSED));
-                model.setAppointment(ev, newAppt);
-            }
-        }
     }
 }
