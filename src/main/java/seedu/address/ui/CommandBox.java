@@ -1,12 +1,27 @@
 package seedu.address.ui;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+
+import java.util.LinkedList;
+import java.util.List;
+import java.util.SortedSet;
+import java.util.TreeSet;
+
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.CustomMenuItem;
+import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
+import javafx.geometry.Side;
+
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+
 /**
  * The UI component that is responsible for receiving user command inputs.
  */
@@ -14,8 +29,47 @@ public class CommandBox extends UiPart<Region> {
 
     public static final String ERROR_STYLE_CLASS = "error";
     private static final String FXML = "CommandBox.fxml";
-
+    List<String> commandList = List.of(
+        //inventory
+        "add-inv", 
+        "list-inv",
+        "edit-inv",
+        "delete-inv",
+        "pdf",
+        //task
+        "add-task", 
+        "delete-task", 
+        "find-task", 
+        "list-tasks",
+        "edit-task",
+        "doing-task",
+        "done-task",
+        "add-member",
+        "delete-member",
+        "edit-member",
+        "find-member",
+        "list-members",
+        //association 
+        "assign-task",
+        "assign-member",
+        "fire-task",
+        "fire-member",
+        //settings
+        "theme",
+        "clock",
+        //universal
+        "clear",
+        "exit",
+        "help",
+        "home"
+        );
     private final CommandExecutor commandExecutor;
+
+    /** The existing autocomplete entries. */
+    private final SortedSet<String> entries;
+
+    /** The popup used to select an entry. */
+    private ContextMenu entriesPopup;
 
     @FXML
     private TextField commandTextField;
@@ -23,10 +77,77 @@ public class CommandBox extends UiPart<Region> {
     public CommandBox(CommandExecutor commandExecutor) {
         super(FXML);
         this.commandExecutor = commandExecutor;
+        entries = new TreeSet<>(commandList);
+        entriesPopup = new ContextMenu();
         // calls #setStyleToDefault() whenever there is a change to the text of the command box.
         commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
-    }
+        commandTextField.textProperty().addListener((observableValue, oldStr, newStr) -> getSuggestions(observableValue, oldStr, newStr));
 
+    }
+    /**
+     * returns list(on user interface) of the possible commands from the user input
+     * @param observableValue
+     * @param s
+     * @param s2
+     */
+
+    public void getSuggestions(ObservableValue<? extends String> observableValue, String s, String s2) {
+        System.out.println("old: " + s + "/new : " + s2);
+        String text = commandTextField.getText();
+        if (text.length() == 0)
+        {
+          entriesPopup.hide();
+        } else
+        {
+          LinkedList<String> searchResult = new LinkedList<>();
+          searchResult.addAll(entries.subSet(text, text + Character.MAX_VALUE));
+          if (entries.size() > 0)
+          {
+            populatePopup(searchResult);
+            if (!entriesPopup.isShowing())
+            {
+              entriesPopup.show(this.commandTextField , Side.BOTTOM, 0, 0);
+            }
+          } else
+          {
+            entriesPopup.hide();
+          }
+        }
+      }
+    /**
+     * Get the existing set of autocomplete entries.
+     * @return The existing autocomplete entries.
+     */
+    public SortedSet<String> getEntries() { return entries; }
+
+  /**
+   * Populate the entry set with the given search results.  Display is limited to 10 entries, for performance.
+   * @param searchResult The set of matching strings.
+   */
+    private void populatePopup(List<String> searchResult) {
+        List<CustomMenuItem> menuItems = new LinkedList<>();
+        // If you'd like more entries, modify this line.
+        int maxEntries = 10;
+        int count = Math.min(searchResult.size(), maxEntries);
+        for (int i = 0; i < count; i++)
+        {
+        final String result = searchResult.get(i);
+        Label entryLabel = new Label(result);
+        CustomMenuItem item = new CustomMenuItem(entryLabel, true);
+        item.setOnAction(new EventHandler<ActionEvent>()
+        {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+            commandTextField.setText(result);
+            entriesPopup.hide();
+            }
+        });
+        menuItems.add(item);
+        }
+        entriesPopup.getItems().clear();
+        entriesPopup.getItems().addAll(menuItems);
+
+    }
     /**
      * Handles the Enter button pressed event.
      */
