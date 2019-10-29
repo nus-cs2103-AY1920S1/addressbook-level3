@@ -87,6 +87,10 @@ public class MemeCreation {
      * Abort the meme creation session.
      */
     public void abort() {
+        clear();
+    }
+
+    private void clear() {
         textList.clear();
         initialImage.getGraphics().dispose();
         initialImage = null;
@@ -123,6 +127,17 @@ public class MemeCreation {
         }
 
         return newImage;
+    }
+
+    /**
+     * Generates the meme and writes it to the specified path. The current session will be cleared afterwards.
+     *
+     * @param destination the path to write the meme image file
+     * @throws IOException if an error occurred during IO
+     */
+    public void generate(Path destination) throws IOException {
+        ImageIO.write(render(), "jpg", destination.toFile());
+        clear();
     }
 
     /**
