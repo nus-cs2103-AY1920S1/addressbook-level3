@@ -14,6 +14,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.Messages;
+import seedu.address.logic.commands.appointments.AppointmentsCommand;
 import seedu.address.model.Model;
 import seedu.address.model.events.Event;
 import seedu.address.model.events.predicates.EventContainsRefIdPredicate;

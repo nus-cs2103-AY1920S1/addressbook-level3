@@ -8,7 +8,7 @@ import javafx.collections.ObservableList;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.NextCommand;
-import seedu.address.logic.commands.UndoNextCommand;
+import seedu.address.logic.commands.queue.UndoNextCommand;
 import seedu.address.logic.commands.common.ReversibleActionPairCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;

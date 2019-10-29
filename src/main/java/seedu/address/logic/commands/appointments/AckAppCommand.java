@@ -1,5 +1,5 @@
 //@@author woon17
-package seedu.address.logic.commands;
+package seedu.address.logic.commands.appointments;
 
 import static java.util.Objects.requireNonNull;
 

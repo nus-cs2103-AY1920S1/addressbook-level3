@@ -10,6 +10,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.logic.commands.appointments.CancelAppCommand;
 import seedu.address.logic.commands.common.CommandResult;
 import seedu.address.model.Model;
 import seedu.address.model.events.Event;

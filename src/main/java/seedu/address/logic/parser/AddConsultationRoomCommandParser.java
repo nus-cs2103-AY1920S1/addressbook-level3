@@ -6,8 +6,8 @@ import java.util.List;
 import java.util.stream.Stream;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.AddConsultationRoomCommand;
-import seedu.address.logic.commands.RemoveRoomCommand;
+import seedu.address.logic.commands.queue.AddConsultationRoomCommand;
+import seedu.address.logic.commands.queue.RemoveRoomCommand;
 import seedu.address.logic.commands.common.ReversibleActionPairCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 

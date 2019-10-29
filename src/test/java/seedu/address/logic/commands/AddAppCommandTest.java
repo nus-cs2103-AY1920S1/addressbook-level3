@@ -11,6 +11,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.logic.commands.appointments.AddAppCommand;
 import seedu.address.logic.commands.common.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;

@@ -5,7 +5,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_REFERENCEID;
 
 import javafx.collections.ObservableList;
 
-import seedu.address.logic.commands.AckAppCommand;
+import seedu.address.logic.commands.appointments.AckAppCommand;
 import seedu.address.logic.commands.common.ReversibleActionPairCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;

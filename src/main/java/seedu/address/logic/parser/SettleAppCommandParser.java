@@ -7,7 +7,7 @@ import java.util.List;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.SettleAppCommand;
+import seedu.address.logic.commands.appointments.SettleAppCommand;
 import seedu.address.logic.commands.common.ReversibleActionPairCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;

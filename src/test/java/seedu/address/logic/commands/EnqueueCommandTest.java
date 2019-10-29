@@ -7,6 +7,7 @@ import static seedu.address.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.logic.commands.queue.EnqueueCommand;
 import seedu.address.model.ReferenceId;
 import seedu.address.testutil.PersonBuilder;
 

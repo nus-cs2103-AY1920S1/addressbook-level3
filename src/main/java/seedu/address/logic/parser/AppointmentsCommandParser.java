@@ -1,7 +1,7 @@
 //@@author SakuraBlossom
 package seedu.address.logic.parser;
 
-import seedu.address.logic.commands.AppointmentsCommand;
+import seedu.address.logic.commands.appointments.AppointmentsCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.events.predicates.EventContainsApprovedStatusPredicate;

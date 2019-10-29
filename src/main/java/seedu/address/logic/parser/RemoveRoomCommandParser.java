@@ -5,12 +5,10 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import java.util.List;
 
 import seedu.address.commons.core.index.Index;
-
-import seedu.address.logic.commands.RemoveRoomCommand;
-import seedu.address.logic.commands.UndoRemoveRoomCommand;
+import seedu.address.logic.commands.queue.AddConsultationRoomCommand;
+import seedu.address.logic.commands.queue.RemoveRoomCommand;
 import seedu.address.logic.commands.common.ReversibleActionPairCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-
 import seedu.address.model.Model;
 import seedu.address.model.queue.Room;
 
@@ -35,8 +33,10 @@ public class RemoveRoomCommandParser implements Parser<ReversibleActionPairComma
         try {
             Index index = ParserUtil.parseIndex(args);
             Room roomToRemove = ParserUtil.getEntryFromList(lastShownList, index);
-            return new ReversibleActionPairCommand(new RemoveRoomCommand(roomToRemove),
-                    new UndoRemoveRoomCommand(roomToRemove, index.getZeroBased()));
+            return new ReversibleActionPairCommand(
+                    new RemoveRoomCommand(roomToRemove),
+                    new AddConsultationRoomCommand(roomToRemove));
+
         } catch (ParseException pe) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, RemoveRoomCommand.MESSAGE_USAGE), pe);

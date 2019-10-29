@@ -8,6 +8,7 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_EVENT;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.logic.commands.appointments.SettleAppCommand;
 import seedu.address.logic.commands.common.CommandResult;
 import seedu.address.model.Model;
 import seedu.address.model.events.Event;
