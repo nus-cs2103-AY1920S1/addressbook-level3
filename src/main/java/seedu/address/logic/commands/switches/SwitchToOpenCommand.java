@@ -13,8 +13,6 @@ public class SwitchToOpenCommand extends SwitchCommand {
 
     public static final String MESSAGE_HOME_ACKNOWLEDGEMENT = "Opening bank";
 
-
-
     @Override
     public CommandResult execute(Model model) {
         return new CommandResult(MESSAGE_HOME_ACKNOWLEDGEMENT, false, false);
