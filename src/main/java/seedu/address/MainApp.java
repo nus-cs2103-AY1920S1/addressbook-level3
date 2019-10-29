@@ -116,11 +116,13 @@ public class MainApp extends Application {
             initialCustomerData = customerBookOptional.orElseGet(SampleDataUtil::getSampleCustomerBook);
 
         } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty Customer DataBook");
+            logger.warning("Data file not in the correct format."
+                    + " Will be starting with an empty Customer DataBook");
             initialCustomerData = new DataBook<>();
 
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty Customer DataBook");
+            logger.warning("Problem while reading from the file."
+                    + " Will be starting with an empty Customer DataBook");
             initialCustomerData = new DataBook<>();
         }
 
