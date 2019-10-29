@@ -16,7 +16,9 @@ import seedu.address.model.util.Date;
  */
 public class ProjectCommand extends Command {
     public static final String COMMAND_WORD = "project";
-
+    public static final String MESSAGE_INVALID_DATE = "Date must be set in the future";
+    public static final String MESSAGE_VOID_TRANSACTION_HISTORY =
+            "Transaction history is currently empty. It is impossible to cast a projection.";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Project future balance based on past income/outflow.\n"
         + "Parameters: "
         + PREFIX_DATE + "DATE\n"
@@ -24,6 +26,7 @@ public class ProjectCommand extends Command {
         + PREFIX_DATE + "12122103 09:00";
 
     public static final String MESSAGE_SUCCESS = "Projected balance: %1$s";
+
     public final Date date;
 
     public ProjectCommand(Date date) {
@@ -37,6 +40,10 @@ public class ProjectCommand extends Command {
 
         ObservableList<BankAccountOperation> transactionHistory =
             model.getBankAccount().getSortedTransactionHistory(new DateComparator());
+
+        if (transactionHistory.isEmpty()) {
+            throw new CommandException(MESSAGE_VOID_TRANSACTION_HISTORY);
+        }
 
         Projection projection = new Projection(transactionHistory, date, model);
         return new CommandResult(String.format(MESSAGE_SUCCESS, projection.toString()));
