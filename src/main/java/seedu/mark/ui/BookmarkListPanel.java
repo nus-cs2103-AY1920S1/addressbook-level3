@@ -96,9 +96,6 @@ public class BookmarkListPanel extends UiPart<Region> {
                 setText(null);
             } else {
                 BookmarkCard card = new BookmarkCard(bookmark, getIndex() + 1);
-                if (bookmark.equals(bookmarkToDisplayCache.getValue())) {
-                    card.displayCache();
-                }
                 setGraphic(card.getRoot());
             }
         }
