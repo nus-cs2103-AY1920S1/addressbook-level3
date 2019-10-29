@@ -15,7 +15,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.model.transaction.exceptions.DuplicateTransactionException;
 import seedu.address.model.transaction.exceptions.TransactionNotFoundException;
-import seedu.address.testutil.TransactionBuilder;
+import seedu.address.testutil.BankOperationBuilder;
 
 public class UniqueTransactionListTest {
 
@@ -40,7 +40,7 @@ public class UniqueTransactionListTest {
     @Test
     public void contains_transactionWithSameIdentityFieldsInList_returnsTrue() {
         uniqueTransactionList.add(ALICE);
-        BankAccountOperation editedAlice = new TransactionBuilder(ALICE).build();
+        BankAccountOperation editedAlice = new BankOperationBuilder(ALICE).build();
         assertTrue(uniqueTransactionList.contains(editedAlice));
     }
 
@@ -82,7 +82,7 @@ public class UniqueTransactionListTest {
     @Test
     public void setTransaction_editedTransactionHasSameIdentity_success() {
         uniqueTransactionList.add(ALICE);
-        BankAccountOperation editedAlice = new TransactionBuilder(ALICE).build();
+        BankAccountOperation editedAlice = new BankOperationBuilder(ALICE).build();
         uniqueTransactionList.setTransaction(ALICE, editedAlice);
         UniqueTransactionList expectedUniqueTransactionList = new UniqueTransactionList();
         expectedUniqueTransactionList.add(editedAlice);
