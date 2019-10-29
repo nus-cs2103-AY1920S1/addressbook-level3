@@ -1,22 +1,12 @@
 package seedu.address.logic.parser.editcommandparser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_CUSTOMER_DISPLAYED_INDEX;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_PHONE_DISPLAYED_INDEX;
-import static seedu.address.logic.commands.CommandTestUtil.CONTACT_NUMBER_DESC_ALICE;
-import static seedu.address.logic.commands.CommandTestUtil.CONTACT_NUMBER_DESC_BEN;
 import static seedu.address.logic.commands.CommandTestUtil.CUSTOMER_INDEX_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.CUSTOMER_INDEX_DESC_2;
-import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_ALICE;
-import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_BEN;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_CONTACT_NUMBER_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_CUSTOMER_INDEX_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_CUSTOMER_NAME_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_PHONE_INDEX_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_PRICE_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_ALICE;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_INDEX_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_INDEX_DESC_2;
 import static seedu.address.logic.commands.CommandTestUtil.PRICE_DESC_IPHONE;
@@ -25,45 +15,29 @@ import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_BESTSELLER;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_NEW;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_REGULAR;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_RICH;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_CONTACT_NUMBER_ALICE;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_CONTACT_NUMBER_BEN;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CUSTOMER_INDEX;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_ALICE;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BEN;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_ALICE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_INDEX;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PRICE_IPHONE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PRICE_IPHONEXR;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_BESTSELLER;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_NEW;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_REGULAR;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_RICH;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_CUSTOMER;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_ORDER;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_CUSTOMER;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_ORDER;
-import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_CUSTOMER;
 import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_ORDER;
-
-import org.junit.jupiter.api.Test;
 
 import java.util.Optional;
 
-import seedu.address.commons.core.Messages;
+import org.junit.jupiter.api.Test;
+
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.editcommand.EditCustomerCommand;
-import seedu.address.logic.commands.editcommand.EditCustomerCommand.EditCustomerDescriptor;
 import seedu.address.logic.commands.editcommand.EditOrderCommand;
 import seedu.address.logic.commands.editcommand.EditOrderCommand.EditOrderDescriptor;
-import seedu.address.model.customer.ContactNumber;
-import seedu.address.model.customer.CustomerName;
-import seedu.address.model.customer.Email;
 import seedu.address.model.order.Price;
 import seedu.address.model.tag.Tag;
-import seedu.address.testutil.EditCustomerDescriptorBuilder;
 import seedu.address.testutil.EditOrderDescriptorBuilder;
 
 public class EditOrderCommandParserTest {
@@ -104,10 +78,13 @@ public class EditOrderCommandParserTest {
 
     @Test
     public void parse_invalidValue_failure() {
+        // invalid phone index
         assertParseFailure(parser, "1" + INVALID_PHONE_INDEX_DESC,
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditOrderCommand.MESSAGE_USAGE)); // invalid phone index
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditOrderCommand.MESSAGE_USAGE));
+
+        // invalid customer index
         assertParseFailure(parser, "1" + INVALID_CUSTOMER_INDEX_DESC,
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditOrderCommand.MESSAGE_USAGE)); // invalid customer index
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditOrderCommand.MESSAGE_USAGE));
         assertParseFailure(parser, "1" + INVALID_PRICE_DESC,
                 Price.MESSAGE_CONSTRAINTS); // invalid price
         assertParseFailure(parser, "1" + INVALID_TAG_DESC,
@@ -138,7 +115,8 @@ public class EditOrderCommandParserTest {
     @Test
     public void parse_allFieldsSpecified_success() {
         Index targetIndex = INDEX_SECOND_ORDER;
-        String userInput = targetIndex.getOneBased() + CUSTOMER_INDEX_DESC + PHONE_INDEX_DESC +PRICE_DESC_IPHONE + TAG_DESC_NEW;
+        String userInput = targetIndex.getOneBased() + CUSTOMER_INDEX_DESC + PHONE_INDEX_DESC
+                + PRICE_DESC_IPHONE + TAG_DESC_NEW;
 
         EditOrderDescriptor descriptor = new EditOrderDescriptorBuilder()
                 .withPrice(VALID_PRICE_IPHONE)
