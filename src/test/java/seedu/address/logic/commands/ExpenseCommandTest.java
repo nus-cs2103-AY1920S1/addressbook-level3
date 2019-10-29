@@ -62,7 +62,8 @@ public class ExpenseCommandTest {
         CommandResult commandResult = commandOneName.execute(model);
 
         assertEquals(String.format(ExpenseCommand.MESSAGE_SUCCESS,
-                amount, TypicalPersons.ALICE.getName(), emptyString, TypicalPersons.BENSON.getName() + "\n"),
+                amount, TypicalPersons.ALICE.getName(), emptyString,
+                "\t\t" + TypicalPersons.BENSON.getName() + "\n"),
                 commandResult.getFeedbackToUser());
 
         expenses.clear(); // for some odd reason @BeforeAll doesn't do this properly?
@@ -71,6 +72,38 @@ public class ExpenseCommandTest {
                 amount,
                 emptyString,
                 TypicalPersons.BENSON.getPrimaryKey()));
+        assertEquals(expenses, model.getActivityBook().getActivityList().get(0).getExpenses());
+    }
+
+    @Test
+    public void execute_activityViewContextNameSubstring_addSuccessful() throws Exception {
+        Activity validActivity = new ActivityBuilder()
+                .addPerson(TypicalPersons.GEORGE)
+                .addPerson(TypicalPersons.GEORGE_FIRSTNAME)
+                .build();
+        Model model = new ModelManager();
+        model.addPerson(TypicalPersons.GEORGE);
+        model.addPerson(TypicalPersons.GEORGE_FIRSTNAME);
+        model.addActivity(validActivity);
+        model.setContext(new Context(validActivity));
+
+        ArrayList<String> search = new ArrayList<>();
+        search.add("George");
+        ExpenseCommand cmd = new ExpenseCommand(search, amount, emptyString);
+
+        CommandResult commandResult = cmd.execute(model);
+
+        assertEquals(String.format(ExpenseCommand.MESSAGE_SUCCESS,
+                amount, TypicalPersons.GEORGE_FIRSTNAME.getName(),
+                emptyString, "\t\t" + TypicalPersons.GEORGE.getName() + "\n"),
+                commandResult.getFeedbackToUser());
+
+        expenses.clear();
+        expenses.add(new Expense(
+                TypicalPersons.GEORGE_FIRSTNAME.getPrimaryKey(),
+                amount,
+                emptyString,
+                TypicalPersons.GEORGE.getPrimaryKey()));
         assertEquals(expenses, model.getActivityBook().getActivityList().get(0).getExpenses());
     }
 
@@ -95,7 +128,8 @@ public class ExpenseCommandTest {
         CommandResult commandResult = commandMultipleNames.execute(model);
 
         assertEquals(String.format(ExpenseCommand.MESSAGE_SUCCESS,
-                amount, TypicalPersons.ALICE.getName(), emptyString, TypicalPersons.BENSON.getName() + "\n"),
+                amount, TypicalPersons.ALICE.getName(), emptyString,
+                "\t\t" + TypicalPersons.BENSON.getName() + "\n"),
                 commandResult.getFeedbackToUser());
 
         expenses.clear();
@@ -126,7 +160,8 @@ public class ExpenseCommandTest {
         CommandResult commandResult = command.execute(model);
 
         assertEquals(String.format(ExpenseCommand.MESSAGE_SUCCESS,
-                amount, TypicalPersons.ALICE.getName(), notEmptyString, TypicalPersons.BENSON.getName() + "\n"),
+                amount, TypicalPersons.ALICE.getName(), notEmptyString,
+                "\t\t" + TypicalPersons.BENSON.getName() + "\n"),
                 commandResult.getFeedbackToUser());
 
         // It should add a whole activity wrapping all the contacts, and then

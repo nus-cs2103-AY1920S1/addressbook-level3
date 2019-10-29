@@ -42,7 +42,7 @@ public class ExpenseCommand extends Command {
             + PREFIX_DESCRIPTION + "Bubble tea";
 
     public static final String MESSAGE_SUCCESS =
-            "Expense of %s by %s successfully created.\n\tDescription: %s\n\tPeople involved:\n\t\t%s";
+            "Expense of %s by %s successfully created.\n\tDescription: %s\n\tPeople involved:\n%s";
     public static final String MESSAGE_NON_UNIQUE_SEARCH_RESULT =
             "Participant search term \"%s\" has no unique search result in the current context!";
     public static final String MESSAGE_MISSING_DESCRIPTION =
@@ -105,7 +105,7 @@ public class ExpenseCommand extends Command {
                 Person person = searchPerson(persons.get(i), searchScope);
 
                 involvedArr[i - 1] = person.getPrimaryKey();
-                successMessage.append(person.getName() + "\n");
+                successMessage.append("\t\t" + person.getName() + "\n");
 
                 // Contextual behaviour
                 if (model.getContext().getType() != ContextType.VIEW_ACTIVITY) {
@@ -123,7 +123,7 @@ public class ExpenseCommand extends Command {
                         .toArray();
                 searchScope.stream()
                         .filter(x -> x.getPrimaryKey() != payingId)
-                        .forEach(x -> successMessage.append(x.getName() + "\n"));
+                        .forEach(x -> successMessage.append("\t\t" + x.getName() + "\n"));
             } else {
                 involvedArr = new int[0];
             }
@@ -145,16 +145,26 @@ public class ExpenseCommand extends Command {
     }
 
     /**
-     * Searches for a {@code Person} object from a given list of people using a search string.
+     * Searches for a {@code Person} object from a given list of people using a name search string.
+     * If an exact match is found (non-case sensitive), it will return the exact match.
+     * Otherwise, it will use keyword based matching to look for names.
      * @param str The search string
      * @param searchScope The {@code Person} list to search from
      * @return The search result as a {@code Person} object
      * @throws CommandException if the search result is not unique
      */
-    public Person searchPerson(String str, List<Person> searchScope) throws CommandException {
+    private Person searchPerson(String str, List<Person> searchScope) throws CommandException {
+        List<Person> findResult = searchScope.stream()
+                .filter(x -> str.toLowerCase().equals(x.getName().toString().toLowerCase()))
+                .collect(Collectors.toList());
+
+        if (findResult.size() == 1) {
+            return findResult.get(0);
+        }
+
         List<String> keywords = Arrays.asList(str.split(" "));
         NameContainsAllKeywordsPredicate predicate = new NameContainsAllKeywordsPredicate(keywords);
-        List<Person> findResult = searchScope.stream().filter(predicate).collect(Collectors.toList());
+        findResult = searchScope.stream().filter(predicate).collect(Collectors.toList());
 
         if (findResult.size() != 1) {
             throw new CommandException(String.format(MESSAGE_NON_UNIQUE_SEARCH_RESULT, str));
