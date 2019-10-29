@@ -11,9 +11,9 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.stage.Stage?>
 
-<fx:root minWidth="450" resizable="false" title="Profile" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root minWidth="450" resizable="false" title="Alias List" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <icons>
-        <Image url="@/images/info_icon.png" />
+        <Image url="@/images/visitWindowIcon.png" />
     </icons>
     <scene>
         <Scene>
@@ -35,15 +35,6 @@
                            </Label>
                         </children>
                      </HBox>
-                     <HBox alignment="TOP_RIGHT" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
-                        <children>
-                           <Label fx:id="exitButton" alignment="CENTER" contentDisplay="RIGHT" styleClass="label-bright-footnote" text="[X]">
-                              <font>
-                                 <Font size="8.0" />
-                              </font>
-                           </Label>
-                        </children>
-                     </HBox>
                   </children>
                </HBox>
 
@@ -58,9 +49,6 @@
                <HBox alignment="CENTER" prefHeight="60.0" prefWidth="518.0">
                   <children>
                      <Label alignment="CENTER" contentDisplay="RIGHT" styleClass="label-bright-footnote" text="Press 'esc' to close">
-                        <font>
-                           <Font size="8.0" />
-                        </font>
                         <HBox.margin>
                            <Insets top="3.0" />
                         </HBox.margin>
