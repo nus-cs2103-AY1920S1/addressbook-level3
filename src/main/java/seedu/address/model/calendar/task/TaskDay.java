@@ -29,7 +29,7 @@ public class TaskDay {
      * Returns true if a given string is a valid phone number.
      */
     public static boolean isValidDay(String test) {
-        switch (test) {
+        switch (test.toLowerCase()) {
         case "monday":
         case "tuesday":
         case "wednesday":

@@ -27,9 +27,10 @@ import seedu.address.model.calendar.task.TaskDeadline;
 import seedu.address.model.calendar.task.TaskDescription;
 import seedu.address.model.calendar.task.TaskTime;
 import seedu.address.model.calendar.task.TaskTitle;
+import seedu.address.model.calendar.task.ToDoTask;
 
 /**
- * Edits the details of an existing task in the taskTime book.
+ * Edits the details of an existing <code>Task</code> in Modulo's calendar.
  */
 public class EditCommand extends Command {
 
@@ -80,6 +81,11 @@ public class EditCommand extends Command {
         Task taskToEdit = lastShownList.get(index.getZeroBased());
         Task editedTask = createEditedPerson(taskToEdit, editPersonDescriptor);
 
+        if (!taskToEdit.getTaskDeadline().getValue().equals(editedTask.getTaskDeadline().getValue())
+            && taskToEdit.isPersistent()) {
+            throw new CommandException("Cant edit deadline of module task");
+        }
+
         if (!taskToEdit.isSameTask(editedTask) && calendarModel.hasTask(editedTask)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
@@ -105,8 +111,8 @@ public class EditCommand extends Command {
         TaskTime updatedTaskTime = editPersonDescriptor.getTaskTime().orElse(taskToEdit.getTaskTime());
         Set<TaskTag> updatedTaskTags = editPersonDescriptor.getTaskTags().orElse(taskToEdit.getTaskTags());
 
-        return new Task(updatedTaskTitle, updatedTaskDay, updatedTaskDescription, updatedTaskDeadline,
-            updatedTaskTime, updatedTaskTags);
+        return new ToDoTask(updatedTaskTitle, updatedTaskDay, updatedTaskDescription, updatedTaskDeadline,
+            updatedTaskTime, updatedTaskTags, taskToEdit.getWeek());
     }
 
     @Override
@@ -158,7 +164,7 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(taskTitle, taskDay, taskDescription, taskTime, taskTags);
+            return CollectionUtil.isAnyNonNull(taskTitle, taskDay, taskDescription, taskDeadline, taskTime, taskTags);
         }
 
         public void setTaskTitle(TaskTitle taskTitle) {

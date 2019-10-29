@@ -12,7 +12,8 @@ import java.text.SimpleDateFormat;
  */
 public class TaskTime {
 
-    public static final String MESSAGE_CONSTRAINTS = "Time should be in format HH:mm in 24-hour format, e.g. 13:45";
+    public static final String MESSAGE_CONSTRAINTS = "Time should be in format HH:mm in 24-hour format from "
+        + "00:00 to 23:59";
 
     /*
      * The first character of the address must not be a whitespace,
@@ -38,6 +39,7 @@ public class TaskTime {
      */
     public static boolean isValidTime(String test) {
         DateFormat parser = new SimpleDateFormat("HH:mm");
+        parser.setLenient(false);
         try {
             parser.parse(test);
             return true;
