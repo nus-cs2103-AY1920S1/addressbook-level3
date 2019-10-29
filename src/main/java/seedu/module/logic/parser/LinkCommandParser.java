@@ -1,15 +1,14 @@
 package seedu.module.logic.parser;
 
 import static seedu.module.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.module.logic.parser.CliSyntax.PREFIX_ACTION;
 import static seedu.module.logic.parser.CliSyntax.PREFIX_LINK;
 import static seedu.module.logic.parser.CliSyntax.PREFIX_NAME;
 
 import seedu.module.logic.commands.linkcommands.LinkCommand;
 import seedu.module.logic.parser.exceptions.ParseException;
 import seedu.module.logic.parser.linkcommandparsers.AddLinkCommandParser;
+import seedu.module.logic.parser.linkcommandparsers.DeleteLinkCommandParser;
 import seedu.module.logic.parser.linkcommandparsers.LaunchLinkCommandParser;
-
 
 /**
  * Parses input arguments and creates a new LinkCommand object
@@ -27,15 +26,15 @@ public class LinkCommandParser implements Parser<LinkCommand> {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, LinkCommand.MESSAGE_USAGE));
         }
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_ACTION, PREFIX_LINK, PREFIX_NAME);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_LINK, PREFIX_NAME);
         try {
-            if (!argMultimap.getValue(PREFIX_ACTION).isPresent()) {
-                throw new ParseException("Input format error. a/ not found");
-            }
-            if (argMultimap.getValue(PREFIX_ACTION).get().equals("add")) {
+            String action = argMultimap.getPreamble().trim();
+            if (action.equals("add")) {
                 return new AddLinkCommandParser().parse(argMultimap);
-            } else if (argMultimap.getValue(PREFIX_ACTION).get().equals("go")) {
+            } else if (action.equals("go")) {
                 return new LaunchLinkCommandParser().parse(argMultimap);
+            } else if (action.equals("delete")) {
+                return new DeleteLinkCommandParser().parse(argMultimap);
             } else {
                 throw new ParseException("Command not recognized");
             }
