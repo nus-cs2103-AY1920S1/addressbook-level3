@@ -143,7 +143,7 @@ Format: `onduty <ROOM_NUMBER>`
 ==== Marks the doctor as off-duty: `offduty` ====
 
 Marks the doctor as off-duty. Patients can not be directed to the specified doctor. +
-Format: `offduty <ROOM_NUMBER>`
+Format: `offduty <ENTRY_ID>`
 
 === Appointment Management
 
