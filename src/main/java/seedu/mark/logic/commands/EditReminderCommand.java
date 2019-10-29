@@ -159,7 +159,7 @@ public class EditReminderCommand extends Command {
             }
 
             // instanceof handles nulls
-            if (!(other instanceof EditCommand.EditBookmarkDescriptor)) {
+            if (!(other instanceof EditReminderCommand.EditReminderDescriptor)) {
                 return false;
             }
 

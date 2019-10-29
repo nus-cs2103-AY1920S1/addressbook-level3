@@ -110,6 +110,7 @@ class EditReminderCommandTest {
                 new EditReminderCommand.EditReminderDescriptor(descOpen);
         EditReminderCommand commandWithSameValues =
                 new EditReminderCommand(INDEX_FIRST_REMINDER, copyDescriptor);
+        assertTrue(descOpen.equals(copyDescriptor));
         assertTrue(standardCommand.equals(commandWithSameValues));
 
         // same object -> returns true

@@ -5,7 +5,6 @@ import org.junit.jupiter.api.Test;
 import seedu.mark.commons.core.index.Index;
 import seedu.mark.logic.commands.EditReminderCommand;
 import seedu.mark.logic.parser.exceptions.ParseException;
-import seedu.mark.model.bookmark.Name;
 import seedu.mark.model.reminder.Note;
 import seedu.mark.testutil.EditReminderDescriptorBuilder;
 
@@ -14,7 +13,6 @@ import static seedu.mark.logic.commands.CommandTestUtil.*;
 import static seedu.mark.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.mark.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.mark.logic.parser.ParserUtil.MESSAGE_INVALID_TIME_FORMAT;
-import static seedu.mark.testutil.TypicalIndexes.INDEX_SECOND_BOOKMARK;
 import static seedu.mark.testutil.TypicalIndexes.INDEX_SECOND_REMINDER;
 
 class EditReminderCommandParserTest {
