@@ -70,6 +70,15 @@
         "day" : "Wednesday",
         "lessonType" : "Lecture"
       }, {
+        "venue" : "COM1-0201",
+        "weeks" : [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ],
+        "size" : 20,
+        "classNo" : "G13",
+        "startTime" : "1000",
+        "endTime" : "1200",
+        "day" : "Friday",
+        "lessonType" : "Lecture"
+      }, {
         "venue" : "AS6-0210",
         "weeks" : [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ],
         "size" : 20,
@@ -106,13 +115,13 @@
         "day" : "Monday",
         "lessonType" : "Lecture"
       }, {
-        "venue" : "COM1-0201",
+        "venue" : "AS6-0210",
         "weeks" : [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ],
         "size" : 20,
-        "classNo" : "G13",
-        "startTime" : "1000",
-        "endTime" : "1200",
-        "day" : "Friday",
+        "classNo" : "G05",
+        "startTime" : "1400",
+        "endTime" : "1600",
+        "day" : "Tuesday",
         "lessonType" : "Lecture"
       }, {
         "venue" : "AS6-0210",
@@ -121,15 +130,6 @@
         "classNo" : "G04",
         "startTime" : "1200",
         "endTime" : "1400",
-        "day" : "Tuesday",
-        "lessonType" : "Lecture"
-      }, {
-        "venue" : "AS6-0210",
-        "weeks" : [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ],
-        "size" : 20,
-        "classNo" : "G05",
-        "startTime" : "1400",
-        "endTime" : "1600",
         "day" : "Tuesday",
         "lessonType" : "Lecture"
       }, {
@@ -241,6 +241,33 @@
         "day" : "Thursday",
         "lessonType" : "Lecture"
       }, {
+        "venue" : "AS3-0610",
+        "weeks" : [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ],
+        "size" : 20,
+        "classNo" : "G09",
+        "startTime" : "1500",
+        "endTime" : "1700",
+        "day" : "Thursday",
+        "lessonType" : "Lecture"
+      }, {
+        "venue" : "AS6-0208",
+        "weeks" : [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ],
+        "size" : 20,
+        "classNo" : "G10",
+        "startTime" : "0800",
+        "endTime" : "1000",
+        "day" : "Tuesday",
+        "lessonType" : "Lecture"
+      }, {
+        "venue" : "AS3-0610",
+        "weeks" : [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ],
+        "size" : 20,
+        "classNo" : "G10",
+        "startTime" : "0800",
+        "endTime" : "1000",
+        "day" : "Friday",
+        "lessonType" : "Lecture"
+      }, {
         "venue" : "AS3-0611",
         "weeks" : [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ],
         "size" : 20,
@@ -248,6 +275,15 @@
         "startTime" : "1000",
         "endTime" : "1200",
         "day" : "Monday",
+        "lessonType" : "Lecture"
+      }, {
+        "venue" : "COM1-0216",
+        "weeks" : [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ],
+        "size" : 20,
+        "classNo" : "G02",
+        "startTime" : "1000",
+        "endTime" : "1200",
+        "day" : "Thursday",
         "lessonType" : "Lecture"
       }, {
         "venue" : "COM1-0216",
@@ -293,42 +329,6 @@
         "startTime" : "1500",
         "endTime" : "1700",
         "day" : "Monday",
-        "lessonType" : "Lecture"
-      }, {
-        "venue" : "AS3-0610",
-        "weeks" : [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ],
-        "size" : 20,
-        "classNo" : "G09",
-        "startTime" : "1500",
-        "endTime" : "1700",
-        "day" : "Thursday",
-        "lessonType" : "Lecture"
-      }, {
-        "venue" : "AS6-0208",
-        "weeks" : [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ],
-        "size" : 20,
-        "classNo" : "G10",
-        "startTime" : "0800",
-        "endTime" : "1000",
-        "day" : "Tuesday",
-        "lessonType" : "Lecture"
-      }, {
-        "venue" : "AS3-0610",
-        "weeks" : [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ],
-        "size" : 20,
-        "classNo" : "G10",
-        "startTime" : "0800",
-        "endTime" : "1000",
-        "day" : "Friday",
-        "lessonType" : "Lecture"
-      }, {
-        "venue" : "COM1-0216",
-        "weeks" : [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ],
-        "size" : 20,
-        "classNo" : "G02",
-        "startTime" : "1000",
-        "endTime" : "1200",
-        "day" : "Thursday",
         "lessonType" : "Lecture"
       }, {
         "venue" : "COM1-0210",
@@ -445,7 +445,7 @@
         "classNo" : "G11",
         "startTime" : "1400",
         "endTime" : "1600",
-        "day" : "Friday",
+        "day" : "Tuesday",
         "lessonType" : "Lecture"
       }, {
         "venue" : "AS3-0610",
@@ -454,7 +454,7 @@
         "classNo" : "G11",
         "startTime" : "1400",
         "endTime" : "1600",
-        "day" : "Tuesday",
+        "day" : "Friday",
         "lessonType" : "Lecture"
       }, {
         "venue" : "COM1-0216",

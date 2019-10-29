@@ -1,6 +1,9 @@
 package seedu.address.logic.internal.gmaps;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.net.ConnectException;
 import java.util.ArrayList;
@@ -34,6 +37,34 @@ class ClosestLocationTest {
         assertEquals(result.getFirstClosest(), "LT17");
         assertEquals(result.getFirstAvg(), (long) 0);
 
+    }
+
+    @Test
+    void closestLocationDataEdgeCase() {
+        ArrayList<String> locationNameList = new ArrayList<>(Arrays.asList("canteen", "canteen", "canteen"));
+        ClosestCommonLocationData result;
+        assertDoesNotThrow(() -> closestLocation.closestLocationData(locationNameList));
+        result = closestLocation.closestLocationData(locationNameList);
+        assertFalse(result.isOk());
+
+        ArrayList<String> locationNameList1 = new ArrayList<>(Arrays.asList("canteen", "LT17", "canteen"));
+        ClosestCommonLocationData result1;
+        assertDoesNotThrow(() -> closestLocation.closestLocationData(locationNameList1));
+        result1 = closestLocation.closestLocationData(locationNameList1);
+        assertTrue(result1.isOk());
+        assertEquals(result1.getFirstClosest(), "LT17");
+
+        ArrayList<String> locationNameList2 = new ArrayList<>(Arrays.asList("canteen", "S42", "canteen"));
+        ClosestCommonLocationData result2;
+        assertDoesNotThrow(() -> closestLocation.closestLocationData(locationNameList2));
+        result2 = closestLocation.closestLocationData(locationNameList2);
+        assertFalse(result2.isOk());
+
+        ArrayList<String> locationNameList3 = new ArrayList<>();
+        ClosestCommonLocationData result3;
+        assertDoesNotThrow(() -> closestLocation.closestLocationData(locationNameList3));
+        result3 = closestLocation.closestLocationData(locationNameList);
+        assertFalse(result3.isOk());
     }
 
     @Test

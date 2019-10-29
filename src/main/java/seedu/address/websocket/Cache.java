@@ -237,9 +237,14 @@ public class Cache {
      * @return an Optional containing a Module object or empty.
      */
     public static JSONArray loadVenues() {
-        JSONArray venues = (JSONArray) load(CacheFileNames.VENUES_FULL_PATH).get();
+        Optional<Object> optionalObject = load(CacheFileNames.VENUES_FULL_PATH);
+        JSONArray venues = new JSONArray();
+        if (optionalObject.isPresent()) {
+            venues = (JSONArray) optionalObject.get();
+        }
 
-        if (venues != null) {
+
+        if (!venues.isEmpty()) {
             return venues;
         } else {
             logger.info("Module not found in cache, getting from API...");
@@ -258,12 +263,18 @@ public class Cache {
     public static JSONObject loadPlaces(String locationName) {
         String fullUrl = UrlUtil.generateGmapsPlacesUrl(locationName);
         String sanitizedUrl = UrlUtil.sanitizeApiKey(fullUrl);
-        JSONObject placesJson = (JSONObject) gmapsPlaces.get();
+        JSONObject placesJson = new JSONObject();
+
+        if (gmapsPlaces.isPresent()) {
+            placesJson = (JSONObject) gmapsPlaces.get();
+        }
+
         JSONObject result = new JSONObject();
         if (placesJson.get(sanitizedUrl) != null) {
             result = (JSONObject) placesJson.get(sanitizedUrl);
         } else {
             try {
+                logger.info("Getting location: " + locationName + " data from Google Maps API");
                 result = GmapsApi.getLocation(locationName);
                 saveToJson(sanitizedUrl, result, CacheFileNames.GMAPS_PLACES_PATH);
             } catch (ConnectException e) {
@@ -282,12 +293,19 @@ public class Cache {
     public static JSONObject loadDistanceMatrix(ArrayList<String> locationsRow, ArrayList<String> locationsColumn) {
         String fullUrl = UrlUtil.generateGmapsDistanceMatrixUrl(locationsRow, locationsColumn);
         String sanitizedUrl = UrlUtil.sanitizeApiKey(fullUrl);
-        JSONObject distanceMatrixJson = (JSONObject) gmapsDistanceMatrix.get();
-        JSONObject result = new JSONObject();;
+        JSONObject distanceMatrixJson = new JSONObject();
+
+        if (gmapsDistanceMatrix.isPresent()) {
+            distanceMatrixJson = (JSONObject) gmapsDistanceMatrix.get();
+        }
+
+        JSONObject result = new JSONObject();
         if (distanceMatrixJson.get(sanitizedUrl) != null) {
             result = (JSONObject) distanceMatrixJson.get(sanitizedUrl);
         } else {
             try {
+                logger.info("Getting row: " + locationsRow + " column " + locationsColumn
+                        + " data from Google Maps API");
                 result = GmapsApi.getDistanceMatrix(locationsRow, locationsColumn);
                 saveToJson(sanitizedUrl, result, CacheFileNames.GMAPS_DISTANCE_MATRIX_PATH);
             } catch (ConnectException e) {
