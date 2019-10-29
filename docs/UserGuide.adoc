@@ -245,7 +245,12 @@ Lists all flashcards.
 
    Format: list
 
-    Expected output: a complete list of all flashcards currently in StudyBuddyPro
+    Expected output: Listed all flashcards:
+    Question: What is my name?
+    Answer: Sahil
+    Title: Test Name Question 1
+    Statistics: This flashcard was last viewed on: 2019-10-29. This flashcard should next be viewed on 2019-10-30 for optimum revision!
+    Tags: [pop]
 
 === Deleting a flashcard: `delete`
 
@@ -295,7 +300,12 @@ Starts a time trial for flashcards with tag <TAG> for <TIME> seconds per flashca
 === Remind
 
 Reminds the user regarding the flashcards due for revision today and the flashcards
-overdue for revision.
+overdue for revision. Automatically suggests a new date the flashcard should next be
+viewed at for optimal learning. These increments scale with time i.e. suggested viewing
+dates are closer at the start and spread further after more viewings. The suggested
+date for the next viewing of all flashcards can be viewed under the `list` command.
+
+{Give example}
 
     Example usage: remind
 
