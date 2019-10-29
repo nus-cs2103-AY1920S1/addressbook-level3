@@ -28,7 +28,8 @@ public class FindIncidentsCommandParser implements Parser<FindIncidentsCommand> 
      */
     public FindIncidentsCommand parse(String args) throws ParseException {
         ArgumentMultimap argDescMap = ArgumentTokenizer.tokenize(args, SEARCH_PREFIX_DESCRIPTION);
-        ArgumentMultimap argIdMap = ArgumentTokenizer.tokenize(args, SEARCH_PREFIX_OPERATOR);
+        ArgumentMultimap argIdMap = ArgumentTokenizer.tokenize(args, SEARCH_PREFIX_ID);
+        ArgumentMultimap argOpMap = ArgumentTokenizer.tokenize(args, SEARCH_PREFIX_OPERATOR);
 
         if (arePrefixesPresent(argDescMap, SEARCH_PREFIX_DESCRIPTION)) {
             Description descriptionKeywords = ParserUtil.parseDescription(argDescMap
@@ -37,8 +38,8 @@ public class FindIncidentsCommandParser implements Parser<FindIncidentsCommand> 
         } else if (arePrefixesPresent(argIdMap, SEARCH_PREFIX_ID)) {
             IncidentId idKeywords = ParserUtil.parseId(argIdMap.getValue(SEARCH_PREFIX_ID).get());
             return new FindIncidentsCommand(new IdKeywordsPredicate(idKeywords));
-        } else if (arePrefixesPresent(argIdMap, SEARCH_PREFIX_OPERATOR)) {
-            Name nameKeywords = ParserUtil.parseName(argIdMap.getValue(SEARCH_PREFIX_OPERATOR).get());
+        } else if (arePrefixesPresent(argOpMap, SEARCH_PREFIX_OPERATOR)) {
+            Name nameKeywords = ParserUtil.parseName(argOpMap.getValue(SEARCH_PREFIX_OPERATOR).get());
             return new FindIncidentsCommand(new NameKeywordsPredicate(nameKeywords));
         } else {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
