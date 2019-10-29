@@ -11,7 +11,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
-import seedu.address.logic.storage.exceptions.StorageIOException;
+import seedu.address.logic.storage.exceptions.StorageIoException;
 import seedu.address.model.ModelLists;
 import seedu.address.model.events.EventSource;
 import seedu.address.model.events.EventSourceBuilder;
@@ -19,6 +19,9 @@ import seedu.address.model.listeners.ModelListListener;
 import seedu.address.model.listeners.ModelResetListener;
 import seedu.address.model.tasks.TaskSource;
 
+/**
+ * Manages saving and loading (to local storage) of the Model in Horo.
+ */
 public class StorageManager implements ModelListListener {
 
     private final ObjectMapper mapper;
@@ -45,6 +48,9 @@ public class StorageManager implements ModelListListener {
         this.tasksFile = tasksFile;
     }
 
+    /**
+     * Load Model from local storage.
+     */
     public void load() {
         try {
             List<EventSourceBuilder> eventBuilders;
@@ -85,7 +91,7 @@ public class StorageManager implements ModelListListener {
                 this.mapper.writeValue(this.tasksFile.toFile(), lists.getTasks());
             }
         } catch (IOException e) {
-            throw new StorageIOException();
+            throw new StorageIoException();
         }
     }
 }

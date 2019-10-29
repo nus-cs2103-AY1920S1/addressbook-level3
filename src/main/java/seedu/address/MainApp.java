@@ -108,7 +108,7 @@ public class MainApp extends Application {
         // Start UiManager
         uiManager.start(primaryStage);
 
-        // Load from storage
+        // Load Model from storage
         storageManager.load();
 
         // Start UndoRedoManager
