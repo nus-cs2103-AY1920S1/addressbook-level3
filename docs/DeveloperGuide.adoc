@@ -375,17 +375,16 @@ image::FilterClassDiagram.png[]
 
 ==== Design Considerations
 
-===== Aspect: Sorting of the Bank Account
+===== Aspect: Filtering by multiple categories
 
-* **Alternative 1 (Current Choice):** Creating a comparator for each area to be sorted.
-** **Pros:** Easy to implement.
-** **Cons:** Users can only sort by comparators that have been implemented.
-Developers have to create a new +
-comparator class to sort a new area.
-* **Alternative 2:** Users can define the area to be sorted.
-** **Pros:** Extremely flexible for the users as they are not limited to the number of +
-areas to be sorted.
+* **Alternative 1 (Current Choice):** Creating one predicate for all categories to be sorted.
+** **Pros:** Extremely flexible for the users as they are not limited to the number of categories to be filtered.
 ** **Cons:** Difficult to implement.
+* **Alternative 2:** Creating a predicate for each category to be sorted.
+** **Pros:** Easy to implement.
+** **Cons:** Users can only filter by predicates that have been implemented.
+Developers have to create a new predicate class to filter a new category.
+
 // end::filter[]
 
 // tag::split[]
