@@ -3,6 +3,7 @@ package seedu.exercise.ui;
 import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.image.Image;
@@ -125,8 +126,7 @@ public class MainWindow extends UiPart<Stage> {
         resourceListPanelPlaceholder.getTabs().add(scheduleListTabPlaceholder);
         resourceListPanelPlaceholder.getTabs().add(suggestionListTabPlaceholder);
 
-        infoDisplayPanel = new InfoDisplayPanel();
-        infoDisplayPanelPlaceholder.getChildren().add(infoDisplayPanel.getRoot());
+        displayDefaultLabel();
 
         chartPlaceholder.getChildren().add(new LineChartPanel(logic.getStatistic()).getRoot());
 
@@ -288,6 +288,16 @@ public class MainWindow extends UiPart<Stage> {
 
     private void handleShowSuggestionList() {
         resourceListPanelPlaceholder.getSelectionModel().select(suggestionListTabPlaceholder);
+    }
+
+    private void updateDisplayPanel(ExerciseInfoPanel newExerciseDisplay) {
+        infoDisplayPanelPlaceholder.getChildren().clear();
+        infoDisplayPanelPlaceholder.getChildren().add(newExerciseDisplay.getRoot());
+    }
+
+    private void displayDefaultLabel() {
+        infoDisplayPanelPlaceholder.getChildren().clear();
+        infoDisplayPanelPlaceholder.getChildren().add(new Label("Select an exercise to display its info"));
     }
 
 }
