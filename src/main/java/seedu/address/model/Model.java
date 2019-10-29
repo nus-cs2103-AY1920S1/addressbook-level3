@@ -186,6 +186,7 @@ public interface Model {
     ObservableList<ExpenseReminder> getFilteredExpenseReminders();
 
     ObservableList<WishReminder> getFilteredWishReminders();
+
     /**
      * Updates the filter of the filtered entry list to filter by the given
      * {@code predicate}.
