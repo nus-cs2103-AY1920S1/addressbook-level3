@@ -43,7 +43,6 @@ import seedu.mark.model.bookmark.Folder;
 import seedu.mark.model.bookmark.util.BookmarkBuilder;
 import seedu.mark.model.predicates.BookmarkContainsKeywordsPredicate;
 import seedu.mark.model.predicates.BookmarkPredicate;
-import seedu.mark.model.predicates.NameContainsKeywordsPredicate;
 import seedu.mark.model.tag.Tag;
 import seedu.mark.testutil.BookmarkUtil;
 import seedu.mark.testutil.EditBookmarkDescriptorBuilder;
