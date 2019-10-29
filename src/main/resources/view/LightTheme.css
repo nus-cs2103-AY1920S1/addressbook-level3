@@ -1,6 +1,6 @@
 .background {
-    -fx-background-color: derive(#1d1d1d, 20%);
-    background-color: #c7c7c7; /* Used in the default.html file */
+    -fx-background-color: #848484;
+    background-color: #c1c1c1; /* Used in the default.html file */
 }
 
 .label {
@@ -170,14 +170,14 @@
 }
 
 .result-display {
-    -fx-background-color: transparent;
+    -fx-background-color: derive(#e2e2e2, 30%);
     -fx-font-family: "Segoe UI Light";
     -fx-font-size: 13pt;
     -fx-text-fill: #000000;
 }
 
 .result-display .label {
-    -fx-text-fill: transparent !important;
+    -fx-text-fill: #000000 /*!important */;
 }
 
 .status-bar .label {
@@ -341,9 +341,9 @@
 }
 
 #commandTextField {
-    -fx-background-color: transparent #c7c7c7 transparent #c7c7c7;
+    -fx-background-color: inherit;
     -fx-background-insets: 0;
-    -fx-border-color: #c7c7c7 #c7c7c7 #000000 #c7c7c7;
+    -fx-border-color: #3e7b91;
     -fx-border-insets: 0;
     -fx-border-width: 1;
     -fx-font-family: "Segoe UI Light";
@@ -355,8 +355,13 @@
     -fx-effect: innershadow(gaussian, black, 10, 0, 0, 0);
 }
 
+
+#resultDisplay {
+    -fx-border-color: #3e7b91;
+}
+
 #resultDisplay .content {
-    -fx-background-color: transparent, #383838, transparent, #383838;
+    -fx-background-color: derive(#e2e2e2, 20%);
     -fx-background-radius: 0;
 }
 
