@@ -44,10 +44,10 @@ public class ParserUtil {
      * @throws ParseException if specified semester is not valid.
      */
     public static SemesterName parseSemester(String semester) throws ParseException {
-        String trimmedSemester = semester.trim().toUpperCase();
-        if (!SemesterName.isValidSemesterName(trimmedSemester)) {
+        if (semester == null || !SemesterName.isValidSemesterName(semester)) {
             throw new ParseException(MESSAGE_INVALID_SEMESTER);
         }
+        String trimmedSemester = semester.trim().toUpperCase();
         int year = Character.getNumericValue(trimmedSemester.charAt(1));
         int sem = Character.getNumericValue(trimmedSemester.charAt(trimmedSemester.length() - 1));
         if (trimmedSemester.length() == 4) {

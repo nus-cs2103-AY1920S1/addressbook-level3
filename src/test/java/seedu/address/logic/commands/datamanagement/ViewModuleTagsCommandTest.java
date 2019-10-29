@@ -57,7 +57,7 @@ public class ViewModuleTagsCommandTest {
 
         // assign default tags to the module
         UniqueTagList moduleDefaultTags = studyPlan.assignDefaultTags(TypicalModulesInfo.CS1231S);
-        for (Tag defaultTag: moduleDefaultTags) {
+        for (Tag defaultTag : moduleDefaultTags) {
             cs1231s.addTag(defaultTag);
         }
 

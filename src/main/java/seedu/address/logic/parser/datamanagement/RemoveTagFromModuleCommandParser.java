@@ -38,7 +38,7 @@ public class RemoveTagFromModuleCommandParser implements Parser<RemoveTagFromMod
                 ArgumentTokenizer.tokenize(args, MODULE_PATTERN, TAG_PATTERN);
 
         if (!arePrefixesPresent(argMultimap, MODULE_PATTERN, TAG_PATTERN)
-                || !argMultimap.getPreamble().isEmpty()) {
+        ) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     RemoveTagFromModuleCommand.MESSAGE_USAGE));
         }

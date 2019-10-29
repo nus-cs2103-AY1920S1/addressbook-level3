@@ -56,6 +56,7 @@ public class TypicalVersionTrackingManager {
 
     /**
      * Returns a typical commit list of two commits for testing.
+     *
      * @return
      */
     public static CommitList getTypicalCommitList() throws CloneNotSupportedException {
@@ -71,6 +72,7 @@ public class TypicalVersionTrackingManager {
 
     /**
      * Returns a typical StudyPlanCommitManager containing two commits for testing.
+     *
      * @return
      */
     public static StudyPlanCommitManager getTypicalStudyPlanCommitManager() {

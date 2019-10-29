@@ -38,7 +38,7 @@ public class SortStudyPlansByPriorityTagCommand extends Command {
         }
 
         List<StudyPlan> studyPlansListCopy = new ArrayList<StudyPlan>();
-        for (StudyPlan studyPlan: studyPlans) {
+        for (StudyPlan studyPlan : studyPlans) {
             studyPlansListCopy.add(studyPlan);
         }
 

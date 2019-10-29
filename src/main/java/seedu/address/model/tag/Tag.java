@@ -6,7 +6,7 @@ package seedu.address.model.tag;
 public interface Tag {
 
     String MESSAGE_CONSTRAINTS = "Tags names should be alphanumeric";
-    String VALIDATION_REGEX = "\\p{Alnum}+";
+    String VALIDATION_REGEX = "^\\S+$";
 
     boolean isDefault();
 

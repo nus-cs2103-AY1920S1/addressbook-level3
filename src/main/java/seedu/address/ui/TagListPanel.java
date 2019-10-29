@@ -43,7 +43,7 @@ public class TagListPanel extends UiPart<Region> {
                 }
             }
         })
-            .collect(Collectors.toUnmodifiableList());
+                .collect(Collectors.toUnmodifiableList());
 
         UniqueTagList uniqueTagList = new UniqueTagList();
         uniqueTagList.setTags(tagList);

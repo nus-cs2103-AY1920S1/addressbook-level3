@@ -41,6 +41,7 @@ public class BlockCurrentSemesterCommand extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof BlockCurrentSemesterCommand // instanceof handles nulls
-                && sem.equals(((BlockCurrentSemesterCommand) other).sem));
+                && sem.equals(((BlockCurrentSemesterCommand) other).sem)
+                && reason.equals(((BlockCurrentSemesterCommand) other).reason));
     }
 }

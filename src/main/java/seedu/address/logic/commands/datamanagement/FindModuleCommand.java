@@ -64,12 +64,13 @@ public class FindModuleCommand extends Command {
 
     /**
      * Finds the semesters in which the module is located.
+     *
      * @param semesterList The list of semesters in the active study plan
      * @return A UniqueSemesterList containing the semesters where the module is located.
      */
     private UniqueSemesterList findMod(UniqueSemesterList semesterList) {
         UniqueSemesterList locations = new UniqueSemesterList();
-        for (Semester semester: semesterList) {
+        for (Semester semester : semesterList) {
             UniqueModuleList moduleList = semester.getModules();
             if (moduleList.contains(moduleCode)) {
                 locations.add(semester);

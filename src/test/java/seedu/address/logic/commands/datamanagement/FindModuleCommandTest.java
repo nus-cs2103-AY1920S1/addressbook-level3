@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.testutil.TypicalSemesterList.EMPTY_SEMESTER_LIST;
 
 import java.util.HashMap;
 
@@ -34,14 +35,15 @@ public class FindModuleCommandTest {
     private Model model;
 
     @BeforeEach
-    public void setUp() {
+    public void setUp() throws CloneNotSupportedException {
         // construct module
         cs1101s = TypicalModuleHashMap.getTypicalModuleHashMap().get("CS1101S");
-        moduleHashMap = new HashMap<String, Module>();
+        moduleHashMap = new HashMap<>();
         moduleHashMap.put("CS1101S", cs1101s);
 
         // construct model containing study plan with module in certain semesters
-        studyPlan = new StudyPlanBuilder().withModules(moduleHashMap).build();
+        studyPlan = new StudyPlanBuilder()
+                .withSemesters(EMPTY_SEMESTER_LIST.clone()).withModules(moduleHashMap).build();
         studyPlan.addModuleToSemester(cs1101s.getModuleCode(), SemesterName.Y1S1);
         studyPlan.addModuleToSemester(cs1101s.getModuleCode(), SemesterName.Y3S2);
         model = new ModelManager(new ModulePlannerBuilder().withStudyPlan(studyPlan).build(),
@@ -68,9 +70,9 @@ public class FindModuleCommandTest {
         // construct command to find module
         FindModuleCommand findModuleCommand = new FindModuleCommand(cs1101s.getModuleCode().toString());
 
-        CommandResult expectedCommandResult = new CommandResult<Semester>(String.format(
+        CommandResult expectedCommandResult = new CommandResult<>(String.format(
                 FindModuleCommand.MESSAGE_SUCCESS, cs1101s.getModuleCode().toString()),
-                        ResultViewType.SEMESTER, expectedList.asUnmodifiableObservableList());
+                ResultViewType.SEMESTER, expectedList.asUnmodifiableObservableList());
 
         assertCommandSuccess(findModuleCommand, model, expectedCommandResult, model);
     }

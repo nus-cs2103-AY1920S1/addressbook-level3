@@ -18,6 +18,7 @@ public class Title implements Cloneable {
 
     /**
      * Constructs a title that fulfills the validation constraint.
+     *
      * @param value the name of the title.
      */
     public Title(String value) {

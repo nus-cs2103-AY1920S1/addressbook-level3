@@ -38,10 +38,10 @@ public class BlockCurrentSemesterParser implements Parser<BlockCurrentSemesterCo
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, SEMESTER_PATTERN);
         String[] tokens = args.trim().split(" ");
-        String reason = tokens.length >= 3 ? String.join(" ",
-                Arrays.copyOfRange(tokens, 3, tokens.length)) : "";
+        String reason = tokens.length >= 2 ? String.join(" ",
+                Arrays.copyOfRange(tokens, 1, tokens.length)) : "";
         if (!arePrefixesPresent(argMultimap, SEMESTER_PATTERN)
-                || !argMultimap.getPreamble().isEmpty()) {
+        ) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     BlockCurrentSemesterCommand.MESSAGE_USAGE));
         }

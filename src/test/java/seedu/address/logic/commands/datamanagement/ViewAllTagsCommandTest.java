@@ -38,7 +38,7 @@ public class ViewAllTagsCommandTest {
 
         // construct list of tags that should be shown
         UniqueTagList expectedList = new UniqueTagList();
-        expectedList.initDefaultTags();;
+        expectedList.initDefaultTags();
         expectedList.addTag(validTagOne);
         expectedList.addTag(validTagTwo);
 

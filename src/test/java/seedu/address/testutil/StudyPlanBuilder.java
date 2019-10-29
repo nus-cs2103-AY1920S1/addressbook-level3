@@ -53,6 +53,7 @@ public class StudyPlanBuilder {
     public StudyPlanBuilder() {
         title = new Title(DEFAULT_TITLE);
         index = DEFAULT_INDEX;
+        semesters = new UniqueSemesterList();
         currentSemester = SemesterName.valueOf(DEFAULT_CURRENT_SEMESTER);
         isActivated = DEFAULT_ACTIVATED_STATUS;
         modules = DEFAULT_MODULES;
@@ -66,7 +67,6 @@ public class StudyPlanBuilder {
      */
     public StudyPlanBuilder(StudyPlan studyPlanToCopy) {
         requireNonNull(studyPlanToCopy);
-
         semesters = studyPlanToCopy.getSemesters();
         title = studyPlanToCopy.getTitle();
         index = studyPlanToCopy.getIndex();
@@ -82,6 +82,14 @@ public class StudyPlanBuilder {
      */
     public StudyPlanBuilder withTitle(Title title) {
         this.title = title;
+        return this;
+    }
+
+    /**
+     * Sets the {@code semesters} of the {@code StudyPlan} that we are building.
+     */
+    public StudyPlanBuilder withSemesters(UniqueSemesterList semesters) {
+        this.semesters = semesters;
         return this;
     }
 
@@ -130,7 +138,7 @@ public class StudyPlanBuilder {
      */
     public StudyPlanBuilder withModuleTags(String... tags) {
         List<Tag> tagList = SampleDataUtil.getUserTagList(tags);
-        for (Tag tag: tagList) {
+        for (Tag tag : tagList) {
             this.tags.addTag(tag);
         }
         return this;
@@ -159,7 +167,7 @@ public class StudyPlanBuilder {
      * set it to the {@code StudyPlan} that we are building.
      */
     public StudyPlanBuilder withStudyPlanTags(Tag... tags) {
-        for (Tag tag: tags) {
+        for (Tag tag : tags) {
             this.studyPlanTags.addTag(tag);
         }
         return this;
@@ -174,6 +182,7 @@ public class StudyPlanBuilder {
         StudyPlan toReturn = new StudyPlan(title, sampleModulesInfo,
                 sampleCurrentSemester);
         toReturn.setIndex(index);
+        toReturn.getSemesters().setSemesters(this.semesters);
         toReturn.setActivated(isActivated);
         toReturn.setModules(modules);
         toReturn.setModuleTags(tags);

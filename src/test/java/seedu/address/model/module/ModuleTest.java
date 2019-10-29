@@ -71,7 +71,7 @@ public class ModuleTest {
         assertThrows(NullPointerException.class, () -> new Module(null));
         assertThrows(NullPointerException.class, () -> new Module(null, null, null));
         assertThrows(NullPointerException.class, () ->
-            new Module(null, null, 4, null, null, null));
+                new Module(null, null, 4, null, null, null));
     }
 
     @Test

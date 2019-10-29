@@ -66,4 +66,15 @@ public class ViewCommitCommand extends Command {
         }
 
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        } else if (obj instanceof ViewCommitCommand) {
+            return this.commitNumber == ((ViewCommitCommand) obj).commitNumber
+                    && this.studyPlanIndex == ((ViewCommitCommand) obj).studyPlanIndex;
+        }
+        return false;
+    }
 }

@@ -18,7 +18,6 @@ import seedu.address.model.tag.UserTag;
 public class Module implements Cloneable {
 
     private final ModuleCode moduleCode;
-    // Identity fields
     private Name name;
     private int mcCount;
     private Color color;
@@ -148,6 +147,7 @@ public class Module implements Cloneable {
 
     /**
      * Changes the tag list of the module.
+     *
      * @param tags
      */
     public void setTags(UniqueTagList tags) {
@@ -157,6 +157,7 @@ public class Module implements Cloneable {
     /**
      * This method verifies previous semester codes against the prerequisite tree, and updates its
      * {@code prereqsSatisfied} property accordingly.
+     *
      * @param prevSemCodes Codes of modules taken in previous semesters
      */
     public void verifyAndUpdate(List<String> prevSemCodes) {

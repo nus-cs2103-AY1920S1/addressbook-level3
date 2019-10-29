@@ -40,11 +40,10 @@ public class DefaultStudyPlanCommand extends Command {
         return new CommandResult(MESSAGE_SUCCESS, true, false);
     }
 
-    /*
+
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || other instanceof DefaultStudyPlanCommand; // instanceof handles nulls
     }
-     */
 }

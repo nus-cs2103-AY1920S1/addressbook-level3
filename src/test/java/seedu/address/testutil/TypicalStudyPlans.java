@@ -2,13 +2,23 @@ package seedu.address.testutil;
 
 import static seedu.address.logic.commands.CommandTestUtil.SP_1_SEMESTER_NAME;
 import static seedu.address.logic.commands.CommandTestUtil.SP_2_SEMESTER_NAME;
+import static seedu.address.testutil.TypicalModule.CS1101S;
+import static seedu.address.testutil.TypicalModule.CS2102;
+import static seedu.address.testutil.TypicalModule.CS3244;
+import static seedu.address.testutil.TypicalModule.CS5219;
+import static seedu.address.testutil.TypicalModule.CS5339;
+import static seedu.address.testutil.TypicalModule.ST2334;
+import static seedu.address.testutil.TypicalSemesterList.TYPICAL_SEMESTER_LIST;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 import seedu.address.model.ModulePlanner;
 import seedu.address.model.ModulesInfo;
+import seedu.address.model.module.Module;
+import seedu.address.model.semester.UniqueSemesterList;
 import seedu.address.model.studyplan.StudyPlan;
 import seedu.address.model.studyplan.Title;
 
@@ -33,26 +43,26 @@ public class TypicalStudyPlans {
     public static final StudyPlan SP_5 = new StudyPlan(new Title("fifth study plan"), modulesInfo,
             SP_2_SEMESTER_NAME);
 
-    private TypicalStudyPlans() {
-        /*
-        SP_1.addModuleToSemester(new ModuleCode("CS1101S"), SemesterName.Y1S1);
-        SP_1.addModuleToSemester(new ModuleCode("CS2030"), SemesterName.Y1S2);
-        SP_1.addModuleToSemester(new ModuleCode("CS2040S"), SemesterName.Y2S1);
+    public static StudyPlan getTypicalStudyPlan() {
+        HashMap<String, Module> moduleHashMap = new HashMap<>();
+        moduleHashMap.put("ST2334", ST2334);
+        moduleHashMap.put("CS3244", CS3244);
+        moduleHashMap.put("CS1101S", CS1101S);
+        moduleHashMap.put("CS2102", CS2102);
+        moduleHashMap.put("CS5339", CS5339);
+        moduleHashMap.put("CS5219", CS5219);
 
-        SP_2.addModuleToSemester(new ModuleCode("CS3230"), SemesterName.Y2S1);
-        SP_2.addModuleToSemester(new ModuleCode("CS2100"), SemesterName.Y2S1);
-        SP_2.addModuleToSemester(new ModuleCode("CS2103T"), SemesterName.Y2S1);
+        UniqueSemesterList uniqueSemesterList = null;
+        try {
+            uniqueSemesterList = TYPICAL_SEMESTER_LIST.clone();
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
 
-        SP_3.addModuleToSemester(new ModuleCode("MA1521"), SemesterName.Y1S1);
-
-        /////
-        SP_4.addModuleToSemester(new ModuleCode("MA1521"), SemesterName.Y1S1);
-        SP_4.addModuleToSemester(new ModuleCode("IS1103X"), SemesterName.Y2S1);
-
-        SP_5.addModuleToSemester(new ModuleCode("CS1101S"), SemesterName.Y1S1);
-        SP_5.addModuleToSemester(new ModuleCode("CS1231S"), SemesterName.Y1S1);
-         */
-    } // prevents instantiation
+        // construct model containing study plan without CS1101S in Y1S1
+        return new StudyPlanBuilder()
+                .withModules(moduleHashMap).withSemesters(uniqueSemesterList).build();
+    }
 
     /**
      * Returns an {@code ModulePlanner} with all the typical studyPlans.

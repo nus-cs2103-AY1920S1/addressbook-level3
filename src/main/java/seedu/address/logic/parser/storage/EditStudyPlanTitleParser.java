@@ -24,7 +24,7 @@ public class EditStudyPlanTitleParser implements Parser<EditTitleCommand> {
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditTitleCommand.MESSAGE_USAGE));
         }
 
-        return new EditTitleCommand(args);
+        return new EditTitleCommand(studyPlanName);
     }
 
 }

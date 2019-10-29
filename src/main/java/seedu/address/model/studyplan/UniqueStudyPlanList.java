@@ -94,7 +94,7 @@ public class UniqueStudyPlanList implements Iterable<StudyPlan> {
     public void setStudyPlans(List<StudyPlan> studyPlans) {
         requireAllNonNull(studyPlans);
         List<StudyPlan> newList = new ArrayList<>();
-        for (StudyPlan studyPlan: studyPlans) {
+        for (StudyPlan studyPlan : studyPlans) {
             try {
                 newList.add(studyPlan.clone());
             } catch (CloneNotSupportedException e) {

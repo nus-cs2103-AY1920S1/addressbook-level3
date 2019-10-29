@@ -39,4 +39,9 @@ public class ListAllStudyPlansCommand extends Command {
         }
         return new CommandResult(toReturn.toString());
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        return obj instanceof ListAllStudyPlansCommand;
+    }
 }

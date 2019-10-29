@@ -28,5 +28,4 @@ public class ViewCommitCommandParser implements Parser<ViewCommitCommand> {
         int commitNumber = Integer.parseInt(commitToken[1]);
         return new ViewCommitCommand(studyPlanIndex, commitNumber);
     }
-
 }

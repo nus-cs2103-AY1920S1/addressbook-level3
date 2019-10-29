@@ -1,22 +1,21 @@
 package seedu.address.logic.parser.datamanagement;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.MODULE_PATTERN;
 
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
+import seedu.address.logic.commands.datamanagement.RemoveTagFromStudyPlanCommand;
 import seedu.address.logic.commands.datamanagement.ViewModuleTagsCommand;
 import seedu.address.logic.parser.ArgumentMultimap;
-import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;
-import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.tag.PriorityTagType;
 
 /**
- * Parses input arguments and creates a new ViewModuleTagsCommand object
+ * Parses input arguments and creates a new RemoveTagFromStudyPlanCommand object
  */
-public class ViewModuleTagsCommandParser implements Parser<ViewModuleTagsCommand> {
+public class RemoveTagFromStudyPlanCommandParser implements Parser<RemoveTagFromStudyPlanCommand> {
 
     /**
      * Returns true if none of the prefixes contains empty {@code Optional} values in the given
@@ -27,22 +26,23 @@ public class ViewModuleTagsCommandParser implements Parser<ViewModuleTagsCommand
     }
 
     /**
-     * Parses the given {@code String} of arguments in the context of the ViewModuleTagsCommand
-     * and returns an ViewModuleTagsCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the RemoveTagFromStudyPlanCommand
+     * and returns an RemoveTagFromStudyPlanCommand object for execution.
      *
      * @throws ParseException if the user input does not conform the expected format
      */
-    public ViewModuleTagsCommand parse(String args) throws ParseException {
-        ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, MODULE_PATTERN);
-
-        if (!arePrefixesPresent(argMultimap, MODULE_PATTERN)
-        ) {
+    public RemoveTagFromStudyPlanCommand parse(String args) throws ParseException {
+        String[] tokens = args.split(" ");
+        if (tokens.length < 2 || !PriorityTagType.isValidPriorityTagString(tokens[0])
+                || !tokens[1].matches("\\d")) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     ViewModuleTagsCommand.MESSAGE_USAGE));
         }
-        String module = ParserUtil.parseModule(argMultimap.getValue(MODULE_PATTERN).get());
-        return new ViewModuleTagsCommand(module);
+        return new RemoveTagFromStudyPlanCommand(tokens[0], Integer.parseInt(tokens[1]));
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        return this == obj || obj instanceof RemoveTagFromStudyPlanCommandParser;
+    }
 }

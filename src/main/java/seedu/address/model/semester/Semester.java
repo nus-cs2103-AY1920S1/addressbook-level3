@@ -118,6 +118,7 @@ public class Semester implements Cloneable {
     }
 
     // Added this method to display a simplified list of semesters for commands like viewplan/viewcommit.
+
     /**
      * Converts this semester to a String suitable for display in a simplified study plan.
      */

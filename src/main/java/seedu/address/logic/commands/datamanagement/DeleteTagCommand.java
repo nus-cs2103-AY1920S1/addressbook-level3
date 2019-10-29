@@ -29,6 +29,7 @@ public class DeleteTagCommand extends Command {
 
     /**
      * Creates an {@code DeleteTagCommand} to delete the module tag with the given name.
+     *
      * @param tagName
      */
     public DeleteTagCommand(String tagName) {

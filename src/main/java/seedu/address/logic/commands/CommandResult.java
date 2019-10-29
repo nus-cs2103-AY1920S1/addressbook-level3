@@ -91,8 +91,8 @@ public class CommandResult<T> {
                 && changesActiveStudyPlan == otherCommandResult.changesActiveStudyPlan
                 && exit == otherCommandResult.exit
                 && ((resultViewType == null) ? (otherCommandResult.resultViewType == null)
-                        : resultViewType.equals(otherCommandResult.resultViewType)
-                                && (resultContent != null) && resultContent.equals(otherCommandResult.resultContent));
+                : resultViewType.equals(otherCommandResult.resultViewType)
+                && (resultContent != null) && resultContent.equals(otherCommandResult.resultContent));
     }
 
     @Override

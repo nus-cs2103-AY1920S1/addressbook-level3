@@ -38,8 +38,7 @@ public class AddModuleParser implements Parser<AddModuleCommand> {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, MODULE_PATTERN, SEMESTER_PATTERN);
 
-        if (!arePrefixesPresent(argMultimap, MODULE_PATTERN, SEMESTER_PATTERN)
-                || !argMultimap.getPreamble().isEmpty()) {
+        if (!arePrefixesPresent(argMultimap, MODULE_PATTERN, SEMESTER_PATTERN)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     AddModuleCommand.MESSAGE_USAGE));
         }

@@ -57,4 +57,16 @@ public class RevertCommitCommand extends Command {
             return new CommandResult(MESSAGE_NO_SUCH_COMMIT);
         }
     }
+
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        } else if (obj instanceof RevertCommitCommand) {
+            return this.commitNumber == ((RevertCommitCommand) obj).commitNumber
+                    && this.studyPlanIndex == ((RevertCommitCommand) obj).studyPlanIndex;
+        }
+        return false;
+    }
 }

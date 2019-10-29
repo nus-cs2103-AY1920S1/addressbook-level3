@@ -11,6 +11,8 @@
         "moduleCode" : "CS1101S"
       }, {
         "moduleCode" : "CS3244"
+      }, {
+        "moduleCode" : "CS3233"
       } ]
     }, {
       "semesterName" : "Y1S2",
@@ -18,6 +20,10 @@
       "reasonForBlocked" : null,
       "modules" : [ {
         "moduleCode" : "CS2030"
+      }, {
+        "moduleCode" : "CS3245"
+      }, {
+        "moduleCode" : "CS3244"
       } ]
     }, {
       "semesterName" : "Y2S1",
@@ -315,9 +321,7 @@
     }, {
       "moduleCode" : "CS3244",
       "color" : "RED",
-      "userTags" : [ {
-        "tagName" : "lomaksdma"
-      } ]
+      "userTags" : [ ]
     }, {
       "moduleCode" : "CS4212",
       "color" : "RED",
@@ -571,10 +575,9 @@
       "color" : "RED",
       "userTags" : [ ]
     } ],
-    "tags" : [ {
-      "tagName" : "lomaksdma"
-    } ],
-    "currentSemester" : "Y1S1"
+    "moduleTags" : [ ],
+    "currentSemester" : "Y1S1",
+    "studyPlanTags" : [ ]
   }, {
     "totalNumber" : 4,
     "title" : "second study plan",
@@ -1143,8 +1146,9 @@
       "color" : "RED",
       "userTags" : [ ]
     } ],
-    "tags" : [ ],
-    "currentSemester" : "Y1S1"
+    "moduleTags" : [ ],
+    "currentSemester" : "Y1S1",
+    "studyPlanTags" : [ ]
   }, {
     "totalNumber" : 4,
     "title" : "third study plan",
@@ -1709,8 +1713,9 @@
       "color" : "RED",
       "userTags" : [ ]
     } ],
-    "tags" : [ ],
-    "currentSemester" : "Y1S1"
+    "moduleTags" : [ ],
+    "currentSemester" : "Y1S1",
+    "studyPlanTags" : [ ]
   }, {
     "totalNumber" : 4,
     "title" : "Recommended Plan",
@@ -2299,8 +2304,9 @@
       "color" : "RED",
       "userTags" : [ ]
     } ],
-    "tags" : [ ],
-    "currentSemester" : "Y1S1"
+    "moduleTags" : [ ],
+    "currentSemester" : "Y1S1",
+    "studyPlanTags" : [ ]
   } ],
   "activeStudyPlanIndex" : 1,
   "manager" : {

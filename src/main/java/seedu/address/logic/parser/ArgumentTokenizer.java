@@ -1,6 +1,5 @@
 package seedu.address.logic.parser;
 
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
@@ -18,13 +17,15 @@ public class ArgumentTokenizer {
      */
     public static ArgumentMultimap tokenize(String argsString, Pattern... patterns) {
         ArgumentMultimap argMultimap = new ArgumentMultimap();
-
-        for (Pattern p : patterns) {
-            Matcher m = p.matcher(argsString);
-            while (m.find()) {
-                argMultimap.put(p, m.group());
+        String[] tokens = argsString.trim().split(" ");
+        for (String token : tokens) {
+            for (Pattern p : patterns) {
+                if (p.matcher(token).matches()) {
+                    argMultimap.put(p, token);
+                }
             }
         }
+
         return argMultimap;
     }
 }

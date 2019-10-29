@@ -42,10 +42,6 @@ public class SemesterTest {
     }
 
     @Test
-    public void toString_valid_success() {
-
-    }
-
     public void getters_setters() throws CloneNotSupportedException {
         Semester emptySemester = EMPTY_SEMESTER.clone();
         assertFalse(emptySemester.hasModule(VALID_MODULE_CODE_CS3244));
@@ -59,13 +55,11 @@ public class SemesterTest {
     public void toString_valid() {
         System.out.println(FULL_UNBLOCKED_SEMESTER_1.toString());
         System.out.println(FULL_UNBLOCKED_SEMESTER_2.toString());
-        assertEquals("Y1S2:\n"
-                        + "Probability and Statistics Module code: ST2334 MCs: 4 "
-                        + "Prereqs satisfied: false Tags: [Stats]\n"
-                        + "Machine Learning Module code: CS3244 MCs: 4 Prereqs satisfied: "
-                        + "false Tags: [Cool][AI][ML]\n"
-                        + "Programming Methodology Module code: CS1101S MCs: 4 "
-                        + "Prereqs satisfied: false Tags: [Hard]\n",
+        assertEquals("Y1S1:\n"
+                        + "Probability and Statistics Module code: ST2334 MCs:"
+                        + " 4 Prereqs satisfied: false Tags: [Stats]\n"
+                        + "Machine Learning Module code: CS3244 MCs: 4 "
+                        + "Prereqs satisfied: false Tags: [Cool][AI][ML]\n",
                 FULL_UNBLOCKED_SEMESTER_1.toString());
         assertEquals("Y1S2:\n"
                         + "Database Systems Module code: CS2102 MCs: 4 Prereqs satisfied: false Tags: [Database]\n"

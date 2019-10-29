@@ -39,7 +39,7 @@ public class SetCurrentSemesterParser implements Parser<SetCurrentSemesterComman
                 ArgumentTokenizer.tokenize(args, SEMESTER_PATTERN, MODULE_PATTERN);
 
         if (!arePrefixesPresent(argMultimap, SEMESTER_PATTERN)
-                || !argMultimap.getPreamble().isEmpty()) {
+        ) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     SetCurrentSemesterCommand.MESSAGE_USAGE));
         }

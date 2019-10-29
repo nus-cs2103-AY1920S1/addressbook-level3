@@ -53,11 +53,4 @@ public class ArgumentMultimap {
         }
         return new ArrayList<>(argMultimap.get(pattern));
     }
-
-    /**
-     * Returns the preamble (text before the first valid pattern). Trims any leading/trailing spaces.
-     */
-    public String getPreamble() {
-        return getValue(Pattern.compile("")).orElse("");
-    }
 }
