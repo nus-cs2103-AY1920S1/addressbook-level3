@@ -13,7 +13,7 @@ import seedu.address.model.borrower.Borrower;
 /**
  * Registers a borrower to the library records.
  */
-public class RegisterCommand extends Command {
+public class RegisterCommand extends Command implements ReversibleCommand {
 
     public static final String COMMAND_WORD = "register";
 
@@ -31,13 +31,31 @@ public class RegisterCommand extends Command {
     public static final String MESSAGE_SUCCESS = "New borrower added: %1$s";
 
     private final Borrower toAdd;
+    private final boolean isUndoRedo;
+    private Command undoCommand;
+    private Command redoCommand;
 
     /**
      * Creates a RegisterCommand to add the specified {@code Borrower}
+     *
+     * @param borrower to be registered.
      */
     public RegisterCommand(Borrower borrower) {
         requireNonNull(borrower);
         toAdd = borrower;
+        this.isUndoRedo = false;
+    }
+
+    /**
+     * Creates a RegisterCommand to add the specified {@code Borrower}
+     *
+     * @param borrower to be registered.
+     * @param isUndoRedo used to check whether the RegisterCommand is an undo/redo command.
+     */
+    public RegisterCommand(Borrower borrower, boolean isUndoRedo) {
+        requireNonNull(borrower);
+        toAdd = borrower;
+        this.isUndoRedo = isUndoRedo;
     }
 
     @Override
@@ -50,15 +68,34 @@ public class RegisterCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_BORROWER);
         }
 
+        undoCommand = new UnregisterCommand(toAdd.getBorrowerId());
+        redoCommand = new RegisterCommand(toAdd, true);
+
         model.registerBorrower(toAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd.toFullString()));
+    }
+
+    @Override
+    public Command getUndoCommand() {
+        return undoCommand;
+    }
+
+    @Override
+    public Command getRedoCommand() {
+        return redoCommand;
+    }
+
+    @Override
+    public boolean isUndoRedoCommand() {
+        return isUndoRedo;
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof RegisterCommand // instanceof handles nulls
-                && toAdd.equals(((RegisterCommand) other).toAdd));
+                && toAdd.equals(((RegisterCommand) other).toAdd))
+                && isUndoRedo == ((RegisterCommand) other).isUndoRedo;
     }
 
 }
