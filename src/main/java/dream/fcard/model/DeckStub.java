@@ -1,8 +1,6 @@
 package dream.fcard.model;
 
 import dream.fcard.logic.stats.DeckStats;
-import dream.fcard.logic.storage.Schema;
-import dream.fcard.util.json.jsontypes.JsonObject;
 import dream.fcard.util.json.jsontypes.JsonValue;
 
 /**
@@ -15,11 +13,6 @@ public class DeckStub extends Deck {
 
     /** DeckStats object storing the statistics of this deck. */
     private DeckStats deckStats;
-
-    /**
-     * Statistics for this deck.
-     */
-    //private Statistics deckStats;
 
     /**
      * Constructor to create a Deck object with no name and cards.
@@ -68,10 +61,16 @@ public class DeckStub extends Deck {
         //obj.put(Schema.DECK_CARDS, cardJson);
 
         // call toJson on the DeckStats object
-        JsonValue statsJson = deckStats.toJson();
-        JsonObject obj = new JsonObject();
-        obj.put(Schema.DECK_NAME, deckName);
+        //JsonValue statsJson = deckStats.toJson();
+        //JsonObject obj = new JsonObject();
+        //obj.put(Schema.DECK_NAME, deckName);
+        //
+        //return new JsonValue(obj);
+        return null;
+    }
 
-        return new JsonValue(obj);
+    /** Get the statistics pertaining to this deck. */
+    public DeckStats getDeckStats() {
+        return this.deckStats;
     }
 }
