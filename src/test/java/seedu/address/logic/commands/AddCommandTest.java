@@ -34,8 +34,6 @@ import seedu.address.model.aesthetics.Colour;
 import seedu.address.model.bio.User;
 import seedu.address.model.calendar.CalendarEntry;
 import seedu.address.model.calendar.Reminder;
-import seedu.address.model.food.Food;
-import seedu.address.model.food.UniqueFoodList;
 import seedu.address.model.person.Person;
 import seedu.address.model.record.BloodSugar;
 import seedu.address.model.record.Bmi;
@@ -46,6 +44,8 @@ import seedu.address.model.record.RecordType;
 import seedu.address.model.record.UniqueRecordList;
 import seedu.address.model.record.Weight;
 import seedu.address.model.statistics.AverageType;
+import sugarmummy.recmfood.model.Food;
+import sugarmummy.recmfood.model.UniqueFoodList;
 
 public class AddCommandTest {
 

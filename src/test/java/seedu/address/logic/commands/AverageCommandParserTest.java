@@ -59,7 +59,7 @@ public class AverageCommandParserTest {
 
         // invalid record type
         assertParseFailure(parser, " a/WEEKLY rt/ANYHOW",
-                "System does not accommodate such a record type.");
+            "System does not accommodate such a record type.");
 
         // invalid count type
         assertParseFailure(parser, " a/WEEKLY rt/BLOODSUGAR n/five",

@@ -8,8 +8,6 @@ import java.util.List;
  */
 public class CliSyntax {
 
-    /* Prefix definitions */
-
     // Biography Prefixes
     public static final Prefix PREFIX_NAME = new Prefix("n/");
     public static final Prefix PREFIX_DP_PATH = new Prefix("dp/");
@@ -37,6 +35,10 @@ public class CliSyntax {
     public static final Prefix PREFIX_BMI_HEIGHT = new Prefix("h/");
     public static final Prefix PREFIX_BMI_WEIGHT = new Prefix("w/");
 
+    // Stats Prefixes
+    public static final Prefix PREFIX_AVGTYPE = new Prefix("a/");
+    public static final Prefix PREFIX_COUNT = new Prefix("n/");
+
     // Calendar Prefixes
     public static final Prefix PREFIX_CALENDAR_DESCRIPTION = new Prefix("d/");
     public static final Prefix PREFIX_CALENDAR_REPETITION = new Prefix("r/");
@@ -45,14 +47,13 @@ public class CliSyntax {
     public static final Prefix PREFIX_YEAR_MONTH_DAY = new Prefix("ymd/");
     public static final Prefix PREFIX_YEAR_MONTH_WEEK = new Prefix("ymw/");
 
-    // Stats Prefixes
-    public static final Prefix PREFIX_TAG = new Prefix("t/");
+    // Food Prefixes
     public static final Prefix PREFIX_FOOD = new Prefix("fn/");
     public static final Prefix PREFIX_FOOD_TYPE = new Prefix("ft/");
-    public static final Prefix PREFIX_CALORIE = new Prefix("c/");
-    public static final Prefix PREFIX_GI = new Prefix("g/");
-    public static final Prefix PREFIX_SUGAR = new Prefix("s/");
-    public static final Prefix PREFIX_FAT = new Prefix("f/");
+    public static final Prefix PREFIX_CALORIE = new Prefix("ca/");
+    public static final Prefix PREFIX_GI = new Prefix("gi/");
+    public static final Prefix PREFIX_SUGAR = new Prefix("su/");
+    public static final Prefix PREFIX_FAT = new Prefix("fa/");
 
     // Food Recommendation Prefixes
     public static final String ABBR_NON_STARCHY_VEGETABLE = "nsv";
@@ -70,11 +71,4 @@ public class CliSyntax {
     public static final Flag FLAG_S = new Flag(FLAG_SIGNAL + ABBR_SNACK);
     public static final Flag FLAG_M = new Flag(FLAG_SIGNAL + ABBR_MEAL);
     public static final List<Flag> FLAGS = Arrays.asList(FLAG_NSV, FLAG_SV, FLAG_F, FLAG_P, FLAG_S, FLAG_M);
-    public static final Prefix PREFIX_AVGTYPE = new Prefix("a/");
-    public static final Prefix PREFIX_COUNT = new Prefix("n/");
-
-    // @Todo to remove if not used.
-    public static final Prefix PREFIX_PHONE = new Prefix("p/");
-    public static final Prefix PREFIX_EMAIL = new Prefix("e/");
-
 }

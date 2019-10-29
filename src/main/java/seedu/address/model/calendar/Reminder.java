@@ -50,11 +50,11 @@ public class Reminder extends CalendarEntry {
             return getDateTime().isBetweenDateTime(start, end);
         case Daily:
             return (getDateTime().isBeforeDateTime(end) || getDateTime().equals(end))
-                    && getDateTime().isBetweenTime(start, end);
+                && getDateTime().isBetweenTime(start, end);
         case Weekly:
             return (getDateTime().isBeforeDateTime(end) || getDateTime().equals(end))
-                    && getDayOfWeek().equals(end.getDayOfWeek())
-                    && getDateTime().isBetweenTime(start, end);
+                && getDayOfWeek().equals(end.getDayOfWeek())
+                && getDateTime().isBetweenTime(start, end);
         default:
             return false;
         }
@@ -69,7 +69,7 @@ public class Reminder extends CalendarEntry {
             return getDate().isBefore(date) || getDate().equals(date);
         case Weekly:
             return (getDate().isBefore(date) || getDate().equals(date))
-                    && getDayOfWeek().equals(date.getDayOfWeek());
+                && getDayOfWeek().equals(date.getDayOfWeek());
         default:
             return false;
         }

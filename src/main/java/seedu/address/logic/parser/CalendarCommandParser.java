@@ -31,17 +31,17 @@ public class CalendarCommandParser implements Parser<CalendarCommand> {
      */
     public CalendarCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_YEAR_MONTH, PREFIX_YEAR_MONTH_DAY, PREFIX_YEAR_MONTH_WEEK);
+            ArgumentTokenizer.tokenize(args, PREFIX_YEAR_MONTH, PREFIX_YEAR_MONTH_DAY, PREFIX_YEAR_MONTH_WEEK);
 
         YearMonth yearMonth;
 
         if (argMultimap.getValue(PREFIX_YEAR_MONTH_DAY).isPresent()) {
             return new CalendarCommand(ParserUtil.parseYearMonthDay(argMultimap.getValue(PREFIX_YEAR_MONTH_DAY).get()),
-                    false);
+                false);
         }
         if (argMultimap.getValue(PREFIX_YEAR_MONTH_WEEK).isPresent()) {
             return new CalendarCommand(ParserUtil.parseYearMonthDay(argMultimap.getValue(PREFIX_YEAR_MONTH_WEEK).get()),
-                    true);
+                true);
         }
         if (argMultimap.getValue(PREFIX_YEAR_MONTH).isPresent()) {
             yearMonth = ParserUtil.parseYearMonth(argMultimap.getValue(PREFIX_YEAR_MONTH).get());

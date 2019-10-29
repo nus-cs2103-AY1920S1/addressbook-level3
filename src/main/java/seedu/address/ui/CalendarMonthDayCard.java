@@ -31,7 +31,7 @@ public class CalendarMonthDayCard extends UiPart<Region> {
         this.date.setTextFill(Color.rgb(255, 0, 0));
         this.date.setText(date.getDayOfMonth() + "");
         StringBinding stringBinding = Bindings.size(
-                calendarEntries.filtered(calendarEntry -> calendarEntry.isOnDate(date))).asString();
+            calendarEntries.filtered(calendarEntry -> calendarEntry.isOnDate(date))).asString();
         entryNumber.textProperty().bind(stringBinding);
     }
 

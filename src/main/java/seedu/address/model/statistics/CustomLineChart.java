@@ -67,7 +67,7 @@ public class CustomLineChart<X, Y> extends LineChart<X, Y> {
             Double upperYDisplayPos = Math.max(getYAxis().getDisplayPosition(horizontalRangeMarker.getYValue()), 0.0);
             rectangle.setY(upperYDisplayPos);
             rectangle.setHeight(getYAxis().getDisplayPosition(horizontalRangeMarker.getXValue())
-                    - upperYDisplayPos);
+                - upperYDisplayPos);
             rectangle.setX(0d);
             rectangle.setWidth(getBoundsInLocal().getWidth());
             rectangle.toBack();
