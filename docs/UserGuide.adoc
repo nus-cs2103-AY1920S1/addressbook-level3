@@ -223,6 +223,16 @@ Examples:
 * `check 1` (in contacts page, show details of the person in index 1)
 * `check 2` (in claims page, show details of the claim in index 2)
 
+=== Sorting the Contacts/Claims/Incomes list
+
+Keyword: `sort`
+
+Format: `sort`
+
+Examples:
+
+* `sort`
+
 === Deleting a Person
 
 Deletes a Person from the contact list
