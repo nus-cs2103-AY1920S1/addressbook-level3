@@ -33,10 +33,12 @@ public class EventSourceBuilder {
     private EventSourceBuilder(@JsonProperty("description") String description,
                                @JsonProperty("start") DateTime start,
                                @JsonProperty("end") DateTime end,
+                               @JsonProperty("remind") DateTime remind,
                                @JsonProperty("tags") Set<String> tags) {
         this.description = description;
         this.start = start;
         this.end = end;
+        this.remind = remind;
         this.tags = tags;
     }
 

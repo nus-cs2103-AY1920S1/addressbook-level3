@@ -18,6 +18,7 @@ import seedu.address.model.events.EventSourceBuilder;
 import seedu.address.model.listeners.ModelListListener;
 import seedu.address.model.listeners.ModelResetListener;
 import seedu.address.model.tasks.TaskSource;
+import seedu.address.model.tasks.TaskSourceBuilder;
 
 /**
  * Manages saving and loading (to local storage) of the Model in Horo.
@@ -61,19 +62,25 @@ public class StorageManager implements ModelListListener {
                     new TypeReference<List<EventSourceBuilder>>() {});
             }
 
-            List<TaskSource> taskBuilders;
+            List<TaskSourceBuilder> taskBuilders;
             if (this.tasksFile == null || Files.notExists(this.tasksFile)) {
                 taskBuilders = List.of();
             } else {
                 taskBuilders = this.mapper.readValue(this.tasksFile.toFile(),
-                    new TypeReference<List<TaskSource>>() {});
+                    new TypeReference<List<TaskSourceBuilder>>() {});
             }
 
             this.modelResetListeners.forEach(listener -> {
+                // Create events and tasks from builders.
                 List<EventSource> events = eventBuilders.stream()
                     .map(EventSourceBuilder::build)
                     .collect(Collectors.toList());
-                listener.onModelReset(new ModelLists(events, taskBuilders), this);
+
+                List<TaskSource> tasks = taskBuilders.stream()
+                    .map(TaskSourceBuilder::build)
+                    .collect(Collectors.toList());
+
+                listener.onModelReset(new ModelLists(events, tasks), this);
             });
         } catch (IOException e) {
             e.printStackTrace();

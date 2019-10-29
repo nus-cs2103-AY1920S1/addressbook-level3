@@ -3,6 +3,8 @@ package seedu.address.model.tasks;
 import java.util.Objects;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import seedu.address.model.DateTime;
 
 /**
@@ -55,18 +57,22 @@ public class TaskSource {
         return false;
     }
 
+    @JsonProperty("description")
     public String getDescription() {
         return this.description;
     }
 
+    @JsonProperty("due")
     public DateTime getDueDate() {
         return this.due;
     }
 
+    @JsonProperty("done")
     public boolean isDone() {
         return isDone;
     }
 
+    @JsonProperty("tags")
     public Set<String> getTags() {
         return tags;
     }

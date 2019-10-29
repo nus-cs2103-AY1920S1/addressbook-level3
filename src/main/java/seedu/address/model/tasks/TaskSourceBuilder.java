@@ -5,6 +5,9 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import seedu.address.model.DateTime;
 
 
@@ -22,8 +25,19 @@ public class TaskSourceBuilder {
     private Set<String> tags;
     private boolean isDone;
 
-    public TaskSourceBuilder(String description) {
+    TaskSourceBuilder(String description) {
         this.description = Objects.requireNonNull(description);
+    }
+
+    @JsonCreator
+    private TaskSourceBuilder(@JsonProperty("description") String description,
+                               @JsonProperty("due") DateTime due,
+                               @JsonProperty("tags") Set<String> tags,
+                               @JsonProperty("done") boolean isDone) {
+        this.description = description;
+        this.due = due;
+        this.tags = tags;
+        this.isDone = isDone;
     }
 
     public TaskSourceBuilder setDueDate(DateTime due) {

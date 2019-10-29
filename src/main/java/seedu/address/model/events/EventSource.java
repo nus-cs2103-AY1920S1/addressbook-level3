@@ -78,16 +78,17 @@ public class EventSource {
 
     @JsonProperty("end")
     public DateTime getEndDateTime() {
-        return end;
+        return this.end;
+    }
+
+    @JsonProperty("remind")
+    public DateTime getRemindDateTime() {
+        return this.remind;
     }
 
     @JsonProperty("tags")
     public Set<String> getTags() {
-        return tags;
-    }
-
-    public DateTime getRemind() {
-        return remind;
+        return this.tags;
     }
 
     @Override
@@ -97,6 +98,7 @@ public class EventSource {
             return Objects.equals(this.description, e.description)
                 && Objects.equals(this.start, e.start)
                 && Objects.equals(this.end, e.end)
+                && Objects.equals(this.remind, e.remind)
                 && Objects.equals(this.tags, e.tags);
         }
         return false;

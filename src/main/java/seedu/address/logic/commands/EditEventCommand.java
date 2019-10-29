@@ -79,7 +79,7 @@ public class EditEventCommand extends Command {
 
             DateTime remind;
             if (this.remind == null) {
-                remind = event.getRemind();
+                remind = event.getRemindDateTime();
             } else {
                 remind = this.remind;
             }
