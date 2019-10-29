@@ -7,6 +7,7 @@ import java.util.Iterator;
 import java.util.List;
 //import java.util.Optional;
 
+import budgetbuddy.commons.core.index.Index;
 import budgetbuddy.model.account.exception.AccountNotFoundException;
 import budgetbuddy.model.account.exception.DuplicateAccountException;
 //import budgetbuddy.model.attributes.Name;
@@ -106,6 +107,15 @@ public class UniqueAccountList implements Iterable<Account> {
         }
 
         return targetAccount;
+    }
+
+    /**
+     * Retrieves an account from the list by index.
+     * @param index The index of the account to be obtained.
+     * @return the account at that index within the
+     */
+    public Account getAccountByIndex(Index index) {
+        return internalList.get(index.getZeroBased());
     }
 
     public void setAccounts(UniqueAccountList replacement) {

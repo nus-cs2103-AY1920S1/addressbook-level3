@@ -5,11 +5,15 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 import java.util.function.Predicate;
 
+import budgetbuddy.commons.core.index.Index;
 import budgetbuddy.model.account.Account;
 import budgetbuddy.model.account.UniqueAccountList;
 import budgetbuddy.model.account.exception.AccountNotFoundException;
+import budgetbuddy.model.account.exception.DefaultAccountCannotBeDeletedException;
+import budgetbuddy.model.attributes.Description;
 import budgetbuddy.model.attributes.Name;
 import budgetbuddy.model.transaction.Transaction;
+import budgetbuddy.model.transaction.TransactionList;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 
@@ -19,22 +23,34 @@ import javafx.collections.transformation.FilteredList;
 public class AccountsManager {
 
     private final UniqueAccountList accounts;
+    private static Account defaultAccount = new Account(new Name("DEFAULT"),
+            new Description(""), new TransactionList());
 
     private final FilteredList<Account> filteredAccounts;
 
+    /**
+     * Creates a new list of accounts.
+     */
     public AccountsManager() {
         this.accounts = new UniqueAccountList();
         filteredAccounts = new FilteredList<>(this.getAccountsList(), s -> true);
+        this.accounts.add(defaultAccount);
     }
 
     /**
      * Creates and fills a new list of accounts.
+     * The default account is always set to the first account in the list.
      * @param accounts A list of accounts with which to fill the new list.
      */
     public AccountsManager(List<Account> accounts) {
         requireNonNull(accounts);
         this.accounts = new UniqueAccountList(accounts);
         filteredAccounts = new FilteredList<>(this.getAccountsList(), s -> true);
+        defaultAccount = this.accounts.getAccountByIndex(Index.fromZeroBased(0));
+    }
+
+    public Account getDefaultAccount() {
+        return defaultAccount;
     }
 
 
@@ -75,10 +91,15 @@ public class AccountsManager {
 
     /**
      * Deletes an account.
+     * If the account to be deleted is the default account, an error is thrown to change the default account
+     * before it can be deleted.
      * @param toDelete The target account for deletion.
      */
     public void deleteAccount (Account toDelete) {
         if (accounts.contains(toDelete)) {
+            if(defaultAccount.isSameAccount(toDelete)){
+                throw new DefaultAccountCannotBeDeletedException();
+            }
             accounts.remove(toDelete);
         } else {
             throw new AccountNotFoundException();

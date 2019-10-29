@@ -55,6 +55,10 @@ public class Account {
     public void addTransaction(Transaction toAdd) {
         this.transactionList.add(toAdd);
     }
+
+    public void deleteTransaction(Transaction toDelete) {
+        this.transactionList.remove(toDelete);
+    }
     /**
      * Returns true if both accounts of the same name have at least one other identity field that is the same.
      * This defines a weaker notion of equality between two accounts, where no 2 accounts should have the same
