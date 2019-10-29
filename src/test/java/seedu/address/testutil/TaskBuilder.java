@@ -13,6 +13,9 @@ import seedu.address.model.calendar.task.TaskTitle;
 import seedu.address.model.calendar.task.ToDoTask;
 import seedu.address.model.calendar.util.SampleDataUtil;
 
+/**
+ * A utility class to help with building Task objects.
+ */
 public class TaskBuilder {
 
     public static final String DEFAULT_TITLE = "CS2100 Assignment";

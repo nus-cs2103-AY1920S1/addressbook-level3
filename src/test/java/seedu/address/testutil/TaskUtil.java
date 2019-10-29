@@ -47,7 +47,8 @@
 //        StringBuilder sb = new StringBuilder();
 //        descriptor.getTaskTitle().ifPresent(title -> sb.append(PREFIX_TASKTITLE).append(title.fullName).append(" "));
 //        descriptor.getTaskDay().ifPresent(phone -> sb.append(PREFIX_TASKDAY).append(phone.value).append(" "));
-//        descriptor.getTaskDescription().ifPresent(email -> sb.append(PREFIX_TASKDESCRIPTION).append(email.value).append(" "));
+//        descriptor.getTaskDescription().ifPresent(email ->
+//            sb.append(PREFIX_TASKDESCRIPTION).append(email.value).append(" "));
 //        descriptor.getTaskTime().ifPresent(address -> sb.append(PREFIX_TASKTIME).append(address.value).append(" "));
 //        if (descriptor.getTaskTags().isPresent()) {
 //            Set<TaskTag> tags = descriptor.get().get();
