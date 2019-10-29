@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Circle;
 import seedu.address.model.CalendarDate;
 import seedu.address.ui.UiPart;
@@ -20,6 +21,9 @@ public class CalendarGridDay extends UiPart<Region> {
 
     private CalendarDate calendarDate;
     private Integer totalEvents;
+
+    @FXML
+    private StackPane calendarGridDayBase;
 
     @FXML
     private Circle calendarDayCircle;
@@ -47,8 +51,13 @@ public class CalendarGridDay extends UiPart<Region> {
 
     public void setCurrentDate() {
         // TODO: Bug found when changing the date color. Non-style change in color does not work as well.
-        calendarDayCircle.setStyle("-fx-fill: " + "-currentDateColor");
-        calendarDayCircle.setStyle("-fx-opacity: " + 0.75);
+        //calendarDayCircle.setStyle("-fx-fill: " + "-currentDateColor");
+        //calendarDayCircle.setStyle("-fx-opacity: " + 0.75);
+        Circle circle = new Circle();
+        circle.setRadius(14);
+        circle.setStyle("-fx-fill: " + "-currentDateColor");
+        calendarGridDayBase.getChildren().add(0, circle);
+
     }
 
     /**
