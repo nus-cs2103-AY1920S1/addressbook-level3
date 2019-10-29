@@ -3,6 +3,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
@@ -15,11 +16,23 @@
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding>
             </Label>
-            <StackPane VBox.vgrow="ALWAYS">
-               <children>
-                  <ListView fx:id="forgottenView" />
-               </children>
-            </StackPane>
+            <VBox fx:id="forgottenPlaceHolder" alignment="CENTER">
+               <VBox.margin>
+                  <Insets bottom="20.0" top="20.0" />
+               </VBox.margin></VBox>
+            <ListView fx:id="forgottenView" minHeight="0.0" prefHeight="0.0" />
+            <Label styleClass="label-bright" text="Your favourite genres:">
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding></Label>
+            <HBox fx:id="favouriteGenres" spacing="15.0" styleClass="favourite-genre-tag">
+               <padding>
+                  <Insets bottom="5.0" left="20.0" right="20.0" top="5.0" />
+               </padding>
+               <VBox.margin>
+                  <Insets bottom="10.0" top="10.0" />
+               </VBox.margin>
+            </HBox>
          </children>
       </VBox>
     </children>

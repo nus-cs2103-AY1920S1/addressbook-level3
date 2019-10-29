@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 
 <HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
-   <HBox HBox.hgrow="ALWAYS">
+   <HBox alignment="CENTER" HBox.hgrow="ALWAYS">
       <children>
          <ImageView fx:id="poster" fitHeight="160.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true" />
            <VBox fx:id="information" prefWidth="600.0" spacing="3.0">
