@@ -207,40 +207,85 @@ exp/23-Nov-2020 a/21`
 
 ==== Add with system prompting
 
-In this mode, the user can add the person's attributes one by one.
-After entering an attribute, the system will prompt the user input for another attribute.
+In this mode, instead of typing a long command at one go, you can add a person's attributes one by one.
+After entering an attribute, the system will prompt you to input another attribute.
 
-Format: `add t/**TYPE**`
+To add a person in this mode, enter the following command of the format: `add t/**TYPE**`
 
-When the user type in the command above, a form will be displayed. For example, if a user wants to add a patient,
-type `add t/patient` to the command box. The form will be as below:
+ORGANice will prompt you to type in each attribute, one by one until all the fields are filled.
+Here are some special commands that might be useful when you are in the process of filling up the form:
 
-image::form.png[width="790"]
+* `/abort` - The command to abandon the current form that you are currently filling.
+* `/undo` - The command to undo the last entry that you entered, which is useful when you want to undo any changes made.
+* `/done` - The command to indicate that you are done with filling all the required attributes and want to add the person into the application.
 
-ORGANice will prompt the user to type in each attribute, one by one until all the fields are filled.
+Note that both `/abort` and `/undo` commands can be used at any point in time, while `/done` command can only be used once all the required attributes have been specified.
 
-For example, when a user wants to add a patient, the display box will prompt the user to enter the patient's name.
-For the user to add a patient that is named "John Doe", type `John Doe` and then press enter.
-After entering the name, the patient's name will be displayed in the form, as shown below.
+These are the important commands for this feature, so now let's take a look at an example of this how this feature can be used.
+When you want to add a `Patient`, type `add t/patient` in the `Command Box`. Three changes will occur on your screen:
 
-image::nameField.png[width="790"]
+* A form will appear in the space where the `Person List` used to occupy.
+* The `Message Display Box` will display a message that prompts you to enter the patient’s name.
+* There is a `Progress Bar` detailing how much of the form is filled.
 
-Inputs for each attribute will be checked, if it is a valid input then the user input will automatically reflected
-on the form, if it is not valid, ORGANice will show a warning to the user.
+Refer to the `Figure 4` to see how the resulting screen will look like.
 
-The following screenshot shows the warning that ORGANice will give to the user if the input is not valid:
+.Screenshot of the screen after you have successfully entered the `Form` mode
+image::addForm.png[width="790"]
 
-image::wrongInput.png[width="790"]
+If you want to add a patient named "John Doe", type `John Doe` and then press kbd:[Enter].
+After entering the name, the patient's name will be displayed on the form and the progress bar will increase indicating your progress in filling up the form as seen in `Figure 5`.
 
-After all of the attributes have been specified, the user can type `/done` to add the person to the ORGANice list of persons
-or `/abort` if the user decided not to add the person into the list.
+.Form layout after you have entered a valid name
+image::nameFilled.png[width="790"]
 
-image::allField.png[width="790"]
+Each time you type an input, ORGANice will check if it is a valid input. If the input is valid, it will be reflected on the form.
+If not, ORGANice will display a warning message stating the criteria for a valid input of that attribute.
 
-When the user typed `/done` the UI will changed back to it's original state and shows a success message suggesting that
-the user has successfully added a new person into the list.
+Say you typed in "G999999999A" and pressed kbd:[Enter] when ORGANice prompts you to type in the NRIC of the patient.
+Three changes occur to ORGANice, which can be seen in the `Figure 6`:
 
+* Your input will remain in the `Command Box`, but the colour of the input text turns to red.
+* An error message is displayed in the `Message Display Box`. This error message details the criteria for a valid NRIC input. This error message is specific to the attribute type. For example if you typed in an invalid NRIC, an error message detailing the criteria for a valid NRIC will be displayed.
+* Your input will not be reflected in the form.
+
+.Form layout if you entered an invalid value
+image::invalidInput.png[width="790"]
+
+After all of the attributes have been specified, you can type in:
+
+* `/done` to add the person to the ORGANice list of persons
+* Click the `Find Match` button to directly add the person and find the potential donors at the same time.
+Note that the `Find Match` button will only appear on the `Patient` form.
+
+The `Figure 7` will show how the form will look like after you have entered all the required attributes.
+
+.Form layout after all the required attributes have been specified
+image::allFieldSpecified.png[width="790"]
+
+When you type in `/done`, the Person List will return to its original state of displaying people in ORGANice.
+The Message Display Box will show a success message, indicating that you have successfully added a new person to the Person List as seen in `Figure 8`.
+
+.The UI changed back to it's original state and shows a success message
 image::addSuccess.png[width="790"]
+
+The `Find Match` button will appear when the list is fully filled. You can click this button and you will be shown a list of potential donors as seen in `Figure 10`. Note that the Find Match button will only appear on the Patient form.
+Refer to `Figure 7` on where you can find the `Find Match` button
+
+.The UI displayed the potential donors for a patient that you have added
+image::findMatch.png[width="790"]
+
+At any point in time, if you decided not to proceed with the addition and typed in `/abort`, you will be directed into the main page and notified that
+you have abandoned the form as seen in `Figure 10`.
+
+.The UI changed back to it's original state and shows a message the form has been abandoned
+image::abandonForm.png[width="790"]
+
+Furthermore, if you made any mistake while you are filling up the form, you can type in `/undo` to remove the last entry you entered.
+For example, if you enter the wrong name and want to undo the action, type `/undo` in the `Command Box` and press kbd:[Enter]. Your previous input for the name will be removed from the form as seen in `Figure 11`
+
+.Form layout showing that the last entry is removed after you typed in `/undo`
+image::undoCommand.png[width="790"]
 
 === Listing persons : `list`
 
