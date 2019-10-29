@@ -8,11 +8,11 @@
 
 <HBox xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <SplitPane>
-        <ListView fx:id="purchaseListView" VBox.vgrow="NEVER" />
+        <ListView fx:id="purchaseListView" maxHeight="1.7976931348623157E308" VBox.vgrow="NEVER" />
     </SplitPane>
     <VBox>
 
-            <ListView fx:id="installmentListView" maxHeight="250.0" VBox.vgrow="NEVER" />
+            <ListView fx:id="installmentListView" maxHeight="1.7976931348623157E308" VBox.vgrow="NEVER" />
 
             <Label fx:id="spentAmount" maxHeight="220" minHeight="50.0" minWidth="250.0" />
             <Label fx:id="remainingAmount" maxHeight="260" minHeight="50.0" minWidth="250.0" />
