@@ -14,6 +14,7 @@ import seedu.revision.logic.QuizLogic;
 import seedu.revision.logic.commands.exceptions.CommandException;
 import seedu.revision.logic.commands.main.CommandResult;
 import seedu.revision.logic.parser.exceptions.ParseException;
+import seedu.revision.ui.answerables.AnswerableListPanel;
 
 import java.io.IOException;
 
@@ -50,7 +51,7 @@ public abstract class Window extends UiPart<Stage> {
     protected StackPane resultDisplayPlaceholder;
 
     @FXML
-    protected StackPane scoreProgressBar;
+    protected StackPane scoreProgressAndTimerPlaceholder;
 
     public Window(Stage primaryStage, MainLogic mainLogic, QuizLogic quizLogic) {
         super(FXML, primaryStage);

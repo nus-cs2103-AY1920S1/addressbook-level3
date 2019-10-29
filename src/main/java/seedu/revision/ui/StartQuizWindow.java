@@ -21,6 +21,7 @@ import seedu.revision.logic.parser.exceptions.ParseException;
 import seedu.revision.model.answerable.Answerable;
 import seedu.revision.model.answerable.Mcq;
 import seedu.revision.model.answerable.TrueFalse;
+import seedu.revision.ui.answerables.AnswerableListPanel;
 import seedu.revision.ui.answers.AnswersGridPane;
 import seedu.revision.ui.answers.McqAnswersGridPane;
 import seedu.revision.ui.answers.TfAnswersGridPane;
@@ -36,11 +37,11 @@ public class StartQuizWindow extends Window {
     private final Logger logger = LogsCenter.getLogger(getClass());
 
     // Independent Ui parts residing in this Ui container
-    private AnswerableListPanel answerableListPanel;
     private ResultDisplay questionDisplay;
     private AnswersGridPane answersGridPane;
     private CommandBox commandBox;
     private ProgressIndicatorBar progressIndicatorBar;
+    private ScoreProgressAndTimerGridPane progressAndTimerGridPane;
 
     private Answerable currentAnswerable;
     private Iterator<Answerable> answerableIterator;
@@ -90,7 +91,8 @@ public class StartQuizWindow extends Window {
 
         progressIndicatorBar = new ProgressIndicatorBar(currentProgressIndex, filteredAnswerableList.size(),
                 "%.0f/" + filteredAnswerableList.size());
-        scoreProgressBar.getChildren().add(progressIndicatorBar.getRoot());
+        progressAndTimerGridPane = new ScoreProgressAndTimerGridPane(progressIndicatorBar, 20);
+        scoreProgressAndTimerPlaceholder.getChildren().add(progressAndTimerGridPane.getRoot());
     }
 
     void show() {

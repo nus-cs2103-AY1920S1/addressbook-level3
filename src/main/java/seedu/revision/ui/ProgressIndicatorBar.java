@@ -19,11 +19,9 @@ public class ProgressIndicatorBar extends UiPart<Region> {
     private final double totalWork;
 
     @FXML
-    private StackPane pane;
+    protected ProgressBar bar;
     @FXML
-    private ProgressBar bar;
-    @FXML
-    private Text text = new Text();
+    protected Text text = new Text();
     private final String labelFormatSpecifier;
 
 
@@ -43,8 +41,6 @@ public class ProgressIndicatorBar extends UiPart<Region> {
         });
 
         bar.setMaxWidth(Double.MAX_VALUE); // allows the progress bar to expand to fill available horizontal space.
-
-        pane.getChildren().setAll(bar, text);
     }
 
     /**

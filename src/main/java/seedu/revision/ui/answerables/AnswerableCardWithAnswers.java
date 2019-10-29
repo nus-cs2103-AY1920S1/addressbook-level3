@@ -1,4 +1,4 @@
-package seedu.revision.ui;
+package seedu.revision.ui.answerables;
 
 import java.util.Comparator;
 import java.util.Set;
@@ -12,6 +12,7 @@ import seedu.revision.model.answerable.Answerable;
 import seedu.revision.model.answerable.Mcq;
 import seedu.revision.model.answerable.TrueFalse;
 import seedu.revision.model.answerable.answer.Answer;
+import seedu.revision.ui.UiPart;
 
 /**
  * An UI component that displays information of a {@code Answerable}.

@@ -1,11 +1,6 @@
 package seedu.revision.ui;
 
-import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import java.util.Optional;
 import java.util.logging.Logger;
 
@@ -16,7 +11,6 @@ import javafx.scene.control.ButtonType;
 
 import javafx.stage.Stage;
 
-import seedu.revision.MainApp;
 import seedu.revision.commons.core.GuiSettings;
 import seedu.revision.commons.core.LogsCenter;
 import seedu.revision.logic.MainLogic;
@@ -28,6 +22,7 @@ import seedu.revision.model.AddressBook;
 import seedu.revision.model.Model;
 import seedu.revision.model.ReadOnlyAddressBook;
 import seedu.revision.model.util.SampleDataUtil;
+import seedu.revision.ui.answerables.AnswerableListPanel;
 
 
 /**

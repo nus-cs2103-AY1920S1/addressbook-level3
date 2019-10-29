@@ -1,4 +1,4 @@
-package seedu.revision.ui;
+package seedu.revision.ui.answerables;
 
 import java.util.logging.Logger;
 
@@ -9,6 +9,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.revision.commons.core.LogsCenter;
 import seedu.revision.model.answerable.Answerable;
+import seedu.revision.ui.UiPart;
 
 /**
  * Panel containing the list of answerables.

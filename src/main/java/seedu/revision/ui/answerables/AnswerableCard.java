@@ -1,4 +1,4 @@
-package seedu.revision.ui;
+package seedu.revision.ui.answerables;
 
 import java.util.Comparator;
 
@@ -9,6 +9,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.revision.model.answerable.Answerable;
 import seedu.revision.model.answerable.answer.Answer;
+import seedu.revision.ui.UiPart;
 
 /**
  * An UI component that displays information of a {@code Answerable}.
