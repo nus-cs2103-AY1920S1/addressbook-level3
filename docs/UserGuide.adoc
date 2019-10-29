@@ -173,7 +173,10 @@ Deletes the 1st account in the results of the `find` command.
 
 // end::account[]
 
+// tag::incident[]
+
 === Create New Incident: `new`
+
 ==== Assumptions
 * User has logged in
 
@@ -192,46 +195,80 @@ For multi-step:
 ** `y`- an available vehicle in the given district is automatically dispatched and attached to the incident.
 ** `n`- an indexed list of available vehicles in the given district is shown.
 
-=== Filling a new report: `fill`
+=== Filling a draft incident report: `fill`
+Fills a draft incident report if relevant parameters are specified, otherwise lists all draft reports ready for filling.
 
-==== Description
-* Display a list of newly created incidents.
-* Based on this list, user chooses incident to fill.
-* Date/time, operator name, and operator name are auto-filled.
+This command works in two modes:
 
-==== Usage
+*1. No parameter mode* +
+Format: `fill` +
+Lists all draft incident reports ready to be filled.
 
-Format: `fill [i/index_of_incident n/CALLER_NAME d/INCIDENT_DESCRIPTION]`
+* This command lists both incomplete and complete drafts.
+** If no drafts exist, a relevant message is displayed in the GUI result panel while the GUI incident panel view remains unchanged.
+* Example usage:
 
-For multi-step:
+image::fillCommandNoParamsBeforeScreenshot.png[FillExample1]
+.Fig X. Incident panel GUI shows all incidents before executing `fill` in no-parameter mode.
 
-* Prompts for name of caller. Operator types it and presses `enter`.
-* Prompts for description of incident. Operator types it and presses `enter`.
+* Expected outcome:
 
-=== Submit a report: `submit`
+image::fillCommandNoParamsAfterScreenshot.png[]
+.Fig X. Incident panel GUI shows all draft incidents after executing `fill` in no-parameter mode.
 
-==== Description
+*2. Parameter mode* +
+Format: `fill [INDEX] [c/CALLER_NUMBER] [d/DESCRIPTION]` +
+Fills the draft incident report corresponding to the specified index with the phone number of the caller who reported the incident and the description of the incident.
 
-* Submits a just-filled report if one is available, else shows a list of unsubmitted draft reports.
+* Index must be assigned *with reference to the currently shown list of incidents* on the GUI incident panel.
+* Both incomplete and complete drafts can be filled.
+** Fields of complete drafts will be overwritten.
+** Executing this command changes incident `status` to `COMPLETE_DRAFT`.
+* Both `CALLER_NUMBER` and `DESCRIPTION` fields must be specified while executing this command.
+* The newly filled draft will now appear at the top of the list of incidents in the GUI incident panel view.
+* Example usage:
 
-==== Usage
-Format: `submit`
+image::fillCommandWithParamsBeforeScreenshot.png[]
+.Fig X. After using `fill` in no parameter mode, this screenshot shows how to fill the 2nd incident in the displayed list.
 
-For new report:
+* Expected outcome:
 
-* Once the user fills in a new report and presses `enter`, the IMS prompts the operator to submit.
-* `y` or `submit`- to submit the report immediately.
-* Submission has to be done before user can edit again.
-* `n`- to save entry as draft.
+image::fillCommandWithParamsAfterScreenshot.png[]
+.Fig X. After using `fill` in parameter mode, this screenshot shows that the description of the specified incident has been updated while the caller number has been overwritten with the new value. The status of the draft has changed from `INCOMPLETE_DRAFT` to `COMPLETE_DRAFT`.
 
-For other reports:
+Using `fill` in both modes one after the other thus enables convenient listing and filling of target incident reports.
 
-* If the the `submit` command is issued at any other time, the operator will be shown an indexed list of unsubmitted draft reports.
-* The IMS will then prompt thehe operator to enter the index number of the report they wish to submit. The operator types that number and presses `enter` to submit the chosen report.
-* The submission of a report will trigger three other operations:
-1. an unique ID will be generated to tag the report
-2. an automated email will be sent to the operator's supervisor
-3. the report will be saved in the database
+=== Submitting a completed draft report: `submit`
+Submits a completed draft incident report if relevant parameters are specified, otherwise lists all completed drafts ready for submission.
+
+Similar to `fill`, this command also works in two modes:
+
+*1. No parameter mode* +
+Format: `submit` +
+Lists all completed draft incident reports ready for submission.
+
+* This command only lists complete drafts.
+** If no complete drafts exist, a relevant message is displayed in the GUI result panel while the GUI incident panel view remains unchanged.
+* Expected outcome of `submit`:
+
+image::submitCommandNoParamsAfterScreenshot.png[]
+.Fig X. Executing `submit` in no parameter mode lists all completed drafts ready for submission.
+
+*2. Parameter mode* +
+Format: `submit [INDEX]` +
+Submits the completed draft incident report corresponding to the specified index.
+
+* Index must be assigned *with reference to the currently shown list of incidents* on the GUI incident panel.
+* Only complete drafts can be submitted.
+** Executing this command changes incident `status` to `SUBMITTED_REPORT`.
+* The newly submitted draft will now appear at the top of the list of incidents in the GUI incident panel view.
+* Expected outcome of `submit 2`:
+
+image::submitCommandWithParamsAfterScreenshot.png[]
+.Fig X. The incident filled using the `fill` command above has been submitted. The newly submitted incident is listed at the top and its status changes from `COMPLETE_DRAFT` to `SUBMITTED_REPORT`.
+
+Using `submit` in both modes right after using `fill` thus enables convenient submitting of newly filled complete incident report drafts.
+// end::incident[]
 
 // tag::common[]
 //=== Clearing all entries : `clear`

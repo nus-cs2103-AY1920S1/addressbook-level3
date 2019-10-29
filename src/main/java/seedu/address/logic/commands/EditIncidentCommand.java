@@ -18,6 +18,7 @@ import seedu.address.model.incident.CallerNumber;
 import seedu.address.model.incident.Description;
 import seedu.address.model.incident.Incident;
 import seedu.address.model.incident.IncidentDateTime;
+import seedu.address.model.incident.IncidentId;
 import seedu.address.model.vehicle.District;
 
 /**
@@ -122,6 +123,7 @@ public class EditIncidentCommand extends Command {
         private IncidentDateTime dateTime;
         private CallerNumber caller;
         private Description desc;
+        private IncidentId id;
 
         public EditIncident() {}
 
@@ -154,6 +156,10 @@ public class EditIncidentCommand extends Command {
 
         public void setDateTime(IncidentDateTime dateTime) {
             this.dateTime = dateTime;
+        }
+
+        public void setId(IncidentId id) {
+            this.id = id;
         }
 
         public Optional<IncidentDateTime> getDateTime() {

@@ -15,6 +15,7 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showIncidentAtIndex;
 import static seedu.address.testutil.IncidentBuilder.DEFAULT_CALLER;
 import static seedu.address.testutil.IncidentBuilder.DEFAULT_DISTRICT;
+import static seedu.address.testutil.IncidentBuilder.DEFAULT_ID;
 import static seedu.address.testutil.TypicalEntities.getTypicalIncidentManager;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_ENTITY;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_ENTITY;
@@ -72,7 +73,8 @@ public class EditIncidentCommandTest {
         Incident lastIncident = model.getFilteredIncidentList().get(indexLastIncident.getZeroBased());
 
         IncidentBuilder incidentBuilder = new IncidentBuilder(lastIncident);
-        Incident editedIncident = incidentBuilder.withCaller(DEFAULT_CALLER).withDistrict(DEFAULT_DISTRICT).build();
+        Incident editedIncident = incidentBuilder.withCaller(DEFAULT_CALLER).withDistrict(DEFAULT_DISTRICT)
+                .withId(DEFAULT_ID).build();
 
         EditIncident editor = new EditIncidentBuilder().withCaller(DEFAULT_CALLER)
                 .withDistrict(DEFAULT_DISTRICT).build();

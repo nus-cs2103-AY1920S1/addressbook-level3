@@ -72,9 +72,8 @@ public class TypicalEntities {
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 
-    private static final IncidentDateTime firstValidDateTime = new IncidentDateTime("Dec 2, 2016, 2:30:40 PM");
-    private static final IncidentDateTime secondValidDateTime = new IncidentDateTime("Jan 4, 2016, 2:30:00 PM");
-
+    private static final IncidentDateTime validDateTime = new IncidentDateTime("2016-12-02T14:30:40");
+    private static final IncidentId commonIncidentId = new IncidentId("1220160001");
     private TypicalEntities() {} // prevents instantiation
 
     /**
@@ -86,18 +85,22 @@ public class TypicalEntities {
             im.addPerson(person);
         }
 
-        im.addIncident(new Incident(ALICE, new District(2), firstValidDateTime,
-                new IncidentId(firstValidDateTime.getMonth(), firstValidDateTime.getYear()),
+        Incident firstIncident = new Incident(ALICE, new District(2), validDateTime,
+                commonIncidentId,
                 new CallerNumber("84738293"),
-                new Description("Pickpocket reported along the walkway in District 2")));
+                new Description("Pickpocket reported along the walkway in District 2"),
+                Incident.Status.INCOMPLETE_DRAFT);
+        im.addIncident(firstIncident);
 
         im.addVehicle(new Vehicle(new VehicleType("Patrol Car"), new VehicleNumber("SBH3100F"),
                 new District(16), new Availability("BUSY")));
 
-        im.addIncident(new Incident(BOB, new District(3), secondValidDateTime,
-                new IncidentId(secondValidDateTime.getMonth(), secondValidDateTime.getYear()),
+        Incident secondIncident = new Incident(BOB, new District(3), validDateTime,
+                commonIncidentId,
                 new CallerNumber("90878965"),
-                new Description("Pickpocket spotted at the pasar malam in District 3")));
+                new Description("Pickpocket spotted at the pasar malam in District 3"),
+                Incident.Status.INCOMPLETE_DRAFT);
+        im.addIncident(secondIncident);
 
         return im;
     }
