@@ -15,16 +15,20 @@ public class DiaryEntry {
     // Identity fields
     private final Title title;
     private final Date date;
+    private final Place place;
+    private final Memory memory;
 
 
     /**
      * Every field must be present and not null.
      */
 
-    public DiaryEntry(Title title, Date date) {
+    public DiaryEntry(Title title, Date date, Place place, Memory memory) {
         requireAllNonNull(title, date);
         this.title = title;
         this.date = date;
+        this.place = place;
+        this.memory = memory;
     }
 
     public Title getTitle() {
@@ -39,7 +43,13 @@ public class DiaryEntry {
         return date;
     }
 
+    public Place getPlace() {
+        return place;
+    }
 
+    public Memory getMemory() {
+        return memory;
+    }
 
     /**
      * Returns true if both persons of the same name have at least one other identity field that is the same.
@@ -82,9 +92,13 @@ public class DiaryEntry {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append("Title: ")
-                .append(getTitle())
-                .append(" Date: ")
-                .append(getDateAsString());
+                .append(getTitle() + "\n")
+                .append("Date: ")
+                .append(getDateAsString() + "\n")
+                .append("Place: ")
+                .append(getPlace() + "\n")
+                .append("Memory: ")
+                .append(getMemory() + "\n");
         return builder.toString();
     }
 

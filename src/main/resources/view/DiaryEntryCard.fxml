@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<HBox id="cardPane" fx:id="cardPane" prefHeight="117.0" prefWidth="175.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <GridPane HBox.hgrow="ALWAYS">
       <columnConstraints>
          <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150" />
@@ -32,6 +32,17 @@
                <Font size="14.0" />
             </font>
          </Label>
+         <Label fx:id="place" styleClass="cell_small_label" text="\\$place">
+            <font>
+               <Font size="14.0" />
+            </font>
+         </Label>
+         <Label fx:id="memory" styleClass="cell_small_label" text="\\$memory">
+            <font>
+               <Font size="14.0" />
+            </font>
+         </Label>
+
       </VBox>
       <rowConstraints>
          <RowConstraints />
