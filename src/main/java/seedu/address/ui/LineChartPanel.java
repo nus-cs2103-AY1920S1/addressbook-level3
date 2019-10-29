@@ -183,6 +183,11 @@ public class LineChartPanel extends UiPart<Region> {
         }
     }
 
+    /**
+     * Adds bodies' dates of admission to the tree map and increment values by 1.
+     * @param date The ceiling cut off date. This is needed for the line chart.
+     * @throws ParseException if the supplied string cannot be parsed as a date object.
+     */
     private void addBodiesToMapBeforeDate(Date date) throws ParseException {
         for (Body body: bodyList) {
             Date oneDayAfter = new Date(date.getTime() - (10 * DAY_IN_MS));
