@@ -1,7 +1,7 @@
 .background {
-    -fx-background-color: derive(#07717d, 20%);
+    -fx-background-color: derive(#1d1d1d, 20%);
     /*-fx-background-color: derive(#0d4178, 20%);*/
-    background-color: #07717d; /* Used in the default.html file */
+    background-color: #1d1d1d; /* Used in the default.html file */
 }
 
 .label {
@@ -41,9 +41,9 @@
 }
 
 .table-view {
-    -fx-base: #256de8;
-    -fx-control-inner-background: #256de8;
-    -fx-background-color: #256de8;
+    -fx-base: #1d1d1d;
+    -fx-control-inner-background: #1d1d1d;
+    -fx-background-color: #1d1d1d;
     -fx-table-cell-border-color: transparent;
     -fx-table-header-border-color: transparent;
     -fx-padding: 5;
@@ -78,20 +78,20 @@
 }
 
 .split-pane:horizontal .split-pane-divider {
-    -fx-background-color: derive(#07717d, 20%);
+    -fx-background-color: derive(#1d1d1d, 20%);
     -fx-border-color: transparent transparent transparent #4d4d4d;
 }
 
 .split-pane {
     -fx-border-radius: 1;
     -fx-border-width: 1;
-    -fx-background-color: derive(#07717d, 20%);
+    -fx-background-color: derive(#1d1d1d, 20%);
 }
 
 .list-view {
     -fx-background-insets: 0;
     -fx-padding: 0;
-    -fx-background-color: derive(#256de8, 20%);
+    -fx-background-color: derive(#1d1d1d, 20%);
 }
 
 .list-cell {
@@ -101,12 +101,12 @@
 }
 
 .list-cell:filled:even {
-    -fx-background-color: #085878;
+    -fx-background-color: linear-gradient(to right, #292E49 0%, #536976 100%);
 }
 
 .list-cell:filled:odd {
-    /*-fx-background-color: #515658; even: #3c3e3f*/
-    -fx-background-color: #07717d; /*changed color*/
+    -fx-background-color: linear-gradient(to right, #536976 0%, #292E49 100%);
+
 }
 
 .list-cell:filled:selected {
@@ -135,17 +135,17 @@
 }
 
 .stack-pane {
-     -fx-background-color: derive(#256de8, 20%); /*color for command line input*/
+     -fx-background-color: derive(#1d1d1d, 20%); /*color for command line input*/
 }
 
 .pane-with-border {
-     -fx-background-color: derive(#256de8, 20%);
-     -fx-border-color: derive(#256de8, 10%);
+     -fx-background-color: derive(#1d1d1d, 20%);
+     -fx-border-color: derive(#1d1d1d, 10%);
      -fx-border-top-width: 1px;
 }
 
 .status-bar {
-    -fx-background-color: derive(#07717d, 30%);
+    -fx-background-color: derive(#1d1d1d, 30%);
 }
 
 .result-display {
@@ -167,8 +167,8 @@
 }
 
 .status-bar-with-border {
-    -fx-background-color: derive(#07717d, 100%);
-    -fx-border-color: derive(#07717d, 100%);
+    -fx-background-color: derive(#1d1d1d, 30%);
+    -fx-border-color: derive(#1d1d1d, 25%);
     -fx-border-width: 1px;
 }
 
@@ -177,17 +177,17 @@
 }
 
 .grid-pane {
-    -fx-background-color: derive(#07717d, 30%);
-    -fx-border-color: derive(#07717d, 30%);
+    -fx-background-color: derive(#1d1d1d, 30%);
+    -fx-border-color: derive(#1d1d1d, 30%);
     -fx-border-width: 1px;
 }
 
 .grid-pane .stack-pane {
-    -fx-background-color: #07717d;
+    -fx-background-color: derive(#1d1d1d, 30%);
 }
 
 .context-menu {
-    -fx-background-color: derive(#07717d, 50%);
+    -fx-background-color: derive(#1d1d1d, 50%);
 }
 
 .context-menu .label {
@@ -195,7 +195,7 @@
 }
 
 .menu-bar {
-    -fx-background-color: #07717d;
+    -fx-background-color: derive(#1d1d1d, 20%);
 }
 
 .menu-bar .label {
@@ -259,11 +259,11 @@
 }
 
 .dialog-pane {
-    -fx-background-color: #256de8;
+    -fx-background-color: #1d1d1d;
 }
 
 .dialog-pane > *.button-bar > *.container {
-    -fx-background-color: #07717d;
+    -fx-background-color: #1d1d1d;
 }
 
 .dialog-pane > *.label.content {
@@ -273,7 +273,7 @@
 }
 
 .dialog-pane:header *.header-panel {
-    -fx-background-color: derive(#256de8, 25%);
+    -fx-background-color: derive(#1d1d1d, 25%);
 }
 
 .dialog-pane:header *.header-panel *.label {
@@ -335,7 +335,7 @@
 }
 
 #resultDisplay .content {
-    -fx-background-color: #085878;
+    -fx-background-color: transparent, #383838, transparent, #383838;
     -fx-background-radius: 0;
 }
 
@@ -351,4 +351,39 @@
     -fx-border-radius: 2;
     -fx-background-radius: 2;
     -fx-font-size: 11;
+}
+
+
+/*Solution below adapted from https://stackoverflow.com/questions/19788661/change-javafx-tab-default-look*/
+.tab-pane .tab-header-area .tab-header-background {
+    -fx-opacity: 0;
+}
+
+.tab-pane {
+    -fx-tab-min-width:90px;
+    -fx-background-color: derive(#1d1d1d, 20%);
+}
+
+.tab {
+    -fx-background-insets: 0 1 0 1,0,0;
+}
+
+.tab-pane .tab {
+    -fx-background-color: derive(#1d1d1d, 50%);
+}
+
+.tab-pane .tab:selected {
+    -fx-background-color: derive(#1d1d1d, 20%);
+}
+
+.tab .tab-label {
+    -fx-alignment: CENTER;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+
+}
+
+.tab:selected .tab-label {
+    -fx-alignment: CENTER;
+    -fx-text-fill: white;
 }

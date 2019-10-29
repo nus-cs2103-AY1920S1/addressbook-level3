@@ -135,4 +135,18 @@ public class EventDateTimeMap {
         }
         return sb.toString();
     }
+
+    /**
+     * A similar variation of toString() for GUI display.
+     */
+    public String toStringWithNewLine() {
+        StringBuilder sb = new StringBuilder();
+        for (EventDate keyEventDate : dateTimeMap.keySet()) {
+
+            sb.append(keyEventDate.toString()); //Event Date
+            sb.append(" : ");
+            sb.append(dateTimeMap.get(keyEventDate).toString() + "\n");
+        }
+        return sb.toString().trim();
+    }
 }

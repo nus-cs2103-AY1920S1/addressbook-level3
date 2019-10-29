@@ -1,13 +1,23 @@
 package seedu.address.ui;
 
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EMPLOYEE_ID;
+
 import java.util.Comparator;
 
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import seedu.address.logic.Logic;
+import seedu.address.logic.commands.allocate.DeallocateCommand;
+import seedu.address.logic.commands.allocate.ManualAllocateCommand;
 import seedu.address.model.employee.Employee;
+import seedu.address.model.event.Event;
+
 
 /**
  * An UI component that displays information of a {@code Employee}.
@@ -15,6 +25,7 @@ import seedu.address.model.employee.Employee;
 public class EmployeeCard extends UiPart<Region> {
 
     private static final String FXML = "EmployeeListCard.fxml";
+    private static final String FETCH_WINDOW_FXML = "EmployeeListCardForFetch.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -25,6 +36,7 @@ public class EmployeeCard extends UiPart<Region> {
      */
 
     public final Employee employee;
+    private ErrorWindow errorWindow;
 
     @FXML
     private HBox cardPane;
@@ -45,6 +57,19 @@ public class EmployeeCard extends UiPart<Region> {
         super(FXML);
         this.employee = employee;
         id.setText(displayedIndex + ". ");
+        name.setText(employee.getEmployeeName().fullName);
+        phone.setText(employee.getEmployeePhone().value);
+        address.setText(employee.getEmployeeAddress().value);
+        email.setText(employee.getEmployeeEmail().value);
+        employee.getTags().stream()
+                .sorted(Comparator.comparing(tag -> tag.tagName))
+                .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+    }
+
+    public EmployeeCard(Employee employee, int displayedIndex, String linkToFxml) {
+        super(linkToFxml);
+        this.employee = employee;
+        id.setText(displayedIndex + ". ");
         name.setText(employee.getEmployeeName().fullName + " ID: " + employee.getEmployeeId().id); //for debug
         phone.setText(employee.getEmployeePhone().value);
         address.setText(employee.getEmployeeAddress().value);
@@ -53,6 +78,40 @@ public class EmployeeCard extends UiPart<Region> {
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }
+
+
+    public EmployeeCard(Employee employee, int displayedIndex, Logic logic, Event event, int eventOneBasedIndex,
+                         FetchWindow fetchWindow, boolean isAllocate) {
+        this(employee, displayedIndex, FETCH_WINDOW_FXML);
+        EventHandler<MouseEvent> eventHandler = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
+                    if (mouseEvent.getClickCount() == 2) {
+                        try {
+                            if (isAllocate) {
+                                logic.execute(ManualAllocateCommand.COMMAND_WORD + " " + eventOneBasedIndex
+                                        + " " + PREFIX_EMPLOYEE_ID + employee.getEmployeeId());
+                            } else {
+                                logic.execute(DeallocateCommand.COMMAND_WORD + " " + eventOneBasedIndex
+                                        + " " + PREFIX_EMPLOYEE_ID + employee.getEmployeeId());
+
+                            }
+                            fetchWindow.updateCards();
+                        } catch (Exception e) {
+                            if (errorWindow != null) {
+                                errorWindow.hide();
+                            }
+                            errorWindow = new ErrorWindow(e.getMessage());
+                            errorWindow.show();
+                        }
+                    }
+                }
+            }
+        };
+        cardPane.addEventFilter(MouseEvent.MOUSE_CLICKED, eventHandler);
+    }
+
 
     @Override
     public boolean equals(Object other) {
