@@ -6,10 +6,8 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import seedu.address.commons.core.item.Event;
 import seedu.address.commons.core.item.Item;
 import seedu.address.commons.core.item.Reminder;
 
@@ -41,7 +39,7 @@ public class ReminderListCard extends UiPart<Region> {
     @FXML
     private Label priorityLabel;
     @FXML
-    private ImageView IV_status;
+    private ImageView statusIcon;
     @FXML
     private ImageView eventIcon;
 
@@ -53,12 +51,12 @@ public class ReminderListCard extends UiPart<Region> {
         eventIcon.setImage(new Image(TaskListCard.class.getResourceAsStream("/images/EventIcon.PNG")));
         Reminder reminder = item.getReminder().get();
         date.setText(String.valueOf(reminder.getDateTime().getDayOfMonth())
-                + " " + String.valueOf(reminder.getDateTime().getMonth()).substring(0,3));
+                + " " + String.valueOf(reminder.getDateTime().getMonth()).substring(0, 3));
         if (item.hasTask()) {
             if (item.getTask().get().isComplete()) {
-                IV_status.setImage(new Image(TaskListCard.class.getResourceAsStream("/images/Completed.PNG")));
+                statusIcon.setImage(new Image(TaskListCard.class.getResourceAsStream("/images/Completed.PNG")));
             } else {
-                IV_status.setImage(new Image(TaskListCard.class.getResourceAsStream("/images/Uncompleted.PNG")));
+                statusIcon.setImage(new Image(TaskListCard.class.getResourceAsStream("/images/Uncompleted.PNG")));
             }
         }
         String priority = item.getPriority().toString();
@@ -67,14 +65,20 @@ public class ReminderListCard extends UiPart<Region> {
         priorityLabel.setAlignment(Pos.CENTER);
         switch(priority) {
         case "HIGH":
-            priorityLabel.setStyle("-fx-font-family: 'Arial Black'; -fx-background-color: red; -fx-background-radius: 15, 15, 15, 15");
+            priorityLabel.setStyle("-fx-font-family: 'Arial Black'; "
+                    + "-fx-background-color: red; "
+                    + "-fx-background-radius: 15, 15, 15, 15");
             break;
         case "MEDIUM":
-            priorityLabel.setStyle("-fx-font-family: 'Arial Black'; -fx-background-color: orange; -fx-background-radius: 15, 15, 15, 15");
+            priorityLabel.setStyle("-fx-font-family: 'Arial Black'; "
+                    + "-fx-background-color: orange; "
+                    + "-fx-background-radius: 15, 15, 15, 15");
             priorityLabel.setText("MED");
             break;
         case "LOW":
-            priorityLabel.setStyle("-fx-font-family: 'Arial Black'; -fx-background-color: green; -fx-background-radius: 15, 15, 15, 15");
+            priorityLabel.setStyle("-fx-font-family: 'Arial Black'; "
+                    + "-fx-background-color: green; "
+                    + "-fx-background-radius: 15, 15, 15, 15");
             break;
         default:
         }

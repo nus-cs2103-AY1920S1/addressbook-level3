@@ -41,7 +41,7 @@
                     <HBox.margin>
                         <Insets left="20.0" />
                     </HBox.margin></Label>
-                <ImageView fx:id="IV_status" pickOnBounds="true" preserveRatio="true">
+                <ImageView fx:id="statusIcon" pickOnBounds="true" preserveRatio="true">
                     <HBox.margin>
                         <Insets left="10.0" />
                     </HBox.margin>

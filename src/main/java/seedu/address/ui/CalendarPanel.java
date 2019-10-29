@@ -4,7 +4,6 @@ import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
@@ -19,8 +18,6 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.item.Item;
-
-import javax.sound.sampled.Clip;
 
 /**
  * The calendar panel for Elisa
@@ -68,7 +65,7 @@ public class CalendarPanel extends UiPart<Region> {
 
         HashMap<Integer, Integer> checker = new HashMap<>();
         if (!monthEvent.isEmpty()) {
-            for(Item item: monthEvent) {
+            for (Item item: monthEvent) {
                 int date = item.getEvent().get().getStartDateTime().getDayOfMonth();
                 if (checker.containsKey(date)) {
                     checker.put(date, checker.get(date) + 1);
