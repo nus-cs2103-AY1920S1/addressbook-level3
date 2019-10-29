@@ -2,11 +2,10 @@ package seedu.address.calendar.commands;
 
 import seedu.address.calendar.model.Calendar;
 import seedu.address.calendar.model.Month;
-import seedu.address.calendar.model.MonthOfYear;
-import seedu.address.calendar.model.Year;
+import seedu.address.calendar.model.date.MonthOfYear;
+import seedu.address.calendar.model.date.Year;
 import seedu.address.calendar.parser.CliSyntax;
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.ui.Page;
 
 import java.util.Optional;
 
@@ -19,7 +18,7 @@ public class ShowCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Shows a month view of the requested month"
             + "Parameters: "
             + CliSyntax.PREFIX_MONTH + " MONTH "
-            + "[" + CliSyntax.PREFIX_YEAR + "YEAR]" + "\n"
+            + "[" + CliSyntax.PREFIX_YEAR + " YEAR]" + "\n"
             + "Example: " + COMMAND_WORD + " " + CliSyntax.PREFIX_MONTH + " Dec " + CliSyntax.PREFIX_YEAR + " 2019";
 
     private MonthOfYear monthOfYear;

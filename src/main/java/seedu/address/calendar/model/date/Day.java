@@ -1,9 +1,13 @@
-package seedu.address.calendar.model;
+package seedu.address.calendar.model.date;
+
+import seedu.address.calendar.model.util.DateUtil;
+
+import java.util.Arrays;
 
 /**
  * Creates a day object which contains information about the day of month and day of week.
  */
-public class Day {
+public class Day implements Comparable<Day> {
     private DayOfWeek dayOfWeek;
     private int dayOfMonth;
 
@@ -23,7 +27,7 @@ public class Day {
      * @param dayOfWeek day of the week (e.g. Sunday, Monday, ...)
      * @param dayZeroBased day of the month (e.g. 0, 1, ..., 30)
      */
-    static Day getOneBased(DayOfWeek dayOfWeek, int dayZeroBased) {
+    public static Day getOneBased(DayOfWeek dayOfWeek, int dayZeroBased) {
         return new Day(dayOfWeek, dayZeroBased + 1);
     }
 
@@ -31,24 +35,20 @@ public class Day {
         return dayOfMonth;
     }
 
-    DayOfWeek getDayOfWeek() {
-        return dayOfWeek;
-    }
-
     /**
      * Returns day of week as a meaningful numerical value that is one-based.
      * @return day of week as a meaningful numerical value that is one-based
      */
-    public int getDayOfWeekOneBased() {
-        return dayOfWeek.getNumericalVal();
+    public int getDayOfWeekZeroIndex() {
+        return DateUtil.getNumericalVal(dayOfWeek);
     }
 
-    /**
-     * Returns day of week as a meaningful numerical value that is zero-based.
-     * @return day of week as a meaningful numerical value that is zero-based
-     */
-    public int getDayOfWeekZeroIndex() {
-        return dayOfWeek.getNumericalVal() - 1;
+    Day copy() {
+        return new Day(dayOfWeek, dayOfMonth);
+    }
+
+    public int compareTo(Day other) {
+        return this.dayOfMonth - other.dayOfMonth;
     }
 
     @Override
@@ -65,5 +65,11 @@ public class Day {
         }
         Day dayToCompare = (Day) o;
         return dayToCompare.dayOfWeek.equals(this.dayOfWeek) && dayToCompare.dayOfMonth == this.dayOfMonth;
+    }
+
+    @Override
+    public int hashCode() {
+        Object[] arr = {dayOfMonth, dayOfWeek};
+        return Arrays.hashCode(arr);
     }
 }
