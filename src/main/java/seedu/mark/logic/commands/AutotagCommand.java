@@ -28,6 +28,8 @@ public class AutotagCommand extends Command {
     public static final String MESSAGE_AUTOTAG_EXISTS = "An autotag with this name already exists: %1$s";
     public static final String MESSAGE_NO_CONDITION_SPECIFIED = "At least one name, URL, or folder condition "
             + "must be specified";
+    public static final String MESSAGE_CONDITION_EMPTY = "Conditions cannot be blank. E.g. the empty condition "
+            + "u/ is invalid";
 
     private final SelectiveBookmarkTagger tagger;
 

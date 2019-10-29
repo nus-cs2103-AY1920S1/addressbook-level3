@@ -9,6 +9,8 @@ import static seedu.mark.logic.parser.CliSyntax.PREFIX_NOT_NAME;
 import static seedu.mark.logic.parser.CliSyntax.PREFIX_NOT_URL;
 import static seedu.mark.logic.parser.CliSyntax.PREFIX_URL;
 
+import java.util.List;
+
 import seedu.mark.logic.commands.AutotagCommand;
 import seedu.mark.logic.parser.exceptions.ParseException;
 import seedu.mark.model.autotag.SelectiveBookmarkTagger;
@@ -40,23 +42,34 @@ public class AutotagCommandParser implements Parser<AutotagCommand> {
         BookmarkPredicate predicate = new BookmarkPredicate();
 
         if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
-            predicate = predicate.withNameKeywords(argMultimap.getAllValues(PREFIX_NAME));
+            List<String> keywords = argMultimap.getAllValues(PREFIX_NAME);
+            checkValuesNonEmpty(keywords);
+            predicate = predicate.withNameKeywords(keywords);
         }
         if (argMultimap.getValue(PREFIX_URL).isPresent()) {
-            // TODO: handle empty URL parameter
-            predicate = predicate.withUrlKeywords(argMultimap.getAllValues(PREFIX_URL));
-        }
-        if (argMultimap.getValue(PREFIX_NOT_NAME).isPresent()) {
-            predicate = predicate.withoutNameKeywords(argMultimap.getAllValues(PREFIX_NOT_NAME));
-        }
-        if (argMultimap.getValue(PREFIX_NOT_URL).isPresent()) {
-            predicate = predicate.withoutUrlKeywords(argMultimap.getAllValues(PREFIX_NOT_URL));
+            List<String> keywords = argMultimap.getAllValues(PREFIX_URL);
+            checkValuesNonEmpty(keywords);
+            predicate = predicate.withUrlKeywords(keywords);
         }
         if (argMultimap.getValue(PREFIX_FOLDER).isPresent()) {
-            predicate = predicate.withFolder(argMultimap.getAllValues(PREFIX_FOLDER));
+            List<String> folderNames = argMultimap.getAllValues(PREFIX_FOLDER);
+            checkValuesNonEmpty(folderNames);
+            predicate = predicate.withFolder(folderNames);
+        }
+        if (argMultimap.getValue(PREFIX_NOT_NAME).isPresent()) {
+            List<String> keywords = argMultimap.getAllValues(PREFIX_NOT_NAME);
+            checkValuesNonEmpty(keywords);
+            predicate = predicate.withoutNameKeywords(keywords);
+        }
+        if (argMultimap.getValue(PREFIX_NOT_URL).isPresent()) {
+            List<String> keywords = argMultimap.getAllValues(PREFIX_NOT_URL);
+            checkValuesNonEmpty(keywords);
+            predicate = predicate.withoutUrlKeywords(keywords);
         }
         if (argMultimap.getValue(PREFIX_NOT_FOLDER).isPresent()) {
-            predicate = predicate.withoutFolder(argMultimap.getAllValues(PREFIX_NOT_FOLDER));
+            List<String> folderNames = argMultimap.getAllValues(PREFIX_NOT_FOLDER);
+            checkValuesNonEmpty(folderNames);
+            predicate = predicate.withoutFolder(folderNames);
         }
 
         if (predicate.isEmpty()) {
@@ -66,6 +79,18 @@ public class AutotagCommandParser implements Parser<AutotagCommand> {
         SelectiveBookmarkTagger tagger = new SelectiveBookmarkTagger(tagToApply, predicate);
 
         return new AutotagCommand(tagger);
+    }
+
+    /**
+     * Checks that there is no empty value in the given list.
+     *
+     * @param values Strings to check.
+     * @throws ParseException if any String in {@code values} is blank.
+     */
+    private static void checkValuesNonEmpty(List<String> values) throws ParseException {
+        if (values.stream().anyMatch(String::isBlank)) {
+            throw new ParseException(AutotagCommand.MESSAGE_CONDITION_EMPTY);
+        }
     }
 
 }

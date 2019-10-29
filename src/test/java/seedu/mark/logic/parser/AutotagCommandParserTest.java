@@ -44,6 +44,9 @@ public class AutotagCommandParserTest {
         // no condition specified
         assertParseFailure(parser, VALID_TAG, AutotagCommand.MESSAGE_NO_CONDITION_SPECIFIED);
 
+        // empty condition
+        assertParseFailure(parser, VALID_TAG + " " + PREFIX_URL, AutotagCommand.MESSAGE_CONDITION_EMPTY);
+
         // no tag name and no condition specified
         assertParseFailure(parser, "", MESSAGE_INVALID_FORMAT);
 
