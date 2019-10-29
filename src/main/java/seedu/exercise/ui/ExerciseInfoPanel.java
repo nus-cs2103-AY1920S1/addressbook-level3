@@ -43,7 +43,7 @@ public class ExerciseInfoPanel extends UiPart<Region> {
     @FXML
     private Label quantityAndUnit;
     @FXML
-    private FlowPane tags;
+    private FlowPane muscles;
     @FXML
     private StackPane customProperties;
 
@@ -81,11 +81,11 @@ public class ExerciseInfoPanel extends UiPart<Region> {
 
     private void setMuscleTags(Set<Muscle> musclesSet) {
         if (musclesSet.isEmpty()) {
-            tags.getChildren().add(new Label("N/A"));
+            muscles.getChildren().add(new Label("N/A"));
         } else {
             exercise.getMuscles().stream()
                 .sorted(Comparator.comparing(muscle -> muscle.muscleName))
-                .forEach(muscle -> tags.getChildren().add(new Label(muscle.muscleName)));
+                .forEach(muscle -> muscles.getChildren().add(new Label(muscle.muscleName)));
         }
     }
 }

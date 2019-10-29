@@ -48,7 +48,7 @@ public class LineChartPanel extends UiPart<Region> {
         xAxis.setLabel("date");
         yAxis.setLabel(ChartTextUtil.lineChartLabelFormatter(category));
 
-        XYChart.Series series = new XYChart.Series();
+        XYChart.Series<String, Double> series = new XYChart.Series<>();
 
         int size = dates.size();
         for (int i = 0; i < size; i++) {

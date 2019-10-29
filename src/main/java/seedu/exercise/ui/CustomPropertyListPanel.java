@@ -18,15 +18,16 @@ import javafx.scene.layout.Region;
 public class CustomPropertyListPanel extends UiPart<Region> {
     private static final String FXML = "CustomPropertyListPanel.fxml";
 
+    private final ObservableList<String> customPropertiesList;
+
     @FXML
     private ListView<String> customPropertiesListView;
 
     public CustomPropertyListPanel(Map<String, String> customPropertiesMap) {
         super(FXML);
-        ObservableList<String> customPropertiesList = toObservableList(customPropertiesMap);
+        this.customPropertiesList = toObservableList(customPropertiesMap);
         customPropertiesListView.setItems(customPropertiesList);
         customPropertiesListView.setCellFactory(listView -> new CustomPropertyListViewCell());
-
     }
 
     /**
