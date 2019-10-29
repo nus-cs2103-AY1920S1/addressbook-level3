@@ -209,8 +209,8 @@ Usage:
 === Archiving past expenses: `archive`
 
 . _Adding a record to an archive: archive add_ +
-Transfers the expense at the specified index to the specified archive. +
-If the specified archive does not exist, then the new archive is created before the expense is added. +
+Transfers the expense at the specified index to your specified archive. +
+If archive you entered does not exist, then the new archive is created before the expense is added. +
 {nbsp} +
 Usage:
 
@@ -237,7 +237,7 @@ Usage:
 +
 {nbsp} +
 . _Listing records in a particular archive: archive list_ +
-Displays the list of records in the specified archive +
+Displays the list of records in your specified archive +
 {nbsp} +
 Usage:
 
@@ -249,7 +249,7 @@ Lists out all the records in the “2018 expenses” archive +
 {nbsp} +
 
 . _Deleting an archived record: archive delete_ +
-Deletes the record at the specified index from a specified archive. +
+Deletes the record at the specified index from your specified archive. +
 If the archive record deleted was the last record in the archive, the empty archive will be deleted. +
 {nbsp} +
 Usage:
@@ -268,7 +268,7 @@ Deletes the record at the 5th index in the “2018 expenses” archive +
 {nbsp} +
 
 . _Revert/unarchive an archived record: archive revert_ +
-Unarchives the record at the specified index from a specified archive, transferring it back to current list of expenses. +
+Unarchives the record at the specified index from your specified archive, transferring it back to your current list of expenses. +
 If the archive record reverted was the last record in the archive, the empty archive will be deleted. +
 {nbsp} +
 Usage:
