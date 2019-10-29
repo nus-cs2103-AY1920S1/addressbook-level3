@@ -68,7 +68,7 @@ public class RegisterCommand extends Command implements ReversibleCommand {
             throw new CommandException(MESSAGE_DUPLICATE_BORROWER);
         }
 
-        undoCommand = new UnregisterCommand(toAdd.getBorrowerId());
+        undoCommand = new UnregisterCommand(toAdd.getBorrowerId(), true);
         redoCommand = new RegisterCommand(toAdd, true);
 
         model.registerBorrower(toAdd);
