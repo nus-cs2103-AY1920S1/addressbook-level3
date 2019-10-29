@@ -1,5 +1,7 @@
 package seedu.revision.logic.commands.main;
 
+import seedu.revision.model.Model;
+
 import static java.util.Objects.requireNonNull;
 
 import java.util.Objects;
@@ -20,6 +22,12 @@ public class CommandResult {
     /** The quiz will start. */
     private final boolean start;
 
+    /** The restore window will open. */
+    private final boolean showRestore;
+
+    /** To pass the Model. */
+    private static Model model;
+
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
@@ -28,6 +36,7 @@ public class CommandResult {
         this.showHelp = showHelp;
         this.exit = exit;
         this.start = false;
+        this.showRestore = false;
     }
 
     /**
@@ -38,6 +47,19 @@ public class CommandResult {
         this.showHelp = showHelp;
         this.exit = exit;
         this.start = start;
+        this.showRestore = false;
+    }
+
+    /**
+     * Constructs a {@code CommandResult} with the specified fields.
+     */
+    public CommandResult(String feedbackToUser, boolean restore, Model model) {
+        this.feedbackToUser = requireNonNull(feedbackToUser);
+        this.showHelp = false;
+        this.exit = false;
+        this.start = false;
+        this.showRestore = restore;
+        this.model = model;
     }
 
     /**
@@ -62,6 +84,14 @@ public class CommandResult {
 
     public boolean isStart() {
         return start;
+    }
+
+    public boolean isShowRestore() {
+        return showRestore;
+    }
+
+    public Model getModel() {
+        return model;
     }
 
     @Override
