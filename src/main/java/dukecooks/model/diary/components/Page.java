@@ -12,18 +12,23 @@ public class Page {
 
     // Identity fields
     private final Title title;
-    // private String description;
+    private final PageDescription description;
 
     /**
      * Every field must be present and not null.
      */
-    public Page(Title title) {
-        CollectionUtil.requireAllNonNull(title);
+    public Page(Title title, PageDescription description) {
+        CollectionUtil.requireAllNonNull(title, description);
         this.title = title;
+        this.description = description;
     }
 
     public Title getTitle() {
         return title;
+    }
+
+    public PageDescription getDescription() {
+        return description;
     }
 
     /**
@@ -66,7 +71,9 @@ public class Page {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getTitle());
+        builder.append(getTitle())
+                .append(" Description: ")
+                .append(getDescription().fullPageDescription);
         return builder.toString();
     }
 }

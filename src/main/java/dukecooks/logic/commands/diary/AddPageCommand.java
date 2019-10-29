@@ -3,8 +3,8 @@ package dukecooks.logic.commands.diary;
 import static dukecooks.commons.util.CollectionUtil.requireAllNonNull;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_DIARY_NAME;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_PAGE_TITLE;
+import static dukecooks.logic.parser.CliSyntax.PREFIX_PAGE_DESCRIPTION;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import dukecooks.logic.commands.AddCommand;
@@ -24,10 +24,11 @@ public class AddPageCommand extends AddCommand {
 
     public static final String VARIANT_WORD = "page";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a page to a diary in DiaryRecords. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a page to a specific diary "
             + "Parameters: "
-            + PREFIX_DIARY_NAME + "DIARY NAME"
-            + PREFIX_PAGE_TITLE + "PAGE TITLE";
+            + PREFIX_DIARY_NAME + " DIARY NAME "
+            + PREFIX_PAGE_TITLE + " PAGE TITLE "
+            + PREFIX_PAGE_DESCRIPTION + " PAGE DESCRIPTION ";
 
     public static final String MESSAGE_SUCCESS = "You have added a new page with title: %1$s";
     public static final String MESSAGE_NON_EXISTENT_DIARY = "This diary does not exists!";
@@ -68,7 +69,7 @@ public class AddPageCommand extends AddCommand {
         ObservableList<Page> newPageList = wantedDiary.getPages();
         newPageList.add(pageToAdd);
         model.setDiary(wantedDiary, new Diary(wantedDiary.getDiaryName(), newPageList));
-        return new CommandResult(String.format(MESSAGE_SUCCESS, pageToAdd));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, pageToAdd.getTitle()));
     }
 
     @Override

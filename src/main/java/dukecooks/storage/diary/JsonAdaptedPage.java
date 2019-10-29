@@ -1,10 +1,12 @@
 package dukecooks.storage.diary;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 import dukecooks.commons.exceptions.IllegalValueException;
 import dukecooks.model.diary.components.Page;
+import dukecooks.model.diary.components.PageDescription;
 import dukecooks.model.diary.components.Title;
 
 /**
@@ -13,13 +15,16 @@ import dukecooks.model.diary.components.Title;
 class JsonAdaptedPage {
 
     private final String pageTitle;
+    private final String pageDescription;
 
     /**
-     * Constructs a {@code JsonAdaptedPage} with the given {@code pageTitle}.
+     * Constructs a {@code JsonAdaptedPage} with the given {@code pageTitle} and {@code pageDescription}.
      */
     @JsonCreator
-    public JsonAdaptedPage(String pageTitle) {
+    public JsonAdaptedPage(@JsonProperty("pageTitle") String pageTitle,
+                           @JsonProperty("pageDescription") String pageDescription) {
         this.pageTitle = pageTitle;
+        this.pageDescription = pageDescription;
     }
 
     /**
@@ -27,11 +32,7 @@ class JsonAdaptedPage {
      */
     public JsonAdaptedPage(Page source) {
         pageTitle = source.getTitle().toString();
-    }
-
-    @JsonValue
-    public String getPageTitle() {
-        return pageTitle;
+        pageDescription = source.getDescription().toString();
     }
 
     /**
@@ -43,7 +44,11 @@ class JsonAdaptedPage {
         if (!Title.isValidTitle(pageTitle)) {
             throw new IllegalValueException(Title.MESSAGE_CONSTRAINTS);
         }
-        return new Page(new Title(pageTitle));
+
+        if (!PageDescription.isValidPageDescription(pageDescription)) {
+            throw new IllegalValueException(PageDescription.MESSAGE_CONSTRAINTS);
+        }
+        return new Page(new Title(pageTitle), new PageDescription(pageDescription));
     }
 
 }

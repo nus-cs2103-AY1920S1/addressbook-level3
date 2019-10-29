@@ -13,6 +13,7 @@ import dukecooks.model.common.Name;
 import dukecooks.model.dashboard.components.DashboardName;
 import dukecooks.model.dashboard.components.TaskDate;
 import dukecooks.model.diary.components.DiaryName;
+import dukecooks.model.diary.components.PageDescription;
 import dukecooks.model.diary.components.Title;
 import dukecooks.model.health.components.Timestamp;
 import dukecooks.model.health.components.Type;
@@ -142,6 +143,23 @@ public class ParserUtil {
         }
         return new Title(trimmedTitle);
     }
+
+    /**
+     * Parses a {@code String description} into a {@code PageDescription}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code PageDescription} is invalid.
+     */
+    public static PageDescription parsePageDescription(String description) throws ParseException {
+        requireNonNull(description);
+        String trimmedDescription = description.trim();
+        if (!PageDescription.isValidPageDescription(trimmedDescription)) {
+            throw new ParseException(PageDescription.MESSAGE_CONSTRAINTS);
+        }
+        return new PageDescription(trimmedDescription);
+    }
+
+
 
     /**
      * Parses a {@code String dateOfBirth} into a {@code DoB}.

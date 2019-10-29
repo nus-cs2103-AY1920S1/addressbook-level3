@@ -69,7 +69,7 @@ public class DeletePageCommand extends DeleteCommand {
         newPageList.remove(pageToDelete);
 
         model.setDiary(targetDiary, new Diary(targetDiary.getDiaryName(), newPageList));
-        return new CommandResult(String.format(MESSAGE_DELETE_PAGE_SUCCESS, pageToDelete));
+        return new CommandResult(String.format(MESSAGE_DELETE_PAGE_SUCCESS, pageToDelete.getTitle()));
     }
 
     @Override
