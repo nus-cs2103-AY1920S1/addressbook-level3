@@ -128,7 +128,6 @@ The `Model`,
 
 [NOTE]
 As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
- +
 image:BetterModelClassDiagram.png[]
 
 [[Design-Storage]]
@@ -231,6 +230,7 @@ This section will explain the reason for having some aspects.
 // end::formmode[]
 
 // tag::dataencryption[]
+
 === Sort feature
 This section describes how the sort feature is implemented.
 
@@ -243,7 +243,6 @@ To facilitate the sorting, the following methods were added:
 Given below is the Sequence Diagram for the interactions with the `Logic` component for the `execute(sort/rate)`
 
 .Structure of the Logic Component when executing `sort` command
-
 image::SortSequenceDiagram.png[width=790]
 
 ==== Design considerations
@@ -376,7 +375,7 @@ _{More to be added}_
 3.  OGRANice prompts the User to type in the required attributes one at a time.
 4.  User inputs in the attribute of the person prompted by ORGANice.
 +
-[none]Steps 3-4 are repeated until the user has inputted all the required attributes for a specific type of person.
+Steps 3-4 are repeated until the user has inputted all the required attributes for a specific type of person.
 5.  ORGANice prompts the User to confirm the attributes of the person.
 6.  User confirms the attributes specified.
 7.  ORGANice adds the person to the list.
@@ -416,7 +415,40 @@ Use case ends.
 +
 Use case ends.
 
+=== Use case: Sort list according to priority/rate/expiry
+
+Given below is the Sequence Diagram for the interactions with the `Logic` component for the `execute(sort/rate)`
++
+.Structure of the Logic Component when executing `sort` command
+image::SortSequenceDiagram.png[]
+
+*MSS*
+
+1.  User requests to sort the list of donors of a particular patient.
+2.  ORGANice sorts the list of donors according to the parameters.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. ORGANice detects invalid parameter(s).
++
+[none]
+** 1a1. ORGANice prompts for valid parameter(s).
++
+** 1a2. User enters correct parameter(s).
++
+Steps 1a1-1a2 are repeated until the data entered are correct.
++
+Use case resumes at step 2.
+
 === Use case: List all patients/donors/doctors
+
+Given below is the activity diagram to illustrate what happens when user uses the list command.
+
+.Activity Diagram of a List Command
+image::ListActivityDiagram.png[]
 
 *MSS*
 
@@ -439,29 +471,6 @@ Steps 1a1-1a2 are repeated until the data entered are correct.
 +
 Use case resumes at step 2.
 
-=== Use case: Sort
-
-*MSS*
-
-1.  User requests to sort the list of donors of a particular patient.
-2.  ORGANice sorts the list of donors according to the parameters.
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 1a. ORGANice detects invalid parameter(s).
-+
-[none]
-** 1a1. ORGANice prompts for valid parameter(s).
-+
-** 1a2. User enters correct parameter(s).
-+
-Steps 1a1-1a2 are repeated until the data entered are correct.
-+
-Use case resumes at step 2.
-+
 _{More to be added}_
 
 [appendix]
