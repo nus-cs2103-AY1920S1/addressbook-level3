@@ -1,18 +1,37 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_INCORRECT_NOTE_FRAGMENT_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CONTENT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NOTE_FRAGMENT_CONTENT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NOTE_FRAGMENT_END;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NOTE_FRAGMENT_START;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NOTE_FRAGMENT_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Stream;
+
+import com.sun.jdi.connect.Connector;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
+import seedu.address.logic.commands.note.AddNoteCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.StudyBuddyItem;
 import seedu.address.model.flashcard.Answer;
 import seedu.address.model.flashcard.Question;
-import seedu.address.model.flashcard.Title;
 import seedu.address.model.note.Content;
+import seedu.address.model.note.Note;
+import seedu.address.model.note.NoteFragment;
+import seedu.address.model.note.Title;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -165,13 +184,13 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code title} is invalid.
      */
-    public static Title parseFlashcardTitle(String title) throws ParseException {
+    public static seedu.address.model.flashcard.Title parseFlashcardTitle(String title) throws ParseException {
         requireNonNull(title);
         String trimmedTitle = title.trim();
-        if (!Title.isValidTitle(trimmedTitle)) {
+        if (!seedu.address.model.flashcard.Title.isValidTitle(trimmedTitle)) {
             throw new ParseException(Title.MESSAGE_CONSTRAINTS);
         }
-        return new Title(trimmedTitle);
+        return new seedu.address.model.flashcard.Title(trimmedTitle);
     }
 
     /**
@@ -183,7 +202,7 @@ public class ParserUtil {
     public static seedu.address.model.cheatsheet.Title parseCheatSheetTitle(String title) throws ParseException {
         requireNonNull(title);
         String trimmedTitle = title.trim();
-        if (!Title.isValidTitle(trimmedTitle)) {
+        if (!seedu.address.model.cheatsheet.Title.isValidTitle(trimmedTitle)) {
             throw new ParseException(Title.MESSAGE_CONSTRAINTS);
         }
         return new seedu.address.model.cheatsheet.Title(trimmedTitle);
@@ -227,6 +246,7 @@ public class ParserUtil {
         requireNonNull(tag);
         String trimmedTag = tag.trim();
         if (!Tag.isValidTagName(trimmedTag)) {
+            System.out.println("Tag Name: " + trimmedTag);
             throw new ParseException(Tag.MESSAGE_CONSTRAINTS);
         }
         return new Tag(trimmedTag);
@@ -244,5 +264,73 @@ public class ParserUtil {
         return tagSet;
     }
 
+    public static List<NoteFragment> parseNoteFragmentsFromNote(Note note) {
+        try {
+            Title title = note.getTitle();
+            List<String> noteFragmentMatches = parseNoteFragmentMatches(note.getContent().toString());
+            return parseNoteFragmentsFromString(title, noteFragmentMatches);
+        } catch (ParseException e) {
+            System.out.println("Parse Exception: " + e);
+            return Collections.emptyList();
+        }
+    }
 
+    public static List<String> parseNoteFragmentMatches(String noteContent) throws ParseException {
+        noteContent = " " + noteContent;
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(noteContent, PREFIX_NOTE_FRAGMENT_START,
+                PREFIX_NOTE_FRAGMENT_END);
+
+        List<String> noteFragmentList = argMultimap.getAllValues(PREFIX_NOTE_FRAGMENT_START);
+        return noteFragmentList;
+    }
+
+    public static List<NoteFragment> parseNoteFragmentsFromString(Title title, List<String> stringList)
+            throws ParseException {
+        List<NoteFragment> noteFragmentList = new ArrayList<>();
+        for (String string : stringList) {
+            ArgumentMultimap argMultimapCheck = ArgumentTokenizer.tokenize(string, PREFIX_NOTE_FRAGMENT_CONTENT,
+                    PREFIX_NOTE_FRAGMENT_TAG);
+
+            if (!arePrefixesPresent(argMultimapCheck, PREFIX_NOTE_FRAGMENT_CONTENT, PREFIX_NOTE_FRAGMENT_TAG)) {
+                System.out.println("TAG PROBLEM " + string);
+                throw new ParseException(MESSAGE_INCORRECT_NOTE_FRAGMENT_FORMAT);
+            }
+
+            string = " " + string;
+            noteFragmentList.add(new NoteFragment(title, parseContentFromNoteFragment(string),
+                    parseTagsFromNoteFragment(string)));
+        }
+        return noteFragmentList;
+
+    }
+
+    public static Content parseContentFromNoteFragment(String noteFragment) throws ParseException {
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(noteFragment, PREFIX_NOTE_FRAGMENT_CONTENT,
+                PREFIX_NOTE_FRAGMENT_TAG);
+        try {
+            return parseContent(argMultimap.getValue(PREFIX_NOTE_FRAGMENT_CONTENT).get());
+        } catch (ParseException e) {
+            throw new ParseException(Content.MESSAGE_CONSTRAINTS);
+        }
+    }
+
+    public static Set<Tag> parseTagsFromNoteFragment(String noteFragment) throws ParseException {
+        System.out.println("This is inside Tags: " + noteFragment);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(noteFragment, PREFIX_NOTE_FRAGMENT_CONTENT,
+                PREFIX_NOTE_FRAGMENT_TAG);
+        try {
+            for (String string : argMultimap.getAllValues(PREFIX_NOTE_FRAGMENT_TAG)) {
+                System.out.println("PARSE TAGS: " + string);
+            }
+
+            return parseTags(argMultimap.getAllValues(PREFIX_NOTE_FRAGMENT_TAG));
+        } catch (ParseException e) {
+            System.out.println("Parse Exception in Tags: " + e);
+            throw new ParseException(Tag.MESSAGE_CONSTRAINTS);
+        }
+    }
+
+    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
+        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
+    }
 }
