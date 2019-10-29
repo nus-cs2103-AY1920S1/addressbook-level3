@@ -57,7 +57,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 ** Example: In `add-member mn/MEMBER_NAME`, MEMBER_NAME is the input specified by the user, such as: add-member mn/Gabriel Seow
 
-* The user specifies the type of parameter given through a prefix. The list of allowed prefixes can be found below.
+* The user specifies the type of parameter given through a prefix. The list of allowed prefixes can be found in the table below: 
 
 [%header,cols=2*] 
 .List of Prefixes
@@ -77,10 +77,13 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 |tn/
 |Task name
 
+|s/
+|Task status
+
 |===
 
 
-** Example: In `add-task tn/TASK_NAME s/TASK_STATUS`, the user inputs the name of the task after nt/ and inputs the status of the task after s/ , such as: +
+** Example: In `add-task tn/TASK_NAME s/TASK_STATUS`, the user inputs the name of the task after tn/ and inputs the status of the task after s/ , such as: +
  `add task t/Finish Project Draft s/undone`
 
 * Date and Time is specified in the format `dd-mm-yyyy hh:mm`
@@ -96,7 +99,7 @@ This command brings you to the project dashboard page, where tasks are displayed
 Format: `home` +
 Calling the 'home' command will bring you to the following page:
 +
-image::Home.png[width=790]
+image:: Home.png[width=790]
 +
 ==== Accessing time management page: `calendar` +
 This command brings you to the time management page where calendar and meeting times are displayed +
