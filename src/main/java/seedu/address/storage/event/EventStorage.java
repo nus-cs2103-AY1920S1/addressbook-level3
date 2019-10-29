@@ -44,5 +44,4 @@ public interface EventStorage {
      * @see #saveEvents(ReadOnlyEvents)
      */
     void saveEvents(ReadOnlyEvents events, Path filePath) throws IOException;
-
 }

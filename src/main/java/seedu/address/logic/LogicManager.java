@@ -1,5 +1,7 @@
 package seedu.address.logic;
 
+import static seedu.address.logic.commands.CommandResultType.EXPORT_CALENDAR;
+
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.logging.Logger;
@@ -10,6 +12,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.CommandResultType;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.NjoyParser;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -56,6 +59,9 @@ public class LogicManager implements Logic {
             storage.saveEvents(model.getEventRecord());
             storage.saveQuizzes(model.getSavedQuizzes());
             storage.saveNotesRecord(model.getNotesRecord());
+            if (commandResult.getCommandResultType().equals(EXPORT_CALENDAR)) {
+                storage.exportEvent(model.getEventExportPath(), model.getVEventRecord());
+            }
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }

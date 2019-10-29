@@ -30,12 +30,10 @@ import seedu.address.model.event.exceptions.VEventNotFoundException;
  * VEvents with the same eventName, startDateTime and endDateTime are not allowed.
  */
 public class EventRecord implements ReadOnlyVEvents, ReadOnlyEvents, Iterable<VEvent> {
-    private static final String FILE_SEPERATOR = System.getProperty("file.separator");
-    private static final String SCHEDULE_FILE_NAME = "nJoy_Event_Schedule";
-    private static final String ICS_FILE_TYPE = ".ics";
     private final ObservableList<VEvent> vEvents = FXCollections.observableArrayList();
     private final ObservableList<VEvent> vEventsUnmodifiableList =
             FXCollections.unmodifiableObservableList(vEvents);
+    private String targetExportPath;
 
     public EventRecord() {
     }
@@ -276,31 +274,19 @@ public class EventRecord implements ReadOnlyVEvents, ReadOnlyEvents, Iterable<VE
     }
 
     /**
-     * export all VEvents in vEvents List into specified directory in a .ics file type. Which can be easily imported
-     * into google calendar, and various calendar applications.
-     * @param targetDir target directory to save ics file
-     * @return full file path of the .ics file export
-     * @throws IOException for file-writing exceptions.
+     * Sets the target export file path of the events
+     * @param targetExportPath string representation of the target file path
      */
-    public String saveToIcsFile(String targetDir) throws IOException {
-        VCalendar vCalendar = new VCalendar();
-        vCalendar.setVEvents(getVEventList());
+    public void setEventExportPath(String targetExportPath) {
+        this.targetExportPath = targetExportPath;
+    }
 
-        String fullFilePath = targetDir + FILE_SEPERATOR + SCHEDULE_FILE_NAME + ICS_FILE_TYPE;
-        String fileBody = vCalendar.toString().replaceAll("\n", "\r\n");
-
-        File outputFile = new File(fullFilePath);
-
-        if (!outputFile.exists()) {
-            outputFile.createNewFile();
-        }
-
-        FileWriter fw = new FileWriter(outputFile.getAbsoluteFile());
-        BufferedWriter bw = new BufferedWriter(fw);
-
-        bw.write(fileBody);
-        bw.close();
-        return fullFilePath;
+    /**
+     * gets the target event export file path
+     * @return targetExportPath of eventRecord
+     */
+    public String getEventExportPath() {
+        return this.targetExportPath;
     }
 
     @Override

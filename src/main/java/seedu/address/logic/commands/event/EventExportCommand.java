@@ -11,12 +11,10 @@ import seedu.address.model.Model;
  * Represents a view events command.
  */
 public class EventExportCommand extends EventCommand {
-
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Exports your events to a ICS file\n"
             + "Parameters:\n"
             + "directory/ [DIR]\n"
             + "Example: event export directory/Users/John/Desktop";
-    public static final String MESSAGE_SUCCESS = "Exported your events to ";
     private final String directoryPath;
 
     public EventExportCommand(String directoryPath) {
@@ -25,21 +23,12 @@ public class EventExportCommand extends EventCommand {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        try {
-            String fullFilePath = model.saveToIcsFile(directoryPath);
-            return new CommandResult(generateSuccessMessage(fullFilePath),
-                    CommandResultType.SHOW_SCHEDULE);
-        } catch (IOException ex) {
-            return new CommandResult(generateFailureMessage(directoryPath), CommandResultType.SHOW_SCHEDULE);
-        }
+        model.setEventExportPath(directoryPath);
+        return new CommandResult(generateSuccessMessage(directoryPath), CommandResultType.EXPORT_CALENDAR);
     }
 
     private String generateSuccessMessage(String fullFilePath) {
         return String.format("Events successfully exported to: %s", fullFilePath);
-    }
-
-    private String generateFailureMessage(String directoryPath) {
-        return String.format("Events failed to export to directory: %s\n Verify the filePath is valid.", directoryPath);
     }
 }
 

@@ -15,6 +15,7 @@ import jfxtras.icalendarfx.components.VEvent;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.index.Index;
 import seedu.address.model.event.ReadOnlyEvents;
+import seedu.address.model.event.ReadOnlyVEvents;
 import seedu.address.model.note.Note;
 import seedu.address.model.note.ReadOnlyNotesRecord;
 import seedu.address.model.person.Person;
@@ -434,6 +435,13 @@ public interface Model {
     Path getEventRecordFilePath();
 
     ReadOnlyEvents getEventRecord();
+
+    ReadOnlyVEvents getVEventRecord();
+
+    String getEventExportPath();
+
+    void setEventExportPath(String targetExportPath);
+
     //endregion
 
     //region VEvents

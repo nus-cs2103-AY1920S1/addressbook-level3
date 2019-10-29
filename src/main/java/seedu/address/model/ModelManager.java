@@ -22,6 +22,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.index.Index;
 import seedu.address.model.event.EventRecord;
 import seedu.address.model.event.ReadOnlyEvents;
+import seedu.address.model.event.ReadOnlyVEvents;
 import seedu.address.model.group.Group;
 import seedu.address.model.group.ListOfGroups;
 import seedu.address.model.note.Note;
@@ -645,6 +646,19 @@ public class ModelManager implements Model {
     @Override
     public ReadOnlyEvents getEventRecord() {
         return eventRecord;
+    }
+
+    @Override
+    public ReadOnlyVEvents getVEventRecord() {
+        return eventRecord;
+    }
+
+    @Override
+    public String getEventExportPath() { return eventRecord.getEventExportPath(); }
+
+    @Override
+    public void setEventExportPath(String targetEventExportPath) {
+        eventRecord.setEventExportPath(targetEventExportPath);
     }
 
     //endregion

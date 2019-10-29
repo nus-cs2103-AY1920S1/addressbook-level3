@@ -53,8 +53,6 @@ public class MainWindow extends UiPart<Stage> {
     private StatsReportWindow statsReportWindow;
     private NotesListPanel notesListPanel;
     private EventSchedulePanel eventSchedulePanel;
-    private Node studentPanelNode;
-    private Node eventPaneNode;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -135,8 +133,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     void fillInnerParts() {
         studentListPanel = new StudentListPanel(logic.getFilteredStudentList());
-        this.studentPanelNode = studentListPanel.getRoot();
-        mainPanelPlaceholder.getChildren().add(studentPanelNode);
+        mainPanelPlaceholder.getChildren().add(studentListPanel.getRoot());
 
         questionListPanel = new QuestionListPanel(logic.getAllQuestions(), false);
         mainPanelPlaceholder.getChildren().add(questionListPanel.getRoot());

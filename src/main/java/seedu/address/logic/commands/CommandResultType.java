@@ -16,6 +16,7 @@ public enum CommandResultType {
     SHOW_GROUP,
     SHOW_QUESTION,
     SHOW_QUESTION_SEARCH,
+    EXPORT_CALENDAR,
     EXIT,
     OTHER;
 
