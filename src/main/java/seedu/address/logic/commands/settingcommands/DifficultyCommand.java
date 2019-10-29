@@ -30,4 +30,11 @@ public class DifficultyCommand extends SettingsCommand {
         return new CommandResult("Difficulty is now set to: " + difficulty);
     }
 
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof DifficultyCommand // instanceof handles nulls
+                && difficulty.equals(((DifficultyCommand) other).difficulty));
+    }
+
 }

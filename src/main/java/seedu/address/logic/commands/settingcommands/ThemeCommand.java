@@ -30,4 +30,11 @@ public class ThemeCommand extends SettingsCommand {
         return new CommandResult("Theme now set to: " + theme);
     }
 
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof ThemeCommand // instanceof handles nulls
+                && theme.equals(((ThemeCommand) other).theme));
+    }
+
 }

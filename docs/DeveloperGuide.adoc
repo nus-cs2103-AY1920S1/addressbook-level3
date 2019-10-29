@@ -287,24 +287,40 @@ Take note that "mode" as defined in our project is the state in which the applic
 
 Given below is a step by step walk-through of what happens when a user executes a difficulty command while in settings mode:
 
-.Sequence diagram of Step 1.
-image::DifficultySequenceDiagram1.png[]
-1. Let us assume that the current difficulty of the application is "EASY". The object diagram below shows the current state of `AppSettings`.
+.Before state of application.
+image::StateDiagramBefore.png[]
+*Step 1:* +
+Let us assume that the current difficulty of the application is "EASY". The object diagram above shows the current state of `AppSettings`.
+
 .Sequence diagram of Step 2.
-image::DifficultySequenceDiagram2.png[]
-2. When the user enters `difficulty hard`, the command gets passed into Ui first, which executes `AppManager#execute()`, which passes straight to `LogicManager#execute()` without any logic conditions to determine its execution path.
+image::DifficultySequenceDiagram1.png[]
+*Step 2:* +
+When the user enters `difficulty hard`, the command gets passed into Ui first, which executes `AppManager#execute()`, which passes straight to `LogicManager#execute()` without any logic conditions to determine its execution path.
+
 .Sequence diagram of Step 3.
-image::DifficultySequenceDiagram3.png[]
-3. At `LogicManager#execute()` however, the command gets passed into a parser manager which filters out the `DifficultyCommand` as a non-switch command and it creates a `DifficultyCommand` to be executed.
+image::DifficultySequenceDiagram2.png[]
+*Step 3:* +
+At `LogicManager#execute()` however, the command gets passed into a parser manager which filters out the `DifficultyCommand` as a non-switch command and it creates a `DifficultyCommand` to be executed.
+
 .Sequence diagram of Step 4.
-image::DifficultySequenceDiagram4.png[]
-4. Upon execution of the `DifficultyCommand`, the state of the model is changed such that the `DifficultyEnum` in `AppSettings` is now set to `HARD`.
+image::DifficultySequenceDiagram3.png[]
+*Step 4:* +
+Upon execution of the `DifficultyCommand`, the state of the model is changed such that the `DifficultyEnum` in `AppSettings` is now set to `HARD`.
+
 .Sequence diagram of Step 5.
-image::DifficultySequenceDiagram5.png[]
-5. Since the main function of the `difficulty` command is accomplished and all that is left is to update the ui, the `CommandResult` that is produced by the execution of the command goes back to `Ui` without much problem.
+image::DifficultySequenceDiagram4.png[]
+*Step 5:* +
+Since the main function of the `difficulty` command is accomplished and all that is left is to update the ui, the `CommandResult` that is produced by the execution of the command goes back to `Ui` without much problem.
+
 .Sequence diagram of Step 6.
-image::DifficultySequenceDiagram6.png[]
-6. Assuming that there were no errors thrown during the execution of the `difficulty` command, the execution calls `updateModularDisplay` in `UpdateUi`. In here, the `ModeEnum.SETTINGS` is registered and it updates the settings display to properly reflect the change in difficulty.
+image::DifficultySequenceDiagram5.png[]
+*Step 6:* +
+Assuming that there were no errors thrown during the execution of the `difficulty` command, the execution calls `updateModularDisplay` in `UpdateUi`. In here, the `ModeEnum.SETTINGS` is registered and it updates the settings display to properly reflect the change in difficulty.
+
+The state of appSettings is then as follows:
+
+.After state of application
+image::StateDiagramAfter.png[]
 
 ==== Design Considerations
 
