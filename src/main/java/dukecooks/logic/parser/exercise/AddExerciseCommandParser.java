@@ -6,6 +6,7 @@ import static dukecooks.logic.parser.CliSyntax.PREFIX_INTENSITY;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_NAME;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_PRIMARY_MUSCLE;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_REPETITIONS;
+import static dukecooks.logic.parser.CliSyntax.PREFIX_SECONDARY_MUSCLE;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_SETS;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_WEIGHT;
 
@@ -43,7 +44,7 @@ public class AddExerciseCommandParser implements Parser<AddExerciseCommand> {
      */
     public AddExerciseCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PRIMARY_MUSCLE,
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PRIMARY_MUSCLE, PREFIX_SECONDARY_MUSCLE,
                         PREFIX_INTENSITY, PREFIX_DISTANCE, PREFIX_REPETITIONS,
                         PREFIX_SETS, PREFIX_WEIGHT);
 
@@ -55,7 +56,9 @@ public class AddExerciseCommandParser implements Parser<AddExerciseCommand> {
         ExerciseName exerciseName = WorkoutPlannerParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
         MuscleType primaryMuscle = WorkoutPlannerParserUtil
                 .parseMuscleType(argMultimap.getValue(PREFIX_PRIMARY_MUSCLE).get());
-        MusclesTrained musclesTrained = new MusclesTrained(primaryMuscle, new ArrayList<>());
+        ArrayList<MuscleType> secondaryMuscles = WorkoutPlannerParserUtil.parseSecondaryMuscle(argMultimap
+                .getAllValues(PREFIX_SECONDARY_MUSCLE));
+        MusclesTrained musclesTrained = new MusclesTrained(primaryMuscle, secondaryMuscles);
         Intensity intensity = WorkoutPlannerParserUtil.parseIntensity(argMultimap.getValue(PREFIX_INTENSITY).get());
         Set<ExerciseDetail> exerciseDetailList = new HashSet<>();
 

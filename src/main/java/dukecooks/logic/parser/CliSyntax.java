@@ -14,6 +14,7 @@ public class CliSyntax {
     /* User Profile */
     public static final Prefix PREFIX_NAME = new Prefix("n/");
     public static final Prefix PREFIX_PRIMARY_MUSCLE = new Prefix("p/");
+    public static final Prefix PREFIX_SECONDARY_MUSCLE = new Prefix("sm/");
     public static final Prefix PREFIX_INTENSITY = new Prefix("i/");
     public static final Prefix PREFIX_DISTANCE = new Prefix("d/");
     public static final Prefix PREFIX_REPETITIONS = new Prefix("r/");

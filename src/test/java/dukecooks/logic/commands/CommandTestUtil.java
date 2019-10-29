@@ -45,7 +45,7 @@ import dukecooks.model.profile.person.Person;
 import dukecooks.model.recipe.RecipeBook;
 import dukecooks.model.recipe.components.Recipe;
 import dukecooks.model.recipe.components.RecipeNameContainsKeywordsPredicate;
-import dukecooks.model.workout.exercise.WorkoutPlanner;
+import dukecooks.model.workout.WorkoutPlanner;
 import dukecooks.model.workout.exercise.components.Exercise;
 import dukecooks.model.workout.exercise.components.ExerciseNameContainsKeywordsPredicate;
 import dukecooks.model.workout.exercise.components.Intensity;

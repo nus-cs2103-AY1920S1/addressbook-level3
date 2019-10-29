@@ -45,6 +45,13 @@ public class MainWindow extends UiPart<Stage> {
     private HelpWindow helpWindow;
     private Event event;
 
+    private StatusBarFooter dashboardPathStatus;
+    private StatusBarFooter recipePathStatus;
+    private StatusBarFooter recordPathStatus;
+    private StatusBarFooter personPathStatus;
+    private StatusBarFooter exercisePathStatus;
+    private StatusBarFooter diaryPathStatus;
+
     @FXML
     private Label featureMode;
 
@@ -141,6 +148,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     void fillInnerParts() {
         initializePanels();
+        initializeFilePaths();
 
         //default start up screen - dashboard page
         versatilePanelPlaceholder.getChildren().add(dashboardListPanel.getRoot());
@@ -148,15 +156,14 @@ public class MainWindow extends UiPart<Stage> {
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getHealthRecordsFilePath());
-        statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
+        statusbarPlaceholder.getChildren().add(dashboardPathStatus.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
     }
 
     /**
-     * Initializes all Panels
+     * Initializes all Panels.
      */
     void initializePanels() {
         dashboardListPanel = new DashboardListPanel(logic.getFilteredDashboardList());
@@ -164,6 +171,18 @@ public class MainWindow extends UiPart<Stage> {
         recordListPanel = new RecordListPanel(logic.getFilteredRecordList());
         exerciseListPanel = new ExerciseListPanel(logic.getFilteredExerciseList());
         diaryListPanel = new DiaryListPanel(logic.getFilteredDiaryList(), 0);
+    }
+
+    /**
+     * Initializes all Filepaths.
+     */
+    void initializeFilePaths() {
+        dashboardPathStatus = new StatusBarFooter(logic.getDashboardFilePath());
+        recipePathStatus = new StatusBarFooter(logic.getRecipesFilePath());
+        recordPathStatus = new StatusBarFooter(logic.getHealthRecordsFilePath());
+        personPathStatus = new StatusBarFooter(logic.getUserProfileFilePath());
+        //TODO EXERCISE: set up getExerciseFilePath() method in Logic class
+        diaryPathStatus = new StatusBarFooter(logic.getDiaryFilePath());
     }
 
     /**
@@ -215,8 +234,9 @@ public class MainWindow extends UiPart<Stage> {
         String mode = event.getMode();
         String type = event.getType();
 
-        //reset panel
+        //reset panel and statusbar
         versatilePanelPlaceholder.getChildren().clear();
+        statusbarPlaceholder.getChildren().clear();
 
         //TODO NOTE: Do your internal #handleSwitch in individual panels - rmb to parse type as param
 
@@ -224,26 +244,33 @@ public class MainWindow extends UiPart<Stage> {
         case "dashboard":
             //TODO:
             versatilePanelPlaceholder.getChildren().add(dashboardListPanel.getRoot());
+            statusbarPlaceholder.getChildren().add(dashboardPathStatus.getRoot());
             featureMode.setText("Dashboard");
             break;
         case "recipe":
             //TODO:
             versatilePanelPlaceholder.getChildren().add(recipeListPanel.getRoot());
+            statusbarPlaceholder.getChildren().add(recipePathStatus.getRoot());
             featureMode.setText("Recipe");
             break;
         case "health":
             versatilePanelPlaceholder.getChildren().add(recordListPanel.getRoot());
+            statusbarPlaceholder.getChildren().add(recordPathStatus.getRoot());
             featureMode.setText("Health Records");
             recordListPanel.handleSwitch(type);
             break;
         case "exercise":
             //TODO:
             versatilePanelPlaceholder.getChildren().add(exerciseListPanel.getRoot());
+            //TODO EXERCISE: add exercisePathStatus once missing getExerciseFilePath() is in Logic class
+            // - refer to initializeFilePath()
+            //statusbarPlaceholder.getChildren().add(exercisePathStatus.getRoot());
             featureMode.setText("Exercise");
             break;
         case "diary":
             //TODO:
             versatilePanelPlaceholder.getChildren().add(diaryListPanel.getRoot());
+            statusbarPlaceholder.getChildren().add(diaryPathStatus.getRoot());
             featureMode.setText("Diary");
             diaryListPanel.handleSwitch(type);
             break;

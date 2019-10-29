@@ -5,7 +5,7 @@ import static java.util.Objects.requireNonNull;
 import dukecooks.logic.commands.ClearCommand;
 import dukecooks.logic.commands.CommandResult;
 import dukecooks.model.Model;
-import dukecooks.model.workout.exercise.WorkoutPlanner;
+import dukecooks.model.workout.WorkoutPlanner;
 
 /**
  * Clears Duke Cooks.
