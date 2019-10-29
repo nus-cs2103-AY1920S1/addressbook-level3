@@ -61,14 +61,14 @@ public class SetReminderCommand extends Command {
             throw new CommandException(MESSAGE_THRESHOLD_ITEM_EXPIRED);
         }
 
+        String daysLeft = itemToSetReminder.getExpiryDate().getStatus();
         ReminderThreshold finalThreshold = getValidThreshold(itemToSetReminder);
-
         itemToSetReminder.setReminderThreshold(finalThreshold);
 
         model.setItem(itemToSetReminder, itemToSetReminder);
         model.updateFilteredItemList(Model.PREDICATE_SHOW_ALL_ITEMS);
         if (isThresholdExceeded(itemToSetReminder)) {
-            return new CommandResult(MESSAGE_REMINDER_THRESHOLD_EXCEEDED);
+            return new CommandResult(String.format(MESSAGE_REMINDER_THRESHOLD_EXCEEDED, daysLeft));
         } else {
             return new CommandResult(this.threshold.getValue() > 0
                     ? String.format(MESSAGE_SUCCESS_SET, this.index.getOneBased(), this.threshold)

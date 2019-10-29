@@ -77,7 +77,7 @@ public class ItemCard extends UiPart<Region> {
         int reminderThreshold = item.getReminderThreshold().getValue();
         if (item.isExpired()) {
             days.getStyleClass().add("expired");
-        } else if (item.hasReminderThreshold() && remainingDays < reminderThreshold) {
+        } else if (item.hasReminderThreshold() && remainingDays <= reminderThreshold) {
             days.getStyleClass().add("remind");
         } else {
             days.getStyleClass().add("healthy");

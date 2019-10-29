@@ -37,7 +37,7 @@ public class ReminderThreshold {
         long remainingDays = Long.parseLong(ed.getStatus());
         return StringUtil.isNonNegativeInteger(test)
                 && (!StringUtil.isExceedingMaxValue(test, MAX_VALUE))
-                && Integer.parseInt(test) < remainingDays;
+                && Integer.parseInt(test) <= remainingDays;
     }
 
     /**
