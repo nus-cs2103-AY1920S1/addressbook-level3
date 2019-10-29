@@ -21,9 +21,11 @@ By: `CS2103T-T13-3`      Since: `September 2019`      Licence: `MIT`
 Refer to the guide <<SettingUp#, here>>.
 
 == Design
+This section will illustrate and detail the overall design of the software for treasurerPro.
 
 [[Design-Architecture]]
 === Architecture
+This section illustrates the overall architecture of the software for treasurerPro.
 
 .Architecture Diagram
 image::ArchitectureDiagram.png[]
@@ -34,14 +36,14 @@ The *_Architecture Diagram_* given above depicts the high-level design of treasu
 The `.xml` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder.
 You may use link:draw.io[draw.io] to edit the diagrams.
 
-treasurerPro is divided primarily into 6 packages:
+treasurerPro is divided primarily into 6 packages which contain implementation for each tab in the UI:
 
-. Transactions
-. Members
-. Reimbursement
-. Inventory
-. Cashier
-. Overview
+. transaction package: Home Tab
+. person package: Members Tab
+. reimbursement package: Reimbursements Tab
+. inventory package: Inventory Tab
+. cashier package: Cashier Tab
+. overview package: Overview Tab
 
 Each package uses either TXT or JSON based storage. Within the package, they share a similar structure,
 consisting of the following components:
@@ -117,7 +119,7 @@ This section will show the structures of the `Logic` Component of the different 
 The diagram below shows a generalised view of the `Logic` component within each package.
 
 [[fig-LogicClassDiagram]]
-.Structure of the `Logic` Component
+.Structure of the Generalised `Logic` Component
 image::LogicClassDiagram.png[]____
 
 An outline of how a command is processed through `Logic` is as follows:
@@ -137,7 +139,7 @@ Further details on the implementation of the `Parser` and `Command` can be found
 <<ICLogic, Section 2.3.2. Inventory and Cashier Tab>> and <<PLogic, Section 2.3.3. Members Tab>> below.
 
 [[RTLogic]]
-==== Home and Reimbursement Tab
+==== Details on `Logic` Implementation for Home and Reimbursement Tab
 This section will show further details of the `Logic` Component of the Home and Reimbursement Tabs.
 Given below is a Class Diagram showing the structure of `Parser` within the `Logic` component:
 
@@ -175,9 +177,10 @@ The parsers represented by the `ABCParser` and `DEFParser`:
 
 
 [[ICLogic]]
-==== Inventory and Cashier Tab
+==== Details on `Logic` Implementation for Inventory and Cashier Tab
 To be filled in by the respective members :)
 
+==== Details on `Logic` Implementation for Members Tab
 [[PLogic]]
 This section will show further details of the `Logic` Component of the Members Tab.
 This is integrated from the existing `AddressBook`.
@@ -188,25 +191,52 @@ image::LogicForAB.png[]
 
 [[Design-Model]]
 === Model component
+This section will show the structures of the `Model` Component of the different tabs.
+The diagram below shows a generalised view of the `Model` component within each package.
 
-.Structure of the Model Component
-image::ModelClassDiagram.png[]
-
-*API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
-
-The `Model`,
-
-* stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
-* does not depend on any of the other three components.
+.Structure of the Generalised `Model` Component
+image::ModelCD.png[]
 
 [NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference.
-This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object.
-An example of how such a model may look like is given below. +
+`XYZObjects` are only present in the `transaction`, `reimbursement`, `person` and `inventory` packages.
 
-image:BetterModelClassDiagram.png[]
+
+==== Details on the `Model` Implementation for Home Tab
+* stores a `TransactionList` object that represents the list of all transactions data
+* stores a `Predicate<Transaction>` object to filter the list of all transactions
+* stores another `TransactionList` object that represents the filtered list of transactions according to the predicate
+*API for transaction package* : link:{repoURL}/src/main/java/seedu/address/transaction/model/Model.java[`Model.java`]
+
+==== Details on the `Model` Implementation for Reimbursements Tab
+To be filled in :)
+*API for reimbursements package* : link:{repoURL}/src/main/java/seedu/address/reimbursement/model/Model.java[`Model.java`]
+
+==== Details on the `Model` Implementation for Members Tab
+
+** stores a `UserPref` object that represents the user's preferences for `person` package.
+** stores the Address Book data for `person` package.
+** exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+** does not depend on any of the other three components.
+*API for person package* : link:{repoURL}/src/main/java/seedu/address/person/model/Model.java[`Model.java`]
+
+==== Details on the `Model` Implementation for Inventory Tab
+To be filled in :)
+*API for inventory package* : link:{repoURL}/src/main/java/seedu/address/inventory/model/Model.java[`Model.java`]
+
+==== Details on the `Model` Implementation for Cashier Tab
+To be filled in :)
+*API for cashier package* : link:{repoURL}/src/main/java/seedu/address/cashier/model/Model.java[`Model.java`]
+
+==== Details on the `Model` Implementation for Overview Tab
+To be filled in :)
+*API for overview package* : link:{repoURL}/src/main/java/seedu/address/overview/model/Model.java[`Model.java`]
+
+//[NOTE]
+//As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference.
+//This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object.
+//An example of how such a model may look like is given below. +
+
+//image:BetterModelClassDiagram.png[]
 
 [[Design-Storage]]
 === Storage component
