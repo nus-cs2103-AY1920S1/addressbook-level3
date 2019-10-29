@@ -63,9 +63,9 @@ public class UniqueDayList implements Iterable<Day> {
      */
     public void setDays(List<Day> days) {
         requireAllNonNull(days);
-        if (!daysAreUnique(days)) {
-            throw new DuplicateDayException();
-        }
+//        if (!daysAreUnique(days)) {
+//            throw new DuplicateDayException();
+//        }
 
         internalList.setAll(days);
     }
@@ -85,9 +85,9 @@ public class UniqueDayList implements Iterable<Day> {
             throw new DayNotFoundException();
         }
 
-        if (!target.isSameDay(editedDay) && contains(editedDay)) {
-            throw new DuplicateDayException();
-        }
+//        if (!target.isSameDay(editedDay) && contains(editedDay)) {
+//            throw new DuplicateDayException();
+//        }
 
         internalList.set(index, editedDay);
     }

@@ -114,8 +114,9 @@ public class Itinerary implements ReadOnlyItinerary {
      */
     public void resetDataItinerary(ReadOnlyItinerary newData) {
         requireNonNull(newData);
-
         setDays(newData.getItinerary());
+        setName(newData.getName());
+        setStartDate(newData.getStartDate());
     }
 
     public List<Day> getDays(Activity activity) {

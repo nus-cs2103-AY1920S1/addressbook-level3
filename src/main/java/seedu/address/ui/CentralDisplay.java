@@ -1,42 +1,26 @@
 package seedu.address.ui;
 
-import javafx.beans.Observable;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.geometry.Insets;
 import javafx.scene.control.Accordion;
 import javafx.scene.control.Skin;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.Region;
-import javafx.scene.paint.Color;
-import jfxtras.internal.scene.control.skin.agenda.AgendaDaysFromDisplayedSkin;
+import jfxtras.internal.scene.control.skin.agenda.AgendaWeekSkin;
 import jfxtras.scene.control.agenda.Agenda;
-import jfxtras.scene.control.agenda.icalendar.ICalendarAgenda;
-import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.commons.core.index.Index;
 import seedu.address.model.day.ActivityWithTime;
 import seedu.address.model.day.Day;
-import seedu.address.model.field.Address;
-import seedu.address.model.field.Name;
 import seedu.address.model.itineraryitem.activity.Activity;
 import seedu.address.model.tag.Tag;
 
-import java.io.StringReader;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 /**
  * A ui for the split window that is displayed at the center of the application.
@@ -57,18 +41,40 @@ public class CentralDisplay extends UiPart<Region> {
     @FXML
     private Tab testTab;
 
-    public CentralDisplay(ObservableList<Day> dayList, SimpleObjectProperty<LocalDate> startDate) {
+    private SimpleObjectProperty<LocalDate> startDateProperty;
+
+    public CentralDisplay(ObservableList<Day> dayList, SimpleObjectProperty<LocalDate> startDateProperty) {
         super(FXML);
+        this.startDateProperty = startDateProperty;
+
+        // initialising agenda
         Agenda agenda = new Agenda() {
             @Override
             public Skin<?> createDefaultSkin() {
-                return new AgendaDaysFromDisplayedSkin(this);
+                return new AgendaWeekSkin(this) {
+                    @Override
+                    protected List<LocalDate> determineDisplayedLocalDates()
+                    {
+                        // the result
+                        List<LocalDate> lLocalDates = new ArrayList<>();
+
+                        LocalDate lStartLocalDate = startDateProperty.getValue();
+                        if (dayList.size() == 0) {
+                            lLocalDates.add(lStartLocalDate);
+                        } else {
+                            for (int i = 0; i < dayList.size(); i++) {
+                                lLocalDates.add(lStartLocalDate.plusDays(i));
+                            }
+                        }
+                        // done
+                        return lLocalDates;
+                    }
+                };
             }
         };
-//        Agenda agenda = new Agenda();
-        for (Day day : dayList) {
-            addAppointmentsWithDay(agenda, day);
-        }
+        agenda.setDisplayedLocalDateTime(startDateProperty.getValue().atStartOfDay());
+        updateAgenda(agenda, dayList);
+
         // disables dragging
         agenda.setAllowDragging(false);
         // disables modify start time and end time by dragging
@@ -79,8 +85,14 @@ public class CentralDisplay extends UiPart<Region> {
         agendaTab.setContent(agenda);
 
         // set up listeners that will update the agenda
-        dayList.addListener((ListChangeListener<Day>) c -> updateAgenda(agenda, dayList));
-        startDate.addListener((observable, oldValue, newValue) -> agenda.setDisplayedLocalDateTime(newValue.atStartOfDay()));
+        dayList.addListener((ListChangeListener<Day>) c -> {
+            agenda.refresh();
+            updateAgenda(agenda, dayList);
+        });
+        startDateProperty.addListener((observable, oldValue, newValue) -> {
+            updateAgenda(agenda, dayList);
+            agenda.setDisplayedLocalDateTime(newValue.atStartOfDay());
+        });
     }
 
     public void setFocusToAgenda() {
@@ -89,19 +101,21 @@ public class CentralDisplay extends UiPart<Region> {
 
     private void updateAgenda(Agenda agenda, ObservableList<Day> dayList) {
         agenda.appointments().clear();
+        int currDayNum = 1;
         for (Day day : dayList) {
-            addAppointmentsWithDay(agenda, day);
+            addAppointmentsWithDay(agenda, day, Index.fromOneBased(currDayNum));
+            currDayNum++;
         }
     }
 
-    private void addAppointmentsWithDay(Agenda agenda, Day day) {
-        LocalDate dateStub = LocalDate.now();
+    private void addAppointmentsWithDay(Agenda agenda, Day day, Index dayIndex) {
+        LocalDate currDate = this.startDateProperty.getValue().plusDays(dayIndex.getZeroBased());
         for (ActivityWithTime activityWithTime : day.getListOfActivityWithTime()) {
             String textToDisplay = createSummaryOfAppointment(activityWithTime.getActivity());
             agenda.appointments().add(
                 new Agenda.AppointmentImplLocal()
-                    .withStartLocalDateTime(LocalDateTime.of(dateStub, activityWithTime.getStartTime()))
-                    .withEndLocalDateTime(LocalDateTime.of(dateStub, activityWithTime.getEndTime()))
+                    .withStartLocalDateTime(LocalDateTime.of(currDate, activityWithTime.getStartTime()))
+                    .withEndLocalDateTime(LocalDateTime.of(currDate, activityWithTime.getEndTime()))
                     .withSummary(textToDisplay)
             );
         }
