@@ -88,15 +88,15 @@ public class Flashcard extends StudyBuddyItem {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append("Question: ")
-                .append(getQuestion())
-                .append(" Answer: ")
-                .append(getAnswer())
-                .append(" Title: ")
-                .append(getTitle())
-                .append(" Statistics: ")
-                .append(getStatistics())
-                .append(" Tags: ");
+        builder.append("\tQuestion: ")
+                .append(getQuestion() + "\n")
+                .append("\tAnswer: ")
+                .append(getAnswer() + "\n")
+                .append("\tTitle: ")
+                .append(getTitle() + "\n")
+                .append("\tStatistics: ")
+                .append(getStatistics() + "\n")
+                .append("\tTags: ");
         getTags().forEach(builder::append);
         return builder.toString();
     }
