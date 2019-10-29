@@ -14,7 +14,7 @@ import dukecooks.model.workout.exercise.details.ExerciseDetail;
 @JsonSubTypes({
         @JsonSubTypes.Type(value = JsonAdaptedSets.class, name = "SET"),
         @JsonSubTypes.Type(value = JsonAdaptedDistance.class, name = "DST"),
-        @JsonSubTypes.Type(value = JsonAdaptedRepetitions.class, name = "REP"),
+        @JsonSubTypes.Type(value = JsonAdaptedTiming.class, name = "REP"),
         @JsonSubTypes.Type(value = JsonAdaptedWeight.class, name = "WGT")}
 )
 abstract class JsonAdaptedExerciseDetail<T> {

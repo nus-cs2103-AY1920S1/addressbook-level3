@@ -2,6 +2,7 @@ package dukecooks.logic.parser.exercise;
 
 import static java.util.Objects.requireNonNull;
 
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,6 +17,7 @@ import dukecooks.model.workout.exercise.details.ExerciseDetail;
 import dukecooks.model.workout.exercise.details.ExerciseWeight;
 import dukecooks.model.workout.exercise.details.Repetitions;
 import dukecooks.model.workout.exercise.details.Sets;
+import dukecooks.model.workout.exercise.details.Timing;
 import dukecooks.model.workout.exercise.details.unit.DistanceUnit;
 import dukecooks.model.workout.exercise.details.unit.WeightUnit;
 
@@ -231,5 +233,22 @@ public class WorkoutPlannerParserUtil {
         }
         int intSets = Integer.parseInt(sets);
         return new Sets(intSets);
+    }
+
+    /**
+     * Parses a {@code String time} into a {@code Repetition}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code time} is invalid.
+     */
+    public static Timing parseTiming(String time) throws ParseException {
+        requireNonNull(time);
+        String trimmedTime = "PT" + time.trim().toUpperCase();
+        if (!ExerciseDetail.isValidExerciseDetail(trimmedTime)) {
+            throw new ParseException(ExerciseDetail.MESSAGE_CONSTRAINTS);
+        }
+        CharSequence timeCharSequence = trimmedTime.subSequence(0, trimmedTime.length());
+        System.out.println(timeCharSequence);
+        return new Timing(Duration.parse(timeCharSequence));
     }
 }

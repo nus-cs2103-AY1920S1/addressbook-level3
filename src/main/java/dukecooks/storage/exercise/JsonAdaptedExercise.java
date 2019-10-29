@@ -21,6 +21,7 @@ import dukecooks.model.workout.exercise.details.ExerciseDetail;
 import dukecooks.model.workout.exercise.details.ExerciseWeight;
 import dukecooks.model.workout.exercise.details.Repetitions;
 import dukecooks.model.workout.exercise.details.Sets;
+import dukecooks.model.workout.exercise.details.Timing;
 
 /**
  * Jackson-friendly version of {@link Exercise}.
@@ -84,9 +85,11 @@ class JsonAdaptedExercise {
         } else if (detail instanceof Distance) {
             return new JsonAdaptedDistance((Distance) detail);
         } else if (detail instanceof Repetitions) {
-            return new JsonAdaptedRepetitions((Repetitions) detail);
-        } else {
+            return new JsonAdaptedTiming((Repetitions) detail);
+        } else if (detail instanceof  Sets){
             return new JsonAdaptedSets((Sets) detail);
+        } else {
+            return new JsonAdaptedTiming((Timing) detail);
         }
     }
 

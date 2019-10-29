@@ -7,6 +7,7 @@ import static dukecooks.logic.parser.CliSyntax.PREFIX_PRIMARY_MUSCLE;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_REPETITIONS;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_SECONDARY_MUSCLE;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_SETS;
+import static dukecooks.logic.parser.CliSyntax.PREFIX_TIMING;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_WEIGHT;
 import static java.util.Objects.requireNonNull;
 
@@ -49,7 +50,8 @@ public class EditExerciseCommand extends EditCommand {
             + "[" + PREFIX_DISTANCE + "DISTANCE]..."
             + "[" + PREFIX_REPETITIONS + "REPS]..."
             + "[" + PREFIX_SETS + "SET]..."
-            + "[" + PREFIX_WEIGHT + "WEIGHT]...\n"
+            + "[" + PREFIX_WEIGHT + "WEIGHT]..."
+            + "[" + PREFIX_TIMING + "TIMING]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_NAME + "Deadlifts";
 

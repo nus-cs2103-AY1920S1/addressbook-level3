@@ -20,6 +20,7 @@ public class CliSyntax {
     public static final Prefix PREFIX_REPETITIONS = new Prefix("r/");
     public static final Prefix PREFIX_SETS = new Prefix("s/");
     public static final Prefix PREFIX_WEIGHT = new Prefix("w/");
+    public static final Prefix PREFIX_TIMING = new Prefix("t/");
 
     /* Recipe Book */
     public static final Prefix PREFIX_INGREDIENT = new Prefix("i/");
