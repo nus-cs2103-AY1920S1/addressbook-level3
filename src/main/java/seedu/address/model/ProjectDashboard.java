@@ -8,6 +8,8 @@ import java.util.HashMap;
 import javafx.collections.ObservableList;
 import javafx.collections.FXCollections;
 import seedu.address.commons.util.DateTimeUtil;
+import seedu.address.model.calendar.CalendarWrapper;
+import seedu.address.model.calendar.UniqueCalendarList;
 import seedu.address.model.inventory.Inventory;
 import seedu.address.model.inventory.UniqueInventoryList;
 import seedu.address.model.member.Member;
@@ -38,6 +40,7 @@ public class ProjectDashboard implements ReadOnlyProjectDashboard {
     private final UniqueMemberList members;
     private final UniqueInventoryList inventories;
     private final UniqueMappingManager mappings;
+    private final UniqueCalendarList calendars;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -55,6 +58,7 @@ public class ProjectDashboard implements ReadOnlyProjectDashboard {
         members = new UniqueMemberList();
         inventories = new UniqueInventoryList();
         mappings = new UniqueMappingManager();
+        calendars = new UniqueCalendarList();
     }
 
     public ProjectDashboard() {}
@@ -91,6 +95,10 @@ public class ProjectDashboard implements ReadOnlyProjectDashboard {
         this.mappings.setTasMemMappings(tasMemMappings);
     }
 
+    public void setCalendars(List<CalendarWrapper> calendars) {
+        this.calendars.setCalendars(calendars);
+    }
+
     /**
      * Resets the existing data of this {@code ProjectDashboard} with {@code newData}.
      * Replaces the contents of the inventory list with {@code inventories}.
@@ -109,6 +117,7 @@ public class ProjectDashboard implements ReadOnlyProjectDashboard {
         setInventories(newData.getInventoryList());
         setMembers(newData.getMemberList());
         setMappings(newData.getInvMemMappingList(), newData.getInvTasMappingList(), newData.getTasMemMappingList());
+        setCalendars(newData.getCalendarList());
     }
 
     //// task-level operations
@@ -251,33 +260,9 @@ public class ProjectDashboard implements ReadOnlyProjectDashboard {
         mappings.add(mapping);
     }
 
-//    public void addMapping(InvMemMapping mapping) {
-//        mappings.add(mapping);
-//    }
-//
-//    public void addMapping(InvTasMapping mapping) {
-//        mappings.add(mapping);
-//    }
-//
-//    public void addMapping(TasMemMapping mapping) {
-//        mappings.add(mapping);
-//    }
-
     public void removeMapping(Mapping mapping) {
         mappings.remove(mapping);
     }
-
-//    public void removeMapping(InvMemMapping mapping) {
-//        mappings.remove(mapping);
-//    }
-//
-//    public void removeMapping(InvTasMapping mapping) {
-//        mappings.remove(mapping);
-//    }
-//
-//    public void removeMapping(TasMemMapping mapping) {
-//        mappings.remove(mapping);
-//    }
 
     /**
      * returns whether the mapping list contains targetMapping
@@ -285,36 +270,6 @@ public class ProjectDashboard implements ReadOnlyProjectDashboard {
     public boolean hasMapping(Mapping mapping) {
         requireNonNull(mapping);
         return mappings.contains(mapping);
-    }
-
-//    /**
-//     * returns whether the mapping list contains targetMapping
-//     */
-//    public boolean hasMapping(InvMemMapping mapping) {
-//        requireNonNull(mapping);
-//        return mappings.contains(mapping);
-//    }
-//
-//    /**
-//     * returns whether the mapping list contains targetMapping
-//     */
-//    public boolean hasMapping(InvTasMapping mapping) {
-//        requireNonNull(mapping);
-//        return mappings.contains(mapping);
-//    }
-//
-//    /**
-//     * returns whether the mapping list contains targetMapping
-//     */
-//    public boolean hasMapping(TasMemMapping mapping) {
-//        requireNonNull(mapping);
-//        return mappings.contains(mapping);
-//    }
-
-    @Override
-    public String toString() {
-        return tasks.asUnmodifiableObservableList().size() + " tasks";
-        // TODO: refine later
     }
 
     @Override
@@ -373,11 +328,6 @@ public class ProjectDashboard implements ReadOnlyProjectDashboard {
                 && tasks.equals(((ProjectDashboard) other).tasks));
     }
 
-    /*@Override
-    public int hashCode() {
-        return tasks.hashCode();
-    }*/
-
     //// list overwrite operations
 
     //// member-level operations
@@ -429,21 +379,10 @@ public class ProjectDashboard implements ReadOnlyProjectDashboard {
 
     //// util methods
 
-    /*Override
-    public String toString() {
-        return members.asUnmodifiableObservableList().size() + " members";
-        // TODO: refine later
-    }*/
-
     @Override
     public ObservableList<Member> getMemberList() {
         return members.asUnmodifiableObservableList();
     }
-
-    /*@Override
-    public int hashCode() {
-        return members.hashCode();
-    }*/
 
     @Override
     public HashMap<Task, ObservableList<Member>> listMemberByTask() {
@@ -460,5 +399,22 @@ public class ProjectDashboard implements ReadOnlyProjectDashboard {
             }
         }
         return result;
+    }
+
+    public void addCalendar(CalendarWrapper calendar) {
+        calendars.add(calendar);
+    }
+
+    public boolean hasCalendar(CalendarWrapper calendar) {
+        return calendars.contains(calendar);
+    }
+
+    @Override
+    public ObservableList<CalendarWrapper> getCalendarList() {
+        return calendars.asUnmodifiableObservableList();
+    }
+
+    public void getBestTiming() {
+        calendars.getBestTiming();
     }
 }

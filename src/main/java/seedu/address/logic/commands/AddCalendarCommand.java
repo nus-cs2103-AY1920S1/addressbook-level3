@@ -13,8 +13,6 @@ import seedu.address.model.Model;
 import seedu.address.model.task.Task;
 
 import java.util.Iterator;
-import net.fortuna.ical4j.model.Component;
-import net.fortuna.ical4j.model.Property;
 
 
 /**
@@ -49,11 +47,11 @@ public class AddCalendarCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-//        if (model.hasCalendar(toAdd)) {
-//            throw new CommandException(MESSAGE_DUPLICATE_TASK);
-//        }
+        if (model.hasCalendar(toAdd)) {
+            throw new CommandException(MESSAGE_DUPLICATE_CALENDAR);
+        }
 
-//        model.addTask(toAdd);
+        model.addCalendar(toAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 

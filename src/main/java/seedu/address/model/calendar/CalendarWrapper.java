@@ -19,4 +19,23 @@ public class CalendarWrapper {
     public Calendar getCalendar() {
         return calendar;
     }
+
+    public boolean isSameCalendar(CalendarWrapper otherCalendar) {
+        if (otherCalendar == this) {
+            return true;
+        }
+
+        return otherCalendar != null
+                && otherCalendar.getMemberName().equals(getMemberName())
+                && otherCalendar.getCalendar().equals(getCalendar());
+    }
+
+    public boolean hasMemberName(MemberName otherCalendar) {
+        if (otherCalendar == getMemberName()) {
+            return true;
+        }
+
+        return otherCalendar != null
+                && otherCalendar.equals(getMemberName());
+    }
 }

@@ -39,6 +39,9 @@ import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
+/////REMOVE AFTER TESTING
+import seedu.address.logic.commands.GetBestTimingCommand;
+
 /**
  * Parses user input.
  */
@@ -158,6 +161,9 @@ public class ProjectDashboardParser {
 
         case AddCalendarCommand.COMMAND_WORD:
             return new AddCalendarParser().parse("add-calendar mn/Bobby fp/C:\\Users\\gbrls\\OneDrive\\Desktop\\nusmods_calendar.ics");
+
+        case "get-best-timing":
+            return new GetBestTimingCommand();
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
