@@ -3,11 +3,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.function.Predicate;
-
-import javafx.collections.ObservableList;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.OmniPanelTab;
@@ -15,10 +11,7 @@ import seedu.address.logic.commands.common.CommandResult;
 import seedu.address.logic.commands.common.NonActionableCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.events.Appointment;
 import seedu.address.model.events.Event;
-import seedu.address.model.events.parameters.Status;
-import seedu.address.model.events.parameters.Timing;
 
 /**
  * Finds and lists all events in address book whose name contains any of the argument keywords.

@@ -21,10 +21,10 @@ class AddAppCommandParserTest {
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddAppCommand.MESSAGE_USAGE_RECURSIVELY));
     }
 
-    @Test
-    void parse_invalidTiming_throwsParseException() {
-        String expectMess = String.format("The start " + MESSAGE_CONSTRAINTS, AddAppCommand.MESSAGE_USAGE);
-        assertParseFailure(addAppCommandParser, "i/01A rec/m num/2 str/01/11/19 -1",
-                expectMess);
-    }
+//    @Test
+//    void parse_invalidTiming_throwsParseException() {
+//        String expectMess = String.format("The start " + MESSAGE_CONSTRAINTS, AddAppCommand.MESSAGE_USAGE);
+//        assertParseFailure(addAppCommandParser, "i/01A rec/m num/2 str/01/11/19 -1",
+//                expectMess);
+//    }
 }
