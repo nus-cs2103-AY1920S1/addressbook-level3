@@ -67,7 +67,7 @@ public class EventDayTime {
                 || (other instanceof EventDayTime // instanceof handles nulls
                 && startTime.equals(((EventDayTime) other).getStartTime()) // state check)
                 && endTime.equals(((EventDayTime) other).getEndTime())
-        );
+            );
     }
 
     @Override
