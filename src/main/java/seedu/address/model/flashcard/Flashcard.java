@@ -60,6 +60,13 @@ public class Flashcard extends StudyBuddyItem {
     }
 
     /**
+     *
+     */
+    public void updateStatistics() {
+        this.statistics.onView();
+    }
+
+    /**
      * Returns true if both flashcards have all the same fields except the statistics field.
      */
     @Override

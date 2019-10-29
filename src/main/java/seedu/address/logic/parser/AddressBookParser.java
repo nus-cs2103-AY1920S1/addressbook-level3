@@ -20,6 +20,7 @@ import seedu.address.logic.commands.cheatsheet.ViewCheatSheetCommand;
 import seedu.address.logic.commands.flashcard.AddFlashcardCommand;
 import seedu.address.logic.commands.flashcard.DeleteFlashcardCommand;
 import seedu.address.logic.commands.flashcard.FilterFlashcardByTagCommand;
+import seedu.address.logic.commands.flashcard.RemindCommand;
 import seedu.address.logic.commands.flashcard.ShowFlashcardAnswerCommand;
 import seedu.address.logic.commands.flashcard.StartTimeTrialCommand;
 import seedu.address.logic.commands.flashcard.ViewFlashcardCommand;
@@ -186,6 +187,9 @@ public class AddressBookParser {
 
         case ShowFlashcardAnswerCommand.COMMAND_WORD:
             return new ShowFlashcardAnswerCommand();
+
+        case RemindCommand.COMMAND_WORD:
+            return new RemindCommand();
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

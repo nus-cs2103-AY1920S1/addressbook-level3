@@ -44,14 +44,14 @@ public class Statistics {
      * Updates lastViewed variable to current system time.
      */
     private void updateLastViewed() {
-        lastViewed = LocalDate.now();
+        this.lastViewed = LocalDate.now();
     }
 
     /**
      * Increases current increment to the next increment as specified by the {@link ScheduleIncrement} enum class.
      */
     private void increaseIncrement() {
-        this.currentIncrement.getNextIncrement();
+        this.currentIncrement = this.currentIncrement.getNextIncrement();
     }
 
     /**
@@ -59,7 +59,7 @@ public class Statistics {
      */
     private void updateToViewNext() {
         long daysToAdd = this.currentIncrement.getNumberOfDays();
-        toViewNext = lastViewed.plusDays(daysToAdd);
+        this.toViewNext = this.lastViewed.plusDays(daysToAdd);
     }
 
     /**
@@ -67,9 +67,14 @@ public class Statistics {
      * Ensures lastViewed and toViewNext will never conflict and be the same date
      */
     public void onView() {
-        updateLastViewed();
-        increaseIncrement();
-        updateToViewNext();
+        LocalDate currentDate = LocalDate.now();
+        if (toViewNext.isEqual(currentDate) || toViewNext.isBefore(currentDate)) {
+            updateLastViewed();
+            increaseIncrement();
+            updateToViewNext();
+        } else {
+            updateLastViewed();
+        }
     }
 
     public LocalDate getLastViewed() {
