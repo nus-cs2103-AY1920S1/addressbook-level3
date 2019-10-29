@@ -1,15 +1,15 @@
-package seedu.address.ui.nodes.order;
+package seedu.address.logic.nodes.order;
 
 import seedu.address.model.order.Order;
-import seedu.address.ui.Node;
+import seedu.address.logic.Node;
 
 import java.util.List;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-public class OrderPhoneIndexNode extends Node<Order> {
+public class OrderCustomerIndexNode extends Node<Order> {
 
-    public OrderPhoneIndexNode(List<Order> backingList) {
+    public OrderCustomerIndexNode(List<Order> backingList) {
         super(backingList);
     }
 

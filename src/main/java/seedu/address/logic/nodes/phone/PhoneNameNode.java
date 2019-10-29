@@ -1,7 +1,7 @@
-package seedu.address.ui.nodes.phone;
+package seedu.address.logic.nodes.phone;
 
 import seedu.address.model.phone.Phone;
-import seedu.address.ui.Node;
+import seedu.address.logic.Node;
 
 import java.util.List;
 import java.util.SortedSet;

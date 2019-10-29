@@ -1,22 +1,22 @@
-package seedu.address.ui.nodes.phone;
+package seedu.address.logic.nodes.phone;
 
 import seedu.address.model.phone.Phone;
-import seedu.address.ui.Node;
+import seedu.address.logic.Node;
 
 import java.util.List;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-public class PhoneCostNode extends Node<Phone> {
+public class PhoneSerialNumberNode extends Node<Phone> {
 
-    public PhoneCostNode(List<Phone> backingList) {
+    public PhoneSerialNumberNode(List<Phone> backingList) {
         super(backingList);
     }
 
     @Override
     public SortedSet<String> getValues() {
         SortedSet<String> values = new TreeSet<>();
-        backingList.forEach(phone -> values.add(phone.getCost().toString()));
+        backingList.forEach(phone -> values.add(phone.getSerialNumber().toString()));
         return values;
     }
 

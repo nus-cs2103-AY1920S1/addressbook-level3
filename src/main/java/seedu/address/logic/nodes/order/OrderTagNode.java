@@ -1,7 +1,7 @@
-package seedu.address.ui.nodes.order;
+package seedu.address.logic.nodes.order;
 
 import seedu.address.model.order.Order;
-import seedu.address.ui.Node;
+import seedu.address.logic.Node;
 
 import java.util.List;
 import java.util.SortedSet;

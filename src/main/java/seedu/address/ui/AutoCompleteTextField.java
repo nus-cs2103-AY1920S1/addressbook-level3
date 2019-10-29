@@ -21,6 +21,8 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
+import seedu.address.logic.Graph;
+import seedu.address.logic.GraphGenerator;
 
 //@@author uberSaiyan-reused
 //StackOverflow answer on writing an autocomplete text field from
@@ -56,7 +58,7 @@ public class AutoCompleteTextField extends TextField {
                     String commandWord = enteredText.substring(0, firstSpace);
 //                    GraphGenerator graphGenerator = new GraphGenerator(logic);
                     GraphGenerator graphGenerator = GraphGenerator.getInstance();
-                    Optional<Graph<?>> graph = graphGenerator.getGraph(commandWord);
+                    Optional<Graph> graph = graphGenerator.getGraph(commandWord);
                     if (graph.isPresent()) {
                         String remaining = enteredText.substring(firstSpace);
                         SortedSet<String> values = graph.get().process(remaining);

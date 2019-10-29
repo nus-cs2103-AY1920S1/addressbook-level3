@@ -1,14 +1,14 @@
-package seedu.address.ui;
+package seedu.address.logic;
 
 import seedu.address.logic.parser.Prefix;
 
-public class Edge<T> {
+public class Edge {
 
     private final Prefix weight;
-    private final Node<T> source;
-    private final Node<T> destination;
+    private final Node<?> source;
+    private final Node<?> destination;
 
-    public Edge(Prefix weight, Node<T> source, Node<T> destination) {
+    public Edge(Prefix weight, Node<?> source, Node<?> destination) {
         this.weight = weight;
         this.source = source;
         this.destination = destination;
@@ -18,11 +18,11 @@ public class Edge<T> {
         return weight;
     }
 
-    public Node<T> getSource() {
+    public Node<?> getSource() {
         return source;
     }
 
-    public Node<T> getDestination() {
+    public Node<?> getDestination() {
         return destination;
     }
 

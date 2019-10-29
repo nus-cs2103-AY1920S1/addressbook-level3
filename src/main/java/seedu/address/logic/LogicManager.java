@@ -39,12 +39,14 @@ public class LogicManager implements Logic {
     private final Statistic statistic;
     private final CommandHistory commandHistory = CommandHistory.getCommandHistory();
     private final UndoRedoStack undoRedoStack = UndoRedoStack.getUndoRedoStack();
+    private final GraphGenerator graphGenerator;
 
     public LogicManager(Model model, Storage storage, Statistic statistic) {
         this.model = model;
         this.storage = storage;
         this.statistic = statistic;
         addressBookParser = new AddressBookParser();
+        this.graphGenerator = new GraphGenerator(model);
     }
 
     @Override

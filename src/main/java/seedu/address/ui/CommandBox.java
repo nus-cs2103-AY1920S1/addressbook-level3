@@ -7,6 +7,7 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.logic.GraphGenerator;
 import seedu.address.ui.exception.EnumNotPresentException;
 
 /**
@@ -22,10 +23,9 @@ public class CommandBox extends UiPart<Region> {
     @FXML
     private AutoCompleteTextField commandTextField;
 
-    public CommandBox(CommandExecutor commandExecutor, Logic logic) {
+    public CommandBox(CommandExecutor commandExecutor) {
         super(FXML);
         this.commandExecutor = commandExecutor;
-        new GraphGenerator(logic);
     }
 
     /**

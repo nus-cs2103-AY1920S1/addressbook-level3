@@ -1,4 +1,4 @@
-package seedu.address.ui;
+package seedu.address.logic;
 
 import seedu.address.logic.parser.Prefix;
 
@@ -11,17 +11,17 @@ import java.util.regex.Pattern;
 /**
  * Represents a graph implemented as an {@link Edge} list.
  */
-public class Graph<T> {
+public class Graph {
 
     private static final Pattern prefixPattern = Pattern.compile(" .{1,2}/");
 
-    private final Node<T> startingNode;
-    private final List<Edge<T>> edges;
+    private final Node<?> startingNode;
+    private final List<Edge> edges;
 
-    private Node<T> currentNode;
+    private Node<?> currentNode;
     public String wordToCompare;
 
-    public Graph(Node<T> startingNode, List<Edge<T>> edges) {
+    public Graph(Node<?> startingNode, List<Edge> edges) {
         this.startingNode = startingNode;
         this.edges = edges;
     }
@@ -54,7 +54,7 @@ public class Graph<T> {
     }
 
     private void traverse(Prefix prefix) {
-        for (Edge<T> edge : edges) {
+        for (Edge edge : edges) {
             if (edge.getWeight().equals(prefix) && edge.getSource().equals(currentNode)) {
                 currentNode = edge.getDestination();
                 break;
