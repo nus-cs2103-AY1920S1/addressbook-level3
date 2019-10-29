@@ -70,9 +70,18 @@ Types include: +
 `api` (for advanced users who want to know the inner workings of the command) +
 
 Examples: +
-`help cmd/add_contact type/brief` would show you a brief description of what the `add_contact` command does and how to use it +
-`help cmd/goto type/api` opens up a page in your browser and displays our API for the `goto` command +
-`help cmd/help type/guide` opens up a page in your browser and brings you right here! :smiley:
+....
+help cmd/add_contact type/brief
+....
+This shows you a brief description of what the `add_contact` command does and how to use it +
+....
+help cmd/goto type/api
+....
+This opens up a page in your browser and displays our API for the `goto` command +
+....
+help cmd/help type/guide
+....
+This opens up a page in your browser and brings you right here! :smiley:
 
 <<UG-HelpExample>> shows what you can expect to see when typing in the first example: `help cmd/add_contact type/brief`.
 [[UG-HelpExample]]
@@ -105,7 +114,9 @@ Format:
 
 Examples:
 
-* `add_contact n/John Doe p/98765432 e/johnd@example.com`
+....
+add_contact n/John Doe p/98765432 e/johnd@example.com
+....
 
 === Editing a contact : `edit_contact`
 
@@ -118,7 +129,9 @@ Format:
 
 Examples:
 
-* ` edit_contact 2 n/john lim p/92222223 e/johnlim@gmail.com`
+....
+edit_contact 2 n/john lim p/92222223 e/johnlim@gmail.com
+....
 
 === Adding a claim : `add_claim`
 
@@ -130,7 +143,9 @@ Format: `add_claim d/DESCRIPTION_OF_CLAIM a/AMOUNT n/PERSON_NAME p/PHONE_NUMBER 
 
 Examples:
 
-* `add_claim d/Sports Equipment a/115.2 n/Lee Wei Gen p/96777777 t/Sports`
+....
+add_claim d/Sports Equipment a/115.2 n/Lee Wei Gen p/96777777 t/Sports
+....
 
 === Approving a claim : `approve`
 
@@ -142,15 +157,17 @@ Format: `approve INDEX`
 
 Examples:
 
-* `approve 1` (approves the first claim in the claim list)
+....
+approve 1 (approves the first claim in the claim list)
+....
 
-****
+
 * Approves the claim at the specified `INDEX`.
 * The displayed list must be the claim list.
 * Claim at the specified `INDEX` must be a pending claim.
 * The index refers to the index number shown in the displayed claim list.
 * The index *must be a positive integer* 1, 2, 3, ...
-****
+
 
 === Rejecting a claim : `reject`
 
@@ -162,15 +179,17 @@ Format: `reject INDEX`
 
 Examples:
 
-* `reject 1` (approves the first claim in the claim list)
+....
+reject 1 (approves the first claim in the claim list)
+....
 
-****
+
 * Rejects the claim at the specified `INDEX`.
 * The displayed list must be the claim list.
 * Claim at the specified `INDEX` must be a pending claim.
 * The index refers to the index number shown in the displayed claim list.
 * The index *must be a positive integer* 1, 2, 3, ...
-****
+
 
 //=== Editing a claim : `edit_claim`
 //
@@ -194,7 +213,9 @@ Format: `add_income d/DESCRIPTION_OF_INCOME a/AMOUNT n/PERSON_NAME p/PHONE_NUMBE
 
 Examples:
 
-* `add_income d/Shirt Sales a/307.5 n/Lee Wei Gen p/96777777 t/Marketing`
+....
+add_income d/Shirt Sales a/307.5 n/Lee Wei Gen p/96777777 t/Marketing
+....
 
 === Editing an income : `edit_income`
 
@@ -206,7 +227,9 @@ Format: `edit_income INDEX d/DESCRIPTION_OF_INCOME a/AMOUNT n/PERSON_NAME p/PHON
 
 Examples:
 
-* `edit_income 2 d/Camp Fees a/1150.50 n/Lee Wei Gen p/96777777 t/FOP`
+....
+edit_income 2 d/Camp Fees a/1150.50 n/Lee Wei Gen p/96777777 t/FOP
+....
 
 === Checking a Person or Claim : `check`
 
@@ -218,8 +241,10 @@ Format: `check INDEX`
 
 Examples:
 
-* `check 1` (in contacts page, show details of the person in index 1)
-* `check 2` (in claims page, show details of the claim in index 2)
+****
+* check 1 (in contacts page, show details of the person in index 1)
+* check 2 (in claims page, show details of the claim in index 2)
+****
 
 === Deleting a Contact : `delete_contact`
 
@@ -231,13 +256,15 @@ Format: `delete_contact INDEX`
 
 Examples:
 
-* `delete_contact 1` (removes first person in the contact list)
+....
+delete_contact 1 (removes first person in the contact list)
+....
 
-****
+
 * Deletes the person at the specified `INDEX`.
 * The index refers to the index number shown in the displayed person list.
 * The index *must be a positive integer* 1, 2, 3, ...
-****
+
 
 === Deleting an Income : `delete_income`
 
@@ -249,13 +276,13 @@ Format: `delete_income INDEX`
 
 Examples:
 
-* `delete_income 1` (removes first income in the income list)
+....
+delete_income 1 (removes first income in the income list)
+....
 
-****
 * Deletes the income at the specified `INDEX`.
 * The index refers to the index number shown in the displayed income list.
 * The index *must be a positive integer* 1, 2, 3, ...
-****
 
 === Viewing budget : `budget`
 
