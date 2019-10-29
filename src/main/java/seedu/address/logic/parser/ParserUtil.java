@@ -251,9 +251,7 @@ public class ParserUtil {
             date = sdf.parse(trimmedTime);
             calendar.setTime(date);
             Calendar currCalendar = Calendar.getInstance();
-            System.out.println(calendar.compareTo(currCalendar));
             if (calendar.compareTo(currCalendar) < 0) {
-                System.out.println("hihihi");
                 throw new ParseException(Time.MESSAGE_TIME_CONSTRAINT);
             }
         } catch (java.text.ParseException e) {
