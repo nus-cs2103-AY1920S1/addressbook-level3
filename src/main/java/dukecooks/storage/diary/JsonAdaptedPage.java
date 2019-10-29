@@ -36,7 +36,7 @@ class JsonAdaptedPage {
     public JsonAdaptedPage(Page source) {
         pageTitle = source.getTitle().toString();
         pageDescription = source.getDescription().toString();
-        imageFilePath = source.getImageFilePath().toString();
+        imageFilePath = source.getImage().getFilePath();
     }
 
     /**

@@ -11,31 +11,34 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<HBox id="cardPane" fx:id="cardPane" prefHeight="400.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
   <GridPane HBox.hgrow="ALWAYS">
     <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150" />
     </columnConstraints>
-    <VBox alignment="CENTER_LEFT" minHeight="105" prefHeight="295.0" prefWidth="222.0" GridPane.columnIndex="0">
+    <VBox alignment="CENTER_LEFT" minHeight="200.0" prefHeight="401.0" prefWidth="300.0" GridPane.columnIndex="0">
       <padding>
         <Insets bottom="5" left="15" right="5" top="5" />
       </padding>
-      <HBox prefHeight="20.0" prefWidth="140.0" spacing="5" translateX="-5.0" translateY="-30.0">
+      <HBox prefHeight="20.0" prefWidth="271.0" spacing="5" translateX="-5.0" translateY="-30.0">
             <VBox.margin>
                <Insets />
             </VBox.margin>
             <children>
-               <Label fx:id="pageTitle" text="\$first" />
+               <Label fx:id="pageTitle" text="\$first">
+                  <padding>
+                     <Insets left="15.0" />
+                  </padding></Label>
             </children>
       </HBox>
-         <ImageView fx:id="pageImage" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" translateX="-5.0" translateY="-20.0">
+         <ImageView fx:id="pageImage" fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" translateX="-5.0" translateY="-20.0">
             <image>
                <Image url="@../images/man_cook.png" />
             </image>
          </ImageView>
-         <HBox prefHeight="100.0" prefWidth="150.0" translateX="-5.0">
+         <HBox prefHeight="73.0" prefWidth="297.0" translateX="-5.0">
             <children>
-               <Text fx:id="pageDescription" strokeType="OUTSIDE" strokeWidth="0.0" text="This is just a placeholder for text, I'm not sure what the limit is. This is just a placeholder for text, I'm not sure what the limit is. This is just a placeholder for text, I'm not sure what the limit is. I think can handle one more sentence. What about somemore?" translateX="-5.0" wrappingWidth="134.93670654296875" />
+               <Text fx:id="pageDescription" strokeType="OUTSIDE" strokeWidth="0.0" text="This is just a placeholder for text, I'm not sure what the limit is. This is just a placeholder for text, I'm not sure what the limit is. This is just a placeholder for text, I'm not sure what the limit is. I think can handle one more sentence. What about somemore?" translateX="-5.0" wrappingWidth="296.5366668701172" />
             </children>
          </HBox>
     </VBox>

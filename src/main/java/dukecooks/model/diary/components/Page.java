@@ -36,7 +36,7 @@ public class Page {
         return description;
     }
 
-    public Image getImageFilePath() {
+    public Image getImage() {
         return image;
     }
 
