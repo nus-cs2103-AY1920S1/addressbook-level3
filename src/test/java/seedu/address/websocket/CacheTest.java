@@ -69,13 +69,13 @@ class CacheTest {
     void loadPlaces() {
         JSONObject placeResponse1 = Cache.loadPlaces("NUS_LT17");
         assertEquals("OK", GmapsJsonUtils.getStatus(placeResponse1));
-        JSONObject placeResponse2 = Cache.loadPlaces("LT17");
+        JSONObject placeResponse2 = Cache.loadPlaces("FOOB");
         assertEquals("REQUEST_DENIED", GmapsJsonUtils.getStatus(placeResponse2));
     }
 
     @Test
     void loadDistanceMatrix() {
-        ArrayList<String> input = new ArrayList<String>(Arrays.asList("Foo", "Foo", "Foo"));
+        ArrayList<String> input = new ArrayList<String>(Arrays.asList("Bar", "Bar", "Bar"));
         JSONObject distanceMatrixResponse = Cache.loadDistanceMatrix(input, input);
         assertEquals("REQUEST_DENIED", GmapsJsonUtils.getStatus(distanceMatrixResponse));
     }
