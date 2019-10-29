@@ -109,7 +109,7 @@ public class MainApp extends Application {
         try {
             customerBookOptional = storage.readCustomerBook();
 
-            if (!customerBookOptional.isPresent()) {
+            if (customerBookOptional.isEmpty()) {
                 logger.info("Data file not found. Will be starting with a new Customer DataBook");
             }
             initialCustomerData = customerBookOptional.orElse(new DataBook<>());
@@ -126,7 +126,7 @@ public class MainApp extends Application {
         try {
             phoneBookOptional = storage.readPhoneBook();
 
-            if (!phoneBookOptional.isPresent()) {
+            if (phoneBookOptional.isEmpty()) {
                 logger.info("Data file not found. Will be starting with a new Phone DataBook");
             }
 
@@ -144,8 +144,8 @@ public class MainApp extends Application {
         try {
             scheduleBookOptional = storage.readScheduleBook();
 
-            if (!scheduleBookOptional.isPresent() || !storage.readCustomerBook().isPresent()
-                || !storage.readPhoneBook().isPresent() || !storage.readOrderBook().isPresent()) {
+            if (scheduleBookOptional.isEmpty() || storage.readCustomerBook().isEmpty()
+                || storage.readPhoneBook().isEmpty() || storage.readOrderBook().isEmpty()) {
                 logger.info("Data file not found. Will be starting with a new Schedule DataBook");
                 initialScheduleData = new DataBook<>();
             } else {
@@ -165,8 +165,8 @@ public class MainApp extends Application {
         try {
             orderBookOptional = storage.readOrderBook();
 
-            if (!orderBookOptional.isPresent() || !storage.readCustomerBook().isPresent()
-                || !storage.readPhoneBook().isPresent() || !storage.readScheduleBook().isPresent()) {
+            if (!orderBookOptional.isEmpty() || !storage.readCustomerBook().isEmpty()
+                || !storage.readPhoneBook().isEmpty() || !storage.readScheduleBook().isEmpty()) {
                 logger.info("Data file not found. Will be starting with a new Order DataBook");
                 initialOrderData = new DataBook<>();
             } else {
