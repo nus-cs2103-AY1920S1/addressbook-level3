@@ -67,7 +67,7 @@ public class EventsPage extends PageWithSidebar<AnchorPane> {
                                     if (events.get(index.getZeroBased()).getExpenditure().isPresent()) {
                                         totalBudgetLabel.setText("Total Budget: "
                                                 + events.get(index.getZeroBased()).getExpenditure().get().getBudget()
-                                                .toString());
+                                                .getValueStringInCurrency(model.getTravelPal().getCurrencies().get(0)));
                                     } else {
                                         totalBudgetLabel.setText("NO BUDGET SET");
                                     }
