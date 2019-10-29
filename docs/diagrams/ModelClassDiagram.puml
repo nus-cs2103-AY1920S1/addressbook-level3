@@ -24,6 +24,7 @@ Class Phone
 Class ParentPhone
 Class MedicalCondition
 Class UniqueStudentList
+Class DisplayPicture
 }
 
 Package Tag {
@@ -58,6 +59,7 @@ Student *--> Address
 Student *--> ParentPhone
 Student *--> "*" MedicalCondition
 Student *--> "*" Tag
+Student *--> DisplayPicture
 
 Classroom *--> "1" UniqueAssignmentList
 UniqueAssignmentList o--> "*" Assignment
