@@ -61,6 +61,11 @@ public class TrainingCommandAbsent extends TrainingCommand {
             }
         }
 
+        // Check if training exists.
+        if (model.hasTraining(super.getDate())) {
+            throw new CommandException(TrainingCommand.DUPLICATE_TRAINING);
+        }
+
         List<Person> allPeople = model.getAddressBook().getPersonList();
         HashMap<Person, Boolean> trainingAttendance = new HashMap<>();
 

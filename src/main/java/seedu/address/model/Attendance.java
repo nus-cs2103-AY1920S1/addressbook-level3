@@ -1,10 +1,12 @@
 package seedu.address.model;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import seedu.address.model.date.AthletickDate;
 import seedu.address.model.person.Person;
 import seedu.address.model.training.Training;
 /**
@@ -22,8 +24,38 @@ public class Attendance {
     public Attendance(List<Training> trainings) {
         this.trainings = trainings;
     }
+
+    public boolean hasTraining(Training training) {
+        AthletickDate date = training.getDate();
+        return hasTraining(date);
+    }
+
+    public boolean hasTraining(AthletickDate date) {
+        for (Training recordedTraining: trainings) {
+            if (recordedTraining.getDate().equals(date)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public void addTraining(Training training) {
         this.trainings.add(training);
+        this.trainings.sort(new Comparator<Training>() {
+            @Override
+            public int compare(Training first, Training second) {
+                AthletickDate firstDate = first.getDate();
+                AthletickDate secondDate = second.getDate();
+
+                if (!(firstDate.getYear() == secondDate.getYear())) {
+                    return firstDate.getYear() - secondDate.getYear();
+                } else if (!(firstDate.getMonth() == secondDate.getMonth())) {
+                    return firstDate.getMonth() - secondDate.getMonth();
+                } else {
+                    return firstDate.getDay() - secondDate.getDay();
+                }
+             }
+        });
     }
 
     public List<Training> getTrainings() {

@@ -61,6 +61,10 @@ public class TrainingCommandPresent extends TrainingCommand {
             }
         }
 
+        if (model.hasTraining(super.getDate())) {
+            throw new CommandException(TrainingCommand.DUPLICATE_TRAINING);
+        }
+
         List<Person> allPeople = model.getAddressBook().getPersonList();
 
         HashMap<Person, Boolean> trainingAttendance = new HashMap<>();

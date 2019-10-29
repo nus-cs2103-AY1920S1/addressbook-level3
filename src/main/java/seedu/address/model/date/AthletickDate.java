@@ -26,6 +26,7 @@ public class AthletickDate {
 
     /**
      * Parses {@code date} and extracts the day, month and year
+     *
      * @param date Date input by user
      * @throws ParseException if {@code date} specified by user is invalid.
      */
@@ -57,5 +58,18 @@ public class AthletickDate {
     @Override
     public String toString() {
         return String.format("%d%d%d", day, month, year);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) {
+            return true;
+        } else if (!(other instanceof AthletickDate)) {
+            return false;
+        } else {
+            AthletickDate otherDate = (AthletickDate) other;
+            return (this.day == otherDate.getDay()) && (this.month == otherDate.getMonth())
+                    && (this.year == otherDate.getYear());
+        }
     }
 }

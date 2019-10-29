@@ -14,8 +14,8 @@ import seedu.address.model.date.AthletickDate;
 public abstract class TrainingCommand extends Command {
 
     public static final String COMMAND_WORD = "training";
-
     public static final String TRAINING_ADD_SUCCESS = "Training successfully added.";
+    public static final String DUPLICATE_TRAINING = "Training already exists on this date.";
 
     private AthletickDate date;
     private List<Index> indexList;

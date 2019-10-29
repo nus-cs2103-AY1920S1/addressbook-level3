@@ -13,6 +13,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.TrainingCommand;
+import seedu.address.model.date.AthletickDate;
 import seedu.address.model.history.HistoryManager;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
@@ -213,6 +214,11 @@ public class ModelManager implements Model {
     @Override
     public Attendance getAttendance() {
         return this.attendance;
+    }
+
+    @Override
+    public boolean hasTraining(AthletickDate date) {
+        return this.attendance.hasTraining(date);
     }
 
     @Override
