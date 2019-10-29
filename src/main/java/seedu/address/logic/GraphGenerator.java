@@ -33,6 +33,8 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 import static seedu.address.logic.parser.CliSyntax.PREFIX_BRAND;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CAPACITY;
@@ -161,6 +163,28 @@ public class GraphGenerator {
             return Optional.of(statisticsGraph);
         default:
             return Optional.empty();
+        }
+    }
+
+    public AutoCompleteResult process(String input) {
+        int firstSpace = input.indexOf(" ");
+        if (firstSpace == -1) { // there is no space, indicating still typing command word
+            SortedSet<String> values = new TreeSet<>(CommandSuggestions.getSuggestions());
+            return new AutoCompleteResult(values, input);
+        } else { // there is at least one space, suggesting command word is present
+            String commandWord = input.substring(0, firstSpace);
+            Optional<Graph> graph = getGraph(commandWord);
+            if (graph.isPresent()) {
+                String args = input.substring(firstSpace);
+                AutoCompleteResult result = graph.get().process(args);
+                if (args.endsWith(" ")) {
+                    return new AutoCompleteResult(result.getValues(), "");
+                } else {
+                    return result;
+                }
+            } else {
+                return new AutoCompleteResult(new TreeSet<>(), input);
+            }
         }
     }
 

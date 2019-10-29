@@ -21,6 +21,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
+import seedu.address.logic.CommandSuggestions;
 import seedu.address.logic.Graph;
 import seedu.address.logic.GraphGenerator;
 
@@ -40,60 +41,59 @@ public class AutoCompleteTextField extends TextField {
         this.entries = new TreeSet<>();
         this.entriesPopup = new ContextMenu();
 
-        setListener();
+//        setListener();
     }
 
-    private void setListener() {
-        textProperty().addListener((observable, oldValue, newValue) -> {
-            // calls #setStyleToDefault() whenever there is a change to the text of the command box.
-            setStyleToDefault();
-            String enteredText = getText();
-            String stringToCompare = enteredText;
-            // hide suggestions if no input
-            if (enteredText == null || enteredText.isEmpty()) {
-                entriesPopup.hide();
-            } else {
-                int firstSpace = enteredText.indexOf(" ");
-                if (firstSpace != -1) {
-                    String commandWord = enteredText.substring(0, firstSpace);
-//                    GraphGenerator graphGenerator = new GraphGenerator(logic);
-                    GraphGenerator graphGenerator = GraphGenerator.getInstance();
-                    Optional<Graph> graph = graphGenerator.getGraph(commandWord);
-                    if (graph.isPresent()) {
-                        String remaining = enteredText.substring(firstSpace);
-                        SortedSet<String> values = graph.get().process(remaining);
-                        entries.clear();
-                        entries.addAll(values);
-                        if (remaining.endsWith(" ")) {
-                            stringToCompare = "";
-                        } else {
-                            stringToCompare = graph.get().wordToCompare;
-                        }
-                    }
-                } else {
-                    entries.clear();
-                    entries.addAll(CommandSuggestions.getSuggestions());
-                }
-
-                // filter
-                String finalStringToCompare = stringToCompare;
-                List<String> filteredEntries = entries.stream()
-                        .filter(e -> e.toLowerCase().contains(finalStringToCompare.toLowerCase()))
-                        .sorted((e1, e2) -> compareEntries(e1, e2, finalStringToCompare))
-                        .collect(Collectors.toList());
-                if (!filteredEntries.isEmpty() && !filteredEntries.contains(finalStringToCompare)) {
-                    populatePopup(filteredEntries, stringToCompare);
-                    refreshDropdown();
-                } else {
-                    entriesPopup.hide();
-                }
-            }
-        });
-
-        focusedProperty().addListener(((observable, oldValue, newValue) -> {
-            entriesPopup.hide();
-        }));
-    }
+//    private void setListener() {
+//        textProperty().addListener((observable, oldValue, newValue) -> {
+//            // calls #setStyleToDefault() whenever there is a change to the text of the command box.
+//            setStyleToDefault();
+//            String enteredText = getText();
+//            String stringToCompare = enteredText;
+//            // hide suggestions if no input
+//            if (enteredText == null || enteredText.isEmpty()) {
+//                entriesPopup.hide();
+//            } else {
+//                int firstSpace = enteredText.indexOf(" ");
+//                if (firstSpace != -1) {
+//                    String commandWord = enteredText.substring(0, firstSpace);
+//                    GraphGenerator graphGenerator = GraphGenerator.getInstance();
+//                    Optional<Graph> graph = graphGenerator.getGraph(commandWord);
+//                    if (graph.isPresent()) {
+//                        String remaining = enteredText.substring(firstSpace);
+//                        SortedSet<String> values = graph.get().process(remaining);
+//                        entries.clear();
+//                        entries.addAll(values);
+//                        if (remaining.endsWith(" ")) {
+//                            stringToCompare = "";
+//                        } else {
+//                            stringToCompare = graph.get().wordToCompare;
+//                        }
+//                    }
+//                } else {
+//                    entries.clear();
+//                    entries.addAll(CommandSuggestions.getSuggestions());
+//                }
+//
+//                // filter
+//                String finalStringToCompare = stringToCompare;
+//                List<String> filteredEntries = entries.stream()
+//                        .filter(e -> e.toLowerCase().contains(finalStringToCompare.toLowerCase()))
+//                        .sorted((e1, e2) -> compareEntries(e1, e2, finalStringToCompare))
+//                        .collect(Collectors.toList());
+//                if (!filteredEntries.isEmpty() && !filteredEntries.contains(finalStringToCompare)) {
+//                    populatePopup(filteredEntries, stringToCompare);
+//                    refreshDropdown();
+//                } else {
+//                    entriesPopup.hide();
+//                }
+//            }
+//        });
+//
+//        focusedProperty().addListener(((observable, oldValue, newValue) -> {
+//            entriesPopup.hide();
+//        }));
+//    }
 
     /**
      * Populates drop down menu with results from {@code searchResults}.

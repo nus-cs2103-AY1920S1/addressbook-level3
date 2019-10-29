@@ -2,6 +2,7 @@ package seedu.address.logic;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.SortedSet;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
@@ -171,4 +172,10 @@ public class LogicManager implements Logic {
     public XYChart.Series<String, Number> calculateTotalCostGraph(StatsPayload statsPayload) {
         return this.statistic.calculateTotalCostOnCompletedGraph(this.getArchivedOrderBook(), statsPayload);
     }
+
+    @Override
+    public AutoCompleteResult getAutocompleteValues(String input) {
+        return graphGenerator.process(input);
+    }
+
 }

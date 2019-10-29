@@ -1,6 +1,7 @@
 package seedu.address.logic;
 
 import java.nio.file.Path;
+import java.util.SortedSet;
 
 import javafx.collections.ObservableList;
 import javafx.scene.chart.XYChart;
@@ -132,4 +133,12 @@ public interface Logic {
      * return a XYChart.series
      */
     XYChart.Series<String, Number> calculateTotalProfitGraph(StatsPayload statsPayload);
+
+    /**
+     * Takes an input string and returns an {@code AutoCompleteResult} according to existing values.
+     * @param input The input string.
+     * @return A matching {@code AutoCompleteResult}.
+     */
+    AutoCompleteResult getAutocompleteValues(String input);
+
 }
