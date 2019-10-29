@@ -14,13 +14,16 @@ public class MemeText {
     private final Coordinates coordinates;
     private final MemeTextColor color;
     private final MemeTextStyle style;
+    private final MemeTextSize size;
 
-    public MemeText(String value, Coordinates coordinates, MemeTextColor color, Set<MemeTextStyle> styles) {
-        requireAllNonNull(value, coordinates, color, styles);
+    public MemeText(String value, Coordinates coordinates,
+                    MemeTextColor color, Set<MemeTextStyle> styles, MemeTextSize size) {
+        requireAllNonNull(value, coordinates, color, styles, size);
         this.text = value;
         this.coordinates = coordinates;
         this.color = color;
         this.style = MemeTextStyle.combine(styles);
+        this.size = size;
     }
 
     public String getText() {
@@ -43,6 +46,10 @@ public class MemeText {
         return style.getStyle();
     }
 
+    public int getSize() {
+        return size.getSize();
+    }
+
     @Override
     public boolean equals(Object other) {
         if (this == other) {
@@ -56,6 +63,8 @@ public class MemeText {
         MemeText otherMemeText = (MemeText) other;
         return text.equals(otherMemeText.text)
             && coordinates.equals(otherMemeText.coordinates)
-            && color.equals(otherMemeText.color);
+            && color.equals(otherMemeText.color)
+            && style.equals(otherMemeText.style)
+            && size.equals(otherMemeText.size);
     }
 }

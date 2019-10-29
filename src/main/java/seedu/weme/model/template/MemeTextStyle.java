@@ -9,8 +9,6 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 
-import javax.print.DocFlavor;
-
 /**
  * Represents a {@code MemeText}'s text style, i.e. bold, italic, etc.
  * Guarantees: immutable; is valid as declared in {@link #isValidMemeTextStyle}}

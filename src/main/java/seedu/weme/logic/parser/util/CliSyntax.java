@@ -15,7 +15,8 @@ public class CliSyntax {
     public static final String PREFIX_X_COORDINATE_STRING = "x/";
     public static final String PREFIX_Y_COORDINATE_STRING = "y/";
     public static final String PREFIX_COLOR_STRING = "c/";
-    public static final String PREFIX_STYLE_STRING = "s/";
+    public static final String PREFIX_STYLE_STRING = "S/";
+    public static final String PREFIX_SIZE_STRING = "s/";
 
     public static final Prefix PREFIX_DESCRIPTION = new Prefix(PREFIX_DESCRIPTION_STRING);
     public static final Prefix PREFIX_FILEPATH = new Prefix(PREFIX_FILEPATH_STRING);
@@ -25,5 +26,6 @@ public class CliSyntax {
     public static final Prefix PREFIX_Y_COORDINATE = new Prefix(PREFIX_Y_COORDINATE_STRING);
     public static final Prefix PREFIX_COLOR = new Prefix(PREFIX_COLOR_STRING);
     public static final Prefix PREFIX_STYLE = new Prefix(PREFIX_STYLE_STRING);
+    public static final Prefix PREFIX_SIZE = new Prefix(PREFIX_SIZE_STRING);
 
 }

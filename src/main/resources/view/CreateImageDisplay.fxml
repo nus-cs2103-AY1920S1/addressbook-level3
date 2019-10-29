@@ -6,6 +6,8 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.geometry.Insets?>
 <StackPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8">
   <HBox fx:id="memeCreationBox">
     <VBox>
@@ -21,6 +23,9 @@
       </ImageView>
     </VBox>
     <VBox>
+      <padding>
+        <Insets left="10" top="10" bottom="10" />
+      </padding>
       <Label text="Sample Font sizes" textAlignment="CENTER" alignment="CENTER" styleClass="label-subheader" />
       <ImageView cache="true" pickOnBounds="true" preserveRatio="true">
         <Image url="@../images/sample_font_sizes.png"/>
