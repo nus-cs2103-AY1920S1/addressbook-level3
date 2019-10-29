@@ -3,7 +3,7 @@ package seedu.address.calendar.storage;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
-import seedu.address.calendar.model.Event;
+import seedu.address.calendar.model.event.Event;
 import seedu.address.calendar.model.ReadOnlyCalendar;
 import seedu.address.commons.exceptions.IllegalValueException;
 
@@ -38,10 +38,10 @@ public class JsonSerializableCalendar {
      * @throws IllegalValueException
      */
     public ReadOnlyCalendar toModelType() throws IllegalValueException {
-        List<Event> events = new ArrayList<>();
-        for (JsonAdaptedEvent jsonAdaptedEvent : this.events) {
-            events.add(jsonAdaptedEvent.toModelType());
+        List<Event> copyOfEvents = new ArrayList<>();
+        for (JsonAdaptedEvent jsonAdaptedEvent : events) {
+            copyOfEvents.add(jsonAdaptedEvent.toModelType());
         }
-        return new ReadOnlyCalendar(events);
+        return new ReadOnlyCalendar(copyOfEvents);
     }
 }

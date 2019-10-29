@@ -2,12 +2,11 @@ package seedu.address.calendar.ui;
 
 import javafx.geometry.HPos;
 import javafx.geometry.VPos;
-import javafx.scene.control.Label;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.RowConstraints;
-import seedu.address.calendar.model.Day;
+import seedu.address.calendar.model.date.Day;
 import seedu.address.calendar.model.Month;
 
 import java.util.stream.IntStream;
@@ -50,19 +49,12 @@ class MonthView {
 
         days.forEach(day -> {
             DayView dayView = new DayView(day.getDayOfMonth());
-            int firstDayOfWeekAsNum = firstDay.getDayOfWeekZeroIndex();
+            int firstDayOfWeekAsNum = firstDay.getDayOfWeekZeroIndex() - 1;
             int rowIndex = (firstDayOfWeekAsNum + day.getDayOfMonth()) / 7;
             int shiftedRowIndex = rowIndex < 5 ? rowIndex : 0;
-            monthView.add(dayView.getRoot(), day.getDayOfWeekOneBased(), shiftedRowIndex);
+            monthView.add(dayView.getRoot(), day.getDayOfWeekZeroIndex(), shiftedRowIndex);
         });
 
         return monthView;
-    }
-
-    Label generateMonthLabel() {
-        String unformattedMonthLabel = month.getMonthOfYear().toString();
-        String formattedMonthLabel = unformattedMonthLabel.charAt(0)
-                + unformattedMonthLabel.substring(1).toLowerCase();
-        return new Label(formattedMonthLabel);
     }
 }

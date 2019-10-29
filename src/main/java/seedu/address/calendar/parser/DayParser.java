@@ -1,9 +1,9 @@
 package seedu.address.calendar.parser;
 
-import seedu.address.calendar.model.Day;
-import seedu.address.calendar.model.Month;
-import seedu.address.calendar.model.MonthOfYear;
-import seedu.address.calendar.model.Year;
+import seedu.address.calendar.model.util.DateUtil;
+import seedu.address.calendar.model.date.Day;
+import seedu.address.calendar.model.date.MonthOfYear;
+import seedu.address.calendar.model.date.Year;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 import java.util.Optional;
@@ -22,24 +22,26 @@ public class DayParser {
     }
 
     private Day parse(int dayOfMonth, MonthOfYear monthOfYear, Year year) throws ParseException {
-        if (dayOfMonth < 0 || dayOfMonth > monthOfYear.getNumDaysInMonth(year)) {
+        if (dayOfMonth < 0 || dayOfMonth > DateUtil.getNumDaysInMonth(monthOfYear, year)) {
             throw new ParseException(MESSAGE_INVALID_DAY_RANGE_ERROR);
         }
 
-        Day day = new Month(monthOfYear, year).getDay(dayOfMonth);
+        Day day = DateUtil.getDay(dayOfMonth, monthOfYear, year);
 
         return day;
     }
 
     Optional<Day> parse(Optional<String> dayInput, Optional<MonthOfYear> month, Optional<Year> year) throws ParseException {
-        assert dayInput.isEmpty() : "Day should not be empty";
+        if (dayInput.isEmpty()) {
+            return Optional.empty();
+        }
 
         int dayOfMonth = parseDayOfMonth(dayInput.get());
 
         MonthOfYear monthOfYear = month.orElseGet(() -> {
             java.util.Calendar currentDate = java.util.Calendar.getInstance();
             int currentMonth = currentDate.get(java.util.Calendar.MONTH);
-            return MonthOfYear.convertJavaMonth(currentMonth);
+            return DateUtil.convertJavaMonth(currentMonth);
         });
 
         Year yearValue = year.orElseGet(() -> {
