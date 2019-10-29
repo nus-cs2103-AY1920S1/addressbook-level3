@@ -55,7 +55,7 @@ public class AddRepeaterCommand extends Command {
             + PREFIX_END_MONTH + "12 "
             + PREFIX_END_YEAR + "2025";
 
-    public static final String MESSAGE_SUCCESS = "New repeater added: %1$s";
+    public static final String MESSAGE_ADD_REPEATER_SUCCESS = "New repeater added: %1$s";
 
     private final Repeater toAdd;
 
@@ -139,7 +139,7 @@ public class AddRepeaterCommand extends Command {
         model.setCurrentRepeaterUniqueId(new RepeaterUniqueId(String.valueOf(
                     repeaterUniqueId.id + 1)));
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+        return new CommandResult(String.format(MESSAGE_ADD_REPEATER_SUCCESS, toAdd));
     }
 
     @Override
