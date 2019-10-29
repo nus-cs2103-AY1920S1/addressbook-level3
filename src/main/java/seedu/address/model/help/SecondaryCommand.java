@@ -33,7 +33,9 @@ public class SecondaryCommand {
                     "reject",
                     "budget",
                     "clear",
-                    "approve"));
+                    "approve",
+                    "sort",
+                    "reverse"));
 
     public final String value;
 
