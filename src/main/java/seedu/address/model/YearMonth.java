@@ -10,7 +10,7 @@ import java.time.format.DateTimeParseException;
  */
 public class YearMonth {
     public static final String MESSAGE_CONSTRAINTS = "The format of year month should be yyyy-mm and "
-            + "the number should be valid.";
+        + "the number should be valid.";
     public static final String VALIDATION_PATTERN_STRING = "yyyy-MM";
     public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern(VALIDATION_PATTERN_STRING);
 
@@ -63,8 +63,8 @@ public class YearMonth {
     @Override
     public boolean equals(Object other) {
         return other == this
-                || (other instanceof YearMonth
-                && ((YearMonth) other).getYearMonth().equals(yearMonth));
+            || (other instanceof YearMonth
+            && ((YearMonth) other).getYearMonth().equals(yearMonth));
     }
 
     @Override

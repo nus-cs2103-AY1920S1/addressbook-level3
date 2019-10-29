@@ -1,8 +1,6 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
-import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -30,11 +28,13 @@ public class AddCommandParserTest {
 
         //bloodsugar success
         BloodSugar bs = new BloodSugar(new Concentration("12.34"), dt);
-        assertParseSuccess(parser, " rt/BLOODSUGAR con/12.34 dt/1970-01-01 08:00", new AddCommand(bs));
+        CommandParserTestUtil.assertParseSuccess(parser, " rt/BLOODSUGAR con/12.34 dt/1970-01-01 08:00",
+            new AddCommand(bs));
 
         //bmi success
         Bmi bmi = new Bmi(new Height("12.34"), new Weight("23.34"), dt);
-        assertParseSuccess(parser, " rt/BMI h/12.34 w/23.45 dt/1970-01-01 08:00", new AddCommand(bmi));
+        CommandParserTestUtil.assertParseSuccess(parser, " rt/BMI h/12.34 w/23.45 dt/1970-01-01 08:00",
+            new AddCommand(bmi));
 
         //        assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
         //            + ADDRESS_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(bmi));
@@ -81,15 +81,15 @@ public class AddCommandParserTest {
     public void parse_compulsoryFieldMissing_failure() {
 
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
-        assertParseFailure(parser, " rt/BLOODSUGAR dt/1970-01-01 08:00",
+        CommandParserTestUtil.assertParseFailure(parser, " rt/BLOODSUGAR dt/1970-01-01 08:00",
             expectedMessage);
-        assertParseFailure(parser, " rt/BLOODSUGAR con/12.34",
+        CommandParserTestUtil.assertParseFailure(parser, " rt/BLOODSUGAR con/12.34",
             expectedMessage);
-        assertParseFailure(parser, " rt/BMI w/1 h/1",
+        CommandParserTestUtil.assertParseFailure(parser, " rt/BMI w/1 h/1",
             expectedMessage);
-        assertParseFailure(parser, " rt/BMI h/1 dt/1970-01-01 08:00",
+        CommandParserTestUtil.assertParseFailure(parser, " rt/BMI h/1 dt/1970-01-01 08:00",
             expectedMessage);
-        assertParseFailure(parser, " rt/BMI w/1 dt/1970-01-01 08:00",
+        CommandParserTestUtil.assertParseFailure(parser, " rt/BMI w/1 dt/1970-01-01 08:00",
             expectedMessage);
 
         //        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);

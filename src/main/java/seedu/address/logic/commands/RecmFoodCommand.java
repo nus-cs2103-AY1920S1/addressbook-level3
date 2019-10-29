@@ -6,9 +6,9 @@ import java.util.function.Predicate;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.food.Food;
-import seedu.address.model.food.FoodTypeIsWantedPredicate;
 import seedu.address.ui.DisplayPaneType;
+import sugarmummy.recmfood.model.Food;
+import sugarmummy.recmfood.model.FoodTypeIsWantedPredicate;
 
 /**
  * Recommends suitable food or meals for diabetic patients.

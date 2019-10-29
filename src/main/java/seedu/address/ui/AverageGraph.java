@@ -147,9 +147,9 @@ public class AverageGraph {
     private String getTitleInRecord(SimpleStringProperty recordType) {
         switch (RecordType.valueOf(recordType.get())) {
         case BMI:
-            return this.BMI;
+            return BMI;
         case BLOODSUGAR:
-            return this.BLOODSUGAR;
+            return BLOODSUGAR;
         default:
             assert false : "Record type is not supported";
             return null;
@@ -162,9 +162,9 @@ public class AverageGraph {
     private String getYAxisLabel(SimpleStringProperty recordType) {
         switch (RecordType.valueOf(recordType.get())) {
         case BMI:
-            return this.BMI;
+            return BMI;
         case BLOODSUGAR:
-            return this.BLOODSUGAR + this.BLOODSUGAR_UNIT;
+            return BLOODSUGAR + BLOODSUGAR_UNIT;
         default:
             assert false : "Record type is not supported";
             return null;
@@ -173,6 +173,7 @@ public class AverageGraph {
 
     /**
      * Adds horizontal range marker to denote ranges of values for given record type.
+     *
      * @param recordType the record type of specified by user.
      */
     private void addHorizontalRangeMarker(SimpleStringProperty recordType) {
