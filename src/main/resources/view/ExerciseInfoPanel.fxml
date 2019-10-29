@@ -11,91 +11,88 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="cardPane" prefHeight="400.0" prefWidth="306.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="cardPane" prefHeight="644.0" prefWidth="501.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <VBox prefHeight="250.0" prefWidth="190.0" AnchorPane.bottomAnchor="152.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Label fx:id="name" prefHeight="44.0" prefWidth="187.0" styleClass="cell_big_label" text="$name">
-               <font>
-                  <Font name="Dubai Regular" size="24.0" />
-               </font>
+            <Label fx:id="name" prefHeight="74.0" prefWidth="302.0" styleClass="infoPanel_name" text="$name">
                <padding>
                   <Insets bottom="5.0" left="5.0" top="5.0" />
                </padding>
             </Label>
             <HBox prefHeight="50.0" prefWidth="190.0">
                <children>
-                  <ImageView fx:id="dateImage" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="dateImage" fitHeight="65.0" fitWidth="65.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@/images/calendar.png" />
                      </image>
                      <HBox.margin>
-                        <Insets left="5.0" />
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </HBox.margin>
                   </ImageView>
-                  <Label fx:id="date" text="$date" textFill="#746c6c">
+                  <Label fx:id="date" styleClass="infoPanel_properties" text="$date" textFill="#746c6c">
                      <padding>
-                        <Insets left="5.0" top="7.0" />
+                        <Insets left="5.0" top="15.0" />
                      </padding>
                      <font>
-                        <Font name="System Bold" size="16.0" />
+                        <Font name="System Bold" size="24.0" />
                      </font>
                   </Label>
                </children>
             </HBox>
             <HBox prefHeight="50.0" prefWidth="190.0">
                <children>
-                  <ImageView fx:id="caloriesImage" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="caloriesImage" fitHeight="65.0" fitWidth="65.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@/images/calories.png" />
                      </image>
                      <HBox.margin>
-                        <Insets left="5.0" />
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </HBox.margin>
                   </ImageView>
-                  <Label fx:id="calories" text="$calories" textFill="#746c6c">
+                  <Label fx:id="calories" styleClass="infoPanel_properties" text="$calories" textFill="#746c6c">
                      <padding>
-                        <Insets left="5.0" top="7.0" />
+                        <Insets left="5.0" top="15.0" />
                      </padding>
                      <font>
-                        <Font name="System Bold" size="16.0" />
+                        <Font name="System Bold" size="24.0" />
                      </font>
                   </Label>
                </children>
             </HBox>
             <HBox prefHeight="50.0" prefWidth="190.0">
                <children>
-                  <ImageView fx:id="quantityAndUnitImage" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="quantityAndUnitImage" fitHeight="65.0" fitWidth="65.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@/images/stretching-exercises.png" />
                      </image>
                      <HBox.margin>
-                        <Insets left="5.0" />
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </HBox.margin>
                   </ImageView>
-                  <Label fx:id="quantityAndUnit" text="$quantityAndUnit" textFill="#746c6c">
+                  <Label fx:id="quantityAndUnit" styleClass="infoPanel_properties" text="$quantityAndUnit" textFill="#746c6c">
                      <padding>
-                        <Insets left="5.0" top="7.0" />
+                        <Insets left="5.0" top="15.0" />
                      </padding>
                      <font>
-                        <Font name="System Bold" size="16.0" />
+                        <Font name="System Bold" size="24.0" />
                      </font>
                   </Label>
                </children>
             </HBox>
             <HBox prefHeight="50.0" prefWidth="190.0">
                <children>
-                  <ImageView fx:id="muscleImage" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="muscleImage" fitHeight="65.0" fitWidth="65.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@/images/muscles.png" />
                      </image>
                      <HBox.margin>
-                        <Insets left="5.0" />
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </HBox.margin>
                   </ImageView>
-                  <FlowPane fx:id="tags" prefHeight="45.0" prefWidth="146.0">
+                  <FlowPane fx:id="muscles" prefHeight="75.0" prefWidth="303.0">
                      <padding>
-                        <Insets left="5.0" top="7.0" />
+                        <Insets left="5.0" top="15.0" />
                      </padding></FlowPane>
                </children>
             </HBox>
@@ -104,17 +101,17 @@
             <Insets />
          </opaqueInsets>
       </VBox>
-      <VBox layoutY="248.0" prefHeight="152.0" prefWidth="292.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="248.0">
+      <VBox layoutY="391.0" prefHeight="253.0" prefWidth="481.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="391.0">
          <children>
-            <Label text="Other properties:">
+            <Label text="Other properties:" styleClass="infoPanel_customProperties_label">
                <font>
-                  <Font name="System Bold" size="14.0" />
+                  <Font name="System Bold" size="20.0" />
                </font>
                <padding>
                   <Insets bottom="5.0" left="5.0" />
                </padding>
             </Label>
-            <StackPane fx:id="customProperties" prefHeight="107.0" prefWidth="286.0" style="-fx-border-color: #FFFFFF; -fx-border-radius: 10; -fx-background-radius: 10;" />
+            <StackPane fx:id="customProperties" prefHeight="193.0" prefWidth="478.0" style="-fx-border-color: #FFFFFF; -fx-border-radius: 10; -fx-background-radius: 10;" />
          </children>
       </VBox>
    </children>

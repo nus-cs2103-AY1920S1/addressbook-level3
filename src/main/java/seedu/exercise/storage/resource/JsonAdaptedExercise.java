@@ -70,7 +70,7 @@ public class JsonAdaptedExercise extends JsonAdaptedResource<Exercise> {
         muscles.addAll(source.getMuscles().stream()
             .map(JsonAdaptedMuscle::new)
             .collect(Collectors.toList()));
-        customProperties.putAll(source.getCustomProperties());
+        customProperties.putAll(source.getCustomPropertiesMap());
     }
 
     /**

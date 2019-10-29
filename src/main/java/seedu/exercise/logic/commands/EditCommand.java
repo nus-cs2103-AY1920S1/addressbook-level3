@@ -137,7 +137,7 @@ public class EditCommand extends Command implements UndoableCommand, PayloadCarr
         Quantity updatedQuantity = editExerciseDescriptor.getQuantity().orElse(exerciseToEdit.getQuantity());
         Unit updatedUnit = editExerciseDescriptor.getUnit().orElse(exerciseToEdit.getUnit());
         Set<Muscle> updatedMuscles = editExerciseDescriptor.getMuscles().orElse(exerciseToEdit.getMuscles());
-        Map<String, String> updatedCustomProperties = new TreeMap<>(exerciseToEdit.getCustomProperties());
+        Map<String, String> updatedCustomProperties = new TreeMap<>(exerciseToEdit.getCustomPropertiesMap());
         Map<String, String> newCustomProperties = editExerciseDescriptor.getCustomProperties()
             .orElse(new TreeMap<>());
         updatedCustomProperties.putAll(newCustomProperties);

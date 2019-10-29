@@ -1,14 +1,18 @@
 package seedu.exercise.model.resource;
 
+import static seedu.exercise.commons.util.CollectionUtil.mapToStringList;
 import static seedu.exercise.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.TreeMap;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import seedu.exercise.model.property.Calories;
 import seedu.exercise.model.property.Date;
 import seedu.exercise.model.property.Muscle;
@@ -94,10 +98,17 @@ public class Exercise extends Resource {
      * Returns an immutable custom properties map, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
      */
-    public Map<String, String> getCustomProperties() {
+    public Map<String, String> getCustomPropertiesMap() {
         return Collections.unmodifiableMap(customProperties);
     }
 
+    /**
+     * Returns an Observable List that can be used by the UI component for display.
+     */
+    public ObservableList<String> getObservableCustomPropertiesList() {
+        List<String> propertiesList = mapToStringList(customProperties);
+        return FXCollections.observableList(propertiesList);
+    }
     /**
      * Returns true if both exercises of the same name have at least one other identity field that is the same.
      * This defines a weaker notion of equality between two exercises.
@@ -139,7 +150,7 @@ public class Exercise extends Resource {
             && otherExercise.getQuantity().equals(getQuantity())
             && otherExercise.getUnit().equals(getUnit())
             && otherExercise.getMuscles().equals(getMuscles())
-            && otherExercise.getCustomProperties().equals(getCustomProperties());
+            && otherExercise.getCustomPropertiesMap().equals(getCustomPropertiesMap());
     }
 
     @Override
@@ -186,7 +197,7 @@ public class Exercise extends Resource {
      */
     private void appendCustomProperties(StringBuilder builder) {
         if (!customProperties.isEmpty()) {
-            getCustomProperties().forEach((x, y) -> builder.append(x + ": " + y + " "));
+            getCustomPropertiesMap().forEach((x, y) -> builder.append(x + ": " + y + " "));
         }
     }
 }

@@ -55,7 +55,7 @@ public class SuggestPossibleCommand extends SuggestCommand {
                 }
             }
 
-            Map<String, String> exerciseCustomProperties = exercise.getCustomProperties();
+            Map<String, String> exerciseCustomProperties = exercise.getCustomPropertiesMap();
             for (String key : targetCustomPropertiesMap.keySet()) {
                 if (!(targetCustomPropertiesMap.get(key).equals(exerciseCustomProperties.get(key)))) {
                     return false;

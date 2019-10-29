@@ -74,11 +74,11 @@
                     </center>
 
                     <bottom>
-                    <StackPane fx:id="commandBoxPlaceholder" styleClass="commandBox" VBox.vgrow="NEVER">
-                        <padding>
-                            <Insets bottom="5" left="10" right="10" top="5"/>
-                        </padding>
-                    </StackPane>
+                        <StackPane fx:id="commandBoxPlaceholder" styleClass="commandBox" VBox.vgrow="NEVER">
+                            <padding>
+                                <Insets bottom="5" left="10" right="10" top="5"/>
+                            </padding>
+                        </StackPane>
                     </bottom>
 
                 </BorderPane>

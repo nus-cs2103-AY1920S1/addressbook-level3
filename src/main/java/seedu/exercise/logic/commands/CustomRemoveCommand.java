@@ -93,7 +93,7 @@ public class CustomRemoveCommand extends CustomCommand {
         Quantity quantity = exercise.getQuantity();
         Unit unit = exercise.getUnit();
         Set<Muscle> muscles = exercise.getMuscles();
-        Map<String, String> oldCustomProperties = exercise.getCustomProperties();
+        Map<String, String> oldCustomProperties = exercise.getCustomPropertiesMap();
         Map<String, String> updatedCustomProperties = updateCustomProperties(oldCustomProperties);
         return new Exercise(name, date, calories, quantity, unit, muscles, updatedCustomProperties);
     }

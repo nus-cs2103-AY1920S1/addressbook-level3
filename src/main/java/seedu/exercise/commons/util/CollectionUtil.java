@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Stream;
 
@@ -14,7 +15,9 @@ import java.util.stream.Stream;
  */
 public class CollectionUtil {
 
-    /** @see #requireAllNonNull(Collection) */
+    /**
+     * @see #requireAllNonNull(Collection)
+     */
     public static void requireAllNonNull(Object... items) {
         requireNonNull(items);
         Stream.of(items).forEach(Objects::requireNonNull);
@@ -51,5 +54,18 @@ public class CollectionUtil {
     public static <T> boolean areListsEmpty(List<T> first, List<T> second) {
         requireAllNonNull(first, second);
         return first.isEmpty() && second.isEmpty();
+    }
+
+    /**
+     * Converts a hash map into a list of strings containing information in the format "key: value".
+     */
+    public static <K, V> List<String> mapToStringList(Map<K, V> toConvert) {
+        List<String> result = new ArrayList<>();
+        List<K> keyList = new ArrayList<>(toConvert.keySet());
+        for (K key : keyList) {
+            String toAdd = key.toString() + ": " + toConvert.get(key);
+            result.add(toAdd);
+        }
+        return result;
     }
 }
