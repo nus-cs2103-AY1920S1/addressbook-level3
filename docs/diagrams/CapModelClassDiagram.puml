@@ -5,18 +5,24 @@ skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
 Package Model <<Rectangle>>{
-Interface ReadOnlyAddressBook <<Interface>>
+Package cap {
+Interface ReadOnlyCapLog <<Interface>>
+Interface ReadOnlySemesterLog <<Interface>>
 Interface Model <<Interface>>
 Interface ObservableList <<Interface>>
 Class CapLog
-Class ReadOnlyAddressBook
+Class CapUserPrefs
 Class Model
-Class ModelManager
-Class UserPrefs
+Class ModelCapManager
+Class ReadOnlyCapLog
+Class ReadOnlySemesterLog
 Class ReadOnlyUserPrefs
 
-Package Task {
+Package Common {
 Class Module
+}
+
+Package Person {
 Class Title
 Class Description
 Class ModuleCode
@@ -24,11 +30,11 @@ Class Credit
 Class Semester
 Class Faculty
 Class Grade
-}
-
-Package Tag {
-Class Tag
-}
+Class SemesterPeriod
+Class AcademicYear
+Class NameContainsKeywordPredicate
+Class UniqueModuleList
+Class UniqueSemesterList
 }
 
 Class HiddenOutside #FFFFFF
@@ -36,14 +42,20 @@ HiddenOutside ..> Model
 
 CapLog .up.|> ReadOnlyCapLog
 
-ModelManager .up.|> Model
+ModelCapManager .up.|> Model
 Model .right.> ObservableList
-ModelManager o--> "1" CapLog
-ModelManager o-left-> "1" UserPrefs
-UserPrefs .up.|> ReadOnlyUserPrefs
+ModelCapManager o--> "1" CapLog
+ModelCapManager o-left-> "1" CapUserPrefs
+CapUserPrefs .up.|> ReadOnlyUserPrefs
 
-AddressBook *--> "1" UniqueTaskList
-UniqueTaskList o--> "*" Task
+ReadOnlyCapLog *--> "1" UniqueModuleList
+ReadOnlySemesterLog *--> "1" UniqueSemesterList
+UniqueModuleList <--o ObservableList
+UniqueModuleList o--> "*" Module
+UniqueSemesterList o--> "*" Semester
+UniqueSemesterList <--o ObservableList
+CapLog o--> Module
+
 Module *--> Title
 Module *--> ModuleCode
 Module *--> Description
@@ -51,6 +63,14 @@ Module *--> Credit
 Module *--> Semester
 Module *--> Faculty
 Module *--> Grade
+Semester *--> SemesterPeriod
+Semester *--> AcademicYear
 
-ModelManager -->"1" Module : moduleFilteredList
+ModelCapManager o-->"1" Module : moduleFilteredList
+ModelSemesterManager o-->"1" Module : semesterFilteredList
+}
+}
+FindCommand o--> NameContainsKeywordPredicate
+
+
 @enduml
