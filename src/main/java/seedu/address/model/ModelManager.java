@@ -414,5 +414,4 @@ public class ModelManager implements Model {
         filteredNotes.setPredicate(predicate);
     }
 
-
 }
