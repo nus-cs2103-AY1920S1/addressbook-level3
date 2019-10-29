@@ -56,17 +56,19 @@ public class TypicalItem {
         return new InventoryList(getTypicalItems());
     }
 
+    /**
+     * Returns an {@code InventoryList} with all the typical items.
+     */
+    public static seedu.address.inventory.util.InventoryList getTypicalInventoryListForInventoryUse() {
+        /*TransactionList tl = new TransactionList();
+        for (Transaction transaction : getTypicalTransactions()) {
+            tl.add(transaction);
+        }
+        return tl;*/
+        return new seedu.address.inventory.util.InventoryList(getTypicalItems());
+    }
+
     public static ArrayList<Item> getTypicalItems() {
         return new ArrayList<>(Arrays.asList(FISH_BURGER, STORYBOOK));
     }
-
-
-
-
-
-
-
-
-
-
 }

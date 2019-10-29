@@ -1,6 +1,7 @@
 package seedu.address.inventory.model;
 
 import seedu.address.inventory.model.exception.NoSuchIndexException;
+import seedu.address.inventory.util.InventoryList;
 
 /**
  * The API of the Model component.
@@ -28,4 +29,8 @@ public interface Model {
     void sortByCategory();
 
     void sortReset();
+
+    InventoryList getInventoryList();
+
+    boolean equals(Object obj);
 }

@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import seedu.address.inventory.logic.commands.AddCommand;
 import seedu.address.inventory.logic.commands.CommandResult;
 import seedu.address.inventory.model.Item;
-import seedu.address.stubs.InventoryModelStubWithItem;
+import seedu.address.stubs.InventoryModelStubAcceptingItemAddedForInventoryUse;
 import seedu.address.testutil.ItemBuilder;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -20,8 +20,9 @@ public class AddCommandTest {
     @Test
     public void execute_ItemAcceptedByModel_addSuccessful() {
         Item validItem = new ItemBuilder().build();
-        InventoryModelStubWithItem modelStubWithItem = new InventoryModelStubWithItem(validItem);
-        CommandResult commandResult = new AddCommand(validItem).execute(modelStubWithItem);
+        InventoryModelStubAcceptingItemAddedForInventoryUse modelStub =
+                new InventoryModelStubAcceptingItemAddedForInventoryUse();
+        CommandResult commandResult = new AddCommand(validItem).execute(modelStub);
         assertEquals(String.format(MESSAGE_ADDED_ITEM, validItem),
                 commandResult.getFeedbackToUser());
     }
