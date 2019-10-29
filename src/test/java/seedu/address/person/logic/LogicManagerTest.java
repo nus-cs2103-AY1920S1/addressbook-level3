@@ -35,7 +35,7 @@ import seedu.address.person.storage.StorageManager;
 import seedu.address.reimbursement.model.ReimbursementList;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.TypicalTransactions;
-import seedu.address.transaction.util.TransactionList;
+import seedu.address.transaction.model.TransactionList;
 public class LogicManagerTest {
     private static final IOException DUMMY_IO_EXCEPTION = new IOException("dummy exception");
     private static final String FILE_PATH_REIMBURSEMENT = "data/reimbursementInformation.txt";

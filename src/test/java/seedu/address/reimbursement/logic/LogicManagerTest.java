@@ -15,6 +15,7 @@ import seedu.address.reimbursement.model.ReimbursementList;
 import seedu.address.reimbursement.storage.StorageManager;
 import seedu.address.testutil.TypicalReimbursements;
 import seedu.address.testutil.TypicalTransactions;
+import seedu.address.transaction.model.Model;
 
 public class LogicManagerTest {
 
@@ -24,7 +25,7 @@ public class LogicManagerTest {
     private seedu.address.reimbursement.model.Model reimbursementModel;
     private seedu.address.reimbursement.storage.StorageManager reimbursementStorage;
     private seedu.address.person.model.Model personModel;
-    private seedu.address.transaction.model.Model transactionModel;
+    private Model transactionModel;
     private seedu.address.transaction.storage.Storage transactionStorage;
 
     private Logic logic;

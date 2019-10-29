@@ -1,7 +1,7 @@
 package seedu.address.testutil;
 
 import seedu.address.person.model.person.Person;
-import seedu.address.transaction.model.Transaction;
+import seedu.address.transaction.model.transaction.Transaction;
 
 /**
  * Builds a transaction with default attributes.

@@ -32,8 +32,8 @@ import seedu.address.transaction.logic.commands.EditCommand;
 import seedu.address.transaction.logic.commands.FindCommand;
 import seedu.address.transaction.logic.commands.SortCommand;
 import seedu.address.transaction.logic.commands.SortNameCommand;
-import seedu.address.transaction.model.Transaction;
-import seedu.address.transaction.model.TransactionContainsKeywordsPredicate;
+import seedu.address.transaction.model.transaction.Transaction;
+import seedu.address.transaction.model.transaction.TransactionContainsKeywordsPredicate;
 import seedu.address.transaction.ui.TransactionMessages;
 
 class TransactionTabParserTest {

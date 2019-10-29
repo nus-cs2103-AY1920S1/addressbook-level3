@@ -9,7 +9,7 @@ import seedu.address.stubs.PersonModelStubWithPerson;
 import seedu.address.stubs.TransactionModelStubWithTransaction;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.TransactionBuilder;
-import seedu.address.transaction.model.Transaction;
+import seedu.address.transaction.model.transaction.Transaction;
 
 class BackCommandTest {
 

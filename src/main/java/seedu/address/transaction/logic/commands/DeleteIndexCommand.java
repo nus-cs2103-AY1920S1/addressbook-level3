@@ -5,7 +5,7 @@ import static seedu.address.transaction.ui.TransactionMessages.MESSAGE_DELETE_TR
 
 import seedu.address.transaction.logic.parser.exception.ParseException;
 import seedu.address.transaction.model.Model;
-import seedu.address.transaction.model.Transaction;
+import seedu.address.transaction.model.transaction.Transaction;
 import seedu.address.transaction.ui.TransactionMessages;
 
 /**

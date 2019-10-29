@@ -18,7 +18,8 @@ import org.junit.jupiter.api.Test;
 import seedu.address.testutil.Assert;
 import seedu.address.testutil.TypicalPersons;
 import seedu.address.testutil.TypicalTransactions;
-import seedu.address.transaction.util.TransactionList;
+import seedu.address.transaction.model.transaction.Transaction;
+import seedu.address.transaction.model.transaction.TransactionContainsKeywordsPredicate;
 
 class ModelManagerTest {
     private ModelManager modelManager = new ModelManager();

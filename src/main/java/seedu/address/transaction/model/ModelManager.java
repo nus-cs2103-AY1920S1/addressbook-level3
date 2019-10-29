@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 
 import seedu.address.person.commons.core.LogsCenter;
 import seedu.address.person.model.person.Person;
-import seedu.address.transaction.util.TransactionList;
+import seedu.address.transaction.model.transaction.Transaction;
 
 /**
  * Represents the in-memory model of the address book data.

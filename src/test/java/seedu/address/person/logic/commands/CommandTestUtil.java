@@ -33,9 +33,9 @@ import seedu.address.testutil.TypicalReimbursements;
 import seedu.address.testutil.TypicalTransactions;
 import seedu.address.transaction.logic.Logic;
 import seedu.address.transaction.logic.LogicManager;
+import seedu.address.transaction.model.ModelManager;
+import seedu.address.transaction.model.TransactionList;
 import seedu.address.transaction.storage.StorageManager;
-import seedu.address.transaction.util.TransactionList;
-
 
 /**
  * Contains helper methods for testing commands.
@@ -98,7 +98,7 @@ public class CommandTestUtil {
 
             //all related ModelManagers
             seedu.address.transaction.model.Model transactionModel =
-                    new seedu.address.transaction.model.ModelManager(transactionList);
+                    new ModelManager(transactionList);
             seedu.address.person.model.Model personModel = new seedu.address.person.model.ModelManager();
             seedu.address.reimbursement.model.Model reimbursementModel =
                     new seedu.address.reimbursement.model.ModelManager(reimbursementList);
@@ -159,7 +159,7 @@ public class CommandTestUtil {
 
         //all related ModelManagers
         seedu.address.transaction.model.Model transactionModel =
-                new seedu.address.transaction.model.ModelManager(transactionList);
+                new ModelManager(transactionList);
         seedu.address.person.model.Model personModel = new seedu.address.person.model.ModelManager();
         seedu.address.reimbursement.model.Model reimbursementModel =
                 new seedu.address.reimbursement.model.ModelManager(reimbursementList);
@@ -217,7 +217,7 @@ public class CommandTestUtil {
 
             //all related ModelManagers
             seedu.address.transaction.model.Model transactionModel =
-                    new seedu.address.transaction.model.ModelManager(transactionList);
+                    new ModelManager(transactionList);
             seedu.address.person.model.Model personModel = new seedu.address.person.model.ModelManager();
             seedu.address.reimbursement.model.Model reimbursementModel =
                     new seedu.address.reimbursement.model.ModelManager(reimbursementList);

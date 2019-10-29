@@ -8,9 +8,9 @@ import seedu.address.transaction.logic.commands.Command;
 import seedu.address.transaction.logic.commands.CommandResult;
 import seedu.address.transaction.logic.parser.TransactionTabParser;
 import seedu.address.transaction.model.Model;
-import seedu.address.transaction.model.Transaction;
+import seedu.address.transaction.model.TransactionList;
+import seedu.address.transaction.model.transaction.Transaction;
 import seedu.address.transaction.storage.Storage;
-import seedu.address.transaction.util.TransactionList;
 
 /**
  * Manages the logic behind the transaction tab.

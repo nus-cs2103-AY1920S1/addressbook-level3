@@ -6,7 +6,7 @@ import java.util.logging.Logger;
 import seedu.address.person.commons.core.LogsCenter;
 import seedu.address.transaction.logic.commands.FindCommand;
 import seedu.address.transaction.logic.parser.exception.ParseException;
-import seedu.address.transaction.model.TransactionContainsKeywordsPredicate;
+import seedu.address.transaction.model.transaction.TransactionContainsKeywordsPredicate;
 import seedu.address.transaction.ui.TransactionMessages;
 
 /**
