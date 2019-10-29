@@ -2,6 +2,11 @@ package organice.model.person;
 
 import java.util.ArrayList;
 
+/**
+ * Represents the checklist for donor and patient in ORGANice.
+ * When a donor and patient is matched, they will be processed and a TaskList will be generated containing all the
+ * necessary tasks both patient and donor need to do to prepare for a cross-matching
+ */
 public class TaskList {
 
     protected ArrayList<Task> listOfTask;
@@ -45,5 +50,17 @@ public class TaskList {
             count++;
         }
         return ("Here are the tasks in for the patient and donor:\n" + tasks);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof TaskList // instanceof handles nulls
+                && listOfTask.equals(((TaskList) other).listOfTask)); // state check
+    }
+
+    @Override
+    public int hashCode() {
+        return listOfTask.hashCode();
     }
 }

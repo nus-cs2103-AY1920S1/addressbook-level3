@@ -23,6 +23,7 @@ public class Donor extends Person {
     private Status status;
     private HashMap<Nric, Double> successRateMap;
     private String successRate;
+    private Nric patientNric;
 
     /**
      * Every field must be present and not null.
@@ -107,6 +108,12 @@ public class Donor extends Person {
     public void setStatus(String newStatus) {
         Status updatedStatus = new Status(newStatus);
         this.status = updatedStatus;
+    }
+
+    public void markTaskAsDone(int taskNumber) {
+        TaskList updatedTaskList = getProcessingList(patientNric);
+        updatedTaskList.get(taskNumber - 1).markAsDone(updatedTaskList.get(taskNumber - 1));
+        this.processingTodoList = updatedTaskList;
     }
 
     /**
