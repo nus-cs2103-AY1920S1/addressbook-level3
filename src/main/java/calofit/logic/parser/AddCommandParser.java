@@ -27,25 +27,30 @@ public class AddCommandParser implements Parser<AddCommand> {
     public AddCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_CALORIES, PREFIX_TAG);
+        try {
+            int dishNumber = Integer.parseInt(argMultimap.getPreamble());
+            return new AddCommand(dishNumber);
+        } catch (NumberFormatException e) {
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_NAME)
-                || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+            if (!arePrefixesPresent(argMultimap, PREFIX_NAME)
+                    || !argMultimap.getPreamble().isEmpty()) {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+            }
+
+            Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
+            Calorie calories;
+            if (argMultimap.getValue(PREFIX_CALORIES).isPresent()) {
+                calories = ParserUtil.parseCalorie(argMultimap.getValue(PREFIX_CALORIES).get());
+            } else {
+                calories = Calorie.UNKNOWN_CALORIE;
+            }
+
+            Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
+
+            Dish dish = new Dish(name, calories, tagList);
+            return new AddCommand(dish);
         }
 
-        Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
-        Calorie calories;
-        if (argMultimap.getValue(PREFIX_CALORIES).isPresent()) {
-            calories = ParserUtil.parseCalorie(argMultimap.getValue(PREFIX_CALORIES).get());
-        } else {
-            calories = Calorie.UNKNOWN_CALORIE;
-        }
-
-        Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
-
-        Dish dish = new Dish(name, calories, tagList);
-
-        return new AddCommand(dish);
     }
 
     /**
