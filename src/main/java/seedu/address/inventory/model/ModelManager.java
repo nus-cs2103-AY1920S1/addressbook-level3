@@ -83,9 +83,9 @@ public class ModelManager implements Model {
      */
     public boolean hasSufficientQuantity(String description, int quantity) throws NoSuchItemException {
         if (inventoryList.getOriginalItem(description).getQuantity() > quantity) {
-            return false;
-        } else {
             return true;
+        } else {
+            return false;
         }
     }
 

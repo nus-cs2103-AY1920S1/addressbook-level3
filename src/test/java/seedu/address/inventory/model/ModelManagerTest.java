@@ -9,6 +9,7 @@ import java.io.IOException;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.inventory.model.exception.NoSuchItemException;
 import seedu.address.inventory.storage.StorageManager;
 import seedu.address.inventory.util.InventoryList;
 import seedu.address.testutil.TypicalItem;
@@ -45,6 +46,24 @@ public class ModelManagerTest {
             assertFalse(inventoryModel.hasItemInInventory(TypicalItem.BLACK_SHIRT));
         } catch (Exception e) {
             fail();
+        }
+    }
+
+    @Test
+    public void hasSufficientQuantity_successful() {
+        Item fishBurger = TypicalItem.FISH_BURGER;
+        InventoryList inventoryList = new InventoryList();
+        inventoryList.add(fishBurger);
+
+        ModelManager inventoryModel = new ModelManager(inventoryList);
+
+        try {
+            assertTrue(inventoryModel.hasSufficientQuantity(TypicalItem.FISH_BURGER.getDescription(),
+                    (TypicalItem.FISH_BURGER.getQuantity() - 1)));
+            assertFalse(inventoryModel.hasSufficientQuantity(TypicalItem.FISH_BURGER.getDescription(),
+                    (TypicalItem.FISH_BURGER.getQuantity() + 1)));
+        } catch (NoSuchItemException e) {
+            throw new AssertionError("This method should not throw an exception.");
         }
     }
 }
