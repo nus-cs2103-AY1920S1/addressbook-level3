@@ -6,6 +6,7 @@ import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailur
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.queue.DequeueCommand;
+import seedu.address.logic.parser.queue.DequeueCommandParser;
 import seedu.address.model.Model;
 import seedu.address.testutil.TestUtil;
 

@@ -1,5 +1,5 @@
 //@@author woon17
-package seedu.address.logic.parser;
+package seedu.address.logic.parser.appointments;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
@@ -10,6 +10,8 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.appointments.AddAppCommand;
 import seedu.address.logic.commands.appointments.CancelAppCommand;
 import seedu.address.logic.commands.common.ReversibleActionPairCommand;
+import seedu.address.logic.parser.Parser;
+import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.events.Event;

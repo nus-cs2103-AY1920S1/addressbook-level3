@@ -1,5 +1,5 @@
 //@@author woon17
-package seedu.address.logic.parser;
+package seedu.address.logic.parser.appointments;
 
 import static java.util.Objects.requireNonNull;
 
@@ -9,6 +9,10 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.appointments.SettleAppCommand;
 import seedu.address.logic.commands.common.ReversibleActionPairCommand;
+import seedu.address.logic.parser.ArgumentMultimap;
+import seedu.address.logic.parser.ArgumentTokenizer;
+import seedu.address.logic.parser.Parser;
+import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.events.Appointment;
