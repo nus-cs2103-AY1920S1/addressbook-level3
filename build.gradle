@@ -68,6 +68,8 @@ dependencies {
 
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: jUnitVersion
 
+    testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-params', version: jUnitVersion
+
     compile group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1'
 
     testImplementation 'org.awaitility:awaitility:4.0.1'

@@ -1,5 +1,7 @@
 package seedu.address.model.module;
 
+import java.util.Objects;
+
 /**
  * Composite key composing of AcadYear and ModuleCode, which uniquely identifies a module.
  */
@@ -30,19 +32,24 @@ public class ModuleId {
         return acadYear + " " + moduleCode;
     }
 
-    /**
-     * Checks if this ModuleId is equal to other ModuleId.
-     * @param other to be compared
-     * @return boolean
-     */
-    public boolean equals(ModuleId other) {
-        if (other == null) {
+    @Override
+    public boolean equals(Object other) {
+        if (!(other instanceof ModuleId)) {
             return false;
-        } else if (other.moduleCode.equals(this.moduleCode)
-                && other.acadYear.equals(this.acadYear)) {
+        }
+        ModuleId id = (ModuleId) other;
+        if (id == this) {
+            return true;
+        } else if (id.moduleCode.equals(this.moduleCode)
+                && id.acadYear.equals(this.acadYear)) {
             return true;
         } else {
             return false;
         }
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(moduleCode, acadYear);
     }
 }

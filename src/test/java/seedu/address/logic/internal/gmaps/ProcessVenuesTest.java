@@ -5,13 +5,14 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.net.ConnectException;
+import java.nio.file.Path;
 import java.util.ArrayList;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.exceptions.TimeBookInvalidState;
+import seedu.address.commons.util.FileUtil;
 import seedu.address.model.gmaps.Location;
 
 class ProcessVenuesTest {
@@ -22,7 +23,7 @@ class ProcessVenuesTest {
     }
 
     @Test
-    void getLocations() throws ConnectException, TimeBookInvalidState {
+    void getLocations() throws TimeBookInvalidState {
         assertThrows(TimeBookInvalidState.class, () -> processVenues.getLocations());
         ProcessVenues newProcessVenues = processVenues.process();
         Location lt17 = new Location("LT17");
@@ -31,16 +32,27 @@ class ProcessVenuesTest {
     }
 
     @Test
-    void process() throws ConnectException, TimeBookInvalidState {
+    void process() throws TimeBookInvalidState {
         ProcessVenues newProcessVenues = processVenues.process();
         assertNotNull(newProcessVenues.getLocations());
         assertNotNull(newProcessVenues.getValidLocationList());
     }
 
     @Test
-    void getValidLocationList() throws ConnectException {
+    void getValidLocationList() {
         assertEquals(processVenues.getValidLocationList(), new ArrayList<>());
         ProcessVenues newProcessVenues = processVenues.process();
         assertTrue(newProcessVenues.getValidLocationList().contains("NUS_LT17"));
+    }
+
+    @Test
+    void imageSanityCheck() {
+        processVenues.process();
+        ArrayList<String> validLocationList = processVenues.getValidLocationList();
+        for (int i = 0; i < validLocationList.size(); i++) {
+            String currValidLocation = validLocationList.get(i);
+            String path = FileUtil.imagePath(currValidLocation);
+            assertTrue(FileUtil.isFileExists(Path.of(path)));
+        }
     }
 }

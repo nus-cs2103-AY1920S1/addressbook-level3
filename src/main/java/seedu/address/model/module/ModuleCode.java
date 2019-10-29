@@ -1,5 +1,7 @@
 package seedu.address.model.module;
 
+import java.util.Objects;
+
 /**
  * The module code of the module
  */
@@ -15,18 +17,23 @@ public class ModuleCode {
         return moduleCode;
     }
 
-    /**
-     * Checks if this ModuleCode is equal to other ModuleCode.
-     * @param other to be compared
-     * @return boolean
-     */
-    public boolean equals(ModuleCode other) {
-        if (other == null) {
+    @Override
+    public boolean equals(Object other) {
+        if (!(other instanceof ModuleCode)) {
             return false;
-        } else if (other.toString().equals(this.moduleCode)) {
+        }
+        ModuleCode mc = (ModuleCode) other;
+        if (mc == this) {
+            return true;
+        } else if (mc.moduleCode.equals(this.moduleCode)) {
             return true;
         } else {
             return false;
         }
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(moduleCode);
     }
 }

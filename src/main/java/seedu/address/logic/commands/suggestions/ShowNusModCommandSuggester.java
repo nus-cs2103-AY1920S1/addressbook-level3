@@ -1,7 +1,6 @@
 package seedu.address.logic.commands.suggestions;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -17,11 +16,11 @@ import seedu.address.model.module.Module;
  * Provides suggestions for the {@link Prefix}es of the {@link seedu.address.logic.commands.ShowNusModCommand}.
  */
 public class ShowNusModCommandSuggester extends NusModSuggester {
-    public static final List<Prefix> SUPPORTED_PREFIXES = Collections.unmodifiableList(List.of(
+    public static final List<Prefix> SUPPORTED_PREFIXES = List.of(
             CliSyntax.PREFIX_MODULE_CODE,
             CliSyntax.PREFIX_ACAD_YEAR,
             CliSyntax.PREFIX_SEMESTER
-    ));
+    );
 
     @Override
     protected List<String> provideSuggestions(

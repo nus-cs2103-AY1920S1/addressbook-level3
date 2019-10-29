@@ -1,4 +1,4 @@
-package seedu.address.logic.internal.gmaps;
+package seedu.address.commons.util;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

@@ -1,18 +1,19 @@
 package seedu.address.model.module;
 
+import java.time.LocalDate;
 import java.util.List;
 
 /**
  * Contains holiday dates strings.
  */
 public class Holidays {
-    private List<String> holidayDates;
+    private List<LocalDate> holidayDates;
 
-    public Holidays(List<String> holidays) {
+    public Holidays(List<LocalDate> holidays) {
         holidayDates = holidays;
     }
 
-    public List<String> getHolidayDates() {
+    public List<LocalDate> getHolidayDates() {
         return holidayDates;
     }
 

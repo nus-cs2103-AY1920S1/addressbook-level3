@@ -4,8 +4,12 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 import java.util.stream.Stream;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 /**
  * Utility methods related to Collections
@@ -45,4 +49,14 @@ public class CollectionUtil {
         }
     }
 
+    /**
+     * Creates an unmodifiable {@link ObservableList} of the provided {@link List}.
+     *
+     * @param list The list of elements to wrap within an unmodifiable {@link ObservableList}.
+     * @param <T> The type of elements in the {@code list}.
+     * @return An unmodifiable {@link ObservableList} of the provided {@link List}.
+     */
+    public static <T> ObservableList<T> createUnmodifiableObservableList(final List<T> list) {
+        return FXCollections.unmodifiableObservableList(FXCollections.observableList(list));
+    }
 }

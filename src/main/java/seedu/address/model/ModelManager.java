@@ -3,9 +3,9 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 
 import java.nio.file.Path;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 import javafx.collections.ObservableList;
@@ -31,6 +31,7 @@ import seedu.address.model.mapping.Role;
 import seedu.address.model.mapping.exceptions.DuplicateMappingException;
 import seedu.address.model.mapping.exceptions.MappingNotFoundException;
 import seedu.address.model.module.AcadYear;
+import seedu.address.model.module.Holidays;
 import seedu.address.model.module.Module;
 import seedu.address.model.module.ModuleId;
 import seedu.address.model.module.ModuleList;
@@ -183,12 +184,12 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public AcadYear getDefaultAcadYear() {
+    public AcadYear getAcadYear() {
         return userPrefs.getAcadYear();
     }
 
     @Override
-    public SemesterNo getDefaultSemesterNo() {
+    public SemesterNo getSemesterNo() {
         return userPrefs.getSemesterNo();
     }
 
@@ -493,12 +494,12 @@ public class ModelManager implements Model {
         nusModsData.addModule(module);
     }
 
-    public String getAcadSemStartDateString(AcadYear acadYear, SemesterNo semesterNo) {
-        return nusModsData.getAcadCalendar().getStartDateString(acadYear, semesterNo);
+    public LocalDate getAcadSemStartDate(AcadYear acadYear, SemesterNo semesterNo) {
+        return nusModsData.getStartDate(acadYear, semesterNo);
     }
 
-    public List<String> getHolidayDateStrings() {
-        return nusModsData.getHolidays().getHolidayDates();
+    public Holidays getHolidays() {
+        return nusModsData.getHolidays();
     }
 
     //=========== Gmaps ================================================================================

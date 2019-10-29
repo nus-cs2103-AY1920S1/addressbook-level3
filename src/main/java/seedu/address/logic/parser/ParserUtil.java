@@ -24,6 +24,7 @@ import seedu.address.model.module.LessonNo;
 import seedu.address.model.module.ModuleCode;
 import seedu.address.model.module.NusModsShareLink;
 import seedu.address.model.module.SemesterNo;
+import seedu.address.model.module.exceptions.SemesterNoNotFoundException;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -181,8 +182,12 @@ public class ParserUtil {
         requireNonNull(semesterNo);
         String trimmedSemesterNo = semesterNo.trim();
 
-        SemesterNo semNo = new SemesterNo(trimmedSemesterNo);
-        return semNo;
+        try {
+            SemesterNo semNo = SemesterNo.findSemesterNo(trimmedSemesterNo);
+            return semNo;
+        } catch (SemesterNoNotFoundException e) {
+            throw new ParseException("Semester number not found!");
+        }
     }
 
     /**

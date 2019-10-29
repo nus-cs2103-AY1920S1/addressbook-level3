@@ -11,7 +11,6 @@ import java.util.List;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AddNusModCommand;
-import seedu.address.logic.commands.AddNusModCommand.AddNusModCommandOptions;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.module.LessonNo;
 import seedu.address.model.module.ModuleCode;
@@ -53,16 +52,6 @@ public class AddNusModCommandParser implements Parser<AddNusModCommand> {
 
         List<LessonNo> lessonNos = ParserUtil.parseLessonNos(argMultimap.getValue(PREFIX_LESSON_NOS).get());
 
-        AddNusModCommandOptions options = new AddNusModCommandOptions();
-
-        if (argMultimap.getValue(PREFIX_ACAD_YEAR).isPresent()) {
-            options.setAcadYear(ParserUtil.parseAcadYear(argMultimap.getValue(PREFIX_ACAD_YEAR).get()));
-        }
-
-        if (argMultimap.getValue(PREFIX_SEMESTER).isPresent()) {
-            options.setSemesterNo(ParserUtil.parseSemesterNo(argMultimap.getValue(PREFIX_SEMESTER).get()));
-        }
-
-        return new AddNusModCommand(name, moduleCode, lessonNos, options);
+        return new AddNusModCommand(name, moduleCode, lessonNos);
     }
 }

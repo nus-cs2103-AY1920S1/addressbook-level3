@@ -94,4 +94,18 @@ public class StringUtil {
     public static boolean isNullOrEmpty(String s) {
         return s == null || s.trim().length() == 0;
     }
+
+    /**
+     * This method is used to remove the Nus Prefix in the validLocationName
+     * @param locationName
+     * @return
+     */
+    public static String removeNusPrefix(String locationName) {
+        if (locationName.contains("NUS_")) {
+            return locationName.split("NUS_")[1];
+        } else {
+            System.out.println("Weird result " + locationName);
+            return locationName;
+        }
+    }
 }

@@ -1,41 +1,87 @@
 package seedu.address.websocket;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.Reader;
+import java.util.ArrayList;
+import java.util.Arrays;
 
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+
+import seedu.address.logic.internal.gmaps.GmapsJsonUtils;
+import seedu.address.model.module.AcadCalendar;
+import seedu.address.model.module.Holidays;
+import seedu.address.model.module.Module;
+import seedu.address.model.module.ModuleId;
+import seedu.address.model.module.ModuleList;
+import seedu.address.model.module.ModuleSummaryList;
 
 class CacheTest {
 
     private String placesJsonPath = "src/test/resources/ApiResponseCache/GoogleMapsApi/PlacesTest.json";
 
     @Test
-    void saveToJson() {
+    void loadHoliday() {
+        Holidays holidays = Cache.loadHolidays().get();
+        assertTrue(holidays.toString().contains("2019-01-01"));
     }
 
     @Test
-    void loadFromJson() {
-        assertThrows(NullPointerException.class, () -> Cache.loadFromJson("foo", placesJsonPath));
-        String key = "https://maps.googleapis.com/maps/api/place/textsearch/json?location=.sg&query=NUS_AKI5B&";
-        String expectedValue = "";
-        JSONParser parser;
-        parser = new JSONParser();
-        try (Reader reader = new FileReader(placesJsonPath)) {
-            JSONObject jsonObject = (JSONObject) parser.parse(reader);
-            expectedValue = jsonObject.get(key).toString();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        assertEquals(expectedValue, Cache.loadFromJson(key, placesJsonPath));
+    void loadAcadCalendar() {
+        AcadCalendar acadCalendar = Cache.loadAcadCalendar().get();
+        assertEquals(acadCalendar.toString(),
+                "{2014/2015=SEMESTER_1=2014-08-11, 2014/2015=SEMESTER_2=2015-01-12, 2018/2019=SEMESTER_1="
+                        + "2018-08-13, 2018/2019=SEMESTER_2=2019-01-14, 2015/2016=SEMESTER_1=2015-08-10, 2015/2016"
+                        + "=SEMESTER_2=2016-01-11, 2016/2017=SEMESTER_1=2016-08-08, 2016/2017=SEMESTER_2=2017-01-09, "
+                        + "2019/2020=SEMESTER_1=2019-08-12, 2019/2020=SEMESTER_2=2020-01-13, 2017/2018=SEMESTER_1="
+                        + "2017-08-14, 2017/2018=SEMESTER_2=2018-01-15}");
+    }
 
+    @Test
+    void loadModuleSummaryList() {
+        ModuleSummaryList moduleSummaryList = Cache.loadModuleSummaryList().get();
+        assertTrue(moduleSummaryList.toString()
+                .contains("AY2019/2020 ZB4199 Honours Project in Computational Biology"));
+    }
+
+    @Test
+    void loadModuleList() {
+        ModuleList moduleList = Cache.loadModuleList().get();
+        assertEquals(moduleList.toString(), "AY2019/2020 CS2103T Software Engineering\n");
+    }
+
+    @Test
+    void loadModule() {
+        Module module = Cache.loadModule(new ModuleId("AY2019/2020", "CS2103T")).get();
+        assertEquals(module.toString(), "AY2019/2020 CS2103T Software Engineering");
+    }
+
+    @Test
+    void loadVenues() {
+        JSONArray venues = Cache.loadVenues();
+        assertEquals(556, venues.size());
+    }
+
+    @Test
+    void loadPlaces() {
+        JSONObject placeResponse1 = Cache.loadPlaces("NUS_LT17");
+        assertEquals("OK", GmapsJsonUtils.getStatus(placeResponse1));
+        JSONObject placeResponse2 = Cache.loadPlaces("LT17");
+        assertEquals("REQUEST_DENIED", GmapsJsonUtils.getStatus(placeResponse2));
+    }
+
+    @Test
+    void loadDistanceMatrix() {
+        ArrayList<String> input = new ArrayList<String>(Arrays.asList("Foo", "Foo", "Foo"));
+        JSONObject distanceMatrixResponse = Cache.loadDistanceMatrix(input, input);
+        assertEquals("REQUEST_DENIED", GmapsJsonUtils.getStatus(distanceMatrixResponse));
+    }
+
+    @Disabled
+    void saveToJson() {
+        Cache.saveToJson("key", "value", placesJsonPath);
     }
 }

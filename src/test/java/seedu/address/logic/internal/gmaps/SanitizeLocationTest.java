@@ -3,7 +3,6 @@ package seedu.address.logic.internal.gmaps;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import java.net.ConnectException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -21,14 +20,12 @@ class SanitizeLocationTest {
     }
 
     @Test
-    void getValidLocationList() throws TimeBookInvalidLocation, ConnectException {
-        try {
-            sanitizeLocation.sanitize("LT17");
-            sanitizeLocation.sanitize("AS5-1234556");
-            sanitizeLocation.sanitize("blah");
-        } catch (TimeBookInvalidLocation e) {
-            System.out.println(e.getMessage());
-        }
+    void getValidLocationList() throws TimeBookInvalidLocation {
+        sanitizeLocation.sanitize("LT17");
+        sanitizeLocation.sanitize("AS5-1234556");
+        sanitizeLocation.sanitize("AS5/1234556");
+        sanitizeLocation.sanitize("AS5_1234556");
+        assertThrows(TimeBookInvalidLocation.class, () -> sanitizeLocation.sanitize("BARFOO"));
         ArrayList<String> expectedValidLocationList =
                 new ArrayList<String>(Arrays.asList("NUS_LT17", "NUS_AS5"));
         assertEquals(expectedValidLocationList, sanitizeLocation.getValidLocationList());
