@@ -12,7 +12,6 @@ import seedu.address.model.person.Person;
  * An UI component that displays information of a {@code Person}.
  */
 public class PersonCard extends UiPart<Region> {
-
     private static final String FXML = "PersonCard.fxml";
 
     /**

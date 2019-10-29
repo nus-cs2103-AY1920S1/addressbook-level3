@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.FlowPane?>
@@ -10,7 +8,6 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
 <ScrollPane fx:id="detailsPane" fitToWidth="true" fitToHeight="true"
@@ -19,6 +16,7 @@
     <GridPane styleClass="person-details" HBox.hgrow="NEVER" hgap="8">
       <columnConstraints>
         <ColumnConstraints hgrow="NEVER" prefWidth="120" />
+        <ColumnConstraints hgrow="SOMETIMES" />
       </columnConstraints>
       <VBox styleClass="image-container" alignment="CENTER" minHeight="120" GridPane.columnIndex="0">
         <ImageView fx:id="profilePic" styleClass="person-details-image"
@@ -27,7 +25,7 @@
         </ImageView>
       </VBox>
       <VBox fx:id="detailsView" styleClass="data-container" alignment="CENTER" GridPane.columnIndex="1">
-        <Label fx:id="name" text="\$friend" styleClass="person-name" wrapText="true" lineSpacing="0.0" />
+        <Label fx:id="name" text="\$friend" styleClass="person-name" wrapText="true" />
         <FlowPane alignment="CENTER" fx:id="tags" styleClass="tag-list" />
         <HBox alignment="CENTER" HBox.hgrow="ALWAYS" styleClass="person-phone-container" spacing="6">
           <ImageView fitHeight="20" pickOnBounds="true" preserveRatio="true">

@@ -7,6 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
 import seedu.address.model.activity.Activity;
 import seedu.address.model.person.Person;
 
@@ -21,8 +22,6 @@ public class ActivityDetailsPanel extends UiPart<Region> {
     @FXML
     private ScrollPane detailsPane;
     @FXML
-    private Label id;
-    @FXML
     private Label title;
     @FXML
     private FlowPane participantTags;
@@ -30,12 +29,13 @@ public class ActivityDetailsPanel extends UiPart<Region> {
     private Label participantCount;
     @FXML
     private Label spending;
+    @FXML
+    private VBox expenseHistory;
 
     public ActivityDetailsPanel(Activity viewedActivity, List<Person> participants) {
         super(FXML);
-
         this.activity = viewedActivity;
-        id.setText("ID: " + activity.getPrimaryKey());
+
         title.setText(activity.getTitle().toString());
 
         participants.stream()
@@ -49,5 +49,10 @@ public class ActivityDetailsPanel extends UiPart<Region> {
                 .map((expense) -> expense.getAmount().value)
                 .reduce(0.00, (acc, amt) -> acc + amt);
         spending.setText(String.format("$%.2f", totalSpending));
+
+        activity.getExpenses().stream()
+                .forEach(expense -> {
+                    expenseHistory.getChildren().add(new ExpenseCard(expense, participants).getRoot());
+                });
     }
 }

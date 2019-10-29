@@ -133,10 +133,13 @@
     -fx-border-width: 0 0 2px 0;
 }
 
-.person-details .image-container, .person-details .data-container,
-.activity-details .image-container, .activity-details .data-container {
+.person-details .data-container, .activity-details .data-container {
+    -fx-padding: 8 8 8 4;
+}
+
+.person-details .image-container, .activity-details .image-container {
     /* Add internal padding */
-    -fx-padding: 8;
+    -fx-padding: 8 4 8 16;
 }
 
 .person-details .person-name, .activity-details .activity-title {
@@ -172,9 +175,12 @@
     -fx-alignment: center;
 }
 
-.history-container .activity-history-header {
+.history-container .activity-history, .history-container .expense-history {
+    -fx-padding: 0 0 8 0;
+}
+
+.history-container .activity-history-header, .history-container .expense-history-header {
     -fx-padding: 2 8 2 8;
-    -fx-font-family: "Noto Sans CJK SC", "Segoe UI", sans-serif;
     -fx-background-color: #cbcbcb;
     -fx-border-color: #c0c0c0;
     -fx-border-radius: 1px;
@@ -183,7 +189,7 @@
     -fx-text-alignment: center;
 }
 
-.activity-history-card {
+.activity-history-card, .expense-card {
     -fx-border-color: #c0c0c0;
     -fx-border-radius: 1px;
     -fx-border-width: 2px;
@@ -194,11 +200,12 @@
     -fx-padding: 5;
 }
 
-.activity-history-card .details-container {
+.activity-history-card .details-container, .expense-card .amount-container, 
+.expense-card .details-container {
     -fx-padding: 2 5 2 5;
 }
 
-.activity-history-card .activity-title {
+.activity-history-card .activity-title, .expense-card .expense-description {
     -fx-font-family: "Noto Sans CJK SC Bold", "Segoe UI", sans-serif;
     -fx-font-weight: bold;
     -fx-font-size: 15px;
@@ -209,20 +216,38 @@
     -fx-font-size: 15px;
 }
 
-.activity-details .participant-list {
+.activity-details .participant-list,
+.expense-card .expense-sharing-list {
     -fx-hgap: 4;
     -fx-vgap: 4;
 }
 
-.activity-details .participant-list .label {
-    -fx-background-color: maroon;
+.activity-details .participant-list .label,
+.expense-card .expense-sharing-list .label {
+    -fx-background-color: royalblue;
     -fx-padding: 2 4 2 4;
     -fx-border-radius: 2;
     -fx-background-radius: 2;
-    -fx-font-size: 13;
+    -fx-font-size: 12px;
     -fx-font-family: "Noto Sans CJK SC Bold", "Segoe UI", sans-serif;
     -fx-font-weight: bold;
     -fx-text-fill: #ffffff;
+}
+
+.expense-card .expense-amount {
+    -fx-font-family: "Noto Sans CJK SC Bold", "Segoe UI", sans-serif;
+    -fx-font-weight: bold;
+    -fx-font-size: 22px;
+    -fx-text-alignment: center;
+}
+
+.expense-card .expense-sharing-list .label {
+    -fx-background-color: maroon;
+    -fx-font-size: 10px;
+}
+
+.expense-card .expense-sharing-list .expense-owner {
+    -fx-background-color: darkgreen;
 }
 
 /*
@@ -245,4 +270,3 @@
     -fx-font-size: 9pt;
     -fx-text-fill: black;
 }
-

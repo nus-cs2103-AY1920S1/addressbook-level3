@@ -37,8 +37,8 @@ public class PersonDetailsPanel extends UiPart<Region> {
 
     public PersonDetailsPanel(Person viewedPerson, List<Activity> activities) {
         super(FXML);
-
         this.person = viewedPerson;
+
         name.setText(person.getName().toString());
         phone.setText(person.getPhone().toString());
         email.setText(person.getEmail().toString());

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<HBox fx:id="expenseCard" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+  <GridPane styleClass="expense-card" HBox.hgrow="ALWAYS" maxWidth="450" hgap="8">
+    <columnConstraints>
+      <ColumnConstraints hgrow="NEVER" percentWidth="30.0" />
+      <ColumnConstraints hgrow="ALWAYS" />
+    </columnConstraints>
+    <VBox styleClass="amount-container" alignment="CENTER" minHeight="60" GridPane.columnIndex="0">
+      <Label alignment="CENTER" fx:id="amount" text="\$amount" styleClass="expense-amount" wrapText="true" />
+    </VBox>
+    <VBox styleClass="details-container" fx:id="detailsContainer" alignment="CENTER"
+        minHeight="60" GridPane.columnIndex="1">
+      <Label alignment="CENTER" fx:id="description" text="\$blank-description" styleClass="expense-description"
+          wrapText="true" lineSpacing="0.0" />
+      <FlowPane alignment="CENTER" fx:id="sharedBy" styleClass="expense-sharing-list">
+        <Label alignment="CENTER" fx:id="paidBy" text="\$expense-owner" styleClass="expense-owner" />
+      </FlowPane>
+    </VBox>
+  </GridPane>
+</HBox>
