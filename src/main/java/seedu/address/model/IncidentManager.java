@@ -176,6 +176,10 @@ public class IncidentManager implements ReadOnlyIncidentManager {
         vehicles.add(v);
     }
 
+    public void setVehicle(Vehicle target, Vehicle editedVehicle) {
+        requireNonNull(editedVehicle);
+        vehicles.setVehicle(target, editedVehicle);
+    }
     //// util methods
 
     @Override
