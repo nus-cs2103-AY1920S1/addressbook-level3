@@ -72,6 +72,7 @@ public class ModelManager implements Model {
         filteredCards = new FilteredList<>(this.currentWordBank.getCardList());
     }
 
+
     public ModelManager() {
         this(new WordBankList(Collections.emptyList()),
                 new WordBankStatisticsList(Collections.emptyList()),
@@ -210,11 +211,10 @@ public class ModelManager implements Model {
     //=========== WordBank ================================================================================
 
     @Override
-    public void setCurrentWordBank(ReadOnlyWordBank currenWordBank) {
-        this.currentWordBank = (WordBank) currenWordBank;
+    public void setCurrentWordBank(ReadOnlyWordBank currentWordBank) {
+        this.currentWordBank = (WordBank) currentWordBank;
         hasBank = true;
         filteredCards = new FilteredList<>(this.currentWordBank.getCardList());
-        //        this.wordBank.resetData(wordBank);
     }
 
     /**
@@ -223,7 +223,6 @@ public class ModelManager implements Model {
     public void clearWordBank() {
         currentWordBank.resetData(new WordBank(currentWordBank.getName()));
         filteredCards = new FilteredList<>(this.currentWordBank.getCardList());
-        //        this.wordBank.resetData(wordBank);
     }
 
     @Override
@@ -279,23 +278,12 @@ public class ModelManager implements Model {
 
     /**
      * Returns an unmodifiable view of the list of {@code Card} backed by the internal list of
-     * {@code versionedAddressBook} // todo what is this versionedAddressBook?
+     * {@code versionedDukemon}
      */
     @Override
     public ObservableList<Card> getFilteredCardList() {
-
-        /** Yida edited this: commented out the line that re-initializes the {@code FilteredList<Card>}. */
-        // filteredCards = new FilteredList<>(this.currentWordBank.getCardList());
+        filteredCards = new FilteredList<>(this.currentWordBank.getCardList());
         return filteredCards;
-    }
-
-    /**
-     * Returns an unmodifiable view of the list of {@code Card} backed by the internal list of
-     * {@code versionedAddressBook} // todo what is this versionedAddressBook?
-     */
-    @Override
-    public ObservableList<WordBank> getFilteredWordBankList() {
-        return wordBankList.getFilteredWordBankList();
     }
 
     @Override
@@ -306,9 +294,7 @@ public class ModelManager implements Model {
     @Override
     public void updateFilteredCardList(Predicate<Card> predicate) {
         requireNonNull(predicate);
-
         filteredCards.setPredicate(predicate);
-        //filteredCards = new FilteredList<>(this.wordBank.getCardList());
     }
 
     //=========== WordBankStatistics methods =============================================================

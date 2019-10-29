@@ -4,9 +4,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
-import static seedu.address.logic.commands.switches.StartCommand.MESSAGE_TOO_FEW_CANNOT_START;
-import static seedu.address.logic.commands.switches.StartCommand.MESSAGE_TOO_FEW_CARDS;
-import static seedu.address.logic.commands.switches.StartCommand.MESSAGE_WORDBANK_NOT_LOADED;
+
+import static seedu.address.logic.commands.switches.SwitchToStartCommand.MESSAGE_TOO_FEW_CANNOT_START;
+import static seedu.address.logic.commands.switches.SwitchToStartCommand.MESSAGE_TOO_FEW_CARDS;
+import static seedu.address.logic.commands.switches.SwitchToStartCommand.MESSAGE_WORDBANK_NOT_LOADED;
 import static seedu.address.testutil.TypicalCards.ABRA;
 import static seedu.address.testutil.TypicalCards.BUTTERFREE;
 import static seedu.address.testutil.TypicalCards.CHARIZARD;
@@ -40,7 +41,7 @@ import seedu.address.model.wordbankstatslist.WordBankStatisticsList;
 import seedu.address.statistics.WordBankStatistics;
 import seedu.address.testutil.WordBankBuilder;
 
-class StartCommandTest {
+class SwitchToStartCommandTest {
 
     private WordBank threeCardWordBank = new WordBankBuilder("threeCardWordBank")
             .withCard(ABRA).withCard(BUTTERFREE).withCard(CHARIZARD).build();
@@ -61,18 +62,18 @@ class StartCommandTest {
 
     @Test
     void getNewMode() {
-        StartCommand dummyStartCommand1 = new StartCommand(Optional.empty());
-        assertEquals(dummyStartCommand1.getNewMode(ModeEnum.GAME), ModeEnum.GAME);
+        SwitchToStartCommand dummySwitchToStartCommand1 = new SwitchToStartCommand(Optional.empty());
+        assertEquals(dummySwitchToStartCommand1.getNewMode(ModeEnum.GAME), ModeEnum.GAME);
     }
 
     @Test
     void execute_noDifficultySpecified() {
         Model dummyModel = new ModelStub();
         dummyModel.setCurrentWordBank(threeCardWordBank);
-        StartCommand dummyStartCommand1 = new StartCommand(Optional.empty());
+        SwitchToStartCommand dummySwitchToStartCommand1 = new SwitchToStartCommand(Optional.empty());
 
         try {
-            dummyStartCommand1.execute(dummyModel);
+            dummySwitchToStartCommand1.execute(dummyModel);
         } catch (CommandException e) {
             // Should not throw exception.
             e.printStackTrace();
@@ -87,10 +88,10 @@ class StartCommandTest {
     void execute_difficultySpecified() {
         Model dummyModel = new ModelStub();
         dummyModel.setCurrentWordBank(threeCardWordBank);
-        StartCommand dummyStartCommand1 = new StartCommand(Optional.of(DifficultyEnum.HARD));
+        SwitchToStartCommand dummySwitchToStartCommand1 = new SwitchToStartCommand(Optional.of(DifficultyEnum.HARD));
 
         try {
-            dummyStartCommand1.execute(dummyModel);
+            dummySwitchToStartCommand1.execute(dummyModel);
         } catch (CommandException e) {
             // Should not throw exception.
             e.printStackTrace();
@@ -105,11 +106,11 @@ class StartCommandTest {
     void execute_lessThanThreeCards_throwsCommandException() {
         Model dummyModel = new ModelStub();
         dummyModel.setCurrentWordBank(twoCardWordBank);
-        StartCommand dummyStartCommand1 = new StartCommand(Optional.of(DifficultyEnum.HARD));
+        SwitchToStartCommand dummySwitchToStartCommand1 = new SwitchToStartCommand(Optional.of(DifficultyEnum.HARD));
 
-        assertThrows(CommandException.class, () -> dummyStartCommand1.execute(dummyModel));
+        assertThrows(CommandException.class, () -> dummySwitchToStartCommand1.execute(dummyModel));
         try {
-            dummyStartCommand1.execute(dummyModel);
+            dummySwitchToStartCommand1.execute(dummyModel);
         } catch (CommandException ce) {
             assertEquals(ce.getMessage(), MESSAGE_TOO_FEW_CARDS + 2
                     + "\n" + MESSAGE_TOO_FEW_CANNOT_START);
@@ -123,11 +124,11 @@ class StartCommandTest {
     void execute_zeroCards_throwsCommandException() {
         Model dummyModel = new ModelStub();
         dummyModel.setCurrentWordBank(zeroCardWordbank);
-        StartCommand dummyStartCommand1 = new StartCommand(Optional.of(DifficultyEnum.HARD));
+        SwitchToStartCommand dummySwitchToStartCommand1 = new SwitchToStartCommand(Optional.of(DifficultyEnum.HARD));
 
-        assertThrows(CommandException.class, () -> dummyStartCommand1.execute(dummyModel));
+        assertThrows(CommandException.class, () -> dummySwitchToStartCommand1.execute(dummyModel));
         try {
-            dummyStartCommand1.execute(dummyModel);
+            dummySwitchToStartCommand1.execute(dummyModel);
         } catch (CommandException ce) {
             assertEquals(ce.getMessage(), MESSAGE_TOO_FEW_CARDS + 0
                     + "\n" + MESSAGE_TOO_FEW_CANNOT_START);
@@ -140,10 +141,10 @@ class StartCommandTest {
     @Test
     void execute_nullWordBank_throwsCommandException() {
         Model dummyModel = new ModelStub();
-        StartCommand dummyStartCommand1 = new StartCommand(Optional.of(DifficultyEnum.HARD));
-        assertThrows(CommandException.class, () -> dummyStartCommand1.execute(dummyModel));
+        SwitchToStartCommand dummySwitchToStartCommand1 = new SwitchToStartCommand(Optional.of(DifficultyEnum.HARD));
+        assertThrows(CommandException.class, () -> dummySwitchToStartCommand1.execute(dummyModel));
         try {
-            dummyStartCommand1.execute(dummyModel);
+            dummySwitchToStartCommand1.execute(dummyModel);
         } catch (CommandException ce) {
             assertEquals(ce.getMessage(), MESSAGE_WORDBANK_NOT_LOADED);
             return;
@@ -155,18 +156,18 @@ class StartCommandTest {
     @Test
     void getDifficulty() {
         // Optional.empty() is passed into constructor
-        StartCommand dummyStartCommand = new StartCommand(Optional.empty());
+        SwitchToStartCommand dummyStartCommand = new SwitchToStartCommand(Optional.empty());
         assertTrue(dummyStartCommand.getDifficulty().isEmpty());
 
         // Optional<DifficultyEnum> passed into constructor
-        dummyStartCommand = new StartCommand(Optional.of(DifficultyEnum.HARD));
+        dummyStartCommand = new SwitchToStartCommand(Optional.of(DifficultyEnum.HARD));
         assertEquals(dummyStartCommand.getDifficulty().get(),
                 DifficultyEnum.HARD);
     }
 
     @Test
     void constructor_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new StartCommand(null));
+        assertThrows(NullPointerException.class, () -> new SwitchToStartCommand(null));
     }
 
 
@@ -265,11 +266,6 @@ class StartCommandTest {
 
         @Override
         public ObservableList<Card> getFilteredCardList() {
-            return null;
-        }
-
-        @Override
-        public ObservableList<WordBank> getFilteredWordBankList() {
             return null;
         }
 

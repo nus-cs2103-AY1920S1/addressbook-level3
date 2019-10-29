@@ -7,12 +7,10 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.SwitchCommand;
 import seedu.address.logic.commands.cardcommands.AddCommand;
 import seedu.address.logic.commands.cardcommands.ClearCommand;
 import seedu.address.logic.commands.cardcommands.DeleteCommand;
 import seedu.address.logic.commands.cardcommands.EditCommand;
-import seedu.address.logic.commands.cardcommands.ExitCommand;
 import seedu.address.logic.commands.cardcommands.FindCommand;
 import seedu.address.logic.commands.cardcommands.ListCommand;
 import seedu.address.logic.commands.exceptions.ModeSwitchException;
@@ -29,10 +27,12 @@ import seedu.address.logic.commands.settingcommands.AvatarCommand;
 import seedu.address.logic.commands.settingcommands.DifficultyCommand;
 import seedu.address.logic.commands.settingcommands.HintsCommand;
 import seedu.address.logic.commands.settingcommands.ThemeCommand;
-import seedu.address.logic.commands.switches.HomeCommand;
-import seedu.address.logic.commands.switches.OpenCommand;
-import seedu.address.logic.commands.switches.StartCommand;
+import seedu.address.logic.commands.switches.SwitchCommand;
+import seedu.address.logic.commands.switches.SwitchToExitCommand;
+import seedu.address.logic.commands.switches.SwitchToHomeCommand;
+import seedu.address.logic.commands.switches.SwitchToOpenCommand;
 import seedu.address.logic.commands.switches.SwitchToSettingsCommand;
+import seedu.address.logic.commands.switches.SwitchToStartCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.parser.game.GuessCommandParser;
 import seedu.address.logic.parser.home.BankCommandParser;
@@ -87,15 +87,16 @@ public class ParserManager {
         this.mode = ModeEnum.HOME;
         this.gameIsOver = true;
         this.switchParser = new SpecificModeParser();
-        switchParser.add(OpenCommand.class, null);
-        switchParser.add(HomeCommand.class, null);
-        switchParser.add(StartCommand.class, StartCommandParser.class);
+        switchParser.add(SwitchToOpenCommand.class, null);
+        switchParser.add(SwitchToHomeCommand.class, null);
+        switchParser.add(SwitchToStartCommand.class, StartCommandParser.class);
         switchParser.add(SwitchToSettingsCommand.class, null);
         this.currentParser = setCurrentParser(this.mode);
     }
 
     /**
      * Gets current mode from internal state.
+     *
      * @return ModeEnum representing current mode
      */
     public ModeEnum getMode() {
@@ -104,6 +105,7 @@ public class ParserManager {
 
     /**
      * Constructs and returns a SpecificModeParser matching mode parameter.
+     *
      * @param mode current mode
      * @return SpecificModeParser that matches mode
      */
@@ -118,26 +120,29 @@ public class ParserManager {
             temp.add(FindCommand.class, FindCommandParser.class);
             temp.add(ClearCommand.class, null);
             temp.add(ListCommand.class, null);
+            temp.add(SwitchToExitCommand.class, null);
             return temp;
         case HOME:
             temp.add(BankCommand.class, BankCommandParser.class);
-            temp.add(ExitCommand.class, null);
             temp.add(ImportCommand.class, ImportCommandParser.class);
             temp.add(ExportCommand.class, ExportCommandParser.class);
             temp.add(CreateCommand.class, CreateCommandParser.class);
             temp.add(RemoveCommand.class, RemoveCommandParser.class);
             temp.add(HelpCommand.class, null);
+            temp.add(SwitchToExitCommand.class, null);
             return temp;
         case SETTINGS:
             temp.add(DifficultyCommand.class, DifficultyCommandParser.class);
             temp.add(HintsCommand.class, HintsCommandParser.class);
             temp.add(ThemeCommand.class, ThemeCommandParser.class);
             temp.add(AvatarCommand.class, AvatarCommandParser.class);
+            temp.add(SwitchToExitCommand.class, null);
             return temp;
         case GAME:
             temp.add(GuessCommand.class, GuessCommandParser.class);
             temp.add(SkipCommand.class, null);
             temp.add(StopCommand.class, null);
+            temp.add(SwitchToExitCommand.class, null);
             return temp;
         default:
             return null;
@@ -147,6 +152,7 @@ public class ParserManager {
 
     /**
      * Updates the current state of ParserManager based on input booleans.
+     *
      * @param bankLoaded if bank is loaded
      * @param gameIsOver if game is over
      */
@@ -157,6 +163,7 @@ public class ParserManager {
 
     /**
      * Gets AutoFillAction objects based on input string.
+     *
      * @param input current user input
      * @return List of AutoFillActions
      */
@@ -201,6 +208,7 @@ public class ParserManager {
 
     /**
      * Gets a list of modes available to switch to based on internal state
+     *
      * @return a list of ModeEnum
      */
     public List<ModeEnum> getModes() {

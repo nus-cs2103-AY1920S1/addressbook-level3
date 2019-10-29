@@ -242,11 +242,6 @@ public class DifficultyCommandTest {
         }
 
         @Override
-        public ObservableList<WordBank> getFilteredWordBankList() {
-            return null;
-        }
-
-        @Override
         public WordBankList getWordBankList() {
             return null;
         }

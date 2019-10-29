@@ -16,8 +16,8 @@ import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.commands.switches.HomeCommand;
-import seedu.address.logic.commands.switches.OpenCommand;
+import seedu.address.logic.commands.switches.SwitchToHomeCommand;
+import seedu.address.logic.commands.switches.SwitchToOpenCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -65,6 +65,7 @@ public class LogicManagerTest {
         assertParseException(invalidCommand, MESSAGE_UNKNOWN_COMMAND);
     }
 
+
     @Test
     public void execute_commandExecutionError_throwsCommandException() {
         String bankCommand =
@@ -76,12 +77,12 @@ public class LogicManagerTest {
     public void execute_validCommand_success() throws Exception {
         String bankSample = "bank sample";
         logic.execute(bankSample);
-        String homeCommand = HomeCommand.COMMAND_WORD;
-        String openCommand = OpenCommand.COMMAND_WORD;
+        String homeCommand = SwitchToHomeCommand.COMMAND_WORD;
+        String openCommand = SwitchToOpenCommand.COMMAND_WORD;
         CommandResult homeResult = logic.execute(homeCommand);
-        assertEquals(HomeCommand.MESSAGE_HOME_ACKNOWLEDGEMENT, homeResult.getFeedbackToUser());
+        assertEquals(SwitchToHomeCommand.MESSAGE_HOME_ACKNOWLEDGEMENT, homeResult.getFeedbackToUser());
         CommandResult openResult = logic.execute(openCommand);
-        assertEquals(OpenCommand.MESSAGE_HOME_ACKNOWLEDGEMENT, openResult.getFeedbackToUser());
+        assertEquals(SwitchToOpenCommand.MESSAGE_HOME_ACKNOWLEDGEMENT, openResult.getFeedbackToUser());
         assertEquals(model, model);
     }
 

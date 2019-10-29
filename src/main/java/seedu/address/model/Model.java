@@ -121,11 +121,6 @@ public interface Model {
      */
     ObservableList<Card> getFilteredCardList();
 
-    /**
-     * Returns an unmodifiable view of the filtered card list
-     */
-    ObservableList<WordBank> getFilteredWordBankList();
-
     WordBankList getWordBankList();
 
     WordBankStatisticsList getWordBankStatisticsList();

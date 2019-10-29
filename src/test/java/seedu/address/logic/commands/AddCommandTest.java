@@ -278,11 +278,6 @@ public class AddCommandTest {
         }
 
         @Override
-        public ObservableList<WordBank> getFilteredWordBankList() {
-            return null;
-        }
-
-        @Override
         public WordBankList getWordBankList() {
             return null;
         }

@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.commands.switches.StartCommand;
+import seedu.address.logic.commands.switches.SwitchToStartCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.appsettings.DifficultyEnum;
 
@@ -38,7 +38,7 @@ class StartCommandParserTest {
         dummyParser = new StartCommandParser();
 
         try {
-            StartCommand successResult = dummyParser.parse(DifficultyEnum.EASY.name() + " ");
+            SwitchToStartCommand successResult = dummyParser.parse(DifficultyEnum.EASY.name() + " ");
             assertEquals(successResult.getDifficulty().get(), DifficultyEnum.EASY);
         } catch (ParseException e) {
             e.printStackTrace();
@@ -50,7 +50,7 @@ class StartCommandParserTest {
     void parse_mixedCaseValidInput_success() {
         dummyParser = new StartCommandParser();
         try {
-            StartCommand successResult = dummyParser.parse("eaSy");
+            SwitchToStartCommand successResult = dummyParser.parse("eaSy");
             assertEquals(successResult.getDifficulty().get(), DifficultyEnum.EASY);
         } catch (ParseException e) {
             e.printStackTrace();
@@ -62,7 +62,7 @@ class StartCommandParserTest {
     void parse_trailingWhiteSpaceValidInput_success() {
         dummyParser = new StartCommandParser();
         try {
-            StartCommand successResult = dummyParser.parse(DifficultyEnum.MEDIUM.name() + "    ");
+            SwitchToStartCommand successResult = dummyParser.parse(DifficultyEnum.MEDIUM.name() + "    ");
             assertEquals(successResult.getDifficulty().get(), DifficultyEnum.MEDIUM);
         } catch (ParseException e) {
             e.printStackTrace();
@@ -74,7 +74,7 @@ class StartCommandParserTest {
     void parse_leadingWhiteSpaceValidInput_success() {
         dummyParser = new StartCommandParser();
         try {
-            StartCommand successResult = dummyParser.parse(" " + DifficultyEnum.HARD.name());
+            SwitchToStartCommand successResult = dummyParser.parse(" " + DifficultyEnum.HARD.name());
             assertEquals(successResult.getDifficulty().get(), DifficultyEnum.HARD);
         } catch (ParseException e) {
             e.printStackTrace();
@@ -86,7 +86,7 @@ class StartCommandParserTest {
     void parse_noDifficultySpecified() {
         dummyParser = new StartCommandParser();
         try {
-            StartCommand successResult = dummyParser.parse("");
+            SwitchToStartCommand successResult = dummyParser.parse("");
             assertTrue(successResult.getDifficulty().isEmpty());
         } catch (ParseException e) {
             e.printStackTrace();

@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.commands.switches.OpenCommand;
+import seedu.address.logic.commands.switches.SwitchToOpenCommand;
 
 class ClassPairTest {
 
@@ -13,12 +13,12 @@ class ClassPairTest {
 
     @BeforeEach
     void setUp() {
-        classPair = new ClassPair(OpenCommand.class, null);
+        classPair = new ClassPair(SwitchToOpenCommand.class, null);
     }
 
     @Test
     void getCommand() {
-        assertTrue(classPair.getCommand() == OpenCommand.class);
+        assertTrue(classPair.getCommand() == SwitchToOpenCommand.class);
     }
 
     @Test

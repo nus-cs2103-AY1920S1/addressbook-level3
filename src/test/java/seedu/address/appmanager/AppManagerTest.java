@@ -27,7 +27,6 @@ import seedu.address.model.card.Card;
 import seedu.address.model.card.FormattedHint;
 import seedu.address.model.globalstatistics.GlobalStatistics;
 import seedu.address.model.wordbank.ReadOnlyWordBank;
-import seedu.address.model.wordbank.WordBank;
 import seedu.address.model.wordbankstatslist.WordBankStatisticsList;
 import seedu.address.statistics.GameStatistics;
 import seedu.address.statistics.GameStatisticsBuilder;
@@ -216,12 +215,7 @@ class AppManagerTest {
         }
 
         @Override
-        public ObservableList<WordBank> getFilteredWordBankList() {
-            return null;
-        }
-
-        @Override
-        public Path getAddressBookFilePath() {
+        public Path getWordBanksFilePath() {
             return null;
         }
 

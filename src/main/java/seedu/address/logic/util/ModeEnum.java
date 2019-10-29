@@ -24,5 +24,10 @@ public enum ModeEnum {
         public String toString() {
             return "settings";
         }
+    },
+    Exit {
+        public String toString() {
+            return "exit";
+        }
     }
 }

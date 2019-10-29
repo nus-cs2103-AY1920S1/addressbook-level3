@@ -3,7 +3,7 @@ package seedu.address.logic.commands.switches;
 import seedu.address.logic.commands.CommandResult;
 
 /**
- * Represents the command result returned by {@code StartCommand}.
+ * Represents the command result returned by {@code SwitchToStartCommand}.
  * Used mainly to pass the info of the title to the GameManager.
  */
 public class StartCommandResult extends CommandResult {

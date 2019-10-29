@@ -2,7 +2,6 @@ package seedu.address.logic.commands.cardcommands;
 
 import static java.util.Objects.requireNonNull;
 
-import seedu.address.logic.commands.CardCommand;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.Model;
 
@@ -25,6 +24,6 @@ public class ClearCommand extends CardCommand {
         requireNonNull(model);
         model.clearWordBank();
         model.clearWordBankStatistics();
-        return new CommandResult(MESSAGE_SUCCESS);
+        return new CardCommandResult(MESSAGE_SUCCESS);
     }
 }
