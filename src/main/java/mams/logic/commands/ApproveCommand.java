@@ -2,6 +2,7 @@ package mams.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -18,6 +19,11 @@ import mams.model.student.Credits;
 import mams.model.student.Student;
 import mams.model.tag.Tag;
 
+import static mams.logic.commands.SetCredits.MESSAGE_CREDIT_CHANGE_SUCCESS;
+import static mams.logic.commands.AddModCommand.MESSAGE_ADD_MOD_SUCCESS;
+import static mams.logic.commands.RemoveModCommand.MESSAGE_REMOVE_MOD_SUCCESS;
+import static mams.logic.commands.RemoveModCommand.MESSAGE_MISSING_MODULE;
+import static mams.logic.commands.AddModCommand.MESSAGE_DUPLICATE_MODULE;
 
 /**
  * Approves a appeal in mams.
@@ -54,7 +60,7 @@ public class ApproveCommand extends Approve {
             Module moduleToEdit;
             Module editedModule;
             String feedback = "";
-
+            String target = "";
             String moduleCode;
 
             List<Student> lastShownStudentList = model.getFilteredStudentList();
@@ -79,8 +85,11 @@ public class ApproveCommand extends Approve {
                             studentToEdit.getTags());
                 model.setStudent(studentToEdit, editedStudent);
                 model.updateFilteredStudentList(Model.PREDICATE_SHOW_ALL_STUDENTS);
-                return new CommandResult(String.format(Credits.MESSAGE_CREDIT_CHANGE_SUCCESS,
-                            editedStudent.getCredits().getIntVal()));
+                feedback += MESSAGE_CREDIT_CHANGE_SUCCESS;
+                target += studentToEditId;
+
+//                return new CommandResult(String.format(SetCredits.MESSAGE_CREDIT_CHANGE_SUCCESS,
+//                            editedStudent.getCredits().getIntVal()));
             } else if (appealType.equalsIgnoreCase("Drop module")) {
                 moduleCode = appealToApprove.getModuleToDrop();
                 List<Student> studentToCheckList = lastShownStudentList.stream()
@@ -101,6 +110,58 @@ public class ApproveCommand extends Approve {
                     throw new CommandException(MESSAGE_MISSING_MODULE);
                 }
 
+                Set<Tag> ret = new HashSet<>();
+                Set<Tag> studentAllTags = studentToEdit.getTags();
+                for (Tag tag : studentAllTags) {
+                    if (!tag.getTagName().equalsIgnoreCase(moduleCode)) {
+                        ret.add(tag);
+                    }
+                }
+
+                editedStudent = new Student(studentToEdit.getName(),
+                        studentToEdit.getCredits(),
+                        studentToEdit.getPrevMods(),
+                        studentToEdit.getMatricId(),
+                        ret);
+                model.setStudent(studentToEdit, editedStudent);
+                model.updateFilteredAppealList(Model.PREDICATE_SHOW_ALL_APPEALS);
+
+
+                model.updateFilteredStudentList(Model.PREDICATE_SHOW_ALL_STUDENTS);
+                feedback = MESSAGE_REMOVE_MOD_SUCCESS;
+
+
+            } else {
+                moduleCode = appealToApprove.getModuleToAdd();
+                List<Student> studentToCheckList = lastShownStudentList.stream()
+                        .filter(p -> p.getMatricId().toString().equals(studentToEditId)).collect(Collectors.toList());
+                if (studentToCheckList.isEmpty()) {
+                    throw new CommandException(Messages.MESSAGE_INVALID_STUDENT_MATRIC_ID);
+                }
+                studentToEdit = studentToCheckList.get(0);
+                //check if student already has module.
+                Set<Tag> studentModules = studentToEdit.getCurrentModules();
+                for (Tag tag : studentModules) {
+                    if (tag.getTagName().equalsIgnoreCase(moduleCode)) {
+                        throw new CommandException(MESSAGE_DUPLICATE_MODULE);
+                    }
+                }
+
+                //add module to student.
+                Set<Tag> ret = new HashSet<>();
+                Set<Tag> studentAllTags = studentToEdit.getTags();
+                for (Tag tag : studentAllTags) {
+                    ret.add(tag);
+                }
+                ret.add(new Tag(moduleCode));
+
+                editedStudent = new Student(studentToEdit.getName(),
+                        studentToEdit.getCredits(),
+                        studentToEdit.getPrevMods(),
+                        studentToEdit.getMatricId(),
+                        ret);
+                model.setStudent(studentToEdit, editedStudent);
+                feedback = MESSAGE_ADD_MOD_SUCCESS;
             }
 
 

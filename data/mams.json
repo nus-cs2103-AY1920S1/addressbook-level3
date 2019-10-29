@@ -1,7 +1,7 @@
 {
   "students" : [ {
     "name" : "Celina Conyers  ",
-    "credits" : "21",
+    "credits" : "20",
     "prevMods" : "CS1010, CS1020",
     "matricId" : "A0180000",
     "tagged" : [ "CS1231", "CS2030", "CS2040" ]
