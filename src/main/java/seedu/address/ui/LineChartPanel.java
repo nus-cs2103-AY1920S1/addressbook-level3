@@ -157,18 +157,21 @@ public class LineChartPanel extends UiPart<Region> {
                 Date noTimeDate = formatDateNoTime(date);
                 freqByDate.putIfAbsent(noTimeDate, 0);
             }
+            addBodiesToMapBeforeDate(weekList.get(6));
         } else if (timeFrame.equals("month")) {
             List<Date> monthList = getMonthList(date);
             for (Date date: monthList) {
                 Date noTimeDate = formatDateNoTime(date);
                 freqByDate.putIfAbsent(noTimeDate, 0);
             }
+            addBodiesToMapBeforeDate(monthList.get(monthList.size() - 1));
         } else if (timeFrame.equals("year")) {
             List<Date> yearList = getYearList(date);
             for (Date date: yearList) {
                 Date noTimeDate = formatDateNoTime(date);
                 freqByDate.putIfAbsent(noTimeDate, 0);
             }
+            addBodiesToMapBeforeDate(yearList.get(yearList.size() - 1));
         } else {
             Date now = new Date();
             Date tenDaysAgo = new Date(now.getTime() - (10 * DAY_IN_MS));
@@ -176,16 +179,21 @@ public class LineChartPanel extends UiPart<Region> {
                 Date noTimeDate = formatDateNoTime(date);
                 freqByDate.putIfAbsent(noTimeDate, 0);
             }
-        }
-
-        for (Body body: bodyList) {
-            Date noTimeDate = formatDateNoTime(body.getDateOfAdmission());
-            Number oldFreq = freqByDate.getOrDefault(noTimeDate, 0);
-            int newFreq = oldFreq.intValue() + 1;
-            freqByDate.put(noTimeDate, newFreq);
+            addBodiesToMapBeforeDate(now);
         }
     }
 
+    private void addBodiesToMapBeforeDate(Date date) throws ParseException {
+        for (Body body: bodyList) {
+            Date oneDayAfter = new Date(date.getTime() - (10 * DAY_IN_MS));
+            Date noTimeDate = formatDateNoTime(body.getDateOfAdmission());
+            Number oldFreq = freqByDate.getOrDefault(noTimeDate, 0);
+            int newFreq = oldFreq.intValue() + 1;
+            if (noTimeDate.before(oneDayAfter)) {
+                freqByDate.put(noTimeDate, newFreq);
+            }
+        }
+    }
     /**
      * Update the tree map upon a body being added - the frequency (value) associated with the date of admission (key)
      * will increase by one.
