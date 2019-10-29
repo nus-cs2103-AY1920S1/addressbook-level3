@@ -12,6 +12,7 @@ public class PrevMods {
 
     public static final String MESSAGE_CONSTRAINTS = "PrevMods should be comma seperated module codes ";
     public static final String VALIDATION_REGEX = "^([\\p{Alnum}&\\s]+,)+[\\p{Alnum}&\\s]+$";
+    public static final String VALIDATION_REGEX_SINGLE = "\\p{Alnum}+";
 
     public final String value;
 
@@ -30,7 +31,12 @@ public class PrevMods {
      * Returns if a given string is a valid prevMods.
      */
     public static boolean isValidPrevMods(String test) {
-        return test.matches(VALIDATION_REGEX);
+        if (test.matches(VALIDATION_REGEX) || test.matches(VALIDATION_REGEX_SINGLE)) {
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 
     @Override
