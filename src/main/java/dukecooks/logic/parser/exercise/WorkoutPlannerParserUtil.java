@@ -2,6 +2,9 @@ package dukecooks.logic.parser.exercise;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import dukecooks.commons.core.index.Index;
 import dukecooks.commons.util.StringUtil;
 import dukecooks.logic.parser.exceptions.ParseException;
@@ -65,6 +68,19 @@ public class WorkoutPlannerParserUtil {
         }
 
         return new MuscleType(trimmedMuscleType);
+    }
+
+    /**
+     * Parses a {@code List<String> muscle} into an {@code ArrayList<MuscleType>}.
+     *
+     * @throws ParseException if the given {@code muscle} is invalid.
+     */
+    public static ArrayList<MuscleType> parseSecondaryMuscle(List<String> secondaryMuscles) throws ParseException {
+        ArrayList<MuscleType> secondaryMusclesList = new ArrayList<>();
+        for (String secondaryMuscle : secondaryMuscles) {
+            secondaryMusclesList.add(parseMuscleType(secondaryMuscle));
+        }
+        return secondaryMusclesList;
     }
 
     /**

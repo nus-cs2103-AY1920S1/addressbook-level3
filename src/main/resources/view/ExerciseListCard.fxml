@@ -28,6 +28,7 @@
       </HBox>
       <FlowPane fx:id="details" />
       <Label fx:id="primaryMuscle" styleClass="cell_small_label" text="\$primaryMuscle" />
+      <Label fx:id="secondaryMuscles" styleClass="cell_small_label"/>
       <Label fx:id="intensity" styleClass="cell_small_label" text="\$intensity" />
     </VBox>
   </GridPane>

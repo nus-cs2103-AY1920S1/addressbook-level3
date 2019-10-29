@@ -29,7 +29,7 @@ import dukecooks.model.mealplan.MealPlanBook;
 import dukecooks.model.profile.UserProfile;
 import dukecooks.model.recipe.RecipeBook;
 import dukecooks.model.recipe.components.RecipeNameContainsKeywordsPredicate;
-import dukecooks.model.workout.exercise.WorkoutPlanner;
+import dukecooks.model.workout.WorkoutPlanner;
 import dukecooks.testutil.Assert;
 import dukecooks.testutil.dashboard.DashboardRecordBuilder;
 import dukecooks.testutil.diary.DiaryRecordBuilder;
