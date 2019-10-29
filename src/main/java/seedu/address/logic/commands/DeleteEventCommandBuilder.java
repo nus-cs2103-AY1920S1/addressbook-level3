@@ -4,11 +4,11 @@ import java.util.List;
 import java.util.Map;
 
 import seedu.address.logic.commands.arguments.IndexVariableArguments;
-import seedu.address.logic.commands.arguments.IndexVariableArgumentsBuilder;
 import seedu.address.logic.commands.arguments.StringVariableArguments;
-import seedu.address.logic.commands.arguments.StringVariableArgumentsBuilder;
-import seedu.address.logic.commands.options.Option;
-import seedu.address.logic.commands.options.OptionBuilder;
+import seedu.address.logic.commands.arguments.list.ArgumentList;
+import seedu.address.logic.commands.arguments.list.OptionalArgumentList;
+import seedu.address.logic.commands.arguments.list.RequiredArgumentList;
+import seedu.address.model.ModelManager;
 
 /**
  * Represents a CommandBuilder responsible for creating {@link DeleteEventCommand}.
@@ -20,34 +20,39 @@ class DeleteEventCommandBuilder extends CommandBuilder {
     private static final String ARGUMENT_INDEXES = "INDEXES";
     private static final String ARGUMENT_TAGS = "TAGS";
 
-    private final IndexVariableArgumentsBuilder indexes;
-    private final StringVariableArgumentsBuilder tags;
+    private final ModelManager model;
 
-    DeleteEventCommandBuilder() {
-        this.indexes = IndexVariableArguments.newBuilder(ARGUMENT_INDEXES);
-        this.tags = StringVariableArguments.newBuilder(ARGUMENT_TAGS);
+    private List<Integer> indexes;
+    private List<String> tags;
+
+    DeleteEventCommandBuilder(ModelManager model) {
+        this.model = model;
     }
 
     @Override
-    OptionBuilder getCommandArguments() {
-        return Option.newBuilder()
-            .setVariableArguments(this.indexes);
+    RequiredArgumentList defineCommandArguments() {
+        return ArgumentList.required()
+            .setVariableArguments(IndexVariableArguments.newBuilder(ARGUMENT_INDEXES, o -> this.indexes = o));
     }
 
     @Override
-    Map<String, OptionBuilder> getCommandOptions() {
+    Map<String, OptionalArgumentList> defineCommandOptions() {
         return Map.of(
-            OPTION_TAGS, Option.newBuilder()
-                .setVariableArguments(this.tags)
+            OPTION_TAGS, ArgumentList.optional()
+                .setVariableArguments(StringVariableArguments.newBuilder(ARGUMENT_TAGS, o -> this.tags = o))
         );
     }
 
+    ModelManager getModel() {
+        return model;
+    }
+
     List<Integer> getIndexes() {
-        return this.indexes.getValues();
+        return this.indexes;
     }
 
     List<String> getTags() {
-        return this.tags.getValues();
+        return this.tags;
     }
 
     @Override

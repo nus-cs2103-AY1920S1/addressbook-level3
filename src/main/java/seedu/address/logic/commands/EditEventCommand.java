@@ -8,18 +8,18 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-import javafx.collections.ObservableList;
-
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.Model;
-import seedu.address.model.events.DateTime;
+import seedu.address.model.DateTime;
+import seedu.address.model.ModelManager;
 import seedu.address.model.events.EventSource;
+import seedu.address.ui.UserOutput;
 
 /**
  * Represents a Command that edits EventSources in the Model.
  */
 public class EditEventCommand extends Command {
 
+    private final ModelManager model;
     private final List<Integer> indexes;
     private final String description;
     private final DateTime start;
@@ -28,6 +28,7 @@ public class EditEventCommand extends Command {
     private final List<String> tags;
 
     EditEventCommand(EditEventCommandBuilder builder) {
+        this.model = builder.getModel();
         this.indexes = Objects.requireNonNull(builder.getIndexes());
         this.description = builder.getDescription();
         this.start = builder.getStart();
@@ -36,13 +37,13 @@ public class EditEventCommand extends Command {
         this.tags = builder.getTags();
     }
 
-    public static CommandBuilder newBuilder() {
-        return new EditEventCommandBuilder().init();
+    public static CommandBuilder newBuilder(ModelManager model) {
+        return new EditEventCommandBuilder(model).init();
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
-        ObservableList<EventSource> list = model.getEventList().getReadOnlyList();
+    public UserOutput execute() throws CommandException {
+        List<EventSource> list = model.getEventList();
 
         List<EventSource> events = new ArrayList<>();
         for (Integer index : indexes) {
@@ -68,10 +69,12 @@ public class EditEventCommand extends Command {
                 start = this.start;
             }
 
-            model.setEvent(event, new EventSource(description, start));
+            EventSource replacement = EventSource.newBuilder(description, start)
+                .build();
+            model.replaceEvent(event, replacement);
         }
 
-        return new CommandResult(String.format(MESSAGE_EDIT_EVENT_SUCCESS, events.stream()
+        return new UserOutput(String.format(MESSAGE_EDIT_EVENT_SUCCESS, events.stream()
             .map(EventSource::getDescription)
             .collect(Collectors.joining(", "))));
     }

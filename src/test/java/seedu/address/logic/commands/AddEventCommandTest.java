@@ -9,7 +9,6 @@ import static seedu.address.logic.commands.AddEventCommandBuilder.OPTION_TAGS;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 
 class AddEventCommandTest {
@@ -22,7 +21,7 @@ class AddEventCommandTest {
         String remind = "11/11/1111 08:00";
         String[] tags = new String[]{"a", "b", "c"};
         assertDoesNotThrow(() -> {
-            AddEventCommand.newBuilder()
+            AddEventCommand.newBuilder(null)
                 .acceptSentence(description)
                 .acceptSentence(start)
                 .acceptSentence(OPTION_END_DATE_TIME)
@@ -42,18 +41,18 @@ class AddEventCommandTest {
         String description = "description";
         String start = "11/11/1111 11:00";
         assertDoesNotThrow(() -> {
-            Command command = AddEventCommand.newBuilder()
+            // TODO: Create stub
+            ModelManager model = new ModelManager();
+            assertEquals(model.getEventList().size(), 0);
+
+            Command command = AddEventCommand.newBuilder(model)
                 .acceptSentence(description)
                 .acceptSentence(start)
                 .build();
 
-            // TODO: Create stub
-            Model model = new ModelManager();
-            assertEquals(model.getEventList().getReadOnlyList().size(), 0);
-
             // TODO: Equality test
-            command.execute(model);
-            assertEquals(model.getEventList().getReadOnlyList().size(), 1);
+            command.execute();
+            assertEquals(model.getEventList().size(), 1);
         });
     }
 }

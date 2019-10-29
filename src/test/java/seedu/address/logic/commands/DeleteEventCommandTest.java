@@ -5,14 +5,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static seedu.address.logic.commands.DeleteEventCommandBuilder.OPTION_TAGS;
 
-import java.time.Instant;
-
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.Model;
+import seedu.address.model.DateTime;
 import seedu.address.model.ModelManager;
-import seedu.address.model.events.DateTime;
 import seedu.address.model.events.EventSource;
 
 class DeleteEventCommandTest {
@@ -22,7 +19,7 @@ class DeleteEventCommandTest {
         String[] indexes = new String[]{"1", "2", "3"};
         String[] tags = new String[]{"a", "b", "c"};
         assertDoesNotThrow(() -> {
-            DeleteEventCommand.newBuilder()
+            DeleteEventCommand.newBuilder(null)
                 .acceptSentence(indexes[0])
                 .acceptSentence(indexes[1])
                 .acceptSentence(indexes[2])
@@ -38,14 +35,14 @@ class DeleteEventCommandTest {
     void execute_requiredCommand_success() {
         // TODO: This should throw an exception
         assertDoesNotThrow(() -> {
-            Command command = DeleteEventCommand.newBuilder()
+            ModelManager model = new ModelManager();
+            assertEquals(model.getEventList().size(), 0);
+
+            Command command = DeleteEventCommand.newBuilder(model)
                 .build();
 
-            Model model = new ModelManager();
-            assertEquals(model.getEventList().getReadOnlyList().size(), 0);
-
-            command.execute(model);
-            assertEquals(model.getEventList().getReadOnlyList().size(), 0);
+            command.execute();
+            assertEquals(model.getEventList().size(), 0);
         });
     }
 
@@ -53,18 +50,19 @@ class DeleteEventCommandTest {
     void execute_deleteOne_success() {
         String index = "2";
         assertDoesNotThrow(() -> {
-            Command command = DeleteEventCommand.newBuilder()
+            ModelManager model = new ModelManager();
+            model.addEvents(
+                EventSource.newBuilder("a", DateTime.now()).build(),
+                EventSource.newBuilder("b", DateTime.now()).build(),
+                EventSource.newBuilder("c", DateTime.now()).build());
+            assertEquals(model.getEventList().size(), 3);
+
+            Command command = DeleteEventCommand.newBuilder(model)
                 .acceptSentence(index)
                 .build();
 
-            Model model = new ModelManager();
-            model.addEvent(new EventSource("a", new DateTime(Instant.now())));
-            model.addEvent(new EventSource("b", new DateTime(Instant.now())));
-            model.addEvent(new EventSource("c", new DateTime(Instant.now())));
-            assertEquals(model.getEventList().getReadOnlyList().size(), 3);
-
-            command.execute(model);
-            assertEquals(model.getEventList().getReadOnlyList().size(), 2);
+            command.execute();
+            assertEquals(model.getEventList().size(), 2);
         });
     }
 
@@ -73,14 +71,14 @@ class DeleteEventCommandTest {
         String[] indexes = new String[]{"-1", "0", "1"};
         for (String index : indexes) {
             assertThrows(CommandException.class, () -> {
-                Command command = DeleteEventCommand.newBuilder()
+                ModelManager model = new ModelManager();
+                assertEquals(model.getEventList().size(), 0);
+
+                Command command = DeleteEventCommand.newBuilder(model)
                     .acceptSentence(index)
                     .build();
 
-                Model model = new ModelManager();
-                assertEquals(model.getEventList().getReadOnlyList().size(), 0);
-
-                command.execute(model);
+                command.execute();
             });
         }
     }
@@ -89,22 +87,24 @@ class DeleteEventCommandTest {
     void execute_deleteMultiple_success() {
         String[] indexes = new String[]{"2", "3", "4"};
         assertDoesNotThrow(() -> {
-            Command command = DeleteEventCommand.newBuilder()
+            ModelManager model = new ModelManager();
+            model.addEvents(
+                EventSource.newBuilder("a", DateTime.now()).build(),
+                EventSource.newBuilder("b", DateTime.now()).build(),
+                EventSource.newBuilder("c", DateTime.now()).build(),
+                EventSource.newBuilder("d", DateTime.now()).build(),
+                EventSource.newBuilder("e", DateTime.now()).build()
+            );
+            assertEquals(model.getEventList().size(), 5);
+
+            Command command = DeleteEventCommand.newBuilder(model)
                 .acceptSentence(indexes[0])
                 .acceptSentence(indexes[1])
                 .acceptSentence(indexes[2])
                 .build();
 
-            Model model = new ModelManager();
-            model.addEvent(new EventSource("a", new DateTime(Instant.now())));
-            model.addEvent(new EventSource("b", new DateTime(Instant.now())));
-            model.addEvent(new EventSource("c", new DateTime(Instant.now())));
-            model.addEvent(new EventSource("d", new DateTime(Instant.now())));
-            model.addEvent(new EventSource("e", new DateTime(Instant.now())));
-            assertEquals(model.getEventList().getReadOnlyList().size(), 5);
-
-            command.execute(model);
-            assertEquals(model.getEventList().getReadOnlyList().size(), 2);
+            command.execute();
+            assertEquals(model.getEventList().size(), 2);
         });
     }
 
@@ -112,18 +112,20 @@ class DeleteEventCommandTest {
     void execute_deleteMultipleInvalidIndexes_failed() {
         String[] indexes = new String[]{"1", "2", "3"};
         assertThrows(CommandException.class, () -> {
-            Command command = DeleteEventCommand.newBuilder()
+            ModelManager model = new ModelManager();
+            model.addEvents(
+                EventSource.newBuilder("a", DateTime.now()).build(),
+                EventSource.newBuilder("b", DateTime.now()).build()
+            );
+            assertEquals(model.getEventList().size(), 2);
+
+            Command command = DeleteEventCommand.newBuilder(model)
                 .acceptSentence(indexes[0])
                 .acceptSentence(indexes[1])
                 .acceptSentence(indexes[2])
                 .build();
 
-            Model model = new ModelManager();
-            model.addEvent(new EventSource("a", new DateTime(Instant.now())));
-            model.addEvent(new EventSource("b", new DateTime(Instant.now())));
-            assertEquals(model.getEventList().getReadOnlyList().size(), 2);
-
-            command.execute(model);
+            command.execute();
         });
     }
 }

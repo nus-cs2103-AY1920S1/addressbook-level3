@@ -1,184 +1,105 @@
 package seedu.address;
 
-import java.io.IOException;
-import java.nio.file.Path;
-import java.util.Optional;
 import java.util.logging.Logger;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
-import seedu.address.commons.core.Config;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.Version;
-import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.commons.util.ConfigUtil;
-import seedu.address.commons.util.StringUtil;
-import seedu.address.logic.Logic;
-import seedu.address.logic.LogicManager;
-import seedu.address.model.AddressBook;
-import seedu.address.model.Model;
+import seedu.address.logic.CommandManager;
+import seedu.address.logic.NotificationManager;
+import seedu.address.logic.UiManager;
+import seedu.address.logic.commands.AddEventCommand;
+import seedu.address.logic.commands.AddTaskCommand;
+import seedu.address.logic.commands.DayViewCommand;
+import seedu.address.logic.commands.DeleteEventCommand;
+import seedu.address.logic.commands.EditEventCommand;
+import seedu.address.logic.commands.ExportIcsCommand;
+import seedu.address.logic.commands.ImportIcsCommand;
+import seedu.address.logic.commands.MonthViewCommand;
+import seedu.address.logic.commands.NotificationOffCommand;
+import seedu.address.logic.commands.NotificationOnCommand;
+import seedu.address.logic.commands.RedoCommand;
+import seedu.address.logic.commands.UndoCommand;
+import seedu.address.logic.commands.WeekViewCommand;
 import seedu.address.model.ModelManager;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.ReadOnlyUserPrefs;
-import seedu.address.model.UserPrefs;
-import seedu.address.model.events.EventList;
-import seedu.address.model.util.SampleDataUtil;
-import seedu.address.storage.AddressBookStorage;
-import seedu.address.storage.JsonAddressBookStorage;
-import seedu.address.storage.JsonUserPrefsStorage;
-import seedu.address.storage.Storage;
-import seedu.address.storage.StorageManager;
-import seedu.address.storage.UserPrefsStorage;
-import seedu.address.ui.Ui;
-import seedu.address.ui.UiManager;
+import seedu.address.model.undo.UndoRedoManager;
 
 /**
  * Runs the application.
  */
 public class MainApp extends Application {
 
-    public static final Version VERSION = new Version(0, 6, 0, true);
-
+    private static final Version VERSION = new Version(0, 6, 0, true);
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);
 
-    protected Ui ui;
-    protected Logic logic;
-    protected Storage storage;
-    protected Model model;
-    protected Config config;
+    private static final String COMMAND_ADD_EVENT = "add_event";
+    private static final String COMMAND_DELETE_EVENT = "delete_event";
+    private static final String COMMAND_EDIT_EVENT = "edit_event";
+    private static final String COMMAND_ADD_TASK = "add_task";
+    private static final String COMMAND_UNDO = "undo";
+    private static final String COMMAND_REDO = "redo";
+    private static final String COMMAND_IMPORT_ICS = "import";
+    private static final String COMMAND_EXPORT_ICS = "export";
+    private static final String COMMAND_NOTIFICATION_OFF = "notif_off";
+    private static final String COMMAND_NOTIFICATION_ON = "notif_on";
+    private static final String COMMAND_DAY_VIEW = "day";
+    private static final String COMMAND_WEEK_VIEW = "week";
+    private static final String COMMAND_MONTH_VIEW = "month";
+
+    private UiManager uiManager;
 
     @Override
     public void init() throws Exception {
         logger.info("=============================[ Initializing AddressBook ]===========================");
         super.init();
 
-        AppParameters appParameters = AppParameters.parse(getParameters());
-        config = initConfig(appParameters.getConfigPath());
+        CommandManager commandManager = new CommandManager();
+        ModelManager modelManager = new ModelManager();
+        NotificationManager notificationManager = new NotificationManager(modelManager);
+        uiManager = new UiManager();
+        UndoRedoManager undoRedoManager = new UndoRedoManager();
 
-        UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
-        UserPrefs userPrefs = initPrefs(userPrefsStorage);
-        AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
-        storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        // Register commands to CommandManager.
+        commandManager.addCommand(COMMAND_ADD_EVENT, () -> AddEventCommand.newBuilder(modelManager));
+        commandManager.addCommand(COMMAND_DELETE_EVENT, () -> DeleteEventCommand.newBuilder(modelManager));
+        commandManager.addCommand(COMMAND_EDIT_EVENT, () -> EditEventCommand.newBuilder(modelManager));
+        commandManager.addCommand(COMMAND_ADD_TASK, () -> AddTaskCommand.newBuilder(modelManager));
+        commandManager.addCommand(COMMAND_UNDO, () -> UndoCommand.newBuilder(undoRedoManager));
+        commandManager.addCommand(COMMAND_REDO, () -> RedoCommand.newBuilder(undoRedoManager));
+        commandManager.addCommand(COMMAND_IMPORT_ICS, () -> ImportIcsCommand.newBuilder(modelManager));
+        commandManager.addCommand(COMMAND_EXPORT_ICS, () -> ExportIcsCommand.newBuilder(modelManager));
+        commandManager.addCommand(COMMAND_NOTIFICATION_OFF, () ->
+            NotificationOffCommand.newBuilder(notificationManager));
+        commandManager.addCommand(COMMAND_NOTIFICATION_ON, () ->
+            NotificationOnCommand.newBuilder(notificationManager));
+        commandManager.addCommand(COMMAND_DAY_VIEW, () -> DayViewCommand.newBuilder(uiManager));
+        commandManager.addCommand(COMMAND_WEEK_VIEW, () -> WeekViewCommand.newBuilder(uiManager));
+        commandManager.addCommand(COMMAND_MONTH_VIEW, () -> MonthViewCommand.newBuilder(uiManager));
 
-        initLogging(config);
+        // Add Listeners
+        commandManager.addUserOutputListener(uiManager);
 
-        model = initModelManager(storage, userPrefs);
+        modelManager.addEventListListener(uiManager);
+        modelManager.addEventListListener(undoRedoManager);
 
-        logic = new LogicManager(model, storage);
+        modelManager.addTaskListListener(uiManager);
+        modelManager.addTaskListListener(undoRedoManager);
 
-        ui = new UiManager(logic);
-    }
+        uiManager.addCommandInputListener(commandManager);
 
-    /**
-     * Returns a {@code ModelManager} with the data from {@code storage}'s address book and {@code userPrefs}. <br>
-     * The data from the sample address book will be used instead if {@code storage}'s address book is not found,
-     * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
-     */
-    private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-        Optional<ReadOnlyAddressBook> addressBookOptional;
-        ReadOnlyAddressBook initialData;
-        try {
-            addressBookOptional = storage.readAddressBook();
-            if (!addressBookOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with a sample AddressBook");
-            }
-            initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
-        } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
-            initialData = new AddressBook();
-        } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
-            initialData = new AddressBook();
-        }
-
-        return new ModelManager(initialData, new EventList(), userPrefs);
-    }
-
-    private void initLogging(Config config) {
-        LogsCenter.init(config);
-    }
-
-    /**
-     * Returns a {@code Config} using the file at {@code configFilePath}. <br>
-     * The default file path {@code Config#DEFAULT_CONFIG_FILE} will be used instead
-     * if {@code configFilePath} is null.
-     */
-    protected Config initConfig(Path configFilePath) {
-        Config initializedConfig;
-        Path configFilePathUsed;
-
-        configFilePathUsed = Config.DEFAULT_CONFIG_FILE;
-
-        if (configFilePath != null) {
-            logger.info("Custom Config file specified " + configFilePath);
-            configFilePathUsed = configFilePath;
-        }
-
-        logger.info("Using config file : " + configFilePathUsed);
-
-        try {
-            Optional<Config> configOptional = ConfigUtil.readConfig(configFilePathUsed);
-            initializedConfig = configOptional.orElse(new Config());
-        } catch (DataConversionException e) {
-            logger.warning("Config file at " + configFilePathUsed + " is not in the correct format. "
-                    + "Using default config properties");
-            initializedConfig = new Config();
-        }
-
-        //Update config file in case it was missing to begin with or there are new/unused fields
-        try {
-            ConfigUtil.saveConfig(initializedConfig, configFilePathUsed);
-        } catch (IOException e) {
-            logger.warning("Failed to save config file : " + StringUtil.getDetails(e));
-        }
-        return initializedConfig;
-    }
-
-    /**
-     * Returns a {@code UserPrefs} using the file at {@code storage}'s user prefs file path,
-     * or a new {@code UserPrefs} with default configuration if errors occur when
-     * reading from the file.
-     */
-    protected UserPrefs initPrefs(UserPrefsStorage storage) {
-        Path prefsFilePath = storage.getUserPrefsFilePath();
-        logger.info("Using prefs file : " + prefsFilePath);
-
-        UserPrefs initializedPrefs;
-        try {
-            Optional<UserPrefs> prefsOptional = storage.readUserPrefs();
-            initializedPrefs = prefsOptional.orElse(new UserPrefs());
-        } catch (DataConversionException e) {
-            logger.warning("UserPrefs file at " + prefsFilePath + " is not in the correct format. "
-                    + "Using default user prefs");
-            initializedPrefs = new UserPrefs();
-        } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
-            initializedPrefs = new UserPrefs();
-        }
-
-        //Update prefs file in case it was missing to begin with or there are new/unused fields
-        try {
-            storage.saveUserPrefs(initializedPrefs);
-        } catch (IOException e) {
-            logger.warning("Failed to save config file : " + StringUtil.getDetails(e));
-        }
-
-        return initializedPrefs;
+        undoRedoManager.addUndoRedoListener(modelManager);
     }
 
     @Override
     public void start(Stage primaryStage) {
         logger.info("Starting AddressBook " + MainApp.VERSION);
-        ui.start(primaryStage);
+        uiManager.start(primaryStage);
     }
 
     @Override
     public void stop() {
         logger.info("============================ [ Stopping Address Book ] =============================");
-        try {
-            storage.saveUserPrefs(model.getUserPrefs());
-        } catch (IOException e) {
-            logger.severe("Failed to save preferences " + StringUtil.getDetails(e));
-        }
+        System.exit(0);
     }
 }

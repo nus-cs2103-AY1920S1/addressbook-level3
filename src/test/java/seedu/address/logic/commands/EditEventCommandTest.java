@@ -9,14 +9,11 @@ import static seedu.address.logic.commands.EditEventCommandBuilder.OPTION_REMIND
 import static seedu.address.logic.commands.EditEventCommandBuilder.OPTION_START_DATE_TIME;
 import static seedu.address.logic.commands.EditEventCommandBuilder.OPTION_TAGS;
 
-import java.time.Instant;
-
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.Model;
+import seedu.address.model.DateTime;
 import seedu.address.model.ModelManager;
-import seedu.address.model.events.DateTime;
 import seedu.address.model.events.EventSource;
 
 class EditEventCommandTest {
@@ -30,7 +27,7 @@ class EditEventCommandTest {
         String remind = "11/11/1111 08:00";
         String[] tags = new String[]{"a", "b", "c"};
         assertDoesNotThrow(() -> {
-            EditEventCommand.newBuilder()
+            EditEventCommand.newBuilder(null)
                 .acceptSentence(indexes[0])
                 .acceptSentence(indexes[1])
                 .acceptSentence(indexes[2])
@@ -54,21 +51,25 @@ class EditEventCommandTest {
     void execute_requiredCommand_success() {
         String[] indexes = new String[]{"1", "2", "3"};
         assertDoesNotThrow(() -> {
-            Command command = EditEventCommand.newBuilder()
+
+            ModelManager model = new ModelManager();
+            model.addEvents(
+                EventSource.newBuilder("a", DateTime.now()).build(),
+                EventSource.newBuilder("b", DateTime.now()).build(),
+                EventSource.newBuilder("c", DateTime.now()).build()
+            );
+
+            Command command = EditEventCommand.newBuilder(model)
                 .acceptSentence(indexes[0])
                 .acceptSentence(indexes[1])
                 .acceptSentence(indexes[2])
                 .build();
 
-            Model model = new ModelManager();
-            model.addEvent(new EventSource("a", new DateTime(Instant.now())));
-            model.addEvent(new EventSource("b", new DateTime(Instant.now())));
-            model.addEvent(new EventSource("c", new DateTime(Instant.now())));
-            assertEquals(model.getEventList().getReadOnlyList().size(), 3);
+            assertEquals(model.getEventList().size(), 3);
 
             // TODO: Equality test
-            command.execute(model);
-            assertEquals(model.getEventList().getReadOnlyList().size(), 3);
+            command.execute();
+            assertEquals(model.getEventList().size(), 3);
         });
     }
 
@@ -77,14 +78,14 @@ class EditEventCommandTest {
         String[] indexes = new String[]{"-1", "0", "1"};
         for (String index : indexes) {
             assertThrows(CommandException.class, () -> {
-                Command command = EditEventCommand.newBuilder()
+                ModelManager model = new ModelManager();
+                assertEquals(model.getEventList().size(), 0);
+
+                Command command = EditEventCommand.newBuilder(model)
                     .acceptSentence(index)
                     .build();
 
-                Model model = new ModelManager();
-                assertEquals(model.getEventList().getReadOnlyList().size(), 0);
-
-                command.execute(model);
+                command.execute();
             });
         }
     }
@@ -93,18 +94,20 @@ class EditEventCommandTest {
     void execute_editMultipleInvalidIndex_failed() {
         String[] indexes = new String[]{"1", "2", "3"};
         assertThrows(CommandException.class, () -> {
-            Command command = EditEventCommand.newBuilder()
+            ModelManager model = new ModelManager();
+            model.addEvents(
+                EventSource.newBuilder("a", DateTime.now()).build(),
+                EventSource.newBuilder("b", DateTime.now()).build()
+            );
+            assertEquals(model.getEventList().size(), 2);
+
+            Command command = EditEventCommand.newBuilder(model)
                 .acceptSentence(indexes[0])
                 .acceptSentence(indexes[1])
                 .acceptSentence(indexes[2])
                 .build();
 
-            Model model = new ModelManager();
-            model.addEvent(new EventSource("a", new DateTime(Instant.now())));
-            model.addEvent(new EventSource("b", new DateTime(Instant.now())));
-            assertEquals(model.getEventList().getReadOnlyList().size(), 2);
-
-            command.execute(model);
+            command.execute();
         });
     }
 }

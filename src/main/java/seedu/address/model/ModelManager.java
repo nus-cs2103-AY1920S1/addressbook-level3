@@ -1,194 +1,186 @@
 package seedu.address.model;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
-import java.nio.file.Path;
-
-import java.util.function.Predicate;
-import java.util.logging.Logger;
-
-import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
-
-import seedu.address.commons.core.GuiSettings;
-import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.events.EventList;
 import seedu.address.model.events.EventSource;
-import seedu.address.model.events.ReadOnlyEventList;
-import seedu.address.model.person.Person;
+import seedu.address.model.listeners.EventListListener;
+import seedu.address.model.listeners.TaskListListener;
+import seedu.address.model.listeners.UndoRedoListener;
+import seedu.address.model.tasks.TaskSource;
+import seedu.address.model.undo.UndoRedoState;
 
 /**
- * Represents the in-memory model of the address book data.
+ * Represents the in-memory model of Horo.
  */
-public class ModelManager implements Model {
-    private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
-
-    private final AddressBook addressBook;
-    private final EventList eventList;
-    private final UserPrefs userPrefs;
-    private final FilteredList<Person> filteredPersons;
+public class ModelManager implements UndoRedoListener {
+    private final NotNullList<EventSource> eventList;
+    private final List<EventListListener> eventListListeners;
+    private final NotNullList<TaskSource> taskList;
+    private final List<TaskListListener> taskListListeners;
 
     /**
-     * Initializes a ModelManager with the given addressBook and userPrefs.
+     * Creates a ModelManager.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyEventList eventList, ReadOnlyUserPrefs userPrefs) {
-        super();
-        requireAllNonNull(addressBook, userPrefs);
-
-        logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
-
-        this.addressBook = new AddressBook(addressBook);
-        this.eventList = new EventList(eventList);
-        this.userPrefs = new UserPrefs(userPrefs);
-        filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
-    }
-
     public ModelManager() {
-        this(new AddressBook(), new EventList(), new UserPrefs());
+        super();
+        this.eventList = new NotNullList<>();
+        this.eventListListeners = new ArrayList<>();
+        this.taskList = new NotNullList<>();
+        this.taskListListeners = new ArrayList<>();
     }
 
-    //=========== UserPrefs ==================================================================================
-
-    @Override
-    public ReadOnlyUserPrefs getUserPrefs() {
-        return userPrefs;
+    public void addEventListListener(EventListListener listener) {
+        this.eventListListeners.add(listener);
     }
 
-    @Override
-    public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
-        requireNonNull(userPrefs);
-        this.userPrefs.resetData(userPrefs);
+    public void addTaskListListener(TaskListListener listener) {
+        this.taskListListeners.add(listener);
     }
 
-    @Override
-    public GuiSettings getGuiSettings() {
-        return userPrefs.getGuiSettings();
+    /* Events */
+
+    /**
+     * Adds EventSource(s) to this model's eventList.
+     * @param events the EventSource(s) to add
+     */
+    public void addEvents(EventSource... events) {
+        for (EventSource e : events) {
+            // Create a deep-copy of each addition.
+            this.eventList.add(new EventSource(e));
+        }
+        notifyEventListListeners();
     }
 
-    @Override
-    public void setGuiSettings(GuiSettings guiSettings) {
-        requireNonNull(guiSettings);
-        userPrefs.setGuiSettings(guiSettings);
-    }
-
-    @Override
-    public Path getAddressBookFilePath() {
-        return userPrefs.getAddressBookFilePath();
-    }
-
-    @Override
-    public void setAddressBookFilePath(Path addressBookFilePath) {
-        requireNonNull(addressBookFilePath);
-        userPrefs.setAddressBookFilePath(addressBookFilePath);
-    }
-
-    //=========== AddressBook ================================================================================
-
-    @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return addressBook;
-    }
-
-    @Override
-    public void setAddressBook(ReadOnlyAddressBook addressBook) {
-        this.addressBook.resetData(addressBook);
-    }
-
-    @Override
-    public boolean hasPerson(Person person) {
-        requireNonNull(person);
-        return addressBook.hasPerson(person);
-    }
-
-    @Override
-    public void deletePerson(Person target) {
-        addressBook.removePerson(target);
-    }
-
-    @Override
-    public void addPerson(Person person) {
-        addressBook.addPerson(person);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-    }
-
-    @Override
-    public void setPerson(Person target, Person editedPerson) {
-        requireAllNonNull(target, editedPerson);
-
-        addressBook.setPerson(target, editedPerson);
-    }
-
-    //=========== EventsBook ================================================================================
-
-    @Override
-    public void addEvent(EventSource event) {
-        this.eventList.add(event);
-    }
-
-    @Override
-    public void deleteEvent(EventSource target) {
-        this.eventList.remove(target);
-    }
-
-    @Override
-    public ReadOnlyEventList getEventList() {
-        return this.eventList;
-    }
-
-    @Override
-    public boolean hasEvent(EventSource event) {
+    public boolean containsEvent(EventSource event) {
         return this.eventList.contains(event);
     }
 
-    @Override
-    public void setEvent(EventSource target, EventSource editedEvent) {
-        this.eventList.replace(target, editedEvent);
+    /**
+     * Removes an EventSource from this model.
+     * @param event the EventSource to remove.
+     */
+    public void removeEvent(EventSource event) {
+        this.eventList.remove(event);
+        notifyEventListListeners();
     }
-
-    @Override
-    public void setEventList(ReadOnlyEventList eventList) {
-        this.eventList.reset(eventList);
-    }
-
-    //=========== Filtered Person List Accessors =============================================================
 
     /**
-     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
-     * {@code versionedAddressBook}
+     * Replaces an EventSource in this model with another EventSource.
+     * @param event the EventSource to replace
+     * @param replacement the replacement
      */
-    @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return filteredPersons;
+    public void replaceEvent(EventSource event, EventSource replacement) {
+        // Create a deep-copy of the replacement.
+        this.eventList.replace(event, new EventSource(replacement));
+        notifyEventListListeners();
     }
 
-    @Override
-    public void updateFilteredPersonList(Predicate<Person> predicate) {
-        requireNonNull(predicate);
-        filteredPersons.setPredicate(predicate);
+    /**
+     * Replaces the entire EventList in this model with a list of events.
+     * @param events the events to replace the entire EventList.
+     */
+    public void setEventList(List<EventSource> events) {
+        this.eventList.reset(events);
+        notifyEventListListeners();
     }
 
-    @Override
-    public ObservableList<EventSource> getFilteredEventList() {
-        return this.eventList.getReadOnlyList();
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        // short circuit if same object
-        if (obj == this) {
-            return true;
+    /**
+     * Returns an unmodifiable, deep copy of this model's EventList.
+     * @return a copy of the EventList
+     */
+    public List<EventSource> getEventList() {
+        List<EventSource> result = new ArrayList<>();
+        for (EventSource event : this.eventList) {
+            // Create a deep-copy of each EventSource.
+            result.add(new EventSource(event));
         }
-
-        // instanceof handles nulls
-        if (!(obj instanceof ModelManager)) {
-            return false;
-        }
-
-        // state check
-        ModelManager other = (ModelManager) obj;
-        return addressBook.equals(other.addressBook)
-            && userPrefs.equals(other.userPrefs)
-            && filteredPersons.equals(other.filteredPersons);
+        // Return an unmodifiable list.
+        return Collections.unmodifiableList(result);
     }
+
+    /* Tasks */
+
+    /**
+     * Adds TaskSource(s) to this model's taskList.
+     * @param tasks the TaskSource(s) to add
+     */
+    public void addTasks(TaskSource... tasks) {
+        for (TaskSource t : tasks) {
+            // Create a deep-copy of each addition.
+            this.taskList.add(new TaskSource(t));
+        }
+        notifyTaskListListeners();
+    }
+
+    public boolean containsTask(TaskSource task) {
+        return this.taskList.contains(task);
+    }
+
+    /**
+     * Removes an TaskSource from this model.
+     * @param task the TaskSource to remove.
+     */
+    public void removeTask(TaskSource task) {
+        this.taskList.remove(task);
+        notifyTaskListListeners();
+    }
+
+    /**
+     * Replaces a TaskSource in this model with another TaskSource.
+     * @param task the TaskSource to replace
+     * @param replacement the replacement
+     */
+    public void replaceTask(TaskSource task, TaskSource replacement) {
+        // Create a deep-copy of the replacement.
+        this.taskList.replace(task, new TaskSource(replacement));
+        notifyTaskListListeners();
+    }
+
+    /**
+     * Replaces the entire TaskList in this model with a list of tasks.
+     * @param tasks the tasks to replace the entire TaskList.
+     */
+    public void setTaskList(List<TaskSource> tasks) {
+        this.taskList.reset(tasks);
+        notifyTaskListListeners();
+    }
+
+    /**
+     * Returns an unmodifiable, deep copy of this model's TaskList.
+     * @return a copy of the TaskList
+     */
+    public List<TaskSource> getTaskList() {
+        List<TaskSource> result = new ArrayList<>();
+        for (TaskSource task : this.taskList) {
+            // Create a deep-copy of each TaskSource.
+            result.add(new TaskSource(task));
+        }
+        // Return an unmodifiable list.
+        return Collections.unmodifiableList(result);
+    }
+
+    /**
+     * Notify all listeners whenever the EventList is changed.
+     */
+    private void notifyEventListListeners() {
+        this.eventListListeners.forEach(listener ->
+                listener.onEventListChange(this.getEventList()));
+    }
+
+    /**
+     * Notify all listeners whenever the TaskList is changed.
+     */
+    private void notifyTaskListListeners() {
+        this.taskListListeners.forEach(listener ->
+                listener.onTaskListChange(this.getTaskList()));
+    }
+
+    @Override
+    public void onUndoRedo(UndoRedoState state) {
+        this.setEventList(state.getEvents());
+        this.setTaskList(state.getTasks());
+    }
+
 }
