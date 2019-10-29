@@ -24,7 +24,7 @@ import seedu.address.model.vehicle.VehicleType;
  */
 public class EditVehicleCommand extends Command {
 
-    public static final String COMMAND_WORD = "editv";
+    public static final String COMMAND_WORD = "edit-v";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the vehicle identified "
             + "by the index number used in the displayed vehicle list. "
@@ -70,7 +70,7 @@ public class EditVehicleCommand extends Command {
         if (!editedVehicle.equals(vehicleToEdit) && model.hasVehicle(vehicleToEdit)) {
             throw new CommandException(MESSAGE_DUPLICATE_VEHICLE);
         }
-        if(editedVehicle.equals(vehicleToEdit)) {
+        if (editedVehicle.equals(vehicleToEdit)) {
             throw new CommandException(MESSAGE_VEHICLE_NOT_EDITED);
         }
 

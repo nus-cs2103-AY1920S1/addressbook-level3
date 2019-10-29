@@ -25,7 +25,7 @@ import seedu.address.model.vehicle.District;
  */
 public class EditIncidentCommand extends Command {
 
-    public static final String COMMAND_WORD = "editi";
+    public static final String COMMAND_WORD = "edit-i";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the incident identified "
             + "by the index number used in the displayed incidents list. "
