@@ -247,26 +247,27 @@ Loans the books with serial numbers B00201, B02929 and B00203
 
 Upon loaning a book, a printable loan slip in pdf format will be generated.
 
+****
 .Printable PDF version of a Loan Slip
 image::LoanSlip.png[width=250]
-
+****
 
 ==== Renewing book(s): `renew`
 
 Renew book(s) from the list of currently loaned books, i.e., extend their due dates +
-Format: `renew INDEX… [-all]` +
+Format: `renew INDEX [-all]` +
 Including `-all` will renew all currently loaned books
 
 ==== Returning book(s): `return`
 
 Return book(s) that were loaned by the borrower +
-Format: `return INDEX… [-all]` +
+Format: `return INDEX [-all]` +
 Including `-all` will return all currently loaned books
 
 ==== Paying fines: `pay`
 
-Reduces the outstanding amount of borrower's fines by AMOUNT (in cents) and adds a transaction record to his account +
-Format: `pay AMOUNT`
+Reduces the outstanding amount of borrower's fines by AMOUNT (in dollars) +
+Format: `pay $AMOUNT`
 
 ==== Reserve a book: `reserve`
 
@@ -334,7 +335,7 @@ e.g. `serve id/K0001`
 e.g. `edit p/91234567 e/jane@austen.com`
 * *Loan book* : `loan sn/BOOK_SN` +
 e.g. `loan sn/B00201`
-* *Renew book(s)* : `renew INDEX… [-all]`
-* *Return book(s)* : `return INDEX… [-all]`
-* *Pay fines* : `pay AMOUNT`
+* *Renew book(s)* : `renew INDEX [-all]`
+* *Return book(s)* : `return INDEX [-all]`
+* *Pay fines* : `pay $AMOUNT`
 * *Reserve book* : `reserve INDEX` or `reserve sn/BOOK_SN`

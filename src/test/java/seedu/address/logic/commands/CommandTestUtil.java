@@ -66,7 +66,8 @@ public class CommandTestUtil {
     public static final String VALID_GENRE_ACTION = "ACTION";
     public static final String VALID_GENRE_FICTION = "FICTION";
     public static final String VALID_GENRE_NONFICTION = "NON-FICTION";
-    public static final String VALID_BORROWER_ID = "K0001";
+    public static final String VALID_BORROWER_ID_1 = "K0001";
+    public static final String VALID_BORROWER_ID_2 = "K0002";
 
     public static final String TITLE_DESC_BOOK_1 = " " + PREFIX_TITLE + VALID_TITLE_BOOK_1;
     public static final String TITLE_DESC_BOOK_2 = " " + PREFIX_TITLE + VALID_TITLE_BOOK_2;
@@ -104,6 +105,7 @@ public class CommandTestUtil {
     public static final String VALID_RENEW_PERIOD_2_DESC = " " + PREFIX_RENEW_PERIOD + VALID_RENEW_PERIOD_2;
     public static final String VALID_FINE_INCREMENT_2_DESC = " " + PREFIX_FINE_INCREMENT + VALID_FINE_INCREMENT_2;
 
+    public static final int VALID_CENT_AMOUNT = 120;
 
 
     public static final EditCommand.EditBookDescriptor DESC_BOOK_1;

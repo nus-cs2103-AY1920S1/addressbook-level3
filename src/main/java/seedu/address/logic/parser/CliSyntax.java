@@ -18,4 +18,5 @@ public class CliSyntax {
     public static final Prefix PREFIX_RENEW_PERIOD = new Prefix("rp/");
     public static final Prefix PREFIX_FINE_INCREMENT = new Prefix("fi/");
     public static final Prefix PREFIX_FLAG = new Prefix("-");
+    public static final Prefix PREFIX_DOLLAR = new Prefix("$");
 }

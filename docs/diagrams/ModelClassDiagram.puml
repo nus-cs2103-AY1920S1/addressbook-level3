@@ -95,6 +95,5 @@ Catalog -[hidden]> LoanRecords
 LoanRecords -[hidden]> BorrowerRecords
 LoanList -[hidden]right> Name
 
-
 ModelManager -->"*" Book : filtered list
 @enduml

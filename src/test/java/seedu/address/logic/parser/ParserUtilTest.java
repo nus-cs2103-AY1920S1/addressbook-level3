@@ -2,6 +2,7 @@ package seedu.address.logic.parser;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_DOLLAR_AMOUNT;
 import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_BOOK;
@@ -50,6 +51,27 @@ public class ParserUtilTest {
 
         // Leading and trailing whitespaces
         assertEquals(INDEX_FIRST_BOOK, ParserUtil.parseIndex("  1  "));
+    }
+
+    @Test
+    public void parseDollar_outOfRangeInput_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseDollar("9.1234"));
+        assertThrows(ParseException.class, () -> ParserUtil.parseDollar("0"));
+        assertThrows(ParseException.class, () -> ParserUtil.parseDollar("-2.43"));
+    }
+
+    @Test
+    public void parseDollar_invalidInput_throwsParseException() {
+        assertThrows(ParseException.class, MESSAGE_INVALID_DOLLAR_AMOUNT, ()
+            -> ParserUtil.parseDollar(Long.toString(Integer.MAX_VALUE + 1)));
+    }
+
+    @Test
+    public void parseDollar_validInput_success() throws ParseException {
+        assertEquals(0.01, ParserUtil.parseDollar("0.01"));
+        assertEquals(99.99, ParserUtil.parseDollar("99.99"));
+        assertEquals(Integer.MAX_VALUE / 100,
+                ParserUtil.parseDollar(Integer.toString(Integer.MAX_VALUE / 100)));
     }
 
     @Test

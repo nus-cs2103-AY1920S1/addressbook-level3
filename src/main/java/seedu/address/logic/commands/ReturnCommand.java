@@ -6,9 +6,12 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_BOOK_DISPLAYED
 import static seedu.address.commons.core.Messages.MESSAGE_NOT_IN_SERVE_MODE;
 import static seedu.address.commons.core.Messages.MESSAGE_NOT_LOANED_BY_BORROWER;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.util.DateUtil;
+import seedu.address.commons.util.FineUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.book.Book;
@@ -21,12 +24,12 @@ import seedu.address.model.loan.Loan;
 public class ReturnCommand extends Command {
     public static final String COMMAND_WORD = "return";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Loans a book to a borrower.\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Returns a book borrowed by a borrower.\n"
             + "Command can only be used in Serve mode.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1 ";
 
-    public static final String MESSAGE_SUCCESS = "Book: %1$s returned by Borrower: %2$s";
+    public static final String MESSAGE_SUCCESS = "Book: %1$s\nreturned by\nBorrower: %2$s\nFine incurred: %3$s";
 
     private final Index index;
 
@@ -64,25 +67,33 @@ public class ReturnCommand extends Command {
             throw new CommandException(String.format(MESSAGE_BOOK_NOT_ON_LOAN, bookToBeReturned));
         }
 
-        //is there a way to split this up so that we follow Law of demeter?
-        Loan returningLoan = bookToBeReturned.getLoan().get();
-
+        Loan loanToBeReturned = bookToBeReturned.getLoan().get();
         Borrower servingBorrower = model.getServingBorrower();
         // check if servingBorrower has this Book loaned
-        if (!servingBorrower.hasCurrentLoan(returningLoan)) {
+        if (!servingBorrower.hasCurrentLoan(loanToBeReturned)) {
             throw new CommandException(String.format(MESSAGE_NOT_LOANED_BY_BORROWER,
                     servingBorrower, bookToBeReturned));
         }
+
+        LocalDate returnDate = DateUtil.getTodayDate();
+        int fineAmount = DateUtil.getNumOfDaysOverdue(loanToBeReturned.getDueDate(), returnDate)
+                * model.getUserSettings().getFineIncrement();
+        Loan returnedLoan = loanToBeReturned.returnLoan(returnDate, fineAmount);
 
         Book returnedBook = new Book(bookToBeReturned.getTitle(), bookToBeReturned.getSerialNumber(),
                 bookToBeReturned.getAuthor(), null, bookToBeReturned.getGenres());
 
         // update Book in model to have Loan removed
         model.setBook(bookToBeReturned, returnedBook);
-        // remove Loan from Borrower's currentLoanList and move to Borrower's returnedLoanList
-        model.servingBorrowerReturnLoan(returningLoan);
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, returnedBook, servingBorrower));
+        // remove Loan from Borrower's currentLoanList and move to Borrower's returnedLoanList
+        model.servingBorrowerReturnLoan(loanToBeReturned, returnedLoan);
+
+        // update Loan in LoanRecords with returnDate and remainingFineAmount
+        model.updateLoan(loanToBeReturned, returnedLoan);
+
+        return new CommandResult(String.format(MESSAGE_SUCCESS, returnedBook, servingBorrower,
+                FineUtil.centsToDollarString(fineAmount)));
     }
 
     @Override

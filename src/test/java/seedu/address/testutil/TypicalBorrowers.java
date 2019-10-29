@@ -9,6 +9,8 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_BORROWER_ID;
 import static seedu.address.testutil.TypicalLoans.LOAN_7;
+import static seedu.address.testutil.TypicalLoans.LOAN_8;
+import static seedu.address.testutil.TypicalLoans.LOAN_9;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -52,6 +54,9 @@ public class TypicalBorrowers {
             .withEmail("stefan@example.com").build();
     public static final Borrower IDA = new BorrowerBuilder().withName("Ida Mueller").withPhone("8482131")
             .withEmail("hans@example.com").withBorrowerId("K0009").withCurrentLoan(LOAN_7).build();
+    public static final Borrower JANNA = new BorrowerBuilder().withName("Janna Windforce").withPhone("3838438")
+            .withEmail("janna@example.com").withBorrowerId("K0010").withReturnedLoan(LOAN_8)
+            .withReturnedLoan(LOAN_9).build();
 
     // Manually added - Person's details found in {@code CommandTestUtil}
     public static final Borrower AMY = new BorrowerBuilder().withName(VALID_NAME_AMY).withPhone(VALID_PHONE_AMY)
