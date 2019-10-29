@@ -44,7 +44,9 @@ public class CalendarScreen extends UiPart<Region> {
         this.calendarDate = calendarDate.firstDayOfTheMonth();
         this.dayIndexList = new ArrayList<>();
         this.monthYearTitle.setText(calendarDate.getEnglishMonth() + " " + calendarDate.getYear());
+
         resetCalendar();
+        setCurrentDate();
     }
 
     /**
@@ -93,6 +95,13 @@ public class CalendarScreen extends UiPart<Region> {
                 Integer day = eventDateTime.getDay();
                 dayIndexList.get(day - 1).addAnEvent();
             }
+        }
+    }
+
+    private void setCurrentDate() {
+        CalendarDate currentDate = CalendarDate.now();
+        if (currentDate.sameMonthYear(calendarDate.getMonth(), calendarDate.getYear())) {
+            dayIndexList.get(currentDate.getDay() - 1).setCurrentDate();
         }
     }
 }

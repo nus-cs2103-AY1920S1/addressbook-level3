@@ -10,7 +10,7 @@
    <children>
       <StackPane style="-fx-background-color: transparent;">
          <children>
-            <Label fx:id="eventListTitle" text="Event List" textAlignment="CENTER" StackPane.alignment="TOP_CENTER">
+            <Label fx:id="taskListTitle" text="Task List" textAlignment="CENTER" StackPane.alignment="TOP_CENTER">
                <font>
                   <Font size="14.0" />
                </font>
@@ -19,9 +19,9 @@
       </StackPane>
       <StackPane>
          <children>
-            <ScrollPane fx:id="eventScrollPane" fitToWidth="true" hbarPolicy="NEVER">
+            <ScrollPane fx:id="taskScrollPane" fitToWidth="true" hbarPolicy="NEVER">
                <content>
-                  <VBox fx:id="eventList" prefHeight="1000.0" spacing="2.0" />
+                  <VBox fx:id="taskList" prefHeight="1000.0" spacing="2.0" />
                </content>
             </ScrollPane>
          </children>

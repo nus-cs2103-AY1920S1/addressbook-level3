@@ -2,6 +2,7 @@ package seedu.address.ui;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.logging.Logger;
@@ -11,6 +12,9 @@ import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.concurrent.Task;
+import javafx.concurrent.WorkerStateEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.control.Label;
@@ -24,6 +28,7 @@ import javafx.util.Duration;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.CalendarDate;
+import seedu.address.model.events.EventDateComparator;
 import seedu.address.model.events.EventSource;
 import seedu.address.model.listeners.EventListListener;
 import seedu.address.ui.listeners.UserOutputListener;
@@ -37,6 +42,7 @@ import seedu.address.ui.panel.log.LogPanel;
  */
 public class MainWindow extends UiPart<Stage> implements UserOutputListener, EventListListener {
 
+    public static final Integer TIMING = 20;
     private static final String FXML = "MainWindow.fxml";
     private static final String WELCOME_MESSAGE = "Welcome to Horo";
 
@@ -126,6 +132,7 @@ public class MainWindow extends UiPart<Stage> implements UserOutputListener, Eve
 
         addResizingListeners();
         welcomeMessage();
+        delayResize();
     }
 
     /**
@@ -279,9 +286,35 @@ public class MainWindow extends UiPart<Stage> implements UserOutputListener, Eve
             public void changed(ObservableValue<? extends Number> observableValue,
                                 Number oldSceneWidth,
                                 Number newSceneWidth) {
-                calendarPanel.resizeTimelineView();
+                delayResize();
             }
         });
+    }
+
+    /**
+     * Re-sizes the CalendarPanel after a certain delay.
+     *
+     * @see CalendarPanel
+     */
+    private void delayResize() {
+        Task<Void> sleeper = new Task<Void>() {
+            @Override
+            protected Void call() throws Exception {
+                try {
+                    Thread.sleep(TIMING);
+                } catch (InterruptedException e) {
+                    throw new Exception(e.getMessage());
+                }
+                return null;
+            }
+        };
+        sleeper.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
+            @Override
+            public void handle(WorkerStateEvent event) {
+                calendarPanel.resizeCalendarPanel();
+            }
+        });
+        new Thread(sleeper).start();
     }
 
     /**
@@ -291,10 +324,17 @@ public class MainWindow extends UiPart<Stage> implements UserOutputListener, Eve
         onUserOutput(new UserOutput(WELCOME_MESSAGE), ColorTheme.WELCOME);
     }
 
+    private List<EventSource> sortDateEventList(List<EventSource> events) {
+        List<EventSource> sortedDateEventList = new ArrayList<EventSource>(events);
+        sortedDateEventList.sort(new EventDateComparator());
+        return sortedDateEventList;
+    }
+
     @Override
     public void onEventListChange(List<EventSource> events) {
-        this.listPanel.onEventListChange(events);
-        this.calendarPanel.onEventListChange(events);
+        List<EventSource> sortedDateEventList = sortDateEventList(events);
+        this.listPanel.onEventListChange(sortedDateEventList);
+        this.calendarPanel.onEventListChange(sortedDateEventList);
     }
 
     @Override

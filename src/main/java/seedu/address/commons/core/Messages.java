@@ -32,6 +32,10 @@ public class Messages {
     public static final String MESSAGE_WEEK_VIEW_SUCCESS = "Changed Week to week of: %s";
     public static final String MESSAGE_MONTH_VIEW_SUCCESS = "Changed Month to: %s";
 
+    public static final String MESSAGE_CALENDAR_VIEW_SUCCESS = "Switched to Calendar View.";
+    public static final String MESSAGE_LIST_VIEW_SUCCESS = "Switched to List View.";
+    public static final String MESSAGE_LOG_VIEW_SUCCESS = "Switched to Log View";
+
     public static final String MESSAGE_NOTIFICATION_OFF = "Notifications have been turned off.";
     public static final String MESSAGE_NOTIFICATION_ON = "Notifications have been turned on.";
 }

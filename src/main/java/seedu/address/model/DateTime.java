@@ -1,12 +1,15 @@
 package seedu.address.model;
 
 import java.text.DateFormatSymbols;
+import java.time.DayOfWeek;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.time.format.TextStyle;
 import java.time.temporal.ChronoUnit;
+import java.util.Locale;
 
 import seedu.address.logic.composers.InstantComposer;
 import seedu.address.logic.parser.DateTimeParser;
@@ -85,6 +88,11 @@ public class DateTime implements Comparable<DateTime> {
         return localDate.getDayOfWeek().getValue();
     }
 
+    public String getEnglishWeekDay() {
+        DayOfWeek dayOfWeek = instant.atZone(TIME_ZONE).getDayOfWeek();
+        return dayOfWeek.getDisplayName(TextStyle.SHORT, Locale.US);
+    }
+
     public Integer getMonth() {
         return Integer.valueOf(MONTH_COMPOSER.compose(this.instant));
     }
@@ -97,8 +105,12 @@ public class DateTime implements Comparable<DateTime> {
         return Integer.valueOf(HOUR_COMPOSER.compose(this.instant));
     }
 
-    public Integer getMinute() {
-        return Integer.valueOf(MINUTE_COMPOSER.compose(this.instant));
+    public String getHourString() {
+        return HOUR_COMPOSER.compose(this.instant);
+    }
+
+    public String getMinuteString() {
+        return MINUTE_COMPOSER.compose(this.instant);
     }
 
     /**
@@ -139,7 +151,7 @@ public class DateTime implements Comparable<DateTime> {
     public String toEnglishDateTime() {
         String monthStr = new DateFormatSymbols().getMonths()[getMonth() - 1].toLowerCase();
         monthStr = monthStr.substring(0, 1).toUpperCase() + monthStr.substring(1);
-        return getDay() + " " + monthStr + " " + getYear() + " " + getHour() + ":" + getMinute();
+        return getDay() + " " + monthStr + " " + getYear() + " " + getHourString() + ":" + getMinuteString();
     }
 
     @Override

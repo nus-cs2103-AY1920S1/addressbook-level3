@@ -12,7 +12,10 @@
    <children>
       <StackPane>
          <children>
-            <Label fx:id="timelineTitle" alignment="CENTER" contentDisplay="CENTER" text="Timeline" />
+            <Label fx:id="timelineTitle" alignment="CENTER" contentDisplay="CENTER" text="Timeline" underline="true">
+               <StackPane.margin>
+                  <Insets top="5.0" />
+               </StackPane.margin></Label>
          </children>
          <VBox.margin>
             <Insets />

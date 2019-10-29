@@ -10,11 +10,14 @@ import seedu.address.logic.CommandManager;
 import seedu.address.logic.NotificationManager;
 import seedu.address.logic.UiManager;
 import seedu.address.logic.commands.AddEventCommand;
+import seedu.address.logic.commands.CalendarViewCommand;
 import seedu.address.logic.commands.DayViewCommand;
 import seedu.address.logic.commands.DeleteEventCommand;
 import seedu.address.logic.commands.EditEventCommand;
 import seedu.address.logic.commands.ExportIcsCommand;
 import seedu.address.logic.commands.ImportIcsCommand;
+import seedu.address.logic.commands.ListViewCommand;
+import seedu.address.logic.commands.LogViewCommand;
 import seedu.address.logic.commands.MonthViewCommand;
 import seedu.address.logic.commands.NotificationOffCommand;
 import seedu.address.logic.commands.NotificationOnCommand;
@@ -44,6 +47,9 @@ public class MainApp extends Application {
     private static final String COMMAND_DAY_VIEW = "day";
     private static final String COMMAND_WEEK_VIEW = "week";
     private static final String COMMAND_MONTH_VIEW = "month";
+    private static final String COMMAND_CALENDAR_VIEW = "calendar";
+    private static final String COMMAND_LIST_VIEW = "list";
+    private static final String COMMAND_LOG_VIEW = "log";
 
     private UiManager uiManager;
 
@@ -72,6 +78,9 @@ public class MainApp extends Application {
         commandManager.addCommand(COMMAND_DAY_VIEW, () -> DayViewCommand.newBuilder(uiManager));
         commandManager.addCommand(COMMAND_WEEK_VIEW, () -> WeekViewCommand.newBuilder(uiManager));
         commandManager.addCommand(COMMAND_MONTH_VIEW, () -> MonthViewCommand.newBuilder(uiManager));
+        commandManager.addCommand(COMMAND_CALENDAR_VIEW, () -> CalendarViewCommand.newBuilder(uiManager));
+        commandManager.addCommand(COMMAND_LIST_VIEW, () -> ListViewCommand.newBuilder(uiManager));
+        commandManager.addCommand(COMMAND_LOG_VIEW, () -> LogViewCommand.newBuilder(uiManager));
 
         // Add Listeners
         commandManager.addUserOutputListener(uiManager);
