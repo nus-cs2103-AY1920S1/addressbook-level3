@@ -3,7 +3,9 @@ package seedu.address.logic;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
@@ -25,6 +27,7 @@ import seedu.address.model.ReadOnlyFileBook;
 import seedu.address.model.ReadOnlyNoteBook;
 import seedu.address.model.ReadOnlyPasswordBook;
 import seedu.address.model.card.Card;
+import seedu.address.model.card.ExpiringCard;
 import seedu.address.model.file.EncryptedFile;
 import seedu.address.model.note.Note;
 import seedu.address.model.password.Password;
@@ -167,6 +170,15 @@ public class LogicManager implements Logic {
     @Override
     public ObservableList<Card> getFilteredCardList() {
         return model.getFilteredCardList();
+    }
+
+    @Override
+    public ObservableList<ExpiringCard> getExpiringCardList() {
+        return model.getFilteredCardList()
+                .stream()
+                .map(ExpiringCard::of)
+                .filter(card -> card.getMonthToExp() <= 2)
+                .collect(Collectors.toCollection(FXCollections::observableArrayList));
     }
 
     @Override

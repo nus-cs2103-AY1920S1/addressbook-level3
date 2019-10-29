@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CARDNUMBER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CVC;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EXPIRYDATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -21,11 +22,13 @@ public class AddCardCommand extends Command {
             + PREFIX_DESCRIPTION + "DESCRIPTION "
             + PREFIX_CARDNUMBER + "CARD NUMBER "
             + PREFIX_CVC + "CVC "
+            + PREFIX_EXPIRYDATE + "EXPIRY DATE "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_DESCRIPTION + "POSB Debit "
             + PREFIX_CARDNUMBER + "2723201212034958 "
             + PREFIX_CVC + "876 "
+            + PREFIX_EXPIRYDATE + "12/25 "
             + PREFIX_TAG + "use for groceries";
 
     public static final String MESSAGE_SUCCESS = "New card added: %1$s";

@@ -46,6 +46,7 @@ public class MainWindow extends UiPart<Stage> {
     private ReadDisplayPassword readDisplayPassword;
     private HelpWindow helpWindow;
     private ReadDisplayNote readDisplayNote;
+    private ExpiryDisplay expiryDisplay;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -113,7 +114,7 @@ public class MainWindow extends UiPart<Stage> {
 
         helpWindow = new HelpWindow();
         readList.setVisible(false);
-
+        expiryDisplay = new ExpiryDisplay(logic.getExpiringCardList());
     }
 
     public Stage getPrimaryStage() {
@@ -284,6 +285,20 @@ public class MainWindow extends UiPart<Stage> {
             helpWindow.show();
         } else {
             helpWindow.focus();
+        }
+    }
+
+    /**
+     * Opens the expiry display window or focuses on it if it's already opened.
+     */
+    @FXML
+    public void handleExpiry() {
+        if (expiryDisplay.hasCards()) {
+            if (!expiryDisplay.isShowing()) {
+                expiryDisplay.show();
+            } else {
+                expiryDisplay.focus();
+            }
         }
     }
 

@@ -15,6 +15,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.card.CardNumber;
 import seedu.address.model.card.Cvc;
 import seedu.address.model.card.Description;
+import seedu.address.model.card.ExpiryDate;
 import seedu.address.model.file.FileName;
 import seedu.address.model.file.FilePath;
 import seedu.address.model.note.Content;
@@ -150,6 +151,21 @@ public class ParserUtil {
             throw new ParseException(Cvc.MESSAGE_CONSTRAINTS);
         }
         return new Cvc(trimmedCvc);
+    }
+
+    /**
+     * Parses a {@code String expiryDate} into a {@code ExpiryDate}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code expiryDate} is invalid.
+     */
+    public static ExpiryDate parseExpiryDate(String expiryDate) throws ParseException {
+        requireNonNull(expiryDate);
+        String trimmedExpiryDate = expiryDate.trim();
+        if (!ExpiryDate.isValidExpiryDate(trimmedExpiryDate)) {
+            throw new ParseException(ExpiryDate.MESSAGE_CONSTRAINTS);
+        }
+        return new ExpiryDate(trimmedExpiryDate);
     }
 
     /**

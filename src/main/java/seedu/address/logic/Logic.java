@@ -15,6 +15,7 @@ import seedu.address.model.ReadOnlyFileBook;
 import seedu.address.model.ReadOnlyNoteBook;
 import seedu.address.model.ReadOnlyPasswordBook;
 import seedu.address.model.card.Card;
+import seedu.address.model.card.ExpiringCard;
 import seedu.address.model.file.EncryptedFile;
 import seedu.address.model.note.Note;
 import seedu.address.model.password.Password;
@@ -83,6 +84,10 @@ public interface Logic {
 
     /** Returns an unmodifiable view of the filtered list of cards */
     ObservableList<Card> getFilteredCardList();
+
+    /** Returns an unmodifiable view of the list of expiring cards
+     * @return*/
+    ObservableList<ExpiringCard> getExpiringCardList();
 
     /**
      * Returns the user prefs' card book file path.
