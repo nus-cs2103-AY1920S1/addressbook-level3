@@ -319,19 +319,59 @@ image::DeleteActivityDiagram.png[]
 
 // end::delete[]
 
-// tag::sorttransactions[]
-=== Sort Transactions Feature: `sort`
+// tag::sort[]
+=== Sort Feature: `sort`
 
 This feature allows the user to _sort_ their bank account by the _amount_ or _date_ of their transactions by using the command `sort amount` or `sort date` respectively.
 
 ==== Current Implementation
 
-The `sort` command is facilitated by the _Logic_ and _Model_ components of the application, _PalPay_.
+The `sort` command is facilitated by the _Logic_ and _Model_ components of the application.
 
 The following sequence diagram shows how the sorting of transactions work when the user enters `sort amount`.
 
 .Sequence Diagram for `sort amount`
 image::SortSequenceDiagram.png[]
+
+==== Design Considerations
+
+===== Aspect: Sorting of the Bank Account
+
+* **Alternative 1 (Current Choice):** Creating a comparator for each area to be sorted.
+** **Pros:** Easy to implement.
+** **Cons:** Users can only sort by comparators that have been implemented.
+Developers have to create a new comparator class to sort a new area.
+* **Alternative 2:** Users can define the area to be sorted.
+** **Pros:** Extremely flexible for the users as they are not limited to the number of areas to be sorted.
+** **Cons:** Difficult to implement.
+
+// end::sort[]
+
+// tag::filter[]
+=== Filter Feature: `filter`
+
+This feature allows the user to _filter_ their bank account by the _category_ of their transactions by using the
+ `filter [CATEGORY]...`.
+
+==== Overview
+
+The `FilterCommandParser` implements `Parser` with the following operation:
+
+* `FilterCommandParser#parse()`: This operation will take in a `String` input from the user that represents different categories delimited by a whitespace.
+It will then create a `TransactionContainsCategoriesPredicate` and passed into a new `FilterCommand`.
+Finally, this operation will return the new `FilterCommand`.
+
+==== Current Implementation
+
+The `filter` command is facilitated by the `FilterCommandParser` and `FilterCommand` of the application.
+PalPay filters the list of transactions by checking if any of the specified categories exists in the transaction.
+
+For instance, the command `filter breakfast dinner` would display a list of transactions with categories of breakfast or dinner or both.
+
+The following class diagram depicts the relations of the FilterCommand, FilterCommandParser and its related classes.
+
+.Class Diagram for `Filter`
+image::FilterClassDiagram.png[]
 
 ==== Design Considerations
 
@@ -346,8 +386,7 @@ comparator class to sort a new area.
 ** **Pros:** Extremely flexible for the users as they are not limited to the number of +
 areas to be sorted.
 ** **Cons:** Difficult to implement.
-
-// end::sorttransactions[]
+// end::filter[]
 
 // tag::split[]
 === Split Feature: `split`
