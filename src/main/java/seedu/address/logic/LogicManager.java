@@ -10,9 +10,13 @@ import java.util.logging.Logger;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
+import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.SugarMummyParser;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyCalendar;
@@ -23,10 +27,6 @@ import seedu.address.model.bio.User;
 import seedu.address.model.calendar.CalendarEntry;
 import seedu.address.model.person.Person;
 import seedu.address.model.record.Record;
-import seedu.address.commons.core.GuiSettings;
-import seedu.address.commons.core.LogsCenter;
-import seedu.address.logic.parser.SugarMummyParser;
-import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.storage.Storage;
 import seedu.address.ui.DisplayPaneType;
 import sugarmummy.recmfood.model.Food;
@@ -57,7 +57,7 @@ public class LogicManager implements Logic {
         CommandResult commandResult;
         Command command = sugarMummyParser.parseCommand(commandText);
         displayPaneType = command.getDisplayPaneType();
-        newPaneIsToBeCreated = command.getnewPaneIsToBeCreated();
+        newPaneIsToBeCreated = command.getNewPaneIsToBeCreated();
         commandResult = command.execute(model);
 
         try {
@@ -79,7 +79,7 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public boolean getnewPaneIsToBeCreated() {
+    public boolean getNewPaneIsToBeCreated() {
         return newPaneIsToBeCreated;
     }
 

@@ -7,7 +7,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 /**
- * Represents a ui for a row in legend.
+ * Represents a ui for a legend symbol and legend description.
  */
 public class LegendRow extends UiPart<Region> {
 
@@ -17,11 +17,11 @@ public class LegendRow extends UiPart<Region> {
     private Rectangle symbol;
 
     @FXML
-    private Label description;
+    private Label lineChartDescription;
 
     public LegendRow(Color color, String legendDescription) {
         super(FXML);
         symbol.setFill(color);
-        description.setText(legendDescription);
+        lineChartDescription.setText(legendDescription);
     }
 }

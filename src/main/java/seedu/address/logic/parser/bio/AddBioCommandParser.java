@@ -18,6 +18,12 @@ import java.util.List;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.bio.AddBioCommand;
+import seedu.address.logic.parser.ArgumentMultimap;
+import seedu.address.logic.parser.ArgumentTokenizer;
+import seedu.address.logic.parser.Parser;
+import seedu.address.logic.parser.ParserUtil;
+import seedu.address.logic.parser.Prefix;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.bio.Address;
 import seedu.address.model.bio.DateOfBirth;
 import seedu.address.model.bio.DisplayPicPath;
@@ -30,12 +36,6 @@ import seedu.address.model.bio.OtherBioInfo;
 import seedu.address.model.bio.Phone;
 import seedu.address.model.bio.ProfileDesc;
 import seedu.address.model.bio.User;
-import seedu.address.logic.parser.ArgumentMultimap;
-import seedu.address.logic.parser.ArgumentTokenizer;
-import seedu.address.logic.parser.Parser;
-import seedu.address.logic.parser.ParserUtil;
-import seedu.address.logic.parser.Prefix;
-import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
  * Parses input arguments and creates a new AddBioCommand object

@@ -1,7 +1,6 @@
 package seedu.address.logic.commands.bio;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_USERS;
 import static seedu.address.commons.core.Messages.MESSAGE_SUBARGUMENT_INDEX_OUT_OF_BOUNDS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CONTACT_NUMBER;
@@ -15,6 +14,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NRIC;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_OTHER_BIO_INFO;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PROFILE_DESC;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_USERS;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
@@ -41,7 +42,6 @@ import seedu.address.model.bio.OtherBioInfo;
 import seedu.address.model.bio.Phone;
 import seedu.address.model.bio.ProfileDesc;
 import seedu.address.model.bio.User;
-import seedu.address.commons.core.index.Index;
 import seedu.address.ui.DisplayPaneType;
 
 /**
@@ -240,7 +240,7 @@ public class EditBioCommand extends Command {
     }
 
     @Override
-    public boolean getnewPaneIsToBeCreated() {
+    public boolean getNewPaneIsToBeCreated() {
         return true;
     }
 

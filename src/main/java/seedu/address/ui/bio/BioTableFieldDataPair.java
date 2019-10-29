@@ -1,4 +1,4 @@
-package seedu.address.ui;
+package seedu.address.ui.bio;
 
 import javafx.beans.property.SimpleStringProperty;
 

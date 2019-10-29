@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.control.ListView?>
+<VBox fx:id="dailyCalendarEntries"  VBox.vgrow="ALWAYS" minHeight="0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
+    <Label fx:id="day" text="/$day">
+        <padding>
+            <Insets left="2" top="5"></Insets>
+        </padding>
+    </Label>
+    <ListView fx:id="dailyCalendarEntryList">
+    </ListView>
+
+</VBox>

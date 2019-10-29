@@ -7,6 +7,7 @@ import java.nio.file.Path;
 import java.util.Optional;
 import java.util.logging.Logger;
 
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
@@ -15,7 +16,6 @@ import seedu.address.model.Calendar;
 import seedu.address.model.ReadOnlyCalendar;
 import seedu.address.model.calendar.CalendarEntry;
 import seedu.address.model.calendar.Event;
-import seedu.address.commons.core.LogsCenter;
 
 /**
  * A class to access Calendar data stored as a json file on the hard disk.

@@ -8,8 +8,10 @@ import java.util.Map;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
+import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyCalendar;
@@ -20,8 +22,6 @@ import seedu.address.model.bio.User;
 import seedu.address.model.calendar.CalendarEntry;
 import seedu.address.model.person.Person;
 import seedu.address.model.record.Record;
-import seedu.address.commons.core.GuiSettings;
-import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.ui.DisplayPaneType;
 import sugarmummy.recmfood.model.Food;
 
@@ -48,7 +48,7 @@ public interface Logic {
      * Returns a boolean indicating whether a new pane is to be created, regardless of whether an existing one already
      * exists.
      */
-    boolean getnewPaneIsToBeCreated();
+    boolean getNewPaneIsToBeCreated();
 
     /**
      * Returns the AddressBook.
@@ -176,5 +176,4 @@ public interface Logic {
      * Returns the background to be set for this app.
      */
     Background getBackground();
-
 }

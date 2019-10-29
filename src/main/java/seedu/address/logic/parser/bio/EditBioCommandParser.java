@@ -24,18 +24,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.bio.EditBioCommand;
 import seedu.address.logic.commands.bio.EditBioCommand.EditUserDescriptor;
-import seedu.address.model.bio.Goal;
-import seedu.address.model.bio.MedicalCondition;
-import seedu.address.model.bio.Phone;
-import seedu.address.commons.core.index.Index;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.bio.Goal;
+import seedu.address.model.bio.MedicalCondition;
+import seedu.address.model.bio.Phone;
 
 /**
  * Parses input arguments and creates a new EditBioCommand object

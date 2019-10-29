@@ -4,9 +4,9 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.ParserUtil.parseColour;
 
 import seedu.address.logic.commands.aesthetics.FontColourCommand;
-import seedu.address.model.aesthetics.Colour;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.aesthetics.Colour;
 
 /**
  * Parses input arguments and creates a new FontColourCommand object

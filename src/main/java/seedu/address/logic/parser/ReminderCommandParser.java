@@ -7,12 +7,12 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DATETIME;
 
 import java.util.stream.Stream;
 
-import seedu.address.logic.commands.ReminderCommand;
+import seedu.address.logic.commands.calendar.ReminderCommand;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.DateTime;
 import seedu.address.model.calendar.Description;
 import seedu.address.model.calendar.Reminder;
 import seedu.address.model.calendar.Repetition;
-import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
  * Parses input arguments and creates a new ReminderCommand object

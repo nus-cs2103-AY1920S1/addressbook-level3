@@ -7,9 +7,9 @@ import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSucces
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.logic.parser.AverageCommandParser;
 import seedu.address.model.record.RecordType;
 import seedu.address.model.statistics.AverageType;
-import seedu.address.logic.parser.AverageCommandParser;
 
 public class AverageCommandParserTest {
     private AverageCommandParser parser = new AverageCommandParser();
@@ -59,8 +59,7 @@ public class AverageCommandParserTest {
 
         // invalid record type
         assertParseFailure(parser, " a/WEEKLY rt/ANYHOW",
-            String.format(MESSAGE_INVALID_PARAMETER, AverageCommand.MESSAGE_USAGE,
-                AverageCommand.MESSAGE_INVALID_RECORDTYPE));
+            "System does not accommodate such a record type.");
 
         // invalid count type
         assertParseFailure(parser, " a/WEEKLY rt/BLOODSUGAR n/five",

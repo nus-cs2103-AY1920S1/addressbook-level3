@@ -13,13 +13,11 @@ import seedu.address.logic.commands.AverageCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
-import seedu.address.logic.commands.EventCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.RecmFoodCommand;
-import seedu.address.logic.commands.ReminderCommand;
 import seedu.address.logic.commands.achvm.AchvmCommand;
 import seedu.address.logic.commands.aesthetics.BackgroundCommand;
 import seedu.address.logic.commands.aesthetics.FontColourCommand;
@@ -27,10 +25,13 @@ import seedu.address.logic.commands.bio.AddBioCommand;
 import seedu.address.logic.commands.bio.BioCommand;
 import seedu.address.logic.commands.bio.ClearBioCommand;
 import seedu.address.logic.commands.bio.EditBioCommand;
-import seedu.address.logic.parser.bio.AddBioCommandParser;
-import seedu.address.logic.parser.bio.EditBioCommandParser;
+import seedu.address.logic.commands.calendar.CalendarCommand;
+import seedu.address.logic.commands.calendar.EventCommand;
+import seedu.address.logic.commands.calendar.ReminderCommand;
 import seedu.address.logic.parser.aesthetics.BackgroundCommandParser;
 import seedu.address.logic.parser.aesthetics.FontColourCommandParser;
+import seedu.address.logic.parser.bio.AddBioCommandParser;
+import seedu.address.logic.parser.bio.EditBioCommandParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import sugarmummy.recmfood.exception.FoodNotSuitableException;
 import sugarmummy.recmfood.parser.AddFoodCommandParser;
@@ -95,11 +96,16 @@ public class SugarMummyParser {
         case AddFoodCommand.COMMAND_WORD:
             return new AddFoodCommandParser().parse(arguments);
 
+        //=========== Calendar ===========================================================
+
         case EventCommand.COMMAND_WORD:
             return new EventCommandParser().parse(arguments);
 
         case ReminderCommand.COMMAND_WORD:
             return new ReminderCommandParser().parse(arguments);
+
+        case CalendarCommand.COMMAND_WORD:
+            return new CalendarCommandParser().parse(arguments);
 
         //=========== User List =============================================================
 
