@@ -9,7 +9,6 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import javafx.scene.layout.VBox;
 import seedu.mark.model.bookmark.Bookmark;
 import seedu.mark.model.tag.Tag;
 
@@ -45,7 +44,7 @@ public class BookmarkCard extends UiPart<Region> {
     @FXML
     private FlowPane tags;
     @FXML
-    private VBox versions;
+    private Label cache;
 
     public BookmarkCard(Bookmark bookmark, int displayedIndex) {
         super(FXML);
@@ -55,6 +54,7 @@ public class BookmarkCard extends UiPart<Region> {
         url.setText(bookmark.getUrl().value);
         remark.setText(bookmark.getRemark().value);
         folder.setText(bookmark.getFolder().folderName);
+        cache.setVisible(!bookmark.getCachedCopies().isEmpty());
         bookmark.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> {
@@ -71,15 +71,6 @@ public class BookmarkCard extends UiPart<Region> {
             return "orange";
         } else {
             return "teal";
-        }
-    }
-
-    /**
-     * Displays the cache version under the bookmark info
-     */
-    public void displayCache() {
-        for (int i = 0; i < bookmark.getCachedCopies().size(); i++) {
-            versions.getChildren().add(new Label(Integer.toString(i)));
         }
     }
 

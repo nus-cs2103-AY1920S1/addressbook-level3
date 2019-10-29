@@ -18,8 +18,8 @@ import seedu.mark.model.ModelStub;
 import seedu.mark.model.annotation.OfflineDocument;
 import seedu.mark.model.bookmark.Bookmark;
 import seedu.mark.model.bookmark.CachedCopy;
+import seedu.mark.model.bookmark.util.BookmarkBuilder;
 import seedu.mark.storage.StorageStub;
-import seedu.mark.testutil.BookmarkBuilder;
 
 class OfflineCommandTest {
 

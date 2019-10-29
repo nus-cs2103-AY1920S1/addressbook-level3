@@ -6,7 +6,6 @@ import static seedu.mark.testutil.Assert.assertThrows;
 
 import java.io.IOException;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
@@ -18,7 +17,7 @@ import seedu.mark.model.UserPrefs;
 
 public class JsonUserPrefsStorageTest {
 
-    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonUserPrefsStorageTest");
+    private static final Path TEST_DATA_FOLDER = Path.of("src", "test", "data", "JsonUserPrefsStorageTest");
 
     @TempDir
     public Path testFolder;
@@ -73,7 +72,7 @@ public class JsonUserPrefsStorageTest {
     private UserPrefs getTypicalUserPrefs() {
         UserPrefs userPrefs = new UserPrefs();
         userPrefs.setGuiSettings(new GuiSettings(1000, 500, 300, 100));
-        userPrefs.setMarkFilePath(Paths.get("mark.json"));
+        userPrefs.setMarkFilePath(Path.of("mark.json"));
         return userPrefs;
     }
 
