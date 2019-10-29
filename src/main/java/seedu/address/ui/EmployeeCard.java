@@ -4,6 +4,8 @@ import java.util.Comparator;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
@@ -40,10 +42,19 @@ public class EmployeeCard extends UiPart<Region> {
     private Label email;
     @FXML
     private FlowPane tags;
+    @FXML
+    private ImageView imgBox;
 
     public EmployeeCard(Employee employee, int displayedIndex) {
         super(FXML);
         this.employee = employee;
+        if (employee.getEmployeeGender().gender.equals("male")) {
+            Image image = new Image("/images/maleEmployee.png");
+            imgBox.setImage(image);
+        } else {
+            Image image = new Image("/images/femaleEmployee.png");
+            imgBox.setImage(image);
+        }
         id.setText(displayedIndex + ". ");
         name.setText(employee.getEmployeeName().fullName + " ID: " + employee.getEmployeeId().id); //for debug
         phone.setText(employee.getEmployeePhone().value);
