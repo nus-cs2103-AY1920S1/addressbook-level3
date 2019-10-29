@@ -53,6 +53,7 @@ public class UiManager implements Ui {
             mainWindow.show(); //This should be called before creating other UI parts
             mainWindow.fillInnerParts();
             //createReminder(10000, "U r weird", "but u r cool");
+            //countDownAlert("weird", "cool");
         } catch (Throwable e) {
             logger.severe(StringUtil.getDetails(e));
             showFatalErrorDialogAndShutdown("Fatal error during initializing", e);
@@ -101,11 +102,12 @@ public class UiManager implements Ui {
      * sets properties of alert then
      * plays sound file and shows alert dialog
      */
-    private void countDownAlert(String reminderType, String reminderDetails) {
+    public  void countDownAlert(String reminderType, String reminderDetails) {
 
         final Alert alert = new Alert(AlertType.CONFIRMATION);
         alert.getDialogPane().getStylesheets().add("view/DarkTheme.css");
         alert.initOwner(mainWindow.getPrimaryStage());
+        //alert.initOwner(new Stage());
         alert.setTitle("Reminder!");
         alert.setHeaderText(reminderType);
         alert.setContentText(reminderDetails);

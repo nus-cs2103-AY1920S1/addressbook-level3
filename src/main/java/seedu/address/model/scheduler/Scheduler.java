@@ -22,17 +22,16 @@ public class Scheduler {
      * Method which schedules the lesson depending on whether its repeat or not.
      * Uses ScheduledExecutorService to schedule lesson.
      */
-    public void scheduleLesson() {
+    public void scheduleLesson(Runnable task) {
         ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
         Time time = lesson.getStartTime();
         Calendar lessonTime = time.getTime();
         long initialDelay = lessonTime.getTimeInMillis() - System.currentTimeMillis();
-        Reminder reminder = new Reminder(lesson);
         if (lesson.getIsRepeat()) {
             long period = TimeUnit.DAYS.toMillis(7);
-            scheduler.scheduleAtFixedRate(reminder, initialDelay, period, TimeUnit.MILLISECONDS);
+            scheduler.scheduleAtFixedRate(task, initialDelay, period, TimeUnit.MILLISECONDS);
         } else {
-            scheduler.schedule(reminder, initialDelay, TimeUnit.MILLISECONDS);
+            scheduler.schedule(task, initialDelay, TimeUnit.MILLISECONDS);
         }
     }
 }
