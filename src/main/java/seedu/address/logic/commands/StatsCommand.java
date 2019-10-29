@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -30,7 +31,10 @@ public class StatsCommand extends Command {
             + "Parameters: KEYWORD [TIME_FRAME] DATE...\n"
             + "Example: " + COMMAND_WORD + " /month 1/10/2019";
 
-    private final SimpleDateFormat dateFormatter = new SimpleDateFormat("EEE, MMM d yyyy");
+    private final SimpleDateFormat dateFormatter = new SimpleDateFormat("EEEE, d MMMM yyyy");
+    private final SimpleDateFormat dateFormatterMonth = new SimpleDateFormat("MMMM 'of' yyyy");
+    private final SimpleDateFormat dateFormatterYear = new SimpleDateFormat("yyyy");
+
     private final String timeFrame;
     private final Date date;
 
@@ -52,28 +56,33 @@ public class StatsCommand extends Command {
                 LineChartPanel.setTimeFrame(timeFrame);
                 LineChartPanel.setDate(new Date());
                 LineChartPanel.setWindowSize(timeFrame);
+                LineChartPanel.reinitialiseChart();
                 return new CommandResult(Messages.MESSAGE_STATS_DEFAULT + "\n\n" + MESSAGE_USAGE);
             } else if (timeFrame.equals("week")) {
                 LineChartPanel.setTimeFrame(timeFrame);
                 LineChartPanel.setDate(date);
                 LineChartPanel.setWindowSize(timeFrame);
+                LineChartPanel.reinitialiseChart();
                 return new CommandResult(
                         String.format(Messages.MESSAGE_STATS_WEEK, dateFormatter.format(date)));
             } else if (timeFrame.equals("month")) {
                 LineChartPanel.setTimeFrame(timeFrame);
                 LineChartPanel.setDate(date);
+                LineChartPanel.setWindowSize(timeFrame);
+                LineChartPanel.reinitialiseChart();
                 return new CommandResult(
-                        String.format(Messages.MESSAGE_STATS_MONTH, dateFormatter.format(date)));
+                        String.format(Messages.MESSAGE_STATS_MONTH, dateFormatterMonth.format(date)));
             } else if (timeFrame.equals("year")) {
                 LineChartPanel.setTimeFrame(timeFrame);
                 LineChartPanel.setDate(date);
                 LineChartPanel.setWindowSize(timeFrame);
+                LineChartPanel.reinitialiseChart();
                 return new CommandResult(
-                        String.format(Messages.MESSAGE_STATS_YEAR, dateFormatter.format(date)));
+                        String.format(Messages.MESSAGE_STATS_YEAR, dateFormatterYear.format(date)));
             } else {
                 throw new CommandException( String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
             }
-        } catch (CommandException e) {
+        } catch (CommandException | ParseException e) {
             return new CommandResult(e.getMessage());
         }
     }

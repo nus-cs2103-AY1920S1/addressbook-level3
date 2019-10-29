@@ -30,12 +30,13 @@ public class LineChartPanel extends UiPart<Region> {
     private static LineChartPanel lineChartPanelInstance = null;
     private static final String FXML = "LineChartPanel.fxml";
     private static final long DAY_IN_MS = 1000 * 60 * 60 * 24;
+    private static ObservableList<Body> staticBodyList;
     private static int WINDOW_SIZE = 10;
     private static String timeFrame = "default";
     private static Date date = new Date();
 
     // this is used to display time in HH:mm:ss format
-    final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEE, MMM d yyyy");
+    final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EE, d/MM/yy");
     final CategoryAxis xAxis = new CategoryAxis(); // we are gonna plot against time
     final NumberAxis yAxis = new NumberAxis();
     final AreaChart<String, Number> lineChart = new AreaChart<>(xAxis, yAxis);
@@ -50,6 +51,7 @@ public class LineChartPanel extends UiPart<Region> {
     private LineChartPanel(ObservableList<Body> bodyList) throws ParseException {
         super(FXML);
         this.bodyList = bodyList;
+        staticBodyList = bodyList;
         makeLineChart(); // make line chart for the first time
     }
 
@@ -62,6 +64,7 @@ public class LineChartPanel extends UiPart<Region> {
         }
         return lineChartPanelInstance;
     }
+
     public void makeLineChart() throws ParseException {
         initialiseTreeMap();
         initialiseLineChart();
@@ -78,7 +81,15 @@ public class LineChartPanel extends UiPart<Region> {
      */
     private void initialiseLineChart() {
         //defining the axes
-        xAxis.setLabel("Day");
+        if (timeFrame.equals("default") || timeFrame.equals("week")) {
+            xAxis.setLabel("Day");
+        } else if (timeFrame.equals("month")) {
+            String month = new SimpleDateFormat("MMMM yyyy").format(date);
+            xAxis.setLabel(month);
+        } else if (timeFrame.equals("year")) {
+            String year = new SimpleDateFormat("'Year' yyyy").format(date);
+                xAxis.setLabel(year);
+        }
         yAxis.setLabel("Number");
 
         // y axis shows only integers
@@ -88,7 +99,7 @@ public class LineChartPanel extends UiPart<Region> {
         yAxis.setMinorTickVisible(false);
 
         //creating the line chart with two axis created above
-        lineChart.setTitle("Statistics");
+        lineChart.setTitle("Admission statistics");
         lineChart.setAnimated(false);
 
         //defining a series to display data
@@ -132,10 +143,31 @@ public class LineChartPanel extends UiPart<Region> {
     private void initialiseTreeMap() throws ParseException {
         // Fill in the missing dates
         Date now = new Date();
-        Date tenDaysAgo = new Date(now.getTime() - (366 * DAY_IN_MS));
-        for (Date date = now; date.after(tenDaysAgo); date = new Date(date.getTime() - DAY_IN_MS)) {
-            Date noTimeDate = formatDateNoTime(date);
-            freqByDate.putIfAbsent(noTimeDate, 0);
+
+        if (timeFrame.equals("week")) {
+            Date tenDaysAgo = new Date(now.getTime() - (7 * DAY_IN_MS));
+            for (Date date = now; date.after(tenDaysAgo); date = new Date(date.getTime() - DAY_IN_MS)) {
+                Date noTimeDate = formatDateNoTime(date);
+                freqByDate.putIfAbsent(noTimeDate, 0);
+            }
+        } else if (timeFrame.equals("month")) {
+            Date tenDaysAgo = new Date(now.getTime() - (30 * DAY_IN_MS));
+            for (Date date = now; date.after(tenDaysAgo); date = new Date(date.getTime() - DAY_IN_MS)) {
+                Date noTimeDate = formatDateNoTime(date);
+                freqByDate.putIfAbsent(noTimeDate, 0);
+            }
+        } else if (timeFrame.equals("year")) {
+            Date tenDaysAgo = new Date(now.getTime() - (365 * DAY_IN_MS));
+            for (Date date = now; date.after(tenDaysAgo); date = new Date(date.getTime() - DAY_IN_MS)) {
+                Date noTimeDate = formatDateNoTime(date);
+                freqByDate.putIfAbsent(noTimeDate, 0);
+            }
+        } else {
+            Date tenDaysAgo = new Date(now.getTime() - (10 * DAY_IN_MS));
+            for (Date date = now; date.after(tenDaysAgo); date = new Date(date.getTime() - DAY_IN_MS)) {
+                Date noTimeDate = formatDateNoTime(date);
+                freqByDate.putIfAbsent(noTimeDate, 0);
+            }
         }
 
         for (Body body: bodyList) {
@@ -178,11 +210,16 @@ public class LineChartPanel extends UiPart<Region> {
     private void updateSeries() {
         // clear previous data
         series.getData().clear();
-        // Update series based on dates in current hashmap
+        // Update series based on dates in current tree map
         freqByDate.forEach((date, freq) -> {
             series.getData().add(new XYChart.Data<String, Number>(simpleDateFormat.format(date), freq));
             if (series.getData().size() > WINDOW_SIZE) {
                 series.getData().remove(0);
+            }
+            // disable the x-axis as too many x-values cause the axis to take up too much vertical space
+            if (timeFrame.equals("month") || timeFrame.equals("year")) {
+                lineChart.getXAxis().setTickLabelsVisible(false);
+                lineChart.getXAxis().setTickMarkVisible(false);
             }
         });
     }
@@ -231,6 +268,9 @@ public class LineChartPanel extends UiPart<Region> {
         }
     }
 
+    public static void reinitialiseChart() throws ParseException {
+        getLineChartPanelInstance(staticBodyList).makeLineChart();
+    }
     @Override
     public boolean equals(Object other) {
         // short circuit if same object

@@ -26,11 +26,9 @@ public class Messages {
     public static final String MESSAGE_INVALID_DATE_FORMAT = "Invalid date format. Please use the following format for"
             + " all Mortago commands: dd/MM/yyy (example: 12/10/2019)";
     public static final String MESSAGE_STATS_DEFAULT = "Displaying admissions statistics of the last ten days.";
-    public static final String MESSAGE_STATS_WEEK = "Displaying admissions statistics of the week that contains " +
+    public static final String MESSAGE_STATS_WEEK = "Displaying admissions statistics of the week containing " +
             "the day %1$s.";
-    public static final String MESSAGE_STATS_MONTH = "Displaying admissions statistics of the week that contains " +
-            "the day %1$s.";
-    public static final String MESSAGE_STATS_YEAR = "Displaying admissions statistics of the week that contains " +
-            "the day %1$s.";
+    public static final String MESSAGE_STATS_MONTH = "Displaying admissions statistics of %1$s.";
+    public static final String MESSAGE_STATS_YEAR = "Displaying admissions statistics of the year %1$s.";
 
 }

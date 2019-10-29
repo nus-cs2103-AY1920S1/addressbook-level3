@@ -78,7 +78,7 @@ public class StatsCommandParser implements Parser<StatsCommand> {
             String timeFrame = presentPrefix.toString().substring(1);
 
             try {
-                Date date = new SimpleDateFormat("dd/MM/yyy").parse(argMultimap.getValue(presentPrefix).get());
+                Date date = new SimpleDateFormat("dd/MM/yyyy").parse(argMultimap.getValue(presentPrefix).get());
                 return new StatsCommand(date, timeFrame);
             } catch (Exception e) {
                 throw new ParseException(Messages.MESSAGE_INVALID_DATE_FORMAT);
