@@ -10,7 +10,7 @@ import seedu.jarvis.model.cca.exceptions.CcaProgressAtZeroException;
  */
 public class CcaCurrentProgress {
 
-    private static final String MESSAGE_CONSTRAINTS = "Current progress cannot be negative." ;
+    private static final String MESSAGE_CONSTRAINTS = "Current progress cannot be negative.";
 
     private int currentProgress = 0;
 

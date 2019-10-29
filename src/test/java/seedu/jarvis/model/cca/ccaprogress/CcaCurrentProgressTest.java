@@ -1,15 +1,16 @@
 package seedu.jarvis.model.cca.ccaprogress;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.jarvis.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import seedu.jarvis.model.cca.exceptions.CcaProgressAtZeroException;
 
 public class CcaCurrentProgressTest {
 
-    CcaCurrentProgress ccaCurrentProgress;
+    private CcaCurrentProgress ccaCurrentProgress;
 
     @BeforeEach
     public void setUp() {
