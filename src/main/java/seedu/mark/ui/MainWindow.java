@@ -223,12 +223,9 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     public Consumer<Url> getCurrentUrlChangeHandler() {
-        return new Consumer<Url>() {
-            @Override
-            public void accept(Url url) {
-                logic.setCurrentUrl(url);
-                handleSwitchToOnline();
-            }
+        return url -> {
+            logic.setCurrentUrl(url);
+            handleSwitchToOnline();
         };
     }
 
