@@ -80,7 +80,7 @@ public class GuiSettings implements Serializable {
 
     public String getFontColour() {
         if (!Colour.isValidColour(fontColour)) {
-            setDefaultAesthetics();
+            this.fontColour = DEFAULT_FONT_COLOUR;
         }
         return fontColour;
     }
