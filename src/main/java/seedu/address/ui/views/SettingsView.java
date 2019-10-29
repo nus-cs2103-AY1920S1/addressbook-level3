@@ -63,19 +63,19 @@ public class SettingsView extends UiPart<Region> {
      *
      * @param option the option that is chosen
      */
-    public void highlightChoice(AnchorPane setting, String option) {
-        setting.getChildren().forEach(child -> unhighlightText((Label) child));
+    private void highlightChoice(AnchorPane setting, String option) {
+        setting.getChildren().forEach(child -> unhighlightLabel((Label) child));
         Stream<Node> nodeStream = setting.getChildren().stream();
         nodeStream.filter(child -> ((Label) child).getText().equals(option))
-                .forEach(child -> highlightText((Label) child));
+                .forEach(child -> highlightLabel((Label) child));
     }
 
-    private void highlightText(Label label) {
+    private void highlightLabel(Label label) {
         label.getStyleClass().clear();
         label.getStyleClass().add(LABEL_HIGHLIGHTED);
     }
 
-    private void unhighlightText(Label label) {
+    private void unhighlightLabel(Label label) {
         label.getStyleClass().clear();
         label.getStyleClass().add(LABEL_UNHIGHLIGHTED);
     }
