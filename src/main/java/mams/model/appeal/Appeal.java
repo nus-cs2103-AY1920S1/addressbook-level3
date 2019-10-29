@@ -226,7 +226,7 @@ public class Appeal {
      * This defines a weaker notion of equality between two appeals.
      */
     public boolean isSameAppeal(Appeal otherAppeal) {
-        if (otherAppeal.getAppealId().equalsIgnoreCase(this.getAppealId())) {
+        if (otherAppeal.getAppealId().equalsIgnoreCase(this.getAppealId()) && otherAppeal != null) {
             return true;
         }
 
