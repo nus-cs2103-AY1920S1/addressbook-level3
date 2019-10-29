@@ -105,7 +105,6 @@ public class NotifCommand extends Command {
                     notifWindow.setTitle("Contact Police!");
                     notifWindow.setContent(notifContent);
                     notifWindow.display();
-                    // ses.shutdown();
                     storageManager.saveAddressBook(model.getAddressBook());
                 } catch (CommandException | IOException e) {
                     logger.info("Error updating the body and fridge ");

@@ -394,13 +394,40 @@ of the `notif`. `long` is used because `notifCreationTime.getTime()` returns a `
 Given below is the typical execution process of this command:
 
 1. The user executes `add -b /name John ...` to add a new `Body` to Mortago.
-2. The add command creates a new `Notif` using this `Body` as the parameter.
-3. The add command instantiates a new `NotifCommand` with `Notif`, `period`, `unit` as parameters.
-`period` is a static final long equals to 10 and `unit` is static final TimeUnit set at TimeUnit.SECONDS.
+2. The `AddCommand` creates a new `Notif` using this `Body` as the parameter.
+3. The `AddCommand` instantiates a new `NotifCommand` with `Notif`, `period`, `unit` as parameters.
+`period` is as a `static final long` equal to 10 and `unit` is `static final TimeUnit` set to `TimeUnit.SECONDS` in `AddCommand`.
 4. `NotifCommand` has a static instance of the `ScheduledExecutorService` which schedules updating the status of the
 bodies to `CONTACT_POLICE` if there is no change in their status for the specified `period` using the `UpdateCommand`.
 5. After the `BodyStatus` is updated, a `NotifWindow` will be shown to alert the user of the automatic update in
 `BodyStatus`.
+
+Here is the code snippet of the `NotifCommand`:
+```
+Body body = notif.getBody();
+String notifContent = "Body Id: " + body.getIdNum()
++ "\nName: " + body.getName()
++ "\nNext of Kin has been uncontactable. Please contact the police";
+
+Runnable changeUi = () -> Platform.runLater(() -> {
+    if (body.getBodyStatus().equals(Optional.of(CONTACT_POLICE))) {
+        UpdateCommand up = new UpdateCommand(body.getIdNum(), new UpdateBodyDescriptor(body));
+        up.setUpdateFromNotif(true);
+        try {
+            up.execute(model);
+            NotifWindow notifWindow = new NotifWindow();
+            notifWindow.setTitle("Contact Police!");
+            notifWindow.setContent(notifContent);
+            notifWindow.display();
+            storageManager.saveAddressBook(model.getAddressBook());
+        } catch (CommandException | IOException e) {
+            logger.info("Error updating the body and fridge ");
+        }
+    }
+    NotificationButton.getInstanceOfNotifButton().setIconNumber(model.getNumberOfNotifs());
+});
+ses.schedule(changeUi, period, timeUnit);
+```
 
 The following sequence diagrams illustrate the execution of the notification feature:
 
@@ -410,22 +437,22 @@ image::NotifCommandSequenceDiagram.png[]
 .ChangeUI function Sequence Diagram
 image::ChangeUiFnSequenceDiagram.png[]
 
-The following activity diagram shows what happens when a user adds a new body and the NotifCommand is instantiated:
+The following activity diagram shows what happens when a user adds a new body and the `NotifCommand` is instantiated:
 
 .Notification Command Activity Diagram
 image::NotifCommandActivityDiagram.png[]
 
 |===
 |:bulb: *Is `NotifCommand` only executed when a `Body` is added?*
-a| No! If the status of the `Body` is changed to `ARRIVED` using the `UpdateCommand`, `NotifCommand` will still
+a| No! If the status of the `Body` is changed to `ARRIVED` using the `UpdateCommand`, `NotifCommand` is still
 executed. The `Notif` is scheduled to be executed after the specified `period` from the point in time when the
 status of the body was updated.
 |===
 
-This command supports storage where each `Notif` with its associated `body` and the `long` equivalent of the
-`notifCreationTime` is stored in a JSON file along with the other `Entities`. When the `MainApp` is initialized, all the
-`Notif` stored will be added in the `model`. During this process, for each `Notif`, the difference of the current system
-time and `notifCreationTime` is calculated. If it is more than the `period`, then the status of the associated `body` is
+This command supports storage where each `Notif` with its associated `Body` and the `long` equivalent of the
+`notifCreationTime` are stored in a JSON file along with the other `Entities`. When the `MainApp` is initialized, all
+the `Notif` stored will be added in the `model`. During this process, for each `Notif`, the difference of the current system
+time and `notifCreationTime` is calculated. If it is more than the `period`, then the status of the associated `Body` is
 changed to `CONTACT_POLICE`. Otherwise, the `NotifCommand` is scheduled to be executed after the calculated time difference.
 
 |===
