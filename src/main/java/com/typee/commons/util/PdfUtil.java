@@ -66,7 +66,7 @@ public class PdfUtil {
         Document doc = new Document();
 
         if (Files.notExists(Paths.get(FOLDER_PATH))) {
-            Files.createFile(Files.createDirectories(Paths.get(FOLDER_PATH))).toFile();
+            Paths.get(FOLDER_PATH).toFile().mkdir();
         }
 
         try {
