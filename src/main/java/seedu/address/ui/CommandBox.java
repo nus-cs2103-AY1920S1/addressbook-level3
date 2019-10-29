@@ -99,6 +99,9 @@ public class CommandBox extends UiPart<Region> {
         handleTextChanged();
     }
 
+    /**
+     * Appends given suggestion to existing command in Command Box.
+     */
     public void appendCommandTextField(String suggestion) {
         if (suggestion == null) {
             return;
