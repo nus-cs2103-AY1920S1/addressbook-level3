@@ -19,8 +19,13 @@
     -fx-text-fill: white;
 }
 
-.individual-date-pane {
+.change-calendar-month-button {
+    -fx-cursor: hand;
+}
+
+.calendar-date-pane {
     -fx-background-color: white;
     -fx-border-color: black;
     -fx-border-width: 0.5 0.5 0.5 0.5;
+    -fx-cursor: hand;
 }
