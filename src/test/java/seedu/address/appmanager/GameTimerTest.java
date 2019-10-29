@@ -183,12 +183,12 @@ public class GameTimerTest {
         private boolean timerDisplayUpdated = false;
         private boolean timeLeftIsZero = false;
 
-        /** Utility to ensure that all timerTasks within a dummyTimer (on the JavaFX Applicaiton Thread)
+        /** Utility to ensure that all timerTasks within a dummyTimer (on the JavaFX Application Thread)
          *  are run before test worker thread is allowed to progress. */
         private CountDownLatch countDownLatch;
 
         /**
-         * Sets the countDownlatch of this AppManagerStub as {@code cd}.
+         * Sets the countDownLatch of this AppManagerStub as {@code cd}.
          */
         private void setCountDownLatch(CountDownLatch cd) {
             countDownLatch = cd;
