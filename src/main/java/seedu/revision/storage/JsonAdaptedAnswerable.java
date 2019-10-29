@@ -63,7 +63,7 @@ class JsonAdaptedAnswerable {
             wrongAnswerSet.addAll(source.getWrongAnswerList().stream()
                     .map(JsonAdaptedAnswer::new)
                     .collect(Collectors.toList()));
-        } else if (source instanceof TrueFalse)  {
+        } else if (source instanceof TrueFalse) {
             questionType = "tf";
         } else {
             questionType = "saq";

@@ -13,19 +13,18 @@ import java.util.ArrayList;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import seedu.revision.logic.commands.exceptions.CommandException;
 import seedu.revision.logic.commands.main.AddCommand;
 import seedu.revision.logic.parser.ArgumentMultimap;
 import seedu.revision.logic.parser.ArgumentTokenizer;
 import seedu.revision.logic.parser.Parser;
 import seedu.revision.logic.parser.ParserUtil;
 import seedu.revision.logic.parser.Prefix;
-import seedu.revision.model.answerable.QuestionType;
 import seedu.revision.logic.parser.exceptions.ParseException;
 import seedu.revision.model.answerable.Answerable;
 import seedu.revision.model.answerable.Difficulty;
 import seedu.revision.model.answerable.Mcq;
 import seedu.revision.model.answerable.Question;
+import seedu.revision.model.answerable.QuestionType;
 import seedu.revision.model.answerable.Saq;
 import seedu.revision.model.answerable.TrueFalse;
 import seedu.revision.model.answerable.answer.Answer;
@@ -83,7 +82,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         }
 
         requireNonNull(answerable);
-        validateAnswerable(answerable);
+        validateAnswerableToAdd(answerable);
         return new AddCommand(answerable);
     }
 
@@ -95,7 +94,7 @@ public class AddCommandParser implements Parser<AddCommand> {
      * @throws ParseException if question is in the wrong format.
      */
     private boolean validateQuestionType(QuestionType questionType, ArgumentMultimap argMultimap) throws
-            ParseException{
+            ParseException {
         String type = questionType.getType();
         int numCorrect = argMultimap.getAllValues(PREFIX_CORRECT).size();
         int numWrong = argMultimap.getAllValues(PREFIX_WRONG).size();
@@ -128,7 +127,13 @@ public class AddCommandParser implements Parser<AddCommand> {
         }
     }
 
-    private boolean validateAnswerable(Answerable answerableToAdd)
+    /**
+     * Validates the answerable by its type.
+     * @param answerableToAdd the answerable that is being added.
+     * @return a boolean to determine if answerable is valid. True if valid. False otherwise.
+     * @throws ParseException exception is thrown if answerable is not in the correct format.
+     */
+    private boolean validateAnswerableToAdd(Answerable answerableToAdd)
             throws ParseException {
         if (answerableToAdd instanceof Mcq) {
             if (!Mcq.isValidMcq((Mcq) answerableToAdd)) {

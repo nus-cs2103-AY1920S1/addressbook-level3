@@ -150,8 +150,8 @@ public class StartQuizWindow extends Window {
         mainWindow = new MainWindow(getPrimaryStage(), mainLogic, quizLogic);
         mainWindow.show();
         mainWindow.fillInnerParts();
-        mainWindow.resultDisplay.setFeedbackToUser("You attempted these questions." +
-                "Type 'list' to view your full list of questions again.");
+        mainWindow.resultDisplay.setFeedbackToUser("You attempted these questions."
+                + "Type 'list' to view your full list of questions again.");
     }
 
     public AnswerableListPanel getAnswerableListPanel() {

@@ -9,6 +9,9 @@ import seedu.revision.commons.core.LogsCenter;
 import seedu.revision.model.answerable.Answerable;
 import seedu.revision.model.answerable.answer.Answer;
 
+/**
+ * McqAnswersGridPane class used to display Mcq Answers.
+ */
 public class McqAnswersGridPane extends AnswersGridPane {
     private final Logger logger = LogsCenter.getLogger(McqAnswersGridPane.class);
 
@@ -31,6 +34,10 @@ public class McqAnswersGridPane extends AnswersGridPane {
         this.getRoot().getStyleClass().add("option-label");
     }
 
+    /**
+     * Updates the answers displayed during quiz mode.
+     * @param answerable answerable used to update answers.
+     */
     public void updateAnswers(Answerable answerable) {
         ArrayList<Answer> answerList = answerable.getCombinedAnswerList();
         option1.setText(answerList.get(0).toString());

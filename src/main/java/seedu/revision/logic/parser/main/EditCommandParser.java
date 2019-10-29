@@ -20,7 +20,6 @@ import seedu.revision.logic.parser.ArgumentTokenizer;
 import seedu.revision.logic.parser.Parser;
 import seedu.revision.logic.parser.ParserUtil;
 import seedu.revision.logic.parser.exceptions.ParseException;
-import seedu.revision.model.answerable.Answerable;
 import seedu.revision.model.category.Category;
 
 /**
@@ -48,13 +47,6 @@ public class EditCommandParser implements Parser<EditCommand> {
         }
 
         EditCommand.EditAnswerableDescriptor editAnswerableDescriptor = new EditCommand.EditAnswerableDescriptor();
-
-//        String questionType;
-//        if (argMultimap.getValue((PREFIX_QUESTION_TYPE)).isEmpty()) {
-//            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
-//        } else {
-//            questionType = argMultimap.getValue(PREFIX_QUESTION_TYPE).get();
-//        }
 
         if (argMultimap.getValue(PREFIX_QUESTION).isPresent()) {
             editAnswerableDescriptor.setQuestion(

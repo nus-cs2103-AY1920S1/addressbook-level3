@@ -20,14 +20,14 @@ import seedu.revision.model.category.Category;
  */
 public abstract class Answerable {
 
+    private static final Logger logger = Logger.getLogger(Answerable.class.getName());
+
     protected final Question question;
     protected final Difficulty difficulty;
     protected final ArrayList<Answer> correctAnswerList;
     protected final ArrayList<Answer> wrongAnswerList;
     protected final ArrayList<Answer> combinedAnswerList;
     protected final Set<Category> categories = new HashSet<>();
-
-    private final static Logger logger = Logger.getLogger(Answerable.class.getName());
 
     /**
      * Every field must be present and not null.

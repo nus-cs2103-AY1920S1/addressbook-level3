@@ -53,8 +53,8 @@ public class MainWindow extends Window {
             startQuizWindow.show();
             startQuizWindow.fillInnerParts();
         } else {
-            throw new CommandException("No questions were found matching that category/difficulty" +
-                    "Quiz start aborted. Type 'list' to view your full list of questions again.");
+            throw new CommandException("No questions were found matching that category/difficulty"
+                    + "Quiz start aborted. Type 'list' to view your full list of questions again.");
         }
     }
     /**
