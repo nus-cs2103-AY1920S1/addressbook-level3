@@ -125,7 +125,16 @@ public class UniqueAccountList implements Iterable<Account> {
         return null;
     }
 
-    public void setAll(UniqueAccountList replacement) {
+    /**
+     * Retrieves an account from the list by index.
+     * @param index The index of the account to be obtained.
+     * @return the account at that index within the
+     */
+    public Account getAccountByIndex(Index index) {
+        return internalList.get(index.getZeroBased());
+    }
+
+    public void setAccounts(UniqueAccountList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
     }

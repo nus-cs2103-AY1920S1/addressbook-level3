@@ -10,6 +10,7 @@ import budgetbuddy.model.account.Account;
 import budgetbuddy.model.account.UniqueAccountList;
 import budgetbuddy.model.account.exception.AccountNotFoundException;
 import budgetbuddy.model.attributes.Description;
+import budgetbuddy.model.account.exception.DefaultAccountCannotBeDeletedException;
 import budgetbuddy.model.attributes.Name;
 import budgetbuddy.model.transaction.TransactionList;
 import javafx.collections.ObservableList;
@@ -31,8 +32,6 @@ public class AccountsManager {
         this.accounts = new UniqueAccountList();
         filteredAccounts = new FilteredList<>(this.getAccounts());
         activeAccountIndex = Index.fromZeroBased(0);
-        // TODO add proper default data
-        addAccount(new Account(new Name("Default"), new Description("Default"), new TransactionList()));
     }
 
     /**
@@ -53,6 +52,7 @@ public class AccountsManager {
     public ObservableList<Account> getFilteredAccountList() {
         return filteredAccounts;
     }
+
 
     /**
      * Retrieves the list of accounts.

@@ -18,6 +18,7 @@ import budgetbuddy.logic.parser.CommandParser;
 import budgetbuddy.logic.parser.CommandParserUtil;
 import budgetbuddy.logic.parser.Prefix;
 import budgetbuddy.logic.parser.exceptions.ParseException;
+import budgetbuddy.model.AccountsManager;
 import budgetbuddy.model.account.Account;
 import budgetbuddy.model.attributes.Category;
 import budgetbuddy.model.attributes.Description;
