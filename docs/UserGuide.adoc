@@ -12,7 +12,7 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3
+:repoURL: https://github.com/AY1920S1-CS2103T-W12-3/main
 
 By: `AY1920S1-CS2103T-W12-3`      Since: `SEPT 2019`      Licence: `MIT`
 
@@ -257,28 +257,30 @@ _{explain how the user can enable/disable data encryption}_
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Bank Account folder.
 
 == Command Summary
 
 * *Split* `split [FLAG] $/AMOUNT n/NAME1 [n/NAME2]...` +
-e.g. `split $/1000 n/Amy n/Betty n/Catherine n/Dan`
-* *Out* : `out $/AMOUNT n/ITEM [c/CATEGORY]` +
-e.g. `out $/20 n/coke c/drink`
-* *In* `in $/AMOUNT n/ITEM [c/CATEGORY]` +
-e.g. `in $/100 n/allowance`
+Example: `split $/1000 n/Amy n/Betty n/Catherine n/Dan`
+* *Out* : `out $/AMOUNT n/ITEM d/DATE [c/CATEGORY]` +
+Example: `out $/20 n/coke d/19112019 c/drink c/lunch`
+* *In* `in $/AMOUNT n/ITEM d/DATE [c/CATEGORY]` +
+Example: `in $/100 n/allowance d/11112019 c/income`
 * *Set* : `set $/AMOUNT d/DATE c/CATEGORY` +
-e.g. `set $/100 d/10102019 c/food`
-* *View* : `view []` +
-e.g. `view projection`
+Example: `set $/100 d/10102019 c/food`
+* *View* : `view TAB` +
+Example: `view transaction`
 * *Delete* : `delete --TYPE AMOUNT n/ITEM [c/CATEGORY]` +
-e.g. `delete --in $/200 n/waiter c/work`
+Example: `delete --in $/200 n/waiter c/work`
 * *Update* : `update --TYPE AMOUNT1 AMOUNT2 n/ITEM [c/CATEGORY]` +
-e.g. `update --out $/100 $/300 n/transport`
-* *Filter* : `filter CATEGORY` +
-e.g. `filter food`
+Example: `update --out $/100 $/300 n/transport`
+* *Sort* : `sort PREDICATE` +
+Example: `sort amount`
+* *Filter* : `filter CATEGORY...` +
+Example: `filter food`
 * *Project* : `project DURATION` +
-e.g. `project 10`
+Example: `project 10`
 * *Redo* : `redo`
 * *Undo* : `undo`
 * *Clear* : `clear`
