@@ -335,31 +335,18 @@ image::DeleteActivityDiagram.png[]
 
 ==== Current Implementation
 
-<<<<<<< HEAD
 `Transaction` is an abstract class which implements `UndoableAction`. `inTransaction` and `outTransaction` extend the `Transaction` class.
 `Transaction` stores an *amount*, *date* and a set of *categories* which describe the variables a `Transaction` with the `BankAccount` will typically hold.
 `Split` transaction is the only dependency that relies on an additional `peopleInvolved` variable.
 `inTransaction` and `outTransaction` implement `BankAccountOperation`.
-=======
 ==== Design Consideration
->>>>>>> 43e79d0fa3c9c6057007ed96027fd5e5c33163e8
 
 ===== Aspect: Delete requires `TYPE+INDEX` as one of its parameter
 
-<<<<<<< HEAD
 Implementation of `Transaction` abstract class allows code reuse as different types of transactions depends on similar variables.
 `inTransaction` and `outTransaction` can be referenced by making a call to `BankAccountOperation`,
 this `BankAccountOperation` is then passed as an argument to `Logic` components and multiple CRUD commands.
 This allows multiple transaction calls within the same method.
-=======
-* **Alternative 1 (current choice):** takes in `TYPE+INDEX` to decide whether to delete an item from Transaction or Budget list. (e.g. `delete b1` deletes item index 1 from budget).
-** Pros: Requires lesser user steps to be taken before executing a `delete` command
-** Cons: Requires two lists to be created instead of 1. The `UniqueTransactionList` stores Transaction items and `UniqueBudgetList` to store Budget items.
-For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
-* **Alternative 2:** Change to **Transaction** or **Budget** mode and keying in only index (e.g. `delete 1`)
-** Pros: Requires only one unique list required to store both Transactions and Budgets.
-** Cons: Requires additional user step to switch between modes before executing a delete command.
->>>>>>> 43e79d0fa3c9c6057007ed96027fd5e5c33163e8
 
 // end::delete[]
 
