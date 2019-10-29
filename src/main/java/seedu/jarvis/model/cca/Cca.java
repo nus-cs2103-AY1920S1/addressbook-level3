@@ -66,7 +66,7 @@ public class Cca {
      *
      * @return true if the cca progresslist is empty.
      */
-    public boolean ccaProgressListIsEmpty() {
+    public boolean ccaMilestoneListIsEmpty() {
         return ccaProgress.ccaMilestoneListIsEmpty();
     }
 
@@ -74,7 +74,7 @@ public class Cca {
      * Adds a progresslist to the {@code CcaProgress}.
      */
     public void addProgress(CcaMilestoneList ccaMilestoneList) {
-        if (!ccaProgressListIsEmpty()) {
+        if (!ccaMilestoneListIsEmpty()) {
             throw new CcaProgressAlreadySetException();
         }
         ccaProgress.setMilestones(ccaMilestoneList);
@@ -106,6 +106,27 @@ public class Cca {
      */
     public double getCcaProgressPercentage() throws MaxProgressNotSetException {
         return ccaProgress.getCcaProgressPercentage();
+    }
+
+    /**
+     * Removes the {@code toRemoveCcaMilestoneList} from this Cca.
+     */
+    public void removeCcaMilestoneList(CcaMilestoneList toRemoveCcaMilestoneList) {
+        ccaProgress.setMilestones(new CcaMilestoneList());
+    }
+
+    /**
+     * Returns true of ccaProgress is at the minimum level.
+     */
+    public boolean ccaProgressAtMinLevel() {
+        return ccaProgress.progressAtMin();
+    }
+
+    /**
+     * Decreases the progress of the {@code Cca}.
+     */
+    public void decreaseProgress() {
+        ccaProgress.decreaseProgress();
     }
 
     /**

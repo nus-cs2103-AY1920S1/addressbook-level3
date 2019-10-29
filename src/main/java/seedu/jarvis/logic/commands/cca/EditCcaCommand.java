@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.jarvis.logic.parser.CliSyntax.CcaTrackerCliSyntax.PREFIX_CCA_NAME;
 import static seedu.jarvis.logic.parser.CliSyntax.CcaTrackerCliSyntax.PREFIX_CCA_TYPE;
 import static seedu.jarvis.logic.parser.CliSyntax.CcaTrackerCliSyntax.PREFIX_EQUIPMENT_NAME;
+import static seedu.jarvis.model.cca.CcaTrackerModel.PREDICATE_SHOW_ALL_CCAS;
 
 import java.util.Optional;
 
@@ -89,7 +90,7 @@ public class EditCcaCommand extends Command {
      */
     @Override
     public boolean hasInverseExecution() {
-        return false;
+        return HAS_INVERSE;
     }
 
     /**
@@ -137,7 +138,22 @@ public class EditCcaCommand extends Command {
      */
     @Override
     public CommandResult executeInverse(Model model) throws CommandException {
-        return null;
+        requireNonNull(model);
+
+        // checks if cca to be reverted is in Cca Tracker.
+        if (!model.containsCca(editedCca)) {
+            throw new CommandException(MESSAGE_INVERSE_CCA_NOT_FOUND);
+        }
+
+        // checks if reverting the Cca will be in conflict with another existing Cca in the CcaTracker.
+        if (!originalCca.isSameCca(editedCca) && model.containsCca(originalCca)) {
+            throw new CommandException(MESSAGE_INVERSE_CONFLICT_WITH_EXISTING_CCA);
+        }
+
+        model.updateCca(editedCca, originalCca);
+        model.updateFilteredCcaList(PREDICATE_SHOW_ALL_CCAS);
+
+        return new CommandResult(MESSAGE_INVERSE_SUCCESS_EDIT);
     }
 
     /**

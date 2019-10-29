@@ -1,6 +1,7 @@
 package seedu.jarvis.model.cca.ccaprogress;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.jarvis.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -8,21 +9,13 @@ import org.junit.jupiter.api.Test;
 
 public class CcaCurrentProgressTest {
 
-    CcaCurrentProgress ccaCurrentProgress;
+    private CcaCurrentProgress ccaCurrentProgress;
 
     @BeforeEach
     public void setUp() {
         ccaCurrentProgress = new CcaCurrentProgress();
     }
 
-
-    @Test
-    public void increaseProgress_validInput_increasedCorrectly() {
-        ccaCurrentProgress.setMaxProgress(1);
-        ccaCurrentProgress.increaseProgress();
-        assertEquals(ccaCurrentProgress.getCurrentProgress(),);
-
-    }
 
     @Test
     public void isValidName() {

@@ -1,6 +1,7 @@
 package seedu.jarvis.logic.commands.cca;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.jarvis.model.cca.CcaTrackerModel.PREDICATE_SHOW_ALL_CCAS;
 
 import java.util.Objects;
 
@@ -11,7 +12,6 @@ import seedu.jarvis.logic.commands.CommandResult;
 import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.model.Model;
 import seedu.jarvis.model.cca.Cca;
-
 
 /**
  * Deletes a cca from Jarvis.
@@ -58,7 +58,7 @@ public class DeleteCcaCommand extends Command {
 
     @Override
     public boolean hasInverseExecution() {
-        return false;
+        return HAS_INVERSE;
     }
 
     @Override
@@ -79,7 +79,17 @@ public class DeleteCcaCommand extends Command {
 
     @Override
     public CommandResult executeInverse(Model model) throws CommandException {
-        return null;
+        requireNonNull(model);
+
+        if (model.containsCca(deletedCca)) {
+            throw new CommandException(String.format(MESSAGE_INVERSE_CCA_TO_ADD_ALREADY_EXIST, deletedCca));
+        }
+
+        model.addCca(deletedCca);
+        model.updateFilteredCcaList(PREDICATE_SHOW_ALL_CCAS);
+
+        return new CommandResult(String.format(MESSAGE_INVERSE_SUCCESS_ADD, deletedCca));
+
     }
 
     @Override

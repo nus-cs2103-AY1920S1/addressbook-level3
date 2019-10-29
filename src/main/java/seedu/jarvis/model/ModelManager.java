@@ -601,6 +601,22 @@ public class ModelManager implements Model {
         return ccaTracker.ccaAtMaxIncrement(targetIndex);
     }
 
+    @Override
+    public void removeProgress(Cca targetCca, CcaMilestoneList toRemoveCcaMilestoneList) {
+        ccaTracker.removeCcaMilestoneList(targetCca, toRemoveCcaMilestoneList);
+    };
+
+    @Override
+    public boolean ccaProgressAtMinLevel(Index targetIndex) {
+        return ccaTracker.ccaProgressAtMinLevel(targetIndex);
+    };
+
+    @Override
+    public void decreaseProgress(Index targetIndex) {
+        ccaTracker.decreaseProgress(targetIndex);
+    }
+
+
     //=========== Planner =============================================================
 
     /**

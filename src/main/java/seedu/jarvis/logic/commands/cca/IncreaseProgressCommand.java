@@ -8,7 +8,6 @@ import seedu.jarvis.logic.commands.Command;
 import seedu.jarvis.logic.commands.CommandResult;
 import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.model.Model;
-import seedu.jarvis.model.cca.Cca;
 
 /**
  * Increments progress for the chosen cca.
@@ -24,12 +23,13 @@ public class IncreaseProgressCommand extends Command {
             + "1 ";
 
     public static final String MESSAGE_INCREMENT_PROGRESS_SUCCESS = "Incremented progress for Cca: %1$s";
+    public static final String MESSAGE_DECREMENT_PROGRESS_SUCCESS = "Decremented progress for Cca: %1$s";
     public static final String MESSAGE_CCA_PROGRESS_NOT_YET_SET = "A progress does not yet exists in this cca.";
     public static final String MESSAGE_INCREMENT_AT_MAX = "Cca progress at maximum.";
+    public static final String MESSAGE_INCREMENT_AT_MIN = "Cca progress at minimum.";
+    public static final boolean HAS_INVERSE = true;
 
     private final Index targetIndex;
-
-    private Cca targetCca;
 
     public IncreaseProgressCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
@@ -37,12 +37,12 @@ public class IncreaseProgressCommand extends Command {
 
     @Override
     public String getCommandWord() {
-        return null;
+        return COMMAND_WORD;
     }
 
     @Override
     public boolean hasInverseExecution() {
-        return false;
+        return HAS_INVERSE;
     }
 
     @Override
@@ -68,6 +68,37 @@ public class IncreaseProgressCommand extends Command {
 
     @Override
     public CommandResult executeInverse(Model model) throws CommandException {
-        return null;
+        requireNonNull(model);
+
+        if (targetIndex.getZeroBased() >= model.getNumberOfCcas()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_CCA_DISPLAYED_INDEX);
+        }
+
+        if (!model.ccaContainsProgress(targetIndex)) {
+            throw new CommandException(MESSAGE_CCA_PROGRESS_NOT_YET_SET);
+        }
+
+        if (model.ccaProgressAtMinLevel(targetIndex)) {
+            throw new CommandException(MESSAGE_INCREMENT_AT_MIN);
+        }
+
+        model.decreaseProgress(targetIndex);
+
+        return new CommandResult(String.format(MESSAGE_DECREMENT_PROGRESS_SUCCESS, targetIndex.getOneBased()));
+
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        // Short circuit if it is the same object.
+        if (obj == this) {
+            return true;
+        }
+        // instanceof handles nulls.
+        if (!(obj instanceof IncreaseProgressCommand)) {
+            return false;
+        }
+        IncreaseProgressCommand other = (IncreaseProgressCommand) obj;
+        return targetIndex.equals(other.targetIndex);
     }
 }

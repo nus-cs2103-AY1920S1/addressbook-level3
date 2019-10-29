@@ -1,5 +1,6 @@
 package seedu.jarvis.model.cca.ccaprogress;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.jarvis.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.List;
@@ -56,7 +57,7 @@ public class CcaProgress {
      * {@code milestones} must not contain duplicate milestones.
      */
     public void setMilestones(CcaMilestoneList ccaMilestoneList) {
-        requireAllNonNull(ccaMilestoneList);
+        requireNonNull(ccaMilestoneList);
 
         this.ccaMilestoneList.setMilestones(ccaMilestoneList);
     }
@@ -100,6 +101,24 @@ public class CcaProgress {
         }
 
         return false;
+    }
+
+    /**
+     * Returns true if the progress is the minimum.
+     */
+    public boolean progressAtMin() {
+        if (ccaCurrentProgress.progressAtMin()) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Decreases the progress of the {@code CurrentProgress}.
+     */
+    public void decreaseProgress() {
+        ccaCurrentProgress.decreaseProgress();
     }
 
     @Override

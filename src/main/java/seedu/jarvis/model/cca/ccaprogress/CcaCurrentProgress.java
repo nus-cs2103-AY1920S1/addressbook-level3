@@ -48,6 +48,17 @@ public class CcaCurrentProgress {
         this.currentProgress = currentProgress;
     }
 
+    /**
+     * Returns true of the progress is at 0.
+     */
+    public boolean progressAtMin() {
+        if (currentProgress == 0) {
+            return true;
+        }
+
+        return false;
+    }
+
     //// util methods
 
     /**

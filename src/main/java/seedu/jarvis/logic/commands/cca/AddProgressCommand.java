@@ -36,6 +36,13 @@ public class AddProgressCommand extends Command {
     public static final String MESSAGE_SUCCESS = "New progress added to cca at index: %1$s";
     public static final String MESSAGE_CCA_PROGRESS_ALREADY_SET = "A progress already exists in this cca.";
 
+    public static final String MESSAGE_INVERSE_SUCCESS_DELETE = "Deleted Progress: %1$s";
+    public static final String MESSAGE_INVERSE_PROGRESS_NOT_FOUND = "Progress already deleted for Cca at index: %1$s";
+    public static final String MESSAGE_INVERSE_CCA_NOT_FOUND = "Cca at index: %1$s not found";
+
+    public static final boolean HAS_INVERSE = true;
+
+
     private final Index targetIndex;
     private Cca targetCca;
 
@@ -59,7 +66,7 @@ public class AddProgressCommand extends Command {
 
     @Override
     public boolean hasInverseExecution() {
-        return false;
+        return HAS_INVERSE;
     }
 
     @Override
@@ -85,7 +92,21 @@ public class AddProgressCommand extends Command {
 
     @Override
     public CommandResult executeInverse(Model model) throws CommandException {
-        return null;
+        requireNonNull(model);
+
+        if (!model.containsCca(targetCca)) {
+            throw new CommandException(String.format(MESSAGE_INVERSE_CCA_NOT_FOUND, targetIndex));
+
+        }
+
+        if (!model.ccaContainsProgress(targetIndex)) {
+            throw new CommandException(String.format(MESSAGE_INVERSE_PROGRESS_NOT_FOUND, targetIndex));
+        }
+
+        model.removeProgress(targetCca, toAddCcaMilestoneList);
+
+        return new CommandResult(String.format(MESSAGE_INVERSE_SUCCESS_DELETE, targetIndex));
+
     }
 
     @Override

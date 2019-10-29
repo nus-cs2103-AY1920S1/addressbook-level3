@@ -344,6 +344,7 @@ public class ModelStub implements Model {
     @Override
     public void increaseProgress(Index index) {
         throw new AssertionError("This method should not be called.");
+
     }
 
     @Override
@@ -353,6 +354,22 @@ public class ModelStub implements Model {
 
     @Override
     public boolean ccaAtMaxIncrement(Index targetIndex) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void removeProgress(Cca targetCca, CcaMilestoneList toAddCcaMilestoneList) {
+        throw new AssertionError("This method should not be called.");
+
+    }
+
+    @Override
+    public boolean ccaProgressAtMinLevel(Index targetIndex) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void decreaseProgress(Index targetIndex) {
         throw new AssertionError("This method should not be called.");
     }
 
