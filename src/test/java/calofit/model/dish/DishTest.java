@@ -25,20 +25,20 @@ public class DishTest {
         Assertions.assertFalse(TypicalDishes.SPAGHETTI.isSameDish(null));
 
         // different name -> returns false
-        Dish editedAlice = new DishBuilder(
+        Dish editedDish = new DishBuilder(
                 TypicalDishes.SPAGHETTI).withName(CommandTestUtil.VALID_NAME_MACARONI).build();
-        Assertions.assertFalse(TypicalDishes.SPAGHETTI.isSameDish(editedAlice));
+        Assertions.assertFalse(TypicalDishes.SPAGHETTI.isSameDish(editedDish));
 
         // same name, same phone, different attributes -> returns true
-        editedAlice = new DishBuilder(TypicalDishes.SPAGHETTI).withTags(CommandTestUtil.VALID_TAG_SALTY).build();
-        Assertions.assertTrue(TypicalDishes.SPAGHETTI.isSameDish(editedAlice));
+        editedDish = new DishBuilder(TypicalDishes.SPAGHETTI).withTags(CommandTestUtil.VALID_TAG_SALTY).build();
+        Assertions.assertTrue(TypicalDishes.SPAGHETTI.isSameDish(editedDish));
     }
 
     @Test
     public void equals() {
         // same values -> returns true
-        Dish aliceCopy = new DishBuilder(TypicalDishes.SPAGHETTI).build();
-        Assertions.assertTrue(TypicalDishes.SPAGHETTI.equals(aliceCopy));
+        Dish spaghettiCopy = new DishBuilder(TypicalDishes.SPAGHETTI).build();
+        Assertions.assertTrue(TypicalDishes.SPAGHETTI.equals(spaghettiCopy));
 
         // same object -> returns true
         Assertions.assertTrue(TypicalDishes.SPAGHETTI.equals(TypicalDishes.SPAGHETTI));
@@ -53,12 +53,12 @@ public class DishTest {
         Assertions.assertFalse(TypicalDishes.SPAGHETTI.equals(TypicalDishes.MACARONI));
 
         // different name -> returns false
-        Dish editedAlice = new DishBuilder(
+        Dish editedDish = new DishBuilder(
                 TypicalDishes.SPAGHETTI).withName(CommandTestUtil.VALID_NAME_MACARONI).build();
-        Assertions.assertFalse(TypicalDishes.SPAGHETTI.equals(editedAlice));
+        Assertions.assertFalse(TypicalDishes.SPAGHETTI.equals(editedDish));
 
         // different tags -> returns false
-        editedAlice = new DishBuilder(TypicalDishes.SPAGHETTI).withTags(CommandTestUtil.VALID_TAG_SALTY).build();
-        Assertions.assertFalse(TypicalDishes.SPAGHETTI.equals(editedAlice));
+        editedDish = new DishBuilder(TypicalDishes.SPAGHETTI).withTags(CommandTestUtil.VALID_TAG_SALTY).build();
+        Assertions.assertFalse(TypicalDishes.SPAGHETTI.equals(editedDish));
     }
 }

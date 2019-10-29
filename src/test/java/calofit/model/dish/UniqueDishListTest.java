@@ -40,9 +40,9 @@ public class UniqueDishListTest {
     @Test
     public void contains_dishWithSameIdentityFieldsInList_returnsTrue() {
         uniqueDishList.add(TypicalDishes.SPAGHETTI);
-        Dish editedAlice = new DishBuilder(TypicalDishes.SPAGHETTI).withTags(CommandTestUtil.VALID_TAG_SALTY)
+        Dish editedSpaghetti = new DishBuilder(TypicalDishes.SPAGHETTI).withTags(CommandTestUtil.VALID_TAG_SALTY)
                 .build();
-        assertTrue(uniqueDishList.contains(editedAlice));
+        assertTrue(uniqueDishList.contains(editedSpaghetti));
     }
 
     @Test
@@ -85,11 +85,11 @@ public class UniqueDishListTest {
     @Test
     public void setDish_editedDishHasSameIdentity_success() {
         uniqueDishList.add(TypicalDishes.SPAGHETTI);
-        Dish editedAlice = new DishBuilder(TypicalDishes.SPAGHETTI).withTags(CommandTestUtil.VALID_TAG_SALTY)
+        Dish editedSpaghetti = new DishBuilder(TypicalDishes.SPAGHETTI).withTags(CommandTestUtil.VALID_TAG_SALTY)
                 .build();
-        uniqueDishList.setDish(TypicalDishes.SPAGHETTI, editedAlice);
+        uniqueDishList.setDish(TypicalDishes.SPAGHETTI, editedSpaghetti);
         UniqueDishList expectedUniqueDishList = new UniqueDishList();
-        expectedUniqueDishList.add(editedAlice);
+        expectedUniqueDishList.add(editedSpaghetti);
         assertEquals(expectedUniqueDishList, uniqueDishList);
     }
 
