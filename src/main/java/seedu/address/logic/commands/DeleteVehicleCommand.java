@@ -17,7 +17,8 @@ import seedu.address.model.vehicle.Vehicle;
 public class DeleteVehicleCommand extends Command {
 
     public static final String COMMAND_WORD = "delete-v";
-    public static final String MESSAGE_USAGE = "";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + "INDEX (must be a postive integer)\n"
+            + "Example: " + COMMAND_WORD + "1";
 
     public static final String MESSAGE_DELETE_VEHICLE_SUCCESS = "Deleted Vehicle %1$s";
     public static final String MESSAGE_DELETE_VEHICLE_ERROR = "You cannot delete a vehicle that is currently "
