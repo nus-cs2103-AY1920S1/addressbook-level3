@@ -18,18 +18,6 @@ public class Note {
      *
      * @param note to set.
      * @param description to the question.
-     */
-    public Note(String note, String description) {
-        requireAllNonNull(note, description);
-        this.note = note;
-        this.description = description;
-    }
-
-    /**
-     * Creates a new note.
-     *
-     * @param note to set.
-     * @param description to the question.
      * @param priority of the note.
      */
     public Note(String note, String description, Priority priority) {

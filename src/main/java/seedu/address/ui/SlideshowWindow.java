@@ -14,11 +14,13 @@ import javafx.stage.Stage;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
 import seedu.address.model.question.Question;
+import seedu.address.ui.util.OptionType;
 
 /**
  * Controller for a help page
  */
 public class SlideshowWindow extends UiPart<Stage> {
+
     public static final String TIP = "Press 'Esc' to quit slideshow\n"
         + "Press 'Space' to show the answer\n"
         + "Use the 'Left/Right' arrow keys to navigate";
@@ -97,7 +99,15 @@ public class SlideshowWindow extends UiPart<Stage> {
             } else if (keyEvent.getCode() == KeyCode.LEFT) { // Previous question
                 prevQuestion();
             } else if (keyEvent.getCode() == KeyCode.SPACE) { // Show answer
-                showAnswer();
+                showHideAnswer();
+            } else if (keyEvent.getCode() == KeyCode.DIGIT1) { // Poll option A
+                addToPoll(OptionType.OPTION_A);
+            } else if (keyEvent.getCode() == KeyCode.DIGIT2) { // Poll option B
+                addToPoll(OptionType.OPTION_B);
+            } else if (keyEvent.getCode() == KeyCode.DIGIT3) { // Poll option C
+                addToPoll(OptionType.OPTION_C);
+            } else if (keyEvent.getCode() == KeyCode.DIGIT4) { // Poll option D
+                addToPoll(OptionType.OPTION_D);
             }
         });
     }
@@ -131,11 +141,19 @@ public class SlideshowWindow extends UiPart<Stage> {
     }
 
     /**
-     * Shows the current answer of the question.
+     * Shows or hide the current answer of the question.
      */
-    private void showAnswer() {
+    private void showHideAnswer() {
         QuestionPanel questionPanel = questionPanels.get(currQuestionIndex);
-        questionPanel.showAnswer();
+        questionPanel.showHideAnswer();
+    }
+
+    /**
+     * Adds the corresponding option pressed to the poll results.
+     */
+    private void addToPoll(OptionType option) {
+        QuestionPanel questionPanel = questionPanels.get(currQuestionIndex);
+        questionPanel.addToPoll(option);
     }
 
     /**

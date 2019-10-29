@@ -42,19 +42,19 @@ public class NotesCard extends UiPart<Region> {
     public void setPriority(Priority priority) {
         switch (priority) {
         case HIGH :
-            cardPane.setStyle("-fx-background-color: #FF9989; -fx-text-fill: white;");
-            noteTitle.setStyle("-fx-text-fill: black;");
-            description.setStyle("-fx-text-fill: black;");
+            cardPane.setStyle("-fx-background-color: #FF3120; -fx-text-fill: white;");
+            noteTitle.setStyle("-fx-text-fill: #171716;");
+            description.setStyle("-fx-text-fill: #171716;");
             break;
         case MEDIUM:
-            cardPane.setStyle("-fx-background-color: #FFE253; -fx-text-fill: white;");
-            noteTitle.setStyle("-fx-text-fill: black;");
-            description.setStyle("-fx-text-fill: black;");
+            cardPane.setStyle("-fx-background-color: #53EB4D; -fx-text-fill: white;");
+            noteTitle.setStyle("-fx-text-fill: #171716;");
+            description.setStyle("-fx-text-fill: #171716;");
             break;
         case LOW :
-            cardPane.setStyle("-fx-background-color: #BBFF31; -fx-text-fill: white;");
-            noteTitle.setStyle("-fx-text-fill: black;");
-            description.setStyle("-fx-text-fill: black;");
+            cardPane.setStyle("-fx-background-color: #FFC801; -fx-text-fill: white;");
+            noteTitle.setStyle("-fx-text-fill: #171716;");
+            description.setStyle("-fx-text-fill: #171716;");
             break;
         case UNMARKED:
             break;
