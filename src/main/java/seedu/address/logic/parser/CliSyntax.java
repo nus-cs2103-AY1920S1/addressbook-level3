@@ -22,6 +22,7 @@ public class CliSyntax {
     public static final Prefix PREFIX_EVENT_END_DATE = new Prefix("till/");
     public static final Prefix PREFIX_EVENT_TIME = new Prefix("time/");
     public static final Prefix PREFIX_EMPLOYEE_NUMBER = new Prefix("n/"); // for allocatem command
+    public static final Prefix PREFIX_EMPLOYEE_ID = new Prefix("id/"); // for allocatem command
     public static final Prefix PREFIX_MANPOWER_TO_ADD = new Prefix("n/"); // for allocate command
     public static final Prefix PREFIX_YEAR_MONTH = new Prefix("for/");
 }
