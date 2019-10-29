@@ -21,7 +21,7 @@ public class SetMonthlyLimitCommand extends Command {
             + "Existing monthly limit will be overwritten by new input value.\n"
             + "Parameters: "
             + "[" + PREFIX_MONEY + "AMOUNT] "
-            + "Example: " + COMMAND_WORD
+            + "Example: " + COMMAND_WORD + " "
             + PREFIX_MONEY + "500.0";
 
     public static final String MESSAGE_SUCCESS = "New limit set: %1$s";
@@ -31,7 +31,7 @@ public class SetMonthlyLimitCommand extends Command {
 
     public static final String MESSAGE_INVERSE_SUCCESS_RESET = "Monthly limit has been reset";
 
-    public static final boolean HAS_INVERSE = true;
+    public static final boolean HAS_INVERSE = false;
 
     private MonthlyLimit originalLimit;
     private final MonthlyLimit toSet;
@@ -81,7 +81,7 @@ public class SetMonthlyLimitCommand extends Command {
         }
 
         model.setMonthlyLimit(toSet);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toSet));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toSet), true);
     }
 
     /**

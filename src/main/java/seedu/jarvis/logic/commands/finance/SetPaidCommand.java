@@ -31,7 +31,7 @@ public class SetPaidCommand extends Command {
     public static final String MESSAGE_INVERSE_SUCCESS_DELETE = "Deleted Payment: %1$s";
     public static final String MESSAGE_INVERSE_PURCHASE_NOT_FOUND = "Payment already deleted: %1$s";
 
-    public static final boolean HAS_INVERSE = true;
+    public static final boolean HAS_INVERSE = false;
 
     private final Purchase toAdd;
 

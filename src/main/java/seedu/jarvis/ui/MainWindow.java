@@ -34,9 +34,9 @@ public class MainWindow extends UiPart<Stage> {
 
     private static final String FXML = "MainWindow.fxml";
     private static final int PLANNER_INDEX = 0;
-    private static final int FINANCES_INDEX = 1;
+    private static final int MODULES_INDEX = 1;
     private static final int CCAS_INDEX = 2;
-    private static final int MODULES_INDEX = 3;
+    private static final int FINANCES_INDEX = 3;
     private static final String MESSAGE_VIEW_NOT_IMPLEMENTED = "View not yet implemented.";
 
     private final Logger logger = LogsCenter.getLogger(getClass());

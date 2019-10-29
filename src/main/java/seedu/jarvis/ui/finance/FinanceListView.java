@@ -1,6 +1,7 @@
 package seedu.jarvis.ui.finance;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.AnchorPane;
@@ -22,6 +23,10 @@ public class FinanceListView extends View<AnchorPane> {
     private ListView<Purchase> purchaseListView;
     @FXML
     private ListView<Installment> installmentListView;
+    @FXML
+    private Label spentAmount;
+    @FXML
+    private Label remainingAmount;
 
     public FinanceListView(MainWindow mainWindow, Logic logic, Model model) {
 
@@ -35,6 +40,14 @@ public class FinanceListView extends View<AnchorPane> {
 
         installmentListView.setItems(model.getFilteredInstallmentList());
         installmentListView.setCellFactory(listView -> new InstallmentListViewCell());
+
+        spentAmount.setText(model.calculateTotalSpending() + "");
+
+        if (model.calculateRemainingAmount() == -1) {
+            remainingAmount.setText("No spending limit was set!");
+        } else {
+            remainingAmount.setText(model.calculateRemainingAmount() + "");
+        }
     }
 
     /**
