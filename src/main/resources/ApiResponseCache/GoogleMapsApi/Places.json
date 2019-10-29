@@ -494,6 +494,15 @@
     } ],
     "status" : "OK"
   },
+  "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?location=.sg&inputtype=textquery&fields=name,place_id&input=NUS_AS5_1234556&" : {
+    "candidates" : [ ],
+    "status" : "ZERO_RESULTS"
+  },
+  "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?location=.sg&inputtype=textquery&fields=name,place_id&input=FOOB&" : {
+    "error_message" : "You must use an API key to authenticate each request to Google Maps Platform APIs. For additional information, please refer to http://g.co/dev/maps-no-account",
+    "candidates" : [ ],
+    "status" : "REQUEST_DENIED"
+  },
   "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?location=.sg&inputtype=textquery&fields=name,place_id&input=NUS_LT9&" : {
     "candidates" : [ {
       "name" : "NUS LT9",
@@ -605,6 +614,10 @@
       "place_id" : "ChIJ2QJCeFYa2jERa434wdYIjUg"
     } ],
     "status" : "OK"
+  },
+  "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?location=.sg&inputtype=textquery&fields=name,place_id&input=NUS_BARFOO&" : {
+    "candidates" : [ ],
+    "status" : "ZERO_RESULTS"
   },
   "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?location=.sg&inputtype=textquery&fields=name,place_id&input=NUS_LT8&" : {
     "candidates" : [ {
@@ -757,6 +770,16 @@
     } ],
     "status" : "OK"
   },
+  "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?location=.sg&inputtype=textquery&fields=name,place_id&input=LT17&" : {
+    "candidates" : [ {
+      "name" : "LT17",
+      "place_id" : "ChIJA5s_PHUP2jERuDTAqvMqYdA"
+    }, {
+      "name" : "NUS LT17",
+      "place_id" : "ChIJBeHqfnAb2jERL1OoMUzA7yE"
+    } ],
+    "status" : "OK"
+  },
   "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?location=.sg&inputtype=textquery&fields=name,place_id&input=NUS_LT13&" : {
     "candidates" : [ {
       "name" : "NUS LT13",
@@ -905,6 +928,10 @@
       "place_id" : "ChIJB9BKXvUb2jERh7f1jvKALDE"
     } ],
     "status" : "OK"
+  },
+  "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?location=.sg&inputtype=textquery&fields=name,place_id&input=NUS_jcdhsajkfebadbs&" : {
+    "candidates" : [ ],
+    "status" : "ZERO_RESULTS"
   },
   "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?location=.sg&inputtype=textquery&fields=name,place_id&input=NUS_LT11&" : {
     "candidates" : [ {

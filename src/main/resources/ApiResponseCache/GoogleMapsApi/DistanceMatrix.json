@@ -22945,6 +22945,13 @@
     "origin_addresses" : [ "Department of Biological Sciences, Faculty of Science, Blk S1A, Science Drive 4, Lee Wee Kheng Building (STA), Singapore 117557", "14, Science Drive 4, Blk S1A (Lee Wee Kheng Building), Level 2, S1A-02-07, Singapore 117543", "2 Medical Drive, MD9, National University of Singapore, Singapore 117593", "", "3 Conservatory Drive, Singapore 117376", "", "", "S16, Faculty of Science, Lower Kent Ridge Rd, Singapore", "", "" ],
     "status" : "OK"
   },
+  "https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=Bar|Bar|Bar|&destinations=Bar|Bar|Bar|&" : {
+    "error_message" : "You must use an API key to authenticate each request to Google Maps Platform APIs. For additional information, please refer to http://g.co/dev/maps-no-account",
+    "destination_addresses" : [ ],
+    "rows" : [ ],
+    "origin_addresses" : [ ],
+    "status" : "REQUEST_DENIED"
+  },
   "https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=NUS_S7|NUS_S17|NUS_S4|NUS_S12|NUS_S11|NUS_LKY|NUS_CQT|NUS_USP|NUS_CAPT|NUS_RC4|&destinations=NUS_E1|NUS_E5|NUS_E4|NUS_ENG|NUS_E2A|NUS_LT2|NUS_EA|NUS_LT6|NUS_LT4|NUS_EW2|&" : {
     "destination_addresses" : [ "3 Engineering Drive 2, Singapore 117578", "E5, Singapore", "4 Engineering Drive 3, Singapore 117583", "9 Engineering Drive 1, #07-26 EA, Singapore 117575", "21 Lower Kent Ridge Rd, Singapore 119077", "21 Lower Kent Ridge Rd, Singapore 119077", "EA, Singapore", "10 Kent Ridge Cres, Singapore 119260", "10 Kent Ridge Crescent, Singapore 119260", "21 Lower Kent Ridge Rd, Singapore 119077" ],
     "rows" : [ {
@@ -37483,6 +37490,108 @@
       } ]
     } ],
     "origin_addresses" : [ "25 Lower Kent Ridge Rd, Singapore 119081", "10 Architecture Dr, CELC, Singapore 117511", "1A Kent Ridge Rd, Singapore 119224", "", "", "", "29 Heng Mui Keng Terrace, Singapore 119619", "", "31 Lower Kent Ridge Rd, Singapore 119078", "21 Lower Kent Ridge Rd, Singapore 119077" ],
+    "status" : "OK"
+  },
+  "https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=Foo|Foo|Foo|&destinations=Foo|Foo|Foo|&" : {
+    "destination_addresses" : [ "1537 W Main St, Richmond, VA 23220, USA", "1537 W Main St, Richmond, VA 23220, USA", "1537 W Main St, Richmond, VA 23220, USA" ],
+    "rows" : [ {
+      "elements" : [ {
+        "duration" : {
+          "text" : "1 min",
+          "value" : 0
+        },
+        "distance" : {
+          "text" : "1 ft",
+          "value" : 0
+        },
+        "status" : "OK"
+      }, {
+        "duration" : {
+          "text" : "1 min",
+          "value" : 0
+        },
+        "distance" : {
+          "text" : "1 ft",
+          "value" : 0
+        },
+        "status" : "OK"
+      }, {
+        "duration" : {
+          "text" : "1 min",
+          "value" : 0
+        },
+        "distance" : {
+          "text" : "1 ft",
+          "value" : 0
+        },
+        "status" : "OK"
+      } ]
+    }, {
+      "elements" : [ {
+        "duration" : {
+          "text" : "1 min",
+          "value" : 0
+        },
+        "distance" : {
+          "text" : "1 ft",
+          "value" : 0
+        },
+        "status" : "OK"
+      }, {
+        "duration" : {
+          "text" : "1 min",
+          "value" : 0
+        },
+        "distance" : {
+          "text" : "1 ft",
+          "value" : 0
+        },
+        "status" : "OK"
+      }, {
+        "duration" : {
+          "text" : "1 min",
+          "value" : 0
+        },
+        "distance" : {
+          "text" : "1 ft",
+          "value" : 0
+        },
+        "status" : "OK"
+      } ]
+    }, {
+      "elements" : [ {
+        "duration" : {
+          "text" : "1 min",
+          "value" : 0
+        },
+        "distance" : {
+          "text" : "1 ft",
+          "value" : 0
+        },
+        "status" : "OK"
+      }, {
+        "duration" : {
+          "text" : "1 min",
+          "value" : 0
+        },
+        "distance" : {
+          "text" : "1 ft",
+          "value" : 0
+        },
+        "status" : "OK"
+      }, {
+        "duration" : {
+          "text" : "1 min",
+          "value" : 0
+        },
+        "distance" : {
+          "text" : "1 ft",
+          "value" : 0
+        },
+        "status" : "OK"
+      } ]
+    } ],
+    "origin_addresses" : [ "1537 W Main St, Richmond, VA 23220, USA", "1537 W Main St, Richmond, VA 23220, USA", "1537 W Main St, Richmond, VA 23220, USA" ],
     "status" : "OK"
   },
   "https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=NUS_LT14|NUS_AS8|NUS_UTSRC|NUS_UT|NUS_ERC|NUS_TP|NUS_LT10|NUS_NAK|NUS_LT8|NUS_S16|&destinations=NUS_LT7A|NUS_LT28|NUS_E3|NUS_LT13|NUS_CHPC|NUS_BIZ1|NUS_BIZ2|NUS_HSSMLCR|NUS_LT17|NUS_LT16|&" : {
