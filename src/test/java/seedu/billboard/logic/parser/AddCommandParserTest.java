@@ -27,12 +27,16 @@ import static seedu.billboard.logic.parser.CommandParserTestUtil.assertParseSucc
 import static seedu.billboard.testutil.TypicalExpenses.DINNER;
 import static seedu.billboard.testutil.TypicalExpenses.TAXES;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.junit.jupiter.api.Test;
 
 import seedu.billboard.logic.commands.AddCommand;
 import seedu.billboard.logic.parser.exceptions.ParseException;
 import seedu.billboard.model.expense.Amount;
 import seedu.billboard.model.expense.CreatedDateTime;
+import seedu.billboard.model.expense.Description;
 import seedu.billboard.model.expense.Expense;
 import seedu.billboard.model.expense.Name;
 import seedu.billboard.model.tag.Tag;
@@ -44,40 +48,58 @@ public class AddCommandParserTest {
     @Test
     public void parse_allFieldsPresent_success() throws ParseException {
         Expense expectedExpense = new ExpenseBuilder(TAXES).withTags(VALID_TAG_TAXES).build();
+        Name name = expectedExpense.getName();
+        Description description = expectedExpense.getDescription();
+        Amount amount = expectedExpense.getAmount();
+        CreatedDateTime dateTime = expectedExpense.getCreated();
+        List<String> tagNames = expectedExpense.getTags().stream().map(x -> x.tagName).collect(Collectors.toList());
 
         // whitespace only preamble
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_TAXES + DESCRIPTION_DESC_TAXES
-                + AMOUNT_DESC_TAXES + DATE_DESC_TAXES + TAG_DESC_TAXES, new AddCommand(expectedExpense));
+                + AMOUNT_DESC_TAXES + DATE_DESC_TAXES + TAG_DESC_TAXES,
+                new AddCommand(name, description, amount, dateTime, tagNames));
 
         // multiple names - last name accepted
         assertParseSuccess(parser, NAME_DESC_DINNER + NAME_DESC_TAXES + DESCRIPTION_DESC_TAXES
-                + AMOUNT_DESC_TAXES + DATE_DESC_TAXES + TAG_DESC_TAXES, new AddCommand(expectedExpense));
+                + AMOUNT_DESC_TAXES + DATE_DESC_TAXES + TAG_DESC_TAXES,
+                new AddCommand(name, description, amount, dateTime, tagNames));
 
         // multiple descriptions - last description accepted
         assertParseSuccess(parser, NAME_DESC_TAXES + DESCRIPTION_DESC_DINNER + DESCRIPTION_DESC_TAXES
-                + AMOUNT_DESC_TAXES + DATE_DESC_TAXES + TAG_DESC_TAXES, new AddCommand(expectedExpense));
+                + AMOUNT_DESC_TAXES + DATE_DESC_TAXES + TAG_DESC_TAXES,
+                new AddCommand(name, description, amount, dateTime, tagNames));
 
         // multiple amounts - last amounts accepted
         assertParseSuccess(parser, NAME_DESC_TAXES + DESCRIPTION_DESC_TAXES + AMOUNT_DESC_DINNER
-                + AMOUNT_DESC_TAXES + DATE_DESC_TAXES + TAG_DESC_TAXES, new AddCommand(expectedExpense));
+                + AMOUNT_DESC_TAXES + DATE_DESC_TAXES + TAG_DESC_TAXES,
+                new AddCommand(name, description, amount, dateTime, tagNames));
 
         // multiple dates - last date accepted
         assertParseSuccess(parser, NAME_DESC_TAXES + DESCRIPTION_DESC_TAXES + AMOUNT_DESC_TAXES
-                + DATE_DESC_DINNER + DATE_DESC_TAXES + TAG_DESC_TAXES, new AddCommand(expectedExpense));
+                + DATE_DESC_DINNER + DATE_DESC_TAXES + TAG_DESC_TAXES,
+                new AddCommand(name, description, amount, dateTime, tagNames));
 
         // multiple tags - all accepted
         Expense expectedExpenseMultipleTags = new ExpenseBuilder(TAXES).withTags(VALID_TAG_TAXES, VALID_TAG_DINNER)
                 .build();
+        List<String> multipleTags = expectedExpenseMultipleTags.getTags()
+                .stream().map(x -> x.tagName).collect(Collectors.toList());
         assertParseSuccess(parser, NAME_DESC_TAXES + DESCRIPTION_DESC_TAXES + AMOUNT_DESC_TAXES
-                + TAG_DESC_TAXES + DATE_DESC_TAXES + TAG_DESC_DINNER, new AddCommand(expectedExpenseMultipleTags));
+                + TAG_DESC_TAXES + DATE_DESC_TAXES + TAG_DESC_DINNER,
+                new AddCommand(name, description, amount, dateTime, multipleTags));
     }
 
     @Test
     public void parse_optionalFieldsMissing_success() {
         // zero tags
         Expense expectedExpense = new ExpenseBuilder(DINNER).withTags().withDescription("").build();
+        Name name = expectedExpense.getName();
+        Description description = expectedExpense.getDescription();
+        Amount amount = expectedExpense.getAmount();
+        CreatedDateTime dateTime = expectedExpense.getCreated();
+        List<String> tagNames = expectedExpense.getTags().stream().map(x -> x.tagName).collect(Collectors.toList());
         assertParseSuccess(parser, NAME_DESC_DINNER + AMOUNT_DESC_DINNER + DATE_DESC_DINNER,
-                new AddCommand(expectedExpense));
+                new AddCommand(name, description, amount, dateTime, tagNames));
     }
 
     @Test
