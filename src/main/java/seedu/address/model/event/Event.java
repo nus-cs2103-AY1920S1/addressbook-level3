@@ -112,6 +112,13 @@ public class Event {
     }
 
     /**
+     * Checks if an Employee is allocated to this Event.
+     */
+    public boolean employeeIsAllocated(Employee employee) {
+        return manpowerAllocatedList.containsEmployee(employee);
+    }
+
+    /**
      * Assigns the EventDate-EventDayTime mapping to the EventDateTimeMap object.
      *
      * @param eventDate       Target Date to be assigned.

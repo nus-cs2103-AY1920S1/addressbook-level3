@@ -48,7 +48,7 @@ public class ModelManager implements Model {
         filteredEmployees = new FilteredList<>(this.addressBook.getEmployeeList());
         filteredEvents = new FilteredList<>(this.eventBook.getEventList());
         filteredScheduledEvents = new FilteredList<>(this.eventBook.getEventList());
-        distinctDatesList = FXCollections.observableList(DistinctDatesProcessor.generateDistinctDateList(this));
+        distinctDatesList = FXCollections.observableList(DistinctDatesProcessor.generateAllDistinctDateList(this));
     }
 
     public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {

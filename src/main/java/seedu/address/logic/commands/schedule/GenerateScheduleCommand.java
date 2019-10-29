@@ -26,7 +26,7 @@ public class GenerateScheduleCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        List<DistinctDate> distinctDates = DistinctDatesProcessor.generateDistinctDateList(model);
+        List<DistinctDate> distinctDates = DistinctDatesProcessor.generateAllDistinctDateList(model);
         model.updateDistinctDatesList(distinctDates);
         return new CommandResult(MESSAGE_SUCCESS, "Generate");
     }
