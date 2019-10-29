@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.testutil.TypicalPersons.AMY;
 import static seedu.address.testutil.TypicalPersons.getTypicalIncidentManager;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -23,6 +24,7 @@ public class AddCommandIntegrationTest {
     @BeforeEach
     public void setUp() {
         model = new ModelManager(getTypicalIncidentManager(), new UserPrefs());
+        model.setSession(AMY); // Added to simulate a logged in person
     }
 
     @Test

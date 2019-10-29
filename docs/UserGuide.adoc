@@ -53,12 +53,130 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 === Viewing help : `help`
 Format: `help`
 
+// tag::access[]
 === Logging in: `login`
 
-Registers the user for the active session
-Format: `login USERNAME`
+Logs the user into the IMS and registers the active session. +
+Format: `login u/USERNAME p/PASSWORD`
+
+[NOTE]
+The only commands available prior to login are `Add`, `Login`, `Help`, and `Exit`.
+
+=== Logging out: `logout`
+
+Logs the user out of the IMS and closes the user's session. +
+Format: `logout`
+
+=== Swapping interfaces: `swap`
+
+Swaps the user interface between account view and incidents/vehicle view. +
+Format: `swap`
+
+[TIP]
+A user cannot access commands affecting entities not displayed in their current interface view.
+
+// end::access[]
+
+// tag::account[]
+=== Adding a user: `add`
+
+Adds an account to the IMS as a registered user +
+Format: `add n/NAME p/PHONE_NUMBER e/EMAIL u/USERNAME p/PASSWORD [t/TAG]...`
+
+[TIP]
+A account can have any number of tags (including 0). Only logged-in admins can add tags.
+
+Examples:
+
+* `add n/John Doe p/98765432 e/johnd@example.com u/op1`
+* `add n/Betsy Crowe e/betsycrowe@example.com u/oc1 p/1234567 t/Team-1-OC`
+
+=== Updating an account : `update`
+
+updates an existing account in the incident Manager or the own account of the user logged in if the index is left empty. +
+Format: `update [INDEX] [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+
+[NOTE]
+Only admins can update other user accounts. Non-admins cannot specify an index when executing the update command.
+
+****
+* If an index is not provided, update executes on the account of the user logged in.
+* If an index is provided, updates the account at the specified `INDEX`. The index refers to the index number shown in the displayed account list. The index *must be a positive integer* 1, 2, 3, ...
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+* When updating tags, the existing tags of the account will be removed i.e adding of tags is not cumulative.
+* Only admins can access and edit tags. Admins cannot remove their own admin tag.
+* You can remove all the account's tags by typing `t/` without specifying any tags after it.
+****
+
+Examples:
+
+* `update p/91234567 e/johndoe@example.com` +
+updates the phone number and email address of the logged in account to be `91234567` and `johndoe@example.com` respectively.
+* `update 2 n/Betsy Crower t/` +
+updates the name of the 2nd account to be `Betsy Crower` and clears all existing tags.
+
+=== Listing accounts : `list-p`
+
+Shows a list of all accounts registered in the incident Manager or those whose tags match any of the keywords if a keyword is specified. +
+Format: `list-p [KEYWORD] [MORE_KEYWORDS]`
+
+****
+* The search is case insensitive. e.g `admin` will match `Admin`
+* Only the account tags are searched.
+* Only full words will be matched e.g. `ad` will not match `admin`
+* accounts matching at least one keyword will be returned (i.e. `OR` search). e.g. `admin team-1` will return all accounts with the `admin` tag and those with the `team-1` tag.
+****
+
+=== Locating accounts by name or username: `find-p`
+
+Finds accounts whose name or username contains any of the given keywords. +
+Format: `find KEYWORD [MORE_KEYWORDS]`
+
+****
+* The search is case insensitive. e.g `hans` will match `Hans`
+* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
+* Only the name and username is searched.
+* Only full words will be matched e.g. `Han` will not match `Hans`
+* Accounts matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+****
+
+Examples:
+
+* `find John` +
+Returns `john` and `John Doe`
+* `find Betsy Tim John` +
+Returns any account having names or usernames `Betsy`, `Tim`, or `John`
+
+=== Deleting an account : `delete`
+
+Deletes the specified account from the incident Manager. +
+Format: `delete INDEX`
+
+****
+* Deletes the account at the specified `INDEX`.
+* The index refers to the index number shown in the displayed account list.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+[NOTE]
+Only admins can access the delete command.
+
+Examples:
+
+* `list` +
+`delete 2` +
+Deletes the 2nd account in the incident Manager.
+* `find Betsy` +
+`delete 1` +
+Deletes the 1st account in the results of the `find` command.
+
+// end::account[]
+
+// tag::incident[]
 
 === Create New Incident: `new`
+
 ==== Assumptions
 * User has logged in
 
@@ -77,131 +195,86 @@ For multi-step:
 ** `y`- an available vehicle in the given district is automatically dispatched and attached to the incident.
 ** `n`- an indexed list of available vehicles in the given district is shown.
 
-=== Filling a new report: `fill`
+=== Filling a draft incident report: `fill`
+Fills a draft incident report if relevant parameters are specified, otherwise lists all draft reports ready for filling.
 
-==== Description
-* Display a list of newly created incidents.
-* Based on this list, user chooses incident to fill.
-* Date/time, operator name, and operator name are auto-filled.
+This command works in two modes:
 
-==== Usage
+*1. No parameter mode* +
+Format: `fill` +
+Lists all draft incident reports ready to be filled.
 
-Format: `fill [i/index_of_incident n/CALLER_NAME d/INCIDENT_DESCRIPTION]`
+* This command lists both incomplete and complete drafts.
+** If no drafts exist, a relevant message is displayed in the GUI result panel while the GUI incident panel view remains unchanged.
+* Example usage:
 
-For multi-step:
+image::fillCommandNoParamsBeforeScreenshot.png[FillExample1]
+.Fig X. Incident panel GUI shows all incidents before executing `fill` in no-parameter mode.
 
-* Prompts for name of caller. Operator types it and presses `enter`.
-* Prompts for description of incident. Operator types it and presses `enter`.
+* Expected outcome:
 
-=== Submit a report: `submit`
+image::fillCommandNoParamsAfterScreenshot.png[]
+.Fig X. Incident panel GUI shows all draft incidents after executing `fill` in no-parameter mode.
 
-==== Description
+*2. Parameter mode* +
+Format: `fill [INDEX] [c/CALLER_NUMBER] [d/DESCRIPTION]` +
+Fills the draft incident report corresponding to the specified index with the phone number of the caller who reported the incident and the description of the incident.
 
-* Submits a just-filled report if one is available, else shows a list of unsubmitted draft reports.
+* Index must be assigned *with reference to the currently shown list of incidents* on the GUI incident panel.
+* Both incomplete and complete drafts can be filled.
+** Fields of complete drafts will be overwritten.
+** Executing this command changes incident `status` to `COMPLETE_DRAFT`.
+* Both `CALLER_NUMBER` and `DESCRIPTION` fields must be specified while executing this command.
+* The newly filled draft will now appear at the top of the list of incidents in the GUI incident panel view.
+* Example usage:
 
-==== Usage
-Format: `submit`
+image::fillCommandWithParamsBeforeScreenshot.png[]
+.Fig X. After using `fill` in no parameter mode, this screenshot shows how to fill the 2nd incident in the displayed list.
 
-For new report:
+* Expected outcome:
 
-* Once the user fills in a new report and presses `enter`, the IMS prompts the operator to submit.
-* `y` or `submit`- to submit the report immediately.
-* Submission has to be done before user can edit again.
-* `n`- to save entry as draft.
+image::fillCommandWithParamsAfterScreenshot.png[]
+.Fig X. After using `fill` in parameter mode, this screenshot shows that the description of the specified incident has been updated while the caller number has been overwritten with the new value. The status of the draft has changed from `INCOMPLETE_DRAFT` to `COMPLETE_DRAFT`.
 
-For other reports:
+Using `fill` in both modes one after the other thus enables convenient listing and filling of target incident reports.
 
-* If the the `submit` command is issued at any other time, the operator will be shown an indexed list of unsubmitted draft reports.
-* The IMS will then prompt thehe operator to enter the index number of the report they wish to submit. The operator types that number and presses `enter` to submit the chosen report.
-* The submission of a report will trigger three other operations:
-1. an unique ID will be generated to tag the report
-2. an automated email will be sent to the operator's supervisor
-3. the report will be saved in the database
+=== Submitting a completed draft report: `submit`
+Submits a completed draft incident report if relevant parameters are specified, otherwise lists all completed drafts ready for submission.
 
-=== Adding a user: `add`
+Similar to `fill`, this command also works in two modes:
 
-Adds a person to the IMS as a registered user +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL u/USERNAME [t/TAG]...`
+*1. No parameter mode* +
+Format: `submit` +
+Lists all completed draft incident reports ready for submission.
 
-[TIP]
-A person can have any number of tags (including 0)
+* This command only lists complete drafts.
+** If no complete drafts exist, a relevant message is displayed in the GUI result panel while the GUI incident panel view remains unchanged.
+* Expected outcome of `submit`:
 
-Examples:
+image::submitCommandNoParamsAfterScreenshot.png[]
+.Fig X. Executing `submit` in no parameter mode lists all completed drafts ready for submission.
 
-* `add n/John Doe p/98765432 e/johnd@example.com u/op1`
-* `add n/Betsy Crowe e/betsycrowe@example.com u/oc1 p/1234567 t/Team-1-OC`
+*2. Parameter mode* +
+Format: `submit [INDEX]` +
+Submits the completed draft incident report corresponding to the specified index.
 
-=== Listing all persons : `list`
+* Index must be assigned *with reference to the currently shown list of incidents* on the GUI incident panel.
+* Only complete drafts can be submitted.
+** Executing this command changes incident `status` to `SUBMITTED_REPORT`.
+* The newly submitted draft will now appear at the top of the list of incidents in the GUI incident panel view.
+* Expected outcome of `submit 2`:
 
-Shows a list of all persons registered in the incident Manager. +
-Format: `list`
+image::submitCommandWithParamsAfterScreenshot.png[]
+.Fig X. The incident filled using the `fill` command above has been submitted. The newly submitted incident is listed at the top and its status changes from `COMPLETE_DRAFT` to `SUBMITTED_REPORT`.
 
-=== Editing a person : `edit`
+Using `submit` in both modes right after using `fill` thus enables convenient submitting of newly filled complete incident report drafts.
+// end::incident[]
 
-Edits an existing person in the incident Manager. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
-
-****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
-****
-
-Examples:
-
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
-
-=== Locating persons by name: `find`
-
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
-
-****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
-
-Examples:
-
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
-
-// tag::delete[]
-=== Deleting a person : `delete`
-
-Deletes the specified person from the incident Manager. +
-Format: `delete INDEX`
-
-****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
-
-Examples:
-
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the incident Manager.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
-
-// end::delete[]
-=== Clearing all entries : `clear`
-
-Clears all entries from the incident Manager. +
-Format: `clear`
+// tag::common[]
+//=== Clearing all entries : `clear`
+//
+//Clears all entries from the incident Manager. +
+//Format: `clear`
 
 === Exiting the program : `exit`
 
@@ -212,11 +285,15 @@ Format: `exit`
 
 Incident Manager data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
+// end::common[]
 
 // tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
+=== Decrypting data files `[coming in v2.0]`
 
-_{explain how the user can enable/disable data encryption}_
+Decrypts the incident manager data file. +
+Format: `decrypt PASSWORD`
+
+Data files will be encrypted by default. Users can decrypt the file with the command above.
 // end::dataencryption[]
 
 == FAQ
@@ -226,18 +303,20 @@ _{explain how the user can enable/disable data encryption}_
 
 == Command Summary
 
-* *Login* `login USERNAME`
+* *Help* : `help`
+* *Login* `login u/USERNAME p/PASSWORD`
+* *Logout* `logout`
+* *Swap* `swap`
+* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL u/USERNAME p/PASSWORD [t/TAG]...` +
+e.g. `add n/James Ho p/22224444 e/jamesho@example.com u/Agent-3 w/password t/Admin t/Team-01`
+* *Update* : `update [INDEX] [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [u/USERNAME] [p/PASSWORD] [t/TAG]...` +
+e.g. `update 2 n/James Lee e/jameslee@example.com`
+* *List Accounts* : `list-p [KEYWORD] [MORE_KEYWORDS]` +
+e.g. `list-p Admin`
+* *Find Accounts* : `find-p KEYWORD [MORE_KEYWORDS]` +
+e.g. `find-pJames Jake`
+* *Delete* : `delete INDEX` +
+e.g. `delete 3`
 * *New* `new POSTAL_CODE`
 * *Fill* `fill n/CALLER_NAME d/INCIDENT_DESCRIPTION`
 * *Submit* `submit`
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
-* *Help* : `help`

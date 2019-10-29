@@ -8,7 +8,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_PASSWORD_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PASSWORD_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_ADMIN;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_USERNAME_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_USERNAME_BOB;
@@ -18,6 +18,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import seedu.address.model.IncidentManager;
+import seedu.address.model.incident.CallerNumber;
+import seedu.address.model.incident.Description;
 import seedu.address.model.incident.Incident;
 import seedu.address.model.incident.IncidentDateTime;
 import seedu.address.model.incident.IncidentId;
@@ -62,33 +64,45 @@ public class TypicalEntities {
     // Manually added - Person's details found in {@code CommandTestUtil}
     public static final Person AMY = new PersonBuilder().withName(VALID_NAME_AMY).withPhone(VALID_PHONE_AMY)
             .withEmail(VALID_EMAIL_AMY).withUsername(VALID_USERNAME_AMY).withPassword(VALID_PASSWORD_AMY)
-            .withTags(VALID_TAG_FRIEND).build();
+            .withTags(VALID_TAG_ADMIN).build();
     public static final Person BOB = new PersonBuilder().withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
             .withEmail(VALID_EMAIL_BOB).withUsername(VALID_USERNAME_BOB).withPassword(VALID_PASSWORD_BOB)
-            .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
+            .withTags(VALID_TAG_HUSBAND, VALID_TAG_ADMIN)
             .build();
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 
+    private static final IncidentDateTime validDateTime = new IncidentDateTime("Dec 2, 2016, 2:30:40 PM");
+    private static final IncidentId commonIncidentId = new IncidentId("1220160001");
     private TypicalEntities() {} // prevents instantiation
 
     /**
-     * Returns an {@code IncidentManager} with all the typical persons.
+     * Returns an {@code IncidentManager} with all the typical incidents.
      */
     public static IncidentManager getTypicalIncidentManager() {
-        IncidentManager ab = new IncidentManager();
+        IncidentManager im = new IncidentManager();
         for (Person person : getTypicalPersons()) {
-            ab.addPerson(person);
+            im.addPerson(person);
         }
-        ab.addIncident(new Incident(new IncidentId(3, 2018), new District(6),
-                new IncidentDateTime("2018-03-03T10:15:30"), "Alex Yeoh"));
-        ab.addVehicle(new Vehicle(new VehicleType("Patrol Car"), new VehicleNumber("SBH3100F"),
+
+        Incident firstIncident = new Incident(ALICE, new District(2), validDateTime,
+                commonIncidentId,
+                new CallerNumber("84738293"),
+                new Description("Pickpocket reported along the walkway in District 2"),
+                Incident.Status.INCOMPLETE_DRAFT);
+        im.addIncident(firstIncident);
+
+        im.addVehicle(new Vehicle(new VehicleType("Patrol Car"), new VehicleNumber("SBH3100F"),
                 new District(16), new Availability("BUSY")));
 
-        ab.addIncident(new Incident(new IncidentId(2, 2019), new District(2),
-                new IncidentDateTime("2019-02-09T11:04:22"), "Alex Teo"));
+        Incident secondIncident = new Incident(BOB, new District(3), validDateTime,
+                commonIncidentId,
+                new CallerNumber("90878965"),
+                new Description("Pickpocket spotted at the pasar malam in District 3"),
+                Incident.Status.INCOMPLETE_DRAFT);
+        im.addIncident(secondIncident);
 
-        return ab;
+        return im;
     }
 
     public static List<Person> getTypicalPersons() {

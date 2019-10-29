@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
-import java.util.Date;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -61,7 +60,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Date getLoginTime() {
+    public String getLoginTime() {
         return session.getLoginTime();
     }
 
@@ -180,6 +179,11 @@ public class ModelManager implements Model {
         updateFilteredIncidentList(PREDICATE_SHOW_ALL_INCIDENTS);
     }
 
+    @Override
+    public void removeIncident(Incident incident) {
+        incidentManager.removeIncident(incident);
+    }
+
     //=========== Filtered Incident List Accessors =============================================================
 
     /**
@@ -195,6 +199,14 @@ public class ModelManager implements Model {
     public void updateFilteredIncidentList(Predicate<Incident> predicate) {
         requireNonNull(predicate);
         filteredIncidents.setPredicate(predicate);
+    }
+
+    /**
+     * Checks if the list contains incidents satisfying a given predicate.
+     * @return true if the list contains incidents satisfying given predicate, false otherwise.
+     */
+    public boolean ifAnyIncidentsSatisfyPredicate(Predicate<Incident> predicate) {
+        return !filteredIncidents.filtered(predicate).isEmpty();
     }
 
     //=========== Filtered Vehicle List Accessors =============================================================

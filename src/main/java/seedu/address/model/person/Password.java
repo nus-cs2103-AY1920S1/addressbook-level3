@@ -3,6 +3,7 @@ package seedu.address.model.person;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+//@@author madanalogy
 /**
  * Represents a Person's password in the incident management system.
  * Guarantees: immutable; is valid as declared in {@link #isValidPassword(String)}

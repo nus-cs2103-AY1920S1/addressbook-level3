@@ -27,5 +27,4 @@ public interface ReadOnlyIncidentManager {
      * This list will not contain any duplicate vehicles.
      */
     ObservableList<Vehicle> getVehicleList();
-
 }

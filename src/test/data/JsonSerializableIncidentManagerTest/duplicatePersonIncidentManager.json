@@ -13,16 +13,33 @@
     "username": "tester10",
     "password": "password"
   } ],
-  "incidents": [ {
-    "incidentId": "1220150000",
-    "districtNum": 13,
-    "dateTime": "2015-12-12T12:30:35",
-    "operator": "Lewis"
-  }, {
-    "incidentId": "0320130000",
-    "districtNum": 12,
-    "dateTime": "2013-03-03T12:30:35",
-    "operator": "John"
+  "incidents": [
+    {
+      "operator": {
+        "name": "Hans Muster",
+        "phone": "94824245",
+        "email": "hans@muster.com",
+        "username": "hantheman",
+        "password": "password"
+      },
+      "districtNum": 1,
+      "dateTime": "Dec 13, 2015, 04:00:00 PM",
+      "incidentId": "1220150001",
+      "callerNumber": "89894059",
+      "description": "test"
+    }, {
+      "operator": {
+        "name": "Hans Muster",
+        "phone": "94824245",
+        "email": "hans@muster.com",
+        "username": "hantheman",
+        "password": "password"
+      },
+      "districtNum": 13,
+      "dateTime": "Dec 12, 2015, 04:00:00 PM",
+      "incidentId": "1220150000",
+      "callerNumber": "89894059",
+      "description": "test"
   } ],
   "vehicles": [ {
     "vehicleType": "Ambulance",

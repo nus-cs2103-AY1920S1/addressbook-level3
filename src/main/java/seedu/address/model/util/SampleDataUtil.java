@@ -7,6 +7,8 @@ import java.util.stream.Collectors;
 import seedu.address.model.IncidentManager;
 import seedu.address.model.ReadOnlyIncidentManager;
 
+import seedu.address.model.incident.CallerNumber;
+import seedu.address.model.incident.Description;
 import seedu.address.model.incident.Incident;
 import seedu.address.model.incident.IncidentDateTime;
 import seedu.address.model.incident.IncidentId;
@@ -31,32 +33,56 @@ public class SampleDataUtil {
     public static Person[] getSamplePersons() {
         return new Person[] {
             new Person(new Name("Alex Yeoh"), new Phone("87438807"), new Email("alexyeoh@example.com"),
-                getTagSet("friends"), new Username("Agent01"), new Password("password")),
+                getTagSet("Admin", "Team-1"), new Username("Agent01"), new Password("password")),
             new Person(new Name("Bernice Yu"), new Phone("99272758"), new Email("berniceyu@example.com"),
-                getTagSet("colleagues", "friends"), new Username("Agent02"), new Password("password")),
+                getTagSet("Team-1"), new Username("Agent02"), new Password("password")),
             new Person(new Name("Charlotte Oliveiro"), new Phone("93210283"), new Email("charlotte@example.com"),
-                getTagSet("neighbours"), new Username("Operator01"), new Password("password")),
+                getTagSet("Team-2"), new Username("Operator01"), new Password("password")),
             new Person(new Name("David Li"), new Phone("91031282"), new Email("lidavid@example.com"),
-                getTagSet("family"), new Username("Operator02"), new Password("password")),
+                getTagSet("Team-2"), new Username("Operator02"), new Password("password")),
             new Person(new Name("Irfan Ibrahim"), new Phone("92492021"), new Email("irfan@example.com"),
-                getTagSet("classmates"), new Username("Agent03"), new Password("password")),
+                getTagSet("Team-3"), new Username("Agent03"), new Password("password")),
             new Person(new Name("Roy Balakrishnan"), new Phone("92624417"), new Email("royb@example.com"),
-                getTagSet("colleagues"), new Username("Operator03"), new Password("password"))
+                getTagSet("Team-3", "Admin"), new Username("Operator03"), new Password("password"))
         };
     }
 
     public static Incident[] getSampleIncidents() {
-        return new Incident[] {
-            new Incident(new IncidentId(3, 2018), new District(3),
-                    new IncidentDateTime("2018-03-03T10:15:30"), "Alex Yeoh"),
-            new Incident(new IncidentId(10, 2016), new District(20),
-                    new IncidentDateTime("2016-10-10T12:30:35"), "David Li"),
-            new Incident(new IncidentId(2, 2015), new District(20),
-                    new IncidentDateTime("2015-02-02T12:30:35"), "Bernice Yu"),
-            new Incident(new IncidentId(3, 2013), new District(20),
-                    new IncidentDateTime("2013-03-03T12:30:35"), "Alex Yeoh"),
-            new Incident(new IncidentId(12, 2015), new District(20),
-                    new IncidentDateTime("2015-12-12T12:30:35"), "David Li")
+        Person[] samplePersons = getSamplePersons();
+        IncidentDateTime[] sampleIncidentDateTimes = getSampleIncidentDateTimes();
+        Incident[] sampleIncidents = new Incident[] {
+            new Incident(samplePersons[0], new District(1), sampleIncidentDateTimes[0],
+                new IncidentId(sampleIncidentDateTimes[0].getMonth(), sampleIncidentDateTimes[0].getYear()),
+                new CallerNumber("93894576"), new Description("Shoplifting reported in District 1 Mall"),
+                Incident.Status.SUBMITTED_REPORT),
+            new Incident(samplePersons[1], new District(2), sampleIncidentDateTimes[1],
+                new IncidentId(sampleIncidentDateTimes[1].getMonth(), sampleIncidentDateTimes[1].getYear()),
+                new CallerNumber("98098765"), new Description("."),
+                Incident.Status.INCOMPLETE_DRAFT),
+            new Incident(samplePersons[2], new District(3), sampleIncidentDateTimes[2],
+                new IncidentId(sampleIncidentDateTimes[2].getMonth(), sampleIncidentDateTimes[2].getYear()),
+                new CallerNumber("87595849"), new Description("."),
+                Incident.Status.INCOMPLETE_DRAFT),
+            new Incident(samplePersons[3], new District(4), sampleIncidentDateTimes[3],
+                new IncidentId(sampleIncidentDateTimes[3].getMonth(), sampleIncidentDateTimes[3].getYear()),
+                new CallerNumber("89090908"), new Description("Minor traffic accident in District 4 highway"),
+                Incident.Status.SUBMITTED_REPORT),
+            new Incident(samplePersons[4], new District(5), sampleIncidentDateTimes[4],
+                new IncidentId(sampleIncidentDateTimes[4].getMonth(), sampleIncidentDateTimes[4].getYear()),
+                new CallerNumber("87656743"), new Description("Arson reported at District 5 warehouse"),
+                Incident.Status.COMPLETE_DRAFT)
+        };
+
+        return sampleIncidents;
+    }
+
+    private static IncidentDateTime[] getSampleIncidentDateTimes() {
+        return new IncidentDateTime[] {
+            new IncidentDateTime("Dec 21, 2012, 12:00:00 PM"),
+            new IncidentDateTime("Jan 11, 2013, 12:00:00 AM"),
+            new IncidentDateTime("May 01, 2014, 1:00:00 AM"),
+            new IncidentDateTime("Jun 16, 2015, 2:00:00 PM"),
+            new IncidentDateTime("Sep 01, 2016, 9:00:00 PM")
         };
     }
 

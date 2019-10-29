@@ -2,7 +2,6 @@ package seedu.address.logic;
 
 import java.io.IOException;
 import java.nio.file.Path;
-import java.util.Date;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
@@ -13,7 +12,7 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.ExitCommand;
-import seedu.address.logic.commands.FindPersonCommand;
+import seedu.address.logic.commands.FindPersonsCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListPersonsCommand;
 import seedu.address.logic.commands.LoginCommand;
@@ -35,7 +34,7 @@ import seedu.address.storage.Storage;
  */
 public class LogicManager implements Logic {
     public static final String FILE_OPS_ERROR_MESSAGE = "Could not save data to file: ";
-    public static final String ACCESS_CONTROL_MESSAGE = "Only Add and Login commands available.\n"
+    public static final String ACCESS_CONTROL_MESSAGE = "Only Add, Login, Exit, and Help commands are available.\n"
             + "Please login to access other commands. See help page for more information.";
     public static final String GUI_SWAP_MESSAGE = "Please swap the interface to access the command from this suite.\n"
             + "See help page for more information.";
@@ -60,20 +59,21 @@ public class LogicManager implements Logic {
         CommandResult commandResult;
         Command command = incidentManagerParser.parseCommand(commandText);
 
+        //@@author madanalogy
         // Guard Statement for available commands prior to login.
         if (!model.isLoggedIn() && !(command instanceof LoginCommand || command instanceof AddCommand
-                || command instanceof ExitCommand)) {
+                || command instanceof ExitCommand || command instanceof HelpCommand)) {
             throw new CommandException(ACCESS_CONTROL_MESSAGE);
         }
 
         // Guard Statement for command suite corresponding to interface swaps.
         if (!isPersonView && (command instanceof AddCommand || command instanceof UpdateCommand
                 || command instanceof DeleteCommand || command instanceof ListPersonsCommand
-                || command instanceof FindPersonCommand)) {
+                || command instanceof FindPersonsCommand)) {
             throw new CommandException(GUI_SWAP_MESSAGE);
         } else if (isPersonView && !(command instanceof AddCommand || command instanceof UpdateCommand
                 || command instanceof DeleteCommand || command instanceof ListPersonsCommand
-                || command instanceof FindPersonCommand || command instanceof LoginCommand
+                || command instanceof FindPersonsCommand || command instanceof LoginCommand
                 || command instanceof ExitCommand || command instanceof SwapCommand
                 || command instanceof LogoutCommand || command instanceof HelpCommand)) {
             throw new CommandException(GUI_SWAP_MESSAGE);
@@ -101,7 +101,7 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public Date getLoginTime() {
+    public String getLoginTime() {
         return model.getLoginTime();
     }
 

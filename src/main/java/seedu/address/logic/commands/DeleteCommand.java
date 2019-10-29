@@ -10,6 +10,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 
+//@@author madanalogy
 /**
  * Deletes a person identified using it's displayed index from the address book.
  */
@@ -24,6 +25,8 @@ public class DeleteCommand extends Command {
 
     public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Person: %1$s";
 
+    public static final String MESSAGE_DELETE_ERROR = "You cannot delete your own account!";
+
     private final Index targetIndex;
 
     public DeleteCommand(Index targetIndex) {
@@ -33,6 +36,12 @@ public class DeleteCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+
+        // Access Control check for command operation
+        if (Person.isNotAdmin(model.getLoggedInPerson())) {
+            throw new CommandException(Messages.MESSAGE_ACCESS_ADMIN);
+        }
+
         List<Person> lastShownList = model.getFilteredPersonList();
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
@@ -40,6 +49,12 @@ public class DeleteCommand extends Command {
         }
 
         Person personToDelete = lastShownList.get(targetIndex.getZeroBased());
+
+        //Prevent deletion of own account
+        if (personToDelete.equals(model.getLoggedInPerson())) {
+            throw new CommandException(MESSAGE_DELETE_ERROR);
+        }
+
         model.deletePerson(personToDelete);
         return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, personToDelete));
     }

@@ -1,27 +1,28 @@
 package seedu.address.model.incident;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.AppUtil.checkArgument;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.format.FormatStyle;
 
 /**
  * Represents an Incident's IncidentDateTime in the address book.
- * Guarantees: immutable; is valid as declared in {@link #isValidIncidentDateTime(String)}
+ * Guarantees: immutable; is valid as declared in {@link #isValidIncidentDateTimeFormat(String)}
  */
 public class IncidentDateTime {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "IncidentDateTimes should only take in an ISO Date Time String, return LocalDateTime, and it should not "
-                    + "be blank";
+            "IncidentDateTimes should only take in a LocalDateTime string with Medium Date and Time format and it"
+                    + " should not be blank. E.g. 'Dec 20, 2016, 2:30:40 PM'";
 
-    /*
-     * TODO: Regex check for whether dateTime is an ISO Date Time String
-     */
-    public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
+    // format style settings
+    private static final FormatStyle dateTimeStyle = FormatStyle.MEDIUM;
+    private static final DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedDateTime(dateTimeStyle);
 
     public final LocalDateTime incidentDateTime;
-    private final DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
 
     /**
      * Constructs a {@code IncidentDateTime}.
@@ -30,7 +31,7 @@ public class IncidentDateTime {
      */
     public IncidentDateTime(String dateTimeString) {
         requireNonNull(dateTimeString);
-        // checkArgument(isValidIncidentDateTime(dateTimeString), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidIncidentDateTimeFormat(dateTimeString), MESSAGE_CONSTRAINTS);
         this.incidentDateTime = LocalDateTime.parse(dateTimeString, formatter);
     }
 
@@ -42,11 +43,15 @@ public class IncidentDateTime {
     }
 
     /**
-     * Returns true if a given string is a valid DateTime.
+     * Returns true if a given string is in a valid DateTime format.
      */
-    public static boolean isValidIncidentDateTime(String test) {
-        // return test.matches(VALIDATION_REGEX);
-        return true;
+    public static boolean isValidIncidentDateTimeFormat(String test) {
+        try {
+            LocalDateTime.parse(test, formatter);
+            return true;
+        } catch (DateTimeParseException e) {
+            return false;
+        }
     }
 
     public int getMonth() {
@@ -73,7 +78,6 @@ public class IncidentDateTime {
     public int hashCode() {
         return incidentDateTime.hashCode();
     }
-
 
 }
 

@@ -12,8 +12,9 @@ import seedu.address.model.person.LoginCredentialsPredicate;
 import seedu.address.model.person.Password;
 import seedu.address.model.person.Username;
 
+//@@author madanalogy
 /**
- * Parses input arguments and creates a new FindPersonCommand object
+ * Parses input arguments and creates a new FindPersonsCommand object
  */
 public class LoginCommandParser implements Parser<LoginCommand> {
 

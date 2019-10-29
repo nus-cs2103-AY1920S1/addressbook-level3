@@ -2,6 +2,7 @@ package seedu.address.model.person;
 
 import java.util.function.Predicate;
 
+//@@author madanalogy
 /**
  * Tests that a {@code Person}'s {@code Username} and {@code Password} matches the entered value.
  */

@@ -25,6 +25,8 @@ class JsonSerializableIncidentManager {
     public static final String MESSAGE_DUPLICATE_INCIDENT = "Incidents list contains duplicate incident(s)";
     public static final String MESSAGE_DUPLICATE_VEHICLE = "Vehicles list contains duplicate vehicle(s)";
 
+    private static final int NEW_INCIDENT_INSERTION_INDEX = 0; // incidents are listed reverse chronologically
+
     private final List<JsonAdaptedPerson> persons = new ArrayList<>();
     private final List<JsonAdaptedIncident> incidents = new ArrayList<>();
     private final List<JsonAdaptedVehicle> vehicles = new ArrayList<>();
@@ -37,7 +39,7 @@ class JsonSerializableIncidentManager {
                                        @JsonProperty("incidents") List<JsonAdaptedIncident> incidents,
                                        @JsonProperty("vehicles") List<JsonAdaptedVehicle> vehicles) {
         this.persons.addAll(persons);
-        this.incidents.addAll(incidents);
+        this.incidents.addAll(NEW_INCIDENT_INSERTION_INDEX, incidents);
         this.vehicles.addAll(vehicles);
     }
 
@@ -48,7 +50,8 @@ class JsonSerializableIncidentManager {
      */
     public JsonSerializableIncidentManager(ReadOnlyIncidentManager source) {
         persons.addAll(source.getPersonList().stream().map(JsonAdaptedPerson::new).collect(Collectors.toList()));
-        incidents.addAll(source.getIncidentList().stream().map(JsonAdaptedIncident::new).collect(Collectors.toList()));
+        incidents.addAll(NEW_INCIDENT_INSERTION_INDEX,
+                source.getIncidentList().stream().map(JsonAdaptedIncident::new).collect(Collectors.toList()));
         vehicles.addAll(source.getVehicleList().stream().map(JsonAdaptedVehicle::new).collect(Collectors.toList()));
     }
 
@@ -74,7 +77,7 @@ class JsonSerializableIncidentManager {
             if (incidentManager.hasIncident(incident)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_INCIDENT);
             }
-            incidentManager.addIncident(incident);
+            incidentManager.appendIncident(incident);
         }
 
         // for vehicles
