@@ -39,6 +39,7 @@ public class LogicManager implements Logic {
     @Override
     public CommandResult execute(String commandText)
             throws Exception {
+        logger.info("----------------[USER COMMAND][" + commandText + "]");
         Command command = parser.parseCommand(commandText, personModel);
         logger.info("Command type: " + command.toString());
         CommandResult commandResult = command.execute(model, personModel);

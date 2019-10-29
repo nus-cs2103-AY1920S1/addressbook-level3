@@ -31,6 +31,8 @@ import seedu.address.person.storage.JsonUserPrefsStorage;
 import seedu.address.person.storage.Storage;
 import seedu.address.person.storage.StorageManager;
 import seedu.address.person.storage.UserPrefsStorage;
+import seedu.address.transaction.storage.FileReadWriteException;
+import seedu.address.transaction.util.TransactionList;
 import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager;
 
@@ -93,8 +95,7 @@ public class MainApp extends Application {
         //For Transaction Storage and Manager
         transactionStorage =
                 new seedu.address.transaction.storage.StorageManager(new File(FILE_PATH_TRANSACTION), model);
-        transactionModel =
-                new seedu.address.transaction.model.ModelManager(transactionStorage.readTransactionList());
+        transactionModel = initTransactionModelManager(transactionStorage);
 
         //For Reimbursement Storage and Manager
         reimbursementStorage =
@@ -185,6 +186,20 @@ public class MainApp extends Application {
         }
 
         return new ModelManager(initialData, userPrefs);
+    }
+
+    private seedu.address.transaction.model.Model initTransactionModelManager(
+            seedu.address.transaction.storage.Storage storage) {
+        TransactionList transactionList;
+        try {
+            transactionList = storage.readTransactionList();
+            return new seedu.address.transaction.model.ModelManager(transactionList);
+        } catch (FileReadWriteException e) {
+            logger.warning("Data file not in the correct format or problem reading from the file. "
+                    + "Will be starting with an empty transaction list");
+            transactionList = new TransactionList();
+            return new seedu.address.transaction.model.ModelManager(transactionList);
+        }
     }
 
     private void initLogging(Config config) {

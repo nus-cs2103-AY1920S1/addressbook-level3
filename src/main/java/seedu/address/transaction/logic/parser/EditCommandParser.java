@@ -1,5 +1,6 @@
 package seedu.address.transaction.logic.parser;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.address.transaction.model.Transaction.DATE_TIME_FORMATTER;
 import static seedu.address.transaction.ui.TransactionMessages.MESSAGE_INVALID_EDIT_COMMAND_FORMAT;
 import static seedu.address.util.CliSyntax.PREFIX_AMOUNT;
@@ -9,8 +10,10 @@ import static seedu.address.util.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.util.CliSyntax.PREFIX_PERSON;
 
 import java.time.LocalDate;
+import java.util.logging.Logger;
 import java.util.stream.Stream;
 
+import seedu.address.person.commons.core.LogsCenter;
 import seedu.address.person.model.Model;
 import seedu.address.person.model.person.exceptions.PersonNotFoundException;
 import seedu.address.transaction.logic.commands.EditCommand;
@@ -25,6 +28,7 @@ import seedu.address.util.Prefix;
  * Parses input arguments and creates a new EditCommand object
  */
 public class EditCommandParser implements CommandParserWithPersonModel {
+    private final Logger logger = LogsCenter.getLogger(getClass());
 
     /**
      * Parses the given {@code String} of arguments in the context of the EditCommand
@@ -32,6 +36,7 @@ public class EditCommandParser implements CommandParserWithPersonModel {
      * @throws ParseException if the user input does not conform the expected format
      */
     public EditCommand parse(String args, Model personModel) throws ParseException, NoSuchPersonException {
+        requireNonNull(personModel);
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_DATETIME, PREFIX_DESCRIPTION,
                         PREFIX_CATEGORY, PREFIX_AMOUNT, PREFIX_PERSON);
@@ -40,11 +45,13 @@ public class EditCommandParser implements CommandParserWithPersonModel {
         try {
             index = Integer.parseInt(argMultimap.getPreamble());
         } catch (Exception e) {
+            logger.info("There is no index after the edit command word.");
             throw new ParseException(MESSAGE_INVALID_EDIT_COMMAND_FORMAT);
         }
 
         if (!arePrefixesPresent(argMultimap, PREFIX_DATETIME, PREFIX_DESCRIPTION, PREFIX_CATEGORY, PREFIX_AMOUNT,
                 PREFIX_PERSON)) {
+            logger.info("There is no prefixes after the index for the edit command.");
             throw new ParseException(MESSAGE_INVALID_EDIT_COMMAND_FORMAT);
         }
 

@@ -1,5 +1,6 @@
 package seedu.address.transaction.logic.commands;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.address.transaction.ui.TransactionMessages.MESSAGE_FIND_COMMAND;
 
 import seedu.address.transaction.model.Model;
@@ -21,6 +22,8 @@ public class FindCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, seedu.address.person.model.Model personModel) {
+        requireNonNull(model);
+        requireNonNull(personModel);
         model.updatePredicate(this.predicate);
         return new CommandResult(String.format(MESSAGE_FIND_COMMAND, model.getFilteredList().size()));
     }

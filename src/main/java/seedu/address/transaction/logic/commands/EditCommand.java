@@ -1,5 +1,6 @@
 package seedu.address.transaction.logic.commands;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.address.transaction.ui.TransactionMessages.MESSAGE_NO_SUCH_TRANSACTION;
 import static seedu.address.transaction.ui.TransactionMessages.MESSAGE_TRANSACTION_EDITED;
 
@@ -39,6 +40,8 @@ public class EditCommand extends Command {
     public CommandResult execute(Model model, seedu.address.person.model.Model personModel)
             throws NoSuchIndexException, CommandException, NoSuchPersonException, ParseException {
         Transaction transactionToEdit;
+        requireNonNull(model);
+        requireNonNull(personModel);
         try {
             transactionToEdit = model.findTransactionInFilteredListByIndex(index);
         } catch (IndexOutOfBoundsException e) {
