@@ -1,26 +1,26 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.CATEGORY_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
 import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_NO_PREFIX_KFC;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_WITH_PREFIX_KFC;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_WITH_PREFIX_MAC;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_CATEGORY_WITH_PREFIX;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_NO_PREFIX_KFC;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_WITH_PREFIX_KFC;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_WITH_PREFIX_MAC;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_NO_PREFIX_CHEAP;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_NO_PREFIX_NICE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_WITH_PREFIX_CHEAP;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_WITH_PREFIX_NICE;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.address.testutil.TypicalEateries.AMY;
-import static seedu.address.testutil.TypicalEateries.BOB;
+import static seedu.address.testutil.TypicalEateries.KENTUCKY;
+import static seedu.address.testutil.TypicalEateries.MCDONALD;
 
 import org.junit.jupiter.api.Test;
 
@@ -37,34 +37,34 @@ public class AddTodoCommandParserTest {
 
     @Test
     public void parse_allFieldsPresent_success() {
-        Eatery expectedEatery = new TodoEateryBuilder(BOB).withTags(VALID_TAG_FRIEND).build();
+        Eatery expectedEatery = new TodoEateryBuilder(MCDONALD).withTags(VALID_TAG_NO_PREFIX_CHEAP).build();
 
         // whitespace only preamble
-        assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_BOB
-                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedEatery));
+        assertParseSuccess(parser, PREAMBLE_WHITESPACE + VALID_NAME_WITH_PREFIX_MAC
+                + VALID_ADDRESS_WITH_PREFIX_MAC + VALID_TAG_WITH_PREFIX_CHEAP, new AddCommand(expectedEatery));
 
         // multiple names - last name accepted
-        assertParseSuccess(parser, NAME_DESC_AMY + NAME_DESC_BOB
-                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedEatery));
+        assertParseSuccess(parser, VALID_NAME_WITH_PREFIX_KFC + VALID_NAME_WITH_PREFIX_MAC
+                + VALID_ADDRESS_WITH_PREFIX_MAC + VALID_TAG_WITH_PREFIX_CHEAP, new AddCommand(expectedEatery));
 
         // multiple addresses - last address accepted
-        assertParseSuccess(parser, NAME_DESC_BOB + ADDRESS_DESC_AMY
-                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedEatery));
+        assertParseSuccess(parser, VALID_NAME_WITH_PREFIX_MAC + VALID_ADDRESS_WITH_PREFIX_KFC
+                + VALID_ADDRESS_WITH_PREFIX_MAC + VALID_TAG_WITH_PREFIX_CHEAP, new AddCommand(expectedEatery));
 
         // multiple tags - all accepted
-        Eatery expectedEateryMultipleTags = new TodoEateryBuilder(BOB).withTags(VALID_TAG_FRIEND,
-                VALID_TAG_HUSBAND).build();
+        Eatery expectedEateryMultipleTags = new TodoEateryBuilder(MCDONALD).withTags(VALID_TAG_NO_PREFIX_CHEAP,
+                VALID_TAG_NO_PREFIX_NICE).build();
 
-        assertParseSuccess(parser, NAME_DESC_BOB + ADDRESS_DESC_BOB
-                + TAG_DESC_FRIEND + TAG_DESC_HUSBAND, new AddCommand(expectedEateryMultipleTags));
+        assertParseSuccess(parser, VALID_NAME_WITH_PREFIX_MAC + VALID_ADDRESS_WITH_PREFIX_MAC
+                + VALID_TAG_WITH_PREFIX_CHEAP + VALID_TAG_WITH_PREFIX_NICE, new AddCommand(expectedEateryMultipleTags));
     }
 
     @Test
     public void parse_optionalFieldsMissing_success() {
         // zero tags
-        Eatery expectedEatery = new TodoEateryBuilder(AMY).withTags().build();
+        Eatery expectedEatery = new TodoEateryBuilder(KENTUCKY).withTags().build();
         System.out.println(expectedEatery);
-        assertParseSuccess(parser, NAME_DESC_AMY + ADDRESS_DESC_AMY,
+        assertParseSuccess(parser, VALID_NAME_WITH_PREFIX_KFC + VALID_ADDRESS_WITH_PREFIX_KFC,
                 new AddCommand(expectedEatery));
     }
 
@@ -73,44 +73,46 @@ public class AddTodoCommandParserTest {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE_TODO);
 
         // missing name prefix
-        assertParseFailure(parser, VALID_NAME_BOB + ADDRESS_DESC_BOB,
+        assertParseFailure(parser, VALID_NAME_NO_PREFIX_KFC + VALID_ADDRESS_WITH_PREFIX_KFC,
                 expectedMessage);
 
         // missing address prefix
-        assertParseFailure(parser, NAME_DESC_BOB + VALID_ADDRESS_BOB,
+        assertParseFailure(parser, VALID_NAME_WITH_PREFIX_KFC + VALID_ADDRESS_NO_PREFIX_KFC,
                 expectedMessage);
 
         // all prefixes missing
-        assertParseFailure(parser, VALID_NAME_BOB + VALID_ADDRESS_BOB,
+        assertParseFailure(parser, VALID_NAME_NO_PREFIX_KFC + VALID_ADDRESS_NO_PREFIX_KFC,
                 expectedMessage);
     }
 
     @Test
     public void parse_invalidValue_failure() {
         // invalid name
-        assertParseFailure(parser, INVALID_NAME_DESC + ADDRESS_DESC_BOB
-                + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, Name.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, INVALID_NAME_DESC + VALID_ADDRESS_WITH_PREFIX_KFC
+                + VALID_TAG_WITH_PREFIX_CHEAP, Name.MESSAGE_CONSTRAINTS);
 
         // invalid address
-        assertParseFailure(parser, NAME_DESC_BOB + INVALID_ADDRESS_DESC
-                + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, Address.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, VALID_NAME_WITH_PREFIX_KFC + INVALID_ADDRESS_DESC
+                + VALID_TAG_WITH_PREFIX_CHEAP, Address.MESSAGE_CONSTRAINTS);
 
         // invalid category
-        assertParseFailure(parser, NAME_DESC_BOB + ADDRESS_DESC_BOB + CATEGORY_DESC
-                + TAG_DESC_HUSBAND + TAG_DESC_FRIEND,
+        assertParseFailure(parser, VALID_NAME_WITH_PREFIX_KFC
+                + VALID_ADDRESS_WITH_PREFIX_KFC
+                + VALID_CATEGORY_WITH_PREFIX
+                + VALID_TAG_WITH_PREFIX_CHEAP,
             String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE_TODO));
 
         // invalid tag
-        assertParseFailure(parser, NAME_DESC_BOB + ADDRESS_DESC_BOB
-                + INVALID_TAG_DESC + VALID_TAG_FRIEND, Tag.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, VALID_NAME_WITH_PREFIX_KFC + VALID_ADDRESS_WITH_PREFIX_KFC
+                + INVALID_TAG_DESC + VALID_TAG_WITH_PREFIX_CHEAP, Tag.MESSAGE_CONSTRAINTS);
 
         // two invalid values, only first invalid value reported
         assertParseFailure(parser, INVALID_NAME_DESC + INVALID_ADDRESS_DESC,
                 Name.MESSAGE_CONSTRAINTS);
 
         // non-empty preamble
-        assertParseFailure(parser, PREAMBLE_NON_EMPTY + NAME_DESC_BOB
-                + ADDRESS_DESC_BOB + TAG_DESC_HUSBAND + TAG_DESC_FRIEND,
+        assertParseFailure(parser, PREAMBLE_NON_EMPTY + VALID_NAME_WITH_PREFIX_MAC
+                + VALID_ADDRESS_WITH_PREFIX_KFC + VALID_TAG_WITH_PREFIX_CHEAP + VALID_TAG_WITH_PREFIX_NICE,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE_TODO));
     }
 }

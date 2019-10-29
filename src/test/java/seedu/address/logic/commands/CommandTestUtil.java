@@ -25,23 +25,23 @@ import seedu.address.testutil.EditEateryDescriptorBuilder;
  */
 public class CommandTestUtil {
 
-    public static final String VALID_NAME_AMY = "Amy Bee";
-    public static final String VALID_NAME_BOB = "Bob Choo";
-    public static final boolean VALID_ISOPEN_AMY = true;
-    public static final boolean VALID_ISOPEN_BOB = true;
-    public static final String VALID_ADDRESS_AMY = "Block 312, Amy Street 1";
-    public static final String VALID_ADDRESS_BOB = "Block 123, Bobby Street 3";
-    public static final String VALID_TAG_HUSBAND = "husband";
-    public static final String VALID_TAG_FRIEND = "friend";
-    public static final String VALID_CATEGORY = "Western";
+    public static final String VALID_NAME_NO_PREFIX_MAC = "Mcdonald";
+    public static final String VALID_NAME_NO_PREFIX_KFC = "Kentucky Fried Chicken";
+    public static final boolean VALID_ISOPEN_MAC = true;
+    public static final boolean VALID_ISOPEN_KFC = true;
+    public static final String VALID_ADDRESS_NO_PREFIX_MAC = "Block 312, Amy Street 1";
+    public static final String VALID_ADDRESS_NO_PREFIX_KFC = "Block 123, Bobby Street 3";
+    public static final String VALID_TAG_NO_PREFIX_CHEAP = "cheap";
+    public static final String VALID_TAG_NO_PREFIX_NICE = "nice";
+    public static final String VALID_CATEGORY_NO_PREFIX = "Western";
 
-    public static final String NAME_DESC_AMY = " " + PREFIX_NAME + " " + VALID_NAME_AMY;
-    public static final String NAME_DESC_BOB = " " + PREFIX_NAME + " " + VALID_NAME_BOB;
-    public static final String ADDRESS_DESC_AMY = " " + PREFIX_ADDRESS + " " + VALID_ADDRESS_AMY;
-    public static final String ADDRESS_DESC_BOB = " " + PREFIX_ADDRESS + " " + VALID_ADDRESS_BOB;
-    public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + " " + VALID_TAG_FRIEND;
-    public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + " " + VALID_TAG_HUSBAND;
-    public static final String CATEGORY_DESC = " " + PREFIX_CATEGORY + " " + VALID_CATEGORY;
+    public static final String VALID_NAME_WITH_PREFIX_KFC = " " + PREFIX_NAME + " " + VALID_NAME_NO_PREFIX_KFC;
+    public static final String VALID_NAME_WITH_PREFIX_MAC = " " + PREFIX_NAME + " " + VALID_NAME_NO_PREFIX_MAC;
+    public static final String VALID_ADDRESS_WITH_PREFIX_KFC = " " + PREFIX_ADDRESS + " " + VALID_ADDRESS_NO_PREFIX_KFC;
+    public static final String VALID_ADDRESS_WITH_PREFIX_MAC = " " + PREFIX_ADDRESS + " " + VALID_ADDRESS_NO_PREFIX_MAC;
+    public static final String VALID_TAG_WITH_PREFIX_CHEAP = " " + PREFIX_TAG + " " + VALID_TAG_NO_PREFIX_CHEAP;
+    public static final String VALID_TAG_WITH_PREFIX_NICE = " " + PREFIX_TAG + " " + VALID_TAG_NO_PREFIX_NICE;
+    public static final String VALID_CATEGORY_WITH_PREFIX = " " + PREFIX_CATEGORY + " " + VALID_CATEGORY_NO_PREFIX;
 
     public static final String VALID_NAME_EATBOOK = "Eatbook";
     public static final String VALID_NAME_SETHLUI = "Seth Lui";
@@ -59,16 +59,16 @@ public class CommandTestUtil {
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
-    public static final EditCommand.EditEateryDescriptor DESC_AMY;
-    public static final EditCommand.EditEateryDescriptor DESC_BOB;
+    public static final EditCommand.EditEateryDescriptor DESC_KFC;
+    public static final EditCommand.EditEateryDescriptor DESC_MAC;
 
     static {
-        DESC_AMY = new EditEateryDescriptorBuilder().withName(VALID_NAME_AMY)
-                .withAddress(VALID_ADDRESS_AMY)
-                .withTags(VALID_TAG_FRIEND).build();
-        DESC_BOB = new EditEateryDescriptorBuilder().withName(VALID_NAME_BOB)
-                .withAddress(VALID_ADDRESS_BOB)
-                .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
+        DESC_KFC = new EditEateryDescriptorBuilder().withName(VALID_NAME_NO_PREFIX_KFC)
+                .withAddress(VALID_ADDRESS_NO_PREFIX_KFC)
+                .withTags(VALID_TAG_NO_PREFIX_CHEAP).build();
+        DESC_MAC = new EditEateryDescriptorBuilder().withName(VALID_NAME_NO_PREFIX_MAC)
+                .withAddress(VALID_ADDRESS_NO_PREFIX_MAC)
+                .withTags(VALID_TAG_NO_PREFIX_CHEAP, VALID_TAG_NO_PREFIX_NICE).build();
     }
 
     /**

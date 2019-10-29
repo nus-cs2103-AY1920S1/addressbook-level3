@@ -30,7 +30,7 @@ public class ReopenCommandTest {
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
-        Eatery reopenedEatery = new EateryBuilder().withTags("friends").build();
+        Eatery reopenedEatery = new EateryBuilder().withTags("fastfood").build();
         ReopenCommand reopenCommand = new ReopenCommand(INDEX_FIRST_EATERY);
 
         String expectedMessage = String.format(ReopenCommand.MESSAGE_REOPENED_EATERY_SUCCESS, reopenedEatery);
@@ -54,7 +54,7 @@ public class ReopenCommandTest {
         showEateryAtIndex(model, INDEX_FIRST_EATERY);
 
         model.getFilteredEateryList().get(INDEX_FIRST_EATERY.getZeroBased());
-        Eatery reopenedEatery = new EateryBuilder().withTags("friends").build();
+        Eatery reopenedEatery = new EateryBuilder().withTags("fastfood").build();
         ReopenCommand reopenCommand = new ReopenCommand(INDEX_FIRST_EATERY);
 
         String expectedMessage = String.format(ReopenCommand.MESSAGE_REOPENED_EATERY_SUCCESS, reopenedEatery);

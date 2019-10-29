@@ -3,7 +3,7 @@ package seedu.address.storage;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.storage.JsonAdaptedEatery.MISSING_FIELD_MESSAGE_FORMAT;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalEateries.BENSON;
+import static seedu.address.testutil.TypicalEateries.TEXAS;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,18 +23,18 @@ public class JsonAdaptedEateryTest {
     private static final String INVALID_CATEGORY = "_Ch1nese";
     private static final String INVALID_TAG = "#friend";
 
-    private static final String VALID_NAME = BENSON.getName().toString();
-    private static final String VALID_ISOPEN = String.valueOf(BENSON.getIsOpen());
-    private static final String VALID_ADDRESS = BENSON.getAddress().toString();
-    private static final String VALID_CATEGORY = BENSON.getCategory().toString();
-    private static final List<JsonAdaptedTag> VALID_TAGS = BENSON.getTags().stream()
+    private static final String VALID_NAME = TEXAS.getName().toString();
+    private static final String VALID_ISOPEN = String.valueOf(TEXAS.getIsOpen());
+    private static final String VALID_ADDRESS = TEXAS.getAddress().toString();
+    private static final String VALID_CATEGORY = TEXAS.getCategory().toString();
+    private static final List<JsonAdaptedTag> VALID_TAGS = TEXAS.getTags().stream()
             .map(JsonAdaptedTag::new)
             .collect(Collectors.toList());
 
     @Test
     public void toModelType_validEateryDetails_returnsEatery() throws Exception {
-        JsonAdaptedEatery eatery = new JsonAdaptedEatery(BENSON);
-        assertEquals(BENSON, eatery.toModelType());
+        JsonAdaptedEatery eatery = new JsonAdaptedEatery(TEXAS);
+        assertEquals(TEXAS, eatery.toModelType());
     }
 
     @Test

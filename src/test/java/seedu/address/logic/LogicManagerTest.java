@@ -3,11 +3,11 @@ package seedu.address.logic;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_EATERY_DISPLAYED_INDEX;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.CATEGORY_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_WITH_PREFIX_MAC;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_CATEGORY_WITH_PREFIX;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_WITH_PREFIX_MAC;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalEateries.AMY;
+import static seedu.address.testutil.TypicalEateries.MCDONALD;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -84,8 +84,9 @@ public class LogicManagerTest {
         logic = new LogicManager(model, storage);
 
         // Execute add command
-        String addCommand = AddCommand.COMMAND_WORD + NAME_DESC_AMY + ADDRESS_DESC_AMY + CATEGORY_DESC;
-        Eatery expectedEatery = new EateryBuilder(AMY).withTags().build();
+        String addCommand = AddCommand.COMMAND_WORD + VALID_NAME_WITH_PREFIX_MAC
+            + VALID_ADDRESS_WITH_PREFIX_MAC + VALID_CATEGORY_WITH_PREFIX;
+        Eatery expectedEatery = new EateryBuilder(MCDONALD).withTags().build();
         ModelManager expectedModel = new ModelManager();
         expectedModel.addEatery(expectedEatery);
         String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;

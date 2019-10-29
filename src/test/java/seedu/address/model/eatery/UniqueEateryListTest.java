@@ -3,11 +3,11 @@ package seedu.address.model.eatery;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_NO_PREFIX_KFC;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_NO_PREFIX_CHEAP;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalEateries.ALICE;
-import static seedu.address.testutil.TypicalEateries.BOB;
+import static seedu.address.testutil.TypicalEateries.KENTUCKY;
+import static seedu.address.testutil.TypicalEateries.MCDONALD;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -30,19 +30,21 @@ public class UniqueEateryListTest {
 
     @Test
     public void contains_eateryNotInList_returnsFalse() {
-        assertFalse(uniqueEateryList.contains(ALICE));
+        assertFalse(uniqueEateryList.contains(MCDONALD));
     }
 
     @Test
     public void contains_eateryInList_returnsTrue() {
-        uniqueEateryList.add(ALICE);
-        assertTrue(uniqueEateryList.contains(ALICE));
+        uniqueEateryList.add(MCDONALD);
+        assertTrue(uniqueEateryList.contains(MCDONALD));
     }
 
     @Test
     public void contains_eateryWithSameIdentityFieldsInList_returnsTrue() {
-        uniqueEateryList.add(ALICE);
-        Eatery editedAlice = new EateryBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        uniqueEateryList.add(MCDONALD);
+        Eatery editedAlice = new EateryBuilder(MCDONALD)
+                .withAddress(VALID_ADDRESS_NO_PREFIX_KFC)
+                .withTags(VALID_TAG_NO_PREFIX_CHEAP)
                 .build();
         assertFalse(uniqueEateryList.contains(editedAlice));
     }
@@ -54,40 +56,42 @@ public class UniqueEateryListTest {
 
     @Test
     public void add_duplicateEatery_throwsDuplicateEateryException() {
-        uniqueEateryList.add(ALICE);
-        assertThrows(DuplicateEateryException.class, () -> uniqueEateryList.add(ALICE));
+        uniqueEateryList.add(MCDONALD);
+        assertThrows(DuplicateEateryException.class, () -> uniqueEateryList.add(MCDONALD));
     }
 
     @Test
     public void setEatery_nullTargetEatery_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> uniqueEateryList.setEatery(null, ALICE));
+        assertThrows(NullPointerException.class, () -> uniqueEateryList.setEatery(null, MCDONALD));
     }
 
     @Test
     public void setEatery_nullEditedEatery_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> uniqueEateryList.setEatery(ALICE, null));
+        assertThrows(NullPointerException.class, () -> uniqueEateryList.setEatery(MCDONALD, null));
     }
 
     @Test
     public void setEatery_targetEateryNotInList_throwsEateryNotFoundException() {
-        assertThrows(EateryNotFoundException.class, () -> uniqueEateryList.setEatery(ALICE, ALICE));
+        assertThrows(EateryNotFoundException.class, () -> uniqueEateryList.setEatery(MCDONALD, MCDONALD));
     }
 
     @Test
     public void setEatery_editedEateryIsSameEatery_success() {
-        uniqueEateryList.add(ALICE);
-        uniqueEateryList.setEatery(ALICE, ALICE);
+        uniqueEateryList.add(MCDONALD);
+        uniqueEateryList.setEatery(MCDONALD, MCDONALD);
         UniqueEateryList expectedUniqueEateryList = new UniqueEateryList();
-        expectedUniqueEateryList.add(ALICE);
+        expectedUniqueEateryList.add(MCDONALD);
         assertEquals(expectedUniqueEateryList, uniqueEateryList);
     }
 
     @Test
     public void setEatery_editedEateryHasSameIdentity_success() {
-        uniqueEateryList.add(ALICE);
-        Eatery editedAlice = new EateryBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        uniqueEateryList.add(MCDONALD);
+        Eatery editedAlice = new EateryBuilder(MCDONALD)
+                .withAddress(VALID_ADDRESS_NO_PREFIX_KFC)
+                .withTags(VALID_TAG_NO_PREFIX_CHEAP)
                 .build();
-        uniqueEateryList.setEatery(ALICE, editedAlice);
+        uniqueEateryList.setEatery(MCDONALD, editedAlice);
         UniqueEateryList expectedUniqueEateryList = new UniqueEateryList();
         expectedUniqueEateryList.add(editedAlice);
         assertEquals(expectedUniqueEateryList, uniqueEateryList);
@@ -95,18 +99,18 @@ public class UniqueEateryListTest {
 
     @Test
     public void setEatery_editedEateryHasDifferentIdentity_success() {
-        uniqueEateryList.add(ALICE);
-        uniqueEateryList.setEatery(ALICE, BOB);
+        uniqueEateryList.add(MCDONALD);
+        uniqueEateryList.setEatery(MCDONALD, KENTUCKY);
         UniqueEateryList expectedUniqueEateryList = new UniqueEateryList();
-        expectedUniqueEateryList.add(BOB);
+        expectedUniqueEateryList.add(KENTUCKY);
         assertEquals(expectedUniqueEateryList, uniqueEateryList);
     }
 
     @Test
     public void setEatery_editedEateryHasNonUniqueIdentity_throwsDuplicateEateryException() {
-        uniqueEateryList.add(ALICE);
-        uniqueEateryList.add(BOB);
-        assertThrows(DuplicateEateryException.class, () -> uniqueEateryList.setEatery(ALICE, BOB));
+        uniqueEateryList.add(MCDONALD);
+        uniqueEateryList.add(KENTUCKY);
+        assertThrows(DuplicateEateryException.class, () -> uniqueEateryList.setEatery(MCDONALD, KENTUCKY));
     }
 
     @Test
@@ -116,13 +120,13 @@ public class UniqueEateryListTest {
 
     @Test
     public void remove_eateryDoesNotExist_throwsEateryNotFoundException() {
-        assertThrows(EateryNotFoundException.class, () -> uniqueEateryList.remove(ALICE));
+        assertThrows(EateryNotFoundException.class, () -> uniqueEateryList.remove(MCDONALD));
     }
 
     @Test
     public void remove_existingEatery_removesEatery() {
-        uniqueEateryList.add(ALICE);
-        uniqueEateryList.remove(ALICE);
+        uniqueEateryList.add(MCDONALD);
+        uniqueEateryList.remove(MCDONALD);
         UniqueEateryList expectedUniqueEateryList = new UniqueEateryList();
         assertEquals(expectedUniqueEateryList, uniqueEateryList);
     }
@@ -134,9 +138,9 @@ public class UniqueEateryListTest {
 
     @Test
     public void setEateries_uniqueEateryList_replacesOwnListWithProvidedUniqueEateryList() {
-        uniqueEateryList.add(ALICE);
+        uniqueEateryList.add(MCDONALD);
         UniqueEateryList expectedUniqueEateryList = new UniqueEateryList();
-        expectedUniqueEateryList.add(BOB);
+        expectedUniqueEateryList.add(KENTUCKY);
         uniqueEateryList.setEateries(expectedUniqueEateryList);
         assertEquals(expectedUniqueEateryList, uniqueEateryList);
     }
@@ -148,17 +152,17 @@ public class UniqueEateryListTest {
 
     @Test
     public void setEateries_list_replacesOwnListWithProvidedList() {
-        uniqueEateryList.add(ALICE);
-        List<Eatery> eateryList = Collections.singletonList(BOB);
+        uniqueEateryList.add(MCDONALD);
+        List<Eatery> eateryList = Collections.singletonList(KENTUCKY);
         uniqueEateryList.setEateries(eateryList);
         UniqueEateryList expectedUniqueEateryList = new UniqueEateryList();
-        expectedUniqueEateryList.add(BOB);
+        expectedUniqueEateryList.add(KENTUCKY);
         assertEquals(expectedUniqueEateryList, uniqueEateryList);
     }
 
     @Test
     public void setEateries_listWithDuplicateEateries_throwsDuplicateEateryException() {
-        List<Eatery> listWithDuplicateEateries = Arrays.asList(ALICE, ALICE);
+        List<Eatery> listWithDuplicateEateries = Arrays.asList(MCDONALD, MCDONALD);
         assertThrows(DuplicateEateryException.class, () -> uniqueEateryList.setEateries(listWithDuplicateEateries));
     }
 
