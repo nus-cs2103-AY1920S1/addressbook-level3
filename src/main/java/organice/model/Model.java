@@ -70,6 +70,11 @@ public interface Model {
     boolean hasPerson(Person person);
 
     /**
+     * Returns true if a person with the same nric as {@code personNric} exists in the address book.
+     */
+    boolean hasPerson(Nric personNric);
+
+    /**
      * Returns true if a doctor in charge with the same nric as {@code doctorInCharge} exists in the address book.
      */
     boolean hasDoctor(Nric doctor);

@@ -79,7 +79,8 @@ public class ModelManagerTest {
 
     @Test
     public void hasPerson_nullPerson_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> modelManager.hasPerson(null));
+        Person person = null;
+        assertThrows(NullPointerException.class, () -> modelManager.hasPerson(person));
     }
 
     @Test
