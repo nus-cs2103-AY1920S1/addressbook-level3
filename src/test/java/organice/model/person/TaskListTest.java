@@ -12,36 +12,42 @@ import organice.logic.commands.CommandResult;
 import organice.testutil.PersonBuilder;
 
 class TaskListTest {
+    TaskList taskList = new TaskList("tasklist");
     Task one = new Task("one");
     Task two = new Task("two");
     Task three = new Task("three");
+    Task four = new Task("four");
 
-    @Test
-    void add() {
-        AddCommandTest.ModelStubAcceptingPersonAdded modelStub = new AddCommandTest.ModelStubAcceptingPersonAdded();
-        Person validPerson = new PersonBuilder().build();
+    public void add() {
+        taskList.add(one);
+        taskList.add(two);
+        taskList.add(three);
 
-        CommandResult commandResult = new AddCommand(validPerson).execute(modelStub);
+        assertEquals(one, taskList.get(0));
+        assertEquals(two, taskList.get(1));
+        assertEquals(three, taskList.get(2));
 
-        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validPerson), commandResult.getFeedbackToUser());
-        assertEquals(Arrays.asList(validPerson), modelStub.personsAdded);
+        taskList.add(four);
 
+        assertEquals(one, taskList.get(0));
+        assertEquals(two, taskList.get(1));
+        assertEquals(three, taskList.get(2));
+        assertEquals(four, taskList.get(3));
+
+        assertTrue(taskList.size()==4);
     }
-
     @Test
     void size() {
-    }
+        taskList.add(one);
+        taskList.add(two);
+        taskList.add(three);
 
-    @Test
-    void get() {
-    }
-
-    @Test
-    void remove() {
+        assertEquals(taskList.size(),3);
     }
 
     @Test
     void defaultList() {
+
     }
 
     @Test
