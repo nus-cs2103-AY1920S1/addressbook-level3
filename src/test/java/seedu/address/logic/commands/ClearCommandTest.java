@@ -11,8 +11,8 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.bio.UserList;
-import seedu.address.model.food.UniqueFoodList;
 import seedu.address.model.record.UniqueRecordList;
+import sugarmummy.recmfood.model.UniqueFoodList;
 
 public class ClearCommandTest {
 

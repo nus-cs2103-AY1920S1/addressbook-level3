@@ -13,7 +13,7 @@ import seedu.address.model.YearMonth;
  */
 public class YearMonthDay {
     public static final String MESSAGE_CONSTRAINTS = "The format of year month day should be yyyy-mm-dd and "
-            + "the number should be valid.";
+        + "the number should be valid.";
     public static final String VALIDATION_PATTERN_STRING = "yyyy-MM-dd";
     public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern(VALIDATION_PATTERN_STRING);
 
@@ -70,8 +70,8 @@ public class YearMonthDay {
     @Override
     public boolean equals(Object other) {
         return other == this
-                || (other instanceof YearMonthDay
-                && ((YearMonthDay) other).yearMonthDay.equals(yearMonthDay));
+            || (other instanceof YearMonthDay
+            && ((YearMonthDay) other).yearMonthDay.equals(yearMonthDay));
     }
 
     @Override

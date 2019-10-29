@@ -1,7 +1,5 @@
 package seedu.address;
 
-import static seedu.address.model.food.TypicalFoods.FOODS;
-
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
@@ -29,25 +27,25 @@ import seedu.address.model.ReadOnlyUserList;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.bio.UserList;
-import seedu.address.model.food.UniqueFoodList;
 import seedu.address.model.record.UniqueRecordList;
 import seedu.address.model.util.SampleCalendarDataUtil;
 import seedu.address.model.util.SampleFoodDataUtil;
 import seedu.address.model.util.SampleRecordDataUtil;
 import seedu.address.model.util.SampleUserDataUtil;
+import seedu.address.storage.AddressBookStorage;
+import seedu.address.storage.JsonAddressBookStorage;
+import seedu.address.storage.JsonCalendarStorage;
+import seedu.address.storage.JsonRecordListStorage;
+import seedu.address.storage.JsonUserPrefsStorage;
+import seedu.address.storage.Storage;
+import seedu.address.storage.StorageManager;
+import seedu.address.storage.UserListStorage;
+import seedu.address.storage.UserPrefsStorage;
 import seedu.address.storage.bio.JsonUserListStorage;
 import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager;
-import sugarmummy.storage.AddressBookStorage;
-import sugarmummy.storage.JsonAddressBookStorage;
-import sugarmummy.storage.JsonCalendarStorage;
-import sugarmummy.storage.JsonFoodListStorage;
-import sugarmummy.storage.JsonRecordListStorage;
-import sugarmummy.storage.JsonUserPrefsStorage;
-import sugarmummy.storage.Storage;
-import sugarmummy.storage.StorageManager;
-import sugarmummy.storage.UserListStorage;
-import sugarmummy.storage.UserPrefsStorage;
+import sugarmummy.recmfood.model.UniqueFoodList;
+import sugarmummy.recmfood.storage.JsonFoodListStorage;
 
 /**
  * Runs the application.
@@ -105,21 +103,21 @@ public class MainApp extends Application {
     private Model initModelManager(ReadOnlyUserPrefs userPrefs) {
         ReadOnlyAddressBook initialData = new AddressBook();
         ReadOnlyUserList initialUserData;
-        UniqueFoodList foodList = new UniqueFoodList();
-        foodList.setFoods(FOODS);
-        UniqueRecordList initialRecordListData;
         ReadOnlyCalendar initialCalendar;
+        UniqueFoodList initialFoodList;
+        UniqueRecordList initialRecordListData;
+
 
         initialUserData = (ReadOnlyUserList) getInitialData(LABEL_BIO_DATA_TYPE,
             SampleUserDataUtil::getSampleUserList, UserList::new);
-        foodList = (UniqueFoodList) getInitialData(LABEL_FOOD_DATA_TYPE,
+        initialFoodList = (UniqueFoodList) getInitialData(LABEL_FOOD_DATA_TYPE,
             SampleFoodDataUtil::getSampleFoodList, UniqueFoodList::new);
         initialRecordListData = (UniqueRecordList) getInitialData(LABEL_RECORD_DATA_TYPE,
             SampleRecordDataUtil::getSampleRecordList, UniqueRecordList::new);
         initialCalendar = (ReadOnlyCalendar) getInitialData(LABEL_CALENDAR_DATA_TYPE,
             SampleCalendarDataUtil::getSampleCalendar, Calendar::new);
 
-        return new ModelManager(initialData, userPrefs, initialUserData, foodList, initialRecordListData,
+        return new ModelManager(initialData, userPrefs, initialUserData, initialFoodList, initialRecordListData,
             initialCalendar);
     }
 

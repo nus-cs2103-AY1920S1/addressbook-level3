@@ -14,13 +14,13 @@ import seedu.address.model.aesthetics.Colour;
 import seedu.address.model.bio.User;
 import seedu.address.model.calendar.CalendarEntry;
 import seedu.address.model.calendar.Reminder;
-import seedu.address.model.food.Food;
-import seedu.address.model.food.UniqueFoodList;
 import seedu.address.model.person.Person;
 import seedu.address.model.record.Record;
 import seedu.address.model.record.RecordType;
 import seedu.address.model.record.UniqueRecordList;
 import seedu.address.model.statistics.AverageType;
+import sugarmummy.recmfood.model.Food;
+import sugarmummy.recmfood.model.UniqueFoodList;
 
 /**
  * The API of the Model component.
@@ -340,5 +340,12 @@ public interface Model {
      * Sets the background of this application and saves it to the user preferences file.
      */
     void setBackground(Background background);
+
+    //=========== Motivational Quotes =============================================================
+
+    /**
+     * Returns an unmodifiable list of motivational quotes stored in this program.
+     */
+    public List<String> getMotivationalQuotesList();
 
 }

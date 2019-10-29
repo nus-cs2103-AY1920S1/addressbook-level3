@@ -38,17 +38,17 @@ import seedu.address.model.bio.ProfileDesc;
 import seedu.address.model.calendar.Description;
 import seedu.address.model.calendar.Repetition;
 import seedu.address.model.calendar.YearMonthDay;
-import seedu.address.model.food.Calorie;
-import seedu.address.model.food.Fat;
-import seedu.address.model.food.FoodName;
-import seedu.address.model.food.Gi;
-import seedu.address.model.food.NutritionValue;
-import seedu.address.model.food.Sugar;
 import seedu.address.model.record.Concentration;
 import seedu.address.model.record.Height;
 import seedu.address.model.record.RecordType;
 import seedu.address.model.record.Weight;
 import seedu.address.model.statistics.AverageType;
+import sugarmummy.recmfood.model.Calorie;
+import sugarmummy.recmfood.model.Fat;
+import sugarmummy.recmfood.model.FoodName;
+import sugarmummy.recmfood.model.Gi;
+import sugarmummy.recmfood.model.NutritionValue;
+import sugarmummy.recmfood.model.Sugar;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -73,7 +73,8 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String averageType} into a {@code AverageType}. Leading and trailing whitespaces will be trimmed.
+     * Parses a {@code String averageType} into a {@code AverageType}. Leading and trailing whitespaces will be
+     * trimmed.
      *
      * @throws ParseException if the given {@code averageType} does not match any of the enums.
      */
@@ -84,7 +85,7 @@ public class ParserUtil {
             return AverageType.valueOf(trimmedAverageType);
         } catch (IllegalArgumentException e) {
             throw new ParseException(String.format(MESSAGE_INVALID_PARAMETER, AverageCommand.MESSAGE_USAGE,
-                    AverageCommand.MESSAGE_INVALID_AVGTYPE));
+                AverageCommand.MESSAGE_INVALID_AVGTYPE));
         }
     }
 
