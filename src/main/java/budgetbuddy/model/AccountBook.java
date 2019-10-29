@@ -7,6 +7,7 @@ import java.util.List;
 import budgetbuddy.model.account.Account;
 import budgetbuddy.model.account.UniqueAccountList;
 import budgetbuddy.model.transaction.Transaction;
+import budgetbuddy.model.transaction.exceptions.TransactionNotFoundException;
 import javafx.collections.ObservableList;
 
 /**
@@ -81,6 +82,7 @@ public class AccountBook implements ReadOnlyAccountBook {
      */
     public void setAccounts(List<Account> accounts) {
         this.accounts.setAccounts(accounts);
+
     }
 
     /**
@@ -116,8 +118,15 @@ public class AccountBook implements ReadOnlyAccountBook {
     }
 
     //TODO implement removeTransaction
-    public void removeTransaction(Transaction toAdd){
 
+    /**
+     * Removes the current Transaction from its respective Account within the AccountBook.
+     * The transaction should exist within the AccountBook before executing this.
+     * @param toDelete the transaction to be deleted
+     */
+    public void removeTransaction(Transaction toDelete) throws TransactionNotFoundException {
+        Account account = toDelete.getAccount();
+        account.deleteTransaction(toDelete);
     }
     //// util methods
 

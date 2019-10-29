@@ -27,11 +27,6 @@ public class Account {
         this.transactionList = transactionList;
     }
 
-    public static Account getDefaultAccount() {
-        //TODO implement getDefaultAccount which returns the default account
-        return new Account(new Name("DEFAULT"), new TransactionList());
-    }
-
     public Name getName() {
         return name;
     }
@@ -46,6 +41,10 @@ public class Account {
 
     public void addTransaction(Transaction toAdd) {
         this.transactionList.add(toAdd);
+    }
+
+    public void deleteTransaction(Transaction toDelete) {
+        this.transactionList.remove(toDelete);
     }
     /**
      * Returns true if both accounts of the same name have at least one other identity field that is the same.
