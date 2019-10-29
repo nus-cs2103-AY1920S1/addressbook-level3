@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.SEARCH_PREFIX_DISTRICT;
 
+import java.util.List;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -23,7 +24,7 @@ public class FindVehiclesCommand extends Command {
     public static final String COMMAND_WORD = "find-v";
 
     /**
-     * Searches by district now. TODO: unfilteres search (vehicles) & search by number (\vnum) and type (\vtype)
+     * Searches by district now.
      */
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Searches for vehicles by district "
             + "in the same district as entered by user. \n"
@@ -40,7 +41,7 @@ public class FindVehiclesCommand extends Command {
      */
     public FindVehiclesCommand(Incident draft, boolean isAuto) {
         this.draft = draft;
-        this.predicate = new DistrictKeywordsPredicate(draft.getDistrict());
+        this.predicate = new DistrictKeywordsPredicate(List.of(draft.getDistrict()));
         this.isAuto = isAuto;
     }
 
@@ -103,6 +104,7 @@ public class FindVehiclesCommand extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof FindVehiclesCommand // instanceof handles nulls
-                && (draft == ((FindVehiclesCommand) other).draft)); // state check
+                && (draft != null && (draft == ((FindVehiclesCommand) other).draft)
+                || predicate == ((FindVehiclesCommand) other).predicate)); // state check
     }
 }

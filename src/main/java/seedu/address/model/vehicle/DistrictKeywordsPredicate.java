@@ -4,22 +4,30 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 
-import seedu.address.commons.util.StringUtil;
-
 /**
  * Tests that a {@code Person}'s {@code Name} matches any of the keywords given.
  */
 public class DistrictKeywordsPredicate implements Predicate<Vehicle> {
-    private final List<String> keywords = new ArrayList<>();
+    private List<District> keywords = new ArrayList<>();
 
-    public DistrictKeywordsPredicate(District districtKeywords) {
-        this.keywords.add(districtKeywords.toString());
+    /**
+     * Add search keywords as list (of strings) to match
+     * Accounts for possibly multiple search parameters.
+     * @param districtKeywords
+     */
+    public DistrictKeywordsPredicate(List<District> districtKeywords) {
+        this.keywords.addAll(districtKeywords);
     }
 
+    /**
+     * Looks for matching vehicles by comparing District directly
+     * @param vehicle
+     * @return
+     */
     @Override
     public boolean test(Vehicle vehicle) {
         return keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(vehicle.getDistrict().toString(), keyword));
+                .anyMatch(keyword -> vehicle.getDistrict().equals(keyword));
     }
 
     @Override
