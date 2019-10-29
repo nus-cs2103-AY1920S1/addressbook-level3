@@ -28,6 +28,7 @@ import seedu.address.model.appstatus.PageType;
 import seedu.address.ui.components.CommandBox;
 import seedu.address.ui.components.ResultDisplay;
 import seedu.address.ui.components.StatusBarFooter;
+import seedu.address.ui.currency.CurrencyPage;
 import seedu.address.ui.diary.DiaryPage;
 import seedu.address.ui.expenditure.DailyExpenditurePage;
 import seedu.address.ui.expenditure.EditExpenditurePage;
@@ -253,6 +254,9 @@ public class MainWindow extends UiPart<Stage> {
             break;
         case ADD_EXPENDITURE:
             newPage = new EditExpenditurePage(this, logic, model);
+            break;
+        case ADD_CURRENCY:
+            newPage = new CurrencyPage(this, logic, model);
             break;
         case PRETRIP_INVENTORY:
             newPage = new InventoryPage(this, logic, model);

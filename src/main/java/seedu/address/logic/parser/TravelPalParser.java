@@ -11,6 +11,7 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.common.HelpCommand;
 import seedu.address.logic.parser.bookings.BookingsParser;
 import seedu.address.logic.parser.common.CommonParser;
+import seedu.address.logic.parser.currency.EditCurrencyParser;
 import seedu.address.logic.parser.diary.DiaryParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.parser.expense.DaysViewParser;
@@ -100,6 +101,8 @@ public class TravelPalParser {
             return parseNavbarPageCommand(commandWord, arguments, new DaysViewParser(), null);
         case ADD_EXPENDITURE:
             return new EditExpenditureParser().parse(commandWord, arguments);
+        case ADD_CURRENCY:
+            return new EditCurrencyParser().parse(commandWord, arguments);
         case DIARY:
             return parseNavbarPageCommand(commandWord, arguments, new DiaryParser(), NavbarCommand.DIARY);
         case BOOKINGS:
