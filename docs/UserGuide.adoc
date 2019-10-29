@@ -185,7 +185,7 @@ Note that when changing question type from open ended to mcq, it is necessary to
 
 The options supported by this feature includes:
 
-. `[INDEX]` - The question index as defined by the <<Feature-Question-List, list>> and <<Feature-Question-Find, find>>find commands.
+. `[INDEX]` - The question index as defined by the <<Feature-Question-List, list>> and <<Feature-Question-Find, find>> commands.
 . `question` - Question topic.
 . `answer` - Answer to the question.
 . `type` - Type of question(`open` or `mcq`).
@@ -382,6 +382,106 @@ Examples:
 
 * `quiz showAnswers quizID/CS2103T` +
 Shows only the answers for the quiz named CS2103T.
+
+=== Events ​-​ `event`
+
+==== Creating a event
+
+Create, store and render a event +
+Format: `event eventName/... startDateTime/... endDateTime/... recur/... color/...`
+[NOTE]
+Note that for start and end date-time, it is necessary to input it in the following manner:
+YYYY-MM-DDThh:mm. For example, 21st Oct 2019 2PM should be expressed in this manner: 2019-10-21T14:00
+
+The options supported by this feature includes:
+
+. `eventName` - Name of the event
+. `startDateTime` - The start date and time of the event
+. `endDateTime` - The end date and time of the event
+. `recur` - Recurrence of the event. Either none, daily or weekly.
+. `color` - Enter any number from 0 - 23 to set the color of this event.
+
+Examples:
+
+* *Weekly Event*: `event eventName/CS2101 Lecture startDateTime/2019-10-21T14:00 endDateTime/2019-10-21T16:00
+recur/weekly color/1` +
+Creates a weekly event with event name _'CS2101 Lecture'_ with start date and time _'21st Oct 2019, 1400'_ with end
+date and time _'21st Oct 2019, 1600'_ and a color grouping of _'1'_.
+
+[[Feature-Event-Index]]
+==== Indexing a event
+
+Gets the index a event based on its event name. If the event name is not found, it shows the event which has the most
+similar event name +s
+Format: `event indexOf/...`
+
+The options supported by this feature includes:
+
+. `indexOf/` - Name of the event
+
+Examples:
+
+* `event indexOf/CS2103T Lecture` +
+Returns the index of the event in the calendar
+
+==== Editing a event
+
+Edit a event currently stored. All fields are *optional*. +
+Format: `event [INDEX] eventName/... startDateTime/... endDateTime/... recur/... color/...`
+
+The options supported by this feature includes:
+
+. `[INDEX]` - The event index as defined by the <<Feature-Event-Index, index>>  command.
+. `eventName` - Name of the event
+. `startDateTime` - The start date and time of the event
+. `endDateTime` - The end date and time of the event
+. `recur` - Recurrence of the event. Either none, daily or weekly.
+. `color` - Enter any number from 0 - 23 to set the color of this event.
+
+Examples:
+
+* `event 2 eventName/CS2103T Lecture` +
+Edits the first event in the list changing existing event name to _'CS2103T Lecture'_.
+
+==== Deleting a event
+
+Delete a event from the calendar. +
+Format: `event delete [INDEX]`
+
+The options supported by this feature includes:
+
+. `[INDEX]` - The event index as defined by the <<Feature-Event-Index, index>> command.
+[NOTE]
+Deleting a event which is recurring (daily or weeekly) will delete all instances of that event.
+
+
+* `question delete 1` +
+Deletes the event with index 1
+
+==== Viewing all events
+
+Show all your events in the calendar +
+Format: `event view`
+
+Example:
+
+* `question view` +
+Opens the calendar view consisting of all your events
+
+==== Export all events
+
+Exports stored events into a .ics file. This file type can easily be imported into Google Calendar and other
+mainstream calendar applications +
+Format: `event export directory/...`
+
+The options supported by this feature includes:
+
+. `[directory]` - The full path of where you want the .ics file to be saved to.
+
+Example:
+
+* `event export directory/Users/John/Desktop` +
+Exports your events into your Desktop with the file name: `nJoy_Event_Schedule.ics`
 
 === Help ​-​ `help`
 

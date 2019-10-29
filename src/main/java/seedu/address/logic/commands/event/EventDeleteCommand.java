@@ -8,6 +8,7 @@ import jfxtras.icalendarfx.components.VEvent;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.CommandResultType;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 
@@ -40,7 +41,11 @@ public class EventDeleteCommand extends EventCommand {
 
         VEvent vEventToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deleteVEvent(vEventToDelete);
-        return new CommandResult(String.format(MESSAGE_DELETE_VEVENT_SUCCESS, vEventToDelete.getSummary().getValue()));
+        return new CommandResult(generateDeleteSuccessMessage(vEventToDelete), CommandResultType.SHOW_SCHEDULE);
+    }
+
+    private String generateDeleteSuccessMessage(VEvent vEvent) {
+        return String.format(MESSAGE_DELETE_VEVENT_SUCCESS, vEvent.getSummary().getValue());
     }
 
     @Override
