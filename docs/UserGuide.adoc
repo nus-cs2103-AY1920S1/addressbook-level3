@@ -87,10 +87,11 @@ Examples:
 === Logging Expense : `out`
 
 Adds an expenditure of personal finance +
-Format: `out $/AMOUNT n/ITEM [c/CATEGORY]`
+Format: `out $/AMOUNT n/ITEM d/DATE [c/CATEGORY]`
 
 ****
 * `AMOUNT` inputs the value of the expenditure
+* `ITEM` inputs the description of the expenditure
 * `DATE` accepts the date of this transaction
 * `CATEGORY` accepts the CATEGORY for this expenditure
 * `in` will update the Bank Account with a net **negative** amount (e.g. `out n/milk $/2 d/10102019` will **decrease** Bank Acount balance by $2)
@@ -104,10 +105,11 @@ Examples:
 === Logging Income : `in`
 
 Adds an income of personal finance +
-Format: `in $/AMOUNT n/ITEM [c/CATEGORY]`
+Format: `in $/AMOUNT n/ITEM d/DATE [c/CATEGORY]`
 
 ****
 * `AMOUNT` inputs the value of the income
+* `ITEM` inputs the description of the income
 * `DATE` accepts the date of this transaction
 * `CATEGORY` accepts the CATEGORY for this income
 * `in` will update the Bank Account with a net positive amount (e.g. `in n/work $/1000 d/10102019` will **increase** Bank Acount balance by $1000)
@@ -161,7 +163,7 @@ Format: `delete TYPE+INDEX`
 ****
 * `INDEX` refers to the target item number. (Items are sorted starting from the **latest** input added)
 * `TYPE` only accepts `t` (Transaction) or `b` (Budget). (e.g. `delete --b1` refers to deleting an *Budget* of index 1)
-* `TYPE+INDEX` requires the type and index to be placed in sequential order (e.g. `delete --b 1` or `delete --1` or `delete --1b` will not work)
+* `TYPE+INDEX` requires the TYPE and INDEX to be placed in sequential order (e.g. `delete --b 1` or `delete --1` or `delete --1b` will not work)
 * Nothing will be deleted if the transaction or budget with `INDEX` does not exists.
 * example `delete --t1` will delete the first transaction from the list of transactions.
 ****
@@ -179,8 +181,8 @@ Format: `update TYPE+INDEX [$/AMOUNT] [d/date] [n/ITEM] [c/CATEGORY]`
 
 ****
 * `INDEX` refers to the target item number. (Items are sorted starting from the **latest** input added)
-* `Type` only accepts `t` (Transaction) or `b` (Budget). (e.g. `update --b1 ...` refers to updating a *Budget* of index 1)
-* `Type+INDEX` requires the type and index to be placed in sequential order (e.g. `update --b 1` or `update --1` or `update --1b` will not work)
+* `TYPE` only accepts `t` (Transaction) or `b` (Budget). (e.g. `update --b1 ...` refers to updating a *Budget* of index 1)
+* `TYPE+INDEX` requires the TYPE and INDEX to be placed in sequential order (e.g. `update --b 1 ..` or `update --1 ..` or `update --1b ..` will not work)
 * `update` requires at least one field to be updated but also allows more than one field to be updated (e.g. `update t1 $/20 d/10102019 n/milk` and `update t1 $/10` will both be accepted but `update t1` will not be accepted)
 * Nothing will be updated if the transaction or budget with `INDEX` does not exists.
 * example `update --t1 $/3000 d/10102019` will update the first transaction from the list of transactions by changing it's *Amount* to $1000 and *Date* to 10/10/2019.
