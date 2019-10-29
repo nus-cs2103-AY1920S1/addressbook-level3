@@ -1,5 +1,5 @@
 {
-  "_comment": "AddressBook save file which contains the same Person values as in TypicalPersons#getTypicalAddressBook()",
+  "_comment": "AddressBook save file which contains the same Person values as in TypicalFundBook#getTypicalFundBook()",
   "currentRepeaterUniqueId": "0",
   "persons" : [ {
     "name" : "Alice Pauline",
@@ -46,5 +46,23 @@
   } ],
   "transactions" : [ ],
   "repeaters" : [ ],
-  "budgets" : [ ]
+  "budgets" : [ {
+    "description" : "Overall budget",
+    "amount" : "1337",
+    "month" : "12",
+    "year" : "2012",
+    "category": null
+  }, {
+    "description" : "Budget for food",
+    "amount" : "420.69",
+    "month" : "12",
+    "year" : "2012",
+    "category" : "food"
+  }, {
+    "description" : "Budget for anime",
+    "amount" : "300.00",
+    "month" : "12",
+    "year" : "2012",
+    "category" : "entertainment"
+  } ]
 }
