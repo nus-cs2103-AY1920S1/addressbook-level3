@@ -57,17 +57,17 @@ public class LogicFinanceManager implements Logic {
     }
 
     @Override
-    public ReadOnlyFinanceLog getAddressBook() {
+    public ReadOnlyFinanceLog getFinanceLog() {
         return model.getFinanceLog();
     }
 
     @Override
-    public ObservableList<LogEntry> getFilteredPersonList() {
+    public ObservableList<LogEntry> getFilteredLogEntryList() {
         return model.getFilteredLogEntryList();
     }
 
     @Override
-    public Path getAddressBookFilePath() {
+    public Path getFinanceLogFilePath() {
         return model.getFinanceLogFilePath();
     }
 

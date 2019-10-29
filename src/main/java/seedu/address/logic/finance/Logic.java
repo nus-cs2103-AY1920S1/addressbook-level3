@@ -24,19 +24,19 @@ public interface Logic {
     CommandResult execute(String commandText) throws CommandException, ParseException;
 
     /**
-     * Returns the AddressBook.
+     * Returns the finance log
      *
      * @see seedu.address.model.finance.Model#getFinanceLog()
      */
-    ReadOnlyFinanceLog getAddressBook();
+    ReadOnlyFinanceLog getFinanceLog();
 
-    /** Returns an unmodifiable view of the filtered list of persons */
-    ObservableList<LogEntry> getFilteredPersonList();
+    /** Returns an unmodifiable view of the filtered list of log entries */
+    ObservableList<LogEntry> getFilteredLogEntryList();
 
     /**
-     * Returns the user prefs' address book file path.
+     * Returns the user prefs' finance log file path.
      */
-    Path getAddressBookFilePath();
+    Path getFinanceLogFilePath();
 
     /**
      * Returns the user prefs' GUI settings.
