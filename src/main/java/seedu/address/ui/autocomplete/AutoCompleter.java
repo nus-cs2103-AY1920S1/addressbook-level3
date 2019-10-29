@@ -28,11 +28,9 @@ import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.patients.EditPatientDetailsCommand;
 import seedu.address.logic.commands.patients.ListPatientCommand;
 import seedu.address.logic.commands.patients.RegisterPatientCommand;
-import seedu.address.logic.commands.patients.UnregisterPatientCommand;
 import seedu.address.logic.commands.staff.EditStaffDetailsCommand;
 import seedu.address.logic.commands.staff.ListStaffCommand;
 import seedu.address.logic.commands.staff.RegisterStaffCommand;
-import seedu.address.logic.commands.staff.UnregisterStaffCommand;
 
 /**
  * Component for AutoComplete
@@ -46,12 +44,10 @@ public class AutoCompleter {
             ListPatientCommand.COMMAND_WORD,
             RegisterPatientCommand.COMMAND_WORD,
             EditPatientDetailsCommand.COMMAND_WORD,
-            UnregisterPatientCommand.COMMAND_WORD,
 
             ListStaffCommand.COMMAND_WORD,
             RegisterStaffCommand.COMMAND_WORD,
             EditStaffDetailsCommand.COMMAND_WORD,
-            UnregisterStaffCommand.COMMAND_WORD,
 
             ExitCommand.COMMAND_WORD,
             HelpCommand.COMMAND_WORD,

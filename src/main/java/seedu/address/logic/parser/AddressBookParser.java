@@ -29,20 +29,16 @@ import seedu.address.logic.commands.common.CommandHistory;
 import seedu.address.logic.commands.patients.EditPatientDetailsCommand;
 import seedu.address.logic.commands.patients.ListPatientCommand;
 import seedu.address.logic.commands.patients.RegisterPatientCommand;
-import seedu.address.logic.commands.patients.UnregisterPatientCommand;
 import seedu.address.logic.commands.staff.EditStaffDetailsCommand;
 import seedu.address.logic.commands.staff.ListStaffCommand;
 import seedu.address.logic.commands.staff.RegisterStaffCommand;
-import seedu.address.logic.commands.staff.UnregisterStaffCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.parser.patients.EditPatientDetailsCommandParser;
 import seedu.address.logic.parser.patients.ListPatientCommandParser;
 import seedu.address.logic.parser.patients.RegisterPatientCommandParser;
-import seedu.address.logic.parser.patients.UnregisterPatientCommandParser;
 import seedu.address.logic.parser.staff.EditStaffDetailsCommandParser;
 import seedu.address.logic.parser.staff.ListStaffCommandParser;
 import seedu.address.logic.parser.staff.RegisterStaffCommandParser;
-import seedu.address.logic.parser.staff.UnregisterStaffCommandParser;
 import seedu.address.model.Model;
 
 /**
@@ -87,9 +83,6 @@ public class AddressBookParser {
         case EditPatientDetailsCommand.COMMAND_WORD:
             return new EditPatientDetailsCommandParser(model).parse(arguments);
 
-        case UnregisterPatientCommand.COMMAND_WORD:
-            return new UnregisterPatientCommandParser(model).parse(arguments);
-
 
         case ListStaffCommand.COMMAND_WORD:
             return new ListStaffCommandParser().parse(arguments);
@@ -99,9 +92,6 @@ public class AddressBookParser {
 
         case EditStaffDetailsCommand.COMMAND_WORD:
             return new EditStaffDetailsCommandParser(model).parse(arguments);
-
-        case UnregisterStaffCommand.COMMAND_WORD:
-            return new UnregisterStaffCommandParser(model).parse(arguments);
 
 
         case ExitCommand.COMMAND_WORD:
