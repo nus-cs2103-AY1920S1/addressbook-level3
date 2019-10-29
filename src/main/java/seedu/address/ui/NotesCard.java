@@ -47,12 +47,12 @@ public class NotesCard extends UiPart<Region> {
             description.setStyle("-fx-text-fill: #171716;");
             break;
         case MEDIUM:
-            cardPane.setStyle("-fx-background-color: #53EB4D; -fx-text-fill: white;");
+            cardPane.setStyle("-fx-background-color: #FFC801; -fx-text-fill: white;");
             noteTitle.setStyle("-fx-text-fill: #171716;");
             description.setStyle("-fx-text-fill: #171716;");
             break;
         case LOW :
-            cardPane.setStyle("-fx-background-color: #FFC801; -fx-text-fill: white;");
+            cardPane.setStyle("-fx-background-color: #53EB4D; -fx-text-fill: white;");
             noteTitle.setStyle("-fx-text-fill: #171716;");
             description.setStyle("-fx-text-fill: #171716;");
             break;
