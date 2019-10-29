@@ -2,8 +2,11 @@ package seedu.address.ui;
 
 import java.util.Comparator;
 
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
@@ -25,6 +28,8 @@ public class EmployeeCard extends UiPart<Region> {
      */
 
     public final Employee employee;
+    private MainWindow mainWindow;
+    private Integer index;
 
     @FXML
     private HBox cardPane;
@@ -44,6 +49,7 @@ public class EmployeeCard extends UiPart<Region> {
     public EmployeeCard(Employee employee, int displayedIndex) {
         super(FXML);
         this.employee = employee;
+
         id.setText(displayedIndex + ". ");
         name.setText(employee.getEmployeeName().fullName + " ID: " + employee.getEmployeeId().id); //for debug
         phone.setText(employee.getEmployeePhone().value);
@@ -52,6 +58,25 @@ public class EmployeeCard extends UiPart<Region> {
         employee.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+
+    }
+
+    public EmployeeCard(Employee employee, int displayedIndex, MainWindow mainWindow) {
+        this(employee, displayedIndex);
+        this.mainWindow = mainWindow;
+        this.index = displayedIndex - 1;
+
+        EventHandler<MouseEvent> eventHandler = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
+                    if (mouseEvent.getClickCount() == 2) {
+                        mainWindow.handleEmployeeFetch(index);
+                    }
+                }
+            }
+        };
+        cardPane.addEventFilter(MouseEvent.MOUSE_CLICKED, eventHandler);
     }
 
     @Override

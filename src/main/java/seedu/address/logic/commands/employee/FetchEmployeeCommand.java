@@ -3,7 +3,6 @@ package seedu.address.logic.commands.employee;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
@@ -14,7 +13,6 @@ import seedu.address.logic.processor.DistinctDatesProcessor;
 import seedu.address.model.Model;
 import seedu.address.model.distinctdate.DistinctDate;
 import seedu.address.model.employee.Employee;
-import seedu.address.model.event.Event;
 
 /**
  * Fetches all details of an Employee and the employee's schedule.
@@ -43,15 +41,10 @@ public class FetchEmployeeCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_EMPLOYEE_DISPLAYED_INDEX);
         }
         Employee employeeToFetch = shownEmployeeList.get(index.getZeroBased());
-
-        List<Event> eventList = model.getEventBook().getEventList();
-        List<Event> filteredEventList = eventList.stream()
-                .filter(event -> event.employeeIsAllocated(employeeToFetch))
-                .collect(Collectors.toList());
-
-        List<DistinctDate> distinctDates = DistinctDatesProcessor.generateDistinctDateList(filteredEventList);
-
+        List<DistinctDate> distinctDates =
+                DistinctDatesProcessor.generateEmployeesDistinctDateList(model, employeeToFetch);
         model.updateEmployeeDistinctDateList(distinctDates);
+
         return new CommandResult(String.format(MESSAGE_SUCCESS, employeeToFetch.getEmployeeName()), false,
                 false, index.getZeroBased(), "employee");
     }

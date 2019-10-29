@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 
 import seedu.address.model.Model;
 import seedu.address.model.distinctdate.DistinctDate;
+import seedu.address.model.employee.Employee;
 import seedu.address.model.event.Event;
 import seedu.address.model.event.EventDate;
 
@@ -18,11 +19,32 @@ import seedu.address.model.event.EventDate;
 public class DistinctDatesProcessor {
 
     /**
-     * Generates all DistincDates from the given EventList.
+     * Generates all DistinctDates from the given EventList.
      */
     public static List<DistinctDate> generateAllDistinctDateList(Model model) {
-        List<Event> fullEventList = model.getEventBook().getEventList();
+        List<Event> fullEventList = model.getFullListEvents();
         return generateDistinctDateList(fullEventList);
+    }
+
+    /**
+     * Generate all DistinctDates from Events that are allocated to an Employee.
+     */
+    public static List<DistinctDate> generateEmployeesDistinctDateList(Model model, Employee employee) {
+        List<Event> eventList = model.getEventBook().getEventList();
+        return generateEmployeesDistinctDateList(eventList, employee);
+    }
+
+    /**
+     * Generate all DistinctDates from Events that are allocated to an Employee. Overloaded Method.
+     *
+     * @param eventList Unfiltered EventList
+     */
+    public static List<DistinctDate> generateEmployeesDistinctDateList(List<Event> eventList, Employee employee) {
+        List<Event> filteredEventList = eventList.stream()
+                .filter(event -> event.employeeIsAllocated(employee))
+                .collect(Collectors.toList());
+
+        return generateDistinctDateList(filteredEventList);
     }
 
     /**

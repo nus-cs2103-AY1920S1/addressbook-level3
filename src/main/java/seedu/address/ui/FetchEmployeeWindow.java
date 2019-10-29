@@ -1,7 +1,9 @@
 package seedu.address.ui;
 
+import java.util.List;
 import java.util.logging.Logger;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
@@ -12,7 +14,10 @@ import javafx.stage.Stage;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
 
+import seedu.address.logic.processor.DistinctDatesProcessor;
 import seedu.address.model.distinctdate.DistinctDate;
+import seedu.address.model.employee.Employee;
+import seedu.address.model.event.Event;
 //import seedu.address.model.employee.Employee;
 
 /**
@@ -34,11 +39,11 @@ public class FetchEmployeeWindow extends UiPart<Stage> {
      *
      * @param root Stage to use as the root of the FetchEmployeeWindow.
      */
-    public FetchEmployeeWindow(Stage root, Logic logic, Integer index) {
+    private FetchEmployeeWindow(Stage root, Logic logic, Integer index) {
         super(FXML, root);
-        ObservableList<DistinctDate> dateList = logic.getEmployeeDistinctDateList();
-        dateListView.setItems(dateList);
-        dateListView.setCellFactory(listView -> new DateListViewCell());
+        Employee employee = logic.getFilteredEmployeeList().get(index);
+        ObservableList<Event> eventDateList = logic.getFullEventList();
+        updateCards(employee, eventDateList);
     }
 
     /**
@@ -46,6 +51,16 @@ public class FetchEmployeeWindow extends UiPart<Stage> {
      */
     public FetchEmployeeWindow(Logic logic, Integer index) {
         this(new Stage(), logic, index);
+    }
+
+    /**
+     * Updates the DistinctDate Cards.
+     */
+    private void updateCards(Employee employee, ObservableList<Event> eventDateList) {
+        List<DistinctDate> dateList = DistinctDatesProcessor.generateEmployeesDistinctDateList(eventDateList, employee);
+        ObservableList<DistinctDate> observableDateList = FXCollections.observableList(dateList);
+        dateListView.setItems(observableDateList);
+        dateListView.setCellFactory(listView -> new DateListViewCell());
     }
 
     /**

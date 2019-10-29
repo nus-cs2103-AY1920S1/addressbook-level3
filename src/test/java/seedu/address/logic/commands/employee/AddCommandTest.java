@@ -129,6 +129,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public ObservableList<Employee> getFullListEmployees() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public boolean hasEmployee(Employee employee) {
             throw new AssertionError("This method should not be called.");
         }
@@ -186,6 +191,11 @@ public class AddCommandTest {
         @Override
         public ReadOnlyEventBook getEventBook() {
             return null;
+        }
+
+        @Override
+        public ObservableList<Event> getFullListEvents() {
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override

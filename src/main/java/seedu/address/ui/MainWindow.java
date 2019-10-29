@@ -167,7 +167,7 @@ public class MainWindow extends UiPart<Stage> {
      * Opens the fetch window or focuses on it if it's already opened.
      */
     @FXML
-    public void handleFetch(Integer index) {
+    public void handleEventFetch(Integer index) {
         if (fetchEventWindow != null) {
             fetchEventWindow.hide();
         }
@@ -262,7 +262,7 @@ public class MainWindow extends UiPart<Stage> {
                     handleEmployeeFetch(commandResult.getFetch());
                 }
                 if (commandResult.getType().equals("event")) {
-                    handleFetch(commandResult.getFetch());
+                    handleEventFetch(commandResult.getFetch());
                 }
             }
 
