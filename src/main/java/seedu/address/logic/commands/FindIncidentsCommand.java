@@ -24,7 +24,8 @@ public class FindIncidentsCommand extends Command {
     public static final String COMMAND_WORD = "find-i";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Searches all incidents for which IDs match exactly "
-            + "or description contains any of the specified keywords (case-insensitive) and displays them as a list "
+            + "or description contains the first specified keyword under the relevant parameter and displays them as "
+            + "a list "
             + "with index numbers.\n"
             + "Parameters: "
             + SEARCH_PREFIX_ID + "<ID> OR "
@@ -51,8 +52,14 @@ public class FindIncidentsCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.updateFilteredIncidentList(predicate);
-        return new CommandResult(
-                String.format(Messages.MESSAGE_INCIDENTS_LISTED_OVERVIEW, model.getFilteredIncidentList().size()));
+        if (model.getFilteredIncidentList().size() == 0) {
+            return new CommandResult(Messages.MESSAGE_NO_INCIDENTS_FOUND);
+        } else if (model.getFilteredIncidentList().size() == 1) {
+            return new CommandResult(Messages.MESSAGE_SINGLE_INCIDENT_LISTED);
+        } else {
+            return new CommandResult(
+                    String.format(Messages.MESSAGE_INCIDENTS_LISTED_OVERVIEW, model.getFilteredIncidentList().size()));
+        }
     }
 
     @Override
