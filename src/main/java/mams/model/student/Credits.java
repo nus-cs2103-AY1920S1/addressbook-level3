@@ -14,6 +14,8 @@ public class Credits {
     public static final String MESSAGE_CONSTRAINTS =
             "Credits numbers should only contain numbers, and it should be at least 2 digits long";
     public static final String VALIDATION_REGEX = "\\d{2,}";
+
+    public static final String MESSAGE_CREDIT_CHANGE_SUCCESS = "Credits has been set successfully";
     public final String value;
     public final int intValue;
 
