@@ -104,7 +104,7 @@ public class EditIncidentCommandTest {
     }
 
 
-    @Test
+    /* @Test
     public void execute_filteredList_success() {
         showIncidentAtIndex(model, INDEX_FIRST_ENTITY);
 
@@ -118,7 +118,7 @@ public class EditIncidentCommandTest {
         expectedModel.setIncident(model.getFilteredIncidentList().get(0), editedIncident);
 
         assertCommandSuccess(editIncidentCommand, model, expectedMessage, expectedModel);
-    }
+     }*/
 
     @Test
     public void execute_duplicateIncidentUnfilteredList_failure() {
