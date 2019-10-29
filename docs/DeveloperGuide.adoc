@@ -296,7 +296,7 @@ The following activity diagram below summarizes how the save command works
 .Activity diagram for a sample save command
 image::SaveActivityDiagram.png[]
 
-
+//tag::recommendations[]
 === Recommendation feature
 
 The recommendation feature allows users to generate a list of personalized recommendations using the `recommend` command.
@@ -336,7 +336,7 @@ comparison can be done more easily.
 The class diagram below illustrates the relationship between the classes.
 
 .Recommendation class diagram in Model component
-image::RecommendationClassDiagram.png[width=500]
+image::RecommendationClassDiagram.png[width=350, align="center"]
 
 ==== Adding likes and dislikes
 
@@ -349,12 +349,12 @@ Furthermore, the user's likes and dislikes are integrated with `Storage` for the
 The sequence diagram below shows how a sample `like` command is executed:
 
 .Sequence diagram for a sample like command
-image::LikeSequenceDiagram.png[]
+image::LikeSequenceDiagram.png[align="center"]
 
 The following activity diagram below summarizes how the `like` command works:
 
 .Activity diagram for a sample like command
-image::LikeActivityDiagram.png[width=450]
+image::LikeActivityDiagram.png[width=400, align="center"]
 
 A similar execution sequence is performed for a dislike command by replacing instances of like with dislike and vice versa.
 
@@ -375,7 +375,7 @@ The activity diagram below shows how a sample Food is passed into `Recommendatio
 recommendation value:
 
 .Activity diagram for `calculateRecommendation`
-image::RecValueActivityDiagram.png[width=600]
+image::RecValueActivityDiagram.png[width=600, align="center"]
 
 The calculated recommendation values are used to sort the food items when the `recommend` command
 is executed. Food with similar recommendation values are sorted based on their price.
@@ -384,12 +384,10 @@ is executed. Food with similar recommendation values are sorted based on their p
 Detailed below are the design considerations taken into account when engineering the `calculateRecommendation()` function.
 
 .Design considerations of the calculateRecommendation() function
-[cols="20,40,40"]
+[cols="50,50"]
 |===
-|Aspect |Alternative 1 |Alternative 2
+|Alternative 1 (Chosen Implementation) |Alternative 2
 
-|Design of +
-calculateRecommendation
 a|Declare a static method `calculateRecommendation` to calculate the recommendation value of each `Food`
 before sorting them.
 
@@ -400,13 +398,6 @@ before sorting them.
 * Cons:
 ** Sorting by recommendation value may be less efficient as the recommendation system has to calculate the
 recommendation value of each `Food` item when the comparator is called
-
-We chose this design because of its simplicity of implementation. Adding a hidden `recommendationValue`
-field for each `Food` might not be the best solution in the design of our application. A `recommendationValue` might
-not make sense in the context of a `Food` object and thus it may not be justifiable to force a connection between the
-two for the sake of efficiency.
-
-Furthermore, we do not have to manually update the recommendation of each `Food` item before every command with this design.
 
 a|Have a field (e.g. `recommendationValue`) for each `Food` item
 
@@ -419,6 +410,15 @@ be stored in each item
 the recommendation value
 ** An extra field `recommendationValue` has to be added to each `Food`
 |===
+
+We chose alternative 1 because of its simplicity of implementation. Adding a hidden `recommendationValue`
+field for each `Food` might not be the best solution in the design of our application. A `recommendationValue` might
+not make sense in the context of a `Food` object and thus it may not be justifiable to force a connection between the
+two for the sake of efficiency.
+
+Furthermore, we do not have to manually update the recommendation of each `Food` item before every command with this design.
+
+//end::recommendations[]
 
 == Documentation
 

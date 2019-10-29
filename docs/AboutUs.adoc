@@ -32,7 +32,7 @@ Main project tasks: Recommend and Budgeting features
 
 === Chua Jia Cheng, Jon
 image::jon-chua.png[width="150", align="left"]
-link:http://github.com/jon-chua[Github] | <<johndoe#, Portfolio>>
+link:http://github.com/jon-chua[Github] | <<jon-chua#, Portfolio>>
 
 Role: Developer +
 Responsibilities: Recommendation, like and dislike features +
