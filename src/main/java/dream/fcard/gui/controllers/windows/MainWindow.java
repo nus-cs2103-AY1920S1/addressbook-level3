@@ -8,9 +8,9 @@ import dream.fcard.gui.components.JsEditorApplication;
 import dream.fcard.gui.controllers.displays.CreateDeckDisplay;
 import dream.fcard.gui.controllers.displays.DeckDisplay;
 import dream.fcard.gui.controllers.displays.NoDecksDisplay;
-import dream.fcard.logic.respond.Responder;
+import dream.fcard.logic.respond.ConsumerSchema;
+import dream.fcard.logic.respond.Dispatcher;
 import dream.fcard.logic.storage.StorageManager;
-import dream.fcard.model.ConsumerSchema;
 import dream.fcard.model.Deck;
 import dream.fcard.model.State;
 import javafx.collections.FXCollections;
@@ -59,6 +59,11 @@ public class MainWindow extends VBox {
         messageLabel.setText(message);
     };
     private Consumer<Boolean> clearMessage = b -> messageLabel.setText("");
+
+    //Example code
+    private Consumer<Boolean> create = b -> showCreateNewDeckForm();
+    private Consumer<Integer> seeDeck = i -> displaySpecificDeck(State.getState().getDecks().get(i - 1));
+
 
     /**
      * Binds the vertical height of the scroll panes to the size of the Nodes inside them so that the scrollbar
@@ -161,7 +166,7 @@ public class MainWindow extends VBox {
     @FXML
     private void handleUserInput() {
         String input = commandLine.getText();
-        Responder.takeInput(input, State.getState());
+        Dispatcher.parseAndDispatch(input);
         commandLine.clear();
     }
 
@@ -173,6 +178,14 @@ public class MainWindow extends VBox {
         State.getState().addConsumer(ConsumerSchema.DISPLAY_DECKS, displayDecks);
         State.getState().addConsumer(ConsumerSchema.DISPLAY_MESSAGE, displayMessage);
         State.getState().addConsumer(ConsumerSchema.CLEAR_MESSAGE, clearMessage);
+
+        //ignore the duplicates for now, if dispatcher carries all the consumers then transfer over from state
+        Dispatcher.addConsumer(ConsumerSchema.SWAP_DISPLAYS, swapDisplays);
+        Dispatcher.addConsumer(ConsumerSchema.DISPLAY_DECKS, displayDecks);
+        Dispatcher.addConsumer(ConsumerSchema.DISPLAY_MESSAGE, displayMessage);
+        Dispatcher.addConsumer(ConsumerSchema.CLEAR_MESSAGE, clearMessage);
+        Dispatcher.addConsumer(ConsumerSchema.CREATE_NEW_DECK, create);
+        Dispatcher.addConsumer(ConsumerSchema.SEE_SPECIFIC_DECK, seeDeck);
     }
 
     /**
@@ -190,4 +203,5 @@ public class MainWindow extends VBox {
         }
 
     }
+
 }

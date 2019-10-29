@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.function.Consumer;
 
 import dream.fcard.gui.controllers.displays.McqOptionsSetter;
-import dream.fcard.model.ConsumerSchema;
+import dream.fcard.logic.respond.ConsumerSchema;
 import dream.fcard.model.State;
 import dream.fcard.model.cards.FlashCard;
 import dream.fcard.model.cards.FrontBackCard;

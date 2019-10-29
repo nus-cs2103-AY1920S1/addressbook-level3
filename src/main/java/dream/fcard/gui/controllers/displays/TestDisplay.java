@@ -9,7 +9,7 @@ import dream.fcard.gui.controllers.cards.McqCard;
 import dream.fcard.gui.controllers.cards.McqCardBack;
 import dream.fcard.gui.controllers.cards.SimpleCardBack;
 import dream.fcard.gui.controllers.windows.MainWindow;
-import dream.fcard.model.ConsumerSchema;
+import dream.fcard.logic.respond.ConsumerSchema;
 import dream.fcard.model.Deck;
 import dream.fcard.model.State;
 import dream.fcard.model.cards.FlashCard;
