@@ -397,7 +397,7 @@ image::ChangeUiFnSequenceDiagram.png[]
 ** Pros: Easy to implement.
 ** Cons: Increases `NotifCommand`'s dependency.
 
-* **Alternative 2: Directly make changes to the model.
+* **Alternative 2:** Directly make changes to the model.
 ** Pros: Does not increase dependency .
 ** Cons: Cause a lot of repetition of code.
 
@@ -406,11 +406,12 @@ image::ChangeUiFnSequenceDiagram.png[]
 ==== Implementation
 
 The generate PDF feature is facilitated by `ReportGenerator`.
-It extends `Mortago` with the ability to create a report, supported by iText external library.
+It extends `Mortago` with the ability to create a report, supported by https://github.com/itext/itext7[iText external library].
 Additionally, it implements the following operations:
 
 * `ReportGenerator#generate(body)` -- Creates report in a PDF file for the specific body.
-* `ReportGenerator#generateAll()` -- Creates report in a PDF file for all bodies registered in Mortago.
+* `ReportGenerator#generateAll()` -- Creates reports in a PDF file for all bodies registered in Mortago.
+* `ReportGenerator#generateSummary()` -- Creates a tabular summary report in a PDF file for all bodies registered in Mortago.
 
 The following sequence diagram shows how the execute operation works:
 

@@ -33,6 +33,9 @@
 
 !define USER_COLOR #000000
 
+!define ITEXT_COLOR #F0B27A
+!define ITEXT_COLOR_T1 #CA6F1E
+
 skinparam BackgroundColor #FFFFFFF
 
 skinparam Shadowing false
