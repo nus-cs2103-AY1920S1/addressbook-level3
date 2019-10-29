@@ -89,4 +89,19 @@ public class ListOfGroups {
     public ArrayList<Group> getGroupList() {
         return this.groups;
     }
+
+    /**
+     * Exports the group specified in the parameters of the method.
+     * @param groupId Id of group to be exported
+     */
+    public void exportGroup(String groupId) {
+        Group queriedGroup = null;
+        for (Group group : groups) {
+            if (groupId.equals(group.getGroupId())) {
+                queriedGroup = group;
+                break;
+            }
+        }
+        queriedGroup.export();
+    }
 }

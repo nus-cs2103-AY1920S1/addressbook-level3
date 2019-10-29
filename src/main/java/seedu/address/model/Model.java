@@ -241,6 +241,11 @@ public interface Model {
      * Check if group already exists.
      */
     boolean checkGroupExists(String groupId);
+
+    /**
+     * Exports group to word document
+     */
+    void exportGroup(String groupId);
     //endregion
 
     //region Questions

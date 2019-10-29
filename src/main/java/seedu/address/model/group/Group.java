@@ -79,4 +79,10 @@ public class Group {
         return studentList.asUnmodifiableObservableList();
     }
 
+    /**
+     * Exports the group into a word document
+     */
+    public void export(){
+
+    }
 }

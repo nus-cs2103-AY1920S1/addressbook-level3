@@ -414,6 +414,14 @@ public class ModelManager implements Model {
         }
         return groupExists;
     }
+
+    /**
+     * Exports group to word document
+     * @param groupId Id of group to be exported.
+     */
+    public void exportGroup(String groupId){
+        groupList.exportGroup(groupId);
+    }
     //endregion
 
     //region Questions
