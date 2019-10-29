@@ -5,6 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -158,6 +159,12 @@ public class ModelManager implements Model {
     public ArrayList<Person> findPersonAll(NameContainsAllKeywordsPredicate predicate) {
         requireNonNull(predicate);
         return addressBook.findPerson(predicate);
+    }
+
+    @Override
+    public Optional<Person> findPersonByName(String searchTerm) {
+        requireNonNull(searchTerm);
+        return addressBook.findPersonByName(searchTerm);
     }
 
     @Override

@@ -6,6 +6,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EXPENSE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PARTICIPANT;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -41,8 +42,10 @@ public class ExpenseCommand extends Command {
             + PREFIX_EXPENSE + "10.0 "
             + PREFIX_DESCRIPTION + "Bubble tea";
 
-    public static final String MESSAGE_SUCCESS = "%d expense(s) successfully created as follows:\n%s\n";
-    public static final String MESSAGE_EXPENSE = "%s paid %s.\n  Description: %s\n";
+    public static final String MESSAGE_SUCCESS =
+            "Expense of %s by %s successfully created.\n\tDescription: %s\n\tPeople involved:\n%s\nWarnings:\n";
+    public static final String WARNING_DUPLICATE_PERSON =
+            "\tPerson with name %s already added to expense.\n";
     public static final String MESSAGE_NON_UNIQUE_SEARCH_RESULT =
             "Participant search term \"%s\" has no unique search result in the current context!";
     public static final String MESSAGE_MISSING_DESCRIPTION =
@@ -74,48 +77,68 @@ public class ExpenseCommand extends Command {
                 throw new CommandException(MESSAGE_MISSING_DESCRIPTION);
             }
             activity = new Activity(new Title(description));
-            model.updateFilteredPersonList(Model.PREDICATE_SHOW_ALL_ENTRIES);
+            searchScope = model.getAddressBook().getPersonList();
         } else {
             activity = model.getContext().getActivity().get();
             // TODO: Use the new view thingy in Activity class.
-            model.updateFilteredPersonList(x -> activity.getParticipantIds().contains(x.getPrimaryKey()));
+            searchScope = model.getAddressBook().getPersonList().stream()
+                    .filter(x -> activity.getParticipantIds().contains(x.getPrimaryKey()))
+                    .collect(Collectors.toList());
         }
-
-        searchScope = model.getFilteredPersonList();
 
         // This loop adds expenses one by one using keyword matching.
         // For each participant argument passed through, the argument is broken up into keywords
         // which are then used to search through the searchScope (context dependent).
         // Expenses will only be added if every keyword string has a unique match.
         StringBuilder successMessage = new StringBuilder();
-        List<String> keywords;
-        List<Person> findResult;
-        int payingId = -1;
-        int[] involvedArr = new int[persons.size() - 1];
-        for (int i = 0; i < persons.size(); i++) {
-            keywords = Arrays.asList(persons.get(i).split(" "));
-            NameContainsAllKeywordsPredicate predicate = new NameContainsAllKeywordsPredicate(keywords);
-            findResult = searchScope.stream().filter(predicate).collect(Collectors.toList());
+        StringBuilder warningMessage = new StringBuilder();
+        Person payingPerson = searchPerson(persons.get(0), searchScope);
+        int payingId = payingPerson.getPrimaryKey();
+        int[] involvedArr;
 
-            if (findResult.size() != 1) {
-                throw new CommandException(String.format(MESSAGE_NON_UNIQUE_SEARCH_RESULT, persons.get(i)));
+        // Contextual behaviour
+        if (model.getContext().getType() != ContextType.VIEW_ACTIVITY) {
+            if (!activity.hasPerson(payingPerson.getPrimaryKey())) {
+                activity.invite(payingPerson.getPrimaryKey());
             }
+        }
 
-            Person person = findResult.get(0);
+        if (persons.size() > 1) {
+            List<Person> personList = new ArrayList<>();
+            personList.add(payingPerson);
+            for (int i = 1; i < persons.size(); i++) {
+                Person person = searchPerson(persons.get(i), searchScope);
 
-            if (i == 0) {
-                payingId = person.getPrimaryKey();
-            } else {
-                involvedArr[i - 1] = person.getPrimaryKey();
-            }
-
-            successMessage.append(String.format(MESSAGE_EXPENSE, person.getName(), amount, description));
-
-            // Contextual behaviour
-            if (model.getContext().getType() != ContextType.VIEW_ACTIVITY) {
-                if (!activity.hasPerson(person.getPrimaryKey())) {
-                    activity.invite(person.getPrimaryKey());
+                if (personList.contains(person)) {
+                    warningMessage.append(String.format(WARNING_DUPLICATE_PERSON, person.getName()));
+                    continue;
                 }
+                personList.add(person);
+                successMessage.append("\t\t" + person.getName() + "\n");
+
+                // Contextual behaviour
+                if (model.getContext().getType() != ContextType.VIEW_ACTIVITY) {
+                    if (!activity.hasPerson(person.getPrimaryKey())) {
+                        activity.invite(person.getPrimaryKey());
+                    }
+                }
+            }
+            involvedArr = personList.stream()
+                    .filter(x -> x.getPrimaryKey() != payingId)
+                    .mapToInt(x -> x.getPrimaryKey())
+                    .toArray();
+        } else {
+            // Contextual behaviour
+            if (model.getContext().getType() == ContextType.VIEW_ACTIVITY) {
+                involvedArr = searchScope.stream()
+                        .filter(x -> x.getPrimaryKey() != payingId)
+                        .mapToInt(x -> x.getPrimaryKey())
+                        .toArray();
+                searchScope.stream()
+                        .filter(x -> x.getPrimaryKey() != payingId)
+                        .forEach(x -> successMessage.append("\t\t" + x.getName() + "\n"));
+            } else {
+                involvedArr = new int[0];
             }
         }
 
@@ -130,7 +153,37 @@ public class ExpenseCommand extends Command {
             model.addActivity(activity);
         }
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, persons.size(), successMessage.toString()));
+        return new CommandResult(String.format(MESSAGE_SUCCESS,
+                amount, payingPerson.getName(), description, successMessage.toString()) + warningMessage.toString());
+    }
+
+    /**
+     * Searches for a {@code Person} object from a given list of people using a name search string.
+     * If an exact match is found (non-case sensitive), it will return the exact match.
+     * Otherwise, it will use keyword based matching to look for names.
+     * @param str The search string
+     * @param searchScope The {@code Person} list to search from
+     * @return The search result as a {@code Person} object
+     * @throws CommandException if the search result is not unique
+     */
+    private Person searchPerson(String str, List<Person> searchScope) throws CommandException {
+        List<Person> findResult = searchScope.stream()
+                .filter(x -> str.toLowerCase().equals(x.getName().toString().toLowerCase()))
+                .collect(Collectors.toList());
+
+        if (findResult.size() == 1) {
+            return findResult.get(0);
+        }
+
+        List<String> keywords = Arrays.asList(str.split(" "));
+        NameContainsAllKeywordsPredicate predicate = new NameContainsAllKeywordsPredicate(keywords);
+        findResult = searchScope.stream().filter(predicate).collect(Collectors.toList());
+
+        if (findResult.size() != 1) {
+            throw new CommandException(String.format(MESSAGE_NON_UNIQUE_SEARCH_RESULT, str));
+        }
+
+        return findResult.get(0);
     }
 
     @Override

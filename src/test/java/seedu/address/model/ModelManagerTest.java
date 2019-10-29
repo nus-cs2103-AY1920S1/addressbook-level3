@@ -8,12 +8,15 @@ import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalActivities.BREAKFAST;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BENSON;
+import static seedu.address.testutil.TypicalPersons.GEORGE;
+import static seedu.address.testutil.TypicalPersons.GEORGE_FIRSTNAME;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 
@@ -169,6 +172,25 @@ public class ModelManagerTest {
         NameContainsAllKeywordsPredicate predicate = new NameContainsAllKeywordsPredicate(keywords);
         ArrayList<Person> searchResult = modelManager.findPersonAll(predicate);
         ArrayList<Person> expectedSearchResult = new ArrayList<>(Arrays.asList(aliceFamilyMember, aliceFamilyMember2));
+        assertEquals(searchResult, expectedSearchResult);
+    }
+
+    @Test
+    public void findPersonByName_exactNameMatch_returnsSingle() {
+        modelManager.addPerson(ALICE);
+        String searchTerm = "Alice Pauline";
+        Optional<Person> searchResult = modelManager.findPersonByName(searchTerm);
+        Optional<Person> expectedSearchResult = Optional.of(ALICE);
+        assertEquals(searchResult, expectedSearchResult);
+    }
+
+    @Test
+    public void findPersonByName_subStringEdgeCase_returnsCorrect() {
+        modelManager.addPerson(GEORGE);
+        modelManager.addPerson(GEORGE_FIRSTNAME);
+        String searchTerm = "george";
+        Optional<Person> searchResult = modelManager.findPersonByName(searchTerm);
+        Optional<Person> expectedSearchResult = Optional.of(GEORGE_FIRSTNAME);
         assertEquals(searchResult, expectedSearchResult);
     }
 
