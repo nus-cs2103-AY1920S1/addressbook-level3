@@ -14,24 +14,25 @@ import seedu.address.model.common.Identical;
 public class Room implements Identical<Room> {
     private final ReferenceId doctor;
     private Optional<ReferenceId> patientCurrentlyBeingServed;
+    private final boolean isResting;
 
     public Room(ReferenceId doctor, Optional<ReferenceId> patient, boolean isResting) {
         this.doctor = doctor;
         this.patientCurrentlyBeingServed = patient;
+        this.isResting = isResting;
     }
 
-    public Room(ReferenceId doctor, Optional<ReferenceId> patient) {
-        this.doctor = doctor;
-        this.patientCurrentlyBeingServed = patient;
+    public Room(ReferenceId doctor, ReferenceId patientId) {
+        this(doctor, Optional.of(patientId), false);
+        requireNonNull(patientId);
     }
 
     public Room(ReferenceId doctor) {
-        this.doctor = doctor;
-        this.patientCurrentlyBeingServed = Optional.empty();
+        this(doctor, Optional.empty(), false);
     }
 
     public boolean isReadyToServe() {
-        return patientCurrentlyBeingServed.isEmpty();
+        return !isResting;
     }
 
     public ReferenceId getDoctor() {

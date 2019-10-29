@@ -340,7 +340,7 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
         case DOCTORS_TAB:
             omniPanelPlaceholder.getChildren().setAll(staffListPanel.getRoot());
             break;
-        case DUTYSHIFT_TAB:
+        case DUTY_SHIFT_TAB:
             omniPanelPlaceholder.getChildren().setAll(dutyShiftListPanel.getRoot());
             break;
         default:

@@ -54,7 +54,7 @@ public class NextCommandParser implements Parser<ReversibleActionPairCommand> {
         }
         ReferenceId patientBeingServed = queueList.get(0);
         Room roomToEdit = filteredRoomList.get(index.getZeroBased());
-        Room editedRoom = new Room(roomToEdit.getDoctor(), Optional.of(patientBeingServed));
+        Room editedRoom = new Room(roomToEdit.getDoctor(), Optional.of(patientBeingServed), false);
         return new ReversibleActionPairCommand(new NextCommand(roomToEdit, editedRoom, index, patientBeingServed),
                 new UndoNextCommand(editedRoom, roomToEdit, index, patientBeingServed));
     }
