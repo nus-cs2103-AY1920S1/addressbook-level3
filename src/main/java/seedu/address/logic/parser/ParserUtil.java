@@ -246,7 +246,6 @@ public class ParserUtil {
         requireNonNull(tag);
         String trimmedTag = tag.trim();
         if (!Tag.isValidTagName(trimmedTag)) {
-            System.out.println("Tag Name: " + trimmedTag);
             throw new ParseException(Tag.MESSAGE_CONSTRAINTS);
         }
         return new Tag(trimmedTag);
@@ -270,12 +269,11 @@ public class ParserUtil {
             List<String> noteFragmentMatches = parseNoteFragmentMatches(note.getContent().toString());
             return parseNoteFragmentsFromString(title, noteFragmentMatches);
         } catch (ParseException e) {
-            System.out.println("Parse Exception: " + e);
             return Collections.emptyList();
         }
     }
 
-    public static List<String> parseNoteFragmentMatches(String noteContent) throws ParseException {
+    public static List<String> parseNoteFragmentMatches(String noteContent) {
         noteContent = " " + noteContent;
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(noteContent, PREFIX_NOTE_FRAGMENT_START,
                 PREFIX_NOTE_FRAGMENT_END);
@@ -288,15 +286,14 @@ public class ParserUtil {
             throws ParseException {
         List<NoteFragment> noteFragmentList = new ArrayList<>();
         for (String string : stringList) {
+            string = " " + string;
             ArgumentMultimap argMultimapCheck = ArgumentTokenizer.tokenize(string, PREFIX_NOTE_FRAGMENT_CONTENT,
                     PREFIX_NOTE_FRAGMENT_TAG);
 
             if (!arePrefixesPresent(argMultimapCheck, PREFIX_NOTE_FRAGMENT_CONTENT, PREFIX_NOTE_FRAGMENT_TAG)) {
-                System.out.println("TAG PROBLEM " + string);
                 throw new ParseException(MESSAGE_INCORRECT_NOTE_FRAGMENT_FORMAT);
             }
 
-            string = " " + string;
             noteFragmentList.add(new NoteFragment(title, parseContentFromNoteFragment(string),
                     parseTagsFromNoteFragment(string)));
         }
@@ -315,17 +312,11 @@ public class ParserUtil {
     }
 
     public static Set<Tag> parseTagsFromNoteFragment(String noteFragment) throws ParseException {
-        System.out.println("This is inside Tags: " + noteFragment);
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(noteFragment, PREFIX_NOTE_FRAGMENT_CONTENT,
                 PREFIX_NOTE_FRAGMENT_TAG);
         try {
-            for (String string : argMultimap.getAllValues(PREFIX_NOTE_FRAGMENT_TAG)) {
-                System.out.println("PARSE TAGS: " + string);
-            }
-
             return parseTags(argMultimap.getAllValues(PREFIX_NOTE_FRAGMENT_TAG));
         } catch (ParseException e) {
-            System.out.println("Parse Exception in Tags: " + e);
             throw new ParseException(Tag.MESSAGE_CONSTRAINTS);
         }
     }
