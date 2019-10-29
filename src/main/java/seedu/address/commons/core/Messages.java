@@ -40,4 +40,6 @@ public class Messages {
 
     public static final String TIMETRIAL = "timetrial";
     public static final String SHOW = "show";
+
+    public static final String REMIND = "remind";
 }

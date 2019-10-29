@@ -316,7 +316,7 @@ public class ModelManager implements Model {
         return sb.toString();
     }
 
-    //===================CheatSheetBook============================================================
+    //===================CheatSheet============================================================
 
     @Override
     public void addCheatSheet(CheatSheet cheatSheet) {
