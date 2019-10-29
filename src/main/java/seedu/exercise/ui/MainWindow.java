@@ -1,6 +1,5 @@
 package seedu.exercise.ui;
 
-import java.util.Optional;
 import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
@@ -9,7 +8,6 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import seedu.exercise.commons.core.GuiSettings;
@@ -19,7 +17,6 @@ import seedu.exercise.logic.commands.CommandResult;
 import seedu.exercise.logic.commands.exceptions.CommandException;
 import seedu.exercise.logic.commands.statistic.Statistic;
 import seedu.exercise.logic.parser.exceptions.ParseException;
-import seedu.exercise.model.resource.Exercise;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -28,7 +25,6 @@ import seedu.exercise.model.resource.Exercise;
 public class MainWindow extends UiPart<Stage> {
 
     private static final String FXML = "MainWindow.fxml";
-    private static final String DEFAULT_MESSAGE = "Select an exercise/regime/schedule to display its info.";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
@@ -88,10 +84,6 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.setTitle("ExerHealth");
 
         helpWindow = new HelpWindow();
-
-        resourceListPanelPlaceholder.addEventFilter(MouseEvent.MOUSE_CLICKED, mouseEvent -> {
-            displayInfoPanelResult();
-        });
     }
 
     public Stage getPrimaryStage() {
@@ -131,7 +123,7 @@ public class MainWindow extends UiPart<Stage> {
         resourceListPanelPlaceholder.getTabs().add(scheduleListTabPlaceholder);
         resourceListPanelPlaceholder.getTabs().add(suggestionListTabPlaceholder);
 
-        displayDefaultMessage();
+        displayDefaultLabel();
 
         chartPlaceholder.getChildren().add(new LineChartPanel(logic.getStatistic()).getRoot());
 
@@ -182,7 +174,6 @@ public class MainWindow extends UiPart<Stage> {
             shouldShowWindowsBasedOnCommandResult(commandResult);
             shouldExitAppBasedOnCommandResult(commandResult);
             updateResourceListTab(commandResult);
-            displayInfoPanelResult();
 
             return commandResult;
         } catch (CommandException | ParseException e) {
@@ -304,22 +295,9 @@ public class MainWindow extends UiPart<Stage> {
         infoDisplayPanelPlaceholder.getChildren().add(newExerciseDisplay.getRoot());
     }
 
-    private void displayDefaultMessage() {
+    private void displayDefaultLabel() {
         infoDisplayPanelPlaceholder.getChildren().clear();
-        infoDisplayPanelPlaceholder.getChildren().add(new Label(DEFAULT_MESSAGE));
-    }
-
-    /**
-     * Displays the selected exercise on the info panel if there are any. Otherwise, it will display be the
-     * default message.
-     */
-    private void displayInfoPanelResult() {
-        Optional<Exercise> selectedExercise = exerciseListPanel.getSelectedExercise();
-        if (selectedExercise.isPresent()) {
-            updateDisplayPanel(new ExerciseInfoPanel(selectedExercise.get()));
-        } else {
-            displayDefaultMessage();
-        }
+        infoDisplayPanelPlaceholder.getChildren().add(new Label("Select an exercise to display its info"));
     }
 
 }

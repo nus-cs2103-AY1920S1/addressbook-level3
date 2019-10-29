@@ -1,8 +1,11 @@
 package seedu.exercise.ui;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -29,20 +32,10 @@ public class ExerciseListPanel extends UiPart<Region> {
         this.exerciseList = exerciseList;
         exerciseListView.setItems(exerciseList);
         exerciseListView.setCellFactory(listView -> new ExerciseListViewCell());
+    }
 
-        exerciseList.addListener((ListChangeListener<Exercise>) change -> {
-            while (change.next()) {
-                if (change.wasReplaced()) {
-                    int indexChanged = change.getFrom();
-                    logger.info("Exercise " + indexChanged + " is replaced.");
-                    selectGivenIndex(indexChanged);
-                } else if (change.wasAdded()) {
-                    int indexAdded = exerciseList.size() - 1;
-                    logger.info("Exercise " + indexAdded + " is added.");
-                    selectGivenIndex(indexAdded);
-                }
-            }
-        });
+    public boolean isListEmpty() {
+        return exerciseList.isEmpty();
     }
 
     public boolean isExerciseSelected() {
@@ -61,11 +54,6 @@ public class ExerciseListPanel extends UiPart<Region> {
         return exerciseListView;
     }
 
-    private void selectGivenIndex(int index) {
-        exerciseListView.scrollTo(index);
-        exerciseListView.getSelectionModel().select(index);
-    }
-
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code Exercise} using a {@code ExerciseInfoPanel}.
      */
@@ -82,4 +70,5 @@ public class ExerciseListPanel extends UiPart<Region> {
             }
         }
     }
+
 }

@@ -6,7 +6,7 @@
 
 <HBox prefHeight="33.0" prefWidth="136.0" style="-fx-border-radius: 10; -fx-background-radius: 10;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label fx:id="propertyAndValue" text="propertyAndValue" styleClass="customProperties_cell" textAlignment="CENTER">
+      <Label fx:id="propertyAndValue" text="propertyAndValue" textAlignment="CENTER">
          <padding>
             <Insets left="5.0" top="5.0" />
          </padding></Label>
