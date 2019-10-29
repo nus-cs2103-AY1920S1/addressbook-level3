@@ -242,7 +242,9 @@ The `add_income` command allows for users to register new `Income` objects into 
 
 The format for the `add_income` command is as follows:
 
+....
 `add_income d/<description> c/<cash amount> date/<date> n/<name> p/<phone number>`
+....
 
 ==== Adding an Income
 
