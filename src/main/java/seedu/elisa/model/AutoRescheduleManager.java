@@ -36,7 +36,7 @@ public class AutoRescheduleManager {
     }
 
     /**
-     * Initialise this AutoRescheduleManager with all the events that can be rescheduled
+     * Initialise this AutoRescheduleManager with all the events that can be rescheduled, in the given event list.
      * Update event times to the latest upcoming one, given their period.
      * @param eventList of all events in the storage
      * @param model containing the events
@@ -44,30 +44,40 @@ public class AutoRescheduleManager {
     public static void initStorageEvents(EventList eventList, ItemModel model) {
         for (Item item : eventList) {
             if (item.hasEvent()) {
-                Event event = item.getEvent().get();
-                if (event.hasAutoReschedule()) {
-                    if (event.getStartDateTime().compareTo(LocalDateTime.now()) > 0) {
-                        // event date is after now
-                        // add event to Timer thread, add(newEvent)
-                        RescheduleTask task = new RescheduleTask(item, event.getPeriod(), model);
-                        getInstance().add(task);
-                    } else {
-                        // event date is before now, but is reschedulable
-                        // modify the event date to the most upcoming one (Use modulo and add remainder)
-                        // add(newEvent)
-                        LocalDateTime updatedDateTime = getUpdatedDateTime(event);
-                        Event updatedEvent = event.changeStartDateTime(updatedDateTime);
+                updateEvent(item, model);
+            }
+        }
+    }
 
-                        // update the old event time to the new one in the itemModel
-                        Item oldItem = item;
-                        Item newItem = item.changeEvent(updatedEvent);
-                        RescheduleTask task = new RescheduleTask(newItem, updatedEvent.getPeriod(), model);
-                        model.replaceItem(oldItem, newItem);
+    /**
+     * Updates the start time of the event and creates a RescheduleTask based on the updated event.
+     * If the current start time is already over, update to the next upcoming time.
+     * Else, start time remains the same.
+     * @param item whose event is to be updated
+     * @param model where the item is stored in
+     */
+    public static void updateEvent(Item item, ItemModel model) {
+        Event event = item.getEvent().get();
+        if (event.hasAutoReschedule()) {
+            if (event.getStartDateTime().compareTo(LocalDateTime.now()) > 0) {
+                // event date is after now
+                // add event to Timer thread, add(newEvent)
+                RescheduleTask task = new RescheduleTask(item, event.getPeriod(), model);
+                getInstance().add(task);
+            } else {
+                // event date is before now, but is reschedulable
+                // modify the event date to the most upcoming one (Use modulo and add remainder)
+                // add(newEvent)
+                LocalDateTime updatedDateTime = getUpdatedDateTime(event);
+                Event updatedEvent = event.changeStartDateTime(updatedDateTime);
 
-                        getInstance().add(task);
-                    }
+                // update the old event time to the new one in the itemModel
+                Item oldItem = item;
+                Item newItem = item.changeEvent(updatedEvent);
+                RescheduleTask task = new RescheduleTask(newItem, updatedEvent.getPeriod(), model);
+                model.replaceItem(oldItem, newItem);
 
-                }
+                getInstance().add(task);
             }
         }
     }
@@ -92,11 +102,17 @@ public class AutoRescheduleManager {
 
     /**
      * Adds a RescheduleTask that is to be rescheduled periodically, to this AutoRescheduleManager.
+     * Requirements: task's start time is after current time. If not, use {@code updateEvent()} to add.
      * @param task RescheduleTask to be carried out after reaching an event's startDateTime
      */
     public void add(RescheduleTask task) {
         try {
             Duration delay = Duration.between(LocalDateTime.now(), task.getStartTime());
+            if (delay.getSeconds() < 0) {
+                LocalDateTime updatedTime = getUpdatedDateTime(task.getEvent());
+            }
+
+            RescheduleTask.allTasks.add(task);
             timer.scheduleAtFixedRate(task, delay.toMillis(), task.getLongPeriod());
         } catch (Exception e) {
             logger.warning("----------------[Failed to schedule Event][" + task.getEvent() + "]");

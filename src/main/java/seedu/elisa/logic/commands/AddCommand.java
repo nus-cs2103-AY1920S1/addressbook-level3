@@ -6,10 +6,12 @@ import static seedu.elisa.logic.parser.CliSyntax.PREFIX_PRIORITY;
 import static seedu.elisa.logic.parser.CliSyntax.PREFIX_REMINDER;
 import static seedu.elisa.logic.parser.CliSyntax.PREFIX_TAG;
 
+import seedu.elisa.commons.core.item.Event;
 import seedu.elisa.commons.core.item.Item;
 import seedu.elisa.logic.commands.exceptions.CommandException;
 import seedu.elisa.model.AutoRescheduleManager;
 import seedu.elisa.model.ItemModel;
+import seedu.elisa.model.RescheduleTask;
 
 
 /**
@@ -53,6 +55,11 @@ public abstract class AddCommand extends UndoableCommand {
     public void reverse(ItemModel model) throws CommandException {
         model.removeItem(toAdd);
         model.getItemStorage().remove(toAdd);
+
+        if (toAdd.hasAutoReschedule()) {
+            Event event = toAdd.getEvent().get(); // if autoReschedule is present, item definitely has an event.
+            RescheduleTask.removeFromAllTask(toAdd.getEvent().get());
+        }
     }
 }
 
