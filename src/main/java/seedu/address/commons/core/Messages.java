@@ -15,6 +15,8 @@ public class Messages {
     public static final String MESSAGE_NO_MATCHING_NOTE_FOUND = "No note with that title exists!";
 
     public static final String MESSAGE_INVALID_FLASHCARD_DISPLAYED_INDEX = "The flashcard index provided is invalid";
+    public static final String MESSAGE_NO_FLASHCARD_LOADED = "No flashcard has been loaded";
+    public static final String MESSAGE_ANSWER_ALREADY_LOADED = "Answer has already been loaded";
 
     public static final String MESSAGE_INVALID_CHEATSHEET_DISPLAYED_INDEX = "The cheatsheet index provided is invalid";
     public static final String MESSAGE_INVALID_CHEATSHEET_CONTENT_DISPLAYED_INDEX = "The content index "
@@ -31,5 +33,5 @@ public class Messages {
     public static final String FILTER_ALL = "filterall";
 
     public static final String TIMETRIAL = "timetrial";
-
+    public static final String SHOW = "show";
 }
