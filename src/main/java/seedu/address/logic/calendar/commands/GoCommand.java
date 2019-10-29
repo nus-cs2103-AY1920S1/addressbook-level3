@@ -5,11 +5,11 @@ import static java.util.Objects.requireNonNull;
 import seedu.address.model.calendar.CalendarModel;
 
 /**
- * Switch the calendar to another week, from week 0 to 14 inclusive.
+ * Switch the calendar to display tasks of the specified week.
  */
 public class GoCommand extends Command {
     public static final String COMMAND_WORD = "go";
-    public static final String MESSAGE_SUCCESS = "Go to week %1$s";
+    public static final String MESSAGE_SUCCESS = "Calendar switched to week %1$s";
 
     private static int currentWeek = 0;
 

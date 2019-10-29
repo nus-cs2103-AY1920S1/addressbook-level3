@@ -20,7 +20,7 @@
 //import seedu.address.commons.core.index.Index;
 //import seedu.address.logic.commands.ClearCommand;
 //import seedu.address.logic.commands.EditCommand;
-//import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
+//import seedu.address.logic.commands.EditCommand.EditTaskDescriptor;
 //import seedu.address.calendarModel.task.Task;
 //import seedu.address.testutil.EditPersonDescriptorBuilder;
 //import seedu.address.testutil.PersonBuilder;
@@ -38,7 +38,7 @@
 //    @Test
 //    public void execute_allFieldsSpecifiedUnfilteredList_success() {
 //        Task editedPerson = new PersonBuilder().build();
-//        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(editedPerson).build();
+//        EditTaskDescriptor descriptor = new EditPersonDescriptorBuilder(editedPerson).build();
 //        EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, descriptor);
 //
 //        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
@@ -60,7 +60,7 @@
 //        Task editedPerson = personInList.withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
 //                .withTags(VALID_TAG_HUSBAND).build();
 //
-//        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
+//        EditTaskDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
 //                .withPhone(VALID_PHONE_BOB).withTags(VALID_TAG_HUSBAND).build();
 //        EditCommand editCommand = new EditCommand(indexLastPerson, descriptor);
 //
@@ -76,7 +76,7 @@
 //
 //    @Test
 //    public void execute_noFieldSpecifiedUnfilteredList_success() {
-//        EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, new EditPersonDescriptor());
+//        EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, new EditTaskDescriptor());
 //        Task editedPerson = calendarModel.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
 //
 //        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
@@ -110,7 +110,7 @@
 //    @Test
 //    public void execute_duplicatePersonUnfilteredList_failure() {
 //        Task firstPerson = calendarModel.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
-//        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(firstPerson).build();
+//        EditTaskDescriptor descriptor = new EditPersonDescriptorBuilder(firstPerson).build();
 //        EditCommand editCommand = new EditCommand(INDEX_SECOND_PERSON, descriptor);
 //
 //        assertCommandFailure(editCommand, calendarModel, EditCommand.MESSAGE_DUPLICATE_PERSON);
@@ -132,7 +132,7 @@
 //    @Test
 //    public void execute_invalidPersonIndexUnfilteredList_failure() {
 //        Index outOfBoundIndex = Index.fromOneBased(calendarModel.getFilteredPersonList().size() + 1);
-//        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build();
+//        EditTaskDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build();
 //        EditCommand editCommand = new EditCommand(outOfBoundIndex, descriptor);
 //
 //        assertCommandFailure(editCommand, calendarModel, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
@@ -161,7 +161,7 @@
 //        final EditCommand standardCommand = new EditCommand(INDEX_FIRST_PERSON, DESC_AMY);
 //
 //        // same values -> returns true
-//        EditPersonDescriptor copyDescriptor = new EditPersonDescriptor(DESC_AMY);
+//        EditTaskDescriptor copyDescriptor = new EditTaskDescriptor(DESC_AMY);
 //        EditCommand commandWithSameValues = new EditCommand(INDEX_FIRST_PERSON, copyDescriptor);
 //        assertTrue(standardCommand.equals(commandWithSameValues));
 //

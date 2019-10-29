@@ -17,7 +17,7 @@
 //import seedu.address.logic.commands.ClearCommand;
 //import seedu.address.logic.commands.DeleteCommand;
 //import seedu.address.logic.commands.EditCommand;
-//import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
+//import seedu.address.logic.commands.EditCommand.EditTaskDescriptor;
 //import seedu.address.logic.commands.ExitCommand;
 //import seedu.address.logic.commands.FindCommand;
 //import seedu.address.logic.commands.HelpCommand;
@@ -60,7 +60,7 @@
 //    @Test
 //    public void parseCommand_edit() throws Exception {
 //        Task task = new PersonBuilder().build();
-//        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(task).build();
+//        EditTaskDescriptor descriptor = new EditPersonDescriptorBuilder(task).build();
 //        EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
 //                + INDEX_FIRST_PERSON.getOneBased() + " " + PersonUtil.getEditPersonDescriptorDetails(descriptor));
 //        assertEquals(new EditCommand(INDEX_FIRST_PERSON, descriptor), command);
