@@ -43,4 +43,5 @@ public interface CardBookStorage {
      */
     void saveCardBook(ReadOnlyCardBook cardBook, Path filePath) throws IOException;
 
+
 }

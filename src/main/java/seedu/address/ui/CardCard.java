@@ -47,6 +47,11 @@ public class CardCard extends UiPart<Region> {
     }
 
     @Override
+    public Region getRoot() {
+        return super.getRoot();
+    }
+
+    @Override
     public boolean equals(Object other) {
         // short circuit if same object
         if (other == this) {
