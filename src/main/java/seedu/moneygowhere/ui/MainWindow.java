@@ -1,14 +1,16 @@
 package seedu.moneygowhere.ui;
 
-import java.util.LinkedHashMap;
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import seedu.moneygowhere.commons.core.GuiSettings;
@@ -35,8 +37,6 @@ public class MainWindow extends UiPart<Stage> {
     // Independent Ui parts residing in this Ui container
     private SpendingListPanel spendingListPanel;
     private ResultDisplay resultDisplay;
-    private GraphWindow graphWindow;
-    private StatsWindow statsWindow;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -53,6 +53,22 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private StackPane statusbarPlaceholder;
 
+    @FXML
+    private AnchorPane graphPane;
+
+    @FXML
+    private AnchorPane statsPane;
+
+    @FXML
+    private TabPane tabPane;
+
+    @FXML
+    private Tab graphTab;
+
+    @FXML
+    private Tab statsTab;
+
+
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
 
@@ -64,10 +80,6 @@ public class MainWindow extends UiPart<Stage> {
         setWindowDefaultSize(logic.getGuiSettings());
 
         setAccelerators();
-
-        graphWindow = new GraphWindow();
-        statsWindow = new StatsWindow();
-
 
     }
 
@@ -124,6 +136,14 @@ public class MainWindow extends UiPart<Stage> {
 
         CommandBox commandBox = new CommandBox(this::executeCommand, this::getPrevCommand, this::getNextCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+        GraphChart graphChart = new GraphChart(logic.getGraphData());
+        graphPane.getChildren().add(graphChart.getRoot());
+
+        StatsChart statsChart = new StatsChart(logic.getStatsData());
+        statsPane.getChildren().add(statsChart.getRoot());
+
+
     }
 
     /**
@@ -147,30 +167,6 @@ public class MainWindow extends UiPart<Stage> {
         resultDisplay.setFeedbackToUser(HelpCommand.SHOWING_HELP_MESSAGE);
     }
 
-    /**
-     * Opens the graph window or focuses on it if it's already opened.
-     */
-    @FXML
-    public void handleGraph() {
-        if (!graphWindow.isShowing()) {
-            graphWindow.show();
-        } else {
-            graphWindow.focus();
-        }
-    }
-
-    /**
-     * Opens the stats window or focuses on it if it's already opened.
-     */
-    @FXML
-    public void handleStats() {
-        if (!statsWindow.isShowing()) {
-            statsWindow.show();
-        } else {
-            statsWindow.focus();
-        }
-    }
-
     void show() {
         primaryStage.show();
     }
@@ -183,8 +179,6 @@ public class MainWindow extends UiPart<Stage> {
         GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
                 (int) primaryStage.getX(), (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
-        graphWindow.hide();
-        statsWindow.hide();
         primaryStage.hide();
     }
 
@@ -209,15 +203,15 @@ public class MainWindow extends UiPart<Stage> {
             }
 
             if (commandResult.isShowGraph()) {
-                LinkedHashMap<String, Double> graphData = logic.getGraphData();
-                graphWindow.loadData(graphData);
-                handleGraph();
+                GraphChart graphChart = new GraphChart(logic.getGraphData());
+                graphPane.getChildren().add(graphChart.getRoot());
+                tabPane.getSelectionModel().select(graphTab);
             }
 
             if (commandResult.isShowStats()) {
-                LinkedHashMap<String, Double> statsData = logic.getStatsData();
-                statsWindow.loadData(statsData);
-                handleStats();
+                StatsChart statsChart = new StatsChart(logic.getStatsData());
+                statsPane.getChildren().add(statsChart.getRoot());
+                tabPane.getSelectionModel().select(statsTab);
             }
 
             return commandResult;
