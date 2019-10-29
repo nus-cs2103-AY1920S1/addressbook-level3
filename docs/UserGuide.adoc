@@ -179,7 +179,7 @@ add -b
 (/fridgeId fridgeId)
 
 [TIP]
-Before specifying a fridgeId, ensure that a `fridge` with this id exists!
+Before specifying a `fridgeId`, ensure that a `fridge` with this id exists!
 
 ---
 | Add a new fridge
@@ -188,7 +188,7 @@ a|
 add -f
 
 [TIP]
-Default status: Unoccupied
+Default status: `UNOCCUPIED`
 
 |===
 
@@ -248,16 +248,16 @@ add -f
 
 [[update]]
 ==== Updating an entity: `update`
-This command allows you to update the attributes of an entity.
+This command allows you to update the attributes of a `body` or `worker`.
 You have to indicate the entity type you want to update with a flag, as described in <<Features>>.
 You can specify one or more attributes to change, but at least one valid attribute must be provided.
 
 Format: `update -flag /id id (/attributeName attributeValue ...)`
 
 
-****
+|===
+| :bulb: a|
 * When the `fridgeId` of a `body` is updated, changes to the fridges will be made as follows:
-
 ** Previous fridge's status is set to `UNOCCUPIED` and is no longer assigned this `body`.
 ** New fridge's status is set to `OCCUPIED` and is assigned this `body`.
 
@@ -265,7 +265,7 @@ Format: `update -flag /id id (/attributeName attributeValue ...)`
 
 * When you update `bodyStatus` to `ARRIVED`, a `notif` pop-up will be shown after 10 seconds.
 
-****
+|===
 
 There are some attributes that you can update once the entity is created. For this command,
 the list of valid attributes and their command prefixes can be found below:
@@ -338,15 +338,16 @@ and her new designation.
 
 Finds bodies or workers whose names contain any of the given keywords. +
 
-Below are some important information regarding this command:
-****
+Format: `find (flag) (keyword)...`
+
+|===
+| :bulb: a|
 * The search is case insensitive. e.g `hans` will match `Hans`
 * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
 * Only the name is searched.
 * Only full words will be matched e.g. `Han` will not match `Hans`
 * Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
-Format: `find (flag) (keyword)...`
+|===
 
 Examples:
 
@@ -365,17 +366,15 @@ Returns any workers having names `Betsy`, `Tim`, or `John`
 You can delete a body, worker or fridge entry, using its id number. +
 Format: `delete -flag  id`
 
-
-****
+|===
+| :bulb: a|
 * When you delete a body, its associated notifications will also be deleted.
 * If a fridge is occupied by a body, you cannot delete it.
 * You only need to specify the number portion of the ID, without leading zeroes. Mortago will automatically convert it
 in the format `BXXXXXXXX`, `WXXXXX`, or `FXX` for a body, worker or fridge entry respectively.
-****
+|===
 
-Examples:
-
-* `delete -w 1` +
+Example: `delete -w 1` +
 The worker with the identification number `W00001` will be deleted.
 
 // end::delete
