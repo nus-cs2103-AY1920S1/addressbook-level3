@@ -57,7 +57,7 @@ public class FreeCommand extends Command {
         assert isFreed;
 
         // remove driver from the task
-        task.setDriver(Optional.empty());
+        task.setDriverAndEventTime(Optional.empty(), Optional.empty());
     }
 
     @Override

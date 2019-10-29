@@ -146,18 +146,14 @@ public class JsonAdaptedTask {
         Task task = new Task(modelTaskId, modelDescription, modelDate);
         task.setCustomer(modelCustomer);
 
-        if (driverId != null) {
+        if (driverId != null && duration != null) {
             Optional<Driver> driverOptional = driverManager.getOptionalDriver(Integer.parseInt(driverId));
             if (driverOptional.isEmpty()) {
                 throw new IllegalValueException(Driver.MESSAGE_INVALID_ID);
             }
 
-            task.setDriver(driverOptional);
-        }
-        //if driver is not null, duration must be not null as well.
-        if (duration != null) {
             final EventTime modelEventTime = EventTime.parse(duration);
-            task.setEventTime(Optional.of(modelEventTime));
+            task.setDriverAndEventTime(driverOptional, Optional.of(modelEventTime));
         }
 
         //status cannot be null

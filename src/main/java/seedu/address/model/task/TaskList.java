@@ -58,6 +58,7 @@ public class TaskList {
      * Check if task exists in the task list.
      */
     public boolean hasTask(Task task) {
+        requireNonNull(task);
         Optional<Task> foundTask = tasks
                                     .stream()
                                     .filter(currentTask -> currentTask.equals(task))

@@ -49,7 +49,7 @@ public class DoneCommand extends Command {
         }
 
         try {
-            taskToMark.setStatus(TaskStatus.COMPLETED);
+            taskToMark.markAsDone();
         } catch (TaskException e) {
             //if already completed
             throw new CommandException(e.toString());

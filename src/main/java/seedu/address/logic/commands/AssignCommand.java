@@ -108,8 +108,7 @@ public class AssignCommand extends Command {
             throw new CommandException(e.getMessage());
         }
 
-        task.setDriver(Optional.of(driver));
-        task.setEventTime(Optional.of(eventTime));
+        task.setDriverAndEventTime(Optional.of(driver), Optional.of(eventTime));
     }
 
     @Override
