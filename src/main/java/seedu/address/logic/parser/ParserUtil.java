@@ -190,7 +190,7 @@ public class ParserUtil {
     public static Description parseDescription(String description) {
         requireNonNull(description);
         String trimmedDescription = description.trim();
-        return new Description(description);
+        return new Description(trimmedDescription);
     }
 
     /**
@@ -199,13 +199,10 @@ public class ParserUtil {
      *
      * throws ParseException if the give {@code dateTime} is not valid.
      */
-    public static IncidentDateTime parseDateTime(String dateTime) throws ParseException {
+    public static IncidentDateTime parseDateTime(String dateTime) {
         requireNonNull(dateTime);
         String trimmedDateTime = dateTime.trim();
-        if (!IncidentDateTime.isValidIncidentDateTimeFormat(dateTime)) {
-            throw new ParseException(IncidentDateTime.MESSAGE_CONSTRAINTS);
-        }
-        return new IncidentDateTime(dateTime);
+        return new IncidentDateTime(trimmedDateTime);
 
     }
 

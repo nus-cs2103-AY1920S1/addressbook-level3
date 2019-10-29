@@ -53,38 +53,36 @@ public class SampleDataUtil {
         Incident[] sampleIncidents = new Incident[] {
             new Incident(samplePersons[0], new District(1), sampleIncidentDateTimes[0],
                 new IncidentId(sampleIncidentDateTimes[0].getMonth(), sampleIncidentDateTimes[0].getYear()),
-                new CallerNumber("93894576"), new Description("Shoplifting reported in District 1 Mall")),
+                new CallerNumber("93894576"), new Description("Shoplifting reported in District 1 Mall"),
+                Incident.Status.SUBMITTED_REPORT),
             new Incident(samplePersons[1], new District(2), sampleIncidentDateTimes[1],
                 new IncidentId(sampleIncidentDateTimes[1].getMonth(), sampleIncidentDateTimes[1].getYear()),
-                new CallerNumber("98098765"), new Description("Bicycle theft at District 2 MRT station")),
+                new CallerNumber("98098765"), new Description("."),
+                Incident.Status.INCOMPLETE_DRAFT),
             new Incident(samplePersons[2], new District(3), sampleIncidentDateTimes[2],
                 new IncidentId(sampleIncidentDateTimes[2].getMonth(), sampleIncidentDateTimes[2].getYear()),
-                new CallerNumber("87595849"), new Description("Pet cat stuck on a tree in District 3 stadium")),
+                new CallerNumber("87595849"), new Description("."),
+                Incident.Status.INCOMPLETE_DRAFT),
             new Incident(samplePersons[3], new District(4), sampleIncidentDateTimes[3],
                 new IncidentId(sampleIncidentDateTimes[3].getMonth(), sampleIncidentDateTimes[3].getYear()),
-                new CallerNumber("89090908"), new Description("Minor traffic accident in District 4 highway")),
+                new CallerNumber("89090908"), new Description("Minor traffic accident in District 4 highway"),
+                Incident.Status.SUBMITTED_REPORT),
             new Incident(samplePersons[4], new District(5), sampleIncidentDateTimes[4],
                 new IncidentId(sampleIncidentDateTimes[4].getMonth(), sampleIncidentDateTimes[4].getYear()),
-                new CallerNumber("87656743"), new Description("Arson reported at District 5 warehouse"))
+                new CallerNumber("87656743"), new Description("Arson reported at District 5 warehouse"),
+                Incident.Status.COMPLETE_DRAFT)
         };
-
-        // update status of sample incidents
-        sampleIncidents[0].setStatusAsSubmitted();
-        sampleIncidents[1].setStatusAsIncomplete();
-        sampleIncidents[2].setStatusAsComplete();
-        sampleIncidents[3].setStatusAsSubmitted();
-        sampleIncidents[4].setStatusAsIncomplete();
 
         return sampleIncidents;
     }
 
     private static IncidentDateTime[] getSampleIncidentDateTimes() {
         return new IncidentDateTime[] {
-            new IncidentDateTime("Dec 21, 2012, 12:00:00 PM"),
-            new IncidentDateTime("Jan 11, 2013, 12:00:00 AM"),
-            new IncidentDateTime("May 01, 2014, 1:00:00 AM"),
-            new IncidentDateTime("Jun 16, 2015, 2:00:00 PM"),
-            new IncidentDateTime("Sep 01, 2016, 9:00:00 PM")
+            new IncidentDateTime("2012-12-21T12:00:00"),
+            new IncidentDateTime("2013-01-11T00:00:00"),
+            new IncidentDateTime("2014-05-01T01:00:00"),
+            new IncidentDateTime("2015-06-16T14:00:00"),
+            new IncidentDateTime("2016-09-01T21:00:00")
         };
     }
 

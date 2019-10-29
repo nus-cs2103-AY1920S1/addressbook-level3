@@ -25,6 +25,7 @@ class JsonAdaptedIncident {
     private final String incidentId;
     private final String callerNumber;
     private final String description;
+    private final String status;
 
     /**
      * Constructs a {@code JsonAdaptedIncident} with the given incident details.
@@ -35,13 +36,15 @@ class JsonAdaptedIncident {
                               @JsonProperty("dateTime") String dateTime,
                               @JsonProperty("incidentId") String incidentId,
                               @JsonProperty("callerNumber") String callerNumber,
-                              @JsonProperty("description") String description) {
+                              @JsonProperty("description") String description,
+                              @JsonProperty("status") String status) {
         this.operator = operator;
         this.districtNum = districtNum;
         this.dateTime = dateTime;
         this.incidentId = incidentId;
         this.callerNumber = callerNumber;
         this.description = description;
+        this.status = status;
     }
 
     /**
@@ -54,6 +57,7 @@ class JsonAdaptedIncident {
         incidentId = source.getIncidentId().getId();
         callerNumber = source.getCallerNumber().toString();
         description = source.getDesc().toString();
+        status = source.getStatus().name(); // do not use toString() because it has been overridden
     }
 
     /**
@@ -104,7 +108,19 @@ class JsonAdaptedIncident {
         }
         final Description modelDescription = new Description(description);
 
+        if (status == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Incident.Status.class.getSimpleName()));
+        }
+
+        try {
+            Incident.Status.valueOf(status);
+        } catch (IllegalArgumentException e) {
+            throw new IllegalValueException(Incident.Status.MESSAGE_CONSTRAINTS);
+        }
+        final Incident.Status modelStatus = Incident.Status.valueOf(status);
+
         return new Incident(modelOperator, modelDistrict, modelDateTime, modelIncidentId, modelCallerNumber,
-                modelDescription);
+                modelDescription, modelStatus);
     }
 }
