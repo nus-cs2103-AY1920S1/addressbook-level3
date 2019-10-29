@@ -81,10 +81,10 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_filter() throws Exception {
-        String tagQuery = "foo";
+        List<String> tagQueries = Arrays.asList("foo", "bar", "baz");
         FilterCommand command = (FilterCommand) parser.parseCommand(
-                FilterCommand.COMMAND_WORD + " " + tagQuery);
-        assertEquals(new FilterCommand(new TagMatchesPredicate(tagQuery)), command);
+                FilterCommand.COMMAND_WORD + " " + tagQueries.stream().collect(Collectors.joining(" ")));
+        assertEquals(new FilterCommand(new TagMatchesPredicate(tagQueries)), command);
     }
 
     @Test

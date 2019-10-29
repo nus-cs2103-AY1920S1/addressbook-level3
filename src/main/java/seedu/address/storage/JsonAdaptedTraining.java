@@ -10,6 +10,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.JsonUtil;
+import seedu.address.logic.parser.ParserUtil;
 import seedu.address.model.date.AthletickDate;
 import seedu.address.model.person.Person;
 import seedu.address.model.training.Training;
@@ -57,17 +58,7 @@ public class JsonAdaptedTraining {
      * person to Person.
      */
     public Training toModelType() throws IllegalValueException {
-        AthletickDate date = new AthletickDate(this.date);
-
-        if (this.date == null) {
-            throw new IllegalValueException("Empty date");
-        }
-
-        /* PSEUDOCODE If the date is not valid
-        if(this.date is invalid) {
-            throw new IllegalValueException("Invalid date");
-        }
-         */
+        AthletickDate date = ParserUtil.parseDate(this.date);
 
         HashMap<Person, Boolean> tempHash = new HashMap<>();
         this.trainingAttendance.forEach((jsonPerson, hasAttended) -> {

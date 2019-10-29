@@ -2,8 +2,11 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.text.SimpleDateFormat;
+
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -11,7 +14,9 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.date.AthletickDate;
 import seedu.address.model.feature.Feature;
+import seedu.address.model.performance.Timing;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -29,6 +34,7 @@ public class ParserUtil {
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
      * trimmed.
+     *
      * @throws ParseException if the specified index is invalid (not non-zero unsigned integer).
      */
     public static Index parseIndex(String oneBasedIndex) throws ParseException {
@@ -42,12 +48,13 @@ public class ParserUtil {
     /**
      * Parses {@code oneBasedIndexes} into an {@code List<Index>} and returns it. Leading and trailing whitespaces
      * will be trimmed.
+     *
      * @throws ParseException if any index is invalid (not non-zero unsigned integer).
      */
     public static List<Index> parseIndexes(String oneBasedIndexes) throws ParseException {
         String[] indexes = oneBasedIndexes.trim().split("\\s+");
         List<Index> listOfIndexes = new ArrayList<>();
-        for (String indexString: indexes) {
+        for (String indexString : indexes) {
             Index parsedIndex = parseIndex(indexString);
             listOfIndexes.add(parsedIndex);
         }
@@ -56,10 +63,10 @@ public class ParserUtil {
 
     /**
      * Parses {@code featureName} into a {@code Feature} and returns it. Leading and trailing
-     * whitespaces will be
-     * trimmed.
+     * whitespaces will be trimmed.
+     *
      * @throws ParseException if the specified feature name is invalid (not calendar / attendance
-     * / performance).
+     *                        / performance).
      */
     public static Feature parseFeature(String featureName) throws ParseException {
         String trimmedFeatureName = featureName.trim();
@@ -68,7 +75,48 @@ public class ParserUtil {
                 | trimmedFeatureName.equals("performance"))) {
             throw new ParseException(Feature.MESSAGE_CONSTRAINTS);
         }
-        return new Feature(featureName);
+        return new Feature(trimmedFeatureName);
+    }
+
+    /**
+     * Parses {@code date} into a {@code AthletickDate} and returns it. Leading and trailing
+     * whitespaces will be trimmed.
+     *
+     * @throws ParseException if the specified date is invalid (not length of 6 or 8).
+     */
+    public static AthletickDate parseDate(String date) throws ParseException {
+        String trimmedDate = date.trim();
+        if (trimmedDate.length() == 6 || trimmedDate.length() == 8) {
+            SimpleDateFormat fullDate = new SimpleDateFormat("ddMMyyyy");
+            fullDate.setLenient(false);
+            SimpleDateFormat monthYear = new SimpleDateFormat("MMyyyy");
+            monthYear.setLenient(false);
+            try {
+                if (trimmedDate.length() == 8) {
+                    Date d = fullDate.parse(trimmedDate);
+                    int day = Integer.parseInt(new SimpleDateFormat("d").format(d));
+                    int month = Integer.parseInt(new SimpleDateFormat("M").format(d));
+                    int year = Integer.parseInt(new SimpleDateFormat("yyyy").format(d));
+                    int type = 1;
+                    String mth = new SimpleDateFormat("MMMM").format(d);
+                    return new AthletickDate(day, month, year, type, mth);
+                } else if (date.length() == 6) {
+                    Date d2 = monthYear.parse(trimmedDate);
+                    int day = Integer.parseInt("0");
+                    int month = Integer.parseInt(new SimpleDateFormat("M").format(d2));
+                    int year = Integer.parseInt(new SimpleDateFormat("yyyy").format(d2));
+                    int type = 2;
+                    String mth = new SimpleDateFormat("MMMM").format(d2);
+                    return new AthletickDate(day, month, year, type, mth);
+                }
+            } catch (java.text.ParseException pe) {
+                throw new ParseException(AthletickDate.WRONG_DATE_FORMAT + " " + AthletickDate.MESSAGE_CONSTRAINTS);
+            }
+        } else {
+            throw new ParseException(AthletickDate.MESSAGE_CONSTRAINTS);
+        }
+        // should not reach here
+        return null;
     }
 
     /**
@@ -156,6 +204,27 @@ public class ParserUtil {
             tagSet.add(parseTag(tagName));
         }
         return tagSet;
+    }
+
+    /**
+     * Parses {@code String event} into a {@code Event}
+     */
+    public static String parseEvent(String event) {
+        requireNonNull(event);
+        String trimmedEvent = event.trim().toLowerCase();
+        return trimmedEvent;
+    }
+
+    /**
+     * Parses {@code String timing} into a {@code Timing}
+     */
+    public static Timing parseTiming(String timing) throws ParseException {
+        requireNonNull(timing);
+        String trimmedTiming = timing.trim();
+        if (!Timing.isValidTiming(trimmedTiming)) {
+            throw new ParseException(Timing.MESSAGE_CONSTRAINTS);
+        }
+        return new Timing(trimmedTiming);
     }
 
     /**

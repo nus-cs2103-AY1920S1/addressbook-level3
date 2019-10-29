@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.testutil.TypicalPerformance.getTypicalPerformance;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
@@ -22,8 +23,9 @@ public class SortCommandTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalAddressBook(), new Attendance(), new UserPrefs());
-        expectedModel = new ModelManager(model.getAddressBook(), new Attendance(), new UserPrefs());
+        model = new ModelManager(getTypicalAddressBook(), getTypicalPerformance(), new Attendance(), new UserPrefs());
+        expectedModel = new ModelManager(model.getAddressBook(), model.getPerformance(),
+                new Attendance(), new UserPrefs());
     }
 
     @Test

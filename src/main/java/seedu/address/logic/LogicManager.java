@@ -47,6 +47,7 @@ public class LogicManager implements Logic {
 
         try {
             storage.saveAddressBook(model.getAddressBook());
+            storage.saveEvents(model.getPerformance());
             storage.saveAttendance(model.getAttendance());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
@@ -67,6 +68,11 @@ public class LogicManager implements Logic {
     @Override
     public Person getPerson() {
         return model.selectPerson();
+    }
+
+    @Override
+    public String getPersonAttendance() {
+        return model.getAttendance().getPersonAttendanceString(getPerson());
     }
 
     @Override

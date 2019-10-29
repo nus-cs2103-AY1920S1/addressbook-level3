@@ -61,7 +61,7 @@ public class AttendanceCommand extends Command {
 
         result.append(person.getName().toString());
         result.append(": ");
-        result.append(attendance.getPersonAttendance(person));
+        result.append(attendance.getPersonAttendanceString(person));
 
         /* This is used for attendance of all, implement later.
 

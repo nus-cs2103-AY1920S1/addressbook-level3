@@ -13,10 +13,12 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
+import seedu.address.model.Model;
+import seedu.address.model.date.AthletickDate;
 
 /**
  * UI component that is displayed when the command to view calendar is issued.
@@ -35,9 +37,13 @@ public class CalendarPanel extends UiPart<Region> {
     private int month;
     private int year;
     private Calendar calendar;
+    private Model model;
     private Image leftIcon = new Image(this.getClass().getResourceAsStream("/images/left_arrow.png"));
     private Image rightIcon = new Image(this.getClass().getResourceAsStream("/images/right_arrow.png"));
-
+    private Image trainingIcon = new Image(this.getClass().getResourceAsStream("/images"
+            + "/pink_dot.png"));
+    private Image performanceIcon = new Image(this.getClass().getResourceAsStream("/images"
+            + "/purple_dot.png"));
 
     @FXML
     private Label currYear;
@@ -57,12 +63,24 @@ public class CalendarPanel extends UiPart<Region> {
     @FXML
     private GridPane calendarGridPane;
 
-    public CalendarPanel() {
+    public CalendarPanel(Model model) {
         super(FXML);
+        this.model = model;
         setButtonImage();
         calendar = Calendar.getInstance();
         retrieveCurrentDate();
         setCurrentDateTitle();
+        initialiseSelectedDate(0);
+    }
+
+    public CalendarPanel(AthletickDate date, Model model) {
+        super(FXML);
+        this.model = model;
+        setButtonImage();
+        calendar = Calendar.getInstance();
+        retrieveCurrentDate();
+        setCurrentDateTitle();
+        retrieveProvidedDate(date);
         initialiseSelectedDate(0);
     }
 
@@ -97,6 +115,12 @@ public class CalendarPanel extends UiPart<Region> {
         String currMonth = MONTHS[month];
         currYear.setText("" + year);
         currDayAndDate.setText(day + ", " + currMonth + " " + dayOfMonth);
+    }
+
+    private void retrieveProvidedDate(AthletickDate date) {
+        month = date.getMonth() - 1;
+        year = date.getYear();
+        calendar.set(year, month, 1);
     }
 
     /**
@@ -283,7 +307,7 @@ public class CalendarPanel extends UiPart<Region> {
     }
 
     /**
-     * Creates a label to be placed inside each grid of the grid pane in the FXML.
+     * Adds date numbers and dot indicators inside each grid of the grid pane in the FXML.
      * @param numBefore Number of days from month before
      * @param numCurr Number of days from selected month
      * @param days String array containing all 42 days to be used to fill up the 7 * 6 grid pane
@@ -292,39 +316,109 @@ public class CalendarPanel extends UiPart<Region> {
         int beforeCount = numBefore;
         int currentCount = numCurr;
         int counter = 0;
-        for (int i = 0; i < 6; i++) {
-            int row = i;
-            for (int j = 0; j < 7; j++) {
-                int column = j;
-                HBox h = new HBox();
-                h.setAlignment(Pos.TOP_CENTER);
-                Label l = new Label();
-                l.setText(days[counter]);
-                l.setPadding(new Insets(5, 0, 0, 0));
-                l.setFont(new Font("System", 11));
+        for (int row = 0; row < 6; row++) {
+            for (int col = 0; col < 7; col++) {
+                String day = days[counter];
+                Label l = createLabel(day);
+                boolean havePerformanceEntry = false;
                 if (beforeCount > 0) {
                     l.setTextFill(Paint.valueOf("#999999"));
+                    havePerformanceEntry = checkPerformanceEntryExists(day, -1);
                     beforeCount--;
                 } else if (currentCount > 0) {
-                    Calendar c = Calendar.getInstance();
-                    int yr = c.get(Calendar.YEAR);
-                    int mt = c.get(Calendar.MONTH);
                     // mark today's date in red and bold, otherwise mark as normal
-                    if (Integer.valueOf(days[counter]) == dayOfMonth && yr == year && mt == month) {
+                    if (isToday(days[counter])) {
                         l.setTextFill(Paint.valueOf("#f64747"));
                         l.setStyle("-fx-font-weight:bold");
-                    } else {
-                        l.setTextFill(Paint.valueOf("#000000"));
                     }
+                    havePerformanceEntry = checkPerformanceEntryExists(day, 0);
                     currentCount--;
                 } else {
+                    havePerformanceEntry = checkPerformanceEntryExists(day, 1);
                     l.setTextFill(Paint.valueOf("#999999"));
                 }
-                h.getChildren().addAll(l);
-                calendarGridPane.add(h, column, row);
+                if (havePerformanceEntry) {
+                    ImageView performanceIndicator = createPerformanceIndicator();
+                    calendarGridPane.add(gridContent(l, performanceIndicator), col, row);
+                } else {
+                    calendarGridPane.add(gridContent(l), col, row);
+                }
                 counter++;
             }
         }
+    }
+
+    /**
+     * Checks if there is a performance entry on a particular AthletickDate constructed using the
+     * visible calendar dates.
+     * @param day Day
+     * @param monthChange Used for days shown from previous and next month that fill up the
+     *                    remaining tail and lead gaps
+     * @return boolean True if there is a performance entry on that date, false otherwise.
+     */
+    private boolean checkPerformanceEntryExists(String day, int monthChange) {
+        Calendar c = Calendar.getInstance();
+        c.set(Calendar.YEAR, year);
+        c.set(Calendar.MONTH, month);
+        c.add(Calendar.MONTH, monthChange);
+        int y = c.get(Calendar.YEAR);
+        int m = c.get(Calendar.MONTH);
+        AthletickDate ad = new AthletickDate(Integer.parseInt(day), m + 1, y, 1,
+                MONTHS[m]);
+        return model.hasPerformanceOn(ad);
+    }
+
+    /**
+     * Creates a performance dot indicator.
+     * @return ImageView with set image and desired dimensions.
+     */
+    private ImageView createPerformanceIndicator() {
+        ImageView i = new ImageView(performanceIcon);
+        i.setFitHeight(6);
+        i.setFitWidth(6);
+        return i;
+    }
+
+    /**
+     * Creates a label with the provided {@code labelText}.
+     * @param labelText String to be used as text
+     * @return Label with text set as {@code labelText}.
+     */
+    private Label createLabel(String labelText) {
+        Label l = new Label();
+        l.setText(labelText);
+        l.setPadding(new Insets(5, 0, 0, 0));
+        l.setFont(new Font("System", 11));
+        l.setTextFill(Paint.valueOf("#000000"));
+        return l;
+    }
+
+    /**
+     * Checks if date on calendar corresponds with today's date.
+     * @param day Day
+     * @return True if date is today's date, false otherwise.
+     */
+    private boolean isToday(String day) {
+        Calendar c = Calendar.getInstance();
+        int y = c.get(Calendar.YEAR);
+        int m = c.get(Calendar.MONTH);
+        return (Integer.parseInt(day) == dayOfMonth && y == year && m == month);
+    }
+
+    /**
+     * Wraps {@code items} inside a {@code VBox} and returns it.
+     * @param items Items to be wrapped
+     * @return VBox containing item.
+     */
+    private VBox gridContent(Node ... items) {
+        VBox v = new VBox();
+        v.setFillWidth(true);
+        v.setPrefHeight(Region.USE_COMPUTED_SIZE);
+        v.setAlignment(Pos.TOP_CENTER);
+        for (Node item : items) {
+            v.getChildren().add(item);
+        }
+        return v;
     }
 
     /**
@@ -332,9 +426,7 @@ public class CalendarPanel extends UiPart<Region> {
      */
     @FXML
     private void handlePrevClick() {
-        Node node = calendarGridPane.getChildren().get(0);
         calendarGridPane.getChildren().clear();
-        calendarGridPane.getChildren().add(0, node);
         initialiseSelectedDate(-1);
     }
 
@@ -343,9 +435,7 @@ public class CalendarPanel extends UiPart<Region> {
      */
     @FXML
     private void handleNextClick() {
-        Node node = calendarGridPane.getChildren().get(0);
         calendarGridPane.getChildren().clear();
-        calendarGridPane.getChildren().add(0, node);
         initialiseSelectedDate(1);
     }
 }

@@ -2,16 +2,14 @@ package seedu.address.model;
 
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import seedu.address.model.date.AthletickDate;
 import seedu.address.model.person.Person;
 import seedu.address.model.training.Training;
+
 /**
- * Represents the attendance of a person
- * Guarantees: a static list of trainings
+ * Represents the AttendanceManager of Athletick.
  */
 public class Attendance {
 
@@ -25,8 +23,14 @@ public class Attendance {
         this.trainings = trainings;
     }
 
+    /**
+     * Checks if there has been a Training at input date.
+     *
+     * @param date Date used to check for training
+     * @return boolean indicating whether there has been a Training at the date.
+     */
     public boolean hasTraining(AthletickDate date) {
-        for (Training recordedTraining: trainings) {
+        for (Training recordedTraining : trainings) {
             if (recordedTraining.getDate().equals(date)) {
                 return true;
             }
@@ -34,6 +38,11 @@ public class Attendance {
         return false;
     }
 
+    /**
+     * Add a training to the AttendanceManager.
+     *
+     * @param training Training to add.
+     */
     public void addTraining(Training training) {
         this.trainings.add(training);
         this.trainings.sort(new Comparator<Training>() {
@@ -49,7 +58,7 @@ public class Attendance {
                 } else {
                     return firstDate.getDay() - secondDate.getDay();
                 }
-             }
+            }
         });
     }
 
@@ -57,56 +66,61 @@ public class Attendance {
         return trainings;
     }
 
+    public int getPersonAttendedTrainings(Person person) {
+        int attended = 0;
+        for (Training training : trainings) {
+            if (training.hasPerson(person)) {
+                if (training.hasPersonAttended(person)) {
+                    attended++;
+                }
+            }
+        }
+        return attended;
+    }
+
+    public int getPersonAbsentTrainings(Person person) {
+        int absent = 0;
+        for (Training training : trainings) {
+            if (training.hasPerson(person)) {
+                if (!training.hasPersonAttended(person)) {
+                    absent++;
+                }
+            }
+        }
+        return absent;
+    }
+
+    public int getPersonTotalTrainings(Person person) {
+        int total = 0;
+        for (Training training : trainings) {
+            if (training.hasPerson(person)) {
+                total++;
+            }
+        }
+        return total;
+    }
+
     /**
      * Returns the attendance rate of a given person name
      */
-    public String getPersonAttendance(Person person) {
-        int attended = 0;
-        int total = 0;
-        double result;
-        for (Training training: trainings) {
-            if (!training.hasPerson(person)) {
-                continue;
-            }
-            if (training.hasPersonAttended(person)) {
-                attended++;
-            }
-            total++;
-        }
+    public String getPersonAttendanceString(Person person) {
+        int attended = getPersonAttendedTrainings(person);
+        int total = getPersonTotalTrainings(person);
         if (total == 0) { // Has not had the opportunity to go for any trainings yet
             return "No training records";
         } else {
-            result = ((double) attended / total);
+            double result = ((double) attended / total);
             return String.format("%d/%d (%.2f%%)", attended, total, result * 100);
         }
     }
-    /**
-     * Prints out the list of athlete with their attendance in the given date
-     */
-    public void selectTraining(String date) {
-        for (Training training: trainings) {
+
+    public Training getTrainingOnDate(AthletickDate date) {
+        assert (this.hasTraining(date));
+        for (Training training : trainings) {
             if (date.equals(training.getDate())) {
-                HashMap<Person, Boolean> attendanceOfTraining = training.getTrainingAttendance();
-                for (Map.Entry<Person, Boolean> set : attendanceOfTraining.entrySet()) {
-                    Person name = set.getKey();
-                    Boolean hasAttended = set.getValue();
-                    System.out.println(name + " : " + hasAttended);
-                }
-                break;
+                return training;
             }
         }
-    }
-    /**
-     * Returns a list of person who have attended the training at the given date
-     */
-    public List<Person> getAttended(String date) {
-        List<Person> listOfAttended = new ArrayList<>();
-        for (Training training: trainings) {
-            if (date.equals(training.getDate())) {
-                listOfAttended = training.getAttended();
-                break;
-            }
-        }
-        return listOfAttended;
+        return null; // With assertion, code should not reach here.
     }
 }

@@ -12,15 +12,14 @@ import seedu.address.model.feature.Feature;
 public class ViewCommand extends Command {
 
     public static final String COMMAND_WORD = "view";
-    public static final String MESSAGE_USAGE = "Usage: " + COMMAND_WORD
-            + " calendar / attendance / performance\n"
-            + "Example: " + COMMAND_WORD + " "
-            + "calendar\n";
+    public static final String MESSAGE_USAGE = "Usage: 1) " + COMMAND_WORD + " calendar 2) "
+            + COMMAND_WORD + " attendance 3) " + COMMAND_WORD + " performance\n" + "Example: "
+            + COMMAND_WORD + " " + "calendar\n";
 
-    public static final String MESSAGE_SUCCESS_1 = "Viewing your calendar";
-    public static final String MESSAGE_SUCCESS_2 = "Viewing your team's attendance";
-    public static final String MESSAGE_SUCCESS_3 = "Viewing your team's performance";
-
+    public static final String MESSAGE_SUCCESS_CALENDAR = "Viewing your calendar";
+    public static final String MESSAGE_SUCCESS_ATTENDANCE = "Viewing your team's attendance";
+    public static final String MESSAGE_SUCCESS_PERFORMANCE = "Here are your events stored Athletick.\n"
+        + "To view the performance for an event, type in the command: records EVENT_NAME";
     public static final String MESSAGE_INVALID_FEATURE = "You have provided an invalid feature.";
     private final Feature feature;
 
@@ -33,15 +32,23 @@ public class ViewCommand extends Command {
         requireNonNull(model);
         switch (feature.toString()) {
         case "calendar":
-            return new CommandResult(MESSAGE_SUCCESS_1, feature);
+            return new CommandResult(MESSAGE_SUCCESS_CALENDAR, feature, model);
         case "attendance":
-            return new CommandResult(MESSAGE_SUCCESS_2, feature);
+            return new CommandResult(MESSAGE_SUCCESS_ATTENDANCE, feature);
         case "performance":
-            return new CommandResult(MESSAGE_SUCCESS_3, feature);
+            return new CommandResult(MESSAGE_SUCCESS_PERFORMANCE, feature, model);
         default:
             throw new CommandException(MESSAGE_INVALID_FEATURE);
         }
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof ViewCommand // instanceof handles nulls
+                        && feature.equals(((ViewCommand) other).feature));
+    }
+
     @Override
     public boolean isUndoable() {
         return false;

@@ -2,45 +2,29 @@ package seedu.address.model.date;
 
 import static java.util.Objects.requireNonNull;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
-import seedu.address.logic.parser.exceptions.ParseException;
-
 /**
  * Represents date used in attendance and performance recording.
  */
 public class AthletickDate {
 
     public static final String DATE_FORMAT = "DDMMYYYY";
-    private static final String WRONG_DATE_FORMAT = "Invalid date specified.";
+    public static final String MESSAGE_CONSTRAINTS = "Please specify date in either MMYYYY or "
+            + "DDMMYYYY format.";
+    public static final String WRONG_DATE_FORMAT = "Invalid date specified.";
 
     private int day;
     private int month;
     private int year;
+    private int type;
+    private String mth;
 
-    public AthletickDate(String date) throws ParseException {
-        requireNonNull(date);
-        processDate(date);
-    }
-
-    /**
-     * Parses {@code date} and extracts the day, month and year
-     *
-     * @param date Date input by user
-     * @throws ParseException if {@code date} specified by user is invalid.
-     */
-    private void processDate(String date) throws ParseException {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("ddMMyyyy");
-        simpleDateFormat.setLenient(false);
-        try {
-            Date d = simpleDateFormat.parse(date);
-            day = Integer.parseInt(new SimpleDateFormat("d").format(d));
-            month = Integer.parseInt(new SimpleDateFormat("M").format(d));
-            year = Integer.parseInt(new SimpleDateFormat("yyyy").format(d));
-        } catch (java.text.ParseException pe) {
-            throw new ParseException(WRONG_DATE_FORMAT + "\n" + "Date must be in the format:" + DATE_FORMAT);
-        }
+    public AthletickDate(int day, int month, int year, int type, String mth) {
+        requireNonNull(mth);
+        this.day = day;
+        this.month = month;
+        this.year = year;
+        this.type = type;
+        this.mth = mth;
     }
 
     public int getDay() {
@@ -55,21 +39,51 @@ public class AthletickDate {
         return year;
     }
 
+    public int getType() {
+        return type;
+    }
+
+    public String getMth() {
+        return mth;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
+
+    /**
+     * Retrieves the suffix of this day.
+     */
+    private String getDaySuffix() {
+        if (day == 1 || day == 21 || day == 31) {
+            return "st";
+        } else if (day == 2 || day == 22) {
+            return "nd";
+        } else if (day == 3 || day == 23) {
+            return "rd";
+        } else {
+            return "th";
+        }
+    }
+
+    /**
+     * Retrieves the date in the format before it was parsed - for Json use.
+     */
+    public String getUnparsed() {
+        return String.format("%02d", day) + String.format("%02d", month) + year;
+    }
+
     @Override
     public String toString() {
-        return String.format("%d%d%d", day, month, year);
+        return day + getDaySuffix() + " " + mth + " " + year;
     }
 
     @Override
     public boolean equals(Object other) {
-        if (this == other) {
-            return true;
-        } else if (!(other instanceof AthletickDate)) {
-            return false;
-        } else {
-            AthletickDate otherDate = (AthletickDate) other;
-            return (this.day == otherDate.getDay()) && (this.month == otherDate.getMonth())
-                    && (this.year == otherDate.getYear());
-        }
+        return other == this
+                || (other instanceof AthletickDate
+                && day == ((AthletickDate) other).day
+                && month == ((AthletickDate) other).month
+                && year == ((AthletickDate) other).year);
     }
 }
