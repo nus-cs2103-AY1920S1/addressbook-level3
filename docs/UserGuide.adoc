@@ -73,35 +73,20 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 === Universal Commands
 
 ==== Accessing project dashboard page: `home` +
-This command brings you to the project dashboard page, where tasks are displayed. +
-Format: `home` +
-Calling the 'home' command will bring you to the following page:
-+
-image:: Home.png[width=790]
-+
+This brings you to the project dashboard page +
+Format: `home`
+
 ==== Accessing time management page: `calendar` +
-This command brings you to the time management page where calendar and meeting times are displayed +
-Format: `calendar` +
-Calling the 'calendar' command will bring you to the following page:
-+
-image::Calendar.png[width=790]
-+
+This brings you to the time management page where calendar and meeting times are displayed +
+Format: `calendar`
 
 ==== Accessing settings page: `settings` (Coming in v1.3) +
-This command brings you to the settings page  +
-Format: `settings` +
-Calling the 'settings' command will bring you to the following page:
-+
-image::Settings.png[width=790]
-+
+This brings you to the settings page  +
+Format: `settings`
 
 ==== View help: `help` +
-This command displays a list of possible commands that you can execute +
-Format: `help` +
-Calling the 'help' command will bring you to the following page:
-+
-image::Help.png[width=790]
-+
+Displays a list of possible commands for the user +
+Format: `help`
 
 '''
 
