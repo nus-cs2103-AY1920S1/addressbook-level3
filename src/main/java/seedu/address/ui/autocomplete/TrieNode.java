@@ -22,9 +22,9 @@ public class TrieNode {
      */
     public List<String> getPossibilities() {
         if (children.isEmpty()) {
-            return new ArrayList<String>(Collections.singleton(""));
+            return Collections.singletonList("");
         }
-        ArrayList<String> ls = new ArrayList<>();
+        List<String> ls = new ArrayList<>();
         children.forEach((k, v) -> v.getPossibilities().forEach(str -> ls.add(k + str)));
         return ls;
     }

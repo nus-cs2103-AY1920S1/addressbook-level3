@@ -4,4 +4,4 @@
 
 
 <TextArea fx:id="resultDisplay" editable="false" focusTraversable="false" styleClass="result-display"
-          xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1"/>
+          xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"/>

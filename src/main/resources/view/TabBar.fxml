@@ -7,7 +7,7 @@
 <TilePane fx:id="tabBar" alignment="CENTER" focusTraversable="true" maxWidth="-Infinity" minHeight="-Infinity"
           minWidth="-Infinity" orientation="VERTICAL" prefColumns="1" prefHeight="250.0" prefRows="1"
           prefTileHeight="50.0" prefTileWidth="50.0" prefWidth="70.0" styleClass="tab-bar" vgap="40.0"
-          xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1">
+          xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
     <children>
         <ImageView fx:id="patientsTab" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
             <image>

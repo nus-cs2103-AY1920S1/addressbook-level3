@@ -38,26 +38,18 @@ public class PersonListPanel extends UiPart<Region> {
                 int selectedIndex = msm.getSelectedIndex();
                 switch (event.getCode()) {
                 case DOWN:
-                    if (selectedIndex < size - 2) {
-                        break;
-                    }
-                    if (selectedIndex == size - 2) {
+                    if (selectedIndex == size - 1) {
+                        msm.select(0);
+                        personListView.scrollTo(0);
                         event.consume();
-                        personListView.scrollTo(size - 1);
-                        msm.select(size - 1);
-                        break;
                     }
-                    event.consume();
-                    personListView.scrollTo(0);
-                    msm.select(0);
                     break;
                 case UP:
-                    if (selectedIndex > 0) {
-                        break;
+                    if (selectedIndex == 0) {
+                        msm.select(size - 1);
+                        personListView.scrollTo(size - 1);
+                        event.consume();
                     }
-                    event.consume();
-                    personListView.scrollTo(size - 1);
-                    msm.select(size - 1);
                     break;
                 case TAB:
                 case LEFT:
@@ -105,5 +97,4 @@ public class PersonListPanel extends UiPart<Region> {
             }
         }
     }
-
 }
