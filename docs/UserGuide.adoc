@@ -21,7 +21,10 @@ By: `Team THRIFT`      Since: `Sept 2019`      Licence: `MIT`
 == Introduction
 THRIFT is for money-conscious NUS students who wish to track their spending, in order to make better informed decisions when it comes to saving money. Maintain records of your daily incoming and outgoing transactions and constantly keep track of your spending and income! THRIFT is optimized for those who prefer to work with a Command Line Interface (CLI) while still enjoying the benefits of having a Graphical User Interface (GUI). If you want a simple, no-frills finance tracker, look no further than THRIFT!
 
+This is how THRIFT looks like:
 
+.The graphical user interface for THRIFT
+image::/images/Ui_Labelled.png[]
 
 == Quick Start
 1. Ensure that you have Java `11` or above installed in your Computer.
@@ -34,84 +37,152 @@ THRIFT is for money-conscious NUS students who wish to track their spending, in 
 *   `add_income n/Bursary Award v/350`: adds an income called `Bursary Award` which incremented your budget by $`350`.
 *   `delete i/1`: deletes the 1st transaction in the current list shown in the UI.
 
-
 == Features:
 
-Command format:
-
-*   Words in `UPPER_CASE` are parameters to be supplied by the user e.g. `expense n/EXPENSE_NAME v/VALUE`.
-*   Items in square brackets `[ ]` are optional e.g. `n/EXPENSE_NAME [t/TAG]` can be used as `n/Laksa`.
-*   Items in round brackets `( )` with `|` are mandatory parameters where a selection is needed e.g. `tag (add | delete)` means you need to input either `tag add` or `tag delete`.
-*   Items with `...` after them can be used multiple times including zero times e.g. `[t/TAG] …` can be used as ` ` (i.e. 0 times), `t/Food t/Dinner` etc.
-*   Parameters can be in any order e.g. if the command specifies `n/EXPENSE_NAME v/VALUE`, `v/VALUE n/EXPENSE_NAME` will achieve the same outcome.
+Understanding this document:
+[horizontal]
+`add_expense`:: Words with a grey highlight (called a mark-up) indicates that it is a command, or a part of it.
+kbd:[Enter]:: Words styled like this indicates a keyboard button.
+UPPER_CASE:: Words in UPPER_CASE are parameters to be supplied by you. e.g. `add_expense n/EXPENSE_NAME v/VALUE`.
+NOTE: Parameters can be in any order e.g. if the command specifies `n/EXPENSE_NAME v/VALUE`, `v/VALUE n/EXPENSE_NAME` will achieve the same outcome.
+**add_expense n/Lunch v/5**:: Words in bold indicates the input that would be entered by you.
+_Debt_:: Words in italics indicate the literals used in the example commands.
+[ ] :: Words in square brackets `[ ]` are optional e.g. `n/EXPENSE_NAME [t/TAG]` can be used as `n/Laksa`.
+( | ) :: Words in round brackets `( )` with `|` are mandatory parameters where a selection is required e.g. `tag (add | delete)` means you need to input either `tag add` or `tag delete`.
+... ::   Parameters with `...` after them can be used as often as zero to multiple times. e.g. `[t/TAG] …` can be used as ` ` (i.e. 0 times), `t/Food t/Dinner` etc.
 
 [[BudgetTag]]
 === Setting monthly budget: `budget`
 
-Format: `budget v/VALUE d/MONTH`, where `MONTH` are digits in `MM/YYYY`.
+You are able to set a budget for each month in THRIFT. This allows THRIFT to display your remaining balance for the month and lets you keep your spending in check.
 
-Example:
+NOTE: It is not compulsory to set a budget for each month and you can use THRIFT normally without setting budgets.
 
-*   `budget v/1000 d/10/2019`
+==== Command syntax:
+`budget v/VALUE d/MONTH`
 
-Expected output:
+****
+* Sets your budget for the month specified in `MONTH` as `VALUE`.
+* `VALUE` is any positive integer below one billion.
+* `MONTH` is in `MM/YYYY` and `MM` is between `01-12`.
+****
 
-*   `New budget: +
-Amount: $1,000.00 +
-Month: 10/2019`
+==== Example usage:
 
+You wish to set your budget for the month _October 2019_ as $_2000_:
+
+. Your current budget for the month _October 2019_ is $_0_.
++
+image::/images/add-budget/Step1.png[,550]
+
+. You type: **budget v/2000 d/10/2019** in the command box and press kbd:[Enter].
++
+image::/images/add-budget/Step2.png[,550]
+
+. You should see in the result box that your budget for _October 2019_ has been set to $_2000_.
++
+image::/images/add-budget/Step3.png[,550]
+
+NOTE: If you are changing your budget for the current displayed month, you should see the changes on the GUI immediately.
 
 [[ExpenseTag]]
 === Adding an expense: `add_expense`
 
-Format: `add_expense n/EXPENSE_NAME v/VALUE [r/REMARKS] [t/TAG]...`
+One of the most important features of THRIFT is to allow you to track your expenses by adding them into THRIFT.
+
+==== Command syntax:
+`add_expense n/EXPENSE_NAME v/VALUE [r/REMARK] [t/TAG]...`
+
+****
+* Adds an expense with:
+** the name `EXPENSE_NAME`
+** the value `VALUE`
+** an optional remark `REMARK`
+** one or more optional `TAG`
+* `VALUE` is any positive integer below one billion.
+* `TAG` does not have spaces nor special characters.
+****
 
 TIP: The default currency is in Singapore Dollars (SGD). You are recommended to `convert` foreign currencies to SGD before adding the value as the `VALUE`.
 
-Examples:
+==== Example usage:
+You had the famous Laksa from "The Deck" for lunch which cost $10.50 and you wish to track it in THRIFT:
 
-*   `add_expense n/Laksa v/10.50 t/Lunch t/Food`
-*   `add_expense n/Travel v/53 r/Went to Johor Bahru t/Travel`
+. You have a remaining balance of $2000 at the beginning.
++
+image::add-transaction/expense/Step1.png[,550]
 
-Expected output:
+. You type: **add_expense n/Laksa v/10.50 r/Delicious! From "The Deck" t/Lunch** into the command box and press kbd:[Enter].
++
+NOTE: The transaction date is automatically populated based on your system time.
++
+image::add-transaction/expense/Step2.png[,550]
 
-*   `New expense added: [-] Laksa ($10.50) Date: 12/10/2019 Remarks:  Tags: [Lunch][Food]`
-*   `New expense added: [-] Travel ($53.00) Date: 12/10/2019 Remarks: Went to Johor Bahru Tags: [Travel]`
-
+. You should see that your Laksa lunch has been added into THRIFT with the details that you specified, as well as your new balance.
++
+image::add-transaction/expense/Step3.png[,550]
 
 [[IncomeTag]]
 === Adding an income: `add_income`
+Being able to add an income transaction is just as important as tracking your expenses. THRIFT is able to track all of your incoming transactions as well.
 
-Format: `add_income n/INCOME_NAME v/VALUE [r/REMARKS] [t/TAG]...`
+==== Command syntax:
+`add_income n/INCOME_NAME v/VALUE [r/REMARK] [t/TAG]...`
 
-Examples:
+****
+* Adds an income with:
+** the name `INCOME_NAME`
+** the value `VALUE`
+** an optional remark `REMARK`
+** one or more optional `TAG`
+* `VALUE` is any positive integer below one billion.
+* `TAG` does not have spaces nor special characters.
+****
 
-*   `add_income n/Allowance v/1000 t/Monthly`
-*   `add_income n/Bursary v/500 r/Did well in previous semester. t/Award`
+==== Example usage:
+You studied extremely hard during the year and you were awarded a bursary incentive of $500. You wish to add it to THRIFT to update your remaining balance with this reward:
 
-Expected output:
+. You have a balance of $2000 at the beginning.
++
+image::/images/add-transaction/income/Step1.png[,550]
 
-*   `New income added: [+] Allowance ($1,000.00) Date: 12/10/2019 Remarks:  Tags: [Monthly]`
-*   `New income added: [+] Bursary ($500.00) Date: 12/10/2019 Remarks: Did well in previous semester. Tags: [Award]`
+. You type: **add_income n/Bursary v/500 r/For studying hard in the year t/Award** into the command box and press kbd:[Enter].
++
+NOTE: The transaction date is automatically populated based on your system time.
++
+image::add-transaction/income/Step2.png[,550]
+
+. You should see that your bursary has been added into THRIFT with the details that you specified, as well as your new balance.
++
+image::add-transaction/income/Step3.png[,550]
+
 
 [[DeleteTag]]
 === Deleting a transaction: `delete`
+If you find that a transaction is no longer relevant to you, you may delete it from THRIFT.
 
-Format: `delete i/INDEX`
+==== Command syntax:
+`delete i/INDEX`
 
 ****
-* Deletes the transaction at the specified `INDEX`.
-* `INDEX` refers to the index number currently shown in the UI (after filtering, if any).
+* Deletes the transaction with the specified `INDEX` as shown on the transaction list GUI.
 * `INDEX` *must be a positive integer* 1, 2, 3, ...
 ****
 
-Example:
+==== Example usage:
+Assume that you wish to delete a bursary income transaction from your transaction list because the bursary was mistakenly awarded to you.
 
-*   `delete i/1`
+. This transaction is currently the first transaction in your transaction list.
++
+image::/images/delete/Step1.png[,550]
 
-Expected output:
+. You type: **delete i/1** and press kbd:[Enter].
++
+image::/images/delete/Step2.png[,550]
 
-*   `Deleted Transaction: [-] Laksa ($10.50) Date: 12/10/2019 Remarks:  Tags: [Lunch][Food]`
+. You should see that the bursary transaction has been deleted from THRIFT and your balance has been updated accordingly.
++
+image::/images/delete/Step3.png[,550]
 
 // tag::update[]
 [[UpdateTag]]
@@ -299,6 +370,33 @@ Expected output:
 
 * Adds the expense spent on Laksa back to THRIFT.
 
+[[FindTag]]
+=== Finding transactions with keywords: `find`
+THRIFT lets you find and list all transactions whose `REMARK` or `DESCRIPTION` contain your specified search term.
+
+==== Command syntax:
+`find SEARCH_WORD [SEARCH_WORD]`
+
+****
+* Multiple `SEARCH_WORD` can be defined, and transactions that matches any of a `SEARCH_WORD` will be listed.
+****
+
+==== Example usage:
+Imagine that you wish to find all of your transactions that contain the words _The Deck_ because you would like to see
+how often you visit there.
+
+. Your transaction list already contains a few transactions with meals that you ate at _The Deck_:
++
+image::/images/find/Step1.png[,550]
+
+. You want to refine your search to only show transactions that contain the keywords _The Deck_. You type:
+**find The Deck** and press kbd:[Enter]:
++
+image::/images/find/Step2.png[,550]
+
+. Your transaction list will now only contain transactions containing the words _The_ or _Deck_.
++
+image::/images/find/Step3.png[,550]
 
 [[ListTag]]
 === List expenses for the month: `list`

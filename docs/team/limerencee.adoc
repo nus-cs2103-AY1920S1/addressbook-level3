@@ -14,7 +14,7 @@ their spending in check. It allows its users to set a budget for each month and 
 not to overspend as they will constantly see their remaining balance for that month. The following image is what `**THRIFT**` looks like:
 
 .Main window of `**THRIFT**` which shows the user's balance as well as transactions
-image::../images/Ui.png[,600]
+image::../images/Ui.png[,550]
 
 === 1.3 Background
 `**THRIFT**` is morphed from the original https://github.com/nus-cs2103-AY1920S1/addressbook-level3[AddressBook-Level3] application which allows users to add contacts,
@@ -28,16 +28,17 @@ My team members took on the roles of "User Experience Developer", "Process Analy
 We all had important and major roles to play in order to ensure that `**THRIFT**` is successful.
 
 === 1.4 Legend
-There are various text styles used in this portfolio and its usages are explained below:
+There are various text styles used in this portfolio and its usages are explained below.
+
+NOTE: This symbol denotes information that you may want to take note of when using the application.
+
+TIP: This symbol denotes a tip which you may find useful when using the application.
+
+As our User Guide and Developer Guide are formatted differently, you should refer to their respective formatting guide below:
+
 [horizontal]
-**add_expense n/Laksa v/4**:: Bold text indicates user input.
-
-_/src/java/thrift/logic/Logic.java_:: Italic text indicates that it is a file path.
-
-`currentMonth`:: Text with grey highlight (called a mark-up) indicates that it is a method/variable name.
-
-`**THRIFT**`:: Bold text with mark-up indicates a class/package name.
-
+User Guide: :: <<../UserGuide#features, Formatting>> of the User Guide
+Developer Guide: :: <<../DeveloperGuide#about-the-document, Formatting>> of the Developer Guide
 
 == 2. Summary of Contributions
 This section provides a summary on the contributions I made to `**THRIFT**`.
@@ -77,6 +78,65 @@ This makes the **delete** command syntax consistent with the **update** command.
 
 == 3. Contributions to the User Guide
 The following sections illustrate my ability in writing documentation targeting end-users which guides them in using the various features of the application.
+
+=== Setting monthly budget: `budget`
+
+You are able to set a budget for each month in THRIFT. This allows THRIFT to display your remaining balance for the month and lets you keep your spending in check.
+
+NOTE: It is not compulsory to set a budget for each month and you can use THRIFT normally without setting budgets.
+
+==== Command syntax:
+`budget v/VALUE d/MONTH`
+
+****
+* Sets your budget for the month specified in `MONTH` as `VALUE`.
+* `VALUE` is any positive integer below one billion.
+* `MONTH` is in `MM/YYYY` and `MM` is between `01-12`.
+****
+
+==== Example usage:
+
+You wish to set your budget for the month _October 2019_ as $_2000_:
+
+. Your current budget for the month _October 2019_ is $_0_.
++
+image::../images/add-budget/Step1.png[,550]
+
+. You type: **budget v/2000 d/10/2019** in the command box and press kbd:[Enter].
++
+image::../images/add-budget/Step2.png[,550]
+
+. You should see in the result box that your budget for _October 2019_ has been set to $_2000_.
++
+image::../images/add-budget/Step3.png[,550]
+
+NOTE: If you are changing your budget for the current displayed month, you should see the changes on the GUI immediately.
+
+=== Deleting a transaction: `delete`
+If you find that a transaction is no longer relevant to you, you may delete it from THRIFT.
+
+==== Command syntax:
+`delete i/INDEX`
+
+****
+* Deletes the transaction with the specified `INDEX` as shown on the transaction list GUI.
+* `INDEX` *must be a positive integer* 1, 2, 3, ...
+****
+
+==== Example usage:
+Assume that you wish to delete a bursary income transaction from your transaction list because the bursary was mistakenly awarded to you.
+
+. This transaction is currently the first transaction in your transaction list.
++
+image::../images/delete/Step1.png[,550]
+
+. You type: **delete i/1** and press kbd:[Enter].
++
+image::../images/delete/Step2.png[,550]
+
+. You should see that the bursary transaction has been deleted from THRIFT and your balance has been updated accordingly.
++
+image::../images/delete/Step3.png[,550]
 
 == 4. Contributions to the Developer Guide
 The following sections illustrate my ability in writing documentation to provide developers insights on the design of the application. It also showcases the technical depth of my contributions to the project.
