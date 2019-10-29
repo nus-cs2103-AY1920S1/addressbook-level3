@@ -72,7 +72,6 @@ Options: +
 +
 Example: +
 `expense edit 2 -d “buy a math book”` +
-
 Edit the expense at index 2  with new description of: “buy a math book” +
 
 {nbsp} +
@@ -107,40 +106,55 @@ Displays below expenses (for example) in the GUI: +
 === Tagging expenses: `tag`
 
 . _Adding a tag: tag add_ +
-Adds a tag to the expense at the specified index. +
+Adds your input tag/s to the expense at the index you have specified. +
 {nbsp} +
 Usage:
 
- tag add [INDEX] [TAG]
+ tag add [INDEX] [TAG] [TAG…]
+
 +
-Example: +
-`tag add 2 “monthly bills”` +
-Adds the tag “monthly bills” to the expense at index 2. +
+Options: +
+
+* t/ : Specifies the name of the tag/s you want to add to the expense.(REQUIRED) +
 {nbsp} +
 
-. _Deleting a tag: tag rm_ +
-Deletes a tag from the expense of the specified index. +
++
+Example: +
+`tag add 2 t/monthlybills t/electricity` +
+Adds the tags “monthly bills” and "electricity" to the expense at index 2. +
+{nbsp} +
+
+
+. _Removing a tag: tag rm_ +
+Deletes your input tag/s from the expense at the index you have specified. +
 {nbsp} +
 Usage:
 
- tag rm [INDEX] [TAG]
+ tag rm [INDEX] [TAG] [TAG…]
+
+* t/ : Specifies the name of the tag/s you want to remove from the expense.(REQUIRED) +
+{nbsp} +
 
 +
 Example: +
-`tag rm 2 “monthly bills”` +
-Deletes the tag “monthly bills” from the expense at index 2. +
+`tag rm 2 t/monthly bills t/electricity` +
+Removes the tags “monthly bills” and "electricity" from the expense at index 2. +
 {nbsp} +
 
 . _Filtering by tag: tag filter_ +
-Filters expenses by the specified tag/s. +
+Filters expenses by your input tag/s. +
 {nbsp} +
 Usage:
 
  tag filter [TAG] [TAG…]
+
+* t/ : Specifies name of the tag/s you want to filter expenses with.(REQUIRED) +
+{nbsp} +
+
 +
 Example: +
-+tag filter “home” “monthly bills”+ +
-Lists out all the expenses that contains the  tags “home” and “monthly bills” +
+`tag filter t/home t/monthly bills` +
+Lists out all the expenses that contains the tags “home” or “monthly bills” +
 {nbsp} +
 
 . _Listing out all the tags: tag list_ +
@@ -195,8 +209,8 @@ Usage:
 === Archiving past expenses: `archive`
 
 . _Adding a record to an archive: archive add_ +
-Transfers the expense at the specified index to the specified archive. +
-If the specified archive does not exist, then the new archive is created before the expense is added. +
+Transfers the expense at the specified index to your specified archive. +
+If archive you entered does not exist, then the new archive is created before the expense is added. +
 {nbsp} +
 Usage:
 
@@ -223,7 +237,7 @@ Usage:
 +
 {nbsp} +
 . _Listing records in a particular archive: archive list_ +
-Displays the list of records in the specified archive +
+Displays the list of records in your specified archive +
 {nbsp} +
 Usage:
 
@@ -235,7 +249,7 @@ Lists out all the records in the “2018 expenses” archive +
 {nbsp} +
 
 . _Deleting an archived record: archive delete_ +
-Deletes the record at the specified index from a specified archive. +
+Deletes the record at the specified index from your specified archive. +
 If the archive record deleted was the last record in the archive, the empty archive will be deleted. +
 {nbsp} +
 Usage:
@@ -254,7 +268,7 @@ Deletes the record at the 5th index in the “2018 expenses” archive +
 {nbsp} +
 
 . _Revert/unarchive an archived record: archive revert_ +
-Unarchives the record at the specified index from a specified archive, transferring it back to current list of expenses. +
+Unarchives the record at the specified index from your specified archive, transferring it back to your current list of expenses. +
 If the archive record reverted was the last record in the archive, the empty archive will be deleted. +
 {nbsp} +
 Usage:

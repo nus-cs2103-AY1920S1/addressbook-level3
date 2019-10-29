@@ -23,8 +23,10 @@ public class AddArchiveCommand extends ArchiveCommand {
     public static final String COMMAND_WORD = "add";
 
     public static final String MESSAGE_USAGE = ArchiveCommand.COMMAND_WORD + " " + COMMAND_WORD
-            + ": Creates an archive of the given name and\n"
-            + "Adds the expense identified by the index number used in the displayed expense list to the archive\n"
+            + ": Adds the expense identified by the index number used in the displayed expense list"
+            + " to the given archive.\n"
+            + "Given archive name must be prefixed by [" + PREFIX_ARCHIVE + "].\n"
+            + "If the given archive name does not exist, a new archive will be created.\n"
             + "Example: " + ArchiveCommand.COMMAND_WORD + " " + COMMAND_WORD + " 2 " + PREFIX_ARCHIVE + "Groceries";
 
     public static final String MESSAGE_SUCCESS_EXISTING_ARCHIVE = "[%1$s] added to [%2$s] archive";

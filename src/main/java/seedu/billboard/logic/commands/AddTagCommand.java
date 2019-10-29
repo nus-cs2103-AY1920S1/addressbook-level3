@@ -24,7 +24,7 @@ public class AddTagCommand extends TagCommand {
 
     public static final String MESSAGE_USAGE = TagCommand.COMMAND_WORD + " " + COMMAND_WORD
             + ": Adds tag(s) to the expense identified "
-            + "by the index number used in the last expense listing. "
+            + "by the index number used in the last expense listing. \n"
             + "Parameters: INDEX (must be a positive integer) "
             + PREFIX_TAG + "[TAG]\n"
             + "Example: " + TagCommand.COMMAND_WORD + " " + COMMAND_WORD + " 1 "
