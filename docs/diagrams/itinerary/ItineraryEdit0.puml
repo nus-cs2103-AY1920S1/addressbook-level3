@@ -1,0 +1,28 @@
+@startuml
+!include ../style.puml
+skinparam ClassFontColor #000000
+skinparam ClassBorderColor #000000
+
+title Initial state
+
+package States {
+    class EditTripDescriptor0 as ":EditTripDescriptor"
+    class PageStatus0 as "p0:PageStatus"
+    PageStatus0 --> EditTripDescriptor0
+    class EditTripDescriptor1 as ":EditTripDescriptor"
+    class EditTripDescriptor2 as ":EditTripDescriptor"
+
+    class PageStatus1 as "p1:PageStatus"
+    PageStatus1 --> EditTripDescriptor1
+    PageStatus1 --> EditTripDescriptor2
+}
+
+
+hide EditTripDescriptor0
+hide EditTripDescriptor1
+hide EditTripDescriptor2
+hide PageStatus1
+
+class Pointer as "Current State" #FFFFF
+Pointer -up-> PageStatus0
+@end

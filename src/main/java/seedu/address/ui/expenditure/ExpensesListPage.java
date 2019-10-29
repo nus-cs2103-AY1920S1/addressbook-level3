@@ -43,7 +43,8 @@ public class ExpensesListPage extends ExpensesPage {
         List<Node> expenditureCards = IntStream.range(0, expenses.size())
                 .mapToObj(i -> Index.fromZeroBased(i))
                 .map(index -> {
-                    ExpenditureCard expenditureCard = new ExpenditureCard(expenses.get(index.getZeroBased()), index);
+                    ExpenditureCard expenditureCard = new ExpenditureCard(expenses.get(index.getZeroBased()),
+                            index, model);
                     return expenditureCard.getRoot();
                 }).collect(Collectors.toList());
         expenditureCardsContainer.getChildren().addAll(expenditureCards);

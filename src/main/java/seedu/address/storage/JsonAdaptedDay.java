@@ -134,11 +134,6 @@ public class JsonAdaptedDay {
 
         final Optional<Description> modelDescription;
 
-        if (description == null) {
-            throw new IllegalValueException(
-                    String.format(MISSING_FIELD_MESSAGE_FORMAT, Description.class.getSimpleName()));
-        }
-
         if (description.isPresent()) {
             if (!Description.isValidDescription(description.get())) {
                 throw new IllegalValueException(
@@ -152,11 +147,7 @@ public class JsonAdaptedDay {
         //No check for TotalBudget (defaults endTime 0)
         final Optional<Budget> modelTotalBudget;
 
-        if (totalBudget.isPresent()) {
-            modelTotalBudget = Optional.of(new Budget(totalBudget.get()));
-        } else {
-            modelTotalBudget = Optional.empty();
-        }
+        modelTotalBudget = totalBudget.map(Budget::new);
 
         EventList modelEventList = new EventList();
         modelEventList.set(events);

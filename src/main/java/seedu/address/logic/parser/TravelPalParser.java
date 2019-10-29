@@ -11,6 +11,7 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.common.HelpCommand;
 import seedu.address.logic.parser.bookings.BookingsParser;
 import seedu.address.logic.parser.common.CommonParser;
+import seedu.address.logic.parser.currency.EditCurrencyParser;
 import seedu.address.logic.parser.diary.DiaryParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.parser.expense.DaysViewParser;
@@ -91,7 +92,7 @@ public class TravelPalParser {
         case OVERALL_VIEW:
             return parseNavbarPageCommand(commandWord, arguments, new DayViewParser(), NavbarCommand.DAYS);
         case EVENT_PAGE:
-            return new EventViewParser().parse(commandWord, arguments);
+            return parseNavbarPageCommand(commandWord, arguments, new EventViewParser());
         case PRETRIP_INVENTORY:
             return parseNavbarPageCommand(commandWord, arguments, new InventoryViewParser(), NavbarCommand.INVENTORY);
         case EXPENSE_MANAGER:
@@ -100,6 +101,8 @@ public class TravelPalParser {
             return parseNavbarPageCommand(commandWord, arguments, new DaysViewParser(), null);
         case ADD_EXPENDITURE:
             return new EditExpenditureParser().parse(commandWord, arguments);
+        case ADD_CURRENCY:
+            return new EditCurrencyParser().parse(commandWord, arguments);
         case DIARY:
             return parseNavbarPageCommand(commandWord, arguments, new DiaryParser(), NavbarCommand.DIARY);
         case BOOKINGS:
@@ -134,4 +137,27 @@ public class TravelPalParser {
             return altPageParser.parse(commandWord, arguments);
         }
     }
+
+    /**
+     * Parser for navigation bar for pages not navigable to by the bar and does not require a
+     * precluding page.
+     *
+     * @param commandWord The String command word to parse.
+     * @param arguments The String arguments to parse.
+     * @param altPageParser The alternative {@link PageParser} to use if NavbarViewParser fails.
+     * @return The parsed {@link Command}.
+     * @throws ParseException If the alternate page parser fails to parse the given commandWord or arguments.
+     */
+    private Command parseNavbarPageCommand(String commandWord, String arguments,
+                                           PageParser altPageParser) throws ParseException {
+        try {
+            NavbarViewParser navbarViewParser = new NavbarViewParser();
+            Command command = navbarViewParser.parse(commandWord, arguments);
+            return command;
+        } catch (ParseException ex) {
+            logger.info("User command executed was not a navbar command.");
+            return altPageParser.parse(commandWord, arguments);
+        }
+    }
+
 }
