@@ -610,7 +610,18 @@ public class ItemModelManager implements ItemModel {
     private void toggleOnPriorityMode() {
         systemToggle = false;
         this.priorityMode.setValue(true);
-        sortedTask = new PriorityQueue<>(TaskList.COMPARATOR);
+
+        sortedTask = new PriorityQueue<Item>((item1, item2) -> {
+            int result;
+            if ((result = TaskList.COMPARATOR.compare(item1, item2)) != 0) {
+                return result;
+            } else {
+                int index1 = taskList.indexOf(item1);
+                int index2 = taskList.indexOf(item2);
+                return index1 > index2 ? 1 : -1;
+            }
+        });
+
         for (int i = 0; i < taskList.size(); i++) {
             Item item = taskList.get(i);
             if (!item.getTask().get().isComplete()) {
