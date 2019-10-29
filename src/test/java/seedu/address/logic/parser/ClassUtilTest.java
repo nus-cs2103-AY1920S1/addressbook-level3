@@ -1,13 +1,15 @@
 package seedu.address.logic.parser;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import seedu.address.logic.commands.switches.HomeCommand;
-import seedu.address.logic.commands.switches.OpenCommand;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import seedu.address.logic.commands.switches.HomeCommand;
+import seedu.address.logic.commands.switches.OpenCommand;
+
 
 class ClassUtilTest {
 

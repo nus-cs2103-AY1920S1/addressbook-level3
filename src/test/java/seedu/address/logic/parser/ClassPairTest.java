@@ -1,10 +1,11 @@
 package seedu.address.logic.parser;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import seedu.address.logic.commands.switches.OpenCommand;
 
-import static org.junit.jupiter.api.Assertions.*;
+import seedu.address.logic.commands.switches.OpenCommand;
 
 class ClassPairTest {
 

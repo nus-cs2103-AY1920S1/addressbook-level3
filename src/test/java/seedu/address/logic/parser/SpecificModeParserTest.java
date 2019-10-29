@@ -1,18 +1,16 @@
 package seedu.address.logic.parser;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.HomeCommand;
-import seedu.address.logic.commands.switches.OpenCommand;
-import seedu.address.logic.commands.switches.StartCommand;
-import seedu.address.logic.commands.switches.SwitchToSettingsCommand;
-import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.logic.util.AutoFillAction;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.switches.OpenCommand;
+import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.logic.util.AutoFillAction;
 
 class SpecificModeParserTest {
 
@@ -33,7 +31,7 @@ class SpecificModeParserTest {
     void parseCommand() {
         try {
             Command out = specificModeParser.parseCommand("open");
-            assertTrue(out instanceof  OpenCommand);
+            assertTrue(out instanceof OpenCommand);
         } catch (ParseException e) {
             System.err.println(e);
         }
