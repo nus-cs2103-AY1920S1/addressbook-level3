@@ -9,6 +9,7 @@ import java.util.Optional;
 import budgetbuddy.commons.core.index.Index;
 import budgetbuddy.commons.util.CollectionUtil;
 import budgetbuddy.logic.commands.Command;
+import budgetbuddy.logic.commands.CommandCategory;
 import budgetbuddy.logic.commands.CommandResult;
 import budgetbuddy.logic.commands.exceptions.CommandException;
 import budgetbuddy.model.AccountsManager;
@@ -62,7 +63,7 @@ public class AccountEditCommand extends Command {
             throw new CommandException(MESSAGE_FAILURE);
         }
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, editedAccount), null);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, editedAccount), CommandCategory.ACCOUNT);
     }
 
     /**

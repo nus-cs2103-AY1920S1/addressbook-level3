@@ -11,6 +11,7 @@ import static budgetbuddy.logic.parser.CliSyntax.PREFIX_RECURRENCE;
 import static java.util.Objects.requireNonNull;
 
 import budgetbuddy.logic.commands.Command;
+import budgetbuddy.logic.commands.CommandCategory;
 import budgetbuddy.logic.commands.CommandResult;
 import budgetbuddy.logic.commands.exceptions.CommandException;
 import budgetbuddy.logic.rules.RuleProcessor;
@@ -66,6 +67,6 @@ public class TransactionAddCommand extends Command {
         }
         RuleProcessor.executeRules(model, toAdd);
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), null);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), CommandCategory.TRANSACTION);
     }
 }

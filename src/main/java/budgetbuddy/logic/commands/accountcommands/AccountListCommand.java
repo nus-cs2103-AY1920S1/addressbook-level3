@@ -3,6 +3,7 @@ package budgetbuddy.logic.commands.accountcommands;
 import static budgetbuddy.commons.util.CollectionUtil.requireAllNonNull;
 
 import budgetbuddy.logic.commands.Command;
+import budgetbuddy.logic.commands.CommandCategory;
 import budgetbuddy.logic.commands.CommandResult;
 import budgetbuddy.model.Model;
 import budgetbuddy.model.account.Account;
@@ -31,6 +32,6 @@ public class AccountListCommand extends Command {
             builder.append(i + 1).append(". ").append(account.getName().toString()).append("\n");
         }
 
-        return new CommandResult(builder.toString(), null);
+        return new CommandResult(builder.toString(), CommandCategory.ACCOUNT);
     }
 }

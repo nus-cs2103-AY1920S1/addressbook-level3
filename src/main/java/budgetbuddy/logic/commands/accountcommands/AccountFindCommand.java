@@ -4,6 +4,7 @@ import static budgetbuddy.commons.util.CollectionUtil.requireAllNonNull;
 
 import budgetbuddy.commons.core.Messages;
 import budgetbuddy.logic.commands.Command;
+import budgetbuddy.logic.commands.CommandCategory;
 import budgetbuddy.logic.commands.CommandResult;
 import budgetbuddy.model.AccountsManager;
 import budgetbuddy.model.Model;
@@ -36,7 +37,7 @@ public class AccountFindCommand extends Command {
         accountsManager.updateFilteredAccountList(predicate);
         return new CommandResult(
                 String.format(Messages.MESSAGE_ACCOUNTS_LISTED_OVERVIEW,
-                        accountsManager.getFilteredAccountList().size()), null);
+                        accountsManager.getFilteredAccountList().size()), CommandCategory.ACCOUNT);
     }
 
     @Override

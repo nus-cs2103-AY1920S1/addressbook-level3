@@ -6,6 +6,7 @@ import static budgetbuddy.logic.parser.CliSyntax.PREFIX_NAME;
 import static java.util.Objects.requireNonNull;
 
 import budgetbuddy.logic.commands.Command;
+import budgetbuddy.logic.commands.CommandCategory;
 import budgetbuddy.logic.commands.CommandResult;
 import budgetbuddy.model.Model;
 import budgetbuddy.model.account.Account;
@@ -39,7 +40,7 @@ public class AccountAddCommand extends Command {
         requireAllNonNull(model, model.getAccountsManager());
 
         model.getAccountsManager().addAccount(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), null);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), CommandCategory.ACCOUNT);
     }
 
     @Override

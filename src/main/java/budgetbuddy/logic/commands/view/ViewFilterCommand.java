@@ -8,6 +8,7 @@ import static java.util.Objects.requireNonNull;
 
 import budgetbuddy.commons.core.Messages;
 import budgetbuddy.logic.commands.Command;
+import budgetbuddy.logic.commands.CommandCategory;
 import budgetbuddy.logic.commands.CommandResult;
 import budgetbuddy.model.Model;
 import budgetbuddy.model.transaction.TransactionMatchesConditionsPredicate;
@@ -46,7 +47,7 @@ public class ViewFilterCommand extends Command {
         model.updateFilteredTransactionList(predicate);
         return new CommandResult(
                 String.format(Messages.MESSAGE_TRANSACTIONS_LISTED_OVERVIEW,
-                        model.getFilteredTransactions().size()), null);
+                        model.getFilteredTransactions().size()), CommandCategory.TRANSACTION);
     }
 
     @Override

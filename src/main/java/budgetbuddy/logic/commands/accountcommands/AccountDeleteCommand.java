@@ -8,6 +8,7 @@ import java.util.List;
 import budgetbuddy.commons.core.Messages;
 import budgetbuddy.commons.core.index.Index;
 import budgetbuddy.logic.commands.Command;
+import budgetbuddy.logic.commands.CommandCategory;
 import budgetbuddy.logic.commands.CommandResult;
 import budgetbuddy.logic.commands.exceptions.CommandException;
 import budgetbuddy.model.AccountsManager;
@@ -50,7 +51,8 @@ public class AccountDeleteCommand extends Command {
         Account accountToDelete = lastShownList.get(targetIndex.getZeroBased());
         accountsManager.deleteAccount(accountToDelete);
 
-        return new CommandResult(String.format(MESSAGE_DELETE_ACCOUNT_SUCCESS, accountToDelete), null);
+        return new CommandResult(String.format(MESSAGE_DELETE_ACCOUNT_SUCCESS, accountToDelete),
+                CommandCategory.ACCOUNT);
     }
 
     @Override
