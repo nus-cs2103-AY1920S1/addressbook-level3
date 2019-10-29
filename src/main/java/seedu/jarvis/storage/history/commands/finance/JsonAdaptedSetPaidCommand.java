@@ -8,11 +8,12 @@ import seedu.jarvis.logic.commands.Command;
 import seedu.jarvis.logic.commands.finance.SetPaidCommand;
 import seedu.jarvis.storage.JsonAdapter;
 import seedu.jarvis.storage.finance.JsonAdaptedPurchase;
+import seedu.jarvis.storage.history.commands.JsonAdaptedCommand;
 
 /**
  * Jackson-friendly version of {@link SetPaidCommand}.
  */
-public class JsonAdaptedSetPaidCommand implements JsonAdapter<Command> {
+public class JsonAdaptedSetPaidCommand extends JsonAdaptedCommand implements JsonAdapter<Command> {
 
     public static final String MESSAGE_INVALID_PURCHASE = "Invalid purchase.";
 

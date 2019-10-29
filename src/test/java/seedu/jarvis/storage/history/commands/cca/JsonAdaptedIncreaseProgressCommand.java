@@ -9,11 +9,12 @@ import seedu.jarvis.logic.commands.cca.IncreaseProgressCommand;
 import seedu.jarvis.storage.JsonAdapter;
 import seedu.jarvis.storage.cca.JsonAdaptedCca;
 import seedu.jarvis.storage.commons.core.JsonAdaptedIndex;
+import seedu.jarvis.storage.history.commands.JsonAdaptedCommand;
 
 /**
  * Jackson-friendly version of {@link IncreaseProgressCommand}
  */
-public class JsonAdaptedIncreaseProgressCommand implements JsonAdapter<Command> {
+public class JsonAdaptedIncreaseProgressCommand extends JsonAdaptedCommand implements JsonAdapter<Command> {
 
     private final JsonAdaptedIndex index;
     private final JsonAdaptedCca cca;

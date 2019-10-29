@@ -13,11 +13,12 @@ import seedu.jarvis.logic.commands.course.AddCourseCommand;
 import seedu.jarvis.model.course.Course;
 import seedu.jarvis.storage.JsonAdapter;
 import seedu.jarvis.storage.course.JsonAdaptedCourse;
+import seedu.jarvis.storage.history.commands.JsonAdaptedCommand;
 
 /**
  * Jackson-friendly version of {@link AddCourseCommand}.
  */
-public class JsonAdaptedAddCourseCommand implements JsonAdapter<Command> {
+public class JsonAdaptedAddCourseCommand extends JsonAdaptedCommand implements JsonAdapter<Command> {
 
     private final List<JsonAdaptedCourse> courses = new ArrayList<>();
 

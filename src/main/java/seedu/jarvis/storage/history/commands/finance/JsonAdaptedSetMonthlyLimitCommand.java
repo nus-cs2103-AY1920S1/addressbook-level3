@@ -8,11 +8,12 @@ import seedu.jarvis.logic.commands.Command;
 import seedu.jarvis.logic.commands.finance.SetMonthlyLimitCommand;
 import seedu.jarvis.model.finance.MonthlyLimit;
 import seedu.jarvis.storage.JsonAdapter;
+import seedu.jarvis.storage.history.commands.JsonAdaptedCommand;
 
 /**
  * Jackson-friendly version of {@link SetMonthlyLimitCommand}.
  */
-public class JsonAdaptedSetMonthlyLimitCommand implements JsonAdapter<Command> {
+public class JsonAdaptedSetMonthlyLimitCommand extends JsonAdaptedCommand implements JsonAdapter<Command> {
 
     public static final String MESSAGE_INVALID_LIMIT = "Invalid monthly limit.";
 

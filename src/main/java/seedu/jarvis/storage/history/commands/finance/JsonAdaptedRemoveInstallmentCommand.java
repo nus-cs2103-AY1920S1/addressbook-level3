@@ -9,11 +9,12 @@ import seedu.jarvis.logic.commands.finance.RemoveInstallmentCommand;
 import seedu.jarvis.storage.JsonAdapter;
 import seedu.jarvis.storage.commons.core.JsonAdaptedIndex;
 import seedu.jarvis.storage.finance.JsonAdaptedInstallment;
+import seedu.jarvis.storage.history.commands.JsonAdaptedCommand;
 
 /**
  * Jackson-friendly version of {@link RemoveInstallmentCommand}.
  */
-public class JsonAdaptedRemoveInstallmentCommand implements JsonAdapter<Command> {
+public class JsonAdaptedRemoveInstallmentCommand extends JsonAdaptedCommand implements JsonAdapter<Command> {
 
     public static final String MESSAGE_INVALID_INDEX = "Invalid index.";
 

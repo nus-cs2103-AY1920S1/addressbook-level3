@@ -15,11 +15,12 @@ import seedu.jarvis.storage.JsonAdapter;
 import seedu.jarvis.storage.cca.JsonAdaptedCca;
 import seedu.jarvis.storage.cca.JsonAdaptedCcaMilestone;
 import seedu.jarvis.storage.commons.core.JsonAdaptedIndex;
+import seedu.jarvis.storage.history.commands.JsonAdaptedCommand;
 
 /**
  * Jackson-friendly version of {@link AddProgressCommand}.
  */
-public class JsonAdaptedAddProgressCommand implements JsonAdapter<Command> {
+public class JsonAdaptedAddProgressCommand extends JsonAdaptedCommand implements JsonAdapter<Command> {
 
     public static final String MESSAGE_INVALID_ATTRIBUTES = "Invalid attributes.";
 

@@ -9,11 +9,12 @@ import seedu.jarvis.logic.commands.cca.DeleteCcaCommand;
 import seedu.jarvis.storage.JsonAdapter;
 import seedu.jarvis.storage.cca.JsonAdaptedCca;
 import seedu.jarvis.storage.commons.core.JsonAdaptedIndex;
+import seedu.jarvis.storage.history.commands.JsonAdaptedCommand;
 
 /**
  * Jackson-friendly version of {@link DeleteCcaCommand}.
  */
-public class JsonAdaptedDeleteCcaCommand implements JsonAdapter<Command> {
+public class JsonAdaptedDeleteCcaCommand extends JsonAdaptedCommand implements JsonAdapter<Command> {
 
     public static final String MESSAGE_INVALID_INDEX = "Invalid index.";
 

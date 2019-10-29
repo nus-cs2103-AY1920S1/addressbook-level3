@@ -8,11 +8,12 @@ import seedu.jarvis.logic.commands.Command;
 import seedu.jarvis.logic.commands.cca.AddCcaCommand;
 import seedu.jarvis.storage.JsonAdapter;
 import seedu.jarvis.storage.cca.JsonAdaptedCca;
+import seedu.jarvis.storage.history.commands.JsonAdaptedCommand;
 
 /**
  * Jackson-friendly version of {@link AddCcaCommand}.
  */
-public class JsonAdaptedAddCcaCommand implements JsonAdapter<Command> {
+public class JsonAdaptedAddCcaCommand extends JsonAdaptedCommand implements JsonAdapter<Command> {
 
     public static final String MESSAGE_INVALID_CCA = "Invalid cca.";
 

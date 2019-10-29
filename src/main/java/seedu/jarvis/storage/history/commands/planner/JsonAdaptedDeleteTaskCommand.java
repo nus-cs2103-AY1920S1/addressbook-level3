@@ -9,12 +9,13 @@ import seedu.jarvis.logic.commands.planner.DeleteTaskCommand;
 import seedu.jarvis.model.planner.tasks.Task;
 import seedu.jarvis.storage.JsonAdapter;
 import seedu.jarvis.storage.commons.core.JsonAdaptedIndex;
+import seedu.jarvis.storage.history.commands.JsonAdaptedCommand;
 import seedu.jarvis.storage.planner.JsonAdaptedTask;
 
 /**
  * Jackson-friendly version of {@link DeleteTaskCommand}.
  */
-public class JsonAdaptedDeleteTaskCommand implements JsonAdapter<Command> {
+public class JsonAdaptedDeleteTaskCommand extends JsonAdaptedCommand implements JsonAdapter<Command> {
 
     public static final String MESSAGE_INVALID_INDEX = "Invalid index.";
 

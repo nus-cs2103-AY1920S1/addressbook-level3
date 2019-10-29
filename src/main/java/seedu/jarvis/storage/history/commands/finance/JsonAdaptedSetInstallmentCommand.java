@@ -8,11 +8,12 @@ import seedu.jarvis.logic.commands.Command;
 import seedu.jarvis.logic.commands.finance.SetInstallmentCommand;
 import seedu.jarvis.storage.JsonAdapter;
 import seedu.jarvis.storage.finance.JsonAdaptedInstallment;
+import seedu.jarvis.storage.history.commands.JsonAdaptedCommand;
 
 /**
  * Jackson-friendly version of {@link SetInstallmentCommand}.
  */
-public class JsonAdaptedSetInstallmentCommand implements JsonAdapter<Command> {
+public class JsonAdaptedSetInstallmentCommand extends JsonAdaptedCommand implements JsonAdapter<Command> {
 
     public static final String MESSAGE_INVALID_INSTALLMENT = "Invalid installment.";
 

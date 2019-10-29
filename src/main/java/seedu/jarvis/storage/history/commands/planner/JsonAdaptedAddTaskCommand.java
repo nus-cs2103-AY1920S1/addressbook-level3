@@ -7,12 +7,13 @@ import seedu.jarvis.commons.exceptions.IllegalValueException;
 import seedu.jarvis.logic.commands.Command;
 import seedu.jarvis.logic.commands.planner.AddTaskCommand;
 import seedu.jarvis.storage.JsonAdapter;
+import seedu.jarvis.storage.history.commands.JsonAdaptedCommand;
 import seedu.jarvis.storage.planner.JsonAdaptedTask;
 
 /**
  * Jackson-friendly version of {@link AddTaskCommand}.
  */
-public class JsonAdaptedAddTaskCommand implements JsonAdapter<Command> {
+public class JsonAdaptedAddTaskCommand extends JsonAdaptedCommand implements JsonAdapter<Command> {
 
     public static final String MESSAGE_INVALID_TASK = "Invalid task.";
 

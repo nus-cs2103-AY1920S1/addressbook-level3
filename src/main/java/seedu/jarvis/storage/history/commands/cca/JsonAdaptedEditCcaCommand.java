@@ -10,11 +10,12 @@ import seedu.jarvis.storage.JsonAdapter;
 import seedu.jarvis.storage.cca.JsonAdaptedCca;
 import seedu.jarvis.storage.cca.JsonAdaptedEditCcaDescriptor;
 import seedu.jarvis.storage.commons.core.JsonAdaptedIndex;
+import seedu.jarvis.storage.history.commands.JsonAdaptedCommand;
 
 /**
  * Jackson-friendly version of {@link EditCcaCommand}.
  */
-public class JsonAdaptedEditCcaCommand implements JsonAdapter<Command> {
+public class JsonAdaptedEditCcaCommand extends JsonAdaptedCommand implements JsonAdapter<Command> {
 
     public static final String MESSAGE_INVALID_ATTRIBUTES = "Invalid attributes.";
 

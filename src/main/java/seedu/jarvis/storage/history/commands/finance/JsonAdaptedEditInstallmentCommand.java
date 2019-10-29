@@ -10,11 +10,12 @@ import seedu.jarvis.storage.JsonAdapter;
 import seedu.jarvis.storage.commons.core.JsonAdaptedIndex;
 import seedu.jarvis.storage.finance.JsonAdaptedEditInstallmentDescriptor;
 import seedu.jarvis.storage.finance.JsonAdaptedInstallment;
+import seedu.jarvis.storage.history.commands.JsonAdaptedCommand;
 
 /**
  * Jackson-friendly version of {@link EditInstallmentCommand}.
  */
-public class JsonAdaptedEditInstallmentCommand implements JsonAdapter<Command> {
+public class JsonAdaptedEditInstallmentCommand extends JsonAdaptedCommand implements JsonAdapter<Command> {
     private final JsonAdaptedIndex index;
     private final JsonAdaptedEditInstallmentDescriptor editInstallmentDescriptor;
     private final JsonAdaptedInstallment originalInstallment;
