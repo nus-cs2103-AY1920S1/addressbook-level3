@@ -45,7 +45,6 @@ public class MainWindow extends UiPart<Stage> {
 
     private static final String FXML = "MainWindow.fxml";
     private static final String MESSAGE_CANNOT_LOAD_WINDOW = "Unable to load window. :(";
-    private static final String TEMPORARY_BACKGROUND_PATH = "/images/SpaceModified.jpg";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
