@@ -191,7 +191,7 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
         primaryStage.setHeight(guiSettings.getWindowHeight());
         primaryStage.setWidth(guiSettings.getWindowWidth());
 
-        if (guiSettings.getWindowCoordinates() != null
+        if (guiSettings.getWindowCoordinates() == null
             || screenWidth < guiSettings.getWindowWidth() + guiSettings.getWindowCoordinates().getX()
             || screenHeight < guiSettings.getWindowHeight() + guiSettings.getWindowCoordinates().getY()) {
             return;
