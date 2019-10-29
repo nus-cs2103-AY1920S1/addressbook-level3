@@ -37,15 +37,11 @@ deactivate LogicManager
 MainWindow -> CommandResult : getContext()
 activate CommandResult
 
-CommandResult --> MainWindow : context.editing
+CommandResult --> MainWindow : context
 deactivate CommandResult
 
 opt isNewContext
-     MainWindow -> MainWindow : changeContext()
-     activate MainWindow
-     deactivate MainWindow
-
-     MainWindow -> MainWindow : showEditing()
+     MainWindow -> MainWindow : changeDisplay()
      activate MainWindow
      deactivate MainWindow
 end
