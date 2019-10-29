@@ -98,7 +98,7 @@ public class ImportCommandTest {
         Mark expectedMark = new Mark();
         expectedMark.setBookmarks(setToRootFolder(getTypicalBookmarks())); // strip folders
         expectedModel.setMark(expectedMark);
-        expectedModel.saveMark();
+        expectedModel.saveMark(expectedMessage);
 
         assertCommandSuccess(command, model, storage, expectedMessage, expectedModel);
     }
@@ -148,7 +148,7 @@ public class ImportCommandTest {
         Mark expectedMark = new Mark();
         expectedMark.setBookmarks(setToRootFolder(getTypicalBookmarks()));
         expectedModel.setMark(expectedMark);
-        expectedModel.saveMark();
+        expectedModel.saveMark(expectedMessage);
 
         assertCommandSuccess(command, initialModel, storage, expectedMessage, expectedModel);
     }

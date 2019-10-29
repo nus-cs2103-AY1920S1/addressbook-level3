@@ -23,6 +23,9 @@ public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Bookmark> PREDICATE_SHOW_ALL_BOOKMARKS = unused -> true;
 
+    /** {@code Predicate} that always evaluate to false */
+    Predicate<Bookmark> PREDICATE_SHOW_NO_BOOKMARKS = unused -> false;
+
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
      */
@@ -71,6 +74,12 @@ public interface Model {
      * The bookmark must exist in Mark.
      */
     void deleteBookmark(Bookmark target);
+
+    /**
+     * Tags the given bookmark as a favorite bookmark.
+     * The bookmark must exist in Mark.
+     */
+    void favoriteBookmark(Bookmark target);
 
     /**
      * Adds the given bookmark.
@@ -155,18 +164,21 @@ public interface Model {
 
     /**
      * Restores the model's Mark to its previous state.
+     * @return The record
      */
-    void undoMark();
+    String undoMark();
 
     /**
      * Restores the model's Mark to its previously undone state.
+     * @return The record
      */
-    void redoMark();
+    String redoMark();
 
     /**
      * Saves the current Mark state for undo/redo.
+     * @param record The record for the state
      */
-    void saveMark();
+    void saveMark(String record);
 
     /**
      * Adds a reminder that opens a specific bookmark.
@@ -212,4 +224,14 @@ public interface Model {
      */
     void updateDocument(OfflineDocument doc);
 
+    /**
+     * Updates the specified bookmark to be the one to display its cache
+     */
+    void updateCurrentDisplayedCache(Bookmark bookmarkToDisplayCache);
+
+    /**
+     * Returns the observable of the bookmark with its cache currently displayed.
+     * @return the observable bookmark property
+     */
+    SimpleObjectProperty<Bookmark> getBookmarkDisplayingCacheProperty();
 }

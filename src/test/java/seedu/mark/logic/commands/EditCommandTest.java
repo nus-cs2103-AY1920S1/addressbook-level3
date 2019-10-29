@@ -2,6 +2,7 @@ package seedu.mark.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.mark.commons.core.Messages.MESSAGE_FOLDER_NOT_FOUND;
 import static seedu.mark.logic.commands.CommandTestUtil.DESC_AMY;
 import static seedu.mark.logic.commands.CommandTestUtil.DESC_BOB;
 import static seedu.mark.logic.commands.CommandTestUtil.VALID_NAME_BOB;
@@ -9,6 +10,7 @@ import static seedu.mark.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.mark.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.mark.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.mark.logic.commands.CommandTestUtil.showBookmarkAtIndex;
+import static seedu.mark.testutil.TypicalBookmarks.getTypicalFolderStructure;
 import static seedu.mark.testutil.TypicalBookmarks.getTypicalMark;
 import static seedu.mark.testutil.TypicalIndexes.INDEX_FIRST_BOOKMARK;
 import static seedu.mark.testutil.TypicalIndexes.INDEX_SECOND_BOOKMARK;
@@ -22,8 +24,9 @@ import seedu.mark.model.Model;
 import seedu.mark.model.ModelManager;
 import seedu.mark.model.UserPrefs;
 import seedu.mark.model.bookmark.Bookmark;
+import seedu.mark.model.bookmark.Folder;
+import seedu.mark.model.bookmark.util.BookmarkBuilder;
 import seedu.mark.storage.StorageStub;
-import seedu.mark.testutil.BookmarkBuilder;
 import seedu.mark.testutil.EditBookmarkDescriptorBuilder;
 
 /**
@@ -43,7 +46,7 @@ public class EditCommandTest {
 
         Model expectedModel = new ModelManager(new Mark(model.getMark()), new UserPrefs());
         expectedModel.setBookmark(model.getFilteredBookmarkList().get(0), editedBookmark);
-        expectedModel.saveMark();
+        expectedModel.saveMark(expectedMessage);
 
         assertCommandSuccess(editCommand, model, new StorageStub(), expectedMessage, expectedModel);
     }
@@ -65,7 +68,7 @@ public class EditCommandTest {
 
         Model expectedModel = new ModelManager(new Mark(model.getMark()), new UserPrefs());
         expectedModel.setBookmark(lastBookmark, editedBookmark);
-        expectedModel.saveMark();
+        expectedModel.saveMark(expectedMessage);
 
         assertCommandSuccess(editCommand, model, new StorageStub(), expectedMessage, expectedModel);
     }
@@ -78,7 +81,7 @@ public class EditCommandTest {
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_BOOKMARK_SUCCESS, editedBookmark);
 
         Model expectedModel = new ModelManager(new Mark(model.getMark()), new UserPrefs());
-        expectedModel.saveMark();
+        expectedModel.saveMark(expectedMessage);
 
         assertCommandSuccess(editCommand, model, new StorageStub(), expectedMessage, expectedModel);
     }
@@ -96,7 +99,7 @@ public class EditCommandTest {
 
         Model expectedModel = new ModelManager(new Mark(model.getMark()), new UserPrefs());
         expectedModel.setBookmark(model.getFilteredBookmarkList().get(0), editedBookmark);
-        expectedModel.saveMark();
+        expectedModel.saveMark(expectedMessage);
 
         assertCommandSuccess(editCommand, model, new StorageStub(), expectedMessage, expectedModel);
     }
@@ -120,6 +123,21 @@ public class EditCommandTest {
                 new EditBookmarkDescriptorBuilder(bookmarkInList).build());
 
         assertCommandFailure(editCommand, model, new StorageStub(), EditCommand.MESSAGE_DUPLICATE_BOOKMARK);
+    }
+
+    @Test
+    public void execute_nonexistentFolderBookmarkFilteredList_failure() {
+        showBookmarkAtIndex(model, INDEX_FIRST_BOOKMARK);
+
+        Folder nonexistentFolder = new Folder("nonexistent");
+        assertFalse(getTypicalFolderStructure().hasFolder(nonexistentFolder));
+        // edit bookmark in filtered list into one with a nonexistent folder in Mark
+        Bookmark bookmarkInList = model.getMark().getBookmarkList().get(INDEX_FIRST_BOOKMARK.getZeroBased());
+        EditCommand editCommand = new EditCommand(INDEX_FIRST_BOOKMARK,
+                new EditBookmarkDescriptorBuilder(bookmarkInList).withFolder(nonexistentFolder.folderName).build());
+
+        assertCommandFailure(editCommand, model, new StorageStub(),
+                String.format(MESSAGE_FOLDER_NOT_FOUND, nonexistentFolder));
     }
 
     @Test

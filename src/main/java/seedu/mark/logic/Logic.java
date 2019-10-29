@@ -90,4 +90,7 @@ public interface Logic {
     void updateDocument(OfflineDocument doc);
 
     ObservableList<Reminder> getReminderList();
+
+    SimpleObjectProperty<Bookmark> getBookmarkDisplayingCacheProperty();
+
 }

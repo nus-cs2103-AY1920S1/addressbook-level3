@@ -18,27 +18,33 @@ import seedu.mark.model.bookmark.Url;
  */
 public class BookmarkListPanel extends UiPart<Region> {
     private static final String FXML = "BookmarkListPanel.fxml";
-    private final Logger logger = LogsCenter.getLogger(BookmarkListPanel.class);
+    private final Logger logger = LogsCenter.getLogger(getClass());
+    @org.jetbrains.annotations.NotNull
+    private final ObservableValue<Bookmark> bookmarkToDisplayCache;
 
     @FXML
     private ListView<Bookmark> bookmarkListView;
 
     public BookmarkListPanel(ObservableList<Bookmark> bookmarkList, ObservableValue<Url> currentBookmarkUrl,
-                             Consumer<Url> currentBookmarkUrlChangeHandler, MainWindow mainWindow) {
+                             ObservableValue<Bookmark> bookmarkToDisplayCache,
+                             Consumer<Url> currentUrlChangeHandler) {
         super(FXML);
+        this.bookmarkToDisplayCache = bookmarkToDisplayCache;
         bookmarkListView.setItems(bookmarkList);
         bookmarkListView.setCellFactory(listView -> new BookmarkListViewCell());
 
         // Whenever selection changes, update the current bookmark url
         bookmarkListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            // Do nothing when selection is cleared
+            if (newValue == null) {
+                return;
+            }
             logger.info("Selection in bookmark list panel changed to: " + newValue);
-            currentBookmarkUrlChangeHandler.accept(newValue.getUrl());
-            mainWindow.handleSwitchToOnline();
+            currentUrlChangeHandler.accept(newValue.getUrl());
         });
 
         // Whenever current bookmark url changes, update the selection
         currentBookmarkUrl.addListener((observable, oldValue, newValue) -> {
-            logger.info("Current bookmark url changed to: " + newValue);
             Bookmark selectedBookmark = bookmarkListView.getSelectionModel().getSelectedItem();
             // Early return if the url change is due to change of selection
             if (selectedBookmark != null && selectedBookmark.getUrl().equals(newValue)) {
@@ -56,9 +62,23 @@ public class BookmarkListPanel extends UiPart<Region> {
                     }
                     index++;
                 }
+                // If the current url does not correspond to any bookmark, clear the selection and return
+                if (index == currentBookmarkList.size()) {
+                    bookmarkListView.getSelectionModel().clearSelection();
+                    return;
+                }
                 bookmarkListView.scrollTo(index);
                 bookmarkListView.getSelectionModel().clearAndSelect(index);
             }
+        });
+
+        bookmarkToDisplayCache.addListener((observable, oldValue, newValue) -> {
+            if (newValue == null) {
+                return;
+            }
+            System.out.println("listener");
+            bookmarkListView.refresh();
+            bookmarkListView.scrollTo(newValue);
         });
     }
 
@@ -74,7 +94,8 @@ public class BookmarkListPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new BookmarkCard(bookmark, getIndex() + 1).getRoot());
+                BookmarkCard card = new BookmarkCard(bookmark, getIndex() + 1);
+                setGraphic(card.getRoot());
             }
         }
     }

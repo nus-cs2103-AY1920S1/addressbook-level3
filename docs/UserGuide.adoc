@@ -33,7 +33,7 @@ Here are a few steps to get you started on Mark: +
 
 .  Ensure you have Java `11` or above installed in your Computer.
 .  Download the latest `mark.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Bookmark Manager.
+.  Copy the file to the folder you want to use as the home folder for your Mark.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
@@ -44,29 +44,30 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 Some example commands you can try:
 
 * *`list`* : lists all bookmarks
-* *`add u/git-scm.com/book/en/v2 n/Pro Git f/Tutorials`* : adds a bookmark
-named `Pro Git` to the Bookmark Manager.
+* *`add u/https://git-scm.com/book/en/v2 n/Pro Git f/Tutorials`* : adds a bookmark
+named `Pro Git` to Mark.
 * *`delete 3`* : deletes the 3rd bookmark shown in the current list
 * *`exit`* : exits the app
 
-.  Refer to <<Features>> for details
-of each command.
+.  Refer to <<Features>> for details of each command.
 
 [[Features]]
 == Features
+
+This section describes the main features of Mark and how to use them.
 
 ====
 *Command Format*
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user. +
-E.g. In the command format `*add* u/URL`, `URL` is a parameter which can be used as `*add* u/luminus.nus.edu.sg`.
+E.g. In the command format `*add* u/URL`, `URL` is a parameter which can be used as `*add* u/https://luminus.nus.edu.sg`.
 * Items in square brackets are optional. +
 E.g `u/URL [t/TAG]` can be used as
-`u/luminus.nus.edu.sg t/NUS` or as `u/luminus.nus.edu.sg`.
+`u/https://luminus.nus.edu.sg t/NUS` or as `u/https://luminus.nus.edu.sg`.
 * Default values for optional items are specified with an `=` symbol. +
 E.g. When `u/URL [t/TAG=CS2103T]` is specified in the command format, the default value for the tag is `CS2103T` if not
 it is not provided.
-* Items with `…`​ after them can be used multiple times, including zero times. +
+* Items with `...`​ after them can be used multiple times, including zero times. +
 E.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/module`,
 `t/module t/read-later` etc.
 * Parameters can be in any order. +
@@ -82,26 +83,31 @@ Format: *`help`*
 
 Adds a bookmark to the bookmark manager.
 
-Format: `*add* u/URL n/NAME [f/FOLDER] [t/TAG]…​ [r/REMARK]`
+Format: `*add* u/URL n/NAME [r/REMARK] [f/FOLDER] [t/TAG]...​`
 
 ****
 * A bookmark can have any number of tags (including 0).
 * `FOLDER` must be an existing folder (see <<folder>>).
-* Use the keyword `this` in place of URL to bookmark the current page,
+* The keyword `this` can be used in place of a URL to bookmark the current page,
 e.g. `*add* u/this n/Homepage`
 ****
 
 Examples:
 
 * `*add* u/this n/Homepage` +
-Bookmarks the current place and names it `Homepage`.
-Only valid if a web-page is currently being viewed.
-* `*add* u/nus-cs2103-ay1920s1.github.io n/Module Website f/CS2103T r/Contains textbook & important deadlines` +
+Bookmarks the current page and names it `Homepage`. The new bookmark contains
+a default remark of "-" and is added to the root folder since they are not
+specified.
+* `*add* u/https://nus-cs2103-ay1920s1.github.io/website/ n/Module Website
+f/CS2103T r/Contains textbook & important deadlines` +
 Bookmarks the given website, names it `Module Website`, and adds it to the folder `CS2103T`.
 The new bookmark's remark is "Contains textbook & important deadlines".
 * `*add* u/www.youtube.com/watch?v=9AMcN-wkspU n/IntelliJ Tips and Tricks t/video t/watch-later`
+Bookmarks the given website, names it `IntelliJ Tips and Tricks`. The new bookmark's tags include
+"video" and "watch-later".
 
-=== Adding a new folder *`folder`*
+[[folder]]
+=== Adding a new folder: *`folder`*
 
 Creates a new folder for organizing bookmarks into.
 
@@ -115,12 +121,12 @@ Format: `*folder* FOLDER_NAME [p/PARENT_FOLDER]`
 
 Examples:
 
-* `*folder* CS2103 p/NUS +
+* `*folder* CS2103 p/NUS` +
 Creates a new folder named `CS2103` under the parent folder `NUS`.
 
-=== Deleting a folder *`folder delete`*
-
-Creates a new folder for organizing bookmarks into.
+=== Deleting a folder: *`folder delete`*
+//TODO: What happens to the bookmarks under the folder?
+Deletes the specified folder and its subfolders.
 
 Format: `*folder delete* FOLDER_NAME`
 
@@ -131,7 +137,7 @@ Format: `*folder delete* FOLDER_NAME`
 
 Examples:
 
-* `*folder delete* CS2103 +
+* `*folder delete* CS2103` +
 Deletes the folder named `CS2103` and all of its subfolders.
 
 === Listing all bookmarks: *`list`*
@@ -144,10 +150,10 @@ Format: `*list*`
 
 Edits an existing bookmark in the bookmark manager.
 
-Format: `*edit* INDEX [u/URL] [n/NAME] [f/FOLDER] [t/TAG]…​ [r/REMARK]`
+Format: `*edit* INDEX [u/URL] [n/NAME] [r/REMARK] [f/FOLDER] [t/TAG]...`
 
 ****
-* Edits the bookmark at the specified `INDEX`. The index refers to the index
+* The bookmark at the specified `INDEX` will be edited. The index refers to the index
 number shown in the displayed bookmark list. The index must be a
 positive integer `1`, `2`, `3`, …​
 * At least one of the optional fields must be provided.
@@ -361,13 +367,13 @@ file `mark/data/bookmarks/myBookmarks.json`
 Imports bookmarks from the files `myBookmarks.json`, `nusBookmarks.json`,
 and `youtubeBookmarks.json`.
 
-=== Creating automatic tags: *`autotag`*
+=== Creating an automatic tag: *`autotag`*
 
 Creates a tag that will be automatically applied to bookmarks which match
 the given conditions.
 
 Format: `*autotag* TAG_NAME [n/NAME_KEYWORD]... [nn/NOT_NAME_KEYWORD]...
-[u/URL_KEYWORD]... [nu/NOT_URL_KEYWORD]... [f/FOLDER] [nf/NOT_FOLDER]...
+[u/URL_KEYWORD]... [nu/NOT_URL_KEYWORD]... [f/FOLDER]... [nf/NOT_FOLDER]...
 [t/TAG]... [nt/NOT_TAG]...`
 
 ****
@@ -398,7 +404,7 @@ in the folder `NUS` but are not tagged with `academic` or `admin`.
  Creates an autotag that adds the tag `Luminus` to all bookmarks with URLs
 containing `luminus`.
 
-=== Saving offline Readable copies of bookmarked website: *`cache`*
+=== Saving an offline copy: *`cache`*
 
 Saves the bookmarked website locally for offline viewing.
 
@@ -427,7 +433,7 @@ Deletes the cached version at the second index.
 * `*cache* 1 u/true` +
 Manually save a new copy of the site.
 
-=== Making annotations on offline copy of bookmarked website: *`annotate`*
+=== Making annotations on an offline copy: *`annotate`*
 
 Adds new annotations on locally saved, offline version of the bookmarked
 website. When this command is given, the UI will switch to the offline tab showing the results of your command.
@@ -468,7 +474,7 @@ colour remains the same. Otherwise, paragraph 2 will be highlighted yellow and
 a new note with content "change or add note content" will be added to the paragraph.
 
 
-=== Deleting annotations on offline copy of bookmarked website: *`annotate delete`*
+=== Deleting annotations on an offline copy: *`annotate delete`*
 
 Deletes selected highlights or notes from the offline copy of the given bookmarked website.
 When this command is given, the UI will switch to the offline tab showing the results of your command.
@@ -517,7 +523,7 @@ Deletes stray note S1 from the offline copy of bookmark 2.
 Removes all annotations of the offline copy of bookmark 1.
 
 
-=== Modifying annotations on offline copy of bookmarked website: *`annotate edit`*
+=== Modifying annotations on an offline copy: *`annotate edit`*
 
 Modifies existing annotations on the offline version of the bookmarked
 website. When this command is given, the UI will switch to the offline tab showing the results of your command.
@@ -568,7 +574,7 @@ In the offline copy of bookmark 1, paragraph 3 is annotated with the highlight o
 note with content "changing and moving notes". Annotation on paragraph 2 is removed.
 
 
-=== Viewing annotated bookmarked website: *`offline`*
+=== Viewing an annotated offline copy: *`offline`*
 
 Switches to offline tab and shows offline copy of a selected bookmark. The offline view tab will
 show the latest offline copy with annotations by default.
@@ -599,16 +605,16 @@ Format: `*reminder* INDEX t/TIME_DATE [n/NOTE=Open]`
 
 ****
 * `INDEX` is the index of the bookmark that you want to add with a reminder.
- * `TIME_DATE` follows `_HHMM dd/mm/yyyy_` format.
+ * `TIME_DATE` follows `_dd/mm/yyyy HHMM_` format.
 * `NOTE` is the description of the reminder, the default value is Open.
 ****
 Examples:
 
-* `*reminder* 1 t/2359 02/07/2019` +
+* `*reminder* 1 t/02/07/2019 2359` +
 Adds a reminder for bookmark 1, and sets the time of the reminder as 23:59 of 02/07/2019.
 It reminds you to open the bookmark.
 
-* `*reminder* 1 t/2359 02/07/2019 n/Read announcements` +
+* `*reminder* 1 t/02/07/2019 2359 n/Read announcements` +
 Adds a reminder for bookmark 1, and sets the time of the reminder as 23:59 of 02/07/2019.
 The reminder reminds you to read announcements.
 
@@ -621,15 +627,15 @@ Format: `*reminder edit* INDEX [t/TIME_DATE] [n/NOTE]`
 
 ****
 * `INDEX` is the index of the reminder you want to edit on the dashboard.
-* `TIME_DATE` is the time you want to edit. The time follows `_HHMM dd/mm/yyyy_` format.
+* `TIME_DATE` is the time you want to edit. The time follows `_dd/mm/yyyy HHMM_` format.
 * `NOTE` is the description of the reminder that you want to edit.
 ****
 Examples:
 
-* `*reminder edit* 1 t/2359 02/07/2019` +
+* `*reminder edit* 1 t/02/07/2019 2359` +
 Edits the reminder of index 1. Reset the time of the reminder to 23:59 of 02/07/2019.
 
-* `*reminder edit* 1 t/2359 02/07/2019 n/Check daily news` +
+* `*reminder edit* 1 t/02/07/2019 2359 n/Check daily news` +
 Edits the reminder of index 1. Reset the time of the reminder to 23:59 of 02/07/2019.
 Reset the note to Check daily news.
 
@@ -668,7 +674,7 @@ Lists all the bookmarks based on name/alphabetical order.
 * `*sort* default` +
 Sort all the bookmarks based on the order they were added.
 
-=== Expanding folder hierarchy: *`expand`*
+=== Expanding the folder hierarchy: *`expand`*
 
 Expands the folder hierarchy by the specified number of levels.
 
@@ -689,7 +695,7 @@ Examples:
 * `*expand* 3` +
 Expands the folder hierarchy by 3 levels.
 
-=== Collapsing folder hierarchy: *`collapse`*
+=== Collapsing the folder hierarchy: *`collapse`*
 
 Collapses the folder hierarchy by the specified number of levels.
 
@@ -746,18 +752,15 @@ Shares your bookmarks and notes with your friends via Email or Telegram.
 
 *How do I transfer my data to another Computer?*
 
-****
 Install the app in the other computer and overwrite the empty data file it creates with the file that contains
 the data of your previous Mark folder.
-****
 
 *What are [[Tabs]] Tabs?*
 
-****
 Different user displays. There are three tabs: dashboard, online view
 (web browser), and offline view (caches and notes).
-****
 
+****
 [#imgId-dashboard]
 .Mark's Dashboard Tab View
 image::ui-screenshots/uimockup1_dashboard.png[@Dashboard Tab View, 600, 400]
@@ -769,14 +772,6 @@ image::ui-screenshots/uimockup1_online.png[@Online Tab View, 600, 400]
 [#imgId-offline]
 .Mark's Offline Tab View
 image::ui-screenshots/uimockup1_offline.png[@Offline Tab View, 600, 400]
-
-
-*What is the [[Dashboard]] Dashboard?*
-
-****
-The default tab in view when the application starts. The dashboard
-contains a help section (command summary), favorite tags, current
-reminders, and a view of the folder hierarchy for bookmarks.
 ****
 
 _{ more coming soon }_
@@ -784,11 +779,23 @@ _{ more coming soon }_
 == Glossary
 This glossary aims to provide a definition for the special vocabulary used in this user guide.
 
-[[offline]] Offline::
-Refers to files stored locally on the computer.
+[[annotation]] Annotation::
+A note or highlight that is made on an <<offline-copy, offline copy>> of a bookmark.
 
-[[oneline]] Online::
-Refers to having web access, namely to browse the internet.
+[[bookmark]] Bookmark::
+A saved shortcut to a website. In Mark, a bookmark can contain other information besides the website URL,
+such as reminders, <<offline-copy, offline copies>> and <<annotation, annotations>>.
+
+[[dashboard]] Dashboard::
+The default tab in view when the application starts. The dashboard
+contains a help section (command summary), favorite tags, current
+reminders, and a view of the folder hierarchy for bookmarks.
+
+[[folder-hierarchy]] Folder Hierarchy::
+The structure of folders in Mark. This is displayed in the dashboard tab when the application starts.
+
+[[offline-copy]] Offline copy::
+An copy of a bookmarked website that is used for offline viewing. It is stored as a HTML file on the computer.
 
 [[stray-notes]] Stray notes::
 Annotated notes that are not attached to an existing paragraph are described as stray.
@@ -797,9 +804,9 @@ Stray notes are found in the _Stray Notes Section_ at the bottom of the _Notes_ 
 == Command Summary
 
 * *Help*: `*help*`
-* *Add*: `*add* u/URL n/NAME [f/FOLDER] [t/TAG]…​`
+* *Add*: `*add* u/URL n/NAME [r/REMARK] [f/FOLDER] [t/TAG]…​`
 * *List*: `*list*`
-* *Edit*: `*edit* INDEX [u/URL] [n/NAME] [f/FOLDER] [t/TAG]…​ [r/REMARK]`
+* *Edit*: `*edit* INDEX [u/URL] [n/NAME] [r/REMARK] [f/FOLDER] [t/TAG]…​`
 * *Find*: `*find* [KEYWORD]... [t/TAG]...`
 * *Delete*: `*delete* INDEX`
 * *Goto*: `*goto* INDEX [v/VERSION]`
@@ -810,8 +817,8 @@ Stray notes are found in the _Stray Notes Section_ at the bottom of the _Notes_ 
 * *Exit*: `*exit*`
 * *Export*: `*export* [FILENAME]`
 * *Import*: `*import* FILENAME [MORE_FILENAMES]...`
-* *Autotag*: `*autotag* TAG_NAME [n/NAME_KEYWORD] [nn/NOT_NAME_KEYWORD] [u/URL_KEYWORD]
-[nu/NOT_URL_KEYWORD] [f/FOLDER] [nf/NOT_FOLDER]... [t/TAG]... [nt/NOT_TAG]...`
+* *Autotag*: `*autotag* TAG_NAME [n/NAME_KEYWORD]... [nn/NOT_NAME_KEYWORD]... [u/URL_KEYWORD]...
+[nu/NOT_URL_KEYWORD]... [f/FOLDER]... [nf/NOT_FOLDER]... [t/TAG]... [nt/NOT_TAG]...`
 * *Cache*: `*cache* INDEX [s/SAVE_NOW] [u/AUTO_UPDATE] [d/VERSION]`
 * *Annotate (add)*: `*annotate* INDEX p/P_NUM [n/NOTES] [h/HIGHLIGHT_COLOUR=yellow]`
 * *Annotate (delete)*: `*annotate delete* INDEX [p/P_NUM] [n/KEEP_NOTES=false] [h/KEEP_HIGHLIGHT=false]`

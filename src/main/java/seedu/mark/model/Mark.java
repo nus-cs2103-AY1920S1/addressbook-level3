@@ -9,6 +9,7 @@ import java.util.Objects;
 import javafx.collections.ObservableList;
 
 import seedu.mark.model.autotag.AutotagController;
+import seedu.mark.model.autotag.BookmarkTagger;
 import seedu.mark.model.autotag.SelectiveBookmarkTagger;
 import seedu.mark.model.bookmark.Bookmark;
 import seedu.mark.model.bookmark.Folder;
@@ -16,6 +17,7 @@ import seedu.mark.model.bookmark.UniqueBookmarkList;
 import seedu.mark.model.folderstructure.FolderStructure;
 import seedu.mark.model.reminder.Reminder;
 import seedu.mark.model.reminder.ReminderAssociation;
+import seedu.mark.model.tag.Tag;
 
 /**
  * Wraps all data at the bookmark-manager level
@@ -72,7 +74,10 @@ public class Mark implements ReadOnlyMark {
 
         setBookmarks(newData.getBookmarkList());
         setFolderStructure(newData.getFolderStructure().clone());
+
         setReminderAssociation(newData.getReminderAssociation());
+
+        setAutotagController(newData.getAutotagController());
     }
 
     //// bookmark-level operations
@@ -194,6 +199,17 @@ public class Mark implements ReadOnlyMark {
 
     //// autotag controller operations
 
+    /**
+     * Replaces the taggers in the current {@code AutotagController} with
+     * taggers from {@code autotagController}.
+     */
+    public void setAutotagController(AutotagController autotagController) {
+        requireNonNull(autotagController);
+
+        this.autotagController.removeAllTaggers();
+        autotagController.getTaggers().forEach(this.autotagController::addTagger);
+    }
+
     public boolean hasTagger(SelectiveBookmarkTagger tagger) {
         return autotagController.hasTagger(tagger);
     }
@@ -204,6 +220,19 @@ public class Mark implements ReadOnlyMark {
 
     public void applyAllTaggers() {
         setBookmarks(autotagController.applyTaggersToList(getBookmarkList()));
+    }
+
+
+    //// favorite operations
+
+    /**
+     * Tags the specified bookmark as a favorite bookmark.
+     *
+     * @param bookmark the bookmark to be added to the favorites
+     */
+    public void favoriteBookmark(Bookmark bookmark) {
+        BookmarkTagger favoriteTagger = new BookmarkTagger(new Tag("Favorite"));
+        setBookmark(bookmark, favoriteTagger.applyTag(bookmark));
     }
 
     //// util methods

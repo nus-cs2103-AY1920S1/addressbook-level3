@@ -47,11 +47,13 @@ public class CommandTestUtil {
     public static final String VALID_NOTE_READ = "READ ARTICLE";
     public static final String VALID_TIME_OPEN = "12/12/2020 1800";
     public static final String VALID_TIME_READ = "02/03/2019 0500";
+    public static final String VALID_CACHED_HTML = "<div> Some HTML </div>";
 
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
     public static final String URL_DESC_AMY = " " + PREFIX_URL + VALID_URL_AMY;
     public static final String URL_DESC_BOB = " " + PREFIX_URL + VALID_URL_BOB;
+    public static final String URL_DESC_THIS = " " + PREFIX_URL + "this";
     public static final String REMARK_DESC_AMY = " " + PREFIX_REMARK + VALID_REMARK_AMY;
     public static final String REMARK_DESC_BOB = " " + PREFIX_REMARK + VALID_REMARK_BOB;
     public static final String PARENT_FOLDER_DESC_CS2103T = " " + PREFIX_PARENT_FOLDER + VALID_FOLDER_CS2103T;
@@ -155,7 +157,7 @@ public class CommandTestUtil {
 
         Bookmark bookmarkToDelete = model.getFilteredBookmarkList().get(targetIndex.getZeroBased());
         model.deleteBookmark(bookmarkToDelete);
-        model.saveMark();
+        model.saveMark(String.format(DeleteCommand.MESSAGE_DELETE_BOOKMARK_SUCCESS, bookmarkToDelete));
 
         assertEquals(initialSize - 1, model.getFilteredBookmarkList().size());
     }
@@ -166,5 +168,4 @@ public class CommandTestUtil {
     public static void deleteFirstBookmark(Model model) {
         deleteBookmarkAtIndex(model, INDEX_FIRST_BOOKMARK);
     }
-
 }

@@ -77,6 +77,11 @@ public class ModelStub implements Model {
     }
 
     @Override
+    public void favoriteBookmark(Bookmark target) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
     public void setBookmark(Bookmark target, Bookmark editedBookmark) {
         throw new AssertionError("This method should not be called.");
     }
@@ -152,17 +157,17 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public void undoMark() {
+    public String undoMark() {
         throw new AssertionError("This method should not be called.");
     }
 
     @Override
-    public void redoMark() {
+    public String redoMark() {
         throw new AssertionError("This method should not be called.");
     }
 
     @Override
-    public void saveMark() {
+    public void saveMark(String record) {
         throw new AssertionError("This method should not be called.");
     }
 
@@ -198,6 +203,16 @@ public class ModelStub implements Model {
 
     @Override
     public void updateDocument(OfflineDocument doc) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void updateCurrentDisplayedCache(Bookmark bookmarkToDisplayCache) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public SimpleObjectProperty<Bookmark> getBookmarkDisplayingCacheProperty() {
         throw new AssertionError("This method should not be called.");
     }
 

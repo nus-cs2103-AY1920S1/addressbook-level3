@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import seedu.mark.logic.commands.GotoCommand;
 
 public class GotoCommandParserTest {
+
     private GotoCommandParser parser = new GotoCommandParser();
 
     @Test

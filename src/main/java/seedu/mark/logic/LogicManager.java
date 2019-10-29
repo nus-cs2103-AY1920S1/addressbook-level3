@@ -111,4 +111,9 @@ public class LogicManager implements Logic {
     public ObservableList<Reminder> getReminderList() {
         return model.getMark().getReminderList();
     }
+
+    @Override
+    public SimpleObjectProperty<Bookmark> getBookmarkDisplayingCacheProperty() {
+        return model.getBookmarkDisplayingCacheProperty();
+    }
 }

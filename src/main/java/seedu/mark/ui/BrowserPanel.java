@@ -7,8 +7,7 @@ import java.util.logging.Logger;
 
 import javafx.application.Platform;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
+import javafx.beans.value.ObservableStringValue;
 import javafx.concurrent.Worker.State;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -27,13 +26,17 @@ import seedu.mark.model.bookmark.Url;
  */
 public class BrowserPanel extends UiPart<Region> {
 
-    /** Default html page to be loaded when not connected to internet. */
+    /**
+     * Default html page to be loaded when not connected to internet.
+     */
     public static final URL DEFAULT_PAGE =
             requireNonNull(MainApp.class
                     .getResource(FXML_FILE_FOLDER + "defaultOfflinePage.html"));
     public static final String HOME_PAGE_URL = "https://google.com.sg";
 
-    /** Name of corresponding fxml file. */
+    /**
+     * Name of corresponding fxml file.
+     */
     private static final String FXML = "BrowserPanel.fxml";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
@@ -48,10 +51,12 @@ public class BrowserPanel extends UiPart<Region> {
     private Button homeButton;
 
     private WebEngine webEngine;
-    private String currentPageUrl;
+    private ObservableStringValue currentPageUrl;
+    private boolean isConnected;
 
     public BrowserPanel(SimpleObjectProperty<Url> currentBookmarkUrl) {
         super(FXML);
+        this.isConnected = true;
 
         loadGuiAddress();
         loadGuiGoogleButton();
@@ -59,11 +64,29 @@ public class BrowserPanel extends UiPart<Region> {
 
         // Load page when current bookmark url changes.
         currentBookmarkUrl.addListener((observable, oldValue, newValue) -> {
-            if (newValue == null) {
-                loadHomepage();
+            logger.info("Current bookmark url changed to: " + newValue);
+            if (!isConnected) {
+                return;
+            }
+            // Return if the change is due to the change of currentPageUrl
+            if (newValue == null || newValue.value.equals(currentPageUrl.getValue())) {
                 return;
             }
             loadPage(newValue.toString());
+        });
+
+        // Whenever currentPageUrl changes, update the currentBookmarkUrl
+        currentPageUrl.addListener((observable, oldValue, newValue) -> {
+            logger.info("Current page url changed to: " + newValue);
+            if (!isConnected) {
+                currentBookmarkUrl.setValue(null);
+                return;
+            }
+            // Return if the change is due to the change of currentBookmarkUrl
+            if (currentBookmarkUrl.getValue() != null && newValue.equals(currentBookmarkUrl.getValue().value)) {
+                return;
+            }
+            currentBookmarkUrl.setValue(new Url(newValue));
         });
     }
 
@@ -78,8 +101,8 @@ public class BrowserPanel extends UiPart<Region> {
                     addressBar.selectAll();
                 } else {
                     logger.info("Address bar out of focus");
-                    if (!currentPageUrl.equals(addressBar.getText())) {
-                        addressBar.setText(currentPageUrl);
+                    if (!currentPageUrl.getValue().equals(addressBar.getText())) {
+                        addressBar.setText(currentPageUrl.getValue());
                     }
                 }
             });
@@ -100,38 +123,25 @@ public class BrowserPanel extends UiPart<Region> {
      */
     private void loadGuiBrowser() {
         webEngine = browser.getEngine();
-
-        webEngine.getLoadWorker()
-                .stateProperty()
-                .addListener(
-                        new ChangeListener<State>() {
-                            @Override
-                            public void changed(ObservableValue<? extends State> observable,
-                                                State oldValue,
-                                                State newValue) {
-                                currentPageUrl = getCurrentPageUrl();
-                                if (newValue == State.FAILED) {
-                                    logger.info("browser: unable to connect to internet");
-                                    loadDefaultPage();
-                                }
-                                showAddressOnAddressBar(currentPageUrl);
-                            }
-                        });
+        currentPageUrl = webEngine.locationProperty();
+        webEngine.getLoadWorker().stateProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue == State.FAILED) {
+                logger.info("browser: unable to connect to internet");
+                isConnected = false;
+                loadDefaultPage();
+            } else if (newValue == State.SUCCEEDED) {
+                isConnected = true;
+                showAddressOnAddressBar(currentPageUrl.getValue());
+            }
+        });
         loadHomepage();
     }
 
     ////////////////////// MAIN METHODS /////////////////////////
 
     /**
-     * Gets the url of the page the browser currently shows.
-     * @return url of current page.
-     */
-    public String getCurrentPageUrl() {
-        return webEngine.getLocation();
-    }
-
-    /**
      * Loads page with url on the webview.
+     *
      * @param url valid url
      */
     public void loadPage(String url) {
@@ -157,6 +167,7 @@ public class BrowserPanel extends UiPart<Region> {
 
     /**
      * Sets address bar text as url.
+     *
      * @param url url to set address bar content to.
      */
     private void showAddressOnAddressBar(String url) {
@@ -180,6 +191,7 @@ public class BrowserPanel extends UiPart<Region> {
 
     /**
      * Checks if given url is a valid url.
+     *
      * @param url suspected url
      * @return true if url is valid; else false.
      */
@@ -194,6 +206,7 @@ public class BrowserPanel extends UiPart<Region> {
      * Parses input into a valid url.
      * If the input is simply lacking a protocol, http:// is prepended.
      * Otherwise, the input is passed into google search.
+     *
      * @param input non-url input
      * @return a valid url based on given input.
      */

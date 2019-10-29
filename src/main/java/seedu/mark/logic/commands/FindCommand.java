@@ -1,11 +1,11 @@
 package seedu.mark.logic.commands;
 
-import static java.util.Objects.requireNonNull;
+import static seedu.mark.commons.util.CollectionUtil.requireAllNonNull;
 
 import seedu.mark.commons.core.Messages;
 import seedu.mark.logic.commands.results.CommandResult;
 import seedu.mark.model.Model;
-import seedu.mark.model.predicates.IdentifiersContainKeywordsPredicate;
+import seedu.mark.model.predicates.BookmarkContainsKeywordsPredicate;
 import seedu.mark.storage.Storage;
 
 /**
@@ -21,15 +21,16 @@ public class FindCommand extends Command {
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
             + "Example: " + COMMAND_WORD + " stack-overflow github programming";
 
-    private final IdentifiersContainKeywordsPredicate predicate;
+    private final BookmarkContainsKeywordsPredicate predicate;
 
-    public FindCommand(IdentifiersContainKeywordsPredicate predicate) {
+    public FindCommand(BookmarkContainsKeywordsPredicate predicate) {
         this.predicate = predicate;
     }
 
     @Override
     public CommandResult execute(Model model, Storage storage) {
-        requireNonNull(model);
+        requireAllNonNull(model, storage);
+
         model.updateFilteredBookmarkList(predicate);
         return new CommandResult(
                 String.format(Messages.MESSAGE_BOOKMARKS_LISTED_OVERVIEW, model.getFilteredBookmarkList().size()));

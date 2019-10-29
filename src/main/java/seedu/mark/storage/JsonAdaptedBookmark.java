@@ -11,6 +11,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.mark.commons.exceptions.IllegalValueException;
 import seedu.mark.model.bookmark.Bookmark;
+import seedu.mark.model.bookmark.CachedCopy;
 import seedu.mark.model.bookmark.Folder;
 import seedu.mark.model.bookmark.Name;
 import seedu.mark.model.bookmark.Remark;
@@ -29,6 +30,7 @@ class JsonAdaptedBookmark {
     private final String remark;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
     private final String folder;
+    private final List<String> cachedCopies = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonAdaptedBookmark} with the given bookmark details.
@@ -36,7 +38,8 @@ class JsonAdaptedBookmark {
     @JsonCreator
     public JsonAdaptedBookmark(@JsonProperty("name") String name,
         @JsonProperty("url") String url, @JsonProperty("remark") String remark,
-        @JsonProperty("folder") String folder, @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+        @JsonProperty("folder") String folder, @JsonProperty("tagged") List<JsonAdaptedTag> tagged,
+        @JsonProperty("cachedCopies") List<String> cachedCopies) {
         this.name = name;
         this.url = url;
         this.remark = remark;
@@ -44,6 +47,9 @@ class JsonAdaptedBookmark {
             this.tagged.addAll(tagged);
         }
         this.folder = folder;
+        if (cachedCopies != null) {
+            this.cachedCopies.addAll(cachedCopies);
+        }
     }
 
     /**
@@ -57,6 +63,9 @@ class JsonAdaptedBookmark {
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
         folder = source.getFolder().folderName;
+        cachedCopies.addAll(source.getCachedCopies().stream()
+                .map(copy -> copy.html)
+                .collect(Collectors.toList()));
     }
 
     /**
@@ -103,7 +112,13 @@ class JsonAdaptedBookmark {
             throw new IllegalValueException(Folder.MESSAGE_CONSTRAINTS);
         }
         final Folder modelFolder = new Folder(folder);
-        return new Bookmark(modelName, modelUrl, modelRemark, modelFolder, modelTags);
+
+        final List<CachedCopy> modelCachedCopies = new ArrayList<>();
+        for (String cachedCopy: cachedCopies) {
+            modelCachedCopies.add(new CachedCopy(cachedCopy));
+        }
+
+        return new Bookmark(modelName, modelUrl, modelRemark, modelFolder, modelTags, modelCachedCopies);
     }
 
 }

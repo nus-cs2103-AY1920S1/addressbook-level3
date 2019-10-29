@@ -4,7 +4,9 @@ import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.mark.commons.core.Messages.MESSAGE_FOLDER_NOT_FOUND;
 import static seedu.mark.testutil.Assert.assertThrows;
+import static seedu.mark.testutil.TypicalBookmarks.getTypicalFolderStructure;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -17,8 +19,9 @@ import seedu.mark.model.Mark;
 import seedu.mark.model.ModelStub;
 import seedu.mark.model.ReadOnlyMark;
 import seedu.mark.model.bookmark.Bookmark;
+import seedu.mark.model.bookmark.Folder;
+import seedu.mark.model.bookmark.util.BookmarkBuilder;
 import seedu.mark.storage.StorageStub;
-import seedu.mark.testutil.BookmarkBuilder;
 
 public class AddCommandTest {
 
@@ -47,6 +50,19 @@ public class AddCommandTest {
         ModelStub modelStub = new ModelStubWithBookmark(validBookmark);
 
         assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_BOOKMARK, () ->
+                addCommand.execute(modelStub, new StorageStub()));
+    }
+
+    @Test
+    public void execute_nonexistentFolder_throwsCommandException() {
+        Folder nonexistentFolder = new Folder("nonexistent");
+        assertFalse(getTypicalFolderStructure().hasFolder(nonexistentFolder));
+        Bookmark nonexistentFolderBookmark = new BookmarkBuilder().withFolder(nonexistentFolder.folderName).build();
+
+        AddCommand addCommand = new AddCommand(nonexistentFolderBookmark);
+        ModelStub modelStub = new ModelStubWithoutFolderAndBookmarks();
+
+        assertThrows(CommandException.class, String.format(MESSAGE_FOLDER_NOT_FOUND, nonexistentFolder), () ->
                 addCommand.execute(modelStub, new StorageStub()));
     }
 
@@ -116,13 +132,34 @@ public class AddCommandTest {
         }
 
         @Override
-        public void saveMark() {
+        public void saveMark(String record) {
             // called by {@code AddCommand#execute()}
         }
 
         @Override
         public ReadOnlyMark getMark() {
             return new Mark();
+        }
+
+        @Override
+        public boolean hasFolder(Folder folder) {
+            return true;
+        }
+    }
+
+    /**
+     * A Model stub that contains no folders and bookmarks.
+     */
+    private class ModelStubWithoutFolderAndBookmarks extends ModelStub {
+
+        @Override
+        public boolean hasFolder(Folder folder) {
+            return false;
+        }
+
+        @Override
+        public boolean hasBookmark(Bookmark bookmark) {
+            return false;
         }
     }
 

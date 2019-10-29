@@ -11,8 +11,8 @@ import seedu.mark.model.Model;
 import seedu.mark.model.ModelManager;
 import seedu.mark.model.UserPrefs;
 import seedu.mark.model.bookmark.Bookmark;
+import seedu.mark.model.bookmark.util.BookmarkBuilder;
 import seedu.mark.storage.StorageStub;
-import seedu.mark.testutil.BookmarkBuilder;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code AddCommand}.
@@ -29,13 +29,14 @@ public class AddCommandIntegrationTest {
     @Test
     public void execute_newBookmark_success() {
         Bookmark validBookmark = new BookmarkBuilder().build();
+        AddCommand addCommand = new AddCommand(validBookmark);
 
         Model expectedModel = new ModelManager(model.getMark(), new UserPrefs());
+        String expectedMessage = String.format(AddCommand.MESSAGE_SUCCESS, validBookmark);
         expectedModel.addBookmark(validBookmark);
-        expectedModel.saveMark();
+        expectedModel.saveMark(expectedMessage);
 
-        assertCommandSuccess(new AddCommand(validBookmark), model, new StorageStub(),
-                String.format(AddCommand.MESSAGE_SUCCESS, validBookmark), expectedModel);
+        assertCommandSuccess(addCommand, model, new StorageStub(), expectedMessage, expectedModel);
     }
 
     @Test

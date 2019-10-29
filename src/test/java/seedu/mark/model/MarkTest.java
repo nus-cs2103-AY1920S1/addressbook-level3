@@ -22,10 +22,10 @@ import seedu.mark.model.autotag.AutotagController;
 import seedu.mark.model.bookmark.Bookmark;
 import seedu.mark.model.bookmark.Folder;
 import seedu.mark.model.bookmark.exceptions.DuplicateBookmarkException;
+import seedu.mark.model.bookmark.util.BookmarkBuilder;
 import seedu.mark.model.folderstructure.FolderStructure;
 import seedu.mark.model.reminder.Reminder;
 import seedu.mark.model.reminder.ReminderAssociation;
-import seedu.mark.testutil.BookmarkBuilder;
 
 public class MarkTest {
 

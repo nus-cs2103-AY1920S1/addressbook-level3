@@ -1,6 +1,6 @@
 package seedu.mark.logic.commands;
 
-import static java.util.Objects.requireNonNull;
+import static seedu.mark.commons.util.CollectionUtil.requireAllNonNull;
 
 import seedu.mark.logic.commands.results.CommandResult;
 import seedu.mark.model.Mark;
@@ -15,12 +15,12 @@ public class ClearCommand extends Command {
     public static final String COMMAND_WORD = "clear";
     public static final String MESSAGE_SUCCESS = "Mark has been cleared!";
 
-
     @Override
     public CommandResult execute(Model model, Storage storage) {
-        requireNonNull(model);
+        requireAllNonNull(model, storage);
+
         model.setMark(new Mark());
-        model.saveMark();
+        model.saveMark(MESSAGE_SUCCESS);
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

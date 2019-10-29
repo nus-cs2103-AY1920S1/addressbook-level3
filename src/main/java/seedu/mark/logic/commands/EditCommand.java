@@ -1,6 +1,8 @@
 package seedu.mark.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.mark.commons.core.Messages.MESSAGE_FOLDER_NOT_FOUND;
+import static seedu.mark.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.mark.logic.parser.CliSyntax.PREFIX_FOLDER;
 import static seedu.mark.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.mark.logic.parser.CliSyntax.PREFIX_REMARK;
@@ -21,6 +23,7 @@ import seedu.mark.logic.commands.exceptions.CommandException;
 import seedu.mark.logic.commands.results.CommandResult;
 import seedu.mark.model.Model;
 import seedu.mark.model.bookmark.Bookmark;
+import seedu.mark.model.bookmark.CachedCopy;
 import seedu.mark.model.bookmark.Folder;
 import seedu.mark.model.bookmark.Name;
 import seedu.mark.model.bookmark.Remark;
@@ -68,7 +71,8 @@ public class EditCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, Storage storage) throws CommandException {
-        requireNonNull(model);
+        requireAllNonNull(model, storage);
+
         List<Bookmark> lastShownList = model.getFilteredBookmarkList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
@@ -82,9 +86,13 @@ public class EditCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_BOOKMARK);
         }
 
+        if (!model.hasFolder(editedBookmark.getFolder())) {
+            throw new CommandException(String.format(MESSAGE_FOLDER_NOT_FOUND, editedBookmark.getFolder()));
+        }
+
         model.setBookmark(bookmarkToEdit, editedBookmark);
         model.applyAllTaggers();
-        model.saveMark();
+        model.saveMark(String.format(MESSAGE_EDIT_BOOKMARK_SUCCESS, editedBookmark));
         model.updateFilteredBookmarkList(PREDICATE_SHOW_ALL_BOOKMARKS);
         return new CommandResult(String.format(MESSAGE_EDIT_BOOKMARK_SUCCESS, editedBookmark));
     }
@@ -102,8 +110,9 @@ public class EditCommand extends Command {
         Remark updatedRemark = editBookmarkDescriptor.getRemark().orElse(bookmarkToEdit.getRemark());
         Set<Tag> updatedTags = editBookmarkDescriptor.getTags().orElse(bookmarkToEdit.getTags());
         Folder updatedFolder = editBookmarkDescriptor.getFolder().orElse(bookmarkToEdit.getFolder());
+        List<CachedCopy> unchangedCachedCopies = bookmarkToEdit.getCachedCopies();
 
-        return new Bookmark(updatedName, updatedUrl, updatedRemark, updatedFolder, updatedTags);
+        return new Bookmark(updatedName, updatedUrl, updatedRemark, updatedFolder, updatedTags, unchangedCachedCopies);
     }
 
     @Override

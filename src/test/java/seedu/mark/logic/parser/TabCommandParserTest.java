@@ -15,7 +15,6 @@ class TabCommandParserTest {
 
     private TabCommandParser parser = new TabCommandParser();
 
-
     @Test
     public void parseTab_validArgs_success() throws Exception {
         TabCommand.Tab expected = TabCommand.Tab.ONLINE;

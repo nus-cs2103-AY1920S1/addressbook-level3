@@ -6,7 +6,6 @@ import static seedu.mark.testutil.Assert.assertThrows;
 
 import java.io.IOException;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Optional;
 import java.util.logging.Level;
 
@@ -18,7 +17,7 @@ import seedu.mark.commons.exceptions.DataConversionException;
 
 public class ConfigUtilTest {
 
-    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "ConfigUtilTest");
+    private static final Path TEST_DATA_FOLDER = Path.of("src", "test", "data", "ConfigUtilTest");
 
     @TempDir
     public Path tempDir;
@@ -64,7 +63,7 @@ public class ConfigUtilTest {
     private Config getTypicalConfig() {
         Config config = new Config();
         config.setLogLevel(Level.INFO);
-        config.setUserPrefsFilePath(Paths.get("preferences.json"));
+        config.setUserPrefsFilePath(Path.of("preferences.json"));
         return config;
     }
 

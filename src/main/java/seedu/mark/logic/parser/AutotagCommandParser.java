@@ -3,6 +3,8 @@ package seedu.mark.logic.parser;
 import static java.util.Objects.requireNonNull;
 import static seedu.mark.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.mark.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.mark.logic.parser.CliSyntax.PREFIX_NOT_NAME;
+import static seedu.mark.logic.parser.CliSyntax.PREFIX_NOT_URL;
 import static seedu.mark.logic.parser.CliSyntax.PREFIX_URL;
 
 import java.util.function.Predicate;
@@ -30,7 +32,7 @@ public class AutotagCommandParser implements Parser<AutotagCommand> {
     public AutotagCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_URL);
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_URL, PREFIX_NOT_NAME, PREFIX_NOT_URL);
 
         if (argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AutotagCommand.MESSAGE_USAGE));
@@ -49,9 +51,16 @@ public class AutotagCommandParser implements Parser<AutotagCommand> {
             hasConditions = true;
             predicate = predicate.and(new UrlContainsKeywordsPredicate(argMultimap.getAllValues(PREFIX_URL)));
         }
-
-        // for not containing, just do
-        // new UrlContainsKeywordsPredicate(argMultimap.getAllValues(PREFIX_URL)).negate() to get that predicate
+        if (argMultimap.getValue(PREFIX_NOT_NAME).isPresent()) {
+            hasConditions = true;
+            predicate = predicate.and(
+                    new NameContainsKeywordsPredicate(argMultimap.getAllValues(PREFIX_NOT_NAME)).negate());
+        }
+        if (argMultimap.getValue(PREFIX_NOT_URL).isPresent()) {
+            hasConditions = true;
+            predicate = predicate.and(
+                    new UrlContainsKeywordsPredicate(argMultimap.getAllValues(PREFIX_NOT_URL)).negate());
+        }
 
         if (!hasConditions) {
             throw new ParseException(AutotagCommand.MESSAGE_NO_CONDITION_SPECIFIED);

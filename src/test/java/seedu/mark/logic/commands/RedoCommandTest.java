@@ -14,6 +14,7 @@ import seedu.mark.storage.Storage;
 import seedu.mark.storage.StorageStub;
 
 public class RedoCommandTest {
+
     private Model model = new ModelManager(getTypicalMark(), new UserPrefs());
     private Model expectedModel = new ModelManager(getTypicalMark(), new UserPrefs());
     private Storage storage = new StorageStub();
@@ -31,12 +32,14 @@ public class RedoCommandTest {
         expectedModel.undoMark();
 
         // Two redoable Mark states
-        expectedModel.redoMark();
-        assertCommandSuccess(new RedoCommand(), model, storage, RedoCommand.MESSAGE_SUCCESS, expectedModel);
+        String expectedRecord1 = expectedModel.redoMark();
+        String expectedMessage1 = String.format(RedoCommand.MESSAGE_SUCCESS, expectedRecord1);
+        assertCommandSuccess(new RedoCommand(), model, storage, expectedMessage1, expectedModel);
 
         // Single redoable Mark state
-        expectedModel.redoMark();
-        assertCommandSuccess(new RedoCommand(), model, storage, RedoCommand.MESSAGE_SUCCESS, expectedModel);
+        String expectedRecord2 = expectedModel.redoMark();
+        String expectedMessage2 = String.format(RedoCommand.MESSAGE_SUCCESS, expectedRecord2);
+        assertCommandSuccess(new RedoCommand(), model, storage, expectedMessage2, expectedModel);
 
         // No redoable Mark state
         assertCommandFailure(new RedoCommand(), model, storage, RedoCommand.MESSAGE_FAILURE);

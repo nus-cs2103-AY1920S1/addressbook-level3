@@ -1,5 +1,7 @@
 package seedu.mark.ui;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.Comparator;
 
 import javafx.fxml.FXML;
@@ -8,6 +10,7 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.mark.model.bookmark.Bookmark;
+import seedu.mark.model.tag.Tag;
 
 /**
  * An UI component that displays information of a {@code Bookmark}.
@@ -40,6 +43,8 @@ public class BookmarkCard extends UiPart<Region> {
     private Label folder;
     @FXML
     private FlowPane tags;
+    @FXML
+    private Label cache;
 
     public BookmarkCard(Bookmark bookmark, int displayedIndex) {
         super(FXML);
@@ -49,9 +54,24 @@ public class BookmarkCard extends UiPart<Region> {
         url.setText(bookmark.getUrl().value);
         remark.setText(bookmark.getRemark().value);
         folder.setText(bookmark.getFolder().folderName);
+        cache.setVisible(!bookmark.getCachedCopies().isEmpty());
         bookmark.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
-                .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+                .forEach(tag -> {
+                    Label tagLabel = new Label(tag.tagName);
+                    tagLabel.getStyleClass().add(getTagColor(tag));
+                    tags.getChildren().add(tagLabel);
+                });
+    }
+
+    private String getTagColor(Tag tag) {
+        requireNonNull(tag);
+
+        if ("Favorite".equals(tag.tagName)) {
+            return "orange";
+        } else {
+            return "teal";
+        }
     }
 
     @Override

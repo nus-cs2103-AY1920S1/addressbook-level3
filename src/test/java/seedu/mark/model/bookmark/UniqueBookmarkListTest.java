@@ -17,7 +17,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.mark.model.bookmark.exceptions.BookmarkNotFoundException;
 import seedu.mark.model.bookmark.exceptions.DuplicateBookmarkException;
-import seedu.mark.testutil.BookmarkBuilder;
+import seedu.mark.model.bookmark.util.BookmarkBuilder;
 
 public class UniqueBookmarkListTest {
 
@@ -165,7 +165,7 @@ public class UniqueBookmarkListTest {
 
     @Test
     public void asUnmodifiableObservableList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, ()
-            -> uniqueBookmarkList.asUnmodifiableObservableList().remove(0));
+        assertThrows(UnsupportedOperationException.class, () ->
+                uniqueBookmarkList.asUnmodifiableObservableList().remove(0));
     }
 }

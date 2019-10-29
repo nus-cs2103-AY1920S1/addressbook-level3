@@ -11,10 +11,15 @@ Class UiManager
 Class MainWindow
 Class HelpWindow
 Class ResultDisplay
-Class PersonListPanel
-Class PersonCard
+Class BookmarkListPanel
+Class BookmarkCard
 Class StatusBarFooter
 Class CommandBox
+package TabView <<Rectangle>>{
+Class OfflinePanel
+Class BrowserPanel
+Class DashboardPanel
+}
 }
 
 package Model <<Rectangle>> {
@@ -33,25 +38,32 @@ UiManager -down-> MainWindow
 MainWindow --> HelpWindow
 MainWindow *-down-> CommandBox
 MainWindow *-down-> ResultDisplay
-MainWindow *-down-> PersonListPanel
+MainWindow *-down-> BookmarkListPanel
 MainWindow *-down-> StatusBarFooter
+MainWindow *-down-> BrowserPanel
+MainWindow *-down-> DashboardPanel
+MainWindow *-down-> OfflinePanel
 
-PersonListPanel -down-> PersonCard
+BookmarkListPanel -down-> BookmarkCard
 
-MainWindow -left-|> UiPart
+MainWindow --|> UiPart
 
 ResultDisplay --|> UiPart
 CommandBox --|> UiPart
-PersonListPanel --|> UiPart
-PersonCard --|> UiPart
+BookmarkListPanel --|> UiPart
+BookmarkCard --|> UiPart
 StatusBarFooter --|> UiPart
 HelpWindow -down-|> UiPart
+OfflinePanel -down-|> UiPart
+BrowserPanel -down-|> UiPart
+DashboardPanel -down-|> UiPart
 
-PersonCard ..> Model
+BookmarkCard ..> Model
+TabView ..> Model
 UiManager -right-> Logic
 MainWindow -left-> Logic
 
-PersonListPanel -[hidden]left- HelpWindow
+BookmarkListPanel -[hidden]left- HelpWindow
 HelpWindow -[hidden]left- CommandBox
 CommandBox -[hidden]left- ResultDisplay
 ResultDisplay -[hidden]left- StatusBarFooter

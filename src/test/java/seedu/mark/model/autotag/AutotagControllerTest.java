@@ -13,10 +13,10 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 import seedu.mark.model.bookmark.Bookmark;
+import seedu.mark.model.bookmark.util.BookmarkBuilder;
 import seedu.mark.model.predicates.NameContainsKeywordsPredicate;
 import seedu.mark.model.predicates.UrlContainsKeywordsPredicate;
 import seedu.mark.model.tag.Tag;
-import seedu.mark.testutil.BookmarkBuilder;
 
 class AutotagControllerTest {
 

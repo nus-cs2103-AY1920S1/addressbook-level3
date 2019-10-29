@@ -1,6 +1,7 @@
 package seedu.mark.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.mark.commons.util.CollectionUtil.requireAllNonNull;
 
 import seedu.mark.logic.commands.exceptions.CommandException;
 import seedu.mark.logic.commands.results.CommandResult;
@@ -21,7 +22,7 @@ public class TabCommand extends Command {
             + "Parameter: INDEX or KEYWORD\n"
             + "Example: " + COMMAND_WORD + " 1 \n";
 
-    public static final String MESSAGE_SWITCH_ACKNOWLEDGEMENT = "Switching view to tab: %1$s.";
+    public static final String MESSAGE_SWITCH_ACKNOWLEDGEMENT = "Switching view to tab: %1$s";
     public static final String MESSAGE_INVALID_INDEX = "Tab index should be 1, 2, or 3.";
     public static final String MESSAGE_INVALID_KEYWORD = "Tab keyword should be dash, on, or off.";
 
@@ -35,6 +36,7 @@ public class TabCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, Storage storage) throws CommandException {
+        requireAllNonNull(model, storage);
 
         return new TabCommandResult(String.format(MESSAGE_SWITCH_ACKNOWLEDGEMENT, tab.toString()), tab);
     }
@@ -45,7 +47,6 @@ public class TabCommand extends Command {
                 || (other instanceof TabCommand
                 && ((TabCommand) other).tab == this.tab);
     }
-
 
     /**
      * Represents the tabs available.

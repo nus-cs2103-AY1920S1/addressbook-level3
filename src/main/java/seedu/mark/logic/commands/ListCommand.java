@@ -1,6 +1,6 @@
 package seedu.mark.logic.commands;
 
-import static java.util.Objects.requireNonNull;
+import static seedu.mark.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.mark.model.Model.PREDICATE_SHOW_ALL_BOOKMARKS;
 
 import seedu.mark.logic.commands.results.CommandResult;
@@ -19,7 +19,8 @@ public class ListCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, Storage storage) {
-        requireNonNull(model);
+        requireAllNonNull(model, storage);
+
         model.updateFilteredBookmarkList(PREDICATE_SHOW_ALL_BOOKMARKS);
         return new CommandResult(MESSAGE_SUCCESS);
     }
