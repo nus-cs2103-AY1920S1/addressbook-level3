@@ -6,6 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
+
 <BorderPane AnchorPane.bottomAnchor="0.0" styleClass="pane-with-border" maxHeight="Infinity" VBox.vgrow="ALWAYS">
     <bottom>
         <Label wrapText="true" textAlignment="LEFT" alignment="TOP_LEFT" maxHeight="Infinity" VBox.vgrow="ALWAYS" xmlns:fx="http://javafx.com/fxml/1" fx:id="motivationalQuotesLabel" xmlns="http://javafx.com/javafx/8"/>
