@@ -26,6 +26,28 @@ public class SaveCommand extends StoreCommand {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
+        if (this.tag.equals("")) {
+            this.tag = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
+        }
+        ReadOnlyMams mamsToSave = model.getMams();
+        JsonMamsStorage history = new JsonMamsStorage(Paths.get("data/mamshistory_" + this.tag + ".json"));
+        try {
+            history.saveMams(mamsToSave);
+        } catch (IOException e) {
+            throw new CommandException("Unable to backup");
+        }
+        return new CommandResult("Backup Successful, Saved in \"data/mamshistory_ "
+                + this.tag + ".json\"");
+
+    }
+
+    /** execute used for undo and redo objects
+     *
+     * @param model
+     * @return
+     * @throws CommandException
+     */
+    public CommandResult privateExecute(Model model) throws CommandException {
         ReadOnlyMams mamsToSave = model.getMams();
         JsonMamsStorage history = new JsonMamsStorage(Paths.get("data/mamshistory_" + this.tag + ".json"));
         try {
@@ -34,7 +56,6 @@ public class SaveCommand extends StoreCommand {
             throw new CommandException("Unable to save");
         }
         return new CommandResult("Save Successful ");
-
     }
 
     public String getTag() {

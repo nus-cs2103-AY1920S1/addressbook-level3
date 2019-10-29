@@ -1,13 +1,13 @@
 {
   "students" : [ {
     "name" : "Celina Conyers  ",
-    "credits" : "60",
-    "prevMods" : "CS1010, CS2101",
+    "credits" : "30",
+    "prevMods" : "CS1010",
     "matricId" : "A0180000",
     "tagged" : [ "CS1231", "CS2030", "CS2040" ]
   }, {
     "name" : "Madonna Morgado  ",
-    "credits" : "23",
+    "credits" : "24",
     "prevMods" : "CS1010, CS2101",
     "matricId" : "A0180001",
     "tagged" : [ "CS2106", "CS2105", "CS2101" ]
@@ -88,7 +88,7 @@
     "credits" : "24",
     "prevMods" : "CS1010, CS1231, CS2030",
     "matricId" : "A0180014",
-    "tagged" : [ "CS2220", "CS2101", "CS3202" ]
+    "tagged" : [ "CS2220", "CS2101" ]
   }, {
     "name" : "Isobel Ickes  ",
     "credits" : "23",
@@ -100,13 +100,13 @@
     "credits" : "21",
     "prevMods" : "CS1010, CS1231, CS2030",
     "matricId" : "A0180016",
-    "tagged" : [ "CS2105", "CS2101", "CS3202" ]
+    "tagged" : [ "CS2105", "CS2101" ]
   }, {
     "name" : "Florencio Frailey  ",
     "credits" : "22",
     "prevMods" : "CS1010, CS2101",
     "matricId" : "A0180017",
-    "tagged" : [ "CS2220", "CS2040", "CS3202" ]
+    "tagged" : [ "CS2220", "CS2040" ]
   }, {
     "name" : "Rosenda Ruston  ",
     "credits" : "23",
@@ -202,7 +202,7 @@
     "credits" : "24",
     "prevMods" : "CS1010, CS2309",
     "matricId" : "A0180033",
-    "tagged" : [ "CS2030", "CS2309", "CS3202" ]
+    "tagged" : [ "CS2030", "CS2309" ]
   }, {
     "name" : "Carson Cristobal  ",
     "credits" : "21",
@@ -226,7 +226,7 @@
     "credits" : "21",
     "prevMods" : "CS1010, CS2101",
     "matricId" : "A0180037",
-    "tagged" : [ "CS1231", "CS2106", "CS3202" ]
+    "tagged" : [ "CS1231", "CS2106" ]
   }, {
     "name" : "Shawnna Schaible  ",
     "credits" : "24",
@@ -268,7 +268,7 @@
     "credits" : "23",
     "prevMods" : "CS1010, CS1231, CS2309",
     "matricId" : "A0180044",
-    "tagged" : [ "CS2105", "CS2101", "CS3202" ]
+    "tagged" : [ "CS2105", "CS2101" ]
   }, {
     "name" : "Tifany Tibbets  ",
     "credits" : "23",
@@ -286,7 +286,7 @@
     "credits" : "24",
     "prevMods" : "CS1010, CS1020",
     "matricId" : "A0180047",
-    "tagged" : [ "CS2030", "CS2101", "CS3202" ]
+    "tagged" : [ "CS2030", "CS2101" ]
   }, {
     "name" : "Shin Santacruz  ",
     "credits" : "21",
@@ -317,7 +317,7 @@
     "lecturerName" : "Terence Sim",
     "timeSlot" : "1,2,45,46,47"
   }, {
-    "quota" : "80",
+    "quota" : "120",
     "tagged" : [ "A6185284H", "A5802229H", "A6614133H", "A5524592H", "A1748370H" ],
     "moduleCode" : "CS1020",
     "moduleName" : "Data Structures and Algorithms Is",
@@ -325,7 +325,7 @@
     "lecturerName" : "Tan Sun Teck",
     "timeSlot" : "21,20,57,58,59"
   }, {
-    "quota" : "70",
+    "quota" : "420",
     "tagged" : [ "A6185284H", "A5802229H", "A6614133H", "A5524592H", "A1748370H" ],
     "moduleCode" : "CS2309",
     "moduleName" : "CS Research Methodology",
@@ -333,7 +333,7 @@
     "lecturerName" : "Wynne Hsu",
     "timeSlot" : "1,2,45,46,47"
   }, {
-    "quota" : "55",
+    "quota" : "840",
     "tagged" : [ "A6185284H", "A5802229H", "A6614133H", "A5524592H", "A1748370H" ],
     "moduleCode" : "CS2106",
     "moduleName" : "Introduction to Operating Systems",
@@ -341,7 +341,7 @@
     "lecturerName" : "ANG RAY YAN",
     "timeSlot" : "1,2,45,46,47"
   }, {
-    "quota" : "100",
+    "quota" : "240",
     "tagged" : [ "A6185284H", "A5802229H", "A6614133H", "A5524592H", "A1748370H" ],
     "moduleCode" : "CS2040",
     "moduleName" : "Data Structures and Algorithms",
@@ -349,7 +349,7 @@
     "lecturerName" : "Chong Ket Fah",
     "timeSlot" : "40,41,10,11,12"
   }, {
-    "quota" : "80",
+    "quota" : "120",
     "tagged" : [ "A6185284H", "A5802229H", "A6614133H", "A5524592H", "A1748370H" ],
     "moduleCode" : "CS2220",
     "moduleName" : "Introduction to Computational Biology",
@@ -357,7 +357,7 @@
     "lecturerName" : "Limsoon Wong",
     "timeSlot" : "30,31,32,33"
   }, {
-    "quota" : "90",
+    "quota" : "666",
     "tagged" : [ "A6185284H", "A5802229H", "A6614133H", "A5524592H", "A1748370H" ],
     "moduleCode" : "CS2100",
     "moduleName" : "Computer Organisation",
@@ -365,7 +365,7 @@
     "lecturerName" : "LI ZHAOYING",
     "timeSlot" : "32,33,12,13"
   }, {
-    "quota" : "80",
+    "quota" : "720",
     "tagged" : [ "A6185284H", "A5802229H", "A6614133H", "A5524592H", "A1748370H" ],
     "moduleCode" : "CS2105",
     "moduleName" : "Introduction to Computer Networks",
@@ -373,7 +373,7 @@
     "lecturerName" : "Zhou Lifeng",
     "timeSlot" : "1,2,45,46,47"
   }, {
-    "quota" : "50",
+    "quota" : "120",
     "tagged" : [ "A6185284H", "A5802229H", "A6614133H", "A5524592H", "A1748370H" ],
     "moduleCode" : "CS2030",
     "moduleName" : "Programming Methodology II",
@@ -381,7 +381,7 @@
     "lecturerName" : "LEE LIAK GHEE",
     "timeSlot" : "1,2,45,46,47"
   }, {
-    "quota" : "60",
+    "quota" : "111",
     "tagged" : [ "A6185284H", "A5802229H", "A6614133H", "A5524592H", "A1748370H" ],
     "moduleCode" : "CS2101",
     "moduleName" : "Effective Communication for Computing Professionals",
@@ -400,9 +400,9 @@
     "newModule" : "",
     "moduleToAdd" : "",
     "moduleToDrop" : "",
-    "resolved" : true,
-    "result" : "APPROVED",
-    "remark" : "nothing"
+    "resolved" : false,
+    "result" : "",
+    "remark" : ""
   }, {
     "appealId" : "C000001",
     "appealType" : "Drop module",
@@ -414,9 +414,9 @@
     "newModule" : "",
     "moduleToAdd" : "",
     "moduleToDrop" : "",
-    "resolved" : true,
-    "result" : "APPROVED",
-    "remark" : "gay"
+    "resolved" : false,
+    "result" : "",
+    "remark" : ""
   }, {
     "appealId" : "C000002",
     "appealType" : "Drop module",
@@ -429,7 +429,7 @@
     "moduleToAdd" : "",
     "moduleToDrop" : "",
     "resolved" : false,
-    "result" : null,
+    "result" : "",
     "remark" : ""
   }, {
     "appealId" : "C000003",
@@ -443,7 +443,7 @@
     "moduleToAdd" : "",
     "moduleToDrop" : "",
     "resolved" : false,
-    "result" : null,
+    "result" : "",
     "remark" : ""
   }, {
     "appealId" : "C000004",
@@ -457,7 +457,7 @@
     "moduleToAdd" : "",
     "moduleToDrop" : "",
     "resolved" : false,
-    "result" : null,
+    "result" : "",
     "remark" : ""
   }, {
     "appealId" : "C000005",
@@ -468,10 +468,10 @@
     "appealDescription" : "I want to graduate earlier",
     "previousModule" : "",
     "newModule" : "",
-    "moduleToAdd" : "CS1010",
+    "moduleToAdd" : "",
     "moduleToDrop" : "",
     "resolved" : false,
-    "result" : null,
+    "result" : "",
     "remark" : ""
   }, {
     "appealId" : "C000006",
@@ -485,7 +485,7 @@
     "moduleToAdd" : "",
     "moduleToDrop" : "",
     "resolved" : false,
-    "result" : null,
+    "result" : "",
     "remark" : ""
   }, {
     "appealId" : "C000007",
@@ -498,8 +498,8 @@
     "newModule" : "",
     "moduleToAdd" : "CS1010",
     "moduleToDrop" : "",
-    "resolved" : true,
-    "result" : "APPROVED",
+    "resolved" : false,
+    "result" : "",
     "remark" : ""
   } ]
 }
