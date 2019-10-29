@@ -43,4 +43,12 @@ public class EditRegimeEvent implements Event {
                 editedRegime.getRegimeName(),
                 editedRegime);
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof EditRegimeEvent // instanceof handles nulls
+                && originalRegime.equals(((EditRegimeEvent) other).originalRegime)
+                && editedRegime.equals(((EditRegimeEvent) other).editedRegime));
+    }
 }

@@ -43,14 +43,8 @@ public class EventHistory {
      *
      * @param command an undoable command to be stored in history
      */
-    public void addCommandToUndoStack(UndoableCommand command) {
-        Event event;
-        try {
-            event = EventFactory.commandToEvent(command);
-        } catch (CommandException e) {
-            logger.info(e.getMessage());
-            return;
-        }
+    public void addCommandToUndoStack(UndoableCommand command) throws CommandException {
+        Event event = EventFactory.commandToEvent(command);
         undoStack.add(event);
         redoStack.clear();
     }
@@ -63,10 +57,10 @@ public class EventHistory {
      */
     public Event undo(Model model) {
         assert(!undoStack.isEmpty());
-        Event actionToUndo = undoStack.pop();
-        actionToUndo.undo(model);
-        redoStack.push(actionToUndo);
-        return actionToUndo;
+        Event eventToUndo = undoStack.pop();
+        eventToUndo.undo(model);
+        redoStack.push(eventToUndo);
+        return eventToUndo;
     }
 
     /**
@@ -77,10 +71,18 @@ public class EventHistory {
      */
     public Event redo(Model model) {
         assert(!redoStack.isEmpty());
-        Event actionToRedo = redoStack.pop();
-        actionToRedo.redo(model);
-        undoStack.push(actionToRedo);
-        return actionToRedo;
+        Event eventToRedo = redoStack.pop();
+        eventToRedo.redo(model);
+        undoStack.push(eventToRedo);
+        return eventToRedo;
+    }
+
+    /**
+     * Clears both undo and redo history.
+     */
+    public void reset() {
+        undoStack.clear();
+        redoStack.clear();
     }
 
     /**
@@ -99,5 +101,13 @@ public class EventHistory {
      */
     public boolean isRedoStackEmpty() {
         return redoStack.isEmpty();
+    }
+
+    public Stack<Event> getUndoStack() {
+        return undoStack;
+    }
+
+    public Stack<Event> getRedoStack() {
+        return redoStack;
     }
 }

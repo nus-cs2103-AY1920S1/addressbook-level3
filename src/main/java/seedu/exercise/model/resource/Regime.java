@@ -37,12 +37,13 @@ public class Regime extends Resource {
     /**
      * Returns a deep copy of the current regime.
      *
-     * @return a regime object with the same list of exercises
+     * @return a regime object with the same name and same list of exercises
      */
     public Regime deepCopy() {
+        Name newName = new Name(regimeName.toString());
         UniqueResourceList<Exercise> newRegimeExercises = new UniqueResourceList<>();
         newRegimeExercises.setAll(regimeExercises);
-        return new Regime(regimeName, newRegimeExercises);
+        return new Regime(newName, newRegimeExercises);
     }
 
     /**

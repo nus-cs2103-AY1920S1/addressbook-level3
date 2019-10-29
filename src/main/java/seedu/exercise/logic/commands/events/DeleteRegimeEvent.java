@@ -39,4 +39,11 @@ public class DeleteRegimeEvent implements Event {
                 regimeToDelete.getRegimeName(),
                 regimeToDelete);
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof DeleteRegimeEvent // instanceof handles nulls
+                && regimeToDelete.equals(((DeleteRegimeEvent) other).regimeToDelete));
+    }
 }

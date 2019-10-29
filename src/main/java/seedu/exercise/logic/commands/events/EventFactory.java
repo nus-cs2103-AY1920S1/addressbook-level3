@@ -30,7 +30,7 @@ public class EventFactory {
      * @return an {@code Event} that can be undone or redone
      * @throws CommandException if command provided is not undoable
      */
-    static Event commandToEvent(UndoableCommand command) throws CommandException {
+    public static Event commandToEvent(UndoableCommand command) throws CommandException {
         String commandWord = command.getUndoableCommandWord();
 
         switch (commandWord) {
@@ -59,7 +59,7 @@ public class EventFactory {
      * @return an {@code AddExerciseEvent}, {@code AddRegimeEvent} or {@code EditRegimeEvent}
      * that can be undone or redone
      */
-    private static Event generateEventFromAddCommand(AddCommand command) throws CommandException {
+    protected static Event generateEventFromAddCommand(AddCommand command) throws CommandException {
         String resourceType = command.getResourceType();
         switch (resourceType) {
         case AddExerciseCommand.RESOURCE_TYPE:
@@ -93,7 +93,7 @@ public class EventFactory {
      * @return an {@code DeleteExerciseEvent}, {@code DeleteRegimeEvent} or {@code EditRegimeEvent}
      * that can be undone or redone
      */
-    private static Event generateEventFromDeleteCommand(DeleteCommand command) throws CommandException {
+    protected static Event generateEventFromDeleteCommand(DeleteCommand command) throws CommandException {
         String resourceType = command.getResourceType();
         switch (resourceType) {
         case DeleteExerciseCommand.RESOURCE_TYPE:

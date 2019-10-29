@@ -1,6 +1,7 @@
 package seedu.exercise.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static seedu.exercise.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.exercise.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
@@ -17,12 +18,16 @@ import seedu.exercise.logic.commands.exceptions.CommandException;
 import seedu.exercise.model.Model;
 import seedu.exercise.model.ModelManager;
 import seedu.exercise.model.ReadOnlyResourceBook;
+import seedu.exercise.model.UniqueResourceList;
 import seedu.exercise.model.UserPrefs;
 import seedu.exercise.model.conflict.Conflict;
 import seedu.exercise.model.property.Name;
+import seedu.exercise.model.resource.Exercise;
 import seedu.exercise.model.resource.Regime;
+import seedu.exercise.model.resource.Schedule;
 import seedu.exercise.model.util.DefaultPropertyBookUtil;
 import seedu.exercise.testutil.typicalutil.TypicalConflict;
+import seedu.exercise.testutil.typicalutil.TypicalExercises;
 import seedu.exercise.testutil.typicalutil.TypicalIndexes;
 import seedu.exercise.testutil.typicalutil.TypicalRegime;
 import seedu.exercise.testutil.typicalutil.TypicalSchedule;
@@ -41,8 +46,12 @@ public class ResolveCommandTest {
             new Name("No one is going to call their regime this name seriously"),
             new ArrayList<>(),
             new ArrayList<>());
-    private final ResolveCommand validResolveCommandWithNonEmptyIndexes = new ResolveCommand(
+    private final ResolveCommand validResolveCommandWithNonEmptyIndexesSameName = new ResolveCommand(
             new Name(TypicalRegime.VALID_REGIME_NAME_CARDIO),
+            Arrays.asList(TypicalIndexes.INDEX_ONE_BASED_FIRST),
+            new ArrayList<>());
+    private final ResolveCommand validResolveCommandWithNonEmptyIndexesDifferentName = new ResolveCommand(
+            new Name(TypicalRegime.VALID_REGIME_NAME_CHEST),
             Arrays.asList(TypicalIndexes.INDEX_ONE_BASED_FIRST),
             new ArrayList<>());
     private final ResolveCommand validResolveCommandWithOutOfBoundIndexes = new ResolveCommand(
@@ -89,7 +98,7 @@ public class ResolveCommandTest {
 
     @Test
     public void execute_duplicateRegimeName_throwsCommandException() {
-        assertThrows(CommandException.class, () -> validResolveCommandWithNonEmptyIndexes
+        assertThrows(CommandException.class, () -> validResolveCommandWithNonEmptyIndexesSameName
                 .execute(new ModelStubWithDuplicateRegimeName()));
     }
 
@@ -111,20 +120,37 @@ public class ResolveCommandTest {
 
     //===================INTEGRATION TESTS==================================================
     @Test
-    public void execute_validCommand_success() {
+    public void execute_validCommandWithExerciseFromOneSchedule_success() {
         Conflict conflict = model.getConflict();
         String expectedMessage = String.format(ResolveCommand.MESSAGE_SUCCESS,
                 conflict.getScheduledName(), conflict.getConflictedName());
 
-        Model expectedModel = new ModelManager(new ReadOnlyResourceBook<>(), model.getAllRegimeData(),
-            new ReadOnlyResourceBook<>(), model.getAllScheduleData(), new UserPrefs(),
-            DefaultPropertyBookUtil.getDefaultPropertyBook());
+        Model expectedModel = deepCopyModel();
         expectedModel.removeSchedule(conflict.getScheduled());
         expectedModel.addSchedule(conflict.getScheduled());
 
-        CommandTestUtil.assertCommandSuccess(validResolveCommandWithEmptyIndexes,
+        assertCommandSuccess(validResolveCommandWithEmptyIndexes,
                 model, expectedMessage, expectedModel);
-        assertEquals(State.NORMAL, MainApp.getState());
+        assertStateNormal();
+    }
+
+    @Test
+    public void execute_validCommandWithExerciseFromBothSchedule_success() {
+        Conflict conflict = model.getConflict();
+        String expectedMessage = String.format(ResolveCommand.MESSAGE_SUCCESS,
+                conflict.getScheduledName(), conflict.getConflictedName());
+        Model expectedModel = deepCopyModel();
+
+        Regime resolvedRegime = getResolvedRegime();
+        Schedule resolvedSchedule = new Schedule(resolvedRegime, conflict.getConflictDate());
+
+        expectedModel.removeSchedule(conflict.getScheduled());
+        expectedModel.addSchedule(resolvedSchedule);
+        expectedModel.addRegime(resolvedRegime);
+
+        assertCommandSuccess(validResolveCommandWithNonEmptyIndexesDifferentName,
+                model, expectedMessage, expectedModel);
+        assertStateNormal();
     }
 
     @Test
@@ -132,8 +158,24 @@ public class ResolveCommandTest {
         String expectedMessage = String.format(ResolveCommand.MESSAGE_DUPLICATE_NAME,
                 TypicalRegime.VALID_REGIME_NAME_CARDIO);
 
-        CommandTestUtil.assertCommandFailure(validResolveCommandWithNonEmptyIndexes,
+        CommandTestUtil.assertCommandFailure(validResolveCommandWithNonEmptyIndexesSameName,
                 model, expectedMessage);
+    }
+
+    private Model deepCopyModel() {
+        return new ModelManager(new ReadOnlyResourceBook<>(), model.getAllRegimeData(),
+                new ReadOnlyResourceBook<>(), model.getAllScheduleData(), new UserPrefs(),
+                DefaultPropertyBookUtil.getDefaultPropertyBook());
+    }
+
+    private void assertStateNormal() {
+        assertEquals(State.NORMAL, MainApp.getState());
+    }
+
+    private Regime getResolvedRegime() {
+        UniqueResourceList<Exercise> resolvedExercises = new UniqueResourceList<>();
+        resolvedExercises.setAll(Arrays.asList(TypicalExercises.WALK));
+        return new Regime(new Name(TypicalRegime.VALID_REGIME_NAME_CHEST), resolvedExercises);
     }
 
     /**

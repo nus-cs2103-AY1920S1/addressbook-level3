@@ -103,4 +103,16 @@ public class Statistic {
     public ArrayList<Double> getValues() {
         return values;
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return this == other
+            || (other instanceof Statistic
+            && category.equals(((Statistic) other).category)
+            && chart.equals(((Statistic) other).chart)
+            && startDate.equals(((Statistic) other).startDate)
+            && endDate.equals(((Statistic) other).endDate)
+            && properties.equals(((Statistic) other).properties)
+            && values.equals(((Statistic) other).values));
+    }
 }

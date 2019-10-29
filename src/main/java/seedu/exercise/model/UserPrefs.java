@@ -114,7 +114,9 @@ public class UserPrefs implements ReadOnlyUserPrefs {
 
     @Override
     public int hashCode() {
-        return Objects.hash(guiSettings, exerciseBookFilePath);
+        return Objects.hash(guiSettings,
+                exerciseBookFilePath, regimeBookFilePath,
+                propertyBookFilePath, exerciseDatabaseFilePath);
     }
 
     @Override

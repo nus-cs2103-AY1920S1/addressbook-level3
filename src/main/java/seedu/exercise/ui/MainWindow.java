@@ -105,9 +105,6 @@ public class MainWindow extends UiPart<Stage> {
         Image imageView = new Image(getClass().getResource("/images/logo_eH.png").toExternalForm());
         logoImageView.setImage(imageView);
 
-        CommandBox commandBox = new CommandBox(this::executeCommand);
-        commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
-
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
@@ -138,6 +135,9 @@ public class MainWindow extends UiPart<Stage> {
 
         chartPlaceholder.getChildren().add(new LineChartPanel(logic.getStatistic()).getRoot());
 
+        CommandBox commandBox = new CommandBox(this::executeCommand);
+        commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+        commandBox.requestFocus();
     }
 
     /**
