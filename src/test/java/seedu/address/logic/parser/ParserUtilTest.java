@@ -226,25 +226,25 @@ public class ParserUtilTest {
         assertEquals(Collections.emptyList(), ParserUtil.parseNoteFragmentMatches(INVALID_NOTE_FRAGMENT));
     }
 
-//    @Test
-//    public void parseNoteFragmentsFromString_listWithMultipleStrings_returnsListWithMultipleNoteFragments()
-//            throws Exception {
-//
-//        NoteFragment frag1 = new NoteFragment(new Title(VALID_TITLE),
-//                ParserUtil.parseContentFromNoteFragment(VALID_NOTE_2_FRAGMENT_1),
-//                ParserUtil.parseTagsFromNoteFragment(VALID_NOTE_2_FRAGMENT_1));
-//        NoteFragment frag2 = new NoteFragment(new Title(VALID_TITLE),
-//                ParserUtil.parseContentFromNoteFragment(VALID_NOTE_2_FRAGMENT_2),
-//                ParserUtil.parseTagsFromNoteFragment(VALID_NOTE_2_FRAGMENT_2));
-//        NoteFragment frag3 = new NoteFragment(new Title(VALID_TITLE),
-//                ParserUtil.parseContentFromNoteFragment(VALID_NOTE_2_FRAGMENT_3),
-//                ParserUtil.parseTagsFromNoteFragment(VALID_NOTE_2_FRAGMENT_3));
-//
-//        List<NoteFragment> expectedList = List.of(frag1, frag2, frag3);
-//
-//        assertEquals(expectedList, ParserUtil.parseNoteFragmentsFromString(new Title(VALID_TITLE),
-//                List.of(VALID_NOTE_2_FRAGMENT_1, VALID_NOTE_2_FRAGMENT_2, VALID_NOTE_2_FRAGMENT_3)));
-//    }
+    /*@Test
+    public void parseNoteFragmentsFromString_listWithMultipleStrings_returnsListWithMultipleNoteFragments()
+            throws Exception {
+
+        NoteFragment frag1 = new NoteFragment(new Title(VALID_TITLE),
+                ParserUtil.parseContentFromNoteFragment(VALID_NOTE_2_FRAGMENT_1),
+                ParserUtil.parseTagsFromNoteFragment(VALID_NOTE_2_FRAGMENT_1));
+        NoteFragment frag2 = new NoteFragment(new Title(VALID_TITLE),
+                ParserUtil.parseContentFromNoteFragment(VALID_NOTE_2_FRAGMENT_2),
+                ParserUtil.parseTagsFromNoteFragment(VALID_NOTE_2_FRAGMENT_2));
+        NoteFragment frag3 = new NoteFragment(new Title(VALID_TITLE),
+                ParserUtil.parseContentFromNoteFragment(VALID_NOTE_2_FRAGMENT_3),
+                ParserUtil.parseTagsFromNoteFragment(VALID_NOTE_2_FRAGMENT_3));
+
+        List<NoteFragment> expectedList = List.of(frag1, frag2, frag3);
+
+        assertEquals(expectedList, ParserUtil.parseNoteFragmentsFromString(new Title(VALID_TITLE),
+                List.of(VALID_NOTE_2_FRAGMENT_1, VALID_NOTE_2_FRAGMENT_2, VALID_NOTE_2_FRAGMENT_3)));
+    }*/
 
     @Test
     public void parseNoteFragmentsFromString_emptyList_returnsEmptyList() throws Exception {
