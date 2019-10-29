@@ -16,6 +16,8 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.ObservableList;
 import seedu.revision.commons.core.GuiSettings;
 import seedu.revision.logic.commands.exceptions.CommandException;
+import seedu.revision.logic.commands.main.AddCommand;
+import seedu.revision.logic.commands.main.CommandResult;
 import seedu.revision.model.AddressBook;
 import seedu.revision.model.Model;
 import seedu.revision.model.ReadOnlyAddressBook;
@@ -47,7 +49,8 @@ public class AddCommandTest {
         AddCommand addCommand = new AddCommand(validAnswerable);
         ModelStub modelStub = new ModelStubWithAnswerable(validAnswerable);
 
-        assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_ANSWERABLE, () -> addCommand.execute(modelStub));
+        assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_ANSWERABLE, () -> addCommand
+                .execute(modelStub));
     }
 
     @Test

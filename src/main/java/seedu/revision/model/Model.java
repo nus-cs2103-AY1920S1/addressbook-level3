@@ -72,7 +72,8 @@ public interface Model {
     /**
      * Replaces the given answerable {@code target} with {@code editedAnswerable}.
      * {@code target} must exist in the revision tool.
-     * The answerable identity of {@code editedAnswerable} must not be the same as another existing answerable in the revision tool.
+     * The answerable identity of {@code editedAnswerable} must not be the same as
+     * another existing answerable in the revision tool.
      */
     void setAnswerable(Answerable target, Answerable editedAnswerable);
 

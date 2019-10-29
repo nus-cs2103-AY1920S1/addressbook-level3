@@ -1,23 +1,23 @@
 package seedu.revision.ui;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
 import java.util.logging.Logger;
 
+import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
 import seedu.revision.commons.core.LogsCenter;
 import seedu.revision.model.answerable.Answer;
 import seedu.revision.model.answerable.Answerable;
-import javafx.fxml.FXML;
 
+/**
+ * Shows available answers/options to the user during quiz.
+ */
 public class AnswersGridPane extends UiPart<Region> {
-    private static final String FXML = "AnswersGridPane.fxml";
-    private final Logger logger = LogsCenter.getLogger(AnswersGridPane.class);
 
+    private static final String FXML = "AnswersGridPane.fxml";
     public final Answerable answerable;
+    private final Logger logger = LogsCenter.getLogger(AnswersGridPane.class);
 
     @FXML
     private Button option1;
@@ -32,12 +32,24 @@ public class AnswersGridPane extends UiPart<Region> {
     public AnswersGridPane(Answerable answerable) {
         super(FXML);
         this.answerable = answerable;
-        Set<Answer> answerSet = answerable.getCombinedAnswerSet();
-        List<Answer> answerList = new ArrayList<>(answerSet);
-        option1.setText(answerList.get(0).answer);
-        option2.setText(answerList.get(1).answer);
-        option3.setText(answerList.get(2).answer);
-        option4.setText(answerList.get(3).answer);
+        ArrayList<Answer> answerList = answerable.getCombinedAnswerList();
+        option1.setText(answerList.get(0).toString());
+        option2.setText(answerList.get(1).toString());
+        option3.setText(answerList.get(2).toString());
+        option4.setText(answerList.get(3).toString());
+        this.getRoot().getStyleClass().add("option-label");
+    }
+
+    /**
+     * Updates the grid pane with updated answers.
+     * @param answerable the question to be answered.
+     */
+    public void updateAnswers(Answerable answerable) {
+        ArrayList<Answer> answerList = answerable.getCombinedAnswerList();
+        option1.setText(answerList.get(0).toString());
+        option2.setText(answerList.get(1).toString());
+        option3.setText(answerList.get(2).toString());
+        option4.setText(answerList.get(3).toString());
     }
 
 
@@ -52,7 +64,6 @@ public class AnswersGridPane extends UiPart<Region> {
         if (!(other instanceof AnswersGridPane)) {
             return false;
         }
-
         // state check
         AnswersGridPane answersGrid = (AnswersGridPane) other;
         return answerable.equals(answersGrid.answerable);

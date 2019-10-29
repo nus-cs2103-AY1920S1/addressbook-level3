@@ -95,7 +95,8 @@ public class ModelManagerTest {
 
     @Test
     public void equals() {
-        AddressBook addressBook = new AddressBookBuilder().withAnswerable(A_ANSWERABLE).withAnswerable(B_ANSWERABLE).build();
+        AddressBook addressBook = new AddressBookBuilder().withAnswerable(A_ANSWERABLE)
+                .withAnswerable(B_ANSWERABLE).build();
         AddressBook differentAddressBook = new AddressBook();
         UserPrefs userPrefs = new UserPrefs();
 

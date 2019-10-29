@@ -1,5 +1,6 @@
-package seedu.revision.logic.commands;
+package seedu.revision.logic.commands.main;
 
+import seedu.revision.logic.commands.Command;
 import seedu.revision.model.Model;
 
 /**

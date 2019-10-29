@@ -1,4 +1,4 @@
-package seedu.revision.logic.commands;
+package seedu.revision.logic.commands.main;
 
 import static java.util.Objects.requireNonNull;
 
@@ -7,6 +7,7 @@ import java.util.List;
 
 import seedu.revision.commons.core.Messages;
 import seedu.revision.commons.core.index.Index;
+import seedu.revision.logic.commands.Command;
 import seedu.revision.logic.commands.exceptions.CommandException;
 import seedu.revision.model.Model;
 import seedu.revision.model.answerable.Answerable;
