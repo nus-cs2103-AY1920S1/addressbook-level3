@@ -6,6 +6,7 @@ import java.util.List;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.util.ClipboardUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.password.Password;
@@ -23,8 +24,8 @@ public class ReadPasswordCommand extends Command {
             + "Parameters: INDEX (must be positive integer)"
             + "Some example ...";
 
-    public static final String MESSAGE_SUCCESS = "Results are shown on the right panel. \n"
-            + "Use copy command to copy password/username/website";
+    public static final String MESSAGE_SUCCESS = "Results are shown on the right panel. \nPassword is copied."
+            + " Use copy command to copy username/website";
 
     private final Index targetIndex;
 
@@ -40,8 +41,8 @@ public class ReadPasswordCommand extends Command {
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PASSWORD_DISPLAYED_INDEX);
         }
-
         Password passwordToRead = lastShownList.get(targetIndex.getZeroBased());
+        ClipboardUtil.copyToClipboard(passwordToRead.getPasswordValue().getNonEncryptedPasswordValue(), null);
         return CommandResult.builder("Results are shown on the right panel")
                 .setObject(passwordToRead)
                 .setIndex(targetIndex)

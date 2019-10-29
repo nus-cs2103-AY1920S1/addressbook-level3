@@ -12,8 +12,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.password.Description;
-import seedu.address.model.password.ModifiedAt;
 import seedu.address.model.password.Password;
+import seedu.address.model.password.PasswordModifiedAt;
 import seedu.address.model.password.PasswordValue;
 import seedu.address.model.password.Username;
 import seedu.address.model.tag.Tag;
@@ -57,7 +57,7 @@ class JsonAdaptedPassword {
         description = password.getDescription().value;
         username = password.getUsername().value;
         passwordValue = password.getPasswordValue().value;
-        modifiedAt = DateUtil.formatDate(password.getModifiedAt().value);
+        modifiedAt = DateUtil.formatDate(password.getPasswordModifiedAt().value);
         tagged.addAll(password.getTags().stream()
                 .map(JsonAdaptedTag::new)
                .collect(Collectors.toList()));
@@ -94,17 +94,17 @@ class JsonAdaptedPassword {
 
         if (modifiedAt == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                    ModifiedAt.class.getSimpleName()));
+                    PasswordModifiedAt.class.getSimpleName()));
         }
 
-        final ModifiedAt modelModifiedAt;
+        final PasswordModifiedAt modelPasswordModifiedAt;
         try {
-            modelModifiedAt = new ModifiedAt(DateUtil.parseDate(modifiedAt));
+            modelPasswordModifiedAt = new PasswordModifiedAt(DateUtil.parseDate(modifiedAt));
         } catch (ParseException e) {
-            throw new IllegalValueException(ModifiedAt.MESSAGE_CONSTRAINTS);
+            throw new IllegalValueException(PasswordModifiedAt.MESSAGE_CONSTRAINTS);
         }
         final Set<Tag> modelTags = new HashSet<>(passwordTags);
-        return new Password(modelDescription, modelUserName, modelPasswordValue, modelModifiedAt, modelTags);
+        return new Password(modelDescription, modelUserName, modelPasswordValue, modelPasswordModifiedAt, modelTags);
     }
 
 }

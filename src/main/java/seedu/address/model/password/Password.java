@@ -20,19 +20,19 @@ public class Password {
     // Data fields
     private final Username username;
     private final PasswordValue passwordValue;
-    private final ModifiedAt modifiedAt;
+    private final PasswordModifiedAt passwordModifiedAt;
     private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
     public Password(Description description, Username username, PasswordValue passwordValue,
-                    ModifiedAt modifiedAt, Set<Tag> tags) {
-        requireAllNonNull(description, username, passwordValue, modifiedAt);
+                    PasswordModifiedAt passwordModifiedAt, Set<Tag> tags) {
+        requireAllNonNull(description, username, passwordValue, passwordModifiedAt);
         this.description = description;
         this.username = username;
         this.passwordValue = passwordValue;
-        this.modifiedAt = modifiedAt;
+        this.passwordModifiedAt = passwordModifiedAt;
         this.tags.addAll(tags);
     }
 
@@ -48,8 +48,8 @@ public class Password {
         return passwordValue;
     }
 
-    public ModifiedAt getModifiedAt() {
-        return modifiedAt;
+    public PasswordModifiedAt getPasswordModifiedAt() {
+        return passwordModifiedAt;
     }
 
     /**
@@ -81,7 +81,7 @@ public class Password {
                 .append(" Password: ")
                 .append(getNonEncryptedPasswordValue())
                 .append(" Modified at: ")
-                .append(getModifiedAt());
+                .append(getPasswordModifiedAt());
 
         return builder.toString();
     }
@@ -138,6 +138,6 @@ public class Password {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(description, username, passwordValue, modifiedAt, tags);
+        return Objects.hash(description, username, passwordValue, passwordModifiedAt, tags);
     }
 }

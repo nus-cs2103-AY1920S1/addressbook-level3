@@ -20,8 +20,8 @@ import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.password.Description;
-import seedu.address.model.password.ModifiedAt;
 import seedu.address.model.password.Password;
+import seedu.address.model.password.PasswordModifiedAt;
 import seedu.address.model.password.PasswordValue;
 import seedu.address.model.password.Username;
 import seedu.address.model.tag.Tag;
@@ -96,12 +96,12 @@ public class EditPasswordCommand extends Command {
                 .getUsername().orElse(passwordToEdit.getUsername());
         PasswordValue updatedPasswordValue = editPasswordDescriptor
                 .getPasswordValue().orElse(passwordToEdit.getPasswordValue());
-        ModifiedAt updatedModifiedAt = new ModifiedAt(new Date());
+        PasswordModifiedAt updatedPasswordModifiedAt = new PasswordModifiedAt(new Date());
         Set<Tag> updatedTags = editPasswordDescriptor
                 .getTags().orElse(passwordToEdit.getTags());
 
         return new Password(updatedDescription, updatedUsername, updatedPasswordValue,
-                updatedModifiedAt, updatedTags);
+                updatedPasswordModifiedAt, updatedTags);
     }
 
     @Override
