@@ -41,7 +41,8 @@ public class IncidentCard extends UiPart<Region> {
     private Label description;
     @FXML
     private Label status;
-
+    @FXML
+    private Label vehicle;
 
     public IncidentCard(Incident incident, int displayedIndex) {
         super(FXML);
@@ -51,7 +52,9 @@ public class IncidentCard extends UiPart<Region> {
         dateTime.setText("created on " + incident.getDateTime().toDisplayString()); // get the display format, not ISO
         operator.setText("Filed by: " + incident.getOperator().getName().toString() + " ("
                 + incident.getOperator().getUsername() + ")");
-        incidentLocation.setText("District: " + String.valueOf(incident.getDistrict().districtNum));
+        incidentLocation.setText("District: " + incident.getDistrict().toString());
+        assert(incident.getVehicle() != null);
+        vehicle.setText("Vehicle: " + incident.getVehicle().toString());
 
         // fields not filled for draft
         CallerNumber incidentCallerNumber = incident.getCallerNumber();
