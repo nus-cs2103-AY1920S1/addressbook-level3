@@ -71,6 +71,17 @@ public class Student {
         return displayPicture.getImage();
     }
 
+    public String getDefaultDisplayPicture() {
+        return displayPicture.getDefault();
+    }
+
+    /**
+     * Setter for displaypic
+     * @param newFile
+     */
+    public void setDisplayPicture(String newFile) {
+        displayPicture.setNewImg(newFile);
+    }
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
@@ -114,7 +125,8 @@ public class Student {
                 && otherStudent.getParentPhone().equals(getParentPhone())
                 && otherStudent.getAddress().equals(getAddress())
                 && otherStudent.getMedicalCondition().equals(getMedicalCondition())
-                && otherStudent.getTags().equals(getTags());
+                && otherStudent.getTags().equals(getTags())
+                && otherStudent.getDisplayPicture().equals(getDisplayPicture());
     }
 
     @Override

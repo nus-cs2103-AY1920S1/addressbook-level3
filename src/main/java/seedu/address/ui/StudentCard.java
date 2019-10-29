@@ -62,8 +62,13 @@ public class StudentCard extends UiPart<Region> {
         student.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
-        Image img = new Image(student.getDisplayPicture());
-        displayPicture.setImage(img);
+        try {
+            Image img = new Image(student.getDisplayPicture());
+            displayPicture.setImage(img);
+        } catch (Exception e) {
+            displayPicture.setImage(new Image(student.getDefaultDisplayPicture()));
+        }
+
     }
 
     /**

@@ -22,8 +22,20 @@ public class DisplayPicture {
     public String getImage() {
         return imgFileName;
     }
+    public String getDefault() {
+        return defaultPicture;
+    }
     public void setNewImg(String newImg) {
         imgFileName = newImg;
+    }
+
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof DisplayPicture // instanceof handles nulls
+                && imgFileName.equals(((DisplayPicture) other).imgFileName)); // state check
+
     }
 
 }
