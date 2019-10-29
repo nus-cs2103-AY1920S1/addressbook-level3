@@ -62,7 +62,6 @@ public class TransactionAddCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireAllNonNull(model, model.getAccountsManager());
-
         Account realToAccount;
 
         if (toAccount != null) {

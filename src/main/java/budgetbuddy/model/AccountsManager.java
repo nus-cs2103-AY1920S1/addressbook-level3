@@ -9,10 +9,7 @@ import budgetbuddy.commons.core.index.Index;
 import budgetbuddy.model.account.Account;
 import budgetbuddy.model.account.UniqueAccountList;
 import budgetbuddy.model.account.exception.AccountNotFoundException;
-import budgetbuddy.model.attributes.Description;
-import budgetbuddy.model.account.exception.DefaultAccountCannotBeDeletedException;
 import budgetbuddy.model.attributes.Name;
-import budgetbuddy.model.transaction.TransactionList;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 
