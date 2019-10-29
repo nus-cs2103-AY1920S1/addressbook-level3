@@ -16,6 +16,7 @@ import seedu.revision.logic.commands.main.FindCommand;
 import seedu.revision.logic.commands.main.HelpCommand;
 import seedu.revision.logic.commands.main.ListCommand;
 import seedu.revision.logic.commands.main.StartQuizCommand;
+import seedu.revision.logic.commands.main.StatsCommand;
 import seedu.revision.logic.parser.exceptions.ParseException;
 
 /**
@@ -71,6 +72,9 @@ public class AddressBookParser {
 
         case StartQuizCommand.COMMAND_WORD:
             return new StartQuizCommandParser().parse(arguments);
+
+        case StatsCommand.COMMAND_WORD:
+            return new StatsCommand();
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
