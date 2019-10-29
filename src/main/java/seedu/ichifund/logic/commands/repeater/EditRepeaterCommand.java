@@ -12,9 +12,12 @@ import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_MONTH_START_OFFSET;
 import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_START_MONTH;
 import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_START_YEAR;
 import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_TRANSACTION_TYPE;
+import static seedu.ichifund.model.Model.PREDICATE_SHOW_ALL_REPEATERS;
 
+import java.util.List;
 import java.util.Optional;
 
+import seedu.ichifund.commons.core.Messages;
 import seedu.ichifund.commons.core.index.Index;
 import seedu.ichifund.logic.commands.Command;
 import seedu.ichifund.logic.commands.CommandResult;
@@ -23,8 +26,14 @@ import seedu.ichifund.model.Description;
 import seedu.ichifund.model.Model;
 import seedu.ichifund.model.amount.Amount;
 import seedu.ichifund.model.date.Date;
+import seedu.ichifund.model.date.Day;
+import seedu.ichifund.model.date.Month;
+import seedu.ichifund.model.date.Year;
 import seedu.ichifund.model.repeater.MonthOffset;
+import seedu.ichifund.model.repeater.Repeater;
+import seedu.ichifund.model.repeater.RepeaterUniqueId;
 import seedu.ichifund.model.transaction.Category;
+import seedu.ichifund.model.transaction.Transaction;
 import seedu.ichifund.model.transaction.TransactionType;
 
 /**
@@ -52,7 +61,7 @@ public class EditRepeaterCommand extends Command {
             + PREFIX_AMOUNT + "31.34 "
             + PREFIX_CATEGORY + "Food "
             + PREFIX_TRANSACTION_TYPE + "in "
-            + PREFIX_MONTH_START_OFFSET + "0 "
+            + PREFIX_MONTH_START_OFFSET + "1 "
             + PREFIX_MONTH_END_OFFSET + "2 "
             + PREFIX_START_MONTH + "1 "
             + PREFIX_START_YEAR + "2019 "
@@ -78,7 +87,109 @@ public class EditRepeaterCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        return new CommandResult(String.format(MESSAGE_EDIT_REPEATER_SUCCESS, null));
+        List<Repeater> lastShownList = model.getFilteredRepeaterList();
+
+        if (index.getZeroBased() >= lastShownList.size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_REPEATER_DISPLAYED_INDEX);
+        }
+
+        Repeater repeaterToEdit = lastShownList.get(index.getZeroBased());
+
+        RepeaterUniqueId updatedUniqueId = repeaterToEdit.getUniqueId();
+        Description updatedDescription = editRepeaterDescriptor.getDescription()
+                .orElse(repeaterToEdit.getDescription());
+        Amount updatedAmount = editRepeaterDescriptor.getAmount()
+                .orElse(repeaterToEdit.getAmount());
+        Category updatedCategory = editRepeaterDescriptor.getCategory()
+                .orElse(repeaterToEdit.getCategory());
+        TransactionType updatedTransactionType = editRepeaterDescriptor.getTransactionType()
+                .orElse(repeaterToEdit.getTransactionType());
+        MonthOffset updatedMonthStartOffset = editRepeaterDescriptor.getMonthStartOffset()
+                .orElse(repeaterToEdit.getMonthStartOffset());
+        MonthOffset updatedMonthEndOffset = editRepeaterDescriptor.getMonthEndOffset()
+                .orElse(repeaterToEdit.getMonthEndOffset());
+        Date updatedStartDate = editRepeaterDescriptor.getStartDate()
+                .orElse(repeaterToEdit.getStartDate());
+        Date updatedEndDate = editRepeaterDescriptor.getEndDate()
+                .orElse(repeaterToEdit.getEndDate());
+
+        Repeater editedRepeater = new Repeater(updatedUniqueId, updatedDescription, updatedAmount,
+                updatedCategory, updatedTransactionType,
+                updatedMonthStartOffset, updatedMonthEndOffset, updatedStartDate, updatedEndDate);
+
+        model.setRepeater(repeaterToEdit, editedRepeater);
+        model.updateFilteredRepeaterList(PREDICATE_SHOW_ALL_REPEATERS);
+
+        deleteRepeaterTransactions(model, editedRepeater.getUniqueId());
+        createRepeaterTransactions(model, editedRepeater);
+
+        return new CommandResult(String.format(MESSAGE_EDIT_REPEATER_SUCCESS, editedRepeater));
+    }
+
+    /**
+     * Deletes all transactions associated with the specified {@code RepeaterUniqueId}.
+     */
+    private void deleteRepeaterTransactions(Model model, RepeaterUniqueId repeaterUniqueId) {
+        for (Transaction transaction : model.getAssociatedTransactions(repeaterUniqueId)) {
+            model.deleteTransaction(transaction);
+        }
+    }
+
+    /**
+     * Creates the transactions associated with the specified {@code Repeater}.
+     */
+    private void createRepeaterTransactions(Model model, Repeater repeater) {
+        int currentMonth = repeater.getStartDate().getMonth().monthNumber;
+        int currentYear = repeater.getStartDate().getYear().yearNumber;
+        int endMonth = repeater.getEndDate().getMonth().monthNumber;
+        int endYear = repeater.getEndDate().getYear().yearNumber;
+
+        while ((currentYear < endYear) || (currentYear == endYear && currentMonth <= endMonth)) {
+            if (!repeater.getMonthStartOffset().isIgnored()) {
+                Transaction transaction = new Transaction(
+                        repeater.getDescription(),
+                        repeater.getAmount(),
+                        repeater.getCategory(),
+                        new Date(
+                            new Day(repeater.getMonthStartOffset().toString()),
+                            new Month(String.valueOf(currentMonth)),
+                            new Year(String.valueOf(currentYear))),
+                        repeater.getTransactionType(),
+                        repeater.getUniqueId());
+                model.addTransaction(transaction);
+            }
+
+            if (!repeater.getMonthEndOffset().isIgnored()) {
+                int daysInMonth;
+                if ((new Month(String.valueOf(currentMonth))).has30Days()) {
+                    daysInMonth = 30;
+                } else if ((new Month(String.valueOf(currentMonth))).has31Days()) {
+                    daysInMonth = 31;
+                } else if ((new Year(String.valueOf(currentYear))).isLeapYear()) {
+                    daysInMonth = 29;
+                } else {
+                    daysInMonth = 28;
+                }
+
+                Transaction transaction = new Transaction(
+                        repeater.getDescription(),
+                        repeater.getAmount(),
+                        repeater.getCategory(),
+                        new Date(
+                            new Day(String.valueOf(daysInMonth - (repeater.getMonthStartOffset().value - 1))),
+                            new Month(String.valueOf(currentMonth)),
+                            new Year(String.valueOf(currentYear))),
+                        repeater.getTransactionType(),
+                        repeater.getUniqueId());
+                model.addTransaction(transaction);
+            }
+
+            currentMonth++;
+            if (currentMonth == 12) {
+                currentMonth = 1;
+                currentYear++;
+            }
+        }
     }
 
     @Override

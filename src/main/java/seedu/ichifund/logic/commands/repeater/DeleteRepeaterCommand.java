@@ -11,6 +11,7 @@ import seedu.ichifund.logic.commands.CommandResult;
 import seedu.ichifund.logic.commands.exceptions.CommandException;
 import seedu.ichifund.model.Model;
 import seedu.ichifund.model.repeater.Repeater;
+import seedu.ichifund.model.repeater.RepeaterUniqueId;
 import seedu.ichifund.model.transaction.Transaction;
 
 /**
@@ -43,12 +44,20 @@ public class DeleteRepeaterCommand extends Command {
         }
 
         Repeater repeaterToDelete = lastShownList.get(targetIndex.getZeroBased());
+        deleteRepeaterTransactions(model, repeaterToDelete.getUniqueId());
         model.deleteRepeater(repeaterToDelete);
-        for (Transaction transaction : model.getAssociatedTransactions(repeaterToDelete.getUniqueId())) {
-            model.deleteTransaction(transaction);
-        }
         return new CommandResult(String.format(MESSAGE_DELETE_REPEATER_SUCCESS, repeaterToDelete));
     }
+
+    /**
+     * Deletes all transactions associated with the specified {@code RepeaterUniqueId}.
+     */
+    private void deleteRepeaterTransactions(Model model, RepeaterUniqueId repeaterUniqueId) {
+        for (Transaction transaction : model.getAssociatedTransactions(repeaterUniqueId)) {
+            model.deleteTransaction(transaction);
+        }
+    }
+
 
     @Override
     public boolean equals(Object other) {

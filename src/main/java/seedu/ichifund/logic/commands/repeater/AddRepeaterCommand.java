@@ -74,28 +74,51 @@ public class AddRepeaterCommand extends Command {
         // Get current repeater unique id.
         RepeaterUniqueId repeaterUniqueId = model.getCurrentRepeaterUniqueId();
 
-        // Add associated transactions.
-        int currentMonth = toAdd.getStartDate().getMonth().monthNumber;
-        int currentYear = toAdd.getStartDate().getYear().yearNumber;
-        int endMonth = toAdd.getEndDate().getMonth().monthNumber;
-        int endYear = toAdd.getEndDate().getYear().yearNumber;
+        // Create new repeater.
+        Repeater newRepeater = new Repeater(
+                    repeaterUniqueId,
+                    toAdd.getDescription(), toAdd.getAmount(), toAdd.getCategory(),
+                    toAdd.getTransactionType(), toAdd.getMonthStartOffset(), toAdd.getMonthEndOffset(),
+                    toAdd.getStartDate(), toAdd.getEndDate());
+
+        // Update current repeater unique id.
+        model.setCurrentRepeaterUniqueId(new RepeaterUniqueId(String.valueOf(
+                    repeaterUniqueId.id + 1)));
+
+        // Add repeater.
+        model.addRepeater(newRepeater);
+
+        // Create repeater transactions.
+        createRepeaterTransactions(model, newRepeater);
+
+        return new CommandResult(String.format(MESSAGE_ADD_REPEATER_SUCCESS, toAdd));
+    }
+
+    /**
+     * Creates the transactions associated with the specified {@code Repeater}.
+     */
+    private void createRepeaterTransactions(Model model, Repeater repeater) {
+        int currentMonth = repeater.getStartDate().getMonth().monthNumber;
+        int currentYear = repeater.getStartDate().getYear().yearNumber;
+        int endMonth = repeater.getEndDate().getMonth().monthNumber;
+        int endYear = repeater.getEndDate().getYear().yearNumber;
 
         while ((currentYear < endYear) || (currentYear == endYear && currentMonth <= endMonth)) {
-            if (!toAdd.getMonthStartOffset().isIgnored()) {
+            if (!repeater.getMonthStartOffset().isIgnored()) {
                 Transaction transaction = new Transaction(
-                        toAdd.getDescription(),
-                        toAdd.getAmount(),
-                        toAdd.getCategory(),
+                        repeater.getDescription(),
+                        repeater.getAmount(),
+                        repeater.getCategory(),
                         new Date(
-                            new Day(toAdd.getMonthStartOffset().toString()),
+                            new Day(repeater.getMonthStartOffset().toString()),
                             new Month(String.valueOf(currentMonth)),
                             new Year(String.valueOf(currentYear))),
-                        toAdd.getTransactionType(),
-                        repeaterUniqueId);
+                        repeater.getTransactionType(),
+                        repeater.getUniqueId());
                 model.addTransaction(transaction);
             }
 
-            if (!toAdd.getMonthEndOffset().isIgnored()) {
+            if (!repeater.getMonthEndOffset().isIgnored()) {
                 int daysInMonth;
                 if ((new Month(String.valueOf(currentMonth))).has30Days()) {
                     daysInMonth = 30;
@@ -108,15 +131,15 @@ public class AddRepeaterCommand extends Command {
                 }
 
                 Transaction transaction = new Transaction(
-                        toAdd.getDescription(),
-                        toAdd.getAmount(),
-                        toAdd.getCategory(),
+                        repeater.getDescription(),
+                        repeater.getAmount(),
+                        repeater.getCategory(),
                         new Date(
-                            new Day(String.valueOf(daysInMonth - (toAdd.getMonthStartOffset().value - 1))),
+                            new Day(String.valueOf(daysInMonth - (repeater.getMonthStartOffset().value - 1))),
                             new Month(String.valueOf(currentMonth)),
                             new Year(String.valueOf(currentYear))),
-                        toAdd.getTransactionType(),
-                        repeaterUniqueId);
+                        repeater.getTransactionType(),
+                        repeater.getUniqueId());
                 model.addTransaction(transaction);
             }
 
@@ -126,20 +149,6 @@ public class AddRepeaterCommand extends Command {
                 currentYear++;
             }
         }
-
-
-        // Add repeater.
-        model.addRepeater(new Repeater(
-                    repeaterUniqueId,
-                    toAdd.getDescription(), toAdd.getAmount(), toAdd.getCategory(),
-                    toAdd.getTransactionType(), toAdd.getMonthStartOffset(), toAdd.getMonthEndOffset(),
-                    toAdd.getStartDate(), toAdd.getEndDate()));
-
-        // Update current repeater unique id.
-        model.setCurrentRepeaterUniqueId(new RepeaterUniqueId(String.valueOf(
-                    repeaterUniqueId.id + 1)));
-
-        return new CommandResult(String.format(MESSAGE_ADD_REPEATER_SUCCESS, toAdd));
     }
 
     @Override

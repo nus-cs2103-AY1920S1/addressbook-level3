@@ -10,9 +10,9 @@ import static seedu.ichifund.commons.util.AppUtil.checkArgument;
 public class MonthOffset {
 
     public static final String MESSAGE_CONSTRAINTS =
-        "Month offset should be an integer between 1 and 28 inclusive. A value of 0 indicates that the month "
+        "Month offset should be an integer between 1 and 28 inclusive. A value of -1 indicates that the month "
         + "offset is ignored.";
-    public static final String VALIDATION_REGEX = "^$|(0|[1-9]|1[0-9]|2[0-8])";
+    public static final String VALIDATION_REGEX = "^$|(-1|[1-9]|1[0-9]|2[0-8])";
 
     public final Integer value;
 
@@ -34,7 +34,7 @@ public class MonthOffset {
     }
 
     public boolean isIgnored() {
-        return value == 0;
+        return value == -1;
     }
 
     @Override
