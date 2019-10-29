@@ -80,7 +80,6 @@ public class EmployeeCard extends UiPart<Region> {
                                 logic.execute(DeallocateCommand.COMMAND_WORD + " " + eventOneBasedIndex
                                         + " " + PREFIX_EMPLOYEE_ID + employee.getEmployeeId());
                             }
-
                             fetchWindow.updateCards();
                         } catch (Exception e) {
                             e.printStackTrace(); //this should not be called

@@ -108,7 +108,7 @@ public class Event {
      */
     public boolean isAvailableForEvent(Employee employee, List<Event> filteredEventList) {
         List<Event> containsEmployeeEventList = filteredEventList.stream()
-                .filter(x -> x.manpowerAllocatedList.getManpowerList().contains(employee.getEmployeeId().id))
+                .filter(x -> x.manpowerAllocatedList.getManpowerList().contains(employee.getEmployeeId()))
                 .collect(Collectors.toList());
         long nonOverlapEventsCount = containsEmployeeEventList.stream()
                 .filter(x -> (startDate.getDate().compareTo(x.getEndDate().getDate()) > 0

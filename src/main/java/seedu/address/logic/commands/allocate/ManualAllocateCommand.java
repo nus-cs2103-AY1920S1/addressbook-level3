@@ -13,6 +13,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.employee.Employee;
+import seedu.address.model.employee.EmployeeId;
 import seedu.address.model.event.Event;
 import seedu.address.model.event.EventDate;
 import seedu.address.model.event.EventDateTimeMap;
@@ -140,9 +141,9 @@ public class ManualAllocateCommand extends Command {
         EventDate updatedStartDate = eventToEdit.getStartDate();
         EventDate updatedEndDate = eventToEdit.getEndDate();
         EventDateTimeMap updatedDateTimeMap = eventToEdit.getEventDateTimeMap();
-        List<String> updatedManpowerList = eventToEdit.getManpowerAllocatedList().getManpowerList();
+        List<EmployeeId> updatedManpowerList = eventToEdit.getManpowerAllocatedList().getManpowerList();
         Set<Tag> updatedTags = eventToEdit.getTags();
-        updatedManpowerList.add(employeeToAdd.getEmployeeId().id);
+        updatedManpowerList.add(employeeToAdd.getEmployeeId());
         EventManpowerAllocatedList updatedManpowerAllocatedList = new EventManpowerAllocatedList(updatedManpowerList);
 
         return new Event(updatedEventName, updatedEventVenue,

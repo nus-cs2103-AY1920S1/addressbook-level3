@@ -12,6 +12,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.employee.Employee;
+import seedu.address.model.employee.EmployeeId;
 import seedu.address.model.event.Event;
 import seedu.address.model.event.EventDate;
 import seedu.address.model.event.EventDateTimeMap;
@@ -100,8 +101,8 @@ public class DeallocateCommand extends Command {
         if (employeeToDelete == null) {
             updatedManpowerAllocatedList = new EventManpowerAllocatedList();
         } else {
-            List<String> updatedManpowerList = eventToEdit.getManpowerAllocatedList().getManpowerList();
-            updatedManpowerList.remove(employeeToDelete.getEmployeeId().id);
+            List<EmployeeId> updatedManpowerList = eventToEdit.getManpowerAllocatedList().getManpowerList();
+            updatedManpowerList.remove(employeeToDelete.getEmployeeId());
             updatedManpowerAllocatedList = new EventManpowerAllocatedList(updatedManpowerList);
         }
         EventDateTimeMap eventDateTimeMap = eventToEdit.getEventDateTimeMap();

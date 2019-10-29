@@ -138,7 +138,7 @@ public class FetchWindow extends UiPart<Stage> {
      */
     public ObservableList<Employee> getEmployeeListForEvent(Event event, ObservableList<Employee> employeeList) {
         ObservableList<Employee> list = event.getManpowerAllocatedList().getManpowerList().stream()
-                .flatMap(x -> employeeList.stream().map(y -> y.getEmployeeId().id.equals(x) ? y : new Employee()))
+                .flatMap(x -> employeeList.stream().map(y -> y.getEmployeeId().equals(x) ? y : new Employee()))
                 .filter(employee -> employee.getEmployeeName() != null)
                 .collect(Collectors.toCollection(FXCollections::observableArrayList));
         return list;
