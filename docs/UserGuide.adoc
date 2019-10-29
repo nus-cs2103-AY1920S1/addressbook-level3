@@ -182,6 +182,15 @@ Displays flashcard <FLASHCARD_INDEX> to user without answer.
         Question: What is 101 Binary in its Decimal form?
         Tags: [cs2100]
 
+=== Revealing a flashcard's answer: `show`
+
+Displays the answer of the flashcard currently loaded.
+
+    Format: show
+
+    Example usage: show
+
+    Expected output: Flashcard answer loaded
 
 === Editing a flashcard: `edit`
 
