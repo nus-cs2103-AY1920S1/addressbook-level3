@@ -331,59 +331,67 @@ This section describes some noteworthy details on how certain features are imple
 === [Proposed] Undo/Redo feature
 ==== Proposed Implementation
 
-The undo/redo mechanism is facilitated by `UndoRedoManager`. It contains a history (of `EventList` states), stored internally as an `eventListStateList`, as well as a `currentStateIndex`, which contains the index of the current state. `UndoRedoManager` also contains a `mainEventList`, which is the `EventList` that the GUI is in sync with.
+The undo/redo mechanism is facilitated by `UndoRedoManager`, which contains `undoStateList` - a history of `UndoRedoStates`. Each `UndoRedoState` object contains two lists: one to store `EventSources` and the other to store `TaskSources`, together representing the state of all event and task data at that point in time. UndoRedoManager also contains a `currentStateIndex`, which keeps track of the index of the `UndoRedoState` being used presently.
 
-It is important that the `Model` works only with the `mainEventList` (and not duplicates) for this reason. To achieve this, `eventListStateList` contains deep-copies of the `mainEventList`, which are created and saved to `eventListStateList` each time a state-changing command that is also not the undo or redo command (such as add_task or delete_task) is being executed. These state-changing commands that are neither undo or redo commands will modify `mainEventList` directly before the deep-copies of the modified `mainEventList` are created and stored.
+A key point to take note of is that `ModelManager` contains an `eventList` (a list of `EventSources`) and a `taskList` (a list of `TaskSources`), both of which cannot be reinitialized. This is because these two lists are directly in sync with the GUI; changes to these specific list instances are reflected as changes to the GUI, but changes to other copies of `EventSource` or `TaskSource` lists will not affect the GUI. Hence, the history of `UndoRedoStates` held by `UndoRedoManager` stores deep-copies of `EventSource` and `TaskSource` lists. Should there be a need to revert back to a past or future state (if undo or redo is called), these lists will retrieve their data from the appropriate copy of `UndoRedoState` in the list of duplicates.
 
-Every time an undo or redo occurs, the `mainEventList` is reverted to a past or future state of itself by retrieving its data from the appropriate copy in the list of duplicates. This allows us to always work with the same `EventList` instance throughout the program execution, which is crucial since this particular instance is in sync with the GUI; only changes to this instance are reflected as changes to the GUI.
+`UndoRedoManager` also implements the following operations:
 
-In addition, `UndoRedoManager` implements the following operations:
+* `UndoRedoManager#commit(UndoRedoState state)` -- Adds the new state (which contains a deep-copied version of `TaskSource` and `EventSource` lists) to the `undoStateList`
+* `UndoRedoManager#undo()` -- Restore `eventList` and `taskList` in `ModelManager` to their previous versions from the appropriate duplicate in `undoStateList` via an `UndoRedoListener`
+* `UndoRedoManager#redo()` -- Restore `eventList` and `taskList` in `ModelManager` to their future versions from the appropriate duplicate in `undoStateList` via an `UndoRedoListener`
+* `UndoRedoManager#clearFutureHistory()` -- Delete all duplicates of `UndoRedoState` that occur in `undoStateList` after the index given by the `currentStateIndex`
 
-* `UndoRedoManager#commit()` -- Creates a deep-copy of the mainEventList state and saves that copy to its history using EventList’s copy-constructor
-* `UndoRedoManager#undo()` -- Retrieve mainEventList's previous state data from its duplicate and restore mainEventList
-* `UndoRedoManager#redo()` -- Retrieve mainEventList's future state data from its duplicate and restore mainEventList
-* `UndoRedoManager#clearFutureHistory()` -- Delete all duplicates of `mainEventList` that occur after the index given by the `currentStateIndex` in `eventListStateList`
+The `UndoCommand` and `RedoCommand` will interact directly with `UndoRedoManager` while other state-changing commands (such as adding or deleting tasks) will interact only with `ModelManager`.
 
-These operations are exposed in the `Model` interface as `Model#commitToHistory()`, `Model#undoFromHistory()` and `Model#redoFromHistory()`, and `Model#clearFutureHistory()` respectively.
+There are three key *Listener* interfaces that help us achieve the desired undo-redo functionality:
+
+* `EventListListener`
+* `TaskListListener`
+* `UndoRedoListener`
+
+The `UndoRedoManager` implements the `EventListListener` interface’s method `onEventListChange(List<EventSource> events)` to “listen” for any changes to `ModelManager`’s `eventList`. (e.g. when an event is added or deleted) If such a change exists, it will be handled by first calling `UndoRedoManager#clearFutureHistory()`, instantiating a `UndoRedoState` with a deep-copied version of the `taskList` and the modified `eventList`, and calling `UndoRedoManager#commit(UndoRedoState state)` to commit this state. `UndoRedoManager` also implements `TaskListListener` in the same fashion, except that changes to the `taskList` are “listened” to rather than the `eventList`.
+
+The `ModelManager` implements the `UndoRedoListener` interface’s method `onUndoRedo(UndoRedoState state)` to “listen” for any undo or redo being executed. This will be handled by updating `ModelManager`’s `eventList` and `taskList` data to match the data of the `UndoRedoState` with index `currentStateIndex` in `undoStateList`.
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
-Step 1. The user runs the program for the first time. The `UndoRedoManager` will be initialized with the initial `mainEventList`. A duplicate of `mainEventList` will be added to `eventListStateList` and the `currentStateIndex` will point to that single `EventList` state in the list.
+Step 1. The user runs the program for the first time. The `UndoRedoManager` will be initialized with the initial `undoStateList`. An `UndoRedoState` will be added to `undoStateList` and the `currentStateIndex` will point to that single `undoRedoState` in the list.
 
 image::UndoRedoState0.png[]
 
-Step 2. The user executes add_event “Suntec City Computer Fair” --at “17/11/2019 12:00”. This add_event command will first call `Model#clearFutureHistory()` in order to discard all future states (in case an undo command was called before) as they are no longer useful. In this case, there are no future states to discard. All other state-changing commands that are not undo or redo will discard future states as well when executed. Then, the event will be added to `mainEventList`. Finally, `Model#commitToHistory()` will be called, causing the modified `mainEventList` to be deep-copied and saved to `eventListStateList`, and the `currentStateIndex` is incremented by one to contain the index of the newly inserted event list state.
+Step 2. The user executes `add_event “Suntec City Computer Fair” --at “17/11/2019 12:00”`. The event will be added to `ModelManager`’s `eventList`. Then, `UndoRedoManager#onEventListChange(List<EventSource> events)` will be called (as there has been a change to the `eventList`), clearing all future states beyond the `currentStateIndex` as they are no longer useful. In this particular case, there are no future states to be cleared. Then, the modified `eventList` and `taskList` will be deep-copied and a new `UndoRedoState` containing the deep-copies will be added to `undoStateList`. The `currentStateIndex` is incremented by one to contain the index of the newly inserted undo redo state.
 
 image::UndoRedoState1.png[]
 
 [NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
+If a command fails its execution, it will not result in any change to `ModelManager#eventList` or `ModelManager#taskList`. Hence, there is no change to trigger the listener methods and thus no `UndoRedoState` will be saved to `undoStateList`.
 
-Step 3. Suppose the user decides that adding the task was a mistake. He/she then executes the undo command to rectify the error. The undo command will call `Model#undoFromHistory()`, which will decrement the `currentStateIndex` by one to contain the index of the previous event list state, which `mainEventList` resets its data to.
+Step 3. Suppose the user decides that adding the task was a mistake. He/she then executes the undo command to rectify the error. The undo command will decrement the `currentStateIndex` by one to contain the index of the previous undo redo state, thereafter triggering the `UndoRedoListener#onUndoRedo` method. This method updates `ModelManager`’s `eventList` and `taskList` data to match the data of the `UndoRedoState` with index `currentStateIndex` in `undoStateList`.
 
-image::UndoRedoState3.png[]
+image::UndoRedoState2.png[]
 
 [NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial event list state, then there are no previous event list states to restore. The `undo` command uses `Model#canUndoEventList()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+If the `currentStateIndex` is 0, pointing to the initial undo redo state, then there are no previous undo redo states to restore. The undo command uses `UndoRedoManager#canUndo()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
 
 The following sequence diagram shows how the undo operation works:
 
-image::UndoSequenceDiagram.png[]
+image::UndoSequenceDiagram.png[width=100%]
 
 NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
-The redo command does the opposite — it calls Model#redoFromHistory(), which increments the currentStateIndex by one to contain the index of the previously undone state. The mainEventList then resets its data to this state.
+The redo command does the opposite — it calls `UndoRedoManager#redo()`, which increments the `currentStateIndex` by one to contain the index of the previously undone state. The `UndoRedoListener` then causes `ModelManager#eventList` and `ModelManager#taskList` to reset their data to this state’s list data.
 
 [NOTE]
-If the `currentStateIndex` is at index `eventListStateList.size() - 1`, pointing to the latest event list state, then there are no undone event list states to restore. The `redo` command uses `Model#canRedoEventList()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+If the `currentStateIndex` is at index `undoStateList.size() - 1`, pointing to the latest undo redo state, then there are no undone undo redo states to restore. The `redo` command uses `UndoRedoManager#canRedo()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
 
-Step 4. The user decides to execute the command list. Non-state-changing commands such as list do not manipulate task and event data. Hence, these commands will not call `Model#clearFutureHistory()` or `Model#commitToHistory()` no changes to the current state have been made. Thus, the `eventListStateList` remains unchanged.
+Step 4. The user decides to execute the command `log`. Non-state-changing commands such as `log` do not manipulate task and event data. Since no changes to `taskList` or `eventList` have been made, the listener methods will not be triggered and no `UndoRedoState` will be saved to `undoStateList`. Thus, the `undoStateList` remains unchanged.
+
+image::UndoRedoState3.png[]
+
+Step 5. The user executes `delete_event 1`, removing the event from `ModelManager`’s `eventList`. `UndoRedoManager#onEventListChange(List<EventSource> events)` will be called (as there has been a change to the `eventList`), purging all future states beyond the `currentStateIndex` as they are no longer useful. Then, the modified `eventList` and `taskList` will be deep-copied and a new `UndoRedoState` containing the deep-copies will be added to `undoStateList`. The `currentStateIndex` is incremented by one to contain the index of the newly inserted undo redo state.
 
 image::UndoRedoState4.png[]
-
-Step 5. The user executes delete_event 1, which calls `Model#clearFutureHistory()`, deletes the event from `mainEventList`, and then calls `Model#commitToHistory()`. As mentioned in Step 2, all event list states after the `currentStateIndex` will be purged.
-
-image::UndoRedoState5.png[]
 
 The following activity diagram summarizes what happens when a user executes a new command:
 
@@ -393,21 +401,12 @@ image::CommitActivityDiagram.png[]
 
 ===== Aspect: How undo & redo executes
 
-* **Alternative 1 (current choice):** Saves the entire address book.
-** Pros: Easy to implement.
-** Cons: May have performance issues in terms of memory usage.
-* **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-** Cons: We must ensure that the implementation of each individual command are correct.
-
-===== Aspect: Data structure to support the undo/redo commands
-
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
-* **Alternative 2:** Use `HistoryManager` for undo/redo
-** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
+* **Alternative 1 (current choice):** Saves `EventSource` and `TaskSource` data every time a change has been made.
+** Pros: Easy to understand and implement.
+** Cons: Performance issues may arise due to the relatively larger memory usage required.
+* **Alternative 2:** Individual command knows how to undo/redo by itself; inverse functions have to be implemented (if I undo the deletion of a person, it would be equivalent to adding him back to the list)
+** Pros: Uses less memory as we only need to keep track of what commands have been executed and their parameters, as opposed to storing all task and event data between every change.
+** Cons: Every command will have to be implemented twice, since their inverse operations will all be different. This is compounded by the fact that we have to ensure the correctness of every inverse operation individually as well.
 // end::undoredo[]
 
 // tag::dataencryption[]
