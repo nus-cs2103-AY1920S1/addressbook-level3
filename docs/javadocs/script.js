@@ -36,7 +36,6 @@ function loadScripts(doc, tag) {
         createElem(doc, tag, 'jquery/jszip-utils/dist/jszip-utils-ie.js');
     }
     createElem(doc, tag, 'search.js');
-    
     $.get(pathtoroot + "module-search-index.zip")
             .done(function() {
                 JSZipUtils.getBinaryContent(pathtoroot + "module-search-index.zip", function(e, data) {
