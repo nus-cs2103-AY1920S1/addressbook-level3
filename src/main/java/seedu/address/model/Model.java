@@ -21,15 +21,7 @@ import seedu.address.model.task.Task;
  * The API of the Model component.
  */
 public interface Model {
-    /**
-     * {@code Predicate} that always evaluate to true
-     */
     Predicate<Note> PREDICATE_SHOW_ALL_NOTES = unused -> true;
-
-    /**
-     * {@code Predicate} that always evaluate to false
-     */
-    Predicate<Note> PREDICATE_SHOW_NO_NOTES = unused -> false;
 
     Predicate<Task> PREDICATE_SHOW_NO_TASKS = task -> false;
 
@@ -39,17 +31,10 @@ public interface Model {
 
     Predicate<Task> PREDICATE_SHOW_NOT_DONE_TASKS = task -> !task.getStatus();
 
-    Predicate<Task> PREDICATE_SHOW_OVERDUE_TASKS = new Predicate<Task>() {
-        @Override
-        public boolean test(Task task) {
-            LocalDateTime now = LocalDateTime.now();
-            System.out.println(now.toString());
-            if (task.getStatus()) {
-                return false;
-            }
-            LocalDateTime taskDateTime = LocalDateTime.of(task.getDate(), task.getTime());
-            return !task.getStatus() && taskDateTime.isBefore(now);
-        }
+    Predicate<Task> PREDICATE_SHOW_OVERDUE_TASKS = task -> {
+        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime taskDateTime = LocalDateTime.of(task.getDate(), task.getTime());
+        return !task.getStatus() && taskDateTime.isBefore(now);
     };
 
     /**

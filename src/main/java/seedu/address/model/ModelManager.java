@@ -444,7 +444,7 @@ public class ModelManager implements Model {
             for (Subject s : uniqueSubjectList) {
                 quizResultFilter.setOperation(s, d);
                 int n = filterQuizResultAndReturn(quizResultFilter).size();
-                dataListPerDifficulty.add(new Pair(s, n));
+                dataListPerDifficulty.add(new Pair<>(s, n));
             }
             barChartData.add(new StackBarChartModel(d, dataListPerDifficulty));
         }
