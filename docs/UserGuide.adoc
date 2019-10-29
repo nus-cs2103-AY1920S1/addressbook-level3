@@ -520,7 +520,7 @@ Edit a note currently stored. All fields are *optional*. +
 Format: `note [INDEX] note/... desc/... priority/...`
 
 [NOTE]
-To change the priority of a `high`, `medium` or `low` note, the prefix priority/ is to be followed by `unmarked`. (e.g. note 2 priority/unmarked).
+To change the priority of a `high`, `medium` or `low` note to the default status, the prefix `priority/` is to be followed by `unmarked`. (e.g. note 2 priority/unmarked).
 
 The options supported by this feature includes:
 
@@ -573,7 +573,7 @@ Lists the notes.
 ==== Generating a Statistics report
 
 Create statistics reports of student scores using excel data files. The statistics generated is based
-on the calculated, weighted score of the input data. +
+on the calculated weighted score of the input data. +
 Format: `statistics file/... print/...(optional)`
 
 The options supported by this feature includes:
@@ -655,3 +655,10 @@ Note that all fields all mandatory unless stated otherwise.​
 * *Listing a Quiz* : `quiz list quizID/...`
 * *Showing only Questions of a Quiz* : `quiz showQuestions quizID/...`
 * *Showing only Answers of a Quiz* : `quiz showAnswers quizID/...`
+* *Creating a Note* : `note note/... desc/...`
+* *Creating a Note with Priority* : `note note/... desc/... priority/...`
+* *Editing a Note* : `note [INDEX] note/... desc/... priority/...`
+* *Deleting a Note* : `note delete [INDEX]`
+* *Listing Notes* : `note list`
+* *Generating Statistics* : `statistics file/...`
+* *Generating Statistics and Saving* : `statistics file/... print/...`
