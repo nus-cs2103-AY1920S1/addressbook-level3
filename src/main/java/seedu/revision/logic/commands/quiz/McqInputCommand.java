@@ -9,12 +9,15 @@ import seedu.revision.model.Model;
 import seedu.revision.model.answerable.Answerable;
 import seedu.revision.model.answerable.answer.Answer;
 
+import java.util.logging.Logger;
+
 /**
  * User inputs that answer the MCQ questions in the quiz session.
  */
 public class McqInputCommand extends Command {
 
     public static final String MESSAGE_USAGE = "Input can only be A, B, C, or D (case insensitive)";
+    private static final Logger logger = Logger.getLogger(McqInputCommand.class.getName());
     private final String mcqInput;
     private final Answerable currentAnswerable;
 

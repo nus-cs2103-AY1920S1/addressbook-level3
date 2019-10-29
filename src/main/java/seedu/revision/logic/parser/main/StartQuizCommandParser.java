@@ -1,9 +1,11 @@
 package seedu.revision.logic.parser.main;
 
+import static seedu.revision.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.revision.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.revision.logic.parser.CliSyntax.PREFIX_DIFFICULTY;
 import static seedu.revision.logic.parser.CliSyntax.PREFIX_MODE;
 
+import seedu.revision.logic.commands.main.AddCommand;
 import seedu.revision.logic.commands.main.StartQuizCommand;
 import seedu.revision.logic.parser.ArgumentMultimap;
 import seedu.revision.logic.parser.ArgumentTokenizer;
@@ -31,25 +33,28 @@ public class StartQuizCommandParser implements Parser<StartQuizCommand> {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_CATEGORY, PREFIX_DIFFICULTY, PREFIX_MODE);
 
+//        CategoryPredicate categoryPredicate = null;
+//        DifficultyPredicate difficultyPredicate = null;
+        Mode mode = null;
 
-        CategoryPredicate categoryPredicate = null;
-        DifficultyPredicate difficultyPredicate = null;
-        Mode chosenMode = null;
-
-        if (argMultimap.getValue(PREFIX_CATEGORY).isPresent()) {
-            Category categoryToFilter = ParserUtil.parseCategory(argMultimap.getValue(PREFIX_CATEGORY).get());
-            categoryPredicate = new CategoryPredicate(categoryToFilter);
+        if (!argMultimap.getPreamble().isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, StartQuizCommand.MESSAGE_USAGE));
         }
 
-        if (argMultimap.getValue(PREFIX_DIFFICULTY).isPresent()) {
-            Difficulty difficultyToFilter = ParserUtil.parseDifficulty(argMultimap.getValue(PREFIX_DIFFICULTY).get());
-            difficultyPredicate = new DifficultyPredicate(difficultyToFilter);
-        }
+//        if (argMultimap.getValue(PREFIX_CATEGORY).isPresent()) {
+//            Category categoryToFilter = ParserUtil.parseCategory(argMultimap.getValue(PREFIX_CATEGORY).get());
+//            categoryPredicate = new CategoryPredicate(categoryToFilter);
+//        }
+//
+//        if (argMultimap.getValue(PREFIX_DIFFICULTY).isPresent()) {
+//            Difficulty difficultyToFilter = ParserUtil.parseDifficulty(argMultimap.getValue(PREFIX_DIFFICULTY).get());
+//            difficultyPredicate = new DifficultyPredicate(difficultyToFilter);
+//        }
 
         if (argMultimap.getValue(PREFIX_MODE).isPresent()) {
-            chosenMode = ParserUtil.parseMode(argMultimap.getValue(PREFIX_MODE).get());
+            mode = ParserUtil.parseMode(argMultimap.getValue(PREFIX_MODE).get());
         }
 
-        return new StartQuizCommand(categoryPredicate, difficultyPredicate, chosenMode);
+        return new StartQuizCommand(mode);
     }
 }

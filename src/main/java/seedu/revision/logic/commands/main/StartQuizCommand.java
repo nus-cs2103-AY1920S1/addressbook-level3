@@ -19,39 +19,49 @@ public class StartQuizCommand extends Command {
 
     public static final String COMMAND_WORD = "start";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Starts quiz based on Category, "
-            + "Difficulty or Mode.\n"
+//    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Starts quiz based on Category, "
+//            + "Difficulty or Mode.\n"
+//            + "Parameters: "
+//            + PREFIX_CATEGORY + "CATEGORY "
+//            + PREFIX_DIFFICULTY + "DIFFICULTY "
+//            + PREFIX_MODE + "MODE\n"
+//            + "Example: " + COMMAND_WORD + " "
+//            + PREFIX_MODE + "normal";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Starts quiz based on Mode, if no Mode provided, "
+        + "entire question bank will be initialised."
             + "Parameters: "
-            + PREFIX_CATEGORY + "CATEGORY "
-            + PREFIX_DIFFICULTY + "DIFFICULTY "
             + PREFIX_MODE + "MODE\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_MODE + "normal";
 
     private static final String MESSAGE_SUCCESS = "Starting Quiz!";
 
-    private static Object currentIteratedAnswerable;
-
     private CategoryPredicate categoryPredicate;
     private DifficultyPredicate difficultyPredicate;
     private Mode mode;
 
+//    /**
+//     * Creates an AddCommand to add the specified {@code Answerable}
+//     */
+//    public StartQuizCommand(CategoryPredicate categoryPredicate, DifficultyPredicate difficultyPredicate, Mode mode) {
+//        this.categoryPredicate = categoryPredicate;
+//        this.difficultyPredicate = difficultyPredicate;
+//        this.mode = mode;
+//    }
     /**
      * Creates an AddCommand to add the specified {@code Answerable}
      */
-    public StartQuizCommand(CategoryPredicate categoryPredicate, DifficultyPredicate difficultyPredicate, Mode mode) {
-        this.categoryPredicate = categoryPredicate;
-        this.difficultyPredicate = difficultyPredicate;
+    public StartQuizCommand(Mode mode) {
         this.mode = mode;
     }
 
     @Override
     public CommandResult execute(Model model) throws ParseException {
 
-        ListCommand quizList = new ListCommand(categoryPredicate, difficultyPredicate);
-        quizList.execute(model);
-
-        return new CommandResult(MESSAGE_SUCCESS, false, false, true);
+//        ListCommand quizList = new ListCommand(categoryPredicate, difficultyPredicate);
+//        quizList.execute(model);
+//
+        return new CommandResult(MESSAGE_SUCCESS, true, mode);
 
     }
 }

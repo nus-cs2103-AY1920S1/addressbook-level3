@@ -1,6 +1,7 @@
 package seedu.revision.logic.commands.main;
 
 import seedu.revision.model.Model;
+import seedu.revision.model.quiz.Mode;
 
 import static java.util.Objects.requireNonNull;
 
@@ -25,6 +26,9 @@ public class CommandResult {
     /** The restore window will open. */
     private final boolean showRestore;
 
+    /** Chosen mode for the quiz **/
+    private static Mode mode;
+
     /** To pass the Model. */
     private static Model model;
 
@@ -47,6 +51,18 @@ public class CommandResult {
         this.showHelp = showHelp;
         this.exit = exit;
         this.start = start;
+        this.showRestore = false;
+    }
+
+    /**
+     * Constructs a {@code CommandResult} with the specified fields.
+     */
+    public CommandResult(String feedbackToUser, boolean start, Mode mode) {
+        this.feedbackToUser = requireNonNull(feedbackToUser);
+        this.showHelp = false;
+        this.exit = false;
+        this.start = start;
+        this.mode = mode;
         this.showRestore = false;
     }
 

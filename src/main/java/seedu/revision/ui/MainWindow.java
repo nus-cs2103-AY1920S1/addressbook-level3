@@ -77,6 +77,7 @@ public class MainWindow extends Window {
                     + "Quiz start aborted. Type 'list' to view your full list of questions again.");
         }
     }
+
     /**
      * Closes the application.
      */

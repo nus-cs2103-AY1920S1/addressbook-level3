@@ -38,9 +38,11 @@ public abstract class Answerable {
         this.question = question;
         this.correctAnswerList = correctAnswerList;
         this.wrongAnswerList = wrongAnswerList;
-        this.combinedAnswerList = Stream.concat(
-                correctAnswerList.stream(), wrongAnswerList.stream())
-                .collect(Collectors.toCollection(ArrayList::new));
+        ArrayList<Answer> shuffledList = new ArrayList<>();
+        shuffledList.addAll(correctAnswerList);
+        shuffledList.addAll(wrongAnswerList);
+        Collections.shuffle(shuffledList);
+        this.combinedAnswerList = shuffledList;
         this.difficulty = difficulty;
         this.categories.addAll(categories);
     }

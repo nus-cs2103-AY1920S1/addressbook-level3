@@ -9,7 +9,7 @@ import static seedu.revision.commons.util.AppUtil.checkArgument;
  */
 public class Mode {
 
-    public static final String MESSAGE_CONSTRAINTS = "Mode can only be -normal-, *chaos*, or ?custom?";
+    public static final String MESSAGE_CONSTRAINTS = "Mode can only be normal / chaos / custom";
 
     /*
      * The first character of the address must not be a whitespace,
