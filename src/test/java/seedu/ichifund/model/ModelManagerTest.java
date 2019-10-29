@@ -5,8 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.ichifund.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import static seedu.ichifund.testutil.Assert.assertThrows;
-import static seedu.ichifund.testutil.TypicalPersons.ALICE;
-import static seedu.ichifund.testutil.TypicalPersons.BENSON;
+import static seedu.ichifund.testutil.TypicalFundBook.PERSON_ALICE;
+import static seedu.ichifund.testutil.TypicalFundBook.PERSON_BENSON;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -79,13 +79,13 @@ public class ModelManagerTest {
 
     @Test
     public void hasPerson_personNotInFundBook_returnsFalse() {
-        assertFalse(modelManager.hasPerson(ALICE));
+        assertFalse(modelManager.hasPerson(PERSON_ALICE));
     }
 
     @Test
     public void hasPerson_personInFundBook_returnsTrue() {
-        modelManager.addPerson(ALICE);
-        assertTrue(modelManager.hasPerson(ALICE));
+        modelManager.addPerson(PERSON_ALICE);
+        assertTrue(modelManager.hasPerson(PERSON_ALICE));
     }
 
     @Test
@@ -95,7 +95,7 @@ public class ModelManagerTest {
 
     @Test
     public void equals() {
-        FundBook fundBook = new FundBookBuilder().withPerson(ALICE).withPerson(BENSON).build();
+        FundBook fundBook = new FundBookBuilder().withPerson(PERSON_ALICE).withPerson(PERSON_BENSON).build();
         FundBook differentFundBook = new FundBook();
         UserPrefs userPrefs = new UserPrefs();
 
@@ -117,7 +117,7 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(new ModelManager(differentFundBook, userPrefs)));
 
         // different filteredList -> returns false
-        String[] keywords = ALICE.getName().fullName.split("\\s+");
+        String[] keywords = PERSON_ALICE.getName().fullName.split("\\s+");
         modelManager.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
         assertFalse(modelManager.equals(new ModelManager(fundBook, userPrefs)));
 

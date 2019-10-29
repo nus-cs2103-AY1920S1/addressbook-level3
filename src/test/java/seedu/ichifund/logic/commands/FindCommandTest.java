@@ -5,10 +5,10 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.ichifund.commons.core.Messages.MESSAGE_PERSONS_LISTED_OVERVIEW;
 import static seedu.ichifund.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.ichifund.testutil.TypicalPersons.CARL;
-import static seedu.ichifund.testutil.TypicalPersons.ELLE;
-import static seedu.ichifund.testutil.TypicalPersons.FIONA;
-import static seedu.ichifund.testutil.TypicalPersons.getTypicalFundBook;
+import static seedu.ichifund.testutil.TypicalFundBook.PERSON_CARL;
+import static seedu.ichifund.testutil.TypicalFundBook.PERSON_ELLE;
+import static seedu.ichifund.testutil.TypicalFundBook.PERSON_FIONA;
+import static seedu.ichifund.testutil.TypicalFundBook.getTypicalFundBook;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -71,7 +71,7 @@ public class FindCommandTest {
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredPersonList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(CARL, ELLE, FIONA), model.getFilteredPersonList());
+        assertEquals(Arrays.asList(PERSON_CARL, PERSON_ELLE, PERSON_FIONA), model.getFilteredPersonList());
     }
 
     /**

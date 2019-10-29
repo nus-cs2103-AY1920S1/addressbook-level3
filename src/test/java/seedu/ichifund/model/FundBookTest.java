@@ -6,8 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.ichifund.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.ichifund.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.ichifund.testutil.Assert.assertThrows;
-import static seedu.ichifund.testutil.TypicalPersons.ALICE;
-import static seedu.ichifund.testutil.TypicalPersons.getTypicalFundBook;
+import static seedu.ichifund.testutil.TypicalFundBook.PERSON_ALICE;
+import static seedu.ichifund.testutil.TypicalFundBook.getTypicalFundBook;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -54,13 +54,13 @@ public class FundBookTest {
     @Test
     public void resetData_withDuplicatePersons_throwsDuplicatePersonException() {
         // Two persons with the same identity fields
-        Person editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        Person editedAlice = new PersonBuilder(PERSON_ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         Repeater repeater = new RepeaterBuilder().build();
         Budget budget = new BudgetBuilder().build();
         Transaction transaction = new TransactionBuilder().build();
         RepeaterUniqueId currentRepeaterUniqueId = new RepeaterUniqueId("0");
-        List<Person> newPersons = Arrays.asList(ALICE, editedAlice);
+        List<Person> newPersons = Arrays.asList(PERSON_ALICE, editedAlice);
         List<Repeater> repeaters = Collections.singletonList(repeater);
         List<Budget> budgets = Collections.singletonList(budget);
         List<Transaction> transactions = Collections.singletonList(transaction);
@@ -76,19 +76,19 @@ public class FundBookTest {
 
     @Test
     public void hasPerson_personNotInFundBook_returnsFalse() {
-        assertFalse(fundBook.hasPerson(ALICE));
+        assertFalse(fundBook.hasPerson(PERSON_ALICE));
     }
 
     @Test
     public void hasPerson_personInFundBook_returnsTrue() {
-        fundBook.addPerson(ALICE);
-        assertTrue(fundBook.hasPerson(ALICE));
+        fundBook.addPerson(PERSON_ALICE);
+        assertTrue(fundBook.hasPerson(PERSON_ALICE));
     }
 
     @Test
     public void hasPerson_personWithSameIdentityFieldsInFundBook_returnsTrue() {
-        fundBook.addPerson(ALICE);
-        Person editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        fundBook.addPerson(PERSON_ALICE);
+        Person editedAlice = new PersonBuilder(PERSON_ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         assertTrue(fundBook.hasPerson(editedAlice));
     }
