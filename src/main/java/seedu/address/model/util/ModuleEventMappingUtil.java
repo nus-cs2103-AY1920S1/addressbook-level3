@@ -8,12 +8,14 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import seedu.address.logic.commands.exceptions.ModuleToEventMappingException;
 import seedu.address.model.module.Exam;
 import seedu.address.model.module.Holidays;
 import seedu.address.model.module.Lesson;
 import seedu.address.model.module.LessonNo;
+import seedu.address.model.module.LessonType;
 import seedu.address.model.module.Module;
 import seedu.address.model.module.Semester;
 import seedu.address.model.module.SemesterNo;
@@ -29,30 +31,30 @@ import seedu.address.model.person.schedule.Venue;
 public class ModuleEventMappingUtil {
     public static final String MESSAGE_MISSING_LESSONS = "missing class numbers in input!";
     public static final String MESSAGE_INVALID_LESSONS = "invalid class number in input!";
-    private static final int WEEK_LENGTH = 7;
-
 
     /**
      * Converts a {@code Module} to an {@code Event}.
      * @return an Event based on an NUS module
      */
     public static Event mapModuleToEvent(Module module, LocalDate startAcadSemDate, SemesterNo semesterNo,
-                  List<LessonNo> lessonNos, Holidays holidays) throws ModuleToEventMappingException {
+             Map<LessonType, LessonNo> lessonTypesNosMap, Holidays holidays) throws ModuleToEventMappingException {
         requireNonNull(module);
         requireNonNull(startAcadSemDate);
         requireNonNull(semesterNo);
-        requireNonNull(lessonNos);
+        requireNonNull(lessonTypesNosMap);
         requireNonNull(holidays);
 
         Semester semester = module.getSemester(semesterNo);
         ArrayList<Lesson> lessons = new ArrayList<>();
         ArrayList<Timeslot> timeslots = new ArrayList<>();
 
-        if (lessonNos.isEmpty()) { //no lesson numbers given
+        if (lessonTypesNosMap.isEmpty()) { //no lesson types-numbers given
             throw new ModuleToEventMappingException(MESSAGE_MISSING_LESSONS);
         }
-        for (LessonNo lessonNo : lessonNos) {
-            List<Lesson> lessonsFound = semester.findLessons(lessonNo);
+        for (Map.Entry<LessonType, LessonNo> entry : lessonTypesNosMap.entrySet()) {
+            LessonType lessonType = entry.getKey();
+            LessonNo lessonNo = entry.getValue();
+            List<Lesson> lessonsFound = semester.findLessons(lessonType, lessonNo);
             if (lessonsFound.isEmpty()) { //module does not have a matching lesson number
                 throw new ModuleToEventMappingException(MESSAGE_INVALID_LESSONS);
             }
@@ -124,15 +126,22 @@ public class ModuleEventMappingUtil {
             while (!tempDate.isAfter(lastLessonDate)) {
                 weekNumbers.add(curr);
                 curr += weekInterval;
-                tempDate = tempDate.plusDays(WEEK_LENGTH * weekInterval);
+                tempDate = tempDate.plusWeeks(weekInterval);
             }
         }
         //generate timeslots
         for (int weekNo : weekNumbers) {
-            LocalDateTime timeslotStart = firstLessonStart.plusDays(WEEK_LENGTH * (weekNo - 1));
-            LocalDateTime timeslotEnd = firstLessonEnd.plusDays(WEEK_LENGTH * (weekNo - 1));
+            LocalDateTime timeslotStart = firstLessonStart.plusWeeks(weekNo - 1);
+            LocalDateTime timeslotEnd = firstLessonEnd.plusWeeks(weekNo - 1);
 
-            boolean isHoliday = holidayDates.stream().anyMatch(d -> timeslotStart.toLocalDate().isEqual(d));
+            // if weekNo > 6, +1 for recess week
+            if (weekNo > 6) {
+                timeslotStart = timeslotStart.plusWeeks(1);
+                timeslotEnd = timeslotEnd.plusWeeks(1);
+            }
+            // don't generate on holidays.
+            final LocalDateTime finalTimeslotStart = timeslotStart; // variable used in lambda should be final.
+            boolean isHoliday = holidayDates.stream().anyMatch(d -> finalTimeslotStart.toLocalDate().isEqual(d));
             if (isHoliday) {
                 continue;
             }
