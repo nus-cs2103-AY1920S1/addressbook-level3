@@ -147,6 +147,11 @@ Sample Output: Opens a window displaying command history
 
 image::HistoryWindowDemo.png[width="790"]
 
+==== Sync Command History to disk
+
+Command history is automatically saved to disk whenever it is updated with new inputs.
+Upon the next MAMS startup, previous command history will be loaded from disk as well.
+
 === Show clashes: `clash`
 
 ==== Show clashes between 2 modules
