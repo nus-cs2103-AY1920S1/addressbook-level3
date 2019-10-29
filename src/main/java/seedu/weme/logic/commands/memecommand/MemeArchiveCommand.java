@@ -29,7 +29,6 @@ public class MemeArchiveCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1 ";
 
     public static final String MESSAGE_ARCHIVE_MEME_SUCCESS = "Archived Meme: %1$s";
-    public static final String MESSAGE_NOT_ARCHIVED = "Please specify the index of the meme that you want to archive.";
     public static final String MESSAGE_ALREADY_ARCHIVED = "This meme is already archived!";
 
     private final Index index;
@@ -68,6 +67,9 @@ public class MemeArchiveCommand extends Command {
         return result;
     }
 
+    /**
+     * Creates an archived Meme using the input unarchived Meme.
+     */
     private Meme createArchivedMeme(Meme meme) {
         assert meme != null;
 

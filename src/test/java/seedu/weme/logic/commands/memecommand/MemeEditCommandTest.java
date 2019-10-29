@@ -100,6 +100,7 @@ public class MemeEditCommandTest {
         Model expectedModel = new ModelManager(new Weme(model.getWeme()), new UserPrefs());
         expectedModel.setMeme(model.getFilteredMemeList().get(0), editedMeme);
         expectedModel.commitWeme(expectedMessage);
+        showMemeAtIndex(expectedModel, INDEX_FIRST_MEME);
 
         assertCommandSuccess(memeEditCommand, model, expectedMessage, expectedModel);
     }

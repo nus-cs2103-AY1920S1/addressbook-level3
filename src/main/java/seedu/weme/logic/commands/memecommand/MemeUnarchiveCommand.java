@@ -29,7 +29,6 @@ public class MemeUnarchiveCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1 ";
 
     public static final String MESSAGE_UNARCHIVE_MEME_SUCCESS = "Unarchived Meme: %1$s";
-    public static final String MESSAGE_NOT_UNARCHIVED = "Please specify the index of the meme that you want to unarchive.";
     public static final String MESSAGE_ALREADY_UNARCHIVED = "This meme is already unarchived!";
 
     private final Index index;
@@ -68,6 +67,9 @@ public class MemeUnarchiveCommand extends Command {
         return result;
     }
 
+    /**
+     * Creates an unarchived Meme using the input archived Meme.
+     */
     private Meme createUnarchivedMeme(Meme meme) {
         assert meme != null;
 

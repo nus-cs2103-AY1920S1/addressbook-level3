@@ -27,7 +27,6 @@ public class TemplateUnarchiveCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1 ";
 
     public static final String MESSAGE_UNARCHIVE_TEMPLATE_SUCCESS = "Unarchived Template: %1$s";
-    public static final String MESSAGE_NOT_UNARCHIVED = "Please specify the index of the template that you want to unarchive.";
     public static final String MESSAGE_ALREADY_UNARCHIVED = "This template is already unarchived!";
 
     private final Index index;
@@ -59,13 +58,17 @@ public class TemplateUnarchiveCommand extends Command {
         Template unarchivedTemplate = createUnarchivedTemplate(templateToUnarchive);
 
         model.setTemplate(templateToUnarchive, unarchivedTemplate);
-        CommandResult result = new CommandResult(String.format(MESSAGE_UNARCHIVE_TEMPLATE_SUCCESS, templateToUnarchive));
+        CommandResult result = new CommandResult(String.format(MESSAGE_UNARCHIVE_TEMPLATE_SUCCESS,
+                templateToUnarchive));
         model.commitWeme(result.getFeedbackToUser());
         model.updateFilteredTemplateList(PREDICATE_SHOW_ALL_ARCHIVED_TEMPLATES);
 
         return result;
     }
 
+    /**
+     * Creates an unarchived Template using the input archived Template.
+     */
     private Template createUnarchivedTemplate(Template template) {
         assert template != null;
 

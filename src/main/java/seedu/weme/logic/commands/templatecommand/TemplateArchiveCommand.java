@@ -27,7 +27,6 @@ public class TemplateArchiveCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1 ";
 
     public static final String MESSAGE_ARCHIVE_TEMPLATE_SUCCESS = "Archived Template: %1$s";
-    public static final String MESSAGE_NOT_ARCHIVED = "Please specify the index of the template that you want to archive.";
     public static final String MESSAGE_ALREADY_ARCHIVED = "This template is already archived!";
 
     private final Index index;
@@ -66,6 +65,9 @@ public class TemplateArchiveCommand extends Command {
         return result;
     }
 
+    /**
+     * Creates an archived Template using the input unarchived Template.
+     */
     private Template createArchivedTemplate(Template template) {
         assert template != null;
 
