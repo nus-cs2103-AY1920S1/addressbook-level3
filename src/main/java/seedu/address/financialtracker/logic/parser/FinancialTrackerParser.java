@@ -1,13 +1,13 @@
-package seedu.address.financialtracker.parser;
+package seedu.address.financialtracker.logic.parser;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import seedu.address.financialtracker.commands.AddFinCommand;
-import seedu.address.financialtracker.commands.DeleteFinCommand;
-import seedu.address.financialtracker.commands.EditFinCommand;
-import seedu.address.financialtracker.commands.HelpCommand;
-import seedu.address.financialtracker.commands.SummaryCommand;
+import seedu.address.financialtracker.logic.commands.AddFinCommand;
+import seedu.address.financialtracker.logic.commands.DeleteFinCommand;
+import seedu.address.financialtracker.logic.commands.EditFinCommand;
+import seedu.address.financialtracker.logic.commands.HelpCommand;
+import seedu.address.financialtracker.logic.commands.SummaryCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.GoToCommand;

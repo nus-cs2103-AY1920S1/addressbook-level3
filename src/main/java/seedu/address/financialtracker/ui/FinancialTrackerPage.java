@@ -12,7 +12,7 @@ import javafx.scene.layout.VBox;
 import seedu.address.address.logic.AddressBookLogic;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.financialtracker.model.Model;
-import seedu.address.financialtracker.parser.FinancialTrackerParser;
+import seedu.address.financialtracker.logic.parser.FinancialTrackerParser;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;

@@ -1,4 +1,4 @@
-package seedu.address.financialtracker.commands;
+package seedu.address.financialtracker.logic.commands;
 
 import seedu.address.financialtracker.model.Model;
 import seedu.address.logic.commands.Command;

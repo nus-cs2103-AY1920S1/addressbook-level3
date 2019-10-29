@@ -43,4 +43,8 @@ public class Model {
         CollectionUtil.requireAllNonNull(expenseToEdit, editedExpense);
         financialTracker.setExpense(expenseToEdit, editedExpense);
     }
+
+    public FinancialTracker getFinancialTracker() {
+        return financialTracker;
+    }
 }

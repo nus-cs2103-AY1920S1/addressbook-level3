@@ -55,18 +55,18 @@ Refer to Section 3, “Features” for details of each command.
 
 Keep track of your travelling expenses.
 
-``addFin``    : add a new expense  +
+``add``    : add a new expense  +
 
-``updateFin`` : update an existing expense +
+``edit`` : edit an existing expense +
 
-``showFin``   : show all your expenses +
+``delete`` : delete an expense +
 
-``deleteFin`` : delete an expense +
+``summary``    : calculate your total expense +
 
-``calFin``    : calculate your total expense
+``help`` : shows a help page for user reference
 
 The Financial Tracker also provide extra extensions.  +
-_(Extensions the group may want to consider)_
+_(Extensions the group to implement in coming v2.0)_
 
 . *Check which friend in your contact list owes you money* +
 You can update on which friend has previously borrowed money for you. Your personal traveller diary will then keep track of it in case you forget.

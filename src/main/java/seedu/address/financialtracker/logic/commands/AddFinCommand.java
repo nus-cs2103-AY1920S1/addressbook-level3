@@ -1,11 +1,9 @@
-package seedu.address.financialtracker.commands;
+package seedu.address.financialtracker.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import seedu.address.financialtracker.model.expense.Country;
 import seedu.address.financialtracker.model.expense.Expense;
 import seedu.address.financialtracker.model.Model;
-import seedu.address.financialtracker.ui.CountriesDropdown;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
