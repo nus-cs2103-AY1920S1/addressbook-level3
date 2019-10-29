@@ -15,6 +15,8 @@ public interface Stats {
 
     void resetData(Stats stats);
 
+    Stats getStats();
+
     //============= Like Data ====================================
 
     int getLikesByMeme(Meme meme);
@@ -31,6 +33,14 @@ public interface Stats {
 
     public int getCountOfTag(List<Meme> memeList, Tag tag);
 
+    /**
+     * Returns a list of tags with their use counts in descending order.
+     */
     List<TagWithCount> getTagsWithCountList(List<Meme> memeList);
+
+    /**
+     * Returns a list of tags with their like counts in descending order.
+     */
+    List<TagWithLike> getTagsWithLikeCountList(List<Meme> memeList);
 
 }

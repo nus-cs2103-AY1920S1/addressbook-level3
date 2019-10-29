@@ -1,7 +1,7 @@
 package seedu.weme.model.statistics;
 
 import java.util.ArrayList;
-import java.util.Comparator;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -18,12 +18,14 @@ public class TagManager {
 
     public static final int INITIAL_LIKE_COUNT = 0;
 
-    private Set<Tag> tags;
-    private List<TagWithCount> tagsWithCount;
+    private final Set<Tag> tags;
+    private final List<TagWithCount> tagsWithCount;
+    private final List<TagWithLike> tagsWithLike;
 
     public TagManager() {
         tags = new HashSet<>();
         tagsWithCount = new ArrayList<>();
+        tagsWithLike = new ArrayList<>();
     }
 
     public Set<Tag> getTagsInSet() {
@@ -38,7 +40,7 @@ public class TagManager {
         return getTagsWithCountList(memeList)
                 .stream()
                 .filter(t -> t.getTag().equals(tag))
-                .map(t -> t.getCount())
+                .map(t -> t.getData())
                 .reduce((t1, t2) -> t1)
                 .orElse(-1);
     }
@@ -48,8 +50,12 @@ public class TagManager {
      */
     public List<TagWithCount> getTagsWithCountList(List<Meme> memeList) {
         parseMemeListForTags(memeList);
-
         return tagsWithCount;
+    }
+
+    public List<TagWithLike> getTagsWithLike(List<Meme> memeList, LikeManager likeData) {
+        parseMemeListAndLikeDataForTags(memeList, likeData);
+        return tagsWithLike;
     }
 
     /**
@@ -58,11 +64,11 @@ public class TagManager {
     public void purgeData() {
         tags.clear();
         tagsWithCount.clear();
+        tagsWithLike.clear();
     }
 
     /**
-     * Parses a {@code ReadOnlyMemeBook} for tags.
-     * @param memeList
+     * Parses a {@code ReadOnlyMemeBook} for tags and their occurrence.
      */
     public void parseMemeListForTags(List<Meme> memeList) {
         purgeData();
@@ -82,7 +88,30 @@ public class TagManager {
             tagsWithCount.add(new TagWithCount(mapEntry.getKey(), mapEntry.getValue()));
         }
 
-        tagsWithCount.sort(Comparator.naturalOrder());
+        Collections.sort(tagsWithCount);
+    }
+
+    /**
+     * Parses a {@code ReadOnlyMemeBook} for tags and their like counts.
+     */
+    public void parseMemeListAndLikeDataForTags(List<Meme> memeList, LikeManager likeData) {
+        purgeData();
+        Map<Tag, Integer> tagToLike = new HashMap<>();
+        int likeCount;
+
+        for (Meme meme : memeList) {
+            likeCount = likeData.getLikesByMeme(meme);
+            tags.addAll(meme.getTags());
+            for (Tag tag : tags) {
+                tagToLike.put(tag, tagToLike.getOrDefault(tag, INITIAL_LIKE_COUNT) + likeCount);
+            }
+        }
+
+        for (Map.Entry<Tag, Integer> mapEntry : tagToLike.entrySet()) {
+            tagsWithLike.add(new TagWithLike(mapEntry.getKey(), mapEntry.getValue()));
+        }
+
+        Collections.sort(tagsWithLike);
     }
 
 }

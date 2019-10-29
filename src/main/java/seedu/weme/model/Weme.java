@@ -17,6 +17,7 @@ import seedu.weme.model.meme.UniqueMemeList;
 import seedu.weme.model.statistics.Stats;
 import seedu.weme.model.statistics.StatsManager;
 import seedu.weme.model.statistics.TagWithCount;
+import seedu.weme.model.statistics.TagWithLike;
 import seedu.weme.model.tag.Tag;
 import seedu.weme.model.template.MemeCreation;
 import seedu.weme.model.template.Name;
@@ -314,6 +315,10 @@ public class Weme implements ReadOnlyWeme {
     }
 
     // ============== Records Methods ===============================
+
+    public List<TagWithLike> getTagsWithLikeCountList() {
+        return stats.getTagsWithLikeCountList(getMemeList());
+    };
 
     @Override
     public Records getRecords() {

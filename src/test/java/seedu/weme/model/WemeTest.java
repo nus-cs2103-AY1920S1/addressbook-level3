@@ -24,6 +24,7 @@ import seedu.weme.model.meme.exceptions.DuplicateMemeException;
 import seedu.weme.model.statistics.Stats;
 import seedu.weme.model.statistics.StatsManager;
 import seedu.weme.model.statistics.TagWithCount;
+import seedu.weme.model.statistics.TagWithLike;
 import seedu.weme.model.tag.Tag;
 import seedu.weme.model.template.MemeCreation;
 import seedu.weme.model.template.Template;
@@ -143,6 +144,11 @@ public class WemeTest {
         @Override
         public List<TagWithCount> getTagsWithCountList() {
             return stats.getTagsWithCountList(memes);
+        }
+
+        @Override
+        public List<TagWithLike> getTagsWithLikeCountList() {
+            return stats.getTagsWithLikeCountList(memes);
         }
 
         @Override
