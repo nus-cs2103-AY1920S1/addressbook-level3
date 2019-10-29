@@ -11,7 +11,8 @@
       "numOfEpisodesWatched" : 0,
       "totalNumOfEpisodes" : 0,
       "tvSeasons" : [ ],
-      "isWatched" : false
+      "isWatched" : false,
+      "genres" : ["action", "drama"]
     } ],
     "movies" : [ {
       "name" : "El Camino: A Breaking Bad Movie",
@@ -21,7 +22,8 @@
       "runningTime" : 123,
       "actors" : [ ],
       "poster" : "ElCaminoABreakingBadMovie.png",
-      "isWatched" : false
+      "isWatched" : false,
+      "genres" : ["action", "drama"]
     } ]
   }
 }
