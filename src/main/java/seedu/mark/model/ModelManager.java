@@ -23,7 +23,6 @@ import seedu.mark.model.autotag.SelectiveBookmarkTagger;
 import seedu.mark.model.bookmark.Bookmark;
 import seedu.mark.model.bookmark.Folder;
 import seedu.mark.model.bookmark.Url;
-import seedu.mark.model.folderstructure.FolderStructure;
 import seedu.mark.model.reminder.Reminder;
 
 /**
@@ -157,26 +156,6 @@ public class ModelManager implements Model {
     @Override
     public boolean hasFolder(Folder folder) {
         return versionedMark.hasFolder(folder);
-    }
-
-    @Override
-    public void addFolders(FolderStructure foldersToAdd) {
-        requireNonNull(foldersToAdd);
-        // TODO: decide what to do here
-
-        // option 1:
-        // get ROOT
-        // add subfolders of imported folder structure to ROOT
-        // check for duplicate folders and ignore them
-        // if folder is found, then ignore
-        // for each Bookmark in list, if name = duplicate-folder, change folder to ROOT
-
-        // option 2:
-        // get ROOT
-        // create a new subfolder for imported bookmarks (de-conflict names if necessary)
-        // import each folder into import-folder
-        // check for duplicate folders and rename if necessary (e.g. folder-1)
-        // for each Bookmark in list, if name = renamed-folder, change name to new-name
     }
 
     @Override

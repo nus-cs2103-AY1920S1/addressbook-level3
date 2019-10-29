@@ -60,9 +60,9 @@ public class ImportCommandTest {
     /**
      * Sets the {@code Folder} of all bookmarks in the given list to the root folder.
      */
-    private static List<Bookmark> setToRootFolder(List<Bookmark> bookmarks) {
+    private static List<Bookmark> setFolderAsImportFolder(List<Bookmark> bookmarks) {
         return bookmarks.stream()
-                .map(ImportCommand.MarkImporter::setToRootFolder)
+                .map(ImportCommand.MarkImporter::setFolderAsImportFolder)
                 .collect(Collectors.toList());
     }
 
@@ -96,7 +96,7 @@ public class ImportCommandTest {
         // set up expected model with appropriate state
         Model expectedModel = new ModelManager(new Mark(), new UserPrefs());
         Mark expectedMark = new Mark();
-        expectedMark.setBookmarks(setToRootFolder(getTypicalBookmarks())); // strip folders
+        expectedMark.setBookmarks(setFolderAsImportFolder(getTypicalBookmarks())); // strip folders
         expectedModel.setMark(expectedMark);
         expectedModel.saveMark(expectedMessage);
 
@@ -134,7 +134,7 @@ public class ImportCommandTest {
         ImportCommand command = new ImportCommand(filePath);
 
         // initial model: 3 bookmarks in root folder
-        List<Bookmark> existingBookmarks = setToRootFolder(Arrays.asList(ALICE, BENSON, CARL));
+        List<Bookmark> existingBookmarks = setFolderAsImportFolder(Arrays.asList(ALICE, BENSON, CARL));
         Mark markWithSomeBookmarks = new Mark();
         existingBookmarks.forEach(markWithSomeBookmarks::addBookmark);
         Model initialModel = new ModelManager(markWithSomeBookmarks, new UserPrefs());
@@ -146,7 +146,7 @@ public class ImportCommandTest {
         // expected model: 7 bookmarks in root folder (4 imported)
         Model expectedModel = new ModelManager(markWithSomeBookmarks, new UserPrefs());
         Mark expectedMark = new Mark();
-        expectedMark.setBookmarks(setToRootFolder(getTypicalBookmarks()));
+        expectedMark.setBookmarks(setFolderAsImportFolder(getTypicalBookmarks()));
         expectedModel.setMark(expectedMark);
         expectedModel.saveMark(expectedMessage);
 
@@ -220,7 +220,7 @@ public class ImportCommandTest {
                 return Optional.of(getTypicalMark());
             } else if (filePath.equals(PATH_NO_FOLDER_FILE)) {
                 Mark mark = new Mark();
-                mark.setBookmarks(setToRootFolder(getTypicalBookmarks()));
+                mark.setBookmarks(setFolderAsImportFolder(getTypicalBookmarks()));
                 return Optional.of(mark);
             } else if (filePath.equals(PATH_NO_BOOKMARK_FILE)) {
                 Mark mark = new Mark();
