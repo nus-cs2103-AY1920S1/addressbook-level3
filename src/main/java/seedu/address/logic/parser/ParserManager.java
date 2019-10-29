@@ -7,12 +7,10 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.switches.SwitchCommand;
 import seedu.address.logic.commands.cardcommands.AddCommand;
 import seedu.address.logic.commands.cardcommands.ClearCommand;
 import seedu.address.logic.commands.cardcommands.DeleteCommand;
 import seedu.address.logic.commands.cardcommands.EditCommand;
-import seedu.address.logic.commands.switches.*;
 import seedu.address.logic.commands.cardcommands.FindCommand;
 import seedu.address.logic.commands.cardcommands.ListCommand;
 import seedu.address.logic.commands.exceptions.ModeSwitchException;
@@ -29,7 +27,12 @@ import seedu.address.logic.commands.settingcommands.AvatarCommand;
 import seedu.address.logic.commands.settingcommands.DifficultyCommand;
 import seedu.address.logic.commands.settingcommands.HintsCommand;
 import seedu.address.logic.commands.settingcommands.ThemeCommand;
+import seedu.address.logic.commands.switches.SwitchCommand;
+import seedu.address.logic.commands.switches.SwitchToExitCommand;
+import seedu.address.logic.commands.switches.SwitchToHomeCommand;
 import seedu.address.logic.commands.switches.SwitchToOpenCommand;
+import seedu.address.logic.commands.switches.SwitchToSettingsCommand;
+import seedu.address.logic.commands.switches.SwitchToStartCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.parser.game.GuessCommandParser;
 import seedu.address.logic.parser.home.BankCommandParser;
@@ -93,6 +96,7 @@ public class ParserManager {
 
     /**
      * Gets current mode from internal state.
+     *
      * @return ModeEnum representing current mode
      */
     public ModeEnum getMode() {
@@ -101,6 +105,7 @@ public class ParserManager {
 
     /**
      * Constructs and returns a SpecificModeParser matching mode parameter.
+     *
      * @param mode current mode
      * @return SpecificModeParser that matches mode
      */
@@ -147,6 +152,7 @@ public class ParserManager {
 
     /**
      * Updates the current state of ParserManager based on input booleans.
+     *
      * @param bankLoaded if bank is loaded
      * @param gameIsOver if game is over
      */
@@ -157,6 +163,7 @@ public class ParserManager {
 
     /**
      * Gets AutoFillAction objects based on input string.
+     *
      * @param input current user input
      * @return List of AutoFillActions
      */
@@ -183,13 +190,6 @@ public class ParserManager {
      */
     public Command parseCommand(String userInput) throws ParseException, ModeSwitchException {
         Command temp = null;
-//        Command isExit = switchParser.parseCommand(userInput);
-//        if (isExit != null) {
-//            SwitchToExitCommand exitCommand = (SwitchToExitCommand) isExit;
-//            if (exitCommand.getNewMode(mode).toString().equals("exit")) {
-//                exitCommand.exit();
-//            }
-//        }
         if (gameIsOver && bankLoaded) {
             temp = switchParser.parseCommand(userInput);
         }
@@ -208,6 +208,7 @@ public class ParserManager {
 
     /**
      * Gets a list of modes available to switch to based on internal state
+     *
      * @return a list of ModeEnum
      */
     public List<ModeEnum> getModes() {

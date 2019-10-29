@@ -250,11 +250,6 @@ class SwitchToStartCommandTest {
         }
 
         @Override
-        public ObservableList<WordBank> getFilteredWordBankList() {
-            return null;
-        }
-
-        @Override
         public WordBankList getWordBankList() {
             return wordBanklist;
         }

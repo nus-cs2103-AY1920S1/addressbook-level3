@@ -236,11 +236,6 @@ public class ThemeCommandTest {
         }
 
         @Override
-        public ObservableList<WordBank> getFilteredWordBankList() {
-            return null;
-        }
-
-        @Override
         public WordBankList getWordBankList() {
             return null;
         }

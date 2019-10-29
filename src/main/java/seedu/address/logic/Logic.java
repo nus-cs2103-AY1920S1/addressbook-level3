@@ -17,7 +17,6 @@ import seedu.address.model.card.Card;
 import seedu.address.model.card.FormattedHint;
 import seedu.address.model.globalstatistics.GlobalStatistics;
 import seedu.address.model.wordbank.ReadOnlyWordBank;
-import seedu.address.model.wordbank.WordBank;
 import seedu.address.model.wordbankstatslist.WordBankStatisticsList;
 import seedu.address.statistics.GameStatistics;
 import seedu.address.statistics.WordBankStatistics;
