@@ -8,6 +8,7 @@ import javafx.collections.ObservableList;
 import seedu.address.model.transaction.Amount;
 import seedu.address.model.transaction.BankAccountOperation;
 import seedu.address.model.util.Date;
+import seedu.address.model.util.GradientDescent;
 
 /**
  * Represents a projection of user's balance at a set date in the future
@@ -32,16 +33,11 @@ public class Projection {
      * TODO: Explore matrix operations using json, considering switching Tx history to csv
      */
     public void project() {
-        Amount totalPrev = new Amount(0);
-        int totalDaysElapsed = (int) DAYS.between(transactionHistory.get(0)
-                .getDate().toLocalDate(), LocalDate.now());
 
-        for (BankAccountOperation transaction : transactionHistory) {
-            totalPrev = totalPrev.addAmount(transaction.getAmount());
-        }
-        int daysAfter = (int) DAYS.between(LocalDate.now(), date.toLocalDate());
-        projection = new Amount((totalPrev.getAmount() / totalDaysElapsed) * daysAfter
-                + this.model.getBankAccount().getBalance().getAmount());
+        GradientDescent projector = new GradientDescent(this.transactionHistory);
+        int daysToProject = Date.daysBetween(this.date, Date.now());
+        double projectionAmount = Math.floor(projector.predict(daysToProject) * 100) / 100;
+        projection = new Amount(projectionAmount);
     }
 
     public Amount getProjection() {

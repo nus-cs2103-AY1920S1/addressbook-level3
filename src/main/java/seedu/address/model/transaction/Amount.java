@@ -41,7 +41,7 @@ public class Amount implements Comparable<Amount> {
     /**
      * Returns amount in cents.
      */
-    public int getAmount() {
+    public int getIntegerValue() {
         return this.amount;
     }
 
