@@ -2,6 +2,8 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.SEARCH_PREFIX_DISTRICT;
+import static seedu.address.logic.parser.CliSyntax.SEARCH_PREFIX_VNUM;
+import static seedu.address.logic.parser.CliSyntax.SEARCH_PREFIX_VTYPE;
 
 import java.util.List;
 import java.util.function.Predicate;
@@ -30,7 +32,9 @@ public class FindVehiclesCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Searches for vehicles by district "
             + "in the same district as entered by user. \n"
             + "Parameters: "
-            + SEARCH_PREFIX_DISTRICT + "[district numbers separated by whitespace]";
+            + SEARCH_PREFIX_DISTRICT + "[district numbers separated by whitespace] \n"
+            + SEARCH_PREFIX_VNUM + "vehicle number \n"
+            + SEARCH_PREFIX_VTYPE + "vehicle type";
 
     private final Predicate<Vehicle> predicate;
     private Incident draft; // only if this command is used by NewCommand
