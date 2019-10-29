@@ -15,18 +15,30 @@ public class RedoCommand extends Command {
 
     public static final String COMMAND_WORD = "redo";
 
-    public static final String MESSAGE_SUCCESS = "Action successfully redone: \"%1$s\"";
-    public static final String MESSAGE_FAILURE = "No more commands to redo!";
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Redoes previous undo commands by the given number of steps. "
+            + "If not specified, the default number of steps is 1. \n"
+            + "Parameters: [STEP] (must be a positive integer)\n"
+            + "Example: " + COMMAND_WORD + " 2";
+
+    public static final String MESSAGE_SUCCESS = "Action(s) successfully redone: \n%1$s";
+    public static final String MESSAGE_FAILURE = "Not enough commands to redo!";
+
+    private final int steps;
+
+    public RedoCommand(int steps) {
+        this.steps = steps;
+    }
 
     @Override
     public CommandResult execute(Model model, Storage storage) throws CommandException {
         requireAllNonNull(model, storage);
 
-        if (!model.canRedoMark()) {
+        if (!model.canRedoMark(steps)) {
             throw new CommandException(MESSAGE_FAILURE);
         }
 
-        String record = model.redoMark();
+        String record = model.redoMark(steps);
         model.updateFilteredBookmarkList(PREDICATE_SHOW_ALL_BOOKMARKS);
         return new CommandResult(String.format(MESSAGE_SUCCESS, record));
     }

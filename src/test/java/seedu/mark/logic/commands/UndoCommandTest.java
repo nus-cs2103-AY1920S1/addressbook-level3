@@ -28,16 +28,16 @@ public class UndoCommandTest {
         deleteFirstBookmark(expectedModel);
 
         // Two undoable Mark states
-        String expectedRecord1 = expectedModel.undoMark();
+        String expectedRecord1 = expectedModel.undoMark(1);
         String expectedMessage1 = String.format(UndoCommand.MESSAGE_SUCCESS, expectedRecord1);
-        assertCommandSuccess(new UndoCommand(), model, storage, expectedMessage1, expectedModel);
+        assertCommandSuccess(new UndoCommand(1), model, storage, expectedMessage1, expectedModel);
 
         // Single undoable Mark state
-        String expectedRecord2 = expectedModel.undoMark();
+        String expectedRecord2 = expectedModel.undoMark(1);
         String expectedMessage2 = String.format(UndoCommand.MESSAGE_SUCCESS, expectedRecord2);
-        assertCommandSuccess(new UndoCommand(), model, storage, expectedMessage2, expectedModel);
+        assertCommandSuccess(new UndoCommand(1), model, storage, expectedMessage2, expectedModel);
 
         // No undoable Mark state
-        assertCommandFailure(new UndoCommand(), model, storage, UndoCommand.MESSAGE_FAILURE);
+        assertCommandFailure(new UndoCommand(1), model, storage, UndoCommand.MESSAGE_FAILURE);
     }
 }

@@ -20,7 +20,9 @@ import seedu.mark.model.reminder.Reminder;
  * The API of the Model component.
  */
 public interface Model {
-    /** {@code Predicate} that always evaluate to true */
+    /**
+     * {@code Predicate} that always evaluate to true
+     */
     Predicate<Bookmark> PREDICATE_SHOW_ALL_BOOKMARKS = unused -> true;
 
     /**
@@ -58,7 +60,9 @@ public interface Model {
      */
     void setMark(ReadOnlyMark mark);
 
-    /** Returns the Mark */
+    /**
+     * Returns the Mark
+     */
     ReadOnlyMark getMark();
 
     /**
@@ -97,11 +101,14 @@ public interface Model {
      */
     void addBookmarks(List<Bookmark> bookmarksToAdd);
 
-    /** Returns an unmodifiable view of the filtered bookmark list */
+    /**
+     * Returns an unmodifiable view of the filtered bookmark list
+     */
     ObservableList<Bookmark> getFilteredBookmarkList();
 
     /**
      * Updates the filter of the filtered bookmark list to filter by the given {@code predicate}.
+     *
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredBookmarkList(Predicate<Bookmark> predicate);
@@ -151,28 +158,37 @@ public interface Model {
 
     /**
      * Returns true if the model has previous Mark states to restore.
+     *
+     * @param steps The number of steps to check
      */
-    boolean canUndoMark();
+    boolean canUndoMark(int steps);
 
     /**
      * Returns true if the model has undone Mark states to restore.
+     *
+     * @param steps The number of steps to check
      */
-    boolean canRedoMark();
+    boolean canRedoMark(int steps);
 
     /**
      * Restores the model's Mark to its previous state.
+     *
+     * @param steps The number of steps to undo
      * @return The record
      */
-    String undoMark();
+    String undoMark(int steps);
 
     /**
      * Restores the model's Mark to its previously undone state.
+     *
+     * @param steps The number of steps to redo
      * @return The record
      */
-    String redoMark();
+    String redoMark(int steps);
 
     /**
      * Saves the current Mark state for undo/redo.
+     *
      * @param record The record for the state
      */
     void saveMark(String record);
@@ -212,6 +228,7 @@ public interface Model {
 
     /**
      * Updates the view of document to the document given.
+     *
      * @param doc Document to update view and be shown.
      */
     void updateDocument(OfflineDocument doc);
@@ -223,6 +240,7 @@ public interface Model {
 
     /**
      * Returns the observable of the bookmark with its cache currently displayed.
+     *
      * @return the observable bookmark property
      */
     SimpleObjectProperty<Bookmark> getBookmarkDisplayingCacheProperty();

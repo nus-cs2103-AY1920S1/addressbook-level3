@@ -23,25 +23,25 @@ public class RedoCommandTest {
     public void execute() {
         deleteFirstBookmark(model);
         deleteFirstBookmark(model);
-        model.undoMark();
-        model.undoMark();
+        model.undoMark(1);
+        model.undoMark(1);
 
         deleteFirstBookmark(expectedModel);
         deleteFirstBookmark(expectedModel);
-        expectedModel.undoMark();
-        expectedModel.undoMark();
+        expectedModel.undoMark(1);
+        expectedModel.undoMark(1);
 
         // Two redoable Mark states
-        String expectedRecord1 = expectedModel.redoMark();
+        String expectedRecord1 = expectedModel.redoMark(1);
         String expectedMessage1 = String.format(RedoCommand.MESSAGE_SUCCESS, expectedRecord1);
-        assertCommandSuccess(new RedoCommand(), model, storage, expectedMessage1, expectedModel);
+        assertCommandSuccess(new RedoCommand(1), model, storage, expectedMessage1, expectedModel);
 
         // Single redoable Mark state
-        String expectedRecord2 = expectedModel.redoMark();
+        String expectedRecord2 = expectedModel.redoMark(1);
         String expectedMessage2 = String.format(RedoCommand.MESSAGE_SUCCESS, expectedRecord2);
-        assertCommandSuccess(new RedoCommand(), model, storage, expectedMessage2, expectedModel);
+        assertCommandSuccess(new RedoCommand(1), model, storage, expectedMessage2, expectedModel);
 
         // No redoable Mark state
-        assertCommandFailure(new RedoCommand(), model, storage, RedoCommand.MESSAGE_FAILURE);
+        assertCommandFailure(new RedoCommand(1), model, storage, RedoCommand.MESSAGE_FAILURE);
     }
 }

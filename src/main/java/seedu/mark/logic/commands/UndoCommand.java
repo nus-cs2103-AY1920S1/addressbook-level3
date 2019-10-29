@@ -15,18 +15,30 @@ public class UndoCommand extends Command {
 
     public static final String COMMAND_WORD = "undo";
 
-    public static final String MESSAGE_SUCCESS = "Action successfully undone: \"%1$s\"";
-    public static final String MESSAGE_FAILURE = "No more commands to undo!";
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Undoes previous undoable commands by the given number of steps. "
+            + "If not specified, the default number of steps is 1. \n"
+            + "Parameters: [STEP] (must be a positive integer)\n"
+            + "Example: " + COMMAND_WORD + " 2";
+
+    public static final String MESSAGE_SUCCESS = "Action(s) successfully undone: \n%1$s";
+    public static final String MESSAGE_FAILURE = "Not enough commands to undo!";
+
+    private final int steps;
+
+    public UndoCommand(int steps) {
+        this.steps = steps;
+    }
 
     @Override
     public CommandResult execute(Model model, Storage storage) throws CommandException {
         requireAllNonNull(model, storage);
 
-        if (!model.canUndoMark()) {
+        if (!model.canUndoMark(steps)) {
             throw new CommandException(MESSAGE_FAILURE);
         }
 
-        String record = model.undoMark();
+        String record = model.undoMark(steps);
         model.updateFilteredBookmarkList(PREDICATE_SHOW_ALL_BOOKMARKS);
         return new CommandResult(String.format(MESSAGE_SUCCESS, record));
     }
