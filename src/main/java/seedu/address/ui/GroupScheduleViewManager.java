@@ -4,9 +4,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import seedu.address.model.display.detailwindow.PersonSchedule;
 import seedu.address.model.display.schedulewindow.FreeSchedule;
-import seedu.address.model.display.schedulewindow.MonthSchedule;
-import seedu.address.model.display.schedulewindow.WeekSchedule;
 import seedu.address.model.group.GroupName;
 
 /**
@@ -14,19 +13,19 @@ import seedu.address.model.group.GroupName;
  */
 public class GroupScheduleViewManager implements ScheduleViewManager {
 
-    private ArrayList<MonthSchedule> monthSchedules;
+    private ArrayList<PersonSchedule> monthSchedules;
     private ArrayList<String> colors;
     private GroupName groupName;
-    private ArrayList<FreeSchedule> freeSchedules;
+    private FreeSchedule freeSchedule;
     private int weekNumber;
     private ScheduleView scheduleView;
 
-    public GroupScheduleViewManager(ArrayList<MonthSchedule> monthSchedules, ArrayList<String> colors,
-                                    GroupName groupName, ArrayList<FreeSchedule> freeSchedules) {
+    public GroupScheduleViewManager(ArrayList<PersonSchedule> monthSchedules, ArrayList<String> colors,
+                                    GroupName groupName, FreeSchedule freeSchedule) {
         this.monthSchedules = monthSchedules;
         this.colors = colors;
         this.groupName = groupName;
-        this.freeSchedules = freeSchedules;
+        this.freeSchedule = freeSchedule;
         this.weekNumber = 0;
         initScheduleView();
     }
@@ -37,11 +36,11 @@ public class GroupScheduleViewManager implements ScheduleViewManager {
      */
     private void initScheduleView() {
         LocalDate currentDate = LocalDate.now();
-        LocalDate dateToShow = currentDate.plusDays(weekNumber * 7);
-        List<WeekSchedule> weekSchedules = MonthSchedule.getWeekSchedulesForWeek(monthSchedules, weekNumber);
-        this.scheduleView = new ScheduleView(weekSchedules, colors,
+        //weekNumber * 7
+        LocalDate dateToShow = currentDate.plusDays(0);
+        this.scheduleView = new ScheduleView(monthSchedules, colors,
                 groupName.toString(), dateToShow);
-        this.scheduleView.setFreeTime(freeSchedules.get(weekNumber));
+        this.scheduleView.setFreeTime(freeSchedule);
     }
 
     @Override

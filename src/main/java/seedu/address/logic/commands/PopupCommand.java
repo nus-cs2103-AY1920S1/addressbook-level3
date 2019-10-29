@@ -31,6 +31,7 @@ public class PopupCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
+        /*
         Group group = model.findGroup(groupName);
         if (group != null) {
             ArrayList<PersonId> persons = model.findPersonsOfGroup(group.getGroupId());
@@ -46,7 +47,7 @@ public class PopupCommand extends Command {
             }
 
             // update main window
-            model.updateDetailWindowDisplay(group.getGroupName(), LocalDateTime.now(), ScheduleWindowDisplayType.GROUP);
+            model.updateScheduleWindowDisplay(group.getGroupName(), LocalDateTime.now(), ScheduleWindowDisplayType.GROUP);
 
             //update side panel display
             model.updateSidePanelDisplay(SidePanelDisplayType.GROUP);
@@ -57,7 +58,8 @@ public class PopupCommand extends Command {
                     null);
         } else {
             return new CommandResult(MESSAGE_FAILURE);
-        }
+        }*/
+        return new CommandResult(MESSAGE_FAILURE);
     }
 
     @Override

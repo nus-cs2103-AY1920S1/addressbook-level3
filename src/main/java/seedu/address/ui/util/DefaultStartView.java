@@ -8,7 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
-import seedu.address.model.display.schedulewindow.DayTimeslot;
+import seedu.address.model.display.detailwindow.PersonTimeslot;
 import seedu.address.ui.UiPart;
 
 /**
@@ -30,7 +30,7 @@ public class DefaultStartView extends UiPart<Region> {
     @FXML
     private StackPane noticeBoardPlaceHolder;
 
-    public DefaultStartView(List<DayTimeslot> eventsToday) {
+    public DefaultStartView(List<PersonTimeslot> eventsToday) {
         super(FXML);
         defaultTitle.setText("WELCOME TO TIMEBOOK!");
         Calendar calendar = new Calendar(LocalDate.now());

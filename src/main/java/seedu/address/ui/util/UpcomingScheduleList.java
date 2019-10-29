@@ -8,7 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
-import seedu.address.model.display.schedulewindow.DayTimeslot;
+import seedu.address.model.display.detailwindow.PersonTimeslot;
 import seedu.address.ui.UiPart;
 
 /**
@@ -25,9 +25,9 @@ public class UpcomingScheduleList extends UiPart<Region> {
     private VBox scheduleCards;
 
     private LocalDate date;
-    private List<DayTimeslot> eventsToday;
+    private List<PersonTimeslot> eventsToday;
 
-    public UpcomingScheduleList(LocalDate date, List<DayTimeslot> eventsToday) {
+    public UpcomingScheduleList(LocalDate date, List<PersonTimeslot> eventsToday) {
         super(FXML);
         this.eventsToday = eventsToday;
         this.date = date;
@@ -40,7 +40,7 @@ public class UpcomingScheduleList extends UiPart<Region> {
      * Method to initialise contents in the container of the list.
      */
     public void initialiseContent() {
-        for (DayTimeslot t : eventsToday) {
+        for (PersonTimeslot t : eventsToday) {
             ScheduleDisplayCard scheduleDisplayCard = new ScheduleDisplayCard(t);
             scheduleCards.getChildren().add(scheduleDisplayCard.getRoot());
         }

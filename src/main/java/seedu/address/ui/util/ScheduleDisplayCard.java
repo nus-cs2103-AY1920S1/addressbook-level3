@@ -4,7 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
-import seedu.address.model.display.schedulewindow.DayTimeslot;
+import seedu.address.model.display.detailwindow.PersonTimeslot;
 import seedu.address.ui.UiPart;
 
 /**
@@ -26,7 +26,7 @@ public class ScheduleDisplayCard extends UiPart<Region> {
     @FXML
     private Label timing;
 
-    public ScheduleDisplayCard(DayTimeslot timeslot) {
+    public ScheduleDisplayCard(PersonTimeslot timeslot) {
         super(FXML);
         this.eventName.setText(timeslot.getEventName());
         this.venue.setText(timeslot.getVenue().toString());

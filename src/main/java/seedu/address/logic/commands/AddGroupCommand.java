@@ -11,16 +11,20 @@ import seedu.address.model.display.schedulewindow.ScheduleWindowDisplayType;
 import seedu.address.model.display.sidepanel.SidePanelDisplayType;
 import seedu.address.model.group.Group;
 import seedu.address.model.group.GroupDescriptor;
+import seedu.address.model.group.exceptions.DuplicateGroupException;
 
 /**
  * Add a group.
  */
 public class AddGroupCommand extends Command {
     public static final String COMMAND_WORD = "addgroup";
-    public static final String MESSAGE_SUCCESS = "New group added: ";
-    public static final String MESSAGE_FAILURE = "Unable to add group: Group already exist";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + " " + PREFIX_GROUPNAME + " GROUPNAME";
+
+    public static final String MESSAGE_SUCCESS = "New group added: %s";
+    public static final String MESSAGE_FAILURE = "Unable to add group: %s";
+
+    public static final String MESSAGE_DUPLICATE_GROUP = "Group already exists";
 
     private final GroupDescriptor groupDescriptor;
 
@@ -32,23 +36,21 @@ public class AddGroupCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
 
-        if (model.findGroup(groupDescriptor.getGroupName()) != null) {
-            return new CommandResult(MESSAGE_FAILURE);
-        }
-
-        Group group = model.addGroup(groupDescriptor);
-        if (group != null) {
+        try {
+            Group group = model.addGroup(groupDescriptor);
 
             // updates main window
-            model.updateDetailWindowDisplay(group.getGroupName(), LocalDateTime.now(), ScheduleWindowDisplayType.GROUP);
+            model.updateScheduleWindowDisplay(group.getGroupName(), LocalDateTime.now(), ScheduleWindowDisplayType.GROUP);
 
             // updates side panel
             model.updateSidePanelDisplay(SidePanelDisplayType.GROUP);
 
-            return new CommandResult(MESSAGE_SUCCESS + group.details());
-        } else {
-            return new CommandResult(MESSAGE_FAILURE);
+            return new CommandResult(String.format(MESSAGE_SUCCESS, group.getGroupName().toString()));
+
+        } catch (DuplicateGroupException e) {
+            return new CommandResult(String.format(MESSAGE_FAILURE, MESSAGE_DUPLICATE_GROUP));
         }
+
     }
 
     @Override

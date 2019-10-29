@@ -3,16 +3,16 @@ package seedu.address.logic.commands;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GROUPNAME;
 
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.ArrayList;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.display.schedulewindow.MonthSchedule;
 import seedu.address.model.display.schedulewindow.ScheduleWindowDisplayType;
-import seedu.address.model.display.schedulewindow.WeekSchedule;
+import seedu.address.model.display.detailwindow.PersonSchedule;
 import seedu.address.model.display.sidepanel.SidePanelDisplayType;
 import seedu.address.model.group.Group;
 import seedu.address.model.group.GroupName;
+import seedu.address.model.group.exceptions.GroupNotFoundException;
 
 /**
  * Gives the schedule for the week of a group.
@@ -33,21 +33,23 @@ public class ScheduleCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        Group group = model.findGroup(groupName);
-        if (group == null) {
+
+        Group group;
+        try {
+            group = model.findGroup(groupName);
+        } catch (GroupNotFoundException e) {
             return new CommandResult(MESSAGE_FAILURE);
         }
 
         // update main window
-        model.updateDetailWindowDisplay(group.getGroupName(), LocalDateTime.now(), ScheduleWindowDisplayType.NONE);
+        model.updateScheduleWindowDisplay(group.getGroupName(), LocalDateTime.now(), ScheduleWindowDisplayType.NONE);
 
         // update side panel
         model.updateSidePanelDisplay(SidePanelDisplayType.GROUP);
 
-        List<WeekSchedule> schedules = MonthSchedule.getWeekSchedulesForWeek(
-                model.getScheduleWindowDisplay().getMonthSchedules(), 0);
+        ArrayList<PersonSchedule> schedules = model.getScheduleWindowDisplay().getPersonSchedules();
         String output = "";
-        for (WeekSchedule s : schedules) {
+        for (PersonSchedule s : schedules) {
             output += s.toString() + "\n";
         }
         return new CommandResult(MESSAGE_SUCCESS + output);

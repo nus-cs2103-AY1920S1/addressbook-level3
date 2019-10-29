@@ -21,7 +21,7 @@ public class SwitchTabCommand extends Command {
         if (model.getSidePanelDisplay() == null) {
             model.updateSidePanelDisplay(SidePanelDisplayType.TABS);
         }
-        model.updateDetailWindowDisplay(nextDetailDisplay);
+        model.updateScheduleWindowDisplay(nextDetailDisplay);
         return new CommandResult(MESSAGE_SUCCESS, false, false, false);
     }
 

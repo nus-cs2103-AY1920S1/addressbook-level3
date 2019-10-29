@@ -14,7 +14,9 @@ import seedu.address.model.group.GroupName;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 
-/** Command to export visual representations */
+/**
+ * Command to export visual representations
+ */
 public class ExportCommand<T> extends Command {
 
     public static final String COMMAND_WORD = "export-vr";
@@ -51,7 +53,7 @@ public class ExportCommand<T> extends Command {
                 throw new CommandException(MESSAGE_PERSON_NOT_FOUND);
             }
 
-            model.updateDetailWindowDisplay((Name) name, LocalDateTime.now(), ScheduleWindowDisplayType.PERSON);
+            model.updateScheduleWindowDisplay((Name) name, LocalDateTime.now(), ScheduleWindowDisplayType.PERSON);
             return new CommandResult(String.format(MESSAGE_SUCCESS, person.get()), false,
                     false, true);
         } else {
@@ -68,7 +70,7 @@ public class ExportCommand<T> extends Command {
                 throw new CommandException(MESSAGE_GROUP_NOT_FOUND);
             }
 
-            model.updateDetailWindowDisplay((GroupName) name, LocalDateTime.now(), ScheduleWindowDisplayType.GROUP);
+            model.updateScheduleWindowDisplay((GroupName) name, LocalDateTime.now(), ScheduleWindowDisplayType.GROUP);
             return new CommandResult(String.format(MESSAGE_SUCCESS, group.get()), false, false,
                     true);
         }

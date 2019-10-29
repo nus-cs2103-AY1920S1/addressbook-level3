@@ -1,5 +1,6 @@
 package seedu.address.logic.commands;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,9 +25,10 @@ public class HomeCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        MonthSchedule monthSchedule = new MonthSchedule(model.getUser(), LocalDateTime.now());
-        ArrayList<MonthSchedule> monthSchedules = new ArrayList<>(List.of(monthSchedule));
-        model.updateDetailWindowDisplay(new ScheduleWindowDisplay(monthSchedules, ScheduleWindowDisplayType.HOME));
+        //MonthSchedule monthSchedule = new MonthSchedule(model.getUser(), LocalDateTime.now());
+        //ArrayList<MonthSchedule> monthSchedules = new ArrayList<>(List.of(monthSchedule));
+
+        model.updateScheduleWindowDisplay(model.getUser().getName(), LocalDateTime.now(), ScheduleWindowDisplayType.HOME);
         return new CommandResult(MESSAGE_SUCCESS, false, false, false, false,
                 false, false, true);
     }

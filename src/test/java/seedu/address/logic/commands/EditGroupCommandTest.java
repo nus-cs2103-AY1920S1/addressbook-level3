@@ -14,6 +14,10 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.ModelManager;
 import seedu.address.model.group.Group;
 import seedu.address.model.group.GroupDescriptor;
+import seedu.address.model.group.exceptions.DuplicateGroupException;
+import seedu.address.model.group.exceptions.GroupNotFoundException;
+import seedu.address.model.mapping.exceptions.DuplicateMappingException;
+import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.testutil.modelutil.TypicalModel;
 
 class EditGroupCommandTest {
@@ -21,7 +25,7 @@ class EditGroupCommandTest {
     private ModelManager model;
 
     @BeforeEach
-    void init() {
+    void init() throws DuplicateMappingException, DuplicatePersonException, DuplicateGroupException {
         model = TypicalModel.generateTypicalModel();
     }
 
@@ -41,14 +45,14 @@ class EditGroupCommandTest {
     }
 
     @Test
-    void execute_success() throws CommandException {
+    void execute_success() throws CommandException, GroupNotFoundException {
         Group group = model.findGroup(GROUPNAME1);
 
         CommandResult actualCommandResult =
                 new EditGroupCommand(GROUPNAME1, GROUP0).execute(model);
 
         CommandResult expectedCommandResult =
-                new CommandResult(EditGroupCommand.MESSAGE_SUCCESS + group.details());
+                new CommandResult(String.format(EditGroupCommand.MESSAGE_SUCCESS, GROUPNAME1.toString().trim()));
 
         assertTrue(actualCommandResult.equals(expectedCommandResult));
     }
@@ -59,7 +63,8 @@ class EditGroupCommandTest {
                 new EditGroupCommand(GROUPNAME1, new GroupDescriptor()).execute(model);
 
         CommandResult expectedCommandResult =
-                new CommandResult(EditGroupCommand.MESSAGE_NOT_EDITED);
+                new CommandResult(String.format(EditGroupCommand.MESSAGE_FAILURE,
+                        EditGroupCommand.MESSAGE_NOT_EDITED));
 
         assertTrue(actualCommandResult.equals(expectedCommandResult));
     }
@@ -70,7 +75,8 @@ class EditGroupCommandTest {
                 new EditGroupCommand(GROUPNAME0, GROUP1).execute(model);
 
         CommandResult expectedCommandResult =
-                new CommandResult(EditGroupCommand.MESSAGE_FAILURE);
+                new CommandResult(String.format(EditGroupCommand.MESSAGE_FAILURE,
+                        EditGroupCommand.MESSAGE_GROUP_NOT_FOUND));
 
         assertTrue(actualCommandResult.equals(expectedCommandResult));
     }

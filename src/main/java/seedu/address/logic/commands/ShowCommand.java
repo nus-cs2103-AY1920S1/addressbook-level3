@@ -50,7 +50,7 @@ public class ShowCommand<T> extends Command {
                 throw new CommandException(MESSAGE_PERSON_NOT_FOUND);
             }
 
-            model.updateDetailWindowDisplay((Name) name, LocalDateTime.now(), ScheduleWindowDisplayType.PERSON);
+            model.updateScheduleWindowDisplay((Name) name, LocalDateTime.now(), ScheduleWindowDisplayType.PERSON);
             return new CommandResult(String.format(MESSAGE_SUCCESS, person.get()), false,
                     false);
         } else {
@@ -67,7 +67,7 @@ public class ShowCommand<T> extends Command {
                 throw new CommandException(MESSAGE_GROUP_NOT_FOUND);
             }
 
-            model.updateDetailWindowDisplay((GroupName) name, LocalDateTime.now(), ScheduleWindowDisplayType.GROUP);
+            model.updateScheduleWindowDisplay((GroupName) name, LocalDateTime.now(), ScheduleWindowDisplayType.GROUP);
             return new CommandResult(String.format(MESSAGE_SUCCESS, group.get()), false,
                     false);
         }

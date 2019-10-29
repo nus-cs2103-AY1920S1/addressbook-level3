@@ -1,7 +1,10 @@
 package seedu.address.model.display.schedulewindow;
 
+import java.time.DayOfWeek;
 import java.util.ArrayList;
+import java.util.HashMap;
 
+import seedu.address.model.display.detailwindow.PersonSchedule;
 import seedu.address.model.display.sidepanel.GroupDisplay;
 
 /**
@@ -9,85 +12,75 @@ import seedu.address.model.display.sidepanel.GroupDisplay;
  */
 public class ScheduleWindowDisplay {
 
-    private ArrayList<MonthSchedule> monthSchedules;
+    private ArrayList<PersonSchedule> personSchedules;
     private ScheduleWindowDisplayType scheduleWindowDisplayType;
     private GroupDisplay groupDisplay;
 
-    private ArrayList<FreeSchedule> freeSchedules;
+    private FreeSchedule freeSchedule;
 
-    /**
-     * Constructor to display details for groups.
-     * @param monthSchedules Month schedule of every member of the group.
-     * @param scheduleWindowDisplayType The type to be displayed.
-     * @param groupDisplay Group information to be displayed.
-     */
-    public ScheduleWindowDisplay(ArrayList<MonthSchedule> monthSchedules,
-                                 ScheduleWindowDisplayType scheduleWindowDisplayType,
-                                 GroupDisplay groupDisplay) {
-        this.scheduleWindowDisplayType = scheduleWindowDisplayType;
-        this.monthSchedules = monthSchedules;
-        this.groupDisplay = groupDisplay;
-
-        this.freeSchedules = new ArrayList<>();
-        for (int i = 0; i < monthSchedules.size(); i++) {
-            ArrayList<WeekSchedule> weekSchedules = new ArrayList<>();
-            for (int j = 0; j < 3; j++) {
-                weekSchedules.add(monthSchedules.get(i).getWeekScheduleOf(j));
-            }
-            freeSchedules.add(new FreeSchedule(weekSchedules));
-        }
+    public ScheduleWindowDisplay(ArrayList<PersonSchedule> personSchedules,
+                                 ScheduleWindowDisplayType detailWindowDisplayType) {
+        this(personSchedules, null, null, detailWindowDisplayType);
     }
 
-    /**
-     * Constructor for viewing individual information
-     * @param monthSchedules Contains 1 WeekSchedule Object.
-     * @param scheduleWindowDisplayType Most likely to be PERSON.
-     */
-    public ScheduleWindowDisplay(ArrayList<MonthSchedule> monthSchedules,
+    public ScheduleWindowDisplay(ArrayList<PersonSchedule> personSchedules,
+                               FreeSchedule freeSchedule, GroupDisplay groupDisplay,
                                  ScheduleWindowDisplayType scheduleWindowDisplayType) {
-        this.scheduleWindowDisplayType = scheduleWindowDisplayType;
-        this.monthSchedules = monthSchedules;
-        this.groupDisplay = null;
 
-        this.freeSchedules = new ArrayList<>();
-        for (int i = 0; i < monthSchedules.size(); i++) {
-            ArrayList<WeekSchedule> weekSchedules = new ArrayList<>();
-            for (int j = 0; j < 3; j++) {
-                weekSchedules.add(monthSchedules.get(i).getWeekScheduleOf(j));
-            }
-            freeSchedules.add(new FreeSchedule(weekSchedules));
-        }
+        this.personSchedules = personSchedules;
+        this.freeSchedule = freeSchedule;
+        this.groupDisplay = groupDisplay;
+        this.scheduleWindowDisplayType = scheduleWindowDisplayType;
     }
 
     public ScheduleWindowDisplay() {
-        this.monthSchedules = new ArrayList<>();
+        this.personSchedules = new ArrayList<>();
         this.scheduleWindowDisplayType = ScheduleWindowDisplayType.DEFAULT;
         this.groupDisplay = null;
 
-        this.freeSchedules = null;
+        this.freeSchedule = null;
     }
 
     public ScheduleWindowDisplay(ScheduleWindowDisplayType type) {
-        this.monthSchedules = new ArrayList<>();
+        this.personSchedules = new ArrayList<>();
         this.scheduleWindowDisplayType = type;
         this.groupDisplay = null;
 
-        this.freeSchedules = null;
+        this.freeSchedule = null;
     }
 
     public ScheduleWindowDisplayType getScheduleWindowDisplayType() {
         return scheduleWindowDisplayType;
     }
 
-    public ArrayList<MonthSchedule> getMonthSchedules() {
-        return monthSchedules;
+    public ArrayList<PersonSchedule> getPersonSchedules() {
+        return personSchedules;
     }
 
     public GroupDisplay getGroupDisplay() {
         return groupDisplay;
     }
 
-    public ArrayList<FreeSchedule> getFreeSchedules() {
-        return freeSchedules;
+    public FreeSchedule getFreeSchedule() {
+        return freeSchedule;
+    }
+
+    /**
+     * For debugging purposes only.
+     */
+    public String freeScheduleToString() {
+        String s = "";
+
+        HashMap<DayOfWeek, ArrayList<FreeTimeslot>> free = freeSchedule.getFreeSchedule();
+        for (int i = 0; i < 7; i++) {
+            ArrayList<FreeTimeslot> freeTimeslots = free.get(DayOfWeek.of(i + 1));
+            s += DayOfWeek.of(i + 1).toString() + "\n";
+            for (int j = 0; j < freeTimeslots.size(); j++) {
+                s += " === " + freeTimeslots.get(j).toString();
+            }
+            s += "\n";
+
+        }
+        return s;
     }
 }

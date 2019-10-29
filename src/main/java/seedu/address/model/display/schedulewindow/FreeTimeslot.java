@@ -29,6 +29,15 @@ public class FreeTimeslot {
         }
     }
 
+    /**
+     * For debugging purposes only.
+     */
+    public String toString() {
+        String s = "";
+        s += startTime.toString() + " - " + endTime.toString() + " " + venues.toString();
+        return s;
+    }
+
     public ArrayList<Venue> getVenues() {
         return venues;
     }

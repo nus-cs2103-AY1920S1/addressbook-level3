@@ -39,16 +39,13 @@
           </Menu>
         </MenuBar>
 
-        <GridPane>
+        <GridPane VBox.vgrow="ALWAYS">
           <columnConstraints>
-            <ColumnConstraints percentWidth="30" />
-            <ColumnConstraints percentWidth="70" hgrow="ALWAYS"/>
+            <ColumnConstraints percentWidth="25" />
+            <ColumnConstraints percentWidth="75" hgrow="ALWAYS"/>
           </columnConstraints>
-          <rowConstraints>
-            <RowConstraints vgrow="ALWAYS"/>
-          </rowConstraints>
           <StackPane fx:id="sideBarPlaceholder" styleClass="pane-with-border" minWidth="340" prefWidth="340" VBox.vgrow="ALWAYS"
-                       GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                       GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.vgrow="ALWAYS"/>
 
           <StackPane fx:id="detailsViewPlaceholder" VBox.vgrow="ALWAYS"
                       GridPane.columnIndex="1" GridPane.rowIndex="0"/>

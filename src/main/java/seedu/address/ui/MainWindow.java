@@ -14,6 +14,7 @@ import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
@@ -22,6 +23,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.export.VisualExporter;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.display.detailwindow.PersonSchedule;
 import seedu.address.model.display.schedulewindow.MonthSchedule;
 import seedu.address.model.display.schedulewindow.ScheduleWindowDisplay;
 import seedu.address.model.display.schedulewindow.ScheduleWindowDisplayType;
@@ -157,10 +159,14 @@ public class MainWindow extends UiPart<Stage> {
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
         //setting up default detailsview
+        /*
         detailsViewPlaceholder.getChildren().add(new DefaultStartView(logic.getMainWindowDisplay()
                 .getMonthSchedules().get(0)
                 .getWeekScheduleOf(0)
                 .getWeekSchedule().get(LocalDate.now().getDayOfWeek())).getRoot());
+
+         */
+        detailsViewPlaceholder.getChildren().add(new VBox());
     }
 
     /**
@@ -268,7 +274,7 @@ public class MainWindow extends UiPart<Stage> {
         HBox exportContainer = new HBox();
         ScheduleView scheduleView = ScheduleViewManager.getInstanceOf(scheduleWindowDisplay).getScheduleView();
         if (type.equals(ScheduleWindowDisplayType.PERSON)) {
-            MonthSchedule ms = scheduleWindowDisplay.getMonthSchedules().get(0);
+            PersonSchedule personSchedule = scheduleWindowDisplay.getPersonSchedules().get(0);
             exportContainer.getChildren().addAll(scheduleView.getRoot());
             stackPane.getChildren().add(exportContainer);
             Scene scene = new Scene(stackPane);
@@ -279,7 +285,7 @@ public class MainWindow extends UiPart<Stage> {
                 resultDisplay.setFeedbackToUser("Error exporting");
             }
         } else {
-            int size = scheduleWindowDisplay.getMonthSchedules().size();
+            int size = scheduleWindowDisplay.getPersonSchedules().size();
             GroupInformation groupInformation = new GroupInformation(scheduleWindowDisplay,
                     ColorGenerator.generateColorList(size));
             exportContainer.getChildren().addAll(groupInformation.getRoot(),
@@ -320,7 +326,7 @@ public class MainWindow extends UiPart<Stage> {
                 handleChangeOnDetailsView(scheduleViewManager.getScheduleView().getRoot());
                 handleSidePanelChange(
                         new PersonDetailCard(scheduleWindowDisplay
-                                .getMonthSchedules()
+                                .getPersonSchedules()
                                 .get(0)
                                 .getPersonDisplay())
                                 .getRoot(), SidePanelDisplayType.PERSON);
@@ -334,10 +340,12 @@ public class MainWindow extends UiPart<Stage> {
                 handleTabSwitch();
                 break;
             case HOME:
+                /*
                 handleChangeOnDetailsView(new DefaultStartView(scheduleWindowDisplay
                         .getMonthSchedules().get(0)
                         .getWeekScheduleOf(0)
                         .getWeekSchedule().get(LocalDate.now().getDayOfWeek())).getRoot());
+                 */
                 handleChangeToTabsPanel();
                 break;
             default:

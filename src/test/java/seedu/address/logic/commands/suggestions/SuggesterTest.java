@@ -11,6 +11,9 @@ import org.junit.jupiter.api.Test;
 import seedu.address.logic.parser.CliSyntax;
 import seedu.address.logic.parser.CommandArgument;
 import seedu.address.model.ModelManager;
+import seedu.address.model.group.exceptions.DuplicateGroupException;
+import seedu.address.model.mapping.exceptions.DuplicateMappingException;
+import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.testutil.grouputil.TypicalGroups;
 import seedu.address.testutil.modelutil.TypicalModel;
 import seedu.address.testutil.personutil.TypicalPersonDescriptor;
@@ -19,7 +22,7 @@ class SuggesterTest {
     private ModelManager model;
 
     @BeforeEach
-    void init() {
+    void init() throws DuplicateMappingException, DuplicatePersonException, DuplicateGroupException {
         model = TypicalModel.generateTypicalModel();
     }
 

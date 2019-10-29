@@ -4,9 +4,9 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import seedu.address.model.display.schedulewindow.DayTimeslot;
-import seedu.address.model.display.schedulewindow.WeekSchedule;
-import seedu.address.model.mapping.Role;
+import seedu.address.model.display.detailwindow.PersonSchedule;
+import seedu.address.model.display.detailwindow.PersonTimeslot;
+import seedu.address.model.person.exceptions.EventClashException;
 import seedu.address.model.person.schedule.Event;
 import seedu.address.model.person.schedule.Schedule;
 import seedu.address.model.person.schedule.Timeslot;
@@ -46,21 +46,31 @@ public class ScheduleStub {
     public ScheduleStub() {
     }
 
-    public WeekSchedule getWeekSchedule() {
-        p.setName(new Name("AlexwithaverylongnameSolongthateventhespellingofthisentiresentenceisonlyafraction"
-                + "ofhistruename"));
-        Event monday1pmTo3pm = new Event("Test", new ArrayList<>(List.of(timeslot1, timeslot2, timeslot3,
-                timeslot4, timeslot5)));
-        schedule.addEvent(monday1pmTo3pm);
-        p.setSchedule(schedule);
-        return new WeekSchedule("TestSchedule", LocalDateTime.now(), p, Role.emptyRole());
-    }
+//    public PersonSchedule getSchedule() {
+//        Person p = new Person(new PersonDescriptor());
+//        p.setName(new Name("AlexwithaverylongnameSolongthateventhespellingofthisentiresentenceisonlyafraction"
+//                + "ofhistruename"));
+//        Event monday1pmTo3pm = new Event("Test", new ArrayList<>(List.of(timeslot1, timeslot2, timeslot3,
+//                timeslot4, timeslot5)));
+//        try {
+//            schedule.addEvent(monday1pmTo3pm);
+//        } catch (EventClashException e) {
+//            return null;
+//        }
+//        p.setSchedule(schedule);
+//        return null;
+//        //return new ScheduleDisplayModel("TestSchedule", LocalDateTime.now(), p, Role.emptyRole());
+//    }
 
     public Schedule getSchedule() {
         p.setName(new Name("ME"));
         Event event = new Event("Test", new ArrayList<>(List.of(timeslot1, timeslot2)));
         Schedule result = new Schedule(new PersonId(-1));
-        schedule.addEvent(event);
+        try {
+            schedule.addEvent(event);
+        } catch (EventClashException e) {
+            e.printStackTrace();
+        }
         return schedule;
     }
 
@@ -68,12 +78,12 @@ public class ScheduleStub {
      * Stub to create a list of day timeslots to show the events that is happening on this day.
      * @return List of DayTimeslot.
      */
-    public List<DayTimeslot> eventStubs() {
-        DayTimeslot event1 = new DayTimeslot("Test run1!", startTime1.toLocalTime(), endTime1.toLocalTime(), venue);
-        DayTimeslot event2 = new DayTimeslot("Test run2!", startTime2.toLocalTime(), endTime2.toLocalTime(), venue);
-        DayTimeslot event3 = new DayTimeslot("Test run3!", startTime3.toLocalTime(), endTime3.toLocalTime(), venue);
-        DayTimeslot event4 = new DayTimeslot("Test run4!", startTime4.toLocalTime(), endTime4.toLocalTime(), venue);
-        DayTimeslot event5 = new DayTimeslot("Test run5!", startTime5.toLocalTime(), endTime5.toLocalTime(), venue);
+    public List<PersonTimeslot> eventStubs() {
+        PersonTimeslot event1 = new PersonTimeslot("Test run1!", startTime1.toLocalTime(), endTime1.toLocalTime(), venue);
+        PersonTimeslot event2 = new PersonTimeslot("Test run2!", startTime2.toLocalTime(), endTime2.toLocalTime(), venue);
+        PersonTimeslot event3 = new PersonTimeslot("Test run3!", startTime3.toLocalTime(), endTime3.toLocalTime(), venue);
+        PersonTimeslot event4 = new PersonTimeslot("Test run4!", startTime4.toLocalTime(), endTime4.toLocalTime(), venue);
+        PersonTimeslot event5 = new PersonTimeslot("Test run5!", startTime5.toLocalTime(), endTime5.toLocalTime(), venue);
 
         return List.of(event1, event2, event3, event4, event5);
     }

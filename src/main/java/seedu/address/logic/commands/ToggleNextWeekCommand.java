@@ -21,7 +21,7 @@ public class ToggleNextWeekCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        model.updateDetailWindowDisplay(new ScheduleWindowDisplay(ScheduleWindowDisplayType.NONE));
+        model.updateScheduleWindowDisplay(new ScheduleWindowDisplay(ScheduleWindowDisplayType.NONE));
         return new CommandResult(MESSAGE_SUCCESS, false, false, false, false, false, true);
     }
 
