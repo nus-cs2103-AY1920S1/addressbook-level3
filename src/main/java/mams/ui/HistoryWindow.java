@@ -153,5 +153,4 @@ public class HistoryWindow extends UiPart<Stage> {
             break;
         }
     }
-
 }
