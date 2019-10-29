@@ -12,43 +12,43 @@ import seedu.address.model.transaction.BankAccountOperation;
  */
 public class TypicalTransactions {
 
-    public static final BankAccountOperation ALICE = new TransactionBuilder()
+    public static final BankAccountOperation ALICE = new BankOperationBuilder()
         .withAmount("100")
         .withDate("10112019")
         .withDescription("milk")
         .withCategories("food")
         .build();
-    public static final BankAccountOperation BENSON = new TransactionBuilder()
+    public static final BankAccountOperation BENSON = new BankOperationBuilder()
         .withAmount("200")
         .withDate("11112019")
         .withDescription("honey")
         .withCategories("breakfast")
         .build();
-    public static final BankAccountOperation CARL = new TransactionBuilder()
+    public static final BankAccountOperation CARL = new BankOperationBuilder()
         .withAmount("300")
         .withDate("12112019")
         .withDescription("chicken")
         .withCategories("dinner")
         .build();
-    public static final BankAccountOperation DANIEL = new TransactionBuilder()
+    public static final BankAccountOperation DANIEL = new BankOperationBuilder()
         .withAmount("400")
         .withDate("13112019")
         .withDescription("oil")
         .withCategories("drink")
         .build();
-    public static final BankAccountOperation ELLE = new TransactionBuilder()
+    public static final BankAccountOperation ELLE = new BankOperationBuilder()
         .withAmount("500")
         .withDate("14112019")
         .withDescription("eggs")
         .withCategories("lunch")
         .build();
-    public static final BankAccountOperation FIONA = new TransactionBuilder()
+    public static final BankAccountOperation FIONA = new BankOperationBuilder()
         .withAmount("600")
         .withDate("15112019")
         .withDescription("onion")
         .withCategories("club")
         .build();
-    public static final BankAccountOperation GEORGE = new TransactionBuilder()
+    public static final BankAccountOperation GEORGE = new BankOperationBuilder()
         .withAmount("700")
         .withDate("16112019")
         .withDescription("garlic")
@@ -56,12 +56,12 @@ public class TypicalTransactions {
         .build();
 
     // Manually added
-    public static final BankAccountOperation HOON = new TransactionBuilder()
+    public static final BankAccountOperation HOON = new BankOperationBuilder()
         .withAmount("800")
         .withDate("17112019")
         .withDescription("rice")
         .build();
-    public static final BankAccountOperation IDA = new TransactionBuilder()
+    public static final BankAccountOperation IDA = new BankOperationBuilder()
         .withAmount("900")
         .withDate("18112019")
         .withDescription("noodle")
