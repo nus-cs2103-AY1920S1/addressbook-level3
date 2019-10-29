@@ -1,6 +1,7 @@
 package seedu.revision.logic;
 
 import java.nio.file.Path;
+import java.util.Comparator;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
@@ -11,11 +12,13 @@ import seedu.revision.logic.commands.exceptions.CommandException;
 import seedu.revision.logic.commands.main.CommandResult;
 import seedu.revision.logic.commands.main.ListCommand;
 import seedu.revision.logic.parser.exceptions.ParseException;
-import seedu.revision.logic.parser.quiz.QuizParser;
+import seedu.revision.logic.parser.quiz.QuizCommandParser;
 import seedu.revision.model.Model;
 import seedu.revision.model.ReadOnlyAddressBook;
 import seedu.revision.model.answerable.Answerable;
 import seedu.revision.storage.Storage;
+
+import static seedu.revision.model.Model.PREDICATE_SHOW_ALL_ANSWERABLE;
 
 
 /**
@@ -26,12 +29,12 @@ public class QuizLogicManager implements QuizLogic {
 
     private final Model model;
     private final Storage storage;
-    private final QuizParser quizParser;
+    private final QuizCommandParser quizCommandParser;
 
     public QuizLogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
-        quizParser = new QuizParser();
+        quizCommandParser = new QuizCommandParser();
     }
 
     /**
@@ -49,12 +52,12 @@ public class QuizLogicManager implements QuizLogic {
 
         CommandResult commandResult;
         //Parse user input from String to a Command
-        Command command = quizParser.parseCommand(commandText, currentAnswerable);
+        Command command = quizCommandParser.parseCommand(commandText, currentAnswerable);
         commandResult = command.execute(model);
 
         //If user exits the quiz, restore the filtered list to original state.
         if (commandResult.isExit()) {
-            ListCommand restoreList = new ListCommand(null);
+            ListCommand restoreList = new ListCommand(PREDICATE_SHOW_ALL_ANSWERABLE);
             restoreList.execute(model);
         }
 
@@ -73,6 +76,11 @@ public class QuizLogicManager implements QuizLogic {
     @Override
     public ObservableList<Answerable> getFilteredAnswerableList() {
         return model.getFilteredAnswerableList();
+    }
+
+    @Override
+    public ObservableList<Answerable> getFilteredSortedAnswerableList(Comparator<Answerable> comparator) {
+        return model.getFilteredSortedAnswerableList(comparator);
     }
 
     @Override

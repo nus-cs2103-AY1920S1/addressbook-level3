@@ -67,7 +67,6 @@ public class MainWindow extends Window {
      */
     @FXML
     public void handleStart() throws CommandException {
-        logger.info(String.valueOf(this.mainLogic.getFilteredAnswerableList().size()));
         if (this.mainLogic.getFilteredAnswerableList().size() > 0) {
             StartQuizWindow startQuizWindow = new StartQuizWindow(getPrimaryStage(), getMainLogic(), getQuizLogic());
             startQuizWindow.show();

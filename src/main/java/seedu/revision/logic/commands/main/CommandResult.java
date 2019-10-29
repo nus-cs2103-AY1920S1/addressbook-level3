@@ -26,9 +26,6 @@ public class CommandResult {
     /** The restore window will open. */
     private final boolean showRestore;
 
-    /** Chosen mode for the quiz **/
-    private static Mode mode;
-
     /** To pass the Model. */
     private static Model model;
 
@@ -57,13 +54,12 @@ public class CommandResult {
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
-    public CommandResult(String feedbackToUser, boolean start, Mode mode) {
+    public CommandResult(String feedbackToUser, boolean start) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = false;
         this.exit = false;
-        this.start = start;
-        this.mode = mode;
         this.showRestore = false;
+        this.start = start;
     }
 
     /**

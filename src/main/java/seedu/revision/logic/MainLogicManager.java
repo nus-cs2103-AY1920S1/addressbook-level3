@@ -2,6 +2,7 @@ package seedu.revision.logic;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.Comparator;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
@@ -65,6 +66,11 @@ public class MainLogicManager implements MainLogic {
     @Override
     public ObservableList<Answerable> getFilteredAnswerableList() {
         return model.getFilteredAnswerableList();
+    }
+
+    @Override
+    public ObservableList<Answerable> getFilteredSortedAnswerableList(Comparator<Answerable> comparator) {
+        return model.getFilteredSortedAnswerableList(comparator);
     }
 
     @Override

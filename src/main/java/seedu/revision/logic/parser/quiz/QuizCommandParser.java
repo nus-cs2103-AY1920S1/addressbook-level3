@@ -17,7 +17,7 @@ import seedu.revision.model.answerable.TrueFalse;
 /**
  * In-charge of parsing commands during quiz session.
  */
-public class QuizParser {
+public class QuizCommandParser {
 
     /**
      * Used for initial separation of command word and args.

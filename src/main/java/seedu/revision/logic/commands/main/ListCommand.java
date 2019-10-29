@@ -31,11 +31,7 @@ public class ListCommand extends Command {
     private Predicate<Answerable> predicate;
 
     public ListCommand(Predicate<Answerable> predicate) {
-        if (predicate == null) {
-            this.predicate = PREDICATE_SHOW_ALL_ANSWERABLE;
-        } else {
-            this.predicate = predicate;
-        }
+        this.predicate = predicate;
     }
 
     @Override

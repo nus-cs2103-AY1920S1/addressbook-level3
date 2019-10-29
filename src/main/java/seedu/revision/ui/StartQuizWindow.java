@@ -1,5 +1,6 @@
 package seedu.revision.ui;
 
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.Optional;
 import java.util.logging.Logger;
@@ -20,6 +21,7 @@ import seedu.revision.logic.commands.main.CommandResult;
 import seedu.revision.logic.parser.exceptions.ParseException;
 import seedu.revision.model.answerable.Answerable;
 import seedu.revision.model.answerable.Mcq;
+import seedu.revision.model.answerable.Saq;
 import seedu.revision.model.answerable.TrueFalse;
 import seedu.revision.ui.answers.AnswersGridPane;
 import seedu.revision.ui.answers.McqAnswersGridPane;
@@ -63,19 +65,24 @@ public class StartQuizWindow extends Window {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-
         ObservableList<Answerable> filteredAnswerableList = this.mainLogic.getFilteredAnswerableList();
-        answerableIterator = filteredAnswerableList.iterator();
+
+//        Comparator<Answerable> diffComparator = Comparator.comparing(answerable -> answerable.getDifficulty().value);
+//        ObservableList<Answerable> sortedList = filteredAnswerableList.sorted(diffComparator);
+        Comparator<Answerable> difficultyComparator = Comparator.comparing(
+                answerable -> answerable.getDifficulty().value);
+        ObservableList<Answerable> sortedList = this.mainLogic.getFilteredSortedAnswerableList(difficultyComparator);
+        answerableIterator = sortedList.iterator();
         currentAnswerable = answerableIterator.next();
 
         if (currentAnswerable instanceof Mcq) {
             answersGridPane = new McqAnswersGridPane(AnswersGridPane.MCQ_GRID_PANE_FXML, currentAnswerable);
         } else if (currentAnswerable instanceof TrueFalse) {
             answersGridPane = new TfAnswersGridPane(AnswersGridPane.TF_GRID_PANE_FXML, currentAnswerable);
-        } else {
-
         }
-
+//            } else if (currentAnswerable instanceof Saq) {
+//                answersGridPane = new SaqAnswersGridPane(AnswersGridPane.SAQ_GRID_PANE_FXML, currentAnswerable);
+//            }
         answerableListPanelPlaceholder.getChildren().add(answersGridPane.getRoot());
 
         questionDisplay = new ResultDisplay();
@@ -166,6 +173,16 @@ public class StartQuizWindow extends Window {
     @Override
     protected CommandResult executeCommand (String commandText) throws CommandException, ParseException {
         try {
+
+//            if (currentAnswerable instanceof Mcq) {
+//                answersGridPane = new McqAnswersGridPane(AnswersGridPane.MCQ_GRID_PANE_FXML, currentAnswerable);
+//            } else if (currentAnswerable instanceof TrueFalse) {
+//                answersGridPane = new TfAnswersGridPane(AnswersGridPane.TF_GRID_PANE_FXML, currentAnswerable);
+//            }
+//            } else if (currentAnswerable instanceof Saq) {
+//                answersGridPane = new SaqAnswersGridPane(AnswersGridPane.SAQ_GRID_PANE_FXML, currentAnswerable);
+//            }
+
             CommandResult commandResult = quizLogic.execute(commandText, currentAnswerable);
             logger.info("Question result: " + commandResult.getFeedbackToUser());
             if (commandResult.getFeedbackToUser().equalsIgnoreCase("correct")) {
