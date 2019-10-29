@@ -81,7 +81,7 @@ public class AccountsManager {
      */
     public void deleteAccount (Account toDelete) {
         if (accounts.contains(toDelete)) {
-            if (defaultAccount.isSameAccount(toDelete)){
+            if (defaultAccount.isSameAccount(toDelete)) {
                 throw new DefaultAccountCannotBeDeletedException();
             }
             accounts.remove(toDelete);
@@ -101,8 +101,8 @@ public class AccountsManager {
     }
 
     /**
-     * Removes the current Transaction from its respective Account within the AccountBook.
-     * The transaction should exist within the AccountBook before executing this.
+     * Removes the current Transaction from its respective Account.
+     * The transaction should exist within the AccountsManager before executing this.
      * @param toDelete the transaction to be deleted
      */
     public void removeTransaction(Transaction toDelete) throws TransactionNotFoundException {
