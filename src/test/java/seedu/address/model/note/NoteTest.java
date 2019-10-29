@@ -28,7 +28,7 @@ public class NoteTest {
     }
 
     @Test
-    public void sameNotesamePriority_Equals() {
+    public void sameNoteSamePriority_Equals() {
         Note note = new Note("sampleNote", "description", Priority.UNMARKED);
         Note otherNote = new Note("sampleNote", "description", Priority.UNMARKED);
         assertTrue(note.equals(otherNote));
