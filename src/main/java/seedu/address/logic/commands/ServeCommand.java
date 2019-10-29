@@ -25,8 +25,8 @@ public class ServeCommand extends Command implements ReversibleCommand {
 
     private final BorrowerId borrowerId;
     private final boolean isUndoRedo;
-    private final Command undoCommand;
-    private final Command redoCommand;
+    private Command undoCommand;
+    private Command redoCommand;
 
     /**
      * Creates a ServeCommand to serve a {@code Borrower}.
@@ -36,8 +36,6 @@ public class ServeCommand extends Command implements ReversibleCommand {
     public ServeCommand (BorrowerId borrowerId) {
         requireNonNull(borrowerId);
         this.borrowerId = borrowerId;
-        this.undoCommand = new DoneCommand(true);
-        this.redoCommand = new ServeCommand(borrowerId, true);
         this.isUndoRedo = false;
     }
 
@@ -50,9 +48,7 @@ public class ServeCommand extends Command implements ReversibleCommand {
     public ServeCommand (BorrowerId borrowerId, boolean isUndoRedo) {
         requireNonNull(borrowerId);
         this.borrowerId = borrowerId;
-        this.undoCommand = new DoneCommand(true);
-        this.redoCommand = new ServeCommand(borrowerId, true);
-        this.isUndoRedo = true;
+        this.isUndoRedo = isUndoRedo;
     }
 
     /**
@@ -72,6 +68,9 @@ public class ServeCommand extends Command implements ReversibleCommand {
 
         model.setServingBorrower(borrowerId);
         Borrower borrower = model.getServingBorrower();
+
+        undoCommand = new DoneCommand(true);
+        redoCommand = new ServeCommand(borrowerId, true);
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, borrower), false, false, true, false);
     }
@@ -95,6 +94,7 @@ public class ServeCommand extends Command implements ReversibleCommand {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof ServeCommand // instanceof handles nulls
-                && borrowerId.equals(((ServeCommand) other).borrowerId));
+                && borrowerId.equals(((ServeCommand) other).borrowerId))
+                && isUndoRedo == ((ServeCommand) other).isUndoRedo;
     }
 }

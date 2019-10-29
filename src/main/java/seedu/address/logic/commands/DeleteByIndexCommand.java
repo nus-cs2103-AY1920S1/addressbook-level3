@@ -71,6 +71,7 @@ public class DeleteByIndexCommand extends DeleteCommand implements ReversibleCom
     public boolean equals(Object other) {
         return other == this
                 || (other instanceof DeleteByIndexCommand // instanceof handles nulls
-                && targetIndex.equals(((DeleteByIndexCommand) other).targetIndex)); // state
+                && targetIndex.equals(((DeleteByIndexCommand) other).targetIndex)) //state
+                && isUndoRedo == ((DeleteByIndexCommand) other).isUndoRedo;
     }
 }

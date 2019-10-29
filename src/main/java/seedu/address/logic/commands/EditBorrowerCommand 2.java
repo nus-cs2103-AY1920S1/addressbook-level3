@@ -2,7 +2,6 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_DUPLICATE_BORROWER;
-import static seedu.address.commons.core.Messages.MESSAGE_NOT_IN_SERVE_MODE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
@@ -17,12 +16,11 @@ import seedu.address.model.borrower.BorrowerId;
 import seedu.address.model.borrower.Email;
 import seedu.address.model.borrower.Name;
 import seedu.address.model.borrower.Phone;
-import seedu.address.model.loan.LoanList;
 
 /**
  * Edits the details of an existing Borrower in the borrower record.
  */
-public class EditBorrowerCommand extends Command implements ReversibleCommand {
+public class EditBorrowerCommand extends Command {
 
     public static final String COMMAND_WORD = "edit";
 
@@ -37,33 +35,16 @@ public class EditBorrowerCommand extends Command implements ReversibleCommand {
             + PREFIX_EMAIL + "johndoe@example.com";
 
     public static final String MESSAGE_EDIT_BORROWER_SUCCESS = "Edited Borrower: %1$s";
-    public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided."
-            + "\n"
-            + MESSAGE_USAGE;
+    public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
+
 
     private final EditBorrowerDescriptor editBorrowerDescriptor;
-    private final boolean isUndoRedo;
-    private Command undoCommand;
-    private Command redoCommand;
 
     /**
      * @param editBorrowerDescriptor details to edit the borrower with
      */
     public EditBorrowerCommand(EditBorrowerDescriptor editBorrowerDescriptor) throws CommandException {
         requireNonNull(editBorrowerDescriptor);
-        this.isUndoRedo = false;
-
-        this.editBorrowerDescriptor = new EditBorrowerDescriptor(editBorrowerDescriptor);
-    }
-
-    /**
-     * @param editBorrowerDescriptor details to edit the borrower with
-     * @param isUndoRedo used to check whether the EditBorrowerCommand is an undo/redo command.
-     */
-    public EditBorrowerCommand(EditBorrowerDescriptor editBorrowerDescriptor, boolean isUndoRedo)
-            throws CommandException {
-        requireNonNull(editBorrowerDescriptor);
-        this.isUndoRedo = isUndoRedo;
 
         this.editBorrowerDescriptor = new EditBorrowerDescriptor(editBorrowerDescriptor);
     }
@@ -79,52 +60,15 @@ public class EditBorrowerCommand extends Command implements ReversibleCommand {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        if (!model.isServeMode()) {
-            throw new CommandException(MESSAGE_NOT_IN_SERVE_MODE);
-        }
-
         Borrower borrowerToEdit = model.getServingBorrower();
         Borrower editedBorrower = createEditedBorrower(borrowerToEdit, editBorrowerDescriptor);
-        
-        undoCommand = new EditBorrowerCommand(getBorrowerDescriptor(borrowerToEdit), true);
-        redoCommand = new EditBorrowerCommand(editBorrowerDescriptor, true);
 
         if (model.hasDuplicatedBorrower(editedBorrower)) {
             throw new CommandException(MESSAGE_DUPLICATE_BORROWER);
         }
 
         model.setBorrower(borrowerToEdit, editedBorrower);
-        model.setServingBorrower(editedBorrower);
-        return new CommandResult(String.format(MESSAGE_EDIT_BORROWER_SUCCESS, editedBorrower.toFullString()));
-    }
-
-    @Override
-    public Command getUndoCommand() {
-        return undoCommand;
-    }
-
-    @Override
-    public Command getRedoCommand() {
-        return redoCommand;
-    }
-
-    @Override
-    public boolean isUndoRedoCommand() {
-        return isUndoRedo;
-    }
-
-    /**
-     * Returns a {@code EditBorrowerDescriptor} from {@code Borrower}.
-     *
-     */
-    private EditBorrowerDescriptor getBorrowerDescriptor(Borrower borrower) {
-        EditBorrowerDescriptor borrowerDescriptor = new EditBorrowerDescriptor();
-        borrowerDescriptor.setId(borrower.getBorrowerId());
-        borrowerDescriptor.setName(borrower.getName());
-        borrowerDescriptor.setEmail(borrower.getEmail());
-        borrowerDescriptor.setPhone(borrower.getPhone());
-
-        return borrowerDescriptor;
+        return new CommandResult(String.format(MESSAGE_EDIT_BORROWER_SUCCESS, editedBorrower));
     }
 
     /**
@@ -139,10 +83,8 @@ public class EditBorrowerCommand extends Command implements ReversibleCommand {
         Phone updatedPhone = editBorrowerDescriptor.getPhone().orElse(borrowerToEdit.getPhone());
         Email updatedEmail = editBorrowerDescriptor.getEmail().orElse(borrowerToEdit.getEmail());
         BorrowerId borrowerId = borrowerToEdit.getBorrowerId();
-        LoanList currentLoanList = borrowerToEdit.getCurrentLoanList();
-        LoanList returnedLoanList = borrowerToEdit.getReturnedLoanList();
 
-        return new Borrower(updatedName, updatedPhone, updatedEmail, borrowerId, currentLoanList, returnedLoanList);
+        return new Borrower(updatedName, updatedPhone, updatedEmail, borrowerId);
     }
 
     @Override
@@ -159,8 +101,7 @@ public class EditBorrowerCommand extends Command implements ReversibleCommand {
 
         // state check
         EditBorrowerCommand e = (EditBorrowerCommand) other;
-        return editBorrowerDescriptor.equals(e.editBorrowerDescriptor)
-                && isUndoRedo == e.isUndoRedo;
+        return editBorrowerDescriptor.equals(e.editBorrowerDescriptor);
     }
 
     /**

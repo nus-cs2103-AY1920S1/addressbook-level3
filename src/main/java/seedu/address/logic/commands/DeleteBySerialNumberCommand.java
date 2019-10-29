@@ -106,6 +106,7 @@ public class DeleteBySerialNumberCommand extends DeleteCommand implements Revers
     public boolean equals(Object other) {
         return other == this
                 || (other instanceof DeleteBySerialNumberCommand // instanceof handles nulls
-                && targetSerialNumber.equals(((DeleteBySerialNumberCommand) other).targetSerialNumber)); // state
+                && targetSerialNumber.equals(((DeleteBySerialNumberCommand) other).targetSerialNumber)) // state
+                && isUndoRedo == ((DeleteBySerialNumberCommand) other).isUndoRedo;
     }
 }

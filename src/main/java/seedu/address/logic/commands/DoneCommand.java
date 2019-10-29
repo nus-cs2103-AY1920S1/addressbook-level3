@@ -72,6 +72,7 @@ public class DoneCommand extends Command implements ReversibleCommand {
 
     @Override
     public boolean equals(Object other) {
-        return (other == this || other instanceof DoneCommand);
+        return (other == this || other instanceof DoneCommand)
+                && isUndoRedo == ((DoneCommand) other).isUndoRedo;
     }
 }
