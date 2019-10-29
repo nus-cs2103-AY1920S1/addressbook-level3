@@ -23,8 +23,9 @@ public class DeleteArchiveCommand extends ArchiveCommand {
     public static final String MESSAGE_USAGE = ArchiveCommand.COMMAND_WORD + " " + COMMAND_WORD
             + ": Deletes the archive expense identified by the index number used in "
             + "the archive displayed expense list.\n"
-            + "Parameters: INDEX (must be a positive integer), ARCHIVE NAME (must be an existing archive)\n"
-            + "Example: " + ArchiveCommand.COMMAND_WORD + " " + COMMAND_WORD + " 1" + PREFIX_ARCHIVE + "hobbies";
+            + "Parameters: INDEX (must be a positive integer), ARCHIVE NAME (must be an existing archive"
+            + " and prefixed with [" + PREFIX_ARCHIVE + "])\n"
+            + "Example: " + ArchiveCommand.COMMAND_WORD + " " + COMMAND_WORD + " 1 " + PREFIX_ARCHIVE + "hobbies";
 
     public static final String MESSAGE_DELETE_EXPENSE_SUCCESS = "Deleted [%1$s] expense in [%2$s] archive";
 
