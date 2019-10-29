@@ -5,9 +5,13 @@ import javafx.collections.ObservableList;
 import seedu.address.model.inventory.Inventory;
 import seedu.address.model.task.Task;
 import seedu.address.model.member.Member;
+import seedu.address.model.mapping.InvMemMapping;
+import seedu.address.model.mapping.InvTasMapping;
+import seedu.address.model.mapping.TasMemMapping;
 import seedu.address.model.mapping.Mapping;
 
 import java.util.List;
+import java.util.HashMap;
 
 
 /**
@@ -33,8 +37,15 @@ public interface ReadOnlyProjectDashboard {
      */
     ObservableList<Inventory> getInventoryList();
 
-    List<Mapping> getMappingList();
+    HashMap<Task, ObservableList<Member>> listMemberByTask();
 
+    ObservableList<InvMemMapping> getInvMemMappingList();
+
+    ObservableList<InvTasMapping> getInvTasMappingList();
+
+    ObservableList<TasMemMapping> getTasMemMappingList();
+
+    ObservableList<Mapping> getMappingList();
 
     ObservableList<Task> getTasksNotStarted();
 

@@ -4,7 +4,10 @@ import seedu.address.logic.Logic;
 import seedu.address.ui.views.MemberListPanel;
 import seedu.address.ui.views.InventoryListPanel;
 import seedu.address.ui.views.ProjectDashboardView;
+import seedu.address.ui.views.MemberStatisticsView;
+import seedu.address.ui.views.SettingsView;
 import seedu.address.ui.views.TaskListPanel;
+import seedu.address.ui.views.TaskStatisticsView;
 
 /**
  * Utility class for controlling navigation between user views.
@@ -21,6 +24,9 @@ public class UserViewNavigator {
     private ProjectDashboardView projectDashboardView;
     private TaskListPanel taskListPanel;
     private InventoryListPanel inventoryListPanel;
+    private MemberStatisticsView memberStatsView;
+    private TaskStatisticsView taskStatsView;
+    private SettingsView settingsView;
 
     /**
      * Stores the main controller for later use in navigation tasks.
@@ -52,6 +58,7 @@ public class UserViewNavigator {
         userViewController.setUserView(taskListPanel);
     }
 
+
     // TODO get filtered member list from logic interface
     /**
      * Relays to controller to swap current user view with member list.
@@ -69,6 +76,33 @@ public class UserViewNavigator {
     public void loadInventoriesListView(Logic logic) {
         inventoryListPanel = new InventoryListPanel(logic.getFilteredInventoryList());
         userViewController.setUserView(inventoryListPanel);
+    }
+
+    /**
+     * Relays to controller to swap current user view with member list.
+     * @param logic to access task data
+     */
+    public void loadMemberStatsView(Logic logic) {
+        memberStatsView = new MemberStatisticsView(logic.getStatistics(), logic.getFilteredMemberList());
+        userViewController.setUserView(memberStatsView);
+    }
+
+    /**
+     * Relays to controller to swap current user view with task list.
+     * @param logic to access task data
+     */
+    public void loadTaskStatsView(Logic logic) {
+        taskStatsView = new TaskStatisticsView(logic.getStatistics(), logic.getFilteredTaskList());
+        userViewController.setUserView(taskStatsView);
+    }
+
+    /**
+     * Relays to the controller to swap current user view with settings view.
+     * @param logic to access settings data
+     */
+    public void loadSettingsView(Logic logic) {
+        settingsView = new SettingsView(logic.getCurrentTheme(), logic.getClockFormat());
+        userViewController.setUserView(settingsView);
     }
 
 }

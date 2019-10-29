@@ -9,7 +9,9 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyProjectDashboard;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.ReadOnlyUserSettings;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.UserSettings;
 
 /**
  * Manages storage of ProjectDashboard data in local storage.
@@ -19,12 +21,14 @@ public class StorageManager implements Storage {
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
     private ProjectDashboardStorage projectDashboardStorage;
     private UserPrefsStorage userPrefsStorage;
+    private UserSettingsStorage userSettingsStorage;
 
-
-    public StorageManager(ProjectDashboardStorage projectDashboardStorage, UserPrefsStorage userPrefsStorage) {
+    public StorageManager(ProjectDashboardStorage projectDashboardStorage, UserPrefsStorage userPrefsStorage,
+                          UserSettingsStorage userSettingsStorage) {
         super();
         this.projectDashboardStorage = projectDashboardStorage;
         this.userPrefsStorage = userPrefsStorage;
+        this.userSettingsStorage = userSettingsStorage;
     }
 
     // ================ UserPrefs methods ==============================
@@ -75,4 +79,32 @@ public class StorageManager implements Storage {
         projectDashboardStorage.saveProjectDashboard(projectDashboard, filePath);
     }
 
+    // ================ UserSettings methods ==============================
+
+    @Override
+    public Path getUserSettingsFilePath() {
+        return userSettingsStorage.getUserSettingsFilePath();
+    }
+
+    @Override
+    public Optional<UserSettings> readUserSettings() throws DataConversionException, IOException {
+        return readUserSettings(userSettingsStorage.getUserSettingsFilePath());
+    }
+
+    @Override
+    public Optional<UserSettings> readUserSettings(Path filePath) throws DataConversionException {
+        logger.fine("Attempting to read data from file: " + filePath);
+        return userSettingsStorage.readUserSettings(filePath);
+    }
+
+    @Override
+    public void saveUserSettings(ReadOnlyUserSettings userSettings) throws IOException {
+        saveUserSettings(userSettings, userSettingsStorage.getUserSettingsFilePath());
+    }
+
+    @Override
+    public void saveUserSettings(ReadOnlyUserSettings userSettings, Path filePath) throws IOException {
+        logger.fine("Attempting to write to data file: " + filePath);
+        userSettingsStorage.saveUserSettings(userSettings, filePath);
+    }
 }

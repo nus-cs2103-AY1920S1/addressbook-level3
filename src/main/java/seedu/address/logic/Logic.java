@@ -8,7 +8,11 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyProjectDashboard;
+import seedu.address.model.member.Member;
 import seedu.address.model.inventory.Inventory;
+import seedu.address.model.settings.ClockFormat;
+import seedu.address.model.settings.Theme;
+import seedu.address.model.statistics.Statistics;
 import seedu.address.model.task.Task;
 
 /**
@@ -34,6 +38,9 @@ public interface Logic {
 
     /** Returns an unmodifiable view of the filtered list of persons */
     ObservableList<Task> getFilteredTaskList();
+
+    /** Returns an unmodifiable view of the filtered list of members */
+    ObservableList<Member> getFilteredMemberList();
 
     /** Returns an unmodifiable view of the filtered list of persons */
     ObservableList<Task> getFilteredTaskListNotStarted();
@@ -65,4 +72,20 @@ public interface Logic {
      * Set the user prefs' GUI settings.
      */
     void setGuiSettings(GuiSettings guiSettings);
+
+    /**
+     * Returns the project statistics.
+     */
+    Statistics getStatistics();
+
+    /**
+     * Returns the current theme of +Work.
+     */
+    Theme getCurrentTheme();
+
+    /**
+     * Returns the clock format of +Work.
+     */
+    ClockFormat getClockFormat();
+
 }

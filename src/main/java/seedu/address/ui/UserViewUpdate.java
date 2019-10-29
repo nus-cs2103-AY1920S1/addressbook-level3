@@ -18,7 +18,6 @@ public class UserViewUpdate {
         paneToRender.getChildren().add(userViewMain.loadDashboard());
     }
 
-    // TODO update when inventory commands are added.
     /**
      * Retrieves user command's preamble and retrieves the respective pane.
      * Clears the current view first and switches to the desired view.
@@ -36,15 +35,21 @@ public class UserViewUpdate {
 
         switch(preamble) {
 
-        case "list":
+        case "add-task":
+
+        case "list-tasks":
 
         case "delete-task":
 
-        case "edit":
+        case "edit-task":
 
         case "set-deadline":
 
-        case "find":
+        case "doing-task":
+
+        case "done-task":
+
+        case "find-task":
             paneToRender.getChildren().add(userViewMain.loadTasks());
             break;
 
@@ -58,16 +63,40 @@ public class UserViewUpdate {
             paneToRender.getChildren().add(userViewMain.loadMembers());
             break;
 
-        case "home":
-            paneToRender.getChildren().add(userViewMain.loadDashboard());
-            break;
-
         case "delete-inv":
+
+        case "edit-inv":
 
         case "add-inv":
 
         case "list-inv":
             paneToRender.getChildren().add(userViewMain.loadInventories());
+            break;
+
+        case "assign-member":
+
+        case "fire-member":
+
+        case "get-member-stats":
+           paneToRender.getChildren().add(userViewMain.loadMemberStats());
+           break;
+
+        case "assign-task":
+
+        case "fire-task":
+
+        case "get-task-stats":
+            paneToRender.getChildren().add(userViewMain.loadTaskStats());
+            break;
+
+        case "clock":
+            paneToRender.getChildren().add(userViewMain.loadSettingsView());
+            break;
+
+        case "clear":
+
+        case "home":
+            paneToRender.getChildren().add(userViewMain.loadDashboard());
             break;
 
         default:

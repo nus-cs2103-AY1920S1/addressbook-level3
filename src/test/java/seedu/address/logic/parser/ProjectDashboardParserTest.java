@@ -13,12 +13,14 @@ import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.logic.commands.AddTaskCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteTaskCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditTaskDescriptor;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
+import seedu.address.logic.commands.GetStatisticsCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -32,12 +34,12 @@ public class ProjectDashboardParserTest {
 
     private final ProjectDashboardParser parser = new ProjectDashboardParser();
 
-    /*@Test
+    @Test
     public void parseCommand_add() throws Exception {
         Task task = new TaskBuilder().build();
         AddTaskCommand command = (AddTaskCommand) parser.parseCommand(TaskUtil.getAddTaskCommand(task));
         assertEquals(new AddTaskCommand(task), command);
-    }*/
+    }
 
     @Test
     public void parseCommand_clear() throws Exception {
@@ -88,6 +90,16 @@ public class ProjectDashboardParserTest {
     }
 
     @Test
+    public void parseCommand_getStats() throws Exception {
+        assertTrue(parser.parseCommand(GetStatisticsCommand.COMMAND_WORD_MEMBER) instanceof GetStatisticsCommand);
+        assertTrue(parser.parseCommand(GetStatisticsCommand.COMMAND_WORD_MEMBER + " 3")
+                instanceof GetStatisticsCommand);
+        assertTrue(parser.parseCommand(GetStatisticsCommand.COMMAND_WORD_TASK) instanceof GetStatisticsCommand);
+        assertTrue(parser.parseCommand(GetStatisticsCommand.COMMAND_WORD_TASK + " 3")
+                instanceof GetStatisticsCommand);
+    }
+
+    @Test
     public void parseCommand_unrecognisedInput_throwsParseException() {
         assertThrows(ParseException.class, String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE), ()
             -> parser.parseCommand(""));
@@ -95,6 +107,7 @@ public class ProjectDashboardParserTest {
 
     @Test
     public void parseCommand_unknownCommand_throwsParseException() {
-        assertThrows(ParseException.class, MESSAGE_UNKNOWN_COMMAND, () -> parser.parseCommand("unknownCommand"));
+        assertThrows(ParseException.class, MESSAGE_UNKNOWN_COMMAND,
+            () -> parser.parseCommand("unknownCommand"));
     }
 }

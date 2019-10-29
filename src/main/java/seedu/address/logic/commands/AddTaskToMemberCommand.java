@@ -10,7 +10,7 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.mapping.Mapping;
+import seedu.address.model.mapping.TasMemMapping;
 import seedu.address.model.member.Member;
 import seedu.address.model.member.MemberId;
 import seedu.address.model.task.Task;
@@ -25,12 +25,14 @@ public class AddTaskToMemberCommand extends Command {
             + "by the index number used in the displayed task list, to the member indicated "
             + "by the member ID. \n"
             + "Parameters: INDEX (must be a positive integer) "
-            + PREFIX_TASK_INDEX + "TASK_INDEX"
+            + PREFIX_TASK_INDEX + "TASK_INDEX "
             + PREFIX_MEMBER_ID + "MEMBER_ID \n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_TASK_INDEX + " 2 "
-            + PREFIX_MEMBER_ID + " JD";
+            + PREFIX_TASK_INDEX + "2 "
+            + PREFIX_MEMBER_ID + "JD";
 
+    public static final String MESSAGE_SUCCESS = "New mapping added: %1$s";
+    public static final String MESSAGE_DUPLICATE_MAPPING = "This mapping already exists!";
     public static final String MESSAGE_ASSIGN_TASK_SUCCESS = "Set task for member: %1$s";
 
     private final Index taskId;
@@ -53,7 +55,6 @@ public class AddTaskToMemberCommand extends Command {
         requireNonNull(model);
         List<Task> lastShownTaskList = model.getFilteredTasksList();
         List<Member> lastShownMemberList = model.getFilteredMembersList();
-        List<Mapping> lastShownMappingList = model.getFilteredMappingsList();
 
         if (taskId.getZeroBased() >= lastShownTaskList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
@@ -61,11 +62,13 @@ public class AddTaskToMemberCommand extends Command {
 
         boolean contains = false;
         Member involvedMember = null;
+        Integer memberIndex = null;
 
         for (int i = 0; i < lastShownMemberList.size(); i++) {
-            if (lastShownMemberList.get(i).getId() == memberId) {
+            if (lastShownMemberList.get(i).getId().equals(memberId)) {
                 contains = true;
                 involvedMember = lastShownMemberList.get(i);
+                memberIndex = i;
                 break;
             }
         }
@@ -75,7 +78,10 @@ public class AddTaskToMemberCommand extends Command {
         }
 
         Task taskToAdd = lastShownTaskList.get(taskId.getZeroBased());
-        Mapping mappingToAdd = createMapping(involvedMember, taskToAdd);
+        TasMemMapping mappingToAdd = createMapping(taskId.getZeroBased(), memberIndex);
+        if(model.hasMapping(mappingToAdd)) {
+            throw new CommandException(MESSAGE_DUPLICATE_MAPPING);
+        }
         model.addMapping(mappingToAdd);
 
         return new CommandResult(String.format(MESSAGE_ASSIGN_TASK_SUCCESS, involvedMember));
@@ -85,11 +91,8 @@ public class AddTaskToMemberCommand extends Command {
      * Creates and returns a {@code Task} with the details of {@code taskToUpdate}
      * where TaskStatus is updated to 'In Progress".
      */
-    private static Mapping createMapping(Member involvedMember, Task taskToAdd) {
-        assert taskToAdd != null;
-        assert involvedMember != null;
-
-        return new Mapping(involvedMember, taskToAdd);
+    private static TasMemMapping createMapping(int taskIndex, int memberIndex) {
+        return new TasMemMapping(taskIndex, memberIndex);
     }
 
     @Override

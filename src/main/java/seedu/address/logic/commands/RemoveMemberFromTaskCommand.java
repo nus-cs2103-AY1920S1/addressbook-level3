@@ -10,7 +10,8 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.mapping.Mapping;
+import seedu.address.model.mapping.TasMemMapping;
+import seedu.address.model.mapping.exceptions.MappingNotFoundException;
 import seedu.address.model.member.Member;
 import seedu.address.model.member.MemberId;
 import seedu.address.model.task.Task;
@@ -56,11 +57,13 @@ public class RemoveMemberFromTaskCommand extends Command {
         }
 
         boolean contains = false;
+        Integer memberIndex = null;
         Member memberToRemove = null;
 
         for (int i = 0; i < lastShownMemberList.size(); i++) {
-            if (lastShownMemberList.get(i).getId() == memberId) {
+            if (lastShownMemberList.get(i).getId().equals(memberId)) {
                 contains = true;
+                memberIndex = i;
                 memberToRemove = lastShownMemberList.get(i);
                 break;
             }
@@ -71,8 +74,14 @@ public class RemoveMemberFromTaskCommand extends Command {
         }
 
         Task involvedTask = lastShownTaskList.get(taskId.getZeroBased());
-        Mapping mappingToRemove = createMapping(memberToRemove, involvedTask);
-        model.deleteMapping(mappingToRemove);
+        TasMemMapping mappingToRemove = createMapping(taskId.getZeroBased(), memberIndex);
+
+        try {
+            model.deleteMapping(mappingToRemove);
+        } catch (MappingNotFoundException e) {
+            throw new CommandException(MESSAGE_INVALID_TASK_ID);
+        }
+
         return new CommandResult(String.format(MESSAGE_REMOVE_TASK_SUCCESS, involvedTask));
     }
 
@@ -80,11 +89,8 @@ public class RemoveMemberFromTaskCommand extends Command {
      * Creates and returns a {@code Task} with the details of {@code taskToUpdate}
      * where TaskStatus is updated to 'In Progress".
      */
-    private static Mapping createMapping(Member involvedMember, Task taskToAdd) {
-        assert taskToAdd != null;
-        assert involvedMember != null;
-
-        return new Mapping(involvedMember, taskToAdd);
+    private static TasMemMapping createMapping(int taskIndex, int memberIndex) {
+        return new TasMemMapping(taskIndex, memberIndex);
     }
 
     @Override

@@ -2,11 +2,15 @@ package seedu.address.ui.views;
 
 import java.util.Comparator;
 
+import com.sun.javafx.scene.control.skin.Utils;
+
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import javafx.scene.text.Font;
 import seedu.address.commons.util.DateTimeUtil;
 import seedu.address.model.task.Task;
 import seedu.address.ui.UiPart;
@@ -48,11 +52,16 @@ public class TaskCard extends UiPart<Region> {
         task.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+
         if (task.hasDeadline()) {
             deadline.setText("Due on: " + DateTimeUtil.displayDateTime(task.getDeadline()));
         } else {
             deadline.setText("No deadline set");
         }
+    }
+
+    public Label getDeadlineLabel() {
+        return deadline;
     }
 
     @Override

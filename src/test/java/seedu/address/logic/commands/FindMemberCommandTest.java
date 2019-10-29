@@ -18,12 +18,12 @@ import org.junit.jupiter.api.Test;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.UserSettings;
 import seedu.address.model.member.MemberNameContainsKeywordsPredicate;
-import seedu.address.model.member.MemberNameContainsKeywordsPredicateTest;
 
 public class FindMemberCommandTest {
-    private Model model = new ModelManager(getTypicalProjectDashboard(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalProjectDashboard(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalProjectDashboard(), new UserPrefs(), new UserSettings());
+    private Model expectedModel = new ModelManager(getTypicalProjectDashboard(), new UserPrefs(), new UserSettings());
 
     @Test
     public void equals() {

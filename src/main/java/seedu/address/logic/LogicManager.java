@@ -15,6 +15,10 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyProjectDashboard;
 import seedu.address.model.inventory.Inventory;
+import seedu.address.model.member.Member;
+import seedu.address.model.settings.ClockFormat;
+import seedu.address.model.settings.Theme;
+import seedu.address.model.statistics.Statistics;
 import seedu.address.model.task.Task;
 import seedu.address.storage.Storage;
 
@@ -45,6 +49,7 @@ public class LogicManager implements Logic {
 
         try {
             storage.saveProjectDashboard(model.getProjectDashboard());
+            storage.saveUserSettings(model.getUserSettings());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
@@ -65,7 +70,12 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ObservableList<Task> getFilteredTaskListNotStarted() {
+    public ObservableList<Member> getFilteredMemberList() {
+        return model.getFilteredMembersList();
+    }
+
+    @Override
+   public ObservableList<Task> getFilteredTaskListNotStarted() {
         return model.getFilteredTaskListNotStarted();
     }
 
@@ -102,5 +112,20 @@ public class LogicManager implements Logic {
     @Override
     public void setGuiSettings(GuiSettings guiSettings) {
         model.setGuiSettings(guiSettings);
+    }
+
+    @Override
+    public Statistics getStatistics() {
+        return model.getStatistics();
+    }
+
+    @Override
+    public Theme getCurrentTheme() {
+        return model.getCurrentTheme();
+    }
+
+    @Override
+    public ClockFormat getClockFormat() {
+        return model.getCurrentClockFormat();
     }
 }

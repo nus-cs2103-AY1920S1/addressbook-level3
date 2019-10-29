@@ -1,0 +1,57 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":ProjectDashboardParser" as ProjectDashboardParser LOGIC_COLOR
+participant "GetStatisticsCommand" as GetStatisticsCommand LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Statistics" as Statistics MODEL_COLOR
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute(get-task-stats)
+activate LogicManager
+
+LogicManager -> ProjectDashboardParser : parseCommand(get-task-stats)
+activate ProjectDashboardParser
+
+create GetStatisticsCommand
+ProjectDashboardParser -> GetStatisticsCommand
+activate GetStatisticsCommand
+
+GetStatisticsCommand --> ProjectDashboardParser
+deactivate GetStatisticsCommand
+
+ProjectDashboardParser --> LogicManager
+deactivate ProjectDashboardParser
+
+LogicManager -> GetStatisticsCommand : execute()
+activate GetStatisticsCommand
+
+create Statistics
+GetStatisticsCommand -> Statistics
+activate Statistics
+
+Statistics -> GetStatisticsCommand : s
+
+GetStatisticsCommand -> Statistics : s.doCalculations()
+deactivate Statistics
+
+GetStatisticsCommand -> Model : setStatistics(s)
+activate Model
+
+Model --> GetStatisticsCommand
+deactivate Model
+
+GetStatisticsCommand --> LogicManager : result
+deactivate GetStatisticsCommand
+
+GetStatisticsCommand -[hidden]-> LogicManager : result
+destroy GetStatisticsCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

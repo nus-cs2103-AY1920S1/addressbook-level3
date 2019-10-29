@@ -18,7 +18,9 @@ By: `CS2103T-T12-1`      Since: `Sept 2019`      Licence: `MIT`
 
 == Introduction
 
-+Work is a project management tool that allows the project leader of a small group (less than 20 people) to manage this group to achieve their objectives for a single project. To increase efficiency of the group we help the group manage their meeting times, task allocation as well as personal claims for equipment purchased. Enjoy!
++Work is a project management tool that allows NUS project leaders in charge of a small group (less than 20 people) to successfully achieve their objectives for their project.
++Work is a one-stop application to help the leader manage their members, meeting times, task allocation as well as personal claims for any equipment purchased.
++Work is perfect for those who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). Happy working!
 
 == Quick Start
 
@@ -33,10 +35,10 @@ image::Ui.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* **`add member`**`Abhinav Ramnath` : Adds member m/Abhinav Ramnath
-* **`add task`**`t/Finish up milestone setting mi/1` : adds a task called 'Finish up milestone' and and assigns it to the first member, Gabriel Seow.
-* **`assign`**`ti/5 m/3` : assigns the 3rd member, Seah Lynn, to the 5th task
-* **`doing task`**`ti/3` : changes status of task 3 from 'to be done'to 'doing'
+* **`add-member m/Abhinav Ramnath`** : Adds a member with name "Abhinav Ramnath" to the project.
+* **`add-task tn/Finish up milestone setting`** : Adds a task with name "Finish up milestone" to the project.
+* **`assign-member ti/5 mi/SL`** : Assigns the project member "Seah Lynn" (With member id "SL"), to the fifth task.
+* **`doing-task ti/3`** : Changes status of task three to `doing`:
 
 .  Refer to <<Features>> for details of each command.
 
@@ -49,15 +51,15 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 * The command begins with the type of command to be executed
 
-** Example: in `remove member [mi/MEMBER_ID]`, remove member is the type of command
+** Example: in `remove-member [mi/MEMBER_ID]`, remove member is the type of command
 
 * The words in UPPER_CASE corresponds to the parameters given by the user
 
-** Example: In `add member [m/MEMBER_NAME]`, MEMBER_NAME is the input specified by the user, such as: add member m/Gabriel Seow
+** Example: In `add-member [m/MEMBER_NAME]`, MEMBER_NAME is the input specified by the user, such as: add member m/Gabriel Seow
 
 * The user specifies the type of parameter given through a prefix. The list of allowed prefixes can be found below.
 
-** Example: In `add task [t/TASK_NAME] [m/MEMBER_NAME]`, the user inputs the name of the task after t/ and inputs the name of the member after m/, such as: +
+** Example: In `add-task [t/TASK_NAME] [m/MEMBER_NAME]`, the user inputs the name of the task after t/ and inputs the name of the member after m/, such as: +
  `add task t/Finish Project Draft m/Elsa Koh`
 
 * Parameters can be given in any order
@@ -74,15 +76,15 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 === Universal Commands
 
 ==== Accessing project dashboard page: `home` +
-Returns to project dashboard page +
+This brings you to the project dashboard page +
 Format: `home`
 
 ==== Accessing time management page: `calendar` +
-Returns to time management page where calendar and meeting times are displayed +
+This brings you to the time management page where calendar and meeting times are displayed +
 Format: `calendar`
 
 ==== Accessing settings page: `settings` (Coming in v1.3) +
-Returns to settings page  +
+This brings you to the settings page  +
 Format: `settings`
 
 ==== View help: `help` +
@@ -197,42 +199,51 @@ Sets deadline for existing tasks on dashboard
 Format: `deadline-task [ti/TASK_ID] [at/DEADLINE] [at/ dd-mm-yy hh:mm]`
 
 [TIP]
-Remember to input using 24 hour time format
+Remember to input using the 24 hour time format
 
 Example:
 
 * `deadline-task ti/21 at/21-09-19 15:00`  +
-Deadline for task 21 will be specified as 21/09/19 1500
+Deadline for task 21 will be specified as `21-09-19 15:00`
 
 '''
 
-=== Calendar Commands
-
-==== Add a member’s calendar
-
-Adds a calendar to the required member's profile
+=== Calendar Commands (Coming in v1.3)
 
 ****
 
-Steps
+Suggested steps for you to follow
 
-* User first exports their `.ics` file from NUSmods
+1. User first exports their `.ics` file from NUSmods
 
-* Then import it into their google calendar
+2. Then import it into their google calendar
 
-* Add any weekly commitments to their google calendar
+3. Add any weekly commitments to their google calendar
 
-* Export `.ics` file again
+4. Export `.ics` file again
 
-* Import all to our application
+5. Import all to our application
 
-* enter command `generate-timings`
+6. enter command `generate-timings`
 
-* Choose the desired timing for the weekly meetings from the grid displayed
+7. Choose the desired timing for the weekly meetings from the grid displayed
+
+8. Create a new `Meeting`
 
 ****
 
-==== Generate free time across all calendars uploaded: `generate timings`
+==== Add a members calendar: `import-calendar`
+
+Format: `import-calendar [mi/MEMBER_ID] [c/PATH_TO_ICS]`
+
+Example:
+
+You can add your project's member John Doe's `ics` file like this,
+
+* `import-calendar mi/JD c/data/john_ics_file` +
+Adds a calendar to John's profile
+
+==== Generate free time across all calendars uploaded: `generate-timings`
 
 Format: `generate-timings`
 
@@ -309,7 +320,10 @@ File explorer pops up, triggering a message to allow the user to save the pdf fi
 
 ==== Switching the theme of +Work: `theme`
 
-Using this command, you can toggle the theme of +Work between light and dark to suit your viewing preferences.
+This command toggles the theme of +Work between light and dark to suit your viewing preferences.
+
+[TIP]
+
 By default, the theme is set to dark.
 
 Format: `theme light`
@@ -317,27 +331,28 @@ Format: `theme light`
 Examples:
 
 * `theme light` +
-Switch to the light theme
+Switches to the light theme
 
 * `theme light` +
-Switch to the dark theme
+Switches to the dark theme
 
-==== Switching the clock of +Work: `clock`
+==== Switching the clock format of +Work: `clock`
 
-Using this command, you can toggle the clock format of +Work between 24 hour and 12 hour format.
+This command toggles the clock format of +Work between 24 hour and 12 hour format.
 By default, the clock format is set to 24 hour.
 
-Note that this does not affect the input of deadlines
-for tasks. They still need to be entered in 24 hour format.
+[NOTE]
+
+This does not affect the input format of deadlines for tasks. They still need to be entered in 24 hour format!.
 
 Format: `clock twenty_four`
 
 Examples:
 
-* `theme twelve` +
+* `clock twelve` +
 Switches to the 12 hour clock
 
-* `theme twenty_four` +
+* `clock twenty_four` +
 Switches to the 24 hour clock
 
 ////
@@ -418,44 +433,54 @@ _{explain how the user can enable/disable data encryption}_
 
 == Command Summary
 
-* *Project dashboard*: `home`
+* `add-inventory [i/NAME] [p/PRICE] [ti/TASKID] [mi/MEMBER_ID]`: *Add an inventory*
 
-* *Time management page*: `calendar`
+* `add-meeting [at/ dd-mm-yyyy hh:mm - hh:mm]  [l/LOCATION]`: (Coming in v1.3) *Add a meeting*
 
-* *Settings configuration page*: `settings`
+* `add-member [mn/MEMBER_NAME] [mi/MEMBER_ID] [mt/MEMBER_TAG]`: *Add a member*
 
-* *Help*: `help`
+* `add-task [t/TASK_NAME]  [m/MEMBER_NAME]`: *Add a task*
 
-* *Add member*: `add-member [m/MEMBER_NAME]`
+* `assign [ti/TASK_ID] [mi/MEMBER_ID]`: *Add a task to a member*
 
-* *List members*: `list-members`
+* `calendar`: *Switch to the time management page*
 
-* *Remove member*: `remove-member [m/MEMBER_NAME]`
+* `clock twelve`: (Coming in v1.3) *Switch to the 12 hour clock*
 
-* *Add task to member*: `assign [ti/TASK_ID] [mi/MEMBER_ID]`
+* `clock twenty_four`: (Coming in v1.3) *Switch to the 24 hour clock*
 
-* *Remove task from member*: `fire [ti/TASK_ID] [mi/MEMBER_ID]`
+* `deadline-task [ti/TASK_ID] [at/ dd-mm-yy hh:mm]`: *Assign a deadline to a task*
 
-* *Add task*: `add-task [t/TASK_NAME]  [m/MEMBER_NAME]`
+* `delete-inventory [ii/ITEM_ID]`: *Delete an inventory*
 
-* *Doing task*: `doing-task [ti/TASK_ID]`
+* `doing-task [ti/TASK_ID]`: *Mark a task as `doing`*
 
-* *Done task*: `done-task [ti/TASK_ID]`
+* `done-task [ti/TASK_ID]`: *Mark a task as `done`*
 
-* *List tasks*: `list-tasks`
+* `fire-member [ti/TASK_ID] [mi/MEMBER_ID]`: *Remove a task from a member*
 
-* *Remove task*: `remove-task [ti/TASK_ID]`
+* `generate-inventory /task`: *Generate report of inventory by task*
 
-* *Deadline*:  `deadline-task [ti/TASK_ID] [at/ dd-mm-yy hh:mm]`
+* `generate-inventory /person`: *Generate report of inventory by person*
 
-* *Generate timings*: `generate-timings`
+* `generate-timings`: (Coming in v1.3) *Generate free times among members*
 
-* *add meeting*: `add-meeting [at/ dd-mm-yyyy hh:mm - hh:mm]  [l/LOCATION]`
+* `home`: *Switch to the project dashboard*
 
-* *Adding an inventory*: `add-inventory`
+* `help`: *Access the help window*
 
-* *Deleting an inventory*: `delete-inventory`
+* `import-calendar [mi/MEMBER_ID] [c/PATH_TO_ICS]`: (Coming in v1.3) *Import a calendar*
 
-* *Generating report of inventory by task*: `generate-inventory /task`
+* `list-members`: *List all members*
 
-* *Generating report of inventory by person*: `generate-inventory /person`
+* `list-tasks`: *List all tasks*
+
+* `remove-member [mi/MEMBER_ID]`: *Remove a member*
+
+* `remove-task [ti/TASK_ID]`: *Remove a task*
+
+* `settings`: *Switch to the settings configuration page*
+
+* `theme dark`: (Coming in v1.3) *Switch to the dark theme*
+
+* `theme light`: (Coming in v1.3) *Switch to the light theme*

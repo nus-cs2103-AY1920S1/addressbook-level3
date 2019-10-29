@@ -65,6 +65,11 @@ public class UserViewMain {
         return userViewController.getCurrentView();
     }
 
+    public Pane loadMemberStats() {
+        userViewNavigator.loadMemberStatsView(logic);
+        return userViewController.getCurrentView();
+    }
+
     /**
      * Shows the user the list of inventories.
      *
@@ -74,4 +79,20 @@ public class UserViewMain {
         userViewNavigator.loadInventoriesListView(logic);
         return userViewController.getCurrentView();
     }
+
+    public Pane loadTaskStats() {
+        userViewNavigator.loadTaskStatsView(logic);
+        return userViewController.getCurrentView();
+    }
+
+    /**
+     * Shows the user the current settings.
+     *
+     * @return the settings view
+     */
+    public Pane loadSettingsView() {
+        userViewNavigator.loadSettingsView(logic);
+        return userViewController.getCurrentView();
+    }
+
 }

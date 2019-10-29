@@ -12,6 +12,7 @@ import seedu.address.logic.commands.AddMemberToTaskCommand;
 import seedu.address.logic.commands.AddTaskCommand;
 import seedu.address.logic.commands.AddTaskToMemberCommand;
 import seedu.address.logic.commands.ClearCommand;
+import seedu.address.logic.commands.ClockCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteInventoryCommand;
 import seedu.address.logic.commands.DeleteMemberCommand;
@@ -25,6 +26,7 @@ import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.FindMemberCommand;
 import seedu.address.logic.commands.GeneratePDFCommand;
+import seedu.address.logic.commands.GetStatisticsCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HomeCommand;
 import seedu.address.logic.commands.ListCommand;
@@ -33,9 +35,8 @@ import seedu.address.logic.commands.ListMemberCommand;
 import seedu.address.logic.commands.RemoveMemberFromTaskCommand;
 import seedu.address.logic.commands.RemoveTaskFromMemberCommand;
 import seedu.address.logic.commands.SetDeadlineCommand;
+import seedu.address.logic.commands.ThemeCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.logic.parser.stub.DoneTaskCommandParserStub;
-import seedu.address.logic.parser.stub.SetDeadlineCommandParserStub;
 
 /**
  * Parses user input.
@@ -64,11 +65,21 @@ public class ProjectDashboardParser {
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
 
+        // TASK
         case AddTaskCommand.COMMAND_WORD:
             return new AddTaskCommandParser().parse(arguments);
 
         case DeleteTaskCommand.COMMAND_WORD:
             return new DeleteTaskCommandParser().parse(arguments);
+
+        case FindCommand.COMMAND_WORD:
+            return new FindCommandParser().parse(arguments);
+
+        case ListCommand.COMMAND_WORD:
+            return new ListCommand();
+
+        case EditCommand.COMMAND_WORD:
+            return new EditCommandParser().parse(arguments);
 
         case DoingTaskCommand.COMMAND_WORD:
             return new DoingTaskCommandParser().parse(arguments);
@@ -77,8 +88,9 @@ public class ProjectDashboardParser {
             return new SetDeadlineCommandParser().parse(arguments);
 
         case DoneTaskCommand.COMMAND_WORD:
-            return new DoneTaskCommandParserStub().parse(arguments);
+            return new DoneTaskCommandParser().parse(arguments);
 
+        // MEMBER
         case AddMemberCommand.COMMAND_WORD:
             return new AddMemberCommandParser().parse(arguments);
 
@@ -94,39 +106,7 @@ public class ProjectDashboardParser {
         case ListMemberCommand.COMMAND_WORD:
             return new ListMemberCommand();
 
-        case ListInventoryCommand.COMMAND_WORD:
-            return new ListInventoryCommand();
-
-        case ClearCommand.COMMAND_WORD:
-            return new ClearCommand();
-
-        case FindCommand.COMMAND_WORD:
-            return new FindCommandParser().parse(arguments);
-
-        case ListCommand.COMMAND_WORD:
-            return new ListCommand();
-
-        case ExitCommand.COMMAND_WORD:
-            return new ExitCommand();
-
-        case HelpCommand.COMMAND_WORD:
-            return new HelpCommand();
-
-        case HomeCommand.COMMAND_WORD:
-            return new HomeCommand();
-
-        case EditCommand.COMMAND_WORD:
-            return new EditCommandParser().parse(arguments);
-
-        case AddInventoryCommand.COMMAND_WORD:
-            return new AddInventoryCommandParser().parse(arguments);
-
-        case EditInventoryCommand.COMMAND_WORD:
-            return new EditInventoryCommandParser().parse(arguments);
-
-        case DeleteInventoryCommand.COMMAND_WORD:
-            return new DeleteInventoryCommandParser().parse(arguments);
-
+        // ASSOCIATION
         case AddTaskToMemberCommand.COMMAND_WORD:
             return new AddTaskToMemberParser().parse(arguments);
 
@@ -139,8 +119,48 @@ public class ProjectDashboardParser {
         case RemoveMemberFromTaskCommand.COMMAND_WORD:
             return new RemoveMemberFromTaskParser().parse(arguments);
 
+        // INVENTORY
+        case ListInventoryCommand.COMMAND_WORD:
+            return new ListInventoryCommand();
+
+        case AddInventoryCommand.COMMAND_WORD:
+            return new AddInventoryCommandParser().parse(arguments);
+
+        case EditInventoryCommand.COMMAND_WORD:
+            return new EditInventoryCommandParser().parse(arguments);
+
+        case DeleteInventoryCommand.COMMAND_WORD:
+            return new DeleteInventoryCommandParser().parse(arguments);
+
         case GeneratePDFCommand.COMMAND_WORD:
             return new GeneratePDFCommand();
+
+        // STATS
+        case GetStatisticsCommand.COMMAND_WORD_MEMBER:
+            return new GetStatisticsCommand();
+
+        case GetStatisticsCommand.COMMAND_WORD_TASK:
+            return new GetStatisticsCommand();
+
+        // SETTINGS
+        case ThemeCommand.COMMAND_WORD:
+            return new ThemeCommandParser().parse(arguments);
+
+        case ClockCommand.COMMAND_WORD:
+            return new ClockCommandParser().parse(arguments);
+
+        // UNIVERSAL
+        case ClearCommand.COMMAND_WORD:
+            return new ClearCommand();
+
+        case ExitCommand.COMMAND_WORD:
+            return new ExitCommand();
+
+        case HelpCommand.COMMAND_WORD:
+            return new HelpCommand();
+
+        case HomeCommand.COMMAND_WORD:
+            return new HomeCommand();
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

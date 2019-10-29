@@ -8,7 +8,13 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.inventory.Inventory;
 import seedu.address.model.member.Member;
 import seedu.address.model.member.MemberId;
+import seedu.address.model.settings.ClockFormat;
+import seedu.address.model.settings.Theme;
+import seedu.address.model.statistics.Statistics;
 import seedu.address.model.task.Task;
+import seedu.address.model.mapping.InvMemMapping;
+import seedu.address.model.mapping.InvTasMapping;
+import seedu.address.model.mapping.TasMemMapping;
 import seedu.address.model.mapping.Mapping;
 
 /**
@@ -24,6 +30,8 @@ public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Inventory> PREDICATE_SHOW_ALL_INVENTORIES = unused -> true;
 
+    /** {@code Predicate} that always evaluate to true */
+    Predicate<Mapping> PREDICATE_SHOW_ALL_MAPPINGS = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -197,18 +205,65 @@ public interface Model {
      */
     void setInventory(Inventory target, Inventory editedInventory);
 
-    void addMapping(Mapping mapping);
+    void addMapping(InvMemMapping mapping);
 
-    void deleteMapping(Mapping mapping);
+    void addMapping(InvTasMapping mapping);
 
-    boolean hasMapping(Mapping mapping);
+    void addMapping(TasMemMapping mapping);
+
+    void deleteMapping(InvMemMapping mapping);
+
+    void deleteMapping(InvTasMapping mapping);
+
+    void deleteMapping(TasMemMapping mapping);
+
+    boolean hasMapping(InvMemMapping mapping);
+
+    boolean hasMapping(InvTasMapping mapping);
+
+    boolean hasMapping(TasMemMapping mapping);
 
     ObservableList<Mapping> getFilteredMappingsList();
 
     void updateFilteredMappingsList(Predicate<Mapping> predicate);
 
-    void replaceExistingMappingsWithNewMember(Member oldMember, Member newMember);
+    Statistics getStatistics();
 
-    void replaceExistingMappingsWithNewTask(Task oldTask, Task newTask);
+    void setStatistics(Statistics newStats);
 
+    // Settings
+
+    /**
+     * Returns the user settings of +Work.
+     */
+    UserSettings getUserSettings();
+
+    /**
+     * Returns the user settings file path.
+     */
+    Path getUserSettingsFilePath();
+
+    /**
+     * Returns the current theme of +Work.
+     * @return the current theme
+     */
+    Theme getCurrentTheme();
+
+    /**
+     * Replaces the theme of +Work with {@code newTheme}.
+     * @param newTheme the theme to replace with
+     */
+    void setCurrentTheme(Theme newTheme);
+
+    /**
+     * Returns the current clock format of +Work.
+     * @return the current clock format
+     */
+    ClockFormat getCurrentClockFormat();
+
+    /**
+     * Replaces the clock format of +Work with {@code newClockFormat}.
+     * @param newClockFormat the format to replace with
+     */
+    void setClockFormat(ClockFormat newClockFormat);
 }

@@ -97,6 +97,14 @@ public class UniqueInventoryList implements Iterable<Inventory> {
         internalList.addAll(inventories);
     }
 
+    public int getIndexOf(Inventory target) {
+        int index = internalList.indexOf(target);
+        if (index == -1) {
+            throw new InventoryNotFoundException();
+        }
+        return index;
+    }
+
     /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */
