@@ -14,12 +14,10 @@ import seedu.address.model.appsettings.ThemeEnum;
 public class UpdateUi {
 
     private ModularDisplay modularDisplay;
-    private CurrentModeFooter currentModeFooter;
     private final Logger logger = LogsCenter.getLogger(UpdateUi.class);
 
-    public UpdateUi(ModularDisplay modularDisplay, CurrentModeFooter currentModeFooter) {
+    public UpdateUi(ModularDisplay modularDisplay) {
         this.modularDisplay = modularDisplay;
-        this.currentModeFooter = currentModeFooter;
     }
 
     /**
