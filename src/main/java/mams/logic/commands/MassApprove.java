@@ -1,9 +1,8 @@
 package mams.logic.commands;
 
 import static mams.logic.commands.AddModCommand.MESSAGE_DUPLICATE_MODULE;
-import static mams.logic.commands.RemoveModCommand.MESSAGE_MISSING_MODULE;
 import static mams.logic.commands.ModCommand.MESSAGE_INVALID_MODULE;
-
+import static mams.logic.commands.RemoveModCommand.MESSAGE_MISSING_MODULE;
 
 import java.util.ArrayList;
 import java.util.HashSet;
