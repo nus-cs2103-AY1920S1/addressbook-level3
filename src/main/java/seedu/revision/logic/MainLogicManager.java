@@ -11,7 +11,7 @@ import seedu.revision.logic.commands.Command;
 import seedu.revision.logic.commands.exceptions.CommandException;
 import seedu.revision.logic.commands.main.CommandResult;
 import seedu.revision.logic.parser.exceptions.ParseException;
-import seedu.revision.logic.parser.main.AddressBookParser;
+import seedu.revision.logic.parser.main.MainParser;
 import seedu.revision.model.Model;
 import seedu.revision.model.ReadOnlyAddressBook;
 import seedu.revision.model.answerable.Answerable;
@@ -22,16 +22,16 @@ import seedu.revision.storage.Storage;
  */
 public class MainLogicManager implements MainLogic {
     public static final String FILE_OPS_ERROR_MESSAGE = "Could not save data to file: ";
-    private final Logger logger = LogsCenter.getLogger(MainLogicManager.class);
+    private static final Logger logger = LogsCenter.getLogger(MainLogicManager.class);
 
-    private final Model model;
+    protected final Model model;
     private final Storage storage;
-    private final AddressBookParser addressBookParser;
+    private final MainParser mainParser;
 
     public MainLogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
-        addressBookParser = new AddressBookParser();
+        mainParser = new MainParser();
     }
 
     @Override
@@ -41,7 +41,7 @@ public class MainLogicManager implements MainLogic {
 
         CommandResult commandResult;
         //Parse user input from String to a Command
-        Command command = addressBookParser.parseCommand(commandText);
+        Command command = mainParser.parseCommand(commandText);
         //Executes the Command and stores the result
         commandResult = command.execute(model);
 

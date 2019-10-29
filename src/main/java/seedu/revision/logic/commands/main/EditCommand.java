@@ -19,12 +19,14 @@ import seedu.revision.commons.util.CollectionUtil;
 import seedu.revision.logic.commands.Command;
 import seedu.revision.logic.commands.exceptions.CommandException;
 import seedu.revision.model.Model;
-import seedu.revision.model.answerable.Answer;
 import seedu.revision.model.answerable.Answerable;
 import seedu.revision.model.answerable.Difficulty;
 import seedu.revision.model.answerable.Mcq;
 import seedu.revision.model.answerable.Question;
+import seedu.revision.model.answerable.QuestionType;
 import seedu.revision.model.answerable.Saq;
+import seedu.revision.model.answerable.TrueFalse;
+import seedu.revision.model.answerable.answer.Answer;
 import seedu.revision.model.category.Category;
 
 /**
@@ -43,7 +45,8 @@ public class EditCommand extends Command {
             + "[" + PREFIX_CATEGORY + "ADDRESS] "
             + "[" + PREFIX_CATEGORY + "category]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_DIFFICULTY + "91234567 ";
+            + PREFIX_QUESTION + "Blackfield or Whitefield?"
+            + PREFIX_DIFFICULTY + "1";
 
     public static final String MESSAGE_EDIT_ANSWERABLE_SUCCESS = "Edited Answerable: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
@@ -76,6 +79,8 @@ public class EditCommand extends Command {
         Answerable answerableToEdit = lastShownList.get(index.getZeroBased());
         Answerable editedAnswerable = createEditedAnswerable(answerableToEdit, editAnswerableDescriptor);
 
+        validateAnswerableToEdit(answerableToEdit, editedAnswerable);
+
         if (!answerableToEdit.isSameAnswerable(editedAnswerable) && model.hasAnswerable(editedAnswerable)) {
             throw new CommandException(MESSAGE_DUPLICATE_ANSWERABLE);
         }
@@ -86,26 +91,53 @@ public class EditCommand extends Command {
     }
 
     /**
+     * Validates the {@code Answerable} used for the edit command by its type.
+     * @param answerableToEdit answerable that is to be edited.
+     * @param editedAnswerable answerable that has been edited
+     * @throws CommandException exception is thrown is edited answerable is not in the correct format according to type.
+     */
+    private void validateAnswerableToEdit(Answerable answerableToEdit, Answerable editedAnswerable)
+            throws CommandException {
+        if (answerableToEdit instanceof Mcq) {
+            if (!Mcq.isValidMcq((Mcq) editedAnswerable)) {
+                throw new CommandException(Mcq.MESSAGE_CONSTRAINTS);
+            }
+        }
+        if (answerableToEdit instanceof Saq) {
+            if (!Saq.isValidSaq((Saq) editedAnswerable)) {
+                throw new CommandException(Saq.MESSAGE_CONSTRAINTS);
+            }
+        }
+        if (answerableToEdit instanceof TrueFalse) {
+            if (!TrueFalse.isValidTrueFalse((TrueFalse) editedAnswerable)) {
+                throw new CommandException(TrueFalse.MESSAGE_CONSTRAINTS);
+            }
+        }
+    }
+
+    /**
      * Creates and returns a {@code Answerable} with the details of {@code answerableToEdit}
      * edited with {@code editAnswerableDescriptor}.
      */
-    private static Answerable createEditedAnswerable(Answerable answerableToEdit,
-                                                     EditAnswerableDescriptor editAnswerableDescriptor) {
+    private static Answerable createEditedAnswerable(
+            Answerable answerableToEdit, EditAnswerableDescriptor editAnswerableDescriptor) {
         assert answerableToEdit != null;
 
         Question updatedQuestion = editAnswerableDescriptor.getQuestion().orElse(answerableToEdit.getQuestion());
         ArrayList<Answer> updatedCorrectAnswerList = editAnswerableDescriptor.getCorrectAnswerList()
                 .orElse(answerableToEdit.getCorrectAnswerList());
+        ArrayList<Answer> updatedWrongAnswerList = editAnswerableDescriptor.getWrongAnswerList()
+                .orElse(answerableToEdit.getWrongAnswerList());
         Difficulty updatedDifficulty = editAnswerableDescriptor.getDifficulty().orElse(answerableToEdit
                 .getDifficulty());
         Set<Category> updatedCategories = editAnswerableDescriptor.getCategories().orElse(answerableToEdit
                 .getCategories());
 
         if (answerableToEdit instanceof Mcq) {
-            ArrayList<Answer> updatedWrongAnswerList = editAnswerableDescriptor.getWrongAnswerList()
-                    .orElse(answerableToEdit.getWrongAnswerList());
             return new Mcq(updatedQuestion, updatedCorrectAnswerList, updatedWrongAnswerList, updatedDifficulty,
                     updatedCategories);
+        } else if (answerableToEdit instanceof TrueFalse) {
+            return new TrueFalse(updatedQuestion, updatedCorrectAnswerList, updatedDifficulty, updatedCategories);
         } else {
             return new Saq(updatedQuestion, updatedCorrectAnswerList, updatedDifficulty, updatedCategories);
         }
@@ -134,6 +166,7 @@ public class EditCommand extends Command {
      * corresponding field value of the answerable.
      */
     public static class EditAnswerableDescriptor {
+        private QuestionType questionType;
         private Question question;
         private ArrayList<Answer> correctAnswerList;
         private ArrayList<Answer> wrongAnswerList;
@@ -148,6 +181,7 @@ public class EditCommand extends Command {
          * A defensive copy of {@code categories} is used internally.
          */
         public EditAnswerableDescriptor(EditAnswerableDescriptor toCopy) {
+            setQuestionType(toCopy.questionType);
             setQuestion(toCopy.question);
             setCorrectAnswerList(toCopy.correctAnswerList);
             setWrongAnswerList(toCopy.wrongAnswerList);
@@ -159,7 +193,16 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(question, correctAnswerList, wrongAnswerList, difficulty, categories);
+            return CollectionUtil.isAnyNonNull(questionType, question, correctAnswerList, wrongAnswerList,
+                    difficulty, categories);
+        }
+
+        public QuestionType getQuestionType() {
+            return questionType;
+        }
+
+        public void setQuestionType(QuestionType questionType) {
+            this.questionType = questionType;
         }
 
         public void setQuestion(Question question) {
@@ -197,7 +240,6 @@ public class EditCommand extends Command {
         public void setCategories(Set<Category> categories) {
             this.categories = (categories != null) ? new HashSet<>(categories) : null;
         }
-
 
         /**
          * Returns an unmodifiable category set, which throws {@code UnsupportedOperationException}
