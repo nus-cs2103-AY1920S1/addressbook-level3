@@ -6,6 +6,7 @@ import static seedu.address.model.statistics.Statistics.FIFTY_TO_FIFTY_NINE;
 import static seedu.address.model.statistics.Statistics.SEVENTY_TO_SEVENTY_NINE;
 import static seedu.address.model.statistics.Statistics.SIXTY_TO_SIXTY_NINE;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,6 +21,8 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.StackPane;
+import javafx.util.Pair;
 import seedu.address.model.statistics.Statistics;
 
 /**
@@ -40,6 +43,14 @@ public class StatisticsCard extends UiPart<Region> {
     @FXML
     private HBox cardPane;
     @FXML
+    private StackPane q1Pane;
+    @FXML
+    private StackPane q2Pane;
+    @FXML
+    private StackPane q3Pane;
+    @FXML
+    private StackPane q4Pane;
+    @FXML
     private Label totalStudents;
     @FXML
     private Label mean;
@@ -51,6 +62,14 @@ public class StatisticsCard extends UiPart<Region> {
     private Label max;
     @FXML
     private Label standardDev;
+    @FXML
+    private Label firstQuartile;
+    @FXML
+    private Label secondQuartile;
+    @FXML
+    private Label thirdQuartile;
+    @FXML
+    private Label fourthQuartile;
     @FXML
     private PieChart distributionChart;
     @FXML
@@ -65,6 +84,7 @@ public class StatisticsCard extends UiPart<Region> {
         postStat(stat);
         populatePieChart();
         populateLineChart();
+        postQuartile();
     }
 
     /**
@@ -82,6 +102,35 @@ public class StatisticsCard extends UiPart<Region> {
     }
 
     /**
+     * Set the text of the quartile labels to the processed data.
+     */
+    public void postQuartile() {
+        firstQuartile.setText(formatStudentLabel(stat.getFirstQuartile()));
+        secondQuartile.setText(formatStudentLabel(stat.getSecondQuartile()));
+        thirdQuartile.setText(formatStudentLabel(stat.getThirdQuartile()));
+        fourthQuartile.setText(formatStudentLabel(stat.getFourthQuartile()));
+        q1Pane.setStyle("-fx-background-color: #8EFF55; -fx-text-fill: white;");
+        q2Pane.setStyle("-fx-background-color: #55FFFE; -fx-text-fill: white;");
+        q3Pane.setStyle("-fx-background-color: #FFFC55; -fx-text-fill: white;");
+        q4Pane.setStyle("-fx-background-color: #FF7955; -fx-text-fill: white;");
+    }
+
+    /**
+     * Format the students in the specified quartile ranges into a String representation.
+     */
+    public String formatStudentLabel(ArrayList<Pair<String, Double>> quartiles) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = quartiles.size() - 1; i >= 0; i--) {
+            Pair<String, Double> student = quartiles.get(i);
+            sb.append(student.getKey());
+            sb.append(": ");
+            sb.append(String.format("%.2f", student.getValue()));
+            sb.append("\n");
+        }
+        return sb.toString().trim();
+    }
+
+    /**
      * Sets the pie chart element with corresponding data.
      */
     public void populatePieChart() {
@@ -95,7 +144,7 @@ public class StatisticsCard extends UiPart<Region> {
                         new PieChart.Data("< 50", gradeGroupings.get(BELOW_FIFTY)));
         distributionChart.setData(pieChartData);
         distributionChart.setTitle(PIE_CHART_TITLE);
-        distributionChart.setLegendSide(Side.LEFT);
+        distributionChart.setLegendSide(Side.RIGHT);
         distributionChart.setLabelsVisible(false);
     }
 

@@ -7,7 +7,7 @@ import java.io.IOException;
  */
 public interface NjoyPrintable {
 
-    String PRINTABLE_DIRECTORY_PATH = "..\\printable\\";
+    String PRINTABLE_DIRECTORY_PATH = "../printable/";
 
     void savePrintable() throws IOException;
 }
