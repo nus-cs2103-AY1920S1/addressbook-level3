@@ -80,4 +80,12 @@ public class FilterAllByTagCommand extends Command {
         }
         return new GlobalCommandResult(resultToDisplay.toString());
     }
+
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof FilterAllByTagCommand // instanceof handles nulls
+                && tagPredicate.equals(((FilterAllByTagCommand) other).tagPredicate));
+    }
 }

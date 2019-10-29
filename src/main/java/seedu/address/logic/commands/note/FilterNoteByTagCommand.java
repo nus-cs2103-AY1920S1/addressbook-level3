@@ -80,4 +80,11 @@ public class FilterNoteByTagCommand extends Command {
         }
         return new NoteCommandResult(resultToDisplay.toString());
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof FilterNoteByTagCommand // instanceof handles nulls
+                && tagPredicate.equals(((FilterNoteByTagCommand) other).tagPredicate));
+    }
 }
