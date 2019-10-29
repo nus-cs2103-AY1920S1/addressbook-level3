@@ -43,8 +43,8 @@ Simply define a type, a topic and an answer and you are all set.
 .. Class Reminders
 .. Repeatable daily/monthly and even yearly
 . *Statistics* provide a comprehensive view of your students' performance.
-.. View underperforming students
-.. Trends of the academic year
+.. View in a glance the score distribution of your class.
+.. View honourable students and identify the struggling students in one look.
 
 == Getting Started
 
@@ -71,7 +71,7 @@ _If you are not able to run the application using the method above, use the foll
 
 *Command Format*
 ====
-All commands start with a forward slash “/” followed by the command name. Certain commands may include additional options and will be specified in the description. An optional field will be marked ​(optional) b​ eside the field.
+All commands start with a forward slash “/” followed by the command name. Certain commands may include additional options and will be specified in the description. An optional field will be marked ​(optional) beside the field.
 ====
 
 === Student ​- `/student`
@@ -482,6 +482,90 @@ Example:
 
 * `event export directory/Users/John/Desktop` +
 Exports your events into your Desktop with the file name: `nJoy_Event_Schedule.ics`
+
+=== Notes - `notes`
+
+==== Creating a note
+
+Create lightweight, digital notes and reminders quickly and easily as specified.+
+Format: `note note/... desc/... priority/... (optional)`
+
+The options supported by this feature includes:
+
+. `note` - The note title.
+. `desc` - The description of the note.
+. `priority(optional)` - The level of priority placed on this note. It can be of type `unmarked`, `low`, `medium` or `high`. It is by default set to unmarked if field is omitted.
+
+[NOTE]
+All priority fields can be in either lowercase or UPPERCASE. (e.g. `note note/sample title desc/sample desc priority/low` is the same as e.g. `note note/sample title desc/sample desc priority/LOW`).
+
+[NOTE]
+`priority` levels are distinguishable by their colour in the User Interface. `unmarked` or default notes have grey panels, while `low`, `medium` and `high` priority notes have green, yellow and red panels respectively.
+
+[NOTE]
+The notes panel on the User Interface only supports title and description of limited length. Notes that exceed this length will be truncated. For information on how to view these notes, see <<Feature-Note-List, notes list>> command.
+
+Examples:
+
+* *Unmarked Note*: `note note/Friday morning class 6A desc/give back prelim papers` +
+Creates an unmarked note with title _'Friday morning class 6A'_ with description _'give back prelim papers'_.
+* *High priority note*: `note note/Tuesday 1pm desc/Science Conference priority/high` +
+Creates a high priority note with title _'Tuesday 1pm'_ with description _'Science Conference'_.
+
+==== Editing a note
+
+Edit a note currently stored. All fields are *optional*. +
+Format: `note [INDEX] note/... desc/... priority/...`
+
+[NOTE]
+To change the priority of a `high`, `medium` or `low` note, the prefix priority/ is to be followed by `unmarked`. (e.g. note 2 priority/unmarked).
+
+The options supported by this feature includes:
+
+. `[INDEX]` - The note index as shown in the User Interface. The topmost note has index 1, followed by 2 and so on.
+. `note` - The note title.
+. `desc` - The description of the note.
+. `priority` - The level of priority placed on this note. It can be of type `unmarked`, `low`, `medium` or `high`.
+
+Examples:
+
+* `note 1 note/changed title` +
+Edits the first note in the list to the title _'changed title'_.
+* `note 2 desc/give speech priority/unmarked` +
+Edits the description of the second question in the list to _’give speech’_ of unmarked/default priority.
+
+==== Deleting a note
+
+Delete a note from the notes list. +
+Format: `note delete [INDEX]`
+
+The options supported by this feature includes:
+
+. `[INDEX]` - The note index as shown in the User Interface. The topmost note has index 1, followed by 2 and so on.
+
+Example:
+
+* `note delete 1` +
+Deletes the first note in the list.
+
+
+[[Feature-Note-List]]
+==== Listing notes
+
+Display the list of notes in the command result box. +
+Format: `note list`
+
+[NOTE]
+The note is rendered on the User Interface on load. However, note lengths that exceed the size of allocated panel might have their content truncated. Using the list function is useful in this case.
+
+The options supported by this feature includes: +
+*_-This command does not require any additional options-_*
+
+Example:
+
+* `note list` +
+Lists the notes.
+
 
 === Help ​-​ `help`
 
