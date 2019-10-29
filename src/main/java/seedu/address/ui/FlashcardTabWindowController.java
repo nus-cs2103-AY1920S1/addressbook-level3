@@ -24,6 +24,9 @@ public class FlashcardTabWindowController {
     private static final Integer SHOW_ANSWER_DURATION = 2;
     private static final Integer ONE_FLASHCARD_DURATION = TIMER_DURATION + SHOW_ANSWER_DURATION;
 
+    private static Optional<Flashcard> currFlashcard;
+    private static boolean isAnswerShown;
+
     @FXML
     private Label timerLabel;
 
@@ -37,7 +40,6 @@ public class FlashcardTabWindowController {
     private TextArea ansTextArea;
 
     private IntegerProperty currentSeconds;
-
     private Timeline timeline;
 
     /**
@@ -48,6 +50,7 @@ public class FlashcardTabWindowController {
         currentSeconds = new SimpleIntegerProperty(TIMER_DURATION);
         timerLabel.textProperty().bind(currentSeconds.asString());
         timerLabel.setVisible(false);
+        currFlashcard = Optional.empty();
     }
 
     /**
@@ -70,6 +73,8 @@ public class FlashcardTabWindowController {
         qnsTextArea.setText(flashcard.getQuestion().toString());
         ansTextArea.setText(flashcard.getAnswer().toString());
         ansTextArea.setVisible(false);
+        currFlashcard = Optional.of(flashcard);
+        isAnswerShown = false;
     }
 
     /**
@@ -78,6 +83,7 @@ public class FlashcardTabWindowController {
     public void showFlashcardAns() {
         ansTextArea.setVisible(true);
         timerLabel.setVisible(false);
+        isAnswerShown = true;
     }
 
     /**
@@ -100,6 +106,7 @@ public class FlashcardTabWindowController {
      * @param deck deck of flashcards to be tested
      */
     public void startTimeTrial(Optional<ArrayList<Flashcard>> deck) {
+        currFlashcard = Optional.empty();
         Timeline timeline = new Timeline();
         int cardCount = 0;
         for (Flashcard fc: deck.get()) {
@@ -123,4 +130,11 @@ public class FlashcardTabWindowController {
         ansTextArea.setText("");
     }
 
+    public static Optional<Flashcard> getCurrFlashcard() {
+        return currFlashcard;
+    }
+
+    public static boolean isAnswerShown() {
+        return isAnswerShown;
+    }
 }

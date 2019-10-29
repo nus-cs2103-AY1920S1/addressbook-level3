@@ -77,13 +77,13 @@ public class Flashcard extends StudyBuddyItem {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append("Question: ")
-                .append(getQuestion())
-                .append(" Answer: ")
-                .append(getAnswer())
-                .append(" Title: ")
-                .append(getTitle())
-                .append(" Tags: ");
+        builder.append("\n\tQuestion: ")
+                .append(getQuestion() + "\n")
+                .append("\tAnswer: ")
+                .append(getAnswer() + "\n")
+                .append("\tTitle: ")
+                .append(getTitle() + "\n")
+                .append("\tTags: ");
         getTags().forEach(builder::append);
         return builder.toString();
     }
