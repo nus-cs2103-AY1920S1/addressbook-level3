@@ -211,6 +211,9 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     public void handleShowVisitForm() {
+        if (visitListPanel.isShowing()) {
+            visitListPanel.hide();
+        }
         if (!visitWindow.isShowing()) {
             visitWindow.show();
         } else {
