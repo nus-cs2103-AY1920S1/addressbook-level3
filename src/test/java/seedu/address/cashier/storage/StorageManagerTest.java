@@ -8,16 +8,19 @@ import java.io.IOException;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.cashier.model.Model;
+import seedu.address.cashier.model.ModelManager;
 import seedu.address.cashier.util.InventoryList;
 import seedu.address.person.model.UserPrefs;
 import seedu.address.testutil.TypicalItem;
-import seedu.address.testutil.TypicalReimbursements;
+import seedu.address.testutil.TypicalTransactions;
 
 
 public class StorageManagerTest {
     //private File iFile;
     //private File tFile;
     //private StorageManager storageManager;
+    private Model model;
     private File iFile;
     private File tFile;
     private File rFile;
@@ -35,16 +38,20 @@ public class StorageManagerTest {
 
     public StorageManagerTest() throws Exception {
         try {
+            model = new ModelManager(TypicalItem.getTypicalInventoryList(),
+                    TypicalTransactions.getTypicalTransactionList());
             personModel = new seedu.address.person.model.ModelManager(getTypicalAddressBook(), new UserPrefs());
             iFile = File.createTempFile("testing", "tempInventory.txt");
             tFile = File.createTempFile("testing", "tempTransaction.txt");
             rFile = File.createTempFile("testing", "tempReimbursement.txt");
 
-            seedu.address.reimbursement.model.Model reimbursementModel =
-                    new seedu.address.reimbursement.model.ModelManager(
-                            TypicalReimbursements.getTypicalReimbursements());
             seedu.address.reimbursement.storage.StorageManager reimbursementManager =
                     new seedu.address.reimbursement.storage.StorageManager(rFile);
+
+            seedu.address.reimbursement.model.Model reimbursementModel =
+                    new seedu.address.reimbursement.model.ModelManager(
+                                    reimbursementManager.getReimbursementFromFile(model.getTransactionList()));
+
 
             transactionStorage =
                     new seedu.address.transaction.storage.StorageManager(tFile, personModel);

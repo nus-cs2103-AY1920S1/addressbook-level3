@@ -10,6 +10,7 @@ import seedu.address.transaction.model.transaction.Transaction;
  * A utility class containing a list of {@code Transaction} objects to be used in tests.
  */
 public class TypicalTransactions {
+
     public static final Transaction ALICE_TRANSACTION_1 = new TransactionBuilder(TypicalPersons.ALICE)
             .withId(1)
             .withAmount(99.0)
@@ -56,31 +57,6 @@ public class TypicalTransactions {
     public static final Transaction DANIEL_TRANSACTION_9 = new TransactionBuilder(TypicalPersons.ALICE)
             .withId(9).withAmount(44.0).build();
 
-    //Transactions for reimbursements
-    //general
-    public static Transaction ALICE_TRANSACTION_10 = new TransactionBuilder(TypicalPersons.ALICE)
-            .withId(10)
-            .withAmount(-20.0)
-            .withDate("14-Feb-2019")
-            .build();
-    public static Transaction ELLE_TRANSACTION_11 = new TransactionBuilder(TypicalPersons.ELLE)
-            .withId(11)
-            .withAmount(-100)
-            .withDescription("food")
-            .withDate("12-Jun-2019")
-            .build();
-    public static Transaction ALICE_TRANSACTION_12 = new TransactionBuilder(TypicalPersons.ALICE)
-            .withId(12)
-            .withAmount(-30.0)
-            .withDate("14-Oct-2019")
-            .build();
-    public static Transaction BOB_TRANSACTION_13 = new TransactionBuilder(TypicalPersons.BOB)
-            .withId(13)
-            .withAmount(-50.0)
-            .withDate("26-Oct-2019")
-            .build();
-
-
     /**
      * Returns an {@code TransactionList} with all the typical transactions.
      */
@@ -99,8 +75,9 @@ public class TypicalTransactions {
     }
 
     public static ArrayList<Transaction> getTransactionsWithReimbursements() {
-        return new ArrayList<>(Arrays.asList(ALICE_TRANSACTION_10, ELLE_TRANSACTION_11,
-                ALICE_TRANSACTION_12, BOB_TRANSACTION_13));
+        return new ArrayList<>();
+        //        return new ArrayList<>(Arrays.asList(ALICE_TRANSACTION_10, ELLE_TRANSACTION_11,
+        //                ALICE_TRANSACTION_12, BOB_TRANSACTION_13));
     }
 
     public static TransactionList getAmountSortedTransactionList() {
@@ -122,31 +99,6 @@ public class TypicalTransactions {
                 FIONA_TRANSACTION_8, ALICE_TRANSACTION_3, GEORGE_TRANSACTION_7, ELLE_TRANSACTION_6,
                 BENSON_TRANSACTION_2, ALICE_TRANSACTION_4, CARL_TRANSACTION_5));
         return new TransactionList(transactionArrayList);
-    }
-
-    public static void resetTransactionsForReimbursement() {
-        //Transactions for reimbursements
-        ALICE_TRANSACTION_10 = new TransactionBuilder(TypicalPersons.ALICE)
-                .withId(10)
-                .withAmount(-20.0)
-                .withDate("14-Feb-2019")
-                .build();
-        ELLE_TRANSACTION_11 = new TransactionBuilder(TypicalPersons.ELLE)
-                .withId(11)
-                .withAmount(-100)
-                .withDescription("food")
-                .withDate("12-Jun-2019")
-                .build();
-        ALICE_TRANSACTION_12 = new TransactionBuilder(TypicalPersons.ALICE)
-                .withId(12)
-                .withAmount(-30.0)
-                .withDate("14-Oct-2019")
-                .build();
-        BOB_TRANSACTION_13 = new TransactionBuilder(TypicalPersons.BOB)
-                .withId(13)
-                .withAmount(-50.0)
-                .withDate("26-Oct-2019")
-                .build();
     }
 
 }

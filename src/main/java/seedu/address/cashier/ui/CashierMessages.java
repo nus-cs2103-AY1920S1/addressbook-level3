@@ -29,14 +29,16 @@ public class CashierMessages {
 
     public static final String NO_SUCH_ITEM_CASHIER = "There is no such item available. Please input a valid item.\n";
 
-    public static final String NO_SUCH_ITEM_TO_EDIT_CASHIER = "There is no such item in the table. Please input a valid item.\n";
+    public static final String NO_SUCH_ITEM_TO_EDIT_CASHIER = "There is no such item in the table. Please input a "
+            + "valid item.\n";
 
     public static final String NO_SUCH_PERSON = "Sorry! There is no such person. Please enter a valid name.\n\n";
 
     public static final String MESSAGE_INVALID_ADDCOMMAND_FORMAT = "Sorry! To add, please type \"add "
             + "d/DESCRIPTION\n q/QUANTITY\"\n\n";
 
-    public static final String MESSAGE_INVALID_CASHIERCOMMAND_FORMAT = "Sorry! To set cashier, please type \"cashier NAME\" \n";
+    public static final String MESSAGE_INVALID_CASHIERCOMMAND_FORMAT = "Sorry! To set cashier, please type "
+            + "\"cashier NAME\" \n";
 
     public static final String MESSAGE_INVALID_EDITCOMMAND_FORMAT = "Sorry! To edit, please type \"edit"
             + " i/INDEX q/QUANTITY\" \n OR \n \"edit d/DESCRIPTION\n q/QUANTITY\" \n\n ";
@@ -44,7 +46,8 @@ public class CashierMessages {
     public static final String INDEX_NOT_A_NUMBER = "Please input the row index of the item "
             + "according to the table.\n";
 
-    public static final String QUANTITY_NOT_A_NUMBER = "Please input an integer for the quantity of item to be sold.\n\n";
+    public static final String QUANTITY_NOT_A_NUMBER = "Please input an integer for the quantity of item to be "
+            + "sold.\n\n";
 
     public static final String QUANTITY_NOT_POSITIVE = "Please input a "
             + "positive integer for the quantity of item to be sold.\n";

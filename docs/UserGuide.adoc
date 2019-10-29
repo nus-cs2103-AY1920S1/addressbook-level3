@@ -274,10 +274,14 @@ The reimbursement tab displays all the reimbursements the treasurer needs to pay
 Each reimbursement contains a person's name, the total amount the person needs to be reimbursed,
 description of the transactions related to the person and deadline for that reimbursement.
 
-The reimbursement records are automatically extracted from transactions history with negative amount of money.
+The reimbursement records are automatically extracted from transactions history.
 And each person only has one aggregated reimbursement in the reimbursement list.
 All the reimbursements in reimbursement tab have not been done. Once the reimbursement is done,
 that reimbursement record will not be displayed.
+
+[NOTE]
+The reimbursements only count the outflow transactions. When a transaction has negative amount, it means
+the person in that transaction pays for the CCA first and you need to reimburse the person for the expense.
 
 A user can add deadline to a reimbursement, find a reimbursement by providing the person's name,
 let the app display full list, mark a reimbursement as done and sort reimbursement lists.

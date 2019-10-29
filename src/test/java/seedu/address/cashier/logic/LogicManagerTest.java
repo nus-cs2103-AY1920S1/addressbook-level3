@@ -6,7 +6,6 @@ import static seedu.address.cashier.ui.CashierMessages.NO_SUCH_COMMAND;
 import static seedu.address.cashier.ui.CashierMessages.NO_SUCH_INDEX_CASHIER;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
-import static seedu.address.testutil.TypicalTransactions.resetTransactionsForReimbursement;
 
 import java.io.File;
 import java.io.IOException;
@@ -26,8 +25,9 @@ import seedu.address.person.model.UserPrefs;
 import seedu.address.person.model.person.Person;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.TypicalItem;
-import seedu.address.testutil.TypicalReimbursements;
 import seedu.address.testutil.TypicalTransactions;
+
+//import seedu.address.testutil.TypicalReimbursements.resetReimbursements
 
 public class LogicManagerTest {
 
@@ -64,11 +64,11 @@ public class LogicManagerTest {
             tFile = File.createTempFile("testing", "tempTransaction.txt");
             rFile = File.createTempFile("testing", "tempReimbursement.txt");
 
-            seedu.address.reimbursement.model.Model reimbursementModel =
-                    new seedu.address.reimbursement.model.ModelManager(
-                            TypicalReimbursements.getTypicalReimbursements());
             seedu.address.reimbursement.storage.StorageManager reimbursementManager =
                     new seedu.address.reimbursement.storage.StorageManager(rFile);
+            seedu.address.reimbursement.model.Model reimbursementModel =
+                    new seedu.address.reimbursement.model.ModelManager(
+                            reimbursementManager.getReimbursementFromFile(model.getTransactionList()));
 
             transactionStorage =
                     new seedu.address.transaction.storage.StorageManager(tFile, personModel);
@@ -105,7 +105,7 @@ public class LogicManagerTest {
 
     @Test
     public void getCashier_successful() throws NoCashierFoundException {
-        resetTransactionsForReimbursement();
+        //resetReimbursements();
         Person p = new PersonBuilder().build();
         model.setCashier(p);
         assertEquals(String.valueOf(p.getName()), logic.getCashier());
@@ -113,28 +113,28 @@ public class LogicManagerTest {
 
     @Test
     public void getCashier_failure() throws NoCashierFoundException {
-        resetTransactionsForReimbursement();
+        //resetReimbursements();
         model.resetCashier();
         assertEquals("", logic.getCashier());
     }
 
     @Test
     public void getAmount_successful() {
-        resetTransactionsForReimbursement();
+        //resetReimbursements();
         double amount = model.getTotalAmount();
         assertEquals(String.valueOf(amount), logic.getAmount());
     }
 
     @Test
     public void getSalesList_successful() throws Exception {
-        resetTransactionsForReimbursement();
+        //resetTransactionsForReimbursement();
         ArrayList<Item> list = model.getSalesList();
         assertEquals(list, logic.getSalesList());
     }
 
     @Test
     public void getInventoryList_successful() throws Exception {
-        resetTransactionsForReimbursement();
+        //resetTransactionsForReimbursement();
         assertEquals(logic.getInventoryList(), model.getInventoryList());
     }
 
