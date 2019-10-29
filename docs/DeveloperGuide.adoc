@@ -308,11 +308,18 @@ image::SuggestCommand.png[]
 
 The Report feature is implemented through a `ReportCommand` that extends from the abstract `Command` class.
 It returns `CommandResult` object that has the boolean "isReport" set to True.
-The `MainApp` Ui component will check the `CommandResult` for the "isReport" boolean and create a new `ReportWindow` through the `MainApp#handleReport()` method.
+The `MainWindow` Ui component will check the `CommandResult` for the "isReport" boolean and create a new `ReportWindow` through the `MainWindow#handleReport()` method.
 The `ReportWindow` object takes in a `Statistics` object that is created by calling `Logic#getStatistics()` which subsequently calls `Model#getStatistics()`.
-Additionally, the following operation is also implemented:
+The `Model` then returns the `Statistics` object that is created based on the `CalorieBudget` and `MealLog` in the `Model`.
+Additionally, the following operations are implemented in `Statistics`:
 
-* `Model#getStatistics()` -- gets the statistics of the current object.
+* `Statistics#generateStatistics(CalorieBudget, MealLog)` -- gets the statistics of the current object. Maximum, Minimum and Average calorie intake per day of the month are calculated internally in this method.
+* `Statistics#getCalorieExceedCount(CalorieBudget, ObservableList<Meal>)` -- gets the number of days where calorie intake exceeded the calorie budget for that day.
+* `Statistics#getMostConsumedDishes(ObservableList<Meal>)` -- gets the list of dishes which are consumed the most in the current month.
+
+Given below is a Class Diagram that shows how the ReportCommand interacts with other components of CaloFit.
+
+image::ReportClassDiagram.png[]
 
 Given below is an example usage scenario and how the Report feature behaves at each step.
 
@@ -324,6 +331,10 @@ If the user enters "report" in the Command Line Input with a `MealLog` that has 
 Step 2. The user has added a `Meal` into the `MealLog` through the `add` feature.
 
 Step 3. The user enters "report" in the Command Line Input to generate the report of CaloFit. The `ReportCommand` created will return a `CommandResult` object with "isReport" set to True. When the `MainWindow` checks this boolean, it calls `MainWindow#handleReport()` that creates the `ReportWindow`.
+
+The following activity diagram summarises the above usage scenario.
+
+image::ReportCommandActivityDiagram.png[]
 
 The following sequence diagram shows how the "report" command works.
 

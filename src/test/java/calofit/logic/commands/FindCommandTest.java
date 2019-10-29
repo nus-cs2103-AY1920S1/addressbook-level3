@@ -56,7 +56,7 @@ public class FindCommandTest {
         String expectedMessage = String.format(MESSAGE_DISHES_LISTED_OVERVIEW, 0);
         NameContainsKeywordsPredicate predicate = preparePredicate(" ");
         FindCommand command = new FindCommand(predicate);
-        expectedModel.updateFilteredDishList(predicate);
+        expectedModel.setDishFilterPredicate(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
         assertEquals(Collections.emptyList(), model.getFilteredDishList());
     }
@@ -66,7 +66,7 @@ public class FindCommandTest {
         String expectedMessage = String.format(MESSAGE_DISHES_LISTED_OVERVIEW, 1);
         NameContainsKeywordsPredicate predicate = preparePredicate("spaghetti");
         FindCommand command = new FindCommand(predicate);
-        expectedModel.updateFilteredDishList(predicate);
+        expectedModel.setDishFilterPredicate(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
         assertEquals(Arrays.asList(TypicalDishes.SPAGHETTI),
                 model.getFilteredDishList());
