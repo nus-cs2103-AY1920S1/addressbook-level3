@@ -88,8 +88,8 @@ public class ApiMainUtil {
      */
     private static void addImage(String posterPath, Name name, Show toAdd, TmdbApi apiCall)
             throws OnlineConnectionException {
-        ImageRetrieval instance = new ImageRetrieval(apiCall, posterPath);
-        String imagePath = instance.retrieveImage(name.showName);
+        ImageRetrieval instance = new ImageRetrieval(apiCall, posterPath, name.showName);
+        String imagePath = instance.retrieveImage();
         toAdd.setPoster(new Poster(imagePath));
     }
 

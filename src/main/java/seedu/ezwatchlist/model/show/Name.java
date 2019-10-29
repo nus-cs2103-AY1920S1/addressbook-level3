@@ -1,5 +1,6 @@
 package seedu.ezwatchlist.model.show;
 
+import static java.util.Objects.isNull;
 
 /**
  * Represents a Show's name in the watchlist.
@@ -28,8 +29,9 @@ public class Name {
      * @param name A valid name.
      */
     public Name(String name) {
-        //requireNonNull(name);
-        //AppUtil.checkArgument(isValidName(name), MESSAGE_CONSTRAINTS);
+        if (isNull(name)) {
+            name = DEFAULT_NAME;
+        }
         showName = name;
     }
 

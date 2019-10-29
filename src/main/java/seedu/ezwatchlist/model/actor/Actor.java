@@ -1,8 +1,6 @@
 package seedu.ezwatchlist.model.actor;
 
-import static java.util.Objects.requireNonNull;
-
-//import seedu.ezwatchlist.commons.util.AppUtil;
+import static java.util.Objects.isNull;
 
 /**
  * Represents an Actor in a show in the watchlist.
@@ -17,6 +15,7 @@ public class Actor {
      * otherwise " " (a blank string) becomes a valid input.
      */
     public static final String VALIDATION_REGEX = "[^\\s].*";
+    public static final String DEFAULT_VALUE = "na";
 
     public final String actorName;
 
@@ -26,8 +25,9 @@ public class Actor {
      * @param name A valid name.
      */
     public Actor(String name) {
-        requireNonNull(name);
-        //AppUtil.checkArgument(isValidActorName(name), MESSAGE_CONSTRAINTS);
+        if (isNull(name)) {
+            name = DEFAULT_VALUE;
+        }
         actorName = name;
     }
 
