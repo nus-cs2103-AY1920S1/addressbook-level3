@@ -63,7 +63,7 @@ public class SampleEvents {
                     new Timeslot(
                             LocalDateTime.of(LocalDate.now().plusDays(6), LocalTime.of(12, 0)),
                             LocalDateTime.of(LocalDate.now().plusDays(6), LocalTime.of(12, 30)),
-                            new Venue("Canteen25"))
+                            new Venue("COM1"))
             ))
     );
 
@@ -121,7 +121,7 @@ public class SampleEvents {
                     new Timeslot(
                             LocalDateTime.of(LocalDate.now().plusDays(5), LocalTime.of(16, 0)),
                             LocalDateTime.of(LocalDate.now().plusDays(5), LocalTime.of(17, 0)),
-                            new Venue("L33")),
+                            new Venue("I3")),
                     new Timeslot(
                             LocalDateTime.of(LocalDate.now().plusDays(6), LocalTime.of(13, 0)),
                             LocalDateTime.of(LocalDate.now().plusDays(6), LocalTime.of(14, 30)),
@@ -147,7 +147,7 @@ public class SampleEvents {
                     new Timeslot(
                             LocalDateTime.of(LocalDate.now().plusDays(6), LocalTime.of(17, 0)),
                             LocalDateTime.of(LocalDate.now().plusDays(6), LocalTime.of(18, 30)),
-                            new Venue("L44"))
+                            new Venue("LT17"))
             ))
     );
 
