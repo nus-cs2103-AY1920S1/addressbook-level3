@@ -18,7 +18,7 @@
 <fx:root minHeight="600" minWidth="450" onCloseRequest="#handleExit" title="ExerHealth App" type="javafx.stage.Stage"
          xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <icons>
-        <Image url="@/images/ExerHealth.png"/>
+        <Image url="@/images/logo_eH.png"/>
     </icons>
     <scene>
         <Scene>
@@ -30,7 +30,7 @@
             <VBox>
                 <BorderPane prefHeight="58.0" prefWidth="410.0" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
                     <left>
-                        <TabPane fx:id="resourceListPanelPlaceholder" tabClosingPolicy="UNAVAILABLE" styleClass="pane-with-border"
+                        <TabPane fx:id="resourceListPanelPlaceholder" tabClosingPolicy="UNAVAILABLE" styleClass="resourceListPanelBox"
                                  tabMaxHeight="-Infinity" tabMaxWidth="-Infinity">
                             <tabs>
                                 <Tab fx:id="exerciseListTabPlaceholder" styleClass="tab-pane">
@@ -49,13 +49,13 @@
                     </center>
 
                     <right>
-                        <StackPane fx:id="chartPlaceholder" BorderPane.alignment="CENTER"/>
+                        <StackPane fx:id="chartPlaceholder" BorderPane.alignment="CENTER" styleClass="chartBox"/>
                     </right>
                 </BorderPane>
 
                 <BorderPane styleClass="pane-with-border">
                     <left>
-                        <StackPane>
+                        <StackPane styleClass="logoBox">
                             <padding>
                                 <Insets left="10" />
                             </padding>
