@@ -6,7 +6,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import seedu.address.calendar.logic.CalendarLogic;
 import seedu.address.calendar.model.Calendar;
-import seedu.address.calendar.model.Month;
+import seedu.address.calendar.model.date.ViewOnlyMonth;
 import seedu.address.calendar.model.ReadOnlyCalendar;
 import seedu.address.calendar.model.date.MonthOfYear;
 import seedu.address.calendar.model.date.Year;
@@ -77,16 +77,16 @@ public class CalendarPage extends UiPart<Scene> implements Page {
      * Sets up calendar page by laying out nodes.
      */
     private void fillInnerParts() {
-        Month currentMonth = calendarLogic.getVisibleMonth();
-        MonthOfYear monthOfYear = currentMonth.getMonthOfYear();
+        ViewOnlyMonth currentViewOnlyMonth = calendarLogic.getVisibleMonth();
+        MonthOfYear monthOfYear = currentViewOnlyMonth.getMonthOfYear();
         MonthHeader monthHeader = new MonthHeader(monthOfYear);
         monthHeaderPlaceholder.getChildren().add(monthHeader.getRoot());
 
-        Year year = currentMonth.getYear();
+        Year year = currentViewOnlyMonth.getYear();
         YearHeader yearHeader = new YearHeader(year);
         yearHeaderPlaceholder.getChildren().add(yearHeader.getRoot());
 
-        MonthView monthView = new MonthView(currentMonth);
+        MonthView monthView = new MonthView(currentViewOnlyMonth);
         monthViewPlaceholder.getChildren().add(monthView.generateMonthGrid());
 
         resultDisplay = new ResultDisplay();
@@ -96,13 +96,13 @@ public class CalendarPage extends UiPart<Scene> implements Page {
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
     }
 
-    private void updateCalendarPage(Month updatedMonth) {
-        Year year = updatedMonth.getYear();
-        MonthOfYear monthOfYear = updatedMonth.getMonthOfYear();
+    private void updateCalendarPage(ViewOnlyMonth updatedViewOnlyMonth) {
+        Year year = updatedViewOnlyMonth.getYear();
+        MonthOfYear monthOfYear = updatedViewOnlyMonth.getMonthOfYear();
 
         updateYearHeader(year);
         updateMonthHeader(monthOfYear);
-        updateMonthView(updatedMonth);
+        updateMonthView(updatedViewOnlyMonth);
     }
 
     private void updateYearHeader(Year year) {
@@ -117,8 +117,8 @@ public class CalendarPage extends UiPart<Scene> implements Page {
         monthHeaderPlaceholder.getChildren().add(monthHeader.getRoot());
     }
 
-    private void updateMonthView(Month month) {
-        MonthView monthView = new MonthView(month);
+    private void updateMonthView(ViewOnlyMonth viewOnlyMonth) {
+        MonthView monthView = new MonthView(viewOnlyMonth);
         monthViewPlaceholder.getChildren().clear();
         monthViewPlaceholder.getChildren().add(monthView.generateMonthGrid());
     }
@@ -137,8 +137,8 @@ public class CalendarPage extends UiPart<Scene> implements Page {
             CommandResult commandResult = calendarLogic.executeCommand(commandText);
 
             if (calendarLogic.hasVisibleUpdates()) {
-                Month updatedMonth = calendarLogic.getVisibleMonth();
-                updateCalendarPage(updatedMonth);
+                ViewOnlyMonth updatedViewOnlyMonth = calendarLogic.getVisibleMonth();
+                updateCalendarPage(updatedViewOnlyMonth);
                 calendarLogic.completeVisibleUpdates();
             }
 

@@ -1,6 +1,10 @@
 package seedu.address.calendar.model.util;
 
-import seedu.address.calendar.model.date.*;
+import seedu.address.calendar.model.date.Date;
+import seedu.address.calendar.model.date.Day;
+import seedu.address.calendar.model.date.DayOfWeek;
+import seedu.address.calendar.model.date.MonthOfYear;
+import seedu.address.calendar.model.date.Year;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
@@ -28,6 +32,25 @@ public class DateUtil {
         int year = date.getYear().getNumericalValue();
 
         return LocalDate.of(year, month, dayOfMonth);
+    }
+
+    public static Date getFirstDateInSameMonth(Date startDate) {
+        MonthOfYear monthOfYear = startDate.getMonth();
+        Year year = startDate.getYear();
+
+        Day firstDay = getDay(FIRST_DAY_OF_MONTH, monthOfYear, year);
+
+        return new Date(firstDay, monthOfYear, year);
+    }
+
+    public static Date getLastDateInSameMonth(Date startDate) {
+        MonthOfYear monthOfYear = startDate.getMonth();
+        Year year = startDate.getYear();
+        int lastDayOfMonth = monthOfYear.getNumDaysInMonth(year);
+
+        Day lastDay = getDay(lastDayOfMonth, monthOfYear, year);
+
+        return new Date(lastDay, monthOfYear, year);
     }
 
     /* The following is used for year-related purposes. */
@@ -91,6 +114,7 @@ public class DateUtil {
 
     /**
      * Computes which day (of week) {@code} month starts on
+     *
      * @return day (of week) {@code this} month starts on
      */
     private static int findFirstDayOfWeekAsNum(int monthOfYear, int year) {

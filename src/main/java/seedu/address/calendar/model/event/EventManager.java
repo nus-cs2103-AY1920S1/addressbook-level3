@@ -399,6 +399,13 @@ public class EventManager {
         }
     }
 
+    public Stream<Event> getEvents(EventQuery eventQuery) {
+        Event placeHolderEvent = Event.getEventPlaceHolder(eventQuery);
+        Stream<Event> requiredVacations = vacationSchedule.getCollisions(eventQuery).stream();
+        Stream<Event> requiredEngagements = engagedSchedule.getCollisions(eventQuery).stream();
+        return Stream.concat(requiredVacations, requiredEngagements);
+    }
+
     public List<Event> asList() {
         List<Event> eventList = new ArrayList<>();
         engagements.values()

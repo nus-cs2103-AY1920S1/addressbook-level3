@@ -1,6 +1,7 @@
 package seedu.address.calendar.model;
 
 import seedu.address.calendar.model.date.MonthOfYear;
+import seedu.address.calendar.model.date.ViewOnlyMonth;
 import seedu.address.calendar.model.date.Year;
 import seedu.address.calendar.model.event.Event;
 import seedu.address.calendar.model.event.EventManager;
@@ -13,7 +14,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 public class Calendar {
-    private Month monthShown;
+    private ViewOnlyMonth viewOnlyMonth;
     private boolean hasVisibleUpdates;
     private EventManager events;
 
@@ -25,22 +26,26 @@ public class Calendar {
         int currentUnformattedMonth = currentDate.get(java.util.Calendar.MONTH);
         MonthOfYear currentMonth = DateUtil.convertJavaMonth(currentUnformattedMonth);
 
-        monthShown = new Month(currentMonth, currentYear);
+        viewOnlyMonth = new ViewOnlyMonth(currentMonth, currentYear);
         hasVisibleUpdates = false;
-        events = new EventManager(); // todo: update this such that it is linked to storage
+        events = new EventManager();
     }
 
-    public Month getMonth() {
-        return Month.copy(monthShown);
+    public ViewOnlyMonth getMonth() {
+        return ViewOnlyMonth.copy(viewOnlyMonth);
     }
 
-    public void updateMonthShown(Month updatedMonth) {
-        monthShown = updatedMonth;
+    public void updateMonthShown(ViewOnlyMonth updatedViewOnlyMonth) {
+        viewOnlyMonth = updatedViewOnlyMonth;
         hasVisibleUpdates = true;
     }
 
+    // todo: pass in and call ViewOnlyMonth getInstance
+    // todo: think about how to update for the first time
+
     /**
      * Checks whether there are any visible update that has to be shown to user.
+     *
      * @return {@code true} if and only if there are visible updates that can be shown to user
      */
     public boolean hasVisibleUpdates() {
@@ -59,7 +64,8 @@ public class Calendar {
      */
 
     public boolean addEvent(Event event) throws DuplicateEventException, ClashException {
-        return events.add(event);
+        events.add(event);
+        return true;
     }
 
     public boolean addIgnoreClash(Event event) throws DuplicateEventException {
@@ -85,7 +91,6 @@ public class Calendar {
         return events.suggest(eventQuery, minPeriod);
     }
 
-    // todo: extract the following and implement it using model manager
     public ReadOnlyCalendar getCalendar() {
         List<Event> eventsCopy = events.asList();
         return new ReadOnlyCalendar(eventsCopy);
