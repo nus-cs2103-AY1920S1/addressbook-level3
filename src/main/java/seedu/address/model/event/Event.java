@@ -90,7 +90,7 @@ public class Event {
     }
 
     public List<EventDate> getListOfEventDates() {
-        return startDate.datesUntil(endDate).collect(Collectors.toList());
+        return eventDateTimeMap.getDateMappedList();
     }
 
     /**
