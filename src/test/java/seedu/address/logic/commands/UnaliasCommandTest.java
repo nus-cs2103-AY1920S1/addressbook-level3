@@ -18,6 +18,7 @@ import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Person;
+import seedu.address.model.reminder.ReminderStub;
 
 public class UnaliasCommandTest {
 
@@ -114,6 +115,11 @@ public class UnaliasCommandTest {
         }
 
         @Override
+        public String outputReminders() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void addAlias(String alias, String aliasTo) {
             throw new AssertionError("This method should not be called.");
         }
@@ -125,6 +131,11 @@ public class UnaliasCommandTest {
 
         @Override
         public String applyAlias(String commandText) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public String getAliases(boolean reusable) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -159,7 +170,17 @@ public class UnaliasCommandTest {
         }
 
         @Override
+        public ObservableList<ReminderStub> getFilteredReminderList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void updateFilteredPersonList(Predicate<Person> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredReminderList(Predicate<ReminderStub> predicate) {
             throw new AssertionError("This method should not be called.");
         }
     }

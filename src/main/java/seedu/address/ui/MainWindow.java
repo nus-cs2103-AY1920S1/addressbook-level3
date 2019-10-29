@@ -32,11 +32,13 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private PersonListPanel personListPanel;
+    private ReminderListPanel reminderListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private MotdWindow motdWindow;
     private VisitRecordWindow visitWindow;
     private VisitListPanel visitListPanel;
+    private AliasListWindow aliasListWindow;
     private ProfileWindow profilePanel;
 
     @FXML
@@ -52,7 +54,7 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane resultDisplayPlaceholder;
 
     @FXML
-    private StackPane statusbarPlaceholder;
+    private StackPane reminderListPanelPlaceholder;
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -71,6 +73,7 @@ public class MainWindow extends UiPart<Stage> {
             resultDisplay.setFeedbackToUser(visitWindow.getMessage());
         });
         visitListPanel = new VisitListPanel();
+        aliasListWindow = new AliasListWindow();
         profilePanel = new ProfileWindow();
     }
 
@@ -124,6 +127,9 @@ public class MainWindow extends UiPart<Stage> {
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+        reminderListPanel = new ReminderListPanel(logic.getFilteredReminderList());
+        reminderListPanelPlaceholder.getChildren().add(reminderListPanel.getRoot());
     }
 
     /**
@@ -155,7 +161,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     public void handleMotd() {
-        motdWindow = new MotdWindow();
+        motdWindow = new MotdWindow(logic);
         if (!motdWindow.isShowing()) {
             motdWindow.show();
         } else {
@@ -219,6 +225,18 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    /**
+     * Opens the list of existing user-defined aliases or focuses on it if it's already opened.
+     */
+    @FXML
+    public void handleAliasListWindow() {
+        if (!aliasListWindow.isShowing()) {
+            aliasListWindow.show();
+        } else {
+            aliasListWindow.focus();
+        }
+    }
+
     public PersonListPanel getPersonListPanel() {
         return personListPanel;
     }
@@ -264,6 +282,10 @@ public class MainWindow extends UiPart<Stage> {
             if (commandResult.isShowProfile()) {
                 profilePanel.setup(commandResult.getProfilePerson());
                 handleProfilePanel();
+            }
+            if (commandResult.isShowAliasList()) {
+                aliasListWindow.setup(commandResult.getFeedbackToUser());
+                handleAliasListWindow();
             }
 
             if (commandResult.isExit()) {

@@ -2,9 +2,15 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Objects;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import seedu.address.model.reminder.ReminderStub;
+
 
 /**
  * Reminder object with description and dates remaining
@@ -13,6 +19,7 @@ public class Reminder {
 
     private HashMap<String, Integer> reminders;
     private HashMap<String, Integer> followup;
+    private ArrayList<ReminderStub> reminderArrayList;
 
     /**
      * Initializes new Reminder object
@@ -20,6 +27,9 @@ public class Reminder {
     public Reminder() {
         reminders = new HashMap<>();
         followup = new HashMap<>();
+        // Stub for creating list for UI use
+        reminderArrayList = new ArrayList<ReminderStub>();
+        reminderArrayList.add(new ReminderStub("test", 1));
     }
 
     public static Reminder getDefaultReminders() {
@@ -37,12 +47,46 @@ public class Reminder {
         if (type == 0) {
             reminders.put(description, days);
         } else {
-            reminders.put(description, days);
+            followup.put(description, days);
         }
         return this;
     }
 
-    public String getReminders() {
+    /**
+     * Decrements the days a reminder has left
+     */
+    public void cascadeDay(int days) {
+        HashMap<String, Integer> cascadeReminders = new HashMap<>();
+        HashMap<String, Integer> cascadeFollowups = new HashMap<>();
+        Iterator it = reminders.entrySet().iterator();
+        while (it.hasNext()) {
+            HashMap.Entry pair = (HashMap.Entry) it.next();
+            String key = pair.getKey().toString();
+            int value = Integer.parseInt(pair.getValue().toString()) - days;
+            if (value >= 0) {
+                cascadeReminders.put(key, value);
+            }
+            it.remove();
+        }
+        reminders = cascadeReminders;
+
+        it = followup.entrySet().iterator();
+        while (it.hasNext()) {
+            HashMap.Entry pair = (HashMap.Entry) it.next();
+            String key = pair.getKey().toString();
+            int value = Integer.parseInt(pair.getValue().toString()) - days;
+            if (value >= 0) {
+                cascadeFollowups.put(key, value);
+            }
+            it.remove();
+        }
+        followup = cascadeFollowups;
+    }
+
+    /**
+     * Outputs the Reminders and Follow-Up to readable String
+     */
+    public String outputReminders() {
         StringBuilder sb = new StringBuilder();
         sb.append("Reminders:\n");
         if (reminders.size() < 1) {
@@ -53,7 +97,6 @@ public class Reminder {
                 while (it.hasNext()) {
                     HashMap.Entry pair = (HashMap.Entry) it.next();
                     sb.append(pair.getKey() + ": for " + pair.getValue() + " days\n");
-                    it.remove();
                 }
             }
         }
@@ -66,11 +109,18 @@ public class Reminder {
                 while (it.hasNext()) {
                     HashMap.Entry pair = (HashMap.Entry) it.next();
                     sb.append(pair.getKey() + ": in " + pair.getValue() + " days\n");
-                    it.remove();
                 }
             }
         }
         return sb.toString();
+    }
+
+    /**
+     * Example of method needed to return the list for view
+     * @return ObservableList of Reminder objects
+     */
+    public ObservableList<ReminderStub> getReminderList() {
+        return FXCollections.observableArrayList(this.reminderArrayList);
     }
 
     @Override

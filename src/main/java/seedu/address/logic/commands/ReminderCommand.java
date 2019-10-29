@@ -3,7 +3,6 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DAYS;
 
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 
 /**
@@ -37,11 +36,12 @@ public class ReminderCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model) {
         requireNonNull(model);
 
         model.addReminder(0, description, days);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, description));
+        model.updateFilteredReminderList(Model.PREDICATE_SHOW_ALL_REMINDERS);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, description, days));
     }
 
     @Override
