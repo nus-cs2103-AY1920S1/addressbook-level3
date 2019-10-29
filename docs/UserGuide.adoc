@@ -34,7 +34,7 @@ Note the following symbols and formatting used in this document
 
 [horizontal]
 
-IMPORTANT:: This symbol indicates important information
+IMPORTANT: This symbol indicates important information
 `mark-up`:: A grey highlight (called a mark-up) indicates that this is a command that can be typed into the
 command line and executed by the application.
 
@@ -62,6 +62,9 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 [[Features]]
 == Features
 
+This section explains how you can use the features in *Athletick*.
+The features are segregated by their main functions.
+
 ====
 *Command Format*
 
@@ -69,6 +72,9 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* `INDEX` refers to the athlete's position in the active list.
+As the index can change depending on what filters are applied, refer to the current index on the sidebar.
+//maybe provide picture
 ====
 
 === Team Data Entry
@@ -192,48 +198,88 @@ Examples : `training -a 2 4`
 
 === Performance
 
+To help you keep track of your team's performance,
+Athletick has a built-in performance tracker for you record and analyse your team's performance.
+
+All you have to is add an event (see <<Adding an event : `event`>>),
+and then add records from timed trials under the event
+(see <<Recording an athlete’s performance : `performance`>>.
+
 ==== Adding an event : `event`
 
-This command adds an event to Athletick, and will be used for storing your athletes’ performances.
+This command adds an event to *Athletick*, and will be used for storing your athletes’ performances.
 
 *What you should do*
 
-Type the event command in the following format.
+Let's say that you want to start recording performances for the freestyle 50m.
+You will need to add the freestyle 50m event to *Athletick* first.
+
+Type the event command in the following format and press `Enter` to execute it.
 
 Format : `event NAME_OF_EVENT`
 
-Example: `event 50m freestyle`
+Example: `event freestyle 50m`
 
-IMPORTANT: Event names are case-insensitive (eg. `50m freestyle` and `50M freestyle` are considered the same
+IMPORTANT: Event names are case-insensitive (eg. `50**m** freestyle` and `50**M** freestyle` are considered
+the same
 events)
 
 *What you should see*
 
-image::addevent.png[width="790"]
+image::addevent.png[width="250"]
 
-If successfully added, the event name will be displayed in the result box.
+If successfully added, the result box will display the event name as shown above.
 
 ==== Recording an athlete’s performance : `performance`
 
-This command adds your athlete’s performance for a certain event, on a certain day, to Athletick.
+This command records your athlete’s performance for a certain event, on a certain day, to *Athletick*.
 
 You will need the event name, athlete’s index, date of performance and timing of performance.
 
+IMPORTANT: The event has to be created first. Otherwise, Athletick will prompt you to create that event.
+
+Let's say you took a timed trial for Irfan on 22nd October 2019 under the freestyle 50m event,
+and he took 23.47 seconds to complete it. Now you want to store this record in *Athletick*.
+
 *What you should do*
 
-Type in the command in the following format.
+As seen in the yellow mark-up in the diagram below, Irfan is located at index 5 in the active list.
+
+Type in the command below, like so in the red mark-up in the same diagram, and press `Enter`.
 
 Format : `performance INDEX e/EVENT_NAME d/DDMMYYYY t/TIMING`
 
-Example : `event 5 e/50m freestyle d/22102019 t/24s`
+Example : `performance 5 e/freestyle 50m d/02102019 t/23.47`
 
-IMPORTANT: The event has to be created first. Otherwise, Athletick will prompt you to create that event.
+image::addperformance_wysd.png[width="395"]
 
 *What you should see*
 
-image::addperformance.png[width="790"]
+If successfully added, the performance details will be displayed in the result box (red mark-up).
 
-The performance details will be displayed in the result box.
+image::addperformance_wyss.png[width="395"]
+
+==== Viewings events : `view performance`
+
+This command gives you an overview of what events you have stored in *Athletick*.
+
+Let's say you want to know what events you have added to *Athletick*.
+
+*What you should do*
+
+Type `view performance` in the command box, and press `Enter` to execute it.
+
+Format: `view performance`
+
+image::viewperformance_wysd.png[width="220"]
+
+*What you should see*
+
+If successfully executed, the success message will be displayed in the result box (red mark-up).
+
+The feature box (green mark-up) will display all your events saved in *Athletick*.
+
+image::viewperformance_wyss.png[width="395"]
 
 === Calendar
 
@@ -310,23 +356,43 @@ The athlete list in the left sidebar should be alphabetically listed now.
 
 This command filters your athletes based on their tags.
 
-*What you should do*
-
-Type in the filter command, followed by the tag that you want to filter by.
-
-Format : `filter TAG`
-
-Example: `filter butterfly`
-
-IMPORTANT: This command will change your athletes’ index numbers.
+IMPORTANT: This command will change your athletes’ `INDEX`.
 
 IMPORTANT: This command is case-insensitive, so filtering by `captain` and `Captain` will give the same result.
 
+Let's say you want to see which athletes are butterfly swimmers
+(ie. you want to filter by the `butterfly` tag).
+
+*What you should do*
+
+Type in the following command and press `Enter`.
+
+Format : `filter TAG [TAG]...`
+
+Example: `filter butterfly`
+
+image::filter_wysd.png[width="190"]
+
 *What you should see*
 
-image::filter.png[width="790"]
+If successfully executed,
+the success message with the number of athletes that contain your specified tag will be displayed in the result box (red mark-up).
+In the example given below, there are 3 athletes that have the `butterfly` tag.
 
-The athlete list in the left sidebar should only display athletes that contain the specified tag.
+image::filter_wyss.png[width="220"]
+
+The diagram below shows the change in the active list when the filter is applied.
+Notice that the `INDEX` of the athletes have changed (eg. David has changed from 4 to 2).
+
+Subsequent commands that require `INDEX` will use the updated `INDEX`.
+
+image::filter_change.png[width="395"]
+
+You are also able to filter by multiple tags.
+
+The diagram below shows the change in the active list with `filter butterfly freestyle` is applied.
+
+image::filter_change2.png[width="385"]
 
 ==== Finding athletes by their name : `find`
 
