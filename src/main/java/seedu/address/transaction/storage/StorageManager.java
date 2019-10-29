@@ -75,8 +75,7 @@ public class StorageManager implements Storage {
      * @param personModel Address Book model.
      * @return Transaction created.
      */
-    private static Transaction readInFileLine(String line,
-                                              seedu.address.person.model.GetPersonByNameOnlyModel personModel) {
+    private static Transaction readInFileLine(String line, GetPersonByNameOnlyModel personModel) {
         String[] stringArr = line.split(" [|] ", 0);
         String[] dateTimeArr = stringArr[0].split(" ");
         Person person = personModel.getPersonByName(stringArr[4]);

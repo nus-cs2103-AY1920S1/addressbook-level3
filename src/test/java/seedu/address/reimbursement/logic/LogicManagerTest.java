@@ -9,7 +9,6 @@ import java.io.IOException;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.person.model.GetPersonByNameOnlyModel;
 import seedu.address.person.model.UserPrefs;
 import seedu.address.reimbursement.model.ModelManager;
 import seedu.address.reimbursement.model.ReimbursementList;
@@ -27,7 +26,6 @@ public class LogicManagerTest {
     private seedu.address.reimbursement.storage.StorageManager reimbursementStorage;
     private seedu.address.person.model.Model personModel;
     private Model transactionModel;
-    private seedu.address.transaction.storage.Storage transactionStorage;
 
     private Logic logic;
 
@@ -39,9 +37,6 @@ public class LogicManagerTest {
             file = File.createTempFile("testingLogic", "tempReimbursement.txt");
             reimbursementStorage = new StorageManager(file);
             tFile = File.createTempFile("testingLogic", "tempTransaction.txt");
-            transactionStorage =
-                    new seedu.address.transaction.storage.StorageManager(tFile,
-                            (GetPersonByNameOnlyModel) personModel);
             transactionModel =
                     new seedu.address.transaction.model.ModelManager(TypicalReimbursements.getTypicalTransactions());
             logic =
