@@ -12,10 +12,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.Scene?>
 <?import javafx.stage.Stage?>
+<?import javafx.scene.layout.HBox?>
 <fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-         title="Address App" minWidth="450" minHeight="600" onCloseRequest="#handleExit">
+         title="NurseTraverse" minWidth="450" minHeight="600" onCloseRequest="#handleExit">
     <icons>
-        <Image url="@/images/address_book_32.png"/>
+        <Image url="@/images/nurse_32.png"/>
     </icons>
     <scene>
         <Scene>
@@ -35,40 +36,44 @@
                     </Menu>
                 </MenuBar>
 
-                <!--Command Box-->
-                <StackPane VBox.vgrow="NEVER" fx:id="commandBoxPlaceholder" styleClass="pane-with-border">
-                    <padding>
-                        <Insets top="5" right="10" bottom="5" left="10"/>
-                    </padding>
-                </StackPane>
+                <HBox>
+                    <VBox HBox.hgrow="ALWAYS">
+                        <!--Command Box-->
+                        <StackPane HBox.hgrow="ALWAYS" fx:id="commandBoxPlaceholder" styleClass="pane-with-border"
+                                   minHeight="40" prefHeight="40" maxHeight="40">
+                            <padding>
+                                <Insets top="10" right="5" bottom="5" left="10"/>
+                            </padding>
+                        </StackPane>
 
-                <!--Auto Complete Panel-->
-                <VBox fx:id="autoCompletePanel" styleClass="pane-with-border" minWidth="340" prefWidth="340"
-                      VBox.vgrow="ALWAYS">
-                    <padding>
-                        <Insets top="10" right="10" bottom="10" left="10"/>
-                    </padding>
-                    <StackPane fx:id="autoCompletePanelPlaceholder" VBox.vgrow="ALWAYS"/>
-                </VBox>
+                        <!--Result Displayer-->
+                        <StackPane VBox.vgrow="NEVER" fx:id="resultDisplayPlaceholder" styleClass="pane-with-border"
+                                   minHeight="80" prefHeight="80" maxHeight="80">
+                            <padding>
+                                <Insets top="5" right="5" bottom="5" left="10"/>
+                            </padding>
+                        </StackPane>
+                    </VBox>
+                    <!--Auto Complete Panel-->
+                    <VBox fx:id="autoCompletePanel" styleClass="pane-with-border" minWidth="200" prefWidth="200"
+                          minHeight="125" prefHeight="125" maxHeight="125" VBox.vgrow="NEVER">
+                        <padding>
+                            <Insets top="10" right="10" bottom="10" left="5"/>
+                        </padding>
+                        <StackPane fx:id="autoCompletePanelPlaceholder" VBox.vgrow="ALWAYS"/>
+                    </VBox>
+                </HBox>
 
-                <!--Result Displayer-->
-                <StackPane VBox.vgrow="NEVER" fx:id="resultDisplayPlaceholder" styleClass="pane-with-border"
-                           minHeight="100" prefHeight="100" maxHeight="100">
-                    <padding>
-                        <Insets top="5" right="10" bottom="5" left="10"/>
-                    </padding>
-                </StackPane>
-
-                <TabPane fx:id="dataPanelsTabPane" styleClass="pane-with-border" tabClosingPolicy="UNAVAILABLE">
+                <TabPane fx:id="dataPanelsTabPane" styleClass="pane-with-border" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
                     <tabs>
                         <Tab fx:id="patientTabPage" text="Patients">
-                            <!--List Of Person Cards-->
-                            <VBox fx:id="personList" styleClass="pane-with-border" minWidth="340" prefWidth="340"
+                            <!--List Of Patient Cards-->
+                            <VBox fx:id="patientList" styleClass="pane-with-border" minWidth="340" prefWidth="340"
                                   VBox.vgrow="ALWAYS">
                                 <padding>
                                     <Insets top="10" right="10" bottom="10" left="10"/>
                                 </padding>
-                                <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+                                <StackPane fx:id="patientListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
                             </VBox>
                         </Tab>
                         <Tab fx:id="ongoingVisitTabPage" text="Current Visit">
@@ -79,6 +84,16 @@
                                     <Insets top="10" right="10" bottom="10" left="10"/>
                                 </padding>
                                 <StackPane fx:id="ongoingVisitPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+                            </VBox>
+                        </Tab>
+                        <Tab fx:id="appointmentTabPage" text="Appointments">
+                            <!--List Of Patient Cards-->
+                            <VBox fx:id="appointmentList" styleClass="pane-with-border" minWidth="340" prefWidth="340"
+                                  VBox.vgrow="ALWAYS">
+                                <padding>
+                                    <Insets top="10" right="10" bottom="10" left="10"/>
+                                </padding>
+                                <StackPane fx:id="appointmentListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
                             </VBox>
                         </Tab>
                     </tabs>
