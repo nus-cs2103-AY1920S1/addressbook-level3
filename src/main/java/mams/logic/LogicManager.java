@@ -58,7 +58,6 @@ public class LogicManager implements Logic {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         CommandResult commandResult;
-        String feedback;
 
         try {
             Command command = mamsParser.parseCommand(commandText);
