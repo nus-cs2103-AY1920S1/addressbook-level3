@@ -1,4 +1,4 @@
-package seedu.ezwatchlist.api;
+package seedu.ezwatchlist.api.model;
 
 import java.io.File;
 import java.io.IOException;
@@ -22,18 +22,21 @@ public class ImageRetrieval {
     public static final String IMAGE_CACHE_LOCATION = ROOT + File.separator
             + "Ezwatchlist" + File.separator + "posters";
     private String imageUrl;
+    private String formattedFileName;
 
     /**
      * Creates an instance of a image retrieval used to download images online
      *
      * @param tmdbApi the tmdbApi object used to get the url
      * @param filePath the url online to the image
+     * @param fileName the name of the show
      * @throws OnlineConnectionException when not connected to the internet
      */
-    public ImageRetrieval(TmdbApi tmdbApi, String filePath) throws OnlineConnectionException {
+    public ImageRetrieval(TmdbApi tmdbApi, String filePath, String fileName) throws OnlineConnectionException {
         try {
             TmdbConfiguration configuration = tmdbApi.getConfiguration();
             imageUrl = configuration.getBaseUrl() + DEFAULT_FILE_SIZE + filePath;
+            formattedFileName = fileName.replaceAll("[^A-Za-z0-9\\[\\]]", "_");
         } catch (MovieDbException e) {
             throw new OnlineConnectionException("Internet Connection failed at Image Retrieval");
         }
@@ -62,15 +65,14 @@ public class ImageRetrieval {
     /**
      * Retrieves the image online by downloading it into the save folder
      *
-     * @param fileName the name of the file saved
      * @return the string path of the file
      * @throws OnlineConnectionException when not connected to the internet
      */
-    public String retrieveImage(String fileName) throws OnlineConnectionException {
+    public String retrieveImage() throws OnlineConnectionException {
         try {
-            downloadImage(fileName);
+            downloadImage();
         } finally {
-            return fileName.replaceAll("[^A-Za-z0-9\\[\\]]", "") + ".png";
+            return formattedFileName + ".png";
         }
     }
 
@@ -85,10 +87,9 @@ public class ImageRetrieval {
 
     /**
      * Downloads the image from the online url. Is a helper method.
-     * @param fileName the name of the file to be saved.
      * @throws OnlineConnectionException when not connected online.
      */
-    private void downloadImage(String fileName) throws OnlineConnectionException {
+    private void downloadImage() throws OnlineConnectionException {
         try (InputStream in = new URL(imageUrl).openStream()) {
             File parent = new File(IMAGE_CACHE_LOCATION);
 
@@ -97,7 +98,7 @@ public class ImageRetrieval {
             }
 
             Files.copy(in, Paths.get(IMAGE_CACHE_LOCATION + File.separator
-                    + fileName.replaceAll("[^A-Za-z0-9\\[\\]]", "") + ".png"));
+                    + formattedFileName + ".png"));
         } catch (FileAlreadyExistsException f) {
             System.err.println("Duplicate image");
         } catch (IOException e) {

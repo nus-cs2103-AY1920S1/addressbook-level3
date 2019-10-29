@@ -1,18 +1,22 @@
 package seedu.ezwatchlist.model.show;
 
 import java.io.File;
+import java.util.logging.Logger;
+
 import javax.imageio.IIOException;
 import javax.imageio.ImageIO;
 
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
 
-import seedu.ezwatchlist.api.ImageRetrieval;
+import seedu.ezwatchlist.api.model.ImageRetrieval;
+import seedu.ezwatchlist.commons.core.LogsCenter;
 
 /**
  * Represents a Show's poster in the watchlist.
  */
 public class Poster {
+    private static final Logger logger = LogsCenter.getLogger(Poster.class);
     private static final String PLACEHOLDER_IMAGE = "/images/poster-placeholder.png";
     private static final String ROOT_LOCATION = ImageRetrieval.IMAGE_CACHE_LOCATION + File.separator;
     private Image image;
@@ -44,19 +48,18 @@ public class Poster {
         try {
             String url = ROOT_LOCATION + imagePath;
             File file = new File(url);
-            System.out.println("File path in Poster is :" + url);
             image = SwingFXUtils.toFXImage(ImageIO.read(file), null);
 
             if (image == null) {
-                throw new NullPointerException("image is null in poster");
+                throw new NullPointerException("image is null in poster with url: " + url);
             }
+
             return image;
         } catch (IIOException i) {
-            System.err.print(i.getMessage() + " in Poster");
+            logger.info("Cause: " + i + " in Poster class for imagePath " + imagePath);
             return new Image(PLACEHOLDER_IMAGE);
         } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("Cause: " + e.getCause() + "Message: " + e.getMessage() + " from Poster and imagePath ");
+            logger.info("Cause: " + e + " in Poster class for imagePath " + imagePath);
             return new Image(PLACEHOLDER_IMAGE);
         }
     }

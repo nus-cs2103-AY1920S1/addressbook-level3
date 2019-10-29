@@ -2,6 +2,7 @@ package seedu.ezwatchlist.storage;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import seedu.ezwatchlist.model.show.Genres;
 
 /**
@@ -14,6 +15,7 @@ public class JsonAdaptedGenres {
     /**
      * Constructs a {@code JsonAdaptedGenres} with the given {@code genres}.
      */
+    @JsonCreator
     public JsonAdaptedGenres(List<String> genres) {
         this.genres = genres;
     }
