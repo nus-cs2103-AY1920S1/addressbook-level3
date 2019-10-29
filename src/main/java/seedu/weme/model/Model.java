@@ -22,9 +22,9 @@ import seedu.weme.model.template.Template;
  */
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
-    Predicate<Meme> PREDICATE_SHOW_ALL_MEMES = unused -> true;
+    Predicate<Meme> PREDICATE_SHOW_ALL_MEMES = meme -> !meme.isArchived();
     /** {@code Predicate} that always evaluate to true */
-    Predicate<Template> PREDICATE_SHOW_ALL_TEMPLATES = unused -> true;
+    Predicate<Template> PREDICATE_SHOW_ALL_TEMPLATES = template -> !template.isArchived();
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.

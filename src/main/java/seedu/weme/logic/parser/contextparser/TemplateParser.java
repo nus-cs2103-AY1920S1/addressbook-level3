@@ -7,6 +7,7 @@ import java.util.regex.Matcher;
 import seedu.weme.logic.commands.Command;
 import seedu.weme.logic.commands.generalcommand.HelpCommand;
 import seedu.weme.logic.commands.templatecommand.TemplateAddCommand;
+import seedu.weme.logic.commands.templatecommand.TemplateArchivesCommand;
 import seedu.weme.logic.commands.templatecommand.TemplateDeleteCommand;
 import seedu.weme.logic.commands.templatecommand.TemplateEditCommand;
 import seedu.weme.logic.commands.templatecommand.TemplateUseCommand;
@@ -50,6 +51,9 @@ public class TemplateParser extends WemeParser {
 
         case TemplateUseCommand.COMMAND_WORD:
             return new TemplateUseCommandParser().parse(arguments);
+
+        case TemplateArchivesCommand.COMMAND_WORD:
+            return new TemplateArchivesCommand();
 
         default:
             return super.parseCommand(userInput);

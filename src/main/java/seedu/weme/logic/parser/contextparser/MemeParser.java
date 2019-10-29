@@ -7,13 +7,13 @@ import java.util.regex.Matcher;
 import seedu.weme.logic.commands.Command;
 import seedu.weme.logic.commands.generalcommand.HelpCommand;
 import seedu.weme.logic.commands.memecommand.MemeAddCommand;
+import seedu.weme.logic.commands.memecommand.MemeArchivesCommand;
 import seedu.weme.logic.commands.memecommand.MemeClearCommand;
 import seedu.weme.logic.commands.memecommand.MemeDeleteCommand;
 import seedu.weme.logic.commands.memecommand.MemeEditCommand;
 import seedu.weme.logic.commands.memecommand.MemeFindCommand;
 import seedu.weme.logic.commands.memecommand.MemeLikeCommand;
 import seedu.weme.logic.commands.memecommand.MemeListCommand;
-
 import seedu.weme.logic.commands.memecommand.MemeStageCommand;
 import seedu.weme.logic.parser.commandparser.memecommandparser.MemeAddCommandParser;
 import seedu.weme.logic.parser.commandparser.memecommandparser.MemeDeleteCommandParser;
@@ -69,6 +69,9 @@ public class MemeParser extends WemeParser {
 
         case MemeStageCommand.COMMAND_WORD:
             return new MemeStageCommandParser().parse(arguments);
+
+        case MemeArchivesCommand.COMMAND_WORD:
+            return new MemeArchivesCommand();
 
 
         default:
