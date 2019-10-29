@@ -61,24 +61,16 @@ public class SuggestCommandParser implements Parser<SuggestCommand> {
     }
 
     /**
-     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
-     * {@code ArgumentMultimap}.
-     */
-    //private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-    //    return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
-    //}
-
-    /**
      * Parses arguments and returns SuggestPossibleCommand for execution
      */
     private static SuggestCommand parsePossible(ArgumentMultimap argMultimap) throws ParseException {
         if (!argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    SuggestCommand.MESSAGE_USAGE));
+                SuggestCommand.MESSAGE_USAGE));
         }
         Set<Muscle> muscles = ParserUtil.parseMuscles(argMultimap.getAllValues(PREFIX_MUSCLE));
         Map<String, String> customPropertiesMap =
-                ParserUtil.parseCustomProperties(argMultimap.getAllCustomProperties());
+            ParserUtil.parseCustomProperties(argMultimap.getAllCustomProperties());
         return new SuggestPossibleCommand(muscles, customPropertiesMap);
     }
 
