@@ -81,6 +81,42 @@ public class EditCcaCommand extends Command {
     }
 
     /**
+     * Gets the {@code Index} of the cca to be edited.
+     *
+     * @return {@code Index} of the cca to be edited.
+     */
+    public Index getTargetIndex() {
+        return targetIndex;
+    }
+
+    /**
+     * Gets the {@code EditCcaDescriptor} to edit the cca.
+     *
+     * @return {@code EditCcaDescriptor} to edit the cca.
+     */
+    public EditCcaDescriptor getEditCcaDescriptor() {
+        return editCcaDescriptor;
+    }
+
+    /**
+     * Gets the original {@code Cca} before the edit.
+     *
+     * @return Original {@code Cca} before the edit.
+     */
+    public Optional<Cca> getOriginalCca() {
+        return Optional.ofNullable(originalCca);
+    }
+
+    /**
+     * Gets the {@code Cca} after the edit.
+     *
+     * @return {@code Cca} after the edit.
+     */
+    public Optional<Cca> getEditedCca() {
+        return Optional.ofNullable(editedCca);
+    }
+
+    /**
      * Returns whether the command has an inverse execution.
      * If the command has no inverse execution, then calling {@code executeInverse}
      * will be guaranteed to always throw a {@code CommandException}.

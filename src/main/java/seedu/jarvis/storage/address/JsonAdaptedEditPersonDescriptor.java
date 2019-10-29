@@ -80,14 +80,13 @@ public class JsonAdaptedEditPersonDescriptor implements JsonAdapter<EditPersonDe
         editPersonDescriptor.setEmail(new Email(email));
         editPersonDescriptor.setAddress(new Address(address));
 
-        Set<Tag> setOfTags = null;
+        Set<Tag> setOfTags = new HashSet<>();
         if (!tags.isEmpty()) {
-            setOfTags = new HashSet<>();
             for (JsonAdaptedTag jsonAdaptedTag : tags) {
                 setOfTags.add(jsonAdaptedTag.toModelType());
             }
         }
-        editPersonDescriptor.setTags(setOfTags);
+        editPersonDescriptor.setTags(tags.isEmpty() ? null : setOfTags);
 
         return editPersonDescriptor;
     }
