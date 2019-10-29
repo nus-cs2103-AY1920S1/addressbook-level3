@@ -1,5 +1,6 @@
 package seedu.address.overview.logic.commands;
 
+import static seedu.address.overview.ui.OverviewMessages.MESSAGE_INVALID_SET_AMOUNT;
 import static seedu.address.overview.ui.OverviewMessages.MESSAGE_SET_EXPENSE_SUCCESS;
 
 import seedu.address.overview.logic.commands.exception.InvalidValueException;
@@ -22,10 +23,21 @@ public class SetExpenseCommand extends SetCommand {
     public CommandResult execute(Model model) throws InvalidValueException {
 
         if (amount < 0) {
-            throw new InvalidValueException("You cannot set a negative value.");
+            throw new InvalidValueException(MESSAGE_INVALID_SET_AMOUNT);
         }
 
         model.setExpenseTarget(amount);
         return new CommandResult(String.format(MESSAGE_SET_EXPENSE_SUCCESS, Double.toString(amount)));
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof SetExpenseCommand) {
+            SetExpenseCommand sec = (SetExpenseCommand) o;
+            if (this.amount == sec.amount) {
+                return true;
+            }
+        }
+        return false;
     }
 }

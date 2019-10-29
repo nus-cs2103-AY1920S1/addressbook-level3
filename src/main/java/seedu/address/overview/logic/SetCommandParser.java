@@ -1,5 +1,6 @@
 package seedu.address.overview.logic;
 
+import static seedu.address.overview.ui.OverviewMessages.MESSAGE_INVALID_NUMBER_FORMAT;
 import static seedu.address.util.CliSyntax.PREFIX_BUDGET;
 import static seedu.address.util.CliSyntax.PREFIX_EXPENSE;
 import static seedu.address.util.CliSyntax.PREFIX_SALES;
@@ -46,7 +47,7 @@ public class SetCommandParser {
                 throw new ParseException(OverviewMessages.MESSAGE_INVALID_COMMAND_FORMAT);
             }
         } catch (NumberFormatException e) {
-            throw new ParseException("Please check that your input contains only numbers.");
+            throw new ParseException(MESSAGE_INVALID_NUMBER_FORMAT);
         }
 
 
