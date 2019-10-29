@@ -26,8 +26,8 @@ public class EventAddCommand extends EventCommand {
             + "endDateTime/ [ENDDATETIME]\n"
             + "recur/ [DAILY/WEEKLY/NONE]\n"
             + "color/ [0 - 23]\n"
-            + "Example: event eventName/cs2100 lecture startDateTime/2019-10-21T14:00 "
-            + "endDateTime/2019-10-21T15:00 recur/none color/1";
+            + "Example: event eventName/cs2100 lecture startDateTime/2019-11-02T08:00 "
+            + "endDateTime/2019-11-02T09:00 recur/none color/1";
 
     private static final String WEEKLY_RECURRENCE_RULE = "FREQ=WEEKLY;INTERVAL=1";
     private static final String DAILY_RECURRENCE_RULE = "FREQ=DAILY;INTERVAL=1";

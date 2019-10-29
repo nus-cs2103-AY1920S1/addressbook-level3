@@ -29,7 +29,7 @@ public class EventEditCommand extends EventCommand {
         + "endDateTime/ [ENDDATETIME]\n"
         + "recur/ [DAILY/WEEKLY/NONE]\n"
         + "color/ [0 - 23]\n"
-        + "Example: event 6 edit eventName/cs2100 lecture startDateTime/2019-10-21T14:00 "
+        + "Example: event 6 eventName/cs2100 lecture startDateTime/2019-10-21T14:00 "
         + "endDateTime/2019-10-21T15:00 recur/none color/1";
 
     private final Index index;
