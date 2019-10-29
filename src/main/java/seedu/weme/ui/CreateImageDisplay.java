@@ -3,6 +3,7 @@ package seedu.weme.ui;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import seedu.weme.model.template.MemeCreation;
@@ -15,17 +16,15 @@ public class CreateImageDisplay extends UiPart<Region> {
     private static final String FXML = "CreateImageDisplay.fxml";
 
     @FXML
-    private VBox memeCreationParentBox;
-    @FXML
-    private VBox memeCreationImageBox;
+    private HBox memeCreationBox;
     @FXML
     private ImageView memeImage;
     @FXML
     private ImageView verticalRule;
     @FXML
     private ImageView horizontalRule;
-
-    private CreateImagePlaceholder placeholder = new CreateImagePlaceholder();
+    @FXML
+    private VBox memeCreationPlaceholder;
 
     public CreateImageDisplay(MemeCreation memeCreation) {
         super(FXML);
@@ -42,10 +41,12 @@ public class CreateImageDisplay extends UiPart<Region> {
             memeImage.setImage(SwingFXUtils.toFXImage(session.getCurrentImage().get(), null));
             verticalRule.setFitHeight(memeImage.getBoundsInParent().getHeight());
             horizontalRule.setFitWidth(memeImage.getBoundsInParent().getWidth());
-            memeCreationParentBox.getChildren().setAll(memeCreationImageBox);
+            memeCreationBox.setVisible(true);
+            memeCreationPlaceholder.setVisible(false);
         } else {
             memeImage.setImage(null);
-            memeCreationParentBox.getChildren().setAll(placeholder.getRoot());
+            memeCreationBox.setVisible(false);
+            memeCreationPlaceholder.setVisible(true);
         }
     }
 
