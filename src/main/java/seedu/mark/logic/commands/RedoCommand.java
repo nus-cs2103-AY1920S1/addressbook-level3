@@ -42,4 +42,11 @@ public class RedoCommand extends Command {
         model.updateFilteredBookmarkList(PREDICATE_SHOW_ALL_BOOKMARKS);
         return new CommandResult(String.format(MESSAGE_SUCCESS, record));
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof RedoCommand // instanceof handles nulls
+                && steps == ((RedoCommand) other).steps); // state check
+    }
 }

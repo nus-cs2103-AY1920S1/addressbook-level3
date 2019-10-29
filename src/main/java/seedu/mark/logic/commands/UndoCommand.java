@@ -42,4 +42,11 @@ public class UndoCommand extends Command {
         model.updateFilteredBookmarkList(PREDICATE_SHOW_ALL_BOOKMARKS);
         return new CommandResult(String.format(MESSAGE_SUCCESS, record));
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof UndoCommand // instanceof handles nulls
+                && steps == ((UndoCommand) other).steps); // state check
+    }
 }
