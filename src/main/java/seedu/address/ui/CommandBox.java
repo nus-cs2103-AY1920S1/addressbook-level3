@@ -1,7 +1,5 @@
 package seedu.address.ui;
 
-import java.util.function.Consumer;
-
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -30,8 +28,8 @@ public class CommandBox extends UiPart<Region> {
         super(FXML);
         this.commandExecutor = commandExecutor;
         this.autoComplete = autoComplete;
-        // calls #setStyleToDefault() whenever there is a change to the text of the command box.
-        commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
+        // calls #setStyleToDefault() whenever there is a change to the text of the command box. (NO LONGER REQUIRED)
+        // commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
 
         // EventFilter was used as FXML callback onKeyPressed cannot consume keyEvent.
         commandTextField.addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
@@ -102,6 +100,19 @@ public class CommandBox extends UiPart<Region> {
     }
 
     /**
+     * Appends given suggestion to existing command in Command Box.
+     */
+    public void appendCommandTextField(String suggestion) {
+        if (suggestion == null) {
+            return;
+        }
+        String curr = commandTextField.getText();
+        commandTextField.setText(curr.substring(0, curr.lastIndexOf(' ') + 1) + suggestion);
+        commandTextField.positionCaret(commandTextField.getLength());
+        handleTextChanged();
+    }
+
+    /**
      * Represents a function that can execute commands.
      */
     @FunctionalInterface
@@ -109,7 +120,7 @@ public class CommandBox extends UiPart<Region> {
         /**
          * Executes the command and returns the result.
          *
-         * @see seedu.address.logic.Logic#execute(String, Consumer)
+         * @see seedu.address.logic.Logic#execute(String)
          */
         CommandResult execute(String commandText) throws CommandException, ParseException;
     }

@@ -5,17 +5,16 @@ import java.awt.GraphicsEnvironment;
 import java.util.HashSet;
 import java.util.logging.Logger;
 
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SplitPane;
-import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
@@ -143,28 +142,6 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
      */
     private void setAccelerator(MenuItem menuItem, KeyCombination keyCombination) {
         menuItem.setAccelerator(keyCombination);
-
-        /*
-         * TODO: the code below can be removed once the bug reported here
-         * https://bugs.openjdk.java.net/browse/JDK-8131666
-         * is fixed in later version of SDK.
-         *
-         * According to the bug report, TextInputControl (TextField, TextArea) will
-         * consume function-key events. Because CommandBox contains a TextField, and
-         * ResultDisplay contains a TextArea, thus some accelerators (e.g F1) will
-         * not work when the focus is in them because the key event is consumed by
-         * the TextInputControl(s).
-         *
-         * For now, we add following event filter to capture such key events and open
-         * help window purposely so to support accelerators even when focus is
-         * in CommandBox or ResultDisplay.
-         */
-        getRoot().addEventFilter(KeyEvent.KEY_PRESSED, event -> {
-            if (event.getTarget() instanceof TextInputControl && keyCombination.match(event)) {
-                menuItem.getOnAction().handle(new ActionEvent());
-                event.consume();
-            }
-        });
     }
 
     /**
@@ -181,7 +158,7 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
         tabBarPlaceholder.getChildren().add(tabBar.getRoot());
 
         queueListPanel = new QueueListPanel(logic.getConsultationRoomList(),
-            logic.getQueueList(), logic.getReferenceIdResolver());
+                logic.getQueueList(), logic.getReferenceIdResolver());
         queueListPanelPlaceholder.getChildren().add(queueListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
@@ -207,7 +184,7 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
         int screenWidth = gd.getDisplayMode().getWidth();
         int screenHeight = gd.getDisplayMode().getHeight();
 
-        if (screenWidth < guiSettings.getWindowHeight() || screenHeight < guiSettings.getWindowWidth()) {
+        if (screenHeight < guiSettings.getWindowHeight() || screenWidth < guiSettings.getWindowWidth()) {
             return;
         }
 
@@ -246,7 +223,7 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
     @FXML
     private void handleExit() {
         GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
-            (int) primaryStage.getX(), (int) primaryStage.getY());
+                (int) primaryStage.getX(), (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();
@@ -284,6 +261,8 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
      */
     public void updateCommandAutoComplete(String commandText) {
         aco.showSuggestions(commandText, autoCompleter.update(commandText).getSuggestions());
+        Region acoRoot = aco.getRoot();
+        acoRoot.setTranslateX(Math.min(acoRoot.getTranslateX(), getRoot().getWidth() - acoRoot.getWidth()));
     }
 
     /**
@@ -320,7 +299,7 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
      * Called whenever AutoComplete has a selection.
      */
     private void autoCompleterSelected(String selectedText) {
-        commandBox.setCommandTextField(selectedText);
+        commandBox.appendCommandTextField(selectedText);
     }
 
     /**
@@ -352,6 +331,9 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
         switch (currentOmniPanelTab) {
         case PATIENTS_TAB:
             patientListPanel.regainSelector();
+            break;
+        case DOCTORS_TAB:
+            staffListPanel.regainSelector();
             break;
         default:
         }
