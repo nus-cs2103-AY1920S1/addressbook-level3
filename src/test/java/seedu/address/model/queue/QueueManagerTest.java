@@ -109,8 +109,8 @@ class QueueManagerTest {
         assertEquals(new StaffReferenceId("002A"), queueManager.getRoomList().get(0).getDoctor());
         queueManager.addRoom(new Room(doctor2.getReferenceId()));
         assertEquals(queueManager.getRoomList().size(), 2);
-        assertEquals(new StaffReferenceId("002A"), queueManager.getRoomList().get(0).getDoctor());
-        assertEquals(new StaffReferenceId("001A"), queueManager.getRoomList().get(1).getDoctor());
+        assertEquals(new StaffReferenceId("001A"), queueManager.getRoomList().get(0).getDoctor());
+        assertEquals(new StaffReferenceId("002A"), queueManager.getRoomList().get(1).getDoctor());
     }
 
     @Test

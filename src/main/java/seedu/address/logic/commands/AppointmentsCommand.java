@@ -1,3 +1,4 @@
+//@@author woon17
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
@@ -57,4 +58,5 @@ public class AppointmentsCommand extends NonActionableCommand {
                 || (other instanceof AppointmentsCommand // instanceof handles nulls
                 && predicate.equals(((AppointmentsCommand) other).predicate)); // state check
     }
+
 }

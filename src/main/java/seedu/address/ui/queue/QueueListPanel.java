@@ -83,7 +83,7 @@ public class QueueListPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                Person doctor = resolver.resolvePatient(room.getDoctor());
+                Person doctor = resolver.resolveStaff(room.getDoctor());
                 Optional<Person> patient = room.getCurrentPatient().map(id -> resolver.resolvePatient(id));
                 setGraphic(new RoomCard(doctor, patient, getIndex() + 1).getRoot());
             }

@@ -17,6 +17,7 @@ import seedu.address.model.person.parameters.PatientReferenceId;
 public class EventBuilder {
 
     public static final String DEFAULT_REFERENCE_ID = "1234567A";
+    public static final DateTime DEFAULT_DATETIME = DateTime.tryParseSimpleDateFormat("11/11/19 1800");
 
     private ReferenceId id;
     private Timing timing;
@@ -27,6 +28,12 @@ public class EventBuilder {
         id = new PatientReferenceId(DEFAULT_REFERENCE_ID);
         withStartTime(afterYears, afterMonth, afterDays, afterHours, afterMinutes, 30);
         status = new Status("APPROVED");
+    }
+
+    public EventBuilder() {
+        this.id = new PatientReferenceId(DEFAULT_REFERENCE_ID);
+        this.timing = new Timing(DEFAULT_DATETIME);
+        this.status = new Status("APPROVED");
     }
 
     /**
@@ -73,9 +80,26 @@ public class EventBuilder {
     }
 
     /**
+     * Sets the {@code Timing} of the {@code Event} that we are building.
+     */
+    public EventBuilder withStartTime(String startTime) {
+        DateTime dateTime = DateTime.tryParseSimpleDateFormat(startTime);
+        this.timing = new Timing(dateTime);
+        return this;
+    }
+
+    /**
      * Sets the {@code Status} of the {@code Event} that we are building.
      */
     public EventBuilder withStatus(Status.AppointmentStatuses status) {
+        this.status = new Status(status);
+        return this;
+    }
+
+    /**
+     * Sets the {@code Status} of the {@code Event} that we are building by giving a string status.
+     */
+    public EventBuilder withStatus(String status) {
         this.status = new Status(status);
         return this;
     }
