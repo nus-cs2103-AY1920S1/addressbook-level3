@@ -22,9 +22,9 @@ By: `CS2103T-T11-3`      Since: `AUG 2019`      Licence: `MIT`
 
 Hi There! Thank you for choosing *AddMin+*!
 
-*AddMin+* is an all in one administration desktop application, that is specially designed for *ABC Company*,
-or any other events management start-up company with limited manpower and resources. These companies would usually
-only be able to afford to hire one admin staff to handle both the management of events and employees and this can be tough.
+*AddMin+* is an all in one administration desktop application, that is specially designed for any other events management
+start-up company with limited manpower and resources. These companies would usually only be able to afford to hire
+one admin staff to handle both the management of events and employees and this can be tough.
 The Admin+ Team understands the struggles that start-ups faces on a daily basis, and we are here to help!
 
 *AddMin+* is specially designed to ease the workload of the admin and allow him/her to effectively handle the

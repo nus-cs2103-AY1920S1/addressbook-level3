@@ -31,10 +31,10 @@ The application primarily uses a Command Line Interface (CLI) and displays the r
 === Using this Developer Guide
 
 [TIP]
-*LightBulbs* indicate a _Tip_, somthing that is helpful to the reader
+*LightBulbs* indicate a _Tip_, something that is helpful to the reader
 
 [NOTE]
-*'I' Icon* indicate a _Note_ that supplements useful information
+*'i' Icon* indicate a _Note_ that supplements useful information
 
 Text in a link:[`blue font and grey`] background indicates a _hyperlink_
 
