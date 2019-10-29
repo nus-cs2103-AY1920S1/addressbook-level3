@@ -70,32 +70,13 @@ public class FindVehiclesCommandTest {
         expectedModel.updateFilteredVehicleList(dPredicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
         assertEquals(Collections.emptyList(), model.getFilteredVehicleList());
-
-        VTypeKeywordsPredicate vTypePredicate = prepareVTypePredicate(" ");
-        command = new FindVehiclesCommand(vTypePredicate);
-        expectedModel.updateFilteredVehicleList(vTypePredicate);
-        assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Collections.emptyList(), model.getFilteredVehicleList());
-
-        VNumKeywordsPredicate vNumKeywordsPredicate = prepareVNumPredicate(" ");
-        command = new FindVehiclesCommand(vNumKeywordsPredicate);
-        expectedModel.updateFilteredVehicleList(vNumKeywordsPredicate);
-        assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Collections.emptyList(), model.getFilteredVehicleList());
     }
 
     @Test
-    public void execute_multipleKeywords_multipleVehiclesFound() {
+    public void execute_singleKeyword_multipleVehiclesFound() {
         String expectedMessage = String.format(MESSAGE_VEHICLES_LISTED_OVERVIEW, 2);
-        DistrictKeywordsPredicate dPredicate = prepareDistrictPredicate("1 2");
-        FindVehiclesCommand command = new FindVehiclesCommand(dPredicate);
-        expectedModel.updateFilteredVehicleList(dPredicate);
-        assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(V1, V4), model.getFilteredVehicleList());
-
-        expectedMessage = String.format(MESSAGE_VEHICLES_LISTED_OVERVIEW, 2);
         VTypeKeywordsPredicate vTypePredicate = prepareVTypePredicate("Ambulance");
-        command = new FindVehiclesCommand(vTypePredicate);
+        Command command = new FindVehiclesCommand(vTypePredicate);
         expectedModel.updateFilteredVehicleList(vTypePredicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
         assertEquals(Arrays.asList(V1, V2), model.getFilteredVehicleList());
@@ -106,6 +87,16 @@ public class FindVehiclesCommandTest {
         expectedModel.updateFilteredVehicleList(vNumPredicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
         assertEquals(Arrays.asList(V1, V2, V3), model.getFilteredVehicleList());
+    }
+
+    @Test
+    public void execute_multipleKeywords_multipleVehiclesFound() {
+        String expectedMessage = String.format(MESSAGE_VEHICLES_LISTED_OVERVIEW, 2);
+        DistrictKeywordsPredicate dPredicate = prepareDistrictPredicate("1 2");
+        FindVehiclesCommand command = new FindVehiclesCommand(dPredicate);
+        expectedModel.updateFilteredVehicleList(dPredicate);
+        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+        assertEquals(Arrays.asList(V1, V4), model.getFilteredVehicleList());
     }
 
     /**

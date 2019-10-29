@@ -81,6 +81,8 @@ public class LogicManager implements Logic {
 
         commandResult = command.execute(model);
 
+        assert(commandResult != null);
+
         try {
             storage.saveIncidentManager(model.getIncidentManager());
         } catch (IOException ioe) {
