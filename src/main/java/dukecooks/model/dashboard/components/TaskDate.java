@@ -4,7 +4,7 @@ import static dukecooks.commons.util.AppUtil.checkArgument;
 import static java.util.Objects.requireNonNull;
 
 /**
- * Represents a TaskDate in Duke Cooks.
+ * Represents a TaskDate in DukeCooks.
  * Guarantees: details are present and not null, field values validated and immutable.
  */
 public class TaskDate {
