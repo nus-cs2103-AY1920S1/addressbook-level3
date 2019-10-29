@@ -11,8 +11,6 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
-import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import seedu.moneygowhere.commons.core.LogsCenter;
 
 /**

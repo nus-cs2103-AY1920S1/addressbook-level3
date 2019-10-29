@@ -1,6 +1,5 @@
 package seedu.moneygowhere.ui;
 
-import java.util.LinkedHashMap;
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
