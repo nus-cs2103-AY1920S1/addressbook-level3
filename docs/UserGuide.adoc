@@ -489,8 +489,19 @@ description even if the category of the item does not match with the specified c
 1. Type the command with a category specified as shown in the screenshot below:
 
 .Screenshot of user input (category) into command box for add command in Cashier tab
-image::homeUG/HomeAddStep1.png[]
+image::casherUG/AddCommand1.png[]
 
+2. Enter the required description and quantity according to the items suggested by Leo as shown below:
+
+.Screenshot of user input (description, quantity) into command box for add command in Cashier tab
+image::casherUG/AddCommand2.png[]
+
+3. Enter the command.
+
+.Screenshot of response message for add command in Cashier tab
+image::casherUG/AddCommand3.png[]
+
+Leo will respond to the successful addition with a response message.
 
 ==== Deletes a Sales Item from the Table
 This command deletes a sales item from the table.
@@ -505,9 +516,17 @@ Examples:
 
 * Steps:
 
-1. Type the command with a category specified as shown in the screenshot below:
+1. Type the command with an index specified as shown in the screenshot below:
 
+.Screenshot of user input into command box for delete command in Cashier tab
+image::casherUG/DeleteCommand1.png[]
 
+2. Enter the command.
+
+.Screenshot of response message for delete command in Cashier tab
+image::casherUG/DeleteCommand2.png[]
+
+Leo will respond to the successful deletion with a response message. The item will be deleted from the table.
 
 
 ==== Edits the Quantity of a Sales Item
@@ -533,8 +552,22 @@ Examples:
 
 * Steps:
 
-1. Type the command with a category specified as shown in the screenshot below:
+1. To edit by index, enter the command with an index and description specified as shown in the screenshot below:
 
+.Screenshot of user input (index, description) into command box for edit command in Cashier tab
+image::casherUG/EditCommand1.png[]
+
+2. To edit by description, enter the required description and quantity as shown below:
+
+.Screenshot of user input (description, quantity) into command box for edit command in Cashier tab
+image::casherUG/EditCommand3.png[]
+
+3. Enter the command.
+
+.Screenshot of response message for edit command in Cashier tab
+image::casherUG/EditCommand3.png[]
+
+If successful updated, Leo will respond with a response message. The quantity will be updated in the table.
 
 
 ==== Sets the Cashier-In-Charge
@@ -556,7 +589,17 @@ Example:
 
 * Steps:
 
-1. Type the command with a category specified as shown in the screenshot below:
+1. Type the command with a cashier's name specified as shown in the screenshot below:
+
+.Screenshot of user input into command box for set-cashier command in Cashier tab
+image::casherUG/SetCashierCommand1.png[]
+
+2. Enter the command.
+
+.Screenshot of response message for set-cashier command in Cashier tab
+image::casherUG/SetCashierCommand2.png[]
+
+If set successfully, Leo will respond with a response message. The cashier in the bottom row will be updated.
 
 
 ==== Checkouts All the Sales Items
@@ -580,7 +623,17 @@ Example:
 
 * Steps:
 
-1. Type the command with a category specified as shown in the screenshot below:
+1. Type the command with the amount that the customer is paying as shown in the screenshot below:
+
+.Screenshot of user input into command box for checkout command in Cashier tab
+image::casherUG/CheckoutCommand1.png[]
+
+2. Enter the command.
+
+.Screenshot of response message for checkout command in Cashier tab
+image::casherUG/CheckoutCommand2.png[]
+
+If checkout is successful, Leo will respond with a response message. The table will be cleared and the cashier will be reset.
 
 
 ==== Clears All the Sales Items in the Table
@@ -600,7 +653,18 @@ Example:
 
 * Steps:
 
-1. Type the command with a category specified as shown in the screenshot below:
+1. Type only the "clear" command word as shown in the screenshot below:
+
+.Screenshot of user input into command box for clear command in Cashier tab
+image::casherUG/ClearCommand1.png[]
+
+2. Enter the command.
+
+.Screenshot of response message for clear command in Cashier tab
+image::casherUG/ClearCommand2.png[]
+
+If cleared successful, Leo will respond with a response message. The table will also be cleared and the cashier
+will be reset.
 
 
 
