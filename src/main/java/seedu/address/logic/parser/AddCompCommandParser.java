@@ -21,6 +21,7 @@ public class AddCompCommandParser implements Parser<AddCompCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the AddCompCommand
      * and returns an AddCompCommand object for execution.
+     *
      * @throws ParseException if the user input does not conform to the expected format
      */
     public AddCompCommand parse(String args) throws ParseException {
@@ -48,5 +49,4 @@ public class AddCompCommandParser implements Parser<AddCompCommand> {
     private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
         return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
-
 }

@@ -29,7 +29,7 @@ public class Attempt {
         this.isSuccessful = false;
     }
 
-    public Attempt(Lift lift, boolean hasAttempted, boolean isSuccessful, int weight) {
+    public Attempt(Lift lift, int weight, boolean hasAttempted, boolean isSuccessful) {
         this.lift = lift;
         this.weight = weight;
         this.hasAttempted = hasAttempted;
@@ -38,6 +38,7 @@ public class Attempt {
 
     /**
      * This method records the success of an athlete's attempt after his lift.
+     *
      * @param isSuccessful true if the athlete succeeds his lift, false otherwise
      */
     public void setSuccess(boolean isSuccessful) throws AttemptHasBeenAttemptedException {
@@ -79,7 +80,6 @@ public class Attempt {
 
     /**
      * Converts a given {@code String} into an Attempt.
-     *
      */
     public static Attempt parseStringToAttempt(String string) throws IOException {
         String[] splitString = string.split(" ");
@@ -95,6 +95,6 @@ public class Attempt {
         boolean isSuccessful = stringVersonOfIsSuccessful.equals(TRUE_IN_STRING_FORM);
         String stringVersonOfWeight = splitString[3];
         int weightAttempted = Integer.parseInt(stringVersonOfWeight);
-        return new Attempt(lift, hasAttempted, isSuccessful, weightAttempted);
+        return new Attempt(lift, weightAttempted, hasAttempted, isSuccessful);
     }
 }

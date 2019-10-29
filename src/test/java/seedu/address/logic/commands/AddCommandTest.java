@@ -23,6 +23,8 @@ import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.competition.Competition;
 import seedu.address.model.participation.Participation;
 import seedu.address.model.person.Person;
+import seedu.address.model.session.ParticipationAttempt;
+import seedu.address.model.session.Session;
 import seedu.address.testutil.PersonBuilder;
 
 public class AddCommandTest {
@@ -243,6 +245,31 @@ public class AddCommandTest {
 
         @Override
         public void updateFilteredParticipationList(Predicate<Participation> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Session getSession() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void startSession(ObservableList<Participation> participations) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ParticipationAttempt makeAttempt() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ParticipationAttempt getNextLifter() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ParticipationAttempt getFollowingLifter() {
             throw new AssertionError("This method should not be called.");
         }
     }

@@ -1,4 +1,4 @@
-package seedu.address.logic.commands;
+package seedu.address.logic.commands.participation;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PARTICIPATIONS;
@@ -6,6 +6,8 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PARTICIPATIONS;
 import java.util.List;
 import java.util.function.Predicate;
 
+import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.Model;
 import seedu.address.model.competition.Competition;
 import seedu.address.model.participation.Participation;

@@ -11,11 +11,14 @@ import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.competition.Competition;
 import seedu.address.model.participation.Participation;
 import seedu.address.model.person.Person;
+import seedu.address.model.session.ParticipationAttempt;
+import seedu.address.model.session.Session;
 
 /**
  * Represents the in-memory model of the data of the system.
@@ -30,6 +33,7 @@ public class ModelManager implements Model {
     private final Data<Participation> participations;
     private final FilteredList<Participation> filteredParticipations;
     private final UserPrefs userPrefs;
+    private final Session session;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -50,6 +54,7 @@ public class ModelManager implements Model {
         filteredCompetitions = new FilteredList<>(this.competitions.getListOfElements());
         this.participations = new Data<>(participations);
         filteredParticipations = new FilteredList<>(this.participations.getListOfElements());
+        this.session = Session.getInstance();
     }
 
     public ModelManager() {
@@ -282,6 +287,34 @@ public class ModelManager implements Model {
     public void updateFilteredParticipationList(Predicate<Participation> predicate) {
         requireNonNull(predicate);
         filteredParticipations.setPredicate(predicate);
+    }
+
+    //=========== Session Handling =============================================================
+
+    @Override
+    public Session getSession() {
+        return session;
+    }
+
+    @Override
+    public void startSession(ObservableList<Participation> participations) {
+        requireAllNonNull(participations);
+        session.start(participations);
+    }
+
+    @Override
+    public ParticipationAttempt makeAttempt() {
+        return session.attemptMade();
+    }
+
+    @Override
+    public ParticipationAttempt getNextLifter() {
+        return session.nextLifter();
+    }
+
+    @Override
+    public ParticipationAttempt getFollowingLifter() {
+        return session.getFollowingLifter();
     }
 
     //==========================================================================================

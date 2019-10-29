@@ -1,6 +1,8 @@
-package seedu.address.logic.parser;
+package seedu.address.logic.parser.participation;
 
-import seedu.address.logic.commands.ListPartCommand;
+import seedu.address.logic.commands.participation.ListPartCommand;
+import seedu.address.logic.parser.Parser;
+import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Name;
 
@@ -14,8 +16,8 @@ public class ListPartCommandParser implements Parser<ListPartCommand> {
      * @throws ParseException if {@code userInput} does not conform the expected format
      */
     @Override
-    public ListPartCommand parse(String args) throws ParseException {
-        String trimmedArgs = args.trim();
+    public ListPartCommand parse(String userInput) throws ParseException {
+        String trimmedArgs = userInput.trim();
         if (trimmedArgs.isEmpty()) {
             return new ListPartCommand();
         }

@@ -8,6 +8,7 @@ import seedu.address.model.attempt.Attempt;
 import seedu.address.model.competition.Competition;
 import seedu.address.model.exercise.Exercise;
 import seedu.address.model.exercise.Lift;
+import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 
 /**
@@ -17,37 +18,54 @@ import seedu.address.model.person.Person;
 public class Participation extends UniqueElement {
     private final Person person;
     private final Competition competition;
-    private final List<Attempt> attempts;
 
+    private List<Attempt> attempts;
+    private boolean areAttemptsSubmitted;
 
     public Participation(Person person, Competition competition) {
         this.person = person;
         this.competition = competition;
-        this.attempts = createNewListOfAttempts(competition.getExerciseList());
+        this.attempts = new ArrayList<>(9);
+        this.areAttemptsSubmitted = false;
     }
 
     public Participation(Person person, Competition competition, List<Attempt> attempts) {
         this.person = person;
         this.competition = competition;
         this.attempts = attempts;
+        this.areAttemptsSubmitted = true;
     }
 
     /**
+     * This method adds all the weight to be attempted for this participation.
      *
-     * @param exerciseList a list of exercises for the competition
-     * @return list of attempts to track the athlete progress throughout the competition
+     * @param weightOfAttemptsList a list of the weight to be attempted for eaCh lift and attempt
      */
-    private List<Attempt> createNewListOfAttempts(List<Exercise> exerciseList) {
-        List<Attempt> attempts = new ArrayList<>();
-        int initialWeight = 0;
+    public void addAttempts(List<Integer> weightOfAttemptsList) {
+        List<Exercise> exerciseList = competition.getExerciseList();
+        int index = 0;
         for (Exercise exercise : exerciseList) {
             Lift lift = exercise.getLift();
             int noOfAttempts = exercise.getNoOfAttempts();
-            for (int i = 0; i < noOfAttempts; i++) {
-                attempts.add(new Attempt(lift, initialWeight));
+            for (int i = 0; i < noOfAttempts && index < 9; i++) {
+                attempts.add(new Attempt(lift, weightOfAttemptsList.get(index)));
+                index++;
             }
         }
-        return attempts;
+        areAttemptsSubmitted = true;
+    }
+
+    /**
+     * Updates the success of the attempt after the lift.
+     *
+     * @param index attempt index which relates to the lift and attempt
+     * @param isSuccess a boolean indicating the success of the attempt
+     */
+    public void updateAttempt(int index, boolean isSuccess) {
+        Attempt attempt = attempts.get(index - 1);
+        assert attempt != null;
+        attempt.setSuccess(isSuccess);
+        attempts.set(index - 1, attempt);
     }
 
     public Person getPerson() {
@@ -60,6 +78,14 @@ public class Participation extends UniqueElement {
 
     public List<Attempt> getAttempts() {
         return attempts;
+    }
+
+    public Name getName() {
+        return person.getName();
+    }
+
+    public boolean getAreAttemptsSubmitted() {
+        return areAttemptsSubmitted;
     }
 
     /**
