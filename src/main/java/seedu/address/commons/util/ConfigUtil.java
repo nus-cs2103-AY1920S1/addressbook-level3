@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
 
-import seedu.address.commons.core.Config;
+import sugarmummy.commons.core.Config;
 import seedu.address.commons.exceptions.DataConversionException;
 
 /**

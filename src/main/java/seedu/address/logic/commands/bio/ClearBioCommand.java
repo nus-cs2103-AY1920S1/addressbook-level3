@@ -6,7 +6,7 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.Model;
 import seedu.address.model.bio.UserList;
-import seedu.address.ui.DisplayPaneType;
+import sugarmummy.commons.ui.DisplayPaneType;
 
 /**
  * Clears the address book.

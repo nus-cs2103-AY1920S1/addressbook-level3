@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_RECORDS;
 
 import seedu.address.model.Model;
-import seedu.address.ui.DisplayPaneType;
+import sugarmummy.commons.ui.DisplayPaneType;
 
 /**
  * Lists all records in the record list to the user.

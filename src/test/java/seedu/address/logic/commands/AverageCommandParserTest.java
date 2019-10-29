@@ -1,13 +1,13 @@
 package seedu.address.logic.commands;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_PARAMETER;
-import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
-import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import static sugarmummy.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static sugarmummy.commons.core.Messages.MESSAGE_INVALID_PARAMETER;
+import static sugarmummy.commons.logic.parser.CommandParserTestUtil.assertParseFailure;
+import static sugarmummy.commons.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.parser.AverageCommandParser;
+import sugarmummy.commons.logic.parser.AverageCommandParser;
 import seedu.address.model.record.RecordType;
 import seedu.address.model.statistics.AverageType;
 

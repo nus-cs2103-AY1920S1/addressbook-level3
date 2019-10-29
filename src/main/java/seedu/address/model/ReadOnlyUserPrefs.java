@@ -2,7 +2,7 @@ package seedu.address.model;
 
 import java.nio.file.Path;
 
-import seedu.address.commons.core.GuiSettings;
+import sugarmummy.commons.core.GuiSettings;
 import seedu.address.model.aesthetics.Background;
 import seedu.address.model.aesthetics.Colour;
 

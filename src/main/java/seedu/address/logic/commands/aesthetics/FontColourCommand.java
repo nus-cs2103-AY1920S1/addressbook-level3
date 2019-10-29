@@ -7,7 +7,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.aesthetics.Colour;
-import seedu.address.ui.DisplayPaneType;
+import sugarmummy.commons.ui.DisplayPaneType;
 
 /**
  * Edits the details of an existing user in the address book.

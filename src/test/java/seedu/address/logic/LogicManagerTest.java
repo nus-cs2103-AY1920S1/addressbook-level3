@@ -1,8 +1,8 @@
 package seedu.address.logic;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_RECORD_DISPLAYED_INDEX;
-import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static sugarmummy.commons.core.Messages.MESSAGE_INVALID_RECORD_DISPLAYED_INDEX;
+import static sugarmummy.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.io.IOException;
@@ -15,21 +15,21 @@ import org.junit.jupiter.api.io.TempDir;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.exceptions.ParseException;
+import sugarmummy.commons.logic.parser.exceptions.ParseException;
 import seedu.address.model.Calendar;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.food.UniqueFoodList;
+import sugarmummy.recmfood.model.UniqueFoodList;
 import seedu.address.model.record.UniqueRecordList;
 import seedu.address.storage.bio.JsonUserListStorage;
-import sugarmummy.storage.JsonAddressBookStorage;
-import sugarmummy.storage.JsonCalendarStorage;
-import sugarmummy.storage.JsonFoodListStorage;
-import sugarmummy.storage.JsonRecordListStorage;
-import sugarmummy.storage.JsonUserPrefsStorage;
-import sugarmummy.storage.StorageManager;
+import sugarmummy.commons.storage.JsonAddressBookStorage;
+import sugarmummy.commons.storage.JsonCalendarStorage;
+import sugarmummy.recmfood.storage.JsonFoodListStorage;
+import sugarmummy.commons.storage.JsonRecordListStorage;
+import sugarmummy.commons.storage.JsonUserPrefsStorage;
+import sugarmummy.commons.storage.StorageManager;
 
 public class LogicManagerTest {
     private static final IOException DUMMY_IO_EXCEPTION = new IOException("dummy exception");

@@ -4,12 +4,12 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 
-import seedu.address.commons.core.Messages;
-import seedu.address.commons.core.index.Index;
+import sugarmummy.commons.core.Messages;
+import sugarmummy.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.record.Record;
-import seedu.address.ui.DisplayPaneType;
+import sugarmummy.commons.ui.DisplayPaneType;
 
 /**
  * Deletes a record identified using it's displayed index from the record list.

@@ -10,13 +10,13 @@ import java.util.logging.Logger;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
-import seedu.address.commons.core.GuiSettings;
-import seedu.address.commons.core.LogsCenter;
+import sugarmummy.commons.core.GuiSettings;
+import sugarmummy.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.SugarMummyParser;
-import seedu.address.logic.parser.exceptions.ParseException;
+import sugarmummy.commons.logic.parser.SugarMummyParser;
+import sugarmummy.commons.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyCalendar;
@@ -25,11 +25,11 @@ import seedu.address.model.aesthetics.Background;
 import seedu.address.model.aesthetics.Colour;
 import seedu.address.model.bio.User;
 import seedu.address.model.calendar.CalendarEntry;
-import seedu.address.model.food.Food;
+import sugarmummy.recmfood.model.Food;
 import seedu.address.model.person.Person;
 import seedu.address.model.record.Record;
-import seedu.address.ui.DisplayPaneType;
-import sugarmummy.storage.Storage;
+import sugarmummy.commons.ui.DisplayPaneType;
+import sugarmummy.commons.storage.Storage;
 
 /**
  * The main LogicManager of the app.

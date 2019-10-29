@@ -1,6 +1,6 @@
 package seedu.address;
 
-import static seedu.address.model.food.TypicalFoods.FOODS;
+
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -10,9 +10,9 @@ import java.util.logging.Logger;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
-import seedu.address.commons.core.Config;
-import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.core.Version;
+import sugarmummy.commons.core.Config;
+import sugarmummy.commons.core.LogsCenter;
+import sugarmummy.commons.core.Version;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.util.ConfigUtil;
 import seedu.address.commons.util.StringUtil;
@@ -29,25 +29,25 @@ import seedu.address.model.ReadOnlyUserList;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.bio.UserList;
-import seedu.address.model.food.UniqueFoodList;
+import sugarmummy.recmfood.model.UniqueFoodList;
 import seedu.address.model.record.UniqueRecordList;
-import seedu.address.model.util.SampleCalendarDataUtil;
-import seedu.address.model.util.SampleFoodDataUtil;
-import seedu.address.model.util.SampleRecordDataUtil;
-import seedu.address.model.util.SampleUserDataUtil;
+import sugarmummy.model.util.SampleCalendarDataUtil;
+import sugarmummy.model.util.SampleFoodDataUtil;
+import sugarmummy.model.util.SampleRecordDataUtil;
+import sugarmummy.model.util.SampleUserDataUtil;
 import seedu.address.storage.bio.JsonUserListStorage;
-import seedu.address.ui.Ui;
-import seedu.address.ui.UiManager;
-import sugarmummy.storage.AddressBookStorage;
-import sugarmummy.storage.JsonAddressBookStorage;
-import sugarmummy.storage.JsonCalendarStorage;
-import sugarmummy.storage.JsonFoodListStorage;
-import sugarmummy.storage.JsonRecordListStorage;
-import sugarmummy.storage.JsonUserPrefsStorage;
-import sugarmummy.storage.Storage;
-import sugarmummy.storage.StorageManager;
-import sugarmummy.storage.UserListStorage;
-import sugarmummy.storage.UserPrefsStorage;
+import sugarmummy.commons.ui.Ui;
+import sugarmummy.commons.ui.UiManager;
+import sugarmummy.commons.storage.AddressBookStorage;
+import sugarmummy.commons.storage.JsonAddressBookStorage;
+import sugarmummy.commons.storage.JsonCalendarStorage;
+import sugarmummy.recmfood.storage.JsonFoodListStorage;
+import sugarmummy.commons.storage.JsonRecordListStorage;
+import sugarmummy.commons.storage.JsonUserPrefsStorage;
+import sugarmummy.commons.storage.Storage;
+import sugarmummy.commons.storage.StorageManager;
+import sugarmummy.commons.storage.UserListStorage;
+import sugarmummy.commons.storage.UserPrefsStorage;
 
 /**
  * Runs the application.
@@ -105,21 +105,21 @@ public class MainApp extends Application {
     private Model initModelManager(ReadOnlyUserPrefs userPrefs) {
         ReadOnlyAddressBook initialData = new AddressBook();
         ReadOnlyUserList initialUserData;
-        UniqueFoodList foodList = new UniqueFoodList();
-        foodList.setFoods(FOODS);
-        UniqueRecordList initialRecordListData;
         ReadOnlyCalendar initialCalendar;
+        UniqueFoodList initialFoodList;
+        UniqueRecordList initialRecordListData;
+
 
         initialUserData = (ReadOnlyUserList) getInitialData(LABEL_BIO_DATA_TYPE,
             SampleUserDataUtil::getSampleUserList, UserList::new);
-        foodList = (UniqueFoodList) getInitialData(LABEL_FOOD_DATA_TYPE,
+        initialFoodList = (UniqueFoodList) getInitialData(LABEL_FOOD_DATA_TYPE,
             SampleFoodDataUtil::getSampleFoodList, UniqueFoodList::new);
         initialRecordListData = (UniqueRecordList) getInitialData(LABEL_RECORD_DATA_TYPE,
             SampleRecordDataUtil::getSampleRecordList, UniqueRecordList::new);
         initialCalendar = (ReadOnlyCalendar) getInitialData(LABEL_CALENDAR_DATA_TYPE,
             SampleCalendarDataUtil::getSampleCalendar, Calendar::new);
 
-        return new ModelManager(initialData, userPrefs, initialUserData, foodList, initialRecordListData,
+        return new ModelManager(initialData, userPrefs, initialUserData, initialFoodList, initialRecordListData,
             initialCalendar);
     }
 

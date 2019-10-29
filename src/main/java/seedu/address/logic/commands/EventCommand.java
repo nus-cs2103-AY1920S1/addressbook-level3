@@ -1,9 +1,9 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_CALENDAR_DESCRIPTION;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DATETIME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME_DURATION;
+import static sugarmummy.commons.logic.parser.CliSyntax.PREFIX_CALENDAR_DESCRIPTION;
+import static sugarmummy.commons.logic.parser.CliSyntax.PREFIX_DATETIME;
+import static sugarmummy.commons.logic.parser.CliSyntax.PREFIX_TIME_DURATION;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;

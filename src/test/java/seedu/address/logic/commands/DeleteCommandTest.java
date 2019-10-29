@@ -9,14 +9,14 @@ import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.commons.core.Messages;
-import seedu.address.commons.core.index.Index;
+import sugarmummy.commons.core.Messages;
+import sugarmummy.commons.core.index.Index;
 import seedu.address.model.Calendar;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.bio.UserList;
-import seedu.address.model.food.UniqueFoodList;
+import sugarmummy.recmfood.model.UniqueFoodList;
 import seedu.address.model.record.UniqueRecordList;
 
 /**

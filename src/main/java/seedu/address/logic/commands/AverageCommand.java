@@ -8,7 +8,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.record.RecordType;
 import seedu.address.model.statistics.AverageType;
-import seedu.address.ui.DisplayPaneType;
+import sugarmummy.commons.ui.DisplayPaneType;
 
 /**
  * Shows daily/weekly/monthly average of different record types.

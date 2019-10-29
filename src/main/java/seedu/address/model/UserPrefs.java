@@ -6,7 +6,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Objects;
 
-import seedu.address.commons.core.GuiSettings;
+import sugarmummy.commons.core.GuiSettings;
 import seedu.address.model.aesthetics.Background;
 import seedu.address.model.aesthetics.Colour;
 
