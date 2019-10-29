@@ -69,7 +69,7 @@ public class Cache {
         if (optionalObject.isPresent()) {
             jsonObject = (JSONObject) optionalObject.get();
         }
-        jsonObject.put(key, value);\
+        jsonObject.put(key, value);
         save(jsonObject, filePath);
     }
 
