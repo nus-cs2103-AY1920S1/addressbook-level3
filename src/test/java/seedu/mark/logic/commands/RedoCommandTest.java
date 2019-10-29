@@ -42,6 +42,7 @@ public class RedoCommandTest {
         assertCommandSuccess(new RedoCommand(1), model, storage, expectedMessage2, expectedModel);
 
         // No redoable Mark state
-        assertCommandFailure(new RedoCommand(1), model, storage, RedoCommand.MESSAGE_FAILURE);
+        String expectedMessage3 = String.format(RedoCommand.MESSAGE_FAILURE, 0);
+        assertCommandFailure(new RedoCommand(1), model, storage, expectedMessage3);
     }
 }

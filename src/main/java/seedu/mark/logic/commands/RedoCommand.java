@@ -22,7 +22,8 @@ public class RedoCommand extends Command {
             + "Example: " + COMMAND_WORD + " 2";
 
     public static final String MESSAGE_SUCCESS = "Action(s) successfully redone: \n%1$s";
-    public static final String MESSAGE_FAILURE = "Not enough commands to redo!";
+    public static final String MESSAGE_FAILURE = "Not enough commands to redo! "
+            + "Only %1$s remaining undo command(s).\";";
 
     private final int steps;
 
@@ -35,7 +36,7 @@ public class RedoCommand extends Command {
         requireAllNonNull(model, storage);
 
         if (!model.canRedoMark(steps)) {
-            throw new CommandException(MESSAGE_FAILURE);
+            throw new CommandException(String.format(MESSAGE_FAILURE, model.getMaxStepsToRedo()));
         }
 
         String record = model.redoMark(steps);

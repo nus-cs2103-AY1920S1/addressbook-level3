@@ -152,7 +152,17 @@ public class ModelStub implements Model {
     }
 
     @Override
+    public int getMaxStepsToUndo() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
     public boolean canRedoMark(int steps) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public int getMaxStepsToRedo() {
         throw new AssertionError("This method should not be called.");
     }
 

@@ -223,8 +223,18 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public int getMaxStepsToUndo() {
+        return versionedMark.getMaxStepsToUndo();
+    }
+
+    @Override
     public boolean canRedoMark(int steps) {
         return versionedMark.canRedo(steps);
+    }
+
+    @Override
+    public int getMaxStepsToRedo() {
+        return versionedMark.getMaxStepsToRedo();
     }
 
     @Override

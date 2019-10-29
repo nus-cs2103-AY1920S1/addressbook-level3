@@ -79,12 +79,20 @@ public class VersionedMark extends Mark {
         return currentPointer > (steps - 1);
     }
 
+    public int getMaxStepsToUndo() {
+        return currentPointer;
+    }
+
     /**
      * Returns true if {@code redo()} has Mark states to redo.
      * @param steps
      */
     public boolean canRedo(int steps) {
         return currentPointer + steps < markStateRecords.size();
+    }
+
+    public int getMaxStepsToRedo() {
+        return markStateRecords.size() - currentPointer - 1;
     }
 
     @Override

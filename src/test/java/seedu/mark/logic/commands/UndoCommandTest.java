@@ -38,6 +38,7 @@ public class UndoCommandTest {
         assertCommandSuccess(new UndoCommand(1), model, storage, expectedMessage2, expectedModel);
 
         // No undoable Mark state
-        assertCommandFailure(new UndoCommand(1), model, storage, UndoCommand.MESSAGE_FAILURE);
+        String expectedMessage3 = String.format(UndoCommand.MESSAGE_FAILURE, 0);
+        assertCommandFailure(new UndoCommand(1), model, storage, expectedMessage3);
     }
 }

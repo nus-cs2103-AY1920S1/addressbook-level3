@@ -163,12 +163,16 @@ public interface Model {
      */
     boolean canUndoMark(int steps);
 
+    int getMaxStepsToUndo();
+
     /**
      * Returns true if the model has undone Mark states to restore.
      *
      * @param steps The number of steps to check
      */
     boolean canRedoMark(int steps);
+
+    int getMaxStepsToRedo();
 
     /**
      * Restores the model's Mark to its previous state.

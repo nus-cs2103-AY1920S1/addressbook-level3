@@ -22,7 +22,8 @@ public class UndoCommand extends Command {
             + "Example: " + COMMAND_WORD + " 2";
 
     public static final String MESSAGE_SUCCESS = "Action(s) successfully undone: \n%1$s";
-    public static final String MESSAGE_FAILURE = "Not enough commands to undo!";
+    public static final String MESSAGE_FAILURE = "Not enough commands to undo! "
+            + "Only %1$s remaining undoable command(s).";
 
     private final int steps;
 
@@ -35,7 +36,7 @@ public class UndoCommand extends Command {
         requireAllNonNull(model, storage);
 
         if (!model.canUndoMark(steps)) {
-            throw new CommandException(MESSAGE_FAILURE);
+            throw new CommandException(String.format(MESSAGE_FAILURE, model.getMaxStepsToUndo()));
         }
 
         String record = model.undoMark(steps);
