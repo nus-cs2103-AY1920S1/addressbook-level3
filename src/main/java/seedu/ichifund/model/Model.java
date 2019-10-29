@@ -134,6 +134,11 @@ public interface Model {
     void updateTransactionContext(Transaction transaction);
 
     /**
+     * Returns an unmodifiable view of the transactions associated with {@code repeaterUniqueId}.
+     */
+    ObservableList<Transaction> getAssociatedTransactions(RepeaterUniqueId repeaterUniqueId);
+
+    /**
      * Returns true if a repeater with the same identity as {@code repeater} exists in the fund book.
      */
     boolean hasRepeater(Repeater repeater);

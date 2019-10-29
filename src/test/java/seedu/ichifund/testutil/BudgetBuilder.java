@@ -14,9 +14,6 @@ public class BudgetBuilder {
 
     public static final String DEFAULT_DESCRIPTION = "Saving for my future";
     public static final String DEFAULT_AMOUNT = "13.37";
-    public static final String DEFAULT_MONTH = "12";
-    public static final String DEFAULT_YEAR = "2012";
-    public static final String DEFAULT_CATEGORY = "food";
 
     private Description description;
     private Amount amount;
@@ -27,9 +24,9 @@ public class BudgetBuilder {
     public BudgetBuilder() {
         description = new Description(DEFAULT_DESCRIPTION);
         amount = new Amount(DEFAULT_AMOUNT);
-        month = new Month(DEFAULT_MONTH);
-        year = new Year(DEFAULT_YEAR);
-        category = new Category(DEFAULT_CATEGORY);
+        month = null;
+        year = null;
+        category = null;
     }
 
     /**
@@ -56,6 +53,23 @@ public class BudgetBuilder {
      */
     public BudgetBuilder withAmount(String amount) {
         this.amount = new Amount(amount);
+        return this;
+    }
+
+    /**
+     * Sets the {@code Month} and {@code Year} of the {@code Budget} that we are building.
+     */
+    public BudgetBuilder withMonthAndYear(String month, String year) {
+        this.month = new Month(month);
+        this.year = new Year(year);
+        return this;
+    }
+
+    /**
+     * Sets the {@code Category} of the {@code Budget} that we are building.
+     */
+    public BudgetBuilder withCategory(String category) {
+        this.category = new Category(category);
         return this;
     }
 

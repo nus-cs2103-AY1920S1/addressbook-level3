@@ -1,4 +1,4 @@
-package seedu.ichifund.logic.commands;
+package seedu.ichifund.logic.commands.budget;
 
 import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -16,8 +16,8 @@ import org.junit.jupiter.api.Test;
 
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
-
 import seedu.ichifund.commons.core.GuiSettings;
+import seedu.ichifund.logic.commands.CommandResult;
 import seedu.ichifund.logic.commands.exceptions.CommandException;
 import seedu.ichifund.model.FundBook;
 import seedu.ichifund.model.Model;
@@ -30,57 +30,58 @@ import seedu.ichifund.model.person.Person;
 import seedu.ichifund.model.repeater.Repeater;
 import seedu.ichifund.model.repeater.RepeaterUniqueId;
 import seedu.ichifund.model.transaction.Transaction;
-import seedu.ichifund.testutil.PersonBuilder;
+import seedu.ichifund.testutil.BudgetBuilder;
 
-public class AddCommandTest {
+public class AddBudgetCommandTest {
 
     @Test
-    public void constructor_nullPerson_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new AddCommand(null));
+    public void constructor_nullBudget_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> new AddBudgetCommand(null));
     }
 
     @Test
-    public void execute_personAcceptedByModel_addSuccessful() throws Exception {
-        ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
-        Person validPerson = new PersonBuilder().build();
+    public void execute_budgetAcceptedByModel_addSuccessful() throws Exception {
+        ModelStubAcceptingBudgetAdded modelStub = new ModelStubAcceptingBudgetAdded();
+        Budget validBudget = new BudgetBuilder().build();
 
-        CommandResult commandResult = new AddCommand(validPerson).execute(modelStub);
+        CommandResult commandResult = new AddBudgetCommand(validBudget).execute(modelStub);
 
-        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validPerson), commandResult.getFeedbackToUser());
-        assertEquals(Arrays.asList(validPerson), modelStub.personsAdded);
+        assertEquals(String.format(AddBudgetCommand.MESSAGE_SUCCESS, validBudget), commandResult.getFeedbackToUser());
+        assertEquals(Arrays.asList(validBudget), modelStub.budgetsAdded);
     }
 
     @Test
-    public void execute_duplicatePerson_throwsCommandException() {
-        Person validPerson = new PersonBuilder().build();
-        AddCommand addCommand = new AddCommand(validPerson);
-        ModelStub modelStub = new ModelStubWithPerson(validPerson);
+    public void execute_duplicateBudget_throwsCommandException() {
+        Budget validBudget = new BudgetBuilder().build();
+        AddBudgetCommand addBudgetCommand = new AddBudgetCommand(validBudget);
+        ModelStub modelStub = new ModelStubWithBudget(validBudget);
 
-        assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_PERSON, () -> addCommand.execute(modelStub));
+        assertThrows(CommandException.class, AddBudgetCommand.MESSAGE_DUPLICATE_BUDGET, ()
+            -> addBudgetCommand.execute(modelStub));
     }
 
     @Test
     public void equals() {
-        Person alice = new PersonBuilder().withName("Alice").build();
-        Person bob = new PersonBuilder().withName("Bob").build();
-        AddCommand addAliceCommand = new AddCommand(alice);
-        AddCommand addBobCommand = new AddCommand(bob);
+        Budget overall = new BudgetBuilder().withDescription("Limit for Spendings").build();
+        Budget food = new BudgetBuilder().withDescription("Limit for Food").build();
+        AddBudgetCommand addOverallCommand = new AddBudgetCommand(overall);
+        AddBudgetCommand addFoodCommand = new AddBudgetCommand(food);
 
         // same object -> returns true
-        assertTrue(addAliceCommand.equals(addAliceCommand));
+        assertTrue(addOverallCommand.equals(addOverallCommand));
 
         // same values -> returns true
-        AddCommand addAliceCommandCopy = new AddCommand(alice);
-        assertTrue(addAliceCommand.equals(addAliceCommandCopy));
+        AddBudgetCommand addOverallCommandCopy = new AddBudgetCommand(overall);
+        assertTrue(addOverallCommand.equals(addOverallCommandCopy));
 
         // different types -> returns false
-        assertFalse(addAliceCommand.equals(1));
+        assertFalse(addOverallCommand.equals(1));
 
         // null -> returns false
-        assertFalse(addAliceCommand.equals(null));
+        assertFalse(addOverallCommand.equals(null));
 
-        // different person -> returns false
-        assertFalse(addAliceCommand.equals(addBobCommand));
+        // different budget -> returns false
+        assertFalse(addOverallCommand.equals(addFoodCommand));
     }
 
     /**
@@ -283,39 +284,39 @@ public class AddCommandTest {
     }
 
     /**
-     * A Model stub that contains a single person.
+     * A Model stub that contains a single budget.
      */
-    private class ModelStubWithPerson extends ModelStub {
-        private final Person person;
+    private class ModelStubWithBudget extends ModelStub {
+        private final Budget budget;
 
-        ModelStubWithPerson(Person person) {
-            requireNonNull(person);
-            this.person = person;
+        ModelStubWithBudget(Budget budget) {
+            requireNonNull(budget);
+            this.budget = budget;
         }
 
         @Override
-        public boolean hasPerson(Person person) {
-            requireNonNull(person);
-            return this.person.isSamePerson(person);
+        public boolean hasBudget(Budget budget) {
+            requireNonNull(budget);
+            return this.budget.isSameBudget(budget);
         }
     }
 
     /**
-     * A Model stub that always accept the person being added.
+     * A Model stub that always accept the budget being added.
      */
-    private class ModelStubAcceptingPersonAdded extends ModelStub {
-        final ArrayList<Person> personsAdded = new ArrayList<>();
+    private class ModelStubAcceptingBudgetAdded extends ModelStub {
+        final ArrayList<Budget> budgetsAdded = new ArrayList<>();
 
         @Override
-        public boolean hasPerson(Person person) {
-            requireNonNull(person);
-            return personsAdded.stream().anyMatch(person::isSamePerson);
+        public boolean hasBudget(Budget budget) {
+            requireNonNull(budget);
+            return budgetsAdded.stream().anyMatch(budget::isSameBudget);
         }
 
         @Override
-        public void addPerson(Person person) {
-            requireNonNull(person);
-            personsAdded.add(person);
+        public void addBudget(Budget budget) {
+            requireNonNull(budget);
+            budgetsAdded.add(budget);
         }
 
         @Override

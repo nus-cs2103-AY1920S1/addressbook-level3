@@ -17,6 +17,8 @@ import seedu.ichifund.commons.core.index.Index;
 import seedu.ichifund.logic.commands.exceptions.CommandException;
 import seedu.ichifund.model.FundBook;
 import seedu.ichifund.model.Model;
+import seedu.ichifund.model.budget.Budget;
+import seedu.ichifund.model.budget.BudgetDescriptionPredicate;
 import seedu.ichifund.model.person.NameContainsKeywordsPredicate;
 import seedu.ichifund.model.person.Person;
 import seedu.ichifund.testutil.EditPersonDescriptorBuilder;
@@ -123,6 +125,19 @@ public class CommandTestUtil {
         model.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
         assertEquals(1, model.getFilteredPersonList().size());
+    }
+    /**
+     * Updates {@code model}'s filtered list to show only the budget at the given {@code targetIndex} in the
+     * {@code model}'s fund book.
+     */
+    public static void showBudgetAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredBudgetList().size());
+
+        Budget budget = model.getFilteredBudgetList().get(targetIndex.getZeroBased());
+        final String[] splitDescription = budget.getDescription().description.split("\\s+");
+        model.updateFilteredBudgetList(new BudgetDescriptionPredicate(Arrays.asList(splitDescription[0])));
+
+        assertEquals(1, model.getFilteredBudgetList().size());
     }
 
 }

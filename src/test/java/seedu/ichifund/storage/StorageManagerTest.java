@@ -2,7 +2,7 @@ package seedu.ichifund.storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static seedu.ichifund.testutil.TypicalPersons.getTypicalFundBook;
+import static seedu.ichifund.testutil.TypicalFundBook.getTypicalFundBook;
 
 import java.nio.file.Path;
 

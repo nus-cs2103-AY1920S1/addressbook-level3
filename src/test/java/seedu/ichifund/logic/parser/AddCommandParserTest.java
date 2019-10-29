@@ -26,8 +26,8 @@ import static seedu.ichifund.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.ichifund.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.ichifund.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.ichifund.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.ichifund.testutil.TypicalPersons.AMY;
-import static seedu.ichifund.testutil.TypicalPersons.BOB;
+import static seedu.ichifund.testutil.TypicalFundBook.PERSON_AMY;
+import static seedu.ichifund.testutil.TypicalFundBook.PERSON_BOB;
 
 import org.junit.jupiter.api.Test;
 
@@ -45,7 +45,7 @@ public class AddCommandParserTest {
 
     @Test
     public void parse_allFieldsPresent_success() {
-        Person expectedPerson = new PersonBuilder(BOB).withTags(VALID_TAG_FRIEND).build();
+        Person expectedPerson = new PersonBuilder(PERSON_BOB).withTags(VALID_TAG_FRIEND).build();
 
         // whitespace only preamble
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
@@ -68,7 +68,7 @@ public class AddCommandParserTest {
                 + ADDRESS_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedPerson));
 
         // multiple tags - all accepted
-        Person expectedPersonMultipleTags = new PersonBuilder(BOB).withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
+        Person expectedPersonMultipleTags = new PersonBuilder(PERSON_BOB).withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
                 .build();
         assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
                 + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, new AddCommand(expectedPersonMultipleTags));
@@ -77,7 +77,7 @@ public class AddCommandParserTest {
     @Test
     public void parse_optionalFieldsMissing_success() {
         // zero tags
-        Person expectedPerson = new PersonBuilder(AMY).withTags().build();
+        Person expectedPerson = new PersonBuilder(PERSON_AMY).withTags().build();
         assertParseSuccess(parser, NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY,
                 new AddCommand(expectedPerson));
     }

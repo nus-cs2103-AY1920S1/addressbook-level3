@@ -119,44 +119,6 @@ There is no need to save manually.
 
 === Transactions
 
-In the transactions tab, you can maintain a list of your transactions, adding, editing, deleting and filtering items
-as you like. The image below gives an overview of the GUI of the feature.
-
-[[transactionsScreenshot]]
-.Transaction tab
-image::TransactionsScreenshot.png[]
-
-Before we introduce the commands you can use, let us briefly run through the labelled components of our GUI.
-
-===== Transaction list / cell
-The transaction list comprises several transaction cells. Each transaction cell represents a single transaction.
-We give a further breakdown of the information each transaction cell displays in the following image:
-
-[[transactionCell]]
-.Information in a transaction cell
-image::TransactionCell.png[]
-
-[NOTE]
-We differentiate income items from expenditure items using the color of the text for the "Amount" field. A green
-amount indicates that the transaction is an income item; a red amount indicates that the transaction is an
-expenditure item. For example, the first transaction cell in <<transactionsScreenshot>> represents an income item,
-whereas the second cell represents an expenditure item.
-
-
-===== Filter title
-The filter title indicates which transactions are being shown. In <<transactionsScreenshot>>, the list
-shows only transactions that occur on October 2019, under the category "Food".
-
-The filter title changes along with the filter that is applied to the list. You can change the filter using
-the `filtertx` command in <<filtertx>>
-
-Minimally, the filter title contains the month and year of the filter applied. It can also display
-the category shown, as well as whether only expenditure/income items are shown.
-
-// tag::filtertx[]
-[[filtertx]]
-==== Filtering transactions: `filtertx`
-// end::filtertx[]
 ==== Creating transaction: `addtx`
 Creates a transaction. +
 Format: `addtx de/DESCRIPTION a/AMOUNT [c/CATEGORY] [d/DAY] [m/MONTH] [y/YEAR] [ty/TRANSACTION_TYPE]`
@@ -169,7 +131,7 @@ Creates an income transaction of $2101.00 titled "Salary" occurring today under 
 * `addtx de/Lunch a/12.31 c/Food d/10 m/09 y/2019 ty/exp` +
 Creates an expenditure transaction of $12.32 titled "Food" occurring on the 10th September 2019 under the category "Food".
 
-==== Editing transaction: `edittx` [Coming in v2.0]
+==== Editing transaction: `edittx`
 Edits a transaction. +
 Format: `edittx INDEX [de/DESCRIPTION] [a/AMOUNT] [c/CATEGORY] [d/DAY] [m/MONTH] [y/YEAR] [ty/TRANSACTION_TYPE]`
 
@@ -178,7 +140,7 @@ Examples:
 * `edittx 1 de/Dinner a/32.30` +
 Edits the description of the 1st transaction in the current list to "Dinner", and its amount to $32.30.
 
-==== Deleting transaction: `deletetx` [Coming in v2.0]
+==== Deleting transaction: `deletetx`
 Deletes a transaction. +
 Format: `deletetx INDEX`
 
@@ -187,47 +149,52 @@ Examples:
 * `deletetx 5` +
 Deletes the 5th transaction in the current list.
 
-=== Transaction Repeaters
-
-==== Creating transaction repeater: `addrep`
-
-Creates monthly transaction repeater. +
-Format: `addrep de/DESCRIPTION a/AMOUNT p/DAY_OF_MONTH... ty/TRANSACTION_TYPE`
+==== Finding transaction: `findtx`
+Filters transactions in current list by keywords, category, month, year and/or type. +
+Format: `findtx [s/KEYWORD]... [c/CATEGORY] [m/MONTH] [y/YEAR] [ty/TRANSACTION_TYPE]`
 
 Examples:
 
-* `addrep de/Phone Bills a/32.70 p/7 p/14 p/21 p/28 ty/exp` +
-Creates a transaction repeater titled "PhoneBills" for a $32.70 deduction every 7th, 14th, 21st, and 28th of the month.
+* `findtx m/5 y/2019 c/Education` +
+Finds all transactions in the current list from May 2019 from the category "Education".
 
-==== Editing transaction repeater `editrep`
+==== List all transactions: `txlist`
+Lists all transactions. +
+Format `listtx`
 
-Edits transaction repeater. +
-Format: `editrep INDEX [de/DESCRIPTION] [a/AMOUNT] [p/DAY_OF_MONTH]... [c/CATEGORY] [ty/TRANSACTION_TYPE]...`
+=== Repeaters
 
-Examples:
+==== Creating repeater: `addrep`
 
-* `editrep 12 a/62.45 c/Food p/11 p/12` +
-Edits the 12th transaction repeater for a $62.45 deduction every 11th and 12th of the month.
-
-==== Deleting transaction repeater: `deleterep`
-
-Deletes transaction repeater. Optionally deletes transactions previously produced from the transaction repeater. +
-Format: `deleterep INDEX [d/DELETEALL]`
+Creates repeater together with the associated transactions. +
+Format: `de/DESCRIPTION a/AMOUNT c/CATEGORY ty/TRANSACTION_TYPE so/MONTH_START_OFFSET eo/MONTH_END_OFFSET sm/START_MONTH sy/START_YEAR em/END_MONTH ey/END_YEAR`
 
 Examples:
 
-* `deleterep 12` +
-Deletes the 12th transaction repeater.
+* `addrep de/Phone bills a/42.15 c/Utilities ty/exp so/3 eo/2 sm/1 sy/2019 em/12 ey/2025` +
+Creates a repeater titled "Phone bills" as an expenditure for Utilities of $42.15 for every third day and second last day of the month, between January 2019 to December 2025. Also creates the associated transactions.
 
-==== Finding transaction repeater: `findrep`
+==== Editing repeater `editrep`
 
-Filters transaction repeaters by keyword, category, and repeating days. +
-Format: `findrep [s/KEYWORD]... [c/CATEGORY] [p/DAY_OF_MONTH]... [ty/TRANSACTION_TYPE]`
+Edits repeater together with the associated transactions. +
+Format: `editrep INDEX (must be a positive integer) [de/DESCRIPTION] [a/AMOUNT] [c/CATEGORY] [ty/TRANSACTION_TYPE] [so/MONTH_START_OFFSET] [eo/MONTH_END_OFFSET] [sm/START_MONTH] [sy/START_YEAR] [em/END_MONTH] [ey/END_YEAR]`
 
 Examples:
 
-* `findrep s/Income p/7 p/13` +
-Finds all transaction repeater with "Income" contained in their descriptions, and that occur on the 7th and 13th of the month.
+* `editrep 1 a/31.34 c/Food ty/in so/1 eo/-1 sm/1 sy/2019 em/12 ey/2020` +
+Edits the first repeater in the current list into a $31.34 expenditure for every first day of the month, between January 2019 and December 2020. Also updates the associated transactions.
+
+==== Deleting repeater: `delrep`
+
+Deletes repeater together with all created transactions associated with the specified repeater. +
+Format: `delrep INDEX`
+
+Examples:
+
+* `delrep 12` +
+Deletes the 12th repeater in the current list. Also updates the associated transactions.
+
+==== Finding repeater: `findrep` [Coming in v2.0]
 
 === Loans
 
