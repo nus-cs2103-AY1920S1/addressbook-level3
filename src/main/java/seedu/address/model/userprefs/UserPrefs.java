@@ -119,10 +119,14 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Gui Settings : " + guiSettings);
-        sb.append("\nLocal patient details data file location : " + patientAddressBookFilePath);
-        sb.append("\nLocal staff details data file location : " + staffAddressBookFilePath);
-        sb.append("\nLocal appointment data file location : " + appointmentBookFilePath);
-        sb.append("\nLocal duty roster data file location : " + dutyRosterBookFilePath);
+        sb.append("\nLocal patient details data file location : " + patientAddressBookFilePath
+                .toString().replace('\\', '/'));
+        sb.append("\nLocal staff details data file location : " + staffAddressBookFilePath
+                .toString().replace('\\', '/'));
+        sb.append("\nLocal appointment data file location : " + appointmentBookFilePath
+                .toString().replace('\\', '/'));
+        sb.append("\nLocal duty roster data file location : " + dutyRosterBookFilePath
+                .toString().replace('\\', '/'));
         return sb.toString();
     }
 }
