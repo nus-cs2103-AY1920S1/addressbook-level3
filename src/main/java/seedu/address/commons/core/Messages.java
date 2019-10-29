@@ -35,6 +35,8 @@ public class Messages {
 
     public static final String MESSAGE_DELETE_EVENT_EMPTY = "Please fill in at least INDEXES or TAGS.";
     public static final String MESSAGE_DELETE_EVENT_FAILURE = "No matching events.";
+    public static final String MESSAGE_DELETE_TASK_EMPTY = "Please fill in at least INDEXES or TAGS.";
+    public static final String MESSAGE_DELETE_TASK_FAILURE = "No matching tasks.";
 
     public static final String MESSAGE_NOTIFICATION_OFF = "Notifications have been turned off.";
     public static final String MESSAGE_NOTIFICATION_ON = "Notifications have been turned on.";
