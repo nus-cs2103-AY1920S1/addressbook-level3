@@ -2,12 +2,18 @@ package seedu.address.ui;
 
 import seedu.address.logic.Logic;
 import seedu.address.model.customer.Customer;
+import seedu.address.model.order.Order;
 import seedu.address.model.phone.Phone;
 import seedu.address.ui.nodes.customer.AddCustomerStartNode;
 import seedu.address.ui.nodes.customer.CustomerContactNumberNode;
 import seedu.address.ui.nodes.customer.CustomerEmailNode;
 import seedu.address.ui.nodes.customer.CustomerNameNode;
 import seedu.address.ui.nodes.customer.CustomerTagNode;
+import seedu.address.ui.nodes.order.AddOrderStartNode;
+import seedu.address.ui.nodes.order.OrderCustomerIndexNode;
+import seedu.address.ui.nodes.order.OrderPhoneIndexNode;
+import seedu.address.ui.nodes.order.OrderPriceNode;
+import seedu.address.ui.nodes.order.OrderTagNode;
 import seedu.address.ui.nodes.phone.AddPhoneStartNode;
 import seedu.address.ui.nodes.phone.PhoneBrandNode;
 import seedu.address.ui.nodes.phone.PhoneCapacityNode;
@@ -26,10 +32,13 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_CAPACITY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COLOUR;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CONTACT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COST;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CUSTOMER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_IDENTITYNUM;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONENAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SERIALNUM;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
@@ -41,6 +50,7 @@ public class GraphGenerator {
 
     private Graph<Customer> addCustomerGraph;
     private Graph<Phone> addPhoneGraph;
+    private Graph<Order> addOrderGraph;
 
     public static GraphGenerator getInstance() {
         if (theOne == null) {
@@ -56,6 +66,7 @@ public class GraphGenerator {
 
         setAddCustomerGraph();
         setAddPhoneGraph();
+        setAddOrderGraph();
     }
 
     private void setAddCustomerGraph() {
@@ -96,12 +107,30 @@ public class GraphGenerator {
         ));
     }
 
+    private void setAddOrderGraph() {
+        Node<Order> addOrderStartNode = new AddOrderStartNode(logic.getFilteredOrderList());
+        Node<Order> orderCustomerIndexNode = new OrderCustomerIndexNode(logic.getFilteredOrderList());
+        Node<Order> orderPhoneIndexNode = new OrderPhoneIndexNode(logic.getFilteredOrderList());
+        Node<Order> orderPriceNode = new OrderPriceNode(logic.getFilteredOrderList());
+        Node<Order> orderTagNode = new OrderTagNode(logic.getFilteredOrderList());
+        addOrderGraph = new Graph<>(addOrderStartNode, Arrays.asList(
+                new Edge<>(PREFIX_PHONE, addOrderStartNode, orderCustomerIndexNode),
+                new Edge<>(PREFIX_CUSTOMER, orderCustomerIndexNode, orderPhoneIndexNode),
+                new Edge<>(PREFIX_PRICE, orderPhoneIndexNode, orderPriceNode),
+                new Edge<>(PREFIX_TAG, orderPriceNode, orderTagNode),
+                new Edge<>(PREFIX_TAG, orderTagNode, orderTagNode)
+        ));
+    }
+
+
     public Optional<Graph<?>> getGraph(String commandWord) {
         switch (commandWord) {
         case "add-c":
             return Optional.of(addCustomerGraph);
         case "add-p":
             return Optional.of(addPhoneGraph);
+        case "add-o":
+            return Optional.of(addOrderGraph);
         default:
             return Optional.empty();
         }
