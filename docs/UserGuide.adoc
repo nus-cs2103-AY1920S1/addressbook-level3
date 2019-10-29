@@ -92,9 +92,9 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 This command brings you to the project dashboard page, where tasks are displayed. +
 Format: `home` +
 Calling the 'home' command will bring you to the following page:
-+
-image:: Home.png[width=790]
-+
+
+image::Home.png[width=790]
+
 
 ==== Accessing time management page: `calendar` +
 This brings you to the time management page where calendar and meeting times are displayed +
@@ -131,12 +131,9 @@ image::Help.png[width=790]
 === Member-related Commands
 
 ==== Add a member: `add-member` +
-Adds a team member to the list of team members +
-Format: `add member [m/MEMBER_NAME]`
 To add a member to the list of team members in +Work, use the command 'add-member' following the format below. +
 Format: `add-member mn/MEMBER_NAME mi/MEMBER_ID mt/TAGS`
 
-Example:
 Example: `add-member mn/Gabriel Seow mi/GS mt/Programmer` will result in the following: 
 +
 image::AddMember.png[width="790"]
@@ -149,10 +146,8 @@ image::AddMember.png[width="790"]
 * It is possible to add a member with multiple tags following this format: +
 add-member mn/Gabriel Seow mi/GS mt/Programmer mt/Ui Designer
 
-* `add member m/Abhinav Ramnath`
 
 ==== List existing members: `list-members` +
-Shows a list of all team members in the dashboard +
 To get a list of all members added to +Work, used the command 'list-members' following the format below. +
 Format: `list-members`
 
@@ -162,51 +157,38 @@ image::ListMembers.png[width="790"]
 +
 
 ==== Remove a member: `remove-member` +
-Removes a team member from the dashboard, and removes the team member from associated tasks +
 To remove a member from the project, and subsequently remove him from associated tasks, use the 'remove-member' command in the format below. +
 Format: `remove-member [mi/MEMBER_ID]`
 
-Example:
 Example: 'remove-member mi/GS' will result in the following:
 +
 image::RemoveMember.png[width="790"]
 +
+
 This indicates that the member 'Gabriel Seow' with member ID 'GS' has been removed from the project and from associated tasks. 
 
-* `remove-member mi/9` +
-Removes the member with member ID 9 from the dashboard and removes her from associated tasks
 
 ==== Assign a task to a member: `assign` +
-Assigns a task to the specified team member +
-Format: `assign [ti/TASK_ID] [mi/MEMBER_ID]`
 To assign a task to a specific team member, use the 'assign' command in the format below. +
 Format: `assign ti/TASK_ID mi/MEMBER_ID`
 
-Example:
 Example: 'assign ti/1 mi/GS' will result in the following: 
 +
 image::AssignTask.png[width="790"]
 +
 
-* `assign ti/5 m/3` +
-Assigns the task with ID 5 to the team member 3
 This indicates that the task TASK NAME with task id 1 has been assigned to team member 'GABRIEL SEOW' with member id 'GS'. +
 
-==== Remove a task for a member: `fire` +
-Removes a task for the specified team member +
-Format: `fire [ti/TASK_ID] [mi/MEMBER_ID]`
 ==== Remove a task from a member: `fire` +
 To remove a task from a specific team member, use the 'fire' command in the format below. +
 Format: `fire ti/TASK_ID mi/MEMBER_ID`
 
-Example:
 Example: 'fire ti/1 mi/GS' will result in the following: 
 +
 image::FireTask.png[width="790"]
 +
 
-* `fire ti/9 mi/3` +
-Removes the task with ID 9 from the team member with ID 3
+
 This indicates that the task TASK NAME with task id 1 has been removed from its assignment to team member 'GABRIEL SEOW' with member id 'GS'. +
 
 '''
@@ -396,18 +378,18 @@ To get statistics relating to the members in +Work, use the statistics command f
 Format: `member-stats` +
 
 Calling the 'member-stats' command will result in the following: 
-+
+
 image::MemberStats.png[width="790"]
-+
+
 
 ==== Getting statistics of tasks: `task-stats` +
 To get statistics relating to the tasks in +Work, use the statistics command following the format below. +
 Format: `task-stats` +
 
 Calling the 'task-stats' command will result in the following: 
-+
+
 image::TaskStats.png[width="790"]
-+
+
 
 '''
 
