@@ -72,7 +72,6 @@ Options: +
 +
 Example: +
 `expense edit 2 -d “buy a math book”` +
-
 Edit the expense at index 2  with new description of: “buy a math book” +
 
 {nbsp} +
@@ -107,28 +106,37 @@ Displays below expenses (for example) in the GUI: +
 === Tagging expenses: `tag`
 
 . _Adding a tag: tag add_ +
-Adds a tag to the expense at the specified index. +
+Adds tag/s to the expense at the specified index. +
 {nbsp} +
 Usage:
 
  tag add [INDEX] [TAG]
+
++
+Options: +
+
+* t/ : Specifies name of the tag/s to be added to the expense.(REQUIRED) +
+{nbsp} +
 +
 Example: +
-`tag add 2 “monthly bills”` +
-Adds the tag “monthly bills” to the expense at index 2. +
+`tag add 2 t/monthlybills t/electricity` +
+Adds the tags “monthly bills” and "electricity" to the expense at index 2. +
 {nbsp} +
 
-. _Deleting a tag: tag rm_ +
-Deletes a tag from the expense of the specified index. +
+
+. _Removing a tag: tag rm_ +
+Deletes tag/s from the expense of the specified index. +
 {nbsp} +
 Usage:
 
  tag rm [INDEX] [TAG]
 
+* t/ : Specifies name of the tag/s to be removed from the expense.(REQUIRED) +
+{nbsp} +
 +
 Example: +
-`tag rm 2 “monthly bills”` +
-Deletes the tag “monthly bills” from the expense at index 2. +
+`tag rm 2 t/monthly bills t/electricity` +
+Removes the tags “monthly bills” and "electricity" from the expense at index 2. +
 {nbsp} +
 
 . _Filtering by tag: tag filter_ +
@@ -137,10 +145,12 @@ Filters expenses by the specified tag/s. +
 Usage:
 
  tag filter [TAG] [TAG…]
-+
+
+* t/ : Specifies name of the tag/s to filter expenses with.(REQUIRED) +
+{nbsp} +
 Example: +
-+tag filter “home” “monthly bills”+ +
-Lists out all the expenses that contains the  tags “home” and “monthly bills” +
+`tag filter t/home t/monthly bills` +
+Lists out all the expenses that contains the tags “home” or “monthly bills” +
 {nbsp} +
 
 . _Listing out all the tags: tag list_ +
