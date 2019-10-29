@@ -16,7 +16,7 @@ public class LogicManager implements Logic {
     //private final seedu.address.cashier.model.ModelManager cashierManager;
     //private final seedu.address.cashier.storage.StorageManager cashierStorage;
     private InventoryTabParser parser;
-    private seedu.address.inventory.model.ModelManager inventoryModel;
+    private ModelManager inventoryModel;
     private final seedu.address.inventory.storage.Storage inventoryStorage;
 
     public LogicManager(//seedu.address.cashier.model.ModelManager cashierManager,

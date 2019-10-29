@@ -144,8 +144,8 @@ public class AddCommandTest {
                 new seedu.address.reimbursement.storage.StorageManager(
                         new File(FILE_PATH_REIMBURSEMENT));
 
-        seedu.address.transaction.logic.Logic transactionLogic =
-                new seedu.address.transaction.logic.LogicManager(transactionModel, transactionManager, personModel,
+        Logic transactionLogic =
+                new LogicManager(transactionModel, transactionManager, personModel,
                         reimbursementModel, reimbursementManager);
 
         //For Inventory Storage and Manager

@@ -45,7 +45,7 @@ public class InventoryModelStubAcceptingItemAdded extends InventoryModelStub {
         throw new NoSuchItemException(CashierMessages.NO_SUCH_ITEM_CASHIER);
     }
 
-    public seedu.address.inventory.util.InventoryList getInventoryList() {
+    public InventoryList getInventoryList() {
         return new InventoryList(itemsAdded);
     }
 }

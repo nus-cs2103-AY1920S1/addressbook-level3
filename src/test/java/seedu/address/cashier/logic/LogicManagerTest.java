@@ -33,7 +33,7 @@ public class LogicManagerTest {
 
     private Model model;
     //private Storage storage;
-    private seedu.address.person.model.Model personModel;
+    //private seedu.address.person.model.Model personModel;
     //private seedu.address.transaction.storage.Storage transactionStorage;
     //private seedu.address.transaction.model.Model transactionModel;
     //private seedu.address.inventory.model.Model inventoryModel;
@@ -45,6 +45,7 @@ public class LogicManagerTest {
         File rFile;
         //Model model;
         Storage storage;
+        seedu.address.person.model.Model personModel;
         //seedu.address.person.model.Model personModel;
         seedu.address.transaction.model.Model transactionModel = null;
         seedu.address.inventory.model.Model inventoryModel;
@@ -52,8 +53,8 @@ public class LogicManagerTest {
         seedu.address.inventory.logic.Logic inventoryLogic;
         seedu.address.transaction.storage.Storage transactionStorage;
         seedu.address.inventory.storage.Storage inventoryStorage;
-        seedu.address.reimbursement.logic.Logic reimbursementLogic = null;
-        seedu.address.reimbursement.storage.Storage reimbursementStorage = null;
+        //seedu.address.reimbursement.logic.Logic reimbursementLogic = null;
+        //seedu.address.reimbursement.storage.Storage reimbursementStorage = null;
         //Logic logic;
 
         try {

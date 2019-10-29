@@ -20,24 +20,36 @@ public class StorageManagerTest {
     //private File iFile;
     //private File tFile;
     //private StorageManager storageManager;
-    private Model model;
-    private File iFile;
+    //private Model model;
+    /*private File iFile;
     private File tFile;
-    private File rFile;
+    private File rFile;*/
     private Storage storage;
-    private seedu.address.person.model.Model personModel;
+    /*private seedu.address.person.model.Model personModel;
     private seedu.address.transaction.model.Model transactionModel = null;
     private seedu.address.inventory.model.Model inventoryModel;
     private seedu.address.transaction.logic.Logic transactionLogic;
     private seedu.address.inventory.logic.Logic inventoryLogic;
     private seedu.address.transaction.storage.Storage transactionStorage;
-    private seedu.address.inventory.storage.Storage inventoryStorage;
-    private seedu.address.reimbursement.logic.Logic reimbursementLogic = null;
-    private seedu.address.reimbursement.storage.Storage reimbursementStorage = null;
+    private seedu.address.inventory.storage.Storage inventoryStorage;*/
+    //private seedu.address.reimbursement.logic.Logic reimbursementLogic = null;
+    //private seedu.address.reimbursement.storage.Storage reimbursementStorage = null;
     //private Model model;
 
     public StorageManagerTest() throws Exception {
         try {
+            Model model;
+            File iFile;
+            File tFile;
+            File rFile;
+            //Storage storage;
+            seedu.address.person.model.Model personModel;
+            seedu.address.transaction.model.Model transactionModel = null;
+            seedu.address.inventory.model.Model inventoryModel;
+            seedu.address.transaction.logic.Logic transactionLogic;
+            seedu.address.inventory.logic.Logic inventoryLogic;
+            seedu.address.transaction.storage.Storage transactionStorage;
+            seedu.address.inventory.storage.Storage inventoryStorage;
             model = new ModelManager(TypicalItem.getTypicalInventoryList(),
                     TypicalTransactions.getTypicalTransactionList());
             personModel = new seedu.address.person.model.ModelManager(getTypicalAddressBook(), new UserPrefs());

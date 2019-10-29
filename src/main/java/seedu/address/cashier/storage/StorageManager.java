@@ -21,8 +21,8 @@ public class StorageManager implements Storage {
 
     private Logic inventoryLogic;
     private seedu.address.transaction.logic.Logic transactionLogic;
-    private InventoryList inventoryList;
-    private TransactionList transactionList;
+    //private InventoryList inventoryList;
+    //private TransactionList transactionList;
 
     public StorageManager(Logic inventoryLogic, seedu.address.transaction.logic.Logic transactionLogic)
             throws Exception {

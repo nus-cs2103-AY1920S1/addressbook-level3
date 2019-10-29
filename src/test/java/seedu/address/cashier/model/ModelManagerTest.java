@@ -524,8 +524,13 @@ public class ModelManagerTest {
 
         ArrayList<String> expectedArr = new ArrayList<>();
         expectedArr.add("Goa");
-        expectedArr.add("oat");
         expectedArr.add("Goat");
+        expectedArr.add("Gooa");
+        expectedArr.add("Gooaat");
+        expectedArr.add("Goa");
+        expectedArr.add("Goaoat");
+        expectedArr.add("Goat");
+        assertEquals(expectedArr, arr2);
     }
 
     @Test
