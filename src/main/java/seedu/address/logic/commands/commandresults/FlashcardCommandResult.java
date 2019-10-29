@@ -15,6 +15,7 @@ import seedu.address.model.flashcard.Flashcard;
 public class FlashcardCommandResult extends CommandResult {
 
     private boolean isTimeTrial;
+    private boolean isShowAns;
 
     private final String feedbackToUser;
 
@@ -31,6 +32,7 @@ public class FlashcardCommandResult extends CommandResult {
         this.flashcard = flashcard;
         deck = Optional.empty();
         isTimeTrial = false;
+        isShowAns = false;
     }
 
     /**
@@ -41,6 +43,17 @@ public class FlashcardCommandResult extends CommandResult {
         this.flashcard = Optional.empty();
         this.isTimeTrial = isTimeTrial;
         this.deck = deck;
+    }
+
+    /**
+     * Constructs a {@code FlashcardCommandResult} with the specified fields.
+     */
+    public FlashcardCommandResult(String feedbackToUser, boolean isShowAns) {
+        this.feedbackToUser = requireNonNull(feedbackToUser);
+        this.flashcard = Optional.empty();
+        this.deck = Optional.empty();
+        this.isTimeTrial = false;
+        this.isShowAns = isShowAns;
     }
 
     /**
@@ -61,6 +74,10 @@ public class FlashcardCommandResult extends CommandResult {
 
     public boolean isTimeTrial() {
         return isTimeTrial;
+    }
+
+    public boolean isShowAns() {
+        return isShowAns;
     }
 
     public Optional<ArrayList<Flashcard>> getDeck() {
