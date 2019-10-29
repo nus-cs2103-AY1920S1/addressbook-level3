@@ -396,6 +396,7 @@ On the other hand, executing any command from that category will switch you over
 *Q:* How do I reset the application data?
 
 *A:* All data is stored within the same folder as your execution path, under the "data/" folder.
+Deleting that folder will reset the application data.
 
 == Command Summary
 
