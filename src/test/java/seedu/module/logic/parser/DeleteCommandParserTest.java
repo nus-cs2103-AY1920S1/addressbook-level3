@@ -7,7 +7,7 @@ import static seedu.module.logic.parser.CommandParserTestUtil.assertParseSuccess
 import org.junit.jupiter.api.Test;
 
 import seedu.module.logic.commands.DeleteCommand;
-import seedu.module.model.module.SameModuleCodePredicate;
+import seedu.module.model.module.predicate.SameModuleCodePredicate;
 
 /**
  * As we are only doing white-box testing, our test cases do not cover path variations

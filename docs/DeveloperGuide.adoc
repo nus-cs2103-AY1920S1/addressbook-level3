@@ -212,27 +212,26 @@ Cons:
 // end::moduleview[]
 
 // tag::searchfitering[]
-=== [Proposed] Search filtering feature
-==== Proposed Implementation
+=== Search filtering feature
+==== Implementation
 
-The search filtering feature would be an enhancement to the current available search feature. Using different categories of predicates
-to narrow down the search space of the archived module list. The user should be able to able to combine different categories
-of search to find modules that passes all the user defined filters. This can be achieved through the use of `FilteredList`
-which can be updated incrementally with each filter applied. This would require additional classes that searches their individual fields
-for the keywords. For example:
+The search filtering feature Uses different categories of predicates
+to narrow down the search space of the archived module list. The user is able to able to combine different categories
+of search to find modules that passes all the user defined filters. This can be achieved through the use of `Predicate`
+which can be chained with additional predicates and applied to a `FilteredList`. This requires additional predicate classes that searches their individual fields
+for the keywords.:
 
-* `DescriptionContainsKeywordsPredicate#test()` -- Tests that a `module` description matches any of the keywords given.
+* `ModuleCodeContainsKeywordsPredicate#test()` -- Tests that a `module` module code matches any of the keywords given.
+* `DescriptionContainsKeywordsPredicate#test()` -- Tests that a `module` description matches the keyword or sentence given.
 * `PrerequisiteContainsKeywordsPredicate()#test()` -- Tests that a `module` prerequisites matches any of the keywords given.
-* `PreclusionContainsKeywordsPredicate()#test()` -- Tests that a `module` preclusions matches any of the keywords given.
-* `ModuleCreditContainsKeywordsPredicate()#test()` -- Tests that a `module` credits matches any of the keywords given.
 * `PreclusionContainsKeywordsPredicate()#test()` -- Tests that a `module` preclusions matches any of the keywords given.
 * `SemesterContainsKeywordsPredicate()#test()` -- Tests that a `module` semester matches any of the keywords given.
 
-The user should be able to use any combination of filters and the order of input should not matter. Examples of valid find commands:
+The user is able to use any combination of filters and the order of input should not matter. Examples of valid find commands:
 
 ****
-* `find module\cs2` : Should display a list of modules with module code containing "cs2"
-* `find module\cs2 prereq\ cs2040` : Should display a list of modules with module code containing "cs" and with prerequisite of "cs2040"
+* `find module\ cs2` : Should display a list of modules with module code containing "cs2"
+* `find module\ cs2 prereq\ cs2040` : Should display a list of modules with module code containing "cs" and with prerequisite of "cs2040"
 ****
 
 The following sequence diagram shows how the find operation wold work:
@@ -245,10 +244,7 @@ NOTE: The lifeline for `FindCommand` should end at the destroy marker (X) but du
 As represented in Fig 9, when a `FindCommandParser` is constructed by `ModuleBookParser#parseCommand`, the `FindCommandParser` would construct a list
 of `Predicate<module>` based on the parsed arguments, which is used to construct a `FindCommand`.
 
-During the execution of `FindCommand#execute()`, each predicate is applied one by one to the `FilteredList`, the contents of the `FilteredList` are copied
-before the next predicate is applied.
-
-NOTE: Should one of the predicate result an empty `Filtered List`, it is possible to skip the rest of the predicates.
+During the execution of `FindCommand#execute()`, each predicate is chained and applied to the `FilteredList`.
 
 Finally, a `FilteredList` of `Modules` that passes all of the filters will be displayed.
 

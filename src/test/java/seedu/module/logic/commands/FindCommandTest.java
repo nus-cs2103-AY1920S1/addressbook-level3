@@ -1,83 +1,75 @@
-// package seedu.module.logic.commands;
+package seedu.module.logic.commands;
 
-// import static org.junit.jupiter.api.Assertions.assertEquals;
-// import static org.junit.jupiter.api.Assertions.assertFalse;
-// import static org.junit.jupiter.api.Assertions.assertTrue;
-// import static seedu.module.commons.core.Messages.MESSAGE_MODULES_LISTED_OVERVIEW;
-// import static seedu.module.logic.commands.CommandTestUtil.assertCommandSuccess;
-// import static seedu.module.testutil.TypicalPersons.CARL;
-// import static seedu.module.testutil.TypicalPersons.ELLE;
-// import static seedu.module.testutil.TypicalPersons.FIONA;
-// import static seedu.module.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.module.logic.commands.CommandTestUtil.assertCommandSuccess;
 
-// import java.util.Arrays;
-// import java.util.Collections;
+import java.util.Arrays;
+import java.util.List;
+import java.util.function.Predicate;
 
-// import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-// import seedu.module.model.Model;
-// import seedu.module.model.ModelManager;
-// import seedu.module.model.UserPrefs;
-// import seedu.module.model.module.NameContainsKeywordsPredicate;
+import seedu.module.commons.core.Messages;
+import seedu.module.model.Model;
+import seedu.module.model.ModelManager;
+import seedu.module.model.ModuleBook;
+import seedu.module.model.module.ArchivedModule;
+import seedu.module.model.module.ArchivedModuleList;
+import seedu.module.model.module.Module;
+import seedu.module.model.module.predicate.ModuleCodeContainsKeywordsPredicate;
+import seedu.module.testutil.ArchivedModuleBuilder;
 
-// /**
-//  * Contains integration tests (interaction with the Model) for {@code FindCommand}.
-//  */
-// public class FindCommandTest {
-//     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-//     private Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+public class FindCommandTest {
+    private final String moduleCode = "CS2103T";
+    private Model model = new ModelManager();
+    private Model expectedModel = new ModelManager();
 
-//     @Test
-//     public void equals() {
-//         NameContainsKeywordsPredicate firstPredicate =
-//                 new NameContainsKeywordsPredicate(Collections.singletonList("first"));
-//         NameContainsKeywordsPredicate secondPredicate =
-//                 new NameContainsKeywordsPredicate(Collections.singletonList("second"));
 
-//         FindCommand findFirstCommand = new FindCommand(firstPredicate);
-//         FindCommand findSecondCommand = new FindCommand(secondPredicate);
+    @BeforeEach
+    public void beforeEach() {
+        model = new ModelManager();
+        expectedModel = new ModelManager();
+    }
 
-//         // same object -> returns true
-//         assertTrue(findFirstCommand.equals(findFirstCommand));
+    @Test
+    public void execute_findModule_success() {
+        ArchivedModule archivedModule = new ArchivedModuleBuilder().build();
+        ArchivedModuleList listOfArchivedModules = new ArchivedModuleList();
+        listOfArchivedModules.add(archivedModule);
+        ModuleBook moduleBook = new ModuleBook(listOfArchivedModules);
+        model.setModuleBook(moduleBook);
+        expectedModel.setModuleBook(moduleBook);
 
-//         // same values -> returns true
-//         FindCommand findFirstCommandCopy = new FindCommand(firstPredicate);
-//         assertTrue(findFirstCommand.equals(findFirstCommandCopy));
+        List<String> moduleKeyword = Arrays.asList("cs");
 
-//         // different types -> returns false
-//         assertFalse(findFirstCommand.equals(1));
+        List<Predicate<Module>> listOfPredicates =
+                Arrays.asList(new ModuleCodeContainsKeywordsPredicate(moduleKeyword));
 
-//         // null -> returns false
-//         assertFalse(findFirstCommand.equals(null));
+        CommandResult expectedCommandResult = new CommandResult(String.format(Messages.MESSAGE_MODULES_LISTED_OVERVIEW,
+                expectedModel.getFilteredArchivedModuleList().size()),
+                false, false, false);
+        FindCommand findCommand = new FindCommand(listOfPredicates);
+        assertCommandSuccess(findCommand, model, expectedCommandResult, expectedModel);
+    }
 
-//         // different person -> returns false
-//         assertFalse(findFirstCommand.equals(findSecondCommand));
-//     }
+    @Test
+    public void execute_findModuleNoneFound_success() {
+        ArchivedModule archivedModule = new ArchivedModuleBuilder().build();
+        ArchivedModuleList listOfArchivedModules = new ArchivedModuleList();
+        listOfArchivedModules.add(archivedModule);
+        ModuleBook moduleBook = new ModuleBook(listOfArchivedModules);
+        model.setModuleBook(moduleBook);
 
-//     @Test
-//     public void execute_zeroKeywords_noPersonFound() {
-//         String expectedMessage = String.format(MESSAGE_MODULES_LISTED_OVERVIEW, 0);
-//         NameContainsKeywordsPredicate predicate = preparePredicate(" ");
-//         FindCommand command = new FindCommand(predicate);
-//         expectedModel.updateFilteredModuleList(predicate);
-//         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-//         assertEquals(Collections.emptyList(), model.getFilteredModuleList());
-//     }
+        List<String> moduleKeyword = Arrays.asList("ma");
 
-//     @Test
-//     public void execute_multipleKeywords_multiplePersonsFound() {
-//         String expectedMessage = String.format(MESSAGE_MODULES_LISTED_OVERVIEW, 3);
-//         NameContainsKeywordsPredicate predicate = preparePredicate("Kurz Elle Kunz");
-//         FindCommand command = new FindCommand(predicate);
-//         expectedModel.updateFilteredModuleList(predicate);
-//         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-//         assertEquals(Arrays.asList(CARL, ELLE, FIONA), model.getFilteredModuleList());
-//     }
+        List<Predicate<Module>> listOfPredicates =
+                Arrays.asList(new ModuleCodeContainsKeywordsPredicate(moduleKeyword));
 
-//     /**
-//      * Parses {@code userInput} into a {@code NameContainsKeywordsPredicate}.
-//      */
-//     private NameContainsKeywordsPredicate preparePredicate(String userInput) {
-//         return new NameContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")));
-//     }
-// }
+        CommandResult expectedCommandResult = new CommandResult(String.format(Messages.MESSAGE_MODULES_LISTED_OVERVIEW,
+                0),
+                false, false, false);
+        FindCommand findCommand = new FindCommand(listOfPredicates);
+        assertCommandSuccess(findCommand, model, expectedCommandResult, expectedModel);
+    }
+
+}

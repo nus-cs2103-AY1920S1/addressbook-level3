@@ -47,6 +47,10 @@ public class TrackedModule implements Module, Trackable {
         return archivedModule.getSemesterDetails();
     }
 
+    public List<Integer> getListOfOfferedSemesters() {
+        return archivedModule.getListOfOfferedSemesters();
+    }
+
     public String getDeadline() {
         String deadlineString = "Deadline: \n";
         for (int i = 0; i < deadlineList.size(); i++) {

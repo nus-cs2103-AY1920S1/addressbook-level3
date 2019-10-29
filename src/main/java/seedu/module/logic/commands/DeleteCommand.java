@@ -4,8 +4,8 @@ import static java.util.Objects.requireNonNull;
 
 import seedu.module.logic.commands.exceptions.CommandException;
 import seedu.module.model.Model;
-import seedu.module.model.module.SameModuleCodePredicate;
 import seedu.module.model.module.TrackedModule;
+import seedu.module.model.module.predicate.SameModuleCodePredicate;
 
 /**
  * Deletes a Module identified using it's displayed index from the Module book.

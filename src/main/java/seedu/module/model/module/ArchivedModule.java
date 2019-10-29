@@ -1,7 +1,9 @@
 package seedu.module.model.module;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * Represents an Archived Module. An Archived Module is an Object containing data on a module
@@ -21,7 +23,7 @@ public class ArchivedModule implements Module {
      * Every field must be present and not null.
      */
     public ArchivedModule(String moduleCode, String title, String description, String prerequisite,
-        String preclusion, SemesterDetailList semesterDetails) {
+                          String preclusion, SemesterDetailList semesterDetails) {
         this.moduleCode = moduleCode;
         this.title = title;
         this.description = description;
@@ -52,6 +54,11 @@ public class ArchivedModule implements Module {
 
     public String getDescription() {
         return description;
+    }
+
+    public List<Integer> getListOfOfferedSemesters() {
+        return this.semesterDetails.getAsObservableList().stream()
+                .filter(x -> x.isOffered()).map(x -> x.getSemester()).collect(Collectors.toList());
     }
 
     /**

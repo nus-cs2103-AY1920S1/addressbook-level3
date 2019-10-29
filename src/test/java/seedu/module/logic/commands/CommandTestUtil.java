@@ -13,7 +13,7 @@ import seedu.module.logic.commands.exceptions.CommandException;
 import seedu.module.model.Model;
 import seedu.module.model.ModuleBook;
 import seedu.module.model.module.Module;
-import seedu.module.model.module.NameContainsKeywordsPredicate;
+import seedu.module.model.module.predicate.NameContainsKeywordsPredicate;
 
 /**
  * Contains helper methods for testing commands.

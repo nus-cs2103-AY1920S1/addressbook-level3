@@ -4,7 +4,7 @@ import static seedu.module.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import seedu.module.logic.commands.DeleteCommand;
 import seedu.module.logic.parser.exceptions.ParseException;
-import seedu.module.model.module.SameModuleCodePredicate;
+import seedu.module.model.module.predicate.SameModuleCodePredicate;
 
 /**
  * Parses input arguments and creates a new DeleteCommand object

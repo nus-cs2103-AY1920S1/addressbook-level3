@@ -6,8 +6,10 @@ import static seedu.module.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.module.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.module.testutil.Assert.assertThrows;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
@@ -22,9 +24,10 @@ import seedu.module.logic.commands.ListCommand;
 import seedu.module.logic.commands.ViewCommand;
 import seedu.module.logic.parser.exceptions.ParseException;
 import seedu.module.model.module.ArchivedModule;
-import seedu.module.model.module.NameContainsKeywordsPredicate;
-import seedu.module.model.module.SameModuleCodePredicate;
+import seedu.module.model.module.Module;
 import seedu.module.model.module.TrackedModule;
+import seedu.module.model.module.predicate.ModuleCodeContainsKeywordsPredicate;
+import seedu.module.model.module.predicate.SameModuleCodePredicate;
 import seedu.module.testutil.ArchivedModuleBuilder;
 import seedu.module.testutil.TrackedModuleBuilder;
 
@@ -58,13 +61,17 @@ public class ModuleBookParserTest {
         assertTrue(parser.parseCommand(ExitCommand.COMMAND_WORD + " 3") instanceof ExitCommand);
     }
 
-    // TODO: Adapt this test to ModuleBook
     @Test
     public void parseCommand_find() throws Exception {
-        List<String> keywords = Arrays.asList("foo", "bar", "baz");
+        List<String> keywords = Arrays.asList("mod\\", "cs2030", "ma1521");
         FindCommand command = (FindCommand) parser.parseCommand(
                 FindCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
-        assertEquals(new FindCommand(new NameContainsKeywordsPredicate(keywords)), command);
+
+        List<String> predicateKeywords = Arrays.asList("cs2030", "ma1521");
+        ModuleCodeContainsKeywordsPredicate predicate = new ModuleCodeContainsKeywordsPredicate(predicateKeywords);
+        ArrayList<Predicate<Module>> listOfPredicates = new ArrayList<>();
+        listOfPredicates.add(predicate);
+        assertEquals(new FindCommand(listOfPredicates), command);
     }
 
     @Test

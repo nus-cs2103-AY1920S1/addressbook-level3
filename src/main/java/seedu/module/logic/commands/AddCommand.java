@@ -5,8 +5,8 @@ import static java.util.Objects.requireNonNull;
 import seedu.module.logic.commands.exceptions.CommandException;
 import seedu.module.model.Model;
 import seedu.module.model.module.ArchivedModule;
-import seedu.module.model.module.SameModuleCodePredicate;
 import seedu.module.model.module.TrackedModule;
+import seedu.module.model.module.predicate.SameModuleCodePredicate;
 
 /**
  * Adds module to be tracked.

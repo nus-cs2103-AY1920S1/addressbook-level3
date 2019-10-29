@@ -11,8 +11,8 @@ import org.junit.jupiter.api.Test;
 import seedu.module.model.Model;
 import seedu.module.model.ModelManager;
 import seedu.module.model.ModuleBook;
-import seedu.module.model.module.SameModuleCodePredicate;
 import seedu.module.model.module.TrackedModule;
+import seedu.module.model.module.predicate.SameModuleCodePredicate;
 import seedu.module.testutil.TrackedModuleBuilder;
 
 public class DeleteCommandTest {

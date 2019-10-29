@@ -7,7 +7,7 @@ import static seedu.module.logic.parser.CommandParserTestUtil.assertParseSuccess
 import org.junit.jupiter.api.Test;
 
 import seedu.module.logic.commands.AddCommand;
-import seedu.module.model.module.SameModuleCodePredicate;
+import seedu.module.model.module.predicate.SameModuleCodePredicate;
 
 public class AddCommandParserTest {
     private static final String VALID_MODULE_CODE = "cs2103t";

@@ -8,8 +8,8 @@ import javafx.collections.ObservableList;
 import seedu.module.commons.core.GuiSettings;
 import seedu.module.model.module.ArchivedModule;
 import seedu.module.model.module.Module;
-import seedu.module.model.module.SameModuleCodePredicate;
 import seedu.module.model.module.TrackedModule;
+import seedu.module.model.module.predicate.SameModuleCodePredicate;
 
 /**
  * The API of the Model component.
