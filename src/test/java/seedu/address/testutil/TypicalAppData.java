@@ -1,5 +1,10 @@
 package seedu.address.testutil;
 
+import static seedu.address.logic.commands.CommandTestUtil.CORRECT_ANSWER_CONCEPT;
+import static seedu.address.logic.commands.CommandTestUtil.CORRECT_RESULT;
+import static seedu.address.logic.commands.CommandTestUtil.FINISH_TIME_CONCEPT;
+import static seedu.address.logic.commands.CommandTestUtil.INCORRECT_ANSWER_CONCEPT;
+import static seedu.address.logic.commands.CommandTestUtil.INCORRECT_RESULT;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ANSWER_ALGEBRA;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ANSWER_CONCEPT;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CONTENT_AMY;
@@ -63,10 +68,31 @@ public class TypicalAppData {
             .withDifficulty("hard")
             .build();
 
-    // quiz questions
-    public static final QuizResult ALICE_RESULT = new QuizResultBuilder().withAnswer("Coupling")
-            .withQuestionBody("(  ) is a measure of the degree of dependence between components, classes, methods, "
-                    + "etc.").withQuizTime("2019/10/10 12:00").withResult("true").build();
+    // quiz results
+    public static final QuizResult MVC_RESULT = new QuizResultBuilder()
+            .withAnswer("Model View Controller")
+            .withQuestionBody("MVC design pattern refers to (  ).")
+            .withSubject("CS2103T")
+            .withDifficulty("medium")
+            .withQuizTime("2019/10/10 12:00")
+            .withResult("true")
+            .build();
+    public static final QuizResult TCP_RESULT = new QuizResultBuilder()
+            .withAnswer("4")
+            .withQuestionBody("A port number in TCP is (  ) bytes long.")
+            .withSubject("CS2105")
+            .withDifficulty("hard")
+            .withQuizTime("2019/10/20 13:00")
+            .withResult("false")
+            .build();
+    public static final QuizResult UDP_RESULT = new QuizResultBuilder()
+            .withAnswer("de-multiplexing")
+            .withQuestionBody("UDP uses (  ) to dispatch incoming packets to different processes in the same host.")
+            .withSubject("CS2105")
+            .withDifficulty("hard")
+            .withQuizTime("2019/10/30 1530")
+            .withResult("true")
+            .build();
 
     // Manually added notes
     public static final Note HOON = new NoteBuilder().withTitle("Hoon Meier")
@@ -94,6 +120,24 @@ public class TypicalAppData {
             .withDifficulty(VALID_DIFFICULTY_ALGEBRA)
             .build();
 
+    // Manually added - Quiz result's details found in {@code CommandTestUtil}
+    public static final QuizResult CORRECT_CONCEPT_RESULT = new QuizResultBuilder()
+            .withAnswer(CORRECT_ANSWER_CONCEPT)
+            .withQuestionBody(VALID_QUESTION_BODY_CONCEPT)
+            .withSubject(VALID_SUBJECT_CONCEPT)
+            .withDifficulty(VALID_DIFFICULTY_CONCEPT)
+            .withQuizTime(FINISH_TIME_CONCEPT)
+            .withResult(CORRECT_RESULT)
+            .build();
+    public static final QuizResult INCORRECT_CONCEPT_RESULT = new QuizResultBuilder()
+            .withAnswer(INCORRECT_ANSWER_CONCEPT)
+            .withQuestionBody(VALID_QUESTION_BODY_CONCEPT)
+            .withSubject(VALID_SUBJECT_CONCEPT)
+            .withDifficulty(VALID_DIFFICULTY_CONCEPT)
+            .withQuizTime(FINISH_TIME_CONCEPT)
+            .withResult(INCORRECT_RESULT)
+            .build();
+
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 
     public static final Note CONAN = new NoteBuilder()
@@ -106,6 +150,15 @@ public class TypicalAppData {
             .withAnswer("Haibara Ai")
             .withSubject("Anime")
             .withDifficulty("easy")
+            .build();
+
+    public static final QuizResult CONAN_RESULT = new QuizResultBuilder()
+            .withAnswer("Haibara Ai")
+            .withQuestionBody("Who is your favourite female character in Detective Conan?")
+            .withSubject("Anime")
+            .withDifficulty("easy")
+            .withQuizTime("2019/10/29 2000")
+            .withResult("true")
             .build();
 
     public static final Task CONAN_TASK_DEFAULT = new TaskBuilder().build();
@@ -155,7 +208,7 @@ public class TypicalAppData {
     }
 
     public static List<QuizResult> getTypicalQuizResults() {
-        return new ArrayList<>(Arrays.asList(ALICE_RESULT));
+        return new ArrayList<>(Arrays.asList(MVC_RESULT, TCP_RESULT, UDP_RESULT, CONAN_RESULT));
     }
 
 }

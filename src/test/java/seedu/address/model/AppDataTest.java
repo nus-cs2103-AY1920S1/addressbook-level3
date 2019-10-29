@@ -6,8 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CONTENT_BOB;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalAppData.ALICE;
-import static seedu.address.testutil.TypicalAppData.ALICE_RESULT;
 import static seedu.address.testutil.TypicalAppData.MVC_QUESTION;
+import static seedu.address.testutil.TypicalAppData.MVC_RESULT;
 import static seedu.address.testutil.TypicalAppData.getTypicalAppData;
 
 import java.time.LocalDate;
@@ -21,7 +21,6 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
 import seedu.address.model.note.Note;
 import seedu.address.model.note.exceptions.DuplicateTitleException;
 import seedu.address.model.question.Question;
@@ -63,7 +62,7 @@ public class AppDataTest {
         List<Task> newTasks = Arrays.asList(task);
 
         List<Question> newQuestions = Arrays.asList(MVC_QUESTION);
-        List<QuizResult> newQuizResults = Arrays.asList(ALICE_RESULT);
+        List<QuizResult> newQuizResults = Arrays.asList(MVC_RESULT);
         AppDataStub newData = new AppDataStub(newNotes, newTasks, newQuestions, newQuizResults);
 
         assertThrows(DuplicateTitleException.class, () -> appData.resetData(newData));
