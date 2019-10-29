@@ -276,6 +276,21 @@ Using `submit` in both modes right after using `fill` thus enables convenient su
 //Clears all entries from the incident Manager. +
 //Format: `clear`
 
+=== Listing all incidents: `list-i`
+Shows a list of all incidents in the Incident Manager +
+Format: `list-i`
+
+****
+* The listing returns all incidents, inclusive of all drafts and submitted incident reports
+****
+
+Example Usage:
+
+Expected Outcome:
+
+eg. +
+`list-i`: Returns all existing incidents
+
 === Locating an incident report using incident ID, operator name or description keyword: `find-i`
 Finds incidents containing the relevant specified parameters.
 Possible Parameters: `id`/`op`/`desc`
