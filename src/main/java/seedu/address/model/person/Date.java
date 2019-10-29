@@ -14,14 +14,13 @@ import seedu.address.model.util.Frequency;
  */
 public class Date {
 
-    public static final String MESSAGE_CONSTRAINTS =
-            "Dates should only contain alphanumeric characters and spaces, and it should not be blank";
+    public static final String MESSAGE_CONSTRAINTS = "Names should only contain alphanumeric characters and spaces,"
+            + " and it should not be blank";
 
     /*
      * The first character of the address must not be a whitespace, otherwise " " (a
      * blank string) becomes a valid input.
      */
-
     private static final DateTimeFormatter INPUTFORMATTER = new DateTimeFormatterBuilder()
             .appendOptional(DateTimeFormatter.ofPattern("yyyy MM dd"))
             .appendOptional(DateTimeFormatter.ofPattern("yyyy/MM/dd"))
@@ -35,8 +34,7 @@ public class Date {
             .appendOptional(DateTimeFormatter.ofPattern("d-MM-yyyy"))
             .appendOptional(DateTimeFormatter.ofPattern("dd-MM-yyyy"))
             .appendOptional(DateTimeFormatter.ofPattern("dd.MM.yyyy"))
-            .appendOptional(DateTimeFormatter.ofPattern("d.MM.yyyy"))
-            .toFormatter();
+            .appendOptional(DateTimeFormatter.ofPattern("d.MM.yyyy")).toFormatter();
 
     private static final DateTimeFormatter OUTPUTFORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     private LocalDate date;
@@ -49,7 +47,7 @@ public class Date {
      */
     public Date(String date) {
         requireNonNull(date);
-        //checkArgument(isValidDescription(desc), MESSAGE_CONSTRAINTS);
+        // checkArgument(isValidDescription(desc), MESSAGE_CONSTRAINTS);
         LocalDate ldt = LocalDate.parse(date, INPUTFORMATTER);
         this.date = ldt;
         parseDate();
