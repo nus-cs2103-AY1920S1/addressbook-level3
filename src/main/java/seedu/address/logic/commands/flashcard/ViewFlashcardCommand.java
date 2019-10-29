@@ -10,6 +10,7 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.commandresults.FlashcardCommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.flashcard.Flashcard;
@@ -45,8 +46,8 @@ public class ViewFlashcardCommand extends Command {
 
         Flashcard flashcard = lastShownList.get(targetIndex.getZeroBased());
 
-        return new CommandResult(String.format(VIEW_FLASHCARD_SUCCESS, flashcard), false, false,
-                false, Optional.empty(), Optional.of(flashcard), Optional.empty(), Optional.empty());
+        return new FlashcardCommandResult(String.format(VIEW_FLASHCARD_SUCCESS, flashcard.getTitle()),
+                Optional.of(flashcard));
     }
 
     @Override

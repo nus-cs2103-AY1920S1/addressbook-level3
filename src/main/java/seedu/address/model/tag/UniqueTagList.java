@@ -9,7 +9,6 @@ import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.tag.exceptions.DuplicateTagException;
-import seedu.address.model.tag.exceptions.TagNotFoundException;
 
 /**
  * A list of tags that enforces uniqueness between its elements and does not allow nulls.
@@ -43,37 +42,41 @@ public class UniqueTagList implements Iterable<Tag> {
         internalList.add(toAdd);
     }
 
+    //    /**
+    //     * Replaces the tag {@code target} in the list with {@code editedTag}.
+    //     * {@code target} must exist in the list.
+    //     * The tag identity of {@code editedTag} must not be the same as another existing tag in the list.
+    //     */
+    //    public void setTag(Tag target, Tag editedTag) {
+    //        requireAllNonNull(target, editedTag);
+    //
+    //        int index = internalList.indexOf(target);
+    //        if (index == -1) {
+    //            throw new TagNotFoundException();
+    //        }
+    //
+    //        if (!target.equals(editedTag) && contains(editedTag)) {
+    //            throw new DuplicateTagException();
+    //        }
+    //
+    //        internalList.set(index, editedTag);
+    //    }
+
+    //    /**
+    //     * Removes the equivalent tag from the list.
+    //     * The tag must exist in the list.
+    //     */
+    //    public void remove(Tag toRemove) {
+    //        requireNonNull(toRemove);
+    //        if (!internalList.remove(toRemove)) {
+    //            throw new TagNotFoundException();
+    //        }
+    //    }
+
     /**
-     * Replaces the tag {@code target} in the list with {@code editedTag}.
-     * {@code target} must exist in the list.
-     * The tag identity of {@code editedTag} must not be the same as another existing tag in the list.
+     * Replaces the internal list of tags with the internal list of tags within the specified UniqueTagList.
+     * @param replacement object that contains the replacement internal list.
      */
-    public void setTag(Tag target, Tag editedTag) {
-        requireAllNonNull(target, editedTag);
-
-        int index = internalList.indexOf(target);
-        if (index == -1) {
-            throw new TagNotFoundException();
-        }
-
-        if (!target.equals(editedTag) && contains(editedTag)) {
-            throw new DuplicateTagException();
-        }
-
-        internalList.set(index, editedTag);
-    }
-
-    /**
-     * Removes the equivalent tag from the list.
-     * The tag must exist in the list.
-     */
-    public void remove(Tag toRemove) {
-        requireNonNull(toRemove);
-        if (!internalList.remove(toRemove)) {
-            throw new TagNotFoundException();
-        }
-    }
-
     public void setTags(UniqueTagList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);

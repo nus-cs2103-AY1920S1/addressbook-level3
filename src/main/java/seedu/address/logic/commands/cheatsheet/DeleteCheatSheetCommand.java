@@ -9,6 +9,7 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.commandresults.CheatSheetCommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.cheatsheet.CheatSheet;
@@ -43,7 +44,7 @@ public class DeleteCheatSheetCommand extends Command {
 
         CheatSheet cheatsheetToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deleteCheatSheet(cheatsheetToDelete);
-        return new CommandResult(String.format(MESSAGE_DELETE_CHEATSHEET_SUCCESS, cheatsheetToDelete));
+        return new CheatSheetCommandResult(String.format(MESSAGE_DELETE_CHEATSHEET_SUCCESS, cheatsheetToDelete));
     }
 
     @Override

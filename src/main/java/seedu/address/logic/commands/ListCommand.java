@@ -10,6 +10,7 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_NOTES;
 import java.util.List;
 
 import seedu.address.logic.LogicManager;
+import seedu.address.logic.commands.commandresults.GlobalCommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.flashcard.Flashcard;
@@ -75,7 +76,7 @@ public class ListCommand extends Command {
         }
 
         returnMsg += model.formatOutputListString(LogicManager.getMode());
-        return new CommandResult(MESSAGE_SUCCESS + LogicManager.getMode().toString() + returnMsg);
+        return new GlobalCommandResult(MESSAGE_SUCCESS + LogicManager.getMode().toString() + returnMsg);
 
         //return new CommandResult(outputString);
     }

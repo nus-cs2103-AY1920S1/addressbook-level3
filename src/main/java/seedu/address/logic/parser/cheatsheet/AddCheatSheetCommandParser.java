@@ -1,6 +1,7 @@
 package seedu.address.logic.parser.cheatsheet;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_TAG_LIMIT_EXCEEDED;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
 
@@ -43,6 +44,10 @@ public class AddCheatSheetCommandParser implements Parser<AddCheatSheetCommand> 
 
         Title title = CheatsheetParserUtil.parseTitle(argMultimap.getValue(PREFIX_TITLE).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
+
+        if (tagList.size() > 10) {
+            throw new ParseException(MESSAGE_TAG_LIMIT_EXCEEDED);
+        }
         Set<Content> contentList = new HashSet<>();
 
         CheatSheet cheatsheet = new CheatSheet(title, contentList, tagList);

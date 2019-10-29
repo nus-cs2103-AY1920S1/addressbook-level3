@@ -1,5 +1,8 @@
 package seedu.address.ui;
 
+import java.util.ArrayList;
+import java.util.Optional;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.BorderPane;
@@ -16,7 +19,6 @@ public class ActivityWindow extends UiPart<Region> {
 
     private static final String FXML = "ActivityWindow.fxml";
     private static final int FLASHCARD_TAB_INDEX = 1;
-
     private static final int NOTES_TAB_INDEX = 2;
     private static final int CHEATSHEET_TAB_INDEX = 3;
 
@@ -67,6 +69,14 @@ public class ActivityWindow extends UiPart<Region> {
 
     public void displayFlashcard(Flashcard flashcard) {
         flashcardTabWindowController.loadFlashcard(flashcard);
+    }
+
+    public void showAnswer() {
+        flashcardTabWindowController.showFlashcardAns();
+    }
+
+    public void startTimeTrial(Optional<ArrayList<Flashcard>> deck) {
+        flashcardTabWindowController.startTimeTrial(deck);
     }
 
     public void displayNote(Note note) {
