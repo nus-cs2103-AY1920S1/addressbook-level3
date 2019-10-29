@@ -6,12 +6,15 @@ import java.nio.file.Path;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
+import javafx.beans.binding.DoubleExpression;
+import javafx.beans.binding.ObjectExpression;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 
 import calofit.commons.core.GuiSettings;
 import calofit.commons.core.LogsCenter;
 import calofit.commons.util.CollectionUtil;
+import calofit.commons.util.ObservableUtil;
 import calofit.model.dish.Dish;
 import calofit.model.dish.DishDatabase;
 import calofit.model.dish.Name;
@@ -47,6 +50,10 @@ public class ModelManager implements Model {
         this.mealLog = new MealLog(mealLog);
         this.filteredDishes = new FilteredList<>(this.dishDatabase.getDishList());
         this.budget = new CalorieBudget();
+        DoubleExpression remainingCalories = budget.currentBudget().subtract(this.mealLog.getTodayCalories());
+        ObjectExpression<Predicate<Dish>> filterFunc = ObservableUtil.mapToObject(remainingCalories,
+            remain -> dish -> dish.getCalories().getValue() <= remain);
+        filteredDishes.predicateProperty().bind(filterFunc);
     }
 
     public ModelManager() {
