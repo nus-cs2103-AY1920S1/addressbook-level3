@@ -162,47 +162,41 @@ Finds all transactions in the current list from May 2019 from the category "Educ
 Lists all transactions. +
 Format `listtx`
 
-=== Transaction Repeaters
+=== Repeaters
 
-==== Creating transaction repeater: `addrep`
+==== Creating repeater: `addrep`
 
-Creates monthly transaction repeater. +
-Format: `addrep de/DESCRIPTION a/AMOUNT p/DAY_OF_MONTH... ty/TRANSACTION_TYPE`
-
-Examples:
-
-* `addrep de/Phone Bills a/32.70 p/7 p/14 p/21 p/28 ty/exp` +
-Creates a transaction repeater titled "PhoneBills" for a $32.70 deduction every 7th, 14th, 21st, and 28th of the month.
-
-==== Editing transaction repeater `editrep`
-
-Edits transaction repeater. +
-Format: `editrep INDEX [de/DESCRIPTION] [a/AMOUNT] [p/DAY_OF_MONTH]... [c/CATEGORY] [ty/TRANSACTION_TYPE]...`
+Creates repeater together with the associated transactions. +
+Format: `de/DESCRIPTION a/AMOUNT c/CATEGORY ty/TRANSACTION_TYPE so/MONTH_START_OFFSET eo/MONTH_END_OFFSET sm/START_MONTH sy/START_YEAR em/END_MONTH ey/END_YEAR`
 
 Examples:
 
-* `editrep 12 a/62.45 c/Food p/11 p/12` +
-Edits the 12th transaction repeater for a $62.45 deduction every 11th and 12th of the month.
+* `addrep de/Phone bills a/42.15 c/Utilities ty/exp so/3 eo/2 sm/1 sy/2019 em/12 ey/2025` +
+Creates a repeater titled "Phone bills" as an expenditure for Utilities of $42.15 for every third day and second last day of the month, between January 2019 to December 2025. Also creates the associated transactions.
 
-==== Deleting transaction repeater: `deleterep`
+==== Editing repeater `editrep`
 
-Deletes transaction repeater. Optionally deletes transactions previously produced from the transaction repeater. +
-Format: `deleterep INDEX [d/DELETEALL]`
-
-Examples:
-
-* `deleterep 12` +
-Deletes the 12th transaction repeater.
-
-==== Finding transaction repeater: `findrep`
-
-Filters transaction repeaters by keyword, category, and repeating days. +
-Format: `findrep [s/KEYWORD]... [c/CATEGORY] [p/DAY_OF_MONTH]... [ty/TRANSACTION_TYPE]`
+Edits repeater together with the associated transactions. +
+Format: `editrep INDEX (must be a positive integer) [de/DESCRIPTION] [a/AMOUNT] [c/CATEGORY] [ty/TRANSACTION_TYPE] [so/MONTH_START_OFFSET] [eo/MONTH_END_OFFSET] [sm/START_MONTH] [sy/START_YEAR] [em/END_MONTH] [ey/END_YEAR]`
 
 Examples:
 
-* `findrep s/Income p/7 p/13` +
-Finds all transaction repeater with "Income" contained in their descriptions, and that occur on the 7th and 13th of the month.
+* `editrep 1 a/31.34 c/Food ty/in so/1 eo/-1 sm/1 sy/2019 em/12 ey/2020` +
+Edits the first repeater in the current list into a $31.34 expenditure for every first day of the month, between January 2019 and December 2020. Also updates the associated transactions.
+
+==== Deleting repeater: `delrep`
+
+Deletes repeater together with all created transactions associated with the specified repeater. +
+Format: `delrep INDEX`
+
+Examples:
+
+* `delrep 12` +
+Deletes the 12th repeater in the current list. Also updates the associated transactions.
+
+==== Finding repeater: `findrep`
+
+(Coming in v1.4).
 
 === Loans
 
