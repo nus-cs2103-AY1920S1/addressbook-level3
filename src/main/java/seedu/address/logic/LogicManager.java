@@ -5,6 +5,7 @@ import java.nio.file.Path;
 import java.util.List;
 import java.util.logging.Logger;
 
+import javafx.beans.value.ObservableObjectValue;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
@@ -126,6 +127,11 @@ public class LogicManager implements Logic {
     @Override
     public Budget getPrimaryBudget() {
         return model.getPrimaryBudget();
+    }
+
+    @Override
+    public ObservableObjectValue<Budget> primaryBudgetProperty() {
+        return model.primaryBudgetProperty();
     }
 
     @Override

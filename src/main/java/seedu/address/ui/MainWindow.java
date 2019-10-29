@@ -208,11 +208,7 @@ public class MainWindow extends UiPart<Stage> {
         panelPlaceholder.getChildren().add(singlePanelView.getRoot());
 
         // fill single panel view
-        if (logic.getPrimaryBudget() != null) {
-            singlePanelView.setPanel(BudgetPanel.PANEL_NAME, new BudgetPanel(logic.getPrimaryBudget()));
-        } else {
-            singlePanelView.setPanel(BudgetPanel.PANEL_NAME, new PlaceholderPanel());
-        }
+        singlePanelView.setPanel(BudgetPanel.PANEL_NAME, new BudgetPanel(logic.primaryBudgetProperty()));
 
         singlePanelView.setPanel(PanelName.ALIASES_PANEL, new PlaceholderPanel());
         singlePanelView.setPanel(ExpenseListPanel.PANEL_NAME,
@@ -352,14 +348,6 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
-    private void refreshPrimaryBudgetPanel() {
-        // refreshes the budget panel
-        if (logic.getPrimaryBudget() == null) {
-            singlePanelView.setPanel(BudgetPanel.PANEL_NAME, new PlaceholderPanel());
-        } else {
-            singlePanelView.setPanel(BudgetPanel.PANEL_NAME, new BudgetPanel(logic.getPrimaryBudget()));
-        }
-    }
 
     /**
      * Changes the currently viewed Panel in the MainWindow.
@@ -486,7 +474,6 @@ public class MainWindow extends UiPart<Stage> {
             CommandResult commandResult = logic.execute(commandText, commandGroup);
 
             if (commandResult.isViewRequest()) {
-                refreshPrimaryBudgetPanel();
                 changePanel(commandResult.viewRequest());
             }
 

@@ -10,6 +10,7 @@ import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
+import javafx.beans.value.ObservableObjectValue;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.Alias;
@@ -277,6 +278,11 @@ public class ModelManager implements Model {
     @Override
     public Budget getPrimaryBudget() {
         return mooLah.getPrimaryBudget();
+    }
+
+    @Override
+    public ObservableObjectValue<Budget> primaryBudgetProperty() {
+        return mooLah.primaryBudgetProperty();
     }
 
     @Override

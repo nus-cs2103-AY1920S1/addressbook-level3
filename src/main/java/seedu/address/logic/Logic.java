@@ -3,6 +3,7 @@ package seedu.address.logic;
 import java.nio.file.Path;
 import java.util.List;
 
+import javafx.beans.value.ObservableObjectValue;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.CommandResult;
@@ -49,6 +50,8 @@ public interface Logic {
     ObservableList<Budget> getFilteredBudgetList();
 
     Budget getPrimaryBudget();
+
+    ObservableObjectValue<Budget> primaryBudgetProperty();
 
     /**
      * Returns the user prefs' MooLah file path.

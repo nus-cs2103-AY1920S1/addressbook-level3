@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 
+import javafx.beans.value.ObservableObjectValue;
 import javafx.collections.ObservableList;
 import seedu.address.model.budget.Budget;
 import seedu.address.model.budget.UniqueBudgetList;
@@ -207,6 +208,10 @@ public class MooLah implements ReadOnlyMooLah {
      */
     public Budget getPrimaryBudget() {
         return budgets.getPrimaryBudget();
+    }
+
+    public ObservableObjectValue<Budget> primaryBudgetProperty() {
+        return budgets.primaryBudgetPropertyProperty();
     }
 
     /**

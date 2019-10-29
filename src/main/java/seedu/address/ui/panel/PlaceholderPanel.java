@@ -19,14 +19,15 @@ public class PlaceholderPanel extends Panel {
 
     @Override
     public void view() {
+        if (panelPlaceholder.getChildren().size() < 1) {
+            panelPlaceholder.getChildren().add(new Label("This is not the Panel you are looking for."));
+        }
         getRoot().setVisible(true);
         getRoot().setDisable(false);
-        panelPlaceholder.getChildren().add(new Label("This is not the Panel you are looking for."));
     }
 
     @Override
     public void hide() {
-        panelPlaceholder.getChildren().clear();
         getRoot().setVisible(false);
         getRoot().setDisable(true);
     }

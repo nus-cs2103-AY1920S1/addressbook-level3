@@ -42,7 +42,7 @@ public class SinglePanelView extends UiPart<Region> implements PanelManager {
     public void viewPanel(PanelName panelName) throws UnmappedPanelException {
         requireNonNull(panelName);
         if (panelName.equals(PanelName.CURRENT)) {
-            if (currentPanel != null) {
+            if (currentPanel == null) {
                 throw new UnmappedPanelException(panelName);
             }
         } else if (!hasPanel(panelName)) {
@@ -51,8 +51,11 @@ public class SinglePanelView extends UiPart<Region> implements PanelManager {
         for (Panel p : panelNamePanelHashMap.values()) {
             p.hide();
         }
-        panelNamePanelHashMap.get(panelName).view();
         currentPanel = getPanel(panelName);
+        if (currentPanel == null) {
+            currentPanel = new PlaceholderPanel();
+        }
+        currentPanel.view();
         currentPanelName = panelName;
     }
 

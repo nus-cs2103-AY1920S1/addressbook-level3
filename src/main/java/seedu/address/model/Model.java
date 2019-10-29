@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 
+import javafx.beans.value.ObservableObjectValue;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.Alias;
 import seedu.address.commons.core.AliasMappings;
@@ -171,6 +172,8 @@ public interface Model {
     boolean hasBudgetWithName(Description targetDescription);
 
     Budget getPrimaryBudget();
+
+    ObservableObjectValue<Budget> primaryBudgetProperty();
 
     void addBudget(Budget budget);
 
