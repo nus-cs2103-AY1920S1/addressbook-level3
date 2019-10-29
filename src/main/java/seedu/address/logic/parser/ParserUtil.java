@@ -255,6 +255,11 @@ public class ParserUtil {
         return tagSet;
     }
 
+    /**
+     * Parses a {@code Note note} into a {@code List<NoteFragment>}.
+     * @param note The Note to parse.
+     * @return Returns a List of {@code NoteFragments}.
+     */
     public static List<NoteFragment> parseNoteFragmentsFromNote(Note note) {
         try {
             Title title = note.getTitle();
@@ -265,6 +270,11 @@ public class ParserUtil {
         }
     }
 
+    /**
+     * Parses all {@code NoteFragment} patterns from a String.
+     * @param noteContent The content of the Note, as a String.
+     * @return Returns a List of matching Strings.
+     */
     public static List<String> parseNoteFragmentMatches(String noteContent) {
         noteContent = " " + noteContent;
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(noteContent, PREFIX_NOTE_FRAGMENT_START,
@@ -274,6 +284,13 @@ public class ParserUtil {
         return noteFragmentList;
     }
 
+    /**
+     * Parses a {@code List<String>} into a {@code List<NoteFragment>}.
+     * @param title The {@code Title} of the {@code Note} this {@code List<String>} was derived from.
+     * @param stringList A List of matching pattern Strings from a {@code Note}.
+     * @return Returns a {@code List<NoteFragment>} containing the {@code NoteFragments} of a {@code Note}.
+     * @throws ParseException A custom Exception.
+     */
     public static List<NoteFragment> parseNoteFragmentsFromString(Title title, List<String> stringList)
             throws ParseException {
         List<NoteFragment> noteFragmentList = new ArrayList<>();
@@ -293,6 +310,12 @@ public class ParserUtil {
 
     }
 
+    /**
+     * Parses a {@code Content} from a {@code NoteFragment}.
+     * @param noteFragment The input {@code NoteFragment} object to parse.
+     * @return Returns a {@code Content} object.
+     * @throws ParseException A custom exception.
+     */
     public static Content parseContentFromNoteFragment(String noteFragment) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(noteFragment, PREFIX_NOTE_FRAGMENT_CONTENT,
                 PREFIX_NOTE_FRAGMENT_TAG);
@@ -303,6 +326,12 @@ public class ParserUtil {
         }
     }
 
+    /**
+     * Parses {@code Set<Tag> tags} from a {@code NoteFragment}.
+     * @param noteFragment The input {@code NoteFragment} object to parse.
+     * @return Returns a {@code Set<Tag>} set of {@code tags}.
+     * @throws ParseException A custom exception.
+     */
     public static Set<Tag> parseTagsFromNoteFragment(String noteFragment) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(noteFragment, PREFIX_NOTE_FRAGMENT_CONTENT,
                 PREFIX_NOTE_FRAGMENT_TAG);
