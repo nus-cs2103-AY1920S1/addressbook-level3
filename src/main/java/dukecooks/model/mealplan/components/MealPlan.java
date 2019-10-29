@@ -48,7 +48,7 @@ public class MealPlan {
     /**
      * Every field must be present and not null.
      */
-    public MealPlan(MealPlanName name, List<RecipeName> day1, List<RecipeName> day2, List<RecipeName> day3, 
+    public MealPlan(MealPlanName name, List<RecipeName> day1, List<RecipeName> day2, List<RecipeName> day3,
                     List<RecipeName> day4, List<RecipeName> day5, List<RecipeName> day6, List<RecipeName> day7) {
         CollectionUtil.requireAllNonNull(name);
         this.name = name;
