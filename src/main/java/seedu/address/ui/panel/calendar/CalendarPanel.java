@@ -9,6 +9,7 @@ import javafx.scene.layout.VBox;
 
 import jdk.jfr.Event;
 import seedu.address.model.CalendarDate;
+import seedu.address.model.ModelLists;
 import seedu.address.model.events.EventSource;
 import seedu.address.model.tasks.TaskSource;
 import seedu.address.ui.UiPart;
@@ -26,8 +27,6 @@ public class CalendarPanel extends UiPart<Region> {
     private UpcomingView upcomingView;
     private CalendarDate calendarDate;
 
-    private List<EventSource> eventList;
-    private List<TaskSource> taskList;
     private List<Object> eventTaskList;
 
     @FXML
@@ -50,13 +49,11 @@ public class CalendarPanel extends UiPart<Region> {
     public CalendarPanel() {
         super(FXML);
         this.calendarDate = CalendarDate.now();
-        this.eventList = new ArrayList<>();
-        this.taskList = new ArrayList<>();
         this.eventTaskList = new ArrayList<>();
 
         this.calendarScreen = new CalendarScreen(this.calendarDate);
         this.timelineView = new TimelineDayView(this.calendarDate, eventTaskList);
-        this.upcomingView = new UpcomingView();
+        this.upcomingView = new UpcomingView(eventTaskList);
 
         timelinePlaceholder.getChildren().add(this.timelineView.getRoot()); // Left
         calendarScreenPlaceholder.getChildren().add(this.calendarScreen.getRoot()); // Top Right
@@ -120,23 +117,8 @@ public class CalendarPanel extends UiPart<Region> {
         timelinePlaceholder.getChildren().add(timelineView.getRoot());
     }
 
-    /**
-     * Changes the sub-components of the CalendarPanel with the updated events.
-     * @param events The given list of events.
-     */
-    public void onEventListChange(List<EventSource> events) {
-        this.eventList = events;
-        eventTaskList  = combineList(eventList, taskList);
-        onChange();
-    }
-
-    public void onTaskListChange(List<TaskSource> tasks) {
-        this.taskList = tasks;
-        eventTaskList  = combineList(eventList, taskList);
-        onChange();
-    }
-
-    private void onChange() {
+    public void onModelListChange(ModelLists lists) {
+        eventTaskList = combineList(lists.getEvents(), lists.getTasks());
         this.timelineView.onChange(eventTaskList);
         this.calendarScreen.onChange(eventTaskList);
         this.upcomingView.onChange(eventTaskList);
@@ -163,7 +145,7 @@ public class CalendarPanel extends UiPart<Region> {
 
             EventSource event = tempEvents.peek();
             TaskSource task = tempTasks.peek();
-            if(task.isCompleted()) {
+            if(task.isDone()) {
                 tempTasks.poll();
                 continue;
             }

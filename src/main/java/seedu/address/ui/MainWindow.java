@@ -28,13 +28,11 @@ import javafx.util.Duration;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.CalendarDate;
+import seedu.address.model.ModelLists;
 import seedu.address.model.events.EventDateComparator;
 import seedu.address.model.events.EventSource;
-import seedu.address.model.listeners.EventListListener;
-import seedu.address.model.listeners.TaskListListener;
 import seedu.address.model.tasks.TaskDateComparator;
 import seedu.address.model.tasks.TaskSource;
-import seedu.address.ui.listeners.UserOutputListener;
 import seedu.address.ui.panel.calendar.CalendarPanel;
 import seedu.address.ui.panel.list.ListPanel;
 import seedu.address.ui.panel.log.LogPanel;
@@ -43,7 +41,8 @@ import seedu.address.ui.panel.log.LogPanel;
  * The Main Window. Provides the basic application layout containing
  * a menu bar and space where other JavaFX elements can be placed.
  */
-public class MainWindow extends UiPart<Stage> implements UserOutputListener, EventListListener, TaskListListener {
+public class MainWindow extends UiPart<Stage>  {
+
     public static final Integer TIMING = 20;
     private static final String FXML = "MainWindow.fxml";
     private static final String WELCOME_MESSAGE = "Welcome to Horo";
@@ -339,22 +338,20 @@ public class MainWindow extends UiPart<Stage> implements UserOutputListener, Eve
 
     }
 
-    @Override
     public void onEventListChange(List<EventSource> events) {
         List<EventSource> sortedDateEventList = sortDateEventList(events);
         this.listPanel.onEventListChange(sortedDateEventList);
-        this.calendarPanel.onEventListChange(sortedDateEventList);
     }
 
-    @Override
     public void onTaskListChange(List<TaskSource> tasks) {
         List<TaskSource> sortedDateTaskList = sortDateTaskList(tasks);
         this.listPanel.onTaskListChange(sortedDateTaskList);
-        this.calendarPanel.onTaskListChange(sortedDateTaskList);
-
     }
 
-    @Override
+    public void onModelListChange(ModelLists lists) {
+        this.calendarPanel.onModelListChange(lists);
+    }
+
     public void onUserOutput(UserOutput output, ColorTheme results) {
         String color = getColor(results);
         this.logPanel.createLogBox(output.toString(), color);

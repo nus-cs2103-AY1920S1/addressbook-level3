@@ -119,6 +119,8 @@ public class MainApp extends Application {
 
         modelManager.addEventListListener(uiManager);
         modelManager.addTaskListListener(uiManager);
+        modelManager.addModelListListener(uiManager);
+
         modelManager.addModelListListener(storageManager);
         modelManager.addModelListListener(undoRedoManager);
 

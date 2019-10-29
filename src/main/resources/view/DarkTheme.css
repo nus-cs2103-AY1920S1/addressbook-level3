@@ -33,8 +33,10 @@
     -eventCardColor1: #FFAF5F;
     -eventCardColor2: #4ACFAC;
     -eventCardColor3: #7E8CE0;
-    -eventCardColor4: #FFA48E;
+    -taskCardColor: #FFA48E;
     -currentDateColor: #0D6B54;
+    -eventTagColor: #7FC9FD;
+    -taskTagColor: #CFFFE1;
     -white: #FFFFFF;
     -black: #000000;
 }
@@ -287,7 +289,7 @@
     -fx-font-size: 14pt;
 }
 
-#eventStartDate, #eventEndDate {
+#eventStartDate, #eventEndDate, #eventRemindDate {
     -fx-font-family: "Roboto Regular";
     -fx-text-fill: -primaryColor;
     -fx-font-size: 10pt;
@@ -295,7 +297,7 @@
 
 /** For Task Card **/
 #taskCardBase {
-    -fx-background-color: -eventCardColor4;
+    -fx-background-color: -taskCardColor;
     -fx-background-radius: 8;
     -fx-effect: dropshadow(three-pass-box, -backgroundColor, 8, 0.5, 0, 0);
 }
@@ -307,6 +309,15 @@
 }
 
 #taskCardDate {
+    -fx-font-family: "Roboto Regular";
+    -fx-text-fill: -primaryColor;
+    -fx-font-size: 10pt;
+}
+
+/** For CardTag **/
+#cardTag {
+    -fx-background-color: -eventTagColor;
+    -fx-background-radius: 8;
     -fx-font-family: "Roboto Regular";
     -fx-text-fill: -primaryColor;
     -fx-font-size: 10pt;

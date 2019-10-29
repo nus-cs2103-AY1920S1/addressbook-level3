@@ -14,8 +14,10 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.commands.listeners.CommandInputListener;
 import seedu.address.model.CalendarDate;
+import seedu.address.model.ModelLists;
 import seedu.address.model.events.EventSource;
 import seedu.address.model.listeners.EventListListener;
+import seedu.address.model.listeners.ModelListListener;
 import seedu.address.model.listeners.TaskListListener;
 import seedu.address.model.tasks.TaskSource;
 import seedu.address.ui.ColorTheme;
@@ -28,7 +30,7 @@ import seedu.address.ui.listeners.UserOutputListener;
  * The manager of the UI component.
  * Responsible for creating and destroying the graphical ui.
  */
-public class UiManager implements Ui, UserOutputListener, EventListListener, TaskListListener {
+public class UiManager implements Ui, UserOutputListener, EventListListener, TaskListListener, ModelListListener {
 
     public static final String ALERT_DIALOG_PANE_FIELD_ID = "alertDialogPane";
 
@@ -142,6 +144,11 @@ public class UiManager implements Ui, UserOutputListener, EventListListener, Tas
     @Override
     public void onTaskListChange(List<TaskSource> tasks) {
         this.mainWindow.onTaskListChange(tasks);
+    }
+
+    @Override
+    public void onModelListChange(ModelLists lists) {
+        this.mainWindow.onModelListChange(lists);
     }
 
     @Override

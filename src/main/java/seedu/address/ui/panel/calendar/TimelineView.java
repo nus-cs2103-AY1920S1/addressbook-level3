@@ -133,11 +133,11 @@ public abstract class TimelineView extends UiPart<Region> {
     /**
      * Changes the timeline by resetting it with the new list of events.
      *
-     * @param list The given event list containing all the events.
+     * @param eventTaskList The given event list containing all the events and tasks.
      */
-    void onChange(List<Object> list) {
+    void onChange(List<Object> eventTaskList) {
         resetTimeline();
-        for (Object source : list) {
+        for (Object source : eventTaskList) {
             if(source instanceof  EventSource) {
                 EventSource event = (EventSource) source;
                 if (isWithinTimeline(event)) {

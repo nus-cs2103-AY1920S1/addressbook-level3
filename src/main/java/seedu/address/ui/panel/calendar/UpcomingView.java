@@ -33,25 +33,27 @@ public class UpcomingView extends UiPart<Region> {
     @FXML
     private VBox upcomingList;
 
-    public UpcomingView() {
+    public UpcomingView(List<Object> eventTaskList) {
         super(FXML);
         CalendarDate calendarDate = CalendarDate.now();
         upcomingViewTitle.setText("Upcoming in " + calendarDate.getEnglishMonth());
+        resizeUpcomingView(eventTaskList);
     }
 
     /**
      * Updates the upcoming list to hold up to a certain amount of events or task.
      *
-     * @param eventTaskList
+     * @param eventTaskList The given list of tasks and events.
      */
     public void onChange(List<Object> eventTaskList) {
         int index = 0;
         upcomingList.getChildren().clear();
+
         for (Object source : eventTaskList) {
             if (index >= totalDisplays) {
-                break;
+                return;
             }
-            if(source instanceof  EventSource) {
+            if(source instanceof EventSource) {
                 EventSource event = (EventSource) source;
                 UpcomingEventCard eventCard = new UpcomingEventCard(event);
                 upcomingList.getChildren().add(eventCard.getRoot());

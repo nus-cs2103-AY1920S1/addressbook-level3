@@ -1,11 +1,7 @@
 package seedu.address.model;
 
 import java.text.DateFormatSymbols;
-import java.time.DayOfWeek;
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.YearMonth;
-import java.time.ZoneId;
+import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.format.TextStyle;
 import java.time.temporal.ChronoUnit;
@@ -32,13 +28,13 @@ public class DateTime implements Comparable<DateTime> {
 
     // Parsers
     private static final DateTimeParser DATE_TIME_PARSER =
-        new DateTimeParser(DateTimeFormatter.ofPattern(USER_DATE_TIME_PATTERN)
-            .withZone(TIME_ZONE));
+            new DateTimeParser(DateTimeFormatter.ofPattern(USER_DATE_TIME_PATTERN)
+                    .withZone(TIME_ZONE));
 
     // Composers
     private static final InstantComposer DATE_TIME_COMPOSER =
-        new InstantComposer(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")
-            .withZone(TIME_ZONE));
+            new InstantComposer(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")
+                    .withZone(TIME_ZONE));
     private static final InstantComposer DAY_COMPOSER =
             new InstantComposer(DateTimeFormatter.ofPattern("dd")
                     .withZone(TIME_ZONE));
@@ -56,7 +52,7 @@ public class DateTime implements Comparable<DateTime> {
                     .withZone(TIME_ZONE));
 
     private static final DateTimeFormatter ICS_FORMATTER = DateTimeFormatter.ofPattern("yyyyMMdd'T'HHmmss'Z'")
-        .withZone(ZoneId.of("UTC"));
+            .withZone(ZoneId.of("UTC"));
     private static final DateTimeParser ICS_PARSER = new DateTimeParser(ICS_FORMATTER);
     private static final InstantComposer ICS_COMPOSER = new InstantComposer(ICS_FORMATTER);
 
@@ -117,11 +113,6 @@ public class DateTime implements Comparable<DateTime> {
         return localDate.getDayOfWeek().getValue();
     }
 
-    public String getEnglishWeekDay() {
-        DayOfWeek dayOfWeek = instant.atZone(TIME_ZONE).getDayOfWeek();
-        return dayOfWeek.getDisplayName(TextStyle.SHORT, Locale.US);
-    }
-
     @JsonIgnore
     public Integer getDay() {
         return Integer.valueOf(DAY_COMPOSER.compose(this.instant));
@@ -132,15 +123,25 @@ public class DateTime implements Comparable<DateTime> {
         return Integer.valueOf(HOUR_COMPOSER.compose(this.instant));
     }
 
+    @JsonIgnore
+    public Integer getMinute() {
+        return Integer.valueOf(MINUTE_COMPOSER.compose(this.instant));
+    }
+
+    @JsonIgnore
     public String getHourString() {
         return HOUR_COMPOSER.compose(this.instant);
     }
 
+    @JsonIgnore
     public String getMinuteString() {
         return MINUTE_COMPOSER.compose(this.instant);
+    }
+
     @JsonIgnore
-    public Integer getMinute() {
-        return Integer.valueOf(MINUTE_COMPOSER.compose(this.instant));
+    public String getEnglishWeekDay() {
+        DayOfWeek dayOfWeek = instant.atZone(TIME_ZONE).getDayOfWeek();
+        return dayOfWeek.getDisplayName(TextStyle.SHORT, Locale.US);
     }
 
     @JsonProperty("epoch")

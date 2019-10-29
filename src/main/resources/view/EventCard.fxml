@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
@@ -11,36 +12,66 @@
          <children>
             <StackPane alignment="TOP_LEFT">
                <children>
-                  <Label fx:id="eventName" text="\$EventName" wrapText="true" StackPane.alignment="CENTER_LEFT">
+                  <Label fx:id="eventName" text="eventName" wrapText="true" StackPane.alignment="CENTER_LEFT">
                      <StackPane.margin>
                         <Insets left="15.0" />
                      </StackPane.margin></Label>
                </children>
                <VBox.margin>
-                  <Insets bottom="2.0" top="5.0" />
+                  <Insets />
                </VBox.margin>
             </StackPane>
             <StackPane fx:id="eventStartDateBase" alignment="TOP_LEFT">
                <children>
-                  <Label fx:id="eventStartDate" text="\$EventDate" wrapText="true" StackPane.alignment="CENTER_LEFT">
+                  <Label fx:id="eventStartDate" text="startDate" wrapText="true" StackPane.alignment="CENTER_LEFT">
                      <StackPane.margin>
-                        <Insets left="15.0" top="2.0" />
+                        <Insets left="15.0" />
                      </StackPane.margin></Label>
                </children>
                <VBox.margin>
-                  <Insets bottom="5.0" />
+                  <Insets />
                </VBox.margin>
             </StackPane>
             <StackPane fx:id="eventEndDateBase" alignment="TOP_LEFT">
                <children>
-                  <Label fx:id="eventEndDate" text="end Date" textAlignment="CENTER" wrapText="true" StackPane.alignment="CENTER_LEFT">
+                  <Label fx:id="eventEndDate" text="endDate" wrapText="true" StackPane.alignment="CENTER_LEFT">
                      <StackPane.margin>
                         <Insets left="15.0" />
                      </StackPane.margin>
                   </Label>
                </children>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </StackPane>
+            <StackPane fx:id="eventRemindDateBase" alignment="TOP_LEFT">
+               <children>
+                  <Label fx:id="eventRemindDate" text="remindDate" wrapText="true" StackPane.alignment="CENTER_LEFT">
+                     <StackPane.margin>
+                        <Insets left="15.0" />
+                     </StackPane.margin>
+                  </Label>
+               </children>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </StackPane>
+            <StackPane fx:id="eventTagsBase" alignment="TOP_LEFT">
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+               <children>
+                  <HBox fx:id="eventTags" spacing="5.0" StackPane.alignment="CENTER_LEFT">
+                     <StackPane.margin>
+                        <Insets left="12.0" />
+                     </StackPane.margin>
+                  </HBox>
+               </children>
             </StackPane>
          </children>
+         <StackPane.margin>
+            <Insets bottom="5.0" top="5.0" />
+         </StackPane.margin>
       </VBox>
    </children>
    <opaqueInsets>
