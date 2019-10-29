@@ -252,7 +252,6 @@ public class MainWindow extends UiPart<Stage> {
         lessons.addListener(new ListChangeListener<Lesson>() {
             @Override
             public void onChanged(Change<? extends Lesson> c) {
-                logger.info("overriding on change");
                 while (c.next()) {
                     if (c.wasAdded()) {
                         for (Object addedItem : c.getAddedSubList()) {
@@ -279,7 +278,6 @@ public class MainWindow extends UiPart<Stage> {
      */
     public void countDownAlert(String reminderType, String reminderDetails) {
         try {
-            System.out.println("counting down");
             Platform.runLater(new Runnable() {
                 @Override
                 public void run() {
@@ -290,7 +288,6 @@ public class MainWindow extends UiPart<Stage> {
                     alert.setTitle("Reminder!");
                     alert.setHeaderText(reminderType);
                     alert.setContentText(reminderDetails);
-                    System.out.println("created count down");
                     playSound();
                     alert.show();
                 }
