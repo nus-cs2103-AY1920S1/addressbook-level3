@@ -5,12 +5,22 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.HashMap;
+import java.util.ArrayList;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.calendar.exceptions.CalendarNotFoundException;
 import seedu.address.model.calendar.exceptions.DuplicateCalendarException;
 import seedu.address.model.member.MemberName;
+
+import java.text.ParseException;
+import java.time.Duration;
+
+import net.fortuna.ical4j.model.*;
+import net.fortuna.ical4j.model.component.*;
+
+import org.apache.commons.lang3.time.DateUtils;
 
 /**
  * A list of persons that enforces uniqueness between its elements and does not allow nulls.
@@ -28,6 +38,12 @@ public class UniqueCalendarList implements Iterable<CalendarWrapper> {
     private final ObservableList<CalendarWrapper> internalList = FXCollections.observableArrayList();
     private final ObservableList<CalendarWrapper> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
+    private static final TimeZone DEFAULT_TIMEZONE = TimeZoneRegistryFactory
+            .getInstance()
+            .createRegistry()
+            .getTimeZone("Asia/Hong_Kong");
+    private static final int END_HOUR = 22;
+    private static final int END_MINUTE = 00;
 
     /**
      * Returns true if the list contains an equivalent task as the given argument.
@@ -156,7 +172,7 @@ public class UniqueCalendarList implements Iterable<CalendarWrapper> {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof UniqueCalendarList // instanceof handles nulls
-                        && internalList.equals(((UniqueCalendarList) other).internalList));
+                && internalList.equals(((UniqueCalendarList) other).internalList));
     }
 
     @Override
@@ -181,7 +197,35 @@ public class UniqueCalendarList implements Iterable<CalendarWrapper> {
 
     // ========= Funtional Commands ===========================================================================
 
+    public HashMap<DateTime, Integer> generateTimeslots(DateTime startDate, DateTime endDate, int duration) {
+        DateTime dateCount = startDate;
+        HashMap<DateTime, Integer> result = new HashMap<>();
+        List<DateTime> result2 = new ArrayList<>();
+        dateCount = new DateTime(DateUtils.addHours(dateCount, 0));
+        while (dateCount.before(endDate)) {
+            result.put(dateCount, 0);
+            result2.add(dateCount);
+            dateCount = new DateTime(DateUtils.addHours(dateCount, 1));
+        }
+        return result;
+    }
+
     public void getBestTiming() {
-        
+        try {
+            net.fortuna.ical4j.model.Calendar cal = internalList.get(0).getCalendar();
+            DateTime startDate = new DateTime("20191028T000000Z", DEFAULT_TIMEZONE);
+            DateTime endDate = new DateTime("20191101T170000Z", DEFAULT_TIMEZONE);
+            Period period = new Period(startDate, endDate);
+            Duration duration = Duration.ofHours(4);
+
+            PeriodList result = internalList.get(0).getFreeTimeDuringPeriod(period, duration);
+
+            for (Object po : result) {
+                System.out.println((Period)po);
+            }
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 }

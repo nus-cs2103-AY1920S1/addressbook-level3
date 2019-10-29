@@ -8,6 +8,8 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.inventory.Inventory;
 import seedu.address.model.member.Member;
 import seedu.address.model.member.MemberId;
+import seedu.address.model.settings.ClockFormat;
+import seedu.address.model.settings.Theme;
 import seedu.address.model.statistics.Statistics;
 import seedu.address.model.task.Task;
 import seedu.address.model.mapping.Mapping;
@@ -230,4 +232,40 @@ public interface Model {
     boolean hasCalendar(CalendarWrapper calendar);
 
     void getBestTiming();
+
+    // Settings
+
+    /**
+     * Returns the user settings of +Work.
+     */
+    UserSettings getUserSettings();
+
+    /**
+     * Returns the user settings file path.
+     */
+    Path getUserSettingsFilePath();
+
+    /**
+     * Returns the current theme of +Work.
+     * @return the current theme
+     */
+    Theme getCurrentTheme();
+
+    /**
+     * Replaces the theme of +Work with {@code newTheme}.
+     * @param newTheme the theme to replace with
+     */
+    void setCurrentTheme(Theme newTheme);
+
+    /**
+     * Returns the current clock format of +Work.
+     * @return the current clock format
+     */
+    ClockFormat getCurrentClockFormat();
+
+    /**
+     * Replaces the clock format of +Work with {@code newClockFormat}.
+     * @param newClockFormat the format to replace with
+     */
+    void setClockFormat(ClockFormat newClockFormat);
 }

@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 import java.util.HashMap;
+import java.util.stream.Collectors;
 
 import javafx.collections.ObservableList;
 import javafx.collections.FXCollections;
@@ -21,7 +22,6 @@ import seedu.address.model.mapping.Mapping;
 import seedu.address.model.mapping.UniqueMappingManager;
 import seedu.address.model.member.UniqueMemberList;
 
-import seedu.address.model.statistics.Statistics;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.TaskStatus;
 import seedu.address.model.task.UniqueTaskList;
@@ -198,60 +198,33 @@ public class ProjectDashboard implements ReadOnlyProjectDashboard {
         inventories.setInventory(target, editedInventory);
     }
 
-    //// util methods
-
-    // TODO make this algo more efficient, code may break if lists are overloaded
+    //// Task util
 
     /**
      * Utility method to split the main task list into three separate lists based on progress status.
      * Called by the getter methods in {@code ModelManager}
      */
     public void splitTasksBasedOnStatus() {
-        // prevent duplicates
-        tasksNotStarted.clearAll();
-        tasksDoing.clearAll();
-        tasksDone.clearAll();
+        tasksNotStarted.setTasks(tasks.toStream()
+                .filter(task -> task.getTaskStatus().equals(TaskStatus.UNBEGUN)).collect(Collectors.toList()));
 
-        for (Task task: tasks) {
-            TaskStatus taskStatus = task.getTaskStatus();
+        tasksDoing.setTasks(tasks.toStream()
+                .filter(task -> task.getTaskStatus().equals(TaskStatus.DOING)).collect(Collectors.toList()));
 
-            switch (taskStatus) {
-            case UNBEGUN:
-                tasksNotStarted.add(task);
-                break;
-
-            case DOING:
-                tasksDoing.add(task);
-                break;
-
-            case DONE:
-                tasksDone.add(task);
-                break;
-
-            default:
-                // no action
-
-            }
-        }
+        tasksDone.setTasks(tasks.toStream()
+                .filter(task -> task.getTaskStatus().equals(TaskStatus.DONE)).collect(Collectors.toList()));
     }
 
-    // TODO let user choose when to get reminders
     /**
      * Utility method to split tasks by their deadline, for Ui purposes.
      * Called by getter methods in {@code ModelManager}
      */
     public void splitTasksByDeadline() {
-        tasksByDeadline.clearAll();
-        for (Task task: tasks) {
-            if (task.hasDeadline()) {
-                TaskStatus taskStatus = task.getTaskStatus();
-                if (taskStatus == TaskStatus.UNBEGUN || taskStatus == TaskStatus.DOING) {
-                    if (DateTimeUtil.checkIfDueSoon(2, task.getDeadline())) {
-                        tasksByDeadline.add(task);
-                    }
-                }
-            }
-        }
+        tasksByDeadline.setTasks(tasks.toStream()
+                .filter(Task::hasDeadline)
+                .filter(task -> !(task.getTaskStatus().equals(TaskStatus.UNBEGUN)))
+                .filter(task -> DateTimeUtil.checkIfDueSoon(2, task.getDeadline()))
+                .collect(Collectors.toList()));
     }
 
     /// Mapping util

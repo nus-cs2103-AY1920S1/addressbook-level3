@@ -80,9 +80,10 @@ image::UiClassDiagram.png[]
 
 The `UI` consists of a `MainWindow` that is made up of static and non-static parts e.g.`CommandBox`, `ResultDisplay`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
-**How non-static UI components are switched:**
+**Functionality of `UserView` classes:**
 
-`UserViewMain` is the component responsible for switching the user view. The controller class of `UserViewMain` is `UserViewController`.
+`UserViewMain` is the component responsible for switching the user view. As it needs fetch data from the `Model`, it contains
+a reference to `Logic`, hence Figure 4 shows an association between `UserViewMain` and `Logic`. The controller class of `UserViewMain` is `UserViewController`.
 
 Step 1: User enters a command.
 
@@ -144,7 +145,7 @@ The `Model`,
 * does not depend on any of the other three components.
 
 [NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Member` or 'Task' can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Member` or 'Task' needing their own `Tag` object. An example of how such a model may look like is given below. +
+As a more OOP model, we can store a `Tag` list in `Project Dashboard`, which `Member` or 'Task' can reference. This would allow `Project Dashboard` to only require one `Tag` object per unique `Tag`, instead of each `Member` or 'Task' needing their own `Tag` object. An example of how such a model may look like is given below. +
  +
 image:BetterModelClassDiagramNew.png[]
 
@@ -188,7 +189,7 @@ Given below is an example usage scenario and how the various commands work.
 Step 1. The user launches the application. The `ProjectCalendar` will be initialised based on the
 saved `ProjectCalendar`.
 
-Step 2. The user imports members' calendars by executing `impport-calendar`.
+Step 2. The user imports members' calendars by executing `import-calendar`.
 
 Step 3. The user executes `generate-timings` command.
 
@@ -268,6 +269,9 @@ The `clock twelve` and `clock twenty_four` have a similar operation to `theme da
 `ThemeCommand` and the associated methods called in `Model` are different.
 
 ==== Design Considerations
+
+This section explores how the design can affect the level of customisation available to the user through the settings feature in +Work.
+
 ===== Aspect: Level of user customisation for +Work clock format
 
 * **Alternative 1 (current choice):** User can change the display format of date and time only
@@ -293,9 +297,9 @@ offered by +Work. Furthermore the compatibility of the theme with JavaFx must be
 The commands introduced by this statistics feature includes: `get-task-stats` and `get-member-stats`. These commands are faciliatated by the class 'Statistics' that resides within model. The 'Statistics' class implements the following operations:
 
 * `Statistics#doCalculations()` -- Calculates the statistics needed using existing list of tasks, members and mappings.
-* `Statistics#getPortionMembersByTasks()` -- Retrives statistics of all the members and number of tasks completed by the each individual member.
-* `Statistics#getPortionMembersByItems()` -- Retrives statistics of all the members and number of items purchased by the each individual member.
-* `Statistics#getPortionTasksByStatus()` -- Retrives statistics of all existing tasks and number of tasks of each status.
+* `Statistics#getPortionMembersByTasks()` -- Retrieves statistics of all the members and number of tasks completed by the each individual member.
+* `Statistics#getPortionMembersByItems()` -- Retrieves statistics of all the members and number of items purchased by the each individual member.
+* `Statistics#getPortionTasksByStatus()` -- Retrieves statistics of all existing tasks and number of tasks of each status.
 
 These operations are exposed in the `Model` interface as `Model#doCalculations`, and 'Model#getStatistics'.
 
@@ -304,6 +308,61 @@ These operations are exposed in the `Model` interface as `Model#doCalculations`,
 To allow the `UI` to be responsive, one of the operations is similarly exposed in the `Logic` interface as `Logic#getStatistics()'
 
 Given below is an example usage scenario and how the Statistics mechanism behaves at each step.
+
+Step 1. The user launches the application for the first time. The 'Statistics' will be initialised based on the data previously saved.
+
+[NOTE]
+
+Data previously saved refers to the statistics calculation done based on list of members, tasks and mappings saved.
+
+Step 2. The user executes `get-task-stats` command to retrieve statistics related to the tasks in the application.
+
+The `get-task-stats` command calls `Model#getFilteredTasksList()`, `Model#getFilteredMembersList()` and `Model#getFilteredMappingsList()` after updating all the lists to show all tasks/members/mappings, to obtain lists of all the members, tasks and mappings saved in the application. Using the lists, a Statistics object is formed. 'Model#setStatistics' is called to updated the statistics in ProjectDashboard.
+
+The following sequence diagram shows how the 'get-member-stats' operation works.
+
+image::GetStatisticsSequenceDiagram.png[]
+Figure 10. Operational flow of 'GetStatisticsCommand'
+
+[NOTE]
+The 'get-member-stats' operation is similar to the one shown in figure 10.
+
+The following activity diagram summarizes what happens when a user executes a new command:
+
+image::GetStatisticsActivityDiagram.png[]
+
+==== Design Considerations
+
+===== Aspect: How to implement Statistics class
+
+* **Alternative 1 (current choice):** One statistics object for the entire ProjectDashboard
+** Pros: Easy to implement, centralised class for all statistics
+** Cons: May have performance issues due to calculations involving large amounts of tasks and members.
+* **Alternative 2:** Individual statistic objects for members and tasks.
+** Pros: Will ensure faster performance,
+** Cons: Design of statistics object has to be very well-implemented, might not have enough time to implement it by v1.3
+
+===== Aspect: Display of Statistics for Project Dashboard
+
+* **Alternative 1 (current choice):** Use a pie chart to represent information
+** Pros: Easy for workload comparison
+** Cons: Less details of individual taks and members exposed in the statistiscs page.
+* **Alternative 2:** Use a list to represent information
+** Pros: Includes more details for individual elements
+** Cons: Decreases the ease of comparison between tasks and members
+// end::statistics[]
+
+=== Member Feature 
+==== Implementation
+The member feature introduces the ability for +Work to deal with project members, in the same way it deals with project tasks. Apart from the typical commands ('add-member', 'delete-member', 'find-member') involved in such a central class, the member features also introduces a 'set-image' command. 
+
+The 'Member' class also has an alternative constructor that takes in the image url as a parameter to save it as an attribute to the member object, when 'set-image' command is called. Additionally, to support the 'set-image' command, the 'Member' class implements the following operation:
+
+* `Member#getImageUrl()` -- Retrieves the URL of the image stored in the user's computer
+* `Member#getImage()` -- Retrieves the member's image using the image url
+
+
+Given below is an example usage scenario and how the set-image mechanism behaves at each step.
 
 Step 1. The user launches the application for the first time. The 'Statistics' will be initialised based on the data previously saved.
 
@@ -524,7 +583,7 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `ProjectDashboard` and the *Actor* is the `user`, unless specified otherwise)
 
 
 [discrete]
@@ -967,12 +1026,12 @@ _{ more test cases ... }_
 
 . Deleting a task while all tasks are listed
 
-.. Prerequisites: List all tasks using the `list` command. Multiple tasks in the list.
-.. Test case: `delete 1` +
+.. Prerequisites: List all tasks using the `list-tasks` command. Multiple tasks in the list.
+.. Test case: `delete-task 1` +
    Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
+.. Test case: `delete-task 0` +
    Expected: No task is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+.. Other incorrect delete commands to try: `delete-task`, `delete-task x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
 
 _{ more test cases ... }_
