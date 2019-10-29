@@ -137,9 +137,9 @@ To add a member to the list of team members in +Work, use the command 'add-membe
 Format: `add-member mn/MEMBER_NAME mi/MEMBER_ID mt/TAGS`+
 
 Example: `add-member mn/Gabriel Seow mi/GS mt/Programmer` will result in the following: 
-+
+
 image::AddMember.png[width="790"]
-+
+
 
 [NOTE]
 
@@ -154,18 +154,18 @@ To get a list of all members added to +Work, used the command 'list-members' fol
 Format: `list-members` +
 
 Example: 'list-members' will result in the following:
-+
+
 image::ListMembers.png[width="790"]
-+
+
 
 ==== Remove a member: `remove-member` +
 To remove a member from the project, and subsequently remove him from associated tasks, use the 'remove-member' command in the format below. +
 Format: `remove-member [mi/MEMBER_ID]` +
 
 Example: 'remove-member mi/GS' will result in the following:
-+
+
 image::RemoveMember.png[width="790"]
-+
+
 
 This indicates that the member 'Gabriel Seow' with member ID 'GS' has been removed from the project and from associated tasks. 
 
