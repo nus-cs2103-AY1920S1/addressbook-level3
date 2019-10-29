@@ -112,7 +112,7 @@ Clearing of waste list is done automatically at the start of every month.
 
 ==== Adding a food item: `glist add`
 
-Adds a grocery item to the grocery list
+Adds a grocery item to the grocery list. +
 Format: `glist add n/ITEM_NAME e/EXPIRY_DATE a/AMOUNT [t/TAG]`
 
 ****
@@ -124,11 +124,11 @@ Format: `glist add n/ITEM_NAME e/EXPIRY_DATE a/AMOUNT [t/TAG]`
 
 Examples:
 
-* `glist add n/Fuji apples e/30.10.2019 t/healthy a/10units` +
+* `glist add n/Fuji apples e/30/10/2019 t/healthy a/10units` +
 Add Fuji apples of quantity 10 units, tagged as "healthy" and expiring on 30 October 2019.
-* `glist add n/salad a/3 e/25.09.2019` +
+* `glist add n/salad a/3 e/25/09/2019` +
 Add salad of quantity 3, untagged and expiring on 25 September 2019.
-* `glist add n/tea a/200 ml e/18.10.2019 t/fresh t/drink` +
+* `glist add n/tea a/200 ml e/18/10/2019 t/fresh t/drink` +
 Add tea of quantity 200 ml, tagged as "fresh" and "drink" and expiring on 18 October 2019.
 
 ==== Listing all grocery items: `glist list`
