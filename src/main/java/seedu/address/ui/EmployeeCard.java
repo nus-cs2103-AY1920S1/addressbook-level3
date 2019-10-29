@@ -25,6 +25,7 @@ import seedu.address.model.event.Event;
 public class EmployeeCard extends UiPart<Region> {
 
     private static final String FXML = "EmployeeListCard.fxml";
+    private static final String FETCH_WINDOW_FXML = "EmployeeListCardForFetch.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -55,6 +56,19 @@ public class EmployeeCard extends UiPart<Region> {
         super(FXML);
         this.employee = employee;
         id.setText(displayedIndex + ". ");
+        name.setText(employee.getEmployeeName().fullName);
+        phone.setText(employee.getEmployeePhone().value);
+        address.setText(employee.getEmployeeAddress().value);
+        email.setText(employee.getEmployeeEmail().value);
+        employee.getTags().stream()
+                .sorted(Comparator.comparing(tag -> tag.tagName))
+                .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+    }
+
+    public EmployeeCard(Employee employee, int displayedIndex, String linkToFxml) {
+        super(linkToFxml);
+        this.employee = employee;
+        id.setText(displayedIndex + ". ");
         name.setText(employee.getEmployeeName().fullName + " ID: " + employee.getEmployeeId().id); //for debug
         phone.setText(employee.getEmployeePhone().value);
         address.setText(employee.getEmployeeAddress().value);
@@ -64,9 +78,10 @@ public class EmployeeCard extends UiPart<Region> {
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }
 
+
     public EmployeeCard(Employee employee, int displayedIndex, Logic logic, Event event, int eventOneBasedIndex,
                          FetchWindow fetchWindow, boolean isAllocate) {
-        this(employee, displayedIndex);
+        this(employee, displayedIndex, FETCH_WINDOW_FXML);
         EventHandler<MouseEvent> eventHandler = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
