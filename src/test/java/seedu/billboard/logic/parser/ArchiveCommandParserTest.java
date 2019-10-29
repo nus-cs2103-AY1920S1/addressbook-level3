@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.billboard.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.billboard.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.billboard.logic.commands.CommandTestUtil.VALID_ARCHIVE_TAXES;
+import static seedu.billboard.logic.parser.ArchiveCommandParser.MESSAGE_ARCHIVE_COMMANDS;
 import static seedu.billboard.testutil.Assert.assertThrows;
 import static seedu.billboard.testutil.TypicalIndexes.INDEX_FIRST_EXPENSE;
 
@@ -40,12 +41,11 @@ public class ArchiveCommandParserTest {
 
     @Test
     public void parseCommand_unrecognisedInput_throwsParseException() {
-        assertThrows(ParseException.class, String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                HelpCommand.MESSAGE_USAGE), () -> parser.parse(""));
+        assertThrows(ParseException.class, MESSAGE_ARCHIVE_COMMANDS, () -> parser.parse(""));
     }
 
     @Test
     public void parseCommand_unknownCommand_throwsParseException() {
-        assertThrows(ParseException.class, MESSAGE_UNKNOWN_COMMAND, () -> parser.parse("unknownCommand"));
+        assertThrows(ParseException.class, MESSAGE_ARCHIVE_COMMANDS, () -> parser.parse("unknownCommand"));
     }
 }
