@@ -2,9 +2,11 @@ package seedu.address.model.note;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
+import seedu.address.logic.parser.ParserUtil;
 import seedu.address.model.StudyBuddyItem;
 import seedu.address.model.tag.Tag;
 
@@ -17,7 +19,7 @@ public class Note extends StudyBuddyItem {
     // Identity fields
     private final Title title;
     private final Content content;
-
+    private final List<NoteFragment> noteFragments;
 
     /**
      * Every field must be present and not null, except for tags.
@@ -27,6 +29,8 @@ public class Note extends StudyBuddyItem {
         requireAllNonNull(title, content);
         this.title = title;
         this.content = content;
+        this.noteFragments = ParserUtil.parseNoteFragmentsFromNote(this);
+        System.out.println(printNoteFragments());
     }
 
     public Title getTitle() {
@@ -85,6 +89,15 @@ public class Note extends StudyBuddyItem {
                 .append("\nTags: ");
         getTags().forEach(builder::append);
         return builder.toString();
+    }
+
+    public String printNoteFragments() {
+        final StringBuilder builder = new StringBuilder();
+        for (NoteFragment frag : noteFragments) {
+            builder.append("\n")
+                    .append(frag.toString());
+        }
+        return "NOTE FRAGMENT: " + builder.toString();
     }
 
 }
