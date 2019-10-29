@@ -1,26 +1,22 @@
-package mams.ui;
+package mams.commons.util;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
 /**
- * Has a cursor that points to an element in the list, and is able to iterate through the list.
- * This is different from {@code ListIterator}, which has a cursor that points in between elements.
- * The {@code ListIterator}'s behaviour: when making alternating calls of {@code next()} and
- * {@code previous()}, the same element is returned on both calls.
- * In contrast, {@code ListElementPointer}'s behaviour: when making alternating calls of
- * {@code next()} and {@code previous()}, the next and previous elements are returned respectively.
+ * Class representing an iterable pointer to a List. Now adapted to take in any List of generic variable T,
+ * makes a defensive copy of it internally, then returns an iterable pointer to the internal List.
  */
-public class ListElementPointer {
-    private List<String> list;
+public class ListPointer<T> {
+    private List<T> list;
     private int index;
 
     /**
-     * Constructs {@code ListElementPointer} which is backed by a defensive copy of {@code list}.
-     * The cursor points to the last element in {@code list}.
+     * Constructs {@code ListPointer}, and initialize cursor
+     * to point to the last element in {@code list}.
      */
-    public ListElementPointer(List<String> list) {
+    public ListPointer(List<T> list) {
         this.list = new ArrayList<>(list);
         index = this.list.size() - 1;
     }
@@ -28,12 +24,13 @@ public class ListElementPointer {
     /**
      * Appends {@code element} to the end of the list.
      */
-    public void add(String element) {
+    public void add(T element) {
         list.add(element);
     }
 
     /**
-     * Returns true if calling {@code #next()} does not throw an {@code NoSuchElementException}.
+     * Returns true if calling {@code #next()}, if next element exists
+     * ie. calling {@code #next()} does not throw a {@code NoSuchElementException}.
      */
     public boolean hasNext() {
         int nextIndex = index + 1;
@@ -41,7 +38,8 @@ public class ListElementPointer {
     }
 
     /**
-     * Returns true if calling {@code #previous()} does not throw an {@code NoSuchElementException}.
+     * Returns true if calling {@code #previous()} if previous element exists
+     * ie. calling {@code #previous()} does not throw a {@code NoSuchElementException}.
      */
     public boolean hasPrevious() {
         int previousIndex = index - 1;
@@ -49,7 +47,8 @@ public class ListElementPointer {
     }
 
     /**
-     * Returns true if calling {@code #current()} does not throw an {@code NoSuchElementException}.
+     * Returns true if calling {@code #current()} if current element exists
+     * ie. calling {@code #current()} does not throw a {@code NoSuchElementException}.
      */
     public boolean hasCurrent() {
         return isWithinBounds(index);
@@ -63,7 +62,7 @@ public class ListElementPointer {
      * Returns the next element in the list and advances the cursor position.
      * @throws NoSuchElementException if there is no more next element in the list.
      */
-    public String next() {
+    public T next() {
         if (!hasNext()) {
             throw new NoSuchElementException();
         }
@@ -74,7 +73,7 @@ public class ListElementPointer {
      * Returns the previous element in the list and moves the cursor position backwards.
      * @throws NoSuchElementException if there is no more previous element in the list.
      */
-    public String previous() {
+    public T previous() {
         if (!hasPrevious()) {
             throw new NoSuchElementException();
         }
@@ -85,7 +84,7 @@ public class ListElementPointer {
      * Returns the current element in the list.
      * @throws NoSuchElementException if the list is empty.
      */
-    public String current() {
+    public T current() {
         if (!hasCurrent()) {
             throw new NoSuchElementException();
         }
@@ -100,12 +99,12 @@ public class ListElementPointer {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof ListElementPointer)) {
+        if (!(other instanceof ListPointer)) {
             return false;
         }
 
         // state check
-        ListElementPointer iterator = (ListElementPointer) other;
+        ListPointer iterator = (ListPointer) other;
         return list.equals(iterator.list) && index == iterator.index;
     }
 }

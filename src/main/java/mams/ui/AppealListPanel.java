@@ -41,6 +41,7 @@ public class AppealListPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else if (appealList.size() == 1) {
+                logger.fine("Displaying expanded appeal card.");
                 setGraphic(new ExpandedAppealCard(appeal).getRoot());
             } else {
                 setGraphic(new AppealCard(appeal, getIndex() + 1).getRoot());

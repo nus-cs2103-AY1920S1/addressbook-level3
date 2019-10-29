@@ -41,6 +41,7 @@ public class ModuleListPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else if (moduleList.size() == 1) {
+                logger.fine("Displaying expanded module card");
                 setGraphic(new ExpandedModuleCard(module).getRoot());
             } else {
                 setGraphic(new ModuleCard(module, getIndex() + 1).getRoot());

@@ -238,6 +238,8 @@ public class ModelManager implements Model {
         ModelManager other = (ModelManager) obj;
         return mams.equals(other.mams)
                 && userPrefs.equals(other.userPrefs)
+                && filteredAppeals.equals(other.filteredAppeals)
+                && filteredModules.equals(other.filteredModules)
                 && filteredStudents.equals(other.filteredStudents);
     }
 }

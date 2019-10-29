@@ -20,33 +20,33 @@ import mams.model.tag.Tag;
 public class SampleDataUtil {
     public static Student[] getSampleStudents() {
         return new Student[] {
-            new Student(new Name("Alex Yeoh"), new Credits("20"), new PrevMods("CS2030, CS4040"),
+            new Student(new Name("Alex Yeoh"), new Credits("20"), new PrevMods("CS1010, CS2101"),
                 new MatricId("A0180000R"),
                 getTagSet("friends")),
-            new Student(new Name("Bernice Yu"), new Credits("20"), new PrevMods("CS2030, CS4040"),
+            new Student(new Name("Bernice Yu"), new Credits("20"), new PrevMods("CS1010, CS2105"),
                 new MatricId("A01455353y"),
                 getTagSet("colleagues", "friends")),
-            new Student(new Name("Charlotte Oliveiro"), new Credits("20"), new PrevMods("CS2030, CS4040"),
+            new Student(new Name("Charlotte Oliveiro"), new Credits("20"), new PrevMods("CS1010, CS2105"),
                 new MatricId("A0199239U"),
                 getTagSet("neighbours")),
-            new Student(new Name("David Li"), new Credits("20"), new PrevMods("CS2030, CS4040"),
+            new Student(new Name("David Li"), new Credits("20"), new PrevMods("CS1010, CS1231, CS2030"),
                 new MatricId("A01423223T"),
                 getTagSet("family")),
-            new Student(new Name("Irfan Ibrahim"), new Credits("20"), new PrevMods("CS2030, CS4040"),
+            new Student(new Name("Irfan Ibrahim"), new Credits("20"), new PrevMods("CS1010, CS1231, CS2030"),
                 new MatricId("A12039123S"),
                 getTagSet("classmates")),
-            new Student(new Name("Roy Balakrishnan"), new Credits("20"), new PrevMods("CS2030, CS4202"),
+            new Student(new Name("Roy Balakrishnan"), new Credits("20"), new PrevMods("CS1010, CS1231, CS2309"),
                 new MatricId("A015923848U"),
                 getTagSet("colleagues"))
         };
     }
 
     public static ReadOnlyMams getSampleMams() {
-        Mams sampleAb = new Mams();
+        Mams sampleMams = new Mams();
         for (Student sampleStudent : getSampleStudents()) {
-            sampleAb.addStudent(sampleStudent);
+            sampleMams.addStudent(sampleStudent);
         }
-        return sampleAb;
+        return sampleMams;
     }
 
     /**

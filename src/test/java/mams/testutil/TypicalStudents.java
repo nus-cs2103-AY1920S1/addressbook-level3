@@ -5,7 +5,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import mams.logic.commands.CommandTestUtil;
-import mams.model.Mams;
 import mams.model.student.Student;
 
 
@@ -43,28 +42,17 @@ public class TypicalStudents {
     public static final Student AMY = new StudentBuilder()
             .withName(CommandTestUtil.VALID_NAME_AMY).withCredits(CommandTestUtil.VALID_CREDITS_AMY)
             .withPrevMods(CommandTestUtil.VALID_PREVMODS_AMY)
-            .withMatricId(CommandTestUtil.VALID_MATRICID_AMY).withTags(CommandTestUtil.VALID_TAG_FRIEND).build();
+            .withMatricId(CommandTestUtil.VALID_MATRICID_AMY).withTags(CommandTestUtil.VALID_TAG_APPEAL2).build();
     public static final Student BOB = new StudentBuilder()
             .withName(CommandTestUtil.VALID_NAME_BOB).withCredits(CommandTestUtil.VALID_CREDITS_BOB)
             .withPrevMods(CommandTestUtil.VALID_PREVMODS_BOB)
             .withMatricId(CommandTestUtil.VALID_MATRICID_BOB)
-            .withTags(CommandTestUtil.VALID_TAG_HUSBAND, CommandTestUtil.VALID_TAG_FRIEND)
+            .withTags(CommandTestUtil.VALID_TAG_APPEAL1, CommandTestUtil.VALID_TAG_APPEAL2)
             .build();
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 
     private TypicalStudents() {} // prevents instantiation
-
-    /**
-     * Returns an {@code Mams} with all the typical students.
-     */
-    public static Mams getTypicalMams() {
-        Mams ab = new Mams();
-        for (Student student : getTypicalStudents()) {
-            ab.addStudent(student);
-        }
-        return ab;
-    }
 
     public static List<Student> getTypicalStudents() {
         return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
