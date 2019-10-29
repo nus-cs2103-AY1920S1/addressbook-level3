@@ -35,6 +35,7 @@ import seedu.address.person.model.UserPrefs;
 import seedu.address.testutil.EditTransactionDescriptorBuilder;
 import seedu.address.testutil.TypicalPersons;
 import seedu.address.transaction.logic.commands.EditCommand;
+import seedu.address.transaction.logic.parser.exception.ParseException;
 
 class EditCommandParserTest {
     private GetPersonByNameOnlyModel personModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
@@ -50,13 +51,16 @@ class EditCommandParserTest {
         // no index specified
         assertCommandParseWithPersonModelFailure(parser, VALID_NAME_AMY, MESSAGE_INVALID_EDIT_COMMAND_FORMAT,
                 personModel);
+        assertThrows(ParseException.class, () -> parser.parse(VALID_NAME_AMY, personModel));
 
         // no field specified
         assertCommandParseWithPersonModelFailure(parser, "1", MESSAGE_INVALID_EDIT_COMMAND_FORMAT,
                 personModel);
+        assertThrows(ParseException.class, () -> parser.parse("1", personModel));
 
         // no index and no field specified
         assertCommandParseWithPersonModelFailure(parser, "", MESSAGE_INVALID_EDIT_COMMAND_FORMAT, personModel);
+        assertThrows(ParseException.class, () -> parser.parse("", personModel));
     }
 
     @Test
@@ -82,6 +86,8 @@ class EditCommandParserTest {
     public void parse_invalidValue_failure() {
         assertCommandParseWithPersonModelFailure(parser, "1" + DESC_NAME_AMY,
                 MESSAGE_NO_SUCH_PERSON, personModel); // invalid name
+        assertThrows(ParseException.class, () -> parser.parse("1" + DESC_NAME_AMY, personModel));
+        
         assertCommandParseWithPersonModelFailure(parser, "1" + INVALID_DATE_1, MESSAGE_WRONG_DATE_FORMAT,
                 personModel); // invalid date
         assertCommandParseWithPersonModelFailure(parser, "1" + INVALID_DATE_2, MESSAGE_WRONG_DATE_FORMAT,
