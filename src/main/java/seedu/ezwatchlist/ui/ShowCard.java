@@ -3,15 +3,15 @@ package seedu.ezwatchlist.ui;
 import java.util.Comparator;
 
 import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
-
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
+
 import seedu.ezwatchlist.model.show.Poster;
 import seedu.ezwatchlist.model.show.Show;
 
@@ -55,6 +55,12 @@ public class ShowCard extends UiPart<Region> {
     private CheckBox watched;
     @FXML
     private ImageView poster;
+    @FXML
+    private HBox genres;
+    @FXML
+    private VBox information;
+
+    private MainWindow mainWindow;
 
     public ShowCard(Show show, int displayedIndex) {
         super(FXML);
@@ -62,7 +68,7 @@ public class ShowCard extends UiPart<Region> {
         this.displayedIndex = displayedIndex;
         id.setText(displayedIndex + ". ");
         name.setText(show.getName().showName);
-        type.setText(show.getType());
+        type.setText("Type: " + show.getType());
         dateOfRelease.setText("Date of Release: " + show.getDateOfRelease().value);
         description.setText("Description: " + show.getDescription().fullDescription);
         runningTime.setText("Running Time: " + Integer.toString(show.getRunningTime().value) + " minutes");
@@ -70,9 +76,14 @@ public class ShowCard extends UiPart<Region> {
         Image image = poster.getImage();
         this.poster.setImage(image);
 
+        actors.getChildren().add(new Label("Actors: "));
         show.getActors().stream()
                 .sorted(Comparator.comparing(actor -> actor.actorName))
                 .forEach(actor -> actors.getChildren().add(new Label(actor.actorName)));
+        actors.getChildren().stream().forEach(node -> node.getStyleClass().add("cell_small_label"));
+
+        show.getGenres().stream()
+                .forEach(genre -> genres.getChildren().add(new Label(genre)));
 
         //sets the checkbox selected value to be equal to the watched value of the show
         watched.setSelected(show.isWatched().value);
