@@ -25,7 +25,7 @@ StudyBuddy is also optimized for those who prefer to work with
 a Command Line Interface (CLI) while still having the benefits of a
 Graphical User Interface (GUI). Being highly familiar working with CLI,
 Computing Students can greatly benefit from the app to
-manage their studies efficiently and faster than traditional GUI apps.
+manage their studies efficiently which also aims to be faster than traditional GUI apps.
 
 == Quick Start
 
@@ -194,6 +194,8 @@ Displays the answer of the flashcard currently loaded.
 
 === Editing a flashcard: `edit`
 
+{Coming in v2.0}
+
 Edits flashcard <FLASHCARD_ID> by changing any field of the flashcard.
 
     Format: edit id/FLASHCARD_ID [m/MODULE] [q/NEW_QUESTION] [f/FILE_NAME] [a/ANSWER] [t/TITLE] [h/HINT] [tag/TAG]...
@@ -252,6 +254,8 @@ Starts a time trial for flashcards with tag <TAG> for <TIME> seconds per flashca
         10. Question: What is 2x3?
             Title: Maths
             Tags: [difficult][important]
+
+=== Remind
 
 == Notes Feature:
 
