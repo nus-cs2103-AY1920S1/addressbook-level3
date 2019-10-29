@@ -79,4 +79,11 @@ public class FilterCheatSheetByTagCommand extends Command {
         }
         return new CheatSheetCommandResult(resultToDisplay.toString());
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof FilterCheatSheetByTagCommand // instanceof handles nulls
+                && tagPredicate.equals(((FilterCheatSheetByTagCommand) other).tagPredicate));
+    }
 }
