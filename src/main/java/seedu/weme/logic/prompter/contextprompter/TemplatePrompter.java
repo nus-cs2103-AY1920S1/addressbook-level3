@@ -6,6 +6,7 @@ import static seedu.weme.logic.parser.contextparser.WemeParser.BASIC_COMMAND_FOR
 import static seedu.weme.logic.parser.contextparser.WemeParser.COMMAND_WORD;
 import static seedu.weme.logic.prompter.util.PrompterUtil.GENERAL_COMMANDS;
 import static seedu.weme.logic.prompter.util.PrompterUtil.TEMPLATE_COMMANDS;
+import static seedu.weme.logic.prompter.util.PrompterUtil.promptCommandWord;
 
 import java.util.regex.Matcher;
 
@@ -15,7 +16,6 @@ import seedu.weme.logic.commands.templatecommand.TemplateEditCommand;
 import seedu.weme.logic.prompter.commandprompter.templatecommandprompter.TemplateAddCommandPrompter;
 import seedu.weme.logic.prompter.commandprompter.templatecommandprompter.TemplateDeleteCommandPrompter;
 import seedu.weme.logic.prompter.commandprompter.templatecommandprompter.TemplateEditCommandPrompter;
-import seedu.weme.logic.prompter.commandwordprompter.TemplateCommandWordPrompter;
 import seedu.weme.logic.prompter.exceptions.PromptException;
 import seedu.weme.logic.prompter.prompt.CommandPrompt;
 import seedu.weme.model.Model;
@@ -29,11 +29,8 @@ public class TemplatePrompter extends WemePrompter {
     public CommandPrompt promptCommand(Model model, String userInput) throws PromptException {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
-            return new CommandPrompt(TEMPLATE_COMMANDS
-                    .stream()
-                    .sorted()
-                    .reduce((x, y) -> x + '\n' + y)
-                    .orElse(""));
+            return new CommandPrompt(TEMPLATE_COMMANDS.stream().sorted().reduce((x, y) -> x + '\n' + y).orElse(""),
+                    TEMPLATE_COMMANDS.stream().sorted().findFirst().orElse(""));
         }
 
         final String commandWord = matcher.group(COMMAND_WORD);
@@ -44,17 +41,17 @@ public class TemplatePrompter extends WemePrompter {
 
         switch (commandWord) {
         case TemplateAddCommand.COMMAND_WORD:
-            return new TemplateAddCommandPrompter().prompt(model, arguments);
+            return new TemplateAddCommandPrompter().prompt(model, userInput);
 
         case TemplateDeleteCommand.COMMAND_WORD:
-            return new TemplateDeleteCommandPrompter().prompt(model, arguments);
+            return new TemplateDeleteCommandPrompter().prompt(model, userInput);
 
         case TemplateEditCommand.COMMAND_WORD:
-            return new TemplateEditCommandPrompter().prompt(model, arguments);
+            return new TemplateEditCommandPrompter().prompt(model, userInput);
 
         default:
             if (arguments.isBlank()) {
-                return new TemplateCommandWordPrompter().prompt(model, commandWord);
+                return promptCommandWord(TEMPLATE_COMMANDS, commandWord);
             } else {
                 throw new PromptException(MESSAGE_UNKNOWN_COMMAND);
             }

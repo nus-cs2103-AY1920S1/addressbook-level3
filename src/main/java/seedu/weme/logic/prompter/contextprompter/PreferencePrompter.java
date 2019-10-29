@@ -6,10 +6,10 @@ import static seedu.weme.logic.parser.contextparser.WemeParser.BASIC_COMMAND_FOR
 import static seedu.weme.logic.parser.contextparser.WemeParser.COMMAND_WORD;
 import static seedu.weme.logic.prompter.util.PrompterUtil.GENERAL_COMMANDS;
 import static seedu.weme.logic.prompter.util.PrompterUtil.PREFERENCES_COMMANDS;
+import static seedu.weme.logic.prompter.util.PrompterUtil.promptCommandWord;
 
 import java.util.regex.Matcher;
 
-import seedu.weme.logic.prompter.commandwordprompter.PreferenceCommandWordPrompter;
 import seedu.weme.logic.prompter.exceptions.PromptException;
 import seedu.weme.logic.prompter.prompt.CommandPrompt;
 import seedu.weme.model.Model;
@@ -23,11 +23,8 @@ public class PreferencePrompter extends WemePrompter {
     public CommandPrompt promptCommand(Model model, String userInput) throws PromptException {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
-            return new CommandPrompt(PREFERENCES_COMMANDS
-                    .stream()
-                    .sorted()
-                    .reduce((x, y) -> x + '\n' + y)
-                    .orElse(""));
+            return new CommandPrompt(PREFERENCES_COMMANDS.stream().sorted().reduce((x, y) -> x + '\n' + y).orElse(""),
+                    PREFERENCES_COMMANDS.stream().sorted().findFirst().orElse(""));
         }
 
         final String commandWord = matcher.group(COMMAND_WORD);
@@ -37,7 +34,7 @@ public class PreferencePrompter extends WemePrompter {
         }
 
         if (arguments.isBlank()) {
-            return new PreferenceCommandWordPrompter().prompt(model, commandWord);
+            return promptCommandWord(PREFERENCES_COMMANDS, commandWord);
         } else {
             throw new PromptException(MESSAGE_UNKNOWN_COMMAND);
         }

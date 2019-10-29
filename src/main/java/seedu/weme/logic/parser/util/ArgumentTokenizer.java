@@ -1,5 +1,7 @@
 package seedu.weme.logic.parser.util;
 
+import static seedu.weme.logic.prompter.util.PrompterUtil.PREFIX_LENGTH;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -33,7 +35,7 @@ public class ArgumentTokenizer {
 
     /**
      * Parse the given arguments to obtain the last prefix with its arguments.
-     * @param argsString Arguments string of the form: {@code preamble <prefix>value <prefix>value ...}
+     * @param argsString Input string of the form: {@code preamble <prefix>value <prefix>value ...}
      * @param prefixes   Prefixes to tokenize the arguments string with
      * @return           LastArgument in the argument string
      */
@@ -48,6 +50,24 @@ public class ArgumentTokenizer {
         Prefix lastPrefix = lastPrefixPosition.prefix;
         PrefixPosition endPositionMarker = new PrefixPosition(new Prefix(""), argsString.length());
         return new LastArgument(lastPrefix, extractArgumentValue(argsString, lastPrefixPosition, endPositionMarker));
+    }
+
+    /**
+     * Removes the value of the last argument from the input string for command auto-completion.
+     * @param userInput    Input string of the form: {@code commandWord preamble <prefix>value <prefix>value ...}
+     * @param prefixes Prefixes to tokenize the input string with
+     * @return         String input without the last argument value.
+     */
+    public static String removeLastArgument(String userInput, Prefix... prefixes) {
+        List<PrefixPosition> prefixPositions = findAllPrefixPositions(userInput, prefixes);
+        if (prefixPositions.isEmpty()) {
+            return null;
+        }
+
+        prefixPositions.sort((prefix1, prefix2) -> prefix2.getStartPosition() - prefix1.getStartPosition());
+        PrefixPosition lastPrefixPosition = prefixPositions.get(0);
+
+        return userInput.substring(0, lastPrefixPosition.getStartPosition() + PREFIX_LENGTH);
     }
 
     /**
@@ -136,8 +156,8 @@ public class ArgumentTokenizer {
      * The end position of the value is determined by {@code nextPrefixPosition}.
      */
     private static String extractArgumentValue(String argsString,
-                                        PrefixPosition currentPrefixPosition,
-                                        PrefixPosition nextPrefixPosition) {
+                                               PrefixPosition currentPrefixPosition,
+                                               PrefixPosition nextPrefixPosition) {
         Prefix prefix = currentPrefixPosition.getPrefix();
 
         int valueStartPos = currentPrefixPosition.getStartPosition() + prefix.getPrefix().length();

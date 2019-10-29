@@ -38,14 +38,14 @@ public class WemePrompter {
         switch (commandWord) {
 
         case TabCommand.COMMAND_WORD:
-            return new TabCommandPrompter().prompt(model, arguments);
+            return new TabCommandPrompter().prompt(model, userInput);
 
         case UndoCommand.COMMAND_WORD:
         case RedoCommand.COMMAND_WORD:
         case ExitCommand.COMMAND_WORD:
         case HelpCommand.COMMAND_WORD:
         default:
-            return CommandPrompt.empty();
+            return new CommandPrompt(userInput);
         }
     }
 }

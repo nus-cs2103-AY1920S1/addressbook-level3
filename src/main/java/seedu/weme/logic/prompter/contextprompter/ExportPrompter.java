@@ -6,13 +6,13 @@ import static seedu.weme.logic.parser.contextparser.WemeParser.BASIC_COMMAND_FOR
 import static seedu.weme.logic.parser.contextparser.WemeParser.COMMAND_WORD;
 import static seedu.weme.logic.prompter.util.PrompterUtil.EXPORT_COMMANDS;
 import static seedu.weme.logic.prompter.util.PrompterUtil.GENERAL_COMMANDS;
+import static seedu.weme.logic.prompter.util.PrompterUtil.promptCommandWord;
 
 import java.util.regex.Matcher;
 
 import seedu.weme.logic.commands.exportcommand.ExportCommand;
 import seedu.weme.logic.commands.exportcommand.UnstageCommand;
 import seedu.weme.logic.prompter.commandprompter.exportcommandpropmter.UnstageCommandPrompter;
-import seedu.weme.logic.prompter.commandwordprompter.ExportCommandWordPrompter;
 import seedu.weme.logic.prompter.exceptions.PromptException;
 import seedu.weme.logic.prompter.prompt.CommandPrompt;
 import seedu.weme.model.Model;
@@ -26,11 +26,8 @@ public class ExportPrompter extends WemePrompter {
     public CommandPrompt promptCommand(Model model, String userInput) throws PromptException {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
-            return new CommandPrompt(EXPORT_COMMANDS
-                    .stream()
-                    .sorted()
-                    .reduce((x, y) -> x + '\n' + y)
-                    .orElse(""));
+            return new CommandPrompt(EXPORT_COMMANDS.stream().sorted().reduce((x, y) -> x + '\n' + y).orElse(""),
+                    EXPORT_COMMANDS.stream().sorted().findFirst().orElse(""));
         }
 
         final String commandWord = matcher.group(COMMAND_WORD);
@@ -41,15 +38,15 @@ public class ExportPrompter extends WemePrompter {
 
         switch (commandWord) {
         case UnstageCommand.COMMAND_WORD:
-            return new UnstageCommandPrompter().prompt(model, arguments);
+            return new UnstageCommandPrompter().prompt(model, userInput);
 
         case ExportCommand.COMMAND_WORD:
             // TODO: add prompter for export command.
-            return CommandPrompt.empty();
+            return new CommandPrompt(userInput);
 
         default:
             if (arguments.isBlank()) {
-                return new ExportCommandWordPrompter().prompt(model, commandWord);
+                return promptCommandWord(EXPORT_COMMANDS, commandWord);
             } else {
                 throw new PromptException(MESSAGE_UNKNOWN_COMMAND);
             }

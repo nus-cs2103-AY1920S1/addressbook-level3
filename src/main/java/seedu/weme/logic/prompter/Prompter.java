@@ -9,7 +9,7 @@ import seedu.weme.model.Model;
  */
 public interface Prompter {
     /**
-     * Prompt command arguments and return a command prompt.
+     * Suggest possible command arguments for the user input.
      */
-    CommandPrompt prompt(Model model, String arguments) throws PromptException;
+    CommandPrompt prompt(Model model, String userInput) throws PromptException;
 }
