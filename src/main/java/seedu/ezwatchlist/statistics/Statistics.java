@@ -48,9 +48,9 @@ public class Statistics {
         model.getWatchList().getShowList().stream().forEach(show -> {
             show.getGenres().stream().forEach(genre -> {
                 if (genreRecords.containsKey(genre)) {
-                    genreRecords.put(genre, genreRecords.get(genre) + 1);
+                    genreRecords.put(genre.getGenreName(), genreRecords.get(genre) + 1);
                 } else {
-                    genreRecords.put(genre, new Integer(1));
+                    genreRecords.put(genre.getGenreName(), new Integer(1));
                 }
             });
         });

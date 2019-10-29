@@ -83,7 +83,7 @@ public class ShowCard extends UiPart<Region> {
         actors.getChildren().stream().forEach(node -> node.getStyleClass().add("cell_small_label"));
 
         show.getGenres().stream()
-                .forEach(genre -> genres.getChildren().add(new Label(genre)));
+                .forEach(genre -> genres.getChildren().add(new Label(genre.getGenreName())));
 
         //sets the checkbox selected value to be equal to the watched value of the show
         watched.setSelected(show.isWatched().value);

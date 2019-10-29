@@ -24,7 +24,7 @@ import seedu.ezwatchlist.model.Model;
 import seedu.ezwatchlist.model.actor.Actor;
 import seedu.ezwatchlist.model.show.Date;
 import seedu.ezwatchlist.model.show.Description;
-import seedu.ezwatchlist.model.show.Genres;
+import seedu.ezwatchlist.model.show.Genre;
 import seedu.ezwatchlist.model.show.IsWatched;
 import seedu.ezwatchlist.model.show.Movie;
 import seedu.ezwatchlist.model.show.Name;
@@ -108,7 +108,7 @@ public class EditCommand extends Command {
         RunningTime updatedRunningTime = editShowDescriptor.getRunningTime().orElse(showToEdit.getRunningTime());
         Set<Actor> updatedActors = editShowDescriptor.getActors().orElse(showToEdit.getActors());
         Poster updatedPoster = editShowDescriptor.getPoster().orElse(showToEdit.getPoster());
-        Genres updatedGenres = editShowDescriptor.getGenres().orElse(showToEdit.getGenres());
+        Set<Genre> updatedGenres = editShowDescriptor.getGenres().orElse(showToEdit.getGenres());
 
         if (showToEdit.getType().equals("Movie")) {
             Movie editedShow = new Movie(updatedName, updatedDescription, updatedIsWatched,
@@ -124,7 +124,7 @@ public class EditCommand extends Command {
                     updatedDateOfRelease, updatedRunningTime, updatedActors, updatedNumberOfEpisodesWatched,
                     updatedTotalNumOfEpisodes, updatedSeasons);
             editedShow.setPoster(updatedPoster);
-            editedShow.setGenres(updatedGenres);
+            editedShow.addGenres(updatedGenres);
 
             return editedShow;
         }
@@ -161,7 +161,7 @@ public class EditCommand extends Command {
         private RunningTime runningTime;
         private Set<Actor> actors;
         private Poster poster;
-        private Genres genres;
+        private Set<Genre> genres;
         private int numOfEpisodesWatched;
         private int totalNumOfEpisodes;
         private List<TvSeason> seasons;
@@ -250,14 +250,6 @@ public class EditCommand extends Command {
             return Optional.ofNullable(poster);
         }
 
-        public void setGenres(Genres genres) {
-            this.genres = genres;
-        }
-
-        public Optional<Genres> getGenres() {
-            return Optional.ofNullable(genres);
-        }
-
         public void setNumOfEpisodesWatched(int numOfEpisodesWatched) {
             this.numOfEpisodesWatched = numOfEpisodesWatched;
         }
@@ -290,6 +282,23 @@ public class EditCommand extends Command {
          */
         public Optional<Set<Actor>> getActors() {
             return (actors != null) ? Optional.of(Collections.unmodifiableSet(actors)) : Optional.empty();
+        }
+
+        /**
+         * Sets {@code genres} to this object's {@code genres}.
+         * A defensive copy of {@code genres} is used internally.
+         */
+        public void setGenres(Set<Genre> genres) {
+            this.genres = (genres != null) ? new HashSet<>(genres) : null;
+        }
+
+        /**
+         * Returns an unmodifiable genre set, which throws {@code UnsupportedOperationException}
+         * if modification is attempted.
+         * Returns {@code Optional#empty()} if {@code genre} is null.
+         */
+        public Optional<Set<Genre>> getGenres() {
+            return (genres != null) ? Optional.of(Collections.unmodifiableSet(genres)) : Optional.empty();
         }
 
         /**
