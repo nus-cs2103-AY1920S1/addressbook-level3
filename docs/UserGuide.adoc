@@ -76,19 +76,19 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 === Universal Commands
 
 ==== Accessing project dashboard page: `home` +
-This brings you to the project dashboard page +
+This command brings you to the project dashboard page +
 Format: `home`
 
 ==== Accessing time management page: `calendar` +
-This brings you to the time management page where calendar and meeting times are displayed +
+This command brings you to the time management page where calendar and meeting times are displayed +
 Format: `calendar`
 
 ==== Accessing settings page: `settings` (Coming in v1.3) +
-This brings you to the settings page  +
+This command brings you to the settings page  +
 Format: `settings`
 
 ==== View help: `help` +
-Displays a list of possible commands for the user +
+This command displays a list of possible commands that you can execute +
 Format: `help`
 
 '''
@@ -315,6 +315,22 @@ Examples:
 File explorer pops up, triggering a message to allow the user to save the pdf file in the computer.
 
 '''
+
+=== Statistics Commands
+
+==== Gets statistics of members: `member-stats` +
+To get statistics relating to the members in +Work, use the command following the format below. +
+Format: `member-stats`
+
+Calling the 'member-stats' command will result in the following: 
+INSERT IMAGE 
+
+==== Gets statistics of tasks: `task-stats` +
+To get statistics relating to the tasks in +Work, use the command following the format below. +
+Format: `task-stats`
+
+Calling the 'task-stats' command will result in the following: 
+INSERT IMAGE 
 
 === Settings Commands (Coming in v1.3)
 
