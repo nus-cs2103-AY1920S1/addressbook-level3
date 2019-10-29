@@ -9,18 +9,17 @@ import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.effect.GaussianBlur;
 import javafx.scene.layout.StackPane;
 import javafx.scene.media.AudioClip;
+import javafx.stage.Popup;
 import javafx.stage.Stage;
 import seedu.elisa.commons.core.GuiSettings;
 import seedu.elisa.commons.core.LogsCenter;
 import seedu.elisa.commons.core.item.Item;
 import seedu.elisa.commons.exceptions.IllegalValueException;
 import seedu.elisa.logic.Logic;
-import seedu.elisa.logic.commands.CommandResult;
-import seedu.elisa.logic.commands.DownCommandResult;
-import seedu.elisa.logic.commands.OpenCommandResult;
-import seedu.elisa.logic.commands.UpCommandResult;
+import seedu.elisa.logic.commands.*;
 import seedu.elisa.logic.commands.exceptions.CommandException;
 import seedu.elisa.logic.parser.exceptions.ParseException;
 import seedu.elisa.model.item.CalendarList;
@@ -51,6 +50,7 @@ public class MainWindow extends UiPart<Stage> {
     private ReminderListPanel reminderListPanel;
     private CalendarPanel calendarPanel;
     private ResultDisplay resultDisplay;
+    private Popup popup;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -72,6 +72,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane statusbarPlaceholder;
+
+    @FXML
+    private StackPane openItemPlaceholder;
 
     @FXML
     private TabPane viewsPlaceholder;
@@ -227,9 +230,41 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     private void openUp(Item item) {
-        taskListPanelPlaceholder.getChildren().add(new OpenItem(item).getRoot());
+        Popup popup = new Popup();
+        popup.getContent().add(new OpenItem(item).getRoot());
+        popup.setHeight(1000);
+        popup.setWidth(500);
+
+        this.popup = popup;
+        popup.show(primaryStage);
     }
 
+    private CommandResult executeOpen(CommandResult cr) {
+        CommandResult commandResult = cr;
+        if (popup != null) {
+            // Previous popup still exists
+            commandResult = new CommandResult("Hey, close the previous one first!");
+        } else {
+            // Open new popup to show the item
+            OpenCommandResult result = (OpenCommandResult) commandResult;
+            openUp(result.getItem());
+            viewsPlaceholder.setEffect(new GaussianBlur());
+        }
+        return commandResult;
+    }
+
+    private CommandResult executeClose(CommandResult cr) {
+        CommandResult commandResult = cr;
+        if (popup == null) {
+            // Nothing to close
+            commandResult = CloseCommandResult.FAILURE;
+        } else {
+            popup.hide();
+            this.popup = null;
+            viewsPlaceholder.setEffect(null);
+        }
+        return commandResult;
+    }
 
 
     /**
@@ -272,7 +307,8 @@ public class MainWindow extends UiPart<Stage> {
             resultDisplay.setMessageFromUser(commandText);
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
-            if (!(commandResult instanceof UpCommandResult) && !(commandResult instanceof DownCommandResult)) {
+            if (!(commandResult instanceof UpCommandResult) && !(commandResult instanceof DownCommandResult) &&
+                    !(commandResult instanceof OpenCommandResult) && !(commandResult instanceof CloseCommandResult)) {
                 resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
             }
 
@@ -293,8 +329,16 @@ public class MainWindow extends UiPart<Stage> {
             }
 
             if (commandResult instanceof OpenCommandResult) {
-                OpenCommandResult result = (OpenCommandResult) commandResult;
-                openUp(result.getItem());
+                commandResult = executeOpen(commandResult);
+
+                resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+                return commandResult;
+            }
+
+            if (commandResult instanceof CloseCommandResult) {
+                commandResult = executeClose(commandResult);
+
+                resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
                 return commandResult;
             }
 

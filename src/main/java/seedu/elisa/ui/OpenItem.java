@@ -22,11 +22,17 @@ public class OpenItem extends UiPart<Region> {
     @FXML
     private Label id;
     @FXML
+    private Label itemdetails;
+    @FXML
+    private Label completed;
+    @FXML
     private Label priority;
     @FXML
     private Label startdate;
     @FXML
     private Label enddate;
+    @FXML
+    private Label reminderdate;
     @FXML
     private FlowPane tags;
 
@@ -34,8 +40,16 @@ public class OpenItem extends UiPart<Region> {
         super(FXML);
         this.item = item;
         description.setText(item.getItemDescription().toString());
+        itemdetails.setText(item.toString());
+    }
+
+    public OpenItem(ObservableList<Item> items) {
+        super(FXML);
+        this.item = items.get(0); // only 1 item
+        description.setText(item.getItemDescription().toString());
         priority.setText("Priority: " + item.getPriority().toString());
         startdate.setText("Start Date: " + item.getEvent().get().getStartDateTime().toString());
         enddate.setText("End Date: " + item.getEvent().get().getEndDateTime().toString());
     }
+
 }

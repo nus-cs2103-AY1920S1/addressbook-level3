@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" prefHeight="400.0" prefWidth="400.0" style="-fx-background-color: #383838;" >
     <HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
         <GridPane HBox.hgrow="ALWAYS">
             <columnConstraints>
@@ -26,12 +26,10 @@
                             <Region fx:constant="USE_PREF_SIZE" />
                         </minWidth>
                     </Label>
-                    <Label fx:id="description" text="\$first" styleClass="cell_big_label" />
+                    <Label fx:id="description" text="\$first" styleClass="cell_big_label" style="-fx-text-fill: #00A5F0" />
                 </HBox>
                 <FlowPane fx:id="tags" />
-                <Label fx:id="priority" styleClass="cell_small_label" text="\$priority" />
-                <Label fx:id="startdate" styleClass="cell_small_label" text="\$startdate" />
-                <Label fx:id="enddate" styleClass="cell_small_label" text="\$enddate" />
+                <Label fx:id="itemdetails" styleClass="cell_small_label" text="\$itemdetails" style="-fx-text-fill: white"/>
             </VBox>
         </GridPane>
     </HBox>

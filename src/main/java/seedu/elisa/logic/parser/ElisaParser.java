@@ -7,6 +7,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.elisa.logic.commands.ClearCommand;
+import seedu.elisa.logic.commands.CloseCommand;
 import seedu.elisa.logic.commands.Command;
 import seedu.elisa.logic.commands.DeleteCommand;
 import seedu.elisa.logic.commands.DoneCommand;
@@ -115,6 +116,9 @@ public class ElisaParser {
 
         case OpenCommand.COMMAND_WORD:
             return new OpenCommandParser().parse(description, flags);
+
+        case CloseCommand.COMMAND_WORD:
+            return new CloseCommand();
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

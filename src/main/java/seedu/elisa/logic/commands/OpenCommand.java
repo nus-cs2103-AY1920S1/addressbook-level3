@@ -9,7 +9,7 @@ import seedu.elisa.model.item.VisualizeList;
 
 import static java.util.Objects.requireNonNull;
 
-public class OpenCommand extends UndoableCommand {
+public class OpenCommand extends Command {
 
     public static final String COMMAND_WORD = "open";
     public static final String MESSAGE_SUCCESS = "opening up item %d";
@@ -36,16 +36,6 @@ public class OpenCommand extends UndoableCommand {
 
         Item toOpen = lastShownList.get(index.getZeroBased());
         return new OpenCommandResult(String.format(MESSAGE_SUCCESS, index.getOneBased()), toOpen);
-    }
-
-    @Override
-    public void reverse(ItemModel model) throws CommandException {
-        model.setVisualizeList(beforeOpen);
-    }
-
-    @Override
-    public String getCommandWord() {
-        return COMMAND_WORD;
     }
 
 }
