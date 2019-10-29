@@ -1,8 +1,5 @@
 package dream.fcard.model.cards;
 
-import static dream.fcard.model.cards.Priority.LOW_PRIORITY;
-
-import dream.fcard.logic.stats.CardStats;
 import dream.fcard.logic.storage.Schema;
 import dream.fcard.util.json.jsontypes.JsonObject;
 import dream.fcard.util.json.jsontypes.JsonValue;
@@ -27,8 +24,8 @@ public class JavascriptCard extends FlashCard {
     public JavascriptCard(String frontString, String outputString) {
         front = frontString;
         back = outputString;
-        priority = LOW_PRIORITY;
-        cardStats = new CardStats();
+        //priority = LOW_PRIORITY;
+        //cardStats = new CardStats();
     }
 
     /**
@@ -42,7 +39,7 @@ public class JavascriptCard extends FlashCard {
     public JavascriptCard(String frontString, String outputString, int priorityLevel) {
         front = frontString;
         back = outputString;
-        priority = priorityLevel;
+        //priority = priorityLevel;
     }
     //@author
 
@@ -102,14 +99,14 @@ public class JavascriptCard extends FlashCard {
         return back;
     }
 
-    /**
-     * Returns boolean value false.
-     * Since no choices exist in this class.
-     *
-     * @return Boolean value false.
-     */
-    @Override
-    public boolean hasChoices() {
-        return false;
-    }
+    ///**
+    // * Returns boolean value false.
+    // * Since no choices exist in this class.
+    // *
+    // * @return Boolean value false.
+    // */
+    //@Override
+    //public boolean hasChoices() {
+    //    return false;
+    //}
 }

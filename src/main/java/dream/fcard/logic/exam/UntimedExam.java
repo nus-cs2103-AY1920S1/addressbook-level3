@@ -3,6 +3,7 @@ package dream.fcard.logic.exam;
 import java.util.ArrayList;
 
 import dream.fcard.model.cards.FlashCard;
+import dream.fcard.model.exceptions.IndexNotFoundException;
 
 /**
  * Untimed Exam mode.
@@ -24,7 +25,7 @@ public class UntimedExam implements Exam {
     }
 
     @Override
-    public void parseUserInputAndGrade(String answer) {
+    public void parseUserInputAndGrade(String answer) throws IndexNotFoundException {
         FlashCard currentCard = testDeck.get(index);
         boolean isCorrect = currentCard.evaluate(answer);
         result.mark(isCorrect);

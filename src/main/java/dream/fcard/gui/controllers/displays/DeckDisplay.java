@@ -116,7 +116,7 @@ public class DeckDisplay extends AnchorPane {
             return;
         }
         try {
-            deck.removeCard(index);
+            deck.removeCardFromDeck(index);
             renderQuestions();
         } catch (IndexNotFoundException e) {
             e.printStackTrace();

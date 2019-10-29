@@ -11,6 +11,7 @@ import dream.fcard.model.cards.FlashCard;
 import dream.fcard.model.cards.FrontBackCard;
 import dream.fcard.model.cards.MultipleChoiceCard;
 import dream.fcard.model.exceptions.DuplicateInChoicesException;
+import dream.fcard.model.exceptions.IndexNotFoundException;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
@@ -135,7 +136,7 @@ public class CardEditingWindow extends AnchorPane {
             ArrayList<String> choices = mcqOptionsSetter.getChoices();
             try {
                 return new MultipleChoiceCard(front, back, choices);
-            } catch (DuplicateInChoicesException e) {
+            } catch (DuplicateInChoicesException | IndexNotFoundException e) {
                 displayMessage.accept("You have duplicate options!");
                 return null;
             }

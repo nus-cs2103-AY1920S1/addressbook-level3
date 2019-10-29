@@ -15,6 +15,7 @@ import dream.fcard.model.cards.FrontBackCard;
 import dream.fcard.model.cards.JavascriptCard;
 import dream.fcard.model.cards.MultipleChoiceCard;
 import dream.fcard.model.exceptions.DuplicateInChoicesException;
+import dream.fcard.model.exceptions.IndexNotFoundException;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
@@ -75,7 +76,7 @@ public class CardCreatingWindow extends AnchorPane {
             onAddQuestion.setOnAction(e -> {
                 try {
                     addCardToDeck();
-                } catch (DuplicateInChoicesException ex) {
+                } catch (DuplicateInChoicesException | IndexNotFoundException ex) {
                     displayMessage.accept("You have duplicated options!");
                 }
             });
@@ -112,7 +113,7 @@ public class CardCreatingWindow extends AnchorPane {
      *
      * @throws DuplicateInChoicesException if the user enters the same multiple choice option more than once.
      */
-    void addCardToDeck() throws DuplicateInChoicesException {
+    void addCardToDeck() throws DuplicateInChoicesException, IndexNotFoundException {
         if (cardType.equals(mcq)) {
             //validation - non-empty question, at least one non-empty option, and a designated right answer
             if (questionField.getText().isBlank()) {

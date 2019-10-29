@@ -1,8 +1,5 @@
 package dream.fcard.model.cards;
 
-import static dream.fcard.model.cards.Priority.LOW_PRIORITY;
-
-import dream.fcard.logic.stats.CardStats;
 import dream.fcard.logic.storage.Schema;
 import dream.fcard.model.exceptions.IndexNotFoundException;
 import dream.fcard.util.json.jsontypes.JsonObject;
@@ -25,8 +22,8 @@ public class FrontBackCard extends FlashCard {
         back = backString;
         front = frontString;
         // Default priority is 1
-        priority = LOW_PRIORITY;
-        cardStats = new CardStats();
+        //priority = LOW_PRIORITY;
+        //cardStats = new CardStats();
     }
 
     /**
@@ -39,9 +36,9 @@ public class FrontBackCard extends FlashCard {
     public FrontBackCard(String frontString, String backString, int priorityLevel) {
         back = backString;
         front = frontString;
-
-        priority = priorityLevel;
-        cardStats = new CardStats();
+        //
+        //priority = priorityLevel;
+        //cardStats = new CardStats();
     }
 
     /**
@@ -63,7 +60,7 @@ public class FrontBackCard extends FlashCard {
      * @return Boolean value, if correct return true, else return false.
      * @throws IndexNotFoundException
      */
-    public Boolean evaluate(String in) {
+    public Boolean evaluate(String in) throws IndexNotFoundException {
         return in.equals(back);
     }
 
@@ -103,14 +100,14 @@ public class FrontBackCard extends FlashCard {
         return back;
     }
 
-    /**
-     * Returns boolean value false.
-     * Since no choices exist in this class.
-     *
-     * @return Boolean value false.
-     */
-    @Override
-    public boolean hasChoices() {
-        return false;
-    }
+    ///**
+    // * Returns boolean value false.
+    // * Since no choices exist in this class.
+    // *
+    // * @return Boolean value false.
+    // */
+    //@Override
+    //public boolean hasChoices() {
+    //    return false;
+    //}
 }
