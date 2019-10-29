@@ -7,12 +7,15 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.AddNotesCommand;
+import seedu.address.logic.commands.ClearNoteCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteNoteCommand;
 import seedu.address.logic.commands.EditNoteCommand;
 import seedu.address.logic.commands.ExitCommand;
+import seedu.address.logic.commands.FindNoteCommand;
 import seedu.address.logic.commands.GoToCommand;
 import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.ListNoteCommand;
 import seedu.address.logic.commands.ReadNoteCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -58,15 +61,15 @@ public class NoteBookParser {
         case ReadNoteCommand.COMMAND_WORD:
             return new ReadNoteCommandParser().parse(arguments);
 
-        //        case ClearCommand.COMMAND_WORD:
-        //            return new ClearCommand();
-        //
-        //        case FindCommand.COMMAND_WORD:
-        //            return new FindCommandParser().parse(arguments);
-        //
-        //        case ListCommand.COMMAND_WORD:
-        //            return new ListCommand();
-        //
+        case ClearNoteCommand.COMMAND_WORD:
+            return new ClearNoteCommand();
+
+        case FindNoteCommand.COMMAND_WORD:
+            return new FindNoteCommandParser().parse(arguments);
+
+        case ListNoteCommand.COMMAND_WORD:
+            return new ListNoteCommand();
+
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
 
