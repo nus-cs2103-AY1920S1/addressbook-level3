@@ -93,8 +93,7 @@ public abstract class Task {
                 && otherTask.getTaskTitle().equals(getTaskTitle())
                 && otherTask.getWeek() == getWeek()
                 && (otherTask.getTaskDay().equals(getTaskDay())
-                && otherTask.getTaskDeadline().equals(getTaskDeadline())
-                || otherTask.getTaskDescription().equals(getTaskDescription()));
+                && otherTask.getTaskDeadline().equals(getTaskDeadline()));
     }
 
     /**

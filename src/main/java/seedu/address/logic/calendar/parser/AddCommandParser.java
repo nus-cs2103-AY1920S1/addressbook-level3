@@ -38,8 +38,8 @@ public class AddCommandParser implements Parser<AddCommand> {
                 ArgumentTokenizer.tokenize(args, PREFIX_TASKTITLE, PREFIX_TASKDAY, PREFIX_TASKDESCRIPTION,
                         PREFIX_TASKDEADLINE, PREFIX_TASKTIME, PREFIX_TASKTAG);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_TASKTITLE, PREFIX_TASKTIME, PREFIX_TASKDAY,
-                PREFIX_TASKDESCRIPTION) || !argMultimap.getPreamble().isEmpty()) {
+        if (!arePrefixesPresent(argMultimap, PREFIX_TASKTITLE, PREFIX_TASKTIME, PREFIX_TASKDAY)
+            || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
 
@@ -47,7 +47,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         TaskDay taskDay = ParserUtil.parseDay(argMultimap.getValue(PREFIX_TASKDAY).get());
         TaskDescription taskDescription =
                 ParserUtil.parseDescription(argMultimap.getValue(PREFIX_TASKDESCRIPTION).get());
-        TaskTime taskTime = ParserUtil.parsePlace(argMultimap.getValue(PREFIX_TASKTIME).get());
+        TaskTime taskTime = ParserUtil.parseTime(argMultimap.getValue(PREFIX_TASKTIME).get());
         TaskDeadline taskDeadline = ParserUtil.parseDeadline(argMultimap.getValue(PREFIX_TASKDEADLINE).get());
         Set<TaskTag> taskTagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TASKTAG));
 

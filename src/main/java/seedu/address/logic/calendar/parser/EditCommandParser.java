@@ -60,7 +60,7 @@ public class EditCommandParser implements Parser<EditCommand> {
                 .getValue(PREFIX_TASKDEADLINE).get()));
         }
         if (argMultimap.getValue(PREFIX_TASKTIME).isPresent()) {
-            editPersonDescriptor.setTaskTime(ParserUtil.parsePlace(argMultimap.getValue(PREFIX_TASKTIME).get()));
+            editPersonDescriptor.setTaskTime(ParserUtil.parseTime(argMultimap.getValue(PREFIX_TASKTIME).get()));
         }
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TASKTAG)).ifPresent(editPersonDescriptor::setTaskTags);
 

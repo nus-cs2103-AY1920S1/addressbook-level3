@@ -101,14 +101,14 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String address} into an {@code TaskTime}.
+     * Parses a {@code String time} into an {@code TaskTime}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code address} is invalid.
+     * @throws ParseException if the given {@code time} is invalid.
      */
-    public static TaskTime parsePlace(String address) throws ParseException {
-        requireNonNull(address);
-        String trimmedAddress = address.trim();
+    public static TaskTime parseTime(String time) throws ParseException {
+        requireNonNull(time);
+        String trimmedAddress = time.trim();
         if (!TaskTime.isValidTime(trimmedAddress)) {
             throw new ParseException(TaskTime.MESSAGE_CONSTRAINTS);
         }

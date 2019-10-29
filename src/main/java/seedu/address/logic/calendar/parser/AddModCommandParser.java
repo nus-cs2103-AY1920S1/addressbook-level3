@@ -46,7 +46,7 @@ public class AddModCommandParser {
         TaskDay taskDay = ParserUtil.parseDay(argMultimap.getValue(PREFIX_TASKDAY).get());
         TaskDescription taskDescription =
             ParserUtil.parseDescription(argMultimap.getValue(PREFIX_TASKDESCRIPTION).get());
-        TaskTime taskTime = ParserUtil.parsePlace(argMultimap.getValue(PREFIX_TASKTIME).get());
+        TaskTime taskTime = ParserUtil.parseTime(argMultimap.getValue(PREFIX_TASKTIME).get());
         TaskDeadline taskDeadline = ParserUtil.parseDeadline("12-12-9999");
         Set<TaskTag> taskTagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TASKTAG));
 
