@@ -1,9 +1,5 @@
 package seedu.address.model.cap.util;
 
-import java.util.Arrays;
-import java.util.Set;
-import java.util.stream.Collectors;
-
 import seedu.address.model.cap.CapLog;
 import seedu.address.model.cap.ReadOnlyCapLog;
 import seedu.address.model.cap.person.AcademicYear;
@@ -15,7 +11,7 @@ import seedu.address.model.cap.person.ModuleCode;
 import seedu.address.model.cap.person.Semester;
 import seedu.address.model.cap.person.SemesterPeriod;
 import seedu.address.model.cap.person.Title;
-import seedu.address.model.cap.tag.Tag;
+
 import seedu.address.model.common.Module;
 
 /**
@@ -58,15 +54,6 @@ public class SampleDataUtil {
             sampleAb.addSemester(sampleSemester);
         }
         return sampleAb;
-    }
-
-    /**
-     * Returns a tag set containing the list of strings given.
-     */
-    public static Set<Tag> getTagSet(String... strings) {
-        return Arrays.stream(strings)
-                .map(Tag::new)
-                .collect(Collectors.toSet());
     }
 
 }
