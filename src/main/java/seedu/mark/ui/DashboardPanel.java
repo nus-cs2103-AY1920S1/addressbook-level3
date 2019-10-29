@@ -27,7 +27,7 @@ public class DashboardPanel extends UiPart<Region> {
         super(FXML);
         FolderStructureTreeView folderStructureTreeView = new FolderStructureTreeView(
                 logic.getFolderStructure(), logic.getFilteredBookmarkList(), currentUrlChangeHandler);
-      
+
         ReminderListPanel reminderListPanel = new ReminderListPanel(logic.getReminderList());
 
         folderStructurePlaceholder.getChildren().add(folderStructureTreeView.getRoot());

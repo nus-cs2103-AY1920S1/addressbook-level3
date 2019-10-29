@@ -38,7 +38,7 @@ class EditReminderCommandTest {
 
         Model expectedModel = new ModelManager(new Mark(model.getMark()), new UserPrefs());
         expectedModel.editReminder(model.getReminders().get(0), editedReminder);
-        expectedModel.saveMark();
+        expectedModel.saveMark(expectedMessage);
 
         assertCommandSuccess(editReminderCommand, model, new StorageStub(), expectedMessage, expectedModel);
     }
@@ -62,7 +62,7 @@ class EditReminderCommandTest {
 
         Model expectedModel = new ModelManager(new Mark(model.getMark()), new UserPrefs());
         expectedModel.editReminder(lastReminder, editedReminder);
-        expectedModel.saveMark();
+        expectedModel.saveMark(expectedMessage);
 
         assertCommandSuccess(editReminderCommand, model, new StorageStub(), expectedMessage, expectedModel);
     }
@@ -76,7 +76,7 @@ class EditReminderCommandTest {
         String expectedMessage = String.format(EditReminderCommand.MESSAGE_EDIT_REMINDER_SUCCESS, editedReminder);
 
         Model expectedModel = new ModelManager(new Mark(model.getMark()), new UserPrefs());
-        expectedModel.saveMark();
+        expectedModel.saveMark(expectedMessage);
 
         assertCommandSuccess(editReminderCommand, model, new StorageStub(), expectedMessage, expectedModel);
     }

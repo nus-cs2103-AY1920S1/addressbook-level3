@@ -34,7 +34,7 @@ class DeleteReminderCommandTest {
 
         ModelManager expectedModel = new ModelManager(model.getMark(), new UserPrefs());
         expectedModel.removeReminder(reminderToDelete);
-        expectedModel.saveMark();
+        expectedModel.saveMark(expectedMessage);
 
         assertCommandSuccess(deleteReminderCommand, model, new StorageStub(), expectedMessage, expectedModel);
     }
