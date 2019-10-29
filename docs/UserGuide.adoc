@@ -149,6 +149,19 @@ Example:
 
 * `register n/matt p/83938249 e/matt@damon.com`
 
+==== Unregistering a borrower: `unregister`
+
+Unregisters a borrower from the library records.
+Format:  `unregister id/BORROWER_ID`
+
+* Removes the borrower with the specified borrower ID
+
+
+Example:
+
+* `unregister id/K0001` +
+Deletes the borrower with the borrower ID `id/K0001`
+
 ==== Undoing: `undo`
 
 Undo the previous command/action. +
@@ -303,6 +316,7 @@ e.g. `add t/Harry Botter and the Baby's Potty a/Reali Jolking sn/B02010 g/childr
 * *Delete a book* : `delete INDEX` or `delete sn/BOOK_SN`
 * *Register a borrower* : `register n/NAME p/PHONE_NUMBER e/EMAIL` +
 e.g. `register n/matt p/83938249 e/matt@damon.com`
+* *Unregister a borrower* : `unregister id/BORROWER_ID`
 * *Undo* : `undo`
 * *Redo* : `redo`
 * *Toggle night mode*: `toggleui`

@@ -486,4 +486,9 @@ public class ModelManager implements Model {
         return borrowerRecords.hasDuplicateBorrower(editedBorrower);
     }
 
+    @Override
+    public void unregisterBorrower(Borrower toUnregister) {
+        borrowerRecords.removeBorrower(toUnregister);
+    }
+
 }
