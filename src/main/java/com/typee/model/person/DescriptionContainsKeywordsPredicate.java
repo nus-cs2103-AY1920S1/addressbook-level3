@@ -2,8 +2,8 @@ package com.typee.model.person;
 
 import java.util.List;
 import java.util.function.Predicate;
+import java.util.regex.Pattern;
 
-import com.typee.commons.util.StringUtil;
 import com.typee.model.engagement.Engagement;
 
 /**
@@ -18,8 +18,13 @@ public class DescriptionContainsKeywordsPredicate implements Predicate<Engagemen
 
     @Override
     public boolean test(Engagement engagement) {
-        return keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(engagement.getDescription(), keyword));
+        for (String keyword:keywords) {
+            if (Pattern.compile(Pattern.quote(keyword), Pattern.CASE_INSENSITIVE)
+                    .matcher(engagement.getDescription()).find()) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override

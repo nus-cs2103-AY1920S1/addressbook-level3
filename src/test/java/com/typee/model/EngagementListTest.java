@@ -4,6 +4,7 @@ import static com.typee.testutil.TypicalEngagements.TYPICAL_APPOINTMENT;
 import static com.typee.testutil.TypicalEngagements.TYPICAL_INTERVIEW;
 import static com.typee.testutil.TypicalEngagements.TYPICAL_MEETING;
 import static com.typee.testutil.TypicalEngagements.getTypicalEngagementList;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -17,7 +18,6 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 import com.typee.model.engagement.Engagement;
-import com.typee.model.engagement.exceptions.DuplicateEngagementException;
 import com.typee.testutil.EngagementBuilder;
 
 import javafx.collections.FXCollections;
@@ -45,13 +45,13 @@ public class EngagementListTest {
     }
 
     @Test
-    public void resetData_withDuplicateAppointments_throwsDuplicateEngagementException() {
+    public void resetData_withDuplicateAppointments_noExceptionThrown() {
         // Two engagements with the same details
         Engagement editedAppointment = new EngagementBuilder(TYPICAL_APPOINTMENT).buildAsAppointment();
         List<Engagement> newEngagements = Arrays.asList(TYPICAL_APPOINTMENT, editedAppointment);
         EngagementListStub newData = new EngagementListStub(newEngagements);
 
-        assertThrows(DuplicateEngagementException.class, () -> engagementList.resetData(newData));
+        engagementList.resetData(newData);
     }
 
     @Test

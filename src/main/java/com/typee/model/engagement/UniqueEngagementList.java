@@ -25,7 +25,7 @@ import javafx.collections.ObservableList;
  *
  * @see Engagement#isSameEngagement(Engagement)
  */
-public class UniqueEngagementList implements Iterable<Engagement> {
+public class UniqueEngagementList<E> implements Iterable<Engagement> {
 
     private final ObservableList<Engagement> internalList = FXCollections.observableArrayList();
     private final ObservableList<Engagement> internalUnmodifiableList =
@@ -81,7 +81,7 @@ public class UniqueEngagementList implements Iterable<Engagement> {
         }
     }
 
-    public void setEngagements(UniqueEngagementList replacement) {
+    public void setEngagements(UniqueEngagementList<E> replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
     }
@@ -115,7 +115,7 @@ public class UniqueEngagementList implements Iterable<Engagement> {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof UniqueEngagementList // instanceof handles nulls
-                        && internalList.equals(((UniqueEngagementList) other).internalList));
+                        && internalList.equals(((UniqueEngagementList<E>) other).internalList));
     }
 
     @Override
