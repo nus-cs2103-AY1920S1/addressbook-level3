@@ -14,8 +14,8 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.revision.model.answerable.exceptions.DuplicateAnswerableException;
 import seedu.revision.model.answerable.exceptions.AnswerableNotFoundException;
+import seedu.revision.model.answerable.exceptions.DuplicateAnswerableException;
 import seedu.revision.testutil.AnswerableBuilder;
 
 public class UniqueAnswerableListTest {
@@ -69,7 +69,8 @@ public class UniqueAnswerableListTest {
 
     @Test
     public void setAnswerable_targetAnswerableNotInList_throwsAnswerableNotFoundException() {
-        assertThrows(AnswerableNotFoundException.class, () -> uniqueAnswerableList.setAnswerable(A_ANSWERABLE, A_ANSWERABLE));
+        assertThrows(AnswerableNotFoundException.class, () -> uniqueAnswerableList
+                .setAnswerable(A_ANSWERABLE, A_ANSWERABLE));
     }
 
     @Test
@@ -128,7 +129,8 @@ public class UniqueAnswerableListTest {
 
     @Test
     public void setAnswerables_nullUniqueAnswerableList_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> uniqueAnswerableList.setAnswerables((UniqueAnswerableList) null));
+        assertThrows(NullPointerException.class, () -> uniqueAnswerableList
+                .setAnswerables((UniqueAnswerableList) null));
     }
 
     @Test
@@ -158,7 +160,8 @@ public class UniqueAnswerableListTest {
     @Test
     public void setAnswerables_listWithDuplicateAnswerables_throwsDuplicateAnswerableException() {
         List<Answerable> listWithDuplicateAnswerables = Arrays.asList(A_ANSWERABLE, A_ANSWERABLE);
-        assertThrows(DuplicateAnswerableException.class, () -> uniqueAnswerableList.setAnswerables(listWithDuplicateAnswerables));
+        assertThrows(DuplicateAnswerableException.class, () -> uniqueAnswerableList
+                .setAnswerables(listWithDuplicateAnswerables));
     }
 
     @Test

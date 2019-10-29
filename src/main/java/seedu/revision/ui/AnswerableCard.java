@@ -7,6 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import seedu.revision.model.answerable.Answer;
 import seedu.revision.model.answerable.Answerable;
 
 /**
@@ -14,6 +15,7 @@ import seedu.revision.model.answerable.Answerable;
  */
 public class AnswerableCard extends UiPart<Region> {
 
+    private static int questionNumbering;
     private static final String FXML = "AnswerableListCard.fxml";
 
     /**
@@ -31,13 +33,15 @@ public class AnswerableCard extends UiPart<Region> {
     @FXML
     private Label question;
     @FXML
+    private FlowPane answer;
+    @FXML
     private Label id;
+    @FXML
+    private Label questionNumber;
     @FXML
     private Label difficulty;
     @FXML
-    private Label category;
-    @FXML
-    private FlowPane tags;
+    private FlowPane categories;
 
     public AnswerableCard(Answerable answerable, int displayedIndex) {
         super(FXML);
@@ -47,7 +51,7 @@ public class AnswerableCard extends UiPart<Region> {
         difficulty.setText("Difficulty: " + answerable.getDifficulty().value);
         answerable.getCategories().stream()
                 .sorted(Comparator.comparing(category -> category.categoryName))
-                .forEach(category -> tags.getChildren().add(new Label(category.categoryName)));
+                .forEach(category -> categories.getChildren().add(new Label(category.categoryName)));
     }
 
     @Override
@@ -66,5 +70,10 @@ public class AnswerableCard extends UiPart<Region> {
         AnswerableCard card = (AnswerableCard) other;
         return id.getText().equals(card.id.getText())
                 && answerable.equals(card.answerable);
+    }
+
+    private static String convert (Answer answer, Integer questionNumbering) {
+        String fullString = String.format("%s %s", questionNumbering, answer.toString());
+        return fullString;
     }
 }

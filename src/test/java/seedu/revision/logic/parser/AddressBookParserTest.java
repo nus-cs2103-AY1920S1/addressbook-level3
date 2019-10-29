@@ -15,20 +15,21 @@ import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 
 import seedu.revision.commons.core.index.Index;
-import seedu.revision.logic.commands.AddCommand;
-import seedu.revision.logic.commands.ClearCommand;
-import seedu.revision.logic.commands.DeleteCommand;
-import seedu.revision.logic.commands.EditCommand;
-import seedu.revision.logic.commands.ExitCommand;
-import seedu.revision.logic.commands.FindCommand;
-import seedu.revision.logic.commands.HelpCommand;
-import seedu.revision.logic.commands.ListCommand;
+import seedu.revision.logic.commands.main.AddCommand;
+import seedu.revision.logic.commands.main.ClearCommand;
+import seedu.revision.logic.commands.main.DeleteCommand;
+import seedu.revision.logic.commands.main.EditCommand;
+import seedu.revision.logic.commands.main.ExitCommand;
+import seedu.revision.logic.commands.main.FindCommand;
+import seedu.revision.logic.commands.main.HelpCommand;
+import seedu.revision.logic.commands.main.ListCommand;
 import seedu.revision.logic.parser.exceptions.ParseException;
+import seedu.revision.logic.parser.main.AddressBookParser;
 import seedu.revision.model.answerable.Answerable;
 import seedu.revision.model.answerable.predicates.QuestionContainsKeywordsPredicate;
-import seedu.revision.testutil.EditAnswerableDescriptorBuilder;
 import seedu.revision.testutil.AnswerableBuilder;
 import seedu.revision.testutil.AnswerableUtil;
+import seedu.revision.testutil.EditAnswerableDescriptorBuilder;
 
 public class AddressBookParserTest {
 
@@ -50,7 +51,7 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_delete() throws Exception {
         DeleteCommand command = (DeleteCommand) parser.parseCommand(
-        DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_ANSWERABLE.getOneBased());
+                DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_ANSWERABLE.getOneBased());
         ArrayList<Index> indexToDelete = new ArrayList<>();
         indexToDelete.add(INDEX_FIRST_ANSWERABLE);
         assertEquals(new DeleteCommand(indexToDelete), command);
@@ -61,7 +62,8 @@ public class AddressBookParserTest {
         Answerable answerable = new AnswerableBuilder().build();
         EditCommand.EditAnswerableDescriptor descriptor = new EditAnswerableDescriptorBuilder(answerable).build();
         EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
-                + INDEX_FIRST_ANSWERABLE.getOneBased() + " " + AnswerableUtil.getEditAnswerableDescriptorDetails(descriptor));
+                + INDEX_FIRST_ANSWERABLE.getOneBased() + " " + AnswerableUtil
+                .getEditAnswerableDescriptorDetails(descriptor));
         assertEquals(new EditCommand(INDEX_FIRST_ANSWERABLE, descriptor), command);
     }
 

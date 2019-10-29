@@ -1,13 +1,14 @@
-package seedu.revision.logic.commands;
+package seedu.revision.logic.commands.main;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.revision.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.revision.logic.parser.CliSyntax.PREFIX_CORRECT;
-import static seedu.revision.logic.parser.CliSyntax.PREFIX_QUESTION;
 import static seedu.revision.logic.parser.CliSyntax.PREFIX_DIFFICULTY;
+import static seedu.revision.logic.parser.CliSyntax.PREFIX_QUESTION;
 import static seedu.revision.logic.parser.CliSyntax.PREFIX_QUESTION_TYPE;
 import static seedu.revision.logic.parser.CliSyntax.PREFIX_WRONG;
 
+import seedu.revision.logic.commands.Command;
 import seedu.revision.logic.commands.exceptions.CommandException;
 import seedu.revision.model.Model;
 import seedu.revision.model.answerable.Answerable;
@@ -26,7 +27,7 @@ public class AddCommand extends Command {
             + PREFIX_DIFFICULTY + "DIFFICULTY "
             + PREFIX_CATEGORY + "[CATEGORY]...\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_QUESTION_TYPE + "mcq"
+            + PREFIX_QUESTION_TYPE + "mcq "
             + PREFIX_QUESTION + "Which of the following gives us the highest intensity of testing? "
             + PREFIX_WRONG + "50% statement coverage "
             + PREFIX_CORRECT + "100% path coverage "

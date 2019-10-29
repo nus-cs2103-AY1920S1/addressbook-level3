@@ -1,11 +1,11 @@
-package seedu.revision.logic.parser;
+package seedu.revision.logic.parser.main;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.revision.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.revision.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.revision.logic.parser.CliSyntax.PREFIX_CORRECT;
-import static seedu.revision.logic.parser.CliSyntax.PREFIX_QUESTION;
 import static seedu.revision.logic.parser.CliSyntax.PREFIX_DIFFICULTY;
+import static seedu.revision.logic.parser.CliSyntax.PREFIX_QUESTION;
 import static seedu.revision.logic.parser.CliSyntax.PREFIX_QUESTION_TYPE;
 import static seedu.revision.logic.parser.CliSyntax.PREFIX_WRONG;
 
@@ -14,7 +14,11 @@ import java.util.Optional;
 import java.util.Set;
 
 import seedu.revision.commons.core.index.Index;
-import seedu.revision.logic.commands.EditCommand;
+import seedu.revision.logic.commands.main.EditCommand;
+import seedu.revision.logic.parser.ArgumentMultimap;
+import seedu.revision.logic.parser.ArgumentTokenizer;
+import seedu.revision.logic.parser.Parser;
+import seedu.revision.logic.parser.ParserUtil;
 import seedu.revision.logic.parser.exceptions.ParseException;
 import seedu.revision.model.category.Category;
 
@@ -48,16 +52,20 @@ public class EditCommandParser implements Parser<EditCommand> {
         }
         //TODO: Implement Answerable
         if (argMultimap.getValue(PREFIX_CORRECT).isPresent()) {
-            editAnswerableDescriptor.setCorrectAnswerSet(ParserUtil.parseAnswers(argMultimap.getAllValues(PREFIX_CORRECT)));
+            editAnswerableDescriptor.setCorrectAnswerList(ParserUtil
+                    .parseAnswers(argMultimap.getAllValues(PREFIX_CORRECT)));
         }
         if (argMultimap.getValue(PREFIX_WRONG).isPresent()) {
-            editAnswerableDescriptor.setWrongAnswerSet(ParserUtil.parseAnswers(argMultimap.getAllValues(PREFIX_WRONG)));
+            editAnswerableDescriptor.setWrongAnswerList(ParserUtil
+                    .parseAnswers(argMultimap.getAllValues(PREFIX_WRONG)));
         }
         if (argMultimap.getValue(PREFIX_DIFFICULTY).isPresent()) {
-            editAnswerableDescriptor.setDifficulty(ParserUtil.parseDifficulty(argMultimap.getValue(PREFIX_DIFFICULTY).get()));
+            editAnswerableDescriptor.setDifficulty(ParserUtil
+                    .parseDifficulty(argMultimap.getValue(PREFIX_DIFFICULTY).get()));
         }
 
-        parseCategoriesForEdit(argMultimap.getAllValues(PREFIX_CATEGORY)).ifPresent(editAnswerableDescriptor::setCategories);
+        parseCategoriesForEdit(argMultimap.getAllValues(PREFIX_CATEGORY))
+                .ifPresent(editAnswerableDescriptor::setCategories);
 
         if (!editAnswerableDescriptor.isAnyFieldEdited()) {
             throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);

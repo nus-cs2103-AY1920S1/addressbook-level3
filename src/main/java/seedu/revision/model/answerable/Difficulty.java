@@ -13,7 +13,6 @@ public class Difficulty {
     //TODO: Change this constraint and implement the new constraint
     public static final String MESSAGE_CONSTRAINTS =
             "Difficulty should only contain numbers, and it should only be 1, 2, or 3";
-//    public static final String VALIDATION_REGEX = "\\b[123]\\b";
     public static final String VALIDATION_REGEX = "[1-3]";
     public final String value;
 

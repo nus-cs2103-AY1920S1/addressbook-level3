@@ -9,11 +9,10 @@ import static seedu.revision.commons.util.AppUtil.checkArgument;
  */
 public class Answer {
 
-    public static final String MESSAGE_CONSTRAINTS = "Answers should not be blank and cannot be duplicates";
-    public static final String VALIDATION_REGEX = ".*";
+    public static final String MESSAGE_CONSTRAINTS = "Answers should not be blank";
+    public static final String VALIDATION_REGEX = "(.*\n*.*)*";
 
-    public String answer;
-
+    private String answer;
 
     /**
      * Default Constructor for Answer.
@@ -54,7 +53,7 @@ public class Answer {
      * Format state as text for viewing.
      */
     public String toString() {
-        return '[' + answer + ']';
+        return answer;
     }
 
 }
