@@ -13,6 +13,7 @@ import seedu.address.model.vehicle.DistrictKeywordsPredicate;
 import seedu.address.model.vehicle.VNumKeywordsPredicate;
 import seedu.address.model.vehicle.VTypeKeywordsPredicate;
 import seedu.address.model.vehicle.Vehicle;
+import seedu.address.model.vehicle.exceptions.VehicleNotFoundException;
 
 /**
  * Finds and lists all incidents in address book whose name contains any of the argument keywords.
@@ -73,30 +74,40 @@ public class FindVehiclesCommand extends Command {
      * @param model
      */
     public void autoAssign(Model model) {
-        ObservableList<Vehicle> allVehicles = model.getFilteredVehicleList();
-        ObservableList<Vehicle> nearbyVehicles = allVehicles.filtered(vehicle -> {
-            if (vehicle.getDistrict() == draft.getDistrict()) {
-                return true;
-            }
-            return false;
-        });
-        Vehicle vehicle = nearbyVehicles.get(0);
-        draft.addVehicle(vehicle);
+        assert(this.draft != null && isAuto);
+        ObservableList<Vehicle> nearbyVehicles = model.getFilteredVehicleList().filtered(
+                vehicle -> vehicle.getDistrict().equals(draft.getDistrict())
+        );
+
+        if (nearbyVehicles.size() > 0) {
+            Vehicle vehicle = nearbyVehicles.get(0);
+            draft.addVehicle(vehicle);
+        } else if (nearbyVehicles.size() == 0) {
+            throw new VehicleNotFoundException();
+        }
+
+        model.updateFilteredVehicleList(predicate);
     }
 
+    /**
+     * Only called when listing.
+     * @param model {@code Model} which the command should operate on.
+     * @return
+     */
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
 
-        // if vehicle assignment is involved
+        model.updateFilteredVehicleList(predicate);
+
         if (this.draft != null && isAuto) {
-            autoAssign(model);
+            // TODO: Messages.PROMPT_FOR_V
+            return new CommandResult("prompt for v");
         }
 
-        // will list regardless
-        model.updateFilteredVehicleList(predicate);
         return new CommandResult(
                 String.format(Messages.MESSAGE_VEHICLES_LISTED_OVERVIEW, model.getFilteredVehicleList().size()));
+
     }
 
     @Override

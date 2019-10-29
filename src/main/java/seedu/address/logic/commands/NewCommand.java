@@ -23,7 +23,7 @@ public class NewCommand extends Command {
             + PREFIX_LOCATION + "DISTRICT NUMBER "
             + PREFIX_AUTO + "[y/n]";
 
-    public static final String MESSAGE_SUCCESS = "New incident drafted: %1$s";
+    public static final String MESSAGE_SUCCESS = "New incident drafted!";
     public static final String MESSAGE_DUPLICATE_REPORT = "This draft already exists in the incident "
             + "management system";
 
@@ -49,7 +49,12 @@ public class NewCommand extends Command {
      */
     public void dispatchVehicle(Incident draft, boolean isAuto, Model model) {
         FindVehiclesCommand findVehicle = new FindVehiclesCommand(draft, isAuto);
-        findVehicle.execute(model);
+
+        if (isAuto) {
+            findVehicle.autoAssign(model);
+        } else {
+            findVehicle.execute(model);
+        }
     }
 
     @Override
@@ -58,7 +63,7 @@ public class NewCommand extends Command {
 
         Person operator = model.getLoggedInPerson();
         Incident draft = new Incident(operator, location);
-        this.draft = draft;
+        this.draft = draft; // draft created here because need operator data from model
 
         if (model.hasIncident(draft)) {
             throw new CommandException(MESSAGE_DUPLICATE_REPORT);
@@ -66,8 +71,9 @@ public class NewCommand extends Command {
 
         dispatchVehicle(draft, isAuto, model);
 
+        assert(draft != null && model != null);
         model.addIncident(draft);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, draft));
+        return new CommandResult(MESSAGE_SUCCESS);
     }
 
     @Override
