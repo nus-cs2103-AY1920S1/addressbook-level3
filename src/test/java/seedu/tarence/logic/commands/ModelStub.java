@@ -315,4 +315,9 @@ public class ModelStub implements Model {
     public boolean hasInputChanged() {
         throw new AssertionError("This method should not be called.");
     }
+
+    @Override
+    public void setModel(ReadOnlyApplication application) {
+
+    }
 }

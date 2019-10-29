@@ -23,6 +23,7 @@ import seedu.tarence.model.UserPrefs;
 import seedu.tarence.model.util.SampleDataUtil;
 import seedu.tarence.storage.ApplicationStorage;
 import seedu.tarence.storage.JsonApplicationStorage;
+import seedu.tarence.storage.JsonStateStorage;
 import seedu.tarence.storage.JsonUserPrefsStorage;
 import seedu.tarence.storage.Storage;
 import seedu.tarence.storage.StorageManager;
@@ -56,7 +57,10 @@ public class MainApp extends javafx.application.Application {
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         ApplicationStorage applicationStorage = new JsonApplicationStorage(userPrefs.getApplicationFilePath());
-        storage = new StorageManager(applicationStorage, userPrefsStorage);
+        // Creates a JsonStateStorage class for Undo.
+        JsonStateStorage jsonStateStorage = new JsonStateStorage("data\\states\\");
+
+        storage = new StorageManager(applicationStorage, userPrefsStorage, jsonStateStorage);
 
         initLogging(config);
 
@@ -175,6 +179,7 @@ public class MainApp extends javafx.application.Application {
         logger.info("============================ [ Stopping T.A.rence ] =============================");
         try {
             storage.saveUserPrefs(model.getUserPrefs());
+            storage.clearStateFolder();
         } catch (IOException e) {
             logger.severe("Failed to save preferences " + StringUtil.getDetails(e));
         }

@@ -16,6 +16,7 @@ import seedu.tarence.model.Model;
 import seedu.tarence.model.module.ModCode;
 import seedu.tarence.model.tutorial.TutName;
 import seedu.tarence.model.tutorial.Tutorial;
+import seedu.tarence.storage.Storage;
 
 /**
  * Displays the selected tutorial attendance
@@ -87,6 +88,11 @@ public class DisplayAttendanceCommand extends Command {
         }
 
         return handleSuggestedCommands(model);
+    }
+
+    @Override
+    public CommandResult execute(Model model, Storage storage) throws CommandException {
+        return execute(model);
     }
 
 

@@ -87,7 +87,8 @@ public class Assignment implements Comparable<Assignment> {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getAssignName())
+        builder.append("AssignmentName: ")
+                .append(getAssignName())
                 .append(" Max Score: ")
                 .append(getMaxScore())
                 .append(" Start Date: ")
@@ -124,9 +125,22 @@ public class Assignment implements Comparable<Assignment> {
         return Objects.hash(assignName, maxScore, startDate, endDate);
     }
 
-    // TODO: Change to valid JSON output
-    public String toJsonString() {
-        return this.toString();
+    public String getAssignmentName() {
+        return this.assignName;
     }
+
+    public Date getAssignmentStartDate() {
+        return this.startDate;
+    }
+
+    public Date getAssignmentEndDate() {
+        return this.endDate;
+    }
+
+    public int getAssignmentMaxScore() {
+        return this.maxScore;
+    }
+
+
 
 }

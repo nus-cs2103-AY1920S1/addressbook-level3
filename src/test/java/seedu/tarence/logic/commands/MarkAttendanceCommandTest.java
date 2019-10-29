@@ -517,6 +517,11 @@ public class MarkAttendanceCommandTest {
         }
 
         @Override
+        public void setModel(ReadOnlyApplication application) {
+
+        }
+
+        @Override
         public void saveInput(String input) {};
 
         @Override

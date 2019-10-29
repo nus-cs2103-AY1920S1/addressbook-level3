@@ -27,6 +27,7 @@ import seedu.tarence.model.tutorial.Attendance;
 import seedu.tarence.model.tutorial.TutName;
 import seedu.tarence.model.tutorial.Tutorial;
 import seedu.tarence.model.tutorial.Week;
+import seedu.tarence.storage.Storage;
 
 /**
  * Marks attendance of student in a specified tutorial.
@@ -132,6 +133,11 @@ public class ExportAttendanceCommand extends Command {
         }
 
         return new CommandResult(String.format(MESSAGE_EXPORT_ATTENDANCE_SUCCESS, targetTutorial.getTutName()));
+    }
+
+    @Override
+    public CommandResult execute(Model model, Storage storage) throws CommandException {
+        return execute(model);
     }
 
     /**

@@ -16,6 +16,7 @@ import seedu.tarence.logic.finder.Finder;
 import seedu.tarence.model.Model;
 import seedu.tarence.model.module.ModCode;
 import seedu.tarence.model.module.Module;
+import seedu.tarence.storage.Storage;
 
 /**
  * Deletes a person identified using its displayed index from T.A.rence.
@@ -95,6 +96,11 @@ public class DeleteModuleCommand extends Command {
         model.deleteTutorialsFromModule(moduleToDelete);
         model.deleteModule(moduleToDelete);
         return new CommandResult(String.format(MESSAGE_DELETE_MODULE_SUCCESS, moduleToDelete));
+    }
+
+    @Override
+    public CommandResult execute(Model model, Storage storage) throws CommandException {
+        return execute(model);
     }
 
     /**

@@ -16,6 +16,7 @@ import seedu.tarence.model.Model;
 import seedu.tarence.model.student.Student;
 import seedu.tarence.model.tutorial.Assignment;
 import seedu.tarence.model.tutorial.Tutorial;
+import seedu.tarence.storage.Storage;
 
 /**
  * Displays the selected tutorial assignment
@@ -66,6 +67,11 @@ public class DisplayAssignmentScoreCommand extends Command {
         Map<Student, Integer> studentScores = tutorial.getAssignmentScores(assignment);
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, tutorial), assignment, studentScores, displayFormat);
+    }
+
+    @Override
+    public CommandResult execute(Model model, Storage storage) throws CommandException {
+        return execute(model);
     }
 
     private Assignment getAssignment(Tutorial tutorial) throws CommandException {

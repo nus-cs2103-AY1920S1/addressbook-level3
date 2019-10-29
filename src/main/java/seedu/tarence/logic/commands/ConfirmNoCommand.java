@@ -3,6 +3,7 @@ package seedu.tarence.logic.commands;
 import seedu.tarence.commons.core.Messages;
 import seedu.tarence.logic.commands.exceptions.CommandException;
 import seedu.tarence.model.Model;
+import seedu.tarence.storage.Storage;
 
 /**
  * Represent the user declining a previously stored command.
@@ -28,6 +29,11 @@ public class ConfirmNoCommand extends Command {
         }
         model.getPendingCommand();
         return new CommandResult(MESSAGE_CONFIRM_NO_SUCCESS);
+    }
+
+    @Override
+    public CommandResult execute(Model model, Storage storage) throws CommandException {
+        return execute(model);
     }
 
     /**

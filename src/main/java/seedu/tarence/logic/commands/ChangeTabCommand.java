@@ -6,6 +6,7 @@ import java.util.Arrays;
 
 import seedu.tarence.logic.commands.exceptions.CommandException;
 import seedu.tarence.model.Model;
+import seedu.tarence.storage.Storage;
 
 /**
  * Displays tab information to the user.
@@ -39,6 +40,11 @@ public class ChangeTabCommand extends Command {
         }
         this.tabToDisplay = getTabvalue();
         return new CommandResult(String.format(MESSAGE_SUCCESS, tabToDisplay.toString().toLowerCase()), tabToDisplay);
+    }
+
+    @Override
+    public CommandResult execute(Model model, Storage storage) throws CommandException {
+        return execute(model);
     }
 
     /**
@@ -90,4 +96,6 @@ public class ChangeTabCommand extends Command {
 
         return tabName.equals(((ChangeTabCommand) other).tabName);
     }
+
+
 }

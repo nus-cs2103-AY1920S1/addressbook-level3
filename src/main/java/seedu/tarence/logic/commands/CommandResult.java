@@ -58,6 +58,7 @@ public class CommandResult {
         this.hasAssignmentDisplay = false;
     }
 
+
     /**
      * Constructs a {@code CommandResult} with the specified {@code feedbackToUser},
      * and other fields set to their default value.

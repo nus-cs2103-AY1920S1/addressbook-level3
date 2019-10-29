@@ -22,4 +22,5 @@ public class CliSyntax {
     public static final Prefix PREFIX_TUTORIAL_START_TIME = new Prefix("st/");
     public static final Prefix PREFIX_TUTORIAL_WEEKS = new Prefix("w/");
     public static final Prefix PREFIX_TUTORIAL_DURATION_IN_MINUTES = new Prefix("dur/");
+    public static final Prefix PREFIX_UNDO_NUM_OF_STATES = new Prefix("u/");
 }

@@ -12,7 +12,7 @@ import seedu.tarence.model.UserPrefs;
 /**
  * API of the Storage component
  */
-public interface Storage extends ApplicationStorage, UserPrefsStorage {
+public interface Storage extends ApplicationStorage, UserPrefsStorage, ApplicationStateStorage {
 
     @Override
     Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;

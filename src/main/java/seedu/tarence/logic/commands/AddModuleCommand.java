@@ -6,6 +6,7 @@ import static seedu.tarence.logic.parser.CliSyntax.PREFIX_MODULE;
 import seedu.tarence.logic.commands.exceptions.CommandException;
 import seedu.tarence.model.Model;
 import seedu.tarence.model.module.Module;
+import seedu.tarence.storage.Storage;
 
 /**
  * Adds a module into T.A.rence.
@@ -48,6 +49,11 @@ public class AddModuleCommand extends Command {
 
     }
 
+    @Override
+    public CommandResult execute(Model model, Storage storage) throws CommandException {
+        return execute(model);
+    }
+
     /**
      * Returns true if user command matches command word or any defined synonyms, and false otherwise.
      *
@@ -62,6 +68,7 @@ public class AddModuleCommand extends Command {
         }
         return false;
     }
+
 
 }
 

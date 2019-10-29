@@ -14,6 +14,7 @@ import seedu.tarence.model.Model;
 import seedu.tarence.model.module.ModCode;
 import seedu.tarence.model.tutorial.TutName;
 import seedu.tarence.model.tutorial.Tutorial;
+import seedu.tarence.storage.Storage;
 
 /**
  * Deletes a tutorial identified using its displayed index from T.A.rence.
@@ -122,6 +123,11 @@ public class DeleteTutorialCommand extends Command {
         model.deleteStudentsFromTutorial(tutorialToDelete);
         model.deleteTutorial(tutorialToDelete);
         return new CommandResult(String.format(MESSAGE_DELETE_TUTORIAL_SUCCESS, tutorialToDelete));
+    }
+
+    @Override
+    public CommandResult execute(Model model, Storage storage) throws CommandException {
+        return execute(model);
     }
 
     /**

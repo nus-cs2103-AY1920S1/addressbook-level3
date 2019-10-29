@@ -9,6 +9,7 @@ import seedu.tarence.commons.core.index.Index;
 import seedu.tarence.logic.commands.exceptions.CommandException;
 import seedu.tarence.model.Model;
 import seedu.tarence.model.student.Student;
+import seedu.tarence.storage.Storage;
 
 /**
  * Deletes a student identified using its displayed index from T.A.rence.
@@ -45,6 +46,11 @@ public class DeleteStudentCommand extends Command {
         Student studentToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deleteStudent(studentToDelete);
         return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, studentToDelete));
+    }
+
+    @Override
+    public CommandResult execute(Model model, Storage storage) throws CommandException {
+        return execute(model);
     }
 
     /**

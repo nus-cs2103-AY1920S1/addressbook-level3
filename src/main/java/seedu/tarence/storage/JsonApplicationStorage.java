@@ -78,7 +78,7 @@ public class JsonApplicationStorage implements ApplicationStorage {
 
         FileUtil.createIfMissing(filePath);
 
-        // File save of application file
+        // Saving of application file
         JsonUtil.saveJsonFile(new JsonSerializableApplication(application), filePath);
     }
 

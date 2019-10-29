@@ -379,4 +379,11 @@ public class Tutorial {
                 && otherTutorial.getModCode().equals(getModCode());
     }
 
+    /* TODO: implement saving of assignments
+    public Map<Assignment, Map<Student, Integer>> getAssignments() {
+        return this.assignments;
+    }
+
+     */
+
 }

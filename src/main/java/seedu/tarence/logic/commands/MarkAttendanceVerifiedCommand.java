@@ -5,6 +5,7 @@ import seedu.tarence.model.Model;
 import seedu.tarence.model.student.Student;
 import seedu.tarence.model.tutorial.Tutorial;
 import seedu.tarence.model.tutorial.Week;
+import seedu.tarence.storage.Storage;
 
 /**
  * Represents a followup to {@code MarkAttendanceCommand} where the {@code Student} to be marked has been verified as
@@ -32,6 +33,11 @@ public class MarkAttendanceVerifiedCommand extends Command {
                 String.format(MarkAttendanceCommand.MESSAGE_MARK_ATTENDANCE_SUCCESS,
                 targetStudent.getName(),
                 isPresent ? "present" : "absent"), targetTutorial);
+    }
+
+    @Override
+    public CommandResult execute(Model model, Storage storage) throws CommandException {
+        return execute(model);
     }
 
     @Override

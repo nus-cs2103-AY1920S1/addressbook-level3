@@ -29,12 +29,12 @@ import seedu.tarence.model.tutorial.Tutorial;
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final Application application;
+    private Application application;
     private final UserPrefs userPrefs;
-    private final FilteredList<Person> filteredPersons;
-    private final FilteredList<Student> filteredStudents;
-    private final FilteredList<Module> filteredModules;
-    private final FilteredList<Tutorial> filteredTutorials;
+    private FilteredList<Person> filteredPersons;
+    private FilteredList<Student> filteredStudents;
+    private FilteredList<Module> filteredModules;
+    private FilteredList<Tutorial> filteredTutorials;
 
     /**
      * Initializes a ModelManager with the given student and userPrefs.
@@ -51,10 +51,22 @@ public class ModelManager implements Model {
         filteredPersons = new FilteredList<>(this.application.getPersonList());
         filteredModules = new FilteredList<>(this.application.getModuleList());
         filteredTutorials = new FilteredList<>(this.application.getTutorialList());
+
     }
 
     public ModelManager() {
         this(new Application(), new UserPrefs());
+    }
+
+    @Override
+    /**
+     * Called during Undo Command. Resets the application to the newly loaded data from the undo state.
+     */
+    public void setModel(ReadOnlyApplication loadedApplication) {
+        requireNonNull(loadedApplication);
+
+        application.resetData(loadedApplication);
+
     }
 
     //=========== UserPrefs ==================================================================================
