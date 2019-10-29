@@ -7,6 +7,7 @@ import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.UndoableCommand;
+import seedu.address.logic.history.CommandHistory;
 import seedu.address.model.entity.Entity;
 import seedu.address.model.entity.body.Body;
 import seedu.address.model.entity.fridge.Fridge;
@@ -23,7 +24,7 @@ public interface Model {
     Predicate<Body> PREDICATE_SHOW_ALL_BODIES = unused -> true;
     Predicate<Worker> PREDICATE_SHOW_ALL_WORKERS = unused -> true;
     Predicate<Notif> PREDICATE_SHOW_ALL_NOTIFS = unused -> true;
-    Predicate<Worker> PREDICATE_SHOW_ALL_FRIDGES = unused -> true;
+    Predicate<Fridge> PREDICATE_SHOW_ALL_FRIDGES = unused -> true;
 
     /**
      * Adds an executed command to the model's command history.
@@ -48,6 +49,17 @@ public interface Model {
      * @returnthe last undone command.
      */
     UndoableCommand getUndoneCommand();
+
+    /**
+     * Returns the current UndoHistory in the Model.
+     * @return CommandHistory
+     */
+    CommandHistory getUndoHistory();
+
+    /**
+     * Clears the current UndoHistory in the Model.
+     */
+    void clearUndoHistory();
 
     /**
      * * Replaces user prefs data with the data in {@code userPrefs}.
@@ -135,6 +147,10 @@ public interface Model {
      */
     void setNotif(Notif target, Notif editedNotif);
 
+    /**
+     *  Returns the total number of notifications in the system.
+     */
+    int getNumberOfNotifs();
 
     /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Person> getFilteredPersonList();
@@ -202,5 +218,6 @@ public interface Model {
      * Sets the selected body in the filtered body list.
      */
     void setSelectedBody(Body body);
+
     //@@ shaoyi1997-reused
 }

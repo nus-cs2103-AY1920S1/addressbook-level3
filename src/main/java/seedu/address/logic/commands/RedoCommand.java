@@ -11,6 +11,7 @@ import seedu.address.model.Model;
  */
 public class RedoCommand extends Command {
     public static final String COMMAND_WORD = "redo";
+    public static final String SHORTCUT_WORD = "r";
 
     public static final String MESSAGE_REDO_FAILURE = "There was an error redoing the previous command!";
     public static final String MESSAGE_EMPTY_REDO_HISTORY = "There are no more commands to redo!";
@@ -30,6 +31,7 @@ public class RedoCommand extends Command {
         } catch (CommandException e) {
             // Add the command back to history.
             model.addExecutedCommand(command);
+            System.out.println(e.getMessage());
             throw new CommandException(MESSAGE_REDO_FAILURE);
         }
     }

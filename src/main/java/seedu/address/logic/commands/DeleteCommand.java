@@ -3,7 +3,9 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FLAG;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
@@ -13,8 +15,11 @@ import seedu.address.model.entity.Entity;
 import seedu.address.model.entity.IdentificationNumber;
 import seedu.address.model.entity.body.Body;
 import seedu.address.model.entity.fridge.Fridge;
+import seedu.address.model.entity.fridge.FridgeStatus;
 import seedu.address.model.entity.worker.Worker;
+import seedu.address.model.notif.Notif;
 
+//@@author arjavibahety
 /**
  * Deletes a person identified using it's displayed index from the address book.
  */
@@ -59,6 +64,10 @@ public class DeleteCommand extends UndoableCommand {
             for (Body body : lastShownList) {
                 if (body.getIdNum().equals(targetIdNum)) {
                     entityToDelete = body;
+                    removeBodyNotifFromList(body, model);
+                    if (!body.getFridgeId().equals(Optional.empty())) {
+                        removeBodyFromFridge(body, model);
+                    }
                     break;
                 }
             }
@@ -74,6 +83,9 @@ public class DeleteCommand extends UndoableCommand {
             List<Fridge> lastShownList = model.getFilteredFridgeList();
             for (Fridge fridge : lastShownList) {
                 if (fridge.getIdNum().equals(targetIdNum)) {
+                    if (fridge.getFridgeStatus().equals(FridgeStatus.OCCUPIED)) {
+                        throw new CommandException(Messages.MESSAGE_OCCUPIED_FRIDGE_CANNOT_BE_DELETED);
+                    }
                     entityToDelete = fridge;
                     break;
                 }
@@ -87,9 +99,45 @@ public class DeleteCommand extends UndoableCommand {
             targetIdNum.removeMapping();
             setUndoable();
             model.addExecutedCommand(this);
+            SelectCommand selectCommand = new SelectCommand(Integer.MAX_VALUE);
+            selectCommand.execute(model);
             return new CommandResult(String.format(MESSAGE_DELETE_ENTITY_SUCCESS, entityToDelete));
         } else {
             throw new CommandException(Messages.MESSAGE_INVALID_ENTITY_DISPLAYED_INDEX);
+        }
+    }
+
+    /**
+     * Removes a body from the fridge when the body is deleted.
+     * @param body refers to the body being deleted.
+     * @param model refers to the model in use.
+     */
+    private void removeBodyFromFridge(Body body, Model model) {
+        IdentificationNumber fridgeId = body.getFridgeId().get();
+        List<Fridge> lastShownFridgeList = model.getFilteredFridgeList();
+        for (Fridge fridge : lastShownFridgeList) {
+            if (fridge.getIdNum().equals(fridgeId)) {
+                fridge.setBody(null);
+            }
+        }
+    }
+
+    /**
+     * Removes a notif from the list of notifs when the body is deleted.
+     * @param body refers to the body being deleted.
+     * @param model refers to the model in use.
+     */
+    private void removeBodyNotifFromList(Body body, Model model) {
+        List<Notif> lastShownNotificationList = model.getFilteredNotifList();
+        List<Notif> notifsToRemove = new ArrayList<>();
+        for (Notif notif : lastShownNotificationList) {
+            if (notif.getBody().equals(body)) {
+                notifsToRemove.add(notif);
+            }
+        }
+
+        for (Notif notif : notifsToRemove) {
+            model.deleteNotif(notif);
         }
     }
 
@@ -124,3 +172,4 @@ public class DeleteCommand extends UndoableCommand {
                 && targetIndexNum.equals(((DeleteCommand) other).targetIndexNum)); // state check
     }
 }
+//@@author

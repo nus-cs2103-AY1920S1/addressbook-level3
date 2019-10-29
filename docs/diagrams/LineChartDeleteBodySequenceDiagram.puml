@@ -1,0 +1,109 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":DeleteCommandParser" as DeleteCommandParser LOGIC_COLOR
+participant "d:DeleteCommand" as DeleteCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant ":AddressBook" as AddressBook MODEL_COLOR
+end box
+
+box Ui UI_COLOR_T1
+participant ":MainWindow" as MainWindow UI_COLOR
+participant "lineChartPanel:LineChartPanel" as LineChartPanel UI_COLOR
+
+end box
+
+[-> LogicManager : execute("delete -b 1")
+activate LogicManager
+
+LogicManager -> AddressBookParser : parseCommand("delete -b 1")
+activate AddressBookParser
+
+create DeleteCommandParser
+AddressBookParser -> DeleteCommandParser
+activate DeleteCommandParser
+
+DeleteCommandParser --> AddressBookParser
+deactivate DeleteCommandParser
+
+AddressBookParser -> DeleteCommandParser : parse("-b 1")
+activate DeleteCommandParser
+
+create DeleteCommand
+DeleteCommandParser -> DeleteCommand
+activate DeleteCommand
+
+DeleteCommand --> DeleteCommandParser : d
+deactivate DeleteCommand
+
+DeleteCommandParser --> AddressBookParser : d
+deactivate DeleteCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+DeleteCommandParser -[hidden]-> AddressBookParser
+destroy DeleteCommandParser
+
+AddressBookParser --> LogicManager : d
+deactivate AddressBookParser
+
+LogicManager -> DeleteCommand : execute()
+activate DeleteCommand
+
+DeleteCommand -> Model : deleteEntity(1)
+activate Model
+
+Model --> DeleteCommand
+deactivate Model
+
+Model -> AddressBook : removeEntity(1)
+activate AddressBook
+
+AddressBook --> Model
+deactivate AddressBook
+
+create CommandResult
+DeleteCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> DeleteCommand
+deactivate CommandResult
+
+DeleteCommand --> LogicManager : result
+deactivate DeleteCommand
+
+[<--LogicManager
+deactivate LogicManager
+
+MainWindow -> AddressBook : getBodyList()
+activate MainWindow
+AddressBook --> MainWindow : bodyList
+deactivate MainWindow
+
+create LineChartPanel
+MainWindow -> LineChartPanel : LineChartPanel(bodyList)
+activate LineChartPanel
+
+LineChartPanel --> MainWindow : lineChartPanel
+deactivate LineChartPanel
+
+MainWindow -> LineChartPanel : getLineChart()
+activate LineChartPanel
+
+LineChartPanel -> LineChartPanel: initialiseTreeMap()
+
+LineChartPanel -> LineChartPanel: initialiseLineChart()
+
+LineChartPanel -> LineChartPanel: updateSeries()
+
+LineChartPanel -> LineChartPanel: updateUponChange()
+
+LineChartPanel --> MainWindow : lineChart
+deactivate LineChartPanel
+
+@enduml

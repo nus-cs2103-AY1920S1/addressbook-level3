@@ -1,5 +1,7 @@
 package seedu.address.model.entity.worker;
 
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
 import java.util.Date;
 import java.util.Objects;
 import java.util.Optional;
@@ -18,9 +20,9 @@ import seedu.address.model.person.Name;
 public class Worker implements Entity {
 
     // Identity fields
-    private final IdentificationNumber workerIdNum;
     private final Name name;
     private Sex sex;
+    private IdentificationNumber workerIdNum;
 
     // Data fields
     private Date dateJoined;
@@ -33,30 +35,42 @@ public class Worker implements Entity {
                   String designation) {
         this.workerIdNum = IdentificationNumber.generateNewWorkerId(this);
         this.name = name;
-        this.phone = Optional.ofNullable(phone);
         this.sex = sex;
+        this.dateJoined = dateJoined;
+        this.phone = Optional.ofNullable(phone);
         this.employmentStatus = Optional.ofNullable(employmentStatus);
         this.dateOfBirth = Optional.ofNullable(dateOfBirth);
-        this.dateJoined = dateJoined;
         this.designation = Optional.ofNullable(designation);
     }
 
-    public Worker(Name name, PhoneNumber phone, Sex sex, String employmentStatus, Date dateOfBirth, Date dateJoined,
-                  String designation, boolean isTestWorker) {
-        if (isTestWorker) {
-            this.workerIdNum = IdentificationNumber.customGenerateTestId("W", 1);
-        } else {
-            this.workerIdNum = IdentificationNumber.generateNewWorkerId(this);
-        }
+    public Worker(Name name, Sex sex, Date dateJoined) {
         this.name = name;
-        this.phone = Optional.ofNullable(phone);
         this.sex = sex;
-        this.employmentStatus = Optional.ofNullable(employmentStatus);
-        this.dateOfBirth = Optional.ofNullable(dateOfBirth);
         this.dateJoined = dateJoined;
-        this.designation = Optional.ofNullable(designation);
+        this.employmentStatus = Optional.empty();
+        this.designation = Optional.empty();
+        this.phone = Optional.empty();
+        this.dateOfBirth = Optional.empty();
     }
 
+    /**
+     * Generates a new Worker with bare-minimum attributes and a custom ID. Only used for creating a Worker
+     * from storage.
+     * @param name name of the stored worker.
+     * @param sex sex of the stored worker.
+     * @param dateJoined dateJoined of the stored worker.
+     * @param id ID of the stored worker.
+     * @return Worker
+     */
+    public static Worker generateNewStoredWorker(Name name, Sex sex, Date dateJoined, int id) {
+        requireAllNonNull(name, sex, dateJoined, id);
+        if (id <= 0) {
+            throw new IllegalArgumentException();
+        }
+        Worker worker = new Worker(name, sex, dateJoined);
+        worker.workerIdNum = IdentificationNumber.generateNewWorkerId(worker, id);
+        return worker;
+    }
 
     public IdentificationNumber getIdNum() {
         return workerIdNum;
@@ -162,7 +176,7 @@ public class Worker implements Entity {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, sex, workerIdNum, employmentStatus, dateJoined, dateOfBirth, designation);
+        return Objects.hash(name, phone, sex, employmentStatus, dateJoined, dateOfBirth, designation);
     }
 
     @Override

@@ -5,6 +5,7 @@ import static seedu.address.testutil.TypicalBodies.BOB;
 import seedu.address.model.entity.body.Body;
 import seedu.address.model.notif.Notif;
 
+//@@author arjavibahety
 /**
  * A utility class to help with building Notif objects.
  */
@@ -39,3 +40,4 @@ public class NotifBuilder {
     }
 
 }
+//@@author
