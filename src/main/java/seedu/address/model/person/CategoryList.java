@@ -51,8 +51,6 @@ public class CategoryList {
      */
     public boolean isValidAndNotInList(Category category) {
         ObservableList<Category> typeOfCategory = determineWhichList(category.categoryType);
-        System.out.println(category.categoryName);
-        System.out.println(typeOfCategory.stream().anyMatch(t -> t.toString().equalsIgnoreCase(category.categoryName)));
         return !typeOfCategory.stream().anyMatch(t -> t.toString().equalsIgnoreCase(category.categoryName));
     }
 
