@@ -8,9 +8,9 @@ import seedu.address.cashier.util.InventoryList;
 import seedu.address.inventory.model.Item;
 
 /**
- * Represents a Inventory tab's Model stub.
+ * Represents a Cashier tab's Model stub.
  */
-public class InventoryModelStubAcceptingItemAdded extends InventoryModelStub {
+public class InventoryModelStubAcceptingItemAdded extends CashierModelStub {
 
     final ArrayList<Item> itemsAdded;
 

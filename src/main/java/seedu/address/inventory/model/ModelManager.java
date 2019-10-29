@@ -91,9 +91,8 @@ public class ModelManager implements Model {
 
     /**
      * Updates the index of the items.
-     * @throws NoSuchIndexException if the index is invalid
      */
-    public void updateIndexes() throws NoSuchIndexException {
+    public void updateIndexes() {
         for (int i = 0; i < inventoryList.size(); i++) {
             Item item = inventoryList.get(i);
             item.setId(i + 1);
@@ -125,5 +124,12 @@ public class ModelManager implements Model {
         } catch (Exception e) {
             this.inventoryList = new InventoryList();
         }
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof ModelManager // instanceof handles nulls
+                && inventoryList.equals(((ModelManager) other).getInventoryList()));
     }
 }

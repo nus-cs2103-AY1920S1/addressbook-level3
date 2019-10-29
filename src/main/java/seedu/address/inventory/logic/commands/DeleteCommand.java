@@ -21,10 +21,15 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model)
-            throws NoSuchIndexException {
+    public CommandResult execute(Model model) throws NoSuchIndexException {
         Item item = model.findItemByIndex(index);
         model.deleteItem(index);
         return new CommandResult(String.format(MESSAGE_DELETED_ITEM, item));
+    }
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof DeleteCommand // instanceof handles nulls
+                && index == ((DeleteCommand) other).index);
     }
 }
