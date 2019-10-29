@@ -24,7 +24,7 @@ This program is targeted at clerks working in small clinics. It is designed for 
 
 .  Ensure you have Java `11` or above installed in your Computer.
 .  Download the latest `clerkPro.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
+.  Copy the file to the folder you want to use as the home folder for ClerkPro.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
@@ -33,9 +33,8 @@ image::Ui.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`list`* : lists all contacts
-* **`add`**`i/001A n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
+* **`register`**`i/001A n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : registers a patient named `John Doe`.
+* **`delete`**`3` : deletes the 3rd patient shown in the current list
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
@@ -79,17 +78,7 @@ Format: `break <ROOM_NUMBER>`
 ==== Doctor resumes his/her duty: `resume` ====
 
 Allows patients to be directed to a given Doctor based on the room number. +
-Format: `resume <ROOM_NUMBER>
-
-==== Add a new room: `addRoom` ====
-
-Adds a new room with a doctor to the list. +
-Format: `addRoom <DOCTOR_REFERENCE_ID>`
-
-==== Removes a room: `removeRoom` ====
-Removes a room in the list. +
-Format: `removeRoom <ROOM_NUMBER>`
-
+Format: `resume <ROOM_NUMBER>`
 
 === Patient Management
 
@@ -140,21 +129,21 @@ If user is in the doctors listing screen, updates any change for doctor’s prof
 Format: `updatedoctor <ENTRY_ID> [n/<STAFF_NAME>]
 [i/<STAFF_REFERENCE_ID>] [p/<PHONE_NUM>] [e/<EMAIL>] [a/<ADDRESS>] [r/<REMARK>]`
 
-==== Unregister a doctor's profile: `resign` ====
+==== Unregisters a doctor's profile: `resign` ====
 
 If user is in the doctors listing screen, removes a doctor’s profile. +
 Format: `resigndoctor <ENTRY_ID>`
 
-==== Updates a doctor's profiles: `onduty` ====
+==== Marks the doctor as on-duty: `onduty` ====
 
 Marks the doctor as on-duty and stationed in the given room number. +
 Patients can be directed to the specified doctor. +
-Format: `onduty <ENTRY_ID> r/<ROOM_NUMBER>`
+Format: `onduty <ROOM_NUMBER>`
 
-==== Updates doctor's profiles: `offduty` ====
+==== Marks the doctor as off-duty: `offduty` ====
 
 Marks the doctor as off-duty. Patients can not be directed to the specified doctor. +
-Format: `offduty <ROOM_NUMBER>`
+Format: `offduty <ENTRY_ID>`
 
 === Appointment Management
 

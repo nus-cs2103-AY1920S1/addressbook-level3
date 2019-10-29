@@ -2,6 +2,7 @@ package seedu.address.logic.commands.utils;
 
 import static java.util.Objects.requireNonNull;
 
+import seedu.address.commons.core.OmniPanelTab;
 import seedu.address.model.person.Person;
 
 /**
@@ -16,8 +17,12 @@ public class ModelWithPersonStub extends ModelStub {
     }
 
     @Override
-    public boolean hasPerson(Person person) {
+    public boolean hasPatient(Person person) {
         requireNonNull(person);
         return this.person.isSameAs(person);
+    }
+
+    @Override
+    public void setTabListing(OmniPanelTab tab) {
     }
 }

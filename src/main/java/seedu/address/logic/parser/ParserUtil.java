@@ -12,8 +12,8 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.common.Tag;
-import seedu.address.model.events.DateTime;
-import seedu.address.model.events.Timing;
+import seedu.address.model.events.parameters.DateTime;
+import seedu.address.model.events.parameters.Timing;
 import seedu.address.model.person.parameters.Address;
 import seedu.address.model.person.parameters.Email;
 import seedu.address.model.person.parameters.Name;
@@ -69,8 +69,6 @@ public class ParserUtil {
         String trimmedRefId = staffRefId.trim().toUpperCase();
         if (!PersonReferenceId.isValidId(trimmedRefId)) {
             throw new ParseException(PersonReferenceId.MESSAGE_CONSTRAINTS);
-        } else if (!StaffReferenceId.isValidStaffId(trimmedRefId)) {
-            throw new ParseException(StaffReferenceId.MESSAGE_CONSTRAINTS);
         }
         return new StaffReferenceId(trimmedRefId);
     }
@@ -86,8 +84,6 @@ public class ParserUtil {
         String trimmedRefId = patientRefId.trim().toUpperCase();
         if (!PersonReferenceId.isValidId(trimmedRefId)) {
             throw new ParseException(PersonReferenceId.MESSAGE_CONSTRAINTS);
-        } else if (!PatientReferenceId.isValidPatientId(trimmedRefId)) {
-            throw new ParseException(PatientReferenceId.MESSAGE_CONSTRAINTS);
         }
         return new PatientReferenceId(trimmedRefId);
     }
@@ -183,26 +179,16 @@ public class ParserUtil {
      * checks the starting and ending time of the appointment is a valid time.
      *
      * @param start which the string startTime of the appointment.
-     * @param end   which the string endTime of the appointment.
      * @return the valid Appointment object.
      * @throws ParseException If an error occurs during command parsering.
      */
-    public static Timing parseTiming(String start, String end) throws ParseException {
-        requireNonNull(start, end);
+    public static Timing parseTiming(String start) throws ParseException {
+        requireNonNull(start);
         DateTime startTiming = DateTime.tryParseSimpleDateFormat(start);
         if (startTiming == null) {
             throw new ParseException("The start " + DateTime.MESSAGE_CONSTRAINTS);
         }
-
-        DateTime endTiming = DateTime.tryParseSimpleDateFormat(end);
-        if (endTiming == null) {
-            throw new ParseException("The end " + DateTime.MESSAGE_CONSTRAINTS);
-        }
-
-        if (!Timing.isValidTiming(startTiming, endTiming)) {
-            throw new ParseException(Timing.MESSAGE_CONSTRAINTS);
-        }
-        return new Timing(startTiming, endTiming);
+        return new Timing(startTiming);
     }
 
     /**

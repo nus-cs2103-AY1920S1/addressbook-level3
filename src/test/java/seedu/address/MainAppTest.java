@@ -10,6 +10,9 @@ import org.testfx.framework.junit5.Init;
 
 import javafx.scene.input.KeyCode;
 
+import seedu.address.ui.autocomplete.AutoCompleter;
+
+
 @ExtendWith(ApplicationExtension.class)
 public class MainAppTest extends ApplicationTest {
 
@@ -23,6 +26,7 @@ public class MainAppTest extends ApplicationTest {
         var patientsTabStyleClass = robot.lookup("#patientsTab").query().getStyleClass();
         var appointmentsTabStyleClass = robot.lookup("#appointmentsTab").query().getStyleClass();
         var doctorsTabStyleClass = robot.lookup("#doctorsTab").query().getStyleClass();
+        var dutyShiftTabStyleClass = robot.lookup("#dutyShiftTab").query().getStyleClass();
         var commandBox = robot.lookup("#commandTextField").queryTextInputControl();
         var tabBar = robot.lookup("#tabBar").query();
 
@@ -30,26 +34,31 @@ public class MainAppTest extends ApplicationTest {
         Assertions.assertThat(patientsTabStyleClass).containsOnly("unselected-tab");
         Assertions.assertThat(appointmentsTabStyleClass).containsOnly("unselected-tab");
         Assertions.assertThat(doctorsTabStyleClass).containsOnly("selected-tab");
+        Assertions.assertThat(dutyShiftTabStyleClass).containsOnly("unselected-tab");
 
         robot.type(KeyCode.UP);
         Assertions.assertThat(patientsTabStyleClass).containsOnly("unselected-tab");
         Assertions.assertThat(appointmentsTabStyleClass).containsOnly("selected-tab");
         Assertions.assertThat(doctorsTabStyleClass).containsOnly("unselected-tab");
+        Assertions.assertThat(dutyShiftTabStyleClass).containsOnly("unselected-tab");
 
         robot.type(KeyCode.UP);
         Assertions.assertThat(patientsTabStyleClass).containsOnly("selected-tab");
         Assertions.assertThat(appointmentsTabStyleClass).containsOnly("unselected-tab");
         Assertions.assertThat(doctorsTabStyleClass).containsOnly("unselected-tab");
+        Assertions.assertThat(dutyShiftTabStyleClass).containsOnly("unselected-tab");
 
         robot.type(KeyCode.UP);
         Assertions.assertThat(patientsTabStyleClass).containsOnly("unselected-tab");
         Assertions.assertThat(appointmentsTabStyleClass).containsOnly("unselected-tab");
-        Assertions.assertThat(doctorsTabStyleClass).containsOnly("selected-tab");
+        Assertions.assertThat(doctorsTabStyleClass).containsOnly("unselected-tab");
+        Assertions.assertThat(dutyShiftTabStyleClass).containsOnly("selected-tab");
 
         robot.type(KeyCode.DOWN);
         Assertions.assertThat(patientsTabStyleClass).containsOnly("selected-tab");
         Assertions.assertThat(appointmentsTabStyleClass).containsOnly("unselected-tab");
         Assertions.assertThat(doctorsTabStyleClass).containsOnly("unselected-tab");
+        Assertions.assertThat(dutyShiftTabStyleClass).containsOnly("unselected-tab");
 
         robot.type(KeyCode.TAB);
         Assertions.assertThat(tabBar).isNotFocused();
@@ -64,10 +73,15 @@ public class MainAppTest extends ApplicationTest {
     public void autoCompleterTest(FxRobot robot) {
         var aco = robot.lookup("#autoCompleteOverlay").queryListView();
 
+        int expectedSearchResultSize = new AutoCompleter().update("a").getSuggestions().size();
         robot.clickOn("#commandTextField");
-        robot.write('a').type(KeyCode.UP);
+        robot.write('a');
         Assertions.assertThat(aco).isVisible();
-        Assertions.assertThat(aco.getSelectionModel().getSelectedIndex()).isEqualTo(3);
+        Assertions.assertThat(aco.getSelectionModel().getSelectedIndex()).isEqualTo(0);
+
+        robot.type(KeyCode.UP);
+        Assertions.assertThat(aco.getSelectionModel().getSelectedIndex())
+                .isEqualTo(expectedSearchResultSize - 1);
 
         robot.type(KeyCode.DOWN);
         Assertions.assertThat(aco.getSelectionModel().getSelectedIndex()).isEqualTo(0);
@@ -92,6 +106,8 @@ public class MainAppTest extends ApplicationTest {
 
     @Test
     public void enqueueAndDequeueTest(FxRobot robot) {
+        robot.clickOn("#commandTextField").write("register i/001A n/John Doe p/98765432"
+                + " e/johnd@example.com a/311, Clementi Ave 2, #02-25").type(KeyCode.ENTER);
         robot.clickOn("#commandTextField").write("enqueue 001A").type(KeyCode.ENTER);
         Assertions.assertThat(lookup("#queueListView").queryListView()).hasExactlyNumItems(1);
         robot.write("dequeue 1").type(KeyCode.ENTER);
@@ -110,14 +126,15 @@ public class MainAppTest extends ApplicationTest {
     }
 
     @Test
-    public void helpCommandTest(FxRobot robot) {
+    public void helpAndExitCommandTest(FxRobot robot) {
         var commandBox = robot.lookup("#commandTextField").queryTextInputControl();
         var resultDisplay = robot.lookup("#resultDisplay").queryTextInputControl();
 
         robot.clickOn(commandBox).write("help").type(KeyCode.ENTER);
         Assertions.assertThat(resultDisplay.getText()).startsWith("Opened help window.");
-        Assertions.assertThat(robot.window("Help")).isShowing();
-        Assertions.assertThat(robot.listWindows().size()).isEqualTo(2);
+        Assertions.assertThat(robot.listWindows()).hasSize(2);
+        robot.clickOn(commandBox).write("exit").type(KeyCode.ENTER);
+        Assertions.assertThat(robot.listWindows()).hasSize(0);
     }
 
     @Test

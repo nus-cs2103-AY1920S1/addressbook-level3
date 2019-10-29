@@ -28,13 +28,14 @@ Responsibilities:
 image::carbongrid.png[width="150", align="left"]
 {empty}[http://github.com/CarbonGrid[github]] [<<carbongrid#, portfolio>>]
 
-Role: Developer
+Role: Developer, DevOps
 
 Responsibilities:
 
 . AutoCompleter
 . History
 . UI
+. Testing & Version Control
 
 '''
 

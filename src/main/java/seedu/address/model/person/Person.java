@@ -8,8 +8,8 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import seedu.address.model.ReferenceId;
 import seedu.address.model.common.Identical;
-import seedu.address.model.common.ReferenceId;
 import seedu.address.model.common.Tag;
 import seedu.address.model.person.parameters.Address;
 import seedu.address.model.person.parameters.Email;
@@ -124,7 +124,7 @@ public class Person implements Identical<Person> {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(referenceId, name, phone, email, address, tags);
     }
 
     @Override

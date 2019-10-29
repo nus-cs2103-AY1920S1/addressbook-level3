@@ -30,6 +30,13 @@ deactivate NextCommandParser
 AddressBookParser -> NextCommandParser : parse("1")
 activate NextCommandParser
 
+
+create ReferenceId
+NextCommandParser -> ReferenceId
+activate ReferenceId
+ReferenceId -> NextCommandParser
+deactivate ReferenceId
+
 create NextCommand
 NextCommandParser -> NextCommand
 activate NextCommand

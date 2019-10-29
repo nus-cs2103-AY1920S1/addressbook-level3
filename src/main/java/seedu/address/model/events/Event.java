@@ -5,8 +5,10 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
 
+import seedu.address.model.ReferenceId;
 import seedu.address.model.common.Identical;
-import seedu.address.model.common.ReferenceId;
+import seedu.address.model.events.parameters.Status;
+import seedu.address.model.events.parameters.Timing;
 
 /**
  * Represents an event involving a single Person.
@@ -28,13 +30,13 @@ public class Event implements Identical<Event> {
         this.personId = personId;
         this.timing = timing;
 
-
-        if (!status.equals(new Status(Status.AppointmentStatuses.SETTLED)) && timing.hasMissedTiming()) {
+        if (!status.equals(Status.AppointmentStatuses.SETTLED) && timing.hasMissedTiming()) {
             this.status = new Status(Status.AppointmentStatuses.MISSED);
         } else {
             this.status = status;
         }
     }
+
 
     public ReferenceId getPersonId() {
         return personId;
@@ -51,7 +53,6 @@ public class Event implements Identical<Event> {
     public boolean conflictsWith(Event otherEvent) {
         return getEventTiming().conflictsWith(otherEvent.getEventTiming());
     }
-
 
     /**
      * Returns true if both Event of the same patient and timing.

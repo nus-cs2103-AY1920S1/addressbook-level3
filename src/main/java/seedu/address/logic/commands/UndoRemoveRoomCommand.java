@@ -37,7 +37,7 @@ public class UndoRemoveRoomCommand extends ReversibleCommand {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
 
-        model.addRoomToIndex(roomToAdd, indexOfPatientInQueue);
+        model.addRoom(roomToAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS, roomToAdd));
     }
 
