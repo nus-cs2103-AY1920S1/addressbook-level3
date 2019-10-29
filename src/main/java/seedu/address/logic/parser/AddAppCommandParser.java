@@ -1,7 +1,6 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_REFERENCEID;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_TIMING;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_END;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ID;
@@ -15,6 +14,7 @@ import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Stream;
 
+import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.AddAppCommand;
 import seedu.address.logic.commands.CancelAppCommand;
@@ -55,7 +55,7 @@ public class AddAppCommandParser implements Parser<ReversibleActionPairCommand> 
 
         ReferenceId referenceId = ParserUtil.parsePatientReferenceId(argMultimap.getValue(PREFIX_ID).get());
         if (!model.hasPatient(referenceId)) {
-            throw new ParseException(String.format(MESSAGE_INVALID_REFERENCEID, AddAppCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(Messages.MESSAGE_INVAILD_REFERENCE_ID, referenceId.toString()));
         }
 
         String startString = argMultimap.getValue(PREFIX_START).get();

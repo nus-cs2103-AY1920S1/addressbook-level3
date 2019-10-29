@@ -82,6 +82,11 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public CommandResult eagerEvaluate(String commandText) throws CommandException, ParseException {
+        return null;
+    }
+
+    @Override
     public ObservableList<Person> getFilteredPatientList() {
         return model.getFilteredPatientList();
     }

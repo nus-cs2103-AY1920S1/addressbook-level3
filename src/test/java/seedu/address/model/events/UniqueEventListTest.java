@@ -1,11 +1,9 @@
 package seedu.address.model.events;
 
-import java.util.Arrays;
-import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import static seedu.address.testutil.TypicalEvents.EVENT_ALICE;
 import static seedu.address.testutil.TypicalEvents.EVENT_BENSON;
 import static seedu.address.testutil.TypicalEvents.EVENT_CARL;
@@ -15,8 +13,12 @@ import static seedu.address.testutil.TypicalEvents.EVENT_FIONA;
 import static seedu.address.testutil.TypicalEvents.EVENT_GEORGE;
 import static seedu.address.testutil.TypicalEvents.getTypicalAppointment;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import seedu.address.testutil.EventBuilder;
 
 class UniqueEventListTest {
@@ -35,10 +37,10 @@ class UniqueEventListTest {
         assertEquals(getTypicalAppointment().toString(),
                 Arrays.asList(eventList.asUnmodifiableObservableList().toArray()).toString());
 
-        List<Event> TypicalAppointments = getTypicalAppointment();
+        List<Event> typicalAppointments = getTypicalAppointment();
         UniqueEventList newEventList = new UniqueEventList();
-        for (int idx = TypicalAppointments.size() - 1; idx >= 0; idx--) {
-            newEventList.add(TypicalAppointments.get(idx));
+        for (int idx = typicalAppointments.size() - 1; idx >= 0; idx--) {
+            newEventList.add(typicalAppointments.get(idx));
         }
 
         assertEquals(getTypicalAppointment().toString(),
@@ -48,14 +50,16 @@ class UniqueEventListTest {
     @Test
     void getEventsInConflict() {
         assertEquals(Arrays.asList(EVENT_ALICE), eventList.getListOfEventsInConflict(EVENT_ALICE));
-        assertEquals(Arrays.asList(EVENT_BENSON), eventList.getListOfEventsInConflict(EVENT_BENSON));
-        assertEquals(Arrays.asList(EVENT_CARL), eventList.getListOfEventsInConflict(EVENT_CARL));
+        assertEquals(Arrays.asList(EVENT_BENSON, EVENT_CARL, EVENT_DANIEL),
+                eventList.getListOfEventsInConflict(EVENT_BENSON));
+        assertEquals(Arrays.asList(EVENT_BENSON, EVENT_CARL, EVENT_DANIEL),
+                eventList.getListOfEventsInConflict(EVENT_CARL));
 
-        assertEquals(Arrays.asList(EVENT_DANIEL, EVENT_ELLE, EVENT_FIONA),
+        assertEquals(Arrays.asList(EVENT_BENSON, EVENT_CARL, EVENT_DANIEL),
                 eventList.getListOfEventsInConflict(EVENT_DANIEL));
-        assertEquals(Arrays.asList(EVENT_DANIEL, EVENT_ELLE, EVENT_FIONA),
+        assertEquals(Arrays.asList(EVENT_ELLE),
                 eventList.getListOfEventsInConflict(EVENT_ELLE));
-        assertEquals(Arrays.asList(EVENT_DANIEL, EVENT_ELLE, EVENT_FIONA),
+        assertEquals(Arrays.asList(EVENT_FIONA),
                 eventList.getListOfEventsInConflict(EVENT_FIONA));
         assertEquals(Arrays.asList(EVENT_GEORGE),
                 eventList.getListOfEventsInConflict(EVENT_GEORGE));
@@ -70,11 +74,11 @@ class UniqueEventListTest {
     @Test
     void countNumberOfEventsInConflict() {
         assertEquals(1, eventList.countNumberOfEventsInConflict(EVENT_ALICE));
-        assertEquals(1, eventList.countNumberOfEventsInConflict(EVENT_BENSON));
-        assertEquals(1, eventList.countNumberOfEventsInConflict(EVENT_CARL));
+        assertEquals(3, eventList.countNumberOfEventsInConflict(EVENT_BENSON));
+        assertEquals(3, eventList.countNumberOfEventsInConflict(EVENT_CARL));
         assertEquals(3, eventList.countNumberOfEventsInConflict(EVENT_DANIEL));
-        assertEquals(3, eventList.countNumberOfEventsInConflict(EVENT_ELLE));
-        assertEquals(3, eventList.countNumberOfEventsInConflict(EVENT_FIONA));
+        assertEquals(1, eventList.countNumberOfEventsInConflict(EVENT_ELLE));
+        assertEquals(1, eventList.countNumberOfEventsInConflict(EVENT_FIONA));
         assertEquals(1, eventList.countNumberOfEventsInConflict(EVENT_GEORGE));
 
         assertEquals(0, eventList.countNumberOfEventsInConflict(
@@ -110,11 +114,11 @@ class UniqueEventListTest {
                 new EventBuilder(EVENT_DANIEL)
                         .withId(EVENT_ALICE.getPersonId().toString())
                         .build(), Integer.MAX_VALUE));
-        assertTrue(eventList.allowedToSchedule(
+        assertFalse(eventList.allowedToSchedule(
                 new EventBuilder(EVENT_DANIEL)
                         .withId(EVENT_BENSON.getPersonId().toString())
                         .build(), Integer.MAX_VALUE));
-        assertTrue(eventList.allowedToSchedule(
+        assertFalse(eventList.allowedToSchedule(
                 new EventBuilder(EVENT_DANIEL)
                         .withId(EVENT_CARL.getPersonId().toString())
                         .build(), Integer.MAX_VALUE));
@@ -143,7 +147,7 @@ class UniqueEventListTest {
         assertFalse(eventList.allowedToSchedule(EVENT_FIONA, 2));
         assertFalse(eventList.allowedToSchedule(EVENT_GEORGE, 2));
 
-        assertTrue(eventList.allowedToSchedule(
+        assertFalse(eventList.allowedToSchedule(
                 new EventBuilder(EVENT_BENSON)
                         .withId(EVENT_ALICE.getPersonId().toString())
                         .build(), 2));
@@ -169,15 +173,15 @@ class UniqueEventListTest {
                         .withId(EVENT_CARL.getPersonId().toString())
                         .build(), 2));
 
-        assertFalse(eventList.allowedToSchedule(
+        assertTrue(eventList.allowedToSchedule(
                 new EventBuilder(EVENT_ELLE)
                         .withId(EVENT_ALICE.getPersonId().toString())
                         .build(), 2));
-        assertFalse(eventList.allowedToSchedule(
+        assertTrue(eventList.allowedToSchedule(
                 new EventBuilder(EVENT_ELLE)
                         .withId(EVENT_BENSON.getPersonId().toString())
                         .build(), 2));
-        assertFalse(eventList.allowedToSchedule(
+        assertTrue(eventList.allowedToSchedule(
                 new EventBuilder(EVENT_ELLE)
                         .withId(EVENT_CARL.getPersonId().toString())
                         .build(), 2));

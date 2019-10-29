@@ -120,7 +120,7 @@ public class DateTime implements Comparable<DateTime> {
      * @return a {@code DateTime} new object which is one year later from given one.
      */
     public static DateTime plusHalfHour(DateTime current) {
-        return plusTime(current, 1, 0, 0, 0, 0, 30);
+        return plusTime(current, 0, 0, 0, 0, 0, 30);
     }
 
 

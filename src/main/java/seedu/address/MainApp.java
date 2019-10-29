@@ -24,7 +24,8 @@ import seedu.address.model.events.AppointmentBook;
 import seedu.address.model.person.AddressBook;
 import seedu.address.model.queue.QueueManager;
 import seedu.address.model.userprefs.ReadOnlyUserPrefs;
-import seedu.address.model.util.SampleDataUtil;
+import seedu.address.model.util.SampleAppointmentDataUtil;
+import seedu.address.model.util.SamplePersonDataUtil;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
 import seedu.address.ui.Ui;
@@ -73,7 +74,7 @@ public class MainApp extends Application {
             if (!addressBookOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample AddressBook");
             }
-            initialPatientAddressData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
+            initialPatientAddressData = addressBookOptional.orElseGet(SamplePersonDataUtil::getSampleAddressBook);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
             initialPatientAddressData = new AddressBook();
@@ -88,7 +89,7 @@ public class MainApp extends Application {
             if (!addressBookOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample StaffRegistry");
             }
-            initialStaffAddressData = addressBookOptional.orElseGet(() -> new AddressBook());
+            initialStaffAddressData = addressBookOptional.orElseGet(SamplePersonDataUtil::getSampleStaffAddressBook);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty StaffRegistry");
             initialStaffAddressData = new AddressBook();
@@ -103,7 +104,8 @@ public class MainApp extends Application {
             if (!appointmentBookOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample AppointmentBook");
             }
-            initialAppointmentData = appointmentBookOptional.orElseGet(SampleDataUtil::getSampleAppointmentBook);
+            initialAppointmentData = appointmentBookOptional.orElseGet(
+                    SampleAppointmentDataUtil::getSampleAppointmentBook);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty AppointmentBook");
             initialAppointmentData = new AppointmentBook();
@@ -118,7 +120,8 @@ public class MainApp extends Application {
             if (!staffDutyRosterBookOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample DutyRosterBook");
             }
-            initialDutyRosterData = staffDutyRosterBookOptional.orElseGet(SampleDataUtil::getSampleAppointmentBook);
+            initialDutyRosterData = staffDutyRosterBookOptional.orElseGet(
+                    SampleAppointmentDataUtil::getSampleDutyRosterBook);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty DutyRosterBook");
             initialDutyRosterData = new AppointmentBook();
