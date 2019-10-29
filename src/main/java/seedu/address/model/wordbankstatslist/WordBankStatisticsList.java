@@ -2,6 +2,7 @@ package seedu.address.model.wordbankstatslist;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -77,7 +78,7 @@ public class WordBankStatisticsList implements ReadOnlyWordBankStatisticsList {
 
     public Optional<WordBankStatistics> getMostPlayedWordBankStatistics() {
         return internalList.stream()
-                .max((x, y) -> y.getGamesPlayed() - x.getGamesPlayed());
+                .max(Comparator.comparingInt(WordBankStatistics::getGamesPlayed));
     }
 
     public int getTotalPlayed() {

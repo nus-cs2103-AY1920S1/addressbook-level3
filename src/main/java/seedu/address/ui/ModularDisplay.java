@@ -75,7 +75,6 @@ public class ModularDisplay {
                 avatarId == 0
                 ? new Random().nextInt(AvatarImageUtil.TOTAL_NUM) + 1
                 : avatarId).getRoot());
-        // todo avatar should depend on user prefs
         twoSplitColumnLayout.addToRightPane(loadBankPanel.getRoot());
         paneToDisplay.getChildren().add(twoSplitColumnLayout.getRoot());
     }
