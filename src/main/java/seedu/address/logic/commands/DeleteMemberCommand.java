@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MEMBER_ID;
 
 import java.util.List;
 
@@ -19,8 +20,8 @@ public class DeleteMemberCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the member identified by the index used in the displayed task list.\n"
-            + "Parameters: ID (must be an alphanumeric string)\n"
-            + "Example: " + COMMAND_WORD + " JD";
+            + "Parameters: " + PREFIX_MEMBER_ID + " MEMBER ID (must be an alphanumeric string)\n"
+            + "Example: " + COMMAND_WORD + "mi/JD";
 
     public static final String MESSAGE_DELETE_MEMBER_SUCCESS = "Deleted Member: %1$s";
 

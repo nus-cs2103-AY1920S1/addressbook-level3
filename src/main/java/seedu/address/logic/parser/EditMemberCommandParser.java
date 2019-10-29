@@ -20,6 +20,7 @@ import seedu.address.model.tag.Tag;
  * Parses input arguments and creates a new EditMemberCommand object
  */
 public class EditMemberCommandParser implements Parser<EditMemberCommand> {
+    public static final String MESSAGE_NO_ID = "Please enter the member ID of the member you want to edit.";
     /**
      * Parses the given {@code String} of arguments in the context of the EditCommand
      * and returns an EditCommand object for execution.
@@ -27,10 +28,16 @@ public class EditMemberCommandParser implements Parser<EditMemberCommand> {
      */
     public EditMemberCommand parse(String args) throws ParseException {
         requireNonNull(args);
+
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_MEMBER_ID, PREFIX_MEMBER_NAME, PREFIX_MEMBER_TAG);
 
         MemberId id;
+
+        if (!args.contains("mi/")) {
+            throw new ParseException(
+                    String.format(MESSAGE_NO_ID, EditMemberCommand.MESSAGE_USAGE));
+        }
 
         try {
             id = ParserUtil.parseMemberId(argMultimap.getValue(PREFIX_MEMBER_ID).get());

@@ -81,15 +81,15 @@ public class UserViewUpdate {
 
         case "fire-member":
 
-        case "get-member-stats":
+        case "member-stats":
            paneToRender.getChildren().add(userViewMain.loadMemberStats());
            break;
 
-        case "assign-task":
+        case "assign":
 
-        case "fire-task":
+        case "fire":
 
-        case "get-task-stats":
+        case "task-stats":
             paneToRender.getChildren().add(userViewMain.loadTaskStats());
             break;
 
