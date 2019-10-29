@@ -1,10 +1,6 @@
 package seedu.address.calendar.parser;
 
-import seedu.address.calendar.commands.AddCommand;
-import seedu.address.calendar.commands.AddCommitmentCommand;
-import seedu.address.calendar.commands.AddHolidayCommand;
-import seedu.address.calendar.commands.AddSchoolBreakCommand;
-import seedu.address.calendar.commands.AddTripCommand;
+import seedu.address.calendar.commands.*;
 import seedu.address.calendar.model.date.Date;
 import seedu.address.calendar.model.event.Commitment;
 import seedu.address.calendar.model.event.EventQuery;
@@ -62,7 +58,7 @@ class AddCommandParser {
         boolean isValidPeriod = EventQuery.isValidEventTime(startDate, endDate);
 
         if (!isValidPeriod) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_DATE_RESTRICTION));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, CommandUtil.MESSAGE_DATE_RESTRICTION));
         }
 
         Name name = new NameParser().parse(argMultimap.getValue(CliSyntax.PREFIX_NAME)).get();

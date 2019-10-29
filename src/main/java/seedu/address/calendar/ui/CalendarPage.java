@@ -123,6 +123,10 @@ public class CalendarPage extends UiPart<Scene> implements Page {
         monthViewPlaceholder.getChildren().add(monthView.generateMonthGrid());
     }
 
+    private void handleExit() {
+        // todo: add exit handler
+    }
+
     /**
      * Executes the command and returns the result.
      *
@@ -136,6 +140,10 @@ public class CalendarPage extends UiPart<Scene> implements Page {
                 Month updatedMonth = calendarLogic.getVisibleMonth();
                 updateCalendarPage(updatedMonth);
                 calendarLogic.completeVisibleUpdates();
+            }
+
+            if (commandResult.isExit()) {
+                handleExit();
             }
 
             resultDisplay.setDisplayText(commandResult.getFeedbackToUser());

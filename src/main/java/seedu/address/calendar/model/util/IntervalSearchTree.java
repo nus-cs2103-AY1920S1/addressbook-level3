@@ -186,6 +186,7 @@ public class IntervalSearchTree<S extends IntervalPart<S>, T extends Interval<S,
 
     private void updateRootMaxVal(Node leftSubtree, Node root, Node rightSubtree) {
         if (leftSubtree == null && rightSubtree == null) {
+            root.max = root.interval.getEnd();
             return;
         }
 
@@ -201,12 +202,6 @@ public class IntervalSearchTree<S extends IntervalPart<S>, T extends Interval<S,
 
         S maxBetweenLeftAndRight = getMaxIntervalPart(leftSubtree.max, rightSubtree.max);
         root.max = getMaxIntervalPart(root.interval.getEnd(), maxBetweenLeftAndRight);
-    }
-
-    private S getMaxIntervalPart(Node current, Node other) {
-        S currentEnd = current.interval.getEnd();
-        S otherMax = other.max;
-        return getMaxIntervalPart(currentEnd, otherMax);
     }
 
     private S getMaxIntervalPart(S currentEnd, S otherMax) {
