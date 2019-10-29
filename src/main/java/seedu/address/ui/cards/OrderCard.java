@@ -1,4 +1,5 @@
 package seedu.address.ui.cards;
+
 import java.util.Comparator;
 
 import javafx.fxml.FXML;
@@ -7,6 +8,7 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.order.Order;
+import seedu.address.model.order.Status;
 import seedu.address.ui.UiPart;
 
 /**
@@ -66,7 +68,13 @@ public class OrderCard extends UiPart<Region> {
 
         orderId.setText(order.getId().toString());
         orderPrice.setText(order.getPrice().value);
-        orderStatus.setText(order.getStatus().toString());
+
+        if (order.getStatus().equals(Status.SCHEDULED)) {
+            orderStatus.setText(String.format("%s : %s | Venue: %s", order.getStatus().toString(),
+                    order.getSchedule().get().getCalendarString(), order.getSchedule().get().getVenue()));
+        } else {
+            orderStatus.setText(order.getStatus().toString());
+        }
 
         order.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))

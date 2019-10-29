@@ -14,9 +14,9 @@ public class CliSyntax {
     public static final Prefix PREFIX_TAG = new Prefix("t/");
 
     //// Phone
-    public static final Prefix PREFIX_IDENTITYNUM = new Prefix("i/");
-    public static final Prefix PREFIX_SERIALNUM = new Prefix("s/");
-    public static final Prefix PREFIX_PHONENAME = new Prefix("n/");
+    public static final Prefix PREFIX_IDENTITY_NUM = new Prefix("i/");
+    public static final Prefix PREFIX_SERIAL_NUM = new Prefix("s/");
+    public static final Prefix PREFIX_PHONE_NAME = new Prefix("n/");
     public static final Prefix PREFIX_BRAND = new Prefix("b/");
     public static final Prefix PREFIX_CAPACITY = new Prefix("cp/");
     public static final Prefix PREFIX_COLOUR = new Prefix("cl/");
@@ -35,6 +35,7 @@ public class CliSyntax {
     public static final Prefix PREFIX_DATE = new Prefix("cd/");
     public static final Prefix PREFIX_TIME = new Prefix("ct/");
     public static final Prefix PREFIX_VENUE = new Prefix("v/");
+    public static final Prefix PREFIX_ALLOW = new Prefix ("-allow");
 
     //// Stats
     public static final Prefix PREFIX_STAT_TYPE = new Prefix("s/");

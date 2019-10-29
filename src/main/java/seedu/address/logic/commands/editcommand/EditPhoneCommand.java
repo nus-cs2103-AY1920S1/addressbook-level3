@@ -5,9 +5,9 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_BRAND;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CAPACITY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COLOUR;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COST;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_IDENTITYNUM;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONENAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_SERIALNUM;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_IDENTITY_NUM;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_SERIAL_NUM;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PHONES;
 
@@ -48,16 +48,16 @@ public class EditPhoneCommand extends Command {
             + "by the index number used in the displayed phone list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
-            + "[" + PREFIX_IDENTITYNUM + "IMEI] "
-            + "[" + PREFIX_SERIALNUM + "SERIAL NUMBER] "
-            + "[" + PREFIX_PHONENAME + "NAME] "
+            + "[" + PREFIX_IDENTITY_NUM + "IMEI] "
+            + "[" + PREFIX_SERIAL_NUM + "SERIAL NUMBER] "
+            + "[" + PREFIX_PHONE_NAME + "NAME] "
             + "[" + PREFIX_BRAND + "BRAND] "
             + "[" + PREFIX_CAPACITY + "CAPACITY] "
             + "[" + PREFIX_COLOUR + "COLOUR] "
             + "[" + PREFIX_COST + "COST] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_PHONENAME + "iPhone 7 "
+            + PREFIX_PHONE_NAME + "iPhone 7 "
             + PREFIX_COST + "$200";
 
     public static final String MESSAGE_EDIT_PHONE_SUCCESS = "Edited Phone: %1$s";
@@ -176,7 +176,8 @@ public class EditPhoneCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(phoneName, brand, capacity, colour, cost, tags);
+            return CollectionUtil.isAnyNonNull(serialNumber, identityNumber, phoneName,
+                    brand, capacity, colour, cost, tags);
         }
 
         public Optional<IdentityNumber> getIdentityNumber() {

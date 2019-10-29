@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import java.nio.file.Path;
 import java.util.Calendar;
+import java.util.List;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -275,6 +276,11 @@ public interface Model {
     void updateFilteredScheduleList(Predicate<Schedule> predicate);
 
     /**
+     * Gets the list conflicting schedules if any.
+     */
+    List<Schedule> getConflictingSchedules(Schedule schedule);
+
+    /**
      * Returns the CalendarDate object.
      */
     CalendarDate getCalendarDate();
@@ -283,4 +289,48 @@ public interface Model {
      * Sets the calendar object in the property
      */
     void setCalendarDate(Calendar calendar);
+
+    ////order operations
+
+    /**
+     * Replaces archived order book data with the data in {@code orderBook}.
+     */
+    void setArchivedOrderBook(ReadOnlyDataBook<Order> archivedOrderBook);
+
+    /** Returns the AddressBook */
+    ReadOnlyDataBook<Order> getArchivedOrderBook();
+
+    /**
+     * Returns true if a order with the same identity as {@code order} exists in the archived order book.
+     */
+    boolean hasArchivedOrder(Order order);
+
+    /**
+     * Deletes the given order.
+     * The order must exist in the address book.
+     */
+    void deleteArchivedOrder(Order target);
+
+    /**
+     * Adds the given archived order.
+     * {@code order} must not already exist in the archived order book.
+     */
+    void addArchivedOrder(Order order);
+
+    /**
+     * Replaces the given order {@code target} with {@code editedOrder}.
+     * {@code target} must exist in the archived order book.
+     * The order identity of {@code editedOrder} must not be the same as another
+     * existing order in the archived order book.
+     */
+    void setArchivedOrder(Order target, Order editedOrder);
+
+    /** Returns an unmodifiable view of the filtered archived order list */
+    ObservableList<Order> getFilteredArchivedOrderList();
+
+    /**
+     * Updates the filter of the filtered archived order list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredArchivedOrderList(Predicate<Order> predicate);
 }

@@ -315,20 +315,26 @@ public class ParserUtil {
      */
     public static StatisticType parseStatsType(String statsInput) throws ParseException {
         requireNonNull(statsInput);
+        System.out.println(statsInput);
+
         String trimmedStatsType = statsInput.trim();
+        String[] checkInvalidChara = trimmedStatsType.split(" ");
+        if (checkInvalidChara.length > 1) {
+            throw new ParseException(Messages.STATS_MESSAGE_CONSTRAINTS_NO_INVALID_CHAR);
+        }
         if (!StatsParseUtil.isValidStatType(trimmedStatsType)) {
             throw new ParseException(Messages.STATS_MESSAGE_CONSTRAINTS);
         }
         switch (trimmedStatsType) {
-        case "PROFIT":
+        case "profit":
             return StatisticType.PROFIT;
-        case "COST":
+        case "cost":
             return StatisticType.COST;
-        case "REVENUE":
+        case "revenue":
             return StatisticType.REVENUE;
         default:
             throw new ParseException("Invalid type of Statistics. Only possible ones include:\n"
-                    + "PROFIT, COST, REVENUE");
+                    + "profit, cost , revenue");
         }
     }
 
@@ -410,7 +416,7 @@ public class ParserUtil {
 
         String[] timeArr = time.split("\\.");
         if (timeArr.length != 2) {
-            throw new ParseException(MESSAGE_INVALID_TIME);
+            throw new ParseException(Messages.TIME_MESSAGE_CONSTRAINTS);
         }
         int[] input = new int[3];
 
@@ -421,7 +427,7 @@ public class ParserUtil {
             }
             localTime = LocalTime.of(input[0], input[1]);
         } catch (NumberFormatException | DateTimeException e) {
-            throw new ParseException(Messages.DATE_MESSAGE_CONSTRAINTS);
+            throw new ParseException(Messages.TIME_MESSAGE_CONSTRAINTS);
         }
 
         return new Calendar.Builder().setTimeOfDay(input[0], input[1], 0).build();

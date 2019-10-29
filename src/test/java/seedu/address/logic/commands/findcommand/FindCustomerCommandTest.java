@@ -15,34 +15,34 @@ import static seedu.address.testutil.TypicalSchedules.getTypicalScheduleBook;
 
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.model.DataBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.customer.Customer;
-import seedu.address.model.customer.predicates.CustomerNameContainsKeywordsPredicate;
+import seedu.address.model.customer.predicates.CustomerContainsKeywordsPredicate;
+import seedu.address.model.order.Order;
 
 /**
- * Contains integration tests (interaction with the Model) for {@code FindCommand}.
+ * Contains integration tests (interaction with the Model) for {@code FindCustomerCommand}.
  */
 public class FindCustomerCommandTest {
 
 
     private Model model = new ModelManager(getTypicalCustomerBook(), getTypicalPhoneBook(),
-            getTypicalOrderBook(), getTypicalScheduleBook(), new UserPrefs());
+            getTypicalOrderBook(), getTypicalScheduleBook(), new DataBook<Order>(), new UserPrefs());
 
     private Model expectedModel = new ModelManager(getTypicalCustomerBook(), getTypicalPhoneBook(),
-            getTypicalOrderBook(), getTypicalScheduleBook(), new UserPrefs());
+            getTypicalOrderBook(), getTypicalScheduleBook(), new DataBook<Order>(), new UserPrefs());
 
     @Test
     public void equals() {
-        Predicate<Customer> firstPredicate =
-                new CustomerNameContainsKeywordsPredicate(Collections.singletonList("first"));
-        Predicate<Customer> secondPredicate =
-                new CustomerNameContainsKeywordsPredicate(Collections.singletonList("second"));
+        CustomerContainsKeywordsPredicate firstPredicate =
+                new CustomerContainsKeywordsPredicate(Collections.singletonList("first"));
+        CustomerContainsKeywordsPredicate secondPredicate =
+                new CustomerContainsKeywordsPredicate(Collections.singletonList("second"));
 
         FindCustomerCommand findFirstCommand = new FindCustomerCommand(firstPredicate);
         FindCustomerCommand findSecondCommand = new FindCustomerCommand(secondPredicate);
@@ -67,7 +67,7 @@ public class FindCustomerCommandTest {
     @Test
     public void execute_zeroKeywords_noPersonFound() {
         String expectedMessage = String.format(MESSAGE_CUSTOMERS_LISTED_OVERVIEW, 0);
-        CustomerNameContainsKeywordsPredicate predicate = preparePredicate(" ");
+        CustomerContainsKeywordsPredicate predicate = preparePredicate(" ");
         FindCustomerCommand command = new FindCustomerCommand(predicate);
         expectedModel.updateFilteredCustomerList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
@@ -77,7 +77,7 @@ public class FindCustomerCommandTest {
     @Test
     public void execute_multipleKeywords_multiplePersonsFound() {
         String expectedMessage = String.format(MESSAGE_CUSTOMERS_LISTED_OVERVIEW, 3);
-        CustomerNameContainsKeywordsPredicate predicate = preparePredicate("Kurz Elle Kunz");
+        CustomerContainsKeywordsPredicate predicate = preparePredicate("Kurz Elle Kunz");
         FindCustomerCommand command = new FindCustomerCommand(predicate);
         expectedModel.updateFilteredCustomerList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
@@ -85,9 +85,9 @@ public class FindCustomerCommandTest {
     }
 
     /**
-     * Parses {@code userInput} into a {@code CustomerNameContainsKeywordsPredicate}.
+     * Parses {@code userInput} into a {@code CustomerContainsKeywordsPredicate}.
      */
-    private CustomerNameContainsKeywordsPredicate preparePredicate(String userInput) {
-        return new CustomerNameContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")));
+    private CustomerContainsKeywordsPredicate preparePredicate(String userInput) {
+        return new CustomerContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")));
     }
 }

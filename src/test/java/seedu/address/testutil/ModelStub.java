@@ -2,6 +2,7 @@ package seedu.address.testutil;
 
 import java.nio.file.Path;
 import java.util.Calendar;
+import java.util.List;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -255,12 +256,56 @@ public class ModelStub implements Model {
     }
 
     @Override
+    public List<Schedule> getConflictingSchedules(Schedule schedule) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
     public void setCalendarDate(Calendar calendar) {
         throw new AssertionError("This method should not be called.");
     }
 
     @Override
     public CalendarDate getCalendarDate() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void setArchivedOrderBook(ReadOnlyDataBook<Order> archivedOrderBook) {
+        throw new AssertionError("This method should not be called.");
+    }
+    @Override
+    public ReadOnlyDataBook<Order> getArchivedOrderBook() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public boolean hasArchivedOrder(Order order) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void deleteArchivedOrder(Order target) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void addArchivedOrder(Order order) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void setArchivedOrder(Order target, Order editedOrder) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public ObservableList<Order> getFilteredArchivedOrderList() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void updateFilteredArchivedOrderList(Predicate<Order> predicate) {
         throw new AssertionError("This method should not be called.");
     }
 }

@@ -14,18 +14,19 @@ import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPhones.IPHONEONE;
 import static seedu.address.testutil.TypicalPhones.IPHONEXR;
 import static seedu.address.testutil.TypicalSchedules.CBD_SCHEDULE;
-import static seedu.address.testutil.TypicalSchedules.SCHEDULEONE;
+import static seedu.address.testutil.TypicalSchedules.MONDAY_SCHEDULE;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.customer.Customer;
-import seedu.address.model.customer.predicates.CustomerNameContainsKeywordsPredicate;
+import seedu.address.model.customer.predicates.CustomerContainsKeywordsPredicate;
 import seedu.address.model.order.Order;
 import seedu.address.model.phone.Phone;
 import seedu.address.model.schedule.Schedule;
@@ -33,6 +34,7 @@ import seedu.address.testutil.CustomerBookBuilder;
 import seedu.address.testutil.OrderBookBuilder;
 import seedu.address.testutil.PhoneBookBuilder;
 import seedu.address.testutil.ScheduleBookBuilder;
+import seedu.address.testutil.ScheduleBuilder;
 
 public class ModelManagerTest {
 
@@ -44,6 +46,8 @@ public class ModelManagerTest {
         assertEquals(new GuiSettings(), modelManager.getGuiSettings());
         assertEquals(new AddressBook(), new AddressBook(modelManager.getAddressBook()));
     }
+
+    //=========== UserPrefs ==================================================================================
 
     @Test
     public void setUserPrefs_nullUserPrefs_throwsNullPointerException() {
@@ -75,6 +79,8 @@ public class ModelManagerTest {
         modelManager.setGuiSettings(guiSettings);
         assertEquals(guiSettings, modelManager.getGuiSettings());
     }
+
+    //=========== AddressBook ================================================================================
 
     @Test
     public void setAddressBookFilePath_nullPath_throwsNullPointerException() {
@@ -109,6 +115,8 @@ public class ModelManagerTest {
         assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredPersonList().remove(0));
     }
 
+    //=========== customerBook ================================================================================
+
     @Test
     public void hasCustomer_nullCustomer_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> modelManager.hasCustomer(null));
@@ -129,6 +137,8 @@ public class ModelManagerTest {
     public void getFilteredCustomerList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredCustomerList().remove(0));
     }
+
+    //=========== phoneBook ================================================================================
 
     @Test
     public void hasPhone_nullPhone_throwsNullPointerException() {
@@ -151,6 +161,8 @@ public class ModelManagerTest {
         assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredPhoneList().remove(0));
     }
 
+    //=========== orderBook ================================================================================
+
     @Test
     public void hasOrder_nullOrder_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> modelManager.hasOrder(null));
@@ -172,6 +184,27 @@ public class ModelManagerTest {
         assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredOrderList().remove(0));
     }
 
+    //=========== scheduleBook ================================================================================
+
+    @Test
+    public void addSchedule_nullSchedule_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.addSchedule(null));
+    }
+
+    @Test
+    public void addSchedule_duplicateScheduleInScheduleBook_throwsDuplicateIdentityException() {
+        modelManager.addSchedule(MONDAY_SCHEDULE);
+        assertTrue(modelManager.hasSchedule(MONDAY_SCHEDULE));
+        assertThrows(DuplicateIdentityException.class, () -> modelManager.addSchedule(MONDAY_SCHEDULE));
+    }
+
+    @Test
+    public void addSchedule_noSuchScheduleInScheduleBook_success() {
+        assertFalse(modelManager.hasSchedule(MONDAY_SCHEDULE));
+        modelManager.addSchedule(MONDAY_SCHEDULE);
+        assertTrue(modelManager.hasSchedule(MONDAY_SCHEDULE));
+    }
+
     @Test
     public void hasSchedule_nullSchedule_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> modelManager.hasSchedule(null));
@@ -189,9 +222,55 @@ public class ModelManagerTest {
     }
 
     @Test
+    public void deleteSchedule_nullSchedule_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.deleteSchedule(null));
+    }
+
+    @Test
+    public void deleteSchedule_scheduleNotInScheduleBook_throwsIdentityNotFoundException() {
+        assertThrows(IdentityNotFoundException.class, () -> modelManager.deleteSchedule(MONDAY_SCHEDULE));
+    }
+
+    @Test
+    public void deleteSchedule_scheduleInScheduleBook_success() {
+        modelManager.addSchedule(MONDAY_SCHEDULE);
+        modelManager.deleteSchedule(MONDAY_SCHEDULE);
+        assertFalse(modelManager.hasSchedule(MONDAY_SCHEDULE));
+    }
+
+    @Test
+    public void newSchedule_scheduleNoConflictsInScheduleBook_returnsEmptyList() {
+        // set up schedule in model manager
+        modelManager.addSchedule(CBD_SCHEDULE);
+        assertTrue(modelManager.hasSchedule(CBD_SCHEDULE));
+
+        Calendar newCalendar = (Calendar) CBD_SCHEDULE.getCalendar().clone();
+        newCalendar.add(Calendar.HOUR_OF_DAY, 2);
+        Schedule newSchedule = new ScheduleBuilder(CBD_SCHEDULE).withCalendar(newCalendar).build();
+        List<Schedule> conflicts = modelManager.getConflictingSchedules(newSchedule);
+        assertEquals(0, conflicts.size());
+    }
+
+    @Test
+    public void newSchedule_scheduleHasConflictsInScheduleBook_returnsListWithOneConflict() {
+        // set up schedule in model manager
+        modelManager.addSchedule(CBD_SCHEDULE);
+        assertTrue(modelManager.hasSchedule(CBD_SCHEDULE));
+
+        Calendar newCalendar = (Calendar) CBD_SCHEDULE.getCalendar().clone();
+        newCalendar.add(Calendar.MINUTE, 10);
+        Schedule newSchedule = new ScheduleBuilder(CBD_SCHEDULE).withCalendar(newCalendar).build();
+        List<Schedule> conflicts = modelManager.getConflictingSchedules(newSchedule);
+        assertEquals(1, conflicts.size());
+        assertEquals(CBD_SCHEDULE, conflicts.get(0));
+    }
+
+    @Test
     public void getFilteredScheduleList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredScheduleList().remove(0));
     }
+
+    //=========== calendarDate ================================================================================
 
     @Test
     public void setCalendarDate_nullCalendarDate_throwsNullPointerException() {
@@ -212,17 +291,21 @@ public class ModelManagerTest {
         DataBook<Phone> phoneBook = new PhoneBookBuilder().withPhone(IPHONEONE).withPhone(IPHONEXR).build();
         DataBook<Order> orderBook = new OrderBookBuilder().withOrder(ORDERONE).withOrder(ORDERTHREE).build();
         DataBook<Schedule> scheduleBook = new ScheduleBookBuilder().withSchedule(CBD_SCHEDULE)
-                .withSchedule(SCHEDULEONE).build();
+                .withSchedule(MONDAY_SCHEDULE).build();
+
+        DataBook<Order> archivedOrderBook = new OrderBookBuilder().withOrder(ORDERONE).withOrder(ORDERTHREE).build();
 
         DataBook<Customer> differentCustomerBook = new DataBook<>();
         DataBook<Phone> differentPhoneBook = new DataBook<>();
         DataBook<Order> differentOrderBook = new DataBook<>();
         DataBook<Schedule> differentScheduleBook = new DataBook<>();
+        DataBook<Order> differentArchivedOrderBook = new DataBook<>();
         UserPrefs userPrefs = new UserPrefs();
 
         // same values -> returns true
-        modelManager = new ModelManager(customerBook, phoneBook, orderBook, scheduleBook, userPrefs);
-        ModelManager modelManagerCopy = new ModelManager(customerBook, phoneBook, orderBook, scheduleBook, userPrefs);
+        modelManager = new ModelManager(customerBook, phoneBook, orderBook, scheduleBook, archivedOrderBook, userPrefs);
+        ModelManager modelManagerCopy = new ModelManager(customerBook, phoneBook, orderBook,
+                scheduleBook, archivedOrderBook, userPrefs);
         assertTrue(modelManager.equals(modelManagerCopy));
 
         // same object -> returns true
@@ -236,24 +319,29 @@ public class ModelManagerTest {
 
         // different customerBook -> returns false
         assertFalse(modelManager.equals(new
-                ModelManager(differentCustomerBook, phoneBook, orderBook, scheduleBook, userPrefs)));
+                ModelManager(differentCustomerBook, phoneBook, orderBook, scheduleBook, archivedOrderBook, userPrefs)));
 
         // different phoneBook -> returns false
         assertFalse(modelManager.equals(new
-                ModelManager(customerBook, differentPhoneBook, orderBook, scheduleBook, userPrefs)));
+                ModelManager(customerBook, differentPhoneBook, orderBook, scheduleBook, archivedOrderBook, userPrefs)));
 
         // different orderBook -> returns false
         assertFalse(modelManager.equals(new
-                ModelManager(customerBook, phoneBook, differentOrderBook, scheduleBook, userPrefs)));
+                ModelManager(customerBook, phoneBook, differentOrderBook, scheduleBook, archivedOrderBook, userPrefs)));
+
+        // different archiveOrderBook -> returns false
+        assertFalse(modelManager.equals(new
+                ModelManager(customerBook, phoneBook, orderBook, scheduleBook, differentArchivedOrderBook, userPrefs)));
 
         // different scheduleBook -> returns false
         assertFalse(modelManager.equals(new
-                ModelManager(customerBook, phoneBook, orderBook, differentScheduleBook, userPrefs)));
+                ModelManager(customerBook, phoneBook, orderBook, differentScheduleBook, archivedOrderBook, userPrefs)));
 
         // different filteredList -> returns false
         String[] keywords = DANIEL.getCustomerName().fullName.split("\\s+");
-        modelManager.updateFilteredCustomerList(new CustomerNameContainsKeywordsPredicate(Arrays.asList(keywords)));
-        assertFalse(modelManager.equals(new ModelManager(customerBook, phoneBook, orderBook, scheduleBook, userPrefs)));
+        modelManager.updateFilteredCustomerList(new CustomerContainsKeywordsPredicate(Arrays.asList(keywords)));
+        assertFalse(modelManager.equals(new ModelManager(customerBook, phoneBook, orderBook, scheduleBook,
+                archivedOrderBook, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests
         modelManager.updateFilteredCustomerList(PREDICATE_SHOW_ALL_CUSTOMERS);
@@ -262,7 +350,8 @@ public class ModelManagerTest {
         UserPrefs differentUserPrefs = new UserPrefs();
         differentUserPrefs.setAddressBookFilePath(Paths.get("differentFilePath"));
         assertFalse(modelManager.equals(new
-                ModelManager(customerBook, phoneBook, orderBook, scheduleBook, differentUserPrefs)));
+                ModelManager(customerBook, phoneBook, orderBook, scheduleBook,
+                archivedOrderBook, differentUserPrefs)));
 
         // different calendar in calendarDate -> returns true
         Calendar differentCalendar = Calendar.getInstance();

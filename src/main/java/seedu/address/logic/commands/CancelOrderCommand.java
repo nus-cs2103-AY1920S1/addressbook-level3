@@ -58,14 +58,19 @@ public class CancelOrderCommand extends Command {
         Set<Tag> tags = orderToCancel.getTags();
         Order cancelledOrder = new Order(id, customer, phone, price, Status.CANCELLED, schedule, tags);
 
-        model.setOrder(orderToCancel, cancelledOrder);
+
+        if (model.hasOrder(orderToCancel)) {
+            model.deleteOrder(orderToCancel);
+        }
+
+        model.addArchivedOrder(cancelledOrder);
 
         Optional<Schedule> scheduleToCancel = orderToCancel.getSchedule();
-        if (scheduleToCancel.isPresent()) {
+        if (scheduleToCancel.isPresent() && model.hasSchedule((scheduleToCancel.get()))) {
             model.deleteSchedule(scheduleToCancel.get());
         }
 
-        return new CommandResult(String.format(MESSAGE_CANCEL_ORDER_SUCCESS, orderToCancel), UiChange.ORDER);
+        return new CommandResult(String.format(MESSAGE_CANCEL_ORDER_SUCCESS, orderToCancel), UiChange.ARCHIVED_ORDER);
     }
 
     @Override
