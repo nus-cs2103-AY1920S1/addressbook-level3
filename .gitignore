@@ -23,6 +23,5 @@ src/test/data/sandbox/
 .DS_Store
 
 /docs/images/appveyor/
-/config/
 
 gradlew
