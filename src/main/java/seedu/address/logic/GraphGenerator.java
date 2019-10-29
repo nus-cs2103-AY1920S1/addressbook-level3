@@ -56,7 +56,14 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 public class GraphGenerator {
 
-    private static GraphGenerator theOne;
+    private static final List<String> commandWords = Arrays.asList(
+            "add-c", "add-o", "add-p", "add-s",
+            "delete-c", "delete-p", "delete-s",
+            "edit-c", "edit-o", "edit-p", "edit-s",
+            "switch-c", "switch-o", "switch-p", "switch-s",
+            "list", "cancel", "exit", "help",
+            "generate-s"
+    );
 
     private final Model model;
 
@@ -65,17 +72,8 @@ public class GraphGenerator {
     private Graph addOrderGraph;
     private Graph statisticsGraph;
 
-    public static GraphGenerator getInstance() {
-        if (theOne == null) {
-            throw new NullPointerException();
-        } else {
-            return theOne;
-        }
-    }
-
-    public GraphGenerator(Model model) {
+    GraphGenerator(Model model) {
         this.model = model;
-        theOne = this;
 
         setAddCustomerGraph();
         setAddPhoneGraph();
@@ -151,7 +149,7 @@ public class GraphGenerator {
         ));
     }
 
-    public Optional<Graph> getGraph(String commandWord) {
+    private Optional<Graph> getGraph(String commandWord) {
         switch (commandWord) {
         case "add-c":
             return Optional.of(addCustomerGraph);
@@ -166,10 +164,10 @@ public class GraphGenerator {
         }
     }
 
-    public AutoCompleteResult process(String input) {
+    AutoCompleteResult process(String input) {
         int firstSpace = input.indexOf(" ");
         if (firstSpace == -1) { // there is no space, indicating still typing command word
-            SortedSet<String> values = new TreeSet<>(CommandSuggestions.getSuggestions());
+            SortedSet<String> values = new TreeSet<>(commandWords);
             return new AutoCompleteResult(values, input);
         } else { // there is at least one space, suggesting command word is present
             String commandWord = input.substring(0, firstSpace);

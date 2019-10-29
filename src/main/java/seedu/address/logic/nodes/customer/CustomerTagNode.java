@@ -16,7 +16,9 @@ public class CustomerTagNode extends Node<Customer> {
     @Override
     public SortedSet<String> getValues() {
         SortedSet<String> values = new TreeSet<>();
-        backingList.forEach(customer -> customer.getTags().forEach(tag -> values.add(tag.toString())));
+        backingList.forEach(customer ->
+                customer.getTags().forEach(tag ->
+                        values.add(tag.toString().replaceAll("\\[|\\]", ""))));
         return values;
     }
 

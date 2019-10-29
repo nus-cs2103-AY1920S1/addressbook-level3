@@ -16,7 +16,9 @@ public class PhoneTagNode extends Node<Phone> {
     @Override
     public SortedSet<String> getValues() {
         SortedSet<String> values = new TreeSet<>();
-        backingList.forEach(phone -> phone.getTags().forEach(tag -> values.add(tag.toString())));
+        backingList.forEach(phone ->
+                phone.getTags().forEach(tag ->
+                        values.add(tag.toString().replaceAll("\\[|\\]", ""))));
         return values;
     }
 

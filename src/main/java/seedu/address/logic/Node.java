@@ -1,7 +1,5 @@
 package seedu.address.logic;
 
-import seedu.address.logic.Graph;
-
 import java.util.List;
 import java.util.SortedSet;
 

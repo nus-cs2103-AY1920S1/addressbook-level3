@@ -4,18 +4,13 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.layout.Region;
 import seedu.address.logic.AutoCompleteResult;
-import seedu.address.logic.CommandSuggestions;
-import seedu.address.logic.Graph;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.logic.GraphGenerator;
 import seedu.address.ui.exception.EnumNotPresentException;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.SortedSet;
 import java.util.stream.Collectors;
 
 /**
@@ -37,45 +32,27 @@ public class CommandBox extends UiPart<Region> {
         this.commandExecutor = commandExecutor;
         this.logic = logic;
 
+        addListener();
+    }
+
+    private void addListener() {
         commandTextField.textProperty().addListener((observable, oldValue, newValue) -> {
             // calls #setStyleToDefault() whenever there is a change to the text of the command box.
             commandTextField.setStyleToDefault();
             String enteredText = commandTextField.getText();
-//            String stringToCompare = enteredText;
             // hide suggestions if no input
             if (enteredText == null || enteredText.isEmpty()) {
-                commandTextField.entriesPopup.hide();
+                commandTextField.getEntriesPopup().hide();
             } else {
                 AutoCompleteResult result = logic.getAutocompleteValues(enteredText);
 
-                commandTextField.entries.clear();
-                commandTextField.entries.addAll(result.getValues());
-
-//                int firstSpace = enteredText.indexOf(" ");
-//                if (firstSpace != -1) {
-//                    String commandWord = enteredText.substring(0, firstSpace);
-//                    GraphGenerator graphGenerator = GraphGenerator.getInstance();
-//                    Optional<Graph> graph = graphGenerator.getGraph(commandWord);
-//                    if (graph.isPresent()) {
-//                        String remaining = enteredText.substring(firstSpace);
-//                        SortedSet<String> values = graph.get().process(remaining);
-//                        commandTextField.entries.clear();
-//                        commandTextField.entries.addAll(values);
-//                        if (remaining.endsWith(" ")) {
-//                            stringToCompare = "";
-//                        } else {
-//                            stringToCompare = graph.get().wordToCompare;
-//                        }
-//                    }
-//                } else {
-//                    commandTextField.entries.clear();
-//                    commandTextField.entries.addAll(CommandSuggestions.getSuggestions());
-//                }
+                // add possible values
+                commandTextField.getEntries().clear();
+                commandTextField.getEntries().addAll(result.getValues());
 
                 // filter
                 String stringToCompare = result.getStringToCompare();
-//                String finalStringToCompare = stringToCompare;
-                List<String> filteredEntries = commandTextField.entries.stream()
+                List<String> filteredEntries = commandTextField.getEntries().stream()
                         .filter(e -> e.toLowerCase().contains(stringToCompare.toLowerCase()))
                         .sorted((e1, e2) -> commandTextField.compareEntries(e1, e2, stringToCompare))
                         .collect(Collectors.toList());
@@ -83,13 +60,13 @@ public class CommandBox extends UiPart<Region> {
                     commandTextField.populatePopup(filteredEntries, stringToCompare);
                     commandTextField.refreshDropdown();
                 } else {
-                    commandTextField.entriesPopup.hide();
+                    commandTextField.getEntriesPopup().hide();
                 }
             }
         });
 
         commandTextField.focusedProperty().addListener(((observable, oldValue, newValue) -> {
-            commandTextField.entriesPopup.hide();
+            commandTextField.getEntriesPopup().hide();
         }));
     }
 
