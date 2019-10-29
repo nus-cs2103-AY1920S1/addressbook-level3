@@ -18,6 +18,7 @@ import seedu.address.logic.commands.common.NonActionableCommand;
 import seedu.address.logic.commands.common.ReversibleActionPairCommand;
 import seedu.address.logic.commands.common.ReversibleCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.patients.ListPatientCommand;
 import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
@@ -29,6 +30,8 @@ import seedu.address.model.queue.QueueManager;
 import seedu.address.model.queue.Room;
 
 import seedu.address.storage.Storage;
+
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 /**
  * The main LogicManager of the app.
@@ -56,13 +59,12 @@ public class LogicManager implements Logic {
         throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
-        CommandResult commandResult;
         Command command = addressBookParser.parseCommand(commandText, model);
         if (command instanceof ReversibleCommand) {
             throw new CommandException("Reversible Commands should be contained in a ReversibleActionPairCommand");
         }
 
-        commandResult = command.execute(model);
+        CommandResult commandResult = command.execute(model);
         if (command instanceof ReversibleActionPairCommand) {
             commandHistory.addToCommandHistory((ReversibleActionPairCommand) command);
         }
@@ -82,8 +84,17 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public CommandResult eagerEvaluate(String commandText) throws CommandException, ParseException {
-        return null;
+    public void eagerEvaluate(String commandText) {
+        Command command = addressBookParser.eagerEvaluateCommand(commandText, model);
+        if (!(command instanceof NonActionableCommand)) {
+            throw new RuntimeException("Only Non-actionable commands should be eagerly evaluated");
+        }
+
+        try {
+            command.execute(model);
+        } catch (CommandException ex) {
+            logger.info("Eager evaluation commands should throw any exception: " + ex.getMessage());
+        }
     }
 
     @Override

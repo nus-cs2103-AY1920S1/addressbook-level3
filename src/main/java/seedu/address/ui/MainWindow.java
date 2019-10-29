@@ -207,7 +207,7 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
         int screenWidth = gd.getDisplayMode().getWidth();
         int screenHeight = gd.getDisplayMode().getHeight();
 
-        if (screenWidth < guiSettings.getWindowHeight() || screenHeight < guiSettings.getWindowWidth()) {
+        if (screenWidth < guiSettings.getWindowWidth() || screenHeight < guiSettings.getWindowHeight()) {
             return;
         }
 
@@ -284,6 +284,7 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
      */
     public void updateCommandAutoComplete(String commandText) {
         aco.showSuggestions(commandText, autoCompleter.update(commandText).getSuggestions());
+        logic.eagerEvaluate(commandText);
     }
 
     /**
@@ -313,6 +314,8 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
             commandBoxHistory.add(commandBox.handleCommandEntered());
             break;
         default:
+            break;
+
         }
     }
 

@@ -1,11 +1,9 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_EVENTS;
 
-import java.time.LocalDateTime;
 import java.util.function.Predicate;
-
-import javafx.collections.ObservableList;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.OmniPanelTab;
@@ -13,10 +11,8 @@ import seedu.address.logic.commands.common.CommandResult;
 import seedu.address.logic.commands.common.NonActionableCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.events.Appointment;
 import seedu.address.model.events.Event;
-import seedu.address.model.events.parameters.Status;
-import seedu.address.model.events.parameters.Timing;
+import seedu.address.model.events.predicates.EventContainsKeywordPredicate;
 
 /**
  * Finds and lists all events in address book whose name contains any of the argument keywords.
@@ -37,10 +33,18 @@ public class AppointmentsCommand extends NonActionableCommand {
         this.predicate = predicate;
     }
 
+    public AppointmentsCommand(String keyword) {
+        String trimmedArgs = keyword.trim();
+        if (trimmedArgs.isEmpty()) {
+            this.predicate = PREDICATE_SHOW_ALL_EVENTS;
+        } else {
+            this.predicate = new EventContainsKeywordPredicate(trimmedArgs.toUpperCase());
+        }
+    }
+
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        autoMissEvent(model.getFilteredAppointmentList(), model);
         model.setTabListing(OmniPanelTab.APPOINTMENTS_TAB);
         model.updateFilteredAppointmentList(predicate);
         return new CommandResult(
@@ -52,22 +56,5 @@ public class AppointmentsCommand extends NonActionableCommand {
         return other == this // short circuit if same object
                 || (other instanceof AppointmentsCommand // instanceof handles nulls
                 && predicate.equals(((AppointmentsCommand) other).predicate)); // state check
-    }
-
-    /**
-     * checks all the appointments that before the current time and then make them as missed.
-     *
-     * @param filteredEventList which is the eventList contains the referenceId
-     */
-    private void autoMissEvent(ObservableList<Event> filteredEventList, Model model) throws CommandException {
-        for (Event ev : filteredEventList) {
-            Timing evTiming = ev.getEventTiming();
-            if (!ev.getStatus().equals(new Status(Status.AppointmentStatuses.SETTLED))
-                    && evTiming.getEndTime().getTime().isBefore(LocalDateTime.now())) {
-                Event newAppt = new Appointment(ev.getPersonId(), ev.getEventTiming(),
-                        new Status(Status.AppointmentStatuses.MISSED));
-                model.setAppointment(ev, newAppt);
-            }
-        }
     }
 }
