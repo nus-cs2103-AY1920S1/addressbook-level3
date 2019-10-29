@@ -14,23 +14,26 @@ import seedu.address.model.expense.Expense;
  * The API of the Model component.
  */
 public interface Model {
-    /** {@code Predicate} that always evaluate to true */
+
+    /**
+     * {@code Predicate} that always evaluate to true
+     */
     Predicate<Expense> PREDICATE_SHOW_ALL_EXPENSES = unused -> true;
     Predicate<Budget> PREDICATE_SHOW_ALL_BUDGETS = unused -> true;
 
-    void setViewState(String state);
-
     String getViewState();
 
-    /**
-     * Replaces user prefs data with the data in {@code userPrefs}.
-     */
-    void setUserPrefs(ReadOnlyUserPrefs userPrefs);
+    void setViewState(String state);
 
     /**
      * Returns the user prefs.
      */
     ReadOnlyUserPrefs getUserPrefs();
+
+    /**
+     * Replaces user prefs data with the data in {@code userPrefs}.
+     */
+    void setUserPrefs(ReadOnlyUserPrefs userPrefs);
 
     /**
      * Returns the user prefs' GUI settings.
@@ -53,12 +56,14 @@ public interface Model {
     void setExpenseListFilePath(Path expenseListFilePath);
 
     /**
+     * Returns the ExpenseList
+     */
+    ReadOnlyExpenseList getExpenseList();
+
+    /**
      * Replaces expense list data with the data in {@code expenseList}.
      */
     void setExpenseList(ReadOnlyExpenseList expenseList);
-
-    /** Returns the ExpenseList */
-    ReadOnlyExpenseList getExpenseList();
 
     /**
      * Returns true if an expense with the same identity as {@code expense} exists in the expense list.
@@ -85,14 +90,14 @@ public interface Model {
      */
     void setExpense(Expense target, Expense editedExpense);
 
-    /** Returns an unmodifiable view of the filtered expense list */
+    /**
+     * Returns an unmodifiable view of the filtered expense list
+     */
     ObservableList<Expense> getFilteredExpenseList();
-
-//    /** Returns an unmodifiable view of the filtered full expense list that includes those in budgets */
-//    ObservableList<Expense> getFilteredFullExpenseList();
 
     /**
      * Updates the filter of the filtered expense list to filter by the given {@code predicate}.
+     *
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredExpenseList(Predicate<Expense> predicate);
@@ -108,19 +113,19 @@ public interface Model {
     void setBudgetListFilePath(Path expenseListFilePath);
 
     /**
+     * Returns the BudgetList
+     */
+    ReadOnlyBudgetList getBudgetList();
+
+    /**
      * Replaces budget list data with the data in {@code budgetList}.
      */
     void setBudgetList(ReadOnlyBudgetList budgetList);
-
-    /** Returns the BudgetList */
-    ReadOnlyBudgetList getBudgetList();
 
     /**
      * Returns true if a budget with the same identity as {@code budget} exists in the budget list.
      */
     boolean hasBudget(Budget budget);
-
-    void viewBudget(Budget target);
 
     /**
      * Deletes the given budget.
@@ -142,11 +147,16 @@ public interface Model {
      */
     void setBudget(Budget target, Budget editedBudget);
 
-    /** Returns an unmodifiable view of the filtered budget list */
+    /**
+     * Returns an unmodifiable view of the filtered budget list
+     */
     ObservableList<Budget> getFilteredBudgetList();
+
+    ObservableList<Expense> getExpenseListFromBudget(Budget budget);
 
     /**
      * Updates the filter of the filtered budget list to filter by the given {@code predicate}.
+     *
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredBudgetList(Predicate<Budget> predicate);

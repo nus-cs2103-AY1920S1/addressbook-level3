@@ -3,16 +3,12 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CURRENCY;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_END_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_BUDGETS;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_EXPENSES;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
+
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
@@ -21,7 +17,6 @@ import seedu.address.model.Model;
 import seedu.address.model.budget.Budget;
 import seedu.address.model.expense.Amount;
 import seedu.address.model.expense.Currency;
-import seedu.address.model.expense.Date;
 import seedu.address.model.expense.Name;
 
 /**
@@ -63,33 +58,6 @@ public class EditBudgetCommand extends Command {
         this.editBudgetDescriptor = new EditBudgetDescriptor(editBudgetDescriptor);
     }
 
-    @Override
-    public CommandResult execute(Model model) throws CommandException {
-        requireNonNull(model);
-        String viewState = model.getViewState();
-
-        if (viewState.equals("listbudgets")) {
-            List<Budget> lastShownList = model.getFilteredBudgetList();
-
-            if (index.getZeroBased() >= lastShownList.size()) {
-                throw new CommandException(Messages.MESSAGE_INVALID_BUDGET_DISPLAYED_INDEX);
-            }
-
-            Budget budgetToEdit = lastShownList.get(index.getZeroBased());
-            Budget editedBudget = createEditedBudget(budgetToEdit, editBudgetDescriptor);
-
-            if (!budgetToEdit.isSameBudget(editedBudget) && model.hasBudget(editedBudget)) {
-                throw new CommandException(MESSAGE_DUPLICATE_BUDGET);
-            }
-
-            model.setBudget(budgetToEdit, editedBudget);
-            model.updateFilteredBudgetList(PREDICATE_SHOW_ALL_BUDGETS);
-            return new CommandResult(String.format(MESSAGE_EDIT_BUDGET_SUCCESS, editedBudget));
-        } else {
-            throw new CommandException(MESSAGE_EDIT_BUDGET_ERROR);
-        }
-    }
-
     /**
      * Creates and returns a {@code Budget} with the details of {@code budgetToEdit}
      * edited with {@code editBudgetDescriptor}.
@@ -106,6 +74,33 @@ public class EditBudgetCommand extends Command {
 
         editedBudget.recalculateAmountLeft();
         return editedBudget;
+    }
+
+    @Override
+    public CommandResult execute(Model model) throws CommandException {
+        requireNonNull(model);
+        String viewState = model.getViewState();
+
+//        if (viewState.equals("listbudgets")) {
+        List<Budget> lastShownList = model.getFilteredBudgetList();
+
+        if (index.getZeroBased() >= lastShownList.size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_BUDGET_DISPLAYED_INDEX);
+        }
+
+        Budget budgetToEdit = lastShownList.get(index.getZeroBased());
+        Budget editedBudget = createEditedBudget(budgetToEdit, editBudgetDescriptor);
+
+        if (!budgetToEdit.isSameBudget(editedBudget) && model.hasBudget(editedBudget)) {
+            throw new CommandException(MESSAGE_DUPLICATE_BUDGET);
+        }
+
+        model.setBudget(budgetToEdit, editedBudget);
+        model.updateFilteredBudgetList(PREDICATE_SHOW_ALL_BUDGETS);
+        return new CommandResult(String.format(MESSAGE_EDIT_BUDGET_SUCCESS, editedBudget));
+//        } else {
+//            throw new CommandException(MESSAGE_EDIT_BUDGET_ERROR);
+//        }
     }
 
     @Override
@@ -155,28 +150,28 @@ public class EditBudgetCommand extends Command {
             return CollectionUtil.isAnyNonNull(name, amount, currency);
         }
 
-        public void setName(Name name) {
-            this.name = name;
-        }
-
         public Optional<Name> getName() {
             return Optional.ofNullable(name);
         }
 
-        public void setAmount(Amount amount) {
-            this.amount = amount;
+        public void setName(Name name) {
+            this.name = name;
         }
 
         public Optional<Amount> getAmount() {
             return Optional.ofNullable(amount);
         }
 
-        public void setCurrency(Currency currency) {
-            this.currency = currency;
+        public void setAmount(Amount amount) {
+            this.amount = amount;
         }
 
         public Optional<Currency> getCurrency() {
             return Optional.ofNullable(currency);
+        }
+
+        public void setCurrency(Currency currency) {
+            this.currency = currency;
         }
 
         @Override
@@ -199,5 +194,4 @@ public class EditBudgetCommand extends Command {
                 && getCurrency().equals(e.getCurrency());
         }
     }
-    
 }

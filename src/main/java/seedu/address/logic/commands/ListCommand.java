@@ -6,7 +6,7 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_EXPENSES;
 import seedu.address.model.Model;
 
 /**
- * Lists all expenses in the address book to the user.
+ * Lists all expenses in the expense list to the user.
  */
 public class ListCommand extends Command {
 
@@ -18,7 +18,6 @@ public class ListCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.updateFilteredExpenseList(PREDICATE_SHOW_ALL_EXPENSES);
-        model.setViewState("list");
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

@@ -18,7 +18,6 @@ public class ViewBudgetListCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.updateFilteredBudgetList(PREDICATE_SHOW_ALL_BUDGETS);
-        model.setViewState("listbudgets");
-        return new CommandResult(MESSAGE_SUCCESS);
+        return new CommandResult(null, model.getFilteredBudgetList(), MESSAGE_SUCCESS);
     }
 }
