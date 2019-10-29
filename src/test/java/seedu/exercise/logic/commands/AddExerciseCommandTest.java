@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.exercise.logic.commands.exceptions.CommandException;
 import seedu.exercise.logic.commands.statistic.Statistic;
+import seedu.exercise.logic.commands.statistic.StatsFactory;
 import seedu.exercise.model.ReadOnlyResourceBook;
 import seedu.exercise.model.resource.Exercise;
 import seedu.exercise.testutil.builder.ExerciseBuilder;
@@ -93,6 +94,7 @@ public class AddExerciseCommandTest {
      */
     private class ModelStubAcceptingExerciseAdded extends ModelStub {
         final ArrayList<Exercise> exercisesAdded = new ArrayList<>();
+        final Statistic statistic = new StatisticBuilder().build();
 
         @Override
         public boolean hasExercise(Exercise exercise) {
@@ -113,12 +115,17 @@ public class AddExerciseCommandTest {
 
         @Override
         public void updateStatistic() {
-            //will add here when writing tests
+            ReadOnlyResourceBook<Exercise> exercises = getExerciseBookData();
+            Statistic outdatedStatistic = getStatistic();
+            StatsFactory statsFactory = new StatsFactory(exercises, outdatedStatistic.getChart(),
+                    outdatedStatistic.getCategory(), outdatedStatistic.getStartDate(), outdatedStatistic.getEndDate());
+            Statistic statistic = statsFactory.generateStatistic();
+            this.statistic.resetData(statistic);
         }
 
         @Override
         public void setStatistic(Statistic statistic) {
-            //will add here when writing tests
+            this.statistic.resetData(statistic);
         }
 
         @Override

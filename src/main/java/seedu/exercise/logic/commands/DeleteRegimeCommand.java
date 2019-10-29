@@ -175,8 +175,19 @@ public class DeleteRegimeCommand extends DeleteCommand implements PayloadCarrier
 
     @Override
     public boolean equals(Object other) {
-        return other == this // short circuit if same object
-            || (other instanceof DeleteRegimeCommand // instanceof handles nulls
-            && indexes.equals(((DeleteRegimeCommand) other).indexes)); // state check
+        if (other == this) {
+            return true;
+        }
+
+        if (other instanceof DeleteRegimeCommand) {
+            if (indexes == null) {
+                return name.equals(((DeleteRegimeCommand) other).name);
+            } else {
+                return name.equals(((DeleteRegimeCommand) other).name)
+                    && indexes.equals(((DeleteRegimeCommand) other).indexes);
+            }
+        }
+
+        return false;
     }
 }

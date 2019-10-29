@@ -1,9 +1,13 @@
 package seedu.exercise.testutil.typicalutil;
 
+import static seedu.exercise.testutil.typicalutil.TypicalIndexes.INDEX_ONE_BASED_FIRST;
+import static seedu.exercise.testutil.typicalutil.TypicalIndexes.INDEX_VERY_LARGE_NUMBER;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import seedu.exercise.commons.core.index.Index;
 import seedu.exercise.model.ReadOnlyResourceBook;
 import seedu.exercise.model.UniqueResourceList;
 import seedu.exercise.model.resource.Exercise;
@@ -18,6 +22,11 @@ public class TypicalRegime {
     public static final String VALID_REGIME_NAME_CARDIO = "cardio";
     public static final String VALID_REGIME_NAME_LEGS = "legs";
     public static final String VALID_REGIME_NAME_CHEST = "chest";
+
+    public static final ArrayList<Index> VALID_REGIME_INDEXES = new ArrayList<>(Arrays.asList(INDEX_ONE_BASED_FIRST));
+    public static final ArrayList<Index> DUPLICATE_REGIME_INDEXES = new ArrayList<>(Arrays.asList(INDEX_ONE_BASED_FIRST,
+            INDEX_ONE_BASED_FIRST));
+    public static final ArrayList<Index> LARGE_REGIME_INDEX = new ArrayList<>(Arrays.asList(INDEX_VERY_LARGE_NUMBER));
 
     public static final Regime VALID_REGIME_LEGS;
     public static final Regime VALID_REGIME_CARDIO;
