@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<ScrollPane fx:id="detailsPane" fitToWidth="true" fitToHeight="true"
+<ScrollPane styleClass="person-details-pane" fx:id="detailsPane" fitToWidth="true" fitToHeight="true"
     xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
   <VBox styleClass="details-container">
     <GridPane styleClass="person-details" HBox.hgrow="NEVER" hgap="8">
@@ -50,7 +50,7 @@
     <VBox alignment="TOP_CENTER" spacing="4" styleClass="history-container" VBox.Vgrow="ALWAYS">
       <Label alignment="CENTER" styleClass="activity-history-header" text="Activity history"
           wrapText="true" minWidth="450" maxWidth="450" />
-      <VBox alignment="TOP_CENTER" spacing="4" fx:id="activityHistory" VBox.vgrow="ALWAYS"
+      <VBox alignment="TOP_CENTER" spacing="4" fx:id="activityHistory" VBox.vgrow="SOMETIMES"
           minWidth="450" maxWidth="450" styleClass="activity-history" />
     </VBox>
   </VBox>

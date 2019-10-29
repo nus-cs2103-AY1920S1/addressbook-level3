@@ -1,6 +1,9 @@
 package seedu.address.ui;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -31,6 +34,8 @@ public class ActivityDetailsPanel extends UiPart<Region> {
     private Label spending;
     @FXML
     private VBox expenseHistory;
+    @FXML
+    private VBox transferList;
 
     public ActivityDetailsPanel(Activity viewedActivity, List<Person> participants) {
         super(FXML);
@@ -54,5 +59,30 @@ public class ActivityDetailsPanel extends UiPart<Region> {
                 .forEach(expense -> {
                     expenseHistory.getChildren().add(new ExpenseCard(expense, participants).getRoot());
                 });
+
+        List<Integer> participantIds = activity.getParticipantIds();
+        Map<Integer, Person> idMapping = participants.stream()
+                .collect(Collectors.toMap(p -> p.getPrimaryKey(), p -> p));
+
+        ArrayList<ArrayList<Double>> transfersMatrix = activity.getTransferMatrix();
+        for (int i = 0; i < numParticipants; i++) {
+            ArrayList<Double> row = transfersMatrix.get(i);
+            for (int j = i; j < numParticipants; j++) {
+                // i and j do not owe each other any amount
+                if (row.get(j) == 0.0) {
+                    continue;
+                }
+
+                Person personI = idMapping.get(participantIds.get(i));
+                Person personJ = idMapping.get(participantIds.get(j));
+                if (row.get(j) < 0) {
+                    // i owes j some amount (i --> j)
+                    transferList.getChildren().add(new TransferCard(personI, personJ, -row.get(j)).getRoot());
+                } else {
+                    // j owes i some amount (j --> i)
+                    transferList.getChildren().add(new TransferCard(personJ, personI, row.get(j)).getRoot());
+                }
+            }
+        }
     }
 }

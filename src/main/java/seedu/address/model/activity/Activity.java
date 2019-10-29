@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Objects;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
@@ -97,6 +98,14 @@ public class Activity {
      */
     public Title getTitle() {
         return title;
+    }
+
+    /**
+     * Returns a List containing all the IDs of the participants.
+     * @return A {@code List} containing the IDs of all participants.
+     */
+    public List<Integer> getParticipantsIds() {
+        return participantIds;
     }
 
     /**

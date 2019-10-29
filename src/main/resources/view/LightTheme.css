@@ -127,7 +127,8 @@
     -fx-focus-color: transparent;
 }
 
-.person-details, .activity-details {
+.person-details, .activity-details,
+.history-container .expense-history {
     /* Add horizontal divider to visually separate details of contact from activity listings */
     -fx-border-color: linear-gradient(from 0% 0% to 100% 0%, #dbdbdb, #ababab, #dbdbdb);
     -fx-border-width: 0 0 2px 0;
@@ -151,7 +152,7 @@
 
 .person-details .tag-list, .activity-details .activity-title,
 .activity-details .activity-participant-count-container,
-.activity-details .participant-list {
+.activity-details .participant-list, .history-container .expense-history {
     -fx-padding: 0 0 4 0;
 }
 
@@ -170,16 +171,17 @@
     -fx-text-alignment: center;
 }
 
-.history-container {
+.history-container, .transfers-container {
     -fx-padding: 4 2 0 2;
     -fx-alignment: center;
 }
 
-.history-container .activity-history, .history-container .expense-history {
+.history-container .activity-history {
     -fx-padding: 0 0 8 0;
 }
 
-.history-container .activity-history-header, .history-container .expense-history-header {
+.history-container .activity-history-header, .history-container .expense-history-header,
+.transfers-container .activity-transfers-header {
     -fx-padding: 2 8 2 8;
     -fx-background-color: #cbcbcb;
     -fx-border-color: #c0c0c0;
@@ -189,7 +191,8 @@
     -fx-text-alignment: center;
 }
 
-.activity-history-card, .expense-card {
+.activity-history-card, .expense-card, .transfer-card {
+    -fx-padding: 4 0 4 0;
     -fx-border-color: #c0c0c0;
     -fx-border-radius: 1px;
     -fx-border-width: 2px;
@@ -223,7 +226,8 @@
 }
 
 .activity-details .participant-list .label,
-.expense-card .expense-sharing-list .label {
+.expense-card .expense-sharing-list .label,
+.transfer-card .transfer-from, .transfer-card .transfer-to {
     -fx-background-color: royalblue;
     -fx-padding: 2 4 2 4;
     -fx-border-radius: 2;
@@ -241,13 +245,39 @@
     -fx-text-alignment: center;
 }
 
-.expense-card .expense-sharing-list .label {
+.expense-card .expense-sharing-list .label,
+.transfer-card .transfer-from {
     -fx-background-color: maroon;
     -fx-font-size: 10px;
 }
 
-.expense-card .expense-sharing-list .expense-owner {
+.expense-card .expense-sharing-list .expense-owner,
+.transfer-card .transfer-to {
     -fx-background-color: darkgreen;
+    -fx-font-size: 10px;
+}
+
+.expense-card .expense-owner {
+    -fx-text-alignment: center;
+}
+
+.transfer-card .transfer-from-container, .transfer-card .transfer-to-container {
+    -fx-padding: 0 4 0 4;
+}
+
+.transfer-card .transfer-amt-container {
+    -fx-padding: 0 4 4 4;
+}
+
+.transfer-card .transfer-amount {
+    -fx-font-family: "Noto Sans CJK SC Bold", "Segoe UI", sans-serif;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-text-alignment: center;
+}
+
+.transfer-card .label {
+    -fx-text-alignment: center;
 }
 
 /*
