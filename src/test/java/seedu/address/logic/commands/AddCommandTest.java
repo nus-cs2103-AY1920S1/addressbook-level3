@@ -215,6 +215,17 @@ public class AddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
+        public void viewBudget(Budget target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        public String getViewState() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        public void setViewState(String viewState) {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**

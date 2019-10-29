@@ -88,8 +88,8 @@ public interface Model {
     /** Returns an unmodifiable view of the filtered expense list */
     ObservableList<Expense> getFilteredExpenseList();
 
-    /** Returns an unmodifiable view of the filtered full expense list that includes those in budgets */
-    ObservableList<Expense> getFilteredFullExpenseList();
+//    /** Returns an unmodifiable view of the filtered full expense list that includes those in budgets */
+//    ObservableList<Expense> getFilteredFullExpenseList();
 
     /**
      * Updates the filter of the filtered expense list to filter by the given {@code predicate}.

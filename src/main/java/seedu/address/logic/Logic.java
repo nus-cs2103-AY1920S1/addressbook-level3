@@ -43,7 +43,7 @@ public interface Logic {
     /**
      * Returns an unmodifiable view of the filtered list of all expenses including those in budgets
      */
-    ObservableList<Expense> getFilteredFullExpenseList();
+//    ObservableList<Expense> getFilteredFullExpenseList();
 
     /**
      * Returns the user prefs' expense list file path.
