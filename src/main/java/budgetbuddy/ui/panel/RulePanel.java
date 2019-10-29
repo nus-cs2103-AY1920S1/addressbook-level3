@@ -13,7 +13,7 @@ import javafx.scene.control.ListView;
 /**
  * Panel containing the list of rules.
  */
-public class RulePanel extends ListPanel {
+public class RulePanel extends DisplayPanel {
     private static final String FXML = "RulePanel.fxml";
     private final Logger logger = LogsCenter.getLogger(RulePanel.class);
 
@@ -38,7 +38,10 @@ public class RulePanel extends ListPanel {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new RuleCard(rule, getIndex() + 1).getRoot());
+                int newIndex = getIndex() + 1;
+                setGraphic(new RuleCard(rule, newIndex).getRoot());
+                setMouseTransparent(true);
+                setFocusTraversable(false);
             }
         }
     }

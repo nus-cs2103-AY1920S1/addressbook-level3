@@ -10,13 +10,14 @@ import budgetbuddy.logic.commands.CommandCategory;
 import budgetbuddy.logic.commands.CommandResult;
 import budgetbuddy.logic.commands.exceptions.CommandException;
 import budgetbuddy.logic.parser.exceptions.ParseException;
-import budgetbuddy.ui.panel.ListPanel;
-import budgetbuddy.ui.panel.LoanPanel;
-import budgetbuddy.ui.panel.LoanSplitPanel;
-import budgetbuddy.ui.panel.RulePanel;
+import budgetbuddy.ui.tab.LoanSplitTab;
+import budgetbuddy.ui.tab.LoanTab;
+import budgetbuddy.ui.tab.PanelTab;
+import budgetbuddy.ui.tab.RuleTab;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
@@ -32,17 +33,17 @@ public class MainWindow extends UiPart<Stage> {
     private static final String FXML = "MainWindow.fxml";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
-    private HashMap<CommandCategory, ListPanel> panelMap;
+    private HashMap<CommandCategory, PanelTab> tabMap;
 
     private Stage primaryStage;
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private RulePanel ruleListPanel;
-    private LoanPanel loanListPanel;
-    private LoanSplitPanel loanSplitPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+
+    @FXML
+    private StackPane sideBarPlaceholder;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -51,7 +52,7 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
-    private StackPane listPanelPlaceholder;
+    private StackPane outputDisplayPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -72,7 +73,7 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
-        panelMap = new HashMap<>();
+        tabMap = new HashMap<>();
     }
 
     public Stage getPrimaryStage() {
@@ -117,17 +118,19 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        // instantiate all list panels
-        ruleListPanel = new RulePanel(logic.getRuleList());
-        panelMap.put(CommandCategory.RULE, ruleListPanel);
 
-        loanListPanel = new LoanPanel(logic.getFilteredLoanList());
-        panelMap.put(CommandCategory.LOAN, loanListPanel);
-        loanSplitPanel = new LoanSplitPanel(logic.getSortedDebtorList());
-        panelMap.put(CommandCategory.LOAN_SPLIT, loanSplitPanel);
+        // instantiate all tabs
+        RuleTab ruleTab = new RuleTab(logic.getRuleList());
+        tabMap.put(CommandCategory.RULE, ruleTab);
 
-        // add initial panel as child
-        // setCurrentPanel(INITIAL_PANEL_HERE.getRoot());
+        LoanTab loanTab = new LoanTab(logic.getFilteredLoanList());
+        tabMap.put(CommandCategory.LOAN, loanTab);
+
+        LoanSplitTab loanSplitTab = new LoanSplitTab(logic.getSortedDebtorList());
+        tabMap.put(CommandCategory.LOAN_SPLIT, loanSplitTab);
+
+        OutputDisplay outputDisplay = new OutputDisplay(ruleTab, loanTab, loanSplitTab);
+        outputDisplayPlaceholder.getChildren().add(outputDisplay.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -137,11 +140,19 @@ public class MainWindow extends UiPart<Stage> {
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+        // activate initial tab
+        // updateView(INITIAL_TAB_HERE);
     }
 
-    private void setCurrentPanel(ListPanel toSwitch) {
-        listPanelPlaceholder.getChildren().clear();
-        listPanelPlaceholder.getChildren().add(toSwitch.getRoot());
+    /**
+     * Updates the current tab on display
+     */
+    private void updateView(PanelTab tabToView) {
+        if (tabToView != null) {
+            TabPane pane = (TabPane) outputDisplayPlaceholder.getChildren().get(0);
+            pane.getSelectionModel().select(tabToView);
+        }
     }
 
     /**
@@ -195,10 +206,8 @@ public class MainWindow extends UiPart<Stage> {
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
-            ListPanel toSwitch = panelMap.get(commandResult.getCommandCategory());
-            if (toSwitch != null) {
-                setCurrentPanel(toSwitch);
-            }
+            CommandCategory category = commandResult.getCommandCategory();
+            updateView(tabMap.get(category));
 
             if (commandResult.isShowHelp()) {
                 handleHelp();

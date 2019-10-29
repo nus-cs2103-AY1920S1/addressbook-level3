@@ -14,7 +14,7 @@ import javafx.scene.control.ListView;
 /**
  * Panel containing the list of loans.
  */
-public class LoanPanel extends ListPanel {
+public class LoanPanel extends DisplayPanel {
     private static final String FXML = "LoanPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(LoanPanel.class);
 
@@ -41,6 +41,8 @@ public class LoanPanel extends ListPanel {
                 setText(null);
             } else {
                 setGraphic(new LoanCard(loan, getIndex() + 1).getRoot());
+                setMouseTransparent(true);
+                setFocusTraversable(false);
                 loanListView.refresh();
             }
         }

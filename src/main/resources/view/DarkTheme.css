@@ -149,7 +149,7 @@
 .result-display {
     -fx-background-color: transparent;
     -fx-font-family: "Segoe UI Light";
-    -fx-font-size: 13pt;
+    -fx-font-size: 11pt;
     -fx-text-fill: white;
 }
 
@@ -328,7 +328,7 @@
     -fx-text-fill: white;
 }
 
-#filterField, #personListPanel, #personWebpage {
+#filterField {
     -fx-effect: innershadow(gaussian, black, 10, 0, 0, 0);
 }
 
@@ -337,9 +337,9 @@
     -fx-background-radius: 0;
 }
 
-#tags {
-    -fx-hgap: 7;
-    -fx-vgap: 3;
+#predicateFlow, #actionFlow {
+    -fx-hgap: 5;
+    -fx-vgap: 5;
 }
 
 #predOp, #actOp, #predAttr, #predVal, #actVal {
@@ -356,4 +356,8 @@
 #predAttr, #predVal, #actVal {
     -fx-text-fill: black;
     -fx-background-color: #f8b595;
+}
+
+.tab-pane.floating > .tab-header-area .tab {
+    -fx-background-color: derive(#1d1d1d, 20%);
 }

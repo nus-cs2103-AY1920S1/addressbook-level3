@@ -14,7 +14,7 @@ import javafx.scene.control.ListView;
 /**
  * Panel containing the list of debtors.
  */
-public class LoanSplitPanel extends ListPanel {
+public class LoanSplitPanel extends DisplayPanel {
     private static final String FXML = "LoanSplitPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(LoanSplitPanel.class);
 

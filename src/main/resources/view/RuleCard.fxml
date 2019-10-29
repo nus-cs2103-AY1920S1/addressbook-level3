@@ -9,8 +9,8 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
-  <GridPane HBox.hgrow="ALWAYS">
+<HBox id="cardPane" fx:id="cardPane" mouseTransparent="true" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+  <GridPane mouseTransparent="true" HBox.hgrow="ALWAYS">
     <columnConstraints>
       <ColumnConstraints hgrow="NEVER" minWidth="10.0" />
          <ColumnConstraints hgrow="NEVER" minWidth="10.0" />
