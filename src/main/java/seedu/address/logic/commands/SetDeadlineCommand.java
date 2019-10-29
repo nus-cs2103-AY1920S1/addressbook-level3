@@ -29,8 +29,8 @@ public class SetDeadlineCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sets a deadline for a task "
             + "by the index number used in the displayed task list.\n"
-            + "Parameters: INDEX (must be a positive integer) "
-            + PREFIX_TASK_INDEX + "TASK_INDEX"
+            + "Parameters: "
+            + PREFIX_TASK_INDEX + "TASK_INDEX "
             + PREFIX_DEADLINE + DateTimeUtil.DEFAULT_INPUT_FORMAT + "\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_TASK_INDEX + " 2 "

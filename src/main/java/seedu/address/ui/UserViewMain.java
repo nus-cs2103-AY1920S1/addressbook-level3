@@ -80,6 +80,11 @@ public class UserViewMain {
         return userViewController.getCurrentView();
     }
 
+    public Pane loadSetImage() {
+        userViewNavigator.loadSetImageView(logic);
+        return userViewController.getCurrentView();
+    }
+
     public Pane loadMemberStats() {
         userViewNavigator.loadMemberStatsView(logic);
         return userViewController.getCurrentView();

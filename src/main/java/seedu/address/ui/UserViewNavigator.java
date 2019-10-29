@@ -94,10 +94,23 @@ public class UserViewNavigator {
      * @param logic to access task data
      */
     public void loadSetImageView(Logic logic) {
-        List<Member> members = logic.getProjectDashboard().getMemberList();
-        Member specificMember = members.get(members.size()-1);
+        List<Member> filteredMembers = logic.getFilteredMemberList();
+        Member specificMember = filteredMembers.get(filteredMembers.size()-1);
 
-        IndivMemberCard memberCard = new IndivMemberCard(specificMember, members.size());
+        List<TasMemMapping> tasMemMappings = logic.getProjectDashboard().getTasMemMappingList();
+        List<Task> tasks = logic.getProjectDashboard().getTaskList();
+        List<Member> members = logic.getProjectDashboard().getMemberList();
+
+        ArrayList<Task> specificTasks = new ArrayList<>();
+        int memIndex = members.indexOf(specificMember);
+
+        for (TasMemMapping mapping : tasMemMappings) {
+            if (mapping.hasMember(memIndex)) {
+                specificTasks.add(tasks.get(mapping.getTaskIndex()));
+            }
+        }
+
+        IndivMemberCard memberCard = new IndivMemberCard(specificMember, filteredMembers.size(), specificTasks);
         userViewController.setUserView(memberCard);
     }
 

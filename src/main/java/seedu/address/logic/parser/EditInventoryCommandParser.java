@@ -2,14 +2,13 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_INVENTORY_PRICE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_INVENTORY_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INVENTORY_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_INVENTORY_PRICE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MEMBER_ID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_INDEX;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Optional;
+import java.util.stream.Stream;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditInventoryCommand;
@@ -19,6 +18,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
  * Parses input arguments and creates a new EditInventoryCommand object
  */
 public class EditInventoryCommandParser implements Parser<EditInventoryCommand> {
+    public static final String MESSAGE_NO_ID = "Please enter the inventory ID of the inventory you want to edit.";
     /**
      * Parses the given {@code String} of arguments in the context of the EditInventoryCommand
      * and returns an EditInventoryCommand object for execution.
@@ -27,13 +27,16 @@ public class EditInventoryCommandParser implements Parser<EditInventoryCommand> 
     public EditInventoryCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_INVENTORY_NAME, PREFIX_INVENTORY_PRICE,
+                ArgumentTokenizer.tokenize(args, PREFIX_INVENTORY_INDEX, PREFIX_INVENTORY_NAME, PREFIX_INVENTORY_PRICE,
                                                 PREFIX_TASK_INDEX, PREFIX_MEMBER_ID);
 
         Index index;
+        if (!arePrefixesPresent(argMultimap, PREFIX_INVENTORY_INDEX)) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditInventoryCommand.MESSAGE_USAGE));
+        }
 
         try {
-            index = ParserUtil.parseIndex(argMultimap.getPreamble());
+            index = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_INVENTORY_INDEX).get());
         } catch (ParseException pe) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                                                         EditInventoryCommand.MESSAGE_USAGE), pe);
@@ -65,6 +68,14 @@ public class EditInventoryCommandParser implements Parser<EditInventoryCommand> 
         }
 
         return new EditInventoryCommand(index, editInventoryDescriptor);
+    }
+
+    /**
+     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
+     * {@code ArgumentMultimap}.
+     */
+    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
+        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 
 }

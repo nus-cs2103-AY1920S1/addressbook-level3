@@ -56,7 +56,7 @@ public class UserViewUpdate {
         case "add-member":
 
         case "set-image":
-            paneToRender.getChildren().add(userViewMain.loadSpecificMember());
+            paneToRender.getChildren().add(userViewMain.loadSetImage());
             break;
 
         case "find-member":

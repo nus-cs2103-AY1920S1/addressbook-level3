@@ -4,6 +4,8 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MEMBER_ID;
 
+import java.util.stream.Stream;
+
 import seedu.address.logic.commands.DeleteMemberCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.member.MemberId;
@@ -25,9 +27,8 @@ public class DeleteMemberCommandParser implements Parser<DeleteMemberCommand> {
 
         MemberId id;
 
-        if (!args.contains("mi/")) {
-            throw new ParseException(
-                    String.format(MESSAGE_NO_ID, DeleteMemberCommand.MESSAGE_USAGE));
+        if (!arePrefixesPresent(argMultimap, PREFIX_MEMBER_ID)) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteMemberCommand.MESSAGE_USAGE));
         }
 
         try {
@@ -38,5 +39,13 @@ public class DeleteMemberCommandParser implements Parser<DeleteMemberCommand> {
         }
 
         return new DeleteMemberCommand(id);
+    }
+
+    /**
+     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
+     * {@code ArgumentMultimap}.
+     */
+    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
+        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 }

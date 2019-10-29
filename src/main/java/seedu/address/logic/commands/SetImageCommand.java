@@ -3,8 +3,8 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MEMBER_ID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MEMBER_IMAGE;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_MEMBERS;
 
+import java.util.Arrays;
 import java.util.List;
 
 import seedu.address.commons.core.Messages;
@@ -12,6 +12,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.member.Member;
 import seedu.address.model.member.MemberId;
+import seedu.address.model.member.MemberNameContainsKeywordsPredicate;
 
 public class SetImageCommand extends Command {
     public static final String COMMAND_WORD = "set-image";
@@ -67,7 +68,8 @@ public class SetImageCommand extends Command {
         }
 
         model.setMember(mem, editedMember);
-        model.updateFilteredMembersList(PREDICATE_SHOW_ALL_MEMBERS);
+
+        model.updateFilteredMembersList(new MemberNameContainsKeywordsPredicate(Arrays.asList(editedMember.getName().fullName.split(" "))));
         return new CommandResult(String.format(MESSAGE_SUCCESS, editedMember));
     }
 

@@ -1,12 +1,12 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_INVENTORY_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INVENTORY_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INVENTORY_PRICE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MEMBER_ID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_INDEX;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_INVENTORIES;
-import static seedu.address.logic.commands.AddInventoryCommand.MESSAGE_DUPLICATE_INVENTORY;
 
 import java.util.List;
 import java.util.Optional;
@@ -31,11 +31,11 @@ public class EditInventoryCommand extends Command{
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the inventory identified "
             + "by the index number used in the displayed inventory list. "
             + "Existing values will be overwritten by the input values.\n"
-            + "Parameters: INDEX (must be a positive integer) "
-            + "[" + PREFIX_INVENTORY_NAME + "NAME] "
-            + "[" + PREFIX_INVENTORY_PRICE + "PRICE] "
-            + "[" + PREFIX_TASK_INDEX + "INDEX] "
-            + "[" + PREFIX_MEMBER_ID + "ID] "
+            + "Parameters:" + PREFIX_INVENTORY_INDEX + "INVENTORY INDEX "
+            + PREFIX_INVENTORY_NAME + "NAME "
+            + PREFIX_INVENTORY_PRICE + "PRICE "
+            + PREFIX_TASK_INDEX + "INDEX "
+            + PREFIX_MEMBER_ID + "ID "
             + "Example: " + COMMAND_WORD + " 1 ";
 
     public static final String MESSAGE_EDIT_INVENTORY_SUCCESS = "Edited Inventory: %1$s";
