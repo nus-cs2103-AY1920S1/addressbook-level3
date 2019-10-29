@@ -1,5 +1,6 @@
 package budgetbuddy.logic.commands.loancommands;
 
+import static budgetbuddy.commons.util.CollectionUtil.generateCombinations;
 import static budgetbuddy.commons.util.CollectionUtil.hasDuplicates;
 import static budgetbuddy.commons.util.CollectionUtil.requireAllNonNull;
 import static budgetbuddy.logic.parser.CliSyntax.PREFIX_AMOUNT;
@@ -10,17 +11,12 @@ import static budgetbuddy.logic.parser.CliSyntax.PREFIX_USER;
 import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.Optional;
-import java.util.stream.Collectors;
-
-import org.apache.commons.math3.util.CombinatoricsUtils;
 
 import budgetbuddy.logic.commands.Command;
 import budgetbuddy.logic.commands.CommandCategory;
@@ -169,15 +165,11 @@ public class LoanSplitCommand extends Command {
         List<DebtorCreditorAmount> debtorCreditorAmountList = new ArrayList<DebtorCreditorAmount>();
 
         for (int i = 2; i < participants.size(); i++) {
-            Iterator<int[]> iterator = CombinatoricsUtils.combinationsIterator(participants.size(), i);
-            while (iterator.hasNext()) {
-                int[] combination = iterator.next();
-                List<Participant> subGroup = Arrays.stream(combination)
-                        .mapToObj(participants::get)
-                        .collect(Collectors.toList());
+            List<List<Participant>> participantSubGroups = generateCombinations(participants);
+            for (List<Participant> subGroup : participantSubGroups) {
                 long subGroupBalance = subGroup.stream()
                         .mapToLong(Participant::getBalance)
-                        .reduce(Long::sum).getAsLong();
+                        .reduce(0, Long::sum);
                 if (subGroupBalance == 0) {
                     debtorCreditorAmountList.addAll(calculateSplitList(subGroup, balanceIncreasing));
                 }
@@ -225,7 +217,7 @@ public class LoanSplitCommand extends Command {
             if (debtor.getBalance() == 0) {
                 participants.remove(0);
             }
-            if (!participants.isEmpty() && creditor.getBalance() == 0) {
+            if (creditor.getBalance() == 0) {
                 participants.remove(participants.size() - 1);
             }
 
