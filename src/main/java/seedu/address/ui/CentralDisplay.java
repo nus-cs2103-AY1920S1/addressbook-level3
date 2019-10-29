@@ -10,7 +10,9 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.Region;
 import jfxtras.internal.scene.control.skin.agenda.AgendaWeekSkin;
+import jfxtras.internal.scene.control.skin.agenda.base24hour.AgendaSkinTimeScale24HourAbstract;
 import jfxtras.scene.control.agenda.Agenda;
+import jfxtras.scene.control.agenda.AgendaSkinSwitcher;
 import seedu.address.commons.core.index.Index;
 import seedu.address.model.day.ActivityWithTime;
 import seedu.address.model.day.Day;
@@ -42,10 +44,12 @@ public class CentralDisplay extends UiPart<Region> {
     private Tab testTab;
 
     private SimpleObjectProperty<LocalDate> startDateProperty;
+    private ObservableList<Day> dayList;
 
     public CentralDisplay(ObservableList<Day> dayList, SimpleObjectProperty<LocalDate> startDateProperty) {
         super(FXML);
         this.startDateProperty = startDateProperty;
+        this.dayList = dayList;
 
         // initialising agenda
         Agenda agenda = new Agenda() {
@@ -72,6 +76,7 @@ public class CentralDisplay extends UiPart<Region> {
                 };
             }
         };
+
         agenda.setDisplayedLocalDateTime(startDateProperty.getValue().atStartOfDay());
         updateAgenda(agenda, dayList);
 
@@ -86,12 +91,34 @@ public class CentralDisplay extends UiPart<Region> {
 
         // set up listeners that will update the agenda
         dayList.addListener((ListChangeListener<Day>) c -> {
-            agenda.refresh();
+            updateSkin(agenda);
             updateAgenda(agenda, dayList);
         });
         startDateProperty.addListener((observable, oldValue, newValue) -> {
             updateAgenda(agenda, dayList);
             agenda.setDisplayedLocalDateTime(newValue.atStartOfDay());
+        });
+    }
+
+    private void updateSkin(Agenda agenda) {
+        agenda.setSkin(new AgendaWeekSkin(agenda) {
+            @Override
+            protected List<LocalDate> determineDisplayedLocalDates()
+            {
+                // the result
+                List<LocalDate> lLocalDates = new ArrayList<>();
+
+                LocalDate lStartLocalDate = startDateProperty.getValue();
+                if (dayList.size() == 0) {
+                    lLocalDates.add(lStartLocalDate);
+                } else {
+                    for (int i = 0; i < dayList.size(); i++) {
+                        lLocalDates.add(lStartLocalDate.plusDays(i));
+                    }
+                }
+                // done
+                return lLocalDates;
+            }
         });
     }
 
