@@ -9,7 +9,7 @@
 <?import javafx.scene.control.Button?>
 <GridPane fx:id="cardPane"
           xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-          alignment="center" >
+          alignment="CENTER" >
     <columnConstraints>
         <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" percentWidth="50.0"/>
         <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" percentWidth="50.0"/>
@@ -20,14 +20,14 @@
     </rowConstraints>
 
     <children>
-        <Button styleClass="option-label" fx:id="option1" text="\$option1" wrapText="true"
+        <Button styleClass="option-label" style="-fx-font-size: 25" fx:id="option1" text="\$option1" wrapText="true"
                 GridPane.columnIndex="0" GridPane.rowIndex="0">
             <effect>
                 <DropShadow/>
             </effect>
         </Button>
 
-        <Button styleClass="option-label" fx:id="option2" text="\$option2" wrapText="true"
+        <Button styleClass="option-label" style="-fx-font-size: 25" fx:id="option2" text="\$option2" wrapText="true"
                 GridPane.columnIndex="1" GridPane.rowIndex="0">
             <effect>
                 <DropShadow/>

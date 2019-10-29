@@ -243,10 +243,12 @@ public class StartQuizWindow extends Window {
             questionDisplay.setFeedbackToUser(currentAnswerable.getQuestion().toString());
 
             if (currentAnswerable instanceof Mcq) {
+                answerableListPanelPlaceholder.getChildren().remove(answersGridPane.getRoot());
                 answersGridPane = new McqAnswersGridPane(currentAnswerable);
                 answersGridPane.updateAnswers(currentAnswerable);
                 answerableListPanelPlaceholder.getChildren().add(answersGridPane.getRoot());
             } else if (currentAnswerable instanceof TrueFalse) {
+                answerableListPanelPlaceholder.getChildren().remove(answersGridPane.getRoot());
                 answersGridPane = new TfAnswersGridPane(currentAnswerable);
                 answersGridPane.updateAnswers(currentAnswerable);
                 answerableListPanelPlaceholder.getChildren().add(answersGridPane.getRoot());

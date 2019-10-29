@@ -1,4 +1,3 @@
-
 .error {
     -fx-text-fill: #d06651 !important; /* The error class should always override the default text-fill style */
 }
@@ -24,7 +23,7 @@
     -fx-max-width: Infinity;
     -fx-font-family: "Lucida Bright",  "Times New Roman";
     -fx-font-style: normal;
-    -fx-font-size: 30;
+    -fx-font-size: 15;
     -fx-background-color: #2a3b74;
     -fx-background-radius: 10;
     -fx-padding: 10;
