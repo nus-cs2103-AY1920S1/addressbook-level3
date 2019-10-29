@@ -2,12 +2,16 @@ package calofit.ui;
 
 import java.util.logging.Logger;
 
-import calofit.commons.core.LogsCenter;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
-public class NotificationWindow extends UiPart<Stage>{
+import calofit.commons.core.LogsCenter;
+
+/**
+ * Notification Window.
+ */
+public class NotificationWindow extends UiPart<Stage> {
 
     private static final Logger logger = LogsCenter.getLogger(NotificationWindow.class);
     private static final String FXML = "NotificationWindow.fxml";
@@ -24,6 +28,9 @@ public class NotificationWindow extends UiPart<Stage>{
         this(new Stage(), message);
     }
 
+    /**
+     * Displays the Notification Window to the user.
+     */
     public void show() {
         logger.fine("Showing notification.");
         getRoot().show();

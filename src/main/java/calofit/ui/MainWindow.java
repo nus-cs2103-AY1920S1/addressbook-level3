@@ -3,7 +3,6 @@ package calofit.ui;
 import java.util.Optional;
 import java.util.logging.Logger;
 
-import calofit.logic.NotificationHelper;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -15,14 +14,17 @@ import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import calofit.commons.core.GuiSettings;
 import calofit.commons.core.LogsCenter;
 import calofit.logic.Logic;
+import calofit.logic.NotificationHelper;
 import calofit.logic.commands.CommandResult;
 import calofit.logic.commands.exceptions.CommandException;
 import calofit.logic.parser.exceptions.ParseException;
-import javafx.util.Duration;
+
+
 
 /**
  * The Main Window. Provides the basic application layout containing
