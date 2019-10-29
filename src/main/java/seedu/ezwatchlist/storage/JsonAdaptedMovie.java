@@ -34,6 +34,7 @@ public class JsonAdaptedMovie {
     private final int runningTime;
     private final String poster;
     private final List<JsonAdaptedActor> actors = new ArrayList<>();
+    private final JsonAdaptedGenres genres = new JsonAdaptedGenres(new ArrayList<>());
 
     /**
      * Constructs a {@code JsonAdaptedMovie} with the given show details.
@@ -46,7 +47,8 @@ public class JsonAdaptedMovie {
                              @JsonProperty("description") String description,
                              @JsonProperty("runningTime") int runningTime,
                              @JsonProperty("actors") List<JsonAdaptedActor> actors,
-                             @JsonProperty("poster") String poster) {
+                             @JsonProperty("poster") String poster,
+                             @JsonProperty("genres") List<String> genres) {
         this.name = name;
         this.type = type;
         this.dateOfRelease = dateOfRelease;
@@ -57,6 +59,7 @@ public class JsonAdaptedMovie {
             this.actors.addAll(actors);
         }
         this.poster = poster;
+        this.genres.addAll(genres);
     }
 
     /**
@@ -73,6 +76,7 @@ public class JsonAdaptedMovie {
             this.actors.addAll(actors);
         }
         poster = source.getPoster().getImagePath();
+        genres.addAll(source.getGenres().getGenres());
     }
 
     /**
@@ -133,6 +137,7 @@ public class JsonAdaptedMovie {
 
         show.setType(type);
         show.setPoster(new Poster(poster));
+        show.setGenres(genres.toModelType());
         return show;
     }
 }

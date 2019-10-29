@@ -39,7 +39,7 @@ public class JsonAdaptedTvShow {
     private final int numOfEpisodesWatched;
     private final int totalNumOfEpisodes;
     private final List<JsonAdaptedTvSeason> tvSeasons = new ArrayList<>();
-
+    private final JsonAdaptedGenres genres = new JsonAdaptedGenres(new ArrayList<>());
     /**
      * Constructs a {@code JsonAdaptedShows} with the given show details.
      */
@@ -54,7 +54,8 @@ public class JsonAdaptedTvShow {
                              @JsonProperty("poster") String poster,
                              @JsonProperty("numOfEpisodesWatched") int numOfEpisodesWatched,
                              @JsonProperty("totalNumOfEpisodes") int totalNumOfEpisodes,
-                             @JsonProperty("tvSeasons") List<JsonAdaptedTvSeason> tvSeasons) {
+                             @JsonProperty("tvSeasons") List<JsonAdaptedTvSeason> tvSeasons,
+                             @JsonProperty("genres") List<String> genres) {
         this.name = name;
         this.type = type;
         this.dateOfRelease = dateOfRelease;
@@ -70,6 +71,7 @@ public class JsonAdaptedTvShow {
         if (tvSeasons != null) {
             this.tvSeasons.addAll(tvSeasons);
         }
+        this.genres.addAll(genres);
     }
 
     /**
@@ -91,6 +93,7 @@ public class JsonAdaptedTvShow {
         tvSeasons.addAll(source.getTvSeasons().stream()
                 .map(JsonAdaptedTvSeason::new)
                 .collect(Collectors.toList()));
+        genres.addAll(source.getGenres().getGenres());
     }
 
     /**
@@ -157,6 +160,7 @@ public class JsonAdaptedTvShow {
 
         show.setType(type);
         show.setPoster(new Poster(poster));
+        show.setGenres(genres.toModelType());
         return show;
     }
 }
