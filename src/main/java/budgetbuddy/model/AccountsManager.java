@@ -9,7 +9,9 @@ import budgetbuddy.commons.core.index.Index;
 import budgetbuddy.model.account.Account;
 import budgetbuddy.model.account.UniqueAccountList;
 import budgetbuddy.model.account.exception.AccountNotFoundException;
+import budgetbuddy.model.attributes.Description;
 import budgetbuddy.model.attributes.Name;
+import budgetbuddy.model.transaction.TransactionList;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 
@@ -28,6 +30,9 @@ public class AccountsManager {
     public AccountsManager() {
         this.accounts = new UniqueAccountList();
         filteredAccounts = new FilteredList<>(this.getAccounts());
+        activeAccountIndex = Index.fromZeroBased(0);
+        // FIXME add proper default data
+        addAccount(new Account(new Name("Default"), new Description("Default"), new TransactionList()));
     }
 
     /**
