@@ -4,6 +4,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
 
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import seedu.address.model.events.EventSource;
 
 /**
@@ -14,10 +16,19 @@ public class EventCard extends Card {
     private static final String FXML = "EventCard.fxml";
 
     @FXML
-    private Label eventCardName;
+    private VBox eventDetails;
 
     @FXML
-    private Label eventCardDate;
+    private Label eventName;
+
+    @FXML
+    private Label eventStartDate;
+
+    @FXML
+    private Label eventEndDate;
+
+    @FXML
+    private StackPane eventEndDateBase;
 
     /**
      * Constructor for the EventCard, which displays the information of a particular event.
@@ -26,8 +37,13 @@ public class EventCard extends Card {
      */
     public EventCard(EventSource event) {
         super(FXML);
-        eventCardName.setText(event.getDescription());
-        eventCardDate.setText(event.getStartDateTime().toEnglishDateTime());
-        eventCardName.setMinHeight(Region.USE_PREF_SIZE);
+        eventName.setText(event.getDescription());
+        eventStartDate.setText(event.getStartDateTime().toEnglishDateTime());
+        if(event.getEnd() != null) {
+            eventEndDate.setText(event.getEnd().toEnglishDateTime());
+        } else {
+            eventDetails.getChildren().remove(eventEndDateBase);
+        }
+        eventName.setMinHeight(Region.USE_PREF_SIZE);
     }
 }

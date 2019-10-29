@@ -32,6 +32,7 @@ import seedu.address.model.events.EventDateComparator;
 import seedu.address.model.events.EventSource;
 import seedu.address.model.listeners.EventListListener;
 import seedu.address.model.listeners.TaskListListener;
+import seedu.address.model.tasks.TaskDateComparator;
 import seedu.address.model.tasks.TaskSource;
 import seedu.address.ui.listeners.UserOutputListener;
 import seedu.address.ui.panel.calendar.CalendarPanel;
@@ -331,6 +332,13 @@ public class MainWindow extends UiPart<Stage> implements UserOutputListener, Eve
         return sortedDateEventList;
     }
 
+    private List<TaskSource> sortDateTaskList(List<TaskSource> tasks) {
+        List<TaskSource> sortedDateTaskList = new ArrayList<>(tasks);
+        sortedDateTaskList.sort(new TaskDateComparator());
+        return sortedDateTaskList;
+
+    }
+
     @Override
     public void onEventListChange(List<EventSource> events) {
         List<EventSource> sortedDateEventList = sortDateEventList(events);
@@ -340,7 +348,10 @@ public class MainWindow extends UiPart<Stage> implements UserOutputListener, Eve
 
     @Override
     public void onTaskListChange(List<TaskSource> tasks) {
-        // TODO: Tasks
+        List<TaskSource> sortedDateTaskList = sortDateTaskList(tasks);
+        this.listPanel.onTaskListChange(sortedDateTaskList);
+        this.calendarPanel.onTaskListChange(sortedDateTaskList);
+
     }
 
     @Override

@@ -281,13 +281,32 @@
     -fx-effect: dropshadow(three-pass-box, -backgroundColor, 8, 0.5, 0, 0);
 }
 
-#eventCardName {
+#eventName {
     -fx-font-family: "Roboto Medium";
     -fx-text-fill: -primaryColor;
     -fx-font-size: 14pt;
 }
 
-#eventCardDate {
+#eventStartDate, #eventEndDate {
+    -fx-font-family: "Roboto Regular";
+    -fx-text-fill: -primaryColor;
+    -fx-font-size: 10pt;
+}
+
+/** For Task Card **/
+#taskCardBase {
+    -fx-background-color: -eventCardColor4;
+    -fx-background-radius: 8;
+    -fx-effect: dropshadow(three-pass-box, -backgroundColor, 8, 0.5, 0, 0);
+}
+
+#taskCardName {
+    -fx-font-family: "Roboto Medium";
+    -fx-text-fill: -primaryColor;
+    -fx-font-size: 14pt;
+}
+
+#taskCardDate {
     -fx-font-family: "Roboto Regular";
     -fx-text-fill: -primaryColor;
     -fx-font-size: 10pt;
@@ -313,6 +332,31 @@
 }
 
 #upcomingEventName {
+    -fx-font-family: "Roboto Light";
+    -fx-text-fill: -primaryColor;
+    -fx-font-size: 13pt;
+}
+
+/** For Upcoming Task Card **/
+#upcomingTaskBase {
+    -fx-background-color: -eventCardColor2;
+    -fx-background-radius: 8;
+    -fx-effect: dropshadow(three-pass-box, -backgroundColor, 8, 0.5, 0, 0);
+}
+
+#upcomingWeekDay {
+    -fx-font-family: "Roboto Light";
+    -fx-text-fill: -white;
+    -fx-font-size: 10pt;
+}
+
+#upcomingDay {
+    -fx-font-family: "Roboto Medium";
+    -fx-text-fill: -white;
+    -fx-font-size: 14pt;
+}
+
+#upcomingTaskName {
     -fx-font-family: "Roboto Light";
     -fx-text-fill: -primaryColor;
     -fx-font-size: 13pt;
