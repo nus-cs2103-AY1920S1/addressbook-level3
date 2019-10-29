@@ -7,9 +7,7 @@ import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalTransactions.ALICE;
 import static seedu.address.testutil.TypicalTransactions.getTypicalBankAccount;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
+import java.util.*;
 
 import org.junit.jupiter.api.Test;
 
@@ -18,7 +16,8 @@ import javafx.collections.ObservableList;
 import seedu.address.model.transaction.Amount;
 import seedu.address.model.transaction.BankAccountOperation;
 import seedu.address.model.transaction.Budget;
-import seedu.address.testutil.TransactionBuilder;
+import seedu.address.model.transaction.exceptions.DuplicateTransactionException;
+import seedu.address.testutil.BankOperationBuilder;
 
 public class BankAccountTest {
 
@@ -41,17 +40,22 @@ public class BankAccountTest {
         assertEquals(newData, bankAccount);
     }
 
-    // TODO: FIX
-    // @Test
-    // public void resetData_withDuplicateTransactions_throwsDuplicateTransactionException() {
-    //     // Two transactions with the same identity fields
-    //     BankAccountOperation editedAlice = new TransactionBuilder(ALICE)
-    //         .build();
-    //     List<BankAccountOperation> newTransactions = Arrays.asList(ALICE, editedAlice);
-    //     BankAccountStub newData = new BankAccountStub(newTransactions);
-    //
-    //     assertThrows(DuplicateTransactionException.class, () -> bankAccount.resetData(newData));
-    // }
+     @Test
+     public void resetData_withDuplicateTransactions_throwsDuplicateTransactionException() {
+         // Two transactions with the same identity fields
+         BankAccountOperation editedAlice = new BankOperationBuilder(ALICE)
+             .build();
+         List<BankAccountOperation> newTransactions = Arrays.asList(ALICE, editedAlice);
+         BankAccountStub newData = new BankAccountStub(newTransactions);
+
+         assertThrows(DuplicateTransactionException.class, () -> bankAccount.resetData(newData));
+     }
+
+    // TODO: implement test for budget during copying
+//     @Test
+//     public  void resetData_withDuplicateBudget_throwsDuplicateBudgetException() {
+//
+//     }
 
     @Test
     public void hasTransaction_nullTransaction_throwsNullPointerException() {
@@ -72,7 +76,7 @@ public class BankAccountTest {
     @Test
     public void hasTransaction_transactionWithSameIdentityFieldsInBankAccount_returnsTrue() {
         bankAccount.addTransaction(ALICE);
-        BankAccountOperation editedAlice = new TransactionBuilder(ALICE)
+        BankAccountOperation editedAlice = new BankOperationBuilder(ALICE)
             .build();
         assertTrue(bankAccount.hasTransaction(editedAlice));
     }
@@ -87,6 +91,8 @@ public class BankAccountTest {
      */
     private static class BankAccountStub implements ReadOnlyBankAccount {
         private final ObservableList<BankAccountOperation> transactions = FXCollections.observableArrayList();
+        private final ObservableList<Budget> budget = FXCollections.observableArrayList();
+        private Amount balance = Amount.zero();
 
         BankAccountStub(Collection<BankAccountOperation> transactions) {
             this.transactions.setAll(transactions);
@@ -104,12 +110,12 @@ public class BankAccountTest {
 
         @Override
         public Amount getBalance() {
-            throw new AssertionError("This method should not be called.");
+            return balance;
         }
 
         @Override
         public ObservableList<Budget> getBudgetHistory() {
-            throw new AssertionError("This method should not be called.");
+            return budget;
         }
     }
 

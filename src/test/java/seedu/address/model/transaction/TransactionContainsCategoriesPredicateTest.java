@@ -9,7 +9,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.testutil.TransactionBuilder;
+import seedu.address.testutil.BankOperationBuilder;
 
 
 public class TransactionContainsCategoriesPredicateTest {
@@ -47,19 +47,19 @@ public class TransactionContainsCategoriesPredicateTest {
         // One keyword
         TransactionContainsCategoriesPredicate predicate =
             new TransactionContainsCategoriesPredicate(Collections.singletonList("Alice"));
-        assertTrue(predicate.test(new TransactionBuilder().withCategories("Alice", "Bob").build()));
+        assertTrue(predicate.test(new BankOperationBuilder().withCategories("Alice", "Bob").build()));
 
         // Multiple keywords
         predicate = new TransactionContainsCategoriesPredicate(Arrays.asList("Alice", "Bob"));
-        assertTrue(predicate.test(new TransactionBuilder().withCategories("Alice", "Bob").build()));
+        assertTrue(predicate.test(new BankOperationBuilder().withCategories("Alice", "Bob").build()));
 
         // Only one matching keyword
         predicate = new TransactionContainsCategoriesPredicate(Arrays.asList("Bob", "Carol"));
-        assertTrue(predicate.test(new TransactionBuilder().withCategories("Alice", "Carol").build()));
+        assertTrue(predicate.test(new BankOperationBuilder().withCategories("Alice", "Carol").build()));
 
         // Mixed-case keywords
         predicate = new TransactionContainsCategoriesPredicate(Arrays.asList("aLIce", "bOB"));
-        assertTrue(predicate.test(new TransactionBuilder().withCategories("Alice", "Bob").build()));
+        assertTrue(predicate.test(new BankOperationBuilder().withCategories("Alice", "Bob").build()));
     }
 
     @Test
@@ -67,15 +67,15 @@ public class TransactionContainsCategoriesPredicateTest {
         // Zero keywords
         TransactionContainsCategoriesPredicate predicate =
             new TransactionContainsCategoriesPredicate(Collections.emptyList());
-        assertFalse(predicate.test(new TransactionBuilder().withCategories("Alice").build()));
+        assertFalse(predicate.test(new BankOperationBuilder().withCategories("Alice").build()));
 
         // Non-matching keyword
         predicate = new TransactionContainsCategoriesPredicate(Arrays.asList("Carol"));
-        assertFalse(predicate.test(new TransactionBuilder().withCategories("Alice", "Bob").build()));
+        assertFalse(predicate.test(new BankOperationBuilder().withCategories("Alice", "Bob").build()));
 
         // Keywords match amount and date, but does not match category
         predicate = new TransactionContainsCategoriesPredicate(Arrays.asList("12345", "19112019"));
-        assertFalse(predicate.test(new TransactionBuilder().withCategories("Alice").withAmount("12345")
+        assertFalse(predicate.test(new BankOperationBuilder().withCategories("Alice").withAmount("12345")
             .withDate("19112019").build()));
     }
 

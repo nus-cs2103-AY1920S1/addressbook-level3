@@ -24,7 +24,7 @@ public class AddCommandIntegrationTest {
     /*
     @Test
     public void execute_newPerson_success() {
-        Transaction validTransaction = new TransactionBuilder().build();
+        Transaction validTransaction = new BankOperationBuilder().build();
 
         Model expectedModel = new ModelManager(model.getBankAccount(), new UserPrefs());
         expectedModel.addTransaction(validTransaction);
