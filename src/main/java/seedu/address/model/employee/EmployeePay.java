@@ -1,7 +1,6 @@
 package seedu.address.model.employee;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents a Employee's Pay  in the address book.

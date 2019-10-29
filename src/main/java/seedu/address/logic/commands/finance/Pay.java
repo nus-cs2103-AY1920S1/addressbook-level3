@@ -6,8 +6,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GENDER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_JOIN_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PAY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
@@ -25,10 +25,16 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.employee.*;
+import seedu.address.model.employee.Employee;
+import seedu.address.model.employee.EmployeeAddress;
+import seedu.address.model.employee.EmployeeEmail;
+import seedu.address.model.employee.EmployeeGender;
+import seedu.address.model.employee.EmployeeId;
+import seedu.address.model.employee.EmployeeJoinDate;
+import seedu.address.model.employee.EmployeeName;
 import seedu.address.model.employee.EmployeePay;
+import seedu.address.model.employee.EmployeePhone;
 import seedu.address.model.tag.Tag;
-
 
 /**
  * Edits the details of an existing employee in the employeeAddress book.
@@ -53,7 +59,6 @@ public class Pay extends Command {
             + PREFIX_PHONE + "91234567 "
             + PREFIX_EMAIL + "johndoe@example.com";
 
-    public static String MESSAGE_PAID_PERSON_SUCCESS = "800.0";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_PERSON = "This employee already exists in the employeeAddress book.";
 
@@ -92,18 +97,18 @@ public class Pay extends Command {
 
 
         double amt = startDouble + endDouble;
-        MESSAGE_PAID_PERSON_SUCCESS = amt + "";
+        String output = (int) amt + "";
 
         //set amt
-        editedEmployee.employeePay = new EmployeePay(MESSAGE_PAID_PERSON_SUCCESS);
+        editedEmployee.setEmployeePay(new EmployeePay(output));
 
         if (!employeeToEdit.isSameEmployee(editedEmployee) && model.hasEmployee(editedEmployee)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+            throw new CommandException(output);
         }
 
         model.setEmployee(employeeToEdit, editedEmployee);
         model.updateFilteredEmployeeList(PREDICATE_SHOW_ALL_PERSONS);
-        return new CommandResult(String.format(MESSAGE_PAID_PERSON_SUCCESS, editedEmployee));
+        return new CommandResult(String.format(output, editedEmployee));
     }
 
     /**
@@ -218,7 +223,7 @@ public class Pay extends Command {
         }
 
         public void setEmployeePay(EmployeePay employeePay) {
-           this.employeePay = employeePay;
+            this.employeePay = employeePay;
         }
 
         public Optional<EmployeePay> getEmployeePay() {

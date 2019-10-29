@@ -13,12 +13,13 @@ import seedu.address.model.tag.Tag;
  */
 public class Employee {
 
+    private EmployeePay employeePay;
+
     // Identity fields
     private final EmployeeName employeeName;
     private final EmployeePhone employeePhone;
     private final EmployeeEmail employeeEmail;
     private final EmployeeId employeeId;
-    public EmployeePay employeePay;
     private final EmployeeGender employeeGender;
 
 
@@ -87,6 +88,10 @@ public class Employee {
 
     public EmployeeJoinDate getEmployeeJoinDate() {
         return employeeJoinDate;
+    }
+
+    public void setEmployeePay(EmployeePay employeePay) {
+        this.employeePay = employeePay;
     }
 
     /**
