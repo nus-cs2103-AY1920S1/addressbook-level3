@@ -2,11 +2,8 @@ package organice.model.person;
 
 import static organice.commons.util.CollectionUtil.requireAllNonNull;
 
-<<<<<<< HEAD
 import java.util.ArrayList;
-=======
 import java.util.HashMap;
->>>>>>> origin
 import java.util.Objects;
 
 /**
@@ -20,14 +17,11 @@ public class Donor extends Person {
     private final TissueType tissueType;
     private final Organ organ;
     private final OrganExpiryDate organExpiryDate;
-<<<<<<< HEAD
     private ArrayList<String> processingTodoList;
     private boolean hasProcessingList;
-=======
     private Status status;
     private HashMap<Nric, Double> successRateMap;
     private String successRate;
->>>>>>> origin
 
     /**
      * Every field must be present and not null.
@@ -42,13 +36,10 @@ public class Donor extends Person {
         this.tissueType = tissueType;
         this.organ = organ;
         this.organExpiryDate = organExpiryDate;
-<<<<<<< HEAD
         processingTodoList = new ArrayList<String>();
         this.hasProcessingList = false;
-=======
         this.status = status;
         successRateMap = new HashMap<>();
->>>>>>> origin
     }
 
     public Age getAge() {
@@ -71,15 +62,14 @@ public class Donor extends Person {
         return organExpiryDate;
     }
 
-<<<<<<< HEAD
     public ArrayList getProcessingList(Nric nric) {
         if (!hasProcessingList) {
-            processingTodoList.add("To-Do list for " + nric.toString() + " and " + getNric().toString());
-            processingTodoList.add("Contact donor");
-            processingTodoList.add("Contact patient's family");
-            processingTodoList.add("Contact doctor in charge of patient");
-            processingTodoList.add("Schedule for cross-matching");
-            processingTodoList.add("Schedule for organ transplant surgery");
+            processingTodoList.add("To-Do list for " + nric.toString() + " and " + getNric().toString() + "/n");
+            processingTodoList.add("Contact donor /n");
+            processingTodoList.add("Contact patient's family /n");
+            processingTodoList.add("Contact doctor in charge of patient /n");
+            processingTodoList.add("Schedule for cross-matching /n");
+            processingTodoList.add("Schedule for organ transplant surgery /n");
             return processingTodoList;
         } else {
             hasProcessingList = true;
@@ -87,7 +77,6 @@ public class Donor extends Person {
         }
     }
 
-=======
     public Status getStatus() {
         return status;
     }
@@ -125,7 +114,6 @@ public class Donor extends Person {
         this.status = updatedStatus;
     }
 
->>>>>>> origin
     /**
      * Returns true if both donors have the same identity and data fields.
      * This defines a stronger notion of equality between two donors.

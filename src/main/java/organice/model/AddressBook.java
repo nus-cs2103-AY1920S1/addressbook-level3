@@ -87,7 +87,6 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-<<<<<<< HEAD
      * Returns true if a donor with the same NRIC as {@code donor} exists in the address book.
      */
     public boolean hasDonor(Nric donor) {

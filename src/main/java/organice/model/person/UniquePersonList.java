@@ -82,6 +82,7 @@ public class UniquePersonList implements Iterable<Person> {
         requireNonNull(donorNric);
         for (int i = 0; i < internalList.size(); i++) {
             Person currentPerson = internalList.get(i);
+
             if (currentPerson instanceof Donor && currentPerson.getNric().equals(donorNric)) {
                 return (Donor) currentPerson;
             }

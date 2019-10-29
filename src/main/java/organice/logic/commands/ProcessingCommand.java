@@ -1,6 +1,7 @@
 package organice.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static organice.logic.commands.MatchCommand.match;
 
 import java.util.List;
 
@@ -21,28 +22,46 @@ public class ProcessingCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Process the pair of donor and patient identified "
             + "by their NRICs respectively and provide a checklist of the current status of the organ transplantation. \n"
-            + "Parameters: icP/PATIENT NRIC icD/DONOR NRIC \n"
-            + "Example: " + COMMAND_WORD + " icP/s4512345A icD/s7711123C";
+            + "Parameters: ic/PATIENT NRIC ic/DONOR NRIC \n"
+            + "Example: " + COMMAND_WORD + " ic/s4512345A ic/s7711123C";
 
     public static final String MESSAGE_NOT_PROCESSED = "Donor or patient NRIC must be valid";
 
-    private String firstNRICString;
-    private String secondNRICString;
+    private String firstNricString;
+    private String secondNricString;
+
+    private Nric firstNric;
+    private Nric secondNric;
+
     private Donor donor;
     private Patient patient;
 
-    public ProcessingCommand(String firstNRICString, String secondNRICString) {
-        requireNonNull(firstNRICString, secondNRICString);
-        this.firstNRICString = firstNRICString;
-        this.secondNRICString = secondNRICString;
+    private Nric patientNRIC;
+    private  Nric donorNRIC;
+
+    public ProcessingCommand(String firstNricString, String secondNricString) {
+        requireNonNull(firstNricString, secondNricString);
+        firstNric = new Nric(firstNricString);
+        secondNric = new Nric(secondNricString);
     }
 
-    public boolean isValidDonorPatientPair(Nric firstNRIC, Nric secondNRIC, Model model) {
+    public boolean isValidDonorPatientPair(Nric firstNric, Nric secondNric, Model model) {
+        if (model.hasDonor(firstNric)) {
+            donorNRIC = firstNric;
+            donor = model.getDonor(donorNRIC);
 
-        if (model.hasPatient(firstNRIC) && model.hasDonor(secondNRIC)
-            || model.hasPatient(secondNRIC) && model.hasDonor(firstNRIC)) {
+            patientNRIC = secondNric;
+            patient = model.getPatient(patientNRIC);
+        } else {
+            patientNRIC = firstNric;
+            patient = model.getPatient(patientNRIC);
+
+            donorNRIC = secondNric;
+            donor = model.getDonor(donorNRIC);
+        }
+        if (model.hasPatient(patientNRIC) && model.hasDonor(donorNRIC)
+                && match(donor, patient))  {
             return true;
-            //todo: check if the pair matches or not
         } else {
             return false;
         }
@@ -53,26 +72,11 @@ public class ProcessingCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         List<Person> lastShownList = model.getFilteredPersonList();
-
-        Nric patientNRIC;
-        Nric donorNRIC;
-
-        if (model.hasDonor(new Nric(firstNRICString))) {
-            donorNRIC = new Nric(firstNRICString);
-            patientNRIC = new Nric(secondNRICString);
-        } else {
-            patientNRIC = new Nric(firstNRICString);
-            donorNRIC = new Nric(secondNRICString);
-        }
-
         try {
-            if (isValidDonorPatientPair(patientNRIC, donorNRIC, model)) {
-                donor = model.getDonor(donorNRIC);
+            if (isValidDonorPatientPair(firstNric, secondNric, model)) {
                 model.getFilteredPersonList();
-                return new CommandResult(donor.getProcessingList(patientNRIC).toString());
-            } else {
-                return new CommandResult("here");
             }
+            return new CommandResult(donor.getProcessingList(patientNRIC).toString());
         } catch (PersonNotFoundException pne) {
             return new CommandResult(MESSAGE_NOT_PROCESSED);
         }
@@ -82,7 +86,7 @@ public class ProcessingCommand extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof ProcessingCommand // instanceof handles nulls
-                && (firstNRICString.equals(((ProcessingCommand) other).firstNRICString))
-                || (secondNRICString.equals(((ProcessingCommand) other).secondNRICString))); // state check
+                && (firstNricString.equals(((ProcessingCommand) other).firstNricString))
+                || (secondNric.equals(((ProcessingCommand) other).secondNric))); // state check
     }
 }

@@ -234,13 +234,23 @@ public class MatchCommandTest {
         }
 
         @Override
-        public boolean hasPatient(Nric patientNric) {
+        public boolean hasPatient(Nric patient) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasDonor(Nric donor) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public Patient getPatient(Nric patientNric) {
             throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Donor getDonor(Nric donorNric) throws PersonNotFoundException {
+            return null;
         }
 
         @Override
