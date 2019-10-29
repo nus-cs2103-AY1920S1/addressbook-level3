@@ -5,6 +5,7 @@ import static seedu.ichifund.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import seedu.ichifund.logic.commands.Command;
 import seedu.ichifund.logic.commands.repeater.AddRepeaterCommand;
 import seedu.ichifund.logic.commands.repeater.DeleteRepeaterCommand;
+import seedu.ichifund.logic.commands.repeater.EditRepeaterCommand;
 import seedu.ichifund.logic.parser.FeatureParser;
 import seedu.ichifund.logic.parser.exceptions.ParseException;
 
@@ -34,6 +35,9 @@ public class RepeaterFeatureParser implements FeatureParser {
 
         case DeleteRepeaterCommand.COMMAND_WORD:
             return new DeleteRepeaterCommandParser().parse(arguments);
+
+        case EditRepeaterCommand.COMMAND_WORD:
+            return new EditRepeaterCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

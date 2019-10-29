@@ -21,6 +21,7 @@ import seedu.ichifund.model.person.Person;
 import seedu.ichifund.model.repeater.Repeater;
 import seedu.ichifund.model.repeater.RepeaterUniqueId;
 import seedu.ichifund.model.transaction.Transaction;
+import seedu.ichifund.model.transaction.TransactionList;
 
 /**
  * Represents the in-memory model of the fund book data.
@@ -161,6 +162,17 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedTransaction);
 
         fundBook.setTransaction(target, editedTransaction);
+    }
+
+    @Override
+    public ObservableList<Transaction> getAssociatedTransactions(RepeaterUniqueId repeaterUniqueId) {
+        TransactionList list = new TransactionList();
+        for (Transaction transaction : fundBook.getTransactionList()) {
+            if (transaction.getRepeaterUniqueId().equals(repeaterUniqueId)) {
+                list.add(transaction);
+            }
+        }
+        return list.asUnmodifiableObservableList();
     }
 
     @Override
