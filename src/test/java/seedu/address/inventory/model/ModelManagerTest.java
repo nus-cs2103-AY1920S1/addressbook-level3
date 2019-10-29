@@ -59,9 +59,9 @@ public class ModelManagerTest {
 
         try {
             assertTrue(inventoryModel.hasSufficientQuantity(TypicalItem.FISH_BURGER.getDescription(),
-                    (TypicalItem.FISH_BURGER.getQuantity() - 1)));
+                    TypicalItem.FISH_BURGER.getQuantity() - 1));
             assertFalse(inventoryModel.hasSufficientQuantity(TypicalItem.FISH_BURGER.getDescription(),
-                    (TypicalItem.FISH_BURGER.getQuantity() + 1)));
+                    TypicalItem.FISH_BURGER.getQuantity() + 1));
         } catch (NoSuchItemException e) {
             throw new AssertionError("This method should not throw an exception.");
         }
