@@ -58,8 +58,8 @@ public class AnswerableBuilder {
     /**
      * Sets the {@code Question} of the {@code Answerable} that we are building.
      */
-    public AnswerableBuilder withQuestion(String name) {
-        this.question = new Question(name);
+    public AnswerableBuilder withQuestion(String question) {
+        this.question = new Question(question);
         return this;
     }
 

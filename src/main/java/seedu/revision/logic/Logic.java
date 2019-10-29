@@ -5,10 +5,10 @@ import java.util.Comparator;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
+
 import seedu.revision.commons.core.GuiSettings;
 import seedu.revision.model.ReadOnlyAddressBook;
 import seedu.revision.model.answerable.Answerable;
-import seedu.revision.model.answerable.answer.Answer;
 
 /**
  * API of the MainLogic component

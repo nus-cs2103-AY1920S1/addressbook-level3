@@ -1,5 +1,7 @@
 package seedu.revision.ui;
 
+import java.io.IOException;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
@@ -8,13 +10,12 @@ import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+
 import seedu.revision.commons.core.GuiSettings;
 import seedu.revision.logic.MainLogic;
 import seedu.revision.logic.commands.exceptions.CommandException;
 import seedu.revision.logic.commands.main.CommandResult;
 import seedu.revision.logic.parser.exceptions.ParseException;
-
-import java.io.IOException;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -143,6 +144,7 @@ public abstract class Window extends UiPart<Stage> {
     /**
      * Executes the command and returns the result.
      */
-    protected abstract CommandResult executeCommand(String commandText) throws CommandException, ParseException, IOException;
+    protected abstract CommandResult executeCommand(String commandText)
+            throws CommandException, ParseException, IOException;
 
 }

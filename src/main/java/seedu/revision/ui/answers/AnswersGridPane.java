@@ -1,8 +1,7 @@
 package seedu.revision.ui.answers;
 
-import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.layout.Region;
+
 import seedu.revision.model.answerable.Answerable;
 import seedu.revision.ui.UiPart;
 

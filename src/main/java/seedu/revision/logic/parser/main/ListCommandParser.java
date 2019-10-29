@@ -5,6 +5,8 @@ import static seedu.revision.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.revision.logic.parser.CliSyntax.PREFIX_DIFFICULTY;
 import static seedu.revision.model.Model.PREDICATE_SHOW_ALL_ANSWERABLE;
 
+import java.util.function.Predicate;
+
 import seedu.revision.logic.commands.Command;
 import seedu.revision.logic.commands.main.ListCommand;
 import seedu.revision.logic.parser.ArgumentMultimap;
@@ -17,8 +19,6 @@ import seedu.revision.model.answerable.Difficulty;
 import seedu.revision.model.answerable.predicates.CategoryPredicate;
 import seedu.revision.model.answerable.predicates.DifficultyPredicate;
 import seedu.revision.model.category.Category;
-
-import java.util.function.Predicate;
 
 /**
  * Adds a filter to the list command.

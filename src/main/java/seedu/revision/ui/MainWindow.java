@@ -7,7 +7,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
-
 import javafx.stage.Stage;
 
 import seedu.revision.commons.core.GuiSettings;
@@ -34,8 +33,6 @@ public class MainWindow extends Window {
     public MainWindow(Stage primaryStage, MainLogic mainLogic) {
         super(primaryStage, mainLogic);
     }
-
-    Model passedModel;
 
     /**
      * Fills up all the placeholders of this window.

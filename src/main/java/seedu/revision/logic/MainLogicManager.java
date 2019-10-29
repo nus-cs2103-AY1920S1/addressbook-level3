@@ -1,5 +1,7 @@
 package seedu.revision.logic;
 
+import static seedu.revision.model.Model.PREDICATE_SHOW_ALL_ANSWERABLE;
+
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Comparator;
@@ -20,8 +22,6 @@ import seedu.revision.model.Model;
 import seedu.revision.model.ReadOnlyAddressBook;
 import seedu.revision.model.answerable.Answerable;
 import seedu.revision.storage.Storage;
-
-import static seedu.revision.model.Model.PREDICATE_SHOW_ALL_ANSWERABLE;
 
 /**
  * The main MainLogicManager of the app.

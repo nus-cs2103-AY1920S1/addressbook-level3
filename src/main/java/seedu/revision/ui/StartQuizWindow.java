@@ -1,5 +1,7 @@
 package seedu.revision.ui;
 
+import static seedu.revision.model.Model.PREDICATE_SHOW_ALL_ANSWERABLE;
+
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.Optional;
@@ -25,9 +27,6 @@ import seedu.revision.model.quiz.Mode;
 import seedu.revision.ui.answers.AnswersGridPane;
 import seedu.revision.ui.answers.McqAnswersGridPane;
 import seedu.revision.ui.answers.TfAnswersGridPane;
-
-import static seedu.revision.model.Model.PREDICATE_SHOW_ALL_ANSWERABLE;
-
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -107,7 +106,7 @@ public class StartQuizWindow extends Window {
 
     private ObservableList<Answerable> getListBasedOnMode(Mode mode) {
         Comparator<Answerable> difficultyComparator = Comparator.comparing(
-                answerable -> answerable.getDifficulty().value);
+            answerable -> answerable.getDifficulty().value);
         switch (mode.value.toLowerCase()) {
         case "normal":
             ObservableList<Answerable> sortedList = this.mainLogic.getFilteredSortedAnswerableList(
@@ -119,12 +118,13 @@ public class StartQuizWindow extends Window {
         }
     }
 
-    @FXML
     /**
-     * Handles the progression to the next level in a quiz session.
+     * Handles progression to the next level and receives response from the user.
+     * @param nextAnswerable next answerable that will be displayed.
      */
-    private void handleNextLevel(Answerable currentAnswerable) {
-        int nextLevel = Integer.parseInt(currentAnswerable.getDifficulty().value);
+    @FXML
+    private void handleNextLevel(Answerable nextAnswerable) {
+        int nextLevel = Integer.parseInt(nextAnswerable.getDifficulty().value);
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Well done!");
         alert.setHeaderText(null);
@@ -135,8 +135,8 @@ public class StartQuizWindow extends Window {
             + "Press [ENTER] to proceed.\n"
             + "Press [ESC] to return to main screen.");
 
-        ButtonType tryAgainButton = new ButtonType( "Yes", ButtonBar.ButtonData.OK_DONE );
-        ButtonType endButton = new ButtonType( "No", ButtonBar.ButtonData.CANCEL_CLOSE );
+        ButtonType tryAgainButton = new ButtonType("Yes", ButtonBar.ButtonData.OK_DONE);
+        ButtonType endButton = new ButtonType("No", ButtonBar.ButtonData.CANCEL_CLOSE);
 
         alert.getButtonTypes().setAll(tryAgainButton, endButton);
 
@@ -147,8 +147,8 @@ public class StartQuizWindow extends Window {
         } else {
             currentProgressIndex.set(0);
             progressIndicatorBar = new ProgressIndicatorBar(currentProgressIndex,
-                    getSizeOfCurrentLevel(currentAnswerable),
-                    "%.0f/" + getSizeOfCurrentLevel(currentAnswerable));
+                    getSizeOfCurrentLevel(nextAnswerable),
+                    "%.0f/" + getSizeOfCurrentLevel(nextAnswerable));
             scoreProgressBar.getChildren().add(progressIndicatorBar.getRoot());
         }
     }
@@ -168,8 +168,8 @@ public class StartQuizWindow extends Window {
                 + "Press [ENTER] to try again.\n"
                 + "Press [ESC] to return to main screen.");
 
-        ButtonType tryAgainButton = new ButtonType( "Yes", ButtonBar.ButtonData.OK_DONE );
-        ButtonType endButton = new ButtonType( "No", ButtonBar.ButtonData.CANCEL_CLOSE );
+        ButtonType tryAgainButton = new ButtonType("Yes", ButtonBar.ButtonData.OK_DONE);
+        ButtonType endButton = new ButtonType("No", ButtonBar.ButtonData.CANCEL_CLOSE);
 
         alert.getButtonTypes().setAll(tryAgainButton, endButton);
 
@@ -226,7 +226,7 @@ public class StartQuizWindow extends Window {
 
             if (!answerableIterator.hasNext()) {
                 handleEnd();
-                return new CommandResult("Quiz has ended.");
+                return new CommandResult().withFeedBack("Quiz has ended.").build();
             }
 
             if (commandResult.isShowHelp()) {
@@ -253,11 +253,10 @@ public class StartQuizWindow extends Window {
                 answersGridPane.updateAnswers(currentAnswerable);
                 answerableListPanelPlaceholder.getChildren().add(answersGridPane.getRoot());
             }
-//            } else if (currentAnswerable instanceof Saq) {
-//                answersGridPane = new SaqAnswersGridPane(AnswersGridPane.SAQ_GRID_PANE_FXML, currentAnswerable);
-//            }
-//            answersGridPane.updateAnswers(currentAnswerable);
-
+            //} else if (currentAnswerable instanceof Saq) {
+            //    answersGridPane = new SaqAnswersGridPane(AnswersGridPane.SAQ_GRID_PANE_FXML, currentAnswerable);
+            //}
+            //answersGridPane.updateAnswers(currentAnswerable);
             if (previousAnswerable != null && answerableIterator.hasNext()) {
                 int previousLevel = Integer.parseInt(previousAnswerable.getDifficulty().value);
                 int currentLevel = Integer.parseInt(currentAnswerable.getDifficulty().value);

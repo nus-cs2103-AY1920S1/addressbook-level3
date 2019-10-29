@@ -33,10 +33,9 @@ public class StartQuizCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws ParseException {
 
-//        ListCommand quizList = new ListCommand(predicate);
-//        quizList.execute(model);
-
-        return new CommandResult(MESSAGE_SUCCESS, true, mode);
+        //ListCommand quizList = new ListCommand(predicate);
+        //quizList.execute(model);
+        return new CommandResult().withFeedBack(MESSAGE_SUCCESS).withStart(true).withMode(mode).build();
 
     }
 }

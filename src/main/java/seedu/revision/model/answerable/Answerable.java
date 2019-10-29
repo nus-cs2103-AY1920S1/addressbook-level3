@@ -8,8 +8,6 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 import java.util.logging.Logger;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import seedu.revision.model.answerable.answer.Answer;
 import seedu.revision.model.category.Category;

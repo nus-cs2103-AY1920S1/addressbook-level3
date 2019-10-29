@@ -3,7 +3,6 @@ package seedu.revision.logic.commands.main;
 import static java.util.Objects.requireNonNull;
 import static seedu.revision.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.revision.logic.parser.CliSyntax.PREFIX_DIFFICULTY;
-import static seedu.revision.model.Model.PREDICATE_SHOW_ALL_ANSWERABLE;
 
 import java.util.function.Predicate;
 
@@ -38,7 +37,7 @@ public class ListCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.updateFilteredAnswerableList(predicate);
-        return new CommandResult(
-                String.format(Messages.MESSAGE_ANSWERABLES_LISTED_OVERVIEW, model.getFilteredAnswerableList().size()));
+        return new CommandResult().withFeedBack(String.format(Messages.MESSAGE_ANSWERABLES_LISTED_OVERVIEW,
+                model.getFilteredAnswerableList().size())).build();
     }
 }
