@@ -7,7 +7,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.CancelOrderCommand;
-import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CompleteOrderCommand;
 import seedu.address.logic.commands.ExitCommand;
@@ -23,7 +22,6 @@ import seedu.address.logic.commands.addcommand.AddPhoneCommand;
 import seedu.address.logic.commands.addcommand.AddScheduleCommand;
 import seedu.address.logic.commands.clearcommand.ClearCustomerCommand;
 import seedu.address.logic.commands.clearcommand.ClearPhoneCommand;
-import seedu.address.logic.commands.deletecommand.DeleteCommand;
 import seedu.address.logic.commands.deletecommand.DeleteCustomerCommand;
 import seedu.address.logic.commands.deletecommand.DeletePhoneCommand;
 import seedu.address.logic.commands.deletecommand.DeleteScheduleCommand;
@@ -31,11 +29,9 @@ import seedu.address.logic.commands.editcommand.EditCustomerCommand;
 import seedu.address.logic.commands.editcommand.EditOrderCommand;
 import seedu.address.logic.commands.editcommand.EditPhoneCommand;
 import seedu.address.logic.commands.editcommand.EditScheduleCommand;
-import seedu.address.logic.commands.findcommand.FindCommand;
 import seedu.address.logic.commands.findcommand.FindCustomerCommand;
 import seedu.address.logic.commands.findcommand.FindOrderCommand;
 import seedu.address.logic.commands.findcommand.FindPhoneCommand;
-import seedu.address.logic.commands.listcommand.ListCommand;
 import seedu.address.logic.commands.listcommand.ListCustomerCommand;
 import seedu.address.logic.commands.listcommand.ListOrderCommand;
 import seedu.address.logic.commands.listcommand.ListPhoneCommand;
@@ -50,7 +46,6 @@ import seedu.address.logic.parser.addcommandparser.AddCustomerCommandParser;
 import seedu.address.logic.parser.addcommandparser.AddOrderCommandParser;
 import seedu.address.logic.parser.addcommandparser.AddPhoneCommandParser;
 import seedu.address.logic.parser.addcommandparser.AddScheduleCommandParser;
-import seedu.address.logic.parser.deletecommandparser.DeleteCommandParser;
 import seedu.address.logic.parser.deletecommandparser.DeleteCustomerCommandParser;
 import seedu.address.logic.parser.deletecommandparser.DeletePhoneCommandParser;
 import seedu.address.logic.parser.deletecommandparser.DeleteScheduleCommandParser;
@@ -123,9 +118,6 @@ public class AddressBookParser {
         case DeleteScheduleCommand.COMMAND_WORD:
             return new DeleteScheduleCommandParser().parse(arguments);
 
-        case DeleteCommand.COMMAND_WORD:
-            return new DeleteCommandParser().parse(arguments);
-
         case CancelOrderCommand.COMMAND_WORD:
             return new CancelOrderCommandParser().parse(arguments);
 
@@ -150,9 +142,6 @@ public class AddressBookParser {
         case ListOrderCommand.COMMAND_WORD:
             return new ListOrderCommand();
 
-        case ClearCommand.COMMAND_WORD:
-            return new ClearCommand();
-
         case ClearCustomerCommand.COMMAND_WORD:
             return new ClearCustomerCommand();
 
@@ -161,12 +150,6 @@ public class AddressBookParser {
 
         case HistoryCommand.COMMAND_WORD:
             return new HistoryCommand();
-
-        case FindCommand.COMMAND_WORD:
-            return new FindCommandParser().parse(arguments);
-
-        case ListCommand.COMMAND_WORD:
-            return new ListCommand();
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
