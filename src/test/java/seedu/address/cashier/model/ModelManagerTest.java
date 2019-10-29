@@ -26,8 +26,8 @@ import seedu.address.testutil.ItemBuilder;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.TypicalItem;
 import seedu.address.testutil.TypicalTransactions;
-import seedu.address.transaction.model.transaction.Transaction;
 import seedu.address.transaction.model.TransactionList;
+import seedu.address.transaction.model.transaction.Transaction;
 
 public class ModelManagerTest {
 

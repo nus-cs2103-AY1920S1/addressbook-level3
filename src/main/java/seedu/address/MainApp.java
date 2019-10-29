@@ -31,8 +31,8 @@ import seedu.address.person.storage.JsonUserPrefsStorage;
 import seedu.address.person.storage.Storage;
 import seedu.address.person.storage.StorageManager;
 import seedu.address.person.storage.UserPrefsStorage;
-import seedu.address.transaction.storage.exception.FileReadWriteException;
 import seedu.address.transaction.model.TransactionList;
+import seedu.address.transaction.storage.exception.FileReadWriteException;
 import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager;
 

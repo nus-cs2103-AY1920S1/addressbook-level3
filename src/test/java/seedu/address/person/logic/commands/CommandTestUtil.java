@@ -34,9 +34,8 @@ import seedu.address.testutil.TypicalTransactions;
 import seedu.address.transaction.logic.Logic;
 import seedu.address.transaction.logic.LogicManager;
 import seedu.address.transaction.model.ModelManager;
-import seedu.address.transaction.storage.StorageManager;
 import seedu.address.transaction.model.TransactionList;
-
+import seedu.address.transaction.storage.StorageManager;
 
 /**
  * Contains helper methods for testing commands.

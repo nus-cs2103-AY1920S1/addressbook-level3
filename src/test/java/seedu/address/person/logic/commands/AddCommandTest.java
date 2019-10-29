@@ -26,10 +26,10 @@ import seedu.address.stubs.PersonModelStubWithPerson;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.transaction.logic.Logic;
 import seedu.address.transaction.logic.LogicManager;
-import seedu.address.transaction.model.ModelManager;
 import seedu.address.transaction.model.Model;
-import seedu.address.transaction.storage.StorageManager;
+import seedu.address.transaction.model.ModelManager;
 import seedu.address.transaction.model.TransactionList;
+import seedu.address.transaction.storage.StorageManager;
 
 public class AddCommandTest {
     private static final String FILE_PATH_REIMBURSEMENT = "data/reimbursementInformation.txt";

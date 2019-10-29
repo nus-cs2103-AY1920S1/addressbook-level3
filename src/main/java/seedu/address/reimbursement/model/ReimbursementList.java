@@ -10,8 +10,8 @@ import seedu.address.reimbursement.model.comparators.SortByAmount;
 import seedu.address.reimbursement.model.comparators.SortByDeadline;
 import seedu.address.reimbursement.model.comparators.SortByName;
 import seedu.address.reimbursement.model.exception.NoSuchPersonReimbursementException;
-import seedu.address.transaction.model.transaction.Transaction;
 import seedu.address.transaction.model.TransactionList;
+import seedu.address.transaction.model.transaction.Transaction;
 
 /**
  * Reimbursement List class: Stores a list of reimbursements, allows accessing of their details and provides

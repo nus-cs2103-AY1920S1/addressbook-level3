@@ -5,8 +5,8 @@ import java.util.Arrays;
 
 import seedu.address.reimbursement.model.Reimbursement;
 import seedu.address.reimbursement.model.ReimbursementList;
-import seedu.address.transaction.model.transaction.Transaction;
 import seedu.address.transaction.model.TransactionList;
+import seedu.address.transaction.model.transaction.Transaction;
 
 /**
  * A utility class containing a list of {@code Reimbursements} objects to be used in tests.
