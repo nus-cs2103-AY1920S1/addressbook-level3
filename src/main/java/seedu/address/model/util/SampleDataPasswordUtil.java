@@ -11,6 +11,7 @@ import seedu.address.model.password.Password;
 import seedu.address.model.password.PasswordModifiedAt;
 import seedu.address.model.password.PasswordValue;
 import seedu.address.model.password.Username;
+import seedu.address.model.password.Website;
 
 /**
  * Contains utility methods for populating {@code PasswordBook} with sample data.
@@ -19,15 +20,20 @@ public class SampleDataPasswordUtil {
     public static Password[] getSamplePasswords() {
         return new Password[] {
             new Password(new Description("Gmail"), new Username("Randomguy"),
-                        new PasswordValue("password"), new PasswordModifiedAt(new Date()), getTagSet("SocialMedia")),
+                        new PasswordValue("password"), new PasswordModifiedAt(new Date()),
+                        new Website("www.gmail.com"), getTagSet("SocialMedia")),
             new Password(new Description("Gmail1"), new Username("Randomguy1"),
-                        new PasswordValue("password1"), new PasswordModifiedAt(new Date()), getTagSet("Work")),
+                        new PasswordValue("password1"), new PasswordModifiedAt(new Date()),
+                        new Website("www.gmail.com"), getTagSet("Work")),
             new Password(new Description("Gmail2"), new Username("Randomguy2"),
-                        new PasswordValue("password2"), new PasswordModifiedAt(new Date()), getTagSet("SocialMedia")),
+                        new PasswordValue("password2"), new PasswordModifiedAt(new Date()),
+                        new Website("www.gmail.com"), getTagSet("SocialMedia")),
             new Password(new Description("Gmail3"), new Username("Randomguy3"),
-                        new PasswordValue("password3"), new PasswordModifiedAt(new Date()), getTagSet("Game")),
+                        new PasswordValue("password3"), new PasswordModifiedAt(new Date()),
+                        new Website("www.gmail.com"), getTagSet("Game")),
             new Password(new Description("Gmail4"), new Username("Randomguy4"),
-                        new PasswordValue("password4"), new PasswordModifiedAt(new Date()), getTagSet("Help")),
+                        new PasswordValue("password4"), new PasswordModifiedAt(new Date()),
+                        new Website("www.gmail.com"), getTagSet("Help")),
         };
     }
 

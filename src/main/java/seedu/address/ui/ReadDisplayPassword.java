@@ -53,6 +53,7 @@ public class ReadDisplayPassword extends UiPart<Region> {
         username.setText(password.getUsername().value);
         passwordValue.setText(password.getPasswordValue().toString());
         lastModified.setText(password.getPasswordModifiedAt().toString());
+        website.setText(password.getWebsite().value);
         password.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));

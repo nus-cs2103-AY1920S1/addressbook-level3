@@ -21,18 +21,20 @@ public class Password {
     private final Username username;
     private final PasswordValue passwordValue;
     private final PasswordModifiedAt passwordModifiedAt;
+    private final Website website;
     private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
     public Password(Description description, Username username, PasswordValue passwordValue,
-                    PasswordModifiedAt passwordModifiedAt, Set<Tag> tags) {
+                    PasswordModifiedAt passwordModifiedAt, Website website, Set<Tag> tags) {
         requireAllNonNull(description, username, passwordValue, passwordModifiedAt);
         this.description = description;
         this.username = username;
         this.passwordValue = passwordValue;
         this.passwordModifiedAt = passwordModifiedAt;
+        this.website = website;
         this.tags.addAll(tags);
     }
 
@@ -52,6 +54,9 @@ public class Password {
         return passwordModifiedAt;
     }
 
+    public Website getWebsite() {
+        return website;
+    }
     /**
      * Returns the non-encrypted PasswordValue
      * @return non-encrypted PasswordValue
@@ -138,6 +143,6 @@ public class Password {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(description, username, passwordValue, passwordModifiedAt, tags);
+        return Objects.hash(description, username, passwordValue, passwordModifiedAt, website, tags);
     }
 }

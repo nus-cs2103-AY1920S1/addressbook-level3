@@ -24,6 +24,7 @@ import seedu.address.model.password.Password;
 import seedu.address.model.password.PasswordModifiedAt;
 import seedu.address.model.password.PasswordValue;
 import seedu.address.model.password.Username;
+import seedu.address.model.password.Website;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -97,11 +98,12 @@ public class EditPasswordCommand extends Command {
         PasswordValue updatedPasswordValue = editPasswordDescriptor
                 .getPasswordValue().orElse(passwordToEdit.getPasswordValue());
         PasswordModifiedAt updatedPasswordModifiedAt = new PasswordModifiedAt(new Date());
+        Website updatedWebsite = editPasswordDescriptor.getWebsite().orElse(passwordToEdit.getWebsite());
         Set<Tag> updatedTags = editPasswordDescriptor
                 .getTags().orElse(passwordToEdit.getTags());
 
         return new Password(updatedDescription, updatedUsername, updatedPasswordValue,
-                updatedPasswordModifiedAt, updatedTags);
+                updatedPasswordModifiedAt, updatedWebsite, updatedTags);
     }
 
     @Override
@@ -130,6 +132,7 @@ public class EditPasswordCommand extends Command {
         private Description description;
         private Username username;
         private PasswordValue passwordValue;
+        private Website website;
         private Set<Tag> tags;
 
         public EditPasswordDescriptor() {}
@@ -142,6 +145,7 @@ public class EditPasswordCommand extends Command {
             setDescription(toCopy.description);
             setUsername(toCopy.username);
             setPasswordValue(toCopy.passwordValue);
+            setWebsite(toCopy.website);
             setTags(toCopy.tags);
         }
 
@@ -174,6 +178,14 @@ public class EditPasswordCommand extends Command {
 
         public Optional<PasswordValue> getPasswordValue() {
             return Optional.ofNullable(passwordValue);
+        }
+
+        public void setWebsite(Website website) {
+            this.website = website;
+        }
+
+        public Optional<Website> getWebsite() {
+            return Optional.ofNullable(website);
         }
 
         /**

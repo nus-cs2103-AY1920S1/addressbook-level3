@@ -6,7 +6,6 @@ import java.util.List;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
-import seedu.address.commons.util.ClipboardUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.password.Password;
@@ -42,8 +41,7 @@ public class ReadPasswordCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_PASSWORD_DISPLAYED_INDEX);
         }
         Password passwordToRead = lastShownList.get(targetIndex.getZeroBased());
-        ClipboardUtil.copyToClipboard(passwordToRead.getPasswordValue().getNonEncryptedPasswordValue(), null);
-        return CommandResult.builder("Results are shown on the right panel")
+        return CommandResult.builder(MESSAGE_SUCCESS)
                 .setObject(passwordToRead)
                 .setIndex(targetIndex)
                 .build();

@@ -23,6 +23,7 @@ import seedu.address.model.note.SortByCond;
 import seedu.address.model.note.Title;
 import seedu.address.model.password.PasswordValue;
 import seedu.address.model.password.Username;
+import seedu.address.model.password.Website;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -326,6 +327,21 @@ public class ParserUtil {
             throw new ParseException(PasswordValue.MESSAGE_CONSTRAINTS);
         }
         return new PasswordValue(trimmedPasswordValue);
+    }
+
+    /**
+     * Parses a {@code String website} into a {@code Website}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code Website} is invalid.
+     */
+    public static Website parseWebsite(String website) throws ParseException {
+        requireNonNull(website);
+        String trimmedWebsite = website.trim();
+        if (!Website.isValidWebsite(trimmedWebsite)) {
+            throw new ParseException(Website.MESSAGE_CONSTRAINTS);
+        }
+        return new Website(trimmedWebsite);
     }
 
     /**
