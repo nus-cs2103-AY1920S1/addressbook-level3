@@ -80,10 +80,10 @@ Sorts the list displayed in ascending order of start time.
 [.clearfix]
 --
 .Engagement list before sorting
-image::before-sort.png[width="450", float="left"]
+image::before-sort.png[width="350", float="left"]
 [.left]
 .Engagement list after sorting by start time in ascending order
-image::after-sort.png[width="450"]
+image::after-sort.png[width="350"]
 --
 
 === Editing an appointment : `edit`
@@ -166,15 +166,14 @@ Undoes the delete command, i.e. restores the first engagement in the original di
 [.clearfix]
 --
 .Engagement list before the command `delete 1`
-image::after-sort.png[width="450", float="left"]
+image::after-sort.png[width="350", float="left"]
 [.left]
 .Engagement list after deletion
-image::deletion-before-undo.png[width="450"]
+image::deletion-before-undo.png[width="350"]
 --
 
-'''
 .Engagement list after the command `undo`
-image::undo-result.png[width="450"]
+image::undo-result.png[width="350"]
 
 === Redoing the previous command : `redo`
 Redoes the previous `undo` command. There must be a valid undo command to redo, otherwise this command does nothing. +
@@ -190,10 +189,10 @@ Redoes the previous undo command, i.e. the appointment deleted before `undo` wil
 [.clearfix]
 --
 .Engagement list after the command `undo`
-image::undo-result.png[width="450", float="left"]
+image::undo-result.png[width="350", float="left"]
 [.left]
 .Engagement list after the command `redo`
-image::redo-result.png[width="450"]
+image::redo-result.png[width="350"]
 --
 
 === Changing to calendar view : `tab calendar`
