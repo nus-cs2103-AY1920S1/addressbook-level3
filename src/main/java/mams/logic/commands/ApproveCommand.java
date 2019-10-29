@@ -24,6 +24,7 @@ import static mams.logic.commands.AddModCommand.MESSAGE_ADD_MOD_SUCCESS;
 import static mams.logic.commands.RemoveModCommand.MESSAGE_REMOVE_MOD_SUCCESS;
 import static mams.logic.commands.RemoveModCommand.MESSAGE_MISSING_MODULE;
 import static mams.logic.commands.AddModCommand.MESSAGE_DUPLICATE_MODULE;
+import static mams.logic.commands.ModCommand.MESSAGE_INVALID_MODULE;
 
 /**
  * Approves a appeal in mams.
@@ -61,6 +62,7 @@ public class ApproveCommand extends Approve {
             Module editedModule;
             String feedback = "";
             String target = "";
+            String change = "";
             String moduleCode;
 
             List<Student> lastShownStudentList = model.getFilteredStudentList();
@@ -70,9 +72,11 @@ public class ApproveCommand extends Approve {
             String studentToEditId = appealToApprove.getStudentId();
 
             if(appealType.equalsIgnoreCase("Increase workload")) {
-                List<Student> studentToCheckList =
-                        lastShownStudentList.stream()
-                            .filter(p -> p.getMatricId().toString().equals(studentToEditId)).collect(Collectors.toList());
+
+                List<Student> studentToCheckList = lastShownStudentList.stream()
+                                .filter(p -> p.getMatricId().toString().equals(studentToEditId))
+                                .collect(Collectors.toList());
+
                     if (studentToCheckList.isEmpty()) {
                         throw new CommandException(Messages.MESSAGE_INVALID_STUDENT_MATRIC_ID);
                     }
@@ -88,16 +92,18 @@ public class ApproveCommand extends Approve {
                 feedback += MESSAGE_CREDIT_CHANGE_SUCCESS;
                 target += studentToEditId;
 
-//                return new CommandResult(String.format(SetCredits.MESSAGE_CREDIT_CHANGE_SUCCESS,
-//                            editedStudent.getCredits().getIntVal()));
             } else if (appealType.equalsIgnoreCase("Drop module")) {
                 moduleCode = appealToApprove.getModuleToDrop();
+
+                //Check if student exists
                 List<Student> studentToCheckList = lastShownStudentList.stream()
-                        .filter(p -> p.getMatricId().toString().equals(studentToEditId)).collect(Collectors.toList());
+                        .filter(p -> p.getMatricId().toString().equals(studentToEditId))
+                        .collect(Collectors.toList());
                 if (studentToCheckList.isEmpty()) {
                     throw new CommandException(Messages.MESSAGE_INVALID_STUDENT_MATRIC_ID);
                 }
                 studentToEdit = studentToCheckList.get(0);
+
                 //check if student has the module (ready for deletion).
                 Set<Tag> studentModules = studentToEdit.getCurrentModules();
                 boolean hasModule = false;
@@ -110,11 +116,29 @@ public class ApproveCommand extends Approve {
                     throw new CommandException(MESSAGE_MISSING_MODULE);
                 }
 
+                //check if module exist
+                List<Module> moduleToCheckList = lastShownModuleList.stream()
+                        .filter(m -> m.getModuleCode().equalsIgnoreCase(moduleCode)).collect(Collectors.toList());
+                if (moduleToCheckList.isEmpty()) {
+                    throw new CommandException(MESSAGE_INVALID_MODULE);
+                }
+                moduleToEdit = moduleToCheckList.get(0);
+
+
                 Set<Tag> ret = new HashSet<>();
                 Set<Tag> studentAllTags = studentToEdit.getTags();
                 for (Tag tag : studentAllTags) {
                     if (!tag.getTagName().equalsIgnoreCase(moduleCode)) {
                         ret.add(tag);
+                    }
+                }
+
+                //create a tag list without the student for the new module
+                Set<Tag> ret2 = new HashSet<>();
+                Set<Tag> moduleAllStudents = moduleToEdit.getStudents();
+                for (Tag tag : moduleAllStudents) {
+                    if (!tag.getTagName().equalsIgnoreCase(studentToEdit.getMatricId().toString())) {
+                        ret2.add(tag);
                     }
                 }
 
@@ -125,20 +149,43 @@ public class ApproveCommand extends Approve {
                         ret);
                 model.setStudent(studentToEdit, editedStudent);
                 model.updateFilteredAppealList(Model.PREDICATE_SHOW_ALL_APPEALS);
-
-
                 model.updateFilteredStudentList(Model.PREDICATE_SHOW_ALL_STUDENTS);
-                feedback = MESSAGE_REMOVE_MOD_SUCCESS;
 
+                editedModule = new Module(moduleToEdit.getModuleCode(),
+                        moduleToEdit.getModuleName(),
+                        moduleToEdit.getModuleDescription(),
+                        moduleToEdit.getLecturerName(),
+                        moduleToEdit.getTimeSlot(),
+                        moduleToEdit.getQuota(),
+                        ret2);
+
+                model.setModule(moduleToEdit, editedModule);
+                model.updateFilteredStudentList(Model.PREDICATE_SHOW_ALL_STUDENTS);
+                model.updateFilteredModuleList(Model.PREDICATE_SHOW_ALL_MODULES);
+                feedback = MESSAGE_REMOVE_MOD_SUCCESS;
+                target = studentToEditId;
+                change = editedModule.getModuleCode();
 
             } else {
+
                 moduleCode = appealToApprove.getModuleToAdd();
+
                 List<Student> studentToCheckList = lastShownStudentList.stream()
                         .filter(p -> p.getMatricId().toString().equals(studentToEditId)).collect(Collectors.toList());
                 if (studentToCheckList.isEmpty()) {
                     throw new CommandException(Messages.MESSAGE_INVALID_STUDENT_MATRIC_ID);
                 }
                 studentToEdit = studentToCheckList.get(0);
+
+                //check if module exist
+                List<Module> moduleToCheckList = lastShownModuleList.stream()
+                        .filter(m -> m.getModuleCode().equalsIgnoreCase(moduleCode)).collect(Collectors.toList());
+                if (moduleToCheckList.isEmpty()) {
+                    throw new CommandException(MESSAGE_INVALID_MODULE);
+                }
+                moduleToEdit = moduleToCheckList.get(0);
+
+
                 //check if student already has module.
                 Set<Tag> studentModules = studentToEdit.getCurrentModules();
                 for (Tag tag : studentModules) {
@@ -155,13 +202,34 @@ public class ApproveCommand extends Approve {
                 }
                 ret.add(new Tag(moduleCode));
 
+
+                //add student to module field
+                Set<Tag> moduleAllStudents = moduleToEdit.getStudents();
+                Set<Tag> ret2 = new HashSet<>(moduleAllStudents);
+                ret2.add(new Tag(studentToEdit.getMatricId().toString()));
+
+                //replace old student and old module objects with edited modules.
                 editedStudent = new Student(studentToEdit.getName(),
                         studentToEdit.getCredits(),
                         studentToEdit.getPrevMods(),
                         studentToEdit.getMatricId(),
                         ret);
+
+                editedModule = new Module(moduleToEdit.getModuleCode(),
+                        moduleToEdit.getModuleName(),
+                        moduleToEdit.getModuleDescription(),
+                        moduleToEdit.getLecturerName(),
+                        moduleToEdit.getTimeSlot(),
+                        moduleToEdit.getQuota(),
+                        ret2);
+
                 model.setStudent(studentToEdit, editedStudent);
+                model.setModule(moduleToEdit, editedModule);
+                model.updateFilteredStudentList(Model.PREDICATE_SHOW_ALL_STUDENTS);
+                model.updateFilteredModuleList(Model.PREDICATE_SHOW_ALL_MODULES);
+
                 feedback = MESSAGE_ADD_MOD_SUCCESS;
+                target = studentToEditId;
             }
 
 
@@ -181,15 +249,15 @@ public class ApproveCommand extends Approve {
             model.setAppeal(appealToApprove, approvedAppeal);
             model.updateFilteredAppealList(Model.PREDICATE_SHOW_ALL_APPEALS);
             return new CommandResult(
-                    generateSuccessMessage(approvedAppeal));
+                    generateSuccessMessage(approvedAppeal, feedback, target, change));
         } else {
             return new CommandResult(MESSAGE_APPEAL_ALREADY_APPROVED);
         }
 
     }
 
-    private String generateSuccessMessage(Appeal appealToApprove) {
-        return "Approved " + appealToApprove.getAppealId();
+    private String generateSuccessMessage(Appeal appealToApprove, String feedback, String target, String change) {
+        return "Approved " + appealToApprove.getAppealId() + "\n" + String.format(feedback, target);
     }
 
     @Override
