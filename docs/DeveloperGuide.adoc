@@ -109,9 +109,6 @@ NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X
 [[Design-Model]]
 === Model component
 
-.Structure of the Model Component
-image::ModelClassDiagram.png[]
-
 .Structure of the Cap Model Component
 image::CapModelClassDiagram.png[]
 
