@@ -3,7 +3,6 @@ package seedu.mark.model.predicates;
 import java.util.List;
 import java.util.function.Predicate;
 
-import seedu.mark.commons.util.StringUtil;
 import seedu.mark.model.bookmark.Bookmark;
 
 /**
@@ -19,7 +18,7 @@ public class FolderContainsKeywordsPredicate implements Predicate<Bookmark> {
     @Override
     public boolean test(Bookmark bookmark) {
         return keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsPhraseIgnoreCase(bookmark.getFolder().folderName, keyword));
+                .anyMatch(keyword -> bookmark.getFolder().folderName.equals(keyword));
     }
 
     @Override

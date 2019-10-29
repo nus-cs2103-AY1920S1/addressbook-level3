@@ -3,7 +3,6 @@ package seedu.mark.model.predicates;
 import java.util.List;
 import java.util.function.Predicate;
 
-import seedu.mark.commons.util.StringUtil;
 import seedu.mark.model.bookmark.Bookmark;
 
 /**
@@ -20,7 +19,7 @@ public class TagContainsKeywordsPredicate implements Predicate<Bookmark> {
     public boolean test(Bookmark bookmark) {
         return keywords.stream()
                 .anyMatch(keyword -> bookmark.getTags()
-                        .stream().anyMatch(tag -> StringUtil.containsPhraseIgnoreCase(tag.tagName, keyword)));
+                        .stream().anyMatch(tag -> tag.tagName.equals(keyword)));
     }
 
     @Override
