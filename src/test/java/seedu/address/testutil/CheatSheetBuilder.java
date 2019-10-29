@@ -1,14 +1,13 @@
 package seedu.address.testutil;
 
-import seedu.address.model.cheatsheet.CheatSheet;
+import java.util.HashSet;
+import java.util.Set;
 
+import seedu.address.model.cheatsheet.CheatSheet;
 import seedu.address.model.cheatsheet.Content;
 import seedu.address.model.cheatsheet.Title;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
-
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * A utility class to help with building CheatSheet objects.
