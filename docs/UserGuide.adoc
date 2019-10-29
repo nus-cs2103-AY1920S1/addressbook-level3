@@ -436,6 +436,16 @@ Examples:
 * `slist add n/milk a/1l`
 * `slist add n/banana a/3`
 
+
+=== Add items in template into shopping list: `slist addTemp`
+
+Adds all template items that are not currently found in the grocery list into the shopping list. +
+Format: 'slist addTemp INDEX'
+
+Examples:
+
+* `slist addTemp 1`
+
 === Edit item in shopping list: 'slist edit'
 
 Edits the name of a specified item in a shopping list. +
@@ -535,6 +545,7 @@ There is no need to save manually.
 == Command Summary
 
 * *Add* `slist add f/FOOD_ITEM a/AMOUNT`
+* *AddTemp* `slist addTemp INDEX`
 * *Delete* : `slist delete INDEX`
 * *Edit* : `slist edit INDEX [f/FOOD_ITEM] [a/AMOUNT]`
 * *Merge* : `slist merge bought`

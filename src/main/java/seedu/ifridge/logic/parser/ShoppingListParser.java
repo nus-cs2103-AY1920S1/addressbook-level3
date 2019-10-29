@@ -9,6 +9,7 @@ import java.util.regex.Pattern;
 import seedu.ifridge.logic.commands.Command;
 import seedu.ifridge.logic.commands.HelpCommand;
 import seedu.ifridge.logic.commands.shoppinglist.AddShoppingCommand;
+import seedu.ifridge.logic.commands.shoppinglist.AddTemplateShoppingCommand;
 import seedu.ifridge.logic.commands.shoppinglist.BoughtShoppingCommand;
 import seedu.ifridge.logic.commands.shoppinglist.DeleteShoppingCommand;
 import seedu.ifridge.logic.commands.shoppinglist.EditShoppingCommand;
@@ -16,6 +17,7 @@ import seedu.ifridge.logic.commands.shoppinglist.ListShoppingCommand;
 import seedu.ifridge.logic.commands.shoppinglist.MergeShoppingCommand;
 import seedu.ifridge.logic.parser.exceptions.ParseException;
 import seedu.ifridge.logic.parser.shoppinglist.AddShoppingCommandParser;
+import seedu.ifridge.logic.parser.shoppinglist.AddTemplateShoppingCommandParser;
 import seedu.ifridge.logic.parser.shoppinglist.BoughtShoppingCommandParser;
 import seedu.ifridge.logic.parser.shoppinglist.DeleteShoppingCommandParser;
 import seedu.ifridge.logic.parser.shoppinglist.EditShoppingCommandParser;
@@ -51,6 +53,9 @@ public class ShoppingListParser {
         case AddShoppingCommand.COMMAND_WORD:
             return new AddShoppingCommandParser().parse(arguments);
 
+        case AddTemplateShoppingCommand.COMMAND_WORD:
+            return new AddTemplateShoppingCommandParser().parse(arguments);
+
         case EditShoppingCommand.COMMAND_WORD:
             return new EditShoppingCommandParser().parse(arguments);
 
@@ -76,6 +81,7 @@ public class ShoppingListParser {
 
             //case HelpCommand.COMMAND_WORD:
             //    return new HelpCommand();
+
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

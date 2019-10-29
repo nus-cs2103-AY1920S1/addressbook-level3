@@ -476,6 +476,11 @@ public class ModelManager implements Model {
         return shoppingList.hasShoppingItem(shoppingItem);
     }
 
+    public ShoppingItem getShoppingItem(ShoppingItem shoppingItem) {
+        requireNonNull(shoppingItem);
+        return shoppingList.getShoppingItem(shoppingItem);
+    }
+
     public void deleteShoppingItem(ShoppingItem target) {
         shoppingList.removeShoppingItem(target);
     }
@@ -485,6 +490,8 @@ public class ModelManager implements Model {
         shoppingList.addShoppingItem(food);
         updateFilteredShoppingList(PREDICATE_SHOW_ALL_SHOPPING_ITEMS);
     }
+
+
 
     @Override
     public void setShoppingItem(ShoppingItem target, ShoppingItem editedShoppingItem) {

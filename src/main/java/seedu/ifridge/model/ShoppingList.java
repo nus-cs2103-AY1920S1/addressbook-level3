@@ -67,6 +67,14 @@ public class ShoppingList implements ReadOnlyShoppingList {
     }
 
     /**
+     * Gets the shopping item from the shopping list.
+     */
+    public ShoppingItem getShoppingItem(ShoppingItem shoppingItem) {
+        requireNonNull(shoppingItem);
+        return shoppingItems.get(shoppingItem);
+    }
+
+    /**
      * Adds a person to the address book.
      * The person must not already exist in the address book.
      */

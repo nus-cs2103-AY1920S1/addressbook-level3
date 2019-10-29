@@ -1,6 +1,8 @@
 package seedu.ifridge.model.food;
 
+import java.util.Calendar;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -51,6 +53,23 @@ public class GroceryItem extends Food {
             return this.getName().equals(anotherFood.getName())
                     && this.expiryDate.equals(((GroceryItem) anotherFood).expiryDate);
         }
+    }
+
+    /**
+     * Checks if an item has expired
+     */
+    public boolean hasExpired() {
+        Date itemExpiry = expiryDate.getValue();
+        Calendar cal = Calendar.getInstance();
+        Date current = cal.getTime();
+
+        int remDays = (int) ((itemExpiry.getTime() - current.getTime()) / (24 * 60 * 60 * 1000));
+
+        // Items expiring on the day itself are considered expired
+        if (remDays > 0) {
+            return false;
+        }
+        return true;
     }
 
     @Override

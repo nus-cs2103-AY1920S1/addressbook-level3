@@ -370,6 +370,11 @@ public class AddTemplateItemCommandTest {
         }
 
         @Override
+        public ShoppingItem getShoppingItem(ShoppingItem shoppingItem) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void setShoppingList(ReadOnlyShoppingList newData) {
             throw new AssertionError("This method should not be called.");
         }

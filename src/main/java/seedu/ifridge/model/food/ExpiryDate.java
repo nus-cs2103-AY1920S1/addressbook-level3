@@ -3,6 +3,10 @@ package seedu.ifridge.model.food;
 import static java.util.Objects.requireNonNull;
 import static seedu.ifridge.commons.util.AppUtil.checkArgument;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  * Represents a Food's expiry date in the lists.
  * Guarantees: immutable; is valid as declared in {@link #isValidExpiryDate(String)}
@@ -38,6 +42,20 @@ public class ExpiryDate {
      */
     public static boolean isValidExpiryDate(String test) {
         return test.matches(VALIDATION_REGEX);
+    }
+
+    /**
+     * Returns the expiry date in a date format.
+     * @return date
+     */
+    public Date getValue() {
+        Date date = null;
+        try {
+            date = new SimpleDateFormat("dd/MM/yyyy").parse(this.expiryDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return date;
     }
 
     @Override

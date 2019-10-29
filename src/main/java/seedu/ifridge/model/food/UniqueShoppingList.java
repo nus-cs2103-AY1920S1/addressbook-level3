@@ -33,8 +33,17 @@ public class UniqueShoppingList implements Iterable<ShoppingItem> {
      */
     public boolean contains(ShoppingItem toCheck) {
         requireNonNull(toCheck);
-        return internalList.stream().anyMatch(toCheck::isSameFood);
+        return internalList.stream().anyMatch(toCheck::isSameName);
     }
+
+    /**
+     * Get a shopping item from the list.
+     */
+    public ShoppingItem get(ShoppingItem shoppingItem) {
+        return internalList.stream().filter(x -> shoppingItem.getName().equals(x.getName()))
+                .findAny().orElse(null);
+    }
+
 
     /**
      * Adds a person to the list.
@@ -61,7 +70,7 @@ public class UniqueShoppingList implements Iterable<ShoppingItem> {
             throw new FoodNotFoundException();
         }
 
-        if (!target.isSameFood(editedShoppingItem) && contains(editedShoppingItem)) {
+        if (!target.isSameName(editedShoppingItem) && contains(editedShoppingItem)) {
             throw new DuplicateShoppingItemException();
         }
 

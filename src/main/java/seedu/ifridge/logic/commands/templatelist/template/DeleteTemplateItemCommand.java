@@ -59,6 +59,7 @@ public class DeleteTemplateItemCommand extends Command {
         model.updateFilteredTemplateList(PREDICATE_SHOW_ALL_TEMPLATES);
         model.setShownTemplate(editedTemplate);
         model.updateFilteredTemplateToBeShown();
+
         CommandResult commandResult = new CommandResult(String.format(MESSAGE_SUCCESS, itemToDelete));
         commandResult.setTemplateListItemCommand();
 

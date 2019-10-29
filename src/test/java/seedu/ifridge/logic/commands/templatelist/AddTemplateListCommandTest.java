@@ -389,6 +389,11 @@ public class AddTemplateListCommandTest {
         }
 
         @Override
+        public ShoppingItem getShoppingItem(ShoppingItem shoppingItem) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void deleteShoppingItem(ShoppingItem target) {
             throw new AssertionError("This method should not be called.");
         }

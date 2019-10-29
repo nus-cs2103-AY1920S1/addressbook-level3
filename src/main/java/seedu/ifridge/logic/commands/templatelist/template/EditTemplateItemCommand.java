@@ -78,6 +78,9 @@ public class EditTemplateItemCommand extends Command {
 
         TemplateItem itemToEdit = templateToEdit.get(targetItemIndex.getZeroBased());
         TemplateItem editedItem = createEditedItem(itemToEdit, editTemplateItemDescriptor);
+        if (!editTemplateItemDescriptor.isAnyFieldEdited()) {
+            throw new CommandException(MESSAGE_NOT_EDITED);
+        }
 
         editedTemplate.setTemplateItem(itemToEdit, editedItem);
 
@@ -85,6 +88,7 @@ public class EditTemplateItemCommand extends Command {
         model.updateFilteredTemplateList(PREDICATE_SHOW_ALL_TEMPLATES);
         model.setShownTemplate(editedTemplate);
         model.updateFilteredTemplateToBeShown();
+
         CommandResult commandResult = new CommandResult(String.format(MESSAGE_SUCCESS, itemToEdit, editedItem));
         commandResult.setTemplateListItemCommand();
 

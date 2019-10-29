@@ -1,7 +1,5 @@
 package seedu.ifridge.model.food;
 
-import static seedu.ifridge.commons.util.CollectionUtil.requireAllNonNull;
-
 import java.util.Objects;
 
 
@@ -9,7 +7,7 @@ import java.util.Objects;
  * Represents a TemplateList item in the template list.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class TemplateItem implements Comparable<TemplateItem> {
+public class TemplateItem extends Food implements Comparable<TemplateItem> {
 
     // Identity fields
     private final Name name;
@@ -19,7 +17,7 @@ public class TemplateItem implements Comparable<TemplateItem> {
      * Every field must be present and not null.
      */
     public TemplateItem(Name name, Amount amount) {
-        requireAllNonNull(name);
+        super(name, amount);
         this.name = name;
         this.amount = amount;
     }

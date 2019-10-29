@@ -47,6 +47,7 @@ public class ListTemplateItemCommand extends Command {
 
         model.setShownTemplate(targetTemplate);
         model.updateFilteredTemplateToBeShown();
+
         CommandResult commandResult = new CommandResult(String.format(MESSAGE_SUCCESS, targetTemplate.getName()));
         commandResult.setTemplateListItemCommand();
 
