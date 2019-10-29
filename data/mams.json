@@ -2,7 +2,7 @@
   "students" : [ {
     "name":"Celina Conyers  "
     ,"credits":"21"
-    ,"prevMods":"CS1010, CS2101"
+    ,"prevMods":"CS1010"
     ,"matricId":"A0180000"
     ,"tagged":["CS2040","CS2030","CS1231"]
     }, {
@@ -98,7 +98,7 @@
     ,"credits":"24"
     ,"prevMods":"CS1010, CS1231, CS2030"
     ,"matricId":"A0180014"
-    ,"tagged":["CS2220","CS2101","CS3202"]
+    ,"tagged":["CS2220","CS2101"]
     },
     {
       "name":"Isobel Ickes  "
@@ -112,14 +112,14 @@
     ,"credits":"21"
     ,"prevMods":"CS1010, CS1231, CS2030"
     ,"matricId":"A0180016"
-    ,"tagged":["CS2105","CS2101","CS3202"]
+    ,"tagged":["CS2105","CS2101"]
     },
     {
       "name":"Florencio Frailey  "
     ,"credits":"22"
     ,"prevMods":"CS1010, CS2101"
     ,"matricId":"A0180017"
-    ,"tagged":["CS2220","CS3202","CS2040"]
+    ,"tagged":["CS2220","CS2040"]
     },
     {
       "name":"Rosenda Ruston  "
@@ -231,13 +231,13 @@
     ,"credits":"24"
     ,"prevMods":"CS1010, CS2309"
     ,"matricId":"A0180033"
-    ,"tagged":["CS2309","CS3202","CS2030"]
+    ,"tagged":["CS2309","CS2030"]
     },   {
       "name":"Carson Cristobal  "
     ,"credits":"21"
     ,"prevMods":"CS1010, CS2105"
     ,"matricId":"A0180034"
-    ,"tagged":["CS3202","CS3202","CS1231"]
+    ,"tagged":["CS3202","CS1231"]
     },
     {
       "name":"Sharell Sauter  "
@@ -258,14 +258,14 @@
     ,"credits":"21"
     ,"prevMods":"CS1010, CS2101"
     ,"matricId":"A0180037"
-    ,"tagged":["CS2106","CS3202","CS1231"]
+    ,"tagged":["CS2106","CS1231"]
     },
     {
       "name":"Shawnna Schaible  "
     ,"credits":"24"
     ,"prevMods":"CS1010, CS2106"
     ,"matricId":"A0180038"
-    ,"tagged":["CS3202","CS3202","CS2105"]
+    ,"tagged":["CS3202","CS2105"]
     },
     {
       "name":"Yoshiko Yutzy  "
@@ -307,7 +307,7 @@
     ,"credits":"23"
     ,"prevMods":"CS1010, CS1231, CS2309"
     ,"matricId":"A0180044"
-    ,"tagged":["CS2105","CS3202","CS2101"]
+    ,"tagged":["CS2105","CS2101"]
     },
     {
       "name":"Tifany Tibbets  "
@@ -328,7 +328,7 @@
     ,"credits":"24"
     ,"prevMods":"CS1010, CS1020"
     ,"matricId":"A0180047"
-    ,"tagged":["CS2030","CS3202","CS2101"]
+    ,"tagged":["CS2030","CS2101"]
     },
     {
       "name":"Shin Santacruz  "
