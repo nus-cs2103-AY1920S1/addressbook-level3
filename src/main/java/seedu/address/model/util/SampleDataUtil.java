@@ -78,11 +78,11 @@ public class SampleDataUtil {
 
     private static IncidentDateTime[] getSampleIncidentDateTimes() {
         return new IncidentDateTime[] {
-            new IncidentDateTime("Dec 21, 2012, 12:00:00 PM"),
-            new IncidentDateTime("Jan 11, 2013, 12:00:00 AM"),
-            new IncidentDateTime("May 01, 2014, 1:00:00 AM"),
-            new IncidentDateTime("Jun 16, 2015, 2:00:00 PM"),
-            new IncidentDateTime("Sep 01, 2016, 9:00:00 PM")
+            new IncidentDateTime("2012-12-21T12:00:00"),
+            new IncidentDateTime("2013-01-11T00:00:00"),
+            new IncidentDateTime("2014-05-01T01:00:00"),
+            new IncidentDateTime("2015-06-16T14:00:00"),
+            new IncidentDateTime("2016-09-01T21:00:00")
         };
     }
 

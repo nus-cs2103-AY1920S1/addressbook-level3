@@ -72,7 +72,7 @@ public class TypicalEntities {
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 
-    private static final IncidentDateTime validDateTime = new IncidentDateTime("Dec 2, 2016, 2:30:40 PM");
+    private static final IncidentDateTime validDateTime = new IncidentDateTime("2016-12-02T14:30:40");
     private static final IncidentId commonIncidentId = new IncidentId("1220160001");
     private TypicalEntities() {} // prevents instantiation
 
