@@ -19,6 +19,7 @@ public class SortUtil {
         LinkedHashSet<SortField> sortFields = new LinkedHashSet<>();
         sortFields.add(new SortField(SortAttribute.DATE, SortOrder.DESCENDING));
         sortFields.add(new SortField(SortAttribute.COST, SortOrder.DESCENDING));
+        sortFields.add(new SortField(SortAttribute.NAME, SortOrder.ASCENDING));
         return sortFields;
     }
 }

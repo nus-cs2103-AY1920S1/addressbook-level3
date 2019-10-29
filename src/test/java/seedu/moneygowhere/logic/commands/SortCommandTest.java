@@ -56,7 +56,8 @@ class SortCommandTest {
     @Test
     public void execute_defaultFieldsSortedList_success() {
         SortCommand command = new SortCommand(SortUtil.getDefaultSortFieldSet());
-        assertCommandSuccess(command, model, SortCommand.MESSAGE_SUCCESS, expectedModel);
+        SpendingComparator spendingComparator = new SpendingComparator();
+        assertCommandSuccess(command, model, SortCommand.MESSAGE_SUCCESS + "\n" + spendingComparator, expectedModel);
     }
 
     @Test
@@ -65,8 +66,9 @@ class SortCommandTest {
         fields.add(new SortField(SortAttribute.DATE, SortOrder.ASCENDING));
 
         SortCommand command = new SortCommand(fields);
-        expectedModel.updateSortedSpendingList(new SpendingComparator(fields));
-        assertCommandSuccess(command, model, SortCommand.MESSAGE_SUCCESS, expectedModel);
+        SpendingComparator spendingComparator = new SpendingComparator(fields);
+        expectedModel.updateSortedSpendingList(spendingComparator);
+        assertCommandSuccess(command, model, SortCommand.MESSAGE_SUCCESS + "\n" + spendingComparator, expectedModel);
         assertEquals(expectedModel.getFilteredSpendingList(), model.getFilteredSpendingList());
     }
 
@@ -83,8 +85,10 @@ class SortCommandTest {
         expectedModel.addSpending(apple);
 
         SortCommand command = new SortCommand(fields);
-        expectedModel.updateSortedSpendingList(new SpendingComparator(fields));
-        assertCommandSuccess(command, model, SortCommand.MESSAGE_SUCCESS, expectedModel);
+
+        SpendingComparator spendingComparator = new SpendingComparator(fields);
+        expectedModel.updateSortedSpendingList(spendingComparator);
+        assertCommandSuccess(command, model, SortCommand.MESSAGE_SUCCESS + "\n" + spendingComparator, expectedModel);
         assertEquals(expectedModel.getFilteredSpendingList(), model.getFilteredSpendingList());
     }
 }
