@@ -45,7 +45,7 @@ For example, if the user has purchased Korean food on multiple occasions, the re
 start to recommend other Korean food that the user might enjoy.
 
 In addition, if the user specifies that they do not like spicy food, the recommendation system will apply a penalty to
-spicy food accordingly and the overall recommendations contain less spicy food.
+spicy food accordingly and the overall recommendations would contain less spicy food.
 
 ==== Justification
 
@@ -56,8 +56,8 @@ to discover food matching their palate that they might not have tried before whi
 
 While implementing this feature, I had to implement new commands such as `like`, `dislike`, `removelike` and `removedislike`.
 These commands form the backbone of the recommendation system as it allows the user to specify their preferences. The
-application can then take into account the user's preferences when selecting the food items to recommend, resulting in
-more accurate recommendations.
+application can then take into account the user's specified preferences when selecting the food items to recommend,
+resulting in more accurate recommendations.
 
 Storage functionality for the user's preferences were also implemented. This means that the user's likes and dislikes
 are conveniently saved into their hard disk and persist even after the application is closed and restarted.
@@ -75,7 +75,32 @@ In this way, the user benefits from the recommendation system which provides mor
 
 ** Added user stories as issues on GitHub
 
+** Reviewed pull requests by team members
+
+** Opened issues when bugs were found [Issue https://github.com/AY1920S1-CS2103T-F13-2/main/issues/127[#127],
+https://github.com/AY1920S1-CS2103T-F13-2/main/issues/171[#171]]
+
+** Fixed bugs after they were found [PR https://github.com/AY1920S1-CS2103T-F13-2/main/pull/128[#128]]
+
 * Documentation:
+
+** Updated the User Guide
+
+*** Updated README and added badges [PR https://github.com/AY1920S1-CS2103T-F13-2/main/pull/59[#59],
+https://github.com/AY1920S1-CS2103T-F13-2/main/pull/63[#63]]
+
+*** Revamped the structure of the User Guide and standardized the structure among team members [PR
+https://github.com/AY1920S1-CS2103T-F13-2/main/pull/178[#178]]
+
+** Updated the Developer Guide
+
+*** Standardized the structure among team members [PR https://github.com/AY1920S1-CS2103T-F13-2/main/pull/178[#178]]
+
+** Community:
+
+*** Reviewed the Developer Guide of other teams [Examples:
+https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/64#pullrequestreview-306988261[#1],
+https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/64#pullrequestreview-297271318[#2]]
 
 == Contributions to the User Guide
 
