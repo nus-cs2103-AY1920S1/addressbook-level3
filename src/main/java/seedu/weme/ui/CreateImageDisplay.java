@@ -15,9 +15,15 @@ public class CreateImageDisplay extends UiPart<Region> {
     private static final String FXML = "CreateImageDisplay.fxml";
 
     @FXML
+    private VBox memeCreationParentBox;
+    @FXML
     private VBox memeCreationImageBox;
     @FXML
     private ImageView memeImage;
+    @FXML
+    private ImageView verticalRule;
+    @FXML
+    private ImageView horizontalRule;
 
     private CreateImagePlaceholder placeholder = new CreateImagePlaceholder();
 
@@ -34,10 +40,12 @@ public class CreateImageDisplay extends UiPart<Region> {
     public void updateImage(MemeCreation session) {
         if (session.getCurrentImage().isPresent()) {
             memeImage.setImage(SwingFXUtils.toFXImage(session.getCurrentImage().get(), null));
-            memeCreationImageBox.getChildren().setAll(memeImage);
+            verticalRule.setFitHeight(memeImage.getBoundsInParent().getHeight());
+            horizontalRule.setFitWidth(memeImage.getBoundsInParent().getWidth());
+            memeCreationParentBox.getChildren().setAll(memeCreationImageBox);
         } else {
             memeImage.setImage(null);
-            memeCreationImageBox.getChildren().setAll(placeholder.getRoot());
+            memeCreationParentBox.getChildren().setAll(placeholder.getRoot());
         }
     }
 
