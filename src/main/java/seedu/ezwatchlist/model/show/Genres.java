@@ -1,6 +1,7 @@
 package seedu.ezwatchlist.model.show;
 
 import java.util.List;
+import java.util.stream.Stream;
 
 /**
  * Represents a list of genres of the given show.
@@ -18,5 +19,9 @@ public class Genres {
 
     public void setGenres(List<String> genres) {
         this.genres = genres;
+    }
+
+    public Stream<String> stream() {
+        return genres.stream();
     }
 }
