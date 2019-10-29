@@ -1,5 +1,6 @@
 package seedu.ezwatchlist.testutil;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -11,6 +12,7 @@ import seedu.ezwatchlist.model.show.Movie;
 import seedu.ezwatchlist.model.show.Name;
 import seedu.ezwatchlist.model.show.RunningTime;
 import seedu.ezwatchlist.model.show.Show;
+import seedu.ezwatchlist.model.show.TvSeason;
 import seedu.ezwatchlist.model.show.TvShow;
 import seedu.ezwatchlist.model.util.SampleDataUtil;
 
@@ -123,7 +125,7 @@ public class ShowBuilder {
             return new Movie(name, description, isWatched, dateOfRelease, runningTime, actors);
         } else {
             return new TvShow(name, description, isWatched, dateOfRelease, runningTime, actors,
-                    0 , 0, null);
+                    0 , 0, new ArrayList<TvSeason>());
         }
     }
 
