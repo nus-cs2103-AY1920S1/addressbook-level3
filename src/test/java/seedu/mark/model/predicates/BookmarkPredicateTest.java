@@ -12,7 +12,7 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 import seedu.mark.model.bookmark.Bookmark;
-import seedu.mark.testutil.BookmarkBuilder;
+import seedu.mark.model.bookmark.util.BookmarkBuilder;
 
 public class BookmarkPredicateTest {
 

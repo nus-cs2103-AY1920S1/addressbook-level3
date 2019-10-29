@@ -39,10 +39,10 @@ import seedu.mark.logic.parser.exceptions.ParseException;
 import seedu.mark.model.autotag.SelectiveBookmarkTagger;
 import seedu.mark.model.bookmark.Bookmark;
 import seedu.mark.model.bookmark.Folder;
+import seedu.mark.model.bookmark.util.BookmarkBuilder;
 import seedu.mark.model.predicates.BookmarkPredicate;
 import seedu.mark.model.predicates.IdentifiersContainKeywordsPredicate;
 import seedu.mark.model.tag.Tag;
-import seedu.mark.testutil.BookmarkBuilder;
 import seedu.mark.testutil.BookmarkUtil;
 import seedu.mark.testutil.EditBookmarkDescriptorBuilder;
 
@@ -181,8 +181,9 @@ public class MarkParserTest {
 
     @Test
     public void parseCommand_unrecognisedInput_throwsParseException() {
-        assertThrows(ParseException.class, String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE), ()
-            -> parser.parseCommand(""));
+        assertThrows(ParseException.class,
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE), () ->
+                parser.parseCommand(""));
     }
 
     @Test

@@ -1,7 +1,6 @@
 package seedu.mark.commons.core;
 
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Objects;
 import java.util.logging.Level;
 
@@ -10,11 +9,11 @@ import java.util.logging.Level;
  */
 public class Config {
 
-    public static final Path DEFAULT_CONFIG_FILE = Paths.get("config.json");
+    public static final Path DEFAULT_CONFIG_FILE = Path.of("config.json");
 
     // Config values customizable through config file
     private Level logLevel = Level.INFO;
-    private Path userPrefsFilePath = Paths.get("preferences.json");
+    private Path userPrefsFilePath = Path.of("preferences.json");
 
     public Level getLogLevel() {
         return logLevel;

@@ -7,9 +7,9 @@ import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
 import seedu.mark.model.bookmark.Bookmark;
+import seedu.mark.model.bookmark.util.BookmarkBuilder;
 import seedu.mark.model.predicates.BookmarkPredicate;
 import seedu.mark.model.tag.Tag;
-import seedu.mark.testutil.BookmarkBuilder;
 
 class SelectiveBookmarkTaggerTest {
 

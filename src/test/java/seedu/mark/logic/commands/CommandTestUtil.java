@@ -53,6 +53,7 @@ public class CommandTestUtil {
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
     public static final String URL_DESC_AMY = " " + PREFIX_URL + VALID_URL_AMY;
     public static final String URL_DESC_BOB = " " + PREFIX_URL + VALID_URL_BOB;
+    public static final String URL_DESC_THIS = " " + PREFIX_URL + "this";
     public static final String REMARK_DESC_AMY = " " + PREFIX_REMARK + VALID_REMARK_AMY;
     public static final String REMARK_DESC_BOB = " " + PREFIX_REMARK + VALID_REMARK_BOB;
     public static final String PARENT_FOLDER_DESC_CS2103T = " " + PREFIX_PARENT_FOLDER + VALID_FOLDER_CS2103T;

@@ -59,6 +59,15 @@ public class AddFolderCommandTest {
     }
 
     @Test
+    public void execute_duplicateRootFolder_throwsCommandException() {
+        AddFolderCommand addFolderCommand = new AddFolderCommand(Folder.ROOT_FOLDER, null);
+        ModelStub modelStub = new ModelStubWithFolder(NON_NULL_FOLDER);
+
+        assertThrows(CommandException.class, AddFolderCommand.MESSAGE_READDING_ROOT_FOLDER, () ->
+                addFolderCommand.execute(modelStub, new StorageStub()));
+    }
+
+    @Test
     public void execute_duplicateFolder_throwsCommandException() {
         AddFolderCommand addFolderCommand = new AddFolderCommand(NON_NULL_FOLDER, null);
         ModelStub modelStub = new ModelStubWithFolder(NON_NULL_FOLDER);
