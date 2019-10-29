@@ -13,6 +13,7 @@ import static seedu.mark.testutil.TypicalIndexes.INDEX_FIRST_BOOKMARK;
 
 import java.nio.file.Path;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -38,10 +39,10 @@ import seedu.mark.logic.parser.exceptions.ParseException;
 import seedu.mark.model.autotag.SelectiveBookmarkTagger;
 import seedu.mark.model.bookmark.Bookmark;
 import seedu.mark.model.bookmark.Folder;
-import seedu.mark.model.predicates.IdentifiersContainKeywordsPredicate;
+import seedu.mark.model.bookmark.util.BookmarkBuilder;
+import seedu.mark.model.predicates.BookmarkContainsKeywordsPredicate;
 import seedu.mark.model.predicates.NameContainsKeywordsPredicate;
 import seedu.mark.model.tag.Tag;
-import seedu.mark.testutil.BookmarkBuilder;
 import seedu.mark.testutil.BookmarkUtil;
 import seedu.mark.testutil.EditBookmarkDescriptorBuilder;
 
@@ -143,7 +144,9 @@ public class MarkParserTest {
         List<String> keywords = Arrays.asList("foo", "bar", "baz");
         FindCommand command = (FindCommand) parser.parseCommand(
                 FindCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
-        assertEquals(new FindCommand(new IdentifiersContainKeywordsPredicate(keywords)), command);
+        BookmarkContainsKeywordsPredicate predicate = new BookmarkContainsKeywordsPredicate(
+                keywords, Collections.emptyList(), Collections.emptyList());
+        assertEquals(new FindCommand(predicate), command);
     }
 
     @Test
@@ -172,8 +175,9 @@ public class MarkParserTest {
 
     @Test
     public void parseCommand_unrecognisedInput_throwsParseException() {
-        assertThrows(ParseException.class, String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE), ()
-            -> parser.parseCommand(""));
+        assertThrows(ParseException.class,
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE), () ->
+                        parser.parseCommand(""));
     }
 
     @Test

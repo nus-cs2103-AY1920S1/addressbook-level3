@@ -10,7 +10,6 @@ import static seedu.mark.testutil.TypicalBookmarks.ALICE;
 import static seedu.mark.testutil.TypicalBookmarks.BENSON;
 
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
@@ -39,14 +38,14 @@ public class ModelManagerTest {
     @Test
     public void setUserPrefs_validUserPrefs_copiesUserPrefs() {
         UserPrefs userPrefs = new UserPrefs();
-        userPrefs.setMarkFilePath(Paths.get("bookmark/manager/file/path"));
+        userPrefs.setMarkFilePath(Path.of("bookmark/manager/file/path"));
         userPrefs.setGuiSettings(new GuiSettings(1, 2, 3, 4));
         modelManager.setUserPrefs(userPrefs);
         assertEquals(userPrefs, modelManager.getUserPrefs());
 
         // Modifying userPrefs should not modify modelManager's userPrefs
         UserPrefs oldUserPrefs = new UserPrefs(userPrefs);
-        userPrefs.setMarkFilePath(Paths.get("new/bookmark/manager/file/path"));
+        userPrefs.setMarkFilePath(Path.of("new/bookmark/manager/file/path"));
         assertEquals(oldUserPrefs, modelManager.getUserPrefs());
     }
 
@@ -69,7 +68,7 @@ public class ModelManagerTest {
 
     @Test
     public void setMarkFilePath_validPath_setsMarkFilePath() {
-        Path path = Paths.get("bookmark/manager/file/path");
+        Path path = Path.of("bookmark/manager/file/path");
         modelManager.setMarkFilePath(path);
         assertEquals(path, modelManager.getMarkFilePath());
     }
@@ -140,7 +139,7 @@ public class ModelManagerTest {
 
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
-        differentUserPrefs.setMarkFilePath(Paths.get("differentFilePath"));
+        differentUserPrefs.setMarkFilePath(Path.of("differentFilePath"));
         assertFalse(modelManager.equals(new ModelManager(mark, differentUserPrefs)));
 
         // different currentUrl, one non-null, one null -> return false
