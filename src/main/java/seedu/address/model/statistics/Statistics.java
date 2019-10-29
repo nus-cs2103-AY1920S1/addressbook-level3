@@ -5,6 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javafx.util.Pair;
 import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
 
 /**
@@ -23,11 +24,17 @@ public class Statistics {
     private ArrayList<StudentStat> studentWeightedScores;
     private HashMap<Integer, Integer> scoreCounters; //frequency of individual (rounded down) scores
     private HashMap<String, Integer> gradeGroupings; //frequency of score ranges
+    private ArrayList<Pair<String, Double>> firstQuartile;
+    private ArrayList<Pair<String, Double>> secondQuartile;
+    private ArrayList<Pair<String, Double>> thirdQuartile;
+    private ArrayList<Pair<String, Double>> fourthQuartile;
     private int totalStudents;
     private double min;
     private double max;
     private double mean;
+    private double q2;
     private double median;
+    private double q3;
     private double standardDev;
 
     /**
@@ -39,6 +46,10 @@ public class Statistics {
         requireAllNonNull(data);
         this.data = data;
         this.studentWeightedScores = new ArrayList<>();
+        this.firstQuartile = new ArrayList<>();
+        this.secondQuartile = new ArrayList<>();
+        this.thirdQuartile = new ArrayList<>();
+        this.fourthQuartile = new ArrayList<>();
         this.gradeGroupings = new HashMap<>();
         this.scoreCounters = new HashMap<>();
         initializeData();
@@ -57,25 +68,45 @@ public class Statistics {
     }
 
     /**
+     * Slots the data entry StudentStat into the correct quartile range.
+     * @param studentStat the data entry of StudentStat.
+     */
+    public void addToQuartile(StudentStat studentStat) {
+        double score = studentStat.getWeightedScore();
+        Pair<String, Double> nameToScore = new Pair<>(studentStat.getName(), score);
+        if (score >= q2) {
+            firstQuartile.add(nameToScore);
+        } else if ((score < q2) && (score >= median)) {
+            secondQuartile.add(nameToScore);
+        } else if ((score < median) && (score >= q3)) {
+            thirdQuartile.add(nameToScore);
+        } else {
+            fourthQuartile.add(nameToScore);
+        }
+    }
+
+    /**
      * Generate the processed data.
-     * Finds: ranking, total data entries, min, max, mean, median, standard deviation.
+     * Finds: ranking, total data entries, min, max, mean, q1, median, q3, standard deviation.
      */
     public void processData() {
         data.forEach((name, subjectScoreMap) -> studentWeightedScores.add(new StudentStat(name, subjectScoreMap)));
-        studentWeightedScores.sort((s1, s2) -> s1.weightedScore >= s2.weightedScore ? 1 : -1);
+        studentWeightedScores.sort((s1, s2) -> s1.getWeightedScore() >= s2.getWeightedScore() ? 1 : -1);
         studentWeightedScores.stream().forEach(x -> sortIntoGrade(x));
         studentWeightedScores.stream()
-            .mapToInt(studentStat -> (int) studentStat.weightedScore)
+            .mapToInt(studentStat -> (int) studentStat.getWeightedScore())
             .forEach(score -> allocateDistribution(score));
-
         DescriptiveStatistics statsGenerator = new DescriptiveStatistics();
-        studentWeightedScores.stream().forEach((dataValue) -> statsGenerator.addValue(dataValue.weightedScore));
+        studentWeightedScores.stream().forEach((dataValue) -> statsGenerator.addValue(dataValue.getWeightedScore()));
         totalStudents = (int) statsGenerator.getN();
         min = statsGenerator.getMin();
         max = statsGenerator.getMax();
         mean = statsGenerator.getMean();
+        q2 = statsGenerator.getPercentile(75);
         median = statsGenerator.getPercentile(50);
+        q3 = statsGenerator.getPercentile(25);
         standardDev = statsGenerator.getStandardDeviation();
+        studentWeightedScores.stream().forEach(x -> addToQuartile(x));
     }
 
     /**
@@ -95,13 +126,13 @@ public class Statistics {
      * @param studentStat
      */
     private void sortIntoGrade(StudentStat studentStat) {
-        if (studentStat.weightedScore >= 80) {
+        if (studentStat.getWeightedScore() >= 80) {
             gradeGroupings.put(EIGHTY_AND_ABOVE, gradeGroupings.get(EIGHTY_AND_ABOVE) + 1);
-        } else if (studentStat.weightedScore >= 70) {
+        } else if (studentStat.getWeightedScore() >= 70) {
             gradeGroupings.put(SEVENTY_TO_SEVENTY_NINE, gradeGroupings.get(SEVENTY_TO_SEVENTY_NINE) + 1);
-        } else if (studentStat.weightedScore >= 60) {
+        } else if (studentStat.getWeightedScore() >= 60) {
             gradeGroupings.put(SIXTY_TO_SIXTY_NINE, gradeGroupings.get(SIXTY_TO_SIXTY_NINE) + 1);
-        } else if (studentStat.weightedScore >= 50) {
+        } else if (studentStat.getWeightedScore() >= 50) {
             gradeGroupings.put(FIFTY_TO_FIFTY_NINE, gradeGroupings.get(FIFTY_TO_FIFTY_NINE) + 1);
         } else {
             gradeGroupings.put(BELOW_FIFTY, gradeGroupings.get(BELOW_FIFTY) + 1);
@@ -144,6 +175,22 @@ public class Statistics {
         return totalStudents;
     }
 
+    public ArrayList<Pair<String, Double>> getFirstQuartile() {
+        return firstQuartile;
+    }
+
+    public ArrayList<Pair<String, Double>> getSecondQuartile() {
+        return secondQuartile;
+    }
+
+    public ArrayList<Pair<String, Double>> getThirdQuartile() {
+        return thirdQuartile;
+    }
+
+    public ArrayList<Pair<String, Double>> getFourthQuartile() {
+        return fourthQuartile;
+    }
+
     /**
      * Represents a student data entry and their respective scores.
      */
@@ -162,6 +209,14 @@ public class Statistics {
             int noSubjects = subjectScoreMap.size();
             double total = subjectScoreMap.values().stream().mapToDouble(score -> Double.valueOf(score)).sum();
             weightedScore = total / noSubjects;
+        }
+
+        public double getWeightedScore() {
+            return weightedScore;
+        }
+
+        public String getName() {
+            return name;
         }
     }
 }

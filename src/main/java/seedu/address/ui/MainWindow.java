@@ -87,7 +87,6 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
-        statsReportWindow = new StatsReportWindow();
         slideShowWindow = new SlideshowWindow(new Stage(), logic);
     }
 
@@ -280,6 +279,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     public void handleStats(CommandResultType commandResultType) throws IOException {
+        statsReportWindow = new StatsReportWindow();
         StatisticsCard statsCard = new StatisticsCard(logic.getProcessedStatistics());
         statsReportWindow.setStatsCard(statsCard);
         if (!statsReportWindow.isShowing()) {
