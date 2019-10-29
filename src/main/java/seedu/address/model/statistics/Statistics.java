@@ -5,8 +5,9 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import javafx.util.Pair;
 import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
+
+import javafx.util.Pair;
 
 /**
  * Represents a Statistics report generated from input data.
