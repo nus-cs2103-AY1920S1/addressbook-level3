@@ -24,6 +24,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.student.Student;
 import seedu.address.storage.printable.StatisticsPrintable;
+import seedu.address.ui.util.DisplayType;
 
 
 /**

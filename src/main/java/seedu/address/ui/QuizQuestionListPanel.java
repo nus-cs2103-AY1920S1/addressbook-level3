@@ -9,6 +9,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.question.Question;
+import seedu.address.ui.util.DisplayType;
 
 /**
  * Panel containing the list of questions.
