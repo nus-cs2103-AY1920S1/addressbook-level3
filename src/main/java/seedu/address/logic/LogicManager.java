@@ -2,7 +2,7 @@ package seedu.address.logic;
 
 import java.io.IOException;
 import java.nio.file.Path;
-import java.util.Set;
+import java.util.List;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
@@ -75,12 +75,12 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public Set<Person> getAssociatedPersons(Activity activity) {
+    public List<Person> getAssociatedPersons(Activity activity) {
         return model.getAssociatedPersons(activity);
     }
 
     @Override
-    public Set<Activity> getAssociatedActivities(Person person) {
+    public List<Activity> getAssociatedActivities(Person person) {
         return model.getAssociatedActivities(person);
     }
 

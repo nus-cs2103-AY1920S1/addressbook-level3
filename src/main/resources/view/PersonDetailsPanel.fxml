@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.FlowPane?>
@@ -48,8 +49,11 @@
         </HBox>
       </VBox>
     </GridPane>
-    <VBox spacing="4" minHeight="100">
-      <Label fx:id="id" styleClass="person-debug-id" />
+    <VBox alignment="TOP_CENTER" spacing="4" styleClass="history-container" VBox.Vgrow="ALWAYS">
+      <Label alignment="CENTER" styleClass="activity-history-header" text="Activity history"
+          wrapText="true" minWidth="450" maxWidth="450" />
+      <VBox alignment="TOP_CENTER" spacing="4" fx:id="activityHistory" VBox.vgrow="ALWAYS"
+          minWidth="450" maxWidth="450" styleClass="activity-history" />
     </VBox>
   </VBox>
 </ScrollPane>

@@ -167,6 +167,48 @@
     -fx-text-alignment: center;
 }
 
+.history-container {
+    -fx-padding: 4 2 0 2;
+    -fx-alignment: center;
+}
+
+.history-container .activity-history-header {
+    -fx-padding: 2 8 2 8;
+    -fx-font-family: "Noto Sans CJK SC", "Segoe UI", sans-serif;
+    -fx-background-color: #cbcbcb;
+    -fx-border-color: #c0c0c0;
+    -fx-border-radius: 1px;
+    -fx-border-width: 2px;
+    -fx-font-size: 14px;
+    -fx-text-alignment: center;
+}
+
+.activity-history-card {
+    -fx-border-color: #c0c0c0;
+    -fx-border-radius: 1px;
+    -fx-border-width: 2px;
+    -fx-background-color: transparent;
+}
+
+.activity-history-card .image-container {
+    -fx-padding: 5;
+}
+
+.activity-history-card .details-container {
+    -fx-padding: 2 5 2 5;
+}
+
+.activity-history-card .activity-title {
+    -fx-font-family: "Noto Sans CJK SC Bold", "Segoe UI", sans-serif;
+    -fx-font-weight: bold;
+    -fx-font-size: 15px;
+    -fx-text-alignment: center;
+}
+
+.activity-history-card .activity-transfer-amt {
+    -fx-font-size: 15px;
+}
+
 .activity-details .participant-list {
     -fx-hgap: 4;
     -fx-vgap: 4;

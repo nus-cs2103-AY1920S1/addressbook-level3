@@ -2,8 +2,8 @@ package seedu.address.stub;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -173,12 +173,12 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public Set<Person> getAssociatedPersons(Activity activity) {
+    public List<Person> getAssociatedPersons(Activity activity) {
         throw new AssertionError("This method should not be called.");
     }
 
     @Override
-    public Set<Activity> getAssociatedActivities(Person person) {
+    public List<Activity> getAssociatedActivities(Person person) {
         throw new AssertionError("This method should not be called.");
     }
 }

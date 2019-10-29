@@ -1,6 +1,6 @@
 package seedu.address.ui;
 
-import java.util.Set;
+import java.util.List;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -31,7 +31,7 @@ public class ActivityDetailsPanel extends UiPart<Region> {
     @FXML
     private Label spending;
 
-    public ActivityDetailsPanel(Activity viewedActivity, Set<Person> participants) {
+    public ActivityDetailsPanel(Activity viewedActivity, List<Person> participants) {
         super(FXML);
 
         this.activity = viewedActivity;
@@ -39,15 +39,15 @@ public class ActivityDetailsPanel extends UiPart<Region> {
         title.setText(activity.getTitle().toString());
 
         participants.stream()
-            .map((participant) -> participant.getName().toString())
-            .forEach(name -> participantTags.getChildren().add(new Label(name)));
+                .map((participant) -> participant.getName().toString())
+                .forEach(name -> participantTags.getChildren().add(new Label(name)));
 
         int numParticipants = activity.getParticipantIds().size();
         participantCount.setText(numParticipants + (numParticipants != 1 ? " participants" : " participant"));
 
         double totalSpending = activity.getExpenses().stream()
-            .map((expense) -> expense.getAmount().value)
-            .reduce(0.00, (acc, amt) -> acc + amt);
+                .map((expense) -> expense.getAmount().value)
+                .reduce(0.00, (acc, amt) -> acc + amt);
         spending.setText(String.format("$%.2f", totalSpending));
     }
 }

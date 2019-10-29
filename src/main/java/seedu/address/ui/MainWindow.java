@@ -2,8 +2,8 @@ package seedu.address.ui;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
@@ -163,13 +163,13 @@ public class MainWindow extends UiPart<Stage> {
             break;
         case VIEW_CONTACT:
             Person viewedContact = newContext.getContact().get();
-            Set<Activity> associatedActivities = logic.getAssociatedActivities(viewedContact);
+            List<Activity> associatedActivities = logic.getAssociatedActivities(viewedContact);
             personDetailsPanel = new PersonDetailsPanel(viewedContact, associatedActivities);
             contentContainer.getChildren().add(personDetailsPanel.getRoot());
             break;
         case VIEW_ACTIVITY:
             Activity viewedActivity = newContext.getActivity().get();
-            Set<Person> associatedPersons = logic.getAssociatedPersons(viewedActivity);
+            List<Person> associatedPersons = logic.getAssociatedPersons(viewedActivity);
             activityDetailsPanel = new ActivityDetailsPanel(viewedActivity, associatedPersons);
             contentContainer.getChildren().add(activityDetailsPanel.getRoot());
             break;
