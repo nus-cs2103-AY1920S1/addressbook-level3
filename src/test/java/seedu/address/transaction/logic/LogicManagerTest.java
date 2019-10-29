@@ -70,8 +70,7 @@ class LogicManagerTest {
         Logic logic = new LogicManager(model, storage, personModel);
         logic.addTransaction(TypicalTransactions.DANIEL_TRANSACTION_9);
         model.getTransactionList().add(TypicalTransactions.DANIEL_TRANSACTION_9);
-       assertEquals(logic.getTransactionList(), model.getTransactionList());
-
+        assertEquals(logic.getTransactionList(), model.getTransactionList());
     }
 
     @Test
