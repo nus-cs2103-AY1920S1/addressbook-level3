@@ -10,7 +10,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
@@ -39,8 +38,6 @@ public class SlideshowWindow extends UiPart<Stage> {
     private Label tipLabel;
     @FXML
     private Label questionNoLabel;
-    @FXML
-    private VBox testVBox;
 
     /**
      * Creates a new SlideshowWindow.
