@@ -22,6 +22,8 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 
+import seedu.address.commons.Keywords;
+
 /**
  * The UI component that is responsible for receiving user command inputs.
  */
@@ -29,40 +31,8 @@ public class CommandBox extends UiPart<Region> {
 
     public static final String ERROR_STYLE_CLASS = "error";
     private static final String FXML = "CommandBox.fxml";
-    List<String> commandList = List.of(
-        //inventory
-        "add-inv", 
-        "list-inv",
-        "edit-inv",
-        "delete-inv",
-        "pdf",
-        //task
-        "add-task", 
-        "delete-task", 
-        "find-task", 
-        "list-tasks",
-        "edit-task",
-        "doing-task",
-        "done-task",
-        "add-member",
-        "delete-member",
-        "edit-member",
-        "find-member",
-        "list-members",
-        //association 
-        "assign-task",
-        "assign-member",
-        "fire-task",
-        "fire-member",
-        //settings
-        "theme",
-        "clock",
-        //universal
-        "clear",
-        "exit",
-        "help",
-        "home"
-        );
+    List<String> commandList = Keywords.commandList;
+
     private final CommandExecutor commandExecutor;
 
     /** The existing autocomplete entries. */
@@ -74,18 +44,29 @@ public class CommandBox extends UiPart<Region> {
     @FXML
     private TextField commandTextField;
 
+    /**
+     * makes a new CommandBox adapted from Caleb Brinkman's AutoCompleteTextBox
+     * https://gist.github.com/floralvikings/10290131
+     * 
+     * @param commandExecutor
+     */
     public CommandBox(CommandExecutor commandExecutor) {
         super(FXML);
         this.commandExecutor = commandExecutor;
         entries = new TreeSet<>(commandList);
         entriesPopup = new ContextMenu();
-        // calls #setStyleToDefault() whenever there is a change to the text of the command box.
+        // calls #setStyleToDefault() whenever there is a change to the text of the
+        // command box.
         commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
-        commandTextField.textProperty().addListener((observableValue, oldStr, newStr) -> getSuggestions(observableValue, oldStr, newStr));
+        commandTextField.textProperty()
+                .addListener((observableValue, oldStr, newStr) -> getSuggestions(observableValue, oldStr, newStr));
 
     }
+
     /**
      * returns list(on user interface) of the possible commands from the user input
+     * only works for the command keyword and not the other parameters
+     * 
      * @param observableValue
      * @param s
      * @param s2
@@ -94,60 +75,62 @@ public class CommandBox extends UiPart<Region> {
     public void getSuggestions(ObservableValue<? extends String> observableValue, String s, String s2) {
         System.out.println("old: " + s + "/new : " + s2);
         String text = commandTextField.getText();
-        if (text.length() == 0)
-        {
-          entriesPopup.hide();
-        } else
-        {
-          LinkedList<String> searchResult = new LinkedList<>();
-          searchResult.addAll(entries.subSet(text, text + Character.MAX_VALUE));
-          if (entries.size() > 0)
-          {
-            populatePopup(searchResult);
-            if (!entriesPopup.isShowing())
-            {
-              entriesPopup.show(this.commandTextField , Side.BOTTOM, 0, 0);
-            }
-          } else
-          {
+        if (text.length() == 0) {
             entriesPopup.hide();
-          }
+        } else {
+            LinkedList<String> searchResult = new LinkedList<>();
+            searchResult.addAll(entries.subSet(text, text + Character.MAX_VALUE));
+            //show the list of suggestions if user input is a substring
+            if (entries.size() > 0) {
+                populatePopup(searchResult);
+                if (!entriesPopup.isShowing()) {
+                    entriesPopup.show(this.commandTextField, Side.BOTTOM, 0, 0);
+                }
+            } else {
+                entriesPopup.hide();
+            }
         }
-      }
+    }
+
     /**
      * Get the existing set of autocomplete entries.
+     * 
      * @return The existing autocomplete entries.
      */
-    public SortedSet<String> getEntries() { return entries; }
+    public SortedSet<String> getEntries() {
+        return entries;
+    }
 
-  /**
-   * Populate the entry set with the given search results.  Display is limited to 10 entries, for performance.
-   * @param searchResult The set of matching strings.
-   */
+    /**
+     * Populate the entry set with the given search results. Display is limited to
+     * 5 entries, for performance.
+     * 
+     * @param searchResult The set of matching strings.
+     */
     private void populatePopup(List<String> searchResult) {
         List<CustomMenuItem> menuItems = new LinkedList<>();
-        // If you'd like more entries, modify this line.
-        int maxEntries = 10;
+        int maxEntries = 5;
         int count = Math.min(searchResult.size(), maxEntries);
-        for (int i = 0; i < count; i++)
-        {
-        final String result = searchResult.get(i);
-        Label entryLabel = new Label(result);
-        CustomMenuItem item = new CustomMenuItem(entryLabel, true);
-        item.setOnAction(new EventHandler<ActionEvent>()
-        {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-            commandTextField.setText(result);
-            entriesPopup.hide();
-            }
-        });
-        menuItems.add(item);
+        for (int i = 0; i < count; i++) {
+            final String result = searchResult.get(i);
+            Label entryLabel = new Label(result);
+            CustomMenuItem item = new CustomMenuItem(entryLabel, true);
+            item.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent actionEvent) {
+                    commandTextField.setText(result);
+                    //this line moves the cursor to the end after choosing a drop-down option
+                    commandTextField.endOfNextWord();
+                    entriesPopup.hide();
+                }
+            });
+            menuItems.add(item);
         }
         entriesPopup.getItems().clear();
         entriesPopup.getItems().addAll(menuItems);
 
     }
+
     /**
      * Handles the Enter button pressed event.
      */
