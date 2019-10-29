@@ -14,8 +14,8 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 image::thwnus.png[width="150", align="left"]
 {empty}[https://github.com/thwnus[github]]
 
-Role: Code Quality +
-Responsibilities: Script Evaluator, Transaction Reports
+Role: Code Quality, Integration +
+Responsibilities: Scripting Engine, Transaction Reports
 
 '''
 
@@ -23,7 +23,7 @@ Responsibilities: Script Evaluator, Transaction Reports
 image::cambrian-dk.png[width="150", align="left"]
 {empty}[http://github.com/cambrian-dk[github]]
 
-Role: Testing +
+Role: Developer, Testing +
 Responsibilities: Transactions
 
 '''
@@ -32,8 +32,8 @@ Responsibilities: Transactions
 image::tcgj.png[width="150", align="left"]
 {empty}[http://github.com/tcgj[github]]
 
-Role: Developer +
-Responsibilities: Categories, Accounts
+Role: Developer, Tracking, UI +
+Responsibilities: Rule Engine
 
 '''
 
@@ -41,8 +41,8 @@ Responsibilities: Categories, Accounts
 image::ChenJiehan318.png[width="150", align="left"]
 {empty}[http://github.com/ChenJiehan318[github]]
 
-Role: UI +
-Responsibilities: Budgets, Goals
+Role: Developer, Scheduling  +
+Responsibilities: Accounts, Categories
 
 '''
 
@@ -50,7 +50,7 @@ Responsibilities: Budgets, Goals
 image::kenneth-fung.png[width="150", align="left"]
 {empty}[http://github.com/kenneth-fung[github]]
 
-Role: Documentation +
+Role: Team Lead, Documentation +
 Responsibilities: Loans
 
 '''
