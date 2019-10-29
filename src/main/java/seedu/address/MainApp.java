@@ -165,8 +165,8 @@ public class MainApp extends Application {
         try {
             orderBookOptional = storage.readOrderBook();
 
-            if (!orderBookOptional.isEmpty() || !storage.readCustomerBook().isEmpty()
-                || !storage.readPhoneBook().isEmpty() || !storage.readScheduleBook().isEmpty()) {
+            if (orderBookOptional.isEmpty() || storage.readCustomerBook().isEmpty()
+                || storage.readPhoneBook().isEmpty() || storage.readScheduleBook().isEmpty()) {
                 logger.info("Data file not found. Will be starting with a new Order DataBook");
                 initialOrderData = new DataBook<>();
             } else {
