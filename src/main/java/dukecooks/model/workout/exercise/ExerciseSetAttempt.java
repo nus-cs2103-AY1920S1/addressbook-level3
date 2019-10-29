@@ -57,12 +57,12 @@ public class ExerciseSetAttempt {
             return false;
         }
 
-        ExerciseSetAttempt otherAttemt = (ExerciseSetAttempt) other;
-        return otherAttemt.getDistance().equals(getDistance())
-                && otherAttemt.getWeight().equals(getWeight())
-                && otherAttemt.getReps().equals(getReps())
-                && otherAttemt.getTime().equals(getTime())
-                && otherAttemt.getRestTime().equals(getRestTime());
+        ExerciseSetAttempt otherAttempt = (ExerciseSetAttempt) other;
+        return otherAttempt.getDistance().equals(getDistance())
+                && otherAttempt.getWeight().equals(getWeight())
+                && otherAttempt.getReps().equals(getReps())
+                && otherAttempt.getTime().equals(getTime())
+                && otherAttempt.getRestTime().equals(getRestTime());
     }
 
     @Override
