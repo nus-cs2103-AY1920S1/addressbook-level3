@@ -47,7 +47,6 @@ public class ProcessingCommand extends Command {
     private  Nric donorNRIC;
 
     protected TaskList taskList;
-    ProcessingTaskStorage processingTaskFile = new ProcessingTaskStorage(taskList, donor);
 
     public ProcessingCommand(String firstNricString, String secondNricString) {
         requireNonNull(firstNricString, secondNricString);
@@ -84,10 +83,10 @@ public class ProcessingCommand extends Command {
         try {
             if (isValidDonorPatientPair(firstNric, secondNric, model)) {
                 model.getFilteredPersonList();
-                processingTaskFile.LoadFile();
+                taskList = donor.getProcessingList(patientNRIC);
             }
             return new CommandResult(taskList.display());
-        } catch (PersonNotFoundException | IOException pne) {
+        } catch (PersonNotFoundException pne) {
             return new CommandResult(MESSAGE_NOT_PROCESSED);
         }
 
