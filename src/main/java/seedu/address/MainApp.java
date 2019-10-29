@@ -118,7 +118,8 @@ public class MainApp extends Application {
                 cashierStorage.getTransactionList());
 
         //For Overview Storage and Model
-        overviewStorage = new seedu.address.overview.storage.StorageManager("data/overviewInformation.txt");
+        overviewStorage = new seedu.address.overview.storage.StorageManager(
+                new File("data/overviewInformation.txt"));
         overviewModel = new seedu.address.overview.model.ModelManager(overviewStorage.readFromFile());
 
         //All logic
