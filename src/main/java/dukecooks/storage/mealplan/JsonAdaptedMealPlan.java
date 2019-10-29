@@ -10,8 +10,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import dukecooks.commons.exceptions.IllegalValueException;
 import dukecooks.model.mealplan.components.MealPlan;
 import dukecooks.model.mealplan.components.MealPlanName;
-import dukecooks.model.recipe.components.Recipe;
-import dukecooks.storage.recipe.JsonAdaptedRecipe;
+import dukecooks.model.recipe.components.RecipeName;
 
 /**
  * Jackson-friendly version of {@link MealPlan}.
@@ -21,26 +20,26 @@ class JsonAdaptedMealPlan {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "MealPlan's %s field is missing!";
 
     private final String name;
-    private final List<JsonAdaptedRecipe> recipes1 = new ArrayList<>();
-    private final List<JsonAdaptedRecipe> recipes2 = new ArrayList<>();
-    private final List<JsonAdaptedRecipe> recipes3 = new ArrayList<>();
-    private final List<JsonAdaptedRecipe> recipes4 = new ArrayList<>();
-    private final List<JsonAdaptedRecipe> recipes5 = new ArrayList<>();
-    private final List<JsonAdaptedRecipe> recipes6 = new ArrayList<>();
-    private final List<JsonAdaptedRecipe> recipes7 = new ArrayList<>();
+    private final List<JsonAdaptedRecipeName> recipes1 = new ArrayList<>();
+    private final List<JsonAdaptedRecipeName> recipes2 = new ArrayList<>();
+    private final List<JsonAdaptedRecipeName> recipes3 = new ArrayList<>();
+    private final List<JsonAdaptedRecipeName> recipes4 = new ArrayList<>();
+    private final List<JsonAdaptedRecipeName> recipes5 = new ArrayList<>();
+    private final List<JsonAdaptedRecipeName> recipes6 = new ArrayList<>();
+    private final List<JsonAdaptedRecipeName> recipes7 = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonAdaptedMealPlan} with the given meal plan details.
      */
     @JsonCreator
     public JsonAdaptedMealPlan(@JsonProperty("name") String name,
-                               @JsonProperty("day1") List<JsonAdaptedRecipe> recipes1,
-                               @JsonProperty("day2") List<JsonAdaptedRecipe> recipes2,
-                               @JsonProperty("day3") List<JsonAdaptedRecipe> recipes3,
-                               @JsonProperty("day4") List<JsonAdaptedRecipe> recipes4,
-                               @JsonProperty("day5") List<JsonAdaptedRecipe> recipes5,
-                               @JsonProperty("day6") List<JsonAdaptedRecipe> recipes6,
-                               @JsonProperty("day7") List<JsonAdaptedRecipe> recipes7) {
+                               @JsonProperty("day1") List<JsonAdaptedRecipeName> recipes1,
+                               @JsonProperty("day2") List<JsonAdaptedRecipeName> recipes2,
+                               @JsonProperty("day3") List<JsonAdaptedRecipeName> recipes3,
+                               @JsonProperty("day4") List<JsonAdaptedRecipeName> recipes4,
+                               @JsonProperty("day5") List<JsonAdaptedRecipeName> recipes5,
+                               @JsonProperty("day6") List<JsonAdaptedRecipeName> recipes6,
+                               @JsonProperty("day7") List<JsonAdaptedRecipeName> recipes7) {
         this.name = name;
         if (recipes1 != null) {
             this.recipes1.addAll(recipes1);
@@ -71,25 +70,25 @@ class JsonAdaptedMealPlan {
     public JsonAdaptedMealPlan(MealPlan source) {
         name = source.getName().fullName;
         recipes1.addAll(source.getDay1().stream()
-                .map(JsonAdaptedRecipe::new)
+                .map(JsonAdaptedRecipeName::new)
                 .collect(Collectors.toList()));
         recipes2.addAll(source.getDay2().stream()
-                .map(JsonAdaptedRecipe::new)
+                .map(JsonAdaptedRecipeName::new)
                 .collect(Collectors.toList()));
         recipes3.addAll(source.getDay3().stream()
-                .map(JsonAdaptedRecipe::new)
+                .map(JsonAdaptedRecipeName::new)
                 .collect(Collectors.toList()));
         recipes4.addAll(source.getDay4().stream()
-                .map(JsonAdaptedRecipe::new)
+                .map(JsonAdaptedRecipeName::new)
                 .collect(Collectors.toList()));
         recipes5.addAll(source.getDay5().stream()
-                .map(JsonAdaptedRecipe::new)
+                .map(JsonAdaptedRecipeName::new)
                 .collect(Collectors.toList()));
         recipes6.addAll(source.getDay6().stream()
-                .map(JsonAdaptedRecipe::new)
+                .map(JsonAdaptedRecipeName::new)
                 .collect(Collectors.toList()));
         recipes7.addAll(source.getDay7().stream()
-                .map(JsonAdaptedRecipe::new)
+                .map(JsonAdaptedRecipeName::new)
                 .collect(Collectors.toList()));
     }
 
@@ -108,38 +107,38 @@ class JsonAdaptedMealPlan {
         }
         final MealPlanName modelName = new MealPlanName(name);
 
-        final List<Recipe> day1 = new ArrayList<>();
-        for (JsonAdaptedRecipe recipe : recipes1) {
+        final List<RecipeName> day1 = new ArrayList<>();
+        for (JsonAdaptedRecipeName recipe : recipes1) {
             day1.add(recipe.toModelType());
         }
 
-        final List<Recipe> day2 = new ArrayList<>();
-        for (JsonAdaptedRecipe recipe : recipes2) {
+        final List<RecipeName> day2 = new ArrayList<>();
+        for (JsonAdaptedRecipeName recipe : recipes2) {
             day2.add(recipe.toModelType());
         }
 
-        final List<Recipe> day3 = new ArrayList<>();
-        for (JsonAdaptedRecipe recipe : recipes3) {
+        final List<RecipeName> day3 = new ArrayList<>();
+        for (JsonAdaptedRecipeName recipe : recipes3) {
             day3.add(recipe.toModelType());
         }
 
-        final List<Recipe> day4 = new ArrayList<>();
-        for (JsonAdaptedRecipe recipe : recipes4) {
+        final List<RecipeName> day4 = new ArrayList<>();
+        for (JsonAdaptedRecipeName recipe : recipes4) {
             day4.add(recipe.toModelType());
         }
 
-        final List<Recipe> day5 = new ArrayList<>();
-        for (JsonAdaptedRecipe recipe : recipes5) {
+        final List<RecipeName> day5 = new ArrayList<>();
+        for (JsonAdaptedRecipeName recipe : recipes5) {
             day5.add(recipe.toModelType());
         }
 
-        final List<Recipe> day6 = new ArrayList<>();
-        for (JsonAdaptedRecipe recipe : recipes6) {
+        final List<RecipeName> day6 = new ArrayList<>();
+        for (JsonAdaptedRecipeName recipe : recipes6) {
             day6.add(recipe.toModelType());
         }
 
-        final List<Recipe> day7 = new ArrayList<>();
-        for (JsonAdaptedRecipe recipe : recipes7) {
+        final List<RecipeName> day7 = new ArrayList<>();
+        for (JsonAdaptedRecipeName recipe : recipes7) {
             day7.add(recipe.toModelType());
         }
 

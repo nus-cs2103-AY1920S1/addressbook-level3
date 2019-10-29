@@ -14,6 +14,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.function.Predicate;
 
 import dukecooks.commons.core.Event;
 import dukecooks.commons.core.Messages;
@@ -95,7 +96,9 @@ public class EditRecipeCommand extends EditCommand {
 
         List<String> recipeNameKeyword = new ArrayList<>();
         recipeNameKeyword.add(recipeToEdit.getName().fullName);
-        model.updateFilteredMealPlanList(new MealPlanRecipesContainsKeywordsPredicate(recipeNameKeyword));
+        Predicate<MealPlan> recipeNamePredicate = new MealPlanRecipesContainsKeywordsPredicate(recipeNameKeyword);
+        //model.updateFilteredMealPlanList(recipeNamePredicate);
+        //TODO: This implementation is broken, should find a way to fix it to allow faster dynamic updates of recipes
         for (MealPlan mealPlan : model.getFilteredMealPlanList()) {
             mealPlan.replaceRecipe(recipeToEdit, editedRecipe);
         }

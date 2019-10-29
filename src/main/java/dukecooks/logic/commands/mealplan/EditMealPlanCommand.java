@@ -119,7 +119,7 @@ public class EditMealPlanCommand extends EditCommand {
         assert mealPlanToEdit != null;
 
         MealPlanName updatedName = editMealPlanDescriptor.getName().orElse(mealPlanToEdit.getName());
-        List<Recipe> updatedDay1;
+        List<RecipeName> updatedDay1;
         if (editMealPlanDescriptor.getDay1ToAdd().isPresent()
                 || editMealPlanDescriptor.getDay1ToRemove().isPresent()) {
 
@@ -132,7 +132,7 @@ public class EditMealPlanCommand extends EditCommand {
                     Recipe curr = new Recipe(recipeName, DUMMY_INGREDIENTS,
                             DUMMY_CALORIES, DUMMY_CARBS, DUMMY_FATS, DUMMY_PROTEIN);
                     if (model.hasRecipe(curr)) {
-                        updatedDay1.add(model.retrieveRecipe(curr));
+                        updatedDay1.add(recipeName);
                     }
                 }
             }
@@ -144,7 +144,7 @@ public class EditMealPlanCommand extends EditCommand {
                     Recipe curr = new Recipe(recipeName, DUMMY_INGREDIENTS,
                             DUMMY_CALORIES, DUMMY_CARBS, DUMMY_FATS, DUMMY_PROTEIN);
                     if (model.hasRecipe(curr)) {
-                        updatedDay1.remove(model.retrieveRecipe(curr));
+                        updatedDay1.remove(recipeName);
                     }
                 }
             }
@@ -153,7 +153,7 @@ public class EditMealPlanCommand extends EditCommand {
             updatedDay1 = mealPlanToEdit.getDay1();
         }
 
-        List<Recipe> updatedDay2;
+        List<RecipeName> updatedDay2;
         if (editMealPlanDescriptor.getDay2ToAdd().isPresent()
                 || editMealPlanDescriptor.getDay2ToRemove().isPresent()) {
 
@@ -166,7 +166,7 @@ public class EditMealPlanCommand extends EditCommand {
                     Recipe curr = new Recipe(recipeName, DUMMY_INGREDIENTS,
                             DUMMY_CALORIES, DUMMY_CARBS, DUMMY_FATS, DUMMY_PROTEIN);
                     if (model.hasRecipe(curr)) {
-                        updatedDay2.add(model.retrieveRecipe(curr));
+                        updatedDay2.add(recipeName);
                     }
                 }
             }
@@ -178,7 +178,7 @@ public class EditMealPlanCommand extends EditCommand {
                     Recipe curr = new Recipe(recipeName, DUMMY_INGREDIENTS,
                             DUMMY_CALORIES, DUMMY_CARBS, DUMMY_FATS, DUMMY_PROTEIN);
                     if (model.hasRecipe(curr)) {
-                        updatedDay2.remove(model.retrieveRecipe(curr));
+                        updatedDay2.remove(recipeName);
                     }
                 }
             }
@@ -187,7 +187,7 @@ public class EditMealPlanCommand extends EditCommand {
             updatedDay2 = mealPlanToEdit.getDay2();
         }
 
-        List<Recipe> updatedDay3;
+        List<RecipeName> updatedDay3;
         if (editMealPlanDescriptor.getDay3ToAdd().isPresent()
                 || editMealPlanDescriptor.getDay3ToRemove().isPresent()) {
 
@@ -200,7 +200,7 @@ public class EditMealPlanCommand extends EditCommand {
                     Recipe curr = new Recipe(recipeName, DUMMY_INGREDIENTS,
                             DUMMY_CALORIES, DUMMY_CARBS, DUMMY_FATS, DUMMY_PROTEIN);
                     if (model.hasRecipe(curr)) {
-                        updatedDay3.add(model.retrieveRecipe(curr));
+                        updatedDay3.add(recipeName);
                     }
                 }
             }
@@ -212,7 +212,7 @@ public class EditMealPlanCommand extends EditCommand {
                     Recipe curr = new Recipe(recipeName, DUMMY_INGREDIENTS,
                             DUMMY_CALORIES, DUMMY_CARBS, DUMMY_FATS, DUMMY_PROTEIN);
                     if (model.hasRecipe(curr)) {
-                        updatedDay3.remove(model.retrieveRecipe(curr));
+                        updatedDay3.remove(recipeName);
                     }
                 }
             }
@@ -221,7 +221,7 @@ public class EditMealPlanCommand extends EditCommand {
             updatedDay3 = mealPlanToEdit.getDay3();
         }
 
-        List<Recipe> updatedDay4;
+        List<RecipeName> updatedDay4;
         if (editMealPlanDescriptor.getDay4ToAdd().isPresent()
                 || editMealPlanDescriptor.getDay4ToRemove().isPresent()) {
 
@@ -234,7 +234,7 @@ public class EditMealPlanCommand extends EditCommand {
                     Recipe curr = new Recipe(recipeName, DUMMY_INGREDIENTS,
                             DUMMY_CALORIES, DUMMY_CARBS, DUMMY_FATS, DUMMY_PROTEIN);
                     if (model.hasRecipe(curr)) {
-                        updatedDay4.add(model.retrieveRecipe(curr));
+                        updatedDay4.add(recipeName);
                     }
                 }
             }
@@ -246,7 +246,7 @@ public class EditMealPlanCommand extends EditCommand {
                     Recipe curr = new Recipe(recipeName, DUMMY_INGREDIENTS,
                             DUMMY_CALORIES, DUMMY_CARBS, DUMMY_FATS, DUMMY_PROTEIN);
                     if (model.hasRecipe(curr)) {
-                        updatedDay4.remove(model.retrieveRecipe(curr));
+                        updatedDay4.remove(recipeName);
                     }
                 }
             }
@@ -255,7 +255,7 @@ public class EditMealPlanCommand extends EditCommand {
             updatedDay4 = mealPlanToEdit.getDay4();
         }
 
-        List<Recipe> updatedDay5;
+        List<RecipeName> updatedDay5;
         if (editMealPlanDescriptor.getDay5ToAdd().isPresent()
                 || editMealPlanDescriptor.getDay5ToRemove().isPresent()) {
 
@@ -268,7 +268,7 @@ public class EditMealPlanCommand extends EditCommand {
                     Recipe curr = new Recipe(recipeName, DUMMY_INGREDIENTS,
                             DUMMY_CALORIES, DUMMY_CARBS, DUMMY_FATS, DUMMY_PROTEIN);
                     if (model.hasRecipe(curr)) {
-                        updatedDay5.add(model.retrieveRecipe(curr));
+                        updatedDay5.add(recipeName);
                     }
                 }
             }
@@ -280,7 +280,7 @@ public class EditMealPlanCommand extends EditCommand {
                     Recipe curr = new Recipe(recipeName, DUMMY_INGREDIENTS,
                             DUMMY_CALORIES, DUMMY_CARBS, DUMMY_FATS, DUMMY_PROTEIN);
                     if (model.hasRecipe(curr)) {
-                        updatedDay5.remove(model.retrieveRecipe(curr));
+                        updatedDay5.remove(recipeName);
                     }
                 }
             }
@@ -289,7 +289,7 @@ public class EditMealPlanCommand extends EditCommand {
             updatedDay5 = mealPlanToEdit.getDay5();
         }
 
-        List<Recipe> updatedDay6;
+        List<RecipeName> updatedDay6;
         if (editMealPlanDescriptor.getDay6ToAdd().isPresent()
                 || editMealPlanDescriptor.getDay6ToRemove().isPresent()) {
 
@@ -302,7 +302,7 @@ public class EditMealPlanCommand extends EditCommand {
                     Recipe curr = new Recipe(recipeName, DUMMY_INGREDIENTS,
                             DUMMY_CALORIES, DUMMY_CARBS, DUMMY_FATS, DUMMY_PROTEIN);
                     if (model.hasRecipe(curr)) {
-                        updatedDay6.add(model.retrieveRecipe(curr));
+                        updatedDay6.add(recipeName);
                     }
                 }
             }
@@ -314,7 +314,7 @@ public class EditMealPlanCommand extends EditCommand {
                     Recipe curr = new Recipe(recipeName, DUMMY_INGREDIENTS,
                             DUMMY_CALORIES, DUMMY_CARBS, DUMMY_FATS, DUMMY_PROTEIN);
                     if (model.hasRecipe(curr)) {
-                        updatedDay6.remove(model.retrieveRecipe(curr));
+                        updatedDay6.remove(recipeName);
                     }
                 }
             }
@@ -323,7 +323,7 @@ public class EditMealPlanCommand extends EditCommand {
             updatedDay6 = mealPlanToEdit.getDay6();
         }
 
-        List<Recipe> updatedDay7;
+        List<RecipeName> updatedDay7;
         if (editMealPlanDescriptor.getDay7ToAdd().isPresent()
                 || editMealPlanDescriptor.getDay7ToRemove().isPresent()) {
 
@@ -336,7 +336,7 @@ public class EditMealPlanCommand extends EditCommand {
                     Recipe curr = new Recipe(recipeName, DUMMY_INGREDIENTS,
                             DUMMY_CALORIES, DUMMY_CARBS, DUMMY_FATS, DUMMY_PROTEIN);
                     if (model.hasRecipe(curr)) {
-                        updatedDay7.add(model.retrieveRecipe(curr));
+                        updatedDay7.add(recipeName);
                     }
                 }
             }
@@ -348,7 +348,7 @@ public class EditMealPlanCommand extends EditCommand {
                     Recipe curr = new Recipe(recipeName, DUMMY_INGREDIENTS,
                             DUMMY_CALORIES, DUMMY_CARBS, DUMMY_FATS, DUMMY_PROTEIN);
                     if (model.hasRecipe(curr)) {
-                        updatedDay7.remove(model.retrieveRecipe(curr));
+                        updatedDay7.remove(recipeName);
                     }
                 }
             }

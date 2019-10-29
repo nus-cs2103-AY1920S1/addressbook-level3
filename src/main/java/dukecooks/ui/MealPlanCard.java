@@ -54,26 +54,26 @@ public class MealPlanCard extends UiPart<Region> {
         name.setText(mealPlan.getName().fullName);
 
         mealPlan.getDay1().stream()
-                .sorted(Comparator.comparing(recipe -> recipe.getName().fullName))
-                .forEach(recipe -> day1.getChildren().add(new Label(recipe.getName().fullName)));
+                .sorted(Comparator.comparing(recipe -> recipe.fullName))
+                .forEach(recipe -> day1.getChildren().add(new Label(recipe.fullName)));
         mealPlan.getDay2().stream()
-                .sorted(Comparator.comparing(recipe -> recipe.getName().fullName))
-                .forEach(recipe -> day2.getChildren().add(new Label(recipe.getName().fullName)));
+                .sorted(Comparator.comparing(recipe -> recipe.fullName))
+                .forEach(recipe -> day2.getChildren().add(new Label(recipe.fullName)));
         mealPlan.getDay3().stream()
-                .sorted(Comparator.comparing(recipe -> recipe.getName().fullName))
-                .forEach(recipe -> day3.getChildren().add(new Label(recipe.getName().fullName)));
+                .sorted(Comparator.comparing(recipe -> recipe.fullName))
+                .forEach(recipe -> day3.getChildren().add(new Label(recipe.fullName)));
         mealPlan.getDay4().stream()
-                .sorted(Comparator.comparing(recipe -> recipe.getName().fullName))
-                .forEach(recipe -> day4.getChildren().add(new Label(recipe.getName().fullName)));
+                .sorted(Comparator.comparing(recipe -> recipe.fullName))
+                .forEach(recipe -> day4.getChildren().add(new Label(recipe.fullName)));
         mealPlan.getDay5().stream()
-                .sorted(Comparator.comparing(recipe -> recipe.getName().fullName))
-                .forEach(recipe -> day5.getChildren().add(new Label(recipe.getName().fullName)));
+                .sorted(Comparator.comparing(recipe -> recipe.fullName))
+                .forEach(recipe -> day5.getChildren().add(new Label(recipe.fullName)));
         mealPlan.getDay6().stream()
-                .sorted(Comparator.comparing(recipe -> recipe.getName().fullName))
-                .forEach(recipe -> day6.getChildren().add(new Label(recipe.getName().fullName)));
+                .sorted(Comparator.comparing(recipe -> recipe.fullName))
+                .forEach(recipe -> day6.getChildren().add(new Label(recipe.fullName)));
         mealPlan.getDay7().stream()
-                .sorted(Comparator.comparing(recipe -> recipe.getName().fullName))
-                .forEach(recipe -> day7.getChildren().add(new Label(recipe.getName().fullName)));
+                .sorted(Comparator.comparing(recipe -> recipe.fullName))
+                .forEach(recipe -> day7.getChildren().add(new Label(recipe.fullName)));
     }
 
     @Override

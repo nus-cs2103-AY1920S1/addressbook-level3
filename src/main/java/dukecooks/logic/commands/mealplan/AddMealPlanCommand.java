@@ -83,66 +83,66 @@ public class AddMealPlanCommand extends AddCommand {
             throw new CommandException(MESSAGE_DUPLICATE_MEALPLAN);
         }
 
-        List<Recipe> day1 = new ArrayList<>();
+        List<RecipeName> day1 = new ArrayList<>();
         for (RecipeName recipeName : toCheckDay1) {
             Recipe curr = new Recipe(recipeName, DUMMY_INGREDIENTS,
                     DUMMY_CALORIES, DUMMY_CARBS, DUMMY_FATS, DUMMY_PROTEIN);
             if (model.hasRecipe(curr)) {
-                day1.add(model.retrieveRecipe(curr));
+                day1.add(recipeName);
             }
         }
 
-        List<Recipe> day2 = new ArrayList<>();
+        List<RecipeName> day2 = new ArrayList<>();
         for (RecipeName recipeName : toCheckDay2) {
             Recipe curr = new Recipe(recipeName, DUMMY_INGREDIENTS,
                     DUMMY_CALORIES, DUMMY_CARBS, DUMMY_FATS, DUMMY_PROTEIN);
             if (model.hasRecipe(curr)) {
-                day2.add(model.retrieveRecipe(curr));
+                day2.add(recipeName);
             }
         }
 
-        List<Recipe> day3 = new ArrayList<>();
+        List<RecipeName> day3 = new ArrayList<>();
         for (RecipeName recipeName : toCheckDay3) {
             Recipe curr = new Recipe(recipeName, DUMMY_INGREDIENTS,
                     DUMMY_CALORIES, DUMMY_CARBS, DUMMY_FATS, DUMMY_PROTEIN);
             if (model.hasRecipe(curr)) {
-                day3.add(model.retrieveRecipe(curr));
+                day3.add(recipeName);
             }
         }
 
-        List<Recipe> day4 = new ArrayList<>();
+        List<RecipeName> day4 = new ArrayList<>();
         for (RecipeName recipeName : toCheckDay4) {
             Recipe curr = new Recipe(recipeName, DUMMY_INGREDIENTS,
                     DUMMY_CALORIES, DUMMY_CARBS, DUMMY_FATS, DUMMY_PROTEIN);
             if (model.hasRecipe(curr)) {
-                day4.add(model.retrieveRecipe(curr));
+                day4.add(recipeName);
             }
         }
 
-        List<Recipe> day5 = new ArrayList<>();
+        List<RecipeName> day5 = new ArrayList<>();
         for (RecipeName recipeName : toCheckDay5) {
             Recipe curr = new Recipe(recipeName, DUMMY_INGREDIENTS,
                     DUMMY_CALORIES, DUMMY_CARBS, DUMMY_FATS, DUMMY_PROTEIN);
             if (model.hasRecipe(curr)) {
-                day5.add(model.retrieveRecipe(curr));
+                day5.add(recipeName);
             }
         }
 
-        List<Recipe> day6 = new ArrayList<>();
+        List<RecipeName> day6 = new ArrayList<>();
         for (RecipeName recipeName : toCheckDay6) {
             Recipe curr = new Recipe(recipeName, DUMMY_INGREDIENTS,
                     DUMMY_CALORIES, DUMMY_CARBS, DUMMY_FATS, DUMMY_PROTEIN);
             if (model.hasRecipe(curr)) {
-                day6.add(model.retrieveRecipe(curr));
+                day6.add(recipeName);
             }
         }
 
-        List<Recipe> day7 = new ArrayList<>();
+        List<RecipeName> day7 = new ArrayList<>();
         for (RecipeName recipeName : toCheckDay7) {
             Recipe curr = new Recipe(recipeName, DUMMY_INGREDIENTS,
                     DUMMY_CALORIES, DUMMY_CARBS, DUMMY_FATS, DUMMY_PROTEIN);
             if (model.hasRecipe(curr)) {
-                day7.add(model.retrieveRecipe(curr));
+                day7.add(recipeName);
             }
         }
 

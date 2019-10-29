@@ -9,6 +9,7 @@ import java.util.Set;
 
 import dukecooks.commons.util.CollectionUtil;
 import dukecooks.model.recipe.components.Recipe;
+import dukecooks.model.recipe.components.RecipeName;
 
 /**
  * Represents a MealPlan in Duke Cooks.
@@ -20,13 +21,13 @@ public class MealPlan {
     private final MealPlanName name;
 
     // Data field
-    private final List<Recipe> day1;
-    private final List<Recipe> day2;
-    private final List<Recipe> day3;
-    private final List<Recipe> day4;
-    private final List<Recipe> day5;
-    private final List<Recipe> day6;
-    private final List<Recipe> day7;
+    private final List<RecipeName> day1;
+    private final List<RecipeName> day2;
+    private final List<RecipeName> day3;
+    private final List<RecipeName> day4;
+    private final List<RecipeName> day5;
+    private final List<RecipeName> day6;
+    private final List<RecipeName> day7;
 
     /**
      * Every field must be present and not null.
@@ -47,8 +48,8 @@ public class MealPlan {
     /**
      * Every field must be present and not null.
      */
-    public MealPlan(MealPlanName name, List<Recipe> day1, List<Recipe> day2, List<Recipe> day3, List<Recipe> day4,
-                    List<Recipe> day5, List<Recipe> day6, List<Recipe> day7) {
+    public MealPlan(MealPlanName name, List<RecipeName> day1, List<RecipeName> day2, List<RecipeName> day3, 
+                    List<RecipeName> day4, List<RecipeName> day5, List<RecipeName> day6, List<RecipeName> day7) {
         CollectionUtil.requireAllNonNull(name);
         this.name = name;
         this.day1 = day1;
@@ -65,7 +66,7 @@ public class MealPlan {
     }
 
     public String getRecipes() {
-        Set<Recipe> allRecipes = new HashSet<>();
+        Set<RecipeName> allRecipes = new HashSet<>();
         allRecipes.addAll(day1);
         allRecipes.addAll(day2);
         allRecipes.addAll(day3);
@@ -81,103 +82,103 @@ public class MealPlan {
      * and replaces it with {@code newRecipe}.
      */
     public void replaceRecipe(Recipe oldRecipe, Recipe newRecipe) {
-        for (Recipe recipe : day1) {
-            if (recipe.isSameRecipe(oldRecipe)) {
-                day1.remove(recipe);
-                day1.add(newRecipe);
+        for (RecipeName recipeName : day1) {
+            if (recipeName.equals(oldRecipe.getName())) {
+                day1.remove(recipeName);
+                day1.add(newRecipe.getName());
             }
         }
-        for (Recipe recipe : day2) {
-            if (recipe.isSameRecipe(oldRecipe)) {
-                day2.remove(recipe);
-                day2.add(newRecipe);
+        for (RecipeName recipeName : day2) {
+            if (recipeName.equals(oldRecipe.getName())) {
+                day2.remove(recipeName);
+                day2.add(newRecipe.getName());
             }
         }
-        for (Recipe recipe : day3) {
-            if (recipe.isSameRecipe(oldRecipe)) {
-                day3.remove(recipe);
-                day3.add(newRecipe);
+        for (RecipeName recipeName : day3) {
+            if (recipeName.equals(oldRecipe.getName())) {
+                day3.remove(recipeName);
+                day3.add(newRecipe.getName());
             }
         }
-        for (Recipe recipe : day4) {
-            if (recipe.isSameRecipe(oldRecipe)) {
-                day4.remove(recipe);
-                day4.add(newRecipe);
+        for (RecipeName recipeName : day4) {
+            if (recipeName.equals(oldRecipe.getName())) {
+                day4.remove(recipeName);
+                day4.add(newRecipe.getName());
             }
         }
-        for (Recipe recipe : day5) {
-            if (recipe.isSameRecipe(oldRecipe)) {
-                day5.remove(recipe);
-                day5.add(newRecipe);
+        for (RecipeName recipeName : day5) {
+            if (recipeName.equals(oldRecipe.getName())) {
+                day5.remove(recipeName);
+                day5.add(newRecipe.getName());
             }
         }
-        for (Recipe recipe : day6) {
-            if (recipe.isSameRecipe(oldRecipe)) {
-                day6.remove(recipe);
-                day6.add(newRecipe);
+        for (RecipeName recipeName : day6) {
+            if (recipeName.equals(oldRecipe.getName())) {
+                day6.remove(recipeName);
+                day6.add(newRecipe.getName());
             }
         }
-        for (Recipe recipe : day7) {
-            if (recipe.isSameRecipe(oldRecipe)) {
-                day7.remove(recipe);
-                day7.add(newRecipe);
+        for (RecipeName recipeName : day7) {
+            if (recipeName.equals(oldRecipe.getName())) {
+                day7.remove(recipeName);
+                day7.add(newRecipe.getName());
             }
         }
     }
 
     /**
-     * Returns an immutable day 1 recipes list, which throws {@code UnsupportedOperationException}
+     * Returns an immutable day 1 recipe names list, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
      */
-    public List<Recipe> getDay1() {
+    public List<RecipeName> getDay1() {
         return Collections.unmodifiableList(day1);
     }
 
     /**
-     * Returns an immutable day 2 recipes list, which throws {@code UnsupportedOperationException}
+     * Returns an immutable day 2 recipe names list, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
      */
-    public List<Recipe> getDay2() {
+    public List<RecipeName> getDay2() {
         return Collections.unmodifiableList(day2);
     }
 
     /**
-     * Returns an immutable day 3 recipes list, which throws {@code UnsupportedOperationException}
+     * Returns an immutable day 3 recipe names list, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
      */
-    public List<Recipe> getDay3() {
+    public List<RecipeName> getDay3() {
         return Collections.unmodifiableList(day3);
     }
 
     /**
-     * Returns an immutable day 4 recipes list, which throws {@code UnsupportedOperationException}
+     * Returns an immutable day 4 recipe names list, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
      */
-    public List<Recipe> getDay4() {
+    public List<RecipeName> getDay4() {
         return Collections.unmodifiableList(day4);
     }
 
     /**
-     * Returns an immutable day 5 recipes list, which throws {@code UnsupportedOperationException}
+     * Returns an immutable day 5 recipe names list, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
      */
-    public List<Recipe> getDay5() {
+    public List<RecipeName> getDay5() {
         return Collections.unmodifiableList(day5);
     }
 
     /**
-     * Returns an immutable day 6 recipes list, which throws {@code UnsupportedOperationException}
+     * Returns an immutable day 6 recipe names list, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
      */
-    public List<Recipe> getDay6() {
+    public List<RecipeName> getDay6() {
         return Collections.unmodifiableList(day6);
     }
 
     /**
-     * Returns an immutable day 7 recipes list, which throws {@code UnsupportedOperationException}
+     * Returns an immutable day 7 recipe names list, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
      */
-    public List<Recipe> getDay7() {
+    public List<RecipeName> getDay7() {
         return Collections.unmodifiableList(day7);
     }
 

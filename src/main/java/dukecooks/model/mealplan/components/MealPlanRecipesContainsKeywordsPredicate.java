@@ -6,7 +6,7 @@ import java.util.function.Predicate;
 import dukecooks.commons.util.StringUtil;
 
 /**
- * Tests that a {@code MealPlan}'s {@code MealPlanName} matches any of the keywords given.
+ * Tests that a {@code MealPlan}'s recipe's {@code RecipeName} matches any of the keywords given.
  */
 public class MealPlanRecipesContainsKeywordsPredicate implements Predicate<MealPlan> {
     private final List<String> keywords;
