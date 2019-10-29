@@ -56,7 +56,7 @@ public class ImageQuery {
                 String key = entry.getKey();
                 if (key != null && key.equals("X-Staticmap-API-Warning")) {
                     isValid = false;
-                    String name = imageUrl.split("center=")[1].split("&")[0].split("NUS_")[1];
+                    String name = imageUrl.split("center=")[1].split("&")[0];
                     if (FileUtil.isFileExists(Path.of(FileUtil.imagePath(name)))) {
                         logger.fine(name + " not available on gmaps but manually added");
                     } else {
