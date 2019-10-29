@@ -17,6 +17,7 @@ Class AssignmentListPanel
 Class AssignmentCard
 Class StatusBarFooter
 Class CommandBox
+Class History
 }
 
 package Model <<Rectangle>> {
@@ -38,6 +39,7 @@ MainWindow *-down-> ResultDisplay
 MainWindow *-down-> StudentListPanel
 MainWindow *-down-> AssignmentListPanel
 MainWindow *-down-> StatusBarFooter
+CommandBox *-down-> History
 
 StudentListPanel -down-> StudentCard
 AssignmentListPanel -down-> AssignmentCard
