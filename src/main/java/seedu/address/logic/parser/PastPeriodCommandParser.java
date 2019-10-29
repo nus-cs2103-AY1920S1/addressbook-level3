@@ -29,7 +29,7 @@ public class PastPeriodCommandParser {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, PastPeriodCommand.MESSAGE_USAGE));
         }
 
-        Timestamp pastDate = ParserUtil.parseTimestamp(argMultimap.getValue(PREFIX_TIMESTAMP).get());
+        Timestamp pastDate = ParserUtil.parseTimestamp(argMultimap.getValue(PREFIX_TIMESTAMP).get()).toStartOfDay();
 
         return new PastPeriodCommand(pastDate);
     }
