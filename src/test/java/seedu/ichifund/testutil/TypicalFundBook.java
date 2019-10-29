@@ -84,7 +84,8 @@ public class TypicalFundBook {
     }
 
     public static List<Person> getTypicalPersons() {
-        return new ArrayList<>(Arrays.asList(PERSON_ALICE, PERSON_BENSON, PERSON_CARL, PERSON_DANIEL, PERSON_ELLE, PERSON_FIONA, PERSON_GEORGE));
+        return new ArrayList<>(Arrays.asList(PERSON_ALICE, PERSON_BENSON, PERSON_CARL, PERSON_DANIEL,
+                PERSON_ELLE, PERSON_FIONA, PERSON_GEORGE));
     }
 
     public static List<Budget> getTypicalBudgets() {

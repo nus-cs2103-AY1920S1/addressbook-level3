@@ -5,9 +5,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.ichifund.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.ichifund.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.ichifund.logic.commands.CommandTestUtil.showBudgetAtIndex;
+import static seedu.ichifund.testutil.TypicalFundBook.getTypicalFundBook;
 import static seedu.ichifund.testutil.TypicalIndexes.INDEX_FIRST_BUDGET;
 import static seedu.ichifund.testutil.TypicalIndexes.INDEX_SECOND_BUDGET;
-import static seedu.ichifund.testutil.TypicalFundBook.getTypicalFundBook;
 
 import org.junit.jupiter.api.Test;
 

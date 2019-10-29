@@ -109,12 +109,12 @@ public class Budget {
         Budget otherBudget = (Budget) other;
         return otherBudget.getDescription().equals(getDescription())
                 && otherBudget.getAmount().equals(getAmount())
-                && ((otherBudget.getMonth() == null && getMonth() == null) ||
-                otherBudget.getMonth().equals(getMonth()))
-                && ((otherBudget.getYear() == null && getMonth() == null) ||
-                otherBudget.getYear().equals(getYear()))
-                && ((otherBudget.getCategory() == null && getCategory() == null) ||
-                otherBudget.getCategory().equals(getCategory()));
+                && ((otherBudget.getMonth() == null && getMonth() == null)
+                || otherBudget.getMonth().equals(getMonth()))
+                && ((otherBudget.getYear() == null && getMonth() == null)
+                || otherBudget.getYear().equals(getYear()))
+                && ((otherBudget.getCategory() == null && getCategory() == null)
+                || otherBudget.getCategory().equals(getCategory()));
     }
 
     @Override
