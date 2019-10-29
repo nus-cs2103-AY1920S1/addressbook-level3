@@ -4,13 +4,13 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.layout.StackPane?>
-<StackPane styleClass="player" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1"
-           prefHeight="75.0" prefWidth="200.0" layoutY="0" layoutX="0">
+
+<StackPane layoutX="0" layoutY="0" prefHeight="75.0" prefWidth="200.0" styleClass="playerInformation" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <Label text="Score" StackPane.alignment="CENTER_LEFT"/>
-        <Label text="Health" StackPane.alignment="BOTTOM_LEFT"/>
-        <Label fx:id="score" text="" StackPane.alignment="CENTER" wrapText="true"/>
-        <ProgressBar fx:id="health" StackPane.alignment="BOTTOM_CENTER"/>
+        <Label styleClass="whiteText" text="Score" translateY="-10.0" StackPane.alignment="CENTER_LEFT" />
+        <Label styleClass="whiteText" text="Health" translateY="7.0" StackPane.alignment="BOTTOM_LEFT" />
+        <Label fx:id="score" styleClass="whiteText" text="" translateX="40.0" translateY="-10.0" wrapText="true" StackPane.alignment="CENTER" />
+        <ProgressBar fx:id="health" translateX="30.0" StackPane.alignment="BOTTOM_CENTER" />
     </children>
     <padding>
         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

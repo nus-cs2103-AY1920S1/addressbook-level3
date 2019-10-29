@@ -1,0 +1,22 @@
+.whiteText {
+    /*-fx-font-family: 'Calibri';*/
+    -fx-font-size: 20;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+    -fx-fill: white;
+}
+
+.withShadow {
+    -fx-effect: dropshadow(gaussian, whitesmoke, 10, 0, 0, 0);
+}
+
+#gamePlay {
+    -fx-background-size: 600 750;
+    -fx-background-color: derive(#1d1d1d, 20%);
+}
+
+#gameOver {
+    -fx-font-size: 36;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}

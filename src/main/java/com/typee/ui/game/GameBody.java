@@ -14,7 +14,7 @@ public class GameBody extends UiPart<Pane> {
     private static final String FXML = "GameBody.fxml";
     private AnimationTimer animationTimer;
     private Player player;
-    private double fallingRate = 2.0;
+    private double fallingRate = 4.0;
 
     public GameBody(Player player) {
         super(FXML);
