@@ -143,7 +143,7 @@ Bookings manager manages bookings and reservations made by the user. The booking
 * edit -id <id of trip> -booking <index of booking> -time <departure time>: sets the departure time of a transport booking
 * edit -id <id of trip> -booking <index of booking> -expenditure: sets the known expenditure of a booking
 
-
+// tag::diary_ppp[]
 === Diary
 
 ==== Introduction
@@ -269,6 +269,7 @@ word inside the `<images left numberN>` clause as such to reverse the order.
 ** Sample usage:
 
 image::diary/userguide/diary_mini_gallery_edit_box.png[]
+// end::diary_ppp[]
 
 ==== Diary Operations
 
@@ -338,9 +339,10 @@ the command result box, and that the current day indicator will update according
 
 image::diary/userguide/diary_flip_command_command_after.png[title="Example result of after flipping back to the diary entry for day 3"]
 
+// tag::diary_ppp2[]
 [[diary_addphoto_command]]
 ===== Adding a photo
-If you have just created a fresh diary entry, and you're currently viewing it and wondering where to go next, then you
+If you have just created a fresh diary entry, and you're wondering where to go next, then you
 may want to start by adding your photos to display in the gallery (<<diary_gallery_display>>).
 
 Here, there are up to 3 options for you to choose, the last option being the least flexible but also the fastest, if
@@ -443,7 +445,7 @@ image::diary/userguide/diary_addphoto_command_filechooser_result.png[title="Resu
 ===== Deleting a photo
 If you mistakenly added a photo to the wrong diary entry, or want to remove a certain photo from an entry, you can
 use the `delphoto` command to do so.
-
+// end::diary_ppp2[]
 ====== Using the `delphoto <photo number>` command
 * Usage: Deletes a photo, indicated by the specified photo number, as displayed by the photo's numbering in the gallery.
 * Arguments:

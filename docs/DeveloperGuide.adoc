@@ -326,6 +326,7 @@ _{Explain here how the data encryption feature will be implemented}_
 
 // end::dataencryption[]
 
+//tag::diary_ppp[]
 === [Diary] Photo Manager
 The photo manager pertains to components for storing, and displaying user specified photos on the disk.
 
@@ -461,7 +462,7 @@ Overall, this leads to a more robust behaviour of the application, while providi
 extensibility as the first option.
 
 |========================================================================================
-
+// end::diary_ppp[]
 === [Diary] Diary Entry Text Editing
 The diary entry is capable of displaying text with inline images, or lines consisting of only images.
 
