@@ -317,17 +317,17 @@ public class DescriptionCommandTest {
 
         @Override
         public void undoModulePlanner() {
-
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public void redoModulePlanner() {
-
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public void addToHistory() {
-
+            throw new AssertionError("This method should not be called.");
         }
     }
 

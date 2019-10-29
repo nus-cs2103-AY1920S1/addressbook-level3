@@ -42,6 +42,7 @@ import seedu.address.logic.commands.storage.ListAllStudyPlansCommand;
 import seedu.address.logic.commands.storage.RevertCommitCommand;
 import seedu.address.logic.commands.storage.ViewCommitCommand;
 import seedu.address.logic.commands.storage.ViewCommitHistoryCommand;
+import seedu.address.logic.commands.verification.CheckCommand;
 import seedu.address.logic.commands.verification.DescriptionCommand;
 import seedu.address.logic.commands.verification.ValidModsCommand;
 import seedu.address.logic.parser.cli.AddModuleParser;
@@ -128,6 +129,9 @@ public class ModulePlannerParser {
 
         case CommitStudyPlanCommand.COMMAND_WORD:
             return new CommitStudyPlanEditsParser().parse(arguments);
+
+        case CheckCommand.COMMAND_WORD:
+            return new CheckCommand();
 
         case CreateStudyPlanCommand.COMMAND_WORD:
             return new CreateStudyPlanCommandParser().parse(arguments);

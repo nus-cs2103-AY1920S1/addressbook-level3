@@ -8,8 +8,12 @@ import static seedu.address.testutil.TypicalStudyPlans.SP_1;
 import static seedu.address.testutil.TypicalStudyPlans.SP_2;
 import static seedu.address.testutil.TypicalStudyPlans.SP_2_TITLE;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
 
+import seedu.address.model.semester.SemesterName;
 import seedu.address.testutil.StudyPlanBuilder;
 
 /**
@@ -47,6 +51,23 @@ public class StudyPlanTest {
     @Test
     public void addModuleToSemester_valid() {
 
+    }
+
+    @Test
+    public void getValidMods_returnsValidMods() {
+        List<String> validMods = SP_1.getValidMods(SemesterName.Y3S1);
+        ArrayList<String> expected = new ArrayList<>();
+        expected.add("CS1101S");
+        expected.add("CS1231S");
+        expected.add("IS1103X");
+        expected.add("MA1521");
+        assertEquals(validMods, expected);
+    }
+
+    @Test
+    public void getNumCoreModules_noModules_returns0() {
+        int numCoreModules = SP_1.getNumCoreModules();
+        assertEquals(numCoreModules, 0);
     }
 
     @Test
