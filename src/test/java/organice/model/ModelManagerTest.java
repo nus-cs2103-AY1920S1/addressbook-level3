@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static organice.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import static organice.testutil.Assert.assertThrows;
 import static organice.testutil.TypicalPersons.DOCTOR_ALICE;
-import static organice.testutil.TypicalPersons.DOCTOR_BENSON;
 import static organice.testutil.TypicalPersons.DONOR_IRENE_DONOR;
 import static organice.testutil.TypicalPersons.PATIENT_IRENE;
 
@@ -174,7 +173,7 @@ public class ModelManagerTest {
 
     @Test
     public void equals() {
-        AddressBook addressBook = new AddressBookBuilder().withPerson(DOCTOR_ALICE).withPerson(DOCTOR_BENSON).build();
+        AddressBook addressBook = new AddressBookBuilder().withPerson(DOCTOR_ALICE).withPerson(PATIENT_IRENE).build();
         AddressBook differentAddressBook = new AddressBook();
         UserPrefs userPrefs = new UserPrefs();
 
