@@ -102,10 +102,11 @@ public class ActivityCommand extends Command {
         }
 
         Activity toAdd = new Activity(title, participantIds.toArray(new Integer[participantIds.size()]));
+        Context newContext = new Context(toAdd);
         model.addActivity(toAdd);
-        model.setContext(new Context(toAdd));
+        model.setContext(newContext);
         model.updateFilteredPersonList(x -> toAdd.getParticipantIds().contains(x.getPrimaryKey()));
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd, successMessage, warningMessage));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd, successMessage, warningMessage), newContext);
     }
 
     @Override

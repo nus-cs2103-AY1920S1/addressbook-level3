@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.Context;
 import seedu.address.model.ContextType;
 import seedu.address.model.Model;
 import seedu.address.model.activity.Activity;
@@ -135,8 +136,10 @@ public class DisinviteCommand extends Command {
         }
 
         // TODO: check disinvite function again with the updated expense
+        Context newContext = new Context(activityToDisinviteFrom);
+        model.setContext(newContext);
 
-        return new CommandResult(result);
+        return new CommandResult(result, newContext);
 
     }
 

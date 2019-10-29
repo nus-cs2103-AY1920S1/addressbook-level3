@@ -10,6 +10,7 @@ import java.util.List;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 
+import seedu.address.model.Context;
 import seedu.address.model.ContextType;
 import seedu.address.model.Model;
 import seedu.address.model.activity.Activity;
@@ -129,7 +130,10 @@ public class InviteCommand extends Command {
             result = String.format(MESSAGE_RESULT, successMessage, warningMessage);
         }
 
-        return new CommandResult(result);
+        Context newContext = new Context(activityToInviteTo);
+        model.setContext(newContext);
+
+        return new CommandResult(result, newContext);
     }
 
     @Override
