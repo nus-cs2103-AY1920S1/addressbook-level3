@@ -217,6 +217,7 @@ public class ModelManager implements Model {
     }
 
     //=========== Filtered Scheduled Event List Accessors =============================================================
+
     /**
      * Returns an unmodifiable view of the list of {@code Event} backed by the internal list of
      * {@code versionedEventBook}
@@ -236,7 +237,6 @@ public class ModelManager implements Model {
 
     /**
      * Returns an unmodifiable view of the list of {@code DistinctDates} for Employees
-     * @return
      */
     @Override
     public ObservableList<DistinctDate> getEmployeeDistinctDatesList() {

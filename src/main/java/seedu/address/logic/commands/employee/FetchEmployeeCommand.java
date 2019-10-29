@@ -50,6 +50,7 @@ public class FetchEmployeeCommand extends Command {
                 .collect(Collectors.toList());
 
         List<DistinctDate> distinctDates = DistinctDatesProcessor.generateDistinctDateList(filteredEventList);
+
         model.updateEmployeeDistinctDateList(distinctDates);
         return new CommandResult(String.format(MESSAGE_SUCCESS, employeeToFetch.getEmployeeName()), false,
                 false, index.getZeroBased(), "employee");

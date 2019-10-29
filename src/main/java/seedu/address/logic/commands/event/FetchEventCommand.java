@@ -44,7 +44,7 @@ public class FetchEventCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
         }
         Event eventToFetch = lastShownList.get(index.getZeroBased());
-        return new CommandResult(String.format(MESSAGE_SUCCESS, eventToFetch), false,
+        return new CommandResult(String.format(MESSAGE_SUCCESS, eventToFetch.getName()), false,
                 false, index.getZeroBased(), "event");
     }
 

@@ -24,10 +24,10 @@ import seedu.address.model.event.Event;
 /**
  * Controller for a fetch page
  */
-public class FetchWindow extends UiPart<Stage> {
+public class FetchEventWindow extends UiPart<Stage> {
 
-    private static final Logger logger = LogsCenter.getLogger(FetchWindow.class);
-    private static final String FXML = "FetchWindow.fxml";
+    private static final Logger logger = LogsCenter.getLogger(FetchEventWindow.class);
+    private static final String FXML = "FetchEventWindow.fxml";
 
     @FXML
     private ListView<Employee> personListView;
@@ -54,11 +54,11 @@ public class FetchWindow extends UiPart<Stage> {
     private Button freeButton;
 
     /**
-     * Creates a new FetchWindow.
+     * Creates a new FetchEventWindow.
      *
-     * @param root Stage to use as the root of the FetchWindow.
+     * @param root Stage to use as the root of the FetchEventWindow.
      */
-    public FetchWindow(Stage root, Logic logic, Integer index) {
+    public FetchEventWindow(Stage root, Logic logic, Integer index) {
         super(FXML, root);
         ObservableList<Employee> employeeList = logic.getFilteredEmployeeList();
         ObservableList<Event> filteredEventList = logic.getFilteredEventList();
@@ -99,9 +99,9 @@ public class FetchWindow extends UiPart<Stage> {
     }
 
     /**
-     * Creates a new FetchWindow.
+     * Creates a new FetchEventWindow.
      */
-    public FetchWindow(Logic logic, Integer index) {
+    public FetchEventWindow(Logic logic, Integer index) {
         this(new Stage(), logic, index);
     }
 

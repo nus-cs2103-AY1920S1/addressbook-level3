@@ -37,7 +37,7 @@ public class MainWindow extends UiPart<Stage> {
     private ListPanel listPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
-    private FetchWindow fetchWindow;
+    private FetchEventWindow fetchEventWindow;
     private FetchEmployeeWindow fetchEmployeeWindow;
     private DateWindow dateWindow;
     private ScheduleBox scheduleBox;
@@ -168,16 +168,15 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     public void handleFetch(Integer index) {
-        if (fetchWindow != null) {
-            fetchWindow.hide();
+        if (fetchEventWindow != null) {
+            fetchEventWindow.hide();
         }
-        fetchWindow = new FetchWindow(logic, index);
-        //fetchWindow.getRoot().setScene();
-        fetchWindow.getRoot().getScene().getStylesheets().add("view/FetchWindowTheme.css");
-        if (!fetchWindow.isShowing()) {
-            fetchWindow.show();
+        fetchEventWindow = new FetchEventWindow(logic, index);
+        fetchEventWindow.getRoot().getScene().getStylesheets().add("view/FetchWindowTheme.css");
+        if (!fetchEventWindow.isShowing()) {
+            fetchEventWindow.show();
         } else {
-            fetchWindow.focus();
+            fetchEventWindow.focus();
         }
     }
 
@@ -207,7 +206,6 @@ public class MainWindow extends UiPart<Stage> {
             dateWindow.hide();
         }
         dateWindow = new DateWindow(logic);
-        //fetchWindow.getRoot().setScene();
         dateWindow.getRoot().getScene().getStylesheets().add("view/FetchWindowTheme.css");
         if (!dateWindow.isShowing()) {
             dateWindow.show();
@@ -228,8 +226,8 @@ public class MainWindow extends UiPart<Stage> {
         GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
                 (int) primaryStage.getX(), (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
-        if (fetchWindow != null) {
-            fetchWindow.hide();
+        if (fetchEventWindow != null) {
+            fetchEventWindow.hide();
         }
         helpWindow.hide();
         primaryStage.hide();
