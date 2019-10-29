@@ -1,5 +1,8 @@
 package seedu.ezwatchlist.ui;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import javafx.fxml.FXML;
@@ -9,12 +12,8 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
 import seedu.ezwatchlist.model.show.Show;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 /**
  * An UI for the statistics panel.
