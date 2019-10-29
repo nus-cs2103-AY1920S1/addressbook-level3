@@ -46,8 +46,8 @@ public class BreakCommandParser implements Parser<ReversibleActionPairCommand> {
         }
         Room roomToEdit = filteredRoomList.get(index.getZeroBased());
         Room editedRoom = new Room(roomToEdit.getDoctor(), roomToEdit.getCurrentPatient(), true);
-        return new ReversibleActionPairCommand(new BreakCommand(roomToEdit, editedRoom, index),
-                new ResumeCommand(editedRoom, roomToEdit, index));
+        return new ReversibleActionPairCommand(new BreakCommand(roomToEdit, editedRoom),
+                new ResumeCommand(editedRoom, roomToEdit));
     }
 }
 

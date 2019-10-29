@@ -12,7 +12,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.events.Appointment;
 import seedu.address.model.events.Event;
-import seedu.address.model.events.Status;
+import seedu.address.model.events.parameters.Status;
 
 
 /**
@@ -25,7 +25,7 @@ public class SettleAppCommandParser implements Parser<ReversibleActionPairComman
     private List<Event> lastShownList;
 
     public SettleAppCommandParser(Model model) {
-        this.lastShownList = model.getFilteredEventList();
+        this.lastShownList = model.getFilteredAppointmentList();
         this.model = model;
     }
 

@@ -1,4 +1,7 @@
+//@@author SakuraBlossom
 package seedu.address.storage;
+
+import static java.util.Objects.requireNonNull;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -7,10 +10,18 @@ import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
+import seedu.address.commons.util.StringUtil;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyAppointmentBook;
 import seedu.address.model.userprefs.ReadOnlyUserPrefs;
 import seedu.address.model.userprefs.UserPrefs;
+import seedu.address.storage.address.AddressBookStorage;
+import seedu.address.storage.address.JsonAddressBookStorage;
+import seedu.address.storage.event.AppointmentBookStorage;
+import seedu.address.storage.event.JsonAppointmentBookStorage;
+import seedu.address.storage.userprefs.JsonUserPrefsStorage;
+import seedu.address.storage.userprefs.UserPrefsStorage;
+
 
 /**
  * Manages storage of AddressBook data in local storage.
@@ -18,95 +29,130 @@ import seedu.address.model.userprefs.UserPrefs;
 public class StorageManager implements Storage {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
-    private AddressBookStorage addressBookStorage;
-    private AppointmentBookStorage appointmentBookStorage;
-    private UserPrefsStorage userPrefsStorage;
+    private final AddressBookStorage patientAddressBookStorage;
+    private final AddressBookStorage staffAddressBookStorage;
+    private final AppointmentBookStorage patientAppointmentBookStorage;
+    private final AppointmentBookStorage staffDutyRosterBookStorage;
+    private final UserPrefsStorage userPrefsStorage;
+    private UserPrefs userPrefs;
 
+    public StorageManager(Path userPrefsFilePath) {
+        requireNonNull(userPrefsFilePath);
+        this.userPrefsStorage = new JsonUserPrefsStorage(userPrefsFilePath);
+        this.patientAddressBookStorage = new JsonAddressBookStorage();
+        this.staffAddressBookStorage = new JsonAddressBookStorage();
+        this.patientAppointmentBookStorage = new JsonAppointmentBookStorage();
+        this.staffDutyRosterBookStorage = new JsonAppointmentBookStorage();
 
-    public StorageManager(AddressBookStorage addressBookStorage,
-                          AppointmentBookStorage appointmentBookStorage,
-                          UserPrefsStorage userPrefsStorage) {
-        super();
-        this.addressBookStorage = addressBookStorage;
-        this.appointmentBookStorage = appointmentBookStorage;
-        this.userPrefsStorage = userPrefsStorage;
+        this.userPrefs = loadUserPrefs();
     }
 
-    // ================ UserPrefs methods ==============================
+    /**
+     * Loads {@code UserPrefs} from a saved file, if the file is not found, loads a default user settings.
+     */
+    private UserPrefs loadUserPrefs() {
+        Path prefsFilePath = userPrefsStorage.getUserPrefsFilePath();
+        logger.info("Using prefs file : " + prefsFilePath);
 
-    @Override
-    public Path getUserPrefsFilePath() {
-        return userPrefsStorage.getUserPrefsFilePath();
+        UserPrefs initialUserPrefs = null;
+        try {
+            initialUserPrefs = userPrefsStorage.readUserPrefs().orElseThrow(() -> new IOException());
+        } catch (DataConversionException e) {
+            logger.warning("UserPrefs file at " + prefsFilePath + " is not in the correct format. "
+                + "Using default user prefs");
+        } catch (IOException e) {
+            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
+        }
+
+        if (initialUserPrefs == null) {
+            initialUserPrefs = new UserPrefs();
+        }
+
+        //Update prefs file in case it was missing to begin with or there are new/unused fields
+        try {
+            userPrefsStorage.saveUserPrefs(initialUserPrefs);
+        } catch (IOException e) {
+            logger.warning("Failed to save config file : " + StringUtil.getDetails(e));
+        }
+
+        return initialUserPrefs;
     }
 
     @Override
-    public Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException {
-        return userPrefsStorage.readUserPrefs();
+    public UserPrefs getUserPrefs() {
+        return new UserPrefs(userPrefs);
     }
 
     @Override
     public void saveUserPrefs(ReadOnlyUserPrefs userPrefs) throws IOException {
+        requireNonNull(userPrefs);
         userPrefsStorage.saveUserPrefs(userPrefs);
-    }
-
-
-    // ================ AddressBook methods ==============================
-
-    @Override
-    public Path getAddressBookFilePath() {
-        return addressBookStorage.getAddressBookFilePath();
+        this.userPrefs = loadUserPrefs();
     }
 
     @Override
-    public Optional<ReadOnlyAddressBook> readAddressBook() throws DataConversionException, IOException {
-        return readAddressBook(addressBookStorage.getAddressBookFilePath());
+    public Path getPatientAddressBookFilePath() {
+        return getUserPrefs().getPatientAddressBookFilePath();
     }
 
     @Override
-    public Optional<ReadOnlyAddressBook> readAddressBook(Path filePath) throws DataConversionException, IOException {
-        logger.fine("Attempting to read data from file: " + filePath);
-        return addressBookStorage.readAddressBook(filePath);
+    public Path getPatientAppointmentBookFilePath() {
+        return getUserPrefs().getPatientAppointmentBookFilePath();
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException {
-        saveAddressBook(addressBook, addressBookStorage.getAddressBookFilePath());
+    public Path getStaffAddressBookFilePath() {
+        return getUserPrefs().getStaffAddressBookFilePath();
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath) throws IOException {
-        logger.fine("Attempting to write to data file: " + filePath);
-        addressBookStorage.saveAddressBook(addressBook, filePath);
-    }
-
-
-    // ================ AppointmentBook methods ==============================
-
-    @Override
-    public Path getAppointmentBookFilePath() {
-        return appointmentBookStorage.getAppointmentBookFilePath();
+    public Path getStaffDutyRosterBookFilePath() {
+        return getUserPrefs().getDutyRosterBookFilePath();
     }
 
     @Override
-    public Optional<ReadOnlyAppointmentBook> readAppointmentBook() throws DataConversionException, IOException {
-        return readAppointmentBook(appointmentBookStorage.getAppointmentBookFilePath());
+    public Optional<ReadOnlyAddressBook> readPatientAddressBook()
+        throws DataConversionException, IOException {
+        return patientAddressBookStorage.readAddressBook(getPatientAddressBookFilePath());
     }
 
     @Override
-    public Optional<ReadOnlyAppointmentBook> readAppointmentBook(Path filePath)
-            throws DataConversionException, IOException {
-        logger.fine("Attempting to read data from file: " + filePath);
-        return appointmentBookStorage.readAppointmentBook(filePath);
+    public void savePatientAddressBook(ReadOnlyAddressBook addressBook) throws IOException {
+        logger.fine("Attempting to write to data file: " + getPatientAddressBookFilePath());
+        patientAddressBookStorage.saveAddressBook(addressBook, getPatientAddressBookFilePath());
     }
 
     @Override
-    public void saveAppointmentBook(ReadOnlyAppointmentBook appointmentsBook) throws IOException {
-        saveAppointmentBook(appointmentsBook, appointmentBookStorage.getAppointmentBookFilePath());
+    public Optional<ReadOnlyAppointmentBook> readPatientAppointmentBook()
+        throws DataConversionException, IOException {
+        return patientAppointmentBookStorage.readAppointmentBook(getPatientAppointmentBookFilePath());
     }
 
     @Override
-    public void saveAppointmentBook(ReadOnlyAppointmentBook appointmentsBook, Path filePath) throws IOException {
-        logger.fine("Attempting to write to data file: " + filePath);
-        appointmentBookStorage.saveAppointmentBook(appointmentsBook, filePath);
+    public void savePatientAppointmentBook(ReadOnlyAppointmentBook appointmentBook) throws IOException {
+        logger.fine("Attempting to write to data file: " + getPatientAppointmentBookFilePath());
+        patientAppointmentBookStorage.saveAppointmentBook(appointmentBook, getPatientAppointmentBookFilePath());
+    }
+
+    @Override
+    public Optional<ReadOnlyAddressBook> readStaffAddressBook() throws DataConversionException, IOException {
+        return staffAddressBookStorage.readAddressBook(getStaffAddressBookFilePath());
+    }
+
+    @Override
+    public void saveStaffAddressBook(ReadOnlyAddressBook addressBook) throws IOException {
+        logger.fine("Attempting to write to data file: " + getStaffAddressBookFilePath());
+        staffAddressBookStorage.saveAddressBook(addressBook, getStaffAddressBookFilePath());
+    }
+
+    @Override
+    public Optional<ReadOnlyAppointmentBook> readStaffDutyRosterBook() throws DataConversionException, IOException {
+        return staffDutyRosterBookStorage.readAppointmentBook(getStaffDutyRosterBookFilePath());
+    }
+
+    @Override
+    public void saveStaffDutyRosterBook(ReadOnlyAppointmentBook dutyRosterBook) throws IOException {
+        logger.fine("Attempting to write to data file: " + getStaffDutyRosterBookFilePath());
+        staffDutyRosterBookStorage.saveAppointmentBook(dutyRosterBook, getStaffDutyRosterBookFilePath());
     }
 }

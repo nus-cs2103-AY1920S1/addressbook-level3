@@ -12,8 +12,8 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.common.Tag;
-import seedu.address.model.events.DateTime;
-import seedu.address.model.events.Timing;
+import seedu.address.model.events.parameters.DateTime;
+import seedu.address.model.events.parameters.Timing;
 import seedu.address.model.person.parameters.Address;
 import seedu.address.model.person.parameters.Email;
 import seedu.address.model.person.parameters.Name;
@@ -69,8 +69,6 @@ public class ParserUtil {
         String trimmedRefId = staffRefId.trim().toUpperCase();
         if (!PersonReferenceId.isValidId(trimmedRefId)) {
             throw new ParseException(PersonReferenceId.MESSAGE_CONSTRAINTS);
-        } else if (!StaffReferenceId.isValidStaffId(trimmedRefId)) {
-            throw new ParseException(StaffReferenceId.MESSAGE_CONSTRAINTS);
         }
         return new StaffReferenceId(trimmedRefId);
     }
@@ -86,8 +84,6 @@ public class ParserUtil {
         String trimmedRefId = patientRefId.trim().toUpperCase();
         if (!PersonReferenceId.isValidId(trimmedRefId)) {
             throw new ParseException(PersonReferenceId.MESSAGE_CONSTRAINTS);
-        } else if (!PatientReferenceId.isValidPatientId(trimmedRefId)) {
-            throw new ParseException(PatientReferenceId.MESSAGE_CONSTRAINTS);
         }
         return new PatientReferenceId(trimmedRefId);
     }

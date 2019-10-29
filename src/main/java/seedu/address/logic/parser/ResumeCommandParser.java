@@ -48,7 +48,7 @@ public class ResumeCommandParser {
 
         Room roomToEdit = filteredRoomList.get(index.getZeroBased());
         Room editedRoom = new Room(roomToEdit.getDoctor(), roomToEdit.getCurrentPatient(), false);
-        return new ReversibleActionPairCommand(new ResumeCommand(roomToEdit, editedRoom, index),
-                new BreakCommand(editedRoom, roomToEdit, index));
+        return new ReversibleActionPairCommand(new ResumeCommand(roomToEdit, editedRoom),
+                new BreakCommand(editedRoom, roomToEdit));
     }
 }

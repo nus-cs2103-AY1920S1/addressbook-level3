@@ -126,7 +126,7 @@ public class EditPatientDetailsCommandParserTest {
         String userInput = targetIndex.getOneBased() + PHONE_DESC_BOB + TAG_DESC_HUSBAND
                                    + EMAIL_DESC_AMY + ADDRESS_DESC_AMY + NAME_DESC_AMY + TAG_DESC_FRIEND;
 
-        Person personToEdit = model.getFilteredPersonList().get(targetIndex.getZeroBased());
+        Person personToEdit = model.getFilteredPatientList().get(targetIndex.getZeroBased());
         Person editedPerson = new PersonBuilder(personToEdit).withName(VALID_NAME_AMY)
                                                   .withPhone(VALID_PHONE_BOB)
                                                   .withEmail(VALID_EMAIL_AMY)
@@ -256,9 +256,9 @@ public class EditPatientDetailsCommandParserTest {
         Index targetIndex = INDEX_THIRD_PERSON;
         String userInput = targetIndex.getOneBased() + TAG_EMPTY;
 
-        assertEquals(model.getFilteredPersonList().get(0), ALICE);
-        assertEquals(model.getFilteredPersonList().get(1), BENSON);
-        assertEquals(model.getFilteredPersonList().get(2), CARL);
+        assertEquals(model.getFilteredPatientList().get(0), ALICE);
+        assertEquals(model.getFilteredPatientList().get(1), BENSON);
+        assertEquals(model.getFilteredPatientList().get(2), CARL);
 
         Person editedPerson = new PersonBuilder(CARL).withTags().build();
         assertParseSuccess(parser, userInput,
@@ -278,7 +278,7 @@ public class EditPatientDetailsCommandParserTest {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
         Index outOfBoundIndex = INDEX_SECOND_PERSON;
         // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getPersonList().size());
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getPatientAddressBook().getPersonList().size());
 
         String userInput = outOfBoundIndex.getOneBased() + TAG_EMPTY;
 

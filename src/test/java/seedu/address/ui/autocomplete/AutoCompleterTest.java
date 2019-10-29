@@ -11,6 +11,6 @@ public class AutoCompleterTest extends AutoCompleter {
         assertEquals(this.update("a").getSuggestions().size(), 4);
         assertEquals(this.update("ca").getSuggestions().size(), 1);
         assertEquals(this.update("i").getSuggestions().size(), 0);
-        assertEquals(this.update("o").getSuggestions().size(), 2);
+        assertEquals(this.update("o").getSuggestions().size(), 0);
     }
 }

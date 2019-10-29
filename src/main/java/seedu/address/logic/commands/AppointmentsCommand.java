@@ -2,18 +2,21 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
+
 import seedu.address.commons.core.Messages;
+import seedu.address.commons.core.OmniPanelTab;
 import seedu.address.logic.commands.common.CommandResult;
 import seedu.address.logic.commands.common.NonActionableCommand;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.common.ReferenceId;
 import seedu.address.model.events.Appointment;
 import seedu.address.model.events.Event;
-import seedu.address.model.events.Status;
-import seedu.address.model.events.Timing;
+import seedu.address.model.events.parameters.Status;
+import seedu.address.model.events.parameters.Timing;
 
 /**
  * Finds and lists all events in address book whose name contains any of the argument keywords.
@@ -28,28 +31,27 @@ public class AppointmentsCommand extends NonActionableCommand {
             + "Optional parameters: KEYWORD \n"
             + "Example: " + COMMAND_WORD + " 001A";
 
-    private final ReferenceId referenceId;
+    private final Predicate<Event> predicate;
 
-    public AppointmentsCommand(ReferenceId referenceId) {
-        this.referenceId = referenceId;
-    }
-
-    public AppointmentsCommand() {
-        this.referenceId = null;
+    public AppointmentsCommand(Predicate<Event> predicate) {
+        this.predicate = predicate;
     }
 
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        autoMissEvent(model.getFilteredEventList(), model);
-        if (referenceId == null) {
-            model.updateFilteredEventList();
-        } else {
-            model.updateFilteredEventList(referenceId);
-        }
-
+        autoMissEvent(model.getFilteredAppointmentList(), model);
+        model.setTabListing(OmniPanelTab.APPOINTMENTS_TAB);
+        model.updateFilteredAppointmentList(predicate);
         return new CommandResult(
-                String.format(Messages.MESSAGE_ALL_EVENTS_LISTED_OVERVIEW, model.getFilteredEventList().size()));
+                String.format(Messages.MESSAGE_ALL_EVENTS_LISTED_OVERVIEW, model.getFilteredAppointmentList().size()));
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof AppointmentsCommand // instanceof handles nulls
+                && predicate.equals(((AppointmentsCommand) other).predicate)); // state check
     }
 
     /**
@@ -57,15 +59,14 @@ public class AppointmentsCommand extends NonActionableCommand {
      *
      * @param filteredEventList which is the eventList contains the referenceId
      */
-    private void autoMissEvent(ObservableList<Event> filteredEventList, Model model) {
+    private void autoMissEvent(ObservableList<Event> filteredEventList, Model model) throws CommandException {
         for (Event ev : filteredEventList) {
             Timing evTiming = ev.getEventTiming();
-            Date current = new Date();
             if (!ev.getStatus().equals(new Status(Status.AppointmentStatuses.SETTLED))
-                    && evTiming.getEndTime().getTime().before(current)) {
+                    && evTiming.getEndTime().getTime().isBefore(LocalDateTime.now())) {
                 Event newAppt = new Appointment(ev.getPersonId(), ev.getEventTiming(),
                         new Status(Status.AppointmentStatuses.MISSED));
-                model.setEvent(ev, newAppt);
+                model.setAppointment(ev, newAppt);
             }
         }
     }

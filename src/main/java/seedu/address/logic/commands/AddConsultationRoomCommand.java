@@ -40,7 +40,7 @@ public class AddConsultationRoomCommand extends ReversibleCommand {
 
         if (model.hasRoom(roomToAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
-        } else if (!model.hasPerson(roomToAdd.getDoctor())) {
+        } else if (!model.hasStaff(roomToAdd.getDoctor())) {
             throw new CommandException(String.format(Messages.MESSAGE_INVAILD_REFERENCE_ID, roomToAdd));
         }
 

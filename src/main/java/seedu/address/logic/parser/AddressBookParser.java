@@ -16,9 +16,7 @@ import seedu.address.logic.commands.ChangeAppCommand;
 import seedu.address.logic.commands.DequeueCommand;
 import seedu.address.logic.commands.EnqueueCommand;
 import seedu.address.logic.commands.ExitCommand;
-import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
-import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.MissAppCommand;
 import seedu.address.logic.commands.NextCommand;
 import seedu.address.logic.commands.RedoCommand;
@@ -29,12 +27,22 @@ import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.common.Command;
 import seedu.address.logic.commands.common.CommandHistory;
 import seedu.address.logic.commands.patients.EditPatientDetailsCommand;
+import seedu.address.logic.commands.patients.ListPatientCommand;
 import seedu.address.logic.commands.patients.RegisterPatientCommand;
 import seedu.address.logic.commands.patients.UnregisterPatientCommand;
+import seedu.address.logic.commands.staff.EditStaffDetailsCommand;
+import seedu.address.logic.commands.staff.ListStaffCommand;
+import seedu.address.logic.commands.staff.RegisterStaffCommand;
+import seedu.address.logic.commands.staff.UnregisterStaffCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.parser.patients.EditPatientDetailsCommandParser;
+import seedu.address.logic.parser.patients.ListPatientCommandParser;
 import seedu.address.logic.parser.patients.RegisterPatientCommandParser;
 import seedu.address.logic.parser.patients.UnregisterPatientCommandParser;
+import seedu.address.logic.parser.staff.EditStaffDetailsCommandParser;
+import seedu.address.logic.parser.staff.ListStaffCommandParser;
+import seedu.address.logic.parser.staff.RegisterStaffCommandParser;
+import seedu.address.logic.parser.staff.UnregisterStaffCommandParser;
 import seedu.address.model.Model;
 
 /**
@@ -70,6 +78,9 @@ public class AddressBookParser {
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
 
+        case ListPatientCommand.COMMAND_WORD:
+            return new ListPatientCommandParser().parse(arguments);
+
         case RegisterPatientCommand.COMMAND_WORD:
             return new RegisterPatientCommandParser().parse(arguments);
 
@@ -79,11 +90,19 @@ public class AddressBookParser {
         case UnregisterPatientCommand.COMMAND_WORD:
             return new UnregisterPatientCommandParser(model).parse(arguments);
 
-        case FindCommand.COMMAND_WORD:
-            return new FindCommandParser().parse(arguments);
 
-        case ListCommand.COMMAND_WORD:
-            return new ListCommand();
+        case ListStaffCommand.COMMAND_WORD:
+            return new ListStaffCommandParser().parse(arguments);
+
+        case RegisterStaffCommand.COMMAND_WORD:
+            return new RegisterStaffCommandParser().parse(arguments);
+
+        case EditStaffDetailsCommand.COMMAND_WORD:
+            return new EditStaffDetailsCommandParser(model).parse(arguments);
+
+        case UnregisterStaffCommand.COMMAND_WORD:
+            return new UnregisterStaffCommandParser(model).parse(arguments);
+
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();

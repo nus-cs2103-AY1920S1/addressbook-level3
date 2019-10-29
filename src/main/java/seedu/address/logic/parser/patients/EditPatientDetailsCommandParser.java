@@ -26,7 +26,7 @@ import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
-import seedu.address.model.common.ReferenceId;
+import seedu.address.model.ReferenceId;
 import seedu.address.model.common.Tag;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.parameters.Address;
@@ -42,7 +42,7 @@ public class EditPatientDetailsCommandParser implements Parser<ReversibleActionP
     private List<Person> lastShownList;
 
     public EditPatientDetailsCommandParser(Model model) {
-        this.lastShownList = model.getFilteredPersonList();
+        this.lastShownList = model.getFilteredPatientList();
     }
 
     /**
@@ -79,7 +79,7 @@ public class EditPatientDetailsCommandParser implements Parser<ReversibleActionP
      * If {@code tags} contain only one element which is an empty string, it will be parsed into a
      * {@code Set<Tag>} containing zero tags.
      */
-    private Optional<Set<Tag>> parseTagsForEdit(Collection<String> tags) throws ParseException {
+    public static Optional<Set<Tag>> parseTagsForEdit(Collection<String> tags) throws ParseException {
         assert tags != null;
 
         if (tags.isEmpty()) {
@@ -94,13 +94,14 @@ public class EditPatientDetailsCommandParser implements Parser<ReversibleActionP
      *
      * @throws ParseException if the user input does not conform the expected format
      */
-    private EditPersonDescriptor createEditedPersonDescriptor(ArgumentMultimap argMultimap) throws ParseException {
+    public static EditPersonDescriptor createEditedPersonDescriptor(ArgumentMultimap argMultimap)
+            throws ParseException {
 
         EditPersonDescriptor editPersonDescriptor = new EditPersonDescriptor();
 
         if (argMultimap.getValue(PREFIX_ID).isPresent()) {
             editPersonDescriptor.setReferenceId(
-                ParserUtil.parsePatientReferenceId(argMultimap.getValue(PREFIX_ID).get()));
+                ParserUtil.parseStaffReferenceId(argMultimap.getValue(PREFIX_ID).get()));
         }
         if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
             editPersonDescriptor.setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
@@ -127,7 +128,7 @@ public class EditPatientDetailsCommandParser implements Parser<ReversibleActionP
      * Creates and returns a {@code Person} with the details of {@code personToEdit}
      * edited with {@code editPersonDescriptor}.
      */
-    private Person createEditedPerson(Person personToEdit, EditPersonDescriptor editPersonDescriptor) {
+    public static Person createEditedPerson(Person personToEdit, EditPersonDescriptor editPersonDescriptor) {
         requireAllNonNull(personToEdit, editPersonDescriptor);
 
         ReferenceId updatedRefId = editPersonDescriptor.getReferenceId().orElse(personToEdit.getReferenceId());

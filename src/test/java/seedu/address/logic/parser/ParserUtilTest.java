@@ -206,58 +206,29 @@ public class ParserUtilTest {
         assertThrows(ParseException.class, PersonReferenceId.MESSAGE_CONSTRAINTS, () -> {
             ParserUtil.parsePatientReferenceId(INVALID_ID1);
         });
-        assertThrows(ParseException.class, PatientReferenceId.MESSAGE_CONSTRAINTS, () -> {
-            ParserUtil.parsePatientReferenceId(INVALID_ID2);
+
+        assertThrows(ParseException.class, PersonReferenceId.MESSAGE_CONSTRAINTS, () -> {
+            ParserUtil.parseStaffReferenceId(INVALID_ID1);
         });
     }
 
     @Test
-    public void parsePatientReferenceId_validStaffId_throwsParseException() {
-        assertThrows(ParseException.class, PatientReferenceId.MESSAGE_CONSTRAINTS, () -> {
-            ParserUtil.parsePatientReferenceId(VALID_STAFF_ID);
-        });
-    }
-
-    @Test
-    public void parsePatientReferenceId_validPatientIdWithoutWhitespace_returnsReferenceId() throws Exception {
-        PatientReferenceId expectedId = new PatientReferenceId(VALID_PATIENT_ID);
+    public void parsePersonReferenceId_validPatientIdWithoutWhitespace_returnsReferenceId() throws Exception {
+        PersonReferenceId expectedId = new PatientReferenceId(VALID_PATIENT_ID);
         assertEquals(expectedId, ParserUtil.parsePatientReferenceId(VALID_PATIENT_ID));
+
+        expectedId = new StaffReferenceId(VALID_STAFF_ID);
+        assertEquals(expectedId, ParserUtil.parseStaffReferenceId(VALID_STAFF_ID));
     }
 
     @Test
     public void parsePatientReferenceId_validPatientIdWithWhitespace_returnsTrimmedEmail() throws Exception {
         String idWithWhitespace = WHITESPACE + VALID_PATIENT_ID + WHITESPACE;
-        PatientReferenceId expectedId = new PatientReferenceId(VALID_PATIENT_ID);
+        PersonReferenceId expectedId = new PatientReferenceId(VALID_PATIENT_ID);
         assertEquals(expectedId, ParserUtil.parsePatientReferenceId(idWithWhitespace));
-    }
 
-    @Test
-    public void parseStaffReferenceId_invalidValue_throwsParseException() {
-        assertThrows(ParseException.class, PersonReferenceId.MESSAGE_CONSTRAINTS, () -> {
-            ParserUtil.parseStaffReferenceId(INVALID_ID1);
-        });
-        assertThrows(ParseException.class, StaffReferenceId.MESSAGE_CONSTRAINTS, () -> {
-            ParserUtil.parseStaffReferenceId(INVALID_ID2);
-        });
-    }
-
-    @Test
-    public void parseStaffReferenceId_validPatientId_throwsParseException() {
-        assertThrows(ParseException.class, StaffReferenceId.MESSAGE_CONSTRAINTS, () -> {
-            ParserUtil.parseStaffReferenceId(VALID_PATIENT_ID);
-        });
-    }
-
-    @Test
-    public void parseStaffReferenceId_validValueWithoutWhitespace_returnsReferenceId() throws Exception {
-        StaffReferenceId expectedId = new StaffReferenceId(VALID_STAFF_ID);
-        assertEquals(expectedId, ParserUtil.parseStaffReferenceId(VALID_STAFF_ID));
-    }
-
-    @Test
-    public void parsePatientReferenceId_validValueWithWhitespace_returnsTrimmedEmail() throws Exception {
-        String idWithWhitespace = WHITESPACE + VALID_STAFF_ID + WHITESPACE;
-        StaffReferenceId expectedId = new StaffReferenceId(VALID_STAFF_ID);
+        idWithWhitespace = WHITESPACE + VALID_STAFF_ID + WHITESPACE;
+        expectedId = new StaffReferenceId(VALID_STAFF_ID);
         assertEquals(expectedId, ParserUtil.parseStaffReferenceId(idWithWhitespace));
     }
 }

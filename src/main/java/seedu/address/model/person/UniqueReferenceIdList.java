@@ -8,7 +8,8 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.common.ReferenceId;
+
+import seedu.address.model.ReferenceId;
 import seedu.address.model.exceptions.DuplicateEntryException;
 import seedu.address.model.exceptions.EntryNotFoundException;
 
@@ -88,8 +89,8 @@ public class UniqueReferenceIdList implements Iterable<ReferenceId> {
         }
     }
 
-    public void remove(int index) {
-        internalList.remove(index);
+    public ReferenceId remove(int index) {
+        return internalList.remove(index);
     }
 
     public void setPersons(UniqueReferenceIdList replacement) {
@@ -130,6 +131,12 @@ public class UniqueReferenceIdList implements Iterable<ReferenceId> {
     }
 
     @Override
+    public String toString() {
+        return internalList.size() + " persons";
+        // TODO: refine later
+    }
+
+    @Override
     public int hashCode() {
         return internalList.hashCode();
     }
@@ -154,5 +161,9 @@ public class UniqueReferenceIdList implements Iterable<ReferenceId> {
 
     public int size() {
         return internalList.size();
+    }
+
+    public ReferenceId poll() {
+        return remove(0);
     }
 }

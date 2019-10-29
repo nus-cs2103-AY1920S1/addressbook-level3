@@ -1,6 +1,7 @@
 package seedu.address.logic.commands.patients;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.OmniPanelTab.PATIENTS_TAB;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ID;
@@ -54,12 +55,13 @@ public class RegisterPatientCommand extends ReversibleCommand {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+        model.setTabListing(PATIENTS_TAB);
 
-        if (model.hasPerson(toAdd)) {
+        if (model.hasPatient(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
 
-        model.addPerson(toAdd);
+        model.addPatient(toAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 

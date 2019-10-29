@@ -7,20 +7,14 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BENSON;
-import static seedu.address.testutil.TypicalPersons.getTypicalAppointmentBook;
-
-import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
-import seedu.address.model.common.ReferenceId;
-import seedu.address.model.queue.QueueManager;
+import seedu.address.model.ReferenceId;
 import seedu.address.model.queue.Room;
-import seedu.address.model.userprefs.UserPrefs;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
@@ -28,26 +22,24 @@ import seedu.address.model.userprefs.UserPrefs;
  */
 public class NextCommandTest {
 
-    private Model model = new ModelManager(new AddressBook(), new UserPrefs(), new QueueManager(),
-            getTypicalAppointmentBook());
+    private Model model = new ModelManager();
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
-        model.addPerson(ALICE);
-        model.addPerson(BENSON);
+        model.addPatient(ALICE);
+        model.addPatient(BENSON);
         model.enqueuePatient(ALICE.getReferenceId());
         model.addRoom(new Room(BENSON.getReferenceId()));
         Room roomToEdit = new Room(BENSON.getReferenceId());
-        Room editedRoom = new Room(BENSON.getReferenceId(), Optional.of(ALICE.getReferenceId()));
+        Room editedRoom = new Room(BENSON.getReferenceId(), ALICE.getReferenceId());
         ReferenceId personToServe = model.getQueueList().get(INDEX_FIRST_PERSON.getZeroBased());
         NextCommand nextCommand = new NextCommand(roomToEdit, editedRoom, Index.fromOneBased(1), personToServe);
 
         String expectedMessage = String.format(NextCommand.MESSAGE_SUCCESS, personToServe);
 
-        ModelManager expectedModel = new ModelManager(new AddressBook(), new UserPrefs(), new QueueManager(),
-                getTypicalAppointmentBook());
-        expectedModel.addPerson(ALICE);
-        expectedModel.addPerson(BENSON);
+        ModelManager expectedModel = new ModelManager();
+        expectedModel.addPatient(ALICE);
+        expectedModel.addPatient(BENSON);
         expectedModel.addRoom(editedRoom);
 
         assertCommandSuccess(nextCommand, model, expectedMessage, expectedModel);
@@ -56,7 +48,7 @@ public class NextCommandTest {
     @Test
     public void execute_invalidUnfilteredList_throwsCommandException() {
         Room roomToEdit = new Room(BENSON.getReferenceId());
-        Room editedRoom = new Room(BENSON.getReferenceId(), Optional.of(ALICE.getReferenceId()));
+        Room editedRoom = new Room(BENSON.getReferenceId(), ALICE.getReferenceId());
         NextCommand nextCommand = new NextCommand(roomToEdit, editedRoom,
                 Index.fromOneBased(1), ALICE.getReferenceId());
 
@@ -67,7 +59,7 @@ public class NextCommandTest {
     @Test
     public void equals() {
         Room roomToEdit = new Room(BENSON.getReferenceId());
-        Room editedRoom = new Room(BENSON.getReferenceId(), Optional.of(ALICE.getReferenceId()));
+        Room editedRoom = new Room(BENSON.getReferenceId(), ALICE.getReferenceId());
         NextCommand nextFirstCommand = new NextCommand(roomToEdit, editedRoom,
                 Index.fromOneBased(1), ALICE.getReferenceId());
 

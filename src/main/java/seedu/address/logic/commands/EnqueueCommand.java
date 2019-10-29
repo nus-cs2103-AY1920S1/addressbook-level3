@@ -7,7 +7,7 @@ import seedu.address.logic.commands.common.CommandResult;
 import seedu.address.logic.commands.common.ReversibleCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.common.ReferenceId;
+import seedu.address.model.ReferenceId;
 
 /**
  * Lists all persons in the address book to the user.
@@ -40,7 +40,7 @@ public class EnqueueCommand extends ReversibleCommand {
 
         if (model.isPatientInQueue(patientReferenceId)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
-        } else if (!model.hasPerson(patientReferenceId)) {
+        } else if (!model.hasPatient(patientReferenceId)) {
             throw new CommandException(String.format(Messages.MESSAGE_INVAILD_REFERENCE_ID, patientReferenceId));
         }
 
