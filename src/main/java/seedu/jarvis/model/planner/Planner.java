@@ -156,7 +156,6 @@ public class Planner {
      */
     public void updateFilteredTaskList(Predicate<Task> predicate) {
         requireNonNull(predicate);
-        filteredTaskList.addAll(taskList.getTasks());
         filteredTaskList.setPredicate(predicate);
 
     }

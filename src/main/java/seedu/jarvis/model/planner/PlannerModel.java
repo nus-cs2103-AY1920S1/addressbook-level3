@@ -20,7 +20,7 @@ public interface PlannerModel {
      * Retrieves the tasks stored in the planner
      * @return a list of tasks stored in the planner
      */
-    TaskList getTasks();
+    ObservableList<Task> getTasks();
 
     /**
      * Adds a task to the planner

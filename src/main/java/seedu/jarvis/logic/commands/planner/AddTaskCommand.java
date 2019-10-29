@@ -12,7 +12,11 @@ import seedu.jarvis.logic.commands.Command;
 import seedu.jarvis.logic.commands.CommandResult;
 import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.model.Model;
+import seedu.jarvis.model.planner.PlannerModel;
 import seedu.jarvis.model.planner.tasks.Task;
+import seedu.jarvis.model.viewstatus.ViewType;
+
+import java.util.function.Predicate;
 
 /**
  * Adds a task to JARVIS
@@ -95,7 +99,9 @@ public class AddTaskCommand extends Command {
         }
 
         model.addTask(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+        model.setViewStatus(ViewType.LIST_PLANNER);
+        model.updateFilteredTaskList(PlannerModel.PREDICATE_SHOW_ALL_TASKS);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), true);
     }
 
     /**
