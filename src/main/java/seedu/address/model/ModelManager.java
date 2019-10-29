@@ -716,11 +716,6 @@ public class ModelManager implements Model {
     public Pair<Index, VEvent> findMostSimilarVEvent(String desiredEventName) {
         return eventRecord.findMostSimilarVEvent(desiredEventName);
     };
-
-    @Override
-    public String saveToIcsFile(String targetDir) throws IOException {
-        return eventRecord.saveToIcsFile(targetDir);
-    };
     //endregion
 
     @Override
