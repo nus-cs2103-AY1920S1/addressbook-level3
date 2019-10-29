@@ -22,8 +22,8 @@ import sugarmummy.commons.logic.parser.ParserUtil;
 public class BackgroundCommandParser implements Parser<BackgroundCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the EditCommand and returns an EditCommand object
-     * for execution.
+     * Parses the given {@code String} of arguments in the context of the BackgroundCommandCommand and returns an
+     * BackgroundCommandCommand object for execution.
      *
      * @throws ParseException if the user input does not conform the expected format
      */
