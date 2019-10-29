@@ -33,7 +33,7 @@ class EditReminderCommandTest {
         EditReminderCommand editReminderCommand = new EditReminderCommand(INDEX_FIRST_REMINDER, descriptor);
 
         Reminder toBeEditReminder = model.getReminders().get(0);
-        Reminder finalReminder = new ReminderBuilder().withBookmark(toBeEditReminder.getBookmark()).build();
+        Reminder finalReminder = new ReminderBuilder().withUrl(toBeEditReminder.getUrl().toString()).build();
         String expectedMessage = String.format(EditReminderCommand.MESSAGE_EDIT_REMINDER_SUCCESS, finalReminder);
 
         Model expectedModel = new ModelManager(new Mark(model.getMark()), new UserPrefs());
@@ -57,7 +57,7 @@ class EditReminderCommandTest {
                 .build();
         EditReminderCommand editReminderCommand = new EditReminderCommand(indexLastReminder, descriptor);
 
-        Reminder finalReminder = new ReminderBuilder(editedReminder).withBookmark(lastReminder.getBookmark()).build();
+        Reminder finalReminder = new ReminderBuilder(editedReminder).withUrl(lastReminder.getUrl().toString()).build();
         String expectedMessage = String.format(EditReminderCommand.MESSAGE_EDIT_REMINDER_SUCCESS, finalReminder);
 
         Model expectedModel = new ModelManager(new Mark(model.getMark()), new UserPrefs());

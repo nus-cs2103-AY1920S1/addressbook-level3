@@ -18,6 +18,7 @@ import seedu.mark.logic.commands.results.CommandResult;
 
 import seedu.mark.model.Model;
 import seedu.mark.model.bookmark.Bookmark;
+import seedu.mark.model.bookmark.Url;
 import seedu.mark.model.reminder.Note;
 import seedu.mark.model.reminder.Reminder;
 
@@ -86,9 +87,9 @@ public class EditReminderCommand extends Command {
 
         Note updatedNote = editReminderDescriptor.getNote().orElse(reminderToEdit.getNote());
         LocalDateTime updatedTime = editReminderDescriptor.getTime().orElse(reminderToEdit.getRemindTime());
-        Bookmark bookmark = reminderToEdit.getBookmark();
+        Url url = reminderToEdit.getUrl();
 
-        return new Reminder(bookmark, updatedTime, updatedNote);
+        return new Reminder(url, updatedTime, updatedNote);
     }
 
     @Override

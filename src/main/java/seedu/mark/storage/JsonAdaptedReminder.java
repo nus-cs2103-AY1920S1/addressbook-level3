@@ -14,17 +14,17 @@ public class JsonAdaptedReminder {
 
     private final String note;
     private final String time;
-    private final String bookmark;
+    private final String url;
 
     /**
      * Constructs a {@code JsonAdaptedReminder} with the given reminder details.
      */
     @JsonCreator
     public JsonAdaptedReminder(@JsonProperty("note") String note,
-                               @JsonProperty("time") String time, @JsonProperty("bookmark") String bookmark) {
+                               @JsonProperty("time") String time, @JsonProperty("url") String url) {
         this.note = note;
         this.time = time;
-        this.bookmark = bookmark;
+        this.url = url;
     }
 
     /**
@@ -33,7 +33,7 @@ public class JsonAdaptedReminder {
     public JsonAdaptedReminder(Reminder source) {
         note = source.getNote().toString();
         time = source.getFormattedTime();
-        bookmark = source.getBookmark().getName().value;
+        url = source.getUrl().toString();
     }
 
 }

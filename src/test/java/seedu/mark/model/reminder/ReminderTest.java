@@ -3,11 +3,7 @@ package seedu.mark.model.reminder;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import static seedu.mark.logic.commands.CommandTestUtil.VALID_NOTE_OPEN;
-import static seedu.mark.logic.commands.CommandTestUtil.VALID_NOTE_READ;
-import static seedu.mark.logic.commands.CommandTestUtil.VALID_TIME_OPEN;
-import static seedu.mark.logic.commands.CommandTestUtil.VALID_TIME_READ;
-
+import static seedu.mark.logic.commands.CommandTestUtil.*;
 import static seedu.mark.testutil.TypicalBookmarks.ALICE;
 import static seedu.mark.testutil.TypicalBookmarks.BENSON;
 import static seedu.mark.testutil.TypicalReminders.OPEN;
@@ -29,27 +25,27 @@ class ReminderTest {
 
         // different note, different bookmark, different time-> returns false
         Reminder editedOpen = new ReminderBuilder(OPEN).withNote(VALID_NOTE_READ)
-                .withBookmark(BENSON).withTime(VALID_TIME_READ).build();
+                .withUrl(VALID_URL_BOB).withTime(VALID_TIME_READ).build();
         assertFalse(OPEN.isSameReminder(editedOpen));
 
         // same note, different bookmark, same time-> returns false
         editedOpen = new ReminderBuilder(OPEN).withNote(VALID_NOTE_OPEN)
-                .withBookmark(BENSON).withTime(VALID_TIME_OPEN).build();
+                .withUrl(VALID_URL_BOB).withTime(VALID_TIME_OPEN).build();
         assertFalse(OPEN.isSameReminder(editedOpen));
 
         // different note, same bookmark, same time -> returns false
         editedOpen = new ReminderBuilder(OPEN).withNote(VALID_NOTE_READ)
-                .withBookmark(ALICE).withTime(VALID_TIME_OPEN).build();
+                .withUrl(VALID_URL_AMY).withTime(VALID_TIME_OPEN).build();
         assertFalse(OPEN.isSameReminder(editedOpen));
 
         // same note, same bookmark, different time -> returns false
         editedOpen = new ReminderBuilder(OPEN).withNote(VALID_NOTE_OPEN)
-                .withBookmark(ALICE).withTime(VALID_TIME_READ).build();
+                .withUrl(VALID_URL_AMY).withTime(VALID_TIME_READ).build();
         assertFalse(OPEN.isSameReminder(editedOpen));
 
         //same attributes -> returns true
         editedOpen = new ReminderBuilder(OPEN).withNote(VALID_NOTE_OPEN)
-                .withBookmark(ALICE).withTime(VALID_TIME_OPEN).build();
+                .withUrl(VALID_URL_AMY).withTime(VALID_TIME_OPEN).build();
         assertFalse(OPEN.isSameReminder(editedOpen));
     }
 
@@ -76,7 +72,7 @@ class ReminderTest {
         assertFalse(OPEN.isSameReminder(editedOpen));
 
         // different bookmark -> returns false
-        editedOpen = new ReminderBuilder(OPEN).withBookmark(BENSON).build();
+        editedOpen = new ReminderBuilder(OPEN).withUrl(VALID_URL_BOB).build();
         assertFalse(OPEN.isSameReminder(editedOpen));
 
         // different time -> returns false

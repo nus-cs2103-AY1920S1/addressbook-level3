@@ -84,7 +84,7 @@ class ReminderAssociationTest {
     @Test
     public void remove_notExistReminderofSepcifiedBookmark_throwsReminderNotFoundException() {
         association.addReminder(ALICE, OPEN);
-        Reminder reminder = new ReminderBuilder().withBookmark(ALICE).withNote("Read").build();
+        Reminder reminder = new ReminderBuilder().withUrl(ALICE.getUrl().toString()).withNote("Read").build();
         assertThrows(ReminderNotFoundException.class, () -> association.deleteReminder(reminder));
     }
 
