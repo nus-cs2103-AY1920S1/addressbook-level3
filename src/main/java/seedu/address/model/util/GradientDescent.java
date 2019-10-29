@@ -15,7 +15,7 @@ public class GradientDescent {
     private double theta1;
     private double [][] data;
     private int iterations;
-    ObservableList<BankAccountOperation> transactionHistory;
+    private ObservableList<BankAccountOperation> transactionHistory;
 
     public GradientDescent(ObservableList<BankAccountOperation> transactionHistory) {
         this.theta0 = 0;
@@ -26,6 +26,9 @@ public class GradientDescent {
         this.train();
     }
 
+    /**
+     * Populates a 2-column matrix with transaction dates and amounts
+     */
     public void processData() {
         this.data = new double[this.transactionHistory.size()][2];
         for (int i = 0; i < transactionHistory.size(); i++) {
@@ -50,13 +53,16 @@ public class GradientDescent {
         return result;
     }
 
+    /**
+     * Performs the gradient descent algorithm to optimise {@code theta0} & {@code theta1}
+     */
     public void train() {
-        double delta0, delta1;
+        double delta0;
+        double delta1;
         do {
-            this.iterations ++;
-            System.out.println("SUBS: " + (LEARNING_RATE*((double) 1/data.length)) * getResult(data, false));
-            double temp0 = theta0 - LEARNING_RATE*(((double) 1 / data.length) * getResult(data, false));
-            double temp1 = theta1 - LEARNING_RATE*(((double) 1 / data.length) * getResult(data, true));
+            this.iterations++;
+            double temp0 = theta0 - LEARNING_RATE * (((double) 1 / data.length) * getResult(data, false));
+            double temp1 = theta1 - LEARNING_RATE * (((double) 1 / data.length) * getResult(data, true));
             delta0 = theta0 - temp0;
             delta1 = theta1 - temp1;
             theta0 = temp0;

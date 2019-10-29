@@ -1,9 +1,5 @@
 package seedu.address.model;
 
-import static java.time.temporal.ChronoUnit.DAYS;
-
-import java.time.LocalDate;
-
 import javafx.collections.ObservableList;
 import seedu.address.model.transaction.Amount;
 import seedu.address.model.transaction.BankAccountOperation;
