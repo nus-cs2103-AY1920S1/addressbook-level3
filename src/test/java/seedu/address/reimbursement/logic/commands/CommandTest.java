@@ -24,13 +24,12 @@ import seedu.address.reimbursement.model.ReimbursementList;
 import seedu.address.testutil.TransactionBuilder;
 import seedu.address.testutil.TypicalPersons;
 import seedu.address.testutil.TypicalReimbursements;
-import seedu.address.testutil.TypicalTransactions;
 import seedu.address.transaction.model.Transaction;
 
 public class CommandTest {
     public CommandTest() {
-        TypicalTransactions.resetTransactionsForReimbursement();
-        TypicalReimbursements.resetReimbursements();
+        TypicalReimbursements typicalReimbursements = new TypicalReimbursements();
+        typicalReimbursements.resetReimbursements();
     }
 
     @Test
