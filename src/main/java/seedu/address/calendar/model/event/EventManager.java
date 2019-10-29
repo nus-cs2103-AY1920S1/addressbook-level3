@@ -191,6 +191,7 @@ public class EventManager {
         }
 
         try {
+            System.out.println("Hello remove");
             vacationSchedule.remove(event);
         } catch (NoSuchElementException e) {
             assert false : "This event should exist in vacationSchedule";
