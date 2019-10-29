@@ -39,7 +39,9 @@ public class EditGroceryCommand extends Command {
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_EXPIRY_DATE + "EXPIRY_DATE] "
             + "[" + PREFIX_TAG + "TAG]...\n"
-            + "Example: glist " + COMMAND_WORD + " 1 n/Pisang Goreng t/fried";
+            + "Example: glist " + COMMAND_WORD + " 1 "
+            + PREFIX_NAME + "Pisang Goreng "
+            + PREFIX_TAG + "fried";
 
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited grocery item: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field (name, expiry date, or tag) must be provided.";

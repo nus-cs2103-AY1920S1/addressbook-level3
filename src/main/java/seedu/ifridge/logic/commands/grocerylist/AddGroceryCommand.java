@@ -19,7 +19,7 @@ public class AddGroceryCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a food item to the grocery list. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a food item to the grocery list.\n"
             + "Parameters: "
             + PREFIX_NAME + "NAME "
             + PREFIX_AMOUNT + "AMOUNT "
@@ -27,8 +27,8 @@ public class AddGroceryCommand extends Command {
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: glist " + COMMAND_WORD + " "
             + PREFIX_NAME + "Apples "
-            + PREFIX_AMOUNT + "300g"
-            + PREFIX_EXPIRY_DATE + "30/11/2019"
+            + PREFIX_AMOUNT + "300g "
+            + PREFIX_EXPIRY_DATE + "30/11/2019 "
             + PREFIX_TAG + "healthy "
             + PREFIX_TAG + "fruit";
 
@@ -54,8 +54,6 @@ public class AddGroceryCommand extends Command {
         }
 
         model.addGroceryItem(toAdd);
-        model.commitGroceryList();
-        model.commitWasteList();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 
