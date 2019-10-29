@@ -47,7 +47,7 @@ public class PersonTimeslot {
      * @return boolean
      */
     public boolean isClash(LocalTime time) {
-        if (time.isBefore(startTime) || time.isAfter(endTime)) {
+        if (time.isBefore(startTime) || time.isAfter(endTime) || time.compareTo(endTime) == 0) {
             return false;
         } else {
             return true;

@@ -11,13 +11,23 @@ import seedu.address.model.person.schedule.Venue;
  */
 public class FreeTimeslot {
 
-    private ArrayList<Venue> venues;
+    private int id;
+
+    private ArrayList<String> venues;
+    private ClosestCommonLocationData closestCommonLocationData;
 
     private LocalTime startTime;
     private LocalTime endTime;
 
-    public FreeTimeslot(ArrayList<Venue> venues, LocalTime startTime, LocalTime endTime) {
+    public FreeTimeslot(int id,
+                        ArrayList<String> venues,
+                        ClosestCommonLocationData closestCommonLocationData,
+                        LocalTime startTime,
+                        LocalTime endTime) {
+
+        this.id = id;
         this.venues = venues;
+        this.closestCommonLocationData = closestCommonLocationData;
         this.startTime = startTime;
         this.endTime = endTime;
 
@@ -34,15 +44,26 @@ public class FreeTimeslot {
      */
     public String toString() {
         String s = "";
-        s += startTime.toString() + " - " + endTime.toString() + " " + venues.toString();
+        s += startTime.toString() + " - "
+                + endTime.toString() + " "
+                + venues;
+                //+ "closest: " + closestCommonLocationData.getFirstClosest();
         return s;
     }
 
-    public ArrayList<Venue> getVenues() {
+    public int getId() {
+        return this.id;
+    }
+
+    public ClosestCommonLocationData getClosestCommonLocationData() {
+        return this.closestCommonLocationData;
+    }
+
+    public ArrayList<String> getVenues() {
         return venues;
     }
 
-    public void setVenues(ArrayList<Venue> venues) {
+    public void setVenues(ArrayList<String> venues) {
         this.venues = venues;
     }
 
