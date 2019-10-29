@@ -14,10 +14,6 @@ import mams.storage.JsonMamsStorage;
  */
 public class RedoCommand extends StoreCommand {
 
-    public RedoCommand() {
-
-    }
-
     @Override
     public CommandResult execute(Model model) throws CommandException {
         JsonMamsStorage history = new JsonMamsStorage(Paths.get("data/mamshistory_redo.json"));
@@ -27,7 +23,7 @@ public class RedoCommand extends StoreCommand {
             if (history.readMams().isPresent()) {
                 mamsToReplace = history.readMams().get();
             } else {
-                throw new DataConversionException(new Exception());
+                throw new DataConversionException(new Exception("DataConversionException"));
             }
             new SaveCommand("undo").privateExecute(model);
             model.replaceMams(mamsToReplace);
@@ -49,9 +45,6 @@ public class RedoCommand extends StoreCommand {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof RedoCommand)) {
-            return false;
-        }
         return false;
     }
 
