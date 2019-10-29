@@ -318,19 +318,23 @@ File explorer pops up, triggering a message to allow the user to save the pdf fi
 
 === Statistics Commands
 
-==== Gets statistics of members: `member-stats` +
+==== Getting statistics of members: `member-stats` +
 To get statistics relating to the members in +Work, use the command following the format below. +
 Format: `member-stats`
 
 Calling the 'member-stats' command will result in the following: 
-image::member_stats.png[width="790"]
++
+image::Ui.png[width="790"]
++
 
-==== Gets statistics of tasks: `task-stats` +
+==== Getting statistics of tasks: `task-stats` +
 To get statistics relating to the tasks in +Work, use the command following the format below. +
 Format: `task-stats`
 
 Calling the 'task-stats' command will result in the following: 
-image::task_stats.png[width="790"] 
++
+image::Ui.png[width="790"]
++
 
 === Settings Commands (Coming in v1.3)
 
@@ -349,7 +353,7 @@ Examples:
 * `theme light` +
 Switches to the light theme
 
-* `theme light` +
+* `theme dark` +
 Switches to the dark theme
 
 ==== Switching the clock format of +Work: `clock`
