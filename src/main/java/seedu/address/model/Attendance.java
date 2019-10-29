@@ -25,11 +25,6 @@ public class Attendance {
         this.trainings = trainings;
     }
 
-    public boolean hasTraining(Training training) {
-        AthletickDate date = training.getDate();
-        return hasTraining(date);
-    }
-
     public boolean hasTraining(AthletickDate date) {
         for (Training recordedTraining: trainings) {
             if (recordedTraining.getDate().equals(date)) {

@@ -8,9 +8,13 @@ import static seedu.address.testutil.TypicalPersons.ELLE;
 import static seedu.address.testutil.TypicalPersons.FIONA;
 import static seedu.address.testutil.TypicalPersons.GEORGE;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
+import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.date.AthletickDate;
 import seedu.address.model.person.Person;
+import seedu.address.model.training.Training;
 
 /**
  * A sample class of a Hashmap consisting of players and their attendance.
