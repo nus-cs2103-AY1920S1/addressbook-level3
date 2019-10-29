@@ -28,6 +28,7 @@
         </Label>
         <Label fx:id="name" styleClass="cell_big_label" text="\$first" />
       </HBox>
+      <Label fx:id="gender" styleClass="cell_small_label" text="\$gender"/>
       <Label fx:id="phone" styleClass="cell_small_label" text="\$phone" />
       <Label fx:id="address" styleClass="cell_small_label" text="\$address" wrapText="true" />
       <Label fx:id="email" styleClass="cell_small_label" text="\$email" />
