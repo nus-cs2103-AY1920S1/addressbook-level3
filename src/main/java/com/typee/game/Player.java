@@ -1,5 +1,9 @@
 package com.typee.game;
 
+import java.util.logging.Logger;
+
+import com.typee.commons.core.LogsCenter;
+
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -10,6 +14,7 @@ import javafx.beans.property.StringProperty;
  */
 public class Player {
 
+    private static final Logger logger = LogsCenter.getLogger(Player.class);
     private static final int DEFAULT_SCORE_VALUE = 0;
     private static final int DEFAULT_HEALTH_VALUE = 100;
     private int score;
@@ -39,15 +44,19 @@ public class Player {
     }
 
     /**
-     * Increases this player's score by {@code score}.
+     * Increases this player's score by {@code score} if the game is not over.
      */
     public void incrementScore(int score) {
+        if (isGameOver.get()) {
+            return;
+        }
         this.score += score;
-        scoreProperty.setValue(score);
+        scoreProperty.setValue(this.score);
+        logger.info("score incremented by " + score + " to " + this.score);
     }
 
     /**
-     * Decreases this player's health by {@code health}.
+     * Decreases this player's health by {@code health} if the game is not over.
      */
     public void decrementHealth(int health) {
         if (isGameOver.get()) {
@@ -56,9 +65,11 @@ public class Player {
         if (this.health <= 0) {
             isGameOver.set(true);
             this.health = 0;
+            return;
         }
         this.health -= health;
         healthProperty.set((double) this.health / DEFAULT_HEALTH_VALUE);
+        logger.info("health decremented by " + health + " to " + this.health);
     }
 
     public SimpleIntegerProperty getScoreProperty() {
