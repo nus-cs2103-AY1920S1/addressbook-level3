@@ -2,12 +2,14 @@ package seedu.exercise.testutil.typicalutil;
 
 import static seedu.exercise.testutil.CommonTestData.VALID_CALORIES_AEROBICS;
 import static seedu.exercise.testutil.CommonTestData.VALID_CALORIES_BASKETBALL;
+import static seedu.exercise.testutil.CommonTestData.VALID_DATE;
 import static seedu.exercise.testutil.CommonTestData.VALID_DATE_AEROBICS;
 import static seedu.exercise.testutil.CommonTestData.VALID_DATE_BASKETBALL;
 import static seedu.exercise.testutil.CommonTestData.VALID_MUSCLE_AEROBICS;
 import static seedu.exercise.testutil.CommonTestData.VALID_MUSCLE_BASKETBALL;
 import static seedu.exercise.testutil.CommonTestData.VALID_NAME_AEROBICS;
 import static seedu.exercise.testutil.CommonTestData.VALID_NAME_BASKETBALL;
+import static seedu.exercise.testutil.CommonTestData.VALID_NAME_LEGS;
 import static seedu.exercise.testutil.CommonTestData.VALID_QUANTITY_AEROBICS;
 import static seedu.exercise.testutil.CommonTestData.VALID_QUANTITY_BASKETBALL;
 import static seedu.exercise.testutil.CommonTestData.VALID_UNIT_AEROBICS;
@@ -62,7 +64,14 @@ public class TypicalExercises {
         .withQuantity(VALID_QUANTITY_BASKETBALL).withUnit(VALID_UNIT_BASKETBALL)
         .withMuscles(VALID_MUSCLE_AEROBICS, VALID_MUSCLE_BASKETBALL)
         .build();
-
+    public static final Exercise NOT_ADDED_TO_ANY_LIST_EXERCISE = new ExerciseBuilder()
+            .withName(VALID_NAME_LEGS)
+            .withDate(VALID_DATE)
+            .withCalories(VALID_CALORIES_AEROBICS)
+            .withQuantity(VALID_QUANTITY_BASKETBALL)
+            .withUnit(VALID_UNIT_AEROBICS)
+            .withMuscles(VALID_MUSCLE_BASKETBALL)
+            .build();
 
     private TypicalExercises() {
     } // prevents instantiation

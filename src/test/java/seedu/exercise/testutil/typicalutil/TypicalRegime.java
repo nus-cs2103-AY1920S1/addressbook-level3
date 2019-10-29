@@ -36,14 +36,11 @@ public class TypicalRegime {
         List<Exercise> typicalExerciseCardio = TypicalExercises.getTypicalExercises();
         UniqueResourceList<Exercise> cardioList = new UniqueResourceList<>();
         cardioList.setAll(typicalExerciseCardio);
-        typicalExerciseCardio.add(TypicalExercises.SPRINT);
-        typicalExerciseCardio.add(TypicalExercises.WALK);
-        typicalExerciseCardio.add(TypicalExercises.SWIM);
 
         List<Exercise> typicalExerciseLegs = new ArrayList<>();
+        typicalExerciseLegs.add(TypicalExercises.SPRINT);
+        typicalExerciseLegs.add(TypicalExercises.WALK);
         UniqueResourceList<Exercise> legList = new UniqueResourceList<>();
-        typicalExerciseLegs.add(TypicalExercises.SKIP);
-        typicalExerciseLegs.add(TypicalExercises.AEROBICS);
         legList.setAll(typicalExerciseLegs);
 
         UniqueResourceList<Exercise> chestList = new UniqueResourceList<>();

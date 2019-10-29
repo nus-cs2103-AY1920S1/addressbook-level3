@@ -67,6 +67,10 @@ public class CommonTestData {
     public static final String INVALID_PREFIX_DATE_ALPHABETS = " " + PREFIX_DATE + INVALID_DATE_ALPHABETS;
     public static final String INVALID_PREFIX_DATE_SYMBOLS = " " + PREFIX_DATE + INVALID_DATE_SYMBOLS;
 
+    //=======================For invalid ALPHABETS AND SPACES=============================
+    public static final String INVALID_NUMBERS_FOR_ALPHABETS_AND_SPACES = "words123";
+    public static final String INVALID_SYMBOLS_FOR_ALPHABETS_AND_SPACES = "legitwords@#%";
+
     //=======================For invalids index=============================
     public static final String INVALID_INDEX_ZERO = "0";
     public static final String INVALID_INDEX_NEGATIVE = "-1";
@@ -198,6 +202,36 @@ public class CommonTestData {
     public static final String INVALID_PARAMETER_TYPE_DESC = " "
             + PREFIX_PARAMETER_TYPE + "integer"; //integer not allowed in parameter type
 
+    //=======================For valid exercise toString============================
+    public static final String VALID_BASKETBALL_STRING_WITH_CUSTOM_PROPERTY =
+            VALID_NAME_BASKETBALL
+                    + " Date: "
+                    + VALID_DATE_BASKETBALL
+                    + " Calories: "
+                    + VALID_CALORIES_BASKETBALL
+                    + " Quantity: "
+                    + VALID_QUANTITY_BASKETBALL
+                    + " Unit: "
+                    + VALID_UNIT_BASKETBALL
+                    + " Muscle(s): "
+                    +
+                    "["
+                    + VALID_MUSCLE_AEROBICS
+                    + "]"
+                    + "["
+                    + VALID_MUSCLE_BASKETBALL
+                    + "] "
+                    + VALID_PREFIX_NAME_RATING
+                    + ": "
+                    + VALID_PREFIX_NAME_REMARK;
+
+    //=======================For valid regime toString============================
+    public static final String VALID_REGIME_STRING_FOR_TYPICAL_REGIME_CARDIO = "Exercise 1: Walking\n"
+            + "Exercise 2: Swimming\n"
+            + "Exercise 3: Dancing\n"
+            + "Exercise 4: Bench Press\n"
+            + "Exercise 5: Skipping\n"
+            + "Exercise 6: Sprinting\nExercise 7: Snapping\n";
     //====================For valid statistic=============================================
     public static final String VALID_LINE_CHART = "linechart";
     public static final String VALID_BAR_CHART = "barchart";

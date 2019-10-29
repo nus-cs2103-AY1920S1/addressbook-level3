@@ -31,10 +31,6 @@ public class Conflict {
         return scheduled;
     }
 
-    public Schedule getConflicted() {
-        return conflicted;
-    }
-
     public Regime getScheduledRegime() {
         return scheduled.getRegime();
     }
