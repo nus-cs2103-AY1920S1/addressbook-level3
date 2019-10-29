@@ -1,78 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.Scene?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.image.Image?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.stage.Stage?>
 
 <!--Icons made by Freepik "https://www.flaticon.com/authors/freepik" from Flaticon "https://www.flaticon.com/"-->
 
-<fx:root minHeight="600" minWidth="450" onCloseRequest="#handleExit" title="guiltTrip() - your personal finance tracker" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
-   <icons>
-      <Image url="@/images/guiltTrip()_32.png" />
-   </icons>
-   <scene>
-      <Scene stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
-         <VBox prefHeight="628.0" prefWidth="608.0">
-            <children>
-               <MenuBar fx:id="menuBar">
-                  <menus>
-                     <Menu mnemonicParsing="false" text="File">
-                        <items>
-                           <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
-                        </items>
-                     </Menu>
-                     <Menu mnemonicParsing="false" text="Help">
-                        <items>
-                           <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
-                        </items>
-                     </Menu>
-                  </menus>
-               </MenuBar>
-               <StackPane fx:id="resultDisplayPlaceholder" maxHeight="100" minHeight="100" prefHeight="100" styleClass="pane-with-border">
-                  <padding>
-                     <Insets bottom="5" left="10" right="10" top="5" />
-                  </padding>
-               </StackPane>
-               <HBox fx:id="window" maxHeight="500.0" minHeight="500.0" prefHeight="500.0">
-                  <children>
-                     <VBox HBox.hgrow="ALWAYS">
-                        <children>
-                           <VBox fx:id="entryList" minWidth="340" prefWidth="340" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
-                              <padding>
-                                 <Insets bottom="10" left="10" right="10" top="10" />
-                              </padding>
-                              <children>
-                                 <StackPane fx:id="StatisticsListPanelPlaceholder" prefHeight="1018.0" prefWidth="414.0" VBox.vgrow="ALWAYS">
-                                    <children>
-                                       <HBox prefHeight="466.0" prefWidth="583.0">
-                                          <children>
-                                             <VBox fx:id="expenseTablePlaceholder" prefHeight="466.0" prefWidth="293.0" />
-                                             <VBox fx:id="incomeTablePlaceholder" prefHeight="466.0" prefWidth="293.0" />
-                                          </children>
-                                       </HBox>
-                                    </children>
-                                 </StackPane>
-                              </children>
-                           </VBox>
-                           <StackPane fx:id="commandBoxPlaceholder" styleClass="pane-with-border" VBox.vgrow="NEVER">
-                              <padding>
-                                 <Insets bottom="5" left="10" right="10" top="5" />
-                              </padding>
-                           </StackPane>
-                           <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
-                        </children>
-                     </VBox>
-                  </children>
-               </HBox>
-            </children>
-         </VBox>
-      </Scene>
-   </scene>
-</fx:root>
+<HBox xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" >
+   <children>
+      <VBox fx:id="expenseTablePlaceholder" prefHeight="466.0" prefWidth="293.0" />
+      <VBox fx:id="incomeTablePlaceholder" prefHeight="466.0" prefWidth="293.0" />
+   </children>
+</HBox>

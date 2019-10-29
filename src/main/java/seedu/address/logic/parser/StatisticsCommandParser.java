@@ -5,6 +5,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PERIOD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TYPE;
 
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.StatisticsCommand;
@@ -23,16 +24,19 @@ public class StatisticsCommandParser implements Parser<StatisticsCommand> {
      */
     public StatisticsCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_TYPE, PREFIX_PERIOD);
+                ArgumentTokenizer.tokenize(args, PREFIX_PERIOD);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_TYPE, PREFIX_PERIOD)
-                || !argMultimap.getPreamble().isEmpty()) {
+        if (!argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, StatisticsCommand.MESSAGE_USAGE));
         }
 
-        String type = argMultimap.getValue(PREFIX_TYPE).get().toLowerCase();
-        ArrayList<Date> period = ParserUtil.parsePeriod(argMultimap.getValue(PREFIX_PERIOD).get());
-        return new StatisticsCommand(type, period);
+        Date dateToParse = null;
+
+        if (argMultimap.getValue(PREFIX_PERIOD).isPresent()) {
+            dateToParse = ParserUtil.parsePeriod(argMultimap.getValue(PREFIX_PERIOD).get());
+        }
+
+        return new StatisticsCommand(dateToParse);
     }
 
     private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {

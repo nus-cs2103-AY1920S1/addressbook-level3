@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
@@ -80,19 +81,9 @@ public class ParserUtil {
      * @param period the time as a String.
      * @return the specified time as Date.
      */
-    public static ArrayList<Date> parsePeriod(String period) {
-        requireNonNull(period);
-        String[] splitStartAndEnd = period.split(",");
-        ArrayList<Date> listOfPeriods = new ArrayList<Date>();
-        if (splitStartAndEnd.length == 1) {
-            listOfPeriods.add(new Date(period));
-        } else if (splitStartAndEnd.length == 2) {
-            listOfPeriods.add(new Date(splitStartAndEnd[0].trim()));
-            listOfPeriods.add(new Date(splitStartAndEnd[1].trim()));
-        } else {
-            //TODO
-        }
-        return listOfPeriods;
+    public static Date parsePeriod(String period) {
+        Date dateToParse = new Date(period, true);
+        return dateToParse;
     }
     /**
      * Parses a type of sorting in String to SortType.

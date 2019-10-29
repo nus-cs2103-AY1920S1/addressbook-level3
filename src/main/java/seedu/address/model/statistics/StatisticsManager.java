@@ -2,6 +2,7 @@ package seedu.address.model.statistics;
 
 import java.time.LocalDate;
 import java.time.Month;
+import java.time.Year;
 import java.util.Map;
 
 import javafx.collections.FXCollections;
@@ -23,13 +24,11 @@ import seedu.address.model.person.Income;
  * Handles calculation of statistics.
  */
 public class StatisticsManager implements Statistics {
-    private double lastMonthExpenses;
-    private ObservableMap<Integer, MonthList> monthlyRecord;
+    private ObservableMap<Integer, ObservableMap<Integer, MonthList>> yearlyRecord;
     private ObservableList<CategoryStatistics> listOfStatsForExpense;
     private ObservableList<CategoryStatistics> listOfStatsForIncome;
     private FilteredList<Expense> modelTotalFilteredExpenses;
     private FilteredList<Income> modelTotalFilteredIncomes;
-    private DailyList currentDailyList;
     private CategoryList listOfCategories;
 
     /**
@@ -39,28 +38,31 @@ public class StatisticsManager implements Statistics {
         this.modelTotalFilteredExpenses = new FilteredList(modelManager.getFilteredExpenses());
         this.modelTotalFilteredIncomes = new FilteredList(modelManager.getFilteredIncomes());
         this.listOfCategories = modelManager.getCategoryList();
-        int currentMonth = LocalDate.now().getMonth().getValue();
-        int currentDay = LocalDate.now().getDayOfMonth();
         int currentYear = LocalDate.now().getYear();
-        monthlyRecord = FXCollections.observableHashMap();
+        yearlyRecord = FXCollections.observableHashMap();
         listOfStatsForExpense = FXCollections.observableArrayList();
         listOfStatsForIncome = FXCollections.observableArrayList();
-        initRecords(currentMonth, currentYear);
+        initRecords(currentYear);
         initStats();
     }
 
     /**
-     * Loads the Records from scratch.
+     * Loads the Records from scratch. Only creates records for the currentYear to increase speed for startup.
      */
-    private void initRecords(int month, int currentYear) {
-        for (int i = 1; i <= month; i++) {
+    private void initRecords(int currentYear) {
+        ObservableMap<Integer, MonthList> monthlyRecord = FXCollections.observableHashMap();
+        for (int i = 1; i <= 12; i++) {
             FilteredList<Expense> filteredExpenseByMonth = modelTotalFilteredExpenses;
             FilteredList<Income> filteredIncomeByMonth = modelTotalFilteredIncomes;
-            FilteredList<Expense> filteredExpenses = new FilteredList<>(filteredExpenseByMonth, new EntryTimeContainsPredicate(i));
-            MonthList monthToCompare = new MonthList(listOfCategories, filteredExpenses, filteredIncomeByMonth,
+            FilteredList<Expense> filteredExpenses = new FilteredList<>(filteredExpenseByMonth,
+                    new EntryTimeContainsPredicate(i, currentYear));
+            FilteredList<Income> filteredIncome = new FilteredList<>(filteredIncomeByMonth,
+                    new EntryTimeContainsPredicate(i, currentYear));
+            MonthList monthToCompare = new MonthList(listOfCategories, filteredExpenses, filteredIncome,
                     Month.of(i), currentYear);
             monthlyRecord.put(i, monthToCompare);
         }
+        yearlyRecord.put(currentYear,monthlyRecord);
     }
 
     private void initStats() {
@@ -83,14 +85,23 @@ public class StatisticsManager implements Statistics {
         updateListOfStats();
     }
 
+    /**
+     * Default Calculation for stats which is calculation for current month.
+     */
     public void updateListOfStats() {
-        MonthList currentMonthList = monthlyRecord.get(LocalDate.now().getMonth().getValue());
-        System.out.println("STatsManager");
+        ObservableMap<Integer, MonthList> yearOfRecord = yearlyRecord.get(LocalDate.now().getYear());
+        MonthList currentMonthList = yearOfRecord.get(LocalDate.now().getMonth().getValue());
         countStats(currentMonthList, listOfStatsForExpense);
         countStats(currentMonthList, listOfStatsForIncome);
-        System.out.println("StatsManagerDone");
-        listOfStatsForExpense.stream().forEach(cat -> System.out.println("CategoryName Is " + cat.getCategoryName()
-                + "Value is" + cat.getAmountCalculated()));
+    }
+
+    public void updateListOfStats(Month month, int year) {
+        if (!yearlyRecord.containsKey(year)) {
+            initRecords(year);
+        }
+        MonthList monthListToCalculate = yearlyRecord.get(year).get(month.getValue());
+        countStats(monthListToCalculate, listOfStatsForExpense);
+        countStats(monthListToCalculate, listOfStatsForIncome);
     }
 
     @Override
@@ -104,7 +115,7 @@ public class StatisticsManager implements Statistics {
     }
 
     private void countStats(MonthList currentMonthList, ObservableList<CategoryStatistics> typeOfCategory) {
-        for(int i = 0; i < typeOfCategory.size(); i++) {
+        for (int i = 0; i < typeOfCategory.size(); i++) {
             Category toVerifyCat = typeOfCategory.get(i).getCategory();
             double amountVerified = currentMonthList.updateListOfStats(toVerifyCat);
             CategoryStatistics toCheck = new CategoryStatistics(toVerifyCat, amountVerified);
@@ -113,18 +124,5 @@ public class StatisticsManager implements Statistics {
             }
         }
     }
-
-    public void testStats() {
-        listOfStatsForExpense.stream().forEach(cat -> System.out.println("CategoryName Is " + cat.getCategoryName()
-                + "Value is" + cat.getAmountCalculated()));
-    }
-
-//    public void updateListOfStats(LocalDate startPeriod, LocalDate endPeriod);
-
-//    public void getTagsForTimePeriod() {
-//
-//    }
-
-
 
 }

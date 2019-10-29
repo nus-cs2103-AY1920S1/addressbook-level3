@@ -3,6 +3,7 @@ package seedu.address.model.statistics;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.Month;
+import java.util.List;
 import java.util.logging.Filter;
 
 import javafx.collections.FXCollections;
@@ -23,70 +24,74 @@ import seedu.address.model.util.EntryComparator;
  */
 public class MonthList {
 
-    private ObservableMap<Integer, DailyList> dailyRecord;
-    private CategoryList listOfCategories;
+    private List<Category> listOfExpenseCategories;
+    private List<Category> listOfIncomeCategories;
+    private ObservableMap<Category, FilteredList<Expense>> mapOfExpenseCategories;
+    private ObservableMap<Category, FilteredList<Income>> mapOfIncomeCategories;
     private FilteredList<Expense> filteredListForExpense;
     private FilteredList<Income> filteredListForIncome;
-    private SortType sortByTime = new SortType("Time");
-    private SortSequence sortByDesc = new SortSequence("Descending");
     private Month month;
     private int year;
-    private double monthExpenseTotal;
+    private double totalExpense;
+    private double totalIncome;
 
     /**
      * Contains the FilteredList of entries for the month.
      */
     public MonthList(CategoryList listOfCategories, FilteredList<Expense> filteredListOfExpenses,
                      FilteredList<Income> filteredListOfIncome, Month month, int year) {
-        this.dailyRecord = FXCollections.observableHashMap();
+        this.listOfExpenseCategories = listOfCategories.getInternalListForOtherEntries();
+        this.listOfIncomeCategories = listOfCategories.getInternalListForIncome();
         this.filteredListForExpense = filteredListOfExpenses;
         this.filteredListForIncome = filteredListOfIncome;
-        this.listOfCategories = listOfCategories;
+        mapOfExpenseCategories = FXCollections.observableHashMap();
+        mapOfIncomeCategories = FXCollections.observableHashMap();
         this.month = month;
         this.year = year;
+        totalExpense = 0.00;
+        totalIncome = 0.00;
         initRecords();
     }
 
     private void initRecords() {
-        createObsMap();
-    }
-
-    /**
-     * Creates an ObservableMap of Dailylists. //TODO
-     */
-    private void createObsMap() {
-        for (int i = 0; i < 31; i++) {
-            try {
-                LocalDate.of(year, month.getValue(), i);
-            } catch (DateTimeException e) {
-                continue;
-            }
-            FilteredList<Expense> filteredExpenseByDay = new FilteredList<>(this.filteredListForExpense,
-                    new EntryContainsDayPredicate(i));
-            FilteredList<Income> filteredIncomeByDay = new FilteredList<Income>(this.filteredListForIncome,
-                    new EntryContainsDayPredicate(i));
-//            FilteredList<Income> filteredIncomeByDay = new FilteredList<Income>(this.filteredListForIncome, new EntryContainsDayPredicate(i));
-            DailyList dailyList = new DailyList(this.listOfCategories, filteredExpenseByDay, filteredIncomeByDay,
-                    LocalDate.of(year, month.getValue(), i));
-            monthExpenseTotal = monthExpenseTotal + dailyList.getTotalExpense();
-            dailyRecord.put(i, dailyList);
+        for (int i = 0; i < this.listOfExpenseCategories.size(); i++) {
+            Category toFilterCategory = this.listOfExpenseCategories.get(i);
+            FilteredList<Expense> filteredByCategory = new FilteredList<Expense>(this.filteredListForExpense,
+                    new EntryContainsCategoryPredicate(toFilterCategory));
+            mapOfExpenseCategories.put(toFilterCategory, filteredByCategory);
         }
-    }
 
-    public void printSize() {
-        System.out.println(filteredListForExpense.size() + "MONTH ( ");
-    }
-
-    public void printTest() {
-        System.out.println(filteredListForExpense);
+        for (int k = 0; k < this.listOfIncomeCategories.size(); k++) {
+            Category toFilterCategory = this.listOfIncomeCategories.get(k);
+            FilteredList<Income> filteredByCategory = new FilteredList<Income> (this.filteredListForIncome,
+                    new EntryContainsCategoryPredicate(toFilterCategory));
+            mapOfIncomeCategories.put(toFilterCategory, filteredByCategory);
+        }
     }
 
 
     public Double updateListOfStats(Category cat) {
         double newTotal = 0.00;
-        for (DailyList dailyLists : dailyRecord.values()) {
-            newTotal = newTotal + dailyLists.updateListOfStats(cat);
+        if (cat.categoryType.equalsIgnoreCase("Income")) {
+            FilteredList<Income> toCalculate = this.mapOfIncomeCategories.get(cat);
+            double calculatedTotal = 0.00;
+            for (int i = 0; i < toCalculate.size(); i++) {
+                calculatedTotal = calculatedTotal + toCalculate.get(i).getAmount().value;
+            }
+            if (calculatedTotal != 0.00) {
+                System.out.println(calculatedTotal);
+            }
+            return calculatedTotal;
+        } else {
+            FilteredList<Expense> toCalculate = this.mapOfExpenseCategories.get(cat);
+            double calculatedTotal = 0.00;
+            for (int i = 0; i < toCalculate.size(); i++) {
+                calculatedTotal = calculatedTotal + toCalculate.get(i).getAmount().value;
+            }
+            if (calculatedTotal != 0.00) {
+                System.out.println(calculatedTotal);
+            }
+            return calculatedTotal;
         }
-        return (newTotal);
     }
 }

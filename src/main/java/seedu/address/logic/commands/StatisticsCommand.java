@@ -19,26 +19,27 @@ public class StatisticsCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": View Statistics of guiltTrip(). Use a comma to "
             + "seperate the two dates. \n"
             + "Parameters: "
-            + PREFIX_TYPE + "TYPE "
             + PREFIX_PERIOD + "PERIOD "
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_TYPE + "Expense "
-            + PREFIX_PERIOD + "11/9/2019, 17/9/2019 ";
+            + PREFIX_PERIOD + "9/2019 ";
 
     public static final String MESSAGE_SUCCESS = "Display all statistics by %s";
-    private String type;
-    private ArrayList<Date> listOfPeriods;
+    private Date listOfPeriods;
 
 
-    public StatisticsCommand(String type, ArrayList<Date> period) {
-        this.type = type;
+    public StatisticsCommand(Date period) {
         this.listOfPeriods = period;
     }
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
-        model.getStats().updateListOfStats();
-        return new CommandResult(String.format(MESSAGE_SUCCESS, type));
+        System.out.println(listOfPeriods);
+        if (listOfPeriods == null) {
+            model.getStats().updateListOfStats();
+        } else {
+            model.getStats().updateListOfStats(listOfPeriods.getDate().getMonth(), listOfPeriods.getDate().getYear());
+        }
+        return new CommandResult(String.format(MESSAGE_SUCCESS));
     }
 }

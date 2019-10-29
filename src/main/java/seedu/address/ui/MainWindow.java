@@ -130,7 +130,6 @@ public class MainWindow extends UiPart<Stage> {
 
         entryListPanel = new EntryListPanel(logic.getFilteredEntryList());
         entryListPanelPlaceholder.getChildren().add(entryListPanel.getRoot());
-        System.out.println(entryListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -222,6 +221,17 @@ public class MainWindow extends UiPart<Stage> {
         placeHolder.setVisible(!isVisible);
     }
 
+    private void togglePlaceHolderForStats() {
+        wishesPlaceHolder.setManaged(false);
+        wishesPlaceHolder.setVisible(false);
+        budgetsPlaceHolder.setManaged(false);
+        budgetsPlaceHolder.setVisible(false);
+        remindersPlaceHolder.setManaged(false);
+        remindersPlaceHolder.setVisible(false);
+        sidePanelsPlaceHolder.setManaged(false);
+        sidePanelsPlaceHolder.setVisible(false);
+    }
+
     /**
      * Sets both the isVisible and isManaged properties the side panel place holder to false if none of the side panels
      * are visible and managed.
@@ -269,8 +279,10 @@ public class MainWindow extends UiPart<Stage> {
             }
 
             if (commandResult.isToggleStats()) {
-                StatisticsWindow stats = new StatisticsWindow(primaryStage, logic);
-                stats.fillInnerParts();
+                this.togglePlaceHolderForStats();
+                StatisticsWindow stats = new StatisticsWindow(logic);
+                entryListPanelPlaceholder.getChildren().clear();
+                entryListPanelPlaceholder.getChildren().add(stats.getRoot());
             }
 
             return commandResult;
