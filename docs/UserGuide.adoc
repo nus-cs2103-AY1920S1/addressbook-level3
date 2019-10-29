@@ -175,7 +175,7 @@ Examples:
 * `update --out $/100 300 n/transport`
 * `update --in $/60 70 n/dad`
 
-=== Sorting transactions : `sort`
+=== Sorting Transactions : `sort`
 
 Sorts all transactions with given `PREDICATE` +
 Format: `sort PREDICATE`

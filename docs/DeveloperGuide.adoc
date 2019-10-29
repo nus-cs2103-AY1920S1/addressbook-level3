@@ -435,7 +435,7 @@ Upon setting a new budget, a `BudgetCard` is created and displayed in a list in 
 
 // tag::project[]
 [[Implementation-Projection]]
-=== Project Balance feature: `project`
+=== Project Balance Feature: `project`
 
 This feature allows users to _project_ their balance status based on past income and outflows as manifest in their _TransactionHistory_ by using the command `project [DATE]`.
 
