@@ -14,7 +14,6 @@ import budgetbuddy.logic.parser.ArgumentTokenizer;
 import budgetbuddy.logic.parser.CommandParser;
 import budgetbuddy.logic.parser.CommandParserUtil;
 import budgetbuddy.logic.parser.exceptions.ParseException;
-import budgetbuddy.model.account.Account;
 import budgetbuddy.model.attributes.Category;
 import budgetbuddy.model.transaction.TransactionMatchesConditionsPredicate;
 
@@ -34,17 +33,12 @@ public class ViewFilterCommandParser implements CommandParser<ViewFilterCommand>
      */
     @Override
     public ViewFilterCommand parse(String args) throws ParseException {
-
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_ACCOUNT, PREFIX_CATEGORY, PREFIX_FROM, PREFIX_UNTIL);
 
         //if arguments are not present, return empty Optionals
 
-        Optional<String> optionalAccountString = argMultimap.getValue(PREFIX_ACCOUNT);
-        Optional<Account> optionalAccount =
-                argMultimap.getValue(PREFIX_ACCOUNT).isPresent()
-                        ? Optional.of(CommandParserUtil.parseAccount(optionalAccountString.get()))
-                        : Optional.empty();
+        // FIXME handle accounts
 
         Optional<String> optionalCategoryString = argMultimap.getValue(PREFIX_CATEGORY);
         Optional<Category> optionalCategory =
@@ -64,7 +58,7 @@ public class ViewFilterCommandParser implements CommandParser<ViewFilterCommand>
                         ? Optional.of(CommandParserUtil.parseDate(optionalUntilString.get()))
                         : Optional.empty();
 
-        return new ViewFilterCommand(new TransactionMatchesConditionsPredicate(optionalAccount,
-                optionalCategory, optionalFrom, optionalUntil));
+        return new ViewFilterCommand(new TransactionMatchesConditionsPredicate(optionalCategory,
+                optionalFrom, optionalUntil));
     }
 }

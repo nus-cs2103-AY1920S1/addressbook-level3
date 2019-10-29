@@ -8,7 +8,6 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import budgetbuddy.model.account.Account;
 import budgetbuddy.model.attributes.Category;
 import budgetbuddy.model.attributes.Description;
 import budgetbuddy.model.attributes.Direction;
@@ -22,7 +21,6 @@ public class Transaction {
     private final Date date;
     private final Amount amount;
     private final Direction direction;
-    private final Account account;
     private final Description description;
     private final Set<Category> categories = new HashSet<>();
 
@@ -31,12 +29,11 @@ public class Transaction {
      * Since we only accept one category in the argument, it is added to the set of categories.
      */
     public Transaction(Date date, Amount amount, Direction direction, Description description,
-                       Account account, Category... categories) {
+                       Category... categories) {
         requireAllNonNull(date, amount, direction);
         this.date = date;
         this.amount = amount;
         this.direction = direction;
-        this.account = account;
         this.description = description;
         this.categories.addAll(Arrays.asList(categories));
     }
@@ -47,10 +44,6 @@ public class Transaction {
 
     public Amount getAmount() {
         return amount;
-    }
-
-    public Account getAccount() {
-        return account;
     }
 
     public Direction getDirection() {
@@ -82,7 +75,6 @@ public class Transaction {
         return otherTransaction.getDate().equals(getDate())
                 && otherTransaction.amount.equals(amount)
                 && otherTransaction.direction.equals(direction)
-                && otherTransaction.account.equals(account)
                 && otherTransaction.description.equals(description)
                 && otherTransaction.categories.equals(categories);
 
@@ -90,7 +82,7 @@ public class Transaction {
 
     @Override
     public int hashCode() {
-        return Objects.hash(date, amount, direction, account, description, categories);
+        return Objects.hash(date, amount, direction, description, categories);
     }
 
     @Override
@@ -101,8 +93,6 @@ public class Transaction {
                 .append(direction.toString())
                 .append(" on ")
                 .append(getDate())
-                .append(" in account: ")
-                .append(getAccount())
                 .append(" Description: ")
                 .append(getDescription())
                 .append(" Categories: ");

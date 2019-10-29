@@ -22,10 +22,8 @@ import budgetbuddy.model.account.Account;
 import budgetbuddy.model.attributes.Category;
 import budgetbuddy.model.attributes.Description;
 import budgetbuddy.model.attributes.Direction;
-import budgetbuddy.model.attributes.Name;
 import budgetbuddy.model.transaction.Amount;
 import budgetbuddy.model.transaction.Transaction;
-import budgetbuddy.model.transaction.TransactionList;
 
 /**
  * Parses input and creates a new TransactionAddCommand
@@ -67,7 +65,7 @@ public class TransactionAddCommandParser implements CommandParser<TransactionAdd
         Optional<String> optionalAccount = argMultimap.getValue(PREFIX_ACCOUNT);
         Account account = optionalAccount.isPresent()
                 ? CommandParserUtil.parseAccount(optionalAccount.get())
-                : new Account(new Name("DEFAULT"), new Description(""), new TransactionList());
+                : null;
 
         Optional<String> optionalCategory = argMultimap.getValue(PREFIX_CATEGORY);
         Category category = optionalCategory.isPresent()
@@ -82,9 +80,9 @@ public class TransactionAddCommandParser implements CommandParser<TransactionAdd
                 ? CommandParserUtil.parseDate(optionalDate.get())
                 : new Date();
 
-        Transaction transaction = new Transaction(date, amount, direction, description, account, category);
+        Transaction transaction = new Transaction(date, amount, direction, description, category);
 
-        return new TransactionAddCommand(transaction);
+        return new TransactionAddCommand(transaction, account);
     }
 
     /**
