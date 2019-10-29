@@ -213,7 +213,7 @@ public class Event {
         builder.append(" \nEvent Manpower Count: ").append(getCurrentManpowerCount() + " / ")
                 .append(getManpowerNeeded());
         builder.append(" \nEvent Date: ").append(getStartDate()).append(" - " + getEndDate());
-        builder.append(" \nEvent DateTime: ").append(getEventDateTimeMap());
+        builder.append(" \nAll Event Date/Time: \n").append(getEventDateTimeMap().toStringWithNewLine());
         builder.append(" \nTags: ");
         getTags().forEach(builder::append);
         return builder.toString();
