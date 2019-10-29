@@ -319,3 +319,4 @@ public class UpdateCommand extends UndoableCommand {
         return Objects.hash(id, updateEntityDescriptor);
     }
 }
+//@@author

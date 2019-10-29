@@ -11,12 +11,13 @@ import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.entity.PhoneNumber;
 import seedu.address.model.entity.Sex;
+import seedu.address.model.entity.worker.Photo;
 import seedu.address.model.entity.worker.Worker;
 import seedu.address.testutil.WorkerBuilder;
 
 //@@author ambervoong
 class UpdateWorkerDescriptorTest {
-
+    public static final String DEFAULT_PHOTO_PATH = "/src/main/resources/images/ExamplePhoto.jpg";
     @Test
     void isAnyFieldEdited_fieldEdited_true() {
         UpdateWorkerDescriptor descriptor = new UpdateWorkerDescriptor();
@@ -47,6 +48,20 @@ class UpdateWorkerDescriptorTest {
         UpdateWorkerDescriptor descriptor = new UpdateWorkerDescriptor();
         Worker workerCopy = new WorkerBuilder(ALICE).build();
         assertTrue(descriptor.apply(worker).equals(workerCopy));
+    }
+
+    @Test
+    void applyOriginal_fieldsPresent_success() {
+        Worker worker = new WorkerBuilder(ALICE).build();
+        UpdateWorkerDescriptor descriptor = new UpdateWorkerDescriptor(worker);
+        assertTrue(descriptor.applyOriginal(worker).equals(worker));
+    }
+
+    @Test
+    void applyOriginal_noFieldsPresent_success() {
+        Worker worker = new WorkerBuilder(ALICE).build();
+        UpdateWorkerDescriptor descriptor = new UpdateWorkerDescriptor();
+        assertTrue(descriptor.applyOriginal(worker).equals(worker));
     }
 
 
@@ -97,6 +112,15 @@ class UpdateWorkerDescriptorTest {
         UpdateWorkerDescriptor descriptor = new UpdateWorkerDescriptor(worker);
         descriptor.setEmploymentStatus("Probation");
         assertEquals("Probation", descriptor.getEmploymentStatus().get());
+    }
+
+    @Test
+    void getSetPhoto() throws ParseException {
+        Worker worker = new WorkerBuilder().withPhoto(WorkerBuilder.DEFAULT_PHOTO_PATH).build();
+        UpdateWorkerDescriptor descriptor = new UpdateWorkerDescriptor(worker);
+        Photo photo = worker.getPhoto().get();
+        descriptor.setPhoto(photo);
+        assertEquals(photo, descriptor.getPhoto().get());
     }
 
     @Test

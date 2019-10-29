@@ -109,23 +109,22 @@ public class AddCommand extends UndoableCommand {
         model.addEntity(toAdd);
 
         if (toAdd instanceof Body) {
-            //@@author ambervoong
-            if (getCommandState() == UndoableCommandState.REDOABLE) {
-                toAdd.getIdNum().addMapping(toAdd);
-            }
-            //@@author
-            SelectCommand selectCommand = new SelectCommand(toAdd.getIdNum().getIdNum());
-            selectCommand.execute(model);
             Body body = (Body) toAdd;
 
+            //@@author ambervoong
             if (getCommandState().equals(UndoableCommandState.REDOABLE)) {
+                toAdd.getIdNum().addMapping(toAdd); // Add mapping again since this is not a new Body.
                 notifCommand.addNotif(model);
             } else {
                 NotifCommand notifCommand = new NotifCommand(new Notif(body), NOTIF_PERIOD, NOTIF_TIME_UNIT);
                 this.notifCommand = notifCommand;
                 notifCommand.execute(model);
-
             }
+            //@@author
+            SelectCommand selectCommand = new SelectCommand(toAdd.getIdNum().getIdNum());
+            selectCommand.execute(model);
+
+
             Optional<IdentificationNumber> fridgeId = body.getFridgeId();
             if (!fridgeId.equals(Optional.empty())) {
                 List<Fridge> fridgeList = model.getFilteredFridgeList();

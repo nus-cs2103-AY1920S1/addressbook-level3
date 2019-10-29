@@ -57,6 +57,20 @@ class UpdateBodyDescriptorTest {
     }
 
     @Test
+    void applyOriginal_fieldsPresent_success() {
+        Body body = new BodyBuilder(ALICE).build();
+        UpdateBodyDescriptor descriptor = new UpdateBodyDescriptor(body);
+        assertTrue(descriptor.applyOriginal(body).equals(body));
+    }
+
+    @Test
+    void applyOriginal_noFieldsPresent_success() {
+        Body body = new BodyBuilder(ALICE).build();
+        UpdateBodyDescriptor descriptor = new UpdateBodyDescriptor();
+        assertTrue(descriptor.applyOriginal(body).equals(body));
+    }
+
+    @Test
     void getSetName() {
         Body body = new BodyBuilder(ALICE).build();
         UpdateBodyDescriptor descriptor = new UpdateBodyDescriptor(body);

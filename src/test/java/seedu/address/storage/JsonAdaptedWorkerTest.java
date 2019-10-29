@@ -7,7 +7,9 @@ import static seedu.address.testutil.TypicalWorkers.ALICE;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.entity.worker.Worker;
 import seedu.address.model.person.Name;
+import seedu.address.testutil.WorkerBuilder;
 
 //@@author ambervoong
 public class JsonAdaptedWorkerTest {
@@ -20,8 +22,9 @@ public class JsonAdaptedWorkerTest {
 
     @Test
     public void toModelType_validWorkerDetails_returnsWorker() throws Exception {
-        JsonAdaptedWorker worker = new JsonAdaptedWorker(ALICE);
-        assertEquals(ALICE, worker.toModelType());
+        Worker aliceBuilt = new WorkerBuilder(ALICE).build();
+        JsonAdaptedWorker worker = new JsonAdaptedWorker(aliceBuilt);
+        assertEquals(aliceBuilt, worker.toModelType());
     }
 
     @Test
@@ -33,3 +36,4 @@ public class JsonAdaptedWorkerTest {
         assertThrows(IllegalValueException.class, expectedMessage, worker::toModelType);
     }
 }
+//@@author

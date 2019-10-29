@@ -279,3 +279,4 @@ public class UpdateCommandTest {
         assertEquals(updateCommand.hashCode(), commandWithSameValues.hashCode());
     }
 }
+//@@author

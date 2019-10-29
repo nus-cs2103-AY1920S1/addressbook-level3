@@ -25,7 +25,8 @@ public class WorkerBuilder {
     public static final String DEFAULT_DATE_JOINED = "01/01/2019";
     public static final String DEFAULT_DESIGNATION = "technician";
     public static final String DEFAULT_EMPLOYMENT_STATUS = "cleaning";
-    public static final String DEFAULT_PHOTO_PATH = "/src/main/resources/images/ExamplePhoto.jpg";
+    public static final String DEFAULT_PHOTO_PATH = "src/main/resources/images/ExamplePhoto.jpg";
+
 
     private Name name;
     private PhoneNumber phone;
@@ -43,7 +44,9 @@ public class WorkerBuilder {
             sex = ParserUtil.parseSex(DEFAULT_SEX);
             dateOfBirth = ParserUtil.parseDate(DEFAULT_DATE_OF_BIRTH);
             dateJoined = ParserUtil.parseDate(DEFAULT_DATE_JOINED);
-            photo = ParserUtil.parsePhoto(DEFAULT_PHOTO_PATH);
+            // If no photo is specified, the default WorkerBuilder will have no photo.
+            //photo = ParserUtil.parsePhoto(DEFAULT_PHOTO_PATH);
+            photo = null;
         } catch (ParseException e) {
             System.out.println(e.getMessage() + MESSAGE_INVALID_TEST_PARAMETERS);
         }
@@ -62,6 +65,7 @@ public class WorkerBuilder {
         dateJoined = workerToCopy.getDateJoined();
         designation = workerToCopy.getDesignation().orElse(null);
         employmentStatus = workerToCopy.getEmploymentStatus().orElse(null);
+        photo = workerToCopy.getPhoto().orElse(null);
     }
 
     /**
