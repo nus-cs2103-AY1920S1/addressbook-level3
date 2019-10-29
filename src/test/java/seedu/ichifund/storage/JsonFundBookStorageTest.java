@@ -3,10 +3,10 @@ package seedu.ichifund.storage;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static seedu.ichifund.testutil.Assert.assertThrows;
-import static seedu.ichifund.testutil.TypicalPersons.ALICE;
-import static seedu.ichifund.testutil.TypicalPersons.HOON;
-import static seedu.ichifund.testutil.TypicalPersons.IDA;
-import static seedu.ichifund.testutil.TypicalPersons.getTypicalFundBook;
+import static seedu.ichifund.testutil.TypicalFundBook.PERSON_ALICE;
+import static seedu.ichifund.testutil.TypicalFundBook.PERSON_HOON;
+import static seedu.ichifund.testutil.TypicalFundBook.PERSON_IDA;
+import static seedu.ichifund.testutil.TypicalFundBook.getTypicalFundBook;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -52,12 +52,12 @@ public class JsonFundBookStorageTest {
 
     @Test
     public void readFundBook_invalidPersonFundBook_throwDataConversionException() {
-        assertThrows(DataConversionException.class, () -> readFundBook("invalidPersonFundBook.json"));
+        assertThrows(DataConversionException.class, () -> readFundBook("invalidFundBook.json"));
     }
 
     @Test
     public void readFundBook_invalidAndValidPersonFundBook_throwDataConversionException() {
-        assertThrows(DataConversionException.class, () -> readFundBook("invalidAndValidPersonFundBook.json"));
+        assertThrows(DataConversionException.class, () -> readFundBook("invalidAndValidFundBook.json"));
     }
 
     @Test
@@ -72,14 +72,14 @@ public class JsonFundBookStorageTest {
         assertEquals(original, new FundBook(readBack));
 
         // Modify data, overwrite exiting file, and read back
-        original.addPerson(HOON);
-        original.removePerson(ALICE);
+        original.addPerson(PERSON_HOON);
+        original.removePerson(PERSON_ALICE);
         jsonFundBookStorage.saveFundBook(original, filePath);
         readBack = jsonFundBookStorage.readFundBook(filePath).get();
         assertEquals(original, new FundBook(readBack));
 
         // Save and read without specifying file path
-        original.addPerson(IDA);
+        original.addPerson(PERSON_IDA);
         jsonFundBookStorage.saveFundBook(original); // file path not specified
         readBack = jsonFundBookStorage.readFundBook().get(); // file path not specified
         assertEquals(original, new FundBook(readBack));

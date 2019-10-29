@@ -2,7 +2,7 @@ package seedu.ichifund.logic.commands;
 
 import static seedu.ichifund.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.ichifund.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.ichifund.testutil.TypicalPersons.getTypicalFundBook;
+import static seedu.ichifund.testutil.TypicalFundBook.getTypicalFundBook;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
