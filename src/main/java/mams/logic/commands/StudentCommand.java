@@ -1,8 +1,6 @@
 package mams.logic.commands;
 
 import static mams.logic.parser.CliSyntax.PREFIX_CREDITS;
-import static mams.logic.parser.CliSyntax.PREFIX_STUDENT;
-
 
 /**
  * Abstract class for AddModCommand and RemoveModCommand

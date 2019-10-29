@@ -26,7 +26,7 @@ public class SaveCommandParser implements Parser<SaveCommand> {
 
         if (argMultimap.getValue(PREFIX_TAG).isEmpty()) {
             return new SaveCommand();
-        } else if (argMultimap.getValue(PREFIX_TAG).get().equals("undo")){
+        } else if (argMultimap.getValue(PREFIX_TAG).get().equals("undo")) {
             throw new ParseException((SaveCommand.MESSAGE_USAGE_BACKUP));
         } else if (argMultimap.getValue(PREFIX_TAG).get().equals("redo")) {
             throw new ParseException(SaveCommand.MESSAGE_USAGE_BACKUP);

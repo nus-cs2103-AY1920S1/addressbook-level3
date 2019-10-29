@@ -15,7 +15,6 @@ import mams.storage.JsonMamsStorage;
  */
 public class SaveCommand extends StoreCommand {
     private String tag = "";
-    private static String VALIDATION_REGEX = "\\p{Alnum}";
 
     public SaveCommand(String tag) {
         this.tag = tag;
@@ -42,6 +41,12 @@ public class SaveCommand extends StoreCommand {
 
     }
 
+    /** execute used for undo and redo objects
+     *
+     * @param model
+     * @return
+     * @throws CommandException
+     */
     public CommandResult privateExecute(Model model) throws CommandException {
         ReadOnlyMams mamsToSave = model.getMams();
         JsonMamsStorage history = new JsonMamsStorage(Paths.get("data/mamshistory_" + this.tag + ".json"));

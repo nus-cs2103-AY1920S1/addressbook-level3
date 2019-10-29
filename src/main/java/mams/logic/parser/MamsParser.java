@@ -31,7 +31,6 @@ public class MamsParser {
      * Used for initial separation of command word and args.
      */
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
-    private int redoable_command_count = 0;
 
     /**
      * Parses user input into command for execution.
