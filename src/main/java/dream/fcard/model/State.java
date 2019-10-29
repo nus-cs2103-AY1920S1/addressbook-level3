@@ -1,28 +1,22 @@
 package dream.fcard.model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.function.Consumer;
 
-import dream.fcard.logic.stats.StateStats;
-import dream.fcard.logic.stats.Statistics;
+import dream.fcard.logic.storage.StorageManager;
 import dream.fcard.model.exceptions.DeckNotFoundException;
 
 /**
  * Running state of the program.
  */
 public class State {
-
-    private StateEnum currentState;
+    private static State state;
     private ArrayList<Deck> decks;
-    private Statistics stateStats;
+    private boolean isEditMode;
+    private boolean isCreateMode;
+    private HashMap<String, Consumer> consumerHashMap;
 
-    /**
-     * Constructor to create a State object with no Deck objects.
-     */
-    public State() {
-        currentState = StateEnum.DEFAULT;
-        decks = new ArrayList<>();
-        stateStats = new StateStats(this);
-    }
 
     /**
      * Constructor to create a State object with existing Deck objects.
@@ -30,12 +24,46 @@ public class State {
      * @param initialDecks ArrayList of Deck objects to include in State object.
      */
     public State(ArrayList<Deck> initialDecks) {
-        currentState = StateEnum.DEFAULT;
         decks = initialDecks;
     }
 
     /**
-     * Adds new empty Deck object to decks list.
+     * Constructor to create a State object with no Deck objects.
+     */
+    public State() {
+        decks = StorageManager.loadDecks();
+        consumerHashMap = new HashMap<>();
+    }
+
+    /**
+     * State is a singleton to avoid passing the state object through too many layers of objects.
+     *
+     * @return the singleton state object
+     */
+    public static State getState() {
+        if (state == null) {
+            state = new State();
+        }
+        return state;
+    }
+
+    /**
+     * Returns false if decks is non-empty, true if decks is empty.
+     */
+    public boolean isEmpty() {
+        return decks.size() == 0;
+    }
+
+    /**
+     * Returns the list of decks.
+     */
+    public ArrayList<Deck> getDecks() {
+        return decks;
+    }
+
+
+    /**
+     * Adds a new empty Deck object to decks list.
      */
     public void addDeck(String deckName) {
         decks.add(new Deck(deckName));
@@ -79,24 +107,17 @@ public class State {
     }
 
     /**
-     * @return
-     */
-    public ArrayList<Deck> getDecks() {
-        return decks;
-    }
-
-    /**
-     * Replace all decks with a new set of decks. Used by `root` command.
+     * Load decks from StorageManager.
      *
-     * @param newDecks new decks
+     * @param newDecks the array list of all decks in Storage.
      */
     public void reloadAllDecks(ArrayList<Deck> newDecks) {
         decks = newDecks;
     }
 
     /**
-     * Returns the index of a Deck given the Deck name, if a Deck with matching name exists.
-     * Else, return -1 if no Deck with matching name is found.
+     * Returns the index of a deck given the deck name, if a deck with matching name exists.
+     * Else, return -1 if no deck with matching name is found.
      * <p>
      * Note: this method is only used internally for State processing.
      * Should not be confused with user seen indexes, since this is 0-based index.
@@ -116,34 +137,19 @@ public class State {
         return -1;
     }
 
-    /**
-     * @return
-     */
-    public StateEnum getCurrentState() {
-        return currentState;
+    public void addConsumer(String identifier, Consumer c) {
+        consumerHashMap.putIfAbsent(identifier, c);
     }
 
     /**
-     * @param deckName
-     * @return
+     * This method of getting consumers generifies the type of input which leads to compiler warnings.
+     * As such, the suppress warning annotations used whenever this method is called
+     * are due to the unchecked generic Consumer types.
+     *
+     * @param identifier name of the Consumer as recorded in ConsumerSchema
+     * @return the Consumer
      */
-    public boolean hasDeck(String deckName) {
-        for (int i = 0; i < decks.size(); i++) {
-            Deck currentDeck = decks.get((i));
-            String currentDeckName = currentDeck.getName();
-            boolean isMatchName = currentDeckName.equals(deckName);
-            if (isMatchName) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public void setCurrentState(StateEnum newState) {
-        currentState = newState;
-    }
-
-    public Statistics getStatistics() {
-        return this.stateStats;
+    public Consumer getConsumer(String identifier) {
+        return consumerHashMap.get(identifier);
     }
 }

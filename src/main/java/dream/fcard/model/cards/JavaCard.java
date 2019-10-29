@@ -2,11 +2,11 @@ package dream.fcard.model.cards;
 
 import java.util.ArrayList;
 
-import dream.fcard.logic.stats.CardStats;
 import dream.fcard.model.TestCase;
+import dream.fcard.model.exceptions.IndexNotFoundException;
 
 /**
- * Card that evaluates input as javascript code whose output has to match back of card.
+ * A Java card.
  */
 public class JavaCard extends FlashCard {
 
@@ -14,13 +14,11 @@ public class JavaCard extends FlashCard {
     private ArrayList<TestCase> testCases;
 
     public JavaCard(String question, ArrayList<TestCase> testCases) {
-        this.question = question;
         this.testCases = testCases;
-        this.cardStats = new CardStats();
     }
 
     @Override
-    public Boolean evaluate(String in) {
+    public Boolean evaluate(String in) throws IndexNotFoundException {
         //TODO: Evaluating Java code can be done inside here
         return null;
     }
@@ -46,8 +44,13 @@ public class JavaCard extends FlashCard {
         //irrelevant
     }
 
-    @Override
-    public boolean hasChoices() {
-        return false;
-    }
+    //@Override
+    //public boolean hasChoices() {
+    //    return false;
+    //}
+    //
+    //@Override
+    //public int compareTo(FlashCard card) {
+    //    return 0;
+    //}
 }

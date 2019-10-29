@@ -20,7 +20,7 @@ public class JsEditorController {
 
 
     /**
-     * Runs the code in the text editor in Java and returns the output.
+     * Runs the code in the text editor in JavaScript and returns the output.
      * @throws IOException if code cannot be compiled.
      */
     @FXML

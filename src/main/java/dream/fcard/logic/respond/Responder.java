@@ -14,10 +14,10 @@ public class Responder {
      * @param state The current State of the program.
      */
     public static void takeInput(String input, State state) {
-        for (Responses r : Responses.values()) {
-            if (r.call(input, state)) {
-                break;
-            }
-        }
+        //for (Responses r : Responses.values()) {
+        //    if (r.call(input, state)) {
+        //        break;
+        //    }
+        //}
     }
 }
