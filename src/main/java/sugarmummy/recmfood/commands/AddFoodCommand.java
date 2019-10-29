@@ -1,4 +1,4 @@
-package seedu.address.logic.commands;
+package sugarmummy.recmfood.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CALORIE;
@@ -8,6 +8,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_FOOD_TYPE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GI;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SUGAR;
 
+import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.ui.DisplayPaneType;

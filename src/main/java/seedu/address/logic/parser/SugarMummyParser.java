@@ -8,7 +8,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.AddCommand;
-import seedu.address.logic.commands.AddFoodCommand;
+import sugarmummy.recmfood.commands.AddFoodCommand;
 import seedu.address.logic.commands.AverageCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
@@ -17,7 +17,7 @@ import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
-import seedu.address.logic.commands.RecmFoodCommand;
+import sugarmummy.recmfood.commands.RecmFoodCommand;
 import seedu.address.logic.commands.achvm.AchvmCommand;
 import seedu.address.logic.commands.aesthetics.BackgroundCommand;
 import seedu.address.logic.commands.aesthetics.FontColourCommand;
