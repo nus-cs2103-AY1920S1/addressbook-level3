@@ -4,7 +4,7 @@ package seedu.address.logic.parser;
 import seedu.address.logic.commands.AppointmentsCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
-import seedu.address.model.events.predicates.EventContainsApprovedStatusPredicate;
+import seedu.address.model.events.predicates.EventApprovedPredicate;
 import seedu.address.model.events.predicates.EventContainsKeywordPredicate;
 
 /**
@@ -26,7 +26,7 @@ public class AppointmentsCommandParser implements Parser<AppointmentsCommand> {
     public AppointmentsCommand parse(String args) throws ParseException {
         String trimmedArgs = args.trim();
         if (trimmedArgs.isEmpty()) {
-            return new AppointmentsCommand(new EventContainsApprovedStatusPredicate());
+            return new AppointmentsCommand(new EventApprovedPredicate());
         }
         return new AppointmentsCommand(new EventContainsKeywordPredicate(args.trim().toUpperCase()));
     }
