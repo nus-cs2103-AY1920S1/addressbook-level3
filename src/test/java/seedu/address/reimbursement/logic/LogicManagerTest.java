@@ -43,8 +43,7 @@ public class LogicManagerTest {
             transactionModel =
                     new seedu.address.transaction.model.ModelManager(TypicalReimbursements.getTypicalTransactions());
             logic =
-                    new LogicManager(reimbursementModel, reimbursementStorage, transactionModel, transactionStorage,
-                            personModel);
+                    new LogicManager(reimbursementModel, reimbursementStorage, personModel);
         } catch (IOException e) {
             throw new AssertionError("This method should not throw an exception.");
         }
@@ -62,7 +61,7 @@ public class LogicManagerTest {
 
         transactionModel.addTransaction(TypicalTransactions.BOB_TRANSACTION_13);
         try {
-            logic.updateReimbursementFromTransaction();
+            logic.updateReimbursementFromTransaction(transactionModel.getTransactionList());
         } catch (IOException e) {
             fail();
         }

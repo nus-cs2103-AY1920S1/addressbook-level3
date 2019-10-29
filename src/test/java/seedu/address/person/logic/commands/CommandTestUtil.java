@@ -111,11 +111,10 @@ public class CommandTestUtil {
                             File.createTempFile("testing", "tempReimbursement.txt"));
 
             seedu.address.reimbursement.logic.Logic reimbursementLogic =
-                    new seedu.address.reimbursement.logic.LogicManager(reimbursementModel, reimbursementManager,
-                            transactionModel, transactionManager, personModel);
+                    new seedu.address.reimbursement.logic.LogicManager(reimbursementModel, reimbursementManager, personModel);
             Logic transactionLogic =
                     new LogicManager(transactionModel, transactionManager,
-                            personModel, reimbursementModel, reimbursementManager);
+                            personModel);
 
 
             CommandResult result = command.execute(actualModel, transactionLogic, reimbursementLogic);
@@ -174,11 +173,9 @@ public class CommandTestUtil {
                     new seedu.address.reimbursement.storage.StorageManager(
                             File.createTempFile("testing", "tempReimbursement.txt"));
 
-            Logic logic = new LogicManager(transactionModel, transactionManager, personModel,
-                    reimbursementModel, reimbursementManager);
+            Logic logic = new LogicManager(transactionModel, transactionManager, personModel);
             seedu.address.reimbursement.logic.Logic reimbursementLogic =
-                    new seedu.address.reimbursement.logic.LogicManager(reimbursementModel, reimbursementManager,
-                            transactionModel, transactionManager, personModel);
+                    new seedu.address.reimbursement.logic.LogicManager(reimbursementModel, reimbursementManager, personModel);
 
             assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel,
                     logic, reimbursementLogic));
@@ -230,10 +227,10 @@ public class CommandTestUtil {
                             File.createTempFile("testing", "tempReimbursement.txt"));
             seedu.address.reimbursement.logic.Logic reimbursementLogic =
                     new seedu.address.reimbursement.logic.LogicManager(reimbursementModel, reimbursementManager,
-                            transactionModel, transactionManager, personModel);
+                            personModel);
             seedu.address.transaction.logic.Logic transactionLogic =
                     new seedu.address.transaction.logic.LogicManager(transactionModel, transactionManager,
-                            personModel, reimbursementModel, reimbursementManager);
+                            personModel);
 
 
             CommandResult result = command.execute(actualModel, transactionLogic, reimbursementLogic);

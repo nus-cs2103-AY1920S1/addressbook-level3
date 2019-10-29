@@ -46,8 +46,7 @@ class LogicManagerTest {
                     new seedu.address.reimbursement.model.ModelManager(
                             reimbursementStorage.getReimbursementFromFile(model.getTransactionList()));
             logic =
-                    new LogicManager(model, storage, personModel, reimbursementModel,
-                            reimbursementStorage);
+                    new LogicManager(model, storage, personModel);
         } catch (IOException e) {
             throw new AssertionError("This method should not throw an exception.");
         }

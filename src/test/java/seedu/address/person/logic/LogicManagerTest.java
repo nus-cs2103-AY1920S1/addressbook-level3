@@ -94,11 +94,10 @@ public class LogicManagerTest {
 
         //All related logics
         transactionLogic = new seedu.address.transaction.logic.LogicManager(transactionModel,
-                transactionManager, personModel,
-                reimbursementModel, reimbursementManager);
+                transactionManager, personModel);
         reimbursementLogic =
                 new seedu.address.reimbursement.logic.LogicManager(reimbursementModel, reimbursementManager,
-                        transactionModel, transactionManager, personModel);
+                        personModel);
         logic = new LogicManager(model, personManager, transactionLogic, reimbursementLogic);
     }
     @Test

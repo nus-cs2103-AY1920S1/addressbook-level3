@@ -18,33 +18,23 @@ public class LogicManager implements Logic {
     private final seedu.address.reimbursement.model.Model reimbursementModel;
     private final seedu.address.reimbursement.storage.StorageManager reimbursementStorage;
     private final seedu.address.person.model.Model personModel;
-    private final seedu.address.transaction.model.Model transactionModel;
-    private final seedu.address.transaction.storage.Storage transactionStorage;
     private final ReimbursementTabParser parser;
 
 
     public LogicManager(Model reimbursementModel,
                         seedu.address.reimbursement.storage.StorageManager reimbursementStorage,
-                        seedu.address.transaction.model.Model transactionModel,
-                        seedu.address.transaction.storage.Storage transactionStorage,
                         seedu.address.person.model.Model personModel) {
 
         this.reimbursementModel = reimbursementModel;
         this.reimbursementStorage = reimbursementStorage;
-
         this.parser = new ReimbursementTabParser();
-
         this.personModel = personModel;
-
-        this.transactionModel = transactionModel;
-        this.transactionStorage = transactionStorage;
     }
 
     @Override
     public CommandResult execute(String commandText) throws Exception {
         Command command = parser.parseCommand(commandText, personModel);
         CommandResult commandResult = command.execute(reimbursementModel, personModel);
-        transactionStorage.writeFile(transactionModel.getTransactionList());
         reimbursementStorage.writeFile(reimbursementModel.getReimbursementList());
         return commandResult;
     }
@@ -54,11 +44,18 @@ public class LogicManager implements Logic {
         return reimbursementModel.getFilteredReimbursementList();
     }
 
-    @Override
+    /*@Override
     public void updateReimbursementFromTransaction() throws IOException {
         TransactionList transList = transactionModel.getTransactionList();
         ReimbursementList rmbList = reimbursementStorage.getReimbursementFromFile(transList);
         reimbursementModel.updateReimbursementList(rmbList);
+        reimbursementStorage.writeFile(reimbursementModel.getReimbursementList());
+    }*/
+
+    @Override
+    public void updateReimbursementFromTransaction(TransactionList transactionList) throws IOException {
+        reimbursementModel.updateReimbursementList(
+                reimbursementStorage.getReimbursementFromFile(transactionList));
         reimbursementStorage.writeFile(reimbursementModel.getReimbursementList());
     }
 

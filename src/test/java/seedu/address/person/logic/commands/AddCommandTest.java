@@ -89,11 +89,10 @@ public class AddCommandTest {
                 new seedu.address.inventory.storage.StorageManager(new File(FILE_PATH_INVENTORY));
 
         //All related logics
-        Logic logic = new LogicManager(transactionModel, transactionManager, personModel,
-                reimbursementModel, reimbursementManager);
+        Logic logic = new LogicManager(transactionModel, transactionManager, personModel);
         seedu.address.reimbursement.logic.Logic reimbursementLogic =
                 new seedu.address.reimbursement.logic.LogicManager(reimbursementModel, reimbursementManager,
-                        transactionModel, transactionManager, personModel);
+                        personModel);
         CommandResult commandResult =
                 new AddCommand(validPerson).execute(modelStub, logic, reimbursementLogic);
 
@@ -149,11 +148,10 @@ public class AddCommandTest {
                 new seedu.address.inventory.storage.StorageManager(new File(FILE_PATH_INVENTORY));
 
         //All related logics
-        Logic logic = new LogicManager(transactionModel, transactionManager, personModel,
-                reimbursementModel, reimbursementManager);
+        Logic logic = new LogicManager(transactionModel, transactionManager, personModel);
         seedu.address.reimbursement.logic.Logic reimbursementLogic =
                 new seedu.address.reimbursement.logic.LogicManager(reimbursementModel, reimbursementManager,
-                        transactionModel, transactionManager, personModel);
+                        personModel);
 
         assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_PERSON, () ->
                 addCommand.execute(personModelStub, logic, reimbursementLogic));
