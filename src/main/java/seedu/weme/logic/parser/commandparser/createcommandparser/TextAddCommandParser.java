@@ -1,8 +1,10 @@
 package seedu.weme.logic.parser.commandparser.createcommandparser;
 
 import static seedu.weme.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.weme.logic.parser.util.CliSyntax.PREFIX_COLOR;
 import static seedu.weme.logic.parser.util.CliSyntax.PREFIX_X_COORDINATE;
 import static seedu.weme.logic.parser.util.CliSyntax.PREFIX_Y_COORDINATE;
+import static seedu.weme.model.template.MemeTextColor.DEFAULT_MEME_TEXT_COLOR;
 
 import seedu.weme.logic.commands.createcommand.TextAddCommand;
 import seedu.weme.logic.parser.Parser;
@@ -12,6 +14,7 @@ import seedu.weme.logic.parser.util.ArgumentTokenizer;
 import seedu.weme.logic.parser.util.ParserUtil;
 import seedu.weme.model.template.Coordinates;
 import seedu.weme.model.template.MemeText;
+import seedu.weme.model.template.MemeTextColor;
 
 /**
  * Parses input arguments and creates a new TextAddCommand object
@@ -25,7 +28,7 @@ public class TextAddCommandParser implements Parser<TextAddCommand> {
      */
     public TextAddCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-            ArgumentTokenizer.tokenize(args, PREFIX_X_COORDINATE, PREFIX_Y_COORDINATE);
+            ArgumentTokenizer.tokenize(args, PREFIX_X_COORDINATE, PREFIX_Y_COORDINATE, PREFIX_COLOR);
 
         if (!argMultimap.arePrefixesPresent(PREFIX_X_COORDINATE, PREFIX_Y_COORDINATE)
             || argMultimap.getPreamble().isEmpty()) {
@@ -36,8 +39,10 @@ public class TextAddCommandParser implements Parser<TextAddCommand> {
         Coordinates coordinates = ParserUtil.parseCoordinates(
             argMultimap.getValue(PREFIX_X_COORDINATE).get(),
             argMultimap.getValue((PREFIX_Y_COORDINATE)).get());
+        MemeTextColor color = ParserUtil.parseMemeTextColor(
+            argMultimap.getValue(PREFIX_COLOR).orElse(DEFAULT_MEME_TEXT_COLOR));
 
-        return new TextAddCommand(new MemeText(text, coordinates));
+        return new TextAddCommand(new MemeText(text, coordinates, color));
     }
 
 }

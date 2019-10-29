@@ -2,6 +2,8 @@ package seedu.weme.model.template;
 
 import static seedu.weme.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.awt.Color;
+
 /**
  * Represents a piece of text on a meme.
  */
@@ -9,11 +11,13 @@ public class MemeText {
 
     private final String text;
     private final Coordinates coordinates;
+    private final MemeTextColor color;
 
-    public MemeText(String value, Coordinates coordinates) {
-        requireAllNonNull(value, coordinates);
+    public MemeText(String value, Coordinates coordinates, MemeTextColor color) {
+        requireAllNonNull(value, coordinates, color);
         this.text = value;
         this.coordinates = coordinates;
+        this.color = color;
     }
 
     public String getText() {
@@ -28,6 +32,10 @@ public class MemeText {
         return coordinates.getY();
     }
 
+    public Color getColor() {
+        return color.getColor();
+    }
+
     @Override
     public boolean equals(Object other) {
         if (this == other) {
@@ -40,6 +48,7 @@ public class MemeText {
 
         MemeText otherMemeText = (MemeText) other;
         return text.equals(otherMemeText.text)
-            && coordinates.equals(otherMemeText.coordinates);
+            && coordinates.equals(otherMemeText.coordinates)
+            && color.equals(otherMemeText.color);
     }
 }

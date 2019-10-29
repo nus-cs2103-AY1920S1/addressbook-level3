@@ -1,6 +1,5 @@
 package seedu.weme.model.template;
 
-import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics2D;
@@ -112,13 +111,13 @@ public class MemeCreation {
         }
         BufferedImage newImage = ImageUtil.copyBufferedImage(initialImage);
         Graphics2D graphics = (Graphics2D) newImage.getGraphics();
-        graphics.setColor(Color.BLACK);
         graphics.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 50));
 
         for (MemeText text : textList) {
             TextBoundaries boundaries = getTextBoundary(text);
             int x = boundaries.getX1();
             int y = (boundaries.getY1() + boundaries.getY2()) / 2;
+            graphics.setColor(text.getColor());
             graphics.drawString(text.getText(), x, y);
         }
 
