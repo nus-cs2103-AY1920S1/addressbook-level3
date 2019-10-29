@@ -50,8 +50,8 @@ class ReminderAssociationTest {
     }
 
     @Test
-    public void setBookmark_notExistBookmark_throwsBookmarkContainNoReminderException() {
-        assertThrows(BookmarkContainNoReminderException.class, () -> association.setReminder(READ, OPEN));
+    public void setBookmark_notExistBookmark_throwsReminderNotFoundException() {
+        assertThrows(ReminderNotFoundException.class, () -> association.setReminder(READ, OPEN));
     }
 
     @Test
@@ -77,8 +77,8 @@ class ReminderAssociationTest {
     }
 
     @Test
-    public void remove_notExistReminder_throwsBookmarkContainNoReminderException() {
-        assertThrows(BookmarkContainNoReminderException.class, () -> association.deleteReminder(READ));
+    public void remove_notExistReminder_throwsReminderNotFoundException() {
+        assertThrows(ReminderNotFoundException.class, () -> association.deleteReminder(READ));
     }
 
     @Test

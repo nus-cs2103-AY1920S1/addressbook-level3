@@ -70,6 +70,10 @@ public class ReminderAssociation {
      */
     public void deleteReminder(Reminder reminder) {
         requireAllNonNull(reminder);
+        if (!reminderMap.containsKey(reminder)) {
+            throw new ReminderNotFoundException();
+        }
+
         Bookmark bookmark = reminderMap.get(reminder);
 
         if (!association.containsKey(bookmark)) {
@@ -88,6 +92,10 @@ public class ReminderAssociation {
      */
     public void setReminder(Reminder targetReminder, Reminder editedReminder) {
         requireAllNonNull(targetReminder, editedReminder);
+        if (!reminderMap.containsKey(targetReminder)) {
+            throw new ReminderNotFoundException();
+        }
+
         Bookmark bookmark = reminderMap.get(targetReminder);
 
         if (!association.containsKey(bookmark)) {
