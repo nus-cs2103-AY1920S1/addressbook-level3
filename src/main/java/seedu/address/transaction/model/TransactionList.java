@@ -1,11 +1,13 @@
-package seedu.address.transaction.util;
+package seedu.address.transaction.model;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.stream.Stream;
 
-import seedu.address.transaction.model.Transaction;
+import seedu.address.transaction.model.comparators.SortByAmount;
+import seedu.address.transaction.model.comparators.SortByDate;
+import seedu.address.transaction.model.comparators.SortByName;
+import seedu.address.transaction.model.transaction.Transaction;
 
 /**
  * Wraps all data of the transactions into a list.
@@ -168,41 +170,3 @@ public class TransactionList {
     }
 }
 
-/**
- * Comparator to compare by the name in transaction.
- */
-class SortByName implements Comparator<Transaction> {
-    // Used for sorting in ascending order
-    @Override
-    public int compare(Transaction a, Transaction b) {
-        return a.getName().compareTo(b.getName());
-    }
-}
-
-/**
- * Comparator to compare by amount in transaction.
- */
-class SortByAmount implements Comparator<Transaction> {
-    // Used for sorting in descending order
-    @Override
-    public int compare(Transaction a, Transaction b) {
-        if (a.getAmount() < b.getAmount()) {
-            return 1;
-        } else if (a.getAmount() == b.getAmount()) {
-            return 0;
-        } else {
-            return -1;
-        }
-    }
-}
-
-/**
- * Comparator to compare by date in transaction.
- */
-class SortByDate implements Comparator<Transaction> {
-    // Used for sorting in ascending order
-    @Override
-    public int compare(Transaction a, Transaction b) {
-        return a.getDateObject().compareTo(b.getDateObject());
-    }
-}

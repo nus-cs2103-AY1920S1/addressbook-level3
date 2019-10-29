@@ -1,8 +1,9 @@
 package seedu.address.cashier.storage;
 
 import seedu.address.cashier.util.InventoryList;
-import seedu.address.transaction.model.Transaction;
-import seedu.address.transaction.util.TransactionList;
+
+import seedu.address.transaction.model.TransactionList;
+import seedu.address.transaction.model.transaction.Transaction;
 
 /**
  * API of the Storage component

@@ -5,8 +5,10 @@ import java.util.ArrayList;
 import seedu.address.cashier.util.InventoryList;
 import seedu.address.inventory.logic.Logic;
 import seedu.address.inventory.model.Item;
-import seedu.address.transaction.model.Transaction;
-import seedu.address.transaction.util.TransactionList;
+
+import seedu.address.transaction.model.TransactionList;
+import seedu.address.transaction.model.transaction.Transaction;
+
 
 /**
  * Manages storage of Inventory List and Transaction List data in local storage.

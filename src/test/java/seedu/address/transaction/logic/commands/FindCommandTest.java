@@ -19,7 +19,7 @@ import seedu.address.person.model.UserPrefs;
 import seedu.address.testutil.TypicalTransactions;
 import seedu.address.transaction.model.Model;
 import seedu.address.transaction.model.ModelManager;
-import seedu.address.transaction.model.TransactionContainsKeywordsPredicate;
+import seedu.address.transaction.model.transaction.TransactionContainsKeywordsPredicate;
 
 class FindCommandTest {
     private Model model = new ModelManager(TypicalTransactions.getTypicalTransactionList());

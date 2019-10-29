@@ -11,7 +11,7 @@ import seedu.address.cashier.model.Model;
 import seedu.address.cashier.storage.Storage;
 import seedu.address.cashier.util.InventoryList;
 import seedu.address.inventory.model.Item;
-import seedu.address.transaction.model.Transaction;
+import seedu.address.transaction.model.transaction.Transaction;
 
 /**
  * The main LogicManager of the cashier tab.

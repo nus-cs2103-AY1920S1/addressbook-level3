@@ -3,8 +3,8 @@ package seedu.address.transaction.logic;
 import java.io.IOException;
 
 import seedu.address.transaction.logic.commands.CommandResult;
-import seedu.address.transaction.model.Transaction;
-import seedu.address.transaction.util.TransactionList;
+import seedu.address.transaction.model.TransactionList;
+import seedu.address.transaction.model.transaction.Transaction;
 
 /**
  * API of the Logic component
