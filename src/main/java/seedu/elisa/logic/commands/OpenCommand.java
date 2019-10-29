@@ -1,5 +1,7 @@
 package seedu.elisa.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+
 import seedu.elisa.commons.core.Messages;
 import seedu.elisa.commons.core.index.Index;
 import seedu.elisa.commons.core.item.Item;
@@ -7,8 +9,9 @@ import seedu.elisa.logic.commands.exceptions.CommandException;
 import seedu.elisa.model.ItemModel;
 import seedu.elisa.model.item.VisualizeList;
 
-import static java.util.Objects.requireNonNull;
-
+/**
+ * Creates an open command to expand the view of an item.
+ */
 public class OpenCommand extends Command {
 
     public static final String COMMAND_WORD = "open";
@@ -18,13 +21,19 @@ public class OpenCommand extends Command {
             + "Parameters: INDEX (Must be a positive integer within the current list) \n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public Index index;
+    private Index index;
     private VisualizeList beforeOpen;
 
     public OpenCommand(Index index) {
         this.index = index;
     }
 
+    /**
+     * Executes this command
+     * @param model {@code Model} which the command should operate on.
+     * @return the command result of executing this command
+     * @throws CommandException if the index given is invalid
+     */
     public CommandResult execute(ItemModel model) throws CommandException {
         requireNonNull(model);
         beforeOpen = model.getVisualList().deepCopy(); // for undo. Undo action is technically close.

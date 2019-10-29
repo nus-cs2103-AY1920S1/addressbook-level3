@@ -19,7 +19,12 @@ import seedu.elisa.commons.core.LogsCenter;
 import seedu.elisa.commons.core.item.Item;
 import seedu.elisa.commons.exceptions.IllegalValueException;
 import seedu.elisa.logic.Logic;
-import seedu.elisa.logic.commands.*;
+import seedu.elisa.logic.commands.CloseCommand;
+import seedu.elisa.logic.commands.CloseCommandResult;
+import seedu.elisa.logic.commands.CommandResult;
+import seedu.elisa.logic.commands.DownCommandResult;
+import seedu.elisa.logic.commands.OpenCommandResult;
+import seedu.elisa.logic.commands.UpCommandResult;
 import seedu.elisa.logic.commands.exceptions.CommandException;
 import seedu.elisa.logic.parser.exceptions.ParseException;
 import seedu.elisa.model.item.CalendarList;
@@ -229,6 +234,10 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    /**
+     * Generates an appropriate popup with the given item, formatted accordingly
+     * @param item details to fill in the popup with
+     */
     private void openUp(Item item) {
         Popup popup = new Popup();
         popup.getContent().add(new OpenItem(item).getRoot());
@@ -239,6 +248,11 @@ public class MainWindow extends UiPart<Stage> {
         popup.show(primaryStage);
     }
 
+    /**
+     * Carries out the operations to generate a popup which expands the view of the given item
+     * @param cr containing the item to open
+     * @return the result of executing this command
+     */
     private CommandResult executeOpen(CommandResult cr) {
         CommandResult commandResult = cr;
         if (popup != null) {
@@ -253,11 +267,16 @@ public class MainWindow extends UiPart<Stage> {
         return commandResult;
     }
 
+    /**
+     * Carries out operations to close the current popup
+     * @param cr to carry out
+     * @return result of executing this command
+     */
     private CommandResult executeClose(CommandResult cr) {
         CommandResult commandResult = cr;
         if (popup == null) {
             // Nothing to close
-            commandResult = CloseCommandResult.FAILURE;
+            commandResult = new CloseCommandResult(CloseCommand.MESSAGE_FAILURE);
         } else {
             popup.hide();
             this.popup = null;
@@ -307,8 +326,10 @@ public class MainWindow extends UiPart<Stage> {
             resultDisplay.setMessageFromUser(commandText);
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
-            if (!(commandResult instanceof UpCommandResult) && !(commandResult instanceof DownCommandResult) &&
-                    !(commandResult instanceof OpenCommandResult) && !(commandResult instanceof CloseCommandResult)) {
+
+            if (!(commandResult instanceof UpCommandResult) && !(commandResult instanceof DownCommandResult)
+                    && !(commandResult instanceof OpenCommandResult)
+                    && !(commandResult instanceof CloseCommandResult)) {
                 resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
             }
 

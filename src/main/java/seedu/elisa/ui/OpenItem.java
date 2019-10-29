@@ -3,12 +3,14 @@ package seedu.elisa.ui;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.elisa.commons.core.item.Item;
 
+/**
+ * Serves as a controller for the OpenItem.fxml.
+ */
 public class OpenItem extends UiPart<Region> {
     private static final String FXML = "OpenItem.fxml";
 
