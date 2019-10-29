@@ -94,7 +94,8 @@ public class Member {
         // TODO change the logic to check for the identity fields of status and member
         // basically the name cannot be the same, that's it
         return otherMember != null
-                && otherMember.getName().equals(getName());
+                && otherMember.getName().equals(getName())
+                && otherMember.getId().equals(getId());
     }
 
     /**
@@ -126,9 +127,9 @@ public class Member {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getName())
-                .append("Member ID: " + getId())
-                .append(" Tags: ");
+        builder.append(getName() + " \n")
+                .append("Member ID: " + getId().getDisplayId() + "\n")
+                .append("Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();
     }

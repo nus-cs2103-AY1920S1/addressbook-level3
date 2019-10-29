@@ -25,7 +25,6 @@ import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.FindMemberCommand;
 import seedu.address.logic.commands.FireCommand;
-import seedu.address.logic.commands.GeneratePDFCommand;
 import seedu.address.logic.commands.GetStatisticsCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HomeCommand;
@@ -125,8 +124,8 @@ public class ProjectDashboardParser {
         case DeleteInventoryCommand.COMMAND_WORD:
             return new DeleteInventoryCommandParser().parse(arguments);
 
-        case GeneratePDFCommand.COMMAND_WORD:
-            return new GeneratePDFCommand();
+        //case GeneratePDFCommand.COMMAND_WORD:
+            //return new GeneratePDFCommand();
 
         // STATS
         case GetStatisticsCommand.COMMAND_WORD_MEMBER:

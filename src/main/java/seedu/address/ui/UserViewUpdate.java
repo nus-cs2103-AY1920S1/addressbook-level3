@@ -54,8 +54,12 @@ public class UserViewUpdate {
             break;
 
         case "add-member":
+            paneToRender.getChildren().add(userViewMain.loadSpecificMember());
+            break;
 
         case "find-member":
+            paneToRender.getChildren().add(userViewMain.loadFoundMembers());
+            break;
 
         case "remove-member":
 

@@ -1,10 +1,14 @@
 package seedu.address.ui;
 
+import java.util.List;
+
 import seedu.address.logic.Logic;
-import seedu.address.ui.views.MemberListPanel;
+import seedu.address.model.member.Member;
+import seedu.address.ui.views.IndivMemberCard;
 import seedu.address.ui.views.InventoryListPanel;
-import seedu.address.ui.views.ProjectDashboardView;
+import seedu.address.ui.views.MemberListPanel;
 import seedu.address.ui.views.MemberStatisticsView;
+import seedu.address.ui.views.ProjectDashboardView;
 import seedu.address.ui.views.SettingsView;
 import seedu.address.ui.views.TaskListPanel;
 import seedu.address.ui.views.TaskStatisticsView;
@@ -66,6 +70,27 @@ public class UserViewNavigator {
      */
     public void loadMemberListView(Logic logic) {
         MemberListPanel memberListPanel = new MemberListPanel(logic.getProjectDashboard().getMemberList());
+        userViewController.setUserView(memberListPanel);
+    }
+
+    // TODO get filtered member list from logic interface
+    /**
+     * Relays to controller to swap current user view with member list.
+     * @param logic to access task data
+     */
+    public void loadSpecificMemberView(Logic logic) {
+        List<Member> members = logic.getProjectDashboard().getMemberList();
+        Member specificMember = members.get(members.size()-1);
+        IndivMemberCard memberCard = new IndivMemberCard(specificMember, members.size());
+        userViewController.setUserView(memberCard);
+    }
+
+    /**
+     * Relays to controller to swap current user view with member list.
+     * @param logic to access task data
+     */
+    public void loadFoundMembersView(Logic logic) {
+        MemberListPanel memberListPanel = new MemberListPanel(logic.getFilteredMemberList());
         userViewController.setUserView(memberListPanel);
     }
 

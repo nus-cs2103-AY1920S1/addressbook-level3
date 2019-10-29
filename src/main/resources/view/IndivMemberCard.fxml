@@ -12,19 +12,20 @@
 
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.text.Text?>
-<HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+
+<HBox id="indivCardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <GridPane HBox.hgrow="ALWAYS">
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150" />
         </columnConstraints>
-        <VBox alignment="CENTER_LEFT" minHeight="105" GridPane.columnIndex="0">
+        <VBox alignment="CENTER_LEFT" styleClass="indiv_member" GridPane.columnIndex="0">
             <padding>
                 <Insets bottom="5" left="15" right="5" top="5" />
             </padding>
             <HBox alignment="CENTER_LEFT" spacing="5">
                 <Label fx:id="id" styleClass="cell_big_label">
                     <minWidth>
-                    <!-- Ensures that the label text is never truncated -->
+                        <!-- Ensures that the label text is never truncated -->
                         <Region fx:constant="USE_PREF_SIZE" />
                     </minWidth>
                 </Label>
@@ -34,12 +35,12 @@
                 <padding>
                     <Insets bottom="5" right="5" top="5" />
                 </padding>
-                    <Label fx:id="displayId" styleClass="cell_memID_label" text="\$first" />
+                <Label fx:id="displayId" styleClass="cell_memID_label" text="\$first" />
             </HBox>
             <FlowPane fx:id="tags">
-            <padding>
-                <Insets bottom="5" right="5"/>
-            </padding>
+                <padding>
+                    <Insets bottom="5" right="5"/>
+                </padding>
             </FlowPane>
             <VBox maxHeight="50.0" HBox.hgrow="ALWAYS">
                 <children>
@@ -49,7 +50,7 @@
             </VBox>
             <VBox maxHeight="50.0" alignment="TOP_CENTER" HBox.hgrow="ALWAYS">
                 <children>
-                   <Text id="listTasks"/>
+                    <Text id="listTasks"/>
                 </children>
             </VBox>
         </VBox>
@@ -58,5 +59,3 @@
         </rowConstraints>
     </GridPane>
 </HBox>
-
-
