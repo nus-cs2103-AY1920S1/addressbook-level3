@@ -131,8 +131,10 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public ObservableList<Answerable> getFilteredSortedAnswerableList(Comparator<Answerable> comparator) {
+    public ObservableList<Answerable> getFilteredSortedAnswerableList(
+            Predicate<Answerable> predicate, Comparator<Answerable> comparator) {
         requireNonNull(comparator);
+        filteredAnswerables.setPredicate(predicate);
         return filteredAnswerables.sorted(comparator);
     }
 

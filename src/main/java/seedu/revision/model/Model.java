@@ -88,6 +88,7 @@ public interface Model {
     void updateFilteredAnswerableList(Predicate<Answerable> predicate);
 
     /** Returns an unmodifiable view of the sorted answerable list */
-    public ObservableList<Answerable> getFilteredSortedAnswerableList(Comparator<Answerable> comparator);
+    ObservableList<Answerable> getFilteredSortedAnswerableList(
+            Predicate<Answerable> predicate, Comparator<Answerable> comparator);
 
 }

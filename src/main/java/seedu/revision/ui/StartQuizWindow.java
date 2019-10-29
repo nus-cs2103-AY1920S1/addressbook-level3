@@ -3,6 +3,7 @@ package seedu.revision.ui;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.Optional;
+import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import javafx.beans.property.ReadOnlyDoubleProperty;
@@ -21,9 +22,13 @@ import seedu.revision.logic.parser.exceptions.ParseException;
 import seedu.revision.model.answerable.Answerable;
 import seedu.revision.model.answerable.Mcq;
 import seedu.revision.model.answerable.TrueFalse;
+import seedu.revision.model.answerable.answer.Answer;
+import seedu.revision.model.quiz.Mode;
 import seedu.revision.ui.answers.AnswersGridPane;
 import seedu.revision.ui.answers.McqAnswersGridPane;
 import seedu.revision.ui.answers.TfAnswersGridPane;
+
+import static seedu.revision.model.Model.PREDICATE_SHOW_ALL_ANSWERABLE;
 
 
 /**
@@ -32,11 +37,12 @@ import seedu.revision.ui.answers.TfAnswersGridPane;
  */
 public class StartQuizWindow extends Window {
 
-    private MainWindow mainWindow;
     private final Logger logger = LogsCenter.getLogger(getClass());
 
+    private MainWindow mainWindow;
+    private Mode mode;
+
     // Independent Ui parts residing in this Ui container
-    private AnswerableListPanel answerableListPanel;
     private ResultDisplay questionDisplay;
     private AnswersGridPane answersGridPane;
     private CommandBox commandBox;
@@ -49,8 +55,9 @@ public class StartQuizWindow extends Window {
     private ReadOnlyDoubleWrapper currentProgressIndex = new ReadOnlyDoubleWrapper(this, "currentProgressIndex",
             0);
 
-    public StartQuizWindow(Stage primaryStage, MainLogic mainLogic) {
+    public StartQuizWindow(Stage primaryStage, MainLogic mainLogic, Mode mode) {
         super(primaryStage, mainLogic);
+        this.mode = mode;
     }
     public final double getCurrentProgressIndex() {
         return currentProgressIndex.get();
@@ -66,9 +73,9 @@ public class StartQuizWindow extends Window {
 //        ObservableList<Answerable> filteredAnswerableList = this.mainLogic.getFilteredAnswerableList();
 //        Comparator<Answerable> diffComparator = Comparator.comparing(answerable -> answerable.getDifficulty().value);
 //        ObservableList<Answerable> quizList = filteredAnswerableList.sorted(diffComparator);
-        Comparator<Answerable> difficultyComparator = Comparator.comparing(
-                answerable -> answerable.getDifficulty().value);
-        ObservableList<Answerable> quizList = this.mainLogic.getFilteredSortedAnswerableList(difficultyComparator);
+
+        ObservableList<Answerable> quizList = getListBasedOnMode(this.mode);
+//        ObservableList<Answerable> quizList = this.mainLogic.getFilteredSortedAnswerableList(difficultyComparator);
         answerableIterator = quizList.iterator();
         currentAnswerable = answerableIterator.next();
 
@@ -97,8 +104,19 @@ public class StartQuizWindow extends Window {
         scoreProgressBar.getChildren().add(progressIndicatorBar.getRoot());
     }
 
-    void show() {
-        primaryStage.show();
+    private ObservableList<Answerable> getListBasedOnMode(Mode mode) {
+        Comparator<Answerable> difficultyComparator = Comparator.comparing(
+                answerable -> answerable.getDifficulty().value);
+        switch (mode.value.toLowerCase()) {
+        case "normal":
+            Predicate<Answerable> normalPredicate = a -> a.getDifficulty().value.equals("1");
+            ObservableList<Answerable> sortedList = this.mainLogic.getFilteredSortedAnswerableList(
+                    normalPredicate, difficultyComparator);
+            return sortedList;
+        default:
+            logger.warning("invalid mode");
+            return this.mainLogic.getFilteredSortedAnswerableList(PREDICATE_SHOW_ALL_ANSWERABLE, difficultyComparator);
+        }
     }
 
     /**

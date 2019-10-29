@@ -5,10 +5,7 @@ import static seedu.revision.logic.parser.CliSyntax.PREFIX_MODE;
 import seedu.revision.logic.commands.Command;
 import seedu.revision.logic.parser.exceptions.ParseException;
 import seedu.revision.model.Model;
-import seedu.revision.model.answerable.Answerable;
-
-import java.util.Comparator;
-import java.util.function.Predicate;
+import seedu.revision.model.quiz.Mode;
 
 /**
  * Command to start the quiz session.
@@ -18,8 +15,7 @@ public class StartQuizCommand extends Command {
 
     public static final String COMMAND_WORD = "start";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Starts quiz based on Mode, if no Mode provided, "
-        + "entire question bank will be initialised.\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Starts quiz based on Mode (Normal / Chaos / Custom)\n"
             + "Parameters: "
             + PREFIX_MODE + "MODE\n"
             + "Example: " + COMMAND_WORD + " "
@@ -27,22 +23,20 @@ public class StartQuizCommand extends Command {
 
     private static final String MESSAGE_SUCCESS = "Starting Quiz!";
 
-    private Predicate<Answerable> predicate;
+    private Mode mode;
 
-    /**
-     * Creates an AddCommand to add the specified {@code Answerable}
-     */
-    public StartQuizCommand(Predicate<Answerable> predicate) {
-        this.predicate = predicate;
+    /** Instantiates a StartQuizCommand to start a quiz session. **/
+    public StartQuizCommand(Mode mode) {
+        this.mode = mode;
     }
 
     @Override
     public CommandResult execute(Model model) throws ParseException {
 
-        ListCommand quizList = new ListCommand(predicate);
-        quizList.execute(model);
+//        ListCommand quizList = new ListCommand(predicate);
+//        quizList.execute(model);
 
-        return new CommandResult(MESSAGE_SUCCESS, true);
+        return new CommandResult(MESSAGE_SUCCESS, true, mode);
 
     }
 }

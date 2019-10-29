@@ -20,6 +20,7 @@ import seedu.revision.logic.parser.exceptions.ParseException;
 import seedu.revision.model.AddressBook;
 import seedu.revision.model.Model;
 import seedu.revision.model.ReadOnlyAddressBook;
+import seedu.revision.model.quiz.Mode;
 import seedu.revision.model.util.SampleDataUtil;
 
 
@@ -59,9 +60,9 @@ public class MainWindow extends Window {
      * @throws CommandException
      */
     @FXML
-    public void handleStart() throws CommandException {
+    public void handleStart(Mode mode) throws CommandException {
         if (this.mainLogic.getFilteredAnswerableList().size() > 0) {
-            StartQuizWindow startQuizWindow = new StartQuizWindow(getPrimaryStage(), getMainLogic());
+            StartQuizWindow startQuizWindow = new StartQuizWindow(getPrimaryStage(), getMainLogic(), mode);
             startQuizWindow.show();
             startQuizWindow.fillInnerParts();
         } else {
@@ -86,8 +87,7 @@ public class MainWindow extends Window {
      * Opens the restore window.
      */
     @FXML
-    public void handleRestore(Model passedModel) throws IOException {
-        boolean exists;
+    public void handleRestore(Model passedModel) {
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle("Warning!");
         alert.setHeaderText(null);
@@ -124,7 +124,7 @@ public class MainWindow extends Window {
      * @see MainLogic#execute(String)
      */
     @Override
-    protected CommandResult executeCommand(String commandText) throws CommandException, ParseException, IOException {
+    protected CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
             CommandResult commandResult = mainLogic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
@@ -137,18 +137,16 @@ public class MainWindow extends Window {
             if (commandResult.isExit()) {
                 handleExit();
             }
-
             if (commandResult.isStart()) {
-                handleStart();
+                handleStart(commandResult.getMode());
             }
 
             if (commandResult.isShowRestore()) {
-                passedModel = commandResult.getModel();
-                handleRestore(passedModel);
+                handleRestore(commandResult.getModel());
             }
 
             return commandResult;
-        } catch (CommandException | ParseException | IOException e) {
+        } catch (CommandException | ParseException e) {
             logger.info("Invalid command: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;

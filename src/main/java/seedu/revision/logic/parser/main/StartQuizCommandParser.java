@@ -2,9 +2,7 @@ package seedu.revision.logic.parser.main;
 
 import static seedu.revision.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.revision.logic.parser.CliSyntax.PREFIX_MODE;
-import static seedu.revision.model.Model.PREDICATE_SHOW_ALL_ANSWERABLE;
 
-import seedu.revision.logic.commands.main.ListCommand;
 import seedu.revision.logic.commands.main.StartQuizCommand;
 import seedu.revision.logic.parser.ArgumentMultimap;
 import seedu.revision.logic.parser.ArgumentTokenizer;
@@ -12,7 +10,6 @@ import seedu.revision.logic.parser.Parser;
 import seedu.revision.logic.parser.ParserUtil;
 import seedu.revision.logic.parser.exceptions.ParseException;
 import seedu.revision.model.quiz.Mode;
-import seedu.revision.model.quiz.NormalModePredicate;
 
 /**
  * Parses input arguments and creates a new StartQuizCommand object
@@ -35,14 +32,9 @@ public class StartQuizCommandParser implements Parser<StartQuizCommand> {
 
         if (argMultimap.getValue(PREFIX_MODE).isPresent()) {
             Mode mode = ParserUtil.parseMode(argMultimap.getValue(PREFIX_MODE).get());
-            switch (mode.mode.toLowerCase()) {
-            case "normal":
-                return new StartQuizCommand(new NormalModePredicate());
-            default:
-                throw new ParseException(Mode.MESSAGE_CONSTRAINTS);
-            }
+            return new StartQuizCommand(mode);
+        } else {
+            throw new ParseException(StartQuizCommand.MESSAGE_USAGE);
         }
-
-        return new StartQuizCommand(PREDICATE_SHOW_ALL_ANSWERABLE);
     }
 }
