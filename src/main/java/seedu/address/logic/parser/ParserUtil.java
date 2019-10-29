@@ -13,6 +13,7 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.date.AthletickDate;
 import seedu.address.model.feature.Feature;
+import seedu.address.model.performance.Timing;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -193,13 +194,15 @@ public class ParserUtil {
     }
 
     /**
-     * Parses {@code String timing} into a {@code String}
+     * Parses {@code String timing} into a {@code Timing}
      */
-    public static String parseTiming(String timing) {
+    public static Timing parseTiming(String timing) throws ParseException {
         requireNonNull(timing);
         String trimmedTiming = timing.trim();
-        // currently assume all date formats are correct before using date class that Shawn implemented
-        return trimmedTiming;
+        if (!Timing.isValidTiming(trimmedTiming)) {
+            throw new ParseException(Timing.MESSAGE_CONSTRAINTS);
+        }
+        return new Timing(trimmedTiming);
     }
 
     /**
