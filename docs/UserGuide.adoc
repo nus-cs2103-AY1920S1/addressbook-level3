@@ -408,7 +408,7 @@ image::TaskStats.png[width="790"]
 
 '''
 
-=== Settings Commands (Coming in v1.3)
+=== Settings Commands
 
 ==== Switching the theme of +Work: `theme`
 
