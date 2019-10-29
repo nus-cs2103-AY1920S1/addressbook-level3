@@ -4,6 +4,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import seedu.address.model.incident.CallerNumber;
+import seedu.address.model.incident.Description;
 import seedu.address.model.incident.Incident;
 
 /**
@@ -50,8 +52,21 @@ public class IncidentCard extends UiPart<Region> {
         operator.setText("Filed by: " + incident.getOperator().getName().toString() + " ("
                 + incident.getOperator().getUsername() + ")");
         incidentLocation.setText("District: " + String.valueOf(incident.getDistrict().districtNum));
-        callerNumber.setText("Caller: " + incident.getCallerNumber().toString());
-        description.setText(incident.getDesc().toString());
+
+        // fields not filled for draft
+        CallerNumber incidentCallerNumber = incident.getCallerNumber();
+        if (incidentCallerNumber == null) {
+            callerNumber.setText("");
+        } else {
+            callerNumber.setText("Caller: " + incidentCallerNumber.toString());
+        }
+
+        Description incidentDesc = incident.getDesc();
+        if (incidentDesc == null) {
+            description.setText("");
+        } else {
+            description.setText(incidentDesc.toString());
+        }
 
         // status label setup
         String statusString = incident.getStatus().toString();
