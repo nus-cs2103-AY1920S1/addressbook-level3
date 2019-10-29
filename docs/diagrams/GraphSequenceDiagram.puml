@@ -1,0 +1,76 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":SpendingBookParser" as SpendingBookParser LOGIC_COLOR
+participant ":GraphCommandParser" as GraphCommandParser LOGIC_COLOR
+participant ":GraphCommand" as GraphCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute(commandText)
+activate LogicManager
+
+LogicManager -> SpendingBookParser : parseCommand(commandText)
+activate SpendingBookParser
+
+create GraphCommandParser
+SpendingBookParser -> GraphCommandParser
+activate GraphCommandParser
+
+GraphCommandParser --> SpendingBookParser
+deactivate GraphCommandParser
+
+SpendingBookParser -> GraphCommandParser : parse(argument)
+activate GraphCommandParser
+
+alt No arguments
+    create GraphCommand
+    GraphCommandParser -> GraphCommand: GraphCommand()
+    activate GraphCommand
+    GraphCommand --> GraphCommandParser
+    deactivate GraphCommand
+else else
+    create GraphCommand
+	GraphCommandParser -> GraphCommand: GraphCommand(DATE_START, DATE_END)
+	activate GraphCommand
+	GraphCommand --> GraphCommandParser
+    deactivate GraphCommand
+end
+
+GraphCommandParser --> SpendingBookParser
+deactivate GraphCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+GraphCommandParser -[hidden]-> SpendingBookParser
+destroy GraphCommandParser
+
+SpendingBookParser --> LogicManager
+deactivate SpendingBookParser
+
+LogicManager -> GraphCommand : execute()
+activate GraphCommand
+
+GraphCommand -> Model : updateStatsPredicate(predicate)
+activate Model
+
+Model --> GraphCommand
+deactivate Model
+
+create CommandResult
+StatsCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> GraphCommand
+deactivate CommandResult
+
+StatsCommand --> LogicManager : MESSAGE_SUCCESS, isShowGraph = true
+deactivate StatsCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

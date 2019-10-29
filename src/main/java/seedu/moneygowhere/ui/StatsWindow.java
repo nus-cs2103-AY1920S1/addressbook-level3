@@ -1,19 +1,17 @@
 package seedu.moneygowhere.ui;
 
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.logging.Logger;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.geometry.Insets;
 import javafx.scene.chart.PieChart;
-import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import seedu.moneygowhere.commons.core.LogsCenter;
-import seedu.moneygowhere.model.tag.Tag;
 
 /**
  * Controller for a stats page
@@ -25,9 +23,6 @@ public class StatsWindow extends UiPart<Stage> {
 
     @FXML
     private Pane paneView;
-
-    @FXML
-    private Label label;
 
     /**
      * Creates a new StatsWindow.
@@ -50,24 +45,24 @@ public class StatsWindow extends UiPart<Stage> {
      * Loads stats data into a pie chart for display.
      * @param statsData
      */
-    public void loadData(Map<Tag, Double> statsData, String statsMessage) {
-        label.setText(statsMessage);
-        label.setPadding(new Insets(5));
-
+    public void loadData(LinkedHashMap<String, Double> statsData) {
         paneView.getChildren().clear();
 
-        Logger logger = LogsCenter.getLogger(getClass());
         ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
-        logger.info(statsData.toString());
-        for (Map.Entry<Tag, Double> i : statsData.entrySet()) {
-            pieChartData.add(new PieChart.Data(i.getKey().tagName, Math.round(i.getValue())));
+
+        for (Map.Entry<String, Double> i : statsData.entrySet()) {
+            pieChartData.add(new PieChart.Data(i.getKey() + String.format(" ($%.2f)", i.getValue()),
+                Math.round(i.getValue())));
         }
         PieChart pieChart = new PieChart(pieChartData);
-        paneView.getChildren().add(pieChart);
+        if (pieChartData.size() == 0) {
+            pieChart.setTitle("No data to show");
+        } else {
+            pieChart.setTitle("Statistics");
+        }
+        pieChart.setLegendVisible(false);
 
-        pieChart.setTitle("Statistics");
-        pieChart.setMinWidth(350);
-        pieChart.setMaxWidth(350);
+        paneView.getChildren().add(pieChart);
     }
 
     /**
