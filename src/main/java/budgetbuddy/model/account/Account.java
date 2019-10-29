@@ -90,6 +90,7 @@ public class Account {
 
         Account otherAccount = (Account) other;
         return otherAccount.getName().equals(getName())
+                && otherAccount.getDescription().equals(getDescription())
                 && otherAccount.getTransactionList().equals(getTransactionList());
     }
 
