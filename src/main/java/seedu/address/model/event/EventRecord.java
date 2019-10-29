@@ -30,8 +30,6 @@ import seedu.address.model.event.exceptions.VEventNotFoundException;
  * VEvents with the same eventName, startDateTime and endDateTime are not allowed.
  */
 public class EventRecord implements ReadOnlyVEvents, ReadOnlyEvents, Iterable<VEvent> {
-    private static final String DAILY_RECUR_RULE_STRING = "FREQ=DAILY;INTERVAL=1";
-    private static final String WEEKLY_RECUR_RULE_STRING = "FREQ=WEEKLY;INTERVAL=1";
     private static final String FILE_SEPERATOR = System.getProperty("file.separator");
     private static final String SCHEDULE_FILE_NAME = "nJoy_Event_Schedule";
     private static final String ICS_FILE_TYPE = ".ics";
@@ -284,7 +282,7 @@ public class EventRecord implements ReadOnlyVEvents, ReadOnlyEvents, Iterable<VE
      * @return full file path of the .ics file export
      * @throws IOException for file-writing exceptions.
      */
-    public String saveToICSFile(String targetDir) throws IOException {
+    public String saveToIcsFile(String targetDir) throws IOException {
         VCalendar vCalendar = new VCalendar();
         vCalendar.setVEvents(getVEventList());
 

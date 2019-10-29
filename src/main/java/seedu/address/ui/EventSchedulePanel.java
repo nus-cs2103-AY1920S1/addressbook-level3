@@ -1,8 +1,5 @@
 package seedu.address.ui;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
 import java.util.Locale;
 import java.util.logging.Logger;
 
@@ -12,9 +9,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Region;
 import jfxtras.icalendarfx.VCalendar;
 import jfxtras.icalendarfx.components.VEvent;
-import jfxtras.icalendarfx.properties.calendar.Method;
 import jfxtras.internal.scene.control.skin.agenda.AgendaWeekSkin;
-import jfxtras.scene.control.agenda.Agenda;
 import jfxtras.scene.control.agenda.icalendar.ICalendarAgenda;
 import seedu.address.commons.core.LogsCenter;
 
@@ -38,7 +33,6 @@ public class EventSchedulePanel extends UiPart<Region> {
         this.agenda = new ICalendarAgenda(this.vCalendar);
         initCalendar(this.agenda);
         eventScheduleBorderPane.setCenter(agenda);
-        String res = vCalendar.toString();
     }
 
     private void initCalendar(ICalendarAgenda agenda) {
@@ -47,10 +41,19 @@ public class EventSchedulePanel extends UiPart<Region> {
         disableMouseClick(this.agenda);
     }
 
+    /**
+     * Method to set locale of ICalendarAgenda. Note that the locale decides the starting day of a week.
+     * @param agenda ICalendarAgenda to be set
+     * @param locale desired locale to be set
+     */
     private void setLocale(ICalendarAgenda agenda, Locale locale) {
         agenda.setLocale(locale);
     }
 
+    /**
+     * Disables all mouse click related actions. Scrolling is still allowed
+     * @param agenda ICalendarAgenda to be disabled
+     */
     private void disableMouseClick(ICalendarAgenda agenda) {
         agenda.setAllowDragging(false);
         agenda.setAllowResize(false);
@@ -63,11 +66,18 @@ public class EventSchedulePanel extends UiPart<Region> {
 
     }
 
+    /**
+     * Sets the calendar to week format.
+     * @param agenda ICalendarAgenda object to be set to week skin / view.
+     */
     private void setWeekSkin(ICalendarAgenda agenda) {
         AgendaWeekSkin weekSkin = new AgendaWeekSkin(agenda);
         agenda.setSkin(weekSkin);
     }
 
+    /**
+     * Updates the scheduler to be reflected on UI
+     */
     public void updateScheduler() {
         this.agenda.updateAppointments();
     }

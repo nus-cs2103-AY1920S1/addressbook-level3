@@ -26,7 +26,7 @@ public class EventExportCommand extends EventCommand {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         try {
-            String fullFilePath = model.saveToICSFile(directoryPath);
+            String fullFilePath = model.saveToIcsFile(directoryPath);
             return new CommandResult(generateSuccessMessage(fullFilePath),
                     CommandResultType.SHOW_SCHEDULE);
         } catch (IOException ex) {

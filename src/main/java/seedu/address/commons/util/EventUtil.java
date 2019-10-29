@@ -90,7 +90,7 @@ public class EventUtil {
      * @param endDateTime endDateTime string representation of event
      * @return a unique string identifier based on the current DateTime.
      */
-    public static String generateUID(String eventName, String startDateTime, String endDateTime) {
+    public static String generateUniqueIdentifier(String eventName, String startDateTime, String endDateTime) {
         StringBuilder sb = new StringBuilder();
         sb.append(LocalDateTime.now().toString());
         sb.append("-");
@@ -101,5 +101,14 @@ public class EventUtil {
         sb.append(endDateTime);
         sb.append(".njoyAssistant");
         return sb.toString();
+    }
+
+    /**
+     * Converts a string number to format that ICalendarAgenda accepts.
+     * @param number String representation of number
+     * @return String representation of colorNumber as required by ICalendarAgenda
+     */
+    public static String convertNumberToColorNumber(String number) {
+        return "group" + (Integer.parseInt(number) < 10 ? "0" : "") + number;
     }
 }

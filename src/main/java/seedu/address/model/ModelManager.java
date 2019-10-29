@@ -704,8 +704,8 @@ public class ModelManager implements Model {
     };
 
     @Override
-    public String saveToICSFile(String targetDir) throws IOException {
-        return eventRecord.saveToICSFile(targetDir);
+    public String saveToIcsFile(String targetDir) throws IOException {
+        return eventRecord.saveToIcsFile(targetDir);
     };
     //endregion
 
