@@ -78,6 +78,8 @@ public class RemoveModCommand extends ModCommand {
 
         Student studentToEdit;
         Student studentWithRemovedModule;
+        Module moduleToEdit;
+        Module moduleWithRemovedStudent;
 
         //check if module exist
         List<Module> moduleToCheckList = lastShownModuleList.stream()
@@ -85,6 +87,7 @@ public class RemoveModCommand extends ModCommand {
         if (moduleToCheckList.isEmpty()) {
             throw new CommandException(MESSAGE_INVALID_MODULE);
         }
+        moduleToEdit = moduleToCheckList.get(0);
 
         //check if student exist
         if (usingIndex) { //by index
@@ -106,7 +109,10 @@ public class RemoveModCommand extends ModCommand {
             studentToEdit = studentToCheckList.get(0);
         }
 
-        //check if student has the module (ready for deletion).
+        /*
+        Check if student has the module (ready for deletion). mams.json is assumed to be
+        correct. Student field in Module object is not checked.
+         */
         Set<Tag> studentModules = studentToEdit.getCurrentModules();
         boolean hasModule = false;
         for (Tag tag: studentModules) {
@@ -114,11 +120,11 @@ public class RemoveModCommand extends ModCommand {
                 hasModule = true;
             }
         }
-        if (hasModule == false) {
+        if (!hasModule) {
             throw new CommandException(MESSAGE_MISSING_MODULE);
         }
 
-        //create a tag list without the module
+        //create a tag list without the module for the new student
         Set<Tag> ret = new HashSet<>();
         Set<Tag> studentAllTags = studentToEdit.getTags();
         for (Tag tag : studentAllTags) {
@@ -127,13 +133,34 @@ public class RemoveModCommand extends ModCommand {
             }
         }
 
+        //create a tag list without the student for the new module
+        Set<Tag> ret2 = new HashSet<>();
+        Set<Tag> moduleAllStudents = moduleToEdit.getStudents();
+        for (Tag tag : moduleAllStudents) {
+            if (!tag.getTagName().equalsIgnoreCase(studentToEdit.getMatricId().toString())) {
+                ret2.add(tag);
+            }
+        }
+
+        //replace old student and old module objects with edited modules.
         studentWithRemovedModule = new Student(studentToEdit.getName(),
                 studentToEdit.getCredits(),
                 studentToEdit.getPrevMods(),
                 studentToEdit.getMatricId(),
                 ret);
+
+        moduleWithRemovedStudent = new Module(moduleToEdit.getModuleCode(),
+                moduleToEdit.getModuleName(),
+                moduleToEdit.getModuleDescription(),
+                moduleToEdit.getLecturerName(),
+                moduleToEdit.getTimeSlot(),
+                moduleToEdit.getQuota(),
+                ret2);
+
         model.setStudent(studentToEdit, studentWithRemovedModule);
+        model.setModule(moduleToEdit, moduleWithRemovedStudent);
         model.updateFilteredStudentList(Model.PREDICATE_SHOW_ALL_STUDENTS);
+        model.updateFilteredModuleList(Model.PREDICATE_SHOW_ALL_MODULES);
         return new CommandResult(String.format(MESSAGE_REMOVE_MOD_SUCCESS,
                 studentWithRemovedModule.getName()));
     }

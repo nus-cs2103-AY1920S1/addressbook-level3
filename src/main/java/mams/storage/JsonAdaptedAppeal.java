@@ -75,8 +75,8 @@ public class JsonAdaptedAppeal {
         appealDescription = source.getAppealDescription();
         previousModule = source.getPreviousModule();
         newModule = source.getNewModule();
-        moduleToAdd = source.getModule_to_add();
-        moduleToDrop = source.getModule_to_drop();
+        moduleToAdd = source.getModuleToAdd();
+        moduleToDrop = source.getModuleToDrop();
         resolved = source.isResolved();
         result = source.getResult();
         remark = source.getRemark();
