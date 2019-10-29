@@ -22,6 +22,7 @@ public class EventSourceBuilder {
     // Optional
     private DateTime end;
     private Set<String> tags;
+    private DateTime remind;
 
     EventSourceBuilder(String description, DateTime start) {
         this.description = Objects.requireNonNull(description);
@@ -49,6 +50,11 @@ public class EventSourceBuilder {
         return this;
     }
 
+    public EventSourceBuilder setRemind(DateTime remind) {
+        this.remind = remind;
+        return this;
+    }
+
     public EventSource build() {
         return new EventSource(this);
     }
@@ -67,5 +73,9 @@ public class EventSourceBuilder {
 
     Set<String> getTags() {
         return tags;
+    }
+
+    DateTime getRemind() {
+        return remind;
     }
 }

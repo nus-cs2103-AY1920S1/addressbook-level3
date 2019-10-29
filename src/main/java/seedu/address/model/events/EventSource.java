@@ -22,6 +22,7 @@ public class EventSource {
     // Optional
     private final DateTime end;
     private final Set<String> tags;
+    private final DateTime remind;
 
     /**
      * Creates an EventSource from an EventSourceBuilder.
@@ -32,6 +33,7 @@ public class EventSource {
         this.start = builder.getStart();
         this.end = builder.getEnd();
         this.tags = builder.getTags();
+        this.remind = builder.getRemind();
     }
 
     /**
@@ -44,6 +46,7 @@ public class EventSource {
         this.start = eventSource.start;
         this.end = eventSource.end;
         this.tags = eventSource.tags;
+        this.remind = eventSource.remind;
     }
 
     public static EventSourceBuilder newBuilder(String description, DateTime start) {
@@ -56,7 +59,11 @@ public class EventSource {
      * @return <code>true</code> if the EventSource's notification timing matches the current notification timing.
      */
     public boolean notificationTimeMatchesCurrentTime() {
-        return start.equalsPrecisionMinute(DateTime.now());
+        if (remind != null) {
+            return remind.equalsPrecisionMinute(DateTime.now());
+        } else {
+            return start.equalsPrecisionMinute(DateTime.now());
+        }
     }
 
     @JsonProperty("description")
@@ -77,6 +84,10 @@ public class EventSource {
     @JsonProperty("tags")
     public Set<String> getTags() {
         return tags;
+    }
+
+    public DateTime getRemind() {
+        return remind;
     }
 
     @Override

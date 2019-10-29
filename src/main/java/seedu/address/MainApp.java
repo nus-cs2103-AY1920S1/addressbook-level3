@@ -49,7 +49,9 @@ public class MainApp extends Application {
     private static final String COMMAND_WEEK_VIEW = "week";
     private static final String COMMAND_MONTH_VIEW = "month";
 
+    private CommandManager commandManager;
     private ModelManager modelManager;
+    private NotificationManager notificationManager;
     private UiManager uiManager;
     private StorageManager storageManager;
     private UndoRedoManager undoRedoManager;
@@ -59,14 +61,24 @@ public class MainApp extends Application {
         logger.info("=============================[ Initializing AddressBook ]===========================");
         super.init();
 
-        CommandManager commandManager = new CommandManager();
+        commandManager = new CommandManager();
         modelManager = new ModelManager();
-        NotificationManager notificationManager = new NotificationManager(modelManager);
+        notificationManager = new NotificationManager(modelManager);
         storageManager = new StorageManager();
+        storageManager.setEventsFile(Paths.get("data", "events.json"));
+        storageManager.setTasksFile(Paths.get("data", "tasks.json"));
         uiManager = new UiManager();
         undoRedoManager = new UndoRedoManager();
 
-        // Register commands to CommandManager.
+        registerCommands();
+        addListeners();
+    }
+
+
+    /**
+     * Registers each of the commands to the CommandManager.
+     */
+    private void registerCommands() {
         commandManager.addCommand(COMMAND_ADD_EVENT, () -> AddEventCommand.newBuilder(modelManager));
         commandManager.addCommand(COMMAND_DELETE_EVENT, () -> DeleteEventCommand.newBuilder(modelManager));
         commandManager.addCommand(COMMAND_EDIT_EVENT, () -> EditEventCommand.newBuilder(modelManager));
@@ -82,12 +94,12 @@ public class MainApp extends Application {
         commandManager.addCommand(COMMAND_DAY_VIEW, () -> DayViewCommand.newBuilder(uiManager));
         commandManager.addCommand(COMMAND_WEEK_VIEW, () -> WeekViewCommand.newBuilder(uiManager));
         commandManager.addCommand(COMMAND_MONTH_VIEW, () -> MonthViewCommand.newBuilder(uiManager));
+    }
 
-        storageManager.setEventsFile(Paths.get("data", "events.json"));
-        storageManager.setTasksFile(Paths.get("data", "tasks.json"));
-
-
-        // Add Listeners
+    /**
+     * Registers each listener to the appropriate manager.
+     */
+    private void addListeners() {
         commandManager.addUserOutputListener(uiManager);
 
         modelManager.addEventListListener(uiManager);
