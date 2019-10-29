@@ -2,6 +2,7 @@ package seedu.module.ui;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.module.model.module.Module;
@@ -36,6 +37,8 @@ public class ModuleCard extends UiPart<Region> {
     private Label id;
     @FXML
     private Label deadline;
+    @FXML
+    private FlowPane tags;
 
     public ModuleCard(Module module, int displayedIndex) {
         super(FXML);

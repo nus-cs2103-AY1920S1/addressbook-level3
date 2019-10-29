@@ -11,6 +11,7 @@ import seedu.module.model.module.TrackedModule;
  * A utility class to help with building TrackedModule objects.
  */
 public class TrackedModuleBuilder {
+
     private ArchivedModule archivedModule;
     private List<Deadline> deadline;
 

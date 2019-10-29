@@ -35,6 +35,8 @@ public class ModuleViewPanel extends UiPart<Region> {
     private ListView<SemesterDetail> semesterData;
     @FXML
     private FlowPane links;
+    @FXML
+    private Label deadline;
 
     public ModuleViewPanel(Module module) {
         super(FXML);
@@ -50,6 +52,7 @@ public class ModuleViewPanel extends UiPart<Region> {
 
         if (module instanceof Trackable) {
             Trackable trackedModule = ((Trackable) module);
+            deadline.setText(trackedModule.getDeadline());
             trackedModule.getLink().stream().map(link -> new LinkButton(link))
                     .forEach(button -> links.getChildren().add(button));
             links.setHgap(10);

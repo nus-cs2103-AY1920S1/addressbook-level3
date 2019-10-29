@@ -74,7 +74,6 @@ class JsonAdaptedModule {
         for (JsonAdaptedDeadline deadline : deadlines) {
             result.getDeadlineList().add(deadline.toModelType());
         }
-
         for (JsonAdaptedLink link : links) {
             result.getLink().add(link.toModelType());
         }

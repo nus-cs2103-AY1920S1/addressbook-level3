@@ -12,8 +12,7 @@ public class TrackedModule implements Module, Trackable {
 
     // Identity field
     private final ArchivedModule archivedModule;
-    private List<Deadline> deadlineList = new ArrayList<>();
-
+    private DeadlineList deadlineList = new DeadlineList();
     private List<Link> links = new ArrayList<>();
 
     /**
@@ -52,20 +51,27 @@ public class TrackedModule implements Module, Trackable {
     }
 
     public String getDeadline() {
-        String deadlineString = "Deadline: \n";
-        for (int i = 0; i < deadlineList.size(); i++) {
-            deadlineString += ((i + 1) + ". " + deadlineList.get(i).getDescription()
-                    + ", " + deadlineList.get(i).getTime()) + "\n";
-        }
-        return deadlineString;
+        return deadlineList.toString();
     }
 
     public List<Deadline> getDeadlineList() {
-        return deadlineList;
+        return deadlineList.getDeadlineList();
     }
 
     public void addDeadline(Deadline deadline) {
-        this.deadlineList.add(deadline);
+        this.deadlineList.addDeadline(deadline);
+    }
+
+    public void markDeadlineTaskAsDone(int taskListNum) {
+        deadlineList.markDeadlineTaskAsDone(taskListNum);
+    }
+
+    public void markDeadlineTaskAsInProgress(int taskListNum) {
+        deadlineList.markDeadlineTaskAsInProgress(taskListNum);
+    }
+
+    public void deleteDeadlineTask(int taskListNum) {
+        deadlineList.deleteDeadlineTask(taskListNum);
     }
 
     public List<Link> getLink() {

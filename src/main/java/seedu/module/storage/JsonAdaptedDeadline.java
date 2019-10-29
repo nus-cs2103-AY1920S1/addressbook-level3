@@ -11,14 +11,16 @@ import seedu.module.model.module.Deadline;
 public class JsonAdaptedDeadline {
     private final String description;
     private final String time;
+    private final String tag;
 
     /**
      * Constructs a {@code JsonAdaptedDeadline} with the given parameters.
      */
     public JsonAdaptedDeadline(@JsonProperty("deadlineDescription") String description, @JsonProperty("deadlineTime")
-                               String time) {
+                               String time, @JsonProperty("deadlineTag") String tag) {
         this.description = description;
         this.time = time;
+        this.tag = tag;
     }
 
     /**
@@ -27,9 +29,10 @@ public class JsonAdaptedDeadline {
     public JsonAdaptedDeadline(Deadline source) {
         this.description = source.getDescription();
         this.time = source.getTime();
+        this.tag = source.getTag();
     }
 
     public Deadline toModelType() throws IllegalValueException {
-        return new Deadline(description, time);
+        return new Deadline(description, time, tag);
     }
 }

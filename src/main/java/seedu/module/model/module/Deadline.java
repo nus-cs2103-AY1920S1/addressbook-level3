@@ -11,11 +11,42 @@ public class Deadline {
 
     private String description;
     private String time;
+    private boolean isDone;
+    private boolean isInProgress;
+    private String tag;
+    private int deadlineListNum = 0;
 
-    public Deadline(String description, String time) {
+    public Deadline(String description, String time, String tag) {
         requireNonNull(description);
         this.description = description;
         this.time = time;
+        this.tag = tag;
+    }
+
+    /**
+     * Marks the deadline task as done.
+     */
+    public void markAsDone() {
+        isDone = true;
+        isInProgress = false;
+    }
+
+    /**
+     * Marks the deadline task as in progress.
+     */
+    public void markAsInProgress() {
+        isInProgress = true;
+        isDone = false;
+    }
+
+    public String getStatus() {
+        if (isDone) {
+            return "" + "\u2713";
+        } else if (isInProgress) {
+            return "-";
+        } else {
+            return " ";
+        }
     }
 
     public String getDescription() {
@@ -26,13 +57,25 @@ public class Deadline {
         return time;
     }
 
+    public String getTag() {
+        return tag;
+    }
+
     public void setValue(String newValue) {
         this.description = newValue;
     }
 
+    public void editDescription(String newDescription) {
+        this.description = newDescription;
+    }
+
+    public void editTime(String newTime) {
+        this.time = newTime;
+    }
+
     @Override
     public String toString() {
-        return description + " ," + time;
+        return "[" + getStatus() + "] " + description + " ," + time + " PRIORITY: " + tag;
     }
 
     @Override

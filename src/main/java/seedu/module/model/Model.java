@@ -6,6 +6,8 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.module.commons.core.GuiSettings;
+import seedu.module.commons.core.index.Index;
+import seedu.module.logic.commands.exceptions.CommandException;
 import seedu.module.model.module.ArchivedModule;
 import seedu.module.model.module.Module;
 import seedu.module.model.module.TrackedModule;
@@ -105,6 +107,14 @@ public interface Model {
      * Returns an unmodifiable view of the current shown list.
      */
     ObservableList<Module> getDisplayedList();
+
+    /**
+     * Returns a TrackedModule by the index of deadline task list.
+     * @param model
+     * @param index
+     * @return TrackedModule object.
+     */
+    TrackedModule getTrackedModuleByIndex(Model model, Index index) throws CommandException;
 
     /**
      * Changes the current list to be shown to the ArchivedModuleList.
