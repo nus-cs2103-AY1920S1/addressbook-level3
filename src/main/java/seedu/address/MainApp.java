@@ -133,8 +133,8 @@ public class MainApp extends Application {
         QueueManager queueManager = new QueueManager();
 
         return new ModelManager(initialPatientAddressData, initialStaffAddressData,
-            initialAppointmentData, initialDutyRosterData,
-            userPrefs, queueManager);
+                initialAppointmentData, initialDutyRosterData,
+                userPrefs, queueManager);
     }
 
     private void initLogging(Config config) {

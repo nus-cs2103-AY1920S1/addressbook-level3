@@ -7,7 +7,6 @@ import java.util.Objects;
 
 import seedu.address.model.ReferenceId;
 import seedu.address.model.common.Identical;
-import seedu.address.model.events.parameters.DateTime;
 import seedu.address.model.events.parameters.Status;
 import seedu.address.model.events.parameters.Timing;
 
@@ -38,13 +37,6 @@ public class Event implements Identical<Event> {
         }
     }
 
-    /**
-     * Every field must be present and not null.
-     * The end timing is presumed to be 30 mins after the {@code startTime}
-     */
-    public Event(ReferenceId personId, DateTime startTime, Status status) {
-        this(personId, new Timing(startTime, DateTime.plusHalfHour(startTime)), status);
-    }
 
     public ReferenceId getPersonId() {
         return personId;
