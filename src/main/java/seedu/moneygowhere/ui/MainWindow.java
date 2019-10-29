@@ -27,7 +27,7 @@ import seedu.moneygowhere.model.tag.Tag;
  */
 public class MainWindow extends UiPart<Stage> {
 
-    private static final String FXML = "MainWindow.fxml";
+    private static final String FXML = "MainWindow2.fxml";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
@@ -132,12 +132,16 @@ public class MainWindow extends UiPart<Stage> {
      * Sets the default size based on {@code guiSettings}.
      */
     private void setWindowDefaultSize(GuiSettings guiSettings) {
+        /*
         primaryStage.setHeight(guiSettings.getWindowHeight());
         primaryStage.setWidth(guiSettings.getWindowWidth());
         if (guiSettings.getWindowCoordinates() != null) {
             primaryStage.setX(guiSettings.getWindowCoordinates().getX());
             primaryStage.setY(guiSettings.getWindowCoordinates().getY());
         }
+         */
+        primaryStage.setMaximized(true);
+
     }
 
     @FXML
