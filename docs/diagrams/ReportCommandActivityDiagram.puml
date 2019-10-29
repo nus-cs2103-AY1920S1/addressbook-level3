@@ -12,4 +12,5 @@ else ([else])
     :Report is shown to user based on the statistics generated;
 endif
 stop
+
 @enduml
