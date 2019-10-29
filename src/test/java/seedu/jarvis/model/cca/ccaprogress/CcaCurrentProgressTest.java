@@ -5,6 +5,7 @@ import static seedu.jarvis.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import seedu.jarvis.model.cca.exceptions.CcaProgressAtZeroException;
 
 public class CcaCurrentProgressTest {
 
@@ -15,30 +16,36 @@ public class CcaCurrentProgressTest {
         ccaCurrentProgress = new CcaCurrentProgress();
     }
 
+    @Test
+    public void setCcaCurrentProgress_validInput_setCorrectly() {
+        ccaCurrentProgress.setCurrentProgress(1);
+        assertEquals(ccaCurrentProgress.getCurrentProgress(), 1);
+    }
 
     @Test
-    public void increaseProgress_validInput_increasedCorrectly() {
-        ccaCurrentProgress.setMaxProgress(1);
+    public void setCcaCurrentProgress_invalidInput_setCorrectly() {
+        assertThrows(IllegalArgumentException.class, () -> ccaCurrentProgress.setCurrentProgress(-1));
+    }
+
+    @Test
+    public void increaseCcaCurrentProgress_validInput_increasedCorrectly() {
+        ccaCurrentProgress.setCurrentProgress(0);
         ccaCurrentProgress.increaseProgress();
-        assertEquals(ccaCurrentProgress.getCurrentProgress(),);
-
+        assertEquals(ccaCurrentProgress.getCurrentProgress(), 1);
     }
 
     @Test
-    public void isValidName() {
-        // null name
-        assertThrows(NullPointerException.class, () -> CcaMilestone.isValidCcaMilestone(null));
-
-        // invalid name
-        assertFalse(CcaMilestone.isValidCcaMilestone("")); // empty string
-        assertFalse(CcaMilestone.isValidCcaMilestone(" ")); // spaces only
-
-        // valid name
-        assertTrue(CcaMilestone.isValidCcaMilestone("Level 2. *canoeing")); // contains non-alphanumeric characters
-        assertTrue(CcaMilestone.isValidCcaMilestone("modern dance")); // alphabets only
-        assertTrue(CcaMilestone.isValidCcaMilestone("12345")); // numbers only
-        assertTrue(CcaMilestone.isValidCcaMilestone("2nd cca")); // alphanumeric characters
-        assertTrue(CcaMilestone.isValidCcaMilestone("Modern Dance")); // with capital letters
-        assertTrue(CcaMilestone.isValidCcaMilestone("Tamil language society production")); // long names
+    public void decreaseCcaCurrentProgress_validInput_decreasedCorrectly() {
+        ccaCurrentProgress.setCurrentProgress(1);
+        ccaCurrentProgress.decreaseProgress();
+        assertEquals(ccaCurrentProgress.getCurrentProgress(), 0);
     }
+
+    @Test
+    public void decreaseCurrentProgress_invalidInput_throwsCcaProgressAtZeroException() {
+        ccaCurrentProgress.setCurrentProgress(0);
+        assertThrows(CcaProgressAtZeroException.class, () -> ccaCurrentProgress.decreaseProgress());
+    }
+
+
 }
