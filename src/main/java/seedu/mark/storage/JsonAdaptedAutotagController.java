@@ -43,9 +43,9 @@ public class JsonAdaptedAutotagController {
      * into the model's {@code AutotagController} object.
      */
     public AutotagController toModelType() {
-        return new AutotagController(taggers.stream().map(
-                JsonAdaptedSelectiveBookmarkTagger::toModelType).collect(
-                Collectors.toList()));
+        return new AutotagController(
+                taggers.stream().map(JsonAdaptedSelectiveBookmarkTagger::toModelType)
+                        .collect(Collectors.toList()));
     }
 
     @Override
