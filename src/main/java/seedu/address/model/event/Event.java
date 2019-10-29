@@ -43,6 +43,7 @@ public class Event {
         this.startDate = startDate;
         this.endDate = endDate;
         this.tags.addAll(tags);
+        initalizeDateTime(startDate, endDate); //inserts default mapping for start and end date
     }
 
     /**
@@ -103,7 +104,7 @@ public class Event {
     /**
      * Checks if an employee is available for this event.
      *
-     * @param employee to check
+     * @param employee          to check
      * @param filteredEventList a complete event list.
      */
     public boolean isAvailableForEvent(Employee employee, List<Event> filteredEventList) {
@@ -126,6 +127,15 @@ public class Event {
      */
     public void assignDateTime(EventDate eventDate, EventDayTime eventTimePeriod) {
         this.eventDateTimeMap.mapDateTime(eventDate, eventTimePeriod);
+    }
+
+    /**
+     * When Event object is first created, auto-initialize DateTime mapping for Start&End Date.
+     */
+    public void initalizeDateTime(EventDate startDate, EventDate endDate) {
+        EventDayTime standard = EventDayTime.defaultEventDayTime();
+        assignDateTime(startDate, standard);
+        assignDateTime(endDate, standard);
     }
 
     /**
