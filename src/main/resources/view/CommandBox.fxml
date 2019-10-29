@@ -37,7 +37,6 @@
             </HBox>
             <MenuBar fx:id="commandMenuField" minHeight="-Infinity" prefHeight="30.0" prefWidth="1077.0">
               <menus>
-                <Menu mnemonicParsing="false" text="Help" />
               </menus>
             </MenuBar>
          </children>
