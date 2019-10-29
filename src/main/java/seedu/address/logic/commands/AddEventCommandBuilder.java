@@ -70,6 +70,10 @@ class AddEventCommandBuilder extends CommandBuilder {
         return this.start;
     }
 
+    DateTime getRemind() {
+        return this.remind;
+    }
+
     @Override
     Command commandBuild() {
         return new AddEventCommand(this);

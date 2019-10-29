@@ -37,18 +37,30 @@ public class NotificationCheckingThread extends Thread {
         notificationsOn = true;
     }
 
+    public boolean getNotificationsOnStatus() {
+        return notificationsOn;
+    }
+
     @Override
     public void run() {
         try {
-            while (true) {
-                if (notificationsOn) {
-                    checkAndPostNotifications();
-                }
+            notificationCheckingLoop();
+        } catch (InterruptedException e) {
+            logger.info("NotificationManagingThread successfully interrupted.");
+        }
+    }
+
+    /**
+     * The main loop of the program.
+     * @throws InterruptedException If this thread is interrupted.
+     */
+    private void notificationCheckingLoop() throws InterruptedException {
+        while (true) {
+            if (notificationsOn) {
+                checkAndPostNotifications();
 
                 Thread.sleep(findMillisecondsToNextMinute());
             }
-        } catch (InterruptedException e) {
-            logger.info("NotificationManagingThread successfully interrupted.");
         }
     }
 

@@ -58,7 +58,25 @@ public class MainApp extends Application {
         uiManager = new UiManager();
         UndoRedoManager undoRedoManager = new UndoRedoManager();
 
-        // Register commands to CommandManager.
+        registerCommands(commandManager, modelManager, undoRedoManager, notificationManager, uiManager);
+
+        addListeners(commandManager, modelManager, undoRedoManager, uiManager);
+    }
+
+
+    /**
+     * Registers each of the commands to the CommandManager.
+     *
+     * @param commandManager The CommandManager to which commands will be registered.
+     * @param modelManager The ModelManager to be used with a command.
+     * @param undoRedoManager The UndoRedoManager to be used with a command.
+     * @param notificationManager The NotificationManager to be used with a command.
+     * @param uiManager The UiManager to be used with a command.
+     */
+    private void registerCommands(CommandManager commandManager, ModelManager modelManager,
+                                  UndoRedoManager undoRedoManager, NotificationManager notificationManager,
+                                  UiManager uiManager) {
+
         commandManager.addCommand(COMMAND_ADD_EVENT, () -> AddEventCommand.newBuilder(modelManager));
         commandManager.addCommand(COMMAND_DELETE_EVENT, () -> DeleteEventCommand.newBuilder(modelManager));
         commandManager.addCommand(COMMAND_EDIT_EVENT, () -> EditEventCommand.newBuilder(modelManager));
@@ -67,13 +85,25 @@ public class MainApp extends Application {
         commandManager.addCommand(COMMAND_IMPORT_ICS, () -> ImportIcsCommand.newBuilder(modelManager));
         commandManager.addCommand(COMMAND_EXPORT_ICS, () -> ExportIcsCommand.newBuilder(modelManager));
         commandManager
-            .addCommand(COMMAND_NOTIFICATION_OFF, () -> NotificationOffCommand.newBuilder(notificationManager));
+                .addCommand(COMMAND_NOTIFICATION_OFF, () -> NotificationOffCommand.newBuilder(notificationManager));
         commandManager.addCommand(COMMAND_NOTIFICATION_ON, () -> NotificationOnCommand.newBuilder(notificationManager));
         commandManager.addCommand(COMMAND_DAY_VIEW, () -> DayViewCommand.newBuilder(uiManager));
         commandManager.addCommand(COMMAND_WEEK_VIEW, () -> WeekViewCommand.newBuilder(uiManager));
         commandManager.addCommand(COMMAND_MONTH_VIEW, () -> MonthViewCommand.newBuilder(uiManager));
+    }
 
-        // Add Listeners
+
+    /**
+     * Registers each listener to the appropriate manager.
+     *
+     * @param commandManager The CommandManager to be used either as a listener or a notifier.
+     * @param modelManager The ModelManager to be used either as a listener or a notifier.
+     * @param undoRedoManager The UndoRedoManager to be used either as a listener or a notifier.
+     * @param uiManager The UiManager to be used either as a listener or a notifier.
+     */
+    private void addListeners(CommandManager commandManager, ModelManager modelManager,
+                                   UndoRedoManager undoRedoManager, UiManager uiManager) {
+
         commandManager.addUserOutputListener(uiManager);
 
         modelManager.addEventListListener(uiManager);
