@@ -14,10 +14,14 @@ import seedu.mark.model.bookmark.Bookmark;
  * in the current predicate.
  */
 public class BookmarkPredicate implements Predicate<Bookmark> {
+    // TODO: Find a way to reduce code duplication
+
     private final Set<String> nameKeywords;
     private final Set<String> notNameKeywords;
     private final Set<String> urlKeywords;
     private final Set<String> notUrlKeywords;
+    private final Set<String> folderNames;
+    private final Set<String> notFolderNames;
 
     private final Predicate<Bookmark> predicate;
 
@@ -28,16 +32,21 @@ public class BookmarkPredicate implements Predicate<Bookmark> {
      * {@code predicate#test(Bookmark)} is called.
      */
     public BookmarkPredicate() {
-        this(new HashSet<>(), new HashSet<>(), new HashSet<>(), new HashSet<>(), bookmark -> true);
+        this(new HashSet<>(), new HashSet<>(), new HashSet<>(), new HashSet<>(),
+                new HashSet<>(), new HashSet<>(), bookmark -> true);
         this.isEmpty = true;
     }
 
     private BookmarkPredicate(Set<String> nameKeywords, Set<String> notNameKeywords,
-                              Set<String> urlKeywords, Set<String> notUrlKeywords, Predicate<Bookmark> predicate) {
+                              Set<String> urlKeywords, Set<String> notUrlKeywords,
+                              Set<String> folderNames, Set<String> notFolderNames,
+                              Predicate<Bookmark> predicate) {
         this.nameKeywords = new HashSet<>(nameKeywords);
         this.notNameKeywords = new HashSet<>(notNameKeywords);
         this.urlKeywords = new HashSet<>(urlKeywords);
         this.notUrlKeywords = new HashSet<>(notUrlKeywords);
+        this.folderNames = folderNames;
+        this.notFolderNames = notFolderNames;
         this.predicate = predicate;
     }
 
@@ -87,8 +96,9 @@ public class BookmarkPredicate implements Predicate<Bookmark> {
         Set<String> newNameKeywords = new HashSet<>(this.nameKeywords);
         newNameKeywords.addAll(nameKeywords);
         return new BookmarkPredicate(newNameKeywords,
-                this.notNameKeywords, this.urlKeywords,
-                this.notUrlKeywords, predicate.and(new NameContainsKeywordsPredicate(nameKeywords)));
+                this.notNameKeywords, this.urlKeywords, this.notUrlKeywords,
+                this.folderNames, this.notFolderNames,
+                predicate.and(new NameContainsKeywordsPredicate(nameKeywords)));
     }
 
     /**
@@ -107,8 +117,9 @@ public class BookmarkPredicate implements Predicate<Bookmark> {
         Set<String> newNotNameKeywords = new HashSet<>(this.notNameKeywords);
         newNotNameKeywords.addAll(notNameKeywords);
         return new BookmarkPredicate(this.nameKeywords,
-                newNotNameKeywords, this.urlKeywords,
-                this.notUrlKeywords, predicate.and(new NameContainsKeywordsPredicate(notNameKeywords).negate()));
+                newNotNameKeywords, this.urlKeywords, this.notUrlKeywords,
+                this.folderNames, this.notFolderNames,
+                predicate.and(new NameContainsKeywordsPredicate(notNameKeywords).negate()));
     }
 
     /**
@@ -126,8 +137,8 @@ public class BookmarkPredicate implements Predicate<Bookmark> {
         Set<String> newUrlKeywords = new HashSet<>(this.urlKeywords);
         newUrlKeywords.addAll(urlKeywords);
         return new BookmarkPredicate(this.nameKeywords,
-                this.notNameKeywords, newUrlKeywords,
-                this.notUrlKeywords, predicate.and(new UrlContainsKeywordsPredicate(urlKeywords)));
+                this.notNameKeywords, newUrlKeywords, this.notUrlKeywords,
+                this.folderNames, this.notFolderNames, predicate.and(new UrlContainsKeywordsPredicate(urlKeywords)));
     }
 
     /**
@@ -146,8 +157,49 @@ public class BookmarkPredicate implements Predicate<Bookmark> {
         Set<String> newNotUrlKeywords = new HashSet<>(this.notUrlKeywords);
         newNotUrlKeywords.addAll(notUrlKeywords);
         return new BookmarkPredicate(this.nameKeywords,
-                this.notNameKeywords, this.urlKeywords,
-                newNotUrlKeywords, predicate.and(new UrlContainsKeywordsPredicate(notUrlKeywords).negate()));
+                this.notNameKeywords, this.urlKeywords, newNotUrlKeywords,
+                this.folderNames, this.notFolderNames,
+                predicate.and(new UrlContainsKeywordsPredicate(notUrlKeywords).negate()));
+    }
+
+    /**
+     * Creates a new {@code BookmarkPredicate} that checks that a bookmark matches
+     * the current predicate and is in one of the folders in {@code folderNames}.
+     *
+     * @param folderNames names of folders that a bookmark can be in.
+     * @return a new {@code BookmarkPredicate} that contains all of the current
+     *         information and includes the new Folder names.
+     */
+    public BookmarkPredicate withFolder(List<String> folderNames) {
+        requireNonNull(folderNames);
+        isEmpty = false;
+
+        Set<String> newFolderNames = new HashSet<>(this.folderNames);
+        newFolderNames.addAll(folderNames);
+        return new BookmarkPredicate(this.nameKeywords,
+                this.notNameKeywords, this.urlKeywords, this.notUrlKeywords,
+                newFolderNames, this.notFolderNames,
+                predicate.and(new FolderContainsKeywordsPredicate(folderNames)));
+    }
+
+    /**
+     * Creates a new {@code BookmarkPredicate} that checks that a bookmark matches
+     * the current predicate and is not in any of the folders in {@code notFolderNames}.
+     *
+     * @param notFolderNames names of folders that a bookmark should not be in.
+     * @return a new {@code BookmarkPredicate} that contains all of the current
+     *         information and includes the new notFolderNames.
+     */
+    public BookmarkPredicate withoutFolder(List<String> notFolderNames) {
+        requireNonNull(notFolderNames);
+        isEmpty = false;
+
+        Set<String> newNotFolderNames = new HashSet<>(this.folderNames);
+        newNotFolderNames.addAll(notFolderNames);
+        return new BookmarkPredicate(this.nameKeywords,
+                this.notNameKeywords, this.urlKeywords, this.notUrlKeywords,
+                this.folderNames, newNotFolderNames,
+                predicate.and(new FolderContainsKeywordsPredicate(notFolderNames).negate()));
     }
 
     @Override

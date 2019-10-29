@@ -21,12 +21,13 @@ public class AutotagCommand extends Command {
             + ": Creates an automatic tagger that tags bookmarks which match the given conditions. At least one "
             + "condition must be specified.\n"
             + "Parameters: TAG_NAME [n/NAME_KEYWORD]... [u/URL_KEYWORD]... "
-            + "[nn/NOT_NAME_KEYWORD]... [nu/NOT_URL_KEYWORD]...\n"
-            + "Example: " + COMMAND_WORD + " Quiz u/luminus.nus.edu.sg u/quiz nu/attempt";
+            + "[f/FOLDER]... [nn/NOT_NAME_KEYWORD]... [nu/NOT_URL_KEYWORD]... [nf/NOT_FOLDER]\n"
+            + "Example: " + COMMAND_WORD + " Quiz u/luminus.nus.edu.sg u/quiz nu/attempt f/AY1920";
 
     public static final String MESSAGE_AUTOTAG_ADDED = "An autotag was added successfully: %1$s";
     public static final String MESSAGE_AUTOTAG_EXISTS = "An autotag with this name already exists: %1$s";
-    public static final String MESSAGE_NO_CONDITION_SPECIFIED = "At least one name or URL condition must be specified";
+    public static final String MESSAGE_NO_CONDITION_SPECIFIED = "At least one name, URL, or folder condition "
+            + "must be specified";
 
     private final SelectiveBookmarkTagger tagger;
 

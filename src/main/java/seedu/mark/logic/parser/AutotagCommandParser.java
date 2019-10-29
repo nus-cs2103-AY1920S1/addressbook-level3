@@ -2,7 +2,9 @@ package seedu.mark.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.mark.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.mark.logic.parser.CliSyntax.PREFIX_FOLDER;
 import static seedu.mark.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.mark.logic.parser.CliSyntax.PREFIX_NOT_FOLDER;
 import static seedu.mark.logic.parser.CliSyntax.PREFIX_NOT_NAME;
 import static seedu.mark.logic.parser.CliSyntax.PREFIX_NOT_URL;
 import static seedu.mark.logic.parser.CliSyntax.PREFIX_URL;
@@ -26,9 +28,10 @@ public class AutotagCommandParser implements Parser<AutotagCommand> {
     public AutotagCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_URL, PREFIX_NOT_NAME, PREFIX_NOT_URL);
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_URL, PREFIX_NOT_NAME, PREFIX_NOT_URL,
+                        PREFIX_FOLDER, PREFIX_NOT_FOLDER);
 
-        if (argMultimap.getPreamble().isEmpty() || argMultimap.getPreamble().split(" ").length > 1) {
+        if (argMultimap.getPreamble().isEmpty() || argMultimap.getPreamble().split("\\s+").length > 1) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AutotagCommand.MESSAGE_USAGE));
         }
 
@@ -40,6 +43,7 @@ public class AutotagCommandParser implements Parser<AutotagCommand> {
             predicate = predicate.withNameKeywords(argMultimap.getAllValues(PREFIX_NAME));
         }
         if (argMultimap.getValue(PREFIX_URL).isPresent()) {
+            // TODO: handle empty URL parameter
             predicate = predicate.withUrlKeywords(argMultimap.getAllValues(PREFIX_URL));
         }
         if (argMultimap.getValue(PREFIX_NOT_NAME).isPresent()) {
@@ -47,6 +51,12 @@ public class AutotagCommandParser implements Parser<AutotagCommand> {
         }
         if (argMultimap.getValue(PREFIX_NOT_URL).isPresent()) {
             predicate = predicate.withoutUrlKeywords(argMultimap.getAllValues(PREFIX_NOT_URL));
+        }
+        if (argMultimap.getValue(PREFIX_FOLDER).isPresent()) {
+            predicate = predicate.withFolder(argMultimap.getAllValues(PREFIX_FOLDER));
+        }
+        if (argMultimap.getValue(PREFIX_NOT_FOLDER).isPresent()) {
+            predicate = predicate.withoutFolder(argMultimap.getAllValues(PREFIX_NOT_FOLDER));
         }
 
         if (predicate.isEmpty()) {
