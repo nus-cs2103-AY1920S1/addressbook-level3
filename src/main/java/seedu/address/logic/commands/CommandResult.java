@@ -14,6 +14,9 @@ public class CommandResult {
     /** Help information should be shown to the user. */
     private final boolean showHelp;
 
+    /** Statistics information should be shown to the user. */
+    private final boolean showStats;
+
     /** The application should exit. */
     private final boolean exit;
 
@@ -23,11 +26,12 @@ public class CommandResult {
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean wantToSave) {
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean wantToSave, boolean showStats) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
         this.wantToSave = wantToSave;
+        this.showStats = showStats;
     }
 
     /**
@@ -35,7 +39,7 @@ public class CommandResult {
      * and other fields set to their default value.
      */
     public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, false, false, false);
+        this(feedbackToUser, false, false, false, false);
     }
 
     public String getFeedbackToUser() {
@@ -52,6 +56,10 @@ public class CommandResult {
 
     public boolean wantToSave() {
         return wantToSave;
+    }
+
+    public boolean isShowStats() {
+        return showStats;
     }
 
     @Override

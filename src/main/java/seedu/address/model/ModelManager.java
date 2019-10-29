@@ -13,6 +13,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.eatery.Eatery;
 import seedu.address.model.feed.Feed;
+import seedu.address.model.statistics.StatisticsList;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -26,7 +27,7 @@ public class ModelManager implements Model {
 
     private FilteredList<Eatery> filteredTodo;
     private FilteredList<Eatery> filteredEateries;
-
+    private StatisticsList stats;
 
     /**
      * Initializes a ModelManager with the given addressBook, feedList and userPrefs.
@@ -204,6 +205,16 @@ public class ModelManager implements Model {
         feedList.setFeed(target, editedFeed);
     }
 
+    //=========== Statistics ===============================================================================
+    @Override
+    public void setStatistics(StatisticsList stats) {
+        this.stats = stats;
+    }
+
+    @Override
+    public StatisticsList getStatistics() {
+        return stats;
+    }
     //=========== Utilities ================================================================================
 
     @Override

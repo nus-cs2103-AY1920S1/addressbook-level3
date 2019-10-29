@@ -31,6 +31,7 @@ public class MainWindow extends UiPart<Stage> {
     private EateryListPanel todoListPanel;
 
     private ResultDisplay resultDisplay;
+    private StatsWindow statsWindow;
     private FeedPostListPanel feedPostListPanel;
     private HelpWindow helpWindow;
 
@@ -65,6 +66,7 @@ public class MainWindow extends UiPart<Stage> {
         setWindowDefaultSize(logic.getGuiSettings());
 
         helpWindow = new HelpWindow();
+        statsWindow = new StatsWindow();
     }
 
     public Stage getPrimaryStage() {
@@ -131,6 +133,19 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    /**
+     * Displays the statistics window.
+     */
+    private void showStats() {
+        if (!statsWindow.isShowing()) {
+            statsWindow.initStats(logic.getStatistics());
+            statsWindow.show();
+        } else {
+            statsWindow.initStats(logic.getStatistics());
+            statsWindow.focus();
+        }
+    }
+
     void show() {
         primaryStage.show();
     }
@@ -181,6 +196,10 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.wantToSave()) {
                 handleSaveTodo(commandResult.getFeedbackToUser());
+            }
+
+            if (commandResult.isShowStats()) {
+                showStats();
             }
 
             fillDataParts();

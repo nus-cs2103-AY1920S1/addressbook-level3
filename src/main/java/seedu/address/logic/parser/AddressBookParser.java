@@ -22,6 +22,7 @@ import seedu.address.logic.commands.ModeCommand;
 import seedu.address.logic.commands.ReopenCommand;
 import seedu.address.logic.commands.ReviewCommand;
 import seedu.address.logic.commands.SaveTodoCommand;
+import seedu.address.logic.commands.StatsCommand;
 
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -101,6 +102,9 @@ public class AddressBookParser {
 
         case DeleteFeedCommand.COMMAND_WORD:
             return new DeleteFeedCommandParser().parse(arguments);
+
+        case StatsCommand.COMMAND_WORD:
+            return new StatsCommand();
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

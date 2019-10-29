@@ -23,6 +23,7 @@ import seedu.address.model.ReadOnlyFeedList;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.eatery.Eatery;
 import seedu.address.model.feed.Feed;
+import seedu.address.model.statistics.StatisticsList;
 import seedu.address.testutil.EateryBuilder;
 
 public class AddCommandTest {
@@ -204,6 +205,16 @@ public class AddCommandTest {
         public void setFeed(Feed target, Feed editedFeed) {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public void setStatistics(StatisticsList stats) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public StatisticsList getStatistics() {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**
@@ -221,6 +232,11 @@ public class AddCommandTest {
         public boolean hasEatery(Eatery eatery) {
             requireNonNull(eatery);
             return this.eatery.isSameEatery(eatery);
+        }
+
+        @Override
+        public StatisticsList getStatistics() {
+            return new StatisticsList();
         }
     }
 

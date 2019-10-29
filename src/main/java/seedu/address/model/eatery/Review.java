@@ -127,5 +127,4 @@ public class Review {
     public int hashCode() {
         return Objects.hash(description, cost, rating, date);
     }
-
 }

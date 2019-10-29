@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.stage.Stage?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.Scene?>
+
+<fx:root resizable="false" title="Statistics" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1">
+    <scene>
+        <Scene>
+            <FlowPane xmlns:fx="http://javafx.com/fxml/1" fx:id="statsDisplayView" />
+        </Scene>
+    </scene>
+</fx:root>
