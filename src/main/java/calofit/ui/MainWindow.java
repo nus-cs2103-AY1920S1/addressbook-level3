@@ -37,6 +37,7 @@ public class MainWindow extends UiPart<Stage> {
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private ReportWindow reportWindow;
+    private NotificationWindow notificationWindow;
 
     @FXML
     private BudgetBar budgetBar;
@@ -160,6 +161,12 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    @FXML
+    public void handleNotification(String message) {
+        notificationWindow = new NotificationWindow(message);
+        notificationWindow.show();
+    }
+
     void show() {
         primaryStage.show();
     }
@@ -208,6 +215,10 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isShowReport()) {
                 handleReport();
+            }
+
+            if (commandResult.isShowNotification()) {
+                handleNotification(commandResult.getFeedbackToUser());
             }
 
             return commandResult;

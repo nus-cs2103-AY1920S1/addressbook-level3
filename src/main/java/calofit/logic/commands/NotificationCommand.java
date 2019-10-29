@@ -26,21 +26,20 @@ public class NotificationCommand extends Command{
         switch (model.getMealLog().getTodayMeals().size()) {
         case 0:
             if (!notification.eatenBreakfast()) {
-                return new CommandResult(MESSAGE_BREAKFAST);
+                return new CommandResult(MESSAGE_BREAKFAST, false, false, false, true);
             }
             break;
         default:
             if (!notification.eatenLunch(model.getMealLog().getTodayMeals().get(
                 model.getMealLog().getTodayMeals().size() - 1).getTimestamp())) {
-                return new CommandResult(MESSAGE_LUNCH);
+                return new CommandResult(MESSAGE_LUNCH, false, false, false, true);
             } else {
                 if (!notification.eatenDinner(model.getMealLog().getTodayMeals().get(
                     model.getMealLog().getTodayMeals().size() - 1).getTimestamp())) {
-                    return new CommandResult(MESSAGE_DINNER);
+                    return new CommandResult(MESSAGE_DINNER, false, false, false, true);
                 }
             }
         }
-
-        return new CommandResult(MESSAGE_SUCCESS);
+        return new CommandResult(MESSAGE_SUCCESS, false, false, false, true);
     }
 }
