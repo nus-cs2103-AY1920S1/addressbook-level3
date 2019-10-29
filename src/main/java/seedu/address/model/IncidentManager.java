@@ -176,12 +176,21 @@ public class IncidentManager implements ReadOnlyIncidentManager {
         vehicles.add(v);
     }
 
+
     public void setVehicle(Vehicle target, Vehicle editedVehicle) {
         requireNonNull(editedVehicle);
         vehicles.setVehicle(target, editedVehicle);
     }
-    //// util methods
 
+    /**
+     * Deletes {@code Vehicle toDelete} from the incident manager provided it exists.
+     */
+    public void deleteVehicle(Vehicle toDelete) {
+        requireNonNull(toDelete);
+        vehicles.remove(toDelete);
+
+    }
+    //// util methods
     @Override
     public String toString() {
         return persons.asUnmodifiableObservableList().size() + " persons" + "\n"
