@@ -157,7 +157,9 @@ public class BrowserPanel extends UiPart<Region> {
         String validUrl = makeValidUrl(url);
 
         if (validUrl == null) {
-            logger.info(url + "\t is not a valid Url. Showing about:blank page.");
+            //load google, will succeed if there is internet connnection.
+            logger.info(url + "\t is not a valid Url. Please search in google instead.");
+            gotoGoogle();
         }
 
         Platform.runLater(() -> webEngine.load(validUrl));
@@ -194,18 +196,6 @@ public class BrowserPanel extends UiPart<Region> {
      */
     private void showAddressOnAddressBar(String url) {
         addressBar.setText(url);
-    }
-
-    /**
-     * Loads google after sleeping for
-     */
-    private void redirectToGoogle() {
-        try {
-            Thread.sleep(500);
-            gotoGoogle();
-        } catch (InterruptedException e) {
-            loadHomepage();
-        }
     }
 
     /**
