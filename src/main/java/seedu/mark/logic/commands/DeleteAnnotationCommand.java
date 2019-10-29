@@ -19,7 +19,7 @@ import seedu.mark.storage.Storage;
 public class DeleteAnnotationCommand extends AnnotationCommand {
 
 
-    public static final String COMMAND_WORD = "annotatedelete";
+    public static final String COMMAND_WORD = "annotate-delete";
 
     public static final String MESSAGE_CONSTRAINTS =
             "Paragraph identifiers should coincide with the paragraph labels on the left of each paragraph.";

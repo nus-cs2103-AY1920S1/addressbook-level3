@@ -24,7 +24,7 @@ import seedu.mark.storage.Storage;
  */
 public class EditAnnotationCommand extends AnnotationCommand {
 
-    public static final String COMMAND_WORD = "annotateedit";
+    public static final String COMMAND_WORD = "annotate-edit";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Edits a pre-existing annotation of the offline copy identified by the index used "
