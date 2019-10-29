@@ -81,8 +81,8 @@ public class AddCommandTest {
         seedu.address.inventory.storage.StorageManager inventoryManager =
                 new seedu.address.inventory.storage.StorageManager(new File(FILE_PATH_INVENTORY));
 
-        seedu.address.transaction.logic.Logic transactionLogic =
-                new seedu.address.transaction.logic.LogicManager(transactionModel, transactionManager, personModel,
+        Logic transactionLogic =
+                new LogicManager(transactionModel, transactionManager, personModel,
                         reimbursementModel, reimbursementManager);
         seedu.address.inventory.logic.Logic inventoryLogic =
                 new seedu.address.inventory.logic.LogicManager(
