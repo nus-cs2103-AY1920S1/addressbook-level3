@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.ui.panel.PanelName;
 
 /**
  * Redoes a model-changing command, effectively migrating the model to a future state.
@@ -25,6 +26,6 @@ public class RedoCommand extends Command {
         // nextModel is guaranteed to be present due to previous validation.
         Model nextModel = model.migrateModel().get();
         model.resetData(nextModel);
-        return new CommandResult(MESSAGE_SUCCESS);
+        return new CommandResult(MESSAGE_SUCCESS, false, false, true, PanelName.CURRENT);
     }
 }
