@@ -75,9 +75,9 @@ public class StartQuizWindow extends Window {
         currentAnswerable = answerableIterator.next();
 
         if (currentAnswerable instanceof Mcq) {
-            answersGridPane = new McqAnswersGridPane(AnswersGridPane.MCQ_GRID_PANE_FXML, currentAnswerable);
+            answersGridPane = new McqAnswersGridPane(currentAnswerable);
         } else if (currentAnswerable instanceof TrueFalse) {
-            answersGridPane = new TfAnswersGridPane(AnswersGridPane.TF_GRID_PANE_FXML, currentAnswerable);
+            answersGridPane = new TfAnswersGridPane(currentAnswerable);
         }
 
         answerableListPanelPlaceholder.getChildren().add(answersGridPane.getRoot());
@@ -125,12 +125,12 @@ public class StartQuizWindow extends Window {
      */
     private void handleNextLevel(Answerable currentAnswerable) {
         int nextLevel = Integer.parseInt(currentAnswerable.getDifficulty().value);
-        logger.info("going to next level!");
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle(null);
+        alert.setTitle("Well done!");
         alert.setHeaderText(null);
         alert.setGraphic(null);
         alert.setContentText("You have completed level " + (nextLevel - 1) + "\n"
+            + "Your current score is: " + score + "\n"
             + "Would you like to proceed to level " + nextLevel + "?\n"
             + "Press [ENTER] to proceed.\n"
             + "Press [ESC] to return to main screen.");
@@ -160,7 +160,7 @@ public class StartQuizWindow extends Window {
     private void handleEnd() {
         currentProgressIndex.set(currentProgressIndex.get() + 1);
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle(null);
+        alert.setTitle("Congratulations!");
         alert.setHeaderText(null);
         alert.setGraphic(null);
         alert.setContentText("Quiz has ended! Your score is " + score + "\n"
@@ -216,14 +216,6 @@ public class StartQuizWindow extends Window {
     @Override
     protected CommandResult executeCommand (String commandText) throws CommandException, ParseException {
         try {
-            if (currentAnswerable instanceof Mcq) {
-                answersGridPane = new McqAnswersGridPane(AnswersGridPane.MCQ_GRID_PANE_FXML, currentAnswerable);
-            } else if (currentAnswerable instanceof TrueFalse) {
-                answersGridPane = new TfAnswersGridPane(AnswersGridPane.TF_GRID_PANE_FXML, currentAnswerable);
-            }
-//            } else if (currentAnswerable instanceof Saq) {
-//                answersGridPane = new SaqAnswersGridPane(AnswersGridPane.SAQ_GRID_PANE_FXML, currentAnswerable);
-//            }
             CommandResult commandResult = mainLogic.execute(commandText, currentAnswerable);
             logger.info("Question result: " + commandResult.getFeedbackToUser());
             if (commandResult.getFeedbackToUser().equalsIgnoreCase("correct")) {
@@ -249,17 +241,29 @@ public class StartQuizWindow extends Window {
             currentAnswerable = answerableIterator.next();
             currentProgressIndex.set(getCurrentProgressIndex() + 1);
             questionDisplay.setFeedbackToUser(currentAnswerable.getQuestion().toString());
-            answersGridPane.updateAnswers(currentAnswerable);
+
+            if (currentAnswerable instanceof Mcq) {
+                answersGridPane = new McqAnswersGridPane(currentAnswerable);
+                answersGridPane.updateAnswers(currentAnswerable);
+                answerableListPanelPlaceholder.getChildren().add(answersGridPane.getRoot());
+            } else if (currentAnswerable instanceof TrueFalse) {
+                answersGridPane = new TfAnswersGridPane(currentAnswerable);
+                answersGridPane.updateAnswers(currentAnswerable);
+                answerableListPanelPlaceholder.getChildren().add(answersGridPane.getRoot());
+            }
+//            } else if (currentAnswerable instanceof Saq) {
+//                answersGridPane = new SaqAnswersGridPane(AnswersGridPane.SAQ_GRID_PANE_FXML, currentAnswerable);
+//            }
+//            answersGridPane.updateAnswers(currentAnswerable);
 
             if (previousAnswerable != null && answerableIterator.hasNext()) {
                 int previousLevel = Integer.parseInt(previousAnswerable.getDifficulty().value);
                 int currentLevel = Integer.parseInt(currentAnswerable.getDifficulty().value);
-                logger.info("previous level: " + previousLevel);
-                logger.info("current level: " + currentLevel);
                 if (previousLevel < currentLevel) {
                     handleNextLevel(currentAnswerable);
                 }
             }
+
             return commandResult;
         } catch (CommandException | ParseException e) {
             logger.info("Invalid command: " + commandText);
