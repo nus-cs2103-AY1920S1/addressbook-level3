@@ -1,0 +1,25 @@
+@startuml
+!include style.puml
+
+box UI UI_COLOR_T1
+participant ":UI" as UI UI_COLOR
+end box
+
+box AppManager APPMANAGER_COLOR_T1
+participant ":AppManager" as AppManager APPMANAGER_COLOR
+end box
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+end box
+
+[-> UI : execute("difficulty hard")
+activate UI
+
+UI -> AppManager : executeCommand("difficulty hard")
+activate AppManager
+
+AppManager -> LogicManager : execute("difficulty hard")
+activate LogicManager
+
+@enduml
