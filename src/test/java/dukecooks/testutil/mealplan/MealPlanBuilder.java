@@ -1,6 +1,7 @@
 package dukecooks.testutil.mealplan;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import dukecooks.model.mealplan.components.MealPlan;
@@ -10,6 +11,7 @@ import dukecooks.model.recipe.components.Carbs;
 import dukecooks.model.recipe.components.Fats;
 import dukecooks.model.recipe.components.Ingredient;
 import dukecooks.model.recipe.components.Protein;
+import dukecooks.model.recipe.components.RecipeName;
 import dukecooks.model.util.SampleMealPlanDataUtil;
 
 /**
@@ -18,18 +20,10 @@ import dukecooks.model.util.SampleMealPlanDataUtil;
 public class MealPlanBuilder {
 
     public static final String DEFAULT_NAME = "Omelette Week";
-    public static final String DEFAULT_INGREDIENT = "Eggs";
-    public static final String DEFAULT_CALORIES = "154";
-    public static final String DEFAULT_CARBS = "1";
-    public static final String DEFAULT_FATS = "12";
-    public static final String DEFAULT_PROTEIN = "11";
+    public static final String DEFAULT_RECIPENAME = "Cheese Omelette";
 
     private MealPlanName name;
-    private Set<Ingredient> ingredients;
-    private Calories calories;
-    private Carbs carbs;
-    private Fats fats;
-    private Protein protein;
+    private List<RecipeName> day1;
 
     public MealPlanBuilder() {
         name = new MealPlanName(DEFAULT_NAME);
