@@ -34,7 +34,6 @@ import seedu.address.model.tag.Tag;
  * Edits the details of an existing employee in the employeeAddress book.
  */
 public class Pay extends Command {
-    public static Employee e;
 
     public static final String COMMAND_WORD = "pay";
 
@@ -54,7 +53,7 @@ public class Pay extends Command {
             + PREFIX_PHONE + "91234567 "
             + PREFIX_EMAIL + "johndoe@example.com";
 
-    public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Employee: %1$s";
+    public static String MESSAGE_PAID_PERSON_SUCCESS = "800.0";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_PERSON = "This employee already exists in the employeeAddress book.";
 
@@ -83,8 +82,20 @@ public class Pay extends Command {
         }
 
         Employee employeeToEdit = lastShownList.get(index.getZeroBased());
-        e = employeeToEdit;
+        String start = employeeToEdit.getEmployeePay().value;
+        Double startDouble = Double.parseDouble(start);
+
+
         Employee editedEmployee = createEditedEmployee(employeeToEdit, editEmployeeDescriptor);
+        String end = editedEmployee.getEmployeePay().value;
+        Double endDouble = Double.parseDouble(end);
+
+
+        double amt = startDouble + endDouble;
+        MESSAGE_PAID_PERSON_SUCCESS = amt + "";
+
+        //set amt
+        editedEmployee.employeePay = new EmployeePay(MESSAGE_PAID_PERSON_SUCCESS);
 
         if (!employeeToEdit.isSameEmployee(editedEmployee) && model.hasEmployee(editedEmployee)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
@@ -92,7 +103,7 @@ public class Pay extends Command {
 
         model.setEmployee(employeeToEdit, editedEmployee);
         model.updateFilteredEmployeeList(PREDICATE_SHOW_ALL_PERSONS);
-        return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedEmployee));
+        return new CommandResult(String.format(MESSAGE_PAID_PERSON_SUCCESS, editedEmployee));
     }
 
     /**
@@ -159,7 +170,8 @@ public class Pay extends Command {
         private EmployeeId employeeId;
         private Set<Tag> tags;
 
-        public EditEmployeeDescriptor() {}
+        public EditEmployeeDescriptor() {
+        }
 
         /**
          * Copy constructor.
@@ -206,7 +218,7 @@ public class Pay extends Command {
         }
 
         public void setEmployeePay(EmployeePay employeePay) {
-            this.employeePay = e.getEmployeePay();
+           this.employeePay = employeePay;
         }
 
         public Optional<EmployeePay> getEmployeePay() {

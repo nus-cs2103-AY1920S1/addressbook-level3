@@ -18,7 +18,7 @@ public class Employee {
     private final EmployeePhone employeePhone;
     private final EmployeeEmail employeeEmail;
     private final EmployeeId employeeId;
-    private final EmployeePay employeePay;
+    public EmployeePay employeePay;
     private final EmployeeGender employeeGender;
 
 

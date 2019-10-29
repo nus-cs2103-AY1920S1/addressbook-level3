@@ -23,7 +23,6 @@ public class EmployeePay {
      */
     public EmployeePay(String pay) {
         requireNonNull(pay);
-        checkArgument(isValidPay(pay), MESSAGE_CONSTRAINTS);
         value = pay;
     }
 

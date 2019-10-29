@@ -3,6 +3,7 @@ package seedu.address.logic.commands.finance;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.Model;
+import seedu.address.model.employee.Employee;
 import seedu.address.model.event.Event;
 import seedu.address.model.event.EventDateTimeMap;
 
