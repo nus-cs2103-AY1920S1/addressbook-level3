@@ -57,8 +57,7 @@ public class FindIncidentsCommand extends Command {
             return new CommandResult(Messages.MESSAGE_SINGLE_INCIDENT_LISTED);
         } else {
             return new CommandResult(
-                    String.format(Messages.MESSAGE_INCIDENTS_LISTED_OVERVIEW,
-                            model.getFilteredIncidentList().size()));
+                    String.format(Messages.MESSAGE_INCIDENTS_LISTED_OVERVIEW, model.getFilteredIncidentList().size()));
         }
     }
 
