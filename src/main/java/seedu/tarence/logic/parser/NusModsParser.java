@@ -1,6 +1,5 @@
 package seedu.tarence.logic.parser;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -13,11 +12,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeSet;
+import java.util.stream.Collectors;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonSyntaxException;
 import com.google.gson.stream.JsonReader;
 
+import seedu.tarence.MainApp;
 import seedu.tarence.logic.parser.exceptions.ParseException;
 import seedu.tarence.model.module.ModCode;
 import seedu.tarence.model.student.Student;
@@ -29,33 +32,45 @@ import seedu.tarence.model.tutorial.Week;
  * Handles parsing of NUSMods urls.
  */
 public class NusModsParser {
-    private static final String LESSONS_JSON_URL = "./src/main/resources/lessonData/lessons.json";
-    private static Map<String, Map<String, Tutorial>> lessonMap = NusModsParser.load();
+    private static final String LESSONS_JSON_URL = "/nusmods/lessons.json";
+    private static Map<String, Map<String, Map<String, Tutorial>>> lessonMap = NusModsParser.load();
 
     /**
-     * Loads lesson json data into a Map.
+     * Loads lesson json data into a Map(moduleCode > lessonType > classNo).
      */
-    public static Map<String, Map<String, Tutorial>> load() {
-        Map<String, Map<String, Tutorial>> lessonMap = new HashMap<>();
+    public static Map<String, Map<String, Map<String, Tutorial>>> load() {
+        Map<String, Map<String, Map<String, Tutorial>>> lessonMap = new HashMap<>();
         try (
-            InputStream stream = new FileInputStream(LESSONS_JSON_URL);
+            InputStream stream = MainApp.class.getResourceAsStream(LESSONS_JSON_URL);
             JsonReader reader = new JsonReader(new InputStreamReader(stream, "UTF-8"));
         ) {
             Gson gson = new GsonBuilder().create();
 
             reader.beginArray();
             while (reader.hasNext()) {
-                LessonObject lesson = gson.fromJson(reader, LessonObject.class);
-                if (!lessonMap.containsKey(lesson.ModuleCode)) {
-                    lessonMap.put(lesson.ModuleCode, new HashMap<>());
+                ModObject mod = gson.fromJson(reader, ModObject.class);
+
+                if (!lessonMap.containsKey(mod.moduleCode)) {
+                    lessonMap.put(mod.moduleCode, new HashMap<>());
                 }
-                try {
-                    lessonMap.get(lesson.ModuleCode).put(lesson.ClassNo, lesson.toTutorial());
-                } catch (ParseException | DateTimeParseException e) {
-                    System.out.println(e);
+                for (LessonObject lesson : mod.lessons) {
+                    String lessonTypeCode = lesson.lessonType.substring(0, 3).toUpperCase();
+                    if (!lessonMap.get(mod.moduleCode).containsKey(lessonTypeCode)) {
+                        lessonMap.get(mod.moduleCode).put(lessonTypeCode, new HashMap<>());
+                    }
+                    try {
+                        Tutorial tutorial = lesson.toTutorial(mod.moduleCode);
+                        lessonMap.get(mod.moduleCode).get(lessonTypeCode).put(lesson.classNo,
+                            tutorial);
+                    } catch (ParseException | DateTimeParseException | IllegalArgumentException e) {
+                        System.out.println(mod.moduleCode);
+                        System.out.println(e);
+                    }
                 }
             }
         } catch (IOException e) {
+            System.out.println(e);
+        } catch (JsonSyntaxException e) {
             System.out.println(e);
         }
         return lessonMap;
@@ -80,7 +95,7 @@ public class NusModsParser {
                     }
                     String classNo = lessonQuery.split(":")[1];
                     try {
-                        tutorials.add(lessonMap.get(module).get(classNo));
+                        tutorials.add(lessonMap.get(module).get(lessonType).get(classNo));
                     } catch (NullPointerException e) {
                         System.out.println(lessonQuery + " could not be found.");
                     }
@@ -92,41 +107,57 @@ public class NusModsParser {
         return tutorials;
     }
 
-    // CHECKSTYLE.OFF: ParameterName
-    // CHECKSTYLE.OFF: MemberName
+    /**
+     * Intermediate object parsed from JSON. Contains LessonObjects.
+     */
+    class ModObject {
+        final List<LessonObject> lessons;
+        final String moduleCode;
+
+        ModObject(List<LessonObject> lessons, String moduleCode) {
+            this.moduleCode = moduleCode;
+            this.lessons = lessons;
+        }
+    }
+
     /**
      * Intermediate object parsed from JSON. To be converted into Tutorial.
      */
     class LessonObject {
-        final String ClassNo;
-        final String DayText;
-        final String EndTime;
-        final String LessonType;
-        final String ModuleCode;
-        final String StartTime;
-        final String WeekText;
+        final String classNo;
+        final String startTime;
+        final String endTime;
+        final List<String> weeks;
+        final String day;
+        final String lessonType;
 
-        LessonObject(String ClassNo, String DayText, String EndTime,
-                String LessonType, String ModuleCode, String StartTime, String WeekText) {
-            this.ClassNo = ClassNo;
-            this.DayText = DayText;
-            this.EndTime = EndTime;
-            this.LessonType = LessonType;
-            this.ModuleCode = ModuleCode;
-            this.StartTime = StartTime;
-            this.WeekText = WeekText;
+        LessonObject(String classNo, String startTime, String endTime, List<String> weeks,
+                String day, String lessonType) {
+            this.classNo = classNo;
+            this.startTime = startTime;
+            this.endTime = endTime;
+            this.weeks = weeks;
+            this.day = day;
+            this.lessonType = lessonType;
         }
 
         /**
          * Returns a Tutorial based on its data fields.
          */
-        Tutorial toTutorial() throws ParseException {
-            ModCode modCode = new ModCode(ModuleCode);
-            TutName tutName = new TutName(LessonType + " " + ClassNo);
-            DayOfWeek day = ParserUtil.parseDayOfWeek(DayText);
-            LocalTime startTime = ParserUtil.parseLocalTime(StartTime);
-            LocalTime endTime = ParserUtil.parseLocalTime(EndTime);
-            Set<Week> weeks = ParserUtil.parseWeeks(WeekText);
+        Tutorial toTutorial(String moduleCode) throws ParseException {
+            ModCode modCode = new ModCode(moduleCode);
+            TutName tutName = new TutName(lessonType + " " + classNo);
+            DayOfWeek day = ParserUtil.parseDayOfWeek(this.day);
+            LocalTime startTime = ParserUtil.parseLocalTime(this.startTime);
+            LocalTime endTime = ParserUtil.parseLocalTime(this.endTime);
+            Set<Week> weeks = null;
+            try {
+                weeks = new TreeSet<Week>(this.weeks.stream()
+                    .<Week>map(w -> new Week(Integer.parseInt(w)))
+                    .collect(Collectors.toList()));
+            } catch (NumberFormatException e) {
+                System.out.println(e);
+            }
             Duration duration = Duration.between(startTime, endTime);
             List<Student> students = new ArrayList<>();
             return new Tutorial(tutName, day, startTime, weeks, duration, students, modCode);
