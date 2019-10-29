@@ -3,7 +3,7 @@ package seedu.address.person.model;
 import seedu.address.person.model.person.Person;
 
 /**
- * Acts as a facade that allows only for {@code Person} matching by name to be retrieved from the Model Manager.
+ * Acts as a facade that allows only some methods from the Model Manager.
  */
 public interface GetPersonByNameOnlyModel {
 

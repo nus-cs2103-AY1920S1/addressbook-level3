@@ -45,7 +45,7 @@ class AddCommandParserTest {
 
     @Test
     public void parse_nullPerson_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new AddCommandParser().parse("dummy" ,null));
+        assertThrows(NullPointerException.class, () -> new AddCommandParser().parse("dummy" , null));
     }
 
     @Test

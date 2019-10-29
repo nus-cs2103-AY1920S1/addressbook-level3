@@ -24,7 +24,7 @@ class DeleteCommandParserTest {
     @Test
     public void parse_nullPerson_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new DeleteCommandParser()
-                .parse("dummy" ,null));
+                .parse("dummy" , null));
     }
 
     @Test

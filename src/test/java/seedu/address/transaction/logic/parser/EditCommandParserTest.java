@@ -42,7 +42,7 @@ class EditCommandParserTest {
 
     @Test
     public void parse_nullPerson_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new EditCommandParser().parse("dummy" ,null));
+        assertThrows(NullPointerException.class, () -> new EditCommandParser().parse("dummy" , null));
     }
 
     @Test
