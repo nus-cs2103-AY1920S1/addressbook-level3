@@ -60,12 +60,13 @@ public class EditRepeaterCommand extends Command {
             + PREFIX_END_YEAR + "2020";
 
     public static final String MESSAGE_EDIT_REPEATER_SUCCESS = "Edited repeater: %1$s";
+    public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
 
     private final Index index;
     private final EditRepeaterDescriptor editRepeaterDescriptor;
 
     /**
-     * Creates an AddCommand to add the specified {@code Repeater}
+     * Creates an EditRepeaterCommand to edit the specified {@code Repeater}
      */
     public EditRepeaterCommand(Index index, EditRepeaterDescriptor editRepeaterDescriptor) {
         requireNonNull(index);
@@ -188,7 +189,6 @@ public class EditRepeaterCommand extends Command {
         public Optional<Date> getEndDate() {
             return Optional.ofNullable(endDate);
         }
-
 
         @Override
         public boolean equals(Object other) {
