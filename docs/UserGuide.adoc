@@ -99,6 +99,8 @@ Format: `add <title>TITLE <day>DAY <desc>DESCRIPTION <deadline>DEADLINE <time>TI
 e.g. `add <title>CS2109 Assignment <day>tuesday <desc>Submit code through LumiNUS <deadline>21-10-2019
 <time>13:00 <tag>IMPORTANT`
 
+NOTE: If the calendar list gets too long, you can scroll individual days to see the tasks that are not currently on screen.
+
 ==== Add a new Module Task: `addmod`
 Adds a new `ModuleTask` to the calendar. `ModuleTask` are the same as `ToDoTask` except it doesn't need a
 deadline and it would be automatically added to each week. `ModuleTask` is not affected by the command `clearweek`.
