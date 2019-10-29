@@ -8,8 +8,10 @@ import static java.util.Objects.requireNonNull;
 import budgetbuddy.logic.commands.Command;
 import budgetbuddy.logic.commands.CommandCategory;
 import budgetbuddy.logic.commands.CommandResult;
+import budgetbuddy.logic.commands.exceptions.CommandException;
 import budgetbuddy.model.Model;
 import budgetbuddy.model.account.Account;
+import budgetbuddy.model.account.exception.DuplicateAccountException;
 
 /**
  * Adds an account.
@@ -36,11 +38,15 @@ public class AccountAddCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(Model model) throws CommandException {
         requireAllNonNull(model, model.getAccountsManager());
 
-        model.getAccountsManager().addAccount(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), CommandCategory.ACCOUNT);
+        try {
+            model.getAccountsManager().addAccount(toAdd);
+            return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), CommandCategory.ACCOUNT);
+        } catch (DuplicateAccountException e) {
+            throw new CommandException(e.getMessage());
+        }
     }
 
     @Override
