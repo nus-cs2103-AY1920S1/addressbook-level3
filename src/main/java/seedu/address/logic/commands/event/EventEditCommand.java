@@ -12,10 +12,10 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.EventUtil;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.CommandResultType;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.event.Event;
-import seedu.address.model.question.Question;
 
 /**
  * Edits the events details in the events record.
@@ -29,7 +29,7 @@ public class EventEditCommand extends EventCommand {
         + "endDateTime/ [ENDDATETIME]\n"
         + "recur/ [DAILY/WEEKLY/NONE]\n"
         + "color/ [0 - 23]\n"
-        + "Example: event 6 edit eventName/cs2100 lecture startDateTime/2019-10-21T14:00 "
+        + "Example: event 6 eventName/cs2100 lecture startDateTime/2019-10-21T14:00 "
         + "endDateTime/2019-10-21T15:00 recur/none color/1";
 
     private final Index index;
@@ -50,8 +50,8 @@ public class EventEditCommand extends EventCommand {
         this.eventName = fields.get("eventName");
         this.startDateTimeString = fields.get("startDateTime");
         this.endDateTimeString = fields.get("endDateTime");
-        this.recurTypeString = fields.get("recur");
-        this.colorNumberString = fields.get("color");
+        this.recurTypeString = fields.get("recurType");
+        this.colorNumberString = fields.get("colorString");
     }
 
     @Override
@@ -69,7 +69,7 @@ public class EventEditCommand extends EventCommand {
                 ? this.eventName
                 : eventObject.getEventName();
         String colorNumberString = (!this.colorNumberString.isBlank())
-                ? this.eventName
+                ? EventUtil.convertNumberToColorNumber(this.colorNumberString)
                 : eventObject.getColorCategory();
         LocalDateTime startDateTime = (!this.startDateTimeString.isBlank())
                 ? LocalDateTime.parse(this.startDateTimeString)
@@ -77,6 +77,9 @@ public class EventEditCommand extends EventCommand {
         LocalDateTime endDateTime = (!this.endDateTimeString.isBlank())
                 ? LocalDateTime.parse(this.endDateTimeString)
                 : eventObject.getEndDateTime();
+        String uniqueIdentifier = (!eventObject.getUniqueIdentifier().isBlank())
+                ? EventUtil.generateUniqueIdentifier(eventName, startDateTime.toString(), endDateTime.toString())
+                : eventObject.getUniqueIdentifier();
         RecurrenceRule recurrenceRule;
         if (this.recurTypeString.isBlank()) {
             recurrenceRule = vEventObject.getRecurrenceRule();
@@ -89,10 +92,11 @@ public class EventEditCommand extends EventCommand {
         }
 
         vEventObject = new VEvent();
+        vEventObject.setUniqueIdentifier(uniqueIdentifier);
         vEventObject.setSummary(eventName);
         vEventObject.setDateTimeStart(startDateTime);
         vEventObject.setDateTimeEnd(endDateTime);
-        vEventObject.setUniqueIdentifier(EventAddCommand.UNIQUE_IDENTIFIER);
+        vEventObject.setUniqueIdentifier();
         vEventObject.setRecurrenceRule(recurrenceRule);
 
         Categories colorCategory = new Categories(colorNumberString);
@@ -102,18 +106,17 @@ public class EventEditCommand extends EventCommand {
 
         model.setVEvent(index, vEventObject);
 
-        return new CommandResult("stubbed event edit success message");
+        return new CommandResult(generateSuccessMessage(vEventObject), CommandResultType.SHOW_SCHEDULE);
     }
-
 
 
     /**
      * Generates a command execution success message.
      *
-     * @param question that has been added.
+     * @param vEvent that has been editted.
      */
-    private String generateSuccessMessage(Question question) {
-        return "Edited question: " + question;
+    private String generateSuccessMessage(VEvent vEvent) {
+        return "Edited question: " + vEvent.getSummary().getValue();
     }
 
     @Override

@@ -229,7 +229,6 @@ public class ModelManager implements Model {
     }
 
     //region Mark
-
     /**
      * Mark a student who is struggling academically.
      *
@@ -252,6 +251,8 @@ public class ModelManager implements Model {
     public boolean getIsMarked(Student student) {
         return student.getIsMarked();
     }
+    //endregion
+
     //region Students
 
     /**
@@ -700,8 +701,12 @@ public class ModelManager implements Model {
     @Override
     public Pair<Index, VEvent> findMostSimilarVEvent(String desiredEventName) {
         return eventRecord.findMostSimilarVEvent(desiredEventName);
-    }
+    };
 
+    @Override
+    public String saveToIcsFile(String targetDir) throws IOException {
+        return eventRecord.saveToIcsFile(targetDir);
+    };
     //endregion
 
     @Override

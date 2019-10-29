@@ -25,6 +25,7 @@ public class CliSyntax {
     public static final Prefix PREFIX_COLOR = new Prefix("color/");
     public static final Prefix PREFIX_GET_INDEX = new Prefix("indexOf/");
     public static final Prefix PREFIX_VIEW = new Prefix("view");
+    public static final Prefix PREFIX_DIRECTORY = new Prefix("directory/");
     // END OF EVENT PREFIX
 
     // QUESTION PREFIX
