@@ -282,14 +282,12 @@ Format: `list-i`
 
 ****
 * The listing returns all incidents, inclusive of all drafts and submitted incident reports
+* All keywords and parameters used are ignored
 ****
 
-Example Usage:
+Example usage and expected outcome:
 
-Expected Outcome:
-
-eg. +
-`list-i`: Returns all existing incidents
+image::listIncidentsCommand.png[]
 
 === Locating an incident report using incident ID, operator name or description keyword: `find-i`
 Finds incidents containing the relevant specified parameters.
@@ -301,15 +299,18 @@ Possible Parameters: `id`/`op`/`desc`
 Format: `find-i op/KEYWORD` +
 Lists all incidents whereby the operator name contains the given keyword
 
-* Example Usage:
-* Expected Outcome:
+* Example usage and expected outcome:
+
+image::findIncidentsCommandWithOperatorParameter.png[]
+
 
 **By Description** +
 Format: `find-i desc/KEYWORD` +
 Lists all incidents whereby the incident description contains the given keyword
 
-* Example Usage:
-* Expected Outcome:
+* Example usage and expected outcome:
+
+image::findIncidentsCommandWithDescriptionParameter.png[]
 
 **By ID**
 Format: `find-i id/KEYWORD` +
