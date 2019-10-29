@@ -12,9 +12,9 @@ import java.util.Optional;
  */
 public class MemeTextColor {
 
-    public static final String MESSAGE_CONSTRAINTS = "Color must be either a valid color name, or a HEX string"
+    public static final String MESSAGE_CONSTRAINTS = "Color must be either a valid color name, or a HEX string "
         + "denoting the RGB values";
-    public static final String DEFAULT_MEME_TEXT_COLOR = "#FFFFFF";
+    public static final MemeTextColor DEFAULT_MEME_TEXT_COLOR = new MemeTextColor("black");
 
     private final Color color;
 
@@ -46,7 +46,12 @@ public class MemeTextColor {
 
     private static Optional<Color> getColorByName(String name) {
         try {
-            return Optional.of((Color) Color.class.getField(name.toUpperCase()).get(null));
+            // Use javafx.scene.paint.Color because it supports more color names
+            javafx.scene.paint.Color fxColor =
+                (javafx.scene.paint.Color) javafx.scene.paint.Color.class.getField(name.toUpperCase()).get(null);
+            Color awtColor = new Color((float) fxColor.getRed(), (float) fxColor.getGreen(), (float) fxColor.getBlue(),
+                (float) fxColor.getOpacity());
+            return Optional.of(awtColor);
         } catch (IllegalArgumentException | IllegalAccessException | NoSuchFieldException | SecurityException e) {
             return Optional.empty();
         }

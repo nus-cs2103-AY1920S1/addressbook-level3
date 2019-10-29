@@ -66,7 +66,7 @@ public class MemeCreation {
      */
     private TextBoundaries getTextBoundary(MemeText text) {
         Graphics2D graphics = (Graphics2D) initialImage.getGraphics();
-        graphics.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 50));
+        graphics.setFont(new Font(Font.SANS_SERIF, text.getStyle(), 50));
         FontMetrics fontMetrics = graphics.getFontMetrics();
         Rectangle2D rect = fontMetrics.getStringBounds(text.getText(), graphics);
 
@@ -111,12 +111,12 @@ public class MemeCreation {
         }
         BufferedImage newImage = ImageUtil.copyBufferedImage(initialImage);
         Graphics2D graphics = (Graphics2D) newImage.getGraphics();
-        graphics.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 50));
 
         for (MemeText text : textList) {
             TextBoundaries boundaries = getTextBoundary(text);
             int x = boundaries.getX1();
             int y = (boundaries.getY1() + boundaries.getY2()) / 2;
+            graphics.setFont(new Font(Font.SANS_SERIF, text.getStyle(), 50));
             graphics.setColor(text.getColor());
             graphics.drawString(text.getText(), x, y);
         }

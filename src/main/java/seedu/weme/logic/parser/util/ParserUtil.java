@@ -29,6 +29,7 @@ import seedu.weme.model.meme.Description;
 import seedu.weme.model.tag.Tag;
 import seedu.weme.model.template.Coordinates;
 import seedu.weme.model.template.MemeTextColor;
+import seedu.weme.model.template.MemeTextStyle;
 import seedu.weme.model.template.Name;
 
 /**
@@ -228,5 +229,21 @@ public class ParserUtil {
             throw new ParseException(MemeTextColor.MESSAGE_CONSTRAINTS);
         }
         return new MemeTextColor(trimmedColor);
+    }
+
+    /**
+     * Parses {@code Collection<String> styles} into a {@code Set<MemeTextStyle>}.
+     */
+    public static Set<MemeTextStyle> parseMemeTextStyles(Collection<String> styles) throws ParseException {
+        requireNonNull(styles);
+        final Set<MemeTextStyle> styleSet = new HashSet<>();
+        for (String style : styles) {
+            String trimmedStyle = style.trim().toLowerCase();
+            if (!MemeTextStyle.isValidMemeTextStyle(trimmedStyle)) {
+                throw new ParseException(MemeTextStyle.MESSAGE_CONSTRAINTS);
+            }
+            styleSet.add(new MemeTextStyle(trimmedStyle));
+        }
+        return styleSet;
     }
 }
