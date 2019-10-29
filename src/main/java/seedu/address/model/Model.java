@@ -61,6 +61,11 @@ public interface Model {
     ReadOnlyAddressBook getAddressBook();
 
     /**
+     * Returns List of All Employees.
+     */
+    ObservableList<Employee> getFullListEmployees();
+
+    /**
      * Returns true if a employee with the same identity as {@code employee} exists in the address book.
      */
     boolean hasEmployee(Employee employee);
@@ -117,6 +122,11 @@ public interface Model {
      * Returns the AddressBook
      */
     ReadOnlyEventBook getEventBook();
+
+    /**
+     * Returns List of All Employees.
+     */
+    ObservableList<Event> getFullListEvents();
 
     /**
      * Returns true if a event with the same identity as {@code event} exists in the event book.

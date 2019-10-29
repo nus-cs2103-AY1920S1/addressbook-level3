@@ -33,8 +33,14 @@ public interface Logic {
      */
     ReadOnlyAddressBook getAddressBook();
 
+    /** Returns an unmodifiable view of the full list of employees */
+    ObservableList<Employee> getFullEmployeeList();
+
     /** Returns an unmodifiable view of the filtered list of employees */
     ObservableList<Employee> getFilteredEmployeeList();
+
+    /** Returns an unmodifiable view of the full list of events */
+    ObservableList<Event> getFullEventList();
 
     /** Returns an unmodifiable view of the filtered list of events */
     ObservableList<Event> getFilteredEventList();

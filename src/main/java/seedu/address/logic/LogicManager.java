@@ -53,16 +53,24 @@ public class LogicManager implements Logic {
         return commandResult;
     }
 
-
-
     @Override
     public ReadOnlyAddressBook getAddressBook() {
         return model.getAddressBook();
     }
 
     @Override
+    public ObservableList<Employee> getFullEmployeeList() {
+        return model.getFullListEmployees();
+    }
+
+    @Override
     public ObservableList<Employee> getFilteredEmployeeList() {
         return model.getFilteredEmployeeList();
+    }
+
+    @Override
+    public ObservableList<Event> getFullEventList() {
+        return model.getFullListEvents();
     }
 
     @Override

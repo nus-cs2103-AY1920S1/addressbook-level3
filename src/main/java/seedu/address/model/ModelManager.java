@@ -122,6 +122,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public ObservableList<Employee> getFullListEmployees() {
+        return addressBook.getEmployeeList();
+    }
+
+    @Override
     public boolean hasEmployee(Employee employee) {
         requireNonNull(employee);
         return addressBook.hasEmployee(employee);
@@ -155,6 +160,11 @@ public class ModelManager implements Model {
     @Override
     public ReadOnlyEventBook getEventBook() {
         return eventBook;
+    }
+
+    @Override
+    public ObservableList<Event> getFullListEvents() {
+        return eventBook.getEventList();
     }
 
     @Override
