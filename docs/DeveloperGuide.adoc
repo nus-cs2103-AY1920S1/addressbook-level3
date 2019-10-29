@@ -410,6 +410,8 @@ object.
 
 === Remind Flashcard Feature
 
+{To be completed soon}
+
 ==== Implementation
 The  remind feature is facilitated by ``
 
