@@ -196,10 +196,8 @@ public class LoanSplitCommand extends Command {
         }
 
         while (participants.size() > 1) {
-            participants.sort(balanceIncreasing); // participants MUST be sorted in the order of increasing balance
-
-            Participant debtor = participants.get(0);
-            Participant creditor = participants.get(participants.size() - 1);
+            Participant debtor = participants.stream().min(balanceIncreasing).get();
+            Participant creditor = participants.stream().max(balanceIncreasing).get();
 
             // transfer money between the biggest debtor and biggest creditor
             long amountTransferred = 0;
@@ -215,10 +213,10 @@ public class LoanSplitCommand extends Command {
             }
 
             if (debtor.getBalance() == 0) {
-                participants.remove(0);
+                participants.remove(debtor);
             }
             if (creditor.getBalance() == 0) {
-                participants.remove(participants.size() - 1);
+                participants.remove(creditor);
             }
 
             if (amountTransferred != 0) {
