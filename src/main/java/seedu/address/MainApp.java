@@ -127,7 +127,7 @@ public class MainApp extends Application {
 
         //For Overview Storage and Model
         overviewStorage = new seedu.address.overview.storage.StorageManager("data/overviewInformation.txt");
-        overviewModel = new seedu.address.overview.model.ModelManager(overviewStorage);
+        overviewModel = new seedu.address.overview.model.ModelManager(overviewStorage.readFromFile());
 
         //All logic
 
