@@ -12,9 +12,10 @@ import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.JsonUtil;
+import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.ReadOnlyCheatSheetBook;
 
+//Check if unused - Should be able to delete?
 /**
  * A class to access AddressBook data stored as a json file on the hard disk.
  */
@@ -60,6 +61,43 @@ public class JsonAddressBookStorage implements AddressBookStorage {
         }
     }
 
+    /**
+     * Similar to {@link #readAddressBook()}.
+     *
+     * @param flashcardFilePath location of the data. Cannot be null.
+     * @param cheatSheetFilePath location of the data. Cannot be null.
+     * @param noteFilePath location of the data. Cannot be null.
+     * @throws DataConversionException if the file is not in the correct format.
+     */
+    public Optional<ReadOnlyAddressBook> readAddressBook(Path flashcardFilePath, Path noteFilePath,
+                                                         Path cheatSheetFilePath) throws DataConversionException {
+        requireNonNull(flashcardFilePath);
+        requireNonNull(noteFilePath);
+        requireNonNull(cheatSheetFilePath);
+
+        Optional<JsonSerializableFlashcard> jsonFlashcard = JsonUtil.readJsonFile(
+                flashcardFilePath, JsonSerializableFlashcard.class);
+        Optional<JsonSerializableNote> jsonNote = JsonUtil.readJsonFile(
+                noteFilePath, JsonSerializableNote.class);
+        Optional<JsonSerializableCheatSheet> jsonCheatSheet = JsonUtil.readJsonFile(
+                cheatSheetFilePath, JsonSerializableCheatSheet.class);
+
+        if (!jsonFlashcard.isPresent() && !jsonNote.isPresent() && !jsonCheatSheet.isPresent()) {
+            return Optional.empty();
+        }
+        AddressBook addressBook = new AddressBook();
+        try {
+            Optional.of(jsonFlashcard.get().toModelType(addressBook));
+            Optional.of(jsonNote.get().toModelType(addressBook));
+            Optional.of(jsonCheatSheet.get().toModelType(addressBook));
+            return Optional.of(addressBook);
+        } catch (IllegalValueException ive) {
+            //Todo refactor code and create proper logger message
+            //logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
+            throw new DataConversionException(ive);
+        }
+    }
+
     @Override
     public void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException {
         saveAddressBook(addressBook, filePath);
@@ -78,34 +116,44 @@ public class JsonAddressBookStorage implements AddressBookStorage {
         JsonUtil.saveJsonFile(new JsonSerializableAddressBook(addressBook), filePath);
     }
 
-    //==============cheatsheet tools
+    /**
+     * Similar to {@link #saveAddressBook(ReadOnlyAddressBook)}.
+     *
+     * @param flashcardFilePath location of the data. Cannot be null.
+     * @param noteFilePath location of the data. Cannot be null.
+     * @param cheatSheetFilePath location of the data. Cannot be null.
+     */
+    public void saveAddressBook(ReadOnlyAddressBook addressBook, Path flashcardFilePath,
+                                Path noteFilePath, Path cheatSheetFilePath) throws IOException {
+        requireNonNull(addressBook);
+        requireNonNull(flashcardFilePath);
+        requireNonNull(noteFilePath);
+        requireNonNull(cheatSheetFilePath);
+
+        FileUtil.createIfMissing(flashcardFilePath);
+        FileUtil.createIfMissing(noteFilePath);
+        FileUtil.createIfMissing(cheatSheetFilePath);
+        JsonUtil.saveJsonFile(new JsonSerializableFlashcard(addressBook), flashcardFilePath);
+        JsonUtil.saveJsonFile(new JsonSerializableNote(addressBook), noteFilePath);
+        JsonUtil.saveJsonFile(new JsonSerializableFlashcard(addressBook), cheatSheetFilePath);
+    }
+
+    //============== flashcard tools
+    @Override
+    public Path getFlashcardFilePath() {
+        return this.filePath;
+    }
+
+    //============== note tools
+    @Override
+    public Path getNoteFilePath() {
+        return this.filePath;
+    }
+
+    //============== cheatsheet tools
     @Override
     public Path getCheatSheetFilePath() {
         return this.filePath;
     }
 
-    @Override
-    public Optional<ReadOnlyCheatSheetBook> readCheatSheetBook() throws DataConversionException, IOException {
-        return Optional.empty();
-    }
-
-    @Override
-    public Optional<ReadOnlyCheatSheetBook> readCheatSheetBook(Path filePath)
-            throws DataConversionException, IOException {
-        return Optional.empty();
-    }
-
-    @Override
-    public void saveCheatSheetBook(ReadOnlyCheatSheetBook cheatSheetBook) throws IOException {
-        saveCheatSheetBook(cheatSheetBook, filePath);
-    }
-
-    @Override
-    public void saveCheatSheetBook(ReadOnlyCheatSheetBook cheatSheetBook, Path filePath) throws IOException {
-        requireNonNull(cheatSheetBook);
-        requireNonNull(filePath);
-
-        FileUtil.createIfMissing(filePath);
-        //JsonUtil.saveJsonFile(new JsonSerializableCheatSheetBook(cheatSheetBook), filePath);
-    }
 }

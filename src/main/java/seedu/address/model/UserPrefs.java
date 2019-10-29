@@ -15,7 +15,9 @@ public class UserPrefs implements ReadOnlyUserPrefs {
 
     private GuiSettings guiSettings = new GuiSettings();
     private Path addressBookFilePath = Paths.get("data" , "addressbook.json");
-    private Path cheatSheetFilePath = Paths.get("data", "cheatsheetbook.json");
+    private Path cheatSheetFilePath = Paths.get("data", "cheatsheets.json");
+    private Path flashcardFilePath = Paths.get("data", "flashcards.json");
+    private Path noteFilePath = Paths.get("data", "notes.json");
 
     /**
      * Creates a {@code UserPrefs} with default values.
@@ -54,6 +56,14 @@ public class UserPrefs implements ReadOnlyUserPrefs {
 
     public Path getCheatSheetFilePath() {
         return cheatSheetFilePath;
+    }
+
+    public Path getFlashcardFilePath() {
+        return flashcardFilePath;
+    }
+
+    public Path getNoteFilePath() {
+        return noteFilePath;
     }
 
     public void setAddressBookFilePath(Path addressBookFilePath) {

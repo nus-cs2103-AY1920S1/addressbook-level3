@@ -67,7 +67,7 @@ dependencies {
 }
 
 shadowJar {
-    archiveName = 'addressbook.jar'
+    archiveName = 'studyBuddy-v1.2.1.jar'
 
     destinationDir = file("${buildDir}/jar/")
 }

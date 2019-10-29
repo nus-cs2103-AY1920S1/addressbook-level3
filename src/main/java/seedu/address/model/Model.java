@@ -1,15 +1,19 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 
+import seedu.address.logic.FunctionMode;
 import seedu.address.model.cheatsheet.CheatSheet;
 import seedu.address.model.flashcard.Flashcard;
 import seedu.address.model.note.Note;
 import seedu.address.model.person.Person;
+import seedu.address.model.tag.Tag;
 
 /**
  * The API of the Model component.
@@ -26,6 +30,9 @@ public interface Model {
 
     /** {@code Predicate} that always evaluate to true */
     Predicate<CheatSheet> PREDICATE_SHOW_ALL_CHEATSHEETS = unused -> true;
+
+    /** {@code Predicate} that always evaluate to true */
+    Predicate<Tag> PREDICATE_SHOW_ALL_TAGS = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -64,6 +71,15 @@ public interface Model {
 
     /** Returns the AddressBook */
     ReadOnlyAddressBook getAddressBook();
+
+    /** Returns an unmodifiable view of the filtered note list */
+    ObservableList<Tag> getFilteredTagList();
+
+    /**
+     * Updates the filter of the filtered note list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredTagList(Predicate<Tag> predicate);
 
     /**
      * Returns true if a note with the same identity as {@code note} exists in the address book.
@@ -142,6 +158,14 @@ public interface Model {
      */
     void addFlashcard(Flashcard toAdd);
 
+    /**
+     * Replaces the given flashcard {@code target} with {@code editedFlashcard}.
+     * {@code target} must exist in the address book.
+     * The flashcard identity of {@code editedFlashcard} must not be the same as another existing flashcard in
+     * address book.
+     */
+    void setFlashcard(Flashcard target, Flashcard editedFlashcard);
+
     /** Returns an unmodifiable view of the filtered flashcard list */
     ObservableList<Flashcard> getFilteredFlashcardList();
 
@@ -157,6 +181,20 @@ public interface Model {
     void updateFilteredFlashcardList(Predicate<Flashcard> predicate);
 
     /**
+     * Formats string for output
+     * @return String formatted flashcard display
+     */
+    String formatOutputListString(FunctionMode mode);
+
+    /**
+     * Formats string for output.
+     * @param object the filteredlist to read
+     * @param <T> the different features: cheatsheet, flashcard, notes
+     * @return list of all the objects
+     */
+    <T> String formatList(FilteredList<T> object);
+
+    /**
      * Adds the given cheatSheet.
      * {@code cheatSheet} must not already exist in the cheatSheet book.
      */
@@ -167,6 +205,14 @@ public interface Model {
      */
     boolean hasCheatSheet(CheatSheet cheatSheet);
 
+    /**
+     * Replaces the given cheatSheet {@code target} with {@code editedCheatSheet}.
+     * {@code target} must exist in the cheatSheet book.
+     * The cheatSheet identity of {@code editedCheatSheet} must not be the same as
+     * another existing editedCheatSheet in Cheatsheet.
+     */
+    void setCheatSheet(CheatSheet target, CheatSheet editedCheatSheet);
+
     public ObservableList<CheatSheet> getFilteredCheatSheetList();
 
     public void updateFilteredCheatSheetList(Predicate<CheatSheet> predicate);
@@ -176,4 +222,17 @@ public interface Model {
      * {@code cheatSheet} must exist in the cheatSheet book.
      */
     void deleteCheatSheet(CheatSheet cheatSheet);
+
+    /**
+     * Collect tagged items
+     * @param predicate to test on the object
+     * @return arraylist of all the studybuddyitems that contains the specified tag
+     */
+    public ArrayList<StudyBuddyItem> collectTaggedItems(Predicate<StudyBuddyItem> predicate);
+
+    public ArrayList<CheatSheet> collectTaggedCheatSheets(Predicate<CheatSheet> predicate);
+
+    public ArrayList<Flashcard> collectTaggedFlashcards(Predicate<Flashcard> predicate);
+
+    public ArrayList<Note> collectTaggedNotes(Predicate<Note> predicate);
 }

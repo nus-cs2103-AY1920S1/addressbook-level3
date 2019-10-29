@@ -21,6 +21,7 @@ import seedu.address.model.cheatsheet.CheatSheet;
 import seedu.address.model.flashcard.Flashcard;
 import seedu.address.model.note.Note;
 import seedu.address.model.person.Person;
+import seedu.address.model.tag.Tag;
 import seedu.address.testutil.PersonBuilder;
 
 public class AddressBookTest {
@@ -95,6 +96,7 @@ public class AddressBookTest {
         private final ObservableList<Flashcard> flashcards = FXCollections.observableArrayList();
         private final ObservableList<Note> notes = FXCollections.observableArrayList();
         private final ObservableList<CheatSheet> cheatSheets = FXCollections.observableArrayList();
+        private final ObservableList<Tag> tags = FXCollections.observableArrayList();
 
         AddressBookStub(Collection<Person> persons, Collection<Flashcard> flashcards) {
             this.persons.setAll(persons);
@@ -111,6 +113,10 @@ public class AddressBookTest {
             return cheatSheets;
         }
 
+        @Override
+        public ObservableList<Tag> getTagList() {
+            return tags;
+        }
 
         @Override
         public ObservableList<Flashcard> getFlashcardList() {

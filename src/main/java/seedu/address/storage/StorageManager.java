@@ -8,7 +8,6 @@ import java.util.logging.Logger;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.ReadOnlyCheatSheetBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 
@@ -50,30 +49,32 @@ public class StorageManager implements Storage {
     // ================ AddressBook methods ==============================
 
     @Override
-    public Path getAddressBookFilePath() {
-        return addressBookStorage.getAddressBookFilePath();
-    }
-
-    @Override
     public Optional<ReadOnlyAddressBook> readAddressBook() throws DataConversionException, IOException {
-        return readAddressBook(addressBookStorage.getAddressBookFilePath());
+        return readAddressBook(addressBookStorage.getFlashcardFilePath(), addressBookStorage.getNoteFilePath(),
+                addressBookStorage.getCheatSheetFilePath());
     }
 
     @Override
-    public Optional<ReadOnlyAddressBook> readAddressBook(Path filePath) throws DataConversionException, IOException {
-        logger.fine("Attempting to read data from file: " + filePath);
-        return addressBookStorage.readAddressBook(filePath);
+    public Optional<ReadOnlyAddressBook> readAddressBook(Path flashcardFilePath, Path noteFilePath,
+                                                         Path cheatsheetFilePath)
+            throws DataConversionException, IOException {
+        logger.fine("Attempting to read data from files: " + flashcardFilePath
+                + ", " + noteFilePath + ", " + cheatsheetFilePath);
+        return addressBookStorage.readAddressBook(flashcardFilePath, noteFilePath, cheatsheetFilePath);
     }
 
     @Override
     public void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException {
-        saveAddressBook(addressBook, addressBookStorage.getAddressBookFilePath());
+        saveAddressBook(addressBook, addressBookStorage.getFlashcardFilePath(),
+                getNoteFilePath(), getCheatSheetFilePath());
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath) throws IOException {
-        logger.fine("Attempting to write to data file: " + filePath);
-        addressBookStorage.saveAddressBook(addressBook, filePath);
+    public void saveAddressBook(ReadOnlyAddressBook addressBook, Path flashcardFilePath, Path noteFilePath,
+                                Path cheatsheetFilePath) throws IOException {
+        logger.fine("Attempting to write to data files: " + flashcardFilePath
+                + ", " + noteFilePath + ", " + cheatsheetFilePath);
+        addressBookStorage.saveAddressBook(addressBook, flashcardFilePath, noteFilePath, cheatsheetFilePath);
     }
 
     // ================ CheatSheet methods ==============================
@@ -83,25 +84,16 @@ public class StorageManager implements Storage {
         return addressBookStorage.getCheatSheetFilePath();
     }
 
+    // ================ Flashcard methods ==============================
     @Override
-    public Optional<ReadOnlyCheatSheetBook> readCheatSheetBook() throws DataConversionException, IOException {
-        return Optional.empty();
+    public Path getFlashcardFilePath() {
+        return addressBookStorage.getFlashcardFilePath();
     }
 
+    // ================ Note methods ==============================
     @Override
-    public Optional<ReadOnlyCheatSheetBook> readCheatSheetBook(Path filePath)
-            throws DataConversionException, IOException {
-        return Optional.empty();
+    public Path getNoteFilePath() {
+        return addressBookStorage.getNoteFilePath();
     }
 
-    @Override
-    public void saveCheatSheetBook(ReadOnlyCheatSheetBook cheatSheetBook) throws IOException {
-        saveCheatSheetBook(cheatSheetBook, addressBookStorage.getCheatSheetFilePath());
-    }
-
-    @Override
-    public void saveCheatSheetBook(ReadOnlyCheatSheetBook cheatSheetBook, Path filePath) throws IOException {
-        logger.fine("Attempting to write to data file: " + filePath);
-        addressBookStorage.saveCheatSheetBook(cheatSheetBook, filePath);
-    }
 }

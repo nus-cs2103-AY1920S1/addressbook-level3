@@ -4,7 +4,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_ANSWER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_QUESTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
-import seedu.address.logic.commands.AddFlashcardCommand;
+import seedu.address.logic.commands.flashcard.AddFlashcardCommand;
 import seedu.address.model.flashcard.Flashcard;
 
 /**

@@ -8,6 +8,7 @@ import java.util.Optional;
 import seedu.address.logic.FunctionMode;
 import seedu.address.model.cheatsheet.CheatSheet;
 import seedu.address.model.flashcard.Flashcard;
+import seedu.address.model.note.Note;
 
 /**
  * Represents the result of a command execution.
@@ -34,12 +35,15 @@ public class CommandResult {
     /** Cheatsheet to display (if any) */
     private final Optional<CheatSheet> cheatSheet;
 
+    /** Note to display (if any) */
+    private final Optional<Note> note;
+
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
     public CommandResult(String feedbackToUser, boolean showHelp, boolean exit,
                          boolean toggle, Optional<FunctionMode> targetMode,
-                         Optional<Flashcard> flashcard, Optional<CheatSheet> cheatSheet) {
+                         Optional<Flashcard> flashcard, Optional<CheatSheet> cheatSheet, Optional<Note> note) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
@@ -47,13 +51,15 @@ public class CommandResult {
         this.targetMode = targetMode;
         this.flashcard = flashcard;
         this.cheatSheet = cheatSheet;
+        this.note = note;
     }
 
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
     public CommandResult(String feedbackToUser, boolean showHelp, boolean exit) {
-        this(feedbackToUser, showHelp, exit, false, Optional.empty(), Optional.empty(), Optional.empty());
+        this(feedbackToUser, showHelp, exit, false, Optional.empty(), Optional.empty(), Optional.empty(),
+                Optional.empty());
     }
 
     /**
@@ -61,8 +67,8 @@ public class CommandResult {
      * and other fields set to their default value.
      */
     public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, false, false,
-                false, Optional.empty(), Optional.empty(), Optional.empty());
+        this(feedbackToUser, false, false, false, Optional.empty(), Optional.empty(),
+                Optional.empty(), Optional.empty());
     }
 
     public String getFeedbackToUser() {
@@ -91,6 +97,10 @@ public class CommandResult {
 
     public Optional<CheatSheet> getCheatSheet() {
         return cheatSheet;
+    }
+
+    public Optional<Note> getNote() {
+        return note;
     }
 
     @Override

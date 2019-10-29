@@ -3,26 +3,27 @@ package seedu.address.model.note;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
+import java.util.Set;
+
+import seedu.address.model.StudyBuddyItem;
+import seedu.address.model.tag.Tag;
 
 /**
  * Represents a Note in the address book.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Note {
+public class Note extends StudyBuddyItem {
 
     // Identity fields
     private final Title title;
     private final Content content;
 
-    public Note() {
-        this.title = new Title("sample title");
-        this.content = new Content("sample content");
-    }
 
     /**
-     * Every field must be present and not null.
+     * Every field must be present and not null, except for tags.
      */
-    public Note(Title title, Content content) {
+    public Note(Title title, Content content, Set<Tag> tags) {
+        super(tags);
         requireAllNonNull(title, content);
         this.title = title;
         this.content = content;
@@ -64,22 +65,25 @@ public class Note {
 
         Note otherNote = (Note) other;
         return otherNote.getTitle().equals(getTitle())
-                && otherNote.getContent().equals(getContent());
+                && otherNote.getContent().equals(getContent())
+                && otherNote.getTags().equals(getTags());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(title, content);
+        return Objects.hash(title, content, getTags());
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append("Title: ")
+        builder.append("\nTitle: ")
                 .append(getTitle())
                 .append("\nContent: ")
-                .append(getContent());
+                .append(getContent())
+                .append("\nTags: ");
+        getTags().forEach(builder::append);
         return builder.toString();
     }
 

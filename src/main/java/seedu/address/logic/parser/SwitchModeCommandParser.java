@@ -34,7 +34,7 @@ public class SwitchModeCommandParser implements Parser<SwitchModeCommand> {
             return new SwitchModeCommand(FunctionMode.FLASHCARD);
 
         case NOTES_ABBREVIATION:
-            return new SwitchModeCommand(FunctionMode.NOTES);
+            return new SwitchModeCommand(FunctionMode.NOTE);
 
         default:
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SwitchModeCommand.MESSAGE_USAGE));
