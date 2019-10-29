@@ -264,7 +264,7 @@ Our idea of "minimum weights" refer to the total amount someone has to handle.
 
 The lower bound for the amount someone has to handle is the balance.
 We create a balance sheeet for the users which is expanded as people enter the activity.
-Each expense added, the algorithm retrieves from it 
+Each expense added, the algorithm retrieves from it:
 * who is involved,
 * who paid,
 * how much has been paid,
@@ -292,6 +292,19 @@ In such a case, someone will then have to pay him back, which means it is no lon
 ==== Time and Space complexity
 We take O(N^2) space and O(N) time.
 Updating of the balance sheet and matrices by the expense command is performed in O(1) time.
+
+==== Design Considerations
+
+===== Aspect: Precision
+
+* **Alternative 1 (current choice):** Just use `double`.
+** *Pros*: Easy, straightforward, good enough.
+** *Cons*: Floating point precision might stack up.
+** *Reason for choice*: For everyday purposes it is highly unlikely currencies (normally at most 2 decimal points) require any higher precision. This is for normal friends, not stockbrokers.
+
+* **Alternative 2:** Implement a `Rational` class for rational numbers.
+** Pros: Guranteed precision.
+** Cons: Seems overkill and needlessly over-engineered.
 
 === List feature
 
