@@ -7,7 +7,7 @@ import dream.fcard.util.json.jsontypes.JsonValue;
 /**
  * Interface all flash card types must implement.
  */
-public abstract class FlashCard implements JsonInterface, Comparable<FlashCard> {
+public abstract class FlashCard implements JsonInterface {
 
     /**
      * Text to display in front of FlashCard.
@@ -19,10 +19,6 @@ public abstract class FlashCard implements JsonInterface, Comparable<FlashCard> 
      */
     protected String back;
 
-    /**
-     * Number indicating priority level of FlashCard.
-     */
-    protected Integer priority;
 
     /**
      * Return true if the input matches the FlashCard answer.
@@ -79,19 +75,19 @@ public abstract class FlashCard implements JsonInterface, Comparable<FlashCard> 
      * @param otherCard FlashCard object to be compared to.
      * @return Integer value indicating comparison.
      */
-    @Override
-    public int compareTo(FlashCard otherCard) {
-        return this.priority - otherCard.getPriority();
-    }
+    //@Override
+    //public int compareTo(FlashCard otherCard) {
+    //    return this.priority - otherCard.getPriority();
+    //}
 
     /**
      * Returns priority level of flashcard.
      *
      * @return Integer value of priority level.
      */
-    public int getPriority() {
-        return priority;
-    }
+    //public int getPriority() {
+    //    return priority;
+    //}
 
     /**
      * Returns boolean value after checking if FlashCard has choice parameters.
@@ -100,5 +96,9 @@ public abstract class FlashCard implements JsonInterface, Comparable<FlashCard> 
      *
      * @return Boolean value, true if FlashCard has choices, else return false.
      */
-    public abstract boolean hasChoices();
+    //public abstract boolean hasChoices();
+
+    //public Statistics getStatistics() {
+    //    return cardStats;
+    //}
 }

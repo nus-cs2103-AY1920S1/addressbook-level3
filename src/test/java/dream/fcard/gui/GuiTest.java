@@ -24,7 +24,7 @@ public class GuiTest {
         FrontBackCard flashCardForTesting = new FrontBackCard(longStringForTesting,
             "Praesent ut est justo. Cras urna risus, ultricies posuere pharetra in, "
                 + "fringilla ac dolor. Donec a porttitor tellus, vitae ullamcorper risus.");
-        Gui.renderFront(flashCardForTesting);
+        //Gui.renderFront(flashCardForTesting);
     }
 
     /** Verify that a node can be appended to the scrollable pane. */
@@ -38,9 +38,9 @@ public class GuiTest {
     }
 
     /** Verify that the GUI can display an error message. */
-    public static void showError() {
-        Gui.showError("Command not recognised :(");
-    }
+    //public static void showError() {
+    //    Gui.showError("Command not recognised :(");
+    //}
 
     /** Verify that the GUI can display a deck of cards. */
     public static void displayDeck_validDeck_showDeckInGui() {
@@ -59,7 +59,7 @@ public class GuiTest {
         cards.add(new FrontBackCard(frontString, backString));
         cards.add(new FrontBackCard(frontString, backString));
         Deck deck = new Deck(cards, "Test");
-        Gui.renderDeck(deck);
+        //Gui.renderDeck(deck);
     }
 
     // todo: test MCQ card display

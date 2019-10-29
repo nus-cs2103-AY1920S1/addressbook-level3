@@ -1,7 +1,5 @@
 package dream.fcard.model.cards;
 
-import static dream.fcard.model.cards.Priority.LOW_PRIORITY;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -62,7 +60,8 @@ public class MultipleChoiceCard extends FrontBackCard {
         if (isNotValidAnswerIndex) {
             throw new IndexNotFoundException("Choice provided is invalid - " + answerIndex);
         }
-        priority = LOW_PRIORITY;
+        //priority = LOW_PRIORITY;
+        //cardStats = new CardStats();
     }
     //@author
 
@@ -94,7 +93,7 @@ public class MultipleChoiceCard extends FrontBackCard {
             throw new NumberFormatException("Choice provided is invalid - " + answerIndex);
         }
 
-        priority = priorityLevel;
+        //priority = priorityLevel;
     }
     //@author
 
@@ -122,7 +121,29 @@ public class MultipleChoiceCard extends FrontBackCard {
     }
 
     /**
-     * Returns of boolean value, true if answer is correct, else return false.
+     * Render the front of card to GUI node.
+     * .
+     */
+    //@@author huiminlim
+    //@Override
+    public void renderFront() {
+        // Shuffle choices first
+        shuffleChoices();
+
+        //super.renderFront();
+    }
+    //@author
+
+    /**
+     * Returns a list of shuffled choices.
+     */
+    //@@author Timothy Leong
+    public ArrayList<String> getShuffledChoices() {
+        shuffleChoices();
+        return this.displayChoices;
+    }
+
+    /**
      * Evaluates if user input answer is correct.
      *
      * @param in String input provided by user.
@@ -131,6 +152,7 @@ public class MultipleChoiceCard extends FrontBackCard {
      */
     //@@author huiminlim
     @Override
+
     public Boolean evaluate(String in) throws IndexNotFoundException {
 
         int userAnswer = -1;
@@ -140,13 +162,16 @@ public class MultipleChoiceCard extends FrontBackCard {
             userAnswer = Integer.parseInt(in);
 
         } catch (NumberFormatException n) {
-            throw new NumberFormatException("Choice provided is invalid - " + answerIndex);
+            throw new NumberFormatException("Choice provided is invalid - " + in);
         }
 
+        /*
         // Assume options must be a non-negative integer
-        if (isNotValidChoice(answerIndex)) {
-            throw new IndexNotFoundException("Choice provided is invalid - " + userAnswer);
+        if (isNotValidChoice(userAnswer)) {
+            throw new IndexNotFoundException("Choice provided is invalid - " + in);
         }
+
+         */
 
         return userAnswer == displayChoicesAnswerIndex;
     }
@@ -211,8 +236,7 @@ public class MultipleChoiceCard extends FrontBackCard {
     //@author huiminlim
     private void shuffleChoices() {
         // Obtain String of correct answer before sorting
-        int indexOfAnswerFromProvidedList = answerIndex - 1;
-        String correctAnswer = choices.get(indexOfAnswerFromProvidedList);
+        String correctAnswer = choices.get(answerIndex - 1);
 
         displayChoices = generateCopyOfChoices();
 
@@ -238,7 +262,7 @@ public class MultipleChoiceCard extends FrontBackCard {
      * @return ArrayList of choices as string.
      */
     //@@author huiminlim
-    private ArrayList<String> generateCopyOfChoices() {
+    public ArrayList<String> generateCopyOfChoices() {
         ArrayList<String> newList = new ArrayList<>();
         for (int i = 0; i < choices.size(); i++) {
             String newStringObject = choices.get(i);
@@ -296,10 +320,10 @@ public class MultipleChoiceCard extends FrontBackCard {
      *
      * @return Boolean value true.
      */
-    @Override
-    public boolean hasChoices() {
-        return true;
-    }
+    //@Override
+    //public boolean hasChoices() {
+    //    return true;
+    //}
     //@author
 
     /**
@@ -342,4 +366,28 @@ public class MultipleChoiceCard extends FrontBackCard {
         return choiceIndex < 1 || choiceIndex > choices.size();
     }
     //@author
+
+    /**
+     * Get the display choices.
+     * @return the array list of choices that have already been shuffled.
+     */
+    public ArrayList<String> getDisplayChoices() {
+        return displayChoices;
+    }
+
+    /**
+     * Get the correct answer in the shuffled array list.
+     * @return the correct answer (1-based).
+     */
+    public int getDisplayChoicesAnswerIndex() {
+        return displayChoicesAnswerIndex;
+    }
+
+    /**
+     * Get the correct answer in the original array list.
+     * @return the correct answer (1-based).
+     */
+    public int getCorrectAnswerIndex() {
+        return answerIndex;
+    }
 }

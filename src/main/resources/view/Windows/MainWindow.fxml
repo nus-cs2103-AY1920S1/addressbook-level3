@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.text.Font?>
+
+<VBox prefHeight="575.0" prefWidth="859.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dream.fcard.gui.controllers.windows.MainWindow">
+    <children>
+        <MenuBar VBox.vgrow="NEVER">
+            <menus>
+                <Menu mnemonicParsing="false" text="File">
+                    <items>
+                        <MenuItem fx:id="onCreateNewDeck" mnemonicParsing="false" text="Create a new deck" />
+                        <MenuItem mnemonicParsing="false" text="Open…" />
+                        <Menu mnemonicParsing="false" text="Open Recent" />
+                        <SeparatorMenuItem mnemonicParsing="false" />
+                        <MenuItem mnemonicParsing="false" text="Close" />
+                        <MenuItem mnemonicParsing="false" text="Revert" />
+                        <SeparatorMenuItem mnemonicParsing="false" />
+                        <MenuItem mnemonicParsing="false" text="Preferences…" />
+                        <SeparatorMenuItem mnemonicParsing="false" />
+                        <MenuItem fx:id="quit" mnemonicParsing="false" text="Quit" />
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Utilities">
+                    <items>
+                  <MenuItem fx:id="jsEditor" mnemonicParsing="false" text="JavaScript playground" />
+                        <MenuItem fx:id="javaEditor" mnemonicParsing="false" text="Java Playground" />
+                    </items>
+                </Menu>
+            </menus>
+        </MenuBar>
+        <SplitPane dividerPositions="0.2505567928730512" focusTraversable="true" prefHeight="438.0" prefWidth="860.0" VBox.vgrow="ALWAYS">
+            <items>
+                <ScrollPane fx:id="deckScrollPane" prefHeight="200.0" prefWidth="200.0">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="429.0" prefWidth="210.0">
+                            <children>
+                                <ListView fx:id="deckList" layoutX="-2.0" layoutY="29.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="401.0" prefWidth="212.0" />
+                                <Label alignment="CENTER" layoutX="1.0" layoutY="-2.0" prefHeight="34.0" prefWidth="212.0" text="Your Decks" />
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </ScrollPane>
+                <ScrollPane fx:id="displayScrollPane" prefHeight="438.0" prefWidth="639.0">
+                    <content>
+                        <VBox fx:id="displayContainer" prefHeight="431.0" prefWidth="637.0" />
+                    </content>
+                </ScrollPane>
+            </items>
+        </SplitPane>
+        <TextField fx:id="commandLine" onAction="#handleUserInput" prefHeight="69.0" prefWidth="859.0" />
+        <HBox id="HBox" alignment="CENTER_LEFT" prefHeight="58.0" prefWidth="859.0" spacing="5.0" VBox.vgrow="NEVER">
+            <children>
+                <Label maxHeight="1.7976931348623157E308" maxWidth="-1.0" text="Left status" HBox.hgrow="ALWAYS">
+                    <font>
+                        <Font size="11.0" fx:id="x3" />
+                    </font>
+                    <textFill>
+                        <Color blue="0.625" green="0.625" red="0.625" fx:id="x4" />
+                    </textFill>
+                </Label>
+                <Pane prefHeight="20.0" prefWidth="734.0" HBox.hgrow="ALWAYS">
+                    <children>
+                        <Label fx:id="messageLabel" layoutX="53.0" layoutY="6.0" prefHeight="34.0" prefWidth="639.0" textFill="#ed0a0a" />
+                    </children>
+                </Pane>
+                <Label font="$x3" text="Right status" textFill="$x4" HBox.hgrow="NEVER" />
+            </children>
+            <padding>
+                <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+            </padding>
+        </HBox>
+    </children>
+</VBox>
