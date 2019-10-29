@@ -36,6 +36,8 @@ public class InformationDisplay extends UiPart<Region> {
     @FXML
     private Label email;
     @FXML
+    private Label gender;
+    @FXML
     private Label attendanceRate;
     @FXML
     private Label performance;
@@ -56,6 +58,7 @@ public class InformationDisplay extends UiPart<Region> {
         address.setText(this.person.getAddress().value);
         address.setPrefWidth(150);
         address.setWrapText(true);
+        gender.setText(this.person.getGender().genderOfPerson);
         email.setText(this.person.getEmail().value);
         photo.setImage(this.person.getPhoto().photo);
         photo.setPreserveRatio(true);
