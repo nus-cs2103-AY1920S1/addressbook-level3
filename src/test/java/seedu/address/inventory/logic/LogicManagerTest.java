@@ -1,17 +1,18 @@
 package seedu.address.inventory.logic;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
+
+import java.io.File;
+import java.io.IOException;
+
 import org.junit.jupiter.api.Test;
+
 import seedu.address.inventory.logic.commands.CommandResult;
 import seedu.address.inventory.model.ModelManager;
 import seedu.address.inventory.storage.StorageManager;
 import seedu.address.inventory.ui.InventoryMessages;
 import seedu.address.inventory.util.InventoryList;
-
-import java.io.File;
-import java.io.IOException;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
 
 public class LogicManagerTest {
     @Test

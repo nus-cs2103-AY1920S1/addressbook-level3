@@ -1,10 +1,11 @@
 package seedu.address.inventory.model;
 
-import org.junit.jupiter.api.Test;
-import seedu.address.testutil.TypicalItem;
-
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.junit.jupiter.api.Test;
+
+import seedu.address.testutil.TypicalItem;
 
 public class ItemTest {
     @Test

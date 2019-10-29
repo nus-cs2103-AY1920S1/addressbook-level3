@@ -1,14 +1,14 @@
 package seedu.address.inventory.model;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
+
 import org.junit.jupiter.api.Test;
+
 import seedu.address.inventory.model.exception.NoSuchItemException;
 import seedu.address.inventory.ui.InventoryMessages;
 import seedu.address.inventory.util.InventoryList;
-import seedu.address.testutil.ItemBuilder;
 import seedu.address.testutil.TypicalItem;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
 
 public class InventoryListTest {
     @Test

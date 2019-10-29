@@ -1,14 +1,24 @@
 package seedu.address.inventory.logic;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
+
 import org.junit.jupiter.api.Test;
-import seedu.address.inventory.logic.commands.*;
+
+import seedu.address.inventory.logic.commands.AddCommand;
+import seedu.address.inventory.logic.commands.Command;
+import seedu.address.inventory.logic.commands.DeleteCommand;
+import seedu.address.inventory.logic.commands.EditCommand;
+import seedu.address.inventory.logic.commands.SortCategoryCommand;
+import seedu.address.inventory.logic.commands.SortDescriptionCommand;
+import seedu.address.inventory.logic.commands.SortQuantityCommand;
 import seedu.address.inventory.logic.commands.exception.NoSuchSortException;
 import seedu.address.inventory.logic.commands.exception.NotANumberException;
 import seedu.address.inventory.logic.parser.InventoryTabParser;
 import seedu.address.inventory.logic.parser.exception.ParseException;
 import seedu.address.inventory.ui.InventoryMessages;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 public class InventoryTabParserTest {
     private static final InventoryTabParser parser = new InventoryTabParser();
@@ -19,7 +29,7 @@ public class InventoryTabParserTest {
     }
 
     @Test
-    public void parser_addCommand_missingPrefixes_unsuccessful() {
+    public void parser_addCommand_missingPrefixesUnsuccessful() {
         Command command = null;
         String input = "add d/item";
 
@@ -31,7 +41,7 @@ public class InventoryTabParserTest {
     }
 
     @Test
-    public void parser_addCommand_notANumber_unsuccessful() {
+    public void parser_addCommand_notANumberUnsuccessful() {
         Command command = null;
         String input = "add d/item c/test q/number co/number p/number";
 

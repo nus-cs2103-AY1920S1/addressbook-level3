@@ -1,7 +1,24 @@
 package seedu.address.inventory.commands;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
+
+import java.util.ArrayList;
+
 import org.junit.jupiter.api.Test;
-import seedu.address.inventory.logic.commands.*;
+
+import seedu.address.inventory.logic.commands.AddCommand;
+import seedu.address.inventory.logic.commands.Command;
+import seedu.address.inventory.logic.commands.CommandResult;
+import seedu.address.inventory.logic.commands.DeleteCommand;
+import seedu.address.inventory.logic.commands.EditCommand;
+import seedu.address.inventory.logic.commands.SortCategoryCommand;
+import seedu.address.inventory.logic.commands.SortDescriptionCommand;
+import seedu.address.inventory.logic.commands.SortQuantityCommand;
+import seedu.address.inventory.logic.commands.SortResetCommand;
+
 import seedu.address.inventory.model.Item;
 import seedu.address.inventory.model.Model;
 import seedu.address.inventory.model.ModelManager;
@@ -9,13 +26,6 @@ import seedu.address.inventory.ui.InventoryMessages;
 import seedu.address.inventory.util.InventoryList;
 import seedu.address.testutil.EditItemDescriptorBuilder;
 import seedu.address.testutil.TypicalItem;
-
-import java.util.ArrayList;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
 
 public class CommandTest {
 
@@ -90,7 +100,7 @@ public class CommandTest {
     }
 
     @Test
-    public void execute_editCommandTest_duplicateItem_unsuccessful() {
+    public void execute_editCommandTestUnsuccessful() {
         //create a new InventoryList that only contains TypicalItem.FISH_BURGER
         ArrayList<Item> fishBurgerList = new ArrayList<>();
         fishBurgerList.add(TypicalItem.FISH_BURGER);
@@ -150,7 +160,7 @@ public class CommandTest {
 
         CommandResult sortCategoryCommandResult = null;
         try {
-            sortCategoryCommandResult= sortCategoryCommand.execute(sortCategoryInventoryModel);
+            sortCategoryCommandResult = sortCategoryCommand.execute(sortCategoryInventoryModel);
         } catch (Exception e) {
             fail();
         }

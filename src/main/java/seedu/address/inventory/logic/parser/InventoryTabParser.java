@@ -7,7 +7,6 @@ import seedu.address.inventory.logic.commands.AddCommand;
 import seedu.address.inventory.logic.commands.Command;
 import seedu.address.inventory.logic.commands.EditCommand;
 import seedu.address.inventory.logic.commands.SortCommand;
-import seedu.address.inventory.logic.commands.exception.CommandException;
 import seedu.address.inventory.logic.commands.exception.NoSuchSortException;
 import seedu.address.inventory.logic.commands.exception.NotANumberException;
 import seedu.address.inventory.logic.parser.exception.ParseException;

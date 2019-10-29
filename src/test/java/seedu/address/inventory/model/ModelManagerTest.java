@@ -1,17 +1,18 @@
 package seedu.address.inventory.model;
 
-import org.junit.jupiter.api.Test;
-import seedu.address.inventory.model.exception.NoSuchIndexException;
-import seedu.address.inventory.model.exception.NoSuchItemException;
-import seedu.address.inventory.storage.Storage;
-import seedu.address.inventory.storage.StorageManager;
-import seedu.address.inventory.util.InventoryList;
-import seedu.address.testutil.TypicalItem;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.File;
 import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
+
+import seedu.address.inventory.storage.StorageManager;
+import seedu.address.inventory.util.InventoryList;
+import seedu.address.testutil.TypicalItem;
+
 
 public class ModelManagerTest {
     @Test
