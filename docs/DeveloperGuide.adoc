@@ -479,6 +479,8 @@ object.
 
 === Remind Flashcard Feature
 
+{To be completed soon}
+
 ==== Implementation
 The  remind feature is facilitated by ``
 
@@ -528,6 +530,9 @@ deadline.
 Notes are used in the creation of CheatSheet objects as well as in general use of StudyBuddyPro.
 
 ==== Implementation
+
+[NOTE]
+All the operations assume that the user is in the _notes_ mode.
 
 Notes contain a Title and some Content, with optional Tags, as shown in the diagram below:
 

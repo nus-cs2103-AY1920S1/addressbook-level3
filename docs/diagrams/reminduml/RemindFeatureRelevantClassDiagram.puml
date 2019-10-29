@@ -1,23 +1,28 @@
 @startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
 
-ScheduleIncrement "1"<-up- Statistics
+"<<enumeration>>\nScheduleIncrement" "1"<-up- Statistics
 Flashcard *-down- "1" Statistics
 
 class Flashcard {
-+getStatistics() : Statistics
+<color:#FFFFFF>getStatistics() : Statistics
 }
 
 class Statistics {
--LocalDate lastViewed
--LocalDate toViewNext
-+setLastViewed(newLastViewed : LocalDate)
-+increaseIncrement() : ScheduleIncrement
-+updateToViewNext()
+<color:#FFFFFF>LocalDate lastViewed
+<color:#FFFFFF>LocalDate toViewNext
+<color:#FFFFFF>setLastViewed(newLastViewed : LocalDate)
+<color:#FFFFFF>increaseIncrement() : ScheduleIncrement
+<color:#FFFFFF>updateToViewNext()
 }
 
-enum ScheduleIncrement {
-FIRST, SECOND, THIRD, FOURTH, FIFTH, SIXTH, FINAL
-+<u>getNumberOfDays() : Integer
+enum "<<enumeration>>\nScheduleIncrement" {
+<color:#FFFFFF>FIRST, SECOND, THIRD, FOURTH, FIFTH, SIXTH, FINAL
+<u><color:#FFFFFF>getNumberOfDays() : Integer
+<u><color:#FFFFFF>getNextIncrement() : ScheduleIncrement
 }
 
 @enduml

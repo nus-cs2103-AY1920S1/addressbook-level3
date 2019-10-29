@@ -18,6 +18,7 @@ import seedu.address.logic.FunctionMode;
 import seedu.address.model.cheatsheet.CheatSheet;
 import seedu.address.model.flashcard.Flashcard;
 import seedu.address.model.note.Note;
+import seedu.address.model.note.NoteFragment;
 import seedu.address.model.person.Person;
 import seedu.address.model.tag.Tag;
 
@@ -315,7 +316,7 @@ public class ModelManager implements Model {
         return sb.toString();
     }
 
-    //===================CheatSheetBook============================================================
+    //===================CheatSheet============================================================
 
     @Override
     public void addCheatSheet(CheatSheet cheatSheet) {
@@ -365,6 +366,7 @@ public class ModelManager implements Model {
         int flashcardIndex = 0;
         int cheatSheetIndex = 0;
         int noteIndex = 0;
+        int noteFragmentIndex = 0;
         for (Flashcard fc : addressBook.getFlashcardList()) {
             flashcardIndex++;
             if (predicate.test(fc)) {
@@ -382,6 +384,13 @@ public class ModelManager implements Model {
             if (predicate.test(n)) {
                 taggedItems.add("Note: " + noteIndex + ". " + n.toString());
             }
+            for (NoteFragment frag : n.getNoteFragments()) {
+                noteFragmentIndex++;
+                if (predicate.test(frag)) {
+                    taggedItems.add("Note Fragment: " + noteIndex + "-" + noteFragmentIndex + ". " + frag.toString());
+                }
+            }
+            noteFragmentIndex = 0;
         }
         return taggedItems;
     }

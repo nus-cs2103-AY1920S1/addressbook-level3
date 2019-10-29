@@ -58,6 +58,7 @@ public class FlashcardTabWindowController {
      * @param flashcard flashcard to be displayed
      */
     public void loadTimetrialFlashcard(Flashcard flashcard) {
+        flashcard.updateStatistics();
         qnsTextArea.setText(flashcard.getQuestion().toString());
         ansTextArea.setText(flashcard.getAnswer().toString());
         ansTextArea.setVisible(false);
@@ -81,6 +82,7 @@ public class FlashcardTabWindowController {
      * Hides the timer and flashes the answer of the flashcard.
      */
     public void showFlashcardAns() {
+        currFlashcard.get().updateStatistics();
         ansTextArea.setVisible(true);
         timerLabel.setVisible(false);
         isAnswerShown = true;
