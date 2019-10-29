@@ -571,10 +571,12 @@ e.g. `clear_ev_dt 1`
 e.g. `pay 2 f/20082019 t/20102019`
 * *Generate Event Contract*: `contract n/EVENT_ID` +
 e.g. `contract n/005`
-* *View Schedule for specific date*: `view_schedule on/DDMMYYYY` +
-e.g. `view_schedule on/02/12/2019`
-* *Display Entire Schedule*: `display_schedule` +
-e.g. `display_schedule`
+* *Display Schedule for specific date*: `display_schedule_date on/dd/MM/yyyy` +
+e.g. `display_schedule_date on/02/12/2019`
+* *Display Schedule for specific month, year*: `display_schedule for/MM/yyyy` +
+e.g. `display_schedule for/12/2019`
+* *Generate Entire Schedule*: `generate_schedule` +
+e.g. `generate_schedule`
 * *Generate Statistics*: `stats_g` +
 e.g. `stats_g`
 * *Clear* : `clear`
