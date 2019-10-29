@@ -8,8 +8,8 @@ import static seedu.address.logic.commands.DeleteEventCommandBuilder.OPTION_TAGS
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.DateTime;
 import seedu.address.model.ModelManager;
-import seedu.address.model.events.DateTime;
 import seedu.address.model.events.EventSource;
 
 class DeleteEventCommandTest {

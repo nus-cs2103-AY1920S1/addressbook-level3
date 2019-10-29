@@ -14,7 +14,6 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.RowConstraints;
 
 import seedu.address.model.events.EventSource;
-import seedu.address.ui.UiParser;
 import seedu.address.ui.UiPart;
 import seedu.address.ui.card.CardHolder;
 import seedu.address.ui.card.EventCard;
@@ -33,7 +32,6 @@ public abstract class TimelineView extends UiPart<Region> {
     private static final Integer TIMING = 10;
 
     private ArrayList<CardHolder> eventCardHolders;
-    private UiParser uiParser;
     private Integer totalRows;
 
     @FXML
@@ -42,9 +40,8 @@ public abstract class TimelineView extends UiPart<Region> {
     @FXML
     private GridPane timelineGrid;
 
-    TimelineView(UiParser uiParser, String fxml) {
+    TimelineView(String fxml) {
         super(fxml);
-        this.uiParser = uiParser;
     }
 
     /**
@@ -183,10 +180,6 @@ public abstract class TimelineView extends UiPart<Region> {
 
     GridPane getTimelineGrid() {
         return this.timelineGrid;
-    }
-
-    UiParser getUiParser() {
-        return this.uiParser;
     }
 
     Integer getTotalRows() {

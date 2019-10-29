@@ -130,27 +130,131 @@ The Log View is made up of the link:{repoURL}/blob/master/src/main/java/seedu/ad
 link:{repoURL}/blob/master/src/main/java/seedu/address/ui/panel/log/LogBox.java[`LogBox`] displays literal information back to the user when it is called by `MainWindow` when it listens for a command.
 
 [[Design-Logic]]
-=== Logic component
+=== CommandManager component
 
-[[fig-LogicClassDiagram]]
-.Structure of the Logic Component
-image::LogicClassDiagram.png[]
+==== Command
 
-*API* :
-link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
+A `Command` is defined to be an immutable function, that can be invoked at any time, to perform any set of instructions. After executing the set of instructions, it will optionally return output to be displayed to the user.
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
-.  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a person).
-.  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
-.  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
+In Horo, a `Command` implemented as an abstract class with an abstract `execute()` method. To create a new concrete command, extend from `Command` and implement `execute()`.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
+.Class diagram of Commands
+image::CommandManager.png[]
 
-.Interactions Inside the Logic Component for the `delete 1` Command
-image::DeleteSequenceDiagram.png[]
+If your concrete command requires any dependencies during execution, it is recommended to pass in the dependency from the constructor.
 
-NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+For example, if your command needs to be able to access `ModelManager`:
+```
+public class MyCommand extends Command {
+	private final ModelManager model;
+	MyCommand(ModelManager model) {
+		this.model = model;
+	}
+
+	@Override
+    CommandOutput execute() {
+        this.model.doSomething();
+		...
+	}
+}
+```
+
+
+==== CommandParser
+
+A `CommandParser` is defined to be able to parse a `String` of user input, and return a `Command`.
+
+In Horo, a `CommandParser` is implemented as a finite state machine (FSM). It parses user input token by token, and it transitions from state to state depending on the next token.
+
+What the FSM is trying to do is tokenize user input into:
+
+1. `Command keyword`
+2. `Command phrase(s)`
+
+A *command keyword* is defined as the first sequence of consecutive, non-whitespace characters of the user input. For the rest of this guide, a sequence of consecutive, non-whitespace characters will be referred to as a ‘word’. A word can be described in the form of a regular expression (regex) as `[^\s]+`.
+
+Examples of valid command keywords:
+
+- `exit`
+- `add_event`
+- `123`
+- `😺`
+
+A *command phrase* is defined as either a word, or multiple words delimited by whitespace surrounded by quotes. Command phrases come after a command keyword.
+
+Examples of valid command phrases:
+
+- `Horse`
+- `”Homework”`
+- `”Horo’s Birthday”`
+- `”24/10/2019 07:00”`
+- `’24/10/2019 07:00’`
+- `--description`
+
+A valid command contains exactly one command keyword, and zero or more command phrases.
+
+`[keyword] [phrase] [phrase] [phrase] ...`
+
+.State diagram of CommandParser
+image::CommandParser.png[]
+
+After tokenizing, the command keyword is sent to a `CommandKeywordParser`, which returns a `CommandBuilder`. The remaining command phrases are sent to the `CommandBuilder`, which returns the `Command` we want.
+
+
+==== CommandKeywordParser
+
+A `CommandKeywordParser` is defined to be able to parse a command keyword, and return a `CommandBuilder`.
+
+In Horo, a `CommandKeywordParser` uses a `HashMap` to map a command keyword to a `Supplier<CommandBuilder>`.
+
+
+==== CommandBuilder
+
+A `CommandBuilder` is defined to be able to accept an arbitrary amount of command settings, and eventually create a `Command` using those settings.
+
+In Horo, a `CommandBuilder` is implemented such that the entire definition of a `Command` is in the `CommandBuilder`. The `CommandBuilder` will use those definitions to automagically parse command phrases.
+
+The definition of a command is split into two parts:
+
+1. `Command argument(s)`
+2. `Command option(s)`
+
+A *command option* is defined to have a keyword and a list of arguments.
+An *option’s keyword* is defined to be a command phrase.
+An *option’s argument* is defined to be a command phrase that is not an option’s keyword. An option’s argument is a command phrase that lies after the option’s keyword.
+
+Example of option’s keyword & arguments below. The option’s keyword is underlined:
+
+- `+++<u>--description</u>+++ Horse`
+- `+++<u>--tags</u>+++ Animal Cat Dog`
+- `+++<u>-d</u>+++ Horse`
+
+A *command argument* is defined to be a command phrase that is not an option’s keyword. This is similar to an option’s argument, except that the position of this argument in the user input is important. A command argument is a command phrase that lies after the command keyword, and before any command option’s keywords.
+
+Example of command’s arguments below. The command’s keyword is underlined.
+
+- `+++<u>add_event</u>+++ Horse “24/10/2019 10:00”`
+- `+++<u>delete_event</u>+++ 1 2 3`
+
+==== Argument
+
+A command’s argument and an option’s argument are both considered an `Argument`. An argument will be parsed from a command phrase to another object. The `Argument` class is a generic class, where the type of the class defines what type of object the command phrase be parsed into.
+
+For example, an `Argument<DateTime>` which receives “24/10/2019 10:00” will be parsed into a `DateTime` object.
+
+
+==== Variable Argument
+
+A `VariableArgument` is a special type of argument. A variable argument will be parsed from a list of command phrases to a list of similar type objects. The `VariableArgument` class is a generic class, where the type of the class defines what types of objects the command phrases should be parsed into. A variable argument can accept zero or more command phrases to be parsed.
+
+For example, a `VariableArgument<Integer>` which receives {1, 2, 3} will be parsed into a list of Integers. `A VariableArgument<Integer>` which receives {} will be parsed into an empty list.
+
+
+==== ArgumentList
+
+A command is said to contain a list of arguments, and it’s options are said to contain a list of arguments too. Both are considered an `ArgumentList`. An `ArgumentList` is defined to contain zero or more `Arguments`, and zero or one `VariableArguments`.
+
+Additionally, if a variable argument is defined, it will be treated as the last argument in the `ArgumentList`. This is because a variable argument can accept zero or more command phrases, which will prevent other arguments from receiving command phrases if it is not the last argument.
 
 [[Design-Model]]
 === Model component
@@ -219,24 +323,6 @@ The UI classes of the Notification System can be found under the `systemtray` pa
 
 Classes used by multiple components are in the `seedu.addressbook.commons` package.
 
-[[Design-Ics]]
-=== Ics Component
-
-*API* : link:{repoURL}/src/main/java/seedu/address/ics/IcsParser.java[`IcsParser.java`]
-
-The ICS component is made up of two parts: ICS file importer, and ICS file exporter.
-
-The file importer makes use of a custom parser that converts files with the `.ics` file extension
-to `EventSource` objects in Horo.
-
-The file exporter takes the `EventSource` objects stored in the `Model` singleton object and
-generates ICS String representations of them. Check out the
-link:https://en.wikipedia.org/wiki/ICalendar[ICalendar Wiki Page] for more information on the specifications.
-
-
-* Can export Horo's save data as a file.
-* Can import other Horo's save data from a `.ics` file.
-
 == Implementation
 
 This section describes some noteworthy details on how certain features are implemented.
@@ -245,39 +331,40 @@ This section describes some noteworthy details on how certain features are imple
 === [Proposed] Undo/Redo feature
 ==== Proposed Implementation
 
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
-Additionally, it implements the following operations:
+The undo/redo mechanism is facilitated by `UndoRedoManager`. It contains a history (of `EventList` states), stored internally as an `eventListStateList`, as well as a `currentStateIndex`, which contains the index of the current state. `UndoRedoManager` also contains a `mainEventList`, which is the `EventList` that the GUI is in sync with.
 
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
+It is important that the `Model` works only with the `mainEventList` (and not duplicates) for this reason. To achieve this, `eventListStateList` contains deep-copies of the `mainEventList`, which are created and saved to `eventListStateList` each time a state-changing command that is also not the undo or redo command (such as add_task or delete_task) is being executed. These state-changing commands that are neither undo or redo commands will modify `mainEventList` directly before the deep-copies of the modified `mainEventList` are created and stored.
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+Every time an undo or redo occurs, the `mainEventList` is reverted to a past or future state of itself by retrieving its data from the appropriate copy in the list of duplicates. This allows us to always work with the same `EventList` instance throughout the program execution, which is crucial since this particular instance is in sync with the GUI; only changes to this instance are reflected as changes to the GUI.
+
+In addition, `UndoRedoManager` implements the following operations:
+
+* `UndoRedoManager#commit()` -- Creates a deep-copy of the mainEventList state and saves that copy to its history using EventList’s copy-constructor
+* `UndoRedoManager#undo()` -- Retrieve mainEventList's previous state data from its duplicate and restore mainEventList
+* `UndoRedoManager#redo()` -- Retrieve mainEventList's future state data from its duplicate and restore mainEventList
+* `UndoRedoManager#clearFutureHistory()` -- Delete all duplicates of `mainEventList` that occur after the index given by the `currentStateIndex` in `eventListStateList`
+
+These operations are exposed in the `Model` interface as `Model#commitToHistory()`, `Model#undoFromHistory()` and `Model#redoFromHistory()`, and `Model#clearFutureHistory()` respectively.
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+Step 1. The user runs the program for the first time. The `UndoRedoManager` will be initialized with the initial `mainEventList`. A duplicate of `mainEventList` will be added to `eventListStateList` and the `currentStateIndex` will point to that single `EventList` state in the list.
 
 image::UndoRedoState0.png[]
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+Step 2. The user executes add_event “Suntec City Computer Fair” --at “17/11/2019 12:00”. This add_event command will first call `Model#clearFutureHistory()` in order to discard all future states (in case an undo command was called before) as they are no longer useful. In this case, there are no future states to discard. All other state-changing commands that are not undo or redo will discard future states as well when executed. Then, the event will be added to `mainEventList`. Finally, `Model#commitToHistory()` will be called, causing the modified `mainEventList` to be deep-copied and saved to `eventListStateList`, and the `currentStateIndex` is incremented by one to contain the index of the newly inserted event list state.
 
 image::UndoRedoState1.png[]
-
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
-
-image::UndoRedoState2.png[]
 
 [NOTE]
 If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+Step 3. Suppose the user decides that adding the task was a mistake. He/she then executes the undo command to rectify the error. The undo command will call `Model#undoFromHistory()`, which will decrement the `currentStateIndex` by one to contain the index of the previous event list state, which `mainEventList` resets its data to.
 
 image::UndoRedoState3.png[]
 
 [NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+If the `currentStatePointer` is at index 0, pointing to the initial event list state, then there are no previous event list states to restore. The `undo` command uses `Model#canUndoEventList()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
 
 The following sequence diagram shows how the undo operation works:
 
@@ -285,16 +372,16 @@ image::UndoSequenceDiagram.png[]
 
 NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
+The redo command does the opposite — it calls Model#redoFromHistory(), which increments the currentStateIndex by one to contain the index of the previously undone state. The mainEventList then resets its data to this state.
 
 [NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+If the `currentStateIndex` is at index `eventListStateList.size() - 1`, pointing to the latest event list state, then there are no undone event list states to restore. The `redo` command uses `Model#canRedoEventList()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
 
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
+Step 4. The user decides to execute the command list. Non-state-changing commands such as list do not manipulate task and event data. Hence, these commands will not call `Model#clearFutureHistory()` or `Model#commitToHistory()` no changes to the current state have been made. Thus, the `eventListStateList` remains unchanged.
 
 image::UndoRedoState4.png[]
 
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
+Step 5. The user executes delete_event 1, which calls `Model#clearFutureHistory()`, deletes the event from `mainEventList`, and then calls `Model#commitToHistory()`. As mentioned in Step 2, all event list states after the `currentStateIndex` will be purged.
 
 image::UndoRedoState5.png[]
 
@@ -344,6 +431,28 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 * `WARNING` : Can continue, but with caution
 * `INFO` : Information showing the noteworthy actions by the App
 * `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
+
+[[Design-Ics]]
+=== Ics Component
+
+*API* : link:{repoURL}/src/main/java/seedu/address/ics/IcsParser.java[`IcsParser.java`]
+
+The ICS component is made up of two parts: ICS file importer, and ICS file exporter.
+
+The file importer makes use of a custom parser that converts files with the `.ics` file extension
+to `EventSource` objects in Horo.
+
+The file exporter takes the `EventSource` objects stored in the `Model` singleton object and
+generates ICS String representations of them. Check out the
+link:https://en.wikipedia.org/wiki/ICalendar[ICalendar Wiki Page] for more information on the specifications.
+
+
+* Can export Horo's save data as a file
+The `ICS` Component,with a `.ics` extension.
+* Can import other Horo's save data from a `.ics` file.
+
+
+== Implementation
 
 [[Implementation-Configuration]]
 === Configuration

@@ -327,20 +327,20 @@ Example: +
 `day 11/10/2019`
 {empty} +
 
-==== Changing Timeline to a given week: `week [WEEK_NUMBER] [MONTH_YEAR]`
+==== Changing Timeline to a given week: `week [DATE] [MONTH_YEAR]`
 
 .Week View Command for the Timeline
 image::WeekViewCommandScreenShot.png[]
 
-This will switch the UI screen view to the Calendar View, and sets the Timeline to be of the given week of a month.
+This will switch the UI screen view to the Calendar View, and sets the Timeline to be of the week of the given day of the month.
 {empty} +
 
 Format: +
-`week [WEEK_NUMBER] [MONTH_YEAR]`
+`week [DATE] [MONTH_YEAR]`
 {empty} +
 
 Example: +
-`week 2 11/2019`
+`week 11/2019`
 {empty} +
 
 ==== Changing Timeline to a given month: `month [MONTH_YEAR]`
@@ -537,7 +537,7 @@ E.g. `remove_tag 1 2 3 --tag Birthday`
 E.g. `find --tag homework cs2100`
 * *Calendar View* : `calendar [MONTH_YEAR]`
 * *Day View for Timeline* : `day [DATE]`
-* *Week View for Timeline* : `week [WEEK_NUMBER] [MONTH_YEAR]`
+* *Week View for Timeline* : `week [DATE]`
 * *Month View for Timeline* : `month [MONTH_YEAR]`
 * *List View* : `list`
 * *Log View* : `log`

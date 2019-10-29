@@ -1,5 +1,8 @@
 package seedu.address.logic.commands.arguments;
 
+import java.util.List;
+import java.util.function.Consumer;
+
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -11,8 +14,8 @@ public class StringVariableArguments extends VariableArguments<String> {
         super(builder);
     }
 
-    public static StringVariableArgumentsBuilder newBuilder(String description) {
-        return new StringVariableArgumentsBuilder(description);
+    public static StringVariableArgumentsBuilder newBuilder(String description, Consumer<List<String>> promise) {
+        return new StringVariableArgumentsBuilder(description, promise);
     }
 
     @Override
