@@ -53,7 +53,7 @@ public interface Model {
     ReadOnlyFinanceLog getFinanceLog();
 
     /**
-     * Returns true if an entry with the same identity as {@code LogEntry} exists in the address book.
+     * Returns true if an entry with the same identity as {@code LogEntry} exists in the finance log.
      */
     boolean hasLogEntry(LogEntry logEntry);
 
@@ -73,6 +73,12 @@ public interface Model {
      * {@code target} must exist in the finance log.
      */
     void setLogEntry(LogEntry target, LogEntry editedLogEntry);
+
+    /**
+     * Marks the given log entry as repaid.
+     * {@code LogEntry} must be of type borrow or lend.
+     */
+    void markLogEntryAsRepaid(LogEntry logEntry);
 
     /** Returns an unmodifiable view of the filtered list of log entries */
     ObservableList<LogEntry> getFilteredLogEntryList();

@@ -6,6 +6,7 @@ import seedu.address.model.finance.attributes.Amount;
 import seedu.address.model.finance.attributes.Category;
 import seedu.address.model.finance.attributes.Description;
 import seedu.address.model.finance.attributes.Person;
+import seedu.address.model.finance.attributes.RepaidDate;
 import seedu.address.model.finance.attributes.TransactionDate;
 import seedu.address.model.finance.attributes.TransactionMethod;
 
@@ -18,6 +19,7 @@ public class LendLogEntry extends LogEntry {
     // Meta data
     public static final String LOG_ENTRY_TYPE = "lend";
     private static boolean isRepaid; // whether person who borrowed money has returned to user
+    private static RepaidDate repaidDate; // date when person repaid money
 
     // Fields
     private final Person to; // person lent to
@@ -46,8 +48,22 @@ public class LendLogEntry extends LogEntry {
         return isRepaid;
     }
 
-    public void setAsRepaid() {
+    /**
+     * Marks log entry as repaid
+     * (i.e. money borrowed from user is returned)
+     * and records down the day of repayment.
+     */
+    public void markAsRepaid() {
         isRepaid = true;
+        repaidDate = new RepaidDate();
+    }
+
+    public RepaidDate getRepaidDate() {
+        return repaidDate;
+    }
+
+    public void setRepaidDate(String rDate, String tDate) {
+        repaidDate = new RepaidDate(rDate, tDate);
     }
 
     @Override
@@ -67,7 +83,8 @@ public class LendLogEntry extends LogEntry {
                 && otherLogEntry.getTransactionMethod().equals(getTransactionMethod())
                 && otherLogEntry.getCategories().equals(getCategories())
                 && otherLogEntry.getTo().equals(getTo())
-                && (otherLogEntry.isRepaid() == isRepaid());
+                && (otherLogEntry.isRepaid() == isRepaid())
+                && (otherLogEntry.getRepaidDate().equals(getRepaidDate()));
     }
 
     @Override
@@ -83,6 +100,10 @@ public class LendLogEntry extends LogEntry {
                 .append(getTransactionMethod())
                 .append(" To: ")
                 .append(getTo())
+                .append(" Is Repaid: ")
+                .append(isRepaid())
+                .append(isRepaid() ? " Repaid Date:" : "")
+                .append(isRepaid() ? getRepaidDate() : "")
                 .append(" Categories: ");
         getCategories().forEach(builder::append);
         return builder.toString();

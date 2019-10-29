@@ -42,6 +42,8 @@ public class LendLogEntryCard extends UiPart<Region> {
     private Label to;
     @FXML
     private Label status;
+    @FXML
+    private Label repaidDate;
 
     public LendLogEntryCard(LendLogEntry logEntry, int displayedIndex) {
         super(FXML);
@@ -56,6 +58,7 @@ public class LendLogEntryCard extends UiPart<Region> {
         to.setText(logEntry.getTo().name);
         Boolean isRepaid = logEntry.isRepaid();
         status.setText(isRepaid ? "repaid" : "LOAN SHARK TIME");
+        repaidDate.setText(isRepaid ? "Repaid on: " + logEntry.getRepaidDate().value : "");
     }
 
     @Override

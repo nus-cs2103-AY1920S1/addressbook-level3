@@ -40,6 +40,8 @@ public class SpendLogEntry extends LogEntry {
         return place;
     }
 
+    public void markAsRepaid() {}
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {

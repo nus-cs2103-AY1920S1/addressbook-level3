@@ -109,8 +109,12 @@ public class ModelFinanceManager implements Model {
     @Override
     public void setLogEntry(LogEntry target, LogEntry editedLogEntry) {
         requireAllNonNull(target, editedLogEntry);
-
         financeLog.setLogEntry(target, editedLogEntry);
+    }
+
+    @Override
+    public void markLogEntryAsRepaid(LogEntry logEntry) {
+        financeLog.markLogEntryAsRepaid(logEntry);
     }
 
     //=========== Filtered List of Finance Log Entries Accessors ===========

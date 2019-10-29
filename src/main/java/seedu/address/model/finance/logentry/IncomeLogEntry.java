@@ -40,6 +40,8 @@ public class IncomeLogEntry extends LogEntry {
         return from;
     }
 
+    public void markAsRepaid() {}
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {

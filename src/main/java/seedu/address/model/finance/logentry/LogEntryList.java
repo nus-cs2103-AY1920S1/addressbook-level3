@@ -81,6 +81,21 @@ public class LogEntryList implements Iterable<LogEntry> {
     }
 
     /**
+     * Marks equivalent log entry as repaid.
+     * The log entry must exist in the list.
+     * Log entry must be of type borrow or lend.
+     */
+    public void markAsRepaid(LogEntry toMarkAsRepaid) {
+        requireNonNull(toMarkAsRepaid);
+        int index = internalList.indexOf(toMarkAsRepaid);
+        if (index == -1) {
+            throw new LogEntryNotFoundException();
+        }
+        toMarkAsRepaid.markAsRepaid();
+        internalList.set(index, toMarkAsRepaid);
+    }
+
+    /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */
     public ObservableList<LogEntry> asUnmodifiableObservableList() {

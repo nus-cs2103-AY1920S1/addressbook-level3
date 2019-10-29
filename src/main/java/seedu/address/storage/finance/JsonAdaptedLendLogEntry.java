@@ -26,6 +26,7 @@ class JsonAdaptedLendLogEntry extends JsonAdaptedLogEntry {
     private final String logEntryType;
     private final String to;
     private final String isRepaid;
+    private final String repaidDate;
 
     /**
      * Constructs a {@code JsonAdaptedLendLogEntry} with the given log entry details.
@@ -38,11 +39,13 @@ class JsonAdaptedLendLogEntry extends JsonAdaptedLogEntry {
                                    @JsonProperty("categories") List<JsonAdaptedCategory> categories,
                                    @JsonProperty("logEntryType") String logEntryType,
                                    @JsonProperty("to") String to,
-                                   @JsonProperty("isRepaid") String isRepaid) {
+                                   @JsonProperty("isRepaid") String isRepaid,
+                                   @JsonProperty("repaidDate") String repaidDate) {
         super(amount, tDate, desc, tMethod, categories);
         this.logEntryType = logEntryType;
         this.to = to;
         this.isRepaid = isRepaid;
+        this.repaidDate = repaidDate;
     }
 
     /**
@@ -53,6 +56,7 @@ class JsonAdaptedLendLogEntry extends JsonAdaptedLogEntry {
         logEntryType = source.getLogEntryType();
         to = source.getTo().name;
         isRepaid = Boolean.toString(source.isRepaid());
+        repaidDate = source.getRepaidDate().value;
     }
 
     /**
@@ -121,7 +125,11 @@ class JsonAdaptedLendLogEntry extends JsonAdaptedLogEntry {
             throw new IllegalValueException("Field 'isValid' is in wrong format, should either be true or false!");
         }
         if (isRepaid.equals("true")) {
-            newLogEntry.setAsRepaid();
+            newLogEntry.markAsRepaid();
+        }
+        if (isRepaid.equals("true")) {
+            newLogEntry.markAsRepaid();
+            newLogEntry.setRepaidDate(repaidDate, tDate);
         }
 
         return newLogEntry;

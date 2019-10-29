@@ -8,29 +8,30 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * The date the transaction of the associated log entry was made.
- * Guarantees: is valid as declared in {@link #isValidTransactionDate(String)}
+ * The date the repayment of the associated log entry was made.
+ * Used in BORROW and LEND log entry types.
+ * Guarantees: is valid as declared in {@link #isValidRepaidDate(String)}
  */
-public class TransactionDate {
+public class RepaidDate {
 
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Dates should be in the form DD-MM-YYYY and should not be in the future";
+            "Dates should be in the form DD-MM-YYYY and should not be before transaction dates";
 
     public final String value;
 
     /**
-     * Constructs a {@code TransactionDate}.
+     * Constructs a {@code RepaidDate}.
      *
-     * @param transactionDate A valid transaction date.
+     * @param repaidDate A valid transaction date.
      */
-    public TransactionDate(String transactionDate) {
-        requireNonNull(transactionDate);
-        checkArgument(isValidTransactionDate(transactionDate), MESSAGE_CONSTRAINTS);
-        value = transactionDate;
+    public RepaidDate(String repaidDate, String tDate) {
+        requireNonNull(repaidDate);
+        checkArgument(isValidRepaidDate(repaidDate, tDate), MESSAGE_CONSTRAINTS);
+        value = repaidDate;
     }
 
-    public TransactionDate() {
+    public RepaidDate() {
         SimpleDateFormat validFormat = new SimpleDateFormat("dd-MM-yyyy");;
         value = validFormat.format(new Date());
     }
@@ -38,15 +39,15 @@ public class TransactionDate {
     /**
      * Returns true if a given string is a valid transaction date.
      */
-    public static boolean isValidTransactionDate(String test) {
+    public static boolean isValidRepaidDate(String test, String tDate) {
         SimpleDateFormat validFormat = new SimpleDateFormat("dd-MM-yyyy");;
         validFormat.setLenient(false); // date has to exist in calendar (i.e. not 31 Feb)
-        Date currentDate = new Date();
         try {
             Date testDate = validFormat.parse(test);
-            boolean isToday = testDate.equals(currentDate);
-            boolean isPast = testDate.before(currentDate);
-            return isToday || isPast;
+            Date transactionDate = validFormat.parse(tDate);
+            boolean isSameDay = testDate.equals(transactionDate);
+            boolean isDayAfter = testDate.after(transactionDate);
+            return isSameDay || isDayAfter;
         } catch (ParseException e) {
             return false;
         }
@@ -60,8 +61,8 @@ public class TransactionDate {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof TransactionDate // instanceof handles nulls
-                && value.equals(((TransactionDate) other).value)); // state check
+                || (other instanceof RepaidDate // instanceof handles nulls
+                && value.equals(((RepaidDate) other).value)); // state check
     }
 
     @Override

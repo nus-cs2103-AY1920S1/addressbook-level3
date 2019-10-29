@@ -27,6 +27,7 @@ import seedu.address.model.finance.attributes.Category;
 import seedu.address.model.finance.attributes.Description;
 import seedu.address.model.finance.attributes.Person;
 import seedu.address.model.finance.attributes.Place;
+import seedu.address.model.finance.attributes.RepaidDate;
 import seedu.address.model.finance.attributes.TransactionDate;
 import seedu.address.model.finance.attributes.TransactionMethod;
 import seedu.address.model.finance.logentry.BorrowLogEntry;
@@ -129,13 +130,42 @@ public class EditCommand extends Command {
         case BorrowLogEntry.LOG_ENTRY_TYPE:
             BorrowLogEntry currBorrowLogEntry = (BorrowLogEntry) currLogEntryToEdit;
             updatedFrom = editLogEntryDescriptor.getFrom().orElse(currBorrowLogEntry.getFrom());
-            return new BorrowLogEntry(updatedAmount, updatedTransactionDate, updatedDescription,
-                    updatedTransactionMethod, updatedCategories, updatedFrom);
+            boolean isRepaid = currBorrowLogEntry.isRepaid();
+            // Cannot edit transaction date if is repaid
+            BorrowLogEntry updatedBorrowLogEntry;
+            if (isRepaid) {
+                TransactionDate transactionDate = currBorrowLogEntry.getTransactionDate();
+                RepaidDate repaidDate = currBorrowLogEntry.getRepaidDate();
+                updatedBorrowLogEntry = new BorrowLogEntry(
+                        updatedAmount, transactionDate, updatedDescription,
+                        updatedTransactionMethod, updatedCategories, updatedFrom);
+                updatedBorrowLogEntry.markAsRepaid();
+                updatedBorrowLogEntry.setRepaidDate(repaidDate.value, transactionDate.value);
+            } else {
+                updatedBorrowLogEntry = new BorrowLogEntry(
+                        updatedAmount, updatedTransactionDate, updatedDescription,
+                        updatedTransactionMethod, updatedCategories, updatedFrom);
+            }
+            return updatedBorrowLogEntry;
         case LendLogEntry.LOG_ENTRY_TYPE:
             LendLogEntry currLendLogEntry = (LendLogEntry) currLogEntryToEdit;
             Person updatedTo = editLogEntryDescriptor.getTo().orElse(currLendLogEntry.getTo());
-            return new LendLogEntry(updatedAmount, updatedTransactionDate, updatedDescription,
-                    updatedTransactionMethod, updatedCategories, updatedTo);
+            isRepaid = currLendLogEntry.isRepaid();
+            LendLogEntry updatedLendLogEntry;
+            if (isRepaid) {
+                TransactionDate transactionDate = currLendLogEntry.getTransactionDate();
+                RepaidDate repaidDate = currLendLogEntry.getRepaidDate();
+                updatedLendLogEntry = new LendLogEntry(
+                        updatedAmount, transactionDate, updatedDescription,
+                        updatedTransactionMethod, updatedCategories, updatedTo);
+                updatedLendLogEntry.markAsRepaid();
+                updatedLendLogEntry.setRepaidDate(repaidDate.value, transactionDate.value);
+            } else {
+                updatedLendLogEntry = new LendLogEntry(
+                        updatedAmount, updatedTransactionDate, updatedDescription,
+                        updatedTransactionMethod, updatedCategories, updatedTo);
+            }
+            return updatedLendLogEntry;
         default:
             throw new CommandException("Error in editing log entry!");
         }
@@ -188,7 +218,6 @@ public class EditCommand extends Command {
             setPlace(toCopy.place);
             setFrom(toCopy.from);
             setTo(toCopy.to);
-
         }
 
         /**
