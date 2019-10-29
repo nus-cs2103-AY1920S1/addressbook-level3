@@ -61,7 +61,7 @@ Format: help
 
 ==== Return to the homepage
 
-Homepage, in this case, is the _Calendar_ section.
+Homepage, in this case, is the Calendar section.
 
 Format: home
 
@@ -110,7 +110,7 @@ e.g. `addmod <title>CS2109 Lecture <day>tuesday <desc>Submit code through LumiNU
 Edit one or multiple fields of an existing task. `INDEX` should be a positive integer and a task with the number `INDEX`
 should already exist on the current week's calendar. Editing the deadline is only available for `ToDoTask`.
 
-Format: `edit  INDEX [<title>TITLE] [<day>DAY] [<desc>DESCRIPTION] [<deadline>DEADLINE] [<time>TIME] [<tag>TAG]` +
+Format: `edit  INDEX <title>TITLE <day>DAY <desc>DESCRIPTION <deadline>DEADLINE <time>TIME <tag>TAG` +
 e.g. `1 <title>CS2108 Assignment <day>friday`
 
 ==== Delete existing task: `delete`
@@ -140,7 +140,7 @@ Format: `go WEEK_NUMBER`
 e.g. `go 2`
 
 ==== Clear week data: `clearweek`
-Delete all information of the `ToDoTask` of the current week.
+Delete all `ToDoTask` of the current week.
 
 Format: `clearweek`
 
