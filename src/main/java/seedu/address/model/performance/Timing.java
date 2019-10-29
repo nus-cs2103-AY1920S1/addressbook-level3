@@ -8,7 +8,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Timing {
 
-    public static final String MESSAGE_CONSTRAINTS =  "Timing should only contain numbers in seconds.";
+    public static final String MESSAGE_CONSTRAINTS = "Timing should only contain numbers in seconds.";
     private static final String REGEX_DECIMAL = "^-?\\d*\\.\\d+$";
     private static final String REGEX_INTEGER = "^-?\\d+$";
     private static final String VALIDATION_REGEX = REGEX_DECIMAL + "|" + REGEX_INTEGER;

@@ -31,7 +31,7 @@ public class PerformanceCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_EVENT + "freestyle 50m "
             + PREFIX_DATE + "02102019 "
-            + PREFIX_TIMING + "30";
+            + PREFIX_TIMING + "30.32";
 
     private final Index index;
     private final String event;
