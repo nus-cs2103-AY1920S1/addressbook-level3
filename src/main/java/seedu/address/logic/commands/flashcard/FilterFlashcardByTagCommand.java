@@ -80,4 +80,10 @@ public class FilterFlashcardByTagCommand extends Command {
         }
         return new FlashcardCommandResult(resultToDisplay.toString());
     }
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof FilterFlashcardByTagCommand // instanceof handles nulls
+                && tagPredicate.equals(((FilterFlashcardByTagCommand) other).tagPredicate));
+    }
 }
