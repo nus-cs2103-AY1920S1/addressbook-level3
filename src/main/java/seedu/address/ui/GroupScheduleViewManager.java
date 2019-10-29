@@ -2,6 +2,7 @@ package seedu.address.ui;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import seedu.address.model.display.detailwindow.PersonSchedule;
@@ -13,19 +14,20 @@ import seedu.address.model.group.GroupName;
  */
 public class GroupScheduleViewManager implements ScheduleViewManager {
 
-    private ArrayList<PersonSchedule> monthSchedules;
+    private HashMap<Integer, ArrayList<PersonSchedule>> monthSchedules;
     private ArrayList<String> colors;
     private GroupName groupName;
-    private FreeSchedule freeSchedule;
+    private ArrayList<FreeSchedule> freeSchedules;
     private int weekNumber;
     private ScheduleView scheduleView;
 
-    public GroupScheduleViewManager(ArrayList<PersonSchedule> monthSchedules, ArrayList<String> colors,
-                                    GroupName groupName, FreeSchedule freeSchedule) {
+    public GroupScheduleViewManager(HashMap<Integer, ArrayList<PersonSchedule>> monthSchedules,
+                                    ArrayList<String> colors,
+                                    GroupName groupName, ArrayList<FreeSchedule> freeSchedules) {
         this.monthSchedules = monthSchedules;
         this.colors = colors;
         this.groupName = groupName;
-        this.freeSchedule = freeSchedule;
+        this.freeSchedules = freeSchedules;
         this.weekNumber = 0;
         initScheduleView();
     }
@@ -36,11 +38,10 @@ public class GroupScheduleViewManager implements ScheduleViewManager {
      */
     private void initScheduleView() {
         LocalDate currentDate = LocalDate.now();
-        //weekNumber * 7
-        LocalDate dateToShow = currentDate.plusDays(0);
-        this.scheduleView = new ScheduleView(monthSchedules, colors,
+        LocalDate dateToShow = currentDate.plusDays(7 * weekNumber);
+        this.scheduleView = new ScheduleView(monthSchedules.get(weekNumber), colors,
                 groupName.toString(), dateToShow);
-        this.scheduleView.setFreeTime(freeSchedule);
+        this.scheduleView.setFreeTime(freeSchedules.get(weekNumber));
     }
 
     @Override

@@ -1,6 +1,8 @@
 package seedu.address.ui;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import seedu.address.model.display.detailwindow.PersonSchedule;
@@ -10,13 +12,14 @@ import seedu.address.model.display.sidepanel.PersonDisplay;
  * Class to handle schedule views of individuals. Schedule of individuals do not show free time.
  */
 public class IndividualScheduleViewManager implements ScheduleViewManager {
-    private PersonSchedule monthSchedule;
+    private HashMap<Integer, ArrayList<PersonSchedule>> monthSchedule;
     private String color;
     private ScheduleView scheduleView;
     private PersonDisplay personDisplay;
     private int weekNumber;
 
-    public IndividualScheduleViewManager(PersonSchedule monthSchedule, PersonDisplay personDisplay, String color) {
+    public IndividualScheduleViewManager(HashMap<Integer, ArrayList<PersonSchedule>> monthSchedule,
+                                         PersonDisplay personDisplay, String color) {
         this.personDisplay = personDisplay;
         this.monthSchedule = monthSchedule;
         this.color = color;
@@ -31,7 +34,7 @@ public class IndividualScheduleViewManager implements ScheduleViewManager {
     private void initScheduleView() {
         LocalDate currentDate = LocalDate.now();
         LocalDate dateToShow = currentDate.plusDays(weekNumber * 7);
-        this.scheduleView = new ScheduleView(List.of(monthSchedule),
+        this.scheduleView = new ScheduleView(monthSchedule.get(weekNumber),
                 List.of(color), personDisplay.getName().fullName, dateToShow);
     }
 

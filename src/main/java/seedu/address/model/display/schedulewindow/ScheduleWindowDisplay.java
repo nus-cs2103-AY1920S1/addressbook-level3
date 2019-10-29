@@ -12,48 +12,55 @@ import seedu.address.model.display.sidepanel.GroupDisplay;
  */
 public class ScheduleWindowDisplay {
 
-    private ArrayList<PersonSchedule> personSchedules;
+    //WeekNumber : ArrayList of PersonSchedule.
+    private HashMap<Integer, ArrayList<PersonSchedule>> personSchedules;
     private ScheduleWindowDisplayType scheduleWindowDisplayType;
     private GroupDisplay groupDisplay;
 
-    private FreeSchedule freeSchedule;
+    private ArrayList<FreeSchedule> freeScheduleWeeks;
 
-    public ScheduleWindowDisplay(ArrayList<PersonSchedule> personSchedules,
+    public ScheduleWindowDisplay(HashMap<Integer, ArrayList<PersonSchedule>> personSchedules,
                                  ScheduleWindowDisplayType detailWindowDisplayType) {
         this(personSchedules, null, null, detailWindowDisplayType);
     }
 
-    public ScheduleWindowDisplay(ArrayList<PersonSchedule> personSchedules,
-                               FreeSchedule freeSchedule, GroupDisplay groupDisplay,
+    public ScheduleWindowDisplay(HashMap<Integer, ArrayList<PersonSchedule>> personSchedules,
+                               ArrayList<FreeSchedule> freeScheduleWeeks, GroupDisplay groupDisplay,
                                  ScheduleWindowDisplayType scheduleWindowDisplayType) {
 
         this.personSchedules = personSchedules;
-        this.freeSchedule = freeSchedule;
+        this.freeScheduleWeeks = freeScheduleWeeks;
         this.groupDisplay = groupDisplay;
         this.scheduleWindowDisplayType = scheduleWindowDisplayType;
     }
 
     public ScheduleWindowDisplay() {
-        this.personSchedules = new ArrayList<>();
+        this.personSchedules = new HashMap<>();
+        for (int i = 0; i < 4; i++) {
+            personSchedules.put(i, new ArrayList<>());
+        }
         this.scheduleWindowDisplayType = ScheduleWindowDisplayType.DEFAULT;
         this.groupDisplay = null;
 
-        this.freeSchedule = null;
+        this.freeScheduleWeeks = null;
     }
 
     public ScheduleWindowDisplay(ScheduleWindowDisplayType type) {
-        this.personSchedules = new ArrayList<>();
+        this.personSchedules = new HashMap<>();
+        for (int i = 0; i < 4; i++) {
+            personSchedules.put(i, new ArrayList<>());
+        }
         this.scheduleWindowDisplayType = type;
         this.groupDisplay = null;
 
-        this.freeSchedule = null;
+        this.freeScheduleWeeks = null;
     }
 
     public ScheduleWindowDisplayType getScheduleWindowDisplayType() {
         return scheduleWindowDisplayType;
     }
 
-    public ArrayList<PersonSchedule> getPersonSchedules() {
+    public HashMap<Integer, ArrayList<PersonSchedule>> getPersonSchedules() {
         return personSchedules;
     }
 
@@ -61,8 +68,8 @@ public class ScheduleWindowDisplay {
         return groupDisplay;
     }
 
-    public FreeSchedule getFreeSchedule() {
-        return freeSchedule;
+    public ArrayList<FreeSchedule> getFreeSchedule() {
+        return freeScheduleWeeks;
     }
 
     /**
@@ -71,7 +78,8 @@ public class ScheduleWindowDisplay {
     public String freeScheduleToString() {
         String s = "";
 
-        HashMap<DayOfWeek, ArrayList<FreeTimeslot>> free = freeSchedule.getFreeSchedule();
+        //Show just the free schedule for Week 0 only.
+        HashMap<DayOfWeek, ArrayList<FreeTimeslot>> free = freeScheduleWeeks.get(0).getFreeSchedule();
         for (int i = 0; i < 7; i++) {
             ArrayList<FreeTimeslot> freeTimeslots = free.get(DayOfWeek.of(i + 1));
             s += DayOfWeek.of(i + 1).toString() + "\n";

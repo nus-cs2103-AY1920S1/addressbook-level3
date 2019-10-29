@@ -18,8 +18,8 @@ public interface ScheduleViewManager {
         switch(displayType) {
         case PERSON:
             //There is only 1 schedule in the scheduleWindowDisplay
-            return new IndividualScheduleViewManager(scheduleWindowDisplay.getPersonSchedules().get(0),
-                    scheduleWindowDisplay.getPersonSchedules().get(0).getPersonDisplay(), colors.get(0));
+            return new IndividualScheduleViewManager(scheduleWindowDisplay.getPersonSchedules(),
+                    scheduleWindowDisplay.getPersonSchedules().get(0).get(0).getPersonDisplay(), colors.get(0));
         case GROUP:
             return new GroupScheduleViewManager(scheduleWindowDisplay.getPersonSchedules(),
                     colors,

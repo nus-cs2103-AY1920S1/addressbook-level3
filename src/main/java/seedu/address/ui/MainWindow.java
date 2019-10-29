@@ -274,7 +274,7 @@ public class MainWindow extends UiPart<Stage> {
         HBox exportContainer = new HBox();
         ScheduleView scheduleView = ScheduleViewManager.getInstanceOf(scheduleWindowDisplay).getScheduleView();
         if (type.equals(ScheduleWindowDisplayType.PERSON)) {
-            PersonSchedule personSchedule = scheduleWindowDisplay.getPersonSchedules().get(0);
+            PersonSchedule personSchedule = scheduleWindowDisplay.getPersonSchedules().get(0).get(0);
             exportContainer.getChildren().addAll(scheduleView.getRoot());
             stackPane.getChildren().add(exportContainer);
             Scene scene = new Scene(stackPane);
@@ -327,7 +327,7 @@ public class MainWindow extends UiPart<Stage> {
                 handleSidePanelChange(
                         new PersonDetailCard(scheduleWindowDisplay
                                 .getPersonSchedules()
-                                .get(0)
+                                .get(0).get(0)
                                 .getPersonDisplay())
                                 .getRoot(), SidePanelDisplayType.PERSON);
                 break;

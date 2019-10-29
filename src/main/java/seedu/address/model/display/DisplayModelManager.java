@@ -77,13 +77,16 @@ public class DisplayModelManager {
                                           TimeBook timeBook) {
 
         try {
-            ArrayList<PersonSchedule> personSchedules = new ArrayList<>();
+            HashMap<Integer, ArrayList<PersonSchedule>> personMonthSchedules = new HashMap<>();
+            for (int i = 0; i < 4; i++) {
+                ArrayList<PersonSchedule> personSchedulesForWeek = new ArrayList<>();
 
-            PersonSchedule personSchedule = generatePersonSchedule(name.toString(), time,
-                    timeBook.getPersonList().findPerson(name), Role.emptyRole());
-            personSchedules.add(personSchedule);
-
-            ScheduleWindowDisplay scheduleWindowDisplay = new ScheduleWindowDisplay(personSchedules, type);
+                PersonSchedule personSchedule = generatePersonSchedule(name.toString(), time.plusDays(i * 7),
+                        timeBook.getPersonList().findPerson(name), Role.emptyRole());
+                personSchedulesForWeek.add(personSchedule);
+                personMonthSchedules.put(i, personSchedulesForWeek);
+            }
+            ScheduleWindowDisplay scheduleWindowDisplay = new ScheduleWindowDisplay(personMonthSchedules, type);
             updateScheduleWindowDisplay(scheduleWindowDisplay);
 
         } catch (PersonNotFoundException e) {
@@ -101,11 +104,15 @@ public class DisplayModelManager {
     public void updateScheduleWindowDisplay(LocalDateTime time, ScheduleWindowDisplayType type, TimeBook timeBook) {
         User user = timeBook.getPersonList().getUser();
 
-        ArrayList<PersonSchedule> personSchedules = new ArrayList<>();
+        HashMap<Integer, ArrayList<PersonSchedule>> personSchedules = new HashMap<>();
+        for (int i = 0; i < 4; i++) {
+            ArrayList<PersonSchedule> personSchedulesForWeek = new ArrayList<>();
 
-        PersonSchedule personSchedule = generatePersonSchedule(user.getName().toString(),
-                time, user, Role.emptyRole());
-        personSchedules.add(personSchedule);
+            PersonSchedule personSchedule = generatePersonSchedule(user.getName().toString(),
+                    time.plusDays(i * 7), user, Role.emptyRole());
+            personSchedulesForWeek.add(personSchedule);
+            personSchedules.put(i, personSchedulesForWeek);
+        }
 
         ScheduleWindowDisplay scheduleWindowDisplay = new ScheduleWindowDisplay(personSchedules, type);
         updateScheduleWindowDisplay(scheduleWindowDisplay);
@@ -132,26 +139,35 @@ public class DisplayModelManager {
 
             ArrayList<PersonId> personIds = timeBook.getPersonToGroupMappingList()
                     .findPersonsOfGroup(group.getGroupId());
-            ArrayList<PersonSchedule> personSchedules = new ArrayList<>();
+            HashMap<Integer, ArrayList<PersonSchedule>> combinedMonthsSchedules = new HashMap<>();
+            ArrayList<FreeSchedule> freeScheduleForMonth = new ArrayList<>();
+            for (int h = 0; h < 4; h++) {
+                ArrayList<PersonSchedule> personSchedules = new ArrayList<>();
 
-            User user = timeBook.getPersonList().getUser();
-            Role userRole = Role.emptyRole();
+                User user = timeBook.getPersonList().getUser();
+                Role userRole = Role.emptyRole();
 
-            personSchedules.add(generatePersonSchedule(groupName.toString(), time, user, userRole));
+                //Add user schedule.
+                personSchedules.add(generatePersonSchedule(groupName.toString(), time.plusDays(h * 7), user, userRole));
 
-            for (int i = 0; i < personIds.size(); i++) {
-                Person person = timeBook.getPersonList().findPerson(personIds.get(i));
-                Role role = timeBook.getPersonToGroupMappingList().findRole(personIds.get(i), groupId);
-                if (role == null) {
-                    role = Role.emptyRole();
+                //Add other schedules.
+                for (int i = 0; i < personIds.size(); i++) {
+                    Person person = timeBook.getPersonList().findPerson(personIds.get(i));
+                    Role role = timeBook.getPersonToGroupMappingList().findRole(personIds.get(i), groupId);
+                    if (role == null) {
+                        role = Role.emptyRole();
+                    }
+                    PersonSchedule personSchedule = generatePersonSchedule(groupName.toString(), time.plusDays(h * 7),
+                            person, role);
+                    personSchedules.add(personSchedule);
                 }
-                PersonSchedule personSchedule = generatePersonSchedule(groupName.toString(), time, person, role);
-                personSchedules.add(personSchedule);
-            }
 
-            FreeSchedule freeSchedule = generateFreeSchedule(personSchedules);
+                FreeSchedule freeSchedule = generateFreeSchedule(personSchedules);
+                combinedMonthsSchedules.put(h, personSchedules);
+                freeScheduleForMonth.add(freeSchedule);
+            }
             ScheduleWindowDisplay scheduleWindowDisplay =
-                    new ScheduleWindowDisplay(personSchedules, freeSchedule, groupDisplay, type);
+                    new ScheduleWindowDisplay(combinedMonthsSchedules, freeScheduleForMonth, groupDisplay, type);
             updateScheduleWindowDisplay(scheduleWindowDisplay);
 
         } catch (GroupNotFoundException | MappingNotFoundException e) {
