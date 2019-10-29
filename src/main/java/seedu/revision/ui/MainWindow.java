@@ -1,11 +1,6 @@
 package seedu.revision.ui;
 
-import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import java.util.Optional;
 import java.util.logging.Logger;
 
@@ -16,11 +11,9 @@ import javafx.scene.control.ButtonType;
 
 import javafx.stage.Stage;
 
-import seedu.revision.MainApp;
 import seedu.revision.commons.core.GuiSettings;
 import seedu.revision.commons.core.LogsCenter;
 import seedu.revision.logic.MainLogic;
-import seedu.revision.logic.QuizLogic;
 import seedu.revision.logic.commands.exceptions.CommandException;
 import seedu.revision.logic.commands.main.CommandResult;
 import seedu.revision.logic.parser.exceptions.ParseException;
@@ -38,8 +31,8 @@ public class MainWindow extends Window {
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
-    public MainWindow(Stage primaryStage, MainLogic mainLogic, QuizLogic quizLogic) {
-        super(primaryStage, mainLogic, quizLogic);
+    public MainWindow(Stage primaryStage, MainLogic mainLogic) {
+        super(primaryStage, mainLogic);
     }
 
     Model passedModel;
@@ -68,7 +61,7 @@ public class MainWindow extends Window {
     @FXML
     public void handleStart() throws CommandException {
         if (this.mainLogic.getFilteredAnswerableList().size() > 0) {
-            StartQuizWindow startQuizWindow = new StartQuizWindow(getPrimaryStage(), getMainLogic(), getQuizLogic());
+            StartQuizWindow startQuizWindow = new StartQuizWindow(getPrimaryStage(), getMainLogic());
             startQuizWindow.show();
             startQuizWindow.fillInnerParts();
         } else {

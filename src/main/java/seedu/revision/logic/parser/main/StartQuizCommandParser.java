@@ -29,14 +29,12 @@ public class StartQuizCommandParser implements Parser<StartQuizCommand> {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_MODE);
 
-        Mode mode = null;
-
         if (!argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, StartQuizCommand.MESSAGE_USAGE));
         }
 
         if (argMultimap.getValue(PREFIX_MODE).isPresent()) {
-            mode = ParserUtil.parseMode(argMultimap.getValue(PREFIX_MODE).get());
+            Mode mode = ParserUtil.parseMode(argMultimap.getValue(PREFIX_MODE).get());
             switch (mode.mode.toLowerCase()) {
             case "normal":
                 return new StartQuizCommand(new NormalModePredicate());

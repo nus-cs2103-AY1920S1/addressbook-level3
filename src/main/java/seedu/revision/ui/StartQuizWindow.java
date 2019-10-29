@@ -15,13 +15,11 @@ import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
 import seedu.revision.commons.core.LogsCenter;
 import seedu.revision.logic.MainLogic;
-import seedu.revision.logic.QuizLogic;
 import seedu.revision.logic.commands.exceptions.CommandException;
 import seedu.revision.logic.commands.main.CommandResult;
 import seedu.revision.logic.parser.exceptions.ParseException;
 import seedu.revision.model.answerable.Answerable;
 import seedu.revision.model.answerable.Mcq;
-import seedu.revision.model.answerable.Saq;
 import seedu.revision.model.answerable.TrueFalse;
 import seedu.revision.ui.answers.AnswersGridPane;
 import seedu.revision.ui.answers.McqAnswersGridPane;
@@ -51,8 +49,8 @@ public class StartQuizWindow extends Window {
     private ReadOnlyDoubleWrapper currentProgressIndex = new ReadOnlyDoubleWrapper(this, "currentProgressIndex",
             0);
 
-    public StartQuizWindow(Stage primaryStage, MainLogic mainLogic, QuizLogic quizLogic) {
-        super(primaryStage, mainLogic, quizLogic);
+    public StartQuizWindow(Stage primaryStage, MainLogic mainLogic) {
+        super(primaryStage, mainLogic);
     }
     public final double getCurrentProgressIndex() {
         return currentProgressIndex.get();
@@ -65,14 +63,13 @@ public class StartQuizWindow extends Window {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        ObservableList<Answerable> filteredAnswerableList = this.mainLogic.getFilteredAnswerableList();
-
+//        ObservableList<Answerable> filteredAnswerableList = this.mainLogic.getFilteredAnswerableList();
 //        Comparator<Answerable> diffComparator = Comparator.comparing(answerable -> answerable.getDifficulty().value);
-//        ObservableList<Answerable> sortedList = filteredAnswerableList.sorted(diffComparator);
+//        ObservableList<Answerable> quizList = filteredAnswerableList.sorted(diffComparator);
         Comparator<Answerable> difficultyComparator = Comparator.comparing(
                 answerable -> answerable.getDifficulty().value);
-        ObservableList<Answerable> sortedList = this.mainLogic.getFilteredSortedAnswerableList(difficultyComparator);
-        answerableIterator = sortedList.iterator();
+        ObservableList<Answerable> quizList = this.mainLogic.getFilteredSortedAnswerableList(difficultyComparator);
+        answerableIterator = quizList.iterator();
         currentAnswerable = answerableIterator.next();
 
         if (currentAnswerable instanceof Mcq) {
@@ -95,8 +92,8 @@ public class StartQuizWindow extends Window {
         commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
-        progressIndicatorBar = new ProgressIndicatorBar(currentProgressIndex, filteredAnswerableList.size(),
-                "%.0f/" + filteredAnswerableList.size());
+        progressIndicatorBar = new ProgressIndicatorBar(currentProgressIndex, quizList.size(),
+                "%.0f/" + quizList.size());
         scoreProgressBar.getChildren().add(progressIndicatorBar.getRoot());
     }
 
@@ -154,7 +151,7 @@ public class StartQuizWindow extends Window {
      */
     @FXML
     protected void handleExit() {
-        mainWindow = new MainWindow(getPrimaryStage(), mainLogic, quizLogic);
+        mainWindow = new MainWindow(getPrimaryStage(), mainLogic);
         mainWindow.show();
         mainWindow.fillInnerParts();
         mainWindow.resultDisplay.setFeedbackToUser("You attempted these questions."
@@ -168,12 +165,11 @@ public class StartQuizWindow extends Window {
     /**
      * Executes the command and returns the result.
      *
-     * @see QuizLogic#execute(String, Answerable)
+     * @see MainLogic#execute(String, Answerable)
      */
     @Override
     protected CommandResult executeCommand (String commandText) throws CommandException, ParseException {
         try {
-
 //            if (currentAnswerable instanceof Mcq) {
 //                answersGridPane = new McqAnswersGridPane(AnswersGridPane.MCQ_GRID_PANE_FXML, currentAnswerable);
 //            } else if (currentAnswerable instanceof TrueFalse) {
@@ -182,8 +178,7 @@ public class StartQuizWindow extends Window {
 //            } else if (currentAnswerable instanceof Saq) {
 //                answersGridPane = new SaqAnswersGridPane(AnswersGridPane.SAQ_GRID_PANE_FXML, currentAnswerable);
 //            }
-
-            CommandResult commandResult = quizLogic.execute(commandText, currentAnswerable);
+            CommandResult commandResult = mainLogic.execute(commandText, currentAnswerable);
             logger.info("Question result: " + commandResult.getFeedbackToUser());
             if (commandResult.getFeedbackToUser().equalsIgnoreCase("correct")) {
                 // TODO: KhiangLeon use the updateStatistics() method here or in McqInputCommand#execute.
