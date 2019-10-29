@@ -93,7 +93,7 @@ Examples:
 
 === Updating an account : `update`
 
-updates an existing account in the incident Manager or the own account of the user logged in if the index is left empty. +
+Updates an existing account in the incident Manager or the own account of the user logged in if the index is left empty. +
 Format: `update [INDEX] [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
 
 [NOTE]
@@ -131,7 +131,7 @@ Format: `list-p [KEYWORD] [MORE_KEYWORDS]`
 === Locating accounts by name or username: `find-p`
 
 Finds accounts whose name or username contains any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
+Format: `find-p KEYWORD [MORE_KEYWORDS]`
 
 ****
 * The search is case insensitive. e.g `hans` will match `Hans`
@@ -143,9 +143,9 @@ Format: `find KEYWORD [MORE_KEYWORDS]`
 
 Examples:
 
-* `find John` +
+* `find-p John` +
 Returns `john` and `John Doe`
-* `find Betsy Tim John` +
+* `find-p Betsy Tim John` +
 Returns any account having names or usernames `Betsy`, `Tim`, or `John`
 
 === Deleting an account : `delete`
@@ -276,6 +276,51 @@ Using `submit` in both modes right after using `fill` thus enables convenient su
 //Clears all entries from the incident Manager. +
 //Format: `clear`
 
+=== Locating an incident report using incident ID, operator name or description keyword: `find-i`
+Finds incidents containing the relevant specified parameters.
+Possible Parameters: `id`/`op`/`desc`
+
+*Different Parameters*
+
+**By Operator Name** +
+Format: `find-i op/KEYWORD` +
+Lists all incidents whereby the operator name contains the given keyword
+
+* Example Usage:
+* Expected Outcome:
+
+**By Description** +
+Format: `find-i desc/KEYWORD` +
+Lists all incidents whereby the incident description contains the given keyword
+
+* Example Usage:
+* Expected Outcome:
+
+**By ID**
+Format: `find-i id/KEYWORD` +
+Lists all incidents whereby the incident ID is an exact match with the given keyword
+
+* Requires an exact ID match
+* Example of Failed Usage:
+** The ID does not match the given keyword exactly
+* Example of Successful Usage:
+** ID matches the given keyword exactly
+
+****
+* The search is case insensitive. e.g `dave` will match `Dave`
+* Only the specified parameter is searched, and only one parameter can be searched each time
+* Only full words will be matched e.g. `Fir` will not match `Fire`
+****
+
+Examples:
+
+* `find-i id/0920160001` +
+Returns Incident #0920160001
+* `find-i op/Dave` +
+Returns any incidents whereby the operator's name contains 'Dave'
+* `find-i desc/fire` +
+Returns any incidents whereby the description contains 'fire'
+
 === Exiting the program : `exit`
 
 Exits the program. +
@@ -314,7 +359,7 @@ e.g. `update 2 n/James Lee e/jameslee@example.com`
 * *List Accounts* : `list-p [KEYWORD] [MORE_KEYWORDS]` +
 e.g. `list-p Admin`
 * *Find Accounts* : `find-p KEYWORD [MORE_KEYWORDS]` +
-e.g. `find-pJames Jake`
+e.g. `find-p James Jake`
 * *Delete* : `delete INDEX` +
 e.g. `delete 3`
 * *New* `new POSTAL_CODE`
