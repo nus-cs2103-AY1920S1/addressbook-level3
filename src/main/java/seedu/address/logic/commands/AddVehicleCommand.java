@@ -20,10 +20,10 @@ public class AddVehicleCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + " Adds a vehicle to the Incident Managment System.\n"
             + "Parameters: "
-            + PREFIX_DISTRICT + "[DISTRICT] "
-            + PREFIX_VNUM + "[VEHICLE NUMBER] "
-            + PREFIX_VTYPE + "[VEHICLE TYPE] "
-            + PREFIX_AVAIL + "[AVAILABILITY( " + Availability.MESSAGE_CONSTRAINTS + ")] "
+            + "[ " + PREFIX_DISTRICT + "DISTRICT] "
+            + "[ " + PREFIX_VNUM + "[VEHICLE NUMBER] "
+            + "[ " + PREFIX_VTYPE + "[VEHICLE TYPE] "
+            + "[ " + PREFIX_AVAIL + "[AVAILABILITY( " + Availability.MESSAGE_CONSTRAINTS + ")] "
             + "Example: " + COMMAND_WORD
             + PREFIX_DISTRICT + "2"
             + PREFIX_VTYPE + "Ambulance"
