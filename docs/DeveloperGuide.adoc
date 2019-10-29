@@ -218,7 +218,7 @@ All `Activity` models are stored inside `ActivityBook`.
 
 When creating an activity, the title must be specified. It is optional to include participants, as they can be invited separately.
 
-Adding of participant relies on keyword-based search. A set of keyword is passed in for each participant to be invited in. The keywords are used to search the AddressBook for a matching person. The person is added in as a participant only if there is one exact match. Otherwise, a warning message will be displayed and no participant will be added for this set of keywords.
+Adding of participant uses both exact-match and keyword-based search. First, the search term passed in is used to find an contact with an exact matching name. If no exact match is found, the search term is split into keywords via whitespace. Obtained keywords are then used to search the AddressBook for a matching person. The person is added in as a participant only if there is one exact match. Otherwise, a warning message will be displayed and no participant will be added for this set of keywords.
 
 Given below is an example usage scenario and how the create activity mechanism behaves at each step.
 
