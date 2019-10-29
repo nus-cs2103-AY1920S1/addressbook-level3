@@ -41,6 +41,7 @@ public class JsonAdaptedAccount {
     public JsonAdaptedAccount(Account source) {
         name = source.getName().toString();
         description = source.getDescription().toString();
+        // FIXME !!!
         transactionList = source.getTransactionList().toString();
     }
 
@@ -94,6 +95,7 @@ public class JsonAdaptedAccount {
         if (!Description.isValidDescription(transactionList)) {
             throw new IllegalValueException(TransactionList.MESSAGE_CONSTRAINTS);
         }
+        // FIXME Deserialise transactions...
         return new TransactionList();
     }
 }
