@@ -432,8 +432,11 @@ Examples:
 
 
 === Cashier
+This section will contain the details on all commands available to the Cashier tab.
 
 ====
+*Summary of Features of the Cashier Tab*
+
 * Cashier tab allows you to key in, calculate and record the items sold from the inventory.
 * To key in an item, it must first be recorded in the Inventory tab.
 * The columns will show the description of the item being sold, the price per quantity, the total quantity selected
@@ -445,16 +448,19 @@ edits of items.
 * Upon wrong inputs, Leo will also prompt you and guide you along to key in the correct inputs.
 * Upon successful checkout, the Inventory tab will be immediately updated with the remaining stock left in
 the Inventory.
-* After every checkout, the sales made will be recorded as one transaction with description "Items sold",
-category "Sales" and person being the cashier-in-charge. The Home tab will also be updated with this transaction.
+* After every checkout, the sales made will be recorded as one transaction with description being labelled as "Items sold"
+under the category "Sales" and person being the cashier-in-charge. The Home tab will also be updated with this transaction.
 [NOTE]
 Items with zero price are not available for sale. Such items cannot be added into the table.
 ====
 
-* *To add an item being sold:*
+==== Add a Sales Item to the Table
+This command adds a sales item into the table.
+
+* Command format:
 `add [c/CATEGORY] d/DESCRIPTION q/QUANTITY`
 
-The quantity of the item inputted must be not greater than the available stock in the inventory. Else, Leo will display
+The quantity of the item inputted must not be greater than the available stock in the inventory. Else, Leo will display
 a message prompting input of a smaller quantity or another item.
 
 The category field is optional. If you are unsure about the description of the desired item, you can refer to
@@ -464,40 +470,56 @@ specified category that are available for sale.
 Additionally, if the description is mistyped or does not match any of the items in the inventory, Leo will recommend
 some possible item descriptions you might be looking for.
 
+Examples:
+
+** `add c/food` - Displays all items that are under the 'food' category
+** `add c/stationary d/pancake q/3` - Adds 3 items of description "pancake"
+** `add d/pancake q/3` - Adds 3 items of description "pancake"
+
 [NOTE]
-The items according to the category will only display if both description and quantity fields are not specified. If both
-are specified but description is invalid, only suggestions will be shown according to the mistyped description.
+The items according to the category will only be displayed if both description and quantity fields are not specified.
+If both are specified but description is invalid, only suggestions will be shown according to the mistyped description.
 
 [NOTE]
 If both category and description are specified and valid, the system will allow the item to be added according the
 description even if the category of the item does not match with the specified category inputted.
 
+* Steps:
 
-Examples:
+1. Type the command with a category specified as shown in the screenshot below:
 
-** `add c/food` -> Displays all items that are under the 'food' category
-** `add c/stationary d/pancake q/3` -> Adds 3 items of description "pancake"
-** `add d/pancake q/3` -> Adds 3 items of description "pancake"
-
+.Screenshot of user input (category) into command box for add command in Cashier tab
+image::homeUG/HomeAddStep1.png[]
 
 
-* *To delete an item being sold:*
+==== Deletes a Sales Item from the Table
+This command deletes a sales item from the table.
+
+* Command format:
 `delete INDEX`
 
 The specified index should correspond to the row index of the item on the table.
 
 Examples:
+** `delete 2` - Deletes an item in row 2 of the table
 
-** `delete 2` -> Deletes an item in row 2 of the table
+* Steps:
+
+1. Type the command with a category specified as shown in the screenshot below:
 
 
 
-* *To edit the quantity of an item that already exists on the table:*
+
+==== Edits the Quantity of a Sales Item
+This command edits the quantity of a sales item that already exists in the table.
+
+* Command format:
 `edit d/DESCRIPTION q/QUANTITY` OR `edit i/INDEX q/QUANTITY`
 
 There are 2 ways to edit an existing item - by its description or index according to the table.
 
 1. If you edit by index, the index must be a positive and be within the size of the table.
+The specified index should correspond to the row index of the item on the table.
 
 2. If you edit by description, the specified description must already exist in the table.
 
@@ -506,33 +528,47 @@ If the quantity is invalid, Leo will display the quantity of stock left.
 
 Examples:
 
-** `edit i/2 q/6` -> Updates the quantity of item at row 2 to 6
-** `edit d/book q/3` -> Updates the quantity of an existing item of description "book" to 3
+** `edit i/2 q/6` - Updates the quantity of item at row 2 to 6
+** `edit d/book q/3` - Updates the quantity of an existing item of description "book" to 3
+
+* Steps:
+
+1. Type the command with a category specified as shown in the screenshot below:
 
 
 
-* *To set the cashier-in-charge:*
+==== Sets the Cashier-In-Charge
+This command sets the cashier-in-charge of the sales.
+
+* Command format:
 `cashier NAME`
 
 The person to be set as the cashier must be an existing member of the club. This means that his/her details must be
-recorded via the Members tab and his/her name must be found on the Members tab. If you have yet to record the cashier
-as a member, go to Members tab to register him as a member before executing this command.
+found on the Members tab. If you have yet to record the cashier as a member, proceed to Members tab
+to register him/her as a member before executing this command.
 
 [NOTE]
 This step must be executed before checking out. Else, checkout cannot proceed.
 
 Example:
 
-** cashier David Li -> Sets David Li as a cashier
+** cashier David Li - Sets David Li as a cashier
+
+* Steps:
+
+1. Type the command with a category specified as shown in the screenshot below:
 
 
+==== Checkouts All the Sales Items
+This command checkouts all the sales item in the table.
 
-* *To checkout all the sales item:*
+* Command format:
 `checkout AMOUNT_PAID_BY_CUSTOMER`
 
 The amount inputted is the amount that the customer will be paying. This amount must be greater than or equal to the
 total amount listed on the bottom row of the table. If the amount paid is greater than the total amount, Leo will display
-the amount of change that the cashier should return. +
+the amount of change that the cashier should return.
+
 After checking out, all items in the table will be cleared and the cashier and total amount will be reset.
 
 [NOTE]
@@ -542,12 +578,18 @@ Example:
 
 ** checkout 850 -> Customer pays $850 to cashier
 
+* Steps:
+
+1. Type the command with a category specified as shown in the screenshot below:
 
 
-* *To clear all the sales item:*
+==== Clears All the Sales Items in the Table
+This command clears all the sales item in the table.
+
+* Command format:
 `clear`
 
-This clears all the sales item in the table. After clearing, cashier will be reset as well.
+After clearing, cashier will be reset as well.
 
 [CAUTION]
 This command is irreversible. Please use at your own discretion.
@@ -555,6 +597,10 @@ This command is irreversible. Please use at your own discretion.
 Example:
 
 ** clear
+
+* Steps:
+
+1. Type the command with a category specified as shown in the screenshot below:
 
 
 
