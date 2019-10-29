@@ -60,7 +60,7 @@ public class AddRepeaterCommandParser implements Parser<AddRepeaterCommand> {
                     AddRepeaterCommand.MESSAGE_USAGE));
         }
 
-        RepeaterUniqueId uniqueId = new RepeaterUniqueId(""); // Delete assignment to command execution.
+        RepeaterUniqueId uniqueId = new RepeaterUniqueId(""); // Delegate assignment to command execution.
         Description description = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get());
         Amount amount = ParserUtil.parsePositiveAmount(argMultimap.getValue(PREFIX_AMOUNT).get());
         Category category = ParserUtil.parseCategory(argMultimap.getValue(PREFIX_CATEGORY).get());
