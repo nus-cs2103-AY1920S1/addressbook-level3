@@ -22,6 +22,7 @@ public class ReminderAssociation {
     };
     //TODO: One bookmark may has multiple reminder in next version.
     private ObservableMap<Bookmark, Reminder> association = FXCollections.observableHashMap();
+    private ObservableMap<Reminder, Bookmark> reminderMap = FXCollections.observableHashMap();
 
     /**
      * Sets the reminder association with the given association.
@@ -30,8 +31,10 @@ public class ReminderAssociation {
      */
     public void setAssociation(ObservableMap<Bookmark, Reminder> association) {
         this.association.clear();
+        this.reminderMap.clear();
         for (Bookmark bookmark : association.keySet()) {
             this.association.put(bookmark, association.get(bookmark));
+            this.reminderMap.put(association.get(bookmark), bookmark);
         }
     }
 
@@ -57,6 +60,7 @@ public class ReminderAssociation {
         }
 
         association.put(bookmark, reminder);
+        reminderMap.put(reminder, bookmark);
     }
 
     /**
@@ -66,7 +70,7 @@ public class ReminderAssociation {
      */
     public void deleteReminder(Reminder reminder) {
         requireAllNonNull(reminder);
-        Bookmark bookmark = reminder.getBookmark();
+        Bookmark bookmark = reminderMap.get(reminder);
 
         if (!association.containsKey(bookmark)) {
             throw new BookmarkContainNoReminderException();
@@ -75,6 +79,7 @@ public class ReminderAssociation {
         if (!association.remove(bookmark, reminder)) {
             throw new ReminderNotFoundException();
         }
+        reminderMap.remove(reminder);
     }
 
     /**
@@ -83,7 +88,7 @@ public class ReminderAssociation {
      */
     public void setReminder(Reminder targetReminder, Reminder editedReminder) {
         requireAllNonNull(targetReminder, editedReminder);
-        Bookmark bookmark = targetReminder.getBookmark();
+        Bookmark bookmark = reminderMap.get(targetReminder);
 
         if (!association.containsKey(bookmark)) {
             throw new BookmarkContainNoReminderException();
@@ -92,6 +97,8 @@ public class ReminderAssociation {
         if (!association.replace(bookmark, targetReminder, editedReminder)) {
             throw new ReminderNotFoundException();
         }
+        reminderMap.remove(targetReminder);
+        reminderMap.put(editedReminder, bookmark);
     }
 
     /**
