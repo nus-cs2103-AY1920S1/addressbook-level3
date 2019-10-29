@@ -8,15 +8,20 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.stage.Stage?>
 
+<?import java.net.URL?>
 <fx:root resizable="false" title="Help" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1">
   <icons>
     <Image url="@/images/help_icon.png" />
   </icons>
   <scene>
     <Scene>
-         <HBox alignment="CENTER">
+        <stylesheets>
+            <URL value="@DarkTheme.css" />
+            <URL value="@Extensions.css" />
+        </stylesheets>
+         <HBox alignment="CENTER" styleClass="pane-with-border" prefHeight="1000" onKeyPressed="#handleKeyPress">
             <children>
-               <Label fx:id="helpMessage" text="Label">
+               <Label fx:id="helpMessage" text="Label" styleClass="prefix-label">
                   <HBox.margin>
                      <Insets right="5.0" />
                   </HBox.margin>

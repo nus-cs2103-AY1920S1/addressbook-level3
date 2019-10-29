@@ -18,7 +18,7 @@ public class StudentBuilder {
 
     public static final String DEFAULT_NAME = "Alice Pauline";
     public static final String DEFAULT_CREDITS = "18";
-    public static final String DEFAULT_PREVMODS = "alice@gmail.com";
+    public static final String DEFAULT_PREVMODS = "CS1010, CS2105";
     public static final String DEFAULT_MATRICID = "A0179930Y";
 
     private Name name;

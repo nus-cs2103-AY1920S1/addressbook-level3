@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 
 import mams.commons.core.LogsCenter;
 import mams.commons.exceptions.DataConversionException;
+import mams.logic.ReadOnlyCommandHistory;
 import mams.model.ReadOnlyMams;
 import mams.model.ReadOnlyUserPrefs;
 import mams.model.UserPrefs;
@@ -18,13 +19,16 @@ public class StorageManager implements Storage {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
     private MamsStorage mamsStorage;
+    private CommandHistoryStorage commandHistoryStorage;
     private UserPrefsStorage userPrefsStorage;
 
 
-    public StorageManager(MamsStorage mamsStorage, UserPrefsStorage userPrefsStorage) {
+    public StorageManager(MamsStorage mamsStorage, UserPrefsStorage userPrefsStorage,
+                          CommandHistoryStorage commandHistoryStorage) {
         super();
         this.mamsStorage = mamsStorage;
         this.userPrefsStorage = userPrefsStorage;
+        this.commandHistoryStorage = commandHistoryStorage;
     }
 
     // ================ UserPrefs methods ==============================
@@ -74,4 +78,33 @@ public class StorageManager implements Storage {
         mamsStorage.saveMams(mams, filePath);
     }
 
+    // ================ CommandHistory methods ==============================
+
+    @Override
+    public Path getCommandHistoryFilePath() {
+        return commandHistoryStorage.getCommandHistoryFilePath();
+    }
+
+    @Override
+    public Optional<ReadOnlyCommandHistory> readCommandHistory() throws DataConversionException, IOException {
+        return readCommandHistory(commandHistoryStorage.getCommandHistoryFilePath());
+    }
+
+    @Override
+    public Optional<ReadOnlyCommandHistory> readCommandHistory(Path filePath)
+            throws DataConversionException, IOException {
+        logger.fine("Attempting to read command history data from file: " + filePath);
+        return commandHistoryStorage.readCommandHistory(filePath);
+    }
+
+    @Override
+    public void saveCommandHistory(ReadOnlyCommandHistory commandHistory) throws IOException {
+        saveCommandHistory(commandHistory, commandHistoryStorage.getCommandHistoryFilePath());
+    }
+
+    @Override
+    public void saveCommandHistory(ReadOnlyCommandHistory commandHistory, Path filePath) throws IOException {
+        logger.fine("Attempting to write to command history data file: " + filePath);
+        commandHistoryStorage.saveCommandHistory(commandHistory, filePath);
+    }
 }
