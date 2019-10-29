@@ -9,6 +9,7 @@ import static seedu.billboard.testutil.TypicalIndexes.INDEX_FIRST_EXPENSE;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
@@ -22,8 +23,12 @@ import seedu.billboard.logic.commands.FindCommand;
 import seedu.billboard.logic.commands.HelpCommand;
 import seedu.billboard.logic.commands.ListCommand;
 import seedu.billboard.logic.parser.exceptions.ParseException;
+import seedu.billboard.model.expense.Amount;
+import seedu.billboard.model.expense.CreatedDateTime;
+import seedu.billboard.model.expense.Description;
 import seedu.billboard.model.expense.Expense;
 import seedu.billboard.model.expense.MultiArgPredicate;
+import seedu.billboard.model.expense.Name;
 import seedu.billboard.testutil.EditExpenseDescriptorBuilder;
 import seedu.billboard.testutil.ExpenseBuilder;
 import seedu.billboard.testutil.ExpenseUtil;
@@ -35,8 +40,14 @@ public class BillboardParserTest {
     @Test
     public void parseCommand_add() throws Exception {
         Expense expense = new ExpenseBuilder().build();
+        Name name = expense.getName();
+        Description description = expense.getDescription();
+        Amount amount = expense.getAmount();
+        CreatedDateTime dateTime = expense.getCreated();
+        List<String> tagNames = expense.getTags().stream().map(x -> x.tagName).collect(Collectors.toList());
+
         AddCommand command = (AddCommand) parser.parseCommand(ExpenseUtil.getAddCommand(expense));
-        assertEquals(new AddCommand(expense), command);
+        assertEquals(new AddCommand(name, description, amount, dateTime, tagNames), command);
     }
 
     @Test
