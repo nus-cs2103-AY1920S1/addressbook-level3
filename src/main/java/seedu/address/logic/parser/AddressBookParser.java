@@ -10,6 +10,7 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.allocate.AutoAllocateCommand;
 import seedu.address.logic.commands.allocate.DeallocateCommand;
 import seedu.address.logic.commands.allocate.ManualAllocateCommand;
+import seedu.address.logic.commands.finance.Pay;
 import seedu.address.logic.commands.employee.AddCommand;
 import seedu.address.logic.commands.employee.ClearCommand;
 import seedu.address.logic.commands.employee.DeleteCommand;
@@ -25,6 +26,8 @@ import seedu.address.logic.commands.event.EditEventCommand;
 import seedu.address.logic.commands.event.FetchEventCommand;
 import seedu.address.logic.commands.event.FindEventCommand;
 import seedu.address.logic.commands.event.ListEventCommand;
+import seedu.address.logic.commands.finance.Pay;
+import seedu.address.logic.commands.finance.PaySlip;
 import seedu.address.logic.commands.general.ExitCommand;
 import seedu.address.logic.commands.general.HelpCommand;
 import seedu.address.logic.commands.schedule.DisplayScheduleForDateCommand;
@@ -34,6 +37,7 @@ import seedu.address.logic.commands.statistics.StatisticsCommand;
 import seedu.address.logic.parser.allocate.AutoAllocateCommandParser;
 import seedu.address.logic.parser.allocate.DeallocateCommandParser;
 import seedu.address.logic.parser.allocate.ManualAllocateCommandParser;
+import seedu.address.logic.parser.finance.Payparser;
 import seedu.address.logic.parser.employee.AddCommandParser;
 import seedu.address.logic.parser.employee.DeleteCommandParser;
 import seedu.address.logic.parser.employee.EditCommandParser;
@@ -76,6 +80,12 @@ public class AddressBookParser {
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
+
+        case PaySlip.COMMAND_WORD:
+            return new PaySlip();
+
+        case Pay.COMMAND_WORD:
+            return new Payparser().parse(arguments);
 
         case AddCommand.COMMAND_WORD:
             return new AddCommandParser().parse(arguments);

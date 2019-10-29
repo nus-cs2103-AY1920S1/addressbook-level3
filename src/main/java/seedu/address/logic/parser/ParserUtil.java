@@ -70,18 +70,18 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String position} into a {@code EmployeePay}.
+     * Parses a {@code String phone} into a {@code EmployeePhone}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code position} is invalid.
+     * @throws ParseException if the given {@code phone} is invalid.
      */
     public static EmployeePay parsePay(String pay) throws ParseException {
         requireNonNull(pay);
-        String trimmedPosition = pay.trim();
-        if (!EmployeePay.isValidPosition(trimmedPosition)) {
+        String trimmedPay = pay.trim();
+        if (!EmployeePay.isValidPay(trimmedPay)) {
             throw new ParseException(EmployeePay.MESSAGE_CONSTRAINTS);
         }
-        return new EmployeePay(trimmedPosition);
+        return new EmployeePay(trimmedPay);
     }
 
     /**

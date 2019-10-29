@@ -1,4 +1,4 @@
-package seedu.address.logic.commands.employee;
+package seedu.address.logic.commands.finance;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
@@ -33,9 +33,10 @@ import seedu.address.model.tag.Tag;
 /**
  * Edits the details of an existing employee in the employeeAddress book.
  */
-public class EditCommand extends Command {
+public class Pay extends Command {
+    public static Employee e;
 
-    public static final String COMMAND_WORD = "edit_em";
+    public static final String COMMAND_WORD = "pay";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the employee identified "
             + "by the index number used in the displayed employee list. "
@@ -64,7 +65,7 @@ public class EditCommand extends Command {
      * @param index of the employee in the filtered employee list to edit
      * @param editEmployeeDescriptor details to edit the employee with
      */
-    public EditCommand(Index index, EditEmployeeDescriptor editEmployeeDescriptor) {
+    public Pay(Index index, EditEmployeeDescriptor editEmployeeDescriptor) {
         requireNonNull(index);
         requireNonNull(editEmployeeDescriptor);
 
@@ -82,6 +83,7 @@ public class EditCommand extends Command {
         }
 
         Employee employeeToEdit = lastShownList.get(index.getZeroBased());
+        e = employeeToEdit;
         Employee editedEmployee = createEditedEmployee(employeeToEdit, editEmployeeDescriptor);
 
         if (!employeeToEdit.isSameEmployee(editedEmployee) && model.hasEmployee(editedEmployee)) {
@@ -120,7 +122,7 @@ public class EditCommand extends Command {
                 .orElse(employeeToEdit.getEmployeeJoinDate());
 
         return new Employee(updatedEmployeeId, updatedEmployeeName, updatedEmployeeGender, updatedEmployeePay,
-                 updatedEmployeePhone, updatedEmployeeEmail, updatedEmployeeAddress,
+                updatedEmployeePhone, updatedEmployeeEmail, updatedEmployeeAddress,
                 updatedEmployeeJoinDate, updatedTags);
     }
 
@@ -132,12 +134,12 @@ public class EditCommand extends Command {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof EditCommand)) {
+        if (!(other instanceof Pay)) {
             return false;
         }
 
         // state check
-        EditCommand e = (EditCommand) other;
+        Pay e = (Pay) other;
         return index.equals(e.index)
                 && editEmployeeDescriptor.equals(e.editEmployeeDescriptor);
     }
@@ -204,7 +206,7 @@ public class EditCommand extends Command {
         }
 
         public void setEmployeePay(EmployeePay employeePay) {
-            this.employeePay = employeePay;
+            this.employeePay = e.getEmployeePay();
         }
 
         public Optional<EmployeePay> getEmployeePay() {
@@ -291,3 +293,4 @@ public class EditCommand extends Command {
         }
     }
 }
+
