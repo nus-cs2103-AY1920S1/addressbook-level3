@@ -16,18 +16,21 @@ Package " "<<Rectangle>>{
     Class HiddenUI #FFFFFF
     Class HiddenModel #FFFFFF
 
-
 }
-Class "<$user>" as User MODEL_COLOR_T2
-Class "<$documents>" as File UI_COLOR_T1
 
+
+Class "<$user>" as User MODEL_COLOR_T2
+Class "File\n (.json)" as File UI_COLOR_T1
 
 HiddenUI -up[hidden]-> UI
 HiddenModel -left[hidden]-> Model
-Main -up-> HiddenUI
-Main -left-> HiddenModel
+Main -up-> UI
+Main --> Logic
+Main -left-> Model
+Main -left-> Storage
 UI -> Logic
 UI -right-> Model
+UI -down-> Main
 Logic -> Storage
 Logic -down-> Model
 
@@ -36,7 +39,6 @@ Hidden .down.> Commons
 Hidden .down.> Commons
 Hidden .down.> Commons
 
-Storage .right.>File
+Storage .right.> File
 User --> UI
-Main --> Hidden
 @enduml
