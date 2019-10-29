@@ -43,7 +43,8 @@ public class JsonSerializableAccountsManager {
     public AccountsManager toModelType() throws IllegalValueException {
         List<Account> accountList = new ArrayList<Account>();
         for (JsonAdaptedAccount jsonAdaptedAccount : accounts) {
-            accountList.add(jsonAdaptedAccount.toModelType());
+            Account account = jsonAdaptedAccount.toModelType();
+            accountList.add(account);
         }
         return new AccountsManager(accountList);
     }

@@ -10,6 +10,7 @@ import org.junit.jupiter.api.io.TempDir;
 
 import budgetbuddy.commons.core.GuiSettings;
 import budgetbuddy.model.UserPrefs;
+import budgetbuddy.storage.accounts.JsonAccountsStorage;
 import budgetbuddy.storage.loans.JsonLoansStorage;
 import budgetbuddy.storage.rules.JsonRuleStorage;
 import budgetbuddy.storage.scripts.FlatfileScriptsStorage;
@@ -24,10 +25,12 @@ public class StorageManagerTest {
     @BeforeEach
     public void setUp() {
         JsonLoansStorage loansStorage = new JsonLoansStorage(getTempFilePath("loans"));
+        JsonAccountsStorage accountsStorage = new JsonAccountsStorage(getTempFilePath("accounts"));
         JsonRuleStorage ruleStorage = new JsonRuleStorage(getTempFilePath("rules"));
         FlatfileScriptsStorage scriptsStorage = new FlatfileScriptsStorage(getTempFilePath("scripts"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
-        storageManager = new StorageManager(loansStorage, ruleStorage, scriptsStorage, userPrefsStorage);
+        storageManager = new StorageManager(accountsStorage, loansStorage, ruleStorage,
+                scriptsStorage, userPrefsStorage);
     }
 
     private Path getTempFilePath(String fileName) {

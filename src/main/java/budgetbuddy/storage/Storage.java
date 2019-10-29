@@ -5,11 +5,13 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 import budgetbuddy.commons.exceptions.DataConversionException;
+import budgetbuddy.model.AccountsManager;
 import budgetbuddy.model.LoansManager;
 import budgetbuddy.model.Model;
 import budgetbuddy.model.ReadOnlyUserPrefs;
 import budgetbuddy.model.RuleManager;
 import budgetbuddy.model.UserPrefs;
+import budgetbuddy.storage.accounts.AccountsStorage;
 import budgetbuddy.storage.loans.LoansStorage;
 import budgetbuddy.storage.rules.RuleStorage;
 import budgetbuddy.storage.scripts.ScriptsStorage;
@@ -17,7 +19,7 @@ import budgetbuddy.storage.scripts.ScriptsStorage;
 /**
  * API of the Storage component
  */
-public interface Storage extends LoansStorage, RuleStorage, ScriptsStorage, UserPrefsStorage {
+public interface Storage extends AccountsStorage, LoansStorage, RuleStorage, ScriptsStorage, UserPrefsStorage {
 
 
     void save(Model model) throws IOException;
@@ -39,4 +41,11 @@ public interface Storage extends LoansStorage, RuleStorage, ScriptsStorage, User
 
     @Override
     void saveRules(RuleManager ruleManager) throws IOException;
+
+    @Override
+    Path getAccountsFilePath();
+
+    @Override
+    void saveAccounts(AccountsManager accountsManager) throws IOException;
+
 }

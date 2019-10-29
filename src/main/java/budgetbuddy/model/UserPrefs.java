@@ -17,6 +17,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     private Path loansFilePath = Paths.get("data", "loans.json");
     private Path ruleFilePath = Paths.get("data", "rules.json");
     private Path scriptsPath = Paths.get("data", "scripts");
+    private Path accountsFilePath = Paths.get("data", "accounts.json");
 
     /**
      * Creates a {@code UserPrefs} with default values.
@@ -40,6 +41,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         setLoansFilePath(newUserPrefs.getLoansFilePath());
         setRuleFilePath(newUserPrefs.getRuleFilePath());
         setScriptsPath(newUserPrefs.getScriptsPath());
+        setAccountsFilePath(newUserPrefs.getAccountsFilePath());
     }
 
     public GuiSettings getGuiSettings() {
@@ -79,6 +81,15 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         this.scriptsPath = scriptsPath;
     }
 
+    public Path getAccountsFilePath() {
+        return accountsFilePath;
+    }
+
+    public void setAccountsFilePath(Path accountsFilePath) {
+        requireNonNull(accountsFilePath);
+        this.accountsFilePath = accountsFilePath;
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -93,12 +104,13 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         return guiSettings.equals(o.guiSettings)
                 && loansFilePath.equals(o.loansFilePath)
                 && ruleFilePath.equals(o.ruleFilePath)
-                && scriptsPath.equals(o.scriptsPath);
+                && scriptsPath.equals(o.scriptsPath)
+                && accountsFilePath.equals(o.accountsFilePath);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(guiSettings, loansFilePath, ruleFilePath, scriptsPath);
+        return Objects.hash(guiSettings, loansFilePath, ruleFilePath, scriptsPath, accountsFilePath);
     }
 
     @Override
@@ -108,6 +120,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         sb.append("\nLoans data file location : " + loansFilePath);
         sb.append("\nRule data file location : " + ruleFilePath);
         sb.append("\nScripts location : " + scriptsPath);
+        sb.append("\nAccounts data file location : " + accountsFilePath);
         return sb.toString();
     }
 

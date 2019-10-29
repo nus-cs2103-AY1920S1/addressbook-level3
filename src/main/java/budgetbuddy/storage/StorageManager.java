@@ -7,12 +7,14 @@ import java.util.logging.Logger;
 
 import budgetbuddy.commons.core.LogsCenter;
 import budgetbuddy.commons.exceptions.DataConversionException;
+import budgetbuddy.model.AccountsManager;
 import budgetbuddy.model.LoansManager;
 import budgetbuddy.model.Model;
 import budgetbuddy.model.ReadOnlyUserPrefs;
 import budgetbuddy.model.RuleManager;
 import budgetbuddy.model.ScriptLibrary;
 import budgetbuddy.model.UserPrefs;
+import budgetbuddy.storage.accounts.AccountsStorage;
 import budgetbuddy.storage.loans.LoansStorage;
 import budgetbuddy.storage.rules.RuleStorage;
 import budgetbuddy.storage.scripts.ScriptsStorage;
@@ -24,18 +26,20 @@ import budgetbuddy.storage.scripts.exceptions.ScriptsStorageException;
 public class StorageManager implements Storage {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
+    private AccountsStorage accountsStorage;
     private LoansStorage loansStorage;
     private RuleStorage ruleStorage;
     private ScriptsStorage scriptsStorage;
     private UserPrefsStorage userPrefsStorage;
 
 
-    public StorageManager(LoansStorage loansStorage, RuleStorage ruleStorage,
+    public StorageManager(AccountsStorage accountsStorage, LoansStorage loansStorage, RuleStorage ruleStorage,
                           ScriptsStorage scriptsStorage, UserPrefsStorage userPrefsStorage) {
         super();
         this.loansStorage = loansStorage;
         this.ruleStorage = ruleStorage;
         this.scriptsStorage = scriptsStorage;
+        this.accountsStorage = accountsStorage;
         this.userPrefsStorage = userPrefsStorage;
     }
 
@@ -134,5 +138,34 @@ public class StorageManager implements Storage {
     @Override
     public void saveScripts(ScriptLibrary scripts, Path scriptsPath) throws IOException {
         scriptsStorage.saveScripts(scripts, scriptsPath);
+    }
+
+    // ================ Account Storage methods ==============================
+
+    @Override
+    public Path getAccountsFilePath() {
+        return accountsStorage.getAccountsFilePath();
+    }
+
+    @Override
+    public Optional<AccountsManager> readAccounts() throws DataConversionException, IOException {
+        return readAccounts(getAccountsFilePath());
+    }
+
+    @Override
+    public Optional<AccountsManager> readAccounts(Path filePath) throws DataConversionException, IOException {
+        logger.fine("Attempting to read data from file: " + filePath);
+        return accountsStorage.readAccounts(filePath);
+    }
+
+    @Override
+    public void saveAccounts(AccountsManager accountsManager) throws IOException {
+        saveAccounts(accountsManager, accountsStorage.getAccountsFilePath());
+    }
+
+    @Override
+    public void saveAccounts(AccountsManager accountsManager, Path filePath) throws IOException {
+        logger.fine("Attempting to write to data file: " + filePath);
+        accountsStorage.saveAccounts(accountsManager, filePath);
     }
 }

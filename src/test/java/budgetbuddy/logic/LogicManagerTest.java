@@ -21,9 +21,11 @@ import budgetbuddy.model.ScriptLibraryManager;
 import budgetbuddy.model.UserPrefs;
 import budgetbuddy.storage.JsonUserPrefsStorage;
 import budgetbuddy.storage.StorageManager;
+import budgetbuddy.storage.accounts.JsonAccountsStorage;
 import budgetbuddy.storage.loans.JsonLoansStorage;
 import budgetbuddy.storage.rules.JsonRuleStorage;
 import budgetbuddy.storage.scripts.FlatfileScriptsStorage;
+
 
 public class LogicManagerTest {
     // TODO
@@ -39,12 +41,15 @@ public class LogicManagerTest {
     public void setUp() {
         JsonLoansStorage loansStorage =
                 new JsonLoansStorage(temporaryFolder.resolve("loans.json"));
+        JsonAccountsStorage accountsStorage =
+                new JsonAccountsStorage(temporaryFolder.resolve("accounts.json"));
         JsonRuleStorage ruleStorage =
                 new JsonRuleStorage(temporaryFolder.resolve("rules.json"));
         FlatfileScriptsStorage scriptsStorage =
                 new FlatfileScriptsStorage(temporaryFolder.resolve("scripts"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
-        StorageManager storage = new StorageManager(loansStorage, ruleStorage, scriptsStorage, userPrefsStorage);
+        StorageManager storage = new StorageManager(accountsStorage,
+                loansStorage, ruleStorage, scriptsStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
     }
 
@@ -75,9 +80,12 @@ public class LogicManagerTest {
                 new JsonAddressBookIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionAddressBook.json"));
         JsonLoansStorage loansStorage =
                 new JsonLoansStorage(temporaryFolder.resolve("ioExceptionLoans.json"));
+        JsonAccountsStorage accountsStorage =
+                new JsonAccountsStorage(temporaryFolder.resolve("ioExceptionAccounts.json"));
         JsonUserPrefsStorage userPrefsStorage =
                 new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
-        StorageManager storage = new StorageManager(addressBookStorage, loansStorage, userPrefsStorage);
+        StorageManager storage = new StorageManager(addressBookStorage, loansStorage,
+                accountsStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
 
         // Execute add command

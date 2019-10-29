@@ -27,6 +27,8 @@ import budgetbuddy.storage.JsonUserPrefsStorage;
 import budgetbuddy.storage.Storage;
 import budgetbuddy.storage.StorageManager;
 import budgetbuddy.storage.UserPrefsStorage;
+import budgetbuddy.storage.accounts.AccountsStorage;
+import budgetbuddy.storage.accounts.JsonAccountsStorage;
 import budgetbuddy.storage.loans.JsonLoansStorage;
 import budgetbuddy.storage.loans.LoansStorage;
 import budgetbuddy.storage.rules.JsonRuleStorage;
@@ -64,11 +66,12 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
+        AccountsStorage accountsStorage = new JsonAccountsStorage(userPrefs.getAccountsFilePath());
         LoansStorage loansStorage = new JsonLoansStorage(userPrefs.getLoansFilePath());
         RuleStorage ruleStorage = new JsonRuleStorage(userPrefs.getRuleFilePath());
         ScriptsStorage scriptsStorage = new FlatfileScriptsStorage(userPrefs.getScriptsPath());
 
-        storage = new StorageManager(loansStorage, ruleStorage, scriptsStorage, userPrefsStorage);
+        storage = new StorageManager(accountsStorage, loansStorage, ruleStorage, scriptsStorage, userPrefsStorage);
 
         initLogging(config);
 
@@ -83,7 +86,7 @@ public class MainApp extends Application {
      * Returns a {@code ModelManager} with the data from {@code storage} and {@code userPrefs}.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-        AccountsManager accountsManager = new AccountsManager();
+        AccountsManager accountsManager = initAccountsManager(storage);
         LoansManager loansManager = initLoansManager(storage);
         RuleManager ruleManager = initRuleManager(storage);
         ScriptLibrary scriptLibrary = initScriptLibrary(storage);
@@ -149,6 +152,28 @@ public class MainApp extends Application {
         } catch (IOException | ScriptsStorageException e) {
             logger.warning("Problem while reading scripts. Starting with empty script library.");
             return new ScriptLibraryManager();
+        }
+    }
+
+    /**
+     * Loads and returns an Accounts Manager from storage.
+     * Returns an empty Accounts Manager if no file found or if exception occurs during loading.
+     */
+    private AccountsManager initAccountsManager(Storage storage) {
+        Optional<AccountsManager> accountsManagerOptional;
+
+        try {
+            accountsManagerOptional = storage.readAccounts();
+            if (accountsManagerOptional.isEmpty()) {
+                logger.info("Accounts file not found. Will be starting with an empty AccountsManager.");
+            }
+            return accountsManagerOptional.orElseGet(AccountsManager::new);
+        } catch (DataConversionException e) {
+            logger.warning("Accounts file not in the correct format. Will be starting with an empty AccountsManager.");
+            return new AccountsManager();
+        } catch (IOException e) {
+            logger.warning("Problem while reading from accounts file. Will be starting with an empty AccountsManager.");
+            return new AccountsManager();
         }
     }
 
