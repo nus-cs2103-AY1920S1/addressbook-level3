@@ -570,7 +570,8 @@ Lists the notes.
 
 ==== Generating a Statistics report
 
-Create statistics reports of student scores using excel data files. +
+Create statistics reports of student scores using excel data files. The statistics generated is based
+on the calculated, weighted score of the input data. +
 Format: `statistics file/... print/...(optional)`
 
 The options supported by this feature includes:
@@ -605,7 +606,8 @@ Shows the statistics report for excel file named _’6B Prelim Scores’_. It al
 
 The data file needs to be specified in the following format to ensure that the statistics report is successfully generated. +
 
-WARNING: Failure to adhere to the following specifications might result in either the excel file being rejected or erroneous statistics.
+[WARNING]
+Failure to adhere to the following specifications might result in either the excel file being rejected or erroneous statistics.
 
 * *Data starts at cell A1.*
 * *First row begins with the cell `Students`, followed by their names. (e.g. row 1 of 4 cells having `Students`, `Jason`, `Mike` and `Peter`)*
@@ -614,9 +616,17 @@ WARNING: Failure to adhere to the following specifications might result in eithe
 * *All students have a corresponding score for all subjects*
 * *All scores are numeric characters (integer or decimals)*
 
-WARNING: Failure to adhere to the following specifications might result in some of the statistical data generated not being useful to the user.
+[WARNING]
+Failure to adhere to the following specifications might result in some of the statistical data generated not being useful to the user.
 
 * *All scores should be in percentage terms. (0 ~ 100)*
+
+The statistics report generated uses weighted average scores across the different subjects to perform analysis. All scores carry equal weight. The statistics generated
+allow you to see some of the common descriptive statistics and their relative distributions both in terms of frequency and percentile terms.
+
+The figure below illustrates a sample data set fulfills all of the above specifications.
+
+image::SampleExcel.png[width="790"]
 
 === Help ​-​ `help`
 
