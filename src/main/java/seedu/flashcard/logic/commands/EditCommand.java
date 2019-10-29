@@ -51,6 +51,8 @@ public class EditCommand extends Command {
     public static final String MESSAGE_EDIT_FLASHCARD_SUCCESS = "Edited Flashcard: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_FLASHCARD = "This flashcard already exists in the flashcard list.";
+    public static final String MESSAGE_INVALID_EDIT_CHOICE_ANSWER = "For MCQ flashcard,"
+        + " the answer must match one of its choices.";
 
     private final Index index;
     private final EditFlashcardDescriptor editFlashcardDescriptor;
@@ -82,6 +84,9 @@ public class EditCommand extends Command {
         }
         if (!flashcardToEdit.isSameFlashcard(editedFlashcard) && model.hasFlashcard(editedFlashcard)) {
             throw new CommandException(MESSAGE_DUPLICATE_FLASHCARD);
+        }
+        if (!editedFlashcard.isValidFlashcard()) {
+            throw new CommandException(MESSAGE_INVALID_EDIT_CHOICE_ANSWER);
         }
         model.setFlashcard(flashcardToEdit, editedFlashcard);
         model.updateFilteredFlashcardList(PREDICATE_SHOW_ALL_FLASHCARDS);
@@ -156,7 +161,6 @@ public class EditCommand extends Command {
             setTags(toCopy.tags);
             setAnswer(toCopy.answer);
         }
-
 
         /**
          * Returns true if at least one field is edited.
