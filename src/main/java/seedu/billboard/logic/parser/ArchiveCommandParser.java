@@ -20,6 +20,9 @@ import seedu.billboard.logic.parser.exceptions.ParseException;
  */
 public class ArchiveCommandParser implements Parser<ArchiveCommand> {
 
+    public static final String MESSAGE_ARCHIVE_COMMANDS = "Invalid archive command format! \nSupported commands:\n"
+            + "add \ndelete \nrevert \nlist\nlistall \nFor more information:\n" + HelpCommand.MESSAGE_USAGE;
+
     /**
      * Used for initial separation of command word and args.
      */
@@ -36,7 +39,7 @@ public class ArchiveCommandParser implements Parser<ArchiveCommand> {
     public ArchiveCommand parse(String userInput) throws ParseException {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
+            throw new ParseException(MESSAGE_ARCHIVE_COMMANDS);
         }
 
         final String commandWord = matcher.group("commandWord");
@@ -59,7 +62,7 @@ public class ArchiveCommandParser implements Parser<ArchiveCommand> {
             return new DeleteArchiveCommandParser().parse(arguments);
 
         default:
-            throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+            throw new ParseException(MESSAGE_ARCHIVE_COMMANDS);
         }
     }
 }
