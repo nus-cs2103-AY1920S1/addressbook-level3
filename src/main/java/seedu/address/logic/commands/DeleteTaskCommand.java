@@ -45,7 +45,7 @@ public class DeleteTaskCommand extends Command {
             }
 
             // Indexes empty but tags is not empty:
-            // Delete all events with matching tags.
+            // Delete all tasks with matching tags.
             for (TaskSource task : list) {
                 Set<String> tags = task.getTags();
                 if (tags == null || tags.containsAll(this.tags)) {
@@ -54,11 +54,11 @@ public class DeleteTaskCommand extends Command {
             }
         } else {
             // Indexes not empty:
-            // Delete given events with matching tags
+            // Delete given tasks with matching tags
             for (Integer index : indexes) {
                 try {
                     TaskSource task = list.get(index);
-                    // Delete EventSource only if it matches all tags.
+                    // Delete TaskSource only if it matches all tags.
                     Set<String> tags = task.getTags();
                     if (tags == null || tags.containsAll(this.tags)) {
                         toDelete.add(list.get(index));
