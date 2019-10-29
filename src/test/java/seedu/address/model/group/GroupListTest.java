@@ -1,11 +1,10 @@
 package seedu.address.model.group;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static seedu.address.testutil.grouputil.TypicalGroups.GROUP1;
 import static seedu.address.testutil.grouputil.TypicalGroups.GROUP2;
 import static seedu.address.testutil.grouputil.TypicalGroups.GROUPNAME1;
@@ -13,6 +12,9 @@ import static seedu.address.testutil.grouputil.TypicalGroups.GROUPNAME1;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import seedu.address.model.group.exceptions.DuplicateGroupException;
+import seedu.address.model.group.exceptions.GroupNotFoundException;
+import seedu.address.model.group.exceptions.NoGroupFieldsEditedException;
 import seedu.address.testutil.grouputil.TypicalGroups;
 
 class GroupListTest {
@@ -25,7 +27,7 @@ class GroupListTest {
     }
 
     @Test
-    void addGroup() {
+    void addGroup() throws DuplicateGroupException {
         Group group1 = groupList.addGroup(GROUP1);
 
         assertEquals(group1.getGroupName().toString(), GROUP1.getGroupName().toString());
@@ -36,17 +38,17 @@ class GroupListTest {
     }
 
     @Test
-    void deleteGroup() {
+    void deleteGroup() throws GroupNotFoundException, DuplicateGroupException {
         groupList = TypicalGroups.generateTypicalGroupList();
         Group group = groupList.findGroup(GROUPNAME1);
         assertNotNull(group);
 
-        assertTrue(groupList.deleteGroup(group.getGroupId()));
-        assertFalse(groupList.deleteGroup(group.getGroupId()));
+        assertDoesNotThrow(() -> groupList.deleteGroup(group.getGroupId()));
+        assertThrows(GroupNotFoundException.class, () -> groupList.deleteGroup(group.getGroupId()));
     }
 
     @Test
-    void editGroup() {
+    void editGroup() throws DuplicateGroupException, GroupNotFoundException, NoGroupFieldsEditedException {
         Group group1 = groupList.addGroup(GROUP1);
         Group group2 = groupList.editGroup(group1.getGroupName(), GROUP2);
 
@@ -55,14 +57,14 @@ class GroupListTest {
     }
 
     @Test
-    void findGroup() {
-        assertNull(groupList.findGroup(GROUP1.getGroupName()));
+    void findGroup() throws GroupNotFoundException, DuplicateGroupException {
+        assertThrows(GroupNotFoundException.class, () -> groupList.findGroup(GROUP1.getGroupName()));
         groupList.addGroup(GROUP1);
-        assertNotNull(groupList.findGroup(GROUP1.getGroupName()));
+        assertDoesNotThrow(() -> groupList.findGroup(GROUP1.getGroupName()));
     }
 
     @Test
-    void testFindGroup() {
+    void testFindGroup() throws DuplicateGroupException, GroupNotFoundException {
         Group group = groupList.addGroup(GROUP1);
         assertNotNull(groupList.findGroup(group.getGroupId()));
     }

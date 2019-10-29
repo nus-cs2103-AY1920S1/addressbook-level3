@@ -13,6 +13,7 @@ import seedu.address.model.TimeBook;
 import seedu.address.model.group.Group;
 import seedu.address.model.mapping.PersonToGroupMapping;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.User;
 
 /**
  * A TimeBook serialized to JSON format.
@@ -20,15 +21,18 @@ import seedu.address.model.person.Person;
 @JsonRootName(value = "timebook")
 class JsonSerializableTimeBook {
 
+    private final JsonAdaptedUser user;
     private final List<JsonAdaptedPerson> personList = new ArrayList<>();
     private final List<JsonAdaptedGroup> groupList = new ArrayList<>();
     private final List<JsonAdaptedMapping> mappingList = new ArrayList<>();
 
     @JsonCreator
-    public JsonSerializableTimeBook(@JsonProperty("personList") List<JsonAdaptedPerson> personList,
+    public JsonSerializableTimeBook(@JsonProperty("user") JsonAdaptedUser user,
+                                    @JsonProperty("personList") List<JsonAdaptedPerson> personList,
                                     @JsonProperty("groupList") List<JsonAdaptedGroup> groupList,
                                     @JsonProperty("mappingList") List<JsonAdaptedMapping> mappingList) {
 
+        this.user = user;
         this.personList.addAll(personList);
         this.groupList.addAll(groupList);
         this.mappingList.addAll(mappingList);
@@ -40,6 +44,8 @@ class JsonSerializableTimeBook {
      * @param source future changes to this will not affect the created {@code JsonSerializableTimeBook}.
      */
     public JsonSerializableTimeBook(TimeBook source) {
+
+        user = new JsonAdaptedUser(source.getPersonList().getUser());
 
         personList.addAll(source.getUnmodifiablePersonList().stream()
                 .map(JsonAdaptedPerson::new).collect(Collectors.toList()));
@@ -58,7 +64,11 @@ class JsonSerializableTimeBook {
      * @throws IllegalValueException if there were any data constraints violated.
      */
     public TimeBook toModelType() throws IllegalValueException {
-        TimeBook timeBook = new TimeBook();
+
+        User modelUser = this.user.toModelType();
+
+        TimeBook timeBook = new TimeBook(modelUser);
+
         for (JsonAdaptedPerson jsonAdaptedPerson : personList) {
             Person person = jsonAdaptedPerson.toModelType();
             timeBook.addPerson(person);

@@ -27,13 +27,13 @@ public class GroupInformation extends UiPart<Region> {
 
     public GroupInformation(DetailWindowDisplay detailWindowDisplay, ArrayList<String> colors) {
         super(FXML);
-        ArrayList<String> names = detailWindowDisplay.getWeekSchedules().stream()
+        ArrayList<String> names = detailWindowDisplay.getPersonSchedules().stream()
                 .map(wkSch -> wkSch.getPersonDisplay().getName().toString())
                 .collect(Collectors.toCollection(ArrayList::new));
-        ArrayList<String> emails = detailWindowDisplay.getWeekSchedules().stream()
+        ArrayList<String> emails = detailWindowDisplay.getPersonSchedules().stream()
                 .map(wkSch -> wkSch.getPersonDisplay().getEmail().toString())
                 .collect(Collectors.toCollection(ArrayList::new));
-        ArrayList<String> roles = detailWindowDisplay.getWeekSchedules().stream()
+        ArrayList<String> roles = detailWindowDisplay.getPersonSchedules().stream()
                 .map(wkSch -> wkSch.getRole().toString())
                 .collect(Collectors.toCollection(ArrayList::new));
 

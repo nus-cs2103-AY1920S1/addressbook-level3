@@ -19,9 +19,14 @@ import seedu.address.model.group.GroupDescriptor;
 import seedu.address.model.group.GroupId;
 import seedu.address.model.group.GroupList;
 import seedu.address.model.group.GroupName;
+import seedu.address.model.group.exceptions.DuplicateGroupException;
+import seedu.address.model.group.exceptions.GroupNotFoundException;
+import seedu.address.model.group.exceptions.NoGroupFieldsEditedException;
 import seedu.address.model.mapping.PersonToGroupMapping;
 import seedu.address.model.mapping.PersonToGroupMappingList;
 import seedu.address.model.mapping.Role;
+import seedu.address.model.mapping.exceptions.DuplicateMappingException;
+import seedu.address.model.mapping.exceptions.MappingNotFoundException;
 import seedu.address.model.module.AcadYear;
 import seedu.address.model.module.Holidays;
 import seedu.address.model.module.Module;
@@ -33,6 +38,11 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.PersonDescriptor;
 import seedu.address.model.person.PersonId;
 import seedu.address.model.person.PersonList;
+import seedu.address.model.person.User;
+import seedu.address.model.person.exceptions.DuplicatePersonException;
+import seedu.address.model.person.exceptions.EventClashException;
+import seedu.address.model.person.exceptions.NoPersonFieldsEditedException;
+import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.model.person.schedule.Event;
 
 /**
@@ -96,31 +106,12 @@ public interface Model {
      */
     public SemesterNo getSemesterNo();
 
-    //=========== AddressBook ================================================================================
-
-    /**
-     * Returns the AddressBook
-     */
-    ReadOnlyAddressBook getAddressBook();
-
-    /**
-     * Replaces address book data with the data in {@code addressBook}.
-     */
-    void setAddressBook(ReadOnlyAddressBook addressBook);
-
     //=========== Filtered Person List Accessors =============================================================
 
     /**
      * Returns an unmodifiable view of the filtered person list
      */
     ObservableList<Person> getObservablePersonList();
-
-    /**
-     * Updates the filter of the filtered person list to filter by the given {@code predicate}.
-     *
-     * @throws NullPointerException if {@code predicate} is null.
-     */
-    void updateFilteredPersonList(Predicate<Person> predicate);
 
     //=========== Person Accessors =============================================================
 
@@ -132,12 +123,12 @@ public interface Model {
     /**
      * Adds a person with personDescriptor to the list of Persons.
      */
-    Person addPerson(PersonDescriptor personDescriptor);
+    Person addPerson(PersonDescriptor personDescriptor) throws DuplicatePersonException;
 
     /**
      * Finds a person with a given Name.
      */
-    Person findPerson(Name name);
+    Person findPerson(Name name) throws PersonNotFoundException;
 
     /**
      * Finds a person with a given PersonId.
@@ -147,17 +138,34 @@ public interface Model {
     /**
      * Adds an Event to the schedule of a Person with the given Name.
      */
-    boolean addEvent(Name name, Event event);
+    void addEvent(Name name, Event event) throws PersonNotFoundException, EventClashException;
+
+    /**
+     * Adds an Event to the schedule of the User.
+     */
+    void addEvent(Event event) throws PersonNotFoundException, EventClashException;
+
 
     /**
      * Edits the person with given Name with given PersonDescriptor.
      */
-    Person editPerson(Name name, PersonDescriptor personDescriptor);
+    Person editPerson(Name name, PersonDescriptor personDescriptor)
+            throws PersonNotFoundException, NoPersonFieldsEditedException, DuplicatePersonException;
+
+    /**
+     * Edits the user with the given PersonDescriptor.
+     */
+    public User editUser(PersonDescriptor personDescriptor) throws NoPersonFieldsEditedException;
 
     /**
      * Deletes a person with given PersonId.
      */
-    boolean deletePerson(PersonId personId);
+    void deletePerson(PersonId personId) throws PersonNotFoundException;
+
+    /**
+     * Deletes a person with given Name.
+     */
+    void deletePerson(Name name) throws PersonNotFoundException;
 
     /**
      * Returns the list of GroupIds which person with PersonId is in.
@@ -167,7 +175,7 @@ public interface Model {
     /**
      * Checks if current event of Person clashes with other events in the schedule.
      */
-    boolean isEventClash(Name name, Event event);
+    boolean isEventClash(Name name, Event event) throws PersonNotFoundException;
 
     //=========== Group Accessors =============================================================
 
@@ -184,27 +192,33 @@ public interface Model {
     /**
      * Adds a Group with groupDescriptor into the list of Groups.
      */
-    Group addGroup(GroupDescriptor groupDescriptor);
+    Group addGroup(GroupDescriptor groupDescriptor) throws DuplicateGroupException;
 
     /**
      * Edits the person with given Name with given PersonDescriptor.
      */
-    Group editGroup(GroupName groupName, GroupDescriptor groupDescriptor);
+    Group editGroup(GroupName groupName, GroupDescriptor groupDescriptor)
+            throws GroupNotFoundException, NoGroupFieldsEditedException, DuplicateGroupException;
 
     /**
      * Finds a Group with given GroupName.
      */
-    Group findGroup(GroupName groupName);
+    Group findGroup(GroupName groupName) throws GroupNotFoundException;
 
     /**
      * Finds a Group with given GroupId.
      */
-    Group findGroup(GroupId groupId);
+    Group findGroup(GroupId groupId) throws GroupNotFoundException;
 
     /**
      * Deletes a Group with given GroupId.
      */
-    boolean deleteGroup(GroupId groupId);
+    void deleteGroup(GroupId groupId) throws GroupNotFoundException;
+
+    /**
+     * Deletes a Group with given GroupName.
+     */
+    void deleteGroup(GroupName groupName) throws GroupNotFoundException;
 
     /**
      * Returns a list of PersonId that is in a Group with given GroupId.
@@ -221,17 +235,17 @@ public interface Model {
     /**
      * Adds a person to group mapping to the list of mappings.
      */
-    boolean addPersonToGroupMapping(PersonToGroupMapping mapping);
+    void addPersonToGroupMapping(PersonToGroupMapping mapping) throws DuplicateMappingException;
 
     /**
      * Returns a mapping with given PersonId and GroupId.
      */
-    PersonToGroupMapping findPersonToGroupMapping(PersonId personId, GroupId groupId);
+    PersonToGroupMapping findPersonToGroupMapping(PersonId personId, GroupId groupId) throws MappingNotFoundException;
 
     /**
      * Deletes a mapping with given PersonId and GroupId.
      */
-    boolean deletePersonToGroupMapping(PersonToGroupMapping mapping);
+    void deletePersonToGroupMapping(PersonToGroupMapping mapping) throws MappingNotFoundException;
 
     /**
      * Deletes all mappings with PersonId.
@@ -246,7 +260,7 @@ public interface Model {
     /**
      * Finds the role of the specified mapping.
      */
-    Role findRole(PersonId personId, GroupId groupId);
+    Role findRole(PersonId personId, GroupId groupId) throws MappingNotFoundException;
 
     //=========== UI Model =============================================================
 
@@ -269,6 +283,11 @@ public interface Model {
      * Updates the current main window display with a Person's schedule.
      */
     void updateDetailWindowDisplay(Name name, LocalDateTime time, DetailWindowDisplayType type);
+
+    /**
+     * Updates the current main window display with the User's schedule.
+     */
+    void updateDetailWindowDisplay(LocalDateTime time, DetailWindowDisplayType type);
 
     /**
      * Updates the current main window display with a Group's schedule.
@@ -309,9 +328,9 @@ public interface Model {
     /**
      * Returns a module for the given ModuleId (academic year and module code).
      * Tries to find the module from the 3 sources in order:
-     *      1. Model.NusModsData.ModuleList (in-memory)
-     *      2. Cache Folder
-     *      3. NusModsApi
+     * 1. Model.NusModsData.ModuleList (in-memory)
+     * 2. Cache Folder
+     * 3. NusModsApi
      */
     Module findModule(ModuleId id);
 
@@ -327,14 +346,11 @@ public interface Model {
 
     /**
      * Returns the common closest location.
-     * @param locationNameList ArrayList of venues object
-     * @return
      */
     ClosestCommonLocationData getClosestLocationData(ArrayList<String> locationNameList);
+
     /**
      * Returns the common closest location.
-     * @param locationNameList ArrayList of string object
-     * @return
      */
     String getClosestLocationDataString(ArrayList<String> locationNameList);
 

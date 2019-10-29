@@ -158,13 +158,13 @@ This section describes some noteworthy details on how certain features are imple
 
 The finding free timeslot feature is implemented by `ScheduleGenerator`. It generates the current `WeekSchedule` of a group and the common free timeslot among its members and updates the `ScheduleView` to be displayed to the user. Additionally, it implements the following operations:
 
-* `ScheduleGenerator#getFreeTimeslot()` -- Generates a `weekSchedule` of a group and updates the `ScheduleView`.
+* `ScheduleGenerator#getFreeTimeslot()` -- Generates a `personSchedule` of a group and updates the `ScheduleView`.
 
 These operations are exposed in the `Model` interface as `Model#getFreeTimeslot()`
 
 Firstly, the `getFreeTimeslot()` method takes in as input an ArrayList of `Person` and updates the ScheduleView of the TimeBook. When the method is executed, it checks the schedule of each `Person` in the TimeBook and generates a new combined `WeekSchedule` of the whole list of `Person`. Also, only `TimeSlots` that are within the week are checked and put into the 'WeekSchedule'. The generated `WeekSchedule` will then contain the individual schedules of each `Person` in the list for the week.
 
-After the `WeekSchedule` has been generated, the method now generates a new schedule of the free timeslots within the `WeekSchedule`. It checks the `WeekSchedule` and generates a new `FreeTimeSchedule` with contains all the timeslots in which there are no clashes with the `weekSchedule`. It also only generates `FreeTimeslots` for the week.
+After the `WeekSchedule` has been generated, the method now generates a new schedule of the free timeslots within the `WeekSchedule`. It checks the `WeekSchedule` and generates a new `FreeTimeSchedule` with contains all the timeslots in which there are no clashes with the `personSchedule`. It also only generates `FreeTimeslots` for the week.
 
 Additionally, the generated `FreeTimeSchedule` also contains the information of the last venue the `Person` has been. This information is then used to calculate the closest location for all `Person` to meet.
 
@@ -375,8 +375,8 @@ Certain properties of the application can be controlled (e.g user prefs file loc
 === Visual Representation of individual's or group's schedule
 A separate class `ScheduleView` will be created to facilitate the creation of the schedule view belonging to individuals and groups.
 Depending on the constructor used in this class, different types of schedules will be shown. There are two types of constructors:
-* `ScheduleView(WeekSchedule weekSchedule)` This constructor is used to construct a schedule view of an individual.
-* `ScheduleView(List<WeekSchedule> weekSchedules, List<String> colors, WeekSchedule freeSchedule)` This constructor is used to construct a schedule view of a group
+* `ScheduleView(WeekSchedule personSchedule)` This constructor is used to construct a schedule view of an individual.
+* `ScheduleView(List<WeekSchedule> personSchedules, List<String> colors, WeekSchedule freeSchedule)` This constructor is used to construct a schedule view of a group
 
 These methods are used in the MainWindow class, where MainWindow will display instances of ScheduleView when various commands
 are performed.

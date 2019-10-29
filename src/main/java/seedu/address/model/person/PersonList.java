@@ -4,15 +4,28 @@ import java.util.ArrayList;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.model.person.exceptions.DuplicatePersonException;
+import seedu.address.model.person.exceptions.EventClashException;
+import seedu.address.model.person.exceptions.NoPersonFieldsEditedException;
+import seedu.address.model.person.exceptions.PersonNotFoundException;
+import seedu.address.model.person.schedule.Event;
 
 /**
  * List of Persons.
  */
 public class PersonList {
+
+    private User user;
     private ArrayList<Person> persons;
 
     public PersonList() {
-        this.persons = new ArrayList<Person>();
+        this.user = new User(PersonDescriptor.getDefaultUser());
+        this.persons = new ArrayList<>();
+    }
+
+    public PersonList(User user) {
+        this.user = user;
+        this.persons = new ArrayList<>();
     }
 
     /**
@@ -21,13 +34,15 @@ public class PersonList {
      * @param personDescriptor to be added
      * @return return true when successfully added
      */
-    public Person addPerson(PersonDescriptor personDescriptor) {
-        if (findPerson(personDescriptor.getName()) == null) {
+    public Person addPerson(PersonDescriptor personDescriptor) throws DuplicatePersonException {
+        try {
+            findPerson(personDescriptor.getName());
+        } catch (PersonNotFoundException e) {
             Person person = new Person(personDescriptor);
             this.persons.add(person);
             return person;
         }
-        return null;
+        throw new DuplicatePersonException(personDescriptor.getName());
     }
 
     public void addPerson(Person person) {
@@ -38,17 +53,51 @@ public class PersonList {
      * Delete a person with personId.
      *
      * @param personId of the person to delete
-     * @return true when successfully deleted
      */
-    public boolean deletePerson(PersonId personId) {
+    public void deletePerson(PersonId personId) throws PersonNotFoundException {
         int i;
         for (i = 0; i < persons.size(); i++) {
             if (persons.get(i).getPersonId().equals(personId)) {
                 persons.remove(i);
-                return true;
+                return;
             }
         }
-        return false;
+        throw new PersonNotFoundException();
+    }
+
+    /**
+     * Edits the user based on the personDescriptor.
+     *
+     * @param personDescriptor of user to be edited
+     * @return user
+     * @throws NoPersonFieldsEditedException
+     */
+    public User editUser(PersonDescriptor personDescriptor) throws NoPersonFieldsEditedException {
+
+        if (!personDescriptor.isAnyFieldEdited()) {
+            throw new NoPersonFieldsEditedException();
+        }
+
+        if (!personDescriptor.getName().equals(Name.emptyName())) {
+            user.setName(personDescriptor.getName());
+        }
+        if (!personDescriptor.getPhone().equals(Phone.emptyPhone())) {
+            user.setPhone(personDescriptor.getPhone());
+        }
+        if (!personDescriptor.getEmail().equals(Email.emptyEmail())) {
+            user.setEmail(personDescriptor.getEmail());
+        }
+        if (!personDescriptor.getAddress().equals(Address.emptyAddress())) {
+            user.setAddress(personDescriptor.getAddress());
+        }
+        if (!personDescriptor.getRemark().equals(Remark.emptyRemark())) {
+            user.setRemark(personDescriptor.getRemark());
+        }
+        if (personDescriptor.getTags() != null) {
+            user.addTags(personDescriptor.getTags());
+        }
+
+        return user;
     }
 
     /**
@@ -58,13 +107,21 @@ public class PersonList {
      * @param personDescriptor how the person should be edited
      * @return person
      */
-    public Person editPerson(Name name, PersonDescriptor personDescriptor) {
+    public Person editPerson(Name name, PersonDescriptor personDescriptor)
+            throws PersonNotFoundException, NoPersonFieldsEditedException, DuplicatePersonException {
         Person toEdit = findPerson(name);
+
+        if (!personDescriptor.isAnyFieldEdited()) {
+            throw new NoPersonFieldsEditedException();
+        }
 
         if (!personDescriptor.getName().equals(Name.emptyName())) {
             Name otherName = personDescriptor.getName();
-            if (findPerson(otherName) != null) {
-                return null;
+            try {
+                findPerson(otherName);
+                throw new DuplicatePersonException();
+            } catch (PersonNotFoundException e) {
+                e.printStackTrace();
             }
             toEdit.setName(personDescriptor.getName());
         }
@@ -87,19 +144,32 @@ public class PersonList {
     }
 
     /**
+     * Adds an event into the schedule of a person.
+     *
+     * @param name of the person to add the event to
+     * @param event to be added
+     * @throws PersonNotFoundException when person is not found
+     * @throws EventClashException when the is a clash with the existing schedule of the person
+     */
+    public void addEvent(Name name, Event event) throws PersonNotFoundException, EventClashException {
+        Person person = findPerson(name);
+        person.addEvent(event);
+    }
+
+    /**
      * Finds a person with Name and returns the person.
      *
      * @param name of the person to find
      * @return person found
      */
-    public Person findPerson(Name name) {
+    public Person findPerson(Name name) throws PersonNotFoundException {
         int i;
         for (i = 0; i < persons.size(); i++) {
             if (persons.get(i).getName().equals(name)) {
                 return persons.get(i);
             }
         }
-        return null;
+        throw new PersonNotFoundException(name);
     }
 
     /**
@@ -135,6 +205,7 @@ public class PersonList {
 
     /**
      * Returns an unmodifiable observable list of Persons.
+     *
      * @return ObservableList
      */
     public ObservableList<Person> asUnmodifiableObservableList() {
@@ -144,5 +215,9 @@ public class PersonList {
 
     public ArrayList<Person> getPersons() {
         return this.persons;
+    }
+
+    public User getUser() {
+        return this.user;
     }
 }

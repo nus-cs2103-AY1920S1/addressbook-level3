@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GROUPNAME;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -12,18 +11,18 @@ import seedu.address.model.display.detailwindow.DetailWindowDisplayType;
 import seedu.address.model.display.sidepanel.SidePanelDisplayType;
 import seedu.address.model.group.Group;
 import seedu.address.model.group.GroupName;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.PersonId;
+import seedu.address.model.group.exceptions.GroupNotFoundException;
 
 /**
  * Find a group.
  */
 public class FindGroupCommand extends Command {
     public static final String COMMAND_WORD = "findgroup";
-    public static final String MESSAGE_SUCCESS = "Found group: \n\n";
-    public static final String MESSAGE_FAILURE = "Unable to find group";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + " " + PREFIX_GROUPNAME + " GROUPNAME";
+
+    public static final String MESSAGE_SUCCESS = "Found group: %s";
+    public static final String MESSAGE_FAILURE = "Unable to find group: %s does not exist";
 
     public final GroupName groupName;
 
@@ -34,19 +33,9 @@ public class FindGroupCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        Group group = model.findGroup(groupName);
-        if (group != null) {
-            ArrayList<PersonId> persons = model.findPersonsOfGroup(group.getGroupId());
-            String s = "========== PERSONS ========== \n\n";
-            int i;
-            if (persons.size() == 0) {
-                s += "NO PERSONS AVAILABLE";
-            }
-            for (i = 0; i < persons.size(); i++) {
-                Person currentPerson = model.findPerson(persons.get(i));
-                s += currentPerson.toString() + "\n";
-                s += currentPerson.getSchedule().toString() + "";
-            }
+
+        try {
+            Group group = model.findGroup(groupName);
 
             // update main window
             model.updateDetailWindowDisplay(group.getGroupName(), LocalDateTime.now(), DetailWindowDisplayType.GROUP);
@@ -54,10 +43,14 @@ public class FindGroupCommand extends Command {
             //update side panel display
             model.updateSidePanelDisplay(SidePanelDisplayType.GROUPS);
 
-            return new CommandResult(MESSAGE_SUCCESS + group.details() + s);
-        } else {
-            return new CommandResult(MESSAGE_FAILURE);
+            //return new CommandResult(String.format(MESSAGE_SUCCESS, groupName.toString()));
+
+            return new CommandResult(model.getDetailWindowDisplay().freeScheduleToString());
+
+        } catch (GroupNotFoundException e) {
+            return new CommandResult(String.format(MESSAGE_FAILURE, groupName.toString()));
         }
+
     }
 
     @Override
