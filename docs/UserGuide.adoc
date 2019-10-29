@@ -182,13 +182,6 @@ Format: `quiz n/NUMBER_OF_QUESTIONS d/DIFFICULTY s/SUBJECT`
 Answers the specified question. +
 Format: `ANSWER`
 
-==== Set mixed difficulty : `mix -dif`
-
-Set the exam with mixed levels of difficulty, minimum of two levels. +
-Format: +
-`mix -dif [d/DIFFICULTY1] [n/NUMBER1] [d/DIFFICULTY2] [n/NUMBER2] [d/DIFFICULTY3] [n/NUMBER3]...` +
-`mix -dif all n/NUMBER`
-
 ==== Show an answer : `show`
 
 Shows an answer for the displayed quiz question. +
