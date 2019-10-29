@@ -51,7 +51,7 @@ public class AttemptCommand implements Command {
                 String feedback = "Reattempting question " + (index + 1) + " : " + userSelection.getTitle() + " - "
                         + "You have already passed this question successfully.";
                 return new CommandResult(feedback, false, false, false, false, false,
-                        true);
+                        true, false);
             } else {
                 // Update status of question to ATTEMPTED
                 Question questionToAttempt = this.questionsLogic.getQuestion(index).withNewStatus(Status.ATTEMPTED);
@@ -63,7 +63,7 @@ public class AttemptCommand implements Command {
 
                 String feedback = "Attempting question " + (index + 1) + " : " + questionToAttempt.getTitle();
                 return new CommandResult(feedback, false, false, false, false, false,
-                        true);
+                        true, false);
             }
 
         } catch (IndexOutOfBoundsException e) {

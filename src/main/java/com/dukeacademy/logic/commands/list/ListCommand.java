@@ -35,7 +35,7 @@ public class ListCommand implements Command {
         logger.info("Listing all questions...");
         String feedback = "List all questions...";
         return new CommandResult(feedback, false, false, false, false, false,
-                false);
+                false, false);
     }
 }
 

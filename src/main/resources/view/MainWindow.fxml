@@ -44,11 +44,16 @@
             </HBox>
             <HBox style="-fx-border-color: #ff1e00;" VBox.vgrow="ALWAYS">
                <children>
-                  <StackPane fx:id="questionListPanelPlaceholder" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="452.0" prefWidth="252.0" style="-fx-border-color: #000000;" HBox.hgrow="NEVER">
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
-                  </StackPane>
+                  <HBox prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <StackPane fx:id="questionListPanelPlaceholder" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="452.0" prefWidth="252.0" style="-fx-border-color: #000000;" HBox.hgrow="NEVER">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </StackPane>
+                        <StackPane fx:id="programEvaluationPanelPlaceholder" layoutX="10.0" layoutY="10.0" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="452.0" prefWidth="252.0" style="-fx-border-color: #000000;" />
+                     </children>
+                  </HBox>
                   <StackPane fx:id="problemStatementPlaceholder" alignment="CENTER_LEFT" minHeight="-Infinity" minWidth="-Infinity" prefHeight="452.0" prefWidth="300.0" style="-fx-border-color: #000000;" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" HBox.hgrow="ALWAYS" />
                   <VBox style="-fx-border-color: #ff1e00;">
                      <children>

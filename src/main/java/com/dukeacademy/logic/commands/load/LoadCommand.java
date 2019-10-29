@@ -57,7 +57,7 @@ public class LoadCommand implements Command {
             feedback = "Sorry. Couldn't manage to load any new questions.";
         }
         return new CommandResult(feedback, false, false, false, false, false,
-                false);
+                false, false);
     }
 
 }

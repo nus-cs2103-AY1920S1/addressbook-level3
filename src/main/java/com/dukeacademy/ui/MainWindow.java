@@ -46,6 +46,7 @@ class MainWindow extends UiPart<Stage> {
     private final ProblemStatementLogic problemStatementLogic;
 
     // Independent Ui parts residing in this Ui container
+    private ProgramEvaluationPanel programEvaluationPanel;
     private QuestionListPanel questionListPanel;
     private ResultDisplay resultDisplay;
     private final HelpWindow helpWindow;
@@ -62,6 +63,9 @@ class MainWindow extends UiPart<Stage> {
 
     @FXML
     private MenuItem helpMenuItem;
+
+    @FXML
+    private StackPane programEvaluationPanelPlaceholder;
 
     @FXML
     private StackPane questionListPanelPlaceholder;
@@ -166,9 +170,19 @@ class MainWindow extends UiPart<Stage> {
     }
 
     /**
+     * Updates the homepage placeholder residing in this main window.
+     */
+    private void updateProgramEvaluationPanel() {
+        programEvaluationPanel = new ProgramEvaluationPanel(programSubmissionLogic.getTestResultObservable());
+        programEvaluationPanelPlaceholder.getChildren().add(programEvaluationPanel.getRoot());
+    }
+
+    /**
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
+        updateProgramEvaluationPanel();
+
         questionListPanel = new QuestionListPanel(questionsLogic.getFilteredQuestionsList());
         questionListPanelPlaceholder.getChildren().add(questionListPanel.getRoot());
 
@@ -303,6 +317,11 @@ class MainWindow extends UiPart<Stage> {
             }
 
             if (commandResult.isAttempt()) {
+                updateHomePage();
+            }
+
+            if (commandResult.isSubmit()) {
+                updateProgramEvaluationPanel();
                 updateHomePage();
             }
 
