@@ -14,19 +14,20 @@ import budgetbuddy.model.attributes.Description;
 import budgetbuddy.model.attributes.Name;
 import budgetbuddy.model.transaction.Transaction;
 import budgetbuddy.model.transaction.TransactionList;
+import budgetbuddy.model.transaction.exceptions.TransactionNotFoundException;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 
 /**
- * Manages the loans of each person in a list of persons.
+ * Manages the accounts in a list of accounts.
  */
 public class AccountsManager {
 
-    private final UniqueAccountList accounts;
     private static Account defaultAccount = new Account(new Name("DEFAULT"),
             new Description(""), new TransactionList());
 
     private final FilteredList<Account> filteredAccounts;
+    private final UniqueAccountList accounts;
 
     /**
      * Creates a new list of accounts.
@@ -95,9 +96,9 @@ public class AccountsManager {
      * before it can be deleted.
      * @param toDelete The target account for deletion.
      */
-    public void deleteAccount (Account toDelete) {
+    public void deleteAccount(Account toDelete) {
         if (accounts.contains(toDelete)) {
-            if(defaultAccount.isSameAccount(toDelete)){
+            if (defaultAccount.isSameAccount(toDelete)) {
                 throw new DefaultAccountCannotBeDeletedException();
             }
             accounts.remove(toDelete);
@@ -116,26 +117,23 @@ public class AccountsManager {
     }
 
     /**
-     * Returns an unmodifiable view of the transaction list.
+     * Adds the current Transaction to its respective Account.
+     * The transaction should have a valid account by now.
+     * @param toAdd
      */
-    public ObservableList<Transaction> getTransactionList() {
-        return accounts.getTransactionList();
+    public void addTransaction(Transaction toAdd) {
+        Account account = toAdd.getAccount();
+        account.addTransaction(toAdd);
     }
 
     /**
-     * Adds a transaction to the AccountBook
+     * Removes the current Transaction from its respective Account within the AccountBook.
+     * The transaction should exist within the AccountBook before executing this.
+     * @param toDelete the transaction to be deleted
      */
-    //TODO implement addTransaction
-    public void addTransaction(Transaction toAdd) {
-        Account accountToCheck = toAdd.getAccount();
-        if (accounts.contains(accountToCheck)) {
-
-        }
-    }
-
-    //TODO implement removeTransaction
-    public void removeTransaction(Transaction toDelete){
-
+    public void removeTransaction(Transaction toDelete) throws TransactionNotFoundException {
+        Account account = toDelete.getAccount();
+        account.deleteTransaction(toDelete);
     }
 
     @Override
@@ -151,4 +149,6 @@ public class AccountsManager {
         AccountsManager otherAccountsManager = (AccountsManager) other;
         return accounts.equals(otherAccountsManager.accounts);
     }
+
+
 }

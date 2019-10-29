@@ -67,7 +67,7 @@ public class TransactionAddCommandParser implements CommandParser<TransactionAdd
         Optional<String> optionalAccount = argMultimap.getValue(PREFIX_ACCOUNT);
         Account account = optionalAccount.isPresent()
                 ? CommandParserUtil.parseAccount(optionalAccount.get())
-                : new Account(new Name("DEFAULT"), new TransactionList());
+                : new Account(new Name("DEFAULT"), new Description(""), new TransactionList());
 
         Optional<String> optionalCategory = argMultimap.getValue(PREFIX_CATEGORY);
         Category category = optionalCategory.isPresent()

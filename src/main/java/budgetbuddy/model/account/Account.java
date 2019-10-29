@@ -8,6 +8,7 @@ import budgetbuddy.model.attributes.Description;
 import budgetbuddy.model.attributes.Name;
 import budgetbuddy.model.transaction.Transaction;
 import budgetbuddy.model.transaction.TransactionList;
+import javafx.collections.ObservableList;
 
 /**
  * Represents an account in the account manager.
@@ -44,8 +45,8 @@ public class Account {
         return description;
     }
 
-    public TransactionList getTransactionList() {
-        return transactionList;
+    public ObservableList<Transaction> getTransactionList() {
+        return transactionList.asUnmodifiableObservableList();
     }
 
     public void setName(Account account, Name name) {
