@@ -1,13 +1,15 @@
 package seedu.address.ui.util;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import javafx.fxml.FXML;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
-import seedu.address.model.display.detailwindow.DetailWindowDisplay;
-import seedu.address.model.display.detailwindow.WeekSchedule;
+import seedu.address.model.display.schedulewindow.MonthSchedule;
+import seedu.address.model.display.schedulewindow.ScheduleWindowDisplay;
+import seedu.address.model.display.schedulewindow.WeekSchedule;
 import seedu.address.model.person.ScheduleStub;
 import seedu.address.ui.UiPart;
 
@@ -29,23 +31,24 @@ public class GroupDetailsExport extends UiPart<Region> {
     @FXML
     private StackPane groupDetailContainer;
 
-    public GroupDetailsExport(DetailWindowDisplay detailWindowDisplay) {
+    public GroupDetailsExport(ScheduleWindowDisplay scheduleWindowDisplay) {
         super(FXML);
         ScheduleStub stub = new ScheduleStub();
-        ArrayList<WeekSchedule> schedules = detailWindowDisplay.getWeekSchedules();
+        List<WeekSchedule> schedules = MonthSchedule.getWeekSchedulesForWeek(scheduleWindowDisplay.getMonthSchedules(),
+                0);
         ArrayList<String> names = schedules.stream()
                 .map(wkSch -> wkSch.getPersonDisplay().getName().toString())
                 .collect(Collectors.toCollection(ArrayList::new));
         ArrayList<String> emails = schedules.stream()
                 .map(wkSch -> wkSch.getPersonDisplay().getEmail().toString())
                 .collect(Collectors.toCollection(ArrayList::new));
-        ArrayList<String> roles = detailWindowDisplay.getWeekSchedules().stream()
+        ArrayList<String> roles = schedules.stream()
                 .map(wkSch -> wkSch.getRole().toString())
                 .collect(Collectors.toCollection(ArrayList::new));
 
         ArrayList<String> colors = ColorGenerator.generateColorList(names.size());
-        ScheduleExport scheduleView = new ScheduleExport(schedules, colors);
-        GroupDetailCard groupCard = new GroupDetailCard(detailWindowDisplay.getGroupDisplay());
+        ScheduleExport scheduleView = new ScheduleExport(new ArrayList<WeekSchedule>(schedules), colors);
+        GroupDetailCard groupCard = new GroupDetailCard(scheduleWindowDisplay.getGroupDisplay());
         groupDetailCard.getChildren().add(groupCard.getRoot());
         groupMembersList.getChildren().add(new MemberList(names, emails, roles, colors).getRoot());
         groupSchedule.getChildren().add(scheduleView.getScheduleView());

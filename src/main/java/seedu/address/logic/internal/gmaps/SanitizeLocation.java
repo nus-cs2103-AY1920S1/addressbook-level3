@@ -29,8 +29,9 @@ public class SanitizeLocation {
         for (int i = 0; i < validLocationList.size(); i++) {
             String currValidLocation = validLocationList.get(i);
             System.out.println("generating image for " + currValidLocation);
+            String noPrefixValidLocation = currValidLocation.split("NUS_")[1];
             String url = UrlUtil.generateGmapsStaticImage(currValidLocation);
-            String fullPath = CacheFileNames.GMAPS_IMAGE_DIR + currValidLocation + ".png";
+            String fullPath = CacheFileNames.GMAPS_IMAGE_DIR + noPrefixValidLocation + ".png";
             System.out.println(fullPath);
             ImageQuery.execute(url, fullPath);
         }

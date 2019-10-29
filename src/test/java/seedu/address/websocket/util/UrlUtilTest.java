@@ -4,32 +4,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.io.UnsupportedEncodingException;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Map;
 
 import org.junit.jupiter.api.Test;
 
 class UrlUtilTest {
-
-    @Test
-    void generateUrl() throws MalformedURLException {
-        URL actualUrl = UrlUtil.generateUrl("https://www.google.com.sg");
-        URL expectedUrl = new URL("https://www.google.com.sg");
-        assertEquals(actualUrl, expectedUrl);
-    }
-
-    @Test
-    void splitQuery() throws UnsupportedEncodingException {
-        URL url = UrlUtil.generateUrl("https://www.google.com.sg?key1=value1&key2=value2");
-        Map<String, String> mapping = UrlUtil.splitQuery(url);
-        assertEquals("value1", mapping.get("key1"));
-        assertEquals("value2", mapping.get("key2"));
-    }
 
     @Test
     void sanitizeApiKey() {

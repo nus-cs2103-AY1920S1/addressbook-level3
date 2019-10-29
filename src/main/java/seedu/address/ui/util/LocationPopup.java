@@ -20,7 +20,7 @@ public class LocationPopup {
         this.popupDetails = details;
         this.popupStage = new Stage();
         StackPane popupContainer = new StackPane();
-        popupContainer.getChildren().add(popupContainer);
+        popupContainer.getChildren().add(details);
         Scene layout = new Scene(popupContainer);
         layout.setOnKeyPressed(new EventHandler<KeyEvent>() {
             public void handle(KeyEvent ke) {

@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.exceptions.TimeBookInvalidLocation;
 import seedu.address.commons.util.ArrayListUtil;
-import seedu.address.commons.util.LocationArrayListUtils;
-import seedu.address.commons.util.StringUtil;
 import seedu.address.model.display.detailwindow.ClosestCommonLocationData;
 import seedu.address.model.gmaps.Location;
 import seedu.address.model.gmaps.LocationGraph;
@@ -124,15 +122,15 @@ public class ClosestLocation {
                 }
             }
 
-            firstClosest = StringUtil.removeNusPrefix(validLocationList.get(firstClosestIndex));
-            secondClosest = StringUtil.removeNusPrefix(validLocationList.get(secondClosestIndex));
-            thirdClosest = StringUtil.removeNusPrefix(validLocationList.get(thirdClosestIndex));
+            firstClosest = removeNusPrefix(validLocationList.get(firstClosestIndex));
+            secondClosest = removeNusPrefix(validLocationList.get(secondClosestIndex));
+            thirdClosest = removeNusPrefix(validLocationList.get(thirdClosestIndex));
 
             long firstClosestAvgTime = firstClosestTime / groupSize;
             long secondClosestAvgTime = secondClosestTime / groupSize;
             long thirdClosestAvgTime = thirdClosestTime / groupSize;
 
-            closestCommonLocationData.setImagePath("NUS_" + firstClosest);
+            closestCommonLocationData.setImagePath(firstClosest);
             closestCommonLocationData.setFirstClosest(firstClosest);
             closestCommonLocationData.setSecondClosest(secondClosest);
             closestCommonLocationData.setThirdClosest(thirdClosest);
@@ -147,4 +145,17 @@ public class ClosestLocation {
         return closestCommonLocationData;
     }
 
+    /**
+     * This method is used to remove the Nus Prefix in the validLocationName
+     * @param locationName
+     * @return
+     */
+    private static String removeNusPrefix(String locationName) {
+        if (locationName.contains("NUS_")) {
+            return locationName.split("NUS_")[1];
+        } else {
+            System.out.println("Weird result " + locationName);
+            return locationName;
+        }
+    }
 }

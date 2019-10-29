@@ -21,6 +21,7 @@ sourceCompatibility = JavaVersion.VERSION_11
 targetCompatibility = JavaVersion.VERSION_11
 
 repositories {
+    jcenter()
     mavenCentral()
     maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
 }
@@ -72,7 +73,12 @@ dependencies {
 
     compile group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1'
 
-    testImplementation 'org.awaitility:awaitility:4.0.1'
+    testCompile "org.testfx:testfx-junit5:4.0.16-alpha"
+    testCompile "org.testfx:testfx-core:4.0.16-alpha"
+    testCompile group: 'org.assertj', name: 'assertj-core', version: '3.13.2'
+
+    testRuntimeOnly group: 'org.testfx', name: 'openjfx-monocle', version: 'jdk-11+26'
+    testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: jUnitVersion
 }
 
 shadowJar {
@@ -121,6 +127,7 @@ test {
     jacoco {
         destinationFile = new File("${buildDir}/jacoco/test.exec")
     }
+
 }
 
 asciidoctor {

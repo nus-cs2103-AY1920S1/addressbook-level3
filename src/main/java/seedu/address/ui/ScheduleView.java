@@ -18,12 +18,10 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import seedu.address.model.display.detailwindow.DayTimeslot;
-import seedu.address.model.display.detailwindow.FreeSchedule;
-import seedu.address.model.display.detailwindow.FreeTimeslot;
-import seedu.address.model.display.detailwindow.WeekSchedule;
-import seedu.address.model.group.GroupName;
-import seedu.address.ui.util.ColorGenerator;
+import seedu.address.model.display.schedulewindow.DayTimeslot;
+import seedu.address.model.display.schedulewindow.FreeSchedule;
+import seedu.address.model.display.schedulewindow.FreeTimeslot;
+import seedu.address.model.display.schedulewindow.WeekSchedule;
 import seedu.address.ui.util.DateFormatter;
 import seedu.address.ui.util.TimeFormatter;
 
@@ -61,34 +59,18 @@ public class ScheduleView extends UiPart<Region> {
     private int currentDay;
     private LocalDate currentDate;
 
-    public ScheduleView(WeekSchedule weekSchedule) {
+    public ScheduleView(List<WeekSchedule> weekSchedules, List<String> colors, String title,
+                        LocalDate date) {
         super(FXML);
         this.currentDay = LocalDateTime.now().getDayOfWeek().getValue();
-        this.currentDate = LocalDate.now();
-        this.title.setText(weekSchedule.getPersonDisplay().getName().fullName + "'s Schedule");
-        initialise();
-        initialiseHeaders();
-        initialiseTimeslotHeaders();
-        initialiseTableCells();
-        HashMap<DayOfWeek, ArrayList<DayTimeslot>> scheduleMap = weekSchedule.getWeekSchedule();
-        showIndividualSchedule(scheduleMap, ColorGenerator.generateColorList(1).get(0));
-        scheduleContents.setContent(scheduleView);
-        scheduleHeaderWrapper.setContent(scheduleHeader);
-    }
-
-    public ScheduleView(ArrayList<WeekSchedule> weekSchedules, List<String> colors, GroupName groupName,
-                        FreeSchedule freeSchedule) {
-        super(FXML);
-        this.currentDay = LocalDateTime.now().getDayOfWeek().getValue();
-        this.currentDate = LocalDate.now();
+        this.currentDate = date;
         this.colors = colors;
-        this.title.setText(groupName.toString() + "'s Schedule");
+        this.title.setText(title + "'s Schedule");
         initialise();
         initialiseHeaders();
         initialiseTimeslotHeaders();
         initialiseTableCells();
-        showGroupSchedule(weekSchedules);
-        showFreeTime(freeSchedule);
+        showSchedule(weekSchedules);
         scheduleContents.setContent(scheduleView);
         scheduleHeaderWrapper.setContent(scheduleHeader);
     }
@@ -207,8 +189,12 @@ public class ScheduleView extends UiPart<Region> {
     }
 
     private int getTimeDifference(int startTime, int endTime) {
-        int hours = (endTime - startTime) / 100;
-        int minutes = (endTime - startTime) % 100;
+        int startTimeHours = startTime / 100;
+        int endTimeHours = endTime / 100;
+        int hours = endTimeHours - startTimeHours;
+        int startTimeMinutes = startTime % 100;
+        int endTimeMinutes = endTime % 100;
+        int minutes = endTimeMinutes - startTimeMinutes;
         return hours * 60 + minutes;
     }
 
@@ -220,7 +206,7 @@ public class ScheduleView extends UiPart<Region> {
      */
     private VBox getDayVBoxOfIndividualSchedule(ArrayList<DayTimeslot> daySchedule, String color) {
         VBox timeslotContainer = new VBox();
-        timeslotContainer.setStyle("-fx-padding: 0 2 0 2; -fx-border-width: 2;");
+        timeslotContainer.setId("timeslotContainer");
         timeslotContainer.getChildren().add(new Block(30).makeEmptyTimeslot());
         int originalTimeStamp = startTime * 100;
         for (int j = 0; j < daySchedule.size(); j++) {
@@ -230,6 +216,7 @@ public class ScheduleView extends UiPart<Region> {
             Region busyTimeslot = new Block(getTimeDifference(startTime, endTime)).makeColouredTimeslot(color);
             if (originalTimeStamp != startTime) {
                 int timeUntilBusy = getTimeDifference(originalTimeStamp, startTime);
+                System.out.println("start: " + originalTimeStamp + " / end: " + startTime + " / " + timeUntilBusy);
                 Region freeTimeslot = new Block(timeUntilBusy).makeEmptyTimeslot();
                 timeslotContainer.getChildren().add(freeTimeslot);
             }
@@ -266,28 +253,11 @@ public class ScheduleView extends UiPart<Region> {
     }
 
     /**
-     * Method to obtain a table view of an individual's schedule.
-     * @param scheduleMap ScheduleMap obtained by calling getScheduleMap on a Schedule object.
-     * @param color Color of the blocks in the table view.
-     * @return  GridPane table view of the individual's schedule.
-     */
-    public GridPane showIndividualSchedule(HashMap<DayOfWeek, ArrayList<DayTimeslot>> scheduleMap,
-                                           String color) {
-        for (int i = 1; i <= 7; i++) {
-            ArrayList<DayTimeslot> daySchedule = scheduleMap.get(DayOfWeek.of(i));
-            StackPane dayStackPane = dayTimeslotStackPanes.get(DayOfWeek.of(i));
-            VBox timeslotContainer = getDayVBoxOfIndividualSchedule(daySchedule, color);
-            dayStackPane.getChildren().add(timeslotContainer);
-        }
-        return scheduleView;
-    }
-
-    /**
      * Method to obtain a table view of the all the schedules present in a group.
      * @param schedules An array list of schedule maps obtained from calling getScheduleMap on a Schedule Object.
      * @return  GridPane table view of schedules.
      */
-    public GridPane showGroupSchedule(ArrayList<WeekSchedule> schedules) {
+    public GridPane showSchedule(List<WeekSchedule> schedules) {
         //Assign colors to each schedule.
         //Draw VBox of each individual's schedule.
         //Put VBoxes of all individuals' timeslot for the day into HBox.
@@ -314,7 +284,7 @@ public class ScheduleView extends UiPart<Region> {
      * @param schedule A schedule that contains the available time for all group members.
      * @return The scheduleView which contains the available time slots indicated.
      */
-    public GridPane showFreeTime(FreeSchedule schedule) {
+    public GridPane setFreeTime(FreeSchedule schedule) {
         HashMap<DayOfWeek, ArrayList<FreeTimeslot>> vacantSchedule = schedule.getFreeSchedule();
         for (int i = 1; i <= 7; i++) {
             StackPane dayStackPane = dayTimeslotStackPanes.get(DayOfWeek.of(i));

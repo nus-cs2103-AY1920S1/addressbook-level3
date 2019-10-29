@@ -21,9 +21,8 @@ class ClosestCommonLocationDataTest {
     void getImagePath() {
         closestCommonLocationData.setImagePath("FOOOOOOO");
         assertNull(closestCommonLocationData.getImagePath());
-        closestCommonLocationData.setImagePath("NUS_LT17");
-        assertEquals(CacheFileNames.GMAPS_IMAGE_DIR + "NUS_LT17.png",
-                closestCommonLocationData.getImagePath());
+        closestCommonLocationData.setImagePath("LT17");
+        assertEquals(CacheFileNames.GMAPS_IMAGE_DIR + "LT17.png", closestCommonLocationData.getImagePath());
     }
 
     @Test

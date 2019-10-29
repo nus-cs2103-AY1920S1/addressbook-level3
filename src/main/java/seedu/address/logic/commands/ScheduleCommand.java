@@ -3,12 +3,13 @@ package seedu.address.logic.commands;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GROUPNAME;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
+import java.util.List;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.display.detailwindow.DetailWindowDisplayType;
-import seedu.address.model.display.detailwindow.WeekSchedule;
+import seedu.address.model.display.schedulewindow.MonthSchedule;
+import seedu.address.model.display.schedulewindow.ScheduleWindowDisplayType;
+import seedu.address.model.display.schedulewindow.WeekSchedule;
 import seedu.address.model.display.sidepanel.SidePanelDisplayType;
 import seedu.address.model.group.Group;
 import seedu.address.model.group.GroupName;
@@ -38,12 +39,13 @@ public class ScheduleCommand extends Command {
         }
 
         // update main window
-        model.updateDetailWindowDisplay(group.getGroupName(), LocalDateTime.now(), DetailWindowDisplayType.NONE);
+        model.updateDetailWindowDisplay(group.getGroupName(), LocalDateTime.now(), ScheduleWindowDisplayType.NONE);
 
         // update side panel
-        model.updateSidePanelDisplay(SidePanelDisplayType.GROUPS);
+        model.updateSidePanelDisplay(SidePanelDisplayType.GROUP);
 
-        ArrayList<WeekSchedule> schedules = model.getDetailWindowDisplay().getWeekSchedules();
+        List<WeekSchedule> schedules = MonthSchedule.getWeekSchedulesForWeek(
+                model.getScheduleWindowDisplay().getMonthSchedules(), 0);
         String output = "";
         for (WeekSchedule s : schedules) {
             output += s.toString() + "\n";

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:id="calendarContainer" alignment="CENTER" spacing="5">
+    <Label fx:id="dateHeader"/>
+    <GridPane fx:id="calendar">
+        <columnConstraints>
+            <ColumnConstraints percentWidth="14.2857"/>
+            <ColumnConstraints percentWidth="14.2857"/>
+            <ColumnConstraints percentWidth="14.2857"/>
+            <ColumnConstraints percentWidth="14.2857"/>
+            <ColumnConstraints percentWidth="14.2857"/>
+            <ColumnConstraints percentWidth="14.2857"/>
+            <ColumnConstraints percentWidth="14.2857"/>
+        </columnConstraints>
+    </GridPane>
+</VBox>

@@ -66,7 +66,7 @@ public class PersonCard extends UiPart<Region> {
         return person.isSamePerson(card.person);
     }
 
-    public String getPersonInitials(String personName) {
+    public static String getPersonInitials(String personName) {
         String[] fragmentedNames = personName.toUpperCase().split(" ");
         StringBuilder stringBuilder = new StringBuilder();
         for (int i = 0; i < fragmentedNames.length; i++) {

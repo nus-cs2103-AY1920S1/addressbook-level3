@@ -6,6 +6,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.nio.file.Path;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Hashtable;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
@@ -16,10 +17,9 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.AppSettings;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.display.detailwindow.ClosestCommonLocationData;
-import seedu.address.model.display.detailwindow.DetailWindowDisplay;
-import seedu.address.model.display.detailwindow.DetailWindowDisplayType;
-import seedu.address.model.display.detailwindow.WeekSchedule;
+import seedu.address.model.display.schedulewindow.MonthSchedule;
+import seedu.address.model.display.schedulewindow.ScheduleWindowDisplay;
+import seedu.address.model.display.schedulewindow.ScheduleWindowDisplayType;
 import seedu.address.model.display.sidepanel.GroupDisplay;
 import seedu.address.model.display.sidepanel.PersonDisplay;
 import seedu.address.model.display.sidepanel.SidePanelDisplay;
@@ -43,6 +43,7 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.PersonDescriptor;
 import seedu.address.model.person.PersonId;
 import seedu.address.model.person.PersonList;
+import seedu.address.model.person.UserStub;
 import seedu.address.model.person.schedule.Event;
 import seedu.address.model.person.schedule.Schedule;
 import seedu.address.websocket.Cache;
@@ -71,8 +72,9 @@ public class ModelManager implements Model {
     private GmapsModelManager gmapsModelManager;
 
     // UI display
-    private DetailWindowDisplay detailWindowDisplay;
+    private ScheduleWindowDisplay scheduleWindowDisplay;
     private SidePanelDisplay sidePanelDisplay;
+    private Person user = new UserStub();
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -93,6 +95,7 @@ public class ModelManager implements Model {
         this.personList = personList;
         this.groupList = groupList;
         this.personToGroupMappingList = personToGroupMappingList;
+        initialiseDefaultWindowDisplay();
     }
 
     public ModelManager(ReadOnlyAddressBook addressBook, TimeBook timeBook,
@@ -126,6 +129,7 @@ public class ModelManager implements Model {
         Group.setCounter(groupCounter + 1);
 
         this.userPrefs = new UserPrefs(userPrefs);
+        initialiseDefaultWindowDisplay();
     }
 
     public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
@@ -263,7 +267,9 @@ public class ModelManager implements Model {
     @Override
     public Person findPerson(Name name) {
         Person person = personList.findPerson(name);
-        if (person != null) {
+        if (name.equals(user.getName())) {
+            return user;
+        } else if (person != null) {
             return person;
         } else {
             return null;
@@ -412,8 +418,13 @@ public class ModelManager implements Model {
     //=========== UI Model =============================================================
 
     @Override
-    public DetailWindowDisplay getDetailWindowDisplay() {
-        return detailWindowDisplay;
+    public Person getUser() {
+        return user;
+    }
+
+    @Override
+    public ScheduleWindowDisplay getScheduleWindowDisplay() {
+        return scheduleWindowDisplay;
     }
 
     @Override
@@ -422,37 +433,37 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void updateDetailWindowDisplay(DetailWindowDisplay detailWindowDisplay) {
-        this.detailWindowDisplay = detailWindowDisplay;
+    public void updateDetailWindowDisplay(ScheduleWindowDisplay scheduleWindowDisplay) {
+        this.scheduleWindowDisplay = scheduleWindowDisplay;
     }
 
     @Override
-    public void updateDetailWindowDisplay(Name name, LocalDateTime time, DetailWindowDisplayType type) {
-        ArrayList<WeekSchedule> weekSchedules = new ArrayList<>();
-        WeekSchedule weekSchedule = new WeekSchedule(name.toString(), time, findPerson(name), Role.emptyRole());
-        weekSchedules.add(weekSchedule);
-        DetailWindowDisplay detailWindowDisplay = new DetailWindowDisplay(weekSchedules, type);
-        updateDetailWindowDisplay(detailWindowDisplay);
+    public void updateDetailWindowDisplay(Name name, LocalDateTime time, ScheduleWindowDisplayType type) {
+        ArrayList<MonthSchedule> monthSchedules = new ArrayList<>();
+        MonthSchedule monthSchedule = new MonthSchedule(findPerson(name), time);
+        monthSchedules.add(monthSchedule);
+        ScheduleWindowDisplay scheduleWindowDisplay = new ScheduleWindowDisplay(monthSchedules, type);
+        updateDetailWindowDisplay(scheduleWindowDisplay);
     }
 
     @Override
-    public void updateDetailWindowDisplay(GroupName groupName, LocalDateTime time, DetailWindowDisplayType type) {
+    public void updateDetailWindowDisplay(GroupName groupName, LocalDateTime time, ScheduleWindowDisplayType type) {
         Group group = groupList.findGroup(groupName);
         GroupId groupId = group.getGroupId();
         GroupDisplay groupDisplay = new GroupDisplay(group);
         ArrayList<PersonId> personIds = findPersonsOfGroup(group.getGroupId());
-        ArrayList<WeekSchedule> weekSchedules = new ArrayList<>();
+        ArrayList<MonthSchedule> monthSchedules = new ArrayList<>();
         for (int i = 0; i < personIds.size(); i++) {
             Person person = findPerson(personIds.get(i));
             Role role = findRole(personIds.get(i), groupId);
             if (role == null) {
                 role = Role.emptyRole();
             }
-            WeekSchedule weekSchedule = new WeekSchedule(groupName.toString(), time, person, role);
-            weekSchedules.add(weekSchedule);
+            MonthSchedule monthSchedule = new MonthSchedule(person, time, role);
+            monthSchedules.add(monthSchedule);
         }
-        DetailWindowDisplay detailWindowDisplay = new DetailWindowDisplay(weekSchedules, type, groupDisplay);
-        updateDetailWindowDisplay(detailWindowDisplay);
+        ScheduleWindowDisplay scheduleWindowDisplay = new ScheduleWindowDisplay(monthSchedules, type, groupDisplay);
+        updateDetailWindowDisplay(scheduleWindowDisplay);
     }
 
     @Override
@@ -475,6 +486,10 @@ public class ModelManager implements Model {
         }
         sidePanelDisplay = new SidePanelDisplay(displayPersons, displayGroups, type);
         updateSidePanelDisplay(sidePanelDisplay);
+    }
+
+    public void initialiseDefaultWindowDisplay() {
+        updateDetailWindowDisplay(user.getName(), LocalDateTime.now(), ScheduleWindowDisplayType.HOME);
     }
 
     //=========== Suggesters =============================================================
@@ -569,8 +584,9 @@ public class ModelManager implements Model {
     //=========== Gmaps ================================================================================
 
     @Override
-    public ClosestCommonLocationData getClosestLocationData(ArrayList<String> locationNameList) {
-        return gmapsModelManager.closestLocationData(locationNameList);
+    public Hashtable<String, Object> getClosestLocationData(ArrayList<String> locationNameList) {
+        //return gmapsModelManager.closestLocationData(locationNameList);
+        return null;
     }
 
     @Override
