@@ -176,6 +176,7 @@ public class Budget {
     /**
      * Format state as text for viewing.
      */
+    @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append(String.format("$%.2f", value));
@@ -186,9 +187,9 @@ public class Budget {
      * Return a complete description of the budget.
      * @return A string representing the set budget only.
      */
-    public String toStringFull() {
+    public String getBudgetMessage() {
         StringBuilder sb = new StringBuilder();
-        sb.append(String.format("$%.2f", value));
+        sb.append(toString());
         sb.append("\n current spending:");
         sb.append(String.format("$%.2f", sum));
         sb.append("\n Remaining Budget:");
