@@ -121,6 +121,7 @@ public class CalendarWindow extends UiPart<Region> {
      * @param calendarDate The specified {@CalendarDateCell}.
      */
     private void addAllEngagementsForDate(CalendarDateCell calendarDateCell, LocalDate calendarDate) {
+        calendarDateCell.clearEngagements();
         for (Engagement engagement : engagements) {
             LocalDateTime startDateTime = engagement.getTimeSlot().getStartTime();
             if (startDateTime.getDayOfMonth() == calendarDate.getDayOfMonth()

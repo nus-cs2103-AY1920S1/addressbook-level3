@@ -9,6 +9,7 @@ import com.typee.model.engagement.Engagement;
 import com.typee.ui.UiPart;
 
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
@@ -23,7 +24,7 @@ public class CalendarDateCell extends UiPart<Region> {
     @FXML
     private StackPane calendarDatePane;
 
-    private List<Engagement> engagements;
+    private ObservableList<Engagement> engagements;
     private SingleDayEngagementsDisplayWindow engagementsDisplayWindow;
     private final Logger logger = LogsCenter.getLogger(getClass());
 
@@ -32,9 +33,8 @@ public class CalendarDateCell extends UiPart<Region> {
      */
     public CalendarDateCell() {
         super(FXML);
-        engagements = new ArrayList<>();
-        engagementsDisplayWindow =
-                new SingleDayEngagementsDisplayWindow(FXCollections.observableList(engagements));
+        engagements = FXCollections.observableList(new ArrayList<>());
+        engagementsDisplayWindow = new SingleDayEngagementsDisplayWindow(engagements);
     }
 
     /**
@@ -51,6 +51,13 @@ public class CalendarDateCell extends UiPart<Region> {
      */
     public void addEngagement(Engagement engagement) {
         engagements.add(engagement);
+    }
+
+    /**
+     * Clears all engagements from this {@code CalendarDateCell}.
+     */
+    public void clearEngagements() {
+        engagements.clear();
     }
 
     /**
