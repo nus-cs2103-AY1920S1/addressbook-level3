@@ -323,14 +323,14 @@ To get statistics relating to the members in +Work, use the command following th
 Format: `member-stats`
 
 Calling the 'member-stats' command will result in the following: 
-INSERT IMAGE 
+image::member_stats.png[width="790"]
 
 ==== Gets statistics of tasks: `task-stats` +
 To get statistics relating to the tasks in +Work, use the command following the format below. +
 Format: `task-stats`
 
 Calling the 'task-stats' command will result in the following: 
-INSERT IMAGE 
+image::task_stats.png[width="790"] 
 
 === Settings Commands (Coming in v1.3)
 
