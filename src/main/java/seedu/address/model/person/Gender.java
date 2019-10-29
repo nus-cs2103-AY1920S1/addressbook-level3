@@ -9,7 +9,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 
 public class Gender {
-    public static final String MESSAGE_CONSTRAINTS = "Gender can only be Male, Female or Others, and it should not be"
+    public static final String MESSAGE_CONSTRAINTS = "Gender can only be Male, Female or Others, and it should not be "
         + "blank";
     public final String genderOfPerson;
     /**
@@ -20,7 +20,7 @@ public class Gender {
     public Gender(String gender) {
         requireNonNull(gender);
         checkArgument(isValidGender(gender), MESSAGE_CONSTRAINTS);
-        genderOfPerson = gender;
+        genderOfPerson = gender.substring(0, 1).toUpperCase() + gender.substring(1).toLowerCase();
     }
     /**
      * Returns if a given string is a valid email.
