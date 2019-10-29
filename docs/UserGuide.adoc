@@ -355,7 +355,9 @@ Format: `delete -flag  id`
 
 
 ****
-* Deletes the body, worker or fridge entry with the specified identification number.
+* Deletes the body, worker or fridge entry with t
+he specified identification number.
+
 * The identification number is automatically generated when an entity is created and is in the format `BXXXXXXXX`, `WXXXXX`, or `FXX` for a
 body, worker or fridge entry respectively.
 X represents any digit.
