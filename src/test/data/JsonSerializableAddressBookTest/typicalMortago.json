@@ -36,5 +36,6 @@
     "details" : "note"
   } ],
   "workers" : [ ],
-  "fridges" : [ ]
+  "fridges" : [ ],
+  "notifs" : [ ]
 }

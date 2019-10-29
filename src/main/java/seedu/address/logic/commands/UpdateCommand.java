@@ -288,8 +288,7 @@ public class UpdateCommand extends UndoableCommand {
                 }
 
                 // Undo Notif removal
-                if (toDeleteNotif != null || !toDeleteNotif.isEmpty()) {
-                    System.out.println("notifs were readded");
+                if (toDeleteNotif != null) {
                     for (Notif n : toDeleteNotif) {
                         model.addNotif(n);
                     }
