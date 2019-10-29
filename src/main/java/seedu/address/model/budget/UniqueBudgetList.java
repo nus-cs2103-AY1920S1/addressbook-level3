@@ -96,7 +96,6 @@ public class UniqueBudgetList implements Iterable<Budget> {
                 setBudget(b, b1);
             }
         }
-        budget.setPrimary();
         Budget b1 = Budget.deepCopy(budget);
         b1.setToPrimary();
         setBudget(budget, b1);

@@ -467,10 +467,10 @@ public class MainWindow extends UiPart<Stage> {
         try {
             String commandGroup = decideCommandGroup();
 
-            Budget primaryBudget = logic.getPrimaryBudget();
-            System.out.println(primaryBudget.getDescription());
 
             CommandResult commandResult = logic.execute(commandText, commandGroup);
+            Budget primaryBudget = logic.getPrimaryBudget();
+
             boolean initialIsNear = primaryBudget.isNear();
             boolean initialIsExceeded = primaryBudget.isExceeded();
             System.out.println(logic.getPrimaryBudget().getDescription());

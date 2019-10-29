@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.HashMap;
 import java.util.Map;
 
+import javafx.beans.value.ObservableObjectValue;
 import javafx.fxml.FXML;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
@@ -32,6 +33,7 @@ public class SinglePanelView extends UiPart<Region> implements PanelManager {
         panelNamePanelHashMap = new HashMap<>();
         currentPanel = new PlaceholderPanel();
         currentPanelName = PanelName.CURRENT;
+        currentPanel
     }
 
     /**
@@ -43,7 +45,7 @@ public class SinglePanelView extends UiPart<Region> implements PanelManager {
         requireNonNull(panelName);
         if (panelName.equals(PanelName.CURRENT)) {
             if (getCurrentPanel() == null) {
-                throw new UnmappedPanelException(panelName);
+                currentPanel = new PlaceholderPanel();
             }
         } else if (!hasPanel(panelName)) {
             throw new UnmappedPanelException(panelName);
@@ -115,6 +117,9 @@ public class SinglePanelView extends UiPart<Region> implements PanelManager {
         }
 
         Panel p = panelNamePanelHashMap.get(panelName);
+        if (getCurrentPanel().equals(p)) {
+            currentPanel = new PlaceholderPanel();
+        }
         p.hide();
         panelNamePanelHashMap.remove(panelName);
         panelPlaceholder.getChildren().remove(p.getRoot());
