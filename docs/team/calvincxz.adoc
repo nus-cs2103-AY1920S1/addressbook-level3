@@ -19,7 +19,7 @@ and email employees directly without opening an email application.
 This is what our project looks like:
 
 ._The graphical user interface for AddMin+._
-image::listview.png[]
+image::beforefetch.png[]
 
 My role was to design and write the codes for the fetch and allocate features. The following sections
 illustrate these enhancements in more detail, as well as the relevant documentation
@@ -63,6 +63,7 @@ arrow keys.
 *** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
 
 <<<
+<<<
 
 == Contributions to the User Guide
 
@@ -81,6 +82,7 @@ include::../UserGuide.adoc[tag=calvin2]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
+include::../DeveloperGuide.adoc[tag=storage]
 include::../DeveloperGuide.adoc[tag=calvin]
 
 
