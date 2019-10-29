@@ -27,7 +27,7 @@ public class JsonAdaptedAccount {
      */
     public JsonAdaptedAccount(@JsonProperty("name") String name,
                            @JsonProperty("description") String description,
-                           @JsonProperty("transaction") String transactionList) {
+                           @JsonProperty("transactionList") String transactionList) {
         requireAllNonNull(name, description, transactionList);
         this.name = name;
         this.description = description;
