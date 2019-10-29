@@ -86,6 +86,6 @@ Name -[hidden]down-> Phone
 Age -[hidden]down-> BloodType
 BloodType -[hidden]down-> TissueType
 TissueType -[hidden]down-> Organ
-rgan -[hidden]right-> Priority
+
 ModelManager -->"1" Person : filtered list
 @enduml
