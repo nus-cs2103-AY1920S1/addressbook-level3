@@ -113,7 +113,7 @@ public class Timestamp implements Comparable<Timestamp> {
     public LocalDate getDate() {
         return fullTimestamp.toLocalDate();
     }
-    
+
     public Timestamp toStartOfDay() {
         return new Timestamp(fullTimestamp.toLocalDate().atStartOfDay());
     }
