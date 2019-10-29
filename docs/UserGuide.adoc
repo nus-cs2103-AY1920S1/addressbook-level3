@@ -340,7 +340,8 @@ If there are both flashcards due for revision today and overdue flashcards:
 
     Example usage: add t/Pipelining Definition c/Pipelining is a process where tag/CS2100
 
-    Expected output: New note added:
+    Expected output:
+    New note added:
         Title: Pipelining Definition
         Content: Pipelining is a process where
         Tags: [cs2100]
@@ -357,40 +358,59 @@ NOTE: The format for Intra-Note content is 'C/', not 'c/', and the format for In
 
     Example usage: add t/About c/Notes can be /* C/highlighted TAG/highlight TAG/important */ if needed. tag/about
 
-    Expected output: New note added:
+    Expected output:
+    New note added:
         Title: About
         Content: Notes can be /* C/highlighted TAG/highlight TAG/important */ if needed
         Tags: [about]
 
 * Multiple intra-note tags are allowed. These do not interfere with the other tags of the Note.
 
-NOTE: Intra-note tags can be used for filtering notes (see Section 6.5), or filtering globally (see Section 4.3)
+NOTE: Intra-note tags can be used for filtering notes (see Section 6.6), or filtering globally (see Section 4.3)
 
 === Deleting a note: `delete`
 
-Deletes the note by <NOTE_INDEX>.
+Deletes the note of index `NOTE_INDEX`.
 
     Format: delete (index)
 
     Example usage: delete 6
 
-    Expected output: Deleted Note:
-        Title: Pipelining Definition
-        Content: Pipelining is a process where
-        Tags: [cs2100]
+    Expected output:
+    Deleted note:
+        Title: About
+        Content: Notes can be /* C/highlighted TAG/highlight TAG/important */ if needed
+        Tags: [about]
 
 === Viewing a note: `view`
 
-Views the note by <NOTE_INDEX>.
+Views the note of index `NOTE_INDEX`. If the note contains any intra-note tags, those tags will be hidden.
+
+NOTE: To view the note with its intra-note tags, use the `viewraw` command instead (see Section 6.4).
 
     Format: view (index)
 
     Example usage: view 6
 
-    Expected output: Viewing note:
-        Title: Pipelining Definition
-        Content: Pipelining is a process where..
-        Tags: [cs2100]
+    Expected output:
+    Viewing note:
+        Title: About
+        Content: Notes can be highlighted if needed
+        Tags: [about]
+
+=== Viewing a raw note: `viewraw`
+
+Views the note of index `NOTE_INDEX`. The note is shown exactly as written, including all intra-note tags.
+
+    Format: viewraw (index)
+
+    Example usage: viewraw 6
+
+    Expected output:
+    Viewing raw note:
+        Title: About
+        Content: Notes can be /* C/highlighted TAG/highlight TAG/important */ if needed
+        Tags: [about]
 
 === Listing notes: `list`
 
@@ -406,6 +426,7 @@ Views the note by <NOTE_INDEX>.
 * The user must specify at least one tag.
 * The user is able to specify multiple tags.
 * Notes that match at least one of the specified tags will be displayed.
+* Intra-Note tags containing at least one of the specified tags will also be displayed.
 
     Format: filter tag/TAG [tag/TAG]...
 
