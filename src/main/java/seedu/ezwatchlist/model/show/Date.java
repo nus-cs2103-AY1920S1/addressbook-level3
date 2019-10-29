@@ -9,7 +9,7 @@ import static java.util.Objects.isNull;
 public class Date {
     // For now the date will be a string, since that is what the API returns it as.
     public static final String MESSAGE_CONSTRAINTS = "Dates can take any values, and it should not be blank";
-
+    public static final String DEFAULT_VALUE = "?";
     /*
      * The first character of the date must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
@@ -19,7 +19,7 @@ public class Date {
     public final String value;
 
     public Date() {
-        value = "";
+        value = DEFAULT_VALUE;
     }
 
     /**
@@ -30,10 +30,8 @@ public class Date {
     public Date(String date) {
         //instead of having constraints perhaps could check if the object is null in the creation
         if (isNull(date)) {
-            date = "";
+            date = DEFAULT_VALUE;
         }
-        //requireNonNull(date);
-        //AppUtil.checkArgument(isValidDate(date), MESSAGE_CONSTRAINTS);
         value = date;
     }
 

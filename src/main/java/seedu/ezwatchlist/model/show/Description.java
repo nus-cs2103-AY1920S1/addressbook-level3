@@ -1,5 +1,6 @@
 package seedu.ezwatchlist.model.show;
 
+import static java.util.Objects.isNull;
 import static java.util.Objects.requireNonNull;
 
 /**
@@ -9,7 +10,7 @@ import static java.util.Objects.requireNonNull;
 public class Description {
     public static final String MESSAGE_CONSTRAINTS =
             "Descriptions should only contain alphanumeric characters and spaces, and it should not be blank";
-
+    public static final String DEFAULT_DESCRIPTION = "na";
     /*
      * The first character of the show's description must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
@@ -28,8 +29,10 @@ public class Description {
      * @param description A valid description.
      */
     public Description(String description) {
+        if (isNull(description) || description.isEmpty()) {
+            description = DEFAULT_DESCRIPTION;
+        }
         requireNonNull(description);
-        //AppUtil.checkArgument(isValidDescription(description), MESSAGE_CONSTRAINTS);
         fullDescription = description;
     }
 

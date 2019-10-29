@@ -9,8 +9,8 @@ import org.junit.jupiter.api.Test;
 public class DescriptionTest {
 
     @Test
-    public void constructor_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new Description(null));
+    public void constructor_null_passes() {
+        assert(new Description(null).equals(new Description(null)));
     }
 
     @Test
