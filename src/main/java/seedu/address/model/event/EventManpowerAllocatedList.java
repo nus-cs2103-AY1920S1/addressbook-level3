@@ -6,12 +6,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import seedu.address.model.employee.Employee;
+import seedu.address.model.employee.EmployeeId;
 
 /**
  * List of employees allocated as manpower for the Event.
  */
 public class EventManpowerAllocatedList {
-    private List<String> manpowerList;
+    private List<EmployeeId> manpowerList;
 
     public EventManpowerAllocatedList(String unprocessedList) {
         if (unprocessedList.equals("")) {
@@ -19,10 +20,12 @@ public class EventManpowerAllocatedList {
             return;
         }
         String[] personIds = unprocessedList.split(" ");
-        manpowerList = Arrays.stream(personIds).collect(Collectors.toList());
+        manpowerList = Arrays.stream(personIds)
+                .map(personId -> new EmployeeId(personId))
+                .collect(Collectors.toList());
     }
 
-    public EventManpowerAllocatedList(List<String> manpowerList) {
+    public EventManpowerAllocatedList(List<EmployeeId> manpowerList) {
         this.manpowerList = manpowerList;
     }
 
@@ -33,7 +36,7 @@ public class EventManpowerAllocatedList {
         manpowerList = new ArrayList<>();
     }
 
-    public List<String> getManpowerList() {
+    public List<EmployeeId> getManpowerList() {
         return manpowerList;
     }
 
@@ -55,7 +58,7 @@ public class EventManpowerAllocatedList {
     @Override
     public String toString() {
         StringBuilder unprocessedList = new StringBuilder();
-        for (String s : manpowerList) {
+        for (EmployeeId s : manpowerList) {
             unprocessedList.append(s + " ");
         }
         return unprocessedList.toString().trim();

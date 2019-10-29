@@ -11,6 +11,8 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.employee.Employee;
+import seedu.address.model.employee.EmployeeId;
 import seedu.address.model.event.Event;
 import seedu.address.model.event.EventDate;
 import seedu.address.model.event.EventDateTimeMap;
@@ -34,23 +36,51 @@ public class DeallocateCommand extends Command {
 
     public static final String MESSAGE_FREE_EVENT_SUCCESS = "Deallocate all Employees for: %1$s";
 
-    private final Index targetIndex;
+    private final Index eventIndex;
+    private final String employeeId;
 
-    public DeallocateCommand(Index targetIndex) {
-        this.targetIndex = targetIndex;
+    public DeallocateCommand(Index eventIndex) {
+        this.eventIndex = eventIndex;
+        this.employeeId = null;
+    }
+
+    public DeallocateCommand(Index eventIndex, String employeeId) {
+        this.eventIndex = eventIndex;
+        this.employeeId = employeeId;
+    }
+
+    /**
+     * A private method for manual allocation used primarily for GUI purposes.
+     */
+    private CommandResult internalManualAllocateById(Model model) {
+        model.updateFilteredEmployeeList(Model.PREDICATE_SHOW_ALL_PERSONS);
+        List<Employee> lastShownList = model.getFilteredEmployeeList();
+        List<Event> lastShownEventList = model.getFilteredEventList();
+        Event eventToAllocate = lastShownEventList.get(eventIndex.getZeroBased());
+        Employee personToDelete = lastShownList.stream()
+                .filter(x -> x.getEmployeeId().id.equals(employeeId))
+                .findAny().get();
+        Event newEventForAllocation = createEditedEvent(eventToAllocate, personToDelete);
+        model.setEvent(eventToAllocate, newEventForAllocation);
+        return new CommandResult(String.format(MESSAGE_FREE_EVENT_SUCCESS, personToDelete.getEmployeeName().fullName,
+                newEventForAllocation.getName().eventName));
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+        if (employeeId != null) {
+            return internalManualAllocateById(model);
+        }
+
         List<Event> lastShownList = model.getFilteredEventList();
 
-        if (targetIndex.getZeroBased() >= lastShownList.size()) {
+        if (eventIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
         }
 
-        Event eventToFree = lastShownList.get(targetIndex.getZeroBased());
-        Event newEvent = createEditedEvent(eventToFree);
+        Event eventToFree = lastShownList.get(eventIndex.getZeroBased());
+        Event newEvent = createEditedEvent(eventToFree, null);
         model.setEvent(eventToFree, newEvent);
         return new CommandResult(String.format(MESSAGE_FREE_EVENT_SUCCESS, eventToFree.getName()));
     }
@@ -59,7 +89,7 @@ public class DeallocateCommand extends Command {
      * Creates and returns a {@code Event} with the details of {@code eventToEdit}
      * and a new {@code EventManpowerAllocatedList}.
      */
-    private static Event createEditedEvent(Event eventToEdit) {
+    private static Event createEditedEvent(Event eventToEdit, Employee employeeToDelete) {
         assert eventToEdit != null;
 
         EventName updatedEventName = eventToEdit.getName();
@@ -67,7 +97,14 @@ public class DeallocateCommand extends Command {
         EventManpowerNeeded updatedManpowerNeeded = eventToEdit.getManpowerNeeded();
         EventDate updatedStartDate = eventToEdit.getStartDate();
         EventDate updatedEndDate = eventToEdit.getEndDate();
-        EventManpowerAllocatedList updatedManpowerAllocatedList = new EventManpowerAllocatedList();
+        EventManpowerAllocatedList updatedManpowerAllocatedList;
+        if (employeeToDelete == null) {
+            updatedManpowerAllocatedList = new EventManpowerAllocatedList();
+        } else {
+            List<EmployeeId> updatedManpowerList = eventToEdit.getManpowerAllocatedList().getManpowerList();
+            updatedManpowerList.remove(employeeToDelete.getEmployeeId());
+            updatedManpowerAllocatedList = new EventManpowerAllocatedList(updatedManpowerList);
+        }
         EventDateTimeMap eventDateTimeMap = eventToEdit.getEventDateTimeMap();
         Set<Tag> updatedTags = eventToEdit.getTags();
 
@@ -81,6 +118,7 @@ public class DeallocateCommand extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof DeallocateCommand // instanceof handles nulls
-                && targetIndex.equals(((DeallocateCommand) other).targetIndex)); // state check
+                && eventIndex.equals(((DeallocateCommand) other).eventIndex)) // state check
+                && employeeId.equals(((DeallocateCommand) other).employeeId); // state check
     }
 }
