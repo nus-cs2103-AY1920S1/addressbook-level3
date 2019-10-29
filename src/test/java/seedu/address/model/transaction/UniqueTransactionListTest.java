@@ -123,27 +123,26 @@ public class UniqueTransactionListTest {
         assertEquals(expectedUniqueTransactionList, uniqueTransactionList);
     }
 
-    // TODO: FIX
-     @Test
-     public void setTransactions_nullUniqueTransactionList_throwsNullPointerException() {
-         assertThrows(
-         NullPointerException.class, () -> uniqueTransactionList.setTransactions((List<BankAccountOperation>) null));
-     }
+    @Test
+    public void setTransactions_nullUniqueTransactionList_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () ->
+                uniqueTransactionList.setTransactions((List<BankAccountOperation>) null));
+    }
 
-     @Test
-     public void setTransactions_uniqueTransactionList_replacesOwnListWithProvidedUniqueTransactionList() {
-         uniqueTransactionList.add(ALICE);
-         UniqueTransactionList expectedUniqueTransactionList = new UniqueTransactionList();
-         expectedUniqueTransactionList.add(BENSON);
-         uniqueTransactionList.setTransactions(expectedUniqueTransactionList);
-         assertEquals(expectedUniqueTransactionList, uniqueTransactionList);
-     }
+    @Test
+    public void setTransactions_uniqueTransactionList_replacesOwnListWithProvidedUniqueTransactionList() {
+        uniqueTransactionList.add(ALICE);
+        UniqueTransactionList expectedUniqueTransactionList = new UniqueTransactionList();
+        expectedUniqueTransactionList.add(BENSON);
+        uniqueTransactionList.setTransactions(expectedUniqueTransactionList);
+        assertEquals(expectedUniqueTransactionList, uniqueTransactionList);
+    }
 
-     @Test
-     public void setTransactions_nullList_throwsNullPointerException() {
-         assertThrows(
-         NullPointerException.class, () -> uniqueTransactionList.setTransactions((List<BankAccountOperation>) null));
-     }
+    @Test
+    public void setTransactions_nullList_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () ->
+                        uniqueTransactionList.setTransactions((List<BankAccountOperation>) null));
+    }
 
     @Test
     public void setTransactions_list_replacesOwnListWithProvidedList() {
@@ -159,13 +158,14 @@ public class UniqueTransactionListTest {
     public void setTransactions_listWithDuplicateTransactions_throwsDuplicateTransactionException() {
         List<BankAccountOperation> listWithDuplicateTransactions = Arrays.asList(ALICE, ALICE);
         assertThrows(DuplicateTransactionException.class, () -> uniqueTransactionList
-            .setTransactions(listWithDuplicateTransactions));
+                .setTransactions(listWithDuplicateTransactions));
     }
 
     @Test
     public void asUnmodifiableObservableList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, ()
-            -> uniqueTransactionList.asUnmodifiableObservableList().remove(0));
+        assertThrows(UnsupportedOperationException.class, () -> uniqueTransactionList
+            .asUnmodifiableObservableList()
+            .remove(0));
     }
 
 }

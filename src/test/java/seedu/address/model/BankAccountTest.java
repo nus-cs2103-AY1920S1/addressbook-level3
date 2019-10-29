@@ -7,7 +7,11 @@ import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalTransactions.ALICE;
 import static seedu.address.testutil.TypicalTransactions.getTypicalBankAccount;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
@@ -40,22 +44,22 @@ public class BankAccountTest {
         assertEquals(newData, bankAccount);
     }
 
-     @Test
-     public void resetData_withDuplicateTransactions_throwsDuplicateTransactionException() {
-         // Two transactions with the same identity fields
-         BankAccountOperation editedAlice = new BankOperationBuilder(ALICE)
-             .build();
-         List<BankAccountOperation> newTransactions = Arrays.asList(ALICE, editedAlice);
-         BankAccountStub newData = new BankAccountStub(newTransactions);
+    @Test
+    public void resetData_withDuplicateTransactions_throwsDuplicateTransactionException() {
+        // Two transactions with the same identity fields
+        BankAccountOperation editedAlice = new BankOperationBuilder(ALICE)
+                .build();
+        List<BankAccountOperation> newTransactions = Arrays.asList(ALICE, editedAlice);
+        BankAccountStub newData = new BankAccountStub(newTransactions);
 
-         assertThrows(DuplicateTransactionException.class, () -> bankAccount.resetData(newData));
-     }
+        assertThrows(DuplicateTransactionException.class, () -> bankAccount.resetData(newData));
+    }
 
     // TODO: implement test for budget during copying
-//     @Test
-//     public  void resetData_withDuplicateBudget_throwsDuplicateBudgetException() {
-//
-//     }
+    // @Test
+    // public  void resetData_withDuplicateBudget_throwsDuplicateBudgetException() {
+    //
+    // }
 
     @Test
     public void hasTransaction_nullTransaction_throwsNullPointerException() {
@@ -77,7 +81,7 @@ public class BankAccountTest {
     public void hasTransaction_transactionWithSameIdentityFieldsInBankAccount_returnsTrue() {
         bankAccount.addTransaction(ALICE);
         BankAccountOperation editedAlice = new BankOperationBuilder(ALICE)
-            .build();
+                .build();
         assertTrue(bankAccount.hasTransaction(editedAlice));
     }
 

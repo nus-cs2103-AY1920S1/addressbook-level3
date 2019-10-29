@@ -1,16 +1,18 @@
 package seedu.address.model.transaction;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.junit.jupiter.api.Test;
+
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.testutil.LedgerOperationBuilder;
 import seedu.address.testutil.PersonBuilder;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class LendMoneyTest {
     @Test
-    public void handleBalance_validPerson_validPersonList_updatesBalanceCorrectly() {
+    public void handleBalance_validArguments_updatesBalance() {
         Person joel = new PersonBuilder().withName(LedgerOperationBuilder.DEFAULT_NAME1).withAmount("100").build();
         LedgerOperationBuilder lob = new LedgerOperationBuilder();
         UniquePersonList list = lob.getPeople();

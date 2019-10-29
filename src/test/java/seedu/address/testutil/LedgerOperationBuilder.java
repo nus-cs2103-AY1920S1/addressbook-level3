@@ -7,9 +7,17 @@ import java.util.stream.Collectors;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
-import seedu.address.model.transaction.*;
+import seedu.address.model.transaction.Amount;
+import seedu.address.model.transaction.Description;
+import seedu.address.model.transaction.LedgerOperation;
+import seedu.address.model.transaction.LendMoney;
+import seedu.address.model.transaction.ReceiveMoney;
+import seedu.address.model.transaction.Split;
 import seedu.address.model.util.Date;
 
+/**
+ * Utility class to build {@code Split}, {@code LendMoney} and {@code ReceiveMoney} operations
+ */
 public class LedgerOperationBuilder {
     public static final String DEFAULT_AMOUNT = "100";
     public static final String DEFAULT_DATE = "10102019";
@@ -41,11 +49,17 @@ public class LedgerOperationBuilder {
         date = toCopy.getDate();
     }
 
+    /**
+     * Sets the {@code amount} of the {@code LedgerOperation} that we are building.
+     */
     public LedgerOperationBuilder withAmount(String amount) {
         this.amount = new Amount(Double.parseDouble(amount));
         return this;
     }
 
+    /**
+     * Sets the {@code date} of the {@code LedgerOperation} that we are building.
+     */
     public LedgerOperationBuilder withDate(String date) {
         this.date = new Date(date);
         return this;
@@ -59,21 +73,35 @@ public class LedgerOperationBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code target} of the {@code LedgerOperation} that we are building
+     * as a new Person with {@code name}
+     */
     public LedgerOperationBuilder withPerson(String name) {
         this.person = new Person(new Name(name));
         return this;
     }
 
+    /**
+     * Sets the {@code target} of the {@code LedgerOperation} that we are building.
+     */
     public LedgerOperationBuilder withPerson(Person bob) {
         this.person = bob;
         return this;
     }
 
+    /**
+     * Adds a new {@code Person} with {@code name} into the {@code UniquePersonList}
+     * of the {@code LedgerOperation} that we are building.
+     */
     public LedgerOperationBuilder addPerson(String name) {
         Person person = new Person(new Name(name));
         return this.addPerson(person);
     }
 
+    /**
+     * Adds a {@code Person} into the {@code UniquePersonList} of the {@code LedgerOperation} that we are building.
+     */
     public LedgerOperationBuilder addPerson(Person person) {
         people.add(person);
         return this;

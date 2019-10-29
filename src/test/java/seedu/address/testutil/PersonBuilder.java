@@ -58,6 +58,9 @@ public class PersonBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code balance} of the {@code Person} that we are building.
+     */
     public PersonBuilder withAmount(String amount) {
         this.amount = new Amount(Double.parseDouble(amount));
         return this;
