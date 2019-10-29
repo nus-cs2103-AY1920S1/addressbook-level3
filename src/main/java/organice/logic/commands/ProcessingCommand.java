@@ -3,21 +3,12 @@ package organice.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static organice.logic.commands.MatchCommand.match;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.PrintStream;
-import java.util.List;
-
 import organice.model.Model;
 import organice.model.person.Donor;
 import organice.model.person.Nric;
 import organice.model.person.Patient;
-import organice.model.person.Person;
-import organice.model.person.Task;
 import organice.model.person.TaskList;
 import organice.model.person.exceptions.PersonNotFoundException;
-import organice.storage.ProcessingTaskStorage;
 
 /**
  * Process a pair of donor and patient to provide a checklist to prepare for the organ transplant.

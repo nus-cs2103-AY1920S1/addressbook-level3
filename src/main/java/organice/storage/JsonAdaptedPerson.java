@@ -18,6 +18,7 @@ import organice.model.person.Person;
 import organice.model.person.Phone;
 import organice.model.person.Priority;
 import organice.model.person.Status;
+import organice.model.person.Task;
 import organice.model.person.TaskList;
 import organice.model.person.TissueType;
 import organice.model.person.Type;
@@ -226,8 +227,15 @@ class JsonAdaptedPerson {
             }
             final Status modelStatus = new Status(status);
 
-            return new Donor(modelType, modelNric, modelName, modelPhone, modelAge, modelBloodType, modelTissueType,
+            final TaskList modelTaskList = new TaskList(processingTaskList);
+
+            Donor modelDonor = new Donor(modelType, modelNric, modelName, modelPhone, modelAge, modelBloodType, modelTissueType,
                     modelOrgan, modelOrganExpiryDate, modelStatus);
+
+            modelDonor.setProcessingList(processingTaskList);
+
+            return modelDonor;
+
         } else if (modelType.isPatient()) {
             if (age == null) {
                 throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,

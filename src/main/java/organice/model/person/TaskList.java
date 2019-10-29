@@ -13,7 +13,7 @@ public class TaskList {
 
     public final String value;
 
-    public TaskList() {
+    public TaskList(String tasklist) {
         this.listOfTask = new ArrayList<Task>();
         value = listOfTask.toString();
     }
@@ -35,7 +35,7 @@ public class TaskList {
     }
 
     public TaskList defaultList() {
-        TaskList processingTodoList = new TaskList();
+        TaskList processingTodoList = new TaskList("");
         processingTodoList.add(new Task("Contact donor"));
         processingTodoList.add(new Task("Contact patient's family"));
         processingTodoList.add(new Task("Contact doctor in charge of patient"));

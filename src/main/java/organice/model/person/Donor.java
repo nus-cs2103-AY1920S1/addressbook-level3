@@ -5,7 +5,7 @@ import static organice.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.HashMap;
 import java.util.Objects;
 
-import organice.storage.ProcessingTaskStorage;
+import javafx.scene.control.skin.TextAreaSkin;
 
 /**
  * Represents a Donor in ORGANice.
@@ -37,7 +37,7 @@ public class Donor extends Person {
         this.tissueType = tissueType;
         this.organ = organ;
         this.organExpiryDate = organExpiryDate;
-        processingTodoList = new TaskList();
+        processingTodoList = new TaskList("");
         this.status = status;
         successRateMap = new HashMap<>();
         if (status.isNotProcessing()) {
@@ -110,6 +110,11 @@ public class Donor extends Person {
     public void setStatus(String newStatus) {
         Status updatedStatus = new Status(newStatus);
         this.status = updatedStatus;
+    }
+
+    public void setProcessingList(String newProcessingList) {
+        TaskList updatedProcessingList = new TaskList(newProcessingList.toString());
+        this.processingTodoList = updatedProcessingList;
     }
 
     public void markTaskAsDone(int taskNumber) {

@@ -25,6 +25,7 @@ import organice.model.person.Donor;
 import organice.model.person.Nric;
 import organice.model.person.Patient;
 import organice.model.person.Person;
+import organice.model.person.exceptions.PersonNotFoundException;
 import organice.testutil.DoctorBuilder;
 import organice.testutil.DonorBuilder;
 import organice.testutil.PatientBuilder;
@@ -206,8 +207,18 @@ public class AddCommandTest {
         }
 
         @Override
+        public boolean hasDonor(Nric donorNric) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public Patient getPatient(Nric patientNric) {
             throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Donor getDonor(Nric donorNric) throws PersonNotFoundException {
+            return null;
         }
 
         @Override

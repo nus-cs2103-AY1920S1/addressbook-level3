@@ -87,7 +87,7 @@ public class AddCommandParser implements Parser<AddCommand> {
             OrganExpiryDate organExpiryDate =
                     ParserUtil.parseOrganExpiryDate(argMultimap.getValue(PREFIX_ORGAN_EXPIRY_DATE).get());
             Status status = new Status(Status.STATUS_NOT_PROCESSING);
-            TaskList taskList = new TaskList();
+            TaskList taskList = new TaskList("");
             Donor donor = new Donor(type, nric, name, phone, age, bloodType, tissueType, organ, organExpiryDate,
                     status);
             return new AddCommand(donor);
