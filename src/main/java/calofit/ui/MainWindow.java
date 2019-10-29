@@ -175,12 +175,6 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
-    @FXML
-    public void handleNotification(String message) {
-        notificationWindow = new NotificationWindow(message);
-        notificationWindow.show();
-    }
-
     void show() {
         primaryStage.show();
     }
