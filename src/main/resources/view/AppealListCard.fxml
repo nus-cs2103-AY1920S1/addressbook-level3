@@ -27,7 +27,9 @@
                 </Label>
                 <Label fx:id="appealId" text="\$appealId" styleClass="cell_big_label" />
                 <Pane HBox.hgrow="ALWAYS"/>
-                <Label fx:id="status" styleClass="prefix-label" text="\%status" alignment="CENTER_RIGHT"/>
+                <Label fx:id="approvalIcon" alignment="CENTER_RIGHT" />
+                <Label fx:id="approvalStatus" alignment="CENTER_RIGHT" />
+                <Label fx:id="resolvedStatus" styleClass="prefix-label" text="\%resolvedStatus" alignment="CENTER_RIGHT"/>
             </HBox>
             <HBox spacing="3">
                 <padding>

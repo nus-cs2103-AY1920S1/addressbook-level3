@@ -37,9 +37,9 @@ public class StudentCard extends UiPart<Region> {
     @FXML
     private Label matricId;
     @FXML
-    private Label prevMods;
+    private Label numberOfMods;
     @FXML
-    private FlowPane tags;
+    private FlowPane appealTags;
 
     public StudentCard(Student student, int displayedIndex) {
         super(FXML);
@@ -48,10 +48,10 @@ public class StudentCard extends UiPart<Region> {
         name.setText(student.getName().fullName);
         credits.setText(student.getCredits().value);
         matricId.setText(student.getMatricId().value);
-        prevMods.setText(student.getPrevMods().value);
+        numberOfMods.setText(Integer.toString(student.getNumberOfMods()));
         student.getCurrentAppeals().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
-                .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+                .forEach(tag -> appealTags.getChildren().add(new Label(tag.tagName)));
     }
 
     @Override

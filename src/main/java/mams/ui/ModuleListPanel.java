@@ -17,11 +17,14 @@ public class ModuleListPanel extends UiPart<Region> {
     private static final String FXML = "ItemListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(ModuleListPanel.class);
 
+    private final ObservableList<Module> moduleList;
+
     @FXML
     private ListView<Module> itemListView;
 
     public ModuleListPanel(ObservableList<Module> moduleList) {
         super(FXML);
+        this.moduleList = moduleList;
         itemListView.setItems(moduleList);
         itemListView.setCellFactory(listView -> new ModuleListViewCell());
     }
@@ -37,6 +40,8 @@ public class ModuleListPanel extends UiPart<Region> {
             if (empty || module == null) {
                 setGraphic(null);
                 setText(null);
+            } else if (moduleList.size() == 1) {
+                setGraphic(new ExpandedModuleCard(module).getRoot());
             } else {
                 setGraphic(new ModuleCard(module, getIndex() + 1).getRoot());
             }
