@@ -1,0 +1,15 @@
+{
+  "inputOutputs" : [ {
+    "input" : "list",
+    "output" : "Listed all appeals\nListed all modules\nListed all students"
+  }, {
+    "input" : "list -a",
+    "output" : "Listed all appeals\n"
+  }, {
+    "input" : "afoaref",
+    "output" : "Unknown command"
+  }, {
+    "input" : "cs2103",
+    "output" : "Unknown command"
+  } ]
+}

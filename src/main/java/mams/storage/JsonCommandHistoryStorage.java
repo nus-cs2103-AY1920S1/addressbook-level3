@@ -52,7 +52,7 @@ public class JsonCommandHistoryStorage implements CommandHistoryStorage {
         }
 
         try {
-            return Optional.of(jsonCommandHistory.get().toModelType());
+            return Optional.of(jsonCommandHistory.get().toLogicType());
         } catch (IllegalValueException ive) {
             logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
             throw new DataConversionException(ive);

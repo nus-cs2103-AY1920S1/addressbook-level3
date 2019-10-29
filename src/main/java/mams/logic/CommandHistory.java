@@ -2,6 +2,8 @@ package mams.logic;
 
 import static mams.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.List;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -13,8 +15,20 @@ public class CommandHistory implements ReadOnlyCommandHistory {
 
     public CommandHistory() {}
 
+    /**
+     * Initialize from a List of InputOutput objects.
+     * @param inputOutputs
+     */
+    public CommandHistory(List<InputOutput> inputOutputs) {
+        this.inputOutputHistory.addAll(inputOutputs);
+    }
+
+    /**
+     * Initialize from a {@code ReadonlyCommandHistory}.
+     * @param commandHistory
+     */
     public CommandHistory(ReadOnlyCommandHistory commandHistory) {
-        this.inputOutputHistory.addAll(commandHistory.getInputOutputHistory());
+        this(commandHistory.getInputOutputHistory());
     }
 
     /**

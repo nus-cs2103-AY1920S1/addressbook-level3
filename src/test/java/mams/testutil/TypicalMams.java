@@ -10,7 +10,8 @@ import mams.model.module.Module;
 import mams.model.student.Student;
 
 /**
- * Utility class for building a sample MAMS book populated with some data.
+ * Utility class for building a sample MAMS populated with some data from {@code TypicalAppeals},
+ * {@code TypicalModules}, and {@code TypicalStudents}.
  */
 public class TypicalMams {
 

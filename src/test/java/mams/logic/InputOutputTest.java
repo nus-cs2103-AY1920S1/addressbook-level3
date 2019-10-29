@@ -1,9 +1,9 @@
 package mams.logic;
 
-import static mams.logic.CommandHistoryTest.INVALID_IO_1;
-import static mams.logic.CommandHistoryTest.INVALID_IO_2;
-import static mams.logic.CommandHistoryTest.VALID_IO_1;
-import static mams.logic.CommandHistoryTest.VALID_IO_2;
+import static mams.testutil.TypicalCommandHistory.INVALID_IO_1;
+import static mams.testutil.TypicalCommandHistory.INVALID_IO_2;
+import static mams.testutil.TypicalCommandHistory.VALID_IO_1;
+import static mams.testutil.TypicalCommandHistory.VALID_IO_2;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;

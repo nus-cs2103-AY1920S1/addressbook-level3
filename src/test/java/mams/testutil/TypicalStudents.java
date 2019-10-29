@@ -5,7 +5,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import mams.logic.commands.CommandTestUtil;
-import mams.model.Mams;
 import mams.model.student.Student;
 
 
@@ -54,17 +53,6 @@ public class TypicalStudents {
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 
     private TypicalStudents() {} // prevents instantiation
-
-    /**
-     * Returns an {@code Mams} with all the typical students.
-     */
-    public static Mams getTypicalMams() {
-        Mams ab = new Mams();
-        for (Student student : getTypicalStudents()) {
-            ab.addStudent(student);
-        }
-        return ab;
-    }
 
     public static List<Student> getTypicalStudents() {
         return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));

@@ -5,6 +5,7 @@ import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import mams.commons.core.LogsCenter;
 import mams.logic.InputOutput;
@@ -106,7 +107,7 @@ public class HistoryWindow extends UiPart<Stage> {
         logger.fine("Showing the command history page.");
         getRoot().show();
         getRoot().centerOnScreen();
-        resultDisplay.appendText(""); // auto-scroll history to bottom
+        scrollToBottom();
     }
 
     /**
@@ -128,12 +129,29 @@ public class HistoryWindow extends UiPart<Stage> {
      */
     public void focus() {
         getRoot().requestFocus();
+        scrollToBottom();
     }
 
     /**
-     * Closes the history window.
+     * Autoscroll to bottom by appending an empty {@code String}
      */
-    public void close() {
-        getRoot().close();
+    public void scrollToBottom() {
+        resultDisplay.appendText("");
     }
+
+    /**
+     * Handles {@code KeyEvent} for the history window.
+     */
+    @FXML
+    private void handleKeyPress(KeyEvent keyEvent) {
+        switch (keyEvent.getCode()) {
+        case ESCAPE:
+            keyEvent.consume();
+            hide();
+            break;
+        default:
+            break;
+        }
+    }
+
 }

@@ -44,11 +44,11 @@ class JsonSerializableCommandHistory {
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */
-    public CommandHistory toModelType() throws IllegalValueException {
+    public CommandHistory toLogicType() throws IllegalValueException {
         CommandHistory commandHistory = new CommandHistory();
 
         for (JsonAdaptedInputOutput jsonAdaptedInputOutput: inputOutputs) {
-            InputOutput inputOutput = jsonAdaptedInputOutput.toModelType();
+            InputOutput inputOutput = jsonAdaptedInputOutput.toLogicType();
             commandHistory.add(inputOutput.getInput(), inputOutput.getOutput());
         }
 

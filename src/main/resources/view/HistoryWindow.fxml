@@ -23,7 +23,7 @@
                 <URL value="@DarkTheme.css" />
                 <URL value="@Extensions.css" />
             </stylesheets>
-            <VBox alignment="CENTER" minWidth="600" styleClass="pane-with-border">
+            <VBox alignment="CENTER" minWidth="600" styleClass="pane-with-border" onKeyPressed="#handleKeyPress">
                 <children>
                     <Label fx:id="commandHistoryTitle" text="MAMS Command History" styleClass="prefix-label, prefix_green"/>
                     <StackPane fx:id="placeHolder" styleClass="pane-with-border" xmlns="http://javafx.com/javafx/8"

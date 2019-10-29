@@ -12,7 +12,7 @@ import mams.logic.InputOutput;
  */
 class JsonAdaptedInputOutput {
 
-    public static final String MISSING_FIELD_MESSAGE_FORMAT = "InputOutput's %s field is missing!";
+    public static final String MISSING_FIELD_MESSAGE_FORMAT = "InputOutput's %s field is missing/blank!";
     public static final String INPUT_PROPERTY_NAME = "input";
     public static final String OUTPUT_PROPERTY_NAME = "output";
 
@@ -42,14 +42,14 @@ class JsonAdaptedInputOutput {
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted InputOutput.
      */
-    public InputOutput toModelType() throws IllegalValueException {
+    public InputOutput toLogicType() throws IllegalValueException {
 
-        if (input == null) {
+        if (input == null || input.isBlank()) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     INPUT_PROPERTY_NAME));
         }
 
-        if (output == null) {
+        if (output == null || output.isBlank()) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     OUTPUT_PROPERTY_NAME));
         }

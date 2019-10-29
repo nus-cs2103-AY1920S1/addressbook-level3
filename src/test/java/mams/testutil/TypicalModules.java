@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import mams.model.Mams;
 import mams.model.module.Module;
 
 /**
@@ -28,14 +27,6 @@ public class TypicalModules {
             .withTimeSlot("21,20,57,58,59").withQuota("200")
             .withTags("A5802229").build();
     private TypicalModules() {} // prevents instantiation
-
-    public static Mams getTypicalMams() {
-        Mams ab = new Mams();
-        for (Module module : getTypicalModules()) {
-            ab.addModule(module);
-        }
-        return ab;
-    }
 
     public static List<Module> getTypicalModules() {
         return new ArrayList<>(Arrays.asList(CS1010, CS1231, CS1020));

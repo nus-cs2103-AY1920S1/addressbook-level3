@@ -1,5 +1,17 @@
 package mams.logic;
 
+import static mams.testutil.TypicalCommandHistory.INVALID_COMMAND_1;
+import static mams.testutil.TypicalCommandHistory.INVALID_COMMAND_2;
+import static mams.testutil.TypicalCommandHistory.INVALID_COMMAND_OUTPUT;
+import static mams.testutil.TypicalCommandHistory.INVALID_IO_1;
+import static mams.testutil.TypicalCommandHistory.INVALID_IO_2;
+import static mams.testutil.TypicalCommandHistory.VALID_COMMAND_1;
+import static mams.testutil.TypicalCommandHistory.VALID_COMMAND_2;
+import static mams.testutil.TypicalCommandHistory.VALID_COMMAND_OUTPUT_1;
+import static mams.testutil.TypicalCommandHistory.VALID_COMMAND_OUTPUT_2;
+import static mams.testutil.TypicalCommandHistory.VALID_IO_1;
+import static mams.testutil.TypicalCommandHistory.VALID_IO_2;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
@@ -13,22 +25,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class CommandHistoryTest {
-
-    // Defined explicitly instead of imported to reduce dependencies
-    public static final String VALID_COMMAND_1 = "list";
-    public static final String VALID_COMMAND_OUTPUT_1 = "Listed the following: appeals modules students";
-    public static final String VALID_COMMAND_2 = "list /a";
-    public static final String VALID_COMMAND_OUTPUT_2 = "Listed the following: appeals";
-    public static final String INVALID_COMMAND_1 = "afoaref";
-    public static final String INVALID_COMMAND_2 = "view";
-    public static final String INVALID_COMMAND_OUTPUT = "Unknown command";
-
-    public static final InputOutput VALID_IO_1 = new InputOutput(VALID_COMMAND_1, VALID_COMMAND_OUTPUT_1);
-    public static final InputOutput VALID_IO_2 = new InputOutput(VALID_COMMAND_2, VALID_COMMAND_OUTPUT_2);
-
-    public static final InputOutput INVALID_IO_1 = new InputOutput(INVALID_COMMAND_1, INVALID_COMMAND_OUTPUT);
-    public static final InputOutput INVALID_IO_2 = new InputOutput(INVALID_COMMAND_2, INVALID_COMMAND_OUTPUT);
-
     private CommandHistory commandHistory;
 
     @BeforeEach

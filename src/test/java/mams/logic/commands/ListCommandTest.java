@@ -8,6 +8,7 @@ import static mams.testutil.TypicalIndexes.INDEX_FIRST;
 import static mams.testutil.TypicalMams.getTypicalMams;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -212,6 +213,23 @@ public class ListCommandTest {
                 model,
                 MESSAGE_LIST_ALL_SUCCESS,
                 expectedModel);
+    }
+
+    @Test
+    public void requireAtLeastOneTrue() {
+        // all true -> no error
+        ListCommand.requireAtLeastOneTrue(true, true, true, true, true);
+
+        // one true -> no error
+        ListCommand.requireAtLeastOneTrue(true, false, false, false);
+
+        // none true -> raise AssertionError
+        assertThrows(AssertionError.class, () -> ListCommand.requireAtLeastOneTrue(false, false, false));
+    }
+
+    @Test
+    public void execute_listCommandInitializedWithAllFalse_throwsError() {
+        assertThrows(AssertionError.class, () -> new ListCommand(false, false, false).execute(model));
     }
 
     @Test
