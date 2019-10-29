@@ -27,6 +27,7 @@ import thrift.logic.commands.UndoCommand;
 import thrift.logic.commands.UpdateCommand;
 import thrift.logic.commands.UpdateCommand.UpdateTransactionDescriptor;
 import thrift.logic.parser.exceptions.ParseException;
+import thrift.model.clone.Occurrence;
 import thrift.model.transaction.DescriptionOrRemarkContainsKeywordsPredicate;
 import thrift.model.transaction.Expense;
 import thrift.testutil.ExpenseBuilder;
@@ -116,7 +117,7 @@ public class ThriftParserTest {
         CloneCommand command = (CloneCommand) parser.parseCommand(
                 CloneCommand.COMMAND_WORD + " " + CliSyntax.PREFIX_INDEX
                         + TypicalIndexes.INDEX_FIRST_TRANSACTION.getOneBased());
-        assertEquals(new CloneCommand(TypicalIndexes.INDEX_FIRST_TRANSACTION), command);
+        assertEquals(new CloneCommand(TypicalIndexes.INDEX_FIRST_TRANSACTION, new Occurrence("daily", 1)), command);
     }
 
     @Test

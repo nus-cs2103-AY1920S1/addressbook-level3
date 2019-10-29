@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static thrift.logic.parser.CliSyntax.PREFIX_DATE;
 import static thrift.logic.parser.CliSyntax.PREFIX_INDEX;
 import static thrift.logic.parser.CliSyntax.PREFIX_NAME;
+import static thrift.logic.parser.CliSyntax.PREFIX_OCCURRENCE;
 import static thrift.logic.parser.CliSyntax.PREFIX_REMARK;
 import static thrift.logic.parser.CliSyntax.PREFIX_TAG;
 import static thrift.logic.parser.CliSyntax.PREFIX_VALUE;
@@ -61,6 +62,7 @@ public class CommandTestUtil {
     public static final String TAG_BRUNCH = " " + PREFIX_TAG + VALID_TAG_BRUNCH;
     public static final String TAG_AIRPODS = " " + PREFIX_TAG + VALID_TAG_ACCESSORY;
     public static final String INDEX_TOKEN = " " + PREFIX_INDEX;
+    public static final String OCCURRENCE_TOKEN = " " + PREFIX_OCCURRENCE;
 
     public static final String INVALID_VALUE = " " + PREFIX_VALUE + ".00"; // missing whole number
     public static final String INVALID_DATE = " " + PREFIX_DATE + "13/aaaa"; // invalid month and non numeric year

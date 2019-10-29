@@ -17,7 +17,7 @@ import thrift.logic.parser.exceptions.ParseException;
  */
 public class ArgumentMultimap {
 
-    public static final String WARNING_NOT_SINGULAR_FORMAT = "Too many arguments for prefix \"%1$s\".";
+    public static final String WARNING_NOT_SINGULAR_FORMAT = "Too many arguments with prefix \"%1$s\".";
 
     /** Prefixes mapped to their respective arguments**/
     private final Map<Prefix, List<String>> argMultimap = new HashMap<>();
