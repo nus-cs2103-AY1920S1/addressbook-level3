@@ -222,7 +222,7 @@ Examples:
 === Entering priority mode: `priority`
 Feeling stress? Too much task on your task list? Enter priority mode, a mode which will help you narrow down the most pressing task to be done.
 
-By simply typing `priority` into the command box, you will be given one single task of the highest priority among your task list. This task is chosen by ELISA at random.
+By simply typing `priority` into the command box, you will be given one single task of the highest priority among your task list. This task is chosen by ELISA base on priority and the order in which the task was added to the list.
 
 Feeling less stress? You can type `priority` again to bring you out of the priority mode and back into the normal task view. Or even better, finish all your undone task and you will be automatically brought out of priority mode.
 
@@ -238,7 +238,7 @@ Examples:
 
 ****
 * Note that this command can only be called in the task panel.
-* Note that all command such as `edit`, `undo` and `redo` still works in priority mode. However, if `undo` is called, the viewing list will not revert back to the previous view unless `undo` causes a task of a higher priority than the current one to be undone.
+* Note that all command such as `edit`, `undo` and `redo` still works in priority mode.
 ****
 
 === Exiting the program : `exit`
