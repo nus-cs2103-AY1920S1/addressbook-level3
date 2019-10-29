@@ -76,7 +76,10 @@ public class MealPlan {
 
         return allRecipes.toString().replace("[", "").replace("]", "").replace(",", "");
     }
-    
+    /**
+     * Searches through all {@code Recipe} in {@code MealPlan} for instances of {@code oldRecipe},
+     * and replaces it with {@code newRecipe}.
+     */
     public void replaceRecipe(Recipe oldRecipe, Recipe newRecipe) {
         for (Recipe recipe : day1) {
             if (recipe.isSameRecipe(oldRecipe)) {

@@ -122,9 +122,9 @@ public class EditMealPlanCommand extends EditCommand {
         List<Recipe> updatedDay1;
         if (editMealPlanDescriptor.getDay1ToAdd().isPresent()
                 || editMealPlanDescriptor.getDay1ToRemove().isPresent()) {
-            
+
             updatedDay1 = new ArrayList<>(mealPlanToEdit.getDay1());
-            
+
             if (editMealPlanDescriptor.getDay1ToAdd().isPresent()) {
                 List<RecipeName> tempDay1ToAdd = editMealPlanDescriptor.getDay1ToAdd().get();
 
@@ -148,7 +148,7 @@ public class EditMealPlanCommand extends EditCommand {
                     }
                 }
             }
-            
+
         } else {
             updatedDay1 = mealPlanToEdit.getDay1();
         }
@@ -186,7 +186,7 @@ public class EditMealPlanCommand extends EditCommand {
         } else {
             updatedDay2 = mealPlanToEdit.getDay2();
         }
-        
+
         List<Recipe> updatedDay3;
         if (editMealPlanDescriptor.getDay3ToAdd().isPresent()
                 || editMealPlanDescriptor.getDay3ToRemove().isPresent()) {
@@ -254,7 +254,7 @@ public class EditMealPlanCommand extends EditCommand {
         } else {
             updatedDay4 = mealPlanToEdit.getDay4();
         }
-        
+
         List<Recipe> updatedDay5;
         if (editMealPlanDescriptor.getDay5ToAdd().isPresent()
                 || editMealPlanDescriptor.getDay5ToRemove().isPresent()) {
@@ -357,7 +357,7 @@ public class EditMealPlanCommand extends EditCommand {
             updatedDay7 = mealPlanToEdit.getDay7();
         }
 
-        return new MealPlan(updatedName, updatedDay1, updatedDay2, updatedDay3, 
+        return new MealPlan(updatedName, updatedDay1, updatedDay2, updatedDay3,
                 updatedDay4, updatedDay5, updatedDay6, updatedDay7);
     }
 

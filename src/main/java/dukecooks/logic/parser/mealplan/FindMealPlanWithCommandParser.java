@@ -4,11 +4,9 @@ import static dukecooks.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import java.util.Arrays;
 
-import dukecooks.logic.commands.mealplan.FindMealPlanCommand;
 import dukecooks.logic.commands.mealplan.FindMealPlanWithCommand;
 import dukecooks.logic.parser.Parser;
 import dukecooks.logic.parser.exceptions.ParseException;
-import dukecooks.model.mealplan.components.MealPlanNameContainsKeywordsPredicate;
 import dukecooks.model.mealplan.components.MealPlanRecipesContainsKeywordsPredicate;
 
 /**
