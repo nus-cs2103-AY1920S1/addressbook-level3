@@ -5,7 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
@@ -40,7 +40,7 @@ public class SpendingBook implements ReadOnlySpendingBook {
         spendings = new SpendingList();
         budget = new Budget(0);
         reminders = new ArrayList<>();
-        currencies = new HashSet<>();
+        currencies = new LinkedHashSet<>();
         currencies.addAll(Arrays.asList(CurrencyDataUtil.getSampleCurrencies()));
         currencyInUse = CurrencyDataUtil.getDefaultCurrency();
     }
