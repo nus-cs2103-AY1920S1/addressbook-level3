@@ -27,6 +27,7 @@ public class RejectClaimCommand extends Command {
     private final Index targetIndex;
 
     public RejectClaimCommand(Index targetIndex) {
+        requireNonNull(targetIndex);
         this.targetIndex = targetIndex;
     }
 

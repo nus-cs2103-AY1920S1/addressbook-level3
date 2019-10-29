@@ -83,10 +83,8 @@ public class FinSecParserTest {
         EditIncomeCommand command = (EditIncomeCommand) parser.parseCommand(
                 EditIncomeCommand.COMMAND_WORD + " "
                 + INDEX_FIRST_PERSON.getOneBased() + " " + IncomeUtil.getEditIncomeDescriptorDetails(descriptor));
-        //assertEquals(new EditIncomeCommand(INDEX_FIRST_PERSON, descriptor), command);
+        assertEquals(new EditIncomeCommand(INDEX_FIRST_PERSON, descriptor), command);
     }
-
-
 
 
 

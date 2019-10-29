@@ -4,9 +4,11 @@ import java.util.HashSet;
 import java.util.Set;
 
 import seedu.address.model.claim.Amount;
+import seedu.address.model.claim.ApprovedClaim;
 import seedu.address.model.claim.Claim;
 import seedu.address.model.claim.Description;
 import seedu.address.model.claim.PendingClaim;
+import seedu.address.model.claim.RejectedClaim;
 import seedu.address.model.commonvariables.Date;
 import seedu.address.model.commonvariables.Name;
 import seedu.address.model.commonvariables.Phone;
@@ -99,5 +101,13 @@ public class ClaimBuilder {
 
     public Claim build() {
         return new PendingClaim(description, amount, date, name, phone, tags);
+    }
+
+    public ApprovedClaim buildApproved() {
+        return new ApprovedClaim(description, amount, date, name, phone, tags);
+    }
+
+    public RejectedClaim buildRejected() {
+        return new RejectedClaim(description, amount, date, name, phone, tags);
     }
 }

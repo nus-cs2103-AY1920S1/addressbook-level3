@@ -37,11 +37,7 @@ public class AutocorrectTextField extends TextField {
     public AutocorrectTextField() {
         super();
         suggestionCommands = FinSecParser.getCommandList().keySet();
-        addSuggestions = new HashSet<>();
-        ArrayList<String> otherSuggestions = SuggestionsStorage.getSuggestions();
-        for (String other : otherSuggestions) {
-            addSuggestions.add(other);
-        }
+        addSuggestions = new HashSet<>(SuggestionsStorage.getSuggestions());
         suggestionsPopup = new ContextMenu();
         textProperty().addListener(new ChangeListener<String>() {
             @Override
