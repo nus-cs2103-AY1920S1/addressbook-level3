@@ -41,7 +41,7 @@ public class UiManager implements Ui {
         try {
             mainWindow = new MainWindow(primaryStage, logic);
             mainWindow.show(); //This should be called before creating other UI parts
-            mainWindow.fillInnerParts("list");
+            mainWindow.fillInnerParts();
 
         } catch (Throwable e) {
             logger.severe(StringUtil.getDetails(e));
@@ -52,14 +52,14 @@ public class UiManager implements Ui {
     public void changeViewingList(String commandWord) throws CommandException {
         if (commandWord.equals("list")) {
             try {
-                mainWindow.fillInnerParts("list");
+                mainWindow.fillInnerParts();
             } catch (Throwable e) {
                 logger.severe(StringUtil.getDetails(e));
                 showFatalErrorDialogAndShutdown("Fatal error while trying to show expense list", e);
             }
         } else if (commandWord.equals("listbudgets")) {
             try {
-                mainWindow.fillInnerParts("listbudgets");
+                mainWindow.fillInnerParts();
             } catch (Throwable e) {
                 logger.severe(StringUtil.getDetails(e));
                 showFatalErrorDialogAndShutdown("Fatal error while trying to show budget list", e);

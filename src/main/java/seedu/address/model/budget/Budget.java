@@ -4,6 +4,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
 
+import javafx.collections.ObservableList;
 import seedu.address.model.ExpenseList;
 import seedu.address.model.expense.Amount;
 import seedu.address.model.expense.Currency;
@@ -25,15 +26,15 @@ public class Budget {
     private final Date startDate;
     private final Date endDate;
     private final Amount amount;
-    private Amount amountLeft;
-
     // Expense List
     private final ExpenseList expenseList;
+    private Amount amountLeft;
 
     /**
      * Every field must be present and not null.
      */
-    public Budget(Name name, Amount amount, Amount amountLeft, Currency currency, Date startDate, Date endDate, ExpenseList expenseList) {
+    public Budget(Name name, Amount amount, Amount amountLeft, Currency currency, Date startDate, Date endDate,
+                  ExpenseList expenseList) {
         requireAllNonNull(name, amount, startDate, endDate);
         this.name = name;
         this.currency = currency;
@@ -72,8 +73,13 @@ public class Budget {
         return expenseList;
     }
 
+    public ObservableList<Expense> getObservableExpenseList() {
+        return expenseList.getExpenseList();
+    }
+
     /**
      * Adds an expense into the expenselist inside the budget.
+     *
      * @param expense an expense to be added into a budget.
      */
     public void addExpenseIntoBudget(Expense expense) {
@@ -87,6 +93,7 @@ public class Budget {
 
     /**
      * Checks whether a given date falls within any budget period.
+     *
      * @param date a valid date.
      * @return a boolean value.
      */
@@ -106,7 +113,6 @@ public class Budget {
         this.amountLeft = new Amount("" + amountLeft);
     }
 
-
     /**
      * Returns true if both budgets have the same name.
      * This defines a weaker notion of equality between two budgets.
@@ -117,7 +123,7 @@ public class Budget {
         }
 
         return otherBudget != null
-                       && otherBudget.getName().equals(getName());
+            && otherBudget.getName().equals(getName());
     }
 
     /**
@@ -136,9 +142,9 @@ public class Budget {
 
         Budget otherBudget = (Budget) other;
         return otherBudget.getName().equals(getName())
-                       && otherBudget.getAmount().equals(getAmount())
-                       && otherBudget.getStartDate().equals(getStartDate())
-                       && otherBudget.getEndDate().equals(getEndDate());
+            && otherBudget.getAmount().equals(getAmount())
+            && otherBudget.getStartDate().equals(getStartDate())
+            && otherBudget.getEndDate().equals(getEndDate());
     }
 
     @Override
@@ -151,14 +157,14 @@ public class Budget {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append("\n")
-                .append(getName())
-                .append(" ")
-                .append(getAmount())
-                .append("\n")
-                .append(getStartDate())
-                .append("\n")
-                .append(getEndDate())
-                .append("\n");
+            .append(getName())
+            .append(" ")
+            .append(getAmount())
+            .append("\n")
+            .append(getStartDate())
+            .append("\n")
+            .append(getEndDate())
+            .append("\n");
         return builder.toString();
     }
 }

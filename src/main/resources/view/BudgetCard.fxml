@@ -39,7 +39,7 @@
                 </children>
                 <children>
                     <Label fx:id="amountLeft" styleClass="cell_small_label" text="\$amountLeft" />
-                    <Label fx:id="currency" styleClass="cell_small_label" text="\$currency">
+                    <Label fx:id="currencyLeft" styleClass="cell_small_label" text="\$currency">
                         <padding>
                             <Insets left="4.0" />
                         </padding>
