@@ -1,5 +1,10 @@
 package mams.logic.commands;
 
+import static mams.logic.commands.AddModCommand.MESSAGE_DUPLICATE_MODULE;
+import static mams.logic.commands.RemoveModCommand.MESSAGE_MISSING_MODULE;
+import static mams.logic.commands.ModCommand.MESSAGE_INVALID_MODULE;
+
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -14,10 +19,6 @@ import mams.model.module.Module;
 import mams.model.student.Credits;
 import mams.model.student.Student;
 import mams.model.tag.Tag;
-
-import static mams.logic.commands.AddModCommand.MESSAGE_DUPLICATE_MODULE;
-import static mams.logic.commands.RemoveModCommand.MESSAGE_MISSING_MODULE;
-import static mams.logic.commands.ModCommand.MESSAGE_INVALID_MODULE;
 
 /**
  * Mass approves appeals in Mams
@@ -248,6 +249,7 @@ public class MassApprove extends Approve {
         }
         return new CommandResult(resultGenerator());
     }
+
     /**
      * Generates response for user
      * @return
