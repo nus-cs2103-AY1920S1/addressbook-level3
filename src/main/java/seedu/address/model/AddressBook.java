@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.person.NameContainsAllKeywordsPredicate;
@@ -95,6 +96,18 @@ public class AddressBook implements ReadOnlyAddressBook {
         }
 
         return matches;
+    }
+
+    /**
+     * Finds Person object by name, using exact match.
+     */
+    public Optional<Person> findPersonByName(String searchTerm) {
+        for (Person person: persons.asUnmodifiableObservableList()) {
+            if (person.getName().fullName.toLowerCase().equals(searchTerm.toLowerCase())) {
+                return Optional.of(person);
+            }
+        }
+        return Optional.empty();
     }
 
     /**

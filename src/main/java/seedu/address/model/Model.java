@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -87,14 +88,19 @@ public interface Model {
     boolean hasPerson(Person person);
 
     /**
-       Finds Person objects with matching keywords, returning matches in ArrayList.
+     * Finds Person objects with matching keywords, returning matches in ArrayList.
      */
     ArrayList<Person> findPersonAny(NameContainsKeywordsPredicate predicate);
 
     /**
-     Finds Person objects with names matching all keywords, returning matches in ArrayList.
+     * Finds Person objects with names matching all keywords, returning matches in ArrayList.
      */
     ArrayList<Person> findPersonAll(NameContainsAllKeywordsPredicate predicate);
+
+    /**
+     * Finds Person object that has exact matching name as the search term provided, returning an Optional of Person.
+     */
+    Optional<Person> findPersonByName(String searchTerm);
 
     /**
      * Deletes the given person.
