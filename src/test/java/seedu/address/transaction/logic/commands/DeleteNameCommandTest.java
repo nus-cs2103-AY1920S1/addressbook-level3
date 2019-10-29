@@ -20,7 +20,7 @@ import seedu.address.person.model.UserPrefs;
 import seedu.address.testutil.TypicalPersons;
 import seedu.address.testutil.TypicalTransactions;
 import seedu.address.transaction.model.ModelManager;
-import seedu.address.transaction.model.Transaction;
+import seedu.address.transaction.model.transaction.Transaction;
 
 class DeleteNameCommandTest {
     private ModelManager model = new ModelManager(TypicalTransactions.getTypicalTransactionList());

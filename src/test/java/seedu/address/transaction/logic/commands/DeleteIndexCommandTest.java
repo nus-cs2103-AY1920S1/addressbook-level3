@@ -13,22 +13,16 @@ import java.util.function.Predicate;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.person.model.UserPrefs;
-import seedu.address.stubs.PersonModelStubAcceptingPersonAdded;
-import seedu.address.stubs.TransactionModelStubAcceptingTransactionAdded;
 import seedu.address.testutil.TypicalPersons;
 import seedu.address.testutil.TypicalTransactions;
 import seedu.address.transaction.model.Model;
 import seedu.address.transaction.model.ModelManager;
-import seedu.address.transaction.model.Transaction;
+import seedu.address.transaction.model.transaction.Transaction;
 import seedu.address.transaction.ui.TransactionMessages;
 
 class DeleteIndexCommandTest {
 
     private ModelManager model = new ModelManager(TypicalTransactions.getTypicalTransactionList());
-    private TransactionModelStubAcceptingTransactionAdded modelStubWithTransaction =
-            new TransactionModelStubAcceptingTransactionAdded(TypicalTransactions.getTypicalTransactions());
-    private PersonModelStubAcceptingPersonAdded modelStubWithPerson =
-            new PersonModelStubAcceptingPersonAdded(TypicalPersons.getTypicalPersons());
     private seedu.address.person.model.Model personModel =
             new seedu.address.person.model.ModelManager(getTypicalAddressBook(), new UserPrefs());
     @Test

@@ -14,28 +14,50 @@ import seedu.address.testutil.ReimbursementBuilder;
 import seedu.address.testutil.TransactionBuilder;
 import seedu.address.testutil.TypicalDeadlines;
 import seedu.address.testutil.TypicalPersons;
-import seedu.address.transaction.model.Transaction;
+import seedu.address.testutil.TypicalReimbursements;
+import seedu.address.transaction.model.transaction.Transaction;
 
 
 public class ModelManagerTest {
     //initialization
-    private Transaction transactionAlice = new TransactionBuilder(TypicalPersons.ALICE).withAmount(-10).build();
-    private Transaction transactionBob = new TransactionBuilder(TypicalPersons.BOB).withAmount(-20).build();
-    private Transaction transactionAmy = new TransactionBuilder(TypicalPersons.AMY).withAmount(-30).build();
+    private Transaction transactionAlice;
+    private Transaction transactionBob;
+    private Transaction transactionAmy;
 
-    private Reimbursement reimbursementAlice = new ReimbursementBuilder(transactionAlice).build();
-    private Reimbursement reimbursementBob = new ReimbursementBuilder(transactionBob).build();
-    private Reimbursement reimbursementAmy = new ReimbursementBuilder(transactionAmy).build();
+    private Reimbursement reimbursementAlice;
+    private Reimbursement reimbursementBob;
+    private Reimbursement reimbursementAmy;
 
-    private ArrayList<Reimbursement> arrListAliceBob = new ArrayList<>(Arrays.asList(reimbursementAlice,
-            reimbursementBob));
-    private ReimbursementList listAliceBob = new ReimbursementList(arrListAliceBob);
+    private ArrayList<Reimbursement> arrListAliceBob;
+    private ReimbursementList listAliceBob;
 
-    private ArrayList<Reimbursement> arrListAliceAmy = new ArrayList<>(Arrays.asList(reimbursementAlice,
-            reimbursementAmy));
-    private ReimbursementList listAliceAmy = new ReimbursementList(arrListAliceAmy);
+    private ArrayList<Reimbursement> arrListAliceAmy;
+    private ReimbursementList listAliceAmy;
 
-    private ModelManager modelManager = new ModelManager(listAliceAmy);
+    private ModelManager modelManager;
+    private TypicalReimbursements typicalReimbursements = new TypicalReimbursements();
+
+    public ModelManagerTest() {
+        typicalReimbursements.resetReimbursements();
+
+        transactionAlice = new TransactionBuilder(TypicalPersons.ALICE).withAmount(-10).build();
+        transactionBob = new TransactionBuilder(TypicalPersons.BOB).withAmount(-20).build();
+        transactionAmy = new TransactionBuilder(TypicalPersons.AMY).withAmount(-30).build();
+
+        reimbursementAlice = new ReimbursementBuilder(transactionAlice).build();
+        reimbursementBob = new ReimbursementBuilder(transactionBob).build();
+        reimbursementAmy = new ReimbursementBuilder(transactionAmy).build();
+
+        arrListAliceBob = new ArrayList<>(Arrays.asList(reimbursementAlice,
+                reimbursementBob));
+        listAliceBob = new ReimbursementList(arrListAliceBob);
+
+        arrListAliceAmy = new ArrayList<>(Arrays.asList(reimbursementAlice,
+                reimbursementAmy));
+        listAliceAmy = new ReimbursementList(arrListAliceAmy);
+
+        modelManager = new ModelManager(listAliceAmy);
+    }
 
     @Test
     public void updateReimbursementList_transactionListChange_success() {

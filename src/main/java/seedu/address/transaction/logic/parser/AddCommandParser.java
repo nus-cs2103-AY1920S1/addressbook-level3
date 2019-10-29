@@ -1,5 +1,6 @@
 package seedu.address.transaction.logic.parser;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.address.util.CliSyntax.PREFIX_AMOUNT;
 import static seedu.address.util.CliSyntax.PREFIX_CATEGORY;
 import static seedu.address.util.CliSyntax.PREFIX_DATETIME;
@@ -7,15 +8,17 @@ import static seedu.address.util.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.util.CliSyntax.PREFIX_PERSON;
 
 import java.time.format.DateTimeParseException;
+import java.util.logging.Logger;
 import java.util.stream.Stream;
 
+import seedu.address.person.commons.core.LogsCenter;
 import seedu.address.person.model.Model;
 import seedu.address.person.model.person.Person;
 import seedu.address.person.model.person.exceptions.PersonNotFoundException;
 import seedu.address.transaction.logic.commands.AddCommand;
 import seedu.address.transaction.logic.parser.exception.ParseException;
-import seedu.address.transaction.model.Transaction;
 import seedu.address.transaction.model.exception.NoSuchPersonException;
+import seedu.address.transaction.model.transaction.Transaction;
 import seedu.address.transaction.ui.TransactionMessages;
 import seedu.address.util.ArgumentMultimap;
 import seedu.address.util.ArgumentTokenizer;
@@ -25,6 +28,8 @@ import seedu.address.util.Prefix;
  * Parses input arguments and creates a new AddCommand object
  */
 public class AddCommandParser implements CommandParserWithPersonModel {
+    private final Logger logger = LogsCenter.getLogger(getClass());
+
 
     /**
      * Parses the given {@code String} of arguments in the context of the AddCommand
@@ -34,12 +39,14 @@ public class AddCommandParser implements CommandParserWithPersonModel {
      */
     public AddCommand parse(String args, Model personModel)
             throws ParseException, NoSuchPersonException {
+        requireNonNull(personModel);
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_DATETIME, PREFIX_DESCRIPTION,
                         PREFIX_CATEGORY, PREFIX_AMOUNT, PREFIX_PERSON);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_DATETIME, PREFIX_DESCRIPTION, PREFIX_CATEGORY,
                 PREFIX_AMOUNT, PREFIX_PERSON) || !argMultimap.getPreamble().isEmpty()) {
+            logger.info("Not all the required fields and their prefixes are present.");
             throw new ParseException(TransactionMessages.MESSAGE_INVALID_ADD_COMMAND_FORMAT);
         }
 
@@ -52,6 +59,7 @@ public class AddCommandParser implements CommandParserWithPersonModel {
             Person person = personModel.getPersonByName(argMultimap.getValue(PREFIX_PERSON).get());
             Transaction transaction = new Transaction(datetime, description, category, amount, person,
                     0, false);
+            logger.info("Transaction to be added: " + transaction.toString());
             AddCommand addCommand = new AddCommand(transaction);
             return addCommand;
         } catch (PersonNotFoundException e) {

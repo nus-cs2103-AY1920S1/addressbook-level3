@@ -1,5 +1,6 @@
 package seedu.address.transaction.logic.commands;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.address.transaction.ui.TransactionMessages.MESSAGE_DELETE_BY_PERSON;
 import static seedu.address.transaction.ui.TransactionMessages.MESSAGE_NO_SUCH_TRANSACTION_OF_PERSON;
 
@@ -23,6 +24,8 @@ public class DeleteNameCommand extends DeleteCommand {
     @Override
     public CommandResult execute(Model model, seedu.address.person.model.Model personModel)
             throws NoSuchPersonException {
+        requireNonNull(model);
+        requireNonNull(personModel);
         if (!model.hasTransactionWithName(person.getName().toString())) {
             throw new NoSuchPersonException(String.format(MESSAGE_NO_SUCH_TRANSACTION_OF_PERSON,
                     person.getName().toString()));

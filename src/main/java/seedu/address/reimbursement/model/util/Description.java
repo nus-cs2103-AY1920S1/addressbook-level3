@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
 
-import seedu.address.transaction.model.Transaction;
+import seedu.address.transaction.model.transaction.Transaction;
 
 /**
  * Stores the description of a Reimbursement.

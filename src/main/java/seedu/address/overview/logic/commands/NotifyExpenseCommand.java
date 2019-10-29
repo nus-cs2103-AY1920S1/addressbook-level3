@@ -26,6 +26,6 @@ public class NotifyExpenseCommand extends NotifyCommand {
         }
 
         model.setExpenseThreshold(amount);
-        return new CommandResult(String.format(MESSAGE_NOTIFY_EXPENSE_SUCCESS, Integer.toString(amount)));
+        return new CommandResult(String.format(MESSAGE_NOTIFY_EXPENSE_SUCCESS, Double.toString(amount)));
     }
 }

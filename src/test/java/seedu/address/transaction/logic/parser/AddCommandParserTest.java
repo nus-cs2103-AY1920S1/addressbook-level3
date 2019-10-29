@@ -1,7 +1,6 @@
 package seedu.address.transaction.logic.parser;
 
 import static seedu.address.testutil.TransactionBuilder.DEFAULT_CATEGORY;
-import static seedu.address.testutil.TypicalPersons.AMY;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 import static seedu.address.transaction.logic.commands.CommandTestUtil.DESC_AMOUNT;
 import static seedu.address.transaction.logic.commands.CommandTestUtil.DESC_BUILDER_AMOUNT;
@@ -33,12 +32,10 @@ import org.junit.jupiter.api.Test;
 import seedu.address.person.model.Model;
 import seedu.address.person.model.ModelManager;
 import seedu.address.person.model.UserPrefs;
-import seedu.address.person.model.person.Person;
-import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.TransactionBuilder;
 import seedu.address.testutil.TypicalPersons;
 import seedu.address.transaction.logic.commands.AddCommand;
-import seedu.address.transaction.model.Transaction;
+import seedu.address.transaction.model.transaction.Transaction;
 import seedu.address.transaction.ui.TransactionMessages;
 
 class AddCommandParserTest {
@@ -86,7 +83,6 @@ class AddCommandParserTest {
     @Test
     public void parse_personNotInAddressBook_failure() {
         //person not found in addressbook
-        Person expectedPerson = new PersonBuilder(AMY).withTags().build();
         assertCommandParseWithPersonModelFailure(parser, DESC_NAME_AMY + DESC_BUILDER_AMOUNT
                 + DESC_BUILDER_DESC
                 + DESC_BUILDER_CATEGORY + DESC_BUILDER_DATE, TransactionMessages.MESSAGE_NO_SUCH_PERSON, personModel);

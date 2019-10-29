@@ -35,7 +35,7 @@ import seedu.address.person.storage.StorageManager;
 import seedu.address.reimbursement.model.ReimbursementList;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.TypicalTransactions;
-import seedu.address.transaction.util.TransactionList;
+import seedu.address.transaction.model.TransactionList;
 public class LogicManagerTest {
     private static final IOException DUMMY_IO_EXCEPTION = new IOException("dummy exception");
     private static final String FILE_PATH_REIMBURSEMENT = "data/reimbursementInformation.txt";
@@ -83,8 +83,8 @@ public class LogicManagerTest {
         seedu.address.cashier.model.ModelManager cashierModel =
                 new seedu.address.cashier.model.ModelManager(cashierInventoryList, transactionList);
         seedu.address.cashier.storage.StorageManager cashierManager =
-                new seedu.address.cashier.storage.StorageManager(FILE_PATH_INVENTORY,
-                        FILE_PATH_TRANSACTION, personModel);
+                new seedu.address.cashier.storage.StorageManager(new File(FILE_PATH_INVENTORY),
+                        new File(FILE_PATH_TRANSACTION), personModel);
 
         //For Inventory Storage and Manager
         seedu.address.inventory.model.ModelManager inventoryModel =

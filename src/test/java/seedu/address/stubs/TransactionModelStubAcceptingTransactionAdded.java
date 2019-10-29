@@ -3,8 +3,8 @@ package seedu.address.stubs;
 import java.util.ArrayList;
 import java.util.function.Predicate;
 
-import seedu.address.transaction.model.Transaction;
-import seedu.address.transaction.util.TransactionList;
+import seedu.address.transaction.model.TransactionList;
+import seedu.address.transaction.model.transaction.Transaction;
 
 /**
  * Represents a home tab's model stub.

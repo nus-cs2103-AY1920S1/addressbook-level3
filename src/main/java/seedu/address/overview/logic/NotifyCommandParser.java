@@ -35,15 +35,20 @@ public class NotifyCommandParser {
             throw new ParseException(OverviewMessages.MESSAGE_INVALID_COMMAND_FORMAT);
         }
 
-        if (argMultimap.getValue(PREFIX_BUDGET).isPresent()) {
-            return new NotifyBudgetCommand(Integer.parseInt(argMultimap.getValue(PREFIX_BUDGET).get()));
-        } else if (argMultimap.getValue(PREFIX_EXPENSE).isPresent()) {
-            return new NotifyExpenseCommand(Integer.parseInt(argMultimap.getValue(PREFIX_EXPENSE).get()));
-        } else if (argMultimap.getValue(PREFIX_SALES).isPresent()) {
-            return new NotifySalesCommand(Integer.parseInt(argMultimap.getValue(PREFIX_SALES).get()));
-        } else {
-            throw new ParseException(OverviewMessages.MESSAGE_INVALID_COMMAND_FORMAT);
+        try {
+            if (argMultimap.getValue(PREFIX_BUDGET).isPresent()) {
+                return new NotifyBudgetCommand(Integer.parseInt(argMultimap.getValue(PREFIX_BUDGET).get()));
+            } else if (argMultimap.getValue(PREFIX_EXPENSE).isPresent()) {
+                return new NotifyExpenseCommand(Integer.parseInt(argMultimap.getValue(PREFIX_EXPENSE).get()));
+            } else if (argMultimap.getValue(PREFIX_SALES).isPresent()) {
+                return new NotifySalesCommand(Integer.parseInt(argMultimap.getValue(PREFIX_SALES).get()));
+            } else {
+                throw new ParseException(OverviewMessages.MESSAGE_INVALID_COMMAND_FORMAT);
+            }
+        } catch (NumberFormatException e) {
+            throw new ParseException("Please check that your input contains only numbers.");
         }
+
     }
 
     /**
