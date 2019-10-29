@@ -48,7 +48,7 @@ public class MainWindow extends UiPart<Stage> {
 
     private StatusBarFooter dashboardPathStatus;
     private StatusBarFooter recipePathStatus;
-    private StatusBarFooter mealPlanPathStatus
+    private StatusBarFooter mealPlanPathStatus;
     private StatusBarFooter recordPathStatus;
     private StatusBarFooter personPathStatus;
     private StatusBarFooter exercisePathStatus;
@@ -182,7 +182,7 @@ public class MainWindow extends UiPart<Stage> {
     void initializeFilePaths() {
         dashboardPathStatus = new StatusBarFooter(logic.getDashboardFilePath());
         recipePathStatus = new StatusBarFooter(logic.getRecipesFilePath());
-        mealPlanPathStatus = new StatusBarFooter(logic.getMealPlansFilePath();
+        mealPlanPathStatus = new StatusBarFooter(logic.getMealPlansFilePath());
         recordPathStatus = new StatusBarFooter(logic.getHealthRecordsFilePath());
         personPathStatus = new StatusBarFooter(logic.getUserProfileFilePath());
         //TODO EXERCISE: set up getExerciseFilePath() method in Logic class
