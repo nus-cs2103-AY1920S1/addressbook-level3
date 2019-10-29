@@ -55,7 +55,7 @@ public class Room implements Identical<Room> {
 
     @Override
     public int compareTo(Room room) {
-        return room.getDoctor().compareTo(getDoctor());
+        return getDoctor().compareTo(room.getDoctor());
     }
 
     /**

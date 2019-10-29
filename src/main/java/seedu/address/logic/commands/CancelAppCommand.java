@@ -1,3 +1,4 @@
+//@@author woon17
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
@@ -22,6 +23,7 @@ public class CancelAppCommand extends ReversibleCommand {
             + "need to go to patient's appointment list first\n"
             + "Example: " + COMMAND_WORD + " 1";
     public static final String MESSAGE_CANCEL_APPOINTMENT_SUCCESS = "Appointment cancelled: %1$s";
+    public static final String MESSAGE_CANCEL_APPOINTMENTS_SUCCESS = "Recursive appointments cancelled: \n";
 
     private final Event toDelete;
     private final List<Event> eventList;
@@ -47,13 +49,12 @@ public class CancelAppCommand extends ReversibleCommand {
             model.updateFilteredAppointmentList(new EventContainsRefIdPredicate(toDelete.getPersonId()));
             return new CommandResult(String.format(MESSAGE_CANCEL_APPOINTMENT_SUCCESS, toDelete));
         }
-
         for (Event e : eventList) {
             //TODO: Should it still delete the other appointments if one fails?
             deleteOneEvent(model, e);
         }
         model.updateFilteredAppointmentList(new EventContainsRefIdPredicate(eventList.get(0).getPersonId()));
-        return new CommandResult(String.format(MESSAGE_CANCEL_APPOINTMENT_SUCCESS, eventList));
+        return new CommandResult(CancelAppCommand.COMMAND_WORD, eventList);
     }
 
     /**

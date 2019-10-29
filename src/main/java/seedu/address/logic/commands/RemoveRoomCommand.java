@@ -2,8 +2,6 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import seedu.address.commons.core.Messages;
-
 import seedu.address.logic.commands.common.CommandResult;
 import seedu.address.logic.commands.common.ReversibleCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -16,16 +14,14 @@ import seedu.address.model.queue.Room;
  */
 public class RemoveRoomCommand extends ReversibleCommand {
 
-    public static final String COMMAND_WORD = "removeRoom";
+    public static final String COMMAND_WORD = "offduty";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Removes the room identified by the index number used in the displayed rooms.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_DEQUEUE_SUCCESS = "Removed room: %1$s";
-    public static final String MESSAGE_DEQUEUE_PERSON_NOT_FOUND =
-            Messages.MESSAGE_INVAILD_REFERENCE_ID + ". '%1$s' has been removed from list";
+    public static final String MESSAGE_OFF_DUTY_SUCCESS = "%s is off-duty";
     public static final String MESSAGE_PERSON_NOT_IN_QUEUE = "This room '%1$s' is not in the list";
 
     private final Room roomToRemove;
@@ -44,7 +40,8 @@ public class RemoveRoomCommand extends ReversibleCommand {
         }
         model.removeRoom(roomToRemove);
 
-        return new CommandResult(String.format(MESSAGE_DEQUEUE_SUCCESS, roomToRemove));
+        return new CommandResult(String.format(MESSAGE_OFF_DUTY_SUCCESS,
+                model.resolveStaff(roomToRemove.getDoctor()).getName()));
     }
 
     @Override
