@@ -26,8 +26,8 @@ import seedu.address.model.tag.Tag;
 public class EditIncomeCommandParser implements Parser<EditIncomeCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the EditClaimCommand
-     * and returns an EditClaimCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the EditIncomeCommand
+     * and returns an EditIncomeCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
     public EditIncomeCommand parse(String args) throws ParseException {
