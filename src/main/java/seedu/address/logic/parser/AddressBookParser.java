@@ -33,6 +33,7 @@ import seedu.address.logic.commands.note.AddNoteCommand;
 import seedu.address.logic.commands.note.DeleteNoteCommand;
 import seedu.address.logic.commands.note.FilterNoteByTagCommand;
 import seedu.address.logic.commands.note.ViewNoteCommand;
+import seedu.address.logic.commands.note.ViewRawNoteCommand;
 import seedu.address.logic.parser.cheatsheet.AddCheatSheetCommandParser;
 import seedu.address.logic.parser.cheatsheet.DeleteCheatSheetCommandParser;
 import seedu.address.logic.parser.cheatsheet.EditCheatSheetCommandParser;
@@ -48,6 +49,7 @@ import seedu.address.logic.parser.note.AddNoteCommandParser;
 import seedu.address.logic.parser.note.DeleteNoteCommandParser;
 import seedu.address.logic.parser.note.FilterNoteByTagCommandParser;
 import seedu.address.logic.parser.note.ViewNoteCommandParser;
+import seedu.address.logic.parser.note.ViewRawNoteCommandParser;
 
 /**
  * Parses user input.
@@ -212,6 +214,9 @@ public class AddressBookParser {
 
         case ViewNoteCommand.COMMAND_WORD:
             return new ViewNoteCommandParser().parse(arguments);
+
+        case ViewRawNoteCommand.COMMAND_WORD:
+            return new ViewRawNoteCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

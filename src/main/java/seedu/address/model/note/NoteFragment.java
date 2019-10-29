@@ -1,39 +1,42 @@
 package seedu.address.model.note;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-import static seedu.address.model.note.NoteFragment.NOTE_FRAGMENT_CONTENT_DETECTION_REGEX;
-import static seedu.address.model.note.NoteFragment.NOTE_FRAGMENT_END_DETECTION_REGEX;
-import static seedu.address.model.note.NoteFragment.NOTE_FRAGMENT_START_DETECTION_REGEX;
-import static seedu.address.model.note.NoteFragment.NOTE_FRAGMENT_TAG_DETECTION_REGEX;
 
-import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
-import seedu.address.logic.parser.ParserUtil;
 import seedu.address.model.StudyBuddyItem;
 import seedu.address.model.tag.Tag;
 
 /**
- * Represents a Note in the address book.
+ * Represents a NoteFragment in the address book.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Note extends StudyBuddyItem {
+public class NoteFragment extends StudyBuddyItem {
+    public static final String NOTE_FRAGMENT_CONTENT_DETECTION_REGEX = "C/";
+    public static final String NOTE_FRAGMENT_END_DETECTION_REGEX = "(\\s*)+\\*/(\\s*)+";
+    public static final String NOTE_FRAGMENT_START_DETECTION_REGEX = "(\\s*)+/\\*(\\s*)+";
+    public static final String NOTE_FRAGMENT_TAG_DETECTION_REGEX = "TAG/\\S+ ";
 
-    // Identity fields
+    /**
+     * Indicates the Title of the Note that this NoteFragment was copied from.
+     */
     private final Title title;
+
+    /**
+     * Indicates the Content of this NoteFragment.
+     */
     private final Content content;
-    private final List<NoteFragment> noteFragments;
+
 
     /**
      * Every field must be present and not null, except for tags.
      */
-    public Note(Title title, Content content, Set<Tag> tags) {
+    public NoteFragment(Title title, Content content, Set<Tag> tags) {
         super(tags);
         requireAllNonNull(title, content);
         this.title = title;
         this.content = content;
-        this.noteFragments = ParserUtil.parseNoteFragmentsFromNote(this);
     }
 
     public Title getTitle() {
@@ -44,25 +47,11 @@ public class Note extends StudyBuddyItem {
         return content;
     }
 
-    public Content getContentCleanedFromTags() {
-        String rawContent = content.toString();
-        String cleanedContent = rawContent.replaceAll(NOTE_FRAGMENT_CONTENT_DETECTION_REGEX, "")
-                .replaceAll(NOTE_FRAGMENT_TAG_DETECTION_REGEX, " ")
-                .replaceAll(NOTE_FRAGMENT_START_DETECTION_REGEX, " ")
-                .replaceAll(NOTE_FRAGMENT_END_DETECTION_REGEX, " ")
-                .trim();
-        return new Content(cleanedContent);
-    }
-
-    public List<NoteFragment> getNoteFragments() {
-        return noteFragments;
-    }
-
     /**
      * Returns true if both notes of the same name have at least one other identity field that is the same.
      * This defines a weaker notion of equality between two notes.
      */
-    public boolean isSameNote(Note otherNote) {
+    public boolean isSameNote(NoteFragment otherNote) {
         if (otherNote == this) {
             return true;
         }
@@ -80,11 +69,11 @@ public class Note extends StudyBuddyItem {
             return true;
         }
 
-        if (!(other instanceof Note)) {
+        if (!(other instanceof NoteFragment)) {
             return false;
         }
 
-        Note otherNote = (Note) other;
+        NoteFragment otherNote = (NoteFragment) other;
         return otherNote.getTitle().equals(getTitle())
                 && otherNote.getContent().equals(getContent())
                 && otherNote.getTags().equals(getTags());
@@ -107,4 +96,5 @@ public class Note extends StudyBuddyItem {
         getTags().forEach(builder::append);
         return builder.toString();
     }
+
 }

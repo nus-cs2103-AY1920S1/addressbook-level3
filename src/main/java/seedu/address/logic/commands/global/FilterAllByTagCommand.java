@@ -63,18 +63,19 @@ public class FilterAllByTagCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         ArrayList<String> tagListResult = model.collectTaggedItems(tagPredicate);
-        StringBuilder sb = new StringBuilder("");
+        StringBuilder sb = new StringBuilder();
         for (String s : tagListResult) {
             sb.append(s);
-            sb.append("\n");
+            sb.append("\n\n");
         }
         StringBuilder resultToDisplay = new StringBuilder();
         if (tagListResult.size() == 0) {
             resultToDisplay.append(NO_ITEM_FOUND);
         } else {
             resultToDisplay.append(FILTER_TAG_MESSAGE_SUCCESS)
-                    .append("\n")
+                    .append("\n\n")
                     .append(showTagQueries())
+                    .append("\n")
                     .append(sb.toString());
         }
         return new GlobalCommandResult(resultToDisplay.toString());
