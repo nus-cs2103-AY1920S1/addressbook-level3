@@ -49,4 +49,11 @@ public class GetStatisticsCommand extends Command {
         c.setType(STATS);
         return c;
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof GetStatisticsCommand // instanceof handles nulls
+                && quizResultFilter.equals(((GetStatisticsCommand) other).quizResultFilter)); // state check
+    }
 }

@@ -52,4 +52,11 @@ public class GetOverviewCommand extends Command {
         c.setType(OVERVIEW);
         return c;
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof GetOverviewCommand // instanceof handles nulls
+                && quizResultFilter.equals(((GetOverviewCommand) other).quizResultFilter)); // state check
+    }
 }

@@ -55,7 +55,7 @@ public class StackBarChart extends UiPart<Region> {
         }
 
         bc.setData(stackedBarChart);
-        overview.setText("Total number of questions done so far: " + totalQuestions + "\n"
+        overview.setText("Total number of questions done: " + totalQuestions + "\n"
                 + "Total number of subjects: " + subjects.size() + "\n");
     }
 

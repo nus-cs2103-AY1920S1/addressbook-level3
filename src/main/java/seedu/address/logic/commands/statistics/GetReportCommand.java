@@ -54,4 +54,11 @@ public class GetReportCommand extends Command {
         c.setType(REPORT);
         return c;
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof GetReportCommand // instanceof handles nulls
+                && index.equals(((GetReportCommand) other).index)); // state check
+    }
 }

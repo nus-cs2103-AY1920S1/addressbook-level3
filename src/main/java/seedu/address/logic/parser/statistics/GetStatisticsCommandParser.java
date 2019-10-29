@@ -1,5 +1,6 @@
 package seedu.address.logic.parser.statistics;
 
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DIFFICULTY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SUBJECT;
 
@@ -40,6 +41,10 @@ public class GetStatisticsCommandParser implements Parser<GetStatisticsCommand> 
         }
 
         Optional<String> d = argMultimap.getValue(PREFIX_DIFFICULTY);
+
+        if (argMultimap.getAllValues(PREFIX_DIFFICULTY).size() > 1) {
+            throw new ParseException(MESSAGE_INVALID_COMMAND_FORMAT);
+        }
 
         if (d.isPresent()) {
             difficulty = ParserUtil.parseDifficulty(d.get());

@@ -10,6 +10,7 @@ import static seedu.address.model.quiz.FilterType.SUBJECT;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import java.util.Stack;
 
 import seedu.address.model.question.Difficulty;
@@ -122,5 +123,17 @@ public class QuizResultFilter {
             operations.push(SUBJECT);
         }
         operations.push(DIFFICULTY);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof QuizResultFilter // instanceof handles nulls
+                && Objects.equals(subjects, ((QuizResultFilter) other).subjects)
+                && Objects.equals(difficulty, ((QuizResultFilter) other).difficulty)
+                && Objects.equals(startDate, ((QuizResultFilter) other).startDate)
+                && Objects.equals(endDate, ((QuizResultFilter) other).endDate)
+                && Objects.equals(isCorrectQns, ((QuizResultFilter) other).isCorrectQns)
+                && Objects.equals(operations, ((QuizResultFilter) other).operations));
     }
 }

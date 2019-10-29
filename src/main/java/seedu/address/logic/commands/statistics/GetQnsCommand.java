@@ -19,13 +19,11 @@ public class GetQnsCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Gets all questions that have been answered "
             + "correctly/incorrectly for a particular subject by using either -c/-i respectively.\n"
-            + "You can also see past answers to the questions by adding the -a field.\n"
             + "Parameters: "
-            + PREFIX_SUBJECT + "SUBJECT "
-            + "[-c] [-i] "
-            + "[-a]\n"
-            + "Example: " + COMMAND_WORD + " "
-            + PREFIX_SUBJECT + "CS2103T" + " -c -a";
+            + "[-c] [-i] ["
+            + PREFIX_SUBJECT + "SUBJECT1]...\n"
+            + "Example: " + COMMAND_WORD + " -c "
+            + PREFIX_SUBJECT + "CS2103T";
 
     public static final String MESSAGE_SUCCESS = "Here are the questions: ";
     public static final String MESSAGE_NO_QNS = "There are no correctly/incorrectly answered questions, "
@@ -50,5 +48,12 @@ public class GetQnsCommand extends Command {
         CommandResult c = new CommandResult(MESSAGE_SUCCESS, 8);
         c.setType(QUESTIONS);
         return c;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof GetQnsCommand // instanceof handles nulls
+                && quizResultFilter.equals(((GetQnsCommand) other).quizResultFilter)); // state check
     }
 }
