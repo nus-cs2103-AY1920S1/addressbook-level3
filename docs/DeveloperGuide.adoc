@@ -399,12 +399,14 @@ The `split` command is an abstraction of `LendMoney` class. +
 Given a list of *shares* and *people*, each person is assigned an *amount* based on the corresponding positional share and the total amount given to `split` command. +
 A `LendMoney` instance is created for each person and executed.
 
-// TODO: add PUML figure here
+image::LedgerOperationDiagram.png[]
 
 ==== Design Considerations
 
 Current implementation of `Split` class encourages code reuse by abstracting the delegating the task of rebalancing to another class. +
 However, this introduces coupling as the behavior of `Split` is now inexplicably tied to `LendMoney`.
+
+// TODO: add sequence diagram here
 
 // end::split[]
 
@@ -412,6 +414,12 @@ However, this introduces coupling as the behavior of `Split` is now inexplicably
 
 This feature allows the user to send money to another person. +
 The balance in the `Ledger` and the balance of the recipient is updated accordingly.
+
+==== Current Implementation
+
+The `pay` command creates `LendMoney` class that handles the transfer of fund from the user to another person.
+
+// TODO: add sequence diagram here
 
 // tag::set[]
 === Set Budget Feature: `set`
@@ -435,7 +443,7 @@ Upon setting a new budget, a `BudgetCard` is created and displayed in a list in 
 
 // tag::project[]
 [[Implementation-Projection]]
-=== Project Balance feature: `project`
+=== Project Balance Feature: `project`
 
 This feature allows users to _project_ their balance status based on past income and outflows as manifest in their _TransactionHistory_ by using the command `project [DATE]`.
 
