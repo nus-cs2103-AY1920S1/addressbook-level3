@@ -28,7 +28,6 @@ Jump to <<Getting Started>> to get started.
 
 . *Manage your classes* easily with just a few strokes of your keyboard.
 .. Attendance taking
-//.. Note taking
 .. Record student scores
 . *Create questions* that allows you to start in-class activities and distribute quizzes to your students.
 Simply define a type, a topic and an answer and you are all set.
@@ -42,8 +41,11 @@ Simply define a type, a topic and an answer and you are all set.
 .. Schedule classes
 .. Class Reminders
 .. Repeatable daily/monthly and even yearly
+. *Notes Manager* to act as lightweight, digital Post-It to easily identify your priorities.
+.. Keep track of your reminders.
+.. View in a glance the important tasks.
 . *Statistics* provide a comprehensive view of your students' performance.
-.. View in a glance the score distribution of your class.
+.. Understand the academic performance of your class.
 .. View honourable students and identify the struggling students in one look.
 
 == Getting Started
@@ -624,9 +626,9 @@ Failure to adhere to the following specifications might result in some of the st
 The statistics report generated uses weighted average scores across the different subjects to perform analysis. All scores carry equal weight. The statistics generated
 allow you to see some of the common descriptive statistics and their relative distributions both in terms of frequency and percentile terms.
 
-The figure below illustrates a sample data set fulfills all of the above specifications.
+The figure below illustrates a sample data set that fulfills all of the above specifications.
 
-image::SampleExcel.png[width="790"]
+image::ExcelFormat.png[]
 
 === Help ​-​ `help`
 
