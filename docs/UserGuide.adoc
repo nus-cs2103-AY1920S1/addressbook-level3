@@ -141,7 +141,7 @@ NOTE: There can be duplicate words, but duplicate meanings will be rejected.
 
 Examples:
 
-* `add w/Elephant m/Has a long nose`
+* `add w/Dukemon m/the Flashcard app of the future`
 * `add w/Newton's third law of motion m/Every action will produce and equal and opposite reaction`
 * `add w/Kopi Luwak m/Coffee produced from the coffee beans found in the faeces of a civet cat`
 
