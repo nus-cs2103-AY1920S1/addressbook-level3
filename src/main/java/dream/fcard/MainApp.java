@@ -8,6 +8,7 @@ import dream.fcard.model.State;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -25,6 +26,7 @@ public class MainApp extends Application {
             Scene scene = new Scene(vbox);
             stage.setScene(scene);
             stage.setTitle("FlashCard Pro");
+            stage.getIcons().add(new Image(MainApp.class.getResourceAsStream("/images/address_book_32.png")));
             stage.show();
             // when the 'X' button is clicked.
             stage.setOnCloseRequest(e -> StorageManager.saveAll(State.getState().getDecks()));
