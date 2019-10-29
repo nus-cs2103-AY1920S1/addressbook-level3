@@ -73,9 +73,9 @@ public class DisplayModelManager {
     /**
      * Updates with a schedule of a person.
      *
-     * @param name of person's schedule to be updated
-     * @param time start time of the schedule
-     * @param type type of schedule
+     * @param name     of person's schedule to be updated
+     * @param time     start time of the schedule
+     * @param type     type of schedule
      * @param timeBook data
      */
     public void updateDetailWindowDisplay(Name name, LocalDateTime time,
@@ -100,8 +100,8 @@ public class DisplayModelManager {
     /**
      * Updates with a schedule of the user.
      *
-     * @param time start time of the schedule
-     * @param type type of schedule
+     * @param time     start time of the schedule
+     * @param type     type of schedule
      * @param timeBook data
      */
     public void updateDetailWindowDisplay(LocalDateTime time, DetailWindowDisplayType type, TimeBook timeBook) {
@@ -121,9 +121,9 @@ public class DisplayModelManager {
      * Update with a schedule of a group.
      *
      * @param groupName of the group
-     * @param time start time of the schedule
-     * @param type type of schedule
-     * @param timeBook data
+     * @param time      start time of the schedule
+     * @param type      type of schedule
+     * @param timeBook  data
      */
     public void updateDetailWindowDisplay(GroupName groupName,
                                           LocalDateTime time,
@@ -177,7 +177,7 @@ public class DisplayModelManager {
     /**
      * Updates the side panel display of type.
      *
-     * @param type of side panel display to be updated
+     * @param type     of side panel display to be updated
      * @param timeBook data
      */
     public void updateSidePanelDisplay(SidePanelDisplayType type, TimeBook timeBook) {
@@ -225,9 +225,9 @@ public class DisplayModelManager {
      * Generates the PersonSchedule of a Person.
      *
      * @param scheduleName name of the schedule
-     * @param now current time
-     * @param person of the schedule
-     * @param role role of the person
+     * @param now          current time
+     * @param person       of the schedule
+     * @param role         role of the person
      * @return PersonSchedule
      */
     private PersonSchedule generatePersonSchedule(String scheduleName, LocalDateTime now, Person person, Role role) {
@@ -345,18 +345,18 @@ public class DisplayModelManager {
                             }
                         }
 
-                        ClosestCommonLocationData closestCommonLocationData = gmapsModelManager.closestLocationData(temp);
+                        ClosestCommonLocationData closestCommonLocationData =
+                                gmapsModelManager.closestLocationData(temp);
 
                         freeSchedule.get(DayOfWeek.of(i))
                                 .add(new FreeTimeslot(
                                         idCounter,
                                         new ArrayList<>(lastVenues),
-                                        //null,
                                         closestCommonLocationData,
                                         newFreeStartTime,
                                         currentTime));
 
-                        idCounter ++;
+                        idCounter++;
                         newFreeStartTime = null;
                     }
                     lastVenues = new ArrayList<>(currentLastVenues);
@@ -373,17 +373,17 @@ public class DisplayModelManager {
                                 arr--;
                             }
                         }
-                        ClosestCommonLocationData closestCommonLocationData = gmapsModelManager.closestLocationData(temp);
+                        ClosestCommonLocationData closestCommonLocationData =
+                                gmapsModelManager.closestLocationData(temp);
 
                         freeSchedule.get(DayOfWeek.of(i))
                                 .add(new FreeTimeslot(
                                         idCounter,
                                         new ArrayList<>(lastVenues),
-                                        //null,
                                         closestCommonLocationData,
                                         newFreeStartTime,
                                         currentTime));
-                        idCounter ++;
+                        idCounter++;
                     }
                     break;
                 }

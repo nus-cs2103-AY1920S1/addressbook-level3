@@ -4,8 +4,6 @@ import java.time.LocalTime;
 
 import java.util.ArrayList;
 
-import seedu.address.model.person.schedule.Venue;
-
 /**
  * A Free Timeslot class that represents the free time of the group schedule and the previous locations of the members.
  */
