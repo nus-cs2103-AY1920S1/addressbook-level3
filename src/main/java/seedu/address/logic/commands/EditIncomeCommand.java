@@ -158,7 +158,7 @@ public class EditIncomeCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(description, amount, name, phone, tags);
+            return CollectionUtil.isAnyNonNull(description, amount, date, name, phone, tags);
         }
 
         public void setDescription(Description description) {
