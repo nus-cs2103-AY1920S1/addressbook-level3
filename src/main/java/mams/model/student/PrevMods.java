@@ -31,12 +31,7 @@ public class PrevMods {
      * Returns if a given string is a valid prevMods.
      */
     public static boolean isValidPrevMods(String test) {
-        if (test.matches(VALIDATION_REGEX) || test.matches(VALIDATION_REGEX_SINGLE)) {
-            return true;
-        }
-        else {
-            return false;
-        }
+        return (test.matches(VALIDATION_REGEX) || test.matches(VALIDATION_REGEX_SINGLE));
     }
 
     @Override
