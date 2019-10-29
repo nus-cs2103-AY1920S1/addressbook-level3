@@ -32,7 +32,7 @@ public class DeleteTaskCommandParser implements Parser<DeleteTaskCommand> {
         }
 
         try {
-            taskIndex = ParserUtil.parseIndex(args);
+            taskIndex = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_TASK_INDEX).get());
         } catch (ParseException pe) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteTaskCommand.MESSAGE_USAGE), pe);

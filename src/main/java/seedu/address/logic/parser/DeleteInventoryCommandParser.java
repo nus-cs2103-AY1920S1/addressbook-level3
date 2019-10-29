@@ -31,7 +31,7 @@ public class DeleteInventoryCommandParser implements Parser<DeleteInventoryComma
         }
 
         try {
-            invIndex = ParserUtil.parseIndex(args);
+            invIndex = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_INVENTORY_INDEX).get());
         } catch (ParseException pe) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteInventoryCommand.MESSAGE_USAGE), pe);

@@ -41,7 +41,7 @@ public class DoingTaskCommandParser implements Parser<DoingTaskCommand> {
         }
 
         try {
-            taskIndex = ParserUtil.parseIndex(args);
+            taskIndex = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_TASK_INDEX).get());
         } catch (ParseException pe) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, DoingTaskCommand.MESSAGE_USAGE), pe);
