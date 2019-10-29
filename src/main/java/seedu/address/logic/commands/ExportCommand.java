@@ -14,6 +14,8 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import seedu.address.commons.util.FileUtil;
+import seedu.address.logic.CommandHistory;
+import seedu.address.logic.UndoRedoStack;
 import seedu.address.model.Model;
 import seedu.address.model.UserPrefs;
 
@@ -39,7 +41,7 @@ public class ExportCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(Model model, CommandHistory commandHistory, UndoRedoStack undoRedoStack) {
         requireNonNull(model);
         UserPrefs userPrefs = new UserPrefs();
         customerFile = userPrefs.getCustomerBookFilePath();
