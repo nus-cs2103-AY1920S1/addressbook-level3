@@ -31,8 +31,6 @@ import seedu.address.model.userprefs.UserPrefs;
  * Represents the in-memory model of the address book data.
  */
 public class ModelManager implements Model {
-    private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
-
     public static final String MESSAGE_SCHEDULE_APPOINTMENT_FOR_STAFF =
             "Scheduling staff doctors for appointments is current unsupported.";
     public static final String MESSAGE_NOT_ENOUGH_STAFF =
@@ -44,6 +42,8 @@ public class ModelManager implements Model {
             "Patient already has an appointment from %1$s.";
     public static final String MESSAGE_SCHEDULE_DUTYSHIFT_FOR_PATIENTS =
             "Scheduling patients for duty shifts is not allowed.";
+
+    private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final UserPrefs userPrefs;
 
@@ -376,6 +376,13 @@ public class ModelManager implements Model {
         appointmentBook.removeEvent(event);
     }
 
+    /**
+     * Schedules a given {@code appointment}.
+     *
+     * @throws CommandException if the number of unique events which timings are in conflict
+     * is greater or equal to the {@code maxNumberOfConcurrentEvents} or the events in conflict
+     * involves the same patient given in {@code appointment}, but ignores {@code ignoreEventCase}
+     */
     private void scheduleAppointment(Event appointment, Event ignoreEventCase) throws CommandException {
         int numOfAvailableStaff = getNumberOfDutyShiftInConflict(appointment);
         ListIterator<Event> itr = getAppointmentsInConflict(appointment);
@@ -419,7 +426,7 @@ public class ModelManager implements Model {
     @Override
     public void setAppointment(Event target, Event editedEvent) throws CommandException {
         requireAllNonNull(target, editedEvent);
-        if (!hasExactAppointment(target)){
+        if (!hasExactAppointment(target)) {
             throw new EntryNotFoundException();
         }
 
@@ -511,7 +518,7 @@ public class ModelManager implements Model {
     @Override
     public void deleteDutyShift(Event dutyShift) throws CommandException {
         requireNonNull(dutyShift);
-        if (!hasExactDutyShift(dutyShift)){
+        if (!hasExactDutyShift(dutyShift)) {
             throw new EntryNotFoundException();
         }
 

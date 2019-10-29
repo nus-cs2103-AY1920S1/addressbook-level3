@@ -6,7 +6,6 @@ import java.util.AbstractList;
 import java.util.Collection;
 import java.util.ConcurrentModificationException;
 import java.util.Iterator;
-import java.util.List;
 import java.util.ListIterator;
 import java.util.NoSuchElementException;
 
@@ -72,6 +71,9 @@ public class UniqueTreeList<E extends Identical> extends AbstractList<E> {
         return new TreeListIterator<>(this, index);
     }
 
+    /**
+     * Returns a listIterator which only ranges from {@code index} to {@code endIndex}.
+     */
     public ListIterator<E> listIterator(int index, int endIndex) {
         checkInterval(index, 0, size());
         return new RangedTreeListIterator<>(this, index, endIndex);
@@ -738,16 +740,17 @@ public class UniqueTreeList<E extends Identical> extends AbstractList<E> {
      * A list iterator over the linked list.
      */
     static class TreeListIterator<E extends Identical> implements ListIterator<E> {
+        /**
+         * The index of the next node to be returned.
+         */
+        protected int nextIndex;
+
         /** The parent list */
         private final UniqueTreeList<E> parent;
         /**
          * Cache of the next node that will be returned by {@link #next()}.
          */
         private AvlNode<E> next;
-        /**
-         * The index of the next node to be returned.
-         */
-        protected int nextIndex;
         /**
          * Cache of the last node that was returned by {@link #next()}
          * or {@link #previous()}.

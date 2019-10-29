@@ -3,11 +3,9 @@ package seedu.address.model.events.parameters;
 import static java.util.Objects.requireNonNull;
 
 import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoUnit;
-import java.util.Date;
 
 /**
  * Represents a Date Time.
@@ -65,13 +63,13 @@ public class DateTime implements Comparable<DateTime> {
                 .plusHours(hours)
                 .plusMinutes(minutes);
 
-        return FromLocalDateTime(newLocalDateTime);
+        return fromLocalDateTime(newLocalDateTime);
     }
 
     /**
      * Returns new {@code DateTime} object from a {@code LocalDateTime} object.
      */
-    public static DateTime FromLocalDateTime(LocalDateTime localDateTime) {
+    public static DateTime fromLocalDateTime(LocalDateTime localDateTime) {
         return new DateTime(localDateTime.withSecond(0).withNano(0));
     }
 

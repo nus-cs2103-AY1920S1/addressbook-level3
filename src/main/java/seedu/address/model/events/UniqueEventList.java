@@ -83,6 +83,9 @@ public class UniqueEventList extends UniqueElementList<Event> {
     }
 }
 
+/**
+ * A helper class which represents an event when searching for conflicting events in {@code UniqueEventList}
+ */
 class SearchEvent extends Event {
     public SearchEvent(Event event) {
         super(event.getPersonId(), event.getEventTiming(), event.getStatus());

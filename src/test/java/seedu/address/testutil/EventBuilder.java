@@ -66,8 +66,8 @@ public class EventBuilder {
         LocalDateTime newEndLocalDateTime = newStartLocalDateTime.plusMinutes(durationInMinutes);
 
         this.timing = new Timing(
-                DateTime.FromLocalDateTime(newStartLocalDateTime),
-                DateTime.FromLocalDateTime(newEndLocalDateTime));
+                DateTime.fromLocalDateTime(newStartLocalDateTime),
+                DateTime.fromLocalDateTime(newEndLocalDateTime));
 
         return this;
     }

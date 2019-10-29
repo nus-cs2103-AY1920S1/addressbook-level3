@@ -2,6 +2,7 @@
 package seedu.address.model;
 
 import java.util.ListIterator;
+
 import javafx.collections.ObservableList;
 
 import seedu.address.model.events.Event;

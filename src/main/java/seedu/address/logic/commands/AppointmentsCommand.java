@@ -3,7 +3,6 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
