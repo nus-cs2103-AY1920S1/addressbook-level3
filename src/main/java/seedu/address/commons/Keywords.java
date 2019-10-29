@@ -50,4 +50,93 @@ public class Keywords {
         HelpCommand.COMMAND_WORD,
         HomeCommand.COMMAND_WORD
     );
+
+    public static String getParameters(String commandWord) { 
+        switch(commandWord) {
+            // TASK 
+            case AddTaskCommand.COMMAND_WORD:
+                return "add-task tn/ s/ t/";
+        
+
+            // case DeleteTaskCommand.COMMAND_WORD: default
+
+            case FindCommand.COMMAND_WORD:
+                return "find-task {KEYWORDS}";
+
+            // case ListCommand.COMMAND_WORD: default
+
+            case EditCommand.COMMAND_WORD:
+                return "edit-task {INDEX} tn/ t/ s/";
+
+            case DoingTaskCommand.COMMAND_WORD: 
+                return "doing-task {INDEX}";
+
+            case SetDeadlineCommand.COMMAND_WORD:
+                return "set-deadline {INDEX}";
+
+            case DoneTaskCommand.COMMAND_WORD:
+                return "set-deadline ti/ /at";
+
+
+            // MEMBER
+            case AddMemberCommand.COMMAND_WORD:
+                return "add-member mn/ mi/ mt/";
+
+            case DeleteMemberCommand.COMMAND_WORD:
+                return "remove-member {id}";
+            case EditMemberCommand.COMMAND_WORD:
+                return "edit-member mn/ mi/ mt/";
+            case FindMemberCommand.COMMAND_WORD:
+                return "find-member {KEYWORD}";
+
+            // case ListMemberCommand.COMMAND_WORD: default
+
+            // ASSOCIATION
+            case AddTaskToMemberCommand.COMMAND_WORD:
+                return "assign-task ti/ mi/";
+
+            case  AddMemberToTaskCommand.COMMAND_WORD:
+                return "assign-member ti/ mi/";
+                
+            case  RemoveTaskFromMemberCommand.COMMAND_WORD:
+                return "fire-task ti/ mi/";
+            
+            case  RemoveMemberFromTaskCommand.COMMAND_WORD:
+                return "fire-member ti/ mi/";
+            
+            // INVENTORY
+            // case ListInventoryCommand.COMMAND_WORD: default
+                
+            case AddInventoryCommand.COMMAND_WORD:
+                return "add-inv i/ p/ ti/ mi/";
+                
+            case EditInventoryCommand.COMMAND_WORD:
+                return "edit-inv i/ p/ ti/ mi/";
+                
+            case DeleteInventoryCommand.COMMAND_WORD:
+                return "delete-inv {index}";
+            
+            // case GeneratePDFCommand.COMMAND_WORD: default
+                
+            // STATS
+            // case  GetStatisticsCommand.COMMAND_WORD_MEMBER: default
+            // case GetStatisticsCommand.COMMAND_WORD_TASK:
+        
+            // SETTINGS
+            case ThemeCommand.COMMAND_WORD:
+                return "theme {theme}";
+            
+            // case ClockCommand.COMMAND_WORD:
+            
+            // UNIVERSAL
+            
+            // case ClearCommand.COMMAND_WORD:
+            // case ExitCommand.COMMAND_WORD:
+            // case HelpCommand.COMMAND_WORD:            
+            // case HomeCommand.COMMAND_WORD:
+            
+            default:
+                return commandWord;
+        }
+    }
 }

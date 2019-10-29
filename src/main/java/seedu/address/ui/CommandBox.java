@@ -73,8 +73,7 @@ public class CommandBox extends UiPart<Region> {
      */
 
     public void getSuggestions(ObservableValue<? extends String> observableValue, String s, String s2) {
-        System.out.println("old: " + s + "/new : " + s2);
-        String text = commandTextField.getText();
+        String text = commandTextField.getText().toLowerCase();
         if (text.length() == 0) {
             entriesPopup.hide();
         } else {
@@ -118,7 +117,7 @@ public class CommandBox extends UiPart<Region> {
             item.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent actionEvent) {
-                    commandTextField.setText(result);
+                    commandTextField.setText(Keywords.getParameters(result));
                     //this line moves the cursor to the end after choosing a drop-down option
                     commandTextField.endOfNextWord();
                     entriesPopup.hide();
