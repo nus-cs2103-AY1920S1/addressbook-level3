@@ -5,7 +5,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.exercise.commons.core.index.Index.MESSAGE_CONSTRAINTS;
 import static seedu.exercise.testutil.Assert.assertThrows;
 import static seedu.exercise.testutil.typicalutil.TypicalIndexes.INDEX_ONE_BASED_FIRST;
+import static seedu.exercise.testutil.typicalutil.TypicalIndexes.INDEX_ONE_BASED_SECOND;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
@@ -13,6 +15,7 @@ import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.exercise.commons.core.index.Index;
 import seedu.exercise.logic.parser.exceptions.ParseException;
 import seedu.exercise.model.property.Calories;
 import seedu.exercise.model.property.Date;
@@ -29,6 +32,10 @@ public class ParserUtilTest {
     private static final String INVALID_CALORIES = "33a";
     private static final String INVALID_UNIT = " ";
     private static final String INVALID_MUSCLE = "32friend";
+    private static final String INVALID_END_DATE = "25/06/2019";
+    private static final String INVALID_CATEGORY = "rgime";
+    private static final String INVALID_CHART = "llchart";
+    private static final String INVALID_STATISTIC_CATEGORY = "clories";
 
     private static final String VALID_NAME = "Dance";
     private static final String VALID_DATE = "26/09/2019";
@@ -37,6 +44,10 @@ public class ParserUtilTest {
     private static final String VALID_UNIT = "km";
     private static final String VALID_MUSCLE_1 = "Legs";
     private static final String VALID_MUSCLE_2 = "Arms";
+    private static final String VALID_END_DATE = "27/09/2019";
+    private static final String VALID_CATEGORY = "regime";
+    private static final String VALID_CHART = "linechart";
+    private static final String VALID_STATISTIC_CATEGORY = "calories";
 
     private static final String WHITESPACE = " \t\r\n";
 
@@ -58,6 +69,31 @@ public class ParserUtilTest {
 
         // Leading and trailing whitespaces
         assertEquals(INDEX_ONE_BASED_FIRST, ParserUtil.parseIndex("  1  "));
+    }
+
+    @Test
+    public void parseIndexes_withNull_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseIndexes(null));
+    }
+
+    @Test
+    public void parseIndexes_collectionWithInvalidIndex_throwsParseException() {
+        assertThrows(ParseException.class, () ->
+                ParserUtil.parseIndexes(Arrays.asList("-1", "0")));
+    }
+
+    @Test
+    public void parseIndexes_emptyCollection_returnsEmptyList() throws Exception {
+        assertTrue(ParserUtil.parseIndexes(Collections.emptyList()).isEmpty());
+    }
+
+    @Test
+    public void parseIndexes_collectionWithValidMuscles_returnsIndexList() throws Exception {
+        ArrayList<Index> actualIndexSet = ParserUtil.parseIndexes(Arrays.asList("1", "2"));
+        ArrayList<Index> expectedIndexSet = new ArrayList<>(Arrays.asList(INDEX_ONE_BASED_FIRST,
+                INDEX_ONE_BASED_SECOND));
+
+        assertEquals(expectedIndexSet, actualIndexSet);
     }
 
     @Test
@@ -318,5 +354,94 @@ public class ParserUtilTest {
     @Test
     public void parseCustomProperties_withNull_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> ParserUtil.parseCustomProperties(null));
+    }
+
+    @Test
+    public void parseEndDate_withNull_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseEndDate(null, null));
+    }
+
+    @Test
+    public void parseEndDate_invalidValue_throwsParseException() {
+        Date validDate = new Date(VALID_DATE);
+        assertThrows(ParseException.class, () -> ParserUtil.parseEndDate(validDate, INVALID_END_DATE));
+    }
+
+    @Test
+    public void parseEndDate_validValueWithoutWhitespace_returnsDate() throws Exception {
+        Date validDate = new Date(VALID_DATE);
+        Date expectedDate = new Date(VALID_END_DATE);
+        assertEquals(expectedDate, ParserUtil.parseEndDate(validDate, VALID_END_DATE));
+    }
+
+    @Test
+    public void parseEndDate_validValueWithWhitespace_returnsTrimmedDate() throws Exception {
+        String dateWithWhitespace = WHITESPACE + VALID_END_DATE + WHITESPACE;
+        Date validDate = new Date(VALID_DATE);
+        Date expectedDate = new Date(VALID_END_DATE);
+        assertEquals(expectedDate, ParserUtil.parseEndDate(validDate, dateWithWhitespace));
+    }
+
+    @Test
+    public void parseCategory_withNull_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseCategory(null));
+    }
+
+    @Test
+    public void parseCategory_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseCategory(INVALID_CATEGORY));
+    }
+
+    @Test
+    public void parseCategory_validValueWithoutWhitespace() throws Exception {
+        assertEquals(VALID_CATEGORY, ParserUtil.parseCategory(VALID_CATEGORY));
+    }
+
+    @Test
+    public void parseCategory_validValueWithWhitespace() throws Exception {
+        String categoryWithWhitespace = WHITESPACE + VALID_CATEGORY + WHITESPACE;
+        assertEquals(VALID_CATEGORY, ParserUtil.parseCategory(categoryWithWhitespace));
+    }
+
+    @Test
+    public void parseChart_withNull_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseChart(null));
+    }
+
+    @Test
+    public void parseChart_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseChart(INVALID_CHART));
+    }
+
+    @Test
+    public void parseChart_validValueWithoutWhitespace() throws Exception {
+        assertEquals(VALID_CHART, ParserUtil.parseChart(VALID_CHART));
+    }
+
+    @Test
+    public void parseChart_validValueWithWhitespace() throws Exception {
+        String chartWithWhitespace = WHITESPACE + VALID_CHART + WHITESPACE;
+        assertEquals(VALID_CHART, ParserUtil.parseChart(chartWithWhitespace));
+    }
+
+    @Test
+    public void parseStatisticCategory_withNull_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseStatisticCategory(null));
+    }
+
+    @Test
+    public void parseStatisticCategory_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseStatisticCategory(INVALID_STATISTIC_CATEGORY));
+    }
+
+    @Test
+    public void parseStatisticCategory_validValueWithoutWhitespace() throws Exception {
+        assertEquals(VALID_STATISTIC_CATEGORY, ParserUtil.parseStatisticCategory(VALID_STATISTIC_CATEGORY));
+    }
+
+    @Test
+    public void parseStatisticCategory_validValueWithWhitespace() throws Exception {
+        String statisticCategoryWithWhitespace = WHITESPACE + VALID_STATISTIC_CATEGORY + WHITESPACE;
+        assertEquals(VALID_STATISTIC_CATEGORY, ParserUtil.parseStatisticCategory(statisticCategoryWithWhitespace));
     }
 }

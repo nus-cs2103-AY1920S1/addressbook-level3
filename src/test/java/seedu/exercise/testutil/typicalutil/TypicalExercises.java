@@ -41,6 +41,10 @@ public class TypicalExercises {
         .withCalories("345").withQuantity("30").withUnit("sprints").build();
     public static final Exercise SNAP = new ExerciseBuilder().withName("Snapping").withDate("26/09/2019")
         .withCalories("332").withQuantity("800").withUnit("times").build();
+    public static final Exercise SWIMMING = new ExerciseBuilder().withName("Swimming").withDate("27/09/2019")
+            .withCalories("300").withQuantity("10").withUnit("laps").build();
+    public static final Exercise CYCLING = new ExerciseBuilder().withName("Cycling").withDate("28/09/2019")
+                .withCalories("150").withQuantity("5").withUnit("km").build();
 
     // Manually added
     public static final Exercise CLAP = new ExerciseBuilder().withName("Clapping").withDate("27/09/2019")

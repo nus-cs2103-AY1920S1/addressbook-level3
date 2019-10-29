@@ -171,15 +171,15 @@ public class StatsFactory {
         HashMap<String, Double> data = new HashMap<>();
 
         for (Exercise e : filteredExercise) {
-            String name = e.getName().toString();
+            String nameWithUnit = e.getName().toString() + " (" + e.getUnit().toString() + ")";
             double calories = Double.parseDouble(e.getCalories().toString());
 
-            if (data.containsKey(name)) {
-                double temp = data.get(name);
+            if (data.containsKey(nameWithUnit)) {
+                double temp = data.get(nameWithUnit);
                 calories += temp;
             }
 
-            data.put(name, calories);
+            data.put(nameWithUnit, calories);
         }
 
         return data;
