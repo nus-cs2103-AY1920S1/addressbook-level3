@@ -1,9 +1,9 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -23,6 +23,7 @@ import seedu.address.model.mapping.PersonToGroupMapping;
 import seedu.address.model.mapping.PersonToGroupMappingList;
 import seedu.address.model.mapping.Role;
 import seedu.address.model.module.AcadYear;
+import seedu.address.model.module.Holidays;
 import seedu.address.model.module.Module;
 import seedu.address.model.module.ModuleId;
 import seedu.address.model.module.ModuleList;
@@ -88,12 +89,12 @@ public interface Model {
     /**
      * Returns the App setting's acadYear.
      */
-    public AcadYear getDefaultAcadYear();
+    public AcadYear getAcadYear();
 
     /**
      * Returns the App setting's semesterNo.
      */
-    public SemesterNo getDefaultSemesterNo();
+    public SemesterNo getSemesterNo();
 
     //=========== AddressBook ================================================================================
 
@@ -314,9 +315,9 @@ public interface Model {
      */
     Module findModule(ModuleId id);
 
-    String getAcadSemStartDateString(AcadYear acadYear, SemesterNo semesterNo);
+    LocalDate getAcadSemStartDate(AcadYear acadYear, SemesterNo semesterNo);
 
-    List<String> getHolidayDateStrings();
+    Holidays getHolidays();
 
     ModuleList getModuleList();
 

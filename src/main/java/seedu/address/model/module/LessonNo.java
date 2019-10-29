@@ -1,5 +1,7 @@
 package seedu.address.model.module;
 
+import java.util.Objects;
+
 /**
  * Lesson number of the Lesson.
  */
@@ -19,21 +21,25 @@ public class LessonNo {
         return lessonNo;
     }
 
-    /**
-     * Checks if this LessonNo is equal to other LessonNo.
-     * @param other to be compared
-     * @return boolean
-     */
-    public boolean equals(LessonNo other) {
-        if (other == null) {
+    @Override
+    public boolean equals(Object other) {
+        if (!(other instanceof LessonNo)) {
             return false;
-        } else if (other.toString().equals(this.lessonNo)) {
+        }
+        LessonNo lNo = (LessonNo) other;
+        if (lNo == this) {
+            return true;
+        } else if (lNo.lessonNo.equals(this.lessonNo)) {
             return true;
         } else {
             return false;
         }
     }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(lessonNo);
+    }
 
     public static boolean isValidLesson(String test) {
         return test.matches(VALIDATION_REGEX);

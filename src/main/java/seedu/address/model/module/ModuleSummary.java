@@ -30,15 +30,17 @@ public class ModuleSummary {
         return semesters;
     }
 
-    /**
-     * Returns true if both module summaries are the same instance of module summaries.
-     */
-    public boolean equals(ModuleSummary other) {
-        if (other == this) {
-            return true;
-        } else if (other == null) {
+    @Override
+    public boolean equals(Object other) {
+        if (!(other instanceof ModuleSummary)) {
             return false;
-        } else if (other.getModuleId().equals(this.getModuleId())) {
+        }
+        ModuleSummary m = (ModuleSummary) other;
+        if (m == this) {
+            return true;
+        } else if (m.moduleId.equals(this.moduleId)
+                && m.title.equals(this.title)
+                && m.semesters.equals(this.semesters)) {
             return true;
         } else {
             return false;
