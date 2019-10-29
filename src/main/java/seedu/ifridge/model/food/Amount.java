@@ -19,7 +19,7 @@ public class Amount {
 
     public static final String VALUE_BEFORE_DECIMAL = "(\\d*)";
     public static final String VALUE_AFTER_DECIMAL = "(\\d+)";
-    public static final String UNIT_POUND = "lb";
+    public static final String UNIT_POUND = "lbs";
     public static final String UNIT_KILOGRAM = "kg";
     public static final String UNIT_GRAM = "g";
     public static final String UNIT_OUNCE = "oz";
