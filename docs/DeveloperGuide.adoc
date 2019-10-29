@@ -320,9 +320,9 @@ image::kaibindiagrams/ListAllByTagSequenceDiagram.png[]
 ** Supporting statistics for Tags
 *** Display a list of all Tags, with each Tag displaying the amount of Flashcards, Notes, CheatSheets there are.
 
-=== Auto-generated cheatsheet with customizable contents feature
+=== Customizable Auto-generated Cheatsheet Feature
 
-[NOTE]
+[IMPORTANT]
 All the operations assume the user is in the _cheatsheet_ mode.
 
 ==== Implementation
@@ -343,9 +343,15 @@ It is involved in the following operations:
 
 The first operation is exposed in the `Model` interface as `Model#setCheatSheet()`.
 
-The following sequence diagram shows how the auto-generation operation works:
+The following _figure 9_ shows a high-level view of how the auto-generation operation works.
 
+.Sequence diagram to illustrate auto-generation operation
 image::jasmineDiagrams/AddCheatSheetSequenceDiagram.png[]
+
+Through the sequence diagram above, it portrays the relationships between the components to execute the creation mechanism. The _figure 10_ below further explains the details within the sequence diagram.
+
+.Detailed sequence diagram for retrieval of tagged contents
+image::jasmineDiagrams/AddCheatSheetDetailedSequenceDiagram.png[]
 
 ===== Step 2: Customizing contents
 
