@@ -304,6 +304,11 @@ reminders, which includes `add`, `edit`, `delete`, `clear`, `reminder`,
 * The step must be a positive integer `1`, `2`, `3`, …​
 ****
 
+Examples:
+
+* `*undo*` +
+Restores the list to the state before the previous undoable command was	executed.
+
 === Redoing previously undone commands: *`redo`*
 
 Reverses the given number of `*undo*` commands.
@@ -313,6 +318,11 @@ Format: `*redo* [STEP=1]`
 ****
 * The step must be a positive integer `1`, `2`, `3`, …​
 ****
+
+Examples:
+
+* `*redo*` +
+Reverses the most recent `*undo*` command.
 
 === Exiting the program: *`exit`*
 
@@ -756,6 +766,7 @@ are: *name* and *default*. *default* is sorting at the order when the bookmark i
 * `CRITERION` is case insensitive, e.g. both URL and url are acceptable
 criterion.
 ****
+
 Examples:
 
 * `*sort* name` +
