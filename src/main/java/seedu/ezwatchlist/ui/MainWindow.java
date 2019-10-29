@@ -165,10 +165,6 @@ public class MainWindow extends UiPart<Stage> {
 
     private void setSearchAccelerator(final Button button) {
         Scene scene = button.getScene();
-        if (scene == null) {
-            throw new IllegalArgumentException(ACCELERATOR_ERROR);
-        }
-
         scene.getAccelerators().put(
                 new KeyCodeCombination(KeyCode.DIGIT3),
                 new Runnable() {
@@ -181,10 +177,6 @@ public class MainWindow extends UiPart<Stage> {
 
     private void setWatchListAccelerator(final Button button) {
         Scene scene = button.getScene();
-        if (scene == null) {
-            throw new IllegalArgumentException(ACCELERATOR_ERROR);
-        }
-
         scene.getAccelerators().put(
                 new KeyCodeCombination(KeyCode.DIGIT1),
                 new Runnable() {
@@ -197,10 +189,6 @@ public class MainWindow extends UiPart<Stage> {
 
     private void setWatchedAccelerator(final Button button) {
         Scene scene = button.getScene();
-        if (scene == null) {
-            throw new IllegalArgumentException(ACCELERATOR_ERROR);
-        }
-
         scene.getAccelerators().put(
                 new KeyCodeCombination(KeyCode.DIGIT2),
                 new Runnable() {
@@ -213,10 +201,6 @@ public class MainWindow extends UiPart<Stage> {
 
     private void setStatisticsAccelerator(final Button button) {
         Scene scene = button.getScene();
-        if (scene == null) {
-            throw new IllegalArgumentException(ACCELERATOR_ERROR);
-        }
-
         scene.getAccelerators().put(
                 new KeyCodeCombination(KeyCode.DIGIT4),
                 new Runnable() {
