@@ -81,11 +81,6 @@ public class EditCommandParser implements CommandParserWithPersonModel {
             }
             editPersonDescriptor.setName(argMultimap.getValue(PREFIX_PERSON).get());
         }
-
-        /*if (!editPersonDescriptor.isAnyFieldEdited()) {
-            throw new ParseException(MESSAGE_NOT_EDITED);
-        }*/
-
         return new EditCommand(index, editPersonDescriptor);
     }
 

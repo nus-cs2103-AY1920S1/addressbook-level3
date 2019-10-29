@@ -1,6 +1,7 @@
 package seedu.address.transaction.logic.parser;
 
 import static seedu.address.person.logic.commands.CommandTestUtil.NAME_DESC_AMY;
+import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 import static seedu.address.transaction.logic.commands.CommandTestUtil.DESC_AMOUNT;
 import static seedu.address.transaction.logic.commands.CommandTestUtil.DESC_CATEGORY;
@@ -38,6 +39,11 @@ import seedu.address.transaction.logic.commands.EditCommand;
 class EditCommandParserTest {
     private GetPersonByNameOnlyModel personModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
     private EditCommandParser parser = new EditCommandParser();
+
+    @Test
+    public void parse_nullPerson_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> new EditCommandParser().parse("dummy" ,null));
+    }
 
     @Test
     public void parse_missingParts_failure() {
