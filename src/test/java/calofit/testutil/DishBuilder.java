@@ -47,7 +47,7 @@ public class DishBuilder {
     /**
      * Sets the {@code Calorie} of the {@code Dish} that we are building.
      */
-    public calofit.testutil.DishBuilder withCalories(int calories) {
+    public DishBuilder withCalories(int calories) {
         this.calories = new Calorie(calories);
         return this;
     }

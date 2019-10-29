@@ -111,14 +111,14 @@ public class MainApp extends Application {
         try {
             mealLogOptional = storage.readMealLog();
             if (!mealLogOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with a sample DishDatabase");
+                logger.info("Data file not found. Will be starting with a empty MealLog");
             }
             return mealLogOptional.orElseGet(SampleDataUtil::getNewMealLog);
         } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty DishDatabase");
+            logger.warning("Data file not in the correct format. Will be starting with an empty MealLog");
             return new MealLog();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty DishDatabase");
+            logger.warning("Problem while reading from the file. Will be starting with an empty MealLog");
             return new MealLog();
         }
     }
