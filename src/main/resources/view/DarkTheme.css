@@ -42,6 +42,14 @@
     -fx-opacity: 1;
 }
 
+.label-bright-solid {
+    -fx-font-size: 11pt;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-text-fill: white;
+    -fx-opacity: 1;
+    -fx-background-color: derive(#1d1d1d, 30%);
+}
+
 .label-header {
     -fx-font-size: 32pt;
     -fx-font-family: "Segoe UI Light";

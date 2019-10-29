@@ -3,7 +3,7 @@ package seedu.address.transaction.model;
 import java.util.function.Predicate;
 
 import seedu.address.person.model.person.Person;
-import seedu.address.transaction.util.TransactionList;
+import seedu.address.transaction.model.transaction.Transaction;
 
 /**
  * The API of the Model component.

@@ -13,4 +13,9 @@ public class BackCommand extends Command {
         model.resetPredicate();
         return new CommandResult("");
     }
+
+    @Override
+    public String toString() {
+        return COMMAND_WORD;
+    }
 }

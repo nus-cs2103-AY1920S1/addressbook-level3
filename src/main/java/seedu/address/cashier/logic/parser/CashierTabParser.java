@@ -1,5 +1,6 @@
 package seedu.address.cashier.logic.parser;
 
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -12,6 +13,7 @@ import seedu.address.cashier.logic.commands.SetCashierCommand;
 import seedu.address.cashier.logic.parser.exception.ParseException;
 import seedu.address.cashier.model.Model;
 import seedu.address.cashier.ui.CashierMessages;
+import seedu.address.person.commons.core.LogsCenter;
 import seedu.address.person.logic.commands.AddCommand;
 
 /**
@@ -23,6 +25,7 @@ public class CashierTabParser {
      * Used for initial separation of command word and args.
      */
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
+    private final Logger logger = LogsCenter.getLogger(getClass());
 
     /**
      * Parses user input into command for execution.
@@ -45,24 +48,25 @@ public class CashierTabParser {
         switch (commandWord) {
 
         case AddCommand.COMMAND_WORD:
-            return new AddCommandParser().parse(arguments, model);
+            return new AddCommandParser().parse(arguments, model, personModel);
 
         case DeleteCommand.COMMAND_WORD:
-            return new DeleteCommandParser().parse(arguments);
+            return new DeleteCommandParser().parse(arguments, model, personModel);
 
         case EditCommand.COMMAND_WORD:
-            return new EditCommandParser().parse(arguments, model);
+            return new EditCommandParser().parse(arguments, model, personModel);
 
         case SetCashierCommand.COMMAND_WORD:
             return new SetCashierCommandParser().parse(arguments, model, personModel);
 
         case CheckoutCommand.COMMAND_WORD:
-            return new CheckoutCommandParser().parse(arguments, model);
+            return new CheckoutCommandParser().parse(arguments, model, personModel);
 
         case ClearCommand.COMMAND_WORD:
-            return new ClearCommandParser().parse();
+            return new ClearCommandParser().parse(arguments, model, personModel);
 
         default:
+            logger.info("There is no such command.");
             throw new ParseException(CashierMessages.NO_SUCH_COMMAND);
 
         }

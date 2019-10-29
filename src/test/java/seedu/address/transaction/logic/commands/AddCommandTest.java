@@ -7,6 +7,7 @@ import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 import static seedu.address.transaction.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.transaction.logic.commands.CommandTestUtil.showTransactionsOfPerson;
+import static seedu.address.transaction.ui.TransactionMessages.MESSAGE_ADD_TRANSACTION;
 
 import java.util.Arrays;
 
@@ -22,8 +23,7 @@ import seedu.address.testutil.TypicalPersons;
 import seedu.address.testutil.TypicalTransactions;
 import seedu.address.transaction.model.Model;
 import seedu.address.transaction.model.ModelManager;
-import seedu.address.transaction.model.Transaction;
-import seedu.address.transaction.ui.TransactionMessages;
+import seedu.address.transaction.model.transaction.Transaction;
 
 class AddCommandTest {
 
@@ -41,7 +41,7 @@ class AddCommandTest {
                 new TransactionModelStubAcceptingTransactionAdded();
         //modelStubWithTrans.addTransaction(validTransaction);
         CommandResult commandResult = new AddCommand(validTransaction).execute(modelStubWithTrans, modelStubWithPerson);
-        assertEquals(String.format(TransactionMessages.MESSAGE_ADD_TRANSACTION, validTransaction),
+        assertEquals(String.format(MESSAGE_ADD_TRANSACTION, validTransaction),
                 commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(validTransaction), modelStubWithTrans.getTransactionsAdded());
     }
@@ -58,7 +58,7 @@ class AddCommandTest {
         showTransactionsOfPerson(expectedModel, TypicalPersons.ALICE.getName().toString());
         expectedModel.resetPredicate();
         expectedModel.addTransaction(transaction);
-        String message = String.format(TransactionMessages.MESSAGE_ADD_TRANSACTION, transaction);
+        String message = String.format(MESSAGE_ADD_TRANSACTION, transaction);
         assertCommandSuccess(addCommand, model, message, expectedModel, personModel);
     }
 

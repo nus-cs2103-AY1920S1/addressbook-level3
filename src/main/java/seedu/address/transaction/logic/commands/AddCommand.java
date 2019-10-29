@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.transaction.ui.TransactionMessages.MESSAGE_ADD_TRANSACTION;
 
 import seedu.address.transaction.model.Model;
-import seedu.address.transaction.model.Transaction;
+import seedu.address.transaction.model.transaction.Transaction;
 
 /**
  * Adds a transaction to the transaction list.
@@ -33,5 +33,10 @@ public class AddCommand extends Command {
         return other == this // short circuit if same object
                 || (other instanceof AddCommand // instanceof handles nulls
                 && transaction.equals(((AddCommand) other).transaction));
+    }
+
+    @Override
+    public String toString() {
+        return COMMAND_WORD;
     }
 }

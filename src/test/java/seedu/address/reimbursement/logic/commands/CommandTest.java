@@ -24,7 +24,8 @@ import seedu.address.reimbursement.model.ReimbursementList;
 import seedu.address.testutil.TransactionBuilder;
 import seedu.address.testutil.TypicalPersons;
 import seedu.address.testutil.TypicalReimbursements;
-import seedu.address.transaction.model.Transaction;
+import seedu.address.transaction.model.transaction.Transaction;
+
 
 public class CommandTest {
     public CommandTest() {

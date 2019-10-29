@@ -3,8 +3,8 @@ package seedu.address.testutil;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import seedu.address.transaction.model.Transaction;
-import seedu.address.transaction.util.TransactionList;
+import seedu.address.transaction.model.TransactionList;
+import seedu.address.transaction.model.transaction.Transaction;
 
 /**
  * A utility class containing a list of {@code Transaction} objects to be used in tests.
@@ -61,11 +61,6 @@ public class TypicalTransactions {
      * Returns an {@code TransactionList} with all the typical transactions.
      */
     public static TransactionList getTypicalTransactionList() {
-        /*TransactionList tl = new TransactionList();
-        for (Transaction transaction : getTypicalTransactions()) {
-            tl.add(transaction);
-        }
-        return tl;*/
         return new TransactionList(getTypicalTransactions());
     }
 
@@ -73,6 +68,16 @@ public class TypicalTransactions {
         return new ArrayList<>(Arrays.asList(ALICE_TRANSACTION_1, BENSON_TRANSACTION_2,
                 ALICE_TRANSACTION_3, ALICE_TRANSACTION_4, CARL_TRANSACTION_5, ELLE_TRANSACTION_6, GEORGE_TRANSACTION_7,
                 FIONA_TRANSACTION_8));
+    }
+
+    public static TransactionList getTransactionListWithReimbursementNeeded() {
+        return new TransactionList(getTransactionsWithReimbursements());
+    }
+
+    public static ArrayList<Transaction> getTransactionsWithReimbursements() {
+        return new ArrayList<>();
+        //        return new ArrayList<>(Arrays.asList(ALICE_TRANSACTION_10, ELLE_TRANSACTION_11,
+        //                ALICE_TRANSACTION_12, BOB_TRANSACTION_13));
     }
 
     public static TransactionList getAmountSortedTransactionList() {

@@ -6,17 +6,27 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Logger;
 
+import seedu.address.person.commons.core.LogsCenter;
 import seedu.address.person.model.Model;
 import seedu.address.person.model.person.Person;
-import seedu.address.transaction.model.Transaction;
-import seedu.address.transaction.util.TransactionList;
+import seedu.address.transaction.model.TransactionList;
+import seedu.address.transaction.model.transaction.Transaction;
+import seedu.address.transaction.storage.exception.FileReadWriteException;
 
 /**
  * Manages storage of transaction data in local storage.
  */
 public class StorageManager implements Storage {
+    public static final String NUM_FOR_REIMBURSED = "1";
+    public static final String ERROR_READING_FILE = "Date file could not be read from."
+            + "Please delete the 'data' folder and restart"
+            + "treasurerPro.";
+
+
     private final File file;
+    private final Logger logger = new LogsCenter().getLogger(getClass());
     private final seedu.address.person.model.Model personModel;
 
     public StorageManager(File file, Model personModel) {
@@ -25,20 +35,21 @@ public class StorageManager implements Storage {
     }
 
     @Override
-    public TransactionList readTransactionList() {
+    public TransactionList readTransactionList() throws FileReadWriteException {
         try {
             ArrayList<Transaction> transactionArrayList = new ArrayList<>();
             file.getAbsoluteFile().getParentFile().mkdirs();
             file.createNewFile();
             BufferedReader bfr = new BufferedReader(new FileReader(file));
-            String line = null;
+            String line;
             while ((line = bfr.readLine()) != null) {
                 Transaction t = this.readInFileLine(line, personModel);
                 transactionArrayList.add(t);
             }
             return new TransactionList(transactionArrayList);
-        } catch (IOException e) {
-            return new TransactionList();
+        } catch (Exception e) {
+            logger.warning("There was a problem reading transactionHistory.txt while application is running.");
+            throw new FileReadWriteException(ERROR_READING_FILE);
         }
     }
 
@@ -75,6 +86,6 @@ public class StorageManager implements Storage {
     }
 
     private static boolean isReimbursed(String num) {
-        return num.equals("1") ? true : false;
+        return num.equals(NUM_FOR_REIMBURSED) ? true : false;
     }
 }

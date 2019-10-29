@@ -1,7 +1,7 @@
 package seedu.address.reimbursement.storage;
 
 import seedu.address.reimbursement.model.ReimbursementList;
-import seedu.address.transaction.util.TransactionList;
+import seedu.address.transaction.model.TransactionList;
 
 /**
  * Storage interfaces. Defines the methods that a StorageManager has to implement.
