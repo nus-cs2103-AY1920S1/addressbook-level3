@@ -4,9 +4,11 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COLOR;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DELETE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DIRECTORY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_END_DATETIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EXPORT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GET_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RECUR;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_START_DATETIME;
@@ -20,6 +22,7 @@ import seedu.address.logic.commands.event.EventAddCommand;
 import seedu.address.logic.commands.event.EventCommand;
 import seedu.address.logic.commands.event.EventDeleteCommand;
 import seedu.address.logic.commands.event.EventEditCommand;
+import seedu.address.logic.commands.event.EventExportCommand;
 import seedu.address.logic.commands.event.EventIndexCommand;
 import seedu.address.logic.commands.event.EventViewCommand;
 import seedu.address.logic.parser.ArgumentMultimap;
@@ -62,7 +65,9 @@ public class EventCommandParser implements Parser<EventCommand> {
                     PREFIX_COLOR,
                     PREFIX_GET_INDEX,
                     PREFIX_VIEW,
-                    PREFIX_DELETE);
+                    PREFIX_DELETE,
+                    PREFIX_EXPORT,
+                    PREFIX_DIRECTORY);
 
         boolean isEdit = false;
         Index index = Index.fromZeroBased(0);
@@ -80,6 +85,8 @@ public class EventCommandParser implements Parser<EventCommand> {
         }
         if (argMultimap.getValue(PREFIX_VIEW).isPresent()) { // List command
             return new EventViewCommand();
+        } else if (argMultimap.getValue(PREFIX_EXPORT).isPresent()) { //Export Command
+            return exportCommand(argMultimap);
         } else if (argMultimap.getValue(PREFIX_GET_INDEX).isPresent()) { //get Index Of Command
             return indexOfCommand(argMultimap);
         } else if (argMultimap.getValue(PREFIX_DELETE).isPresent()) { // Delete command
@@ -89,6 +96,19 @@ public class EventCommandParser implements Parser<EventCommand> {
         } else {
             return addCommand(argMultimap);
         }
+    }
+
+    /**
+     * Performs validation and return the EventExport Object
+     *
+     * @param argMultimap for tokenized input.
+     * @return EventExportCommand object.
+     * @throws ParseException
+     */
+    private EventExportCommand exportCommand(ArgumentMultimap argMultimap) {
+        String targetDirectory = argMultimap.getValue(PREFIX_DIRECTORY).orElse("");
+
+        return new EventExportCommand(targetDirectory);
     }
 
     /**

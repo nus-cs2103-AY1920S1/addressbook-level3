@@ -243,7 +243,7 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Opens the schedule window or focuses on it if it's already opened.
+     * Opens the schedule panel or focuses on it if it's already opened.
      */
     @FXML
     public void handleSchedule() {
@@ -251,7 +251,7 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Opens the schedule window or focuses on it if it's already opened.
+     * Opens the student panel or focuses on it if it's already opened.
      */
     @FXML
     public void handleStudent() {
