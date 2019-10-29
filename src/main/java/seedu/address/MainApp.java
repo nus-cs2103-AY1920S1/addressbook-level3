@@ -90,32 +90,32 @@ public class MainApp extends Application {
 
         model = initModelManager(storage, userPrefs);
 
-        //For Transaction Storage and Manager
+        //For Transaction Storage and Model
         transactionStorage =
                 new seedu.address.transaction.storage.StorageManager(new File(FILE_PATH_TRANSACTION), model);
         transactionModel =
                 new seedu.address.transaction.model.ModelManager(transactionStorage.readTransactionList());
 
-        //For Reimbursement Storage and Manager
+        //For Reimbursement Storage and Model
         reimbursementStorage =
                 new seedu.address.reimbursement.storage.StorageManager(new File(FILE_PATH_REIMBURSEMENT));
         reimbursementModel =
                 new seedu.address.reimbursement.model.ModelManager(
                         reimbursementStorage.getReimbursementFromFile(transactionModel.getTransactionList()));
 
-        //For Inventory Storage and Manager
+        //For Inventory Storage and Model
         inventoryStorage =
                 new seedu.address.inventory.storage.StorageManager(new File("data/inventoryInformation.txt"));
         inventoryModel =
                 new seedu.address.inventory.model.ModelManager(inventoryStorage);
 
-        //For Cashier Storage and Manager
+        //For Cashier Storage and Model
         cashierStorage = new seedu.address.cashier.storage.StorageManager(new File(FILE_PATH_INVENTORY),
                 new File(FILE_PATH_TRANSACTION), model);
         cashierModel = new seedu.address.cashier.model.ModelManager(cashierStorage.getInventoryList(),
                 cashierStorage.getTransactionList());
 
-        //For Overview Storage and Manager
+        //For Overview Storage and Model
         overviewStorage = new seedu.address.overview.storage.StorageManager("data/overviewInformation.txt");
         overviewModel = new seedu.address.overview.model.ModelManager(overviewStorage);
 

@@ -1,5 +1,6 @@
 package seedu.address.ui;
 
+import java.util.List;
 import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
@@ -186,6 +187,8 @@ public class MainWindow extends UiPart<Stage> {
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
+        checkIfNotify();
+
     }
 
     /**
@@ -242,6 +245,8 @@ public class MainWindow extends UiPart<Stage> {
             logger.info("Result: " + commandResult.getFeedbackToUser());
             lion.setResponse(commandResult.getFeedbackToUser());
 
+            checkIfNotify();
+
             homePlaceholder.getChildren().removeAll();
             homePlaceholder.getChildren().add(new Home(transactionLogic).getRoot());
 
@@ -276,7 +281,17 @@ public class MainWindow extends UiPart<Stage> {
      */
     private boolean isUiCommand(String userInput) {
         return userInput.split(" ")[0].equals("go")
-                || userInput.split(" ")[0].equals("help")
                 || userInput.split(" ")[0].equals("exit");
+    }
+
+    /**
+     * Checks if notifications need to be printed and prints them if applicable.
+     */
+    private void checkIfNotify() {
+        List<OverallCommandResult> notifications = overviewLogic.checkNotifications();
+
+        for (OverallCommandResult notif: notifications) {
+            lion.setResponse(notif.getFeedbackToUser());
+        }
     }
 }

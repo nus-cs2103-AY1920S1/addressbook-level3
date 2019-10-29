@@ -20,6 +20,10 @@ public class ModelManager implements Model {
     private Optional<Double> salesThreshold;
     private Optional<Double> expenseThreshold;
 
+    private boolean isNotifiedBudget = true;
+    private boolean isNotifiedExpense = true;
+    private boolean isNotifiedSales = true;
+
     public ModelManager(Storage storage) {
         double[] values = storage.readFromFile();
 
@@ -36,6 +40,7 @@ public class ModelManager implements Model {
     }
 
     public void setBudgetTarget(double budgetTarget) {
+        this.isNotifiedBudget = true;
         this.budgetTarget = Optional.of(budgetTarget);
     }
 
@@ -44,6 +49,7 @@ public class ModelManager implements Model {
     }
 
     public void setExpenseTarget(double expenseTarget) {
+        this.isNotifiedExpense = true;
         this.expenseTarget = Optional.of(expenseTarget);
     }
 
@@ -52,6 +58,7 @@ public class ModelManager implements Model {
     }
 
     public void setSalesTarget(double salesTarget) {
+        this.isNotifiedSales = true;
         this.salesTarget = Optional.of(salesTarget);
     }
 
@@ -60,6 +67,7 @@ public class ModelManager implements Model {
     }
 
     public void setBudgetThreshold(double budgetThreshold) {
+        this.isNotifiedBudget = true;
         this.budgetThreshold = Optional.of(budgetThreshold);
     }
 
@@ -68,15 +76,42 @@ public class ModelManager implements Model {
     }
 
     public void setExpenseThreshold(double expenseThreshold) {
+        this.isNotifiedExpense = true;
         this.expenseThreshold = Optional.of(expenseThreshold);
     }
+
 
     public double getSalesThreshold() {
         return salesThreshold.get();
     }
 
     public void setSalesThreshold(double salesThreshold) {
+        this.isNotifiedSales = true;
         this.salesThreshold = Optional.of(salesThreshold);
+    }
+
+    public boolean checkBudgetNotif() {
+        return isNotifiedBudget;
+    }
+
+    public boolean checkExpenseNotif() {
+        return isNotifiedExpense;
+    }
+
+    public boolean checkSalesNotif() {
+        return isNotifiedSales;
+    }
+
+    public void setBudgetNotif(boolean notify) {
+        this.isNotifiedBudget = notify;
+    }
+
+    public void setExpenseNotif(boolean notify) {
+        this.isNotifiedExpense = notify;
+    }
+
+    public void setSalesNotif(boolean notify) {
+        this.isNotifiedSales = notify;
     }
 
 }
