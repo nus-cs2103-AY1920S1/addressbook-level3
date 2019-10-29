@@ -117,6 +117,7 @@ Options: +
 
 * t/ : Specifies name of the tag/s to be added to the expense.(REQUIRED) +
 {nbsp} +
+
 +
 Example: +
 `tag add 2 t/monthlybills t/electricity` +
@@ -133,6 +134,7 @@ Usage:
 
 * t/ : Specifies name of the tag/s to be removed from the expense.(REQUIRED) +
 {nbsp} +
+
 +
 Example: +
 `tag rm 2 t/monthly bills t/electricity` +
@@ -148,6 +150,8 @@ Usage:
 
 * t/ : Specifies name of the tag/s to filter expenses with.(REQUIRED) +
 {nbsp} +
+
++
 Example: +
 `tag filter t/home t/monthly bills` +
 Lists out all the expenses that contains the tags “home” or “monthly bills” +
