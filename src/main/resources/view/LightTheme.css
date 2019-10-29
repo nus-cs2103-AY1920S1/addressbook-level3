@@ -200,7 +200,7 @@
     -fx-padding: 5;
 }
 
-.activity-history-card .details-container, .expense-card .amount-container, 
+.activity-history-card .details-container, .expense-card .amount-container,
 .expense-card .details-container {
     -fx-padding: 2 5 2 5;
 }
