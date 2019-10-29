@@ -1,5 +1,7 @@
 package seedu.address.model.flashcard;
 
+import seedu.address.model.flashcard.exceptions.StringToScheduleIncrementConversionException;
+
 /**
  * Enum class for use for remind feature
  */
@@ -31,6 +33,28 @@ public enum ScheduleIncrement {
         FIFTH.nextIncrement = SIXTH;
         SIXTH.nextIncrement = FINAL;
         FINAL.nextIncrement = FINAL;
+    }
+
+    public static ScheduleIncrement getScheduleIncrementFromString(String stringScheduleIncrement)
+            throws StringToScheduleIncrementConversionException{
+        switch (stringScheduleIncrement) {
+            case "FIRST":
+                return FIRST;
+            case "SECOND":
+                return SECOND;
+            case "THIRD":
+                return THIRD;
+            case "FOURTH":
+                return FOURTH;
+            case "FIFTH":
+                return FIFTH;
+            case "SIXTH":
+                return SIXTH;
+            case "FINAL":
+                return FINAL;
+            default:
+                throw new StringToScheduleIncrementConversionException();
+        }
     }
 
     /**

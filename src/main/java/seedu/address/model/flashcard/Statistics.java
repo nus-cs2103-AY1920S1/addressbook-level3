@@ -8,6 +8,10 @@ import java.util.Objects;
  */
 public class Statistics {
 
+    public static final String MESSAGE_CONSTRAINTS =
+            "Statistics must have valid LocalDate lastViewed and toViewNext in the format yyyy-mm-dd and valid " +
+                    "ScheduleIncrement currentIncrement such as FIRST or FINAL";
+
     private LocalDate lastViewed;
     private LocalDate toViewNext;
     private ScheduleIncrement currentIncrement;
@@ -25,13 +29,15 @@ public class Statistics {
     }
 
     /**
-     *
-     * @param lastViewed
-     * @param toViewNext
-     * @param currentIncrement
+     * Creates a {@code Statistics} object by parsing given String parameters.
+     * @param lastViewed String of LocalDate in format yyyy-mm-dd
+     * @param toViewNext String of LocalDate in format yyyy-mm-dd
+     * @param currentIncrement String of ScheduleIncrement
      */
-    public Statistics(String lastViewed, String toViewNext, String currentIncrement) {
-
+    public Statistics(LocalDate lastViewed, LocalDate toViewNext, ScheduleIncrement currentIncrement) {
+        this.lastViewed = lastViewed;
+        this.toViewNext = toViewNext;
+        this.currentIncrement = currentIncrement;
     }
 
     /**
@@ -53,7 +59,7 @@ public class Statistics {
      */
     private void updateToViewNext() {
         long daysToAdd = this.currentIncrement.getNumberOfDays();
-        toViewNext = toViewNext.plusDays(daysToAdd);
+        toViewNext = lastViewed.plusDays(daysToAdd);
     }
 
     /**

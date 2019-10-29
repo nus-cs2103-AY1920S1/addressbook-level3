@@ -1,5 +1,7 @@
 package seedu.address.storage;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -13,8 +15,10 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.flashcard.Answer;
 import seedu.address.model.flashcard.Flashcard;
 import seedu.address.model.flashcard.Question;
+import seedu.address.model.flashcard.ScheduleIncrement;
 import seedu.address.model.flashcard.Statistics;
 import seedu.address.model.flashcard.Title;
+import seedu.address.model.flashcard.exceptions.StringToScheduleIncrementConversionException;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -23,6 +27,7 @@ import seedu.address.model.tag.Tag;
 class JsonAdaptedFlashcard {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Flashcard's %s field is missing!";
+    public static final String MISSING_STATISTICS_FIELD_MESSAGE_FORMAT = "Statistic's %s field is missing!";
 
     private final String question;
     private final String answer;
@@ -69,6 +74,34 @@ class JsonAdaptedFlashcard {
     }
 
     /**
+     *
+     * @return
+     * @throws IllegalValueException
+     */
+    public Statistics toModelTypeHelper() throws IllegalValueException {
+        try {
+            if (statisticsLastViewed == null) {
+                throw new IllegalValueException(String.format(MISSING_STATISTICS_FIELD_MESSAGE_FORMAT,
+                        "lastViewed"));
+            }
+            if (statisticsToViewNext == null) {
+                throw new IllegalValueException(String.format(MISSING_STATISTICS_FIELD_MESSAGE_FORMAT,
+                        "toViewNext"));
+            }
+            if (statisticsCurrentIncrement == null) {
+                throw new IllegalValueException((String.format(MISSING_STATISTICS_FIELD_MESSAGE_FORMAT,
+                        "currentIncrement")));
+            }
+            return new Statistics(LocalDate.parse(statisticsLastViewed), LocalDate.parse(statisticsToViewNext),
+                    ScheduleIncrement.getScheduleIncrementFromString(statisticsCurrentIncrement));
+        } catch (StringToScheduleIncrementConversionException e){
+            throw new IllegalValueException(e.getMessage());
+        } catch (DateTimeParseException e) {
+            throw new IllegalValueException(Statistics.MESSAGE_CONSTRAINTS);
+        }
+    }
+
+    /**
      * Converts this Jackson-friendly adapted flashcard object into the model's {@code Flashcard} object.
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted flashcard.
@@ -105,11 +138,7 @@ class JsonAdaptedFlashcard {
         }
         final Title modelTitle = new Title(title);
 
-        if (statistics == null) {
-            throw new IllegalValueException(
-                    String.format(MISSING_FIELD_MESSAGE_FORMAT, Statistics.class.getSimpleName()));
-        }
-        final Statistics modelStatistics = new Statistics(statistics);
+        final Statistics modelStatistics = toModelTypeHelper();
 
         final Set<Tag> modelTags = new HashSet<>(flashcardTags);
         return new Flashcard(modelQuestion, modelAnswer, modelTitle, modelStatistics, modelTags);
