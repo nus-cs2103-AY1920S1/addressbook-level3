@@ -15,7 +15,6 @@ import org.junit.jupiter.api.Test;
 
 import budgetbuddy.commons.core.GuiSettings;
 import budgetbuddy.logic.commands.exceptions.CommandException;
-import budgetbuddy.model.AccountBook;
 import budgetbuddy.model.AccountsManager;
 import budgetbuddy.model.AddressBook;
 import budgetbuddy.model.LoansManager;
@@ -84,11 +83,6 @@ public class AddCommandTest {
      * A default model stub that have all of the methods failing.
      */
     private class ModelStub implements Model {
-
-        @Override
-        public AccountBook getAccountBook() {
-            throw new AssertionError("This method should not be called.");
-        }
 
         @Override
         public void deleteTransaction(Transaction target) {

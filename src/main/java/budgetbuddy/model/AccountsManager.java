@@ -10,16 +10,18 @@ import budgetbuddy.model.account.UniqueAccountList;
 import budgetbuddy.model.account.exception.AccountNotFoundException;
 import budgetbuddy.model.account.exception.DefaultAccountCannotBeDeletedException;
 import budgetbuddy.model.attributes.Name;
+import budgetbuddy.model.transaction.Transaction;
 import budgetbuddy.model.transaction.TransactionList;
+import budgetbuddy.model.transaction.exceptions.TransactionNotFoundException;
 import javafx.collections.ObservableList;
 
 /**
- * Manages the loans of each person in a list of persons.
+ * Manages the accounts in a list of accounts.
  */
 public class AccountsManager {
 
-    private final UniqueAccountList accounts;
     private static Account defaultAccount = new Account(new Name("DEFAULT"), new TransactionList());
+    private final UniqueAccountList accounts;
 
     /**
      * Creates a new list of accounts.
@@ -79,7 +81,7 @@ public class AccountsManager {
      */
     public void deleteAccount (Account toDelete) {
         if (accounts.contains(toDelete)) {
-            if(defaultAccount.isSameAccount(toDelete)){
+            if (defaultAccount.isSameAccount(toDelete)){
                 throw new DefaultAccountCannotBeDeletedException();
             }
             accounts.remove(toDelete);
@@ -87,6 +89,27 @@ public class AccountsManager {
             throw new AccountNotFoundException();
         }
     }
+
+    /**
+     * Adds the current Transaction to its respective Account.
+     * The transaction should have a valid account by now.
+     * @param toAdd
+     */
+    public void addTransaction(Transaction toAdd) {
+        Account account = toAdd.getAccount();
+        account.addTransaction(toAdd);
+    }
+
+    /**
+     * Removes the current Transaction from its respective Account within the AccountBook.
+     * The transaction should exist within the AccountBook before executing this.
+     * @param toDelete the transaction to be deleted
+     */
+    public void removeTransaction(Transaction toDelete) throws TransactionNotFoundException {
+        Account account = toDelete.getAccount();
+        account.deleteTransaction(toDelete);
+    }
+
 
     @Override
     public boolean equals(Object other) {
@@ -101,4 +124,6 @@ public class AccountsManager {
         AccountsManager otherAccountsManager = (AccountsManager) other;
         return accounts.equals(otherAccountsManager.accounts);
     }
+
+
 }

@@ -56,9 +56,9 @@ public class TransactionAddCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        requireAllNonNull(model, model.getAccountBook());
+        requireAllNonNull(model, model.getAccountsManager());
         try {
-            model.getAccountBook().addTransaction(toAdd);
+            model.getAccountsManager().addTransaction(toAdd);
         } catch (Exception e) {
             //TODO change to accept more specific exception
             throw new CommandException(MESSAGE_FAILURE);
