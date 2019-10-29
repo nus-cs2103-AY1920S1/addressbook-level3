@@ -158,6 +158,14 @@ class MainWindow extends UiPart<Stage> {
     }
 
     /**
+     * Updates the homepage placeholder residing in this main window.
+     */
+    private void updateHomePage() {
+        homePage = new HomePage(questionsLogic.getFilteredQuestionsList());
+        homePagePlaceholder.getChildren().add(homePage.getRoot());
+    }
+
+    /**
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
@@ -194,8 +202,7 @@ class MainWindow extends UiPart<Stage> {
             problemStatementLogic.getProblemStatementObservable());
         problemStatementPlaceholder.getChildren().add(problemStatementPanel.getRoot());
 
-        homePage = new HomePage(questionsLogic.getFilteredQuestionsList());
-        homePagePlaceholder.getChildren().add(homePage.getRoot());
+        updateHomePage();
     }
 
     /**
@@ -289,6 +296,14 @@ class MainWindow extends UiPart<Stage> {
             if (commandResult.isView()) {
                 problemStatementPanel.setProblemStatement(questionsLogic
                     .getProblemStatement());
+            }
+
+            if (commandResult.isBookmark()) {
+                updateHomePage();
+            }
+
+            if (commandResult.isAttempt()) {
+                updateHomePage();
             }
 
             return commandResult;
