@@ -8,6 +8,9 @@ import budgetbuddy.logic.parser.CommandParser;
 import budgetbuddy.logic.parser.CommandParserUtil;
 import budgetbuddy.logic.parser.exceptions.ParseException;
 
+/**
+ * Parses input and creates a new TransactionDeleteCommand
+ */
 public class TransactionDeleteCommandParser implements CommandParser<TransactionDeleteCommand> {
     @Override
     public String name() {

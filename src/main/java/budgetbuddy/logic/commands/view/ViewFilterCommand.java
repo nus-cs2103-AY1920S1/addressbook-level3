@@ -14,7 +14,7 @@ import budgetbuddy.model.transaction.TransactionMatchesConditionsPredicate;
 
 
 /**
- * Finds and lists all transactions in AccountBook whose name contains any of the argument keywords.
+ * Finds and lists all transactions in AccountsManager whose name contains any of the argument keywords.
  * Keyword matching is case insensitive.
  */
 public class ViewFilterCommand extends Command {
