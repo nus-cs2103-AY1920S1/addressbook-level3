@@ -159,7 +159,7 @@ public class AddressBookParser {
             return new ScrollCommand();
 
         case PopupCommand.COMMAND_WORD:
-            return new PopupCommand();
+            return new PopupCommandParser().parse(arguments);
 
         case ToggleNextWeekCommand.COMMAND_WORD:
             return new ToggleNextWeekCommand();
