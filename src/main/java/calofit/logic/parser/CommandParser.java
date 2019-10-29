@@ -15,7 +15,6 @@ import calofit.logic.commands.ExitCommand;
 import calofit.logic.commands.FindCommand;
 import calofit.logic.commands.HelpCommand;
 import calofit.logic.commands.ListCommand;
-import calofit.logic.commands.NotificationCommand;
 import calofit.logic.commands.ReportCommand;
 import calofit.logic.commands.SuggestCommand;
 import calofit.logic.parser.exceptions.ParseException;
@@ -79,9 +78,6 @@ public class CommandParser {
 
         case "set":
             return new SetBudgetCommandParser().parse(arguments);
-
-        case NotificationCommand.COMMAND_WORD:
-            return new NotificationCommand();
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

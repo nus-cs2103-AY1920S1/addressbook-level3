@@ -20,18 +20,14 @@ public class CommandResult {
     /** The application should exit. */
     private final boolean exit;
 
-    /** Notification to be shown to the user. */
-    private final boolean notification;
-
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean showReport, boolean exit, boolean notification) {
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean showReport, boolean exit) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.showReport = showReport;
         this.exit = exit;
-        this.notification = notification;
     }
 
     /**
@@ -39,7 +35,7 @@ public class CommandResult {
      * and other fields set to their default value.
      */
     public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, false, false, false, false);
+        this(feedbackToUser, false, false, false);
     }
 
     public String getFeedbackToUser() {
@@ -58,8 +54,6 @@ public class CommandResult {
         return showReport;
     }
 
-    public boolean isShowNotification() { return notification; }
-
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -75,13 +69,12 @@ public class CommandResult {
         return feedbackToUser.equals(otherCommandResult.feedbackToUser)
                 && showHelp == otherCommandResult.showHelp
                 && showReport == otherCommandResult.showReport
-                && exit == otherCommandResult.exit
-                && notification == otherCommandResult.notification;
+                && exit == otherCommandResult.exit;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(feedbackToUser, showHelp, showReport, exit, notification);
+        return Objects.hash(feedbackToUser, showHelp, showReport, exit);
     }
 
 }

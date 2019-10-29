@@ -1,9 +1,11 @@
-package calofit.logic.commands;
+package calofit.logic;
+
+import java.util.Optional;
 
 import calofit.model.Model;
 import calofit.model.util.Notification;
 
-public class NotificationCommand extends Command{
+public class NotificationHelper {
 
     public static final String COMMAND_WORD = "notification";
 
@@ -16,30 +18,25 @@ public class NotificationCommand extends Command{
     public static final String MESSAGE_DINNER = "Looks like you have missed your dinner," +
         " please take some time out to eat your dinner!";
 
-    public static final String MESSAGE_SUCCESS = "You have taken all the needed meals. Good job!";
-
-
-    @Override
-    public CommandResult execute(Model model) {
+    public static Optional<String> execute(Model model) {
         Notification notification = new Notification();
 
-        switch (model.getMealLog().getTodayMeals().size()) {
-        case 0:
+        if (model.getMealLog().getTodayMeals().isEmpty()) {
             if (!notification.eatenBreakfast()) {
-                return new CommandResult(MESSAGE_BREAKFAST, false, false, false, true);
+                return Optional.of(MESSAGE_BREAKFAST);
             }
-            break;
-        default:
+        } else {
+            int lastIndex = model.getMealLog().getTodayMeals().size() - 1;
             if (!notification.eatenLunch(model.getMealLog().getTodayMeals().get(
-                model.getMealLog().getTodayMeals().size() - 1).getTimestamp())) {
-                return new CommandResult(MESSAGE_LUNCH, false, false, false, true);
+                lastIndex).getTimestamp())) {
+                return Optional.of(MESSAGE_LUNCH);
             } else {
                 if (!notification.eatenDinner(model.getMealLog().getTodayMeals().get(
-                    model.getMealLog().getTodayMeals().size() - 1).getTimestamp())) {
-                    return new CommandResult(MESSAGE_DINNER, false, false, false, true);
+                    lastIndex).getTimestamp())) {
+                    return Optional.of(MESSAGE_DINNER);
                 }
             }
         }
-        return new CommandResult(MESSAGE_SUCCESS, false, false, false, true);
+        return Optional.empty();
     }
 }
