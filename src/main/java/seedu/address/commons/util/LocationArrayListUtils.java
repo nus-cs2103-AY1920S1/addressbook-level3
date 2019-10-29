@@ -1,4 +1,4 @@
-package seedu.address.logic.internal.gmaps;
+package seedu.address.commons.util;
 
 import java.util.ArrayList;
 
