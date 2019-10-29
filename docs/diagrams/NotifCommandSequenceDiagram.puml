@@ -26,8 +26,8 @@ participant "<<class>>\nses:ScheduledExecutorService" as ScheduledExecutorServic
 end box
 
 MainApp -> StaticNotifCommand :setStorage(storage)
-create StaticNotifCommand
 activate StaticNotifCommand
+MainApp <-- StaticNotifCommand
 deactivate StaticNotifCommand
 
 create AddCommand
