@@ -23,7 +23,8 @@ public class ExpenseCommandTest {
     private static final List<String> persons = new ArrayList<>();
     private static final Amount amount = new Amount(10);
     private static final List<Expense> expenses = new ArrayList<>();
-    private static ExpenseCommand command;
+    private static ExpenseCommand commandMultipleNames;
+    private static ExpenseCommand commandOneName;
     private static final String emptyString = "";
     private static final String notEmptyString = "ayy";
 
@@ -31,7 +32,8 @@ public class ExpenseCommandTest {
     public static void setLists() {
         persons.add("Pauline"); // alice actually
         persons.add("Benson"); // yes he is benson
-        command = new ExpenseCommand(persons, amount, emptyString);
+        commandMultipleNames = new ExpenseCommand(persons, amount, emptyString);
+        commandOneName = new ExpenseCommand(persons.subList(0, 1), amount, emptyString);
         expenses.clear();
     }
 
@@ -57,26 +59,56 @@ public class ExpenseCommandTest {
         model.addActivity(validActivity);
         model.setContext(new Context(validActivity));
 
-        CommandResult commandResult = command.execute(model);
+        CommandResult commandResult = commandOneName.execute(model);
 
-        assertEquals(String.format(ExpenseCommand.MESSAGE_SUCCESS, persons.size(),
-                String.format(ExpenseCommand.MESSAGE_EXPENSE,
-                        TypicalPersons.ALICE.getName(),
-                        amount,
-                        emptyString)
-                + String.format(ExpenseCommand.MESSAGE_EXPENSE,
-                        TypicalPersons.BENSON.getName(),
-                        amount,
-                        emptyString)
-                ),
+        assertEquals(String.format(ExpenseCommand.MESSAGE_SUCCESS,
+                amount, TypicalPersons.ALICE.getName(), emptyString,
+                "\t\t" + TypicalPersons.BENSON.getName() + "\n"),
                 commandResult.getFeedbackToUser());
+
         expenses.clear(); // for some odd reason @BeforeAll doesn't do this properly?
-        expenses.add(new Expense(TypicalPersons.ALICE.getPrimaryKey(), amount, emptyString));
+        expenses.add(new Expense(
+                TypicalPersons.ALICE.getPrimaryKey(),
+                amount,
+                emptyString,
+                TypicalPersons.BENSON.getPrimaryKey()));
         assertEquals(expenses, model.getActivityBook().getActivityList().get(0).getExpenses());
     }
 
     @Test
-    public void execute_specifyPeopleInvolved_success() throws Exception {
+    public void execute_activityViewContextNameSubstring_addSuccessful() throws Exception {
+        Activity validActivity = new ActivityBuilder()
+                .addPerson(TypicalPersons.GEORGE)
+                .addPerson(TypicalPersons.GEORGE_FIRSTNAME)
+                .build();
+        Model model = new ModelManager();
+        model.addPerson(TypicalPersons.GEORGE);
+        model.addPerson(TypicalPersons.GEORGE_FIRSTNAME);
+        model.addActivity(validActivity);
+        model.setContext(new Context(validActivity));
+
+        ArrayList<String> search = new ArrayList<>();
+        search.add("George");
+        ExpenseCommand cmd = new ExpenseCommand(search, amount, emptyString);
+
+        CommandResult commandResult = cmd.execute(model);
+
+        assertEquals(String.format(ExpenseCommand.MESSAGE_SUCCESS,
+                amount, TypicalPersons.GEORGE_FIRSTNAME.getName(),
+                emptyString, "\t\t" + TypicalPersons.GEORGE.getName() + "\n"),
+                commandResult.getFeedbackToUser());
+
+        expenses.clear();
+        expenses.add(new Expense(
+                TypicalPersons.GEORGE_FIRSTNAME.getPrimaryKey(),
+                amount,
+                emptyString,
+                TypicalPersons.GEORGE.getPrimaryKey()));
+        assertEquals(expenses, model.getActivityBook().getActivityList().get(0).getExpenses());
+    }
+
+    @Test
+    public void execute_activityViewContextSpecifyPeopleInvolved_success() throws Exception {
         Activity validActivity = new ActivityBuilder()
                 .addPerson(TypicalPersons.ALICE)
                 .addPerson(TypicalPersons.BENSON)
@@ -93,20 +125,14 @@ public class ExpenseCommandTest {
         model.addActivity(validActivity);
         model.setContext(new Context(validActivity));
 
-        CommandResult commandResult = command.execute(model);
+        CommandResult commandResult = commandMultipleNames.execute(model);
 
-        assertEquals(String.format(ExpenseCommand.MESSAGE_SUCCESS, persons.size(),
-                String.format(ExpenseCommand.MESSAGE_EXPENSE,
-                        TypicalPersons.ALICE.getName(),
-                        amount,
-                        emptyString)
-                + String.format(ExpenseCommand.MESSAGE_EXPENSE,
-                        TypicalPersons.BENSON.getName(),
-                        amount,
-                        emptyString)
-                ),
+        assertEquals(String.format(ExpenseCommand.MESSAGE_SUCCESS,
+                amount, TypicalPersons.ALICE.getName(), emptyString,
+                "\t\t" + TypicalPersons.BENSON.getName() + "\n"),
                 commandResult.getFeedbackToUser());
 
+        expenses.clear();
         expenses.add(new Expense(TypicalPersons.ALICE.getPrimaryKey(), amount,
                     emptyString, TypicalPersons.BENSON.getPrimaryKey()));
         assertEquals(expenses, model.getActivityBook().getActivityList().get(0).getExpenses());
@@ -115,13 +141,13 @@ public class ExpenseCommandTest {
     @Test
     public void execute_notActivityViewContextMissingPeopleOrDescription_throwsCommandException() {
         Model model = new ModelManager();
-        assertThrows(CommandException.class, () -> command.execute(model));
+        assertThrows(CommandException.class, () -> commandMultipleNames.execute(model));
 
         model.addPerson(TypicalPersons.ALICE);
-        assertThrows(CommandException.class, () -> command.execute(model));
+        assertThrows(CommandException.class, () -> commandMultipleNames.execute(model));
 
         model.addPerson(TypicalPersons.BENSON);
-        assertThrows(CommandException.class, () -> command.execute(model));
+        assertThrows(CommandException.class, () -> commandMultipleNames.execute(model));
     }
 
     @Test
@@ -133,16 +159,9 @@ public class ExpenseCommandTest {
         ExpenseCommand command = new ExpenseCommand(persons, amount, notEmptyString);
         CommandResult commandResult = command.execute(model);
 
-        assertEquals(String.format(ExpenseCommand.MESSAGE_SUCCESS, persons.size(),
-                String.format(ExpenseCommand.MESSAGE_EXPENSE,
-                        TypicalPersons.ALICE.getName(),
-                        amount,
-                        notEmptyString)
-                        + String.format(ExpenseCommand.MESSAGE_EXPENSE,
-                        TypicalPersons.BENSON.getName(),
-                        amount,
-                        notEmptyString)
-                ),
+        assertEquals(String.format(ExpenseCommand.MESSAGE_SUCCESS,
+                amount, TypicalPersons.ALICE.getName(), notEmptyString,
+                "\t\t" + TypicalPersons.BENSON.getName() + "\n"),
                 commandResult.getFeedbackToUser());
 
         // It should add a whole activity wrapping all the contacts, and then
@@ -151,6 +170,35 @@ public class ExpenseCommandTest {
         // be helped since the user enters in a sequence of persons as well, and
         // there is no special flag to differentiate them.
         Expense expense = new Expense(TypicalPersons.ALICE.getPrimaryKey(), amount, notEmptyString);
+
+        assertEquals(new ActivityBuilder()
+                        .withTitle(notEmptyString)
+                        .addPerson(TypicalPersons.ALICE).addPerson(TypicalPersons.BENSON)
+                        .addExpense(expense)
+                        .build(),
+                model.getActivityBook().getActivityList().get(0));
+    }
+
+    @Test
+    public void execute_duplicateNamesAdded_addSuccessfulWithWarning() throws Exception {
+        Model model = new ModelManager();
+        model.addPerson(TypicalPersons.ALICE);
+        model.addPerson(TypicalPersons.BENSON);
+
+        ArrayList<String> personsDuplicate = new ArrayList<>(persons);
+        personsDuplicate.addAll(persons);
+        ExpenseCommand command = new ExpenseCommand(personsDuplicate, amount, notEmptyString);
+        CommandResult commandResult = command.execute(model);
+
+        assertEquals(String.format(ExpenseCommand.MESSAGE_SUCCESS,
+                amount, TypicalPersons.ALICE.getName(), notEmptyString,
+                "\t\t" + TypicalPersons.BENSON.getName() + "\n")
+                + String.format(ExpenseCommand.WARNING_DUPLICATE_PERSON, TypicalPersons.ALICE.getName())
+                + String.format(ExpenseCommand.WARNING_DUPLICATE_PERSON, TypicalPersons.BENSON.getName()),
+                commandResult.getFeedbackToUser());
+
+        Expense expense = new Expense(TypicalPersons.ALICE.getPrimaryKey(), amount,
+                notEmptyString, TypicalPersons.BENSON.getPrimaryKey());
 
         assertEquals(new ActivityBuilder()
                         .withTitle(notEmptyString)
