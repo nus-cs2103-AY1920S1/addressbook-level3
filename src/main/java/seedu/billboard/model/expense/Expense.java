@@ -128,6 +128,8 @@ public class Expense {
                 + getAmount()
                 + " Created: "
                 + getCreated()
+                + " Archive Name: "
+                + getArchiveName()
                 + " Tags: "
                 + getTags();
     }

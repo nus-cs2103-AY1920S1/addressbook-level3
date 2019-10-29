@@ -191,6 +191,7 @@ public class ModelManager implements Model {
     @Override
     public void deleteArchive(String archiveName) {
         archives.removeArchive(archiveName);
+        filteredArchives.remove(archiveName);
     }
 
     @Override
