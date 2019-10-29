@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static thrift.logic.parser.CliSyntax.PREFIX_DATE;
 import static thrift.logic.parser.CliSyntax.PREFIX_INDEX;
+import static thrift.logic.parser.CliSyntax.PREFIX_MONTH;
 import static thrift.logic.parser.CliSyntax.PREFIX_NAME;
 import static thrift.logic.parser.CliSyntax.PREFIX_OCCURRENCE;
 import static thrift.logic.parser.CliSyntax.PREFIX_REMARK;
@@ -46,6 +47,8 @@ public class CommandTestUtil {
     public static final String VALID_TAG_LUNCH = "Lunch";
     public static final String VALID_TAG_BRUNCH = "Brunch";
     public static final String VALID_TAG_ACCESSORY = "Accessory";
+    public static final String VALID_MONTH_JAN_19 = "01/2019";
+
 
     public static final String DESC_BURSARY = " " + PREFIX_NAME + VALID_DESCRIPTION_BURSARY;
     public static final String DESC_LAKSA = " " + PREFIX_NAME + VALID_DESCRIPTION_LAKSA;
@@ -62,6 +65,7 @@ public class CommandTestUtil {
     public static final String TAG_BRUNCH = " " + PREFIX_TAG + VALID_TAG_BRUNCH;
     public static final String TAG_AIRPODS = " " + PREFIX_TAG + VALID_TAG_ACCESSORY;
     public static final String INDEX_TOKEN = " " + PREFIX_INDEX;
+    public static final String MONTH_JAN_19 = " " + PREFIX_MONTH + VALID_MONTH_JAN_19;
     public static final String OCCURRENCE_TOKEN = " " + PREFIX_OCCURRENCE;
 
     public static final String INVALID_VALUE = " " + PREFIX_VALUE + ".00"; // missing whole number
