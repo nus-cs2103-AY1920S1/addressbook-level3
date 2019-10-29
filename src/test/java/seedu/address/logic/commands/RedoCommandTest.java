@@ -20,7 +20,7 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.order.Order;
 
-public class UndoCommandTest {
+public class RedoCommandTest {
     private static final UndoRedoStack EMPTY_STACK = new UndoRedoStack();
 
     @Test
@@ -30,7 +30,7 @@ public class UndoCommandTest {
         Model expectedModel = new ModelManager(getTypicalCustomerBook(), getTypicalPhoneBook(), getTypicalOrderBook(),
                 getTypicalScheduleBook(), new DataBook<Order>(), new UserPrefs());
 
-        assertThrows(CommandException.class, UndoCommand.MESSAGE_FAILURE, () -> new UndoCommand().execute(model,
+        assertThrows(CommandException.class, RedoCommand.MESSAGE_FAILURE, () -> new RedoCommand().execute(model,
                 new CommandHistory(), EMPTY_STACK));
 
     }
@@ -48,8 +48,9 @@ public class UndoCommandTest {
         Command deleteCommand = new DeleteCustomerCommand(INDEX_FIRST_CUSTOMER);
         deleteCommand.execute(model, new CommandHistory(), undoRedoStack);
         undoRedoStack.push(deleteCommand);
-
-        assertCommandSuccess(new UndoCommand(), model, undoRedoStack, UndoCommand.MESSAGE_SUCCESS, expectedModel);
+        new UndoCommand().execute(model, new CommandHistory(), undoRedoStack);
+        deleteCommand.execute(expectedModel, new CommandHistory(), new UndoRedoStack());
+        assertCommandSuccess(new RedoCommand(), model, undoRedoStack, RedoCommand.MESSAGE_SUCCESS, expectedModel);
 
     }
 

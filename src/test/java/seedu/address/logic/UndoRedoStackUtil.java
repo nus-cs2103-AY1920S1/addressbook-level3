@@ -5,6 +5,12 @@ import java.util.List;
 
 import seedu.address.logic.commands.UndoableCommand;
 
+
+/**
+ * @@author yamgent
+ * Reused from https://github.com/se-edu/addressbook-level4/pull/610/files with minor modifications
+ */
+
 public class UndoRedoStackUtil {
     /**
      * Adds {@code undoElements} into {@code UndoRedoStack#undoStack} and adds {@code redoElements}
