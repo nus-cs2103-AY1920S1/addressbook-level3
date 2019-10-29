@@ -34,18 +34,13 @@ public class BudgetPanel extends Panel {
     private BudgetCard budgetCard;
     private Region root;
 
-    public BudgetPanel(ObservableObjectValue<Budget> primary) {
+    public BudgetPanel(Budget budget) {
         super(FXML);
-        expenseListPanel = new ExpenseListPanel(primary.get().getExpenses(), false);
+        expenseListPanel = new ExpenseListPanel(budget.getExpenses(), false);
         expenseListPanelPlaceholder.getChildren().add(expenseListPanel.getRoot());
-        budgetCard = new BudgetCard(primary.get());
+        budgetCard = new BudgetCard(budget);
         root = budgetCard.getRoot();
         budgetCardPlaceholder.getChildren().add(budgetCard.getRoot());
-        primary.addListener((observableValue, budget1, t1) -> {
-            expenseListPanel = new ExpenseListPanel(t1.getExpenses(), false);
-            budgetCard = new BudgetCard(primary.get());
-            root = budgetCard.getRoot();
-        });
     }
 
     @Override

@@ -39,7 +39,6 @@ public class UniqueBudgetList implements Iterable<Budget> {
     public UniqueBudgetList() {
         primaryBudgetProperty = new SimpleObjectProperty<>(Budget.createDefaultBudget());
     }
-    //private Budget primaryBudget = null;
 
     /**
      * Returns true if the list contains an equivalent budget as the given argument.

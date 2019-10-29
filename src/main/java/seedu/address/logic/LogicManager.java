@@ -96,11 +96,6 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ObservableList<Budget> getFilteredBudgetList() {
-        return model.getFilteredBudgetList();
-    }
-
-    @Override
     public void deleteTranspiredEvents(List<Event> eventsToBeRemoved) {
         for (Event event : eventsToBeRemoved) {
             model.deleteEvent(event);

@@ -2,6 +2,9 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+
+import java.time.Period;
+import java.util.Optional;
 import java.util.regex.Matcher;
 
 import seedu.address.commons.core.Alias;
@@ -162,7 +165,7 @@ public class ParserUtil {
 
 
     public static Input parseInput(String input) throws ParseException {
-        final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(input.trim());
+        final Matcher matcher = Input.BASIC_COMMAND_FORMAT.matcher(input.trim());
         if (!matcher.matches()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
         }
