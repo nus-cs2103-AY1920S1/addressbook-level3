@@ -15,12 +15,15 @@
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding>
-            </Label>
-            <VBox fx:id="forgottenPlaceHolder" alignment="CENTER">
                <VBox.margin>
-                  <Insets bottom="20.0" top="20.0" />
-               </VBox.margin></VBox>
-            <ListView fx:id="forgottenView" minHeight="0.0" prefHeight="0.0" />
+                  <Insets bottom="15.0" />
+               </VBox.margin>
+            </Label>
+            <StackPane fx:id="forgottenPlaceHolder">
+               <children>
+                  <ListView fx:id="forgottenView" minHeight="0.0" />
+               </children>
+            </StackPane>
             <Label styleClass="label-bright" text="Your favourite genres:">
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -33,7 +36,11 @@
                   <Insets bottom="10.0" top="10.0" />
                </VBox.margin>
             </HBox>
+            <StackPane prefHeight="150.0" prefWidth="200.0" />
          </children>
+         <StackPane.margin>
+            <Insets bottom="20.0" />
+         </StackPane.margin>
       </VBox>
     </children>
 </StackPane>

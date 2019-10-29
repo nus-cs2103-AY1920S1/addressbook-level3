@@ -7,6 +7,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import seedu.ezwatchlist.model.show.Show;
 
@@ -21,7 +22,7 @@ public class StatisticsPanel extends UiPart<Region> {
     @FXML
     private HBox favouriteGenres;
     @FXML
-    private VBox forgottenPlaceHolder;
+    private StackPane forgottenPlaceHolder;
 
     public StatisticsPanel(ObservableList<Show> forgotten, ObservableList<String> favourite) {
         super(FXML);
@@ -33,7 +34,7 @@ public class StatisticsPanel extends UiPart<Region> {
         }
 
 
-        favourite.stream().forEach(genre -> favouriteGenres.getChildren().add(new Label(genre)));
+        favourite.stream().forEach(genre -> favouriteGenres.getChildren().add(new Label(genre + )));
     }
 
     /**

@@ -30,7 +30,7 @@ public class Statistics {
     public ObservableList<Show> getForgotten() {
         ObservableList<Show> watchlist = model.getWatchList().getShowList().filtered(show -> !show.isWatched().value);
         UniqueShowList forgotten = new UniqueShowList();
-        if (watchlist.size() > 5) {
+        if (watchlist.size() > 4) {
             forgotten.add(watchlist.get(0));
             forgotten.add(watchlist.get(1));
             forgotten.add(watchlist.get(2));
