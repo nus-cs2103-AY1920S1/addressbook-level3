@@ -22,10 +22,10 @@ public class TaskSourceBuilder {
     //private Duration expectedDuration;
     private Set<String> tags;
 
-    public TaskSourceBuilder(String description, DateTime dueDate, boolean isCompleted) {
+    public TaskSourceBuilder(String description, DateTime dueDate) {
         this.description = Objects.requireNonNull(description);
         this.dueDate = Objects.requireNonNull(dueDate);
-        this.isCompleted = isCompleted;
+        this.isCompleted = false;
     }
 
     public TaskSourceBuilder setTags(Collection<String> tags) {

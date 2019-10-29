@@ -10,7 +10,9 @@ import java.util.Objects;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.events.EventSource;
 import seedu.address.model.listeners.EventListListener;
+import seedu.address.model.listeners.TaskListListener;
 import seedu.address.model.listeners.UndoRedoListener;
+import seedu.address.model.tasks.TaskSource;
 
 /**
  * UndoRedoManager contains all EventList states
@@ -22,7 +24,7 @@ import seedu.address.model.listeners.UndoRedoListener;
  * Whenever an undo or redo command is executed, mainEventList restores itself to a
  * past/future state by copying the data in its duplicate over to itself.
  */
-public class UndoRedoManager implements EventListListener {
+public class UndoRedoManager implements EventListListener, TaskListListener {
 
     /**
      * Deep-copies of mainEventList are stored to this list
@@ -121,7 +123,7 @@ public class UndoRedoManager implements EventListListener {
     }
 
     @Override
-    public void onEventListChange(List<EventSource> events) {
+    public void onEventListChange(List<EventSource> events, List<TaskSource> tasks) {
         /*
         Ignores the EventList when it is equal to getCurrentState().
         This will be true every undo/redo.
@@ -133,7 +135,23 @@ public class UndoRedoManager implements EventListListener {
         }
 
         clearFutureHistory();
-        commit(new UndoRedoState(events));
+        commit(new UndoRedoState(events, tasks));
+    }
+
+    @Override
+    public void onTaskListChange(List<EventSource> events, List<TaskSource> tasks) {
+        /*
+        Ignores the TaskList when it is equal to getCurrentState().
+        This will be true every undo/redo.
+        Explanation: undo/redo will update ModelManager's TaskList, which in turn will notify this method,
+        causing an unwanted feedback loop.
+         */
+        if (Objects.equals(getCurrentState().getTasks(), tasks)) {
+            return;
+        }
+
+        clearFutureHistory();
+        commit(new UndoRedoState(events, tasks));
     }
 
     @Override
