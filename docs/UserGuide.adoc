@@ -306,6 +306,28 @@ File explorer pops up, triggering a message to allow the user to save the pdf fi
 
 '''
 
+=== Statistics Commands
+
+==== Getting statistics of members: `member-stats` +
+To get statistics relating to the members in +Work, use the statistics command following the format below. +
+Format: `member-stats` +
+
+Calling the 'member-stats' command will result in the following: 
++
+image::MemberStats.png[width="790"]
++
+
+==== Getting statistics of tasks: `task-stats` +
+To get statistics relating to the tasks in +Work, use the statistics command following the format below. +
+Format: `task-stats` +
+
+Calling the 'task-stats' command will result in the following: 
++
+image::TaskStats.png[width="790"]
++
+
+'''
+
 === Settings Commands (Coming in v1.3)
 
 ==== Switching the theme of +Work: `theme`
