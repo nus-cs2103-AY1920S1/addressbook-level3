@@ -114,7 +114,7 @@ public class ItemModelManager implements ItemModel {
 
     @Override
     public void updateCommandHistory(Command command) {
-        elisaCommandHistory.pushCommand(command);
+        elisaCommandHistory.pushUndo(command);
     }
 
     @Override
