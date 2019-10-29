@@ -83,11 +83,11 @@ public class NoteFragment extends StudyBuddyItem {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append("\nTitle: ")
+        builder.append("\n\tTitle: ")
                 .append(getTitle())
-                .append("\nContent: ")
+                .append("\n\tContent: ")
                 .append(getContent())
-                .append("\nTags: ");
+                .append("\n\tTags: ");
         getTags().forEach(builder::append);
         return builder.toString();
     }

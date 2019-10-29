@@ -30,7 +30,6 @@ public class Note extends StudyBuddyItem {
         this.title = title;
         this.content = content;
         this.noteFragments = ParserUtil.parseNoteFragmentsFromNote(this);
-        System.out.println(printNoteFragments());
     }
 
     public Title getTitle() {
@@ -82,22 +81,12 @@ public class Note extends StudyBuddyItem {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append("\nTitle: ")
+        builder.append("\n\tTitle: ")
                 .append(getTitle())
-                .append("\nContent: ")
+                .append("\n\tContent: ")
                 .append(getContent())
-                .append("\nTags: ");
+                .append("\n\tTags: ");
         getTags().forEach(builder::append);
         return builder.toString();
     }
-
-    public String printNoteFragments() {
-        final StringBuilder builder = new StringBuilder();
-        for (NoteFragment frag : noteFragments) {
-            builder.append("\n")
-                    .append(frag.toString());
-        }
-        return "NOTE FRAGMENT: " + builder.toString();
-    }
-
 }
