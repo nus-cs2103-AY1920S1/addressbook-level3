@@ -2,20 +2,20 @@ package seedu.ezwatchlist.model.show;
 
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
-import javafx.scene.image.Image;
-import seedu.ezwatchlist.model.actor.Actor;
 import seedu.ezwatchlist.commons.util.CollectionUtil;
+import seedu.ezwatchlist.model.actor.Actor;
 
 /**
  * Represents a Show in the watchlist.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Show {
+public abstract class Show {
 
-    public String type;
+    private String type;
 
     //identity fields
     private final Name name;
@@ -27,6 +27,7 @@ public class Show {
     private final RunningTime runningTime;
     private final Set<Actor> actors = new HashSet<>();
     private Poster poster;
+    private Genres genres;
 
     public Show(Name name, Description description, IsWatched isWatched, Date dateOfRelease,
                 RunningTime runningTime, Set<Actor> actors) {
@@ -52,6 +53,10 @@ public class Show {
         return name;
     }
 
+    public void setType(String type) {
+        this.type = type;
+    }
+
     public String getType() {
         return type;
     }
@@ -72,6 +77,11 @@ public class Show {
         return runningTime;
     }
 
+    public abstract int getNumOfEpisodesWatched();
+
+    public abstract int getTotalNumOfEpisodes();
+
+    public abstract List<TvSeason> getTvSeasons();
 
     /**
      * Returns an immutable actor set, which throws {@code UnsupportedOperationException}
@@ -95,11 +105,47 @@ public class Show {
                 && (otherShow.getDateOfRelease().equals(getDateOfRelease()) || otherShow.isWatched() == (isWatched()));
     }
 
+    /**
+     * Return true if the other show has name similar to the current show.
+     * @param showToBeSearched Show to be compare to this show.
+     * @return True if the other show has name similar to the current show.
+     */
+    public boolean hasNameWithWord(Show showToBeSearched) {
+        if (isSameName(showToBeSearched)) {
+            return true;
+        } else {
+            return this.getName().getName().toLowerCase().contains(showToBeSearched.getName().getName().toLowerCase());
+        }
+    }
+
+    /**
+     * Checks if two shows have the same name.
+     * @param otherShow other show to be checked.
+     * @return boolean whether the 2 shows are the same.
+     */
     public boolean isSameName(Show otherShow) {
         if (otherShow == this) {
             return true;
         }
         return otherShow != null && otherShow.getName().equals(getName());
+    }
+
+    /**
+     * Return true if the other show has actor similar to the current show.
+     * @param showToBeSearched Show to be compare to this show.
+     * @return True if the other show has name similar to the current show.
+     */
+    public boolean hasActorWithName(Show showToBeSearched) {
+        Set<Actor> actorSearchedSet = showToBeSearched.getActors();
+        for (Actor actorSearched : actorSearchedSet) {
+            Set<Actor> actorDataSet = this.getActors();
+            for (Actor actorData : actorDataSet) {
+                if (actorData.getActorName().toLowerCase().contains(actorSearched.getActorName().toLowerCase())) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     /**
@@ -112,7 +158,7 @@ public class Show {
             return true;
         }
 
-        if (!(other instanceof TvShow || other instanceof Movie || other instanceof Show)) {
+        if (!(other instanceof Show)) {
             return false;
         }
 
@@ -145,5 +191,13 @@ public class Show {
                 .append(" Actors: ");
         getActors().forEach(builder::append);
         return builder.toString();
+    }
+
+    public Genres getGenres() {
+        return genres;
+    }
+
+    public void setGenres(Genres genres) {
+        this.genres = genres;
     }
 }

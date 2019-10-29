@@ -4,24 +4,25 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.ezwatchlist.commons.exceptions.IllegalValueException;
-import seedu.ezwatchlist.model.show.Show;
-import seedu.ezwatchlist.model.show.Name;
-import seedu.ezwatchlist.model.show.Date;
-import seedu.ezwatchlist.model.show.IsWatched;
-import seedu.ezwatchlist.model.show.Description;
-import seedu.ezwatchlist.model.show.RunningTime;
 import seedu.ezwatchlist.model.actor.Actor;
+import seedu.ezwatchlist.model.show.Date;
+import seedu.ezwatchlist.model.show.Description;
+import seedu.ezwatchlist.model.show.IsWatched;
+import seedu.ezwatchlist.model.show.Movie;
+import seedu.ezwatchlist.model.show.Name;
+import seedu.ezwatchlist.model.show.Poster;
+import seedu.ezwatchlist.model.show.RunningTime;
+import seedu.ezwatchlist.model.show.Show;
 
 /**
- * Jackson-friendly version of {@link Show}.
+ * Jackson-friendly version of {@link Movie}.
  */
-class JsonAdaptedShow {
+public class JsonAdaptedMovie {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Show's %s field is missing!";
 
@@ -31,22 +32,21 @@ class JsonAdaptedShow {
     private final boolean isWatched;
     private final String description;
     private final int runningTime;
+    private final String poster;
     private final List<JsonAdaptedActor> actors = new ArrayList<>();
 
-    public String type() {
-        return type;
-    }
     /**
-     * Constructs a {@code JsonAdaptedShow} with the given show details.
+     * Constructs a {@code JsonAdaptedMovie} with the given show details.
      */
     @JsonCreator
-    public JsonAdaptedShow(@JsonProperty("name") String name,
-                           @JsonProperty("type") String type,
-                           @JsonProperty("dateOfRelease") String dateOfRelease,
-                           @JsonProperty("watched") boolean isWatched,
-                           @JsonProperty("description") String description,
-                           @JsonProperty("runningTime") int runningTime,
-                           @JsonProperty("actors") List<JsonAdaptedActor> actors) {
+    public JsonAdaptedMovie(@JsonProperty("name") String name,
+                             @JsonProperty("type") String type,
+                             @JsonProperty("dateOfRelease") String dateOfRelease,
+                             @JsonProperty("watched") boolean isWatched,
+                             @JsonProperty("description") String description,
+                             @JsonProperty("runningTime") int runningTime,
+                             @JsonProperty("actors") List<JsonAdaptedActor> actors,
+                             @JsonProperty("poster") String poster) {
         this.name = name;
         this.type = type;
         this.dateOfRelease = dateOfRelease;
@@ -56,27 +56,29 @@ class JsonAdaptedShow {
         if (actors != null) {
             this.actors.addAll(actors);
         }
+        this.poster = poster;
     }
 
     /**
-     * Converts a given {@code Show} into this class for Jackson use.
+     * Converts a given {@code Movie} into this class for Jackson use.
      */
-    public JsonAdaptedShow(Show source) {
+    public JsonAdaptedMovie(Show source) {
         name = source.getName().showName;
         type = source.getType();
         dateOfRelease = source.getDateOfRelease().value;
         isWatched = source.isWatched().value;
         description = source.getDescription().fullDescription;
         runningTime = source.getRunningTime().value;
-        actors.addAll(source.getActors().stream()
-                .map(JsonAdaptedActor::new)
-                .collect(Collectors.toList()));
+        if (actors != null) {
+            this.actors.addAll(actors);
+        }
+        poster = source.getPoster().getImagePath();
     }
 
     /**
-     * Converts this Jackson-friendly adapted show object into the model's {@code Show} object.
+     * Converts this Jackson-friendly adapted tv show object into the model's {@code TvShow} object.
      *
-     * @throws IllegalValueException if there were any data constraints violated in the adapted show.
+     * @throws IllegalValueException if there were any data constraints violated in the adapted tv show.
      */
     public Show toModelType() throws IllegalValueException {
         final List<Actor> showActors = new ArrayList<>();
@@ -84,13 +86,6 @@ class JsonAdaptedShow {
             showActors.add(actor.toModelType());
         }
 
-        if (runningTime <0) {
-            throw new IllegalValueException(String.format(RunningTime.MESSAGE_CONSTRAINTS2));
-        }
-
-        if (name == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
-        }
         if (!Name.isValidName(name)) {
             throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
         }
@@ -110,15 +105,21 @@ class JsonAdaptedShow {
         final IsWatched modelIsWatched = new IsWatched(isWatched);
 
         if (description == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Description.class.getSimpleName()));
+            throw new IllegalValueException(String.format(
+                    MISSING_FIELD_MESSAGE_FORMAT, Description.class.getSimpleName()));
         }
         if (!Description.isValidDescription(description)) {
             throw new IllegalValueException(Description.MESSAGE_CONSTRAINTS);
         }
         final Description modelDescription = new Description(description);
 
+
+        if (runningTime < 0) {
+            throw new IllegalValueException(String.format(RunningTime.MESSAGE_CONSTRAINTS2));
+        }
         if (runningTime == 0) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, RunningTime.class.getSimpleName()));
+            throw new IllegalValueException(String.format(
+                    MISSING_FIELD_MESSAGE_FORMAT, RunningTime.class.getSimpleName()));
         }
         if (!RunningTime.isValidRunningTime(runningTime)) {
             throw new IllegalValueException(Description.MESSAGE_CONSTRAINTS);
@@ -126,9 +127,12 @@ class JsonAdaptedShow {
         final RunningTime modelRunningTime = new RunningTime(runningTime);
 
         final Set<Actor> modelActors = new HashSet<>(showActors);
-        Show show = new Show(modelName, modelDescription, modelIsWatched, modelDateOfRelease, modelRunningTime, modelActors);
-        show.type = type;
+
+        Show show = new Movie(modelName, modelDescription, modelIsWatched,
+                modelDateOfRelease, modelRunningTime, modelActors);
+
+        show.setType(type);
+        show.setPoster(new Poster(poster));
         return show;
     }
-
 }

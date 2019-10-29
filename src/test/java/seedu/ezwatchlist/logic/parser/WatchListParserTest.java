@@ -7,23 +7,16 @@ import static seedu.ezwatchlist.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.ezwatchlist.testutil.Assert.assertThrows;
 import static seedu.ezwatchlist.testutil.TypicalIndexes.INDEX_FIRST_SHOW;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
-
 import org.junit.jupiter.api.Test;
 
-import seedu.ezwatchlist.logic.commands.AddCommand;
 import seedu.ezwatchlist.logic.commands.ClearCommand;
 import seedu.ezwatchlist.logic.commands.DeleteCommand;
 import seedu.ezwatchlist.logic.commands.EditCommand;
 import seedu.ezwatchlist.logic.commands.EditCommand.EditShowDescriptor;
 import seedu.ezwatchlist.logic.commands.ExitCommand;
-import seedu.ezwatchlist.logic.commands.SearchCommand;
 import seedu.ezwatchlist.logic.commands.HelpCommand;
 import seedu.ezwatchlist.logic.commands.ListCommand;
 import seedu.ezwatchlist.logic.parser.exceptions.ParseException;
-import seedu.ezwatchlist.model.show.NameContainsKeywordsPredicate;
 import seedu.ezwatchlist.model.show.Show;
 import seedu.ezwatchlist.testutil.EditShowDescriptorBuilder;
 import seedu.ezwatchlist.testutil.ShowBuilder;
@@ -98,6 +91,7 @@ public class WatchListParserTest {
 
     @Test
     public void parseCommand_unknownCommand_throwsParseException() {
-        assertThrows(ParseException.class, MESSAGE_UNKNOWN_COMMAND, () -> parser.parseCommand("unknownCommand"));
+        assertThrows(ParseException.class,
+                MESSAGE_UNKNOWN_COMMAND, () -> parser.parseCommand("unknownCommand"));
     }
 }

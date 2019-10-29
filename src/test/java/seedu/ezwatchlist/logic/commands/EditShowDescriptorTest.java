@@ -2,7 +2,12 @@ package seedu.ezwatchlist.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.ezwatchlist.logic.commands.CommandTestUtil.*;
+import static seedu.ezwatchlist.logic.commands.CommandTestUtil.DESC_ANNABELLE;
+import static seedu.ezwatchlist.logic.commands.CommandTestUtil.DESC_BOB_THE_BUILDER;
+import static seedu.ezwatchlist.logic.commands.CommandTestUtil.VALID_ACTOR_BOB_THE_BUILDER;
+import static seedu.ezwatchlist.logic.commands.CommandTestUtil.VALID_DATE_BOB_THE_BUILDER;
+import static seedu.ezwatchlist.logic.commands.CommandTestUtil.VALID_NAME_BOB_THE_BUILDER;
+import static seedu.ezwatchlist.logic.commands.CommandTestUtil.VALID_RUNNING_TIME_BOB_THE_BUILDER;
 
 import org.junit.jupiter.api.Test;
 
@@ -30,7 +35,8 @@ public class EditShowDescriptorTest {
         assertFalse(DESC_ANNABELLE.equals(DESC_BOB_THE_BUILDER));
 
         // different name -> returns false
-        EditShowDescriptor editedAmy = new EditShowDescriptorBuilder(DESC_ANNABELLE).withName(VALID_NAME_BOB_THE_BUILDER).build();
+        EditShowDescriptor editedAmy = new EditShowDescriptorBuilder(DESC_ANNABELLE)
+                .withName(VALID_NAME_BOB_THE_BUILDER).build();
         assertFalse(DESC_ANNABELLE.equals(editedAmy));
 
         // different show -> returns false
@@ -42,7 +48,8 @@ public class EditShowDescriptorTest {
         assertFalse(DESC_ANNABELLE.equals(editedAmy));
 
         // different running time -> returns false
-        editedAmy = new EditShowDescriptorBuilder(DESC_ANNABELLE).withRunningTime(VALID_RUNNING_TIME_BOB_THE_BUILDER).build();
+        editedAmy = new EditShowDescriptorBuilder(DESC_ANNABELLE)
+                .withRunningTime(VALID_RUNNING_TIME_BOB_THE_BUILDER).build();
         assertFalse(DESC_ANNABELLE.equals(editedAmy));
 
         // different actors -> returns false

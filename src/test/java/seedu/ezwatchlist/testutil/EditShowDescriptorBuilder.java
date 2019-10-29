@@ -6,7 +6,12 @@ import java.util.stream.Stream;
 
 import seedu.ezwatchlist.logic.commands.EditCommand.EditShowDescriptor;
 import seedu.ezwatchlist.model.actor.Actor;
-import seedu.ezwatchlist.model.show.*;
+import seedu.ezwatchlist.model.show.Date;
+import seedu.ezwatchlist.model.show.Description;
+import seedu.ezwatchlist.model.show.IsWatched;
+import seedu.ezwatchlist.model.show.Name;
+import seedu.ezwatchlist.model.show.RunningTime;
+import seedu.ezwatchlist.model.show.Show;
 
 /**
  * A utility class to help with building EditShowDescriptor objects.
@@ -64,8 +69,8 @@ public class EditShowDescriptorBuilder {
     /**
      * Sets the {@code IsWatched} of the {@code EditShowDescriptor} that we are building.
      */
-    public EditShowDescriptorBuilder withIsWatched(boolean IsWatched) {
-        descriptor.setIsWatched(new IsWatched(IsWatched));
+    public EditShowDescriptorBuilder withIsWatched(boolean isWatched) {
+        descriptor.setIsWatched(new IsWatched(isWatched));
         return this;
     }
 
@@ -90,8 +95,8 @@ public class EditShowDescriptorBuilder {
      * that we are building.
      */
     public EditShowDescriptorBuilder withActors(String... actors) {
-        Set<Actor> ActorSet = Stream.of(actors).map(Actor::new).collect(Collectors.toSet());
-        descriptor.setActors(ActorSet);
+        Set<Actor> actorSet = Stream.of(actors).map(Actor::new).collect(Collectors.toSet());
+        descriptor.setActors(actorSet);
         return this;
     }
 

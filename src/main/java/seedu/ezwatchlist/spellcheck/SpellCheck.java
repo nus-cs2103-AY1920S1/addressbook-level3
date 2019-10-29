@@ -37,6 +37,12 @@ public class SpellCheck {
         isCaseSensitive = bool;
     }
 
+    /**
+     * Suggests word from a given string.
+     * @param word user input.
+     * @return suggested word.
+     * @throws SpellCheckException if there is a spelling mistake.
+     */
     public String suggest(String word) throws SpellCheckException {
         dict.updateWordList();
         Iterator<String> it = dict.getWordList().iterator();
@@ -80,14 +86,14 @@ public class SpellCheck {
                 if (i == 0) {
                     ledCosts[j] = j;
                 } else if (j > 0) {
-                        int newValue = ledCosts[j - 1];
+                    int newValue = ledCosts[j - 1];
 
-                        if (s1.charAt(i - 1) != s2.charAt(j - 1)) {
-                            newValue = Math.min(Math.min(newValue, lastValue), ledCosts[j]) + 1;
-                        }
+                    if (s1.charAt(i - 1) != s2.charAt(j - 1)) {
+                        newValue = Math.min(Math.min(newValue, lastValue), ledCosts[j]) + 1;
+                    }
 
-                        ledCosts[j - 1] = lastValue;
-                        lastValue = newValue;
+                    ledCosts[j - 1] = lastValue;
+                    lastValue = newValue;
                 }
             }
 

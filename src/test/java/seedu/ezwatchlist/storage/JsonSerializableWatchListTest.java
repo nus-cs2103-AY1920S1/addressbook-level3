@@ -1,6 +1,5 @@
 package seedu.ezwatchlist.storage;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.ezwatchlist.testutil.Assert.assertThrows;
 
 import java.nio.file.Path;
@@ -10,8 +9,6 @@ import org.junit.jupiter.api.Test;
 
 import seedu.ezwatchlist.commons.exceptions.IllegalValueException;
 import seedu.ezwatchlist.commons.util.JsonUtil;
-import seedu.ezwatchlist.model.WatchList;
-import seedu.ezwatchlist.testutil.TypicalShows;
 
 public class JsonSerializableWatchListTest {
 

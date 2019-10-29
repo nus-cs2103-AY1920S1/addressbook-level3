@@ -58,10 +58,10 @@ public class ShowCard extends UiPart<Region> {
         this.show = show;
         id.setText(displayedIndex + ". ");
         name.setText(show.getName().showName);
-        type.setText(show.type);
-        dateOfRelease.setText(show.getDateOfRelease().value);
-        description.setText(show.getDescription().fullDescription);
-        runningTime.setText(Integer.toString(show.getRunningTime().value));
+        type.setText(show.getType());
+        dateOfRelease.setText("Date of Release: " + show.getDateOfRelease().value);
+        description.setText("Description: " + show.getDescription().fullDescription);
+        runningTime.setText("Running Time: " + Integer.toString(show.getRunningTime().value) + " minutes");
         Poster poster = show.getPoster();
         Image image = poster.getImage();
         this.poster.setImage(image);
@@ -100,7 +100,7 @@ public class ShowCard extends UiPart<Region> {
      */
     class NonChangeableCheckBox implements ChangeListener<Boolean> {
         @Override
-        public void changed(ObservableValue<? extends Boolean> ov, Boolean old_val, Boolean new_val) {
+        public void changed(ObservableValue<? extends Boolean> ov, Boolean oldVal, Boolean newVal) {
             watched.setSelected(show.isWatched().value);
         }
     }

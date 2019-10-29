@@ -98,7 +98,7 @@ public class JsonUserPrefsStorageTest {
             throw new AssertionError("There should not be an error writing to the file", ioe);
         }
     }
-/*
+    /*
     @Test
     public void saveUserPrefs_allInOrder_success() throws DataConversionException, IOException {
 
@@ -120,6 +120,6 @@ public class JsonUserPrefsStorageTest {
         //assertEquals(original, readBack);
     }
 
- */
+    */
 
 }

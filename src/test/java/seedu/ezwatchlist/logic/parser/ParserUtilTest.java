@@ -8,8 +8,8 @@ import static seedu.ezwatchlist.testutil.TypicalIndexes.INDEX_FIRST_SHOW;
 import org.junit.jupiter.api.Test;
 
 import seedu.ezwatchlist.logic.parser.exceptions.ParseException;
-import seedu.ezwatchlist.model.show.Name;
 import seedu.ezwatchlist.model.show.Date;
+import seedu.ezwatchlist.model.show.Name;
 
 public class ParserUtilTest {
     private static final String INVALID_NAME = "";

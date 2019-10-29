@@ -1,13 +1,14 @@
 package seedu.ezwatchlist.model.show;
 
-import org.junit.jupiter.api.Test;
-import seedu.ezwatchlist.testutil.ShowBuilder;
-
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.ezwatchlist.testutil.Assert.assertThrows;
 import static seedu.ezwatchlist.testutil.TypicalShows.AVENGERSENDGAME;
 import static seedu.ezwatchlist.testutil.TypicalShows.FIGHTCLUB;
+
+import org.junit.jupiter.api.Test;
+
+import seedu.ezwatchlist.testutil.ShowBuilder;
 
 public class ShowTest {
 
@@ -26,26 +27,26 @@ public class ShowTest {
         assertFalse(AVENGERSENDGAME.isSameShow(null));
 
         // different isWatched and RunningTime -> returns false
-        Show editedAVENGERSENDGAME = new ShowBuilder(AVENGERSENDGAME).withIsWatched(true).withRunningTime(122).build();
+        Show editedAvengersEndGame = new ShowBuilder(AVENGERSENDGAME).withIsWatched(true).withRunningTime(122).build();
         //assertFalse(AVENGERSENDGAME.isSameShow(editedAVENGERSENDGAME));
 
         // different name -> returns false
-        editedAVENGERSENDGAME = new ShowBuilder(AVENGERSENDGAME).withName("FIGHTCLUB").build();
-        assertFalse(AVENGERSENDGAME.isSameShow(editedAVENGERSENDGAME));
+        editedAvengersEndGame = new ShowBuilder(AVENGERSENDGAME).withName("FIGHTCLUB").build();
+        assertFalse(AVENGERSENDGAME.isSameShow(editedAvengersEndGame));
 
         // same name, same description, different attributes -> returns true
-        editedAVENGERSENDGAME = new ShowBuilder(AVENGERSENDGAME).withIsWatched(true).withDateOfRelease("2019")
+        editedAvengersEndGame = new ShowBuilder(AVENGERSENDGAME).withIsWatched(true).withDateOfRelease("2019")
                 .withRunningTime(122).build();
         //assertTrue(AVENGERSENDGAME.isSameShow(editedAVENGERSENDGAME));
 
         // same name, same dateofrelease, different attributes -> returns true
-        editedAVENGERSENDGAME = new ShowBuilder(AVENGERSENDGAME).withRunningTime(122).withDescription("DESCRIPTION")
+        editedAvengersEndGame = new ShowBuilder(AVENGERSENDGAME).withRunningTime(122).withDescription("DESCRIPTION")
                 .withIsWatched(true).build();
-        assertTrue(AVENGERSENDGAME.isSameShow(editedAVENGERSENDGAME));
+        assertTrue(AVENGERSENDGAME.isSameShow(editedAvengersEndGame));
 
         // same name, same dateofrelease, same description, different attributes -> returns true
-        editedAVENGERSENDGAME = new ShowBuilder(AVENGERSENDGAME).withIsWatched(true).withRunningTime(122).build();
-        assertTrue(AVENGERSENDGAME.isSameShow(editedAVENGERSENDGAME));
+        editedAvengersEndGame = new ShowBuilder(AVENGERSENDGAME).withIsWatched(true).withRunningTime(122).build();
+        assertTrue(AVENGERSENDGAME.isSameShow(editedAvengersEndGame));
     }
 
     @Test

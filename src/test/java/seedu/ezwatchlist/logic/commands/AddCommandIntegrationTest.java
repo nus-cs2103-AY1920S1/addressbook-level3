@@ -3,13 +3,13 @@ package seedu.ezwatchlist.logic.commands;
 import static seedu.ezwatchlist.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.ezwatchlist.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.ezwatchlist.testutil.TypicalShows.getTypicalWatchList;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.ezwatchlist.model.Model;
 import seedu.ezwatchlist.model.ModelManager;
 import seedu.ezwatchlist.model.UserPrefs;
-
 import seedu.ezwatchlist.model.show.Show;
 import seedu.ezwatchlist.testutil.ShowBuilder;
 

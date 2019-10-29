@@ -11,7 +11,6 @@ import java.util.Collections;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
-import seedu.ezwatchlist.commons.util.CollectionUtil;
 
 public class CollectionUtilTest {
     @Test

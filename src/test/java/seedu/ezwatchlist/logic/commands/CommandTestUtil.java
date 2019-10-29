@@ -2,7 +2,12 @@ package seedu.ezwatchlist.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.ezwatchlist.logic.parser.CliSyntax.*;
+import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_DATE_OF_RELEASE;
+import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
+import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_IS_WATCHED;
+import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_RUNNING_TIME;
+import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_TYPE;
 import static seedu.ezwatchlist.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
@@ -41,22 +46,28 @@ public class CommandTestUtil {
     public static final String NAME_DESC_ANNABELLE = " " + PREFIX_NAME + VALID_NAME_ANNABELLE;
     public static final String NAME_DESC_BOB_THE_BUILDER = " " + PREFIX_NAME + VALID_NAME_BOB_THE_BUILDER;
     public static final String TYPE_DESC_ANNABELLE = " " + PREFIX_TYPE + VALID_TYPE_ANNABELLE;
-    public static final String TYPE_DESC_BOB_THE_BUILDER =  " " + PREFIX_TYPE + VALID_TYPE_BOB_THE_BUILDER;
+    public static final String TYPE_DESC_BOB_THE_BUILDER = " " + PREFIX_TYPE + VALID_TYPE_BOB_THE_BUILDER;
     public static final String DATE_DESC_ANNABELLE = " " + PREFIX_DATE_OF_RELEASE + VALID_DATE_ANNABELLE;
     public static final String DATE_DESC_BOB_THE_BUILDER = " " + PREFIX_DATE_OF_RELEASE + VALID_DATE_BOB_THE_BUILDER;
     public static final String WATCHED_DESC_ANNABELLE = " " + PREFIX_IS_WATCHED + VALID_WATCHED_ANNABELLE;
     public static final String WATCHED_DESC_BOB_THE_BUILDER = " " + PREFIX_IS_WATCHED + VALID_WATCHED_BOB_THE_BUILDER;
     public static final String RUNNING_TIME_DESC_ANNABELLE = " " + PREFIX_RUNNING_TIME + VALID_RUNNING_TIME_ANNABELLE;
-    public static final String RUNNING_TIME_DESC_BOB_THE_BUILDER = " " + PREFIX_RUNNING_TIME + VALID_RUNNING_TIME_BOB_THE_BUILDER;
+    public static final String RUNNING_TIME_DESC_BOB_THE_BUILDER =
+            " " + PREFIX_RUNNING_TIME + VALID_RUNNING_TIME_BOB_THE_BUILDER;
     public static final String DESCRIPTION_DESC_ANNABELLE = " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION_ANNABELLE;
-    public static final String DESCRIPTION_DESC_BOB_THE_BUILDER = " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION_BOB_THE_BUILDER;
+    public static final String DESCRIPTION_DESC_BOB_THE_BUILDER =
+            " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION_BOB_THE_BUILDER;
     public static final String ACTOR_DESC_ANNABELLE = " " + PREFIX_TYPE + VALID_ACTOR_ANNABELLE;
     public static final String ACTOR_DESC_BOB_THE_BUILDER = " " + PREFIX_TYPE + VALID_ACTOR_BOB_THE_BUILDER;
 
-    public static final String INVALID_TYPE_DESC = " " + PREFIX_TYPE + "TV show"; // types can only be "movie" or "tv"
-    public static final String INVALID_IS_WATCHED_DESC = " " + PREFIX_IS_WATCHED + null; //null not allowed
-    public static final String INVALID_RUNNING_TIME_DESC = " " + PREFIX_RUNNING_TIME; // empty string not allowed for running time
-    public static final String INVALID_DESCRIPTION_DESC = " " + PREFIX_DESCRIPTION; // empty string not allowed for description
+    public static final String INVALID_TYPE_DESC =
+            " " + PREFIX_TYPE + "TV show"; // types can only be "movie" or "tv"
+    public static final String INVALID_IS_WATCHED_DESC =
+            " " + PREFIX_IS_WATCHED + null; //null not allowed
+    public static final String INVALID_RUNNING_TIME_DESC =
+            " " + PREFIX_RUNNING_TIME; // empty string not allowed for running time
+    public static final String INVALID_DESCRIPTION_DESC =
+            " " + PREFIX_DESCRIPTION; // empty string not allowed for description
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
@@ -66,10 +77,13 @@ public class CommandTestUtil {
 
     static {
         DESC_ANNABELLE = new EditShowDescriptorBuilder().withName(VALID_NAME_ANNABELLE).withType(VALID_TYPE_ANNABELLE)
-                .withDescription(VALID_DESCRIPTION_ANNABELLE).withIsWatched(VALID_WATCHED_ANNABELLE).withDateOfRelease(VALID_DATE_ANNABELLE)
+                .withDescription(VALID_DESCRIPTION_ANNABELLE).withIsWatched(VALID_WATCHED_ANNABELLE)
+                .withDateOfRelease(VALID_DATE_ANNABELLE)
                 .withRunningTime(VALID_RUNNING_TIME_ANNABELLE).withActors(VALID_ACTOR_ANNABELLE).build();
-        DESC_BOB_THE_BUILDER = new EditShowDescriptorBuilder().withName(VALID_NAME_BOB_THE_BUILDER).withType(VALID_TYPE_BOB_THE_BUILDER)
-                .withDescription(VALID_DESCRIPTION_BOB_THE_BUILDER).withIsWatched(VALID_WATCHED_BOB_THE_BUILDER).withDateOfRelease(VALID_DATE_BOB_THE_BUILDER)
+        DESC_BOB_THE_BUILDER = new EditShowDescriptorBuilder().withName(VALID_NAME_BOB_THE_BUILDER)
+                .withType(VALID_TYPE_BOB_THE_BUILDER)
+                .withDescription(VALID_DESCRIPTION_BOB_THE_BUILDER).withIsWatched(VALID_WATCHED_BOB_THE_BUILDER)
+                .withDateOfRelease(VALID_DATE_BOB_THE_BUILDER)
                 .withRunningTime(VALID_RUNNING_TIME_BOB_THE_BUILDER).withActors(VALID_ACTOR_BOB_THE_BUILDER).build();
     }
 
@@ -128,5 +142,4 @@ public class CommandTestUtil {
 
         assertEquals(1, model.getFilteredShowList().size());
     }
-
 }

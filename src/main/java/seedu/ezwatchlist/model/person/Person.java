@@ -5,8 +5,8 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import seedu.ezwatchlist.model.tag.Tag;
 import seedu.ezwatchlist.commons.util.CollectionUtil;
+import seedu.ezwatchlist.model.tag.Tag;
 
 /**
  * Represents a Person in the address book.

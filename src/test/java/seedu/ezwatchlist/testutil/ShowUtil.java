@@ -1,13 +1,18 @@
 package seedu.ezwatchlist.testutil;
 
+import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_ACTOR;
+import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_DATE_OF_RELEASE;
+import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
+import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_IS_WATCHED;
+import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_RUNNING_TIME;
+
 import java.util.Set;
 
 import seedu.ezwatchlist.logic.commands.AddCommand;
 import seedu.ezwatchlist.logic.commands.EditCommand.EditShowDescriptor;
 import seedu.ezwatchlist.model.actor.Actor;
 import seedu.ezwatchlist.model.show.Show;
-
-import static seedu.ezwatchlist.logic.parser.CliSyntax.*;
 
 /**
  * A utility class for Show.
@@ -28,7 +33,7 @@ public class ShowUtil {
         StringBuilder sb = new StringBuilder();
         sb.append(PREFIX_NAME + show.getName().toString() + " ");
         sb.append(PREFIX_DESCRIPTION + show.getDescription().toString() + " ");
-        sb.append(PREFIX_IS_WATCHED +show.isWatched().toString() + " ");
+        sb.append(PREFIX_IS_WATCHED + show.isWatched().toString() + " ");
         sb.append(PREFIX_DATE_OF_RELEASE + show.getDateOfRelease().value + " ");
         sb.append(PREFIX_RUNNING_TIME + show.getRunningTime().toString() + " ");
         show.getActors().stream().forEach(
@@ -43,16 +48,20 @@ public class ShowUtil {
     public static String getEditShowDescriptorDetails(EditShowDescriptor descriptor) {
         StringBuilder sb = new StringBuilder();
         descriptor.getName().ifPresent(name -> sb.append(PREFIX_NAME).append(name.showName).append(" "));
-        descriptor.getDescription().ifPresent(description -> sb.append(PREFIX_DESCRIPTION).append(description).append(" "));
-        descriptor.getIsWatched().ifPresent(isWatched -> sb.append(PREFIX_IS_WATCHED).append(isWatched.value).append(" "));
-        descriptor.getDateOfRelease().ifPresent(date -> sb.append(PREFIX_DATE_OF_RELEASE).append(date.value).append(" "));
-        descriptor.getRunningTime().ifPresent(runningTime -> sb.append(PREFIX_RUNNING_TIME).append(runningTime).append(" "));
+        descriptor.getDescription()
+                .ifPresent(description -> sb.append(PREFIX_DESCRIPTION).append(description).append(" "));
+        descriptor.getIsWatched()
+                .ifPresent(isWatched -> sb.append(PREFIX_IS_WATCHED).append(isWatched.value).append(" "));
+        descriptor.getDateOfRelease()
+                .ifPresent(date -> sb.append(PREFIX_DATE_OF_RELEASE).append(date.value).append(" "));
+        descriptor.getRunningTime()
+                .ifPresent(runningTime -> sb.append(PREFIX_RUNNING_TIME).append(runningTime).append(" "));
         if (descriptor.getActors().isPresent()) {
-            Set<Actor> Actors = descriptor.getActors().get();
-            if (Actors.isEmpty()) {
+            Set<Actor> actors = descriptor.getActors().get();
+            if (actors.isEmpty()) {
                 sb.append(PREFIX_ACTOR);
             } else {
-                Actors.forEach(s -> sb.append(PREFIX_ACTOR).append(s.actorName).append(" "));
+                actors.forEach(s -> sb.append(PREFIX_ACTOR).append(s.actorName).append(" "));
             }
         }
         return sb.toString();

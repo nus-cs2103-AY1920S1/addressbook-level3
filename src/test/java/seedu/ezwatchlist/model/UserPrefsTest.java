@@ -1,9 +1,8 @@
 package seedu.ezwatchlist.model;
 
-import org.junit.jupiter.api.Test;
-import seedu.ezwatchlist.model.UserPrefs;
-
 import static seedu.ezwatchlist.testutil.Assert.assertThrows;
+
+import org.junit.jupiter.api.Test;
 
 public class UserPrefsTest {
 

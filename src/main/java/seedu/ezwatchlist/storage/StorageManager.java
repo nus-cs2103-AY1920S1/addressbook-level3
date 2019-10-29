@@ -7,8 +7,8 @@ import java.util.logging.Logger;
 
 import seedu.ezwatchlist.commons.core.LogsCenter;
 import seedu.ezwatchlist.commons.exceptions.DataConversionException;
-import seedu.ezwatchlist.model.ReadOnlyWatchList;
 import seedu.ezwatchlist.model.ReadOnlyUserPrefs;
+import seedu.ezwatchlist.model.ReadOnlyWatchList;
 import seedu.ezwatchlist.model.UserPrefs;
 
 /**

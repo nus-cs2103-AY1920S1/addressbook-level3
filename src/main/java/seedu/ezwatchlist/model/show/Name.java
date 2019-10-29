@@ -1,17 +1,14 @@
 package seedu.ezwatchlist.model.show;
 
-import seedu.ezwatchlist.commons.util.AppUtil;
-
-import static java.util.Objects.requireNonNull;
 
 /**
  * Represents a Show's name in the watchlist.
  * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}
  */
 public class Name {
-
+    public static final String DEFAULT_NAME = "na";
     public static final String MESSAGE_CONSTRAINTS =
-            "Show names should only contain alphanumeric characters and spaces, and it should not be blank";
+            "Show names should only contain characters and spaces, and it should not be blank";
 
     /*
      * The first character of the show must not be a whitespace,
@@ -21,6 +18,10 @@ public class Name {
 
     public final String showName;
 
+    public Name() {
+        showName = DEFAULT_NAME;
+    }
+
     /**
      * Constructs a {@code Name}.
      *
@@ -28,7 +29,7 @@ public class Name {
      */
     public Name(String name) {
         //requireNonNull(name);
-        AppUtil.checkArgument(isValidName(name), MESSAGE_CONSTRAINTS);
+        //AppUtil.checkArgument(isValidName(name), MESSAGE_CONSTRAINTS);
         showName = name;
     }
 

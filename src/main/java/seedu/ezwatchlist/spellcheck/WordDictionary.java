@@ -16,9 +16,10 @@ import java.util.List;
  * Represents a internal dynamic defined corpus of correct words used in the spell check class.
  */
 public class WordDictionary {
-    private final static Path ROOT_FILEPATH = FileSystems.getDefault().getPath("").toAbsolutePath();
-    private final static String GLOSSARY_FILEPATH = ROOT_FILEPATH + File.separator + "data" + File.separator + "corpus.txt";
-    private final static List<String> CORPUS = new ArrayList<String>();
+    private static final List<String> CORPUS = new ArrayList<String>();
+    private static final Path ROOT_FILEPATH = FileSystems.getDefault().getPath("").toAbsolutePath();
+    private static final String GLOSSARY_FILEPATH =
+            ROOT_FILEPATH + File.separator + "data" + File.separator + "corpus.txt";
 
     private HashSet<String> wordList;
 

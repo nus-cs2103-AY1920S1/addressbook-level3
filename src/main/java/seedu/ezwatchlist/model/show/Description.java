@@ -1,7 +1,5 @@
 package seedu.ezwatchlist.model.show;
 
-import seedu.ezwatchlist.commons.util.AppUtil;
-
 import static java.util.Objects.requireNonNull;
 
 /**

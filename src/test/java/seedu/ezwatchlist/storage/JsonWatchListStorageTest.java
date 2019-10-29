@@ -1,12 +1,7 @@
 package seedu.ezwatchlist.storage;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static seedu.ezwatchlist.testutil.Assert.assertThrows;
-import static seedu.ezwatchlist.testutil.TypicalShows.AVENGERSENDGAME;
-import static seedu.ezwatchlist.testutil.TypicalShows.FIGHTCLUB;
-import static seedu.ezwatchlist.testutil.TypicalShows.GODFATHER2;
-import static seedu.ezwatchlist.testutil.TypicalShows.getTypicalWatchList;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -16,8 +11,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import seedu.ezwatchlist.commons.exceptions.DataConversionException;
-import seedu.ezwatchlist.model.WatchList;
 import seedu.ezwatchlist.model.ReadOnlyWatchList;
+import seedu.ezwatchlist.model.WatchList;
 
 public class JsonWatchListStorageTest {
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonWatchListStorageTest");
