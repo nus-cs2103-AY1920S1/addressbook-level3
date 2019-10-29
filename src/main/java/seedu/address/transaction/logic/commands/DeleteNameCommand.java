@@ -22,7 +22,7 @@ public class DeleteNameCommand extends DeleteCommand {
     }
 
     @Override
-    public CommandResult execute(Model model, seedu.address.person.model.Model personModel)
+    public CommandResult execute(Model model, seedu.address.person.model.GetPersonByNameOnlyModel personModel)
             throws NoSuchPersonException {
         requireNonNull(model);
         requireNonNull(personModel);

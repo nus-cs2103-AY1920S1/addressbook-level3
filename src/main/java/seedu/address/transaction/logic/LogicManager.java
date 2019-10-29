@@ -20,10 +20,10 @@ public class LogicManager implements Logic {
     private final Model model;
     private final Storage storage;
     private final TransactionTabParser parser;
-    private final seedu.address.person.model.Model personModel;
+    private final seedu.address.person.model.GetPersonByNameOnlyModel personModel;
 
     public LogicManager(Model transactionModel, Storage transactionStorage,
-                        seedu.address.person.model.Model personModel) {
+                        seedu.address.person.model.GetPersonByNameOnlyModel personModel) {
         this.model = transactionModel;
         this.storage = transactionStorage;
         this.parser = new TransactionTabParser();

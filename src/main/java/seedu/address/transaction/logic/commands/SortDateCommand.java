@@ -11,7 +11,7 @@ import seedu.address.transaction.ui.TransactionMessages;
 public class SortDateCommand extends SortCommand {
 
     @Override
-    public CommandResult execute(Model model, seedu.address.person.model.Model personModel) {
+    public CommandResult execute(Model model, seedu.address.person.model.GetPersonByNameOnlyModel personModel) {
         requireNonNull(model);
         requireNonNull(personModel);
         model.sortByDate();

@@ -14,7 +14,7 @@ import java.util.logging.Logger;
 import java.util.stream.Stream;
 
 import seedu.address.person.commons.core.LogsCenter;
-import seedu.address.person.model.Model;
+import seedu.address.person.model.GetPersonByNameOnlyModel;
 import seedu.address.person.model.person.exceptions.PersonNotFoundException;
 import seedu.address.transaction.logic.commands.EditCommand;
 import seedu.address.transaction.logic.parser.exception.ParseException;
@@ -35,7 +35,8 @@ public class EditCommandParser implements CommandParserWithPersonModel {
      * and returns a EditCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    public EditCommand parse(String args, Model personModel) throws ParseException, NoSuchPersonException {
+    public EditCommand parse(String args, GetPersonByNameOnlyModel personModel)
+            throws ParseException, NoSuchPersonException {
         requireNonNull(personModel);
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_DATETIME, PREFIX_DESCRIPTION,

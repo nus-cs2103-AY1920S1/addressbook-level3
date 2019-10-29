@@ -28,7 +28,7 @@ import static seedu.address.transaction.ui.TransactionMessages.MESSAGE_WRONG_DAT
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.person.model.Model;
+import seedu.address.person.model.GetPersonByNameOnlyModel;
 import seedu.address.person.model.ModelManager;
 import seedu.address.person.model.UserPrefs;
 import seedu.address.testutil.EditTransactionDescriptorBuilder;
@@ -36,7 +36,7 @@ import seedu.address.testutil.TypicalPersons;
 import seedu.address.transaction.logic.commands.EditCommand;
 
 class EditCommandParserTest {
-    private Model personModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private GetPersonByNameOnlyModel personModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
     private EditCommandParser parser = new EditCommandParser();
 
     @Test

@@ -14,6 +14,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.inventory.util.InventoryList;
 import seedu.address.person.logic.commands.exceptions.CommandException;
+import seedu.address.person.model.GetPersonByNameOnlyModel;
 import seedu.address.person.model.person.Person;
 import seedu.address.person.storage.AddressBookStorage;
 import seedu.address.person.storage.JsonAddressBookStorage;
@@ -66,7 +67,7 @@ public class AddCommandTest {
         //For Transaction Storage and Manager
         Model transactionModel = new ModelManager(transactionList);
         seedu.address.transaction.storage.StorageManager transactionManager =
-                new StorageManager(new File(FILE_PATH_TRANSACTION), personModel);
+                new StorageManager(new File(FILE_PATH_TRANSACTION), (GetPersonByNameOnlyModel) personModel);
 
         //For Reimbursement Storage and Manager
         seedu.address.reimbursement.model.Model reimbursementModel =
@@ -89,7 +90,7 @@ public class AddCommandTest {
                 new seedu.address.inventory.storage.StorageManager(new File(FILE_PATH_INVENTORY));
 
         //All related logics
-        Logic logic = new LogicManager(transactionModel, transactionManager, personModel);
+        Logic logic = new LogicManager(transactionModel, transactionManager, (GetPersonByNameOnlyModel) personModel);
         seedu.address.reimbursement.logic.Logic reimbursementLogic =
                 new seedu.address.reimbursement.logic.LogicManager(reimbursementModel, reimbursementManager,
                         personModel);
@@ -125,7 +126,7 @@ public class AddCommandTest {
         //For Transaction Storage and Manager
         Model transactionModel = new ModelManager(transactionList);
         seedu.address.transaction.storage.StorageManager transactionManager =
-                new StorageManager(new File(FILE_PATH_TRANSACTION), personModel);
+                new StorageManager(new File(FILE_PATH_TRANSACTION), (GetPersonByNameOnlyModel) personModel);
 
         //For Reimbursement Storage and Manager
         seedu.address.reimbursement.model.Model reimbursementModel =
@@ -148,7 +149,7 @@ public class AddCommandTest {
                 new seedu.address.inventory.storage.StorageManager(new File(FILE_PATH_INVENTORY));
 
         //All related logics
-        Logic logic = new LogicManager(transactionModel, transactionManager, personModel);
+        Logic logic = new LogicManager(transactionModel, transactionManager, (GetPersonByNameOnlyModel) personModel);
         seedu.address.reimbursement.logic.Logic reimbursementLogic =
                 new seedu.address.reimbursement.logic.LogicManager(reimbursementModel, reimbursementManager,
                         personModel);

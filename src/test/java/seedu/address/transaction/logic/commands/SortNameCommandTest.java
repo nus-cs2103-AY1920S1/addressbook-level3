@@ -8,7 +8,7 @@ import static seedu.address.transaction.ui.TransactionMessages.MESSAGE_SORTED_BY
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.person.model.Model;
+import seedu.address.person.model.GetPersonByNameOnlyModel;
 import seedu.address.person.model.UserPrefs;
 import seedu.address.testutil.TypicalPersons;
 import seedu.address.testutil.TypicalTransactions;
@@ -17,7 +17,8 @@ import seedu.address.transaction.model.ModelManager;
 class SortNameCommandTest {
     private seedu.address.transaction.model.Model model =
             new ModelManager(TypicalTransactions.getTypicalTransactionList());
-    private Model personModel = new seedu.address.person.model.ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private GetPersonByNameOnlyModel personModel =
+            new seedu.address.person.model.ModelManager(getTypicalAddressBook(), new UserPrefs());
 
     @Test
     void execute_filteredList_success() {

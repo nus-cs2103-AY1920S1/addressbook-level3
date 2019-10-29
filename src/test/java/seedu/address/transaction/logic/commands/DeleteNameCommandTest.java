@@ -15,7 +15,7 @@ import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.person.model.Model;
+import seedu.address.person.model.GetPersonByNameOnlyModel;
 import seedu.address.person.model.UserPrefs;
 import seedu.address.testutil.TypicalPersons;
 import seedu.address.testutil.TypicalTransactions;
@@ -24,7 +24,8 @@ import seedu.address.transaction.model.transaction.Transaction;
 
 class DeleteNameCommandTest {
     private ModelManager model = new ModelManager(TypicalTransactions.getTypicalTransactionList());
-    private Model personModel = new seedu.address.person.model.ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private GetPersonByNameOnlyModel personModel =
+            new seedu.address.person.model.ModelManager(getTypicalAddressBook(), new UserPrefs());
 
     @Test
     void execute_unFilteredList_successful() {

@@ -23,7 +23,7 @@ import seedu.address.transaction.ui.TransactionMessages;
 class DeleteIndexCommandTest {
 
     private ModelManager model = new ModelManager(TypicalTransactions.getTypicalTransactionList());
-    private seedu.address.person.model.Model personModel =
+    private seedu.address.person.model.GetPersonByNameOnlyModel personModel =
             new seedu.address.person.model.ModelManager(getTypicalAddressBook(), new UserPrefs());
     @Test
     //this uses model stub

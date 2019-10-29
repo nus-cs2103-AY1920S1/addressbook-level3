@@ -15,9 +15,9 @@ import seedu.address.transaction.model.transaction.Transaction;
  */
 public class TransactionLogicStub implements Logic {
     private Model model;
-    private seedu.address.person.model.Model personModel;
+    private seedu.address.person.model.GetPersonByNameOnlyModel personModel;
 
-    public TransactionLogicStub(Model model, seedu.address.person.model.Model personModel) {
+    public TransactionLogicStub(Model model, seedu.address.person.model.GetPersonByNameOnlyModel personModel) {
         this.model = model;
         this.personModel = personModel;
     }

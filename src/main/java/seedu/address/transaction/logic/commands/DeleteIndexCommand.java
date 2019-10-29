@@ -22,7 +22,9 @@ public class DeleteIndexCommand extends DeleteCommand {
     }
 
     @Override
-    public CommandResult execute(Model model, seedu.address.person.model.Model personModel) throws ParseException {
+    public CommandResult execute(Model model,
+                                 seedu.address.person.model.GetPersonByNameOnlyModel personModel)
+            throws ParseException {
         requireNonNull(model);
         requireNonNull(personModel);
         Transaction transaction;

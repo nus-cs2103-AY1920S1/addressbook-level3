@@ -37,7 +37,7 @@ public class EditCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model, seedu.address.person.model.Model personModel)
+    public CommandResult execute(Model model, seedu.address.person.model.GetPersonByNameOnlyModel personModel)
             throws NoSuchIndexException, CommandException, NoSuchPersonException, ParseException {
         Transaction transactionToEdit;
         requireNonNull(model);
@@ -68,7 +68,8 @@ public class EditCommand extends Command {
      */
     private static Transaction createdEditedTransaction(Transaction transactionToEdit,
                                                         EditTransactionDescriptor editTransactionDescriptor,
-                                                        seedu.address.person.model.Model personModel) {
+                                                        seedu.address.person.model.GetPersonByNameOnlyModel
+                                                                personModel) {
 
         String updatedDate = editTransactionDescriptor.getDate().orElse(transactionToEdit.getDate());
         String updatedDescription =

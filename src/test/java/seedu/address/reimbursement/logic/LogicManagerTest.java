@@ -9,6 +9,7 @@ import java.io.IOException;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.person.model.GetPersonByNameOnlyModel;
 import seedu.address.person.model.UserPrefs;
 import seedu.address.reimbursement.model.ModelManager;
 import seedu.address.reimbursement.model.ReimbursementList;
@@ -39,7 +40,8 @@ public class LogicManagerTest {
             reimbursementStorage = new StorageManager(file);
             tFile = File.createTempFile("testingLogic", "tempTransaction.txt");
             transactionStorage =
-                    new seedu.address.transaction.storage.StorageManager(tFile, personModel);
+                    new seedu.address.transaction.storage.StorageManager(tFile,
+                            (GetPersonByNameOnlyModel) personModel);
             transactionModel =
                     new seedu.address.transaction.model.ModelManager(TypicalReimbursements.getTypicalTransactions());
             logic =
