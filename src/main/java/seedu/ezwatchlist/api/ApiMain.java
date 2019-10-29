@@ -184,7 +184,7 @@ public class ApiMain implements ApiInterface {
                 ArrayList<seedu.ezwatchlist.model.show.TvSeason> seasonsList = new ArrayList<>();
 
                 //seasons
-                for (int seasonNo = 1; seasonNo < numberOfSeasons; seasonNo++) {
+                for (int seasonNo = 1; seasonNo <= numberOfSeasons; seasonNo++) {
                     TvSeason tvSeason = tvSeasons.getSeason(tvId, seasonNo,
                             null, TmdbTvSeasons.SeasonMethod.values());
                     List<TvEpisode> episodes = tvSeason.getEpisodes();
@@ -208,7 +208,7 @@ public class ApiMain implements ApiInterface {
 
                 TvShow tvShowToAdd = new TvShow(new Name(tv.getName()), new Description(tv.getOverview()),
                         new IsWatched(false), date, new RunningTime(runTime),
-                        actors, 0, tv.getNumberOfEpisodes(), seasonsList);
+                        actors, 0, getTotalNumOfEpisodes(seasonsList), seasonsList);
 
                 //image
                 ImageRetrieval instance = new ImageRetrieval(apiCall, tv.getPosterPath());
@@ -265,5 +265,13 @@ public class ApiMain implements ApiInterface {
             s.getGenres().getGenres().forEach(x -> System.out.println(x));
 
         }
+    }
+
+    private int getTotalNumOfEpisodes(List<seedu.ezwatchlist.model.show.TvSeason> tvSeasons) {
+        int totalEpisodes = 0;
+        for (seedu.ezwatchlist.model.show.TvSeason season : tvSeasons) {
+            totalEpisodes += season.getEpisodes().size();
+        }
+        return totalEpisodes;
     }
 }

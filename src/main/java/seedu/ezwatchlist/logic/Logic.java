@@ -26,6 +26,12 @@ public interface Logic {
     CommandResult execute(String commandText) throws CommandException, ParseException, OnlineConnectionException;
 
     /**
+     * Returns the model.
+     * @return the model
+     */
+    Model getModel();
+
+    /**
      * Returns the WatchList.
      *
      * @see Model#getWatchList()

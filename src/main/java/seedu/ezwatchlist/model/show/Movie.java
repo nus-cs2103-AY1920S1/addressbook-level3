@@ -31,4 +31,25 @@ public class Movie extends Show {
     public List<TvSeason> getTvSeasons() {
         return null;
     }
+
+    @Override
+    public int getLastWatchedSeasonNum() {
+        return 0;
+    }
+
+    @Override
+    public int getLastWatchedSeasonEpisode() {
+        return 0;
+    }
+
+    @Override
+    public int getNumOfSeasons() {
+        return 0;
+    }
+
+    @Override
+    public int getNumOfEpisodesOfSeason(int seasonNum) {
+        return 0;
+    }
+
 }

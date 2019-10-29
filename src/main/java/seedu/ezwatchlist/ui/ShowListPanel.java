@@ -16,6 +16,7 @@ import seedu.ezwatchlist.model.show.Show;
 public class ShowListPanel extends UiPart<Region> {
     private static final String FXML = "ShowListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(ShowListPanel.class);
+    private MainWindow mainWindow;
 
     @FXML
     private ListView<Show> showListView;
@@ -24,6 +25,10 @@ public class ShowListPanel extends UiPart<Region> {
         super(FXML);
         showListView.setItems(showList);
         showListView.setCellFactory(listView -> new ShowListViewCell());
+    }
+
+    public void setMainWindow(MainWindow mainWindow) {
+        this.mainWindow = mainWindow;
     }
 
     /**
@@ -38,7 +43,9 @@ public class ShowListPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new ShowCard(show, getIndex() + 1).getRoot());
+                ShowCard showCard = new ShowCard(show, getIndex() + 1);
+                showCard.setMainWindow(mainWindow);
+                setGraphic(showCard.getRoot());
             }
         }
     }
