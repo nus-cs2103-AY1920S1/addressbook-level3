@@ -27,7 +27,8 @@ public class Messages {
     public static final String MESSAGE_NO_INCIDENTS_LISTED = "No incident reports present in the system";
     public static final String MESSAGE_ALL_DRAFT_INCIDENTS_LISTED = "Listed all draft incident reports";
     public static final String MESSAGE_NO_DRAFTS_LISTED = "No drafts present in the system";
-    public static final String MESSAGE_ALL_COMPLETE_INCIDENTS_LISTED = "Listed all incident reports ready for submission";
+    public static final String MESSAGE_ALL_COMPLETE_INCIDENTS_LISTED = "Listed all incident reports ready for"
+            + " submission";
     public static final String MESSAGE_NO_INCIDENT_TO_SUBMIT = "No reports ready for submission present in the system";
 
     public static final String MESSAGE_ACCESS_ADMIN = "You must be an admin to perform this operation. "
