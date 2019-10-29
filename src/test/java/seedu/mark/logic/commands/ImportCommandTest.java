@@ -62,7 +62,7 @@ public class ImportCommandTest {
      */
     private static List<Bookmark> setToRootFolder(List<Bookmark> bookmarks) {
         return bookmarks.stream()
-                .map(ImportCommand.MarkImporter::setToRootFolder)
+                .map(ImportCommand.MarkImporter::setFolderAsImportFolder)
                 .collect(Collectors.toList());
     }
 

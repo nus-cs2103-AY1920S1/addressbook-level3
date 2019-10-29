@@ -114,12 +114,6 @@ public interface Model {
     boolean hasFolder(Folder folder);
 
     /**
-     * Attempts to add a structure of folders to Mark.
-     * Implementation to be decided.
-     */
-    void addFolders(FolderStructure foldersToAdd);
-
-    /**
      * Checks whether Mark contains this {@code tagger}.
      */
     boolean hasTagger(SelectiveBookmarkTagger tagger);
