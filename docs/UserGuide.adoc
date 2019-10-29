@@ -1,4 +1,4 @@
-= Dukemon - User Guide
+= image:address_book_32.png[width="30"] Dukemon - User Guide  image:address_book_32.png[width="30"]
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -17,45 +17,67 @@ endif::[]
 
 By: `SErebros`      Since: `September 2019`      Licence: `MIT`
 
-== Introduction
+== Introduction - What is Dukemon?
 
-We aim to streamline and gamify the process of learning words or definitions through the use of self-created flash cards.
-
-The general flow of the program is as follows:
-
-1. Create your word bank.
-2. Add flash cards, each containing a word and a meaning, into your word bank.
-3. Configure settings, or modify word bank as you wish.
-4. Start the game.
-5. The meaning of the card will appear and you will have to key in the answer in a given time.
-6. At the end of the game, statistics of your game session appears, so you can know how well you did.
-7. Revisit the word bank to beat your previous high score.
-
-You write your own words and meaning into a word bank. You can also import a word bank given to him from a file. +
-During the game, you are prompted with a meaning and you have to answer with a word. Depending on the game mode, there may also be time restrictions and hints given. Answer correctly as quickly as possible and to score as much as you can! +
-You can view your statistics afterwards to review your performance! Revisit word banks which you scored badly.
-
-== Quick Start
-
-.  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `Dukemon.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Dukemon.
-.  Double-click the file to start the app. Enjoy learning!
-
+.Home screen of Dukemon.
 image::Ui.png[width="790"]
-+
-.  Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-.  Some example commands you can try to get familiar with the app :
 
-* *`create WORD_BANK`* : Create an empty word bank.
-* *`bank WORD_BANK`* : Select this particular bank.
-* *`add w/WORD m/MEANING`* : Add a flash card into the word bank.
-* *`list`* : List all cards in the word bank.
-* **`start [DIFFICULTY]`** : Starts the game with a selected difficulty. Default difficulty will be selected if none is keyed in.
-* **`guess ANSWER`** : Input your answer according to the meaning given.
-* **`stop`** : Stops the game.
-* *`exit`* : Exits the app.
+*_Welcome to Dukemon_* _, the Flashcard app of the future!_
+
+_Dukemon_ aims to streamline and gamify the process of learning words or definitions through
+the use of self-created digital flashcards. *Supercharge your learning with Dukemon!*
+
+.General program flow of Dukemon, showing how the different parts work together.
+image::UserGuideFlowOverview.png[width="790"]
+
+The general flow of the *_Dukemon_* is as follows:
+
+1. Create/Choose a _Wordbank_.
+2. Create/Add/Modify _Cards_ of your _WordBank_. (Each _Card_ contains a _Word_ and _Meaning_).
+3. Configure your preferred _Settings_. (change _Difficulty_, _Theme_ etc.)
+4. Start the _Game_!
+5. Guess  _Words_ based on each _Meaning_ that appear- as quickly as possible!
+6. Finish the _Game_ and  view the _Statistics_ for your game session.
+7. Evaluate your performance, and revisit _WordBanks_ to beat your  high score.
+
+Create and design your own _WordBanks_ and _Cards_ to practice and test yourself! You can also import _WordBanks_ directly,
+enable _Hints_ and do other cool stuff, which are explained in the following sections. +
+
+== Getting Started
+
+=== Installation
+
+1.  Ensure you have Java `11` or above installed on your system.
+2.  Download the latest `Dukemon.jar` link:{repoURL}/releases[here].
+3.  Copy the file to the folder you want to use as the home directory of _Dukemon_ (this is where your
+data will be stored).
+4.  Double-click the `Dukemon.jar` to run the app. Enjoy learning!
+
+=== Basic Interface and Usage
+
+.Regions of the UI where commands are entered (via CLI) and feedback from Dukemon is shown.
+image::UserGuideCommandBox.png[width="790"]
+
+1. Click on the _CommandBox_ as shown above (region in yellow box) and type commands in.
+
+2. Use kbd:[Enter] to execute commands.
+.. e.g. Typing *`help`* into the _CommandBox_ and pressing kbd:[Enter] will open the _Help_ window.
+
+3. Text-based feedback for each command entered is shown in the _ResultDisplay_ (region in red box).
+
+_Some typical commands  to get familiar with are:_
+
+* *`create <NAME>`* : Create an empty _WordBank_ with specified name.
+* *`bank <NAME>`* : Select and switch to _WordBank_ with the specified name.
+* *`add w/<WORD> m/<MEANING>`* : Adds a new _Card_ with specified _Word_ and _Meaning_ into the current _WordBank_.
+* *`list`* : List all _Cards_ in the current _WordBank_.
+* **`start <EASY/MEDIUM/HARD>`** : Starts a _Game_ session with the specified _Difficulty_. Default difficulty in
+_Settings_
+will be used if not
+specified.
+* **`guess <YOUR_ANSWER>`** : Make a _Guess_ for the current _Word_ whose _Meaning_ is shown on the UI.
+* **`stop`** : Stops the current _Game_ session.
+* *`exit`* : Exit _Dukemon_.
 
 .  Refer to <<Features>> for details of each command.
 
@@ -203,8 +225,23 @@ Returns any entries containing `mammal`, `fish` or `bird` in its descriptions or
 
 ==== Exit the game : `exit`
 
-=== Game commands
+=== Game Mode and Commands
+
+.UI regions that are relevant when a Game session is in progress.
+image::UserGuideGameSessionDiagram1.png[width="790"]
+
+The general layout of the UI when a _Game_ is in session is as seen above.
+
+1. The timer will be activated reflects the time left before the _Game_ skips over to the next card. (region in yellow box)
+
+2. The _Meaning_ of the current _Card_ is shown in the region contained by the red box. Based on this _Meaning_ you will need to make a _Guess_ for the _Word_ it is describing.
+
+3. _Hints_ will be periodically shown (if enabled) as time passes (region in the blue box) in a Hangman-style. The number of hints given
+differs across each _Difficulty_.
+
 ==== Start new game session : `start`
+
+
 Starts a game session with the selected word bank. +
 You select your word bank from the load command : `bank WORD_BANK`
 
