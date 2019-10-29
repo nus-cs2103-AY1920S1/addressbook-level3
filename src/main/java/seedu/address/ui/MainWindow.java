@@ -1,5 +1,6 @@
 package seedu.address.ui;
 
+import java.util.Arrays;
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
@@ -82,10 +83,6 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
-
-        /*String style = "-fx-font-family: ";
-        style += "Verdana";
-        window.setStyle(style);*/
     }
 
     public Stage getPrimaryStage() {
@@ -194,6 +191,15 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
+     * Toggles the isVisible and isManaged property for the specified panel.
+     * Checks if the entire side panel needs to be toggled as well.
+     */
+    private void handleTogglePanel(String panelNameString) {
+        togglePanel(panelNameString);
+        toggleEntireSidePanelIfNecessary();
+    }
+
+    /**
      * Calls the togglePlaceHolder method with the place holder of the specified panel.
      * @param panelName name of the specified panel to be toggled.
      */
@@ -211,6 +217,7 @@ public class MainWindow extends UiPart<Stage> {
         default:
             break;
         }
+        logger.info("Toggled " + panelName + " side panel");
     }
 
     /**
@@ -237,6 +244,26 @@ public class MainWindow extends UiPart<Stage> {
             sidePanelsPlaceHolder.setManaged(true);
             sidePanelsPlaceHolder.setVisible(true);
         }
+        logger.info("Toggled entire side panel");
+    }
+
+    /**
+     * Returns a {@code String} for the updated feedback to user that includes a list of all the fonts.
+     */
+    private String handleListFonts(String oldFeedbackToUser) {
+        FontManager fontManager = new FontManager();
+        String feedbackToUserWithFontList = oldFeedbackToUser + ": "
+                + Arrays.toString(fontManager.getFonts().toArray());
+        logger.info("Listed all fonts");
+        return feedbackToUserWithFontList;
+    }
+
+    /**
+     * Changes font in the application to the specified font.
+     */
+    private void handleChangeFont(String font) {
+        String style = "-fx-font-family: " + font;
+        window.setStyle(style);
     }
 
     public EntryListPanel getEntryListPanel() {
@@ -266,8 +293,18 @@ public class MainWindow extends UiPart<Stage> {
             if (commandResult.isTogglePanel()) {
                 PanelName panelName = commandResult.getPanelName();
                 String panelNameString = panelName.getName();
-                togglePanel(panelNameString);
-                toggleEntireSidePanelIfNecessary();
+                handleTogglePanel(panelNameString);
+            }
+
+            if (commandResult.isListFonts()) {
+                String feedbackToUser = commandResult.getFeedbackToUser();
+                String feedbackToUserWithFontList = handleListFonts(feedbackToUser);
+                resultDisplay.setFeedbackToUser(feedbackToUserWithFontList);
+            }
+
+            if (commandResult.isChangeFont()) {
+                String fontNameString = commandResult.getFontName().toString();
+                handleChangeFont(fontNameString);
             }
 
             return commandResult;

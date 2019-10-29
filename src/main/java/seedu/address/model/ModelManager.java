@@ -359,9 +359,8 @@ public class ModelManager implements Model {
 
     @Override
     public ObservableList<Entry> getFilteredExpensesAndIncomes() {
-        ObservableList<Entry> list = new FilteredList<>(filteredEntries,
+        return new FilteredList<>(filteredEntries,
             entry -> entry instanceof Expense || entry instanceof Income);
-        return list;
     }
 
     @Override
