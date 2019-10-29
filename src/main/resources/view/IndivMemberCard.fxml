@@ -50,7 +50,8 @@
             </VBox>
             <VBox maxHeight="50.0" alignment="TOP_CENTER" HBox.hgrow="ALWAYS">
                 <children>
-                    <Text fx:id="listTasks"/>
+                    <Label alignment="CENTER_LEFT" styleClass="cell_big_label" text="List of Tasks Assigned" />
+                    <Text fx:id="listTasks" styleClass="tasks_text"/>
                 </children>
             </VBox>
         </VBox>

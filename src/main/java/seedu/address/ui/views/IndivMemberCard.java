@@ -82,10 +82,10 @@ public class IndivMemberCard extends UiPart<Region> {
         imageView.setFitHeight(120);
         imageView.setFitWidth(120);
 
-        String listOfTasks = "Empty";
+        String listOfTasks = "";
 
-        for (Task task: tasks) {
-            listOfTasks += task.toString() + "\n";
+        for (int i = 0; i < tasks.size(); i++) {
+            listOfTasks += (i+1) + ". " + tasks.get(i).toString() + "\n";
         }
 
         listTasks.setText(listOfTasks);

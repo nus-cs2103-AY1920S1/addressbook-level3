@@ -146,6 +146,10 @@
     -fx-height: 20;
 }
 
+.tasks_text {
+    -fx-font-color: #010504;
+}
+
 .stack-pane {
      -fx-background-color: derive(#1d1d1d, 20%);
 }
