@@ -508,6 +508,40 @@ Examples:
 
 * `purchase 1`
 
+=== UI features
+
+==== Toggle Panel : `toggle`
+Toggles visibility of the specified panel on the GUI. Only the following inputs are accepted:
+
+* `wishlist`/`wishes`/`wish`/`w` for wishlist panel,
+* `budgets`/`budget`/`b` for budget panel, and
+* `reminders`/`reminder`/`r` for reminders panel
+Format: `toggle <panel_name>`
+
+Examples:
+
+* `toggle wishlist`
+* `toggle budget`
+* `toggle r`
+
+==== List Fonts : `listFont`
+Lists all available fonts the user can switch to.
+
+Format: `listFont`
+
+Example: `listFont`
+
+==== Change Font : `changeFont`
+Changes the font used in application to the specified font. The input is case-sensitive. Only the following font names are accepted:
+"arial", "calibri", "cambria", "candara", "garamond", "georgia", "rockwell", "segoe UI", "serif", "verdana"
+
+Format: `changeFont <font_name>`
+
+Examples:
+
+* `changeFont arial`
+* `changeFont segoe UI`
+
 == FAQ
 
 *Q*: When will the record of my expenditure be until? +
