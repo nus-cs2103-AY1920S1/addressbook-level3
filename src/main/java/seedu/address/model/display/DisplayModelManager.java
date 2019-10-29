@@ -332,6 +332,8 @@ public class DisplayModelManager {
                     if (newFreeStartTime == null) {
                         newFreeStartTime = currentTime;
                     }
+                    lastVenues = new ArrayList<>(currentLastVenues);
+
                 } else {
                     if (newFreeStartTime != null) {
 
@@ -342,22 +344,23 @@ public class DisplayModelManager {
                                 arr--;
                             }
                         }
-                        //System.out.println("last venues: " + lastVenues);
-                        System.out.println(temp);
+
                         ClosestCommonLocationData closestCommonLocationData = gmapsModelManager.closestLocationData(temp);
 
                         freeSchedule.get(DayOfWeek.of(i))
                                 .add(new FreeTimeslot(
                                         idCounter,
                                         new ArrayList<>(lastVenues),
+                                        //null,
                                         closestCommonLocationData,
                                         newFreeStartTime,
                                         currentTime));
 
                         idCounter ++;
-                        lastVenues = new ArrayList<>(currentLastVenues);
                         newFreeStartTime = null;
                     }
+                    lastVenues = new ArrayList<>(currentLastVenues);
+
                 }
 
                 if (currentTime.equals(endTime)) {
@@ -376,6 +379,7 @@ public class DisplayModelManager {
                                 .add(new FreeTimeslot(
                                         idCounter,
                                         new ArrayList<>(lastVenues),
+                                        //null,
                                         closestCommonLocationData,
                                         newFreeStartTime,
                                         currentTime));

@@ -57,7 +57,7 @@ public class SamplePersonList {
     );
 
     public static final PersonDescriptor DENISE = new PersonDescriptor(
-            new Name("DENISE"),
+            new Name("Denise"),
             new Phone("88642263"),
             new Email("denise@gmail.com"),
             new Address("Kovan road 77"),
