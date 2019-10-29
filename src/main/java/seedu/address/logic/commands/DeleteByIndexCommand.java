@@ -17,11 +17,18 @@ public class DeleteByIndexCommand extends DeleteCommand implements ReversibleCom
 
 
     private final Index targetIndex;
+    private final boolean isUndoRedo;
     private Command undoCommand;
     private Command redoCommand;
 
     public DeleteByIndexCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
+        this.isUndoRedo = false;
+    }
+
+    public DeleteByIndexCommand(Index targetIndex, boolean isUndoRedo) {
+        this.targetIndex = targetIndex;
+        this.isUndoRedo = isUndoRedo;
     }
 
     @Override
@@ -38,8 +45,9 @@ public class DeleteByIndexCommand extends DeleteCommand implements ReversibleCom
             // mark book as returned
             super.markBookAsReturned(model, bookToDelete);
         }
-        undoCommand = new AddCommand(bookToDelete);
-        redoCommand = new DeleteBySerialNumberCommand(bookToDelete.getSerialNumber());
+
+        undoCommand = new AddCommand(bookToDelete, true);
+        redoCommand = new DeleteBySerialNumberCommand(bookToDelete.getSerialNumber(), true);
         model.deleteBook(bookToDelete);
         return new CommandResult(String.format(MESSAGE_DELETE_BOOK_SUCCESS, bookToDelete));
     }
@@ -52,6 +60,11 @@ public class DeleteByIndexCommand extends DeleteCommand implements ReversibleCom
     @Override
     public Command getRedoCommand() {
         return redoCommand;
+    }
+
+    @Override
+    public boolean isUndoRedoCommand() {
+        return isUndoRedo;
     }
 
     @Override

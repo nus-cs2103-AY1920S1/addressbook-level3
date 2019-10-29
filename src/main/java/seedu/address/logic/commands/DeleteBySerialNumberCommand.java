@@ -23,12 +23,19 @@ public class DeleteBySerialNumberCommand extends DeleteCommand implements Revers
     public static final String MESSAGE_DELETE_BOOK_SUCCESS = "Deleted Book: %1$s";
 
     private final SerialNumber targetSerialNumber;
+    private final boolean isUndoRedo;
     private Command undoCommand;
     private Command redoCommand;
 
 
     public DeleteBySerialNumberCommand(SerialNumber targetSerialNumber) {
         this.targetSerialNumber = targetSerialNumber;
+        this.isUndoRedo = false;
+    }
+
+    public DeleteBySerialNumberCommand(SerialNumber targetSerialNumber, boolean isUndoRedo) {
+        this.targetSerialNumber = targetSerialNumber;
+        this.isUndoRedo = isUndoRedo;
     }
 
     @Override
@@ -43,8 +50,9 @@ public class DeleteBySerialNumberCommand extends DeleteCommand implements Revers
             // mark book as returned
             super.markBookAsReturned(model, bookToDelete);
         }
-        undoCommand = new AddCommand(bookToDelete);
-        redoCommand = this;
+
+        undoCommand = new AddCommand(bookToDelete, true);
+        redoCommand = new DeleteBySerialNumberCommand(targetSerialNumber, true);
         model.deleteBook(bookToDelete);
         return new CommandResult(String.format(MESSAGE_DELETE_BOOK_SUCCESS, bookToDelete));
     }
@@ -57,6 +65,11 @@ public class DeleteBySerialNumberCommand extends DeleteCommand implements Revers
     @Override
     public Command getRedoCommand() {
         return redoCommand;
+    }
+
+    @Override
+    public boolean isUndoRedoCommand() {
+        return isUndoRedo;
     }
 
     /**

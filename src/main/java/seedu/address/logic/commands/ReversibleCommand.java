@@ -22,7 +22,7 @@ public interface ReversibleCommand {
     /**
      * Checks whether the command is an undo/redo command.
      *
-     * @return true if command is an undo/redo command, else false. 
+     * @return true if command is an undo/redo command, else false.
      */
     boolean isUndoRedoCommand();
 }

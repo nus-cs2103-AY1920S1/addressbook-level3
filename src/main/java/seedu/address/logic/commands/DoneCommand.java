@@ -14,8 +14,27 @@ public class DoneCommand extends Command implements ReversibleCommand {
             + "Example: " + COMMAND_WORD;
     public static final String MESSAGE_SUCCESS = "Exited from Serve Mode. ";
 
+    private final boolean isUndoRedo;
+
     private Command undoCommand;
     private Command redoCommand;
+
+    /**
+     * Creates a DoneCommand to exit serve mode.
+     */
+    public DoneCommand() {
+        this.isUndoRedo = false;
+    }
+
+    /**
+     * Creates a DoneCommand to exit serve mode.
+     *
+     * @param isUndoRedo used to check whether the DoneCommand is an undo/redo command.
+     */
+    public DoneCommand(boolean isUndoRedo) {
+        this.isUndoRedo = isUndoRedo;
+    }
+
 
     /**
      * Executes the command and returns the result message.
@@ -44,6 +63,11 @@ public class DoneCommand extends Command implements ReversibleCommand {
     @Override
     public Command getRedoCommand() {
         return redoCommand;
+    }
+
+    @Override
+    public boolean isUndoRedoCommand() {
+        return isUndoRedo;
     }
 
     @Override

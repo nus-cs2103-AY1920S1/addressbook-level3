@@ -33,6 +33,8 @@ public class AddCommand extends Command implements ReversibleCommand {
 
     public static final String MESSAGE_SUCCESS = "New book added: %1$s";
 
+    private final boolean isUndoRedo;
+
     private final Book toAdd;
     private final Command undoCommand;
     private final Command redoCommand;
@@ -43,8 +45,20 @@ public class AddCommand extends Command implements ReversibleCommand {
     public AddCommand(Book book) {
         requireNonNull(book);
         toAdd = book;
-        undoCommand = new DeleteBySerialNumberCommand(book.getSerialNumber());
-        redoCommand = this;
+        undoCommand = new DeleteBySerialNumberCommand(book.getSerialNumber(), true);
+        redoCommand = new AddCommand(book, true);
+        isUndoRedo = false;
+    }
+
+    /**
+     * Creates an AddCommand to add the specified {@code Book}
+     */
+    public AddCommand(Book book, boolean isUndoRedo) {
+        requireNonNull(book);
+        toAdd = book;
+        undoCommand = new DeleteBySerialNumberCommand(book.getSerialNumber(), true);
+        redoCommand = new AddCommand(book, true);
+        this.isUndoRedo = isUndoRedo;
     }
 
     @Override
@@ -68,6 +82,11 @@ public class AddCommand extends Command implements ReversibleCommand {
     @Override
     public Command getRedoCommand() {
         return redoCommand;
+    }
+
+    @Override
+    public boolean isUndoRedoCommand() {
+        return isUndoRedo;
     }
 
     @Override
