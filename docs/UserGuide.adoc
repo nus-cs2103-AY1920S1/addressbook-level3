@@ -328,5 +328,11 @@ e.g. `find-pJames Jake`
 * *Delete* : `delete INDEX` +
 e.g. `delete 3`
 * *New* `new POSTAL_CODE`
-* *Fill* `fill n/CALLER_NAME d/INCIDENT_DESCRIPTION`
-* *Submit* `submit`
+* *Fill*
+1. `fill` (to list all draft incidents ready for filling)
+2. `fill [INDEX] [c/CALLER_NUMBER] [d/DESCRIPTION]` (to fill specified incident report) +
+e.g. `fill 1 c/98984932 d/This is a sample description for incident 1 in district 3.`
+* *Submit*
+1. `submit` (to list all completed draft incidents ready for submission)
+2. `submit` [INDEX] (to submit specified incident report) +
+e.g. `submit 4`

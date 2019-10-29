@@ -60,10 +60,10 @@ public class ListIncidentsCommand extends Command {
      * @return string representing command result
      */
     private String handleAllIncidents(Model model, FilteredList<Incident> incidents) {
+        model.updateFilteredIncidentList(predicate);
         if (incidents.isEmpty()) {
             return MESSAGE_NO_INCIDENTS;
         } else {
-            model.updateFilteredIncidentList(predicate);
             return MESSAGE_ALL_INCIDENTS;
         }
     }
@@ -75,10 +75,10 @@ public class ListIncidentsCommand extends Command {
      * @return string representing command result
      */
     private String handleDraftIncidents(Model model, FilteredList<Incident> incidents) {
+        model.updateFilteredIncidentList(predicate);
         if (incidents.isEmpty()) {
             return MESSAGE_NO_DRAFTS_TO_FILL;
         } else {
-            model.updateFilteredIncidentList(predicate);
             return MESSAGE_ALL_DRAFT_INCIDENTS;
         }
     }
@@ -90,10 +90,10 @@ public class ListIncidentsCommand extends Command {
      * @return string representing command result
      */
     private String handleCompleteIncidents(Model model, FilteredList<Incident> incidents) {
+        model.updateFilteredIncidentList(predicate);
         if (incidents.isEmpty()) {
             return MESSAGE_NO_INCIDENT_TO_SUBMIT;
         } else {
-            model.updateFilteredIncidentList(predicate);
             return MESSAGE_ALL_COMPLETE_INCIDENTS;
         }
     }
