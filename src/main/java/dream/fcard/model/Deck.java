@@ -1,8 +1,5 @@
 package dream.fcard.model;
 
-import static dream.fcard.model.cards.Priority.HIGH_PRIORITY;
-import static dream.fcard.model.cards.Priority.LOW_PRIORITY;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
@@ -89,16 +86,16 @@ public class Deck implements JsonInterface {
         for (int i = 0; i < list.size(); i++) {
             FlashCard card = list.get(i);
 
-            boolean isHighPriorityCard = card.getPriority() == HIGH_PRIORITY;
-            boolean isLowPriorityCard = card.getPriority() == LOW_PRIORITY;
-
-            if (isHighPriorityCard) {
-                highPriorityList.add(card);
-            }
-
-            if (isLowPriorityCard) {
-                lowPriorityList.add(card);
-            }
+            //boolean isHighPriorityCard = card.getPriority() == HIGH_PRIORITY;
+            //boolean isLowPriorityCard = card.getPriority() == LOW_PRIORITY;
+            //
+            //if (isHighPriorityCard) {
+            //    highPriorityList.add(card);
+            //}
+            //
+            //if (isLowPriorityCard) {
+            //    lowPriorityList.add(card);
+            //}
         }
     }
 
@@ -178,6 +175,11 @@ public class Deck implements JsonInterface {
         cardToChange.editFront(newFront);
     }
 
+    @Override
+    public String toString() {
+        return getName();
+    }
+
     /**
      * Set back of FlashCard object.
      *
@@ -215,7 +217,16 @@ public class Deck implements JsonInterface {
     }
 
     /**
-     * Returns list storing all High priority FlashCards.
+     * Sets the name of the deck.
+     *
+     * @param deckName the name of the deck.
+     */
+    public void setDeckName(String deckName) {
+        this.deckName = deckName;
+    }
+
+    /**
+     * Returns queue storing all high priority flashcards.
      *
      * @return ArrayList of FlashCards of priority level, High.
      */
@@ -280,21 +291,13 @@ public class Deck implements JsonInterface {
         int chosenCardIndex = rand.nextInt(list.size());
         return list.get(chosenCardIndex);
     }
-
-    /**
-     *
-     *
-     * @return
-     */
-    public int getSize() {
-        return cards.size();
-    }
-
-    public Statistics getStatistics() {
-        return this.deckStats;
-    }
-
-    public Statistics getCardStatistics(int index) {
-        return cards.get(index - 1).getStatistics();
-    }
+    //
+    ///**
+    // *
+    // *
+    // * @return
+    // */
+    //private boolean isIndexProvidedByUserValid(int indexProvided) {
+    //    return indexProvided <= cards.size() && indexProvided > 0;
+    //}
 }

@@ -14,6 +14,8 @@ import javafx.stage.Stage;
  * The application for the JavaScript Editor.
  */
 public class JsEditorApplication extends Application {
+
+
     @Override
     public void start(Stage stage) {
         try {
@@ -31,9 +33,11 @@ public class JsEditorApplication extends Application {
         }
 
     }
+
     /**
      * The boilerplate JavaScript code for the user when the editor is first loaded.
-     * @return basic class code
+     *
+     * @return basic code
      */
     private String boilerPlate() {
         return "//use print() to print text";

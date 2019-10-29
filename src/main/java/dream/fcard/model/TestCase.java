@@ -7,7 +7,7 @@ import dream.fcard.util.FileReadWrite;
 import dream.fcard.util.datastructures.Pair;
 
 /**
- * An object representing 1 input test case and 1 expected output file.
+ * A testcase object to remember 1 input file and 1 output file.
  */
 public class TestCase {
     private File input;
@@ -42,5 +42,13 @@ public class TestCase {
 
     public boolean hasMissingExpectedOutput() {
         return expectedOutput == null;
+    }
+
+    public File getInput() {
+        return input;
+    }
+
+    public File getExpectedOutput() {
+        return expectedOutput;
     }
 }

@@ -21,7 +21,6 @@ public class JsTestRunnerApplication extends Application {
     private Consumer<Pair<Integer, Pair<Integer, Integer>>> sendResult;
     private JavascriptCard card;
 
-
     public JsTestRunnerApplication(Consumer<Pair<Integer, Pair<Integer, Integer>>> sendResult, JavascriptCard c) {
         super();
         this.sendResult = sendResult;
@@ -39,9 +38,9 @@ public class JsTestRunnerApplication extends Application {
             TextArea textArea = (TextArea) ap.getChildren().get(2);
             textArea.setText(boilerPlate());
             ap.getChildren().get(2).requestFocus();
-            JsTestEvaluator e = ((JsTestEvaluator) fxmlloader.getController());
-            e.setCodeReturner(sendResult);
-            e.setCard(card);
+            JsTestEvaluator evaluator = fxmlloader.getController();
+            evaluator.setCodeReturner(sendResult);
+            evaluator.setCard(card);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

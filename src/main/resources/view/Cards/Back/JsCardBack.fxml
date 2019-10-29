@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane id="cardholder" prefHeight="334.0" prefWidth="274.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label fx:id="resultLabel" alignment="TOP_CENTER" layoutX="37.0" layoutY="124.0" prefHeight="126.0" prefWidth="199.0" text="Out of 6 test cases, you passed 5 and failed 1." textAlignment="CENTER" wrapText="true">
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets></Label>
+   </children>
+</AnchorPane>
