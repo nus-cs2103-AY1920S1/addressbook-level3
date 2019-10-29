@@ -355,7 +355,9 @@ Format: `delete -flag  id`
 
 
 ****
-* Deletes the body, worker or fridge entry with the specified identification number.
+* Deletes the body, worker or fridge entry with t
+he specified identification number.
+
 * The identification number is automatically generated when an entity is created and is in the format `BXXXXXXXX`, `WXXXXX`, or `FXX` for a
 body, worker or fridge entry respectively.
 X represents any digit.
@@ -467,17 +469,19 @@ All entries will be sorted and grouped according to their statuses.
 * `sort /order id asc` +
 All entries will be sorted according to their id number in ascending order.
 
-==== Filter body entries: `filter` `[coming in v2.0]`
-Filter all entries according to the given keyword in any of an entry’s attribute. All entries with matching keyword will be displayed. Keyword is case-insensitive.
+==== Filter all entries: `filter`
+This command allows you to filter all entries according to the given keywords in any of an entry’s attributes. All entries with matching keywords will be displayed. Keyword is case-insensitive.
 
-All attributes of a body entry can be filtered. Please refer to <<Section 3.1.1>> for the different fields available to be filtered.
+All attributes of a body or worker entry can be filtered. If more than one attribute is specified, the entries displayed must fulfill all attributes. Please refer to <<Section 3.1.1>> for the different fields available to be filtered.
 
-Format: `filter (/attributeName attributeValue)...`
+Format: `filter -flag /attributeName attributeValue ...`
 
 Example:
-`filter /cod Car Accident`
-All body entries with car accident as the cause of death will be displayed.
+* `filter -w /sex female` +
+All female worker entries will be displayed.
 
+* `filter -b /cod Car Accident /sex male` +
+All body entries with car accident as the cause of death and those that are male will be displayed.
 // end::sortfilter[]
 
 // tag::undoredo[]
@@ -574,11 +578,24 @@ Format: `genReportSummary`
 // end::genReportSummary[]
 
 === Administrative
-==== View admission statistics
-View a line-chart of the number of bodies admitted to the morgue over the past 10 days.
+==== View admission statistics: `stats`
+This command allows you to view a the statistics of the number of bodies admitted to the morgue over the past 10 days, a specific week, a specific month, or a specific year.
 
-The line-chart is on the main page of the application and is automatically updated when a body is added or deleted.
-No user command is needed to display it.
+The statistics appear in graphical form as a line-chart on the main page of the application. The line chart is initialised automatically and you do not need to enter a command to see it. By default, the line-chart displayed shows the number of bodies admitted over the past 10 days and is automatically updated when a body is added or deleted. You can change the time frame with the commands.
+
+The following is the correct format for typing in stats commands, with example usage:
+
+* To display the last 10 days: `stats` +
+The line chart will display statistics over the last 10 days.
+
+* To display a specific week: `stats /week 12/10/2019` +
+The line chart will display statistics for the week which contains the specified day. In this case, it is the date 12/10/2019.
+
+* To display a specific month: `stats /month 5/2019` +
+The line chart will display statistics or the month specified. In this case, it is May 2019.
+
+* To display a specific year: `stats /year 2019` +
+The line chart will display statistics for the year specified. In this case is it 2019.
 
 ==== Archive entries: `archive` `[coming in v2.0]`
 Archive old or irrelevant entries. One entry can be archived at a time, or all entries of a certain specification can be archived at once.
