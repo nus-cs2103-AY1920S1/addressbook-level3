@@ -6,32 +6,39 @@ import java.util.ArrayList;
 
 import org.json.simple.JSONObject;
 
-import seedu.address.commons.exceptions.TimeBookInvalidState;
-import seedu.address.model.gmaps.LocationGraph;
+import seedu.address.model.gmaps.Location;
 import seedu.address.websocket.Cache;
-import seedu.address.websocket.GmapsApi;
 
 /**
  * This method is used to initialise the location graph method
  */
 public class ProcessLocationGraph {
-    private GmapsApi gmapsApi = new GmapsApi();
-    private LocationGraph locationGraph;
+    private ArrayList<Location> validLocationList;
 
-    public ProcessLocationGraph(LocationGraph locationGraph) {
-        this.locationGraph = locationGraph;
+    private ArrayList<ArrayList<Long>> distanceMatrix = new ArrayList<>();
+
+    public ProcessLocationGraph(ArrayList<Location> validLocationList) {
+        this.validLocationList = validLocationList;
+        for (int i = 0; i < validLocationList.size(); i++) {
+            distanceMatrix.add(new ArrayList<>());
+        }
+        process();
     }
 
-    private void setMatrixRows(ArrayList<ArrayList<Long>> distanceMatrix, int start, int end)
-            throws ConnectException, TimeBookInvalidState {
+    public ArrayList<ArrayList<Long>> getDistanceMatrix() {
+        return distanceMatrix;
+    }
+
+    private void setMatrixRows(ArrayList<ArrayList<Long>> distanceMatrix, int start, int end) {
         if (distanceMatrix.size() != end - start + 1) {
-            System.out.println((distanceMatrix.size() + "|" + start + "|" + end));
-            System.out.println(distanceMatrix);
+            System.out.println("size: " + distanceMatrix.size());
+            System.out.println("start: " + start);
+            System.out.println("end: " + end);
             throw new InvalidParameterException("distanceMatrix size must equal to start - end + 1");
         } else {
             for (int i = 0; i < distanceMatrix.size(); i++) {
                 ArrayList<Long> currRow = distanceMatrix.get(i);
-                locationGraph.setMatrixRow(i + start, currRow);
+                setMatrixRow(i + start, currRow);
             }
         }
     }
@@ -40,21 +47,24 @@ public class ProcessLocationGraph {
      * This method is used to populate the distance matrix.
      * @throws ConnectException
      */
-    public void process() throws ConnectException, TimeBookInvalidState {
+    private void process() {
         System.out.println("Start populating");
-        ArrayList<String> gmapsRecognisedLocationList = locationGraph.getValidLocationList();
-        for (int i = 0; i <= gmapsRecognisedLocationList.size() / 10; i++) {
-            ArrayList<String> locationRowString = new ArrayList<String>(gmapsRecognisedLocationList
-                    .subList(i * 10 , Math.min((i + 1) * 10, gmapsRecognisedLocationList.size())));
-            for (int j = 0; j < gmapsRecognisedLocationList.size() / 10; j++) {
-                ArrayList<String> locationColumnString = new ArrayList<String>(gmapsRecognisedLocationList
-                        .subList(j * 10 , Math.min((j + 1) * 10, gmapsRecognisedLocationList.size())));
+        for (int i = 0; i <= validLocationList.size() / 10; i++) {
+            ArrayList<Location> locationRowString = new ArrayList<Location>(validLocationList
+                    .subList(i * 10 , Math.min((i + 1) * 10, validLocationList.size())));
+            for (int j = 0; j < validLocationList.size() / 10; j++) {
+                ArrayList<Location> locationColumnString = new ArrayList<Location>(validLocationList
+                        .subList(j * 10 , Math.min((j + 1) * 10, validLocationList.size())));
                 JSONObject apiResponse = Cache.loadDistanceMatrix(locationRowString, locationColumnString);
                 ArrayList<ArrayList<Long>> currMatrix = GmapsJsonUtils.getArrayListMatrix(apiResponse);
-                setMatrixRows(currMatrix, i * 10, Math.min(i * 10 + 9, gmapsRecognisedLocationList.size() - 1));
+                setMatrixRows(currMatrix, i * 10, Math.min(i * 10 + 9, validLocationList.size() - 1));
             }
         }
         System.out.println("Finish populating");
+    }
+
+    private void setMatrixRow(int rowNum, ArrayList<Long> row) {
+        distanceMatrix.get(rowNum).addAll(row);
     }
 
 }

@@ -1,6 +1,13 @@
 {
-  "html_attributions" : [],
-  "results" : [
+  "candidates": [
+    {
+      "name": "NUS S11",
+      "place_id": "ChIJMW2gnpUb2jERlUYTYSaawlc"
+    },
+    {
+      "name": "LT32 NUS",
+      "place_id": "ChIJd6fn-FYa2jER1eMe-wts2_E"
+    }
   ],
-  "status" : "OK"
+  "status": "OK"
 }

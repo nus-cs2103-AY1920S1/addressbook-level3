@@ -55,7 +55,7 @@ public class ProcessVenues {
         sanitizeLocation.generateImage();
     }
 
-    public ArrayList<String> getValidLocationList() {
+    public ArrayList<Location> getValidLocationList() {
         return sanitizeLocation.getValidLocationList();
     }
 
@@ -71,7 +71,9 @@ public class ProcessVenues {
         } else {
             for (int i = 0; i < venuesNusMods.size(); i++) {
                 Location currLocation = getLocation(i);
-                venues.add(currLocation);
+                if (currLocation != null) {
+                    venues.add(currLocation);
+                }
             }
         }
         return new ProcessVenues(venuesNusMods, venues, sanitizeLocation);
@@ -90,8 +92,7 @@ public class ProcessVenues {
             String locationName = (String) venuesNusMods.get(i);
             Location currLocation = new Location(locationName);
             try {
-                String validLocation = sanitizeLocation.sanitize(locationName);
-                currLocation.setValidLocation(validLocation);
+                currLocation = sanitizeLocation.sanitize(locationName);
             } catch (TimeBookInvalidLocation e) {
                 logger.warning("Cannot get location for " + locationName);
             }

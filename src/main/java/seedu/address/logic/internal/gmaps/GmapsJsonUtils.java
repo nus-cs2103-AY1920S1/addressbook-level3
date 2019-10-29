@@ -38,6 +38,12 @@ public class GmapsJsonUtils {
         return distanceMatrixArrayList;
     }
 
+    public static String getPlaceId(JSONObject apiResponse) {
+        JSONArray candidates = (JSONArray) apiResponse.get("candidates");
+        JSONObject firstCandidate = (JSONObject) candidates.get(0);
+        return (String) firstCandidate.get("place_id");
+    }
+
     /**
      * This method is used to get the status of the api response
      * @param apiResponse

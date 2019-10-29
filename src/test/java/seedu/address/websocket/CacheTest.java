@@ -8,10 +8,10 @@ import java.util.Arrays;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.internal.gmaps.GmapsJsonUtils;
+import seedu.address.model.gmaps.Location;
 import seedu.address.model.module.AcadCalendar;
 import seedu.address.model.module.Holidays;
 import seedu.address.model.module.Module;
@@ -75,13 +75,10 @@ class CacheTest {
 
     @Test
     void loadDistanceMatrix() {
-        ArrayList<String> input = new ArrayList<String>(Arrays.asList("Bar", "Bar", "Bar"));
+        ArrayList<Location> input = new ArrayList<Location>(
+                Arrays.asList(new Location("Bar"), new Location("Bar"),
+                        new Location("Bar")));
         JSONObject distanceMatrixResponse = Cache.loadDistanceMatrix(input, input);
-        assertEquals("REQUEST_DENIED", GmapsJsonUtils.getStatus(distanceMatrixResponse));
-    }
-
-    @Disabled
-    void saveToJson() {
-        Cache.saveToJson("key", "value", placesJsonPath);
+        assertEquals(distanceMatrixResponse, new JSONObject());
     }
 }

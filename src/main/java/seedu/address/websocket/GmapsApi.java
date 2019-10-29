@@ -8,6 +8,7 @@ import java.util.logging.Logger;
 import org.json.simple.JSONObject;
 
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.gmaps.Location;
 import seedu.address.websocket.util.ApiQuery;
 import seedu.address.websocket.util.ParserUtil;
 import seedu.address.websocket.util.QueryResult;
@@ -31,26 +32,28 @@ public class GmapsApi {
      * @throws InvalidParameterException
      * @throws ConnectException
      */
-    public static JSONObject getDistanceMatrix(ArrayList<String> locationsRow, ArrayList<String> locationsColumn)
+    public static JSONObject getDistanceMatrix(ArrayList<Location> locationsRow, ArrayList<Location> locationsColumn)
             throws InvalidParameterException, ConnectException {
         ApiQuery query = new ApiQuery(UrlUtil.generateGmapsDistanceMatrixUrl(locationsRow, locationsColumn));
         QueryResult queryResult = query.execute();
+        logger.info("Calling " + UrlUtil.generateGmapsDistanceMatrixUrl(locationsRow, locationsColumn));
         if (queryResult.process(logger)) {
             JSONObject obj = ParserUtil.parseStringToJsonObject(queryResult.getResponseResult());
             return obj;
         } else {
-            throw new ConnectException(ParserUtil.parseStringToJsonObject(queryResult.getResponseResult()).toString());
+            throw new ConnectException("Connection Error");
         }
     }
 
     public static JSONObject getLocation(String locationName) throws ConnectException {
         ApiQuery query = new ApiQuery(UrlUtil.generateGmapsPlacesUrl(locationName));
         QueryResult queryResult = query.execute();
+        logger.info("Calling " + UrlUtil.generateGmapsPlacesUrl(locationName));
         if (queryResult.process(logger)) {
             JSONObject obj = ParserUtil.parseStringToJsonObject(queryResult.getResponseResult());
             return obj;
         } else {
-            throw new ConnectException(ParserUtil.parseStringToJsonObject(queryResult.getResponseResult()).toString());
+            throw new ConnectException("Connection Error");
         }
     }
 }

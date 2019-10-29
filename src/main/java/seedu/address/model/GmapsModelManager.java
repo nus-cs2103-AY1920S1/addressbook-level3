@@ -18,7 +18,7 @@ public class GmapsModelManager {
 
     private ArrayList<Location> locations;
 
-    private ArrayList<String> validLocationList;
+    private ArrayList<Location> validLocationList;
 
     private LocationGraph locationGraph;
 
@@ -26,7 +26,7 @@ public class GmapsModelManager {
         try {
             initProcessVenues();
             initLocationGraph();
-        } catch (TimeBookInvalidState | ConnectException e) {
+        } catch (TimeBookInvalidState e) {
             e.printStackTrace();
         }
     }
@@ -54,8 +54,8 @@ public class GmapsModelManager {
      * @throws TimeBookInvalidState
      * @throws ConnectException
      */
-    private void initLocationGraph() throws TimeBookInvalidState, ConnectException {
-        locationGraph = new LocationGraph(locations, validLocationList);
-        new ProcessLocationGraph(locationGraph).process();
+    private void initLocationGraph() {
+        ArrayList<ArrayList<Long>> distanceMatrix = new ProcessLocationGraph(validLocationList).getDistanceMatrix();
+        locationGraph = new LocationGraph(locations, validLocationList, distanceMatrix);
     }
 }

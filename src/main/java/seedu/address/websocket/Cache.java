@@ -19,6 +19,7 @@ import seedu.address.commons.util.JsonUtil;
 import seedu.address.commons.util.SimpleJsonUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.gmaps.Location;
 import seedu.address.model.module.AcadCalendar;
 import seedu.address.model.module.Holidays;
 import seedu.address.model.module.Module;
@@ -274,10 +275,12 @@ public class Cache {
             result = (JSONObject) placesJson.get(sanitizedUrl);
         } else {
             try {
+                checkGmapsKey(fullUrl);
                 logger.info("Getting location: " + locationName + " data from Google Maps API");
                 result = GmapsApi.getLocation(locationName);
                 saveToJson(sanitizedUrl, result, CacheFileNames.GMAPS_PLACES_PATH);
             } catch (ConnectException e) {
+                logger.info(e.getMessage());
                 logger.severe("Failed to get info for " + locationName + " from caching and API");
             }
         }
@@ -290,7 +293,7 @@ public class Cache {
      * @param locationsColumn
      * @return
      */
-    public static JSONObject loadDistanceMatrix(ArrayList<String> locationsRow, ArrayList<String> locationsColumn) {
+    public static JSONObject loadDistanceMatrix(ArrayList<Location> locationsRow, ArrayList<Location> locationsColumn) {
         String fullUrl = UrlUtil.generateGmapsDistanceMatrixUrl(locationsRow, locationsColumn);
         String sanitizedUrl = UrlUtil.sanitizeApiKey(fullUrl);
         JSONObject distanceMatrixJson = new JSONObject();
@@ -306,13 +309,21 @@ public class Cache {
             try {
                 logger.info("Getting row: " + locationsRow + " column " + locationsColumn
                         + " data from Google Maps API");
+                checkGmapsKey(fullUrl);
                 result = GmapsApi.getDistanceMatrix(locationsRow, locationsColumn);
                 saveToJson(sanitizedUrl, result, CacheFileNames.GMAPS_DISTANCE_MATRIX_PATH);
             } catch (ConnectException e) {
+                logger.info(e.getMessage());
                 logger.severe("Failed to get info for row: " + locationsRow + " column: " + locationsColumn
                         + " from caching and API");
             }
         }
         return result;
+    }
+
+    private static void checkGmapsKey(String url) throws ConnectException {
+        if (url.split("key=").length == 1 ) {
+            throw new ConnectException("Enter API key to make API call");
+        }
     }
 }
