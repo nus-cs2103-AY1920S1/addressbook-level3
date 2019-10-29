@@ -22,7 +22,8 @@ public class SwitchSchedulePanelCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Switched to Schedule panel";
 
     @Override
-    public CommandResult execute(Model model, CommandHistory commandHistory, UndoRedoStack undoRedoStack) throws CommandException {
+    public CommandResult execute(Model model, CommandHistory commandHistory,
+                                 UndoRedoStack undoRedoStack) throws CommandException {
         requireNonNull(model);
         model.setCalendarDate(Calendar.getInstance());
         return new CommandResult(MESSAGE_SUCCESS, UiChange.SCHEDULE);

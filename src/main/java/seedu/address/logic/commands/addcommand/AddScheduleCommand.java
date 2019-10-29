@@ -66,7 +66,8 @@ public class AddScheduleCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model, CommandHistory commandHistory, UndoRedoStack undoRedoStack) throws CommandException {
+    public CommandResult execute(Model model, CommandHistory commandHistory,
+                                 UndoRedoStack undoRedoStack) throws CommandException {
         requireNonNull(model);
 
         List<Order> orderList = model.getFilteredOrderList();

@@ -13,6 +13,8 @@ import java.util.UUID;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.CommandHistory;
+import seedu.address.logic.UndoRedoStack;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.UiChange;
 import seedu.address.logic.commands.UndoableCommand;
@@ -68,7 +70,8 @@ public class AddOrderCommand extends UndoableCommand {
     }
 
     @Override
-    public CommandResult executeUndoableCommand(Model model) throws CommandException {
+    public CommandResult executeUndoableCommand(Model model, CommandHistory commandHistory,
+                                                UndoRedoStack undoRedoStack) throws CommandException {
         requireNonNull(model);
 
         List<Customer> lastShownCustomerList = model.getFilteredCustomerList();

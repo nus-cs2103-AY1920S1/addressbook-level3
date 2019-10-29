@@ -32,7 +32,8 @@ public class ScheduleCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model, CommandHistory commandHistory, UndoRedoStack undoRedoStack) throws CommandException {
+    public CommandResult execute(Model model, CommandHistory commandHistory,
+                                 UndoRedoStack undoRedoStack) throws CommandException {
         requireNonNull(model);
         model.setCalendarDate(calendarToShow);
         return new CommandResult(MESSAGE_SUCCESS, UiChange.SCHEDULE);

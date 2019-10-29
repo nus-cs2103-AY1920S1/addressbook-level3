@@ -20,7 +20,8 @@ public class SwitchArchivedOrderPanelCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Switched to archived Order panel";
 
     @Override
-    public CommandResult execute(Model model, CommandHistory commandHistory, UndoRedoStack undoRedoStack) throws CommandException {
+    public CommandResult execute(Model model, CommandHistory commandHistory,
+                                 UndoRedoStack undoRedoStack) throws CommandException {
         requireNonNull(model);
         return new CommandResult(MESSAGE_SUCCESS, UiChange.ARCHIVED_ORDER);
     }

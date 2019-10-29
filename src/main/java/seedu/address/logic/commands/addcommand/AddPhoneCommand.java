@@ -11,6 +11,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SERIAL_NUM;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
+import seedu.address.logic.CommandHistory;
+import seedu.address.logic.UndoRedoStack;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.UiChange;
 import seedu.address.logic.commands.UndoableCommand;
@@ -60,7 +62,8 @@ public class AddPhoneCommand extends UndoableCommand {
     }
 
     @Override
-    public CommandResult executeUndoableCommand(Model model) throws CommandException {
+    public CommandResult executeUndoableCommand(Model model, CommandHistory commandHistory,
+                                                UndoRedoStack undoRedoStack) throws CommandException {
         requireNonNull(model);
 
         if (model.hasPhone(toAdd)) {

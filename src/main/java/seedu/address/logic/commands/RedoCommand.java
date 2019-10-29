@@ -17,7 +17,8 @@ public class RedoCommand extends Command {
     public static final String MESSAGE_FAILURE = "No more commands to redo!";
 
     @Override
-    public CommandResult execute(Model model, CommandHistory commandHistory, UndoRedoStack undoRedoStack) throws CommandException {
+    public CommandResult execute(Model model, CommandHistory commandHistory,
+                                 UndoRedoStack undoRedoStack) throws CommandException {
         requireAllNonNull(model, undoRedoStack);
 
         if (!undoRedoStack.canRedo()) {

@@ -2,6 +2,8 @@ package seedu.address.logic.commands.clearcommand;
 
 import static java.util.Objects.requireNonNull;
 
+import seedu.address.logic.CommandHistory;
+import seedu.address.logic.UndoRedoStack;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.UiChange;
 import seedu.address.logic.commands.UndoableCommand;
@@ -19,7 +21,8 @@ public class ClearPhoneCommand extends UndoableCommand {
 
 
     @Override
-    public CommandResult executeUndoableCommand(Model model) {
+    public CommandResult executeUndoableCommand(Model model, CommandHistory commandHistory,
+                                                UndoRedoStack undoRedoStack) {
         requireNonNull(model);
         model.setPhoneBook(new DataBook<Phone>());
         return new CommandResult(MESSAGE_SUCCESS, UiChange.PHONE);

@@ -24,7 +24,8 @@ public abstract class UndoableCommand extends Command {
     private ReadOnlyDataBook<Schedule> previousScheduleBook;
     private ReadOnlyDataBook<Order> previousArchivedOrderBook;
 
-    protected abstract CommandResult executeUndoableCommand(Model model) throws CommandException;
+    protected abstract CommandResult executeUndoableCommand(Model model, CommandHistory commandHistory,
+                                                            UndoRedoStack undoRedoStack) throws CommandException;
 
     /**
      * Stores the current state of {@code model#customerBook}.
@@ -98,7 +99,7 @@ public abstract class UndoableCommand extends Command {
     protected final void redo(Model model) {
         requireNonNull(model);
         try {
-            executeUndoableCommand(model);
+            executeUndoableCommand(model, new CommandHistory(), new UndoRedoStack());
         } catch (CommandException ce) {
             throw new AssertionError("The command has been successfully executed previously; "
                     + "it should not fail now");
@@ -112,7 +113,8 @@ public abstract class UndoableCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model, CommandHistory commandHistory, UndoRedoStack undoRedoStack) throws CommandException {
+    public CommandResult execute(Model model, CommandHistory commandHistory,
+                                 UndoRedoStack undoRedoStack) throws CommandException {
 
         saveCustomerBookSnapshot(model);
         savePhoneBookSnapshot(model);
@@ -120,7 +122,7 @@ public abstract class UndoableCommand extends Command {
         saveScheduleBookSnapshot(model);
         saveArchivedOrderBookSnapshot(model);
 
-        return executeUndoableCommand(model);
+        return executeUndoableCommand(model, commandHistory, undoRedoStack);
     }
 
 }

@@ -56,7 +56,8 @@ public class StatsCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model, CommandHistory commandHistory, UndoRedoStack undoRedoStack) throws CommandException {
+    public CommandResult execute(Model model, CommandHistory commandHistory,
+                                 UndoRedoStack undoRedoStack) throws CommandException {
         StatsPayload payload = new StatsPayload(this.startingDate, this.endingDate, statisticType);
         return new CommandResult(MESSAGE_USAGE, payload, UiChange.STATS);
     }

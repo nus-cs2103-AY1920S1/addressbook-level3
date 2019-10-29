@@ -20,7 +20,8 @@ public class SwitchPhonePanelCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Switched to Phone panel";
 
     @Override
-    public CommandResult execute(Model model, CommandHistory commandHistory, UndoRedoStack undoRedoStack) throws CommandException {
+    public CommandResult execute(Model model, CommandHistory commandHistory,
+                                 UndoRedoStack undoRedoStack) throws CommandException {
         requireNonNull(model);
         return new CommandResult(MESSAGE_SUCCESS, UiChange.PHONE);
     }
