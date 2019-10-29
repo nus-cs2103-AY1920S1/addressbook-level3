@@ -1,6 +1,5 @@
 package seedu.address.storage;
 
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPhones.IPHONE_JSON_TEST;
@@ -60,7 +59,7 @@ public class JsonAdaptedPhoneTest {
     @Test
     public void toModelType_invalidSerialNum_throwsIllegalValueException() {
         JsonAdaptedPhone phone = new JsonAdaptedPhone(VALID_IDENTITY_NUM, INVALID_SERIAL_NUM,
-                VALID_NAME, VALID_BRAND, VALID_CAPACITY, VALID_COLOUR, VALID_COST ,VALID_TAGS);
+                VALID_NAME, VALID_BRAND, VALID_CAPACITY, VALID_COLOUR, VALID_COST, VALID_TAGS);
         String expectedMessage = SerialNumber.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, phone::toModelType);
     }
@@ -68,7 +67,7 @@ public class JsonAdaptedPhoneTest {
     @Test
     public void toModelType_invalidPhoneName_throwsIllegalValueException() {
         JsonAdaptedPhone phone = new JsonAdaptedPhone(VALID_IDENTITY_NUM, VALID_SERIAL_NUM,
-                INVALID_NAME, VALID_BRAND, VALID_CAPACITY, VALID_COLOUR, VALID_COST ,VALID_TAGS);
+                INVALID_NAME, VALID_BRAND, VALID_CAPACITY, VALID_COLOUR, VALID_COST, VALID_TAGS);
         String expectedMessage = PhoneName.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, phone::toModelType);
     }
@@ -76,7 +75,7 @@ public class JsonAdaptedPhoneTest {
     @Test
     public void toModelType_invalidBrand_throwsIllegalValueException() {
         JsonAdaptedPhone phone = new JsonAdaptedPhone(VALID_IDENTITY_NUM, VALID_SERIAL_NUM,
-                VALID_NAME, INVALID_BRAND, VALID_CAPACITY, VALID_COLOUR, VALID_COST ,VALID_TAGS);
+                VALID_NAME, INVALID_BRAND, VALID_CAPACITY, VALID_COLOUR, VALID_COST, VALID_TAGS);
         String expectedMessage = Brand.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, phone::toModelType);
     }
@@ -84,7 +83,7 @@ public class JsonAdaptedPhoneTest {
     @Test
     public void toModelType_invalidCapacity_throwsIllegalValueException() {
         JsonAdaptedPhone phone = new JsonAdaptedPhone(VALID_IDENTITY_NUM, VALID_SERIAL_NUM,
-                VALID_NAME, VALID_BRAND, INVALID_CAPACITY, VALID_COLOUR, VALID_COST ,VALID_TAGS);
+                VALID_NAME, VALID_BRAND, INVALID_CAPACITY, VALID_COLOUR, VALID_COST, VALID_TAGS);
         String expectedMessage = Capacity.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, phone::toModelType);
     }
@@ -92,7 +91,7 @@ public class JsonAdaptedPhoneTest {
     @Test
     public void toModelType_invalidColour_throwsIllegalValueException() {
         JsonAdaptedPhone phone = new JsonAdaptedPhone(VALID_IDENTITY_NUM, VALID_SERIAL_NUM,
-                VALID_NAME, VALID_BRAND, VALID_CAPACITY, INVALID_COLOUR, VALID_COST ,VALID_TAGS);
+                VALID_NAME, VALID_BRAND, VALID_CAPACITY, INVALID_COLOUR, VALID_COST, VALID_TAGS);
         String expectedMessage = Colour.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, phone::toModelType);
     }
@@ -100,7 +99,7 @@ public class JsonAdaptedPhoneTest {
     @Test
     public void toModelType_invalidCost_throwsIllegalValueException() {
         JsonAdaptedPhone phone = new JsonAdaptedPhone(VALID_IDENTITY_NUM, VALID_SERIAL_NUM,
-                VALID_NAME, VALID_BRAND, VALID_CAPACITY, VALID_COLOUR, INVALID_COST ,VALID_TAGS);
+                VALID_NAME, VALID_BRAND, VALID_CAPACITY, VALID_COLOUR, INVALID_COST, VALID_TAGS);
         String expectedMessage = Cost.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, phone::toModelType);
     }
@@ -110,7 +109,7 @@ public class JsonAdaptedPhoneTest {
         List<JsonAdaptedTag> invalidTags = new ArrayList<>(VALID_TAGS);
         invalidTags.add(new JsonAdaptedTag(INVALID_TAG));
         JsonAdaptedPhone phone = new JsonAdaptedPhone(VALID_IDENTITY_NUM, VALID_SERIAL_NUM,
-                VALID_NAME, VALID_BRAND, VALID_CAPACITY, VALID_COLOUR, VALID_COST , invalidTags);
+                VALID_NAME, VALID_BRAND, VALID_CAPACITY, VALID_COLOUR, VALID_COST, invalidTags);
         assertThrows(IllegalValueException.class, phone::toModelType);
     }
 

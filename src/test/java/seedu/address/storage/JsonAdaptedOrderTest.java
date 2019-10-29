@@ -11,6 +11,7 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
+
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.customer.Customer;
 import seedu.address.model.order.Price;
@@ -67,7 +68,7 @@ public class JsonAdaptedOrderTest {
                 new JsonAdaptedPhone(VALID_PHONE), VALID_PRICE, INVALID_STATUS, new JsonAdaptedSchedule(VALID_SCHEDULE),
                 VALID_TAGS);
 
-        assertEquals(Status.CANCELLED, order.toModelType().getStatus() );
+        assertEquals(Status.CANCELLED, order.toModelType().getStatus());
     }
 
     @Test
