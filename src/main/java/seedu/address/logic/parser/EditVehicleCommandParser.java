@@ -14,7 +14,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 /**
  * Parses input arguments and creates a new EditVehicleCommand object
  */
-public class EditVehicleCommandParser {
+public class EditVehicleCommandParser implements Parser<EditVehicleCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of EditVehicleCommand
