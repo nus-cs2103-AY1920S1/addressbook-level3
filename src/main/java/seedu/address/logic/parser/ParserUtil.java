@@ -22,7 +22,7 @@ import seedu.address.model.employee.EmployeeId;
 import seedu.address.model.employee.EmployeeJoinDate;
 import seedu.address.model.employee.EmployeeName;
 import seedu.address.model.employee.EmployeePhone;
-import seedu.address.model.employee.EmployeePosition;
+import seedu.address.model.employee.EmployeePay;
 import seedu.address.model.event.EventDate;
 import seedu.address.model.event.EventDateTimeMap;
 import seedu.address.model.event.EventDayTime;
@@ -70,18 +70,18 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String position} into a {@code EmployeePosition}.
+     * Parses a {@code String position} into a {@code EmployeePay}.
      * Leading and trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code position} is invalid.
      */
-    public static EmployeePosition parsePosition(String position) throws ParseException {
-        requireNonNull(position);
-        String trimmedPosition = position.trim();
-        if (!EmployeePosition.isValidPosition(trimmedPosition)) {
-            throw new ParseException(EmployeePosition.MESSAGE_CONSTRAINTS);
+    public static EmployeePay parsePay(String pay) throws ParseException {
+        requireNonNull(pay);
+        String trimmedPosition = pay.trim();
+        if (!EmployeePay.isValidPosition(trimmedPosition)) {
+            throw new ParseException(EmployeePay.MESSAGE_CONSTRAINTS);
         }
-        return new EmployeePosition(trimmedPosition);
+        return new EmployeePay(trimmedPosition);
     }
 
     /**

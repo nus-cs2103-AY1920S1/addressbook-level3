@@ -7,7 +7,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_GENDER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_JOIN_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_POSITION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PAY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
@@ -25,15 +25,8 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.employee.Employee;
-import seedu.address.model.employee.EmployeeAddress;
-import seedu.address.model.employee.EmployeeEmail;
-import seedu.address.model.employee.EmployeeGender;
-import seedu.address.model.employee.EmployeeId;
-import seedu.address.model.employee.EmployeeJoinDate;
-import seedu.address.model.employee.EmployeeName;
-import seedu.address.model.employee.EmployeePhone;
-import seedu.address.model.employee.EmployeePosition;
+import seedu.address.model.employee.*;
+import seedu.address.model.employee.EmployeePay;
 import seedu.address.model.tag.Tag;
 
 
@@ -42,7 +35,7 @@ import seedu.address.model.tag.Tag;
  */
 public class EditCommand extends Command {
 
-    public static final String COMMAND_WORD = "edit";
+    public static final String COMMAND_WORD = "edit_em";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the employee identified "
             + "by the index number used in the displayed employee list. "
@@ -50,7 +43,7 @@ public class EditCommand extends Command {
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_GENDER + "GENDER] "
-            + "[" + PREFIX_POSITION + "POSITION] "
+            + "[" + PREFIX_PAY + "PAY] "
             + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_EMAIL + "EMAIL] "
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
@@ -119,14 +112,14 @@ public class EditCommand extends Command {
         Set<Tag> updatedTags = editEmployeeDescriptor.getTags()
                 .orElse(employeeToEdit.getTags());
         EmployeeId updatedEmployeeId = editEmployeeDescriptor.getEmployeeId().orElse(employeeToEdit.getEmployeeId());
-        EmployeePosition updatedEmployeePosition = editEmployeeDescriptor.getEmployeePosition()
-                .orElse(employeeToEdit.getEmployeePosition());
+        EmployeePay updatedEmployeePay = editEmployeeDescriptor.getEmployeePay()
+                .orElse(employeeToEdit.getEmployeePay());
         EmployeeGender updatedEmployeeGender = editEmployeeDescriptor.getEmployeeGender()
                 .orElse(employeeToEdit.getEmployeeGender());
         EmployeeJoinDate updatedEmployeeJoinDate = editEmployeeDescriptor.getEmployeeJoinDate()
                 .orElse(employeeToEdit.getEmployeeJoinDate());
 
-        return new Employee(updatedEmployeeId, updatedEmployeeName, updatedEmployeeGender, updatedEmployeePosition,
+        return new Employee(updatedEmployeeId, updatedEmployeeName, updatedEmployeeGender, updatedEmployeePay,
                  updatedEmployeePhone, updatedEmployeeEmail, updatedEmployeeAddress,
                 updatedEmployeeJoinDate, updatedTags);
     }
@@ -159,7 +152,7 @@ public class EditCommand extends Command {
         private EmployeeEmail employeeEmail;
         private EmployeeAddress employeeAddress;
         private EmployeeJoinDate employeeJoinDate;
-        private EmployeePosition employeePosition;
+        private EmployeePay employeePay;
         private EmployeeGender employeeGender;
         private EmployeeId employeeId;
         private Set<Tag> tags;
@@ -177,7 +170,7 @@ public class EditCommand extends Command {
             setEmployeeAddress(toCopy.employeeAddress);
             setEmployeeId(toCopy.employeeId);
             setEmployeeGender(toCopy.employeeGender);
-            setEmployeePosition(toCopy.employeePosition);
+            setEmployeePay(toCopy.employeePay);
             setEmployeeJoinDate(toCopy.employeeJoinDate);
             setTags(toCopy.tags);
         }
@@ -209,12 +202,12 @@ public class EditCommand extends Command {
             this.employeeId = employeeId;
         }
 
-        public void setEmployeePosition(EmployeePosition employeePosition) {
-            this.employeePosition = employeePosition;
+        public void setEmployeePay(EmployeePay employeePay) {
+            this.employeePay = employeePay;
         }
 
-        public Optional<EmployeePosition> getEmployeePosition() {
-            return Optional.ofNullable(employeePosition);
+        public Optional<EmployeePay> getEmployeePay() {
+            return Optional.ofNullable(employeePay);
         }
 
         public void setEmployeeGender(EmployeeGender employeeGender) {
@@ -290,7 +283,7 @@ public class EditCommand extends Command {
                     && getEmployeeEmail().equals(e.getEmployeeEmail())
                     && getEmployeeAddress().equals(e.getEmployeeAddress())
                     && getTags().equals(e.getTags())
-                    && getEmployeePosition().equals(e.getEmployeePosition())
+                    && getEmployeePay().equals(e.getEmployeePay())
                     && getEmployeeId().equals(e.getEmployeeId())
                     && getEmployeeGender().equals(e.getEmployeeGender())
                     && getEmployeeJoinDate().equals(e.getEmployeeJoinDate());

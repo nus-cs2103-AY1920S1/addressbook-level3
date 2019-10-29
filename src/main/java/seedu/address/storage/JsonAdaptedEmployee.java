@@ -12,15 +12,8 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.employee.Employee;
-import seedu.address.model.employee.EmployeeAddress;
-import seedu.address.model.employee.EmployeeEmail;
-import seedu.address.model.employee.EmployeeGender;
-import seedu.address.model.employee.EmployeeId;
-import seedu.address.model.employee.EmployeeJoinDate;
-import seedu.address.model.employee.EmployeeName;
-import seedu.address.model.employee.EmployeePhone;
-import seedu.address.model.employee.EmployeePosition;
+import seedu.address.model.employee.*;
+import seedu.address.model.employee.EmployeePay;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -88,7 +81,7 @@ class JsonAdaptedEmployee {
         email = source.getEmployeeEmail().value;
         address = source.getEmployeeAddress().value;
         id = source.getEmployeeId().id;
-        position = source.getEmployeePosition().fullPosition;
+        position = source.getEmployeePay().fullPosition;
         gender = source.getEmployeeGender().gender;
         joindate = source.getEmployeeJoinDate().toString();
         tagged.addAll(source.getTags().stream()
@@ -118,12 +111,12 @@ class JsonAdaptedEmployee {
 
         if (position == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                    EmployeePosition.class.getSimpleName()));
+                    EmployeePay.class.getSimpleName()));
         }
-        if (!EmployeePosition.isValidPosition(position)) {
-            throw new IllegalValueException(EmployeePosition.MESSAGE_CONSTRAINTS);
+        if (!EmployeePay.isValidPosition(position)) {
+            throw new IllegalValueException(EmployeePay.MESSAGE_CONSTRAINTS);
         }
-        final EmployeePosition modelEmployeePosition = new EmployeePosition(position);
+        final EmployeePay modelEmployeePay = new EmployeePay(position);
 
         if (gender == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
@@ -181,7 +174,7 @@ class JsonAdaptedEmployee {
         final EmployeeAddress modelEmployeeAddress = new EmployeeAddress(address);
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Employee(modelEmployeeId, modelEmployeeName, modelEmployeeGender, modelEmployeePosition,
+        return new Employee(modelEmployeeId, modelEmployeeName, modelEmployeeGender, modelEmployeePay,
                 modelEmployeePhone, modelEmployeeEmail, modelEmployeeAddress, modelEmployeeJoinDate, modelTags);
     }
 

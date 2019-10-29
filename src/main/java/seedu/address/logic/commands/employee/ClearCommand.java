@@ -13,7 +13,7 @@ import seedu.address.model.Model;
  */
 public class ClearCommand extends Command {
 
-    public static final String COMMAND_WORD = "clear";
+    public static final String COMMAND_WORD = "clear_em";
     public static final String MESSAGE_SUCCESS = "Both address and event book has been cleared!";
 
 

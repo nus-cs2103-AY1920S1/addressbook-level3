@@ -4,10 +4,10 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Employee's position in the AddMin+.
+ * Represents a Employee's pay in the AddMin+.
  * Guarantees: immutable; is valid as declared in {@link #isValidPosition(String)}
  */
-public class EmployeePosition {
+public class EmployeePay {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Position should only contain alphanumeric characters, and it should not be blank";
@@ -21,18 +21,18 @@ public class EmployeePosition {
     public final String fullPosition;
 
     /**
-     * Constructs a {@code EmployeePosition}.
+     * Constructs a {@code EmployeePay}.
      *
-     * @param position A valid position.
+     * @param pay A valid pay.
      */
-    public EmployeePosition(String position) {
-        requireNonNull(position);
-        checkArgument(isValidPosition(position), MESSAGE_CONSTRAINTS);
-        fullPosition = position;
+    public EmployeePay(String pay) {
+        requireNonNull(pay);
+        checkArgument(isValidPosition(pay), MESSAGE_CONSTRAINTS);
+        fullPosition = pay;
     }
 
     /**
-     * Returns true if a given string is a valid position.
+     * Returns true if a given string is a valid pay.
      */
     public static boolean isValidPosition(String test) {
         return test.matches(VALIDATION_REGEX);
@@ -47,8 +47,8 @@ public class EmployeePosition {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof EmployeePosition // instanceof handles nulls
-                && fullPosition.equals(((EmployeePosition) other).fullPosition)); // state check
+                || (other instanceof EmployeePay // instanceof handles nulls
+                && fullPosition.equals(((EmployeePay) other).fullPosition)); // state check
     }
 
     @Override

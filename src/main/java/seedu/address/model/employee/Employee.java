@@ -18,9 +18,8 @@ public class Employee {
     private final EmployeePhone employeePhone;
     private final EmployeeEmail employeeEmail;
     private final EmployeeId employeeId;
-    private final EmployeePosition employeePosition;
+    private final EmployeePay employeePay;
     private final EmployeeGender employeeGender;
-
 
 
     // Data fields
@@ -32,8 +31,8 @@ public class Employee {
      * Every field must be present and not null.
      */
     public Employee(EmployeeId employeeId, EmployeeName employeeName, EmployeeGender employeeGender,
-                     EmployeePosition employeePosition, EmployeePhone employeePhone, EmployeeEmail employeeEmail,
-                     EmployeeAddress employeeAddress, EmployeeJoinDate employeeJoinDate, Set<Tag> tags) {
+                    EmployeePay employeePay, EmployeePhone employeePhone, EmployeeEmail employeeEmail,
+                    EmployeeAddress employeeAddress, EmployeeJoinDate employeeJoinDate, Set<Tag> tags) {
         this.employeeName = employeeName;
         this.employeePhone = employeePhone;
         this.employeeEmail = employeeEmail;
@@ -41,7 +40,7 @@ public class Employee {
         this.employeeId = employeeId;
         this.employeeGender = employeeGender;
         this.employeeJoinDate = employeeJoinDate;
-        this.employeePosition = employeePosition;
+        this.employeePay = employeePay;
         this.tags.add(new Tag(employeeGender.gender));
         this.tags.addAll(tags);
     }
@@ -54,7 +53,7 @@ public class Employee {
         this.employeeId = null;
         this.employeeGender = null;
         this.employeeJoinDate = null;
-        this.employeePosition = null;
+        this.employeePay = null;
         this.tags.addAll(tags);
     }
 
@@ -78,8 +77,8 @@ public class Employee {
         return employeeId;
     }
 
-    public EmployeePosition getEmployeePosition() {
-        return employeePosition;
+    public EmployeePay getEmployeePay() {
+        return employeePay;
     }
 
     public EmployeeGender getEmployeeGender() {
@@ -129,7 +128,7 @@ public class Employee {
         return otherEmployee.getEmployeeId().equals(getEmployeeId())
                 && otherEmployee.getEmployeeName().equals(getEmployeeName())
                 && otherEmployee.getEmployeeGender().equals(getEmployeeGender())
-                && otherEmployee.getEmployeePosition().equals(getEmployeePosition())
+                && otherEmployee.getEmployeePay().equals(getEmployeePay())
                 && otherEmployee.getEmployeePhone().equals(getEmployeePhone())
                 && otherEmployee.getEmployeeEmail().equals(getEmployeeEmail())
                 && otherEmployee.getEmployeeAddress().equals(getEmployeeAddress())
@@ -151,8 +150,8 @@ public class Employee {
                 .append(getEmployeeId())
                 .append(" EmployeeGender: ")
                 .append(getEmployeeGender())
-                .append(" EmployeePosition: ")
-                .append(getEmployeePosition())
+                .append(" EmployeePay: ")
+                .append(getEmployeePay())
                 .append(" EmployeePhone: ")
                 .append(getEmployeePhone())
                 .append(" EmployeeEmail: ")
