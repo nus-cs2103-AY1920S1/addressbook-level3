@@ -256,14 +256,14 @@ This section describes some noteworthy details on how certain features are imple
 //image::UndoRedoState5.png[]
 
 // tag::transaction[]
-=== Transaction: `in`/`out`
+=== Transaction: `in` / `out` / `split`
 
-This feature allows user to input income or expense statements into the PalPay.
+The `Transaction` abstract class allows user to input income, expense or split commands into the PalPay.
 
 ==== Current Implementation
 
 `Transaction` is an abstract class which implements `UndoableAction`. `inTransaction` and `outTransaction` extends the `Transaction` class.
-`Transaction` stores an *amount*, *date* and a set of *categories* which describes the variables a `Transaction` with the `BankAccount` will typically hold.
+`Transaction` stores an *amount*, *date* and a set of *categories*. This describes the variables a `Transaction` with the `BankAccount` will typically hold.
 `Split` transaction is the only dependency that relies on an additional `peopleInvolved` variable.
 `inTransaction` and `outTransaction` implements `BankAccountOperation`.
 
@@ -275,8 +275,29 @@ This allows multiple transaction calls within the same method.
 
 // end::transaction[]
 
+// tag::update[]
+=== Update: `update`
+
+This feature allows users to update either the **Amount**, **Date** or **Category** of either a Transaction or Budget.
+
+==== Design Considerations
+
+This `update` feature allows one or more fields of a Transaction or Budget to be updated. (e.g. `update t1 $/2` and `update t1 $/2 d/10102019` will both work as intended). This will minimize the need to input all non-required parameters if a user does not require all parameters of a Transaction or Budget to be changed.
+
+===== Aspect: Update requires `TYPE+INDEX` as one of its parameter
+
+* **Alternative 1 (current choice):** takes in `TYPE+INDEX` to decide whether to delete an item from Transaction or Budget list. (e.g. `delete b1` deletes item index 1 from budget).
+** Pros: Requires lesser user steps to be taken before executing a `update` command
+** Cons: Requires two lists to be created instead of 1. The `UniqueTransactionList` stores Transaction items and `UniqueBudgetList` to store Budget items.
+For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
+* **Alternative 2:** Change to **Transaction** or **Budget** mode and keying in only index (e.g. `update 1`)
+** Pros: Requires only one unique list required to store both Transactions and Budgets.
+** Cons: Requires additional user step to switch between modes before executing a updating command.
+
+// end::update[]
+
 // tag::undoredo[]
-=== Undo / Redo Command Feature: `undo` `redo`
+=== Undo / Redo Command Feature: `undo`/`redo`
 
 ==== Current Implementation
 
@@ -316,6 +337,15 @@ image::DeleteActivityDiagram.png[]
 
 ==== Design Consideration
 
+===== Aspect: Delete requires `TYPE+INDEX` as one of its parameter
+
+* **Alternative 1 (current choice):** takes in `TYPE+INDEX` to decide whether to delete an item from Transaction or Budget list. (e.g. `delete b1` deletes item index 1 from budget).
+** Pros: Requires lesser user steps to be taken before executing a `delete` command
+** Cons: Requires two lists to be created instead of 1. The `UniqueTransactionList` stores Transaction items and `UniqueBudgetList` to store Budget items.
+For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
+* **Alternative 2:** Change to **Transaction** or **Budget** mode and keying in only index (e.g. `delete 1`)
+** Pros: Requires only one unique list required to store both Transactions and Budgets.
+** Cons: Requires additional user step to switch between modes before executing a delete command.
 
 // end::delete[]
 
