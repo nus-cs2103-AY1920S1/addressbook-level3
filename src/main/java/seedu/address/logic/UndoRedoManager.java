@@ -1,17 +1,16 @@
-package seedu.address.model.undo;
+package seedu.address.logic;
 
 import static seedu.address.commons.core.Messages.MESSAGE_NOTHING_TO_REDO;
 import static seedu.address.commons.core.Messages.MESSAGE_NOTHING_TO_UNDO;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.ModelLists;
 import seedu.address.model.events.EventSource;
-import seedu.address.model.listeners.EventListListener;
-import seedu.address.model.listeners.TaskListListener;
-import seedu.address.model.listeners.UndoRedoListener;
+import seedu.address.model.listeners.ModelListListener;
+import seedu.address.model.listeners.ModelResetListener;
 import seedu.address.model.tasks.TaskSource;
 
 /**
@@ -24,35 +23,36 @@ import seedu.address.model.tasks.TaskSource;
  * Whenever an undo or redo command is executed, mainEventList restores itself to a
  * past/future state by copying the data in its duplicate over to itself.
  */
-public class UndoRedoManager implements EventListListener, TaskListListener {
+public class UndoRedoManager implements ModelListListener {
 
-    // These are deep copies of ModelManager's eventlist and tasklist.
-    // Updated in onEventListChange & onTaskListChange
-    private List<EventSource> events;
-    private List<TaskSource> tasks;
+    private boolean start;
 
     /**
-     * Deep-copies of mainEventList are stored to this list
+     * Deep-copies of Model are stored to this list
      * every time a state-changing command is executed.
      * This allows mainEventList to retrieve its data
      * from any of these past or future states when an
      * undo or redo command is called.
      */
-    private List<UndoRedoState> undoStateList;
+    private List<ModelLists> undoStateList;
     private int currentStateIndex;
 
-    private List<UndoRedoListener> undoRedoListeners;
+    private List<ModelResetListener> modelResetListeners;
 
     public UndoRedoManager() {
         undoStateList = new ArrayList<>();
-        undoStateList.add(new UndoRedoState());
         currentStateIndex = 0;
 
-        undoRedoListeners = new ArrayList<>();
+        modelResetListeners = new ArrayList<>();
     }
 
-    public void addUndoRedoListener(UndoRedoListener listener) {
-        this.undoRedoListeners.add(listener);
+    public void addModelResetListener(ModelResetListener listener) {
+        this.modelResetListeners.add(listener);
+    }
+
+    public void start(ModelLists modelLists) {
+        undoStateList.add(modelLists);
+        start = true;
     }
 
     /**
@@ -63,7 +63,7 @@ public class UndoRedoManager implements EventListListener, TaskListListener {
             throw new CommandException(MESSAGE_NOTHING_TO_UNDO);
         }
         currentStateIndex--;
-        notifyUndoRedoListeners();
+        notifyModelResetListeners();
     }
 
     /**
@@ -74,19 +74,7 @@ public class UndoRedoManager implements EventListListener, TaskListListener {
             throw new CommandException(MESSAGE_NOTHING_TO_REDO);
         }
         currentStateIndex++;
-        notifyUndoRedoListeners();
-    }
-
-    /**
-     * Creates an UndoRedoState containing the current events and tasks.
-     * Appends it to this undoStateList.
-     */
-    private void commit() {
-        clearFutureHistory();
-        assert currentStateIndex >= undoStateList.size() - 1
-                : "Pointer always points to end of list during commit; All future states must have been discarded.";
-        undoStateList.add(new UndoRedoState(this.events, this.tasks));
-        currentStateIndex++;
+        notifyModelResetListeners();
     }
 
     /**
@@ -115,52 +103,32 @@ public class UndoRedoManager implements EventListListener, TaskListListener {
         return currentStateIndex < undoStateList.size() - 1;
     }
 
-    private UndoRedoState getCurrentState() {
+    private ModelLists getCurrentState() {
         return undoStateList.get(currentStateIndex);
     }
 
     /**
      * Notify all UndoRedoListeners that undo/redo was called, and provide them with the current UndoState.
      */
-    private void notifyUndoRedoListeners() {
-        UndoRedoState state = getCurrentState();
-        for (UndoRedoListener listener : undoRedoListeners) {
-            listener.onUndoRedo(state);
+    private void notifyModelResetListeners() {
+        ModelLists state = getCurrentState();
+        for (ModelResetListener listener : modelResetListeners) {
+            listener.onModelReset(state, this);
         }
     }
 
+    /**
+     * Appends the current ModelLists, containing the current events and tasks, to undoStateList.
+     */
     @Override
-    public void onEventListChange(List<EventSource> events) {
-        this.events = events;
-
-        /*
-        Don't commit when the EventList when it is equal to getCurrentState().
-        This will be true every undo/redo.
-        Explanation: undo/redo will update ModelManager's EventList, which in turn will notify this method,
-        causing an unwanted feedback loop.
-         */
-        if (Objects.equals(getCurrentState().getEvents(), events)) {
-            return;
+    public void onModelListChange(ModelLists lists) {
+        if (start) {
+            clearFutureHistory();
+            assert currentStateIndex >= undoStateList.size() - 1
+                : "Pointer always points to end of list during commit; All future states must have been discarded.";
+            undoStateList.add(lists);
+            currentStateIndex++;
         }
-
-        commit();
-    }
-
-    @Override
-    public void onTaskListChange(List<TaskSource> tasks) {
-        this.tasks = tasks;
-
-        /*
-        Don't commit when the TaskList when it is equal to getCurrentState().
-        This will be true every undo/redo.
-        Explanation: undo/redo will update ModelManager's TaskList, which in turn will notify this method,
-        causing an unwanted feedback loop.
-         */
-        if (Objects.equals(getCurrentState().getTasks(), tasks)) {
-            return;
-        }
-
-        commit();
     }
 
     @Override

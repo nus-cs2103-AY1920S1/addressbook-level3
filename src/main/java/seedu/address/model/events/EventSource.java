@@ -5,6 +5,8 @@ import static seedu.address.commons.util.IcsUtil.generateUid;
 import java.util.Objects;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import seedu.address.model.DateTime;
 
 /**
@@ -57,18 +59,22 @@ public class EventSource {
         return start.equalsPrecisionMinute(DateTime.now());
     }
 
+    @JsonProperty("description")
     public String getDescription() {
         return this.description;
     }
 
+    @JsonProperty("start")
     public DateTime getStartDateTime() {
         return this.start;
     }
 
-    public DateTime getEnd() {
+    @JsonProperty("end")
+    public DateTime getEndDateTime() {
         return end;
     }
 
+    @JsonProperty("tags")
     public Set<String> getTags() {
         return tags;
     }

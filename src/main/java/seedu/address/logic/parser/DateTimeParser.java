@@ -25,7 +25,7 @@ public class DateTimeParser implements Parser<DateTime> {
     public DateTime parse(String userInput) throws ParseException {
         try {
             Instant instant = Instant.from(this.parser.parse(userInput));
-            return new DateTime(instant);
+            return DateTime.newBuilder(instant).build();
         } catch (DateTimeParseException e) {
             throw new ParseException(String.format(MESSAGE_INVALID_DATE_TIME, USER_DATE_TIME_PATTERN));
         }
