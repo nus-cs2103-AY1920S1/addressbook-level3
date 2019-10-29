@@ -11,6 +11,8 @@ import seedu.revision.model.answerable.predicates.CategoryPredicate;
 import seedu.revision.model.answerable.predicates.DifficultyPredicate;
 import seedu.revision.model.quiz.Mode;
 
+import java.util.function.Predicate;
+
 /**
  * Command to start the quiz session.
  */
@@ -28,7 +30,7 @@ public class StartQuizCommand extends Command {
 //            + "Example: " + COMMAND_WORD + " "
 //            + PREFIX_MODE + "normal";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Starts quiz based on Mode, if no Mode provided, "
-        + "entire question bank will be initialised."
+        + "entire question bank will be initialised.\n"
             + "Parameters: "
             + PREFIX_MODE + "MODE\n"
             + "Example: " + COMMAND_WORD + " "
@@ -36,8 +38,8 @@ public class StartQuizCommand extends Command {
 
     private static final String MESSAGE_SUCCESS = "Starting Quiz!";
 
-    private CategoryPredicate categoryPredicate;
-    private DifficultyPredicate difficultyPredicate;
+//    private CategoryPredicate categoryPredicate;
+//    private DifficultyPredicate difficultyPredicate;
     private Mode mode;
 
 //    /**
@@ -60,7 +62,9 @@ public class StartQuizCommand extends Command {
 
 //        ListCommand quizList = new ListCommand(categoryPredicate, difficultyPredicate);
 //        quizList.execute(model);
-//
+
+//        Predicate<>
+
         return new CommandResult(MESSAGE_SUCCESS, true, mode);
 
     }

@@ -54,7 +54,7 @@ public class QuizLogicManager implements QuizLogic {
 
         //If user exits the quiz, restore the filtered list to original state.
         if (commandResult.isExit()) {
-            ListCommand restoreList = new ListCommand(null, null);
+            ListCommand restoreList = new ListCommand(null);
             restoreList.execute(model);
         }
 

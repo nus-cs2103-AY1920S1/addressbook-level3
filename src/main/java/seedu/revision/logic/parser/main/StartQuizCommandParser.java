@@ -30,8 +30,10 @@ public class StartQuizCommandParser implements Parser<StartQuizCommand> {
      */
     @Override
     public StartQuizCommand parse(String args) throws ParseException {
+//        ArgumentMultimap argMultimap =
+//                ArgumentTokenizer.tokenize(args, PREFIX_CATEGORY, PREFIX_DIFFICULTY, PREFIX_MODE);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_CATEGORY, PREFIX_DIFFICULTY, PREFIX_MODE);
+                ArgumentTokenizer.tokenize(args, PREFIX_MODE);
 
 //        CategoryPredicate categoryPredicate = null;
 //        DifficultyPredicate difficultyPredicate = null;
