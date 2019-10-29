@@ -1,7 +1,42 @@
 @startuml
-Alice -> Bob: Authentication Request
-Bob --> Alice: Authentication Response
+!include style.puml
 
-Alice -> Bob: Another authentication Request
-Alice <-- Bob: another authentication Response
+box Logic LOGIC_COLOR_T1
+participant ":IncidentManagerParser" as IncidentManagerParser LOGIC_COLOR
+participant "l:ListIncidentsCommand" as ListIncidentsCommand LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> IncidentManagerParser : parseCommand(fill)
+activate IncidentManagerParser
+
+create ListIncidentsCommand
+IncidentManagerParser -> ListIncidentsCommand
+activate ListIncidentsCommand
+
+ListIncidentsCommand --> IncidentManagerParser
+deactivate ListIncidentsCommand
+
+[<--IncidentManagerParser : l
+deactivate IncidentManagerParser
+
+[-> ListIncidentsCommand : execute()
+activate ListIncidentsCommand
+
+destroy IncidentManagerParser
+
+ListIncidentsCommand -> Model : updateFilteredIncidentList(Incident:isDraft)
+activate Model
+
+Model --> ListIncidentsCommand
+deactivate Model
+
+[<-- ListIncidentsCommand : resultMessage
+deactivate ListIncidentsCommand
+
+destroy ListIncidentsCommand
+
 @enduml

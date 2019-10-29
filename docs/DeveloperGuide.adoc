@@ -364,11 +364,13 @@ The implementation of these two modes is discussed below. As both `fill` and `su
 
 ===== No parameter mode (listing incidents)
 
-This mode leverages the ability of the `ListIncidentsCommand` to list incidents by different predicates. When the `IncidentManagerParser` parses a `fill` command without parameters, it returns a new `ListIncidentsCommand` with predicate `Incident::isDraft`. This `ListIncidentsCommand` is then executed as per usual.
+This mode leverages the ability of the `ListIncidentsCommand` to list incidents by different predicates.
+When the `IncidentManagerParser` parses a `fill` command without parameters, it returns a new `ListIncidentsCommand`
+with predicate `Incident::isDraft`. This `ListIncidentsCommand` is then executed as per usual.
 
 For the `submit` command, the predicate `Incident::isCompleteDraft` is used instead.
 
-// insert sequence diagram
+image::FillCommandNoParamsSequenceDiagram.png[]
 
 ===== Parameter mode (modifying incidents)
 * For the `fill` command with parameters, the `FillCommandParser` will be invoked to parse the fields `targetIndex`, `callerNumber`, and `description` and return a `FillCommand` containing these non-null fields.
@@ -377,9 +379,10 @@ For the `submit` command, the predicate `Incident::isCompleteDraft` is used inst
 * The old incident report will be removed from the system and be replaced with the new updated incident report.
 * The new incident report is placed at the front of the incident list for easy access.
 
-The `SubmitCommand` functions similarly, with one crucial difference. As no Incident fields are to be updated, the specified incident is simply retrieved, and its fields are copied into a new `Incident` object with a `SUBMITTED_REPORT` status.
+image::FillCommandWithParamsSequenceDiagram.png[]
+.In this sequence diagram, the helper methods within `FillCommand` are omitted for clarity.
 
-// insert sequence diagram
+The `SubmitCommand` functions similarly, with one crucial difference. As no Incident fields are to be updated, the specified incident is simply retrieved, and its fields are copied into a new `Incident` object with a `SUBMITTED_REPORT` status.
 
 ==== Design Considerations
 
