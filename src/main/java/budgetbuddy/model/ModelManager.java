@@ -8,6 +8,7 @@ import java.util.logging.Logger;
 
 import budgetbuddy.commons.core.GuiSettings;
 import budgetbuddy.commons.core.LogsCenter;
+import budgetbuddy.commons.core.index.Index;
 import budgetbuddy.model.transaction.Transaction;
 import javafx.collections.transformation.FilteredList;
 
@@ -28,7 +29,6 @@ public class ModelManager implements Model {
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
-
     public ModelManager(LoansManager loansManager, RuleManager ruleManager, AccountsManager accountsManager,
                         ScriptLibrary scriptLibrary, ReadOnlyUserPrefs userPrefs) {
         super();
@@ -41,8 +41,10 @@ public class ModelManager implements Model {
         this.accountsManager = new AccountsManager(accountsManager.getAccounts());
         this.userPrefs = new UserPrefs(userPrefs);
         this.scriptLibrary = scriptLibrary;
+        // TODO: implement default accounts properly
         filteredTransactions = new FilteredList<>(
-                this.accountsManager.getDefaultAccount().getTransactionList().asUnmodifiableObservableList());
+                this.accountsManager.getAccount(Index.fromZeroBased(0))
+                        .getTransactionList().asUnmodifiableObservableList());
     }
 
     public ModelManager() {

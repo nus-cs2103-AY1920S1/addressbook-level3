@@ -9,12 +9,8 @@ import budgetbuddy.commons.core.index.Index;
 import budgetbuddy.model.account.Account;
 import budgetbuddy.model.account.UniqueAccountList;
 import budgetbuddy.model.account.exception.AccountNotFoundException;
-import budgetbuddy.model.attributes.Description;
-import budgetbuddy.model.attributes.Name;
 import budgetbuddy.model.transaction.Transaction;
-import budgetbuddy.model.transaction.TransactionList;
 import budgetbuddy.model.transaction.exceptions.TransactionNotFoundException;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 
@@ -22,16 +18,8 @@ import javafx.collections.transformation.FilteredList;
  * Manages the accounts in a list of accounts.
  */
 public class AccountsManager {
-
-    private static Account defaultAccount = new Account(new Name("DEFAULT"),
-            new Description(""), new TransactionList());
-
     private final FilteredList<Account> filteredAccounts;
     private final UniqueAccountList accounts;
-
-    private final ObservableList<Account> internalList = FXCollections.observableArrayList();
-    private final ObservableList<Account> internalUnmodifiableList =
-            FXCollections.unmodifiableObservableList(internalList);
 
     /**
      * Creates a new list of accounts.
@@ -39,8 +27,6 @@ public class AccountsManager {
     public AccountsManager() {
         this.accounts = new UniqueAccountList();
         filteredAccounts = new FilteredList<>(this.getAccounts(), s -> true);
-        this.accounts.add(defaultAccount);
-        this.internalList.add(defaultAccount);
     }
 
     /**
@@ -52,12 +38,6 @@ public class AccountsManager {
         requireNonNull(accounts);
         this.accounts = new UniqueAccountList(accounts);
         filteredAccounts = new FilteredList<>(this.getAccounts(), s -> true);
-        defaultAccount = this.accounts.getAccountByIndex(Index.fromZeroBased(0));
-        this.internalList.setAll(accounts);
-    }
-
-    public Account getDefaultAccount() {
-        return defaultAccount;
     }
 
     /**
@@ -71,7 +51,7 @@ public class AccountsManager {
      * Retrieves the list of accounts.
      */
     public ObservableList<Account> getAccounts() {
-        return internalUnmodifiableList;
+        return accounts.asUnmodifiableObservableList();
     }
 
     /**
@@ -79,7 +59,7 @@ public class AccountsManager {
      * @param toAdd The account to add.
      */
     public void addAccount(Account toAdd) {
-        internalList.add(toAdd);
+        accounts.add(toAdd);
     }
 
     /**
@@ -88,8 +68,7 @@ public class AccountsManager {
      * @param editedAccount The edited account to replace the target account with.
      */
     public void editAccount(Index toEdit, Account editedAccount) throws AccountNotFoundException {
-        checkIndexValidity(toEdit);
-        internalList.set(toEdit.getZeroBased(), editedAccount);
+        accounts.setAccount(accounts.getAccountByIndex(toEdit), editedAccount);
     }
 
     /**
@@ -99,8 +78,8 @@ public class AccountsManager {
      * @param toDelete The target account for deletion.
      */
     public void deleteAccount(Account toDelete) {
-        if (internalList.contains(toDelete)) {
-            internalList.remove(toDelete);
+        if (accounts.contains(toDelete)) {
+            accounts.remove(toDelete);
         } else {
             throw new AccountNotFoundException();
         }
@@ -110,20 +89,8 @@ public class AccountsManager {
      * Returns the current number of accounts in the list.
      * @return The current number of accounts in the list as an {@code int}.
      */
-    public int getAccountsCount() {
+    public int size() {
         return getAccounts().size();
-    }
-
-
-    /**
-     * Checks if a given index exceeds the number of accounts currently in the list.
-     * @param toCheck The index to check.
-     * @throws AccountNotFoundException If the index exceeds the current number of accounts.
-     */
-    private void checkIndexValidity(Index toCheck) throws AccountNotFoundException {
-        if (toCheck.getOneBased() > getAccountsCount()) {
-            throw new AccountNotFoundException();
-        }
     }
 
     /**
@@ -166,7 +133,7 @@ public class AccountsManager {
         }
 
         AccountsManager otherAccountsManager = (AccountsManager) other;
-        return internalList.equals(otherAccountsManager.internalList);
+        return accounts.equals(otherAccountsManager.accounts);
     }
 
     /**
@@ -175,9 +142,6 @@ public class AccountsManager {
      * @throws AccountNotFoundException If the account is not in the list.
      */
     public Account getAccount(Index toGet) throws AccountNotFoundException {
-        checkIndexValidity(toGet);
-        return getAccounts().get(toGet.getZeroBased());
+        return accounts.getAccountByIndex(toGet);
     }
-
-
 }
