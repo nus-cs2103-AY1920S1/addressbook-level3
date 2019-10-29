@@ -329,6 +329,7 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
     @Override
     public void setOmniPanelTab(OmniPanelTab omniPanelTab) {
         currentOmniPanelTab = omniPanelTab;
+        tabBar.selectTabUsingIndex(omniPanelTab.getTabBarIndex());
         switch (omniPanelTab) {
         case PATIENTS_TAB:
             omniPanelPlaceholder.getChildren().setAll(patientListPanel.getRoot());
