@@ -458,15 +458,20 @@ The quantity of the item inputted must be not greater than the available stock i
 a message prompting input of a smaller quantity or another item.
 
 The category field is optional. If you are unsure about the description of the desired item, you can refer to
-the Inventory tab or simply key in the category without the any other fields. Leo will display all the items in the
+the Inventory tab or simply key in the category without any other fields. Leo will display all the items in the
 specified category that are available for sale.
 
-Additionally, if a word is mistyped or does not match any of the items in the inventory, Leo will recommend
+Additionally, if the description is mistyped or does not match any of the items in the inventory, Leo will recommend
 some possible item descriptions you might be looking for.
+
+[NOTE]
+The items according to the category will only display if both description and quantity fields are not specified. If both
+are specified but description is invalid, only suggestions will be shown according to the mistyped description.
 
 [NOTE]
 If both category and description are specified and valid, the system will allow the item to be added according the
 description even if the category of the item does not match with the specified category inputted.
+
 
 Examples:
 

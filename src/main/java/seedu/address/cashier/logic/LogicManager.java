@@ -48,7 +48,6 @@ public class LogicManager implements Logic {
         CommandResult commandResult = command.execute(model, personModel);
         if (command instanceof CheckoutCommand) {
             writeInInventoryFile();
-
             Transaction transaction = model.getCheckoutTransaction();
             storage.appendToTransaction(transaction);
             //System.out.println("was written into transac");
