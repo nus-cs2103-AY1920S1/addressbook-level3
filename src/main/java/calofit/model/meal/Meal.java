@@ -94,8 +94,6 @@ public class Meal implements Comparable<Meal> {
             return true;
         }
 
-        //return otherDish != null && otherDish.getName().equals(getName());
-
         return otherMeal != null
                 && otherMeal.getDish().equals(getDish())
                 && otherMeal.getTimestamp().equals(getTimestamp());

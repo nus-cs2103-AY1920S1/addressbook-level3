@@ -92,7 +92,10 @@ Examples:
 Creates a report for the user. +
 Includes Maximum, Minimum and Average calorie intake per day of the current month, +
 Number of days where calorie intake exceeded per month, +
-Most consumed food of the month. +
+and List of Most consumed dishes of the month.
+[NOTE]
+Average value is rounded down.
+
 Format: `report`
 
 === Reminder that a meal is missed
