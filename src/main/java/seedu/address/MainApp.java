@@ -174,6 +174,7 @@ public class MainApp extends Application {
             }
             initialNoteData = noteBookOptional.orElseGet(SampleDataUtil::getSampleNoteBook);
         } catch (DataConversionException e) {
+            logger.warning(e + "");
             logger.warning("Data file not in the correct format. Will be starting with an empty file");
             initialNoteData = new NoteBook();
         } catch (IOException e) {

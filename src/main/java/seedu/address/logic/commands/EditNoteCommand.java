@@ -67,7 +67,7 @@ public class EditNoteCommand extends Command {
         List<Note> lastShownList = model.getFilteredNoteList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_NOTE_DISPLAYED_INDEX);
         }
 
         Note noteToEdit = lastShownList.get(index.getZeroBased());

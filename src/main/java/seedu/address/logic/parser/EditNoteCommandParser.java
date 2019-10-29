@@ -53,6 +53,7 @@ public class EditNoteCommandParser implements Parser<EditNoteCommand> {
                     .get()));
         }
         if (argMultimap.getValue(PREFIX_CONTENT).isPresent()) {
+            String temp = argMultimap.getValue(PREFIX_CONTENT).get();
             editNoteDescriptor.setContent(ParserUtil.parseContent(argMultimap.getValue(PREFIX_CONTENT).get()));
         }
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editNoteDescriptor::setTags);

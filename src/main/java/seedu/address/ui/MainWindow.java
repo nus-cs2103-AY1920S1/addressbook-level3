@@ -4,19 +4,24 @@ import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.core.index.Index;
 import seedu.address.commons.exceptions.DictionaryException;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.note.Note;
+import seedu.address.model.password.Password;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -38,8 +43,9 @@ public class MainWindow extends UiPart<Stage> {
     private NoteListPanel noteListPanel;
     private PasswordListPanel passwordListPanel;
     private ResultDisplay resultDisplay;
+    private ReadDisplayPassword readDisplayPassword;
     private HelpWindow helpWindow;
-    private EditObjectWindow editObjectWindow;
+    private ReadDisplayNote readDisplayNote;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -63,10 +69,35 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane passwordListPanelPlaceholder;
 
     @FXML
+    private StackPane readListPanelPlaceholder;
+
+    @FXML
     private StackPane resultDisplayPlaceholder;
 
     @FXML
+    private StackPane modeListPanelPlaceholder;
+
+    @FXML
     private StackPane statusbarPlaceholder;
+
+    @FXML
+    private VBox modeList;
+
+    @FXML
+    private VBox objectList;
+
+    @FXML
+    private VBox readList;
+
+    @FXML
+    private Button b1;
+    @FXML
+    private Button b2;
+    @FXML
+    private Button b3;
+    @FXML
+    private Button b4;
+
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -81,7 +112,8 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
-        editObjectWindow = new EditObjectWindow();
+        readList.setVisible(false);
+
     }
 
     public Stage getPrimaryStage() {
@@ -132,14 +164,63 @@ public class MainWindow extends UiPart<Stage> {
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
-
         fillInnerPartsWithMode();
+    }
+
+    /**
+     * Toggles button according to logic.
+     */
+    void toggleButton() {
+        b1.setDisable(false);
+        b2.setDisable(false);
+        b3.setDisable(false);
+        b4.setDisable(false);
+        switch (logic.getMode()) {
+        case PASSWORD:
+            b1.setDisable(true);
+            break;
+        case FILE:
+            b2.setDisable(true);
+            break;
+        case CARD:
+            b3.setDisable(true);
+            break;
+        case NOTE:
+            b4.setDisable(true);
+            break;
+        default:
+            b1.setDisable(false);
+            b2.setDisable(false);
+            b3.setDisable(false);
+            b4.setDisable(false);
+
+        }
+    }
+
+    /**
+     * Fills up all the read display of this window.
+     * @param object Object to be read
+     * @param index Index of the object in the filtered list
+     */
+    void fillReadParts(Object object, Index index) {
+        if (object instanceof Password) {
+            readDisplayPassword = new ReadDisplayPassword();
+            readDisplayPassword.setLogic(logic);
+            readListPanelPlaceholder.getChildren().add(readDisplayPassword.getRoot());
+            readDisplayPassword.setFeedbackToUser((Password) object, index);
+        } else if (object instanceof Note) {
+            readDisplayNote = new ReadDisplayNote();
+            readDisplayNote.setLogic(logic);
+            readListPanelPlaceholder.getChildren().add(readDisplayNote.getRoot());
+            readDisplayNote.setFeedbackToUser((Note) object, index);
+        }
     }
 
     /**
      * Fills up all the placeholders of this window using the current mode.
      */
     void fillInnerPartsWithMode() {
+        toggleButton();
         switch (logic.getMode()) {
         case FILE:
             fileListPanel = new FileListPanel(logic.getFilteredFileList());
@@ -206,18 +287,6 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
-    /**
-     * Opens the window or focuses on it if it's already opened.
-     */
-    @FXML
-    public void handleShowWindow() {
-        if (!editObjectWindow.isShowing()) {
-            editObjectWindow.show();
-        } else {
-            editObjectWindow.focus();
-        }
-    }
-
     void show() {
         primaryStage.show();
     }
@@ -248,7 +317,9 @@ public class MainWindow extends UiPart<Stage> {
      * @see seedu.address.logic.Logic#execute(String)
      */
     private CommandResult executeCommand(String commandText) throws CommandException,
-                                                                ParseException, DictionaryException {
+            ParseException, DictionaryException {
+        readList.setVisible(false);
+        readList.setMinWidth(0);
         try {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
@@ -264,14 +335,12 @@ public class MainWindow extends UiPart<Stage> {
                 logic.setMode(commandResult.getModeToGoTo());
                 handleModeChange();
             }
-            if (commandResult.isShowWindow()) {
-                //TODO optimise this
-                String[] tempFeedBack = commandResult.getFeedbackToUser().split("//");
-                editObjectWindow.setTitle(tempFeedBack[0]);
-                editObjectWindow.setContent(tempFeedBack[1]);
-                editObjectWindow.setLogic(logic);
-                editObjectWindow.setIndex(tempFeedBack[2]);
-                handleShowWindow();
+
+            if (commandResult.isRead()) {
+                readList.setVisible(true);
+                readListPanelPlaceholder.getChildren().clear();
+                readList.setMinWidth(420);
+                fillReadParts(commandResult.getObject(), commandResult.getIndex());
             }
             return commandResult;
         } catch (CommandException | ParseException | DictionaryException e) {
@@ -281,3 +350,4 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 }
+

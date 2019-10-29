@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.Objects;
 
 import seedu.address.commons.core.Mode;
+import seedu.address.commons.core.index.Index;
 
 /**
  * Represents the result of a command execution.
@@ -21,18 +22,40 @@ public class CommandResult {
 
     private final boolean isGoTo;
     private final Mode modeToGoTo;
-    private final boolean showWindow;
+    private final boolean read;
+    private final Object object;
+    private final Index index;
+
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
     public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean goTo,
-                         Mode modeToGoTo, boolean showWindow) {
+                         Mode modeToGoTo) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
         this.isGoTo = goTo;
         this.modeToGoTo = modeToGoTo;
-        this.showWindow = showWindow;
+        this.read = false;
+        this.object = null;
+        this.index = null;
+    }
+
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean goTo,
+                         Mode modeToGoTo, boolean read, Object object, Index index) {
+        this.feedbackToUser = requireNonNull(feedbackToUser);
+        this.showHelp = showHelp;
+        this.exit = exit;
+        this.isGoTo = goTo;
+        this.modeToGoTo = modeToGoTo;
+        this.read = read;
+        this.object = object;
+        this.index = index;
+    }
+
+    public CommandResult(String feedbackToUser, Object object, Index index) {
+        this(feedbackToUser, false, false, false,
+                null, true, object, index);
     }
 
     /**
@@ -41,7 +64,11 @@ public class CommandResult {
      */
     public CommandResult(String feedbackToUser) {
         this(feedbackToUser, false, false, false,
-                null, false);
+                null);
+    }
+
+    public Object getObject() {
+        return object;
     }
 
     public String getFeedbackToUser() {
@@ -64,9 +91,14 @@ public class CommandResult {
         return modeToGoTo;
     }
 
-    public boolean isShowWindow() {
-        return showWindow;
+    public boolean isRead() {
+        return read;
     }
+
+    public Index getIndex() {
+        return index;
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
