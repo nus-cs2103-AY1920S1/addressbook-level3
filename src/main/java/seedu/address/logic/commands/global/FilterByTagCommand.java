@@ -1,4 +1,4 @@
-package seedu.address.logic.commands;
+package seedu.address.logic.commands.global;
 
 /**
  * Command to filter objects(s) with the related tag(s).

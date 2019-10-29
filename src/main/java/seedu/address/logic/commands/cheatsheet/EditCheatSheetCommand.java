@@ -19,6 +19,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.commandresults.CheatSheetCommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.cheatsheet.CheatSheet;
@@ -80,7 +81,7 @@ public class EditCheatSheetCommand extends Command {
 
         model.setCheatSheet(cheatSheetToEdit, editedCheatSheet);
         model.updateFilteredCheatSheetList(PREDICATE_SHOW_ALL_CHEATSHEETS);
-        return new CommandResult(String.format(MESSAGE_EDIT_CHEATSHEET_SUCCESS, editedCheatSheet));
+        return new CheatSheetCommandResult(String.format(MESSAGE_EDIT_CHEATSHEET_SUCCESS, editedCheatSheet));
     }
 
     /**
