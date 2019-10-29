@@ -98,7 +98,7 @@ public class LogicManager implements Logic, UiLogicHelper {
     }
 
     @Override
-    public ObservableList<Card> getFilteredPersonList() {
+    public ObservableList<Card> getFilteredCardList() {
         return model.getFilteredCardList();
     }
 

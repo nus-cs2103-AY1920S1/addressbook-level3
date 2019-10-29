@@ -166,7 +166,7 @@ public class AppManager {
     }
 
     public ObservableList<Card> getFilteredPersonList() {
-        return logic.getFilteredPersonList();
+        return logic.getFilteredCardList();
     }
 
     public ObservableList<WordBank> getFilteredWordBankList() {
