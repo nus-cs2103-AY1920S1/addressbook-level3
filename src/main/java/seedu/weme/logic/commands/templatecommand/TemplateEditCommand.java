@@ -3,7 +3,7 @@ package seedu.weme.logic.commands.templatecommand;
 import static java.util.Objects.requireNonNull;
 import static seedu.weme.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.weme.logic.parser.util.CliSyntax.PREFIX_NAME;
-import static seedu.weme.model.Model.PREDICATE_SHOW_ALL_TEMPLATES;
+import static seedu.weme.model.Model.PREDICATE_SHOW_ALL_UNARCHIVED_TEMPLATES;
 
 import java.util.List;
 
@@ -66,7 +66,7 @@ public class TemplateEditCommand extends Command {
         model.setTemplate(templateToEdit, editedTemplate);
         CommandResult result = new CommandResult(String.format(MESSAGE_EDIT_TEMPLATE_SUCCESS, editedTemplate));
         model.commitWeme(result.getFeedbackToUser());
-        model.updateFilteredTemplateList(PREDICATE_SHOW_ALL_TEMPLATES);
+        model.updateFilteredTemplateList(PREDICATE_SHOW_ALL_UNARCHIVED_TEMPLATES);
 
         return result;
     }

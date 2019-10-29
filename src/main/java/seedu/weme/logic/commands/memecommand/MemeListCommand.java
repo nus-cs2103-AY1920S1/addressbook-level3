@@ -1,7 +1,7 @@
 package seedu.weme.logic.commands.memecommand;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.weme.model.Model.PREDICATE_SHOW_ALL_MEMES;
+import static seedu.weme.model.Model.PREDICATE_SHOW_ALL_UNARCHIVED_MEMES;
 
 import seedu.weme.logic.commands.Command;
 import seedu.weme.logic.commands.CommandResult;
@@ -20,7 +20,7 @@ public class MemeListCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        model.updateFilteredMemeList(PREDICATE_SHOW_ALL_MEMES);
+        model.updateFilteredMemeList(PREDICATE_SHOW_ALL_UNARCHIVED_MEMES);
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

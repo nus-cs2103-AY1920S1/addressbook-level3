@@ -183,7 +183,7 @@ public class ModelManager implements Model {
     @Override
     public void addMeme(Meme meme) {
         versionedWeme.addMeme(meme);
-        updateFilteredMemeList(PREDICATE_SHOW_ALL_MEMES);
+        updateFilteredMemeList(PREDICATE_SHOW_ALL_UNARCHIVED_MEMES);
     }
 
     @Override
@@ -217,7 +217,7 @@ public class ModelManager implements Model {
     @Override
     public void addTemplate(Template template) {
         versionedWeme.addTemplate(template);
-        updateFilteredTemplateList(PREDICATE_SHOW_ALL_TEMPLATES);
+        updateFilteredTemplateList(PREDICATE_SHOW_ALL_UNARCHIVED_TEMPLATES);
     }
 
     @Override

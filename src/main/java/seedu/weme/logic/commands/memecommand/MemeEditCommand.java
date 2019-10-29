@@ -3,7 +3,7 @@ package seedu.weme.logic.commands.memecommand;
 import static java.util.Objects.requireNonNull;
 import static seedu.weme.logic.parser.util.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.weme.logic.parser.util.CliSyntax.PREFIX_TAG;
-import static seedu.weme.model.Model.PREDICATE_SHOW_ALL_MEMES;
+import static seedu.weme.model.Model.PREDICATE_SHOW_ALL_UNARCHIVED_MEMES;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -79,7 +79,7 @@ public class MemeEditCommand extends Command {
         model.addMemeToRecord(editedMeme);
         CommandResult result = new CommandResult(String.format(MESSAGE_EDIT_MEME_SUCCESS, editedMeme));
         model.commitWeme(result.getFeedbackToUser());
-        model.updateFilteredMemeList(PREDICATE_SHOW_ALL_MEMES);
+        model.updateFilteredMemeList(PREDICATE_SHOW_ALL_UNARCHIVED_MEMES);
 
         return result;
     }

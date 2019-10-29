@@ -1,7 +1,7 @@
 package seedu.weme.logic.commands.memecommand;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.weme.model.Model.PREDICATE_SHOW_ALL_UNARCHIVED_MEMES;
+import static seedu.weme.model.Model.PREDICATE_SHOW_ALL_ARCHIVED_MEMES;
 
 import java.util.List;
 import java.util.Set;
@@ -20,24 +20,24 @@ import seedu.weme.model.tag.Tag;
 /**
  * Likes a meme in the display window.
  */
-public class MemeArchiveCommand extends Command {
+public class MemeUnarchiveCommand extends Command {
 
-    public static final String COMMAND_WORD = "archive";
+    public static final String COMMAND_WORD = "unarchive";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Archive a meme by index."
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Unarchive a meme by index."
             + "Parameters: INDEX (must be a positive integer) "
             + "Example: " + COMMAND_WORD + " 1 ";
 
-    public static final String MESSAGE_ARCHIVE_MEME_SUCCESS = "Archived Meme: %1$s";
-    public static final String MESSAGE_NOT_ARCHIVED = "Please specify the index of the meme that you want to archive.";
-    public static final String MESSAGE_ALREADY_ARCHIVED = "This meme is already archived!";
+    public static final String MESSAGE_UNARCHIVE_MEME_SUCCESS = "Unarchived Meme: %1$s";
+    public static final String MESSAGE_NOT_UNARCHIVED = "Please specify the index of the meme that you want to unarchive.";
+    public static final String MESSAGE_ALREADY_UNARCHIVED = "This meme is already unarchived!";
 
     private final Index index;
 
     /**
      * @param index of the meme in the filtered meme list to like
      */
-    public MemeArchiveCommand(Index index) {
+    public MemeUnarchiveCommand(Index index) {
         requireNonNull(index);
 
         this.index = index;
@@ -52,29 +52,29 @@ public class MemeArchiveCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_MEME_DISPLAYED_INDEX);
         }
 
-        Meme memeToArchive = lastShownList.get(index.getZeroBased());
+        Meme memeToUnarchive = lastShownList.get(index.getZeroBased());
 
-        if (memeToArchive.isArchived()) {
-            throw new CommandException(MESSAGE_ALREADY_ARCHIVED);
+        if (!memeToUnarchive.isArchived()) {
+            throw new CommandException(MESSAGE_ALREADY_UNARCHIVED);
         }
 
-        Meme archivedMeme = createArchivedMeme(memeToArchive);
+        Meme unarchivedMeme = createUnarchivedMeme(memeToUnarchive);
 
-        model.setMeme(memeToArchive, archivedMeme);
-        CommandResult result = new CommandResult(String.format(MESSAGE_ARCHIVE_MEME_SUCCESS, memeToArchive));
+        model.setMeme(memeToUnarchive, unarchivedMeme);
+        CommandResult result = new CommandResult(String.format(MESSAGE_UNARCHIVE_MEME_SUCCESS, memeToUnarchive));
         model.commitWeme(result.getFeedbackToUser());
-        model.updateFilteredMemeList(PREDICATE_SHOW_ALL_UNARCHIVED_MEMES);
+        model.updateFilteredMemeList(PREDICATE_SHOW_ALL_ARCHIVED_MEMES);
 
         return result;
     }
 
-    private Meme createArchivedMeme(Meme meme) {
+    private Meme createUnarchivedMeme(Meme meme) {
         assert meme != null;
 
         ImagePath imagePath = meme.getImagePath();
         Description description = meme.getDescription();
         Set<Tag> tags = meme.getTags();
-        return new Meme(imagePath, description, tags, true);
+        return new Meme(imagePath, description, tags, false);
     }
 
     @Override
@@ -85,12 +85,12 @@ public class MemeArchiveCommand extends Command {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof MemeArchiveCommand)) {
+        if (!(other instanceof MemeUnarchiveCommand)) {
             return false;
         }
 
         // state check
-        MemeArchiveCommand e = (MemeArchiveCommand) other;
+        MemeUnarchiveCommand e = (MemeUnarchiveCommand) other;
         return index.equals(e.index);
     }
 
