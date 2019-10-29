@@ -160,4 +160,10 @@ public class BookmarkPredicate implements Predicate<Bookmark> {
                 && notUrlKeywords.equals((((BookmarkPredicate) other).notUrlKeywords))); // state check
     }
 
+    @Override
+    public String toString() {
+        return "[name: " + nameKeywords + ", not name: " + notNameKeywords + ", url: "
+                + urlKeywords + ", not url: " + notUrlKeywords + "]";
+        // TODO: Improve toString()
+    }
 }

@@ -46,12 +46,14 @@ public class AutotagCommandParserTest {
 
         // no tag name and no condition specified
         assertParseFailure(parser, "", MESSAGE_INVALID_FORMAT);
+
+        // multiple tag names specified
+        assertParseFailure(parser, "two or more tags", MESSAGE_INVALID_FORMAT);
     }
 
     @Test
     public void parse_invalidValue_failure() {
         // invalid tag name
-        assertParseFailure(parser, "multiple words not allowed" + NAME_DESC_1, Tag.MESSAGE_CONSTRAINTS);
         assertParseFailure(parser, "non_alphanumeric_characters" + NAME_DESC_1, Tag.MESSAGE_CONSTRAINTS);
 
         // TODO: Reject invalid names/URLs as conditions in AutotagCommandParser

@@ -28,7 +28,7 @@ public class AutotagCommandParser implements Parser<AutotagCommand> {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_URL, PREFIX_NOT_NAME, PREFIX_NOT_URL);
 
-        if (argMultimap.getPreamble().isEmpty()) {
+        if (argMultimap.getPreamble().isEmpty() || argMultimap.getPreamble().split(" ").length > 1) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AutotagCommand.MESSAGE_USAGE));
         }
 

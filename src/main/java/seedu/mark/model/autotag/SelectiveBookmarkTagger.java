@@ -38,7 +38,7 @@ public class SelectiveBookmarkTagger extends BookmarkTagger {
 
     @Override
     public String toString() {
-        return "Tagger: Applies the tag " + getTagToApply().toString() + " to bookmarks";
-        // TODO: Make a better toString()
+        return "Tagger: Applies the tag " + getTagToApply().toString() + " to bookmarks "
+                + "that match the predicate " + predicate.toString();
     }
 }
