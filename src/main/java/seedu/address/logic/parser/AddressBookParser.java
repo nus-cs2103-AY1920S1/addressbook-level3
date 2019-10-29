@@ -123,22 +123,6 @@ public class AddressBookParser {
      * @return the command based on the user input
      * @throws ParseException if the user input does not conform the expected format
      */
-    private Command parseTimeTrialCommands(String commandWord, String arguments) throws ParseException {
-        switch (commandWord) {
-
-        default:
-            throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
-        }
-    }
-
-
-    /**
-     * Parses user input into command for execution.
-     * @param commandWord the command to execute
-     * @param arguments the parameters supplied to command
-     * @return the command based on the user input
-     * @throws ParseException if the user input does not conform the expected format
-     */
     private Command parseCheatSheetCommands(String commandWord, String arguments) throws ParseException {
         switch (commandWord) {
         case AddCheatSheetCommand.COMMAND_WORD:
