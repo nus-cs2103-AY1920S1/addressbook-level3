@@ -107,9 +107,7 @@ public class Timekeeper {
      */
     public void refreshBudgets() {
         for (Budget budget : budgets) {
-            if (budget.expired(systemTime)) {
-                budget.refresh(systemTime);
-            }
+            budget.normalize(Timestamp.getCurrentTimestamp());
         }
     }
 

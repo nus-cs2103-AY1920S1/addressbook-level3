@@ -3,6 +3,7 @@ package seedu.address.model.util;
 import seedu.address.model.MooLah;
 import seedu.address.model.ReadOnlyMooLah;
 
+import seedu.address.model.budget.Budget;
 import seedu.address.model.category.Category;
 import seedu.address.model.expense.Description;
 import seedu.address.model.expense.Expense;
@@ -14,6 +15,12 @@ import seedu.address.model.expense.util.UniqueIdentifierGenerator;
  * Contains utility methods for populating {@code MooLah} with sample data.
  */
 public class SampleDataUtil {
+
+    public static Budget[] getSampleBudgets() {
+        return new Budget[] {
+                Budget.createDefaultBudget()
+        };
+    }
 
     public static Expense[] getSampleExpenses() {
         return new Expense[] {
@@ -29,11 +36,14 @@ public class SampleDataUtil {
     }
 
     public static ReadOnlyMooLah getSampleMooLah() {
-        MooLah sampleAb = new MooLah();
-        for (Expense sampleExpense : getSampleExpenses()) {
-            sampleAb.addExpense(sampleExpense);
+        MooLah sampleMl = new MooLah();
+        for (Budget sampleBudget : getSampleBudgets()) {
+            sampleMl.addBudget(sampleBudget);
         }
-        return sampleAb;
+        for (Expense sampleExpense : getSampleExpenses()) {
+            sampleMl.addExpense(sampleExpense);
+        }
+        return sampleMl;
     }
 
     public static Category getCategory(String category) {

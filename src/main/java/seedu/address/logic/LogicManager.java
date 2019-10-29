@@ -71,6 +71,10 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public ObservableList<Budget> getFilteredBudgetList() {
+        return model.getFilteredBudgetList();
+    }
+
     public ObservableList<Event> getFilteredEventList() {
         return model.getFilteredEventList();
     }
@@ -81,11 +85,6 @@ public class LogicManager implements Logic {
             model.deleteEvent(event);
         }
     }
-
-    //@Override
-    //public ObservableList<Budget> getFilteredBudgetList() {
-    //  return model.getFilteredBudgetList();
-    //}
 
     @Override
     public Budget getPrimaryBudget() {

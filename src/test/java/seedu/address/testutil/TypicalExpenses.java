@@ -23,7 +23,7 @@ public class TypicalExpenses {
             .withDescription("Alices Birthday")
             .withPrice("20")
             .withCategory("Entertainment")
-            .withTimestamp("01-12 noon")
+            .withTimestamp("01-12-2019 noon")
             .withBudgetName("Default Budget")
             .withUniqueIdentifier("Expense@00000000-0000-0000-0000-000000000001")
             .build();
@@ -39,7 +39,7 @@ public class TypicalExpenses {
             .withDescription("Chicken Rice extra Chicken")
             .withPrice("3.50")
             .withCategory("Food")
-            .withTimestamp("03-12 noon")
+            .withTimestamp("03-12-2019 noon")
             .withBudgetName("Default Budget")
             .withUniqueIdentifier("Expense@00000000-0000-0000-0000-000000000003")
             .build();

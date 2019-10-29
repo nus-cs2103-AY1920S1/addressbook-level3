@@ -11,6 +11,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.expense.Expense;
+import seedu.address.ui.budget.BudgetPanel;
 
 /**
  * Adds a expense to the MooLah.
@@ -57,7 +58,7 @@ public class AddExpenseCommand extends AddCommand {
         requireNonNull(model);
 
         model.addExpense(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), BudgetPanel.PANEL_NAME);
     }
 
     @Override

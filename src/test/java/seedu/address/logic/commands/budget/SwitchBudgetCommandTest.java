@@ -28,7 +28,7 @@ public class SwitchBudgetCommandTest {
         Model model = new ModelManager();
         model.addBudget(SCHOOL);
         model.addBudget(OUTSIDE_SCHOOL);
-        assertEquals(model.getPrimaryBudget(), OUTSIDE_SCHOOL); // primary budget is OUTSIDE_SCHOOL
+        assertTrue(model.getPrimaryBudget().isSameBudget(OUTSIDE_SCHOOL)); // primary budget is OUTSIDE_SCHOOL
 
         try {
             Description validInput = SCHOOL.getDescription();
@@ -47,7 +47,7 @@ public class SwitchBudgetCommandTest {
         Model model = new ModelManager();
         model.addBudget(SCHOOL);
         model.addBudget(OUTSIDE_SCHOOL);
-        assertEquals(model.getPrimaryBudget(), OUTSIDE_SCHOOL); // primary budget is OUTSIDE_SCHOOL
+        assertTrue(model.getPrimaryBudget().isSameBudget(OUTSIDE_SCHOOL)); // primary budget is OUTSIDE_SCHOOL
 
         try {
             SwitchBudgetCommand command = new SwitchBudgetCommand(OUTSIDE_SCHOOL.getDescription());
@@ -62,7 +62,7 @@ public class SwitchBudgetCommandTest {
         Model model = new ModelManager();
         model.addBudget(SCHOOL);
         model.addBudget(OUTSIDE_SCHOOL);
-        assertEquals(model.getPrimaryBudget(), OUTSIDE_SCHOOL); // primary budget is OUTSIDE_SCHOOL
+        assertTrue(model.getPrimaryBudget().isSameBudget(OUTSIDE_SCHOOL)); // primary budget is OUTSIDE_SCHOOL
 
         try {
             SwitchBudgetCommand command = new SwitchBudgetCommand(new Description("nonExistingBudgetName"));

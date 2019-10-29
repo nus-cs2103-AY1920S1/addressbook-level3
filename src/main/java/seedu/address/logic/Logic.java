@@ -42,7 +42,7 @@ public interface Logic {
     ObservableList<Event> getFilteredEventList();
 
     /** Returns an unmodifiable view of the filtered list of budgets */
-    //ObservableList<Budget> getFilteredBudgetList();
+    ObservableList<Budget> getFilteredBudgetList();
 
     Budget getPrimaryBudget();
 

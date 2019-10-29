@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Border;
 import javafx.scene.layout.Region;
 import seedu.address.model.budget.Budget;
 import seedu.address.model.expense.Expense;
@@ -19,6 +20,7 @@ public class BudgetCard extends UiPart<Region> {
 
     private static final String FXML = "BudgetCard.fxml";
     private static final String CURRENCY_SYMBOL = "$";
+    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -41,6 +43,8 @@ public class BudgetCard extends UiPart<Region> {
     @FXML
     private Label budgetAllocatedAmount;
     @FXML
+    private Label proportionUsed;
+    @FXML
     private ProgressBar budgetProgressBar;
 
     private Budget budget;
@@ -56,6 +60,8 @@ public class BudgetCard extends UiPart<Region> {
         updateBudgetCardPeriod();
         // budget total over allocated
         updateBudgetCardProgressBarText();
+        // budget proportion used
+        updateBudgetProportionUsed();
         // progress bar colour
         updateBudgetCardProgressBarColour();
 
@@ -70,34 +76,34 @@ public class BudgetCard extends UiPart<Region> {
                 }
             }
         });
-
     }
 
     /**
      * Updates the text displayed on the budget progress bar.
      */
     private void updateBudgetCardProgressBarText() {
-        budget.getExpenses()
-                .stream()
-                .mapToDouble(expense -> expense.getPrice().getAsDouble())
-                .reduce((v, v1) -> v + v1)
-                .ifPresentOrElse(this::updateBudgetCardTotalAmounts, () -> updateBudgetCardTotalAmounts(0));
-        budgetAllocatedAmount.setText(String.format("%s%f", CURRENCY_SYMBOL, budget.getAmount().getAsDouble()));
+        updateBudgetCardTotalAmount(budget.getExpenseSum());
+        budgetAllocatedAmount.setText(String.format("%s%.2f", CURRENCY_SYMBOL, budget.getAmount().getAsDouble()));
+        updateBudgetProportionUsed();
     }
 
 
-    private void updateBudgetCardTotalAmounts(double totalAmount) {
-        budgetTotalAmount.setText(String.format("%s%f", CURRENCY_SYMBOL, totalAmount));
+    private void updateBudgetCardTotalAmount(double totalAmount) {
+        budgetTotalAmount.setText(String.format("%s%.2f", CURRENCY_SYMBOL, totalAmount));
         budgetProgressBar.setProgress(totalAmount / budget.getAmount().getAsDouble());
     }
 
     private void updateBudgetCardPeriod() {
-        budgetStart.setText(budget.getStartDate().fullTimestamp.format(DateTimeFormatter.BASIC_ISO_DATE));
-        budgetEnd.setText(budget.getEndDate().fullTimestamp.format(DateTimeFormatter.BASIC_ISO_DATE));
+        budgetStart.setText(budget.getStartDate().fullTimestamp.format(formatter));
+        budgetEnd.setText(budget.getEndDate().fullTimestamp.format(formatter));
     }
 
     private void updateBudgetCardDescription() {
         budgetName.setText(budget.getDescription().fullDescription);
+    }
+
+    private void updateBudgetProportionUsed() {
+        proportionUsed.setText("[" + budget.calculateProportionUsed().toString() + "]");
     }
 
     /**
@@ -109,9 +115,15 @@ public class BudgetCard extends UiPart<Region> {
     private void updateBudgetCardProgressBarColour() {
         if (budget.isExceeded()) {
             budgetProgressBar.setStyle("-progress-bar-colour: -progress-bar-overbudget;");
+        } else if (budget.isNear()) {
+            budgetProgressBar.setStyle("-progress-bar-colour: -progress-bar-nearbudget;");
         } else {
             budgetProgressBar.setStyle("-progress-bar-colour: -progress-bar-inbudget;");
         }
+    }
+
+    public void setBorder(Border border) {
+        budgetCardPane.setBorder(border);
     }
 
     @Override

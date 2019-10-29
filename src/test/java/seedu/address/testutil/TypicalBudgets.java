@@ -9,17 +9,17 @@ import seedu.address.model.budget.Percentage;
 public class TypicalBudgets {
 
     public static final String SCHOOL_BUDGET_STRING_ONE = "|| Description: School related expenses "
-            + "Amount: 300 Period: month Start date: 1 Oct 2019, 12:00:00 PM End date: 1 Nov 2019, 12:00:00 PM ||";
+            + "Amount: 300 Period: month Start date: 15 Nov 2019, 12:00:00 PM End date: 14 Dec 2019, 12:00:00 PM ||";
 
     public static final String SCHOOL_BUDGET_STRING_TWO = "|| Description: School related expenses "
-            + "Amount: 300 Period: month Start date: Oct 1, 2019, 12:00:00 PM End date: Nov 1, 2019, 12:00:00 PM ||";
+            + "Amount: 300 Period: month Start date: Nov 15, 2019, 12:00:00 PM End date: Dec 14, 2019, 12:00:00 PM ||";
 
     public static final Budget SCHOOL = new BudgetBuilder()
             .withDescription("School related expenses")
             .withAmount("300")
-            .withStartDate("01-10-2019 noon")
+            .withStartDate("15-11-2019 noon")
             .withPeriod("month")
-            .withEndDate("01-11-2019 noon")
+            .withEndDate("14-12-2019 noon")
             .withIsPrimary(true)
             .withProportionUsed(new Percentage(35))
             .build();
@@ -29,7 +29,7 @@ public class TypicalBudgets {
             .withAmount("200")
             .withStartDate("05-09-2019 noon")
             .withPeriod("month")
-            .withEndDate("05-10-2019 noon")
+            .withEndDate("04-10-2019 noon")
             .withIsPrimary(false)
             .withProportionUsed(new Percentage(50))
             .build();

@@ -10,6 +10,7 @@ import seedu.address.model.budget.UniqueBudgetList;
 import seedu.address.model.expense.Description;
 import seedu.address.model.expense.Event;
 import seedu.address.model.expense.Expense;
+import seedu.address.model.expense.Timestamp;
 import seedu.address.model.expense.UniqueEventList;
 import seedu.address.model.expense.UniqueExpenseList;
 
@@ -45,6 +46,7 @@ public class MooLah implements ReadOnlyMooLah {
     public MooLah() {
         expenses = new UniqueExpenseList();
         budgets = new UniqueBudgetList();
+        budgets.add(Budget.createDefaultBudget());
         events = new UniqueEventList();
     }
 
@@ -87,6 +89,22 @@ public class MooLah implements ReadOnlyMooLah {
         setExpenses(newData.getExpenseList());
         setBudgets(newData.getBudgetList());
         setEvents(newData.getEventList());
+        resetBudgetExpenseLists();
+    }
+
+    /**
+     * Update expense list of all budgets as a result of UndoCommand on expenses.
+     */
+    private void resetBudgetExpenseLists() {
+        for (Budget b : budgets) {
+            b.clearExpenses();
+        }
+        for (Expense e : expenses) {
+            Budget b = budgets.getBudgetWithName(e.getBudgetName());
+            if (b != null) {
+                b.addExpense(e);
+            }
+        }
     }
 
     //=========== Expense-level operations =============================================================
@@ -105,11 +123,11 @@ public class MooLah implements ReadOnlyMooLah {
      * The expense must not already exist in the MooLah.
      */
     public void addExpense(Expense p) {
-        if (budgets.isEmpty()) {
-            Budget defaultBudget = Budget.createDefaultBudget();
-            defaultBudget.setPrimary();
-            budgets.add(defaultBudget);
-        }
+        //if (budgets.isEmpty()) {
+        //  Budget defaultBudget = Budget.createDefaultBudget();
+        // defaultBudget.setPrimary();
+        // budgets.add(defaultBudget);
+        //}
         Budget primaryBudget = budgets.getPrimaryBudget();
         if (p.getBudgetName() == null) {
             p.setBudget(primaryBudget);
@@ -170,6 +188,10 @@ public class MooLah implements ReadOnlyMooLah {
         budgets.add(budget);
     }
 
+    public void addBudgetFromStorage(Budget budget) {
+        budgets.addBudgetFromStorage(budget);
+    }
+
     /**
      * Checks whether MooLah has a budget with the specified name.
      * @param targetDescription The description (i.e. name) of the budget to check.
@@ -178,6 +200,10 @@ public class MooLah implements ReadOnlyMooLah {
     public boolean hasBudgetWithName(Description targetDescription) {
         requireNonNull(targetDescription);
         return budgets.hasBudgetWithName(targetDescription);
+    }
+
+    public Budget getBudgetWithName(Description d) {
+        return budgets.getBudgetWithName(d);
     }
 
     /**
@@ -196,6 +222,36 @@ public class MooLah implements ReadOnlyMooLah {
     public void switchBudgetTo(Description targetDescription) {
         Budget targetBudget = budgets.getBudgetWithName(targetDescription);
         budgets.setPrimary(targetBudget);
+    }
+
+    void setBudget(Budget target, Budget editedBudget) {
+        requireNonNull(editedBudget);
+        budgets.setBudget(target, editedBudget);
+
+        for (Expense expense : expenses) {
+            expense.setBudget(editedBudget);
+        }
+    }
+
+    /**
+     * Removes Budget {@code key} from this {@code MooLah}.
+     * {@code key} must exist in the MooLah.
+     */
+    public void removeBudget(Budget key) {
+        budgets.remove(key);
+        for (Expense expense : expenses) {
+            expense.removeBudget();
+        }
+    }
+
+    /**
+     * Changes budget window of primary budget to a period in the past, as specified by the anchor date.
+     * @param pastDate The date to anchor the period.
+     */
+    public void changePrimaryBudgetWindow(Timestamp pastDate) {
+        requireNonNull(pastDate);
+
+        budgets.changePrimaryBudgetWindow(pastDate);
     }
 
     //=========== Event-level operations ================================================================

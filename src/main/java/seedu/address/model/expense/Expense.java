@@ -81,6 +81,10 @@ public class Expense {
         this.budgetName = budget.getDescription();
     }
 
+    public void removeBudget() {
+        this.budgetName = new Description("default budget");
+    }
+
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.

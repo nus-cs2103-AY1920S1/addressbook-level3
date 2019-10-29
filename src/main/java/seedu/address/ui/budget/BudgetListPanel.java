@@ -7,7 +7,13 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.layout.Border;
+import javafx.scene.layout.BorderStroke;
+import javafx.scene.layout.BorderStrokeStyle;
+import javafx.scene.layout.BorderWidths;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.budget.Budget;
 import seedu.address.ui.panel.Panel;
@@ -19,6 +25,9 @@ import seedu.address.ui.panel.PanelName;
 public class BudgetListPanel extends Panel {
     public static final PanelName PANEL_NAME = new PanelName("Budget List");
     private static final String FXML = "ListPanel.fxml";
+    private static final Border PRIMARY_BUDGET_BORDER = new Border(new BorderStroke(Color.RED,
+            BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT));
+
     private final Logger logger = LogsCenter.getLogger(BudgetListPanel.class);
 
     @FXML
@@ -59,7 +68,11 @@ public class BudgetListPanel extends Panel {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new BudgetCard(budget).getRoot());
+                BudgetCard budgetCard = new BudgetCard(budget);
+                if (budget.isPrimary()) {
+                    budgetCard.setBorder(PRIMARY_BUDGET_BORDER);
+                }
+                setGraphic(budgetCard.getRoot());
             }
         }
     }

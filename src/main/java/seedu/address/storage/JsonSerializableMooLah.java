@@ -65,10 +65,13 @@ class JsonSerializableMooLah {
         MooLah mooLah = new MooLah();
         for (JsonAdaptedBudget jsonAdaptedBudget : budgets) {
             Budget budget = jsonAdaptedBudget.toModelType();
-            if (mooLah.hasBudget(budget)) {
-                throw new IllegalValueException(MESSAGE_DUPLICATE_BUDGET);
+            boolean isDefaultBudget = budget.isSameBudget(Budget.createDefaultBudget());
+            if (!isDefaultBudget) {
+                if (mooLah.hasBudget(budget)) {
+                    throw new IllegalValueException(MESSAGE_DUPLICATE_BUDGET);
+                }
+                mooLah.addBudgetFromStorage(budget);
             }
-            mooLah.addBudget(budget);
         }
 
         for (JsonAdaptedExpense jsonAdaptedExpense : expenses) {

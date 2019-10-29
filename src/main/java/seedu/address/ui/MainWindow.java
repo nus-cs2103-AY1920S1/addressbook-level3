@@ -18,14 +18,25 @@ import java.util.List;
 import java.util.Timer;
 import java.util.logging.Logger;
 
+import javafx.animation.PauseTransition;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
+import javafx.stage.Popup;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
+import javafx.util.Duration;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
@@ -34,6 +45,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.ui.ViewPanelCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Timekeeper;
+import seedu.address.model.budget.Budget;
 import seedu.address.model.expense.Event;
 import seedu.address.model.statistics.PieChartStatistics;
 import seedu.address.model.statistics.Statistics;
@@ -53,6 +65,14 @@ import seedu.address.ui.panel.exceptions.UnmappedPanelException;
 public class MainWindow extends UiPart<Stage> {
 
     private static final String FXML = "MainWindow.fxml";
+    private static final String MESSAGE_BUDGET_NEAR = "You are close to your budget limit.";
+    private static final String MESSAGE_BUDGET_EXCEEDED = "Your budget is exceeded.";
+    private static final Background BUDGET_WARNING_POPUP_BACKGROUND = new Background(
+            new BackgroundFill(
+                    Color.RED,
+                    new CornerRadii(10),
+                    Insets.EMPTY)
+    );
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
@@ -99,6 +119,7 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
+
     }
 
     public Stage getPrimaryStage() {
@@ -148,7 +169,7 @@ public class MainWindow extends UiPart<Stage> {
 
         singlePanelView = new SinglePanelView();
         expenseListPanel = new ExpenseListPanel(logic.getFilteredExpenseList(), true);
-        //budgetListPanel = new BudgetListPanel(logic.getFilteredBudgetList());
+        budgetListPanel = new BudgetListPanel(logic.getFilteredBudgetList());
 
         if (logic.getPrimaryBudget() != null) {
             singlePanelView.setPanel(BudgetPanel.PANEL_NAME, new BudgetPanel(logic.getPrimaryBudget()));
@@ -157,7 +178,7 @@ public class MainWindow extends UiPart<Stage> {
         }
 
         singlePanelView.setPanel(PanelName.ALIASES_PANEL, new PlaceholderPanel());
-        //singlePanelView.setPanel(BudgetListPanel.PANEL_NAME, budgetListPanel);
+        singlePanelView.setPanel(BudgetListPanel.PANEL_NAME, budgetListPanel);
         singlePanelView.setPanel(ExpenseListPanel.PANEL_NAME, expenseListPanel);
 
         singlePanelView.setPanel(PanelName.EVENTS_PANEL, new PlaceholderPanel());
@@ -200,6 +221,30 @@ public class MainWindow extends UiPart<Stage> {
         commandBox.enableSyntaxHighlightingForCommand("undo",
                 Collections.emptyList());
         commandBox.enableSyntaxHighlightingForCommand("redo",
+                Collections.emptyList());
+        commandBox.enableSyntaxHighlightingForCommand("listbudgets",
+                Collections.emptyList());
+        commandBox.enableSyntaxHighlightingForCommand("deletebudget",
+                Collections.emptyList());
+        commandBox.enableSyntaxHighlightingForCommand("list",
+                Collections.emptyList());
+        commandBox.enableSyntaxHighlightingForCommand("delete",
+                Collections.emptyList());
+        commandBox.enableSyntaxHighlightingForCommand("edit",
+                Collections.emptyList());
+        commandBox.enableSyntaxHighlightingForCommand("editbudget",
+                Collections.emptyList());
+        commandBox.enableSyntaxHighlightingForCommand("view",
+                Collections.emptyList());
+        commandBox.enableSyntaxHighlightingForCommand("clear",
+                Collections.emptyList());
+        commandBox.enableSyntaxHighlightingForCommand("find",
+                Collections.emptyList());
+        commandBox.enableSyntaxHighlightingForCommand("exit",
+                Collections.emptyList());
+        commandBox.enableSyntaxHighlightingForCommand("help",
+                Collections.emptyList());
+        commandBox.enableSyntaxHighlightingForCommand("stats",
                 Collections.emptyList());
         commandBox.enableSyntaxHighlighting();
     }
@@ -288,6 +333,11 @@ public class MainWindow extends UiPart<Stage> {
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException,
             UnmappedPanelException {
         try {
+
+            Budget primaryBudget = logic.getPrimaryBudget();
+            boolean initialIsNear = primaryBudget.isNear();
+            boolean initialIsExceeded = primaryBudget.isExceeded();
+
             CommandResult commandResult = logic.execute(commandText);
 
             if (commandResult.isViewRequest()) {
@@ -308,6 +358,11 @@ public class MainWindow extends UiPart<Stage> {
             if (commandResult.isStatistic()) {
                 displayStats(commandResult);
             }
+
+            boolean finalIsNear = primaryBudget.isNear();
+            boolean finalIsExceeded = primaryBudget.isExceeded();
+
+            showWarningIfAny(initialIsNear, initialIsExceeded, finalIsNear, finalIsExceeded);
 
             return commandResult;
         } catch (CommandException | ParseException e) {
@@ -338,6 +393,53 @@ public class MainWindow extends UiPart<Stage> {
         for (Event event : transpiredEvents) {
             TranspiredEventsWindow eventWindow = new TranspiredEventsWindow(logic);
             eventWindow.show(event);
+        }
+    }
+
+    /**
+     * Creates a popup for warnings related to budget.
+     */
+    public Popup createPopup(String message) {
+        Popup popup = new Popup();
+        popup.setAutoFix(true);
+        popup.setAutoHide(true);
+        popup.setHideOnEscape(true);
+        Label label = new Label(message);
+        label.setBackground(BUDGET_WARNING_POPUP_BACKGROUND);
+        popup.getContent().add(label);
+        return popup;
+    }
+
+    /**
+     * Handles the showing and disappearing of popup warnings.
+     */
+    public void showPopupMessage(String message) {
+        Popup popup = createPopup(message);
+        popup.setOnShown(new EventHandler<WindowEvent>() {
+            @Override
+            public void handle(WindowEvent e) {
+                popup.setX(primaryStage.getX() + primaryStage.getWidth() / 2 - popup.getWidth() / 2);
+                popup.setY(primaryStage.getY() + primaryStage.getHeight() / 2 - popup.getHeight() / 2);
+            }
+        });
+        popup.show(primaryStage);
+        PauseTransition delay = new PauseTransition(Duration.seconds(2));
+        delay.setOnFinished(event -> popup.hide());
+        delay.play();
+    }
+
+    /**
+     * Determines if there is a need to show warnings, and shows the corresponding warnings.
+     */
+    public void showWarningIfAny(boolean initialIsNear, boolean initialIsExceeded,
+                                 boolean finalIsNear, boolean finalIsExceeded) {
+        if (!initialIsExceeded && finalIsExceeded) {
+            showPopupMessage(MESSAGE_BUDGET_EXCEEDED);
+            return;
+        }
+
+        if (!initialIsNear && finalIsNear) {
+            showPopupMessage(MESSAGE_BUDGET_NEAR);
         }
     }
 }

@@ -5,6 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.time.LocalDateTime;
 import java.time.Period;
 import java.time.temporal.ChronoUnit;
+import java.util.List;
 import java.util.Objects;
 
 import javafx.collections.FXCollections;
@@ -21,13 +22,14 @@ import seedu.address.model.expense.Timestamp;
  */
 public class Budget {
 
-    private static final Description DEFAULT_BUDGET_DESCRIPTION = new Description("Default Budget");
+    private static final Description DEFAULT_BUDGET_DESCRIPTION = new Description("default budget");
     //private static final Price DEFAULT_BUDGET_AMOUNT = new Price(Double.toString(Double.MAX_VALUE));
     private static final Price DEFAULT_BUDGET_AMOUNT = new Price("999999999999999999999");
     //private static final LocalDate DEFAULT_BUDGET_START_DATE = LocalDate.MIN;
     private static final Timestamp DEFAULT_BUDGET_START_DATE = new Timestamp(LocalDateTime.of(2000, 1, 1, 0, 0));
     //private static final Period DEFAULT_BUDGET_PERIOD = Period.between(LocalDate.MIN, LocalDate.MAX);
     private static final Period DEFAULT_BUDGET_PERIOD = Period.ofYears(999);
+    //private static final boolean DEFAULT_BUDGET_IS_PRIMARY = true;
     private static final Percentage IS_NEAR_THRESHOLD = new Percentage(90);
 
     private final Description description;
@@ -35,7 +37,7 @@ public class Budget {
     private Timestamp startDate;
     private Timestamp endDate;
     private final Period period;
-    private final ObservableList<Expense> expenses;
+    private ObservableList<Expense> expenses;
     private boolean isPrimary;
     private Percentage proportionUsed;
 
@@ -46,10 +48,10 @@ public class Budget {
         this.amount = amount;
         this.startDate = startDate;
         this.period = period;
-        this.endDate = startDate.plus(period);
+        this.endDate = calculateEndDate();
         this.expenses = FXCollections.observableArrayList();
         this.isPrimary = false;
-        this.proportionUsed = new Percentage(0);
+        this.proportionUsed = calculateProportionUsed();
     }
 
     //Constructor for system.
@@ -60,9 +62,9 @@ public class Budget {
         this.amount = amount;
         this.startDate = startDate;
         this.period = period;
-        this.endDate = startDate.plus(period);
+        this.endDate = calculateEndDate();
         this.isPrimary = false;
-        this.proportionUsed = new Percentage(0);
+        this.proportionUsed = calculateProportionUsed();
         this.expenses = expenses;
     }
 
@@ -113,10 +115,73 @@ public class Budget {
      * @return Dummy.
      */
     public static Budget createDefaultBudget() {
-        return new Budget(DEFAULT_BUDGET_DESCRIPTION,
+        Budget defaultBudget = new Budget(DEFAULT_BUDGET_DESCRIPTION,
                 DEFAULT_BUDGET_AMOUNT,
                 DEFAULT_BUDGET_START_DATE,
                 DEFAULT_BUDGET_PERIOD);
+        defaultBudget.setPrimary();
+        return defaultBudget;
+    }
+
+    /**
+     * Calculates proper end date based on given start date and period.
+     */
+    private Timestamp calculateEndDate() {
+        Timestamp endDate = startDate.plus(period);
+        if (period.getMonths() == 1 && endDate.getDayOfMonth() < startDate.getDayOfMonth()) {
+            endDate.plusDays(1);
+        }
+        return endDate.minusDays(1);
+    }
+
+    /**
+     * Normalizes the budget window to the current period.
+     */
+    public void normalize(Timestamp anchor) {
+        LocalDateTime now = anchor.fullTimestamp;
+
+        if (period.getMonths() == 1) {
+
+            int specifiedDayOfMonth = startDate.getDayOfMonth();
+            int currentDayOfMonth = now.getDayOfMonth();
+            LocalDateTime normalized;
+            if (currentDayOfMonth >= specifiedDayOfMonth) {
+                normalized = now.withDayOfMonth(specifiedDayOfMonth);
+            } else {
+                normalized = now.minusMonths(1).withDayOfMonth(specifiedDayOfMonth);
+            }
+            startDate = new Timestamp(normalized);
+            endDate = calculateEndDate();
+
+        } else if (period.getYears() == 1) {
+
+            int specifiedDayOfYear = startDate.getDayOfYear();
+            int currentDayOfYear = now.getDayOfYear();
+            LocalDateTime normalized;
+            if (currentDayOfYear >= specifiedDayOfYear) {
+                normalized = now.withMonth(startDate.getMonthValue())
+                        .withDayOfMonth(startDate.getDayOfMonth());
+            } else {
+                normalized = now.minusYears(1)
+                        .withMonth(startDate.getMonthValue())
+                        .withDayOfMonth(startDate.getDayOfMonth());
+            }
+            startDate = new Timestamp(normalized);
+            endDate = calculateEndDate();
+
+        } else if (period.getDays() == 1) {
+
+            startDate = new Timestamp(now);
+            endDate = calculateEndDate();
+
+        } else if (period.getDays() == 7) {
+
+            long daysDiff = ChronoUnit.DAYS.between(startDate.getFullTimestamp().toLocalDate(), now.toLocalDate());
+            long offset = daysDiff >= 0 ? daysDiff % 7 : daysDiff % 7 + 7;
+            startDate = new Timestamp(now.minusDays(offset));
+            endDate = calculateEndDate();
+
+        }
     }
 
     /**
@@ -130,9 +195,10 @@ public class Budget {
     }
 
     public double getExpenseSum() {
+        List<Expense> currentExpenses = getCurrentPeriodExpenses();
         double sum = 0;
-        for (int i = 0; i < expenses.size(); i++) {
-            sum += expenses.get(i).getPrice().getAsDouble();
+        for (int i = 0; i < currentExpenses.size(); i++) {
+            sum += currentExpenses.get(i).getPrice().getAsDouble();
         }
         return sum;
     }
@@ -156,29 +222,6 @@ public class Budget {
         return getExpenseSum() > amount.getAsDouble();
     }
 
-    /**
-     * dummy.
-     * @param date
-     * @return
-     */
-    public boolean expired(Timestamp date) {
-        return date.isAfter(endDate) || date.isEqual(endDate);
-    }
-
-    /**
-     * dymmy.
-     * @param date
-     */
-    public void refresh(Timestamp date) {
-        assert expired(date) : "Budget is refreshed only when expired";
-        long daysDiff = ChronoUnit.DAYS.between(endDate.getFullTimestamp(), date.getFullTimestamp());
-        long periodDays = ChronoUnit.DAYS.between(startDate.getFullTimestamp(), endDate.getFullTimestamp());
-        long cycles = daysDiff / periodDays;
-        long offset = cycles * periodDays;
-        startDate = endDate.plusDays(offset);
-        endDate = startDate.plus(period);
-    }
-
     public boolean isPrimary() {
         return isPrimary;
     }
@@ -189,6 +232,10 @@ public class Budget {
 
     public void setNotPrimary() {
         isPrimary = false;
+    }
+
+    public void setIsPrimary(boolean status) {
+        isPrimary = status;
     }
 
     /**
@@ -206,6 +253,10 @@ public class Budget {
         expenses.remove(toRemove);
     }
 
+    public void clearExpenses() {
+        expenses.clear();
+    }
+
     /**
      * Sets the specified expense in the expense list to an updated one.
      * @param target The expense to be updated.
@@ -220,12 +271,26 @@ public class Budget {
 
     public ObservableList<Expense> getCurrentPeriodExpenses() {
         ObservableList<Expense> currentPeriodExpenses = FXCollections.observableArrayList();
-        expenses.stream().forEach(expense -> {
-            if (withinCurrentPeriod(expense.getTimestamp())) {
-                currentPeriodExpenses.add(expense);
-            }
-        });
+        if (expenses != null) {
+            expenses.stream().forEach(expense -> {
+                if (withinCurrentPeriod(expense.getTimestamp())) {
+                    currentPeriodExpenses.add(expense);
+                }
+            });
+        }
         return currentPeriodExpenses;
+    }
+
+    /**
+     * Makes a deep copy of a budget.
+     * @param other The budget to be deep copied.
+     * @return A deep copy of the budget, with identical attributes.
+     */
+    public static Budget deepCopy(Budget other) {
+        Budget budget = new Budget(other.getDescription(), other.getAmount(), other.getStartDate(),
+                other.getEndDate(), other.getPeriod(), other.getExpenses(), other.isPrimary(),
+                other.getProportionUsed());
+        return budget;
     }
 
     /**
@@ -234,8 +299,8 @@ public class Budget {
      * @return A boolean indicating whether the timestamp is within the current period.
      */
     public boolean withinCurrentPeriod(Timestamp timestamp) {
-        return (timestamp.isAfter(startDate) || timestamp.isEqual(startDate))
-                && (timestamp.isBefore(endDate));
+        return timestamp.getDate().isAfter(startDate.getDate().minusDays(1))
+                && timestamp.getDate().isBefore(endDate.getDate().plusDays(1));
     }
 
     /**
@@ -264,9 +329,9 @@ public class Budget {
         Budget otherBudget = (Budget) other;
         return otherBudget.description.equals(description)
                 && otherBudget.amount.equals(amount)
-                && otherBudget.startDate.equals(startDate)
+                && otherBudget.startDate.getDate().equals(startDate.getDate())
                 && otherBudget.period.equals(period)
-                && otherBudget.endDate.equals(endDate)
+                && otherBudget.endDate.getDate().equals(endDate.getDate())
                 && otherBudget.expenses.equals(expenses)
                 && otherBudget.isPrimary == isPrimary
                 && otherBudget.proportionUsed.equals(proportionUsed);
@@ -275,7 +340,8 @@ public class Budget {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(description, startDate, period, amount);
+        return Objects.hash(description, amount, startDate, endDate, period, expenses,
+                isPrimary, proportionUsed);
     }
 
     @Override
