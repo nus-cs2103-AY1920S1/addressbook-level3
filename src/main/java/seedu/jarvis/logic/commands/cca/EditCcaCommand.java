@@ -1,6 +1,7 @@
 package seedu.jarvis.logic.commands.cca;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.jarvis.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.jarvis.logic.parser.CliSyntax.CcaTrackerCliSyntax.PREFIX_CCA_NAME;
 import static seedu.jarvis.logic.parser.CliSyntax.CcaTrackerCliSyntax.PREFIX_CCA_TYPE;
 import static seedu.jarvis.logic.parser.CliSyntax.CcaTrackerCliSyntax.PREFIX_EQUIPMENT_NAME;
@@ -59,15 +60,25 @@ public class EditCcaCommand extends Command {
     private Cca editedCca;
 
     /**
-     * @param index of the {@code Cca} in the {@code CcaList} to edit
+     * @param targetIndex of the {@code Cca} in the {@code CcaList} to edit
+     * @param editCcaDescriptor details to edit the {@code cca} with
+     * @param originalCca cca before the edit.
+     * @param editedCca cca after the edit.
+     */
+    public EditCcaCommand(Index targetIndex, EditCcaDescriptor editCcaDescriptor, Cca originalCca, Cca editedCca) {
+        requireAllNonNull(targetIndex, targetIndex);
+        this.targetIndex = targetIndex;
+        this.editCcaDescriptor = editCcaDescriptor;
+        this.originalCca = originalCca;
+        this.editedCca = editedCca;
+    }
+
+    /**
+     * @param targetIndex of the {@code Cca} in the {@code CcaList} to edit
      * @param editCcaDescriptor details to edit the {@code cca} with
      */
-    public EditCcaCommand(Index index, EditCcaDescriptor editCcaDescriptor) {
-        requireNonNull(index);
-        requireNonNull(editCcaDescriptor);
-
-        this.targetIndex = index;
-        this.editCcaDescriptor = new EditCcaDescriptor(editCcaDescriptor);
+    public EditCcaCommand(Index targetIndex, EditCcaDescriptor editCcaDescriptor) {
+        this(targetIndex, editCcaDescriptor, null, null);
     }
 
     /**
