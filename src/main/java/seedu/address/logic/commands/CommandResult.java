@@ -1,8 +1,12 @@
 package seedu.address.logic.commands;
 
+import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.display.detailwindow.ClosestCommonLocationData;
+
 import static java.util.Objects.requireNonNull;
 
 import java.util.Objects;
+import java.util.Optional;
 
 /**
  * Represents the result of a command execution.
@@ -45,6 +49,11 @@ public class CommandResult {
      * The application should go back home page.
      */
     private final boolean home;
+
+    /**
+     * Data to show in popup.
+     */
+    private Optional<ClosestCommonLocationData> locationData;
 
     /**
      * Constructs a {@code CommandResult} with the specified fields.
@@ -92,7 +101,7 @@ public class CommandResult {
      * Constructs an alternative CommandResult that would affect the UI.
      */
     public CommandResult(String feedbackToUser,
-                         boolean showHelp, boolean exit, boolean export, boolean scroll, boolean popUp) {
+                         boolean showHelp, boolean exit, boolean export, boolean scroll, boolean popUp, ClosestCommonLocationData locationData) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
@@ -101,6 +110,7 @@ public class CommandResult {
         this.popUp = popUp;
         this.toggleNextWeek = false;
         this.home = false;
+        this.locationData = Optional.of(locationData);
     }
 
     /**
@@ -172,6 +182,13 @@ public class CommandResult {
 
     public boolean isHome() {
         return home;
+    }
+
+    public ClosestCommonLocationData getLocationData() throws CommandException {
+        if (locationData.isEmpty()) {
+            throw new CommandException("Location not found!");
+        }
+        return locationData.get();
     }
 
     @Override

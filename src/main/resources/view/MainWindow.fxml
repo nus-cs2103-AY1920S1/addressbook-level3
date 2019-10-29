@@ -15,6 +15,8 @@
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.RowConstraints?>
 <fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
          title="TimeBook App" minWidth="450" minHeight="500" onCloseRequest="#handleExit">
   <icons>
@@ -38,11 +40,18 @@
         </MenuBar>
 
         <GridPane>
+          <columnConstraints>
+            <ColumnConstraints percentWidth="30" />
+            <ColumnConstraints percentWidth="70" hgrow="ALWAYS"/>
+          </columnConstraints>
+          <rowConstraints>
+            <RowConstraints vgrow="ALWAYS"/>
+          </rowConstraints>
           <StackPane fx:id="sideBarPlaceholder" styleClass="pane-with-border" minWidth="340" prefWidth="340" VBox.vgrow="ALWAYS"
-                       GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.columnSpan="1" GridPane.rowSpan="2"/>
+                       GridPane.columnIndex="0" GridPane.rowIndex="0"/>
 
           <StackPane fx:id="detailsViewPlaceholder" VBox.vgrow="ALWAYS"
-                      GridPane.columnIndex="1" GridPane.rowIndex="0" GridPane.columnSpan="3" GridPane.rowSpan="2"/>
+                      GridPane.columnIndex="1" GridPane.rowIndex="0"/>
         </GridPane>
         <!-- <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" /> !-->
 

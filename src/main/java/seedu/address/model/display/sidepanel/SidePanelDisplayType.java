@@ -6,5 +6,6 @@ package seedu.address.model.display.sidepanel;
 public enum SidePanelDisplayType {
     TABS,
     PERSON,
-    GROUP
+    GROUP,
+    NONE
 }

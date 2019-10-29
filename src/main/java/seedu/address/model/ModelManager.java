@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Hashtable;
@@ -17,6 +18,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.AppSettings;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.display.detailwindow.ClosestCommonLocationData;
 import seedu.address.model.display.schedulewindow.MonthSchedule;
 import seedu.address.model.display.schedulewindow.ScheduleWindowDisplay;
 import seedu.address.model.display.schedulewindow.ScheduleWindowDisplayType;
@@ -33,6 +35,7 @@ import seedu.address.model.mapping.PersonToGroupMapping;
 import seedu.address.model.mapping.PersonToGroupMappingList;
 import seedu.address.model.mapping.Role;
 import seedu.address.model.module.AcadYear;
+import seedu.address.model.module.Holidays;
 import seedu.address.model.module.Module;
 import seedu.address.model.module.ModuleId;
 import seedu.address.model.module.ModuleList;
@@ -216,12 +219,12 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public AcadYear getDefaultAcadYear() {
+    public AcadYear getAcadYear() {
         return userPrefs.getAcadYear();
     }
 
     @Override
-    public SemesterNo getDefaultSemesterNo() {
+    public SemesterNo getSemesterNo() {
         return userPrefs.getSemesterNo();
     }
 
@@ -573,20 +576,19 @@ public class ModelManager implements Model {
         nusModsData.addModule(module);
     }
 
-    public String getAcadSemStartDateString(AcadYear acadYear, SemesterNo semesterNo) {
-        return nusModsData.getAcadCalendar().getStartDateString(acadYear, semesterNo);
-    };
+    public LocalDate getAcadSemStartDate(AcadYear acadYear, SemesterNo semesterNo) {
+        return nusModsData.getStartDate(acadYear, semesterNo);
+    }
 
-    public List<String> getHolidayDateStrings() {
-        return nusModsData.getHolidays().getHolidayDates();
+    public Holidays getHolidays() {
+        return nusModsData.getHolidays();
     }
 
     //=========== Gmaps ================================================================================
 
     @Override
-    public Hashtable<String, Object> getClosestLocationData(ArrayList<String> locationNameList) {
-        //return gmapsModelManager.closestLocationData(locationNameList);
-        return null;
+    public ClosestCommonLocationData getClosestLocationData(ArrayList<String> locationNameList) {
+        return gmapsModelManager.closestLocationData(locationNameList);
     }
 
     @Override

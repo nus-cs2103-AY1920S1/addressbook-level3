@@ -1,5 +1,7 @@
 package seedu.address.model.module;
 
+import java.util.Objects;
+
 /**
  * The acad year of the module
  */
@@ -19,18 +21,23 @@ public class AcadYear {
         return acadYear.replace("/", "-");
     }
 
-    /**
-     * Checks if this AcadYear is equal to other AcadYear.
-     * @param other to be compared
-     * @return boolean
-     */
-    public boolean equals(AcadYear other) {
-        if (other == null) {
+    @Override
+    public boolean equals(Object other) {
+        if (!(other instanceof AcadYear)) {
             return false;
-        } else if (other.toString().equals(this.acadYear)) {
+        }
+        AcadYear ay = (AcadYear) other;
+        if (ay == this) {
+            return true;
+        } else if (ay.acadYear.equals(this.acadYear)) {
             return true;
         } else {
             return false;
         }
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(acadYear);
     }
 }
