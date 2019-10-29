@@ -1,4 +1,4 @@
-package seedu.address.transaction.storage;
+package seedu.address.transaction.storage.exception;
 
 /**
  * Signals that the file cannot be read or written to.
