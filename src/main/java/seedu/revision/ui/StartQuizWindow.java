@@ -152,8 +152,6 @@ public class StartQuizWindow extends Window {
         mainWindow.fillInnerParts();
         mainWindow.resultDisplay.setFeedbackToUser("You attempted these questions." +
                 "Type 'list' to view your full list of questions again.");
-        resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
-
     }
 
     public AnswerableListPanel getAnswerableListPanel() {
