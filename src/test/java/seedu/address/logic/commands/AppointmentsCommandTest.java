@@ -1,25 +1,24 @@
 package seedu.address.logic.commands;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import seedu.address.model.Model;
-import seedu.address.model.events.predicates.EventContainsRefIdPredicate;
-import seedu.address.model.events.Event;
-import seedu.address.model.person.parameters.PatientReferenceId;
-import seedu.address.testutil.TestUtil;
-
-import static org.junit.jupiter.api.Assertions.*;
-
-import seedu.address.commons.core.Messages;
-
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_EVENTS;
-
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_EVENT;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_EVENT;
 
 import java.util.Collections;
 
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_EVENT;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_EVENT;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import seedu.address.commons.core.Messages;
+import seedu.address.model.Model;
+import seedu.address.model.events.Event;
+import seedu.address.model.events.predicates.EventContainsRefIdPredicate;
+import seedu.address.model.person.parameters.PatientReferenceId;
+import seedu.address.testutil.TestUtil;
 
 class AppointmentsCommandTest {
     private Model model;

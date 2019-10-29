@@ -1,10 +1,13 @@
 package seedu.address.logic.commands;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_EVENT;
 
 import org.junit.jupiter.api.Test;
+
 import seedu.address.logic.commands.common.CommandResult;
 import seedu.address.model.Model;
 import seedu.address.model.events.Event;
@@ -32,30 +35,30 @@ class AckAppCommandTest {
 
     @Test
     void testEquals() {
-        Event event_01A = new EventBuilder().withId("01A").build();
-        Event event_01A_Acked = new EventBuilder(event_01A).withStatus("ACKNOWLEDGED").build();
+        Event firstEvent = new EventBuilder().withId("01A").build();
+        Event firstEventAcked = new EventBuilder(firstEvent).withStatus("ACKNOWLEDGED").build();
 
-        Event event_02B = new EventBuilder().withId("02B").build();
-        Event event_02B_Acked = new EventBuilder(event_02B).withStatus("ACKNOWLEDGED").build();
+        Event secondEvent = new EventBuilder().withId("02B").build();
+        Event secondEventAcked = new EventBuilder(secondEvent).withStatus("ACKNOWLEDGED").build();
 
-        AckAppCommand ackCommand_01A = new AckAppCommand(event_01A, event_01A_Acked);
-        AckAppCommand ackCommand_02B = new AckAppCommand(event_02B, event_02B_Acked);
+        AckAppCommand firstAckCommand = new AckAppCommand(firstEvent, firstEventAcked);
+        AckAppCommand secondAckCommand = new AckAppCommand(secondEvent, secondEventAcked);
 
         // same object -> returns true
-        assertTrue(ackCommand_01A.equals(ackCommand_01A));
+        assertTrue(firstAckCommand.equals(firstAckCommand));
 
         // same values -> returns true
-        AckAppCommand addCommand_01A_Copy = new AckAppCommand(event_01A, event_01A_Acked);
-        assertTrue(ackCommand_01A.equals(addCommand_01A_Copy));
+        AckAppCommand firstAckCommandCopy = new AckAppCommand(firstEvent, firstEventAcked);
+        assertTrue(firstAckCommand.equals(firstAckCommandCopy));
 
 
         // different types -> returns false
-        assertFalse(ackCommand_01A.equals(1));
+        assertFalse(firstAckCommand.equals(1));
 
         // null -> returns false
-        assertFalse(ackCommand_01A.equals(null));
+        assertFalse(firstAckCommand.equals(null));
 
         // different event -> returns false
-        assertFalse(ackCommand_01A.equals(ackCommand_02B));
+        assertFalse(firstAckCommand.equals(secondAckCommand));
     }
 }

@@ -1,12 +1,14 @@
 package seedu.address.logic.commands;
 
-import static seedu.address.testutil.TypicalEvents.EVENT_ALICE;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalEvents.EVENT_BENSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_EVENT;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_EVENT;
-import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
+
 import seedu.address.logic.commands.common.CommandResult;
 import seedu.address.model.Model;
 import seedu.address.model.events.Event;
@@ -35,30 +37,30 @@ class ChangeAppCommandTest {
 
     @Test
     void testEquals() {
-        Event event_01A = new EventBuilder().withId("01A").build();
-        Event event_01A_edit = new EventBuilder(event_01A).withStartTime("12/12/19 1800").build();
+        Event firstEvent = new EventBuilder().withId("01A").build();
+        Event firstEventEdit = new EventBuilder(firstEvent).withStartTime("12/12/19 1800").build();
 
-        Event event_02B = new EventBuilder().withId("02B").build();
-        Event event_02B_edit = new EventBuilder(event_02B).withStartTime("12/12/20 1900").build();
+        Event secondEvent = new EventBuilder().withId("02B").build();
+        Event secondEventEdit = new EventBuilder(secondEvent).withStartTime("12/12/20 1900").build();
 
-        ChangeAppCommand changeCommand_01A = new ChangeAppCommand(event_01A, event_01A_edit);
-        ChangeAppCommand changeCommand_02B = new ChangeAppCommand(event_02B, event_02B_edit);
+        ChangeAppCommand firstChangeCommand = new ChangeAppCommand(firstEvent, firstEventEdit);
+        ChangeAppCommand secondChangeCommand = new ChangeAppCommand(secondEvent, secondEventEdit);
 
         // same object -> returns true
-        assertTrue(changeCommand_01A.equals(changeCommand_01A));
+        assertTrue(firstChangeCommand.equals(firstChangeCommand));
 
         // same values -> returns true
-        ChangeAppCommand addCommand_01A_Copy = new ChangeAppCommand(event_01A, event_01A_edit);
-        assertTrue(changeCommand_01A.equals(addCommand_01A_Copy));
+        ChangeAppCommand firstChangeCommandCopy = new ChangeAppCommand(firstEvent, firstEventEdit);
+        assertTrue(firstChangeCommand.equals(firstChangeCommandCopy));
 
 
         // different types -> returns false
-        assertFalse(changeCommand_01A.equals(1));
+        assertFalse(firstChangeCommand.equals(1));
 
         // null -> returns false
-        assertFalse(changeCommand_01A.equals(null));
+        assertFalse(firstChangeCommand.equals(null));
 
         // different event -> returns false
-        assertFalse(changeCommand_01A.equals(changeCommand_02B));
+        assertFalse(firstChangeCommand.equals(secondChangeCommand));
     }
 }

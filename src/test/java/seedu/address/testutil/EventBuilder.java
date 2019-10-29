@@ -57,7 +57,7 @@ public class EventBuilder {
      * Sets the {@code ReferenceId} of the {@code Event} that we are building.
      */
     public EventBuilder withStartTime(int afterYears, int afterMonth, int afterDays,
-                                     int afterHours, int afterMinutes, int durationInMinutes) {
+                                      int afterHours, int afterMinutes, int durationInMinutes) {
 
         LocalDateTime currentLocalDateTime = LocalDateTime.ofInstant(new Date().toInstant(), ZoneId.systemDefault());
 
@@ -96,6 +96,9 @@ public class EventBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code Status} of the {@code Event} that we are building by giving a string status.
+     */
     public EventBuilder withStatus(String status) {
         this.status = new Status(status);
         return this;

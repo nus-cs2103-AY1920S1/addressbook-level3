@@ -1,22 +1,18 @@
 package seedu.address.logic.commands;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_EVENT;
-import static seedu.address.model.ModelManager.MESSAGE_NOT_OVERLAPPING_APPOINTMENT;
 import static seedu.address.testutil.TypicalEvents.EVENT_BENSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_EVENT;
 
-import java.util.Arrays;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.common.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.commands.utils.ModelAcceptingEventAddedStub;
-import seedu.address.logic.commands.utils.ModelStub;
-import seedu.address.logic.commands.utils.ModelWithEventStub;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.events.Event;
@@ -52,27 +48,27 @@ class AddAppCommandTest {
 
     @Test
     void testEquals() {
-        Event event_01A = new EventBuilder().withId("01A").build();
-        Event event_02B = new EventBuilder().withId("02B").build();
+        Event firstEvent = new EventBuilder().withId("01A").build();
+        Event secondEvent = new EventBuilder().withId("02B").build();
 
-        AddAppCommand addCommand_01A = new AddAppCommand(event_01A);
-        AddAppCommand addCommand_02B = new AddAppCommand(event_02B);
+        AddAppCommand firstAddCommand = new AddAppCommand(firstEvent);
+        AddAppCommand secondAddCommand = new AddAppCommand(secondEvent);
 
         // same object -> returns true
-        assertTrue(addCommand_01A.equals(addCommand_01A));
+        assertTrue(firstAddCommand.equals(firstAddCommand));
 
         // same values -> returns true
-        AddAppCommand addCommand_01A_Copy = new AddAppCommand(event_01A);
-        assertTrue(addCommand_01A.equals(addCommand_01A_Copy));
+        AddAppCommand firstAddCommandCopy = new AddAppCommand(firstEvent);
+        assertTrue(firstAddCommand.equals(firstAddCommandCopy));
 
 
         // different types -> returns false
-        assertFalse(addCommand_01A.equals(1));
+        assertFalse(firstAddCommand.equals(1));
 
         // null -> returns false
-        assertFalse(addCommand_01A.equals(null));
+        assertFalse(firstAddCommand.equals(null));
 
         // different person -> returns false
-        assertFalse(addCommand_01A.equals(addCommand_02B));
+        assertFalse(firstAddCommand.equals(secondAddCommand));
     }
 }

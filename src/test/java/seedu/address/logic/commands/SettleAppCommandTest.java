@@ -1,15 +1,19 @@
 package seedu.address.logic.commands;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_EVENT;
 
 import org.junit.jupiter.api.Test;
+
 import seedu.address.logic.commands.common.CommandResult;
 import seedu.address.model.Model;
 import seedu.address.model.events.Event;
 import seedu.address.testutil.EventBuilder;
 import seedu.address.testutil.TestUtil;
 
-import static org.junit.jupiter.api.Assertions.*;
 
 class SettleAppCommandTest {
     private Model model = TestUtil.getTypicalModelManager();
@@ -31,30 +35,30 @@ class SettleAppCommandTest {
 
     @Test
     void testEquals() {
-        Event event_01A = new EventBuilder().withId("01A").build();
-        Event event_01A_Settled = new EventBuilder(event_01A).withStatus("SETTLED").build();
+        Event firstEvent = new EventBuilder().withId("01A").build();
+        Event firstSettledEvent = new EventBuilder(firstEvent).withStatus("SETTLED").build();
 
-        Event event_02B = new EventBuilder().withId("02B").build();
-        Event event_02B_Settled = new EventBuilder(event_02B).withStatus("SETTLED").build();
+        Event secondEvent = new EventBuilder().withId("02B").build();
+        Event secondSettledEvent = new EventBuilder(secondEvent).withStatus("SETTLED").build();
 
-        SettleAppCommand settleCommand_01A = new SettleAppCommand(event_01A, event_01A_Settled);
-        SettleAppCommand settleCommand_02B = new SettleAppCommand(event_02B, event_02B_Settled);
+        SettleAppCommand firstSettledCommand = new SettleAppCommand(firstEvent, firstSettledEvent);
+        SettleAppCommand secondSettledCommand = new SettleAppCommand(secondEvent, secondSettledEvent);
 
         // same object -> returns true
-        assertTrue(settleCommand_01A.equals(settleCommand_01A));
+        assertTrue(firstSettledCommand.equals(firstSettledCommand));
 
         // same values -> returns true
-        SettleAppCommand addCommand_01A_Copy = new SettleAppCommand(event_01A, event_01A_Settled);
-        assertTrue(settleCommand_01A.equals(addCommand_01A_Copy));
+        SettleAppCommand settleApptCommand = new SettleAppCommand(firstEvent, firstSettledEvent);
+        assertTrue(firstSettledCommand.equals(settleApptCommand));
 
 
         // different types -> returns false
-        assertFalse(settleCommand_01A.equals(1));
+        assertFalse(firstSettledCommand.equals(1));
 
         // null -> returns false
-        assertFalse(settleCommand_01A.equals(null));
+        assertFalse(firstSettledCommand.equals(null));
 
         // different event -> returns false
-        assertFalse(settleCommand_01A.equals(settleCommand_02B));
+        assertFalse(firstSettledCommand.equals(secondSettledCommand));
     }
 }
