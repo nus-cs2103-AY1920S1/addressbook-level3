@@ -30,7 +30,7 @@ public class StartCommand extends SwitchCommand {
 
     static final String MESSAGE_TOO_FEW_CARDS = "There are too few cards: ";
     static final String MESSAGE_TOO_FEW_CANNOT_START =
-            "Cannot start the game! (Needs least 3 cards per Game)";
+            "Cannot start the game! (Needs at least 3 cards per Game)";
     static final String MESSAGE_WORDBANK_NOT_LOADED = "You have not loaded a wordBank!";
 
     private static final String MESSAGE_GAME_IN_PROGRESS = "A game session is still in progress!"
@@ -57,7 +57,7 @@ public class StartCommand extends SwitchCommand {
     @Override
     public CommandResult execute(Model model) throws CommandException {
 
-        if (model.getWordBank() == null) {
+        if (model.getCurrentWordBank() == null) {
             throw new CommandException(MESSAGE_WORDBANK_NOT_LOADED);
         }
 
@@ -67,7 +67,7 @@ public class StartCommand extends SwitchCommand {
         }
 
 
-        String wordBankName = model.getWordBank().getName();
+        String wordBankName = model.getCurrentWordBank().getName();
         WordBankList wbList = model.getWordBankList();
         WordBank wordBank = wbList.getWordBankFromName(wordBankName);
 

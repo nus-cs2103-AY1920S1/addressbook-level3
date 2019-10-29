@@ -155,13 +155,13 @@ public class MainWindow extends UiPart<Stage> {
         timerDisplay = new TimerDisplay();
         timerDisplayPlaceholder.getChildren().add(timerDisplay.getRoot());
         //Set up callback function in AppManager to update TimerDisplay
-        appManager.setTimerDisplayCallBack(this::updateTimerDisplay);
+        appManager.registerTimerDisplayCallBack(this::updateTimerDisplay);
         //Set up callback function in AppManager to update HintDisplay
-        appManager.setHintDisplayCallBack(this::updateHintDisplay);
+        appManager.registerHintDisplayCallBack(this::updateHintDisplay);
         //Set up callback function in AppManager to update QuestionDisplay
-        appManager.setQuestionDisplayCallBack(this::updateQuestionDisplay);
+        appManager.registerQuestionDisplayCallBack(this::updateQuestionDisplay);
         //Set up callback function in AppManager to call MainWindow's executeCommand
-        appManager.setMainWindowExecuteCallBack(this::executeCommand);
+        appManager.registerMainWindowExecuteCallBack(this::executeCommand);
 
         StatusBarFooter statusBarFooter = new StatusBarFooter(appManager.getAddressBookFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
@@ -219,8 +219,6 @@ public class MainWindow extends UiPart<Stage> {
         appManager.setGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();
-        //Platform.exit();
-        //System.exit(0);
     }
 
     /**
@@ -284,14 +282,15 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Updates the timerDisplay module of MainWindow to be called from GameTimer.
+     * Updates the timerDisplay module of MainWindow to be called from GameTimerManager.
      * @param timerMessage Message to be displayed on the TimerDisplay.
      * @param timeLeft Time in milliseconds that is left in the current timer.
      */
     private void updateTimerDisplay(String timerMessage, long timeLeft, long totalTimeGiven) {
         double percentageTimeLeft = (timeLeft * 1.0) / totalTimeGiven;
 
-        if (percentageTimeLeft <= 0.5) { // when time left is <= half of time given, switch to alert colour
+        /* when time left is <= half of totalTime given, switch to alert colour */
+        if (percentageTimeLeft <= 0.5) {
             this.timerDisplay.setAlertTextColour();
         } else {
             this.timerDisplay.setNormalTextColour();

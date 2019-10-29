@@ -74,7 +74,7 @@ public class CardBuilder {
     }
 
     public Card build() {
-        return new Card(word, meaning, tags, id);
+        return new Card(id, word, meaning, tags);
     }
 
 }

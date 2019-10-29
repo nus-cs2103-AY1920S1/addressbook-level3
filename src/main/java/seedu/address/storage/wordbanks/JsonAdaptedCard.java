@@ -18,7 +18,7 @@ import seedu.address.model.tag.Tag;
 /**
  * Jackson-friendly version of {@link Card}.
  */
-class JsonAdaptedCard {
+public class JsonAdaptedCard {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Card's %s field is missing!";
 
     private final String id;
@@ -27,7 +27,7 @@ class JsonAdaptedCard {
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonAdaptedCard} with the given person details.
+     * Constructs a {@code JsonAdaptedCard} with the given card details.
      */
     @JsonCreator
     public JsonAdaptedCard(@JsonProperty("id") String id,
@@ -46,12 +46,12 @@ class JsonAdaptedCard {
      * Converts a given {@code Card} into this class for Jackson use.
      */
     public JsonAdaptedCard(Card source) {
-        name = source.getWord().value;
-        description = source.getMeaning().value;
+        this.id = source.getId();
+        this.name = source.getWord().toString();
+        this.description = source.getMeaning().toString();
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
-        id = source.getId();
     }
 
     /**
@@ -63,6 +63,10 @@ class JsonAdaptedCard {
         final List<Tag> cardTags = new ArrayList<>();
         for (JsonAdaptedTag tag : tagged) {
             cardTags.add(tag.toModelType());
+        }
+
+        if (id == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, String.class.getSimpleName()));
         }
 
         if (name == null) {
@@ -87,7 +91,7 @@ class JsonAdaptedCard {
         if (id == null) {
             return Card.createNewCard(modelWord, modelMeaning, modelTags);
         } else {
-            return new Card(modelWord, modelMeaning, modelTags, id);
+            return new Card(id, modelWord, modelMeaning, modelTags);
         }
     }
 

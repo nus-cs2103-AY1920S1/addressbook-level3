@@ -8,7 +8,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.cardcommands.HelpCommand;
+import seedu.address.logic.commands.homecommands.HelpCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.util.AutoFillAction;
 
@@ -21,12 +21,24 @@ public class SpecificModeParser {
      * Used for initial separation of command word and args.
      */
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
+
+    /**
+     * Used to handle Parser and Command classes.
+     */
     private ClassUtil classUtil;
 
+    /**
+     * Constructor that instantiates an empty classUtil.
+     */
     public SpecificModeParser() {
         this.classUtil = new ClassUtil();
     }
 
+    /**
+     * Adds a Command Class and Parser Class into classUtil
+     * @param command Command Class
+     * @param parser Parser Class if any, else null
+     */
     public void add(Class command, Class parser) {
         classUtil.add(new ClassPair(command, parser));
     }
@@ -50,6 +62,11 @@ public class SpecificModeParser {
         return temp;
     }
 
+    /**
+     * Gets AutoFillAction objects based on input string.
+     * @param input current user input
+     * @return List of AutoFillActions
+     */
     public List<AutoFillAction> getAutoFill(String input) {
         List<AutoFillAction> temp = new ArrayList<>();
         for (String txt : classUtil.getAttribute("COMMAND_WORD")) {

@@ -179,8 +179,8 @@ class GuessCommandTest {
         }
 
         @Override
-        public void setWordBank(ReadOnlyWordBank wordBank) {
-
+        public void setCurrentWordBank(ReadOnlyWordBank currenWordBank) {
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
@@ -209,7 +209,7 @@ class GuessCommandTest {
         }
 
         @Override
-        public ReadOnlyWordBank getWordBank() {
+        public ReadOnlyWordBank getCurrentWordBank() {
             return null;
         }
 

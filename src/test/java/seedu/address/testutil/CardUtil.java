@@ -28,8 +28,8 @@ public class CardUtil {
      */
     public static String getCardDetails(Card card) {
         StringBuilder sb = new StringBuilder();
-        sb.append(PREFIX_WORD + card.getWord().value + " ");
-        sb.append(PREFIX_MEANING + card.getMeaning().value + " ");
+        sb.append(PREFIX_WORD + card.getWord().getValue() + " ");
+        sb.append(PREFIX_MEANING + card.getMeaning().getValue() + " ");
         card.getTags().stream().forEach(
             s -> sb.append(PREFIX_TAG + s.tagName + " ")
         );
@@ -41,8 +41,8 @@ public class CardUtil {
      */
     public static String getEditPersonDescriptorDetails(EditCommand.EditCardDescriptor descriptor) {
         StringBuilder sb = new StringBuilder();
-        descriptor.getWord().ifPresent(name -> sb.append(PREFIX_WORD).append(name.value).append(" "));
-        descriptor.getMeaning().ifPresent(phone -> sb.append(PREFIX_MEANING).append(phone.value).append(" "));
+        descriptor.getWord().ifPresent(name -> sb.append(PREFIX_WORD).append(name.getValue()).append(" "));
+        descriptor.getMeaning().ifPresent(phone -> sb.append(PREFIX_MEANING).append(phone.getValue()).append(" "));
         if (descriptor.getTags().isPresent()) {
             Set<Tag> tags = descriptor.getTags().get();
             if (tags.isEmpty()) {
