@@ -8,8 +8,8 @@ import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import javafx.collections.ObservableMap;
 import seedu.ezwatchlist.model.Model;
-import seedu.ezwatchlist.model.show.Genres;
 import seedu.ezwatchlist.model.show.Show;
 import seedu.ezwatchlist.model.show.UniqueShowList;
 
@@ -42,7 +42,7 @@ public class Statistics {
      * Gets the favourite genre of the user.
      * @return an observable list of genres strings
      */
-    public ObservableList<String> getFavouriteGenre() {
+    public ObservableMap<String, Integer> getFavouriteGenre() {
         HashMap<String, Integer> genreRecords = new HashMap<>();
 
         model.getWatchList().getShowList().stream().forEach(show -> {
@@ -59,9 +59,9 @@ public class Statistics {
         keyList.addAll(genreRecords.keySet());
         Collections.sort(keyList, (key1, key2) -> genreRecords.get(key2) - genreRecords.get(key1));
 
-        ObservableList<String> favouriteGenres = FXCollections.observableArrayList();
+        ObservableMap<String, Integer> favouriteGenres = FXCollections.observableHashMap();
         for (int i = 0; i < 3 && i < keyList.size(); i++) {
-            favouriteGenres.add(keyList.get(i));
+            favouriteGenres.put(keyList.get(i), genreRecords.get(keyList.get(i)));
         }
         return favouriteGenres;
     }

@@ -1,6 +1,7 @@
 package seedu.ezwatchlist.ui;
 
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
@@ -10,6 +11,10 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import seedu.ezwatchlist.model.show.Show;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * An UI for the statistics panel.
@@ -24,7 +29,7 @@ public class StatisticsPanel extends UiPart<Region> {
     @FXML
     private StackPane forgottenPlaceHolder;
 
-    public StatisticsPanel(ObservableList<Show> forgotten, ObservableList<String> favourite) {
+    public StatisticsPanel(ObservableList<Show> forgotten, ObservableMap<String, Integer> favourite) {
         super(FXML);
         if (forgotten.size() > 0) {
             forgottenView.setItems(forgotten);
@@ -33,8 +38,11 @@ public class StatisticsPanel extends UiPart<Region> {
             forgottenPlaceHolder.getChildren().add(new Label("You currently do not have any forgotten entry!"));
         }
 
-
-        favourite.stream().forEach(genre -> favouriteGenres.getChildren().add(new Label(genre + )));
+        List<String> favouriteKeys = new ArrayList<>();
+        favouriteKeys.addAll(favourite.keySet());
+        Collections.sort(favouriteKeys, (key1, key2) -> favourite.get(key2) - favourite.get(key1));
+        favouriteKeys.stream().forEach(genre -> favouriteGenres.getChildren()
+                .add(new Label(genre + " (" + favourite.get(genre) + " entries) ")));
     }
 
     /**
