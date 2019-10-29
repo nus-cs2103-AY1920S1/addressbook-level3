@@ -60,7 +60,8 @@ public class TransactionAddCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireAllNonNull(model, model.getAccountsManager());
         try {
-            model.getAccountsManager().addTransaction(toAdd);
+            // FIXME SLAP
+            model.getAccountsManager().getActiveAccount().addTransaction(toAdd);
         } catch (Exception e) {
             //TODO change to accept more specific exception
             throw new CommandException(MESSAGE_FAILURE);

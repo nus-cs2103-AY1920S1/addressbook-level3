@@ -8,8 +8,8 @@ import java.util.logging.Logger;
 
 import budgetbuddy.commons.core.GuiSettings;
 import budgetbuddy.commons.core.LogsCenter;
-import budgetbuddy.commons.core.index.Index;
 import budgetbuddy.model.transaction.Transaction;
+import javafx.collections.FXCollections;
 import javafx.collections.transformation.FilteredList;
 
 /**
@@ -38,13 +38,10 @@ public class ModelManager implements Model {
 
         this.loansManager = new LoansManager(loansManager.getLoans());
         this.ruleManager = new RuleManager(ruleManager.getRules());
-        this.accountsManager = new AccountsManager(accountsManager.getAccounts());
+        this.accountsManager = accountsManager;
         this.userPrefs = new UserPrefs(userPrefs);
         this.scriptLibrary = scriptLibrary;
-        // TODO: implement default accounts properly
-        filteredTransactions = new FilteredList<>(
-                this.accountsManager.getAccount(Index.fromZeroBased(0))
-                        .getTransactionList().asUnmodifiableObservableList());
+        filteredTransactions = new FilteredList<>(FXCollections.emptyObservableList());
     }
 
     public ModelManager() {
@@ -69,11 +66,6 @@ public class ModelManager implements Model {
     @Override
     public FilteredList<Transaction> getFilteredTransactions() {
         return filteredTransactions;
-    }
-
-    @Override
-    public void deleteTransaction(Transaction target) {
-        accountsManager.removeTransaction(target);
     }
 
     @Override

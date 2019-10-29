@@ -46,7 +46,8 @@ public class TransactionDeleteCommand extends Command {
         }
 
         Transaction transactionToDelete = lastShownList.get(targetIndex.getZeroBased());
-        model.getAccountsManager().removeTransaction(transactionToDelete);
+        // FIXME SLAP
+        model.getAccountsManager().getActiveAccount().deleteTransaction(transactionToDelete);
         return new CommandResult(String.format(MESSAGE_DELETE_TRANSACTION_SUCCESS, transactionToDelete),
                 CommandCategory.TRANSACTION);
     }

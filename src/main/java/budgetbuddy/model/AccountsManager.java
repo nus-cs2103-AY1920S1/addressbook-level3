@@ -9,8 +9,7 @@ import budgetbuddy.commons.core.index.Index;
 import budgetbuddy.model.account.Account;
 import budgetbuddy.model.account.UniqueAccountList;
 import budgetbuddy.model.account.exception.AccountNotFoundException;
-import budgetbuddy.model.transaction.Transaction;
-import budgetbuddy.model.transaction.exceptions.TransactionNotFoundException;
+import budgetbuddy.model.attributes.Name;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 
@@ -21,12 +20,14 @@ public class AccountsManager {
     private final FilteredList<Account> filteredAccounts;
     private final UniqueAccountList accounts;
 
+    private Index activeAccountIndex;
+
     /**
      * Creates a new list of accounts.
      */
     public AccountsManager() {
         this.accounts = new UniqueAccountList();
-        filteredAccounts = new FilteredList<>(this.getAccounts(), s -> true);
+        filteredAccounts = new FilteredList<>(this.getAccounts());
     }
 
     /**
@@ -34,10 +35,11 @@ public class AccountsManager {
      * The default account is always set to the first account in the list.
      * @param accounts A list of accounts with which to fill the new list.
      */
-    public AccountsManager(List<Account> accounts) {
+    public AccountsManager(List<Account> accounts, Index activeAccountIndex) {
         requireNonNull(accounts);
         this.accounts = new UniqueAccountList(accounts);
-        filteredAccounts = new FilteredList<>(this.getAccounts(), s -> true);
+        this.activeAccountIndex = activeAccountIndex;
+        filteredAccounts = new FilteredList<>(this.getAccounts());
     }
 
     /**
@@ -68,7 +70,7 @@ public class AccountsManager {
      * @param editedAccount The edited account to replace the target account with.
      */
     public void editAccount(Index toEdit, Account editedAccount) throws AccountNotFoundException {
-        accounts.setAccount(accounts.getAccountByIndex(toEdit), editedAccount);
+        accounts.replace(accounts.get(toEdit), editedAccount);
     }
 
     /**
@@ -102,26 +104,6 @@ public class AccountsManager {
         filteredAccounts.setPredicate(predicate);
     }
 
-    /**
-     * Adds the current Transaction to its respective Account.
-     * The transaction should have a valid account by now.
-     * @param toAdd
-     */
-    public void addTransaction(Transaction toAdd) {
-        Account account = toAdd.getAccount();
-        account.addTransaction(toAdd);
-    }
-
-    /**
-     * Removes the current Transaction from its respective Account.
-     * The transaction should exist within the AccountsManager before executing this.
-     * @param toDelete the transaction to be deleted
-     */
-    public void removeTransaction(Transaction toDelete) throws TransactionNotFoundException {
-        Account account = toDelete.getAccount();
-        account.deleteTransaction(toDelete);
-    }
-
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -138,10 +120,53 @@ public class AccountsManager {
 
     /**
      * Returns the account at the specified index in the list.
+     *
      * @param toGet The index of the target account.
-     * @throws AccountNotFoundException If the account is not in the list.
+     * @throws IndexOutOfBoundsException if the index is out of bounds
      */
-    public Account getAccount(Index toGet) throws AccountNotFoundException {
-        return accounts.getAccountByIndex(toGet);
+    public Account getAccount(Index toGet) throws IndexOutOfBoundsException {
+        return accounts.get(toGet);
+    }
+
+    /**
+     * Returns the account with the given name.
+     *
+     * @return the account, or null if no such account exists
+     */
+    public Account getAccount(Name toGet) {
+        return accounts.get(toGet);
+    }
+
+    public Index getActiveAccountIndex() {
+        return activeAccountIndex;
+    }
+
+    public void setActiveAccountIndex(Index activeAccountIndex) {
+        requireNonNull(activeAccountIndex);
+        if (activeAccountIndex.getZeroBased() >= accounts.size()) {
+            throw new IndexOutOfBoundsException("Active account index out of bounds");
+        }
+        this.activeAccountIndex = activeAccountIndex;
+    }
+
+    /**
+     * Gets the active account.
+     */
+    public Account getActiveAccount() {
+        return accounts.get(activeAccountIndex);
+    }
+
+    /**
+     * Sets the active account. The account must already be contained in the manager.
+     *
+     * @throws AccountNotFoundException if the account could not be found
+     */
+    public void setActiveAccount(Account account) {
+        Index newActiveIndex = accounts.indexOfEquivalent(account);
+        if (newActiveIndex == null) {
+            throw new AccountNotFoundException();
+        }
+
+        activeAccountIndex = newActiveIndex;
     }
 }

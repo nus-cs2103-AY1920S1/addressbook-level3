@@ -19,9 +19,7 @@ public interface Model {
      */
     LoansManager getLoansManager();
 
-    void deleteTransaction(Transaction target);
-
-    /*
+    /**
      * Returns the rule manager.
      */
     RuleManager getRuleManager();
