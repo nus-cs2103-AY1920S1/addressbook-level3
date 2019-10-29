@@ -22,7 +22,7 @@ import cs.f10.t1.nursetraverse.commons.core.LogsCenter;
 import cs.f10.t1.nursetraverse.commons.exceptions.IllegalValueException;
 import cs.f10.t1.nursetraverse.commons.util.FileUtil;
 import cs.f10.t1.nursetraverse.importexport.exceptions.ExportingException;
-import cs.f10.t1.nursetraverse.importexport.exceptions.ImportingException
+import cs.f10.t1.nursetraverse.importexport.exceptions.ImportingException;
 import cs.f10.t1.nursetraverse.model.patient.Patient;
 import cs.f10.t1.nursetraverse.storage.JsonAdaptedPatient;
 
@@ -152,6 +152,21 @@ public class CsvUtil {
             newPatientList.add(convertToPatient(patient));
         }
         return newPatientList;
+    }
+
+    /**
+     * Returns true if the imported list contains only unique patients.
+     */
+    public static boolean importsAreUnique(List<Patient> patients) {
+        int len = patients.size();
+        for (int i = 0; i < len - 1; i++) {
+            for (int j = i + 1; j < len; j++) {
+                if (patients.get(i).isSamePatient(patients.get(j))) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
 }

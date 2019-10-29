@@ -111,6 +111,12 @@ public interface Model {
     boolean hasPatient(Patient patient);
 
     /**
+     * Returns true if any patient in the provided list has the same identity as
+     * any patient in the patient book.
+     */
+    boolean hasAnyPatientInGivenList(List<Patient> patients);
+
+    /**
      * Deletes the given patient.
      * The patient must exist in the patient book.
      */
@@ -121,6 +127,12 @@ public interface Model {
      * {@code patient} must not already exist in the patient book.
      */
     void addPatient(Patient patient);
+
+    /**
+     * Adds all patients in the given list of patients.
+     * {@code patient} in the list must not exist in the patient book.
+     */
+    void addPatients(List<Patient> patients);
 
     /**
      * Replaces the given patient {@code target} with {@code editedPatient}.

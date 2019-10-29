@@ -16,6 +16,7 @@ import cs.f10.t1.nursetraverse.logic.commands.ExportCommand;
 import cs.f10.t1.nursetraverse.logic.commands.FindCommand;
 import cs.f10.t1.nursetraverse.logic.commands.HelpCommand;
 import cs.f10.t1.nursetraverse.logic.commands.HistoryCommand;
+import cs.f10.t1.nursetraverse.logic.commands.ImportMergeCommand;
 import cs.f10.t1.nursetraverse.logic.commands.ImportReplaceCommand;
 import cs.f10.t1.nursetraverse.logic.commands.ListCommand;
 import cs.f10.t1.nursetraverse.logic.commands.RedoCommand;
@@ -92,7 +93,10 @@ public class PatientBookParser {
             return new ExportCommandParser().parse(arguments);
 
         case ImportReplaceCommand.COMMAND_WORD:
-            return new ImportReplaceCommand();
+            return new ImportReplaceCommandParser().parse(arguments);
+
+        case ImportMergeCommand.COMMAND_WORD:
+            return new ImportMergeCommandParser().parse(arguments);
 
         case HistoryCommand.COMMAND_WORD:
             return new HistoryCommand();

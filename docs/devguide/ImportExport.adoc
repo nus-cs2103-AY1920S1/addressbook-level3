@@ -1,8 +1,8 @@
 Import and export functionality are split into three commands:
 
-1. `export`
-2. `import-replace`
-3. `import-merge`
+1. `app-export`
+2. `app-import-replace`
+3. `app-import-merge`
 
 ==== Jackson Library
 
@@ -17,47 +17,51 @@ link:https://github.com/FasterXML/jackson-annotations/wiki[here].
 ==== Csv Processing
 
 All of the data processing needed for this feature can be found in the `CsvUtil` file;
-it is responsible for converting the data of `Person` objects into a .csv friendly `String` format
+it is responsible for converting the data of `Patient` objects into a .csv friendly `String` format
 and vice versa. The actual reading and writing of .csv files is then done with existing
 `FileUtil` functionality.
 
-The conversion of `Person` objects to and from .csv formatted `Strings` are handled by
+The conversion of `Patient` objects to and from .csv formatted `Strings` are handled by
 the `CsvMapper` and `CsvSchema` classes implemented in `dataformat`.
 
 * The `CsvMapper` is responsible for managing custom configurations for the conversions.
 For instance, it can toggle headers with `withHeader()` and skip unknown fields with the
 `IGNORE_UNKNOWN` feature, both of which are used in the feature implementation.
 * The `CsvSchema` object is created by a configured `CsvMapper` object and an `Object.class`,
-in this case, `Person.class`. It dictates the scheme for how data in each column of the .csv
+in this case, `Patient.class`. It dictates the scheme for how data in each column of the .csv
 corresponds with the fields in the Object class. This schema can then be used to instantiate
 a reader or a writer object.
 
 The following functions are implemented:
 
-1. Write a list of `Person` objects into a .csv file with specified `exportFileName`.
+1. `CsvUtil#writePatientsToCsv(List<Patient>, String)` -- Write
+a list of `Patient` objects into a .csv file with specified `exportFileName`.
 If successful, return the path of the written file.
-2. Read a .csv file with specified `importFileName` and return a corresponding list of
-`Person` objects.
+2. `CstUtil#readPatientsFromCsv(String)` -- Read a .csv file with specified
+`importFileName` and return a corresponding list of `Patient` objects.
+3. `importsAreUnique(List<Patient>)` -- Check if the patients in a given list are unique, i.e. the list
+contains no duplicate patients.
 
 ==== Command Implementation
 
-===== Export
+===== Command: `app-export`
 
-The `export` command works by retrieving a list of `Person` objects from the `Model` and passing
-it to `CsvUtil` to process and write into a .csv file. If provided with indexes, the `export`
-feature can selectively export the `Person` objects that correspond to the specified indexes.
+The `app-export` command works by retrieving a list of `Patient` objects from the `Model` and
+passing it to `CsvUtil` to process and write into a .csv file. If provided with indexes, the
+`app-export` feature can selectively export the `Patient` objects that correspond to the
+specified indexes.
 To facilitate the selective export functionality, the following methods were implemented in
-`Model` and `AddressBook`.
+`Model` and `PatientBook`.
 
-* `Model#GetPersonsByIndexes(Set<Indexes>)` -- Retrieves and returns a list of `Person` objects
-corresponding to the provided indexes from the `AddressBook` , if the indexes are valid.
-* `AddressBook#GetPersonByIndex(Index)` -- Returns the `Person` object corresponding
+* `Model#GetPatientsByIndexes(Set<Indexes>)` -- Retrieves and returns a list of `Patient` objects
+corresponding to the provided indexes from the `PatientBook` , if the indexes are valid.
+* `PatientBook#GetPatientByIndex(Index)` -- Returns the `Patient` object corresponding
 to the specified index, if the index is valid.
 
-If indexes are not specified in the command arguments, a list of all currently existing `Person`
-objects will be retrieved with `Model#getStagedPersonList()`.
+If indexes are not specified in the command arguments, a list of all currently existing `Patient`
+objects will be retrieved with `Model#getStagedPatientList()`.
 
-The `export` command MUST be provided with a desired file name for the .csv file. The .csv
+The `app-export` command MUST be provided with a desired file name for the .csv file. The .csv
 file will be written to `/exports/filename.csv`. Existing files will NOT be overridden and
 thus the provided file name cannot already exist in `/exports`.
 
@@ -90,24 +94,51 @@ More developer work to code around detecting and escaping forbidden characters.
 
 ===== Import
 
-The import commands work by reading a .csv file and converting it into a list of `Person`
+The import commands work by reading a .csv file and converting it into a list of `Patient`
 objects by using `CsvUtil`. The list is then passed to `Model`. What happens next depends
 on which variant of import is called.
 
-====== `import-replace`
+For both variants of the command, the imported list of patients CANNOT have any duplicates.
+This is ensured with `CsvUtil#importsAreUnique(List<Patient>)`.
 
-The `Model` will replace all existing `Person` data in the `AddressBook` with the data
-of the new list of `Person` objects. To do this, the following was implemented:
+====== Command: `app-import-replace`
 
-* `Model#replaceStagedAddressBook(List<Person>)` -- Creates a new `AddressBook` object
-containing the `Person` objects in the provided list. The old `AddressBook` stored in the
-`Model` is then replaced with the new `AddressBook` by calling
-`Model#setStagedAddressBook(AddressBook)`.
+The `Model` will replace all existing `Patient` data in the `PatientBook` with the data
+of the new list of `Patient` objects. To do this, the following was implemented:
 
-====== `import-merge`
+* `Model#replaceStagedPatientBook(List<Patient>)` -- Creates a new `PatientBook` object
+containing the `Patient` objects in the provided list. The old `PatientBook` stored in the
+`Model` is then replaced with the new `PatientBook` by calling
+`Model#setStagedPatientBook(PatientBook)`.
 
-WIP
+====== Command `app-import-merge`
+
+The `Model` will add all `Patient` data in the new list of `Patient` objects into the
+`PatientBook`. To do this, the following was implemented:
+
+* `Model#hasAnyPatientInGivenList(List<Patient>)` -- Checks if the model contains
+any `Patient` in the given list of `Patient` objects.
+* `Model#addPatients(List<Patient>)` -- Adds all `Patient` objects in the given list
+into the `Model`.
+
+If the operation will result in duplicate `Patient` objects in the `PatientBook`,
+it will not be executed. This is checked by the function stated above,
+`Model#hasAnyPatientInGivenList(List<Patient>)`.
 
 ===== Import Design Considerations
 
-WIP
+====== Aspect: Allowing Patient Overriding for `app-import-merge`
+
+* **Alternative 1 (current choice)**: Disallow overriding.
+** Pros: Existing `Patient` data will not be accidentally overridden.
+** Cons: User may have intended to use `app-import-merge` to update old data.
+More hassle for the user to delete old `Patient` data that they want to replace.
+
+* **Alternative 2**: In case of duplicates, replace old `Patient` data.
+** Pros: Conveniently update old `Patient` data.
+** Cons: May accidentally override and lose important data, though not a big deal
+with `app-undo`.
+
+* **Alternative 3**: Implement a flag to toggle overriding.
+** Pros: Best of both worlds.
+** Cons: More coding and debugging work.

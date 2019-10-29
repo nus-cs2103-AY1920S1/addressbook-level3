@@ -1,4 +1,4 @@
-package seedu.address.importexport.exceptions;
+package cs.f10.t1.nursetraverse.importexport.exceptions;
 
 /**
  *  Represents an error that occurs during the import process, unrelated to IO.

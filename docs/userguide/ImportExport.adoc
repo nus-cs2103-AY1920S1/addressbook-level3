@@ -2,7 +2,8 @@
 ====
 *Importing and Exporting of Patient Data*
 
-As a community nurse, you may be assigned new patients, or some of your patients may be assigned to other community nurses. To facilitate the transferring of patient information from one device to another, you can import and export the data of your patients. This section describes the features that will allow you to import and export patient information.
+As a community nurse, you may be assigned new patients, or some of your patients may be assigned to other community nurses.
+To facilitate the transferring of patient information from one device to another, you can import and export the data of your patients. This section describes the features that will allow you to import and export patient information.
 ====
 
 === Importing patient data from a CSV file: `import`

@@ -1,11 +1,11 @@
-package seedu.address.logic.parser;
+package cs.f10.t1.nursetraverse.logic.parser;
 
+import static cs.f10.t1.nursetraverse.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static cs.f10.t1.nursetraverse.logic.parser.CliSyntax.PREFIX_FILENAME;
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_FILENAME;
 
-import seedu.address.logic.commands.ImportReplaceCommand;
-import seedu.address.logic.parser.exceptions.ParseException;
+import cs.f10.t1.nursetraverse.logic.commands.ImportReplaceCommand;
+import cs.f10.t1.nursetraverse.logic.parser.exceptions.ParseException;
 
 /**
  * Parses input and returns a new ImportReplaceCommand object.
