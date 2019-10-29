@@ -1,8 +1,10 @@
 package seedu.address.calendar.commands;
 
+import seedu.address.calendar.model.Calendar;
 import seedu.address.calendar.parser.CliSyntax;
+import seedu.address.logic.commands.Command;
 
-public abstract class DeleteCommand extends Command {
+public abstract class DeleteCommand extends Command<Calendar> {
     public static final String COMMAND_WORD = "delete";
     public static final String MESSAGE_DELETE_SUCCESS = "Deleted: %s";
     public static final String MESSAGE_VALID_TYPES = "The only valid event types are 'commitment', 'holiday', "

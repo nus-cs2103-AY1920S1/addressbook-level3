@@ -1,8 +1,10 @@
 package seedu.address.calendar.commands;
 
+import seedu.address.calendar.model.Calendar;
 import seedu.address.calendar.parser.CliSyntax;
+import seedu.address.logic.commands.Command;
 
-public abstract class AddCommand extends Command {
+public abstract class AddCommand extends Command<Calendar> {
     public static final String COMMAND_WORD = "add";
     public static final String MESSAGE_ADD_SUCCESS = "Added: %s";
     // todo: how to use month and year shown by calendar instead? Possible: pass in this as arg when calling parser
