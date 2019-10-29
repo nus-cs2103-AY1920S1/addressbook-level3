@@ -1,6 +1,10 @@
 package seedu.address.model.note;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.address.model.note.NoteFragment.NOTE_FRAGMENT_CONTENT_DETECTION_REGEX;
+import static seedu.address.model.note.NoteFragment.NOTE_FRAGMENT_END_DETECTION_REGEX;
+import static seedu.address.model.note.NoteFragment.NOTE_FRAGMENT_START_DETECTION_REGEX;
+import static seedu.address.model.note.NoteFragment.NOTE_FRAGMENT_TAG_DETECTION_REGEX;
 
 import java.util.List;
 import java.util.Objects;
@@ -38,6 +42,20 @@ public class Note extends StudyBuddyItem {
 
     public Content getContent() {
         return content;
+    }
+
+    public Content getContentCleanedFromTags() {
+        String rawContent = content.toString();
+        String cleanedContent = rawContent.replaceAll(NOTE_FRAGMENT_CONTENT_DETECTION_REGEX, "")
+                .replaceAll(NOTE_FRAGMENT_TAG_DETECTION_REGEX, " ")
+                .replaceAll(NOTE_FRAGMENT_START_DETECTION_REGEX, " ")
+                .replaceAll(NOTE_FRAGMENT_END_DETECTION_REGEX, " ")
+                .trim();
+        return new Content(cleanedContent);
+    }
+
+    public List<NoteFragment> getNoteFragments() {
+        return noteFragments;
     }
 
     /**

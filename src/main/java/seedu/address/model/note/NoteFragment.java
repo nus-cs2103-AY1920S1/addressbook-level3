@@ -24,6 +24,11 @@ public class NoteFragment extends StudyBuddyItem {
      */
     private final Content content;
 
+    public static final String NOTE_FRAGMENT_START_DETECTION_REGEX = "(\\s*)+/\\*(\\s*)+";
+    public static final String NOTE_FRAGMENT_END_DETECTION_REGEX = "(\\s*)+\\*/(\\s*)+";
+    public static final String NOTE_FRAGMENT_CONTENT_DETECTION_REGEX = "C/";
+    public static final String NOTE_FRAGMENT_TAG_DETECTION_REGEX = "TAG/\\S+ ";
+
     /**
      * Every field must be present and not null, except for tags.
      */

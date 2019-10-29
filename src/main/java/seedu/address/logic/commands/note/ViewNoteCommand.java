@@ -46,10 +46,11 @@ public class ViewNoteCommand extends Command {
         }
 
         Note note = lastShownList.get(targetIndex.getZeroBased());
+        Note cleanedNote = new Note(note.getTitle(), note.getContentCleanedFromTags(), note.getTags());
 
         return new NoteCommandResult(model.getFilteredNoteList().isEmpty()
                 ? Messages.MESSAGE_NO_MATCHING_NOTE_FOUND
-                : String.format(VIEW_NOTE_SUCCESS, note), Optional.of(note));
+                : String.format(VIEW_NOTE_SUCCESS, cleanedNote), Optional.of(cleanedNote));
     }
 
     @Override
