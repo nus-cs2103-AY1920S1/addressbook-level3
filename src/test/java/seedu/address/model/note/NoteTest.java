@@ -19,4 +19,25 @@ public class NoteTest {
         Note otherNote = new Note("other sampleNote", "description", Priority.UNMARKED);
         assertTrue(!note.isSameNote(otherNote));
     }
+
+    @Test
+    public void sameNoteTitleDifferentPriority_consideredDuplicateNote() {
+        Note note = new Note("sampleNote", "description", Priority.UNMARKED);
+        Note otherNote = new Note("sampleNote", "other description", Priority.HIGH);
+        assertTrue(note.isSameNote(otherNote));
+    }
+
+    @Test
+    public void sameNotesamePriority_Equals() {
+        Note note = new Note("sampleNote", "description", Priority.UNMARKED);
+        Note otherNote = new Note("sampleNote", "description", Priority.UNMARKED);
+        assertTrue(note.equals(otherNote));
+    }
+
+    @Test
+    public void sameNoteDifferentPriority_notEquals() {
+        Note note = new Note("sampleNote", "description", Priority.UNMARKED);
+        Note otherNote = new Note("sampleNote", "description", Priority.HIGH);
+        assertTrue(!note.equals(otherNote));
+    }
 }
