@@ -3,6 +3,8 @@ package seedu.mark.ui;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.function.Consumer;
+import java.util.logging.Logger;
 
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -10,8 +12,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.layout.Region;
+import seedu.mark.commons.core.LogsCenter;
 import seedu.mark.model.bookmark.Bookmark;
 import seedu.mark.model.bookmark.Folder;
+import seedu.mark.model.bookmark.Url;
 import seedu.mark.model.folderstructure.FolderStructure;
 
 /**
@@ -20,10 +24,12 @@ import seedu.mark.model.folderstructure.FolderStructure;
 public class FolderStructureTreeView extends UiPart<Region> {
 
     private static final String FXML = "FolderStructure.fxml";
+    private final Logger logger = LogsCenter.getLogger(getClass());
 
     @FXML
     private TreeView<String> treeView;
     private HashMap<Folder, TreeItem<String>> mapOfFolderToTreeItem = new HashMap<>();
+    private HashMap<TreeItem<String>, Url> mapOfTreeItemToUrl = new HashMap<>();
     private TreeItem<String> root;
     private ObservableList<Bookmark> bookmarks;
     private List<TreeItem<String>> bookmarkTreeItems = new ArrayList<>();
@@ -35,7 +41,8 @@ public class FolderStructureTreeView extends UiPart<Region> {
      * @param bookmarks       the bookmarks
      */
     public FolderStructureTreeView(FolderStructure folderStructure,
-            ObservableList<Bookmark> bookmarks) {
+                                   ObservableList<Bookmark> bookmarks,
+                                   Consumer<Url> currentUrlChangeHandler) {
         super(FXML);
         this.bookmarks = bookmarks;
         root = buildTree(folderStructure);
@@ -47,6 +54,17 @@ public class FolderStructureTreeView extends UiPart<Region> {
         });
         treeView.setRoot(root);
         treeView.setShowRoot(false);
+        treeView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            // Do nothing when selection is cleared
+            if (newValue == null) {
+                return;
+            }
+            if (!mapOfTreeItemToUrl.containsKey(newValue)) {
+                return;
+            }
+            logger.info("Selection in folder structure tree view changed to: " + newValue);
+            currentUrlChangeHandler.accept(mapOfTreeItemToUrl.get(newValue));
+        });
     }
 
 
@@ -90,12 +108,14 @@ public class FolderStructureTreeView extends UiPart<Region> {
             oldBookmarkTreeItem.getParent().getChildren().remove(oldBookmarkTreeItem);
         }
         bookmarkTreeItems = new ArrayList<>();
+        mapOfTreeItemToUrl = new HashMap<>();
         for (Bookmark bookmark: bookmarks) {
             // if the folder is not found, we default it to the root
             TreeItem<String> treeItem = new TreeItem<>("Bookmark: " + bookmark);
             mapOfFolderToTreeItem.getOrDefault(bookmark.getFolder(), root)
                     .getChildren().add(treeItem);
             bookmarkTreeItems.add(treeItem);
+            mapOfTreeItemToUrl.put(treeItem, bookmark.getUrl());
         }
     }
 

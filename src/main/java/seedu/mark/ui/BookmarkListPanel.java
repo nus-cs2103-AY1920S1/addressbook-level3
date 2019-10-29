@@ -18,7 +18,7 @@ import seedu.mark.model.bookmark.Url;
  */
 public class BookmarkListPanel extends UiPart<Region> {
     private static final String FXML = "BookmarkListPanel.fxml";
-    private final Logger logger = LogsCenter.getLogger(BookmarkListPanel.class);
+    private final Logger logger = LogsCenter.getLogger(getClass());
     @org.jetbrains.annotations.NotNull
     private final ObservableValue<Bookmark> bookmarkToDisplayCache;
 
@@ -27,7 +27,7 @@ public class BookmarkListPanel extends UiPart<Region> {
 
     public BookmarkListPanel(ObservableList<Bookmark> bookmarkList, ObservableValue<Url> currentBookmarkUrl,
                              ObservableValue<Bookmark> bookmarkToDisplayCache,
-                             Consumer<Url> currentBookmarkUrlChangeHandler, MainWindow mainWindow) {
+                             Consumer<Url> currentUrlChangeHandler) {
         super(FXML);
         this.bookmarkToDisplayCache = bookmarkToDisplayCache;
         bookmarkListView.setItems(bookmarkList);
@@ -40,8 +40,7 @@ public class BookmarkListPanel extends UiPart<Region> {
                 return;
             }
             logger.info("Selection in bookmark list panel changed to: " + newValue);
-            currentBookmarkUrlChangeHandler.accept(newValue.getUrl());
-            mainWindow.handleSwitchToOnline();
+            currentUrlChangeHandler.accept(newValue.getUrl());
         });
 
         // Whenever current bookmark url changes, update the selection
@@ -96,9 +95,6 @@ public class BookmarkListPanel extends UiPart<Region> {
                 setText(null);
             } else {
                 BookmarkCard card = new BookmarkCard(bookmark, getIndex() + 1);
-                if (bookmark.equals(bookmarkToDisplayCache.getValue())) {
-                    card.displayCache();
-                }
                 setGraphic(card.getRoot());
             }
         }
