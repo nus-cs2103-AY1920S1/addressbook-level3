@@ -232,7 +232,7 @@ The first function is facilitated by `CalendarPanel`. It extends `UiPart<Region>
 * `CalendarPanel#initialiseSelectedDate()` -- Fills up all 42 cells of the `GridPane` with the respective days based on the selected date (current / provided date) by the user. Days of the previous and next month used to fill up the remaining cells are marked in a lighter colour.
 
 +
-In addition, days with training or performance records will be marked with a small orange or purple dot indicator respectively. 
+In addition, days with training or performance records will be marked with a small orange or purple dot indicator respectively.
 
 These operations are performed when an instance of `CalendarPanel` is created in the `MainWindow` class. An instance of `CalendarPanel` is created when the `CommandResult` obtained after executing the user's command contains a `Feature` corresponding to a calendar and an optional `AthletickDate`.
 
@@ -254,8 +254,8 @@ The following activity diagram summarises what happens when a user executes the 
 
 The second function is facilitated by `CalendarDetailPanel`. It extends `UiPart<Region>` and displays the attendance and performance records for a specific date in a table. Additionally, it implements the following operations:
 
-* `CalendarDetailPanel#initialiseAttendanceData` -- Retrieves and displays the attendance of each person on the specified date. 
-* `CalendarDetailPanel#initialisePerformanceData` -- Retrieves and displays the performance records on the specified date. 
+* `CalendarDetailPanel#initialiseAttendanceData` -- Retrieves and displays the attendance of each person on the specified date.
+* `CalendarDetailPanel#initialisePerformanceData` -- Retrieves and displays the performance records on the specified date.
 
 These operations are performed when an instance of `CalendarDetailPanel` is created in the `MainWindow` class. An instance of `CalendarDetailPanel` is created when the `CommandResult` obtained after executing the user's command contains an `AthletickDate`.
 
