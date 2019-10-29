@@ -54,6 +54,7 @@
             <Insets left="8.0" right="15.0" top="8.0" />
          </GridPane.margin>
       </CheckBox>
+      <Label fx:id="lastWatched" styleClass="cell_small_label" text="\lastWatched" wrapText ="true" />
       <rowConstraints>
          <RowConstraints />
       </rowConstraints>

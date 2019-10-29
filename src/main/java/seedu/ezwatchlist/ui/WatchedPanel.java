@@ -16,6 +16,7 @@ import seedu.ezwatchlist.model.show.Show;
 public class WatchedPanel extends UiPart<Region> {
     private static final String FXML = "WatchedPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(WatchedPanel.class);
+    private MainWindow mainWindow;
 
     @FXML
     private ListView<Show> watchedListView;
@@ -25,6 +26,11 @@ public class WatchedPanel extends UiPart<Region> {
         watchedListView.setItems(showList);
         watchedListView.setCellFactory(listView -> new WatchedListViewCell());
     }
+
+    public void setMainWindow(MainWindow mainWindow) {
+        this.mainWindow = mainWindow;
+    }
+
 
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code Show} using a {@code ShowCard}.
@@ -38,7 +44,9 @@ public class WatchedPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new ShowCard(show, getIndex() + 1).getRoot());
+                ShowCard showCard = new ShowCard(show, getIndex() + 1);
+                showCard.setMainWindow(mainWindow);
+                setGraphic(showCard.getRoot());
             }
         }
     }

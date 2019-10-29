@@ -14,5 +14,7 @@ public class CliSyntax {
     public static final Prefix PREFIX_ACTOR = new Prefix("a/");
     public static final Prefix PREFIX_TYPE = new Prefix("t/");
     public static final Prefix PREFIX_IS_INTERNAL = new Prefix("i/");
+    public static final Prefix PREFIX_NUM_OF_EPISODES = new Prefix("e/");
+    public static final Prefix PREFIX_NUM_OF_SEASONS = new Prefix("s/");
 
 }

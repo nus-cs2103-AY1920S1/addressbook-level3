@@ -22,6 +22,8 @@ import seedu.ezwatchlist.model.show.RunningTime;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
+    public static final String MESSAGE_INVALID_NUM_OF_EPISODES = "Number of episodes is an unsigned integer.";
+    public static final String MESSAGE_INVALID_NUM_OF_SEASONS = "Number of seasons is a non-zero unsigned integer.";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -154,4 +156,51 @@ public class ParserUtil {
         return actorSet;
     }
 
+    /**
+     * Parses a {@code String numOfEpisodesWatched} into an {@code int}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code numOfEpisodesWatched} is invalid.
+     */
+    public static int parseNumOfEpisodesWatched(String numOfEpisodesWatched) throws ParseException {
+        requireNonNull(numOfEpisodesWatched);
+        String trimmedNumOfEpisodesWatched = numOfEpisodesWatched.trim();
+        int intNumberOfEpisodesWatched;
+
+        try {
+            intNumberOfEpisodesWatched = Integer.parseInt(trimmedNumOfEpisodesWatched);
+        } catch (NumberFormatException e) {
+            throw new ParseException(MESSAGE_INVALID_NUM_OF_EPISODES);
+        }
+
+        if (intNumberOfEpisodesWatched < 0) {
+            throw new ParseException(MESSAGE_INVALID_NUM_OF_EPISODES);
+        }
+
+        return intNumberOfEpisodesWatched;
+    }
+
+    /**
+     * Parses a {@code String numOfSeasonsWatched} into an {@code int}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code numOfSeasonsWatched} is invalid.
+     */
+    public static int parseNumOfSeasonsWatched(String numOfSeasonsWatched) throws ParseException {
+        requireNonNull(numOfSeasonsWatched);
+        String trimmedNumOfSeasonsWatched = numOfSeasonsWatched.trim();
+        int intNumberOfSeasonsWatched;
+
+        try {
+            intNumberOfSeasonsWatched = Integer.parseInt(trimmedNumOfSeasonsWatched);
+        } catch (NumberFormatException e) {
+            throw new ParseException(MESSAGE_INVALID_NUM_OF_SEASONS);
+        }
+
+        if (intNumberOfSeasonsWatched <= 0) {
+            throw new ParseException(MESSAGE_INVALID_NUM_OF_SEASONS);
+        }
+
+        return intNumberOfSeasonsWatched;
+    }
 }

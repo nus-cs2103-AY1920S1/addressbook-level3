@@ -8,7 +8,6 @@ import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonValue;
 
 import seedu.ezwatchlist.commons.exceptions.IllegalValueException;
 import seedu.ezwatchlist.model.show.Episode;
@@ -48,17 +47,14 @@ class JsonAdaptedTvSeason {
                 .collect(Collectors.toList()));
     }
 
-    @JsonValue
     public int getSeasonNumber() {
         return seasonNumber;
     }
 
-    @JsonValue
     public int getTotalNumOfEpisodes() {
         return totalNumOfEpisodes;
     }
 
-    @JsonValue
     public List<JsonAdaptedEpisode> getEpisodes() {
         return episodes;
     }

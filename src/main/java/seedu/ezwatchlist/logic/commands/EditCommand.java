@@ -9,7 +9,6 @@ import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_RUNNING_TIME;
 import static seedu.ezwatchlist.model.Model.PREDICATE_SHOW_ALL_SHOWS;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -114,8 +113,8 @@ public class EditCommand extends Command {
             return editedShow;
         } else { //showToEdit.type.equals("Tv show")
             TvShow editedShow = new TvShow(updatedName, updatedDescription, updatedIsWatched,
-                    updatedDateOfRelease, updatedRunningTime, updatedActors,
-                    0, 0, new ArrayList<>());
+                    updatedDateOfRelease, updatedRunningTime, updatedActors, showToEdit.getNumOfEpisodesWatched(),
+                    showToEdit.getTotalNumOfEpisodes(), showToEdit.getTvSeasons());
             editedShow.setPoster(updatedPoster);
             return editedShow;
         }
