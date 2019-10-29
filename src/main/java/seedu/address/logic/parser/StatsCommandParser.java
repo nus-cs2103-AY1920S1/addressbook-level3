@@ -33,9 +33,7 @@ import java.util.Date;
 import java.util.stream.Stream;
 
 import seedu.address.commons.core.Messages;
-import seedu.address.logic.commands.FilterCommand;
 import seedu.address.logic.commands.StatsCommand;
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 //@@author dalisc
@@ -65,7 +63,8 @@ public class StatsCommandParser implements Parser<StatsCommand> {
                             PREFIX_FRIDGE_ID, PREFIX_FLAG, PREFIX_EMPLOYMENT_STATUS,
                             PREFIX_NAME, PREFIX_TAG, PREFIX_EMAIL, PREFIX_ADDRESS);
 
-            boolean areAnyPrefixesPresent = isExactlyOnePrefixPresent(argMultimap, PREFIX_WEEK, PREFIX_MONTH, PREFIX_YEAR);
+            boolean areAnyPrefixesPresent = isExactlyOnePrefixPresent(argMultimap,
+                    PREFIX_WEEK, PREFIX_MONTH, PREFIX_YEAR);
 
             if (!areAnyPrefixesPresent || !argMultimap.getPreamble().isEmpty()) {
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, StatsCommand.MESSAGE_USAGE));
@@ -79,13 +78,15 @@ public class StatsCommandParser implements Parser<StatsCommand> {
 
             try {
                 if (presentPrefix.equals(PREFIX_MONTH)) {
-                    Date date = new SimpleDateFormat("MM/yyyy").parse(argMultimap.getValue(presentPrefix).get());
+                    Date date = new SimpleDateFormat("MM/yyyy")
+                        .parse(argMultimap.getValue(presentPrefix).get());
                     return new StatsCommand(date, timeFrame);
                 } else if (presentPrefix.equals(PREFIX_YEAR)) {
                     Date date = new SimpleDateFormat("yyyy").parse(argMultimap.getValue(presentPrefix).get());
                     return new StatsCommand(date, timeFrame);
                 } else {
-                    Date date = new SimpleDateFormat("dd/MM/yyyy").parse(argMultimap.getValue(presentPrefix).get());
+                    Date date = new SimpleDateFormat("dd/MM/yyyy")
+                        .parse(argMultimap.getValue(presentPrefix).get());
                     return new StatsCommand(date, timeFrame);
                 }
             } catch (Exception e) {

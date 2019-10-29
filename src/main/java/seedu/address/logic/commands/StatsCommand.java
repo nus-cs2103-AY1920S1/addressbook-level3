@@ -7,9 +7,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import javax.sound.sampled.Line;
-
-import seedu.address.MainApp;
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -80,7 +77,7 @@ public class StatsCommand extends Command {
                 return new CommandResult(
                         String.format(Messages.MESSAGE_STATS_YEAR, dateFormatterYear.format(date)));
             } else {
-                throw new CommandException( String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
+                throw new CommandException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
             }
         } catch (CommandException | ParseException e) {
             return new CommandResult(e.getMessage());

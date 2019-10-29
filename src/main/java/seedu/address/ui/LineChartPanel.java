@@ -34,7 +34,7 @@ public class LineChartPanel extends UiPart<Region> {
     private static final String FXML = "LineChartPanel.fxml";
     private static final long DAY_IN_MS = 1000 * 60 * 60 * 24;
     private static ObservableList<Body> staticBodyList;
-    private static int WINDOW_SIZE = 10;
+    private static int windowSize = 10;
     private static String timeFrame = "default";
     private static Date date = new Date();
 
@@ -64,13 +64,16 @@ public class LineChartPanel extends UiPart<Region> {
     // static method to create instance of Singleton class
     public static LineChartPanel getLineChartPanelInstance(ObservableList<Body> bodyList) throws ParseException {
         // To ensure only one instance is created
-        if (lineChartPanelInstance == null)
-        {
+        if (lineChartPanelInstance == null) {
             lineChartPanelInstance = new LineChartPanel(bodyList);
         }
         return lineChartPanelInstance;
     }
 
+    /**
+     * Makes the line chart from scratch.
+     * @throws ParseException if the date supplied by user is non-parsable.
+     */
     public void makeLineChart() throws ParseException {
         initialiseTreeMap();
         initialiseLineChart();
@@ -78,7 +81,7 @@ public class LineChartPanel extends UiPart<Region> {
         updateUponChange();
     }
 
-    public AreaChart getLineChart(){
+    public AreaChart getLineChart() {
         return lineChart;
     }
 
@@ -94,12 +97,10 @@ public class LineChartPanel extends UiPart<Region> {
             xAxis.setLabel(month);
         } else if (timeFrame.equals("year")) {
             String year = new SimpleDateFormat("'Year' yyyy").format(date);
-                xAxis.setLabel(year);
+            xAxis.setLabel(year);
         }
         yAxis.setLabel("Number");
-
         // y axis shows only integers
-
         yAxis.setTickUnit(1);
         yAxis.setMinorTickCount(0);
         yAxis.setMinorTickVisible(false);
@@ -224,7 +225,7 @@ public class LineChartPanel extends UiPart<Region> {
             } else if (timeFrame.equals("month") || timeFrame.equals("year")) {
                 series.getData().add(new XYChart.Data<String, Number>(axisDateFormat2.format(date), freq));
             }
-            if (series.getData().size() > WINDOW_SIZE) {
+            if (series.getData().size() > windowSize) {
                 series.getData().remove(0);
             }
             // disable the x-axis as too many x-values cause the axis to take up too much vertical space
@@ -294,21 +295,22 @@ public class LineChartPanel extends UiPart<Region> {
         LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         switch (timeFrame) {
         case "default":
-            WINDOW_SIZE = 10;
+            windowSize = 10;
             break;
         case "week":
-            WINDOW_SIZE = 7;
+            windowSize = 7;
             break;
         case "month":
-            WINDOW_SIZE = localDate.lengthOfMonth();
+            windowSize = localDate.lengthOfMonth();
             break;
         case "year":
             if (localDate.isLeapYear()) {
-                WINDOW_SIZE = 366;
+                windowSize = 366;
             } else {
-                WINDOW_SIZE = 365;
+                windowSize = 365;
             }
             break;
+        default:
         }
     }
 
