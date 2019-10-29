@@ -19,6 +19,7 @@ import seedu.address.logic.commands.DeleteCategoryCommand;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.DeleteExpenseReminderCommand;
 import seedu.address.logic.commands.DeleteWishCommand;
+import seedu.address.logic.commands.EditAutoExpenseCommand;
 import seedu.address.logic.commands.EditBudgetCommand;
 import seedu.address.logic.commands.EditCategoryCommand;
 import seedu.address.logic.commands.EditCommand;
@@ -155,6 +156,9 @@ public class AddressBookParser {
             return new DeleteExpenseReminderCommandParser().parse(arguments);
 
         case AddAutoExpenseCommand.COMMAND_WORD:
+            return new AddAutoExpenseCommandParser().parse(arguments);
+
+        case EditAutoExpenseCommand.COMMAND_WORD:
             return new AddAutoExpenseCommandParser().parse(arguments);
 
         case StatisticsCommand.COMMAND_WORD:
