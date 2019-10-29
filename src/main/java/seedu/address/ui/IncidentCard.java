@@ -46,7 +46,7 @@ public class IncidentCard extends UiPart<Region> {
         this.incident = incident;
         id.setText(displayedIndex + ". ");
         incidentId.setText("Incident #" + incident.getIncidentId().getId());
-        dateTime.setText("created on " + incident.getDateTime().toString());
+        dateTime.setText("created on " + incident.getDateTime().toDisplayString()); // get the display format, not ISO
         operator.setText("Filed by: " + incident.getOperator().getName().toString() + " ("
                 + incident.getOperator().getUsername() + ")");
         incidentLocation.setText("District: " + String.valueOf(incident.getDistrict().districtNum));
