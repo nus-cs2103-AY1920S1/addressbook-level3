@@ -1,4 +1,4 @@
-= PalPay - User Guide
+﻿= PalPay - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -89,6 +89,13 @@ Examples:
 Adds an expenditure of personal finance +
 Format: `out $/AMOUNT n/ITEM [c/CATEGORY]`
 
+****
+* `AMOUNT` inputs the value of the expenditure
+* `DATE` accepts the date of this transaction
+* `CATEGORY` accepts the CATEGORY for this expenditure
+* `in` will update the Bank Account with a net **negative** amount (e.g. `out n/milk $/2 d/10102019` will **decrease** Bank Acount balance by $2)
+****
+
 Examples:
 * `out $/100 n/milk c/food`
 * `out $/29 n/taxi c/transport`
@@ -98,6 +105,13 @@ Examples:
 
 Adds an income of personal finance +
 Format: `in $/AMOUNT n/ITEM [c/CATEGORY]`
+
+****
+* `AMOUNT` inputs the value of the income
+* `DATE` accepts the date of this transaction
+* `CATEGORY` accepts the CATEGORY for this income
+* `in` will update the Bank Account with a net positive amount (e.g. `in n/work $/1000 d/10102019` will **increase** Bank Acount balance by $1000)
+****
 
 Examples:
 * `in $/100 n/errand c/work`
