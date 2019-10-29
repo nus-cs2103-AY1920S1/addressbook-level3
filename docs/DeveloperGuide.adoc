@@ -266,7 +266,7 @@ In the `Model` interface implemented by `ModelManager`, these four operations ar
 
 Next, the `UndoableCommand` stored in the `Model` is actually a normal `Command` that changes program state.
 The `UndoableCommand` class is an abstract class that extends the abstract `Command` class, as shown in Figure 11. Commands like `AddCommand` or `UpdateCommand` extends `UndoableCommand` instead of `Command`.
-
+````
 A class extending `UndoableCommand` must implement an additional method, `UndoableCommand#undo(Model model)`. This means that every child class of `UndoableCommand` has a custom `undo` implementation.
 ``UndoableCommand#redo(Model model)` is a concrete implementation of the `redo` mechanism and is inherited by all child classes.
 When an `UndoableCommand` is executed or undone, it is added to the `commandHistory` or `undoHistory` of ModelManager` respectively.
