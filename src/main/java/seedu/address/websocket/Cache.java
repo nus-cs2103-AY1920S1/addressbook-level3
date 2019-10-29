@@ -3,7 +3,6 @@ package seedu.address.websocket;
 import static java.util.Objects.requireNonNull;
 
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Reader;
 import java.net.ConnectException;
@@ -80,40 +79,12 @@ public class Cache {
             }
             jsonObject.put(key, value);
 
-            try (FileWriter file = new FileWriter(filePath)) {
-                file.write(jsonObject.toJSONString());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            save(jsonObject, filePath);
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ParseException e) {
             e.printStackTrace();
         }
-    }
-
-    /**
-     * This method is used to load a previously called API response
-     * @param key
-     * @param filePath
-     * @return
-     */
-    public static String loadFromJson(String key, String filePath) {
-        requireNonNull(key);
-        requireNonNull(filePath);
-
-        JSONParser parser;
-        parser = new JSONParser();
-        Object result = null;
-        try (Reader reader = new FileReader(filePath)) {
-            JSONObject jsonObject = (JSONObject) parser.parse(reader);
-            result = jsonObject.get(key);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return result.toString();
     }
 
     /**
