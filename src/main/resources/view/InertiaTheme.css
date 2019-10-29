@@ -97,8 +97,8 @@
     -fx-label-padding: 0 0 0 0;
     -fx-graphic-text-gap : 0;
     -fx-padding: 0 0 0 0;
-    -fx-background-color: transparent, -fx-background ;
-    -fx-background-insets: 3px, 3px, 3px, 3px ;
+    -fx-background-color: transparent, -fx-background;
+    -fx-background-insets: 3px, 3px, 3px, 3px;
 }
 
 
@@ -156,6 +156,7 @@
     -fx-font-family: "Segoe UI Light";
     -fx-font-size: 13pt;
     -fx-text-fill: white;
+    -fx-border-radius: 5px;
 }
 
 .result-display .label {
@@ -339,7 +340,7 @@
 
 #resultDisplay .content {
     -fx-background-color: transparent, #65737e, transparent, #65737e;
-    -fx-background-radius: 0;
+    -fx-background-radius: 5;
     -fx-border-color: #e8a87c;
     -fx-border-width: 2;
 }
@@ -357,3 +358,51 @@
     -fx-background-radius: 2;
     -fx-font-size: 11;
 }
+
+.chart-legend {
+   -fx-background-color: steelblue;
+}
+
+.chart-title {
+  -fx-font-size: 1.6em;
+  -fx-padding: 10px;
+  -fx-underline: true;
+}
+
+.chart-plot-background {
+    -fx-background-color: gainsboro;
+}
+
+.chart-vertical-grid-lines {
+    -fx-stroke: silver;
+}
+
+.chart-horizontal-grid-lines {
+    -fx-stroke: silver;
+}
+
+.chart-alternative-row-fill {
+    -fx-fill: lightgray;
+    -fx-stroke: transparent;
+    -fx-stroke-width: 0;
+}
+
+.axis {
+    -fx-tick-label-fill: lightgray;
+}
+
+.axis-label {
+    -fx-text-fill: white;
+}
+
+.default-color0.chart-line-symbol {
+    -fx-background-color: #ff5a5a, white;
+}
+
+.default-color0.chart-series-line {
+    -fx-stroke: #ff5a5a;
+}
+
+
+
+

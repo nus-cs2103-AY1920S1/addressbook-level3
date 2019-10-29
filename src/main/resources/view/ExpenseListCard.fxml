@@ -26,12 +26,12 @@
             <Region fx:constant="USE_PREF_SIZE" />
           </minWidth>
         </Label>
-        <Label fx:id="name" styleClass="cell_big_label" text="\$name" />
+        <Label fx:id="name" style="-fx-font-size: 15;" styleClass="cell_big_label" text="\$name" wrapText="true" />
       </HBox>
       <FlowPane fx:id="tags" />
-      <Label fx:id="amount" styleClass="cell_small_label" text="\$amount" />
+      <Label fx:id="amount" style="-fx-underline: true; -fx-font-size: 20px;" styleClass="cell_small_label" text="\$amount" />
       <Label fx:id="date" styleClass="cell_small_label" text="\$date" />
-      <Label fx:id="description" styleClass="cell_small_label" text="\$description" />
+      <Label fx:id="description" styleClass="cell_small_label" text="\$description" wrapText="true" />
          <GridPane.margin>
             <Insets />
          </GridPane.margin>
