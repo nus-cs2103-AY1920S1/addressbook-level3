@@ -1,4 +1,4 @@
-package seedu.revision.logic.parser;
+package seedu.revision.model.answerable;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.revision.commons.util.AppUtil.checkArgument;
@@ -9,12 +9,12 @@ import static seedu.revision.commons.util.AppUtil.checkArgument;
 public class QuestionType {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Question type should only be mcq or saq";
+            "Question type should only be mcq, tf, or saq";
     /*
-     * The first character of the address must not be a whitespace,
+     * The first character of the question type must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String VALIDATION_REGEX = "(?i)mcq|saq";
+    public static final String VALIDATION_REGEX = "(?i)mcq|saq|tf";
 
     private final String type;
 
@@ -33,14 +33,7 @@ public class QuestionType {
      * Returns true if a given string is a valid question.
      */
     public boolean isValidQuestionType(String test) {
-        switch(test) {
-        case "mcq":
-        //fallthrough
-        case "saq":
-            return test.matches(VALIDATION_REGEX);
-        default:
-            return false;
-        }
+        return test.matches(VALIDATION_REGEX);
     }
 
     public String getType() {
