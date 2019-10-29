@@ -4,6 +4,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Scene?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
@@ -13,8 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.stage.Stage?>
 
-<?import javafx.scene.control.Label?>
-<fx:root minHeight="700" minWidth="700" onCloseRequest="#handleExit" title="SecureIT" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root minHeight="700" minWidth="700" onCloseRequest="#handleExit" title="SecureIT" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
   <icons>
     <Image url="@/images/address_book_32.png" />
   </icons>
@@ -53,13 +53,13 @@
             <padding>
               <Insets bottom="5" left="10" right="10" top="5" />
             </padding>
-            <children >
-                     <Label HBox.hgrow="ALWAYS" text="Mode: " style="-fx-text-fill: #75878E;"/>
-                     <Button styleClass="buttonSide" fx:id="b1" HBox.hgrow="ALWAYS" text="Password" minWidth="100"/>
-                     <Button styleClass="buttonSide" fx:id="b2" HBox.hgrow="ALWAYS" text="File" minWidth="100"/>
-                     <Button styleClass="buttonSide" fx:id="b3" HBox.hgrow="ALWAYS" text="Card" minWidth="100"/>
-                     <Button styleClass="buttonSide" fx:id="b4" HBox.hgrow="ALWAYS" text="Note" minWidth="100"/>
-                  </children>
+            <children>
+              <Label style="-fx-text-fill: #75878E;" text="Mode: " HBox.hgrow="ALWAYS" />
+              <Button fx:id="b1" minWidth="100" styleClass="buttonSide" text="Password" HBox.hgrow="ALWAYS" />
+              <Button fx:id="b2" minWidth="100" styleClass="buttonSide" text="File" HBox.hgrow="ALWAYS" />
+              <Button fx:id="b3" minWidth="100" styleClass="buttonSide" text="Card" HBox.hgrow="ALWAYS" />
+              <Button fx:id="b4" minWidth="100" styleClass="buttonSide" text="Note" HBox.hgrow="ALWAYS" />
+            </children>
           </VBox>
 
           <VBox fx:id="objectList" minWidth="200" prefWidth="200" styleClass="pane-with-border" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS">
@@ -73,7 +73,7 @@
             <padding>
               <Insets bottom="10" left="10" right="10" top="10" />
             </padding>
-            <StackPane fx:id="readListPanelPlaceholder" VBox.vgrow="ALWAYS" />
+            <StackPane fx:id="readListPanelPlaceholder" />
           </VBox>
 
         </HBox>

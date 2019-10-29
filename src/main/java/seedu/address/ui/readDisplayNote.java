@@ -38,6 +38,11 @@ public class readDisplayNote extends UiPart<Region> {
     private Button saveButton;
 
     @FXML
+    private Label labelTitle = new Label("Title:");
+
+    @FXML
+    private Label labelDescription = new Label("Description");
+    @FXML
     private TextField noteTitle;
 
     @FXML
@@ -98,6 +103,7 @@ public class readDisplayNote extends UiPart<Region> {
     private void saveNote() throws CommandException, ParseException,
             DictionaryException { //TODO:Dictionary Exception unneeded?
         System.out.println(noteContent.getText());
+
         logic.execute("edit " + index.getOneBased() + " c/"
                 + noteContent.getText()
                 + " d/" + noteDescription.getText() + " ti/" + noteTitle.getText()

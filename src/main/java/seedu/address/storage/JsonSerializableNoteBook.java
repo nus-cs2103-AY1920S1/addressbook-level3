@@ -20,7 +20,7 @@ import seedu.address.model.note.Note;
 @JsonRootName(value = "notebook")
 class JsonSerializableNoteBook {
 
-    public static final String MESSAGE_DUPLICATE_PERSON = "Notes list contains duplicate note(s).";
+    public static final String MESSAGE_DUPLICATE_NOTE = "Notes list contains duplicate note(s).";
 
     private final List<JsonAdaptedNote> notes = new ArrayList<>();
 
@@ -51,7 +51,7 @@ class JsonSerializableNoteBook {
         for (JsonAdaptedNote jsonAdaptedNote : notes) {
             Note note = jsonAdaptedNote.toModelType();
             if (noteBook.hasNote(note)) {
-                throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
+                throw new IllegalValueException(MESSAGE_DUPLICATE_NOTE);
             }
             noteBook.addNote(note);
         }
