@@ -15,6 +15,7 @@ import seedu.revision.logic.commands.main.ExitCommand;
 import seedu.revision.logic.commands.main.FindCommand;
 import seedu.revision.logic.commands.main.HelpCommand;
 import seedu.revision.logic.commands.main.ListCommand;
+import seedu.revision.logic.commands.main.RestoreCommand;
 import seedu.revision.logic.commands.main.StartQuizCommand;
 import seedu.revision.logic.commands.main.StatsCommand;
 import seedu.revision.logic.parser.exceptions.ParseException;
@@ -22,7 +23,7 @@ import seedu.revision.logic.parser.exceptions.ParseException;
 /**
  * Parses user input.
  */
-public class AddressBookParser {
+public class MainParser {
 
     /**
      * Used for initial separation of command word and args.
@@ -69,6 +70,9 @@ public class AddressBookParser {
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
+
+        case RestoreCommand.COMMAND_WORD:
+            return new RestoreCommand();
 
         case StartQuizCommand.COMMAND_WORD:
             return new StartQuizCommandParser().parse(arguments);

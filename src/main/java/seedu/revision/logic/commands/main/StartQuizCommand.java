@@ -14,6 +14,7 @@ import seedu.revision.model.quiz.Mode;
 /**
  * Command to start the quiz session.
  */
+
 public class StartQuizCommand extends Command {
 
     public static final String COMMAND_WORD = "start";

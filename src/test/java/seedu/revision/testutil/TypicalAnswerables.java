@@ -12,14 +12,13 @@ import java.util.Arrays;
 import java.util.List;
 
 import seedu.revision.model.AddressBook;
-import seedu.revision.model.answerable.Answer;
 import seedu.revision.model.answerable.Answerable;
+import seedu.revision.model.answerable.answer.Answer;
 
 /**
  * A utility class containing a list of {@code Answerable} objects to be used in tests.
  */
 public class TypicalAnswerables {
-    public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
     private static final Answer correctAnswer = new Answer("Brownfield");
     private static final ArrayList<Answer> defaultCorrectAnswerList = new ArrayList<>(Arrays.asList(correctAnswer));
     private static final Answer wrongAnswerA = new Answer("Greenfield");
