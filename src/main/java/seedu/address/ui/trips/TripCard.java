@@ -6,6 +6,7 @@ import javafx.scene.layout.GridPane;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.parser.ParserDateUtil;
+import seedu.address.model.Model;
 import seedu.address.model.trip.Trip;
 import seedu.address.ui.UiPart;
 
@@ -31,11 +32,13 @@ public class TripCard extends UiPart<GridPane> {
 
     private final Trip trip;
     private final Index displayedIndex;
+    private final Model model;
 
-    public TripCard(Trip trip, Index displayedIndex) {
+    public TripCard(Trip trip, Index displayedIndex, Model model) {
         super(FXML);
         this.trip = trip;
         this.displayedIndex = displayedIndex;
+        this.model = model;
         fillTripCardLabels();
     }
 
@@ -45,7 +48,7 @@ public class TripCard extends UiPart<GridPane> {
     private void fillTripCardLabels() {
         tripDisplayIndexLabel.setText(displayedIndex.getOneBased() + "");
         tripNameLabel.setText(trip.getName().toString());
-        tripBudgetLabel.setText(trip.getBudget().toString());
+        tripBudgetLabel.setText(trip.getBudget().getValueStringInCurrency(model.getTravelPal().getCurrencies().get(0)));
         tripDestinationLabel.setText(trip.getDestination().toString());
         tripStartDateLabel.setText(ParserDateUtil.getDisplayTime(trip.getStartDate()));
         tripEndDateLabel.setText(ParserDateUtil.getDisplayTime(trip.getEndDate()));

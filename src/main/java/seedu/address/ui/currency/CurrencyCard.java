@@ -1,51 +1,45 @@
-package seedu.address.ui.expenditure;
+package seedu.address.ui.currency;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import seedu.address.commons.core.index.Index;
-import seedu.address.model.Model;
 import seedu.address.model.currency.CustomisedCurrency;
-import seedu.address.model.expenditure.Expenditure;
 import seedu.address.ui.UiPart;
+
 
 /**
  * TODO: Implement display for inventory and booking labels.
  */
-public class ExpenditureCard extends UiPart<HBox> {
-    private static final String FXML = "expenses/ExpenditureCard.fxml";
+public class CurrencyCard extends UiPart<HBox> {
 
     @FXML
     private Label idLabel;
     @FXML
     private Label nameLabel;
     @FXML
-    private Label budgetLabel;
-
+    private Label rateLabel;
     @FXML
     private VBox propertiesContainer;
 
-    private Expenditure expenditure;
+    private CustomisedCurrency currency;
     private Index displayedIndex;
-    private Model model;
 
-    public ExpenditureCard(Expenditure expenditure, Index displayedIndex, Model model) {
-        super(FXML);
-        this.expenditure = expenditure;
+    public CurrencyCard(String fxmlFileName, CustomisedCurrency currency, Index displayedIndex) {
+        super(fxmlFileName);
+        this.currency = currency;
         this.displayedIndex = displayedIndex;
-        this.model = model;
         fillExpenditureCardLabels();
     }
 
     /**
-     * Fills the labels of this expenditure card.
+     * Fills the labels of this currency card.
      */
     private void fillExpenditureCardLabels() {
-        CustomisedCurrency currency = model.getTravelPal().getCurrencies().get(0);
         idLabel.setText(displayedIndex.getOneBased() + ".");
-        nameLabel.setText(expenditure.getName().toString());
-        budgetLabel.setText(expenditure.getBudget().getValueStringInCurrency(currency));
+        nameLabel.setText(currency.getName() + " (" + currency.getSymbol() + ")");
+        rateLabel.setText(String.format("%.2f", currency.getRate()));
     }
     @Override
     public boolean equals(Object other) {
@@ -55,17 +49,17 @@ public class ExpenditureCard extends UiPart<HBox> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof ExpenditureCard)) {
+        if (!(other instanceof CurrencyCard)) {
             return false;
         }
 
         // state check
-        ExpenditureCard otherCard = (ExpenditureCard) other;
-        return expenditure.equals(otherCard.expenditure)
+        CurrencyCard otherCard = (CurrencyCard) other;
+        return currency.equals(otherCard.currency)
                 && this.displayedIndex.equals(otherCard.displayedIndex);
     }
 
-    public Expenditure getExpenditure() {
-        return expenditure;
+    public CustomisedCurrency getCurrency() {
+        return currency;
     }
 }
