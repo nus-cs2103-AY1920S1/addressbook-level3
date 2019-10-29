@@ -48,7 +48,7 @@
           </padding>
         </StackPane>
 
-        <HBox>
+        <HBox VBox.vgrow="ALWAYS">
           <TabPane fx:id="tabPanePlaceHolder"  layoutX="3.0" layoutY="2.0" tabClosingPolicy="UNAVAILABLE">
             <tabs>
               <Tab text="Planner" >
