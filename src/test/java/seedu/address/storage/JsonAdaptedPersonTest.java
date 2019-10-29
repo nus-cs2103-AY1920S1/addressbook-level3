@@ -72,8 +72,9 @@ public class JsonAdaptedPersonTest {
 
     @Test
     public void toModelType_nullPhone_throwsIllegalValueException() {
-        JsonAdaptedPerson person = new JsonAdaptedPerson(VALID_NAME, null, VALID_EMAIL, VALID_GENDER, VALID_ADDRESS,
-                                                         VALID_TAGS, VALID_PHOTO);
+        JsonAdaptedPerson person =
+            new JsonAdaptedPerson(VALID_NAME, null, VALID_EMAIL, VALID_GENDER, VALID_ADDRESS,
+                VALID_TAGS, VALID_PHOTO);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Phone.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
@@ -89,9 +90,9 @@ public class JsonAdaptedPersonTest {
 
     @Test
     public void toModelType_nullEmail_throwsIllegalValueException() {
-        JsonAdaptedPerson person = new JsonAdaptedPerson(VALID_NAME, VALID_PHONE, null, VALID_GENDER, VALID_ADDRESS,
-            VALID_TAGS,
-                                                         VALID_PHOTO);
+        JsonAdaptedPerson person =
+            new JsonAdaptedPerson(VALID_NAME, VALID_PHONE, null, VALID_GENDER, VALID_ADDRESS,
+            VALID_TAGS, VALID_PHOTO);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Email.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
@@ -100,7 +101,7 @@ public class JsonAdaptedPersonTest {
         JsonAdaptedPerson person =
             new JsonAdaptedPerson(VALID_NAME, VALID_PHONE, VALID_EMAIL, INVALID_GENDER, VALID_ADDRESS, VALID_TAGS,
                 VALID_PHOTO);
-        String expectedMessage = Name.MESSAGE_CONSTRAINTS;
+        String expectedMessage = Gender.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
     @Test
@@ -108,7 +109,7 @@ public class JsonAdaptedPersonTest {
         JsonAdaptedPerson person =
             new JsonAdaptedPerson(VALID_NAME, VALID_PHONE, VALID_EMAIL, null, VALID_ADDRESS, VALID_TAGS,
                 VALID_PHOTO);
-        String expectedMessage = Name.MESSAGE_CONSTRAINTS;
+        String expectedMessage = Gender.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
 

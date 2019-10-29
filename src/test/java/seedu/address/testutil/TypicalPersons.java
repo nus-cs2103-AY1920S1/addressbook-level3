@@ -15,7 +15,6 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_PHOTO_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -38,8 +37,8 @@ public class TypicalPersons {
             .withEmail("johnd@example.com").withPhone("98765432").withGender("Male")
             .withTags("owesMoney", "friends").withPhoto("default.png").build();
     public static final Person CARL = new PersonBuilder().withName("Carl Kurz").withPhone("95352563")
-            .withEmail("heinz@example.com").withGender("Male").
-            withAddress("wall street").withPhoto("carl.png").build();
+            .withEmail("heinz@example.com").withGender("Male")
+            .withAddress("wall street").withPhoto("carl.png").build();
     public static final Person DANIEL = new PersonBuilder().withName("Daniel Meier").withPhone("87652533")
             .withEmail("cornelia@example.com").withGender("Male")
             .withAddress("10th street").withTags("friends")
