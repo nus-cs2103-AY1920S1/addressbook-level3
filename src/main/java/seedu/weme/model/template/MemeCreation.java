@@ -48,10 +48,10 @@ public class MemeCreation {
      * @throws IllegalValueException if the text added will exceed image boundary
      */
     public void addText(MemeText text) throws IllegalValueException {
-        textList.add(text);
         if (!isWithinImageBoundary(getTextBoundary(text))) {
             throw new IllegalValueException("Text exceeds image boundary");
         }
+        textList.add(text);
     }
 
     private boolean isWithinImageBoundary(TextBoundaries boundaries) {
