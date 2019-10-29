@@ -21,28 +21,41 @@ public class TypicalRegime {
 
     public static final Regime VALID_REGIME_LEGS;
     public static final Regime VALID_REGIME_CARDIO;
+    public static final Regime VALID_REGIME_CHEST;
 
     static {
         List<Exercise> typicalExerciseCardio = TypicalExercises.getTypicalExercises();
         UniqueResourceList<Exercise> cardioList = new UniqueResourceList<>();
         cardioList.setAll(typicalExerciseCardio);
-
-        List<Exercise> typicalExerciseLegs = new ArrayList<>();
         typicalExerciseCardio.add(TypicalExercises.SPRINT);
         typicalExerciseCardio.add(TypicalExercises.WALK);
+        typicalExerciseCardio.add(TypicalExercises.SWIM);
+
+        List<Exercise> typicalExerciseLegs = new ArrayList<>();
         UniqueResourceList<Exercise> legList = new UniqueResourceList<>();
+        typicalExerciseLegs.add(TypicalExercises.SKIP);
+        typicalExerciseLegs.add(TypicalExercises.AEROBICS);
         legList.setAll(typicalExerciseLegs);
 
+        UniqueResourceList<Exercise> chestList = new UniqueResourceList<>();
+
+        // 3 exercises
         VALID_REGIME_CARDIO = new RegimeBuilder()
                 .withName(VALID_REGIME_NAME_CARDIO)
                 .withExerciseList(cardioList)
                 .build();
 
+        // 2 exercises
         VALID_REGIME_LEGS = new RegimeBuilder()
                 .withName(VALID_REGIME_NAME_LEGS)
                 .withExerciseList(legList)
                 .build();
 
+        // 0 exercise
+        VALID_REGIME_CHEST = new RegimeBuilder()
+                .withName(VALID_REGIME_NAME_CHEST)
+                .withExerciseList(chestList)
+                .build();
     }
 
     private TypicalRegime() {}

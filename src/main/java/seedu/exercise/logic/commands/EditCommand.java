@@ -2,7 +2,7 @@ package seedu.exercise.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.exercise.logic.commands.events.EditEvent.KEY_EDITED_EXERCISE;
-import static seedu.exercise.logic.commands.events.EditEvent.KEY_EXERCISE_TO_EDIT;
+import static seedu.exercise.logic.commands.events.EditEvent.KEY_ORIGINAL_EXERCISE;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_CALORIES;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_MUSCLE;
@@ -119,7 +119,7 @@ public class EditCommand extends Command implements UndoableCommand, PayloadCarr
      * @param editedExercise the exercise after it is edited
      */
     private void addToEventPayload(Exercise exerciseToEdit, Exercise editedExercise) {
-        eventPayload.put(KEY_EXERCISE_TO_EDIT, exerciseToEdit);
+        eventPayload.put(KEY_ORIGINAL_EXERCISE, exerciseToEdit);
         eventPayload.put(KEY_EDITED_EXERCISE, editedExercise);
     }
 

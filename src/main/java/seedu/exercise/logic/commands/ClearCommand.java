@@ -5,6 +5,7 @@ import static seedu.exercise.logic.commands.events.ClearEvent.KEY_EXERCISE_BOOK_
 
 import seedu.exercise.logic.commands.events.EventHistory;
 import seedu.exercise.logic.commands.events.EventPayload;
+import seedu.exercise.logic.commands.exceptions.CommandException;
 import seedu.exercise.model.Model;
 import seedu.exercise.model.ReadOnlyResourceBook;
 import seedu.exercise.model.resource.Exercise;
@@ -21,7 +22,7 @@ public class ClearCommand extends Command implements UndoableCommand, PayloadCar
     private EventPayload<ReadOnlyResourceBook<Exercise>> eventPayload;
 
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         ReadOnlyResourceBook<Exercise> exerciseBookCleared = new ReadOnlyResourceBook<>(model.getExerciseBookData());
         eventPayload = new EventPayload<>();

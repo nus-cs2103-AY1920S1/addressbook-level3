@@ -39,4 +39,11 @@ public class AddRegimeEvent implements Event {
                 regimeToAdd.getRegimeName(),
                 regimeToAdd);
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof AddRegimeEvent // instanceof handles nulls
+                && regimeToAdd.equals(((AddRegimeEvent) other).regimeToAdd));
+    }
 }
