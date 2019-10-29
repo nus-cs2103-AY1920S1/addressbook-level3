@@ -5,6 +5,7 @@ import static seedu.tarence.logic.parser.CliSyntax.PREFIX_TUTORIAL_NAME;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
@@ -31,9 +32,11 @@ import seedu.tarence.commons.core.GuiSettings;
 import seedu.tarence.commons.core.LogsCenter;
 import seedu.tarence.logic.Logic;
 import seedu.tarence.logic.commands.CommandResult;
+import seedu.tarence.logic.commands.DisplayFormat;
 import seedu.tarence.logic.commands.exceptions.CommandException;
 import seedu.tarence.logic.parser.exceptions.ParseException;
 import seedu.tarence.model.student.Student;
+import seedu.tarence.model.tutorial.Assignment;
 import seedu.tarence.model.tutorial.Attendance;
 import seedu.tarence.model.tutorial.Tutorial;
 import seedu.tarence.model.tutorial.Week;
@@ -54,6 +57,9 @@ public class MainWindow extends UiPart<Stage> {
     // Independent Ui parts residing in this Ui container
     private TutorialListPanel tutorialListPanel;
     private PersonListPanel personListPanel;
+    private DefaultAssignmentPanel defaultAssignmentPanel;
+    private AssignmentTablePanel assignmentTablePanel;
+    private AssignmentStatisticsPanel assignmentStatisticsPanel;
     private StudentListPanel studentListPanel;
     private ModuleListPanel moduleListPanel;
     private ResultDisplay resultDisplay;
@@ -104,6 +110,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane moduleListPanelPlaceholder;
+
+    @FXML
+    private StackPane assignmentPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -172,6 +181,9 @@ public class MainWindow extends UiPart<Stage> {
     void fillInnerParts() {
         //personListPanel = new PersonListPanel(logic.getFilteredPersonList());
         //personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        // Set default stackpane
+        defaultAssignmentPanel = new DefaultAssignmentPanel();
+        assignmentPanelPlaceholder.getChildren().add(defaultAssignmentPanel.getPane());
 
         moduleListPanel = new ModuleListPanel(logic.getFilteredModuleList());
         moduleListPanelPlaceholder.getChildren().add(moduleListPanel.getRoot());
@@ -215,7 +227,7 @@ public class MainWindow extends UiPart<Stage> {
             ObservableList<String[]> observableAttendance = generateData(tutorialAttendance);
             attendancePlaceholder.setItems(observableAttendance);
             attendancePlaceholder.getColumns().setAll(createColumns());
-            logger.info("successfully displayed:)");
+            logger.info("successfully displayed attendance:)");
         } catch (NullPointerException e) {
             attendancePlaceholder.getItems().clear();
         }
@@ -367,7 +379,7 @@ public class MainWindow extends UiPart<Stage> {
         try {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
-
+            logger.info("Display Assignment: " + commandResult.isAssignmentDisplay());
             logger.info("display Tab " + commandResult.isChangeTabs());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
             showAttendance(commandResult.getTutorialAttendance());
@@ -395,6 +407,11 @@ public class MainWindow extends UiPart<Stage> {
                 default:
                     handleTutorialTabSelected();
                 }
+            }
+
+            if (commandResult.isAssignmentDisplay()) {
+                displayAssignment(commandResult.getAssignmentToDisplay(), commandResult.getStudentScores(),
+                        commandResult.getAssignmentDisplayFormat());
             }
 
             return commandResult;
@@ -438,4 +455,27 @@ public class MainWindow extends UiPart<Stage> {
         return new CommandResult("");
     }
 
+    /**
+     * Sets the displaypane to display the valid assignment format.
+     * @param assignment - assignment to be displayed.
+     * @param studentScores - scores of students and their info.
+     * @param displayFormat - format to display.
+     */
+    private void displayAssignment(Assignment assignment, Map<Student, Integer> studentScores,
+                                   DisplayFormat displayFormat) {
+        assignmentPanelPlaceholder.getChildren().clear();
+        switch(displayFormat) {
+        case TABLE:
+            assignmentTablePanel = new AssignmentTablePanel(studentScores);
+            assignmentPanelPlaceholder.getChildren().add(assignmentTablePanel.getPane());
+            break;
+        case GRAPH:
+        default:
+            assignmentStatisticsPanel = new AssignmentStatisticsPanel(studentScores, assignment);
+            assignmentPanelPlaceholder.getChildren().add(assignmentStatisticsPanel.getPane());
+        }
+        if (!assignmentTab.isSelected()) {
+            displayTabPane.getSelectionModel().select(assignmentTab);
+        }
+    }
 }

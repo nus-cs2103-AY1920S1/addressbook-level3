@@ -28,6 +28,5 @@
 }
 
 .table-view .table-cell {
-    -fx-font-weight:bold;
     -fx-font-size:15px;
 }

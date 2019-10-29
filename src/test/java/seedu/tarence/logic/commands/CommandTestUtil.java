@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_FILE;
+import static seedu.tarence.logic.parser.CliSyntax.PREFIX_FORMAT;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_MODULE;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_NAME;
@@ -87,6 +88,8 @@ public class CommandTestUtil {
 
     public static final String VALID_TUTORIAL_IDX = "1";
     public static final String VALID_FILENAME = "fileName";
+    public static final String VALID_ASSIGNMENT_NAME = "Lab01";
+    public static final String VALID_DISPLAY_FORMAT = "g";
 
     public static final String VALID_MODCODE_DESC = " " + PREFIX_MODULE + VALID_MODCODE;
     public static final String VALID_TUTORIAL_NAME_DESC = " " + PREFIX_TUTORIAL_NAME + VALID_TUTORIAL_NAME;
@@ -99,6 +102,8 @@ public class CommandTestUtil {
     public static final String VALID_WEEK_DESC = " " + PREFIX_TUTORIAL_WEEKS + VALID_WEEK;
     public static final String VALID_TUTORIAL_IDX_DESC = " " + PREFIX_INDEX + VALID_TUTORIAL_IDX;
     public static final String VALID_FILENAME_DESC = " " + PREFIX_FILE + VALID_FILENAME;
+    public static final String VALID_ASSIGNMENT_NAME_DESC = " " + PREFIX_NAME + VALID_ASSIGNMENT_NAME;
+    public static final String VALID_DISPLAY_FORMAT_DESC = " " + PREFIX_FORMAT + VALID_DISPLAY_FORMAT;
 
     public static final String INVALID_WEEKS_RANGE_DESC = " " + PREFIX_TUTORIAL_WEEKS + INVALID_WEEKS_RANGE;
 
@@ -111,7 +116,7 @@ public class CommandTestUtil {
     public static final String INVALID_TUTORIAL_INDEX_DESC_1 = " " + PREFIX_INDEX + "sa&";
     public static final String INVALID_TUTORIAL_INDEX_DESC_2 = " " + PREFIX_INDEX + "☹";
     public static final String INVALID_TUTORIAL_INDEX_DESC_3 = " " + PREFIX_INDEX + "0";
-
+    public static final String INVALID_DISPLAY_FORMAT_DESC = " " + PREFIX_FORMAT + "☹";
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
