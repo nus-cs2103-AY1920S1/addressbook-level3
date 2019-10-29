@@ -318,7 +318,7 @@ public interface Model {
     /**
      * Removes a question from a quiz.
      */
-    boolean removeQuizQuestion(String quizId, int questionNumber);
+    boolean deleteQuizQuestion(String quizId, int questionNumber);
 
     /**
      * Returns a quiz's questions and answers, for testing purposes.

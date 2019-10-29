@@ -20,6 +20,7 @@ import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.note.Note;
+import seedu.address.model.note.Priority;
 
 /**
  * Parses input arguments and creates a new {@code NoteCommand} object
@@ -36,7 +37,7 @@ public class NoteCommandParser implements Parser<NoteCommand> {
         requireNonNull(args);
         ArgumentMultimap argMultimap = ArgumentTokenizer
                 .tokenize(args, CliSyntax.PREFIX_NOTE, CliSyntax.PREFIX_DESCRIPTION, CliSyntax.PREFIX_LIST,
-                        CliSyntax.PREFIX_DELETE);
+                        CliSyntax.PREFIX_DELETE, CliSyntax.PREFIX_PRIORITY);
 
         if (isEditCommand(argMultimap)) {
             return getNoteEditCommand(argMultimap);
@@ -62,6 +63,10 @@ public class NoteCommandParser implements Parser<NoteCommand> {
         EditNoteDescriptor editNoteDescriptor = new EditNoteDescriptor();
         editNoteDescriptor.setNote(argMultimap.getValue(CliSyntax.PREFIX_NOTE).orElse(""));
         editNoteDescriptor.setDescription(argMultimap.getValue(CliSyntax.PREFIX_DESCRIPTION).orElse(""));
+        String priority = argMultimap.getValue(CliSyntax.PREFIX_PRIORITY).orElse("");
+        if (!priority.isEmpty()) {
+            editNoteDescriptor.setPriority(Priority.getPriority(priority));
+        }
         return new NoteEditCommand(index, editNoteDescriptor);
     }
 
@@ -88,11 +93,15 @@ public class NoteCommandParser implements Parser<NoteCommand> {
     private static NoteAddCommand getNoteAddCommand(ArgumentMultimap argMultimap) throws ParseException {
         String note = argMultimap.getValue(CliSyntax.PREFIX_NOTE).orElse("").trim();
         String description = argMultimap.getValue(CliSyntax.PREFIX_DESCRIPTION).orElse("").trim();
+        String priority = argMultimap.getValue(CliSyntax.PREFIX_PRIORITY).orElse("").trim();
         if (note.isEmpty() || description.isEmpty()) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, NoteAddCommand.MESSAGE_USAGE));
         }
-        return new NoteAddCommand(new Note(note, description));
+        if (!priority.isEmpty()) {
+            return new NoteAddCommand(new Note(note, description, Priority.getPriority(priority)));
+        }
+        return new NoteAddCommand(new Note(note, description, Priority.UNMARKED));
     }
 
     /**

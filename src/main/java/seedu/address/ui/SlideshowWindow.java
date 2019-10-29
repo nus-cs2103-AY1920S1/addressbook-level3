@@ -61,7 +61,6 @@ public class SlideshowWindow extends UiPart<Stage> {
         this.logic = logic;
 
         tipLabel.setText(TIP);
-        root.setFullScreen(true);
         initialiseKeyboardControls(root);
     }
 
@@ -73,7 +72,7 @@ public class SlideshowWindow extends UiPart<Stage> {
 
         updateQuestions();
         getRoot().show();
-        getRoot().centerOnScreen();
+        getRoot().setFullScreen(true);
     }
 
     /**

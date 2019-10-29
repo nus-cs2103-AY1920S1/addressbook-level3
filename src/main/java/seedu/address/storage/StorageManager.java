@@ -17,6 +17,7 @@ import seedu.address.model.quiz.ReadOnlyQuizzes;
 import seedu.address.model.student.ReadOnlyStudentRecord;
 import seedu.address.storage.event.EventStorage;
 import seedu.address.storage.note.NotesRecordStorage;
+import seedu.address.storage.printable.NjoyPrintable;
 import seedu.address.storage.question.QuestionStorage;
 import seedu.address.storage.quiz.QuizStorage;
 import seedu.address.storage.student.StudentRecordStorage;
@@ -249,4 +250,8 @@ public class StorageManager implements Storage {
     }
     //endRegion
 
+    @Override
+    public void savePrintable(NjoyPrintable printable) throws IOException {
+        printable.savePrintable();
+    }
 }

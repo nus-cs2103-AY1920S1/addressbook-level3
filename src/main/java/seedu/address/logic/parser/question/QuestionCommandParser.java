@@ -1,7 +1,11 @@
 package seedu.address.logic.parser.question;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_EMPTY_QUESTION_DISPLAYED_INDEX;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_QUESTION_DISPLAYED_INDEX;
+import static seedu.address.commons.core.Messages.MESSAGE_MISSING_QUESTION_OPTIONS;
+import static seedu.address.commons.core.Messages.MESSAGE_MISSING_TEXT_SEARCH;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ANSWER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DELETE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FIND;
@@ -37,6 +41,9 @@ import seedu.address.logic.parser.exceptions.ParseException;
  */
 public class QuestionCommandParser implements Parser<QuestionCommand> {
 
+    public static final String HELP_MESSAGE = "Question command has to include an action.\n"
+        + "Refer to the help section to view the full list of commands.";
+
     /**
      * Parses the given {@code String} of arguments in the context of the CreationQuestionCommand
      * and returns an CreateQuestionCommand object for execution.
@@ -69,25 +76,22 @@ public class QuestionCommandParser implements Parser<QuestionCommand> {
         if (argMultimap.getValue(PREFIX_LIST).isPresent()) { // List command
             return new QuestionListCommand();
         } else if (argMultimap.getValue(PREFIX_SLIDESHOW).isPresent()) { // Slideshow command
-            if (!arePrefixesPresent(argMultimap, PREFIX_SLIDESHOW)
-                || !argMultimap.getPreamble().isEmpty()) {
-                throw new ParseException(
-                    String
-                        .format(MESSAGE_INVALID_COMMAND_FORMAT,
-                            QuestionSlideshowCommand.MESSAGE_USAGE));
-            }
-
-            // TODO: Throw exception when no question index is entered
-
-            return new QuestionSlideshowCommand(argMultimap.getValue(PREFIX_SLIDESHOW).orElse(""));
+            return slideshowCommand(argMultimap);
         } else if (argMultimap.getValue(PREFIX_DELETE).isPresent()) { // Delete command
             return deleteCommand(argMultimap);
         } else if (argMultimap.getValue(PREFIX_FIND).isPresent()) { // Find command
+            if (argMultimap.getValue(PREFIX_FIND).orElse("").isEmpty()) {
+                throw new ParseException(MESSAGE_MISSING_TEXT_SEARCH);
+            }
+
             return new QuestionFindCommand(argMultimap.getValue(PREFIX_FIND).orElse(""));
         } else if (isEdit) { // Edit command
             return editCommand(index, argMultimap);
-        } else { // Create command
+        } else if (argMultimap.getValue(PREFIX_QUESTION).isPresent()) { // Create command
             return addCommand(argMultimap);
+        } else { // No action defined after question command word
+            throw new ParseException(
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, HELP_MESSAGE));
         }
 
     }
@@ -112,13 +116,18 @@ public class QuestionCommandParser implements Parser<QuestionCommand> {
         String typeName = argMultimap.getValue(PREFIX_TYPE).orElse("");
 
         // Only for mcq
-        // TODO: Check missing options and throw exception if necessary
         String optionA = argMultimap.getValue(PREFIX_OPTIONA).orElse("");
         String optionB = argMultimap.getValue(PREFIX_OPTIONB).orElse("");
         String optionC = argMultimap.getValue(PREFIX_OPTIONC).orElse("");
         String optionD = argMultimap.getValue(PREFIX_OPTIOND).orElse("");
 
         if (typeName.equals("mcq")) {
+            if (optionA.isEmpty() || optionB.isEmpty() || optionC.isEmpty() || optionD.isEmpty()) {
+                throw new ParseException(
+                    String
+                        .format(MESSAGE_MISSING_QUESTION_OPTIONS));
+            }
+
             return new QuestionAddCommand(question, answer, typeName, optionA, optionB, optionC,
                 optionD);
         }
@@ -168,14 +177,13 @@ public class QuestionCommandParser implements Parser<QuestionCommand> {
         Index indexToDelete;
 
         try {
-            indexToDelete = Index.fromOneBased(Integer
-                .parseInt(argMultimap.getValue(PREFIX_DELETE).orElse("0")));
-
-            if (indexToDelete.getZeroBased() <= 0) {
+            String deletePrefix = argMultimap.getValue(PREFIX_DELETE).orElse("0");
+            if (!areInputIndexesValid(deletePrefix)) {
                 throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                        QuestionDeleteCommand.MESSAGE_USAGE));
+                    String.format(MESSAGE_INVALID_QUESTION_DISPLAYED_INDEX));
             }
+
+            indexToDelete = Index.fromOneBased(Integer.parseInt(deletePrefix));
 
         } catch (NumberFormatException e) {
             throw new ParseException(
@@ -187,6 +195,27 @@ public class QuestionCommandParser implements Parser<QuestionCommand> {
     }
 
     /**
+     * Performs validation and return the QuestionSlideshowCommand object.
+     *
+     * @param argMultimap for tokenized input.
+     * @return QuestionSlideshowCommand object.
+     * @throws ParseException
+     */
+    private QuestionSlideshowCommand slideshowCommand(ArgumentMultimap argMultimap)
+        throws ParseException {
+        String slideshowPrefix = argMultimap.getValue(PREFIX_SLIDESHOW).orElse("");
+        if (slideshowPrefix.isEmpty()) {
+            throw new ParseException(
+                String.format(MESSAGE_EMPTY_QUESTION_DISPLAYED_INDEX));
+        } else if (!areInputIndexesValid(slideshowPrefix)) {
+            throw new ParseException(
+                String.format(MESSAGE_INVALID_QUESTION_DISPLAYED_INDEX));
+        }
+
+        return new QuestionSlideshowCommand(slideshowPrefix);
+    }
+
+    /**
      * Returns true if none of the prefixes contains empty {@code Optional} values in the given
      * {@code ArgumentMultimap}.
      */
@@ -194,6 +223,16 @@ public class QuestionCommandParser implements Parser<QuestionCommand> {
         Prefix... prefixes) {
         return Stream.of(prefixes)
             .allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
+    }
+
+    /**
+     * Checks and return if indexes input are above zero and contain only digits
+     *
+     * @param input user input.
+     * @return whether input contains valid indexes.
+     */
+    private boolean areInputIndexesValid(String input) {
+        return input.matches("[1-9\\s*]+");
     }
 
 }

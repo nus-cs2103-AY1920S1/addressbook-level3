@@ -5,6 +5,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.note.Note;
+import seedu.address.model.note.Priority;
 
 /**
  * An UI component that displays information of a {@code Note}.
@@ -35,6 +36,30 @@ public class NotesCard extends UiPart<Region> {
         this.note = note;
         noteTitle.setText(note.getNote());
         description.setText(note.getDescription());
+        setPriority(note.getPriority());
+    }
+
+    public void setPriority(Priority priority) {
+        switch (priority) {
+        case HIGH :
+            cardPane.setStyle("-fx-background-color: #FF9989; -fx-text-fill: white;");
+            noteTitle.setStyle("-fx-text-fill: black;");
+            description.setStyle("-fx-text-fill: black;");
+            break;
+        case MEDIUM:
+            cardPane.setStyle("-fx-background-color: #FFE253; -fx-text-fill: white;");
+            noteTitle.setStyle("-fx-text-fill: black;");
+            description.setStyle("-fx-text-fill: black;");
+            break;
+        case LOW :
+            cardPane.setStyle("-fx-background-color: #BBFF31; -fx-text-fill: white;");
+            noteTitle.setStyle("-fx-text-fill: black;");
+            description.setStyle("-fx-text-fill: black;");
+            break;
+        case UNMARKED:
+            break;
+        default :
+        }
     }
 
     @Override
