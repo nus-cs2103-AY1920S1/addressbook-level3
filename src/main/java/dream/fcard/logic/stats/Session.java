@@ -1,5 +1,6 @@
 package dream.fcard.logic.stats;
 
+import dream.fcard.util.DateTimeUtil;
 import java.time.Duration;
 import java.time.LocalDateTime;
 
@@ -52,7 +53,7 @@ public class Session {
 
     /** Calculates and sets the duration of this session. */
     public void setDuration() {
-        this.duration = Duration.between(this.getSessionStart(), this.getSessionEnd());
+        this.duration = DateTimeUtil.calculateDuration(this.getSessionStart(), this.getSessionEnd());
     }
 
     /** Gets the duration of this session, as a Duration object. */
