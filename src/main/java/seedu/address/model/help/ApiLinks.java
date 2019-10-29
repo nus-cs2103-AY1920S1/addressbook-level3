@@ -44,40 +44,40 @@ public class ApiLinks {
             return base + "EditClaimCommand.html";
 
         case "edit_contact":
-            return base + "EditContactCommand.html";
+            return  base + "EditContactCommand.html";
 
         case "edit_income":
-            return base + "EditIncomeCommand.html";
+            return  base + "EditIncomeCommand.html";
 
         case "find":
-            return base + "FindCommand.html";
+            return  base + "FindCommand.html";
 
         case "goto":
-            return base + "GotoCommand.html";
+            return  base + "GotoCommand.html";
 
         case "check":
-            return base + "CheckCommand.html";
+            return  base + "CheckCommand.html";
 
         case "approve":
-            return base + "ApproveClaimCommand.html";
+            return  base + "ApproveClaimCommand.html";
 
         case "budget":
-            return base + "BudgetCommand.html";
+            return  base + "BudgetCommand.html";
 
         case "clear":
-            return base + "ClearCommand.html";
+            return  base + "ClearCommand.html";
 
         case "reject":
-            return base + "RejectClaimCommand.html";
+            return  base + "RejectClaimCommand.html";
 
         case "exit":
-            return base + "ExitCommand.html";
+            return  base + "ExitCommand.html";
 
         case "sort":
-            return base + "SortCommand.html";
+            return  base + "SortCommand.html";
 
         case "reverse":
-            return base + "SortReverseCommand.html";
+            return  base + "SortReverseCommand.html";
 
         default: return base + "Command.html";
         }
