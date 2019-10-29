@@ -343,15 +343,17 @@ Exports all bookmarks tagged with `favorite` to a file named
 
 === Importing bookmarks: *`import`*
 
-Imports bookmarks from files on the hard disk.
+Imports bookmarks from files on the hard disk. A bookmark is, by default, imported
+into a folder with the same name as its original folder (even if the folder
+structure is different). If no such folder is found, the bookmark will be imported
+into the folder `ImportedBookmarks`.
 
-Format: `*import* FILENAME [MORE_FILENAMES]...`
+Format: `*import* FILENAME`
 
 ****
-* `FILENAME` should not include the file extension. E.g. `myBookmarks` and not
-`myBookmarks.json`
-* `FILENAME` is case sensitive.
-* `FILENAME` should be a file stored in the folder
+* `FILENAME` is case sensitive and should not include the file extension. E.g.
+`myBookmarks` and not `myBookmarks.json`
+* `FILENAME.json` should be a file stored in the folder
 `[applicationHome]/data/bookmarks/`.
 * The file corresponding to `FILENAME` should have a valid format, identical
 to the JSON files produced by `*export*`.
@@ -362,10 +364,6 @@ Examples:
 * `*import* myBookmarks` +
 Assuming `mark.jar` is stored in the folder `mark`, imports bookmarks from the
 file `mark/data/bookmarks/myBookmarks.json`
-
-* `*import* myBookmarks nusBookmarks youtubeBookmarks` +
-Imports bookmarks from the files `myBookmarks.json`, `nusBookmarks.json`,
-and `youtubeBookmarks.json`.
 
 === Creating an automatic tag: *`autotag`*
 
