@@ -7,7 +7,7 @@ import javax.imageio.ImageIO;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
 
-import seedu.ezwatchlist.api.ImageRetrieval;
+import seedu.ezwatchlist.api.model.ImageRetrieval;
 
 /**
  * Represents a Show's poster in the watchlist.

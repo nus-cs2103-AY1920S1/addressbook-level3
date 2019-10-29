@@ -3,13 +3,13 @@
   <ID>JAVA</ID>
   <OriginalElement />
   <nodes>
-    <node x="0.0" y="0.0">seedu.ezwatchlist.api.ApiMain</node>
+    <node x="0.0" y="0.0">seedu.ezwatchlist.api.model.ApiMain</node>
   </nodes>
   <notes />
   <edges />
   <settings layout="Hierarchic Group" zoom="1.0" x="375.5" y="95.0" />
   <SelectedNodes>
-    <node>seedu.ezwatchlist.api.ApiMain</node>
+    <node>seedu.ezwatchlist.api.model.ApiMain</node>
   </SelectedNodes>
   <Categories />
   <SCOPE>All</SCOPE>
