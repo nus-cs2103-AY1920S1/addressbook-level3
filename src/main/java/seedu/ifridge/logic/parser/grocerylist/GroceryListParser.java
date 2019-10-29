@@ -16,6 +16,7 @@ import seedu.ifridge.logic.commands.grocerylist.AddGroceryCommand;
 import seedu.ifridge.logic.commands.grocerylist.DeleteGroceryCommand;
 import seedu.ifridge.logic.commands.grocerylist.EditGroceryCommand;
 import seedu.ifridge.logic.commands.grocerylist.FilterGroceryCommand;
+import seedu.ifridge.logic.commands.grocerylist.FindGroceryCommand;
 import seedu.ifridge.logic.commands.grocerylist.ListGroceryCommand;
 import seedu.ifridge.logic.commands.grocerylist.RedoGroceryCommand;
 import seedu.ifridge.logic.commands.grocerylist.ReminderCommand;
@@ -92,6 +93,9 @@ public class GroceryListParser {
 
         case FilterGroceryCommand.COMMAND_WORD:
             return new FilterGroceryCommandParser().parse(arguments);
+
+        case FindGroceryCommand.COMMAND_WORD:
+            return new FindGroceryCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

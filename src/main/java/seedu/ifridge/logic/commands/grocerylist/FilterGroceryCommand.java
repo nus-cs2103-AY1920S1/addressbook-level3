@@ -22,7 +22,7 @@ public class FilterGroceryCommand extends Command {
             + "Parameters: " + PREFIX_TAG + "TAG\n"
             + "Example: glist " + COMMAND_WORD + " " + PREFIX_TAG + "healthy";
 
-    public static final String MESSAGE_FILTER_SUCCESS = "List shown is filtered by: %1$s";
+    public static final String MESSAGE_FILTER_SUCCESS = "List shown is filtered by tags: %1$s";
 
     public static final String MESSAGE_FILTER_ERROR = "Unknown filter command.\n" + MESSAGE_USAGE;
 
@@ -35,8 +35,8 @@ public class FilterGroceryCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         Predicate<GroceryItem> filter = groceryItem -> filterTagList.stream()
-                .allMatch(x -> groceryItem.getTags().stream()
-                        .anyMatch(y -> y.toString().equalsIgnoreCase(x.toString())));
+                .allMatch(tag -> groceryItem.getTags().stream()
+                        .anyMatch(y -> y.toString().equalsIgnoreCase(tag.toString())));
         model.updateFilteredGroceryItemList(filter);
         return new CommandResult(String.format(MESSAGE_FILTER_SUCCESS, filterTagList.toString()));
     }
