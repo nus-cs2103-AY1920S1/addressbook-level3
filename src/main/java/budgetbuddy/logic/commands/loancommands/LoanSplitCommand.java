@@ -198,6 +198,11 @@ public class LoanSplitCommand extends Command {
 
         List<DebtorCreditorAmount> debtorCreditorAmountList = new ArrayList<DebtorCreditorAmount>();
 
+        if (participants.stream().noneMatch(p -> p.getBalance() != 0)) {
+            participants.clear();
+            return debtorCreditorAmountList;
+        }
+
         while (participants.size() > 1) {
             participants.sort(balanceIncreasing); // participants MUST be sorted in the order of increasing balance
 
