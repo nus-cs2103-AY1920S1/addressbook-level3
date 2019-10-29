@@ -2,7 +2,6 @@ package seedu.address.logic.commands.cardcommands;
 
 import static java.util.Objects.requireNonNull;
 
-import seedu.address.logic.commands.CardCommand;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.Model;
 

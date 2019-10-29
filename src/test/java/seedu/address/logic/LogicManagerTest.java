@@ -13,8 +13,8 @@ import org.junit.jupiter.api.Test;
 
 //import seedu.address.logic.commands.CommandResult;
 
-//import seedu.address.logic.commands.switches.HomeCommand;
-//import seedu.address.logic.commands.switches.OpenCommand;
+//import seedu.address.logic.commands.switches.SwitchToHomeCommand;
+//import seedu.address.logic.commands.switches.SwitchToOpenCommand;
 
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.exceptions.IllegalValueException;
@@ -76,12 +76,12 @@ public class LogicManagerTest {
     //    public void execute_validCommand_success() throws Exception {
     //        String bankBypass = "bank 123";
     //        logic.execute(bankBypass);
-    //        String homeCommand = HomeCommand.COMMAND_WORD;
-    //        String openCommand = OpenCommand.COMMAND_WORD;
+    //        String homeCommand = SwitchToHomeCommand.COMMAND_WORD;
+    //        String openCommand = SwitchToOpenCommand.COMMAND_WORD;
     //        CommandResult homeResult = logic.execute(homeCommand);
-    //        assertEquals(HomeCommand.MESSAGE_HOME_ACKNOWLEDGEMENT, homeResult.getFeedbackToUser());
+    //        assertEquals(SwitchToHomeCommand.MESSAGE_HOME_ACKNOWLEDGEMENT, homeResult.getFeedbackToUser());
     //        CommandResult openResult = logic.execute(openCommand);
-    //        assertEquals(OpenCommand.MESSAGE_HOME_ACKNOWLEDGEMENT, openResult.getFeedbackToUser());
+    //        assertEquals(SwitchToOpenCommand.MESSAGE_HOME_ACKNOWLEDGEMENT, openResult.getFeedbackToUser());
     //        assertEquals(model, model);
     //    }
 

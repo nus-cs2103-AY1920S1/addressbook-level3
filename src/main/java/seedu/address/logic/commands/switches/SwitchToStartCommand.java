@@ -12,7 +12,6 @@ import java.util.Collections;
 import java.util.Optional;
 
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.SwitchCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.util.ModeEnum;
 import seedu.address.model.Model;
@@ -24,7 +23,7 @@ import seedu.address.model.wordbanklist.WordBankList;
 /**
  * Starts the game.
  */
-public class StartCommand extends SwitchCommand {
+public class SwitchToStartCommand extends SwitchCommand {
 
     public static final String COMMAND_WORD = "start";
 
@@ -44,7 +43,7 @@ public class StartCommand extends SwitchCommand {
 
     private Optional<DifficultyEnum> difficulty;
 
-    public StartCommand(Optional<DifficultyEnum> difficulty) {
+    public SwitchToStartCommand(Optional<DifficultyEnum> difficulty) {
         this.difficulty = difficulty;
     }
 

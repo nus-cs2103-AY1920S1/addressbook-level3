@@ -7,7 +7,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_WORD;
 import java.io.File;
 
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.HomeCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 

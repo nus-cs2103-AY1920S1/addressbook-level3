@@ -17,7 +17,7 @@ package seedu.address.logic.parser;
 //import seedu.address.logic.commands.appcommands.ClearCommand;
 //import seedu.address.logic.commands.appcommands.DeleteCommand;
 //import seedu.address.logic.commands.appcommands.EditCommand;
-//import seedu.address.logic.commands.loadcommands.ExitCommand;
+//import seedu.address.logic.commands.loadcommands.SwitchToExitCommand;
 //import seedu.address.logic.commands.appcommands.FindCommand;
 //import seedu.address.logic.commands.appcommands.HelpCommand;
 //import seedu.address.logic.commands.appcommands.ListCommand;
@@ -63,8 +63,8 @@ public class WordBankParserTest {
 //
 //    @Test
 //    public void parseCommand_exit() throws Exception {
-//        assertTrue(parser.parseCommand(ExitCommand.COMMAND_WORD) instanceof ExitCommand);
-//        assertTrue(parser.parseCommand(ExitCommand.COMMAND_WORD + " 3") instanceof ExitCommand);
+//        assertTrue(parser.parseCommand(SwitchToExitCommand.COMMAND_WORD) instanceof SwitchToExitCommand);
+//        assertTrue(parser.parseCommand(SwitchToExitCommand.COMMAND_WORD + " 3") instanceof SwitchToExitCommand);
 //    }
 //
 //    @Test

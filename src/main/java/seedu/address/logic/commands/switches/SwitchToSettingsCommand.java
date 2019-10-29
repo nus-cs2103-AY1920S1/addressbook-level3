@@ -1,7 +1,6 @@
 package seedu.address.logic.commands.switches;
 
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.SwitchCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.exceptions.ModeSwitchException;
 import seedu.address.logic.util.ModeEnum;
@@ -27,7 +26,7 @@ public class SwitchToSettingsCommand extends SwitchCommand {
                 + " (" + (difficulty.getTimeAllowedPerQuestion() * 1.0) / 1000 + " seconds)");
     }
 
-    public ModeEnum getNewMode(ModeEnum old) throws ModeSwitchException {
+    public ModeEnum getNewMode(ModeEnum old) {
         return ModeEnum.SETTINGS;
     }
 

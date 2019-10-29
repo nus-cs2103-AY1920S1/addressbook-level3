@@ -7,8 +7,8 @@ import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.commands.switches.HomeCommand;
-import seedu.address.logic.commands.switches.OpenCommand;
+import seedu.address.logic.commands.switches.SwitchToHomeCommand;
+import seedu.address.logic.commands.switches.SwitchToOpenCommand;
 
 
 class ClassUtilTest {
@@ -18,8 +18,8 @@ class ClassUtilTest {
     @BeforeEach
     void setUp() {
         classUtil = new ClassUtil();
-        classUtil.add(new ClassPair(HomeCommand.class, null));
-        classUtil.add(new ClassPair(OpenCommand.class, null));
+        classUtil.add(new ClassPair(SwitchToHomeCommand.class, null));
+        classUtil.add(new ClassPair(SwitchToOpenCommand.class, null));
     }
 
     @Test

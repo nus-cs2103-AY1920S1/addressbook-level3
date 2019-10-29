@@ -7,12 +7,12 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.SwitchCommand;
+import seedu.address.logic.commands.switches.SwitchCommand;
 import seedu.address.logic.commands.cardcommands.AddCommand;
 import seedu.address.logic.commands.cardcommands.ClearCommand;
 import seedu.address.logic.commands.cardcommands.DeleteCommand;
 import seedu.address.logic.commands.cardcommands.EditCommand;
-import seedu.address.logic.commands.cardcommands.ExitCommand;
+import seedu.address.logic.commands.switches.*;
 import seedu.address.logic.commands.cardcommands.FindCommand;
 import seedu.address.logic.commands.cardcommands.ListCommand;
 import seedu.address.logic.commands.exceptions.ModeSwitchException;
@@ -29,10 +29,7 @@ import seedu.address.logic.commands.settingcommands.AvatarCommand;
 import seedu.address.logic.commands.settingcommands.DifficultyCommand;
 import seedu.address.logic.commands.settingcommands.HintsCommand;
 import seedu.address.logic.commands.settingcommands.ThemeCommand;
-import seedu.address.logic.commands.switches.HomeCommand;
-import seedu.address.logic.commands.switches.OpenCommand;
-import seedu.address.logic.commands.switches.StartCommand;
-import seedu.address.logic.commands.switches.SwitchToSettingsCommand;
+import seedu.address.logic.commands.switches.SwitchToOpenCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.parser.game.GuessCommandParser;
 import seedu.address.logic.parser.home.BankCommandParser;
@@ -87,9 +84,9 @@ public class ParserManager {
         this.mode = ModeEnum.HOME;
         this.gameIsOver = true;
         this.switchParser = new SpecificModeParser();
-        switchParser.add(OpenCommand.class, null);
-        switchParser.add(HomeCommand.class, null);
-        switchParser.add(StartCommand.class, StartCommandParser.class);
+        switchParser.add(SwitchToOpenCommand.class, null);
+        switchParser.add(SwitchToHomeCommand.class, null);
+        switchParser.add(SwitchToStartCommand.class, StartCommandParser.class);
         switchParser.add(SwitchToSettingsCommand.class, null);
         this.currentParser = setCurrentParser(this.mode);
     }
@@ -118,26 +115,29 @@ public class ParserManager {
             temp.add(FindCommand.class, FindCommandParser.class);
             temp.add(ClearCommand.class, null);
             temp.add(ListCommand.class, null);
+            temp.add(SwitchToExitCommand.class, null);
             return temp;
         case HOME:
             temp.add(BankCommand.class, BankCommandParser.class);
-            temp.add(ExitCommand.class, null);
             temp.add(ImportCommand.class, ImportCommandParser.class);
             temp.add(ExportCommand.class, ExportCommandParser.class);
             temp.add(CreateCommand.class, CreateCommandParser.class);
             temp.add(RemoveCommand.class, RemoveCommandParser.class);
             temp.add(HelpCommand.class, null);
+            temp.add(SwitchToExitCommand.class, null);
             return temp;
         case SETTINGS:
             temp.add(DifficultyCommand.class, DifficultyCommandParser.class);
             temp.add(HintsCommand.class, HintsCommandParser.class);
             temp.add(ThemeCommand.class, ThemeCommandParser.class);
             temp.add(AvatarCommand.class, AvatarCommandParser.class);
+            temp.add(SwitchToExitCommand.class, null);
             return temp;
         case GAME:
             temp.add(GuessCommand.class, GuessCommandParser.class);
             temp.add(SkipCommand.class, null);
             temp.add(StopCommand.class, null);
+            temp.add(SwitchToExitCommand.class, null);
             return temp;
         default:
             return null;
@@ -183,6 +183,13 @@ public class ParserManager {
      */
     public Command parseCommand(String userInput) throws ParseException, ModeSwitchException {
         Command temp = null;
+//        Command isExit = switchParser.parseCommand(userInput);
+//        if (isExit != null) {
+//            SwitchToExitCommand exitCommand = (SwitchToExitCommand) isExit;
+//            if (exitCommand.getNewMode(mode).toString().equals("exit")) {
+//                exitCommand.exit();
+//            }
+//        }
         if (gameIsOver && bankLoaded) {
             temp = switchParser.parseCommand(userInput);
         }

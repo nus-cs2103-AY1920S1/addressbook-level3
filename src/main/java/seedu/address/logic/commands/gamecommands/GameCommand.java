@@ -1,4 +1,6 @@
-package seedu.address.logic.commands;
+package seedu.address.logic.commands.gamecommands;
+
+import seedu.address.logic.commands.Command;
 
 /**
  * Represents a command executed on game.

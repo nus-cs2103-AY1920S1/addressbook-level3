@@ -8,7 +8,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.switches.OpenCommand;
+import seedu.address.logic.commands.switches.SwitchToOpenCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.util.AutoFillAction;
 
@@ -19,7 +19,7 @@ class SpecificModeParserTest {
     @BeforeEach
     void setUp() {
         specificModeParser = new SpecificModeParser();
-        specificModeParser.add(OpenCommand.class, null);
+        specificModeParser.add(SwitchToOpenCommand.class, null);
     }
 
     @Test
@@ -31,7 +31,7 @@ class SpecificModeParserTest {
     void parseCommand() {
         try {
             Command out = specificModeParser.parseCommand("open");
-            assertTrue(out instanceof OpenCommand);
+            assertTrue(out instanceof SwitchToOpenCommand);
         } catch (ParseException e) {
             System.err.println(e);
         }
