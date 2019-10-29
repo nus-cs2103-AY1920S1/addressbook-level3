@@ -1,7 +1,6 @@
 package com.typee.ui.calendar;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Logger;
 
 import com.typee.commons.core.LogsCenter;
