@@ -6,6 +6,8 @@ import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import seedu.address.websocket.CacheFileNames;
+
 /**
  * Writes and reads files
  */
@@ -78,6 +80,15 @@ public class FileUtil {
      */
     public static void writeToFile(Path file, String content) throws IOException {
         Files.write(file, (content + System.lineSeparator()).getBytes(CHARSET));
+    }
+
+    /**
+     * This method is used to get the file path for the image
+     * @param validLocation the location name with prefix NUS_
+     * @return the path of the image
+     */
+    public static String imagePath(String validLocation) {
+        return CacheFileNames.GMAPS_IMAGE_DIR + validLocation + ".png";
     }
 
 }

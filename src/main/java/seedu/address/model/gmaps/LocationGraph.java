@@ -3,7 +3,7 @@ package seedu.address.model.gmaps;
 import java.util.ArrayList;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.logic.internal.gmaps.LocationArrayListUtils;
+import seedu.address.commons.util.LocationArrayListUtils;
 
 
 /**

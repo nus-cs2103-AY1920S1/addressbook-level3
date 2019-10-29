@@ -2,9 +2,11 @@ package seedu.address.logic.internal.gmaps;
 
 import java.net.ConnectException;
 import java.util.ArrayList;
+import java.util.logging.Logger;
 
 import org.json.simple.JSONArray;
 
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.TimeBookInvalidLocation;
 import seedu.address.commons.exceptions.TimeBookInvalidState;
 import seedu.address.model.gmaps.Location;
@@ -17,6 +19,7 @@ public class ProcessVenues {
     private JSONArray venuesNusMods;
     private ArrayList<Location> venues = new ArrayList<>();
     private SanitizeLocation sanitizeLocation = new SanitizeLocation();
+    private final Logger logger = LogsCenter.getLogger(this.getClass());
 
     public ProcessVenues(){
     }
@@ -67,7 +70,6 @@ public class ProcessVenues {
                     + "getVenuesJsonArray");
         } else {
             for (int i = 0; i < venuesNusMods.size(); i++) {
-                System.out.println("Processing " + venuesNusMods.get(i) + " " + i + "/" + venuesNusMods.size());
                 Location currLocation = getLocation(i);
                 venues.add(currLocation);
             }
@@ -90,9 +92,8 @@ public class ProcessVenues {
             try {
                 String validLocation = sanitizeLocation.sanitize(locationName);
                 currLocation.setValidLocation(validLocation);
-                System.out.println(locationName + " identified as " + validLocation);
             } catch (TimeBookInvalidLocation e) {
-                System.out.println(e.getMessage());
+                logger.warning("Cannot get location for " + locationName);
             }
             return currLocation;
         }

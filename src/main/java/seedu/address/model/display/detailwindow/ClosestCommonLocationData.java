@@ -1,11 +1,11 @@
 package seedu.address.model.display.detailwindow;
 
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.Reader;
+import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.logging.Logger;
 
-import seedu.address.websocket.CacheFileNames;
+import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.util.FileUtil;
 
 /**
  * Data for closest common location
@@ -20,6 +20,7 @@ public class ClosestCommonLocationData {
     private long secondAvg;
     private long thirdAvg;
     private ArrayList<String> invalidLocation;
+    private final Logger logger = LogsCenter.getLogger(this.getClass());
 
     public String getImagePath() {
         return imagePath;
@@ -58,11 +59,15 @@ public class ClosestCommonLocationData {
     }
 
     public void setImagePath(String locationName) {
-        String tempPath = CacheFileNames.GMAPS_IMAGE_DIR + locationName + ".png";
-        try (Reader reader = new FileReader(tempPath)) {
-            imagePath = tempPath;
-        } catch (IOException e) {
-            System.out.println(locationName + " picture is not available");
+        String tempPath = FileUtil.imagePath(locationName);
+        if (locationName.contains("NUS_")) {
+            if (FileUtil.isFileExists(Path.of(tempPath))) {
+                imagePath = tempPath;
+            } else {
+                logger.warning(locationName + " image at path " + tempPath + " could not be found");
+            }
+        } else {
+            logger.warning(locationName + " must have NUS_ prefix");
         }
     }
 
