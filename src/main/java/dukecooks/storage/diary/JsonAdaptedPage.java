@@ -2,7 +2,6 @@ package dukecooks.storage.diary;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonValue;
 
 import dukecooks.commons.exceptions.IllegalValueException;
 import dukecooks.model.diary.components.Page;

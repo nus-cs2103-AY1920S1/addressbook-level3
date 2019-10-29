@@ -1,8 +1,9 @@
 package dukecooks.model.diary.components;
 
+import static java.util.Objects.requireNonNull;
+
 import dukecooks.commons.util.AppUtil;
 
-import static java.util.Objects.requireNonNull;
 
 /**
  * Represents a Page's description.
@@ -10,8 +11,8 @@ import static java.util.Objects.requireNonNull;
  */
 public class PageDescription {
 
-    public static final String MESSAGE_CONSTRAINTS = "Page description should not be empty and it should be within " +
-            "280 characters";
+    public static final String MESSAGE_CONSTRAINTS = "Page description should not be empty and it should be within "
+            + "280 characters";
 
     /*
      * The page description must not be a whitespace,

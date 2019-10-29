@@ -3,7 +3,6 @@ package dukecooks.logic.commands.diary;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_DIARY_NAME;
 import static java.util.Objects.requireNonNull;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import dukecooks.commons.core.Messages;

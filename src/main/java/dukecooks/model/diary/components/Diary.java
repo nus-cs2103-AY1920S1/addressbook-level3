@@ -1,13 +1,12 @@
 package dukecooks.model.diary.components;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-
 import static dukecooks.commons.util.CollectionUtil.requireAllNonNull;
 import static java.util.Objects.requireNonNull;
 
-import java.util.ArrayList;
 import java.util.Objects;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 /**
  * Represents a Diary in Duke Cooks.
