@@ -18,12 +18,12 @@ public class CommandResult {
     /** The application should exit. */
     private final boolean exit;
 
-    private final UiFocus uiFocus;
+    private final UiFocus[] uiFocus;
 
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, UiFocus uiFocus) {
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, UiFocus ...uiFocus) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
@@ -50,7 +50,7 @@ public class CommandResult {
      * Constructs a {@code CommandResult} with the specified {@code feedbackToUser}
      * and {@code uiFocus, while other fields are set to their default values.
      */
-    public CommandResult(String feedbackToUser, UiFocus uiFocus) {
+    public CommandResult(String feedbackToUser, UiFocus ...uiFocus) {
         this(feedbackToUser, false, false, requireNonNull(uiFocus));
     }
 
@@ -66,7 +66,7 @@ public class CommandResult {
         return exit;
     }
 
-    public Optional<UiFocus> getUiFocus() {
+    public Optional<UiFocus[]> getUiFocus() {
         return Optional.ofNullable(uiFocus);
     }
 

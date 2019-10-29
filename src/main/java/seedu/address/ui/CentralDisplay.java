@@ -11,13 +11,13 @@ import javafx.scene.control.TabPane;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.Region;
 import jfxtras.internal.scene.control.skin.agenda.AgendaWeekSkin;
-import jfxtras.internal.scene.control.skin.agenda.base24hour.AgendaSkinTimeScale24HourAbstract;
 import jfxtras.scene.control.agenda.Agenda;
-import jfxtras.scene.control.agenda.AgendaSkinSwitcher;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.UiFocus;
+import seedu.address.model.contact.Contact;
 import seedu.address.model.day.ActivityWithTime;
 import seedu.address.model.day.Day;
+import seedu.address.model.itineraryitem.accommodation.Accommodation;
 import seedu.address.model.itineraryitem.activity.Activity;
 import seedu.address.model.tag.Tag;
 
@@ -57,7 +57,9 @@ public class CentralDisplay extends UiPart<Region> {
     private SimpleObjectProperty<LocalDate> startDateProperty;
     private ObservableList<Day> dayList;
 
-    public CentralDisplay(ObservableList<Day> dayList, SimpleObjectProperty<LocalDate> startDateProperty) {
+    public CentralDisplay(ObservableList<Day> dayList, ObservableList<Accommodation> accommodationList,
+                          ObservableList<Activity> activityList, ObservableList<Contact> contactList,
+                          SimpleObjectProperty<LocalDate> startDateProperty) {
         super(FXML);
         this.startDateProperty = startDateProperty;
         this.dayList = dayList;
@@ -100,7 +102,7 @@ public class CentralDisplay extends UiPart<Region> {
 
         agenda.setDisplayedLocalDateTime(startDateProperty.getValue().atStartOfDay());
         updateAgenda(agenda, dayList);
-
+        sideDisplay.setExpandedPane(activityPane);
         // disables dragging
         agenda.setAllowDragging(false);
         // disables modify start time and end time by dragging
@@ -109,9 +111,12 @@ public class CentralDisplay extends UiPart<Region> {
         agenda.setEditAppointmentCallback((appointment) -> null);
 //        agenda.setBackground(new Background(new BackgroundFill(Color.rgb(40, 40, 40), CornerRadii.EMPTY, Insets.EMPTY)));
         agendaTab.setContent(agenda);
+        accommodationPane.setContent((new AccommodationListPanel(accommodationList)).getRoot());
+        activityPane.setContent((new ActivityListPanel(activityList)).getRoot());
+        contactPane.setContent((new ContactListPanel(contactList)).getRoot());
 
         // set up listeners that will update the agenda
-        dayList.addListener((ListChangeListener<Day>) c -> {
+        dayList.addListener((ListChangeListener<? super Day>) c -> {
             updateSkin(agenda);
             updateAgenda(agenda, dayList);
         });
@@ -124,8 +129,7 @@ public class CentralDisplay extends UiPart<Region> {
     private void updateSkin(Agenda agenda) {
         agenda.setSkin(new AgendaWeekSkin(agenda) {
             @Override
-            protected List<LocalDate> determineDisplayedLocalDates()
-            {
+            protected List<LocalDate> determineDisplayedLocalDates() {
                 // the result
                 List<LocalDate> lLocalDates = new ArrayList<>();
 
@@ -143,22 +147,24 @@ public class CentralDisplay extends UiPart<Region> {
         });
     }
 
-    public void changeFocus(UiFocus uiFocus) {
-        switch(uiFocus) {
-        case AGENDA:
-            tabDisplay.getSelectionModel().select(agendaTab);
-            break;
-        case ACCOMMODATION:
-            sideDisplay.setExpandedPane(accommodationPane);
-            break;
-        case ACTIVITY:
-            sideDisplay.setExpandedPane(activityPane);
-            break;
-        case CONTACT:
-            sideDisplay.setExpandedPane(contactPane);
-            break;
-        default:
-            throw new AssertionError(uiFocus.toString() + " is not handled in changeFocus.");
+    public void changeFocus(UiFocus[] uiFocus) {
+        for (UiFocus u : uiFocus) {
+            switch (u) {
+            case AGENDA:
+                tabDisplay.getSelectionModel().select(agendaTab);
+                break;
+            case ACCOMMODATION:
+                sideDisplay.setExpandedPane(accommodationPane);
+                break;
+            case ACTIVITY:
+                sideDisplay.setExpandedPane(activityPane);
+                break;
+            case CONTACT:
+                sideDisplay.setExpandedPane(contactPane);
+                break;
+            default:
+                throw new AssertionError(u.toString() + " is not handled in changeFocus.");
+            }
         }
     }
 

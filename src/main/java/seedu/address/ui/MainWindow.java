@@ -85,7 +85,10 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     private void updateCentralDisplay() {
-        centralDisplay = new CentralDisplay(logic.getFilteredItinerary(), logic.getItinerary().getStartDateProperty());
+        centralDisplay = new CentralDisplay(logic.getFilteredItinerary(), logic.getFilteredAccommodationList(),
+                logic.getFilteredActivityList(), logic.getFilteredContactList(),
+                logic.getItinerary().getStartDateProperty()
+        );
         centralDisplayPlaceholder.getChildren().add(centralDisplay.getRoot());
     }
 
@@ -164,7 +167,7 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Updates the UI and changes the focus to the relevant tab.
      */
-    private void applyUiFocusChange(UiFocus uiFocus) {
+    private void applyUiFocusChange(UiFocus[] uiFocus) {
         centralDisplay.changeFocus(uiFocus);
     }
 }
