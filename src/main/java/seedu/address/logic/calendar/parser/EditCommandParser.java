@@ -49,7 +49,7 @@ public class EditCommandParser implements Parser<EditCommand> {
             editPersonDescriptor.setTaskTitle(ParserUtil.parseTitle(argMultimap.getValue(PREFIX_TASKTITLE).get()));
         }
         if (argMultimap.getValue(PREFIX_TASKDAY).isPresent()) {
-            editPersonDescriptor.setTaskDay(ParserUtil.parseTime(argMultimap.getValue(PREFIX_TASKDAY).get()));
+            editPersonDescriptor.setTaskDay(ParserUtil.parseDay(argMultimap.getValue(PREFIX_TASKDAY).get()));
         }
         if (argMultimap.getValue(PREFIX_TASKDESCRIPTION).isPresent()) {
             editPersonDescriptor.setTaskDescription(ParserUtil.parseDescription(argMultimap

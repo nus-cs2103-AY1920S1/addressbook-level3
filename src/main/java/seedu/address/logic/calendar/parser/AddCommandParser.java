@@ -44,7 +44,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         }
 
         TaskTitle taskTitle = ParserUtil.parseTitle(argMultimap.getValue(PREFIX_TASKTITLE).get());
-        TaskDay taskDay = ParserUtil.parseTime(argMultimap.getValue(PREFIX_TASKDAY).get());
+        TaskDay taskDay = ParserUtil.parseDay(argMultimap.getValue(PREFIX_TASKDAY).get());
         TaskDescription taskDescription =
                 ParserUtil.parseDescription(argMultimap.getValue(PREFIX_TASKDESCRIPTION).get());
         TaskTime taskTime = ParserUtil.parsePlace(argMultimap.getValue(PREFIX_TASKTIME).get());

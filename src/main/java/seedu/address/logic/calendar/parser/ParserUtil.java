@@ -86,18 +86,18 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String phone} into a {@code TaskDay}.
+     * Parses a {@code String day} into a {@code TaskDay}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code phone} is invalid.
+     * @throws ParseException if the given {@code day} is invalid.
      */
-    public static TaskDay parseTime(String phone) throws ParseException {
-        requireNonNull(phone);
-        String trimmedPhone = phone.trim();
-        if (!TaskDay.isValidDay(trimmedPhone)) {
+    public static TaskDay parseDay(String day) throws ParseException {
+        requireNonNull(day);
+        String trimmedDay = day.trim();
+        if (!TaskDay.isValidDay(trimmedDay)) {
             throw new ParseException(TaskDay.MESSAGE_CONSTRAINTS);
         }
-        return new TaskDay(trimmedPhone);
+        return new TaskDay(trimmedDay);
     }
 
     /**
