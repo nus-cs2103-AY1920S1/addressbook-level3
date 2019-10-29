@@ -159,7 +159,7 @@ public class AddressBookParser {
             return new AddAutoExpenseCommandParser().parse(arguments);
 
         case EditAutoExpenseCommand.COMMAND_WORD:
-            return new AddAutoExpenseCommandParser().parse(arguments);
+            return new EditAutoExpenseCommandParser().parse(arguments);
 
         case StatisticsCommand.COMMAND_WORD:
             return new StatisticsCommandParser().parse(arguments);

@@ -20,10 +20,18 @@ public class AddAutoExpenseCommand extends Command {
     public static final String COMMAND_WORD = "addAutoExp";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a auto expense to the finance tracker. "
-            + "Parameters: " + PREFIX_DESC + "DESCRIPTION " + PREFIX_AMOUNT + "AMOUNT " + "[" + PREFIX_DATE + "DATE "
-            + PREFIX_TAG + "TAG]...\n" + "Example: " + COMMAND_WORD + " " + PREFIX_DESC + "Mala " + PREFIX_AMOUNT
-            + "5.50 " + PREFIX_FREQ + "daily " + PREFIX_DATE + "2019-09-09 " + PREFIX_TAG + "food " + PREFIX_TAG
-            + "indulgence";
+            + "Parameters: "
+            + PREFIX_DESC + "DESCRIPTION "
+            + PREFIX_AMOUNT + "AMOUNT " + "["
+            + PREFIX_DATE + "DATE "
+            + PREFIX_TAG + "TAG]...\n" + "Example: "
+            + COMMAND_WORD + " "
+            + PREFIX_DESC + "Mala "
+            + PREFIX_AMOUNT + "5.50 "
+            + PREFIX_FREQ + "daily "
+            + PREFIX_DATE + "2019-09-09 "
+            + PREFIX_TAG + "food "
+            + PREFIX_TAG + "indulgence";
 
     public static final String MESSAGE_SUCCESS = "New auto expense added: %1$s";
 
