@@ -8,6 +8,8 @@ import java.util.Date;
 import java.util.Map;
 import java.util.TreeMap;
 
+import javax.sound.sampled.Line;
+
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -25,6 +27,7 @@ import seedu.address.model.entity.body.Body;
  */
 public class LineChartPanel extends UiPart<Region> {
 
+    private static LineChartPanel lineChartPanelInstance = null;
     private static final String FXML = "LineChartPanel.fxml";
     private static final long DAY_IN_MS = 1000 * 60 * 60 * 24;
     private static int WINDOW_SIZE = 10;
@@ -43,16 +46,30 @@ public class LineChartPanel extends UiPart<Region> {
     @FXML
     private TextArea resultDisplay;
 
-    public LineChartPanel(ObservableList<Body> bodyList) {
+    // Make LineChartPanel a singleton
+    private LineChartPanel(ObservableList<Body> bodyList) throws ParseException {
         super(FXML);
         this.bodyList = bodyList;
+        makeLineChart(); // make line chart for the first time
     }
 
-    public AreaChart getLineChart() throws ParseException {
+    // static method to create instance of Singleton class
+    public static LineChartPanel getLineChartPanelInstance(ObservableList<Body> bodyList) throws ParseException {
+        // To ensure only one instance is created
+        if (lineChartPanelInstance == null)
+        {
+            lineChartPanelInstance = new LineChartPanel(bodyList);
+        }
+        return lineChartPanelInstance;
+    }
+    public void makeLineChart() throws ParseException {
         initialiseTreeMap();
         initialiseLineChart();
         updateSeries();
         updateUponChange();
+    }
+
+    public AreaChart getLineChart(){
         return lineChart;
     }
 
@@ -115,7 +132,7 @@ public class LineChartPanel extends UiPart<Region> {
     private void initialiseTreeMap() throws ParseException {
         // Fill in the missing dates
         Date now = new Date();
-        Date tenDaysAgo = new Date(now.getTime() - (10 * DAY_IN_MS));
+        Date tenDaysAgo = new Date(now.getTime() - (366 * DAY_IN_MS));
         for (Date date = now; date.after(tenDaysAgo); date = new Date(date.getTime() - DAY_IN_MS)) {
             Date noTimeDate = formatDateNoTime(date);
             freqByDate.putIfAbsent(noTimeDate, 0);
@@ -187,30 +204,30 @@ public class LineChartPanel extends UiPart<Region> {
         int year  = localDate.getYear();
         int month = localDate.getMonthValue();
         switch (timeFrame) {
-            case "default":
-                WINDOW_SIZE = 10;
-                break;
-            case "week":
-                WINDOW_SIZE = 7;
-                break;
-            case "month":
-                if (month == 2 && year % 4 == 0) {
-                    WINDOW_SIZE = 29; // leap year February
-                } else if (month == 2 && year % 4 != 0) {
-                    WINDOW_SIZE = 28; // regular year February
-                } else if (month == 4 || month == 6 || month == 9 || month == 11) {
-                    WINDOW_SIZE = 30; // April, June, September, October
-                } else {
-                    WINDOW_SIZE = 31; // the rest of the months (January, March, May, July, August, October, December)
+        case "default":
+            WINDOW_SIZE = 10;
+            break;
+        case "week":
+            WINDOW_SIZE = 7;
+            break;
+        case "month":
+            if (month == 2 && year % 4 == 0) {
+                WINDOW_SIZE = 29; // leap year February
+            } else if (month == 2 && year % 4 != 0) {
+                WINDOW_SIZE = 28; // regular year February
+            } else if (month == 4 || month == 6 || month == 9 || month == 11) {
+                WINDOW_SIZE = 30; // April, June, September, October
+            } else {
+                WINDOW_SIZE = 31; // the rest of the months (January, March, May, July, August, October, December)
+        }
+            break;
+        case "year":
+            if (year % 4 == 0) {
+                WINDOW_SIZE = 366; // leap year
+            } else {
+                WINDOW_SIZE = 365;
             }
-                break;
-            case "year":
-                if (year % 4 == 0) {
-                    WINDOW_SIZE = 366; // leap year
-                } else {
-                    WINDOW_SIZE = 365;
-                }
-                break;
+            break;
         }
     }
 
