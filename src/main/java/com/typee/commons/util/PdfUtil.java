@@ -38,7 +38,7 @@ public class PdfUtil {
     private static final String FOLDER_PATH = "reports/";
     private static Properties docProp;
     private static final Logger logger = LogsCenter.getLogger(PdfUtil.class);
-    private static final DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd-MM-YY_HH:mm");
+    private static final DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd-MM-YY_HH-mm");
 
     /**
      * Generates a {@code Report} in .pdf format and opens the file.
@@ -62,12 +62,18 @@ public class PdfUtil {
     private static Document initDoc(Engagement engagement, Person to) throws IOException, DocumentException {
         String fileName = FOLDER_PATH + generateFileName(engagement.getTimeSlot().getStartTime(),
                 engagement.getDescription());
+        logger.info(fileName);
         Document doc = new Document();
 
         if (Files.notExists(Paths.get(FOLDER_PATH))) {
             Files.createFile(Files.createDirectories(Paths.get(FOLDER_PATH))).toFile();
         }
-        PdfWriter.getInstance(doc, new FileOutputStream(fileName));
+
+        try {
+            PdfWriter.getInstance(doc, new FileOutputStream(fileName));
+        } catch (DocumentException e) {
+            logger.info(e.getMessage());
+        }
 
         doc.open();
         Font font = FontFactory.getFont(FontFactory.TIMES_ROMAN, 14, BaseColor.BLACK);
@@ -166,7 +172,7 @@ public class PdfUtil {
      */
     private static String generateFileName(LocalDateTime start, String desc) {
         String startTime = start.format(dateFormat);
-        return startTime + "_" + desc + ".pdf";
+        return startTime + "_" + desc.split(" ")[0] + ".pdf";
     }
 
     /**
