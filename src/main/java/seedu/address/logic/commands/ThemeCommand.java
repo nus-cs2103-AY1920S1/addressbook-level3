@@ -23,6 +23,6 @@ public class ThemeCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         model.setCurrentTheme(this.theme);
-        return new CommandResult("Theme now set to: " + theme);
+        return new CommandResult("Theme now set to: " + theme, false, false, true);
     }
 }
