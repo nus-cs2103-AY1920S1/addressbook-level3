@@ -73,8 +73,7 @@ public class PerformanceCommand extends Command {
         Record record = createRecord();
         date.setType(2);
         model.addRecord(event, athlete, record);
-        return new CommandResult(getSuccessMessage(athlete, event, date, time));
-
+        return new CommandResult(getSuccessMessage(athlete, event, date, time), date, model);
     }
 
     private Record createRecord() {
