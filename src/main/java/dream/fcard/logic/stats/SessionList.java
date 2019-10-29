@@ -1,3 +1,4 @@
+//@@author nattanyz
 package dream.fcard.logic.stats;
 
 import java.util.ArrayList;
@@ -30,4 +31,39 @@ public class SessionList {
     public int numberOfSessions() {
         return this.sessionArrayList.size();
     }
+
+    /**
+     * Returns the list of sessions, sorted by start date, in chronological order (earliest first).
+     * @return The list of sessions, sorted by start date, in chronological order (earliest first).
+     */
+    public ArrayList<Session> sortByDateChrono() {
+        this.sessionArrayList.sort((a, b) -> {
+            if (a.getSessionStart().isBefore(b.getSessionStart())) {
+                return 1;
+            } else {
+                return -1;
+            }
+        });
+        return this.sessionArrayList;
+
+        // todo: write tests!!! what should happen if the dates are the same?
+        // todo: problem!!! cannot sort if a session has not yet been terminated (no end!)
+    }
+
+    /**
+     * Returns the list of sessions, sorted by start date, in chronological order (latest first).
+     * @return The list of sessions, sorted by start date, in chronological order (latest first).
+     */
+    public ArrayList<Session> sortByDateChronoReversed() {
+        this.sessionArrayList.sort((a, b) -> {
+            if (a.getSessionStart().isAfter(b.getSessionStart())) {
+                return 1;
+            } else {
+                return -1;
+            }
+        });
+        return this.sessionArrayList;
+    }
+
+    // todo: get sessions in the past week, past month etc. --> sublist? wrapped in SessionList?
 }

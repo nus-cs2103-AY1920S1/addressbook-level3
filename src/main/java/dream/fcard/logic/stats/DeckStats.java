@@ -1,9 +1,5 @@
+//@@author nattanyz
 package dream.fcard.logic.stats;
-
-import dream.fcard.util.json.JsonInterface;
-import dream.fcard.util.json.jsontypes.JsonArray;
-import dream.fcard.util.json.jsontypes.JsonValue;
-import java.util.ArrayList;
 
 public class DeckStats {
     // todo: should implement JsonInterface. need help with toJson().

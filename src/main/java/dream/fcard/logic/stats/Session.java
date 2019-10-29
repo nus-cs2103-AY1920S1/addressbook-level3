@@ -20,6 +20,8 @@ public class Session {
     /** The duration of the session, as a Duration object. */
     private Duration duration;
 
+    private int score = -1; // optional, default is -1
+
     /**
      * Constructs a new instance of Session and sets the session's start time to the present.
      */
@@ -59,5 +61,23 @@ public class Session {
     /** Gets the duration of this session, as a Duration object. */
     public Duration getDuration() {
         return this.duration;
+    }
+
+    /** Sets the score of this session. */
+    public void setScore(int score) {
+        this.score = score;
+    }
+
+    /** Gets the score of this session.*/
+    public int getScore() {
+        if (this.score == -1) {
+            return 0; // todo: is this a good idea???
+        }
+        return this.score;
+    }
+
+    /** Returns true if this session has an associated score, false otherwise. */
+    public boolean hasScore() {
+        return this.score != -1;
     }
 }
