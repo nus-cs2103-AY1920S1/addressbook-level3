@@ -58,6 +58,9 @@ public class ShowCard extends UiPart<Region> {
     private CheckBox watched;
     @FXML
     private ImageView poster;
+    @FXML
+    private HBox genres;
+
     private MainWindow mainWindow;
 
     public ShowCard(Show show, int displayedIndex) {
@@ -77,6 +80,9 @@ public class ShowCard extends UiPart<Region> {
         show.getActors().stream()
                 .sorted(Comparator.comparing(actor -> actor.actorName))
                 .forEach(actor -> actors.getChildren().add(new Label(actor.actorName)));
+
+        show.getGenres().stream()
+                .forEach(genre -> genres.getChildren().add(new Label(genre)));
 
         //sets the checkbox selected value to be equal to the watched value of the show
         watched.setSelected(show.isWatched().value);

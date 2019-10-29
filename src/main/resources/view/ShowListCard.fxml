@@ -16,7 +16,7 @@
     <GridPane HBox.hgrow="ALWAYS">
         <columnConstraints>
          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="136.00001220703126" minWidth="10.0" prefWidth="101.60004425048828" />
-            <ColumnConstraints hgrow="ALWAYS" maxWidth="256.8000244140625" minWidth="10.0" prefWidth="256.8000244140625" />
+            <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" />
         </columnConstraints>
       <ImageView fx:id="poster" fitHeight="160.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true" />
         <VBox alignment="CENTER_LEFT" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS">
@@ -34,7 +34,12 @@
             </HBox>
             <FlowPane>
             <children>
-               <HBox fx:id="actors" spacing="7.0" />
+               <VBox>
+                  <children>
+                     <HBox fx:id="actors" spacing="7.0" />
+                     <HBox fx:id="genres" spacing="7.0" />
+                  </children>
+               </VBox>
             </children></FlowPane>
             <Label fx:id="type" styleClass="cell_small_label" text="\$type" />
             <Label fx:id="dateOfRelease" styleClass="cell_small_label" text="\$date of release" />
@@ -54,12 +59,12 @@
        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
      </rowConstraints>
       <children>
-         <CheckBox fx:id="watched" styleClass="check-box" mnemonicParsing="false" text="Watched" textFill="WHITE" GridPane.halignment="RIGHT" GridPane.valignment="BOTTOM">
+         <CheckBox fx:id="watched" mnemonicParsing="false" styleClass="check-box" text="Watched" textFill="WHITE" GridPane.halignment="RIGHT" GridPane.valignment="BOTTOM">
             <GridPane.margin>
                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
             </GridPane.margin>
          </CheckBox>
-          <Label fx:id="lastWatched" styleClass="cell_small_label" text="\$lastWatched" wrapText ="true" />
+          <Label fx:id="lastWatched" styleClass="cell_small_label" text="\$lastWatched" wrapText="true" />
       </children>
    </GridPane>
    <padding>
