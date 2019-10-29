@@ -156,6 +156,7 @@
     -fx-font-family: "Segoe UI Light";
     -fx-font-size: 13pt;
     -fx-text-fill: white;
+    -fx-border-radius: 5px;
 }
 
 .result-display .label {
@@ -339,7 +340,7 @@
 
 #resultDisplay .content {
     -fx-background-color: transparent, #65737e, transparent, #65737e;
-    -fx-background-radius: 0;
+    -fx-background-radius: 5;
     -fx-border-color: #e8a87c;
     -fx-border-width: 2;
 }
@@ -387,7 +388,11 @@
 }
 
 .axis {
-    -fx-tick-label-fill: white;
+    -fx-tick-label-fill: gainsboro;
+}
+
+.axis-label {
+    -fx-text-fill: white;
 }
 
 .default-color0.chart-line-symbol {
