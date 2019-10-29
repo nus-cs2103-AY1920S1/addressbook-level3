@@ -15,6 +15,8 @@ import seedu.revision.logic.commands.exceptions.CommandException;
 import seedu.revision.logic.commands.main.CommandResult;
 import seedu.revision.logic.parser.exceptions.ParseException;
 
+import java.io.IOException;
+
 /**
  * The Main Window. Provides the basic application layout containing
  * a menu bar and space where other JavaFX elements can be placed.
@@ -148,6 +150,6 @@ public abstract class Window extends UiPart<Stage> {
     /**
      * Executes the command and returns the result.
      */
-    protected abstract CommandResult executeCommand(String commandText) throws CommandException, ParseException;
+    protected abstract CommandResult executeCommand(String commandText) throws CommandException, ParseException, IOException;
 
 }
