@@ -21,6 +21,7 @@ public class RevertArchiveCommand extends ArchiveCommand {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Unarchives the expense identified by the index number used in the displayed archive expense list\n"
+            + "Given archive name must be prefixed by [" + PREFIX_ARCHIVE + "].\n"
             + "Example: " + ArchiveCommand.COMMAND_WORD + " " + COMMAND_WORD + " 2 " + PREFIX_ARCHIVE + "Groceries";
 
     public static final String MESSAGE_SUCCESS =

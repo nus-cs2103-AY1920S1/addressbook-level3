@@ -3,6 +3,8 @@ package seedu.billboard.logic.parser;
 import static seedu.billboard.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.billboard.logic.parser.CliSyntax.PREFIX_ARCHIVE;
 
+import java.util.NoSuchElementException;
+
 import seedu.billboard.commons.core.index.Index;
 import seedu.billboard.logic.commands.RevertArchiveCommand;
 import seedu.billboard.logic.parser.exceptions.ParseException;
@@ -26,7 +28,7 @@ public class RevertArchiveCommandParser implements Parser<RevertArchiveCommand> 
             String archiveName = ParserUtil.parseArchive(argMultimap.getValue(PREFIX_ARCHIVE).get());
             Index targetIndex = ParserUtil.parseIndex(argMultimap.getPreamble());
             return new RevertArchiveCommand(archiveName, targetIndex);
-        } catch (ParseException pe) {
+        } catch (ParseException | NoSuchElementException pe) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, RevertArchiveCommand.MESSAGE_USAGE), pe);
         }

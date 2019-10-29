@@ -3,6 +3,8 @@ package seedu.billboard.logic.parser;
 import static seedu.billboard.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.billboard.logic.parser.CliSyntax.PREFIX_ARCHIVE;
 
+import java.util.NoSuchElementException;
+
 import seedu.billboard.commons.core.index.Index;
 import seedu.billboard.logic.commands.AddArchiveCommand;
 import seedu.billboard.logic.parser.exceptions.ParseException;
@@ -21,12 +23,11 @@ public class AddArchiveCommandParser implements Parser<AddArchiveCommand> {
     public AddArchiveCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_ARCHIVE);
-
         try {
             String archiveName = ParserUtil.parseArchive(argMultimap.getValue(PREFIX_ARCHIVE).get());
             Index targetIndex = ParserUtil.parseIndex(argMultimap.getPreamble());
             return new AddArchiveCommand(archiveName, targetIndex);
-        } catch (ParseException pe) {
+        } catch (ParseException | NoSuchElementException pe) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddArchiveCommand.MESSAGE_USAGE), pe);
         }

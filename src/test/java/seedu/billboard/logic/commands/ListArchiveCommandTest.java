@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static seedu.billboard.logic.commands.CommandTestUtil.VALID_ARCHIVE_DINNER;
 import static seedu.billboard.logic.commands.CommandTestUtil.VALID_ARCHIVE_TAXES;
 import static seedu.billboard.logic.commands.CommandTestUtil.assertCommandFailure;
+import static seedu.billboard.logic.commands.ListArchiveCommand.MESSAGE_USAGE;
 import static seedu.billboard.testutil.Assert.assertThrows;
 import static seedu.billboard.testutil.TypicalExpenses.getTypicalBillboardWithArchiveExpenses;
 
@@ -33,13 +34,14 @@ public class ListArchiveCommandTest {
     @Test
     public void execute_invalidArchiveName_throwsCommandException() {
         ListArchiveCommand listArchiveCommand = new ListArchiveCommand("");
-        assertCommandFailure(listArchiveCommand, model, Messages.MESSAGE_INVALID_ARCHIVE_NAME);
+        assertCommandFailure(listArchiveCommand, model, Messages.MESSAGE_INVALID_ARCHIVE_NAME + "\n" + MESSAGE_USAGE);
     }
 
     @Test
     public void execute_existingArchiveName_throwsCommandException() {
         ListArchiveCommand listArchiveCommand = new ListArchiveCommand("lalala");
-        assertCommandFailure(listArchiveCommand, model, Messages.MESSAGE_NONEXISTENT_ARCHIVE_ENTERED);
+        assertCommandFailure(listArchiveCommand, model,
+                Messages.MESSAGE_NONEXISTENT_ARCHIVE_ENTERED + "\n" + MESSAGE_USAGE);
     }
 
     @Test

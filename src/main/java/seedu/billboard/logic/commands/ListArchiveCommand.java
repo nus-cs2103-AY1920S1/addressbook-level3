@@ -33,11 +33,11 @@ public class ListArchiveCommand extends ArchiveCommand {
         requireNonNull(model);
 
         if (archiveName.equals("")) {
-            throw new CommandException(Messages.MESSAGE_INVALID_ARCHIVE_NAME);
+            throw new CommandException(Messages.MESSAGE_INVALID_ARCHIVE_NAME + "\n" + MESSAGE_USAGE);
         }
 
         if (!model.hasArchive(archiveName)) {
-            throw new CommandException(Messages.MESSAGE_NONEXISTENT_ARCHIVE_ENTERED);
+            throw new CommandException(Messages.MESSAGE_NONEXISTENT_ARCHIVE_ENTERED + "\n" + MESSAGE_USAGE);
         }
 
         model.updateFilteredArchiveExpenses(archiveName, Model.PREDICATE_SHOW_ALL_EXPENSES);
