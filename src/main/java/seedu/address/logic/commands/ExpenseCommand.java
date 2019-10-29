@@ -123,7 +123,10 @@ public class ExpenseCommand extends Command {
                     }
                 }
             }
-            involvedArr = personList.stream().mapToInt(x -> x.getPrimaryKey()).toArray();
+            involvedArr = personList.stream()
+                    .filter(x -> x.getPrimaryKey() != payingId)
+                    .mapToInt(x -> x.getPrimaryKey())
+                    .toArray();
         } else {
             // Contextual behaviour
             if (model.getContext().getType() == ContextType.VIEW_ACTIVITY) {
