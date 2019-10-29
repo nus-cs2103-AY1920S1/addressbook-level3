@@ -5,8 +5,6 @@
 
 == PROJECT: DukeCooks
 
----
-
 == What is in this document?
 
 This document is a project portfolio documenting the contributions made for DukeCooks by the writer - Hua Lun . It will present the user and developer guide of the Dashboard function in Duke cooks.

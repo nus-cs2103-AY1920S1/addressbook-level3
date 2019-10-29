@@ -201,57 +201,81 @@ Format: `mealplan <exerciseName> shoplist <shoplist exerciseName>`
 
 Can't track all your deadlines? Look through the available commands in this section and start managing them.
 
-==== Adding a task:  `add task tn/` _insert task name here_ `td/` _insert task date here_ `[coming in v1.3]`
-Adds a task into DukeCooks. The task consists of the task name and task date.
+==== pass:[<u>Adding a task</u>]
 
-Example:
+Let's start by using the `add` command to add some tasks into DukeCooks!
 
-`add task tn/go for a run td/22/10/2019` +
-Output: New task added: go for a run
+Command: `add task` +
+Format: `add task tn/_insert task here_ td/ _insert date here_`
 
-==== Deleting a task: `delete task` _insert task index number_ `[coming in v1.3]`
-Deletes a task with corresponding to the task index number given. +
+[NOTE]
+====
+When entering the date for a task, please follow the given format: day/month/year
+====
 
-Example:
+Example usage: `add task tn/Bake a Cake td/29/10/2019`
 
-`delete task 1` +
-Output: Deleted Task: 1
+==== pass:[<u>Editing a task's details</u>]
 
-==== Editing a task: `edit task` _insert task index number_ `tn/` _insert task name here_ `td/` _insert task date here_`[coming in v1.3]`
-Edits the details of the task identified.
+Made some typos when adding a task? +
+Fret not! You are able to make changes to them.
 
-Example:
+Command: `edit task` +
+Format: `edit task _index number_`
 
-Current: 1. bake a cake 21/10/2019 +
-`edit task 1 tn/bake a cake td/22/10/2019` +
-Output: Edited task: 1 +
-Updated: 1. bake a cake 22/10/2019
+Example usage: `edit task 1 tn/Bake cupcakes td/30/10/2019`
 
-==== Finding a task: `find task` _insert keywords_ `[coming in v1.3]`
-Finds all tasks whose names contain any of. +
+==== pass:[<u>Removing a task</u>]
 
-Example:
+Decided that this task is not needed? +
+Well you can delete them off from DukeCooks.
 
-`find task cake` +
-Output: +
-1. bake a cake +
-3. carrot cake
+Command: `delete task` +
+Format: `delete task _index number_`
 
-==== Get suggestions: `suggest` `[coming in v2.0]`
-Provides an overview analysis based on past records. Gives suggestions on things the user should do more or less on. +
-Format: `suggest`
+Example usage: `delete task 2`
 
-==== Get random food suggestions: `suggest food` `[coming in v2.0]`
-Gives a random food suggestion for the user. +
-Format: `suggest food`
+==== pass:[<u>Marking a task as complete</u>]
 
-==== Get new food suggestions: `suggest new food` `[coming in v2.0]`
-Gives a recommendation of a food item that is not logged by the user. +
-Format: `suggest new food`
+Finished with a task? +
+Check it off the list!
 
-==== Get Statistics: `stats` `[coming in v1.3]`
-Gives all the statistics available. +
-Format: `stats`
+Command: `done` +
+Format: `done _index number_`
+
+Example usage: `done 1`
+
+[NOTE]
+====
+A task index number is available at the left side of the task's name.
+====
+
+==== pass:[<u>Finding tasks</u>]
+
+For those who want to know what are the tasks relevant given a keyword.
+
+Command: `find task` +
+Format: `find task _keyword_`
+
+Example usage: `find task cake`
+
+==== pass:[<u>Viewing all the tasks</u>]
+
+For those that want to know all the tasks they have added into DukeCooks.
+
+Command: `list task`
+
+==== pass:[<u>Viewing incomplete tasks</u>]
+
+Look at all the tasks you have to complete!
+
+Command: `list taskincomplete`
+
+==== pass:[<u>Viewing completed tasks</u>]
+
+Look at all the tasks you have done!
+
+Command: `list taskcomplete`
 
 === Health Records
 
