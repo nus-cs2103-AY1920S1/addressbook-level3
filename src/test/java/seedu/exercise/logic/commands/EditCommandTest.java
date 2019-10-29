@@ -27,6 +27,7 @@ import seedu.exercise.model.UserPrefs;
 import seedu.exercise.model.resource.Exercise;
 import seedu.exercise.testutil.builder.EditExerciseDescriptorBuilder;
 import seedu.exercise.testutil.builder.ExerciseBuilder;
+import seedu.exercise.ui.ListResourceType;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for EditCommand.
@@ -49,7 +50,8 @@ public class EditCommandTest {
             new UserPrefs(), getDefaultPropertyBook());
         expectedModel.setExercise(model.getFilteredExerciseList().get(0), editedExercise);
 
-        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
+        CommandResult expectedCommandResult = new CommandResult(expectedMessage, ListResourceType.EXERCISE);
+        assertCommandSuccess(editCommand, model, expectedCommandResult, expectedModel);
     }
 
     @Test
@@ -73,7 +75,8 @@ public class EditCommandTest {
             new UserPrefs(), getDefaultPropertyBook());
         expectedModel.setExercise(lastExercise, editedExercise);
 
-        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
+        CommandResult expectedCommandResult = new CommandResult(expectedMessage, ListResourceType.EXERCISE);
+        assertCommandSuccess(editCommand, model, expectedCommandResult, expectedModel);
     }
 
     @Test
@@ -87,7 +90,8 @@ public class EditCommandTest {
             new ReadOnlyResourceBook<>(), new ReadOnlyResourceBook<>(), new ReadOnlyResourceBook<>(),
             new UserPrefs(), getDefaultPropertyBook());
 
-        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
+        CommandResult expectedCommandResult = new CommandResult(expectedMessage, ListResourceType.EXERCISE);
+        assertCommandSuccess(editCommand, model, expectedCommandResult, expectedModel);
     }
 
     @Test
@@ -107,7 +111,8 @@ public class EditCommandTest {
             new UserPrefs(), getDefaultPropertyBook());
         expectedModel.setExercise(model.getFilteredExerciseList().get(0), editedExercise);
 
-        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
+        CommandResult expectedCommandResult = new CommandResult(expectedMessage, ListResourceType.EXERCISE);
+        assertCommandSuccess(editCommand, model, expectedCommandResult, expectedModel);
     }
 
     @Test

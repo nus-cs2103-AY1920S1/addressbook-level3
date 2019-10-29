@@ -27,6 +27,10 @@ public class RegimeListPanel extends UiPart<Region> {
         regimeListView.setCellFactory(listView -> new RegimeListViewCell());
     }
 
+    public ListView<Regime> getRegimeListView() {
+        return regimeListView;
+    }
+
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code Regime} using a {@code RegimeCard}.
      */

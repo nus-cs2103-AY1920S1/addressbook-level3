@@ -33,6 +33,7 @@ import seedu.exercise.model.property.Name;
 import seedu.exercise.model.property.Quantity;
 import seedu.exercise.model.property.Unit;
 import seedu.exercise.model.resource.Exercise;
+import seedu.exercise.ui.ListResourceType;
 
 /**
  * Edits the details of an existing exercise in the exercise book.
@@ -97,7 +98,8 @@ public class EditCommand extends Command implements UndoableCommand, PayloadCarr
         EventHistory.getInstance().addCommandToUndoStack(this);
         model.updateFilteredExerciseList(Model.PREDICATE_SHOW_ALL_EXERCISES);
         model.updateStatistic();
-        return new CommandResult(String.format(MESSAGE_EDIT_EXERCISE_SUCCESS, editedExercise));
+        return new CommandResult(String.format(MESSAGE_EDIT_EXERCISE_SUCCESS, editedExercise),
+                ListResourceType.EXERCISE);
     }
 
     @Override

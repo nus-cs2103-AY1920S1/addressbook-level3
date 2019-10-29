@@ -50,6 +50,10 @@ public class ExerciseListPanel extends UiPart<Region> {
         }
     }
 
+    public ListView<Exercise> getExerciseListView() {
+        return exerciseListView;
+    }
+
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code Exercise} using a {@code ExerciseInfoPanel}.
      */

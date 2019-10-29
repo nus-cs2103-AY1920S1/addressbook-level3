@@ -19,6 +19,7 @@ import seedu.exercise.model.UniqueResourceList;
 import seedu.exercise.model.property.Name;
 import seedu.exercise.model.resource.Exercise;
 import seedu.exercise.model.resource.Regime;
+import seedu.exercise.ui.ListResourceType;
 
 /**
  * Deletes a regime identified using it's name or deletes exercises in regime.
@@ -71,9 +72,8 @@ public class DeleteRegimeCommand extends DeleteCommand implements PayloadCarrier
     private CommandResult deleteRegimeFromModel(Regime regimeToDelete, Model model) {
         model.deleteRegime(regimeToDelete);
         addToEventPayloadForDeleteRegime(regimeToDelete);
-        return new CommandResult(String.format(MESSAGE_DELETE_REGIME_SUCCESS,
-                name,
-                regimeToDelete));
+        return new CommandResult(String.format(MESSAGE_DELETE_REGIME_SUCCESS, name, regimeToDelete),
+                ListResourceType.REGIME);
     }
 
     /**
@@ -97,7 +97,8 @@ public class DeleteRegimeCommand extends DeleteCommand implements PayloadCarrier
         addToEventPayloadForEditRegime(originalRegime, editedRegime);
         model.setRegime(originalRegime, editedRegime);
         model.updateFilteredRegimeList(Model.PREDICATE_SHOW_ALL_REGIMES);
-        return new CommandResult(String.format(MESSAGE_DELETE_EXERCISE_IN_REGIME_SUCCESS, editedRegime));
+        return new CommandResult(String.format(MESSAGE_DELETE_EXERCISE_IN_REGIME_SUCCESS, editedRegime),
+                ListResourceType.REGIME);
     }
 
     /**

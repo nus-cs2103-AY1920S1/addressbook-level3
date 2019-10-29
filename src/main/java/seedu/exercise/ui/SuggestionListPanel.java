@@ -26,6 +26,10 @@ public class SuggestionListPanel extends UiPart<Region> {
         suggestionListView.setCellFactory(listView -> new SuggestionListViewCell());
     }
 
+    public ListView<Exercise> getSuggestionListView() {
+        return suggestionListView;
+    }
+
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code Exercise} using a {@code ExerciseInfoPanel}.
      */

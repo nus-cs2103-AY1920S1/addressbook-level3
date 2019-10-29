@@ -14,6 +14,7 @@ import seedu.exercise.model.ReadOnlyResourceBook;
 import seedu.exercise.model.UserPrefs;
 import seedu.exercise.model.resource.Exercise;
 import seedu.exercise.testutil.builder.ExerciseBuilder;
+import seedu.exercise.ui.ListResourceType;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code AddExerciseCommand}.
@@ -37,8 +38,11 @@ public class AddExerciseCommandIntegrationTest {
             getDefaultPropertyBook());
         expectedModel.addExercise(validExercise);
 
-        assertCommandSuccess(new AddExerciseCommand(validExercise), model,
-            String.format(AddExerciseCommand.MESSAGE_SUCCESS, validExercise), expectedModel);
+        CommandResult expectedCommandResult = new CommandResult(
+                String.format(AddExerciseCommand.MESSAGE_SUCCESS, validExercise),
+                ListResourceType.EXERCISE);
+        assertCommandSuccess(new AddExerciseCommand(validExercise), model, expectedCommandResult, expectedModel);
+
     }
 
     @Test

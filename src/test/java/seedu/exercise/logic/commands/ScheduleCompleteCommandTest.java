@@ -15,6 +15,7 @@ import seedu.exercise.model.util.DefaultPropertyBookUtil;
 import seedu.exercise.testutil.typicalutil.TypicalExercises;
 import seedu.exercise.testutil.typicalutil.TypicalIndexes;
 import seedu.exercise.testutil.typicalutil.TypicalSchedule;
+import seedu.exercise.ui.ListResourceType;
 
 /**
  * Contains integration test for {@code ScheduleCompleteCommand}.
@@ -52,8 +53,10 @@ public class ScheduleCompleteCommandTest {
                 new UserPrefs(), DefaultPropertyBookUtil.getDefaultPropertyBook());
         expectedModel.completeSchedule(toComplete);
 
-        CommandTestUtil.assertCommandSuccess(scheduleCompleteCommandWithValidIndex, model,
-                expectedMessage, expectedModel);
+        CommandResult expectedCommandResult = new CommandResult(expectedMessage, ListResourceType.SCHEDULE);
+        CommandTestUtil.assertCommandSuccess(scheduleCompleteCommandWithValidIndex,
+                model, expectedCommandResult, expectedModel);
+
     }
 
     @Test

@@ -13,6 +13,7 @@ import seedu.exercise.model.property.Date;
 import seedu.exercise.model.property.Name;
 import seedu.exercise.model.resource.Regime;
 import seedu.exercise.model.resource.Schedule;
+import seedu.exercise.ui.ListResourceType;
 
 /**
  * Schedules a regime at a specific date.
@@ -47,7 +48,8 @@ public class ScheduleRegimeCommand extends ScheduleCommand {
 
         schedule(model, toSchedule);
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, regime.getRegimeName(), dateToSchedule));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, regime.getRegimeName(), dateToSchedule),
+                ListResourceType.SCHEDULE);
     }
 
     @Override

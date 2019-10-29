@@ -10,6 +10,7 @@ import seedu.exercise.model.Model;
 import seedu.exercise.model.ModelManager;
 import seedu.exercise.model.ReadOnlyResourceBook;
 import seedu.exercise.model.UserPrefs;
+import seedu.exercise.ui.ListResourceType;
 
 public class ClearCommandTest {
 
@@ -18,7 +19,9 @@ public class ClearCommandTest {
         Model model = new ModelManager();
         Model expectedModel = new ModelManager();
 
-        assertCommandSuccess(new ClearCommand(), model, ClearCommand.MESSAGE_SUCCESS, expectedModel);
+        CommandResult expectedCommandResult = new CommandResult(ClearCommand.MESSAGE_SUCCESS,
+                ListResourceType.SUGGESTION);
+        assertCommandSuccess(new ClearCommand(), model, expectedCommandResult, expectedModel);
     }
 
     @Test
@@ -31,7 +34,9 @@ public class ClearCommandTest {
             getDefaultPropertyBook());
         expectedModel.setExerciseBook(new ReadOnlyResourceBook<>());
 
-        assertCommandSuccess(new ClearCommand(), model, ClearCommand.MESSAGE_SUCCESS, expectedModel);
+        CommandResult expectedCommandResult = new CommandResult(ClearCommand.MESSAGE_SUCCESS,
+                ListResourceType.SUGGESTION);
+        assertCommandSuccess(new ClearCommand(), model, expectedCommandResult, expectedModel);
     }
 
 }

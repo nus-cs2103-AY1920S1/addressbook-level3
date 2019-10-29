@@ -19,6 +19,7 @@ import seedu.exercise.model.ModelManager;
 import seedu.exercise.model.ReadOnlyResourceBook;
 import seedu.exercise.model.UserPrefs;
 import seedu.exercise.model.resource.Exercise;
+import seedu.exercise.ui.ListResourceType;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
@@ -42,7 +43,8 @@ public class DeleteExerciseCommandTest {
             getDefaultPropertyBook());
         expectedModel.deleteExercise(exerciseToDelete);
 
-        assertCommandSuccess(deleteExerciseCommand, model, expectedMessage, expectedModel);
+        CommandResult expectedCommandResult = new CommandResult(expectedMessage, ListResourceType.EXERCISE);
+        assertCommandSuccess(deleteExerciseCommand, model, expectedCommandResult, expectedModel);
     }
 
     @Test
@@ -67,7 +69,8 @@ public class DeleteExerciseCommandTest {
         expectedModel.deleteExercise(exerciseToDelete);
         showNoExercise(expectedModel);
 
-        assertCommandSuccess(deleteExerciseCommand, model, expectedMessage, expectedModel);
+        CommandResult expectedCommandResult = new CommandResult(expectedMessage, ListResourceType.EXERCISE);
+        assertCommandSuccess(deleteExerciseCommand, model, expectedCommandResult, expectedModel);
     }
 
     @Test
