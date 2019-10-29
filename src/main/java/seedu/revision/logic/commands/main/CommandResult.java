@@ -53,11 +53,11 @@ public class CommandResult {
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean start, boolean restore, Model model) {
+    public CommandResult(String feedbackToUser, boolean restore, Model model) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
-        this.showHelp = showHelp;
-        this.exit = exit;
-        this.start = start;
+        this.showHelp = false;
+        this.exit = false;
+        this.start = false;
         this.showRestore = restore;
         this.model = model;
     }

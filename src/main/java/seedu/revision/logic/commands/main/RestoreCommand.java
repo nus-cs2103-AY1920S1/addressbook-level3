@@ -18,9 +18,6 @@ public class RestoreCommand extends Command {
 
     public static final String COMMAND_WORD = "restore";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Shows program usage instructions.\n"
-            + "Example: " + COMMAND_WORD;
-
     public static final String SHOWING_CONFIRMATION_MESSAGE = " ";
 
     /**
@@ -34,6 +31,6 @@ public class RestoreCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
 
-        return new CommandResult(SHOWING_CONFIRMATION_MESSAGE, false, false, false, true, model);
+        return new CommandResult(SHOWING_CONFIRMATION_MESSAGE, true, model);
     }
 }
