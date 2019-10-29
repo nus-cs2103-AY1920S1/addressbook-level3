@@ -46,7 +46,7 @@ public class MainWindow extends UiPart<Stage> {
 
     private final Logger logger = LogsCenter.getLogger(getClass());
     private final Image redElisa = new Image(getClass().getClassLoader()
-            .getResource("images/RedElisa.png").toString());
+            .getResource("images/FocusElisa.png").toString());
     private final Image blueElisa = new Image(getClass().getClassLoader()
             .getResource("images/ElisaImageWithoutWords.png").toString());
 
@@ -99,8 +99,10 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private Text elisaDescription2;
 
-    private final Paint elisaBlueColor = elisaText.getFill();
-    private final Paint elisaRedColor = Paint.valueOf("e50010");
+    private final Paint elisaTextBlueColor = elisaText.getFill();
+    private final Paint elisaDescBlueColor = elisaDescription.getFill();
+    private final Paint elisaTextRedColor = Paint.valueOf("ff0000");
+    private final Paint elisaDescRedColor = Paint.valueOf("fe4949");
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -134,10 +136,10 @@ public class MainWindow extends UiPart<Stage> {
             public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
                 if (newValue) {
                     elisaImage.setImage(redElisa);
-                    setElisaTextColor(elisaRedColor);
+                    setTextRed();
                 } else {
                     elisaImage.setImage(blueElisa);
-                    setElisaTextColor(elisaBlueColor);
+                    setTextDefault();
                     if (logic.isSystemToggle()) {
                         Platform.runLater(() -> resultDisplay.setFeedbackToUser(PriorityCommand.PRIORITY_MODE_OFF));
                     }
@@ -150,10 +152,16 @@ public class MainWindow extends UiPart<Stage> {
         return primaryStage;
     }
 
-    private void setElisaTextColor(Paint color) {
-        elisaText.setFill(color);
-        elisaDescription.setFill(color);
-        elisaDescription2.setFill(color);
+    private void setTextRed() {
+        elisaText.setFill(elisaTextRedColor);
+        elisaDescription.setFill(elisaDescRedColor);
+        elisaDescription2.setFill(elisaDescRedColor);
+    }
+
+    private void setTextDefault() {
+        elisaText.setFill(elisaTextBlueColor);
+        elisaDescription.setFill(elisaDescBlueColor);
+        elisaDescription2.setFill(elisaDescBlueColor);
     }
 
     /**
