@@ -155,39 +155,42 @@ Examples:
 // tag::delete[]
 === Deleting Finance : `delete`
 
-Deletes the specified income or expenditure from the finance manager. +
-Format: `delete INDEX`
+Deletes the specified Transaction or Budget from the finance manager. +
+Format: `delete TYPE+INDEX`
 
 ****
-* `TYPE` only accepts `in` or `out`. (e.g. `delete --out ...` refers to deleting an *expenditure*)
-* Deletes the item from the given category with it's given amount.
-* If there is no given category, it will only search for given type with it's corresponding amount.
-* If AMOUNT/ITEM/CATEGORY or a combination of any of the 3 does not match, no operation will be performed
-* example `delete --in 200 n/mom t/allowance` will delete income of *200* from type: *mom* and category: *allowance*.
+* `INDEX` refers to the target item number. (Items are sorted starting from the **latest** input added)
+* `TYPE` only accepts `t` (Transaction) or `b` (Budget). (e.g. `delete --b1` refers to deleting an *Budget* of index 1)
+* `TYPE+INDEX` requires the type and index to be placed in sequential order (e.g. `delete --b 1` or `delete --1` or `delete --1b` will not work)
+* Nothing will be deleted if the transaction or budget with `INDEX` does not exists.
+* example `delete --t1` will delete the first transaction from the list of transactions.
 ****
 
 Examples:
 
-* `delete 1`
+* `delete t1`
+* `delete b3`
 
 === Updating Finance : `update`
 
 Updates the specified income or expenditure from the finance manager. +
-Format: `update --TYPE $/AMOUNT1 $/AMOUNT2 n/ITEM [c/CATEGORY]`
+Format: `update TYPE+INDEX [$/AMOUNT] [d/date] [n/ITEM] [c/CATEGORY]`
+
 
 ****
-* `TYPE` only accepts `in` or `out`. (e.g. `update --out ...` refers to deleting an *expenditure*) *`AMOUNT1` is the new amount you want to update the current in/out with.
-* Updates the item from the given category with it's given amount.
-* If there is no given category, it will only search for given type with it's corresponding amount.
-* If AMOUNT/ITEM/CATEGORY or a combination of any of the 3 does not match, no operation will be performed
-* example `update --in $/100 $/200 n/mom c/allowance` will update income of *200* to *100* from type: *mom* and category: *allowance*.
+* `INDEX` refers to the target item number. (Items are sorted starting from the **latest** input added)
+* `Type` only accepts `t` (Transaction) or `b` (Budget). (e.g. `update --b1 ...` refers to updating a *Budget* of index 1)
+* `Type+INDEX` requires the type and index to be placed in sequential order (e.g. `update --b 1` or `update --1` or `update --1b` will not work)
+* `update` requires at least one field to be updated but also allows more than one field to be updated (e.g. `update t1 $/20 d/10102019 n/milk` and `update t1 $/10` will both be accepted but `update t1` will not be accepted)
+* Nothing will be updated if the transaction or budget with `INDEX` does not exists.
+* example `update --t1 $/3000 d/10102019` will update the first transaction from the list of transactions by changing it's *Amount* to $1000 and *Date* to 10/10/2019.
 ****
 
 Examples:
 
-* `update --out $/10 $/20 n/coke c/drinks`
-* `update --out $/100 300 n/transport`
-* `update --in $/60 70 n/dad`
+* `update t1 $/20 n/coke c/drinks d/12122019`
+* `update b2 $/300`
+* `update t4 $/30 d/12102019`
 
 === Sorting Transactions : `sort`
 
