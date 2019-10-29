@@ -1,6 +1,24 @@
 package seedu.address.model.help;
 
-import seedu.address.logic.commands.*;
+import seedu.address.logic.commands.AddClaimCommand;
+import seedu.address.logic.commands.AddContactCommand;
+import seedu.address.logic.commands.AddIncomeCommand;
+import seedu.address.logic.commands.ApproveClaimCommand;
+import seedu.address.logic.commands.BudgetCommand;
+import seedu.address.logic.commands.CheckCommand;
+import seedu.address.logic.commands.ClearCommand;
+import seedu.address.logic.commands.DeleteContactCommand;
+import seedu.address.logic.commands.DeleteIncomeCommand;
+import seedu.address.logic.commands.EditClaimCommand;
+import seedu.address.logic.commands.EditContactCommand;
+import seedu.address.logic.commands.EditIncomeCommand;
+import seedu.address.logic.commands.ExitCommand;
+import seedu.address.logic.commands.FindCommand;
+import seedu.address.logic.commands.GotoCommand;
+import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.RejectClaimCommand;
+import seedu.address.logic.commands.SortCommand;
+import seedu.address.logic.commands.SortReverseCommand;
 
 /**
  * Contains a brief descriptions of all the commands in FinSec
