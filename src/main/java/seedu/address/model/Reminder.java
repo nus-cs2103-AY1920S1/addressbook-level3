@@ -2,9 +2,15 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Objects;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import seedu.address.model.reminder.ReminderStub;
+
 
 /**
  * Reminder object with description and dates remaining
@@ -13,6 +19,7 @@ public class Reminder {
 
     private HashMap<String, Integer> reminders;
     private HashMap<String, Integer> followup;
+    private ArrayList<ReminderStub> reminderArrayList;
 
     /**
      * Initializes new Reminder object
@@ -20,6 +27,9 @@ public class Reminder {
     public Reminder() {
         reminders = new HashMap<>();
         followup = new HashMap<>();
+        // Stub for creating list for UI use
+        reminderArrayList = new ArrayList<ReminderStub>();
+        reminderArrayList.add(new ReminderStub("test", 1));
     }
 
     public static Reminder getDefaultReminders() {
@@ -103,6 +113,14 @@ public class Reminder {
             }
         }
         return sb.toString();
+    }
+
+    /**
+     * Example of method needed to return the list for view
+     * @return ObservableList of Reminder objects
+     */
+    public ObservableList<ReminderStub> getReminderList() {
+        return FXCollections.observableArrayList(this.reminderArrayList);
     }
 
     @Override
