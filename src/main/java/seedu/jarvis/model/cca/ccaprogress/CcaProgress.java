@@ -20,26 +20,12 @@ public class CcaProgress {
 
     }
 
-    public CcaMilestoneList getCcaProgressList() {
+    public CcaMilestoneList getCcaMilestoneList() {
         return ccaMilestoneList;
     }
 
-    public CcaCurrentProgress getCcaCurrentProgress() throws MaxProgressNotSetException {
+    public CcaCurrentProgress getCcaCurrentProgress() {
         return ccaCurrentProgress;
-    }
-
-    /**
-     * Gets the current progress percentage of the Cca.
-     */
-    public double getCcaProgressPercentage() {
-        if (ccaMilestoneListIsEmpty()) {
-            throw new MaxProgressNotSetException();
-        }
-
-        int ccaCurrentProgressInt = ccaCurrentProgress.getCurrentProgress();
-        double ccaProgressPercentage = ccaCurrentProgressInt / ccaMilestoneList.size();
-
-        return ccaProgressPercentage;
     }
 
     /**
@@ -67,6 +53,20 @@ public class CcaProgress {
      */
     public void setCcaCurrentProgress(CcaCurrentProgress ccaCurrentProgress) {
         this.ccaCurrentProgress.setCurrentProgress(ccaCurrentProgress.getCurrentProgress());
+    }
+
+    /**
+     * Gets the current progress percentage of the Cca.
+     */
+    public double getCcaProgressPercentage() {
+        if (ccaMilestoneListIsEmpty()) {
+            throw new MaxProgressNotSetException();
+        }
+
+        int ccaCurrentProgressInt = ccaCurrentProgress.getCurrentProgress();
+        double ccaProgressPercentage = ccaCurrentProgressInt / ccaMilestoneList.size();
+
+        return ccaProgressPercentage;
     }
 
     /**

@@ -1,6 +1,7 @@
 package seedu.jarvis.model.cca.ccaprogress;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.jarvis.commons.util.AppUtil.checkArgument;
 
 import seedu.jarvis.model.cca.exceptions.CcaProgressAtZeroException;
 
@@ -9,6 +10,8 @@ import seedu.jarvis.model.cca.exceptions.CcaProgressAtZeroException;
  */
 public class CcaCurrentProgress {
 
+    private static final String MESSAGE_CONSTRAINTS = "Current progress cannot be negative.";
+
     private int currentProgress = 0;
 
     /**
@@ -16,6 +19,11 @@ public class CcaCurrentProgress {
      */
     public CcaCurrentProgress() {
 
+    }
+
+    public void setCurrentProgress(int currentProgress) {
+        checkArgument(numberIsPositive(currentProgress), MESSAGE_CONSTRAINTS);
+        this.currentProgress = currentProgress;
     }
 
     public int getCurrentProgress() {
@@ -40,15 +48,6 @@ public class CcaCurrentProgress {
     }
 
     /**
-     * Sets the current progress.
-     *
-     * @param currentProgress to be updated.
-     */
-    public void setCurrentProgress(int currentProgress) {
-        this.currentProgress = currentProgress;
-    }
-
-    /**
      * Returns true of the progress is at 0.
      */
     public boolean progressAtMin() {
@@ -60,6 +59,20 @@ public class CcaCurrentProgress {
     }
 
     //// util methods
+
+    /**
+     * Method to check whether a number is negative.
+     *
+     * @param num
+     * @return a boolean.
+     */
+    public boolean numberIsPositive(int num) {
+        requireNonNull(num);
+        if (num >= 0) {
+            return true;
+        }
+        return false;
+    }
 
     /**
      * Method to check whether a number is less than one.
