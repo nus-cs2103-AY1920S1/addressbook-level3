@@ -124,26 +124,26 @@ public class UniqueTransactionListTest {
     }
 
     // TODO: FIX
-    // @Test
-    // public void setTransactions_nullUniqueTransactionList_throwsNullPointerException() {
-    //     assertThrows(
-    //     NullPointerException.class, () -> uniqueTransactionList.setTransactions((UniqueTransactionList) null));
-    // }
-    //
-    // @Test
-    // public void setTransactions_uniqueTransactionList_replacesOwnListWithProvidedUniqueTransactionList() {
-    //     uniqueTransactionList.add(ALICE);
-    //     UniqueTransactionList expectedUniqueTransactionList = new UniqueTransactionList();
-    //     expectedUniqueTransactionList.add(BENSON);
-    //     uniqueTransactionList.setTransactions(expectedUniqueTransactionList);
-    //     assertEquals(expectedUniqueTransactionList, uniqueTransactionList);
-    // }
-    //
-    // @Test
-    // public void setTransactions_nullList_throwsNullPointerException() {
-    //     assertThrows(
-    //     NullPointerException.class, () -> uniqueTransactionList.setTransactions((List<Transaction>) null));
-    // }
+     @Test
+     public void setTransactions_nullUniqueTransactionList_throwsNullPointerException() {
+         assertThrows(
+         NullPointerException.class, () -> uniqueTransactionList.setTransactions((List<BankAccountOperation>) null));
+     }
+
+     @Test
+     public void setTransactions_uniqueTransactionList_replacesOwnListWithProvidedUniqueTransactionList() {
+         uniqueTransactionList.add(ALICE);
+         UniqueTransactionList expectedUniqueTransactionList = new UniqueTransactionList();
+         expectedUniqueTransactionList.add(BENSON);
+         uniqueTransactionList.setTransactions(expectedUniqueTransactionList);
+         assertEquals(expectedUniqueTransactionList, uniqueTransactionList);
+     }
+
+     @Test
+     public void setTransactions_nullList_throwsNullPointerException() {
+         assertThrows(
+         NullPointerException.class, () -> uniqueTransactionList.setTransactions((List<BankAccountOperation>) null));
+     }
 
     @Test
     public void setTransactions_list_replacesOwnListWithProvidedList() {
