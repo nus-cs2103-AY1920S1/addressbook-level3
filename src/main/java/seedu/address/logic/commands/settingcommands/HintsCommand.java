@@ -26,4 +26,11 @@ public class HintsCommand extends SettingsCommand {
         return new CommandResult("Hints now set to: " + (this.hintsEnabled ? "ON" : "OFF"));
     }
 
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof HintsCommand // instanceof handles nulls
+                && hintsEnabled == ((HintsCommand) other).hintsEnabled);
+    }
+
 }

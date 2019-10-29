@@ -27,4 +27,11 @@ public class AvatarCommand extends SettingsCommand {
         return new CommandResult("Avatar now set to: " + (avatarId == 0 ? "RANDOM" : avatarId));
     }
 
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof AvatarCommand // instanceof handles nulls
+                && avatarId == ((AvatarCommand) other).avatarId);
+    }
+
 }

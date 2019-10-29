@@ -1,0 +1,21 @@
+@startuml
+!include style.puml
+
+title Continuation from Step 5
+
+box UI UI_COLOR_T1
+participant ":UI" as UI UI_COLOR
+participant ":UpdateUi" as UpdateUI UI_COLOR
+end box
+
+activate UI
+UI -> UpdateUI : updateModularDisplay()\n(Update UI Component)
+activate UpdateUI
+
+note right: Updates\nUI
+UpdateUI --> UI
+deactivate UpdateUI
+
+
+
+@enduml
