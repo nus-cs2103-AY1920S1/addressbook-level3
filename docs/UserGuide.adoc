@@ -145,6 +145,10 @@ Lists all StudyBuddy items with matching tags in the application.
         Title: Pipelining Defition
         Content: Pipelining is a process where..
         Tags: [cs2100]
+    Note Fragment: 3.1.
+        Title: About
+        Content: highlighted
+        Tags: [cs2100]
 
 The user is also able to specify a multiple number of tags.
 For example,
@@ -346,9 +350,9 @@ If there are both flashcards due for revision today and overdue flashcards:
         Content: Pipelining is a process where
         Tags: [cs2100]
 
-* More advanced usage: Intra-Note tagging is also supported. The intra-note tagging is added at the same time as the
-note is created. Intra-note tags are added with content `INTRA_CONTENT`, at least one tag `INTRA_TAG`, and any number
-of additional tags `ADDITIONAL_INTRA_TAG`:
+* More advanced usage: Intra-Note tagging of note fragments is also supported. The intra-note tagging is added at the
+same time as the note is created. Intra-note tags are added with content `INTRA_CONTENT`, at least one tag
+`INTRA_TAG`, and any number of additional tags `ADDITIONAL_INTRA_TAG`:
 
     Format (within CONTENT): /* C/INTRA_CONTENT TAG/INTRA_TAG [TAG/ADDITIONAL_INTRA_TAG]... */
 
@@ -361,7 +365,7 @@ NOTE: The format for Intra-Note content is 'C/', not 'c/', and the format for In
     Expected output:
     New note added:
         Title: About
-        Content: Notes can be /* C/highlighted TAG/highlight TAG/important */ if needed
+        Content: Notes can be /* C/highlighted TAG/cs2100 TAG/important */ if needed
         Tags: [about]
 
 * Multiple intra-note tags are allowed. These do not interfere with the other tags of the Note.
@@ -374,12 +378,12 @@ Deletes the note of index `NOTE_INDEX`.
 
     Format: delete (index)
 
-    Example usage: delete 6
+    Example usage: delete 3
 
     Expected output:
     Deleted note:
         Title: About
-        Content: Notes can be /* C/highlighted TAG/highlight TAG/important */ if needed
+        Content: Notes can be /* C/highlighted TAG/cs2100 TAG/important */ if needed
         Tags: [about]
 
 === Viewing a note: `view`
@@ -390,7 +394,7 @@ NOTE: To view the note with its intra-note tags, use the `viewraw` command inste
 
     Format: view (index)
 
-    Example usage: view 6
+    Example usage: view 3
 
     Expected output:
     Viewing note:
@@ -404,12 +408,12 @@ Views the note of index `NOTE_INDEX`. The note is shown exactly as written, incl
 
     Format: viewraw (index)
 
-    Example usage: viewraw 6
+    Example usage: viewraw 3
 
     Expected output:
     Viewing raw note:
         Title: About
-        Content: Notes can be /* C/highlighted TAG/highlight TAG/important */ if needed
+        Content: Notes can be /* C/highlighted TAG/cs2100 TAG/important */ if needed
         Tags: [about]
 
 === Listing notes: `list`
