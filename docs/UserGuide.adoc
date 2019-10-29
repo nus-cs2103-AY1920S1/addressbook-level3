@@ -487,7 +487,7 @@ Exports your events into your Desktop with the file name: `nJoy_Event_Schedule.i
 
 ==== Creating a note
 
-Create lightweight, digital notes and reminders quickly and easily as specified.+
+Create lightweight, digital notes and reminders quickly and easily as specified. +
 Format: `note note/... desc/... priority/... (optional)`
 
 The options supported by this feature includes:
@@ -532,7 +532,7 @@ Examples:
 * `note 1 note/changed title` +
 Edits the first note in the list to the title _'changed title'_.
 * `note 2 desc/give speech priority/unmarked` +
-Edits the description of the second question in the list to _’give speech’_ of unmarked/default priority.
+Edits the description of the second note in the list to _’give speech’_ of unmarked/default priority.
 
 ==== Deleting a note
 
@@ -556,16 +556,67 @@ Display the list of notes in the command result box. +
 Format: `note list`
 
 [NOTE]
-The note is rendered on the User Interface on load. However, note lengths that exceed the size of allocated panel might have their content truncated. Using the list function is useful in this case.
+The note is rendered on the User Interface on load. However, note lengths that exceed the size of allocated panel might have their content truncated. Using the list function is useful in this case to see the full content of the notes.
 
 The options supported by this feature includes: +
-*_-This command does not require any additional options-_*
+*_-This command does not support any additional options-_*
 
 Example:
 
 * `note list` +
 Lists the notes.
 
+=== Statistics - `statistics`
+
+==== Generating a Statistics report
+
+Create statistics reports of student scores using excel data files. +
+Format: `statistics file/... print/...(optional)`
+
+The options supported by this feature includes:
+
+. `file` - The absolute/relative file path of the data file.
+. `print(optional)` - The filename of the printable report you wish to generate.
+
+[NOTE]
+The statistics feature only supports file type in the ‘Excel’ format. Data files are to end with the _’.xlsx’_ extension.
+
+[NOTE]
+The `print` option allows the generation of a _'.png'_ file containing a snapshot of the statistics report generated. Regardless of the print specifications, a new window is opened with the statistics report.
+
+[NOTE]
+The statistics report is stored in the same place as where the JAR file is installed. The report can be found under a newly created `printable` directory. If the directory exists beforehand, no new directory is created.
+
+[NOTE]
+Filenames without _`.png`_ extension will automatically have the extension appended to the end of the file name.
+
+[NOTE]
+If the file name specified already exists in the printable directory, it will overwrite the existing file.
+
+Examples:
+
+* *View Statistics Report (without saving)*: `statistics file/C:\Users\SampleUser\Desktop\6B Prelim Scores.xlsx` +
+Shows the statistics report for excel file named _’6B Prelim Scores’_.
+
+* *View and Save Statistics Report*: `statistics file/C:\Users\SampleUser\Desktop\6B Prelim Scores.xlsx print/6B Prelim Performance Report` +
+Shows the statistics report for excel file named _’6B Prelim Scores’_. It also saves an image file containing a snapshot of the statistics report in the _’printable’_ directory with name _’6B Prelim Performance Report’_.
+
+*Data File Specifications*
+
+The data file needs to be specified in the following format to ensure that the statistics report is successfully generated. +
+
+WARNING: Failure to adhere to the following specifications might result in either the excel file being rejected or erroneous statistics.
+
+* *Data starts at cell A1.*
+* *First row begins with the cell `Students`, followed by their names. (e.g. row 1 of 4 cells having `Students`, `Jason`, `Mike` and `Peter`)*
+* *First column states the different subjects starting from the second topmost cell. (e.g column 1 of 4 cells having `Students`, `Math`, `Science` and `English`.)*
+* *All student names have unique identifiers. (e.g. two students named Jason should be identified as `Jason 1` and `Jason 2`)*
+* *All students have a corresponding score for all subjects*
+* *All scores are numeric characters (integer or decimals)*
+
+WARNING: Failure to adhere to the following specifications might result in some of the statistical data generated not being useful to the user.
+
+* *All scores should be in percentage terms. (0 ~ 100)*
 
 === Help ​-​ `help`
 
