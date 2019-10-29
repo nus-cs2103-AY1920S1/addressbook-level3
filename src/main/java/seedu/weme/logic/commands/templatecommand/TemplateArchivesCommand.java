@@ -1,6 +1,7 @@
 package seedu.weme.logic.commands.templatecommand;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.weme.model.Model.PREDICATE_SHOW_ALL_ARCHIVED_TEMPLATES;
 
 import seedu.weme.logic.commands.Command;
 import seedu.weme.logic.commands.CommandResult;
@@ -19,7 +20,7 @@ public class TemplateArchivesCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        model.updateFilteredMemeList(template -> template.isArchived());
+        model.updateFilteredTemplateList(PREDICATE_SHOW_ALL_ARCHIVED_TEMPLATES);
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

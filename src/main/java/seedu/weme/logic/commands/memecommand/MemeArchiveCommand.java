@@ -18,7 +18,7 @@ import seedu.weme.model.meme.Meme;
 import seedu.weme.model.tag.Tag;
 
 /**
- * Likes a meme in the display window.
+ * Archives a meme in the display window.
  */
 public class MemeArchiveCommand extends Command {
 
@@ -35,7 +35,7 @@ public class MemeArchiveCommand extends Command {
     private final Index index;
 
     /**
-     * @param index of the meme in the filtered meme list to like
+     * @param index of the meme in the filtered meme list to archive
      */
     public MemeArchiveCommand(Index index) {
         requireNonNull(index);
