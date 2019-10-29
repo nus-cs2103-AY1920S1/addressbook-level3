@@ -3,11 +3,11 @@ package seedu.billboard.logic.parser;
 import static seedu.billboard.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.billboard.logic.parser.CliSyntax.PREFIX_ARCHIVE;
 
+import java.util.NoSuchElementException;
+
 import seedu.billboard.commons.core.index.Index;
 import seedu.billboard.logic.commands.RevertArchiveCommand;
 import seedu.billboard.logic.parser.exceptions.ParseException;
-
-import java.util.NoSuchElementException;
 
 /**
  * Parses user input.

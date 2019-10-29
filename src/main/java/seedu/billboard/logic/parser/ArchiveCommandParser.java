@@ -1,8 +1,5 @@
 package seedu.billboard.logic.parser;
 
-import static seedu.billboard.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.billboard.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 

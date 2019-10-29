@@ -40,7 +40,8 @@ public class ListArchiveCommandTest {
     @Test
     public void execute_existingArchiveName_throwsCommandException() {
         ListArchiveCommand listArchiveCommand = new ListArchiveCommand("lalala");
-        assertCommandFailure(listArchiveCommand, model, Messages.MESSAGE_NONEXISTENT_ARCHIVE_ENTERED + "\n" + MESSAGE_USAGE);
+        assertCommandFailure(listArchiveCommand, model,
+                Messages.MESSAGE_NONEXISTENT_ARCHIVE_ENTERED + "\n" + MESSAGE_USAGE);
     }
 
     @Test
