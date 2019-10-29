@@ -456,6 +456,117 @@ debug and resolve problems in the code.
  +
 |===
 
+// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+=== [underline]#Word Bank data structure and it's features#
+A quick look at `WordBank` and `Card` through it's `UI`.
+{nbsp} +
+
+image::HomeCommands.png[]
+
+.`HomeCommands` and the `WordBank` it works on.
+image::WordBanks.png[]
+
+{nbsp} +
+
+image::CardCommands.png[]
+.`CardCommands` and the `Card` it works on.
+image::Cards.png[]
+{nbsp} +
+
+==== Data Structure Overview
+Internally, the `WordBank` contains an observable list.
+
+[NOTE]
+To avoid having the UI display different things with what is actually in the storage, the UI takes information from the
+internal observable list within `Word Bank`, and we manipulate the internal list through `Word Bank` class.
+
+.Class diagram of `Card`.
+image::MyCardClassDiagram.png[]
+
+.Class diagram of `Word Bank`.
+image::MyWordBankClassDiagram.png[]
+
+.Class diagram of `Word Bank List`.
+image::MyWordBankListClassDiagram.png[]
+
+.Simplified class diagram of `Model`.
+image::Model.png[]
+
+.Simplified class diagram of `Storage`.
+image::Storage.png[]
+
+==== Implementation of Word Bank functions Overview
+
+This section describes the sequential flow of events in updating of a `Card`
+
+.Sequence diagram describing the updating of `Card` using `CardCommands through different components
+image::mySequenceDiagram.png[]
+
+This section describes the sequential flow of events in updating of a `WordBank`
+
+.Sequence diagram describing the updating of `WordBank` using `HomeCommands through different components
+image::mySequenceDiagram.png[]
+
+==== Implementation of Drag and drop feature
+
+==== Design Considerations
+There were a few considerations for designing the `Word Bank` Data structure this way.
+// Talk about how the model contains WBL and WB, without reference to storage
+// Talk about logic is dealing with storage instead of model dealing with storage.
+
+|===
+||**Alternative 1**|**Alternative 2**
+|**Aspect 1**: +
+To do
+| **To do**: +
+
+_Pros:_ +
+To do
+
+_Cons:_ +
+To do
+
+|**To do** +
+
+_Pros:_ +
+To do
+
+_Cons:_ +
+To do
+
+3+|**Why did we choose Alternative X:** +
+To do
+|===
+
+There were a few considerations for designing the `Word Bank` functions this way.
+
+|===
+||**Alternative 1**|**Alternative 2**
+|**Aspect 1**: +
+To do
+| **To do**: +
+
+_Pros:_ +
+To do
+
+_Cons:_ +
+To do
+
+|**To do** +
+
+_Pros:_ +
+To do
+
+_Cons:_ +
+To do
+
+3+|**Why did we choose Alternative X:** +
+To do
+
+|===
+
+// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 // end::settings[]
 
