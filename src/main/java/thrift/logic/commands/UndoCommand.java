@@ -21,7 +21,7 @@ public class UndoCommand extends NonScrollingCommand {
 
     public static final String MESSAGE_SUCCESS = "Undo successful.";
 
-    public static final String NO_UNDOABLE_COMMAND = "No valid command to undo";
+    public static final String NO_UNDOABLE_COMMAND = "No valid command to undo.";
 
     @Override
     public CommandResult execute(Model model) throws CommandException {

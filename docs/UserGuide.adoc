@@ -11,6 +11,7 @@
 ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
+:warning-caption: :warning:
 endif::[]
 :repoURL: https://github.com/AY1920S1-CS2103T-W12-2/main
 
@@ -324,51 +325,66 @@ NOTE: Assume entry at index 1 is `[-] Laksa ($10.50) Date: 18/10/2019 Remarks: U
 
 [[UndoTag]]
 === Undoing the previous undoable command: `undo`
+Do not panic if you have accidentally made a mistake in THRIFT, like deleting the wrong transaction.
+THRIFT provides an `undo` command to solve your trouble! You can revert to the previous state
+of THRIFT using `undo`.
 
 Format: `undo`
 
-NOTE: Undoable commands are commands that modify the data of THRIFT application.
+NOTE: `Undo` can only apply to undoable commands. Undoable commands refers to commands that modify the data of the THRIFT application.
+
+WARNING: You cannot undo undoable commands once the application exits.
 
 .List of undoable commands[[Undoable]]:
-* <<ExpenseTag, add_expense>>
-* <<IncomeTag, add_income>>
-* <<DeleteTag, delete>>
-* <<UpdateTag, update>>
-* <<CloneTag, clone>>
-* <<TagTag, tag>>
-* <<UntagTag, untag>>
+* `<<ExpenseTag, add_expense>>`
+* `<<IncomeTag, add_income>>`
+* `<<DeleteTag, delete>>`
+* `<<UpdateTag, update>>`
+* `<<CloneTag, clone>>`
+* `<<TagTag, tag>>`
+* `<<UntagTag, untag>>`
+* `<<BudgetTag, budget>>`
 
-Examples:
+Examples: +
+Suppose you want to delete the second transaction (Bursary) in THRIFT, but you remove the third transaction instead!
+One possible solution is that you add the transaction manually back into THRIFT, but this is too troublesome! You can
+retrieve the deleted transaction by performing `undo`.
 
-* `add_expense n/Laksa v/10.50 t/Lunch t/Food` +
-  `undo`
+To `undo` the `delete` command:
 
-* `add_income n/Allowance v/1000 t/Monthly` +
-  `list` +
-  `undo`
+. Type *undo* into the command box and press kbd:[Enter]:
++
+image::UndoAndRedo/undocommand.PNG[, 600]
 
-Expected output:
-
-* Deletes the expense spent on Laksa from THRIFT.
-* Deletes the allowance income from THRIFT.
-
+. You will see a success message displays in the result box, and the transaction (Chicken Rice)
+adds back to its original position in the list:
++
+image::UndoAndRedo/undocommandresult.PNG[, 600]
 
 [[RedoTag]]
 === Redoing the undone command: `redo`
-
-Redo the <<Undoable, undoable command>> that was previously undone by the user.
+Misuse of `undo` command? No worries, THRIFT provides `redo` command to help you in this situation.
+You can restore back the previous state of the undone transaction.
 
 Format: `redo`
 
-Examples:
+NOTE: `Redo` command is only applicable to <<Undoable, undoable command>>.
 
-* `add_expense n/Laksa v/10.50 t/Lunch t/Food` +
-  `undo` +
-  `redo`
+WARNING: You cannot redo undone commands once the application exits or new undoable command is executed after `undo`.
 
-Expected output:
+Examples: +
+Suppose you had undone the addition of the transaction (Bursary) (See: <<UndoTag, Undoing the previous undoable command>>),
+but you decide to track the transaction using THRIFT. Instead of adding the transaction manually, you can add back
+the transaction by executing `redo`.
 
-* Adds the expense spent on Laksa back to THRIFT.
+. Type *redo* into the command box and press kbd:[Enter]:
++
+image::UndoAndRedo/redocommand.PNG[, 600]
+
+. You will see a success message displays in the result box and the transaction adds back to the list:
++
+image::UndoAndRedo/redocommandresult.PNG[, 600]
+
 
 [[FindTag]]
 === Finding transactions with keywords: `find`
@@ -414,27 +430,40 @@ Expected output:
 * Returns a list of all food expenses for the specified month.
 
 [[HelpTag]]
-
-
 === Displaying help page: `help`
+New to THRIFT? Or forget about some of the commands used in THRIFT? You can run *help* to obtain the link to this
+comprehensive user guide. It saves the trouble of saving the URL of this user guide.
 
 Format: `help [COMMAND]`
 
-Examples:
+Example: +
+Suppose you want to add a transaction to THRIFT, but you had forgotten about the command to perform this function.
 
-* `help`
-* `help delete`
+To get the URL of this user guide:
 
-Expected output:
+1. Type *help* in the command box and press kbd:[Enter]:
++
+image::Help-exit/helpcommand.PNG[]
 
-* Displays a detailed list of information regarding all the THRIFT commands.
-* Returns syntax of `delete` command.
+2. You will see the URL of the user guide in the popup window:
++
+image:Help-exit/userguideurl.PNG[]
+
+TIP: Alternative methods: press kbd:[F1] or click on *Help* in the menu bar, and then click on *Help* in its sub menu.
+
+If you still remember about `add_expense` command but had forgotten about how to use it. You can view a simplified version of this
+command by entering *help add_expense* instead of *help*.
+
+Below is a simplified version of the `add_expense` command:
+
+image::Help-exit/specifichelpcommand.PNG[]
 
 [[ExitTag]]
 === Exiting THRIFT application: `exit`
+Think about exiting THRIFT after you have added the transaction? You can enter *exit* in the
+command box or click on the close button at the top-right corner of the application.
 
 Format: `exit`
-
 
 === Generating an external report `[coming in v2.0]`
 
