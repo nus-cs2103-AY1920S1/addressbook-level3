@@ -100,9 +100,9 @@ public class AutoCompleteOverlay extends UiPart<Region> {
     private void handleMouseClicked() {
         StringBuilder sb = new StringBuilder();
         autoCompleteOverlay.getSelectionModel()
-            .getSelectedItem()
-            .getChildren()
-            .forEach(elem -> sb.append(((Text) elem).getText()));
+                .getSelectedItem()
+                .getChildren()
+                .forEach(elem -> sb.append(((Text) elem).getText()));
         selectionNotifier.notify(sb.toString());
     }
 

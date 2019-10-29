@@ -42,7 +42,7 @@ public class AutoCompleter {
             Map.entry("add", Set.of("-name", "-id", "-phone", "-address"))
     );
 
-    private static final String[] SUPPORTED_COMMANDS = new String[] {
+    private static final String[] SUPPORTED_COMMANDS = new String[]{
             ListPatientCommand.COMMAND_WORD,
             RegisterPatientCommand.COMMAND_WORD,
             EditPatientDetailsCommand.COMMAND_WORD,
@@ -100,7 +100,7 @@ public class AutoCompleter {
         if (currentQuery.matches("(.* )?(?<!-)\\w+\\s+$")) {
             try {
                 HashSet<String> available = new HashSet<>(SUPPORTED_ARGUMENTS.get(currentQuery.substring(0,
-                    currentQuery.indexOf(' '))));
+                        currentQuery.indexOf(' '))));
                 available.removeAll(Arrays.asList(currentQuery.split("\\s+")));
                 AutoCompleter autoCompleter = new AutoCompleter(available.toArray(String[]::new));
                 autoCompleter.currentQuery = currentQuery.substring(currentQuery.lastIndexOf(' ') + 1);
