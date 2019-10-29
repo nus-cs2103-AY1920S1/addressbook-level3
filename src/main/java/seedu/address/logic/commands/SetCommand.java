@@ -81,7 +81,7 @@ public class SetCommand extends Command implements ReversibleCommand {
         UserSettings editedUserSettings = createEditedUserSettings(userSettingsToEdit, setUserSettingsDescriptor);
 
         undoCommand = new SetCommand(getSettingsDescriptor(userSettingsToEdit), true);
-        redoCommand = new SetCommand(getSettingsDescriptor(editedUserSettings), true);
+        redoCommand = new SetCommand(getSetUserSettingsDescriptor(), true);
 
         model.setUserSettings(editedUserSettings);
 
@@ -104,11 +104,15 @@ public class SetCommand extends Command implements ReversibleCommand {
         return isUndoRedo;
     }
 
-    private SetUserSettingsDescriptor getSettingsDescriptor(UserSettings userSettingsToEdit) {
+    /**
+     * Returns a {@code SetUserSettingsDescriptor} from {@code UserSettings}.
+     *
+     */
+    private SetUserSettingsDescriptor getSettingsDescriptor(UserSettings userSettings) {
         SetUserSettingsDescriptor settingsDescriptor = new SetUserSettingsDescriptor();
-        settingsDescriptor.setLoanPeriod(new LoanPeriod(userSettingsToEdit.getLoanPeriod()));
-        settingsDescriptor.setRenewPeriod(new RenewPeriod(userSettingsToEdit.getRenewPeriod()));
-        settingsDescriptor.setFineIncrement(new FineIncrement(userSettingsToEdit.getFineIncrement()));
+        settingsDescriptor.setLoanPeriod(new LoanPeriod(userSettings.getLoanPeriod()));
+        settingsDescriptor.setRenewPeriod(new RenewPeriod(userSettings.getRenewPeriod()));
+        settingsDescriptor.setFineIncrement(new FineIncrement(userSettings.getFineIncrement()));
 
         return settingsDescriptor;
     }

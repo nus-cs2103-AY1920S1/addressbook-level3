@@ -22,7 +22,7 @@ import seedu.address.model.loan.LoanList;
 /**
  * Edits the details of an existing Borrower in the borrower record.
  */
-public class EditBorrowerCommand extends Command {
+public class EditBorrowerCommand extends Command implements ReversibleCommand {
 
     public static final String COMMAND_WORD = "edit";
 
@@ -41,14 +41,29 @@ public class EditBorrowerCommand extends Command {
             + "\n"
             + MESSAGE_USAGE;
 
-
     private final EditBorrowerDescriptor editBorrowerDescriptor;
+    private final boolean isUndoRedo;
+    private Command undoCommand;
+    private Command redoCommand;
 
     /**
      * @param editBorrowerDescriptor details to edit the borrower with
      */
     public EditBorrowerCommand(EditBorrowerDescriptor editBorrowerDescriptor) throws CommandException {
         requireNonNull(editBorrowerDescriptor);
+        this.isUndoRedo = false;
+
+        this.editBorrowerDescriptor = new EditBorrowerDescriptor(editBorrowerDescriptor);
+    }
+
+    /**
+     * @param editBorrowerDescriptor details to edit the borrower with
+     * @param isUndoRedo used to check whether the DoneCommand is an undo/redo command.
+     */
+    public EditBorrowerCommand(EditBorrowerDescriptor editBorrowerDescriptor, boolean isUndoRedo)
+            throws CommandException {
+        requireNonNull(editBorrowerDescriptor);
+        this.isUndoRedo = isUndoRedo;
 
         this.editBorrowerDescriptor = new EditBorrowerDescriptor(editBorrowerDescriptor);
     }
@@ -70,6 +85,9 @@ public class EditBorrowerCommand extends Command {
 
         Borrower borrowerToEdit = model.getServingBorrower();
         Borrower editedBorrower = createEditedBorrower(borrowerToEdit, editBorrowerDescriptor);
+        
+        undoCommand = new EditBorrowerCommand(getBorrowerDescriptor(borrowerToEdit), true);
+        redoCommand = new EditBorrowerCommand(editBorrowerDescriptor, true);
 
         if (model.hasDuplicatedBorrower(editedBorrower)) {
             throw new CommandException(MESSAGE_DUPLICATE_BORROWER);
@@ -78,6 +96,35 @@ public class EditBorrowerCommand extends Command {
         model.setBorrower(borrowerToEdit, editedBorrower);
         model.setServingBorrower(editedBorrower);
         return new CommandResult(String.format(MESSAGE_EDIT_BORROWER_SUCCESS, editedBorrower.toFullString()));
+    }
+
+    @Override
+    public Command getUndoCommand() {
+        return undoCommand;
+    }
+
+    @Override
+    public Command getRedoCommand() {
+        return redoCommand;
+    }
+
+    @Override
+    public boolean isUndoRedoCommand() {
+        return isUndoRedo;
+    }
+
+    /**
+     * Returns a {@code EditBorrowerDescriptor} from {@code Borrower}.
+     *
+     */
+    private EditBorrowerDescriptor getBorrowerDescriptor(Borrower borrower) {
+        EditBorrowerDescriptor borrowerDescriptor = new EditBorrowerDescriptor();
+        borrowerDescriptor.setId(borrower.getBorrowerId());
+        borrowerDescriptor.setName(borrower.getName());
+        borrowerDescriptor.setEmail(borrower.getEmail());
+        borrowerDescriptor.setPhone(borrower.getPhone());
+
+        return borrowerDescriptor;
     }
 
     /**
