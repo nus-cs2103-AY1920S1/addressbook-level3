@@ -30,6 +30,10 @@ import seedu.address.logic.commands.task.AddTaskForQuestionCommand;
 import seedu.address.logic.commands.task.ClearTaskCommand;
 import seedu.address.logic.commands.task.DeleteTaskCommand;
 import seedu.address.logic.commands.task.DoneTaskCommand;
+import seedu.address.logic.commands.task.ListAllTaskCommand;
+import seedu.address.logic.commands.task.ListDoneTaskCommand;
+import seedu.address.logic.commands.task.ListNotDoneTaskCommand;
+import seedu.address.logic.commands.task.ListOverdueTaskCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.parser.note.AddNoteCommandParser;
 import seedu.address.logic.parser.note.DeleteNoteCommandParser;
@@ -144,6 +148,18 @@ public class AppDataParser {
 
         case ClearTaskCommand.COMMAND_WORD:
             return new ClearTaskCommand();
+
+        case ListDoneTaskCommand.COMMAND_WORD:
+            return new ListDoneTaskCommand();
+
+        case ListNotDoneTaskCommand.COMMAND_WORD:
+            return new ListNotDoneTaskCommand();
+
+        case ListAllTaskCommand.COMMAND_WORD:
+            return new ListAllTaskCommand();
+
+        case ListOverdueTaskCommand.COMMAND_WORD:
+            return new ListOverdueTaskCommand();
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

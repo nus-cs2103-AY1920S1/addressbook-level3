@@ -22,7 +22,7 @@ public class StatsQns extends UiPart<Region> {
     private final Logger logger = LogsCenter.getLogger(StatsQns.class);
 
     @FXML
-    private ListView quizResultListView;
+    private ListView<QuizResult> quizResultListView;
     @FXML
     private PieChart quizResultDifficultyChart;
 

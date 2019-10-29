@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+import java.time.LocalDateTime;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -20,17 +21,21 @@ import seedu.address.model.task.Task;
  * The API of the Model component.
  */
 public interface Model {
-    /**
-     * {@code Predicate} that always evaluate to true
-     */
     Predicate<Note> PREDICATE_SHOW_ALL_NOTES = unused -> true;
 
-    /**
-     * {@code Predicate} that always evaluate to false
-     */
-    Predicate<Note> PREDICATE_SHOW_NO_NOTES = unused -> false;
+    Predicate<Task> PREDICATE_SHOW_NO_TASKS = task -> false;
 
     Predicate<Task> PREDICATE_SHOW_ALL_TASKS = unused -> true;
+
+    Predicate<Task> PREDICATE_SHOW_DONE_TASKS = Task::getStatus;
+
+    Predicate<Task> PREDICATE_SHOW_NOT_DONE_TASKS = task -> !task.getStatus();
+
+    Predicate<Task> PREDICATE_SHOW_OVERDUE_TASKS = task -> {
+        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime taskDateTime = LocalDateTime.of(task.getDate(), task.getTime());
+        return !task.getStatus() && taskDateTime.isBefore(now);
+    };
 
     /**
      * {@code Predicate} that always evaluate to true

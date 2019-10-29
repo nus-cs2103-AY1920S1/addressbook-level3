@@ -66,9 +66,8 @@ dependencies {
 }
 
 shadowJar {
-    archiveName = 'nustudy.jar'
-
-    destinationDir = file("${buildDir}/jar/")
+    archiveBaseName = 'nustudy'
+    destinationDirectory = file("${buildDir}/jar/")
 }
 
 test {
