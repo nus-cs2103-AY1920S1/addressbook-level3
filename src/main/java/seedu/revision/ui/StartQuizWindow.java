@@ -23,6 +23,7 @@ import seedu.revision.model.answerable.Mcq;
 import seedu.revision.model.answerable.TrueFalse;
 import seedu.revision.ui.answers.AnswersGridPane;
 import seedu.revision.ui.answers.McqAnswersGridPane;
+import seedu.revision.ui.answers.SaqAnswersGridPane;
 import seedu.revision.ui.answers.TfAnswersGridPane;
 
 
@@ -73,7 +74,7 @@ public class StartQuizWindow extends Window {
         } else if (currentAnswerable instanceof TrueFalse) {
             answersGridPane = new TfAnswersGridPane(AnswersGridPane.TF_GRID_PANE_FXML, currentAnswerable);
         } else {
-
+            answersGridPane = new SaqAnswersGridPane(AnswersGridPane.SAQ_GRID_PANE_FXML, currentAnswerable);
         }
 
         answerableListPanelPlaceholder.getChildren().add(answersGridPane.getRoot());
