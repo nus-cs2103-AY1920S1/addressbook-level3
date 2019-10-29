@@ -33,7 +33,7 @@ to get started.
 
 == Quick Start
 
-Below is a list of things to do to use the application:
+Below is a list of things to do to use ORGANice:
 
 1.  Ensure you have Java `11` or above installed in your computer. +
 If not, install it link:{javaURL}[here].
@@ -154,7 +154,7 @@ a person and the criteria for valid inputs:
 
 === Viewing help : `help`
 There may be times where you do not understand how ORGANice works, or you need a simple reminder on how to use
-ORGANice. This command allows you to access the user guide to ORGANice.
+ORGANice. To access the user guide of ORGANice, you can do the following:
 
 . Type `help` in the Command Box and press kbd:[Enter].
 . A new window is launched, as shown in Figure 3. Open the link in a browser to read this document.
