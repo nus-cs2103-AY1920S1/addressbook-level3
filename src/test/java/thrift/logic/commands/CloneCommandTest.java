@@ -195,7 +195,7 @@ public class CloneCommandTest {
     }
 
     @Test
-    public void undo_undoCloneCommandNoOccurrence_success() {
+    public void undo_undoCloneCommandExpenseWithNoOccurrence_success() {
         Model expectedModel = new ModelManager(model.getThrift(), new UserPrefs(), new PastUndoableCommands());
 
         Transaction transactionToClone = model.getFilteredTransactionList()
@@ -223,7 +223,7 @@ public class CloneCommandTest {
     }
 
     @Test
-    public void redo_redoCloneCommandNoOccurrence_success() {
+    public void redo_redoCloneCommandExpenseWithNoOccurrence_success() {
         Model expectedModel = new ModelManager(model.getThrift(), new UserPrefs(), new PastUndoableCommands());
 
         Transaction transactionToClone = model.getFilteredTransactionList()
@@ -251,6 +251,66 @@ public class CloneCommandTest {
 
         //redo
         expectedModel.addExpense(expectedTransaction);
+        assertRedoCommandSuccess(cloneCommand, model, expectedModel);
+    }
+
+    @Test
+    public void undo_undoCloneCommandIncomeWithNoOccurrence_success() {
+        Model expectedModel = new ModelManager(model.getThrift(), new UserPrefs(), new PastUndoableCommands());
+
+        Transaction transactionToClone = model.getFilteredTransactionList()
+                .get(TypicalIndexes.INDEX_SECOND_TRANSACTION.getZeroBased());
+
+        Income expectedTransaction = new IncomeBuilder()
+                .withDescription(transactionToClone.getDescription().value)
+                .withDate(DATE_FORMATTER.format(new Date()))
+                .withValue(transactionToClone.getValue().getUnformattedString())
+                .withRemark(transactionToClone.getRemark().value)
+                .withTags(transactionToClone.getTags().stream().map(tag -> tag.tagName).toArray(String[]::new))
+                .build();
+
+        //simulates user performing clone command
+        expectedModel.addIncome(expectedTransaction);
+        String expectedMessage = String.format(CloneCommand.MESSAGE_CLONE_TRANSACTION_SUCCESS, transactionToClone)
+                + "\n" + String.format(CloneCommand.MESSAGE_NUM_CLONED_TRANSACTIONS, "daily", 1);
+        CloneCommand cloneCommand = new CloneCommand(TypicalIndexes.INDEX_SECOND_TRANSACTION,
+                new Occurrence("daily", 1));
+        assertCommandSuccess(cloneCommand, model, expectedMessage, expectedModel);
+
+        //undo
+        expectedModel.deleteLastTransaction();
+        assertUndoCommandSuccess(cloneCommand, model, expectedModel);
+    }
+
+    @Test
+    public void redo_redoCloneCommandIncomeWithNoOccurrence_success() {
+        Model expectedModel = new ModelManager(model.getThrift(), new UserPrefs(), new PastUndoableCommands());
+
+        Transaction transactionToClone = model.getFilteredTransactionList()
+                .get(TypicalIndexes.INDEX_SECOND_TRANSACTION.getZeroBased());
+
+        Income expectedTransaction = new IncomeBuilder()
+                .withDescription(transactionToClone.getDescription().value)
+                .withDate(DATE_FORMATTER.format(new Date()))
+                .withValue(transactionToClone.getValue().getUnformattedString())
+                .withRemark(transactionToClone.getRemark().value)
+                .withTags(transactionToClone.getTags().stream().map(tag -> tag.tagName).toArray(String[]::new))
+                .build();
+
+        //simulates user performing clone command
+        expectedModel.addIncome(expectedTransaction);
+        String expectedMessage = String.format(CloneCommand.MESSAGE_CLONE_TRANSACTION_SUCCESS, transactionToClone)
+                + "\n" + String.format(CloneCommand.MESSAGE_NUM_CLONED_TRANSACTIONS, "daily", 1);
+        CloneCommand cloneCommand = new CloneCommand(TypicalIndexes.INDEX_SECOND_TRANSACTION,
+                new Occurrence("daily", 1));
+        assertCommandSuccess(cloneCommand, model, expectedMessage, expectedModel);
+
+        //undo
+        expectedModel.deleteLastTransaction();
+        assertUndoCommandSuccess(cloneCommand, model, expectedModel);
+
+        //redo
+        expectedModel.addIncome(expectedTransaction);
         assertRedoCommandSuccess(cloneCommand, model, expectedModel);
     }
 

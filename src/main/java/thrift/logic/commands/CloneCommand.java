@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static thrift.commons.util.CollectionUtil.requireAllNonNull;
 import static thrift.model.transaction.TransactionDate.DATE_FORMATTER;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Set;
@@ -42,7 +43,7 @@ public class CloneCommand extends ScrollingCommand implements Undoable {
             + "\nPossible usage of " + COMMAND_WORD + ": \n"
             + "To clone the transaction at index 8 in the displayed transaction list: "
             + COMMAND_WORD + " " + CliSyntax.PREFIX_INDEX + "8\n"
-            + "To clone the transaction at index 8 5 times across next 5 months (including current month):"
+            + "To clone the transaction at index 8 5 times across next 5 months (including current month): "
             + COMMAND_WORD + " " + CliSyntax.PREFIX_INDEX + "8 " + CliSyntax.PREFIX_OCCURRENCE + "monthly:5";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
@@ -58,12 +59,13 @@ public class CloneCommand extends ScrollingCommand implements Undoable {
     public static final String MESSAGE_CLONE_TRANSACTION_SUCCESS = "Cloned transaction: %1$s";
     public static final String MESSAGE_NUM_CLONED_TRANSACTIONS = "(Cloned %s %d times)";
 
-    public static final String UNDO_SUCCESS = "Deleted cloned transaction: %1$s";
-    public static final String REDO_SUCCESS = "Added cloned transaction: %1$s";
+    public static final String UNDO_SUCCESS = "Deleted cloned transaction(s):\n%1$s";
+    public static final String REDO_SUCCESS = "Added cloned transaction(s):\n%1$s";
 
     private final Index targetIndex;
     private final Occurrence occurrence;
-    private Transaction clonedTransaction;
+    private int frequencyCalendarField;
+    private ArrayList<Transaction> clonedTransactionList;
 
     /**
      * Creates a CloneCommand instance to clone an {@code Expense} or {@code Income}
@@ -76,7 +78,8 @@ public class CloneCommand extends ScrollingCommand implements Undoable {
         requireNonNull(occurrence);
         this.targetIndex = targetIndex;
         this.occurrence = occurrence;
-        this.clonedTransaction = null;
+        this.clonedTransactionList = new ArrayList<>();
+        this.frequencyCalendarField = 0;
     }
 
     @Override
@@ -89,20 +92,20 @@ public class CloneCommand extends ScrollingCommand implements Undoable {
         }
 
         Transaction transactionToClone = lastShownList.get(targetIndex.getZeroBased());
-        int frequencyCalendarField = occurrence.getFrequencyCalendarField();
+        frequencyCalendarField = occurrence.getFrequencyCalendarField();
 
         for (int i = 0; i < occurrence.getNumOccurrences(); i++) {
             Calendar calendar = Calendar.getInstance();
             calendar.add(frequencyCalendarField, i);
             String date = DATE_FORMATTER.format(calendar.getTime());
 
-            clonedTransaction = createClonedTransaction(transactionToClone, date);
+            Transaction clonedTransaction = createClonedTransaction(transactionToClone, date);
+            clonedTransactionList.add(clonedTransaction);
             if (clonedTransaction instanceof Expense) {
                 model.addExpense((Expense) clonedTransaction);
             } else if (clonedTransaction instanceof Income) {
                 model.addIncome((Income) clonedTransaction);
             }
-
             // Use null comparison instead of requireNonNull(transactionListPanel) as current JUnit tests are unable to
             // handle JavaFX initialization
             if (transactionListPanel != null && model.isInView(clonedTransaction)) {
@@ -146,19 +149,33 @@ public class CloneCommand extends ScrollingCommand implements Undoable {
 
     @Override
     public String undo(Model model) {
-        requireNonNull(model);
-        Transaction deletedTransaction = model.deleteLastTransaction();
-        return String.format(UNDO_SUCCESS, deletedTransaction);
+        requireAllNonNull(model, occurrence);
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < occurrence.getNumOccurrences(); i++) {
+            Transaction deleteTransaction = model.deleteLastTransaction();
+            sb.append(deleteTransaction).append("\n");
+        }
+        sb.deleteCharAt(sb.length() - 1);
+        return String.format(UNDO_SUCCESS, sb.toString());
     }
 
     @Override
     public String redo(Model model) {
-        requireAllNonNull(model, clonedTransaction);
-        if (clonedTransaction instanceof Expense) {
-            model.addExpense((Expense) clonedTransaction);
-        } else if (clonedTransaction instanceof Income) {
-            model.addIncome((Income) clonedTransaction);
+        requireAllNonNull(model, occurrence);
+        assert frequencyCalendarField == Calendar.DATE || frequencyCalendarField == Calendar.WEEK_OF_YEAR
+                || frequencyCalendarField == Calendar.MONTH || frequencyCalendarField == Calendar.YEAR;
+        assert clonedTransactionList.size() > 0;
+
+        StringBuilder sb = new StringBuilder();
+        for (Transaction clonedTransaction : clonedTransactionList) {
+            if (clonedTransaction instanceof Expense) {
+                model.addExpense((Expense) clonedTransaction);
+            } else if (clonedTransaction instanceof Income) {
+                model.addIncome((Income) clonedTransaction);
+            }
+            sb.append(clonedTransaction).append("\n");
         }
-        return String.format(REDO_SUCCESS, clonedTransaction);
+        sb.deleteCharAt(sb.length() - 1);
+        return String.format(REDO_SUCCESS, sb.toString());
     }
 }
