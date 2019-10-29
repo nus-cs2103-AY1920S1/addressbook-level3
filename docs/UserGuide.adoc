@@ -208,5 +208,6 @@ e.g. `find team outing`
 * *Help* : `help`
 * *PDF* : `pdf`
 * *Redo* : `redo`
+* *Sort* : `sort ORDER`
 * *Undo* : `undo`
 
