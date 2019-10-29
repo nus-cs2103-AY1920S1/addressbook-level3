@@ -49,7 +49,7 @@ public class EditCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Engagement> lastShownList = model.getSortedEngagementList();
+        List<Engagement> lastShownList = model.getFilteredEngagementList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_ENGAGEMENT_DISPLAYED_INDEX);
