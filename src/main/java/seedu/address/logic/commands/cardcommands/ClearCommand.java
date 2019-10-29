@@ -25,6 +25,6 @@ public class ClearCommand extends CardCommand {
         requireNonNull(model);
         model.clearWordBank();
         model.clearWordBankStatistics();
-        return new CommandResult(MESSAGE_SUCCESS);
+        return new CardCommandResult(MESSAGE_SUCCESS);
     }
 }

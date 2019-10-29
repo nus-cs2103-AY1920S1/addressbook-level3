@@ -221,7 +221,7 @@ class AppManagerTest {
         }
 
         @Override
-        public Path getAddressBookFilePath() {
+        public Path getWordBanksFilePath() {
             return null;
         }
 

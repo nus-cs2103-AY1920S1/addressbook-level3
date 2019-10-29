@@ -72,6 +72,7 @@ public class ModelManager implements Model {
         filteredCards = new FilteredList<>(this.currentWordBank.getCardList());
     }
 
+
     public ModelManager() {
         this(new WordBankList(Collections.emptyList()),
                 new WordBankStatisticsList(Collections.emptyList()),
@@ -277,20 +278,11 @@ public class ModelManager implements Model {
 
     /**
      * Returns an unmodifiable view of the list of {@code Card} backed by the internal list of
-     * {@code versionedAddressBook} // todo what is this versionedAddressBook?
+     * {@code versionedDukemon}
      */
     @Override
     public ObservableList<Card> getFilteredCardList() {
         return filteredCards;
-    }
-
-    /**
-     * Returns an unmodifiable view of the list of {@code Card} backed by the internal list of
-     * {@code versionedAddressBook} // todo what is this versionedAddressBook?
-     */
-    @Override
-    public ObservableList<WordBank> getFilteredWordBankList() {
-        return wordBankList.getFilteredWordBankList();
     }
 
     @Override

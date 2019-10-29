@@ -39,21 +39,17 @@ public interface Logic extends UiLogicHelper {
     /**
      * Returns the AddressBook.
      *
-     * @see seedu.address.model.Model#getCurrenWordBank()
+     * @see seedu.address.model.Model#getCurrentWordBank()
      */
     ReadOnlyWordBank getAddressBook();
 
-    /** Returns an unmodifiable view of the filtered list of persons */
+    /** Returns an unmodifiable view of the filtered list of cards */
     ObservableList<Card> getFilteredPersonList();
 
-
-    /** Returns an unmodifiable view of the filtered list of persons */
-    ObservableList<WordBank> getFilteredWordBankList();
-
     /**
-     * Returns the user prefs' address book file path.
+     * Returns the user prefs' word banks file path.
      */
-    Path getAddressBookFilePath();
+    Path getWordBanksFilePath();
 
     /**
      * Returns the user prefs' GUI settings.

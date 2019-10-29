@@ -103,12 +103,7 @@ public class LogicManager implements Logic, UiLogicHelper {
     }
 
     @Override
-    public ObservableList<WordBank> getFilteredWordBankList() {
-        return model.getFilteredWordBankList();
-    }
-
-    @Override
-    public Path getAddressBookFilePath() {
+    public Path getWordBanksFilePath() {
         return model.getWordBankFilePath();
     }
 

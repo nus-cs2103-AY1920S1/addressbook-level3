@@ -21,7 +21,6 @@ import seedu.address.model.appsettings.AppSettings;
 import seedu.address.model.card.Card;
 import seedu.address.model.globalstatistics.GlobalStatistics;
 import seedu.address.model.wordbank.ReadOnlyWordBank;
-import seedu.address.model.wordbank.WordBank;
 import seedu.address.model.wordbankstatslist.WordBankStatisticsList;
 import seedu.address.statistics.GameStatistics;
 import seedu.address.statistics.GameStatisticsBuilder;
@@ -166,16 +165,12 @@ public class AppManager {
         return logic.getFilteredPersonList();
     }
 
-    public ObservableList<WordBank> getFilteredWordBankList() {
-        return logic.getFilteredWordBankList();
-    }
-
     public GuiSettings getGuiSettings() {
         return logic.getGuiSettings();
     }
 
     public Path getAddressBookFilePath() {
-        return logic.getAddressBookFilePath();
+        return logic.getWordBanksFilePath();
     }
 
     // <---------------------------------------- CallBacks to Pass Into Timer------------------------------------>
