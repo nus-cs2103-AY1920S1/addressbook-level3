@@ -88,10 +88,10 @@ public class EditCommand extends UndoableCommand {
                 && (editItemDescriptor.getHasDeleteReminder() //Checks if Reminder was deleted or has an update
                 || (oldItem.getReminder().isEmpty() && editItemDescriptor.getReminder().isEmpty()))) {
             model.deleteItem(oldItem);
-            return new CommandResult(String.format(MESSAGE_EDIT_ITEM_SUCCESS, oldItem));
+            return new CommandResult(String.format(DeleteCommand.MESSAGE_DELETE_ITEM_SUCCESS, oldItem));
         } else {
             editedItem = createEditedItem(oldItem, editItemDescriptor, lastShownList);
-            model.replaceItem(oldItem, editedItem);
+            model.editItem(oldItem, editedItem);
             this.editedItem = editedItem; //Is this line of code necessary?
             return new CommandResult(String.format(MESSAGE_EDIT_ITEM_SUCCESS, editedItem));
         }
@@ -99,7 +99,7 @@ public class EditCommand extends UndoableCommand {
 
     @Override
     public void reverse(ItemModel model) throws CommandException {
-        model.replaceItem(editedItem, oldItem);
+        model.editItem(editedItem, oldItem);
     }
 
     /**
