@@ -34,7 +34,6 @@ public class HelpWindow extends UiPart<Stage> {
      */
     public HelpWindow(Stage root) {
         super(FXML, root);
-        helpMessage.setText(HELP_MESSAGE);
     }
 
     /**
@@ -66,6 +65,7 @@ public class HelpWindow extends UiPart<Stage> {
         logger.fine("Showing help page about the application.");
         getRoot().show();
         getRoot().centerOnScreen();
+        helpMessage.setText(HELP_MESSAGE);
     }
 
     /**
