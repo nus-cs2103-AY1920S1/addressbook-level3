@@ -32,20 +32,6 @@
     -fx-opacity: 1;
 }
 
-.label-highlighted {
-    -fx-font-size: 12pt;
-    -fx-font-family: "Segoe UI Semibold";
-    -fx-text-fill: #5293ff;
-    -fx-opacity: 1;
-}
-
-.label-unhighlighted {
-    -fx-font-size: 12pt;
-    -fx-font-family: "Segoe UI Semibold";
-    -fx-text-fill: #000000;
-    -fx-opacity: 1;
-}
-
 .text-field {
     -fx-font-size: 12pt;
     -fx-font-family: "Segoe UI Semibold";
