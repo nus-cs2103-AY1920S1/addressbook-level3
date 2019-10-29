@@ -16,6 +16,6 @@
             </center>
       </BorderPane>
 
-      <ListView fx:id="categoryListView" VBox.vgrow="ALWAYS" />
+      <ListView fx:id="categoryListView" prefHeight="20" VBox.vgrow="ALWAYS" />
 
 </VBox>

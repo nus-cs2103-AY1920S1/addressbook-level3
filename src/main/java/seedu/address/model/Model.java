@@ -41,6 +41,8 @@ public interface Model {
      */
     void setGuiSettings(GuiSettings guiSettings);
 
+    void setStyleSheet(String string);
+
     /**
      * Returns the user prefs' address book file path.
      */

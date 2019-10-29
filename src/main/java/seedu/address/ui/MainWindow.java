@@ -24,11 +24,12 @@ import seedu.address.ui.calendar.CalendarWindow;
  */
 public class MainWindow extends UiPart<Stage> {
 
+    private static String stylesheet;
     private static final String FXML = "MainWindow.fxml";
+    private static Stage primaryStage;
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
-    private Stage primaryStage;
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
@@ -66,10 +67,10 @@ public class MainWindow extends UiPart<Stage> {
         // Set dependencies
         this.primaryStage = primaryStage;
         this.logic = logic;
-
+        //primaryStage.getScene().getStylesheets().add("view/LightTheme.css");
         // Configure the UI
         setWindowDefaultSize(logic.getGuiSettings());
-
+        setStyleSheet(logic.getGuiSettings());
         setAccelerators();
 
         helpWindow = new HelpWindow();
@@ -147,6 +148,18 @@ public class MainWindow extends UiPart<Stage> {
             primaryStage.setY(guiSettings.getWindowCoordinates().getY());
         }
     }
+    //@@ author shutingy
+    public static void setStyleSheet(GuiSettings guiSettings) {
+        stylesheet = guiSettings.getStyleSheets();
+        primaryStage.getScene().getStylesheets().add(stylesheet);
+    }
+    //@@ author shutingy
+    public static void setStylesheet(String newStylesheet) {
+        primaryStage.getScene().getStylesheets().remove(stylesheet);
+        stylesheet = newStylesheet;
+        primaryStage.getScene().getStylesheets().add(stylesheet);
+    }
+
 
     /**
      * Opens the help window or focuses on it if it's already opened.
@@ -170,7 +183,10 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private void handleExit() {
         GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
-                (int) primaryStage.getX(), (int) primaryStage.getY());
+                (int) primaryStage.getX(), (int) primaryStage.getY(),
+                 stylesheet);
+        System.out.println(stylesheet);
+        System.out.println(guiSettings);
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();

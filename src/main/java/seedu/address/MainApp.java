@@ -145,8 +145,10 @@ public class MainApp extends Application {
 
         UserPrefs initializedPrefs;
         try {
+            System.out.println("Pre try");
             Optional<UserPrefs> prefsOptional = storage.readUserPrefs();
             initializedPrefs = prefsOptional.orElse(new UserPrefs());
+            System.out.println("initialPreds: " + initializedPrefs);
         } catch (DataConversionException e) {
             logger.warning("UserPrefs file at " + prefsFilePath + " is not in the correct format. "
                     + "Using default user prefs");

@@ -3,8 +3,10 @@ package seedu.address.ui;
 import static java.util.Objects.requireNonNull;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.TextArea;
 import javafx.scene.layout.Region;
+import javafx.scene.paint.Paint;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
 
 /**
  * A ui for the status bar that is displayed at the header of the application.
@@ -12,17 +14,24 @@ import javafx.scene.layout.Region;
 public class ResultDisplay extends UiPart<Region> {
 
     private static final String FXML = "ResultDisplay.fxml";
-
+    private static String color = "white";
     @FXML
-    private TextArea resultDisplay;
+    private TextFlow resultDisplay;
 
     public ResultDisplay() {
         super(FXML);
     }
 
+    public static void setColor(String newColor) {
+        color = newColor;
+    }
+
     public void setFeedbackToUser(String feedbackToUser) {
         requireNonNull(feedbackToUser);
-        resultDisplay.setText(feedbackToUser);
+        Text text = new Text(feedbackToUser);
+        text.setFill(Paint.valueOf(color));
+        resultDisplay.getChildren().clear();
+        resultDisplay.getChildren().add(text);
     }
 
 }
