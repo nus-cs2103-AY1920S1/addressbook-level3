@@ -400,40 +400,53 @@ image::Reimbursement/ReimbursementSortDateCommandSuccess.png[]
 === Inventory
 
 ====
-* The inventory tab contains a detailed inventory of items belonging to the CCA for a variety of purposes. Each item will have 6 attributes: category, description, quantity, cost per unit, total cost, and price.
-* The last attribute will be used for sales purposes.
-* The inventory tab can be used in conjunction with the cashier tab by keeping track of the variety of items for sale and the remaining quantity of unsold products, as well as throw an error message via the lion if the cashier attempts to sell more than the specified quantity.
+* The inventory tab contains a detailed inventory of items belonging to the CCA for a variety of purposes.
+* Each item will have 6 attributes: category, description, quantity, cost per unit, total cost, and price.
+* The last attribute will be used for sales purposes and is optional.
+* Invalid commands and command formats will be pointed out by Leo.
 ====
 
-* To add an item:
-`add c/CATEGORY d/DESCRIPTION q/QUANTITY cu/COST_PER_UNIT p/PRICE`
+==== To add an item:
+`add d/DESCRIPTION c/CATEGORY q/QUANTITY co/COST_PER_UNIT [p/PRICE]`
+
+Adding an item requires the above attributes. However, price is optional. The attributes can also be inputted in any order.
+
+The quantity, cost and price must also all be in numerical form.
+
+[NOTE]
+Adding an item with the same description and category as an existing item is allowed.
 
 Examples:
-`add c/Food d/Cupcake q/100 cu/0.70 p/1.50`
+`add c/Food d/Cupcake q/100 co/0.70` -> adds an item of category 'food' and description 'Cupcake', with a quantity of '100' and a cost of '0.70'. It is, as of now, not for sale.
 
-* To delete an expense:
-`delete INDEX` or `delete DESCRIPTION`
-
-Examples:
-** `delete 1`
-** `delete Cupcake`
-
-* To edit:
-`edit INDEX` or `edit DESCRIPTION`
+==== To delete an expense:
+`delete INDEX`
 
 Examples:
-** `edit 1`
-** `edit Cupcake`
+`delete 1` -> deletes the first item.
 
-* To sort:
-** By category: `sort c`
-** By description: `sort d`
-** By quantity: `sort q`
-** By cost per unit: `sort cu`
-** By total cost: `sort co`
-** By price: `sort p`
+==== To edit:
+`edit INDEX [d/DESCRIPTION] [c/CATEGORY] [q/QUANTITY] [co/COST_PER_UNIT] [p/PRICE]`
 
+To edit, simply type the above command. You may edit any combination of the attributes, as long as one attribute is present.
 
+Examples:
+
+** `edit 1 d/T-Shirt` -> Edits the item description to be "T-Shirt".
+** `edit 1 c/Clothing` -> Edits the item category to be "Clothing".
+
+==== To sort:
+
+The inventory list can be sorted by category, description and quantity.
+
+Using the reset command, it can also be reset to the order of the inventory list when the app was first opened.
+
+Commands:
+
+** By category: `sort category`
+** By description: `sort description`
+** By quantity: `sort quantity`
+** Reset: `sort reset`
 
 === Cashier
 
