@@ -96,6 +96,14 @@ public class MainWindow extends UiPart<Stage> {
         return primaryStage;
     }
 
+    public ShowListPanel getShowListPanel() {
+        return showListPanel;
+    }
+
+    public Logic getLogic() {
+        return logic;
+    }
+
     private void setAccelerators() {
         setAccelerator(helpMenuItem, KeyCombination.valueOf("F1"));
     }
@@ -139,6 +147,7 @@ public class MainWindow extends UiPart<Stage> {
         watchedPanel = new WatchedPanel(logic.getWatchedList());
         watchedPanel.setMainWindow(this);
         searchPanel = new SearchPanel(logic.getSearchResultList());
+        searchPanel.setMainWindow(this);
         statisticsPanel = new StatisticsPanel(statistics.getForgotten());
         contentPanelPlaceholder.getChildren().add(showListPanel.getRoot());
 

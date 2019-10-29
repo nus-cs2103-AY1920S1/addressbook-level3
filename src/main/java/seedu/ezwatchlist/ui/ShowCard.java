@@ -12,9 +12,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import seedu.ezwatchlist.api.exceptions.OnlineConnectionException;
-import seedu.ezwatchlist.logic.commands.exceptions.CommandException;
-import seedu.ezwatchlist.logic.parser.exceptions.ParseException;
 import seedu.ezwatchlist.model.show.Poster;
 import seedu.ezwatchlist.model.show.Show;
 
@@ -58,7 +55,6 @@ public class ShowCard extends UiPart<Region> {
     private CheckBox watched;
     @FXML
     private ImageView poster;
-    private MainWindow mainWindow;
 
     public ShowCard(Show show, int displayedIndex) {
         super(FXML);
@@ -80,9 +76,20 @@ public class ShowCard extends UiPart<Region> {
 
         //sets the checkbox selected value to be equal to the watched value of the show
         watched.setSelected(show.isWatched().value);
-        watched.selectedProperty().addListener(new NonChangeableCheckBox());
 
         setLastWatched();
+    }
+
+    public void setWatchedListener(ChangeListener changeListener) {
+        this.watched.selectedProperty().addListener(changeListener);
+    }
+
+    public CheckBox getWatched() {
+        return watched;
+    }
+
+    public int getDisplayedIndex() {
+        return displayedIndex;
     }
 
     @Override
@@ -103,10 +110,6 @@ public class ShowCard extends UiPart<Region> {
                 && show.equals(card.show);
     }
 
-    public void setMainWindow(MainWindow mainWindow) {
-        this.mainWindow = mainWindow;
-    }
-
     private void setLastWatched() {
         if (show.getType().equals("Tv Show")) {
             if (show.getLastWatchedSeasonNum() == 0) {
@@ -120,20 +123,4 @@ public class ShowCard extends UiPart<Region> {
         }
     }
 
-    /**
-     * This class prevents the user from marking the checkbox by clicking
-     *
-     * @author AxxG "How to make checkbox or combobox readonly in JavaFX"
-     */
-    class NonChangeableCheckBox implements ChangeListener<Boolean> {
-        @Override
-        public void changed(ObservableValue<? extends Boolean> ov, Boolean oldVal, Boolean newVal) {
-            try {
-                mainWindow.executeCommand("watch " + displayedIndex);
-            } catch (CommandException | ParseException | OnlineConnectionException e) {
-                //do nothing for now
-                mainWindow.getResultDisplay().setFeedbackToUser(e.getMessage());
-            }
-        }
-    }
 }

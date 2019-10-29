@@ -2,12 +2,17 @@ package seedu.ezwatchlist.ui;
 
 import java.util.logging.Logger;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
+import seedu.ezwatchlist.api.exceptions.OnlineConnectionException;
 import seedu.ezwatchlist.commons.core.LogsCenter;
+import seedu.ezwatchlist.logic.commands.exceptions.CommandException;
+import seedu.ezwatchlist.logic.parser.exceptions.ParseException;
 import seedu.ezwatchlist.model.show.Show;
 
 /**
@@ -44,10 +49,32 @@ public class ShowListPanel extends UiPart<Region> {
                 setText(null);
             } else {
                 ShowCard showCard = new ShowCard(show, getIndex() + 1);
-                showCard.setMainWindow(mainWindow);
                 setGraphic(showCard.getRoot());
+                showCard.setWatchedListener(new ChangeableCheckBox(showCard.getDisplayedIndex()));
             }
         }
     }
 
+    /**
+     * This class prevents the user from marking the checkbox by clicking
+     *
+     * @author AxxG "How to make checkbox or combobox readonly in JavaFX"
+     */
+    class ChangeableCheckBox implements ChangeListener<Boolean> {
+        private int displayedIndex;
+
+        ChangeableCheckBox(int displayedIndex) {
+            super();
+            this.displayedIndex = displayedIndex;
+        }
+
+        @Override
+        public void changed(ObservableValue<? extends Boolean> ov, Boolean oldVal, Boolean newVal) {
+            try {
+                mainWindow.executeCommand("watch " + displayedIndex);
+            } catch (CommandException | ParseException | OnlineConnectionException e) {
+                mainWindow.getResultDisplay().setFeedbackToUser(e.getMessage());
+            }
+        }
+    }
 }
