@@ -30,6 +30,8 @@ import seedu.ezwatchlist.statistics.Statistics;
  */
 public class MainWindow extends UiPart<Stage> {
 
+    private static final String ACCELERATOR_ERROR = "setAccelerator must be called when button is attached to a scene";
+
     private static final String MAIN_TAB = "watch-list";
     private static final String WATCHED_TAB = "watched-list";
     private static final String SEARCH_TAB = "search-list";
@@ -164,7 +166,7 @@ public class MainWindow extends UiPart<Stage> {
     private void setSearchAccelerator(final Button button) {
         Scene scene = button.getScene();
         if (scene == null) {
-            throw new IllegalArgumentException("setSaveAccelerator must be called when a button is attached to a scene");
+            throw new IllegalArgumentException(ACCELERATOR_ERROR);
         }
 
         scene.getAccelerators().put(
@@ -180,7 +182,7 @@ public class MainWindow extends UiPart<Stage> {
     private void setWatchListAccelerator(final Button button) {
         Scene scene = button.getScene();
         if (scene == null) {
-            throw new IllegalArgumentException("setSaveAccelerator must be called when a button is attached to a scene");
+            throw new IllegalArgumentException(ACCELERATOR_ERROR);
         }
 
         scene.getAccelerators().put(
@@ -196,7 +198,7 @@ public class MainWindow extends UiPart<Stage> {
     private void setWatchedAccelerator(final Button button) {
         Scene scene = button.getScene();
         if (scene == null) {
-            throw new IllegalArgumentException("setSaveAccelerator must be called when a button is attached to a scene");
+            throw new IllegalArgumentException(ACCELERATOR_ERROR);
         }
 
         scene.getAccelerators().put(
@@ -212,7 +214,7 @@ public class MainWindow extends UiPart<Stage> {
     private void setStatisticsAccelerator(final Button button) {
         Scene scene = button.getScene();
         if (scene == null) {
-            throw new IllegalArgumentException("setSaveAccelerator must be called when a button is attached to a scene");
+            throw new IllegalArgumentException(ACCELERATOR_ERROR);
         }
 
         scene.getAccelerators().put(
