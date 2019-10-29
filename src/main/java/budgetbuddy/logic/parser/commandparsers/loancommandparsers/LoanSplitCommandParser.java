@@ -37,11 +37,11 @@ public class LoanSplitCommandParser implements CommandParser<LoanSplitCommand> {
         ArgumentMultimap argMultiMap = ArgumentTokenizer.tokenize(
                 args, PREFIX_USER, PREFIX_DESCRIPTION, PREFIX_DATE, PREFIX_PERSON, PREFIX_AMOUNT);
 
-        if (argMultiMap.getAllValues(PREFIX_USER).size() > 1
-                || argMultiMap.getAllValues(PREFIX_DESCRIPTION).size() > 1
-                || argMultiMap.getAllValues(PREFIX_DATE).size() > 1
-                || argMultiMap.getAllValues(PREFIX_PERSON).size() < 1
-                || argMultiMap.getAllValues(PREFIX_AMOUNT).size() < 1) {
+        if (argMultiMap.getValueCount(PREFIX_USER) > 1
+                || argMultiMap.getValueCount(PREFIX_DESCRIPTION) > 1
+                || argMultiMap.getValueCount(PREFIX_DATE) > 1
+                || argMultiMap.getValueCount(PREFIX_PERSON) < 1
+                || argMultiMap.getValueCount(PREFIX_AMOUNT) < 1) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, LoanSplitCommand.MESSAGE_USAGE));
         }
 
