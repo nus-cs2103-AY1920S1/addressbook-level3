@@ -4,7 +4,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.HBox?>
 
-<HBox opacity="0.84" prefHeight="33.0" prefWidth="136.0" style="-fx-border-radius: 10; -fx-background-radius: 10;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<HBox opacity="0.84" prefHeight="33.0" prefWidth="136.0" styleClass="cardView" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label fx:id="propertyAndValue" styleClass="customProperties_cell" text="propertyAndValue" textAlignment="CENTER">
          <HBox.margin>

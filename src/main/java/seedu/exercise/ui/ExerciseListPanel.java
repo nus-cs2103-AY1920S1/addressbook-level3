@@ -93,4 +93,5 @@ public class ExerciseListPanel extends UiPart<Region> {
             }
         }
     }
+
 }
