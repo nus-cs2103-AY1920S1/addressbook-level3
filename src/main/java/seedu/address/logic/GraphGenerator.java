@@ -54,7 +54,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_STARTING_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STAT_TYPE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
-public class GraphGenerator {
+class GraphGenerator {
 
     private static final List<String> commandWords = Arrays.asList(
             "add-c", "add-o", "add-p", "add-s",

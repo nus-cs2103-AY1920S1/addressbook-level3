@@ -47,7 +47,7 @@ public class LogicManager implements Logic {
         this.storage = storage;
         this.statistic = statistic;
         addressBookParser = new AddressBookParser();
-        this.graphGenerator = new GraphGenerator(model);
+        graphGenerator = new GraphGenerator(model);
     }
 
     @Override

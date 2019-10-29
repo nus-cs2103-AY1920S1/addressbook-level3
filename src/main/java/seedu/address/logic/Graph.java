@@ -12,19 +12,19 @@ import java.util.regex.Pattern;
 /**
  * Represents a graph implemented as an {@link Edge} list.
  */
-public class Graph {
+class Graph {
 
     private static final Pattern prefixPattern = Pattern.compile(" .{1,2}/");
 
     private final Node<?> startingNode;
     private final List<Edge> edges;
 
-    public Graph(Node<?> startingNode, List<Edge> edges) {
+    Graph(Node<?> startingNode, List<Edge> edges) {
         this.startingNode = startingNode;
         this.edges = edges;
     }
 
-    public AutoCompleteResult process(String input) {
+    AutoCompleteResult process(String input) {
         String stringToCompare = input;
         Node<?> currentNode = startingNode;
         SortedSet<String> values = new TreeSet<>();
