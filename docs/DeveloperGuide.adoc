@@ -243,6 +243,7 @@ Step 3. The user executes `activity t/Lunch p/Alex p/David` command to create an
 ** Pros: Easy to implement. Low possibility of bugs.
 ** Cons: Significantly decreases usability of the application.
 
+// tag::algorithm[]
 === Debt simplification algorithm
 The algorithm is inspired by https://pure.tue.nl/ws/portalfiles/portal/2062204/623903.pdf[this paper].
 
