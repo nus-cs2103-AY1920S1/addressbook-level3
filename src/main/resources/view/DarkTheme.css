@@ -1,6 +1,6 @@
 .background {
-    -fx-background-color: white;
-    background-color: white; /* Used in the default.html file */
+    -fx-background-color: #f8f8f8;
+    background-color: #f8f8f8; /* Used in the default.html file */
 }
 
 .label {
@@ -147,11 +147,10 @@
 }
 
 .result-display {
-    -fx-background-color: transparent;
+    -fx-background-color: #f2eeeb;
     -fx-font-family: "Segoe UI Light";
     -fx-font-size: 13pt;
     -fx-text-fill: #a62e21;
-    -fx-border-color: grey;
 }
 
 .result-display .label {
@@ -160,7 +159,7 @@
 
 .status-bar .label {
     -fx-font-family: "Segoe UI Light";
-    -fx-text-fill: white;
+    -fx-text-fill: grey;
     -fx-padding: 4px;
     -fx-pref-height: 30px;
 }
@@ -194,7 +193,7 @@
 }
 
 .menu-bar {
-    -fx-background-color: #dedcdc;
+    -fx-background-color: #ded7d7;
     -fx-border-color: #c7c5c5;
     -fx-border-width: 1px;
 }
@@ -228,7 +227,7 @@
 }
 
 .button:hover {
-    -fx-background-color: #3a3a3a;
+    -fx-background-color: #995353;
 }
 
 .button:pressed, .button:default:hover:pressed {
@@ -325,11 +324,8 @@
 }
 
 #commandTextField {
-    -fx-background-color: transparent #383838 transparent #383838;
+    -fx-background-color: #ded7d7 #ded7d7;
     -fx-background-insets: 0;
-    -fx-border-color: #383838 #383838 #ffffff #383838;
-    -fx-border-insets: 0;
-    -fx-border-width: 1;
     -fx-font-family: "Segoe UI Light";
     -fx-font-size: 12pt;
     -fx-text-fill: black;
@@ -340,7 +336,7 @@
 }
 
 #resultDisplay .content {
-    -fx-background-color: transparent, white, transparent, white;
+    -fx-background-color: #f2eeeb;
     -fx-background-radius: 0;
 }
 
@@ -359,8 +355,12 @@
 }
 
 #featureMode {
-    -fx-text-fill: #f2eee5;
-    -fx-font-size: 15;
+    -fx-text-fill: grey;
+    -fx-font-size: 17;
+}
+
+#feature_bar {
+    -fx-background-color: #f2eee5;
 }
 
 #summaryCard #type {
