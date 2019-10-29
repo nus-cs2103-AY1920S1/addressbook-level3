@@ -2,11 +2,8 @@ package seedu.address.testutil;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
-import seedu.address.model.category.Category;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
@@ -17,7 +14,9 @@ public class LedgerOperationBuilder {
     public static final String DEFAULT_AMOUNT = "100";
     public static final String DEFAULT_DATE = "10102019";
     public static final String DEFAULT_DESCRIPTION = "kbbq dinner";
-    public static final String DEFAULT_NAME = "Joel Loong";
+    public static final String DEFAULT_NAME1 = "Joel Loong";
+    public static final String DEFAULT_NAME2 = "Diung YUchen";
+    public static final String DEFAULT_NAME3 = "Bertrand";
 
     private Description description;
     private Amount amount;
@@ -29,7 +28,7 @@ public class LedgerOperationBuilder {
         amount = new Amount(Double.parseDouble(DEFAULT_AMOUNT));
         date = new Date(DEFAULT_DATE);
         description = new Description(DEFAULT_DESCRIPTION);
-        person = new Person(new Name(DEFAULT_NAME));
+        person = new Person(new Name(DEFAULT_NAME1));
         people = new UniquePersonList();
     }
 
@@ -65,10 +64,23 @@ public class LedgerOperationBuilder {
         return this;
     }
 
+    public LedgerOperationBuilder withPerson(Person bob) {
+        this.person = bob;
+        return this;
+    }
+
     public LedgerOperationBuilder addPerson(String name) {
         Person person = new Person(new Name(name));
+        return this.addPerson(person);
+    }
+
+    public LedgerOperationBuilder addPerson(Person person) {
         people.add(person);
         return this;
+    }
+
+    public UniquePersonList getPeople() {
+        return people;
     }
 
     /**
@@ -93,4 +105,6 @@ public class LedgerOperationBuilder {
     public LedgerOperation asReceiveMoney() {
         return new ReceiveMoney(person, amount, date, description);
     }
+
+
 }
