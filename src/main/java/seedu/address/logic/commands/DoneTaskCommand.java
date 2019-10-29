@@ -48,6 +48,10 @@ public class DoneTaskCommand extends Command {
         this.index = index;
     }
 
+    public int getIndex() {
+        return index.getZeroBased();
+    }
+
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
@@ -66,6 +70,11 @@ public class DoneTaskCommand extends Command {
 
         model.setTask(taskToUpdate, updatedTask);
         model.updateFilteredTasksList(PREDICATE_SHOW_ALL_TASKS);
+        if(taskToUpdate.getTags().contains(new Tag("Inventory"))) {
+            return new CommandResult("Type-1 /"
+                                                        + taskToUpdate.getName().toString() + "/"
+                                                        + index.getOneBased());
+        }
         return new CommandResult(String.format(MESSAGE_DONE_TASK_SUCCESS, updatedTask));
     }
 

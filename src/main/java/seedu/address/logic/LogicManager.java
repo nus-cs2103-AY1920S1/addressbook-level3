@@ -30,11 +30,13 @@ public class LogicManager implements Logic {
     private final Model model;
     private final Storage storage;
     private final ProjectDashboardParser projectDashboardParser;
+    private final MultiLineManager multiLine;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
         projectDashboardParser = new ProjectDashboardParser();
+        multiLine = new MultiLineManager(model);
     }
 
     @Override
@@ -44,6 +46,11 @@ public class LogicManager implements Logic {
         CommandResult commandResult;
         Command command = projectDashboardParser.parseCommand(commandText);
         commandResult = command.execute(model);
+
+        CommandResult commandResultMl = multiLine.manage(commandResult, command);
+        if(!commandResultMl.equals(new CommandResult(""))) {
+            return commandResultMl;
+        }
 
         try {
             storage.saveProjectDashboard(model.getProjectDashboard());
