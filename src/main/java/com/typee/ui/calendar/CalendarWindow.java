@@ -12,6 +12,7 @@ import com.typee.logic.Logic;
 import com.typee.model.engagement.Engagement;
 import com.typee.ui.UiPart;
 
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
@@ -43,6 +44,7 @@ public class CalendarWindow extends UiPart<Region> {
     private ObservableList<Engagement> engagementList;
     private List<StackPane> allCalendarDays;
     private Logic logic;
+    private ListChangeListener listener;
     private YearMonth currentDisplayedYearMonth;
 
     /**
@@ -52,6 +54,9 @@ public class CalendarWindow extends UiPart<Region> {
         super(FXML);
         allCalendarDays = new ArrayList<>();
         this.engagementList = engagementList;
+        listener = (ListChangeListener<Object>) change ->
+                populateCalendarWithSpecifiedMonth(currentDisplayedYearMonth);
+        engagementList.addListener(listener);
     }
 
     /**
