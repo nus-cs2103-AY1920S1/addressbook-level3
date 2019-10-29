@@ -82,6 +82,7 @@ public class ReminderListCard extends UiPart<Region> {
             break;
         default:
         }
+
     }
 
     @Override
