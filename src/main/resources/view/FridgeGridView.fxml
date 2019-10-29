@@ -6,6 +6,6 @@
 
 <StackPane prefWidth="270.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <GridView fx:id="fridgeGridView" prefWidth="270.0" />
+      <GridView fx:id="fridgeGridView" prefHeight="100"/>
    </children>
 </StackPane>

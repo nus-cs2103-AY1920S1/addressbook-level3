@@ -2,16 +2,32 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-
-<VBox id="cardPane" fx:id="cardPane" alignment="CENTER" prefWidth="70.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
-   <StackPane fx:id="fridgeIdPlaceholder">
-      <VBox.margin>
-         <Insets bottom="7.0" />
-      </VBox.margin>
-   </StackPane>
-<Label fx:id="status" styleClass="cell_small_label" text="\$status" textFill="WHITE" />
-   <Label fx:id="body" styleClass="cell_small_label" text="\$body" textFill="WHITE" />
-</VBox>
+<AnchorPane maxHeight="70.0" prefHeight="70.0" prefWidth="100.0" stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <VBox id="cardPane" fx:id="cardPane" alignment="CENTER" prefWidth="100.0" AnchorPane.topAnchor="0.0">
+         <StackPane fx:id="fridgeIdPlaceholder">
+            <VBox.margin>
+               <Insets bottom="7.0" />
+            </VBox.margin>
+         </StackPane>
+      <Label fx:id="status" styleClass="cell_small_label" text="\$status" textFill="WHITE">
+            <font>
+               <Font size="10.0" />
+            </font>
+         </Label>
+      </VBox>
+      <StackPane layoutY="52.0" prefWidth="100.0" stylesheets="@DarkTheme.css" AnchorPane.bottomAnchor="0.0">
+         <children>
+            <Label id="bodyIdInFridge" fx:id="bodyIdInFridge" alignment="CENTER" stylesheets="@DarkTheme.css" text="\$body" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" wrapText="true" StackPane.alignment="CENTER" />
+         </children>
+         <padding>
+            <Insets top="5.0" />
+         </padding>
+      </StackPane>
+   </children>
+</AnchorPane>

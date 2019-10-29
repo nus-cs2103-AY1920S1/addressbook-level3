@@ -28,8 +28,8 @@ public class FridgeGridView extends UiPart<Region> {
         super(FXML);
         fridgeGridView.setItems(fridgeList);
         fridgeGridView.setCellFactory(gridview -> new FridgeGridCell());
-        fridgeGridView.setCellWidth(60);
-        fridgeGridView.setHorizontalCellSpacing(10);
+        fridgeGridView.setCellWidth(100);
+        fridgeGridView.setCellHeight(70);
     }
 
     /**

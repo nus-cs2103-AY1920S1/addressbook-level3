@@ -39,7 +39,7 @@
               </MenuBar>
 
                        <StackPane fx:id="commandBoxPlaceholder" prefWidth="800.0" AnchorPane.bottomAnchor="3.0" AnchorPane.leftAnchor="150.0" AnchorPane.topAnchor="3.0" />
-                  <StackPane fx:id="notificationButtonPlaceholder" alignment="TOP_CENTER" prefWidth="3.0" AnchorPane.rightAnchor="272.0" />
+                  <StackPane fx:id="notificationButtonPlaceholder" alignment="TOP_CENTER" AnchorPane.rightAnchor="260.0" />
                   <HBox layoutX="1064.0" AnchorPane.rightAnchor="0.0">
                      <children>
                         <Button fx:id="minimiseButton" mnemonicParsing="false" prefHeight="30.0" prefWidth="45.0">
@@ -58,71 +58,57 @@
                   <DropShadow blurType="GAUSSIAN" height="28.91" offsetY="2.0" radius="11.9775" spread="0.23" />
                </effect>
             </AnchorPane>
-            <HBox maxHeight="575.0" prefHeight="575.0" prefWidth="1250.0" VBox.vgrow="ALWAYS">
-               <children>
-                  <VBox maxHeight="575.0" minWidth="1000.0" prefWidth="1000.0" HBox.hgrow="ALWAYS">
-                     <children>
-                        <StackPane fx:id="bodyMasterListPlaceholder" maxHeight="475.0" prefHeight="475.0" styleClass="stack-pane">
-                           <VBox.margin>
-                              <Insets />
-                           </VBox.margin>
-                           <effect>
-                               <DropShadow blurType="GAUSSIAN" height="40.81" offsetY="5.0" radius="19.7025" spread="0.18" width="40.0" />
-                           </effect>
-                        </StackPane>
-                        <HBox>
-                           <VBox.margin>
-                              <Insets top="15.0" />
-                           </VBox.margin>
-                           <children>
-                            <StackPane fx:id="lineChartPanelPlaceholder" maxHeight="100.0" prefHeight="100.0" prefWidth="775.0" styleClass="stack-pane">
-                                <effect>
-                                    <DropShadow blurType="GAUSSIAN" height="40.81" offsetY="5.0" radius="19.7025" spread="0.18" width="40.0" />
-                                </effect>
-                                 <padding>
-                                    <Insets bottom="5.0" left="5.0" top="5.0" />
-                                 </padding>
-                            </StackPane>
-                              <StackPane fx:id="fridgeListPlaceholder" prefWidth="200.0" styleClass="stack-pane">
-                                  <effect>
-                                      <DropShadow blurType="GAUSSIAN" height="28.91" offsetY="2.0" radius="11.9775" spread="0.23" />
-                                  </effect>
-                                  <HBox.margin>
-                                    <Insets left="10.0" />
-                                 </HBox.margin>
-                              </StackPane>
-                           </children>
-                        </HBox>
-                     </children>
-                     <padding>
-                        <Insets right="15.0" />
-                     </padding>
-                  </VBox>
-              <VBox fx:id="workerList" maxHeight="575.0" maxWidth="250.0" prefHeight="575.0" prefWidth="250.0">
-                <StackPane fx:id="workerListPanelPlaceholder" maxHeight="575.0" prefHeight="575.0" styleClass="stack-pane">
-                        <VBox.margin>
-                           <Insets />
-                        </VBox.margin>
-                        <effect>
-                            <DropShadow blurType="GAUSSIAN" height="40.81" offsetY="5.0" radius="19.7025" spread="0.18" width="40.0" />
-                        </effect>
-                     </StackPane>
-              </VBox>
-               </children>
-               <VBox.margin>
-                  <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
-               </VBox.margin>
-            </HBox>
 
               <StackPane fx:id="resultDisplayPlaceholder" maxHeight="30.0" prefHeight="30.0" prefWidth="1220.0" styleClass="stack-pane" VBox.vgrow="ALWAYS">
                <VBox.margin>
-                  <Insets bottom="15.0" left="15.0" right="15.0" />
+                  <Insets left="15.0" right="15.0" top="15.0" />
                </VBox.margin>
               <effect>
                   <DropShadow blurType="GAUSSIAN" height="40.81" offsetY="5.0" radius="19.7025" spread="0.18" width="40.0" />
               </effect>
         </StackPane>
-        <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
+            <VBox maxHeight="575.0" prefHeight="575.0" spacing="15.0" VBox.vgrow="ALWAYS">
+               <children>
+                  <HBox maxHeight="450.0" prefHeight="450.0" spacing="15.0" VBox.vgrow="ALWAYS">
+                     <children>
+                   <StackPane fx:id="workerListPanelPlaceholder" styleClass="stack-pane" HBox.hgrow="ALWAYS">
+                           <effect>
+                               <DropShadow blurType="GAUSSIAN" height="40.81" offsetY="5.0" radius="19.7025" spread="0.18" width="40.0" />
+                           </effect>
+                        </StackPane>
+                        <StackPane fx:id="bodyMasterListPlaceholder" maxHeight="475.0" maxWidth="1000.0" prefHeight="475.0" prefWidth="1000.0" styleClass="stack-pane" HBox.hgrow="ALWAYS">
+                           <effect>
+                               <DropShadow blurType="GAUSSIAN" height="40.81" offsetY="5.0" radius="19.7025" spread="0.18" width="40.0" />
+                           </effect>
+                        </StackPane>
+                     </children>
+                  </HBox>
+                  <HBox maxHeight="125.0" spacing="15.0" VBox.vgrow="ALWAYS">
+                     <children>
+                        <StackPane fx:id="fridgeListPlaceholder" styleClass="stack-pane" HBox.hgrow="ALWAYS">
+                            <effect>
+                                <DropShadow blurType="GAUSSIAN" height="40.81" offsetY="5.0" radius="19.7025" spread="0.18" width="40.0" />
+                            </effect>
+                        </StackPane>
+                      <StackPane fx:id="lineChartPanelPlaceholder" maxWidth="840.0" prefWidth="840.0" styleClass="stack-pane" HBox.hgrow="ALWAYS">
+                          <effect>
+                              <DropShadow blurType="GAUSSIAN" height="40.81" offsetY="5.0" radius="19.7025" spread="0.18" width="40.0" />
+                          </effect>
+                           <padding>
+                              <Insets bottom="5.0" left="5.0" top="5.0" />
+                           </padding>
+                      </StackPane>
+                     </children>
+                  </HBox>
+               </children>
+               <VBox.margin>
+                  <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+               </VBox.margin>
+            </VBox>
+        <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER">
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin></StackPane>
       </VBox>
     </Scene>
   </scene>

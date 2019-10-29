@@ -32,7 +32,7 @@ public class FridgeCard extends UiPart<Region> {
     @FXML
     private StackPane fridgeIdPlaceholder;
     @FXML
-    private Label body;
+    private Label bodyIdInFridge;
 
     public FridgeCard(Fridge fridge) {
         super(FXML);
@@ -40,10 +40,9 @@ public class FridgeCard extends UiPart<Region> {
         fridgeIdPlaceholder.getChildren().add(new FridgeIdLabel(fridge.getIdNum()).getRoot());
         status.setText(fridge.getFridgeStatus().toString());
         if (fridge.getBody().isPresent()) {
-            body.setText(fridge.getBody().get().getIdNum().toString());
-            body.getStyleClass().add("selectedBodyId");
+            bodyIdInFridge.setText(fridge.getBody().get().getIdNum().toString());
         } else {
-            body.setText("No body assigned");
+            bodyIdInFridge.setText("No body assigned");
         }
     }
 

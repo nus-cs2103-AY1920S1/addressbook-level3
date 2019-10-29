@@ -34,11 +34,11 @@ import seedu.address.model.entity.body.BodyStatus;
 public class BodyTableView extends UiPart<Region> {
 
     private static final String FXML = "BodyTableView.fxml";
-    private static final double COLUMN_WIDTH_FRIDGE_ID = 0.1;
+    private static final double COLUMN_WIDTH_FRIDGE_ID = 0.12;
     private static final double COLUMN_WIDTH_NAME = 0.2;
     private static final double COLUMN_WIDTH_ID = 0.15;
     private static final double COLUMN_WIDTH_DATE_OF_ADMISSION = 0.275;
-    private static final double COLUMN_WIDTH_BODY_STATUS = 0.26;
+    private static final double COLUMN_WIDTH_BODY_STATUS = 0.24;
 
     private final Logger logger = LogsCenter.getLogger(BodyTableView.class);
 
@@ -53,7 +53,7 @@ public class BodyTableView extends UiPart<Region> {
         setCellSelectionHandler(selectedBody, onSelectedBodyChange);
     }
 
-    //@@ shaoyi1997-reused
+    //@@ author shaoyi1997-reused
     //Reused from SE-EDU Address Book Level 4
     private void setCellSelectionHandler(ObservableValue<Body> selectedBody, Consumer<Body> onSelectedBodyChange) {
         bodyTableView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
@@ -86,7 +86,7 @@ public class BodyTableView extends UiPart<Region> {
         TableColumn<Body, String> id = setupBodyIdColumn();
         TableColumn<Body, String> dateOfAdmission = setupDateOfAdmissionColumn();
         TableColumn<Body, BodyStatus> bodyStatus = setupBodyStatusColumn();
-        bodyTableView.getColumns().addAll(fridgeId, name, id, dateOfAdmission, bodyStatus);
+        bodyTableView.getColumns().addAll(name, id, dateOfAdmission, bodyStatus, fridgeId);
     }
 
     private TableColumn<Body, IdentificationNumber> setupFridgeIdColumn() {
@@ -94,6 +94,7 @@ public class BodyTableView extends UiPart<Region> {
         fridgeId.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue().getFridgeId().orElse(null)));
         fridgeId.setCellFactory(tableColumn -> new FridgeIdTableCell());
         fridgeId.prefWidthProperty().bind(bodyTableView.widthProperty().multiply(COLUMN_WIDTH_FRIDGE_ID));
+        fridgeId.setStyle("-fx-padding: 0 15 0 0");
         return fridgeId;
     }
 
@@ -166,6 +167,7 @@ public class BodyTableView extends UiPart<Region> {
                 setText(null);
             } else {
                 setGraphic(new FridgeIdLabel(id).getRoot());
+                setStyle("-fx-padding: 0 15 0 0");
             }
         }
     }

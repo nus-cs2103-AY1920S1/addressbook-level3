@@ -167,7 +167,7 @@ public class MainWindow extends UiPart<Stage> {
                 new BodyCardSelected(logic.selectedBodyProperty()));
         bodyMasterListPlaceholder.getChildren().add(bodyMasterDetailPane.getRoot());
 
-        notificationButton = NotificationButton.getInstanceOfNotifButton();
+        notificationButton = NotificationButton.getInstanceOfNotifButton(logic);
         notificationButtonPlaceholder.getChildren().add(notificationButton.getRoot());
 
         fridgeGridView = new FridgeGridView(logic.getFilteredFridgeList());
