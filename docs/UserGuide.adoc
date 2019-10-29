@@ -415,6 +415,7 @@ want to have an overview of all the dates where you have an event? Then you are 
 To get things started, all Schedule-related commands occurs in the Schedule Tab as seen from the figure below! You could either
 click on the Schedule Tab or just simply type in any Schedule-related commands and AddMin+ will bring you there.
 
+._User Interface (UI) of the Schedule Feature_
 image::ScheduleUiDetailed.png[width="600"]
 
 ==== Display Schedule for a specific date
@@ -424,31 +425,27 @@ could simply use the `display_schedule_date` command to do it!
 Format: `display_schedule_date on/dd/MM/yyyy`
 
 Examples:
-<<<<<<< HEAD
-`display_schedule on/02/12/2019`
-=======
 * `display_schedule_date on/02/12/2019`
->>>>>>> 680e4f9970727713f7f0180f7c154a5919e77f7f
 
 ****
 on/ represents the date in dd/MM/yyyy that the user wants to display
 ****
 
-To display schedule for a specific date (20/11/2019):
+**To display schedule for a specific date (20/11/2019):**
 
 **Step 1**.  Either type `display_schedule_date on/20/11/2019` into the command box or click on the specific date from the date picker.
 
-image::ScheduleUiStep1.png[width="600"]
+image::ScheduleUiStep1.png[]
 
 **Step 2**.  The result box will display a message which inform you how many events are being listed. In this case the message displayed
 is "1 events listed!"
 
-image::ScheduleUiStep2.png[width="600"]
+image::ScheduleUiStep2.png[]
 
 **Step 3**.  In the event list you will be able to see all the events that are on the specified date. In this case the only event that is on
 20/11/2019 is "Talk by DEF Company".
 
-image::ScheduleUiStep3.png[width="600"]
+image::ScheduleUiStep3.png[]
 
 [TIP]
 The event list will be empty and not display anything if there is no event on the specified date.
@@ -483,18 +480,10 @@ image::ScheduleUiMonthStep3.png[width="600"]
 [TIP]
 The event list will be empty and not display anything if there is no event on the specified month, year.
 
-=== Generate Entire Schedule
+==== Generate Entire Schedule
 Want to have an overview of all the dates that has an event? Use the `generate_schedule` command to do so. The `generate_schedule` command
 looks through the entire list of events and generates a new list of all the dates which has an event and also display all the events that happens
 on that date.
-=======
-Examples:
-* `display_schedule for/12/2019` +
-Displays the schedule for the Decemeber of 2019.
-
-
-==== Generate Entire Schedule
-Generate a new list which shows all the dates that has an event as well as all the events that are on that corresponding date.
 
 Format: `generate_schedule`
 
