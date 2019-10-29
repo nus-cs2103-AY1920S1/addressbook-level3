@@ -213,7 +213,7 @@ Deletes the flashcard by <FLASHCARD_INDEX>.
         Title: BinaryQn
         Tags: [cs2100]
 
-=== Time Trial: `time`
+=== Time Trial: `timetrial`
 
 Starts a time trial for flashcards with tag <TAG> for <TIME> seconds per flashcard.
 
@@ -221,7 +221,8 @@ Starts a time trial for flashcards with tag <TAG> for <TIME> seconds per flashca
 
 * At least one tag must be specified.
 * If more than one tag is specified, selects only flashcards which satisfy all specified tags.
-* Default <TIME> will be 30 seconds, if not specified.
+* Default <TIME> will be 5 seconds.
+* Answer will be flashed for 10 seconds.
 
 === Listing by tags: `filter`
 
