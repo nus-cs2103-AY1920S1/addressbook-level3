@@ -18,7 +18,7 @@ import calofit.model.util.Statistics;
  */
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
-    Predicate<Dish> PREDICATE_SHOW_ALL_DISHES = unused -> true;
+    Predicate<Dish> PREDICATE_SHOW_DEFAULT = null;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -89,9 +89,9 @@ public interface Model {
 
     /**
      * Updates the filter of the filtered dish list to filter by the given {@code predicate}.
-     * @throws NullPointerException if {@code predicate} is null.
+     * If null, resets to the default predicate.
      */
-    void updateFilteredDishList(Predicate<Dish> predicate);
+    void setDishFilterPredicate(Predicate<Dish> predicate);
 
     /**
      * Returns an unmodifiable view of the filtered Meal List.
