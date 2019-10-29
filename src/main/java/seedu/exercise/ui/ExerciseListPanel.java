@@ -26,6 +26,10 @@ public class ExerciseListPanel extends UiPart<Region> {
         exerciseListView.setCellFactory(listView -> new ExerciseListViewCell());
     }
 
+    public ListView<Exercise> getExerciseListView() {
+        return exerciseListView;
+    }
+
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code Exercise} using a {@code ExerciseCard}.
      */

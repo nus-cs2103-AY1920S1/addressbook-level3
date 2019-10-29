@@ -23,6 +23,7 @@ import seedu.exercise.model.UniqueResourceList;
 import seedu.exercise.model.property.Name;
 import seedu.exercise.model.resource.Exercise;
 import seedu.exercise.model.resource.Regime;
+import seedu.exercise.ui.ListResourceType;
 
 /**
  * Adds a regime to the regime book.
@@ -86,7 +87,7 @@ public class AddRegimeCommand extends AddCommand implements PayloadCarrierComman
         addExercisesToRegime(regime, model);
         model.addRegime(regime);
         addToEventPayloadForAddRegime(regime);
-        return new CommandResult(MESSAGE_SUCCESS_NEW_REGIME);
+        return new CommandResult(MESSAGE_SUCCESS_NEW_REGIME, ListResourceType.REGIME);
     }
 
     /**
@@ -104,7 +105,7 @@ public class AddRegimeCommand extends AddCommand implements PayloadCarrierComman
 
         model.setRegime(originalRegime, editedRegime);
         model.updateFilteredRegimeList(Model.PREDICATE_SHOW_ALL_REGIMES);
-        return new CommandResult(MESSAGE_SUCCESS_ADD_EXERCISE_TO_REGIME);
+        return new CommandResult(MESSAGE_SUCCESS_ADD_EXERCISE_TO_REGIME, ListResourceType.REGIME);
     }
 
     /**

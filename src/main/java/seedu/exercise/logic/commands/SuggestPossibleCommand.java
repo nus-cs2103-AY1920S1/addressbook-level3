@@ -12,6 +12,7 @@ import seedu.exercise.logic.commands.exceptions.CommandException;
 import seedu.exercise.model.Model;
 import seedu.exercise.model.property.Muscle;
 import seedu.exercise.model.resource.Exercise;
+import seedu.exercise.ui.ListResourceType;
 
 /**
  * Lists possible exercises to the user.
@@ -42,7 +43,7 @@ public class SuggestPossibleCommand extends SuggestCommand {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         model.updateSuggestedExerciseList(getPredicate());
-        return new CommandResult(MESSAGE_SUCCESS);
+        return new CommandResult(MESSAGE_SUCCESS, ListResourceType.SUGGESTION);
     }
 
     private Predicate<Exercise> getPredicate() {

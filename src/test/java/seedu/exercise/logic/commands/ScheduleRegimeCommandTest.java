@@ -19,6 +19,7 @@ import seedu.exercise.testutil.typicalutil.TypicalConflict;
 import seedu.exercise.testutil.typicalutil.TypicalDates;
 import seedu.exercise.testutil.typicalutil.TypicalRegime;
 import seedu.exercise.testutil.typicalutil.TypicalSchedule;
+import seedu.exercise.ui.ListResourceType;
 
 public class ScheduleRegimeCommandTest {
 
@@ -92,6 +93,7 @@ public class ScheduleRegimeCommandTest {
                 DefaultPropertyBookUtil.getDefaultPropertyBook());
         expectedModel.addSchedule(new Schedule(TypicalRegime.VALID_REGIME_CARDIO, TypicalDates.DATE_3));
 
-        CommandTestUtil.assertCommandSuccess(validScheduleRegimeCommand, model, expectedMessage, expectedModel);
+        CommandResult expectedCommandResult = new CommandResult(expectedMessage, ListResourceType.SCHEDULE);
+        CommandTestUtil.assertCommandSuccess(validScheduleRegimeCommand, model, expectedCommandResult, expectedModel);
     }
 }

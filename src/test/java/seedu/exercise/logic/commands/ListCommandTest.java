@@ -13,6 +13,7 @@ import seedu.exercise.model.Model;
 import seedu.exercise.model.ModelManager;
 import seedu.exercise.model.ReadOnlyResourceBook;
 import seedu.exercise.model.UserPrefs;
+import seedu.exercise.ui.ListResourceType;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for ListCommand.
@@ -34,12 +35,14 @@ public class ListCommandTest {
 
     @Test
     public void execute_listIsNotFiltered_showsSameList() {
-        assertCommandSuccess(new ListCommand(), model, ListCommand.MESSAGE_SUCCESS, expectedModel);
+        CommandResult expectedCommandResult = new CommandResult(ListCommand.MESSAGE_SUCCESS, ListResourceType.EXERCISE);
+        assertCommandSuccess(new ListCommand(), model, expectedCommandResult, expectedModel);
     }
 
     @Test
     public void execute_listIsFiltered_showsEverything() {
         showExerciseAtIndex(model, INDEX_ONE_BASED_FIRST);
-        assertCommandSuccess(new ListCommand(), model, ListCommand.MESSAGE_SUCCESS, expectedModel);
+        CommandResult expectedCommandResult = new CommandResult(ListCommand.MESSAGE_SUCCESS, ListResourceType.EXERCISE);
+        assertCommandSuccess(new ListCommand(), model, expectedCommandResult, expectedModel);
     }
 }

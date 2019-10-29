@@ -11,6 +11,10 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.Scene?>
 <?import javafx.stage.Stage?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.image.ImageView?>
 <fx:root minHeight="600" minWidth="450" onCloseRequest="#handleExit" title="ExerHealth App" type="javafx.stage.Stage"
          xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <icons>
@@ -19,52 +23,64 @@
     <scene>
         <Scene>
             <stylesheets>
-                <URL value="@DarkTheme.css"/>
+                <URL value="@CustomTheme.css"/>
                 <URL value="@Extensions.css"/>
             </stylesheets>
 
             <VBox>
-                <MenuBar fx:id="menuBar" VBox.vgrow="NEVER">
-                    <Menu mnemonicParsing="false" text="File">
-                        <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit"/>
-                    </Menu>
-                    <Menu mnemonicParsing="false" text="Help">
-                        <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help"/>
-                    </Menu>
-                </MenuBar>
-
-                <StackPane fx:id="commandBoxPlaceholder" styleClass="pane-with-border" VBox.vgrow="NEVER">
-                    <padding>
-                        <Insets bottom="5" left="10" right="10" top="5"/>
-                    </padding>
-                </StackPane>
-
-                <StackPane fx:id="resultDisplayPlaceholder" maxHeight="100" minHeight="100" prefHeight="100"
-                           styleClass="pane-with-border" VBox.vgrow="NEVER">
-                    <padding>
-                        <Insets bottom="5" left="10" right="10" top="5"/>
-                    </padding>
-                </StackPane>
                 <BorderPane prefHeight="58.0" prefWidth="410.0" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
                     <left>
-                        <StackPane fx:id="regimeListPanelPlaceholder" BorderPane.alignment="CENTER"/>
+                        <TabPane fx:id="resourceListPanelPlaceholder" tabClosingPolicy="UNAVAILABLE" styleClass="pane-with-border"
+                                 tabMaxHeight="-Infinity" tabMaxWidth="-Infinity">
+                            <tabs>
+                                <Tab fx:id="exerciseListTabPlaceholder" styleClass="tab-pane">
+                                </Tab>
+                                <Tab fx:id="regimeListTabPlaceholder" styleClass="tab-pane">
+                                </Tab>
+                                <Tab fx:id="scheduleListTabPlaceholder" styleClass="tab-pane">
+                                </Tab>
+                                <Tab fx:id="suggestionListTabPlaceholder" styleClass="tab-pane">
+                                </Tab>
+                            </tabs>
+                        </TabPane>
                     </left>
                     <center>
-                        <BorderPane>
-                            <top>
-                                <StackPane fx:id="chartPlaceholder" BorderPane.alignment="CENTER"/>
-                            </top>
-                            <bottom>
-                                <StackPane fx:id="suggestionPanelPlaceholder" BorderPane.alignment="CENTER"/>
-                            </bottom>
-                        </BorderPane>
+                        <StackPane fx:id="infoDisplayPanelPlaceholder" BorderPane.alignment="CENTER"/>
                     </center>
+
                     <right>
-                        <StackPane fx:id="scheduleListPanelPlaceholder" BorderPane.alignment="CENTER"/>
+                        <StackPane fx:id="chartPlaceholder" BorderPane.alignment="CENTER"/>
                     </right>
+                </BorderPane>
+
+                <BorderPane styleClass="pane-with-border">
+                    <left>
+                        <StackPane>
+                            <padding>
+                                <Insets left="10" />
+                            </padding>
+                            <ImageView fx:id="logoImageView" fitWidth="100" fitHeight="100"/>
+                        </StackPane>
+
+                    </left>
+
+                    <center>
+                        <StackPane fx:id="resultDisplayPlaceholder" maxHeight="100" minHeight="100" prefHeight="100"
+                                   styleClass="resultDisplayBox" VBox.vgrow="NEVER">
+                            <padding>
+                                <Insets bottom="5" left="10" right="10" top="5"/>
+                            </padding>
+                        </StackPane>
+                    </center>
+
                     <bottom>
-                        <StackPane fx:id="statusbarPlaceholder" BorderPane.alignment="CENTER"/>
+                    <StackPane fx:id="commandBoxPlaceholder" styleClass="commandBox" VBox.vgrow="NEVER">
+                        <padding>
+                            <Insets bottom="5" left="10" right="10" top="5"/>
+                        </padding>
+                    </StackPane>
                     </bottom>
+
                 </BorderPane>
             </VBox>
         </Scene>

@@ -19,6 +19,7 @@ import seedu.exercise.model.ReadOnlyResourceBook;
 import seedu.exercise.model.UserPrefs;
 import seedu.exercise.model.property.Muscle;
 import seedu.exercise.model.resource.Exercise;
+import seedu.exercise.ui.ListResourceType;
 
 public class SuggestPossibleCommandTest {
 
@@ -42,8 +43,11 @@ public class SuggestPossibleCommandTest {
     @Test
     public void execute_suggestPossible_success() {
         expectedModel.updateSuggestedExerciseList(getPredicate());
+        String expectedMessage = SuggestPossibleCommand.MESSAGE_SUCCESS;
+
+        CommandResult expectedCommandResult = new CommandResult(expectedMessage, ListResourceType.SUGGESTION);
         assertCommandSuccess(new SuggestPossibleCommand(targetMuscles, targetCustomProperties),
-                model, SuggestPossibleCommand.MESSAGE_SUCCESS, expectedModel);
+                model, expectedCommandResult, expectedModel);
     }
 
     @Test
@@ -51,8 +55,11 @@ public class SuggestPossibleCommandTest {
         Muscle chest = new Muscle("Chest");
         targetMuscles.add(chest);
         expectedModel.updateSuggestedExerciseList(getPredicate());
+        String expectedMessage = SuggestPossibleCommand.MESSAGE_SUCCESS;
+
+        CommandResult expectedCommandResult = new CommandResult(expectedMessage, ListResourceType.SUGGESTION);
         assertCommandSuccess(new SuggestPossibleCommand(targetMuscles, targetCustomProperties),
-                model, SuggestPossibleCommand.MESSAGE_SUCCESS, expectedModel);
+                model, expectedCommandResult, expectedModel);
     }
 
     private Predicate<Exercise> getMusclePredicate() {

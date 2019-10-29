@@ -4,6 +4,8 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.Objects;
 
+import seedu.exercise.ui.ListResourceType;
+
 /**
  * Represents the result of a command execution.
  */
@@ -14,26 +16,45 @@ public class CommandResult {
     /**
      * Help information should be shown to the user.
      */
-    private final boolean showHelp;
+    private boolean showHelp;
 
     /**
      * The application should exit.
      */
-    private final boolean exit;
+    private boolean exit;
 
     /**
      * Show the resolve window to user due to scheduling conflict
      */
-    private final boolean showResolve;
+    private boolean showResolve;
+
+    /**
+     * The type of resource to be shown in the GUI.
+     */
+    private ListResourceType showListResourceType;
+
+    /**
+     * Constructs a {@code CommandResult} with the specified fields.
+     */
+    public CommandResult(String feedbackToUser, boolean showHelp,
+                         boolean isExit, boolean showResolve, ListResourceType listResourceType) {
+        this.feedbackToUser = requireNonNull(feedbackToUser);
+        this.showHelp = showHelp;
+        this.exit = isExit;
+        this.showResolve = showResolve;
+        this.showListResourceType = listResourceType;
+    }
 
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
     public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean showResolve) {
-        this.feedbackToUser = requireNonNull(feedbackToUser);
-        this.showHelp = showHelp;
-        this.exit = exit;
-        this.showResolve = showResolve;
+        this(feedbackToUser, showHelp, exit, showResolve, ListResourceType.NULL);
+    }
+
+    public CommandResult(String feedbackToUser, ListResourceType listResourceType) {
+        this(feedbackToUser);
+        this.showListResourceType = listResourceType;
     }
 
     /**
@@ -41,8 +62,10 @@ public class CommandResult {
      * and other fields set to their default value.
      */
     public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, false, false, false);
+        this(feedbackToUser, false, false, false, ListResourceType.NULL);
     }
+
+
 
     public String getFeedbackToUser() {
         return feedbackToUser;
@@ -60,6 +83,10 @@ public class CommandResult {
         return showResolve;
     }
 
+    public ListResourceType getShowListResourceType() {
+        return showListResourceType;
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -75,12 +102,13 @@ public class CommandResult {
         return feedbackToUser.equals(otherCommandResult.feedbackToUser)
             && showHelp == otherCommandResult.showHelp
             && exit == otherCommandResult.exit
-            && showResolve == otherCommandResult.showResolve;
+            && showResolve == otherCommandResult.showResolve
+            && showListResourceType.equals(otherCommandResult.showListResourceType);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(feedbackToUser, showHelp, exit, showResolve);
+        return Objects.hash(feedbackToUser, showHelp, exit, showResolve, showListResourceType);
     }
 
 }

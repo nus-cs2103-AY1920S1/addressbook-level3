@@ -14,6 +14,7 @@ import seedu.exercise.model.Model;
 import seedu.exercise.model.ModelManager;
 import seedu.exercise.model.ReadOnlyResourceBook;
 import seedu.exercise.model.UserPrefs;
+import seedu.exercise.ui.ListResourceType;
 
 public class SuggestBasicCommandTest {
 
@@ -33,7 +34,10 @@ public class SuggestBasicCommandTest {
 
     @Test
     public void execute_suggestBasic_success() {
-        assertCommandSuccess(new SuggestBasicCommand(), model, SuggestBasicCommand.MESSAGE_SUCCESS, expectedModel);
+        String expectedMessage = SuggestBasicCommand.MESSAGE_SUCCESS;
+
+        CommandResult expectedCommandResult = new CommandResult(expectedMessage, ListResourceType.SUGGESTION);
+        assertCommandSuccess(new SuggestBasicCommand(), model, expectedCommandResult, expectedModel);
     }
 
 }

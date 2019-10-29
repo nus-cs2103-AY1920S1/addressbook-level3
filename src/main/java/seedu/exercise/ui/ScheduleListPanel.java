@@ -26,6 +26,10 @@ public class ScheduleListPanel extends UiPart<Region> {
         scheduleListView.setCellFactory(listView -> new ScheduleListViewCell());
     }
 
+    public ListView<Schedule> getScheduleListView() {
+        return scheduleListView;
+    }
+
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code Schedule} using a {@code ScheduleCard}.
      */

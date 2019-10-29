@@ -10,6 +10,7 @@ import java.util.List;
 import seedu.exercise.logic.commands.exceptions.CommandException;
 import seedu.exercise.model.Model;
 import seedu.exercise.model.resource.Exercise;
+import seedu.exercise.ui.ListResourceType;
 
 /**
  * Lists basic exercises in the exercise database to the user.
@@ -29,7 +30,7 @@ public class SuggestBasicCommand extends SuggestCommand {
         requireNonNull(model);
         List<Exercise> basicExercises = Arrays.asList(getBasicExercises());
         model.setSuggestions(basicExercises);
-        return new CommandResult(MESSAGE_SUCCESS);
+        return new CommandResult(MESSAGE_SUCCESS, ListResourceType.SUGGESTION);
     }
 
     @Override
