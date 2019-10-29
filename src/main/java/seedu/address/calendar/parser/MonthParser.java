@@ -1,8 +1,10 @@
 package seedu.address.calendar.parser;
 
-import seedu.address.calendar.model.MonthOfYear;
+import seedu.address.calendar.model.util.DateUtil;
+import seedu.address.calendar.model.date.MonthOfYear;
 import seedu.address.logic.parser.exceptions.ParseException;
 
+import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -16,8 +18,14 @@ class MonthParser {
     private static final String MONTH_NUM_PATTERN = "(?<" + MONTH_NUM_KEY + ">\\d{1,2}?)";
     private static final Pattern MONTH_FORMAT = Pattern.compile(MONTH_NUM_PATTERN + "|" + MONTH_STR_PATTERN);
 
-    MonthOfYear parse(String userInput) throws ParseException {
-        final Matcher matcher = MONTH_FORMAT.matcher(userInput.trim());
+    Optional<MonthOfYear> parse(Optional<String> monthInput) throws ParseException {
+        if (monthInput.isEmpty()) {
+            return Optional.empty();
+        }
+
+        String input = monthInput.get();
+
+        final Matcher matcher = MONTH_FORMAT.matcher(input.trim());
 
         if (!matcher.matches()) {
             throw new ParseException(FORMAT_ERROR_MESSAGE);
@@ -26,34 +34,34 @@ class MonthParser {
         MonthOfYear month;
 
         if (matcher.group(MONTH_NUM_KEY) != null) {
-            String monthNum = matcher.group(MONTH_NUM_PATTERN);
+            String monthNum = matcher.group(MONTH_NUM_KEY);
             month = convertMonthNum(monthNum);
         } else {
             String monthStr = matcher.group(MONTH_STR_KEY);
             month = convertMonthStr(monthStr);
         }
 
-        return month;
+        return Optional.of(month);
     }
 
     private MonthOfYear convertMonthNum(String monthNum) throws ParseException {
         // assumes that user represents Jan with 1, Feb with 2, etc.
         int zeroBasedMonth = Integer.parseInt(monthNum) - 1;
 
-        if (!MonthOfYear.isValidMonthNum(zeroBasedMonth)) {
+        if (!DateUtil.isValidMonthNum(zeroBasedMonth)) {
             throw new ParseException(MONTH_ERROR_MESSAGE);
         }
 
-        MonthOfYear month = MonthOfYear.convertNumToMonth(zeroBasedMonth);
+        MonthOfYear month = DateUtil.convertNumToMonth(zeroBasedMonth);
         return month;
     }
 
     private MonthOfYear convertMonthStr(String monthStr) throws ParseException {
-        if (!MonthOfYear.isValidMonthStr(monthStr)) {
+        if (!DateUtil.isValidMonthStr(monthStr)) {
             throw new ParseException(MONTH_ERROR_MESSAGE);
         }
 
-        MonthOfYear month = MonthOfYear.convertStrToMonth(monthStr);
+        MonthOfYear month = DateUtil.convertStrToMonth(monthStr);
         return month;
     }
 }

@@ -1,0 +1,94 @@
+@startuml
+scale 0.8
+!include ../style.puml
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":CalendarParser" as CalendarParser LOGIC_COLOR
+participant ":ShowCommandParser" as ShowCommandParser LOGIC_COLOR
+participant ":MonthParser" as MonthParser LOGIC_COLOR
+participant ":YearParser" as YearParser LOGIC_COLOR
+participant "s:ShowCommand" as ShowCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Calendar" as Calendar MODEL_COLOR
+end box
+
+[-> LogicManager : execute("show m/ Dec y/ 2019")
+activate LogicManager
+
+LogicManager -> CalendarParser : parse("show m/ Dec y/ 2019")
+activate CalendarParser
+
+create ShowCommandParser
+CalendarParser -> ShowCommandParser
+activate ShowCommandParser
+
+ShowCommandParser --> CalendarParser
+deactivate ShowCommandParser
+
+CalendarParser -> ShowCommandParser : parse("m/ Dec y/ 2019")
+activate ShowCommandParser
+
+create MonthParser
+ShowCommandParser -> MonthParser
+activate MonthParser
+
+MonthParser --> ShowCommandParser
+deactivate MonthParser
+
+ShowCommandParser -> MonthParser : parse("Dec")
+activate MonthParser
+
+MonthParser --> ShowCommandParser : DECEMBER
+deactivate MonthParser
+
+create YearParser
+ShowCommandParser -> YearParser
+activate YearParser
+
+YearParser --> ShowCommandParser
+deactivate YearParser
+
+ShowCommandParser -> YearParser : parse("2019")
+activate YearParser
+
+YearParser --> ShowCommandParser : 2019
+deactivate YearParser
+
+create ShowCommand
+ShowCommandParser -> ShowCommand
+activate ShowCommand
+
+ShowCommand --> ShowCommandParser
+deactivate ShowCommand
+
+ShowCommandParser --> CalendarParser
+deactivate ShowCommandParser
+
+CalendarParser --> LogicManager
+deactivate CalendarParser
+
+LogicManager -> ShowCommand : execute()
+activate ShowCommand
+
+activate Calendar
+ShowCommand -> Calendar
+
+Calendar --> ShowCommand
+deactivate Calendar
+
+create CommandResult
+ShowCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> ShowCommand
+deactivate CommandResult
+
+deactivate ShowCommand
+
+[<--LogicManager
+deactivate LogicManager
+
+@enduml

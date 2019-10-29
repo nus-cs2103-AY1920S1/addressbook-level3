@@ -10,8 +10,11 @@ import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import seedu.address.achievements.ui.AchievementsPage;
+import seedu.address.address.logic.AddressBookLogic;
+import seedu.address.address.ui.AddressBookPage;
+import seedu.address.address.ui.PersonListPanel;
 import seedu.address.calendar.ui.CalendarPage;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
@@ -22,7 +25,8 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.achievements.ui.AchievementsPage;
+
+//import seedu.address.address.ui.AddressBookPage;
 
 /**
  * The Main Window. Provides the basic application layout containing a menu bar
@@ -48,6 +52,7 @@ public class MainWindow extends UiPart<Stage> implements Page {
     private ItineraryPage itineraryPage;
     private DiaryPage diaryPage;
     private AchievementsPage achievementsPage;
+    private AddressBookPage addressBookPage;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -85,7 +90,8 @@ public class MainWindow extends UiPart<Stage> implements Page {
         calendarPage = new CalendarPage();
         itineraryPage = new ItineraryPage();
         diaryPage = new DiaryPage();
-        achievementsPage = new AchievementsPage();
+        achievementsPage = new AchievementsPage(primaryStage, logic.getAchievementsLogic());
+        addressBookPage = new AddressBookPage(primaryStage, logic.getAddressBookLogic());
 
         mainScene = primaryStage.getScene();
 
@@ -93,7 +99,7 @@ public class MainWindow extends UiPart<Stage> implements Page {
         // e.g. Pages(primaryScene, diaryScene)
         // note that one of the PageScene's constructor is a vararg
         PageManager.getInstance(primaryStage, mainScene, new SamplePage(), calendarPage, itineraryPage,
-                financialTrackerPage, achievementsPage);
+                financialTrackerPage, diaryPage, achievementsPage, addressBookPage);
 
     }
 
@@ -107,7 +113,7 @@ public class MainWindow extends UiPart<Stage> implements Page {
 
     /**
      * Sets the accelerator of a MenuItem.
-     * 
+     *
      * @param keyCombination the KeyCombination value of the accelerator
      */
     private void setAccelerator(MenuItem menuItem, KeyCombination keyCombination) {
@@ -140,13 +146,13 @@ public class MainWindow extends UiPart<Stage> implements Page {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
+        personListPanel = new PersonListPanel(logic.getAddressBookLogic().getFilteredPersonList());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
+        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookLogic().getAddressBookFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
@@ -212,11 +218,11 @@ public class MainWindow extends UiPart<Stage> implements Page {
     /**
      * Executes the command and returns the result.
      *
-     * @see seedu.address.logic.Logic#execute(String)
+     * @see AddressBookLogic#execute(String)
      */
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
-            CommandResult commandResult = logic.execute(commandText);
+            CommandResult commandResult = logic.getAddressBookLogic().execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 

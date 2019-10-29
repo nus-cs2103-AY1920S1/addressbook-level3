@@ -1,10 +1,9 @@
 package seedu.address.financialtracker.parser;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-
 import seedu.address.commons.core.index.Index;
 import seedu.address.financialtracker.commands.DeleteFinCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.commons.core.Messages;
 
 /**
  * Parses input arguments and creates a new DeleteFinCommand object
@@ -22,7 +21,7 @@ public class DeleteFinCommandParser implements Parser<DeleteFinCommand> {
             return new DeleteFinCommand(index);
         } catch (ParseException pe) {
             throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteFinCommand.MESSAGE_USAGE), pe);
+                    String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, DeleteFinCommand.MESSAGE_USAGE), pe);
         }
     }
 

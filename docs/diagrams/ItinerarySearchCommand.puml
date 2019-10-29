@@ -1,0 +1,80 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":ItineraryParser" as ItineraryParser LOGIC_COLOR
+participant ":SearchCommandParser" as SearchCommandParser LOGIC_COLOR
+participant ":SearchCommand" as SearchCommand LOGIC_COLOR
+participant "e:SearchEventDescriptor" as Event LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute(\n"search title/Hello")
+activate LogicManager
+
+LogicManager -> ItineraryParser : parseCommand(\n"search\ntitle/Hello")
+activate ItineraryParser
+
+create SearchCommandParser
+ItineraryParser -> SearchCommandParser
+activate SearchCommandParser
+
+SearchCommandParser --> ItineraryParser
+deactivate SearchCommandParser
+
+ItineraryParser -> SearchCommandParser : parse("title/Hello")
+activate SearchCommandParser
+
+create SearchCommand
+SearchCommandParser -> SearchCommand
+activate SearchCommand
+
+create Event
+SearchCommand -> Event
+activate Event
+
+Event --> SearchCommand : e
+deactivate Event
+
+SearchCommand -[hidden]-> Event
+destroy Event
+
+SearchCommand --> SearchCommandParser : e
+deactivate SearchCommand
+
+SearchCommandParser --> ItineraryParser : e
+deactivate SearchCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+SearchCommandParser -[hidden]-> ItineraryParser
+ItineraryParser --> LogicManager : e
+destroy SearchCommandParser
+
+deactivate ItineraryParser
+
+LogicManager -> SearchCommand : execute()
+activate SearchCommand
+
+SearchCommand -> Model : filterEvents(e)
+activate Model
+
+Model --> SearchCommand
+deactivate Model
+
+create CommandResult
+SearchCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> SearchCommand
+deactivate CommandResult
+
+SearchCommand --> LogicManager : filteredList
+deactivate SearchCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

@@ -2,7 +2,6 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -31,7 +30,7 @@
             <Region fx:constant="USE_PREF_SIZE" />
           </minWidth>
         </Label>
-        <Label fx:id="title" lineSpacing="2.0" prefHeight="20.0" prefWidth="56.0" styleClass="cell_big_label" text="\\\$title" underline="true" wrapText="true">
+        <Label fx:id="title" lineSpacing="2.0" styleClass="cell_big_label" text="\\\$title" underline="true" wrapText="true">
                <font>
                   <Font name="Chalkboard" size="18.0" />
                </font>
@@ -46,7 +45,7 @@
                            <Font name="Chalkboard" size="13.0" />
                         </font>
                      </Label>
-                     <Label fx:id="date" prefHeight="17.0" prefWidth="57.0" styleClass="cell_small_label" text="\\\$date" />
+                     <Label fx:id="date" styleClass="cell_small_label" text="\\\$date" />
                   </children>
                </HBox>
                <HBox prefHeight="14.0" prefWidth="128.0">
@@ -56,7 +55,7 @@
                            <Font name="Chalkboard" size="13.0" />
                         </font>
                      </Label>
-                  <Label fx:id="time" prefHeight="17.0" prefWidth="57.0" styleClass="cell_small_label" text="\\\$time" />
+                  <Label fx:id="time" styleClass="cell_small_label" text="\\\$time" />
                   </children>
                </HBox>
                <HBox prefHeight="5.0" prefWidth="129.0">

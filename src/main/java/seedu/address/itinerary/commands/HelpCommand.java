@@ -6,14 +6,17 @@ import seedu.address.itinerary.ui.HelpCommandWindow;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 
+/**
+ * Opens up a window with the commands available for itinerary.
+ */
 public class HelpCommand extends Command {
-    private HelpCommandWindow helpWindow = new HelpCommandWindow();
-
     public static final String COMMAND_WORD = "help";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Opens up a window which showcase all"
             + " the commands for itinerary.";
 
-    public static final String MESSAGE_SUCCESS = "Currently viewing the itinerary help window.";
+    public static final String MESSAGE_SUCCESS = "Currently viewing the itinerary help window. (ﾉ◕ヮ◕)ﾉ*:･ﾟ✧";
+
+    private HelpCommandWindow helpWindow = new HelpCommandWindow();
 
     /**
      * Opens the help window or focuses on it if it's already opened.
@@ -27,6 +30,7 @@ public class HelpCommand extends Command {
         }
     }
 
+    @Override
     public CommandResult execute(Model model) throws CommandException {
         handleHelp();
         return new CommandResult(MESSAGE_SUCCESS, false, false);

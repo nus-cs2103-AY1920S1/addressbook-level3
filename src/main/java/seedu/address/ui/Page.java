@@ -2,6 +2,9 @@ package seedu.address.ui;
 
 import javafx.scene.Scene;
 
+/**
+ * Page for a specified feature / extension.
+ */
 // todo-this-week: get your page to implement this interface, refer to SamplePage for a concrete example
 public interface Page {
 

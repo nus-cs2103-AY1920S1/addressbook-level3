@@ -1,17 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
-
-<?import javafx.scene.image.ImageView?>
 <fx:root fx:id="achievementsPane" stylesheets="@DarkTheme.css" type="BorderPane" xmlns="http://javafx.com/javafx/11.0.1" styleClass="achievement-pane" xmlns:fx="http://javafx.com/fxml/1">
   <top>
+    <VBox>
+    <MenuBar fx:id="menuBar" VBox.vgrow="NEVER">
+      <Menu mnemonicParsing="false" text="File">
+        <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
+      </Menu>
+      <Menu mnemonicParsing="false" text="Code">
+        <MenuItem fx:id="codeMenuItem" mnemonicParsing="false" onAction="#handleCode" text="Git Code" />
+      </Menu>
+      <Menu mnemonicParsing="false" text="Help">
+        <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
+      </Menu>
+    </MenuBar>
     <HBox alignment="CENTER" prefHeight="150">
       <ImageView preserveRatio="true" fitHeight="150" fx:id="title"></ImageView>
     </HBox>
+    </VBox>
   </top>
   <left>
     <VBox prefWidth="50">
@@ -19,6 +35,7 @@
   </left>
   <center >
     <HBox prefWidth="340" style="-fx-background-color:#9E9E9E;-fx-opacity: 0.5;">
+      <Label fx:id ="test" wrapText="true"></Label>
     </HBox>
   </center>
   <right>

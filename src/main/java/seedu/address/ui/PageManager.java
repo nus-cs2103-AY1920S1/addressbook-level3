@@ -1,15 +1,14 @@
 package seedu.address.ui;
 
-import javafx.animation.FadeTransition;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
-import javafx.util.Duration;
-import seedu.address.logic.commands.CommandResult;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import javafx.animation.FadeTransition;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+import javafx.util.Duration;
 
 /**
  * A singleton task that handles all UI for page navigation. It must be initialised using {@code getInstance} before
@@ -50,6 +49,7 @@ public class PageManager {
         } else if (requestedPage.isEmpty()) {
             assert false : "Every get page command should have a page class implemented for it";
         }
+        //@@author bjhoohaha-reused
         //Credits to : Asfal, Genuine Coder
         //https://www.genuinecoder.com/javafx-scene-switch-change-animation/
         Scene requestedScene = requestedPage.get();

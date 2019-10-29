@@ -1,0 +1,58 @@
+#bottom-panel {
+    -fx-background-color: #fff;
+}
+
+.day-of-month {
+    -fx-font-size: 1.2em;
+}
+
+.day-view {
+    -fx-alignment: "TOP_CENTER";
+    -fx-padding: 10 0;
+}
+
+#divider {
+    -fx-background-color: linear-gradient(to right, #f64f59, #c471ed, #12c2e9);
+}
+
+#headerPanel {
+    -fx-background-color: linear-gradient(to right, #AA076B, #61045F);
+    -fx-padding: 20;
+}
+
+#header {
+    -fx-border-color: #fff;
+    -fx-border-width: 5;
+    -fx-padding: 7;
+}
+
+.header-text {
+    -fx-text-fill: #fff;
+}
+
+#monthPanel {
+    -fx-background-color: #fff;
+    -fx-padding: 30 25;
+}
+
+#monthHeader {
+    -fx-font-size: 60;
+}
+
+.result-display {
+    -fx-border-style: none;
+    -fx-background-color: transparent;
+}
+
+.week {
+    -fx-alignment: center;
+    -fx-text-alignment: center;
+    -fx-text-overrun: clip;
+    -fx-line-spacing: 1.2em;
+    -fx-font: 1.5em "Arial Black";
+}
+
+#week-header {
+    -fx-border-color: #000;
+    -fx-border-style: solid none;
+}

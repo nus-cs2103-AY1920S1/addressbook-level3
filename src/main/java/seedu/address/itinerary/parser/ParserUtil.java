@@ -1,12 +1,16 @@
 package seedu.address.itinerary.parser;
 
+import static java.util.Objects.requireNonNull;
+
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
-import seedu.address.itinerary.model.Event.*;
+import seedu.address.itinerary.model.event.Date;
+import seedu.address.itinerary.model.event.Description;
+import seedu.address.itinerary.model.event.Location;
+import seedu.address.itinerary.model.event.Time;
+import seedu.address.itinerary.model.event.Title;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.ui.PageType;
-
-import static java.util.Objects.requireNonNull;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -28,6 +32,11 @@ public class ParserUtil {
         return Index.fromOneBased(Integer.parseInt(trimmedIndex));
     }
 
+    /**
+     * @param pageType the specified page to navigate to in TravEzy.
+     * @return the specified page type and navigate to that page.
+     * @throws ParseException if the specified page is invalid.
+     */
     public static PageType parsePageType(String pageType) throws ParseException {
         requireNonNull(pageType);
         String trimmedPageType = pageType.trim();
@@ -96,6 +105,11 @@ public class ParserUtil {
         return new Time(trimmedTime);
     }
 
+    /**
+     * @param date the date that is being specified by the user.
+     * @return the formatted date in dd/MM/yy.
+     * @throws ParseException if the given {@code date} is invalid.
+     */
     public static Date parseDate(String date) throws ParseException {
         String trimmedDate = date.trim();
         if (!Date.isValidDate(trimmedDate)) {
