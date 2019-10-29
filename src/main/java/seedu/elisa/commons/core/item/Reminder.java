@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 import com.fasterxml.jackson.databind.JsonNode;
@@ -48,7 +49,7 @@ public class Reminder {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append("\nReminder DateTime: ")
-                .append(getDateTime().toString());
+                .append(getDateTime().format(DateTimeFormatter.ofPattern("dd/MM/uuuu HH:mm")));
         return builder.toString();
     }
 

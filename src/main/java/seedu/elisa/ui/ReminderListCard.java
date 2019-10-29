@@ -42,7 +42,7 @@ public class ReminderListCard extends UiPart<Region> {
         this.item = item;
         id.setText(displayedIndex + ". ");
         description.setText(item.getItemDescription().toString());
-        reminderdatetime.setText("Reminder: " + item.getReminder().get().getDateTime().toString());
+        reminderdatetime.setText("Reminder: " + item.getReminder().get().toString());
     }
 
     @Override
