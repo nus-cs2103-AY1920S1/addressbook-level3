@@ -194,6 +194,11 @@ public class AddBudgetCommandTest {
         }
 
         @Override
+        public ObservableList<Transaction> getAssociatedTransactions(RepeaterUniqueId repeaterUniqueId) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void addRepeater(Repeater repeater) {
             throw new AssertionError("This method should not be called.");
         }
