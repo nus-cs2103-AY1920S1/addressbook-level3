@@ -161,7 +161,7 @@ Examples:
 * `delete 2` +
 Deletes the 2nd word in the data set.
 * `delete 1` +
-Deletes the 1st word in the results of the `/find` command.
+Deletes the 1st word in the results of the `find` command.
 
 ==== Viewing a word bank's content : `list`
 Views the content of a data set. +
@@ -184,7 +184,7 @@ Examples:
 ===== Locating a word/description: `find`
 
 Finds entry whose word or description contain any of the given keywords. +
-Format: `/find KEYWORD [MORE_KEYWORDS]...`
+Format: `find KEYWORD [MORE_KEYWORDS]...`
 
 ****
 * The search is case insensitive. e.g `hans` will match `Hans`
@@ -228,55 +228,55 @@ Format: `stop`
 === Changing settings : `settings`
 
 Goes into the settings menu. +
-Format: `/settings`
+Format: `settings`
 
 ==== Changing the theme : `theme`
 
 Changes the theme of the UI. +
-Format: `/theme dark/light`
+Format: `theme dark/light`
 
 Examples:
 
-* `/theme dark` +
+* `theme dark` +
 Changes the UI theme to dark.
-* `/theme light` +
+* `theme light` +
 Changes the UI theme to light.
 
 ==== Turning hints on/off : `hints`
 
 Turns hints on or off. +
-Format: `/hints on/off`
+Format: `hints on/off`
 
 Examples:
 
-* `/hints on` +
+* `hints on` +
 Turns hints on.
-* `/hints off` +
+* `hints off` +
 Turns hints off.
 
 ==== Changing difficulty : `difficulty`
 
 Changes the difficulty of the game. +
-Format: `/difficulty low/medium/high`
+Format: `difficulty low/medium/high`
 
 Examples:
 
-* `/difficulty low` +
+* `difficulty low` +
 Changes the difficulty to low. (Timer = 30 seconds)
-* `/difficulty medium` +
+* `difficulty medium` +
 Changes the difficulty to medium. (Timer = 20 seconds)
-* `/difficulty high` +
+* `difficulty high` +
 Changes the difficulty to high. (Timer = 10 seconds)
 
 === Navigating back : `back`
 
 At any point in time, if there is a previous screen, navigates back to that screen. add home to navigate back to the home page. +
-Format: `/back [home]`
+Format: `back [home]`
 
 Examples:
 
-* `/back`
-* `/back home`
+* `back`
+* `back home`
 
 === Saving the data
 Dukemon data are saved in the hard disk automatically after any command that changes the data. +
@@ -358,7 +358,7 @@ s| theme m| DARK/LIGHT
 
 s| hints m| ON/OFF
 
-s| avartar m| INT
+s| avatar m| INT
 
 3.1+|
 3.1+|
