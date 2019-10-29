@@ -20,7 +20,7 @@ import seedu.address.commons.core.LogsCenter;
  */
 public class NotificationButton extends UiPart<Region> {
 
-    private static NotificationButton notificationButton = new NotificationButton();
+    private static NotificationButton notificationButton = null;
     private static final Logger logger = LogsCenter.getLogger(NotificationButton.class);
     private static final String FXML = "NotificationButton.fxml";
 
@@ -46,6 +46,9 @@ public class NotificationButton extends UiPart<Region> {
      * Returns the single instance of the notification button.
      */
     public static NotificationButton getInstanceOfNotifButton() {
+        if (notificationButton == null) {
+            return new NotificationButton();
+        }
         return notificationButton;
     }
 
