@@ -1,23 +1,27 @@
 package seedu.moneygowhere.logic.parser;
 
 import static seedu.moneygowhere.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.moneygowhere.logic.commands.CommandTestUtil.DATE_DESC_AMY;
+import static seedu.moneygowhere.logic.commands.CommandTestUtil.COMMAND_WORD_DESC_ADD;
+import static seedu.moneygowhere.logic.commands.CommandTestUtil.COMMAND_WORD_DESC_DELETE;
 import static seedu.moneygowhere.logic.commands.CommandTestUtil.DATE_DESC_VALID;
-import static seedu.moneygowhere.logic.commands.CommandTestUtil.INVALID_DATE_DESC;
-import static seedu.moneygowhere.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
+import static seedu.moneygowhere.logic.commands.CommandTestUtil.INVALID_COMMAND_WORD_DESC;
 import static seedu.moneygowhere.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
 import static seedu.moneygowhere.logic.commands.CommandTestUtil.REMINDER_MESSAGE_DESC_VALID;
 import static seedu.moneygowhere.logic.commands.CommandTestUtil.VALID_DATE;
 import static seedu.moneygowhere.logic.commands.CommandTestUtil.VALID_REMINDER_MESSAGE;
 import static seedu.moneygowhere.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.moneygowhere.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import static seedu.moneygowhere.testutil.Assert.assertThrows;
+import static seedu.moneygowhere.testutil.TypicalIndexes.INDEX_FIRST_REMINDER;
 import static seedu.moneygowhere.testutil.TypicalSpendings.BILL_REMINDER;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.moneygowhere.logic.commands.ReminderCommand;
+import seedu.moneygowhere.logic.commands.reminder.AddReminderCommand;
+import seedu.moneygowhere.logic.commands.reminder.DeleteReminderCommand;
+import seedu.moneygowhere.logic.parser.exceptions.ParseException;
 import seedu.moneygowhere.model.reminder.Reminder;
-import seedu.moneygowhere.model.spending.Date;
 import seedu.moneygowhere.testutil.ReminderBuilder;
 
 class ReminderCommandParserTest {
@@ -28,18 +32,27 @@ class ReminderCommandParserTest {
     public void parse_allFieldsPresent_success() {
         Reminder expectedReminder = new ReminderBuilder(BILL_REMINDER).build();
 
-        // whitespace only preamble
-        assertParseSuccess(parser, PREAMBLE_WHITESPACE + DATE_DESC_VALID + REMINDER_MESSAGE_DESC_VALID,
-                new ReminderCommand(expectedReminder));
+        // whitespace only preamble for adding reminder
+        assertParseSuccess(parser, PREAMBLE_WHITESPACE + COMMAND_WORD_DESC_ADD + DATE_DESC_VALID
+                        + REMINDER_MESSAGE_DESC_VALID,
+                new AddReminderCommand(expectedReminder));
 
-        // multiple dates - last date accepted
-        assertParseSuccess(parser, DATE_DESC_AMY + DATE_DESC_VALID + REMINDER_MESSAGE_DESC_VALID,
-                new ReminderCommand(expectedReminder));
+        // multiple dates for adding reminder - last date accepted
+        assertParseSuccess(parser, COMMAND_WORD_DESC_ADD + DATE_DESC_VALID + REMINDER_MESSAGE_DESC_VALID,
+                new AddReminderCommand(expectedReminder));
+
+        // Deleting reminder
+        assertParseSuccess(parser, COMMAND_WORD_DESC_DELETE + " 1",
+                new DeleteReminderCommand(INDEX_FIRST_REMINDER));
     }
 
     @Test
     public void parse_compulsoryFieldMissing_failure() {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, ReminderCommand.MESSAGE_USAGE);
+
+        // missing command word
+        assertParseFailure(parser, DATE_DESC_VALID + REMINDER_MESSAGE_DESC_VALID,
+                expectedMessage);
 
         // missing date prefix
         assertParseFailure(parser, VALID_DATE + REMINDER_MESSAGE_DESC_VALID,
@@ -55,13 +68,14 @@ class ReminderCommandParserTest {
     }
 
     @Test
-    public void parse_invalidValue_failure() {
-        // invalid date
-        assertParseFailure(parser, INVALID_DATE_DESC + REMINDER_MESSAGE_DESC_VALID, Date.MESSAGE_CONSTRAINTS);
-
-        // non-empty preamble
-        assertParseFailure(parser, PREAMBLE_NON_EMPTY + DATE_DESC_VALID
-                        + REMINDER_MESSAGE_DESC_VALID,
+    public void parse_invalidCommandWord_failure() {
+        assertParseFailure(parser, INVALID_COMMAND_WORD_DESC + DATE_DESC_VALID + REMINDER_MESSAGE_DESC_VALID,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, ReminderCommand.MESSAGE_USAGE));
+    }
+
+    @Test
+    public void parseCommand_unknownCommand_throwsParseException() {
+        assertThrows(ParseException.class, String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                ReminderCommand.MESSAGE_USAGE), () -> parser.parse("unknownCommand"));
     }
 }

@@ -1,4 +1,4 @@
-package seedu.moneygowhere.logic.commands;
+package seedu.moneygowhere.logic.commands.reminder;
 
 import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -17,6 +17,7 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
 import seedu.moneygowhere.commons.core.GuiSettings;
+import seedu.moneygowhere.logic.commands.CommandResult;
 import seedu.moneygowhere.model.Model;
 import seedu.moneygowhere.model.ReadOnlySpendingBook;
 import seedu.moneygowhere.model.ReadOnlyUserPrefs;
@@ -24,48 +25,49 @@ import seedu.moneygowhere.model.SpendingBook;
 import seedu.moneygowhere.model.budget.Budget;
 import seedu.moneygowhere.model.reminder.Reminder;
 import seedu.moneygowhere.model.spending.Spending;
-import seedu.moneygowhere.testutil.SpendingBuilder;
+import seedu.moneygowhere.testutil.ReminderBuilder;
 
-public class AddCommandTest {
+class AddReminderCommandTest {
 
     @Test
-    public void constructor_nullSpending_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new AddCommand(null));
+    public void constructor_nullReminder_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> new AddReminderCommand(null));
     }
 
     @Test
     public void execute_spendingAcceptedByModel_addSuccessful() throws Exception {
-        ModelStubAcceptingSpendingAdded modelStub = new ModelStubAcceptingSpendingAdded();
-        Spending validSpending = new SpendingBuilder().build();
+        ModelStubAcceptingReminderAdded modelStub = new ModelStubAcceptingReminderAdded();
+        Reminder validReminder = new ReminderBuilder().build();
 
-        CommandResult commandResult = new AddCommand(validSpending).execute(modelStub);
+        CommandResult commandResult = new AddReminderCommand(validReminder).execute(modelStub);
 
-        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validSpending), commandResult.getFeedbackToUser());
-        assertEquals(Arrays.asList(validSpending), modelStub.spendingsAdded);
+        assertEquals(String.format(AddReminderCommand.MESSAGE_SUCCESS, validReminder),
+                commandResult.getFeedbackToUser());
+        assertEquals(Arrays.asList(validReminder), modelStub.remindersAdded);
     }
 
     @Test
     public void equals() {
-        Spending alice = new SpendingBuilder().withName("Alice").build();
-        Spending bob = new SpendingBuilder().withName("Bob").build();
-        AddCommand addAliceCommand = new AddCommand(alice);
-        AddCommand addBobCommand = new AddCommand(bob);
+        Reminder schoolFee = new ReminderBuilder().withRemark("Pay School fee").build();
+        Reminder phoneBill = new ReminderBuilder().withRemark("Pay Phone bill").build();
+        AddReminderCommand addSchoolFeeReminderCommand = new AddReminderCommand(schoolFee);
+        AddReminderCommand addPhoneBillReminderCommand = new AddReminderCommand(phoneBill);
 
         // same object -> returns true
-        assertTrue(addAliceCommand.equals(addAliceCommand));
+        assertTrue(addSchoolFeeReminderCommand.equals(addSchoolFeeReminderCommand));
 
         // same values -> returns true
-        AddCommand addAliceCommandCopy = new AddCommand(alice);
-        assertTrue(addAliceCommand.equals(addAliceCommandCopy));
+        AddReminderCommand addSchoolFeeReminderCommandCopy = new AddReminderCommand(schoolFee);
+        assertTrue(addSchoolFeeReminderCommand.equals(addSchoolFeeReminderCommandCopy));
 
         // different types -> returns false
-        assertFalse(addAliceCommand.equals(1));
+        assertFalse(addSchoolFeeReminderCommand.equals(1));
 
         // null -> returns false
-        assertFalse(addAliceCommand.equals(null));
+        assertFalse(addSchoolFeeReminderCommand == null);
 
         // different Spending -> returns false
-        assertFalse(addAliceCommand.equals(addBobCommand));
+        assertFalse(addSchoolFeeReminderCommand.equals(addPhoneBillReminderCommand));
     }
 
     /**
@@ -167,13 +169,15 @@ public class AddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
+        @Override
         public void deleteReminder(Reminder reminder) {
             throw new AssertionError("This method should not be called.");
         }
 
+        @Override
         public List<Reminder> getReminderList() {
             throw new AssertionError("This method should not be called.");
-        }
+        };
 
         @Override
         public ObservableList<Spending> getStatsList() {
@@ -185,40 +189,41 @@ public class AddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
     }
+
     /**
      * A Model stub that contains a single Spending.
      */
-    private class ModelStubWithSpending extends ModelStub {
-        private final Spending spending;
+    private class ModelStubWithReminder extends ModelStub {
+        private final Reminder reminder;
 
-        ModelStubWithSpending(Spending spending) {
-            requireNonNull(spending);
-            this.spending = spending;
+        ModelStubWithReminder(Reminder reminder) {
+            requireNonNull(reminder);
+            this.reminder = reminder;
         }
 
         @Override
-        public boolean hasSpending(Spending spending) {
-            requireNonNull(spending);
-            return this.spending.isSameSpending(spending);
+        public boolean hasReminder(Reminder reminder) {
+            requireNonNull(reminder);
+            return this.reminder.isSameReminder(reminder);
         }
     }
 
     /**
      * A Model stub that always accept the Spending being added.
      */
-    private class ModelStubAcceptingSpendingAdded extends ModelStub {
-        final ArrayList<Spending> spendingsAdded = new ArrayList<>();
+    private class ModelStubAcceptingReminderAdded extends ModelStub {
+        private final List<Reminder> remindersAdded = new ArrayList<>();
 
         @Override
-        public boolean hasSpending(Spending spending) {
-            requireNonNull(spending);
-            return spendingsAdded.stream().anyMatch(spending::isSameSpending);
+        public boolean hasReminder(Reminder reminder) {
+            requireNonNull(reminder);
+            return remindersAdded.stream().anyMatch(reminder::isSameReminder);
         }
 
         @Override
-        public void addSpending(Spending spending) {
-            requireNonNull(spending);
-            spendingsAdded.add(spending);
+        public void addReminder(Reminder reminder) {
+            requireNonNull(reminder);
+            remindersAdded.add(reminder);
         }
 
         @Override
@@ -226,5 +231,4 @@ public class AddCommandTest {
             return new SpendingBook();
         }
     }
-
 }

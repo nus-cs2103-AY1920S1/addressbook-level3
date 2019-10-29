@@ -14,7 +14,6 @@ import seedu.moneygowhere.model.spending.Date;
  * Parses input arguments and creates a new GraphCommand object
  */
 public class GraphCommandParser implements Parser<GraphCommand> {
-
     /**
      * Parses the given {@code String} of arguments in the context of the GraphCommand
      * and returns a GraphCommand object
@@ -27,15 +26,18 @@ public class GraphCommandParser implements Parser<GraphCommand> {
         if (arePrefixesPresent(argMultimap, PREFIX_DATE)) {
             List<Date> datesList = ParserUtil.parseDates(argMultimap.getAllValues(PREFIX_DATE));
 
+            //Throw ParseException if number of dates provided is not equal to 2.
             if (datesList.size() != 2) {
-                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, GraphCommand.MESSAGE_USAGE));
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    GraphCommand.MESSAGE_INVALID_DATERANGE));
             }
 
             Date startDate = datesList.get(0);
             Date endDate = datesList.get(1);
-
-            if (startDate.value.compareTo(endDate.value) > 0) {
-                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, GraphCommand.MESSAGE_USAGE));
+            //Throw ParseException if startDate is later than endDate.
+            if (startDate.compareTo(endDate) > 0) {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    GraphCommand.MESSAGE_INVALID_DATERANGE));
             }
 
             return new GraphCommand(startDate, endDate);

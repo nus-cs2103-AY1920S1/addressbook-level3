@@ -1,5 +1,6 @@
 package seedu.moneygowhere.ui;
 
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.logging.Logger;
 
@@ -12,7 +13,6 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import seedu.moneygowhere.commons.core.LogsCenter;
-import seedu.moneygowhere.model.spending.Date;
 
 /**
  * Controller for a graph page
@@ -44,8 +44,9 @@ public class GraphWindow extends UiPart<Stage> {
 
     /**
      * Loads graph data into a line chart for display.
+     * @param graphData
      */
-    public void loadData(Map<Date, Double> graphData) {
+    public void loadData(LinkedHashMap<String, Double> graphData) {
         paneView.getChildren().clear();
 
         CategoryAxis xAxis = new CategoryAxis();
@@ -53,21 +54,16 @@ public class GraphWindow extends UiPart<Stage> {
         NumberAxis yAxis = new NumberAxis();
         yAxis.setLabel("Amount spent ($)");
         LineChart<String, Number> spendingChart = new LineChart<>(xAxis, yAxis);
-        spendingChart.setTitle("Current month's spending");
+        spendingChart.setTitle("Graph");
 
         XYChart.Series<String, Number> series = new XYChart.Series<>();
         series.setName("spending");
-        for (Map.Entry<Date, Double> i : graphData.entrySet()) {
+        for (Map.Entry<String, Double> i : graphData.entrySet()) {
             XYChart.Data<String, Number> dataToAdd = new XYChart.Data<>(i.getKey().toString(),
                 Math.round(i.getValue()));
             series.getData().add(dataToAdd);
         }
         spendingChart.getData().add(series);
-
-        spendingChart.setMinWidth(600);
-        spendingChart.setMinHeight(600);
-        spendingChart.setMaxWidth(1200);
-        spendingChart.setMaxHeight(600);
 
         paneView.getChildren().add(spendingChart);
         paneView.setStyle("-fx-background-color: white");

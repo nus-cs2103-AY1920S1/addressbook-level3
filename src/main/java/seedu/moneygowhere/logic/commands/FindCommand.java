@@ -39,12 +39,12 @@ public class FindCommand extends Command {
         if (predicate.isEmpty()) {
             model.updateFilteredSpendingList(failed -> false);
             return new CommandResult(
-                    String.format(Messages.MESSAGE_SPENDINGS_LISTED_OVERVIEW, model.getFilteredSpendingList().size()));
+                    String.format(Messages.MESSAGE_SPENDING_LISTED_OVERVIEW, model.getFilteredSpendingList().size()));
         }
 
         model.updateFilteredSpendingList(predicate.get());
         return new CommandResult(
-                String.format(Messages.MESSAGE_SPENDINGS_LISTED_OVERVIEW, model.getFilteredSpendingList().size()));
+                String.format(Messages.MESSAGE_SPENDING_LISTED_OVERVIEW, model.getFilteredSpendingList().size()));
     }
 
     @Override
