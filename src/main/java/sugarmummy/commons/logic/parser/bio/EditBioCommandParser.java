@@ -24,18 +24,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
-import sugarmummy.commons.core.index.Index;
 import seedu.address.logic.commands.bio.EditBioCommand;
 import seedu.address.logic.commands.bio.EditBioCommand.EditUserDescriptor;
+import seedu.address.model.bio.Goal;
+import seedu.address.model.bio.MedicalCondition;
+import seedu.address.model.bio.Phone;
+import sugarmummy.commons.core.index.Index;
 import sugarmummy.commons.logic.parser.ArgumentMultimap;
 import sugarmummy.commons.logic.parser.ArgumentTokenizer;
 import sugarmummy.commons.logic.parser.Parser;
 import sugarmummy.commons.logic.parser.ParserUtil;
 import sugarmummy.commons.logic.parser.Prefix;
 import sugarmummy.commons.logic.parser.exceptions.ParseException;
-import seedu.address.model.bio.Goal;
-import seedu.address.model.bio.MedicalCondition;
-import seedu.address.model.bio.Phone;
 
 /**
  * Parses input arguments and creates a new EditBioCommand object

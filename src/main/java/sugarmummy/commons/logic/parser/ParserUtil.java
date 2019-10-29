@@ -13,10 +13,8 @@ import java.util.Optional;
 
 import javax.imageio.ImageIO;
 
-import sugarmummy.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.commands.aesthetics.BackgroundCommand;
-import sugarmummy.commons.logic.parser.exceptions.ParseException;
 import seedu.address.model.DateTime;
 import seedu.address.model.TimeDuration;
 import seedu.address.model.aesthetics.Background;
@@ -34,16 +32,18 @@ import seedu.address.model.bio.Phone;
 import seedu.address.model.bio.ProfileDesc;
 import seedu.address.model.calendar.Description;
 import seedu.address.model.calendar.Repetition;
+import seedu.address.model.record.Concentration;
+import seedu.address.model.record.Height;
+import seedu.address.model.record.RecordType;
+import seedu.address.model.record.Weight;
+import sugarmummy.commons.core.index.Index;
+import sugarmummy.commons.logic.parser.exceptions.ParseException;
 import sugarmummy.recmfood.model.Calorie;
 import sugarmummy.recmfood.model.Fat;
 import sugarmummy.recmfood.model.FoodName;
 import sugarmummy.recmfood.model.Gi;
 import sugarmummy.recmfood.model.NutritionValue;
 import sugarmummy.recmfood.model.Sugar;
-import seedu.address.model.record.Concentration;
-import seedu.address.model.record.Height;
-import seedu.address.model.record.RecordType;
-import seedu.address.model.record.Weight;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.

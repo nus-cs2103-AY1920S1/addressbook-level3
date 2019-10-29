@@ -32,9 +32,9 @@ import sugarmummy.commons.logic.parser.aesthetics.FontColourCommandParser;
 import sugarmummy.commons.logic.parser.bio.AddBioCommandParser;
 import sugarmummy.commons.logic.parser.bio.EditBioCommandParser;
 import sugarmummy.commons.logic.parser.exceptions.ParseException;
+import sugarmummy.recmfood.exception.FoodNotSuitableException;
 import sugarmummy.recmfood.parser.AddFoodCommandParser;
 import sugarmummy.recmfood.parser.RecmFoodCommandParser;
-import sugarmummy.recmfood.exception.FoodNotSuitableException;
 
 /**
  * Parses user input.
@@ -65,9 +65,6 @@ public class SugarMummyParser {
 
         case AddCommand.COMMAND_WORD:
             return new AddCommandParser().parse(arguments);
-
-        //        case EditCommand.COMMAND_WORD:
-        //            return new EditCommandParser().parse(arguments);
 
         case DeleteCommand.COMMAND_WORD:
             return new DeleteCommandParser().parse(arguments);

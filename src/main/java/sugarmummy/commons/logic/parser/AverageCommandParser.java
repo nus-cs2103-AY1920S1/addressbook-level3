@@ -9,9 +9,9 @@ import static sugarmummy.commons.logic.parser.CliSyntax.PREFIX_RECORDTYPE;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AverageCommand;
-import sugarmummy.commons.logic.parser.exceptions.ParseException;
 import seedu.address.model.record.RecordType;
 import seedu.address.model.statistics.AverageType;
+import sugarmummy.commons.logic.parser.exceptions.ParseException;
 
 /**
  * Parses input arguments and creates a new AverageCommand object

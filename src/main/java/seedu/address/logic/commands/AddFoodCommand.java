@@ -10,8 +10,8 @@ import static sugarmummy.commons.logic.parser.CliSyntax.PREFIX_SUGAR;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import sugarmummy.recmfood.model.Food;
 import sugarmummy.commons.ui.DisplayPaneType;
+import sugarmummy.recmfood.model.Food;
 
 /**
  * Adds a food to the food recommendation list.

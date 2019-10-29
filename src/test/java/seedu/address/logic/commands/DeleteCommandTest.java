@@ -9,15 +9,15 @@ import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import org.junit.jupiter.api.Test;
 
-import sugarmummy.commons.core.Messages;
-import sugarmummy.commons.core.index.Index;
 import seedu.address.model.Calendar;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.bio.UserList;
-import sugarmummy.recmfood.model.UniqueFoodList;
 import seedu.address.model.record.UniqueRecordList;
+import sugarmummy.commons.core.Messages;
+import sugarmummy.commons.core.index.Index;
+import sugarmummy.recmfood.model.UniqueFoodList;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for {@code

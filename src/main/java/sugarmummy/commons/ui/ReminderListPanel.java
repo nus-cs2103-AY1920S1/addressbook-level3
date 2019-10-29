@@ -7,9 +7,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
-import sugarmummy.commons.core.LogsCenter;
 import seedu.address.model.calendar.CalendarEntry;
 import seedu.address.model.calendar.Reminder;
+import sugarmummy.commons.core.LogsCenter;
 
 /**
  * Panel containing the list of reminders.

@@ -8,13 +8,13 @@ import static sugarmummy.commons.core.Messages.MESSAGE_INVALID_BACKGROUND_SIZE;
 import java.util.Optional;
 
 import seedu.address.logic.commands.aesthetics.BackgroundCommand;
+import seedu.address.model.aesthetics.Background;
 import sugarmummy.commons.logic.parser.ArgumentMultimap;
 import sugarmummy.commons.logic.parser.ArgumentTokenizer;
-import sugarmummy.commons.logic.parser.Parser;
-import sugarmummy.commons.logic.parser.exceptions.ParseException;
-import seedu.address.model.aesthetics.Background;
 import sugarmummy.commons.logic.parser.CliSyntax;
+import sugarmummy.commons.logic.parser.Parser;
 import sugarmummy.commons.logic.parser.ParserUtil;
+import sugarmummy.commons.logic.parser.exceptions.ParseException;
 
 /**
  * Parses input arguments and creates a new FontColourCommand object
@@ -22,8 +22,8 @@ import sugarmummy.commons.logic.parser.ParserUtil;
 public class BackgroundCommandParser implements Parser<BackgroundCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the EditCommand and returns an EditCommand object
-     * for execution.
+     * Parses the given {@code String} of arguments in the context of the BackgroundCommandCommand and returns an
+     * BackgroundCommandCommand object for execution.
      *
      * @throws ParseException if the user input does not conform the expected format
      */

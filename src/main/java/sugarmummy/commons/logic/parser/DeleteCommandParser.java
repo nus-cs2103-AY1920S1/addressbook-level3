@@ -2,8 +2,8 @@ package sugarmummy.commons.logic.parser;
 
 import static sugarmummy.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
-import sugarmummy.commons.core.index.Index;
 import seedu.address.logic.commands.DeleteCommand;
+import sugarmummy.commons.core.index.Index;
 import sugarmummy.commons.logic.parser.exceptions.ParseException;
 
 /**

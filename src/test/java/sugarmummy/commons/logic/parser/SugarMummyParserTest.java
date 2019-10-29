@@ -2,10 +2,10 @@ package sugarmummy.commons.logic.parser;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static sugarmummy.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static sugarmummy.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_RECORD;
+import static sugarmummy.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static sugarmummy.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -25,11 +25,11 @@ import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.achvm.AchvmCommand;
 import seedu.address.logic.commands.bio.BioCommand;
-import sugarmummy.commons.logic.parser.exceptions.ParseException;
 import seedu.address.model.DateTime;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.record.BloodSugar;
 import seedu.address.model.record.Concentration;
+import sugarmummy.commons.logic.parser.exceptions.ParseException;
 
 public class SugarMummyParserTest {
 
@@ -43,7 +43,6 @@ public class SugarMummyParserTest {
         DateTime dt = new DateTime(ld, lt);
         BloodSugar bs = new BloodSugar(new Concentration("12.34"), dt);
 
-        //        AddCommand command = (AddCommand) parser.parseCommand(PersonUtil.getAddCommand(bs));
         AddCommand command = (AddCommand) parser.parseCommand("add rt/BLOODSUGAR con/12.34 dt/1970-01-01 08:00");
 
         assertEquals(new AddCommand(bs), command);
@@ -61,15 +60,6 @@ public class SugarMummyParserTest {
             DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_RECORD.getOneBased());
         assertEquals(new DeleteCommand(INDEX_FIRST_RECORD), command);
     }
-
-    //    @Test
-    //    public void parseCommand_edit() throws Exception {
-    //        Person person = new PersonBuilder().build();
-    //        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(person).build();
-    //        EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
-    //                + INDEX_FIRST_PERSON.getOneBased() + " " + PersonUtil.getEditPersonDescriptorDetails(descriptor));
-    //        assertEquals(new EditCommand(INDEX_FIRST_PERSON, descriptor), command);
-    //    }
 
     @Test
     public void parseCommand_exit() throws Exception {

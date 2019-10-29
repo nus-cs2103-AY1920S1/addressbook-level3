@@ -12,6 +12,7 @@ import sugarmummy.commons.logic.parser.Parser;
 import sugarmummy.commons.logic.parser.ParserUtil;
 import sugarmummy.commons.logic.parser.Prefix;
 import sugarmummy.commons.logic.parser.exceptions.ParseException;
+import sugarmummy.recmfood.exception.FoodNotSuitableException;
 import sugarmummy.recmfood.model.Calorie;
 import sugarmummy.recmfood.model.Fat;
 import sugarmummy.recmfood.model.Food;
@@ -20,7 +21,6 @@ import sugarmummy.recmfood.model.FoodType;
 import sugarmummy.recmfood.model.Gi;
 import sugarmummy.recmfood.model.NutritionValue;
 import sugarmummy.recmfood.model.Sugar;
-import sugarmummy.recmfood.exception.FoodNotSuitableException;
 
 /**
  * Parses input arguments and creates a new AddFoodCommand object
@@ -55,10 +55,12 @@ public class AddFoodCommandParser implements Parser<AddFoodCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public AddFoodCommand parse(String args) throws ParseException {
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, CliSyntax.PREFIX_FOOD, CliSyntax.PREFIX_FOOD_TYPE, CliSyntax.PREFIX_CALORIE,
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, CliSyntax.PREFIX_FOOD,
+            CliSyntax.PREFIX_FOOD_TYPE, CliSyntax.PREFIX_CALORIE,
             CliSyntax.PREFIX_GI, CliSyntax.PREFIX_SUGAR, CliSyntax.PREFIX_FAT);
 
-        if (!arePrefixesPresent(argMultimap, CliSyntax.PREFIX_FOOD, CliSyntax.PREFIX_FOOD_TYPE, CliSyntax.PREFIX_CALORIE, CliSyntax.PREFIX_GI, CliSyntax.PREFIX_SUGAR,
+        if (!arePrefixesPresent(argMultimap, CliSyntax.PREFIX_FOOD, CliSyntax.PREFIX_FOOD_TYPE,
+            CliSyntax.PREFIX_CALORIE, CliSyntax.PREFIX_GI, CliSyntax.PREFIX_SUGAR,
             CliSyntax.PREFIX_FAT) || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddFoodCommand.MESSAGE_USAGE));
         }

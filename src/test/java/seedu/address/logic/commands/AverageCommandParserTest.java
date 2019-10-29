@@ -7,9 +7,9 @@ import static sugarmummy.commons.logic.parser.CommandParserTestUtil.assertParseS
 
 import org.junit.jupiter.api.Test;
 
-import sugarmummy.commons.logic.parser.AverageCommandParser;
 import seedu.address.model.record.RecordType;
 import seedu.address.model.statistics.AverageType;
+import sugarmummy.commons.logic.parser.AverageCommandParser;
 
 public class AverageCommandParserTest {
     private AverageCommandParser parser = new AverageCommandParser();

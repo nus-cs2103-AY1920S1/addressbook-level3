@@ -7,8 +7,8 @@ import java.util.Objects;
 import java.util.logging.Logger;
 
 import javafx.application.Application;
-import sugarmummy.commons.core.LogsCenter;
 import seedu.address.commons.util.FileUtil;
+import sugarmummy.commons.core.LogsCenter;
 
 /**
  * Represents the parsed command-line parameters given to the application.

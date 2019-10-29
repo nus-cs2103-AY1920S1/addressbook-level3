@@ -4,11 +4,11 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 
-import sugarmummy.commons.core.Messages;
-import sugarmummy.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.record.Record;
+import sugarmummy.commons.core.Messages;
+import sugarmummy.commons.core.index.Index;
 import sugarmummy.commons.ui.DisplayPaneType;
 
 /**

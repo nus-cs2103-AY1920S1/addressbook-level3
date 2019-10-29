@@ -22,13 +22,13 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import sugarmummy.commons.core.GuiSettings;
-import sugarmummy.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
-import sugarmummy.commons.logic.parser.exceptions.ParseException;
 import seedu.address.model.aesthetics.Background;
+import sugarmummy.commons.core.GuiSettings;
+import sugarmummy.commons.core.LogsCenter;
+import sugarmummy.commons.logic.parser.exceptions.ParseException;
 import sugarmummy.recmfood.exception.FoodNotSuitableException;
 
 /**
@@ -337,7 +337,8 @@ public class MainWindow extends UiPart<Stage> {
             if (paneToDisplay == null) {
                 return;
             }
-            newPaneIsToBeCreated = ((displayPaneType == DisplayPaneType.COLOUR || displayPaneType == DisplayPaneType.BACKGROUND)
+            newPaneIsToBeCreated = ((displayPaneType == DisplayPaneType.COLOUR
+                || displayPaneType == DisplayPaneType.BACKGROUND)
                 && paneToDisplay == DisplayPaneType.BIO) || newPaneIsToBeCreated;
             mainDisplayPanePlaceholder.setStyle(null);
             mainDisplayPanePlaceholder.getChildren().clear();
@@ -378,8 +379,7 @@ public class MainWindow extends UiPart<Stage> {
             if (commandResult.isShowHelp()) {
                 handleHelp();
                 return commandResult;
-            }
-            else if (commandResult.isExit()) {
+            } else if (commandResult.isExit()) {
                 handleExit();
                 return commandResult;
             } else {

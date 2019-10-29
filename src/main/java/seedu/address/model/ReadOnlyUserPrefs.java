@@ -2,9 +2,9 @@ package seedu.address.model;
 
 import java.nio.file.Path;
 
-import sugarmummy.commons.core.GuiSettings;
 import seedu.address.model.aesthetics.Background;
 import seedu.address.model.aesthetics.Colour;
+import sugarmummy.commons.core.GuiSettings;
 
 /**
  * Unmodifiable view of user prefs.

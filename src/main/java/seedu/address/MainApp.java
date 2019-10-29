@@ -1,7 +1,5 @@
 package seedu.address;
 
-
-
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
@@ -10,9 +8,6 @@ import java.util.logging.Logger;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
-import sugarmummy.commons.core.Config;
-import sugarmummy.commons.core.LogsCenter;
-import sugarmummy.commons.core.Version;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.util.ConfigUtil;
 import seedu.address.commons.util.StringUtil;
@@ -29,25 +24,28 @@ import seedu.address.model.ReadOnlyUserList;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.bio.UserList;
-import sugarmummy.recmfood.model.UniqueFoodList;
 import seedu.address.model.record.UniqueRecordList;
-import sugarmummy.model.util.SampleCalendarDataUtil;
-import sugarmummy.model.util.SampleFoodDataUtil;
-import sugarmummy.model.util.SampleRecordDataUtil;
-import sugarmummy.model.util.SampleUserDataUtil;
 import seedu.address.storage.bio.JsonUserListStorage;
-import sugarmummy.commons.ui.Ui;
-import sugarmummy.commons.ui.UiManager;
+import sugarmummy.commons.core.Config;
+import sugarmummy.commons.core.LogsCenter;
+import sugarmummy.commons.core.Version;
 import sugarmummy.commons.storage.AddressBookStorage;
 import sugarmummy.commons.storage.JsonAddressBookStorage;
 import sugarmummy.commons.storage.JsonCalendarStorage;
-import sugarmummy.recmfood.storage.JsonFoodListStorage;
 import sugarmummy.commons.storage.JsonRecordListStorage;
 import sugarmummy.commons.storage.JsonUserPrefsStorage;
 import sugarmummy.commons.storage.Storage;
 import sugarmummy.commons.storage.StorageManager;
 import sugarmummy.commons.storage.UserListStorage;
 import sugarmummy.commons.storage.UserPrefsStorage;
+import sugarmummy.commons.ui.Ui;
+import sugarmummy.commons.ui.UiManager;
+import sugarmummy.model.util.SampleCalendarDataUtil;
+import sugarmummy.model.util.SampleFoodDataUtil;
+import sugarmummy.model.util.SampleRecordDataUtil;
+import sugarmummy.model.util.SampleUserDataUtil;
+import sugarmummy.recmfood.model.UniqueFoodList;
+import sugarmummy.recmfood.storage.JsonFoodListStorage;
 
 /**
  * Runs the application.

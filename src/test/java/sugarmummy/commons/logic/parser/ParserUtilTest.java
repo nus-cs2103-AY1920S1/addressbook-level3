@@ -2,9 +2,9 @@ package sugarmummy.commons.logic.parser;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static sugarmummy.commons.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_RECORD;
+import static sugarmummy.commons.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -14,7 +14,6 @@ import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 
-import sugarmummy.commons.logic.parser.exceptions.ParseException;
 import seedu.address.model.bio.Address;
 import seedu.address.model.bio.DateOfBirth;
 import seedu.address.model.bio.Gender;
@@ -25,6 +24,7 @@ import seedu.address.model.bio.Nric;
 import seedu.address.model.bio.OtherBioInfo;
 import seedu.address.model.bio.Phone;
 import seedu.address.model.bio.ProfileDesc;
+import sugarmummy.commons.logic.parser.exceptions.ParseException;
 
 public class ParserUtilTest {
     private static final String INVALID_NAME = "R@chel";

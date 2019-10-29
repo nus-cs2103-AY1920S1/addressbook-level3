@@ -28,11 +28,13 @@ public class AddCommandParserTest {
 
         //bloodsugar success
         BloodSugar bs = new BloodSugar(new Concentration("12.34"), dt);
-        CommandParserTestUtil.assertParseSuccess(parser, " rt/BLOODSUGAR con/12.34 dt/1970-01-01 08:00", new AddCommand(bs));
+        CommandParserTestUtil.assertParseSuccess(parser, " rt/BLOODSUGAR con/12.34 dt/1970-01-01 08:00",
+            new AddCommand(bs));
 
         //bmi success
         Bmi bmi = new Bmi(new Height("12.34"), new Weight("23.34"), dt);
-        CommandParserTestUtil.assertParseSuccess(parser, " rt/BMI h/12.34 w/23.45 dt/1970-01-01 08:00", new AddCommand(bmi));
+        CommandParserTestUtil.assertParseSuccess(parser, " rt/BMI h/12.34 w/23.45 dt/1970-01-01 08:00",
+            new AddCommand(bmi));
 
         //        assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
         //            + ADDRESS_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(bmi));

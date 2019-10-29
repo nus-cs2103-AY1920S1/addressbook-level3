@@ -7,7 +7,6 @@ import java.nio.file.Path;
 import java.util.Optional;
 import java.util.logging.Logger;
 
-import sugarmummy.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
@@ -16,6 +15,7 @@ import seedu.address.model.Calendar;
 import seedu.address.model.ReadOnlyCalendar;
 import seedu.address.model.calendar.CalendarEntry;
 import seedu.address.model.calendar.Event;
+import sugarmummy.commons.core.LogsCenter;
 
 /**
  * A class to access Calendar data stored as a json file on the hard disk.

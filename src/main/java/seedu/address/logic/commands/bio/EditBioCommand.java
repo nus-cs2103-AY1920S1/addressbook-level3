@@ -1,6 +1,7 @@
 package seedu.address.logic.commands.bio;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_USERS;
 import static sugarmummy.commons.core.Messages.MESSAGE_SUBARGUMENT_INDEX_OUT_OF_BOUNDS;
 import static sugarmummy.commons.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static sugarmummy.commons.logic.parser.CliSyntax.PREFIX_CONTACT_NUMBER;
@@ -14,7 +15,6 @@ import static sugarmummy.commons.logic.parser.CliSyntax.PREFIX_NAME;
 import static sugarmummy.commons.logic.parser.CliSyntax.PREFIX_NRIC;
 import static sugarmummy.commons.logic.parser.CliSyntax.PREFIX_OTHER_BIO_INFO;
 import static sugarmummy.commons.logic.parser.CliSyntax.PREFIX_PROFILE_DESC;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_USERS;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -23,7 +23,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import sugarmummy.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
@@ -42,6 +41,7 @@ import seedu.address.model.bio.OtherBioInfo;
 import seedu.address.model.bio.Phone;
 import seedu.address.model.bio.ProfileDesc;
 import seedu.address.model.bio.User;
+import sugarmummy.commons.core.index.Index;
 import sugarmummy.commons.ui.DisplayPaneType;
 
 /**

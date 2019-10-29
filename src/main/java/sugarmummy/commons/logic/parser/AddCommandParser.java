@@ -11,7 +11,6 @@ import static sugarmummy.commons.logic.parser.CliSyntax.PREFIX_RECORDTYPE;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AddCommand;
-import sugarmummy.commons.logic.parser.exceptions.ParseException;
 import seedu.address.model.DateTime;
 import seedu.address.model.record.BloodSugar;
 import seedu.address.model.record.Bmi;
@@ -19,6 +18,7 @@ import seedu.address.model.record.Concentration;
 import seedu.address.model.record.Height;
 import seedu.address.model.record.RecordType;
 import seedu.address.model.record.Weight;
+import sugarmummy.commons.logic.parser.exceptions.ParseException;
 
 /**
  * Parses input arguments and creates a new AddCommand object

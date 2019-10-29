@@ -25,14 +25,6 @@ public enum FoodType {
         this.abbr = abbr;
     }
 
-    public String getTypeName() {
-        return typeName;
-    }
-
-    public String getAbbr() {
-        return abbr;
-    }
-
     private static String getTypeInfo(FoodType type) {
         return type.abbr + "(" + type.typeName + ")";
     }
@@ -59,7 +51,7 @@ public enum FoodType {
     }
 
     /**
-     * Returns the enum variable of {@code FoodType} based on the given {@param abbr} about the type abbreviation.
+     * Returns the enum variable of {@code FoodType} based on the given string about the type abbreviation.
      */
     public static FoodType getFrom(String abbr) throws ParseException {
         for (FoodType type : FoodType.values()) {
@@ -68,5 +60,13 @@ public enum FoodType {
             }
         }
         throw new ParseException(MESSAGE_CONSTRAINTS);
+    }
+
+    public String getTypeName() {
+        return typeName;
+    }
+
+    public String getAbbr() {
+        return abbr;
     }
 }
