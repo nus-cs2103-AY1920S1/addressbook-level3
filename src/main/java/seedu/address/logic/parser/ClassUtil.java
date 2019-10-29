@@ -44,7 +44,7 @@ public class ClassUtil {
                 String strValue = (String) f.get(null);
                 result.add(strValue);
             } catch (NoSuchFieldException | IllegalAccessException e) {
-                result.add(null);
+                //result.add(null);
             }
         }
         return result;
