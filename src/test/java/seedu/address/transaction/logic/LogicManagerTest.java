@@ -63,6 +63,28 @@ class LogicManagerTest {
     public void getFilteredTransactionList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredList().delete(0));
     }
+
+    @Test
+    public void addTransaction_success() {
+        Model model = new seedu.address.transaction.model.ModelManager(TypicalTransactions.getTypicalTransactionList());
+        Logic logic = new LogicManager(model, storage, personModel);
+        logic.addTransaction(TypicalTransactions.DANIEL_TRANSACTION_9);
+        model.getTransactionList().add(TypicalTransactions.DANIEL_TRANSACTION_9);
+       assertEquals(logic.getTransactionList(), model.getTransactionList());
+
+    }
+
+    @Test
+    public void setTransaction_success() {
+        Model model = new seedu.address.transaction.model.ModelManager(TypicalTransactions.getTypicalTransactionList());
+        Logic logic = new LogicManager(model, storage, personModel);
+        logic.setTransaction(TypicalTransactions.BENSON_TRANSACTION_2,
+                TypicalTransactions.DANIEL_TRANSACTION_9);
+        model.getTransactionList().set(2, TypicalTransactions.DANIEL_TRANSACTION_9);
+        assertEquals(logic.getTransactionList(), model.getTransactionList());
+
+    }
+
     /**
      * Executes the command and confirms that
      * - no exceptions are thrown <br>
