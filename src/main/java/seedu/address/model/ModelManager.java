@@ -61,7 +61,6 @@ public class ModelManager implements Model {
         versionedAddressBook = new VersionedAddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         incomeCategoryList = versionedAddressBook.getIncomeCategoryList();
-        System.out.println(incomeCategoryList.size());
         expenseCategoryList = versionedAddressBook.getExpenseCategoryList();
         filteredExpenses = new FilteredList<>(versionedAddressBook.getExpenseList());
         filteredIncomes = new FilteredList<>(versionedAddressBook.getIncomeList());
@@ -339,9 +338,8 @@ public class ModelManager implements Model {
 
     @Override
     public ObservableList<Entry> getFilteredExpensesAndIncomes() {
-        ObservableList<Entry> list = new FilteredList<>(filteredEntries,
+        return new FilteredList<>(filteredEntries,
             entry -> entry instanceof Expense || entry instanceof Income);
-        return list;
     }
 
     @Override

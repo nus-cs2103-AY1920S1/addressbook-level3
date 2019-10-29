@@ -8,7 +8,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.PanelName;
 
 /**
- * Parses input arguments and creates a new TogglePanelCommand object
+ * Parses input arguments and creates a new TogglePanelCommand object.
  */
 public class TogglePanelCommandParser implements Parser<TogglePanelCommand> {
 
@@ -27,8 +27,7 @@ public class TogglePanelCommandParser implements Parser<TogglePanelCommand> {
             panelName = ParserUtil.parsePanelName(argMultimap.getPreamble());
         } catch (ParseException pe) {
             throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, TogglePanelCommand.MESSAGE_USAGE),
-                    pe);
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, TogglePanelCommand.MESSAGE_USAGE), pe);
         }
 
         return new TogglePanelCommand(panelName);
