@@ -146,6 +146,8 @@ public class Mark implements ReadOnlyMark {
      */
     public void setReminderAssociation(ReminderAssociation reminderAssociation) {
         this.reminderAssociation.setAssociation(reminderAssociation.getAssociation());
+        reminders.clear();
+        reminders.addAll(reminderAssociation.getReminderList());
     }
 
     /**

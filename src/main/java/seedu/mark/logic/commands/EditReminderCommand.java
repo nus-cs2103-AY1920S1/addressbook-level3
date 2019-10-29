@@ -71,7 +71,7 @@ public class EditReminderCommand extends Command {
         Reminder editedReminder = createEditedReminder(reminderToEdit, editReminderDescriptor);
 
         model.editReminder(reminderToEdit, editedReminder);
-        model.saveMark();
+        model.saveMark(String.format(MESSAGE_EDIT_REMINDER_SUCCESS, editedReminder));
         model.setReminders();
         return new CommandResult(String.format(MESSAGE_EDIT_REMINDER_SUCCESS, editedReminder));
     }
