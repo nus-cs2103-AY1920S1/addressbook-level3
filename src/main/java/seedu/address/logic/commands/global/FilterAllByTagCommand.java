@@ -24,6 +24,8 @@ public class FilterAllByTagCommand extends Command {
 
     public static final String FILTER_TAG_MESSAGE_SUCCESS = "List the whole StudyBuddy by tag(s) : ";
 
+    public static final String NO_ITEM_FOUND = "There is no such StudyBuddyItem with the specified tag(s) in StudyBuddy!";
+
     private ArrayList<String> tagKeywords;
 
     private final StudyBuddyItemContainsTagPredicate tagPredicate;
@@ -65,9 +67,15 @@ public class FilterAllByTagCommand extends Command {
             sb.append(s);
             sb.append("\n");
         }
-
-        return new GlobalCommandResult(FILTER_TAG_MESSAGE_SUCCESS
-                + "\n" + showTagQueries()
-                + "\n" + sb.toString());
+        StringBuilder resultToDisplay = new StringBuilder();
+        if (tagListResult.size() == 0) {
+            resultToDisplay.append(NO_ITEM_FOUND);
+        } else {
+            resultToDisplay.append(FILTER_TAG_MESSAGE_SUCCESS)
+                    .append("\n")
+                    .append(showTagQueries())
+                    .append(sb.toString());
+        }
+        return new GlobalCommandResult(resultToDisplay.toString());
     }
 }
