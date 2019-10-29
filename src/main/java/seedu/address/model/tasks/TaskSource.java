@@ -63,7 +63,7 @@ public class TaskSource {
         return this.dueDate;
     }
 
-    public boolean isCompleted() {
+    public boolean getCompletionStatus() {
         return isCompleted;
     }
 
