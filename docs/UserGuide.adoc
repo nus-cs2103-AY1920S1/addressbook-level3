@@ -22,185 +22,279 @@ Interested? Jump to the Section 2, “QuickStart” to get started. Enjoy!
 
 == Features
 
+=== Viewing help: `help`
 
-. *Help*
-.. Viewing help: _help_
-... Shows a list of commands.
-... Format: _help_
+Shows a list of commands. +
+Format: `help` +
 
-. *List*
+=== Listing Information
 
-.. List Projects: _listProjects_
+==== List your contacts: `list`
 
-... Shows the list of projects.
+Shows you the list of contacts you have currently along with their respective information. +
+Format: `list`
 
-... Format:
-_listProjects_
+=== Checkout a project: `checkout`
 
-.. List Members: _listMembers_
+Checkout a project to begin working on the project immediately.
 
-... Shows the list of members involved with the specified project. If no project is specified, a list of all projects with its corresponding members is shown.
+    Commands which require a project to be checked out first will be tagged using [Checkout].
 
-... Format:
-__listMembers [pr/PROJECT_NAME]
-__
-. *Add*
+Format: `checkout INDEX`
 
-.. Add Project: _addProject_
+`INDEX` is the number used to identify the project in the project list.
 
-... Adds a project to your list of projects
-... Format:
-_addProject pr/PROJECT_NAME [d/PROJECT_DESCRIPTION] [dl/DEADLINE] [m/MEMBERS] [ta/TASKS] [t/TAG]..._
+Example:
 
-... Example:
-__addProject pr/GET1031 project dl/October 11 Tuesday 2359 m/John Lim_Mark Tan_David Chan ta/1. Come up with project outline 2.Research on project topic t/NUS
-__
-.. Add Meeting: addMeeting
+* `checkout 1`
+=== Adding Items
 
-... Adds a meeting to the list of meetings of your current project.
+This section deals with adding information to the application.
 
-... Format:
-addMeeting p/PROJECT_NAME [dt/tentative days for a meeting] [m/MEMBERS INVOLVED] [a/AGENDA]...
+==== 1. Add a project: `addProject`
 
-... Example:
-__addMeeting p/GET1031 project dl/October 11 - October 17 m/John Lim_Mark Tan_David Chan a/decide on the structure of presentation
-__
-.. Add Member: _addMember_
+Adds a new project into your list of projects. +
+Format: `addProject n/PROJECT_TITLE s/PROJECT_DESCRIPTION`
 
-... Adds a person to addressBook. After a person is added, they can then be linked to a project by editing the project.
+Example:
 
-... Format:
-__addMember n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​
-__
+* `addProject n/CS2103 project s/Software engeering project`
 
-... Example:
-__addMember n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01
-__
-.. Add Task: _addTask_
+==== 2. Add a person to your contacts: `add`
 
-... Adds an unchecked task to the list of tasks of your current project.
+Adds a person to your contacts.
 
-... Format:
-__addTask s/DESCRIPTION c/TIME
-__
-... Example:
-__addTask s/Finish GUI c/06/10/2019 1600
-__
+When you add a person to your contacts, it will automatically change to displaying your list of contacts. +
+Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
 
-.. Add Task: _addTimetable_
+[TIP]
+A person can have any number of tags (including 0)
 
-... Adds timetable to a person to record down their schedule.
+Examples:
 
-... Format:
-__addTimetable INDEX [n/NUSMODS_SHARE_URL] [f/FILEPATH_TO_TIMETABLE]
-__
-... Example:
-__addTimetable 3 f//home/john/Desktop/aliceTimetable.txt
-__addTimetable 2 n/https://nusmods.com/timetable/sem-1/share?CS2100=LAB:05,TUT:02,LEC:1&CS2101=&CS2103T=LEC:G13&CS2105=TUT:03,LEC:1&CS3241=TUT:05,LEC:1&CS3243=TUT:01,LEC:1&GEQ1000=TUT:D27
-__
-
-. *Edit*
-.. Edit project: _edit_
-... Edit the attributes of the project.
-... Format:
-__edit INDEX [s/DESCRIPTION] [n/NAME]
-__
-... Examples:
-__edit 5 pr/OP1 pd/Oral Presentation on Negotiation Techniques dl/25/09/2019 2359
-
-.. Edit task: _editTask_
-... Edits task with the specified index of the task list of current project. To check off task,
-input d/(i.e. _editTask 1 d/_). Tasks are automatically unchecked if _d/_ is not in the input.
-... Format:
-_editTask INDEX [s/DESCRIPTION] [c/TIME] [d/]_
-... Example:
-_editTask 1 c/05/05/2019 d/_
+* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
+* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
 
 
-. *Delete*
-.. Delete person: _delete_
-... Deletes specified person from the addressbook.
-... Format:
-_delete INDEX_
-... Example:
-__delete 1
-__
+==== 3. Add a member to your project
 
-.. Delete task: _deleteTask_
-... Deletes task of specified index from the task list of the current project.
-... Format:
-_deleteTask INDEX_
-... Example:
-_delete 1_
+Adding a member can be done in 2 ways, you can either add a new person to your contacts and to your current project,
+or you can simply add an existing person from your contacts to your current project.
 
-. *Meeting*
+==== 3.1 Add a new person to your contacts and project: `addMember` [Checkout]
 
-.. Store meeting minutes: _attach_
-... Upload text file that contains the meeting minute for a specific meeting.
-... Format:
-__attach [mt/MEETING_INDEX] [dl/DEADLINE] [ta/TASKS] [t/TAG]...
-__
+This command is similar to adding a person to your contacts shown previously, except that you have to
+checked out into a project. +
+Format: `addMember n/NAME [p/PHONE_NUMBER] [e/EMAIL] [a/address] [t/tag]...`
 
-.. Generate meeting timing: `generate`
+[TIP]
+Adding a member only requires his/her name!
 
-... Generates a meeting time that everyone is available.
+However it will be good to add as much information as possible.
 
-... Prerequisite: A project is checked out using the command `checkout`, and timetables have been assigned to the members with the command `addTimetable`
+Example:
 
-... Format:
-`generate d/DURATION r/TIMERANGE`
+* `addMember n/John Doe a/John street, block 123, #01-01`
 
-... Example:
-`generate d/2 r/MONDAY 0900 MONDAY 1800`
+* `addMember n/Betsy Crowe e/betsycrowe@example.com t/friend t/criminal`
 
+==== 3.2 Add a person from contacts to a project: `addFromContacts` [Checkout]
 
-.. Send reminder: _Reminder_
-... Sends a reminder to all members of the current project.
-... Format: sendReminder
+This command helps to add a person you already saved in your contacts into your project, reducing the need
+to type his information all over again. All you need to do is enter the index he is listed at. +
+Format: `addFromContacts INDEX`
 
-.. Adds meeting to the Project: _addProjectMeeting_
-... Adds meeting to a currently checked out project.
-... Format: addProjectMeeting [c/ dd/MM/yyyy HHmm] [s/MEETING_DESCRIPTION]
+`INDEX` is the number which the person is listed at, and it should be a postive integer eg. 1, 2, 3, ....
 
-. *Email*
+Example:
 
-.. Sign in to Account: _signIn_
-... Signs in to the Account that that user has.
-... Format:
-__signIn [ac/ACCOUNT_EMAIL_ADDRESS] [pa/PASSWORD]
-__
+* `addFromContacts 1`
 
-.. Signs out from user's account: _logOut_
-... Signs out from currently signed in account.
-... Format:
-__logout
-__
+==== 4. Add a timetable for a person: `addTimeTable`
 
-.. Sends personal Email: _sendMail_
-... Sends an email to one person in the AddressBook.
-... Format: sendMail [r/RECIPIENT_OF_EMAIL] [su/SUBJECT] [me/MESSAGE_BODY]
+Adds a timetable for the specified person, to record down their schedule. +
+Format : `addTimetable INDEX [n/NUSMODS_SHARE_URL] [f/FILEPATH_TO_TIMETABLE]`
 
-.. Sends broadcast Email: _broadcastMail_
-... Sends an email to all members in the Project.
-... Format: broadcastMail [su/SUBJECT] [me/MESSAGE_BODY]
+Example:
 
-. *Sort*
+* `addTimetable 3 f//home/john/Desktop/aliceTimetable.txt addTimetable 2
+n/https://nusmods.com/timetable/sem-1/share?CS2100=LAB:05,TUT:02,LEC:1&CS2101=&CS2103T=LEC:G13&CS2105=TUT:03,LEC:1&CS3241=TUT:05,LEC:1&CS3243=TUT:01,LEC:1&GEQ1000=TUT:D27 __`
 
-All sort methods follow this set of index/order pairing. Some indexes are specific to
-certain methods(such as 3 and 4 are specific to sortTask). Refer to each individual method
-to find out which indexes are available.
+==== 5. Add a task to your project: `addTask` [Checkout]
 
-1 -- Alphabetical order
+Adds an unchecked task to the list of tasks of your current working project. +
+Format: `addTask s/DESCRIPTION c/TIME`
 
-2 -- Increasing order of time
+Example:
 
-3 -- Whether tasks are done.
+* `addTask s/Finish GUI c/06/10/2019 1600`
 
-4 -- Whether tasks are done and then by increasing order of time.
+==== 6. Add a project meeting: `addProjectMeeting`
 
-.. Sort tasks: _sortTask_
-... Sorts tasks in the task list of current project based on given index.
-... Format:
-_sortTask INDEX(Integer value from 1-4)_
-... Example:
-_sortTask 1_ (Sort tasks by alphabetical order)
+Adds a new project meeting to the current working project.  +
+Format: `Format: addProjectMeeting [c/ dd/MM/yyyy HHmm] [s/MEETING_DESCRIPTION]`
+
+=== Editing
+
+This section deals with editing information shown on the application.
+
+==== 1. Editing a person : `edit`
+
+Edits an existing person in the address book. +
+Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+
+****
+* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
+* You can remove all the person's tags by typing `t/` without specifying any tags after it.
+****
+
+Examples:
+
+* `edit 1 p/91234567 e/johndoe@example.com` +
+Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
+* `edit 2 n/Betsy Crower t/` +
+Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+
+=== Deleting
+
+This section deals with removing information within the application.
+
+==== 1. Deleting a person from contacts : `delete`
+
+Deletes the specified person from your contacts. +
+Format: `delete INDEX`
+
+****
+* Deletes the person at the specified `INDEX`.
+* The index refers to the index number shown in the displayed person list.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Examples:
+
+* `list` +
+`delete 2` +
+Deletes the 2nd person in the address book.
+* `find Betsy` +
+`delete 1` +
+Deletes the 1st person in the results of the `find` command.
+
+==== 2. Removing a member from a project: `removeMember` [Checkout]
+
+Removes the specified person from the current working project. +
+Format: `removeMember NAME`
+
+`NAME` refers to the full name of the member displayed in the project.
+
+Example:
+
+* `removeMember John Doe`
+
+==== 3. Deleting a task from a project: `deleteTask` [Checkout]
+
+Deletes the specified task from the current working project.  +
+Format: `deleteTask INDEX`
+
+`INDEX` is the number used to identify this task in the task list.
+
+Example:
+
+* `deleteTask 1`
+
+=== Finding
+
+==== 1. Finding a person by name: `find`
+
+Finds persons whose names contain any of the given keywords. +
+Format: `find KEYWORD [MORE_KEYWORDS]`
+
+****
+* The search is case insensitive. e.g `hans` will match `Hans`
+* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
+* Only the name is searched.
+* Only full words will be matched e.g. `Han` will not match `Hans`
+* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+****
+
+Examples:
+
+* `find John` +
+Returns `john` and `John Doe`
+* `find Betsy Tim John` +
+Returns any person having names `Betsy`, `Tim`, or `John`
+
+=== Meeting
+For every project, you can add meetings to it, and below you will be able to find more useful commands
+associated with this functionality.
+
+==== 1. Store meeting minutes: `attach`
+
+* Upload text file that contains the meeting minute for a specific meeting.
+
+* Format: `attach [mt/MEETING_INDEX] [dl/DEADLINE] [ta/TASKS] [t/TAG]…​`
+
+==== 2. Generate meeting timing: `generate` [Checkout]
+
+Generates a meeting time for which everyone is available.
+
+* Prerequisite: Timetables have been assigned to the members with the command addTimetable
+
+Format: `generate d/DURATION r/TIMERANGE
+
+Example:
+
+* `generate d/2 r/MONDAY 0900 MON`
+
+==== 3. Send reminder: `sendReminder`
+
+Sends a reminder to all members of the current working project. +
+Format: `sendReminder`
+
+=== Email
+Tired of switching between applications? We got you covered, below you will find some commands which support sending
+emails right here within the application.
+
+==== 1. Sign in to your account: `singIn`
+Sings in to the your email account. +
+Format: `signIn [ac/ACCOUNT_EMAIL_ADDRESS] [pa/PASSWORD]`
+
+==== 2. Log out from your account: `logOut`
+Logs out from your email account. +
+Format: `logOut`
+
+==== 3. Send an email: `sendEmail`
+Sends an email to the specified person in your contacts. +
+Format: `sendEmail [r/RECIPIENT_OF_EMAIL] [su/SUBJECT] [me/MESSAGE_BODY]`
+
+==== 4. Broadcast an email: `broadcastMail`
+Sends an email to all members in the current working project. +
+Format: `broadcastMail [su/SUBJECT] [me/MESSAGE_BODY]`
+
+=== Sorting
+
+The following section provides a set of commands which help with sorting the information inside the
+application.
+
+****
+All commands in this section follow this set of index/order pairing, where applicable:
+
+. Alphabetical order
+. Increasing order of time
+. Whether tasks are done.
+. Whether tasks are done and then by increasing order of time.
+****
+
+==== 1. Sort tasks: `sortTask`
+
+Sorts the tasks in the task list of the current working project based on given specification. +
+Format: `sortTask INDEX`
+
+`INDEX` in this case refers to which type of sorting you want to do. (Refer to the highlighted section above)
+
+Example:
+
+* `sortTask 1` (Sorts the tasks by alphabetical order)
+
