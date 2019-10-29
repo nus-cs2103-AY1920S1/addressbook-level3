@@ -2,9 +2,10 @@ package organice.model.person;
 
 import static organice.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Objects;
+
+import organice.storage.ProcessingTaskStorage;
 
 /**
  * Represents a Donor in ORGANice.
@@ -17,7 +18,7 @@ public class Donor extends Person {
     private final TissueType tissueType;
     private final Organ organ;
     private final OrganExpiryDate organExpiryDate;
-    private ArrayList<String> processingTodoList;
+    private TaskList processingTodoList;
     private boolean hasProcessingList;
     private Status status;
     private HashMap<Nric, Double> successRateMap;
@@ -36,7 +37,7 @@ public class Donor extends Person {
         this.tissueType = tissueType;
         this.organ = organ;
         this.organExpiryDate = organExpiryDate;
-        processingTodoList = new ArrayList<String>();
+        processingTodoList = new TaskList();
         this.hasProcessingList = false;
         this.status = status;
         successRateMap = new HashMap<>();
@@ -62,15 +63,9 @@ public class Donor extends Person {
         return organExpiryDate;
     }
 
-    public ArrayList getProcessingList(Nric nric) {
+    public TaskList getProcessingList(Nric patientNric) {
         if (!hasProcessingList) {
-            processingTodoList.add("To-Do list for " + nric.toString() + " and " + getNric().toString() + "/n");
-            processingTodoList.add("Contact donor /n");
-            processingTodoList.add("Contact patient's family /n");
-            processingTodoList.add("Contact doctor in charge of patient /n");
-            processingTodoList.add("Schedule for cross-matching /n");
-            processingTodoList.add("Schedule for organ transplant surgery /n");
-            return processingTodoList;
+            return processingTodoList.defaultList();
         } else {
             hasProcessingList = true;
             return processingTodoList;

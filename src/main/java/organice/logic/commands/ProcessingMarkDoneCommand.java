@@ -3,42 +3,36 @@ package organice.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static organice.logic.commands.MatchCommand.match;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.PrintStream;
-import java.util.List;
-
 import organice.model.Model;
 import organice.model.person.Donor;
 import organice.model.person.Nric;
 import organice.model.person.Patient;
 import organice.model.person.Person;
-import organice.model.person.Task;
 import organice.model.person.TaskList;
 import organice.model.person.exceptions.PersonNotFoundException;
-import organice.storage.ProcessingTaskStorage;
 
 /**
- * Process a pair of donor and patient to provide a checklist to prepare for the organ transplant.
+ * Mark a task on the checklist for the donor and patient to prepare for the organ transplant.
  * Keyword matching is case insensitive.
  */
-public class ProcessingCommand extends Command {
+public class ProcessingMarkDoneCommand extends Command {
 
-    public static final String COMMAND_WORD = "processing";
+    public static final String COMMAND_WORD = "processingMarkDone";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Process the pair of donor and patient identified "
-            + "by their NRICs respectively and provide a checklist of the current status of the organ transplantation. \n"
-            + "Parameters: ic/PATIENT NRIC ic/DONOR NRIC \n"
-            + "Example: " + COMMAND_WORD + " ic/s4512345A ic/s7711123C";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Given the pair of donor and patient identified "
+            + "by their NRICs respectively, this command would mark the task identified as done in their checklist. \n"
+            + "Parameters: ic/PATIENT NRIC ic/DONOR NRIC TASK_NUMBER \n"
+            + "Example: " + COMMAND_WORD + " ic/s4512345A ic/s7711123C 1";
 
-    public static final String MESSAGE_NOT_PROCESSED = "Donor or patient NRIC must be valid";
+    public static final String MESSAGE_NOT_PROCESSED = "Donor and Patient NRIC must be valid and task number must exist";
 
     private String firstNricString;
     private String secondNricString;
+    private String taskNumberString;
 
     private Nric firstNric;
     private Nric secondNric;
+    private int taskNumber;
 
     private Donor donor;
     private Patient patient;
@@ -46,13 +40,13 @@ public class ProcessingCommand extends Command {
     private Nric patientNRIC;
     private  Nric donorNRIC;
 
-    protected TaskList taskList;
-    ProcessingTaskStorage processingTaskFile = new ProcessingTaskStorage(taskList, donor);
+    private TaskList processingList;
 
-    public ProcessingCommand(String firstNricString, String secondNricString) {
+    public ProcessingMarkDoneCommand(String firstNricString, String secondNricString, String taskNumberString) {
         requireNonNull(firstNricString, secondNricString);
         firstNric = new Nric(firstNricString);
         secondNric = new Nric(secondNricString);
+        taskNumber = Integer.parseInt(taskNumberString);
     }
 
     public boolean isValidDonorPatientPair(Nric firstNric, Nric secondNric, Model model) {
@@ -82,22 +76,22 @@ public class ProcessingCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         try {
-            if (isValidDonorPatientPair(firstNric, secondNric, model)) {
+            if (isValidDonorPatientPair(firstNric, secondNric, model)
+            && taskNumber < donor.getProcessingList(patientNRIC).size()) {
                 model.getFilteredPersonList();
-                processingTaskFile.LoadFile();
+                donor.getProcessingList(patientNRIC).get(taskNumber - 1).markAsDone(donor.getProcessingList(patientNRIC).get(taskNumber - 1));
             }
-            return new CommandResult(taskList.display());
-        } catch (PersonNotFoundException | IOException pne) {
+            return new CommandResult(donor.getProcessingList(patientNRIC).display());
+        } catch (PersonNotFoundException pne) {
             return new CommandResult(MESSAGE_NOT_PROCESSED);
         }
 
     }
-
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof ProcessingCommand // instanceof handles nulls
-                && (firstNricString.equals(((ProcessingCommand) other).firstNricString))
-                || (secondNric.equals(((ProcessingCommand) other).secondNric))); // state check
+                || (other instanceof ProcessingMarkDoneCommand // instanceof handles nulls
+                && (firstNricString.equals(((ProcessingMarkDoneCommand) other).firstNricString))
+                || (secondNric.equals(((ProcessingMarkDoneCommand) other).secondNric))); // state check
     }
 }
