@@ -235,6 +235,13 @@ public class ModelManager implements Model {
     @Override
     public void filterQuizResult(QuizResultFilter quizResultFilter) throws EmptyQuizResultListException {
         this.quizResults = appData.filterQuizResult(quizResultFilter);
+        if (quizResults.isEmpty()) {
+            throw new EmptyQuizResultListException();
+        }
+    }
+
+    private ObservableList<QuizResult> filterQuizResultAndReturn(QuizResultFilter quizResultFilter) {
+        return appData.filterQuizResult(quizResultFilter);
     }
 
     @Override
@@ -373,7 +380,15 @@ public class ModelManager implements Model {
         return quizResults.size();
     }
 
-    public int getTotalQuestionsCorrect() {
+    @Override
+    public void generateQnsReport(Question question) throws EmptyQuizResultListException {
+        quizResults = appData.getQnsReport(question);
+        if (quizResults.isEmpty()) {
+            throw new EmptyQuizResultListException();
+        }
+    }
+
+    private int getTotalQuestionsCorrect() {
         int totalCorrectQns = 0;
         for (QuizResult q : quizResults) {
             if (q.getResult()) {
@@ -383,7 +398,7 @@ public class ModelManager implements Model {
         return totalCorrectQns;
     }
 
-    public int getTotalQuestionsIncorrect() {
+    private int getTotalQuestionsIncorrect() {
         int totalIncorrectQns = 0;
         for (QuizResult q : quizResults) {
             if (!q.getResult()) {
@@ -402,6 +417,18 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public ObservableList<PieChart.Data> getQnsPieChartData() {
+        ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
+        List<Difficulty> uniqueDifficultyList = appData.getUniqueDifficultyList();
+        for (Difficulty d : uniqueDifficultyList) {
+            quizResultFilter.setOperation(d);
+            ObservableList<QuizResult> results = filterQuizResultAndReturn(quizResultFilter);
+            pieChartData.add(new PieChart.Data(d.difficulty, results.size()));
+        }
+        return pieChartData;
+    }
+
+    @Override
     public ObservableList<Subject> getUniqueSubjectList() {
         return appData.getUniqueSubjectList();
     }
@@ -416,9 +443,8 @@ public class ModelManager implements Model {
             List<Pair<Subject, Integer>> dataListPerDifficulty = new ArrayList<>();
             for (Subject s : uniqueSubjectList) {
                 quizResultFilter.setOperation(s, d);
-                filterQuizResult(quizResultFilter);
-                int n = quizResults.size();
-                dataListPerDifficulty.add(new Pair<>(s, n));
+                int n = filterQuizResultAndReturn(quizResultFilter).size();
+                dataListPerDifficulty.add(new Pair(s, n));
             }
             barChartData.add(new StackBarChartModel(d, dataListPerDifficulty));
         }

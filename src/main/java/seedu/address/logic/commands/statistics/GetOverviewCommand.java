@@ -14,8 +14,8 @@ import seedu.address.model.quiz.exceptions.EmptyQuizResultListException;
 /**
  * Gets statistics of how well the user has attempted the questions.
  */
-public class GetOverviewqCommand extends Command {
-    public static final String COMMAND_WORD = "overviewq";
+public class GetOverviewCommand extends Command {
+    public static final String COMMAND_WORD = "overview";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Gets an overview of the types of "
             + "questions that have been added into the app.\n"
@@ -35,7 +35,7 @@ public class GetOverviewqCommand extends Command {
 
     private QuizResultFilter quizResultFilter;
 
-    public GetOverviewqCommand(QuizResultFilter quizResultFilter) {
+    public GetOverviewCommand(QuizResultFilter quizResultFilter) {
         requireNonNull(quizResultFilter);
         this.quizResultFilter = quizResultFilter;
     }

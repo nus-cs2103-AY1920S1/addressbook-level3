@@ -6,5 +6,6 @@ package seedu.address.logic.commands.statistics;
 public enum Type {
     STATS,
     QUESTIONS,
+    REPORT,
     OVERVIEW
 }

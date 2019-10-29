@@ -13,6 +13,7 @@ import java.util.stream.Collectors;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.question.Difficulty;
+import seedu.address.model.question.Question;
 import seedu.address.model.question.Subject;
 import seedu.address.model.quiz.exceptions.EmptyQuizResultListException;
 import seedu.address.model.quiz.exceptions.FilterTypeNotFoundException;
@@ -139,8 +140,27 @@ public class QuizResultList implements Iterable<QuizResult> {
         return quizResults;
     }
 
+    public ObservableList<QuizResult> getQnsReport(Question qns) {
+        List<QuizResult> qnsReport = internalList;
+        qnsReport = internalList
+                .stream()
+                .filter(quizResult -> quizResult.getQuestionBody().equals(qns.getQuestionBody())
+                    && quizResult.getDifficulty().equals(qns.getDifficulty())
+                    && quizResult.getSubject().equals(qns.getSubject()))
+                .collect(Collectors.toList());
+        ObservableList<QuizResult> quizResults = FXCollections.observableArrayList(qnsReport);
+        return quizResults;
+    }
+
     @Override
     public Iterator<QuizResult> iterator() {
         return internalList.iterator();
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof QuizResultList // instanceof handles nulls
+                && internalList.equals(((QuizResultList) other).internalList));
     }
 }
