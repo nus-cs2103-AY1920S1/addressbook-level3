@@ -194,9 +194,7 @@ Examples:
 * `delrep 12` +
 Deletes the 12th repeater in the current list. Also updates the associated transactions.
 
-==== Finding repeater: `findrep`
-
-(Coming in v1.4).
+==== Finding repeater: `findrep` [Coming in v2.0]
 
 === Loans
 
