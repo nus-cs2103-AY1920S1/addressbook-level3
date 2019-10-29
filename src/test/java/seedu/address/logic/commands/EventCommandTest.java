@@ -219,6 +219,12 @@ public class EventCommandTest {
         public void addTraining(Training training) {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public Training getTrainingOnDate(AthletickDate date) {
+            throw new AssertionError("This method should not be called.");
+        }
+
         @Override
         public ReadOnlyAddressBook getAddressBookDeepCopy() {
             throw new AssertionError("This method should not be called.");

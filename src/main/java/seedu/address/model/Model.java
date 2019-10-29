@@ -109,6 +109,8 @@ public interface Model {
      */
     void addTraining(Training training);
 
+    Training getTrainingOnDate(AthletickDate date);
+
     Attendance getAttendance();
     boolean hasTraining(AthletickDate training);
 
