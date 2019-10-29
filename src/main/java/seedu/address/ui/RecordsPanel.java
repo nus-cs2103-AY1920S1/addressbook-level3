@@ -19,18 +19,12 @@ public class RecordsPanel extends UiPart<Region> {
     public RecordsPanel(Model model, String eventName) {
         super(FXML);
         this.performance = model.getPerformance();
-        this.eventName.setText(eventName);
-    }
-
-    private void setEvent(String eventName) {
         for (Event event : performance.getPerformance()) {
             if (event.getName().equals(eventName.toLowerCase())) {
                 this.event = event;
             }
         }
         this.eventName.setText(event.getName());
-
     }
-
 
 }
