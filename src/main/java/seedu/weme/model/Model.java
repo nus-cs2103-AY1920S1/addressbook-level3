@@ -11,7 +11,6 @@ import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import seedu.weme.commons.core.GuiSettings;
 import seedu.weme.model.meme.Meme;
-import seedu.weme.model.statistics.Stats;
 import seedu.weme.model.statistics.TagWithCount;
 import seedu.weme.model.tag.Tag;
 import seedu.weme.model.template.MemeCreation;
@@ -260,11 +259,6 @@ public interface Model {
     void commitWeme(String feedback);
 
     /**
-     * Returns statistics data.
-     */
-    Stats getStats();
-
-    /**
      * Returns the number of likes of a meme.
      */
     int getLikesByMeme(Meme meme);
@@ -289,11 +283,6 @@ public interface Model {
      */
     void clearExportList();
 
-
-    /**
-     * Returns past records of command arguments.
-     */
-    Records getRecords();
 
     /**
      * Returns all past records of file paths.

@@ -31,6 +31,8 @@ public class ImportCommand extends Command {
             throw new CommandException(e.toString());
         }
 
+        model.commitWeme(MESSAGE_SUCCESS);
+
         return new CommandResult(MESSAGE_SUCCESS);
     }
 

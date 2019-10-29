@@ -15,8 +15,6 @@ public interface Stats {
 
     void resetData(Stats stats);
 
-    Stats getStats();
-
     //============= Like Data ====================================
 
     int getLikesByMeme(Meme meme);

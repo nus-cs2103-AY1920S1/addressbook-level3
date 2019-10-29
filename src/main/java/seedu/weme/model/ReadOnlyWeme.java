@@ -55,8 +55,8 @@ public interface ReadOnlyWeme {
      */
     List<TagWithCount> getTagsWithCountList();
 
-    /** Returns records of Weme.
-     * @return
+    /**
+     * Returns records of Weme.
      */
     Records getRecords();
 
