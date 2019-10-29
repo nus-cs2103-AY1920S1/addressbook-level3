@@ -1,12 +1,12 @@
 package seedu.address.logic.commands;
 
-import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.display.detailwindow.ClosestCommonLocationData;
-
 import static java.util.Objects.requireNonNull;
 
 import java.util.Objects;
 import java.util.Optional;
+
+import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.display.detailwindow.ClosestCommonLocationData;
 
 /**
  * Represents the result of a command execution.
@@ -100,8 +100,8 @@ public class CommandResult {
     /**
      * Constructs an alternative CommandResult that would affect the UI.
      */
-    public CommandResult(String feedbackToUser,
-                         boolean showHelp, boolean exit, boolean export, boolean scroll, boolean popUp, ClosestCommonLocationData locationData) {
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean export,
+                         boolean scroll, boolean popUp, ClosestCommonLocationData locationData) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;

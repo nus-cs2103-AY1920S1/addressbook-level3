@@ -3,7 +3,6 @@ package seedu.address.stubs;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.net.ConnectException;
 import java.util.ArrayList;
 import java.util.Arrays;
 

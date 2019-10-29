@@ -1,17 +1,19 @@
 package seedu.address.logic.parser;
 
-import seedu.address.logic.commands.FindGroupCommand;
-import seedu.address.logic.commands.PopupCommand;
-import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.group.Group;
-import seedu.address.model.group.GroupName;
-
-import java.util.stream.Stream;
-
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FREETIMESLOT_ID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GROUPNAME;
 
+import java.util.stream.Stream;
+
+import seedu.address.logic.commands.FindGroupCommand;
+import seedu.address.logic.commands.PopupCommand;
+import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.group.GroupName;
+
+/**
+ * Parser class to show closest location inforamtion.
+ */
 public class PopupCommandParser implements Parser<PopupCommand> {
     @Override
     public PopupCommand parse(String args) throws ParseException {

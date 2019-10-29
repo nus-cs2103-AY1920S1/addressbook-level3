@@ -1,18 +1,16 @@
 package seedu.address.logic.commands;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.display.schedulewindow.FreeTimeslot;
-import seedu.address.model.display.schedulewindow.ScheduleWindowDisplay;
 import seedu.address.model.display.schedulewindow.ScheduleWindowDisplayType;
 import seedu.address.model.display.sidepanel.SidePanelDisplayType;
 import seedu.address.model.group.Group;
 import seedu.address.model.group.GroupName;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.PersonId;
-
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 
 /**
  * Command to show popup of the locations suggested.
