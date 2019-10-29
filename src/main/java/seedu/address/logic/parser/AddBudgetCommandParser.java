@@ -37,7 +37,7 @@ public class AddBudgetCommandParser implements Parser<AddBudgetCommand> {
 
         Description description = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get());
         Price amount = ParserUtil.parsePrice(argMultimap.getValue(PREFIX_PRICE).get());
-        Timestamp startDate = ParserUtil.parseTimestamp(argMultimap.getValue(PREFIX_START_DATE).get());
+        Timestamp startDate = ParserUtil.parseTimestamp(argMultimap.getValue(PREFIX_START_DATE).get()).toStartOfDay();
         Period period = ParserUtil.parsePeriod(argMultimap.getValue(PREFIX_PERIOD).get());
 
         Budget budget = new Budget(description, amount, startDate, period);

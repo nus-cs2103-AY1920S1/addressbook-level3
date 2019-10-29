@@ -57,7 +57,6 @@ public class Timestamp implements Comparable<Timestamp> {
     }
 
 
-
     /**
      * Constructs a Timestamp from a raw date String,
      * only if the date conforms to the format of dd-MM[-yyyy].
@@ -113,6 +112,10 @@ public class Timestamp implements Comparable<Timestamp> {
 
     public LocalDate getDate() {
         return fullTimestamp.toLocalDate();
+    }
+
+    public Timestamp toStartOfDay() {
+        return new Timestamp(fullTimestamp.toLocalDate().atStartOfDay());
     }
 
     public boolean isBefore(Timestamp other) {

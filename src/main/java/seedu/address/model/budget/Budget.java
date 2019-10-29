@@ -138,7 +138,7 @@ public class Budget {
      * Normalizes the budget window to the current period.
      */
     public void normalize(Timestamp anchor) {
-        LocalDateTime now = anchor.fullTimestamp;
+        LocalDateTime now = anchor.toStartOfDay().fullTimestamp;
 
         if (period.getMonths() == 1) {
 
@@ -176,9 +176,9 @@ public class Budget {
 
         } else if (period.getDays() == 7) {
 
-            long daysDiff = ChronoUnit.DAYS.between(startDate.getFullTimestamp().toLocalDate(), now.toLocalDate());
-            long offset = daysDiff >= 0 ? daysDiff % 7 : daysDiff % 7 + 7;
-            startDate = new Timestamp(now.minusDays(offset));
+            long daysDiff = ChronoUnit.DAYS.between(startDate.getDate(), now.toLocalDate());
+            long offset = daysDiff % 7;
+            startDate = new Timestamp(now.toLocalDate().minusDays(offset).atStartOfDay());
             endDate = calculateEndDate();
 
         }
