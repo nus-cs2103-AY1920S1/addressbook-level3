@@ -32,6 +32,7 @@ import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.ModeCommand;
 import seedu.address.logic.commands.ReopenCommand;
 import seedu.address.logic.commands.SaveTodoCommand;
+import seedu.address.logic.commands.ShowCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.eatery.Eatery;
 import seedu.address.model.eatery.NameContainsKeywordsPredicate;
@@ -142,6 +143,13 @@ public class AddressBookParserTest {
         DeleteFeedCommand command = (DeleteFeedCommand) parser.parseCommand(
                 DeleteFeedCommand.COMMAND_WORD + NAME_DESC_EATBOOK, true);
         assertEquals(new DeleteFeedCommand(VALID_NAME_EATBOOK), command);
+    }
+
+    @Test
+    public void parseCommand_show() throws Exception {
+        ShowCommand command = (ShowCommand) parser.parseCommand(
+                ShowCommand.COMMAND_WORD + " " + INDEX_FIRST_EATERY.getOneBased(), true);
+        assertEquals(new ShowCommand(INDEX_FIRST_EATERY), command);
     }
 
     @Test

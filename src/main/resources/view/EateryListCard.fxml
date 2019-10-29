@@ -5,9 +5,9 @@
 <?import javafx.scene.layout.VBox?>
 
 <VBox xmlns:fx="http://javafx.com/fxml/1" minWidth="240" prefWidth="240" styleClass="list-item">
-  <Label fx:id="id"/>
-  <Label fx:id="name" text="\$first" wrapText="true"/>
-  <Label fx:id="address" text="\$address" wrapText="true"/>
-  <Label fx:id="category" text="\$category" wrapText="true"/>
-  <FlowPane fx:id="tags"/>
+    <Label fx:id="id"/>
+    <Label fx:id="name" wrapText="true" styleClass="h2"/>
+    <Label fx:id="address" wrapText="true"/>
+    <Label fx:id="category" wrapText="true"/>
+    <FlowPane fx:id="tags"/>
 </VBox>

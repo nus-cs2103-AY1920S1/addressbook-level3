@@ -8,6 +8,7 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.eatery.Eatery;
+import seedu.address.model.eatery.Tag;
 
 /**
  * An UI component that displays information of a {@code Eatery}.
@@ -47,8 +48,8 @@ public class EateryCard extends UiPart<Region> {
         address.setText(eatery.getAddress().value);
         category.setText(eatery.getCategory().getName());
         eatery.getTags().stream()
-                .sorted(Comparator.comparing(tag -> tag.getName()))
-                .forEach(tag -> tags.getChildren().add(new Label(tag.getName())));
+                .sorted(Comparator.comparing(Tag::getName))
+                .forEach(tag -> tags.getChildren().add(new Label(String.format("#%s", tag.getName()))));
     }
 
     @Override
