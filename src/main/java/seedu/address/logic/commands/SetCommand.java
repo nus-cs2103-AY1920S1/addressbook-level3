@@ -20,7 +20,7 @@ import seedu.address.model.usersettings.RenewPeriod;
 /**
  * Sets the user configuration of the application.
  */
-public class SetCommand extends Command {
+public class SetCommand extends Command implements ReversibleCommand {
 
     public static final String COMMAND_WORD = "set";
 
@@ -39,12 +39,32 @@ public class SetCommand extends Command {
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
 
     private final SetUserSettingsDescriptor setUserSettingsDescriptor;
+    private final boolean isUndoRedo;
+
+    private Command undoCommand;
+    private Command redoCommand;
 
     /**
-     * @param setUserSettingsDescriptor details of the new user settings
+     * Creates a SetCommand to set the {@code LoanPeriod}, {@code RenewPeriod} and {@code FineIncrement}.
+     *
+     * @param setUserSettingsDescriptor details of the new user settings.
      */
     public SetCommand(SetUserSettingsDescriptor setUserSettingsDescriptor) {
         requireNonNull(setUserSettingsDescriptor);
+        this.isUndoRedo = false;
+
+        this.setUserSettingsDescriptor = new SetUserSettingsDescriptor(setUserSettingsDescriptor);
+    }
+
+    /**
+     * Creates a SetCommand to set the {@code LoanPeriod}, {@code RenewPeriod} and {@code FineIncrement}.
+     *
+     * @param setUserSettingsDescriptor details of the new user settings.
+     * @param isUndoRedo used to check whether the DoneCommand is an undo/redo command.
+     */
+    public SetCommand(SetUserSettingsDescriptor setUserSettingsDescriptor, boolean isUndoRedo) {
+        requireNonNull(setUserSettingsDescriptor);
+        this.isUndoRedo = isUndoRedo;
 
         this.setUserSettingsDescriptor = new SetUserSettingsDescriptor(setUserSettingsDescriptor);
     }
@@ -60,10 +80,37 @@ public class SetCommand extends Command {
         UserSettings userSettingsToEdit = model.getUserSettings();
         UserSettings editedUserSettings = createEditedUserSettings(userSettingsToEdit, setUserSettingsDescriptor);
 
+        undoCommand = new SetCommand(getSettingsDescriptor(userSettingsToEdit), true);
+        redoCommand = new SetCommand(getSettingsDescriptor(editedUserSettings), true);
+
         model.setUserSettings(editedUserSettings);
 
         return new CommandResult(String.format(MESSAGE_SET_USER_SETTINGS_SUCCESS, model.getUserSettings()));
 
+    }
+
+    @Override
+    public Command getUndoCommand() {
+        return undoCommand;
+    }
+
+    @Override
+    public Command getRedoCommand() {
+        return redoCommand;
+    }
+
+    @Override
+    public boolean isUndoRedoCommand() {
+        return isUndoRedo;
+    }
+
+    private SetUserSettingsDescriptor getSettingsDescriptor(UserSettings userSettingsToEdit) {
+        SetUserSettingsDescriptor settingsDescriptor = new SetUserSettingsDescriptor();
+        settingsDescriptor.setLoanPeriod(new LoanPeriod(userSettingsToEdit.getLoanPeriod()));
+        settingsDescriptor.setRenewPeriod(new RenewPeriod(userSettingsToEdit.getRenewPeriod()));
+        settingsDescriptor.setFineIncrement(new FineIncrement(userSettingsToEdit.getFineIncrement()));
+
+        return settingsDescriptor;
     }
 
     /**
@@ -88,6 +135,7 @@ public class SetCommand extends Command {
         return new UserSettings(loanPeriod.getLoanPeriod(), renewPeriod.getRenewPeriod(),
                 fineIncrement.getFineIncrement(), maxRenews.getMaxRenews());
     }
+
 
     @Override
     public boolean equals(Object other) {
