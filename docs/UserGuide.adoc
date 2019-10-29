@@ -83,7 +83,7 @@ or you can simply add an existing person from your contacts to your current proj
 
 ==== 3.1 Add a new member: `addMember` [Checkout]
 
-This command is similar to adding a person to your contacts shown previously, except that you have to
+This command is similar to adding a person to your contacts shown previously, except that you have to be
 checked out into a project. +
 Format: `addMember n/NAME [p/PHONE_NUMBER] [e/EMAIL] [a/address] [t/tag]...`
 
@@ -166,6 +166,24 @@ Examples:
 Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
 * `edit 2 n/Betsy Crower t/` +
 Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+
+==== 2. Edit a task : `editTask`
+
+Edits an existing task in the task list of the current project. +
+Format: `editTask INDEX [s/DESCRIPTION] [c/TIME] [d/]` +
+
+****
+* Edits the task at the specified `INDEX`. The index refers to the index number shown in the displayed task list. The index *must be a positive integer* 1, 2, 3, ...
+* If `d/` is not provided in the input, the task will automatically be unchecked.
+* Existing values will be updated to the input values.
+****
+
+Examples:
+
+* `editTask 1 c/05/05/2019 1600 d/` +
+Edits the date and time to `05/05/2019 1600` and checks the task.
+* `editTask 2` +
+Unchecks the task.
 
 === Deleting
 
@@ -301,6 +319,7 @@ All commands in this section follow this set of index/order pairing, where appli
 . Increasing order of time
 . Whether tasks are done.
 . Whether tasks are done and then by increasing order of time.
+. Increasing price.
 ****
 
 ==== 1. Sort tasks: `sortTask`
@@ -308,11 +327,22 @@ All commands in this section follow this set of index/order pairing, where appli
 Sorts the tasks in the task list of the current working project based on given specification. +
 Format: `sortTask INDEX`
 
-`INDEX` in this case refers to which type of sorting you want to do. (Refer to the highlighted section above)
+`INDEX` in this case refers to which type of sorting you want to do. In this case, only integers between 1 and 4 are applicable.(Refer to the highlighted section above)
 
 Example:
 
-* `sortTask 1` (Sorts the tasks by alphabetical order)
+* `sortTask 4` (Sorts the tasks whether they are done and then by increasing date/time)
+
+==== 2. Sort spending: `sortSpending`
+
+Sorts the spending in the budget list of the current working project based on given specification. +
+Format: `sortSpending INDEX`
+
+`INDEX` in this case refers to which type of sorting you want to do. In this case, only integers 1, 2 and 5 are applicable.(Refer to the highlighted section above)
+
+Example:
+
+* `sortSpending 5` (Sorts the tasks by increasing spending)
 
 === Finance
 Isn't it always a pain to keep track of all the finances and checking with the treasurer everytime? You can do it easily with MyProject!

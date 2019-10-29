@@ -120,6 +120,9 @@ public class AddressBookParser {
 
         case SortTaskCommand.COMMAND_WORD:
             return new SortTaskParser().parse(arguments);
+
+        case SortSpendingCommand.COMMAND_WORD:
+            return new SortSpendingParser().parse(arguments);
             
         case AddTimetableCommand.COMMAND_WORD:
             return new AddTimetableCommandParser().parse(arguments);

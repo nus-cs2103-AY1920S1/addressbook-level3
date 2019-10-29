@@ -4,9 +4,9 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.finance.Budget;
 import seedu.address.model.finance.Finance;
 import seedu.address.model.project.Project;
-import seedu.address.model.project.Task;
 import seedu.address.model.util.SortingOrder;
 
 import java.util.*;
@@ -18,23 +18,22 @@ import static seedu.address.commons.core.Messages.MESSAGE_NOT_CHECKED_OUT;
 /**
  * Sorts the tasks in the current project.
  */
-public class SortTaskCommand extends Command {
-    public static final String COMMAND_WORD = "sortTask";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sorts the task from the current project according to given index.\n "
+public class SortSpendingCommand extends Command {
+    public static final String COMMAND_WORD = "sortSpending";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sorts the spendings for each expense in the list of budgets according to given index.\n "
             + "1 - Sorts by alphabetical order.\n"
             + "2 - Sorts by increasing date/time.\n"
-            + "3 - Sorts by whether tasks are done.\n"
-            + "4 - Sorts by whether tasks are done and then by increasing date/time.\n"
-            + "Parameters: INDEX (must be a positive integer between 1-4)\n"
+            + "5 - Sorts by increasing spending.\n"
+            + "Parameters: INDEX (must be a positive integer between 1-2 or 5)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
 
-    public static final String MESSAGE_SORT_TASK_SUCCESS = "Tasks sorted by%1$s";
+    public static final String MESSAGE_SORT_SPENDING_SUCCESS = "Spendings sorted by%1$s";
 
 
     public final Index index;
 
-    public SortTaskCommand(Index index) {
+    public SortSpendingCommand(Index index) {
         requireNonNull(index);
         this.index = index;
     }
@@ -51,47 +50,43 @@ public class SortTaskCommand extends Command {
 
         Project projectToEdit = model.getWorkingProject().get();
         List<String> members = projectToEdit.getMemberNames();
-        List<Task> taskToEdit = projectToEdit.getTasks();
         String sortType = "";
 
         switch (index.getOneBased()) {
 
         case 1:
             sortType = " alphabetical order.";
-            SortingOrder.setCurrentTaskSortingOrderByAlphabeticalOrder();
+            SortingOrder.setCurrentSpendingSortingOrderByAlphabeticalOrder();
             break;
 
         case 2:
             sortType = " increasing date/time.";
-            SortingOrder.setCurrentTaskSortingOrderByDate();
+            SortingOrder.setCurrentSpendingSortingOrderByDate();
             break;
 
-        case 3:
-            sortType = "  whether tasks are done.";
-            SortingOrder.setCurrentTaskSortingOrderByDone();
-            break;
-
-        case 4:
-            sortType = "  whether tasks are done and then by increasing date/time.";
-            SortingOrder.setCurrentTaskSortingOrderByDoneThenDate();
+        case 5:
+            sortType = " increase expenses.";
+            SortingOrder.setCurrentSpendingSortingOrderByExpense();
             break;
 
         default:
             throw new CommandException(Messages.MESSAGE_INVALID_DISPLAYED_INDEX);
         }
 
-        ArrayList<Task> taskList = new ArrayList<>();
-        taskList.addAll(taskToEdit);
-        Collections.sort(taskList, SortingOrder.getCurrentSortingOrderForTask());
+        List<Budget> budgetListToEdit = projectToEdit.getFinance().getBudgets();
+        for (Budget budget : budgetListToEdit) {
+            Collections.sort(budget.getSpendings(), SortingOrder.getCurrentSortingOrderForSpending());
+        }
+
         Finance finance = projectToEdit.getFinance();
 
-        Project editedProject = new Project(projectToEdit.getTitle(), projectToEdit.getDescription(), new ArrayList<String>(), taskList, finance);
+        Project editedProject = new Project(projectToEdit.getTitle(), projectToEdit.getDescription(), new ArrayList<>(), projectToEdit.getTasks(), finance);
         editedProject.getMemberNames().addAll(members);
 
 
         model.setProject(projectToEdit, editedProject);
         model.updateFilteredProjectList(PREDICATE_SHOW_ALL_PROJECTS);
-        return new CommandResult(String.format(MESSAGE_SORT_TASK_SUCCESS, sortType), COMMAND_WORD);
+        return new CommandResult(String.format(MESSAGE_SORT_SPENDING_SUCCESS, sortType), COMMAND_WORD);
     }
 
 
@@ -103,12 +98,12 @@ public class SortTaskCommand extends Command {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof SortTaskCommand)) {
+        if (!(other instanceof SortSpendingCommand)) {
             return false;
         }
 
         // state check
-        SortTaskCommand e = (SortTaskCommand) other;
+        SortSpendingCommand e = (SortSpendingCommand) other;
         return index.equals(e.index);
     }
 }

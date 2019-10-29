@@ -96,9 +96,8 @@ public class Project {
         builder.append(getTitle())
                 .append("\n")
                 .append(getDescription());
-
         for (String a : members) {
-            builder.append(a + ",");
+            builder.append(" " + a);
         }
         return builder.toString();
     }

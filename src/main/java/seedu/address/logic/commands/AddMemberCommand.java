@@ -6,6 +6,7 @@ import seedu.address.model.Model;
 import seedu.address.model.person.*;
 import seedu.address.model.project.Project;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.util.SortingOrder;
 
 import java.util.*;
 
@@ -70,6 +71,7 @@ public class AddMemberCommand extends Command {
         model.addPerson(personToAdd);
         editedMemberList.addAll(memberListToEdit);
         editedMemberList.add(personToAdd.getName().toString());
+        Collections.sort(editedMemberList, SortingOrder.getCurrentSortingOrderForMember());
 
         Project editedProject = new Project(projectToEdit.getTitle(), projectToEdit.getDescription(),
                 editedMemberList, projectToEdit.getTasks(), projectToEdit.getFinance());

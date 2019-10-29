@@ -1,9 +1,12 @@
 package seedu.address.model.finance;
 
+import seedu.address.model.util.SortingOrder;
+
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
+import java.util.Collections;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Objects;
@@ -22,6 +25,7 @@ public class Budget {
         this.name = name;
         this.amount = amount;
         this.spendings.addAll(spendings);
+        Collections.sort(spendings, SortingOrder.getCurrentSortingOrderForSpending());
         this.remainingAmount = calculateRemaining(amount, spendings);
     }
 
@@ -32,6 +36,7 @@ public class Budget {
      */
     public void addSpending(Spending spending) {
         spendings.add(spending);
+        Collections.sort(spendings, SortingOrder.getCurrentSortingOrderForSpending());
         remainingAmount = remainingAmount.subtract(spending.getSpending());
     }
 
@@ -77,6 +82,7 @@ public class Budget {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
+        Collections.sort(spendings, SortingOrder.getCurrentSortingOrderForSpending());
         sb.append(String.format("Budget %s has $%s remaining: ", name, DECIMAL_FORMAT.format(remainingAmount)));
         for (Spending spending : spendings) {
             sb.append("\n " + spending.toString());

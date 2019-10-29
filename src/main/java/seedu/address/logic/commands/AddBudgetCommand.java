@@ -27,7 +27,7 @@ public class AddBudgetCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Add a budget type to the project"
             + "[" + PREFIX_BUDGET + "BUDGET]...\n"
             + "Example: " + COMMAND_WORD
-            + PREFIX_BUDGET + "equipment $3000.00";
+            + PREFIX_BUDGET + " equipment $3000.00";
     public static final String MESSAGE_SUCCESS = "New budgets added";
 
     public AddBudgetCommand(List<Budget> bugets) {

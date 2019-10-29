@@ -4,6 +4,10 @@ import seedu.address.model.Model;
 import seedu.address.model.finance.Budget;
 import seedu.address.model.project.Project;
 
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+
 import static java.util.Objects.requireNonNull;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
@@ -21,8 +25,10 @@ public class ListBudgetCommand extends Command {
 
         Project workingProject = model.getWorkingProject().get();
         StringBuilder sb = new StringBuilder();
+        List<Budget> budgetArrayList = workingProject.getFinance().getBudgets();
+        Collections.sort(budgetArrayList, Comparator.comparing(budget -> budget.getRemainingAmount()));
         int index = 0;
-        for (Budget budget : workingProject.getFinance().getBudgets()) {
+        for (Budget budget : budgetArrayList) {
             index++;
             sb.append(index + ". ");
             sb.append(budget.toString());
