@@ -23,7 +23,7 @@ public class DoneCommand extends Command {
             + "Example: " + COMMAND_WORD + " 3";
 
     public static final String MESSAGE_INVALID_ID = "Invalid Task id.";
-    public static final String MESSAGE__MARK_TASK_COMPLETED = "Task (%1$s) \n"
+    public static final String MESSAGE_MARK_TASK_COMPLETED = "Task (%1$s) \n"
             + "is marked " + TaskStatus.COMPLETED + " successfully.";
     public static final String MESSAGE_TASK_NOT_ONGOING = "Current Task Status: %1$s \n"
             + "Task has to be ONGOING before it can be marked COMPLETED.";
@@ -58,7 +58,7 @@ public class DoneCommand extends Command {
         //if task is ONGOING, it must have a driver and eventTime
         freeDriverFromTask(taskToMark.getDriver().get(), taskToMark.getEventTime().get());
 
-        return new CommandResult(String.format(MESSAGE__MARK_TASK_COMPLETED, taskToMark));
+        return new CommandResult(String.format(MESSAGE_MARK_TASK_COMPLETED, taskToMark));
     }
 
     private void freeDriverFromTask(Driver driver, EventTime eventTime) {

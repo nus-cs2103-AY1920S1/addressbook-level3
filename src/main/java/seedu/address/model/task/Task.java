@@ -91,18 +91,6 @@ public class Task {
         return eventTime.isPresent();
     }
 
-    /**
-     * Check if this task is same as {@code Task otherTask}.
-     * Only same if all the fields are the same.
-     */
-    public boolean isSameTask(Task otherTask) {
-        if (otherTask == this) {
-            return true;
-        }
-
-        return this.equals(otherTask);
-    }
-
     //set methods
     public void setStatus(TaskStatus status) {
         if (this.status == status) {

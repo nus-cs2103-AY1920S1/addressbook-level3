@@ -92,7 +92,7 @@ public class EditTaskCommand extends Command {
             throw new CommandException(MESSAGE_DATE_IS_BEFORE);
         }
 
-        if (taskToEdit.isSameTask(editedTask)) {
+        if (taskToEdit.equals(editedTask)) {
             throw new CommandException(MESSAGE_NOTHING_TO_EDIT);
         }
 
