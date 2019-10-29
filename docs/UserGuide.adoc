@@ -32,35 +32,37 @@ Refer to <<Features>> for details of each command.
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add MEAL_NAME`, `MEAL_NAME` is a parameter which can be used as `add carbonara`.
-* Items in square brackets are optional e.g `add MEAL_NAME [cal/CALORIES]` can be used as `add carbonara cal/430` or as `add carbonara`.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/MEAL_NAME`, `MEAL_NAME` is a parameter which can be used as `add n/Carbonara`.
+* Items in square brackets are optional e.g `add n/MEAL_NAME [c/CALORIES]` can be used as `add n/Carbonara c/430` or as `add n/Carbonara`.
 ====
 
 === Adding a meal: `add`
 
 Adds a meal that the user ate to be tracked by CaloFit. +
 Inputting calories of the meal is optional. +
-If the meal is a dish stored in CaloFit, the calories will be taken from CaloFit. If not, the default value is 700. +
+If the meal is a dish stored in CaloFit, the calories will be taken from CaloFit. If not, a default value of 700 will be added for you, +
 Tags are completely optional and there is no default tag. +
 Format: `add n/MEAL_NAME [c/CALORIES] [t/TAGS]`
 
 Examples:
 
-* `add n/spaghetti c/480 t/tasty`
-* `add n/chicken rice c/500`
-* `add n/mushroom soup`
+* `add n/Spaghetti c/480 t/tasty`
+* `add n/Chicken Rice c/500`
+* `add n/Mushroom Soup`
 
 === Editing previous meal entry : `edit`
 
 Edits a meal that the user previously ate today. +
-Format: `edit MEAL_NUMBER [n/NAME] [c/CALORIES]`
+Format: `edit MEAL_NUMBER [n/NAME] [c/CALORIES] [t/TAGS]` +
+The input of at least 1 field (either NAME, CALORIES or TAGS) is required.
+A mix of the different fields is possible as well.
 
 Examples:
 
-* `edit 1 n/wanton noodle c/1000`
-* `edit 2 n/chicken rice`
+* `edit 1 n/Wanton Noodle c/1000`
+* `edit 2 n/Chicken Rice`
 * `edit 3 c/500`
-* `edit 4`
+* `edit 4 t/tasty`
 
 === Deleting previous meal entry : `delete`
 
@@ -90,7 +92,10 @@ Examples:
 Creates a report for the user. +
 Includes Maximum, Minimum and Average calorie intake per day of the current month, +
 Number of days where calorie intake exceeded per month, +
-Most consumed food of the month. +
+and List of Most consumed dishes of the month.
+[NOTE]
+Average value is rounded down.
+
 Format: `report`
 
 === Reminder that a meal is missed

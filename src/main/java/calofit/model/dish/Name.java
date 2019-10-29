@@ -57,4 +57,7 @@ public class Name {
         return fullName.hashCode();
     }
 
+    public String toLowerCase() {
+        return this.fullName.toLowerCase();
+    }
 }

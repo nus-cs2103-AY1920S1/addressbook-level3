@@ -23,10 +23,13 @@ import calofit.model.UserPrefs;
 import calofit.model.dish.DishDatabase;
 import calofit.model.dish.ReadOnlyDishDatabase;
 import calofit.model.meal.MealLog;
+import calofit.model.meal.ReadOnlyMealLog;
 import calofit.model.util.SampleDataUtil;
 import calofit.storage.DishDatabaseStorage;
 import calofit.storage.JsonDishDatabaseStorage;
+import calofit.storage.JsonMealLogStorage;
 import calofit.storage.JsonUserPrefsStorage;
+import calofit.storage.MealLogStorage;
 import calofit.storage.Storage;
 import calofit.storage.StorageManager;
 import calofit.storage.UserPrefsStorage;
@@ -56,10 +59,12 @@ public class MainApp extends Application {
         AppParameters appParameters = AppParameters.parse(getParameters());
         config = initConfig(appParameters.getConfigPath());
 
-        UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
+        UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(
+                config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         DishDatabaseStorage dishDatabaseStorage = new JsonDishDatabaseStorage(userPrefs.getDishDatabaseFilePath());
-        storage = new StorageManager(dishDatabaseStorage, userPrefsStorage);
+        MealLogStorage mealLogStorage = new JsonMealLogStorage(userPrefs.getMealLogFilePath());
+        storage = new StorageManager(dishDatabaseStorage, mealLogStorage, userPrefsStorage);
 
         initLogging(config);
 
@@ -100,10 +105,22 @@ public class MainApp extends Application {
      * @param userPrefs User preference object
      * @return Meal loaded from file, or a new instance if file is missing or invalidn
      */
-    private MealLog loadMealLog(Storage storage, ReadOnlyUserPrefs userPrefs) {
-        //TODO: Load from file given by userPrefs
-        MealLog mealLog = new MealLog();
-        return mealLog;
+    private ReadOnlyMealLog loadMealLog(Storage storage, ReadOnlyUserPrefs userPrefs) {
+        Optional<ReadOnlyMealLog> mealLogOptional;
+        ReadOnlyMealLog initialData;
+        try {
+            mealLogOptional = storage.readMealLog();
+            if (!mealLogOptional.isPresent()) {
+                logger.info("Data file not found. Will be starting with a empty MealLog");
+            }
+            return mealLogOptional.orElseGet(SampleDataUtil::getNewMealLog);
+        } catch (DataConversionException e) {
+            logger.warning("Data file not in the correct format. Will be starting with an empty MealLog");
+            return new MealLog();
+        } catch (IOException e) {
+            logger.warning("Problem while reading from the file. Will be starting with an empty MealLog");
+            return new MealLog();
+        }
     }
 
     /**
@@ -113,7 +130,7 @@ public class MainApp extends Application {
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
         ReadOnlyDishDatabase dishDb = loadDishDatabase(storage, userPrefs);
-        MealLog mealLog = loadMealLog(storage, userPrefs);
+        ReadOnlyMealLog mealLog = loadMealLog(storage, userPrefs);
         return new ModelManager(mealLog, dishDb, userPrefs);
     }
 
