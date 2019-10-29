@@ -198,8 +198,8 @@ public class Statistics {
             map.put(currentDish, value == null ? 1 : value + 1);
         }
         for (Entry<Dish, Integer> e : map.entrySet()) {
-            data.add(new Data(e.getKey().getName().toString() + "\n" +
-                    "Number of times eaten: " + e.getValue() + "\n", e.getValue()));
+            data.add(new Data(e.getKey().getName().toString() + "\n"
+                    + "Number of times eaten: " + e.getValue() + "\n", e.getValue()));
         }
         return FXCollections.observableList(data);
     }

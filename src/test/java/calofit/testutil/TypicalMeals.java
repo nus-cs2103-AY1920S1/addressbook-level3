@@ -1,16 +1,19 @@
 package calofit.testutil;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import calofit.model.meal.Meal;
 import calofit.model.meal.MealLog;
 import calofit.model.util.Timestamp;
 
+/**
+ * A utility class containing a list of {@code Meal} objects to be used in tests.
+ */
 public class TypicalMeals {
 
     public static final Meal SPAGHETTI = new Meal(
