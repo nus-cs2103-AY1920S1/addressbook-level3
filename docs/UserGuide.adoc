@@ -25,7 +25,7 @@ THRIFT is for money-conscious NUS students who wish to track their spending, in 
 This is how THRIFT looks like:
 
 .The graphical user interface for THRIFT
-image::/images/Ui_Labelled.png[]
+image::UGUI.png[]
 
 == Quick Start
 1. Ensure that you have Java `11` or above installed in your Computer.
@@ -41,6 +41,12 @@ image::/images/Ui_Labelled.png[]
 == Features:
 
 Understanding this document:
+
+TIP: This symbol indicates a tip that you may find useful when using THRIFT.
+
+NOTE: This symbol indicates information that you may want to take note of when using THRIFT.
+
+WARNING: This symbol indicates information that you need to be cautious of when using THRIFT.
 [horizontal]
 `add_expense`:: Words with a grey highlight (called a mark-up) indicates that it is a command, or a part of it.
 kbd:[Enter]:: Words styled like this indicates a keyboard button.
@@ -74,15 +80,15 @@ You wish to set your budget for the month _October 2019_ as $_2000_:
 
 . Your current budget for the month _October 2019_ is $_0_.
 +
-image::/images/add-budget/Step1.png[,550]
+image::add-budget/Step1.png[,550]
 
 . You type: **budget v/2000 d/10/2019** in the command box and press kbd:[Enter].
 +
-image::/images/add-budget/Step2.png[,550]
+image::add-budget/Step2.png[,550]
 
 . You should see in the result box that your budget for _October 2019_ has been set to $_2000_.
 +
-image::/images/add-budget/Step3.png[,550]
+image::add-budget/Step3.png[,550]
 
 NOTE: If you are changing your budget for the current displayed month, you should see the changes on the GUI immediately.
 
@@ -145,7 +151,7 @@ You studied extremely hard during the year and you were awarded a bursary incent
 
 . You have a balance of $2000 at the beginning.
 +
-image::/images/add-transaction/income/Step1.png[,550]
+image::add-transaction/income/Step1.png[,550]
 
 . You type: **add_income n/Bursary v/500 r/For studying hard in the year t/Award** into the command box and press kbd:[Enter].
 +
@@ -175,15 +181,15 @@ Assume that you wish to delete a bursary income transaction from your transactio
 
 . This transaction is currently the first transaction in your transaction list.
 +
-image::/images/delete/Step1.png[,550]
+image::delete/Step1.png[,550]
 
 . You type: **delete i/1** and press kbd:[Enter].
 +
-image::/images/delete/Step2.png[,550]
+image::delete/Step2.png[,550]
 
 . You should see that the bursary transaction has been deleted from THRIFT and your balance has been updated accordingly.
 +
-image::/images/delete/Step3.png[,550]
+image::delete/Step3.png[,550]
 
 // tag::update[]
 [[UpdateTag]]
@@ -329,13 +335,12 @@ Do not panic if you have accidentally made a mistake in THRIFT, like deleting th
 THRIFT provides an `undo` command to solve your trouble! You can revert to the previous state
 of THRIFT using `undo`.
 
-Format: `undo`
-
 NOTE: `Undo` can only apply to undoable commands. Undoable commands refers to commands that modify the data of the THRIFT application.
 
 WARNING: You cannot undo undoable commands once the application exits.
 
-.List of undoable commands[[Undoable]]:
+List of undoable commands[[Undoable]]:
+
 * `<<ExpenseTag, add_expense>>`
 * `<<IncomeTag, add_income>>`
 * `<<DeleteTag, delete>>`
@@ -345,8 +350,11 @@ WARNING: You cannot undo undoable commands once the application exits.
 * `<<UntagTag, untag>>`
 * `<<BudgetTag, budget>>`
 
-Examples: +
-Suppose you want to delete the second transaction (Bursary) in THRIFT, but you remove the third transaction instead!
+==== Command syntax:
+`undo`
+
+==== Example usage:
+Suppose you want to delete the second transaction (Bursary) in THRIFT, but you remove the third transaction (Chicken Rice) instead!
 One possible solution is that you add the transaction manually back into THRIFT, but this is too troublesome! You can
 retrieve the deleted transaction by performing `undo`.
 
@@ -354,36 +362,39 @@ To `undo` the `delete` command:
 
 . Type *undo* into the command box and press kbd:[Enter]:
 +
-image::UndoAndRedo/undocommand.PNG[, 600]
+image::UndoAndRedo/undocommand.png[, 550]
 
 . You will see a success message displays in the result box, and the transaction (Chicken Rice)
 adds back to its original position in the list:
 +
-image::UndoAndRedo/undocommandresult.PNG[, 600]
+image::UndoAndRedo/undocommandresult.png[, 550]
 
 [[RedoTag]]
 === Redoing the undone command: `redo`
 Misuse of `undo` command? No worries, THRIFT provides `redo` command to help you in this situation.
-You can restore back the previous state of the undone transaction.
-
-Format: `redo`
+You can restore the previous state of the undone transaction.
 
 NOTE: `Redo` command is only applicable to <<Undoable, undoable command>>.
 
 WARNING: You cannot redo undone commands once the application exits or new undoable command is executed after `undo`.
 
-Examples: +
-Suppose you had undone the addition of the transaction (Bursary) (See: <<UndoTag, Undoing the previous undoable command>>),
+==== Command syntax:
+`redo`
+
+==== Example usage:
+Suppose you had undone the addition of the transaction (Chicken Rice) (See: <<UndoTag, Undoing the previous undoable command>>),
 but you decide to track the transaction using THRIFT. Instead of adding the transaction manually, you can add back
 the transaction by executing `redo`.
 
+To `redo` undone `add_expense` command:
+
 . Type *redo* into the command box and press kbd:[Enter]:
 +
-image::UndoAndRedo/redocommand.PNG[, 600]
+image::UndoAndRedo/redocommand.png[, 550]
 
-. You will see a success message displays in the result box and the transaction adds back to the list:
+. You will see a success message displays in the result box and the transaction (Chicken Rice) adds back to the list:
 +
-image::UndoAndRedo/redocommandresult.PNG[, 600]
+image::UndoAndRedo/redocommandresult.png[, 550]
 
 
 [[FindTag]]
@@ -403,16 +414,16 @@ how often you visit there.
 
 . Your transaction list already contains a few transactions with meals that you ate at _The Deck_:
 +
-image::/images/find/Step1.png[,550]
+image::find/Step1.png[,550]
 
 . You want to refine your search to only show transactions that contain the keywords _The Deck_. You type:
 **find The Deck** and press kbd:[Enter]:
 +
-image::/images/find/Step2.png[,550]
+image::find/Step2.png[,550]
 
 . Your transaction list will now only contain transactions containing the words _The_ or _Deck_.
 +
-image::/images/find/Step3.png[,550]
+image::find/Step3.png[,550]
 
 [[ListTag]]
 === List expenses for the month: `list`
@@ -434,9 +445,10 @@ Expected output:
 New to THRIFT? Or forget about some of the commands used in THRIFT? You can run *help* to obtain the link to this
 comprehensive user guide. It saves the trouble of saving the URL of this user guide.
 
-Format: `help [COMMAND]`
+==== Command syntax:
+`help [COMMAND]`
 
-Example: +
+==== Example usage:
 Suppose you want to add a transaction to THRIFT, but you had forgotten about the command to perform this function.
 
 To get the URL of this user guide:
@@ -451,10 +463,10 @@ image:Help-exit/userguideurl.PNG[]
 
 TIP: Alternative methods: press kbd:[F1] or click on *Help* in the menu bar, and then click on *Help* in its sub menu.
 
-If you still remember about `add_expense` command but had forgotten about how to use it. You can view a simplified version of this
-command by entering *help add_expense* instead of *help*.
+However, if you just want to view the usage syntax of the `add_expense` command because you had forgotten the exact format,
+you can enter *help add_expense* instead of *help*.
 
-Below is a simplified version of the `add_expense` command:
+You will see a simplified help version of the `add_expense` command displays in the result box:
 
 image::Help-exit/specifichelpcommand.PNG[]
 
@@ -462,8 +474,6 @@ image::Help-exit/specifichelpcommand.PNG[]
 === Exiting THRIFT application: `exit`
 Think about exiting THRIFT after you have added the transaction? You can enter *exit* in the
 command box or click on the close button at the top-right corner of the application.
-
-Format: `exit`
 
 === Generating an external report `[coming in v2.0]`
 
@@ -513,3 +523,10 @@ Examples: +
 * <<HelpTag, *Help*>>: `help [COMMAND]` +
 Example: `help delete`
 * <<ExitTag, *Exit*>>: `exit`
+
+== Glossary
+[horizontal]
+[[thrift]]THRIFT:: Stands for "Terminal-input Human Readable Interactive Finance Tracker". It is the application this user guide is for.
+
+[[url]] URL:: Stands for "Uniform Resource Locator" which is used to access a particular website.
+
