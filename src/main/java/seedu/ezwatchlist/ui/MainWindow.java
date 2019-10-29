@@ -4,9 +4,12 @@ import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
@@ -152,6 +155,74 @@ public class MainWindow extends UiPart<Stage> {
         watchlistButton.getStyleClass().add("button-current");
 
         currentButton = watchlistButton;
+        setSearchAccelerator(searchButton);
+        setWatchListAccelerator(watchlistButton);
+        setWatchedAccelerator(watchedButton);
+        setStatisticsAccelerator(statisticsButton);
+    }
+
+    private void setSearchAccelerator(final Button button) {
+        Scene scene = button.getScene();
+        if (scene == null) {
+            throw new IllegalArgumentException("setSaveAccelerator must be called when a button is attached to a scene");
+        }
+
+        scene.getAccelerators().put(
+                new KeyCodeCombination(KeyCode.DIGIT3),
+                new Runnable() {
+                    @Override public void run() {
+                        goToSearch();
+                    }
+                }
+        );
+    }
+
+    private void setWatchListAccelerator(final Button button) {
+        Scene scene = button.getScene();
+        if (scene == null) {
+            throw new IllegalArgumentException("setSaveAccelerator must be called when a button is attached to a scene");
+        }
+
+        scene.getAccelerators().put(
+                new KeyCodeCombination(KeyCode.DIGIT1),
+                new Runnable() {
+                    @Override public void run() {
+                        goToWatchlist();
+                    }
+                }
+        );
+    }
+
+    private void setWatchedAccelerator(final Button button) {
+        Scene scene = button.getScene();
+        if (scene == null) {
+            throw new IllegalArgumentException("setSaveAccelerator must be called when a button is attached to a scene");
+        }
+
+        scene.getAccelerators().put(
+                new KeyCodeCombination(KeyCode.DIGIT2),
+                new Runnable() {
+                    @Override public void run() {
+                        goToWatched();
+                    }
+                }
+        );
+    }
+
+    private void setStatisticsAccelerator(final Button button) {
+        Scene scene = button.getScene();
+        if (scene == null) {
+            throw new IllegalArgumentException("setSaveAccelerator must be called when a button is attached to a scene");
+        }
+
+        scene.getAccelerators().put(
+                new KeyCodeCombination(KeyCode.DIGIT4),
+                new Runnable() {
+                    @Override public void run() {
+                        goToStatistics();
+                    }
+                }
+        );
     }
 
     /**
