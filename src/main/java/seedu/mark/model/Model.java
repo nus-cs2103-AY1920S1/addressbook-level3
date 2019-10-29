@@ -23,6 +23,9 @@ public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Bookmark> PREDICATE_SHOW_ALL_BOOKMARKS = unused -> true;
 
+    /** {@code Predicate} that always evaluate to false */
+    Predicate<Bookmark> PREDICATE_SHOW_NO_BOOKMARKS = unused -> false;
+
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
      */
