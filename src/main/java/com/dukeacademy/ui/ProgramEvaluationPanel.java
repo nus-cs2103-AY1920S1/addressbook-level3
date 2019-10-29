@@ -14,7 +14,8 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 
 /**
- * Panel containing the list of persons.
+ * Controller class for Program Evaluation Panel. This panel shows the user how well his program performed against
+ * a pre-defined list of test cases.
  */
 public class ProgramEvaluationPanel extends UiPart<Region> {
     private static final String FXML = "ProgramEvaluationPanel.fxml";
@@ -23,7 +24,7 @@ public class ProgramEvaluationPanel extends UiPart<Region> {
     private ListView<TestCaseResult> evaluationListView;
 
     /**
-     * Instantiates a new Question list panel.
+     * Instantiates a new Program Evaluation Panel.
      *
      * @param
      */
@@ -43,7 +44,8 @@ public class ProgramEvaluationPanel extends UiPart<Region> {
     }
 
     /**
-     * Custom {@code ListCell} that displays the graphics of a {@code Question} using a {@code QuestionCard}.
+     * Custom {@code EvaluationListViewCell} that displays the graphics of a {@code TestCaseResult} using a
+     * {@code ProgramEvaluationCard}.
      */
     class EvaluationListViewCell extends ListCell<TestCaseResult> {
         @Override

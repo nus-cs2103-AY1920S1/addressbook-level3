@@ -1,12 +1,15 @@
 package com.dukeacademy.ui;
 
-
 import com.dukeacademy.model.program.TestCaseResult;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
 
+/**
+ * Controller class for Program Evaluation Card. Each card represents a specific test case and shows how
+ * well the user's program performed against it.
+ */
 public class ProgramEvaluationCard extends UiPart<Region> {
     private static final String FXML = "ProgramEvaluationCard.fxml";
 
@@ -45,6 +48,11 @@ public class ProgramEvaluationCard extends UiPart<Region> {
         testCaseId.setText(id + "");
     }
 
+    /**
+     * Updates the test case status, either PASS or FAIL on the program evaluation card, based on the
+     * isSuccessful boolean attribute stored in a test case result object.
+     * @param testCaseResult test case result object
+     */
     private void updateTestCaseStatus(TestCaseResult testCaseResult) {
         boolean isPass = testCaseResult.isSuccessful();
         if (isPass) {
