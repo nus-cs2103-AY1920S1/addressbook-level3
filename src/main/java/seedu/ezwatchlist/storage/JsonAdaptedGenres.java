@@ -1,14 +1,15 @@
 package seedu.ezwatchlist.storage;
 
-import seedu.ezwatchlist.model.show.Genres;
-
 import java.util.List;
+
+import seedu.ezwatchlist.model.show.Genres;
 
 /**
  * Jackson-friendly version of {@link Genres}.
  */
 public class JsonAdaptedGenres {
-    List<String> genres;
+
+    private List<String> genres;
 
     /**
      * Constructs a {@code JsonAdaptedGenres} with the given {@code genres}.
@@ -29,5 +30,9 @@ public class JsonAdaptedGenres {
      */
     public Genres toModelType() {
         return new Genres(genres);
+    }
+
+    public List<String> getGenres() {
+        return genres;
     }
 }
