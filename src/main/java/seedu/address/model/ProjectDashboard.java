@@ -247,62 +247,75 @@ public class ProjectDashboard implements ReadOnlyProjectDashboard {
 
     /// Mapping util
 
-    public void addMapping(InvMemMapping mapping) {
+    public void addMapping(Mapping mapping) {
         mappings.add(mapping);
     }
 
-    public void addMapping(InvTasMapping mapping) {
-        mappings.add(mapping);
-    }
+//    public void addMapping(InvMemMapping mapping) {
+//        mappings.add(mapping);
+//    }
+//
+//    public void addMapping(InvTasMapping mapping) {
+//        mappings.add(mapping);
+//    }
+//
+//    public void addMapping(TasMemMapping mapping) {
+//        mappings.add(mapping);
+//    }
 
-    public void addMapping(TasMemMapping mapping) {
-        mappings.add(mapping);
-    }
-
-    public void removeMapping(InvMemMapping mapping) {
+    public void removeMapping(Mapping mapping) {
         mappings.remove(mapping);
     }
 
-    public void removeMapping(InvTasMapping mapping) {
-        mappings.remove(mapping);
-    }
-
-    public void removeMapping(TasMemMapping mapping) {
-        mappings.remove(mapping);
-    }
-
+//    public void removeMapping(InvMemMapping mapping) {
+//        mappings.remove(mapping);
+//    }
+//
+//    public void removeMapping(InvTasMapping mapping) {
+//        mappings.remove(mapping);
+//    }
+//
+//    public void removeMapping(TasMemMapping mapping) {
+//        mappings.remove(mapping);
+//    }
 
     /**
      * returns whether the mapping list contains targetMapping
      */
-    public boolean hasMapping(InvMemMapping mapping) {
+    public boolean hasMapping(Mapping mapping) {
         requireNonNull(mapping);
         return mappings.contains(mapping);
     }
 
-    /**
-     * returns whether the mapping list contains targetMapping
-     */
-    public boolean hasMapping(InvTasMapping mapping) {
-        requireNonNull(mapping);
-        return mappings.contains(mapping);
-    }
-
-    /**
-     * returns whether the mapping list contains targetMapping
-     */
-    public boolean hasMapping(TasMemMapping mapping) {
-        requireNonNull(mapping);
-        return mappings.contains(mapping);
-    }
+//    /**
+//     * returns whether the mapping list contains targetMapping
+//     */
+//    public boolean hasMapping(InvMemMapping mapping) {
+//        requireNonNull(mapping);
+//        return mappings.contains(mapping);
+//    }
+//
+//    /**
+//     * returns whether the mapping list contains targetMapping
+//     */
+//    public boolean hasMapping(InvTasMapping mapping) {
+//        requireNonNull(mapping);
+//        return mappings.contains(mapping);
+//    }
+//
+//    /**
+//     * returns whether the mapping list contains targetMapping
+//     */
+//    public boolean hasMapping(TasMemMapping mapping) {
+//        requireNonNull(mapping);
+//        return mappings.contains(mapping);
+//    }
 
     @Override
     public String toString() {
         return tasks.asUnmodifiableObservableList().size() + " tasks";
         // TODO: refine later
     }
-
-
 
     @Override
     public ObservableList<Inventory> getInventoryList() {

@@ -6,6 +6,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import seedu.address.logic.commands.AddCalendarCommand;
 import seedu.address.logic.commands.AddInventoryCommand;
 import seedu.address.logic.commands.AddMemberCommand;
 import seedu.address.logic.commands.AddMemberToTaskCommand;
@@ -154,6 +155,9 @@ public class ProjectDashboardParser {
 
         case RedoCommand.COMMAND_WORD:
             return new RedoCommand();
+
+        case AddCalendarCommand.COMMAND_WORD:
+            return new AddCalendarParser().parse("add-calendar mn/Bobby fp/C:\\Users\\gbrls\\OneDrive\\Desktop\\nusmods_calendar.ics");
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

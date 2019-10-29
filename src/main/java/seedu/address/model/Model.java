@@ -10,9 +10,10 @@ import seedu.address.model.member.Member;
 import seedu.address.model.member.MemberId;
 import seedu.address.model.statistics.Statistics;
 import seedu.address.model.task.Task;
-import seedu.address.model.mapping.InvMemMapping;
-import seedu.address.model.mapping.InvTasMapping;
-import seedu.address.model.mapping.TasMemMapping;
+import seedu.address.model.mapping.Mapping;
+//import seedu.address.model.mapping.InvMemMapping;
+//import seedu.address.model.mapping.InvTasMapping;
+//import seedu.address.model.mapping.TasMemMapping;
 import seedu.address.model.mapping.Mapping;
 
 /**
@@ -203,23 +204,29 @@ public interface Model {
      */
     void setInventory(Inventory target, Inventory editedInventory);
 
-    void addMapping(InvMemMapping mapping);
+    void addMapping(Mapping mapping);
 
-    void addMapping(InvTasMapping mapping);
+//    void addMapping(InvMemMapping mapping);
+//
+//    void addMapping(InvTasMapping mapping);
+//
+//    void addMapping(TasMemMapping mapping);
 
-    void addMapping(TasMemMapping mapping);
+    void deleteMapping(Mapping mapping);
 
-    void deleteMapping(InvMemMapping mapping);
+//    void deleteMapping(InvMemMapping mapping);
+//
+//    void deleteMapping(InvTasMapping mapping);
+//
+//    void deleteMapping(TasMemMapping mapping);
 
-    void deleteMapping(InvTasMapping mapping);
+    boolean hasMapping(Mapping mapping);
 
-    void deleteMapping(TasMemMapping mapping);
-
-    boolean hasMapping(InvMemMapping mapping);
-
-    boolean hasMapping(InvTasMapping mapping);
-
-    boolean hasMapping(TasMemMapping mapping);
+//    boolean hasMapping(InvMemMapping mapping);
+//
+//    boolean hasMapping(InvTasMapping mapping);
+//
+//    boolean hasMapping(TasMemMapping mapping);
 
     ObservableList<Mapping> getFilteredMappingsList();
 
