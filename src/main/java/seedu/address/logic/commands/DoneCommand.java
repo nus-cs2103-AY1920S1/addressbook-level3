@@ -49,8 +49,8 @@ public class DoneCommand extends Command implements ReversibleCommand {
         if (!model.isServeMode()) {
             throw new CommandException(MESSAGE_NOT_IN_SERVE_MODE);
         }
-        undoCommand = new ServeCommand(model.getServingBorrower().getBorrowerId());
-        redoCommand = this;
+        undoCommand = new ServeCommand(model.getServingBorrower().getBorrowerId(), true);
+        redoCommand = new DoneCommand(true);
         model.exitsServeMode();
         return new CommandResult(MESSAGE_SUCCESS, false, false, false, true);
     }

@@ -12,7 +12,7 @@ import seedu.address.model.borrower.BorrowerId;
 /**
  * Opens a serving session for a borrower and allows the borrower to start borrower book
  */
-public class ServeCommand extends Command {
+public class ServeCommand extends Command implements ReversibleCommand {
     public static final String COMMAND_WORD = "serve";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Enters the Serve Mode. "
@@ -23,12 +23,38 @@ public class ServeCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Currently serving Borrower: %1$s\n";
 
-    private BorrowerId borrowerId;
+    private final BorrowerId borrowerId;
+    private final boolean isUndoRedo;
+    private final Command undoCommand;
+    private final Command redoCommand;
 
+    /**
+     * Creates a ServeCommand to serve a {@code Borrower}.
+     *
+     * @param borrowerId id of {@code Borrower} we are serving.
+     */
     public ServeCommand (BorrowerId borrowerId) {
         requireNonNull(borrowerId);
         this.borrowerId = borrowerId;
+        this.undoCommand = new DoneCommand(true);
+        this.redoCommand = new ServeCommand(borrowerId, true);
+        this.isUndoRedo = false;
     }
+
+    /**
+     * Creates a ServeCommand to serve a {@code Borrower}.
+     *
+     * @param borrowerId id of {@code Borrower} we are serving.
+     * @param isUndoRedo used to check whether the DoneCommand is an undo/redo command.
+     */
+    public ServeCommand (BorrowerId borrowerId, boolean isUndoRedo) {
+        requireNonNull(borrowerId);
+        this.borrowerId = borrowerId;
+        this.undoCommand = new DoneCommand(true);
+        this.redoCommand = new ServeCommand(borrowerId, true);
+        this.isUndoRedo = true;
+    }
+
     /**
      * Executes the command and returns the result message.
      *
@@ -48,6 +74,21 @@ public class ServeCommand extends Command {
         Borrower borrower = model.getServingBorrower();
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, borrower), false, false, true, false);
+    }
+
+    @Override
+    public Command getUndoCommand() {
+        return undoCommand;
+    }
+
+    @Override
+    public Command getRedoCommand() {
+        return redoCommand;
+    }
+
+    @Override
+    public boolean isUndoRedoCommand() {
+        return isUndoRedo;
     }
 
     @Override
