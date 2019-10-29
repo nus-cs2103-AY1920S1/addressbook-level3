@@ -1,10 +1,11 @@
 package seedu.address.model.activity;
 
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Objects;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
@@ -41,7 +42,7 @@ public class Activity {
      * @param ids The people participating in the activity.
      */
     public Activity(int primaryKey, Title title, Integer ... ids) {
-        requireAllNonNull(title);
+        requireNonNull(title);
         participantIds = new ArrayList<>(ids.length);
         participantActive = new ArrayList<>(ids.length);
         idDict = new HashMap<>(ids.length);
@@ -53,6 +54,7 @@ public class Activity {
         this.title = title;
         invite(ids);
     }
+
     /**
       Constructor for Activity. Sets primary key automatically.
      * @param title Title of the activity.
@@ -99,6 +101,14 @@ public class Activity {
     }
 
     /**
+     * Returns a List containing all the IDs of the participants.
+     * @return A {@code List} containing the IDs of all participants.
+     */
+    public List<Integer> getParticipantsIds() {
+        return participantIds;
+    }
+
+    /**
      * Gets the transfer matrix.
      * @return The matrix. Every (i, j) entry reflects how much i receives from
      * j. Negative amounts means i has to give j money.
@@ -107,6 +117,23 @@ public class Activity {
     public ArrayList<ArrayList<Double>> getTransferMatrix() {
         simplifyExpenses();
         return transferMatrix;
+    }
+
+    /**
+     * Returns the aggregate amount owed to a specified participant in this activity. A
+     * negative amount indicates this participant owes other participants.
+     * @param participantId {@code Integer} ID of the participant.
+     */
+    public Double getTransferAmount(Integer participantId) {
+        requireNonNull(participantId);
+
+        Integer participantIndex = idDict.get(participantId);
+        assert participantIndex != null;
+
+        simplifyExpenses();
+
+        ArrayList<Double> transfers = transferMatrix.get(participantIndex);
+        return transfers.stream().reduce(0.0, (acc, amt) -> acc + amt);
     }
 
     /**

@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 
@@ -175,4 +176,15 @@ public interface Model {
      */
     void updateFilteredActivityList(Predicate<? super Activity> predicate);
 
+    /**
+     * Returns an unmodifiable list of {@code Person} containing all participants of a specified
+     * {@code Activity}, for GUI purposes.
+     */
+    List<Person> getAssociatedPersons(Activity activity);
+
+    /**
+     * Returns an unmodifiable list of {@code Activity} containing all activities a specified {@code Person}
+     * has participated in, for GUI purposes.
+     */
+    List<Activity> getAssociatedActivities(Person person);
 }

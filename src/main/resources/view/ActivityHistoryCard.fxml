@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox fx:id="activityHistoryCard" styleClass="activity-history-pane" VBox.vgrow="ALWAYS" minHeight="-Infinity"
+    maxHeight="-Infinity" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+  <GridPane styleClass="activity-history-card" maxWidth="450" hgap="8">
+    <columnConstraints>
+      <ColumnConstraints hgrow="NEVER" prefWidth="60" />
+      <ColumnConstraints hgrow="ALWAYS" />
+    </columnConstraints>
+    <VBox styleClass="image-container" alignment="CENTER" minHeight="60" GridPane.columnIndex="0">
+      <ImageView fx:id="cardPic" styleClass="activity-history-card-image"
+          fitHeight="50" pickOnBounds="true" preserveRatio="true">
+        <Image url="@../images/activity-placeholder.png" backgroundLoading="true"/>
+      </ImageView>
+    </VBox>
+    <VBox styleClass="details-container" VBox.vgrow="ALWAYS" alignment="CENTER" minHeight="60"
+        maxHeight="-Infinity" GridPane.columnIndex="1">
+      <Label alignment="CENTER" fx:id="title" text="\$blank-title" styleClass="activity-title"
+          wrapText="true" lineSpacing="0.0" />
+      <Label alignment="CENTER" fx:id="netTransfer" text="\$transfer-amt" styleClass="activity-transfer-amt" />
+    </VBox>
+  </GridPane>
+</VBox>

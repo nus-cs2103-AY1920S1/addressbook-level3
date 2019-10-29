@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox styleClass="transfer-card-pane" fx:id="transferCard" VBox.vgrow="ALWAYS" minHeight="-Infinity"
+    maxHeight="-Infinity" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+  <GridPane styleClass="transfer-card" HBox.hgrow="NEVER" hgap="8">
+    <columnConstraints>
+      <ColumnConstraints hgrow="NEVER" prefWidth="190" />
+      <ColumnConstraints hgrow="SOMETIMES" />
+      <ColumnConstraints hgrow="NEVER" prefWidth="190" />
+    </columnConstraints>
+    <VBox alignment="CENTER" styleClass="transfer-from-container" minHeight="30" GridPane.columnIndex="0">
+      <Label alignment="CENTER" fx:id="fromPerson" text="\$person" styleClass="transfer-from" wrapText="true" />
+    </VBox>
+    <VBox alignment="TOP_CENTER" styleClass="transfer-amt-container" minHeight="30" GridPane.columnIndex="1">
+      <Label alignment="CENTER" fx:id="transferAmt" text="\$amount" styleClass="transfer-amount" wrapText="true" />
+      <ImageView fx:id="cardPic" styleClass="person-card-image"
+          fitWidth="120" pickOnBounds="true" preserveRatio="true">
+        <Image url="@../images/transfer-icon.png" backgroundLoading="true"/>
+      </ImageView>
+    </VBox>
+    <VBox alignment="CENTER" styleClass="transfer-to-container" minHeight="30" GridPane.columnIndex="2">
+      <Label alignment="CENTER" fx:id="toPerson" text="\$person" styleClass="transfer-to" wrapText="true" />
+    </VBox>
+  </GridPane>
+</VBox>

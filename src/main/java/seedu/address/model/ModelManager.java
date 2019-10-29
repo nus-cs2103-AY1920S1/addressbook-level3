@@ -5,9 +5,11 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -253,6 +255,26 @@ public class ModelManager implements Model {
         filteredActivities.setPredicate(predicate);
     }
 
+    // =========== Association lookup accessors for GUI ============================================
+
+    @Override
+    public List<Person> getAssociatedPersons(Activity activity) {
+        requireNonNull(activity);
+
+        return this.addressBook.getPersonList().stream()
+            .filter((person) -> activity.hasPerson(person.getPrimaryKey()))
+            .collect(Collectors.toUnmodifiableList());
+    }
+
+    @Override
+    public List<Activity> getAssociatedActivities(Person person) {
+        requireNonNull(person);
+
+        return this.activityBook.getActivityList().stream()
+            .filter((activity) -> activity.hasPerson(person.getPrimaryKey()))
+            .collect(Collectors.toUnmodifiableList());
+    }
+
     // =========== Overridden Java methods =========================================================
 
     @Override
@@ -277,5 +299,4 @@ public class ModelManager implements Model {
                 && filteredPersons.equals(other.filteredPersons)
                 && filteredActivities.equals(other.filteredActivities);
     }
-
 }

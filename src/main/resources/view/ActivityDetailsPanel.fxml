@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<ScrollPane styleClass="activity-details-pane" fx:id="detailsPane" fitToWidth="true" fitToHeight="true"
+    xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+  <VBox styleClass="details-container">
+    <GridPane styleClass="activity-details" HBox.hgrow="NEVER" hgap="8">
+      <columnConstraints>
+        <ColumnConstraints hgrow="NEVER" prefWidth="120" />
+        <ColumnConstraints hgrow="SOMETIMES" />
+      </columnConstraints>
+      <VBox styleClass="image-container" alignment="CENTER" minHeight="120" GridPane.columnIndex="0">
+        <ImageView fx:id="activityPic" styleClass="activity-details-image"
+            fitHeight="100" pickOnBounds="true" preserveRatio="true">
+          <Image url="@../images/activity-placeholder.png" backgroundLoading="true"/>
+        </ImageView>
+      </VBox>
+      <VBox fx:id="detailsView" styleClass="data-container" VBox.vgrow="ALWAYS" minHeight="-Infinity"
+          maxHeight="-Infinity" alignment="CENTER" GridPane.columnIndex="1">
+        <Label fx:id="title" text="\$blank-title" styleClass="activity-title" wrapText="true" />
+        <HBox alignment="CENTER" HBox.hgrow="ALWAYS" styleClass="activity-participant-count-container" spacing="6">
+          <ImageView fitHeight="20" pickOnBounds="true" preserveRatio="true">
+            <Image url="@../images/participant-count-icon.png" backgroundLoading="true"/>
+          </ImageView>
+          <Label fx:id="participantCount" text="\$count" styleClass="activity-participant-count" wrapText="true" />
+        </HBox>
+        <FlowPane alignment="CENTER" fx:id="participantTags" styleClass="participant-list" />
+        <HBox alignment="CENTER" HBox.hgrow="ALWAYS" styleClass="activity-spending-container" spacing="6">
+          <ImageView fitHeight="20" pickOnBounds="true" preserveRatio="true">
+            <Image url="@../images/spending-icon.png" backgroundLoading="true"/>
+          </ImageView>
+          <Label fx:id="spending" text="\$spending" styleClass="activity-spending" wrapText="true" />
+        </HBox>
+      </VBox>
+    </GridPane>
+    <VBox alignment="TOP_CENTER" spacing="4" styleClass="history-container" VBox.Vgrow="SOMETIMES">
+      <Label alignment="CENTER" styleClass="expense-history-header" text="Expenses"
+          wrapText="true" minWidth="450" maxWidth="450" />
+      <VBox alignment="TOP_CENTER" spacing="4" fx:id="expenseHistory" VBox.vgrow="SOMETIMES"
+          minWidth="450" maxWidth="450" styleClass="expense-history" />
+    </VBox>
+    <VBox alignment="TOP_CENTER" spacing="4" styleClass="transfers-container" VBox.Vgrow="ALWAYS">
+      <Label alignment="CENTER" styleClass="activity-transfers-header" text="Required transfers"
+          wrapText="true" minWidth="450" maxWidth="450" />
+      <VBox alignment="TOP_CENTER" spacing="4" fx:id="transferList" VBox.vgrow="SOMETIMES"
+          minWidth="450" maxWidth="450" styleClass="activity-transfers-list" />
+    </VBox>
+  </VBox>
+</ScrollPane>
