@@ -56,10 +56,11 @@ public class ModelManager implements Model {
 
         versionedWeme = new VersionedWeme(weme);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredMemes = new FilteredList<>(versionedWeme.getMemeList());
+        filteredMemes = new FilteredList<>(versionedWeme.getMemeList(), PREDICATE_SHOW_ALL_UNARCHIVED_MEMES);
         filteredStagedMemeList = new FilteredList<>(versionedWeme.getStagedMemeList());
         filteredImportMemeList = new FilteredList<>(versionedWeme.getImportList());
-        filteredTemplates = new FilteredList<>(versionedWeme.getTemplateList());
+        filteredTemplates = new FilteredList<>(versionedWeme.getTemplateList(),
+                PREDICATE_SHOW_ALL_UNARCHIVED_TEMPLATES);
     }
 
     public ModelManager() {

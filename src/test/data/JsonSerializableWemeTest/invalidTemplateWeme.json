@@ -2,10 +2,12 @@
   "memes": [],
   "templates": [{
     "name" : "Drake Reaction",
-    "filePath": "An invalid path"
+    "filePath": "An invalid path",
+    "isArchived": false
   }, {
     "name" : "",
-    "filePath": "src/test/data/templates/is_this_template.jpg"
+    "filePath": "src/test/data/templates/is_this_template.jpg",
+    "isArchived": false
   } ],
   "stats" : {
     "likeMap" : {}

@@ -2,11 +2,13 @@
   "memes" : [ {
     "filePath": "src/test/data/memes/charmander_meme.jpg",
     "tagged" : [ "charmander" ],
-    "description" : "A meme about Char and charmander."
+    "description" : "A meme about Char and charmander.",
+    "isArchived": false
   }, {
     "filePath": "src/test/data/memes/charmander_meme.jpg",
     "tagged": [ "charmander" ],
-    "description": "A meme about Char and charmander."
+    "description": "A meme about Char and charmander.",
+    "isArchived": false
   } ],
   "templates": [],
   "stats" : {

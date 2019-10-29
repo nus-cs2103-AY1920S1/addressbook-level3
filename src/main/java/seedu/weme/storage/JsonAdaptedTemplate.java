@@ -17,14 +17,17 @@ class JsonAdaptedTemplate {
 
     private final String name;
     private final String filePath;
+    private final boolean isArchived;
 
     /**
      * Constructs a {@code JsonAdaptedTemplate} with the given template details.
      */
     @JsonCreator
-    public JsonAdaptedTemplate(@JsonProperty("name") String name, @JsonProperty("filePath") String filePath) {
+    public JsonAdaptedTemplate(@JsonProperty("name") String name, @JsonProperty("filePath") String filePath,
+                               @JsonProperty("isArchived") boolean isArchived) {
         this.name = name;
         this.filePath = filePath;
+        this.isArchived = isArchived;
     }
 
     /**
@@ -33,6 +36,7 @@ class JsonAdaptedTemplate {
     public JsonAdaptedTemplate(Template source) {
         name = source.getName().toString();
         filePath = source.getImagePath().toString();
+        isArchived = source.isArchived();
     }
 
     /**
@@ -58,7 +62,7 @@ class JsonAdaptedTemplate {
         }
         final ImagePath modelFilePath = new ImagePath(filePath);
 
-        return new Template(modelName, modelFilePath);
+        return new Template(modelName, modelFilePath, isArchived);
     }
 
 }

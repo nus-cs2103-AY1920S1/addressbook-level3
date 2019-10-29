@@ -25,19 +25,22 @@ class JsonAdaptedMeme {
     private final String description;
     private final String filePath;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
+    private final boolean isArchived;
 
     /**
      * Constructs a {@code JsonAdaptedMeme} with the given meme details.
      */
     @JsonCreator
     public JsonAdaptedMeme(@JsonProperty("filePath") String filePath, @JsonProperty("description") String description,
-                           @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+                           @JsonProperty("tagged") List<JsonAdaptedTag> tagged,
+                           @JsonProperty("isArchived") boolean isArchived) {
 
         this.filePath = filePath;
         this.description = description;
         if (tagged != null) {
             this.tagged.addAll(tagged);
         }
+        this.isArchived = isArchived;
     }
 
     /**
@@ -49,6 +52,7 @@ class JsonAdaptedMeme {
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
+        isArchived = source.isArchived();
     }
 
     /**
@@ -81,7 +85,7 @@ class JsonAdaptedMeme {
         final Description modelDescription = new Description(description);
 
         final Set<Tag> modelTags = new HashSet<>(memeTags);
-        return new Meme(modelUrl, modelDescription, modelTags);
+        return new Meme(modelUrl, modelDescription, modelTags, isArchived);
     }
 
 }
