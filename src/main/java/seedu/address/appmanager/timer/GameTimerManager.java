@@ -67,10 +67,12 @@ public class GameTimerManager implements GameTimer {
     public void run() {
         timer.schedule(new TimerTask() {
             public void run() {
+
                 Platform.runLater(() -> {
                     /* Guard block to prevent concurrency issues. Timer.cancel() has no
                      * real time guarantee.
                      */
+
                     if (cancelled) {
                         return;
                     }
@@ -84,8 +86,9 @@ public class GameTimerManager implements GameTimer {
                         callBackToUpdateHints();
                     }
 
-                    if (timeLeft < 0) {
+                    if (timeLeft <= 0) {
                         stopAndCallBackToSkipOver();
+                        return;
                     }
                     --timeLeft;
                 });
@@ -127,7 +130,7 @@ public class GameTimerManager implements GameTimer {
      * Returns the total duration that the current timer task has elapsed.
      */
     public long getElapsedMillis() {
-        return totalTimeGiven - timeLeft;
+        return totalTimeGiven >= 0 ? totalTimeGiven - timeLeft : 0;
     }
 
     /**

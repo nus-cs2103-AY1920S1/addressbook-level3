@@ -283,7 +283,9 @@ public class ModelManager implements Model {
      */
     @Override
     public ObservableList<Card> getFilteredCardList() {
-        filteredCards = new FilteredList<>(this.currentWordBank.getCardList());
+
+        /** Yida edited this: commented out the line that re-initializes the {@code FilteredList<Card>}. */
+        // filteredCards = new FilteredList<>(this.currentWordBank.getCardList());
         return filteredCards;
     }
 

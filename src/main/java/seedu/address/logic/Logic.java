@@ -44,7 +44,7 @@ public interface Logic extends UiLogicHelper {
     ReadOnlyWordBank getAddressBook();
 
     /** Returns an unmodifiable view of the filtered list of persons */
-    ObservableList<Card> getFilteredPersonList();
+    ObservableList<Card> getFilteredCardList();
 
 
     /** Returns an unmodifiable view of the filtered list of persons */

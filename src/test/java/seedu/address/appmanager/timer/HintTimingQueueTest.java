@@ -34,8 +34,9 @@ class HintTimingQueueTest {
         assertFalse(testQueue.isEmpty());
 
         testQueue.pollNextTimeToUpdate();
-        testQueue.pollNextTimeToUpdate();
+        assertFalse(testQueue.isEmpty());
 
+        testQueue.pollNextTimeToUpdate();
         assertTrue(testQueue.isEmpty());
     }
 

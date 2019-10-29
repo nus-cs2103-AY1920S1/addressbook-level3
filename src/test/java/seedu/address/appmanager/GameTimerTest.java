@@ -1,7 +1,10 @@
 package seedu.address.appmanager;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.util.concurrent.CountDownLatch;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -24,10 +27,12 @@ public class GameTimerTest {
      */
     @Start
     public void start(Stage stage) {
+
     }
 
     @Test
-    public void run() {
+    public void run_noHints_success() {
+        CountDownLatch cd = new CountDownLatch(1);
         Platform.runLater(() -> {
             appManagerStub = new AppManagerStub();
 
@@ -37,23 +42,23 @@ public class GameTimerTest {
 
             dummyTimer = GameTimer.getInstance("Dummy Message",
                     10, dummySkipCallBack, dummyTimerCallBack, dummyHintCallBack);
+            appManagerStub.setCountDownLatch(cd);
             dummyTimer.run();
-            try {
-                Thread.sleep(100);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            Platform.runLater(() -> {
-                assertTrue(appManagerStub.skipCalled);
-                assertTrue(appManagerStub.timerDisplayUpdated);
-            });
         });
+        try {
+            cd.await();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        assertTrue(appManagerStub.skipCalled);
+        assertTrue(appManagerStub.timerDisplayUpdated);
 
         // todo: create own implementation of clock that can support manual elapsing of time, to avoid using
     }
 
     @Test
-    public void run_durationIsZero() {
+    public void run_durationIsNegative() {
+        CountDownLatch cd = new CountDownLatch(1);
         Platform.runLater(() -> {
             appManagerStub = new AppManagerStub();
 
@@ -62,13 +67,43 @@ public class GameTimerTest {
             GameTimer.UpdateHintCallBack dummyHintCallBack = appManagerStub::updateHints;
 
             dummyTimer = GameTimer.getInstance("Dummy Message",
-                    10, dummySkipCallBack, dummyTimerCallBack, dummyHintCallBack);
+                    -100, dummySkipCallBack, dummyTimerCallBack, dummyHintCallBack);
+            appManagerStub.setCountDownLatch(cd);
             dummyTimer.run();
-            Platform.runLater(() -> {
-                assertFalse(appManagerStub.skipCalled);
-                assertFalse(appManagerStub.timerDisplayUpdated);
-            });
         });
+        try {
+            cd.await();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        assertTrue(appManagerStub.skipCalled);
+        assertFalse(appManagerStub.timerDisplayUpdated);
+        assertEquals(dummyTimer.getElapsedMillis(), 0);
+    }
+
+    @Test
+    public void run_durationIsZero() {
+        CountDownLatch cd = new CountDownLatch(1);
+        Platform.runLater(() -> {
+            appManagerStub = new AppManagerStub();
+
+            GameTimer.SkipOverCallBack dummySkipCallBack = appManagerStub::skipOver;
+            GameTimer.UpdateTimerCallBack dummyTimerCallBack = appManagerStub::updateTimer;
+            GameTimer.UpdateHintCallBack dummyHintCallBack = appManagerStub::updateHints;
+
+            dummyTimer = GameTimer.getInstance("Dummy Message",
+                    0, dummySkipCallBack, dummyTimerCallBack, dummyHintCallBack);
+            appManagerStub.setCountDownLatch(cd);
+            dummyTimer.run();
+        });
+        try {
+            cd.await();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        assertTrue(appManagerStub.skipCalled);
+        assertTrue(appManagerStub.timerDisplayUpdated);
+        assertEquals(dummyTimer.getElapsedMillis(), 0);
     }
 
 
@@ -87,7 +122,55 @@ public class GameTimerTest {
             // abortTimer() is supposed to pass timeLeft = 0 to the timerDisplay.
             assertTrue(appManagerStub.timeLeftIsZero);
         });
+    }
 
+    @Test
+    public void run_withHints_success() {
+        CountDownLatch cd = new CountDownLatch(1);
+        Platform.runLater(() -> {
+            appManagerStub = new AppManagerStub();
+
+            GameTimer.SkipOverCallBack dummySkipCallBack = appManagerStub::skipOver;
+            GameTimer.UpdateTimerCallBack dummyTimerCallBack = appManagerStub::updateTimer;
+            GameTimer.UpdateHintCallBack dummyHintCallBack = appManagerStub::updateHints;
+
+            dummyTimer = GameTimer.getInstance("Dummy Message",
+                    70, dummySkipCallBack, dummyTimerCallBack, dummyHintCallBack);
+            dummyTimer.initHintTimingQueue(10, 70);
+            appManagerStub.setCountDownLatch(cd);
+            dummyTimer.run();
+        });
+        try {
+            cd.await();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        assertTrue(appManagerStub.hintsUpdated);
+        assertTrue(appManagerStub.skipCalled);
+        assertTrue(appManagerStub.timerDisplayUpdated);
+    }
+
+    @Test
+    public void getElapsedMillis() {
+        CountDownLatch cd = new CountDownLatch(1);
+        Platform.runLater(() -> {
+            appManagerStub = new AppManagerStub();
+
+            GameTimer.SkipOverCallBack dummySkipCallBack = appManagerStub::skipOver;
+            GameTimer.UpdateTimerCallBack dummyTimerCallBack = appManagerStub::updateTimer;
+            GameTimer.UpdateHintCallBack dummyHintCallBack = appManagerStub::updateHints;
+
+            dummyTimer = GameTimer.getInstance("Dummy Message",
+                    70, dummySkipCallBack, dummyTimerCallBack, dummyHintCallBack);
+            appManagerStub.setCountDownLatch(cd);
+            dummyTimer.run();
+        });
+        try {
+            cd.await();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        assertEquals(dummyTimer.getElapsedMillis(), 70);
     }
 
 
@@ -100,8 +183,35 @@ public class GameTimerTest {
         private boolean timerDisplayUpdated = false;
         private boolean timeLeftIsZero = false;
 
+        /** Utility to ensure that all timerTasks within a dummyTimer (on the JavaFX Application Thread)
+         *  are run before test worker thread is allowed to progress. */
+        private CountDownLatch countDownLatch;
+
+        /**
+         * Sets the countDownLatch of this AppManagerStub as {@code cd}.
+         */
+        private void setCountDownLatch(CountDownLatch cd) {
+            countDownLatch = cd;
+        }
+
+        /**
+         * Decreases the countDownLatch by 1.
+         */
+        private void decreaseCountDown() {
+            if (countDownLatch != null) {
+                this.countDownLatch.countDown();
+            }
+        }
+
+        /**
+         * Notifies the stub that the Skip call back has been executed, and to allow the test worker thread
+         * to progress by decreasing the countDownLatch.
+         */
         private void skipOver() {
             skipCalled = true;
+            if (countDownLatch != null) {
+                decreaseCountDown();
+            }
         }
 
         private void updateHints() {

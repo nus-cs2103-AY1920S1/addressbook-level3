@@ -1,5 +1,7 @@
 package seedu.address.model.card;
 
+import seedu.address.model.card.exceptions.HintOutOfBoundsException;
+
 /**
  * Class that represents a Hint that is formatted in a HangMan-style, ready to be output.
  */
@@ -12,7 +14,15 @@ public class FormattedHint {
         arrayOfHintCharacters = new char[totalNumberOfCharacters];
     }
 
-    void updateHintArray(Hint hint) {
+    /**
+     * Updates the {@code arrayOfHintCharacters} with the new {@code Hint's} character at the specified index.
+     * @throws HintOutOfBoundsException if input Hint's index is out of range of {@code arrayOfHintCharacters}.
+     */
+    void updateHintArray(Hint hint) throws HintOutOfBoundsException {
+        if (hint.index.getZeroBased() >= totalNumberOfCharacters) {
+            throw new HintOutOfBoundsException(hint.index.getZeroBased(), totalNumberOfCharacters);
+        }
+
         arrayOfHintCharacters[hint.index.getZeroBased()] = hint.letter;
     }
 
