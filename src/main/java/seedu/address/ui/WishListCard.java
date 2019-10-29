@@ -33,7 +33,7 @@ public class WishListCard extends UiPart<Region> {
     @FXML
     private Label id;
     @FXML
-    private Label time;
+    private Label date;
     @FXML
     private Label amt;
     @FXML
@@ -46,8 +46,7 @@ public class WishListCard extends UiPart<Region> {
 
         String descWithType = wish.getDesc().fullDesc;
         desc.setText(descWithType);
-
-        time.setText(wish.getDate().toString());
+        date.setText(wish.getDate().toString());
         amt.setText("$" + wish.getAmount().value);
 
         wish.getTags().stream()
@@ -63,7 +62,7 @@ public class WishListCard extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof WishListCard)) {
+        if (!(other instanceof EntryCard)) {
             return false;
         }
 
@@ -73,3 +72,4 @@ public class WishListCard extends UiPart<Region> {
                 && wish.equals(card.wish);
     }
 }
+

@@ -46,7 +46,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 *Command Format*
 
-* Words in `<>` are the parameters to be supplied by the user e.g. in `addExpense [--desc <description>]`, `<description>` is a parameter which can be used as `addExpense --desc deck mala`.
+* Words in `<>` are the parameters to be supplied by the user e.g. in `addExpense [n/<description>]`, `<description>` is a parameter which can be used as `addExpense n/deck mala`.
 * Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/mala at deck t/mala` or as `n/mala at deck`.
 ====
 
@@ -116,7 +116,7 @@ Format: `deleteAutoExpenditure <index>`
 
 Adds the amount to your total income. Inputs can be arranged in a different order. Description may be omitted from the income record.
 
-Format: `addIncome [n/description] amt/income_amount`
+Format: `addIncome [n/<description>] amt/<income amount>`
 
 Examples:
 
@@ -127,7 +127,7 @@ Examples:
 
 Edits a current income record at the given index number.
 
-Format: `editIncome <index> [n/description] [amt/income_amount] [t/tag]`
+Format: `editIncome <index> [n/<description>] [amt/<income amount>] [t/<tag>]`
 
 Examples:
 
@@ -188,7 +188,7 @@ Examples:
 ==== Adding a Loan : `addLoan` [coming in v2.0]
 Adds a new loan with the given description, amount and interest (in percentage) and calculates the total outstanding amount based on the interest.
 
-Format: `addLoan  n/description amt/loan amount i/interest`
+Format: `addLoan  n/<description> amt/<loan amount> i/<interest>`
 
 Example:
 
@@ -204,7 +204,7 @@ Example: `listLoan`
 ==== Editing a loan : `editLoan` [coming in v2.0]
 Edits a current loan's description, loan amount, or both.
 
-Format: `editLoan <index> [n/description] [amt/loan amount] [i/interest]`
+Format: `editLoan <index> [n/<description>] [amt/<loan amount>] [i/<interest>]`
 
 Example:
 
@@ -225,7 +225,7 @@ Example:
 
 Reduces the loan amount for the loan at the given index after user pays for part of the loan.
 
-Format: `payLoan <index> amt/amountPaid`
+Format: `payLoan <index> amt/<amountPaid>`
 
 Example:
 
