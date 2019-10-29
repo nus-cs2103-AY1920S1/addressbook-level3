@@ -3,8 +3,10 @@ package seedu.revision.model.answerable;
 import edu.stanford.nlp.ling.CoreAnnotations;
 import edu.stanford.nlp.ling.CoreLabel;
 import edu.stanford.nlp.pipeline.CoreDocument;
+import edu.stanford.nlp.pipeline.CoreSentence;
 import edu.stanford.nlp.pipeline.StanfordCoreNLP;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -18,7 +20,8 @@ public class AnswerChecker {
     public AnswerChecker() {
     }
 
-    private static List<CoreLabel> analyseAnswerForKeywords(String answer) {
+    private static List<String> analyseAnswerForKeywords(String answer) {
+        List<String> keywords = new ArrayList<>();
         CoreDocument coreDocument = new CoreDocument(answer);
         pipeline.annotate(coreDocument);
 
@@ -35,9 +38,10 @@ public class AnswerChecker {
 
         for (CoreLabel coreLabel : coreLabelList) {
             coreLabel.setOriginalText(coreLabel.lemma());
+            keywords.add(coreLabel.originalText());
         }
 
-        return coreLabelList;
+        return keywords;
     }
 
     public static boolean check(String userInput, String correctAnswer) {
@@ -45,6 +49,6 @@ public class AnswerChecker {
             return true;
         }
 
-        return true;
+        return false;
     }
 }
