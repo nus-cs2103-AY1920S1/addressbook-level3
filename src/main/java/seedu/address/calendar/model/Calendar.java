@@ -57,6 +57,7 @@ public class Calendar {
     /**
      * Adds an event to the calendar
      */
+
     public boolean addEvent(Event event) throws DuplicateEventException, ClashException {
         return events.add(event);
     }

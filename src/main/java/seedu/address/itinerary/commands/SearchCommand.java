@@ -10,13 +10,8 @@ import static seedu.address.itinerary.parser.CliSyntax.PREFIX_TITLE;
 import java.util.Optional;
 
 import seedu.address.commons.util.CollectionUtil;
+import seedu.address.itinerary.model.event.*;
 import seedu.address.itinerary.model.Model;
-import seedu.address.itinerary.model.event.Date;
-import seedu.address.itinerary.model.event.Description;
-import seedu.address.itinerary.model.event.Event;
-import seedu.address.itinerary.model.event.Location;
-import seedu.address.itinerary.model.event.Time;
-import seedu.address.itinerary.model.event.Title;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 
@@ -75,6 +70,10 @@ public class SearchCommand extends Command {
             return false;
         }
 
+        if (searchEventDescriptor.getTag().filter(tag -> !tag.equals(event.getTag())).isPresent()) {
+            return false;
+        }
+
         return searchEventDescriptor.getDescription().filter(description ->
                 !description.equals(event.getDesc())).isEmpty();
     }
@@ -89,6 +88,7 @@ public class SearchCommand extends Command {
         private Time time;
         private Location location;
         private Description description;
+        private Tag tag;
 
         public SearchEventDescriptor() {}
 
@@ -102,13 +102,14 @@ public class SearchCommand extends Command {
             setTime(toCopy.time);
             setLocation(toCopy.location);
             setDescription(toCopy.description);
+            setTag(toCopy.tag);
         }
 
         /**
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(title, date, time, location, description);
+            return CollectionUtil.isAnyNonNull(title, date, time, location, description, tag);
         }
 
         public void setTitle(Title title) {
@@ -149,6 +150,14 @@ public class SearchCommand extends Command {
 
         public Optional<Description> getDescription () {
             return Optional.ofNullable(description);
+        }
+
+        public void setTag(Tag tag) {
+            this.tag = tag;
+        }
+
+        public Optional<Tag> getTag () {
+            return Optional.ofNullable(tag);
         }
 
         @Override

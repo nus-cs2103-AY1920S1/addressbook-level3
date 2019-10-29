@@ -10,8 +10,7 @@
 <fx:root xmlns:fx="http://javafx.com/fxml/1" fx:id="addressBookBox" minHeight="600" minWidth="450" type="VBox"
          xmlns="http://javafx.com/javafx/11.0.1">
   <stylesheets>
-    <URL value="@DarkTheme.css"/>
-    <URL value="@Extensions.css"/>
+    <URL value="@Address.css"/>
   </stylesheets>
   <MenuBar fx:id="menuBar" VBox.vgrow="NEVER">
     <Menu mnemonicParsing="false" text="File">

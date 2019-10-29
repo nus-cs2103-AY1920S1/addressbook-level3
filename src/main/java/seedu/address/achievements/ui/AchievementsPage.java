@@ -8,15 +8,15 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.address.achievements.logic.AchievementsLogic;
+import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -36,15 +36,12 @@ public class AchievementsPage extends UiPart<Region> implements Page {
 
     private static final PageType pagetype = PageType.ACHIEVEMENTS;
 
-    private static final String FXML = "Achievements.fxml";
+    private static final String FXML = "achievements/Achievements.fxml";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
     @FXML
     private Scene achievementsScene;
-
-    @FXML
-    private ImageView title;
 
     @FXML
     private BorderPane achievementsPane;
@@ -60,6 +57,9 @@ public class AchievementsPage extends UiPart<Region> implements Page {
     private CodeWindow codeWindow;
 
     @FXML
+    private VBox achievementsPlaceholder;
+
+    @FXML
     private StackPane commandBoxPlaceholder;
 
     @FXML
@@ -71,16 +71,14 @@ public class AchievementsPage extends UiPart<Region> implements Page {
     @FXML
     private Label test;
 
-    public AchievementsPage AchievementsPage(AchievementsPage achievementsPage) {
-        return new AchievementsPage(achievementsPage.primaryStage, achievementsPage.achievementsLogic);
-    }
-
     public AchievementsPage(Stage primaryStage, AchievementsLogic achievementsLogic) {
-
         super(FXML, new BorderPane());
         this.primaryStage = primaryStage;
         this.achievementsLogic = achievementsLogic;
+        this.helpWindow = new HelpWindow();
         this.achievementsScene = new Scene(achievementsPane);
+        fillInnerParts();
+        setAccelerators();
     }
 
     private void setAccelerators() {
@@ -123,12 +121,22 @@ public class AchievementsPage extends UiPart<Region> implements Page {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
+        this.helpWindow = new HelpWindow();
+        this.codeWindow = new CodeWindow();
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+    }
+
+    /**
+     * Refresh UI with new data from Statistics.
+     */
+    void refreshUi() {
+        achievementsPlaceholder.getChildren().clear();
+        achievementsPlaceholder.getChildren().add(new AchievementsCard(achievementsLogic).getRoot());
     }
 
     /**
@@ -188,26 +196,18 @@ public class AchievementsPage extends UiPart<Region> implements Page {
      */
     @FXML
     private void handleExit() {
-//        GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(),
-//                primaryStage.getHeight(),
-//                (int) primaryStage.getX(),
-//                (int) primaryStage.getY());
-//        addressBookLogic.setGuiSettings(guiSettings);
+        GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(),
+                primaryStage.getHeight(),
+                (int) primaryStage.getX(),
+                (int) primaryStage.getY());
+        achievementsLogic.setGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();
     }
 
     @Override
     public Scene getScene() {
-
-        title.setImage(new Image(this.getClass().getResourceAsStream("/images/achievements.png")));
-
-        setAccelerators();
-
-        this.helpWindow = new HelpWindow();
-        this.codeWindow = new CodeWindow();
-        fillInnerParts();
-        test.setText("Total Number of Persons: " + achievementsLogic.getTotalPersons());
+        refreshUi();
         return achievementsScene;
     }
 

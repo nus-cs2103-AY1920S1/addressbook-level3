@@ -1,0 +1,153 @@
+/* Menu Bar Styling */
+.menu-bar {
+    -fx-background-color: linear-gradient(to right, #AA076B, #61045F);
+    -fx-selection-bar: #c471ed; /* style color of menubar when menu bar item is selected */
+}
+
+.menu-bar .label {
+  -fx-font-size: 14pt;
+  -fx-font-family: "Segoe UI";
+  -fx-text-fill: white;
+  -fx-opacity: 0.9;
+}
+
+.menu:default:hover,
+.menu:hover {
+  -fx-background-color: #c471ed !important;
+}
+
+/* Menu Bar Items */
+.context-menu {
+  -fx-background-color: derive(#AA076B, 30%);
+}
+
+.context-menu .label {
+  -fx-text-fill: white;
+}
+
+/* Header Styling */
+#header {
+  -fx-background-color: linear-gradient(to right, #AA076B, #61045F);
+}
+
+#header .label {
+  -fx-font-size: 20pt;
+  -fx-font-family: "Segoe UI";
+  -fx-text-fill: white;
+}
+
+#border {
+    /*-fx-background-color: linear-gradient(to right, #f64f59, #c471ed, #12c2e9);*/
+}
+
+/* Progress Bar Styling */
+.progress-bar {
+    -fx-accent: #c471ed;
+}
+
+/* Card Styling */
+#cardPane {
+    -fx-background-color: linear-gradient(to right, #EA60A8, #AE5A99);
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
+    -fx-border-color: darkorchid;
+}
+
+#indexBox {
+    -fx-background-color: white;
+    -fx-alignment: center;
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
+    -fx-alignment: center;
+}
+
+#index {
+    -fx-text-fill: purple;
+    -fx-font-size: 40pt;
+    -fx-font-family: "Impact";
+    -fx-label-padding: 10;
+}
+
+#tag {
+    -fx-font-family: "helvetica neue";
+    -fx-font-size: 10pt;
+}
+
+#title {
+    -fx-font-family: "Times new Roman";
+    -fx-text-fill: white;
+    -fx-font-size: 15pt;
+}
+
+#detailsHeader {
+    -fx-font-family: "serif";
+    -fx-text-fill: white;
+    -fx-font-size: 13pt;
+}
+
+#details {
+    -fx-font-family: "Segoe UI";
+    -fx-text-fill: white;
+    -fx-font-size: 12pt;
+}
+
+/* Lin Wei's CSS for Reference */
+
+#bottom-panel {
+    -fx-background-color: #fff;
+}
+
+.day-of-month {
+    -fx-font-size: 1.2em;
+}
+
+.day-view {
+    -fx-alignment: "TOP_CENTER";
+    -fx-padding: 10 0;
+}
+
+#divider {
+    -fx-background-color: linear-gradient(to right, #f64f59, #c471ed, #12c2e9);
+}
+
+#headerPanel {
+    -fx-background-color: linear-gradient(to right, #AA076B, #61045F);
+    -fx-padding: 20;
+}
+
+#header {
+    -fx-border-color: #fff;
+    -fx-border-width: 5;
+    -fx-padding: 7;
+}
+
+.header-text {
+    -fx-text-fill: #fff;
+}
+
+#monthPanel {
+    -fx-background-color: #fff;
+    -fx-padding: 30 25;
+}
+
+#monthHeader {
+    -fx-font-size: 60;
+}
+
+.result-display {
+    -fx-border-style: none;
+    -fx-background-color: transparent;
+}
+
+.week {
+    -fx-alignment: center;
+    -fx-text-alignment: center;
+    -fx-text-overrun: clip;
+    -fx-line-spacing: 1.2em;
+    -fx-font: 1.5em "Arial Black";
+}
+
+#week-header {
+    -fx-border-color: #000;
+    -fx-border-style: solid none;
+}

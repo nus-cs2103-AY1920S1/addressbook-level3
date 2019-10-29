@@ -3,19 +3,7 @@ package seedu.address.itinerary.parser;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import seedu.address.itinerary.commands.AddEventCommand;
-import seedu.address.itinerary.commands.Command;
-import seedu.address.itinerary.commands.DeleteEventCommand;
-import seedu.address.itinerary.commands.DoneEventCommand;
-import seedu.address.itinerary.commands.EditCommand;
-import seedu.address.itinerary.commands.ExitCommand;
-import seedu.address.itinerary.commands.GoToCommand;
-import seedu.address.itinerary.commands.GreetCommand;
-import seedu.address.itinerary.commands.HelpCommand;
-import seedu.address.itinerary.commands.ListCommand;
-import seedu.address.itinerary.commands.RedoCommand;
-import seedu.address.itinerary.commands.SearchCommand;
-import seedu.address.itinerary.commands.SummaryCommand;
+import seedu.address.itinerary.commands.*;
 
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.commons.core.Messages;
@@ -77,11 +65,14 @@ public class ItineraryParser {
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
 
+        case SortCommand.COMMAND_WORD:
+            return new SortCommandParser().parse(arguments);
+
         case SearchCommand.COMMAND_WORD:
             return new SearchCommandParser().parse(arguments);
 
-        case RedoCommand.COMMAND_WORD:
-            return new RedoCommand();
+        case HistoryCommand.COMMAND_WORD:
+            return new HistoryCommand();
 
         default:
             throw new ParseException("I know you like travelling but the input command is out of this "

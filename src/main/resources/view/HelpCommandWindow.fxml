@@ -167,15 +167,15 @@
                                           <children>
                                              <ToolBar prefHeight="29.0" prefWidth="493.0">
                                                 <items>
-                                                   <Label text="Sort: sort by/[alphabetical | chronological | completion]" />
-                                                   <Region prefHeight="20.0" prefWidth="79.0" />
+                                                   <Label text="Sort: sort by/[alphabetical | chronological | completion | priority]" />
+                                                   <Region prefHeight="20.0" prefWidth="24.0" />
                                                    <Button fx:id="sortCommand" mnemonicParsing="false" onAction="#copySort" text="Copy" />
                                                 </items>
                                              </ToolBar>
                                              <ToolBar prefHeight="40.0" prefWidth="200.0">
                                                 <items>
-                                                   <Label text="Redo: Recall previous command using the &quot;↑&quot; or &quot;↓&quot; arrow key" />
-                                                   <Region prefHeight="20.0" prefWidth="28.0" />
+                                                   <Label text="History: Recall previous command using &quot;↑&quot; or &quot;↓&quot; arrow key" />
+                                                   <Region prefHeight="20.0" prefWidth="39.0" />
                                                    <Button fx:id="redoCommand" mnemonicParsing="false" onAction="#copyRedo" text="Copy" />
                                                 </items>
                                              </ToolBar>

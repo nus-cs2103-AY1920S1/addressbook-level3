@@ -29,19 +29,28 @@ public class ExpenseCard extends UiPart<Region> {
     @FXML
     private Label id;
     @FXML
+    private Label date;
+    @FXML
+    private Label time;
+    @FXML
     private Label amount;
     @FXML
     private Label desc;
     @FXML
     private Label country;
+    @FXML
+    private Label type;
 
     public ExpenseCard(Expense expense, int displayedIndex) {
         super(FXML);
         this.expense = expense;
         id.setText(displayedIndex + ". ");
-        amount.setText("Amount: " + expense.getAmount().value);
-        desc.setText("Details: " + expense.getDesc().value);
         country.setText(expense.getCountry().value);
+        date.setText("Date: " + expense.getDate().value);
+        time.setText("Time: " + expense.getTime().value);
+        amount.setText("Amount: " + expense.getAmount().value);
+        desc.setText("Details: " + expense.getDescription().value);
+        type.setText("Type of expenditure: " + expense.getType().value);
     }
 
     @Override

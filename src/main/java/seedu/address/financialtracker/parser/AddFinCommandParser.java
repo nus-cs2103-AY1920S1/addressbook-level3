@@ -2,14 +2,23 @@ package seedu.address.financialtracker.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.financialtracker.parser.CliSyntax.PREFIX_AMOUNT;
+import static seedu.address.financialtracker.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.financialtracker.parser.CliSyntax.PREFIX_DESCRIPTION;
+import static seedu.address.financialtracker.parser.CliSyntax.PREFIX_TIME;
+import static seedu.address.financialtracker.parser.CliSyntax.PREFIX_TYPE;
 
 import java.util.stream.Stream;
 
 import seedu.address.financialtracker.commands.AddFinCommand;
 import seedu.address.financialtracker.model.expense.Amount;
+import seedu.address.financialtracker.model.expense.Date;
 import seedu.address.financialtracker.model.expense.Description;
 import seedu.address.financialtracker.model.expense.Expense;
+import seedu.address.financialtracker.model.expense.Time;
+import seedu.address.financialtracker.model.expense.Type;
+import seedu.address.logic.parser.ArgumentMultimap;
+import seedu.address.logic.parser.ArgumentTokenizer;
+import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -25,17 +34,33 @@ public class AddFinCommandParser implements Parser<AddFinCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public AddFinCommand parse(String args) throws ParseException {
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_AMOUNT, PREFIX_DESCRIPTION);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_AMOUNT, PREFIX_DESCRIPTION, PREFIX_TYPE,
+                PREFIX_DATE, PREFIX_TIME);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_AMOUNT, PREFIX_DESCRIPTION)
+        if (!arePrefixesPresent(argMultimap, PREFIX_AMOUNT, PREFIX_DESCRIPTION, PREFIX_TYPE)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddFinCommand.MESSAGE_USAGE));
         }
 
         Amount amount = ParserUtil.parseAmount(argMultimap.getValue(PREFIX_AMOUNT).get());
         Description description = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get());
+        Type type = ParserUtil.parseType(argMultimap.getValue(PREFIX_TYPE).get());
 
-        Expense expense = new Expense(amount, description);
+        Date date;
+        if (argMultimap.getValue(PREFIX_DATE).isPresent()) {
+            date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get());
+        } else {
+            date = Date.getCurrentDate();
+        }
+
+        Time time;
+        if (argMultimap.getValue(PREFIX_TIME).isPresent()) {
+            time = ParserUtil.parseTime(argMultimap.getValue(PREFIX_TIME).get());
+        } else {
+            time = Time.getCurrentTime();
+        }
+
+        Expense expense = new Expense(date, time, amount, description, type);
 
         return new AddFinCommand(expense);
     }

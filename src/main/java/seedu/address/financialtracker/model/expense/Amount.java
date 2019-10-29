@@ -11,10 +11,12 @@ public class Amount {
             "Amount should only contain numbers";
     public static final String VALIDATION_REGEX = "\\d{1,}";
     public final String value;
+    public final double numericalValue;
 
     public Amount(String amount) {
         requireNonNull(amount);
         this.value = amount;
+        this.numericalValue = Double.parseDouble(amount);
     }
 
     /**

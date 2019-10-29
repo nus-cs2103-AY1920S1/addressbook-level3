@@ -96,6 +96,9 @@ The Calendar and Itinerary window work in tandem with each other. Due to their d
 
 The `UI` component,
 
+* Facilitate the changing of scenes between different user interface for the different features
+* Gets the requested page
+* Changes the scene on the primary stage upon request
 * Executes user commands using the `Logic` component.
 * Listens for changes to `Model` data so that the UI can be updated with the modified data.
 
@@ -104,13 +107,14 @@ The `UI` component,
 
 [[fig-LogicClassDiagram]]
 .Structure of the Logic Component
-image::LogicClassDiagram.png[]
+image::BetterLogicClassDiagram.png[]
 
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
-.  This results in a `Command` object which is executed by the `LogicManager`.
+.  `Logic` gets the `AddressBookLogic`
+.  `AddressBookLogic` uses the `AddressBookParser` class to parse the user command.
+.  This results in a `Command` object which is executed by the `AddressLogicManager`.
 .  The command execution can affect the `Model` (e.g. adding a person).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
@@ -126,21 +130,23 @@ NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X
 === Model component
 
 .Structure of the Model Component
-image::ModelClassDiagram.png[]
+image::BetterModelClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
 The `Model`,
 
-* stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
+* stores the different model used for different packages inside Travezy
+* stores a `UserPrefModel` object used to get and set user preferences
+* stores a `AddressBookModel` object used to get data from the address book
+* supply a `StatisticsModel` which is only evaluated upon request
 * exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
 [NOTE]
 As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
  +
-image:BetterModelClassDiagram.png[]
+image:BetterAddressBookModelClassDiagram.png[]
 
 [[Design-Storage]]
 === Storage component
@@ -433,31 +439,74 @@ This sequential approach in implementing the `SearchCommand` will ensure that al
 based on the specific search condition and only the filtered list will be given as a result.
 
 === Financial Tracker
-The financial tracker feature in TravEzy allows users to keep track of their financial expenses with appropriate categorized expenditure and country.
+The Financial Tracker feature in TravEzy allows users to keep track of their financial expenses with appropriate categorized expenditure and country.
 
-Current, the itinerary feature supports the basic commands of add, delete and summary.
+*Architecture:*
 
 .Architecture Diagram of the Financial Tracker feature
 image::FinancialTrackerDiagram.png[]
 
 The Architecture Diagram given above explains the high-level design of the financial tracker feature.
-Inputs given by the user are channeled from the text UI and parsed by Command Parser before different commands are formed which generates
-the model and updates the FinancialTracker object which contains the expense list.
+Inputs given by the user are channeled from the `textUI` and parsed by `CommandParser` before different commands are formed which generates
+the `Model` and updates the `FinancialTracker` object which contains the expense list.
 
-The text UI, log centre and storage all stem from the common package of the main TravEzy application.
-However, in the parser package of itinerary, it contains various parser objects for the different command.
+The `textUI`, `Log Centre` and `Storage` all stem from the common package of the main TravEzy application.
 This is to ensure that each command in financial tracker have only one parser validating the command.
-The GUI also collaborate with Model Class directly, which will be changed to only communicate with Logic class in later time.
+The GUI also collaborate with `Model` Class directly, which will be changed to only communicate with `Logic` class in later time.
 
-==== Expense Statistics
+*Financial Tracker Class Diagram*
+
+.Class Diagram of the Financial Tracker feature
+image::FinancialTrackerClassDiagram.png[]
+The Model,
+stores the `FinancialTracker` data which includes the `ExpenseList` which keeps track of all the expenses
+that are included by the user and stores it into the storage in a JSON file.
+
+It exposes an unmodifiable `ObservableList<Expense>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+
+[NOTE]
+Each time a new `Country` is selected from the javafx drop down menu, an expense list will be generated for that specific country, this
+implementation is to ease categorising and sorting.
+
+*Sequence Diagram example*
+
+.Sequence Diagram of the Financial Tracker feature
+image::FinancialTrackerSummaryCommandDiagram.png[]
+
+The above sequence diagram shows the sequence of events that will take place when a user calls `Summary` command.
+Note that that above sequence of events are very likely to those for the other commands in Financial Tracker feature.
+
+*Activity Diagram example*
+
+.Activity Diagram of the Financial Tracker feature
+image::FinancialTrackerActivityDiagram.png[]
+
+The above activity shows how `edits` command works.
+
 
 === Diary
 
-
 === Address Book
 
+.Model Diagram of the AddressBook feature
+image::AddressModelClassDiagram.png[]
+
+.Logic Diagram of the AddressBook feature
+image::AddressLogicClassDiagram.png[]
+
+.Sequence Diagram for the `Delete 1` Command
+image::DeleteSequenceDiagram.png[]
 
 === Achievements
+
+.Model Diagram of the Achievements feature
+image::AchievementsModelClassDiagram.png[]
+
+.Logic Diagram of the Achievements feature
+image::AchievementsLogicClassDiagram.png[]
+
+.Sequence Diagram of the Statistics Model
+image::AchievementsPage.png[]
 
 == Documentation
 

@@ -18,7 +18,7 @@ import seedu.address.address.ui.PersonListPanel;
 import seedu.address.calendar.ui.CalendarPage;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.diaryfeature.diaryUI.DiaryPage;
+import seedu.address.diaryfeature.ui.DiaryPage;
 import seedu.address.financialtracker.ui.FinancialTrackerPage;
 import seedu.address.itinerary.ui.ItineraryPage;
 import seedu.address.logic.Logic;
@@ -88,7 +88,7 @@ public class MainWindow extends UiPart<Stage> implements Page {
         codeWindow = new CodeWindow();
         financialTrackerPage = new FinancialTrackerPage();
         calendarPage = new CalendarPage();
-        itineraryPage = new ItineraryPage();
+        itineraryPage = new ItineraryPage(primaryStage);
         diaryPage = new DiaryPage();
         achievementsPage = new AchievementsPage(primaryStage, logic.getAchievementsLogic());
         addressBookPage = new AddressBookPage(primaryStage, logic.getAddressBookLogic());
@@ -98,7 +98,7 @@ public class MainWindow extends UiPart<Stage> implements Page {
         // todo-this-week: call the PageScene constructor with your page scene instead,
         // e.g. Pages(primaryScene, diaryScene)
         // note that one of the PageScene's constructor is a vararg
-        PageManager.getInstance(primaryStage, mainScene, new SamplePage(), calendarPage, itineraryPage,
+        PageManager.getInstance(primaryStage, mainScene, calendarPage, itineraryPage,
                 financialTrackerPage, diaryPage, achievementsPage, addressBookPage);
 
     }

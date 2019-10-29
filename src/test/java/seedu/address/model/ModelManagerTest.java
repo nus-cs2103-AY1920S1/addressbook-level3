@@ -5,10 +5,10 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.commons.core.GuiSettings;
 import seedu.address.address.model.AddressBook;
 import seedu.address.address.model.AddressBookModel;
 import seedu.address.address.model.AddressBookModelManager;
+import seedu.address.commons.core.GuiSettings;
 
 public class ModelManagerTest {
     private UserPrefsModel userPrefsModel = new UserPrefsModelManager();

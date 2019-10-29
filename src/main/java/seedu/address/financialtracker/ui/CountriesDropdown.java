@@ -2,12 +2,19 @@ package seedu.address.financialtracker.ui;
 
 import java.util.Collections;
 import java.util.Locale;
+import java.util.logging.Logger;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.Region;
+import seedu.address.commons.core.LogsCenter;
+import seedu.address.financialtracker.model.Model;
+import seedu.address.financialtracker.ui.control.AutoCompleteComboBoxListener;
+import seedu.address.ui.ResultDisplay;
 import seedu.address.ui.UiPart;
 
 /**
@@ -25,11 +32,14 @@ public class CountriesDropdown extends UiPart<Region> {
      * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on AddressBook level 4</a>
      */
     ObservableList<String> options = FXCollections.observableArrayList();
+    private final Logger logger = LogsCenter.getLogger(getClass());
 
     @FXML
     private ComboBox<String> countriesDropdown;
 
-    public CountriesDropdown() {
+    private static String field = "Singapore";
+
+    public CountriesDropdown(Model model, ExpensePanel expensePanel) {
         super(FXML);
         String[] locales = Locale.getISOCountries();
         for (String countryCode : locales) {
@@ -39,9 +49,22 @@ public class CountriesDropdown extends UiPart<Region> {
         }
         countriesDropdown.setItems(options);
         countriesDropdown.getSelectionModel().select(189); // Select Singapore as default
+        logger.info("Financial_Tracker Selection Menu switched to: " + countriesDropdown.getValue());
+
+        countriesDropdown.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                field = countriesDropdown.getValue();
+                model.setCountry(field);
+                expensePanel.update();
+                logger.info("Financial_Tracker Selection Menu switched to: " + countriesDropdown.getValue());
+            }
+        });
+
+        // new AutoCompleteComboBoxListener<ComboBox<String>>(countriesDropdown);
     }
 
-    public String getDropdownText() {
-        return countriesDropdown.getValue();
+    public static String getDropdownText() {
+        return field;
     }
 }

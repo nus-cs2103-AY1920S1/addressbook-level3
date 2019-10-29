@@ -18,19 +18,19 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.address.logic.commands.ClearCommand;
 import seedu.address.address.logic.commands.EditCommand;
+import seedu.address.address.model.AddressBookModelManager;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.address.model.AddressBook;
 import seedu.address.address.model.AddressBookModel;
-import seedu.address.address.model.AddressBookModelManager;
 import seedu.address.address.model.person.Person;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.model.UserPrefs;
 
 /**
- * Contains integration tests (interaction with the AddressBookModel, UndoCommand and RedoCommand) and unit tests for
+ * Contains integration tests (interaction with the AddressBookModel, UndoCommand and HistoryCommand) and unit tests for
  * EditCommand.
  */
 public class EditCommandTest {

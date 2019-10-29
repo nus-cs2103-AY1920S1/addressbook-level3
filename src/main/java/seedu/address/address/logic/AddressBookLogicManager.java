@@ -5,18 +5,18 @@ import java.nio.file.Path;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
-import seedu.address.commons.core.GuiSettings;
-import seedu.address.commons.core.LogsCenter;
-import seedu.address.address.logic.commands.Command;
-import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.address.logic.parser.AddressBookParser;
-import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.address.model.AddressBookModel;
 import seedu.address.address.model.ReadOnlyAddressBook;
 import seedu.address.address.model.person.Person;
-import seedu.address.storage.Storage;
+import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.core.LogsCenter;
+import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.UserPrefsModel;
+import seedu.address.storage.Storage;
 
 /**
  * The main AddressBookLogicManager of the app.

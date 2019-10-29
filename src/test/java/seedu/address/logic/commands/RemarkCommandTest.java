@@ -15,11 +15,11 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.address.logic.commands.ClearCommand;
 import seedu.address.address.logic.commands.RemarkCommand;
+import seedu.address.address.model.AddressBookModelManager;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.address.model.AddressBook;
 import seedu.address.address.model.AddressBookModel;
-import seedu.address.address.model.AddressBookModelManager;
 import seedu.address.address.model.person.Person;
 import seedu.address.address.model.person.Remark;
 import seedu.address.testutil.PersonBuilder;

@@ -1,19 +1,21 @@
 package seedu.address.address.model;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
-import seedu.address.commons.core.LogsCenter;
+import javafx.scene.chart.XYChart;
 import seedu.address.address.model.person.Person;
+import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.util.CollectionUtil;
+import seedu.address.commons.util.TreeUtil;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
-import seedu.address.commons.util.CollectionUtil;
 
 /**
  * Represents the in-memory addressBookModel of the address book data.
@@ -59,13 +61,13 @@ public class AddressBookModelManager implements AddressBookModel {
     //=========== AddressBook ================================================================================
 
     @Override
-    public void setAddressBook(ReadOnlyAddressBook addressBook) {
-        this.addressBook.resetData(addressBook);
+    public ReadOnlyAddressBook getAddressBook() {
+        return addressBook;
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return addressBook;
+    public void setAddressBook(ReadOnlyAddressBook addressBook) {
+        this.addressBook.resetData(addressBook);
     }
 
     @Override
@@ -107,6 +109,23 @@ public class AddressBookModelManager implements AddressBookModel {
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
+    }
+
+    //=========== Statistics =================================================================================
+
+    @Override
+    public int getTotalPersons() {
+        return filteredPersons.size();
+    }
+
+    @Override
+    public XYChart.Series<Integer, String> getAddressChartData() {
+        XYChart.Series<Integer, String> series = new XYChart.Series<>();
+        TreeUtil treeUtil = new TreeUtil();
+        filteredPersons.stream().forEach(p -> treeUtil.add(p.getCountry().toString()));
+        series.getData().addAll(treeUtil.stream().map(
+            ip -> new XYChart.Data<Integer, String>(ip.getKey(), ip.getValue())).collect(Collectors.toList()));
+        return series;
     }
 
     @Override
