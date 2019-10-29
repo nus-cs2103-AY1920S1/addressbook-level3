@@ -41,7 +41,10 @@ public class DifficultyCommandTest {
         assertEquals(DifficultyEnum.EASY, stub.getDefaultDifficulty());
         CommandResult result = testCommand.execute(stub);
         assertEquals(DifficultyEnum.HARD, stub.getDefaultDifficulty());
-        assertEquals("Difficulty is now set to: " + DifficultyEnum.HARD, result.getFeedbackToUser());
+        String expectedString = String.format("Difficulty is now set to: %s (%.1f seconds)",
+                DifficultyEnum.HARD,
+                DifficultyEnum.HARD.getTimeAllowedPerQuestion() / 1000.0);
+        assertEquals(expectedString, result.getFeedbackToUser());
     }
 
     private class ModelStub implements Model {
