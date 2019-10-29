@@ -21,19 +21,8 @@ public class UniqueAnalyser implements Analyser {
 
     @Override
     public void analyse(List<Password> accountList) {
-        HashMap<String, ArrayList<Password>> passwordToAccounts = new HashMap<>();
         ArrayList<UniqueResult> results = new ArrayList<>();
-        for (Password acc : accountList) {
-            String password = acc.getPasswordValue().value;
-            if (passwordToAccounts.containsKey(password)) {
-                ArrayList<Password> arrList = passwordToAccounts.get(password);
-                arrList.add(acc);
-            } else {
-                passwordToAccounts.put(password, new ArrayList<>());
-                passwordToAccounts.get(password).add(acc);
-            }
-        }
-
+        HashMap<String, ArrayList<Password>> passwordToAccounts = initHash(accountList);
         for (Password acc : accountList) {
             List<UniqueMatch> matches = new ArrayList<>();
             String password = acc.getPasswordValue().value;
@@ -49,7 +38,22 @@ public class UniqueAnalyser implements Analyser {
         this.results = results;
     }
 
-    private List<UniqueMatch> getAllMatches(Password acc, ArrayList<Password> arrList) {
+    HashMap<String, ArrayList<Password>> initHash(List<Password> accountList) {
+        HashMap<String, ArrayList<Password>> passwordToAccounts = new HashMap<>();
+        for (Password acc : accountList) {
+            String password = acc.getPasswordValue().value;
+            if (passwordToAccounts.containsKey(password)) {
+                ArrayList<Password> arrList = passwordToAccounts.get(password);
+                arrList.add(acc);
+            } else {
+                passwordToAccounts.put(password, new ArrayList<>());
+                passwordToAccounts.get(password).add(acc);
+            }
+        }
+        return passwordToAccounts;
+    }
+
+    List<UniqueMatch> getAllMatches(Password acc, ArrayList<Password> arrList) {
         ArrayList<UniqueMatch> matches = new ArrayList<>();
         for (Password p : arrList) {
             if (p == acc) {

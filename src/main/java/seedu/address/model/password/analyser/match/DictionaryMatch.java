@@ -1,5 +1,7 @@
 package seedu.address.model.password.analyser.match;
 
+import java.util.Objects;
+
 /**
  * Represents a {@code match} which was found in (@code Dictionary} used by {@code DictionaryAnalyser}.
  */
@@ -27,5 +29,18 @@ public class DictionaryMatch extends BaseMatch implements Comparable<DictionaryM
     @Override
     public String toString() {
         return super.toString() + "Type : Dictionary Match\n" + "Rank : " + this.rank + "\n";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        DictionaryMatch that = (DictionaryMatch) o;
+        return rank == that.rank;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(rank);
     }
 }

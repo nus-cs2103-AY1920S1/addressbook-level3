@@ -33,7 +33,7 @@ public class StrengthAnalyser implements Analyser {
      * @param passwordObject is the password
      * @return the result of the strength analysis
      */
-    public static StrengthResult calculateStrength(Password passwordObject) { //TODO reccomend();
+    public static StrengthResult calculateStrength(Password passwordObject) {
         String password = passwordObject.getPasswordValue().value;
         int passwordScore = 0;
         boolean hasMinimumLength = false;

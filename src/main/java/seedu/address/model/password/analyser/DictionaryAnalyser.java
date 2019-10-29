@@ -38,7 +38,7 @@ public class DictionaryAnalyser implements Analyser {
         this.results = results;
     }
 
-    private List<DictionaryMatch> getAllMatches(String password) {
+    List<DictionaryMatch> getAllMatches(String password) {
         List<DictionaryMatch> matches = new ArrayList<>();
 
         // Create all possible sub-sequences of the password
