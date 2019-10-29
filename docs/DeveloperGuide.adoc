@@ -94,7 +94,7 @@ image::LogicClassDiagram.png[]
 The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
 
 .Component Interactions for `delete 1` Command
-image::ArchitectureSequenceDiagram.png[]
+image::ArchitectureSequenceDiagram.png[width=500]
 
 The sections below give more details of each component.
 
@@ -215,18 +215,84 @@ Also, our `select` function shows attendance rate of a `Person` and a HashMap pr
 
 === Calendar feature
 
-The calendar feature allows users to view training and performance records entered into Athletick on a specific date.
+The calendar feature serves 2 primary functions:
+
+. Provides an overview of training and performance records in a selected month.
+
+. Displays training and performance records entered on a specific date.
 
 ==== Implementation
 
+The implementation of the above functions will be described seperately.
+
+The first function is facilitated by `CalendarPanel`. It extends `UiPart<Region>` and represents the calendar via a `GridPane` with dimensions of 7 by 6 (42 cells). Additionally, it implements the following operations:
+
+* `CalendarPanel#retrieveCurrentDate()` -- Retrieves the details of today's date to be used as the title of the calendar feature and for rendering the displayed month on the calendar when the user does not provide a month to view.
+* `CalendarPanel#retrieveProvidedDate()` -- Retrieves the details of the date provided by the user for rendering the displayed month on the calendar.
+* `CalendarPanel#initialiseSelectedDate()` -- Fills up all 42 cells of the `GridPane` with the respective days based on the selected date (current / provided date) by the user. Days of the previous and next month used to fill up the remaining cells are marked in a lighter colour.
+
++
+In addition, days with training or performance records will be marked with a small orange or purple dot indicator respectively.
+
+These operations are performed when an instance of `CalendarPanel` is created in the `MainWindow` class. An instance of `CalendarPanel` is created when the `CommandResult` obtained after executing the user's command contains a `Feature` corresponding to a calendar and an optional `AthletickDate`.
+
+Given below is an example usage scenario for the first function and how the operation behaves at each step:
+
+Step 1:. The user either issues the `view calendar` or `calendar [MMYYYY]` (e.g. `calendar 012019`) command. The first command displays the calendar for the current month, while the second command displays the specified the month and year to be displayed.
+
+Step 2. The issued command
+
+// to be continued
+
+The following sequence diagram shows how the `calendar [MMYYYY]` operation works:
+
+// sequence diagram
+
+The following activity diagram summarises what happens when a user executes the `view calendar` or `calendar [MMYYYY]` command:
+
+// activity diagram
+
+The second function is facilitated by `CalendarDetailPanel`. It extends `UiPart<Region>` and displays the attendance and performance records for a specific date in a table. Additionally, it implements the following operations:
+
+* `CalendarDetailPanel#initialiseAttendanceData` -- Retrieves and displays the attendance of each person on the specified date.
+* `CalendarDetailPanel#initialisePerformanceData` -- Retrieves and displays the performance records on the specified date.
+
+These operations are performed when an instance of `CalendarDetailPanel` is created in the `MainWindow` class. An instance of `CalendarDetailPanel` is created when the `CommandResult` obtained after executing the user's command contains an `AthletickDate`.
+
+Given below is an example usage scenario for the second function and how the operation behaves at each step:
+
+Step 1:. The user either issues the `calendar [DDMMYYYY]` (e.g. `calendar 01012019`) command.
+
+Step 2. The issued command
+
+// to be continued
+
+The following sequence diagram shows how the `calendar [DDMMYYYY]` operation works:
+
+// sequence diagram
+
+The following activity diagram summarises what happens when a user executes the `calendar [DDMMYYYY]` command:
+
+// activity diagram (show what happens when records found vs not found)
+
 ==== Design considerations
+
+===== Aspect: How the calendar for the current month is displayed
+* **Alternative 1 (current choice):** Displays using a fixed 7 by 6 `GridPane`, fill up left over days with days from previous and next month.
+
+* **Alternative 2:** Displays using a variable sized `GridPane` that is populated with days from selected month only.
+
+===== Aspect: How the user can display the attendance and performance data on a specific date
+* **Alternative 1 (current choice):** Have one `calendar [DDMMYYYY]` command to view _both_ attendance and performance data on the specified date.
+
+* **Alternative 2:** Have two separate commands to view attendance and performance separately on the specified date.
 
 === Select feature
 ==== Implementation
 The select feature is facilitated by `SelectCommand` class. It extends `Command` and parses the arguments using
 `SelectCommandParser`. It implements the one operation:
 
-* `CommandResult#execute()` - Executes the selectCommand which returns the person selected to be displayed in the UI.
+* `CommandResult#execute()` -- Executes the selectCommand which returns the person selected to be displayed in the UI.
 
 Other operations that were implemented to aid the `SelectCommand` feature are:
 
