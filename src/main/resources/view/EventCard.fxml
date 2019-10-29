@@ -7,11 +7,11 @@
 
 <StackPane fx:id="eventCardBase" alignment="TOP_LEFT" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <VBox fx:id="eventDetails" style="-fx-background-color: transparent;">
+      <VBox fx:id="eventDetails" style="-fx-background-color: transparent;" StackPane.alignment="CENTER_LEFT">
          <children>
             <StackPane alignment="TOP_LEFT">
                <children>
-                  <Label fx:id="eventName" text="\$EventName" wrapText="true">
+                  <Label fx:id="eventName" text="\$EventName" wrapText="true" StackPane.alignment="CENTER_LEFT">
                      <StackPane.margin>
                         <Insets left="15.0" />
                      </StackPane.margin></Label>
@@ -22,9 +22,9 @@
             </StackPane>
             <StackPane fx:id="eventStartDateBase" alignment="TOP_LEFT">
                <children>
-                  <Label fx:id="eventStartDate" text="\$EventDate" wrapText="true">
+                  <Label fx:id="eventStartDate" text="\$EventDate" wrapText="true" StackPane.alignment="CENTER_LEFT">
                      <StackPane.margin>
-                        <Insets left="15.0" />
+                        <Insets left="15.0" top="2.0" />
                      </StackPane.margin></Label>
                </children>
                <VBox.margin>
@@ -33,7 +33,7 @@
             </StackPane>
             <StackPane fx:id="eventEndDateBase" alignment="TOP_LEFT">
                <children>
-                  <Label fx:id="eventEndDate" text="end Date" wrapText="true">
+                  <Label fx:id="eventEndDate" text="end Date" textAlignment="CENTER" wrapText="true" StackPane.alignment="CENTER_LEFT">
                      <StackPane.margin>
                         <Insets left="15.0" />
                      </StackPane.margin>
