@@ -1,13 +1,13 @@
-package seedu.address.logic.commands.cardcommands;
+package seedu.address.logic.commands.homecommands;
 
-import seedu.address.logic.commands.CardCommand;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.HomeCommand;
 import seedu.address.model.Model;
 
 /**
  * Format full help instructions for every command for display.
  */
-public class HelpCommand extends CardCommand {
+public class HelpCommand extends HomeCommand {
 
     public static final String COMMAND_WORD = "help";
 

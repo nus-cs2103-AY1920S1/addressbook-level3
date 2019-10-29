@@ -14,7 +14,6 @@ import seedu.address.logic.commands.cardcommands.DeleteCommand;
 import seedu.address.logic.commands.cardcommands.EditCommand;
 import seedu.address.logic.commands.cardcommands.ExitCommand;
 import seedu.address.logic.commands.cardcommands.FindCommand;
-import seedu.address.logic.commands.cardcommands.HelpCommand;
 import seedu.address.logic.commands.cardcommands.ListCommand;
 import seedu.address.logic.commands.exceptions.ModeSwitchException;
 import seedu.address.logic.commands.gamecommands.GuessCommand;
@@ -23,6 +22,7 @@ import seedu.address.logic.commands.gamecommands.StopCommand;
 import seedu.address.logic.commands.homecommands.BankCommand;
 import seedu.address.logic.commands.homecommands.CreateCommand;
 import seedu.address.logic.commands.homecommands.ExportCommand;
+import seedu.address.logic.commands.homecommands.HelpCommand;
 import seedu.address.logic.commands.homecommands.ImportCommand;
 import seedu.address.logic.commands.homecommands.RemoveCommand;
 import seedu.address.logic.commands.settingcommands.AvatarCommand;
@@ -118,7 +118,6 @@ public class ParserManager {
             temp.add(FindCommand.class, FindCommandParser.class);
             temp.add(ClearCommand.class, null);
             temp.add(ListCommand.class, null);
-            temp.add(HelpCommand.class, null);
             return temp;
         case HOME:
             temp.add(BankCommand.class, BankCommandParser.class);
@@ -127,6 +126,7 @@ public class ParserManager {
             temp.add(ExportCommand.class, ExportCommandParser.class);
             temp.add(CreateCommand.class, CreateCommandParser.class);
             temp.add(RemoveCommand.class, RemoveCommandParser.class);
+            temp.add(HelpCommand.class, null);
             return temp;
         case SETTINGS:
             temp.add(DifficultyCommand.class, DifficultyCommandParser.class);
