@@ -1,5 +1,6 @@
 package mams.logic.commands;
 
+import java.io.File;
 import java.nio.file.Paths;
 
 import mams.commons.exceptions.DataConversionException;
@@ -11,15 +12,16 @@ import mams.storage.JsonMamsStorage;
 /**
  * loads data from mamshistory_undo.json
  */
-public class UndoCommand extends StoreCommand {
+public class RedoCommand extends StoreCommand {
 
-    public UndoCommand() {
+    public RedoCommand() {
 
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        JsonMamsStorage history = new JsonMamsStorage(Paths.get("data/mamshistory_undo.json"));
+        JsonMamsStorage history = new JsonMamsStorage(Paths.get("data/mamshistory_redo.json"));
+
         ReadOnlyMams mamsToReplace;
         try {
             if (history.readMams().isPresent()) {
@@ -27,12 +29,15 @@ public class UndoCommand extends StoreCommand {
             } else {
                 throw new DataConversionException(new Exception());
             }
+            new SaveCommand("undo").privateExecute(model);
+            model.replaceMams(mamsToReplace);
+            File file = new File("data/mamshistory_redo.json");
+            file.delete();
+
         } catch (DataConversionException e) {
-            throw new CommandException("Unable to undo");
+            throw new CommandException("Unable to redo");
         }
-        new SaveCommand("redo").privateExecute(model);
-        model.replaceMams(mamsToReplace);
-        return new CommandResult("Undo Successful ");
+        return new CommandResult("Redo Successful ");
 
     }
 
@@ -44,7 +49,7 @@ public class UndoCommand extends StoreCommand {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof UndoCommand)) {
+        if (!(other instanceof RedoCommand)) {
             return false;
         }
         return false;
