@@ -5,6 +5,8 @@ import static seedu.address.commons.util.IcsUtil.generateUid;
 import java.util.Objects;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import seedu.address.model.DateTime;
 
 /**
@@ -20,6 +22,7 @@ public class EventSource {
     // Optional
     private final DateTime end;
     private final Set<String> tags;
+    private final DateTime remind;
 
     /**
      * Creates an EventSource from an EventSourceBuilder.
@@ -30,6 +33,7 @@ public class EventSource {
         this.start = builder.getStart();
         this.end = builder.getEnd();
         this.tags = builder.getTags();
+        this.remind = builder.getRemind();
     }
 
     /**
@@ -42,6 +46,7 @@ public class EventSource {
         this.start = eventSource.start;
         this.end = eventSource.end;
         this.tags = eventSource.tags;
+        this.remind = eventSource.remind;
     }
 
     public static EventSourceBuilder newBuilder(String description, DateTime start) {
@@ -54,23 +59,36 @@ public class EventSource {
      * @return <code>true</code> if the EventSource's notification timing matches the current notification timing.
      */
     public boolean notificationTimeMatchesCurrentTime() {
-        return start.equalsPrecisionMinute(DateTime.now());
+        if (remind != null) {
+            return remind.equalsPrecisionMinute(DateTime.now());
+        } else {
+            return start.equalsPrecisionMinute(DateTime.now());
+        }
     }
 
+    @JsonProperty("description")
     public String getDescription() {
         return this.description;
     }
 
+    @JsonProperty("start")
     public DateTime getStartDateTime() {
         return this.start;
     }
 
-    public DateTime getEnd() {
-        return end;
+    @JsonProperty("end")
+    public DateTime getEndDateTime() {
+        return this.end;
     }
 
+    @JsonProperty("remind")
+    public DateTime getRemindDateTime() {
+        return this.remind;
+    }
+
+    @JsonProperty("tags")
     public Set<String> getTags() {
-        return tags;
+        return this.tags;
     }
 
     @Override
@@ -80,6 +98,7 @@ public class EventSource {
             return Objects.equals(this.description, e.description)
                 && Objects.equals(this.start, e.start)
                 && Objects.equals(this.end, e.end)
+                && Objects.equals(this.remind, e.remind)
                 && Objects.equals(this.tags, e.tags);
         }
         return false;
