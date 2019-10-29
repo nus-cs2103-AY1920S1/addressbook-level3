@@ -1,10 +1,9 @@
 package seedu.exercise.ui;
 
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
-import seedu.exercise.model.resource.Exercise;
+import seedu.exercise.model.resource.Regime;
 
 /**
  * Controller for panel which has two text area stacked horizontally.
@@ -26,13 +25,15 @@ public class LeftRightPanel extends UiPart<Region> {
         super(FXML);
     }
 
-    public void setLeftPanel(ObservableList<Exercise> leftExercise) {
-        leftPanel = new ExerciseListPanel(leftExercise);
+    public void setLeftPanel(Regime scheduleRegime) {
+        leftPanel = new ExerciseListPanel(scheduleRegime.getRegimeExercises().asUnmodifiableObservableList());
+        leftPanel.setPanelTitleText(scheduleRegime.getRegimeName().toString());
         leftPanelPlaceholder.getChildren().add(leftPanel.getRoot());
     }
 
-    public void setRightPanel(ObservableList<Exercise> rightExercise) {
-        rightPanel = new ExerciseListPanel(rightExercise);
+    public void setRightPanel(Regime conflictingRegime) {
+        rightPanel = new ExerciseListPanel(conflictingRegime.getRegimeExercises().asUnmodifiableObservableList());
+        rightPanel.setPanelTitleText(conflictingRegime.getRegimeName().toString());
         rightPanelPlaceholder.getChildren().add(rightPanel.getRoot());
     }
 

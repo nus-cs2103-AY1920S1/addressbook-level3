@@ -1,51 +1,51 @@
 {
   "jsonResources" : [ {
-    "name" : "Rope Skipping",
+    "name" : "Push ups",
     "date" : "26/09/2019",
-    "calories" : "330",
-    "quantity" : "10",
-    "unit" : "counts",
-    "muscles" : [ "Legs" ],
-    "customProperties" : { }
-  }, {
-    "name" : "Cycling",
-    "date" : "26/09/2019",
-    "calories" : "284",
-    "quantity" : "5",
-    "unit" : "km",
-    "muscles" : [ "Legs" ],
-    "customProperties" : { }
-  }, {
-    "name" : "Strength Training",
-    "date" : "26/09/2019",
-    "calories" : "341",
-    "quantity" : "20",
-    "unit" : "counts",
-    "muscles" : [ "Chest" ],
-    "customProperties" : { }
-  }, {
-    "name" : "Swimming",
-    "date" : "26/09/2019",
-    "calories" : "354",
-    "quantity" : "10",
-    "unit" : "laps",
-    "muscles" : [ "Calves" ],
-    "customProperties" : { }
-  }, {
-    "name" : "Bench Press",
-    "date" : "26/09/2019",
-    "calories" : "222",
-    "quantity" : "30",
+    "calories" : "30",
+    "quantity" : "60",
     "unit" : "counts",
     "muscles" : [ "Triceps" ],
     "customProperties" : { }
   }, {
-    "name" : "Running",
+    "name" : "Sit ups",
     "date" : "26/09/2019",
-    "calories" : "9999999",
+    "calories" : "30",
+    "quantity" : "60",
+    "unit" : "counts",
+    "muscles" : [ "Abs" ],
+    "customProperties" : { }
+  }, {
+    "name" : "Run",
+    "date" : "22/09/2019",
+    "calories" : "300",
     "quantity" : "2.4",
     "unit" : "km",
-    "muscles" : [ "Legs" ],
+    "muscles" : [ "Legs", "cardio" ],
+    "customProperties" : { }
+  }, {
+    "name" : "Bench Press",
+    "date" : "22/09/2019",
+    "calories" : "50",
+    "quantity" : "30",
+    "unit" : "counts",
+    "muscles" : [ "Chest", "Triceps" ],
+    "customProperties" : { }
+  }, {
+    "name" : "Squat",
+    "date" : "22/09/2019",
+    "calories" : "50",
+    "quantity" : "30",
+    "unit" : "counts",
+    "muscles" : [ "Legs", "Back" ],
+    "customProperties" : { }
+  }, {
+    "name" : "Deadlift",
+    "date" : "22/09/2019",
+    "calories" : "50",
+    "quantity" : "30",
+    "unit" : "counts",
+    "muscles" : [ "Legs", "Back" ],
     "customProperties" : { }
   } ]
 }

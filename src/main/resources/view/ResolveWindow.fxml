@@ -9,14 +9,14 @@
 
 <?import javafx.scene.image.Image?>
 <fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11"
-         xmlns:fx="http://javafx.com/fxml/1" title = "Resolve" onCloseRequest="#hideAndClearPanels">
+         xmlns:fx="http://javafx.com/fxml/1" title = "Resolve" onCloseRequest="#handleCloseRequest">
     <icons>
         <Image url="@/images/ExerHealth.png"/>
     </icons>
     <scene>
         <Scene>
             <stylesheets>
-                <URL value = "@DarkTheme.css"/>
+                <URL value = "@CustomTheme.css"/>
                 <URL value = "@Extensions.css"/>
             </stylesheets>
             <VBox>

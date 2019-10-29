@@ -1,11 +1,14 @@
 package seedu.exercise.ui;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.Optional;
 import java.util.logging.Logger;
 
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
@@ -23,6 +26,9 @@ public class ExerciseListPanel extends UiPart<Region> {
 
     @FXML
     private ListView<Exercise> exerciseListView;
+
+    @FXML
+    private Label exerciseTitle;
 
     public ExerciseListPanel(ObservableList<Exercise> exerciseList) {
         super(FXML);
@@ -64,6 +70,11 @@ public class ExerciseListPanel extends UiPart<Region> {
     private void selectGivenIndex(int index) {
         exerciseListView.scrollTo(index);
         exerciseListView.getSelectionModel().select(index);
+    }
+
+    public void setPanelTitleText(String title) {
+        requireNonNull(title);
+        exerciseTitle.setText(title);
     }
 
     /**

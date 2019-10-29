@@ -369,6 +369,29 @@
     -fx-border-top-width: 0px;
 }
 
+.resolveWindowPanelText {
+    -fx-text-fill: #1d1d1d;
+}
+
+.logoBox {
+    -fx-background-color: #209de5;
+}
+
+.chartBox {
+    -fx-border-color: #f9f9f9 #f9f9f9 #f9f9f9 #bababa;
+    -fx-border-style: chartBoxBorder;
+}
+
+.chartBoxBorder {
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #209de5, #4fb2ea);
+}
+
+.resourceListPanelBox {
+    -fx-background-color: rgb(249, 249, 249);
+    -fx-border-color: #ffffff #bababa #ffffff #ffffff;
+    -fx-border-top-width: 0px;
+}
+
 .logoBox {
     -fx-background-color: #209de5;
 }

@@ -30,11 +30,11 @@ public class ResolveCommand extends Command {
     public static final String COMMAND_WORD = "resolve";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Resolves a scheduling conflict. Parameters: "
+            + ": Resolves a scheduling conflict. \nParameters: \n"
             + PREFIX_NAME + "NEW_REGIME_NAME "
             + "[" + PREFIX_INDEX + "INDEX_OF_SCHEDULED_EXERCISES" + "]"
             + "[" + PREFIX_CONFLICT_INDEX + "INDEX_OF_CONFLICTING_EXERCISES" + "]"
-            + "Example: " + COMMAND_WORD + " "
+            + "\nExample: " + COMMAND_WORD + " "
             + PREFIX_NAME + "cardio new "
             + PREFIX_INDEX + "1 "
             + PREFIX_INDEX + "3 "
