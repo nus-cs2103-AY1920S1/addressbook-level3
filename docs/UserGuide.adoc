@@ -599,53 +599,21 @@ Examples:
 
 `expandpolicy 1`
 
-=== Generate Report: `report`
-Generates report of key performance indicators (KPI). Report is saved in the same directory as the application, or the file path if specified.
-
-Format:
-`report [f/FILEPATH]`
-
-Examples:
-
-`report f/~/reports/` +
-Saves report in `~/reports` directory.
-
-Expected Output:
-
-image::Report.png[width="400", align="left"]
-
-=== Export to Excel: `export`
-Exports contact details to an excel sheet in the same directory as the application, or the file path if specified.
-Depending on what the user specifies as arguments,
-different fields of the contacts can be exported. Arguments can also be chained to export multiple fields together at once.
-
-Format:
-`export [name] [phone] [email] [address] [insurance] [f/FILEPATH]`
-
-****
-* If no arguments are provided, all possible fields are exported.
-****
-
-Examples:
-
-`export` +
-Exports all possible fields in the address book.
-
-`export name phone email f/~/sheets/` +
-Exports name, phone, and email into `~/sheets` directory.
-
 === Display Indicator `display`
 Displays indicator according to specified format.
 
 Format:
-`display i/INDICATOR f/CHARTf`
+`display i/INDICATOR f/FORMAT`
 
 ****
 * Indicators include:
-- Policy Popularity breakdown
-- Age Group breakdown
-- Gender breakdown
-- Contact List growth rate
+- `policy-popularity-breakdown`
+- `age-group-breakdown`
+- `gender-breakdown`
+* Formats include:
+- `piechart`
+- `barchart`
+- `linechart`
 ****
 
 Examples:
@@ -835,10 +803,6 @@ e.g. `deletepolicytag 2 t/lifeinsurance`
 e.g. `expandperson 1`
 * *Expanding a policy* : `expandpolicy INDEX` +
 e.g. `expandpolicy 1`
-* *Generate Report*: `report [f/FILEPATH]` +
-e.g. `report f/~/reports/`
-* *Export to Excel*: `export [name] [phone] [email] [address] [insurance] [f/FILEPATH]` +
-e.g. `export name phone email f/~/sheets/`
 * *Display*: `display i/INDICATOR f/FORMAT` +
 e.g. `display i/policy-popularity-breakdown f/piechart`
 * *List of undone commands*: `undo list`
