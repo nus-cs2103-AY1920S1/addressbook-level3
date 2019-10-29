@@ -2,6 +2,7 @@ package seedu.address.logic.parser.flashcard;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_TAG_LIMIT_EXCEEDED;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ANSWER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_QUESTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
@@ -47,6 +48,9 @@ public class AddFlashcardCommandParser implements Parser<AddFlashcardCommand> {
         Answer answer = ParserUtil.parseAnswer(argMultimap.getValue(PREFIX_ANSWER).get());
         Title title = ParserUtil.parseFlashcardTitle(argMultimap.getValue(PREFIX_TITLE).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
+        if (tagList.size() > 10) {
+            throw new ParseException(MESSAGE_TAG_LIMIT_EXCEEDED);
+        }
 
         Flashcard flashcard = new Flashcard(question, answer, title, tagList);
 
