@@ -149,6 +149,7 @@ public class LogicManagerTest {
     @Test
     public void getGraphData_success() {
         model.addSpending(APPLE);
+        model.addSpending(APPLE);
         model.addSpending(BANANA);
         Date startDate = APPLE.getDate();
         Date endDate = BANANA.getDate();
@@ -157,7 +158,7 @@ public class LogicManagerTest {
                 && s.getDate().value.compareTo(endDate.value) <= 0;
         };
         LinkedHashMap<String, Double> graphData = new LinkedHashMap<>();
-        graphData.put(APPLE.getDate().value, Double.parseDouble(APPLE.getCost().toString()));
+        graphData.put(APPLE.getDate().value, 2 * Double.parseDouble(APPLE.getCost().toString()));
         graphData.put(BANANA.getDate().value, Double.parseDouble(BANANA.getCost().toString()));
         model.updateFilteredSpendingList(expectedPredicate);
         assertEquals(graphData, logic.getGraphData());
