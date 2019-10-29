@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
-import java.util.stream.Collectors;
 
 import javafx.collections.ObservableList;
 import seedu.mark.commons.core.LogsCenter;
@@ -19,8 +18,6 @@ import seedu.mark.model.Model;
 import seedu.mark.model.ReadOnlyMark;
 import seedu.mark.model.bookmark.Bookmark;
 import seedu.mark.model.bookmark.Folder;
-import seedu.mark.model.bookmark.util.BookmarkBuilder;
-import seedu.mark.model.folderstructure.FolderStructure;
 import seedu.mark.storage.JsonMarkStorage;
 import seedu.mark.storage.Storage;
 
@@ -104,10 +101,8 @@ public class ImportCommand extends Command {
                     importer.getExistingBookmarksAsString()));
         }
 
-        importer.importFolders();
         importer.importBookmarks();
 
-        // TODO: rewrite messages to indicate whether folders were imported
         String message = importer.hasExistingBookmarks()
                 ? String.format(MESSAGE_IMPORT_SUCCESS_WITH_DUPLICATES, filePath,
                     importer.getExistingBookmarksAsString())
@@ -136,13 +131,11 @@ public class ImportCommand extends Command {
      */
     public static class MarkImporter {
         private Model model;
-        private FolderStructure foldersToImport;
         private List<Bookmark> existingBookmarks = new ArrayList<>();
         private List<Bookmark> bookmarksToImport = new ArrayList<>();
 
         MarkImporter(Model model, ReadOnlyMark markToImport) {
             this.model = model;
-            this.foldersToImport = markToImport.getFolderStructure();
             processBookmarks(markToImport.getBookmarkList());
         }
 
@@ -163,6 +156,9 @@ public class ImportCommand extends Command {
             for (Bookmark bookmark : bookmarks) {
                 if (model.hasBookmark(bookmark)) {
                     this.existingBookmarks.add(bookmark);
+                } else if (!model.hasFolder(bookmark.getFolder())
+                        || bookmark.getFolder().equals(Folder.ROOT_FOLDER)) {
+                    this.bookmarksToImport.add(setFolderAsImportFolder(bookmark));
                 } else {
                     this.bookmarksToImport.add(bookmark);
                 }
@@ -171,10 +167,6 @@ public class ImportCommand extends Command {
 
         private Model getModel() {
             return this.model;
-        }
-
-        public FolderStructure getFolders() {
-            return this.foldersToImport;
         }
 
         /**
@@ -231,58 +223,7 @@ public class ImportCommand extends Command {
          * Imports new bookmarks to the {@code model}.
          */
         public void importBookmarks() {
-            bookmarksToImport = bookmarksToImport.stream()
-                    .map(bookmark -> model.hasFolder(bookmark.getFolder()) ? bookmark : setFolderAsImportFolder(bookmark))
-                    .collect(Collectors.toList());
             model.addBookmarks(bookmarksToImport);
-        }
-
-        public void importFolders() {
-            if (!model.hasFolder(Folder.IMPORT_FOLDER)) {
-                model.addFolder(Folder.IMPORT_FOLDER, Folder.ROOT_FOLDER);
-            }
-            updateBookmarksToImport(Folder.ROOT_FOLDER, Folder.IMPORT_FOLDER);
-
-            for (FolderStructure subfolder : foldersToImport.getSubfolders()) {
-                importFolders(subfolder, Folder.IMPORT_FOLDER);
-            }
-        }
-
-        private void importFolders(FolderStructure folderStructure, Folder parentFolder) {
-            Folder folderToImport = folderStructure.getFolder();
-            if (model.hasFolder(folderToImport)) {
-                Folder newFolder = new Folder(generateUnusedFolderName(folderToImport.folderName));
-                updateBookmarksToImport(folderToImport, newFolder);
-                folderToImport = newFolder;
-            }
-            model.addFolder(folderToImport, parentFolder);
-
-            for (FolderStructure subfolder : folderStructure.getSubfolders()) {
-                importFolders(subfolder, folderToImport);
-            }
-        }
-
-        /**
-         * Generates a folder name that is not already used in the
-         * {@code Model}.
-         *
-         * @param folderName Name of folder that needs to be changed.
-         * @return String of a possible folder name.
-         */
-        private String generateUnusedFolderName(String folderName) {
-            Folder suggestedFolder = new Folder(folderName);
-            int count = 2;
-            while (model.hasFolder(suggestedFolder)) {
-                suggestedFolder = new Folder(folderName + count++);
-            }
-            return suggestedFolder.folderName;
-        }
-
-        private void updateBookmarksToImport(Folder originalFolder, Folder newFolder) {
-            bookmarksToImport = bookmarksToImport.stream()
-                    .map(bookmark -> bookmark.getFolder().equals(originalFolder)
-                        ? new BookmarkBuilder(bookmark).withFolder(newFolder.folderName).build()
-                        : bookmark).collect(Collectors.toList());
         }
 
         @Override
@@ -301,7 +242,6 @@ public class ImportCommand extends Command {
             MarkImporter markImporter = (MarkImporter) other;
 
             return getModel().equals(markImporter.getModel())
-                    && getFolders().equals(markImporter.getFolders())
                     && getExistingBookmarks().equals(markImporter.getExistingBookmarks())
                     && getBookmarksToImport().equals(markImporter.getBookmarksToImport());
         }

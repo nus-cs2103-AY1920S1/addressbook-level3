@@ -13,7 +13,6 @@ import seedu.mark.model.autotag.SelectiveBookmarkTagger;
 import seedu.mark.model.bookmark.Bookmark;
 import seedu.mark.model.bookmark.Folder;
 import seedu.mark.model.bookmark.Url;
-import seedu.mark.model.folderstructure.FolderStructure;
 import seedu.mark.model.reminder.Reminder;
 
 /**

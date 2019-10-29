@@ -3,7 +3,6 @@ package seedu.mark.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.mark.testutil.TypicalBookmarks.getTypicalBookmarks;
-import static seedu.mark.testutil.TypicalBookmarks.getTypicalFolderStructure;
 import static seedu.mark.testutil.TypicalBookmarks.getTypicalMark;
 
 import org.junit.jupiter.api.Test;
@@ -42,11 +41,6 @@ public class MarkImporterTest {
         // different bookmarks to import -> returns false
         Mark differentMark = new Mark();
         differentMark.setBookmarks(getTypicalBookmarks());
-        assertFalse(markImporter.equals(new MarkImporter(model, differentMark)));
-
-        // different folders to import -> returns false
-        differentMark = new Mark();
-        differentMark.setFolderStructure(getTypicalFolderStructure());
         assertFalse(markImporter.equals(new MarkImporter(model, differentMark)));
     }
 }
