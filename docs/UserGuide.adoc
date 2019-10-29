@@ -95,12 +95,6 @@ Registers a new patient +
 Format:  `register  i/<PATIENT_REFERENCE_ID> n/<PATIENT_NAME> [p/<PHONE_NUM>]
  [e/<EMAIL>] [a/<ADDRESS>] [r/<REMARK>] [t/Allergies]...`
 
-==== Unregisters an existing patient: `unregister` ====
-
-If user is in the patients listing screen,
-Unregisters an existing patient +
-Format:  `unregister <ENTRY_ID>`
-
 ==== Updates patients’ profiles: `update` ====
 
 If user is in the patients listing screen,
@@ -128,11 +122,6 @@ Format: `newdoctor n/<STAFF_NAME> [i/<STAFF_REFERENCE_ID>] [p/<PHONE_NUM>] [e/<E
 If user is in the doctors listing screen, updates any change for doctor’s profiles. +
 Format: `updatedoctor <ENTRY_ID> [n/<STAFF_NAME>]
 [i/<STAFF_REFERENCE_ID>] [p/<PHONE_NUM>] [e/<EMAIL>] [a/<ADDRESS>] [r/<REMARK>]`
-
-==== Unregisters a doctor's profile: `resign` ====
-
-If user is in the doctors listing screen, removes a doctor’s profile. +
-Format: `resigndoctor <ENTRY_ID>`
 
 ==== Marks the doctor as on-duty: `onduty` ====
 
@@ -235,14 +224,3 @@ Format: `undo`
 
 Redo a destructive action +
 Format: `redo`
-
-==== Creates, updates or removes an alias command: `alias` ====
-
-Tags an alias name to a reserved command. More specifically,
-one of the following will happen depending on the parameters of the function.
-Please note that the user can not remap a reserved command.
-A new alias command is created if the alias does not exist.
-Remaps an existing alias command to a reserved command if the alias exist.
-If the reserved command is not specified, the alias is unregistered if it exists.
-
-Format: `alias <Alias_Name> [<Reserved_Command>]`
