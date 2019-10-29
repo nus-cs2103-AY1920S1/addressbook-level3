@@ -3,19 +3,19 @@ package seedu.exercise.model.property;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import static seedu.exercise.logic.commands.CommandTestUtil.INVALID_FULL_NAME_DESC;
-import static seedu.exercise.logic.commands.CommandTestUtil.INVALID_PREFIX_NAME_DESC;
-import static seedu.exercise.logic.commands.CommandTestUtil.VALID_FULL_NAME_RATING;
-import static seedu.exercise.logic.commands.CommandTestUtil.VALID_FULL_NAME_REMARK;
-import static seedu.exercise.logic.commands.CommandTestUtil.VALID_PARAMETER_TYPE_RATING;
-import static seedu.exercise.logic.commands.CommandTestUtil.VALID_PREFIX_NAME_RATING;
-import static seedu.exercise.testutil.TypicalCustomProperties.ENDDATE;
-import static seedu.exercise.testutil.TypicalCustomProperties.INSTRUCTIONS;
-import static seedu.exercise.testutil.TypicalCustomProperties.PRIORITY;
+import static seedu.exercise.testutil.CommonTestData.INVALID_FULL_NAME_DESC;
+import static seedu.exercise.testutil.CommonTestData.INVALID_PREFIX_NAME_DESC;
+import static seedu.exercise.testutil.CommonTestData.VALID_FULL_NAME_RATING;
+import static seedu.exercise.testutil.CommonTestData.VALID_FULL_NAME_REMARK;
+import static seedu.exercise.testutil.CommonTestData.VALID_PARAMETER_TYPE_RATING;
+import static seedu.exercise.testutil.CommonTestData.VALID_PREFIX_NAME_RATING;
+import static seedu.exercise.testutil.typicalutil.TypicalCustomProperties.ENDDATE;
+import static seedu.exercise.testutil.typicalutil.TypicalCustomProperties.INSTRUCTIONS;
+import static seedu.exercise.testutil.typicalutil.TypicalCustomProperties.PRIORITY;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.exercise.testutil.CustomPropertyBuilder;
+import seedu.exercise.testutil.builder.CustomPropertyBuilder;
 
 class CustomPropertyTest {
 

@@ -2,17 +2,17 @@ package seedu.exercise.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.exercise.logic.commands.CommandTestUtil.DESC_AEROBICS;
-import static seedu.exercise.logic.commands.CommandTestUtil.DESC_BASKETBALL;
-import static seedu.exercise.logic.commands.CommandTestUtil.VALID_CALORIES_BASKETBALL;
-import static seedu.exercise.logic.commands.CommandTestUtil.VALID_DATE_BASKETBALL;
-import static seedu.exercise.logic.commands.CommandTestUtil.VALID_MUSCLE_AEROBICS;
-import static seedu.exercise.logic.commands.CommandTestUtil.VALID_NAME_BASKETBALL;
-import static seedu.exercise.logic.commands.CommandTestUtil.VALID_QUANTITY_BASKETBALL;
+import static seedu.exercise.testutil.CommonTestData.DESC_AEROBICS;
+import static seedu.exercise.testutil.CommonTestData.DESC_BASKETBALL;
+import static seedu.exercise.testutil.CommonTestData.VALID_CALORIES_BASKETBALL;
+import static seedu.exercise.testutil.CommonTestData.VALID_DATE_BASKETBALL;
+import static seedu.exercise.testutil.CommonTestData.VALID_MUSCLE_AEROBICS;
+import static seedu.exercise.testutil.CommonTestData.VALID_NAME_BASKETBALL;
+import static seedu.exercise.testutil.CommonTestData.VALID_QUANTITY_BASKETBALL;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.exercise.testutil.exercise.EditExerciseDescriptorBuilder;
+import seedu.exercise.testutil.builder.EditExerciseDescriptorBuilder;
 
 public class EditExerciseDescriptorTest {
 

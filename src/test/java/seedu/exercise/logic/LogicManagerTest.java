@@ -3,67 +3,84 @@ package seedu.exercise.logic;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.exercise.commons.core.Messages.MESSAGE_INVALID_EXERCISE_DISPLAYED_INDEX;
 import static seedu.exercise.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.exercise.logic.commands.CommandTestUtil.CALORIES_DESC_AEROBICS;
-import static seedu.exercise.logic.commands.CommandTestUtil.CATEGORY_DESC_EXERCISE;
-import static seedu.exercise.logic.commands.CommandTestUtil.DATE_DESC_AEROBICS;
-import static seedu.exercise.logic.commands.CommandTestUtil.NAME_DESC_AEROBICS;
-import static seedu.exercise.logic.commands.CommandTestUtil.QUANTITY_DESC_AEROBICS;
-import static seedu.exercise.logic.commands.CommandTestUtil.UNIT_DESC_AEROBICS;
 import static seedu.exercise.model.util.DefaultPropertyBookUtil.getDefaultPropertyBook;
 import static seedu.exercise.testutil.Assert.assertThrows;
-import static seedu.exercise.testutil.exercise.TypicalExercises.AEROBICS;
+import static seedu.exercise.testutil.CommonTestData.CALORIES_DESC_AEROBICS;
+import static seedu.exercise.testutil.CommonTestData.CATEGORY_DESC_EXERCISE;
+import static seedu.exercise.testutil.CommonTestData.DATE_DESC_AEROBICS;
+import static seedu.exercise.testutil.CommonTestData.EXERCISE_BOOK_FILE_NAME;
+import static seedu.exercise.testutil.CommonTestData.NAME_DESC_AEROBICS;
+import static seedu.exercise.testutil.CommonTestData.QUANTITY_DESC_AEROBICS;
+import static seedu.exercise.testutil.CommonTestData.REGIME_BOOK_FILE_NAME;
+import static seedu.exercise.testutil.CommonTestData.UNIT_DESC_AEROBICS;
+import static seedu.exercise.testutil.CommonTestData.VALID_PREFIX_NAME_CARDIO;
+import static seedu.exercise.testutil.typicalutil.TypicalExercises.AEROBICS;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import seedu.exercise.MainApp;
+import seedu.exercise.commons.core.GuiSettings;
 import seedu.exercise.commons.core.State;
 import seedu.exercise.logic.commands.AddExerciseCommand;
 import seedu.exercise.logic.commands.CommandResult;
 import seedu.exercise.logic.commands.ListCommand;
+import seedu.exercise.logic.commands.ResolveCommand;
+import seedu.exercise.logic.commands.UndoCommand;
 import seedu.exercise.logic.commands.exceptions.CommandException;
 import seedu.exercise.logic.parser.exceptions.ParseException;
 import seedu.exercise.model.Model;
 import seedu.exercise.model.ModelManager;
 import seedu.exercise.model.ReadOnlyResourceBook;
 import seedu.exercise.model.UserPrefs;
+import seedu.exercise.model.conflict.Conflict;
 import seedu.exercise.model.resource.Exercise;
 import seedu.exercise.storage.JsonPropertyBookStorage;
 import seedu.exercise.storage.JsonUserPrefsStorage;
+import seedu.exercise.storage.Storage;
 import seedu.exercise.storage.StorageBook;
 import seedu.exercise.storage.bookstorage.JsonExerciseBookStorage;
 import seedu.exercise.storage.bookstorage.JsonRegimeBookStorage;
 import seedu.exercise.storage.bookstorage.JsonScheduleBookStorage;
-import seedu.exercise.testutil.exercise.ExerciseBuilder;
+import seedu.exercise.testutil.CommonTestData;
+import seedu.exercise.testutil.builder.ExerciseBuilder;
+import seedu.exercise.testutil.typicalutil.TypicalConflict;
 
 public class LogicManagerTest {
+
+    private static final Path exerciseBookFilePath = Paths.get("data" , EXERCISE_BOOK_FILE_NAME);
+    private static final Path regimeBookFilePath = Paths.get("data", REGIME_BOOK_FILE_NAME);
+
     private static final IOException DUMMY_IO_EXCEPTION = new IOException("dummy exception");
 
     @TempDir
     public Path temporaryFolder;
 
     private Model model = new ModelManager();
+    private Storage storage;
     private Logic logic;
 
     @BeforeEach
     public void setUp() {
         JsonExerciseBookStorage jsonExerciseBookStorage =
-            new JsonExerciseBookStorage(temporaryFolder.resolve("exerciseBook.json"));
+            new JsonExerciseBookStorage(temporaryFolder.resolve(CommonTestData.EXERCISE_BOOK_FILE_NAME));
         JsonRegimeBookStorage jsonRegimeBookStorage =
-            new JsonRegimeBookStorage(temporaryFolder.resolve("regimeBook.json"));
+            new JsonRegimeBookStorage(temporaryFolder.resolve(CommonTestData.REGIME_BOOK_FILE_NAME));
         JsonExerciseBookStorage allJsonExerciseDatabase =
-            new JsonExerciseBookStorage(temporaryFolder.resolve("exercisedatabase.json"));
-        new JsonRegimeBookStorage(temporaryFolder.resolve("regimeBook.json"));
+            new JsonExerciseBookStorage(temporaryFolder.resolve(CommonTestData.EXERCISE_DATABASE_FILE_NAME));
+        new JsonRegimeBookStorage(temporaryFolder.resolve(CommonTestData.REGIME_BOOK_FILE_NAME));
         JsonScheduleBookStorage jsonScheduleBookStorage =
-            new JsonScheduleBookStorage(temporaryFolder.resolve("scheduleBook.json"));
-        JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
+            new JsonScheduleBookStorage(temporaryFolder.resolve(CommonTestData.SCHEDULE_BOOK_FILE_NAME));
+        JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(
+                temporaryFolder.resolve(CommonTestData.USER_PREFS_FILE_NAME));
         JsonPropertyBookStorage propertyBookStorage =
-            new JsonPropertyBookStorage(temporaryFolder.resolve("propertyBook.json"));
-        StorageBook storage = new StorageBook(jsonExerciseBookStorage, allJsonExerciseDatabase,
+            new JsonPropertyBookStorage(temporaryFolder.resolve(CommonTestData.PROPERTY_BOOK_FILE_NAME));
+        storage = new StorageBook(jsonExerciseBookStorage, allJsonExerciseDatabase,
             jsonRegimeBookStorage, jsonScheduleBookStorage, userPrefsStorage, propertyBookStorage);
         MainApp.setState(State.NORMAL);
         logic = new LogicManager(model, storage);
@@ -120,6 +137,47 @@ public class LogicManagerTest {
     @Test
     public void getFilteredExerciseList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredExerciseList().remove(0));
+    }
+
+    @Test
+    public void execute_incorrectState_throwsCommandException() {
+        //Resolve command in NORMAL state
+        assertThrows(CommandException.class, () -> logic.execute(ResolveCommand.COMMAND_WORD
+                + VALID_PREFIX_NAME_CARDIO));
+
+        //Any non resolve command in conflict state
+        MainApp.setState(State.IN_CONFLICT);
+        assertThrows(CommandException.class, () -> logic.execute(ListCommand.COMMAND_WORD));
+        assertThrows(CommandException.class, () -> logic.execute(UndoCommand.COMMAND_WORD));
+    }
+
+    @Test
+    public void getConflict_incorrectState_throwsIllegalStateException() {
+        assertThrows(IllegalStateException.class, () -> logic.getConflict());
+    }
+
+    @Test
+    public void getMethods_defaultValues_success() {
+        assertEquals(new ReadOnlyResourceBook<>(), logic.getExerciseBook());
+        assertEquals(model.getFilteredExerciseList(), logic.getFilteredExerciseList());
+        assertEquals(new ReadOnlyResourceBook<>(), logic.getRegimeBook());
+        assertEquals(model.getFilteredRegimeList(), logic.getFilteredRegimeList());
+        assertEquals(model.getFilteredScheduleList(), logic.getFilteredScheduleList());
+        assertEquals(model.getSuggestedExerciseList(), logic.getSuggestedExerciseList());
+        assertEquals(model.getGuiSettings(), logic.getGuiSettings());
+
+        //GuiSettings to be checked
+        GuiSettings toBeSet = new GuiSettings(1010, 1010, 1, 1);
+        logic.setGuiSettings(toBeSet);
+        assertEquals(toBeSet, logic.getGuiSettings());
+
+        assertEquals(model.getStatistic(), logic.getStatistic());
+
+        //MainApp has to be in conflict in order for conflict methods to work
+        MainApp.setState(State.IN_CONFLICT);
+        Conflict conflict = TypicalConflict.VALID_CONFLICT;
+        model.setConflict(conflict);
+        assertEquals(conflict, logic.getConflict());
     }
 
     /**

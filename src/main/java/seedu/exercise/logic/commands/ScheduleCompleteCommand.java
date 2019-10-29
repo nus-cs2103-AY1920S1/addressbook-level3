@@ -19,6 +19,7 @@ public class ScheduleCompleteCommand extends ScheduleCommand {
     private Index index;
 
     public ScheduleCompleteCommand(Index index) {
+        requireNonNull(index);
         this.index = index;
     }
 
@@ -30,6 +31,13 @@ public class ScheduleCompleteCommand extends ScheduleCommand {
         completeSchedule(model);
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, Integer.toString(index.getOneBased())));
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof ScheduleCompleteCommand // instanceof handles nulls
+                && index.equals(((ScheduleCompleteCommand) other).index));
     }
 
     private void completeSchedule(Model model) {

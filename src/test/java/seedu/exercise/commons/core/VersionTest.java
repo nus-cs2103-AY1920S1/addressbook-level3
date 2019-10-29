@@ -1,6 +1,7 @@
 package seedu.exercise.commons.core;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.exercise.testutil.Assert.assertThrows;
 
@@ -103,6 +104,11 @@ public class VersionTest {
         one = new Version(2, 15, 0, false);
         another = new Version(2, 15, 5, true);
         assertTrue(one.compareTo(another) < 0);
+
+        // Tests not early access same version vs early access same version
+        one = new Version(1, 1, 1, false);
+        another = new Version(1, 1, 1, true);
+        assertTrue(one.compareTo(another) > 0);
     }
 
     @Test
@@ -119,14 +125,23 @@ public class VersionTest {
         Version one;
         Version another;
 
+        //Same instance variables
         one = new Version(0, 0, 0, false);
         another = new Version(0, 0, 0, false);
         assertTrue(one.equals(another));
 
+        //Same instance variables
         one = new Version(100, 191, 275, true);
         another = new Version(100, 191, 275, true);
         assertTrue(one.equals(another));
+
+        //null values
+        assertFalse(one.equals(null));
+
+        //different object
+        assertFalse(one.equals(""));
     }
+
 
     private void verifyVersionParsedCorrectly(String versionString,
             int major, int minor, int patch, boolean isEarlyAccess) {

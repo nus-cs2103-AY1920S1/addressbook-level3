@@ -3,6 +3,7 @@ package seedu.exercise.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.exercise.commons.core.Messages.MESSAGE_INVALID_CONTEXT;
 import static seedu.exercise.commons.util.CollectionUtil.areListsEmpty;
+import static seedu.exercise.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_CONFLICT_INDEX;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_NAME;
@@ -51,11 +52,11 @@ public class ResolveCommand extends Command {
     private List<Index> indexToTakeFromConflict;
 
     public ResolveCommand(Name regimeName, List<Index> indexToTakeFromSchedule, List<Index> indexToTakeFromConflict) {
+        requireAllNonNull(regimeName, indexToTakeFromConflict, indexToTakeFromSchedule);
         this.regimeName = regimeName;
         this.indexToTakeFromSchedule = indexToTakeFromSchedule;
         this.indexToTakeFromConflict = indexToTakeFromConflict;
     }
-
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
@@ -76,6 +77,24 @@ public class ResolveCommand extends Command {
         return new CommandResult(String.format(MESSAGE_SUCCESS,
                 conflict.getScheduledName(),
                 conflict.getConflictedName()));
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        // short circuit if same object
+        if (other == this) {
+            return true;
+        }
+
+        //instanceof handles nulls
+        if (!(other instanceof ResolveCommand)) {
+            return false;
+        }
+
+        ResolveCommand otherCommand = (ResolveCommand) other;
+        return regimeName.equals(otherCommand.regimeName)
+                && indexToTakeFromConflict.equals(otherCommand.indexToTakeFromConflict)
+                && indexToTakeFromSchedule.equals(otherCommand.indexToTakeFromSchedule);
     }
 
     private void resolveConflict(Model model) {

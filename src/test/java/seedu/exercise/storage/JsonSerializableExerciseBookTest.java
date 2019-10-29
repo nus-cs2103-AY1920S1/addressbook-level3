@@ -13,7 +13,7 @@ import seedu.exercise.commons.util.JsonUtil;
 import seedu.exercise.model.ReadOnlyResourceBook;
 import seedu.exercise.model.resource.Exercise;
 import seedu.exercise.storage.serializablebook.JsonSerializableExerciseBook;
-import seedu.exercise.testutil.exercise.TypicalExercises;
+import seedu.exercise.testutil.typicalutil.TypicalExercises;
 
 public class JsonSerializableExerciseBookTest {
 

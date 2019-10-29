@@ -33,6 +33,9 @@ public class CommandResultTest {
 
         // different exit value -> returns false
         assertFalse(commandResult.equals(new CommandResult("feedback", false, true, false)));
+
+        //different resolve value -> returns false
+        assertFalse(commandResult.equals(new CommandResult("feedback", false, false, true)));
     }
 
     @Test
@@ -50,5 +53,15 @@ public class CommandResultTest {
 
         // different exit value -> returns different hashcode
         assertNotEquals(commandResult.hashCode(), new CommandResult("feedback", false, true, false).hashCode());
+
+        // different showResolve value -> returns different hashcode
+        assertNotEquals(commandResult.hashCode(), new CommandResult("feedback", false, false, true).hashCode());
+    }
+
+    @Test
+    public void booleanInstanceVariables_defaultValue_returnsFalse() {
+        assertFalse(new CommandResult("feedback").isShowHelp());
+        assertFalse(new CommandResult("feedback").isExit());
+        assertFalse(new CommandResult("feedback").isShowResolve());
     }
 }

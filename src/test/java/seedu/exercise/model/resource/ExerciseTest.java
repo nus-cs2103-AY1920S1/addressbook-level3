@@ -2,18 +2,18 @@ package seedu.exercise.model.resource;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.exercise.logic.commands.CommandTestUtil.VALID_CALORIES_BASKETBALL;
-import static seedu.exercise.logic.commands.CommandTestUtil.VALID_DATE_BASKETBALL;
-import static seedu.exercise.logic.commands.CommandTestUtil.VALID_MUSCLE_AEROBICS;
-import static seedu.exercise.logic.commands.CommandTestUtil.VALID_NAME_BASKETBALL;
-import static seedu.exercise.logic.commands.CommandTestUtil.VALID_QUANTITY_BASKETBALL;
 import static seedu.exercise.testutil.Assert.assertThrows;
-import static seedu.exercise.testutil.exercise.TypicalExercises.BASKETBALL;
-import static seedu.exercise.testutil.exercise.TypicalExercises.WALK;
+import static seedu.exercise.testutil.CommonTestData.VALID_CALORIES_BASKETBALL;
+import static seedu.exercise.testutil.CommonTestData.VALID_DATE_BASKETBALL;
+import static seedu.exercise.testutil.CommonTestData.VALID_MUSCLE_AEROBICS;
+import static seedu.exercise.testutil.CommonTestData.VALID_NAME_BASKETBALL;
+import static seedu.exercise.testutil.CommonTestData.VALID_QUANTITY_BASKETBALL;
+import static seedu.exercise.testutil.typicalutil.TypicalExercises.BASKETBALL;
+import static seedu.exercise.testutil.typicalutil.TypicalExercises.WALK;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.exercise.testutil.exercise.ExerciseBuilder;
+import seedu.exercise.testutil.builder.ExerciseBuilder;
 
 public class ExerciseTest {
 

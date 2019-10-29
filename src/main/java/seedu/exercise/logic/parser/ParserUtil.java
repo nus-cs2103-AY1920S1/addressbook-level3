@@ -1,6 +1,7 @@
 package seedu.exercise.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.exercise.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.exercise.logic.parser.AddCommandParser.ADD_CATEGORY_EXERCISE;
 import static seedu.exercise.logic.parser.AddCommandParser.ADD_CATEGORY_REGIME;
 import static seedu.exercise.logic.parser.SuggestCommandParser.SUGGEST_TYPE_BASIC;
@@ -17,6 +18,7 @@ import java.util.TreeMap;
 
 import seedu.exercise.commons.core.index.Index;
 import seedu.exercise.commons.util.StringUtil;
+import seedu.exercise.logic.commands.statistic.Statistic;
 import seedu.exercise.logic.parser.exceptions.ParseException;
 import seedu.exercise.model.property.Calories;
 import seedu.exercise.model.property.CustomProperty;
@@ -32,8 +34,6 @@ import seedu.exercise.model.property.Unit;
  */
 public class ParserUtil {
 
-    public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
-
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
      * trimmed.
@@ -43,7 +43,7 @@ public class ParserUtil {
     public static Index parseIndex(String oneBasedIndex) throws ParseException {
         String trimmedIndex = oneBasedIndex.trim();
         if (!StringUtil.isNonZeroUnsignedInteger(trimmedIndex)) {
-            throw new ParseException(MESSAGE_INVALID_INDEX);
+            throw new ParseException(Index.MESSAGE_CONSTRAINTS);
         }
         return Index.fromOneBased(Integer.parseInt(trimmedIndex));
     }
@@ -133,6 +133,22 @@ public class ParserUtil {
             throw new ParseException(Date.MESSAGE_CONSTRAINTS);
         }
         return new Date(trimmedDate);
+    }
+
+    /**
+     * Parses a {@code String endDate} into an {@code Date}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code endDate} is invalid.
+     */
+    public static Date parseEndDate(Date startDate, String endDate) throws ParseException {
+        requireAllNonNull(startDate, endDate);
+        String trimmedEndDate = endDate.trim();
+        parseDate(trimmedEndDate);
+        if (!Date.isEndDateAfterStartDate(startDate.toString(), trimmedEndDate)) {
+            throw new ParseException(Date.MESSAGE_INVALID_END_DATE);
+        }
+        return new Date(trimmedEndDate);
     }
 
     /**
@@ -344,4 +360,34 @@ public class ParserUtil {
         return trimmedNumber;
     }
 
+    /**
+     * Parses a {@code String chart} into a String.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code chart} is invalid
+     */
+    public static String parseChart(String chart) throws ParseException {
+        requireNonNull(chart);
+        String trimmedCategory = chart.trim();
+        if (!trimmedCategory.equals("piechart") && !trimmedCategory.equals("linechart")
+            && !trimmedCategory.equals("barchart")) {
+            throw new ParseException(Statistic.MESSAGE_INVALID_CHART_TYPE);
+        }
+        return trimmedCategory;
+    }
+
+    /**
+     * Parses a {@code String statisticCategory} into a String.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code statisticCategory} is invalid
+     */
+    public static String parseStatisticCategory(String statisticCategory) throws ParseException {
+        requireNonNull(statisticCategory);
+        String trimmedCategory = statisticCategory.trim();
+        if (!trimmedCategory.equals("exercise") && !trimmedCategory.equals("calories")) {
+            throw new ParseException(Statistic.MESSAGE_INVALID_CATEGORY);
+        }
+        return trimmedCategory;
+    }
 }

@@ -11,7 +11,7 @@ import seedu.exercise.commons.core.State;
  */
 public class AppUtil {
 
-    private static final String UNEXPECTED_STATE = "State of program is not %1$s";
+    public static final String UNEXPECTED_STATE = "State of program is not %1$s";
 
     public static Image getImage(String imagePath) {
         requireNonNull(imagePath);

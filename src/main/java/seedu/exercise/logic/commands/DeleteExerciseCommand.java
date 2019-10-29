@@ -42,6 +42,7 @@ public class DeleteExerciseCommand extends DeleteCommand implements PayloadCarri
         Exercise exerciseToDelete = lastShownList.get(targetIndex.getZeroBased());
         eventPayload.put(KEY_EXERCISE_TO_DELETE, exerciseToDelete);
         model.deleteExercise(exerciseToDelete);
+        model.updateStatistic();
         EventHistory.getInstance().addCommandToUndoStack(this);
         return new CommandResult(String.format(MESSAGE_DELETE_EXERCISE_SUCCESS, exerciseToDelete));
     }

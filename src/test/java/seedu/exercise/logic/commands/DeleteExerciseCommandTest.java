@@ -6,9 +6,9 @@ import static seedu.exercise.logic.commands.CommandTestUtil.assertCommandFailure
 import static seedu.exercise.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.exercise.logic.commands.CommandTestUtil.showExerciseAtIndex;
 import static seedu.exercise.model.util.DefaultPropertyBookUtil.getDefaultPropertyBook;
-import static seedu.exercise.testutil.TypicalIndexes.INDEX_FIRST_EXERCISE;
-import static seedu.exercise.testutil.TypicalIndexes.INDEX_SECOND_EXERCISE;
-import static seedu.exercise.testutil.exercise.TypicalExercises.getTypicalExerciseBook;
+import static seedu.exercise.testutil.typicalutil.TypicalExercises.getTypicalExerciseBook;
+import static seedu.exercise.testutil.typicalutil.TypicalIndexes.INDEX_ONE_BASED_FIRST;
+import static seedu.exercise.testutil.typicalutil.TypicalIndexes.INDEX_ONE_BASED_SECOND;
 
 import org.junit.jupiter.api.Test;
 
@@ -32,8 +32,8 @@ public class DeleteExerciseCommandTest {
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
-        Exercise exerciseToDelete = model.getFilteredExerciseList().get(INDEX_FIRST_EXERCISE.getZeroBased());
-        DeleteExerciseCommand deleteExerciseCommand = new DeleteExerciseCommand(INDEX_FIRST_EXERCISE);
+        Exercise exerciseToDelete = model.getFilteredExerciseList().get(INDEX_ONE_BASED_FIRST.getZeroBased());
+        DeleteExerciseCommand deleteExerciseCommand = new DeleteExerciseCommand(INDEX_ONE_BASED_FIRST);
 
         String expectedMessage = String.format(DeleteExerciseCommand.MESSAGE_DELETE_EXERCISE_SUCCESS, exerciseToDelete);
 
@@ -55,10 +55,10 @@ public class DeleteExerciseCommandTest {
 
     @Test
     public void execute_validIndexFilteredList_success() {
-        showExerciseAtIndex(model, INDEX_FIRST_EXERCISE);
+        showExerciseAtIndex(model, INDEX_ONE_BASED_FIRST);
 
-        Exercise exerciseToDelete = model.getFilteredExerciseList().get(INDEX_FIRST_EXERCISE.getZeroBased());
-        DeleteExerciseCommand deleteExerciseCommand = new DeleteExerciseCommand(INDEX_FIRST_EXERCISE);
+        Exercise exerciseToDelete = model.getFilteredExerciseList().get(INDEX_ONE_BASED_FIRST.getZeroBased());
+        DeleteExerciseCommand deleteExerciseCommand = new DeleteExerciseCommand(INDEX_ONE_BASED_FIRST);
 
         String expectedMessage = String.format(DeleteExerciseCommand.MESSAGE_DELETE_EXERCISE_SUCCESS, exerciseToDelete);
 
@@ -72,9 +72,9 @@ public class DeleteExerciseCommandTest {
 
     @Test
     public void execute_invalidIndexFilteredList_throwsCommandException() {
-        showExerciseAtIndex(model, INDEX_FIRST_EXERCISE);
+        showExerciseAtIndex(model, INDEX_ONE_BASED_FIRST);
 
-        Index outOfBoundIndex = INDEX_SECOND_EXERCISE;
+        Index outOfBoundIndex = INDEX_ONE_BASED_SECOND;
         // ensures that outOfBoundIndex is still in bounds of exercise book list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getExerciseBookData().getResourceList().size());
 
@@ -85,14 +85,14 @@ public class DeleteExerciseCommandTest {
 
     @Test
     public void equals() {
-        DeleteExerciseCommand deleteFirstCommand = new DeleteExerciseCommand(INDEX_FIRST_EXERCISE);
-        DeleteExerciseCommand deleteSecondCommand = new DeleteExerciseCommand(INDEX_SECOND_EXERCISE);
+        DeleteExerciseCommand deleteFirstCommand = new DeleteExerciseCommand(INDEX_ONE_BASED_FIRST);
+        DeleteExerciseCommand deleteSecondCommand = new DeleteExerciseCommand(INDEX_ONE_BASED_SECOND);
 
         // same object -> returns true
         assertTrue(deleteFirstCommand.equals(deleteFirstCommand));
 
         // same values -> returns true
-        DeleteExerciseCommand deleteFirstCommandCopy = new DeleteExerciseCommand(INDEX_FIRST_EXERCISE);
+        DeleteExerciseCommand deleteFirstCommandCopy = new DeleteExerciseCommand(INDEX_ONE_BASED_FIRST);
         assertTrue(deleteFirstCommand.equals(deleteFirstCommandCopy));
 
         // different types -> returns false

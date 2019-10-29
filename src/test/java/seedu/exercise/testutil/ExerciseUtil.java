@@ -1,4 +1,4 @@
-package seedu.exercise.testutil.exercise;
+package seedu.exercise.testutil;
 
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_CALORIES;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_CATEGORY;

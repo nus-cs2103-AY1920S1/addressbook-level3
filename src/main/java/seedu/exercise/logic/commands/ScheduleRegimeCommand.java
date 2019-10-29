@@ -1,6 +1,7 @@
 package seedu.exercise.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.exercise.commons.util.CollectionUtil.requireAllNonNull;
 
 import seedu.exercise.MainApp;
 import seedu.exercise.commons.core.State;
@@ -27,6 +28,8 @@ public class ScheduleRegimeCommand extends ScheduleCommand {
     private Date dateToSchedule;
 
     public ScheduleRegimeCommand(Name regimeName, Date date) {
+        requireAllNonNull(regimeName, date);
+
         this.regime = new Regime(regimeName, new UniqueResourceList<>());
         dateToSchedule = date;
     }
@@ -45,6 +48,14 @@ public class ScheduleRegimeCommand extends ScheduleCommand {
         schedule(model, toSchedule);
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, regime.getRegimeName(), dateToSchedule));
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof ScheduleRegimeCommand // instanceof handles nulls
+                && regime.equals(((ScheduleRegimeCommand) other).regime)
+                && dateToSchedule.equals(((ScheduleRegimeCommand) other).dateToSchedule));
     }
 
     private void checkExistenceOfRegime(Model model) throws CommandException {

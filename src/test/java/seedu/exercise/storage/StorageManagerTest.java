@@ -2,7 +2,7 @@ package seedu.exercise.storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static seedu.exercise.testutil.exercise.TypicalExercises.getTypicalExerciseBook;
+import static seedu.exercise.testutil.typicalutil.TypicalExercises.getTypicalExerciseBook;
 
 import java.nio.file.Path;
 

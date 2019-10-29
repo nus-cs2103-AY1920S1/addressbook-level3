@@ -3,10 +3,10 @@ package seedu.exercise.storage;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static seedu.exercise.testutil.Assert.assertThrows;
-import static seedu.exercise.testutil.exercise.TypicalExercises.CLAP;
-import static seedu.exercise.testutil.exercise.TypicalExercises.SLAP;
-import static seedu.exercise.testutil.exercise.TypicalExercises.WALK;
-import static seedu.exercise.testutil.exercise.TypicalExercises.getTypicalExerciseBook;
+import static seedu.exercise.testutil.typicalutil.TypicalExercises.CLAP;
+import static seedu.exercise.testutil.typicalutil.TypicalExercises.SLAP;
+import static seedu.exercise.testutil.typicalutil.TypicalExercises.WALK;
+import static seedu.exercise.testutil.typicalutil.TypicalExercises.getTypicalExerciseBook;
 
 import java.io.IOException;
 import java.nio.file.Path;

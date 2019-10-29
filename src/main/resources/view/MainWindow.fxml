@@ -55,9 +55,7 @@
                     <center>
                         <BorderPane>
                             <top>
-                                <StackPane fx:id="resultPanelPlaceholder" BorderPane.alignment="CENTER" >
-                                        <Label text="Select an exercise to display its info"/>
-                                </StackPane>
+                                <StackPane fx:id="chartPlaceholder" BorderPane.alignment="CENTER"/>
                             </top>
                         </BorderPane>
                     </center>

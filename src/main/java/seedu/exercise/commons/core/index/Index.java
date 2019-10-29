@@ -9,6 +9,8 @@ package seedu.exercise.commons.core.index;
  * convert it back to an int if the index will not be passed to a different component again.
  */
 public class Index {
+
+    public static final String MESSAGE_CONSTRAINTS = "Index is not a non-zero unsigned integer.";
     private int zeroBasedIndex;
 
     /**
@@ -50,5 +52,10 @@ public class Index {
         return other == this // short circuit if same object
                 || (other instanceof Index // instanceof handles nulls
                 && zeroBasedIndex == ((Index) other).zeroBasedIndex); // state check
+    }
+
+    @Override
+    public int hashCode() {
+        return ((Integer) zeroBasedIndex).hashCode();
     }
 }

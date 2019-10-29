@@ -10,7 +10,7 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 import seedu.exercise.model.resource.NameContainsKeywordsPredicate;
-import seedu.exercise.testutil.exercise.ExerciseBuilder;
+import seedu.exercise.testutil.builder.ExerciseBuilder;
 
 public class NameContainsKeywordsPredicateTest {
 

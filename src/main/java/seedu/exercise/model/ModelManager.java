@@ -20,6 +20,8 @@ import seedu.exercise.commons.core.GuiSettings;
 import seedu.exercise.commons.core.LogsCenter;
 import seedu.exercise.commons.core.State;
 import seedu.exercise.commons.core.index.Index;
+import seedu.exercise.logic.commands.statistic.Statistic;
+import seedu.exercise.logic.commands.statistic.StatsFactory;
 import seedu.exercise.logic.parser.Prefix;
 import seedu.exercise.model.conflict.Conflict;
 import seedu.exercise.model.property.CustomProperty;
@@ -46,7 +48,7 @@ public class ModelManager implements Model {
     private final FilteredList<Regime> filteredRegimes;
     private final FilteredList<Schedule> filteredSchedules;
     private final ObservableList<Exercise> suggestions = FXCollections.observableArrayList();
-
+    private final Statistic statistic;
     private Conflict conflict;
 
     /**
@@ -68,6 +70,8 @@ public class ModelManager implements Model {
         filteredExercises = new FilteredList<>(this.exerciseBook.getResourceList());
         filteredRegimes = new FilteredList<>(this.regimeBook.getResourceList());
         filteredSchedules = new FilteredList<>(this.scheduleBook.getResourceList());
+        StatsFactory statsFactory = new StatsFactory(exerciseBook, "linechart", "calories", null, null);
+        this.statistic = statsFactory.getDefaultStatistic();
 
         this.propertyBook = propertyBook;
         this.propertyBook.updatePropertyPrefixes();
@@ -214,6 +218,12 @@ public class ModelManager implements Model {
     public void addSchedule(Schedule schedule) {
         requireNonNull(schedule);
         scheduleBook.addResource(schedule);
+    }
+
+    @Override
+    public void removeSchedule(Schedule schedule) {
+        requireNonNull(schedule);
+        scheduleBook.removeResource(schedule);
     }
 
     @Override
@@ -377,6 +387,26 @@ public class ModelManager implements Model {
         allSuggestions.addAll(trackedExercises);
         allSuggestions.addAll(databaseExercises);
         return allSuggestions;
+    }
+
+    @Override
+    public void updateStatistic() {
+        ReadOnlyResourceBook<Exercise> exercises = getExerciseBookData();
+        Statistic outdatedStatistic = getStatistic();
+        StatsFactory statsFactory = new StatsFactory(exercises, outdatedStatistic.getChart(),
+                outdatedStatistic.getCategory(), outdatedStatistic.getStartDate(), outdatedStatistic.getEndDate());
+        Statistic statistic = statsFactory.generateStatistic();
+        this.statistic.resetData(statistic);
+    }
+
+    @Override
+    public void setStatistic(Statistic statistic) {
+        this.statistic.resetData(statistic);
+    }
+
+    @Override
+    public Statistic getStatistic() {
+        return statistic;
     }
 
     @Override

@@ -29,7 +29,7 @@ public class UndoCommand extends Command {
         }
 
         Event eventToUndo = eventHistory.undo(model);
+        model.updateStatistic();
         return new CommandResult(String.format(MESSAGE_SUCCESS, eventToUndo));
     }
-
 }

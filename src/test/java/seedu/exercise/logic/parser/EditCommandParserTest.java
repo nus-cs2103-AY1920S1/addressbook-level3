@@ -1,38 +1,38 @@
 package seedu.exercise.logic.parser;
 
 import static seedu.exercise.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.exercise.logic.commands.CommandTestUtil.CALORIES_DESC_AEROBICS;
-import static seedu.exercise.logic.commands.CommandTestUtil.CALORIES_DESC_BASKETBALL;
-import static seedu.exercise.logic.commands.CommandTestUtil.DATE_DESC_AEROBICS;
-import static seedu.exercise.logic.commands.CommandTestUtil.DATE_DESC_BASKETBALL;
-import static seedu.exercise.logic.commands.CommandTestUtil.INVALID_CALORIES_DESC;
-import static seedu.exercise.logic.commands.CommandTestUtil.INVALID_DATE_DESC;
-import static seedu.exercise.logic.commands.CommandTestUtil.INVALID_MUSCLE_DESC;
-import static seedu.exercise.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
-import static seedu.exercise.logic.commands.CommandTestUtil.INVALID_QUANTITY_DESC;
-import static seedu.exercise.logic.commands.CommandTestUtil.INVALID_UNIT_DESC;
-import static seedu.exercise.logic.commands.CommandTestUtil.MUSCLE_DESC_AEROBICS;
-import static seedu.exercise.logic.commands.CommandTestUtil.MUSCLE_DESC_BASKETBALL;
-import static seedu.exercise.logic.commands.CommandTestUtil.NAME_DESC_AEROBICS;
-import static seedu.exercise.logic.commands.CommandTestUtil.QUANTITY_DESC_AEROBICS;
-import static seedu.exercise.logic.commands.CommandTestUtil.QUANTITY_DESC_BASKETBALL;
-import static seedu.exercise.logic.commands.CommandTestUtil.UNIT_DESC_AEROBICS;
-import static seedu.exercise.logic.commands.CommandTestUtil.VALID_CALORIES_AEROBICS;
-import static seedu.exercise.logic.commands.CommandTestUtil.VALID_CALORIES_BASKETBALL;
-import static seedu.exercise.logic.commands.CommandTestUtil.VALID_DATE_AEROBICS;
-import static seedu.exercise.logic.commands.CommandTestUtil.VALID_DATE_BASKETBALL;
-import static seedu.exercise.logic.commands.CommandTestUtil.VALID_MUSCLE_AEROBICS;
-import static seedu.exercise.logic.commands.CommandTestUtil.VALID_MUSCLE_BASKETBALL;
-import static seedu.exercise.logic.commands.CommandTestUtil.VALID_NAME_AEROBICS;
-import static seedu.exercise.logic.commands.CommandTestUtil.VALID_QUANTITY_AEROBICS;
-import static seedu.exercise.logic.commands.CommandTestUtil.VALID_QUANTITY_BASKETBALL;
-import static seedu.exercise.logic.commands.CommandTestUtil.VALID_UNIT_AEROBICS;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_MUSCLE;
 import static seedu.exercise.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.exercise.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.exercise.testutil.TypicalIndexes.INDEX_FIRST_EXERCISE;
-import static seedu.exercise.testutil.TypicalIndexes.INDEX_SECOND_EXERCISE;
-import static seedu.exercise.testutil.TypicalIndexes.INDEX_THIRD_EXERCISE;
+import static seedu.exercise.testutil.CommonTestData.CALORIES_DESC_AEROBICS;
+import static seedu.exercise.testutil.CommonTestData.CALORIES_DESC_BASKETBALL;
+import static seedu.exercise.testutil.CommonTestData.DATE_DESC_AEROBICS;
+import static seedu.exercise.testutil.CommonTestData.DATE_DESC_BASKETBALL;
+import static seedu.exercise.testutil.CommonTestData.INVALID_CALORIES_DESC;
+import static seedu.exercise.testutil.CommonTestData.INVALID_DATE_DESC;
+import static seedu.exercise.testutil.CommonTestData.INVALID_MUSCLE_DESC;
+import static seedu.exercise.testutil.CommonTestData.INVALID_NAME_DESC;
+import static seedu.exercise.testutil.CommonTestData.INVALID_QUANTITY_DESC;
+import static seedu.exercise.testutil.CommonTestData.INVALID_UNIT_DESC;
+import static seedu.exercise.testutil.CommonTestData.MUSCLE_DESC_AEROBICS;
+import static seedu.exercise.testutil.CommonTestData.MUSCLE_DESC_BASKETBALL;
+import static seedu.exercise.testutil.CommonTestData.NAME_DESC_AEROBICS;
+import static seedu.exercise.testutil.CommonTestData.QUANTITY_DESC_AEROBICS;
+import static seedu.exercise.testutil.CommonTestData.QUANTITY_DESC_BASKETBALL;
+import static seedu.exercise.testutil.CommonTestData.UNIT_DESC_AEROBICS;
+import static seedu.exercise.testutil.CommonTestData.VALID_CALORIES_AEROBICS;
+import static seedu.exercise.testutil.CommonTestData.VALID_CALORIES_BASKETBALL;
+import static seedu.exercise.testutil.CommonTestData.VALID_DATE_AEROBICS;
+import static seedu.exercise.testutil.CommonTestData.VALID_DATE_BASKETBALL;
+import static seedu.exercise.testutil.CommonTestData.VALID_MUSCLE_AEROBICS;
+import static seedu.exercise.testutil.CommonTestData.VALID_MUSCLE_BASKETBALL;
+import static seedu.exercise.testutil.CommonTestData.VALID_NAME_AEROBICS;
+import static seedu.exercise.testutil.CommonTestData.VALID_QUANTITY_AEROBICS;
+import static seedu.exercise.testutil.CommonTestData.VALID_QUANTITY_BASKETBALL;
+import static seedu.exercise.testutil.CommonTestData.VALID_UNIT_AEROBICS;
+import static seedu.exercise.testutil.typicalutil.TypicalIndexes.INDEX_ONE_BASED_FIRST;
+import static seedu.exercise.testutil.typicalutil.TypicalIndexes.INDEX_ONE_BASED_SECOND;
+import static seedu.exercise.testutil.typicalutil.TypicalIndexes.INDEX_ONE_BASED_THIRD;
 
 import org.junit.jupiter.api.Test;
 
@@ -45,7 +45,7 @@ import seedu.exercise.model.property.Muscle;
 import seedu.exercise.model.property.Name;
 import seedu.exercise.model.property.Quantity;
 import seedu.exercise.model.property.Unit;
-import seedu.exercise.testutil.exercise.EditExerciseDescriptorBuilder;
+import seedu.exercise.testutil.builder.EditExerciseDescriptorBuilder;
 
 public class EditCommandParserTest {
 
@@ -117,7 +117,7 @@ public class EditCommandParserTest {
 
     @Test
     public void parse_allFieldsSpecified_success() {
-        Index targetIndex = INDEX_SECOND_EXERCISE;
+        Index targetIndex = INDEX_ONE_BASED_SECOND;
         String userInput = targetIndex.getOneBased() + DATE_DESC_BASKETBALL + MUSCLE_DESC_AEROBICS + UNIT_DESC_AEROBICS
             + CALORIES_DESC_AEROBICS + QUANTITY_DESC_AEROBICS + NAME_DESC_AEROBICS + MUSCLE_DESC_BASKETBALL;
 
@@ -133,7 +133,7 @@ public class EditCommandParserTest {
 
     @Test
     public void parse_someFieldsSpecified_success() {
-        Index targetIndex = INDEX_FIRST_EXERCISE;
+        Index targetIndex = INDEX_ONE_BASED_FIRST;
         String userInput = targetIndex.getOneBased() + DATE_DESC_BASKETBALL + CALORIES_DESC_AEROBICS;
 
         EditExerciseDescriptor descriptor = new EditExerciseDescriptorBuilder().withDate(VALID_DATE_BASKETBALL)
@@ -146,7 +146,7 @@ public class EditCommandParserTest {
     @Test
     public void parse_oneFieldSpecified_success() {
         // name
-        Index targetIndex = INDEX_THIRD_EXERCISE;
+        Index targetIndex = INDEX_ONE_BASED_THIRD;
         String userInput = targetIndex.getOneBased() + NAME_DESC_AEROBICS;
         EditCommand.EditExerciseDescriptor descriptor = new EditExerciseDescriptorBuilder()
             .withName(VALID_NAME_AEROBICS).build();
@@ -186,7 +186,7 @@ public class EditCommandParserTest {
 
     @Test
     public void parse_multipleRepeatedFields_acceptsLast() {
-        Index targetIndex = INDEX_FIRST_EXERCISE;
+        Index targetIndex = INDEX_ONE_BASED_FIRST;
         String userInput = targetIndex.getOneBased() + DATE_DESC_AEROBICS + QUANTITY_DESC_AEROBICS
             + CALORIES_DESC_AEROBICS + MUSCLE_DESC_BASKETBALL + DATE_DESC_AEROBICS
             + QUANTITY_DESC_AEROBICS + CALORIES_DESC_AEROBICS + MUSCLE_DESC_BASKETBALL
@@ -204,7 +204,7 @@ public class EditCommandParserTest {
     @Test
     public void parse_invalidValueFollowedByValidValue_success() {
         // no other valid values specified
-        Index targetIndex = INDEX_FIRST_EXERCISE;
+        Index targetIndex = INDEX_ONE_BASED_FIRST;
         String userInput = targetIndex.getOneBased() + INVALID_DATE_DESC + DATE_DESC_BASKETBALL;
         EditExerciseDescriptor descriptor =
             new EditExerciseDescriptorBuilder().withDate(VALID_DATE_BASKETBALL).build();
@@ -222,7 +222,7 @@ public class EditCommandParserTest {
 
     @Test
     public void parse_resetTags_success() {
-        Index targetIndex = INDEX_THIRD_EXERCISE;
+        Index targetIndex = INDEX_ONE_BASED_THIRD;
         String userInput = targetIndex.getOneBased() + TAG_EMPTY;
 
         EditCommand.EditExerciseDescriptor descriptor = new EditExerciseDescriptorBuilder().withMuscles().build();

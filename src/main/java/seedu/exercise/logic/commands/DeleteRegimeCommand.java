@@ -6,6 +6,7 @@ import static seedu.exercise.logic.commands.events.EditRegimeEvent.KEY_EDITED_RE
 import static seedu.exercise.logic.commands.events.EditRegimeEvent.KEY_IS_REGIME_EDITED;
 import static seedu.exercise.logic.commands.events.EditRegimeEvent.KEY_ORIGINAL_REGIME;
 
+import java.util.HashSet;
 import java.util.List;
 
 import seedu.exercise.commons.core.Messages;
@@ -27,6 +28,7 @@ public class DeleteRegimeCommand extends DeleteCommand implements PayloadCarrier
     public static final String MESSAGE_DELETE_REGIME_SUCCESS = "Deleted Regime: %1$s\n%2$s";
     public static final String MESSAGE_REGIME_DOES_NOT_EXIST = "No such regime in regime book.";
     public static final String MESSAGE_DELETE_EXERCISE_IN_REGIME_SUCCESS = "Deleted exercises in regime.";
+    public static final String MESSAGE_DUPLICATE_INDEX = "There is duplicate index.";
     public static final String RESOURCE_TYPE = "regime";
 
     private final List<Index> indexes;
@@ -85,6 +87,7 @@ public class DeleteRegimeCommand extends DeleteCommand implements PayloadCarrier
         Regime editedRegime = originalRegime.deepCopy();
         List<Exercise> currentExerciseList = originalRegime.getRegimeExercises().asUnmodifiableObservableList();
         checkValidIndexes(indexes, currentExerciseList);
+        checkDuplicateIndexes(indexes);
 
         for (Index targetIndex : indexes) {
             Exercise exerciseToDelete = currentExerciseList.get(targetIndex.getZeroBased());
@@ -122,6 +125,18 @@ public class DeleteRegimeCommand extends DeleteCommand implements PayloadCarrier
             if (targetIndex.getZeroBased() >= exerciseList.size()) {
                 throw new CommandException(Messages.MESSAGE_INVALID_EXERCISE_DISPLAYED_INDEX);
             }
+        }
+    }
+
+    /**
+     * Checks whether the given indexes contain duplicates.
+     *
+     * @throws CommandException If a duplicate index is found
+     */
+    private void checkDuplicateIndexes(List<Index> indexes) throws CommandException {
+        HashSet<Index> set = new HashSet<>(indexes);
+        if (set.size() < indexes.size()) {
+            throw new CommandException(MESSAGE_DUPLICATE_INDEX);
         }
     }
 

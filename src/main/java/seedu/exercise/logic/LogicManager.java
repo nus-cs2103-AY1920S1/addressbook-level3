@@ -16,6 +16,7 @@ import seedu.exercise.logic.commands.Command;
 import seedu.exercise.logic.commands.CommandResult;
 import seedu.exercise.logic.commands.ResolveCommand;
 import seedu.exercise.logic.commands.exceptions.CommandException;
+import seedu.exercise.logic.commands.statistic.Statistic;
 import seedu.exercise.logic.parser.ExerciseBookParser;
 import seedu.exercise.logic.parser.exceptions.ParseException;
 import seedu.exercise.model.Model;
@@ -114,9 +115,15 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public Statistic getStatistic() {
+        return model.getStatistic();
+    }
+
+    @Override
     public Conflict getConflict() {
         requireMainAppState(State.IN_CONFLICT);
         return model.getConflict();
+
     }
 
     /**

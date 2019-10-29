@@ -3,7 +3,7 @@ package seedu.exercise.storage;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.exercise.storage.resource.JsonAdaptedExercise.MISSING_FIELD_MESSAGE_FORMAT;
 import static seedu.exercise.testutil.Assert.assertThrows;
-import static seedu.exercise.testutil.exercise.TypicalExercises.SWIM;
+import static seedu.exercise.testutil.typicalutil.TypicalExercises.SWIM;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -5,6 +5,9 @@ import static seedu.exercise.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.exercise.MainApp;
+import seedu.exercise.commons.core.State;
+
 public class AppUtilTest {
 
     @Test
@@ -32,5 +35,25 @@ public class AppUtilTest {
     public void checkArgument_falseWithErrorMessage_throwsIllegalArgumentException() {
         String errorMessage = "error message";
         assertThrows(IllegalArgumentException.class, errorMessage, () -> AppUtil.checkArgument(false, errorMessage));
+    }
+
+    @Test
+    public void requireMainAppState_nullGiven_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> AppUtil.requireMainAppState(null));
+    }
+
+    @Test
+    public void requireMainAppState_sameState_nothingHappens() {
+        //Static methods cannot be overridden and the setState method is simple enough to use it here
+        MainApp.setState(State.NORMAL);
+        AppUtil.requireMainAppState(State.NORMAL);
+    }
+
+    @Test
+    public void requireMainAppState_differentState_throwsIllegalStateException() {
+        MainApp.setState(State.NORMAL);
+        assertThrows(IllegalStateException.class,
+                String.format(AppUtil.UNEXPECTED_STATE,
+                        State.IN_CONFLICT.toString()), () -> AppUtil.requireMainAppState(State.IN_CONFLICT));
     }
 }
