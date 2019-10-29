@@ -248,7 +248,7 @@ public class MainWindow extends UiPart<Stage> {
         reminderListPlaceholder.getChildren().add(reminderListPanel.getRoot());
         logic.schedule();
 
-        motivationalQuotesLabel = new MotivationalQuotesLabel(logic.getMotivationalQuotesList());
+        motivationalQuotesLabel = new MotivationalQuotesLabel(logic.getMotivationalQuotesList(), primaryStage);
         motivationalQuotesPlaceholder.getChildren().add(motivationalQuotesLabel.getRoot());
     }
 

@@ -22,7 +22,6 @@ public class MotivationalQuotes {
             "A world free of diabetes is not our dream, it’s our pledge. -Anonymous",
             "Never give up on your determination to fight and win against diabetes. -Anonymous",
             "Duck the highs, duck the lows, duck the diabetes. -Anonymous",
-            "Diabetes is a lousy, lousy disease. -Elaine Stritch",
             "Diabetes is the silent killer which kills part by part of our life. -Anonymous",
             "Don’t mistake my bad days as a sign of weakness those are actually the days I am fighting diabetes with "
                     + "everything I’ve got! -Anonymous",
