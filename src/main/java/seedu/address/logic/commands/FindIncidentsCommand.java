@@ -24,7 +24,8 @@ public class FindIncidentsCommand extends Command {
     public static final String COMMAND_WORD = "find-i";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Searches all incidents for which IDs match exactly "
-            + "or description contains any of the specified keywords (case-insensitive) and displays them as a list "
+            + "or description contains the first specified keyword under the relevant parameter and displays them as "
+            + "a list "
             + "with index numbers.\n"
             + "Parameters: "
             + SEARCH_PREFIX_ID + "<ID> OR "
