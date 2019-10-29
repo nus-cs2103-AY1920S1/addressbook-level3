@@ -10,6 +10,7 @@ import seedu.address.logic.parser.Prefix;
 import seedu.address.model.Model;
 import seedu.address.model.group.Group;
 import seedu.address.model.group.GroupName;
+import seedu.address.model.group.exceptions.GroupNotFoundException;
 
 /**
  * Provides suggestions for the {@link Prefix}es of the {@link seedu.address.logic.commands.EditGroupCommand}.
@@ -27,7 +28,12 @@ public class EditGroupCommandSuggester extends Suggester {
         }
 
         final GroupName groupName = new GroupName(groupNameInput.get());
-        final Group group = model.findGroup(groupName);
+        Group group = null;
+        try {
+            group = model.findGroup(groupName);
+        } catch (GroupNotFoundException e) {
+            e.printStackTrace();
+        }
 
         return Optional.ofNullable(group);
     }

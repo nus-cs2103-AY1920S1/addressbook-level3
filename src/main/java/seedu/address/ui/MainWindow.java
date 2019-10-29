@@ -296,22 +296,22 @@ public class MainWindow extends UiPart<Stage> {
             DetailWindowDisplay detailWindowDisplay = logic.getMainWindowDisplay();
             DetailWindowDisplayType displayType = detailWindowDisplay.getDetailWindowDisplayType();
             ArrayList<String> colors = ColorGenerator
-                    .generateColorList(detailWindowDisplay.getWeekSchedules().size());
+                    .generateColorList(detailWindowDisplay.getPersonSchedules().size());
             switch(displayType) {
             case PERSON:
                 //There is only 1 schedule in the detailWindowDisplay
-                ScheduleView personScheduleView = new ScheduleView(detailWindowDisplay.getWeekSchedules().get(0));
+                ScheduleView personScheduleView = new ScheduleView(detailWindowDisplay.getPersonSchedules().get(0));
                 handleChangeOnDetailsView(personScheduleView.getRoot());
                 handleSidePanelChange(
                         new PersonDetailCard(detailWindowDisplay
-                                .getWeekSchedules()
+                                .getPersonSchedules()
                                 .get(0)
                                 .getPersonDisplay())
                                 .getRoot());
                 scheduleView = personScheduleView;
                 break;
             case GROUP:
-                ScheduleView groupScheduleView = new ScheduleView(detailWindowDisplay.getWeekSchedules(),
+                ScheduleView groupScheduleView = new ScheduleView(detailWindowDisplay.getPersonSchedules(),
                         colors,
                         detailWindowDisplay.getGroupDisplay().getGroupName(), detailWindowDisplay.getFreeSchedule());
                 handleChangeOnDetailsView(groupScheduleView.getRoot());

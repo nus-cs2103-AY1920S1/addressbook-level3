@@ -26,6 +26,8 @@ import seedu.address.model.module.NusModsShareLink;
 import seedu.address.model.module.exceptions.ModuleNotFoundException;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.exceptions.EventClashException;
+import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.model.person.schedule.Event;
 
 /**
@@ -64,8 +66,10 @@ public class AddNusModsCommand extends Command {
         requireNonNull(model);
         AcadYear acadYear = model.getAcadYear();
 
-        Person person = model.findPerson(name);
-        if (person == null) {
+        Person person = null;
+        try {
+            person = model.findPerson(name);
+        } catch (PersonNotFoundException e) {
             return new CommandResult(MESSAGE_PERSON_NOT_FOUND);
         }
 
@@ -93,12 +97,24 @@ public class AddNusModsCommand extends Command {
             return new CommandResult(MESSAGE_MODULES_CLASH);
         }
         for (Event event : eventsToAdd) {
-            if (model.isEventClash(name, event)) {
-                return new CommandResult(MESSAGE_EVENTS_CLASH);
+            try {
+                if (model.isEventClash(name, event)) {
+                    return new CommandResult(MESSAGE_EVENTS_CLASH);
+                }
+            } catch (PersonNotFoundException e) {
+                return new CommandResult(MESSAGE_PERSON_NOT_FOUND);
             }
+
         }
         for (Event event : eventsToAdd) {
-            model.addEvent(name, event);
+            try {
+                model.addEvent(name, event);
+
+            } catch (PersonNotFoundException e) {
+                return new CommandResult(MESSAGE_PERSON_NOT_FOUND);
+            } catch (EventClashException e) {
+                return new CommandResult(MESSAGE_EVENTS_CLASH);
+            }
         }
 
         // updates UI
@@ -111,6 +127,7 @@ public class AddNusModsCommand extends Command {
     /**
      * Checks if modules have clashing timeslots between one another.
      */
+
     private boolean checkClashingModuleEvents(ArrayList<Event> eventsToAdd) {
         for (int i = 0; i < eventsToAdd.size() - 1; i++) {
             Event event = eventsToAdd.get(i);
@@ -123,6 +140,7 @@ public class AddNusModsCommand extends Command {
         }
         return false;
     }
+
 
     @Override
     public boolean equals(Command command) {

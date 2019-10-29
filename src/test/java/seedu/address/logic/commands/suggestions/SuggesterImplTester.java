@@ -25,8 +25,11 @@ import seedu.address.logic.parser.Prefix;
 import seedu.address.model.ModelManager;
 import seedu.address.model.group.Group;
 import seedu.address.model.group.GroupName;
+import seedu.address.model.group.exceptions.DuplicateGroupException;
+import seedu.address.model.mapping.exceptions.DuplicateMappingException;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.testutil.grouputil.TypicalGroups;
 import seedu.address.testutil.modelutil.TypicalModel;
 import seedu.address.testutil.personutil.TypicalPersonDescriptor;
@@ -112,7 +115,7 @@ abstract class SuggesterImplTester {
     }
 
     @BeforeEach
-    void setUp() {
+    void setUp() throws DuplicateMappingException, DuplicatePersonException, DuplicateGroupException {
         model = TypicalModel.generateTypicalModel();
         suggester = createSuggester.get();
     }

@@ -8,13 +8,13 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.util.CollectionUtil;
-import seedu.address.logic.parser.AddressBookParser;
-import seedu.address.logic.parser.AddressBookParser.CommandTokens;
 import seedu.address.logic.parser.ArgumentList;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.CommandArgument;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.SuggestingCommandUtil;
+import seedu.address.logic.parser.TimeBookParser;
+import seedu.address.logic.parser.TimeBookParser.CommandTokens;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.ui.SuggestingCommandBox.SuggestionLogic;
@@ -56,7 +56,7 @@ public class SuggestionLogicManager implements SuggestionLogic {
 
         final CommandTokens commandTokens;
         try {
-            commandTokens = AddressBookParser.tokenizeCommand(commandText);
+            commandTokens = TimeBookParser.tokenizeCommand(commandText);
         } catch (ParseException e) {
             return EMPTY_LIST;
         }
@@ -92,7 +92,7 @@ public class SuggestionLogicManager implements SuggestionLogic {
 
         final CommandTokens commandTokens;
         try {
-            commandTokens = AddressBookParser.tokenizeCommand(commandText);
+            commandTokens = TimeBookParser.tokenizeCommand(commandText);
         } catch (ParseException e) {
             return SelectionResult.of(commandText, caretPosition);
         }

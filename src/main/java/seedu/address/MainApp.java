@@ -15,21 +15,17 @@ import seedu.address.commons.util.ConfigUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
-import seedu.address.model.AddressBook;
 import seedu.address.model.GmapsModelManager;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.NusModsData;
-import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.TimeBook;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.module.AcadCalendar;
 import seedu.address.model.module.Holidays;
 import seedu.address.model.module.ModuleSummaryList;
-import seedu.address.model.util.SampleDataUtil;
-import seedu.address.storage.AddressBookStorage;
-import seedu.address.storage.JsonAddressBookStorage;
+import seedu.address.model.util.SampleTimeBook;
 import seedu.address.storage.JsonTimeBookStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.Storage;
@@ -57,7 +53,7 @@ public class MainApp extends Application {
 
     @Override
     public void init() throws Exception {
-        logger.info("=============================[ Initializing AddressBook ]===========================");
+        logger.info("=============================[ Initializing TimeBook ]===========================");
         super.init();
 
         AppParameters appParameters = AppParameters.parse(getParameters());
@@ -65,9 +61,8 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
-        AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
         TimeBookStorage timeBookStorage = new JsonTimeBookStorage(userPrefs.getTimeBookFilePath());
-        storage = new StorageManager(addressBookStorage, userPrefsStorage, timeBookStorage);
+        storage = new StorageManager(userPrefsStorage, timeBookStorage);
 
         initLogging(config);
 
@@ -85,24 +80,6 @@ public class MainApp extends Application {
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
 
-        // legacy code: to be deleted
-        Optional<ReadOnlyAddressBook> addressBookOptional;
-        ReadOnlyAddressBook initialData;
-        try {
-            addressBookOptional = storage.readAddressBook();
-            if (!addressBookOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with a sample AddressBook");
-            }
-            initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
-        } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
-            initialData = new AddressBook();
-        } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
-            initialData = new AddressBook();
-        }
-
-
         Optional<TimeBook> timeBookOptional;
         TimeBook timeBook;
 
@@ -111,9 +88,9 @@ public class MainApp extends Application {
             if (!timeBookOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with an empty timebook");
             }
-            timeBook = timeBookOptional.orElse(new TimeBook());
+            timeBook = timeBookOptional.orElse(SampleTimeBook.generateSampleTimeBook());
         } catch (Exception e) {
-            timeBook = new TimeBook();
+            timeBook = SampleTimeBook.generateSampleTimeBook();
             logger.severe("Failed to load TimeBook, starting with a new instance");
         }
 
@@ -121,7 +98,7 @@ public class MainApp extends Application {
 
         GmapsModelManager gmapsModelManager = new GmapsModelManager();
 
-        return new ModelManager(initialData, timeBook, nusModsData, userPrefs, gmapsModelManager);
+        return new ModelManager(timeBook, userPrefs, nusModsData, gmapsModelManager);
     }
 
     /**
@@ -230,7 +207,7 @@ public class MainApp extends Application {
 
     @Override
     public void stop() {
-        logger.info("============================ [ Stopping Address Book ] =============================");
+        logger.info("============================ [ Stopping TimeBook ] =============================");
         try {
             storage.saveUserPrefs(model.getUserPrefs());
         } catch (IOException e) {

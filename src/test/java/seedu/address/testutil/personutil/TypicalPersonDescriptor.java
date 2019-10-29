@@ -2,6 +2,7 @@ package seedu.address.testutil.personutil;
 
 import seedu.address.model.person.PersonDescriptor;
 import seedu.address.model.person.PersonList;
+import seedu.address.model.person.exceptions.DuplicatePersonException;
 
 /**
  * Typical person descriptors.
@@ -55,7 +56,7 @@ public class TypicalPersonDescriptor {
      *
      * @return PersonList
      */
-    public static PersonList generateTypicalPersonList() {
+    public static PersonList generateTypicalPersonList() throws DuplicatePersonException {
         PersonList personList = new PersonList();
         personList.addPerson(ALICE);
         personList.addPerson(BENSON);

@@ -76,7 +76,8 @@ public class ShowNusModCommand extends Command {
         private AcadYear acadYear;
         private SemesterNo semesterNo;
 
-        public ShowNusModCommandOptions() {}
+        public ShowNusModCommandOptions() {
+        }
 
         public Optional<AcadYear> getAcadYear() {
             return Optional.ofNullable(acadYear);

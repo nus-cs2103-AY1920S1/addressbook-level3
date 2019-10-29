@@ -10,8 +10,12 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.ModelManager;
+import seedu.address.model.group.exceptions.DuplicateGroupException;
+import seedu.address.model.mapping.exceptions.DuplicateMappingException;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.PersonDescriptor;
+import seedu.address.model.person.exceptions.DuplicatePersonException;
+import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.testutil.modelutil.TypicalModel;
 
 class EditPersonCommandTest {
@@ -19,7 +23,7 @@ class EditPersonCommandTest {
     private ModelManager model;
 
     @BeforeEach
-    void init() {
+    void init() throws DuplicateMappingException, DuplicatePersonException, DuplicateGroupException {
         model = TypicalModel.generateTypicalModel();
     }
 
@@ -39,14 +43,14 @@ class EditPersonCommandTest {
     }
 
     @Test
-    void execute_success() throws CommandException {
+    void execute_success() throws CommandException, PersonNotFoundException {
         Person person = model.findPerson(ALICE.getName());
 
         CommandResult actualCommandResult =
                 new EditPersonCommand(ALICE.getName(), ZACK).execute(model);
 
         CommandResult expectedCommandResult =
-                new CommandResult(EditPersonCommand.MESSAGE_SUCCESS + person.details());
+                new CommandResult(String.format(EditPersonCommand.MESSAGE_SUCCESS, ALICE.getName().toString()));
 
         assertTrue(actualCommandResult.equals(expectedCommandResult));
     }
@@ -57,7 +61,8 @@ class EditPersonCommandTest {
                 new EditPersonCommand(ALICE.getName(), new PersonDescriptor()).execute(model);
 
         CommandResult expectedCommandResult =
-                new CommandResult(EditPersonCommand.MESSAGE_NOT_EDITED);
+                new CommandResult(String.format(EditPersonCommand.MESSAGE_FAILURE,
+                        EditPersonCommand.MESSAGE_NOT_EDITED));
 
         assertTrue(actualCommandResult.equals(expectedCommandResult));
     }
@@ -68,7 +73,8 @@ class EditPersonCommandTest {
                 new EditPersonCommand(ZACK.getName(), ALICE).execute(model);
 
         CommandResult expectedCommandResult =
-                new CommandResult(EditPersonCommand.MESSAGE_FAILURE);
+                new CommandResult(String.format(EditPersonCommand.MESSAGE_FAILURE,
+                        EditPersonCommand.MESSAGE_PERSON_NOT_FOUND));
 
         assertTrue(actualCommandResult.equals(expectedCommandResult));
     }

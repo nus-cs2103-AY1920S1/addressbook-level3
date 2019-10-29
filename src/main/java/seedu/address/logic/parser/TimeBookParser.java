@@ -19,6 +19,7 @@ import seedu.address.logic.commands.DeleteGroupCommand;
 import seedu.address.logic.commands.DeletePersonCommand;
 import seedu.address.logic.commands.EditGroupCommand;
 import seedu.address.logic.commands.EditPersonCommand;
+import seedu.address.logic.commands.EditUserCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.ExportCommand;
 import seedu.address.logic.commands.FindGroupCommand;
@@ -36,7 +37,8 @@ import seedu.address.logic.parser.exceptions.ParseException;
 /**
  * Parses user input.
  */
-public class AddressBookParser {
+public class TimeBookParser {
+
     /**
      * Represents the two parts of a command: its {@code commandWord} and {@code arguments}.
      */
@@ -158,6 +160,10 @@ public class AddressBookParser {
 
         case PopupCommand.COMMAND_WORD:
             return new PopupCommand();
+
+        case EditUserCommand.COMMAND_WORD:
+            return new EditUserCommandParser().parse(arguments);
+
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

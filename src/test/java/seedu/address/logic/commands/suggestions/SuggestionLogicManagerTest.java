@@ -12,6 +12,9 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.ModelManager;
+import seedu.address.model.group.exceptions.DuplicateGroupException;
+import seedu.address.model.mapping.exceptions.DuplicateMappingException;
+import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.testutil.modelutil.TypicalModel;
 import seedu.address.ui.SuggestingCommandBox.SuggestionLogic;
 import seedu.address.ui.SuggestingCommandBox.SuggestionLogic.SelectionResult;
@@ -27,7 +30,7 @@ class SuggestionLogicManagerTest {
     private SuggestionLogic suggestionLogic;
 
     @BeforeEach
-    void init() {
+    void init() throws DuplicateMappingException, DuplicatePersonException, DuplicateGroupException {
         model = TypicalModel.generateTypicalModel();
         suggestionLogic = new SuggestionLogicManager(model, COMMAND_WORDS);
     }

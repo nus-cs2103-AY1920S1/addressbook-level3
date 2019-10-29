@@ -1,9 +1,9 @@
 package seedu.address.model.mapping;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.mappingutil.TypicalMappings.MAP00;
 import static seedu.address.testutil.mappingutil.TypicalMappings.MAP01;
@@ -17,6 +17,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.model.group.GroupId;
+import seedu.address.model.mapping.exceptions.DuplicateMappingException;
+import seedu.address.model.mapping.exceptions.MappingNotFoundException;
 import seedu.address.model.person.PersonId;
 import seedu.address.testutil.mappingutil.TypicalMappings;
 
@@ -30,18 +32,18 @@ class PersonToGroupMappingListTest {
     }
 
     @Test
-    void addPersonToGroupMapping() {
+    void addPersonToGroupMapping() throws DuplicateMappingException {
         // add new mappings -> true
-        assertTrue(mappingList.addPersonToGroupMapping(MAP00));
-        assertTrue(mappingList.addPersonToGroupMapping(MAP01));
+        assertDoesNotThrow(() -> mappingList.addPersonToGroupMapping(MAP00));
+        assertDoesNotThrow(() -> mappingList.addPersonToGroupMapping(MAP01));
 
         //add mappings that are already in maplist -> false
-        assertFalse(mappingList.addPersonToGroupMapping(MAP00));
-        assertFalse(mappingList.addPersonToGroupMapping(MAP01));
+        assertThrows(DuplicateMappingException.class, () -> mappingList.addPersonToGroupMapping(MAP00));
+        assertThrows(DuplicateMappingException.class, () -> mappingList.addPersonToGroupMapping(MAP01));
     }
 
     @Test
-    void findPersonToGroupMapping() {
+    void findPersonToGroupMapping() throws DuplicateMappingException, MappingNotFoundException {
         mappingList.addPersonToGroupMapping(MAP00);
         PersonToGroupMapping map = mappingList.findPersonToGroupMapping(MAP00.getPersonId(), MAP00.getGroupId());
 
@@ -55,53 +57,58 @@ class PersonToGroupMappingListTest {
     }
 
     @Test
-    void deletePersonToGroupMapping() {
+    void deletePersonToGroupMapping() throws DuplicateMappingException, MappingNotFoundException {
         mappingList.addPersonToGroupMapping(MAP00);
 
         // delete a map in the list -> true
-        assertTrue(mappingList.deletePersonToGroupMapping(MAP00));
+        assertDoesNotThrow(() -> mappingList.deletePersonToGroupMapping(MAP00));
 
         // delete a map not in the list -> false
-        assertFalse(mappingList.deletePersonToGroupMapping(MAP00));
-        assertFalse(mappingList.deletePersonToGroupMapping(MAP22));
+        assertThrows(MappingNotFoundException.class, () -> mappingList.deletePersonToGroupMapping(MAP00));
+        assertThrows(MappingNotFoundException.class, () -> mappingList.deletePersonToGroupMapping(MAP22));
     }
 
     @Test
-    void deletePersonFromMapping() {
+    void deletePersonFromMapping() throws MappingNotFoundException, DuplicateMappingException {
         mappingList = TypicalMappings.generateTypicalMappingList();
         mappingList.deletePersonFromMapping(MAP00.getPersonId());
 
         // these maps are deleted
-        assertNull(mappingList.findPersonToGroupMapping(MAP00.getPersonId(), MAP00.getGroupId()));
-        assertNull(mappingList.findPersonToGroupMapping(MAP01.getPersonId(), MAP01.getGroupId()));
-        assertNull(mappingList.findPersonToGroupMapping(MAP02.getPersonId(), MAP02.getGroupId()));
+        assertThrows(MappingNotFoundException.class, () ->
+                mappingList.findPersonToGroupMapping(MAP00.getPersonId(), MAP00.getGroupId()));
+        assertThrows(MappingNotFoundException.class, () ->
+                mappingList.findPersonToGroupMapping(MAP01.getPersonId(), MAP01.getGroupId()));
+        assertThrows(MappingNotFoundException.class, () ->
+                mappingList.findPersonToGroupMapping(MAP02.getPersonId(), MAP02.getGroupId()));
 
         // these maps are not deleted
-        assertNotNull(mappingList.findPersonToGroupMapping(MAP10.getPersonId(), MAP10.getGroupId()));
-        assertNotNull(mappingList.findPersonToGroupMapping(MAP22.getPersonId(), MAP22.getGroupId()));
-        assertNotNull(mappingList.findPersonToGroupMapping(MAP22.getPersonId(), MAP22.getGroupId()));
+        assertDoesNotThrow(() -> mappingList.findPersonToGroupMapping(MAP10.getPersonId(), MAP10.getGroupId()));
+        assertDoesNotThrow(() -> mappingList.findPersonToGroupMapping(MAP22.getPersonId(), MAP22.getGroupId()));
+        assertDoesNotThrow(() -> mappingList.findPersonToGroupMapping(MAP22.getPersonId(), MAP22.getGroupId()));
 
 
     }
 
     @Test
-    void deleteGroupFromMapping() {
+    void deleteGroupFromMapping() throws MappingNotFoundException, DuplicateMappingException {
         mappingList = TypicalMappings.generateTypicalMappingList();
         mappingList.deleteGroupFromMapping(MAP00.getGroupId());
 
         // these maps are deleted
-        assertNull(mappingList.findPersonToGroupMapping(MAP10.getPersonId(), MAP10.getGroupId()));
-        assertNull(mappingList.findPersonToGroupMapping(MAP00.getPersonId(), MAP00.getGroupId()));
+        assertThrows(MappingNotFoundException.class, () ->
+                mappingList.findPersonToGroupMapping(MAP10.getPersonId(), MAP10.getGroupId()));
+        assertThrows(MappingNotFoundException.class, () ->
+                mappingList.findPersonToGroupMapping(MAP00.getPersonId(), MAP00.getGroupId()));
 
         // these maps are not deleted
-        assertNotNull(mappingList.findPersonToGroupMapping(MAP22.getPersonId(), MAP22.getGroupId()));
-        assertNotNull(mappingList.findPersonToGroupMapping(MAP22.getPersonId(), MAP22.getGroupId()));
-        assertNotNull(mappingList.findPersonToGroupMapping(MAP01.getPersonId(), MAP01.getGroupId()));
-        assertNotNull(mappingList.findPersonToGroupMapping(MAP02.getPersonId(), MAP02.getGroupId()));
+        assertDoesNotThrow(() -> mappingList.findPersonToGroupMapping(MAP22.getPersonId(), MAP22.getGroupId()));
+        assertDoesNotThrow(() -> mappingList.findPersonToGroupMapping(MAP22.getPersonId(), MAP22.getGroupId()));
+        assertDoesNotThrow(() -> mappingList.findPersonToGroupMapping(MAP01.getPersonId(), MAP01.getGroupId()));
+        assertDoesNotThrow(() -> mappingList.findPersonToGroupMapping(MAP02.getPersonId(), MAP02.getGroupId()));
     }
 
     @Test
-    void findGroupsOfPerson() {
+    void findGroupsOfPerson() throws DuplicateMappingException {
         mappingList = TypicalMappings.generateTypicalMappingList();
 
         ArrayList<GroupId> groups = mappingList.findGroupsOfPerson(MAP00.getPersonId());
@@ -110,7 +117,7 @@ class PersonToGroupMappingListTest {
     }
 
     @Test
-    void findPersonsOfGroup() {
+    void findPersonsOfGroup() throws DuplicateMappingException {
         mappingList = TypicalMappings.generateTypicalMappingList();
 
         ArrayList<PersonId> persons = mappingList.findPersonsOfGroup(MAP00.getGroupId());

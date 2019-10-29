@@ -27,12 +27,16 @@ public class AddEventCommandParser implements Parser<AddEventCommand> {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_EVENTNAME, PREFIX_TIMING);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_EVENTNAME, PREFIX_TIMING)
+        if (!arePrefixesPresent(argMultimap, PREFIX_EVENTNAME, PREFIX_TIMING)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddEventCommand.MESSAGE_USAGE));
         }
 
-        Name name = new Name(argMultimap.getValue(PREFIX_NAME).get());
+        Name name = null;
+        if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
+            name = new Name(argMultimap.getValue(PREFIX_NAME).get());
+        }
+
         String eventName = argMultimap.getValue(PREFIX_EVENTNAME).get();
         List<String> timings = argMultimap.getAllValues(PREFIX_TIMING);
 

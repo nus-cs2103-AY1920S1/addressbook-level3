@@ -7,7 +7,7 @@ import javafx.fxml.FXML;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import seedu.address.model.display.detailwindow.DetailWindowDisplay;
-import seedu.address.model.display.detailwindow.WeekSchedule;
+import seedu.address.model.display.detailwindow.PersonSchedule;
 import seedu.address.model.person.ScheduleStub;
 import seedu.address.ui.UiPart;
 
@@ -32,14 +32,14 @@ public class GroupDetailsExport extends UiPart<Region> {
     public GroupDetailsExport(DetailWindowDisplay detailWindowDisplay) {
         super(FXML);
         ScheduleStub stub = new ScheduleStub();
-        ArrayList<WeekSchedule> schedules = detailWindowDisplay.getWeekSchedules();
+        ArrayList<PersonSchedule> schedules = detailWindowDisplay.getPersonSchedules();
         ArrayList<String> names = schedules.stream()
                 .map(wkSch -> wkSch.getPersonDisplay().getName().toString())
                 .collect(Collectors.toCollection(ArrayList::new));
         ArrayList<String> emails = schedules.stream()
                 .map(wkSch -> wkSch.getPersonDisplay().getEmail().toString())
                 .collect(Collectors.toCollection(ArrayList::new));
-        ArrayList<String> roles = detailWindowDisplay.getWeekSchedules().stream()
+        ArrayList<String> roles = detailWindowDisplay.getPersonSchedules().stream()
                 .map(wkSch -> wkSch.getRole().toString())
                 .collect(Collectors.toCollection(ArrayList::new));
 

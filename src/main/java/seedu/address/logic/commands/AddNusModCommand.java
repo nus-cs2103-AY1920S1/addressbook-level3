@@ -25,6 +25,8 @@ import seedu.address.model.module.SemesterNo;
 import seedu.address.model.module.exceptions.ModuleNotFoundException;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.exceptions.EventClashException;
+import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.model.person.schedule.Event;
 
 /**
@@ -57,10 +59,14 @@ public class AddNusModCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        Person person = model.findPerson(name);
-        if (person == null) {
+
+        Person person;
+        try {
+            person = model.findPerson(name);
+        } catch (PersonNotFoundException pnfe) {
             return new CommandResult(MESSAGE_PERSON_NOT_FOUND);
         }
+
 
         AcadYear acadYear = model.getAcadYear();
         SemesterNo semesterNo = model.getSemesterNo();
@@ -80,11 +86,11 @@ public class AddNusModCommand extends Command {
             return new CommandResult("Unable to add module: " + e.getMessage());
         }
 
-        if (model.isEventClash(name, event)) {
+        try {
+            person.addEvent(event);
+        } catch (EventClashException e) {
             return new CommandResult(MESSAGE_EVENTS_CLASH);
         }
-        model.addEvent(name, event);
-
         // updates UI
         model.updateDetailWindowDisplay(name, LocalDateTime.now(), DetailWindowDisplayType.PERSON);
         model.updateSidePanelDisplay(SidePanelDisplayType.PERSONS);
@@ -104,4 +110,5 @@ public class AddNusModCommand extends Command {
             return false;
         }
     }
+
 }

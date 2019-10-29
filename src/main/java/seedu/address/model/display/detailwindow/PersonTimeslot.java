@@ -7,7 +7,7 @@ import seedu.address.model.person.schedule.Venue;
 /**
  * A timeslot of a day.
  */
-public class DayTimeslot {
+public class PersonTimeslot {
 
     private String eventName;
 
@@ -16,7 +16,7 @@ public class DayTimeslot {
     private Venue venue;
 
 
-    public DayTimeslot(String eventName, LocalTime startTime, LocalTime endTime, Venue venue) {
+    public PersonTimeslot(String eventName, LocalTime startTime, LocalTime endTime, Venue venue) {
         this.eventName = eventName;
         this.startTime = startTime;
         this.endTime = endTime;

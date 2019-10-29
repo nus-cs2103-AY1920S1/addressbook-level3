@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import seedu.address.model.person.exceptions.EventClashException;
 import seedu.address.model.person.schedule.Event;
 import seedu.address.model.person.schedule.Schedule;
 import seedu.address.model.tag.Tag;
@@ -68,6 +69,19 @@ public class Person {
         this.personId = new PersonId(counter);
         this.schedule = new Schedule(this.getPersonId());
         counter += 1;
+    }
+
+    public Person(PersonDescriptor personDescriptor, int personId) {
+        this.name = personDescriptor.getName();
+        this.phone = personDescriptor.getPhone();
+        this.email = personDescriptor.getEmail();
+        this.address = personDescriptor.getAddress();
+        this.remark = personDescriptor.getRemark();
+        if (personDescriptor.getTags() != null) {
+            this.tags.addAll(personDescriptor.getTags());
+        }
+        this.personId = new PersonId(personId);
+        this.schedule = new Schedule(this.getPersonId());
     }
 
     /**
@@ -141,7 +155,7 @@ public class Person {
         this.tags.addAll(tags);
     }
 
-    public void addEvent(Event event) {
+    public void addEvent(Event event) throws EventClashException {
         this.schedule.addEvent(event);
     }
 

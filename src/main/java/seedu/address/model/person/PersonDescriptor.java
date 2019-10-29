@@ -9,6 +9,8 @@ import seedu.address.model.tag.Tag;
  */
 public class PersonDescriptor {
 
+    private static final Name DEFAULT_USER_NAME = new Name("USER");
+
     private static final Name DEFAULT_NAME = Name.emptyName();
     private static final Phone DEFAULT_PHONE = Phone.emptyPhone();
     private static final Email DEFAULT_EMAIL = Email.emptyEmail();
@@ -29,6 +31,21 @@ public class PersonDescriptor {
         this.address = DEFAULT_ADDRESS;
         this.remark = DEFAULT_REMARK;
         this.tags = null;
+    }
+
+    public PersonDescriptor(Name name, Phone phone, Email email, Address address, Remark remark, Set<Tag> tags) {
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+        this.address = address;
+        this.remark = remark;
+        this.tags = tags;
+    }
+
+    public static PersonDescriptor getDefaultUser() {
+        PersonDescriptor personDescriptor = new PersonDescriptor();
+        personDescriptor.setName(DEFAULT_USER_NAME);
+        return personDescriptor;
     }
 
     /**
