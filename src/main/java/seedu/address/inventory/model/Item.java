@@ -152,7 +152,7 @@ public class Item {
 
     /**
      * Returns true if both persons have the same identity and data fields.
-     * This defines a stronger notion of equality between two persons.
+     * This defines a stronger notion of equality between two items.
      */
     @Override
     public boolean equals(Object other) {
@@ -174,7 +174,6 @@ public class Item {
 
     @Override
     public int hashCode() {
-        // use this method for custom fields hashing instead of implementing your own
         return Objects.hash(description, category, quantity, cost, price);
     }
 

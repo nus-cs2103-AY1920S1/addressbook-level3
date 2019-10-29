@@ -8,10 +8,10 @@ import seedu.address.cashier.logic.commands.CommandResult;
 import seedu.address.cashier.logic.commands.exception.NoCashierFoundException;
 import seedu.address.cashier.logic.parser.CashierTabParser;
 import seedu.address.cashier.model.Model;
-import seedu.address.cashier.storage.StorageManager;
+import seedu.address.cashier.storage.Storage;
 import seedu.address.cashier.util.InventoryList;
 import seedu.address.inventory.model.Item;
-import seedu.address.transaction.model.Transaction;
+import seedu.address.transaction.model.transaction.Transaction;
 
 /**
  * The main LogicManager of the cashier tab.
@@ -19,14 +19,14 @@ import seedu.address.transaction.model.Transaction;
 public class LogicManager implements Logic {
 
     private final Model model;
-    private final StorageManager storage;
+    private final Storage storage;
     private CashierTabParser parser;
     private final seedu.address.person.model.Model personModel;
     private final seedu.address.transaction.model.Model transactionModel;
     private final seedu.address.inventory.model.Model inventoryModel;
 
     public LogicManager(Model cashierManager,
-                        StorageManager cashierStorage,
+                        Storage cashierStorage,
                         seedu.address.person.model.Model personModel,
                         seedu.address.transaction.model.Model transactionModel,
                         seedu.address.inventory.model.Model inventoryModel) {

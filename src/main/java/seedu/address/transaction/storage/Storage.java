@@ -2,7 +2,8 @@ package seedu.address.transaction.storage;
 
 import java.io.IOException;
 
-import seedu.address.transaction.util.TransactionList;
+import seedu.address.transaction.model.TransactionList;
+import seedu.address.transaction.storage.exception.FileReadWriteException;
 
 /**
  * API of the Storage component
@@ -13,7 +14,7 @@ public interface Storage {
      * Reads in the transaction list from the specified text file in Storage.
      * @return Transaction List read.
      */
-    TransactionList readTransactionList();
+    TransactionList readTransactionList() throws FileReadWriteException;
 
     /**
      * Write the given transaction list into the specified text file in Storage.

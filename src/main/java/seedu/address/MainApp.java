@@ -31,6 +31,8 @@ import seedu.address.person.storage.JsonUserPrefsStorage;
 import seedu.address.person.storage.Storage;
 import seedu.address.person.storage.StorageManager;
 import seedu.address.person.storage.UserPrefsStorage;
+import seedu.address.transaction.model.TransactionList;
+import seedu.address.transaction.storage.exception.FileReadWriteException;
 import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager;
 
@@ -78,6 +80,7 @@ public class MainApp extends Application {
         logger.info("=============================[ Initializing AddressBook ]===========================");
         super.init();
 
+        //For Person Storage and Model
         AppParameters appParameters = AppParameters.parse(getParameters());
         config = initConfig(appParameters.getConfigPath());
 
@@ -90,46 +93,44 @@ public class MainApp extends Application {
 
         model = initModelManager(storage, userPrefs);
 
-        //For Transaction Storage and Manager
+        //For Transaction Storage and Model
         transactionStorage =
                 new seedu.address.transaction.storage.StorageManager(new File(FILE_PATH_TRANSACTION), model);
-        transactionModel =
-                new seedu.address.transaction.model.ModelManager(transactionStorage.readTransactionList());
+        transactionModel = initTransactionModelManager(transactionStorage);
 
-        //For Reimbursement Storage and Manager
+        //For Reimbursement Storage and Model
         reimbursementStorage =
                 new seedu.address.reimbursement.storage.StorageManager(new File(FILE_PATH_REIMBURSEMENT));
         reimbursementModel =
                 new seedu.address.reimbursement.model.ModelManager(
                         reimbursementStorage.getReimbursementFromFile(transactionModel.getTransactionList()));
 
-        //For Inventory Storage and Manager
+        //For Inventory Storage and Model
         inventoryStorage =
                 new seedu.address.inventory.storage.StorageManager(new File("data/inventoryInformation.txt"));
         inventoryModel =
                 new seedu.address.inventory.model.ModelManager(inventoryStorage);
 
-        //For Cashier Storage and Manager
-        cashierStorage = new seedu.address.cashier.storage.StorageManager(FILE_PATH_INVENTORY,
-                FILE_PATH_TRANSACTION, model);
+        //For Cashier Storage and Model
+        cashierStorage = new seedu.address.cashier.storage.StorageManager(new File(FILE_PATH_INVENTORY),
+                new File(FILE_PATH_TRANSACTION), model);
         cashierModel = new seedu.address.cashier.model.ModelManager(cashierStorage.getInventoryList(),
                 cashierStorage.getTransactionList());
 
-        //For Overview Storage and Manager
+        //For Overview Storage and Model
         overviewStorage = new seedu.address.overview.storage.StorageManager("data/overviewInformation.txt");
         overviewModel = new seedu.address.overview.model.ModelManager(overviewStorage);
 
         //All logic
         transactionLogic = new
-                seedu.address.transaction.logic.LogicManager(transactionModel, transactionStorage, model, //storage,
+                seedu.address.transaction.logic.LogicManager(transactionModel, transactionStorage, model,
                 reimbursementModel, reimbursementStorage);
         reimbursementLogic = new
                 seedu.address.reimbursement.logic.LogicManager(reimbursementModel, reimbursementStorage,
                 transactionModel, transactionStorage, model);
 
         inventoryLogic = new
-                seedu.address.inventory.logic.LogicManager(cashierModel, cashierStorage,
-                inventoryModel, inventoryStorage);
+                seedu.address.inventory.logic.LogicManager(inventoryModel, inventoryStorage);
 
         cashierLogic = new seedu.address.cashier.logic.LogicManager(cashierModel, cashierStorage, model,
                 transactionModel, inventoryModel);
@@ -185,6 +186,25 @@ public class MainApp extends Application {
         }
 
         return new ModelManager(initialData, userPrefs);
+    }
+
+    /**
+     * Returns a {@code ModelManager} for transaction with the data from transaction {@code storage}'s file.<br>
+     * An empty transaction list will be used instead if {@code storage}'s file is not found,
+     * or if errors occur when reading {@code storage}'s file.
+     */
+    private seedu.address.transaction.model.Model initTransactionModelManager(
+            seedu.address.transaction.storage.Storage storage) {
+        TransactionList transactionList;
+        try {
+            transactionList = storage.readTransactionList();
+            return new seedu.address.transaction.model.ModelManager(transactionList);
+        } catch (FileReadWriteException e) {
+            logger.warning("Data file not in the correct format or problem reading from the file. "
+                    + "Will be starting with an empty transaction list");
+            transactionList = new TransactionList();
+            return new seedu.address.transaction.model.ModelManager(transactionList);
+        }
     }
 
     private void initLogging(Config config) {

@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import seedu.address.overview.logic.commands.CommandResult;
+import seedu.address.util.OverallCommandResult;
 
 /**
  * API of the Logic component
@@ -31,4 +32,5 @@ public interface Logic {
     double getInventoryTotalByCategory(String category);
     double getSalesTotalByMonth(LocalDate month);
     double getBudgetLeftByMonth(LocalDate month);
+    List<OverallCommandResult> checkNotifications();
 }

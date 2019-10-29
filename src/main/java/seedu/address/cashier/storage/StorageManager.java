@@ -11,31 +11,29 @@ import seedu.address.cashier.model.exception.NoSuchIndexException;
 import seedu.address.cashier.util.InventoryList;
 import seedu.address.inventory.model.Item;
 import seedu.address.person.model.person.Person;
-import seedu.address.transaction.model.Transaction;
-import seedu.address.transaction.util.TransactionList;
+import seedu.address.transaction.model.TransactionList;
+import seedu.address.transaction.model.transaction.Transaction;
 
 /**
  * Manages storage of Inventory List and Transaction List data in local storage.
  */
-public class StorageManager {
+public class StorageManager implements Storage {
 
-    private String filepathToInventory;
-    private String filepathToTransaction;
+    private final File iFile;
+    private final File tFile;
     private final seedu.address.person.model.Model personModel;
 
-    public StorageManager(String filepathToInventory, String filepathToTransaction,
-                          seedu.address.person.model.Model personModel) {
-        this.filepathToInventory = filepathToInventory;
-        this.filepathToTransaction = filepathToTransaction;
+    public StorageManager(File iFile, File tFile, seedu.address.person.model.Model personModel) {
+        this.iFile = iFile;
+        this.tFile = tFile;
         this.personModel = personModel;
     }
 
     public InventoryList getInventoryList() throws Exception {
         ArrayList<Item> itemArrayList = new ArrayList<>();
-        File f = new File(filepathToInventory);
-        f.getParentFile().mkdirs();
-        f.createNewFile();
-        BufferedReader bfr = new BufferedReader(new FileReader(f));
+        iFile.getAbsoluteFile().getParentFile().mkdirs();
+        iFile.createNewFile();
+        BufferedReader bfr = new BufferedReader(new FileReader(iFile));
         String line = null;
         while ((line = bfr.readLine()) != null) {
             Item i = this.readInInventoryFileLine(line);
@@ -49,7 +47,7 @@ public class StorageManager {
      * @param line each line of text in the data file
      * @return the item created.
      */
-    public static Item readInInventoryFileLine(String line) {
+    public Item readInInventoryFileLine(String line) {
         String[] stringArr = line.split(" [|] ");
         Item i = null;
         if (stringArr.length == 5) {
@@ -70,7 +68,7 @@ public class StorageManager {
      * @throws NoSuchIndexException if the index input is invalid
      */
     public void writeToInventoryFile(InventoryList inventoryList) throws IOException, NoSuchIndexException {
-        FileWriter fw = new FileWriter(this.filepathToInventory);
+        FileWriter fw = new FileWriter(this.iFile);
         String textFileMsg = "";
         for (int i = 0; i < inventoryList.size(); i++) {
             if (i == 0) {
@@ -86,10 +84,9 @@ public class StorageManager {
 
     public TransactionList getTransactionList() throws Exception {
         ArrayList<Transaction> transactionArrayList = new ArrayList<>();
-        File f = new File(filepathToTransaction);
-        f.getParentFile().mkdirs();
-        f.createNewFile();
-        BufferedReader bfr = new BufferedReader(new FileReader(f));
+        tFile.getAbsoluteFile().getParentFile().mkdirs();
+        tFile.createNewFile();
+        BufferedReader bfr = new BufferedReader(new FileReader(tFile));
         String line = null;
         while ((line = bfr.readLine()) != null) {
             Transaction t = this.readInTransactionFileLine(line, personModel);
@@ -104,7 +101,7 @@ public class StorageManager {
      * @param personModel the model used to find person object
      * @return the transaction created.
      */
-    public static Transaction readInTransactionFileLine(String line, seedu.address.person.model.Model personModel) {
+    public Transaction readInTransactionFileLine(String line, seedu.address.person.model.Model personModel) {
         String[] stringArr = line.split(" [|] ", 0);
         String[] dateTimeArr = stringArr[0].split(" ");
         Person person = personModel.getPersonByName(stringArr[4]);
@@ -124,7 +121,7 @@ public class StorageManager {
      * @throws Exception if the input is invalid
      */
     public void appendToTransaction(Transaction transaction) throws Exception {
-        FileWriter fw = new FileWriter(this.filepathToTransaction, true);
+        FileWriter fw = new FileWriter(this.tFile, true);
         TransactionList transactionList = getTransactionList();
         String textFileMsg = "";
         if (transactionList.size() == 0) {

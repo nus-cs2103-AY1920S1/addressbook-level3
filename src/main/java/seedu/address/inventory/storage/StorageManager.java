@@ -1,10 +1,6 @@
 package seedu.address.inventory.storage;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 
 import seedu.address.inventory.model.Item;
@@ -20,7 +16,7 @@ public class StorageManager implements Storage {
         this.file = file;
     }
 
-    public InventoryList getInventoryList() throws Exception {
+    public InventoryList getInventoryList() throws IOException {
         ArrayList<Item> inventoryArrayList = new ArrayList<>();
         //File f = new File(filepath);
         file.getAbsoluteFile().getParentFile().mkdirs();

@@ -1,0 +1,36 @@
+package seedu.address.inventory.logic;
+
+import org.junit.jupiter.api.Test;
+import seedu.address.inventory.logic.commands.CommandResult;
+import seedu.address.inventory.model.ModelManager;
+import seedu.address.inventory.storage.StorageManager;
+import seedu.address.inventory.ui.InventoryMessages;
+import seedu.address.inventory.util.InventoryList;
+
+import java.io.File;
+import java.io.IOException;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
+
+public class LogicManagerTest {
+    @Test
+    public void execute_command_successful() {
+        try {
+            File tempFile = File.createTempFile("testingLogic", "tempInventory.txt");
+            ModelManager inventoryModel = new ModelManager(new InventoryList());
+            StorageManager inventoryStorage = new StorageManager(tempFile);
+            Logic logic = new LogicManager(inventoryModel, inventoryStorage);
+
+            CommandResult commandResult = null;
+            try {
+                commandResult = logic.execute("sort description");
+            } catch (Exception e) {
+                fail();
+            }
+            assertEquals(new CommandResult(InventoryMessages.MESSAGE_SORTED_BY_DESCRIPTION), commandResult);
+        } catch (IOException e) {
+            throw new AssertionError("This method should not throw an exception.");
+        }
+    }
+}

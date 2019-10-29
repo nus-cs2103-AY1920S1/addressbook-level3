@@ -12,7 +12,7 @@ import java.util.HashMap;
 
 import seedu.address.reimbursement.model.Reimbursement;
 import seedu.address.reimbursement.model.ReimbursementList;
-import seedu.address.transaction.util.TransactionList;
+import seedu.address.transaction.model.TransactionList;
 
 /**
  * Storage manager. Allows reimbursements to be stored and loaded from file.

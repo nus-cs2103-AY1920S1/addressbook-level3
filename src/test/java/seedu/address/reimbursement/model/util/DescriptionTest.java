@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.testutil.TransactionBuilder;
 import seedu.address.testutil.TypicalPersons;
-import seedu.address.transaction.model.Transaction;
+import seedu.address.transaction.model.transaction.Transaction;
 
 public class DescriptionTest {
     public static final String CORRECT_STRING = "1. poster printing" + System.lineSeparator() + "2. poster printing";

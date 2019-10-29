@@ -20,7 +20,7 @@ public class InventoryMessages {
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Sorry! Please type find with your keywords\n "
             + "(Eg. find poster printing)";
 
-    public static final String MESSAGE_INVALID_ADDCOMMAND_FORMAT = "Sorry! Please type add with parameters:\n"
+    public static final String MESSAGE_INVALID_ADD_COMMAND_FORMAT = "Sorry! Please type add with parameters:\n"
             + "d/description c/category q/quantity co/cost [p/price]";
 
     public static final String MESSAGE_NOT_A_NUMBER = "Sorry! Please input a number.";
@@ -29,9 +29,6 @@ public class InventoryMessages {
             "Sorry! There is no such item in our database. Do add the item in.";
 
     public static final String NO_SUCH_COMMAND = "Sorry! There is no such command.";
-
-    public static final String MESSAGE_INVALID_ADD_COMMAND_FORMAT = "Sorry! Please type add with parameters:\n"
-            + " dt/DATE (eg.21-Sep-2019, 24-Aug-2019 etc)\n d/DESCRIPTION\n c/CATEGORY\n a/AMOUNT\n p/PERSON";
 
     public static final String MESSAGE_INVALID_EDIT_COMMAND_FORMAT = "Sorry! Please type edit with the index "
             + "and any parameters to be edited:\n" + " dt/DATE\n d/DESCRIPTION\n c/CATEGORY\n a/AMOUNT\n p/PERSON";
