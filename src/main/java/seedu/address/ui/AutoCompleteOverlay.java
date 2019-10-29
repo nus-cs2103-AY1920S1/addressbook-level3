@@ -17,10 +17,11 @@ import javafx.scene.text.TextFlow;
 public class AutoCompleteOverlay extends UiPart<Region> {
 
     private static final int CELL_HEIGHT = 20;
-    private static final int FONT_WIDTH = 11;
+    private static final double FONT_WIDTH = 10.82; //via experimenting, currently no solution to get an exact
     private static final int SCROLL_NEGATE_OFFSET = 20;
     private static final int NUM_IN_VIEW = 10;
     private static final int MAX_HEIGHT = CELL_HEIGHT * NUM_IN_VIEW;
+    private static final int X_OFFSET = 24;
 
     private SelectionNotifier selectionNotifier;
 
@@ -45,6 +46,9 @@ public class AutoCompleteOverlay extends UiPart<Region> {
         if (prefix.isBlank() || listOfSuggestions.isEmpty()) {
             return;
         }
+        int prefixLastIndex = prefix.lastIndexOf(' ') + 1;
+        prefix = prefix.substring(prefixLastIndex);
+        autoCompleteOverlay.setTranslateX(prefixLastIndex * FONT_WIDTH + X_OFFSET);
 
         int suggestionLength = 0;
         listOfSuggestions.sort(String::compareTo);

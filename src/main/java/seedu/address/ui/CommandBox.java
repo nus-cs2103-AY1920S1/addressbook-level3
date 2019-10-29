@@ -99,6 +99,16 @@ public class CommandBox extends UiPart<Region> {
         handleTextChanged();
     }
 
+    public void appendCommandTextField(String suggestion) {
+        if (suggestion == null) {
+            return;
+        }
+        String curr = commandTextField.getText();
+        commandTextField.setText(curr.substring(0, curr.lastIndexOf(' ') + 1) + suggestion);
+        commandTextField.positionCaret(commandTextField.getLength());
+        handleTextChanged();
+    }
+
     /**
      * Represents a function that can execute commands.
      */

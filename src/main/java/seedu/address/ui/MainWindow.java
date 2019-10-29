@@ -12,6 +12,7 @@ import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
@@ -246,6 +247,8 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
      */
     public void updateCommandAutoComplete(String commandText) {
         aco.showSuggestions(commandText, autoCompleter.update(commandText).getSuggestions());
+        Region acoRoot = aco.getRoot();
+        acoRoot.setTranslateX(Math.min(acoRoot.getTranslateX(), getRoot().getWidth() - acoRoot.getWidth()));
     }
 
     /**
@@ -282,7 +285,7 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
      * Called whenever AutoComplete has a selection.
      */
     private void autoCompleterSelected(String selectedText) {
-        commandBox.setCommandTextField(selectedText);
+        commandBox.appendCommandTextField(selectedText);
     }
 
     /**
