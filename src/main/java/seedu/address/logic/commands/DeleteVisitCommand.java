@@ -27,7 +27,9 @@ public class DeleteVisitCommand extends Command {
             + PREFIX_DELETE_VISIT + "2";
 
     public static final String MESSAGE_DELETE_VISIT_SUCCESS = "Removed visit from Person: %1$s";
-    public static final String MESSAGE_MISSING_INDEX_PROMPT = "Please specify index of report to be deleted";
+    public static final String MESSAGE_MISSING_INDEX_PROMPT = "Please specify index of report to be deleted\n"
+            + "Usage: " + COMMAND_WORD + " [PERSON INDEX] "
+            + PREFIX_DELETE_VISIT + "[REPORT INDEX]";;
 
     private final Index index;
     private final int id;
