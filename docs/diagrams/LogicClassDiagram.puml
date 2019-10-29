@@ -8,7 +8,7 @@ package Logic {
 
 package Parser {
 Interface Parser <<Interface>>
-Class AddressBookParser
+Class CapLogParser
 Class XYZCommandParser
 Class CliSyntax
 Class ParserUtil
@@ -25,6 +25,7 @@ Class "{abstract}\nCommand" as Command
 
 Interface Logic <<Interface>>
 Class LogicManager
+Class SwitchOperation
 }
 
 package Model{
@@ -34,9 +35,10 @@ Class HiddenModel #FFFFFF
 Class HiddenOutside #FFFFFF
 HiddenOutside ..> Logic
 
+SwitchOperation -right-> LogicManager
 LogicManager .up.|> Logic
-LogicManager -->"1" AddressBookParser
-AddressBookParser .left.> XYZCommandParser: creates >
+LogicManager -->"1" CapLogParser
+CapLogParser .left.> XYZCommandParser: creates >
 
 XYZCommandParser ..> XYZCommand : creates >
 XYZCommandParser ..|> Parser
