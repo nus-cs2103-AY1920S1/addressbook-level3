@@ -69,8 +69,8 @@ public class ClosestLocation {
             ArrayList<Location> validLocationList = locationGraph.getValidLocationList();
             ArrayList<Location> locations = locationGraph.getLocations();
             for (int i = locationNameList.size() - 1; i >= 0; i--) {
-              String currLocationString = locationNameList.get(i);
-              int validLocationListIndex = -1;
+                String currLocationString = locationNameList.get(i);
+                int validLocationListIndex = -1;
                 if (LocationArrayListUtils.containLocationName(locations, currLocationString)) {
                     int locationListIndex = LocationArrayListUtils.getIndex(locations, currLocationString);
                     Location currLocation = locations.get(locationListIndex);

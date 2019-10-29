@@ -21,7 +21,8 @@ class LocationGraphTest {
     void init() throws TimeBookInvalidState {
         processVenues = new ProcessVenues().process();
         processLocationGraph = new ProcessLocationGraph(processVenues.getValidLocationList());
-        locationGraph = new LocationGraph(processVenues.getLocations(), processVenues.getValidLocationList(), processLocationGraph.getDistanceMatrix());
+        locationGraph = new LocationGraph(processVenues.getLocations(), processVenues.getValidLocationList(),
+                processLocationGraph.getDistanceMatrix());
     }
 
     @Test

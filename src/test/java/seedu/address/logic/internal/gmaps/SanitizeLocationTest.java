@@ -27,28 +27,28 @@ class SanitizeLocationTest {
         sanitizeLocation.sanitize("AS5/1234556");
         sanitizeLocation.sanitize("AS5_1234556");
         assertThrows(TimeBookInvalidLocation.class, () -> sanitizeLocation.sanitize("BARFOO"));
-        Location LT17 = new Location("NUS_LT17");
-        LT17.setValidLocation("NUS_LT17");
-        LT17.setPlaceId("ChIJBeHqfnAb2jERL1OoMUzA7yE");
-        Location AS5 = new Location("NUS_AS5");
-        AS5.setValidLocation("NUS_AS5");
-        AS5.setPlaceId("ChIJD8PBzVAa2jER4aeSkEGQwK0");
+        Location lt17 = new Location("NUS_LT17");
+        lt17.setValidLocation("NUS_LT17");
+        lt17.setPlaceId("ChIJBeHqfnAb2jERL1OoMUzA7yE");
+        Location as5 = new Location("NUS_AS5");
+        as5.setValidLocation("NUS_AS5");
+        as5.setPlaceId("ChIJD8PBzVAa2jER4aeSkEGQwK0");
 
         ArrayList<Location> expectedValidLocationList =
-                new ArrayList<Location>(Arrays.asList(LT17, AS5));
+                new ArrayList<Location>(Arrays.asList(lt17, as5));
         assertEquals(expectedValidLocationList, sanitizeLocation.getValidLocationList());
     }
 
     @Test
     void sanitize() throws TimeBookInvalidLocation {
-        Location LT17 = new Location("LT17");
-        LT17.setValidLocation("NUS_LT17");
-        LT17.setPlaceId("ChIJBeHqfnAb2jERL1OoMUzA7yE");
-        Location AS5 = new Location("AS5-1234556");
-        AS5.setValidLocation("NUS_AS5");
-        AS5.setPlaceId("ChIJD8PBzVAa2jER4aeSkEGQwK0");
-        assertEquals(sanitizeLocation.sanitize("LT17"), LT17);
-        assertEquals(sanitizeLocation.sanitize("AS5-1234556"), AS5);
+        Location lt17 = new Location("LT17");
+        lt17.setValidLocation("NUS_LT17");
+        lt17.setPlaceId("ChIJBeHqfnAb2jERL1OoMUzA7yE");
+        Location as5 = new Location("AS5-1234556");
+        as5.setValidLocation("NUS_AS5");
+        as5.setPlaceId("ChIJD8PBzVAa2jER4aeSkEGQwK0");
+        assertEquals(sanitizeLocation.sanitize("LT17"), lt17);
+        assertEquals(sanitizeLocation.sanitize("AS5-1234556"), as5);
         assertThrows(TimeBookInvalidLocation.class, () -> sanitizeLocation.sanitize("jcdhsajkfebadbs"));
     }
 }

@@ -43,7 +43,7 @@ public class Location {
         boolean isEqual = other == this || other instanceof Location
                 && ((Location) other).getLocationName().equals(locationName)
                 && ((Location) other).getValidLocation().equals(validLocation);
-        if ( placeId != null && ((Location) other).getPlaceId() != null) {
+        if (placeId != null && ((Location) other).getPlaceId() != null) {
             isEqual = isEqual && ((Location) other).getPlaceId().equals(placeId);
         }
         return isEqual;
