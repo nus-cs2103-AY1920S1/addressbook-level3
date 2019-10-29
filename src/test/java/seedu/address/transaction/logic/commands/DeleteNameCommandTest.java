@@ -2,6 +2,7 @@ package seedu.address.transaction.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BENSON;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
@@ -26,6 +27,17 @@ class DeleteNameCommandTest {
     private ModelManager model = new ModelManager(TypicalTransactions.getTypicalTransactionList());
     private GetPersonByNameOnlyModel personModel =
             new seedu.address.person.model.ModelManager(getTypicalAddressBook(), new UserPrefs());
+
+    @Test
+    public void execute_nullPerson_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> new DeleteNameCommand(ALICE)
+                .execute(null, null));
+    }
+
+    @Test
+    public void constructor_nullPerson_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> new DeleteNameCommand(null));
+    }
 
     @Test
     void execute_unFilteredList_successful() {

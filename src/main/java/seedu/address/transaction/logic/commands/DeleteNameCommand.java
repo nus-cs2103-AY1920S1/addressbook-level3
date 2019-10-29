@@ -18,6 +18,7 @@ public class DeleteNameCommand extends DeleteCommand {
      * Creates an DeleteIndexCommand to delete the specified {@code Transaction} according to person.
      */
     public DeleteNameCommand(Person person) {
+        requireNonNull(person);
         this.person = person;
     }
 
