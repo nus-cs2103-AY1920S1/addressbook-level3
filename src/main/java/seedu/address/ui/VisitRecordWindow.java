@@ -69,7 +69,7 @@ public class VisitRecordWindow extends UiPart<Stage> {
     }
 
     /**
-     * Shows the help window.
+     * Shows the window.
      * @throws IllegalStateException
      * <ul>
      *     <li>
@@ -93,21 +93,21 @@ public class VisitRecordWindow extends UiPart<Stage> {
     }
 
     /**
-     * Returns true if the help window is currently being shown.
+     * Returns true if the window is currently being shown.
      */
     public boolean isShowing() {
         return getRoot().isShowing();
     }
 
     /**
-     * Hides the help window.
+     * Hides the window.
      */
     public void hide() {
         getRoot().hide();
     }
 
     /**
-     * Focuses on the help window.
+     * Focuses on the window.
      */
     public void focus() {
         getRoot().requestFocus();
