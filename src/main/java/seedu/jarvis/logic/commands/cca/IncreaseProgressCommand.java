@@ -38,6 +38,23 @@ public class IncreaseProgressCommand extends Command {
         return null;
     }
 
+    /**
+     * Gets the target {@code Index}.
+     * @return Target {@code Index}.
+     */
+    public Index getTargetIndex() {
+        return targetIndex;
+    }
+
+    /**
+     * Gets the target {@code Cca}.
+     *
+     * @return Target {@code Cca}.
+     */
+    public Cca getTargetCca() {
+        return targetCca;
+    }
+
     @Override
     public boolean hasInverseExecution() {
         return false;
