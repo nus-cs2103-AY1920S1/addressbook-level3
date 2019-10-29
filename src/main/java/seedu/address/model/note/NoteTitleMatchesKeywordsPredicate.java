@@ -7,10 +7,10 @@ import seedu.address.commons.util.StringUtil;
 /**
  * Tests that a {@code Note}'s {@code Title} matches any of the keyphrases given.
  */
-public class TitleMatchesKeywordsPredicate implements Predicate<Note> {
+public class NoteTitleMatchesKeywordsPredicate implements Predicate<Note> {
     private final String keyphrase;
 
-    public TitleMatchesKeywordsPredicate(String keyphrase) {
+    public NoteTitleMatchesKeywordsPredicate(String keyphrase) {
         this.keyphrase = keyphrase;
     }
 
@@ -22,8 +22,8 @@ public class TitleMatchesKeywordsPredicate implements Predicate<Note> {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof TitleMatchesKeywordsPredicate // instanceof handles nulls
-                && keyphrase.equals(((TitleMatchesKeywordsPredicate) other).keyphrase)); // state check
+                || (other instanceof NoteTitleMatchesKeywordsPredicate // instanceof handles nulls
+                && keyphrase.equals(((NoteTitleMatchesKeywordsPredicate) other).keyphrase)); // state check
     }
 
 }

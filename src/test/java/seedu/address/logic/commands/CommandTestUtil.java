@@ -18,8 +18,12 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.person.EditCommand;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
+import seedu.address.model.flashcard.Flashcard;
+import seedu.address.model.flashcard.FlashcardTitleContainsKeywordsPredicate;
+import seedu.address.model.flashcard.FlashcardTitleMatchesKeywordPredicate;
 import seedu.address.model.note.Note;
-import seedu.address.model.note.TitleContainsKeywordsPredicate;
+import seedu.address.model.note.NoteTitleContainsKeywordsPredicate;
+import seedu.address.model.note.NoteTitleMatchesKeywordsPredicate;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
@@ -145,6 +149,7 @@ public class CommandTestUtil {
         assertEquals(expectedAddressBook, actualModel.getAddressBook());
         assertEquals(expectedFilteredList, actualModel.getFilteredPersonList());
     }
+
     /**
      * Updates {@code model}'s filtered list to show only the person at the given {@code targetIndex} in the
      * {@code model}'s address book.
@@ -163,12 +168,26 @@ public class CommandTestUtil {
      * Updates {@code model}'s filtered list to show only the note at the given {@code targetIndex} in the
      * {@code model}'s address book.
      */
+    public static void showFlashcardAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredFlashcardList().size());
+
+        Flashcard flashcard = model.getFilteredFlashcardList().get(targetIndex.getZeroBased());
+        final String[] splitTitle = flashcard.getTitle().fullTitle.split("\\s+");
+        model.updateFilteredFlashcardList(new FlashcardTitleContainsKeywordsPredicate(Arrays.asList(splitTitle[0])));
+
+        assertEquals(1, model.getFilteredFlashcardList().size());
+    }
+
+    /**
+     * Updates {@code model}'s filtered list to show only the note at the given {@code targetIndex} in the
+     * {@code model}'s address book.
+     */
     public static void showNoteAtIndex(Model model, Index targetIndex) {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredNoteList().size());
 
         Note note = model.getFilteredNoteList().get(targetIndex.getZeroBased());
         final String[] splitTitle = note.getTitle().fullTitle.split("\\s+");
-        model.updateFilteredNoteList(new TitleContainsKeywordsPredicate(Arrays.asList(splitTitle[0])));
+        model.updateFilteredNoteList(new NoteTitleContainsKeywordsPredicate(Arrays.asList(splitTitle[0])));
 
         assertEquals(1, model.getFilteredNoteList().size());
     }

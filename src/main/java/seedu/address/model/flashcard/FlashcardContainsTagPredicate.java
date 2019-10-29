@@ -6,7 +6,7 @@ import java.util.function.Predicate;
 import seedu.address.model.tag.Tag;
 
 /**
- * Tests that a {@code Flashcard}'s {@code Tag} matches any of the keywords given.
+ * Tests that a {@code Note}'s {@code Tag} matches any of the keywords given.
  */
 public class FlashcardContainsTagPredicate implements Predicate<Flashcard> {
     private final Set<Tag> tags;
@@ -15,7 +15,7 @@ public class FlashcardContainsTagPredicate implements Predicate<Flashcard> {
         this.tags = tags;
     }
 
-    // test on the flashcard to see if he has the tag
+    // test on the flashcard to see if it has the tag
     @Override
     public boolean test(Flashcard flashcard) {
         return tags.stream()

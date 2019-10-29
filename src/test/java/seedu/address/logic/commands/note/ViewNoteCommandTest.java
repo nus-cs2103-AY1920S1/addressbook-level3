@@ -25,7 +25,7 @@
 //import seedu.address.model.ModelManager;
 //import seedu.address.model.UserPrefs;
 //import seedu.address.model.note.Note;
-//import seedu.address.model.note.TitleMatchesKeywordsPredicate;
+//import seedu.address.model.note.NoteTitleMatchesKeywordsPredicate;
 //
 ///**
 // * Contains integration tests (interaction with the Model) for {@code ViewNoteCommand}.
@@ -111,9 +111,9 @@
 //    }
 //
 //    /**
-//     * Parses {@code userInput} into a {@code TitleMatchesKeywordsPredicate}.
+//     * Parses {@code userInput} into a {@code NoteTitleMatchesKeywordsPredicate}.
 //     */
-//    private TitleMatchesKeywordsPredicate preparePredicate(String userInput) {
-//        return new TitleMatchesKeywordsPredicate(userInput);
+//    private NoteTitleMatchesKeywordsPredicate preparePredicate(String userInput) {
+//        return new NoteTitleMatchesKeywordsPredicate(userInput);
 //    }
 //}
