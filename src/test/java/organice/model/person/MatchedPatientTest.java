@@ -29,7 +29,7 @@ import org.junit.jupiter.api.Test;
 import organice.testutil.PatientBuilder;
 
 public class MatchedPatientTest {
-    private static MatchedPatient MATCHED_PATIENT_IRENE = new MatchedPatient(PATIENT_IRENE);
+    private static final MatchedPatient MATCHED_PATIENT_IRENE = new MatchedPatient(PATIENT_IRENE);
 
     @Test
     public void alternativeConstructor_success() {

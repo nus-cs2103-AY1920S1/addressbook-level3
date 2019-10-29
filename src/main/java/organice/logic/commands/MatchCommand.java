@@ -13,7 +13,7 @@ import organice.model.person.TissueType;
 import organice.model.person.exceptions.PersonNotFoundException;
 
 /**
- * Lists all persons in the address book to the user.
+ * Matches patient and donor in ORGANice.
  */
 public class MatchCommand extends Command {
 

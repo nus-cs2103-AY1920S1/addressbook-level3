@@ -3,6 +3,7 @@ package organice.logic;
 import java.nio.file.Path;
 
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.SortedList;
 import organice.commons.core.GuiSettings;
 import organice.logic.commands.CommandResult;
 import organice.logic.commands.exceptions.CommandException;
@@ -37,6 +38,11 @@ public interface Logic {
      * Returns a list of MatchedDonors
      */
     ObservableList<Person> getMatchList();
+
+    /**
+     * Retrieves the sort list.
+     */
+    SortedList<Person> getSortList();
 
     /**
      * Returns the user prefs' address book file path.
