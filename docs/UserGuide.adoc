@@ -144,9 +144,9 @@ Format: `txn delete <id>`
 
 ==== Add an account: `account add`
 
-Creates a new account with the given name. If the currency symbol is not specified, “$” is used.
+Creates a new account with the given name and an optional description
 
-Format: `account add n/<name> [c/<currency symbol>]`
+Format: `account add [n/<name>] [d/<description>]`
 
 ==== List accounts: `account list`
 
@@ -156,14 +156,20 @@ Lists all accounts.
 
 Edits the specified account, setting the specified fields.
 
-Format: `account edit <id> [n/<name>] [c/<currency symbol>]`
+Format: `account edit <id> [n/<name>] [d/<description>]`
 
-==== Delete account(s): `account delete`
+==== Delete account: `account delete`
 
 Deletes the accounts with the specified IDs, as in `account list`.
 Note: you cannot delete an account if there are transactions associated with the account.
 
-Format: `account delete <id ...>`
+Format: `account delete <id>`
+
+==== Find account: `account find`
+
+Finds the accounts with the specified keywords, as in `account list`.
+
+Format: `account find <keyword>`
 
 === Managing categories: `category`
 

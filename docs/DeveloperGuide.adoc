@@ -153,6 +153,13 @@ Classes used by multiple components are in the `budgetbuddy.commons` package.
 
 This section describes some noteworthy details on how certain features are implemented.
 
+//tag::accounts[]
+=== Accounts Feature
+==== Implementation
+
+The Accounts Feature allows the users to manage their accounts.
+// end::accounts[]
+
 // tag::loans[]
 === Loans Feature
 ==== Implementation
