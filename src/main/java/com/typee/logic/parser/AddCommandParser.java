@@ -22,6 +22,7 @@ import com.typee.model.engagement.Engagement;
 import com.typee.model.engagement.EngagementType;
 import com.typee.model.engagement.Location;
 import com.typee.model.engagement.Priority;
+import com.typee.model.engagement.TimeSlot;
 import com.typee.model.engagement.exceptions.InvalidTimeException;
 import com.typee.model.person.Person;
 
@@ -69,7 +70,8 @@ public class AddCommandParser implements Parser<AddCommand> {
                                       AttendeeList attendees, Location location,
                                       String description, Priority priority) throws ParseException {
         try {
-            Engagement engagement = Engagement.of(engagementType, startTime, endTime,
+            TimeSlot timeSlot = new TimeSlot(startTime, endTime);
+            Engagement engagement = Engagement.of(engagementType, timeSlot,
                     attendees, location, description, priority);
 
             return new AddCommand(engagement);

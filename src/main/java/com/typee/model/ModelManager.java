@@ -17,7 +17,6 @@ import com.typee.model.engagement.Engagement;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
-import javafx.collections.transformation.SortedList;
 
 /**
  * Represents the in-memory model of the engagement list data.
@@ -28,7 +27,6 @@ public class ModelManager implements Model {
     private final HistoryManager historyManager;
     private final UserPrefs userPrefs;
     private final FilteredList<Engagement> filteredEngagements;
-    private final SortedList<Engagement> sortedEngagements;
 
     /**
      * Initializes a ModelManager with the given engagement list and userPrefs.
@@ -42,7 +40,6 @@ public class ModelManager implements Model {
         this.historyManager = new HistoryManager(engagementList);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredEngagements = new FilteredList<>(this.historyManager.getEngagementList());
-        sortedEngagements = new SortedList<>(filteredEngagements);
     }
 
     public ModelManager() {
@@ -139,12 +136,12 @@ public class ModelManager implements Model {
     @Override
     public void updateSortedEngagementList(Comparator<Engagement> comparator) {
         requireNonNull(comparator);
-        sortedEngagements.setComparator(comparator);
+        historyManager.sort(comparator);
     }
 
     @Override
     public ObservableList<Engagement> getSortedEngagementList() {
-        return FXCollections.unmodifiableObservableList(sortedEngagements);
+        return FXCollections.unmodifiableObservableList(filteredEngagements);
     }
 
     //=========== Undo ================================================================================
