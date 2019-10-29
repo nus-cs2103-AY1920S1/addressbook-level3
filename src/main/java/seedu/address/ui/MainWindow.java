@@ -38,6 +38,7 @@ public class MainWindow extends UiPart<Stage> {
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private FetchWindow fetchWindow;
+    private FetchEmployeeWindow fetchEmployeeWindow;
     private DateWindow dateWindow;
     private ScheduleBox scheduleBox;
     private SingleSelectionModel<Tab> selectionModel;
@@ -87,6 +88,7 @@ public class MainWindow extends UiPart<Stage> {
 
     /**
      * Sets the accelerator of a MenuItem.
+     *
      * @param keyCombination the KeyCombination value of the accelerator
      */
     private void setAccelerator(MenuItem menuItem, KeyCombination keyCombination) {
@@ -180,6 +182,23 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
+     * Opens the FetchEmployeeWindow or focuses on it if it's already opened.
+     */
+    @FXML
+    public void handleEmployeeFetch(Integer index) {
+        if (fetchEmployeeWindow != null) {
+            fetchEmployeeWindow.hide();
+        }
+        fetchEmployeeWindow = new FetchEmployeeWindow(logic, index);
+        fetchEmployeeWindow.getRoot().getScene().getStylesheets().add("view/FetchWindowTheme.css");
+        if (!fetchEmployeeWindow.isShowing()) {
+            fetchEmployeeWindow.show();
+        } else {
+            fetchEmployeeWindow.focus();
+        }
+    }
+
+    /**
      * Opens the date window or focuses on it if it's already opened.
      */
     @FXML
@@ -217,7 +236,6 @@ public class MainWindow extends UiPart<Stage> {
     }
 
 
-
     public seedu.address.ui.ListPanel getListPanel() {
         return listPanel;
     }
@@ -242,8 +260,12 @@ public class MainWindow extends UiPart<Stage> {
                 handleExit();
             }
             if (commandResult.getFetch() != null) {
-                handleFetch(commandResult.getFetch());
-                //listPanelPlaceholder.getChildren().set(0, listPanelForFetch.getRoot());
+                if (commandResult.getType().equals("employee")) {
+                    handleEmployeeFetch(commandResult.getFetch());
+                }
+                if (commandResult.getType().equals("event")) {
+                    handleFetch(commandResult.getFetch());
+                }
             }
 
             if (commandResult.getType().equals("Generate")) {

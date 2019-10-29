@@ -14,7 +14,9 @@ import seedu.address.model.event.Event;
  * The API of the Model component.
  */
 public interface Model {
-    /** {@code Predicate} that always evaluate to true */
+    /**
+     * {@code Predicate} that always evaluate to true
+     */
     Predicate<Employee> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
     Predicate<Event> PREDICATE_SHOW_ALL_EVENTS = unused -> true;
 
@@ -53,7 +55,9 @@ public interface Model {
      */
     void setAddressBook(ReadOnlyAddressBook addressBook);
 
-    /** Returns the AddressBook */
+    /**
+     * Returns the AddressBook
+     */
     ReadOnlyAddressBook getAddressBook();
 
     /**
@@ -81,11 +85,14 @@ public interface Model {
      */
     void setEmployee(Employee target, Employee editedEmployee);
 
-    /** Returns an unmodifiable view of the filtered employee list */
+    /**
+     * Returns an unmodifiable view of the filtered employee list
+     */
     ObservableList<Employee> getFilteredEmployeeList();
 
     /**
      * Updates the filter of the filtered employee list to filter by the given {@code predicate}.
+     *
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredEmployeeList(Predicate<Employee> predicate);
@@ -106,7 +113,9 @@ public interface Model {
      */
     void setEventBook(ReadOnlyEventBook eventBook);
 
-    /** Returns the AddressBook */
+    /**
+     * Returns the AddressBook
+     */
     ReadOnlyEventBook getEventBook();
 
     /**
@@ -133,31 +142,48 @@ public interface Model {
      */
     void setEvent(Event target, Event editedEvent);
 
-    /** Returns an unmodifiable view of the filtered event list */
+    /**
+     * Returns an unmodifiable view of the filtered event list
+     */
     ObservableList<Event> getFilteredEventList();
 
     /**
      * Updates the filter of the filtered Event list to filter by the given {@code predicate}.
+     *
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredEventList(Predicate<Event> predicate);
 
-    /** Returns an unmodifiable view of the filtered event list */
+    /**
+     * Returns an unmodifiable view of the filtered event list
+     */
     ObservableList<Event> getFilteredScheduledEventList();
 
     /**
      * Updates the filter of the filtered Event list to filter by the given {@code predicate}.
+     *
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredScheduledEventList(Predicate<Event> predicate);
 
-    /** Returns an unmodifiable view of the DistinctDate list */
-    ObservableList<DistinctDate> getDistinctDatesList();
+    ObservableList<DistinctDate> getEmployeeDistinctDatesList();
 
     /**
-     * Updates the DistinctDatesList by taking in a new List of DistinctDate Objects
+     * Returns an unmodifiable view of the DistinctDate list
+     */
+    ObservableList<DistinctDate> getEventDistinctDatesList();
+
+    /**
+     * Updates the Employees DistinctDatesList by taking in a new List of DistinctDate Objects
+     *
+     * @param list
+     */
+    void updateEmployeeDistinctDateList(List<DistinctDate> list);
+
+    /**
+     * Updates the Event DistinctDatesList by taking in a new List of DistinctDate Objects
+     *
      * @param list of DistinctDate objects to replace the old list.
      */
-    void updateDistinctDatesList(List<DistinctDate> list);
-
+    void updateEventDistinctDatesList(List<DistinctDate> list);
 }

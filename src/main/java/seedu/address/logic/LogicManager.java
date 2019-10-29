@@ -76,8 +76,13 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ObservableList<DistinctDate> getDistinctDateList() {
-        return model.getDistinctDatesList();
+    public ObservableList<DistinctDate> getEmployeeDistinctDateList() {
+        return model.getEmployeeDistinctDatesList();
+    }
+
+    @Override
+    public ObservableList<DistinctDate> getEventDistinctDateList() {
+        return model.getEventDistinctDatesList();
     }
 
     @Override

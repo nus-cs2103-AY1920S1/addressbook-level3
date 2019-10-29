@@ -7,70 +7,72 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
 
 import seedu.address.model.distinctdate.DistinctDate;
-
+//import seedu.address.model.employee.Employee;
 
 /**
  * New Window to display the newly generated List of DistinctDate Objects
  */
-public class DateWindow extends UiPart<Stage> {
+public class FetchEmployeeWindow extends UiPart<Stage> {
 
-    private static final Logger logger = LogsCenter.getLogger(FetchWindow.class);
-    private static final String FXML = "DateWindow.fxml";
+    private static final Logger logger = LogsCenter.getLogger(FetchEmployeeWindow.class);
+    private static final String FXML = "FetchEmployeeWindow.fxml";
 
     @FXML
     private ListView<DistinctDate> dateListView;
 
+    @FXML
+    private AnchorPane employeeCard;
+
     /**
-     * Creates a new FetchWindow.
+     * Creates a new FetchEmployeeWindow.
      *
-     * @param root Stage to use as the root of the FetchWindow.
+     * @param root Stage to use as the root of the FetchEmployeeWindow.
      */
-    public DateWindow(Stage root, Logic logic) {
+    public FetchEmployeeWindow(Stage root, Logic logic, Integer index) {
         super(FXML, root);
-        ObservableList<DistinctDate> dateList = logic.getEventDistinctDateList();
+        ObservableList<DistinctDate> dateList = logic.getEmployeeDistinctDateList();
         dateListView.setItems(dateList);
         dateListView.setCellFactory(listView -> new DateListViewCell());
     }
 
     /**
-     * Creates a new DateWindow.
+     * Creates a new FetchEmployeeWindow.
      */
-    public DateWindow(Logic logic) {
-        this(new Stage(), logic);
+    public FetchEmployeeWindow(Logic logic, Integer index) {
+        this(new Stage(), logic, index);
     }
 
-
     /**
-     * Shows the Date window.
+     * Shows the FetchEmployeeWindow.
      */
     public void show() {
-        logger.fine("Showing generated schedule - all dates and corresponding events.");
+        logger.fine("Showing generated employee schedule - all dates and corresponding events.");
         getRoot().show();
         getRoot().centerOnScreen();
-
     }
 
     /**
-     * Returns true if the date window is currently being shown.
+     * Returns true if the FetchEmployeeWindow is currently being shown.
      */
     public boolean isShowing() {
         return getRoot().isShowing();
     }
 
     /**
-     * Hides the date window.
+     * Hides the FetchEmployeeWindow.
      */
     public void hide() {
         getRoot().hide();
     }
 
     /**
-     * Focuses on the date window.
+     * Focuses on the FetchEmployeeWindow.
      */
     public void focus() {
         getRoot().requestFocus();

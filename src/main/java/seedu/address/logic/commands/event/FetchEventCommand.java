@@ -23,7 +23,7 @@ public class FetchEventCommand extends Command {
             + "Parameters: INDEX (must be a positive integer) \n"
             + "Example: " + COMMAND_WORD + " 1 ";
 
-    public static final String MESSAGE_SUCCESS = "Fetched Employee: %1$s";
+    public static final String MESSAGE_SUCCESS = "Fetched Event: %1$s";
 
     private final Index index;
 
@@ -45,7 +45,7 @@ public class FetchEventCommand extends Command {
         }
         Event eventToFetch = lastShownList.get(index.getZeroBased());
         return new CommandResult(String.format(MESSAGE_SUCCESS, eventToFetch), false,
-                false, index.getZeroBased());
+                false, index.getZeroBased(), "event");
     }
 
     @Override

@@ -43,7 +43,10 @@ public interface Logic {
     ObservableList<Event> getFilteredScheduledEventList();
 
     /** Returns an unmodifiable view of the DistinctDateList */
-    ObservableList<DistinctDate> getDistinctDateList();
+    ObservableList<DistinctDate> getEmployeeDistinctDateList();
+
+    /** Returns an unmodifiable view of the DistinctDateList */
+    ObservableList<DistinctDate> getEventDistinctDateList();
 
     /**
      * Returns the user prefs' address book file path.
