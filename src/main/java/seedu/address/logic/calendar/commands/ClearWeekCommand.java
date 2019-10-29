@@ -9,7 +9,7 @@ import seedu.address.model.calendar.CalendarModel;
 import seedu.address.model.calendar.task.Task;
 
 /**
- * Deletes all tasks contained in the current week.
+ * Deletes all <code>ToDoTask</code> contained in the current week.
  */
 public class ClearWeekCommand extends Command {
     public static final String COMMAND_WORD = "clearweek";

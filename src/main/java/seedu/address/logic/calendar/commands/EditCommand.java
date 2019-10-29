@@ -30,7 +30,7 @@ import seedu.address.model.calendar.task.TaskTitle;
 import seedu.address.model.calendar.task.ToDoTask;
 
 /**
- * Edits the details of an existing task in the taskTime book.
+ * Edits the details of an existing <code>Task</code> in Modulo's calendar.
  */
 public class EditCommand extends Command {
 

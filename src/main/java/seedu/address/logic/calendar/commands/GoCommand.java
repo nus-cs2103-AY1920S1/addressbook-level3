@@ -5,7 +5,7 @@ import static java.util.Objects.requireNonNull;
 import seedu.address.model.calendar.CalendarModel;
 
 /**
- * Switch the calendar to another week, from week 0 to week 14.
+ * Switch the calendar to another week, from week 0 to 14 inclusive.
  */
 public class GoCommand extends Command {
     public static final String COMMAND_WORD = "go";

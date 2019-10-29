@@ -6,7 +6,7 @@ import seedu.address.logic.calendar.commands.exceptions.CommandException;
 import seedu.address.model.calendar.CalendarModel;
 
 /**
- * Sort the list of tasks by either TaskDeadline or the time when the task is added
+ * Sort the list of tasks by either <code>TaskDeadline</code>, <code>TaskTime</code>, or <code>TaskTitle</code>.
  */
 public class SortCommand extends Command {
     public static final String COMMAND_WORD = "sort";

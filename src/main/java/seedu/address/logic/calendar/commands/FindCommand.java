@@ -7,8 +7,8 @@ import seedu.address.model.calendar.CalendarModel;
 import seedu.address.model.calendar.task.TaskTitleContainsKeywordsPredicate;
 
 /**
- * Finds and lists all persons in address book whose name contains any of the argument keywords.
- * Keyword matching is case insensitive.
+ * Finds and lists all <code>Task</code> in Modulo's calendar whose <code>TaskTitle</code> contains any of the
+ * argument keywords. Keyword matching is case insensitive.
  */
 public class FindCommand extends Command {
 

@@ -12,7 +12,7 @@ import seedu.address.model.calendar.CalendarModel;
 import seedu.address.model.calendar.task.Task;
 
 /**
- * Adds a task to the address book.
+ * Adds a <code>ModuleTask</code> to Modulo's calendar.
  */
 public class AddModCommand extends Command {
 
@@ -26,10 +26,10 @@ public class AddModCommand extends Command {
         + PREFIX_TASKTIME + "TIME "
         + "[" + PREFIX_TASKTAG + "TAG]...\n"
         + "Example: " + COMMAND_WORD + " "
-        + PREFIX_TASKTITLE + "CS2109 Assignment 7 "
-        + PREFIX_TASKDAY + "monday "
-        + PREFIX_TASKDESCRIPTION + "Submit to Luminus "
-        + PREFIX_TASKTIME + "19:00 "
+        + PREFIX_TASKTITLE + "CS2109 Tutorial "
+        + PREFIX_TASKDAY + "thursday "
+        + PREFIX_TASKDESCRIPTION + "LT17 "
+        + PREFIX_TASKTIME + "08:00 "
         + PREFIX_TASKTAG + "IMPORTANT "
         + PREFIX_TASKTAG + "CS2109";
 
