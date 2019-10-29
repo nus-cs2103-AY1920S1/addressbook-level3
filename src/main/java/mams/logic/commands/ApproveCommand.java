@@ -19,13 +19,12 @@ import mams.model.student.Credits;
 import mams.model.student.Student;
 import mams.model.tag.Tag;
 
-import static mams.logic.commands.SetCredits.MESSAGE_CREDIT_CHANGE_SUCCESS;
 import static mams.logic.commands.AddModCommand.MESSAGE_ADD_MOD_SUCCESS;
+import static mams.logic.commands.AddModCommand.MESSAGE_DUPLICATE_MODULE;
 import static mams.logic.commands.RemoveModCommand.MESSAGE_REMOVE_MOD_SUCCESS;
 import static mams.logic.commands.RemoveModCommand.MESSAGE_MISSING_MODULE;
-import static mams.logic.commands.AddModCommand.MESSAGE_DUPLICATE_MODULE;
 import static mams.logic.commands.ModCommand.MESSAGE_INVALID_MODULE;
-
+import static mams.logic.commands.SetCredits.MESSAGE_CREDIT_CHANGE_SUCCESS;
 /**
  * Approves a appeal in mams.
  */
