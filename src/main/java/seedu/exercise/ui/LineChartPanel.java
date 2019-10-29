@@ -45,10 +45,10 @@ public class LineChartPanel extends UiPart<Region> {
         lineChart.setAnimated(false);
         lineChart.layout();
 
-        xAxis.setLabel("date");
+        xAxis.setLabel(ChartTextUtil.changeFirstLetterToUpperCase("date"));
         yAxis.setLabel(ChartTextUtil.lineChartLabelFormatter(category));
 
-        XYChart.Series series = new XYChart.Series();
+        XYChart.Series<String, Double> series = new XYChart.Series<>();
 
         int size = dates.size();
         for (int i = 0; i < size; i++) {
@@ -56,7 +56,7 @@ public class LineChartPanel extends UiPart<Region> {
         }
 
         lineChart.setLegendVisible(false);
-        lineChart.setTitle(ChartTextUtil.titleFormatter(category, startDate, endDate));
+        lineChart.setTitle(ChartTextUtil.lineAndBarChartTitleFormatter(category, startDate, endDate));
         lineChart.getData().add(series);
     }
 }
