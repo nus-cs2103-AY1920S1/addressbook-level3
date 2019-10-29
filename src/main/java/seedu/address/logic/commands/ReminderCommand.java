@@ -40,6 +40,7 @@ public class ReminderCommand extends Command {
         requireNonNull(model);
 
         model.addReminder(0, description, days);
+        model.updateFilteredReminderList(Model.PREDICATE_SHOW_ALL_REMINDERS);
         return new CommandResult(String.format(MESSAGE_SUCCESS, description, days));
     }
 
