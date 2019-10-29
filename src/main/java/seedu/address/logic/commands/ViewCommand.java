@@ -7,8 +7,6 @@ import seedu.address.model.Model;
 import seedu.address.model.feature.Feature;
 import seedu.address.model.performance.Event;
 
-import static seedu.address.commons.util.AppUtil.checkArgument;
-
 /**
  * Allows user to view calendar, attendance or performance.
  */
@@ -46,7 +44,11 @@ public class ViewCommand extends Command {
             if (!hasEvent) {
                 throw new CommandException(String.format(Event.MESSAGE_CONSTRAINTS, feature.getEventName()));
             }
-            return new CommandResult(MESSAGE_SUCCESS_RECORDS, feature, model);
+            return new CommandResult(
+                String.format(MESSAGE_SUCCESS_RECORDS, feature.getEventName()),
+                feature,
+                model,
+                feature.getEventName());
         default:
             throw new CommandException(MESSAGE_INVALID_FEATURE);
         }

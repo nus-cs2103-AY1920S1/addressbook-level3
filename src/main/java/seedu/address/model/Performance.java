@@ -86,6 +86,11 @@ public class Performance implements ReadOnlyPerformance {
         return events.contains(event);
     }
 
+    public Event getEvent(String eventName) {
+        requireNonNull(eventName);
+        return events.getEvent(eventName);
+    }
+
     /**
      * Adds a person to the events list.
      * The event must not already exist in the events list.

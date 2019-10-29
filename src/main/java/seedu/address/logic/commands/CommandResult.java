@@ -64,6 +64,18 @@ public class CommandResult {
     }
 
     /**
+     * Constructs a {@code CommandResult} with the specified {@code feedbackToUser}, {@code
+     * featureToDisplay}, {@code model}, {@code eventName}, and other fields set to their default value.
+     * For use in viewing records command.
+     */
+    public CommandResult(String feedbackToUser, Feature featureToDisplay, Model model, String eventName) {
+        this(feedbackToUser, false, false);
+        this.feature = featureToDisplay;
+        this.model = model;
+        this.eventName = eventName;
+    }
+
+    /**
      * Constructs a {@code CommandResult} with the specified {@code feedbackToUser} and {@code
      * featureToDisplay}, and other fields set to their default value.
      */
@@ -116,8 +128,6 @@ public class CommandResult {
     public boolean isExit() {
         return exit;
     }
-
-
 
     @Override
     public boolean equals(Object other) {
