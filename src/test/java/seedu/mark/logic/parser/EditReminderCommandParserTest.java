@@ -1,19 +1,24 @@
 package seedu.mark.logic.parser;
 
+import static seedu.mark.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.mark.logic.commands.CommandTestUtil.INVALID_NOTE_DESC;
+import static seedu.mark.logic.commands.CommandTestUtil.INVALID_TIME_DESC;
+import static seedu.mark.logic.commands.CommandTestUtil.NOTE_DESC_OPEN;
+import static seedu.mark.logic.commands.CommandTestUtil.TIME_DESC_OPEN;
+import static seedu.mark.logic.commands.CommandTestUtil.VALID_NOTE_OPEN;
+import static seedu.mark.logic.commands.CommandTestUtil.VALID_TIME_OPEN;
+import static seedu.mark.logic.parser.CommandParserTestUtil.assertParseFailure;
+import static seedu.mark.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import static seedu.mark.logic.parser.ParserUtil.MESSAGE_INVALID_TIME_FORMAT;
+import static seedu.mark.testutil.TypicalIndexes.INDEX_SECOND_REMINDER;
 
 import org.junit.jupiter.api.Test;
+
 import seedu.mark.commons.core.index.Index;
 import seedu.mark.logic.commands.EditReminderCommand;
 import seedu.mark.logic.parser.exceptions.ParseException;
 import seedu.mark.model.reminder.Note;
 import seedu.mark.testutil.EditReminderDescriptorBuilder;
-
-import static seedu.mark.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.mark.logic.commands.CommandTestUtil.*;
-import static seedu.mark.logic.parser.CommandParserTestUtil.assertParseFailure;
-import static seedu.mark.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.mark.logic.parser.ParserUtil.MESSAGE_INVALID_TIME_FORMAT;
-import static seedu.mark.testutil.TypicalIndexes.INDEX_SECOND_REMINDER;
 
 class EditReminderCommandParserTest {
     private static final String MESSAGE_INVALID_FORMAT =
@@ -70,7 +75,8 @@ class EditReminderCommandParserTest {
         Index targetIndex = INDEX_SECOND_REMINDER;
         String userInput = targetIndex.getOneBased() + NOTE_DESC_OPEN + TIME_DESC_OPEN;
 
-        EditReminderCommand.EditReminderDescriptor descriptor = new EditReminderDescriptorBuilder().withNote(VALID_NOTE_OPEN)
+        EditReminderCommand.EditReminderDescriptor descriptor = new EditReminderDescriptorBuilder()
+                .withNote(VALID_NOTE_OPEN)
                 .withTime(VALID_TIME_OPEN).build();
         EditReminderCommand expectedCommand = new EditReminderCommand(targetIndex, descriptor);
 
