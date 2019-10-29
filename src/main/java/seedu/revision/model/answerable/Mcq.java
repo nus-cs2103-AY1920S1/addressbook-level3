@@ -1,8 +1,11 @@
 package seedu.revision.model.answerable;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.ArrayList;
 import java.util.Set;
 
+import seedu.revision.model.answerable.answer.Answer;
 import seedu.revision.model.category.Category;
 
 /**
@@ -19,6 +22,23 @@ public class Mcq extends Answerable {
     public Mcq(Question question, ArrayList<Answer> correctAnswerList, ArrayList<Answer> wrongAnswerList,
                Difficulty difficulty, Set<Category> categories) {
         super(question, correctAnswerList, wrongAnswerList, difficulty, categories);
+    }
+
+    /**
+     * Checks whether the input Mcq is valid.
+     * @param mcq the mcq to validate.
+     * @return boolean to indicate whether Mcq is valid or not.
+     */
+    public static boolean isValidMcq(Mcq mcq) {
+        requireNonNull(mcq);
+        if (mcq.getCorrectAnswerList().contains(Answer.emptyAnswer())
+                || mcq.getWrongAnswerList().contains(Answer.emptyAnswer())) {
+            return false;
+        }
+        if (mcq.getWrongAnswerList().size() != 3) {
+            return false;
+        }
+        return true;
     }
 
     /**

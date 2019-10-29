@@ -5,11 +5,11 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
-import seedu.revision.model.answerable.Answer;
 import seedu.revision.model.answerable.Answerable;
 import seedu.revision.model.answerable.Difficulty;
 import seedu.revision.model.answerable.Mcq;
 import seedu.revision.model.answerable.Question;
+import seedu.revision.model.answerable.answer.Answer;
 import seedu.revision.model.category.Category;
 import seedu.revision.model.util.SampleDataUtil;
 
