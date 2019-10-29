@@ -19,4 +19,22 @@ public enum CommandResultType {
     EXIT,
     OTHER;
 
+    private boolean isPrintable = false;
+    private String printableName;
+
+    public void setPrintable(boolean isPrintable) {
+        this.isPrintable = isPrintable;
+    }
+
+    public boolean isPrintable() {
+        return isPrintable;
+    }
+
+    public void setPrintableName(String fileName) {
+        this.printableName = fileName;
+    }
+
+    public String getPrintableName() {
+        return printableName;
+    }
 }

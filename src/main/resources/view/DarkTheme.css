@@ -140,6 +140,12 @@
     -fx-text-fill: #010504;
 }
 
+.outline.label .text {
+    -fx-fill: lightseagreen;
+    -fx-stroke: firebrick;
+    -fx-stroke-width: 2px;
+}
+
 .stack-pane {
      -fx-background-color: derive(#151515, 20%);
 }

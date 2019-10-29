@@ -323,7 +323,7 @@ public interface Model {
     /**
      * Removes a question from a quiz.
      */
-    boolean removeQuizQuestion(String quizId, int questionNumber);
+    boolean deleteQuizQuestion(String quizId, int questionNumber);
 
     /**
      * Returns a quiz's questions and answers, for testing purposes.
@@ -461,6 +461,7 @@ public interface Model {
     ObservableList<VEvent> getVEventList();
 
     Pair<Index, VEvent> findMostSimilarVEvent(String desiredEventName);
+    String saveToIcsFile(String targetDir) throws IOException;
     //endregion
 
     //region Statistics

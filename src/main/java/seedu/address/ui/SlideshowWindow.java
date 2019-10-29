@@ -19,7 +19,6 @@ import seedu.address.model.question.Question;
  * Controller for a help page
  */
 public class SlideshowWindow extends UiPart<Stage> {
-
     public static final String TIP = "Press 'Esc' to quit slideshow\n"
         + "Press 'Space' to show the answer\n"
         + "Use the 'Left/Right' arrow keys to navigate";
@@ -51,7 +50,6 @@ public class SlideshowWindow extends UiPart<Stage> {
         this.logic = logic;
 
         tipLabel.setText(TIP);
-        root.setFullScreen(true);
         initialiseKeyboardControls(root);
     }
 
@@ -63,7 +61,7 @@ public class SlideshowWindow extends UiPart<Stage> {
 
         updateQuestions();
         getRoot().show();
-        getRoot().centerOnScreen();
+        getRoot().setFullScreen(true);
     }
 
     /**

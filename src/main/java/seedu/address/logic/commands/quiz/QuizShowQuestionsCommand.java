@@ -7,22 +7,22 @@ import seedu.address.model.Model;
 import seedu.address.model.quiz.QuizBank;
 
 /**
- * Represents a list answers command, specific to a quiz.
+ * Represents a show questions command, specific to a quiz.
  */
-public class QuizListAnswersCommand extends QuizCommand {
+public class QuizShowQuestionsCommand extends QuizCommand {
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Gets the answers for a quiz\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Gets the questions for a quiz\n"
             + "Parameters:\n"
-            + "showAnswers quizID/ [QUIZ_ID]\n"
+            + "showQuestions quizID/ [QUIZ_ID]\n"
             + "Example: quizID/ CS2103T Finals\n\n";
 
     private final String quizId;
 
     /**
-     * Creates a QuizListAnswersCommand instance with the appropriate attributes.
+     * Creates a QuizShowQuestionsCommand instance with the appropriate attributes.
      * @param quizId The identifier of the quiz.
      */
-    public QuizListAnswersCommand(String quizId) {
+    public QuizShowQuestionsCommand(String quizId) {
         this.quizId = quizId;
     }
 
@@ -38,8 +38,8 @@ public class QuizListAnswersCommand extends QuizCommand {
             return new CommandResult(String.format(QUIZ_DOES_NOT_EXIST, quizId));
         }
         QuizBank.setCurrentlyQueriedQuiz(quizId);
-        return new CommandResult("Showing answers for " + quizId + ".",
-                CommandResultType.SHOW_QUIZ_ANSWERS);
+        return new CommandResult("Showing quiz questions for " + quizId + ".",
+                CommandResultType.SHOW_QUIZ_QUESTIONS);
     }
 
     /**

@@ -1,4 +1,4 @@
-= NJoy - Developer Guide
+= NJoy Teaching Assistant - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -19,6 +19,10 @@ By: `Team AY1920S1-CS2103T-W13-2`      Since: `September 2019`      Licence: `MI
 == Introduction
 Njoy is a teacher assistant designed to manage teacher's daily tasks such as generating
 quizzes, managing classes and viewing grades reports.
+
+Shown below is the GUI of Njoy Teaching Assistant:
+
+image::Ui.png[]
 
 This documentation serves as an introduction to the architecture and implementation of Njoy,
 and is made for developers who wish to maintain, modify or understand the software development
@@ -335,90 +339,287 @@ questions will have 2 different answer formats and may cause confusion to the us
 
 === Quiz feature
 
+[.big]##**Overview**##
+
 The quiz feature utilises the questions implemented and stored in the `QuestionBank#questions` observable list. The quiz feature utilises the `QuizCommandParser` class to parse the user command input into the different command types and validates the input. Quizzes are then added into the `QuizBank#quizzes` observable list. The quiz feature also relies heavily on the `QuizManager` class for handling commands from `QuizCommand#execute`. This is done to hide the implementation logic from the `ModelManager` class. +
 
-The feature comprises of five commands namely,
+The feature comprises of eight commands namely,
 
 * <<Feature-Quiz-Create-Manually, `QuizCreateManuallyCommand`>> - Creates a quiz with user input manually
 * <<Feature-Quiz-Create-Automatically, `QuizCreateAutomaticallyCommand`>> - Creates a quiz automatically
-* <<Feature-Quiz-Add-Question, `QuizAddQuestionCommand`>> - Adds a question to an existing quiz
-* <<Feature-Quiz-Remove-Question, `QuizRemoveQuestionCommand`>> - Removes a question from an existing quiz
-* <<Feature-Quiz-List, `QuizGetQuestionsAndAnswersCommand`>> - Listing questions and answers of an existing quiz
+* <<Feature-Quiz-Add-Question, `QuizAddQuestionCommand`>> - Adds an existing question to an existing quiz
+* <<Feature-Quiz-Delete-Question, `QuizDeleteQuestionCommand`>> - Deletes an existing question from an existing quiz
+* <<Feature-Quiz-Export, `QuizExportCommand`>> - Exports an existing quiz to a html file
+* <<Feature-Quiz-List, `QuizListCommand`>> - Listing questions and answers of an existing quiz
+* <<Feature-Quiz-ShowAnswers, `QuizShowAnswersCommand`>> - Showing answers of an existing quiz
+* <<Feature-Quiz-ShowQuestions, `QuizShowQuestionsCommand`>> - Showing questions of an existing quiz
 
 The commands when executed, will interface with the methods exposed by the `Model` interface to perform the related operations
 (See <<Design-Logic, logic component>> for the general overview).
 
+The quiz creation processes share similar paths and is further illustrated in the following sequence diagram:
+
+.Sequence Diagram for `quiz manual` and `quiz auto` Commands
+image::QuizCreateDiagram.png[]
+
+The other processes share similar paths and is further illustrated in the following sequence diagram:
+
+.Sequence Diagram for `quiz add`, `quiz delete`, `quiz export`, `quiz list`, `quiz showAnswers` and `quiz showQuestions` Commands
+image::QuizOtherDiagram.png[]
+
 [[Feature-Quiz-Create-Manually]]
-==== Create Manually command
+==== Creating Quiz Manually
+The create quiz manually feature allows the user to create a quiz in Njoy.
+This feature is facilitated by `CreateQuizManuallyCommand`, `QuizCommandParser`, `NjoyParser`, `SavedQuizzes`, `QuizBank` and `QuizManager`.
+The arguments supported by this feature includes:
 
-The following is a detailed explanation of the operations `QuizCreateManuallyCommand` performs. +
+- `Quiz ID`
+- `Question Numbers` (1...*)
 
-*Step 1*. The `QuizCreateManuallyCommand#execute(Model model)` method is executed and it validates the quizId, making sure that there is no existing quiz with the same quizId. Then, it validates the question numbers, making sure that all question numbers currently exist within the `QuestionBank#questions` observable list.
+Example of a possible command: `quiz manual quizID/CS2103T questionNumber/1 2`
+This adds questions 1 and 2 to the quiz named CS2103T.
 
-*Step 2*. The method `Model#createQuizManually(String quizId, ArrayList<Integer> questionNumbers)` will then be called to create the quiz with the specified questions. This calls the method `SavedQuizzes#createQuizManually(String quizId, ArrayList<Integer> questionNumbers, SavedQuestions savedQuestions)` which calls the method `QuizManager#createQuizManually(String quizId, ArrayList<Integer> questionNumbers, SavedQuestions savedQuestions, QuizBank quizBank)`. This creates a `Quiz` class instance with the given quizId and iterates through the `QuestionBank#questions` to obtain the questions that the user has specified. Lastly, it adds this new `Quiz` instance to the `QuizBank#quizzes` for storage.
+===== Implementation
 
-*Step 3*. Then, asuccess message will be generated by the `QuizCreateManuallyCommand#generateSuccessMessage()` method and a new `CommandResult` will be returned with the generated success message.
+When the user inputs the `quiz manual` command in the command line, the following chain of operations occur:
+
+1. The `NjoyParser` will delegate the parsing of the command to `QuizCommandParser`.
+
+2. `QuizCommandParser#parse()` will take in a `String` input consisting of the arguments.
+
+3. The arguments will be tokenized and the respective models for each argument are created.
+
+4. If the parsing of all arguments are successful, a new `QuizCreateManuallyCommand` is returned back to `LogicManager`.
+
+5. The `LogicManager` executes `QuizCreateManuallyCommand#execute()`. This in turn executes `model#createQuizManually()`.
+
+6. The `ModelManager` defers the operations to `SavedQuizzes#createQuizManually()`.
+
+7. Finally, this delegates the actual operations to `QuizManager#createQuizManually()`.
+
+8. The newly created `Quiz` object is added to the `QuizBank` in `SavedQuizzes` for storage and further use.
 
 [[Feature-Quiz-Create-Automatically]]
-==== Create Automatically command
+==== Creating Quiz Automatically
+The create quiz automatically feature allows the user to create a quiz in Njoy.
+This feature is facilitated by `CreateQuizAutomaticallyCommand`, `QuizCommandParser`, `NjoyParser`, `SavedQuizzes`, `QuizBank` and `QuizManager`.
+The arguments supported by this feature includes:
 
-The following is a detailed explanation of the operations `QuizCreateAutomaticallyCommand` performs. +
+- `Quiz ID`
+- `Number of Questions` (1...*)
+- `Question Type` (Mcq, Open ended, All)
 
-*Step 1*. The `QuizCreateAutomaticallyCommand#execute(Model model)` method is executed and it validates the quizId, making sure that there is no existing quiz with the same quizId.
+Example of a possible command: `quiz auto quizID/CS2103T numQuestions/2 type/mcq`
+This randomly adds 2 mcq questions to the quiz named CS2103T.
 
-*Step 2*. The method `Model#createQuizAutomatically(String quizId, int numQuestions, String type)` will then be called to create the quiz with the specified number of questions. This calls the method `SavedQuizzes#createQuizAutomatically(String quizId, int numQuestions, String type, SavedQuestions savedQuestions)` which calls the method `QuizManager#createQuizAutomatically(String quizId, int numQuestions, String type, SavedQuestions savedQuestions, QuizBank quizBank)`. This creates a `Quiz` class instance with the given quizId and iterates through the `QuestionBank#questions` to obtain random questions to add to the quiz. The method ensures that no duplicate questions are added to the quiz, and continues adding questions to the quiz until the correct number of questions have been added. Lastly, it adds this new `Quiz` instance to the `QuizBank#quizzes` for storage.
+===== Implementation
 
-*Step 3*. Then, a success message will be generated by the `QuizCreateAutomaticallyCommand#generateSuccessMessage()` method and a new `CommandResult` will be returned with the generated success message.
+When the user inputs the `quiz auto` command in the command line, the following chain of operations occur:
+
+1. The `NjoyParser` will delegate the parsing of the command to `QuizCommandParser`.
+
+2. `QuizCommandParser#parse()` will take in a `String` input consisting of the arguments.
+
+3. The arguments will be tokenized and the respective models for each argument are created.
+
+4. If the parsing of all arguments are successful, a new `QuizCreateAutomaticallyCommand` is returned back to `LogicManager`.
+
+5. The `LogicManager` executes `QuizCreateAutomaticallyCommand#execute()`. This in turn executes `model#createQuizAutomatically()`.
+
+6. The `ModelManager` defers the operations to `SavedQuizzes#createQuizAutomatically()`.
+
+7. Finally, this delegates the actual operations to `QuizManager#createQuizAutomatically()`.
+
+8. The newly created `Quiz` object is added to the `QuizBank` in `SavedQuizzes` for storage and further use.
 
 [[Feature-Quiz-Add-Question]]
-==== Add Question command
+==== Adding a Question to a Quiz
+The quiz add question feature allows the user to add a question to a quiz in Njoy.
+This feature is facilitated by `QuizAddQuestionCommand`, `QuizCommandParser`, `NjoyParser`, `SavedQuizzes`, `QuizBank` and `QuizManager`.
+The arguments supported by this feature includes:
 
-The following is a detailed explanation of the operations `QuizAddQuestionCommand` performs. +
+- `Quiz ID`
+- `Question Number`
+- `Quiz Question Number`
 
-*Step 1*. The `QuizAddQuestionCommand#execute(Model model)` method is executed and it validates the question number, making sure that the question number currently exists within the `QuestionBank#questions` observable list.
+Example of a possible command: `quiz add quizID/CS2103T questionNumber/2 quizQuestionNumber/3`
+This adds question 2 to the quiz named CS2103T as question 3.
 
-*Step 2*. The method `Model#addQuizQuestion(String quizId, int questionNumber, int quizQuestionNumber)` will then be called to add the specified question to the specified quiz. This calls the method `SavedQuizzes#addQuizQuestion(String quizId, int questionNumber, int quizQuestionNumber, SavedQuestions savedQuestions)` which calls the method `QuizManager#addQuizQuestion(String quizId, int questionNumber, int quizQuestionNumber, SavedQuestions savedQuestions, QuizBank quizBank)`. This obtains the question specified by the user, then adds it to the quiz specified by the quizId. This is done by searching through the `QuizBank#quizzes` for a quiz matching the quizId. Then, it calls the method `Quiz#addQuestion(Question question, int questionIndex)` which adds the question to the appropriate index.
+===== Implementation
 
-*Step 3*. Then, a success message will be generated by the `QuizAddQuestionCommand#generateSuccessMessage()` method and a new `CommandResult` will be returned with the generated success message.
+When the user inputs the `quiz add` command in the command line, the following chain of operations occur:
 
-[[Feature-Quiz-Remove-Question]]
-==== Remove Question command
+1. The `NjoyParser` will delegate the parsing of the command to `QuizCommandParser`.
 
-The following is a detailed explanation of the operations `QuizRemoveQuestionCommand` performs. +
+2. `QuizCommandParser#parse()` will take in a `String` input consisting of the arguments.
 
-*Step 1*. The `QuizRemoveQuestionCommand#execute(Model model)` method is executed.
+3. The arguments will be tokenized and the respective models for each argument are created.
 
-*Step 2*. The method `Model#removeQuizQuestion(String quizId, int questionNumber)` will then be called to remove a specified question from the specified quiz. This calls the method `SavedQuizzes#removeQuizQuestion(String quizId, int questionNumber, SavedQuestions savedQuestions)` which calls the method `QuizManager#removeQuizQuestion(String quizId, int questionNumber, SavedQuestions savedQuestions, QuizBank quizBank)`. This obtains the quiz specified by searching through the `QuizBank#quizzes` for a quiz matching the quizId. Then, it calls the method `Quiz#removeQuestion(int questionIndex)` which removes the question from the specified question index.
+4. If the parsing of all arguments are successful, a new `QuizAddQuestionCommand` is returned back to `LogicManager`.
 
-*Step 3*. Then, a success message will be generated by the `QuizRemoveQuestionCommand#generateSuccessMessage()` method and a new `CommandResult` will be returned with the generated success message.
+5. The `LogicManager` executes `QuizAddQuestionCommand#execute()`. This in turn executes `model#addQuizQuestion()`.
+
+6. The `ModelManager` defers the operations to `SavedQuizzes#addQuizQuestion()`.
+
+7. Finally, this delegates the actual operations to `QuizManager#addQuizQuestion()`.
+
+8. The `Question` object is added to the chosen `Quiz` object in the `QuizBank` in `SavedQuizzes` for storage and further use.
+
+[[Feature-Quiz-Delete-Question]]
+==== Deleting a Question from a Quiz
+The quiz delete question feature allows the user to delete a question from a quiz in Njoy.
+This feature is facilitated by `QuizDeleteQuestionCommand`, `QuizCommandParser`, `NjoyParser`, `SavedQuizzes`, `QuizBank` and `QuizManager`.
+The arguments supported by this feature includes:
+
+- `Quiz ID`
+- `Quiz Question Number`
+
+Example of a possible command: `quiz delete quizID/CS2103T quizQuestionNumber/3`
+This deletes question number 3 of the quiz named CS2103T.
+
+===== Implementation
+
+When the user inputs the `quiz delete` command in the command line, the following chain of operations occur:
+
+1. The `NjoyParser` will delegate the parsing of the command to `QuizCommandParser`.
+
+2. `QuizCommandParser#parse()` will take in a `String` input consisting of the arguments.
+
+3. The arguments will be tokenized and the respective models for each argument are created.
+
+4. If the parsing of all arguments are successful, a new `QuizDeleteQuestionCommand` is returned back to `LogicManager`.
+
+5. The `LogicManager` executes `QuizDeleteQuestionCommand#execute()`. This in turn executes `model#deleteQuizQuestion()`.
+
+6. The `ModelManager` defers the operations to `SavedQuizzes#deleteQuizQuestion()`.
+
+7. Finally, this delegates the actual operations to `QuizManager#deleteQuizQuestion()`.
+
+8. The `Question` object is deleted from the chosen `Quiz` object in the `QuizBank` in `SavedQuizzes` for storage and further use.
+
+[[Feature-Quiz-Export]]
+==== Exporting a Quiz to HTML
+The quiz export feature allows the user to export a quiz to HTML in Njoy.
+This feature is facilitated by `QuizExportCommand`, `QuizCommandParser`, `NjoyParser`, `SavedQuizzes`, `QuizBank` and `QuizManager`.
+The arguments supported by this feature includes:
+
+- `Quiz ID`
+
+Example of a possible command: `quiz export quizID/CS2103T`
+This exports the quiz named CS2103T to a HTML file in the user's directory.
+
+===== Implementation
+
+When the user inputs the `quiz export` command in the command line, the following chain of operations occur:
+
+1. The `NjoyParser` will delegate the parsing of the command to `QuizCommandParser`.
+
+2. `QuizCommandParser#parse()` will take in a `String` input consisting of the arguments.
+
+3. The arguments will be tokenized and the respective models for each argument are created.
+
+4. If the parsing of all arguments are successful, a new `QuizExportCommand` is returned back to `LogicManager`.
+
+5. The `LogicManager` executes `QuizExportCommand#execute()`. This in turn executes `model#exportQuiz()`.
+
+6. The `ModelManager` defers the operations to `SavedQuizzes#exportQuiz()`.
+
+7. Finally, this delegates the actual operations to `QuizManager#exportQuiz()`.
+
+8. The `Quiz` object is exported to a HTML file in the user's directory for further use.
 
 [[Feature-Quiz-List]]
-==== List command
+==== Listing Questions and Answers of a Quiz
+The quiz list feature allows the user to list both questions and answers from a quiz in Njoy.
+This feature is facilitated by `QuizListCommand`, `QuizCommandParser`, `NjoyParser`, `SavedQuizzes`, `QuizBank` and `QuizManager`.
+The arguments supported by this feature includes:
 
-The following is a detailed explanation of the operations `QuizGetQuestionsAndAnswersCommand` performs. +
+- `Quiz ID`
 
-*Step 1*. The `QuizGetQuestionsAndAnswersCommand#execute(Model model)` method is executed.
+Example of a possible command: `quiz list quizID/CS2103T`
+This lists the questions and answers of the quiz named CS2103T.
 
-*Step 2*. The method `Model#getQuestionsAndAnswersCommand(String quizId)` will then be called to obtain the questions and answers in String representation for a specified quizId. This calls the method `SavedQuizzes#getQuestionsAndAnswersCommand(String quizId)` which calls the method `QuizManager#getQuestionsAndAnswersCommand(String quizId, QuizBank quizBank)`. This obtains the quiz specified by searching through the `QuizBank#quizzes` for a quiz matching the quizId. Then, it calls `Quiz#getFormattedQuestions()` and `Quiz#getFormattedAnswers()` before formatting them for output.
+===== Implementation
 
-*Step 3*. Then, a success message will be generated by the `QuizGetQuestionsAndAnswersCommand#generateSuccessMessage()` method and a new `CommandResult` will be returned with the generated success message.
+When the user inputs the `quiz list` command in the command line, the following chain of operations occur:
 
-==== Design Considerations
+1. The `NjoyParser` will delegate the parsing of the command to `QuizCommandParser`.
 
-===== Aspect: Command Syntax
-* ** Current Implementation: **
-** To be done
+2. `QuizCommandParser#parse()` will take in a `String` input consisting of the arguments.
 
-* ** Alternatives Considered: **
-** To be done
+3. The arguments will be tokenized and the respective models for each argument are created.
 
-===== Aspect: Command Length
+4. If the parsing of all arguments are successful, a new `QuizListCommand` is returned back to `LogicManager`.
 
-* ** Current Implementation: **
-** To be done
+5. The `LogicManager` executes `QuizListCommand#execute()`. This in turn executes `model#getObservableListQuestionsFromQuiz()`.
 
-* ** Alternatives Considered: **
-** To be done
+6. The `ModelManager` defers the operations to `SavedQuizzes#getObservableListQuestionsFromQuiz()`.
+
+7. Finally, this delegates the actual operations to `QuizManager#getObservableListQuestionsFromQuiz()`.
+
+8. The questions and answers for the quiz are displayed onto the UI.
+
+[[Feature-Quiz-ShowAnswers]]
+==== Showing Answers of a Quiz
+The quiz show answers feature allows the user to show only answers from a quiz in Njoy.
+This feature is facilitated by `QuizShowAnswersCommand`, `QuizCommandParser`, `NjoyParser`, `SavedQuizzes`, `QuizBank` and `QuizManager`.
+The arguments supported by this feature includes:
+
+- `Quiz ID`
+
+Example of a possible command: `quiz showAnswers quizID/CS2103T`
+This shows the answers of the quiz named CS2103T.
+
+===== Implementation
+
+When the user inputs the `quiz showAnswers` command in the command line, the following chain of operations occur:
+
+1. The `NjoyParser` will delegate the parsing of the command to `QuizCommandParser`.
+
+2. `QuizCommandParser#parse()` will take in a `String` input consisting of the arguments.
+
+3. The arguments will be tokenized and the respective models for each argument are created.
+
+4. If the parsing of all arguments are successful, a new `QuizShowAnswersCommand` is returned back to `LogicManager`.
+
+5. The `LogicManager` executes `QuizShowAnswersCommand#execute()`. This in turn executes `model#getObservableListQuestionsFromQuiz()`.
+
+6. The `ModelManager` defers the operations to `SavedQuizzes#getObservableListQuestionsFromQuiz()`.
+
+7. Finally, this delegates the actual operations to `QuizManager#getObservableListQuestionsFromQuiz()`.
+
+8. The answers for the quiz are displayed onto the UI.
+
+[[Feature-Quiz-ShowQuestions]]
+==== Showing Questions of a Quiz
+The quiz show questions feature allows the user to show only questions from a quiz in Njoy.
+This feature is facilitated by `QuizShowQuestionsCommand`, `QuizCommandParser`, `NjoyParser`, `SavedQuizzes`, `QuizBank` and `QuizManager`.
+The arguments supported by this feature includes:
+
+- `Quiz ID`
+
+Example of a possible command: `quiz showQuestions quizID/CS2103T`
+This shows the answers of the quiz named CS2103T.
+
+===== Implementation
+
+When the user inputs the `quiz showQuestions` command in the command line, the following chain of operations occur:
+
+1. The `NjoyParser` will delegate the parsing of the command to `QuizCommandParser`.
+
+2. `QuizCommandParser#parse()` will take in a `String` input consisting of the arguments.
+
+3. The arguments will be tokenized and the respective models for each argument are created.
+
+4. If the parsing of all arguments are successful, a new `QuizShowQuestionsCommand` is returned back to `LogicManager`.
+
+5. The `LogicManager` executes `QuizShowQuestionsCommand#execute()`. This in turn executes `model#getObservableListQuestionsFromQuiz()`.
+
+6. The `ModelManager` defers the operations to `SavedQuizzes#getObservableListQuestionsFromQuiz()`.
+
+7. Finally, this delegates the actual operations to `QuizManager#getObservableListQuestionsFromQuiz()`.
+
+8. The answers for the quiz are displayed onto the UI.
 
 === Student feature
 
@@ -815,7 +1016,7 @@ The following is a detailed explanation of the operations `NoteListCommand` perf
 ** Cons: Not as powerful and less utility for advanced users.
 * **Alternative 2:** Many fields including tagging, redo, undo et cetera.
 ** Pros: Powerful, many features that advanced users can use.
-** Cons: Against original target of making the Notes feature super lightweight and easy to use. Should be as easy as a digital Post-It!.
+** Cons: Against original target of making the Notes feature super lightweight and easy to use. Should be as easy as a digital Post-it!
 
 [NOTE]
 Additional fields to the Note have been made optional such that it is very easy to use for beginner users and at the same time powerful for advanced ones. We
@@ -838,7 +1039,7 @@ The following is an example usage scenario where the Actor/User asks Njoy for a 
 
 *Step 1*. Actor/User inputs a statistics command with data path as specified in user guide. `MainWindow#executeCommand(String commandText)` passes the user input to the `LogicManager`.
 
-*Step 2*. The logic manager passes received input into its main parser which recognises this is a command for statistics. It passes the input to the `StatisticsCommandParser` for retrieving data from the external file. All data file parsers implements the ‘DataParser’ interface.
+*Step 2*. The logic manager passes received input into its main parser which recognises this is a command for statistics. It passes the input to the `StatisticsCommandParser` for retrieving data from the external file. All data file parsers implements the `DataParser` interface.
 
 *Step 3*. Suppose the data was successfully retrieved, `Statistics` object is generated for data processing and passed into `StatisticsAddCommand`.
 
