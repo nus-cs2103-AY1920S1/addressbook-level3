@@ -9,7 +9,7 @@ import java.time.format.DateTimeFormatter;
 /**
  * Represents a NUStudy revision task.
  */
-public class Task {
+public class Task implements Comparable<Task> {
     public static final String MESSAGE_DATE_CONSTRAINT = "Please follow Singapore local date format 'dd/MM/yyyy', "
             + "with 1 <= dd <= 31, 1 <= MM <= 12, 0 < yyyy < 9999";
     public static final String MESSAGE_TIME_CONSTRAINT = "Please follow Singapore local time format 'HH/mm', "
@@ -110,5 +110,26 @@ public class Task {
 
     public boolean getStatus() {
         return isDone;
+    }
+
+    @Override
+    public int compareTo(Task task) {
+        int compareDate = this.getDate().compareTo(task.getDate());
+        if (compareDate != 0) {
+            return compareDate;
+        }
+
+        int compareTime = this.getTime().compareTo(task.getTime());
+        if (compareTime != 0) {
+            return compareTime;
+        }
+
+        if (this.getStatus() && !task.getStatus()) {
+            return -1;
+        } else if (!this.getStatus() && task.getStatus()) {
+            return 1;
+        } else {
+            return 0;
+        }
     }
 }
