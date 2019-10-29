@@ -361,5 +361,47 @@
     -fx-font-size: 12pt;
 }
 
+.function_btn {
+    -fx-background-image: url('../images/btn_remove.png');
+    -fx-spacing: 5pt;
+    -fx-background-radius: 6em;
+    -fx-border-width: 0;
+    -fx-border-insets: 0;
+    -fx-border-style: none;
+    -fx-padding: 0;
+    -fx-min-width: 20px;
+    -fx-min-height: 20px;
+    -fx-background-size: cover;
+}
+
+.tree-view {
+    -fx-background-color: white;
+}
+
+#lbl {
+    -fx-text-fill: white;
+    -fx-font-size: 10pt;
+}
+
+.tree-cell {
+    -fx-background-color: white;
+    -fx-border-color: black;
+    -fx-text-fill: black;
+    -fx-border-width: 0.3pt;
+}
+
+.tree-cell:even {
+    -fx-background-color: #f0f0f5;
+}
+
+.tree-cell:selected {
+    -fx-background-color: #424d5f;
+    -fx-text-fill: white;
+}
+
+#btn-refresh {
+    -fx-background-image: url('../images/btn_refresh.png');
+}
+
 .toggle-button {
 }

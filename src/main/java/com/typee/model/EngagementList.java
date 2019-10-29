@@ -2,11 +2,12 @@ package com.typee.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Comparator;
 import java.util.List;
 
 import com.typee.model.engagement.Engagement;
-import com.typee.model.engagement.UniqueEngagementList;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 /**
@@ -15,20 +16,11 @@ import javafx.collections.ObservableList;
  */
 public class EngagementList implements ReadOnlyEngagementList {
 
-    private final UniqueEngagementList engagements;
+    private final ObservableList<Engagement> engagements;
 
-    /*
-     * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
-     * between constructors. See https://docs.oracle.com/javase/tutorial/java/javaOO/initial.html
-     *
-     * Note that non-static init blocks are not recommended to use. There are other ways to avoid duplication
-     *   among constructors.
-     */
-    {
-        engagements = new UniqueEngagementList();
+    public EngagementList() {
+        engagements = FXCollections.observableArrayList();
     }
-
-    public EngagementList() {}
 
     /**
      * Creates an EngagementList using the Engagements in the {@code toBeCopied}
@@ -45,7 +37,7 @@ public class EngagementList implements ReadOnlyEngagementList {
      * {@code engagements} must not contain duplicate engagements.
      */
     public void setEngagements(List<Engagement> engagements) {
-        this.engagements.setEngagements(engagements);
+        this.engagements.setAll(engagements);
     }
 
     /**
@@ -55,6 +47,13 @@ public class EngagementList implements ReadOnlyEngagementList {
         requireNonNull(newData);
 
         setEngagements(newData.getEngagementList());
+    }
+
+    /**
+     * Sorts the ObservableList by custom comparator
+     */
+    public void sort(Comparator<Engagement> comparator) {
+        FXCollections.sort(engagements, comparator);
     }
 
     //// person-level operations
@@ -85,7 +84,7 @@ public class EngagementList implements ReadOnlyEngagementList {
     public void setEngagement(Engagement target, Engagement editedEngagement) {
         requireNonNull(editedEngagement);
 
-        engagements.setEngagement(target, editedEngagement);
+        engagements.set(engagements.indexOf(target), editedEngagement);
     }
 
     /**
@@ -100,13 +99,13 @@ public class EngagementList implements ReadOnlyEngagementList {
 
     @Override
     public String toString() {
-        return engagements.asUnmodifiableObservableList().size() + " engagements";
+        return engagements.size() + " engagements";
         // TODO: refine later
     }
 
     @Override
     public ObservableList<Engagement> getEngagementList() {
-        return engagements.asUnmodifiableObservableList();
+        return FXCollections.unmodifiableObservableList(engagements);
     }
 
     @Override
