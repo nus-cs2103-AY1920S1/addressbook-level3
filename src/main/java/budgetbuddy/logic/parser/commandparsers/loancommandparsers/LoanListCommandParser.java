@@ -61,12 +61,14 @@ public class LoanListCommandParser implements CommandParser<LoanListCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, LoanListCommand.MESSAGE_USAGE));
         }
 
+        // parse sort arguments
         Optional<Comparator<Loan>> optionalSorter = argMultimap.getValue(PREFIX_SORT).isPresent()
                 ? parseSortArg(argMultimap.getValue(PREFIX_SORT))
                 : Optional.empty();
 
         List<Predicate<Loan>> filters = new ArrayList<Predicate<Loan>>();
 
+        // parse direction and status filters
         if (!argMultimap.getPreamble().isBlank()) {
             String[] preambleArr = argMultimap.getPreamble().split("\\s+");
             if (preambleArr.length <= 2) {
@@ -76,6 +78,7 @@ public class LoanListCommandParser implements CommandParser<LoanListCommand> {
             }
         }
 
+        // parse person, amount, date and description filters
         for (String personStr : argMultimap.getAllValues(PREFIX_PERSON)) {
             filters.add(new PersonMatchPredicate(new Person(CommandParserUtil.parseName(personStr))));
         }

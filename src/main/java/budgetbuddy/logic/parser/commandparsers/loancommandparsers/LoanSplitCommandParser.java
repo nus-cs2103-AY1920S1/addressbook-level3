@@ -45,6 +45,8 @@ public class LoanSplitCommandParser implements CommandParser<LoanSplitCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, LoanSplitCommand.MESSAGE_USAGE));
         }
 
+        // parse optional user input for auto-adding calculated results to loan list
+
         Optional<String> optionalUserArg = argMultiMap.getValue(PREFIX_USER);
         Optional<Person> optionalUser = optionalUserArg.isPresent()
                 ? Optional.of(new Person(CommandParserUtil.parseName(optionalUserArg.get())))
@@ -64,6 +66,8 @@ public class LoanSplitCommandParser implements CommandParser<LoanSplitCommand> {
             || (optionalUser.isEmpty() && optionalDate.isPresent())) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, LoanSplitCommand.MESSAGE_USAGE));
         }
+
+        // parse lists of persons and amounts
 
         List<Person> persons = new ArrayList<Person>();
         List<Amount> amounts = new ArrayList<Amount>();

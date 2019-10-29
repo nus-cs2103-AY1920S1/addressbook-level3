@@ -271,6 +271,7 @@ public class LoanSplitCommand extends Command {
         HashMap<Person, Amount> currCreditors = new HashMap<Person, Amount>();
         for (DebtorCreditorAmount dca : debtorCreditorAmountList) {
             if (!dca.debtor.equals(currDebtor)) {
+                // new debtor reached in sorted list; add current debtor to list of debtors
                 debtors.add(new Debtor(currDebtor, currCreditors));
                 currDebtor = dca.debtor;
                 currCreditors.clear();
