@@ -1,12 +1,7 @@
 package seedu.ezwatchlist.ui;
 
-import seedu.ezwatchlist.ui.*;
-
 import org.junit.jupiter.api.Test;
 
-import java.awt.Button;
-
-import static seedu.ezwatchlist.testutil.Assert.assertThrows;
 
 public class MainWindowTest {
 
