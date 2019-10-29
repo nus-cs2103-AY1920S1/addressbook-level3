@@ -326,6 +326,7 @@ public class AddCommandTest {
      */
     private class ModelStubAcceptingExpenseAdded extends ModelStub {
         final ArrayList<Expense> expensesAdded = new ArrayList<>();
+        final TagCountManager count = new TagCountManager();
 
         @Override
         public boolean hasExpense(Expense expense) {
@@ -346,6 +347,7 @@ public class AddCommandTest {
 
         @Override
         public void incrementCount(Set<Tag> toIncrement) {
+            count.incrementAllCount(toIncrement);
         }
 
         @Override
