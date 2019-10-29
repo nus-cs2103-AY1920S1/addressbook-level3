@@ -8,8 +8,8 @@ import seedu.address.logic.parser.Prefix;
 
 public class SyntaxHighlightingSupportedInput {
 
-    static final String PLACE_HOLDER_REGEX = "(?<placeholder><[^>]+>)";
-    private static final String INPUT_PATTERN_TEMPLATE = "(?<COMMAND>%s)|" + PLACE_HOLDER_REGEX + "|%s(?<arg>\\S+)";
+    static final String PLACEHOLDER_REGEX = "(?<placeholder><[^>]+>)";
+    private static final String INPUT_PATTERN_TEMPLATE = "(?<COMMAND>%s)|" + PLACEHOLDER_REGEX + "|%s(?<arg>\\S+)";
 
     private String command;
     private List<Prefix> prefixes;

@@ -105,7 +105,6 @@ public class CommandResult {
         this(feedbackToUser, showHelp, exit, PanelName.CURRENT);
     }
 
-
     public String getFeedbackToUser() {
         return feedbackToUser;
     }

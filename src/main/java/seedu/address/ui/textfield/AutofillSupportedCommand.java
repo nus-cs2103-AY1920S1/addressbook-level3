@@ -28,6 +28,10 @@ public class AutofillSupportedCommand {
         }
     }
 
+    public boolean isRequired(Prefix p) {
+        return requiredPrefixToIsPresentMapping.keySet().contains(p);
+    }
+
     public String getCommand() {
         return command;
     }

@@ -12,7 +12,7 @@ import static javafx.scene.input.KeyCombination.SHORTCUT_ANY;
 import static javafx.scene.input.KeyCombination.SHORTCUT_DOWN;
 import static org.fxmisc.wellbehaved.event.EventPattern.keyPressed;
 import static org.fxmisc.wellbehaved.event.EventPattern.keyReleased;
-import static seedu.address.ui.textfield.SyntaxHighlightingSupportedInput.PLACE_HOLDER_REGEX;
+import static seedu.address.ui.textfield.SyntaxHighlightingSupportedInput.PLACEHOLDER_REGEX;
 
 import java.time.Duration;
 import java.util.Collection;
@@ -217,7 +217,7 @@ public class CommandTextField extends Region {
      * @return The text property value of the text area with placeholders replaced with an empty String.
      */
     public String getText() {
-        return functionalTextField.getText().replaceAll(PLACE_HOLDER_REGEX, "");
+        return functionalTextField.getText().replaceAll(PLACEHOLDER_REGEX, "");
     }
 
     public ReadOnlyStringProperty textProperty() {
@@ -393,7 +393,7 @@ public class CommandTextField extends Region {
 
         if (change.isContentChange()) {
             // prevent insertion of newline and < > characters
-            change.setText(change.getText().replaceAll(PLACE_HOLDER_REGEX, ""));
+            change.setText(change.getText().replaceAll(PLACEHOLDER_REGEX, ""));
             change.setText(change.getText().replaceAll("[<>\\n\\r]", ""));
 
 
@@ -429,7 +429,7 @@ public class CommandTextField extends Region {
                 }
             }
 
-            Pattern placeHolderPattern = Pattern.compile(PLACE_HOLDER_REGEX);
+            Pattern placeHolderPattern = Pattern.compile(PLACEHOLDER_REGEX);
             Matcher placeholder = placeHolderPattern.matcher(change.getControlText());
             // replace the entire placeholder if change occurs within it
             while (placeholder.find()) {
