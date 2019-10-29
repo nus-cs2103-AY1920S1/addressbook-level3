@@ -84,8 +84,10 @@ public class ProcessingCommand extends Command {
             if (isValidDonorPatientPair(firstNric, secondNric, model)) {
                 model.getFilteredPersonList();
                 taskList = donor.getProcessingList(patientNRIC);
+
+                donor.setStatus("processing");
             }
-            return new CommandResult(taskList.display());
+            return new CommandResult(taskList.toString());
         } catch (PersonNotFoundException pne) {
             return new CommandResult(MESSAGE_NOT_PROCESSED);
         }

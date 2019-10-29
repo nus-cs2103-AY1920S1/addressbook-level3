@@ -19,7 +19,6 @@ public class Donor extends Person {
     private final Organ organ;
     private final OrganExpiryDate organExpiryDate;
     private TaskList processingTodoList;
-    private boolean hasProcessingList;
     private Status status;
     private HashMap<Nric, Double> successRateMap;
     private String successRate;
@@ -39,9 +38,13 @@ public class Donor extends Person {
         this.organ = organ;
         this.organExpiryDate = organExpiryDate;
         processingTodoList = new TaskList();
-        this.hasProcessingList = false;
         this.status = status;
         successRateMap = new HashMap<>();
+        if (status.isNotProcessing()) {
+            this.processingTodoList = processingTodoList.defaultList();
+        } else {
+            this.processingTodoList = processingTodoList;
+        }
     }
 
     public Age getAge() {
@@ -65,12 +68,11 @@ public class Donor extends Person {
     }
 
     public TaskList getProcessingList(Nric patientNric) {
-        if (!hasProcessingList) {
-            return processingTodoList.defaultList();
-        } else {
-            hasProcessingList = true;
-            return processingTodoList;
-        }
+        return processingTodoList;
+    }
+
+    public Nric getPatientNric() {
+        return patientNric;
     }
 
     public Status getStatus() {

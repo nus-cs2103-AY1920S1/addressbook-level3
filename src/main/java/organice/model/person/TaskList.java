@@ -11,8 +11,11 @@ public class TaskList {
 
     protected ArrayList<Task> listOfTask;
 
+    public final String value;
+
     public TaskList() {
         this.listOfTask = new ArrayList<Task>();
+        value = listOfTask.toString();
     }
 
     public void add(Task task) {
@@ -41,7 +44,8 @@ public class TaskList {
         return processingTodoList;
     }
 
-    public String display() {
+    @Override
+    public String toString() {
         int count = 1;
         String tasks = "";
         for (int i = 0; i < listOfTask.size(); i++) {
