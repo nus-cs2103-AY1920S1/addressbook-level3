@@ -2,6 +2,8 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_FRIDGE_DOES_NOT_EXIST;
+import static seedu.address.logic.commands.AddCommand.NOTIF_PERIOD;
+import static seedu.address.logic.commands.AddCommand.NOTIF_TIME_UNIT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CAUSE_OF_DEATH;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_JOINED;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_OF_BIRTH;
@@ -21,7 +23,10 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_RELATIONSHIP;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RELIGION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
+import static seedu.address.model.entity.body.BodyStatus.ARRIVED;
+import static seedu.address.model.entity.body.BodyStatus.CONTACT_POLICE;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -38,10 +43,11 @@ import seedu.address.model.entity.IdentificationNumber;
 import seedu.address.model.entity.body.Body;
 import seedu.address.model.entity.fridge.Fridge;
 import seedu.address.model.entity.worker.Worker;
+import seedu.address.model.notif.Notif;
+import seedu.address.model.person.Name;
 
 
 //@@author ambervoong
-
 /**
  * Updates the details of an existing body or worker in Mortago.
  */
@@ -90,6 +96,7 @@ public class UpdateCommand extends UndoableCommand {
     private Entity entity;
     private Fridge originalFridge;
     private Fridge updatedFridge;
+    private List<Notif> toDeleteNotif;
 
 
     /**
@@ -134,6 +141,7 @@ public class UpdateCommand extends UndoableCommand {
             throw new CommandException(MESSAGE_ENTITY_NOT_FOUND);
         }
 
+        //@@author arjavibahety
         try {
             this.originalEntityDescriptor = saveOriginalFields(entity);
 
@@ -141,16 +149,30 @@ public class UpdateCommand extends UndoableCommand {
                 UpdateBodyDescriptor originalBodyDescriptor = (UpdateBodyDescriptor) originalEntityDescriptor;
                 UpdateBodyDescriptor updateBodyDescriptor = (UpdateBodyDescriptor) updateEntityDescriptor;
 
-                if (updateBodyDescriptor.getFridgeId().isPresent()
-                        && !originalBodyDescriptor.getFridgeId().equals(updateBodyDescriptor.getFridgeId())) {
-
+                //@@author ambervoong
+                if (!originalBodyDescriptor.getFridgeId().equals(updateBodyDescriptor.getFridgeId())
+                    && updateBodyDescriptor.getFridgeId().isPresent()) {
                     handleUpdatingFridgeAndEntity(model, originalBodyDescriptor, updateBodyDescriptor);
-                } else {
-                    model.setEntity(entity, updateEntityDescriptor.apply(entity));
                 }
-            } else {
-                model.setEntity(entity, updateEntityDescriptor.apply(entity));
+                //@@author
+
+                if ((originalBodyDescriptor.getBodyStatus().equals(Optional.of(CONTACT_POLICE))
+                        && !updateBodyDescriptor.getBodyStatus().equals(Optional.of(CONTACT_POLICE)))
+                        || (originalBodyDescriptor.getBodyStatus().equals(Optional.of(ARRIVED))
+                        && (!updateBodyDescriptor.getBodyStatus().equals(Optional.of(ARRIVED))
+                            && !updateBodyDescriptor.getBodyStatus().equals(Optional.of(CONTACT_POLICE))))) {
+                    handleRemovingNotifs(model, originalBodyDescriptor, updateBodyDescriptor);
+                }
+
+                if (!originalBodyDescriptor.getBodyStatus().equals(Optional.of(ARRIVED))
+                        && updateBodyDescriptor.getBodyStatus().equals(Optional.of(ARRIVED))) {
+                    addNotificationsForBody(model);
+                }
+
             }
+            //@@author
+
+            model.setEntity(entity, updateEntityDescriptor.apply(entity));
 
             //@@author shaoyi1997
             SelectCommand selectCommand = new SelectCommand(Integer.MAX_VALUE);
@@ -208,6 +230,36 @@ public class UpdateCommand extends UndoableCommand {
         }
 
     }
+
+    /**
+     * Removes all the associated notifs when the status of a body is changed from CONTACT_POLICE.
+     *
+     * @param model                  refers to the AddressBook model.
+     * @param originalBodyDescriptor refers to the original description of the body.
+     * @param updateBodyDescriptor   refers to the updated description of the body.
+     */
+    private void handleRemovingNotifs(Model model, UpdateBodyDescriptor originalBodyDescriptor,
+                                      UpdateBodyDescriptor updateBodyDescriptor) {
+        List<Notif> notifList = model.getFilteredNotifList();
+        this.toDeleteNotif = new ArrayList<>();
+        Name bodyName = originalBodyDescriptor.getName().get();
+        for (Notif notif : notifList) {
+            if (notif.getBody().getName().equals(bodyName)) {
+                toDeleteNotif.add(notif);
+            }
+        }
+
+        for (Notif notif : toDeleteNotif) {
+            model.deleteNotif(notif);
+        }
+        model.setEntity(entity, updateEntityDescriptor.apply(entity));
+    }
+
+    private void addNotificationsForBody(Model model) throws CommandException {
+        Body body = (Body) entity;
+        NotifCommand notifCommand = new NotifCommand(new Notif(body), NOTIF_PERIOD, NOTIF_TIME_UNIT);
+        notifCommand.execute(model);
+    }
     //@@author
 
     /**
@@ -223,7 +275,9 @@ public class UpdateCommand extends UndoableCommand {
         }
         try {
             model.setEntity(entity, originalEntityDescriptor.applyOriginal(entity));
+
             if (entity instanceof Body) {
+                // Undo automated fridge changes
                 Body body = (Body) originalEntityDescriptor.applyOriginal(entity);
                 if ((originalFridge != null && updatedFridge != null)) {
                     originalFridge.setBody(body);
@@ -231,6 +285,14 @@ public class UpdateCommand extends UndoableCommand {
                 } else if (originalFridge == null && updatedFridge != null) {
                     updatedFridge.setBody(null);
                     body.setFridgeId(null);
+                }
+
+                // Undo Notif removal
+                if (toDeleteNotif != null || !toDeleteNotif.isEmpty()) {
+                    System.out.println("notifs were readded");
+                    for (Notif n : toDeleteNotif) {
+                        model.addNotif(n);
+                    }
                 }
             }
         } catch (NullPointerException e) {
