@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.commons.core.Messages.MESSAGE_NO_VEHICLES_FOUND;
 import static seedu.address.commons.core.Messages.MESSAGE_VEHICLES_LISTED_OVERVIEW;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalVehicles.V1;
@@ -58,7 +59,7 @@ public class FindVehiclesCommandTest {
 
     @Test
     public void execute_zeroKeywords_noVehiclesFound() {
-        String expectedMessage = String.format(MESSAGE_VEHICLES_LISTED_OVERVIEW, 0);
+        String expectedMessage = MESSAGE_NO_VEHICLES_FOUND;
         DistrictKeywordsPredicate predicate = prepareDistrictPredicate(" ");
         FindVehiclesCommand command = new FindVehiclesCommand(predicate);
         expectedModel.updateFilteredVehicleList(predicate);

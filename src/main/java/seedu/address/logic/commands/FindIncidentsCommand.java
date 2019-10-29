@@ -52,8 +52,14 @@ public class FindIncidentsCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.updateFilteredIncidentList(predicate);
-        return new CommandResult(
-                String.format(Messages.MESSAGE_INCIDENTS_LISTED_OVERVIEW, model.getFilteredIncidentList().size()));
+        if (model.getFilteredIncidentList().size() == 0) {
+            return new CommandResult(Messages.MESSAGE_NO_INCIDENTS_FOUND);
+        } else if (model.getFilteredIncidentList().size() == 1) {
+            return new CommandResult(Messages.MESSAGE_SINGLE_INCIDENT_LISTED);
+        } else {
+            return new CommandResult(
+                    String.format(Messages.MESSAGE_INCIDENTS_LISTED_OVERVIEW, model.getFilteredIncidentList().size()));
+        }
     }
 
     @Override
