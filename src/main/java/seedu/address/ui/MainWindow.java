@@ -45,7 +45,7 @@ public class MainWindow extends UiPart<Stage> {
     private ResultDisplay resultDisplay;
     private ReadDisplayPassword readDisplayPassword;
     private HelpWindow helpWindow;
-    private readDisplayNote readDisplayNote;
+    private ReadDisplayNote readDisplayNote;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -209,7 +209,7 @@ public class MainWindow extends UiPart<Stage> {
             readListPanelPlaceholder.getChildren().add(readDisplayPassword.getRoot());
             readDisplayPassword.setFeedbackToUser((Password) object, index);
         } else if (object instanceof Note) {
-            readDisplayNote = new readDisplayNote();
+            readDisplayNote = new ReadDisplayNote();
             readDisplayNote.setLogic(logic);
             readListPanelPlaceholder.getChildren().add(readDisplayNote.getRoot());
             readDisplayNote.setFeedbackToUser((Note) object, index);
@@ -286,18 +286,6 @@ public class MainWindow extends UiPart<Stage> {
             helpWindow.focus();
         }
     }
-//
-//    /**
-//     * Opens the window or focuses on it if it's already opened.
-//     */
-//    @FXML
-//    public void handleShowWindow() {
-//        if (!editObjectWindow.isShowing()) {
-//            editObjectWindow.show();
-//        } else {
-//            editObjectWindow.focus();
-//        }
-//    }
 
     void show() {
         primaryStage.show();

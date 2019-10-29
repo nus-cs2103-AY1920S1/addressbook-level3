@@ -8,25 +8,23 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Region;
-import javafx.stage.Stage;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.exceptions.DictionaryException;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.note.Description;
 import seedu.address.model.note.Note;
 
 
 /**
  * Controller for a help page
  */
-public class readDisplayNote extends UiPart<Region> {
+public class ReadDisplayNote extends UiPart<Region> {
 
 
-    private static final Logger logger = LogsCenter.getLogger(readDisplayNote.class);
-    private static final String FXML = "readDisplayNote.fxml";
+    private static final Logger logger = LogsCenter.getLogger(ReadDisplayNote.class);
+    private static final String FXML = "ReadDisplayNote.fxml";
     private String content;
     private String title;
     private String description;
@@ -57,7 +55,7 @@ public class readDisplayNote extends UiPart<Region> {
      * Creates a new readDisplayNote.
      *
      */
-    public readDisplayNote() {
+    public ReadDisplayNote() {
         super(FXML);
 
     }
@@ -99,6 +97,9 @@ public class readDisplayNote extends UiPart<Region> {
         getRoot().requestFocus();
     }
 
+    /**
+     * Saves note by running Edit Command and updating all relevant fields of the note.
+     */
     @FXML
     private void saveNote() throws CommandException, ParseException,
             DictionaryException { //TODO:Dictionary Exception unneeded?

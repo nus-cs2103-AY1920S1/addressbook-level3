@@ -247,9 +247,9 @@ public class ParserUtil {
     public static Content parseContent(String content) throws ParseException {
         requireNonNull(content);
         String trimmedContent = content.trim();
-//        if (!Content.isValidContent(trimmedContent)) {
-//            throw new ParseException(Title.MESSAGE_CONSTRAINTS);
-//        }
+        if (!Content.isValidContent(trimmedContent)) {
+            throw new ParseException(Title.MESSAGE_CONSTRAINTS);
+        }
         return new Content(trimmedContent);
     }
 

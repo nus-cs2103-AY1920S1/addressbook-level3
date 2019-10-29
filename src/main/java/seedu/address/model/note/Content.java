@@ -26,7 +26,7 @@ public class Content {
      */
     public Content(String content) {
         requireNonNull(content);
-//        checkArgument(isValidContent(content), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidContent(content), MESSAGE_CONSTRAINTS);
         this.content = content;
     }
 
