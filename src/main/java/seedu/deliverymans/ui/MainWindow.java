@@ -18,6 +18,7 @@ import seedu.deliverymans.logic.commands.CommandResult;
 import seedu.deliverymans.logic.commands.exceptions.CommandException;
 import seedu.deliverymans.logic.parser.exceptions.ParseException;
 import seedu.deliverymans.logic.parser.universal.Context;
+import seedu.deliverymans.model.trie.TrieManager;
 import seedu.deliverymans.model.restaurant.Restaurant;
 
 /**
@@ -47,6 +48,7 @@ public class MainWindow extends UiPart<Stage> {
     private ResultDisplay resultDisplay;
     private StatisticsDisplay statisticsDisplay;
     private HelpWindow helpWindow;
+    private TrieManager trieManager;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -83,6 +85,8 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
+
+        initTrieManager();
     }
 
     public Stage getPrimaryStage() {
@@ -141,6 +145,10 @@ public class MainWindow extends UiPart<Stage> {
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
     }
 
+    private void initTrieManager() {
+        trieManager = new TrieManager();
+    }
+
     /**
      * Sets the default size based on {@code guiSettings}.
      */
@@ -193,42 +201,42 @@ public class MainWindow extends UiPart<Stage> {
         }
 
         switch (context) {
-        case CUSTOMER:
-            customerListPanel = new CustomerListPanel(logic.getFilteredCustomerList());
-            listPanelPlaceholder.getChildren().add(customerListPanel.getRoot());
-            break;
-        case DELIVERYMEN:
-            deliverymanListPanel = new DeliverymanListPanel(logic.getFilteredDeliverymenList());
-            listPanelPlaceholder.getChildren().add(deliverymanListPanel.getRoot());
-            availableDeliverymenListPanel = new AvailableDeliverymenListPanel(logic.getFilteredStatusList());
-            statisticsPlaceholder.getChildren().add(availableDeliverymenListPanel.getRoot());
-            break;
-        case RESTAURANT:
-            restaurantListPanel = new RestaurantListPanel(logic.getFilteredRestaurantList());
-            listPanelPlaceholder.getChildren().add(restaurantListPanel.getRoot());
-            break;
-        case DELIVERYMENSTATUS:
-            availableDeliverymenListPanel = new AvailableDeliverymenListPanel(logic.getUnavailableDeliverymenList());
-            listPanelPlaceholder.getChildren().add(availableDeliverymenListPanel.getRoot());
-            unavailableDeliverymenListPanel = new UnavailableDeliverymenListPanel(logic.getAvailableDeliverymenList());
-            statisticsPlaceholder.getChildren().add(unavailableDeliverymenListPanel.getRoot());
-            break;
-        case EDITING:
-            Restaurant editing = logic.getEditingRestaurantList().get(0);
-            editingRestaurantPlaceholder.setPrefHeight(125.0);
-            editingRestaurantPlaceholder.setMinHeight(125.0);
-            restaurantListPanel = new RestaurantListPanel(logic.getEditingRestaurantList());
-            editingRestaurantPlaceholder.getChildren().add(restaurantListPanel.getRoot());
-            foodListPanel = new FoodListPanel(editing.getMenu());
-            listPanelPlaceholder.getChildren().add(foodListPanel.getRoot());
+            case CUSTOMER:
+                customerListPanel = new CustomerListPanel(logic.getFilteredCustomerList());
+                listPanelPlaceholder.getChildren().add(customerListPanel.getRoot());
+                break;
+            case DELIVERYMEN:
+                deliverymanListPanel = new DeliverymanListPanel(logic.getFilteredDeliverymenList());
+                listPanelPlaceholder.getChildren().add(deliverymanListPanel.getRoot());
+                availableDeliverymenListPanel = new AvailableDeliverymenListPanel(logic.getFilteredStatusList());
+                statisticsPlaceholder.getChildren().add(availableDeliverymenListPanel.getRoot());
+                break;
+            case RESTAURANT:
+                restaurantListPanel = new RestaurantListPanel(logic.getFilteredRestaurantList());
+                listPanelPlaceholder.getChildren().add(restaurantListPanel.getRoot());
+                break;
+            case DELIVERYMENSTATUS:
+                availableDeliverymenListPanel = new AvailableDeliverymenListPanel(logic.getUnavailableDeliverymenList());
+                listPanelPlaceholder.getChildren().add(availableDeliverymenListPanel.getRoot());
+                unavailableDeliverymenListPanel = new UnavailableDeliverymenListPanel(logic.getAvailableDeliverymenList());
+                statisticsPlaceholder.getChildren().add(unavailableDeliverymenListPanel.getRoot());
+                break;
+            case EDITING:
+                Restaurant editing = logic.getEditingRestaurantList().get(0);
+                editingRestaurantPlaceholder.setPrefHeight(125.0);
+                editingRestaurantPlaceholder.setMinHeight(125.0);
+                restaurantListPanel = new RestaurantListPanel(logic.getEditingRestaurantList());
+                editingRestaurantPlaceholder.getChildren().add(restaurantListPanel.getRoot());
+                foodListPanel = new FoodListPanel(editing.getMenu());
+                listPanelPlaceholder.getChildren().add(foodListPanel.getRoot());
 
-            //statisticsDisplay = new StatisticsDisplay();
-            //statisticsPlaceholder.getChildren().add(statisticsDisplay.getRoot());
-            //statisticsDisplay.setFeedbackToUser("THIS PART IS FOR STATISTICS\nWORK IN PROGRESS");
-            break;
-        default:
-            orderListPanel = new OrderListPanel(logic.getFilteredOrderList());
-            listPanelPlaceholder.getChildren().add(orderListPanel.getRoot());
+                //statisticsDisplay = new StatisticsDisplay();
+                //statisticsPlaceholder.getChildren().add(statisticsDisplay.getRoot());
+                //statisticsDisplay.setFeedbackToUser("THIS PART IS FOR STATISTICS\nWORK IN PROGRESS");
+                break;
+            default:
+                orderListPanel = new OrderListPanel(logic.getFilteredOrderList());
+                listPanelPlaceholder.getChildren().add(orderListPanel.getRoot());
         }
     }
 

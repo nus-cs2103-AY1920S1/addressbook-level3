@@ -42,6 +42,14 @@ public class CommandBox extends UiPart<Region> {
     }
 
     /**
+     * Handles the Key pressed event.
+     */
+    @FXML
+    private void handleKeyPressed() {
+        System.out.println(commandTextField.getText());
+    }
+
+    /**
      * Sets the command box style to use the default style.
      */
     private void setStyleToDefault() {
