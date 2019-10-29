@@ -14,8 +14,8 @@ import seedu.address.cashier.ui.CashierMessages;
 import seedu.address.cashier.util.InventoryList;
 import seedu.address.inventory.model.Item;
 import seedu.address.person.model.person.Person;
-import seedu.address.transaction.model.Transaction;
-import seedu.address.transaction.util.TransactionList;
+import seedu.address.transaction.model.transaction.Transaction;
+import seedu.address.transaction.model.TransactionList;
 
 /**
  * Represents the in-memory model of the sales list data.

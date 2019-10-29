@@ -112,13 +112,13 @@ The `UI` component:
 * Updates itself with modified data whenever changes are made by the user.
 
 [[Design-Logic]]
-=== `Logic` component
+=== Logic component
 This section will show the structures of the `Logic` Component of the different tabs.
 The diagram below shows a generalised view of the `Logic` component within each package.
 
 [[fig-LogicClassDiagram]]
 .Structure of the `Logic` Component
-image::LogicClassDiagram.png[]
+image::LogicClassDiagram.png[]____
 
 An outline of how a command is processed through `Logic` is as follows:
 

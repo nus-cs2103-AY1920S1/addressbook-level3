@@ -3,7 +3,7 @@ package seedu.address.transaction.storage;
 import java.io.IOException;
 
 import seedu.address.transaction.storage.exception.FileReadWriteException;
-import seedu.address.transaction.util.TransactionList;
+import seedu.address.transaction.model.TransactionList;
 
 /**
  * API of the Storage component

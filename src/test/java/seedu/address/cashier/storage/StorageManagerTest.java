@@ -13,8 +13,8 @@ import seedu.address.person.model.Model;
 import seedu.address.person.model.UserPrefs;
 import seedu.address.testutil.TypicalItem;
 import seedu.address.testutil.TypicalTransactions;
-import seedu.address.transaction.model.Transaction;
-import seedu.address.transaction.util.TransactionList;
+import seedu.address.transaction.model.transaction.Transaction;
+import seedu.address.transaction.model.TransactionList;
 
 public class StorageManagerTest {
     //private File iFile;

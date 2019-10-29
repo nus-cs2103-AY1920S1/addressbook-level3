@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.TransactionBuilder;
 import seedu.address.testutil.TypicalPersons;
+import seedu.address.transaction.model.transaction.TransactionContainsKeywordsPredicate;
 
 class TransactionContainsKeywordsPredicateTest {
     @Test

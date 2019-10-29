@@ -13,8 +13,8 @@ import seedu.address.overview.logic.commands.Command;
 import seedu.address.overview.logic.commands.CommandResult;
 import seedu.address.overview.model.Model;
 import seedu.address.overview.storage.StorageManager;
-import seedu.address.transaction.model.Transaction;
-import seedu.address.transaction.util.TransactionList;
+import seedu.address.transaction.model.transaction.Transaction;
+import seedu.address.transaction.model.TransactionList;
 
 /**
  * Manages the logic behind the transaction tab.

@@ -23,7 +23,7 @@ import seedu.address.testutil.TypicalPersons;
 import seedu.address.testutil.TypicalTransactions;
 import seedu.address.transaction.model.Model;
 import seedu.address.transaction.model.ModelManager;
-import seedu.address.transaction.model.Transaction;
+import seedu.address.transaction.model.transaction.Transaction;
 
 class AddCommandTest {
 

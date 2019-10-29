@@ -1,7 +1,7 @@
 package seedu.address.transaction.logic.parser;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.transaction.model.Transaction.DATE_TIME_FORMATTER;
+import static seedu.address.transaction.model.transaction.Transaction.DATE_TIME_FORMATTER;
 import static seedu.address.transaction.ui.TransactionMessages.MESSAGE_INVALID_EDIT_COMMAND_FORMAT;
 import static seedu.address.util.CliSyntax.PREFIX_AMOUNT;
 import static seedu.address.util.CliSyntax.PREFIX_CATEGORY;

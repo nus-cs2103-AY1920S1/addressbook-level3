@@ -16,8 +16,8 @@ import static seedu.address.util.CliSyntax.PREFIX_PERSON;
 import java.util.Arrays;
 
 import seedu.address.transaction.model.Model;
-import seedu.address.transaction.model.TransactionContainsKeywordsPredicate;
-import seedu.address.transaction.util.TransactionList;
+import seedu.address.transaction.model.transaction.TransactionContainsKeywordsPredicate;
+import seedu.address.transaction.model.TransactionList;
 
 /**
  * Contains helper methods for testing commands.

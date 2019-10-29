@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.transaction.ui.TransactionMessages.MESSAGE_FIND_COMMAND;
 
 import seedu.address.transaction.model.Model;
-import seedu.address.transaction.model.TransactionContainsKeywordsPredicate;
+import seedu.address.transaction.model.transaction.TransactionContainsKeywordsPredicate;
 
 /**
  * Finds a transaction in the transaction list.

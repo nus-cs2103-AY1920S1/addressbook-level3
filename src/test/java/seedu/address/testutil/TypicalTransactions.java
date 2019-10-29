@@ -3,8 +3,8 @@ package seedu.address.testutil;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import seedu.address.transaction.model.Transaction;
-import seedu.address.transaction.util.TransactionList;
+import seedu.address.transaction.model.transaction.Transaction;
+import seedu.address.transaction.model.TransactionList;
 
 /**
  * A utility class containing a list of {@code Transaction} objects to be used in tests.

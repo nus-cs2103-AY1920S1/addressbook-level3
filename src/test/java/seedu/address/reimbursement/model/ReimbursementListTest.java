@@ -15,8 +15,8 @@ import seedu.address.testutil.TransactionBuilder;
 import seedu.address.testutil.TypicalDeadlines;
 import seedu.address.testutil.TypicalPersons;
 import seedu.address.testutil.TypicalTransactions;
-import seedu.address.transaction.model.Transaction;
-import seedu.address.transaction.util.TransactionList;
+import seedu.address.transaction.model.transaction.Transaction;
+import seedu.address.transaction.model.TransactionList;
 
 public class ReimbursementListTest {
     @Test
