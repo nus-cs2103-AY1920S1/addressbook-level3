@@ -20,11 +20,12 @@ import seedu.address.model.Model;
 import seedu.address.model.itinerary.event.Event;
 import seedu.address.ui.MainWindow;
 import seedu.address.ui.template.PageWithSidebar;
+import seedu.address.ui.template.UiChangeConsumer;
 
 /**
  * {@code Page} for displaying the event details.
  */
-public class EventsPage extends PageWithSidebar<AnchorPane> {
+public class EventsPage extends PageWithSidebar<AnchorPane> implements UiChangeConsumer {
 
     private static final String FXML = "itinerary/events/EventsPage.fxml";
 

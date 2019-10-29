@@ -39,6 +39,7 @@ import seedu.address.ui.itinerary.EditEventPage;
 import seedu.address.ui.itinerary.EventsPage;
 import seedu.address.ui.itinerary.ItineraryPage;
 import seedu.address.ui.template.Page;
+import seedu.address.ui.template.UiChangeConsumer;
 import seedu.address.ui.trips.EditTripPage;
 import seedu.address.ui.trips.TripsPage;
 import seedu.address.ui.utility.PreferencesPage;
@@ -310,7 +311,12 @@ public class MainWindow extends UiPart<Stage> {
      * @param commandWord The command word used to execute this change.
      */
     private void handleChange(String commandWord) throws CommandException {
-        currentPage.changeUi(commandWord.toUpperCase());
+        if (currentPage instanceof UiChangeConsumer) {
+            UiChangeConsumer consumer = (UiChangeConsumer) currentPage;
+            consumer.changeUi(commandWord.toUpperCase());
+        } else {
+            throw new CommandException("Page does not support this command");
+        }
     }
 
     /**
