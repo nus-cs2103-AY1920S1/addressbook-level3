@@ -1,7 +1,6 @@
 package seedu.module.ui;
 
 import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 
 import javafx.fxml.FXML;
@@ -16,7 +15,7 @@ import seedu.module.model.module.SemesterDetail;
 public class ModuleSemesterDetailCard extends UiPart<Region> {
 
     private static final String FXML = "ModuleSemesterDetail.fxml";
-    private static final DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("EEE, dd MMM YYYY kk:mma");
+    private static final DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("EEE, dd MMM YYYY hh:mma");
 
     @FXML
     private Label semesterLabel;
@@ -80,8 +79,8 @@ public class ModuleSemesterDetailCard extends UiPart<Region> {
             return "Invalid Exam Date";
         }
 
-        // TODO: Extract offset to config
-        return examDate.atZone(ZoneId.of("UTC+8")).format(dateTimeFormat);
+        // TODO: Extract offset to config and use ZonedDateTime if possible
+        return examDate.plusHours(8).format(dateTimeFormat);
     }
 
     /**
