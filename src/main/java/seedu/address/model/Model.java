@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import java.nio.file.Path;
 import java.time.Period;
+import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 
@@ -10,9 +11,11 @@ import seedu.address.commons.core.Alias;
 import seedu.address.commons.core.AliasMappings;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.budget.Budget;
+import seedu.address.model.expense.Description;
 import seedu.address.model.expense.Event;
 import seedu.address.model.expense.Expense;
 import seedu.address.model.expense.Timestamp;
+import seedu.address.model.statistics.Statistics;
 
 /**
  * The API of the Model component.
@@ -23,6 +26,8 @@ public interface Model {
 
     /** {@code Predicate} that always evaluate to true */
     Predicate<Event> PREDICATE_SHOW_ALL_EVENTS = unused -> true;
+
+    Predicate<Budget> PREDICATE_SHOW_ALL_BUDGETS = unused -> true;
 
     /**
      * Resets data to the given model.
@@ -115,62 +120,79 @@ public interface Model {
      */
     void addUserAlias(Alias alias);
 
-    // ======== ADDRESS BOOK SETTINGS ===============
+    // ======== MOOLAH SETTINGS ===============
     /**
-     * Returns the user prefs' address book file path.
+     * Returns the user prefs' MooLah file path.
      */
-    Path getAddressBookFilePath();
-
-    /**
-     * Sets the user prefs' address book file path.
-     */
-    void setAddressBookFilePath(Path addressBookFilePath);
-
-    /** Returns the AddressBook */
-    ReadOnlyAddressBook getAddressBook();
+    Path getMooLahFilePath();
 
     /**
-     * Replaces address book data with the data in {@code addressBook}.
+     * Sets the user prefs' MooLah file path.
      */
-    void setAddressBook(ReadOnlyAddressBook addressBook);
+    void setMooLahFilePath(Path mooLahFilePath);
 
-    // ======== ADDRESS BOOK ACTIONS ===============
+    /** Returns the MooLah */
+    ReadOnlyMooLah getMooLah();
+
+    /**
+     * Replaces MooLah data with the data in {@code mooLah}.
+     */
+    void setMooLah(ReadOnlyMooLah mooLah);
+
+    // ======== MOOLAH ACTIONS ===============
     /**
      * Returns true if a expense with the same identity as {@code expense}
-     * exists in the address book.
+     * exists in the MooLah.
      */
     boolean hasExpense(Expense expense);
 
     /**
      * Deletes the given expense.
-     * The expense must exist in the address book.
+     * The expense must exist in the MooLah.
      */
     void deleteExpense(Expense target);
 
     /**
      * Adds the given expense.
-     * {@code expense} must not already exist in the address book.
+     * {@code expense} must not already exist in the MooLah.
      */
     void addExpense(Expense expense);
 
     /**
      * Replaces the given expense {@code target} with {@code editedExpense}.
-     * {@code target} must exist in the address book.
+     * {@code target} must exist in the MooLah.
      * The expense identity of {@code editedExpense} must not be the same as another
-     * existing expense in the address book.
+     * existing expense in the MooLah.
      */
     void setExpense(Expense target, Expense editedExpense);
 
     boolean hasBudget(Budget budget);
 
+    boolean hasBudgetWithName(Description targetDescription);
+
+    Budget getPrimaryBudget();
+
     void addBudget(Budget budget);
 
-    void setPrimary(Budget budget);
+    void switchBudgetTo(Description description);
+
+    void deleteBudget(Budget target);
+
+    void setBudget(Budget target, Budget editedBudget);
+
+    void changePrimaryBudgetWindow(Timestamp pastDate);
+
+    /** Returns an unmodifiable view of the filtered expense list */
+    ObservableList<Budget> getFilteredBudgetList();
+
+    void updateFilteredBudgetList(Predicate<? super Budget> budget);
+
+    Predicate<? super Budget> getFilteredBudgetPredicate();
 
     /** Returns an unmodifiable view of the filtered expense list */
     ObservableList<Expense> getFilteredExpenseList();
 
-    /** Returns the predicate of the filltred expense list. **/
+    /** Returns the predicate of the filtered expense list. **/
     Predicate<? super Expense> getFilteredExpensePredicate();
 
     /**
@@ -191,15 +213,19 @@ public interface Model {
      */
     void updateFilteredEventList(Predicate<? super Event> predicate);
 
+    void notifyAboutTranspiredEvents(List<Event> events);
+
     boolean hasEvent(Event event);
+
 
     void addEvent(Event event);
 
     void deleteEvent(Event target);
 
-    String calculateStatistics(String command, Timestamp date1, Timestamp date2, Period period);
+    Statistics calculateStatistics(String command, Timestamp date1, Timestamp date2, Period period);
 
     boolean hasStatistic();
 
     StringBuilder getStatistic();
+
 }

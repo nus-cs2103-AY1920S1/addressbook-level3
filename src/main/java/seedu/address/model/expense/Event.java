@@ -2,16 +2,12 @@ package seedu.address.model.expense;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.Objects;
 
-import java.util.Set;
-
-import seedu.address.model.tag.Tag;
+import seedu.address.model.category.Category;
 
 /**
- * Represents an Event in the address book.
+ * Represents an Event in the MooLah.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Event {
@@ -19,17 +15,19 @@ public class Event {
     private final Description description;
     private final Price price;
     private final Timestamp timestamp;
-    private final Set<Tag> tags = new HashSet<>();
+    private final Category category;
+    private final String originalUserInput;
 
     /**
      * Every field must be present and not null.
      */
-    public Event(Description description, Price price, Set<Tag> tags, Timestamp timestamp) {
+    public Event(Description description, Price price, Category category, Timestamp timestamp, String userInput) {
         requireAllNonNull(description, price, timestamp);
         this.description = description;
         this.price = price;
-        this.tags.addAll(tags);
+        this.category = category;
         this.timestamp = timestamp;
+        this.originalUserInput = userInput;
     }
 
     public Description getDescription() {
@@ -44,12 +42,8 @@ public class Event {
         return timestamp;
     }
 
-    /**
-     * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
-     * if modification is attempted.
-     */
-    public Set<Tag> getTags() {
-        return Collections.unmodifiableSet(tags);
+    public Category getCategory() {
+        return category;
     }
 
     /**
@@ -84,29 +78,31 @@ public class Event {
         Event otherEvent = (Event) other;
         return otherEvent.getDescription().equals(getDescription())
                 && otherEvent.getPrice().equals(getPrice())
-                && otherEvent.getTags().equals(getTags())
+                && otherEvent.getCategory().equals(getCategory())
                 && (otherEvent.getTimestamp().equals(getTimestamp()));
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(description, price, timestamp, tags);
+        return Objects.hash(description, price, timestamp, category);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append("Event: ")
+        builder.append("Description: ")
                 .append(getDescription())
                 .append(" Price: ")
                 .append(getPrice())
-                .append(" [Tags: ");
-        getTags().forEach(builder::append);
-        builder.append("]");
-        builder.append("Timestamp: ")
+                .append(" Category: ")
+                .append(getCategory())
+                .append(" Timestamp: ")
                 .append(getTimestamp());
         return builder.toString();
     }
 
+    public String getOriginalUserInput() {
+        return originalUserInput;
+    }
 }

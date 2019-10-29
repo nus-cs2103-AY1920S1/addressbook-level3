@@ -1,40 +1,36 @@
 package seedu.address.testutil;
 
-import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
-import seedu.address.logic.commands.EditCommand.EditExpenseDescriptor;
-
+import seedu.address.logic.commands.expense.EditCommand;
+import seedu.address.model.category.Category;
 import seedu.address.model.expense.Description;
 import seedu.address.model.expense.Expense;
 import seedu.address.model.expense.Price;
 import seedu.address.model.expense.Timestamp;
-import seedu.address.model.tag.Tag;
+
 
 /**
  * A utility class to help with building EditExpenseDescriptor objects.
  */
 public class EditExpenseDescriptorBuilder {
 
-    private EditExpenseDescriptor descriptor;
+    private EditCommand.EditExpenseDescriptor descriptor;
 
     public EditExpenseDescriptorBuilder() {
-        descriptor = new EditExpenseDescriptor();
+        descriptor = new EditCommand.EditExpenseDescriptor();
     }
 
-    public EditExpenseDescriptorBuilder(EditExpenseDescriptor descriptor) {
-        this.descriptor = new EditExpenseDescriptor(descriptor);
+    public EditExpenseDescriptorBuilder(EditCommand.EditExpenseDescriptor descriptor) {
+        this.descriptor = new EditCommand.EditExpenseDescriptor(descriptor);
     }
 
     /**
      * Returns an {@code EditExpenseDescriptor} with fields containing {@code expense}'s details
      */
     public EditExpenseDescriptorBuilder(Expense expense) {
-        descriptor = new EditExpenseDescriptor();
+        descriptor = new EditCommand.EditExpenseDescriptor();
         descriptor.setDescription(expense.getDescription());
         descriptor.setPrice(expense.getPrice());
-        descriptor.setTags(expense.getTags());
+        descriptor.setCategory(expense.getCategory());
         descriptor.setTimestamp(expense.getTimestamp());
     }
 
@@ -55,12 +51,10 @@ public class EditExpenseDescriptorBuilder {
     }
 
     /**
-     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code EditExpenseDescriptor}
-     * that we are building.
+     * Sets the {@code Category} of the {@code EditExpenseDescriptor} that we are building.
      */
-    public EditExpenseDescriptorBuilder withTags(String... tags) {
-        Set<Tag> tagSet = Stream.of(tags).map(Tag::new).collect(Collectors.toSet());
-        descriptor.setTags(tagSet);
+    public EditExpenseDescriptorBuilder withCategory(String category) {
+        descriptor.setCategory(new Category(category));
         return this;
     }
 
@@ -72,7 +66,7 @@ public class EditExpenseDescriptorBuilder {
         return this;
     }
 
-    public EditExpenseDescriptor build() {
+    public EditCommand.EditExpenseDescriptor build() {
         return descriptor;
     }
 }

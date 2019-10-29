@@ -2,15 +2,13 @@ package seedu.address.model.expense;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.Objects;
-import java.util.Set;
 
-import seedu.address.model.tag.Tag;
+import seedu.address.model.budget.Budget;
+import seedu.address.model.category.Category;
 
 /**
- * Represents a Expense in the address book.
+ * Represents a Expense in the MooLah.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Expense {
@@ -21,29 +19,42 @@ public class Expense {
     private final Description description;
     private final Price price;
     private final Timestamp timestamp;
-
-    private final Set<Tag> tags = new HashSet<>();
+    private Description budgetName;
+    private final Category category;
 
     /**
      * Every field must be present and not null.
      */
-    public Expense(Description description, Price price, Set<Tag> tags, UniqueIdentifier uniqueIdentifier) {
-        requireAllNonNull(description, price, tags, uniqueIdentifier);
+    public Expense(Description description, Price price, Category category, UniqueIdentifier uniqueIdentifier) {
+        requireAllNonNull(description, price, category, uniqueIdentifier);
         this.description = description;
         this.price = price;
         this.uniqueIdentifier = uniqueIdentifier;
-        this.tags.addAll(tags);
+        this.category = category;
         this.timestamp = Timestamp.getCurrentTimestamp();
+        this.budgetName = null;
     }
 
-    public Expense(Description description, Price price, Set<Tag> tags, Timestamp timestamp,
-                   UniqueIdentifier uniqueIdentifier) {
-        requireAllNonNull(description, price, tags, uniqueIdentifier);
+    public Expense(Description description, Price price, Category category,
+                   Timestamp timestamp, UniqueIdentifier uniqueIdentifier) {
+        requireAllNonNull(description, price, category, uniqueIdentifier);
         this.description = description;
         this.price = price;
         this.uniqueIdentifier = uniqueIdentifier;
-        this.tags.addAll(tags);
+        this.category = category;
         this.timestamp = timestamp;
+        this.budgetName = null;
+    }
+
+    public Expense(Description description, Price price, Category category, Timestamp timestamp, Description budgetName,
+                   UniqueIdentifier uniqueIdentifier) {
+        requireAllNonNull(description, price, category, timestamp, budgetName, uniqueIdentifier);
+        this.description = description;
+        this.price = price;
+        this.uniqueIdentifier = uniqueIdentifier;
+        this.category = category;
+        this.timestamp = timestamp;
+        this.budgetName = budgetName;
     }
 
     public Description getDescription() {
@@ -62,12 +73,24 @@ public class Expense {
         return uniqueIdentifier;
     }
 
+    public Description getBudgetName() {
+        return budgetName;
+    }
+
+    public void setBudget(Budget budget) {
+        this.budgetName = budget.getDescription();
+    }
+
+    public void removeBudget() {
+        this.budgetName = new Description("default budget");
+    }
+
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
      */
-    public Set<Tag> getTags() {
-        return Collections.unmodifiableSet(tags);
+    public Category getCategory() {
+        return category;
     }
 
     /**
@@ -98,32 +121,32 @@ public class Expense {
         }
 
         Expense otherExpense = (Expense) other;
-        return otherExpense.getUniqueIdentifier().equals(getUniqueIdentifier())
-                && otherExpense.getDescription().equals(getDescription())
-                && otherExpense.getPrice().equals(getPrice())
-                && otherExpense.getTimestamp().equals(getTimestamp())
-                && otherExpense.getTags().equals(getTags());
+        return otherExpense.uniqueIdentifier.equals(uniqueIdentifier)
+                && otherExpense.description.equals(description)
+                && otherExpense.price.equals(price)
+                && otherExpense.timestamp.equals(timestamp)
+                && otherExpense.category.equals(category)
+                && otherExpense.budgetName.equals(budgetName);
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(description, price, tags, uniqueIdentifier);
+        return Objects.hash(description, price, timestamp, budgetName, category, uniqueIdentifier);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append("Expense: ")
+        builder.append("Description: ")
                 .append(getDescription())
                 .append(" Price: ")
                 .append(getPrice())
                 .append(" Date: ")
                 .append(getTimestamp())
-                .append(" [Tags: ");
-        getTags().forEach(builder::append);
-        builder.append("]");
-        builder.append("Timestamp: ")
+                .append(" Category: ")
+                .append(getCategory())
+                .append(" Timestamp: ")
                 .append(getTimestamp());
         return builder.toString();
     }

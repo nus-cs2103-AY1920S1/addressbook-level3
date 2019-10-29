@@ -19,18 +19,24 @@ public class Alias implements Serializable {
     public static final String MESSAGE_INPUT_CONSTRAINTS =
             "Alias inputs must contain at least 1 non-whitespace character";
     public static final String NAME_VALIDATION_REGEX = "\\p{Alnum}+";
-    public static final String INPUT_VALIDATION_REGEX = "[\\s\\S]*\\S[\\s\\S]*";
+    public static final String INPUT_VALIDATION_REGEX = "\\S[\\s\\S]*";
 
 
     private final String aliasName;
-    private final String input;
+    private final String aliasInput;
 
-    public Alias(String aliasName, String input) {
-        requireAllNonNull(aliasName, input);
+    /* Do not remove. JSON expects a default constructor by default */
+    private Alias() {
+        aliasName = null;
+        aliasInput = null;
+    }
+
+    public Alias(String aliasName, String aliasInput) {
+        requireAllNonNull(aliasName, aliasInput);
         checkArgument(isValidAliasName(aliasName), MESSAGE_NAME_CONSTRAINTS);
-        checkArgument(isValidInput(input), MESSAGE_INPUT_CONSTRAINTS);
+        checkArgument(isValidInput(aliasInput), MESSAGE_INPUT_CONSTRAINTS);
         this.aliasName = aliasName;
-        this.input = input;
+        this.aliasInput = aliasInput;
     }
 
     public String getAliasName() {
@@ -38,12 +44,16 @@ public class Alias implements Serializable {
     }
 
     public String getInput() {
-        return input;
+        return aliasInput;
+    }
+
+    public String getCommandWord() {
+        return getInput().trim().split("\\s+")[0];
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(aliasName, input);
+        return Objects.hash(aliasName, aliasInput);
     }
 
     @Override
@@ -57,7 +67,7 @@ public class Alias implements Serializable {
 
         Alias other = (Alias) obj;
         return aliasName.equals(other.aliasName)
-                && input.equals(other.input);
+                && aliasInput.equals(other.aliasInput);
     }
 
     public static boolean isValidAliasName(String aliasName) {
@@ -71,7 +81,7 @@ public class Alias implements Serializable {
 
     @Override
     public String toString() {
-        return "Alias: " + aliasName + " Input: " + input;
+        return "Alias: " + aliasName + " Input: " + aliasInput;
     }
 
 }

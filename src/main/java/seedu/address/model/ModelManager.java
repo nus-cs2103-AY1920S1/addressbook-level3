@@ -5,6 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
 import java.time.Period;
+import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -15,43 +16,47 @@ import seedu.address.commons.core.Alias;
 import seedu.address.commons.core.AliasMappings;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.exceptions.RecursiveAliasException;
 import seedu.address.model.budget.Budget;
+import seedu.address.model.expense.Description;
 import seedu.address.model.expense.Event;
 import seedu.address.model.expense.Expense;
 import seedu.address.model.expense.Timestamp;
 import seedu.address.model.statistics.Statistics;
 
 /**
- * Represents the in-memory model of the address book data.
+ * Represents the in-memory model of the MooLah data.
  */
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final AddressBook addressBook;
+    private final MooLah mooLah;
     private final UserPrefs userPrefs;
     private final ModelHistory modelHistory;
     private final FilteredList<Expense> filteredExpenses;
     private final FilteredList<Event> filteredEvents;
+    private final FilteredList<Budget> filteredBudgets;
     private StringBuilder statsBuilder;
 
     /**
-     * Initializes a ModelManager with the given addressBook and userPrefs.
+     * Initializes a ModelManager with the given mooLah and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs,
-            ReadOnlyModelHistory modelHistory) {
-        requireAllNonNull(addressBook, userPrefs, modelHistory);
+    public ModelManager(ReadOnlyMooLah mooLah, ReadOnlyUserPrefs userPrefs,
+                        ReadOnlyModelHistory modelHistory) {
+        requireAllNonNull(mooLah, userPrefs, modelHistory);
 
-        logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with MooLah: " + mooLah + " and user prefs " + userPrefs);
 
-        this.addressBook = new AddressBook(addressBook);
+        this.mooLah = new MooLah(mooLah);
         this.userPrefs = new UserPrefs(userPrefs);
         this.modelHistory = new ModelHistory(modelHistory);
-        filteredEvents = new FilteredList<>(this.addressBook.getEventList());
-        filteredExpenses = new FilteredList<>(this.addressBook.getExpenseList());
+        filteredEvents = new FilteredList<>(this.mooLah.getEventList());
+        filteredExpenses = new FilteredList<>(this.mooLah.getExpenseList());
+        filteredBudgets = new FilteredList<>(this.mooLah.getBudgetList());
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs(), new ModelHistory());
+        this(new MooLah(), new UserPrefs(), new ModelHistory());
     }
 
     /**
@@ -65,7 +70,7 @@ public class ModelManager implements Model {
     @Override
     public void resetData(Model model) {
         requireNonNull(model);
-        setAddressBook(model.getAddressBook());
+        setMooLah(model.getMooLah());
         setUserPrefs(model.getUserPrefs());
         setModelHistory(model.getModelHistory());
 
@@ -79,6 +84,12 @@ public class ModelManager implements Model {
             updateFilteredExpenseList(model.getFilteredExpensePredicate());
         } else {
             updateFilteredExpenseList(model.PREDICATE_SHOW_ALL_EXPENSES);
+        }
+
+        if (model.getFilteredBudgetPredicate() != null) {
+            updateFilteredBudgetList(model.getFilteredBudgetPredicate());
+        } else {
+            updateFilteredBudgetList(model.PREDICATE_SHOW_ALL_BUDGETS);
         }
     }
 
@@ -161,14 +172,14 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Path getAddressBookFilePath() {
-        return userPrefs.getAddressBookFilePath();
+    public Path getMooLahFilePath() {
+        return userPrefs.getMooLahFilePath();
     }
 
     @Override
-    public void setAddressBookFilePath(Path addressBookFilePath) {
-        requireNonNull(addressBookFilePath);
-        userPrefs.setAddressBookFilePath(addressBookFilePath);
+    public void setMooLahFilePath(Path mooLahFilePath) {
+        requireNonNull(mooLahFilePath);
+        userPrefs.setMooLahFilePath(mooLahFilePath);
     }
 
     //=========== AliasSettings ==============================================================================
@@ -186,7 +197,12 @@ public class ModelManager implements Model {
 
     @Override
     public void addUserAlias(Alias alias) {
-        userPrefs.addUserAlias(alias);
+        try {
+            userPrefs.addUserAlias(alias);
+        } catch (RecursiveAliasException e) {
+            // should should be prevented by validation
+            e.printStackTrace();
+        }
     }
 
     //=========== GuiSettings ===============================================================================
@@ -205,30 +221,30 @@ public class ModelManager implements Model {
     //=========== Expense ================================================================================
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return addressBook;
+    public ReadOnlyMooLah getMooLah() {
+        return mooLah;
     }
 
     @Override
-    public void setAddressBook(ReadOnlyAddressBook addressBook) {
-        requireNonNull(addressBook);
-        this.addressBook.resetData(addressBook);
+    public void setMooLah(ReadOnlyMooLah mooLah) {
+        requireNonNull(mooLah);
+        this.mooLah.resetData(mooLah);
     }
 
     @Override
     public boolean hasExpense(Expense expense) {
         requireNonNull(expense);
-        return addressBook.hasExpense(expense);
+        return mooLah.hasExpense(expense);
     }
 
     @Override
     public void deleteExpense(Expense target) {
-        addressBook.removeExpense(target);
+        mooLah.removeExpense(target);
     }
 
     @Override
     public void addExpense(Expense expense) {
-        addressBook.addExpense(expense);
+        mooLah.addExpense(expense);
         updateFilteredExpenseList(PREDICATE_SHOW_ALL_EXPENSES);
     }
 
@@ -236,7 +252,7 @@ public class ModelManager implements Model {
     public void setExpense(Expense target, Expense editedExpense) {
         requireAllNonNull(target, editedExpense);
 
-        addressBook.setExpense(target, editedExpense);
+        mooLah.setExpense(target, editedExpense);
     }
 
     //=========== Budget ================================================================================
@@ -244,44 +260,79 @@ public class ModelManager implements Model {
     @Override
     public boolean hasBudget(Budget budget) {
         requireNonNull(budget);
-        return addressBook.hasBudget(budget);
+        return mooLah.hasBudget(budget);
     }
 
     @Override
     public void addBudget(Budget budget) {
-        addressBook.addBudget(budget);
+        mooLah.addBudget(budget);
     }
 
     @Override
-    public void setPrimary(Budget budget) {
-        addressBook.setPrimary(budget);
+    public boolean hasBudgetWithName(Description targetDescription) {
+        return mooLah.hasBudgetWithName(targetDescription);
+    }
+
+    @Override
+    public Budget getPrimaryBudget() {
+        return mooLah.getPrimaryBudget();
+    }
+
+    @Override
+    public void switchBudgetTo(Description targetDescription) {
+        mooLah.switchBudgetTo(targetDescription);
+    }
+
+    @Override
+    public void deleteBudget(Budget target) {
+        mooLah.removeBudget(target);
+    }
+
+    @Override
+    public void setBudget(Budget target, Budget editedBudget) {
+        requireAllNonNull(target, editedBudget);
+
+        mooLah.setBudget(target, editedBudget);
+    }
+
+    @Override
+    public void changePrimaryBudgetWindow(Timestamp pastDate) {
+        requireAllNonNull(pastDate);
+
+        mooLah.changePrimaryBudgetWindow(pastDate);
     }
 
     //=========== Event ================================================================================
 
     @Override
+    public void notifyAboutTranspiredEvents(List<Event> events) {
+
+    }
+    @Override
     public boolean hasEvent(Event event) {
         requireNonNull(event);
-        return addressBook.hasEvent(event);
+        return mooLah.hasEvent(event);
     }
 
     @Override
     public void deleteEvent(Event target) {
-        addressBook.removeEvent(target);
+        mooLah.removeEvent(target);
     }
 
     @Override
     public void addEvent(Event event) {
-        addressBook.addEvent(event);
+        mooLah.addEvent(event);
         updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
     }
 
+
+
+    //=========== Statistics ================================================================================
+
     @Override
-    public String calculateStatistics(String command, Timestamp date1, Timestamp date2, Period period) {
-        FilteredList<Expense> statsExpenses = new FilteredList<>(addressBook.getExpenseList());
-        Statistics statistics = Statistics.startStatistics(statsExpenses);
-        this.statsBuilder = statistics.calculateStats(command, date1, date2, period);
-        return statsBuilder.toString();
+    public Statistics calculateStatistics(String command, Timestamp date1, Timestamp date2, Period period) {
+        ObservableList<Expense> statsExpenses = getFilteredExpenseList();
+        return Statistics.calculateStats(statsExpenses, command, date1, date2, period);
     }
 
     @Override
@@ -300,7 +351,7 @@ public class ModelManager implements Model {
 
     /**
      * Returns an unmodifiable view of the list of {@code Expense} backed by the internal list of
-     * {@code versionedAddressBook}
+     * {@code versionedMooLah}
      */
     @Override
     public ObservableList<Expense> getFilteredExpenseList() {
@@ -322,7 +373,7 @@ public class ModelManager implements Model {
 
     /**
      * Returns an unmodifiable view of the list of {@code Expense} backed by the internal list of
-     * {@code versionedAddressBook}
+     * {@code versionedMooLah}
      */
     @Override
     public ObservableList<Event> getFilteredEventList() {
@@ -340,6 +391,28 @@ public class ModelManager implements Model {
         filteredEvents.setPredicate(predicate);
     }
 
+    //=========== Filtered Budget List Accessors =============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Expense} backed by the internal list of
+     * {@code versionedMooLah}
+     */
+    @Override
+    public ObservableList<Budget> getFilteredBudgetList() {
+        return filteredBudgets;
+    }
+
+    @Override
+    public void updateFilteredBudgetList(Predicate<? super Budget> predicate) {
+        requireNonNull(predicate);
+        filteredBudgets.setPredicate(predicate);
+    }
+
+    @Override
+    public Predicate<? super Budget> getFilteredBudgetPredicate() {
+        return filteredBudgets.getPredicate();
+    }
+
     @Override
     public boolean equals(Object obj) {
         // short circuit if same object
@@ -354,7 +427,7 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return addressBook.equals(other.addressBook)
+        return mooLah.equals(other.mooLah)
                 && userPrefs.equals(other.userPrefs)
                 && filteredExpenses.equals(other.filteredExpenses)
                 && filteredEvents.equals(other.filteredEvents)

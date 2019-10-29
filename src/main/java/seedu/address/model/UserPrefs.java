@@ -9,6 +9,7 @@ import java.util.Objects;
 import seedu.address.commons.core.Alias;
 import seedu.address.commons.core.AliasMappings;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.exceptions.RecursiveAliasException;
 
 /**
  * Represents User's preferences.
@@ -16,7 +17,7 @@ import seedu.address.commons.core.GuiSettings;
 public class UserPrefs implements ReadOnlyUserPrefs {
 
     private GuiSettings guiSettings = new GuiSettings();
-    private Path addressBookFilePath = Paths.get("data" , "addressbook.json");
+    private Path mooLahFilePath = Paths.get("data" , "moolah.json");
     private AliasMappings aliasMappings = new AliasMappings();
 
     /**
@@ -38,7 +39,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     public void resetData(ReadOnlyUserPrefs newUserPrefs) {
         requireNonNull(newUserPrefs);
         setGuiSettings(newUserPrefs.getGuiSettings());
-        setAddressBookFilePath(newUserPrefs.getAddressBookFilePath());
+        setMooLahFilePath(newUserPrefs.getMooLahFilePath());
         setAliasMappings(newUserPrefs.getAliasMappings());
     }
 
@@ -51,13 +52,13 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         this.guiSettings = guiSettings;
     }
 
-    public Path getAddressBookFilePath() {
-        return addressBookFilePath;
+    public Path getMooLahFilePath() {
+        return mooLahFilePath;
     }
 
-    public void setAddressBookFilePath(Path addressBookFilePath) {
-        requireNonNull(addressBookFilePath);
-        this.addressBookFilePath = addressBookFilePath;
+    public void setMooLahFilePath(Path mooLahFilePath) {
+        requireNonNull(mooLahFilePath);
+        this.mooLahFilePath = mooLahFilePath;
     }
 
     public AliasMappings getAliasMappings() {
@@ -73,7 +74,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
      * Add a user defined {@code Alias} to the user prefs' {@code AliasMappings}
      * @param alias
      */
-    public void addUserAlias(Alias alias) {
+    public void addUserAlias(Alias alias) throws RecursiveAliasException {
         requireNonNull(alias);
         this.aliasMappings = aliasMappings.addAlias(alias);
     }
@@ -85,24 +86,26 @@ public class UserPrefs implements ReadOnlyUserPrefs {
 
     @Override
     public boolean hasAlias(String aliasName) {
-        return this.aliasMappings.aliasExists(aliasName);
+        return this.aliasMappings.aliasWithNameExists(aliasName);
     }
 
     /**
      * Returns true if the {@code String aliasName} is a reserved command word, and false otherwise.
+     * @param alias
      */
-    public boolean aliasNameIsReserved(String aliasName) {
-        requireNonNull(aliasName);
-        return this.aliasMappings.aliasNameIsReserved(aliasName);
+    public boolean aliasNameIsReserved(Alias alias) {
+        requireNonNull(alias);
+        return this.aliasMappings.aliasUsesReservedName(alias);
     }
 
     /**
      * Returns true if the {@code String commandWord} of an {@code Alias} is an alias name mapped to an
      * existing {@code Alias}, and false otherwise.
+     * @param alias
      */
-    public boolean aliasCommandWordIsAlias(String commandWord) {
-        requireNonNull(commandWord);
-        return this.aliasMappings.aliasCommandWordIsAlias(commandWord);
+    public boolean aliasCommandWordIsAlias(Alias alias) {
+        requireNonNull(alias);
+        return this.aliasMappings.aliasCommandWordIsAlias(alias);
     }
 
     @Override
@@ -117,20 +120,20 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         UserPrefs o = (UserPrefs) other;
 
         return guiSettings.equals(o.guiSettings)
-                && addressBookFilePath.equals(o.addressBookFilePath)
+                && mooLahFilePath.equals(o.mooLahFilePath)
                 && aliasMappings.equals(o.aliasMappings);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(guiSettings, addressBookFilePath, aliasMappings);
+        return Objects.hash(guiSettings, mooLahFilePath, aliasMappings);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Gui Settings : " + guiSettings);
-        sb.append("\nLocal data file location : " + addressBookFilePath);
+        sb.append("\nLocal data file location : " + mooLahFilePath);
         return sb.toString();
     }
 

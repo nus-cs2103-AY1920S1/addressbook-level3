@@ -10,11 +10,18 @@ Class "{abstract}\nUiPart" as UiPart
 Class UiManager
 Class MainWindow
 Class HelpWindow
-Class ResultDisplay
-Class PersonListPanel
-Class PersonCard
+Class SinglePanelView
+Class ExpenseCard
 Class StatusBarFooter
 Class CommandBox
+Class ResultDisplay
+Class ExpenseListPanel
+Class BudgetListPanel
+Class BudgetPanel
+Class BudgetCard
+Class "{abstract}\nPanel" as Panel
+Class SyntaxHighlightingTextArea
+
 }
 
 package Model <<Rectangle>> {
@@ -33,25 +40,44 @@ UiManager -down-> MainWindow
 MainWindow --> HelpWindow
 MainWindow *-down-> CommandBox
 MainWindow *-down-> ResultDisplay
-MainWindow *-down-> PersonListPanel
+MainWindow *-down-> SinglePanelView
 MainWindow *-down-> StatusBarFooter
 
-PersonListPanel -down-> PersonCard
+BudgetPanel -down--> BudgetCard
+ExpenseListPanel -down-> ExpenseCard
+BudgetListPanel -down-> BudgetCard
 
 MainWindow -left-|> UiPart
 
-ResultDisplay --|> UiPart
 CommandBox --|> UiPart
-PersonListPanel --|> UiPart
-PersonCard --|> UiPart
-StatusBarFooter --|> UiPart
+ResultDisplay --|> UiPart
+SinglePanelView ---|> UiPart
+StatusBarFooter ---|> UiPart
 HelpWindow -down-|> UiPart
+ExpenseCard --|> UiPart
+BudgetCard --|> UiPart
+Panel --|> UiPart
+SinglePanelView --|> UiPart
 
-PersonCard ..> Model
+CommandBox *-left-> SyntaxHighlightingTextArea
+
+ExpenseListPanel --|> Panel
+BudgetListPanel --|> Panel
+BudgetPanel --|> Panel
+
+
+SinglePanelView ---> ExpenseListPanel
+SinglePanelView ---> BudgetListPanel
+SinglePanelView ---> BudgetPanel
+
+
+BudgetCard ...> Model
+ExpenseCard ..> Model
+
 UiManager -right-> Logic
 MainWindow -left-> Logic
 
-PersonListPanel -[hidden]left- HelpWindow
+ExpenseListPanel -[hidden]left- HelpWindow
 HelpWindow -[hidden]left- CommandBox
 CommandBox -[hidden]left- ResultDisplay
 ResultDisplay -[hidden]left- StatusBarFooter

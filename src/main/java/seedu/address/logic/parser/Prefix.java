@@ -6,13 +6,19 @@ package seedu.address.logic.parser;
  */
 public class Prefix {
     private final String prefix;
+    private final String descriptionOfArgument;
 
-    public Prefix(String prefix) {
+    public Prefix(String prefix, String descriptionOfArgument) {
         this.prefix = prefix;
+        this.descriptionOfArgument = descriptionOfArgument;
     }
 
     public String getPrefix() {
         return prefix;
+    }
+
+    public String getDescriptionOfArgument() {
+        return descriptionOfArgument;
     }
 
     public String toString() {

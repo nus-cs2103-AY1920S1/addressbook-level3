@@ -1,13 +1,16 @@
 package seedu.address.model;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
 import javafx.collections.ObservableList;
 
+import seedu.address.logic.Logic;
 import seedu.address.model.budget.Budget;
 import seedu.address.model.expense.Event;
 import seedu.address.model.expense.Reminder;
@@ -17,58 +20,79 @@ import seedu.address.model.expense.Timestamp;
  * Handles all comparisons between system time and the time fields of Expenses, Events and Budgets.
  */
 public class Timekeeper {
-    public static final Timestamp SYSTEM_DATE = new Timestamp(LocalDate.now());
+    // public static final Timestamp SYSTEM_DATE = Timestamp.createTimestampIfValid("11-11").get();
     public static final long LOWER_THRESHOLD = 0;
     public static final long UPPER_THRESHOLD = 7;
-    private Model model;
+    private static Timestamp systemTime = new Timestamp(LocalDateTime.now());
+    private Logic logic;
     private ObservableList<Event> events;
     private List<Reminder> reminders = new ArrayList<>();
     private ObservableList<Budget> budgets;
 
-    public Timekeeper(Model model) {
-        this.model = model;
-        events = model.getFilteredEventList();
-        budgets = model.getAddressBook().getBudgetList();
-        filterOutdatedEvents();
-        getReminders();
+    public Timekeeper(Logic logic) {
+        this.logic = logic;
+        events = logic.getFilteredEventList();
+        budgets = logic.getMooLah().getBudgetList();
     }
 
     /**
-     * Removes events that are already past their due date from the list of events in Moolah.
+     * Checks the system's time and updates the app's system time field to it.
      */
-    private void filterOutdatedEvents() {
-        List<Event> toBeRemoved = new ArrayList<>();
+    public void updateTime() {
+        systemTime = new Timestamp(LocalDateTime.now());
+        refreshBudgets();
+    }
+
+    /**
+     * Converts the Date object returned by Natty into a LocalDateTime object with 0 in both its
+     * seconds and nanoseconds field.
+     *
+     * @param dateToConvert The Date object returned by Natty's parser.
+     * @return The LocalDateTime object to be wrapped in a Timestamp.
+     */
+    public static LocalDateTime convertToLocalDateTime(Date dateToConvert) {
+        return dateToConvert.toInstant()
+                .atZone(ZoneId.systemDefault())
+                .toLocalDateTime()
+                .withSecond(0)
+                .withNano(0);
+    }
+
+    /**
+     * Removes events with timestamps on this current day or before this current day. Returns these transpired events.
+     *
+     * @return A list of transpired events.
+     */
+    public List<Event> getTranspiredEvents() {
+        List<Event> eventsToNotify = new ArrayList<>();
+        List<Event> eventsToBeRemoved = new ArrayList<>();
+
         for (Event event : events) {
-            LocalDate timestamp = event.getTimestamp().timestamp;
-            long daysLeft = SYSTEM_DATE.getTimestamp().until(timestamp, ChronoUnit.DAYS);
-            if (isOutdated(daysLeft)) {
-                toBeRemoved.add(event);
+            Timestamp timestamp = event.getTimestamp();
+            if (hasTranspired(timestamp)) {
+                eventsToNotify.add(event);
+                eventsToBeRemoved.add(event);
             }
         }
 
-        for (Event outdatedEvent : toBeRemoved) {
-            model.deleteEvent(outdatedEvent);
-        }
+        logic.deleteTranspiredEvents(eventsToBeRemoved);
+
+        return eventsToNotify;
     }
 
     /**
-     * Creates Reminders of upcoming Events.
+     * Creates then formats a list of reminders into a readable format.
+     *
+     * @return The String of reminders.
      */
-    public void getReminders() {
+    public String displayReminders() {
         for (Event event : events) {
             Optional<Reminder> potentialReminder = createReminderIfValid(event);
             if (potentialReminder.isPresent()) {
                 reminders.add(potentialReminder.get());
             }
         }
-    }
 
-    /**
-     * Formats the list of reminders into a readable format.
-     *
-     * @return The String of reminders.
-     */
-    public String displayReminders() {
         StringBuilder remindersMessage = new StringBuilder("These are your upcoming events:");
         for (Reminder reminder: reminders) {
             remindersMessage.append("\n" + reminder.toString());
@@ -83,9 +107,7 @@ public class Timekeeper {
      */
     public void refreshBudgets() {
         for (Budget budget : budgets) {
-            if (budget.expired(SYSTEM_DATE)) {
-                budget.refresh(SYSTEM_DATE);
-            }
+            budget.normalize(Timestamp.getCurrentTimestamp());
         }
     }
 
@@ -97,18 +119,38 @@ public class Timekeeper {
      * @return An Optional Reminder which may contain a Reminder of the Event.
      */
     private static Optional<Reminder> createReminderIfValid(Event event) {
-        LocalDate timestamp = event.getTimestamp().timestamp;
-
-        long daysLeft = SYSTEM_DATE.getTimestamp().until(timestamp, ChronoUnit.DAYS);
-
-        return (isUrgent(daysLeft)) ? Optional.of(new Reminder(event, daysLeft)) : Optional.empty();
+        Timestamp timestamp = event.getTimestamp();
+        long daysLeft = calculateDaysRemaining(timestamp);
+        return (isUrgent(timestamp)) ? Optional.of(new Reminder(event, daysLeft)) : Optional.empty();
     }
 
-    private static boolean isUrgent(long daysLeft) {
-        return daysLeft < UPPER_THRESHOLD;
+    /**
+     * Calculates how many days outdated the given timestamp is.
+     *
+     * @param timestamp The given timestamp.
+     * @return How many days outdated the given timestamp is. Can be negative.
+     */
+    public static long calculateDaysOutdated(Timestamp timestamp) {
+        long daysOutdated = -systemTime.getFullTimestamp().until(timestamp.getFullTimestamp(), ChronoUnit.DAYS);
+        return daysOutdated;
     }
 
-    private static boolean isOutdated(long daysLeft) {
-        return daysLeft < LOWER_THRESHOLD;
+    private static long calculateDaysRemaining(Timestamp timestamp) {
+        long daysLeft = systemTime.getFullTimestamp().until(timestamp.getFullTimestamp(), ChronoUnit.DAYS);
+        return daysLeft;
+    }
+
+    private static boolean isUrgent(Timestamp timestamp) {
+        long daysLeft = calculateDaysRemaining(timestamp);
+        return daysLeft < UPPER_THRESHOLD && !hasTranspired(timestamp);
+    }
+
+    private static boolean hasTranspired(Timestamp timestamp) {
+        long daysOutdated = calculateDaysOutdated(timestamp);
+        return daysOutdated >= LOWER_THRESHOLD;
+    }
+
+    public static boolean isFutureTimestamp(Timestamp timestamp) {
+        return timestamp.isAfter(systemTime);
     }
 }

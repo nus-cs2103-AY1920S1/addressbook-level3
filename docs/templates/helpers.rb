@@ -44,13 +44,13 @@ module Slim::Helpers
 
 
   ##
-  # Creates an HTML tag with the given name and optionally attributes. Can take
-  # a block that will run between the opening and closing tags.
+  # Creates an HTML category with the given name and optionally attributes. Can take
+  # a block that will run between the opening and closing categories.
   #
-  # @param name [#to_s] the name of the tag.
+  # @param name [#to_s] the name of the category.
   # @param attributes [Hash]
   # @param content [#to_s] the content; +nil+ to call the block.
-  # @yield The block of Slim/HTML code within the tag (optional).
+  # @yield The block of Slim/HTML code within the category (optional).
   # @return [String] a rendered HTML element.
   #
   def html_tag(name, attributes = {}, content = nil)
@@ -173,7 +173,7 @@ module Slim::Helpers
   end
 
   ##
-  # Constructs a HTML <a> tag representing a link in the navigation bar.
+  # Constructs a HTML <a> category representing a link in the navigation bar.
   #
   # @param section [String] Name of the site section represented by the link.
   #   This is used to highlight the navigation item if the current document
@@ -182,7 +182,7 @@ module Slim::Helpers
   # @param href [String] Path to the target page, relative to the site root.
   # @param content [String] Link content. This is usually the human-readable name
   #   of the link target.
-  # @return [String] The rendered <a> tag.
+  # @return [String] The rendered <a> category.
   def nav_link(section, href, content)
     attributes = {
       :class => ['nav-link'],
@@ -197,21 +197,21 @@ module Slim::Helpers
   #
 
   ##
-  # Returns HTML meta tag if the given +content+ is not +nil+.
+  # Returns HTML meta category if the given +content+ is not +nil+.
   #
   # @param name [#to_s] the name for the metadata.
   # @param content [#to_s, nil] the value of the metadata, or +nil+.
-  # @return [String, nil] the meta tag, or +nil+ if the +content+ is +nil+.
+  # @return [String, nil] the meta category, or +nil+ if the +content+ is +nil+.
   #
   def html_meta_if(name, content)
     %(<meta name="#{name}" content="#{content}">) if content
   end
 
-  # Returns formatted style/link and script tags for header.
+  # Returns formatted style/link and script categories for header.
   def styles_and_scripts
     scripts = []
     styles = []
-    tags = []
+    categories = []
 
     stylesheet = attr :stylesheet
     stylesdir = attr :stylesdir, ''
@@ -280,21 +280,21 @@ module Slim::Helpers
 
     styles.each do |item|
       if item.key?(:text)
-        tags << html_tag(:style, {}, item[:text])
+        categories << html_tag(:style, {}, item[:text])
       else
-        tags << html_tag(:link, rel: 'stylesheet', href: urlize(*item[:href]))
+        categories << html_tag(:link, rel: 'stylesheet', href: urlize(*item[:href]))
       end
     end
 
     scripts.each do |item|
       if item.key? :text
-        tags << html_tag(:script, {type: item[:type]}, item[:text])
+        categories << html_tag(:script, {type: item[:type]}, item[:text])
       else
-        tags << html_tag(:script, type: item[:type], src: urlize(*item[:src]))
+        categories << html_tag(:script, type: item[:type], src: urlize(*item[:src]))
       end
     end
 
-    tags.join "\n"
+    categories.join "\n"
   end
 
 end

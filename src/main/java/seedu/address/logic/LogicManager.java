@@ -2,6 +2,7 @@ package seedu.address.logic;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.List;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
@@ -10,11 +11,12 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.AddressBookParser;
+import seedu.address.logic.parser.MooLahParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.Timekeeper;
+import seedu.address.model.ReadOnlyMooLah;
+import seedu.address.model.budget.Budget;
+import seedu.address.model.expense.Event;
 import seedu.address.model.expense.Expense;
 import seedu.address.storage.Storage;
 
@@ -27,14 +29,12 @@ public class LogicManager implements Logic {
 
     private final Model model;
     private final Storage storage;
-    private final Timekeeper timekeeper;
-    private final AddressBookParser addressBookParser;
+    private final MooLahParser mooLahParser;
 
-    public LogicManager(Model model, Storage storage, Timekeeper timekeeper) {
+    public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
-        this.timekeeper = timekeeper;
-        addressBookParser = new AddressBookParser();
+        mooLahParser = new MooLahParser();
     }
 
     @Override
@@ -42,11 +42,11 @@ public class LogicManager implements Logic {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         CommandResult commandResult;
-        Command command = addressBookParser.parseCommand(commandText, model.getUserPrefs());
+        Command command = mooLahParser.parseCommand(commandText, model.getUserPrefs());
         commandResult = command.run(model);
 
         try {
-            storage.saveAddressBook(model.getAddressBook());
+            storage.saveMooLah(model.getMooLah());
             storage.saveUserPrefs(model.getUserPrefs());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
@@ -56,18 +56,13 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public String displayReminders() {
-        return timekeeper.displayReminders();
-    }
-
-    @Override
     public StringBuilder getBasicStatistics() {
         return model.getStatistic();
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return model.getAddressBook();
+    public ReadOnlyMooLah getMooLah() {
+        return model.getMooLah();
     }
 
     @Override
@@ -76,8 +71,29 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public Path getAddressBookFilePath() {
-        return model.getAddressBookFilePath();
+    public ObservableList<Budget> getFilteredBudgetList() {
+        return model.getFilteredBudgetList();
+    }
+
+    public ObservableList<Event> getFilteredEventList() {
+        return model.getFilteredEventList();
+    }
+
+    @Override
+    public void deleteTranspiredEvents(List<Event> eventsToBeRemoved) {
+        for (Event event : eventsToBeRemoved) {
+            model.deleteEvent(event);
+        }
+    }
+
+    @Override
+    public Budget getPrimaryBudget() {
+        return model.getPrimaryBudget();
+    }
+
+    @Override
+    public Path getMooLahFilePath() {
+        return model.getMooLahFilePath();
     }
 
     @Override

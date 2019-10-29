@@ -1,4 +1,4 @@
-= AddressBook Level 3 - Developer Guide
+= MooLah - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -14,18 +14,18 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/AY1920S1-CS2103T-T11-1/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `CS2103T-T11-1`      Since: `Aug 2019`      Licence: `MIT`
 
 == Introduction
 
 === Purpose & Scope
-This document specifies architecture and software design decisions for the app NUSpend.
-The intended audience of this document is the developers, designers, and software testers of NUSpend.
+This document specifies architecture and software design decisions for the app MooLah.
+The intended audience of this document is the developers, designers, and software testers of MooLah.
 
 === Software Overview
-NUSpend is a desktop CLI application that help users track their expenses.
+MooLah is a desktop CLI application that help users track their expenses.
 The App supports many other extensions such as budgeting, planning and reminders.
-In particular, it is tailored to students in National University of Singapore who dines frequently in school canteens.
+In particular, it is tailored to students in National University of Singapore who dine frequently in school canteens.
 
 == Setting up
 
@@ -90,7 +90,7 @@ image::UiClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `SinglePanelView`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
@@ -98,6 +98,22 @@ The `UI` component,
 
 * Executes user commands using the `Logic` component.
 * Listens for changes to `Model` data so that the UI can be updated with the modified data.
+
+
+The content being shown in the `MainWindow` is managed by the ``SinglePanelView`` which supports the following operations:
+``SinglePanelView#viewPanel(panelName)``
+``SinglePanelView#hasPanel(panelName)``
+``SinglePanelView#getPanel(panelName)``
+``SinglePanelView#setPanel(panelName, panel)``
+
+image::SinglePanelViewClassDiagram.png[]
+
+Users may change between the visible panels through the CLI by using the `view` command.
+The following sequence diagram shows the events which occur in order to change the the UI component displayed in the main window.
+
+image::ViewPanelSequenceDiagram.png[]
+
+
 
 [[Design-Logic]]
 === Logic component
@@ -109,7 +125,7 @@ image::LogicClassDiagram.png[]
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
+.  `Logic` uses the `MooLahParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
 .  The command execution can affect the `Model` (e.g. adding a person).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
@@ -133,12 +149,12 @@ image::ModelClassDiagram.png[]
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
+* stores the MooLah data.
 * exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
 [NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
+As a more OOP model, we can store a `Tag` list in `MooLah`, which `Person` can reference. This would allow `MooLah` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
  +
 image:BetterModelClassDiagram.png[]
 
@@ -153,7 +169,7 @@ image::StorageClassDiagram.png[]
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in json format and read it back.
+* can save the MooLah data in json format and read it back.
 
 [[Design-Commons]]
 === Common classes
@@ -164,89 +180,540 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
-// tag::undoredo[]
-=== [Proposed] Undo/Redo feature
-==== Proposed Implementation
+// category::undoredo[]
+=== Undo/Redo feature
+==== Implementation
 
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
-Additionally, it implements the following operations:
+The undo/redo functionality is facilitated by `ModelHistory` which is an instance-level member for models.
+Internally, it stores model snapshots by using two stacks: `pastModels` and `futureModels`.
+With the addition of model history, now `Model` also supports these operations:
 
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
+* `Model#addToHistory()` -- Moves the history forward by saving the current model snapshot in its past history and clearing the future history.
+* `Model#rollback()` -- Restores the state to the immediate previous model in the history.
+* `Model#migrate()` -- Forwards the state to the immediate next model in the history.
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+`ModelHistory` only stores histories of models which were about to be (or are going to be) executed by model-changing commands.
+As some of the commands available are intuitively not undoable (e.g. `help`), we make commands extend to either `UndoableCommand` or a non-undoable `Command` classes.
+So, the `Model#addToHistory()` will only be called if the command to be executed is an instance of `UndoableCommand`.
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+Step 1. The user launches the application for the first time. The current `ModelHistory` is now empty.
 
 image::UndoRedoState0.png[]
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+Step 2. The user executes `add d/Chicken Rice p/2.50 ...` command to add an expense.
+The `add` command, being an `UndoableCommand`, calls `Model#addToHistory()`, which saves the state of the model just before the command executes to `pastModels`, and `futureModels` is cleared.
 
 image::UndoRedoState1.png[]
 
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+Step 3. The user executes `delete 1` to delete the first expense on the list. The `delete` command, also an `UndoableCommand`, calls `Model#addToHistory()`, inserting another entry to the `pastModels` and clearing `futureModels` again.
 
 image::UndoRedoState2.png[]
 
 [NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
+If a command fails its execution, it will not call `Model#addToHistory()`, so the model will not be saved into `ModelHistory`.
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+Step 4. The user now decides that deleting the expense was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#rollbackModel()`, which will retrieve the immediate previous model in history, adding the current model to the future history of the retrieved model, and restores the model according to that state.
 
 image::UndoRedoState3.png[]
 
 [NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+If `pastModels` is empty, then there are no previous models to roll back. The `undo` command uses `Model#canRollback()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
 
-The following sequence diagram shows how the undo operation works:
+The following sequence diagram shows how the undo command works:
 
 image::UndoSequenceDiagram.png[]
 
 NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
+Inversely, the `redo` command calls `Model#migrate()`, which retrieves the immediate next model in history, adds the current model to the past history of the retrieved model, and resets the model according to that snapshot.
 
 [NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
-
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
-
-image::UndoRedoState4.png[]
-
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
-
-image::UndoRedoState5.png[]
-
-The following activity diagram summarizes what happens when a user executes a new command:
-
-image::CommitActivityDiagram.png[]
+If `futureModels` is empty, then there are no snapshots to be redone. The `redo` command uses `Model#canMigrate()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
 
 ==== Design Considerations
 
 ===== Aspect: How undo & redo executes
 
-* **Alternative 1 (current choice):** Saves the entire address book.
-** Pros: Easy to implement.
+* **Alternative 1 (current choice):** Saves the entire model.
+** Pros: Easier to implement.
 ** Cons: May have performance issues in terms of memory usage.
-* **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
+* **Alternative 2:** Individual commands have their own counter-command that can negate the effects.
+** Pros: Quite intuitive (e.g. for `add`, just do `delete` to counter it).
 ** Cons: We must ensure that the implementation of each individual command are correct.
 
-===== Aspect: Data structure to support the undo/redo commands
+We choose Alternative 1 as this approach will be less likely to cause problems specific to restoring the state to the way it was before the execution of a command,
+as some commands will create a problem specific on their own which might not be supported by the proposed counter-command.
+As an example, to undo `delete 3`, we must re-add that expense to that specific position, which at the moment is not supported
+by the `add` command.
 
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
-* **Alternative 2:** Use `HistoryManager` for undo/redo
-** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
-// tag::dataencryption[]
+
+// category::budget[]
+=== Budget feature
+==== Implementation
+
+The budget feature allows users to add a budget and track expenses under this budget.
+When a budget is added, it is automatically set to the primary budget, and all expenses added after that
+will be tracked under this budget. If the user wants to track an expense under a different budget, he
+switches to the target budget first, before adding the expense.
+
+Each `Budget` has 8 fields:
+
+* description: `Description` - budget name
+* amount: `Price` - amount of budget limit
+* startDate: `Timestamp` - the start date of the budget (for the current period)
+* endDate: `Timestamp`- the end date of the budget (for the current period)
+* period: `Period` - the recurring period of the budget
+* expenses: `ObservableList<Expense>` - the list of all expenses under this budget
+* isPrimary: `boolean` - a flag indicating the primary status of this budget
+* proportionUsed: `Percentage` - the proportion of the total amount that has been used up
+
+image::BudgetClassDiagram.png[]
+
+
+Each budget, once added, will recur infinitely. This is achieved by the Budget#refresh() method, which checks whether
+the budget has expired, and refreshes it to a new period if necessary, upon launching MooLah.
+
+A budget is like a sliding window that moves in the positive direction of time axis. The window has a fixed size,
+which is the period of the budget. Only expenses within the current window will be shown in the app. Every time
+the budget refreshes, the window "slides" to the next period, starting with an empty screen that gradually gets
+populated with newly added expenses over time.
+
+A budget keeps a list of all expenses ever been tracked by this budget, including historical ones. Additionally,
+
+it has a method Budget#getCurrentPeriodExpenses() that generates a filtered list of expenses within the current budgeting
+period, which interacts with GUI to be shown in the current screen.
+
+The fundamental classes of the budget feature are:
+
+* `Budget` : main functional backend class
+* `JsonAdaptedBudget` : for storage of a `Budget` object in Json format
+* `UniqueBudgetList` : a list of non-duplicate budgets in MooLah
+* `AddBudgetCommand` and `SwitchBudgetCommand` : budget-related commands
+        `AddBudgetCommand` creates a new `Budget` and adds it to `UniqueBudgetList`
+        `SwitchBudgetCommand` switches the primary budget to the specified budget
+* `AddBudgetCommandParser` and `SwitchBudgetCommandParser` : for parsing CLI input into commands
+
+
+Here are the class diagrams of the two key commands related to Budget:
+
+AddBudgetCommand: Adds a new Budget to MooLah
+image::AddBudgetCommandClassDiagram.png[]
+
+SwitchBudgetCommand: Switches the primary Budget to another
+image::SwitchBudgetCommandClassDiagram.png[]
+
+Additionally, util class `Percentage` wraps a percentage for easier calculation and validation of proportionUsed.
+
+image::PercentageClassDiagram.png[]
+
+
+The following sequence diagram shows how the add budget operation works:
+
+image::AddBudgetSequenceDiagram.png[]
+
+
+NOTE: The lifeline for `AddBudgetCommandParser` and `AddBudgetCommand` should end at the destroy marker (X) but due to
+a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+The following activity diagram summarizes what happens to budgets when the app launches and when a new expense is added:
+
+
+image::BudgetActivityDiagram.png[]
+
+==== Design Considerations
+
+===== Aspect: Since Budget already keeps a list of Expenses, should Expense have a Budget field?
+
+* **Alternative 1:** Expense has a Budget field
+** Pros: Easier to manage expenses.
+** Cons: Causes cyclical dependency, and reduces testability. Also, this will cause infinite loop when creating
+JsonAdaptedExpense and JsonAdaptedBudget.
+* **Alternative 2:** Expense does not have reference to Budget
+** Pros: Less coupling.
+** Cons: When reconstructing MooLah from json file, system does not know which budget to add the past expenses to.
+* **Solution (Current implementation):**
+Each Expense keeps a budgetName field which indicates the name of the Budget it is tracked under. Since UniqueBudgetList
+checks for duplicate budget names, a name is sufficient to identify a Budget. Besides, since budgetName is of
+`Description` type instead of `Budget` type, it is easy to convert to String, and resolves infinite loop when creating
+json files. Also, the resulting JsonAdaptedExpense file will not be too long, since the "budgetName" property stores
+only the budget name instead of the full budget object.
+
+
+===== Aspect: Must every Expense be tracked under a Budget? Can one Expense be tracked under multiple Budgets?
+
+* **Alternative 1:** Every Expense must be tracked under one, and only one Budget.
+** Pros: Budgets would be a partition of all Expenses, which makes generating statistics (pie charts, etc.) easier.
+** Cons: User would not be able to track Expenses that fall under multiple Budgets.
+
+* **Alternative 2:** Allow expenses without a Budget.
+** Pros: More flexible budgeting experience.
+** Cons: Internal logic would be very confusing. GUI and statistics would be harder to implement.
+* **Solution (Current implementation):**
+Adopt Alternative 1. Every Expense must be tracked under one and only one Budget. If the expense is added before
+adding any budgets, a default budget with a huge limit is created for tracking all expenses without a proper budget.
+This ensures that the main screen has a budget and shows a budget status bar at all times. Besides, it leads to neater
+statistics.
+// end::budget[]
+
+// category::events[]
+=== Events feature
+==== Implementation
+
+The Events feature allows users to add events that are supposed to occur on a future date. On launch, MooLah will
+remind users of upcoming events. MooLah will also notify the user about any events that are supposed to have
+transpired, and allow them to automatically add these events as expenses.
+
+The Events feature supports the `add`, `delete` and `events` command words.
+
+Events are added the same way expenses are added on the command line. When the user inputs an add command,
+MooLah determines whether an event or an expense should be added based on the date the user inputted in his command.
+This is illustrated below:
+
+image::AddExpenseOrEventActivityDiagram.png[]
+
+The following sequence diagram shows how MooLah handles transpired events on launch:
+
+image::TranspiredEventsSequenceDiagram.png[]
+
+1. When MooLah launches, the `start` method of `UiManager` is called. `UiManager` then calls the `handleTranspiredEvents`
+of `MainWindow`, which fetches all transpired events and notifies the user about them. It does so by first obtaining the
+transpired events from the `Timekeeper` class by calling a series of getter methods.
+
+2. Once the transpired events have been obtained, for each transpired event, a new `TranspiredEventWindow` will be
+constructed. The transpired event will then be passed via `show`, a method of the newly constructed `TranspiredEventWindow`.
+`show` will create a popup window that details the transpired event, and asks the user whether it should be added as an
+expense. This popup window will have a 'Yes' and 'No' button.
+
+3. If the user presses the 'Yes' button, the original command that the user inputted to add this particular event is fetched
+and passed to the `execute` method of `LogicManager`, which executes command line inputs. Since the timestamp within this
+original command now denotes a past or present date, an expense will be added.
+
+4. If the user presses the 'No' button, the expense is not added.
+
+5. After pressing either button, the popup window closes.
+
+NOTE: As of Week 10, adding expenses to the same budget the event was added to is still a work in progress.
+
+==== Design Considerations
+
+===== Aspect: What command words should the Events feature use?
+
+* ** Alternative 1:** `addevent`, `deleteevent`, etc.
+** Pros: Makes it clear to the user that events are separate from expenses
+** Cons: Somewhat clunky and redundant, especially since expenses and events share the same fields
+
+* ** Alternative 2:** `add`, `delete`, etc. (i.e. same command words as adding expenses)
+** Pros: More streamlined, makes use of the fact that expenses and events share the same fields
+** Cons: The distinction between events and expenses is more blurry to the user
+
+* **Solution (Current Implementation): **
+Adopt Alternative 2. Since an event is ultimately an optional future expense that triggers on its
+due date, it is significantly more intuitive and natural to allow users to add events the same way they add expenses.
+MooLah can then easily tell whether the user intends to add an expense or an event by looking at the timestamp
+the user inputs in the command.
+
+
+===== Future Implementation (Coming in v2.0)
+
+Users can set their expenses to recur. Recurring expenses will generate events daily/weekly/monthly (based on
+the user's decision) that can then be added as expenses when their due dates are reached.
+
+//end::events[]
+
+// category::stats[]
+=== Statistics Feature
+
+The statistics feature is facilitated by the `Statistics` class, which is part of the `model` package.
+Its main purpose is to allow users to have an alternative view for the entries in `MooLah`. The
+main entries that `Statistics` interacts with are `Expense` and `Budget`, and the metrics chosen to be displayed
+are handled mainly by `Statistics#calculateStatistics()`. The method recognises command words such as
+`stats`, `statscompare` and `statstrend`, where each results in a different visual representation and represents
+a different use case.
+
+The final outcome of these interactions are reflected directly in `MainWindow`, as a popup whenever the command is received
+by the command line.
+
+NOTE: Ideally, it should result in an `Undo`-able page-transition instead of a popup to ensure better integration with the rest of the application.
+
+==== `stats`
+
+===== Implementation
+
+The purpose of the `stats` command word is to request `MooLah` to visualise the total expenditure across
+expenses of different categories as a percentage of the total expenditure of all expenses tracked under the budget
+where the command is called. The visual representation used here will be a PieChart.
+
+Given below is an example usage scenario and how the `stats` command word is handled by `MooLah`.
+
+
+Step 1. The user enters the command `stats sd/01-10-2019 ed/01-11-2019` to visualise the total percentage of each category
+as a percentage of total expenditure across all categories, in the primary budget.
+The command is received by `AddressBookParser`, which then creates a `StatsCommandParser` object,
+to subsequently help to parse the input by the user.
+
+Step 2. The newly created `StatsCommandParser` calls `parse("stats sd/01-10-2019 ed/01-11-2019")`,
+which in turns calls `ArgumentTokenizer.tokenize("sd/01-10-2019 ed/01-11-2019", PREFIX_START_DATE, PREFIX_END_DATE)` to
+split the arguments into its preamble(the start date and end date). This returns an `ArgumentMultimap` object, `argMultimap` containing the split input.
+
+Step 3. The `StatsCommandParser` object calls `ParserUtil.parseTimestamp(argMultimap.getValue(PREFIX_START_DATE).get())` which parses the arguments to get the start date.
+The date, that is present in this example, is parsed into the correct form and the end date is obtained similarly with
+`ParserUtil.parseTimestamp(argMultimap.getValue(PREFIX_END_DATE).get())`.
+A `StatsCommand` object containing the start date and end date is created and returned to the `LogicManager`.
+
+Step 4. The LogicManager calls `StatsCommand.execute()`, which calls `Model#getFilteredExpenseList()` to retrieve the list of expenses stored in MooLah.
+The correct `Statistics` object, `statistics`, will be created with `startStatistic` and the `calculateStats` method, will switch to the correct mode,
+to produce the correct feedback to the user, as well as update the attributes in `statistics`.
+
+Step 5. Percentages, categories and the title description of the `Statistics` will be used to create the `CommandResult` object,
+which is returned to the `LogicManager` and subsequently to the UI where a popup in the form of a pie chart will be generated.
+
+
+The following sequence diagram shows how the `stats` operation works:
+
+image::BasicStatisticsCommand.png[]
+
+Figure 1. Sequence Diagram for executing a `StatsCommand`
+
+
+The following reference diagram shows how `StatsCommandParser` decides on the user's start date and end date for the different cases.
+This is used mainly to illustrate the interactions in Steps 2 to 3.
+
+image::StatsCommandParser.png[]
+
+Figure 2. Reference Diagram for deciding start date and end date for a `StatsCommand`
+
+
+NOTE: As of Week 10, the design of `StatsCommand.execute()` in Step 4 is still a work in progress because of concurrent refactoring, developing command words
+and other dependencies due to outdated methods that causes a depreciated return type to still be in use. This should be resolved ideally by v1.3.
+
+
+==== Design Considerations
+
+When designing the interaction of `Statistics#calculateStatistics()` with `stats`, decisions have to be made on the most
+suitable visual representation for `stats` particular use case.
+
+* ** Alternative 1:** Table view
+** Pros: Sequential view, can capture number of entries
+** Cons: May be a duplicate of the `ListExpense` command, just sorted via categories
+
+* ** Alternative 2:** Pie chart
+** Pros: Offers a visual view of size to represent the expenditure under each category
+** Cons: Loses the elements of number of entries in each category
+
+* **Solution (Current Implementation): **
+Adopts Alternative 2. It is important that every aspect of the user experience gets covered, and what `MooLah` before the
+inclusion of `Statistics` is the appreciation of percentage expenditure in each category of expenses. Expenses can already be
+observed in its chronological order using `ListExpense` while individual view of expenses under a category can be accessed
+using `FindExpense`. Offering a visual view on expenditure under each category complements with the existing implementation
+of sequential view in the primary budget.
+
+NOTE: Once again, this question will be better addressed holistically once all 3 features has been rolled out.
+
+===== Future Implementation (Coming in v2.0)
+
+For each of the command words, users will be given the option to choose a Visual Representation method they prefer,
+instead of the default option we have prioritised. Currently, statistics under `stats` mode can only be displayed in a pie chart,
+and users may have different preferences for formats. Various options such as checking across different budgets other than within the same budget can also be considered.
+
+
+// end::stats[]
+
+
+// category::Alias[]
+=== Alias feature
+==== Implementation
+The Aliases feature allows users to assign inputs they may use very often to a shortcut, and execute the input by entering
+the shortcut, (a.k.a ``Alias``), in place of the full or partial command.
+
+image::AliasMappingsClassDiagram.png[AliasMappingsClassDiagram]
+
+These user defined ``Alias``es are saved in an ``AliasMappings`` object within ``UserPref`` as seen in the above diagram.
+Internally, the ``AliasMappings`` object stores an ``Alias`` in a Map<Strings, Alias> object. With the addition of `AliasMappings` object to ``UserPref``,
+``UserPref`` supports these additional operations:
+
+- ``UserPref#addUserAlias(Alias)`` -- Saves a specified `Alias` to the user preferences for future use.
+- ``UserPref#hasAlias(String)`` -- Query if the there is an `Alias` with this name already defined.
+- ``UserPref#getAlias(String)`` -- To get an `Alias` with this name if it exists.
+- ``UserPref#aliasNameIsReservedCommandWord(Alias)`` -- To query if this `Alias` is uses a name which clashes with existing built-in
+commands.
+- ``UserPref#aliasCommandWordIsAlias(Alias)`` -- To query if this `Alias` `input` begins with another `Alias`, this is used
+to validate that an `Alias` will not cause an infinite loop by chaining multiple aliases in a loop.
+- ``UserPref#getAliasMappings()`` -- To access the ``Alias`` saved by the user.
+- ``UserPref#setAliasMappings(AliasMappings mappings)`` -- To overwrite all the `Alias` saved by the user.
+
+
+image::AliasCommandClassDiagram.png[]
+
+In order for the user to save an ``Alias``, they first define it using the ``AliasCommand``. The ``AliasCommand`` command extends
+`UndoableCommand` to allow users to undo defining an `Alias`. The following sequence diagram describe in more detail how an ``Alias``
+is added.
+
+image::HighLevelAddAliasSequenceDiagram.png[]
+[None]
+. 1. The user enters a command with the following syntax `` alias a/ <name> i/ <input>``.
+. 2. The `UI` passes this command string to the `LogicManager` which passes it onto the `AddressBookParser`.
+. 3. The parser extracts the argument string and passes it to an ``AliasCommandParser``.
+
+image::ParseAliasCommandSequenceDiagram.png[]
+[None]
+. 4. The ``AliasCommandParser`` uses the ``ArgumentTokenizer`` to tokenize the argument string and extract the
+``alias name`` and ``input`` fields into an ``ArgumentMultimap``.
+. 5. The arguments are obtained and to create a new `Alias` using the the `Alias` parser in `ParserUtil`.
+. 6. An `AliasCommand` is created containing this new `Alias` to add to the `UserPref`.
+. 7. This is passed back to the `LogicManager` to call `AliasCommand#run()`.
+
+image::verifyAlias.png[]
+[None]
+. 8. The `AliasCommand` is validated using `AliasCommand#validate()`. The `Alias` is checked to ensure it does not
+[None]
+    ** a. Have a clashing name used by an existing `Command` as a CommandWord.
+    ** b. Have an input beginning with a supported `Alias`.
+. If is not valid, handled exception is thrown.
+
+image::addAlias.png[]
+[None]
+. 9. If it was validated that the `Alias` can be added.
+. 10. The `Alias` is then added to the `AliasMappings` object within `UserPref`.
+. 11. The `Alias` is now usable  by the user.
+
+
+When a user enters an ``input`` to be executed, the ``AddressBookParser`` will first try to parse first token in
+the ``input`` as a ``CommandWord``, failing which, it will try to parse it as an ``Alias``. If it successfully does so,
+it replaces the first token in the original command string with the ``input`` stored in the ``Alias``.
+Finally, the ``AddressBookParser`` re-parses the modified ``input``.
+
+==== Design Considerations
+
+===== Aspect: Why can an `Alias` only be used at the beginning of an input versus anywhere within an input.
+* ** Alternative 1(Chosen):** Beginning only
+** Pros: Easier to determine which word is the shortcut.
+** Pros: Easier to detect recursion due to alias chaining.
+** Cons: Less flexible in term how the shortcut can be used i.e. it can only replace or prefix an input.
+
+* ** Alternative 2:** Anywhere in input
+** Pros: A wider variety of shortcuts can be defined by the user +
+e.g. `add deckChicken 2.50`, where `deckChicken` maps to `d/ chicken rice c/ food p/`.
+** Cons: Harder to detect recursion due to alias chaining.
+** Cons: Parsing becomes more complicated and alias words become unusable in other contexts.
+e.g. defining an `Alias` mapping `bus` to `sbs bus` prevents an input such as `smrt bus` from being parsed properly
+as it would be replaced with `smrt sbs bus` by the parser.
+
+* **Solution (Current Implementation): **
+The biggest factor in choosing `Alternative 1` is to make it easier to prevent possible recusion due to alias chaining,
+which would potentially be a fatal bug in the application.
+Additionally, while it may be possible to determine which one the user means judging by the context in which it was used.
+However, that is far out of the scope of the module and would require much more processing of user input.
+
+Another alternative would have been to have an alias name follow the following convention `'aliasName'` (i.e. some character before and after)
+clear what is an `Alias` within an input.
+
+===== Future Implementation (Coming in v2.0)
+The purpose behind this feature was to make CLI input less troublesome, so users do not need to type in the full input string
+to carry out commands they may use frequently. In v2.0 we want to look into using data analysis track users' input habits in
+order to make suggestions on possible shortcuts or Aliases they may find convenient to have.
+
+===== Aspect: Data structure to store Aliases.
+
+* ** Alternative 1:** List
+** Pros: Less space needed to store same amount of data
+** Cons: Takes time to loop through the list to get the right output.
+
+* ** Alternative 2(Chosen):** Map
+** Pros: Simple to access
+** Cons: More space needed.
+
+* **Solution (Current Implementation): **
+As the user can define multiple aliases, it was important for the internal structure of `AliasMappings`
+to allow accessing the aliases by name.
+
+If an ArrayList was used, the numbering each alias would change if new ones were added and old one removed or replaced.
+Map was used to prevent this problem as the name is used as the index. This avoids the need to loop through
+all the 'Alias' defined.
+
+It also makes it easier to prevent sharing of alias names between aliases and a Map's key
+set cannot contain duplicates, and makes it easier to handle overwriting of existing aliases with same name.
+
+
+// end::Alias[]
+
+
+// category::SyntaxAutofill[]
+=== Syntax Highlighting and Autofill feature
+==== Implementation
+The Autofill feature was implemented to make it less important for users to remember the appropriate syntax for each command which
+can be a common issue in CLI based applications. This feature utilises regular expressions and JavaFX's TextFormatter to extend the
+functionality of the existing TextField used in the original AB3 application.
+
+The Autofill feature also inserts `placeholders` into the text area to make it clearer which arguments each prefix delimit in the input.
+e.g. `add d/ <description> p/ <price> c/ <category>`. These `placeholder` are removed when the user types over them and
+are filtered from the input and not parsed by the `Parser` if the user forgets to type over them. The following diagram briefly describe
+the logic used to insert auto fill a command's syntax.
+
+::image:AutoFillActivityDiagram.png[]
+
+The Syntax highlighting feature was implemented to make it easier to differentiate the different arguments after typing
+as well as to implement some basic realtime input validation. This feature utilises RichTextFX's StyleClassTextArea to
+apply different styles to different regions of the text, and regular expressions to determine which to highlight.
+
+::image:SyntaxHighlightingActivityDiagram.png[]
+
+Because RichTextFX's TextAreas do not support JavaFX's TextFormatter, the `SyntaxHighlightingTextArea` actually has two different
+TextAreas. One as the visible TestArea (RichTextFX) and one as the functional one (JavaFX).
+
+::image:SyntaxHighlightingTextAreaClassDiagram.png[]
+
+The two TextArea are layered on top of each other. The invisible functional TextArea overlays the visible one, and mirrors the TextProperty of the
+visible one mirrors the functional TextArea. The KeyEvents which occur in the functional text area are also mirrored by the visible text area.
+
+==== Design Considerations
+===== Aspect: Which configuration of Input fields to use? - RichTextFX TextArea alone, JavaFX alone, both together?
+* ** Alternative 1:**  JavaFX alone (JavaFX `TextField`) and manually place coloured elements to handle highlighting.
+** Pros: Already supports single line input.
+** Pros: Easy to implement autofill.
+** Cons: Does not inherently support styling of text with multiple styles.
+** Cons: Manually inserting worked, but not all the time.
+
+* ** Alternative 2:** `RichTextFX StyleClassTextArea` and ``Listener``s to handle formatting of text.
+** Pros: Supports styling of text.
+** Cons: Needs have certain `Events` blocked and functionality removed in order to act as a single line input field. e.g.
+preventing users from pasting text with newlines and the enter key event from making a new line.
+** Cons: Does not support javafx `TextFormatter`, intermediate results (unwanted text) can possibly be evaluated.
+
+* ** Alternative 3(Chosen):** Both
+** Pros: Utilise best of both worlds, with `TextFormatter` and `RichTextFX StyleClassTextArea`
+** Cons: Need to properly align the two text areas so visible text and caret position is accurate.
+** Cons: Needs have certain `Events` blocked and functionality removed in order to act as a single line input field. e.g.
+preventing users from pasting text with newlines and the enter key event from making a new line.
+
+* **Solution (Current Implementation): **
+With alternative 1, using a `TextFlow` was a problem when the text needed to remain in
+a single line. Manually layering coloured elements over the text was also an issue as the the position and size of elements
+eeded to be recalculated every time the text change, the UI moved, or was resized.
+
+While it was possible to use RichTextFX text areas alone, the text that the user inputs before it is formatted
+still enters the text area. Which interferes with realtime parsing as the text is not properly sanitized, which was
+why the uses `TextFormatter` was necessary.
+
+This meant only alternative 3 was viable, but because of layer of the two text areas, the events causing a change in text
+or what text was visible needed to be properly mirrored from the invisible to the visible text area. As a result, certain behaviours
+supported by a normal textfield needed to be blocked to ensure proper alignment e.g. copy and paste.
+
+At the moment, mass deletion and selection of text (e.g. Ctrl/Cmd+A > Backspace) has been prevented in order to properly align the
+two textarea.
+
+===== Future Implementation (Coming in v2.0)
+MooLah v2.0 should support better real time parsing of input and support validation of input without requiring the user
+to enter the command as well as a more functional input field.
+
+
+// end::SyntaxAutofill[]
+
+
+// category::dataencryption[]
 === [Proposed] Data Encryption
 
 _{Explain here how the data encryption feature will be implemented}_
@@ -399,7 +866,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is `NUSpend` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is `MooLah` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
 === Use case: Add a budget and switch to it
@@ -407,7 +874,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 *MSS*
 
 1.  User requests to add a budget and specifies budget name, amount, period and start date
-2.  NUSpend shows success in creating new budget
+2.  MooLah shows success in creating new budget
 3.  User requests to switch to this budget by specifying the budget name
 4.  GUI switches to the budget and sets it as current primary budget for displaying and calculating expenses
 +
@@ -418,7 +885,7 @@ Use case ends.
 * 1a. User misses any of the necessary parameters: budget name, amount, period or start date
 +
 [none]
-** 1a1. NUSpend shows an error message and reminds the user to complete the parameters.
+** 1a1. MooLah shows an error message and reminds the user to complete the parameters.
 +
 ** 1a2. User re-enters the command with new data.
 +
@@ -429,7 +896,7 @@ Use case resumes at step 2.
 * 3a. User forgets to input the name of the budget he wants to switch to.
 +
 [none]
-** 3a1. NUSpend shows an error message and requests for the budget name.
+** 3a1. MooLah shows an error message and requests for the budget name.
 +
 ** 3a2. User re-enters the command, specifying the budget name.
 +
@@ -438,7 +905,7 @@ Use case resumes at step 4.
 * 3b. User enters a budget name that does not correspond to any of the currently existing budgets.
 +
 [none]
-** 3b1. NUSpend shows an error message and requests for a correct budget name that exists.
+** 3b1. MooLah shows an error message and requests for a correct budget name that exists.
 +
 ** 3b2. User re-enters the command with a new budget name.
 +
@@ -452,7 +919,7 @@ Use case resumes at step 4.
 *MSS*
 
 1.  User requests to see reminders.
-2.  AddressBook shows a list of reminders.
+2.  MooLah shows a list of reminders.
 +
 Use case ends.
 
@@ -470,7 +937,7 @@ Use case ends.
 *MSS*
 
 1.  User adds an event.
-2.  AddressBook tells the user that the event has been successfully added.
+2.  MooLah tells the user that the event has been successfully added.
 +
 Use case ends.
 
@@ -480,14 +947,14 @@ Use case ends.
 * 2a. The event is formatted incorrectly (e.g. the date is invalid).
 +
 [none]
-** 2a1. AddressBook shows an error message.
+** 2a1. MooLah shows an error message.
 +
 Use case ends.
 
 * 3a. The same event has been previously stored.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 3a1. MooLah shows an error message.
 +
 Use case ends.
 
@@ -499,20 +966,20 @@ Use case ends.
 *MSS*
 
 1. User requests to view statistics
-2. NUSpend prompts user for start date
+2. MooLah prompts user for start date
 3. User enters start date
-4. NUSpend prompts user for end date
+4. MooLah prompts user for end date
 5. User enters end date
-6. NUSpend displays the statistics requested
+6. MooLah displays the statistics requested
 Use case ends
 
 
 *Extensions*
 [none]
-* *a. NUSpend detects incorrect date format
+* *a. MooLah detects incorrect date format
 +
 [none]
-** *a1.NUSpend throws Exception
+** *a1.MooLah throws Exception
 +
 Use case ends.
 
@@ -521,7 +988,7 @@ Use case ends.
 * 5a. The user enters a start date, but does not enter an end date
 +
 [none]
-** 5a1. NUSpend displays the statistics 1 month after start date
+** 5a1. MooLah displays the statistics 1 month after start date
 +
 Use case ends.
 
@@ -530,7 +997,7 @@ Use case ends.
 * 5b. The user does not enter a start date, but enters an end date
 +
 [none]
-** 5b1. NUSpend displays the statistics 1 month before end date
+** 5b1. MooLah displays the statistics 1 month before end date
 +
 Use case ends.
 
@@ -541,22 +1008,22 @@ Use case ends.
 *MSS*
 
 1. User requests to view statistics
-2. NUSpend prompts user for date 1
+2. MooLah prompts user for date 1
 3. User enters date 1
-4. NUSpend prompts user for date 2
+4. MooLah prompts user for date 2
 5. User enters date 2
-6. NUSpend prompts user for period
+6. MooLah prompts user for period
 7. User enters period
-8. NUSpend displays the statistics requested
+8. MooLah displays the statistics requested
 Use case ends
 
 
 *Extensions*
 [none]
-* *a. NUSpend detects incorrect date format or missing parameters
+* *a. MooLah detects incorrect date format or missing parameters
 +
 [none]
-** *a1.NUSpend throws Exception
+** *a1.MooLah throws Exception
 +
 Use case ends
 
@@ -567,9 +1034,9 @@ Use case ends
 *MSS*
 
 1. User assigns an Alias name for some input.
-2. NUSpend confirms that the input is alias name is valid.
-3. NUSpend saves the alias to the user's preferences.
-4. NUSpend informs the user that the alias was successfully created.
+2. MooLah confirms that the input is alias name is valid.
+3. MooLah saves the alias to the user's preferences.
+4. MooLah informs the user that the alias was successfully created.
 +
 Use case Ends.
 
@@ -577,12 +1044,12 @@ Use case Ends.
 [none]
 * 1a. Alias name is invalid.
 [none]
-** 1a1. NUSpend informs the User that the alias name is invalid.
+** 1a1. MooLah informs the User that the alias name is invalid.
 +
 Use case Ends
 * 2a. An Alias with the same name exists.
 [None]
-** 2a1. NUSpend overwrites the existing Alias with the same name in the User's preferences.
+** 2a1. MooLah overwrites the existing Alias with the same name in the User's preferences.
 +
 Use case resumes from step 4.
 
@@ -593,7 +1060,7 @@ Use case resumes from step 4.
 
 1. User types alias into CLI.
 2. User enters the command
-3. NUSpend attempts to execute the input mapped to the alias.
+3. MooLah attempts to execute the input mapped to the alias.
 +
 Use case ends.
 
@@ -602,7 +1069,7 @@ Use case ends.
 * 1a. Users enters additional details after alias name
 [none]
 ** 1a1. User enters the command
-** 1a2. NUSpend attempts to execute the input mapped to the alias with the additional details appended.
+** 1a2. MooLah attempts to execute the input mapped to the alias with the additional details appended.
 +
 Use case ends.
 
@@ -612,9 +1079,9 @@ Use case ends.
 *MSS*
 
 1. User adds an expense to a budget.
-2. NUSpend displays the updated expense list.
-3. NUSpend finds that the total amount spent in the budget exceeds the allocated budget amount.
-4. NUSpend warns the User that they have overspent.
+2. MooLah displays the updated expense list.
+3. MooLah finds that the total amount spent in the budget exceeds the allocated budget amount.
+4. MooLah warns the User that they have overspent.
 +
 Use case ends
 
