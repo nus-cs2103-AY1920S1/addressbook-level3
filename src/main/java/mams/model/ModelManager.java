@@ -3,8 +3,11 @@ package mams.model;
 import static java.util.Objects.requireNonNull;
 
 import java.nio.file.Path;
+import java.util.List;
+import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -176,7 +179,7 @@ public class ModelManager implements Model {
         mams.setAppeal(target, editedAppeal);
     }
 
-    //=========== Filtered Student List Accessors =============================================================
+    //=========== Filtered List Accessors =============================================================
 
     /**
      * Returns an unmodifiable view of the list of {@code Student} backed by the internal list of
@@ -213,6 +216,47 @@ public class ModelManager implements Model {
     public void updateFilteredAppealList(Predicate<Appeal> predicate) {
         requireNonNull(predicate);
         filteredAppeals.setPredicate(predicate);
+    }
+
+
+    //=========== Full List Accessors =============================================================
+
+    /** Returns an unmodifiable view of the full appeal list in MAMS */
+    public ObservableList<Appeal> getFullAppealList() {
+        return mams.getAppealList();
+    }
+
+    /** Returns an unmodifiable view of the full module list in MAMS */
+    public ObservableList<Module> getFullModuleList() {
+        return mams.getModuleList();
+    }
+
+    /** Returns an unmodifiable view of the full student list in MAMS */
+    public ObservableList<Student> getFullStudentList() {
+        return mams.getStudentList();
+    }
+
+    //=========== Individual Items Accessors =============================================================
+    @Override
+    public Optional<Appeal> getAppealEqualsToId(String id) {
+        List<Appeal> resultList = getFullAppealList().stream()
+                .filter(a -> a.getAppealId().equalsIgnoreCase(id))
+                .collect(Collectors.toList());
+        assert resultList.size() < 2 : "Assertion Error: Appeal List in MAMS has duplicate IDs";
+        return (resultList.isEmpty())
+                ? Optional.empty()
+                : Optional.of(resultList.get(0));
+    }
+
+    @Override
+    public Optional<Module> getModuleEqualsToId(String id) {
+        List<Module> resultList = getFullModuleList().stream()
+                .filter(m -> m.getModuleCode().equalsIgnoreCase(id))
+                .collect(Collectors.toList());
+        assert resultList.size() < 2 : "Assertion Error: Module List in MAMS has duplicate IDs";
+        return (resultList.isEmpty())
+                ? Optional.empty()
+                : Optional.of(resultList.get(0));
     }
 
     @Override

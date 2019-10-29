@@ -1,6 +1,7 @@
 package mams.model;
 
 import java.nio.file.Path;
+import java.util.Optional;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -144,6 +145,33 @@ public interface Model {
 
     /** Returns an unmodifiable view of the filtered appeal list */
     ObservableList<Appeal> getFilteredAppealList();
+
+    /** Returns an unmodifiable view of the full appeal list in MAMS */
+    ObservableList<Appeal> getFullAppealList();
+
+    /** Returns an unmodifiable view of the full module list in MAMS */
+    ObservableList<Module> getFullModuleList();
+
+    /** Returns an unmodifiable view of the full student list in MAMS */
+    ObservableList<Student> getFullStudentList();
+
+    /**
+     * Returns an {@code Optional} containing the appeal in MAMS matching the given id.
+     * If no appeal in MAMS matches the given id, then this returns Optional.empty()
+     * Note: the search is performed on the global list, not the filtered list.
+     * @param id Appeal id to be queried against
+     * @return Optional.of(Appeal) if found, else Optional.empty()
+     */
+    public Optional<Appeal> getAppealEqualsToId(String id);
+
+    /**
+     * Returns an {@code Optional} containing the module in MAMS matching the given id.
+     * If no module in MAMS matches the given id, then this returns Optional.empty()
+     * Note: the search is performed on the global list, not the filtered list.
+     * @param id module id to be queried against
+     * @return Optional.of(Module) if found, else Optional.empty()
+     */
+    public Optional<Module> getModuleEqualsToId(String id);
 
     /**
      * Updates the filter of the filtered student list to filter by the given {@code predicate}.
