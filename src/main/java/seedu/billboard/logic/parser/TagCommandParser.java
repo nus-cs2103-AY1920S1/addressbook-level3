@@ -16,13 +16,13 @@ import seedu.billboard.logic.parser.exceptions.ParseException;
  */
 public class TagCommandParser implements Parser<TagCommand> {
 
+    public static final String MESSAGE_TAG_COMMANDS = "Invalid command format! \nSupported commands:\n"
+            + "add \nrm \nlist \nfilter\nFor more information:\n" + HelpCommand.MESSAGE_USAGE;
+
     /**
      * Used for initial separation of command word and args.
      */
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
-    public static final String MESSAGE_TAG_COMMANDS = "Invalid command format! \nSupported commands:\n"
-            + "add \nrm \nlist \nfilter\nFor more information:\n" + HelpCommand.MESSAGE_USAGE;
-
     /**
      * Parses user input into command for execution.
      *
