@@ -4,12 +4,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.testutil.TypicalOverview.BLANK_OVERVIEW_MODEL;
 import static seedu.address.testutil.TypicalOverview.OVERVIEW_MODEL_WITH_DATA;
 
-import org.junit.jupiter.api.Test;
-import seedu.address.overview.model.Model;
-import seedu.address.overview.model.ModelManager;
-
 import java.io.File;
 import java.io.IOException;
+
+import org.junit.jupiter.api.Test;
+
+import seedu.address.overview.model.Model;
+import seedu.address.overview.model.ModelManager;
 
 public class StorageManagerTest {
     private StorageManager storageManager;

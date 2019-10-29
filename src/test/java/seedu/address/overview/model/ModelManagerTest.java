@@ -1,10 +1,8 @@
 package seedu.address.overview.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import static seedu.address.testutil.TypicalOverview.BLANK_OVERVIEW_MODEL;
 import static seedu.address.testutil.TypicalOverview.OVERVIEW_MODEL_WITH_DATA;
-
 
 import org.junit.jupiter.api.Test;
 

@@ -23,14 +23,13 @@ public class StorageManager implements Storage {
     @Override
     public double[] readFromFile() {
         try {
-//            File f = new File(filepath);
             BufferedReader bfr = new BufferedReader(new FileReader(file));
             String line = null;
             while ((line = bfr.readLine()) != null) {
                 readInFileLine(line);
             }
         } catch (IOException e) {
-            //do nothing since default values are initialised as optionals
+            //do nothing and return blank array
         }
         return values;
     }
