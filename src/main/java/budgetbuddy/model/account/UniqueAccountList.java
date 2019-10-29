@@ -5,14 +5,10 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.Iterator;
 import java.util.List;
-//import java.util.Optional;
 
 import budgetbuddy.commons.core.index.Index;
 import budgetbuddy.model.account.exception.AccountNotFoundException;
 import budgetbuddy.model.account.exception.DuplicateAccountException;
-//import budgetbuddy.model.attributes.Name;
-import budgetbuddy.model.transaction.Transaction;
-//import budgetbuddy.model.transaction.TransactionList;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -20,7 +16,6 @@ import javafx.collections.ObservableList;
  * A list of accounts that enforces uniqueness between its elements and does not allow nulls.
  *
  * Supports a minimal set of list operations.
- *
  */
 public class UniqueAccountList implements Iterable<Account> {
 
@@ -40,7 +35,7 @@ public class UniqueAccountList implements Iterable<Account> {
      */
     public boolean contains(Account toCheck) {
         requireNonNull(toCheck);
-        return internalList.stream().anyMatch(toCheck::isSameAccount);
+        return internalList.stream().anyMatch(acc -> accountsAreEquivalent(toCheck, acc));
     }
 
     /**
@@ -68,7 +63,7 @@ public class UniqueAccountList implements Iterable<Account> {
             throw new AccountNotFoundException();
         }
 
-        if (!target.isSameAccount(editedAccount) && contains(editedAccount)) {
+        if (!accountsAreEquivalent(target, editedAccount) && contains(editedAccount)) {
             throw new DuplicateAccountException();
         }
 
@@ -88,6 +83,7 @@ public class UniqueAccountList implements Iterable<Account> {
 
     /**
      * Retrieves an account from the list equivalent to the given account.
+     *
      * @param toGet The equivalent account (identical attributes to the target account).
      * @return The retrieved account.
      * @throws AccountNotFoundException if account is not in the list.
@@ -97,7 +93,7 @@ public class UniqueAccountList implements Iterable<Account> {
 
         Account targetAccount = null;
         for (Account account : internalUnmodifiableList) {
-            if (account.isSameAccount(toGet)) {
+            if (accountsAreEquivalent(account, toGet)) {
                 targetAccount = account;
             }
         }
@@ -137,25 +133,10 @@ public class UniqueAccountList implements Iterable<Account> {
     }
 
     /**
-     * Gets account that matches the UniqueAccountList by name
-     * TODO IMPLEMENT, right now only returns a new account
-     */
-    /*public Optional<Account> getAccount(String accountName) {
-        return Optional.of(new Account(new Name("default"), new TransactionList()));
-    }*/
-    /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */
     public ObservableList<Account> asUnmodifiableObservableList() {
         return internalUnmodifiableList;
-    }
-
-
-    /**
-     * TODO: implement getTransactionList, right now only returns a new observableArrayList
-     */
-    public ObservableList<Transaction> getTransactionList() {
-        return FXCollections.observableArrayList();
     }
 
     @Override
@@ -181,12 +162,23 @@ public class UniqueAccountList implements Iterable<Account> {
     private boolean accountsAreUnique(List<Account> accounts) {
         for (int i = 0; i < accounts.size() - 1; i++) {
             for (int j = i + 1; j < accounts.size(); j++) {
-                if (accounts.get(i).isSameAccount(accounts.get(j))) {
+                if (accountsAreEquivalent(accounts.get(i), accounts.get(j))) {
                     return false;
                 }
             }
         }
         return true;
+    }
+
+    /**
+     * Returns true if the two accounts are identical, or have the same name.
+     */
+    private static boolean accountsAreEquivalent(Account a1, Account a2) {
+        if (a1 == null && a2 != null || a1 != null && a2 == null)  {
+            return false;
+        }
+
+        return a1 == a2 || a1.getName().equals(a2.getName());
     }
 }
 
