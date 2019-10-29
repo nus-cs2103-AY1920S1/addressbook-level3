@@ -27,12 +27,12 @@ alt e == null (i.e. the state of the edited text is empty, and the edit box is n
 
 DiaryPage -> DiaryEntry : getPhotoList()
 activate DiaryEntry
-DiaryEntry -> DiaryPage : photoList
+DiaryEntry --> DiaryPage : photoList
 deactivate DiaryEntry
 
 DiaryPage -> DiaryEntry : getDiaryText()
 activate DiaryEntry
-DiaryEntry -> DiaryPage : diaryText
+DiaryEntry --> DiaryPage : diaryText
 deactivate DiaryEntry
 
 DiaryPage -> DiaryEntryDisplay : setPhotoList(photoList)
@@ -44,7 +44,7 @@ else e != null && editBox is being displayed in ui
 
 DiaryPage -> EditDiaryEntryDescriptor : getDiaryText()
 activate EditDiaryEntryDescriptor
-EditDiaryEntryDescriptor -> DiaryPage : editDiaryText
+EditDiaryEntryDescriptor --> DiaryPage : editDiaryText
 deactivate EditDiaryEntryDescriptor
 
 DiaryPage -> DiaryEntryEditBox : setText(editDiaryText)
