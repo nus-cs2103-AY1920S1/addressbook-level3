@@ -1,5 +1,7 @@
 package seedu.revision.ui;
 
+import java.io.IOException;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
@@ -15,7 +17,6 @@ import seedu.revision.logic.commands.exceptions.CommandException;
 import seedu.revision.logic.commands.main.CommandResult;
 import seedu.revision.logic.parser.exceptions.ParseException;
 
-import java.io.IOException;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -150,6 +151,7 @@ public abstract class Window extends UiPart<Stage> {
     /**
      * Executes the command and returns the result.
      */
-    protected abstract CommandResult executeCommand(String commandText) throws CommandException, ParseException, IOException;
+    protected abstract CommandResult executeCommand(String commandText)
+            throws CommandException, ParseException, IOException;
 
 }

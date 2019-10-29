@@ -1,11 +1,6 @@
 package seedu.revision.ui;
 
-import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import java.util.Optional;
 import java.util.logging.Logger;
 
@@ -16,7 +11,6 @@ import javafx.scene.control.ButtonType;
 
 import javafx.stage.Stage;
 
-import seedu.revision.MainApp;
 import seedu.revision.commons.core.GuiSettings;
 import seedu.revision.commons.core.LogsCenter;
 import seedu.revision.logic.MainLogic;
@@ -38,11 +32,11 @@ public class MainWindow extends Window {
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
+    private Model passedModel;
+
     public MainWindow(Stage primaryStage, MainLogic mainLogic, QuizLogic quizLogic) {
         super(primaryStage, mainLogic, quizLogic);
     }
-
-    Model passedModel;
 
     /**
      * Fills up all the placeholders of this window.

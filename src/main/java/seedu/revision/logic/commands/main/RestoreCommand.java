@@ -1,15 +1,10 @@
 package seedu.revision.logic.commands.main;
 
+import static java.util.Objects.requireNonNull;
+
 import seedu.revision.logic.commands.Command;
 import seedu.revision.logic.commands.exceptions.CommandException;
 import seedu.revision.model.Model;
-import seedu.revision.model.answerable.Answerable;
-import seedu.revision.model.util.SampleDataUtil;
-
-import static java.util.Objects.requireNonNull;
-import static seedu.revision.model.Model.PREDICATE_SHOW_ALL_ANSWERABLE;
-
-import java.util.List;
 
 /**
  * Format Restore instructions for every command for display.

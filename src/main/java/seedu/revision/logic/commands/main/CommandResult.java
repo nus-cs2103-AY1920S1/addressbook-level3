@@ -1,15 +1,18 @@
 package seedu.revision.logic.commands.main;
 
-import seedu.revision.model.Model;
-
 import static java.util.Objects.requireNonNull;
 
 import java.util.Objects;
+
+import seedu.revision.model.Model;
 
 /**
  * Represents the result of a command execution.
  */
 public class CommandResult {
+
+    /** To pass the Model. */
+    private static Model model;
 
     private final String feedbackToUser;
 
@@ -24,9 +27,6 @@ public class CommandResult {
 
     /** The restore window will open. */
     private final boolean showRestore;
-
-    /** To pass the Model. */
-    private static Model model;
 
     /**
      * Constructs a {@code CommandResult} with the specified fields.
