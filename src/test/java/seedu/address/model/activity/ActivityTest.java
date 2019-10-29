@@ -4,12 +4,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.model.activity.exceptions.PersonNotInActivityException;
 import seedu.address.testutil.ActivityBuilder;
 import seedu.address.testutil.TypicalActivities;
 import seedu.address.testutil.TypicalPersons;
@@ -168,10 +170,7 @@ public class ActivityTest {
             .addPerson(TypicalPersons.GEORGE)
             .build();
 
-        a.addExpense(one);
-        a.addExpense(two);
-        a.addExpense(three);
-        a.addExpense(four);
+        a.addExpense(one, two, three, four);
 
         // In the end, A owes G $30. G owes A -$30 just for bookkeeping.
         ArrayList<ArrayList<Double>> matrix = new ArrayList<>(
@@ -211,7 +210,6 @@ public class ActivityTest {
         a.addExpense(one);
         a.addExpense(two);
         a.addExpense(three);
-
         a.invite(TypicalPersons.GEORGE);
         a.addExpense(four);
 
@@ -226,6 +224,74 @@ public class ActivityTest {
                     ));
 
         assertEquals(matrix, a.getTransferMatrix());
+    }
+
+    @Test
+    public void debtAlgo_deleteExpense_success() {
+        int aid = TypicalPersons.ALICE.getPrimaryKey();
+        int bid = TypicalPersons.BOB.getPrimaryKey();
+        int eid = TypicalPersons.ELLE.getPrimaryKey();
+        int gid = TypicalPersons.GEORGE.getPrimaryKey();
+        Amount its = new Amount(3);
+        Amount bout = new Amount(6);
+        Amount tree = new Amount(9);
+        Amount fiddy = new Amount(10);
+        Expense one = new Expense(aid, its, "testing");
+        Expense two = new Expense(bid, bout, "testing");
+        Expense three = new Expense(eid, tree, "testing");
+        Expense four = new Expense(gid, fiddy, "testing");
+
+        Activity a = new ActivityBuilder()
+            .withTitle("test")
+            .addPerson(TypicalPersons.ALICE)
+            .addPerson(TypicalPersons.BOB)
+            .addPerson(TypicalPersons.ELLE)
+            .build();
+
+        a.addExpense(one);
+        a.addExpense(two);
+        a.addExpense(three);
+        a.invite(TypicalPersons.GEORGE);
+        a.addExpense(four);
+        a.deleteExpense(one);
+        a.deleteExpense(two);
+        a.deleteExpense(three);
+        a.deleteExpense(four);
+
+        // In the end, A owes G $30. G owes A -$30 just for bookkeeping.
+        ArrayList<ArrayList<Double>> matrix = new ArrayList<>(
+                List.of(
+                    // (Same for rows)       A    B    E    G
+                    new ArrayList<>(List.of(0.0, 0.0, 0.0, 0.0)),
+                    new ArrayList<>(List.of(0.0, 0.0, 0.0, 0.0)),
+                    new ArrayList<>(List.of(0.0, 0.0, 0.0, 0.0)),
+                    new ArrayList<>(List.of(0.0, 0.0, 0.0, 0.0))
+                    ));
+
+        assertEquals(matrix, a.getTransferMatrix());
+    }
+
+    @Test
+    public void deleteExpenseMissingPerson_fail() {
+        int aid = TypicalPersons.ALICE.getPrimaryKey();
+        int bid = TypicalPersons.BOB.getPrimaryKey();
+        int eid = TypicalPersons.ELLE.getPrimaryKey();
+        Amount its = new Amount(3);
+        Amount bout = new Amount(6);
+        Amount tree = new Amount(9);
+        Expense one = new Expense(aid, its, "testing");
+        Expense two = new Expense(bid, bout, "testing");
+        Expense three = new Expense(eid, tree, "testing");
+
+        Activity a = new ActivityBuilder()
+            .withTitle("test")
+            .addPerson(TypicalPersons.ALICE)
+            .addPerson(TypicalPersons.BOB)
+            .build();
+
+        a.addExpense(one);
+        a.addExpense(two);
+        assertThrows(PersonNotInActivityException.class, () -> a.deleteExpense(three));
     }
 
     @Test
@@ -261,9 +327,11 @@ public class ActivityTest {
         int aid = TypicalPersons.ALICE.getPrimaryKey();
         int bid = TypicalPersons.BOB.getPrimaryKey();
         int eid = TypicalPersons.ELLE.getPrimaryKey();
+
         Amount its = new Amount(3);
         Amount bout = new Amount(6);
         Amount tree = new Amount(9);
+
         Expense one = new Expense(aid, its, "testing", bid, eid);
         Expense two = new Expense(bid, bout, "testing", aid, eid);
         Expense three = new Expense(eid, tree, "testing", aid, bid);
@@ -294,6 +362,7 @@ public class ActivityTest {
         a.disinvite(TypicalPersons.GEORGE);
         assertNotEquals(a, b);
     }
+
     @Test
     public void getParticipantIds() {
         Activity lunch = TypicalActivities.LUNCH;
