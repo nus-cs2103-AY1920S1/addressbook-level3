@@ -134,6 +134,10 @@ public class TypicalAppData {
         for (Question question : getTypicalQuestions()) {
             ab.addQuestion(question);
         }
+
+        for (QuizResult quizResult : getTypicalQuizResults()) {
+            ab.addQuizResult(quizResult);
+        }
         return ab;
     }
 
@@ -148,6 +152,10 @@ public class TypicalAppData {
 
     public static List<Question> getTypicalQuestions() {
         return new ArrayList<>(Arrays.asList(MVC_QUESTION, TCP_QUESTION, UDP_QUESTION, CONAN_QUESTION));
+    }
+
+    public static List<QuizResult> getTypicalQuizResults() {
+        return new ArrayList<>(Arrays.asList(ALICE_RESULT));
     }
 
 }

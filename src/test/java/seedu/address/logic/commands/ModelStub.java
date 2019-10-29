@@ -259,12 +259,22 @@ public class ModelStub implements Model {
     }
 
     @Override
+    public void generateQnsReport(Question question) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
     public ObservableList<Subject> getUniqueSubjectList() {
         throw new AssertionError("This method should not be called.");
     }
 
     @Override
     public ObservableList<StackBarChartModel> getStackBarChartData() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public ObservableList<PieChart.Data> getQnsPieChartData() {
         throw new AssertionError("This method should not be called.");
     }
 }

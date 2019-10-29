@@ -21,7 +21,7 @@ Responsibilities: Implementing `Note` module (lecture notes)
 
 === Lee Li Ying Irene
 image::irene-lly.png[width="150", align="left"]
-{empty}[https://github.com/irene-lly[github]]
+{empty}[https://github.com/irene-lly[github]] [<<irene-lly#, portfolio>>]
 
 Role: Code Quality +
 Responsibilities: Implementing the report feature
