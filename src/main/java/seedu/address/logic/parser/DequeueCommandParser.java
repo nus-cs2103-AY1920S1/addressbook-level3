@@ -10,7 +10,7 @@ import seedu.address.logic.commands.UndoDequeueCommand;
 import seedu.address.logic.commands.common.ReversibleActionPairCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
-import seedu.address.model.common.ReferenceId;
+import seedu.address.model.ReferenceId;
 
 /**
  * Parses input arguments and creates a new DeleteCommand object

@@ -3,7 +3,7 @@ package seedu.address.model.person.parameters;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
-import seedu.address.model.common.ReferenceId;
+import seedu.address.model.ReferenceId;
 
 /**
  * Represents a Reference ID for Person.
@@ -19,16 +19,18 @@ public abstract class PersonReferenceId implements ReferenceId {
      */
     public static final String VALIDATION_REGEX = "[a-zA-Z0-9]{3,}";
     public final String referenceId;
+    public final boolean isStaff;
 
     /**
      * Constructs a {@code PersonReferenceId}.
      *
      * @param referenceId A valid identifier.
      */
-    public PersonReferenceId(String referenceId) {
+    public PersonReferenceId(String referenceId, boolean isStaff) {
         requireNonNull(referenceId);
         checkArgument(isValidId(referenceId), MESSAGE_CONSTRAINTS);
         this.referenceId = referenceId.toUpperCase();
+        this.isStaff = isStaff;
     }
 
     /**
@@ -66,4 +68,13 @@ public abstract class PersonReferenceId implements ReferenceId {
         return referenceId.hashCode();
     }
 
+    @Override
+    public boolean isStaffDoctor() {
+        return isStaff;
+    }
+
+    @Override
+    public boolean isPatient() {
+        return !isStaff;
+    }
 }

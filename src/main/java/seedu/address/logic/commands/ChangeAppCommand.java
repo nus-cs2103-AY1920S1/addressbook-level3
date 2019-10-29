@@ -9,6 +9,7 @@ import seedu.address.logic.commands.common.ReversibleCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.events.Event;
+import seedu.address.model.events.predicates.EventContainsRefIdPredicate;
 
 /**
  * Chnageing the timing of the appointment.
@@ -27,6 +28,7 @@ public class ChangeAppCommand extends ReversibleCommand {
 
     public static final String MESSAGE_SUCCESS = "this appointmeent's timing has been changed: %1$s";
     public static final String MESSAGE_TIMING_EXIST = "please give a new valid timing for the appointment to change.";
+    public static final String MESSAGE_DUPLICATE_EVENT = "This event already exists in the appointment book.";
 
     private final Event eventToEdit;
     private final Event editedEvent;
@@ -45,11 +47,11 @@ public class ChangeAppCommand extends ReversibleCommand {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        if (model.hasExactEvent(editedEvent)) {
-            throw new CommandException(MESSAGE_TIMING_EXIST);
+        if (model.hasExactAppointment(editedEvent)) {
+            throw new CommandException(MESSAGE_DUPLICATE_EVENT);
         }
-        model.setEvent(eventToEdit, editedEvent);
-        model.updateFilteredEventList(editedEvent.getPersonId());
+        model.setAppointment(eventToEdit, editedEvent);
+        model.updateFilteredAppointmentList(new EventContainsRefIdPredicate(editedEvent.getPersonId()));
         return new CommandResult(String.format(MESSAGE_SUCCESS, editedEvent));
     }
 

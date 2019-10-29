@@ -10,7 +10,7 @@ import seedu.address.logic.commands.common.ReversibleCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.events.Event;
-
+import seedu.address.model.events.predicates.EventContainsRefIdPredicate;
 
 /**
  * cancel a appointments for a patient.
@@ -39,37 +39,31 @@ public class CancelAppCommand extends ReversibleCommand {
         this.eventList = eventList;
     }
 
-
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         if (eventList == null) {
-            deleteOneEvent(model);
-            model.updateFilteredEventList(toDelete.getPersonId());
+            deleteOneEvent(model, toDelete);
+            model.updateFilteredAppointmentList(new EventContainsRefIdPredicate(toDelete.getPersonId()));
             return new CommandResult(String.format(MESSAGE_CANCEL_APPOINTMENT_SUCCESS, toDelete));
-
-        } else {
-            for (Event e : eventList) {
-                if (!model.hasExactEvent(e)) {
-                    throw new CommandException(String.format(Messages.MESSAGE_EVENT_NOT_FOUND, e));
-                }
-                model.deleteEvent(e);
-            }
-            model.updateFilteredEventList(eventList.get(0).getPersonId());
-            return new CommandResult(String.format(MESSAGE_CANCEL_APPOINTMENT_SUCCESS, eventList));
-
         }
 
+        for (Event e : eventList) {
+            //TODO: Should it still delete the other appointments if one fails?
+            deleteOneEvent(model, e);
+        }
+        model.updateFilteredAppointmentList(new EventContainsRefIdPredicate(eventList.get(0).getPersonId()));
+        return new CommandResult(String.format(MESSAGE_CANCEL_APPOINTMENT_SUCCESS, eventList));
     }
 
     /**
      * delete a exist event from the address book.
      */
-    private void deleteOneEvent(Model model) throws CommandException {
-        if (!model.hasExactEvent(toDelete)) {
-            throw new CommandException(String.format(Messages.MESSAGE_EVENT_NOT_FOUND, toDelete));
+    private void deleteOneEvent(Model model, Event eventToDelete) throws CommandException {
+        if (!model.hasExactAppointment(eventToDelete)) {
+            throw new CommandException(String.format(Messages.MESSAGE_EVENT_NOT_FOUND, eventToDelete));
         }
-        model.deleteEvent(toDelete);
+        model.deleteAppointment(eventToDelete);
     }
 
     @Override

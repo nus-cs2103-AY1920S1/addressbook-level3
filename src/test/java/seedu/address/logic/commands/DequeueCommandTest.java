@@ -8,16 +8,12 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BENSON;
 import static seedu.address.testutil.TypicalPersons.BOB;
-import static seedu.address.testutil.TypicalPersons.getTypicalAppointmentBook;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
-import seedu.address.model.common.ReferenceId;
-import seedu.address.model.queue.QueueManager;
-import seedu.address.model.userprefs.UserPrefs;
+import seedu.address.model.ReferenceId;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
@@ -25,13 +21,12 @@ import seedu.address.model.userprefs.UserPrefs;
  */
 public class DequeueCommandTest {
 
-    private Model model = new ModelManager(new AddressBook(), new UserPrefs(), new QueueManager(),
-            getTypicalAppointmentBook());
+    private Model model = new ModelManager();
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
-        model.addPerson(ALICE);
-        model.addPerson(BENSON);
+        model.addPatient(ALICE);
+        model.addPatient(BENSON);
         model.enqueuePatient(ALICE.getReferenceId());
         model.enqueuePatient(BENSON.getReferenceId());
         ReferenceId personToDelete = model.getQueueList().get(INDEX_FIRST_PERSON.getZeroBased());
@@ -39,10 +34,9 @@ public class DequeueCommandTest {
 
         String expectedMessage = String.format(DequeueCommand.MESSAGE_DEQUEUE_SUCCESS, personToDelete);
 
-        ModelManager expectedModel = new ModelManager(new AddressBook(), new UserPrefs(), new QueueManager(),
-            getTypicalAppointmentBook());
-        expectedModel.addPerson(ALICE);
-        expectedModel.addPerson(BENSON);
+        ModelManager expectedModel = new ModelManager();
+        expectedModel.addPatient(ALICE);
+        expectedModel.addPatient(BENSON);
         expectedModel.enqueuePatient(BENSON.getReferenceId());
 
         assertCommandSuccess(dequeueCommand, model, expectedMessage, expectedModel);

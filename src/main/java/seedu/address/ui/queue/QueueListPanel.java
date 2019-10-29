@@ -10,8 +10,8 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.common.ReferenceId;
-import seedu.address.model.common.ReferenceIdResolver;
+import seedu.address.model.ReferenceId;
+import seedu.address.model.ReferenceIdResolver;
 import seedu.address.model.person.Person;
 import seedu.address.model.queue.Room;
 import seedu.address.ui.UiPart;
@@ -59,7 +59,7 @@ public class QueueListPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                Person person = resolver.resolve(id);
+                Person person = resolver.resolvePatient(id);
                 setGraphic(new QueueCard(person, getIndex() + 1).getRoot());
             }
         }
@@ -83,8 +83,8 @@ public class QueueListPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                Person doctor = resolver.resolve(room.getDoctor());
-                Optional<Person> patient = room.getCurrentPatient().map(id -> resolver.resolve(id));
+                Person doctor = resolver.resolvePatient(room.getDoctor());
+                Optional<Person> patient = room.getCurrentPatient().map(id -> resolver.resolvePatient(id));
                 setGraphic(new RoomCard(doctor, patient, getIndex() + 1).getRoot());
             }
         }

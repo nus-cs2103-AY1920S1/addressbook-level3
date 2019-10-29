@@ -13,32 +13,33 @@ import static seedu.address.testutil.TypicalPersons.AMY;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
-import seedu.address.logic.commands.ListCommand;
+import seedu.address.commons.core.Messages;
+import seedu.address.commons.exceptions.DataConversionException;
+import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.common.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.patients.RegisterPatientCommand;
+import seedu.address.logic.commands.patients.UnregisterPatientCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.AppointmentBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyAppointmentBook;
 import seedu.address.model.person.Person;
-import seedu.address.model.queue.QueueManager;
+import seedu.address.model.userprefs.ReadOnlyUserPrefs;
 import seedu.address.model.userprefs.UserPrefs;
-import seedu.address.storage.JsonAddressBookStorage;
-import seedu.address.storage.JsonAppointmentBookStorage;
-import seedu.address.storage.JsonUserPrefsStorage;
+import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
 import seedu.address.testutil.PersonBuilder;
 
 public class LogicManagerTest {
-    private static final IOException DUMMY_IO_EXCEPTION = new IOException("dummy exception");
+    public static final String DUMMY_IO_EXCEPTION_MESSAGE = "dummy exception";
 
     @TempDir
     public Path temporaryFolder;
@@ -48,13 +49,7 @@ public class LogicManagerTest {
 
     @BeforeEach
     public void setUp() {
-        JsonAddressBookStorage addressBookStorage =
-                new JsonAddressBookStorage(temporaryFolder.resolve("addressBook.json"));
-        JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
-        JsonAppointmentBookStorage appointmentBookStorage =
-            new JsonAppointmentBookStorage(temporaryFolder.resolve("appointmentBook.json"));
-
-        StorageManager storage = new StorageManager(addressBookStorage, appointmentBookStorage, userPrefsStorage);
+        StorageManager storage = new StorageManager(temporaryFolder.resolve("userPrefs.json"));
         logic = new LogicManager(model, storage);
     }
 
@@ -66,42 +61,34 @@ public class LogicManagerTest {
 
     @Test
     public void execute_commandExecutionError_throwsCommandException() {
-        String deleteCommand = "delete 9";
+        String deleteCommand = UnregisterPatientCommand.COMMAND_WORD + " 9";
         assertParseException(deleteCommand, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
     @Test
     public void execute_validCommand_success() throws Exception {
-        String listCommand = ListCommand.COMMAND_WORD;
-        assertCommandSuccess(listCommand, ListCommand.MESSAGE_SUCCESS, model);
+        String listCommand = FindCommand.COMMAND_WORD;
+        String expectedResult = String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, 0);
+        assertCommandSuccess(listCommand, expectedResult, model);
     }
 
     @Test
     public void execute_storageThrowsIoException_throwsCommandException() {
-        // Setup LogicManager with JsonAddressBookIoExceptionThrowingStub
-        JsonAddressBookStorage addressBookStorage =
-                new JsonAddressBookIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionAddressBook.json"));
-        JsonUserPrefsStorage userPrefsStorage =
-                new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
-        JsonAppointmentBookIoExceptionThrowingStub appointmentBookStorage =
-                new JsonAppointmentBookIoExceptionThrowingStub(
-                    temporaryFolder.resolve("ioExceptionAppointmentBook.json"));
-        StorageManager storage = new StorageManager(addressBookStorage, appointmentBookStorage, userPrefsStorage);
-        logic = new LogicManager(model, storage);
+        logic = new LogicManager(model, new StorageStub());
 
         // Execute add command
         String addCommand = RegisterPatientCommand.COMMAND_WORD
             + ID_DESC_AMY + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY;
         Person expectedPerson = new PersonBuilder(AMY).withTags().build();
         ModelManager expectedModel = new ModelManager();
-        expectedModel.addPerson(expectedPerson);
-        String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;
+        expectedModel.addPatient(expectedPerson);
+        String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION_MESSAGE;
         assertCommandFailure(addCommand, CommandException.class, expectedMessage, expectedModel);
     }
 
     @Test
     public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredPersonList().remove(0));
+        assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredPatientList().remove(0));
     }
 
     /**
@@ -114,7 +101,7 @@ public class LogicManagerTest {
      */
     private void assertCommandSuccess(String inputCommand, String expectedMessage,
                                       Model expectedModel) throws CommandException, ParseException {
-        CommandResult result = logic.execute(inputCommand, stub -> {});
+        CommandResult result = logic.execute(inputCommand);
         assertEquals(expectedMessage, result.getFeedbackToUser());
         assertEquals(expectedModel, model);
     }
@@ -144,8 +131,7 @@ public class LogicManagerTest {
      */
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
             String expectedMessage) {
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs(), new QueueManager(),
-                            new AppointmentBook());
+        Model expectedModel = new ModelManager();
         assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel);
     }
 
@@ -159,35 +145,81 @@ public class LogicManagerTest {
      */
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
                                       String expectedMessage, Model expectedModel) {
-        assertThrows(expectedException, expectedMessage, () -> logic.execute(inputCommand, stub -> {}));
+        assertThrows(expectedException, expectedMessage, () -> logic.execute(inputCommand));
         assertEquals(expectedModel, model);
     }
+}
 
-    /**
-     * A stub class to throw an {@code IOException} when the save method is called.
-     */
-    private static class JsonAddressBookIoExceptionThrowingStub extends JsonAddressBookStorage {
-        private JsonAddressBookIoExceptionThrowingStub(Path filePath) {
-            super(filePath);
-        }
+class StorageStub implements Storage {
 
-        @Override
-        public void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath) throws IOException {
-            throw DUMMY_IO_EXCEPTION;
-        }
+    @Override
+    public UserPrefs getUserPrefs() {
+        throw new AssertionError("This method should not be called.");
     }
 
-    /**
-     * A stub class to throw an {@code IOException} when the save method is called.
-     */
-    private static class JsonAppointmentBookIoExceptionThrowingStub extends JsonAppointmentBookStorage {
-        private JsonAppointmentBookIoExceptionThrowingStub(Path filePath) {
-            super(filePath);
-        }
+    @Override
+    public void saveUserPrefs(ReadOnlyUserPrefs userPrefs) {
+        throw new AssertionError("This method should not be called.");
+    }
 
-        @Override
-        public void saveAppointmentBook(ReadOnlyAppointmentBook addressBook, Path filePath) throws IOException {
-            throw DUMMY_IO_EXCEPTION;
-        }
+    @Override
+    public Path getPatientAddressBookFilePath() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public Path getPatientAppointmentBookFilePath() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public Path getStaffAddressBookFilePath() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public Path getStaffDutyRosterBookFilePath() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public Optional<ReadOnlyAddressBook> readPatientAddressBook() throws DataConversionException, IOException {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void savePatientAddressBook(ReadOnlyAddressBook addressBook) throws IOException {
+        throw new IOException(LogicManagerTest.DUMMY_IO_EXCEPTION_MESSAGE);
+    }
+
+    @Override
+    public Optional<ReadOnlyAppointmentBook> readPatientAppointmentBook() throws DataConversionException, IOException {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void savePatientAppointmentBook(ReadOnlyAppointmentBook appointmentBook) throws IOException {
+        throw new IOException(LogicManagerTest.DUMMY_IO_EXCEPTION_MESSAGE);
+
+    }
+
+    @Override
+    public Optional<ReadOnlyAddressBook> readStaffAddressBook() throws DataConversionException, IOException {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void saveStaffAddressBook(ReadOnlyAddressBook addressBook) throws IOException {
+        throw new IOException(LogicManagerTest.DUMMY_IO_EXCEPTION_MESSAGE);
+    }
+
+    @Override
+    public Optional<ReadOnlyAppointmentBook> readStaffDutyRosterBook() throws DataConversionException, IOException {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void saveStaffDutyRosterBook(ReadOnlyAppointmentBook appointmentBook) throws IOException {
+        throw new IOException(LogicManagerTest.DUMMY_IO_EXCEPTION_MESSAGE);
     }
 }

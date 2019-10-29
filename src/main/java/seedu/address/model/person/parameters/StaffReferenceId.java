@@ -22,7 +22,7 @@ public class StaffReferenceId extends PersonReferenceId {
      * @param referenceId A valid identifier.
      */
     public StaffReferenceId(String referenceId) {
-        super(referenceId);
+        super(referenceId, true);
     }
 
     /**

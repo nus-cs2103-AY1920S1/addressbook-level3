@@ -1,11 +1,12 @@
+//@@author SakuraBlossom
 package seedu.address.logic.parser;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_REFERENCEID;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_EVENTS;
 
 import seedu.address.logic.commands.AppointmentsCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
-import seedu.address.model.common.ReferenceId;
+import seedu.address.model.events.predicates.EventContainsKeywordPredicate;
 
 /**
  * Parses input arguments and creates a new FindCommand object
@@ -24,20 +25,10 @@ public class AppointmentsCommandParser implements Parser<AppointmentsCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public AppointmentsCommand parse(String args) throws ParseException {
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args);
-        model.updateFilteredEventList();
-
-        if (args.trim().isEmpty()) {
-            return new AppointmentsCommand();
-        } else {
-            ReferenceId referenceId = ParserUtil.parsePatientReferenceId(argMultimap.getPreamble());
-
-            if (!model.hasPerson(referenceId)) {
-                throw new ParseException(MESSAGE_INVALID_REFERENCEID);
-            }
-
-            return new AppointmentsCommand(referenceId);
+        String trimmedArgs = args.trim();
+        if (trimmedArgs.isEmpty()) {
+            return new AppointmentsCommand(PREDICATE_SHOW_ALL_EVENTS);
         }
-
+        return new AppointmentsCommand(new EventContainsKeywordPredicate(args.trim().toUpperCase()));
     }
 }

@@ -1,8 +1,7 @@
 package seedu.address.storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalPersons.getTypicalPatientAddressBook;
 
 import java.nio.file.Path;
 
@@ -11,8 +10,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.person.AddressBook;
 import seedu.address.model.userprefs.UserPrefs;
 
 public class StorageManagerTest {
@@ -24,11 +23,7 @@ public class StorageManagerTest {
 
     @BeforeEach
     public void setUp() {
-        JsonAddressBookStorage addressBookStorage = new JsonAddressBookStorage(getTempFilePath("ab"));
-        JsonAppointmentBookStorage appointmentBookStorage = new JsonAppointmentBookStorage(
-            getTempFilePath("ab"));
-        JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
-        storageManager = new StorageManager(addressBookStorage, appointmentBookStorage, userPrefsStorage);
+        storageManager = new StorageManager(getTempFilePath("prefs"));
     }
 
     private Path getTempFilePath(String fileName) {
@@ -45,7 +40,7 @@ public class StorageManagerTest {
         UserPrefs original = new UserPrefs();
         original.setGuiSettings(new GuiSettings(300, 600, 4, 6));
         storageManager.saveUserPrefs(original);
-        UserPrefs retrieved = storageManager.readUserPrefs().get();
+        UserPrefs retrieved = storageManager.getUserPrefs();
         assertEquals(original, retrieved);
     }
 
@@ -56,15 +51,13 @@ public class StorageManagerTest {
          * {@link JsonAddressBookStorage} class.
          * More extensive testing of UserPref saving/reading is done in {@link JsonAddressBookStorageTest} class.
          */
-        AddressBook original = getTypicalAddressBook();
-        storageManager.saveAddressBook(original);
-        ReadOnlyAddressBook retrieved = storageManager.readAddressBook().get();
-        assertEquals(original, new AddressBook(retrieved));
-    }
-
-    @Test
-    public void getAddressBookFilePath() {
-        assertNotNull(storageManager.getAddressBookFilePath());
+        AddressBook original = getTypicalPatientAddressBook();
+        storageManager.savePatientAddressBook(original);
+        storageManager.saveStaffAddressBook(original);
+        ReadOnlyAddressBook retrievedPatients = storageManager.readPatientAddressBook().get();
+        assertEquals(original, new AddressBook(retrievedPatients));
+        ReadOnlyAddressBook retrievedStaff = storageManager.readPatientAddressBook().get();
+        assertEquals(original, new AddressBook(retrievedStaff));
     }
 
 }

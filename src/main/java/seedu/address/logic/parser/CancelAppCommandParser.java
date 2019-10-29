@@ -24,7 +24,7 @@ public class CancelAppCommandParser implements Parser<ReversibleActionPairComman
 
     public CancelAppCommandParser(Model model) {
         this.model = model;
-        this.lastShownList = model.getFilteredEventList();
+        this.lastShownList = model.getFilteredAppointmentList();
     }
 
     /**

@@ -1,3 +1,4 @@
+//@@author SakuraBlossom
 package seedu.address.logic;
 
 import java.io.IOException;
@@ -20,10 +21,8 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.ReadOnlyAppointmentBook;
-import seedu.address.model.common.ReferenceId;
-import seedu.address.model.common.ReferenceIdResolver;
+import seedu.address.model.ReferenceId;
+import seedu.address.model.ReferenceIdResolver;
 import seedu.address.model.events.Event;
 import seedu.address.model.person.Person;
 import seedu.address.model.queue.QueueManager;
@@ -53,7 +52,7 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public CommandResult execute(String commandText, Consumer<OmniPanelTab> omniPanelTabConsumer)
+    public CommandResult execute(String commandText)
         throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
@@ -70,19 +69,26 @@ public class LogicManager implements Logic {
 
         try {
             if (!(command instanceof NonActionableCommand)) {
-                storage.saveAddressBook(model.getAddressBook());
-                storage.saveAppointmentBook(model.getAppointmentBook());
+                storage.savePatientAddressBook(model.getPatientAddressBook());
+                storage.savePatientAppointmentBook(model.getAppointmentBook());
+                storage.saveStaffAddressBook(model.getStaffAddressBook());
+                storage.saveStaffDutyRosterBook(model.getDutyShiftBook());
             }
         } catch (IOException ioe) {
-            throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
+            throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe.getMessage(), ioe);
         }
 
         return commandResult;
     }
 
     @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return model.getFilteredPersonList();
+    public CommandResult eagerEvaluate(String commandText) throws CommandException, ParseException {
+        return null;
+    }
+
+    @Override
+    public ObservableList<Person> getFilteredPatientList() {
+        return model.getFilteredPatientList();
     }
 
     @Override
@@ -91,8 +97,18 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ObservableList<Event> getFilteredEventList() {
-        return model.getFilteredEventList();
+    public ObservableList<Event> getFilteredAppointmentList() {
+        return model.getFilteredAppointmentList();
+    }
+
+    @Override
+    public ObservableList<Person> getFilteredStaffList() {
+        return model.getFilteredStaffList();
+    }
+
+    @Override
+    public ObservableList<Event> getFilteredDutyShiftList() {
+        return model.getFilteredDutyShiftList();
     }
 
     @Override
@@ -101,28 +117,13 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return model.getAddressBook();
-    }
-
-    @Override
     public Path getAddressBookFilePath() {
-        return model.getAddressBookFilePath();
-    }
-
-    @Override
-    public ReadOnlyAppointmentBook getAppointmentBook() {
-        return model.getAppointmentBook();
+        return model.getUserPrefs().getPatientAddressBookFilePath();
     }
 
     @Override
     public ReferenceIdResolver getReferenceIdResolver() {
         return model;
-    }
-
-    @Override
-    public Path getAppointmentBookFilePath() {
-        return model.getAppointmentBookFilePath();
     }
 
     @Override
@@ -133,5 +134,10 @@ public class LogicManager implements Logic {
     @Override
     public void setGuiSettings(GuiSettings guiSettings) {
         model.setGuiSettings(guiSettings);
+    }
+
+    @Override
+    public void bindOmniPanelTabConsumer(Consumer<OmniPanelTab> omniPanelTabConsumer) {
+        model.bindTabListingCommand(omniPanelTabConsumer);
     }
 }

@@ -105,9 +105,12 @@ class QueueManagerTest {
         Person doctor2 = new PersonBuilder(AMY).withId("001A").build();
         queueManager = new QueueManager();
         queueManager.addRoom(new Room(doctor.getReferenceId()));
+        assertEquals(queueManager.getRoomList().size(), 1);
         assertEquals(new StaffReferenceId("002A"), queueManager.getRoomList().get(0).getDoctor());
-        queueManager.addRoomToIndex(new Room(doctor2.getReferenceId()), 0);
-        assertEquals(new StaffReferenceId("001A"), queueManager.getRoomList().get(0).getDoctor());
+        queueManager.addRoom(new Room(doctor2.getReferenceId()));
+        assertEquals(queueManager.getRoomList().size(), 2);
+        assertEquals(new StaffReferenceId("002A"), queueManager.getRoomList().get(0).getDoctor());
+        assertEquals(new StaffReferenceId("001A"), queueManager.getRoomList().get(1).getDoctor());
     }
 
     @Test

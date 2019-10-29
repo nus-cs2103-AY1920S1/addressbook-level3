@@ -8,7 +8,7 @@ import seedu.address.logic.commands.common.ReversibleCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 
 import seedu.address.model.Model;
-import seedu.address.model.common.ReferenceId;
+import seedu.address.model.ReferenceId;
 import seedu.address.model.queue.Room;
 
 /**
@@ -53,7 +53,7 @@ public class NextCommand extends ReversibleCommand {
             throw new CommandException(MESSAGE_DUPLICATE_ROOM);
         }
 
-        model.addRoomToIndex(editedRoom, index.getZeroBased());
+        model.addRoom(editedRoom);
         return new CommandResult(String.format(MESSAGE_SUCCESS, patientReferenceId));
     }
 

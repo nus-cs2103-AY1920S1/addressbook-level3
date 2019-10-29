@@ -12,7 +12,7 @@ import seedu.address.logic.commands.UndoNextCommand;
 import seedu.address.logic.commands.common.ReversibleActionPairCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
-import seedu.address.model.common.ReferenceId;
+import seedu.address.model.ReferenceId;
 import seedu.address.model.queue.Room;
 
 /**
@@ -54,7 +54,7 @@ public class NextCommandParser implements Parser<ReversibleActionPairCommand> {
         }
         ReferenceId patientBeingServed = queueList.get(0);
         Room roomToEdit = filteredRoomList.get(index.getZeroBased());
-        Room editedRoom = new Room(roomToEdit.getDoctor(), Optional.of(patientBeingServed));
+        Room editedRoom = new Room(roomToEdit.getDoctor(), Optional.of(patientBeingServed), false);
         return new ReversibleActionPairCommand(new NextCommand(roomToEdit, editedRoom, index, patientBeingServed),
                 new UndoNextCommand(editedRoom, roomToEdit, index, patientBeingServed));
     }

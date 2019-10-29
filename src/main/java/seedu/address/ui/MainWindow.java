@@ -1,7 +1,8 @@
 package seedu.address.ui;
 
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
 import java.util.HashSet;
-import java.util.function.Consumer;
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
@@ -50,9 +51,11 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
     // Independent Ui parts residing in this Ui container
     private AutoCompleteOverlay aco;
     private CommandBox commandBox;
-    private PersonListPanel personListPanel;
+    private PersonListPanel patientListPanel;
+    private PersonListPanel staffListPanel;
     private QueueListPanel queueListPanel;
-    private EventListPanel eventListPanel;
+    private EventListPanel appointmentListPanel;
+    private EventListPanel dutyShiftListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private TabBar tabBar;
@@ -121,6 +124,8 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
                 }
             }
         });
+
+        logic.bindOmniPanelTabConsumer(this::setOmniPanelTab);
     }
 
     public Stage getPrimaryStage() {
@@ -166,9 +171,11 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList(), deferredDropSelectors);
+        patientListPanel = new PersonListPanel(logic.getFilteredPatientList(), deferredDropSelectors);
+        staffListPanel = new PersonListPanel(logic.getFilteredStaffList(), deferredDropSelectors);
 
-        eventListPanel = new EventListPanel(logic.getFilteredEventList());
+        appointmentListPanel = new EventListPanel(logic.getFilteredAppointmentList());
+        dutyShiftListPanel = new EventListPanel(logic.getFilteredDutyShiftList());
 
         tabBar = new TabBar(this);
         tabBarPlaceholder.getChildren().add(tabBar.getRoot());
@@ -195,12 +202,26 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
      * Sets the default size based on {@code guiSettings}.
      */
     private void setWindowDefaultSize(GuiSettings guiSettings) {
+        //Screen Size
+        GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+        int screenWidth = gd.getDisplayMode().getWidth();
+        int screenHeight = gd.getDisplayMode().getHeight();
+
+        if (screenWidth < guiSettings.getWindowHeight() || screenHeight < guiSettings.getWindowWidth()) {
+            return;
+        }
+
         primaryStage.setHeight(guiSettings.getWindowHeight());
         primaryStage.setWidth(guiSettings.getWindowWidth());
-        if (guiSettings.getWindowCoordinates() != null) {
-            primaryStage.setX(guiSettings.getWindowCoordinates().getX());
-            primaryStage.setY(guiSettings.getWindowCoordinates().getY());
+
+        if (guiSettings.getWindowCoordinates() == null
+                || screenWidth < guiSettings.getWindowWidth() + guiSettings.getWindowCoordinates().getX()
+                || screenHeight < guiSettings.getWindowHeight() + guiSettings.getWindowCoordinates().getY()) {
+            return;
         }
+
+        primaryStage.setX(guiSettings.getWindowCoordinates().getX());
+        primaryStage.setY(guiSettings.getWindowCoordinates().getY());
     }
 
     /**
@@ -231,22 +252,14 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
         primaryStage.hide();
     }
 
-    public PersonListPanel getPersonListPanel() {
-        return personListPanel;
-    }
-
-    public EventListPanel getEventListPanel() {
-        return eventListPanel;
-    }
-
     /**
      * Executes the command and returns the result.
      *
-     * @see seedu.address.logic.Logic#execute(String, Consumer)
+     * @see seedu.address.logic.Logic#execute(String)
      */
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
-            CommandResult commandResult = logic.execute(commandText, this::setOmniPanelTab);
+            CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
@@ -319,12 +332,16 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
         tabBar.selectTabUsingIndex(omniPanelTab.getTabBarIndex());
         switch (omniPanelTab) {
         case PATIENTS_TAB:
-            omniPanelPlaceholder.getChildren().setAll(personListPanel.getRoot());
+            omniPanelPlaceholder.getChildren().setAll(patientListPanel.getRoot());
             break;
         case APPOINTMENTS_TAB:
-            omniPanelPlaceholder.getChildren().setAll(eventListPanel.getRoot());
+            omniPanelPlaceholder.getChildren().setAll(appointmentListPanel.getRoot());
             break;
         case DOCTORS_TAB:
+            omniPanelPlaceholder.getChildren().setAll(staffListPanel.getRoot());
+            break;
+        case DUTY_SHIFT_TAB:
+            omniPanelPlaceholder.getChildren().setAll(dutyShiftListPanel.getRoot());
             break;
         default:
         }
@@ -334,7 +351,7 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
     public void regainOmniPanelSelector() {
         switch (currentOmniPanelTab) {
         case PATIENTS_TAB:
-            personListPanel.regainSelector();
+            patientListPanel.regainSelector();
             break;
         default:
         }

@@ -20,7 +20,7 @@ import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.common.ReferenceId;
+import seedu.address.model.ReferenceId;
 import seedu.address.model.common.Tag;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.parameters.Address;
@@ -60,7 +60,8 @@ public class RegisterPatientCommandParser implements Parser<ReversibleActionPair
 
         Person person = new Person(referenceId, name, phone, email, address, tagList);
 
-        return new ReversibleActionPairCommand(new RegisterPatientCommand(person),
+        return new ReversibleActionPairCommand(
+            new RegisterPatientCommand(person),
             new UnregisterPatientCommand(person));
     }
 
