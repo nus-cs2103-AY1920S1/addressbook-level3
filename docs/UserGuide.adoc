@@ -13,6 +13,7 @@ ifdef::env-github[]
 :note-caption: :information_source:
 endif::[]
 :repoURL: https://github.com/AY1920S1-CS2103T-W13-4/main
+:jarName: budgetbuddy.jar
 
 By: `CS2103T W13-4`
 
@@ -27,16 +28,48 @@ as well as a set of rules to simplify expense tracking through automation.
 
 == Quick Start
 
+_Ensure that Java 11 is installed on your system._
+
+Download the latest version of Budget Buddy link:{repoURL}/releases[here].
+
+Place the _{jarName}_ file in your desired home folder. This folder will contain all data saved into Budget Buddy.
+
+Double click the _{jarName}_ file to launch Budget Buddy.
+
 ====
 *Launching for the first time*
 
 * A default account will created.
 * Type `transaction out x/100 d/This is my first transaction!` to add a new spending.
 * To view your accounts, type `account list`
+* To view available commands, type `help`
 ====
+
+If the application does not run, follow the instructions below based on your operating system:
+
+* Mac/Linux:
+** Launch _Terminal_
+** Navigate to the home folder where _{jarName}_ is, using the `cd` command, e.g. `cd ~/Documents/BudgetBuddy`
+** Execute the jar file using `java -jar budgetbuddy.jar`
+
+* Windows:
+** Launch _Cmd_, or Windows' Command Prompt
+** Navigate to the home folder where _{jarName}_ is, using the `cd` command, e.g. `cd Documents\BudgetBuddy`
+** Execute the jar file using `java -jar budgetbuddy.jar`
+
 
 [[Features]]
 == Features
+
+Budget Buddy comes with many tools to help you manage your expenses better! You can create multiple accounts,
+add and remove transactions that you have made, and even track any outstanding loans that you may have.
+
+What's more? Automate processes by using rules. Typing repetitive descriptions? Set the description of a transaction
+automatically by using a keyword! Set a Food category automatically each time you make a food
+transaction! Automate everything!
+
+If you know how to code in JavaScript, great news for you too. Write and evaluate your own scripts within the application,
+do complicated things in a snap. And even use your script in rules!
 
 ====
 *Command Format*
@@ -88,7 +121,7 @@ Adds a new transaction of the specified amount and with the given description.
 Format: `transaction out|in x/<amount> d/<description> [a/<account>] [c/<category>] [w/<date>] [r/<d|w|m|y>]`
 ****
 * If the account is not given, the transaction is inserted into the default account.
-* If the category is not given, the transaction is not categorised.
+* If the category is not given, the transaction is not categorized.
 * If the date is not given, the date is set to the current date.
 * If the argument ‘r’ is added, the transition is marked as recurring;
 identical entries will be added either daily, weekly, monthly, or yearly.
@@ -347,4 +380,30 @@ Format: `script run <script name> [<argument>]`
 
 == FAQ
 
+*Q:* Which version of Java do I require to run this application?
+
+*A:* Java 11
+
+'''
+
+*Q:* How do I switch between the different tabs without clicking on them?
+
+*A:* Simply execute the `list` command for that category, e.g. `rule list`.
+On the other hand, executing any command from that category will switch you over as well.
+
+'''
+
+*Q:* How do I reset the application data?
+
+*A:* All data is stored within the same folder as your execution path, under the "data/" folder.
+
 == Command Summary
+
+=== Rules
+
+* `rule add` - Add a new rule
+* `rule list` - List rules
+* `rule edit` - Edit a rule
+* `rule delete` - Delete a rule
+
+
