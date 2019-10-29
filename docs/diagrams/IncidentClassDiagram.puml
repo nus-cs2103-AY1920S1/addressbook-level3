@@ -1,0 +1,36 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+class Incident {
+status:Status
+}
+show Incident members
+hide Incident methods
+class IncidentDateTime
+class Person
+class Vehicle
+class IncidentId
+class District
+class Description
+class CallerNumber
+
+
+Incident *--> IncidentDateTime
+Incident *--> IncidentId
+Incident *--> Person
+Vehicle <-* Incident
+District <--* Incident
+Description <--* Incident
+Incident *-> CallerNumber
+
+show Status attributes
+
+enum Status <<enumeration>> {
+INCOMPLETE_DRAFT
+COMPLETE_DRAFT
+SUBMITTED_REPORT
+}
+@enduml
