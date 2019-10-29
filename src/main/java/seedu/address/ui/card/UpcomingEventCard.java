@@ -3,15 +3,16 @@ package seedu.address.ui.card;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
-import seedu.address.ui.UiPart;
 
 import seedu.address.model.events.EventSource;
+import seedu.address.ui.UiPart;
 
 /**
  * An UI component that displays information of a {@code Event}.
  */
 public class UpcomingEventCard extends UiPart<Region> {
 
+    public static final Integer UPCOMING_CARD_HEIGHT = 39;
     private static final String FXML = "UpcomingEventCard.fxml";
 
     @FXML

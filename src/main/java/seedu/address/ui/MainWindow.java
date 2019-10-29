@@ -12,6 +12,9 @@ import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.concurrent.Task;
+import javafx.concurrent.WorkerStateEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.control.Label;
@@ -39,6 +42,7 @@ import seedu.address.ui.panel.log.LogPanel;
  */
 public class MainWindow extends UiPart<Stage> implements UserOutputListener, EventListListener {
 
+    public static final Integer TIMING = 20;
     private static final String FXML = "MainWindow.fxml";
     private static final String WELCOME_MESSAGE = "Welcome to Horo";
 
@@ -128,6 +132,7 @@ public class MainWindow extends UiPart<Stage> implements UserOutputListener, Eve
 
         addResizingListeners();
         welcomeMessage();
+        delayResize();
     }
 
     /**
@@ -281,9 +286,35 @@ public class MainWindow extends UiPart<Stage> implements UserOutputListener, Eve
             public void changed(ObservableValue<? extends Number> observableValue,
                                 Number oldSceneWidth,
                                 Number newSceneWidth) {
+                delayResize();
+            }
+        });
+    }
+
+    /**
+     * Re-sizes the CalendarPanel after a certain delay.
+     *
+     * @see CalendarPanel
+     */
+    private void delayResize() {
+        Task<Void> sleeper = new Task<Void>() {
+            @Override
+            protected Void call() throws Exception {
+                try {
+                    Thread.sleep(TIMING);
+                } catch (InterruptedException e) {
+                    throw new Exception(e.getMessage());
+                }
+                return null;
+            }
+        };
+        sleeper.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
+            @Override
+            public void handle(WorkerStateEvent event) {
                 calendarPanel.resizeCalendarPanel();
             }
         });
+        new Thread(sleeper).start();
     }
 
     /**

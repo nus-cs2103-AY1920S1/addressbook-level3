@@ -14,6 +14,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.RowConstraints;
 
 import seedu.address.model.events.EventSource;
+import seedu.address.ui.MainWindow;
 import seedu.address.ui.UiPart;
 import seedu.address.ui.card.CardHolder;
 import seedu.address.ui.card.EventCard;
@@ -29,7 +30,6 @@ import seedu.address.ui.card.EventCard;
 public abstract class TimelineView extends UiPart<Region> {
 
     private static final Integer SPACING = 62;
-    private static final Integer TIMING = 10;
 
     private ArrayList<CardHolder> eventCardHolders;
     private Integer totalRows;
@@ -84,7 +84,7 @@ public abstract class TimelineView extends UiPart<Region> {
             @Override
             protected Void call() throws Exception {
                 try {
-                    Thread.sleep(TIMING);
+                    Thread.sleep(MainWindow.TIMING);
                 } catch (InterruptedException e) {
                     throw new Exception(e.getMessage());
                 }

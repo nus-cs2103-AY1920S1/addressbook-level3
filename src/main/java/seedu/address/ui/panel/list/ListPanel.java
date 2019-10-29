@@ -3,13 +3,12 @@ package seedu.address.ui.panel.list;
 import java.util.List;
 
 import javafx.fxml.FXML;
-import javafx.scene.layout.*;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.StackPane;
 
-import jdk.jfr.Event;
 import seedu.address.model.events.EventSource;
-import seedu.address.model.listeners.EventListListener;
 import seedu.address.ui.UiPart;
-import seedu.address.ui.card.EventCard;
 
 
 /**

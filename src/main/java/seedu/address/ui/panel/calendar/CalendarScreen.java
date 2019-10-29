@@ -100,7 +100,7 @@ public class CalendarScreen extends UiPart<Region> {
 
     private void setCurrentDate() {
         CalendarDate currentDate = CalendarDate.now();
-        if(currentDate.sameMonthYear(calendarDate.getMonth(), calendarDate.getYear())) {
+        if (currentDate.sameMonthYear(calendarDate.getMonth(), calendarDate.getYear())) {
             dayIndexList.get(currentDate.getDay() - 1).setCurrentDate();
         }
     }

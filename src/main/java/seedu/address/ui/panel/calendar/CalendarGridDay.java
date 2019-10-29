@@ -4,8 +4,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.layout.Region;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import seedu.address.model.CalendarDate;
 import seedu.address.ui.UiPart;
@@ -42,7 +40,7 @@ public class CalendarGridDay extends UiPart<Region> {
      */
     public void addAnEvent() {
         this.totalEvents++;
-        if(!CalendarDate.now().equals(calendarDate)) {
+        if (!CalendarDate.now().equals(calendarDate)) {
             colorChange();
         }
     }

@@ -35,7 +35,8 @@ class CalendarViewCommandBuilder extends CommandBuilder {
     Map<String, OptionalArgumentList> defineCommandOptions() {
         return Map.of(
                 OPTION_CALENDAR_SCREEN_DATE, ArgumentList.optional()
-                        .addArgument(MonthYearArgument.newBuilder(ARGUMENT_CALENDAR_SCREEN_DATE, v -> this.calendarDate = v))
+                        .addArgument(MonthYearArgument.newBuilder(
+                                ARGUMENT_CALENDAR_SCREEN_DATE, v -> this.calendarDate = v))
         );
     }
 

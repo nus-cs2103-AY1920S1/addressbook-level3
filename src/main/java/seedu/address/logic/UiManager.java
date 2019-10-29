@@ -119,8 +119,13 @@ public class UiManager implements Ui, UserOutputListener, EventListListener {
         mainWindow.viewLog();
     }
 
+    /**
+     * Changes the view of the UI to the CalendarPanel to the given date.
+     *
+     * @param calendarDate The given date.
+     */
     public void viewCalendar(CalendarDate calendarDate) {
-        if(calendarDate == null) {
+        if (calendarDate == null) {
             mainWindow.viewCalendar();
         } else {
             mainWindow.changeCalendarScreenDate(calendarDate);
