@@ -8,6 +8,7 @@ import static dukecooks.logic.parser.CliSyntax.PREFIX_NAME;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_PROTEIN;
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -22,6 +23,8 @@ import dukecooks.logic.commands.CommandResult;
 import dukecooks.logic.commands.EditCommand;
 import dukecooks.logic.commands.exceptions.CommandException;
 import dukecooks.model.Model;
+import dukecooks.model.mealplan.components.MealPlan;
+import dukecooks.model.mealplan.components.MealPlanRecipesContainsKeywordsPredicate;
 import dukecooks.model.recipe.components.Calories;
 import dukecooks.model.recipe.components.Carbs;
 import dukecooks.model.recipe.components.Fats;
@@ -89,6 +92,13 @@ public class EditRecipeCommand extends EditCommand {
 
         model.setRecipe(recipeToEdit, editedRecipe);
         model.updateFilteredRecipeList(Model.PREDICATE_SHOW_ALL_RECIPES);
+
+        List<String> recipeNameKeyword = new ArrayList<>();
+        recipeNameKeyword.add(recipeToEdit.getName().fullName);
+        model.updateFilteredMealPlanList(new MealPlanRecipesContainsKeywordsPredicate(recipeNameKeyword));
+        for (MealPlan mealPlan : model.getFilteredMealPlanList()) {
+            mealPlan.replaceRecipe(recipeToEdit, editedRecipe);
+        }
 
         event = Event.getInstance();
         event.set("recipe", "all");

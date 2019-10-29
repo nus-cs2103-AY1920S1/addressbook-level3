@@ -76,6 +76,51 @@ public class MealPlan {
 
         return allRecipes.toString().replace("[", "").replace("]", "").replace(",", "");
     }
+    
+    public void replaceRecipe(Recipe oldRecipe, Recipe newRecipe) {
+        for (Recipe recipe : day1) {
+            if (recipe.isSameRecipe(oldRecipe)) {
+                day1.remove(recipe);
+                day1.add(newRecipe);
+            }
+        }
+        for (Recipe recipe : day2) {
+            if (recipe.isSameRecipe(oldRecipe)) {
+                day2.remove(recipe);
+                day2.add(newRecipe);
+            }
+        }
+        for (Recipe recipe : day3) {
+            if (recipe.isSameRecipe(oldRecipe)) {
+                day3.remove(recipe);
+                day3.add(newRecipe);
+            }
+        }
+        for (Recipe recipe : day4) {
+            if (recipe.isSameRecipe(oldRecipe)) {
+                day4.remove(recipe);
+                day4.add(newRecipe);
+            }
+        }
+        for (Recipe recipe : day5) {
+            if (recipe.isSameRecipe(oldRecipe)) {
+                day5.remove(recipe);
+                day5.add(newRecipe);
+            }
+        }
+        for (Recipe recipe : day6) {
+            if (recipe.isSameRecipe(oldRecipe)) {
+                day6.remove(recipe);
+                day6.add(newRecipe);
+            }
+        }
+        for (Recipe recipe : day7) {
+            if (recipe.isSameRecipe(oldRecipe)) {
+                day7.remove(recipe);
+                day7.add(newRecipe);
+            }
+        }
+    }
 
     /**
      * Returns an immutable day 1 recipes list, which throws {@code UnsupportedOperationException}
