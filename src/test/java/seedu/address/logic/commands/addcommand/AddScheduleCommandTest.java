@@ -105,7 +105,8 @@ public class AddScheduleCommandTest {
         AddScheduleCommand newAddScheduleCommand = new AddScheduleCommand(clash, newIndex, VALID_ALLOW);
 
         assertEquals(String.format(AddScheduleCommand.MESSAGE_SUCCESS, clash),
-                newAddScheduleCommand.execute(modelStub, new CommandHistory(), new UndoRedoStack()).getFeedbackToUser());
+                newAddScheduleCommand.execute(modelStub, new CommandHistory(),
+                        new UndoRedoStack()).getFeedbackToUser());
 
     }
 
