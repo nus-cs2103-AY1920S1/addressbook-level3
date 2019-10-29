@@ -44,9 +44,26 @@ public class AnswerChecker {
         return keywords;
     }
 
+    private static String analyseAnswerForSentiment(String answer) {
+        CoreDocument coreDocument = new CoreDocument(answer);
+        pipeline.annotate(coreDocument);
+
+        List<CoreSentence> sentences = coreDocument.sentences();
+
+        return sentences.get(0).sentiment();
+    }
+
     public static boolean check(String userInput, String correctAnswer) {
-        if (new HashSet<>(analyseAnswerForKeywords(userInput)).equals(new HashSet<>(analyseAnswerForKeywords(correctAnswer)))) {
-            return true;
+        HashSet<String> userInputKeywords = new HashSet<>(analyseAnswerForKeywords(userInput));
+        HashSet<String> correctAnswerKeywords = new HashSet<>(analyseAnswerForKeywords(correctAnswer));
+
+        if (userInputKeywords.equals(correctAnswerKeywords)) {
+            String userInputSentiment = analyseAnswerForSentiment(userInput);
+            String correctAnswerSentiment = analyseAnswerForSentiment(correctAnswer);
+
+            if (userInputSentiment.equals(correctAnswerSentiment)) {
+                return true;
+            }
         }
 
         return false;
