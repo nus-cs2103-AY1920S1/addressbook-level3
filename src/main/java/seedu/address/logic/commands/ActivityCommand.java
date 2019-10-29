@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Context;
@@ -22,21 +23,22 @@ import seedu.address.model.person.Person;
 /**
  * Command to create a new Activity.
  */
-
 public class ActivityCommand extends Command {
+
     public static final String COMMAND_WORD = "activity";
+
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Creates a new Activity.\n"
             + "Parameters: "
             + PREFIX_TITLE + "TITLE "
             + "[" + PREFIX_PARTICIPANT + "PARTICIPANT]...\n"
             + "Example: activity t/Mala dinner p/Kaedoon p/Giak Lhee p/Veken";
+
     public static final String MESSAGE_SUCCESS =
-        "%s successfully created with following participants:\n%s\nWarnings:\n%s";
+            "%s successfully created with following participants:\n%s\nWarnings:\n%s";
     public static final String WARNING_SEARCH_RESULTS =
             "Unable to add person with search term \"%s\", as there were %d matches found.\n";
     public static final String WARNING_DUPLICATE_PERSON =
             "Person with name %s already added.\n";
-    public static final String MESSAGE_ARGUMENTS = "Title: %s";
 
     private final Title title;
     private final List<String> participants;
@@ -70,17 +72,24 @@ public class ActivityCommand extends Command {
         // Participant will only be added if the keyword has a unique match.
         for (String searchTerm : participants) {
 
-            keywords = Arrays.asList(searchTerm.split(" "));
-            NameContainsAllKeywordsPredicate predicate = new NameContainsAllKeywordsPredicate(keywords);
-            findResult = model.findPersonAll(predicate);
+            //Check for exact match case
+            Optional<Person> exactMatch = model.findPersonByName(searchTerm);
+            if (exactMatch.isPresent()) {
+                toAddPerson = exactMatch.get();
+            } else {
 
-            // Non-unique match (0 or more than 1) - this argument is skipped
-            if (findResult.size() != 1) {
-                updateWarningNotSingleMatch(warningMessage, searchTerm, findResult.size());
-                continue;
+                keywords = Arrays.asList(searchTerm.split(" "));
+                NameContainsAllKeywordsPredicate predicate = new NameContainsAllKeywordsPredicate(keywords);
+                findResult = model.findPersonAll(predicate);
+
+                // Non-unique match (0 or more than 1) - this argument is skipped
+                if (findResult.size() != 1) {
+                    updateWarningNotSingleMatch(warningMessage, searchTerm, findResult.size());
+                    continue;
+                }
+                toAddPerson = findResult.get(0);
             }
 
-            toAddPerson = findResult.get(0);
             id = toAddPerson.getPrimaryKey();
 
             // Person already in this activity - this person is not added

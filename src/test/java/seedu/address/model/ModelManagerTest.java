@@ -3,27 +3,32 @@ package seedu.address.model;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_ENTRIES;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalActivities.BREAKFAST;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BENSON;
+import static seedu.address.testutil.TypicalPersons.GEORGE;
+import static seedu.address.testutil.TypicalPersons.GEORGE_FIRSTNAME;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.activity.Title;
 import seedu.address.model.person.NameContainsAllKeywordsPredicate;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.ActivityBookBuilder;
 import seedu.address.testutil.AddressBookBuilder;
 import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.TypicalActivities;
 
 public class ModelManagerTest {
 
@@ -171,8 +176,44 @@ public class ModelManagerTest {
     }
 
     @Test
+    public void findPersonByName_exactNameMatch_returnsSingle() {
+        modelManager.addPerson(ALICE);
+        String searchTerm = "Alice Pauline";
+        Optional<Person> searchResult = modelManager.findPersonByName(searchTerm);
+        Optional<Person> expectedSearchResult = Optional.of(ALICE);
+        assertEquals(searchResult, expectedSearchResult);
+    }
+
+    @Test
+    public void findPersonByName_subStringEdgeCase_returnsCorrect() {
+        modelManager.addPerson(GEORGE);
+        modelManager.addPerson(GEORGE_FIRSTNAME);
+        String searchTerm = "george";
+        Optional<Person> searchResult = modelManager.findPersonByName(searchTerm);
+        Optional<Person> expectedSearchResult = Optional.of(GEORGE_FIRSTNAME);
+        assertEquals(searchResult, expectedSearchResult);
+    }
+
+    @Test
     public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredPersonList().remove(0));
+    }
+
+    @Test
+    public void getFilteredActivityList_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredActivityList().remove(0));
+    }
+
+    @Test
+    public void updateFilteredActivityList_subsequentMatchingFilter_success() {
+        modelManager.addActivity(TypicalActivities.BREAKFAST);
+        modelManager.addActivity(TypicalActivities.BREAKFAST_SECOND);
+        modelManager.addActivity(TypicalActivities.LUNCH);
+        modelManager.updateFilteredActivityList((activity) ->
+            activity.getTitle().equals(new Title("Lunch")));
+
+        assertEquals(modelManager.getFilteredActivityList().size(), 1);
+        assertTrue(modelManager.getFilteredActivityList().contains(TypicalActivities.LUNCH));
     }
 
     @Test
@@ -192,7 +233,6 @@ public class ModelManagerTest {
         AddressBook addressBook = new AddressBookBuilder().withPerson(ALICE).withPerson(BENSON).build();
         AddressBook differentAddressBook = new AddressBook();
         ActivityBook activityBook = new ActivityBookBuilder().withActivity(BREAKFAST).build();
-        ActivityBook differentActivityBook = new ActivityBook();
         UserPrefs userPrefs = new UserPrefs();
         InternalState state = new InternalState();
 
@@ -221,7 +261,7 @@ public class ModelManagerTest {
                 new ModelManager(addressBook, userPrefs, state, activityBook)));
 
         // resets modelManager to initial state for upcoming tests
-        modelManager.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        modelManager.updateFilteredPersonList(PREDICATE_SHOW_ALL_ENTRIES);
 
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
