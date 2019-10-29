@@ -24,7 +24,8 @@ public class FilterAllByTagCommand extends Command {
 
     public static final String FILTER_TAG_MESSAGE_SUCCESS = "List the whole StudyBuddy by tag(s) : ";
 
-    public static final String NO_ITEM_FOUND = "There is no such StudyBuddyItem with the specified tag(s) in StudyBuddy!";
+    public static final String NO_ITEM_FOUND = "There is no such StudyBuddyItem with the specified "
+            + "tag(s) in StudyBuddy!";
 
     private ArrayList<String> tagKeywords;
 
