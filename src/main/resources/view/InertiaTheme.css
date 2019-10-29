@@ -388,7 +388,7 @@
 }
 
 .axis {
-    -fx-tick-label-fill: gainsboro;
+    -fx-tick-label-fill: lightgray;
 }
 
 .axis-label {
