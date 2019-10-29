@@ -70,16 +70,16 @@ public class ApproveCommand extends Approve {
             String appealType = appealToApprove.getAppealType();
             String studentToEditId = appealToApprove.getStudentId();
 
-            if(appealType.equalsIgnoreCase("Increase workload")) {
+            if (appealType.equalsIgnoreCase("Increase workload")) {
 
                 List<Student> studentToCheckList = lastShownStudentList.stream()
                                 .filter(p -> p.getMatricId().toString().equals(studentToEditId))
                                 .collect(Collectors.toList());
 
-                    if (studentToCheckList.isEmpty()) {
-                        throw new CommandException(Messages.MESSAGE_INVALID_STUDENT_MATRIC_ID);
-                    }
-                    studentToEdit = studentToCheckList.get(0);
+                if (studentToCheckList.isEmpty()) {
+                    throw new CommandException(Messages.MESSAGE_INVALID_STUDENT_MATRIC_ID);
+                }
+                studentToEdit = studentToCheckList.get(0);
 
                 editedStudent = new Student(studentToEdit.getName(),
                             new Credits((Integer.toString(appealToApprove.getStudentWorkload()))),

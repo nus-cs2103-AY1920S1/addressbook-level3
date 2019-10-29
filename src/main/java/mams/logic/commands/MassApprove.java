@@ -105,7 +105,8 @@ public class MassApprove extends Approve {
 
                                 //check if module exist
                                 List<Module> moduleToCheckList = lastShownModuleList.stream()
-                                        .filter(m -> m.getModuleCode().equalsIgnoreCase(moduleCode)).collect(Collectors.toList());
+                                        .filter(m -> m.getModuleCode().equalsIgnoreCase(moduleCode))
+                                        .collect(Collectors.toList());
                                 if (moduleToCheckList.isEmpty()) {
                                     throw new CommandException(MESSAGE_INVALID_MODULE);
                                 }
@@ -155,7 +156,8 @@ public class MassApprove extends Approve {
                                 moduleCode = appealToApprove.getModuleToAdd();
 
                                 List<Student> studentToCheckList = lastShownStudentList.stream()
-                                        .filter(p -> p.getMatricId().toString().equals(studentToEditId)).collect(Collectors.toList());
+                                        .filter(p -> p.getMatricId().toString().equals(studentToEditId))
+                                        .collect(Collectors.toList());
                                 if (studentToCheckList.isEmpty()) {
                                     throw new CommandException(Messages.MESSAGE_INVALID_STUDENT_MATRIC_ID);
                                 }
@@ -163,7 +165,8 @@ public class MassApprove extends Approve {
 
                                 //check if module exist
                                 List<Module> moduleToCheckList = lastShownModuleList.stream()
-                                        .filter(m -> m.getModuleCode().equalsIgnoreCase(moduleCode)).collect(Collectors.toList());
+                                        .filter(m -> m.getModuleCode().equalsIgnoreCase(moduleCode))
+                                        .collect(Collectors.toList());
                                 if (moduleToCheckList.isEmpty()) {
                                     throw new CommandException(MESSAGE_INVALID_MODULE);
                                 }
@@ -245,27 +248,27 @@ public class MassApprove extends Approve {
         }
         return new CommandResult(resultGenerator());
     }
-        /**
-         * Generates response for user
-         * @return
-         */
-        private String resultGenerator() {
-            String result = "";
-            if (approvedSuccessfully.isEmpty()) {
-                result += "No appeals were approved";
-            } else {
-                result += "Successfully approved: " + approvedSuccessfully.toString();
-            }
-            if (!alreadyApproved.isEmpty()) {
-                result += "\nAlready approved: " + alreadyApproved.toString();
-            }
-            if (!alreadyRejected.isEmpty()) {
-                result += "\nAlready rejected: " + alreadyRejected.toString();
-            }
-            if (!invalidIds.isEmpty()) {
-                result += "\nInvalid appeal IDs: " + invalidIds.toString();
-            }
-            return result;
+    /**
+     * Generates response for user
+     * @return
+     */
+    private String resultGenerator() {
+        String result = "";
+        if (approvedSuccessfully.isEmpty()) {
+            result += "No appeals were approved";
+        } else {
+            result += "Successfully approved: " + approvedSuccessfully.toString();
         }
+        if (!alreadyApproved.isEmpty()) {
+            result += "\nAlready approved: " + alreadyApproved.toString();
+        }
+        if (!alreadyRejected.isEmpty()) {
+            result += "\nAlready rejected: " + alreadyRejected.toString();
+        }
+        if (!invalidIds.isEmpty()) {
+            result += "\nInvalid appeal IDs: " + invalidIds.toString();
+        }
+        return result;
+    }
 
 }
