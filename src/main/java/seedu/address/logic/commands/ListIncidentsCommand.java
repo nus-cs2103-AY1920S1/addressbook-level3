@@ -8,6 +8,8 @@ import static seedu.address.model.Model.PREDICATE_SHOW_DRAFT_INCIDENT_REPORTS;
 import java.util.function.Predicate;
 
 import javafx.collections.transformation.FilteredList;
+
+import seedu.address.commons.core.Messages;
 import seedu.address.model.Model;
 import seedu.address.model.incident.Incident;
 
@@ -17,14 +19,6 @@ import seedu.address.model.incident.Incident;
 public class ListIncidentsCommand extends Command {
 
     public static final String COMMAND_WORD = "list-i";
-
-    public static final String MESSAGE_ALL_INCIDENTS = "Listed all incidents";
-    private static final String MESSAGE_NO_INCIDENTS = "No incident reports present in the system";
-    private static final String MESSAGE_ALL_DRAFT_INCIDENTS = "Listed all draft incident reports";
-    private static final String MESSAGE_NO_DRAFTS_TO_FILL = "No drafts present in the system";
-    private static final String MESSAGE_ALL_COMPLETE_INCIDENTS = "Listed all incident reports ready for submission";
-    private static final String MESSAGE_NO_INCIDENT_TO_SUBMIT = "No reports ready for submission present in the system";
-    private static final String MESSAGE_FAIL = "Invalid use of command";
 
     private final Predicate<Incident> predicate;
 
@@ -47,7 +41,7 @@ public class ListIncidentsCommand extends Command {
         } else if (this.predicate.equals(PREDICATE_SHOW_COMPLETE_INCIDENT_REPORTS)) {
             resultMessage = handleCompleteIncidents(model, filteredIncidentsList);
         } else {
-            resultMessage = MESSAGE_FAIL;
+            resultMessage = Messages.MESSAGE_INVALID_COMMAND_FORMAT;
         }
 
         return new CommandResult(resultMessage);
@@ -60,11 +54,11 @@ public class ListIncidentsCommand extends Command {
      * @return string representing command result
      */
     private String handleAllIncidents(Model model, FilteredList<Incident> incidents) {
+        model.updateFilteredIncidentList(predicate);
         if (incidents.isEmpty()) {
-            return MESSAGE_NO_INCIDENTS;
+            return Messages.MESSAGE_NO_INCIDENTS_LISTED;
         } else {
-            model.updateFilteredIncidentList(predicate);
-            return MESSAGE_ALL_INCIDENTS;
+            return Messages.MESSAGE_ALL_INCIDENTS_LISTED;
         }
     }
 
@@ -75,11 +69,11 @@ public class ListIncidentsCommand extends Command {
      * @return string representing command result
      */
     private String handleDraftIncidents(Model model, FilteredList<Incident> incidents) {
+        model.updateFilteredIncidentList(predicate);
         if (incidents.isEmpty()) {
-            return MESSAGE_NO_DRAFTS_TO_FILL;
+            return Messages.MESSAGE_NO_DRAFTS_LISTED;
         } else {
-            model.updateFilteredIncidentList(predicate);
-            return MESSAGE_ALL_DRAFT_INCIDENTS;
+            return Messages.MESSAGE_ALL_DRAFT_INCIDENTS_LISTED;
         }
     }
 
@@ -90,11 +84,11 @@ public class ListIncidentsCommand extends Command {
      * @return string representing command result
      */
     private String handleCompleteIncidents(Model model, FilteredList<Incident> incidents) {
+        model.updateFilteredIncidentList(predicate);
         if (incidents.isEmpty()) {
-            return MESSAGE_NO_INCIDENT_TO_SUBMIT;
+            return Messages.MESSAGE_NO_INCIDENT_TO_SUBMIT;
         } else {
-            model.updateFilteredIncidentList(predicate);
-            return MESSAGE_ALL_COMPLETE_INCIDENTS;
+            return Messages.MESSAGE_ALL_COMPLETE_INCIDENTS_LISTED;
         }
     }
 }

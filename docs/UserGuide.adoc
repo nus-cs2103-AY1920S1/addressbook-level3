@@ -287,6 +287,16 @@ Incident Manager data are saved in the hard disk automatically after any command
 There is no need to save manually.
 // end::common[]
 
+// tag::incidentversionhistory[]
+=== Track incident history `[coming in v2.0]`
+Allows user to track any changes made to an incident report throughout its lifecycle in the incident management system. +
+Format: `track [INDEX]` +
+Function: Outputs a list of timestamps and a brief summary of changes made to the specified incident report.
+
+This feature will allow the user to improve accountability in filing incident reports. As the IMS handles incident data which is very sensitive in nature, it will be crucial for users to know when exactly were what changes made to a given incident report.
+
+// end::incidentversionhistory[]
+
 // tag::dataencryption[]
 === Decrypting data files `[coming in v2.0]`
 
@@ -318,5 +328,11 @@ e.g. `find-pJames Jake`
 * *Delete* : `delete INDEX` +
 e.g. `delete 3`
 * *New* `new POSTAL_CODE`
-* *Fill* `fill n/CALLER_NAME d/INCIDENT_DESCRIPTION`
-* *Submit* `submit`
+* *Fill*
+1. `fill` (to list all draft incidents ready for filling)
+2. `fill [INDEX] [c/CALLER_NUMBER] [d/DESCRIPTION]` (to fill specified incident report) +
+e.g. `fill 1 c/98984932 d/This is a sample description for incident 1 in district 3.`
+* *Submit*
+1. `submit` (to list all completed draft incidents ready for submission)
+2. `submit` [INDEX] (to submit specified incident report) +
+e.g. `submit 4`

@@ -110,9 +110,14 @@ public class FindVehiclesCommand extends Command {
             return new CommandResult("prompt for v");
         }
 
-        return new CommandResult(
-                String.format(Messages.MESSAGE_VEHICLES_LISTED_OVERVIEW, model.getFilteredVehicleList().size()));
-
+        if (model.getFilteredVehicleList().size() == 0) {
+            return new CommandResult(Messages.MESSAGE_NO_VEHICLES_FOUND);
+        } else if (model.getFilteredVehicleList().size() == 1) {
+            return new CommandResult(Messages.MESSAGE_SINGLE_VEHICLE_LISTED);
+        } else {
+            return new CommandResult(
+                    String.format(Messages.MESSAGE_VEHICLES_LISTED_OVERVIEW, model.getFilteredVehicleList().size()));
+        }
     }
 
     @Override
