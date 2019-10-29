@@ -6,8 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import static seedu.address.testutil.TypicalBudgets.OUTSIDE_SCHOOL;
 import static seedu.address.testutil.TypicalBudgets.SCHOOL;
-import static seedu.address.testutil.TypicalBudgets.SCHOOL_BUDGET_STRING_ONE;
-import static seedu.address.testutil.TypicalBudgets.SCHOOL_BUDGET_STRING_TWO;
 import static seedu.address.testutil.TypicalExpenses.ANNIVERSARY;
 import static seedu.address.testutil.TypicalExpenses.CHICKEN_RICE;
 
@@ -198,6 +196,5 @@ public class BudgetTest {
         assertTrue(SCHOOL.toString().equals(SCHOOL_BUDGET_STRING_ONE)
                 || SCHOOL.toString().equals(SCHOOL_BUDGET_STRING_TWO));
     }
-    
-     */
+    */
 }
