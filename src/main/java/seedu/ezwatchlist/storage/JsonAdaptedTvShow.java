@@ -153,10 +153,6 @@ public class JsonAdaptedTvShow {
         if (runningTime < 0) {
             throw new IllegalValueException(String.format(RunningTime.MESSAGE_CONSTRAINTS2));
         }
-        if (runningTime == 0) {
-            throw new IllegalValueException(String.format(
-                    MISSING_FIELD_MESSAGE_FORMAT, RunningTime.class.getSimpleName()));
-        }
         if (!RunningTime.isValidRunningTime(runningTime)) {
             throw new IllegalValueException(Description.MESSAGE_CONSTRAINTS);
         }
