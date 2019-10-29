@@ -1,6 +1,5 @@
 package dream.fcard.gui.controllers.windows;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.function.Consumer;
 
@@ -9,7 +8,6 @@ import dream.fcard.gui.components.JsEditorApplication;
 import dream.fcard.gui.controllers.displays.CreateDeckDisplay;
 import dream.fcard.gui.controllers.displays.DeckDisplay;
 import dream.fcard.gui.controllers.displays.NoDecksDisplay;
-
 import dream.fcard.logic.respond.Responder;
 import dream.fcard.logic.storage.StorageManager;
 import dream.fcard.model.ConsumerSchema;
@@ -184,9 +182,11 @@ public class MainWindow extends VBox {
     public void openEditor(boolean isJava) {
         Stage stage = new Stage();
         if (isJava) {
-            (new JavaEditorApplication()).start(stage);
+            JavaEditorApplication app = new JavaEditorApplication();
+            app.start(stage);
         } else {
-            (new JsEditorApplication()).start(stage);
+            JsEditorApplication app = new JsEditorApplication();
+            app.start(stage);
         }
 
     }

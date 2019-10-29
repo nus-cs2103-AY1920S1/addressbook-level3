@@ -13,10 +13,19 @@ import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
+/**
+ * A popup window that allows the user to enter JS code for the flashcard in the test.
+ */
 public class JsTestRunnerApplication extends Application {
 
-    Consumer<Pair<Integer, Pair<Integer, Integer>>> sendResult;
-    JavascriptCard card;
+    private Consumer<Pair<Integer, Pair<Integer, Integer>>> sendResult;
+    private JavascriptCard card;
+
+    public JsTestRunnerApplication(Consumer<Pair<Integer, Pair<Integer, Integer>>> sendResult, JavascriptCard c) {
+        super();
+        this.sendResult = sendResult;
+        this.card = c;
+    }
 
     @Override
     public void start(Stage stage) {
@@ -29,8 +38,9 @@ public class JsTestRunnerApplication extends Application {
             TextArea textArea = (TextArea) ap.getChildren().get(2);
             textArea.setText(boilerPlate());
             ap.getChildren().get(2).requestFocus();
-            ((JsTestEvaluator) fxmlloader.getController()).setCodeReturner(sendResult);
-            ((JsTestEvaluator) fxmlloader.getController()).setCard(card);
+            JsTestEvaluator evaluator = fxmlloader.getController();
+            evaluator.setCodeReturner(sendResult);
+            evaluator.setCard(card);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
@@ -38,11 +48,6 @@ public class JsTestRunnerApplication extends Application {
 
     }
 
-    public JsTestRunnerApplication(Consumer<Pair<Integer, Pair<Integer, Integer>>> sendResult, JavascriptCard c) {
-        super();
-        this.sendResult = sendResult;
-        this.card = c;
-    }
 
     /**
      * The boilerplate JavaScript code for the user when the editor is first loaded.

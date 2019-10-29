@@ -1,7 +1,6 @@
 package dream.fcard.gui.components;
 
 import java.io.IOException;
-import java.util.function.Consumer;
 
 import dream.fcard.core.Main;
 import javafx.application.Application;

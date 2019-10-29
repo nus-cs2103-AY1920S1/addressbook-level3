@@ -14,6 +14,9 @@ import javafx.scene.control.ScrollPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+/**
+ * A file uploader for Js card creating.
+ */
 public class JsFileUploader extends ScrollPane {
     @FXML
     private Button uploadFileButton;

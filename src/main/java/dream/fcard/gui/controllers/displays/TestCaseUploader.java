@@ -13,6 +13,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
 
+/**
+ * A Ui element that allows users to upload test cases for Java.
+ */
 public class TestCaseUploader extends ScrollPane {
     @FXML
     private VBox testCaseInputBox;
@@ -44,15 +47,21 @@ public class TestCaseUploader extends ScrollPane {
         }
     }
 
+    /**
+     * Take the rows in the inputRows and render them.
+     */
     private void renderRows() {
         testCaseInputBox.getChildren().clear();
         for (int i = 0; i < inputRows.size(); i++) {
             JavaTestCaseInputRow row = inputRows.get(i);
-            row.setTestCaseNumberLabel(i+1); //switch to 1-indexing
+            row.setTestCaseNumberLabel(i + 1); //switch to 1-indexing
             testCaseInputBox.getChildren().add(row);
         }
     }
 
+    /**
+     * Add a new JavaTestCaseInputRow to the test case uploader.
+     */
     private void addNewRow() {
         @SuppressWarnings("unchecked")
         Consumer<Boolean> clearMessage = State.getState().getConsumer(ConsumerSchema.CLEAR_MESSAGE);

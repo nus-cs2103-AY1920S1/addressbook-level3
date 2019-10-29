@@ -5,17 +5,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.function.Consumer;
 
-import org.mozilla.javascript.tools.shell.JSConsole;
-
 import dream.fcard.gui.controllers.displays.JsFileUploader;
 import dream.fcard.gui.controllers.displays.McqOptionsSetter;
 import dream.fcard.gui.controllers.displays.TestCaseUploader;
 import dream.fcard.model.ConsumerSchema;
 import dream.fcard.model.Deck;
 import dream.fcard.model.State;
-import dream.fcard.model.TestCase;
 import dream.fcard.model.cards.FrontBackCard;
-import dream.fcard.model.cards.JavaCard;
 import dream.fcard.model.cards.JavascriptCard;
 import dream.fcard.model.cards.MultipleChoiceCard;
 import dream.fcard.model.exceptions.DuplicateInChoicesException;
@@ -43,7 +39,7 @@ public class CardCreatingWindow extends AnchorPane {
     private Button onAddQuestion;
     @FXML
     private Label addAnswerLabel;
-    
+
     private final String frontBack = "Front-back";
     private final String mcq = "MCQ";
     //private final String java = "Java";
@@ -113,6 +109,7 @@ public class CardCreatingWindow extends AnchorPane {
 
     /**
      * Adds a card to the temporary deck inside CardCreatingWindow.
+     *
      * @throws DuplicateInChoicesException if the user enters the same multiple choice option more than once.
      */
     void addCardToDeck() throws DuplicateInChoicesException {
@@ -152,7 +149,8 @@ public class CardCreatingWindow extends AnchorPane {
             if (questionField.getText().isBlank()) {
                 displayMessage.accept("You need to enter a question!");
                 return;
-            } if (!jsFileUploader.hasFile()) {
+            }
+            if (!jsFileUploader.hasFile()) {
                 displayMessage.accept("You need to upload a JS file");
                 return;
             }
@@ -214,6 +212,7 @@ public class CardCreatingWindow extends AnchorPane {
     /**
      * A deck that keeps all the cards that were made inside CardCreatingWindow. CreateDeckDisplay
      * will pull out this deck when the user is done making a new deck.
+     *
      * @return the deck of all newly created cards.
      */
     public Deck getTempDeck() {

@@ -16,6 +16,9 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+/**
+ * A UI element for uploading test cases for the Java Card.
+ */
 public class JavaTestCaseInputRow extends GridPane {
     @FXML
     private Label testCaseNumberLabel;
@@ -36,7 +39,7 @@ public class JavaTestCaseInputRow extends GridPane {
     private File input;
     private File output;
     @SuppressWarnings("unchecked")
-    Consumer<String> displayMessage = State.getState().getConsumer(ConsumerSchema.DISPLAY_MESSAGE);
+    private Consumer<String> displayMessage = State.getState().getConsumer(ConsumerSchema.DISPLAY_MESSAGE);
 
     public JavaTestCaseInputRow(Consumer<Boolean> addNewRow, Consumer<JavaTestCaseInputRow> deleteRow) {
         try {
@@ -93,6 +96,10 @@ public class JavaTestCaseInputRow extends GridPane {
         return false;
     }
 
+    /**
+     * Returns whether this input row has empty files or un-uploaded files.
+     * @return
+     */
     boolean hasEmptyOrMissingOutputFile() {
         if (output == null || !output.exists() || output.length() == 0) {
             displayMessage.accept("Empty/missing output file detected in row " + getRow());

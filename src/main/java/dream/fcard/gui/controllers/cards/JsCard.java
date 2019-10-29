@@ -15,6 +15,9 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
+/**
+ * A front view of the JS Card.
+ */
 public class JsCard extends AnchorPane {
     @FXML
     private Label questionTextLabel;
@@ -23,7 +26,7 @@ public class JsCard extends AnchorPane {
 
     private JavascriptCard card;
     private Application jsEditor;
-    private Consumer<Pair<Integer, Pair<Integer,Integer>>> getResult = r -> receiveResult(r);
+    private Consumer<Pair<Integer, Pair<Integer, Integer>>> getResult = r -> receiveResult(r);
 
     public JsCard(JavascriptCard card) {
         try {
@@ -40,6 +43,9 @@ public class JsCard extends AnchorPane {
         }
     }
 
+    /**
+     * Opens up the JsTestRunnerApplication.
+     */
     private void startCoding() {
         final Stage stage = new Stage();
         stage.setTitle("Js Quiz Code Editor");
@@ -53,11 +59,16 @@ public class JsCard extends AnchorPane {
         }
     }
 
+    /**
+     * A function that returns whether the user passed all test cases. used to tell the user via the flashcard.
+     * @param result
+     * @return
+     */
     boolean receiveResult(Pair<Integer, Pair<Integer, Integer>> result) {
-       if (result.fst().equals(result.snd().fst())) {
-           return true;
-       } else {
-           return false;
-       }
+        if (result.fst().equals(result.snd().fst())) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

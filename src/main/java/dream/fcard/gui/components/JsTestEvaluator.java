@@ -10,6 +10,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 
+/**
+ * A controller for JsTestRunnerApplication.
+ */
 public class JsTestEvaluator {
     @FXML
     private TextArea textEditor;
