@@ -36,6 +36,7 @@ public class EmployeeCard extends UiPart<Region> {
      */
 
     public final Employee employee;
+    private ErrorWindow errorWindow;
 
     @FXML
     private HBox cardPane;
@@ -88,16 +89,21 @@ public class EmployeeCard extends UiPart<Region> {
                 if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
                     if (mouseEvent.getClickCount() == 2) {
                         try {
-                            if (isAllocate && (event.getCurrentManpowerCount() < event.getManpowerNeeded().value)) {
+                            if (isAllocate) {
                                 logic.execute(ManualAllocateCommand.COMMAND_WORD + " " + eventOneBasedIndex
                                         + " " + PREFIX_EMPLOYEE_ID + employee.getEmployeeId());
                             } else {
                                 logic.execute(DeallocateCommand.COMMAND_WORD + " " + eventOneBasedIndex
                                         + " " + PREFIX_EMPLOYEE_ID + employee.getEmployeeId());
+
                             }
                             fetchWindow.updateCards();
                         } catch (Exception e) {
-                            e.printStackTrace(); //this should not be called
+                            if (errorWindow != null) {
+                                errorWindow.hide();
+                            }
+                            errorWindow = new ErrorWindow(e.getMessage());
+                            errorWindow.show();
                         }
                     }
                 }

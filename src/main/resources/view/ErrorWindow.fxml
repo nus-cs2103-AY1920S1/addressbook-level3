@@ -16,7 +16,7 @@
     <Scene>
          <HBox alignment="CENTER" prefHeight="132.0" prefWidth="325.0">
             <children>
-               <Label fx:id="errorMessage" prefHeight="107.0" prefWidth="303.0" text="Label" textFill="#da0d0d" wrapText="true">
+               <Label fx:id="errorMessage" text="Label" textFill="#da0d0d" wrapText="true">
                   <HBox.margin>
                      <Insets right="5.0" />
                   </HBox.margin>
