@@ -11,8 +11,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-import javax.sound.sampled.Line;
-
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -24,7 +22,9 @@ import javafx.scene.control.TextArea;
 import javafx.scene.layout.Region;
 
 import seedu.address.model.entity.body.Body;
+
 //@@author dalisc
+
 /**
  * A ui for the line chart that is displayed at the bottom of the dashboard.
  */
@@ -104,17 +104,18 @@ public class LineChartPanel extends UiPart<Region> {
         yAxis.setMinorTickCount(0);
         yAxis.setMinorTickVisible(false);
 
-        //creating the line chart with two axis created above
+        // creating the line chart with two axis created above
         lineChart.setTitle("Admission statistics");
         lineChart.setAnimated(false);
 
-        //defining a series to display data
-        series.setName("Bodies admitted daily");
+        // defining a series to display data
+        // series.setName("Bodies admitted daily");
+
+        // hide the legend because it takes up too much space
+        lineChart.setLegendVisible(false);
 
         // add series to chart
         lineChart.getData().add(series);
-
-        // add hashmap data to series;
     }
 
     /**
@@ -227,10 +228,10 @@ public class LineChartPanel extends UiPart<Region> {
                 series.getData().remove(0);
             }
             // disable the x-axis as too many x-values cause the axis to take up too much vertical space
-            if (timeFrame.equals("month") || timeFrame.equals("year")) {
-                lineChart.getXAxis().setTickLabelsVisible(false);
-                lineChart.getXAxis().setTickMarkVisible(false);
-            }
+            //if (timeFrame.equals("month") || timeFrame.equals("year")) {
+            //    lineChart.getXAxis().setTickLabelsVisible(false);
+            //    lineChart.getXAxis().setTickMarkVisible(false);
+            //}
         });
     }
 
