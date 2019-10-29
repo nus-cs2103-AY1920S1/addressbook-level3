@@ -1,5 +1,7 @@
 package thrift.ui;
 
+import static thrift.ui.ColouredLabelFactory.getColouredTagLabel;
+
 import java.util.Comparator;
 
 import javafx.fxml.FXML;
@@ -52,7 +54,7 @@ public class IncomeTransactionCard extends UiPart<Region> {
         incomeRemark.setText("Remarks: " + transaction.getRemark().toString());
         transaction.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
-                .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+                .forEach(tag -> tags.getChildren().add(getColouredTagLabel(tag.tagName)));
         incomeDescription.setWrapText(true);
         incomeValue.setWrapText(true);
         incomeRemark.setWrapText(true);

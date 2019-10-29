@@ -17,6 +17,7 @@ Class ExpenseCard
 class IncomeCard
 Class StatusBarFooter
 Class CommandBox
+Class ColouredLabelFactory
 }
 
 package Model <<Rectangle>> {
@@ -31,7 +32,7 @@ Class HiddenOutside #FFFFFF
 HiddenOutside ..> Ui
 
 UiManager .left.|> Ui
-UiManager -down-> MainWindow
+UiManager -down--> MainWindow
 MainWindow --> HelpWindow
 MainWindow *-down-> "1" CommandBox
 MainWindow *-down-> "1" ResultDisplay
@@ -39,18 +40,22 @@ MainWindow *-down-> "1" TransactionListPanel
 MainWindow *-down-> "1" BalanceBar
 MainWindow *-down-> "1" StatusBarFooter
 
+
 TransactionListPanel *-down-> "*" ExpenseCard
 TransactionListPanel *-down-> "*" IncomeCard
+ExpenseCard -down-> ColouredLabelFactory
+IncomeCard -down-> ColouredLabelFactory
+
 
 MainWindow -left-|> UiPart
-
-ResultDisplay --|> UiPart
-CommandBox --|> UiPart
-TransactionListPanel --|> UiPart
-ExpenseCard --|> UiPart
+StatusBarFooter ---|> UiPart
+ResultDisplay -right-|> UiPart
+CommandBox -down--|> UiPart
+BalanceBar -down-|> UiPart
+TransactionListPanel -down--|> UiPart
+ExpenseCard ---|> UiPart
 IncomeCard --|> UiPart
-StatusBarFooter --|> UiPart
-HelpWindow -down-|> UiPart
+HelpWindow ---|> UiPart
 
 TransactionListPanel ..> Model
 UiManager -right-> Logic

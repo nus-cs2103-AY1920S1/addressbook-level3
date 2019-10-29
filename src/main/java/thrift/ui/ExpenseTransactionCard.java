@@ -1,5 +1,7 @@
 package thrift.ui;
 
+import static thrift.ui.ColouredLabelFactory.getColouredTagLabel;
+
 import java.util.Comparator;
 
 import javafx.fxml.FXML;
@@ -15,6 +17,15 @@ import thrift.model.transaction.Transaction;
 public class ExpenseTransactionCard extends UiPart<Region> {
 
     private static final String FXML = "ExpenseTransactionCard.fxml";
+
+
+    private static final int LONG_TAGNAME_LEN = 10;
+    private static final String BACKGROUND_COLOR_GREEN = "-fx-background-color: #00897B";
+    private static final String BACKGROUND_COLOR_RED = "-fx-background-color: #e53935";
+    private static final String BACKGROUND_COLOR_BLUE = "-fx-background-color: #3949AB";
+    private static final String BACKGROUND_COLOR_YELLOW = "-fx-background-color: #FFA000";
+    private static final String BACKGROUND_COLOR_PURPLE = "-fx-background-color: #755990";
+    private static final String BACKGROUND_COLOR_GREY = "-fx-background-color: #959595";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -51,7 +62,7 @@ public class ExpenseTransactionCard extends UiPart<Region> {
         expenseRemark.setText("Remarks: " + transaction.getRemark().toString());
         transaction.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
-                .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+                .forEach(tag -> tags.getChildren().add(getColouredTagLabel(tag.tagName)));
         expenseDescription.setWrapText(true);
         expenseValue.setWrapText(true);
         expenseRemark.setWrapText(true);
