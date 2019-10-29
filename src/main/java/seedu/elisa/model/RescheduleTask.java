@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.util.TimerTask;
 import java.util.logging.Logger;
 
+import javafx.application.Platform;
 import seedu.elisa.commons.core.LogsCenter;
 import seedu.elisa.commons.core.item.Event;
 import seedu.elisa.commons.core.item.Item;
@@ -52,9 +53,15 @@ public class RescheduleTask extends TimerTask {
         LocalDateTime newStart = LocalDateTime.now().plusNanos(Duration.ofMillis(period).toNanos());
         Event newEvent = event.changeStartDateTime(newStart);
         Item newItem = item.changeEvent(newEvent);
-        model.replaceItem(oldItem, newItem);
-        model.updateLists();
-        model.setVisualizeList(model.getVisualList()); // to refresh the view
+
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                model.replaceItem(oldItem, newItem);
+                model.updateLists();
+                model.setVisualizeList(model.getVisualList()); // to refresh the view
+            }
+        });
 
         this.item = newItem;
         this.event = newEvent;
