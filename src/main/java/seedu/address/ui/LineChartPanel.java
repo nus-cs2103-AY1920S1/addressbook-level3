@@ -2,9 +2,12 @@ package seedu.address.ui;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -36,7 +39,10 @@ public class LineChartPanel extends UiPart<Region> {
     private static Date date = new Date();
 
     // this is used to display time in HH:mm:ss format
-    final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EE, d/MM/yy");
+    final SimpleDateFormat axisDateFormat = new SimpleDateFormat("EE, d/MM/yy");
+    final SimpleDateFormat axisDateFormat2 = new SimpleDateFormat("d/MM/yy");
+    final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("d/MM/yyyy");
+
     final CategoryAxis xAxis = new CategoryAxis(); // we are gonna plot against time
     final NumberAxis yAxis = new NumberAxis();
     final AreaChart<String, Number> lineChart = new AreaChart<>(xAxis, yAxis);
@@ -142,27 +148,27 @@ public class LineChartPanel extends UiPart<Region> {
      */
     private void initialiseTreeMap() throws ParseException {
         // Fill in the missing dates
-        Date now = new Date();
-
+        freqByDate.clear();
         if (timeFrame.equals("week")) {
-            Date tenDaysAgo = new Date(now.getTime() - (7 * DAY_IN_MS));
-            for (Date date = now; date.after(tenDaysAgo); date = new Date(date.getTime() - DAY_IN_MS)) {
+            List<Date> weekList = getWeekList(date);
+            for (Date date: weekList) {
                 Date noTimeDate = formatDateNoTime(date);
                 freqByDate.putIfAbsent(noTimeDate, 0);
             }
         } else if (timeFrame.equals("month")) {
-            Date tenDaysAgo = new Date(now.getTime() - (30 * DAY_IN_MS));
-            for (Date date = now; date.after(tenDaysAgo); date = new Date(date.getTime() - DAY_IN_MS)) {
+            List<Date> monthList = getMonthList(date);
+            for (Date date: monthList) {
                 Date noTimeDate = formatDateNoTime(date);
                 freqByDate.putIfAbsent(noTimeDate, 0);
             }
         } else if (timeFrame.equals("year")) {
-            Date tenDaysAgo = new Date(now.getTime() - (365 * DAY_IN_MS));
-            for (Date date = now; date.after(tenDaysAgo); date = new Date(date.getTime() - DAY_IN_MS)) {
+            List<Date> yearList = getYearList(date);
+            for (Date date: yearList) {
                 Date noTimeDate = formatDateNoTime(date);
                 freqByDate.putIfAbsent(noTimeDate, 0);
             }
         } else {
+            Date now = new Date();
             Date tenDaysAgo = new Date(now.getTime() - (10 * DAY_IN_MS));
             for (Date date = now; date.after(tenDaysAgo); date = new Date(date.getTime() - DAY_IN_MS)) {
                 Date noTimeDate = formatDateNoTime(date);
@@ -212,7 +218,11 @@ public class LineChartPanel extends UiPart<Region> {
         series.getData().clear();
         // Update series based on dates in current tree map
         freqByDate.forEach((date, freq) -> {
-            series.getData().add(new XYChart.Data<String, Number>(simpleDateFormat.format(date), freq));
+            if (timeFrame.equals("default") || timeFrame.equals("week")) {
+                series.getData().add(new XYChart.Data<String, Number>(axisDateFormat.format(date), freq));
+            } else if (timeFrame.equals("month") || timeFrame.equals("year")) {
+                series.getData().add(new XYChart.Data<String, Number>(axisDateFormat2.format(date), freq));
+            }
             if (series.getData().size() > WINDOW_SIZE) {
                 series.getData().remove(0);
             }
@@ -225,9 +235,52 @@ public class LineChartPanel extends UiPart<Region> {
     }
 
     private Date formatDateNoTime(Date date) throws ParseException {
-        return simpleDateFormat.parse(simpleDateFormat.format(date));
+        return axisDateFormat.parse(axisDateFormat.format(date));
     }
 
+    private List<Date> getWeekList(Date date) throws ParseException {
+        List<Date> weekList = new ArrayList<>();
+        LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        DayOfWeek dayOfWeek = localDate.getDayOfWeek();
+        int dayOfWeekInt = dayOfWeek.getValue();
+        int dayOfMonthInt = localDate.getDayOfMonth();
+        int firstDayOfWeekInt = dayOfMonthInt - dayOfWeekInt + 1;
+        int month = localDate.getMonthValue();
+        int year = localDate.getYear();
+        for (int i = firstDayOfWeekInt; i < firstDayOfWeekInt + 7; i++) {
+            String dateString = String.format("%1$s/%2$s/%3$s", i, month, year);
+            Date dateInMonth = simpleDateFormat.parse(dateString);
+            weekList.add(dateInMonth);
+        }
+        return weekList;
+    }
+
+    private List<Date> getMonthList(Date date) throws ParseException {
+        List<Date> monthList = new ArrayList<Date>();
+        LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        int monthLength = localDate.lengthOfMonth();
+        int month = localDate.getMonthValue();
+        int year = localDate.getYear();
+        for (int i = 1; i < monthLength + 1; i++) {
+            String dateString = String.format("%1$s/%2$s/%3$s", i, month, year);
+            Date dateInMonth = simpleDateFormat.parse(dateString);
+            monthList.add(dateInMonth);
+        }
+        return monthList;
+    }
+
+    private List<Date> getYearList(Date date) throws ParseException {
+        List<Date> yearList = new ArrayList<>();
+        LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        int year = localDate.getYear();
+        for (int i = 1; i < 13; i++) {
+            String dateString = String.format("1/%1$s/%2$s", i, year);
+            Date dateInMonth = simpleDateFormat.parse(dateString);
+            List<Date> monthList = getMonthList(dateInMonth);
+            monthList.forEach(d -> yearList.add(d));
+        }
+        return yearList;
+    }
     public static void setTimeFrame(String newTimeFrame) {
         timeFrame = newTimeFrame;
     }
@@ -238,8 +291,6 @@ public class LineChartPanel extends UiPart<Region> {
 
     public static void setWindowSize(String timeFrame) {
         LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        int year  = localDate.getYear();
-        int month = localDate.getMonthValue();
         switch (timeFrame) {
         case "default":
             WINDOW_SIZE = 10;
@@ -248,19 +299,11 @@ public class LineChartPanel extends UiPart<Region> {
             WINDOW_SIZE = 7;
             break;
         case "month":
-            if (month == 2 && year % 4 == 0) {
-                WINDOW_SIZE = 29; // leap year February
-            } else if (month == 2 && year % 4 != 0) {
-                WINDOW_SIZE = 28; // regular year February
-            } else if (month == 4 || month == 6 || month == 9 || month == 11) {
-                WINDOW_SIZE = 30; // April, June, September, October
-            } else {
-                WINDOW_SIZE = 31; // the rest of the months (January, March, May, July, August, October, December)
-        }
+            WINDOW_SIZE = localDate.lengthOfMonth();
             break;
         case "year":
-            if (year % 4 == 0) {
-                WINDOW_SIZE = 366; // leap year
+            if (localDate.isLeapYear()) {
+                WINDOW_SIZE = 366;
             } else {
                 WINDOW_SIZE = 365;
             }
