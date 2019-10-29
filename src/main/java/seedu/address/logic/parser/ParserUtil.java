@@ -179,26 +179,16 @@ public class ParserUtil {
      * checks the starting and ending time of the appointment is a valid time.
      *
      * @param start which the string startTime of the appointment.
-     * @param end   which the string endTime of the appointment.
      * @return the valid Appointment object.
      * @throws ParseException If an error occurs during command parsering.
      */
-    public static Timing parseTiming(String start, String end) throws ParseException {
-        requireNonNull(start, end);
+    public static Timing parseTiming(String start) throws ParseException {
+        requireNonNull(start);
         DateTime startTiming = DateTime.tryParseSimpleDateFormat(start);
         if (startTiming == null) {
             throw new ParseException("The start " + DateTime.MESSAGE_CONSTRAINTS);
         }
-
-        DateTime endTiming = DateTime.tryParseSimpleDateFormat(end);
-        if (endTiming == null) {
-            throw new ParseException("The end " + DateTime.MESSAGE_CONSTRAINTS);
-        }
-
-        if (!Timing.isValidTiming(startTiming, endTiming)) {
-            throw new ParseException(Timing.MESSAGE_CONSTRAINTS);
-        }
-        return new Timing(startTiming, endTiming);
+        return new Timing(startTiming);
     }
 
     /**
