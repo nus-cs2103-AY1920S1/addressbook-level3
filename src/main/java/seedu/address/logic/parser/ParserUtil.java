@@ -113,7 +113,7 @@ public class ParserUtil {
         requireNonNull(phone);
         String trimmedPhone = phone.trim();
         if (trimmedPhone.isEmpty()) {
-            return Phone.EmptyPhoneDetails;
+            return Phone.EMPTY_PHONE_DETAILS;
         } else if (!Phone.isValidPhone(trimmedPhone)) {
             throw new ParseException(Phone.MESSAGE_CONSTRAINTS);
         }
@@ -130,7 +130,7 @@ public class ParserUtil {
         requireNonNull(address);
         String trimmedAddress = address.trim();
         if (trimmedAddress.isEmpty()) {
-            return Address.EmptyAddressDetails;
+            return Address.EMPTY_ADDRESS_DETAILS;
         } else if (!Address.isValidAddress(trimmedAddress)) {
             throw new ParseException(Address.MESSAGE_CONSTRAINTS);
         }
@@ -147,7 +147,7 @@ public class ParserUtil {
         requireNonNull(email);
         String trimmedEmail = email.trim();
         if (trimmedEmail.isEmpty()) {
-            return Email.EmptyEmailDetails;
+            return Email.EMPTY_EMAIL_DETAILS;
         } else if (!Email.isValidEmail(trimmedEmail)) {
             throw new ParseException(Email.MESSAGE_CONSTRAINTS);
         }

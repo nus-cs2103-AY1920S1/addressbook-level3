@@ -55,6 +55,11 @@ public class PersonCard extends UiPart<Region> {
         person.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+
+        if (phone.getText().isEmpty() && address.getText().isEmpty() && email.getText().isEmpty()) {
+            address.setText("No personal information has been provided.");
+            address.setStyle("-fx-text-fill: #e67e22;");
+        }
     }
 
     @Override

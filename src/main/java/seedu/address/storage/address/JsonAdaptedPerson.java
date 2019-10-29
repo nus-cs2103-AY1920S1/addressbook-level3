@@ -97,7 +97,7 @@ class JsonAdaptedPerson {
 
         Phone modelPhone;
         if (phone.isEmpty()) {
-            modelPhone = Phone.EmptyPhoneDetails;
+            modelPhone = Phone.EMPTY_PHONE_DETAILS;
         } else if (Phone.isValidPhone(phone)) {
             modelPhone = new Phone(phone);
         } else {
@@ -110,7 +110,7 @@ class JsonAdaptedPerson {
 
         Email modelEmail;
         if (email.isEmpty()) {
-            modelEmail = Email.EmptyEmailDetails;
+            modelEmail = Email.EMPTY_EMAIL_DETAILS;
         } else if (Email.isValidEmail(email)) {
             modelEmail = new Email(email);
         } else {
@@ -123,7 +123,7 @@ class JsonAdaptedPerson {
 
         Address modelAddress;
         if (address.isEmpty()) {
-            modelAddress = Address.EmptyAddressDetails;
+            modelAddress = Address.EMPTY_ADDRESS_DETAILS;
         } else if (Address.isValidAddress(address)) {
             modelAddress = new Address(address);
         } else {

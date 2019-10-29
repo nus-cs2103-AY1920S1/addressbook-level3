@@ -111,7 +111,7 @@ public class ParserUtilTest {
 
     @Test
     public void parsePhone_whitespace_returnsEmptyPhone() throws Exception {
-        assertEquals(Phone.EmptyPhoneDetails, ParserUtil.parsePhone(WHITESPACE));
+        assertEquals(Phone.EMPTY_PHONE_DETAILS, ParserUtil.parsePhone(WHITESPACE));
     }
 
     @Test
@@ -134,7 +134,7 @@ public class ParserUtilTest {
 
     @Test
     public void parseAddress_whitespace_returnsEmptyAddress() throws Exception {
-        assertEquals(Address.EmptyAddressDetails, ParserUtil.parseAddress(WHITESPACE));
+        assertEquals(Address.EMPTY_ADDRESS_DETAILS, ParserUtil.parseAddress(WHITESPACE));
     }
 
     @Test
@@ -162,7 +162,7 @@ public class ParserUtilTest {
 
     @Test
     public void parseEmail_whitespace_returnsEmptyEmail() throws Exception {
-        assertEquals(Email.EmptyEmailDetails, ParserUtil.parseEmail(WHITESPACE));
+        assertEquals(Email.EMPTY_EMAIL_DETAILS, ParserUtil.parseEmail(WHITESPACE));
     }
 
     @Test
