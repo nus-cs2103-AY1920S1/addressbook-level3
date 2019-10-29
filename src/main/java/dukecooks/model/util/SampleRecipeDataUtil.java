@@ -42,11 +42,11 @@ public class SampleRecipeDataUtil {
     }
 
     public static ReadOnlyRecipeBook getSampleRecipeBook() {
-        RecipeBook sampleDc = new RecipeBook();
+        RecipeBook sampleRb = new RecipeBook();
         for (Recipe sampleRecipe : getSampleRecipes()) {
-            sampleDc.addRecipe(sampleRecipe);
+            sampleRb.addRecipe(sampleRecipe);
         }
-        return sampleDc;
+        return sampleRb;
     }
 
     /**
