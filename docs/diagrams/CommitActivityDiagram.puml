@@ -16,6 +16,7 @@ else
                 : Pushes event to
                     redo stack;
             else([else])
+                : Displays error message;
             endif
         else([is redo command])
             if () then ([redo stack not empty])
@@ -26,6 +27,7 @@ else
             : Pushes event to
                 undo stack;
             else([else])
+                : Displays error message;
             endif
          endif
      else([else])

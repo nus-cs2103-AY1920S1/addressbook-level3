@@ -3,8 +3,6 @@
 title Sequence Diagram for Undo Command on Edit Exercise
 
 box Logic LOGIC_COLOR_T1
-participant ":LogicManager" as LogicManager LOGIC_COLOR
-participant ":ExerciseBookParser" as ExerciseBookParser LOGIC_COLOR
 participant ":UndoCommand" as UndoCommand LOGIC_COLOR
 participant ":CommandResult" as CommandResult LOGIC_COLOR
 participant ":EventHistory" as EventHistory LOGIC_COLOR
@@ -14,23 +12,7 @@ end box
 box Model MODEL_COLOR_T1
 participant "model:Model" as Model MODEL_COLOR
 end box
-[-> LogicManager : execute("undo")
-activate LogicManager
-
-    LogicManager -> ExerciseBookParser : parseCommand("undo")
-    activate ExerciseBookParser
-
-        create UndoCommand
-        ExerciseBookParser -> UndoCommand
-        activate UndoCommand
-
-        UndoCommand --> ExerciseBookParser
-        deactivate UndoCommand
-
-    ExerciseBookParser --> LogicManager : command
-    deactivate ExerciseBookParser
-
-    LogicManager -> UndoCommand : execute(model)
+    [-> UndoCommand : execute(model)
     activate UndoCommand
 
         UndoCommand -> EventHistory : undo(model)
@@ -39,7 +21,7 @@ activate LogicManager
             EventHistory -> EditEvent : undo(model)
             activate EditEvent
 
-                EditEvent -> Model : set(editedExercise, originalExercise)
+                EditEvent -> Model : set(editedExercise, \noriginalExercise)
                 activate Model
 
                 EditEvent -[hidden]-> Model
@@ -62,12 +44,7 @@ activate LogicManager
         deactivate CommandResult
 
 
-    UndoCommand --> LogicManager : commandResult
+    [<-- UndoCommand : commandResult
     deactivate UndoCommand
 
-    UndoCommand -[hidden]-> LogicManager : commandResult
-    destroy UndoCommand
-
-[<--LogicManager : commandResult
-deactivate LogicManager
 @enduml

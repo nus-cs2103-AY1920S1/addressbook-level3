@@ -29,13 +29,13 @@ package Logic {
 
     XYZCommand -up-|> Command
     XYZCommand .up.|> UndoableCommand
-    XYZCommand *--> EventPayload : stores >
+    XYZCommand *--> "1" EventPayload
     Command .up.> Model
     note left of XYZCommand: XYZCommand = \nAddCommand, \nDeleteCommand, \nEditCommand, \nClearCommand
 
 
     XYZEvent .up.|> Event
-    XYZEvent .right.> "1" EventPayload : extracts >
+    XYZEvent .right.> EventPayload
     Event ..> Model
     EventFactory ..> XYZEvent : creates >
     EventFactory .up.> Event #FFFFFF

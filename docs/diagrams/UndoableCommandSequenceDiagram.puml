@@ -4,11 +4,11 @@ title Sequence Diagram for Edit Command
 
 box Logic LOGIC_COLOR_T1
 participant ":EditCommand" as EditCommand LOGIC_COLOR
+participant ":EventPayload" as EventPayload LOGIC_COLOR
 participant ":CommandResult" as CommandResult LOGIC_COLOR
 participant ":EventHistory" as EventHistory LOGIC_COLOR
 participant ":EventFactory" as EventFactory LOGIC_COLOR
 participant ":EditEvent" as EditEvent LOGIC_COLOR
-participant ":EventPayload" as EventPayload LOGIC_COLOR
 end box
 
 box Model MODEL_COLOR_T1
@@ -25,13 +25,6 @@ activate EditCommand
     activate EventPayload
     return payload
 
-    EditCommand -> EventPayload : put(KEY_ORIGINAL_EXERCISE, originalExercise)
-    activate EventPayload
-    return
-
-    EditCommand -> EventPayload : put(KEY_EDITED_EXERCISE, editedExercise)
-    activate EventPayload
-    return
 
     EditCommand -> EventHistory : addCommandToUndoStack(command)
     activate EventHistory
@@ -43,13 +36,6 @@ activate EditCommand
             EventFactory -> EditEvent : editEvent(payload)
             activate EditEvent
 
-                EditEvent -> EventPayload : get(KEY_ORIGINAL_EXERCISE)
-                activate EventPayload
-                return
-
-                EditEvent -> EventPayload : get(KEY_EDITED_EXERCISE)
-                activate EventPayload
-                return
 
             return event
 
@@ -69,10 +55,10 @@ activate EditCommand
     EditCommand -> CommandResult
     activate CommandResult
 
-    CommandResult --> EditCommand
+    CommandResult --> EditCommand : commandResult
     deactivate CommandResult
 
-[<-- EditCommand
+[<-- EditCommand : commandResult
 deactivate EditCommand
 
 @enduml

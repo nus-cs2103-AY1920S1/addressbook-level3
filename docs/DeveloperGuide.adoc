@@ -183,45 +183,48 @@ The `EventPayload` is a wrapper class to store key information about the particu
 For instance, if an `EditCommand` has been executed, the `EventPayload` will store the `originalExercise`
 as well as the `editedExercise`.
 
-Step 2: The `UndoableCommand` is used to generate a an `Event` with the help of the `EventFactory`.
+Step 2: The `EventFactory` takes in the `UndoableCommand` and generates an `Event` using the `EventPayload`
+stored in the `UndoableCommand`.
 The `Event` is then added to the undo stack of the `EventHistory`.
 [NOTE]
-The `EventFactory` checks for the command word of the `UndoableCommand` to decide a specific `Event` object
-to generate. It will pass the `EventPayload` into the constructor of the `Event` so that the `Event` captures
-the key information of the `UndoableCommand`.
+The `EventFactory` checks for the command word of the `UndoableCommand` to decide which specific `Event` object
+to generate. It will get the `EventPayload` from the `UndoableCommand` and pass it into the constructor of the
+`Event` so that the `Event` captures the key information of the `UndoableCommand`.
 
-Step 3: The user, upon realizing that a mistake has been made, can then execute the `UndoCommand`.
+Step 3: To undo the latest `UndoableCommand` the user executes the `UndoCommand` by entering `undo`
+into the command box.
 
 Step 4: The `UndoCommand` executes `eventHistory.undo(model)`, which prompts the `EventHistory` instance
 to pop the next `Event` to undo from the undo stack. Once the `Event` is undone, it will be pushed to the
 top of the redo stack.
 
-Step 5: The user, upon realizing a second mistake made, can then execute the `RedoCommand`. This execution
-behaves similarly to step 4, except that the next `Event` is taken from the top of the redo stack.
+Step 5: To redo the command that has been undone, the user executes the `RedoCommand`. This execution
+behaves similarly to step 4, except that the next `Event` is taken from the top of the redo stack instead
+of the undo stack.
 [NOTE]
 For step 4 and 5, if any of the respective stack is empty when it is needed, a `CommandException` will be thrown
-and a `CommandResult` feedback will be displayed to inform of the user that there are no commands to undo or redo
+and an error message will be displayed to inform of the user that there are no commands to undo or redo
 at the moment.
 
 The following two Sequence Diagrams show a sample flow of the execution when an `EditCommand`, which is an
 `UndoableCommand`, has been executed and subsequently undone.
 
 The first diagram (Figure 9) describes the process of storing an `EditEvent` to `EventHistory` during the execution of the
-`EditCommand`. Observe that the `EventPayload` serves as the main channel of communication of data between the
-`Command` and the `Event`.
+`EditCommand`. The `EventPayload` is only initialized when the `EditCommand` is executed. The `EventPayload` is
+subsequently used for the initialization of the `EditEvent`.
 
 .The process of storing an `EditEvent` to `EventHistory`
 image::UndoableCommandSequenceDiagram.png[]
 
-The second diagram (Figure 10) here describes the process of undoing the `EditCommand` executed above using the `UndoCommand`. The
-`UndoCommand` will only communicate with the `EventHistory` once to ensure the `EventHistory` takes care of the
-execution and updating of the undo and redo stack it holds internally.
+The second diagram (Figure 10) here describes the process of undoing the `EditCommand` executed above using the `UndoCommand`.
+When the `UndoCommand` is executed, the `EventHistory` calls the `undo` method of the next `Event` in the undo stack
+(i.e. the `EditEvent`).
 
 .The process of undoing the `EditCommand`
 image::UndoSequenceDiagram.png[]
 
 Given below is a Class Diagram (Figure 11) to show the associations between Event, Command and Model. It is specifically designed
-such that only instances that implement the `Event` and `Command` interface will need to handle the `model` class.
+such that only objects that implement the `Event` and `Command` interface will need to handle the `model` class.
 [NOTE]
 The only commands that implements the `UndoableCommand` are `AddCommand`, `DeleteCommand`, `EditCommand`
 and `ClearCommand` and they each stores an `EventPayload` instance.
@@ -229,7 +232,7 @@ and `ClearCommand` and they each stores an `EventPayload` instance.
 .The associations between Event, Command and Model
 image::EventClassDiagram.png[]
 
-The following Activity Diagram (Figure 12) summarizes what happens when a user enter undoable commands,
+The following Activity Diagram (Figure 12) summarizes what happens when a user enters undoable commands,
 the undo command and the redo command.
 
 .The workflow when a user enters an undoable command and performs undo/redo
@@ -240,43 +243,45 @@ image::CommitActivityDiagram.png[]
 
 * **Choice 1: (current choice)** Implements undo and redo of each Command in a separate Event object stored in the EventHistory
 ** Pros:
-*** Will use less memory as each frame is represented by an Event object instead of the entire model which consists of
-Exercise books and Regime books.
+*** Uses less memory to store Event objects as compared to entire copes of the Model.
 *** Open for extensions and close to modifications as the Event interface only contains undo and redo methods, and can
 be easily implemented when new Undoable commands are introduced.
 *** Obeys Single Responsibility Principle as Commands simply have to execute what it does and does not need to know
 how it is undone or redone
 ** Cons:
-*** Have to store the payload of Command objects to be accessed by Event objects
+*** UndoableCommand objects are forced to depend on EventPayloads when it does not actually use it directly.
 (e.g. for `delete`, the exercise being deleted).
 
 * **Choice 2:** Individual command knows how to undo/redo by itself.
 ** Pros:
-*** Will use less memory
+*** Uses less memory
 ** Cons:
-*** Violates Single Responsibility Principle as Commands need to know implementation for how it can be undone or redone.
+*** Violates Single Responsibility Principle as Commands need to know implementation for how it
+can be undone or redone and also stores data such as the exercise being deleted in a local field.
 
-* **Choice 3 (current choice):** Saves the entire model consisting of the exercise and regime books.
+* **Choice 3:** Saves the entire model consisting of the exercise, regime, schedule and suggestion lists.
 ** Pros:
 *** Easy to implement.
 ** Cons:
-*** May have performance issues in terms of memory usage.
-*** Unnecessary storage of irrelevant details such as schedule list.
+*** May have performance issues in terms of memory usage as multiple lists need to be stored
+(i.e. Exercise list, Regime list, Schedule list)
+*** Unnecessary storage of irrelevant details such as suggestion list.
 
 ===== Aspect: Data structure to support the undo/redo commands
 
 * **Choice 1 (current choice):** Use a singleton EventHistory to store stacks of Events generated by a EventFactory.
 ** Pros:
 *** Ensures only one instance of EventHistory exists
-*** The EventFactory relies on the Factory pattern and helps to eliminate coupling while
-enabling ease of extension to future events that need to be generated
+*** The EventFactory relies on the Factory pattern and helps to reduce coupling between
+EventHistory and each individual Event.
 ** Cons:
-*** Singletons are difficult to test
-*** Singletons may break if the program is multi-threaded
+*** The Singleton pattern may have a chance of break if multiple threads initializes the singleton class
+at the same time, creating multiple versions of EventHistory.
 
-* **Choice 2:** Use a list to store the history of resource book states.
+* **Choice 2:** Use a list to store the history of model objects.
 ** Pros:
-*** Very trivial
+*** Very simple to implement as each step simply requires a deep copy of the model to be created
+and stored.
 ** Cons:
 *** Difficult to monitor multiple resource books (e.g. Regime books and Exercise books) as they all
 manage different types of resources that can be altered by commands.
@@ -287,7 +292,7 @@ The Undo/Redo feature implementation is based on the Singleton, Command, and Fac
 
 * *Singleton*
 ** To help ensure that only one copy of `EventHistory` exists during the execution of the program
-** Allows easier access by the various command classes
+** Allows easier access by the various command classes (i.e. the UndoableCommands, UndoCommand and RedoCommand)
 
 * *Command*
 ** Extensions to add a new `Event` is easy and can be done without changing the existing code

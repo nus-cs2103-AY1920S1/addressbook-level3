@@ -44,9 +44,9 @@ image::Ui.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`get t/exercise`* : gets all the exercises ExerHealth is tracking.
-* **`add`**`t/exercise n/Push ups d/1/10/2019 c/123` : adds a exercise named `Push ups` to ExerHealth.
-* *`exit`* : exits the app
+* `list t/exercise` : gets all the exercises ExerHealth is tracking.
+* `add t/exercise n/Push ups d/1/10/2019 c/123 q/100 u/reps` : adds a exercise named `Push ups` to ExerHealth.
+* `exit` : exits the app
 
 .  Refer to <<Features>> for details of each command.
 
@@ -60,7 +60,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 `CAT_NAME` is a parameter which can be used as `stats t/exercise`.
 * Words in `lower_case` are the compulsory keywords that inform ExerHealth about the category of
 information being added. e.g. `add t/exercise n/EXERCISE_NAME`, `t/exercise` is a keyword that informs ExerHealth about adding to the exercise tracker.
-* Items in square brackets are optional e.g `d/date [c/CALORIES]` can be used as `d/1/10/2019 c/123`
+* Items in square brackets are optional e.g `d/date [m/MUSCLE]` can be used as `d/1/10/2019 m/Legs`
 or as `d/1/10/2019`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[m/MUSCLE]...`
 can be used as `{nbsp}` (i.e. 0 times), `m/glutes`, `m/glutes m/chest` etc.
@@ -80,10 +80,12 @@ Adds the relevant exercise information into ExerHealth.
 You can enter the following additional information for each exercise:
 
 * Calories burnt in kcal
-* Quantity of exercises completed and its units of measure
+* Quantity of exercises completed
+* Units of measure
 * Muscle group(s) that are being worked out
+* <<customproperty, Custom Properties>> that have been added
 
-Format: `add t/exercise n/EXERCISE_NAME d/DATE [c/CALORIES] [q/QUANTITY] [u/UNITS] [m/MUSCLE]...`
+Format: `add t/exercise n/EXERCISE_NAME d/DATE c/CALORIES q/QUANTITY u/UNITS [m/MUSCLE]...`
 
 ****
 * Dates that are entered have to be of the form `dd/MM/yyyy`.
@@ -119,20 +121,18 @@ Adds the 4th exercise in the list to the regime named `cardio`.
 
 === Listing all exercises : `list`
 
-Retrieves all categories of information - Exercise and Regime - from ExerHealth.
+Retrieves all categories of information - Exercise, Regime or Scheduled Regime - from ExerHealth.
 
-If you provide a category name, only information from that category will be shown.
-You can also include start and end dates to restrict the range of dates.
-If no dates are supplied, the most recent week of information from each category will be shown.
+Type of information shown when will be specified by the category type specified. For example,
+if you wish to see your current list of regimes, you may specify the `CAT_NAME` as `regime`.
 
-Format: `list [t/CAT_NAME] [s/START_DATE] [e/END_DATE]`
+Format: `list t/CAT_NAME`
 
 Example:
 
-* `list`
 * `list t/exercise`
 * `list t/regime`
-* `list t/exercise s/12/12/2019 e/17/12/2019`
+* `list t/schedule`
 
 === Edit exercise information: `edit`
 
@@ -229,22 +229,35 @@ Example:
 
 === Undo previous command: `undo`
 
-Undo the previous command entered.
+Undo the previous successful command entered.
+
+****
+Supported Undoable Commands: add, delete, edit, clear
+
+Example:
+
+* `add t/exercise n/Push ups d/1/10/2019 c/123 q/100 u/reps`
+* `add t/regime n/Cardio i/1 i/3 i/5`
+* `delete t/exercise i/7`
+* `edit t/exercise i/3 n/Push Ups c/140 m/Chest`
+* `clear`
+****
 
 [TIP]
 If there is no previous command, undo will do nothing.
 
 Format: `undo`
 
-=== Redo undo-ed command: `redo`
+=== Redo undone command: `redo`
 
-Redo the previous command that was undo-ed by user.
+Redo the previous command that was undone by user.
 
 [TIP]
-If there is no undo history, redo command will do nothing.
+If there is no command has been undone after the latest undoable command, redo command will do nothing.
 
 Format: `redo`
 
+[[customproperty]]
 === Custom properties: `custom`
 
 ==== Adding custom properties

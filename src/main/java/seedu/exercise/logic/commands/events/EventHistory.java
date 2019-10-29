@@ -13,6 +13,8 @@ import seedu.exercise.model.Model;
  */
 public class EventHistory {
 
+    public static final String MESSAGE_ADD_TO_EVENT_HISTORY_SUCCESS =
+            "Command added to Event History: %1$s";
     private static final Logger logger = LogsCenter.getLogger(EventHistory.class);
     private static EventHistory eventHistory;
     private Stack<Event> undoStack;
@@ -42,11 +44,13 @@ public class EventHistory {
      * Stores a command as an event in the EventHistory.
      *
      * @param command an undoable command to be stored in history
+     * @throws CommandException if {@code command} cannot be represented with an {@code Event}
      */
     public void addCommandToUndoStack(UndoableCommand command) throws CommandException {
         Event event = EventFactory.commandToEvent(command);
         undoStack.add(event);
         redoStack.clear();
+        logger.info(String.format(MESSAGE_ADD_TO_EVENT_HISTORY_SUCCESS, command.getUndoableCommandWord()));
     }
 
     /**
