@@ -1,0 +1,56 @@
+= Jia Xiaodong - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: Splitwiser
+
+---
+
+== Overview
+
+Splitwiser is an application for simplifying payments made between groups of friends.
+It gurantees that each person does not need to make any unnecessary transfers to settle their debts.
+The user interacts with it using a CLI, and is targeted at users who prefer CLI utilities.
+It however has a nice JavaFX GUI to report details graphically and intuitvely.
+It has >10k LOC.
+
+== Summary of contributions
+
+* *Major enhancement*: added the debt simplification algorithm.
+** What it does: It simplifies all debts.
+** Justification: This is the core feature, and the main point of the entire application.
+** Highlights: The algorithm scales well to huge amounts of participants and expenses, and can be mathematically proved to always minimize the money everyone has to touch in order to settle all debts in the group.
+** Credits: https://pure.tue.nl/ws/portalfiles/portal/2062204/623903.pdf[This paper].
+
+* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+
+* *Code contributed*: https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=podocarp&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[Contribution info].
+
+* *Other contributions*:
+
+** Project management:
+*** Added Travis CI for code quality assurance.
+*** Added Coveralls for code test coverage assurance.
+** Enhancements to existing features:
+*** Made expense command accept arbitrary combinations of participants and made it mesh with the algorithm.
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../UserGuide.adoc[tag=algorithm]
+
+---
+
+_{Optionally, you may include other projects in your portfolio.}_
