@@ -13,9 +13,12 @@ public class AvatarImageUtil {
 
     private AvatarImageUtil() {} // this class should not be initiated
 
+    /**
+     * Returns an image with an id correlated with {@code id}.
+     */
     public static Image get(int id) {
-        if (id == 0) {
-            throw new IllegalArgumentException("id must be between 1-" + TOTAL_NUM + " inclusive");
+        if (id <= 0 || id > TOTAL_NUM) {
+            throw new IllegalArgumentException("Id must be within 1 to " + TOTAL_NUM);
         }
         return AppUtil.getImage(String.format(AVATAR_PATH, id));
     }
