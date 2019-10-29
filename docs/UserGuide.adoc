@@ -137,7 +137,10 @@ Adds a spending to the list when the user incurs a new spending. Key information
 Format: `add n/NAME c/COST d/DATE [t/TAG]... [r/REMARKS]`
 
 [NOTE]
-A spending can have any number of tags (including 0).
+A spending can have any number of tags (including 0). Each tag is also limited to 64 characters.
+
+[NOTE]
+If a spending date is in the future, it can only be up to 5 years from now.
 
 Examples:
 
@@ -158,7 +161,9 @@ Format: `edit i/INDEX [n/NAME] [c/COST] [d/DATE] [t/TAG]... [r/REMARKS]`
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 * When editing tags, the existing tags of the spending will be removed i.e adding of tags is not cumulative.
+* Tags can have up to 64 characters.
 * You can remove all the spending's tags by typing `t/` without specifying any tags after it.
+* If a spending date is in the future, it can only be up to 5 years from now.
 ****
 
 Examples:
