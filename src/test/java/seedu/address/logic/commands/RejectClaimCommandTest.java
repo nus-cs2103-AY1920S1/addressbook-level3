@@ -88,7 +88,7 @@ public class RejectClaimCommandTest {
     /**
      * A default model stub that have all of the methods failing.
      */
-    private static class ModelStub implements Model {
+    private class ModelStub implements Model {
         @Override
         public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
             throw new AssertionError("This method should not be called.");
@@ -96,6 +96,36 @@ public class RejectClaimCommandTest {
 
         @Override
         public ReadOnlyUserPrefs getUserPrefs() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void sortFilteredContactList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void sortReverseFilteredContactList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void sortFilteredClaimList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void sortReverseFilteredClaimList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void sortFilteredIncomeList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void sortReverseFilteredIncomeList() {
             throw new AssertionError("This method should not be called.");
         }
 

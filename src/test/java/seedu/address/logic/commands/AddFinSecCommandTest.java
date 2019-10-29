@@ -89,7 +89,7 @@ public class AddFinSecCommandTest {
     /**
      * A default model stub that have all of the methods failing.
      */
-    private class ModelStub implements Model {
+    private abstract class ModelStub implements Model {
         @Override
         public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
             throw new AssertionError("This method should not be called.");
@@ -382,6 +382,36 @@ public class AddFinSecCommandTest {
             requireNonNull(contact);
             return this.contact.isSamePerson(contact);
         }
+
+        @Override
+        public void sortFilteredContactList() {
+
+        }
+
+        @Override
+        public void sortReverseFilteredContactList() {
+
+        }
+
+        @Override
+        public void sortFilteredClaimList() {
+
+        }
+
+        @Override
+        public void sortReverseFilteredClaimList() {
+
+        }
+
+        @Override
+        public void sortFilteredIncomeList() {
+
+        }
+
+        @Override
+        public void sortReverseFilteredIncomeList() {
+
+        }
     }
 
     /**
@@ -400,6 +430,36 @@ public class AddFinSecCommandTest {
         public void addContact(Contact contact) {
             requireNonNull(contact);
             personsAdded.add(contact);
+        }
+
+        @Override
+        public void sortFilteredContactList() {
+
+        }
+
+        @Override
+        public void sortReverseFilteredContactList() {
+
+        }
+
+        @Override
+        public void sortFilteredClaimList() {
+
+        }
+
+        @Override
+        public void sortReverseFilteredClaimList() {
+
+        }
+
+        @Override
+        public void sortFilteredIncomeList() {
+
+        }
+
+        @Override
+        public void sortReverseFilteredIncomeList() {
+
         }
 
         @Override

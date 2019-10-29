@@ -19,6 +19,7 @@ public class DeleteContactCommand extends Command {
 
     public static final String COMMAND_WORD = "delete_contact";
 
+
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the contact identified by the index number used in the displayed contact list.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
@@ -46,7 +47,7 @@ public class DeleteContactCommand extends Command {
 
         //delete the contact details off the suggestions list
         AutocorrectSuggestion toDelete = new AutocorrectSuggestion("add_claim n/"
-                + contactToDelete.getName().toString());
+                + contactToDelete.getName().fullName);
         model.deleteAutocorrectSuggestion(toDelete);
         SuggestionsStorage.setSuggestionList(model.getFilteredAutocorrectSuggestionList());
         return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, contactToDelete));

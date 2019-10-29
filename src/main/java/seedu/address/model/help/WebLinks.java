@@ -28,32 +28,53 @@ public class WebLinks {
         case "goto":
             return base + "#changing-views-code-goto-code";
 
-        case "add_person":
-            return base + "#adding-a-contact-code-add_person-code";
+        case "add_contact":
+            return base + "#adding-a-person-code-add_contact-code";
 
-        case "edit_person":
-            return base + "#editing-a-contact-code-edit_person-code";
+        case "edit_contact":
+            return base + "#editing-a-contact-code-edit_contact-code";
 
         case "add_claim":
             return base + "#adding-a-claim-code-add_claim-code";
+
+        case "approve":
+            return base + "#approving-a-claim-code-approve-code";
+
+        case "reject":
+            return base + "#rejecting-a-claim-code-reject-code";
 
         case "edit_claim":
             return base + "#editing-a-claim-code-edit_claim-code";
 
         case "add_income":
-            return base + "#adding-an-income";
+            return base + "#adding-an-income-code-add_income-code";
 
         case "edit_income":
-            return base + "#editing-an-income";
+            return base + "#editing-an-income-code-edit_income-code";
 
-        case "delete":
-            return base + "#deleting-a-contact";
+        case "delete_contact":
+            return base + "#deleting-a-contact-code-delete_contact-code";
 
-        case "find":
-            return base + "#filter";
+        case "delete_income":
+            return base + "#deleting-an-income-code-delete_contact-code";
 
-        case "sort":
-            return base + "#sorting-claims-list-based-on-dates";
+        //case "find":
+            //return base + "#filter";
+
+        //case "sort":
+            //return base + "#sorting-claims-list-based-on-dates";
+
+        //case "reverse":
+        //return base + "#sorting-claims-list-based-on-dates";
+
+        case "check":
+            return base + "#checking-a-person-or-claim-code-check-code";
+
+        case "budget":
+            return base + "#viewing-budget-code-budget-code";
+
+        case "clear":
+            return base + "#clearing-all-data-code-clear-code";
 
         default: return base;
         }

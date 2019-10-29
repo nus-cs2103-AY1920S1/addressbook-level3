@@ -143,6 +143,17 @@ public class CommandTestUtil {
         assertEquals(expectedFinSec, actualModel.getFinSec());
         assertEquals(expectedFilteredList, actualModel.getFilteredContactList());
     }
+
+    /**
+     * Executes the given {@code command}, confirms that <br>
+     * - a {@code CommandException} is thrown <br>
+     * - the CommandException message matches {@code expectedMessage} <br>
+     * - the address book, filtered contact list and selected contact in {@code actualModel} remain unchanged
+     */
+    public static void assertViewContactFailure(Command command, Model actualModel, String expectedMessage) {
+        assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel));
+    }
+
     /**
      * Updates {@code model}'s filtered list to show only the contact at the given {@code targetIndex} in the
      * {@code model}'s address book.

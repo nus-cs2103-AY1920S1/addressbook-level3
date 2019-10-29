@@ -66,13 +66,20 @@ Refer to <<Command Summary>> for all available commands
 
 Types include: +
 `brief` (gives a brief description) +
-		`guide` (opens a web browser and bring you to our user guide) +
-		`api` (for advanced users who want to know the inner workings of the command) +
+`guide` (opens a web browser and bring you to our user guide) +
+`api` (for advanced users who want to know the inner workings of the command) +
 
 Examples: +
-`help cmd/add_income type/brief` +
-`help cmd/goto type/guide` +
-`help cmd/help type/api`
+`help cmd/add_contact type/brief` would show you a brief description of what the `add_contact` command does and how to use it +
+`help cmd/goto type/api` opens up a page in your browser and displays our API for the `goto` command +
+`help cmd/help type/guide` opens up a page in your browser and brings you right here! :smiley:
+
+<<UG-HelpExample>> shows what you can expect to see when typing in the first example: `help cmd/add_contact type/brief`.
+[[UG-HelpExample]]
+[reftext="Figure 3.1.1"]
+[caption="Figure 3.1.1: "]
+.FinSec giving a brief description of the `add_contact` command
+image::UG-HelpExample.PNG[width="800"]
 
 === Changing Views : `goto`
 
@@ -100,7 +107,7 @@ Examples:
 
 * `add_contact n/John Doe p/98765432 e/johnd@example.com`
 
-=== Editing a contact : `edit_person`
+=== Editing a contact : `edit_contact`
 
 Edits an existing contact +
 
@@ -177,7 +184,7 @@ Examples:
 //
 //* `edit_claim 2 d/Sports Equipment a/115.2 n/Lee Wei Gen p/96777777 t/Sports`
 
-=== Adding an income
+=== Adding an income : `add_income`
 
 Adds an income to the income list +
 
@@ -189,7 +196,7 @@ Examples:
 
 * `add_income d/Shirt Sales a/307.5 n/Lee Wei Gen p/96777777 t/Marketing`
 
-=== Editing an income
+=== Editing an income : `edit_income`
 
 Edits an income on the income list +
 
@@ -201,7 +208,7 @@ Examples:
 
 * `edit_income 2 d/Camp Fees a/1150.50 n/Lee Wei Gen p/96777777 t/FOP`
 
-=== Checking a Person or Claim
+=== Checking a Person or Claim : `check`
 
 Displays the details of the Person or Claim
 
@@ -214,21 +221,39 @@ Examples:
 * `check 1` (in contacts page, show details of the person in index 1)
 * `check 2` (in claims page, show details of the claim in index 2)
 
-=== Deleting a Person
+=== Deleting a Contact : `delete_contact`
 
 Deletes a Person from the contact list
 
-Keyword: `delete`
+Keyword: `delete_contact`
 
-Format: `delete INDEX`
+Format: `delete_contact INDEX`
 
 Examples:
 
-* `delete 1` (removes first person in the contact list)
+* `delete_contact 1` (removes first person in the contact list)
 
 ****
 * Deletes the person at the specified `INDEX`.
 * The index refers to the index number shown in the displayed person list.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+=== Deleting an Income : `delete_income`
+
+Deletes an Income from the income list
+
+Keyword: `delete_income`
+
+Format: `delete_income INDEX`
+
+Examples:
+
+* `delete_income 1` (removes first income in the income list)
+
+****
+* Deletes the income at the specified `INDEX`.
+* The index refers to the index number shown in the displayed income list.
 * The index *must be a positive integer* 1, 2, 3, ...
 ****
 
@@ -239,20 +264,57 @@ Also displays a graph detailing total income, claim and budget values for every 
 
 Format: `budget`
 
-=== Resolving claims
+<<UG-BudgetExample>> shows what you can expect to see when typing in the `budget` command.
+[[UG-BudgetExample]]
+[reftext="Figure 3.13.1"]
+[caption="Figure 3.13.1: "]
+.FinSec calculates your budget from the income and claim totals on the left while simultaneously displaying a graph of the income, claim and budget values for the current month on the right
+image::UG-BudgetExample.PNG[width="800"]
 
-Resolves claims
 
-Keyword: `resolve`
+=== Clearing all data : `clear`
 
-Format: `resolve INDEX s/STATUS`
+Wipes all data from FinSec to allow you to start over or to safely dispose of data.
 
-Examples:
+Format: `clear`
 
-* `resolve 1 s/approved (in claims page, approve a claim)`
-* `resolve 2 s/rejected (in claims page, reject a claim)`
 
-=== Attaching Pictures to Claims
+<<UG-ClearExample1>> and <<UG-ClearExample2>> shows what you can expect to see when typing in the `clear` command.
+[[UG-ClearExample1]]
+[reftext="Figure 3.14.1"]
+[caption="Figure 3.14.1: "]
+.Before the `clear` command is used (data is present)
+image::UG-ClearExample1.PNG[width="800"]
+
+[[UG-ClearExample2]]
+[reftext="Figure 3.14.2"]
+[caption="Figure 3.14.2: "]
+.After the `clear` command is used (all the data has been cleared)
+image::UG-ClearExample2.PNG[width="800"]
+
+=== Exiting the program : `exit`
+
+Exits the program. +
+Format: `exit`
+
+=== Saving the data
+
+Address book data are saved in the hard disk automatically after any command that changes the data. +
+There is no need to save manually.
+
+== Non-command Features
+
+=== Detecting duplicates
+
+FinSec can automatically detect duplicate names of contacts, claims or incomes.
+
+=== Typing Guide
+
+Automatically detects command and comes up with suggestions as a pop-up on what syntax comes next.
+
+== Upcoming Features
+
+=== Attaching Pictures to Claims : `attach` (To be implemented in v2.0)
 
 Attaches a picture of the claim in the 'docs/claims/images' folder (directory is subject to change) to a claim.
 
@@ -269,7 +331,7 @@ Examples:
 specified index from the user input
 ****
 
-=== Grouping Users
+=== Grouping Users : `tag` (To be implemented in v2.0)
 
 Assigns tags to the people in the contact list to group them together to aid in finding specific groups of people
 
@@ -285,35 +347,6 @@ Examples:
 * Further tagging can be done to people with current tags already, it will append to each other and be seen
 in the contacts list
 ****
-
-=== Exiting the program : `exit`
-
-Exits the program. +
-Format: `exit`
-
-=== Saving the data
-
-Address book data are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
-
-== Upcoming Features
-
-=== Keeping a Transaction History
-
-Keeps a list of past records
-
-=== Detecting duplicates
-
-Automatically detect duplicate names of contacts or claims
-
-=== Budgeting and limiting
-
-Adds a separate limit to warn the user if the person’s claims exceeded the budget or if resolving the claim puts the cash-on-hand below budget.
-
-
-=== Typing Guide
-
-Automatically detects command and comes up with suggestions as a pop-up on what syntax comes next
 
 == FAQ
 

@@ -17,6 +17,8 @@ import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.GotoCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.RejectClaimCommand;
+import seedu.address.logic.commands.SortCommand;
+import seedu.address.logic.commands.SortReverseCommand;
 
 /**
  * Contains a brief descriptions of all the commands in FinSec
@@ -87,6 +89,12 @@ public class BriefDescriptions {
 
         case "exit":
             return ExitCommand.MESSAGE_USAGE;
+
+        case "sort":
+            return SortCommand.MESSAGE_USAGE;
+
+        case "reverse":
+            return SortReverseCommand.MESSAGE_USAGE;
 
         default: return "Command should be self-explanatory with no additional parameters.\n"
                 + "Use 'type/guide' if you really want to know the exact details "

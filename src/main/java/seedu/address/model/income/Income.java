@@ -118,8 +118,6 @@ public class Income {
         builder.append(getDescription())
                 .append(" Amount: ")
                 .append(getAmount())
-                .append(" Date: ")
-                .append(getDate())
                 .append(" Name: ")
                 .append(getName())
                 .append(" Phone: ")
