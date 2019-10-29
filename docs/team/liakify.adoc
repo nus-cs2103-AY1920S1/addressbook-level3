@@ -1,0 +1,64 @@
+= Lee Liak Ghee - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: SplitWiser
+
+---
+
+== Overview
+
+For our project for our Software Engineering course, my team comprising 5 students (including myself) was given the codebase for a command line desktop application called Address Book, and we were required to morph this given codebase into an application of our choice. We chose to morph the given application into a group expense management app called SplitWiser. This enhanced application enables people to simplify expense and debt tracking in group activities, so that people will know exactly how much to pay each other at the end of the activity.
+
+I was responsible for writing the expense adding feature. This makes my role particularly crucial as the `expense` command is most likely the command that a user interacts with the most. The following sections describe my contributions in greater depth, in addition to the documentation that I also added pertaining to the expense feature.
+
+== Summary of contributions
+
+* *Major enhancement*: added the ability to add expenses
+** *What it does:* The `expense` command allows the user to add expenses to an activity by first specifying who paid and how much, then optionally listing people who were involved in the expense.
+** *Justification:* This is important as it gives users the precise control over the people required to pay in each expense. In a real-world group activity scenario, it might not be the case that everyone is involved in every part of the activity that involves money. For example, one might go out for a meal with friends but opt out of buying dessert later.
+** *Highlights:* The design of the `expense` command was particularly tricky due to the limitations of a CLI interface. The tough part was in trying to strike a balance between keeping the command simple enough to use yet provide enough flexibility for the user to specify various possible combinations of expense details. We went through various possible designs for the `expense` command and took the user experience into consideration for each case, before finally settling on the way the `expense` command is currently structured.
+
+* *Minor enhancement*: added a backend context feature that allows for various application contexts and contextual behaviour for various commands.
+
+* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+
+* *Other contributions*:
+
+** Documentation:
+*** Did the initial revamp of our User Guide: https://github.com[#14]
+*** Updated some UML diagrams for the Developer Guide
+** Community:
+*** PRs reviewed: https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
+*** Offer suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
+
+_{you can add/remove categories in the list above}_
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=delete]
+
+include::../UserGuide.adoc[tag=dataencryption]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=undoredo]
+
+include::../DeveloperGuide.adoc[tag=dataencryption]
+
+
+== PROJECT: PowerPointLabs
+
+---
+
+_{Optionally, you may include other projects in your portfolio.}_
