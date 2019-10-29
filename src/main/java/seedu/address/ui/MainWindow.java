@@ -38,6 +38,7 @@ public class MainWindow extends UiPart<Stage> {
     private MotdWindow motdWindow;
     private VisitRecordWindow visitWindow;
     private VisitListPanel visitListPanel;
+    private AliasListWindow aliasListWindow;
     private ProfileWindow profilePanel;
 
     @FXML
@@ -72,6 +73,7 @@ public class MainWindow extends UiPart<Stage> {
             resultDisplay.setFeedbackToUser(visitWindow.getMessage());
         });
         visitListPanel = new VisitListPanel();
+        aliasListWindow = new AliasListWindow();
         profilePanel = new ProfileWindow();
     }
 
@@ -223,6 +225,18 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    /**
+     * Opens the list of existing user-defined aliases or focuses on it if it's already opened.
+     */
+    @FXML
+    public void handleAliasListWindow() {
+        if (!aliasListWindow.isShowing()) {
+            aliasListWindow.show();
+        } else {
+            aliasListWindow.focus();
+        }
+    }
+
     public PersonListPanel getPersonListPanel() {
         return personListPanel;
     }
@@ -268,6 +282,10 @@ public class MainWindow extends UiPart<Stage> {
             if (commandResult.isShowProfile()) {
                 profilePanel.setup(commandResult.getProfilePerson());
                 handleProfilePanel();
+            }
+            if (commandResult.isShowAliasList()) {
+                aliasListWindow.setup(commandResult.getFeedbackToUser());
+                handleAliasListWindow();
             }
 
             if (commandResult.isExit()) {

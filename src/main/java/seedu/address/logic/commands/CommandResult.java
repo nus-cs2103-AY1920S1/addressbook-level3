@@ -48,11 +48,14 @@ public class CommandResult {
     /** Display reminders and follow-up motd */
     private final boolean showMotd;
 
+    /** Display list of existing user-defined aliases*/
+    private final boolean showAliasList;
+
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
     public CommandResult(String feedbackToUser, boolean showHelp, boolean addVisit, boolean showVisitList,
-                         boolean editVisit, boolean profile, boolean exit, boolean showMotd) {
+                         boolean editVisit, boolean profile, boolean exit, boolean showMotd, boolean showAliasList) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.addVisit = addVisit;
@@ -61,6 +64,15 @@ public class CommandResult {
         this.profile = profile;
         this.exit = exit;
         this.showMotd = showMotd;
+        this.showAliasList = showAliasList;
+    }
+
+    /**
+     * Constructs a {@code CommandResult} with the specified fields.
+     */
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean addVisit, boolean showVisitList,
+                         boolean editVisit, boolean profile, boolean exit, boolean showMotd) {
+        this(feedbackToUser, showHelp, addVisit, showVisitList, editVisit, profile, exit, showMotd, false);
     }
 
     public CommandResult(String feedbackToUser, int idx) {
@@ -155,6 +167,10 @@ public class CommandResult {
         return profile;
     }
 
+    public boolean isShowAliasList() {
+        return showAliasList;
+    }
+
     public Person getProfilePerson() {
         return profilePerson;
     }
@@ -178,7 +194,8 @@ public class CommandResult {
                 && showVisitList == otherCommandResult.showVisitList
                 && profile == otherCommandResult.profile
                 && exit == otherCommandResult.exit
-                && showMotd == otherCommandResult.showMotd;
+                && showMotd == otherCommandResult.showMotd
+                && showAliasList == otherCommandResult.showAliasList;
     }
 
     @Override
