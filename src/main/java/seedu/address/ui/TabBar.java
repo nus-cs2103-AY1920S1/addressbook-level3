@@ -1,5 +1,6 @@
 package seedu.address.ui;
 
+import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -8,33 +9,29 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.TilePane;
+import seedu.address.commons.core.OmniPanelTab;
 
 /**
  * The Ui component for AutoComplete.
  */
 public class TabBar extends UiPart<Region> {
 
-    private int selectedIndex;
+    private int selectedIndex = 0;
 
     @FXML
     private TilePane tabBar;
 
-    public TabBar(TabSelectionNotifier tabSelectionNotifier) {
+    public TabBar(OmniPanel omniPanel) {
         super("TabBar.fxml");
 
         ObservableList<Node> ols = tabBar.getChildren();
-        selectedIndex = 0;
-        Node selectedNode = ols.get(selectedIndex);
 
-        ols.forEach(iv -> iv.getStyleClass().setAll("unselected-tab"));
-        selectedNode.getStyleClass().setAll("selected-tab");
-        tabSelectionNotifier.notify(selectedNode.getId());
+        Platform.runLater(() -> omniPanel.setOmniPanelTab(OmniPanelTab.tabOfIndex(selectedIndex)));
 
         tabBar.addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent keyEvent) {
                 int size = ols.size();
-                ols.forEach(iv -> iv.getStyleClass().setAll("unselected-tab"));
 
                 switch (keyEvent.getCode()) {
                 case UP:
@@ -45,11 +42,13 @@ public class TabBar extends UiPart<Region> {
                     selectedIndex = (size + selectedIndex + 1) % size;
                     keyEvent.consume();
                     break;
+                case RIGHT:
+                    omniPanel.regainOmniPanelSelector();
+                    break;
                 default:
                 }
-                Node selectedNode = ols.get(selectedIndex);
-                selectedNode.getStyleClass().setAll("selected-tab");
-                tabSelectionNotifier.notify(selectedNode.getId());
+                selectTabUsingIndex(selectedIndex);
+                omniPanel.setOmniPanelTab(OmniPanelTab.tabOfIndex(selectedIndex));
             }
         });
 
@@ -57,29 +56,20 @@ public class TabBar extends UiPart<Region> {
             @Override
             public void handle(MouseEvent event) {
                 tabBar.requestFocus();
-                Node clickedNode = (Node) event.getTarget();
-                for (int i = 0; i < ols.size(); i++) {
-                    Node iv = ols.get(i);
-                    if (iv != clickedNode) {
-                        iv.getStyleClass().setAll("unselected-tab");
-                        continue;
-                    }
-                    selectedIndex = i;
-                    iv.getStyleClass().setAll("selected-tab");
-                    tabSelectionNotifier.notify(iv.getId());
-                }
+                selectedIndex = ols.indexOf(event.getTarget());
+                selectTabUsingIndex(selectedIndex);
+                omniPanel.setOmniPanelTab(OmniPanelTab.tabOfIndex(selectedIndex));
             }
         }));
     }
 
     /**
-     * Represents a function that notifies selection of tab.
+     * Selects the TabBar's tile using index.
      */
-    @FunctionalInterface
-    public interface TabSelectionNotifier {
-        /**
-         * Notify changes.
-         */
-        void notify(String id);
+    public void selectTabUsingIndex(int selectedIndex) {
+        this.selectedIndex = selectedIndex;
+        ObservableList<Node> ols = tabBar.getChildren();
+        ols.forEach(iv -> iv.getStyleClass().setAll("unselected-tab"));
+        ols.get(selectedIndex).getStyleClass().setAll("selected-tab");
     }
 }

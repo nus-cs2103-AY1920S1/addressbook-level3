@@ -8,9 +8,10 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.common.ReferenceId;
-import seedu.address.model.person.exceptions.DuplicatePersonException;
-import seedu.address.model.person.exceptions.PersonNotFoundException;
+
+import seedu.address.model.ReferenceId;
+import seedu.address.model.exceptions.DuplicateEntryException;
+import seedu.address.model.exceptions.EntryNotFoundException;
 
 /**
  * A list of reference ids that enforces uniqueness between its elements and does not allow nulls.
@@ -36,9 +37,21 @@ public class UniqueReferenceIdList implements Iterable<ReferenceId> {
     public void add(ReferenceId toAdd) {
         requireNonNull(toAdd);
         if (contains(toAdd)) {
-            throw new DuplicatePersonException();
+            throw new DuplicateEntryException();
         }
         internalList.add(toAdd);
+    }
+
+    /**
+     * Adds a person to the list at the specified index.
+     * The person must not already exist in the list.
+     */
+    public void add(int index, ReferenceId toAdd) {
+        requireNonNull(toAdd);
+        if (contains(toAdd)) {
+            throw new DuplicateEntryException();
+        }
+        internalList.add(index, toAdd);
     }
 
     public ReferenceId get(int index) {
@@ -55,11 +68,11 @@ public class UniqueReferenceIdList implements Iterable<ReferenceId> {
 
         int index = internalList.indexOf(target);
         if (index == -1) {
-            throw new PersonNotFoundException();
+            throw new EntryNotFoundException();
         }
 
         if (!target.equals(editedId) && contains(editedId)) {
-            throw new DuplicatePersonException();
+            throw new DuplicateEntryException();
         }
 
         internalList.set(index, editedId);
@@ -72,12 +85,12 @@ public class UniqueReferenceIdList implements Iterable<ReferenceId> {
     public void remove(ReferenceId toRemove) {
         requireNonNull(toRemove);
         if (!internalList.remove(toRemove)) {
-            throw new PersonNotFoundException();
+            throw new EntryNotFoundException();
         }
     }
 
-    public void remove(int index) {
-        internalList.remove(index);
+    public ReferenceId remove(int index) {
+        return internalList.remove(index);
     }
 
     public void setPersons(UniqueReferenceIdList replacement) {
@@ -92,7 +105,7 @@ public class UniqueReferenceIdList implements Iterable<ReferenceId> {
     public void setIds(List<ReferenceId> ids) {
         requireAllNonNull(ids);
         if (!personsAreUnique(ids)) {
-            throw new DuplicatePersonException();
+            throw new DuplicateEntryException();
         }
 
         internalList.setAll(ids);
@@ -115,6 +128,12 @@ public class UniqueReferenceIdList implements Iterable<ReferenceId> {
         return other == this // short circuit if same object
                 || (other instanceof UniqueReferenceIdList // instanceof handles nulls
                 && internalList.equals(((UniqueReferenceIdList) other).internalList));
+    }
+
+    @Override
+    public String toString() {
+        return internalList.size() + " persons";
+        // TODO: refine later
     }
 
     @Override
@@ -142,5 +161,9 @@ public class UniqueReferenceIdList implements Iterable<ReferenceId> {
 
     public int size() {
         return internalList.size();
+    }
+
+    public ReferenceId poll() {
+        return remove(0);
     }
 }

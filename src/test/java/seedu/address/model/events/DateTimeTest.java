@@ -12,6 +12,8 @@ import java.util.Date;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import seedu.address.model.events.parameters.DateTime;
+
 class DateTimeTest {
 
     private DateTime sampleDate1;
@@ -38,7 +40,7 @@ class DateTimeTest {
         assertNotNull(sampleDate2);
         assertNotNull(sampleDate3);
 
-        assertTrue(DateTime.tryParseSimpleDateFormat("10/10/2020 0100").equals(sampleDate1));
+        assertTrue(DateTime.tryParseSimpleDateFormat("10/10/20 0100").equals(sampleDate1));
 
         assertNull(DateTime.tryParseSimpleDateFormat("10/10/20 0160"));
         assertNull(DateTime.tryParseSimpleDateFormat("101020 0100"));

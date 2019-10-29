@@ -1,3 +1,4 @@
+//@@author SakuraBlossom
 package seedu.address.model.userprefs;
 
 import java.nio.file.Path;
@@ -11,6 +12,12 @@ public interface ReadOnlyUserPrefs {
 
     GuiSettings getGuiSettings();
 
-    Path getAddressBookFilePath();
+    Path getPatientAddressBookFilePath();
+
+    Path getPatientAppointmentBookFilePath();
+
+    Path getStaffAddressBookFilePath();
+
+    Path getDutyRosterBookFilePath();
 
 }

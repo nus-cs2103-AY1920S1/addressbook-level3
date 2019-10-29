@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 import seedu.address.logic.commands.common.CommandHistory;
 import seedu.address.logic.commands.common.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.commands.utils.ReversibleCommandStub;
+import seedu.address.logic.commands.utils.ReversibleActionPairCommandStub;
 import seedu.address.model.Model;
 import seedu.address.testutil.TestUtil;
 
@@ -26,11 +26,11 @@ class RedoCommandTest {
         Model expectedModel = TestUtil.getTypicalModelManager();
 
         RedoCommand redoCommand = new RedoCommand(history);
-        assertCommandFailure(redoCommand, model, RedoCommand.MESSAGE_NO_REDO_HISTORY_ERROR);
+        assertCommandFailure(redoCommand, model, CommandHistory.MESSAGE_NO_REDO_HISTORY_ERROR);
 
         String commandResultMessage = "cmd 1";
-        history.addToCommandHistory(new ReversibleCommandStub(commandResultMessage));
-        assertCommandFailure(redoCommand, model, RedoCommand.MESSAGE_NO_REDO_HISTORY_ERROR);
+        history.addToCommandHistory(new ReversibleActionPairCommandStub(commandResultMessage));
+        assertCommandFailure(redoCommand, model, CommandHistory.MESSAGE_NO_REDO_HISTORY_ERROR);
 
         try {
             Assertions.assertTrue(history.performUndo(model).equals(new CommandResult(commandResultMessage)));
@@ -40,7 +40,7 @@ class RedoCommandTest {
             throw new AssertionError("Execution of command should not fail.", ce);
         }
 
-        assertCommandFailure(redoCommand, model, RedoCommand.MESSAGE_NO_REDO_HISTORY_ERROR);
+        assertCommandFailure(redoCommand, model, CommandHistory.MESSAGE_NO_REDO_HISTORY_ERROR);
     }
 
     @Test

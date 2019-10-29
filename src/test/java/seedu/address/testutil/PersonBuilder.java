@@ -3,7 +3,7 @@ package seedu.address.testutil;
 import java.util.HashSet;
 import java.util.Set;
 
-import seedu.address.model.common.ReferenceId;
+import seedu.address.model.ReferenceId;
 import seedu.address.model.common.Tag;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.parameters.Address;
@@ -11,7 +11,7 @@ import seedu.address.model.person.parameters.Email;
 import seedu.address.model.person.parameters.Name;
 import seedu.address.model.person.parameters.PatientReferenceId;
 import seedu.address.model.person.parameters.Phone;
-import seedu.address.model.util.SampleDataUtil;
+import seedu.address.model.util.SamplePersonDataUtil;
 
 /**
  * A utility class to help with building Person objects.
@@ -59,6 +59,7 @@ public class PersonBuilder {
         this.id = new PatientReferenceId(id);
         return this;
     }
+
     /**
      * Sets the {@code Name} of the {@code Person} that we are building.
      */
@@ -71,7 +72,7 @@ public class PersonBuilder {
      * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Person} that we are building.
      */
     public PersonBuilder withTags(String... tags) {
-        this.tags = SampleDataUtil.getTagSet(tags);
+        this.tags = SamplePersonDataUtil.getTagSet(tags);
         return this;
     }
 

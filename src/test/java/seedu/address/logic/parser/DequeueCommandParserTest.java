@@ -2,12 +2,12 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
-import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.DequeueCommand;
+import seedu.address.model.Model;
+import seedu.address.testutil.TestUtil;
 
 /**
  * As we are only doing white-box testing, our test cases do not cover path variations
@@ -18,15 +18,12 @@ import seedu.address.logic.commands.DequeueCommand;
  */
 public class DequeueCommandParserTest {
 
-    private DequeueCommandParser parser = new DequeueCommandParser();
-
-    @Test
-    public void parse_validArgs_returnsDeleteCommand() {
-        assertParseSuccess(parser, "1", new DequeueCommand(INDEX_FIRST_PERSON));
-    }
+    private Model model = TestUtil.getTypicalModelManager();
+    private DequeueCommandParser parser = new DequeueCommandParser(model);
 
     @Test
     public void parse_invalidArgs_throwsParseException() {
-        assertParseFailure(parser, "a", String.format(MESSAGE_INVALID_COMMAND_FORMAT, DequeueCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, "a",
+            String.format(MESSAGE_INVALID_COMMAND_FORMAT, DequeueCommand.MESSAGE_USAGE));
     }
 }

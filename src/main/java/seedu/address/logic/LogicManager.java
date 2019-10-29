@@ -1,26 +1,28 @@
+//@@author SakuraBlossom
 package seedu.address.logic;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.function.Consumer;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.logic.autocomplete.AutoCompleter;
+import seedu.address.commons.core.OmniPanelTab;
 import seedu.address.logic.commands.common.Command;
 import seedu.address.logic.commands.common.CommandHistory;
 import seedu.address.logic.commands.common.CommandResult;
+import seedu.address.logic.commands.common.NonActionableCommand;
+import seedu.address.logic.commands.common.ReversibleActionPairCommand;
 import seedu.address.logic.commands.common.ReversibleCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.ReadOnlyAppointmentBook;
-import seedu.address.model.common.ReferenceId;
-import seedu.address.model.common.ReferenceIdResolver;
+import seedu.address.model.ReferenceId;
+import seedu.address.model.ReferenceIdResolver;
 import seedu.address.model.events.Event;
 import seedu.address.model.person.Person;
 import seedu.address.model.queue.QueueManager;
@@ -39,7 +41,6 @@ public class LogicManager implements Logic {
     private final Storage storage;
     private final AddressBookParser addressBookParser;
     private final CommandHistory commandHistory;
-    private final AutoCompleter autoCompleter;
     private final QueueManager queueManager;
 
     public LogicManager(Model model, Storage storage) {
@@ -48,79 +49,81 @@ public class LogicManager implements Logic {
         this.commandHistory = new CommandHistory();
         this.addressBookParser = new AddressBookParser(commandHistory);
         this.queueManager = new QueueManager();
-        this.autoCompleter = new AutoCompleter();
     }
 
     @Override
-    public CommandResult execute(String commandText) throws CommandException, ParseException {
+    public CommandResult execute(String commandText)
+        throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         CommandResult commandResult;
-        Command command = addressBookParser.parseCommand(commandText);
-        commandResult = command.execute(model);
-
+        Command command = addressBookParser.parseCommand(commandText, model);
         if (command instanceof ReversibleCommand) {
-            commandHistory.addToCommandHistory((ReversibleCommand) command);
+            throw new CommandException("Reversible Commands should be contained in a ReversibleActionPairCommand");
+        }
+
+        commandResult = command.execute(model);
+        if (command instanceof ReversibleActionPairCommand) {
+            commandHistory.addToCommandHistory((ReversibleActionPairCommand) command);
         }
 
         try {
-            storage.saveAddressBook(model.getAddressBook());
-            storage.saveAppointmentBook(model.getAppointmentBook());
+            if (!(command instanceof NonActionableCommand)) {
+                storage.savePatientAddressBook(model.getPatientAddressBook());
+                storage.savePatientAppointmentBook(model.getAppointmentBook());
+                storage.saveStaffAddressBook(model.getStaffAddressBook());
+                storage.saveStaffDutyRosterBook(model.getDutyShiftBook());
+            }
         } catch (IOException ioe) {
-            throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
+            throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe.getMessage(), ioe);
         }
 
         return commandResult;
     }
 
     @Override
-    public AutoCompleter updateAutoCompleter(String commandText) {
-        return autoCompleter.update(commandText);
+    public CommandResult eagerEvaluate(String commandText) throws CommandException, ParseException {
+        return null;
     }
 
     @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return model.getFilteredPersonList();
+    public ObservableList<Person> getFilteredPatientList() {
+        return model.getFilteredPatientList();
     }
 
     @Override
-    public ObservableList<ReferenceId> getFilteredReferencedIdList() {
-        return model.getFilteredReferenceIdList();
+    public ObservableList<ReferenceId> getQueueList() {
+        return model.getQueueList();
     }
 
     @Override
-    public ObservableList<Event> getFilteredEventList() {
-        return model.getFilteredEventList();
+    public ObservableList<Event> getFilteredAppointmentList() {
+        return model.getFilteredAppointmentList();
     }
 
     @Override
-    public ObservableList<Room> getFilteredRoomList() {
-        return model.getFilteredRoomList();
+    public ObservableList<Person> getFilteredStaffList() {
+        return model.getFilteredStaffList();
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return model.getAddressBook();
+    public ObservableList<Event> getFilteredDutyShiftList() {
+        return model.getFilteredDutyShiftList();
+    }
+
+    @Override
+    public ObservableList<Room> getConsultationRoomList() {
+        return model.getConsultationRoomList();
     }
 
     @Override
     public Path getAddressBookFilePath() {
-        return model.getAddressBookFilePath();
-    }
-
-    @Override
-    public ReadOnlyAppointmentBook getAppointmentBook() {
-        return model.getAppointmentBook();
+        return model.getUserPrefs().getPatientAddressBookFilePath();
     }
 
     @Override
     public ReferenceIdResolver getReferenceIdResolver() {
         return model;
-    }
-
-    @Override
-    public Path getAppointmentBookFilePath() {
-        return model.getAppointmentBookFilePath();
     }
 
     @Override
@@ -131,5 +134,10 @@ public class LogicManager implements Logic {
     @Override
     public void setGuiSettings(GuiSettings guiSettings) {
         model.setGuiSettings(guiSettings);
+    }
+
+    @Override
+    public void bindOmniPanelTabConsumer(Consumer<OmniPanelTab> omniPanelTabConsumer) {
+        model.bindTabListingCommand(omniPanelTabConsumer);
     }
 }

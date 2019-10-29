@@ -62,7 +62,7 @@ public class ConfigUtilTest {
     }
 
     private Config getTypicalConfig() {
-        Path preferencePath = Paths.get("preferences.json");
+        Path preferencePath = Paths.get("data", "preferences.json");
 
         Config config = new Config();
         config.setLogLevel(Level.INFO);

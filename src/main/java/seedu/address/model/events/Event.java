@@ -5,13 +5,17 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
 
-import seedu.address.model.common.ReferenceId;
+import seedu.address.model.ReferenceId;
+import seedu.address.model.common.Identical;
+import seedu.address.model.events.parameters.DateTime;
+import seedu.address.model.events.parameters.Status;
+import seedu.address.model.events.parameters.Timing;
 
 /**
  * Represents an event involving a single Person.
  * Guarantees: Reference Id to a patient, the event timing and status are present, validated and immutable.
  */
-public class Event implements Comparable<Event> {
+public class Event implements Identical<Event> {
 
     // Identity fields
     private final ReferenceId personId;
@@ -23,9 +27,23 @@ public class Event implements Comparable<Event> {
      */
     public Event(ReferenceId personId, Timing timing, Status status) {
         requireAllNonNull(personId, timing, status);
+
         this.personId = personId;
         this.timing = timing;
-        this.status = status;
+
+        if (!status.equals(Status.AppointmentStatuses.SETTLED) && timing.hasMissedTiming()) {
+            this.status = new Status(Status.AppointmentStatuses.MISSED);
+        } else {
+            this.status = status;
+        }
+    }
+
+    /**
+     * Every field must be present and not null.
+     * The end timing is presumed to be 30 mins after the {@code startTime}
+     */
+    public Event(ReferenceId personId, DateTime startTime, Status status) {
+        this(personId, new Timing(startTime, DateTime.plusHalfHour(startTime)), status);
     }
 
     public ReferenceId getPersonId() {
@@ -48,14 +66,15 @@ public class Event implements Comparable<Event> {
      * Returns true if both Event of the same patient and timing.
      * This defines a weaker notion of equality between two events.
      */
-    public boolean isSameEvent(Event otherEvent) {
+    public boolean isSameAs(Event otherEvent) {
         if (otherEvent == this) {
             return true;
         }
 
         return otherEvent != null
                 && otherEvent.getPersonId().equals(getPersonId())
-                && otherEvent.getEventTiming().equals(getEventTiming());
+                && otherEvent.getEventTiming().equals(getEventTiming())
+                && otherEvent.getStatus().equals(status);
     }
 
     /**

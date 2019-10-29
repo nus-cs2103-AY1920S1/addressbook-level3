@@ -8,8 +8,8 @@ plugins {
     id 'java'
     id 'jacoco'
     id 'checkstyle'
-    id 'com.github.kt3k.coveralls' version '2.4.0'
-    id 'com.github.johnrengelman.shadow' version '4.0.4'
+    id 'com.github.kt3k.coveralls' version '2.8.4'
+    id 'com.github.johnrengelman.shadow' version '5.1.0'
     id 'org.asciidoctor.convert' version '1.5.6'
     id 'application'
 }
@@ -43,7 +43,7 @@ test {
 
 dependencies {
     String jUnitVersion = '5.5.2'
-    String javaFxVersion = '11.0.2'
+    String javaFxVersion = '13.0.1'
 
     implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'win'
     implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'mac'
@@ -71,7 +71,7 @@ dependencies {
 }
 
 shadowJar {
-    archiveName = 'addressbook.jar'
+    archiveName = 'ClerkPro_v1.2.1.jar'
 
     destinationDir = file("${buildDir}/jar/")
 }
@@ -137,9 +137,8 @@ asciidoctor {
         idprefix: '',  // for compatibility with GitHub preview
         idseparator: '-',
         'site-root': "${sourceDir}",  // must be the same as sourceDir, do not modify
-        'site-name': 'AddressBook-Level3',
-        'site-githuburl': 'https://github.com/se-edu/addressbook-level3',
-        'site-seedu': true,  // delete this line if your project is not a fork (not a SE-EDU project)
+        'site-name': 'ClerkPro',
+        'site-githuburl': 'https://github.com/AY1920S1-CS2103T-T09-3/main'
     ]
 
     options['template_dirs'].each {

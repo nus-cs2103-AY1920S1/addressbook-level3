@@ -1,0 +1,33 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor UI_COLOR_T4
+skinparam classBackgroundColor UI_COLOR
+
+Package Model {
+    Interface ReferenceId <<Interface>>
+    Package Queue {
+        Class QueueManager
+        Class QueueList
+        Class Room
+        Class "UniqueElementList<Room>"
+        Class ReferenceId
+    }
+    Package common {
+            Class UniqueElementList
+            Class UniqueTreeList
+            Interface Identical <<Interface>>
+    }
+
+    QueueManager -down-> QueueList
+    "UniqueElementList<Room>" *--> UniqueElementList
+    QueueManager --> "UniqueElementList<Room>"
+    "UniqueElementList<Room>" *--> Room
+    UniqueElementList *-down-> UniqueTreeList
+    UniqueTreeList *-down-> Identical
+    QueueList *---> ReferenceId
+}
+
+
+
+@enduml

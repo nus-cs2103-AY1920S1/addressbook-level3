@@ -4,29 +4,35 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.Optional;
 
-import seedu.address.model.common.ReferenceId;
-
+import seedu.address.model.ReferenceId;
+import seedu.address.model.common.Identical;
 
 /**
  * Represents a consultation room involving a single doctor and an optional patient.
  * Guarantees: Reference Id to a doctor is immutable and validated.
  */
-public class Room {
+public class Room implements Identical<Room> {
     private final ReferenceId doctor;
     private Optional<ReferenceId> patientCurrentlyBeingServed;
+    private final boolean isResting;
 
-    public Room(ReferenceId doctor, Optional<ReferenceId> patient) {
+    public Room(ReferenceId doctor, Optional<ReferenceId> patient, boolean isResting) {
         this.doctor = doctor;
         this.patientCurrentlyBeingServed = patient;
+        this.isResting = isResting;
+    }
+
+    public Room(ReferenceId doctor, ReferenceId patientId) {
+        this(doctor, Optional.of(patientId), false);
+        requireNonNull(patientId);
     }
 
     public Room(ReferenceId doctor) {
-        this.doctor = doctor;
-        this.patientCurrentlyBeingServed = null;
+        this(doctor, Optional.empty(), false);
     }
 
     public boolean isReadyToServe() {
-        return patientCurrentlyBeingServed.isEmpty();
+        return !isResting;
     }
 
     public ReferenceId getDoctor() {
@@ -41,14 +47,15 @@ public class Room {
      * Returns true if both rooms are occupied by the same staff.
      * This defines a weaker notion of equality between two consultation rooms.
      */
-    public boolean isSameRoom(Room other) {
+    public boolean isSameAs(Room other) {
         requireNonNull(other);
         return other == this // short circuit if same object
-            || doctor.equals(((Room) other).doctor);
+            || doctor.equals(other.doctor);
     }
 
-    public void serve(ReferenceId id) {
-        patientCurrentlyBeingServed.of(id);
+    @Override
+    public int compareTo(Room room) {
+        return room.getDoctor().compareTo(getDoctor());
     }
 
     /**
@@ -57,17 +64,24 @@ public class Room {
      */
     @Override
     public boolean equals(Object other) {
-        if (other == null || !(other instanceof Room)) {
-            return false;
-        }
-
         if (other == this) {
             return true;
         }
 
+        if (!(other instanceof Room)) {
+            return false;
+        }
+
         Room o = (Room) other;
-        return getCurrentPatient().isPresent() == o.getCurrentPatient().isPresent()
-                && (getCurrentPatient().isEmpty()
-                    || getCurrentPatient().get().equals(o.getCurrentPatient().get()));
+        return getDoctor().equals(o.getDoctor())
+                && getCurrentPatient().isPresent() == o.getCurrentPatient().isPresent()
+                && getCurrentPatient().equals(o.getCurrentPatient());
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder builder = new StringBuilder();
+        builder.append(doctor);
+        return builder.toString();
     }
 }

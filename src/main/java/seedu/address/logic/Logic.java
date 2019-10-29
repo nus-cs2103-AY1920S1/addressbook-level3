@@ -1,19 +1,18 @@
+//@@author SakuraBlossom
 package seedu.address.logic;
 
 import java.nio.file.Path;
+import java.util.function.Consumer;
 
 import javafx.collections.ObservableList;
 
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.logic.autocomplete.AutoCompleter;
+import seedu.address.commons.core.OmniPanelTab;
 import seedu.address.logic.commands.common.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.ReadOnlyAppointmentBook;
-import seedu.address.model.common.ReferenceId;
-import seedu.address.model.common.ReferenceIdResolver;
+import seedu.address.model.ReferenceId;
+import seedu.address.model.ReferenceIdResolver;
 import seedu.address.model.events.Event;
 import seedu.address.model.person.Person;
 import seedu.address.model.queue.Room;
@@ -30,27 +29,46 @@ public interface Logic {
      * @throws CommandException If an error occurs during command execution.
      * @throws ParseException   If an error occurs during parsing.
      */
-    CommandResult execute(String commandText) throws CommandException, ParseException;
-
-    /** Returns an unmodifiable view of the filtered list of persons */
-    ObservableList<Person> getFilteredPersonList();
-
-    /** Returns an unmodifiable view of the filtered list of events */
-    ObservableList<Event> getFilteredEventList();
+    CommandResult execute(String commandText) throws CommandException,
+        ParseException;
 
     /**
-     * Updates AutoCompleter to the current command text.
+     * Evalutes the command eagerly and returns the result.
+     *
+     * @param commandText The command as entered by the user.
+     * @return the result of the command execution.
+     * @throws CommandException If an error occurs during command execution.
+     * @throws ParseException   If an error occurs during parsing.
+     */
+    CommandResult eagerEvaluate(String commandText) throws CommandException,
+            ParseException;
+
+    /**
+     * Returns an unmodifiable view of the filtered list of patients
+     */
+    ObservableList<Person> getFilteredPatientList();
+
+    /**
+     * Returns an unmodifiable view of the filtered list of appointments
+     */
+    ObservableList<Event> getFilteredAppointmentList();
+
+    /**
+     * Returns an unmodifiable view of the filtered list of staff members
+     */
+    ObservableList<Person> getFilteredStaffList();
+
+    /**
+     * Returns an unmodifiable view of the filtered list of duty shifts
+     */
+    ObservableList<Event> getFilteredDutyShiftList();
+
+    /**
+     * Updates AutoComplete to the current command text.
      *
      * @param commandText The command as entered by the user.
      */
-    AutoCompleter updateAutoCompleter(String commandText);
-
-    /**
-     * Returns the AddressBook.
-     *
-     * @see Model#getAddressBook()
-     */
-    ReadOnlyAddressBook getAddressBook();
+    //AutoCompleter updateAutoCompleter(String commandText);
 
     /**
      * Returns the a resolver class for mapping {@code ReferenceId} to {@code Person}.
@@ -58,31 +76,19 @@ public interface Logic {
     ReferenceIdResolver getReferenceIdResolver();
 
     /**
-     * Returns an unmodifiable view of the filtered list of rooms
+     * Returns an unmodifiable view of the list of available consultation rooms.
      */
-    ObservableList<Room> getFilteredRoomList();
+    ObservableList<Room> getConsultationRoomList();
 
     /**
-     * Returns an unmodifiable view of the filtered list of ids
+     * Returns an unmodifiable view of the queue list.
      */
-    ObservableList<ReferenceId> getFilteredReferencedIdList();
+    ObservableList<ReferenceId> getQueueList();
 
     /**
      * Returns the user prefs' address book file path.
      */
     Path getAddressBookFilePath();
-
-    /**
-     * Returns the Appointment Book.
-     *
-     * @see Model#getAppointmentBook()
-     */
-    ReadOnlyAppointmentBook getAppointmentBook();
-
-    /**
-     * Returns the user prefs' appointment book file path.
-     */
-    Path getAppointmentBookFilePath();
 
     /**
      * Returns the user prefs' GUI settings.
@@ -93,4 +99,9 @@ public interface Logic {
      * Set the user prefs' GUI settings.
      */
     void setGuiSettings(GuiSettings guiSettings);
+
+    /**
+     * Binds the OmniPanel tab selector.
+     */
+    void bindOmniPanelTabConsumer(Consumer<OmniPanelTab> omniPanelTabConsumer);
 }

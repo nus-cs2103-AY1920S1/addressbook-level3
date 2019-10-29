@@ -1,147 +1,136 @@
 package seedu.address.model.events;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.Iterator;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.ListIterator;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-
-import seedu.address.model.events.exceptions.DuplicateEventException;
-import seedu.address.model.events.exceptions.EventNotFoundException;
-
+import seedu.address.model.common.UniqueElementList;
 
 /**
  * A list of events that enforces uniqueness between its elements and does not allow nulls.
- * An event is considered unique by comparing using {@code Event#isSameEvent(Event)}. As such, adding and updating of
- * events uses Event#isSameEvent(Event) for equality so as to ensure that the event being added or updated is
- * unique in terms of identity in the UniqueEventList. However, the removal of a event uses Event#equals(Object) so
+ * A event is considered unique by comparing using {@code event#isSameevent(event)}. As such, adding and updating of
+ * events uses event#isSameevent(event) for equality so as to ensure that the event being added or updated is
+ * unique in terms of identity in the UniqueeventList. However, the removal of a event uses event#equals(Object) so
  * as to ensure that the event with exactly the same fields will be removed.
  * <p>
  * Supports a minimal set of list operations.
  *
- * @see Event#isSameEvent(Event)
+ * @see Event#isSameAs(Event)
  */
-public class UniqueEventList implements Iterable<Event> {
-
-    private final ObservableList<Event> internalList = FXCollections.observableArrayList();
-    private final ObservableList<Event> internalUnmodifiableList =
-            FXCollections.unmodifiableObservableList(internalList);
+public class UniqueEventList extends UniqueElementList<Event> {
 
     /**
-     * Returns true if the list contains an equivalent event as the given argument.
+     * Returns a ListIterator of {@code Event} whose timing is in conflict with the given {@code event}.
      */
-    public boolean contains(Event toCheck) {
+    public ListIterator<Event> getEventsInConflict(Event toCheck) {
         requireNonNull(toCheck);
-        return internalList.stream().anyMatch(toCheck::isSameEvent);
+        SearchEvent searchEvent = new SearchEvent(toCheck);
+
+        int indexOfLowerBound = getLowerBound(searchEvent);
+        int indexOfUpperBound = getUpperBound(searchEvent);
+        return listIterator(indexOfLowerBound, indexOfUpperBound);
     }
 
     /**
-     * Returns true if the list contains an event who equals to the given argument.
+     * Returns a list of {@code Event} whose timing is in conflict with the given {@code event}.
      */
-    public boolean containsExact(Event toCheck) {
+    public List<Event> getListOfEventsInConflict(Event toCheck) {
+        ListIterator<Event> iterator = getEventsInConflict(toCheck);
+        List<Event> listOfConflictingEvents = new ArrayList<>();
+
+        while (iterator.hasNext()) {
+            listOfConflictingEvents.add(iterator.next());
+        }
+
+        return listOfConflictingEvents;
+    }
+
+    /**
+     * Returns the number of {@code Event} whose timing is in conflict with the given {@code event}.
+     */
+    public int countNumberOfEventsInConflict(Event toCheck) {
         requireNonNull(toCheck);
-        return internalList.stream().anyMatch(toCheck::equals);
+        SearchEvent searchEvent = new SearchEvent(toCheck);
+        int indexOfLowerBound = getLowerBound(searchEvent);
+        int indexOfUpperBound = getUpperBound(searchEvent);
+        return indexOfUpperBound - indexOfLowerBound + 1;
     }
 
     /**
-     * Adds a event to the list.
-     * The event must not already exist in the list.
+     * Returns true if the number of unique events which timings are in conflict
+     * is lesser than {@code maxNumberOfConcurrentEvents} and the events in conflict does not
+     * involve the same person given in {@code event}.
      */
-    public void add(Event toAdd) {
-        requireNonNull(toAdd);
-        if (contains(toAdd)) {
-            throw new DuplicateEventException();
-        }
-        internalList.add(toAdd);
-    }
+    public boolean allowedToSchedule(Event toCheck, int maxNumberOfConcurrentEvents) {
+        SearchEvent searchEvent = new SearchEvent(toCheck);
+        int indexOfLowerBound = getLowerBound(searchEvent);
+        int indexOfUpperBound = getUpperBound(searchEvent);
 
-    /**
-     * Replaces the event {@code target} in the list with {@code editedEvent}.
-     * {@code target} must exist in the list.
-     * The event identity of {@code editedEvent} must not be the same as another existing event in the list.
-     */
-    public void setEvent(Event target, Event editedEvent) {
-        requireAllNonNull(target, editedEvent);
-
-        int index = internalList.indexOf(target);
-        if (index == -1) {
-            throw new EventNotFoundException();
+        if (maxNumberOfConcurrentEvents <= indexOfUpperBound - indexOfLowerBound + 1) {
+            return false;
         }
 
-        if (!target.isSameEvent(editedEvent) && contains(editedEvent)) {
-            throw new DuplicateEventException();
-        }
+        ListIterator<Event> iterator = listIterator(indexOfLowerBound);
 
-        internalList.set(index, editedEvent);
-    }
-
-    /**
-     * Removes the equivalent event from the list.
-     * The event must exist in the list.
-     */
-    public void remove(Event toRemove) {
-        requireNonNull(toRemove);
-        if (!internalList.remove(toRemove)) {
-            throw new EventNotFoundException();
-        }
-    }
-
-    public void setEvents(UniqueEventList replacement) {
-        requireNonNull(replacement);
-        internalList.setAll(replacement.internalList);
-    }
-
-    /**
-     * Replaces the contents of this list with {@code events}.
-     * {@code events} must not contain duplicate events.
-     */
-    public void setEvents(List<Event> events) {
-        requireAllNonNull(events);
-        if (!eventsAreUnique(events)) {
-            throw new DuplicateEventException();
-        }
-
-        internalList.setAll(events);
-    }
-
-    /**
-     * Returns the backing list as an unmodifiable {@code ObservableList}.
-     */
-    public ObservableList<Event> asUnmodifiableObservableList() {
-        return internalUnmodifiableList;
-    }
-
-    @Override
-    public Iterator<Event> iterator() {
-        return internalList.iterator();
-    }
-
-    @Override
-    public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof UniqueEventList // instanceof handles nulls
-                && internalList.equals(((UniqueEventList) other).internalList));
-    }
-
-    @Override
-    public int hashCode() {
-        return internalList.hashCode();
-    }
-
-    /**
-     * Returns true if {@code events} contains only unique events.
-     */
-    private boolean eventsAreUnique(List<Event> events) {
-        for (int i = 0; i < events.size() - 1; i++) {
-            for (int j = i + 1; j < events.size(); j++) {
-                if (events.get(i).isSameEvent(events.get(j))) {
-                    return false;
-                }
+        while (iterator.nextIndex() <= indexOfUpperBound) {
+            if (toCheck.getPersonId().isSameAs(iterator.next().getPersonId())) {
+                return false;
             }
         }
         return true;
     }
+}
+
+/**
+ * A helper class which represents an event when searching for conflicting events in {@code UniqueEventList}
+ */
+class SearchEvent extends Event {
+    public SearchEvent(Event event) {
+        super(event.getPersonId(), event.getEventTiming(), event.getStatus());
+    }
+
+    /**
+     * Returns true if both Event of the same timing.
+     * This defines a weaker notion of equality between two events.
+     */
+    public boolean isSameAs(Event otherEvent) {
+        if (otherEvent == this) {
+            return true;
+        }
+
+        return otherEvent != null
+                && otherEvent.getEventTiming().equals(getEventTiming())
+                && otherEvent.getStatus().equals(getStatus());
+    }
+
+    /**
+     * Returns true if both events have the same timing.
+     * This defines a stronger notion of equality between two events.
+     */
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof Event)) {
+            return false;
+        }
+
+        Event otherEvent = (Event) other;
+        return otherEvent.getEventTiming().equals(getEventTiming())
+                && otherEvent.getStatus().equals(getStatus());
+    }
+
+    @Override
+    public int compareTo(Event o) {
+        requireNonNull(o);
+        if (conflictsWith(o)) {
+            return 0;
+        }
+        return getEventTiming().compareTo(o.getEventTiming());
+    }
+
 }
