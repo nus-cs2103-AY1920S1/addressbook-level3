@@ -9,8 +9,8 @@ import java.util.Objects;
 public class Statistics {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Statistics must have valid LocalDate lastViewed and toViewNext in the format yyyy-mm-dd and valid " +
-                    "ScheduleIncrement currentIncrement such as FIRST or FINAL";
+            "Statistics must have valid LocalDate lastViewed and toViewNext in the format yyyy-mm-dd and valid "
+                    + "ScheduleIncrement currentIncrement such as FIRST or FINAL";
 
     private LocalDate lastViewed;
     private LocalDate toViewNext;

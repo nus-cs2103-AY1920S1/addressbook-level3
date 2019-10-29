@@ -1,13 +1,13 @@
 package seedu.address.logic.commands;
 
-import seedu.address.model.flashcard.Flashcard;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import seedu.address.model.flashcard.Flashcard;
+
 /**
- *
+ * Utility class for remind feature that abstracts out common methods used to support the remind feature.
  */
 public class RemindFeatureUtil {
 
@@ -15,9 +15,9 @@ public class RemindFeatureUtil {
     public static final String MESSAGE_OVERDUE_FLASHCARD_HELPER = "Here are your overdue flashcards:";
 
     /**
-     *
-     * @param flashcardList
-     * @return
+     * Gets flashcards that are due for revision today from a given list of flashcards.
+     * @param flashcardList list of flashcards
+     * @return list of flashcards containing flashcards due for revision today
      */
     public List<Flashcard> getDueFlashcards(List<Flashcard> flashcardList) {
         List<Flashcard> dueFlashcards = new ArrayList<>();
@@ -33,10 +33,10 @@ public class RemindFeatureUtil {
     }
 
     /**
-     *
-     * @param flashcardList
-     * @return
-     */
+     * Gets flashcards that are overdue for revision from a given list of flashcards.
+     * @param flashcardList list of flashcards
+     * @return list of flashcards containing flashcards due for revision today overdue for revision
+    */
     public List<Flashcard> getOverdueFlashcards(List<Flashcard> flashcardList) {
         List<Flashcard> overdueFlashcards = new ArrayList<>();
         LocalDate currentDate = LocalDate.now();

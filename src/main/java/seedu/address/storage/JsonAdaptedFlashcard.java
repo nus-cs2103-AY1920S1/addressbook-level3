@@ -94,7 +94,7 @@ class JsonAdaptedFlashcard {
             }
             return new Statistics(LocalDate.parse(statisticsLastViewed), LocalDate.parse(statisticsToViewNext),
                     ScheduleIncrement.getScheduleIncrementFromString(statisticsCurrentIncrement));
-        } catch (StringToScheduleIncrementConversionException e){
+        } catch (StringToScheduleIncrementConversionException e) {
             throw new IllegalValueException(e.getMessage());
         } catch (DateTimeParseException e) {
             throw new IllegalValueException(Statistics.MESSAGE_CONSTRAINTS);
