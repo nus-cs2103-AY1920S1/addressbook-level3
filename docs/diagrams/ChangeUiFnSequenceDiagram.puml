@@ -10,7 +10,7 @@ participant "notifWindow:NotifWindow" as NotifWindow #1f69ad
 end box
 
 box Storage #f5c8a2
-participant "storage:Storage" as Storage #e67f25
+participant "storage:StorageManager" as Storage #e67f25
 end box
 
 box Model #e6bdf2
