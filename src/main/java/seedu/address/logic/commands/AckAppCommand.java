@@ -8,8 +8,7 @@ import seedu.address.logic.commands.common.ReversibleCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.events.Event;
-import seedu.address.model.events.predicates.EventContainsRefIdPredicate;
-
+import seedu.address.model.events.predicates.EventContainsKeywordOrRecentlyAcknowledgedPredicate;
 
 /**
  * Acknowledge a person to the address book.
@@ -51,7 +50,9 @@ public class AckAppCommand extends ReversibleCommand {
         }
 
         model.scheduleAppointment(editedEvent);
-        model.updateFilteredAppointmentList(new EventContainsRefIdPredicate(editedEvent.getPersonId()));
+        model.updateFilteredAppointmentList(
+                new EventContainsKeywordOrRecentlyAcknowledgedPredicate(
+                        editedEvent.getPersonId(), editedEvent));
         return new CommandResult(String.format(MESSAGE_SUCCESS, editedEvent));
 
     }
