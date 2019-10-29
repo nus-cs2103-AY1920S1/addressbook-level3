@@ -6,12 +6,13 @@ import static organice.commons.util.AppUtil.checkArgument;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * Represents a Donor organ's expiry date in ORGANice.
  * Guarantees: immutable; is valid as declared in {@link #isValidExpiryDate(String)} (String)}
  */
-public class OrganExpiryDate {
+public class OrganExpiryDate implements Comparable<OrganExpiryDate> {
 
     public static final DateFormat DATE_FORMAT = new SimpleDateFormat("dd-MMM-yyyy");
 
@@ -66,4 +67,16 @@ public class OrganExpiryDate {
         return value.hashCode();
     }
 
+    @Override
+    public int compareTo(OrganExpiryDate organExpiryDate) {
+        Date date1 = null;
+        Date date2 = null;
+        try {
+            date1 = DATE_FORMAT.parse(this.value);
+            date2 = DATE_FORMAT.parse(String.valueOf(organExpiryDate));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return date1.compareTo(date2);
+    }
 }

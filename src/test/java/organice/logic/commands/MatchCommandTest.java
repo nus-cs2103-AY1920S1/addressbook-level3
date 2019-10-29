@@ -25,7 +25,9 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import organice.commons.core.GuiSettings;
+import organice.logic.commands.exceptions.CommandException;
 import organice.model.AddressBook;
 import organice.model.Model;
 import organice.model.ReadOnlyAddressBook;
@@ -245,6 +247,26 @@ public class MatchCommandTest {
 
         @Override
         public ObservableList<Person> getMatchList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public SortedList<Person> getSortList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void sortByPriority() throws CommandException {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void sortBySuccessRate() throws CommandException {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void sortByOrganExpiryDate() throws CommandException {
             throw new AssertionError("This method should not be called.");
         }
 
