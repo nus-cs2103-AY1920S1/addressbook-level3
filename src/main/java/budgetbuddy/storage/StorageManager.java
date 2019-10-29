@@ -45,6 +45,7 @@ public class StorageManager implements Storage {
 
     @Override
     public void save(Model model) throws IOException {
+        saveAccounts(model.getAccountsManager());
         saveLoans(model.getLoansManager());
         saveRules(model.getRuleManager());
         saveScripts(model.getScriptLibrary());
