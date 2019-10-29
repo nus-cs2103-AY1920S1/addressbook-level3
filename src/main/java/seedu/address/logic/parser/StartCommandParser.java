@@ -11,6 +11,8 @@ import seedu.address.model.appsettings.DifficultyEnum;
  */
 public class StartCommandParser implements Parser<StartCommand> {
 
+    public static final String MESSAGE_NO_SUCH_DIFFICULTY = "No such difficulty: ";
+
     /**
      * Parses the given {@code String} of arguments in the context of the DeleteCommand
      * and returns a DeleteCommand object for execution.
@@ -37,7 +39,7 @@ public class StartCommandParser implements Parser<StartCommand> {
             difficulty = Optional.of(DifficultyEnum.HARD);
             break;
         default:
-            throw new ParseException("No such difficulty " + trimmedArgs.toUpperCase());
+            throw new ParseException(MESSAGE_NO_SUCH_DIFFICULTY + trimmedArgs.toUpperCase());
         }
         return new StartCommand(difficulty);
     }

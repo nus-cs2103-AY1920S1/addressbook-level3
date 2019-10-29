@@ -27,7 +27,10 @@ public class DifficultyCommand extends SettingsCommand {
     @Override
     public CommandResult execute(Model model) {
         model.setDefaultDifficulty(this.difficulty);
-        return new CommandResult("Difficulty is now set to: " + difficulty);
+        String outputString = String.format("Difficulty is now set to: %s (%.1f seconds)",
+                difficulty,
+                difficulty.getTimeAllowedPerQuestion() / 1000.0);
+        return new CommandResult(outputString);
     }
 
 }

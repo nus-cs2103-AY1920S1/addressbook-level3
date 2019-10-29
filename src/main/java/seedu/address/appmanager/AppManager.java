@@ -95,7 +95,8 @@ public class AppManager {
 
             // update statistics upon receiving a GameCommandResult with a Card
             if (gameCommandResult.getCard().isPresent()) {
-                gameStatisticsBuilder.addDataPoint(gameCommandResult.getGameDataPoint(gameTimer.getElapsedMillis()),
+                gameStatisticsBuilder.addDataPoint(
+                        gameCommandResult.getGameDataPoint(gameTimer.getElapsedMillis()),
                         gameCommandResult.getCard().get());
             }
             // should make logic save the updated game statistics
@@ -106,13 +107,15 @@ public class AppManager {
             }
         }
 
-        // GameTimerManager is always abort when a new command is entered while Game is running.
+        // AppManager will always abort Timer when a new valid command is entered while Game is running.
         abortAnyExistingGameTimer();
 
         if (commandResult.isPromptingGuess()) {
             setGameTimer(logic.getTimeAllowedPerQuestion(),
                     logic.getHintFormatSizeFromCurrentGame());
             Platform.runLater(() -> {
+
+                /** Call-back to UI to update QuestionDisplay with current Question. */
                 this.questionDisplayCallBack.updateQuestionDisplay(logic.getCurrentQuestion());
                 gameTimer.run();
             });
@@ -163,7 +166,7 @@ public class AppManager {
     }
 
     public ObservableList<Card> getFilteredPersonList() {
-        return logic.getFilteredPersonList();
+        return logic.getFilteredCardList();
     }
 
     public ObservableList<WordBank> getFilteredWordBankList() {
@@ -201,7 +204,7 @@ public class AppManager {
         }
     }
 
-    // <---Methods to register UI components to be called back by AppManager------------------------------------->
+    // <---------------------------Methods to register UI components to be called back by AppManager------------->
 
     /**
      * Registers a method that will be called by the AppManager to update the UI's TimerDisplay
