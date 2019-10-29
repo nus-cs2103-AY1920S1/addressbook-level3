@@ -11,7 +11,6 @@ Interface CentralManagerStorage <<Interface>>
 Class StorageManager
 Class JsonUserPrefsStorage
 Class JsonCentralManagerStorage
-Class CentralManager
 
 StorageManager .left.|> Storage
 StorageManager o-right-> UserPrefsStorage

@@ -1,0 +1,24 @@
+@startuml
+!include style.puml
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant ":CustomerManager" as CustomerManager MODEL_COLOR
+participant ":TaskManager" as TaskManager MODEL_COLOR
+end box
+
+activate Model
+
+Model -> CustomerManager : getCustomer(3)
+activate CustomerManager
+
+CustomerManager --> Model : customer
+deactivate CustomerManager
+
+Model -> TaskManager : addTask(taskToAdd)
+activate TaskManager
+
+TaskManager --> Model
+deactivate TaskManager
+
+@enduml

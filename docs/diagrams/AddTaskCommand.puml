@@ -7,40 +7,39 @@ participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
 participant ":AddTaskCommandParser" as AddTaskCommandParser LOGIC_COLOR
 participant "atc:AddTaskCommand" as AddTaskCommand LOGIC_COLOR
 participant ":CommandResult" as CommandResult LOGIC_COLOR
-participant "taskToAdd:Task" as Task LOGIC_COLOR
 end box
 
 box Model MODEL_COLOR_T1
 participant ":Model" as Model MODEL_COLOR
-participant ":CustomerManager" as CustomerManager MODEL_COLOR
-participant ":TaskManager" as TaskManager MODEL_COLOR
+participant "t:Task" as Task MODEL_COLOR
 end box
 
-[-> LogicManager : execute("addT g/50 stacks of A4 paper c/3 dt/10/12/2019")
+[-> LogicManager : execute \n user command*
 activate LogicManager
 
-LogicManager -> AddressBookParser : parseCommand("addT g/50 stacks of A4 paper c/3 dt/10/12/2019")
+LogicManager -> AddressBookParser : parseCommand \n user command*
 activate AddressBookParser
+note right : User command*: \n"addT g/cupboard c/3 dt/10/12/2019"
 
 create AddTaskCommandParser
-AddressBookParser -> AddTaskCommandParser
+AddressBookParser -> AddTaskCommandParser : AddTaskCommandParser()
 activate AddTaskCommandParser
 
 AddTaskCommandParser --> AddressBookParser
 deactivate AddTaskCommandParser
 
-AddressBookParser -> AddTaskCommandParser : parse("addT g/50 stacks of A4 paper c/3 dt/10/12/2019")
+AddressBookParser -> AddTaskCommandParser : parse user command*
 activate AddTaskCommandParser
 
 create Task
-AddTaskCommandParser -> Task : new Task("50 stacks of A4 paper", 10/12/2019)
+AddTaskCommandParser -> Task : Task(1, "cupboard", 10/12/2019)
 activate Task
 
-Task --> AddTaskCommandParser : taskToAdd
+Task --> AddTaskCommandParser : t
 deactivate Task
 
 create AddTaskCommand
-AddTaskCommandParser -> AddTaskCommand : new AddTaskCommand(taskToAdd, 3)
+AddTaskCommandParser -> AddTaskCommand : AddTaskCommand(\n t, 3)
 activate AddTaskCommand
 
 AddTaskCommand --> AddTaskCommandParser : atc
@@ -61,13 +60,6 @@ activate AddTaskCommand
 AddTaskCommand -> Model : getCustomer(3)
 activate Model
 
-
-Model -> CustomerManager : getCustomer(3)
-activate CustomerManager
-
-CustomerManager --> Model : customer
-deactivate CustomerManager
-
 Model --> AddTaskCommand : customer
 deactivate Model
 
@@ -77,14 +69,8 @@ activate Task
 Task --> AddTaskCommand
 deactivate Task
 
-AddTaskCommand -> Model : addTask(taskToAdd)
+AddTaskCommand -> Model : addTask(t)
 activate Model
-
-Model -> TaskManager : addTask(taskToAdd)
-activate TaskManager
-
-TaskManager --> Model
-deactivate TaskManager
 
 Model --> AddTaskCommand
 deactivate Model

@@ -229,6 +229,20 @@ Edits the description of the task (Task ID: 3) to be `50 frozen boxes of catfish
 * `editT 5 c/2 dt/10/12/2019` +
 Edits the customer and date of delivery of the task (Task ID: 5) to be `Customer (Customer ID: 2)` and `10/12/2019` respectively.
 
+=== Mark a delivery task as completed: `done`
+
+Mark a delivery task as completed. +
+Format: `done [TASK ID]`
+
+****
+* Only tasks that are ONGOING can be marked as COMPLETED. ONGOING tasks refer to tasks with assigned drivers.
+****
+
+Examples:
+
+* `done 2` +
+Marks the delivery task with Task ID 2 as COMPLETED.
+
 === Deletes a delivery task / driver / customer: `del`
 
 Deletes a task / driver / customer from its respective managers. +
@@ -245,6 +259,18 @@ Examples:
 Deletes task (Task ID: 1) from the task manager.
 * `del d/2` +
 Deletes driver (Driver ID: 2) from the driver manager.
+
+=== Gets the details of a delivery task / driver / customer: `read`
+
+Gets the details a task / driver / customer. +
+Format: `read [c/CUSTOMER ID]` | `del [t/DRIVER ID]` | `del [t/TASK ID]`
+
+Examples:
+
+* `read t/3` +
+Gets the details of task (Task ID: 3).
+* `read d/2` +
+Gets the details of driver (Driver ID: 2).
 
 === Add a Customer `addC`
 

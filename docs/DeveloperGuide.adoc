@@ -140,8 +140,8 @@ image::CentralManager.png[]
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* uses CentralManager to consolidate all the managers' data that needs to be saved. (e.g. Task Manager's data)
-* can save the Central Manager data in json format and read it back.
+* uses `CentralManager` to consolidate all the managers' data that needs to be saved. (e.g. Task Manager's data)
+* can save the `CentralManager` data in json format and read it back.
 
 [[Design-Commons]]
 === Common classes
@@ -326,13 +326,26 @@ The mandatory fields for users are: 'description', 'date' and 'Customer'.
 After the validation is completed, `AddTaskCommand` will fetch `Customer` using the `customerId` through the `CustomerManager`.
 A unique id will also be allocated to the task for differentiation.
 
-The following sequence diagram shows how the add task operation works:
+The following sequence diagrams show how the add task operation works:
 
 .Sequence Diagram of adding a task.
 image::AddTaskCommand.png[]
+.Sequence Diagram of Model interaction with the CustomerManager and TaskManager for adding a task.
+image::ModelInteractWithManagers.png[]
 
 [NOTE]
 The flow of how the task is being accessed and  managed as shown above is the same for other task related command such as Edit and Delete.
+
+==== Design Considerations
+
+===== Aspect: Couping of Task and other entities (Driver and Customer)
+
+* **Alternative 1 (current choice):** Task class contains Driver and Customer classes as attributes.
+** Pros: Centralised Task class that encapsulates all the information, which makes it easy to manage task.
+** Cons: Task will have to depend on Driver and Customer. Decreases testability.
+* **Alternative 2:** Driver and Customer classes have Task class as attribute.
+** Pros: Easy to access tasks through the respective classes. (Driver and Customer classes)
+** Cons: Having 2 classes depend on Task class. Decreases testability.
 
 === Customer Feature (E.g. Add Customer)
 ==== Implementation
