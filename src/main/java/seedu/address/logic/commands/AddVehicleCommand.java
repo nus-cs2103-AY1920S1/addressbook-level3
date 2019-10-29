@@ -16,7 +16,7 @@ import seedu.address.model.vehicle.Vehicle;
  */
 public class AddVehicleCommand extends Command {
 
-    public static final String COMMAND_WORD = "addv";
+    public static final String COMMAND_WORD = "add-v";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + " Adds a vehicle to the Incident Managment System.\n"
             + "Parameters: "

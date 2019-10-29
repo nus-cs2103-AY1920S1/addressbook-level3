@@ -17,8 +17,10 @@ import seedu.address.model.Model;
 import seedu.address.model.incident.CallerNumber;
 import seedu.address.model.incident.Description;
 import seedu.address.model.incident.Incident;
+import seedu.address.model.incident.Incident.Status;
 import seedu.address.model.incident.IncidentDateTime;
 import seedu.address.model.incident.IncidentId;
+import seedu.address.model.person.Person;
 import seedu.address.model.vehicle.District;
 
 /**
@@ -70,7 +72,7 @@ public class EditIncidentCommand extends Command {
         }
 
         Incident incidentToEdit = listOfIncidents.get(index.getZeroBased());
-        Incident editedIncident = createEditedIncident(incidentToEdit, editIncident);
+        Incident editedIncident = createEditedIncident(incidentToEdit, editIncident, model);
 
         if (!incidentToEdit.equals(editedIncident) && model.hasIncident(editedIncident)) {
             throw new CommandException(MESSAGE_DUPLICATE_INCIDENT);
@@ -86,14 +88,17 @@ public class EditIncidentCommand extends Command {
      * Creates and returns a {@code Incident} with the details of {@code IncidentToEdit}
      * edited with {@code editIncident}.
      */
-    private static Incident createEditedIncident(Incident incidentToEdit, EditIncident editIncident) {
+    private static Incident createEditedIncident(Incident incidentToEdit, EditIncident editIncident, Model model) {
         assert incidentToEdit != null;
+        Person operator = model.getLoggedInPerson();
         District updateDistrict = editIncident.getDistrict().orElse(incidentToEdit.getDistrict());
         CallerNumber updateCaller = editIncident.getCaller().orElse(incidentToEdit.getCallerNumber());
         IncidentDateTime updateDateTime = editIncident.getDateTime().orElse(incidentToEdit.getDateTime());
         Description updateDesc = editIncident.getDesc().orElse(incidentToEdit.getDesc());
+        Status status = incidentToEdit.getStatus();
 
-        return new Incident(incidentToEdit.getIncidentId(), updateDistrict, updateDateTime, updateCaller, updateDesc);
+        return new Incident(operator, updateDistrict, updateDateTime, incidentToEdit.getIncidentId(), updateCaller,
+                updateDesc, status);
     }
 
     @Override
