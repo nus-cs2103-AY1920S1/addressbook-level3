@@ -23,6 +23,10 @@ import seedu.address.model.expense.Name;
  */
 public class AddBudgetCommandParser implements Parser<AddBudgetCommand> {
 
+    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
+        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
+    }
+
     /**
      * Parses the given {@code String} of arguments in the context of the AddBudgetCommand
      * and returns an AddBudgetCommand object for execution.
@@ -31,10 +35,10 @@ public class AddBudgetCommandParser implements Parser<AddBudgetCommand> {
      */
     public AddBudgetCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_AMOUNT, PREFIX_CURRENCY, PREFIX_DATE, PREFIX_END_DATE);
+            ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_AMOUNT, PREFIX_CURRENCY, PREFIX_DATE, PREFIX_END_DATE);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_AMOUNT, PREFIX_DATE, PREFIX_END_DATE)
-                    || !argMultimap.getPreamble().isEmpty()) {
+            || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddBudgetCommand.MESSAGE_USAGE));
         }
 
@@ -47,9 +51,5 @@ public class AddBudgetCommandParser implements Parser<AddBudgetCommand> {
         Budget budget = new Budget(name, amount, amount, currency, startDate, endDate, new ExpenseList());
 
         return new AddBudgetCommand(budget);
-    }
-
-    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 }
