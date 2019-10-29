@@ -2,8 +2,10 @@ package dukecooks.model.mealplan.components;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 import dukecooks.commons.util.CollectionUtil;
 import dukecooks.model.recipe.components.Recipe;
@@ -60,6 +62,19 @@ public class MealPlan {
 
     public MealPlanName getName() {
         return name;
+    }
+
+    public String getRecipes() {
+        Set<Recipe> allRecipes = new HashSet<>();
+        allRecipes.addAll(day1);
+        allRecipes.addAll(day2);
+        allRecipes.addAll(day3);
+        allRecipes.addAll(day4);
+        allRecipes.addAll(day5);
+        allRecipes.addAll(day6);
+        allRecipes.addAll(day7);
+
+        return allRecipes.toString().replace("[", "").replace("]", "").replace(",", "");
     }
 
     /**
