@@ -47,7 +47,4 @@ public class Messages {
         + "does not appear to match any known settings. Scroll to view usage details. \n%1$s";
     public static final String MESSAGE_INVALID_BACKGROUND_REPEAT = "Oops! The background repeat settings you entered "
         + "does not appear to match any known settings. Scroll to view usage details. \n%1$s";
-    public static final String MESSAGE_TEMP_BACKGROUND_IMAGE_LOADED = "Note: I have loaded a temporary background "
-        + "image for you but on the next startup this background image will reset! Do feel free to explore and "
-        + "set your own background image and colour amongst other features :)";
 }

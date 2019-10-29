@@ -2,7 +2,6 @@ package seedu.address.ui;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_NO_BIO_FOUND;
-import static seedu.address.commons.core.Messages.MESSAGE_TEMP_BACKGROUND_IMAGE_LOADED;
 import static seedu.address.commons.core.Messages.MESSAGE_UNABLE_TO_LOAD_REFERENCES;
 
 import java.net.URISyntaxException;
@@ -42,7 +41,6 @@ public class MainWindow extends UiPart<Stage> {
 
     private static final String FXML = "MainWindow.fxml";
     private static final String MESSAGE_CANNOT_LOAD_WINDOW = "Unable to load window. :(";
-    private static final String TEMPORARY_BACKGROUND_PATH = "/images/SpaceModified.jpg";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
@@ -55,6 +53,7 @@ public class MainWindow extends UiPart<Stage> {
     private HelpWindow helpWindow;
     private MainDisplayPane mainDisplayPane;
     private ReminderListPanel reminderListPanel;
+    private MotivationalQuotesLabel motivationalQuotesLabel;
 
     @FXML
     private Scene scene;
@@ -76,6 +75,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane reminderListPlaceholder;
+
+    @FXML
+    private StackPane motivationalQuotesPlaceholder;
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -229,8 +231,7 @@ public class MainWindow extends UiPart<Stage> {
         displayWelcomeMessage(resultDisplay);
         displayInvalidReferences(resultDisplay);
         if (logic.getBackground().showDefaultBackground()) {
-            resultDisplay.appendNewLineInFeedBackToUser(2);
-            resultDisplay.appendFeedbackToUser(MESSAGE_TEMP_BACKGROUND_IMAGE_LOADED);
+            setFontColour(logic.getGuiSettings());
         }
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
         CommandBox commandBox = new CommandBox(this::executeCommand);
@@ -239,6 +240,9 @@ public class MainWindow extends UiPart<Stage> {
         reminderListPanel = new ReminderListPanel(logic.getPastReminderList());
         reminderListPlaceholder.getChildren().add(reminderListPanel.getRoot());
         logic.schedule();
+
+        motivationalQuotesLabel = new MotivationalQuotesLabel(logic.getMotivationalQuotesList(), primaryStage);
+        motivationalQuotesPlaceholder.getChildren().add(motivationalQuotesLabel.getRoot());
     }
 
     /**
@@ -269,16 +273,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     private void setBackground(GuiSettings guiSettings) {
         Background background = guiSettings.getBackground();
-        if (background.showDefaultBackground()) {
-            styleManager.setBackground(new Background("transparent"));
-            mainWindowPlaceholder.setStyle("-fx-background-image: url('" + TEMPORARY_BACKGROUND_PATH + "'); "
-                + "-fx-background-position: center center; "
-                + "-fx-background-repeat: no-repeat;"
-                + "-fx-background-size: cover;");
-            styleManager.setFontColour("yellow");
-        } else {
-            styleManager.setBackground(guiSettings.getBackground());
-        }
+        styleManager.setBackground(guiSettings.getBackground());
     }
 
     /**

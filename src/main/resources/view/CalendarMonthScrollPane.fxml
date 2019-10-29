@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.shape.Box?>
+
 <ScrollPane fx:id="calendarMonthScrollPane" fitToWidth="true" fitToHeight="false"
             xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" minWidth="300">
     <content>

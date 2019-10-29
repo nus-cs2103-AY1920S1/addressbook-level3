@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.address.model.MotivationalQuotes.MOTIVATIONAL_QUOTES_LIST;
 
 import java.nio.file.Path;
 import java.time.LocalDate;
@@ -49,6 +50,7 @@ public class ModelManager implements Model {
     private final FilteredList<CalendarEntry> filteredCalenderEntryList;
     private final FilteredList<CalendarEntry> pastReminderList;
     private final AverageMap averageMap;
+    private final List<String> quotesList;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -75,6 +77,7 @@ public class ModelManager implements Model {
         this.filteredCalenderEntryList = new FilteredList<>(this.calendar.getCalendarEntryList());
         this.pastReminderList = new FilteredList<>(this.calendar.getPastReminderList());
         this.averageMap = new AverageMap();
+        this.quotesList = MOTIVATIONAL_QUOTES_LIST;
     }
 
     public ModelManager() {
@@ -435,5 +438,13 @@ public class ModelManager implements Model {
     public ObservableMap<LocalDate, Double> getAverageMap() {
         return averageMap.asUnmodifiableObservableMap();
     }
+
+    //=========== Motivational Quotes =============================================================
+
+    @Override
+    public List<String> getMotivationalQuotesList() {
+        return quotesList;
+    }
+
 
 }
