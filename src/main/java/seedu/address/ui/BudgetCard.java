@@ -17,7 +17,7 @@ public class BudgetCard extends UiPart<Region> {
 
     public final Budget budget;
 
-    @javafx.fxml.FXML
+    @FXML
     private HBox cardPane;
     @FXML
     private Label amount;
