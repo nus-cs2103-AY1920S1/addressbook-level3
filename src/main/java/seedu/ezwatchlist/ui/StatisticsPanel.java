@@ -3,6 +3,7 @@ package seedu.ezwatchlist.ui;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import javafx.fxml.FXML;
