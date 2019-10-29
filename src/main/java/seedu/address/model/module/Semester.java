@@ -27,14 +27,15 @@ public class Semester {
     }
 
     /**
-     * Find all Lessons with the given lesson number string.
-     * @param lessonNo Lesson number string.
+     * Find all Lessons with the given lesson type and lesson number.
+     * @param lessonType LessonType of Lesson.
+     * @param lessonNo LessonNo Lesson.
      * @return ArrayList of Lessons matching the lesson number, returns empty list if no matching lessons.
      */
-    public ArrayList<Lesson> findLessons(LessonNo lessonNo) {
+    public ArrayList<Lesson> findLessons(LessonType lessonType, LessonNo lessonNo) {
         ArrayList<Lesson> lessons = new ArrayList<>();
         for (Lesson lesson : timetable) {
-            if (lesson.getLessonNo().equals(lessonNo)) {
+            if (lesson.getLessonType().equals(lessonType) && lesson.getLessonNo().equals(lessonNo)) {
                 lessons.add(lesson);
             }
         }

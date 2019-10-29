@@ -14,6 +14,7 @@ import java.util.logging.Logger;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
+import seedu.address.websocket.Cache;
 
 /**
  * This class is used to get an image from a api response
@@ -57,7 +58,7 @@ public class ImageQuery {
                 if (key != null && key.equals("X-Staticmap-API-Warning")) {
                     isValid = false;
                     String name = imageUrl.split("center=")[1].split("&")[0];
-                    if (FileUtil.isFileExists(Path.of(FileUtil.imagePath(name)))) {
+                    if (FileUtil.isFileExists(Path.of(Cache.imagePath(name)))) {
                         logger.fine(name + " not available on gmaps but manually added");
                     } else {
                         logger.warning(name + " not on gmaps and not added");

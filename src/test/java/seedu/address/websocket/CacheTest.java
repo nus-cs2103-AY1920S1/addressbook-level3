@@ -50,7 +50,7 @@ class CacheTest {
     @Test
     void loadModuleList() {
         ModuleList moduleList = Cache.loadModuleList().get();
-        assertEquals(moduleList.toString(), "AY2019/2020 CS2103T Software Engineering\n");
+        assertTrue(moduleList.toString().contains("AY2019/2020 CS2103T Software Engineering\n"));
     }
 
     @Test
@@ -80,5 +80,11 @@ class CacheTest {
                         new Location("Bar")));
         JSONObject distanceMatrixResponse = Cache.loadDistanceMatrix(input, input);
         assertEquals(distanceMatrixResponse, new JSONObject());
+    }
+
+    @Test
+    public void imagePath() {
+        String expectedPath = Cache.imagePath("NUS_foo");
+        assertTrue(expectedPath.contains("NUS_foo.png"));
     }
 }

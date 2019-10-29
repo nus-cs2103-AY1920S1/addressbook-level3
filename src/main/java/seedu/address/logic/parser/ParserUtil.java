@@ -1,6 +1,7 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -9,11 +10,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.List;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
+import seedu.address.logic.commands.AddNusModCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.group.GroupDescription;
 import seedu.address.model.group.GroupName;
@@ -21,9 +24,11 @@ import seedu.address.model.group.GroupRemark;
 import seedu.address.model.mapping.Role;
 import seedu.address.model.module.AcadYear;
 import seedu.address.model.module.LessonNo;
+import seedu.address.model.module.LessonType;
 import seedu.address.model.module.ModuleCode;
 import seedu.address.model.module.NusModsShareLink;
 import seedu.address.model.module.SemesterNo;
+import seedu.address.model.module.exceptions.LessonTypeNotFoundException;
 import seedu.address.model.module.exceptions.SemesterNoNotFoundException;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
@@ -140,22 +145,34 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a String lesson numbers.
+     * Parses a String of lesson type-number pairings.
      *
-     * @param lessonNos String to be parsed
+     * @param lessonTypeNumString String to be parsed
      * @return Trimmed String
      * @throws ParseException null
      */
-    public static List<LessonNo> parseLessonNos(String lessonNos) throws ParseException {
-        requireNonNull(lessonNos);
-        List<LessonNo> lessonNosList = new ArrayList<>();
+    public static Map<LessonType, LessonNo> parseLessonTypeNumMap(String lessonTypeNumString) throws ParseException {
+        requireNonNull(lessonTypeNumString);
+        String trimmedLessonTypeNumString = lessonTypeNumString.trim();
+        Map<LessonType, LessonNo> lessonTypeNoMap = new LinkedHashMap<>();
 
-        String[] tokens = lessonNos.split(",");
-        for (String t : tokens) {
-            lessonNosList.add(new LessonNo(t.trim()));
+        String[] typeNumPairs = trimmedLessonTypeNumString.split(",");
+        for (String token : typeNumPairs) {
+            String[] pair = token.split(":");
+            if (pair.length != 2) { // not properly formatted into TYPE:NUMBER pair.
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddNusModCommand.MESSAGE_USAGE));
+            }
+            LessonType lessonType;
+            try {
+                lessonType = LessonType.findLessonType(pair[0].trim());
+            } catch (LessonTypeNotFoundException e) { // invalid lesson type provided.
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddNusModCommand.MESSAGE_USAGE));
+            }
+            LessonNo lessonNo = new LessonNo(pair[1].trim());
+            lessonTypeNoMap.put(lessonType, lessonNo);
         }
 
-        return lessonNosList;
+        return lessonTypeNoMap;
     }
 
     /**

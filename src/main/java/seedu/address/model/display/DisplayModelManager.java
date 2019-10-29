@@ -7,7 +7,9 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
 
+import seedu.address.model.GmapsModelManager;
 import seedu.address.model.TimeBook;
+import seedu.address.model.display.detailwindow.ClosestCommonLocationData;
 import seedu.address.model.display.detailwindow.DetailWindowDisplay;
 import seedu.address.model.display.detailwindow.DetailWindowDisplayType;
 import seedu.address.model.display.detailwindow.FreeSchedule;
@@ -39,18 +41,22 @@ import seedu.address.model.person.schedule.Venue;
  */
 public class DisplayModelManager {
 
+    private GmapsModelManager gmapsModelManager;
+
     private LocalTime startTime;
     private LocalTime endTime;
 
     private DetailWindowDisplay detailWindowDisplay;
     private SidePanelDisplay sidePanelDisplay;
 
-    public DisplayModelManager() {
+    public DisplayModelManager(GmapsModelManager gmapsModelManager) {
+        this.gmapsModelManager = gmapsModelManager;
         this.startTime = LocalTime.of(8, 0);
         this.endTime = LocalTime.of(19, 0);
     }
 
-    public DisplayModelManager(LocalTime startTime, LocalTime endTime) {
+    public DisplayModelManager(GmapsModelManager gmapsModelManager, LocalTime startTime, LocalTime endTime) {
+        this.gmapsModelManager = gmapsModelManager;
         this.startTime = startTime;
         this.endTime = endTime;
     }
@@ -67,9 +73,9 @@ public class DisplayModelManager {
     /**
      * Updates with a schedule of a person.
      *
-     * @param name of person's schedule to be updated
-     * @param time start time of the schedule
-     * @param type type of schedule
+     * @param name     of person's schedule to be updated
+     * @param time     start time of the schedule
+     * @param type     type of schedule
      * @param timeBook data
      */
     public void updateDetailWindowDisplay(Name name, LocalDateTime time,
@@ -94,8 +100,8 @@ public class DisplayModelManager {
     /**
      * Updates with a schedule of the user.
      *
-     * @param time start time of the schedule
-     * @param type type of schedule
+     * @param time     start time of the schedule
+     * @param type     type of schedule
      * @param timeBook data
      */
     public void updateDetailWindowDisplay(LocalDateTime time, DetailWindowDisplayType type, TimeBook timeBook) {
@@ -115,9 +121,9 @@ public class DisplayModelManager {
      * Update with a schedule of a group.
      *
      * @param groupName of the group
-     * @param time start time of the schedule
-     * @param type type of schedule
-     * @param timeBook data
+     * @param time      start time of the schedule
+     * @param type      type of schedule
+     * @param timeBook  data
      */
     public void updateDetailWindowDisplay(GroupName groupName,
                                           LocalDateTime time,
@@ -171,7 +177,7 @@ public class DisplayModelManager {
     /**
      * Updates the side panel display of type.
      *
-     * @param type of side panel display to be updated
+     * @param type     of side panel display to be updated
      * @param timeBook data
      */
     public void updateSidePanelDisplay(SidePanelDisplayType type, TimeBook timeBook) {
@@ -219,9 +225,9 @@ public class DisplayModelManager {
      * Generates the PersonSchedule of a Person.
      *
      * @param scheduleName name of the schedule
-     * @param now current time
-     * @param person of the schedule
-     * @param role role of the person
+     * @param now          current time
+     * @param person       of the schedule
+     * @param role         role of the person
      * @return PersonSchedule
      */
     private PersonSchedule generatePersonSchedule(String scheduleName, LocalDateTime now, Person person, Role role) {
@@ -282,12 +288,14 @@ public class DisplayModelManager {
 
         HashMap<DayOfWeek, ArrayList<FreeTimeslot>> freeSchedule = new HashMap<>();
 
+        int idCounter = 1;
+
         for (int i = 1; i <= 7; i++) {
 
             freeSchedule.put(DayOfWeek.of(i), new ArrayList<>());
 
             LocalTime currentTime = startTime;
-            ArrayList<Venue> lastVenues = new ArrayList<>();
+            ArrayList<String> lastVenues = new ArrayList<>();
 
             // initialize last venues to null for each person
             for (int j = 0; j < personSchedules.size(); j++) {
@@ -301,7 +309,7 @@ public class DisplayModelManager {
 
                 isClash = false;
 
-                ArrayList<Venue> currentLastVenues = new ArrayList<>(lastVenues);
+                ArrayList<String> currentLastVenues = new ArrayList<>(lastVenues);
 
                 // loop through each person
                 for (int j = 0; j < personSchedules.size(); j++) {
@@ -314,7 +322,7 @@ public class DisplayModelManager {
                         // record the latest venue for each clash
                         if (timeslots.get(k).isClash(currentTime)) {
                             isClash = true;
-                            currentLastVenues.set(j, timeslots.get(k).getVenue());
+                            currentLastVenues.set(j, timeslots.get(k).getVenue().toString());
                             break;
                         }
                     }
@@ -324,19 +332,58 @@ public class DisplayModelManager {
                     if (newFreeStartTime == null) {
                         newFreeStartTime = currentTime;
                     }
+                    lastVenues = new ArrayList<>(currentLastVenues);
+
                 } else {
                     if (newFreeStartTime != null) {
+
+                        ArrayList<String> temp = new ArrayList<>(lastVenues);
+                        for (int arr = 0; arr < temp.size(); arr++) {
+                            if (temp.get(arr) == null) {
+                                temp.remove(arr);
+                                arr--;
+                            }
+                        }
+
+                        ClosestCommonLocationData closestCommonLocationData =
+                                gmapsModelManager.closestLocationData(temp);
+
                         freeSchedule.get(DayOfWeek.of(i))
-                                .add(new FreeTimeslot(new ArrayList<>(lastVenues), newFreeStartTime, currentTime));
-                        lastVenues = new ArrayList<>(currentLastVenues);
+                                .add(new FreeTimeslot(
+                                        idCounter,
+                                        new ArrayList<>(lastVenues),
+                                        closestCommonLocationData,
+                                        newFreeStartTime,
+                                        currentTime));
+
+                        idCounter++;
                         newFreeStartTime = null;
                     }
+                    lastVenues = new ArrayList<>(currentLastVenues);
+
                 }
 
                 if (currentTime.equals(endTime)) {
                     if (!isClash) {
+
+                        ArrayList<String> temp = new ArrayList<>(lastVenues);
+                        for (int arr = 0; arr < temp.size(); arr++) {
+                            if (temp.get(arr) == null) {
+                                temp.remove(arr);
+                                arr--;
+                            }
+                        }
+                        ClosestCommonLocationData closestCommonLocationData =
+                                gmapsModelManager.closestLocationData(temp);
+
                         freeSchedule.get(DayOfWeek.of(i))
-                                .add(new FreeTimeslot(new ArrayList<>(lastVenues), newFreeStartTime, currentTime));
+                                .add(new FreeTimeslot(
+                                        idCounter,
+                                        new ArrayList<>(lastVenues),
+                                        closestCommonLocationData,
+                                        newFreeStartTime,
+                                        currentTime));
+                        idCounter++;
                     }
                     break;
                 }
