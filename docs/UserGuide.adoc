@@ -296,38 +296,80 @@ Have more than one account to monitor statistics on the same computer
 
 == FAQ
 
-*Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Dukemon folder.
+*Q*: How do I transfer my word bank to my friend? +
+*A*: Export your word bank to your computer, then transfer him the file. He can then import the file into his Dukemon.
 
-*Q*: How do I pronounce your name? +
+*Q*: How do I pronounce your app name? +
 *A*: Think Pokemon.
 
 == Command Summary
 
-* *Help* : `help`
-* *Load* : `load DATASET_NAME` +
-e.g. `load List of animals`
-* *List* : `list`
-* *View* : `view DATASET_NAME` +
-e.g. `view List of animals`
-* *Editor* : `editor` +
-    ** *New* : `new WORD_BANK` +
-    e.g. `new Car WORD_BANK`
-    ** *Edit* : `edit WORD_BANK` +
-    e.g. `edit List of animals`
-        *** *Add* : `add w/WORD m/MEANING` +
-        e.g. `add w/Elephant m/Has a long nose` +
-        e.g. `add w/Giraffe m/Has a long neck`
-        *** *Find* : `find WORD [WORDS]...` +
-        e.g. `find long`
-        *** *Delete* : `delete WORD_BANK` +
-        e.g. `delete WORD_BANK`
-* *Start* : `start [DIFFICULTY]` +
-e.g. `start easy`
-* *Stop* : `stop`
-* *Settings* : `settings`
-    ** *Theme* : `theme dark/light`
-    ** *Hints* : `hints on/off`
-    ** *Difficulty* : `difficulty low/medium/high`
-* *Back* : `back [home]`
-* *Exit* : `exit`
+|===
+| Type of command | Command name | Parameters
+
+1.6+h| Home Command
+s| help |
+
+s| bank m| WORD_BANK
+
+s| create m| WORD_BANK
+
+s| remove m| WORD_BANK
+
+s| import m| w/WORD_BANK f/FILE_PATH
+
+s| export m| w/WORD_BANK f/FILE_PATH
+
+3.1+|
+3.1+|
+
+1.7+h| Card Command
+s| list m|
+
+s| add m| w/WORD_BANK m/meaning [t/TAG]
+
+s| edit m| INT w/WORD_BANK m/meaning [t/TAG]
+
+s| delete m| INT
+
+s| find m|
+
+s| clear m|
+
+s| exit m|
+
+3.1+|
+3.1+|
+
+1.3+h| Game Command
+s| guess m| ANSWER
+
+s| skip m|
+
+s| stop m|
+
+3.1+|
+3.1+|
+
+1.4+h| Settings Command
+s| difficulty m| EASY/NORMAL/HARD
+
+s| theme m| DARK/LIGHT
+
+s| hints m| ON/OFF
+
+s| avartar m| INT
+
+3.1+|
+3.1+|
+
+1.4+h| Switch Command
+s| home m|
+
+s| open m|
+
+s| start m| [DIFFICULTY]
+
+s| setting m|
+
+|===
