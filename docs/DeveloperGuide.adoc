@@ -352,9 +352,9 @@ image::GetStatisticsActivityDiagram.png[]
 ** Cons: Decreases the ease of comparison between tasks and members
 // end::statistics[]
 
-=== Member Feature 
+=== Member Feature
 ==== Implementation
-The member feature introduces the ability for +Work to deal with project members, in the same way it deals with project tasks. Apart from the typical commands ('add-member', 'delete-member', 'find-member') involved in such a central class, the member features also introduces a 'set-image' command. 
+The member feature introduces the ability for +Work to deal with project members, in the same way it deals with project tasks. Apart from the typical commands ('add-member', 'delete-member', 'find-member') involved in such a central class, the member features also introduces a 'set-image' command.
 
 The 'Member' class also has an alternative constructor that takes in the image url as a parameter to save it as an attribute to the member object, when 'set-image' command is called. Additionally, to support the 'set-image' command, the 'Member' class implements the following operation:
 
