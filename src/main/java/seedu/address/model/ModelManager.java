@@ -31,6 +31,9 @@ public class ModelManager implements Model {
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
+    private final FilteredList<Task> filteredTasks;
+    private final FilteredList<Task> unassignedTasks;
+
     private final FilteredList<Customer> filteredCustomers;
     private final FilteredList<Driver> filteredDrivers;
 
@@ -50,14 +53,16 @@ public class ModelManager implements Model {
 
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
-
         this.taskManager = new TaskManager();
         this.customerManager = new CustomerManager();
-        filteredCustomers = new FilteredList<>(customerManager.getCustomerList());
         this.driverManager = new DriverManager();
-        filteredDrivers = new FilteredList<>(driverManager.getDriverList());
         this.idManager = new IdManager();
+
+        filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+        filteredTasks = new FilteredList<>(this.taskManager.getList());
+        unassignedTasks = new FilteredList<>(this.taskManager.getList());
+        filteredCustomers = new FilteredList<>(this.customerManager.getCustomerList());
+        filteredDrivers = new FilteredList<>(this.driverManager.getDriverList());
     }
 
     public ModelManager(CentralManager centralManager, ReadOnlyUserPrefs userPrefs) {
@@ -79,6 +84,8 @@ public class ModelManager implements Model {
 
         filteredCustomers = new FilteredList<>(customerManager.getCustomerList());
         filteredDrivers = new FilteredList<>(driverManager.getDriverList());
+        filteredTasks = new FilteredList<>(taskManager.getList());
+        unassignedTasks = new FilteredList<>(taskManager.getList());
     }
 
     public ModelManager() {
@@ -265,6 +272,10 @@ public class ModelManager implements Model {
     public void setDriver(Driver driverToEdit, Driver editedDriver) {
         driverManager.setDriver(driverToEdit, editedDriver);
     }
+    @Override
+    public void viewDriverTask(Person driverToView) {
+
+    }
 
     public Driver getDriver(int driverId) {
         return driverManager.getDriver(driverId);
@@ -312,31 +323,9 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public ObservableList<Customer> getFilteredCustomerList() {
-        return filteredCustomers;
-    }
-
-    @Override
-    public ObservableList<Driver> getFilteredDriverList() {
-        return filteredDrivers;
-    }
-
-    @Override
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
-    }
-
-    @Override
-    public void updateFilteredCustomerList(Predicate<Customer> predicate) {
-        requireNonNull(predicate);
-        filteredCustomers.setPredicate(predicate);
-    }
-
-    @Override
-    public void updateFilteredDriverList(Predicate<Driver> predicate) {
-        requireNonNull(predicate);
-        filteredDrivers.setPredicate(predicate);
     }
 
     @Override
@@ -358,4 +347,68 @@ public class ModelManager implements Model {
                 && filteredPersons.equals(other.filteredPersons);
     }
 
+    // =========== Filtered Task List Accessors =============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Task} backed by the
+     * internal list of {@code versionedAddressBook}
+     */
+    @Override
+    public ObservableList<Task> getFilteredTaskList() {
+        return filteredTasks;
+    }
+
+    @Override
+    public void updateFilteredTaskList(Predicate<Task> predicate, FilteredList<Task> list) {
+        requireNonNull(predicate);
+        list.setPredicate(predicate);
+    }
+
+    /**
+     * Returns an observable view of the list of that is filtered to unassigned tasks
+     */
+    @Override
+    public ObservableList<Task> getUnassignedTaskList() {
+        updateFilteredTaskList(PREDICATE_SHOW_UNASSIGNED, unassignedTasks);
+        return unassignedTasks;
+    }
+
+    /**
+     * Returns an observable view of the list of that is filtered to assigned tasks
+     */
+    @Override
+    public ObservableList<Task> getAssignedTaskList() {
+        updateFilteredTaskList(PREDICATE_SHOW_ASSIGNED, filteredTasks);
+        return filteredTasks;
+    }
+
+    // =========== Filtered Customer List Accessors =============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Person} backed by the
+     * internal list of {@code versionedAddressBook}
+     */
+    @Override
+    public ObservableList<Customer> getFilteredCustomerList() {
+        return filteredCustomers;
+    }
+
+    @Override
+    public void updateFilteredCustomerList(Predicate<Customer> predicate) {
+        requireNonNull(predicate);
+        filteredCustomers.setPredicate(predicate);
+    }
+
+    // =========== Filtered Customer List Accessors =============================================================
+
+    @Override
+    public ObservableList<Driver> getFilteredDriverList() {
+        return filteredDrivers;
+    }
+
+    @Override
+    public void updateFilteredDriverList(Predicate<Driver> predicate) {
+        requireNonNull(predicate);
+        filteredDrivers.setPredicate(predicate);
+    }
 }

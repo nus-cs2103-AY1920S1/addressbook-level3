@@ -42,6 +42,18 @@ public class CommandBox extends UiPart<Region> {
     }
 
     /**
+     * Handles the Send button clicked event.
+     */
+    @FXML
+    private void handleCommandClicked() {
+        try {
+            commandExecutor.execute(commandTextField.getText());
+        } catch (CommandException | ParseException e) {
+            setStyleToIndicateCommandFailure();
+        }
+    }
+
+    /**
      * Sets the command box style to use the default style.
      */
     private void setStyleToDefault() {

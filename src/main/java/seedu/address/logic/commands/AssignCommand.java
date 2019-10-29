@@ -32,7 +32,7 @@ public class AssignCommand extends Command {
             + "[" + PREFIX_DRIVER + "DRIVER_ID] "
             + "[" + PREFIX_TASK + "TASK_ID] "
             + "[" + PREFIX_EVENT_TIME + "hMM - hMM] " + "\n"
-            + "Example: " + COMMAND_WORD
+            + "Example: " + COMMAND_WORD + " "
             + PREFIX_DRIVER + "1 "
             + PREFIX_TASK + "3 "
             + PREFIX_EVENT_TIME + "930 - 1600";

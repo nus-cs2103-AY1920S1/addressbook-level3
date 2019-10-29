@@ -8,7 +8,10 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.legacy.ReadOnlyAddressBook;
+import seedu.address.model.person.Customer;
+import seedu.address.model.person.Driver;
 import seedu.address.model.person.Person;
+import seedu.address.model.task.Task;
 
 /**
  * API of the Logic component
@@ -33,6 +36,21 @@ public interface Logic {
     /** Returns an unmodifiable view of the filtered list of persons */
     ObservableList<Person> getFilteredPersonList();
 
+    /** Returns an unmodifiable view of the filtered list of tasks */
+    ObservableList<Task> getFilteredTaskList();
+
+    /** Returns an unmodifiable view of the filtered list of unassigned task list */
+    ObservableList<Task> getFilteredUnassignedTaskList();
+
+    /** Returns an unmodifiable view of the filtered list of assigned task list */
+    ObservableList<Task> getFilteredAssignedTaskList();
+
+    /** Returns an unmodifiable view of the filtered list of drivers*/
+    ObservableList<Driver> getFilteredDriverList();
+
+    /** Returns an unmodifiable view of the filtered list of customers */
+    ObservableList<Customer> getFilteredCustomerList();
+
     /**
      * Returns the user prefs' address book file path.
      */
@@ -47,4 +65,5 @@ public interface Logic {
      * Set the user prefs' GUI settings.
      */
     void setGuiSettings(GuiSettings guiSettings);
+
 }

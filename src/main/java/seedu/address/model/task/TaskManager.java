@@ -19,10 +19,6 @@ public class TaskManager {
         tasks = savedTasks;
     }
 
-    public void setTaskList(TaskList savedTasks) {
-        tasks.setTaskList(savedTasks.getList());
-    }
-
     public ObservableList<Task> getList() {
         return tasks.getList();
     }
@@ -66,4 +62,5 @@ public class TaskManager {
         TaskManager otherObject = (TaskManager) o;
         return getList().equals(otherObject.getList());
     }
+
 }

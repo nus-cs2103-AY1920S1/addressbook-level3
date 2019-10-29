@@ -132,17 +132,6 @@ public class TaskList {
 
     @Override
     public String toString() {
-        StringBuilder strToPrint = new StringBuilder();
-        for (int i = 0; i < getSize(); i++) {
-            Task task = getTask(i);
-            if (i == getSize() - 1) {
-                //if this is the last task
-                strToPrint.append(task);
-            }
-
-            strToPrint.append(task).append("\n");
-        }
-
-        return strToPrint.toString();
+        return getList().size() + " tasks";
     }
 }
