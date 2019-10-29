@@ -304,7 +304,7 @@ The edit income feature is facilitated by the `EditIncomeCommandParser` and the 
 
 The edit command is part of the logic component of our application. It interacts with the model component of our software architecture.
 
-
+=== Shortcut feature
 // end::dataencryption[]
 
 === Budget feature
