@@ -46,6 +46,9 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 [[Features]]
 == Features
 
+[NOTE]
+See <<Glossary>> for more information on terms such as `Tracked` Module and `Archived` Module.
+
 ====
 *Command Format*
 
@@ -59,9 +62,31 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 Format: `help`
 
-=== Finding a module: `find`
+=== Exiting the program: `exit`
 
-Find modules with the the given prefix and keyword. +
+Exits the program. +
+Format: `exit`
+
+=== Listing all tracked modules : `list`
+Shows a list of all current tracked modules. +
+Format: `list`
+
+=== Viewing a module: `view`
+
+Views a module and enters the module view. Can be a tracked module or an archived module.
+
+Format: `view <MODULE_CODE>`
+
+Example: `view cs1231`
+
+=== Return from module view: `back`
+Returns from the module view.
+
+Format: `back`
+
+=== Finding an archived module: `find`
+
+Find archived modules with the the given prefix and keyword. +
 Format: `find PREFIX\ KEYWORD ...`
 
 ****
@@ -97,23 +122,23 @@ Format: `add MODULE_CODE`
 [TIP]
 Modules are imported from NUSMods database.
 
-
 Examples:
 
 * `add cs2103t`
 
-=== Viewing a module: `view`
+=== Deleting a module: `delete`
 
-Views a module and enters the module view. Can be a tracked module or an archived module.
+Untracks a module. +
+Format: `delete MODULE_CODE`
+****
+* The delete is case insensitive. e.g `cs2103t` will match `CS2103T`.
+* Only module code is searched for module to be added.
+* Only full words will be matched e.g. `cs2103` will not match `cs2103t`.
+****
 
-Format: `view <MODULE_CODE>`
+Examples:
 
-Example: `view cs1231`
-
-=== Return from module view: `back`
-Returns from the module view.
-
-Format: `back`
+* `delete cs2103t`
 
 === Manage deadline tasks: `deadline`
 
@@ -128,7 +153,7 @@ Example: `deadline cs2103t a/add d/finish Ug and Dg t/22/10/2019 2359`
 
 ==== `edit`
 
-===== 3.4.2.1. Edit Description
+===== Edit Description
 
 Format: `deadline MODULE_CODE a/edit l/TASK_NUMBER_IN_LIST d/NEW_DESCRIPTION`
 
@@ -136,7 +161,7 @@ Edits description from the deadline task numbered in deadline list for the respe
 
 Example: `deadline cs2103t a/edit l/2 d/finish increments`
 
-===== 3.4.2.2. Edit Time
+===== Edit Time
 
 Format: `deadline MODULE_CODE a/edit l/TASK_NUMBER_IN_LIST t/NEW_TIME`
 
@@ -164,7 +189,7 @@ Example: `deadline cs2103t a/inProgress l/2`
 
 ==== `priority`
 
-===== 3.4.5.1. High Priority
+===== High Priority
 
 Format: `deadline MODULE_CODE a/highPriority l/TASK_NUMBER_IN_LIST`
 
@@ -173,7 +198,7 @@ as *High-Priority* for the respective module.
 
 Example: `deadline cs2103t a/highPriority l/2`
 
-===== 3.4.5.2. Medium Priority
+===== Medium Priority
 
 Format: `deadline MODULE_CODE a/mediumPriority l/TASK_NUMBER_IN_LIST`
 
@@ -182,7 +207,7 @@ as *Medium-Priority* for the respective module.
 
 Example: `deadline cs2103t a/mediumPriority l/2`
 
-===== 3.4.5.3. Low Priority
+===== Low Priority
 
 Format: `deadline MODULE_CODE a/lowPriority l/TASK_NUMBER_IN_LIST`
 
@@ -193,7 +218,7 @@ Example: `deadline cs2103t a/lowPriority l/2`
 
 ==== `sort`
 
-===== 3.4.6.3. Sort by Time
+===== Sort by Time
 
 Format: `deadline MODULE_CODE a/sort by/time`
 
@@ -201,7 +226,7 @@ Sorts deadline tasks according to time, latest deadline at the top and later one
 
 Example: `deadline cs2103t a/sort by/time`
 
-===== 3.4.6.3. Sort by Priority
+===== Sort by Priority
 
 Format: `deadline MODULE_CODE a/sort by/priority`
 
@@ -212,7 +237,7 @@ Example: `deadline cs2103t a/sort by/priority`
 
 ==== `delete`
 
-===== 3.4.7.1 Delete entire list
+===== Delete entire list
 
 Format: `deadline MODULE_CODE a/deleteList`
 
@@ -220,7 +245,7 @@ Deletes deadline list for the respective module.
 
 Example: `deadline cs2103t a/deleteList`
 
-===== 3.4.7.1 Delete specific deadline task from list
+===== Delete specific deadline task from list
 
 Format: `deadline MODULE_CODE a/delete l/TASK_NUMBER_IN_LIST`
 
@@ -262,30 +287,38 @@ Deletes the link with the given link title in the respective module.
 
 Example: `link cs1231 a/delete t/module website`
 
-=== Listing all modules : `list`
-Shows a list of all current tracked modules. +
-Format: `list`
-
-=== Exiting the program: `exit`
-
-Exits the program. +
-Format: `exit`
-
 === Saving the data
 
 ModuleBook data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
-=== Multiple User Profiles `[coming in v2.0]`
+=== Grade Manager `[Coming Soon]`
 
-Multiple users can use the same application on the same computer.
+Tracks grades inputted by the user.
 
-////
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
+=== File Manager `[Coming in v2.0]`
 
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
+Users can add files related to the module, and open them.
+
+=== CAP Calculator `[Coming in v2.0]`
+
+Calculates the cumulative GPA of all tracked modules.
+
+== Command Summary
+
+=== List View
+* *Help* : `help`
+* *Exit* : `exit`
+* *List* : `list`
+* *View* `view MODULE_CODE` +
+e.g. `view cs2100`
+* *Back* `back`
+* *Find* : `find PREFIx\ KEYWORD(s) ...` +
+e.g. `find module\ cs2 cs3 desc\ software engineering prereq\ cs2030 sem\ 1 2`
+* *Add* `add MODULE_CODE` +
+e.g. `add cs2101`
+* *Delete* : `delete MODULE_CODE` +
+e.g. `delete cs2101`
 
 == Glossary
 
@@ -300,67 +333,3 @@ _{explain how the user can enable/disable data encryption}_
 **Archived** - A module that the institution provides. Can be viewed and tracked.
 
 **Tracked** - A module that is tracked. References an archived module. Can be viewed.
-
-
-
-////
-
-
-== Module-View
-
-Program enters module-view when `view` is called. In this mode, a different set of features are implemented.
-
-=== Delete
-
-Remove current viewed module. Returns to normal view.
-
-=== Grade Manager
-
-Tracks grades inputted by the user.
-
-=== Deadline Manager
-
-User can add and manage deadlines
-
-=== File Manager `[coming in v2.0]`
-
-Users can add files related to the module, and open them.
-
-=== CAP Calculator
-
-Calculates the cumulative GPA of all tracked modules.
-*To be implemented*
-
-=== Back
-
-Exits module-view and return to module list
-
-== FAQ
-
-*Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
-
-== Command Summary
-
-=== List View
-* *Add* `add MODULE_CODE` +
-e.g. `add cs2101`
-* *Delete* : `delete MODULE_CODE` +
-e.g. `delete cs2101`
-* *Exit* : `exit`
-* *Find* : `find PREFIx\ KEYWORD(s) ...` +
-e.g. `find module\ cs2 cs3 desc\ software engineering prereq\ cs2030 sem\ 1 2`
-* *Help* : `help`
-* *List* : `list`
-* *View* `view MODULE_CODE` +
-e.g. `view cs2100`
-
-=== Module-View
-
-* *Back*
-* *CAP Calculator*
-* *Deadline Manager*
-* *Delete*
-* *File Manager*
-* *Grade Manager*
-
