@@ -1,5 +1,7 @@
 package seedu.address.ui;
 
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
 import java.util.HashSet;
 import java.util.logging.Logger;
 
@@ -177,14 +179,26 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
      * Sets the default size based on {@code guiSettings}.
      */
     private void setWindowDefaultSize(GuiSettings guiSettings) {
+        //Screen Size
+        GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+        int screenWidth = gd.getDisplayMode().getWidth();
+        int screenHeight = gd.getDisplayMode().getHeight();
+
+        if (screenHeight < guiSettings.getWindowHeight() || screenWidth < guiSettings.getWindowWidth()) {
+            return;
+        }
+
         primaryStage.setHeight(guiSettings.getWindowHeight());
         primaryStage.setWidth(guiSettings.getWindowWidth());
 
-        if (guiSettings.getWindowCoordinates() == null) {
-            primaryStage.setX(guiSettings.getWindowCoordinates().getX());
-            primaryStage.setY(guiSettings.getWindowCoordinates().getY());
+        if (guiSettings.getWindowCoordinates() != null
+            || screenWidth < guiSettings.getWindowWidth() + guiSettings.getWindowCoordinates().getX()
+            || screenHeight < guiSettings.getWindowHeight() + guiSettings.getWindowCoordinates().getY()) {
             return;
         }
+
+        primaryStage.setX(guiSettings.getWindowCoordinates().getX());
+        primaryStage.setY(guiSettings.getWindowCoordinates().getY());
     }
 
     /**
