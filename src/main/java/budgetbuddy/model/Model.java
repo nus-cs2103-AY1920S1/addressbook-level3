@@ -3,7 +3,6 @@ package budgetbuddy.model;
 import java.util.function.Predicate;
 
 import budgetbuddy.commons.core.GuiSettings;
-import budgetbuddy.model.person.Person;
 import budgetbuddy.model.transaction.Transaction;
 import javafx.collections.ObservableList;
 
@@ -11,9 +10,6 @@ import javafx.collections.ObservableList;
  * The API of the Model component.
  */
 public interface Model {
-    /** {@code Predicate} that always evaluate to true */
-    Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
-
     /**
      * Returns the loans manager.
      */
