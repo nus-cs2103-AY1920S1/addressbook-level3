@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.Set;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -12,19 +13,8 @@ import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.person.AutoExpense;
-import seedu.address.model.person.Budget;
-import seedu.address.model.person.Category;
-import seedu.address.model.person.CategoryList;
-import seedu.address.model.person.Entry;
-import seedu.address.model.person.Expense;
-import seedu.address.model.person.ExpenseReminder;
-import seedu.address.model.person.ExpenseTrackerManager;
-import seedu.address.model.person.Income;
-import seedu.address.model.person.SortSequence;
-import seedu.address.model.person.SortType;
-import seedu.address.model.person.Wish;
-import seedu.address.model.person.WishReminder;
+import seedu.address.model.person.*;
+import seedu.address.model.tag.Tag;
 import seedu.address.model.util.EntryComparator;
 
 /**
@@ -61,7 +51,6 @@ public class ModelManager implements Model {
         versionedAddressBook = new VersionedAddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         incomeCategoryList = versionedAddressBook.getIncomeCategoryList();
-        System.out.println(incomeCategoryList.size());
         expenseCategoryList = versionedAddressBook.getExpenseCategoryList();
         filteredExpenses = new FilteredList<>(versionedAddressBook.getExpenseList());
         filteredIncomes = new FilteredList<>(versionedAddressBook.getIncomeList());
@@ -212,6 +201,7 @@ public class ModelManager implements Model {
             versionedAddressBook.addExpense((Expense) entry);
             expenseTrackers.track(filteredExpenses);
             versionedAddressBook.updateExpenseReminders();
+            versionedAddressBook.updateBudgets();
         } else if (entry instanceof Income) {
             versionedAddressBook.addIncome((Income) entry);
         } else if (entry instanceof Wish) {
@@ -232,9 +222,20 @@ public class ModelManager implements Model {
     public void addExpense(Expense expense) {
         versionedAddressBook.addExpense(expense);
         sortFilteredEntry(sortByTime, sortByAsc);
-        updateFilteredEntryList(PREDICATE_SHOW_ALL_ENTRIES);
         expenseTrackers.track(filteredExpenses);
         versionedAddressBook.updateExpenseReminders();
+        for (Budget budget : filteredBudgets) {
+            budget.setSpent(filteredExpenses);
+        }
+
+        versionedAddressBook.updateBudgets();
+        Category c = expense.getCategory();
+        Description d = expense.getDesc();
+        Amount a = expense.getAmount();
+        Date da = expense.getDate();
+        Set<Tag> t = expense.getTags();
+        versionedAddressBook.addBudget(new Budget(c, d, da, new Period(10, 'd'), a, t));
+        updateFilteredEntryList(PREDICATE_SHOW_ALL_ENTRIES);
     }
 
     @Override
@@ -259,8 +260,9 @@ public class ModelManager implements Model {
 
     @Override
     public void addBudget(Budget budget) {
-        budget.setSpent(filteredExpenses, filteredIncomes);
+        budget.setSpent(filteredExpenses);
         versionedAddressBook.addBudget(budget);
+        versionedAddressBook.updateBudgets();
         updateFilteredEntryList(PREDICATE_SHOW_ALL_ENTRIES);
     }
 
@@ -291,6 +293,7 @@ public class ModelManager implements Model {
             versionedAddressBook.setWish((Wish) target, (Wish) editedEntry);
         } else if (target instanceof Budget) {
             versionedAddressBook.setBudget((Budget) target, (Budget) editedEntry);
+            versionedAddressBook.updateBudgets();
         }
     }
 
@@ -406,6 +409,9 @@ public class ModelManager implements Model {
     public void updateFilteredBudgets(Predicate<Budget> predicate) {
         requireNonNull(predicate);
         filteredBudgets.setPredicate(predicate);
+        for (Budget budget : filteredBudgets) {
+            budget.updateSpent();
+        }
     }
 
     /**

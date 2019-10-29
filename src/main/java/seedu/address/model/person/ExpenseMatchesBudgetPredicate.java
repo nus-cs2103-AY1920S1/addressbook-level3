@@ -19,7 +19,6 @@ public class ExpenseMatchesBudgetPredicate implements Predicate<Expense> {
 
     @Override
     public boolean test(Expense expense) {
-        System.out.println(startDate.isBefore(expense.getDate()) || startDate.isEqual(expense.getDate()));
         return cat.equals(expense.getCategory())
                 && (startDate.isBefore(expense.getDate()) || startDate.isEqual(expense.getDate()))
                 && expense.getDate().isBefore(endDate);

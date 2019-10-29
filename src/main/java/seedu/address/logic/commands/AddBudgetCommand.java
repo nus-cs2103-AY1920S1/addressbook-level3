@@ -1,12 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_AMOUNT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_CATEGORY;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DESC;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TYPE;
+import static seedu.address.logic.parser.CliSyntax.*;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -33,10 +28,10 @@ public class AddBudgetCommand extends Command {
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_CATEGORY + "Food "
-            + PREFIX_TYPE + "Expense "
-            + PREFIX_DESC + "Mala "
-            + PREFIX_AMOUNT + "5.50 "
+            + PREFIX_DESC + "Nov Budget "
+            + PREFIX_AMOUNT + "50.00 "
             + PREFIX_DATE + "2019 09 09 "
+            + PREFIX_PERIOD + "1m "
             + PREFIX_TAG + "food "
             + PREFIX_TAG + "indulgence.\n"
             + MESSAGE_CATEGORY;

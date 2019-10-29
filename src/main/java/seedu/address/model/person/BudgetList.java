@@ -62,6 +62,7 @@ public class BudgetList implements Iterable<Budget> {
         }
 
         internalList.set(index, editedBudget);
+        updateBudgets();
     }
 
     /**
@@ -88,6 +89,15 @@ public class BudgetList implements Iterable<Budget> {
         requireAllNonNull(entries);
 
         internalList.setAll(entries);
+    }
+
+    /**
+     * Updates the current list of budgets.
+     */
+    public void updateBudgets() {
+        for (Budget budget : internalList) {
+            budget.updateSpent();
+        }
     }
 
     /**

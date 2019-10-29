@@ -16,6 +16,8 @@ public class Budget extends Entry {
     private final Period period;
     private final Date startDate;
     private final Date endDate;
+    private FilteredList<Expense> filteredExpenses;
+    private ExpenseMatchesBudgetPredicate expenseMatchesBudgetPredicate;
 
 
     /*
@@ -61,17 +63,21 @@ public class Budget extends Entry {
         return period;
     }
 
-    public void setSpent(FilteredList<Expense> filteredExpenses, FilteredList<Income> filteredIncomes) {
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    public void setSpent(FilteredList<Expense> filteredExpenses) {
+        this.filteredExpenses = filteredExpenses;
+        expenseMatchesBudgetPredicate = new ExpenseMatchesBudgetPredicate(getCategory(), startDate, endDate);
+        this.filteredExpenses.setPredicate(expenseMatchesBudgetPredicate);
+        updateSpent();
+    }
+
+    public void updateSpent() {
         double spentAmount = 0;
-        ExpenseMatchesBudgetPredicate expenseMatchesBudgetPredicate = new ExpenseMatchesBudgetPredicate(getCategory(), startDate, endDate);
-        IncomeMatchesBudgetPredicate incomeMatchesBudgetPredicate = new IncomeMatchesBudgetPredicate(getCategory(), startDate, endDate);
-        filteredExpenses.setPredicate(expenseMatchesBudgetPredicate);
-        filteredIncomes.setPredicate(incomeMatchesBudgetPredicate);
         for (Expense expense : filteredExpenses) {
             spentAmount += expense.getAmount().value;
-        }
-        for (Income income : filteredIncomes) {
-            spentAmount -= income.getAmount().value;
         }
 
         spent = new Amount(spentAmount);

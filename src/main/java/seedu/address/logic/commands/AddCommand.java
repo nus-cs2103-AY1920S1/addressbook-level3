@@ -11,7 +11,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TYPE;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.person.Budget;
 import seedu.address.model.person.Entry;
 import seedu.address.model.person.Expense;
 import seedu.address.model.person.Income;
@@ -69,9 +68,6 @@ public class AddCommand extends Command {
             break;
         case "wish":
             model.addWish((Wish) toAdd);
-            break;
-        case "budget":
-            model.addBudget((Budget) toAdd);
             break;
         default:
             throw new CommandException("command not found");

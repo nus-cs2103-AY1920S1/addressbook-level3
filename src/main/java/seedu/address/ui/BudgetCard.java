@@ -35,7 +35,7 @@ public class BudgetCard extends UiPart<Region> {
     @FXML
     private Label date;
     @FXML
-    private Label spent;
+    private Label left;
     @FXML
     private FlowPane tags;
 
@@ -47,8 +47,9 @@ public class BudgetCard extends UiPart<Region> {
         String type = budget.getType().toLowerCase();
         String descWithType = budget.getDesc().fullDesc;
         desc.setText(descWithType);
-        date.setText(budget.getDate().toString());
-        spent.setText("left: $" + (budget.getAmount().value - budget.getSpent().value));
+        date.setText(budget.getDate().toString() + " - " + budget.getEndDate().toString());
+        double leftAmount = budget.getAmount().value - budget.getSpent().value;
+        left.setText("left: $" + leftAmount + " out of: $" + budget.getAmount().value);
 
         budget.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
