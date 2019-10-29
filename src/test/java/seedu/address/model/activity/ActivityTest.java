@@ -293,7 +293,7 @@ public class ActivityTest {
         a.addExpense(two);
         assertThrows(PersonNotInActivityException.class, () -> a.deleteExpense(three));
     }
-  
+
     @Test
     public void activity_disinvitePersons_success() {
         Activity a = new ActivityBuilder()
@@ -327,11 +327,11 @@ public class ActivityTest {
         int aid = TypicalPersons.ALICE.getPrimaryKey();
         int bid = TypicalPersons.BOB.getPrimaryKey();
         int eid = TypicalPersons.ELLE.getPrimaryKey();
-      
+
         Amount its = new Amount(3);
         Amount bout = new Amount(6);
         Amount tree = new Amount(9);
-      
+
         Expense one = new Expense(aid, its, "testing", bid, eid);
         Expense two = new Expense(bid, bout, "testing", aid, eid);
         Expense three = new Expense(eid, tree, "testing", aid, bid);
@@ -362,7 +362,7 @@ public class ActivityTest {
         a.disinvite(TypicalPersons.GEORGE);
         assertNotEquals(a, b);
     }
-  
+
     @Test
     public void getParticipantIds() {
         Activity lunch = TypicalActivities.LUNCH;
