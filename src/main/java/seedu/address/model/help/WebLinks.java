@@ -29,7 +29,7 @@ public class WebLinks {
             return base + "#changing-views-code-goto-code";
 
         case "add_contact":
-            return base + "adding-a-person-code-add_contact-code";
+            return base + "#adding-a-person-code-add_contact-code";
 
         case "edit_contact":
             return base + "#editing-a-contact-code-edit_contact-code";
@@ -61,8 +61,8 @@ public class WebLinks {
         //case "find":
             //return base + "#filter";
 
-       // case "sort":
-           // return base + "#sorting-claims-list-based-on-dates";
+        //case "sort":
+            //return base + "#sorting-claims-list-based-on-dates";
 
         case "check":
             return base + "#checking-a-person-or-claim-code-check-code";
