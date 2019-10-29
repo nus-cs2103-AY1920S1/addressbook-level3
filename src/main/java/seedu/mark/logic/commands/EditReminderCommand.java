@@ -17,7 +17,6 @@ import seedu.mark.logic.commands.exceptions.CommandException;
 import seedu.mark.logic.commands.results.CommandResult;
 
 import seedu.mark.model.Model;
-import seedu.mark.model.bookmark.Bookmark;
 import seedu.mark.model.bookmark.Url;
 import seedu.mark.model.reminder.Note;
 import seedu.mark.model.reminder.Reminder;

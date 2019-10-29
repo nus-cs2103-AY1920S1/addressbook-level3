@@ -1,14 +1,11 @@
 package seedu.mark.testutil;
 
 import static seedu.mark.logic.commands.CommandTestUtil.VALID_URL_AMY;
-import static seedu.mark.testutil.TypicalBookmarks.ALICE;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-import seedu.mark.model.bookmark.Bookmark;
 import seedu.mark.model.bookmark.Url;
-import seedu.mark.model.bookmark.util.BookmarkBuilder;
 import seedu.mark.model.reminder.Note;
 import seedu.mark.model.reminder.Reminder;
 

@@ -11,7 +11,6 @@ import static seedu.mark.testutil.TypicalReminders.READ;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.mark.model.bookmark.exceptions.BookmarkContainNoReminderException;
 import seedu.mark.model.bookmark.exceptions.ExistReminderException;
 import seedu.mark.model.bookmark.exceptions.ReminderNotFoundException;
 import seedu.mark.testutil.ReminderBuilder;

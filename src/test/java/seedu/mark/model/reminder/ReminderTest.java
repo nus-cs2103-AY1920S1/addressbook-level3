@@ -3,9 +3,12 @@ package seedu.mark.model.reminder;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import static seedu.mark.logic.commands.CommandTestUtil.*;
-import static seedu.mark.testutil.TypicalBookmarks.ALICE;
-import static seedu.mark.testutil.TypicalBookmarks.BENSON;
+import static seedu.mark.logic.commands.CommandTestUtil.VALID_NOTE_OPEN;
+import static seedu.mark.logic.commands.CommandTestUtil.VALID_NOTE_READ;
+import static seedu.mark.logic.commands.CommandTestUtil.VALID_TIME_OPEN;
+import static seedu.mark.logic.commands.CommandTestUtil.VALID_TIME_READ;
+import static seedu.mark.logic.commands.CommandTestUtil.VALID_URL_AMY;
+import static seedu.mark.logic.commands.CommandTestUtil.VALID_URL_BOB;
 import static seedu.mark.testutil.TypicalReminders.OPEN;
 import static seedu.mark.testutil.TypicalReminders.READ;
 
