@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import dukecooks.commons.exceptions.IllegalValueException;
+import dukecooks.model.Image;
 import dukecooks.model.diary.components.Page;
 import dukecooks.model.diary.components.PageDescription;
 import dukecooks.model.diary.components.Title;
@@ -15,15 +16,18 @@ class JsonAdaptedPage {
 
     private final String pageTitle;
     private final String pageDescription;
+    private final String imageFilePath;
 
     /**
      * Constructs a {@code JsonAdaptedPage} with the given {@code pageTitle} and {@code pageDescription}.
      */
     @JsonCreator
     public JsonAdaptedPage(@JsonProperty("pageTitle") String pageTitle,
-                           @JsonProperty("pageDescription") String pageDescription) {
+                           @JsonProperty("pageDescription") String pageDescription,
+                           @JsonProperty("imageFilePath") String imageFilePath) {
         this.pageTitle = pageTitle;
         this.pageDescription = pageDescription;
+        this.imageFilePath = imageFilePath;
     }
 
     /**
@@ -32,6 +36,7 @@ class JsonAdaptedPage {
     public JsonAdaptedPage(Page source) {
         pageTitle = source.getTitle().toString();
         pageDescription = source.getDescription().toString();
+        imageFilePath = source.getImageFilePath().toString();
     }
 
     /**
@@ -47,7 +52,12 @@ class JsonAdaptedPage {
         if (!PageDescription.isValidPageDescription(pageDescription)) {
             throw new IllegalValueException(PageDescription.MESSAGE_CONSTRAINTS);
         }
-        return new Page(new Title(pageTitle), new PageDescription(pageDescription));
+
+        if (!Image.isValidImage(imageFilePath)) {
+            throw new IllegalValueException(Image.MESSAGE_CONSTRAINTS);
+        }
+
+        return new Page(new Title(pageTitle), new PageDescription(pageDescription), new Image(imageFilePath));
     }
 
 }

@@ -9,6 +9,7 @@ import java.util.Set;
 import dukecooks.commons.core.index.Index;
 import dukecooks.commons.util.StringUtil;
 import dukecooks.logic.parser.exceptions.ParseException;
+import dukecooks.model.Image;
 import dukecooks.model.common.Name;
 import dukecooks.model.dashboard.components.DashboardName;
 import dukecooks.model.dashboard.components.TaskDate;
@@ -65,6 +66,23 @@ public class ParserUtil {
             throw new ParseException(Name.MESSAGE_CONSTRAINTS);
         }
         return new Name(trimmedName);
+    }
+
+    /**
+     * Parses a {@code String filePath} into a {@code Image}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code filePath} is invalid.
+     */
+    public static Image parseImage(String filePath) throws ParseException {
+        requireNonNull(filePath);
+        String trimmedFilePath = filePath.trim();
+
+        if (!Image.isValidImage(trimmedFilePath)) {
+            throw new ParseException(Image.MESSAGE_CONSTRAINTS);
+        }
+
+        return new Image(trimmedFilePath);
     }
 
 

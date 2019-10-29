@@ -3,6 +3,7 @@ package dukecooks.model.diary.components;
 import java.util.Objects;
 
 import dukecooks.commons.util.CollectionUtil;
+import dukecooks.model.Image;
 
 /**
  * Represents a Page in Duke Cooks.
@@ -14,13 +15,17 @@ public class Page {
     private final Title title;
     private final PageDescription description;
 
+    // Optional fields
+    private final Image image;
+
     /**
      * Every field must be present and not null.
      */
-    public Page(Title title, PageDescription description) {
-        CollectionUtil.requireAllNonNull(title, description);
+    public Page(Title title, PageDescription description, Image image) {
+        CollectionUtil.requireAllNonNull(title, description, image);
         this.title = title;
         this.description = description;
+        this.image = image;
     }
 
     public Title getTitle() {
@@ -29,6 +34,10 @@ public class Page {
 
     public PageDescription getDescription() {
         return description;
+    }
+
+    public Image getImageFilePath() {
+        return image;
     }
 
     /**
