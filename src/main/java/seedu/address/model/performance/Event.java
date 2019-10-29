@@ -83,7 +83,7 @@ public class Event {
             String timing = "";
             for (Record record : recordList) {
                 if (record.getDate().equals(date)) {
-                    timing = record.getTiming();
+                    timing = record.getTiming().toString();
                     CalendarCompatibleRecord ccr = new CalendarCompatibleRecord(person, timing);
                     ccrList.add(ccr);
                 }
