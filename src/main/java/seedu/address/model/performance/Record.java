@@ -10,14 +10,14 @@ import seedu.address.model.date.AthletickDate;
  */
 public class Record {
     private AthletickDate date;
-    private String timing;
+    private Timing timing;
 
     /**
      * Creates a Record for a member under an event.
      * @param date this entry was taken.
      * @param timing of this entry.
      */
-    public Record(AthletickDate date, String timing) {
+    public Record(AthletickDate date, Timing timing) {
         requireNonNull(date);
         requireNonNull(timing);
         this.date = date;
@@ -28,7 +28,7 @@ public class Record {
      * Retrieves the timing of this PerformanceEntry.
      * @return Timing of this PerformanceEntry.
      */
-    public String getTiming() {
+    public Timing getTiming() {
         return timing;
     }
 
