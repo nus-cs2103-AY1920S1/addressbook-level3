@@ -38,7 +38,7 @@ public class ProgramEvaluationCard extends UiPart<Region> {
         this.testCaseResult = testCaseResult;
         updateTestCaseId(displayedIndex);
         updateTestCaseStatus(testCaseResult);
-        updateFailReason(testCaseResult);
+        updateFailReason();
         updateInput(testCaseResult);
         updateExpectedOutput(testCaseResult);
         updateActualOutput(testCaseResult);
@@ -62,7 +62,7 @@ public class ProgramEvaluationCard extends UiPart<Region> {
         }
     }
 
-    private void updateFailReason(TestCaseResult testCaseResult) {
+    private void updateFailReason() {
         failReason.setText("Incorrect Output");
     }
 

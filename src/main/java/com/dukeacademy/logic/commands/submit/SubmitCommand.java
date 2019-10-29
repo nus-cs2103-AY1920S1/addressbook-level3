@@ -50,7 +50,6 @@ public class SubmitCommand implements Command {
         // Save the user's program first
         logger.info("Saving user program first : " + userProgram);
         Question question = currentlyAttemptingQuestion.get();
-        Status questionStatus = question.getStatus();
         Question questionWithNewProgram = question.withNewStatus(Status.ATTEMPTED).withNewUserProgram(userProgram);
         this.questionsLogic.replaceQuestion(question, questionWithNewProgram);
 

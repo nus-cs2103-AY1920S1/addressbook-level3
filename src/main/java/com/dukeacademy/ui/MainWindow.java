@@ -252,6 +252,14 @@ class MainWindow extends UiPart<Stage> {
         helpWindow.hide();
         primaryStage.hide();
     }
+    /**
+     * Gets program evaluation panel.
+     *
+     * @return the program evaluation panel
+     */
+    public ProgramEvaluationPanel getProgramEvaluationPanel() {
+        return programEvaluationPanel;
+    }
 
     /**
      * Gets person list panel.
