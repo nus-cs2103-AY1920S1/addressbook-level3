@@ -41,15 +41,12 @@ public class ProcessLocationGraph {
      * @throws ConnectException
      */
     public void process() throws ConnectException, TimeBookInvalidState {
-        ProcessLocationGraph processLocationGraph = this;
         System.out.println("Start populating");
         ArrayList<String> gmapsRecognisedLocationList = locationGraph.getValidLocationList();
         for (int i = 0; i <= gmapsRecognisedLocationList.size() / 10; i++) {
             ArrayList<String> locationRowString = new ArrayList<String>(gmapsRecognisedLocationList
                     .subList(i * 10 , Math.min((i + 1) * 10, gmapsRecognisedLocationList.size())));
             for (int j = 0; j < gmapsRecognisedLocationList.size() / 10; j++) {
-                System.out.println("Processing row" + i + "/" + ((gmapsRecognisedLocationList.size() / 10) + 1));
-                System.out.println("Processing cloumn" + j + "/" + ((gmapsRecognisedLocationList.size() / 10) + 1));
                 ArrayList<String> locationColumnString = new ArrayList<String>(gmapsRecognisedLocationList
                         .subList(j * 10 , Math.min((j + 1) * 10, gmapsRecognisedLocationList.size())));
                 JSONObject apiResponse = Cache.loadDistanceMatrix(locationRowString, locationColumnString);
