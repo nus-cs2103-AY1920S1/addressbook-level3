@@ -88,7 +88,7 @@ public class AddAccommodationCommand extends AddCommand {
                 model.addAccommodationAtIndex(index, toAdd);
             }
         }
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), UiFocus.ACCOMMODATION);
     }
 
     @Override

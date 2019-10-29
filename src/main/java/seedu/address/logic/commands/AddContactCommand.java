@@ -73,13 +73,12 @@ public class AddContactCommand extends AddCommand {
         if (model.hasContact(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_CONTACT);
         }
-
         if (index == null) {
             model.addContact(toAdd);
         } else {
             model.addContactAtIndex(index, toAdd);
         }
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), UiFocus.CONTACT);
     }
 
     @Override

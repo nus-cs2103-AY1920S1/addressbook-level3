@@ -8,12 +8,14 @@ import javafx.scene.control.Accordion;
 import javafx.scene.control.Skin;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.control.TitledPane;
 import javafx.scene.layout.Region;
 import jfxtras.internal.scene.control.skin.agenda.AgendaWeekSkin;
 import jfxtras.internal.scene.control.skin.agenda.base24hour.AgendaSkinTimeScale24HourAbstract;
 import jfxtras.scene.control.agenda.Agenda;
 import jfxtras.scene.control.agenda.AgendaSkinSwitcher;
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.UiFocus;
 import seedu.address.model.day.ActivityWithTime;
 import seedu.address.model.day.Day;
 import seedu.address.model.itineraryitem.activity.Activity;
@@ -33,6 +35,15 @@ public class CentralDisplay extends UiPart<Region> {
 
     @FXML
     private Accordion sideDisplay;
+
+    @FXML
+    private TitledPane activityPane;
+
+    @FXML
+    private TitledPane contactPane;
+
+    @FXML
+    private TitledPane accommodationPane;
 
     @FXML
     private TabPane tabDisplay;
@@ -132,8 +143,23 @@ public class CentralDisplay extends UiPart<Region> {
         });
     }
 
-    public void setFocusToAgenda() {
-        tabDisplay.getSelectionModel().select(agendaTab);
+    public void changeFocus(UiFocus uiFocus) {
+        switch(uiFocus) {
+        case AGENDA:
+            tabDisplay.getSelectionModel().select(agendaTab);
+            break;
+        case ACCOMMODATION:
+            sideDisplay.setExpandedPane(accommodationPane);
+            break;
+        case ACTIVITY:
+            sideDisplay.setExpandedPane(activityPane);
+            break;
+        case CONTACT:
+            sideDisplay.setExpandedPane(contactPane);
+            break;
+        default:
+            throw new AssertionError(uiFocus.toString() + " is not handled in changeFocus.");
+        }
     }
 
     private void updateAgenda(Agenda agenda, ObservableList<Day> dayList) {

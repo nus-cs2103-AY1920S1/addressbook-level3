@@ -165,12 +165,6 @@ public class MainWindow extends UiPart<Stage> {
      * Updates the UI and changes the focus to the relevant tab.
      */
     private void applyUiFocusChange(UiFocus uiFocus) {
-        switch (uiFocus) {
-        case AGENDA:
-            centralDisplay.setFocusToAgenda();
-            break;
-        default:
-            throw new AssertionError(uiFocus.toString() + " is not handled in applyUiFocusChange.");
-        }
+        centralDisplay.changeFocus(uiFocus);
     }
 }
