@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import seedu.address.logic.commands.AckAppCommand;
 import seedu.address.logic.commands.AddAppCommand;
@@ -37,8 +38,8 @@ import seedu.address.logic.commands.staff.UnregisterStaffCommand;
  * Component for AutoComplete
  */
 public class AutoCompleter {
-    private static final Map<String, HashSet> SUPPORTED_ARGUMENTS = Map.ofEntries(
-            Map.entry("add", new HashSet(Arrays.asList("-name", "-id", "-phone", "-address")))
+    private static final Map<String, Set<String>> SUPPORTED_ARGUMENTS = Map.ofEntries(
+            Map.entry("add", Set.of("-name", "-id", "-phone", "-address"))
     );
 
     private static final String[] SUPPORTED_COMMANDS = new String[] {
@@ -98,11 +99,10 @@ public class AutoCompleter {
     public AutoCompleter update(String currentQuery) {
         if (currentQuery.matches("(.* )?(?<!-)\\w+\\s+$")) {
             try {
-                HashSet<String> available = (HashSet) SUPPORTED_ARGUMENTS.get(currentQuery.substring(0,
-                    currentQuery.indexOf(' ')))
-                    .clone();
+                HashSet<String> available = new HashSet<>(SUPPORTED_ARGUMENTS.get(currentQuery.substring(0,
+                    currentQuery.indexOf(' '))));
                 available.removeAll(Arrays.asList(currentQuery.split("\\s+")));
-                AutoCompleter autoCompleter = new AutoCompleter(available.toArray(new String[0]));
+                AutoCompleter autoCompleter = new AutoCompleter(available.toArray(String[]::new));
                 autoCompleter.currentQuery = currentQuery.substring(currentQuery.lastIndexOf(' ') + 1);
                 return autoCompleter;
             } catch (NullPointerException e) {
