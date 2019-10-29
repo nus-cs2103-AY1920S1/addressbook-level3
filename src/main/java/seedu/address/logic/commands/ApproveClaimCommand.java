@@ -22,11 +22,12 @@ public class ApproveClaimCommand extends Command {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Approved FinSec: %1$s";
+    public static final String MESSAGE_APPROVE_CLAIM_SUCCESS = "Approved FinSec: %1$s";
 
     private final Index targetIndex;
 
     public ApproveClaimCommand(Index targetIndex) {
+        requireNonNull(targetIndex);
         this.targetIndex = targetIndex;
     }
 
@@ -44,7 +45,7 @@ public class ApproveClaimCommand extends Command {
             throw new CommandException(Messages.MESSAGE_CANNOT_BE_APPROVED);
         }
         model.approveClaim(claimToApprove);
-        return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, claimToApprove));
+        return new CommandResult(String.format(MESSAGE_APPROVE_CLAIM_SUCCESS, claimToApprove));
     }
 
     @Override

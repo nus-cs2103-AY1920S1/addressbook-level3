@@ -31,12 +31,12 @@ import seedu.address.testutil.ClaimBuilder;
 public class AddClaimCommandTest {
 
     @Test
-    public void constructor_nullPerson_throwsNullPointerException() {
+    public void constructor_nullClaim_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new AddClaimCommand(null));
     }
 
     @Test
-    public void execute_personAcceptedByModel_addSuccessful() throws Exception {
+    public void execute_claimAcceptedByModel_addSuccessful() throws Exception {
         ModelStubAcceptingClaimAdded modelStub = new ModelStubAcceptingClaimAdded();
         Claim validClaim = new ClaimBuilder().build();
 
@@ -47,7 +47,7 @@ public class AddClaimCommandTest {
     }
 
     @Test
-    public void execute_duplicatePerson_throwsCommandException() {
+    public void execute_duplicateClaim_throwsCommandException() {
         Claim validClaim = new ClaimBuilder().build();
         AddClaimCommand addContactCommand = new AddClaimCommand(validClaim);
         ModelStub modelStub = new ModelStubWithClaim(validClaim);
@@ -60,24 +60,24 @@ public class AddClaimCommandTest {
     public void equals() {
         Claim logistics = new ClaimBuilder().withDescription("Logistics").build();
         Claim transport = new ClaimBuilder().withDescription("Transport").build();
-        AddClaimCommand addAliceCommand = new AddClaimCommand(logistics);
-        AddClaimCommand addBobCommand = new AddClaimCommand(transport);
+        AddClaimCommand addLogisticsCommand = new AddClaimCommand(logistics);
+        AddClaimCommand addTransportCommand = new AddClaimCommand(transport);
 
         // same object -> returns true
-        assertEquals(addAliceCommand, addAliceCommand);
+        assertEquals(addLogisticsCommand, addLogisticsCommand);
 
         // same values -> returns true
         AddClaimCommand addAliceCommandCopy = new AddClaimCommand(logistics);
-        assertEquals(addAliceCommand, addAliceCommandCopy);
+        assertEquals(addLogisticsCommand, addAliceCommandCopy);
 
         // different types -> returns false
-        assertNotEquals(1, addAliceCommand);
+        assertNotEquals(1, addLogisticsCommand);
 
         // null -> returns false
-        assertNotEquals(null, addAliceCommand);
+        assertNotEquals(null, addLogisticsCommand);
 
         // different claims -> returns false
-        assertNotEquals(addAliceCommand, addBobCommand);
+        assertNotEquals(addLogisticsCommand, addTransportCommand);
     }
 
     /**
@@ -325,7 +325,7 @@ public class AddClaimCommandTest {
     }
 
     /**
-     * A Model stub that always accept the person being added.
+     * A Model stub that always accept the claim being added.
      */
     private class ModelStubAcceptingClaimAdded extends ModelStub {
         final ArrayList<Claim> claimsAdded = new ArrayList<>();
