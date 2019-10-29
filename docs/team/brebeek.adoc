@@ -1,4 +1,4 @@
-= Hu Yuchen - Project Portfolio
+= Hu Yuchen - Project Portfolio [To be modified]
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
