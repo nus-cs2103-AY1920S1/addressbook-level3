@@ -18,7 +18,9 @@ import javafx.scene.text.TextFlow;
 public class AutoCompleteOverlay extends UiPart<Region> {
 
     private static final int CELL_HEIGHT = 20;
-    private static final int NUM_IN_VIEW = 2;
+    private static final int FONT_WIDTH = 11;
+    private static final int SCROLL_NEGATE_OFFSET = 20;
+    private static final int NUM_IN_VIEW = 10;
     private static final int MAX_HEIGHT = CELL_HEIGHT * NUM_IN_VIEW;
 
     private SelectionNotifier selectionNotifier;
@@ -44,6 +46,7 @@ public class AutoCompleteOverlay extends UiPart<Region> {
             return;
         }
 
+        int suggestionLength = 0;
         ObservableList<TextFlow> ols = autoCompleteOverlay.getItems();
         ArrayList<TextFlow> arrls = new ArrayList<>();
         listOfSuggestions.sort(String::compareTo);
@@ -55,11 +58,14 @@ public class AutoCompleteOverlay extends UiPart<Region> {
             prefixText.setFill(Paint.valueOf("#0FF"));
             Text suggestionText = new Text(suggestion);
             suggestionText.setFill(Paint.valueOf("#FFF"));
-            arrls.add(new TextFlow(prefixText, suggestionText));
+            TextFlow tf = new TextFlow(prefixText, suggestionText);
+            arrls.add(tf);
+            suggestionLength = Math.max(suggestion.length(), suggestionLength);
         }
         ols.setAll(arrls);
         autoCompleteOverlay.getSelectionModel().select(0);
         autoCompleteOverlay.setPrefHeight(1 + listOfSuggestions.size() * CELL_HEIGHT);
+        autoCompleteOverlay.setPrefWidth((prefix.length() + suggestionLength) * FONT_WIDTH + SCROLL_NEGATE_OFFSET);
         if (!arrls.isEmpty()) {
             autoCompleteOverlay.setVisible(true);
         }
@@ -97,9 +103,9 @@ public class AutoCompleteOverlay extends UiPart<Region> {
     private void handleMouseClicked() {
         StringBuilder sb = new StringBuilder();
         autoCompleteOverlay.getSelectionModel()
-                .getSelectedItem()
-                .getChildren()
-                .forEach(elem -> sb.append(((Text) elem).getText()));
+            .getSelectedItem()
+            .getChildren()
+            .forEach(elem -> sb.append(((Text) elem).getText()));
         selectionNotifier.notify(sb.toString());
     }
 
