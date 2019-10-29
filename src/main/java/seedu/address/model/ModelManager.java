@@ -210,11 +210,10 @@ public class ModelManager implements Model {
     //=========== WordBank ================================================================================
 
     @Override
-    public void setCurrentWordBank(ReadOnlyWordBank currenWordBank) {
-        this.currentWordBank = (WordBank) currenWordBank;
+    public void setCurrentWordBank(ReadOnlyWordBank currentWordBank) {
+        this.currentWordBank = (WordBank) currentWordBank;
         hasBank = true;
         filteredCards = new FilteredList<>(this.currentWordBank.getCardList());
-        //        this.wordBank.resetData(wordBank);
     }
 
     /**
@@ -223,7 +222,6 @@ public class ModelManager implements Model {
     public void clearWordBank() {
         currentWordBank.resetData(new WordBank(currentWordBank.getName()));
         filteredCards = new FilteredList<>(this.currentWordBank.getCardList());
-        //        this.wordBank.resetData(wordBank);
     }
 
     @Override
@@ -283,7 +281,6 @@ public class ModelManager implements Model {
      */
     @Override
     public ObservableList<Card> getFilteredCardList() {
-        filteredCards = new FilteredList<>(this.currentWordBank.getCardList());
         return filteredCards;
     }
 
