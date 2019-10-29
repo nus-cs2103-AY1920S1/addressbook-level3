@@ -6,6 +6,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EXPENSE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PARTICIPANT;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -42,7 +43,9 @@ public class ExpenseCommand extends Command {
             + PREFIX_DESCRIPTION + "Bubble tea";
 
     public static final String MESSAGE_SUCCESS =
-            "Expense of %s by %s successfully created.\n\tDescription: %s\n\tPeople involved:\n%s";
+            "Expense of %s by %s successfully created.\n\tDescription: %s\n\tPeople involved:\n%s\nWarnings:\n";
+    public static final String WARNING_DUPLICATE_PERSON =
+            "\tPerson with name %s already added to expense.\n";
     public static final String MESSAGE_NON_UNIQUE_SEARCH_RESULT =
             "Participant search term \"%s\" has no unique search result in the current context!";
     public static final String MESSAGE_MISSING_DESCRIPTION =
@@ -88,6 +91,7 @@ public class ExpenseCommand extends Command {
         // which are then used to search through the searchScope (context dependent).
         // Expenses will only be added if every keyword string has a unique match.
         StringBuilder successMessage = new StringBuilder();
+        StringBuilder warningMessage = new StringBuilder();
         Person payingPerson = searchPerson(persons.get(0), searchScope);
         int payingId = payingPerson.getPrimaryKey();
         int[] involvedArr;
@@ -100,11 +104,16 @@ public class ExpenseCommand extends Command {
         }
 
         if (persons.size() > 1) {
-            involvedArr = new int[persons.size() - 1];
+            List<Person> personList = new ArrayList<>();
+            personList.add(payingPerson);
             for (int i = 1; i < persons.size(); i++) {
                 Person person = searchPerson(persons.get(i), searchScope);
 
-                involvedArr[i - 1] = person.getPrimaryKey();
+                if (personList.contains(person)) {
+                    warningMessage.append(String.format(WARNING_DUPLICATE_PERSON, person.getName()));
+                    continue;
+                }
+                personList.add(person);
                 successMessage.append("\t\t" + person.getName() + "\n");
 
                 // Contextual behaviour
@@ -114,6 +123,7 @@ public class ExpenseCommand extends Command {
                     }
                 }
             }
+            involvedArr = personList.stream().mapToInt(x -> x.getPrimaryKey()).toArray();
         } else {
             // Contextual behaviour
             if (model.getContext().getType() == ContextType.VIEW_ACTIVITY) {
@@ -141,7 +151,7 @@ public class ExpenseCommand extends Command {
         }
 
         return new CommandResult(String.format(MESSAGE_SUCCESS,
-                amount, payingPerson.getName(), description, successMessage.toString()));
+                amount, payingPerson.getName(), description, successMessage.toString()) + warningMessage.toString());
     }
 
     /**

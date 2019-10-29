@@ -178,4 +178,33 @@ public class ExpenseCommandTest {
                         .build(),
                 model.getActivityBook().getActivityList().get(0));
     }
+
+    @Test
+    public void execute_duplicateNamesAdded_addSuccessfulWithWarning() throws Exception {
+        Model model = new ModelManager();
+        model.addPerson(TypicalPersons.ALICE);
+        model.addPerson(TypicalPersons.BENSON);
+
+        ArrayList<String> personsDuplicate = new ArrayList<>(persons);
+        personsDuplicate.addAll(persons);
+        ExpenseCommand command = new ExpenseCommand(personsDuplicate, amount, notEmptyString);
+        CommandResult commandResult = command.execute(model);
+
+        assertEquals(String.format(ExpenseCommand.MESSAGE_SUCCESS,
+                amount, TypicalPersons.ALICE.getName(), notEmptyString,
+                "\t\t" + TypicalPersons.BENSON.getName() + "\n")
+                + String.format(ExpenseCommand.WARNING_DUPLICATE_PERSON, TypicalPersons.ALICE.getName())
+                + String.format(ExpenseCommand.WARNING_DUPLICATE_PERSON, TypicalPersons.BENSON.getName()),
+                commandResult.getFeedbackToUser());
+
+        Expense expense = new Expense(TypicalPersons.ALICE.getPrimaryKey(), amount,
+                notEmptyString, TypicalPersons.BENSON.getPrimaryKey());
+
+        assertEquals(new ActivityBuilder()
+                        .withTitle(notEmptyString)
+                        .addPerson(TypicalPersons.ALICE).addPerson(TypicalPersons.BENSON)
+                        .addExpense(expense)
+                        .build(),
+                model.getActivityBook().getActivityList().get(0));
+    }
 }
