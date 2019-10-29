@@ -41,7 +41,7 @@ public class JsonAdaptedAccount {
     public JsonAdaptedAccount(Account source) {
         name = source.getName().toString();
         description = source.getDescription().toString();
-        transactionList = source.getTransaction().toString();
+        transactionList = source.getTransactionList().toString();
     }
 
     /**

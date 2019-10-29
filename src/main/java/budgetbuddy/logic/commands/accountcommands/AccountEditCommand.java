@@ -75,7 +75,7 @@ public class AccountEditCommand extends Command {
         Name updatedName = accountEditDescriptor.getName().orElse(accountToEdit.getName());
         Description updatedDescription = accountEditDescriptor.getDescription().orElse(accountToEdit.getDescription());
 
-        return new Account(updatedName, updatedDescription, accountToEdit.getTransaction());
+        return new Account(updatedName, updatedDescription, accountToEdit.getTransactionList());
     }
 
     @Override
