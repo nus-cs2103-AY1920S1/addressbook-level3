@@ -40,6 +40,7 @@ import seedu.address.ui.itinerary.EditEventPage;
 import seedu.address.ui.itinerary.EventsPage;
 import seedu.address.ui.itinerary.ItineraryPage;
 import seedu.address.ui.template.Page;
+import seedu.address.ui.template.UiChangeConsumer;
 import seedu.address.ui.trips.EditTripPage;
 import seedu.address.ui.trips.TripsPage;
 import seedu.address.ui.utility.PreferencesPage;
@@ -59,6 +60,7 @@ public class MainWindow extends UiPart<Stage> {
     protected Stage primaryStage;
     protected Logic logic;
     protected Model model;
+    protected Page<? extends Node> currentPage;
 
     private CommandUpdater commandUpdater;
 
@@ -154,6 +156,10 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.doSwitchPage()) {
                 handleSwitch();
+            }
+
+            if (commandResult.doChangeUi()) {
+                handleChange(commandResult.getCommandWord());
             }
 
             commandUpdater.executeUpdateCallback();
@@ -264,6 +270,7 @@ public class MainWindow extends UiPart<Stage> {
             return;
         }
 
+        currentPage = newPage;
         switchContent(newPage);
         this.commandUpdater = newPage::fillPage;
     }
@@ -301,6 +308,19 @@ public class MainWindow extends UiPart<Stage> {
         }
 
         timeline.play();
+    }
+
+    /**
+     * Executes the change in the UI within the same page.
+     * @param commandWord The command word used to execute this change.
+     */
+    private void handleChange(String commandWord) throws CommandException {
+        if (currentPage instanceof UiChangeConsumer) {
+            UiChangeConsumer consumer = (UiChangeConsumer) currentPage;
+            consumer.changeUi(commandWord.toUpperCase());
+        } else {
+            throw new CommandException("Page does not support this command");
+        }
     }
 
     /**

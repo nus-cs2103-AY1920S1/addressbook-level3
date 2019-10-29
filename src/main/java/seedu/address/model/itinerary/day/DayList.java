@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Comparator;
 import java.util.List;
 
 import seedu.address.model.itinerary.ConsecutiveOccurrenceList;
@@ -34,6 +35,7 @@ public class DayList extends ConsecutiveOccurrenceList<Day> {
             throw new ClashingDayException();
         }
         internalList.add(toAdd);
+        internalList.sort(Comparator.comparing(Day::getStartDate));
     }
 
     @Override
@@ -49,6 +51,7 @@ public class DayList extends ConsecutiveOccurrenceList<Day> {
         }
 
         internalList.set(index, editedDay);
+        internalList.sort(Comparator.comparing(Day::getStartDate));
     }
 
     @Override
@@ -58,6 +61,7 @@ public class DayList extends ConsecutiveOccurrenceList<Day> {
             throw new ClashingDayException();
         }
         internalList.setAll(occurrences);
+        internalList.sort(Comparator.comparing(Day::getStartDate));
     }
 
     @Override
@@ -66,6 +70,8 @@ public class DayList extends ConsecutiveOccurrenceList<Day> {
         if (!internalList.remove(toRemove)) {
             throw new DayNotFoundException();
         }
+        internalList.sort(Comparator.comparing(Day::getStartDate));
+
     }
 
     @Override

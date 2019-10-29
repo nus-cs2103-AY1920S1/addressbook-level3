@@ -9,25 +9,23 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.commands.itinerary.events.edit.EditEventFieldCommand;
 import seedu.address.model.Model;
-import seedu.address.model.appstatus.PageType;
 import seedu.address.model.itinerary.event.Event;
 
 /**
- * Enters the {@code EditEventPage}.
+ * Shows the details of a specified {@link Event} on the {@link seedu.address.ui.itinerary.EventsPage}.
  */
-public class EnterEditEventCommand extends Command {
-    public static final String COMMAND_WORD = "edit";
+public class ShowEventDetailsCommand extends Command {
+    public static final String COMMAND_WORD = "show";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Enters the event information editing screen\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Shows the details in a particular event\n"
             + "Parameters: INDEX (must be a positive integer)";
 
-    public static final String MESSAGE_ENTER_EDIT_EVENT_SUCCESS = " Welcome to your event! %1$s";
+    public static final String MESSAGE_ENTER_EDIT_EVENT_SUCCESS = " The event details are as shown! %1$s";
 
     private final Index indexToEdit;
 
-    public EnterEditEventCommand(Index indexToEdit) {
+    public ShowEventDetailsCommand(Index indexToEdit) {
         this.indexToEdit = indexToEdit;
     }
 
@@ -42,16 +40,13 @@ public class EnterEditEventCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_GENERIC_INDEX);
         }
 
-        Event eventToEdit = lastShownList.get(indexToEdit.getZeroBased());
-        EditEventFieldCommand.EditEventDescriptor editEventDescriptor =
-                new EditEventFieldCommand.EditEventDescriptor(eventToEdit);
+        Event eventToShow = lastShownList.get(indexToEdit.getZeroBased());
 
+        //Sets context for the details
         model.setPageStatus(model.getPageStatus()
-                .withNewPageType(PageType.ADD_EVENT)
-                .withNewEvent(eventToEdit)
-                .withNewEditEventDescriptor(editEventDescriptor));
+                .withNewEvent(eventToShow));
 
-        return new CommandResult(String.format(MESSAGE_ENTER_EDIT_EVENT_SUCCESS, eventToEdit), true);
+        return new CommandResult(String.format(MESSAGE_ENTER_EDIT_EVENT_SUCCESS, eventToShow), true, COMMAND_WORD);
     }
 
     @Override

@@ -13,7 +13,7 @@ public class BudgetTest {
     }
 
     @Test
-    public void constructor_invalidAddress_throwsIllegalArgumentException() {
+    public void constructor_invalidExpenditure_throwsIllegalArgumentException() {
         String invalidExpenditure = "";
         assertThrows(IllegalArgumentException.class, () -> new Budget(invalidExpenditure));
     }
