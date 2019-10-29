@@ -50,7 +50,7 @@
             </VBox>
             <VBox maxHeight="50.0" alignment="TOP_CENTER" HBox.hgrow="ALWAYS">
                 <children>
-                    <Text id="listTasks"/>
+                    <Text fx:id="listTasks"/>
                 </children>
             </VBox>
         </VBox>

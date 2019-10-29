@@ -1,6 +1,7 @@
 package seedu.address.ui.views;
 
 import java.util.Comparator;
+import java.util.List;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -9,7 +10,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import javafx.scene.text.Text;
 import seedu.address.model.member.Member;
+import seedu.address.model.task.Task;
 import seedu.address.ui.UiPart;
 
 public class IndivMemberCard extends UiPart<Region> {
@@ -37,6 +40,8 @@ public class IndivMemberCard extends UiPart<Region> {
     private ImageView imageView;
     @FXML
     private FlowPane tags;
+    @FXML
+    private Text listTasks;
 
     public IndivMemberCard(Member member, int displayedIndex) {
         super(FXML);
@@ -56,6 +61,34 @@ public class IndivMemberCard extends UiPart<Region> {
 
         imageView.setFitHeight(120);
         imageView.setFitWidth(120);
+    }
+
+    public IndivMemberCard(Member member, int displayedIndex, List<Task> tasks) {
+        super(FXML);
+        this.member = member;
+        id.setText(displayedIndex + ". ");
+        displayId.setText("Member ID: " + member.getId().getDisplayId());
+        name.setText(member.getName().fullName);
+        member.getTags().stream()
+                .sorted(Comparator.comparing(tag -> tag.tagName))
+                .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+
+        if (member.getImage() == null) {
+            imageView.setImage(new Image(this.getClass().getResourceAsStream("/images/DaUser.png")));
+        } else {
+            imageView.setImage(member.getImage());
+        }
+
+        imageView.setFitHeight(120);
+        imageView.setFitWidth(120);
+
+        String listOfTasks = "Empty";
+
+        for (Task task: tasks) {
+            listOfTasks += task.toString() + "\n";
+        }
+
+        listTasks.setText(listOfTasks);
     }
 
     @Override

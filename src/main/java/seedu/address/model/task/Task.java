@@ -7,14 +7,12 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
-
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.Set;
 
-import seedu.address.commons.core.index.Index;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -113,7 +111,13 @@ public class Task {
             timeTaken = " Task inputted was done from time of input.";
         } else {
             Duration timeElasped = Duration.between(timeStart, timeEnd);
-            timeTaken = timeElasped.toHours() + " hours";
+            long timeInHours = timeElasped.toHours();
+
+            if (timeInHours == 0 ) {
+                timeTaken = timeElasped.toMinutes() + "minutes";
+            } else {
+                timeTaken = timeInHours + "hours";
+            }
         }
 
         return timeTaken;
