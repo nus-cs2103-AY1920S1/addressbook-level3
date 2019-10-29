@@ -46,7 +46,7 @@ public class AddAppCommand extends ReversibleCommand {
             + PREFIX_RECURSIVE_TIMES + "2\n";
 
     public static final String MESSAGE_ADD_APPOINTMENT_SUCCESS = "Appointment added: %1$s";
-    public static final String MESSAGE_SUCCESS_RECURSIVE = "Recursive Appointment were added";
+    public static final String MESSAGE_SUCCESS_RECURSIVE = " Recursive Appointment were added";
     public static final String MESSAGE_DUPLICATE_EVENT = "This appointment is already scheduled: %1$s";
     public static final String MESSAGE_CLASH_APPOINTMENT = "This appointment clashes with a pre-existing appointment.";
     public static final String MESSAGE_ADD_APPOINTMENTS_SUCCESS = "Recursive appointments added: \n";
@@ -62,6 +62,7 @@ public class AddAppCommand extends ReversibleCommand {
         this.toAdd = toAdd;
         this.eventList = null;
     }
+
     /**
      * Creates an AddAppCommand to add the specified {@code Events}
      */
@@ -87,7 +88,8 @@ public class AddAppCommand extends ReversibleCommand {
             model.scheduleAppointment(e);
         }
         model.updateFilteredAppointmentList(new EventContainsRefIdPredicate(eventList.get(0).getPersonId()));
-        return new CommandResult(String.format(MESSAGE_ADD_APPOINTMENT_SUCCESS, eventList.size() + MESSAGE_SUCCESS_RECURSIVE));
+        return new CommandResult(String.format(MESSAGE_ADD_APPOINTMENT_SUCCESS, eventList.size()
+                + MESSAGE_SUCCESS_RECURSIVE));
     }
 
     @Override
