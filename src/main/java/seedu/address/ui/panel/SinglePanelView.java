@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import javafx.beans.value.ObservableObjectValue;
 import javafx.fxml.FXML;
@@ -32,8 +33,7 @@ public class SinglePanelView extends UiPart<Region> implements PanelManager {
         super(FXML);
         panelNamePanelHashMap = new HashMap<>();
         currentPanel = new PlaceholderPanel();
-        currentPanelName = PanelName.CURRENT;
-        currentPanel
+        currentPanelName = null;
     }
 
     /**
@@ -43,26 +43,28 @@ public class SinglePanelView extends UiPart<Region> implements PanelManager {
      */
     public void viewPanel(PanelName panelName) throws UnmappedPanelException {
         requireNonNull(panelName);
-        if (panelName.equals(PanelName.CURRENT)) {
-            if (getCurrentPanel() == null) {
-                currentPanel = new PlaceholderPanel();
-            }
-        } else if (!hasPanel(panelName)) {
-            throw new UnmappedPanelException(panelName);
+        PanelName toView = panelName.equals(PanelName.CURRENT) ? currentPanelName : panelName;
+        if (!hasPanel(toView)) {
+            throw new UnmappedPanelException(toView);
         }
+        // hide all panels
         for (Panel p : panelNamePanelHashMap.values()) {
             p.hide();
         }
-        currentPanel = getPanel(panelName);
+        currentPanel = getPanel(toView);
+        // check to ensure nonnull
         if (currentPanel == null) {
             currentPanel = new PlaceholderPanel();
+            setPanel(toView, currentPanel);
         }
+        // update property
+        currentPanelName = toView;
+        // view
         currentPanel.view();
-        currentPanelName = panelName;
     }
 
     public Panel getCurrentPanel() {
-        return currentPanel;
+        return panelNamePanelHashMap.get(currentPanelName);
     }
 
     public PanelName getCurrentPanelName() {
@@ -76,17 +78,21 @@ public class SinglePanelView extends UiPart<Region> implements PanelManager {
         requireNonNull(panelName);
         requireNonNull(panel);
         requireNonNull(panel.getRoot());
+        // if contains the same panel name
+        // 1. hide the original panel
+        // 2. remove the panel from the stackpane
         if (panelNamePanelHashMap.containsKey(panelName)) {
             Panel toOverwrite = panelNamePanelHashMap.get(panelName);
             toOverwrite.hide();
             panelPlaceholder.getChildren().remove(toOverwrite.getRoot());
         }
+
+        // map the panel to the panel name
         panelNamePanelHashMap.put(panelName, panel);
+        // put the panel in the stackpane
         panelPlaceholder.getChildren().add(panel.getRoot());
         // prevent new panel from being shown unless requested to be viewed.
-        if (!getCurrentPanelName().equals(panelName)) {
-            panel.hide();
-        }
+        panel.hide();
         return panelPlaceholder.getChildren().contains(panel.getRoot());
     }
 
@@ -129,11 +135,8 @@ public class SinglePanelView extends UiPart<Region> implements PanelManager {
 
     @Override
     public String toString() {
-        StringBuilder available = new StringBuilder();
-        for (PanelName panelName : panelNamePanelHashMap.keySet()) {
-            available.append(panelName.toString());
-            available.append("\n");
-        }
-        return available.toString();
+        return panelNamePanelHashMap
+                .keySet().stream().map(PanelName::toString)
+                .collect(Collectors.joining("\n"));
     }
 }

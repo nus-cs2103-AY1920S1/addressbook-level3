@@ -24,9 +24,6 @@ public class CommandResult {
     /** The application should exit. */
     private final boolean exit;
 
-    /** The application should be forced to show a panel. */
-    private final boolean forcePanelChange;
-
     /** The panel to show the in the application. */
     private PanelName panelName;
 
@@ -41,7 +38,7 @@ public class CommandResult {
     private List<TableEntry> differenceTable;
 
     public CommandResult(String feedbackToUser, Statistics statistics, boolean showHelp, boolean exit,
-                         boolean forcePanelChange, PanelName panelName) {
+                         PanelName panelName) {
 
         requireNonNull(feedbackToUser);
 
@@ -49,7 +46,6 @@ public class CommandResult {
         this.statistics = statistics;
         this.showHelp = showHelp;
         this.exit = exit;
-        this.forcePanelChange = forcePanelChange;
         this.panelName = panelName;
 
         if (statistics == null) {
@@ -72,13 +68,12 @@ public class CommandResult {
      * Constructs a {@code CommandResult} with the specified fields. Meant for statsCommand
      */
     public CommandResult(String feedbackToUser, boolean showHelp, boolean exit,
-                         boolean forcePanelChange, PanelName panelName) {
+                         PanelName panelName) {
         requireNonNull(feedbackToUser);
 
         this.feedbackToUser = feedbackToUser;
         this.showHelp = showHelp;
         this.exit = exit;
-        this.forcePanelChange = forcePanelChange;
         this.panelName = panelName;
         this.names = null;
         this.percentages = null;
@@ -91,7 +86,7 @@ public class CommandResult {
      * {@code panelName}, and other fields set to their default value.
      */
     public CommandResult(String feedbackToUser, PanelName panelName) {
-        this(feedbackToUser, false, false, true, panelName);
+        this(feedbackToUser, false, false, panelName);
     }
 
     /**
@@ -99,7 +94,7 @@ public class CommandResult {
      * and other fields set to their default value. Meant for most MooLah commands
      */
     public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, false, false, false, PanelName.CURRENT);
+        this(feedbackToUser, false, false, PanelName.CURRENT);
     }
 
     /**
@@ -107,7 +102,7 @@ public class CommandResult {
      * and other fields set to their default value. Meant for Help and Bye commands.
      */
     public CommandResult(String feedbackToUser, boolean showHelp, boolean exit) {
-        this(feedbackToUser, showHelp, exit, false, PanelName.CURRENT);
+        this(feedbackToUser, showHelp, exit, PanelName.CURRENT);
     }
 
 
@@ -147,11 +142,7 @@ public class CommandResult {
         return differenceTable;
     }
 
-    public boolean isViewRequest() {
-        return forcePanelChange;
-    }
-
-    public PanelName viewRequest() {
+    public PanelName viewrequest() {
         return panelName;
     }
 

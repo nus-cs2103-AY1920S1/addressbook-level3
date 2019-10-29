@@ -61,7 +61,7 @@ public class StatsCompareCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         Statistics statistics = model.calculateStatistics(COMMAND_WORD, firstStartDate , secondStartDate, period);
-        return new CommandResult(MESSAGE_SUCCESS, statistics, false, false, false, PanelName.CURRENT);
+        return new CommandResult(MESSAGE_SUCCESS, statistics, false, false, PanelName.CURRENT);
     }
 
     @Override

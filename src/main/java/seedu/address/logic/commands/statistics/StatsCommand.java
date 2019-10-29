@@ -53,7 +53,7 @@ public class StatsCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         Statistics statistics = model.calculateStatistics(COMMAND_WORD, startDate, endDate, null);
-        return new CommandResult(MESSAGE_SUCCESS, statistics, false, false, false, PanelName.CURRENT);
+        return new CommandResult(MESSAGE_SUCCESS, statistics, false, false, PanelName.CURRENT);
     }
 
     @Override

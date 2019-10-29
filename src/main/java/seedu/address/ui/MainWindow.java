@@ -2,16 +2,6 @@ package seedu.address.ui;
 
 import static java.util.Objects.requireNonNull;
 
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ALIAS_ALIAS_INPUT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ALIAS_ALIAS_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_CATEGORY;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_FIRST_START_DATE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PERIOD;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_SECOND_START_DATE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_START_DATE;
-
 import java.util.Collections;
 import java.util.List;
 import java.util.Timer;
@@ -466,21 +456,13 @@ public class MainWindow extends UiPart<Stage> {
             UnmappedPanelException {
         try {
             String commandGroup = decideCommandGroup();
-
-
             CommandResult commandResult = logic.execute(commandText, commandGroup);
             Budget primaryBudget = logic.getPrimaryBudget();
-
             boolean initialIsNear = primaryBudget.isNear();
             boolean initialIsExceeded = primaryBudget.isExceeded();
-            System.out.println(logic.getPrimaryBudget().getDescription());
-            singlePanelView.setPanel(BudgetPanel.PANEL_NAME, new BudgetPanel(primaryBudget));
-            changePanel(commandResult.viewRequest());
-            System.out.println(logic.getPrimaryBudget().getDescription());
 
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
-            System.out.println(logic.getPrimaryBudget().getDescription());
 
             if (commandResult.isShowHelp()) {
                 handleHelp();

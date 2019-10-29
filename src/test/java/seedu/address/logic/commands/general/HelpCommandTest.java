@@ -17,7 +17,7 @@ public class HelpCommandTest {
     @Test
     public void run_help_success() {
         CommandResult expectedCommandResult = new CommandResult(SHOWING_HELP_MESSAGE, null,
-                true, false, false, PanelName.CURRENT);
+                true, false, PanelName.CURRENT);
         assertCommandSuccess(new HelpCommand(), model, expectedCommandResult, expectedModel);
     }
 }
