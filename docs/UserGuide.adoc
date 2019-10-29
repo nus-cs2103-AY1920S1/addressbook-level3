@@ -76,20 +76,39 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 === Universal Commands
 
 ==== Accessing project dashboard page: `home` +
-This command brings you to the project dashboard page +
+This command brings you to the project dashboard page, where tasks are displayed. +
 Format: `home`
+
+Calling the 'home' command will bring you to the following page:
++
+image::Home.png[widh=790]
++
 
 ==== Accessing time management page: `calendar` +
 This command brings you to the time management page where calendar and meeting times are displayed +
 Format: `calendar`
 
+Calling the 'calendar' command will bring you to the following page:
++
+image::Calendar.png[widh=790]
++
+
 ==== Accessing settings page: `settings` (Coming in v1.3) +
 This command brings you to the settings page  +
 Format: `settings`
 
+Calling the 'settings' command will bring you to the following page:
++
+image::Settings.png[widh=790]
++
+
 ==== View help: `help` +
 This command displays a list of possible commands that you can execute +
 Format: `help`
+Calling the 'help' command will bring you to the following page:
++
+image::Help.png[widh=790]
++
 
 '''
 
@@ -319,7 +338,7 @@ File explorer pops up, triggering a message to allow the user to save the pdf fi
 === Statistics Commands
 
 ==== Getting statistics of members: `member-stats` +
-To get statistics relating to the members in +Work, use the command following the format below. +
+To get statistics relating to the members in +Work, use the statistics command following the format below. +
 Format: `member-stats`
 
 Calling the 'member-stats' command will result in the following: 
@@ -328,7 +347,7 @@ image::Ui.png[width="790"]
 +
 
 ==== Getting statistics of tasks: `task-stats` +
-To get statistics relating to the tasks in +Work, use the command following the format below. +
+To get statistics relating to the tasks in +Work, use the statistics command following the format below. +
 Format: `task-stats`
 
 Calling the 'task-stats' command will result in the following: 
