@@ -8,6 +8,7 @@ import static seedu.address.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 
@@ -17,6 +18,7 @@ import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.person.Person;
 import seedu.address.stub.ModelStub;
 import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.TypicalPersons;
 
 public class AddCommandTest {
 
@@ -40,9 +42,20 @@ public class AddCommandTest {
     public void execute_duplicatePerson_throwsCommandException() {
         Person validPerson = new PersonBuilder().build();
         AddCommand addCommand = new AddCommand(validPerson);
-        ModelStub modelStub = new ModelStubWithPerson(validPerson);
+        ModelStub modelStub = new ModelStubAcceptingPersonAdded();
+        modelStub.addPerson(validPerson);
 
         assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_PERSON, () -> addCommand.execute(modelStub));
+    }
+
+    @Test
+    public void execute_duplicateName_throwsCommandException() {
+        Person invalidPerson = new PersonBuilder().withName("George Best").build();
+        AddCommand addCommand = new AddCommand(invalidPerson);
+        ModelStub modelStub = new ModelStubAcceptingPersonAdded();
+        modelStub.addPerson(TypicalPersons.GEORGE);
+
+        assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_NAME, () -> addCommand.execute(modelStub));
     }
 
     @Test
@@ -70,24 +83,6 @@ public class AddCommandTest {
     }
 
     /**
-     * A Model stub that contains a single person.
-     */
-    private class ModelStubWithPerson extends ModelStub {
-        private final Person person;
-
-        ModelStubWithPerson(Person person) {
-            requireNonNull(person);
-            this.person = person;
-        }
-
-        @Override
-        public boolean hasPerson(Person person) {
-            requireNonNull(person);
-            return this.person.isSamePerson(person);
-        }
-    }
-
-    /**
      * A Model stub that always accept the person being added.
      */
     private class ModelStubAcceptingPersonAdded extends ModelStub {
@@ -108,6 +103,17 @@ public class AddCommandTest {
         @Override
         public ReadOnlyAddressBook getAddressBook() {
             return new AddressBook();
+        }
+
+        @Override
+        public Optional<Person> findPersonByName(String searchTerm) {
+            requireNonNull(searchTerm);
+            for (Person person : personsAdded) {
+                if (person.getName().fullName.toLowerCase().equals(searchTerm.toLowerCase())) {
+                    return Optional.of(person);
+                }
+            }
+            return Optional.empty();
         }
     }
 

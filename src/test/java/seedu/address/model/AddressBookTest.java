@@ -7,6 +7,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.ALICE;
+import static seedu.address.testutil.TypicalPersons.GEORGE_FIRSTNAME;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import java.util.ArrayList;
@@ -14,6 +15,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 
@@ -89,6 +91,35 @@ public class AddressBookTest {
         ArrayList<Person> expectedSearchResult = new ArrayList<Person>(Arrays.asList(ALICE));
         assertEquals(expectedSearchResult, searchResult);
     }
+
+    @Test
+    public void findPersonByName_personInAddressBook_returnsCorrect() {
+        AddressBook addressBook = getTypicalAddressBook();
+        String searchTerm = "alice pauline";
+        Optional<Person> searchResult = addressBook.findPersonByName(searchTerm);
+        Optional<Person> expectedSearchResult = Optional.of(ALICE);
+        assertEquals(expectedSearchResult, searchResult);
+    }
+
+    @Test
+    public void findPersonByName_subStringEdgeCase_returnsCorrect() {
+        AddressBook addressBook = getTypicalAddressBook();
+        addressBook.addPerson(GEORGE_FIRSTNAME);
+        String searchTerm = "George";
+        Optional<Person> searchResult = addressBook.findPersonByName(searchTerm);
+        Optional<Person> expectedSearchResult = Optional.of(GEORGE_FIRSTNAME);
+        assertEquals(expectedSearchResult, searchResult);
+    }
+
+    @Test
+    public void findPersonByName_personNotInAddressBook_returnsEmpty() {
+        AddressBook addressBook = getTypicalAddressBook();
+        String searchTerm = "Nonexistent person";
+        Optional<Person> searchResult = addressBook.findPersonByName(searchTerm);
+        Optional<Person> expectedSearchResult = Optional.empty();
+        assertEquals(expectedSearchResult, searchResult);
+    }
+
 
     @Test
     public void getPersonList_modifyList_throwsUnsupportedOperationException() {
