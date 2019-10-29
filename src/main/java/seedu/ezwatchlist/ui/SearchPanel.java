@@ -10,10 +10,8 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
-import seedu.ezwatchlist.api.exceptions.OnlineConnectionException;
+
 import seedu.ezwatchlist.commons.core.LogsCenter;
-import seedu.ezwatchlist.logic.commands.exceptions.CommandException;
-import seedu.ezwatchlist.logic.parser.exceptions.ParseException;
 import seedu.ezwatchlist.model.show.Show;
 
 /**

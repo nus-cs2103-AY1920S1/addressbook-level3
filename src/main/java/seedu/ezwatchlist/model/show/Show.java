@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
-
 import seedu.ezwatchlist.commons.util.CollectionUtil;
 import seedu.ezwatchlist.model.actor.Actor;
 
