@@ -3,13 +3,11 @@ package dukecooks.storage.dashboard;
 import static dukecooks.testutil.dashboard.TypicalDashboard.TASK2;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import dukecooks.model.Model;
-import dukecooks.model.dashboard.components.Dashboard;
 import org.junit.jupiter.api.Test;
 
 import dukecooks.commons.exceptions.IllegalValueException;
+import dukecooks.model.dashboard.components.Dashboard;
 import dukecooks.model.dashboard.components.DashboardName;
-import dukecooks.model.dashboard.components.TaskDate;
 import dukecooks.testutil.Assert;
 
 public class JsonAdaptedDashboardTest {

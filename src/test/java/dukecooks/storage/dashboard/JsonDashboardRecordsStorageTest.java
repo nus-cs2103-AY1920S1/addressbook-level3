@@ -1,6 +1,6 @@
 package dukecooks.storage.dashboard;
 
-import static dukecooks.testutil.dashboard.TypicalDashboard.*;
+import static dukecooks.testutil.dashboard.TypicalDashboard.getTypicalDashboardRecords;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
@@ -8,16 +8,16 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import dukecooks.model.dashboard.components.Dashboard;
-import dukecooks.model.dashboard.components.DashboardName;
-import dukecooks.model.dashboard.components.TaskDate;
-import dukecooks.model.dashboard.components.TaskStatus;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import dukecooks.commons.exceptions.DataConversionException;
 import dukecooks.model.dashboard.DashboardRecords;
 import dukecooks.model.dashboard.ReadOnlyDashboard;
+import dukecooks.model.dashboard.components.Dashboard;
+import dukecooks.model.dashboard.components.DashboardName;
+import dukecooks.model.dashboard.components.TaskDate;
+import dukecooks.model.dashboard.components.TaskStatus;
 import dukecooks.testutil.Assert;
 
 public class JsonDashboardRecordsStorageTest {
@@ -77,15 +77,15 @@ public class JsonDashboardRecordsStorageTest {
         assertEquals(original, original);
 
         // Modify data, overwrite exiting file, and read back
-        original.addDashboard(new Dashboard
-            (new DashboardName("Bake pastries"), new TaskDate("2/10/2019"), new TaskStatus("NOT COMPLETE")));
+        original.addDashboard(new Dashboard(
+            new DashboardName("Bake pastries"), new TaskDate("2/10/2019"), new TaskStatus("NOT COMPLETE")));
         jsonDashboardStorage.saveDashboard(original, filePath);
         readBack = jsonDashboardStorage.readDashboard(filePath).get();
         assertEquals(original, original);
 
         // Save and read without specifying file path
-        original.addDashboard(new Dashboard
-                (new DashboardName("Bake curry puffs"), new TaskDate("2/10/2019"), new TaskStatus("NOT COMPLETE")));
+        original.addDashboard(new Dashboard(
+            new DashboardName("Bake curry puffs"), new TaskDate("2/10/2019"), new TaskStatus("NOT COMPLETE")));
         jsonDashboardStorage.saveDashboard(original); // file path not specified
         readBack = jsonDashboardStorage.readDashboard().get(); // file path not specified
         assertEquals(original, original);
