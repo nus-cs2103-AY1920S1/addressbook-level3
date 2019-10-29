@@ -77,7 +77,7 @@ public class DetailWindowDisplay {
             ArrayList<FreeTimeslot> freeTimeslots = free.get(DayOfWeek.of(i + 1));
             s += DayOfWeek.of(i + 1).toString() + "\n";
             for (int j = 0; j < freeTimeslots.size(); j++) {
-                s += freeTimeslots.get(j).toString() + " === ";
+                s += " === " + freeTimeslots.get(j).toString();
             }
             s += "\n";
 

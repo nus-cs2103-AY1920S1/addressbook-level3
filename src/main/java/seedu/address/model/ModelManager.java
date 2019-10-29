@@ -85,7 +85,7 @@ public class ModelManager implements Model {
         this.personToGroupMappingList = timeBook.getPersonToGroupMappingList();
         this.gmapsModelManager = gmapsModelManager;
         this.nusModsData = nusModsData;
-        this.displayModelManager = new DisplayModelManager();
+        this.displayModelManager = new DisplayModelManager(gmapsModelManager);
 
         int personCounter = -1;
         for (int i = 0; i < personList.getPersons().size(); i++) {
