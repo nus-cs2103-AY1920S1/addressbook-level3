@@ -8,6 +8,8 @@ Extends to Step 15 in Game.java
  */
 package seedu.address.logic.commands.switches;
 
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
 import java.util.Collections;
 import java.util.Optional;
 
@@ -44,6 +46,7 @@ public class SwitchToStartCommand extends SwitchCommand {
     private Optional<DifficultyEnum> difficulty;
 
     public SwitchToStartCommand(Optional<DifficultyEnum> difficulty) {
+        requireAllNonNull(difficulty);
         this.difficulty = difficulty;
     }
 
@@ -51,7 +54,9 @@ public class SwitchToStartCommand extends SwitchCommand {
         return ModeEnum.GAME;
     }
 
-
+    public Optional<DifficultyEnum> getDifficulty() {
+        return this.difficulty;
+    }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {

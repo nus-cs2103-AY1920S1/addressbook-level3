@@ -210,7 +210,7 @@ class AppManagerTest {
         }
 
         @Override
-        public ObservableList<Card> getFilteredPersonList() {
+        public ObservableList<Card> getFilteredCardList() {
             return null;
         }
 

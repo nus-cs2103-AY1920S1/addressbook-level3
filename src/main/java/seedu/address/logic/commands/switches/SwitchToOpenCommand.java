@@ -1,5 +1,7 @@
 package seedu.address.logic.commands.switches;
 
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CARDS;
+
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.util.ModeEnum;
 import seedu.address.model.Model;
@@ -15,6 +17,7 @@ public class SwitchToOpenCommand extends SwitchCommand {
 
     @Override
     public CommandResult execute(Model model) {
+        model.updateFilteredCardList(PREDICATE_SHOW_ALL_CARDS);
         return new CommandResult(MESSAGE_HOME_ACKNOWLEDGEMENT, false, false);
     }
 

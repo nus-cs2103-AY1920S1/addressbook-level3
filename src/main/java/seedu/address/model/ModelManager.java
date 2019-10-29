@@ -282,6 +282,7 @@ public class ModelManager implements Model {
      */
     @Override
     public ObservableList<Card> getFilteredCardList() {
+        filteredCards = new FilteredList<>(this.currentWordBank.getCardList());
         return filteredCards;
     }
 
@@ -293,9 +294,7 @@ public class ModelManager implements Model {
     @Override
     public void updateFilteredCardList(Predicate<Card> predicate) {
         requireNonNull(predicate);
-
         filteredCards.setPredicate(predicate);
-        //filteredCards = new FilteredList<>(this.wordBank.getCardList());
     }
 
     //=========== WordBankStatistics methods =============================================================

@@ -48,7 +48,6 @@ public class MainWindow extends UiPart<Stage> {
     private TimerDisplay timerDisplay;
     private ResultDisplay resultDisplay;
     private ModularDisplay modularDisplay;
-    private CurrentModeFooter currentModeFooter;
     private HelpWindow helpWindow;
     private CommandBox commandBox;
 
@@ -74,9 +73,6 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane statusbarPlaceholder;
-
-    @FXML
-    private StackPane currentModePlaceholder;
 
 
     public MainWindow(Stage primaryStage, AppManager appManager) {
@@ -166,16 +162,12 @@ public class MainWindow extends UiPart<Stage> {
         StatusBarFooter statusBarFooter = new StatusBarFooter(appManager.getAddressBookFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
-        //Displays the current mode. Starts in "load" mode.
-        currentModeFooter = new CurrentModeFooter();
-        currentModePlaceholder.getChildren().add(currentModeFooter.getRoot());
-
         //Set up command box
         commandBox = new CommandBox(this::executeCommand, uiLogicHelper);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
         //Assigns only after initialisation.
-        updateUi = new UpdateUi(modularDisplay, currentModeFooter);
+        updateUi = new UpdateUi(modularDisplay);
         updateUi.setTheme(appManager.getAppSettings().getDefaultTheme(), scene);
     }
 

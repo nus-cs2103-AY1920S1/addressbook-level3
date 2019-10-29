@@ -1,6 +1,7 @@
 package seedu.address.logic;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_WORD_BANK_NAME;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.testutil.Assert.assertThrows;
 
@@ -11,14 +12,12 @@ import java.nio.file.Paths;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-//import seedu.address.logic.commands.CommandResult;
-
-//import seedu.address.logic.commands.switches.SwitchToHomeCommand;
-//import seedu.address.logic.commands.switches.SwitchToOpenCommand;
-
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.switches.SwitchToHomeCommand;
+import seedu.address.logic.commands.switches.SwitchToOpenCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -62,28 +61,30 @@ public class LogicManagerTest {
 
     @Test
     public void execute_invalidCommandFormat_throwsParseException() {
-        String invalidCommand = "uicfhmowqewca";
+        String invalidCommand = "8A1954FCC1065A01AE1A6F3527120EA90E3F4BDF262A4A0A0D41374572BEE66E";
         assertParseException(invalidCommand, MESSAGE_UNKNOWN_COMMAND);
     }
 
-    //    @Test
-    //    public void execute_commandExecutionError_throwsCommandException() {
-    //        String bankCommand = "bank";
-    //        assertCommandException(bankCommand, MESSAGE_INVALID_CARD_DISPLAYED_INDEX);
-    //    }
-    //
-    //    @Test
-    //    public void execute_validCommand_success() throws Exception {
-    //        String bankBypass = "bank 123";
-    //        logic.execute(bankBypass);
-    //        String homeCommand = SwitchToHomeCommand.COMMAND_WORD;
-    //        String openCommand = SwitchToOpenCommand.COMMAND_WORD;
-    //        CommandResult homeResult = logic.execute(homeCommand);
-    //        assertEquals(SwitchToHomeCommand.MESSAGE_HOME_ACKNOWLEDGEMENT, homeResult.getFeedbackToUser());
-    //        CommandResult openResult = logic.execute(openCommand);
-    //        assertEquals(SwitchToOpenCommand.MESSAGE_HOME_ACKNOWLEDGEMENT, openResult.getFeedbackToUser());
-    //        assertEquals(model, model);
-    //    }
+
+    @Test
+    public void execute_commandExecutionError_throwsCommandException() {
+        String bankCommand =
+                "bank 88F5D9517A2CBA49A301C160429580888B5D500BCB017C75A1F510AE5D4247E7";
+        assertCommandException(bankCommand, MESSAGE_INVALID_WORD_BANK_NAME);
+    }
+
+    @Test
+    public void execute_validCommand_success() throws Exception {
+        String bankSample = "bank sample";
+        logic.execute(bankSample);
+        String homeCommand = SwitchToHomeCommand.COMMAND_WORD;
+        String openCommand = SwitchToOpenCommand.COMMAND_WORD;
+        CommandResult homeResult = logic.execute(homeCommand);
+        assertEquals(SwitchToHomeCommand.MESSAGE_HOME_ACKNOWLEDGEMENT, homeResult.getFeedbackToUser());
+        CommandResult openResult = logic.execute(openCommand);
+        assertEquals(SwitchToOpenCommand.MESSAGE_HOME_ACKNOWLEDGEMENT, openResult.getFeedbackToUser());
+        assertEquals(model, model);
+    }
 
     //    todo: storage test
     //    @Test

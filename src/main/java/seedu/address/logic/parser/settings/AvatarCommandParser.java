@@ -20,7 +20,7 @@ public class AvatarCommandParser implements Parser<AvatarCommand> {
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, AvatarCommand.MESSAGE_USAGE));
         }
         int id = Integer.parseInt(trimmedArgs);
-        if (id >= 0 && id <= 151) {
+        if ((id >= 0 && id <= 151) || id == 29126) {
             return new AvatarCommand(id);
         } else {
             throw new ParseException("No such id: " + trimmedArgs);

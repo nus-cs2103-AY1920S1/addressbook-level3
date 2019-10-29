@@ -2,6 +2,7 @@ package seedu.address.logic.commands.switches;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import static seedu.address.logic.commands.switches.SwitchToStartCommand.MESSAGE_TOO_FEW_CANNOT_START;
@@ -151,6 +152,25 @@ class SwitchToStartCommandTest {
         // Test Should not reach this point as it returns in catch block.
         fail();
     }
+
+    @Test
+    void getDifficulty() {
+        // Optional.empty() is passed into constructor
+        SwitchToStartCommand dummyStartCommand = new SwitchToStartCommand(Optional.empty());
+        assertTrue(dummyStartCommand.getDifficulty().isEmpty());
+
+        // Optional<DifficultyEnum> passed into constructor
+        dummyStartCommand = new SwitchToStartCommand(Optional.of(DifficultyEnum.HARD));
+        assertEquals(dummyStartCommand.getDifficulty().get(),
+                DifficultyEnum.HARD);
+    }
+
+    @Test
+    void constructor_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> new SwitchToStartCommand(null));
+    }
+
+
 
     private class ModelStub implements Model {
 
