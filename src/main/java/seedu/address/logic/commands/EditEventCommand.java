@@ -69,7 +69,15 @@ public class EditEventCommand extends Command {
                 start = this.start;
             }
 
+            DateTime remind;
+            if (this.remind == null) {
+                remind = event.getRemind();
+            } else {
+                remind = this.remind;
+            }
+
             EventSource replacement = EventSource.newBuilder(description, start)
+                .setRemind(remind)
                 .build();
             model.replaceEvent(event, replacement);
         }
