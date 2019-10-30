@@ -2,12 +2,14 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ASSIGNMENT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DEADLINE;
 
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AddAssignmentCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.assignment.Assignment;
+import seedu.address.model.assignment.AssignmentDeadline;
 import seedu.address.model.assignment.AssignmentName;
 
 /**
@@ -22,15 +24,18 @@ public class AddAssignmentCommandParser implements Parser<AddAssignmentCommand> 
      */
     public AddAssignmentCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-            ArgumentTokenizer.tokenize(args, PREFIX_ASSIGNMENT);
+            ArgumentTokenizer.tokenize(args, PREFIX_ASSIGNMENT, PREFIX_DEADLINE);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_ASSIGNMENT) || !argMultimap.getPreamble().isEmpty()) {
+        if (!arePrefixesPresent(argMultimap, PREFIX_ASSIGNMENT, PREFIX_DEADLINE)
+                || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddAssignmentCommand.MESSAGE_USAGE));
         }
 
         AssignmentName assignmentName = ParserUtil.parseAssignmentName(argMultimap.getValue(PREFIX_ASSIGNMENT).get());
+        AssignmentDeadline assignmentDeadline = ParserUtil.parseAssignmentDeadline(argMultimap
+                .getValue(PREFIX_DEADLINE).get());
 
-        Assignment assignment = new Assignment(assignmentName);
+        Assignment assignment = new Assignment(assignmentName, assignmentDeadline);
         return new AddAssignmentCommand(assignment);
     }
 

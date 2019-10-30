@@ -12,7 +12,7 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3/tree/master
+:repoURL: https://github.com/AY1920S1-CS2103-T14-1/main
 
 By: `CS2103-T14-1`      Since: `October 19`      Licence: `MIT`
 
@@ -110,7 +110,7 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 .Interactions Inside the Logic Component for the `delete 1` Command
 image::DeleteSequenceDiagram.png[]
 
-NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+NOTE: The lifeline for `DeleteStudentCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
 [[Design-Model]]
 === Model component
@@ -124,11 +124,11 @@ The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
 * stores the Classroom data.
-* exposes an unmodifiable `ObservableList<Student>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* exposes an unmodifiable `ObservableList<Student>`, `ObservableList<Assignment>`, `ObservableList<Reminder>` and `ObservableList<Lesson>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
 [NOTE]
-As a more OOP model, we can store a `Tag` list in `Classroom`, which `Student` can reference. This would allow `classroom` to only require one `Tag` object per unique `Tag`, instead of each `Student` needing their own `Tag` object. An example of how such a model may look like is given below. +
+As a more OOP model, we can store a `Tag` list in `Classroom`, which `Student` can reference. This would allow `Classroom` to only require one `Tag` object per unique `Tag`, instead of each `Student` needing their own `Tag` object. An example of how such a model may look like is given below. +
  +
 image:BetterModelClassDiagram.png[]
 
@@ -174,18 +174,18 @@ Step 1. The user launches the application for the first time. The `Caretaker` wi
 
 image::UndoRedoState0.png[]
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the classroom. The `delete` command calls `Model#saveState()`, causing the modified state of the classroom after the `delete 5` command executes to be saved in the `mementos`, and the `statePointer` is shifted to the newly inserted classroom state.
+Step 2. The user executes `deletestudent 5` command to delete the 5th student in the classroom. The `delete` command calls `Model#saveState()`, causing the modified state of the classroom after the `delete 5` command executes to be saved in the `mementos`, and the `statePointer` is shifted to the newly inserted classroom state.
 
 image::UndoRedoState1.png[]
 
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#saveState()`, causing another modified classroom state to be saved into the `mementos`.
+Step 3. The user executes `addstudent n/David ...` to add a new student. The `addstudent` command also calls `Model#saveState()`, causing another modified classroom state to be saved into the `mementos`.
 
 image::UndoRedoState2.png[]
 
 [NOTE]
 If a command fails its execution, it will not call `Model#saveState()`, so the classroom state will not be saved into the `mementos`.
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undo()`, which will shift the `statePointer` once to the left, pointing it to the previous classroom state, and restores the classroom to that state.
+Step 4. The user now decides that adding the student was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undo()`, which will shift the `statePointer` once to the left, pointing it to the previous classroom state, and restores the classroom to that state.
 
 image::UndoRedoState3.png[]
 
@@ -224,7 +224,7 @@ image::CommitActivityDiagram.png[]
 ** Pros: Easy to implement.
 ** Cons: May have performance issues in terms of memory usage.
 * **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
+** Pros: Will use less memory (e.g. for `deletestudent`, just save the student being deleted).
 ** Cons: We must ensure that the implementation of each individual command are correct.
 ** Cons: Need to ensure that the commands are able to be executed at the correct index.
 
@@ -356,14 +356,14 @@ _{More to be added}_
 (For all use cases below, the *System* is the `Teacher's Notebook` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use case: Delete student
 
 *MSS*
 
-1.  User requests to list persons
-2.  Classroom shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  Classroom deletes the person
+1.  User requests to list students
+2.  Classroom shows a list of students
+3.  User requests to delete a specific student in the list
+4.  Classroom deletes the student
 +
 Use case ends.
 
@@ -381,14 +381,14 @@ Use case ends.
 +
 Use case resumes at step 2.
 
-=== Use case: Delete person
+=== Use case: Edit assignment
 
 *MSS*
 
-1.  User requests to list persons
-2.  Classroom shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  Classroom deletes the person
+1.  User requests to list assignments
+2.  Classroom shows a list of assignments
+3.  User requests to edit a specified assignment in the list
+4.  Classroom edits the student
 +
 Use case ends.
 
@@ -403,6 +403,11 @@ Use case ends.
 +
 [none]
 ** 3a1. Classroom shows an error message.
++
+* 3b. There is a similar assignment in the list as the one that user wants to edit to.
++
+[none]
+** 3b1. Classroom shows an error message.
 +
 Use case resumes at step 2.
 
@@ -434,8 +439,15 @@ A contact detail that is not meant to be shared with others
 == Product Survey
 
 *Product Name*
+Teacher's Notebook
 
-Author: ...
+Author:
+
+* Loh Wei Kiat weikiat97@github.com
+* Sebastian Lie Hsien Yong SebastianLie@github.com
+* Tay Sheryl sheryltay28@github.com
+* Yoon Jia Jun, Ken Xelyion@github.com
+
 
 Pros:
 
@@ -471,16 +483,16 @@ These instructions only provide a starting point for testers to work on; testers
 
 _{ more test cases ... }_
 
-=== Deleting a person
+=== Deleting a student
 
-. Deleting a person while all persons are listed
+. Deleting a student while all students are listed
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
+.. Prerequisites: List all students using the `list` command. Multiple students in the list.
+.. Test case: `deletestudent 1` +
    Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+.. Test case: `deletestudent 0` +
+   Expected: No student is deleted. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect delete commands to try: `deletestudent`, `deletestudent x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
 
 _{ more test cases ... }_

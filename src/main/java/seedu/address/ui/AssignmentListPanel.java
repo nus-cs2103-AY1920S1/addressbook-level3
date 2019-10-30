@@ -11,7 +11,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.assignment.Assignment;
 
 /**
- * Panel containing the list of students.
+ * Panel containing the list of assignments.
  */
 public class AssignmentListPanel extends UiPart<Region> {
     private static final String FXML = "AssignmentListPanel.fxml";
@@ -27,7 +27,7 @@ public class AssignmentListPanel extends UiPart<Region> {
     }
 
     /**
-     * Custom {@code ListCell} that displays the graphics of a {@code Student} using a {@code StudentCard}.
+     * Custom {@code ListCell} that displays the graphics of a {@code Assignment} using a {@code AssignmentCard}.
      */
     class AssignmentListViewCell extends ListCell<Assignment> {
         @Override

@@ -63,9 +63,6 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane studentListPanelPlaceholder;
 
     @FXML
-    private StackPane assignmentListPanelPlaceholder;
-
-    @FXML
     private StackPane combinedListPanelPlaceholder;
 
     @FXML
@@ -73,6 +70,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane reminderListPanelPlaceholder;
+
+    @FXML
+    private StackPane assignmentListPanelPlaceholder;
 
     @FXML
     private StackPane statusbarPlaceholder;
@@ -144,6 +144,7 @@ public class MainWindow extends UiPart<Stage> {
         //assignmentListPanelPlaceholder.getChildren().add(assignmentListPanel.getRoot());
 
         combinedListPanelPlaceholder.getChildren().add(studentListPanel.getRoot());
+        assignmentListPanelPlaceholder.getChildren().add(assignmentListPanel.getRoot());
 
         reminderListPanel = new ReminderListPanel(logic.getFilteredLessonList());
         reminderListPanelPlaceholder.getChildren().add(reminderListPanel.getRoot());
@@ -221,6 +222,7 @@ public class MainWindow extends UiPart<Stage> {
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
+            /*
             if (logic.isDisplayStudents()) {
                 combinedListPanelPlaceholder.getChildren().clear();
                 combinedListPanelPlaceholder.getChildren().add(studentListPanel.getRoot());
@@ -228,6 +230,7 @@ public class MainWindow extends UiPart<Stage> {
                 combinedListPanelPlaceholder.getChildren().clear();
                 combinedListPanelPlaceholder.getChildren().add(assignmentListPanel.getRoot());
             }
+             */
 
 
             if (commandResult.isShowHelp()) {
