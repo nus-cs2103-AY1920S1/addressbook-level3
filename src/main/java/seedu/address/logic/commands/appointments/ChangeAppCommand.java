@@ -27,7 +27,7 @@ public class ChangeAppCommand extends ReversibleCommand {
             + PREFIX_START + "01/11/19 1800 "
             + PREFIX_END + "01/11/19 1900";
 
-    public static final String MESSAGE_SUCCESS = "this appointmeent's timing has been changed: %1$s";
+    public static final String MESSAGE_SUCCESS = "this appointment's details has been changed to\n%1$s";
     public static final String MESSAGE_TIMING_EXIST = "please give a new valid timing for the appointment to change.";
     public static final String MESSAGE_DUPLICATE_EVENT = "This event already exists in the appointment book.";
 

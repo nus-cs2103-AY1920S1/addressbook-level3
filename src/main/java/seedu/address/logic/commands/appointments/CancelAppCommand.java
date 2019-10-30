@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.common.CommandResult;
@@ -23,8 +24,8 @@ public class CancelAppCommand extends ReversibleCommand {
             + "Parameters: INDEX (positive integer)\n"
             + "need to go to patient's appointment list first\n"
             + "Example: " + COMMAND_WORD + " 1";
-    public static final String MESSAGE_CANCEL_APPOINTMENT_SUCCESS = "Appointment cancelled: %1$s";
-    public static final String MESSAGE_CANCEL_APPOINTMENTS_SUCCESS = "Recursive appointments cancelled: \n";
+    public static final String MESSAGE_CANCEL_APPOINTMENT_SUCCESS = "appointment cancelled: %1$s";
+    public static final String MESSAGE_CANCEL_APPOINTMENTS_SUCCESS = "%1$s repeated appointments cancelled: \n";
     public static final String MESSAGE_CANCEL_APPOINTMENTS_CONSTRAINTS
             = "Must indicate at least 1 appointment to delete";
 
@@ -61,7 +62,11 @@ public class CancelAppCommand extends ReversibleCommand {
             }
         }
         model.updateFilteredAppointmentList(new EventContainsRefIdPredicate(eventList.get(0).getPersonId()));
-        return new CommandResult(CancelAppCommand.MESSAGE_CANCEL_APPOINTMENTS_SUCCESS, eventList);
+        return new CommandResult(String.format(
+                MESSAGE_CANCEL_APPOINTMENTS_SUCCESS,
+                eventList.size(),
+                eventList.stream()
+                        .map(e -> e.toString()).collect(Collectors.joining("\n"))));
     }
 
     //@@author SakuraBlossom

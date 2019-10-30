@@ -8,6 +8,7 @@ import seedu.address.logic.commands.common.ReversibleCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.events.Event;
+import seedu.address.model.events.exceptions.InvalidEventScheduleChangeException;
 import seedu.address.model.events.predicates.EventsMissedPredicate;
 import seedu.address.model.events.predicates.EventsSettledPredicate;
 
@@ -45,17 +46,19 @@ public class SettleAppCommand extends ReversibleCommand {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        if (eventToEdit == null & editedEvent == null) {
-            model.updateFilteredAppointmentList(new EventsSettledPredicate());
-        } else if (model.hasExactAppointment(editedEvent)) {
+        if (model.hasExactAppointment(editedEvent)) {
             throw new CommandException(MESSAGE_DUPLICATE_SETTLE);
-        } else {
-            model.deleteAppointment(eventToEdit);
-            model.scheduleAppointment(editedEvent, false);
-            model.updateFilteredAppointmentList(new EventsMissedPredicate());
         }
 
-        if (eventToEdit.getStatus().isMissed()) {
+        try {
+            model.setAppointment(eventToEdit, editedEvent);
+        } catch (InvalidEventScheduleChangeException ex) {
+            throw new CommandException(ex.getMessage());
+        }
+        model.updateFilteredAppointmentList(new EventsMissedPredicate());
+
+
+        if (editedEvent.getStatus().isSettled()) {
             return new CommandResult(String.format(MESSAGE_SUCCESS, editedEvent));
         } else {
             return new CommandResult(String.format(MESSAGE_SUCCESS_UNDO, editedEvent));

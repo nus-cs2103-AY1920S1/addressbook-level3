@@ -55,7 +55,7 @@ public class AddAppCommandParser implements Parser<ReversibleActionPairCommand> 
 
         if (!arePrefixesPresent(argMultimap, PREFIX_ID, PREFIX_START)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    AddAppCommand.MESSAGE_USAGE_RECURSIVELY));
+                    AddAppCommand.MESSAGE_USAGE));
         }
 
         ReferenceId referenceId = ParserUtil.parsePatientReferenceId(argMultimap.getValue(PREFIX_ID).get());
@@ -79,7 +79,7 @@ public class AddAppCommandParser implements Parser<ReversibleActionPairCommand> 
 
             if (!recursiveString.equals("w") && !recursiveString.equals("m") && !recursiveString.equals("y")) {
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                        AddAppCommand.MESSAGE_USAGE_RECURSIVELY));
+                        AddAppCommand.MESSAGE_USAGE));
             }
 
             Index rescursiveTimes = ParserUtil.parseTimes(recursiveStringTimesOptional.get());
@@ -92,7 +92,7 @@ public class AddAppCommandParser implements Parser<ReversibleActionPairCommand> 
             if (!recursiveStringOptional.isPresent() && recursiveStringTimesOptional.isPresent()
                     || recursiveStringOptional.isPresent() && !recursiveStringTimesOptional.isPresent()) {
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                        AddAppCommand.MESSAGE_USAGE_RECURSIVELY));
+                        AddAppCommand.MESSAGE_USAGE));
             }
             Appointment event = new Appointment(referenceId, timing, new Status());
             return new ReversibleActionPairCommand(new AddAppCommand(event),

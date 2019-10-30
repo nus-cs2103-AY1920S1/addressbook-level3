@@ -1,5 +1,9 @@
 package seedu.address.logic.commands.duties;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_END;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_START;
+
 import seedu.address.logic.commands.common.CommandResult;
 import seedu.address.logic.commands.common.ReversibleCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -8,15 +12,12 @@ import seedu.address.model.events.Event;
 import seedu.address.model.events.exceptions.InvalidEventScheduleChangeException;
 import seedu.address.model.events.predicates.EventContainsRefIdPredicate;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_END;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_START;
 
 /**
- * Chnageing the timing of the appointment.
+ * Changes the details of the duty shift.
  */
 public class ChangeDutyShiftCommand extends ReversibleCommand {
-    public static final String COMMAND_WORD = "changeduty";
+    public static final String COMMAND_WORD = "changeshift";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": changes the details of a duty shift "
             + "by the index number used in the displayed duty roster.\n"
@@ -27,7 +28,7 @@ public class ChangeDutyShiftCommand extends ReversibleCommand {
             + PREFIX_START + "01/11/19 1800 "
             + PREFIX_END + "01/11/19 1900";
 
-    public static final String MESSAGE_SUCCESS = "this duty shift's timing has been changed: %1$s";
+    public static final String MESSAGE_SUCCESS = "Duty shift changed to %1$s";
     public static final String MESSAGE_DUPLICATE_EVENT = "This event already exists in the duty roster";
 
     private final Event eventToEdit;

@@ -91,8 +91,8 @@ public class ModelManager implements Model {
         this.filteredPatients = new FilteredList<>(this.patientAddressBook.getPersonList());
         this.filteredStaff = new FilteredList<>(this.staffAddressBook.getPersonList());
 
-        this.filteredAppointments = new FilteredList<>(this.appointmentBook.getEventList());
-        this.filteredDutyShifts = new FilteredList<>(this.dutyRosterBook.getEventList());
+        this.filteredAppointments = new FilteredList<>(this.appointmentBook.getEventList(), PREDICATE_SHOW_ALL_EVENTS);
+        this.filteredDutyShifts = new FilteredList<>(this.dutyRosterBook.getEventList(), PREDICATE_SHOW_ALL_EVENTS);
 
         this.consultationRooms = new FilteredList<>(this.queueManager.getRoomList());
         this.patientQueueList = new FilteredList<>(this.queueManager.getReferenceIdList());
@@ -399,7 +399,7 @@ public class ModelManager implements Model {
             Event apt = itr.next();
             countNumberOfConcurrentAppointments++;
             if (appointment.getPersonId().isSameAs(apt.getPersonId())
-                && !appointment.equals(ignoreEventCase)) {
+                && !apt.equals(ignoreEventCase)) {
                 throw new InvalidEventScheduleChangeException(
                         String.format(MESSAGE_NOT_OVERLAPPING_APPOINTMENT,
                                 apt.getEventTiming().toString()));
@@ -407,7 +407,11 @@ public class ModelManager implements Model {
             }
         }
 
-        if (numOfAvailableStaff <= countNumberOfConcurrentAppointments) {
+        if (numOfAvailableStaff <= countNumberOfConcurrentAppointments
+            && !(numOfAvailableStaff == countNumberOfConcurrentAppointments
+                && ignoreEventCase != null
+                && !appointment.conflictsWith(ignoreEventCase))) {
+
             throw new InvalidEventScheduleChangeException(
                     String.format(MESSAGE_NOT_ENOUGH_STAFF,
                             appointment.getEventTiming().toString(),
@@ -440,8 +444,8 @@ public class ModelManager implements Model {
         }
 
         checkValidScheduleAppointment(editedEvent, target);
-        appointmentBook.addEvent(editedEvent);
         deleteAppointment(target);
+        appointmentBook.addEvent(editedEvent);
     }
 
     @Override

@@ -17,6 +17,6 @@ class AddAppCommandParserTest {
     @Test
     void parse_invalidArgs_throwsParseException() {
         assertParseFailure(addAppCommandParser, "yy",
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddAppCommand.MESSAGE_USAGE_RECURSIVELY));
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddAppCommand.MESSAGE_USAGE));
     }
 }

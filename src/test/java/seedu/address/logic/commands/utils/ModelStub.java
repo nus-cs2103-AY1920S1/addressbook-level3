@@ -218,11 +218,6 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public void deleteAppointments(List<Event> appointments) {
-        throw new AssertionError("This method should not be called.");
-    }
-
-    @Override
     public void scheduleAppointment(Event appointment) {
         throw new AssertionError("This method should not be called.");
     }

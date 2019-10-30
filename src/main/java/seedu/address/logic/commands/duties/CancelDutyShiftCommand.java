@@ -11,6 +11,7 @@ import seedu.address.model.events.exceptions.InvalidEventScheduleChangeException
 import seedu.address.model.events.predicates.EventContainsRefIdPredicate;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
@@ -19,12 +20,12 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  * cancel a duty shift(s) for a staff member.
  */
 public class CancelDutyShiftCommand extends ReversibleCommand {
-    public static final String COMMAND_WORD = "cancelduty";
+    public static final String COMMAND_WORD = "cancelshift";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Cancels shift from the duty roster. "
             + "Parameters: INDEX (positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
     public static final String MESSAGE_CANCEL_SHIFT_SUCCESS = "Duty shift has been cancelled: \n%1$s";
-    public static final String MESSAGE_CANCEL_SHIFTS_SUCCESS = "Recursive cancelled duty shifts : \n";
+    public static final String MESSAGE_CANCEL_SHIFTS_SUCCESS = "%1$s repeated duty shifts cancelled: \n%2$s";
     public static final String MESSAGE_CANCEL_SHIFTS_CONSTRAINTS
             = "Must indicate at least 1 shift to delete";
 
@@ -58,7 +59,11 @@ public class CancelDutyShiftCommand extends ReversibleCommand {
 
             model.deleteDutyShifts(eventList);
             model.updateFilteredDutyShiftList(new EventContainsRefIdPredicate(eventList.get(0).getPersonId()));
-            return new CommandResult(CancelDutyShiftCommand.MESSAGE_CANCEL_SHIFTS_SUCCESS, eventList);
+            return new CommandResult(String.format(
+                    MESSAGE_CANCEL_SHIFTS_SUCCESS,
+                    eventList.size(),
+                    eventList.stream()
+                            .map(e -> e.toString()).collect(Collectors.joining("\n"))));
 
         } catch (InvalidEventScheduleChangeException ex) {
             throw new CommandException(ex.getMessage());
