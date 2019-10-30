@@ -111,10 +111,10 @@ public class Donor extends Person {
     }
 
     public void setProcessingList(String newProcessingList) {
+        TaskList updatedProcessingList = new TaskList("");
         if (newProcessingList.isEmpty()) {
-            this.processingTodoList = null;
+            this.processingTodoList = updatedProcessingList;
         } else {
-            TaskList updatedProcessingList = new TaskList("");
             String[] taskString = newProcessingList.split("\n");
             for (int i = 0; i < taskString.length; i++) {
                 String currentTaskString = taskString[i];
