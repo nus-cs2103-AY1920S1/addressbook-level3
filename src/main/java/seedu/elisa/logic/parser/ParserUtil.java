@@ -114,6 +114,38 @@ public class ParserUtil {
     }
 
     /**
+     * Parse the {@code snoozeTillTime} into a {@code Optional<LocalDateTime>} and returns it.
+     * Converts the string time into a LocalDateTime object/
+     * @param snoozeTillTime representing the time of the next occurrence of the Reminder
+     * @return Optional.of(formattedDateTime) if the occurenceDateTime created is valid, Optional.empty() otherwise
+     * @throws ParseException if the format of the reminder time is incorrect
+     */
+    public static Optional<LocalDateTime> parseSnooze(String snoozeTillTime) throws ParseException {
+        if (snoozeTillTime == null) {
+            return Optional.empty();
+        }
+
+        String trimmedDateTime = snoozeTillTime.trim();
+        LocalDateTime formattedDateTime;
+
+        try {
+            formattedDateTime = getFormattedDateTime(trimmedDateTime);
+        } catch (DateTimeParseException e) {
+            throw new ParseException("Date Time format given is incorrect. "
+                    + "Please follow this format: \"-r 2019-09-25T23:59:50.63\""
+                    + "or \"-r 25/09/2019 2359\""
+                    + "of \"-r 10.min.later\"");
+        }
+
+        //Checks if you are snoozing to a dateTime that is before now.
+        if (formattedDateTime.isBefore(LocalDateTime.now())) {
+            throw new ParseException("You can't snooze backwards in time you lazy bird.");
+        }
+
+        return Optional.of(formattedDateTime);
+    }
+
+    /**
      * Parse the {@code priority} into a {@code Optional<Priority>} and returns it.
      * Converts the string of priority into an enumeration priority object, is case-insensitive.
      * @param priority of the task or event
