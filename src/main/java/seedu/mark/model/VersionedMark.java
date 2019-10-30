@@ -34,44 +34,74 @@ public class VersionedMark extends Mark {
         markStateRecords.subList(currentPointer + 1, markStateRecords.size()).clear();
     }
 
+    public String getUndoRecords(int start, int end) {
+        StringBuilder records = new StringBuilder();
+        for (int i = end; i >= start; i--) {
+            records.append(markStateRecords.get(i).getRecord())
+                    .append("\n");
+        }
+        return records.toString();
+    }
+
+    public String getRedoRecords(int start, int end) {
+        StringBuilder records = new StringBuilder();
+        for (int i = start; i <= end; i++) {
+            records.append(markStateRecords.get(i).getRecord())
+                    .append("\n");
+        }
+        return records.toString();
+    }
+
     /**
      * Restores the Mark to its previous state.
+     * @param steps
      */
-    public String undo() {
-        if (!canUndo()) {
+    public String undo(int steps) {
+        if (!canUndo(steps)) {
             throw new CannotUndoMarkException();
         }
-        String record = markStateRecords.get(currentPointer).getRecord();
-        currentPointer--;
+        String records = getUndoRecords(currentPointer - steps + 1, currentPointer);
+        currentPointer = currentPointer - steps;
         resetData(markStateRecords.get(currentPointer).getState());
-        return record;
+        return records;
     }
 
     /**
      * Restores the Mark to its previously undone state.
+     * @param steps
      */
-    public String redo() {
-        if (!canRedo()) {
+    public String redo(int steps) {
+        if (!canRedo(steps)) {
             throw new CannotRedoMarkException();
         }
-        currentPointer++;
+        String records = getRedoRecords(currentPointer + 1, currentPointer + steps);
+        currentPointer = currentPointer + steps;
         resetData(markStateRecords.get(currentPointer).getState());
-        String record = markStateRecords.get(currentPointer).getRecord();
-        return record;
+        return records;
     }
 
     /**
      * Returns true if {@code undo()} has Mark states to undo.
+     * @param steps
      */
-    public boolean canUndo() {
-        return currentPointer > 0;
+    public boolean canUndo(int steps) {
+        return currentPointer > (steps - 1);
+    }
+
+    public int getMaxStepsToUndo() {
+        return currentPointer;
     }
 
     /**
      * Returns true if {@code redo()} has Mark states to redo.
+     * @param steps
      */
-    public boolean canRedo() {
-        return currentPointer < markStateRecords.size() - 1;
+    public boolean canRedo(int steps) {
+        return currentPointer + steps < markStateRecords.size();
+    }
+
+    public int getMaxStepsToRedo() {
+        return markStateRecords.size() - currentPointer - 1;
     }
 
     @Override

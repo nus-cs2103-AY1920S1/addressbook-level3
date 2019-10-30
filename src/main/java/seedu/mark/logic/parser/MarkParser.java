@@ -98,10 +98,10 @@ public class MarkParser {
             return new TabCommandParser().parse(arguments);
 
         case UndoCommand.COMMAND_WORD:
-            return new UndoCommand();
+            return new UndoCommandParser().parse(arguments);
 
         case RedoCommand.COMMAND_WORD:
-            return new RedoCommand();
+            return new RedoCommandParser().parse(arguments);
 
         case AddFolderCommand.COMMAND_WORD:
             return new AddFolderCommandParser().parse(arguments);

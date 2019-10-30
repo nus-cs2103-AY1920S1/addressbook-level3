@@ -197,23 +197,33 @@ public class ModelManager implements Model {
     //=========== Undo/Redo =================================================================================
 
     @Override
-    public boolean canUndoMark() {
-        return versionedMark.canUndo();
+    public boolean canUndoMark(int steps) {
+        return versionedMark.canUndo(steps);
     }
 
     @Override
-    public boolean canRedoMark() {
-        return versionedMark.canRedo();
+    public int getMaxStepsToUndo() {
+        return versionedMark.getMaxStepsToUndo();
     }
 
     @Override
-    public String undoMark() {
-        return versionedMark.undo();
+    public boolean canRedoMark(int steps) {
+        return versionedMark.canRedo(steps);
     }
 
     @Override
-    public String redoMark() {
-        return versionedMark.redo();
+    public int getMaxStepsToRedo() {
+        return versionedMark.getMaxStepsToRedo();
+    }
+
+    @Override
+    public String undoMark(int steps) {
+        return versionedMark.undo(steps);
+    }
+
+    @Override
+    public String redoMark(int steps) {
+        return versionedMark.redo(steps);
     }
 
     @Override

@@ -141,22 +141,32 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public boolean canUndoMark() {
+    public boolean canUndoMark(int steps) {
         throw new AssertionError("This method should not be called.");
     }
 
     @Override
-    public boolean canRedoMark() {
+    public int getMaxStepsToUndo() {
         throw new AssertionError("This method should not be called.");
     }
 
     @Override
-    public String undoMark() {
+    public boolean canRedoMark(int steps) {
         throw new AssertionError("This method should not be called.");
     }
 
     @Override
-    public String redoMark() {
+    public int getMaxStepsToRedo() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public String undoMark(int steps) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public String redoMark(int steps) {
         throw new AssertionError("This method should not be called.");
     }
 
