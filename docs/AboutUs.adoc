@@ -51,7 +51,7 @@ Main project tasks: Updating and Editing features
 
 === Choo Ze Yuan
 image::raikonen.png[width="150", align="left"]
-link:http://github.com/raikonen[Github] | <<johndoe#, Portfolio>>
+link:http://github.com/raikonen[Github] | <<ze-yuan#, Portfolio>>
 
 Role: Developer +
 Responsibilities: Implementing features +

@@ -366,9 +366,6 @@ When a `DaysToExpire` object is instantiated, it stores the system time as a fie
 The budget duration is correspondingly updated based on the difference between this saved time and the actual system time.
 ****
 
-.Wallet-related class diagram in Model component.
-image::WalletClassDiagram.png[width=400]
-
 [NOTE]
 Due to development constraints, we have decided to only update the budget duration every time the application is started up instead of constantly monitoring the actual time to update this property.
 
@@ -433,7 +430,7 @@ A user's purchase history is displayed in the UI, similar to the food menu, and 
 ==== Classes for Purchase Tracking feature in Model
 
 .Purchase-related class diagram in Model component.
-image::PurchaseHistoryClassDiagram.png[width=400]
+image::PurchaseHistoryClassDiagram.png[width=320, align="center"]
 
 The Purchase Tracking feature was implemented with the following classes.
 
@@ -474,9 +471,6 @@ The user may want to buy a food item and record the purchase. This can be done w
 
 After the users enters a `buy` command, for example, `buy 1` which buys the first item in the displayed list.
 
-The command is read as a text string from the command box in the UI and then is executed by calling MainWindow#executeCommand(),
-which passes this string (named commandText) to the Logic component by calling Logic#execute(Model model).
-
 The sequence diagram for interactions between the Logic, Model and Storage components when a user executes the `buy 1` command is shown below.
 
 .Sequence diagram for `buy 1` command
@@ -485,12 +479,9 @@ image::BuySequenceDiagram.png[]
 The following activity diagram below summarizes how `buy` commands works
 
 .Activity diagram for a `buy` command
-<<<<<<< Updated upstream
-image::BuyActivityDiagram.png[]
-=======
+
 image::BuyActivityDiagram.png[width = "300", align="center"]
 //end::purchasing[]
->>>>>>> Stashed changes
 
 //tag::recommendations[]
 === Recommendation feature
