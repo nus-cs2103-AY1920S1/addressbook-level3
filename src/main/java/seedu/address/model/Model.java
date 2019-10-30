@@ -109,7 +109,11 @@ public interface Model {
      */
     void addTraining(Training training);
 
+    Training getTrainingOnDate(AthletickDate date);
+    HashMap<Person, Boolean> getTrainingAttendanceOnDate(AthletickDate date);
+
     Attendance getAttendance();
+    boolean hasTraining(AthletickDate training);
 
     void addEvent(Event event);
 
@@ -122,4 +126,5 @@ public interface Model {
     HashMap<Event, List<CalendarCompatibleRecord>> getCalendarCompatiblePerformance(AthletickDate date);
 
     boolean hasPerformanceOn(AthletickDate date);
+
 }
