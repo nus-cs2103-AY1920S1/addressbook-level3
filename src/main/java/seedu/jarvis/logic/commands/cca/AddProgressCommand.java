@@ -1,6 +1,7 @@
 package seedu.jarvis.logic.commands.cca;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.jarvis.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.jarvis.logic.parser.CliSyntax.CcaTrackerCliSyntax.PREFIX_PROGRESS_LEVEL_NAMES;
 import static seedu.jarvis.model.cca.CcaTrackerModel.PREDICATE_SHOW_ALL_CCAS;
 import static seedu.jarvis.model.viewstatus.ViewType.LIST_CCA;
@@ -43,19 +44,41 @@ public class AddProgressCommand extends Command {
 
 
     private final Index targetIndex;
+
     private Cca targetCca;
 
     private final CcaMilestoneList toAddCcaMilestoneList;
+
 
     /**
      * Creates a {@code AddProgressCommand}, sets targetIndex to the {@code Index} and sets toAddCcaMilestoneList to the
      * {@code CcaProgress} ccaProgress of the {@code Cca} at the targetIndex.
      *
-     * @param targetIndex of the {@code Cca} to be added.
+     * @param targetIndex of the {@code Cca} to be deleted.
+     * @param ccaMilestoneList {@code CcaMilestoneList}.
+     * @param targetCca {@code Cca}.
      */
-    public AddProgressCommand(Index targetIndex, CcaMilestoneList ccaMilestoneList) {
+    public AddProgressCommand(Index targetIndex, CcaMilestoneList ccaMilestoneList, Cca targetCca) {
+        requireAllNonNull(targetIndex, ccaMilestoneList);
         this.targetIndex = targetIndex;
         this.toAddCcaMilestoneList = ccaMilestoneList;
+        this.targetCca = targetCca;
+    }
+
+    public AddProgressCommand(Index targetIndex, CcaMilestoneList ccaMilestoneList) {
+        this(targetIndex, ccaMilestoneList, null);
+    }
+
+    public Index getTargetIndex() {
+        return targetIndex;
+    }
+
+    public Cca getTargetCca() {
+        return targetCca;
+    }
+
+    public CcaMilestoneList getCcaMilestoneList() {
+        return toAddCcaMilestoneList;
     }
 
     @Override

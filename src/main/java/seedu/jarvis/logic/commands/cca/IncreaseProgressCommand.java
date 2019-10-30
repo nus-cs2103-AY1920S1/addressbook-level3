@@ -10,6 +10,7 @@ import seedu.jarvis.logic.commands.Command;
 import seedu.jarvis.logic.commands.CommandResult;
 import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.model.Model;
+import seedu.jarvis.model.cca.Cca;
 
 /**
  * Increments progress for the chosen cca.
@@ -32,6 +33,7 @@ public class IncreaseProgressCommand extends Command {
     public static final boolean HAS_INVERSE = false;
 
     private final Index targetIndex;
+    private Cca targetCca;
 
     public IncreaseProgressCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
@@ -40,6 +42,23 @@ public class IncreaseProgressCommand extends Command {
     @Override
     public String getCommandWord() {
         return COMMAND_WORD;
+    }
+
+    /**
+     * Gets the target {@code Index}.
+     * @return Target {@code Index}.
+     */
+    public Index getTargetIndex() {
+        return targetIndex;
+    }
+
+    /**
+     * Gets the target {@code Cca}.
+     *
+     * @return Target {@code Cca}.
+     */
+    public Cca getTargetCca() {
+        return targetCca;
     }
 
     @Override

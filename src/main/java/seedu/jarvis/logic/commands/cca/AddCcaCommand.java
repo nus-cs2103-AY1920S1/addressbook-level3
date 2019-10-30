@@ -59,6 +59,15 @@ public class AddCcaCommand extends Command {
         return COMMAND_WORD;
     }
 
+    /**
+     * Gets the {@code Cca} that was added.
+     *
+     * @return {@code Cca} that was added.
+     */
+    public Cca getAddedCca() {
+        return toAddCca;
+    }
+
     @Override
     public boolean hasInverseExecution() {
         return HAS_INVERSE;

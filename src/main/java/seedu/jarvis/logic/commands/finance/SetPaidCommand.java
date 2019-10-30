@@ -54,6 +54,15 @@ public class SetPaidCommand extends Command {
     }
 
     /**
+     * Gets the {@code Purchase} to be added.
+     *
+     * @return {@code Purchase} to be added.
+     */
+    public Purchase getAddedPurchase() {
+        return toAdd;
+    }
+
+    /**
      * Returns whether the command has an inverse execution.
      * If the command has no inverse execution, then calling {@code executeInverse}
      * will be guaranteed to always throw a {@code CommandException}.

@@ -31,6 +31,7 @@ public class JsonAdaptedEditPersonDescriptor implements JsonAdapter<EditPersonDe
 
     /**
      * Constructs a {@code JsonAdaptedEditPersonDescriptor} with the given description.
+     *
      * @param name Name description, can be null.
      * @param phone Phone description, can be null.
      * @param email Email description, can be null.
@@ -56,11 +57,10 @@ public class JsonAdaptedEditPersonDescriptor implements JsonAdapter<EditPersonDe
      * @param editPersonDescriptor {@code EditPersonDescriptor} to be converted for Jackson use.
      */
     public JsonAdaptedEditPersonDescriptor(EditPersonDescriptor editPersonDescriptor) {
-        name = editPersonDescriptor.getName().isPresent() ? editPersonDescriptor.getName().get().fullName : null;
-        phone = editPersonDescriptor.getPhone().isPresent() ? editPersonDescriptor.getPhone().get().value : null;
-        email = editPersonDescriptor.getEmail().isPresent() ? editPersonDescriptor.getEmail().get().value : null;
-        address = editPersonDescriptor.getAddress().isPresent() ? editPersonDescriptor.getAddress().get().value : null;
-
+        name = editPersonDescriptor.getName().map(name -> name.fullName).orElse(null);
+        phone = editPersonDescriptor.getPhone().map(phone -> phone.value).orElse(null);
+        email = editPersonDescriptor.getEmail().map(email -> email.value).orElse(null);
+        address = editPersonDescriptor.getAddress().map(address -> address.value).orElse(null);
         editPersonDescriptor.getTags().ifPresent(tags -> this.tags.addAll(
                 tags.stream().map(JsonAdaptedTag::new).collect(Collectors.toList())));
     }
@@ -80,14 +80,13 @@ public class JsonAdaptedEditPersonDescriptor implements JsonAdapter<EditPersonDe
         editPersonDescriptor.setEmail(new Email(email));
         editPersonDescriptor.setAddress(new Address(address));
 
-        Set<Tag> setOfTags = null;
+        Set<Tag> setOfTags = new HashSet<>();
         if (!tags.isEmpty()) {
-            setOfTags = new HashSet<>();
             for (JsonAdaptedTag jsonAdaptedTag : tags) {
                 setOfTags.add(jsonAdaptedTag.toModelType());
             }
         }
-        editPersonDescriptor.setTags(setOfTags);
+        editPersonDescriptor.setTags(tags.isEmpty() ? null : setOfTags);
 
         return editPersonDescriptor;
     }

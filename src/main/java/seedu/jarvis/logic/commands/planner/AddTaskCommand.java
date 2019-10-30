@@ -57,6 +57,15 @@ public class AddTaskCommand extends Command {
     }
 
     /**
+     * Gets the {@code Task} to be added.
+     *
+     * @return {@code Task} to be added.
+     */
+    public Task getAddedTask() {
+        return toAdd;
+    }
+
+    /**
      * Gets the command word of the command.
      *
      * @return {@code String} representation of the command word.
