@@ -32,7 +32,7 @@ public class TfAnswersGridPane extends AnswersGridPane {
 
     /**
      * Updates the answers to true and false.
-     * @param answerable
+     * @param answerable taken in and will update the AnswerSet.
      */
     public void updateAnswers(Answerable answerable) {
         option1.setText("True");
