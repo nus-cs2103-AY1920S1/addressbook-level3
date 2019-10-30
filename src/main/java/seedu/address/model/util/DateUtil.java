@@ -2,7 +2,9 @@ package seedu.address.model.util;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Contains utility methods for parsing and formatting date and time.
@@ -51,5 +53,29 @@ public class DateUtil {
             return false;
         }
         return true;
+    }
+
+    /**
+     * Returns the number of days that the password has before it expires.
+     * @param d1 Starting Date
+     * @param d2 Ending Date
+     * @return the number of days before the password expires.
+     */
+    public static long findDaysPasswordExpireAt(Date d1, Date d2) {
+        long diff = d2.getTime() - d1.getTime();
+        return TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
+    }
+
+    /**
+     * Returns the date one year after the last modification of the password.
+     * @param d1 starting date
+     * @return date one year after starting date
+     */
+    public static Date findPasswordExpireAt(Date d1) {
+        Calendar calender = Calendar.getInstance();
+        calender.setTime(d1);
+        calender.add(Calendar.YEAR, 1);
+        Date newDate = calender.getTime();
+        return newDate;
     }
 }

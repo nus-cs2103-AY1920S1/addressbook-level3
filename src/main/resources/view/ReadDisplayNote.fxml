@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<FlowPane fx:id="placeHolder" prefHeight="0.0" prefWidth="0.0" styleClass="pane-with-border" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<FlowPane fx:id="placeHolder" prefHeight="0.0" prefWidth="0.0" styleClass="pane-with-border" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <GridPane prefHeight="60.0" prefWidth="380.0">
      <columnConstraints>
        <ColumnConstraints hgrow="SOMETIMES" maxWidth="159.0" minWidth="10.0" prefWidth="76.0" />

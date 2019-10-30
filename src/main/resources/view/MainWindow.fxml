@@ -14,7 +14,8 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.stage.Stage?>
 
-<fx:root minHeight="700" minWidth="700" onCloseRequest="#handleExit" title="SecureIT" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root minHeight="700" minWidth="800" onCloseRequest="#handleExit" title="SecureIT" type="javafx.stage.Stage"
+         xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
   <icons>
     <Image url="@/images/address_book_32.png" />
   </icons>

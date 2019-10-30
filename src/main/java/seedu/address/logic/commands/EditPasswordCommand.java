@@ -5,9 +5,11 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PASSWORDVALUE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_USERNAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_WEBSITE;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PASSWORDS;
 
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -20,8 +22,10 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.password.Description;
 import seedu.address.model.password.Password;
+import seedu.address.model.password.PasswordModifiedAt;
 import seedu.address.model.password.PasswordValue;
 import seedu.address.model.password.Username;
+import seedu.address.model.password.Website;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -37,8 +41,8 @@ public class EditPasswordCommand extends Command {
             + "[" + PREFIX_DESCRIPTION + "DESCRIPTION] "
             + "[" + PREFIX_USERNAME + "USER] "
             + "[" + PREFIX_PASSWORDVALUE + "PASSWORD] "
-            + "[" + PREFIX_TAG + "TAG]...\n"
-            + "Example: Hello World";
+            + "[" + PREFIX_WEBSITE + "WEBSITE] "
+            + "[" + PREFIX_TAG + "TAG]...\n";
 
     public static final String MESSAGE_EDIT_PASSWORD_SUCCESS = "Edited Password: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
@@ -94,10 +98,19 @@ public class EditPasswordCommand extends Command {
                 .getUsername().orElse(passwordToEdit.getUsername());
         PasswordValue updatedPasswordValue = editPasswordDescriptor
                 .getPasswordValue().orElse(passwordToEdit.getPasswordValue());
+
+        PasswordModifiedAt updatedPasswordModifiedAt;
+        if (!updatedPasswordValue.equals(passwordToEdit.getPasswordValue())) {
+            updatedPasswordModifiedAt = new PasswordModifiedAt(new Date());
+        } else {
+            updatedPasswordModifiedAt = passwordToEdit.getPasswordModifiedAt();
+        }
+        Website updatedWebsite = editPasswordDescriptor.getWebsite().orElse(passwordToEdit.getWebsite());
         Set<Tag> updatedTags = editPasswordDescriptor
                 .getTags().orElse(passwordToEdit.getTags());
 
-        return new Password(updatedDescription, updatedUsername, updatedPasswordValue, updatedTags);
+        return new Password(updatedDescription, updatedUsername, updatedPasswordValue,
+                updatedPasswordModifiedAt, updatedWebsite, updatedTags);
     }
 
     @Override
@@ -126,6 +139,7 @@ public class EditPasswordCommand extends Command {
         private Description description;
         private Username username;
         private PasswordValue passwordValue;
+        private Website website;
         private Set<Tag> tags;
 
         public EditPasswordDescriptor() {}
@@ -138,6 +152,7 @@ public class EditPasswordCommand extends Command {
             setDescription(toCopy.description);
             setUsername(toCopy.username);
             setPasswordValue(toCopy.passwordValue);
+            setWebsite(toCopy.website);
             setTags(toCopy.tags);
         }
 
@@ -172,6 +187,13 @@ public class EditPasswordCommand extends Command {
             return Optional.ofNullable(passwordValue);
         }
 
+        public void setWebsite(Website website) {
+            this.website = website;
+        }
+
+        public Optional<Website> getWebsite() {
+            return Optional.ofNullable(website);
+        }
 
         /**
          * Sets {@code tags} to this object's {@code tags}.

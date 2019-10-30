@@ -56,6 +56,7 @@ public class ReadNoteCommand extends Command {
         return CommandResult.builder("Note opened on the right panel.")
                 .setObject(noteToRead)
                 .setIndex(targetIndex)
+                .read()
                 .build();
     }
 
