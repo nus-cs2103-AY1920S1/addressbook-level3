@@ -109,6 +109,7 @@ public class LogicManagerTest {
                         personModel);
         logic = new LogicManager(model, personManager, transactionLogic, reimbursementLogic);
     }
+
     @Test
     public void execute_invalidCommandFormat_throwsParseException() {
         String invalidCommand = "uicfhmowqewca";

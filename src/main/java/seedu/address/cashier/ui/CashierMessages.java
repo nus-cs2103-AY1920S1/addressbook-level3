@@ -37,8 +37,8 @@ public class CashierMessages {
     public static final String MESSAGE_INVALID_ADDCOMMAND_FORMAT = "Sorry! To add, please type \"add "
             + "d/DESCRIPTION\n q/QUANTITY\"\n\n";
 
-    public static final String MESSAGE_INVALID_CASHIERCOMMAND_FORMAT = "Sorry! To set cashier, please type "
-            + "\"cashier NAME\" \n";
+    /*public static final String MESSAGE_INVALID_CASHIERCOMMAND_FORMAT = "To set cashier, please type "
+            + "\"cashier NAME\" \n";*/
 
     public static final String MESSAGE_INVALID_EDITCOMMAND_FORMAT = "Sorry! To edit, please type \"edit"
             + " i/INDEX q/QUANTITY\" \n OR \n \"edit d/DESCRIPTION\n q/QUANTITY\" \n\n ";

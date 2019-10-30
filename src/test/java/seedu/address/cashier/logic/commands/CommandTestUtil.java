@@ -71,6 +71,7 @@ public class CommandTestUtil {
     public static final String INVALID_INDEX_4 = " " + PREFIX_INDEX + 0;
     public static final String INVALID_PRICE_PAID_1 = " " + "-30";
     public static final String INVALID_PRICE_PAID_2 = " " + "3";
+    public static final String INVALID_PRICE_PAID_3 = " " + "hi hi";
 
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 

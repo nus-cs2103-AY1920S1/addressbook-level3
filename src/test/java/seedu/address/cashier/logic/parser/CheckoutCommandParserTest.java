@@ -2,9 +2,11 @@ package seedu.address.cashier.logic.parser;
 
 import static seedu.address.cashier.logic.commands.CommandTestUtil.DESC_DESCRIPTION_FISH_BURGER;
 import static seedu.address.cashier.logic.commands.CommandTestUtil.DESC_PRICE_PAID;
+import static seedu.address.cashier.logic.commands.CommandTestUtil.INVALID_PRICE_PAID_3;
 import static seedu.address.cashier.logic.commands.CommandTestUtil.VALID_PRICE_PAID;
 import static seedu.address.cashier.logic.parser.CommandParserTestUtil.assertCommandParserFailure;
 import static seedu.address.cashier.logic.parser.CommandParserTestUtil.assertCommandParserSuccess;
+import static seedu.address.cashier.ui.CashierMessages.AMOUNT_NOT_A_NUMBER;
 import static seedu.address.cashier.ui.CashierMessages.NO_CASHIER;
 import static seedu.address.testutil.TypicalItem.FISH_BURGER;
 import static seedu.address.testutil.TypicalItem.STORYBOOK;
@@ -43,6 +45,16 @@ public class CheckoutCommandParserTest {
         System.out.println(VALID_PRICE_PAID);
         assertCommandParserSuccess(parser, DESC_PRICE_PAID,
                 new CheckoutCommand(totalAmount, VALID_PRICE_PAID - totalAmount), model, personModel);
+        model.clearSalesList();
+    }
+
+    @Test
+    public void parse_invalidNotANumberAmountPresent_failure() {
+        model.clearSalesList();
+        model.setCashier(new PersonBuilder().build());
+        model.addItem(STORYBOOK);
+        double totalAmount = STORYBOOK.getSubtotal();
+        assertCommandParserFailure(parser, INVALID_PRICE_PAID_3, AMOUNT_NOT_A_NUMBER, model, personModel);
         model.clearSalesList();
     }
 
