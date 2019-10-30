@@ -13,6 +13,11 @@ box Storage STORAGE_COLOR_T1
 participant ":ReportGenerator" as Storage STORAGE_COLOR
 end box
 
+box iText ITEXT_COLOR
+participant ":Document" as Document ITEXT_COLOR_T1
+participant ":PdfWriter" as PdfWriter ITEXT_COLOR_T1
+end box
+
 [-> LogicManager : execute("genReport B1")
 activate LogicManager
 
@@ -50,6 +55,45 @@ activate GenReportCommand
 
 GenReportCommand -> Storage : generate(body)
 activate Storage
+
+create Document
+Storage -> Document
+activate Document
+Document --> Storage
+deactivate Document
+
+Storage -> PdfWriter : getInstance(document, new FileOutputStream("Report B00000001.pdf")
+PdfWriter --> Storage
+
+Storage -> Storage : addHeader(document, "Mortago Report for B00000001")
+activate Storage
+Storage -> Document : open()
+Document --> Storage
+Storage --> Storage
+deactivate Storage
+
+Storage -> Storage : addPersonalDetails(document, body)
+activate Storage
+Storage --> Storage
+deactivate Storage
+
+Storage -> Storage : addNokDetails(document, body)
+activate Storage
+Storage --> Storage
+deactivate Storage
+
+Storage -> Storage : addOtherDetails(document, body)
+activate Storage
+Storage --> Storage
+deactivate Storage
+
+Storage -> Storage : addFooter(document, writer)
+activate Storage
+Storage -> Document : close()
+Document --> Storage
+Storage -> PdfWriter : close()
+PdfWriter --> Storage
+Storage --> Storage
 
 Storage --> GenReportCommand
 deactivate Storage
