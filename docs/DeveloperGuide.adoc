@@ -483,6 +483,8 @@ Auto-suggestion of command arguments while the user keys in inputs can be very h
 Possible command words will be suggested to user based on incomplete input.
 Depending on what the user has typed in for the argument, the most similar argument values retrieved from the historical
 records will be displayed to the user for reference.
+The user can also use the "TAB" key to auto complete the command word/argument, where the first prompt will
+replace the current command word/argument in user input.
 
 ==== Current Implementation
 The command suggestions is achieved using a package of prompter files.
@@ -491,8 +493,10 @@ Step 1. The user types commands into the `CommandBox`.
 Step 2. The `MainWindow` listens to changes in the content in `CommandBox` and direct the input to `WemePrompter`.
 Step 3. Depending on the context, the prompter that implements `WemePrompter` (e.g. `MemePrompter`) will then pass the arguments
 to different `Prompter` (e.g. `MemeAddCommandPrompter`) based on the command word.
-Step 4: The `Prompter` will process the input and return a `CommandPrompt` containing the command suggestion for the given input.
+Step 4: The `Prompter` will process the input and return a `CommandPrompt` containing the command suggestion, and the
+complete text for auto-completion for the given input.
 Step 5: The prompt will be passed to and displayed by `ResultBox`.
+Step 6: The `CommandBox` listens to the "TAB" key press, and replace the current argument with the first command prompt.
 
 ==== Design Considerations
 
