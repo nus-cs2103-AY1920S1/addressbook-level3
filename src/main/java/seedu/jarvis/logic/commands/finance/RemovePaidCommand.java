@@ -29,10 +29,10 @@ public class RemovePaidCommand extends Command {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_DELETE_PURCHASE_SUCCESS = "Deleted Purchase: %1$s";
+    public static final String MESSAGE_DELETE_PURCHASE_SUCCESS = "Deleted purchase: %1$s";
 
     public static final String MESSAGE_INVERSE_SUCCESS_ADD = "New purchase added: %1$s";
-    public static final String MESSAGE_INVERSE_PURCHASE_TO_ADD_ALREADY_EXIST = "Person already added: %1$s";
+    public static final String MESSAGE_INVERSE_PURCHASE_TO_ADD_ALREADY_EXIST = "Purchase already added: %1$s";
 
     public static final boolean HAS_INVERSE = true;
 

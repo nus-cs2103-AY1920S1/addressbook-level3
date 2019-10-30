@@ -23,6 +23,7 @@ import seedu.jarvis.model.viewstatus.ViewType;
 import seedu.jarvis.ui.address.PersonListView;
 import seedu.jarvis.ui.cca.CcaListView;
 import seedu.jarvis.ui.course.CoursePlannerWindow;
+import seedu.jarvis.ui.finance.FinanceListView;
 import seedu.jarvis.ui.template.View;
 
 /**
@@ -240,6 +241,11 @@ public class MainWindow extends UiPart<Stage> {
             toUpdatePlaceHolder = ccaContentPlaceholder;
             break;
 
+        case LIST_FINANCE:
+            newView = new FinanceListView(this, logic, model);
+            toUpdatePlaceHolder = financeContentPlaceholder;
+            break;
+
         case LIST_COURSE:
             newView = new CoursePlannerWindow(this, logic, model);
             toUpdatePlaceHolder = moduleContentPlaceholder;
@@ -298,16 +304,16 @@ public class MainWindow extends UiPart<Stage> {
             tabPanePlaceHolder.getSelectionModel().select(PLANNER_INDEX);
             break;
 
+        case "financeContentPlaceholder" :
+            tabPanePlaceHolder.getSelectionModel().select(FINANCES_INDEX);
+            break;
+
         case "moduleContentPlaceholder":
             tabPanePlaceHolder.getSelectionModel().select(MODULES_INDEX);
             break;
 
         case "ccaContentPlaceholder" :
             tabPanePlaceHolder.getSelectionModel().select(CCAS_INDEX);
-            break;
-
-        case "financeContentPlaceholder" :
-            tabPanePlaceHolder.getSelectionModel().select(FINANCES_INDEX);
             break;
 
         default:

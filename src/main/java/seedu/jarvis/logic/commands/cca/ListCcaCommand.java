@@ -12,7 +12,7 @@ import seedu.jarvis.storage.history.commands.JsonAdaptedCommand;
 import seedu.jarvis.storage.history.commands.exceptions.InvalidCommandToJsonException;
 
 /**
- * Lists all persons in the address book to the user.
+ * Lists all Ccas in the Cca Tracker to the user.
  */
 public class ListCcaCommand extends Command {
 

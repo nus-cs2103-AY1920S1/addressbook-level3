@@ -7,6 +7,7 @@ import seedu.jarvis.logic.commands.CommandResult;
 import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.model.Model;
 import seedu.jarvis.model.finance.FinanceTrackerModel;
+import seedu.jarvis.model.viewstatus.ViewType;
 import seedu.jarvis.storage.history.commands.JsonAdaptedCommand;
 import seedu.jarvis.storage.history.commands.exceptions.InvalidCommandToJsonException;
 
@@ -41,9 +42,10 @@ public class ListFinancesCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+        model.setViewStatus(ViewType.LIST_FINANCE);
         model.updateFilteredInstallmentList(FinanceTrackerModel.PREDICATE_SHOW_ALL_INSTALLMENTS);
         model.updateFilteredPurchaseList(FinanceTrackerModel.PREDICATE_SHOW_ALL_PURCHASES);
-        return new CommandResult(MESSAGE_SUCCESS);
+        return new CommandResult(MESSAGE_SUCCESS, true);
     }
 
     /**

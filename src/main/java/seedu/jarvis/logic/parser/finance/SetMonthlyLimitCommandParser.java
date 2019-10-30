@@ -1,5 +1,6 @@
 package seedu.jarvis.logic.parser.finance;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.jarvis.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.jarvis.logic.parser.CliSyntax.FinanceSyntax.PREFIX_MONEY;
 
@@ -26,8 +27,10 @@ public class SetMonthlyLimitCommandParser implements Parser<SetMonthlyLimitComma
      */
     @Override
     public SetMonthlyLimitCommand parse(String args) throws ParseException {
+        requireNonNull(args);
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_MONEY);
+
         if (!arePrefixesPresent(argMultimap, PREFIX_MONEY)
             || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,

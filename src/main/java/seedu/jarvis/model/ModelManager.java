@@ -432,6 +432,22 @@ public class ModelManager implements Model {
         financeTracker.listSpending();
     }
 
+    /**
+     * Calculates total expenditure by user for this month.
+     */
+    @Override
+    public double calculateTotalSpending() {
+        return financeTracker.calculateTotalSpending();
+    }
+
+    /**
+     * Calculates remaining available amount by user.
+     */
+    @Override
+    public double calculateRemainingAmount() {
+        return financeTracker.calculateRemainingAmount();
+    }
+
     //=========== AddressBook ================================================================================
 
     @Override

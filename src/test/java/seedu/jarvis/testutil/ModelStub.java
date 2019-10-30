@@ -272,6 +272,16 @@ public class ModelStub implements Model {
     }
 
     @Override
+    public double calculateTotalSpending() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public double calculateRemainingAmount() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
     public boolean containsCca(Cca cca) {
         throw new AssertionError("This method should not be called.");
     }
