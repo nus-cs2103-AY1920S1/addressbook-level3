@@ -17,6 +17,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.bio.UserList;
+import seedu.address.model.calendar.Calendar;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.record.UniqueRecordList;
 import seedu.address.testutil.AddressBookBuilder;

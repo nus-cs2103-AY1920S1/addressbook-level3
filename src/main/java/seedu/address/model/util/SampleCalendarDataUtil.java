@@ -2,7 +2,7 @@ package seedu.address.model.util;
 
 import java.time.LocalDateTime;
 
-import seedu.address.model.Calendar;
+import seedu.address.model.calendar.Calendar;
 import seedu.address.model.calendar.CalendarEntry;
 import seedu.address.model.calendar.Description;
 import seedu.address.model.calendar.Event;
