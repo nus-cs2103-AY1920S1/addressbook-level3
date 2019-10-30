@@ -164,14 +164,6 @@ class MainWindow extends UiPart<Stage> {
     /**
      * Updates the homepage placeholder residing in this main window.
      */
-    private void updateHomePage() {
-        homePage = new HomePage(questionsLogic.getFilteredQuestionsList());
-        homePagePlaceholder.getChildren().add(homePage.getRoot());
-    }
-
-    /**
-     * Updates the homepage placeholder residing in this main window.
-     */
     private void updateProgramEvaluationPanel() {
         programEvaluationPanel = new ProgramEvaluationPanel(programSubmissionLogic.getTestResultObservable());
         programEvaluationPanelPlaceholder.getChildren().add(programEvaluationPanel.getRoot());
@@ -182,6 +174,9 @@ class MainWindow extends UiPart<Stage> {
      */
     void fillInnerParts() {
         updateProgramEvaluationPanel();
+
+        homePage = new HomePage(questionsLogic.getFilteredQuestionsList());
+        homePagePlaceholder.getChildren().add(homePage.getRoot());
 
         questionListPanel = new QuestionListPanel(questionsLogic.getFilteredQuestionsList());
         questionListPanelPlaceholder.getChildren().add(questionListPanel.getRoot());
@@ -216,7 +211,6 @@ class MainWindow extends UiPart<Stage> {
             problemStatementLogic.getProblemStatementObservable());
         problemStatementPlaceholder.getChildren().add(problemStatementPanel.getRoot());
 
-        updateHomePage();
     }
 
     /**
@@ -318,19 +312,6 @@ class MainWindow extends UiPart<Stage> {
             if (commandResult.isView()) {
                 problemStatementPanel.setProblemStatement(questionsLogic
                     .getProblemStatement());
-            }
-
-            if (commandResult.isBookmark()) {
-                updateHomePage();
-            }
-
-            if (commandResult.isAttempt()) {
-                updateHomePage();
-            }
-
-            if (commandResult.isSubmit()) {
-                updateProgramEvaluationPanel();
-                updateHomePage();
             }
 
             return commandResult;

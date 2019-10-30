@@ -40,8 +40,8 @@ public class ViewCommand implements Command {
 
             String feedback =
                 "Viewing question " + (index + 1) + " : " + questionToView.getTitle();
-            return new CommandResult(feedback, false, false, false, true, false,
-                    false, false);
+            return new CommandResult(feedback, false, false, false, true
+            );
         } catch (IndexOutOfBoundsException e) {
             throw new CommandException("Index entered out of range for current list of questions.");
         }

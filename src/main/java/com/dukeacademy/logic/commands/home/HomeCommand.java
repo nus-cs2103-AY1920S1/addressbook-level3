@@ -51,7 +51,7 @@ public class HomeCommand implements Command {
         }
 
         return new CommandResult("Returning to home page...", false,
-            false, true, false, false, false, false);
+            false, true, false);
     }
 
     private void saveQuestion(Question oldQuestion, Question newQuestion) {

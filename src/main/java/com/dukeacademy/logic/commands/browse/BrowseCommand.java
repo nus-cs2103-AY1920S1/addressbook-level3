@@ -39,7 +39,7 @@ public class BrowseCommand implements Command {
         String feedback = "List all questions that contains the corresponding"
             + " keywords as long as they appear in title, topics, description,"
             + " status or difficulty.";
-        return new CommandResult(feedback, false, false, false, false, false,
-                false, false);
+        return new CommandResult(feedback, false, false, false, false
+        );
     }
 }

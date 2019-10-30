@@ -31,6 +31,11 @@ public class MockQuestionsLogic implements QuestionsLogic {
     }
 
     @Override
+    public ObservableList<Question> getAllQuestionsList() {
+        return FXCollections.unmodifiableObservableList(this.questions);
+    }
+
+    @Override
     public ObservableList<Question> getFilteredQuestionsList() {
         return this.filteredQuestions;
     }

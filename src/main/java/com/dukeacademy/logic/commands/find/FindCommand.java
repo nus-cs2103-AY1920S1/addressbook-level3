@@ -38,7 +38,7 @@ public class FindCommand implements Command {
         logger.info("Listing questions that contains keywords specified.");
         String feedback = "List all questions that contains the corresponding"
             + " keywords.";
-        return new CommandResult(feedback, false, false, false, false, false,
-                false, false);
+        return new CommandResult(feedback, false, false, false, false
+        );
     }
 }

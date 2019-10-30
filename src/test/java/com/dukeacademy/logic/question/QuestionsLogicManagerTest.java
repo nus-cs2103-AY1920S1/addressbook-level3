@@ -89,6 +89,28 @@ class QuestionsLogicManagerTest {
     }
 
     @Test
+    void getAllQuestionsList() {
+        // Ensure that the list in the question bank always corresponds to the list in the logic manager
+
+        // Load empty question bank
+        QuestionBankStorage storage = new JsonQuestionBankStorage(emptyQuestionBankPath);
+        QuestionsLogicManager questionsLogicManager = new QuestionsLogicManager(storage);
+        ObservableList<Question> questionsObservableList = questionsLogicManager.getAllQuestionsList();
+        assertEquals(0, questionsObservableList.size());
+
+        // Load typical questions
+        QuestionBankStorage storage1 = new JsonQuestionBankStorage(typicalQuestionBankPath);
+        QuestionsLogicManager questionsLogicManager1 = new QuestionsLogicManager(storage1);
+
+        ObservableList<Question> questionsObservableList1 = questionsLogicManager1.getFilteredQuestionsList();
+        assertTrue(this.matchListData(questionsObservableList1, TypicalQuestions.getTypicalQuestions()));
+
+        // Assert that the list returned is read-only
+        assertThrows(UnsupportedOperationException.class, () -> questionsObservableList
+                .add(this.getMockQuestion("Test5")));
+    }
+
+    @Test
     void filterQuestionsList() throws DataConversionException, IOException {
         // Load typical questions
         QuestionBankStorage storage = new JsonQuestionBankStorage(typicalQuestionBankPath);

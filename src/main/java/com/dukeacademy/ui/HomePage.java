@@ -1,11 +1,13 @@
 package com.dukeacademy.ui;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import com.dukeacademy.model.question.Question;
 import com.dukeacademy.model.question.entities.Status;
 
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -75,6 +77,15 @@ public class HomePage extends UiPart<Region> {
      */
     public HomePage(ObservableList<Question> questions) {
         super(FXML);
+        this.populateHomePage(questions);
+        questions.addListener((ListChangeListener<Question>) c -> populateHomePage(new ArrayList<>(c.getList())));
+    }
+
+    /**
+     * Helper method to populate the homepage with a new list of questions
+     * @param questions questions to populate the homepage with
+     */
+    private void populateHomePage(List<Question> questions) {
         int done = computeNumDone(questions);
         int total = computeNumTotal(questions);
         updateNumDone(done);
@@ -103,7 +114,7 @@ public class HomePage extends UiPart<Region> {
      * @param questions observable list of questions
      * @return number of questions successfully completed by the user
      */
-    private int computeNumDone(ObservableList<Question> questions) {
+    private int computeNumDone(List<Question> questions) {
         int numDone = 0;
         for (Question q : questions) {
             if (q.getStatus() == Status.PASSED) {
@@ -118,7 +129,7 @@ public class HomePage extends UiPart<Region> {
      * @param questions observable list of questions
      * @return total number of questions in the question bank
      */
-    private int computeNumTotal(ObservableList<Question> questions) {
+    private int computeNumTotal(List<Question> questions) {
         return questions.size();
     }
 
@@ -274,7 +285,7 @@ public class HomePage extends UiPart<Region> {
      * Updates the list of questions the user is still attempting, on the Home Page UI
      * @param questions observable list of questions
      */
-    private void updateAttempting(ObservableList<Question> questions) {
+    private void updateAttempting(List<Question> questions) {
         ListView<Label> attemptingListView = new ListView<>();
         for (Question q : questions) {
             if (q.getStatus() == Status.ATTEMPTED) {
@@ -290,7 +301,7 @@ public class HomePage extends UiPart<Region> {
      * Updates the list of questions the user bookmarked for personal reference, on the Home Page UI
      * @param questions observable list of questions
      */
-    private void updateBookmarked(ObservableList<Question> questions) {
+    private void updateBookmarked(List<Question> questions) {
         ListView<Label> bookmarkedListView = new ListView<>();
         for (Question q : questions) {
             if (q.isBookmarked()) {
