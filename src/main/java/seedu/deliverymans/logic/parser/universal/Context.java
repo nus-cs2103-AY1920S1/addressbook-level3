@@ -11,7 +11,7 @@ public enum Context {
     RESTAURANT,
     DELIVERYMENSTATUS,
     EDITING,
-    ORDER;
+    ORDER,
     DELIVERYMANRECORD;
 
     public String toLowerCaseString() {
