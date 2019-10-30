@@ -53,7 +53,7 @@ public class DefaultModelStub implements Model {
     }
 
     @Override
-    public void setAlgoBaseFilePath(Path addressBookFilePath) {
+    public void setAlgoBaseFilePath(Path algobaseFilePath) {
         throw new AssertionError("This method should not be called.");
     }
 
