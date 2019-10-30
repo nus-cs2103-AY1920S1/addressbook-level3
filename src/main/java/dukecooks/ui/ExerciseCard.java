@@ -33,6 +33,8 @@ public class ExerciseCard extends UiPart<Region> {
     @FXML
     private Label primaryMuscle;
     @FXML
+    private Label secondaryMuscles;
+    @FXML
     private Label id;
     @FXML
     private Label intensity;
@@ -44,11 +46,29 @@ public class ExerciseCard extends UiPart<Region> {
         this.exercise = exercise;
         id.setText(displayedIndex + ". ");
         exerciseName.setText(exercise.getExerciseName().exerciseName);
+        if (!exercise.getMusclesTrained().getSecondaryMuscles().isEmpty()) {
+            secondaryMuscles.setText(getSecondaryLabelText());
+        } else {
+            secondaryMuscles.setText("Secondary Muscles: None");
+        }
         primaryMuscle.setText("Primary Muscle: " + exercise.getMusclesTrained().getPrimaryMuscle());
         intensity.setText("Intensity: " + exercise.getIntensity().toString());
         exercise.getExerciseDetails().stream()
                 .sorted(Comparator.comparing(detail -> detail.toString()))
                 .forEach(detail -> details.getChildren().add(new Label(detail.toString())));
+    }
+
+    /**
+     * Returns text for secondary muscle label
+     */
+    private String getSecondaryLabelText() {
+        StringBuilder builder = new StringBuilder();
+        builder.append("Secondary Muscles: ");
+        exercise.getMusclesTrained().getSecondaryMuscles().stream()
+                .sorted(Comparator.comparing(muscleType -> muscleType.toString()))
+                .forEach(muscleType -> builder.append(muscleType).append(", "));
+        builder.delete(builder.length() - 2, builder.length() - 1);
+        return builder.toString();
     }
 
     @Override

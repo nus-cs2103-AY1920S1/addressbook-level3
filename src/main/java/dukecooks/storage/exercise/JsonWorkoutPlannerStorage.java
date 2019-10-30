@@ -12,7 +12,7 @@ import dukecooks.commons.exceptions.DataConversionException;
 import dukecooks.commons.exceptions.IllegalValueException;
 import dukecooks.commons.util.FileUtil;
 import dukecooks.commons.util.JsonUtil;
-import dukecooks.model.workout.exercise.ReadOnlyWorkoutPlanner;
+import dukecooks.model.workout.ReadOnlyWorkoutPlanner;
 
 /**
  * A class to access DukeCooks data stored as a json file on the hard disk.

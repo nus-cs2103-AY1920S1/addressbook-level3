@@ -1,10 +1,8 @@
 package dukecooks.logic.commands.diary;
 
 import static dukecooks.logic.parser.CliSyntax.PREFIX_DIARY_NAME;
-import static dukecooks.logic.parser.CliSyntax.PREFIX_PAGE_NUMBER;
 import static java.util.Objects.requireNonNull;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import dukecooks.commons.core.Messages;
@@ -16,6 +14,7 @@ import dukecooks.model.Model;
 import dukecooks.model.diary.components.Diary;
 import dukecooks.model.diary.components.DiaryName;
 import dukecooks.model.diary.components.Page;
+import javafx.collections.ObservableList;
 
 /**
  * Deletes a page from a specified diary, identified using it's displayed index and Diary DiaryName from Duke Cooks.
@@ -27,19 +26,19 @@ public class DeletePageCommand extends DeleteCommand {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the page identified by the index number in the specified diary.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " "
-            + PREFIX_PAGE_NUMBER + " 1 "
+            + "Example: " + COMMAND_WORD + ""
+            + " page 1 "
             + PREFIX_DIARY_NAME + "[DiaryName]";
 
-    public static final String MESSAGE_DELETE_PAGE_SUCCESS = "Deleted Page: %1$s";
-    public static final String MESSAGE_NON_EXISTENT_DIARY = "This diary does not exists in DiaryRecords";
+    public static final String MESSAGE_DELETE_PAGE_SUCCESS = "You have deleted a page with title: %1$s";
+    public static final String MESSAGE_NON_EXISTENT_DIARY = "This diary does not exists!";
 
     private final Index targetIndex;
-    private final DiaryName targetDiaryDiaryName;
+    private final DiaryName targetDiaryName;
 
     public DeletePageCommand(Index targetIndex, DiaryName targetDiaryDiaryName) {
         this.targetIndex = targetIndex;
-        this.targetDiaryDiaryName = targetDiaryDiaryName;
+        this.targetDiaryName = targetDiaryDiaryName;
     }
 
     @Override
@@ -47,7 +46,7 @@ public class DeletePageCommand extends DeleteCommand {
         requireNonNull(model);
         List<Diary> lastShownList = model.getFilteredDiaryList();
 
-        Diary targetDiary = new Diary(targetDiaryDiaryName);
+        Diary targetDiary = new Diary(targetDiaryName);
 
         // check if diary exists
         if (!lastShownList.contains(targetDiary)) {
@@ -58,7 +57,7 @@ public class DeletePageCommand extends DeleteCommand {
         targetDiary = lastShownList.get(lastShownList.indexOf(targetDiary));
 
         // remove page from target diary's list of pages
-        ArrayList<Page> newPageList = targetDiary.getPages();
+        ObservableList<Page> newPageList = targetDiary.getPages();
 
         // check if index is out of bounds
         if (targetIndex.getZeroBased() >= newPageList.size()) {
@@ -69,7 +68,7 @@ public class DeletePageCommand extends DeleteCommand {
         newPageList.remove(pageToDelete);
 
         model.setDiary(targetDiary, new Diary(targetDiary.getDiaryName(), newPageList));
-        return new CommandResult(String.format(MESSAGE_DELETE_PAGE_SUCCESS, pageToDelete));
+        return new CommandResult(String.format(MESSAGE_DELETE_PAGE_SUCCESS, pageToDelete.getTitle()));
     }
 
     @Override

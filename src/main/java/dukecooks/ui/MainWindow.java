@@ -9,6 +9,7 @@ import dukecooks.logic.Logic;
 import dukecooks.logic.commands.CommandResult;
 import dukecooks.logic.commands.exceptions.CommandException;
 import dukecooks.logic.parser.exceptions.ParseException;
+import dukecooks.model.dashboard.components.Rewards;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -166,11 +167,11 @@ public class MainWindow extends UiPart<Stage> {
      * Initializes all Panels.
      */
     void initializePanels() {
-        dashboardListPanel = new DashboardListPanel(logic.getFilteredDashboardList());
+        dashboardListPanel = new DashboardListPanel(logic.getFilteredDashboardList(), new Rewards());
         recipeListPanel = new RecipeListPanel(logic.getFilteredRecipeList());
         recordListPanel = new RecordListPanel(logic.getFilteredRecordList());
         exerciseListPanel = new ExerciseListPanel(logic.getFilteredExerciseList());
-        diaryListPanel = new DiaryListPanel(logic.getFilteredDiaryList());
+        diaryListPanel = new DiaryListPanel(logic.getFilteredDiaryList(), 0);
     }
 
     /**
@@ -272,6 +273,7 @@ public class MainWindow extends UiPart<Stage> {
             versatilePanelPlaceholder.getChildren().add(diaryListPanel.getRoot());
             statusbarPlaceholder.getChildren().add(diaryPathStatus.getRoot());
             featureMode.setText("Diary");
+            diaryListPanel.handleSwitch(type);
             break;
         default:
             //TODO: PLEASE EDIT THIS ERROR MESSAGE TO SOMETHING USEFUL!

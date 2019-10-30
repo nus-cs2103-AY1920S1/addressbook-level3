@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import dukecooks.logic.commands.CommandTestUtil;
-import dukecooks.model.workout.exercise.WorkoutPlanner;
+import dukecooks.model.workout.WorkoutPlanner;
 import dukecooks.model.workout.exercise.components.Exercise;
 import dukecooks.model.workout.exercise.components.Intensity;
 import dukecooks.model.workout.exercise.details.unit.WeightUnit;

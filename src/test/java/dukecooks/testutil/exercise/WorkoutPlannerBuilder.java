@@ -1,6 +1,6 @@
 package dukecooks.testutil.exercise;
 
-import dukecooks.model.workout.exercise.WorkoutPlanner;
+import dukecooks.model.workout.WorkoutPlanner;
 import dukecooks.model.workout.exercise.components.Exercise;
 
 /**

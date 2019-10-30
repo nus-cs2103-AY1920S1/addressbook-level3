@@ -5,6 +5,7 @@ import static dukecooks.logic.parser.CliSyntax.PREFIX_INTENSITY;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_NAME;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_PRIMARY_MUSCLE;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_REPETITIONS;
+import static dukecooks.logic.parser.CliSyntax.PREFIX_SECONDARY_MUSCLE;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_SETS;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_WEIGHT;
 import static java.util.Objects.requireNonNull;
@@ -26,6 +27,7 @@ public class AddExerciseCommand extends AddCommand {
             + "Parameters: "
             + PREFIX_NAME + "NAME "
             + PREFIX_PRIMARY_MUSCLE + "MUSCLE TYPE "
+            + "[" + PREFIX_SECONDARY_MUSCLE + "MUSCLE TYPE]..."
             + PREFIX_INTENSITY + "INTENSITY "
             + "[" + PREFIX_DISTANCE + "DISTANCE]..."
             + "[" + PREFIX_REPETITIONS + "REPS]..."

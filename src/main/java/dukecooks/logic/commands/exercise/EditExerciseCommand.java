@@ -5,10 +5,12 @@ import static dukecooks.logic.parser.CliSyntax.PREFIX_INTENSITY;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_NAME;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_PRIMARY_MUSCLE;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_REPETITIONS;
+import static dukecooks.logic.parser.CliSyntax.PREFIX_SECONDARY_MUSCLE;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_SETS;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_WEIGHT;
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -42,6 +44,7 @@ public class EditExerciseCommand extends EditCommand {
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_PRIMARY_MUSCLE + "MUSCLE TYPE] "
+            + "[" + PREFIX_SECONDARY_MUSCLE + "MUSCLE TYPE] "
             + "[" + PREFIX_INTENSITY + "INTENSITY] "
             + "[" + PREFIX_DISTANCE + "DISTANCE]..."
             + "[" + PREFIX_REPETITIONS + "REPS]..."
@@ -102,8 +105,10 @@ public class EditExerciseCommand extends EditCommand {
                 .getExerciseName().orElse(exerciseToEdit.getExerciseName());
         MuscleType updatedPrimaryMuscle = editExerciseDescriptor.getPrimaryMuscle()
                 .orElse(exerciseToEdit.getMusclesTrained().getPrimaryMuscle());
+        ArrayList<MuscleType> updatedSecondaryMuscles = editExerciseDescriptor.getSecondaryMuscles()
+                .orElse(exerciseToEdit.getMusclesTrained().getSecondaryMuscles());
         MusclesTrained updatedMusclesTrained = new MusclesTrained(updatedPrimaryMuscle,
-                exerciseToEdit.getMusclesTrained().getSecondaryMuscles());
+                updatedSecondaryMuscles);
         Intensity updatedIntensity = editExerciseDescriptor.getIntensity().orElse(exerciseToEdit.getIntensity());
         Set<ExerciseDetail> updatedExerciseDetails = editExerciseDescriptor
                 .getExerciseDetails().orElse(exerciseToEdit.getExerciseDetails());
@@ -136,6 +141,7 @@ public class EditExerciseCommand extends EditCommand {
     public static class EditExerciseDescriptor {
         private ExerciseName exerciseName;
         private MuscleType primaryMuscle;
+        private ArrayList<MuscleType> secondaryMuscles;
         private Intensity intensity;
         private Set<ExerciseDetail> exerciseDetails;
 
@@ -148,6 +154,7 @@ public class EditExerciseCommand extends EditCommand {
         public EditExerciseDescriptor(EditExerciseDescriptor toCopy) {
             setExerciseName(toCopy.exerciseName);
             setPrimaryMuscle(toCopy.primaryMuscle);
+            setSecondaryMuscles(toCopy.secondaryMuscles);
             setIntensity(toCopy.intensity);
             setExerciseDetails(toCopy.exerciseDetails);
         }
@@ -156,7 +163,8 @@ public class EditExerciseCommand extends EditCommand {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(exerciseName, primaryMuscle, intensity, exerciseDetails);
+            return CollectionUtil.isAnyNonNull(exerciseName, primaryMuscle, secondaryMuscles,
+                    intensity, exerciseDetails);
         }
 
         public void setExerciseName(ExerciseName exerciseName) {
@@ -171,6 +179,10 @@ public class EditExerciseCommand extends EditCommand {
             this.primaryMuscle = primaryMuscle;
         }
 
+        public void setSecondaryMuscles(ArrayList<MuscleType> secondaryMuscles) {
+            this.secondaryMuscles = secondaryMuscles;
+        }
+
         public Optional<ExerciseName> getExerciseName() {
             return Optional.ofNullable(exerciseName);
         }
@@ -181,6 +193,10 @@ public class EditExerciseCommand extends EditCommand {
 
         public Optional<Intensity> getIntensity() {
             return Optional.ofNullable(intensity);
+        }
+
+        public Optional<ArrayList<MuscleType>> getSecondaryMuscles() {
+            return Optional.ofNullable(secondaryMuscles);
         }
 
         /**

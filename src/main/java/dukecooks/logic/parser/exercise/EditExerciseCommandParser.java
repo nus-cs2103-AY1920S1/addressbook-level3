@@ -6,6 +6,7 @@ import static dukecooks.logic.parser.CliSyntax.PREFIX_INTENSITY;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_NAME;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_PRIMARY_MUSCLE;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_REPETITIONS;
+import static dukecooks.logic.parser.CliSyntax.PREFIX_SECONDARY_MUSCLE;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_SETS;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_WEIGHT;
 import static java.util.Objects.requireNonNull;
@@ -40,7 +41,7 @@ public class EditExerciseCommandParser implements Parser<EditExerciseCommand> {
     public EditExerciseCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PRIMARY_MUSCLE,
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PRIMARY_MUSCLE, PREFIX_SECONDARY_MUSCLE,
                         PREFIX_INTENSITY, PREFIX_DISTANCE, PREFIX_REPETITIONS,
                         PREFIX_SETS, PREFIX_WEIGHT);
 
@@ -62,6 +63,16 @@ public class EditExerciseCommandParser implements Parser<EditExerciseCommand> {
         if (argMultimap.getValue(PREFIX_PRIMARY_MUSCLE).isPresent()) {
             editExerciseDescriptor.setPrimaryMuscle(WorkoutPlannerParserUtil.parseMuscleType(argMultimap
                     .getValue(PREFIX_PRIMARY_MUSCLE).get()));
+        }
+
+        if (!argMultimap.getAllValues(PREFIX_SECONDARY_MUSCLE).isEmpty()) {
+            editExerciseDescriptor.setSecondaryMuscles(WorkoutPlannerParserUtil
+                    .parseSecondaryMuscle(argMultimap.getAllValues(PREFIX_SECONDARY_MUSCLE)));
+        }
+
+        if (argMultimap.getValue(PREFIX_INTENSITY).isPresent()) {
+            editExerciseDescriptor.setIntensity(WorkoutPlannerParserUtil.parseIntensity(argMultimap
+                    .getValue(PREFIX_INTENSITY).get()));
         }
 
         Set<ExerciseDetail> exerciseDetails = new HashSet<>();

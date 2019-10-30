@@ -1,4 +1,4 @@
-package dukecooks.model.workout.exercise;
+package dukecooks.model.workout;
 
 import dukecooks.model.workout.exercise.components.Exercise;
 import javafx.collections.ObservableList;

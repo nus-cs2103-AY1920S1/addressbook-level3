@@ -5,8 +5,8 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 import dukecooks.commons.exceptions.DataConversionException;
-import dukecooks.model.workout.exercise.ReadOnlyWorkoutPlanner;
-import dukecooks.model.workout.exercise.WorkoutPlanner;
+import dukecooks.model.workout.ReadOnlyWorkoutPlanner;
+import dukecooks.model.workout.WorkoutPlanner;
 
 /**
  * Represents a storage for {@link WorkoutPlanner}.

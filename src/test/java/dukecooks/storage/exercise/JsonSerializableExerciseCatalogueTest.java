@@ -8,7 +8,7 @@ import java.nio.file.Paths;
 import org.junit.jupiter.api.Test;
 
 import dukecooks.commons.util.JsonUtil;
-import dukecooks.model.workout.exercise.WorkoutPlanner;
+import dukecooks.model.workout.WorkoutPlanner;
 import dukecooks.testutil.exercise.TypicalExercises;
 
 public class JsonSerializableExerciseCatalogueTest {

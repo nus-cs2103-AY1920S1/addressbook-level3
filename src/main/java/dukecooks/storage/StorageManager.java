@@ -14,7 +14,7 @@ import dukecooks.model.diary.ReadOnlyDiary;
 import dukecooks.model.health.ReadOnlyHealthRecords;
 import dukecooks.model.profile.ReadOnlyUserProfile;
 import dukecooks.model.recipe.ReadOnlyRecipeBook;
-import dukecooks.model.workout.exercise.ReadOnlyWorkoutPlanner;
+import dukecooks.model.workout.ReadOnlyWorkoutPlanner;
 import dukecooks.storage.dashboard.DashboardStorage;
 import dukecooks.storage.diary.DiaryStorage;
 import dukecooks.storage.exercise.WorkoutPlannerStorage;

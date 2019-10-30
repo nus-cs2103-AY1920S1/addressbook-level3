@@ -24,7 +24,7 @@ public class DeleteDiaryCommand extends DeleteCommand {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_DELETE_DIARY_SUCCESS = "Deleted Diary: %1$s";
+    public static final String MESSAGE_DELETE_DIARY_SUCCESS = "You have deleted diary with name: %1$s";
 
     private final Index targetIndex;
 

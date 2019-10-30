@@ -9,8 +9,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 import dukecooks.commons.exceptions.IllegalValueException;
-import dukecooks.model.workout.exercise.ReadOnlyWorkoutPlanner;
-import dukecooks.model.workout.exercise.WorkoutPlanner;
+import dukecooks.model.workout.ReadOnlyWorkoutPlanner;
+import dukecooks.model.workout.WorkoutPlanner;
 import dukecooks.model.workout.exercise.components.Exercise;
 
 /**
