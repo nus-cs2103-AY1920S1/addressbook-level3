@@ -311,9 +311,6 @@ This command exports Mark data to a specified file on the hard disk. The saved f
 identical in format to the data file `mark.json` and can be used to save back-up copies
 of Mark data.
 
-**[Coming in v2.0]** You can use the parameter `b/` to export only the displayed
-list of bookmarks, without any offline copies, folders, reminders, or autotags.
-
 Format: `*export* [FILENAME]`
 
 ****
@@ -352,7 +349,7 @@ Format: `*import* FILENAME`
 to the JSON files produced by `*export*`.
 ****
 
-Examples:
+Example:
 
 * `*import* myBookmarks` +
 Assuming `mark.jar` is stored in the folder `mark`, imports bookmarks from the
