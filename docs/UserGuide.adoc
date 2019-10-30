@@ -209,6 +209,7 @@ If the type is omitted, it defaults to a total report.
 * Your goal progress will also be shown in both reports.
 ****
 
+// tag::loans[]
 === Tracking loans: `loan`
 
 ==== Add a new loan: `loan out|in`
@@ -325,6 +326,7 @@ In this scenario, `Mary` paid `10` and `Peter` paid `90`.
 Furthermore, `me/Mary` marks `Mary` as the user (you), so any debts `Mary` owes/is owed will be added to the normal loan list with the description `Dinner`. +
 The resulting display should show that `John` owes `Peter` *$33.33* and `You` owe `Peter` *$23.33*.
 The latter debt will also have been added to your loan list, which can be checked using the command `loan list`.
+// end::loans[]
 
 === Automating with rules: `rule`
 

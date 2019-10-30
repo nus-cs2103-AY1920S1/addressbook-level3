@@ -1,0 +1,55 @@
+= Kenneth Fung - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: Budget Buddy
+
+---
+
+== Overview
+
+Budget Buddy is a desktop application that allows users to track their expenses.
+The user interacts with it using a CLI, and it has a GUI created with JavaFX.
+It is written in Java, and has about 12 kLoC.
+
+== Summary of contributions
+
+* *Major enhancement*: Added *the ability to track loans and instantly split group payments equally*
+** *What they do*: Tracking loans allows the user to track all the money that they owe/are owed to other people.
+Splitting group payments through the app allows the user to avoid messy miscalculations and over/under-pay their friends.
+** *Justification*: This feature improves the product significantly, as both lending/borrowing money and paying for large items as a group are common occurrences that affect one's expenses.
+** *Highlights*: Implementing loan-tracking required an in-depth analysis of design alternatives, especially regarding the structure of the loan-person relationship.
+Building it on top of and mutating the original brownfield project also proved challenging.
+Splitting group payments proved difficult due to needing an accurate yet efficient algorithm.
+Great care had to be taken to correctly implement each of the many steps in the complex final result.
+
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#=undefined&search=kenneth-fung[RepoSense Report]]
+
+* *Other contributions*:
+
+** Documentation:
+*** Updated the User Guide, About Us, Contact and Readme pages to reflect our team taking over the original AddressBook:
+https://github.com/AY1920S1-CS2103T-W13-4/main/pull/3[#3]
+** Community:
+*** PRs reviewed (with non-trivial review comments):
+https://github.com/AY1920S1-CS2103T-W13-4/main/pull/56[#56],
+https://github.com/AY1920S1-CS2103T-W13-4/main/pull/60[#60],
+https://github.com/AY1920S1-CS2103T-W13-4/main/pull/80[#80]
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=loans]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=loans]
