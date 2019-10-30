@@ -10,6 +10,7 @@ import javafx.collections.ObservableList;
 import seedu.address.model.day.Day;
 import seedu.address.model.day.UniqueDayList;
 import seedu.address.model.field.Name;
+import seedu.address.model.itineraryitem.activity.Activity;
 
 
 /**
@@ -110,6 +111,10 @@ public class Itinerary implements ReadOnlyItinerary {
         requireNonNull(newData);
 
         setDays(newData.getItinerary());
+    }
+
+    public List<Day> getDays(Activity activity) {
+        return days.getDays(activity);
     }
 
     //// util methods

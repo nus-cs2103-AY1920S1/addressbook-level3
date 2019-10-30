@@ -15,8 +15,27 @@ import java.util.Optional;
  */
 public class ArgumentMultimap {
 
-    /** Prefixes mapped to their respective arguments**/
+    /**
+     * Prefixes mapped to their respective arguments
+     **/
     private final Map<Prefix, List<String>> argMultimap = new HashMap<>();
+
+    /**
+     * Prefixes mapped to thier respective arguments in the same insertion order
+     **/
+    private final List<PrefixArgument> orderedArgMultiMap = new ArrayList<>();
+
+    public List<PrefixArgument> getFilteredArgMultiMap(Prefix... prefixes) {
+        List<PrefixArgument> filteredMultiMap = new ArrayList<>();
+        for (PrefixArgument prefixArgument : orderedArgMultiMap) {
+            for (Prefix prefix : prefixes) {
+                if (prefix.equals(prefixArgument.getPrefix())) {
+                    filteredMultiMap.add(prefixArgument);
+                }
+            }
+        }
+        return filteredMultiMap;
+    }
 
     /**
      * Associates the specified argument value with {@code prefix} key in this map.
@@ -56,5 +75,9 @@ public class ArgumentMultimap {
      */
     public String getPreamble() {
         return getValue(new Prefix("")).orElse("");
+    }
+
+    public void add(PrefixArgument prefixArgument) {
+        orderedArgMultiMap.add(prefixArgument);
     }
 }

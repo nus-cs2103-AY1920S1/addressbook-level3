@@ -12,13 +12,26 @@ import seedu.address.model.tag.Tag;
  * Represents an Activity in the trip planner.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Activity extends ItineraryItem {
+public class Activity extends ItineraryItem implements Comparable<Activity> {
+
+    private final Duration duration;
+    private final Priority priority;
 
     /**
      * Every field must be present and not null.
      */
-    public Activity(Name name, Address address, Contact contact, Set<Tag> tags) {
+    public Activity(Name name, Address address, Contact contact, Set<Tag> tags, Duration duration, Priority priority) {
         super(name, address, contact, tags);
+        this.duration = duration;
+        this.priority = priority;
+    }
+
+    public Duration getDuration() {
+        return duration;
+    }
+
+    public Priority getPriority() {
+        return priority;
     }
 
     /**
@@ -52,6 +65,30 @@ public class Activity extends ItineraryItem {
         return otherActivity.getName().equals(getName())
                 && otherActivity.getAddress().equals(getAddress())
                 && otherActivity.getTags().equals(getTags())
-                && otherActivity.getContact().equals(getContact());
+                && otherActivity.getContact().equals(getContact())
+                && otherActivity.getDuration().equals(getDuration())
+                && otherActivity.getPriority().equals(getPriority());
+    }
+
+    @Override
+    public int compareTo(Activity o) {
+        int thisPriority = priority.priorityValue;
+        int thatPriority = o.priority.priorityValue;
+        if (thisPriority > 0) {
+            if (thatPriority <= 0) {
+                return -1;
+            } else {
+                if (thisPriority - thatPriority > 0) {
+                    return 1;
+                }
+                if (thatPriority - thatPriority < 0) {
+                    return -1;
+                } else {
+                    return 0;
+                }
+            }
+        } else {
+            return 1;
+        }
     }
 }

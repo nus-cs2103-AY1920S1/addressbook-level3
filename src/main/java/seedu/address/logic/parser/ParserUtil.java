@@ -6,8 +6,10 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
@@ -19,7 +21,11 @@ import seedu.address.model.contact.Phone;
 import seedu.address.model.day.Day;
 import seedu.address.model.field.Address;
 import seedu.address.model.field.Name;
+import seedu.address.model.itineraryitem.activity.Duration;
+import seedu.address.model.itineraryitem.activity.NameWithTime;
+import seedu.address.model.itineraryitem.activity.Priority;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.tag.TagWithTime;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -27,6 +33,9 @@ import seedu.address.model.tag.Tag;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
+    public static final String MESSAGE_INVALID_DURATION = "Duration is not a non-zero unsigned positive long value";
+    public static final String MESSAGE_INVALID_PRIORITY = "Value of priority "
+            + "is not a non-zero unsigned positive integer.";
     private static final String DATE_FORMAT_1 = "d-M-yyyy";
     private static final String DATE_FORMAT_2 = "d-M-yy";
     private static final String TIME_FORMAT = "HHmm";
@@ -61,6 +70,23 @@ public class ParserUtil {
             throw new ParseException(Name.MESSAGE_CONSTRAINTS);
         }
         return new Name(trimmedName);
+    }
+
+    /**
+     * Parses a {@code String argValue} into a {@code NameWithTime}.
+     * Leading and trailing whitespaces will be trimmed.
+     */
+    public static NameWithTime parseNameWithTime(String argValue) {
+        requireNonNull(argValue);
+        String trimmedArgValue = argValue.trim();
+        String[] args = trimmedArgValue.split(" ");
+        try {
+            Integer time = Integer.parseInt(args[args.length - 1]);
+            String name = argValue.substring(0, argValue.length() - 5);
+            return new NameWithTime(new Name(name), time);
+        } catch (NumberFormatException e) {
+            return new NameWithTime(new Name(argValue), null);
+        }
     }
 
     /**
@@ -124,6 +150,23 @@ public class ParserUtil {
     }
 
     /**
+     * Parses a {@code String argValue} into a {@code TagWithTime}.
+     * Leading and trailing whitespaces will be trimmed.
+     */
+    public static TagWithTime parseTagWithTime(String argValue) {
+        requireNonNull(argValue);
+        String trimmedArgValue = argValue.trim();
+        String[] args = trimmedArgValue.split(" ");
+        try {
+            Integer time = Integer.parseInt(args[args.length - 1]);
+            String tag = argValue.substring(0, argValue.length() - 5);
+            return new TagWithTime(new Tag(tag), time);
+        } catch (NumberFormatException e) {
+            return new TagWithTime(new Tag(argValue), null);
+        }
+    }
+
+    /**
      * Parses {@code Collection<String> tags} into a {@code Set<Tag>}.
      */
     public static Set<Tag> parseTags(Collection<String> tags) throws ParseException {
@@ -148,6 +191,27 @@ public class ParserUtil {
             throw new ParseException(Day.MESSAGE_CONSTRAINTS);
         }
         return Integer.parseInt(days);
+    }
+
+    /**
+     * Parses a {@code String days} into an {@code List<Integer>}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException
+     */
+    public static List<Index> parseDaysToSchedule(String days) throws ParseException {
+        requireNonNull(days);
+        String[] trimmmedDays = days.trim().split(" ");
+        int numOfDays = trimmmedDays.length;
+        List<Index> dayList = new ArrayList<>();
+
+        for (int i = 0; i < numOfDays; i++) {
+            if (!Day.isValidDayNumber(trimmmedDays[i])) {
+                throw new ParseException(Day.MESSAGE_CONSTRAINTS);
+            }
+            dayList.add(parseIndex(trimmmedDays[i]));
+        }
+        return dayList;
     }
 
     /**
@@ -185,7 +249,7 @@ public class ParserUtil {
      *
      * @throws ParseException
      */
-    private static LocalDate parseByDateFormats(String trimmedDate, DateTimeFormatter ...dateFormats)
+    private static LocalDate parseByDateFormats(String trimmedDate, DateTimeFormatter... dateFormats)
             throws ParseException {
         LocalDate parsedDate = null;
         for (DateTimeFormatter format : dateFormats) {
@@ -209,9 +273,46 @@ public class ParserUtil {
     private static String acceptableDateFormats() {
         StringBuilder sb = new StringBuilder();
         sb.append("Date needs to be in either of the following formats: ")
-            .append(DATE_FORMAT_1)
-            .append(", ")
-            .append(DATE_FORMAT_2);
+                .append(DATE_FORMAT_1)
+                .append(", ")
+                .append(DATE_FORMAT_2);
         return sb.toString();
+    }
+
+    /**
+     * Parses a {@code String min} into an {@code Duration}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException
+     */
+    public static Duration parseDuration(String min) throws ParseException {
+        requireNonNull(min);
+        try {
+            String trimmedMin = min.trim();
+            Integer duration = Integer.parseInt(trimmedMin);
+            return new Duration(duration);
+        } catch (NumberFormatException e) {
+            throw new ParseException(MESSAGE_INVALID_DURATION);
+        }
+    }
+
+    /**
+     * Parses a {@code String priorityValue} into a {@code Priority}.
+     * Leading and trailing whitespaces will be trimmed.
+     * Ensures that priority value is a positive integer.
+     *
+     * @throws ParseException if the given {@code priorityValue} is invalid.
+     */
+    public static Priority parsePriority(String priorityValue) throws ParseException {
+        requireNonNull(priorityValue);
+        try {
+            Integer trimmedPriorityValue = Integer.parseInt(priorityValue.trim());
+            if (trimmedPriorityValue <= 0) {
+                throw new ParseException(MESSAGE_INVALID_PRIORITY);
+            }
+            return new Priority(trimmedPriorityValue);
+        } catch (NumberFormatException e) {
+            throw new ParseException(MESSAGE_INVALID_PRIORITY);
+        }
     }
 }

@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.itineraryitem.activity.Activity;
 
 /**
  * Represents a Day in the travel planner's planner.
@@ -50,6 +51,14 @@ public class Day {
 
     public Optional<ActivityWithTime> getActivityWithTime(LocalTime time) {
         return this.timetable.getActivityWithTimeAtTime(time);
+    }
+
+    /**
+     * Checks whether the {@code Day} contains the {@code Activity}.
+     */
+    public boolean hasActivity(Activity activity) {
+        return timetable.getActivitiesWithTime().stream()
+                .anyMatch(x -> x.getActivity() == activity);
     }
 
     /**
