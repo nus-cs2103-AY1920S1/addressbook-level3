@@ -25,6 +25,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.achievements.Achievement;
 import seedu.address.model.achievements.AchievementState;
 import seedu.address.model.achievements.AchievementStateProcessor;
+import seedu.address.model.achievements.AchievementsMap;
 import seedu.address.model.aesthetics.Background;
 import seedu.address.model.aesthetics.Colour;
 import seedu.address.model.bio.User;
@@ -512,6 +513,11 @@ public class ModelManager implements Model {
      */
     private Set<AchievementState> getNewAchievementStates() {
         return (new AchievementStateProcessor(this)).getNewAchievementStates();
+    }
+
+    @Override
+    public boolean currAchievementsMapIsSameAs(Map<RecordType, List<Achievement>> prevAchievemenstMap) {
+        return AchievementsMap.currAchievementsMapIsSameAs(prevAchievemenstMap);
     }
 
 

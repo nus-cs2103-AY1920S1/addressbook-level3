@@ -4,6 +4,7 @@ import static seedu.address.model.achievements.AchievementLevel.SILVER;
 
 import seedu.address.model.achievements.Achievement;
 import seedu.address.model.achievements.DurationUnit;
+import seedu.address.model.achievements.bmi.BmiBronze;
 
 /**
  * Bloodsugar Achievement of silver level.
@@ -41,6 +42,13 @@ public class BloodSugarSilver extends Achievement implements BloodSugar {
     @Override
     public DurationUnit getDurationUnits() {
         return DURATION_UNITS;
+    }
+
+    @Override
+    public Achievement copy() {
+        Achievement newAchievement = new BloodSugarSilver();
+        newAchievement.setAchievementState(this.getAchievementState());
+        return newAchievement;
     }
 
 }

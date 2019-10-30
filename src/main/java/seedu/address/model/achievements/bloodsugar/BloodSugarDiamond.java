@@ -4,6 +4,7 @@ import static seedu.address.model.achievements.AchievementLevel.DIAMOND;
 
 import seedu.address.model.achievements.Achievement;
 import seedu.address.model.achievements.DurationUnit;
+import seedu.address.model.achievements.bmi.BmiBronze;
 
 /**
  * Bloodsugar Achievement of diamond level.
@@ -41,6 +42,13 @@ public class BloodSugarDiamond extends Achievement implements BloodSugar {
     @Override
     public DurationUnit getDurationUnits() {
         return DURATION_UNITS;
+    }
+
+    @Override
+    public Achievement copy() {
+        Achievement newAchievement = new BloodSugarDiamond();
+        newAchievement.setAchievementState(this.getAchievementState());
+        return newAchievement;
     }
 
 }

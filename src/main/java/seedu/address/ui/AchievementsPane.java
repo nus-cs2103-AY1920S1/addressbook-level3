@@ -1,15 +1,18 @@
 package seedu.address.ui;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import javafx.fxml.FXML;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import seedu.address.MainApp;
+import seedu.address.model.achievements.Achievement;
+import seedu.address.model.record.RecordType;
 
 /**
- * The Main Window. Provides the basic application layout containing a menu bar and space where other JavaFX elements
- * can be placed.
+ * An achievements pane consisting of the display components of a user's achievements, including headers.
  */
 public class AchievementsPane extends UiPart<Region> {
 
@@ -18,7 +21,7 @@ public class AchievementsPane extends UiPart<Region> {
 
     private AchievementsTitle achievementsTitle;
     private Achievements achievements;
-    private Profile profile;
+    private Map<RecordType, List<Achievement>> achievementsMap;
 
     @FXML
     private HBox achievementsTitlePlaceholder;
@@ -26,20 +29,24 @@ public class AchievementsPane extends UiPart<Region> {
     @FXML
     private HBox achievementsPlaceholder;
 
-    public AchievementsPane() {
+    public AchievementsPane(Map<RecordType, List<Achievement>> achievementsMap) {
         super(FXML);
+        this.achievementsMap = new HashMap<>();
+        achievementsMap.forEach((recordType, achievementsList) -> {
+            List<Achievement> achievementListCopy = new ArrayList<>();
+            achievementsList.forEach(achievement -> achievementListCopy.add(achievement.copy()));
+            this.achievementsMap.put(recordType, achievementListCopy);
+        });
+
         achievementsTitle = new AchievementsTitle("My Achievements",
                 "Hi Amy, here are the list of achievements you have collected so far.");
         achievementsTitlePlaceholder.getChildren().add(achievementsTitle.getRoot());
 
-        achievements = new Achievements();
-        for (int i = 0; i <= 24; i++) {
-            int n = i % 8 + 1;
-            Image img = new Image(MainApp.class.getResourceAsStream("/images/sample_achievement_" + n + ".png"));
-            ImageView imageView = new AchievementsImageView().getImageView();
-            imageView.setImage(img);
-            achievements.getTilePane().getChildren().add(imageView);
-        }
+        achievements = new Achievements(achievementsMap);
         achievementsPlaceholder.getChildren().add(achievements.getRoot());
+    }
+
+    public Map<RecordType, List<Achievement>> getAchievementsMap() {
+        return achievementsMap;
     }
 }

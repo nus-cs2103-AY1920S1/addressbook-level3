@@ -4,6 +4,7 @@ import static seedu.address.model.achievements.AchievementLevel.BRONZE;
 
 import seedu.address.model.achievements.Achievement;
 import seedu.address.model.achievements.DurationUnit;
+import seedu.address.model.achievements.bmi.BmiBronze;
 
 /**
  * Bloodsugar Achievement of bronze level.
@@ -41,6 +42,13 @@ public class BloodSugarBronze extends Achievement implements BloodSugar {
     @Override
     public DurationUnit getDurationUnits() {
         return DURATION_UNITS;
+    }
+
+    @Override
+    public Achievement copy() {
+        Achievement newAchievement = new BloodSugarBronze();
+        newAchievement.setAchievementState(this.getAchievementState());
+        return newAchievement;
     }
 
 }
