@@ -6,14 +6,16 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_BRAND;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CAPACITY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COLOUR;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COST;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_IDENTITYNUM;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONENAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_SERIALNUM;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_IDENTITY_NUM;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_SERIAL_NUM;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
-import seedu.address.logic.commands.Command;
+import seedu.address.logic.CommandHistory;
+import seedu.address.logic.UndoRedoStack;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.UiChange;
+import seedu.address.logic.commands.UndoableCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.phone.Phone;
@@ -21,24 +23,24 @@ import seedu.address.model.phone.Phone;
 /**
  * Adds a phone to SML.
  */
-public class AddPhoneCommand extends Command {
+public class AddPhoneCommand extends UndoableCommand {
 
     public static final String COMMAND_WORD = "add-p";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a phone to SML. "
             + "Parameters: "
-            + PREFIX_IDENTITYNUM + "IDENTITY NUMBER (IMEI) "
-            + PREFIX_SERIALNUM + "SERIAL NUMBER "
-            + PREFIX_PHONENAME + "NAME "
+            + PREFIX_IDENTITY_NUM + "IDENTITY NUMBER (IMEI) "
+            + PREFIX_SERIAL_NUM + "SERIAL NUMBER "
+            + PREFIX_PHONE_NAME + "NAME "
             + PREFIX_BRAND + "BRAND "
             + PREFIX_CAPACITY + "CAPACITY (in GB) "
             + PREFIX_COLOUR + "COLOUR "
             + PREFIX_COST + "COST "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_IDENTITYNUM + "543407158585522 "
-            + PREFIX_SERIALNUM + "A123bcfe29 "
-            + PREFIX_PHONENAME + "iPhone 11 "
+            + PREFIX_IDENTITY_NUM + "543407158585522 "
+            + PREFIX_SERIAL_NUM + "A123bcfe29 "
+            + PREFIX_PHONE_NAME + "iPhone 11 "
             + PREFIX_BRAND + "Apple "
             + PREFIX_CAPACITY + "128 "
             + PREFIX_COLOUR + "Purple "
@@ -60,7 +62,8 @@ public class AddPhoneCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult executeUndoableCommand(Model model, CommandHistory commandHistory,
+                                                UndoRedoStack undoRedoStack) throws CommandException {
         requireNonNull(model);
 
         if (model.hasPhone(toAdd)) {

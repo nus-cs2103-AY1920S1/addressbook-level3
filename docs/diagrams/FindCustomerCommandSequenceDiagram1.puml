@@ -1,0 +1,77 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":SellerManagerParser" as SellerManagerParser LOGIC_COLOR
+participant ":FindCustomerCommandParser" as FindCustomerCommandParser LOGIC_COLOR
+participant "p:CustomerNameContainsKeywordsPredicate" as CustomerNameContainsKeywordsPredicate LOGIC_COLOR
+participant "c:FindCustomerCommand" as FindCustomerCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("find-c n/Alice")
+activate LogicManager
+
+LogicManager -> SellerManagerParser : parseCommand("find-c n/Alice")
+activate SellerManagerParser
+
+create FindCustomerCommandParser
+SellerManagerParser -> FindCustomerCommandParser
+activate FindCustomerCommandParser
+
+FindCustomerCommandParser --> SellerManagerParser
+deactivate FindCustomerCommandParser
+
+SellerManagerParser -> FindCustomerCommandParser : parse("n/Alice")
+activate FindCustomerCommandParser
+
+create CustomerNameContainsKeywordsPredicate
+FindCustomerCommandParser -> CustomerNameContainsKeywordsPredicate
+
+activate CustomerNameContainsKeywordsPredicate
+CustomerNameContainsKeywordsPredicate --> FindCustomerCommandParser : p
+deactivate CustomerNameContainsKeywordsPredicate
+
+create FindCustomerCommand
+FindCustomerCommandParser -> FindCustomerCommand : new FindCustomerCommand(predicate)
+activate FindCustomerCommand
+
+FindCustomerCommand --> FindCustomerCommandParser : c
+deactivate FindCustomerCommand
+
+FindCustomerCommandParser --> SellerManagerParser : c
+deactivate FindCustomerCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+FindCustomerCommandParser -[hidden]-> SellerManagerParser
+destroy FindCustomerCommandParser
+
+SellerManagerParser --> LogicManager : c
+deactivate SellerManagerParser
+
+LogicManager -> FindCustomerCommand : execute()
+activate FindCustomerCommand
+
+FindCustomerCommand -> Model : updateFilteredCustomerList(predicate)
+activate Model
+
+Model --> FindCustomerCommand
+deactivate Model
+
+create CommandResult
+FindCustomerCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> FindCustomerCommand
+deactivate CommandResult
+
+FindCustomerCommand --> LogicManager : result
+deactivate FindCustomerCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

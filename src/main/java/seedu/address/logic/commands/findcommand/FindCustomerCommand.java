@@ -2,14 +2,14 @@ package seedu.address.logic.commands.findcommand;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.function.Predicate;
-
 import seedu.address.commons.core.Messages;
+import seedu.address.logic.CommandHistory;
+import seedu.address.logic.UndoRedoStack;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.UiChange;
 import seedu.address.model.Model;
-import seedu.address.model.customer.Customer;
+import seedu.address.model.customer.predicates.CustomerContainsKeywordsPredicate;
 
 /**
  * Finds and lists all customers in customer book whose name contains any of the argument keywords.
@@ -24,14 +24,14 @@ public class FindCustomerCommand extends Command {
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
             + "Example: " + COMMAND_WORD + " alice bob charlie";
 
-    private final Predicate<Customer> predicate;
+    private final CustomerContainsKeywordsPredicate predicate;
 
-    public FindCustomerCommand(Predicate<Customer> predicate) {
+    public FindCustomerCommand(CustomerContainsKeywordsPredicate predicate) {
         this.predicate = predicate;
     }
 
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(Model model, CommandHistory commandHistory, UndoRedoStack undoRedoStack) {
         requireNonNull(model);
         model.updateFilteredCustomerList(predicate);
         return new CommandResult(

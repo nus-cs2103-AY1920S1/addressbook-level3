@@ -20,26 +20,148 @@ By: `Team T09-4`      Since: `Sep 2019`      Licence: `MIT`
 Seller Manager Lite (SML) is for those who *prefer to use a desktop app for managing their sales*. More importantly, SML is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, SML can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
+
+Get started on this journey by installing SML and take a quick tour of our main features.
+
+=== Installation
 .  Ensure you have Java `11` or above installed in your Computer.
 .  Download the latest `sellermanagerlite.jar` https://github.com/AY1920S1-CS2103T-T09-4/main/releasesreleases[here].
 .  Copy the file to the folder you want to use as the home folder for your Seller Manager Lite.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
-+
+
+=== User Interface
+
+
+
 image::Ui.png[width="790"]
-+
-.  Type the command in the command box and press kbd:[Enter] to execute it. +
+
+
+
+
+Type the command in the command box and press kbd:[Enter] to execute it.
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`list -c`* : lists all customer contacts
-* **`add -c`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a customer named `John Doe` to SML.
-* **`delete -c`**`3` : deletes the 3rd customer shown in the current list
+* *`list-c`* : lists all customer contacts
+* **`add-c`**`n/John Doe c/98765432 e/johnd@example.com` : adds a customer named `John Doe` to SML.
+* **`delete-c`**`1` : deletes the 1st customer shown in the current list
 * *`exit`* : exits the app
 
-.  Refer to <<Features>> for details of each command.
+ Refer to <<Features>> for details of each command.
 
 [[Features]]
 == Features
+
+=== Overview
+
+==== Clutter-free
+
+SML helps you to organize your customers, phones and orders without clutter.
+
+* Use our smart tab view to toggle between customers, phones, orders, schedules and archives.
+* Search for the customer, phone and order you want with our find function.
+
+==== Save Time
+
+SML allows you to save time by:
+
+* allowing you to export to Microsoft Excel
+* update your inventory with a single command.
+* find and copy information easily
+* undo and redo when you make mistakes
+
+
+==== Track your sales performance
+
+SML generates real-time sales charts for you:
+
+* Revenue
+* Profit
+* Cost
+
+=== Glossary
+
+==== Common Terms
+
+. *SML* +
+Initialism for our application, Seller Manager Lite.
+
+. *Customer* +
+A person who buys from the seller.
+
+. *Phone* +
+Multi-purpose mobile computing device. Also known as smartphones.
+
+. *Order* +
+A request for goods.
+
+=== SML-specific Terms
+
+. *Command* +
+An instruction that will produce an output once entered in SML.
+
+. *CustomerBook* +
+A CustomerBook is a list that stores Customer(s) that has been added into SML.
+Each customer entry comprises of CustomerName, ContactNumber and Email fields and others.
+
+. *PhoneBook* +
+A PhoneBook is a list that stores Phone(s) that has been added in SML.
+Each phone entry comprises of IdentityNumber, SerialNumber, Brand, PhoneName, Colour, Cost and Capacity.
+
+. *OrderBook* +
+A OrderBook is a list that stores Order(s) that has been added in SML.
+Each order entry comprises of a customer, a phone, OrderID, Price and OrderStatus.
+
+. *Archived* +
+Archived is a list that stores Completed or Cancelled orders ONLY.
+
+. *TabPanel* +
+A view that is similar to web browser Tabs.
+
+. *Add* +
+The action of putting an entry into CustomerBook, PhoneBook, OrderBook or ScheduleBook.
+
+. *Edit* +
+If you want to make changes to any entry, you can do so with this command.
+
+. *Delete* +
+Remove an entry from CustomerBook, PhoneBook or ScheduleBook.
+
+. *Find* +
+The action of searching for customers, phones or orders that contains the keywords that you specify.
+
+. *Switch* +
+Change the Tab Panel to Customer, Phone, Order, Schedule or Archived.
+
+. *Undo* +
+If you've made a mistake, you can simply revert to the previous command.
+
+. *Redo* +
+Opposite of undo.
+
+. *Copy* +
+Action of copying an entry into clipboard.
+
+
+
+
+[[TabPanels]]
+== Tab Panels
+
+To ensure that users wouldn't suffer from information overload,
+we have divided the user interface into 5 partitions
+
+* Customer
+* Phone
+* Order
+* Schedule
+* Archived
+
+Use our <<Switch>> commands to toggle between the tab panels!
+The cool thing about our commands is that it will automatically
+toggle to the Tab Panel that it belongs to.
+[[Commands]]
+== Commands
 
 ====
 *Command Format*
@@ -47,39 +169,275 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add -c n/NAME`, `NAME` is a parameter which can be used as `add -c n/John Doe`.
 * Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Parameters can be in any order e.g. if the command specifies `n/NAME c/CONTACT_NUMBER`, `c/CONTACT_NUMBER n/NAME` is also acceptable.
 ====
 
 === Viewing help : `help`
 Lists out the commands you need to navigate SML. +
 Format: `help`
 
+
+=== Customer Commands
+Commands that work on customers in SML.
+
+==== Switch to Customer Tab Panel : `switch-c`
+
+Switches to Customer Tab Panel.
+
+[underline]#Format#: `switch-c`
+
+
+==== Add a customer : `add-c`
+
+Adds a Customer to the CustomerBook. +
+This can be done in any Tab Panel.
+
+[underline]#Format#: `add-c n/NAME c/CONTACT_NUMBER e/EMAIL [t/TAG]…`
+
+[TIP]
+Contact numbers should be 8-digits long.
+[TIP]
+A customer can have any number of tags, including 0.
+
+[underline]#Examples#:
+* Adds a single customer
+. `add-c n/Steve Jobs c/12345678 e/stevejobs@apple.com [t/TAG]…`
+
+image::ug-command/ug-add-c.png[width="900"]
+
+==== Delete a customer : `delete-c`
+Deletes a customer in SML. +
+
+[underline]#Format#: `delete-c INDEX`
+
+
+****
+* Deletes the customer at the specified `INDEX`.
+* The index refers to the index number shown in the displayed customer list.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+[underline]#Examples#:
+
+* Delete the 2nd customer.
+. `list-c` +
+. `delete-c 2` +
+
+* Delete the 1st customer after performing a find customer command.
+. `find-c alice` +
+. `delete-c 1` +
+
+==== Find a customer : `find-c`
+Finds customers whose fields contain any of the given keywords. +
+
+[underline]#Format#: `find KEYWORD [MORE_KEYWORDS]...`
+
+****
+* The search is case insensitive. e.g `hans` will match `Hans`
+* The search matches anywhere for name, contact number, email and tags.
+* Entries matching at least one field will be returned (i.e. `OR` search).
+** e.g. `find-c aaa bbb` will match a customer with name `Aaah` and a customer with tag `bbb`;
+****
+
+[underline]#Examples#:
+
+* Find customers with keyword `colleague` +
+. `find-c colleague` +
+
+image::ug-command/ug-find-c-1.png[width="800"]
+
+* Find customers with keywords `roy` `bernice` +
+. `find-c charlotte david` +
+
+image::ug-command/ug-find-c-2.png[width="800"]
+
+
+==== List the customers : `list-c`
+
+List every customer in SML. Acts as a switch customer command as well. +
+
+[underline]#Format#: `list-c`
+
+- `list-c`
+
+
+==== Edit a customer : `edit-c`
+Edits an existing customer in CustomerBook. +
+Format: `edit-c INDEX [n/NAME] [c/CONTACT_NUMBER] [e/EMAIL] [t/TAG]…`
+
+
+****
+- Edits the customer at the specified `INDEX`. The index refers to the index number shown in the displayed customer list.
+The index *must be a positive integer* 1, 2, 3, ...
+- At least one of the optional fields must be provided.
+- Existing values will be updated to the input values.
+- When editing tags, the existing tags of the customer  will be removed i.e adding of tags is not cumulative.
+- You can remove all the customer's tags by typing `t/` without specifying any tags after it.
+****
+
+[underline]#Examples#:
+
+* Edit the contact number and email of the 1st customer.
+. `edit-c 1 c/98721928 e/happygolucky@gmail.com` +
+* Clear all existing tags from the 2nd customer.
+. `edit-c 2 t/` +
+
+==== Copy customer : `copy-c`
+Copies a customer in SML to clipboard +
+
+[underline]#Format#: `copy-c INDEX`
+
+
+****
+* Copies the customer at the specified `INDEX`.
+* The index refers to the index number shown in the displayed customer list.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+[underline]#Examples#: +
+
+* Copy the 1st customer
+. `copy-c 1`
+
+* Copy the 1st customer after performing find.
+. `find-c Lee`
+. `copy-c 1`
+
+
+
+
+
 === Phone Commands
-Commands that work on phones that you have in your inventory.
+Commands that work on phones that you have in SML.
+
+==== Switch to Phone Tab Panel : `switch-p`
+
+Switches to Phone Tab Panel.
+
+[underline]#Format#: `switch-p`
+
+
 
 ==== Add a phone : `add-p`
-Adds a phone or updates the inventory. +
-Format: `add-p n/NAME q/QUANTITY [p/PRICE] [t/TAG]…​`
+Adds a phone. Similar to add customer. +
+
+[underline]#Format#: `add-p i/IDENTITY NUMBER (IMEI) s/SERIAL NUMBER n/NAME b/BRAND cp/CAPACITY (in GB) cl/COLOUR $/COST [t/TAG]…​`
+
+[TIP]
+IMEI Number should be 15 digits long.
+[TIP]
+Capacity can be 8GB, 16GB, 32GB, 64GB, 128GB, 256GB, 512GB or 1024GB.
+[TIP]
+Cost must start with $ and can only have a maximum of 2 decimal place.
+[TIP]
+A customer can have any number of tags, including 0.
+
+[underline]#Examples#:
+
+* Adds a single phone
+. `add-p i/543407158585522 s/A123bcfe29 n/iPhone 11 b/Apple cp/128 cl/Purple $/$900 t/NEW t/Cool`
+
+image::ug-command/ug-add-p.png[width="800"]
 
 ==== Delete a phone : `delete-p`
-Deletes a phone from the inventory. +
-Format: `delete-p INDEX`
+Deletes a phone in SML. +
+
+[underline]#Format#: `delete-p INDEX`
+
+
+****
+* Deletes the phone at the specified `INDEX`.
+* The index refers to the index number shown in the displayed phone list.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+[underline]#Examples#:
+
+* Delete the 2nd phone.
+. `list-p` +
+. `delete-p 2` +
+
+* Delete the 1st phone after performing a find phone command.
+. `find-p alice` +
+. `delete-p 1` +
 
 ==== Find a phone : `find-p`
-Returns all the information pertaining to phone with matching name. +
-Format: `find-p p/PHONE`
+Finds phones whose fields contain any of the given keywords. +
+
+[underline]#Format#: `find KEYWORD [MORE_KEYWORDS]...`
+
+****
+* The search is case insensitive. e.g `hans` will match `Hans`
+* The search matches anywhere for name, contact number, email and tags.
+* Entries matching at least one field will be returned (i.e. `OR` search).
+** e.g. `find-c aaa bbb` will match a customer with name `Aaah` and a customer with tag `bbb`;
+****
+
+[underline]#Examples#:
+
+* Find phones with keyword `apple` +
+. `find-p apple` +
+
+image::ug-command/ug-find-p-1.png[width="800"]
+
+* Find phones with keywords `128` `iphone` +
+. `find-p 128 iphone` +
+
+image::ug-command/ug-find-p-2.png[width="800"]
+
 
 ==== List the phones : `list-p`
-List all the phones in lexicographical order. +
-Format: `list-p`
+List every phone in SML. Acts as a switch phone command as well. +
+
+[underline]#Format#: `list-p`
+
+- `list-p`
 
 ==== Edit a phone : `edit-p`
-Edits the appropriate fields of a phone. +
-Format: `edit-p n/NAME [p/PRICE] [q/QUANTITY] [t/TAG]...`
+Edits the data fields of a phone. +
+[underline]#Format#: `edit-p INDEX [i/IMEI] [s/SERIAL NUMBER] [n/NAME] [b/BRAND] [cp/CAPACITY] [cl/COLOUR] [$/COST] [t/TAG]…`
 
-==== Copy phone field : `copy-p`
-Copies a phone field to clipboard. +
-Format: `copy-p <field>`
+
+****
+- Edits the phone at the specified `INDEX`. The index refers to the index number shown in the displayed customer list.
+The index *must be a positive integer* 1, 2, 3, ...
+- At least one of the optional fields must be provided.
+- Existing values will be updated to the input values.
+- When editing tags, the existing tags of the phone  will be removed i.e adding of tags is not cumulative.
+- You can remove all the phones's tags by typing `t/` without specifying any tags after it.
+****
+
+[underline]#Examples#:
+
+* Edit the phone name and colour of the 1st phone.
+. `edit-c 1 n/iPhone 11 cl/Green` +
+* Clear all existing tags from the 2nd phone.
+. `edit-c 2 t/` +
+
+==== Copy phone : `copy-p`
+Copies a phone in SML to clipboard +
+
+[underline]#Format#: `copy-p INDEX`
+
+[underline]#Examples#: +
+
+****
+* Copies the phone at the specified `INDEX`.
+* The index refers to the index number shown in the displayed phone list.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+[underline]#Examples#:
+
+* Copy the 1st phone
+. `copy-p 1`
+
+* Copy the 1st phone after performing find.
+. `find-p apple`
+. `copy-p 1`
+
+
+
 
 === Order Commands
 Commands that work on orders that you have.
@@ -112,34 +470,6 @@ Format: `copy-o <field>`
 Duplicate an order of the specified index. +
 Format: `duplicate-o INDEX`
 
-=== Customer Commands
-Commands that work on customers in your list.
-
-==== Add a customer : `add-c`
-Adds a customer to the address book. +
-Format: `add-c n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…`
-[TIP]
-A person can have any number of tags, including 0.
-
-==== Delete a customer : `delete-c`
-Deletes a customer in the address book. +
-Format: `delete-c INDEX`
-
-==== Find a customer : `find-c`
-Finds customers whose names contain any of the given keywords. +
-Format: `find-c KEYWORD [MORE_KEYWORDS]`
-
-==== List the customers : `list-c`
-List every single customer in SML. +
-Format: `list-c`
-
-==== Edit a customer : `edit-c`
-Edits an existing customer. +
-Format: `edit-c INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…`
-
-==== Copy customer field : `copy-c`
-Copies a customer field to clipboard. +
-Format: `copy-c <field>`
 
 === Schedule Commands
 
@@ -175,13 +505,34 @@ Accepts two types of input: Without date input and with date input +
 
 Generates the statistics with no date input. +
 Used for calculating `total profit` , `total Revenue` and `total Cost`. +
-Format: `generate-s s/STAT` +
-Type for `STAT` includes: `PROFIT`, `REVENUE`, `COST` +
+Format: `generate-s s/stat` +
+Type for `stat` includes: `profit`, `revenue`, `cost` +
+The argument must match this three words perfectly.
+
+Shown below:
+
+image::docs/images/StatsExampleDefault.png[width="600"]
 
 Generates the statistics with date input in chart format (in pop-up modal dialog). +
-Format: `generate-s s/STAT d1/YYYY.MM.DD d2/YYYY.MM.DD` +
-Example: `generate-s s/REVENUE d1/2019.10.16 d2/2019.11.21` +
+Format: `generate-s s/stat d1/YYYY.MM.DD d2/YYYY.MM.DD` +
+Example: `generate-s s/revenue d1/2019.10.16 d2/2019.11.21` +
 Format for date is in YYYY.MM.DD e.g `2019.05.12`
+
+Shown below:
+
+image::docs/images/StatsExampleGraph.png[width="600"]
+
+Limitations:
+
+* Range of dates affecting chart display:
+** The chart is able to accept a large range of dates, but take note that above a
+certain threshold the gap between the months will change, depending on how large of a range you are calculating.
+This behaviour is intentional and not a bug.
+
+* Load time:
+** Do not be alarmed if the window does not pop up immediately upon click. For larger data sets
+we estimate at least a few seconds before the window will be loaded.
+
 
 
 ==== Check : `check`

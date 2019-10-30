@@ -4,7 +4,10 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
@@ -203,7 +206,6 @@ public class ModelManager implements Model {
 
     @Override
     public ReadOnlyDataBook<Customer> getCustomerBook() {
-
         return customerBook;
     }
 
@@ -311,12 +313,13 @@ public class ModelManager implements Model {
         phoneBook.set(target, editedPhone);
 
         // cascade
+
         List<Order> orders = orderBook.getList();
         for (Order order : orders) {
             if (order.getPhone().equals(target)) {
                 Order editedOrder = new Order(order.getId(), order.getCustomer(), editedPhone,
                         order.getPrice(), order.getStatus(), order.getSchedule(), order.getTags());
-                orderBook.set(order, editedOrder);
+                setOrder(order, editedOrder);
                 break;
             }
         }
@@ -363,7 +366,9 @@ public class ModelManager implements Model {
 
         // cascade
         Optional<Schedule> targetSchedule = target.getSchedule();
-        targetSchedule.ifPresent(scheduleBook::remove);
+        if (targetSchedule.isPresent() && hasSchedule(targetSchedule.get())) {
+            deleteSchedule(targetSchedule.get());
+        }
     }
 
     @Override
@@ -419,6 +424,7 @@ public class ModelManager implements Model {
         scheduleBook.remove(target);
         setCalendarDate(target.getCalendar());
 
+
         // cascade
         List<Order> orders = orderBook.getList();
         for (Order order : orders) {
@@ -426,7 +432,7 @@ public class ModelManager implements Model {
                 if (schedule.equals(target)) {
                     Order editedOrder = new Order(order.getId(), order.getCustomer(), order.getPhone(),
                             order.getPrice(), Status.UNSCHEDULED, Optional.empty(), order.getTags());
-                    orderBook.set(order, editedOrder);
+                    setOrder(order, editedOrder);
                 }
             });
         }
@@ -459,6 +465,28 @@ public class ModelManager implements Model {
         }
     }
 
+    @Override
+    public List<Schedule> getConflictingSchedules(Schedule schedule) {
+        requireNonNull(schedule);
+        List<Schedule> conflicts = new ArrayList<>();
+
+        Calendar startTime = schedule.getCalendar();
+        Calendar earliestUnconflictedStartTime = (Calendar) startTime.clone();
+        earliestUnconflictedStartTime.add(Calendar.HOUR_OF_DAY, -1);
+        Calendar latestUnconflictedStartTime = (Calendar) startTime.clone();
+        latestUnconflictedStartTime.add(Calendar.HOUR_OF_DAY, 1);
+
+        List<Schedule> schedules = scheduleBook.getList();
+        for (Schedule s: schedules) {
+            Calendar calendar = s.getCalendar();
+            if (calendar.after(earliestUnconflictedStartTime) && calendar.before(latestUnconflictedStartTime)) {
+                conflicts.add(s);
+            }
+        }
+        Collections.sort(conflicts, Comparator.comparing(Schedule::getCalendar));
+        return conflicts;
+    }
+
     //=========== Filtered Schedule List Accessors =============================================================
 
     /**
@@ -489,7 +517,7 @@ public class ModelManager implements Model {
         return calendarDate;
     }
 
-    //=========== Order DataBook ================================================================================
+    //=========== Archived Order DataBook ======================================================================
 
     @Override
     public void setArchivedOrderBook(ReadOnlyDataBook<Order> archivedOrderBook) {

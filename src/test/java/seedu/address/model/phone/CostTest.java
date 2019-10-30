@@ -37,5 +37,6 @@ public class CostTest {
         assertTrue(Cost.isValidCost("$1.5")); // 1 decimal
         assertTrue(Cost.isValidCost("$99.99")); // 2 decimals
         assertTrue(Cost.isValidCost("$1234567898765432100000000000000")); // long
+        assertTrue(Cost.isValidCost("$1649"));
     }
 }

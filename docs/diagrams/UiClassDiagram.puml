@@ -15,13 +15,16 @@ Class CustomerCard
 Class CustomerListPanel
 Class OrderCard
 Class OrderListPanel
+Class ArchivedOrderListPanel
 Class PhoneCard
 Class PhoneListPanel
+
 Class CalendarPanel
 Class StatusBarFooter
 Class CommandBox
 Class TabPanel
 Class StatisticWindow
+Class DefaultStatisticWindow
 }
 
 package Model <<Rectangle>> {
@@ -38,19 +41,23 @@ HiddenOutside ..> Ui
 UiManager .left.|> Ui
 UiManager -down-> MainWindow
 MainWindow --> HelpWindow
-MainWindow --> StatisticWindow
+MainWindow -----> StatisticWindow
+MainWindow -right--> DefaultStatisticWindow
 MainWindow *-down-> CommandBox
 MainWindow *-down-> ResultDisplay
 MainWindow *-down-> TabPanel
 MainWindow *-down-> StatusBarFooter
 
+
 TabPanel *-down-> CustomerListPanel
 TabPanel *-down-> PhoneListPanel
+TabPanel *-down-> ArchivedOrderListPanel
 TabPanel *-down-> OrderListPanel
 TabPanel *-down-> CalendarPanel
 
 CustomerListPanel -down-> CustomerCard
 PhoneListPanel -down-> PhoneCard
+ArchivedOrderListPanel -down->OrderCard
 OrderListPanel -down-> OrderCard
 
 MainWindow -left-|> UiPart
@@ -64,11 +71,12 @@ HelpWindow -down-|> UiPart
 UiManager -right-> Logic
 MainWindow -right-> Logic
 
-CustomerListPanel --|> UiPart
-PhoneListPanel --|> UiPart
-OrderListPanel--|> UiPart
-CalendarPanel --|> UiPart
-StatisticWindow --|> UiPart
+CustomerListPanel ----|> UiPart
+PhoneListPanel ----|> UiPart
+OrderListPanel----|> UiPart
+CalendarPanel ----|> UiPart
+StatisticWindow ----|> UiPart
+DefaultStatisticWindow ----|> UiPart
 CustomerCard -down-|> UiPart
 PhoneCard -down-|> UiPart
 OrderCard -down-|> UiPart

@@ -10,6 +10,8 @@ import java.util.UUID;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.CommandHistory;
+import seedu.address.logic.UndoRedoStack;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.customer.Customer;
@@ -23,7 +25,7 @@ import seedu.address.model.tag.Tag;
 /**
  * Completes an order identified using it's displayed index from the seller manager.
  */
-public class CompleteOrderCommand extends Command {
+public class CompleteOrderCommand extends UndoableCommand {
 
     public static final String COMMAND_WORD = "complete";
 
@@ -41,7 +43,8 @@ public class CompleteOrderCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult executeUndoableCommand(Model model, CommandHistory commandHistory,
+                                                UndoRedoStack undoRedoStack) throws CommandException {
         requireNonNull(model);
         List<Order> lastShownList = model.getFilteredOrderList();
 
@@ -58,9 +61,15 @@ public class CompleteOrderCommand extends Command {
         Set<Tag> tags = orderToComplete.getTags();
         Order completedOrder = new Order(id, customer, phone, price, Status.COMPLETED, schedule, tags);
 
-
         model.addArchivedOrder(completedOrder);
-        model.deletePhone(phone);
+
+        if (model.hasPhone(phone)) {
+            model.deletePhone(phone);
+        }
+
+        if (model.hasOrder(orderToComplete)) {
+            model.deleteOrder(orderToComplete);
+        }
 
         return new CommandResult(String.format(MESSAGE_COMPLETE_ORDER_SUCCESS, orderToComplete),
                 UiChange.ARCHIVED_ORDER);

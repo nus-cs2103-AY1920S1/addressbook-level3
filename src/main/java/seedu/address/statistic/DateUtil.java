@@ -20,16 +20,24 @@ public class DateUtil {
     }
 
     public static List<Calendar> getListOfYearMonth(StatsPayload statsPayload) {
+
         List<Calendar> listOfYearMonth = new ArrayList<>();
         Calendar startDate = statsPayload.getStartingDate();
         Calendar endDate = statsPayload.getEndingDate();
+        //clone to create new copy
+        Calendar startDateCloned = (Calendar) startDate.clone();
+        Calendar endDateCloned = (Calendar) endDate.clone();
 
-
-        while (startDate.before(endDate)) {
-            //System.out.println(convertCalendarDateToString(startDate));
-            Calendar temp = (Calendar) startDate.clone();
-            listOfYearMonth.add(temp);
-            startDate.add(Calendar.MONTH, 1);
+        while (startDateCloned.before(endDateCloned)) {
+            if (startDateCloned.get(Calendar.MONTH) == endDateCloned.get(Calendar.MONTH)
+                    && startDateCloned.get(Calendar.YEAR) == endDateCloned.get(Calendar.YEAR)) {
+                //same month same year i dont add
+                break;
+            } else {
+                Calendar temp = (Calendar) startDateCloned.clone();
+                listOfYearMonth.add(temp);
+                startDateCloned.add(Calendar.MONTH, 1);
+            }
         }
         listOfYearMonth.add(endDate);
         return listOfYearMonth;

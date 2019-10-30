@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import java.nio.file.Path;
 import java.util.Calendar;
+import java.util.List;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -273,6 +274,11 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredScheduleList(Predicate<Schedule> predicate);
+
+    /**
+     * Gets the list conflicting schedules if any.
+     */
+    List<Schedule> getConflictingSchedules(Schedule schedule);
 
     /**
      * Returns the CalendarDate object.
