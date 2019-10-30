@@ -169,10 +169,12 @@ public class Planner {
      * Returns an unmodifiable view of the list of {@code Task} backed by the internal list
      * of {@code Planner}
      */
+    //TODO test
     public ObservableList<Task> getFilteredTaskList() {
         return filteredTaskList;
     }
 
+    //TODO jdocs and test
     public ObservableList<Task> getUnfilteredTaskList() {
         return FXCollections.observableList(getTasks());
     }

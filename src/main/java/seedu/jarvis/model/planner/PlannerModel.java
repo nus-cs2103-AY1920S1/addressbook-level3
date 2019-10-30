@@ -99,6 +99,7 @@ public interface PlannerModel {
      */
     ObservableList<Task> getFilteredTaskList();
 
+    //TODO jdocs
     ObservableList<Task> getUnfilteredTaskList();
 
     /**

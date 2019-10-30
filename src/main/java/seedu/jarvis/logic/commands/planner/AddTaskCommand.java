@@ -16,8 +16,6 @@ import seedu.jarvis.model.planner.PlannerModel;
 import seedu.jarvis.model.planner.tasks.Task;
 import seedu.jarvis.model.viewstatus.ViewType;
 
-import java.util.function.Predicate;
-
 /**
  * Adds a task to JARVIS
  */
