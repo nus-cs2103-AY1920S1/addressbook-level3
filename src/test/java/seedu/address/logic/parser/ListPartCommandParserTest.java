@@ -5,7 +5,7 @@ import static seedu.address.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.commands.participation.ListPartCommand;
+import seedu.address.logic.commands.insession.ListPartCommand;
 import seedu.address.logic.parser.participation.ListPartCommandParser;
 import seedu.address.model.person.Name;
 

@@ -155,7 +155,7 @@ public class ModelManager implements Model {
 
     @Override
     public void setCompetitions(ReadOnlyData<Competition> competitions) {
-        this.persons.resetData(competitions);
+        this.competitions.resetData(competitions);
     }
 
     @Override
@@ -297,6 +297,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean hasOngoingSession() {
+        return session.getIsOngoing();
+    }
+
+    @Override
     public void startSession(ObservableList<Participation> participations) {
         requireAllNonNull(participations);
         session.start(participations);
@@ -334,11 +339,11 @@ public class ModelManager implements Model {
         // state check
         ModelManager other = (ModelManager) obj;
         return userPrefs.equals(other.userPrefs)
-                && persons.equals(other.persons)
-                && filteredPersons.equals(other.filteredPersons)
-                && competitions.equals(other.competitions)
-                && filteredCompetitions.equals(other.filteredCompetitions)
-                && participations.equals(other.participations)
-                && filteredParticipations.equals(other.filteredParticipations);
+            && persons.equals(other.persons)
+            && filteredPersons.equals(other.filteredPersons)
+            && competitions.equals(other.competitions)
+            && filteredCompetitions.equals(other.filteredCompetitions)
+            && participations.equals(other.participations)
+            && filteredParticipations.equals(other.filteredParticipations);
     }
 }

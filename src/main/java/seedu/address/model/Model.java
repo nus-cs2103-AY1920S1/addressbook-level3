@@ -220,6 +220,11 @@ public interface Model {
     Session getSession();
 
     /**
+     * @return true
+     */
+    boolean hasOngoingSession();
+
+    /**
      * Starts the session with a list of participants for this competition.
      *
      * @param participations list of participations for the current competition session

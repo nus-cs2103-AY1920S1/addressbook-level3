@@ -6,28 +6,25 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import seedu.address.logic.commands.AddCommand;
-import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.DeleteCommand;
-import seedu.address.logic.commands.EditCommand;
-import seedu.address.logic.commands.ExitCommand;
-import seedu.address.logic.commands.FindCommand;
-import seedu.address.logic.commands.HelpCommand;
-import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.RankCommand;
-import seedu.address.logic.commands.competition.AddCompCommand;
-import seedu.address.logic.commands.competition.DeleteCompCommand;
-import seedu.address.logic.commands.competition.EditCompCommand;
-import seedu.address.logic.commands.competition.ListCompCommand;
-import seedu.address.logic.commands.participation.AddPartCommand;
-import seedu.address.logic.commands.participation.ListPartCommand;
-import seedu.address.logic.commands.session.AttemptLiftedCommand;
-import seedu.address.logic.commands.session.NextLifterCommand;
-import seedu.address.logic.commands.session.SessionCommand;
-import seedu.address.logic.parser.competition.AddCompCommandParser;
-import seedu.address.logic.parser.competition.DeleteCompCommandParser;
-import seedu.address.logic.parser.competition.EditCompCommandParser;
+import seedu.address.logic.commands.insession.AddPartCommand;
+import seedu.address.logic.commands.insession.AttemptLiftedCommand;
+import seedu.address.logic.commands.insession.ListPartCommand;
+import seedu.address.logic.commands.insession.NextLifterCommand;
+import seedu.address.logic.commands.insession.SessionCommand;
+import seedu.address.logic.commands.outofsession.AddCompetitionCommand;
+import seedu.address.logic.commands.outofsession.AddPersonCommand;
+import seedu.address.logic.commands.outofsession.ClearCommand;
+import seedu.address.logic.commands.outofsession.DeleteCompetitionCommand;
+import seedu.address.logic.commands.outofsession.DeletePersonCommand;
+import seedu.address.logic.commands.outofsession.EditCompetitionCommand;
+import seedu.address.logic.commands.outofsession.EditPersonCommand;
+import seedu.address.logic.commands.outofsession.ExitCommand;
+import seedu.address.logic.commands.outofsession.FindPersonCommand;
+import seedu.address.logic.commands.outofsession.ListCompetitionCommand;
+import seedu.address.logic.commands.outofsession.ListPersonCommand;
+import seedu.address.logic.commands.outofsession.OutOfSessionHelpCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.parser.participation.AddPartCommandParser;
 import seedu.address.logic.parser.participation.ListPartCommandParser;
@@ -54,18 +51,19 @@ public class SystemParser {
     public Command parseCommand(String userInput) throws ParseException {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                OutOfSessionHelpCommand.MESSAGE_USAGE));
         }
 
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
 
-        case AddCommand.COMMAND_WORD:
-            return new AddCommandParser().parse(arguments);
+        case AddPersonCommand.COMMAND_WORD:
+            return new AddPersonCommandParser().parse(arguments);
 
-        case AddCompCommand.COMMAND_WORD:
-            return new AddCompCommandParser().parse(arguments);
+        case AddCompetitionCommand.COMMAND_WORD:
+            return new AddCompetitionCommandParser().parse(arguments);
 
         case AddPartCommand.COMMAND_WORD:
             return new AddPartCommandParser().parse(arguments);
@@ -73,29 +71,29 @@ public class SystemParser {
         case AttemptLiftedCommand.COMMAND_WORD:
             return new AttemptLiftedCommandParser().parse(arguments);
 
-        case EditCommand.COMMAND_WORD:
-            return new EditCommandParser().parse(arguments);
+        case EditPersonCommand.COMMAND_WORD:
+            return new EditPersonCommandParser().parse(arguments);
 
-        case EditCompCommand.COMMAND_WORD:
-            return new EditCompCommandParser().parse(arguments);
+        case EditCompetitionCommand.COMMAND_WORD:
+            return new EditCompetitionCommandParser().parse(arguments);
 
-        case DeleteCommand.COMMAND_WORD:
-            return new DeleteCommandParser().parse(arguments);
+        case DeletePersonCommand.COMMAND_WORD:
+            return new DeletePersonCommandParser().parse(arguments);
 
-        case DeleteCompCommand.COMMAND_WORD:
-            return new DeleteCompCommandParser().parse(arguments);
+        case DeleteCompetitionCommand.COMMAND_WORD:
+            return new DeleteCompetitionCommandParser().parse(arguments);
 
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
 
-        case FindCommand.COMMAND_WORD:
-            return new FindCommandParser().parse(arguments);
+        case FindPersonCommand.COMMAND_WORD:
+            return new FindPersonCommandParser().parse(arguments);
 
-        case ListCommand.COMMAND_WORD:
-            return new ListCommand();
+        case ListPersonCommand.COMMAND_WORD:
+            return new ListPersonCommand();
 
-        case ListCompCommand.COMMAND_WORD:
-            return new ListCompCommand();
+        case ListCompetitionCommand.COMMAND_WORD:
+            return new ListCompetitionCommand();
 
         case ListPartCommand.COMMAND_WORD:
             return new ListPartCommandParser().parse(arguments);
@@ -106,8 +104,8 @@ public class SystemParser {
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
 
-        case HelpCommand.COMMAND_WORD:
-            return new HelpCommand();
+        case OutOfSessionHelpCommand.COMMAND_WORD:
+            return new OutOfSessionHelpCommand();
 
         case NextLifterCommand.COMMAND_WORD:
             return new NextLifterCommand();
@@ -120,3 +118,4 @@ public class SystemParser {
         }
     }
 }
+

@@ -1,6 +1,6 @@
 package seedu.address.logic.parser.participation;
 
-import seedu.address.logic.commands.participation.ListPartCommand;
+import seedu.address.logic.commands.insession.ListPartCommand;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
