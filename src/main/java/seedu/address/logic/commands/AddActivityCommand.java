@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DURATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
@@ -24,11 +25,13 @@ public class AddActivityCommand extends AddCommand {
             + "Parameters: "
             + PREFIX_NAME + "NAME "
             + PREFIX_ADDRESS + "ADDRESS "
-            + "[" + PREFIX_TAG + "TAG]...\n"
-            + "Example: add " + COMMAND_WORD + " "
+            + "[" + PREFIX_TAG + "TAG]..."
+            + PREFIX_DURATION + "DURATION\n"
+            + "Example: " + COMMAND_WORD + " " + SECOND_COMMAND_WORD + " "
             + PREFIX_NAME + "visit mt Fuji "
             + PREFIX_ADDRESS + "Mount Fuji "
-            + PREFIX_TAG + "sight-seeing";
+            + PREFIX_TAG + "sightseeing "
+            + PREFIX_DURATION + "120";
 
     public static final String MESSAGE_SUCCESS = "New activity added: %1s";
     public static final String MESSAGE_DUPLICATE_ACTIVITY = "This activity already exists in the itinerary.";
@@ -67,12 +70,11 @@ public class AddActivityCommand extends AddCommand {
         if (model.hasActivity(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_ACTIVITY);
         }
-
         if (toAdd.getContact().isPresent()) {
             if (model.hasPhone(toAdd.getContact().get().getPhone())) {
                 Contact contact = model.getContactByPhone(toAdd.getContact().get().getPhone()).get();
                 model.addActivity(new Activity(toAdd.getName(), toAdd.getAddress(), contact,
-                        toAdd.getTags()));
+                        toAdd.getTags(), toAdd.getDuration(), toAdd.getPriority()));
             } else {
                 if (index == null) {
                     model.addActivity(toAdd);

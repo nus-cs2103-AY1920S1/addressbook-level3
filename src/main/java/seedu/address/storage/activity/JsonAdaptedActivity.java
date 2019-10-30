@@ -11,10 +11,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 
+import seedu.address.commons.util.StringUtil;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.field.Address;
 import seedu.address.model.field.Name;
 import seedu.address.model.itineraryitem.activity.Activity;
+import seedu.address.model.itineraryitem.activity.Duration;
+import seedu.address.model.itineraryitem.activity.Priority;
 import seedu.address.model.tag.Tag;
 import seedu.address.storage.JsonAdaptedTag;
 import seedu.address.storage.contact.JsonAdaptedContact;
@@ -25,24 +28,33 @@ import seedu.address.storage.contact.JsonAdaptedContact;
 public class JsonAdaptedActivity {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Activity's %s field is missing!";
+    private static final int LOWEST_PRIORITY = 0;
 
     private final String name;
     private final String address;
     private final JsonAdaptedContact contact;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
+    private final String duration;
+    private final String priority;
 
     /**
      * Constructs a {@code JsonAdaptedActivity} with the given activity details.
      */
     @JsonCreator
-    public JsonAdaptedActivity(@JsonProperty("name") String name, @JsonProperty("address") String address,
-            @JsonProperty("contact") JsonAdaptedContact contact, @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+    public JsonAdaptedActivity(@JsonProperty("name") String name,
+                               @JsonProperty("address") String address,
+                               @JsonProperty("contact") JsonAdaptedContact contact,
+                               @JsonProperty("tagged") List<JsonAdaptedTag> tagged,
+                               @JsonProperty("duration") String duration,
+                               @JsonProperty("priority") String priority) {
         this.name = name;
         this.address = address;
         this.contact = contact;
         if (tagged != null) {
             this.tagged.addAll(tagged);
         }
+        this.duration = duration;
+        this.priority = priority;
     }
 
     /**
@@ -55,6 +67,8 @@ public class JsonAdaptedActivity {
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
+        duration = Integer.toString(source.getDuration().value);
+        priority = Integer.toString(source.getPriority().priorityValue);
     }
 
     /**
@@ -63,9 +77,10 @@ public class JsonAdaptedActivity {
      * @throws IllegalValueException if there were any data constraints violated in the adapted contacts.
      */
     public Activity toModelType() throws IllegalValueException {
-        final List<Tag> accommodationTags = new ArrayList<>();
+        final List<Tag> activityTags = new ArrayList<>();
+        final Priority modelPriority;
         for (JsonAdaptedTag tag : tagged) {
-            accommodationTags.add(tag.toModelType());
+            activityTags.add(tag.toModelType());
         }
 
         if (name == null) {
@@ -83,8 +98,25 @@ public class JsonAdaptedActivity {
 
         final Contact modelContact = (contact == null) ? null : contact.toModelType();
 
-        final Set<Tag> modelTags = new HashSet<>(accommodationTags);
-        return new Activity(modelName, modelAddress, modelContact, modelTags);
+        final Set<Tag> modelTags = new HashSet<>(activityTags);
+
+        if (duration == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Duration.class.getSimpleName()));
+        }
+        if (!StringUtil.isNonZeroUnsignedInteger(duration) && (Integer.parseInt(duration) >= 0)) {
+            throw new IllegalValueException(String.format(Duration.MESSAGE_CONSTRAINTS));
+        }
+        final Duration modelDuration = new Duration(Integer.parseInt(duration));
+        if (priority == null) {
+            modelPriority = new Priority(LOWEST_PRIORITY);
+        } else if (!StringUtil.isNonZeroUnsignedInteger(priority) && (Integer.parseInt(priority) >= 0)) {
+            throw new IllegalValueException(String.format(Priority.MESSAGE_CONSTRAINTS));
+        } else {
+            modelPriority = new Priority(Integer.parseInt(priority));
+        }
+
+        return new Activity(modelName, modelAddress, modelContact, modelTags, modelDuration, modelPriority);
     }
 
 }

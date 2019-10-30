@@ -9,6 +9,8 @@ import seedu.address.model.contact.Phone;
 import seedu.address.model.field.Address;
 import seedu.address.model.field.Name;
 import seedu.address.model.itineraryitem.activity.Activity;
+import seedu.address.model.itineraryitem.activity.Duration;
+import seedu.address.model.itineraryitem.activity.Priority;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.testutil.contact.ContactBuilder;
@@ -20,20 +22,30 @@ public class ActivityBuilder {
 
     public static final String DEFAULT_ACTIVITY_NAME = "Visit Golden Pavillion";
     public static final String DEFAULT_ACTIVITY_ADDRESS = "123, Jurong West Ave 6, #08-111";
+
+    public static final String DEFAULT_CONTACT_NAME = "Sam Smith";
     public static final String DEFAULT_CONTACT_PHONE = "91170081";
     public static final String DEFAULT_CONTACT_EMAIL = "sam1987@gmail.com";
+    public static final String DEFAULT_CONTACT_ADDRESS = "456, Bukit Batok st 53, #03-21";
+    public static final Integer DEFAULT_DURATION = 30;
+    public static final Integer DEFAULT_PRIORITY = 1;
+
 
     private Name name;
     private Contact contact;
     private Address address;
     private Set<Tag> tags;
+    private Duration duration;
+    private Priority priority;
 
     public ActivityBuilder() {
         name = new Name(DEFAULT_ACTIVITY_NAME);
-        contact = new Contact(new Name(DEFAULT_ACTIVITY_NAME), new Phone(DEFAULT_CONTACT_PHONE),
-                new Email(DEFAULT_CONTACT_EMAIL), new Address(DEFAULT_ACTIVITY_ADDRESS), new HashSet<>());
+        contact = new Contact(new Name(DEFAULT_CONTACT_NAME), new Phone(DEFAULT_CONTACT_PHONE),
+                new Email(DEFAULT_CONTACT_EMAIL), new Address(DEFAULT_CONTACT_ADDRESS), new HashSet<>());
         address = new Address(DEFAULT_ACTIVITY_ADDRESS);
         tags = new HashSet<>();
+        duration = new Duration(DEFAULT_DURATION);
+        priority = new Priority(DEFAULT_PRIORITY);
     }
 
     /**
@@ -44,6 +56,8 @@ public class ActivityBuilder {
         address = activityToCopy.getAddress();
         contact = activityToCopy.getContact().orElse(null);
         tags = new HashSet<>(activityToCopy.getTags());
+        duration = activityToCopy.getDuration();
+        priority = activityToCopy.getPriority();
     }
 
     /**
@@ -90,7 +104,7 @@ public class ActivityBuilder {
     }
 
     public Activity build() {
-        return new Activity(name, address, contact, tags);
+        return new Activity(name, address, contact, tags, duration, priority);
     }
 
 }

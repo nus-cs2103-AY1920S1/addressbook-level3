@@ -12,6 +12,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.field.Address;
 import seedu.address.model.field.Name;
 import seedu.address.model.itineraryitem.activity.Activity;
+import seedu.address.model.itineraryitem.activity.Duration;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -32,7 +33,6 @@ public class Timetable {
         if (activities.size() > 0) {
             Iterator<ActivityWithTime> activitiesIterator = activities.iterator();
             this.timetable.add(activitiesIterator.next());
-
             while (activitiesIterator.hasNext()) {
                 ActivityWithTime toAdd = activitiesIterator.next();
                 ActivityWithTime floorActivity = this.timetable.floor(toAdd);
@@ -54,7 +54,7 @@ public class Timetable {
                     }
                 } else {
                     if (toAdd.getStartTime().compareTo(floorActivity.getEndTime()) >= 0
-                        && toAdd.getEndTime().compareTo(ceilingActivity.getStartTime()) <= 0) {
+                            && toAdd.getEndTime().compareTo(ceilingActivity.getStartTime()) <= 0) {
                         this.timetable.add(toAdd);
                     } else {
                         throw new CommandException(MESSAGE_ACTIVITY_TIME_CONFLICT);
@@ -81,7 +81,8 @@ public class Timetable {
     }
 
     private Activity createEmptyActivity() {
-        return new Activity(new Name("activityStub"), new Address("addressStub"), null, new HashSet<Tag>());
+        return new Activity(new Name("activityStub"), new Address("addressStub"), null, new HashSet<Tag>(),
+                new Duration(30), null);
     }
 
     @Override
