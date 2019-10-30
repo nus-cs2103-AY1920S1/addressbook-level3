@@ -14,6 +14,7 @@ import seedu.deliverymans.logic.commands.CommandResult;
 import seedu.deliverymans.logic.commands.exceptions.CommandException;
 import seedu.deliverymans.model.Model;
 import seedu.deliverymans.model.Name;
+import seedu.deliverymans.model.customer.Customer;
 import seedu.deliverymans.model.food.Food;
 import seedu.deliverymans.model.order.Order;
 import seedu.deliverymans.model.restaurant.Restaurant;
@@ -41,7 +42,8 @@ public class AddOrderCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "New order added: %1$s";
     public static final String MESSAGE_DUPLICATE_ORDER = "This order already exists";
-    public static final String MESSAGE_INVALID_ORDER = "The customer/restaurant does not exist!";
+    public static final String MESSAGE_INVALID_CUSTOMER = "The customer does not exist!";
+    public static final String MESSAGE_INVALID_RESTAURANT = "The restaurant does not exist!";
     public static final String MESSAGE_INVALID_FOOD = "The food does not exist in the restaurant's menu!";
 
     private final Order toAdd;
@@ -53,13 +55,25 @@ public class AddOrderCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
+        Customer customerToAdd = new Customer(toAdd.getCustomer());
         Name customerName = toAdd.getCustomer();
         Name restaurantName = toAdd.getRestaurant();
         Map<Name, Integer> foodList = toAdd.getFood();
+        boolean customerFound = false;
+        for (Customer customer : model.getFilteredCustomerList()) {
+            if (customer.isSameCustomer(customerToAdd)) {
+                customerFound = true;
+                customer.addOrder(toAdd);
+            }
+        }
+        if (!customerFound) {
+            throw new CommandException(MESSAGE_INVALID_CUSTOMER);
+        }
+        /*
         if (!model.getFilteredCustomerList().contains(customerName)
                 || !model.getFilteredRestaurantList().contains(restaurantName)) {
             throw new CommandException(MESSAGE_INVALID_ORDER);
-        }
+        }*/
         for (Restaurant restaurant : model.getFilteredRestaurantList()) {
             if (restaurant.equals(restaurantName)) {
                 ObservableList<Food> menu = restaurant.getMenu();
@@ -85,4 +99,5 @@ public class AddOrderCommand extends Command {
                 || (other instanceof AddOrderCommand // instanceof handles nulls
                 && toAdd.equals(((AddOrderCommand) other).toAdd));
     }
+
 }

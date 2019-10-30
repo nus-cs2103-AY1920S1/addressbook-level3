@@ -14,16 +14,16 @@ import seedu.deliverymans.model.order.Order;
  * Panel containing the list of persons.
  */
 public class OrderListPanel extends UiPart<Region> {
-    private static final String FXML = "PersonListPanel.fxml";
+    private static final String FXML = "OrderListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(PersonListPanel.class);
 
     @FXML
-    private ListView<Order> personListView;
+    private ListView<Order> orderListView;
 
-    public OrderListPanel(ObservableList<Order> personList) {
+    public OrderListPanel(ObservableList<Order> orderList) {
         super(FXML);
-        personListView.setItems(personList);
-        personListView.setCellFactory(listView -> new OrderListViewCell());
+        orderListView.setItems(orderList);
+        orderListView.setCellFactory(listView -> new OrderListViewCell());
     }
 
     /**

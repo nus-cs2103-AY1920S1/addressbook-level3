@@ -15,6 +15,7 @@ import seedu.deliverymans.model.customer.UniqueCustomerList;
 public class CustomerDatabase implements ReadOnlyCustomerDatabase {
 
     private final UniqueCustomerList customers;
+    private Customer customerOrders;
 
     {
         customers = new UniqueCustomerList();
@@ -38,6 +39,11 @@ public class CustomerDatabase implements ReadOnlyCustomerDatabase {
      */
     public void setCustomers(List<Customer> customers) {
         this.customers.setCustomers(customers);
+    }
+
+
+    public void setCustomerOrders(Customer customerOrders) {
+        this.customerOrders = customerOrders;
     }
 
     /**
@@ -96,6 +102,10 @@ public class CustomerDatabase implements ReadOnlyCustomerDatabase {
     @Override
     public ObservableList<Customer> getCustomerList() {
         return customers.asUnmodifiableObservableList();
+    }
+
+    public Customer getCustomerOrders() {
+        return customerOrders;
     }
 
     @Override

@@ -7,6 +7,8 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import seedu.deliverymans.model.Name;
 import seedu.deliverymans.model.Phone;
 import seedu.deliverymans.model.Tag;
@@ -23,16 +25,36 @@ public class Customer {
 
     // Data fields
     private final Set<Tag> tags = new HashSet<>();
-    private final Set<Order> orders = new HashSet<>();
+    private final ObservableList<Order> orders = FXCollections.observableArrayList();
 
     /**
      * Every field must be present and not null.
      */
     public Customer(Name name, Phone phone, Set<Tag> tags) {
-        requireAllNonNull(name, tags);
+        requireAllNonNull(name, phone, tags);
         this.name = name;
         this.phone = phone;
         this.tags.addAll(tags);
+    }
+
+    /**
+     * Constructor for adding order
+     */
+    public Customer(Name name) {
+        requireAllNonNull(name);
+        this.name = name;
+        this.phone = new Phone("123");
+    }
+
+    /**
+     * Constructor for saving to storage
+     */
+    public Customer(Name name, Phone phone, Set<Tag> tags, ObservableList<Order> orders) {
+        requireAllNonNull(name, phone, tags, orders);
+        this.name = name;
+        this.phone = phone;
+        this.tags.addAll(tags);
+        this.orders.addAll(orders);
     }
 
     public Name getName() {
@@ -51,12 +73,16 @@ public class Customer {
         return Collections.unmodifiableSet(tags);
     }
 
+    public void addOrder(Order order) {
+        orders.add(order);
+    }
+
     /**
-     * Returns an immutable order set, which throws {@code UnsupportedOperationException}
+     * Returns an immutable order list, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
      */
-    public Set<Order> getOrders() {
-        return Collections.unmodifiableSet(orders);
+    public ObservableList<Order> getOrders() {
+        return orders;
     }
 
     public int getOrderSize() {
@@ -91,13 +117,15 @@ public class Customer {
         }
 
         Customer otherCustomer = (Customer) other;
-        return otherCustomer.getName().equals(getName());
+        return otherCustomer.getName().equals(getName())
+                && otherCustomer.getPhone().equals(getPhone())
+                && otherCustomer.getTags().equals(getTags());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, tags);
+        return Objects.hash(name, phone, tags, orders);
     }
 
     @Override
@@ -106,7 +134,8 @@ public class Customer {
         builder.append(getName())
                 .append(" Phone: ")
                 .append(getPhone().toString())
-                .append(" Tags: ");
+                .append(" Tags: ")
+                .append(getTags().toString());
         getTags().forEach(builder::append);
         return builder.toString();
     }
