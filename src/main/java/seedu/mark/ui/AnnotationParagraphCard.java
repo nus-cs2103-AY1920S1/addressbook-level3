@@ -40,7 +40,7 @@ public class AnnotationParagraphCard extends UiPart<Region> {
             //para.setStyle(String.format("-fx-highlight-fill: %s;", paragraph.getHighlight()));
             //para.selectAll();
             String bkgrdHighlight = String.format("-fx-background-color: %s;", paragraph.getHighlight());
-            if (paragraph.getHighlight() == Highlight.YELLOW) {
+            if (paragraph.getHighlight() == Highlight.YELLOW || paragraph.getHighlight() == Highlight.PINK) {
                 para.setStyle("-fx-text-fill: black;" + bkgrdHighlight);
             } else {
                 para.setStyle("-fx-text-fill: white;" + bkgrdHighlight);

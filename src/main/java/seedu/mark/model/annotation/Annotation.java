@@ -25,7 +25,9 @@ public class Annotation {
 
     /**
      * Constructs an {@code Annotation} that has highlight {@code colour} and note {@code note}.
-     * Both {@code colour} and {@code note} must be non-null.
+     * 
+     * @param colour Colour of highlight to be added. Must be non-null.
+     * @param note An annotation note. Must be non-null.
      */
     public Annotation(Highlight colour, AnnotationNote note) {
         this(colour);
