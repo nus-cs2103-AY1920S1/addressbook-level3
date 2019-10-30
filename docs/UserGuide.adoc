@@ -419,7 +419,7 @@ Take note that Horo can only post reminders as long as the applilcation is open.
 image::HoroIconScreenShot.png[]
 
 {empty} +
-Also take note that notifications are switched on by default upon launch. This status is not carried over between sessions. If you would like to switch notifications, you would have to do so whenever you start Horo up.
+Also take note that notifications are switched on by default upon launch. This status is not carried over between sessions. If you would like to switch notifications off, you would have to do so whenever you start Horo up.
 
 You can tell if notifications are switched on by mousing over the icon in the system tray.
 

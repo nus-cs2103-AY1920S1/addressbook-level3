@@ -16,6 +16,18 @@ endif::[]
 
 By: `Team AY1920S1-CS2103T-F12-1`      Since: `Sept 2019`      Licence: `MIT`
 
+== Introduction
+
+=== About the Application
+*Horo* is a command-line interface scheduling application. It helps the user maintain a to-do list and a calendar, and posts timely reminders on their desktop.
+
+=== Purpose
+This guide specifies the architecture and software design decisions for Horo, and instructions for building upon the current codebase. This is done in hopes of ensuring extensibility and maintainability of Horo for both current and future developers.
+
+
+=== How to use this Guide
+todo
+
 == Setting up
 
 Refer to the guide <<SettingUp#, here>>.
@@ -289,35 +301,6 @@ The `Storage` component,
 * can save `UserPref` objects in json format and read it back.
 * can save the Address Book data in json format and read it back.
 
-[[Design-Notification]]
-=== Notification System
-(Picture: Notification System)
-
-Notifications are handled through the NotificationManager, itself found in the Logic component. There does not exist a singular Notification component. Rather, functional classes for the Notification System are have been split across the Logic and UI components, depending on their functionality.
-
-==== Logic Classes
-Logic classes are reponsible for deciding if a notification should be posted. As with other components, their functionality is accessed through the `NotificationManager` class. The `NotificationManager` class maintains a reference to a `NotificationCheckingThread` as well as a `SystemTrayCommunicator`.
-
-The logic classes of the Notification System can be found under the `notification` package under the `Logic` component.
-
-- The `NotificationCheckingThread` is a daemon thread that runs in parallel with the main application. It checks for new notifications to post every minute.
-- The `NotificationChecker` is responsible for checking `Model` for any notifications that need to be posted.
-
-
-==== UI Classes
-UI classes are responsible for displaying notifications.
-
-The UI classes of the Notification System can be found under the `systemtray` package under the `ui` component.
-
-- The `PopupListener` class is the main channel of communication between the logic and UI classes. When a notification needs to be posted, it will relay the information from the logic to UI classes.
-
-- The `SystemTrayCommunicator` handles posting notifications and displaying the app's icon on the System Tray.
-
-- The `PopupNotification` class carries the information that will be posted on a popup notification.
-
-- The `NotificationClickActionListener` is called when the user clicks on a popup notification.
-
-
 [[Design-Commons]]
 === Common classes
 
@@ -328,8 +311,8 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 This section describes some noteworthy details on how certain features are implemented.
 
 // tag::undoredo[]
-=== [Proposed] Undo/Redo feature
-==== Proposed Implementation
+=== Undo/Redo feature
+==== Implementation Details
 
 The undo/redo mechanism is facilitated by `UndoRedoManager`, which contains `undoStateList` - a history of `UndoRedoStates`. Each `UndoRedoState` object contains two lists: one to store `EventSources` and the other to store `TaskSources`, together representing the state of all event and task data at that point in time. UndoRedoManager also contains a `currentStateIndex`, which keeps track of the index of the `UndoRedoState` being used presently.
 
@@ -409,12 +392,62 @@ image::CommitActivityDiagram.png[]
 ** Cons: Every command will have to be implemented twice, since their inverse operations will all be different. This is compounded by the fact that we have to ensure the correctness of every inverse operation individually as well.
 // end::undoredo[]
 
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
+// tag::notification[]
+=== Notification System
+==== Class Architecture
+.Class diagram for Notification System
+image::NotificationClassDiagram.png[]
 
-_{Explain here how the data encryption feature will be implemented}_
+The Notification System is facilitated by the  `NotificationManager`, which is found in the Logic component. Other constituent classes of the Notification System can be found in the Logic and UI components, depending on their functionality. These classes and their functionalities are listed below:
 
-// end::dataencryption[]
+===== *Logic Classes*
+Logic classes are responsible for deciding if a notification should be posted. As with other components, their functionality is accessed through the `NotificationManager` class. The `NotificationManager` class maintains a reference to a `NotificationCheckingThread` as well as a `SystemTrayCommunicator`.
+
+The logic classes of the Notification System can be found under the `notification` package under the `Logic` component.
+
+- The `NotificationCheckingThread` is a daemon thread that runs in parallel with the main application. It checks for new notifications to post every minute.
+- The `NotificationChecker` is responsible for checking `Model` for any notifications that need to be posted.
+{empty} +
+
+===== *UI Classes*
+UI classes are responsible for displaying notifications to the user.
+
+The UI classes of the Notification System can be found under the `systemtray` package under the `ui` component.
+
+- The `PopupListener` class is the main channel of communication between the logic and UI classes. When a notification needs to be posted, it will relay the information from the logic to UI classes.
+- The `SystemTrayCommunicator` handles posting notifications and displaying the app's icon on the System Tray. It listens to the `NotificationCheckingThread` through a `PopupListener`.
+- The `PopupNotification` class carries the information that will be posted to a popup notification.
+- The `NotificationClickActionListener` is called when the user clicks on a popup notification.
+{empty} +
+
+==== Class Activity
+As with other Manager classes, an instance of the  `NotificationManager` is created upon the starting of MainApp. The NotificationManager proceeds to initialize and run a `NotificationCheckingThread`, as well as a `SystemTrayCommunicator`. Upon being started, the `NotificationCheckingThread` will enter a `notificationCheckingLoop` by calling its method of the same name.
+
+To give a better explanation of how the `NotificationCheckingThread` works, a single run of its loop is illustrated below:
+
+.Sequence diagram for NotificationCheckingThread's main loop
+image::NotificationCheckingLoopSequenceDiagram.png[]
+
+Step 1. The `NotificationCheckingThread` calls the `NotificationChecker` to generate `PopupNotification`s through a call to `NotificationChecker#getListOfPopupNotifications()`
+
+Step 2. For each `PopupNotification` generated by the NotificationChecker, a call to `PopupListener#notify()` is made.
+
+Step 3. This prompts the `SystemTrayCommunicator` to post a new notification.
+
+Step 4. The `NotificationCheckingThread` sleeps until the start of the next minute, found by the method `NotificationCheckingThread#findMillisecondsToNextMinute()`.
+
+==== Design Considerations
+===== Aspect: How the Notification system should run
+* **Alternative 1 (current choice):** Running the Notification system as a separate thread in the same application
+** Pros: Easier to implement and test.
+** Cons: The user would have to leave the application on if they always wanted to be notified.
+* **Alternative 2:** Running the Notification system as a background application
+** Pros: This would allow notifications to be posted to the user's desktop even if the Horo main app were not open.
+** Cons: This would require the creation of a separate application that the user would have to install on their computer. Because different Java applications are ran in different instances of Java Virtual Machines, this could vastly complicate implementation as the Notification System and the rest Horo would be unable to interact directly.
+
+Alternative 1 was eventually chosen as it was simpler to implement and test, and remain within the initial scope of Horo's development. The application can be potentially changed to use Alternative 2 in the future.
+
+// end::notification[]
 
 === Logging
 
@@ -753,6 +786,3 @@ These instructions only provide a starting point for testers to work on; testers
    Expected: The most recent window size and location is retained.
 
 _{ more test cases ... }_
-
-
-
