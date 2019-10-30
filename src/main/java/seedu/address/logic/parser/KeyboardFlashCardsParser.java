@@ -19,9 +19,10 @@ import seedu.address.logic.commands.EndTestCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.ExportCommand;
 import seedu.address.logic.commands.HelpCommand;
-
 import seedu.address.logic.commands.ListAllCommand;
 import seedu.address.logic.commands.ListCategoryCommand;
+import seedu.address.logic.commands.ImportCommand;
+import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.RateQuestionCommand;
 import seedu.address.logic.commands.RemoveCommand;
 import seedu.address.logic.commands.SearchAnswerCommand;
@@ -32,7 +33,6 @@ import seedu.address.logic.commands.ShowAnswerCommand;
 import seedu.address.logic.commands.SkipCommand;
 import seedu.address.logic.commands.StartCommand;
 import seedu.address.logic.commands.StatsCommand;
-
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -169,6 +169,9 @@ public class KeyboardFlashCardsParser {
 
         case ExportCommand.COMMAND_WORD:
             return new ExportCommandParser().parse(arguments);
+
+        case ImportCommand.COMMAND_WORD:
+            return new ImportCommandParser().parse(arguments);
 
         case SetThemeCommand.COMMAND_WORD:
             return new SetThemeCommandParser().parse(arguments);
