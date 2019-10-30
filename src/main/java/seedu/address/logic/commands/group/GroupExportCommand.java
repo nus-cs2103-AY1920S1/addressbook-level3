@@ -4,6 +4,9 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 
+/**
+ * Represents a group export command.
+ */
 public class GroupExportCommand extends GroupCommand {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Exports the group to a word document\n"

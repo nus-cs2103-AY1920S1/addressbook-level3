@@ -229,6 +229,7 @@ public class ModelManager implements Model {
     }
 
     //region Mark
+
     /**
      * Mark a student who is struggling academically.
      *
@@ -418,9 +419,10 @@ public class ModelManager implements Model {
 
     /**
      * Exports group to word document
+     *
      * @param groupId Id of group to be exported.
      */
-    public void exportGroup(String groupId){
+    public void exportGroup(String groupId) {
         groupList.exportGroup(groupId);
     }
 
@@ -710,12 +712,16 @@ public class ModelManager implements Model {
     @Override
     public Pair<Index, VEvent> findMostSimilarVEvent(String desiredEventName) {
         return eventRecord.findMostSimilarVEvent(desiredEventName);
-    };
+    }
+
+    ;
 
     @Override
     public String saveToIcsFile(String targetDir) throws IOException {
         return eventRecord.saveToIcsFile(targetDir);
-    };
+    }
+
+    ;
     //endregion
 
     @Override

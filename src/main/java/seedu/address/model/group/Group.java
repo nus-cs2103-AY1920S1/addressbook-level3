@@ -5,10 +5,6 @@ import seedu.address.model.student.Student;
 import seedu.address.model.student.UniqueStudentList;
 import seedu.address.storage.export.ExportWordDoc;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 /**
  * Model that represents a group of students.
  */
