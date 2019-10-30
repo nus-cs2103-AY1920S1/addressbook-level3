@@ -1,0 +1,96 @@
+= See Zi Yang - Project Portfolio Page
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: LiBerry
+
+== Overview
+
+LiBerry is a desktop library management application for librarians to manage their books, borrowers and loans.
+It is a software optimized for librarians who prefer to work with a Command Line Interface (CLI), whereby commands are typed into the software. +
+
+Main features of LiBerry:
+
+* Add and remove books
+* Comprehensive search system to look for books
+* Register new borrowers
+* Manage loaning and returning of books
+* Track overdue fines payment
+
+My role was to design and implement the code for the loan related features. The following sections further elaborates on these
+enhancements I have made. Also included are the details of the relevant documentation I have written in the user and developer guide to
+assist users and other developers to understand these features.
+
+== Summary of Contributions
+
+This section summarizes the contributions I have made to the team project, including contributions to the code base, documentation and project management.
+
+=== Major Enhancement - Loan-related features
+I have added features related to the loaning and returning of books in our library management app, LiBerry.
+
+==== What it does
+This set of features allow our users, librarians, to loan out books to borrowers, return loaned out books, renew loaned
+out books, and to record payments of fines incurred for overdue books.
+
+Every time a book is borrowed, both the starting date and due date of the loan are automatically recorded. For each loaned
+out book, other than the details of the book and the borrower, the starting date, due date, and returning date,
+along with the number of times it has been renewed and the fine incurred after returning are all meticulously tracked.
+
+The intuitive syntax for the commands related to these features also enables librarians to quickly serve a borrower.
+
+==== Justification
+As the main purpose of a library is to allow visitors to borrow books, these features are core to a library and are
+needed for a library to function.
+
+==== Highlights
+The implementation of these features was challenging as a whole new set of code had to be written to model each loan occurrence
+and to store these information. The book, borrower and the loan object had to be linked efficiently to reduce duplicated information stored.
+
+Moreover, a great deal of defensive programming was applied as there were many bounds to each of these features. For
+example, these features should only work when certain conditions are met, such as when the user is currently serving borrowers
+and the inputs correspond to a book that is not on loan.
+
+Additionally, I also created utility classes like `DateUtil` and `FineUtil` to centralize utility functions that dealt with
+dates and fines respectively.
+
+* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+
+* *Other contributions*:
+
+** Project management:
+*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
+** Enhancements to existing features:
+*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
+*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+** Documentation:
+*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+** Community:
+*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
+*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
+*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
+*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
+** Tools:
+*** Integrated a third party library (Natty) to the project (https://github.com[#42])
+*** Integrated a new Github plugin (CircleCI) to the team repo
+
+_{you can add/remove categories in the list above}_
+
+== Contributions to the User Guide
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+//include::../UserGuide.adoc[tag=delete]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=undoredo]
+
+include::../DeveloperGuide.adoc[tag=dataencryption]
+
+
