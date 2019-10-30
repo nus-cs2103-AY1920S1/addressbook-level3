@@ -51,9 +51,25 @@ public class EditCommandParser implements CommandParserWithPersonModel {
             throw new ParseException(MESSAGE_INVALID_EDIT_COMMAND_FORMAT);
         }
 
-        EditCommand.EditTransactionDescriptor editPersonDescriptor = new EditCommand.EditTransactionDescriptor();
+        EditCommand.EditTransactionDescriptor editTransactionDescriptor =
+                constructDescriptor(argMultimap, personModel);
+        return new EditCommand(index, editTransactionDescriptor);
+    }
+
+    /**
+     * Returns false if all of the prefixes contains empty {@code Optional} values in the given
+     * {@code ArgumentMultimap}.
+     */
+    private static boolean arePrefixesPresent(ArgumentMultimap argMultimap, Prefix... prefixes) {
+        return Stream.of(prefixes).anyMatch(prefix -> argMultimap.getValue(prefix).isPresent());
+    }
+
+    private EditCommand.EditTransactionDescriptor constructDescriptor(ArgumentMultimap argMultimap,
+                                                                      GetPersonByNameOnlyModel personModel)
+            throws ParseException, NoSuchPersonException {
+        EditCommand.EditTransactionDescriptor editTransactionDescriptor = new EditCommand.EditTransactionDescriptor();
         if (argMultimap.getValue(PREFIX_DATETIME).isPresent()) {
-            editPersonDescriptor.setDate(argMultimap.getValue(PREFIX_DATETIME).get());
+            editTransactionDescriptor.setDate(argMultimap.getValue(PREFIX_DATETIME).get());
             try {
                 LocalDate.parse(argMultimap.getValue(PREFIX_DATETIME).get(), DATE_TIME_FORMATTER);
             } catch (Exception e) {
@@ -61,14 +77,14 @@ public class EditCommandParser implements CommandParserWithPersonModel {
             }
         }
         if (argMultimap.getValue(PREFIX_DESCRIPTION).isPresent()) {
-            editPersonDescriptor.setDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get());
+            editTransactionDescriptor.setDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get());
         }
         if (argMultimap.getValue(PREFIX_CATEGORY).isPresent()) {
-            editPersonDescriptor.setCategory(argMultimap.getValue(PREFIX_CATEGORY).get());
+            editTransactionDescriptor.setCategory(argMultimap.getValue(PREFIX_CATEGORY).get());
         }
         if (argMultimap.getValue(PREFIX_AMOUNT).isPresent()) {
             try {
-                editPersonDescriptor.setAmount(Double.parseDouble(argMultimap.getValue(PREFIX_AMOUNT).get()));
+                editTransactionDescriptor.setAmount(Double.parseDouble(argMultimap.getValue(PREFIX_AMOUNT).get()));
             } catch (NumberFormatException e) {
                 throw new ParseException(TransactionMessages.MESSAGE_WRONG_AMOUNT_FORMAT);
             }
@@ -79,16 +95,8 @@ public class EditCommandParser implements CommandParserWithPersonModel {
             } catch (PersonNotFoundException e) {
                 throw new NoSuchPersonException(TransactionMessages.MESSAGE_NO_SUCH_PERSON);
             }
-            editPersonDescriptor.setName(argMultimap.getValue(PREFIX_PERSON).get());
+            editTransactionDescriptor.setName(argMultimap.getValue(PREFIX_PERSON).get());
         }
-        return new EditCommand(index, editPersonDescriptor);
-    }
-
-    /**
-     * Returns false if all of the prefixes contains empty {@code Optional} values in the given
-     * {@code ArgumentMultimap}.
-     */
-    private static boolean arePrefixesPresent(ArgumentMultimap argMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).anyMatch(prefix -> argMultimap.getValue(prefix).isPresent());
+        return editTransactionDescriptor;
     }
 }
