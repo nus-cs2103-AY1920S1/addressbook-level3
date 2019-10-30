@@ -272,6 +272,17 @@ The following activity diagram summarizes what happens when a user enter somethi
 
 image::AutocompleteActivityDiagram.png[]
 
+=== Currency Conversion
+
+The Currency conversion is achieved by having a default base currency that all expenses and budgets use if one is not specified. The expenses that are stored
+with a different currency can be converted from the base currency and back. Every time a currency is specified, the present day exchange rate is stored with the expense. This
+is to ensure that the expense value is timeless.
+
+Foreign Currency exchange rates between the default currency, Singapore Dollars (SGD) and a number of supported currencies is made possible by means
+of a HTTP Request to an endpoint returning a JSON containing the exchange rates. This JSON response is stored as is on disk and is only requested once
+upon first launching the application. A default data-set with relatively recent data is in place to ensure that MyMorise is still usable, albeit with some margin of error
+with conversions, even without internet access to retrieve the latest data for the day.
+
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
