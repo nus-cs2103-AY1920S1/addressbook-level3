@@ -1,10 +1,17 @@
 package seedu.address.ui;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import seedu.address.logic.Logic;
-import seedu.address.ui.views.MemberListPanel;
+import seedu.address.model.mapping.TasMemMapping;
+import seedu.address.model.member.Member;
+import seedu.address.model.task.Task;
+import seedu.address.ui.views.IndivMemberCard;
 import seedu.address.ui.views.InventoryListPanel;
-import seedu.address.ui.views.ProjectDashboardView;
+import seedu.address.ui.views.MemberListPanel;
 import seedu.address.ui.views.MemberStatisticsView;
+import seedu.address.ui.views.ProjectDashboardView;
 import seedu.address.ui.views.SettingsView;
 import seedu.address.ui.views.TaskListPanel;
 import seedu.address.ui.views.TaskStatisticsView;
@@ -54,7 +61,8 @@ public class UserViewNavigator {
      * @param logic to access task data
      */
     public void loadTaskListView(Logic logic) {
-        TaskListPanel taskListPanel = new TaskListPanel(logic.getFilteredTaskList());
+        TaskListPanel taskListPanel = new TaskListPanel(logic.getFilteredTaskList(),
+                logic.getProjectDashboard().getMemberList(), logic.getProjectDashboard().getTasMemMappingList());
         userViewController.setUserView(taskListPanel);
     }
 
@@ -65,7 +73,82 @@ public class UserViewNavigator {
      * @param logic to access task data
      */
     public void loadMemberListView(Logic logic) {
-        MemberListPanel memberListPanel = new MemberListPanel(logic.getProjectDashboard().getMemberList());
+        MemberListPanel memberListPanel = new MemberListPanel(logic.getProjectDashboard().getMemberList(),
+                logic.getProjectDashboard().getTaskList(), logic.getProjectDashboard().getTasMemMappingList());
+        userViewController.setUserView(memberListPanel);
+    }
+
+    // TODO get filtered member list from logic interface
+    /**
+     * Relays to controller to swap current user view with member list.
+     * @param logic to access task data
+     */
+    public void loadSpecificMemberView(Logic logic) {
+        List<Member> members = logic.getProjectDashboard().getMemberList();
+        Member specificMember = members.get(members.size()-1);
+
+        IndivMemberCard memberCard = new IndivMemberCard(specificMember, members.size());
+        userViewController.setUserView(memberCard);
+    }
+
+    /**
+     * Relays to controller to swap current user view with member list.
+     * @param logic to access task data
+     */
+    public void loadSetImageView(Logic logic) {
+        List<Member> filteredMembers = logic.getFilteredMemberList();
+        Member specificMember = filteredMembers.get(filteredMembers.size()-1);
+
+        List<TasMemMapping> tasMemMappings = logic.getProjectDashboard().getTasMemMappingList();
+        List<Task> tasks = logic.getProjectDashboard().getTaskList();
+        List<Member> members = logic.getProjectDashboard().getMemberList();
+
+        ArrayList<Task> specificTasks = new ArrayList<>();
+        int memIndex = members.indexOf(specificMember);
+
+        for (TasMemMapping mapping : tasMemMappings) {
+            if (mapping.hasMember(memIndex)) {
+                specificTasks.add(tasks.get(mapping.getTaskIndex()));
+            }
+        }
+
+        IndivMemberCard memberCard = new IndivMemberCard(specificMember, filteredMembers.size(), specificTasks);
+        userViewController.setUserView(memberCard);
+    }
+
+    // TODO get filtered member list from logic interface
+    /**
+     * Relays to controller to swap current user view with member list.
+     * @param logic to access task data
+     */
+    public void loadAssignView(Logic logic) {
+        List<TasMemMapping> tasMemMappings = logic.getProjectDashboard().getTasMemMappingList();
+        List<Task> tasks = logic.getProjectDashboard().getTaskList();
+        List<Member> members = logic.getProjectDashboard().getMemberList();
+
+        TasMemMapping mappingAdded = tasMemMappings.get(tasMemMappings.size()-1);
+        Member specificMember = members.get(mappingAdded.getMemberIndex());
+
+        ArrayList<Task> specificTasks = new ArrayList<>();
+
+        for (TasMemMapping mapping : tasMemMappings) {
+            if (mapping.hasMember(mappingAdded.getMemberIndex())) {
+                specificTasks.add(tasks.get(mapping.getTaskIndex()));
+            }
+        }
+
+        IndivMemberCard memberCard = new IndivMemberCard(specificMember,
+                mappingAdded.getMemberIndex() + 1, specificTasks);
+        userViewController.setUserView(memberCard);
+    }
+
+    /**
+     * Relays to controller to swap current user view with member list.
+     * @param logic to access task data
+     */
+    public void loadFoundMembersView(Logic logic) {
+        MemberListPanel memberListPanel = new MemberListPanel(logic.getFilteredMemberList(),
+                logic.getProjectDashboard().getTaskList(),logic.getProjectDashboard().getTasMemMappingList());
         userViewController.setUserView(memberListPanel);
     }
 

@@ -65,6 +65,26 @@ public class UserViewMain {
         return userViewController.getCurrentView();
     }
 
+    public Pane loadSpecificMember() {
+        userViewNavigator.loadSpecificMemberView(logic);
+        return userViewController.getCurrentView();
+    }
+
+    public Pane loadAssign() {
+        userViewNavigator.loadAssignView(logic);
+        return userViewController.getCurrentView();
+    }
+
+    public Pane loadFoundMembers() {
+        userViewNavigator.loadFoundMembersView(logic);
+        return userViewController.getCurrentView();
+    }
+
+    public Pane loadSetImage() {
+        userViewNavigator.loadSetImageView(logic);
+        return userViewController.getCurrentView();
+    }
+
     public Pane loadMemberStats() {
         userViewNavigator.loadMemberStatsView(logic);
         return userViewController.getCurrentView();

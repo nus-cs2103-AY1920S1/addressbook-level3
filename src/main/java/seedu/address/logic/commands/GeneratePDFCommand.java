@@ -1,35 +1,9 @@
 package seedu.address.logic.commands;
 
-import static java.util.Objects.requireNonNull;
-
-import javafx.collections.ObservableList;
-import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.Model;
-import seedu.address.model.inventory.Inventory;
-
-import java.awt.*;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.util.logging.Logger;
-
-import com.itextpdf.text.BaseColor;
-import com.itextpdf.text.Document;
-import com.itextpdf.text.Element;
-import com.itextpdf.text.Font;
-import com.itextpdf.text.Font.FontFamily;
-import com.itextpdf.text.PageSize;
-import com.itextpdf.text.pdf.PdfPCell;
-import com.itextpdf.text.pdf.PdfPTable;
-import com.itextpdf.text.Phrase;
-import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.Paragraph;
-import com.itextpdf.text.Rectangle;
-import com.itextpdf.text.pdf.PdfWriter;
-
 /**
  * returns pdf of inventories.
  */
-public class GeneratePDFCommand extends Command {
+/*public class GeneratePDFCommand extends Command {
     public static final String COMMAND_WORD = "pdf";
 
     public static final String MESSAGE_SUCCESS = "Generated PDF";
@@ -153,7 +127,7 @@ public class GeneratePDFCommand extends Command {
         p.setAlignment(Element.ALIGN_CENTER);
         cell.addElement(p);
         table.addCell(cell);*/
-        return table;
+        /*return table;
     }
 
     private static double totalPrice(ObservableList<Inventory>list) {
@@ -163,4 +137,4 @@ public class GeneratePDFCommand extends Command {
         }
         return totalPrice;
     }
-}
+}*/

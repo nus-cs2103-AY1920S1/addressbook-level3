@@ -15,34 +15,29 @@ import seedu.address.model.member.Member;
 import seedu.address.model.member.MemberId;
 import seedu.address.model.task.Task;
 
-/**
- * Adds a task to member to be responsible for
- */
-public class AddTaskToMemberCommand extends Command {
-    public static final String COMMAND_WORD = "assign-task";
+public class AssignCommand extends Command {
+    public static final String COMMAND_WORD = "assign";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task indicated "
-            + "by the index number used in the displayed task list, to the member indicated "
-            + "by the member ID. \n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Assigns a member, identified by "
+            + "by the memberId used in the displayed member list, to a task indicated "
+            + "by the task index. \n"
             + "Parameters: INDEX (must be a positive integer) "
             + PREFIX_TASK_INDEX + "TASK_INDEX "
             + PREFIX_MEMBER_ID + "MEMBER_ID \n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_TASK_INDEX + "2 "
+            + PREFIX_TASK_INDEX + " 2 "
             + PREFIX_MEMBER_ID + "JD";
 
-    public static final String MESSAGE_SUCCESS = "New mapping added: %1$s";
+    public static final String MESSAGE_ASSIGN_SUCCESS = "Task set under member";
     public static final String MESSAGE_DUPLICATE_MAPPING = "This mapping already exists!";
-    public static final String MESSAGE_ASSIGN_TASK_SUCCESS = "Set task for member: %1$s";
 
     private final Index taskId;
     private final MemberId memberId;
-
     /**
      * @param taskId of the task in the filtered task list to be added to member
      * @param memberId of the member involved
      */
-    public AddTaskToMemberCommand(Index taskId, MemberId memberId) {
+    public AssignCommand(Index taskId, MemberId memberId) {
         requireNonNull(memberId);
         requireNonNull(taskId);
 
@@ -61,13 +56,13 @@ public class AddTaskToMemberCommand extends Command {
         }
 
         boolean contains = false;
-        Member involvedMember = null;
+        Member memberToAdd = null;
         Integer memberIndex = null;
 
         for (int i = 0; i < lastShownMemberList.size(); i++) {
             if (lastShownMemberList.get(i).getId().equals(memberId)) {
                 contains = true;
-                involvedMember = lastShownMemberList.get(i);
+                memberToAdd = lastShownMemberList.get(i);
                 memberIndex = i;
                 break;
             }
@@ -77,14 +72,15 @@ public class AddTaskToMemberCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_MEMBER_ID);
         }
 
-        Task taskToAdd = lastShownTaskList.get(taskId.getZeroBased());
+        Task involvedTask = lastShownTaskList.get(taskId.getZeroBased());
         TasMemMapping mappingToAdd = createMapping(taskId.getZeroBased(), memberIndex);
-        if(model.hasMapping(mappingToAdd)) {
+
+        if (model.hasMapping(mappingToAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_MAPPING);
         }
-        model.addMapping(mappingToAdd);
 
-        return new CommandResult(String.format(MESSAGE_ASSIGN_TASK_SUCCESS, involvedMember));
+        model.addMapping(mappingToAdd);
+        return new CommandResult(String.format(MESSAGE_ASSIGN_SUCCESS));
     }
 
     /**
@@ -103,12 +99,12 @@ public class AddTaskToMemberCommand extends Command {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof AddTaskToMemberCommand)) {
+        if (!(other instanceof AssignCommand)) {
             return false;
         }
 
         // state check
-        AddTaskToMemberCommand e = (AddTaskToMemberCommand) other;
+        AssignCommand e = (AssignCommand) other;
         return memberId.equals(e.memberId)
                 && taskId.equals(e.taskId);
     }

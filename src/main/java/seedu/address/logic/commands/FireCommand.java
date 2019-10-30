@@ -16,12 +16,12 @@ import seedu.address.model.member.Member;
 import seedu.address.model.member.MemberId;
 import seedu.address.model.task.Task;
 
-public class RemoveMemberFromTaskCommand extends Command {
-    public static final String COMMAND_WORD = "fire-member";
+public class FireCommand extends Command {
+    public static final String COMMAND_WORD = "fire";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Removes a member indicated "
-            + "by the index number used in the displayed task list, to the member indicated "
-            + "by the member ID. \n"
+            + "by the index number used in the displayed task list, from the task indicated "
+            + "by the task index. \n"
             + "Parameters: INDEX (must be a positive integer) "
             + PREFIX_TASK_INDEX + "TASK_INDEX"
             + PREFIX_MEMBER_ID + "MEMBER_ID \n"
@@ -29,7 +29,7 @@ public class RemoveMemberFromTaskCommand extends Command {
             + PREFIX_TASK_INDEX + " 2 "
             + PREFIX_MEMBER_ID + " JD";
 
-    public static final String MESSAGE_REMOVE_TASK_SUCCESS = "Removes task for member: %1$s";
+    public static final String MESSAGE_REMOVE_TASK_SUCCESS = "Task removed from member";
     public static final String MESSAGE_INVALID_TASK_ID = "This task does not exist under member.";
 
     private final Index taskId;
@@ -39,7 +39,7 @@ public class RemoveMemberFromTaskCommand extends Command {
      * @param taskId of the task in the filtered task list to be added to member
      * @param memberId of the member involved
      */
-    public RemoveMemberFromTaskCommand(Index taskId, MemberId memberId) {
+    public FireCommand(Index taskId, MemberId memberId) {
         requireNonNull(memberId);
 
         this.taskId = taskId;
@@ -81,8 +81,8 @@ public class RemoveMemberFromTaskCommand extends Command {
         } catch (MappingNotFoundException e) {
             throw new CommandException(MESSAGE_INVALID_TASK_ID);
         }
-
-        return new CommandResult(String.format(MESSAGE_REMOVE_TASK_SUCCESS, involvedTask));
+        
+        return new CommandResult(String.format(MESSAGE_REMOVE_TASK_SUCCESS));
     }
 
     /**
@@ -101,12 +101,12 @@ public class RemoveMemberFromTaskCommand extends Command {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof RemoveMemberFromTaskCommand)) {
+        if (!(other instanceof FireCommand)) {
             return false;
         }
 
         // state check
-        RemoveMemberFromTaskCommand e = (RemoveMemberFromTaskCommand) other;
+        FireCommand e = (FireCommand) other;
         return memberId.equals(e.memberId)
                 && taskId.equals(e.taskId);
     }

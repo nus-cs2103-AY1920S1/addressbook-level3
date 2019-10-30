@@ -24,17 +24,15 @@ public class Keywords {
         ListMemberCommand.COMMAND_WORD,
 
         // ASSOCIATION
-        AddTaskToMemberCommand.COMMAND_WORD,
-        AddMemberToTaskCommand.COMMAND_WORD,
-        RemoveTaskFromMemberCommand.COMMAND_WORD,
-        RemoveMemberFromTaskCommand.COMMAND_WORD,
+        FireCommand.COMMAND_WORD,
+        AssignCommand.COMMAND_WORD,
 
         // INVENTORY
         ListInventoryCommand.COMMAND_WORD,
         AddInventoryCommand.COMMAND_WORD,
         EditInventoryCommand.COMMAND_WORD,
         DeleteInventoryCommand.COMMAND_WORD,
-        GeneratePDFCommand.COMMAND_WORD,
+        //GeneratePDFCommand.COMMAND_WORD,
 
         // STATS
         GetStatisticsCommand.COMMAND_WORD_MEMBER,
@@ -91,17 +89,12 @@ public class Keywords {
             // case ListMemberCommand.COMMAND_WORD: default
 
             // ASSOCIATION
-            case AddTaskToMemberCommand.COMMAND_WORD:
-                return "assign-task ti/ mi/";
+            case AssignCommand.COMMAND_WORD:
+                return "assign ti/ mi/";
 
-            case  AddMemberToTaskCommand.COMMAND_WORD:
-                return "assign-member ti/ mi/";
+            case  FireCommand.COMMAND_WORD:
+                return "fire ti/ mi/";
 
-            case  RemoveTaskFromMemberCommand.COMMAND_WORD:
-                return "fire-task ti/ mi/";
-
-            case  RemoveMemberFromTaskCommand.COMMAND_WORD:
-                return "fire-member ti/ mi/";
 
             // INVENTORY
             // case ListInventoryCommand.COMMAND_WORD: default

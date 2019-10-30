@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_INVENTORY_INDEX;
 
 import javafx.collections.ObservableList;
 
@@ -19,8 +20,8 @@ public class DeleteInventoryCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the inventory identified by the index number used in the displayed task list.\n"
-            + "Parameters: INVINDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " 1";
+            + "Parameters:" + PREFIX_INVENTORY_INDEX + "INVENTORY INDEX \n"
+            + "Example: " + COMMAND_WORD + "ii/1";
 
     public static final String MESSAGE_DELETE_INVENTORY_SUCCESS = "Deleted Inventory: %1$s";
 

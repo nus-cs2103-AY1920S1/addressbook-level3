@@ -63,7 +63,7 @@ public class LogicManagerTest {
 
     @Test
     public void execute_commandExecutionError_throwsCommandException() {
-        String deleteTaskCommand = "delete-task 9";
+        String deleteTaskCommand = "delete-task ti/9";
         assertCommandException(deleteTaskCommand, MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
     }
 
