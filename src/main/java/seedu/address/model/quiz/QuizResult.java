@@ -12,7 +12,8 @@ import seedu.address.model.question.Subject;
 import seedu.address.model.quiz.exceptions.WrongDateFormatException;
 
 /**
- * Represents a question. Its answer, questionBody, quizTime and result are guaranteed non-null.
+ * Represents a quiz result. Its answer, questionBody, subject,
+ * difficulty, quizTime and result are guaranteed non-null.
  */
 public class QuizResult {
     private final Answer answer;

@@ -17,7 +17,7 @@ import seedu.address.model.question.Difficulty;
 import seedu.address.model.question.Subject;
 
 /**
- * A class to store the operations to filter quiz results by.
+ * A filter to store the operations to filter {@code QuizResultList} by.
  */
 public class QuizResultFilter {
 
@@ -99,6 +99,11 @@ public class QuizResultFilter {
         return operations;
     }
 
+    /**
+     * Sets the operations in the {@code QuizResultFilter}.
+     * @param s The subject to filter by.
+     * @param d The difficulty to filter by.
+     */
     public void setOperation(Subject s, Difficulty d) {
         this.subjects = new ArrayList<>();
         this.subjects.add(s);
@@ -110,6 +115,10 @@ public class QuizResultFilter {
         operations.push(DIFFICULTY);
     }
 
+    /**
+     * Sets the operations in the {@code QuizResultFilter}.
+     * @param d The difficulty to filter by.
+     */
     public void setOperation(Difficulty d) {
         this.difficulty = d;
         if (operations.empty() && isCorrectQns != null) {

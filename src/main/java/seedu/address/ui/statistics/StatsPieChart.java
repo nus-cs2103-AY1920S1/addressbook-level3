@@ -11,7 +11,7 @@ import javafx.util.Duration;
 import seedu.address.ui.UiPart;
 
 /**
- * A UI component that displays statistics.
+ * A UI component that displays a pie chart.
  */
 public class StatsPieChart extends UiPart<Region> {
     private static final String FXML = "StatsPieChart.fxml";
@@ -30,6 +30,9 @@ public class StatsPieChart extends UiPart<Region> {
                 + "Number of questions answered incorrectly: " + (int) data.get(1).getPieValue() + "\n");
     }
 
+    /**
+     * Sets a mouseover event displaying the value of the pie chart slice.
+     */
     public void setMouseover() {
         pc.getData().forEach(data -> {
             String value = "" + (int) data.getPieValue();

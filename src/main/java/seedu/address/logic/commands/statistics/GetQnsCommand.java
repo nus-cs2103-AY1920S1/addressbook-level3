@@ -12,7 +12,7 @@ import seedu.address.model.quiz.QuizResultFilter;
 import seedu.address.model.quiz.exceptions.EmptyQuizResultListException;
 
 /**
- * Gets questions that have been answered correctly/incorrectly by subject.
+ * Gets all questions that have been answered correctly/incorrectly by subject.
  */
 public class GetQnsCommand extends Command {
     public static final String COMMAND_WORD = "question";
@@ -31,6 +31,10 @@ public class GetQnsCommand extends Command {
 
     private QuizResultFilter quizResultFilter;
 
+    /**
+     * Creates a GetQnsCommand to get the specified questions filtered by the {@code QuizResultFilter}.
+     * @param quizResultFilter The filter to be applied to the quiz results.
+     */
     public GetQnsCommand(QuizResultFilter quizResultFilter) {
         requireNonNull(quizResultFilter);
         this.quizResultFilter = quizResultFilter;

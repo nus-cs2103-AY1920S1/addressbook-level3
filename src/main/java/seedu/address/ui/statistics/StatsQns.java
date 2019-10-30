@@ -15,7 +15,7 @@ import seedu.address.model.quiz.QuizResult;
 import seedu.address.ui.UiPart;
 
 /**
- * Temporary panel for returning correct/incorrect questions.
+ * A UI component that displays questions.
  */
 public class StatsQns extends UiPart<Region> {
     private static final String FXML = "StatsQns.fxml";
@@ -34,6 +34,9 @@ public class StatsQns extends UiPart<Region> {
         quizResultDifficultyChart.setTitle("Break down of questions");
     }
 
+    /**
+     * Sets a mouseover event displaying the value of the pie chart slice.
+     */
     public void setMouseover() {
         quizResultDifficultyChart.getData().forEach(data -> {
             String value = "" + (int) data.getPieValue();
@@ -45,7 +48,8 @@ public class StatsQns extends UiPart<Region> {
     }
 
     /**
-     * Custom {@code ListCell} that displays the graphics of a {@code QuizResult} using a {@code StatsQnsCard}.
+     * Custom {@code ListCell} that displays the graphics of a {@code QuizResult}
+     * using a {@code StatsQnsListCard}.
      */
     class QuizResultListViewCell extends ListCell<QuizResult> {
         @Override
