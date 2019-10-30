@@ -326,6 +326,7 @@ _{Explain here how the data encryption feature will be implemented}_
 
 // end::dataencryption[]
 
+//tag::diary_ppp[]
 === [Diary] Photo Manager
 The photo manager pertains to components for storing, and displaying user specified photos on the disk.
 
@@ -354,7 +355,7 @@ It also supports several convenience wrapper methods around the underlying `Obse
 
 '''
 
-NOTE: Restrictions on fields during `Photo` instance construction:
+====== Restrictions on fields during `Photo` instance construction:
 
 * Several restrictions on the description are enforced by class level `Pattern` matchers, such as the length of the description.
 * While the image file path is parsed and checked using the java `Files` api, it is non-strict in that a path to an invalid image will result in the `Image` field referring to the default class level variable that specifies a placeholder image.
@@ -461,7 +462,7 @@ Overall, this leads to a more robust behaviour of the application, while providi
 extensibility as the first option.
 
 |========================================================================================
-
+// end::diary_ppp[]
 === [Diary] Diary Entry Text Editing
 The diary entry is capable of displaying text with inline images, or lines consisting of only images.
 
@@ -480,7 +481,7 @@ It stores three key fields, namely: +
 The `DiaryEntry` models are contained within a `DiaryEntryList`, which enforces the uniqueness of the `Index` (denoting the day index)
 of each `DiaryEntry`, and supports common list operations.
 
-image::diary/DiaryModelClassDiagram.png[]
+image::diary/DiaryModelClassDiagram.png[title="Class diagram of the models used in diary text editing"]
 
 '''
 
@@ -498,7 +499,7 @@ of its placeholders as a `UiPart`.
 [[diary-entry-ui-class-diagram]]
 image::diary/DiaryUiClassDiagram.png[title="Class diagram showing the user interface of the main diary entry text display"]
 
-In the diagram above, all parts and subparts of the composition of `DiaryPage` extend from `UiPart`, although not shown.
+NOTE: In the diagram above, all parts and subparts of the composition of `DiaryPage` extend from `UiPart`, although not shown.
 
 The `DiaryEntryDisplay` is the component responsible for displaying the content of the `DiaryEntry` model.
 Internally, it uses a JavaFX `ListView<CharSequence>` with a custom cell factory that
@@ -561,7 +562,7 @@ multimedia and text to the user, which puts considerable strain on the system th
 
 [width="100%", options="header" cols="1, 4, 4, 4"]
 |========================================================================================
-|Aspect      |Alternative 1 | Alternative 2 | Alternative 3
+|Aspect      |Alternative 1 | Alternative 2 | Chosen option
 |Updating of UI
 |The first option was to abide by the `fillPage` api of `Page`. The `ListView` would have all its items cleared and updated
 with the new text after each command execution.
@@ -586,7 +587,7 @@ Subsequent iterations of development and testing showed that this erased the per
 presumably due to the overhead of firing commands whenever the text in the `DiaryEntryEditBox` changed.
 
 |
-The last, **chosen** option was to set the `ListView` to only observe `ObservableList` of paragraphs already
+The last option was to set the `ListView` to only observe `ObservableList` of paragraphs already
 provided by the `TextArea` JavaFX component located in `DiaryEntryEditBox`.
 
 Edits to the paragraphs in the `DiaryEntryEditBox` would be directly reflected in the
@@ -620,7 +621,9 @@ posing a clear performance downside.
 
 |
 
-The second, **chosen** solution is to use a wrapper (`DiaryEntryDisplay) around a `ListView` containing `DiaryLine` s. (see <<diary-entry-ui-class-diagram>>)
+|
+
+The second solution is to use a wrapper (`DiaryEntryDisplay) around a `ListView` containing `DiaryLine` s. (see <<diary-entry-ui-class-diagram>>)
 
 On one hand, this increases extensibility, as the the graphic of a `ListViewCell` (`DiaryTextLineCell`) is not fixed.
 This allows _building other variants of diary lines easily_, such as a diary line containing a playable audio file.
@@ -629,7 +632,7 @@ Secondly, `ListViews` render only the visible cells on the screen. Apart from th
 in the JavaFX scene graph, it also allows running the parsing logic on only parts (paragraphs) of the text in the `DiaryEntry` model.
 This results in a considerable performance benefit.
 
-|-
+
 |========================================================================================
 
 === Logging

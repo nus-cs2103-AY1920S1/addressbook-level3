@@ -38,10 +38,10 @@ public class CreateDiaryEntryCommand extends Command {
         requireNonNull(model);
         DiaryEntry diaryEntry = new DiaryEntry(dayIndex);
         try {
-            model.getPageStatus().getTrip().getDiary().getDiaryEntryList().addDiaryEntry(diaryEntry);
+            model.getPageStatus().getCurrentTripDiary().addDiaryEntry(diaryEntry);
         } catch (IllegalArgumentException ex) {
             throw new CommandException(String.format(MESSAGE_ENTRY_EXISTS,
-                    model.getPageStatus().getTrip().getDiary().getDiaryEntry(dayIndex).get()));
+                    model.getPageStatus().getCurrentTripDiary().getDiaryEntry(dayIndex).get()));
         }
 
         EditDiaryEntryDescriptor editDescriptor = new EditDiaryEntryDescriptor(diaryEntry);

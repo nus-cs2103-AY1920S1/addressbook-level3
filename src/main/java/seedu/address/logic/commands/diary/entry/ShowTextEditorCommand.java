@@ -1,4 +1,4 @@
-package seedu.address.logic.commands.diary;
+package seedu.address.logic.commands.diary.entry;
 
 import static java.util.Objects.requireNonNull;
 

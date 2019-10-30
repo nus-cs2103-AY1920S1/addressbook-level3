@@ -1,4 +1,4 @@
-package seedu.address.logic.parser.diary.fileutil;
+package seedu.address.commons.util;
 
 import java.io.File;
 
@@ -7,6 +7,7 @@ import javafx.stage.Stage;
 
 /**
  * Utility class for opening the OS file gui to choose an image file.
+ * A new {@link Stage} is used to back the OS file gui chooser.
  */
 public class ImageChooser {
 

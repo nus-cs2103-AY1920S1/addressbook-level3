@@ -1,4 +1,4 @@
-package seedu.address.ui.diary;
+package seedu.address.ui.diary.entry;
 
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -19,25 +19,33 @@ import seedu.address.ui.UiPart;
 /**
  * Custom JavaFX component controller for displaying the text of a diary entry.
  */
-class DiaryEntryDisplay extends UiPart<ListView<CharSequence>> {
+public class DiaryEntryDisplay extends UiPart<ListView<CharSequence>> {
     private static final String FXML = "diary/DiaryEntryDisplay.fxml";
 
+    /** The {@link Pattern} used to parse each line of input in {@link DiaryTextLineCell}. */
     private static final Pattern IMAGE_SEPARATOR_PATTERN = Pattern.compile(
             "(?<pretext>[^<]*)(?<imagetag><images\\s*(?<position>([a-z]*[A-Z]*)*)"
                     + "(?<numbers>([^>][0-9]*[\\s]*)*)>)(?<posttext>.*)");
+
+    /**
+     * The string pattern to match when looking for the position the image should be placed at.
+     * Specifically, the pattern is matched with the named capturing group "position" in the
+     * {@code IMAGE_SEPARATOR_PATTERN} in {@link DiaryTextLineCell}.
+     */
     private static final String IMAGE_POSITION_LEFT_PATTERN = "left";
 
     private final Logger logger = LogsCenter.getLogger(DiaryEntryDisplay.class);
+
     private PhotoList photoList;
 
-    DiaryEntryDisplay(ObservableList<CharSequence> observableParagraphs) {
+    public DiaryEntryDisplay(ObservableList<CharSequence> observableParagraphs) {
         super(FXML);
         this.photoList = new PhotoList();
         getRoot().setItems(observableParagraphs);
         getRoot().setCellFactory(listViewCell -> new DiaryTextLineCell());
     }
 
-    void setPhotoList(PhotoList photoList) {
+    public void setPhotoList(PhotoList photoList) {
         this.photoList = photoList;
     }
 
@@ -64,7 +72,7 @@ class DiaryEntryDisplay extends UiPart<ListView<CharSequence>> {
                     String position = m.group("position");
 
                     ArrayList<Photo> photos = parseImageSeparator(numbers);
-                    if (preText.trim().length() == 0 && postText.trim().length() == 0) {
+                    if (preText.trim().isEmpty() && postText.trim().isEmpty()) {
                         diaryLine = new DiaryLine(photos);
                     } else if (photos.size() == 0) {
                         diaryLine = new DiaryLine(preText.stripTrailing() + postText);
@@ -76,6 +84,7 @@ class DiaryEntryDisplay extends UiPart<ListView<CharSequence>> {
                     }
                 }
             }
+            diaryLine.getRoot().prefWidthProperty().bind(widthProperty());
             setGraphic(diaryLine.getRoot());
         }
 

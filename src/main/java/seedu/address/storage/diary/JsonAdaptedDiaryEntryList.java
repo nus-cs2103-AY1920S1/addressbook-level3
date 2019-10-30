@@ -37,7 +37,7 @@ class JsonAdaptedDiaryEntryList {
     public JsonAdaptedDiaryEntryList(DiaryEntryList source) {
         requireNonNull(source);
         this.diaryEntries = new ArrayList<JsonAdaptedDiaryEntry>();
-        ObservableList<DiaryEntry> diaryEntryList = source.getReadOnlyDiaryEntries();
+        ObservableList<DiaryEntry> diaryEntryList = source.getDiaryEntrySortedList();
 
         for (DiaryEntry diaryEntry : diaryEntryList) {
             this.diaryEntries.add(new JsonAdaptedDiaryEntry(diaryEntry));

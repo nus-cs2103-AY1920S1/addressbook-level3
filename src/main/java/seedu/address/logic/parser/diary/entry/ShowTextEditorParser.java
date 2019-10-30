@@ -1,6 +1,6 @@
-package seedu.address.logic.parser.diary;
+package seedu.address.logic.parser.diary.entry;
 
-import seedu.address.logic.commands.diary.ShowTextEditorCommand;
+import seedu.address.logic.commands.diary.entry.ShowTextEditorCommand;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.exceptions.ParseException;
 

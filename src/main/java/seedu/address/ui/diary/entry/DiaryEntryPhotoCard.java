@@ -1,4 +1,4 @@
-package seedu.address.ui.diary;
+package seedu.address.ui.diary.entry;
 
 import javafx.beans.binding.DoubleBinding;
 import javafx.beans.property.ReadOnlyDoubleProperty;
@@ -17,33 +17,42 @@ class DiaryEntryPhotoCard extends UiPart<StackPane> {
 
     private static final String FXML = "diary/DiaryEntryPhotoCard.fxml";
 
-    private static final int BOUND_HEIGHT_OFFSET = 30;
-    private static final double MIN_ROTATION = -10.0;
-    private static final double MAX_ROTATION = 10.0;
+    private static final double MIN_ROTATION = -8.0;
+    private static final double MAX_ROTATION = 8.0;
 
     private final Photo photo;
 
     @FXML
     private ImageView photoImageView;
 
+    /**
+     * Constructs an instance of {@link DiaryEntryPhotoCard}.
+     * The random rotation of the image is calculated here, along with the offset for the height
+     * required due to the rotation.
+     *
+     * @param photo The {@link Photo} instance to use.
+     */
     DiaryEntryPhotoCard(Photo photo) {
         super(FXML);
         this.photo = photo;
         photoImageView.setImage(photo.getImage());
 
-        getRoot().setRotate(Math.random() * (MAX_ROTATION - MIN_ROTATION) + MIN_ROTATION);
+        double randomRotation = Math.random() * (MAX_ROTATION - MIN_ROTATION) + MIN_ROTATION;
+        getRoot().setRotate(randomRotation);
     }
 
     /**
-     * Binds the fit height of the {@code photoImageView} to the given {@link ReadOnlyDoubleProperty}.
-     * Maintains the aspect ratio of the image in {@code photo}.
+     * Binds the dimensions of the {@code photoImageView} to the given {@link ReadOnlyDoubleProperty}.
+     * Prioritizes maintaining the aspect ratio of the image in {@code photo}.
      *
      * @param width {@link DoubleBinding} to bind the fit width to.
      */
     void bindImageViewDimensions(DoubleBinding width) {
         double aspectRatio = photo.getImage().getWidth() / photo.getImage().getHeight();
+
+        photoImageView.setPreserveRatio(false);
         photoImageView.fitWidthProperty().bind(width);
-        photoImageView.fitHeightProperty()
-                .bind(width.subtract(BOUND_HEIGHT_OFFSET).divide(aspectRatio));
+        photoImageView.fitHeightProperty().bind(width.divide(aspectRatio));
+        //height.bind(heightFromWidth);
     }
 }

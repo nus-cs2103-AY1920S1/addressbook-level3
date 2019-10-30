@@ -58,11 +58,7 @@ public class PhotoList {
      * @param searchTerm The string search term to use.
      */
     public void removeAllPhotos(String searchTerm) {
-        photos.forEach(photo -> {
-            if (photo.getDescription().matches(searchTerm)) {
-                photos.remove(photo);
-            }
-        });
+        photos.removeIf(photo -> photo.getDescription().matches(searchTerm));
     }
 
     @Override

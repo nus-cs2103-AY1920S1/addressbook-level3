@@ -5,7 +5,7 @@ import static java.util.Objects.requireNonNull;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.diary.EditDiaryEntryCommand;
+import seedu.address.logic.commands.diary.entry.EditEntryTextCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.diary.DiaryEntry;
@@ -37,7 +37,7 @@ public class DeletePhotoCommand extends Command {
         DiaryEntry diaryEntry = model.getPageStatus().getDiaryEntry();
 
         if (diaryEntry == null) {
-            throw new CommandException(EditDiaryEntryCommand.MESSAGE_NO_DIARY_ENTRY);
+            throw new CommandException(EditEntryTextCommand.MESSAGE_NO_DIARY_ENTRY);
         }
 
         Photo deletedPhoto = diaryEntry.getPhotoList().deletePhoto(photoIndex);

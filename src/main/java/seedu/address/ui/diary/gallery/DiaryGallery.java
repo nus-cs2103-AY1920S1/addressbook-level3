@@ -1,4 +1,4 @@
-package seedu.address.ui.diary;
+package seedu.address.ui.diary.gallery;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
@@ -13,7 +13,7 @@ import seedu.address.ui.UiPart;
 /**
  * Abstraction of a gallery for displaying the {@code Photo}s of a {@code DiaryEntry}.
  */
-class DiaryGallery extends UiPart<VBox> {
+public class DiaryGallery extends UiPart<VBox> {
     private static final String FXML = "diary/DiaryGallery.fxml";
 
     @FXML
@@ -27,14 +27,14 @@ class DiaryGallery extends UiPart<VBox> {
         fillPhotosPlaceholder();
     }
 
+    public void setPhotoList(PhotoList photoList) {
+        this.photoList = photoList;
+        photosPlaceholder.setItems(photoList.getObservablePhotoList());
+    }
+
     private void fillPhotosPlaceholder() {
         photosPlaceholder.setItems(photoList.getObservablePhotoList());
         photosPlaceholder.setCellFactory(listView -> new PhotoListViewCell());
-    }
-
-    void setPhotoList(PhotoList photoList) {
-        this.photoList = photoList;
-        photosPlaceholder.setItems(photoList.getObservablePhotoList());
     }
 
     @Override
