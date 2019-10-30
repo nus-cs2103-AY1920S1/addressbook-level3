@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import seedu.algobase.commons.exceptions.IllegalValueException;
 import seedu.algobase.logic.parser.ParserUtil;
 import seedu.algobase.model.AlgoBase;
+import seedu.algobase.model.Id;
 import seedu.algobase.model.problem.Problem;
 import seedu.algobase.model.task.Task;
 
@@ -42,8 +43,8 @@ class JsonAdaptedTask {
      * Converts a given {@code Task} into this class for Jackson use.
      */
     public JsonAdaptedTask(Task task) {
-        id = Long.toString(task.getId());
-        problemId = Long.toString(task.getProblem().getId());
+        id = task.getId().toString();
+        problemId = task.getProblem().getId().toString();
         dateTime = task.getTargetDate().format(ParserUtil.FORMATTER);
         isSolved = Boolean.toString(task.getIsSolved());
     }
@@ -54,7 +55,7 @@ class JsonAdaptedTask {
      * @throws IllegalValueException if there were any data constraints violated in the adapted Task.
      */
     public Task toModelType(AlgoBase algoBase) throws IllegalValueException {
-        final long modelId = retrieveId(id);
+        final Id modelId = retrieveId(id);
         final Problem modelProblem = algoBase.findProblemById(retrieveId(problemId));
         final LocalDate modelDateTime = retrieveDate(dateTime);
         final boolean modelIsSolved = retrieveIsSolved(isSolved);
@@ -69,24 +70,24 @@ class JsonAdaptedTask {
      * @return id in long format.
      * @throws IllegalValueException if string format is invalid.
      */
-    public long retrieveId(String id) throws IllegalValueException {
+    public Id retrieveId(String id) throws IllegalValueException {
         if (id == null) {
             throw new IllegalValueException(
                 String.format(MISSING_FIELD_MESSAGE_FORMAT, "Id"));
         }
 
         try {
-            return Long.parseLong(id);
+            return Id.generateId(id);
         } catch (NumberFormatException e) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "Id"));
         }
     }
 
     /**
-     * Converts a date in string format to a LocalDateTime Object.
+     * Converts a date in string format to a LocalDate Object.
      *
      * @param date date in string format.
-     * @return the corresponding LocalDateTime Object.
+     * @return the corresponding LocalDate Object.
      * @throws IllegalValueException if {@code date} is invalid.
      */
     private LocalDate retrieveDate(String date) throws IllegalValueException {

@@ -19,10 +19,12 @@ public class DeleteTagCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the Tag identified by the index number used in the displayed Tag list.\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " 1";
+            + "Parameters:\n"
+            + "INDEX (must be a positive integer)\n"
+            + "Example:\n"
+            + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_DELETE_TAG_SUCCESS = "Deleted Tag: %1$s";
+    public static final String MESSAGE_DELETE_TAG_SUCCESS = "Tag [%1$s] deleted.";
 
     private final Index targetIndex;
 
@@ -42,7 +44,7 @@ public class DeleteTagCommand extends Command {
         Tag tagToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deleteTag(tagToDelete);
         model.deleteTags(tagToDelete);
-        return new CommandResult(String.format(MESSAGE_DELETE_TAG_SUCCESS, tagToDelete));
+        return new CommandResult(String.format(MESSAGE_DELETE_TAG_SUCCESS, tagToDelete.getName()));
     }
 
     @Override

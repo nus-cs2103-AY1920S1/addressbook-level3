@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.logging.Logger;
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.StringProperty;
 import javafx.collections.ObservableList;
 import seedu.algobase.commons.core.GuiSettings;
 import seedu.algobase.commons.core.LogsCenter;
@@ -72,6 +74,7 @@ public class LogicManager implements Logic {
         return model.getGuiState();
     }
 
+    @Override
     public ObservableList<Problem> getProcessedProblemList() {
         return model.getFilteredProblemList();
     }
@@ -89,6 +92,21 @@ public class LogicManager implements Logic {
     @Override
     public ObservableList<Task> getProcessedTaskList() {
         return model.getCurrentTaskList();
+    }
+
+    @Override
+    public StringProperty getCurrentPlan() {
+        return model.getCurrentPlan();
+    }
+
+    @Override
+    public IntegerProperty getCurrentSolvedCount() {
+        return model.getCurrentSolvedCount();
+    }
+
+    @Override
+    public IntegerProperty getCurrentUnsolvedCount() {
+        return model.getCurrentUnsolvedCount();
     }
 
     @Override

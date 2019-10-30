@@ -1,5 +1,7 @@
 package seedu.algobase.model.searchrule.problemsearchrule;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.function.Predicate;
 
 import seedu.algobase.model.problem.Problem;
@@ -20,6 +22,7 @@ public class SourceMatchesKeywordPredicate implements Predicate<Problem> {
     private final Keyword keyword;
 
     public SourceMatchesKeywordPredicate(Keyword keyword) {
+        requireNonNull(keyword);
         this.keyword = keyword;
     }
 

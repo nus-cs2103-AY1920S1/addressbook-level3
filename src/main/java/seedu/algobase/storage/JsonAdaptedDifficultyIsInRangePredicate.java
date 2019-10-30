@@ -3,6 +3,7 @@ package seedu.algobase.storage;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import seedu.algobase.commons.exceptions.IllegalValueException;
 import seedu.algobase.model.searchrule.problemsearchrule.DifficultyIsInRangePredicate;
 
 /**
@@ -36,7 +37,10 @@ public class JsonAdaptedDifficultyIsInRangePredicate {
      * Converts this Jackson-friendly adapted Problem object into the model's
      * {@code DifficultyIsInRangePredicate} object.
      */
-    public DifficultyIsInRangePredicate toModelType() {
+    public DifficultyIsInRangePredicate toModelType() throws IllegalValueException {
+        if (!DifficultyIsInRangePredicate.isValidDifficultyRange(lowerBound, upperBound)) {
+            throw new IllegalValueException(DifficultyIsInRangePredicate.MESSAGE_CONSTRAINTS);
+        }
         return new DifficultyIsInRangePredicate(lowerBound, upperBound);
     }
 

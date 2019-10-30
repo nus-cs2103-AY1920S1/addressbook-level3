@@ -1,12 +1,22 @@
 package seedu.algobase.ui;
 
 import java.util.Comparator;
+import java.util.function.Consumer;
+import java.util.logging.Logger;
 
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import javafx.scene.text.TextAlignment;
+import seedu.algobase.commons.core.LogsCenter;
+import seedu.algobase.model.Id;
+import seedu.algobase.model.ModelType;
+import seedu.algobase.model.gui.WriteOnlyTabManager;
 import javafx.scene.paint.Color;
 import seedu.algobase.model.problem.Problem;
 import seedu.algobase.model.tag.Tag;
@@ -15,6 +25,8 @@ import seedu.algobase.model.tag.Tag;
  * An UI component that displays information of a {@code Problem}.
  */
 public class ProblemCard extends UiPart<Region> {
+
+    private static final Logger logger = LogsCenter.getLogger(ProblemCard.class);
 
     private static final String FXML = "ProblemListCard.fxml";
 
@@ -49,16 +61,30 @@ public class ProblemCard extends UiPart<Region> {
     @FXML
     private FlowPane tags;
 
-    public ProblemCard(Problem problem, int displayedIndex) {
+    public ProblemCard(Problem problem, int displayedIndex, WriteOnlyTabManager writeOnlyTabManager) {
         super(FXML);
         this.problem = problem;
         id.setText(displayedIndex + ". ");
+        id.setWrapText(true);
+        id.setTextAlignment(TextAlignment.JUSTIFY);
         name.setText(problem.getName().fullName);
+        name.setWrapText(true);
+        name.setTextAlignment(TextAlignment.JUSTIFY);
         author.setText(problem.getAuthor().value);
+        author.setWrapText(true);
+        author.setTextAlignment(TextAlignment.JUSTIFY);
         description.setText(problem.getDescription().value);
+        description.setWrapText(true);
+        description.setTextAlignment(TextAlignment.JUSTIFY);
         weblink.setText(problem.getWebLink().value);
+        weblink.setWrapText(true);
+        weblink.setTextAlignment(TextAlignment.JUSTIFY);
         difficulty.setText(problem.getDifficulty().toString());
+        difficulty.setWrapText(true);
+        difficulty.setTextAlignment(TextAlignment.JUSTIFY);
         remark.setText(problem.getRemark().value);
+        remark.setWrapText(true);
+        remark.setTextAlignment(TextAlignment.JUSTIFY);
         source.setText(problem.getSource().value);
 
         for(Tag tag : problem.getTags()) {
@@ -67,6 +93,9 @@ public class ProblemCard extends UiPart<Region> {
             l.setStyle(colorStyle);
             tags.getChildren().add(l);
         }
+        source.setWrapText(true);
+        source.setTextAlignment(TextAlignment.JUSTIFY);
+        this.addMouseClickListener(writeOnlyTabManager.addDetailsTabConsumer(ModelType.PROBLEM));
     }
 
     @Override
@@ -85,5 +114,24 @@ public class ProblemCard extends UiPart<Region> {
         ProblemCard card = (ProblemCard) other;
         return id.getText().equals(card.id.getText())
                 && problem.equals(card.problem);
+    }
+
+    /**
+     * Spawns a new Tab when the cardPane registers a double click event.
+     *
+     * @param addDetailsTabConsumer
+     */
+    public void addMouseClickListener(Consumer<Id> addDetailsTabConsumer) {
+        cardPane.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
+                    if (mouseEvent.getClickCount() == 2) {
+                        logger.fine("Double Clicked");
+                        addDetailsTabConsumer.accept(problem.getId());
+                    }
+                }
+            }
+        });
     }
 }

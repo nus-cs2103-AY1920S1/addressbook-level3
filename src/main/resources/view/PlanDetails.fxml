@@ -1,0 +1,65 @@
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ScrollPane?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<AnchorPane>
+  <ScrollPane AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+              AnchorPane.rightAnchor="0.0" xmlns:fx="http://javafx.com/fxml/1" styleClass="edge-to-edge">
+    <VBox alignment="CENTER_LEFT">
+      <padding>
+        <Insets top="10" right="10" bottom="5" left="10"/>
+      </padding>
+
+      <!-- Plan Name-->
+      <StackPane alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+        <padding>
+          <Insets top="10" bottom="10"/>
+        </padding>
+        <Label text="Plan Name" styleClass="scroll-pane-text"/>
+      </StackPane>
+      <StackPane>
+        <TextField fx:id="planName" />
+      </StackPane>
+
+      <!-- Start Date-->
+      <StackPane alignment="CENTER_LEFT">
+        <padding>
+          <Insets top="10" bottom="10" />
+        </padding>
+        <Label text="Start Date" styleClass="scroll-pane-text" />
+      </StackPane>
+      <StackPane>
+        <TextField fx:id="startDate" />
+      </StackPane>
+
+      <!-- End Date-->
+      <StackPane alignment="CENTER_LEFT">
+        <padding>
+          <Insets top="10" bottom="10" />
+        </padding>
+        <Label text="End Date" styleClass="scroll-pane-text" />
+      </StackPane>
+      <StackPane>
+        <TextField fx:id="endDate" />
+      </StackPane>
+
+      <!-- Plan Description-->
+      <StackPane alignment="CENTER_LEFT">
+        <padding>
+          <Insets top="10" bottom="10" />
+        </padding>
+        <Label text="Plan Description" styleClass="scroll-pane-text" />
+      </StackPane>
+      <StackPane>
+        <TextArea fx:id="planDescription" wrapText="true" />
+      </StackPane>
+    </VBox>
+  </ScrollPane>
+</AnchorPane>

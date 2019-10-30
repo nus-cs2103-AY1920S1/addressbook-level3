@@ -19,6 +19,7 @@ import seedu.algobase.commons.core.Messages;
 import seedu.algobase.commons.core.index.Index;
 import seedu.algobase.commons.util.CollectionUtil;
 import seedu.algobase.logic.commands.exceptions.CommandException;
+import seedu.algobase.model.Id;
 import seedu.algobase.model.Model;
 import seedu.algobase.model.plan.Plan;
 import seedu.algobase.model.plan.PlanDescription;
@@ -45,12 +46,12 @@ public class EditPlanCommand extends Command {
             + "Example:\n"
             + COMMAND_WORD + " 1 "
             + PREFIX_DESCRIPTION + "future questions of CS2040 "
-            + PREFIX_START_DATE + "2019/01/01"
+            + PREFIX_START_DATE + "2019/01/01 "
             + PREFIX_END_DATE + "3019/12/12";
 
-    public static final String MESSAGE_EDIT_PLAN_SUCCESS = "Edited Plan: %1$s";
+    public static final String MESSAGE_EDIT_PLAN_SUCCESS = "Plan [%1$s] edited.";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_PLAN = "A plan of this name already exists in the algobase.";
+    public static final String MESSAGE_DUPLICATE_PLAN = "A plan of name [%1$s] already exists in AlgoBase.";
 
     private final Index index;
     private final EditPlanDescriptor editPlanDescriptor;
@@ -80,12 +81,12 @@ public class EditPlanCommand extends Command {
         Plan editedPlan = createEditedPlan(planToEdit, editPlanDescriptor);
 
         if (!planToEdit.isSamePlan(editedPlan) && model.hasPlan(editedPlan)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PLAN);
+            throw new CommandException(String.format(MESSAGE_DUPLICATE_PLAN, editedPlan.getPlanName()));
         }
 
         model.setPlan(planToEdit, editedPlan);
         model.updateFilteredPlanList(PREDICATE_SHOW_ALL_PLANS);
-        return new CommandResult(String.format(MESSAGE_EDIT_PLAN_SUCCESS, editedPlan));
+        return new CommandResult(String.format(MESSAGE_EDIT_PLAN_SUCCESS, editedPlan.getPlanName()));
     }
 
     /**
@@ -95,7 +96,7 @@ public class EditPlanCommand extends Command {
     private static Plan createEditedPlan(Plan planToEdit, EditPlanDescriptor editPlanDescriptor) {
         assert planToEdit != null;
 
-        long id = planToEdit.getId();
+        Id id = planToEdit.getId();
         PlanName updatedName = editPlanDescriptor.getPlanName().orElse(planToEdit.getPlanName());
         PlanDescription updatedDescription = editPlanDescriptor.getPlanDescription().orElse(
                 planToEdit.getPlanDescription());

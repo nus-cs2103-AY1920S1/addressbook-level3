@@ -21,7 +21,7 @@ public class AddCommand extends Command {
     public static final String COMMAND_WORD = "add";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Adds a Problem to the algobase.\n"
+            + ": Adds a Problem to AlgoBase.\n"
             + "Parameters:\n"
             + PREFIX_NAME + "NAME "
             + PREFIX_AUTHOR + "AUTHOR "
@@ -40,8 +40,8 @@ public class AddCommand extends Command {
             + PREFIX_DIFFICULTY + "3.0 "
             + PREFIX_SOURCE + "Kattis";
 
-    public static final String MESSAGE_SUCCESS = "New Problem added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PROBLEM = "This Problem already exists in the algobase";
+    public static final String MESSAGE_SUCCESS = "New Problem [%1$s] added to AlgoBase.";
+    public static final String MESSAGE_DUPLICATE_PROBLEM = "Problem [%1$s] already exists in AlgoBase.";
 
     private final Problem toAdd;
 
@@ -58,11 +58,12 @@ public class AddCommand extends Command {
         requireNonNull(model);
 
         if (model.hasProblem(toAdd)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PROBLEM);
+            throw new CommandException(String.format(MESSAGE_DUPLICATE_PROBLEM, toAdd.getName()));
         }
+
         model.addProblem(toAdd);
         model.addTags(toAdd.getTags());
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd.getName()));
     }
 
     @Override

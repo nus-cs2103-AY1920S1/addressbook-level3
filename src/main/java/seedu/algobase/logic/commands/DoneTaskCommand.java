@@ -34,7 +34,7 @@ public class DoneTaskCommand extends Command {
             + PREFIX_PLAN + "1 "
             + PREFIX_TASK + "10";
 
-    public static final String MESSAGE_DONE_TASK_SUCCESS = "Task [%1$s] marked as done in Plan [%2$s]";
+    public static final String MESSAGE_DONE_TASK_SUCCESS = "Task [%1$s] marked as done in Plan [%2$s].";
 
     private final DoneTaskDescriptor doneTaskDescriptor;
 
@@ -83,9 +83,9 @@ public class DoneTaskCommand extends Command {
         private Index planIndex;
         private Index taskIndex;
 
-        public DoneTaskDescriptor(Index planIndex, Index problemIndex) {
+        public DoneTaskDescriptor(Index planIndex, Index taskIndex) {
             this.planIndex = planIndex;
-            this.taskIndex = problemIndex;
+            this.taskIndex = taskIndex;
         }
 
         @Override

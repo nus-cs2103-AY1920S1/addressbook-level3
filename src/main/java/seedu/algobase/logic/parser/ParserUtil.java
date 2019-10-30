@@ -2,16 +2,23 @@ package seedu.algobase.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.algobase.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.algobase.commons.core.Messages.MESSAGE_INVALID_DIFFICULTY_RANGE;
+import static seedu.algobase.commons.core.Messages.MESSAGE_INVALID_KEYWORD_FORMAT;
+import static seedu.algobase.commons.util.CollectionUtil.isArrayOfLength;
 
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import seedu.algobase.commons.core.index.Index;
+import seedu.algobase.commons.util.FileUtil.Format;
 import seedu.algobase.commons.util.StringUtil;
 import seedu.algobase.logic.commands.OpenTabCommand;
 import seedu.algobase.logic.commands.SortCommand;
@@ -28,6 +35,13 @@ import seedu.algobase.model.problem.Name;
 import seedu.algobase.model.problem.Remark;
 import seedu.algobase.model.problem.Source;
 import seedu.algobase.model.problem.WebLink;
+import seedu.algobase.model.searchrule.problemsearchrule.AuthorMatchesKeywordPredicate;
+import seedu.algobase.model.searchrule.problemsearchrule.DescriptionContainsKeywordsPredicate;
+import seedu.algobase.model.searchrule.problemsearchrule.DifficultyIsInRangePredicate;
+import seedu.algobase.model.searchrule.problemsearchrule.Keyword;
+import seedu.algobase.model.searchrule.problemsearchrule.NameContainsKeywordsPredicate;
+import seedu.algobase.model.searchrule.problemsearchrule.SourceMatchesKeywordPredicate;
+import seedu.algobase.model.searchrule.problemsearchrule.TagIncludesKeywordsPredicate;
 import seedu.algobase.model.tag.Tag;
 
 /**
@@ -255,7 +269,15 @@ public class ParserUtil {
         return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 
-    /** Parses a {@code String date} into an {@code LocalDateTime}.
+    /**
+     * Returns true if some of the prefixes contain present {@code Optional} values in the given
+     * {@code ArgumentMultimap}.
+     */
+    public static boolean hasPrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
+        return Stream.of(prefixes).anyMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
+    }
+
+    /** Parses a {@code String date} into an {@code LocalDate}.
      *
      * @throws ParseException if the given {@code date} is invalid.
      */
@@ -291,7 +313,6 @@ public class ParserUtil {
         }
     }
 
-
     /** Parses a {@code String modelType} into an {@code ModelType}.
      *
      * @throws ParseException if the given {@code string modelType} is invalid.
@@ -313,6 +334,145 @@ public class ParserUtil {
             return ParserUtil.parseIndex(modelIndex);
         } catch (ParseException pe) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, OpenTabCommand.MESSAGE_USAGE), pe);
+        }
+    }
+
+    /**
+     * Throws {@code ParseException} if a given string is not a valid {@code Keyword} string.
+     * @param keyword to be checked
+     * @throws ParseException if keyword is invalid.
+     */
+    private static void checkKeywordString(String keyword) throws ParseException {
+        if (!Keyword.isValidKeyword(keyword)) {
+            throw new ParseException(String.format(MESSAGE_INVALID_KEYWORD_FORMAT, Keyword.MESSAGE_CONSTRAINTS));
+        }
+    }
+
+    /**
+     * Throws {@code ParseException} if any string in the given list is not a valid {@code Keyword} string.
+     * @param keywords to be checked
+     * @throws ParseException if any keyword inside the list is invalid.
+     */
+    private static void checkKeywordStringList(List<String> keywords) throws ParseException {
+        if (keywords.stream().anyMatch(keyword -> !Keyword.isValidKeyword(keyword))) {
+            throw new ParseException(String.format(MESSAGE_INVALID_KEYWORD_FORMAT, Keyword.MESSAGE_CONSTRAINTS));
+        }
+    }
+
+    /**
+     * Returns a list of string by splitting the argValue with empty spaces.
+     * @param argValue a string consisting of a list of keywords.
+     */
+    private static List<String> getArgumentValueAsList(String argValue) {
+        String trimmedArg = argValue.trim();
+        String[] keywords = trimmedArg.split("\\s+");
+        return Arrays.asList(keywords);
+    }
+
+    /**
+     * Parses a string into a {@code DifficultyIsInRangePredicate}.
+     * @param arg argument string to be parsed
+     * @param messageUsage target command's usage message
+     * @throws ParseException if the argument string is of invalid format.
+     */
+    public static DifficultyIsInRangePredicate parseDifficultyPredicate(String arg, String messageUsage)
+        throws ParseException {
+        String[] difficultyBounds = arg.split("-");
+        if (!isArrayOfLength(difficultyBounds, 2)) {
+            throw new ParseException(
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, messageUsage));
+        }
+        try {
+            double lowerBound = Double.parseDouble(difficultyBounds[0]);
+            double upperBound = Double.parseDouble(difficultyBounds[1]);
+            return new DifficultyIsInRangePredicate(lowerBound, upperBound);
+        } catch (NumberFormatException | NullPointerException nfe) {
+            throw new ParseException(
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, messageUsage), nfe);
+        } catch (IllegalArgumentException ire) {
+            throw new ParseException(
+                String.format(MESSAGE_INVALID_DIFFICULTY_RANGE, DifficultyIsInRangePredicate.MESSAGE_CONSTRAINTS),
+                ire);
+        }
+    }
+
+    /**
+     * Parses a string into a {@code NameContainsKeywordsPredicate}.
+     * @param arg argument string to be parsed
+     * @param messageUsage target command's usage message
+     * @throws ParseException if the argument string is of invalid format.
+     */
+    public static NameContainsKeywordsPredicate parseNamePredicate(String arg, String messageUsage)
+        throws ParseException {
+        List<String> nameKeywords = getArgumentValueAsList(arg);
+        checkKeywordStringList(nameKeywords);
+        List<Keyword> keywords = nameKeywords.stream().map(Keyword::new).collect(Collectors.toList());
+        return new NameContainsKeywordsPredicate(keywords);
+    }
+
+    /**
+     * Parses a string into a {@code AuthorMatchesKeywordPredicate}.
+     * @param arg argument string to be parsed
+     * @param messageUsage target command's usage message
+     * @throws ParseException if the argument string is of invalid format.
+     */
+    public static AuthorMatchesKeywordPredicate parseAuthorPredicate(String arg, String messageUsage)
+        throws ParseException {
+        String authorKeyword = arg;
+        checkKeywordString(authorKeyword);
+        return new AuthorMatchesKeywordPredicate(new Keyword(authorKeyword));
+    }
+
+    /**
+     * Parses a string into a {@code DescriptionContainsKeywordsPredicate}.
+     * @param arg argument string to be parsed
+     * @param messageUsage target command's usage message
+     * @throws ParseException if the argument string is of invalid format.
+     */
+    public static DescriptionContainsKeywordsPredicate parseDescriptionPredicate(String arg, String messageUsage)
+        throws ParseException {
+        List<String> descriptionKeywords = getArgumentValueAsList(arg);
+        checkKeywordStringList(descriptionKeywords);
+        List<Keyword> keywords = descriptionKeywords.stream().map(Keyword::new).collect(Collectors.toList());
+        return new DescriptionContainsKeywordsPredicate(keywords);
+    }
+
+    /**
+     * Parses a string into a {@code SourceMatchesKeywordPredicate}.
+     * @param arg argument string to be parsed
+     * @param messageUsage target command's usage message
+     * @throws ParseException if the argument string is of invalid format.
+     */
+    public static SourceMatchesKeywordPredicate parseSourcePredicate(String arg, String messageUsage)
+        throws ParseException {
+        String sourceKeyword = arg;
+        checkKeywordString(sourceKeyword);
+        return new SourceMatchesKeywordPredicate(new Keyword(sourceKeyword));
+    }
+
+    /**
+     * Parses a string into a {@code TagIncludesKeywordsPredicate}.
+     * @param arg argument string to be parsed
+     * @param messageUsage target command's usage message
+     * @throws ParseException if the argument string is of invalid format.
+     */
+    public static TagIncludesKeywordsPredicate parseTagPredicate(String arg, String messageUsage)
+        throws ParseException {
+        List<String> tagKeywords = getArgumentValueAsList(arg);
+        checkKeywordStringList(tagKeywords);
+        List<Keyword> keywords = tagKeywords.stream().map(Keyword::new).collect(Collectors.toList());
+        return new TagIncludesKeywordsPredicate(keywords);
+    }
+
+    /** Parses a {@code String format} into an {@code Format}.
+     *
+     * @throws ParseException if the given {@code string format} is invalid.
+     */
+    public static Format parseFileFormat(String format) throws ParseException {
+        try {
+            return Format.valueOf(format.toUpperCase());
+        } catch (IllegalArgumentException e) {
+            throw new ParseException(e.toString());
         }
     }
 }

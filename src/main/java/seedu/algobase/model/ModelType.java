@@ -1,5 +1,7 @@
 package seedu.algobase.model;
 
+import seedu.algobase.commons.core.index.Index;
+
 /**
  * Models displayed in the GUI.
  */
@@ -10,17 +12,17 @@ public enum ModelType {
     TASK (3, "task", "Tasks"),
     FINDRULE (4, "findrule", "Find Rules");
 
-    private final int displayTabPaneIndex;
+    private final Index displayTabPaneIndex;
     private final String commandArgumentValue;
     private final String tabName;
 
     ModelType(int displayTabPaneIndex, String commandArgumentValue, String tabName) {
-        this.displayTabPaneIndex = displayTabPaneIndex;
+        this.displayTabPaneIndex = Index.fromZeroBased(displayTabPaneIndex);
         this.commandArgumentValue = commandArgumentValue;
         this.tabName = tabName;
     }
 
-    public int getDisplayTabPaneIndex() {
+    public Index getDisplayTabPaneIndex() {
         return displayTabPaneIndex;
     }
 

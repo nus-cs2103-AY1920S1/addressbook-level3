@@ -7,6 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import javafx.scene.text.TextAlignment;
 import seedu.algobase.logic.parser.ParserUtil;
 import seedu.algobase.model.task.Task;
 
@@ -54,14 +55,32 @@ public class TaskCard extends UiPart<Region> {
         super(FXML);
         this.task = task;
         id.setText(displayedIndex + ". ");
+        id.setWrapText(true);
+        id.setTextAlignment(TextAlignment.JUSTIFY);
         name.setText(task.getName().fullName + task.getStatusIcon());
+        name.setWrapText(true);
+        name.setTextAlignment(TextAlignment.JUSTIFY);
         targetDate.setText(task.getTargetDate().format(ParserUtil.FORMATTER));
+        targetDate.setWrapText(true);
+        targetDate.setTextAlignment(TextAlignment.JUSTIFY);
         author.setText(task.getAuthor().value);
+        author.setWrapText(true);
+        author.setTextAlignment(TextAlignment.JUSTIFY);
         description.setText(task.getDescription().value);
+        description.setWrapText(true);
+        description.setTextAlignment(TextAlignment.JUSTIFY);
         weblink.setText(task.getWebLink().value);
+        weblink.setWrapText(true);
+        weblink.setTextAlignment(TextAlignment.JUSTIFY);
         difficulty.setText(task.getDifficulty().toString());
+        difficulty.setWrapText(true);
+        difficulty.setTextAlignment(TextAlignment.JUSTIFY);
         remark.setText(task.getRemark().value);
+        remark.setWrapText(true);
+        remark.setTextAlignment(TextAlignment.JUSTIFY);
         source.setText(task.getSource().value);
+        source.setWrapText(true);
+        source.setTextAlignment(TextAlignment.JUSTIFY);
         task.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));

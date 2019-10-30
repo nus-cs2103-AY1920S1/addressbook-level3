@@ -71,6 +71,7 @@ image::ArchitectureSequenceDiagram.png[]
 
 The sections below give more details of each component.
 
+//@@author jiayushe
 [[Design-Ui]]
 === UI component
 
@@ -79,7 +80,9 @@ image::UiClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/algobase/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts
+e.g.`CommandBox`, `ResultDisplay`, `DetailsTabPane`, `DisplayTabPane`, `TaskManagementPane`, `StatusBarFooter` etc.
+All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
@@ -110,6 +113,7 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 image::DeleteSequenceDiagram.png[]
 
 NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+//@@author
 
 //@@author le0tan
 [[Design-Model]]
@@ -144,6 +148,8 @@ image::design/model/TaskPackageDiagram.png[width="30%"]
 .Structure of the ProblemSearchRule Package
 image::design/model/ProblemSearchRulePackageDiagram.png[width="60%"]
 
+.Structure of the PlanSearchRule Package
+image::design/model/PlanSearchRulePackageDiagram.png[width='60%']
 //@@author
 
 //@@author jiayushe
@@ -159,16 +165,16 @@ The `Storage` component,
 
 * can store `UserPref` objects in json format.
 * can retrieve `UserPref` objects from json format.
-* can store the AlgoBase app data including `Plan`, `Problem`, `Tag`, `Task` objects in relational manner in json format.
-* can retrieve `Plan`, `Problem`, `Tag`, `Task` objects from json format.
+* can store the AlgoBase app data including `GuiState`, `Plan`, `Problem`, `ProblemSearchRule`, `Tag`, `Task` objects in relational manner in json format.
+* can retrieve `GuiState`, `Plan`, `Problem`, `ProblemSearchRule`, `Tag`, `Task` objects from json format.
 
 [[Design-Commons]]
 === Common classes
 
 Classes used by multiple components are in the `seedu.algobase.commons` package.
 
-It contains utility files for configuration `ConfigUtil`, file handling `FileUtil`, ID generation `IdUtil`,
-JSON storage `JsonUtil`, string manipulation `StringUtil` and others.
+It contains utility files for configuration `ConfigUtil`, file handling `FileUtil`,
+JSON storage `JsonUtil`, string manipulation `StringUtil` and others including `AppUtil` and `CollectionUtil`.
 //@@author
 
 == Implementation
@@ -188,18 +194,20 @@ the task management feature.
 
 ==== Current Implementation
 
-The task management feature mainly involves four main behaviours:
+The task management feature mainly involves six main behaviours:
 
 * `AlgoBase#addTask()` - create a new task for a problem and add it to a specified plan.
 * `AlgoBase#deleteTask()` - delete an existing task from a specified plan.
 * `AlgoBase#doneTask()` - mark a task as done in a specified plan.
+* `AlgoBase#editTask()` - edit the due date of a task in a specified plan.
+* `AlgoBase#moveTask()` - move a task from one plan to another.
 * `AlgoBase#undoneTask()` - mark a task as undone in a specified plan.
 
 Given below is an example usage scenario and how the mechanism for adding tasks behaves at each step.
 
 The following activity diagram summarizes what happens when a user executes the `AddTask` command:
 
-.Activity Diagram for the Execution of `AddTask` Command
+.Activity Diagram for the Execution of `AddTaskCommand`
 image::task/AddTaskCommandActivityDiagram.png[]
 
 Step 1. The user launches the application.
@@ -208,23 +216,42 @@ Step 2. AlgoBase displays a list of existing problems and plans in the UI.
 
 Step 3. The user executes `addtask plan/1 prob/1` to add the problem with index 1 in the list to the plan with index 1.
 The `AddTask` command calls `Plan#updateTasks` to create a new plan from the original plan with this additional task.
-After that, `Model#setPlan()` is called to replace the original plan with the updated plan in the `PlanList`.
+After that, `Model#setPlan` is called to replace the original plan with the updated plan in the `PlanList`
+stored in `AlgoBase`.
 
 The following sequence diagram shows how the `addtask` operation works:
 
-.Sequence Diagram for the Execution of `AddTask` Command
+.Sequence Diagram for the Execution of `AddTaskCommand`
 image::task/AddTaskSequenceDiagram.png[]
 
 ==== Design Considerations
 
 ===== Aspect: Data structure to support the task commands.
 
-* Alternative 1 (current choice): Use a `HashSet` in current AlgoBase to save all tasks in a plan.
-** Pros: Users can manage the tasks conveniently.
-** Cons: Harder to implement for relational storage.
-* Alternative 2: Simply keep tasks as a part of a plan.
-** Pros: No need to save the task separately in the storage, all tasks are under plans.
-** Cons: Does not keep track of relations between tasks and plans.
+* Alternative 1 (current choice): Use a `HashSet` to store tasks in a plan.
+** Pros: Duplicate tasks can be checked easily.
+** Cons: Harder to identify tasks by index.
+* Alternative 2: Use an `ArrayList` to store tasks in a plan.
+** Pros: Tasks can be identified by index easily.
+** Cons: Harder to check for duplicates.
+
+===== Aspect: How to store problem details within tasks to support the task commands.
+
+* Alternative 1 (current choice): Store a problem object in each task.
+** Pros: Changes in problem details will be reflected in the relevant tasks as well.
+** Cons: Relational storage is required to keep track of this relationship.
+* Alternative 2: Copy all problem details and store as separate fields in each task.
+** Pros: No need to implement relational storage. There will be less coupling between problems and tasks as well.
+** Cons: Changes in problem details will not be reflected in the relevant tasks.
+
+===== Aspect: Relational storage to support the task commands.
+
+* Alternative 1 (current choice): Use an additional `id` field to identify problems and tasks.
+** Pros: Id is immutable over time.
+** Cons: An additional field is needed for the models.
+* Alternative 2: Use object hash to identify problems and tasks.
+** Pros: No need to store another additional field in the models.
+** Cons: Object hash can change over time.
 
 // end::task[]
 //@@author
@@ -250,6 +277,7 @@ Step 2. The user executes `addtag t/easy` to add a tag named [easy] which have n
 
 The following sequence diagram shows how the `deletetag` operation works:
 
+.Sequence Diagram for `AddTagCommand`
 image::AddTagSequenceDiagram.png[]
 
 Step 3. The user decides to execute the command `listtag` to show a tag list in the GUI of algobase. The `listtag` command calls Model#listtag(), causing the taglist shows the current components of uniqueTagList. Commands that do not modify the address book, such as `listtag`, will not call `Model#addTag()`, `Model#deleteTag()` or `Model#editTag()`. Thus the `uniqueTagList` remains unchanged.
@@ -262,6 +290,7 @@ Step 5. The user executes `deletetag t/hard` to delete the current tag [easy] in
 
 The following activity diagram summarizes what happens when a user executes a new tag modifying command
 
+.Activity Diagram for tag commands
 image::TagActivityDiagram.png[]
 
 ==== Design considerations
@@ -363,7 +392,7 @@ If no valid search restriction is provided by the user, `FindCommandParser` will
 Step 3. `LogicManager` invokes `execute()` method of the returned `FindCommand`. `FindCommand` updates the problem list with user’s search restrictions.
 
 .Sequence Diagram for the Execution of `find` Command
-image::find/FindCommandSequenceDiagram.png[]
+image::find/FindCommandSequenceDiagram.png[width="70%"]
 
 ==== Design Considerations
 
@@ -395,6 +424,74 @@ image::find/FindCommandSequenceDiagram.png[]
 ** Cons: If we are to add more predicates, it’s more likely that we forget to check `null` value of the new predicate.
 
 // end::find[]
+
+// tag::savefindrule[]
+
+=== Save Find Rules Feature
+
+AlgoBase provides many ways to organizing your problems including tags and plans. However, both organizing features require persistent user involvement - if the user added a new problem belonging to a category, the user needs to manually assign a tag to the problem or add the problem to a plan. Since AlgoBase's `find` command enables the user to filter problems with great flexibility, we allow them to save certain find rules so that they can re-apply these rules to quickly locate problems of their need.
+
+This section will describe in detail the current implementation and design considerations of the save find rules (or problem search rules) feature of AlgoBase.
+
+The following activity diagram summarizes what happens when a user executes `addfindrule` command:
+
+.Activity Diagram for the Execution of `addfindrule` Command
+image::savefindrule/AddFindRuleActivityDiagram.png[width="70%"]
+
+==== Current Implementation
+
+The save find rules feature is facilitated by the following classes:
+
+* `ProblemSearchRule` +
+It stores both the `Name` of the find rule and all predicates included in this find rule. A `ProblemSearchRule` doesn't have to include all possible predicates as the user may not provide all of them. Missing predicates will be stored as `null` in this class.
+* `UniqueFindRuleList` +
+It stores the find rules and makes sure that every find rule in this list has a unique name.
+** `UniqueFindRuleList` stores a `ObservableList<ProblemSearchRule>` for UI purposes.
+
+[NOTE]
+Except for `ProblemSearchRule`, we refer to these rules as `FindRule` in all other places. This is to prevent possible naming conflicts if AlgoBase is to support saving find rules on other items (e.g. Plans, etc.). `FindRule` corresponds to `FindCommand`. Thus, if you are to implement saving find plan rules, name them as `PlanSearchRule`, `AddFindPlanRuleCommand`, `UniqueFindPlanRuleList`, etc.
+
+Under the category of save find rules feature, we have the following `Command` classes and their corresponding `Parser` classes:
+
+* `AddFindRuleCommand`
+* `DeleteFindRuleCommand`
+* `ApplyCommand` +
+It applies a problem-finding rule by specifying the index of the displayed find rule.
+
+Since these commands share similar implementations, we will only take `AddFindRuleCommand` as an example since it's the most complicated one among the three.
+
+===== Implementation of `addfindrule` feature
+
+The `addfindrule` feature is facilitated by `AddFindRuleCommand` and `AddFindRuleCommandParser` class.
+
+.Class Diagram for Add Find Rule Feature
+image::savefindrule/AddFindRuleClassDiagram.png[width="70%"]
+
+The sequence diagram below shows the high-level abstraction of how AlgoBase processes the request when user types in `addfindrule rule1 n/Sequences`:
+
+.High-level Sequence Diagram for the Execution of `addfindrule rule1 n/Sequences`
+image::savefindrule/HighLevelAddFindRuleSequenceDiagram.png[width="70%"]
+
+The sequence diagram below illustrates the interaction between the `Logic` and `Model` component when executing `AddFindRuleCommand`. Notice that the constructor for `AddFindRuleCommand` requires `Name` to be non-null and accepts null values for other predicates. Thus if the predicate is not present in the arguments, `AddFindRuleCommandParser` will pass null to the constructor of `AddFindRuleCommand`.
+
+.Sequence Diagram for the Execution of `addfindrule` Command
+image::savefindrule/AddFindRuleSequenceDiagram.png[width="70%"]
+
+==== Design Considerations
+
+===== Aspect: To implement `ProblemSearchRule` as a subclass of `FindProblemDescriptor` or implement it as a immutable concrete class.
+
+Since AlgoBase is forked from AddressBook 3, it also inherits AB3's design choice on all data classes - they are all immutable classes with all fields being `final`. However, `ProblemSearchRule` is essentially saving the information of a command input, where the user may provide any number of predicates as the argument. We implement mutable `FindProblemDescriptor` to accommodate variable user inputs, now we have to consider whether to keep `ProblemSearchRule` immutable or not.
+
+* **Alternative 1 (current choice):** `ProblemSearchRule` extends `FindProblemDescriptor` with an additional field `name`
+** Pros: Drastically reduces the amount of duplicate code as `ProblemSearchRule` shares most fields with `FindProblemDescriptor`
+** Cons: `ProblemSearchRule` as a data class is no longer immutable. We have to be careful not to call any setters it inherits from `FindProblemDescriptor`.
+* **Alternative 2:** `ProblemSearchRule` as an individual class with immutable fields.
+** Pros: Provides good protection over unexpected changes to the data fields.
+** Cons: Lots of repeated code.
+
+// end::savefindrule[]
+
 //@@author
 
 //@@author tiuweehan
@@ -455,27 +552,94 @@ _Figure 3.3 Sequence Diagram for reflecting the tab changes_
 
 Step 6: A listener was added to the `displayTabIndex` field when the application was initialized. When a change in the value is detected, it triggers the `selectTab(1)` method with the value of the new index passed as an argument. This updates the selected tab in the UI.
 
+image::gui/SwitchTabsSequenceDiagram3.png[]
+_Figure 3.4 Sequence Diagram for storing new GUI state_
+
+Step 7: After the command is executed, the state of the GUI changes. This causes the `StorageManager` to save the modified GUI state as a new `JSON` file.
+This is done with the help of the `JsonSerializableGui`, `JsonSerializableTabManager` and `JsonSerializableTab` classes that are wrappers for the `GuiState`, `TabManager` and `TabData` classes.
+These wrapper classes can be converted into `JSON` format for storage without any data loss.
+
 ==== Design Considerations
 
-Aspect: Implementation of Tab Logic
+[width="100%",cols="33%,<33%,<33%",options="header",]
+|=======================================================================
+|Aspect| Alternative 1 (Current Choice) | Alternative 2
+| Implementation of Tab Logic |
+Implement Tab Logic separately within model and UI.
 
-* Alternative 1 (current choice): Implement Tab Logic separately within model and UI.
-** Pros: Modularizes the logic and reduces the need for tighter coupling between model and UI
-** Cons: Multiple sources of truth and more modules to be implemented
-* Alternative 2: Implement Tab Logic as a singular module
-** Pros: Single source of truth for state of tabs
-** Cons: Increasing coupling between Model and UI, which in turn reduces testability
+**Pros**: Modularizes the logic and reduces the need for tighter coupling between model and UI
 
-Aspect: How to update the tab in the UI
+**Cons**: Multiple sources of truth and more modules to be implemented
+|
+Implement Tab Logic as a singular module
 
-* Alternative 1 (current choice): Using a listener to detect changes to state of tab
-** Pros: Reduces coupling between the `TabManager` class and the UI
-** Cons: As callback functions are utilized, it is not immediately obvious how changes in state of TabManager leads to a change in the UI
-* Alternative 2:
-** Pros: Execution is sequential and it is easier to keep track of the flow of the program.
-** Cons: Increases coupling between the `TabManager` class and the UI and reduces testability.
+**Pros**: Single source of truth for state of tabs
+
+**Cons**: Increasing coupling between Model and UI, which in turn reduces testability
+| How to update the tab in the UI |
+Using a listener to detect changes to state of tab
+
+**Pros**: Reduces coupling between the `TabManager` class and the UI
+
+**Cons**: As callback functions are utilized, it is not immediately obvious how changes in state of TabManager leads to a change in the UI
+|
+Updating the UI synchronously
+
+**Pros**: Execution is sequential and it is easier to keep track of the flow of the program.
+
+**Cons**: Increases coupling between the `TabManager` class and the UI and reduces testability.
+|
+|=======================================================================
 
 // end::switchTab[]
+//@@author
+
+//@@author Seris370
+
+=== Training Plan Feature
+
+Training plan feature allows user to create customized training plans that consist of selected problems in AlgoBase. Users can record their progress by marking problems in plans as done.
+
+==== Current Implementation
+
+The training plan mechanism is faciliated by `AlgoBase`. It supports the following operations:
+
+* `Algobase#addPlan()` -- Adds a new empty training plan to AlgoBase.
+* `AlgoBase#setPlan()` -- Edits an existing training plan by specifying its number.
+* `AlgoBase#removePlan()` -- Deletes a training plan by specifying its number.
+* `AlgoBase#getPlanList()` -- Returns a list of plans in AlgoBase.
+
+Given below is an example usage scenario and how the training plan behaves at each step.
+
+Step 1. The user launches the application for the first time. The `AlgoBase` will be initialized with the initial empty state.
+
+Step 2. The user switches to the plan tab and executes `addplan n/CS2040 d/past year questions start/2019-01-01 end/2019-05-04` command to add a new plan to AlgoBase. The `addplan` command calls `Model#addPlan()`, causing the modified state of AlgoBase after the `addplan` command executes to be saved in the `PlanList`.
+
+Step 3. The user executes `listplan` to list all plans. The `listplan` command also calls `Model#updateFilteredPlanList()`. The plan `CS2040` is numbered `1` in the displayed list.
+
+Step 4. The user finds out that the exam date of CS2040 has changed, and decides to change the end date by executing the `editplan 1 end/2019-05-05` command. The `editplan` command will call `Model#setPlan()`, which will replace the original plan with the modified plan in the `PlanList`.
+
+[NOTE]
+The user can also add value for an empty field by executing `editplan` command if the field was not specified when adding the plan.
+
+Step 5. The user then decides to execute the command `findplan start/2019-03-01 end/2019-03-31`. The `findplan` command constructs a `FindPlanDescriptor` and executes `Model#updateFilteredPlanList(FindPlanDescriptor)`. A list of plans in AlgoBase that has overlapping time range with specified starting date and end date will be displayed on the plan list panel.
+
+[NOTE]
+If the user wants to find plans with overlapping time range, both the starting date and the end date should be specified and valid, or an error message will be displayed to inform the user that both fields should be present.
+
+Step 6. The user executes `deleteplan 1`, which calls `Model#getFilteredPlanList()` and #Model#deletePlan`. The 'Model#getFilteredPlanList()' returns the last shown plan list, which is list of plans returns by the `findplan` command in step 4. Therefore, the first plan with overlapping time range is deleted.
+
+==== Design Considerations
+
+===== Aspect: Data Structure of TimeRange class
+
+* **Alternative 1 (current choice):** Abstract out a `TimeRange` class in package plansearchrule.
+** Pros: Easy to implement.
+** Cons: Generating a `TimeRange` object in `findplan` command adds coupling.
+* **Alternative 2:** Replace `startDate` and `endDate` fields in plans to a single field `TimeRange` .
+** Pros: More OOP (`startDate` and `endDate` are currently `LocalDate` objects).
+** Cons: We must ensure that the implementation complies with other date-related commands and storage of plans.
+
 //@@author
 
 == Documentation
@@ -537,11 +701,15 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user |add tasks to a plan |better prepare for interview
 
-|`* * *` |user |mark tasks as complete/incomplete within plans |better prepare for interview
+|`* * *` |user |mark tasks as done/undone within plans |keep track of progress within each plan
+
+|`* * *` |user |edit due dates of tasks |better manage progress for each plan
+
+|`* * *` |user |move tasks among plans |better manage progress for each plan
 
 |`* * *` |user |import database from <<json,JSON>> files |easily transfer data from one computer to another
 
-|`* * *` |user |export data into JSON format |easily transfer data from one computer to another
+|`* * *` |user |export data into <<json,JSON>> format |easily transfer data from one computer to another
 
 |`* *` |advanced user |export data into CSV format |do some manipulation/processing on the data
 
@@ -821,7 +989,67 @@ Use case ends.
 Use case ends.
 
 [discrete]
-=== Use Case 11: Switch between View of Items
+=== Use Case 11: Edit Due Dates of Tasks
+
+*MSS*
+
+1.  User requests to edit due date of an existing task
+by entering the index of the plan, index of the task and new due date.
+2.  AlgoBase edits the due date of the specified task in the specified plan.
+3.  AlgoBase indicates that the existing task is edited successfully.
+4.  AlgoBase displays details of the task updated.
++
+Use case ends.
+
+*Extensions*
+[none]
+* 2a. AlgoBase detects that the index of plan is out of bounds.
++
+[none]
+** 2a1. AlgoBase informs user that the update is unsuccessful because the index of plan is out of bounds.
++
+Use case ends.
+
+[none]
+* 2b. AlgoBase detects that the index of task is out of bounds.
++
+[none]
+** 2b1. AlgoBase informs user that the update is unsuccessful because the index of task is out of bounds.
++
+Use case ends.
+
+[discrete]
+=== Use Case 12: Move Tasks between Plans
+
+*MSS*
+
+1.  User requests to move an existing task from one plan to another
+by entering the index of the task and the indices of the plans involved.
+2.  AlgoBase moves the specified task from the specified "from" plan to the "to" plan.
+3.  AlgoBase indicates that the existing task is moved successfully.
+4.  AlgoBase displays list of tasks of the "to" plan updated.
++
+Use case ends.
+
+*Extensions*
+[none]
+* 2a. AlgoBase detects that the index of either plan is out of bounds.
++
+[none]
+** 2a1. AlgoBase informs user that the update is unsuccessful because the index of plan is out of bounds.
++
+Use case ends.
+
+[none]
+* 2b. AlgoBase detects that the index of task is out of bounds.
++
+[none]
+** 2b1. AlgoBase informs user that the update is unsuccessful because the index of task is out of bounds.
++
+Use case ends.
+
+[discrete]
+=== Use Case 13: Switch between View of Items
 
 *MSS*
 
@@ -840,12 +1068,52 @@ Use case ends.
 Use case ends.
 
 [discrete]
-=== Use Case 12: See details of an item
+=== Use Case 14: See details of an item
 
 *MSS*
 
 1.  User requests to see the details of a specified item from the list of items.
 2.  AlgoBase displays the details of that item.
++
+Use case ends.
+
+[discrete]
+=== Use Case 15: Export AlgoBase data
+
+*MSS*
+
+1.  User requests to export AlgoBase data to a specified path.
+2.  AlgoBase exports AlgoBase data to a file name `algobase.json` in the specified location.
+3.  AlgoBase indicates that AlgoBase data are exported successfully.
++
+Use case ends.
+
+*Extensions*
+[none]
+* 2a. AlgoBase detects that the specified path is invalid.
++
+[none]
+** 2a1. AlgoBase informs user that the export is unsuccessful because the path is invalid.
++
+Use case ends.
+
+[discrete]
+=== Use Case 16: Import AlgoBase data
+
+*MSS*
+
+1.  User requests to import data from a specified file into AlgoBase.
+2.  AlgoBase imports data from the specified file into AlgoBase.
+3.  AlgoBase indicates that the data are imported into AlgoBase successfully.
++
+Use case ends.
+
+*Extensions*
+[none]
+* 2a. AlgoBase detects that the specified file does not exist.
++
+[none]
+** 2a1. AlgoBase informs user that the import is unsuccessful because the file path is invalid.
 +
 Use case ends.
 

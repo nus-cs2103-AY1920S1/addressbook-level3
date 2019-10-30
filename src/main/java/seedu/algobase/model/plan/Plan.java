@@ -8,7 +8,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import seedu.algobase.commons.util.IdUtil;
+import seedu.algobase.model.Id;
 import seedu.algobase.model.task.Task;
 
 /**
@@ -18,7 +18,7 @@ import seedu.algobase.model.task.Task;
 public class Plan {
 
     // Identity fields
-    private final long id;
+    private final Id id;
     private final PlanName planName;
 
     // Data fields
@@ -33,7 +33,7 @@ public class Plan {
     public Plan(PlanName planName, PlanDescription planDescription, LocalDate startDate, LocalDate endDate,
                 Set<Task> tasks) {
         requireAllNonNull(planName, planDescription, startDate, endDate, tasks);
-        this.id = IdUtil.generateId();
+        this.id = Id.generateId();
         this.planName = planName;
         this.planDescription = planDescription;
         this.startDate = startDate;
@@ -42,7 +42,7 @@ public class Plan {
         this.tasks.addAll(tasks);
     }
 
-    public Plan(long id, PlanName planName, PlanDescription planDescription, LocalDate startDate,
+    public Plan(Id id, PlanName planName, PlanDescription planDescription, LocalDate startDate,
                 LocalDate endDate, Set<Task> tasks) {
         requireAllNonNull(id, planName, planDescription, startDate, endDate, tasks);
         this.id = id;
@@ -61,7 +61,7 @@ public class Plan {
     public static Plan updateTasks(Plan planToUpdate, Set<Task> taskSet) {
         assert planToUpdate != null;
 
-        long id = planToUpdate.id;
+        Id id = planToUpdate.id;
         PlanName name = planToUpdate.planName;
         PlanDescription description = planToUpdate.planDescription;
         LocalDate startDate = planToUpdate.startDate;
@@ -70,7 +70,23 @@ public class Plan {
         return new Plan(id, name, description, startDate, endDate, taskSet);
     }
 
-    public long getId() {
+    /**
+     * Returns number of solved tasks within plan.
+     * @return number of solved tasks.
+     */
+    public int getSolvedTaskCount() {
+        return (int) this.getTasks().stream().filter((task) -> task.getIsSolved()).count();
+    }
+
+    /**
+     * Returns number of unsolved tasks within plan.
+     * @return number of unsolved tasks.
+     */
+    public int getUnsolvedTaskCount() {
+        return (int) this.getTasks().stream().filter((task) -> !task.getIsSolved()).count();
+    }
+
+    public Id getId() {
         return id;
     }
 

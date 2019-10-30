@@ -6,10 +6,13 @@ import static seedu.algobase.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.Iterator;
 import java.util.List;
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.StringProperty;
 import javafx.collections.ObservableList;
 import seedu.algobase.commons.exceptions.IllegalValueException;
 import seedu.algobase.model.commandhistory.CommandHistory;
 import seedu.algobase.model.commandhistory.CommandHistoryList;
+import seedu.algobase.model.gui.GuiState;
 import seedu.algobase.model.plan.Plan;
 import seedu.algobase.model.plan.PlanList;
 import seedu.algobase.model.problem.Problem;
@@ -29,6 +32,7 @@ public class AlgoBase implements ReadOnlyAlgoBase {
     private final UniqueProblemList problems;
     private final UniqueTagList tags;
     private final PlanList plans;
+    private final GuiState guiState;
     private final UniqueFindRuleList findRules;
     private final CommandHistoryList commandHistories;
 
@@ -43,6 +47,7 @@ public class AlgoBase implements ReadOnlyAlgoBase {
         problems = new UniqueProblemList();
         plans = new PlanList();
         tags = new UniqueTagList();
+        guiState = new GuiState();
         commandHistories = new CommandHistoryList();
         findRules = new UniqueFindRuleList();
     }
@@ -67,19 +72,27 @@ public class AlgoBase implements ReadOnlyAlgoBase {
         setPlans(newData.getPlanList());
         setTags(newData.getTagList());
         setFindRules(newData.getFindRules());
+        this.guiState.resetData(newData.getGuiState());
+    }
+
+    //========== Gui State ==============================================================
+    public GuiState getGuiState() {
+        return this.guiState;
+    }
+
+    public void setGuiState(GuiState guiState) {
+        this.guiState.resetData(guiState);
     }
 
     //========== Problem ================================================================
 
-    /**
-     * Returns the {@code Problem} with the same id in the algobase.
-     */
-    public Problem findProblemById(long problemId) throws IllegalValueException {
+    @Override
+    public Problem findProblemById(Id problemId) throws IllegalValueException {
         requireNonNull(problemId);
         Iterator<Problem> iterator = problems.iterator();
         while (iterator.hasNext()) {
             Problem problem = iterator.next();
-            if (problem.getId() == problemId) {
+            if (problem.getId().equals(problemId)) {
                 return problem;
             }
         }
@@ -135,6 +148,20 @@ public class AlgoBase implements ReadOnlyAlgoBase {
     }
 
     //========== Tag ====================================================================
+
+    @Override
+    public Tag findTagById(Id tagId) throws IllegalValueException {
+        requireNonNull(tagId);
+        Iterator<Tag> iterator = tags.iterator();
+        while (iterator.hasNext()) {
+            Tag tag = iterator.next();
+            if (tag.getId().equals(tagId)) {
+                return tag;
+            }
+        }
+        throw new IllegalValueException("No tag found");
+    }
+
     /**
      * Replaces the contents of the Tag list with {@code tags}.
      * {@code tags} must not contain duplicate tags.
@@ -183,6 +210,19 @@ public class AlgoBase implements ReadOnlyAlgoBase {
     }
 
     //========== Plan ===================================================================
+
+    @Override
+    public Plan findPlanById(Id planId) throws IllegalValueException {
+        requireNonNull(planId);
+        Iterator<Plan> iterator = plans.iterator();
+        while (iterator.hasNext()) {
+            Plan plan = iterator.next();
+            if (plan.getId().equals(planId)) {
+                return plan;
+            }
+        }
+        throw new IllegalValueException("No plan found");
+    }
 
     /**
      * Replaces the contents of the Plan list with {@code plans}.
@@ -233,6 +273,21 @@ public class AlgoBase implements ReadOnlyAlgoBase {
     @Override
     public ObservableList<Task> getCurrentTaskList() {
         return plans.getUnmodifiableObservableTaskList();
+    }
+
+    @Override
+    public StringProperty getCurrentPlan() {
+        return plans.getCurrentPlan();
+    }
+
+    @Override
+    public IntegerProperty getCurrentSolvedCount() {
+        return plans.getCurrentSolvedCount();
+    }
+
+    @Override
+    public IntegerProperty getCurrentUnsolvedCount() {
+        return plans.getCurrentUnsolvedCount();
     }
 
     //========== Find Rules =============================================================

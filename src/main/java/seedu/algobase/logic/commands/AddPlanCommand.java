@@ -20,7 +20,7 @@ public class AddPlanCommand extends Command {
     public static final String COMMAND_WORD = "addplan";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Adds a Plan to the algobase.\n"
+            + ": Adds a Plan to AlgoBase.\n"
             + "Parameters:\n"
             + PREFIX_NAME + "NAME "
             + PREFIX_DESCRIPTION + "DESCRIPTION "
@@ -30,11 +30,11 @@ public class AddPlanCommand extends Command {
             + COMMAND_WORD + " "
             + PREFIX_NAME + "CS2040 "
             + PREFIX_DESCRIPTION + "past year questions of CS2040 "
-            + PREFIX_START_DATE + "2019-01-01"
+            + PREFIX_START_DATE + "2019-01-01 "
             + PREFIX_END_DATE + "3019-12-12";
 
-    public static final String MESSAGE_SUCCESS = "New Plan added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PLAN = "A plan of this name already exists in the algobase.";
+    public static final String MESSAGE_SUCCESS = "New Plan [%1$s] added to AlgoBase.";
+    public static final String MESSAGE_DUPLICATE_PLAN = "A plan with name [%1$s] already exists in AlgoBase.";
 
     private final Plan toAdd;
 
@@ -51,11 +51,11 @@ public class AddPlanCommand extends Command {
         requireNonNull(model);
 
         if (model.hasPlan(toAdd)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PLAN);
+            throw new CommandException(String.format(MESSAGE_DUPLICATE_PLAN, toAdd.getPlanName()));
         }
 
         model.addPlan(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd.getPlanName()));
     }
 
     @Override

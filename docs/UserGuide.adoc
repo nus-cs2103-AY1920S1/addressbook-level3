@@ -12,7 +12,7 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/AY1920S1-CS2103T-W11-1/main/tree/master
+:repoURL: https://github.com/AY1920S1-CS2103T-W11-1/main
 
 By: `Team CS2103T-W11-1`      Since: `Sep 2019`      Licence: `MIT`
 
@@ -27,7 +27,7 @@ AlgoBase (AB) is for those who prefer to use a desktop app for managing algorith
 .  Copy the file to the folder you want to use as the home folder for your AlgoBase application.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
-image::Ui.png[width="790"]
+image::Ui.png[width="80%"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will list all possible commands in the result window and open the help window.
@@ -35,6 +35,14 @@ e.g. typing *`help`* and pressing kbd:[Enter] will list all possible commands in
 
 * *`list`* : lists all problems
 * **`add`**`n/factorial d/define a function factorial that takes in a number and n and returns the factorial of the number t/recursion a/Halim` : adds a problem called 'factorial' tagged with 'recursion' and authored by 'Wee Han'
+* **`edit`**`1 src/LeetCode` : edits the first problem displayed and sets its source to 'LeetCode'
+* **`switchtab`**`t/display i/2` : switches to tag tab
+* **`switchtab`**`t/display i/3` : switches to plan tab
++
+image::UiStartPlan.png[width="60%"]
++
+* **`findplan`**`n/CS2040` : finds plans that with name 'CS2040'
+* **`clear`** : resets Algobase
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
@@ -59,6 +67,9 @@ Generates a new problem. +
 Format: `add n/NAME [a/AUTHOR] [w/WEBLINK] [d/DESCRIPTION] [diff/DIFFICULTY] [src/SOURCE] [t/TAG]...`
 
 * `DIFFICULTY` should be an integer or decimal in the range of (0, 5] (left open right close range)
+
+[NOTE]
+Don't provide extreme values like `5.00000...01` as difficulty range as computers can't store decimals exactly and some round-off error is unavoidable.
 
 [TIP]
 A problem can have any number of tags (including 0)
@@ -88,7 +99,7 @@ Deletes the 1st problem in the results of the `find` command.
 ==== Editing a problem : `edit`
 
 Edits an existing problem. +
-Format: `edit INDEX [d/DELETE] [n/NAME] [d/DESCRIPTION] [a/AUTHOR]  [t/TAG]...`
+Format: `edit INDEX [n/NAME] [d/DESCRIPTION] [a/AUTHOR]  [t/TAG]...`
 
 * Edits the problem at the specified `INDEX`. The index refers to the index number shown in the displayed problem list. The index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
@@ -116,6 +127,9 @@ Format: `sort m/METHOD [ord/ORDER]`
 * Method can be `name`, `author`, `weblink`, `difficulty` or `source`.
 * ORDER can be `ascend` or `descend` representing ascending and descending order. The default is in ascending order.
 * String-based values (i.e. `name`, `author`, etc.) are sorted alphabetically.
+
+[NOTE]
+If sorted by ascending order (i.e. the default order), empty fields will have the highest priority, which means if you execute `sort m/weblink`, the first few results would be (if any) without web links.
 
 Examples:
 
@@ -149,7 +163,16 @@ Format: `find [n/NAME] [a/AUTHOR] [d/DESCRIPTION] [src/SOURCE] [diff/LOWER_BOUND
 ** Tags are considered equal only when the tag strings are exactly matched.
 * Difficulty
 ** matches problems with `LOWER_BOUND \<= difficulty \<= UPPER_BOUND`
-** Note that you should provide both bounds. If you want to match problems with exact difficulty `1.5`, please use `diff/1.5-1.5`
+
+[TIP]
+If you want to match problems with exact difficulty `1.5`, please use `diff/1.5-1.5`
+
+[NOTE]
+When providing the search restrictions, you should ensure that keywords are non-blank and difficulty range is valid (as specified in `add` command). Also at least one search restriction should be provided.
+
+[NOTE]
+Words are separated by empty spaces. Thus if we have a sentence "Hello, world!", we have two words `Hello,` and `world!`.
+
 
 Examples:
 
@@ -208,18 +231,18 @@ Deletes the 2nd find rule in the displayed list.
 ==== Creating new tags: `addtag`
 
 Generates a new tag. +
-Format: `addtag n/NAME`
+Format: `addtag t/NAME`
 
 Examples:
 
-* `newtag n/sssp`
+* `addtag t/sssp`
 
 ==== Listing tags: `listtag`
 
 Displays a list of all existing tags. +
 Format: `listtag`
 
-==== Deleting new tags: `deletetag`
+==== Deleting current tags: `deletetag`
 
 Deletes an existing tag. +
 Format: `deletetag INDEX`
@@ -237,39 +260,55 @@ Examples:
 
 === Training Plans
 
-==== Creating a new training plan `addplan`
+==== Adding a plan: `addplan`
 
-Generates a new training plan. +
-Format: `addplan n/NAME`
+Generates a new plan. +
+Format: `add n/NAME [d/DESCRIPTION] [start/START_DATE] [end/END_DATE]`
 
-Examples:
-
-* `addplan n/CS2040`
-
-==== Editing a training plan `editplan`
-
-Edits an existing training plan. +
-Format: `editplan INDEX [a/ADD_PROBLEM_INDEX_LIST] [d/DELETE_PROBLEM_INDEX_LIST] [n/NAME]`
+* Plans cannot have duplicate names.
+* `START_DATE` and `END_DATE` should be in the format of `yyyy-MM-dd`
 
 Examples:
 
-* `editplan 1 a/1 2 3 d/4 5 6 n/training set 1`
+* `addplan n/CS2040 d/past year questions in practical exams start/2019-01-01 end/3019-12-12`
 
-==== Locating training plans by name: `findplan`
+==== Deleting a plan : `deleteplan`
 
-Finds problems whose names contain any of the given keywords. +
-Format: `findplan KEYWORD [MORE_KEYWORDS]`
+Deletes an existing plan. +
+Format: `deleteplan INDEX`
+
+* Deletes the plan at the specified `INDEX`.
+* The index refers to the index number shown in the displayed plan list.
+* The index *must be a positive integer* 1, 2, 3, ...
 
 Examples:
 
-* `find training-set` +
-Returns `training-set-1` and `training-set-2`
-* `find training set` +
-Returns any problem having names `training`, or `set`
+* `listplan` +
+`deleteplan 2` +
+Deletes the 2nd problem in the displayed list.
+* `findplan n/CS2040` +
+`delete 1` +
+Deletes the 1st problem in the results of the `findplan` command (will be introduced in the next section).
 
-==== Listing all training plans: `listplan`
+==== Editing a plan : `editplan`
 
-Displays a list of all existing plans alphabetically. +
+Edits an existing plan. +
+Format: `editplan INDEX [n/NAME] [d/DESCRIPTION] [start/START_DATE] [end/END_DATE]`
+
+* Edits the plan at the specified `INDEX`. The index refers to the index number shown in the displayed plan list. The index *must be a positive integer* 1, 2, 3, ...
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+
+Examples:
+
+* `edit 1 d/past year questions of sit-in labs +
+Edits the description of the 1st plan to be `past year questions of sit-in labs` respectively.
+* `edit 2 start/2019-08-13` +
+Edits the starting date of the 2nd plan to be `2019-08-13`.
+
+==== Listing all plans : `listplan`
+
+Displays a list of all existing plans. +
 Format: `listplan`
 
 ==== Adding a new task to a plan: `addtask`
@@ -299,6 +338,15 @@ Examples:
 
 * `donetask plan/1 task/1`
 
+==== Editing due date of a task from a plan: `edittask`
+
+Edits the due date of a specified task from a specified plan. +
+Format: `edittask plan/PLAN_INDEX task/TASK_INDEX due/DUE_DATE`
+
+Examples:
+
+* `edittask plan/1 task/1 due/2019-12-12`
+
 ==== Marking a task as undone: `undonetask`
 
 Marks a specified task in a specified plan as undone. +
@@ -307,6 +355,34 @@ Format: `undonetask plan/PLAN_INDEX task/TASK_INDEX`
 Examples:
 
 * `undonetask plan/1 task/1`
+
+==== Moving a task from one plan to another: `movetask`
+
+Moves a specified task from a specified plan to another. +
+Format: `movetask task/TASK_INDEX from/PLAN_INDEX to/PLAN_INDEX`
+
+Examples:
+
+* `movetask task/1 from/1 to/2`
+
+=== Searching Plans
+
+==== Locating plans: `findplan`
+
+Finds plans fulfilling all provided constraints. +
+Format: `findplan [n/NAME] [d/DESCRIPTION] [start/RANGE_START] [end/RANGE_END]`
+
+* Name
+** is case-insensitive.
+** is considered a match as long as one word matches.
+** is matched word by word.
+* Description
+** is case-insensitive
+** is matched word by word
+** is considered as a match only when the problem's description includes all words in the constraint.
+* Start and end range
+** is considered a match when there exist overlaps in time. (e.g. a plan with start date of `2019-01-01` and end date of `2019-03-03` matches a plan with start date of `2019-02-02` and end date of `2019-04-04`)
+** both `RANGE_START` and `RANGE_END` should be specified.
 
 === Tabs
 
@@ -350,31 +426,27 @@ Examples:
 
 ==== Importing data: `import`
 
-Imports external data of a specified format (e.g. CSV, JSON) into local storage. +
-Format: `import f/FORMAT p/PATH`
+Imports external data of a specified format (e.g. JSON) into local storage. +
+Format: `import format/FORMAT path/FILE_PATH`
 
-* Format can be ‘CSV’ or ‘JSON’.
-* Directory refers to the full path of the output file.
+* Format can only be `JSON`.
+* File path refers to the relative path of the input file.
 
 Examples:
 
-* `import t/plan p/./steven_halim_secret.json`
+* `import format/json path/./steven_halim_secret.json`
 
 ==== Exporting data: `export`
 
-Exports data into a specified format (e.g. CSV, JSON). +
-Format: `export f/FORMAT p/DIRECTORY`
+Exports data into a specified format (e.g. JSON). +
+Format: `export format/FORMAT path/DIRECTORY_PATH`
 
-* Format can be ‘CSV’ or ‘JSON’.
-* Directory refers to the full path of the output file.
+* Format can only be `JSON`.
+* Directory path refers to the relative path of the directory to store the output file.
 
 Examples:
 
-* `export f/csv p/./`
-
-=== Encryption
-
-==== Encrypting data files `[coming in v2.0]`
+* `export format/json path/.`
 
 === Miscellaneous
 
@@ -396,7 +468,7 @@ Format: `rewind INDEX`
 kbd:[Ctrl + ↑] is shortcut for `rewind 1`
 
 [NOTE]
-Since kbd:[Ctrl + ↑] is equivalent to executing `rewind 1`, you should not expect to rewind multiple commands back if you press the shortcut multiple times - it will always show you the last successfully executed command, if any. If you want to rewind several commands back
+Since kbd:[Ctrl + ↑] is equivalent to executing `rewind 1`, you should not expect to rewind multiple commands back if you press the shortcut multiple times - it will always show you the last successfully executed command, if any. if you want to rewind several commands back, please use `rewind INDEX` instead.
 
 * `find n/Sequences` +
 `rewind 1` +
@@ -417,6 +489,10 @@ Format: `exit`
 AlgoBase data is saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
+=== Encryption
+
+==== Encrypting data files `[coming in v2.0]`
+
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
@@ -424,46 +500,63 @@ There is no need to save manually.
 
 == Command Summary
 
-* *Add* `add n/NAME [d/DESCRIPTION] [a/AUTHOR] [t/TAG]...` +
+* *Add Problem* `add n/NAME [d/DESCRIPTION] [a/AUTHOR] [t/TAG]...` +
 e.g. `add  n/factorial d/define a function factorial that takes in a number n and returns the factorial of the number t/recursion a/Wee Han`
-* *List* : `list` +
-* *Edit* : `edit INDEX [d/DESCRIPTION] [a/AUTHOR] [t/TAG]...` +
+* *List Problems* : `list` +
+* *Edit Problems* : `edit INDEX [d/DESCRIPTION] [a/AUTHOR] [t/TAG]...` +
 e.g. `edit 2 n/permutations t/`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find factorial permutations`
-* *Delete* : `delete INDEX` +
+* *Delete Problem* : `delete INDEX` +
 e.g. `delete 3`
-* *Sort* : `sort m/METHOD [d/DIRECTION]` +
-e.g. `sort m/alphabetical d/ASC`
 
-* *New Tag* : `addtag n/NAME` +
-e.g. `addtag n/sssp`
+* *Sort Problems* : `sort m/METHOD [ord/ORDER]` +
+e.g. `sort m/difficulty ord/ascend`
+* *Find Problems* : `find [n/NAME] [a/AUTHOR] [d/DESCRIPTION] [src/SOURCE] [diff/LOWER_BOUND-UPPER_BOUND] [t/TAG]…` +
+e.g. `find t/algorithm diff/2.0-4.0`
+* *Add Find Rule*: `addfindrule RULE_NAME [n/NAME] [a/AUTHOR] [d/DESCRIPTION] [src/SOURCE] [diff/LOWER_BOUND-UPPER_BOUND] [t/TAG]…` +
+e.g. `addfindrule MediumDiffAlgo t/algorithm diff/2.0-4.0`
+* *Apply Find Rule*: `apply INDEX` +
+e.g. `apply 2`
+* *Delete Find Rule*: `deletefindrule INDEX` +
+e.g. `deletefindrule 2`
+
+* *New Tag* : `addtag t/NAME` +
+e.g. `addtag t/sssp`
 * *List Tags* : `listtag`
 * *Delete Tag* : `deletetag INDEX` +
 e.g. `deletetag 3`
+* *Edit tag* : `edittag INDEX t/TAGNAME` +
+e.g. `edittag 1 t/sort`
 
-* *Add Training Plan* : `addplan n/NAME [d/DESCRIPTION] [s/START_DATE] [e/END_DATE]` +
+* *Add Training Plan* : `addplan n/NAME [d/DESCRIPTION] [start/START_DATE] [end/END_DATE]` +
 e.g. `addplan n/CS2040`
-* *Edit Training Plan* : `editplan INDEX [a/ADD_PROBLEM_INDEX_LIST] [d/DELETE_PROBLEM_INDEX_LIST] [n/NAME] [d/DESCRIPTION] [s/START_DATE] [e/END_DATE]` +
-e.g. `editplan 1 a/1 2 3 d/4 5 6 n/training set 1`
-* *Find Training Plan* : `findplan KEYWORD [MORE_KEYWORDS]` +
-e.g. `find training set`
+* *Edit Training Plan* : `editplan INDEX [n/NAME] [d/DESCRIPTION] [start/START_DATE] [end/END_DATE]` +
+e.g. `editplan 1 n/training start/2020-02-02`
+* *Find Training Plans* : `findplan [n/NAME] [d/DESCRIPTION] [start/RANGE_START] [end/RANGE_END]` +
+e.g. `find n/CS2040 start/2019-03-01 end/2019-03-31`
 * *List Training Plans* : `listplan`
+* *Delete Training Plan* : `deleteplan INDEX` +
+e.g. `deleteplan 2`
 * *Add Task to Training Plan* : `addtask plan/PLAN_INDEX prob/PROBLEM_INDEX` +
 e.g. `addtask plan/1 prob/2`
 * *Delete Task from Training Plan* : `deletetask plan/PLAN_INDEX task/TASK_INDEX` +
 e.g. `deletetask plan/1 task/2`
+* *Edit Due Date of Task* : `edittask plan/PLAN_INDEX task/TASK_INDEX due/DUE_DATE` +
+e.g. `edittask plan/1 task/2 due/2019-12-12`
 * *Mark Task as done* : `donetask plan/PLAN_INDEX task/TASK_INDEX` +
 e.g. `donetask plan/1 task/2`
 * *Mark Task as undone* : `undonetask plan/PLAN_INDEX task/TASK_INDEX` +
 e.g. `undonetask plan/1 task/2`
+* *Move Tasks among Plans* : `movetask task/TASK_INDEX from/PLAN_INDEX to/PLAN_TASK` +
+e.g. `movetask task/1 from/1 to/2`
 
-* *Importing data* : `import f/FORMAT p/PATH` +
-e.g. `import t/plan p/./steven_halim_secret.json`
-* *Exporting data* : `export f/FORMAT p/DIRECTORY` +
-e.g. `export f/csv p/./`
+* *Exporting data* : `export format/FORMAT path/DIRECTORY_PATH` +
+e.g. `export format/json path/.`
+* *Importing data* : `import format/FORMAT path/FILE_PATH` +
+e.g. `import format/json path/./steven_halim_secret.json`
+
+* *Rewind Command History* : `rewind INDEX` +
+e.g. `rewind 1`
 
 * *Help* : `help`
 * *Clear* : `clear`
 * *Exit* : `exit`
-

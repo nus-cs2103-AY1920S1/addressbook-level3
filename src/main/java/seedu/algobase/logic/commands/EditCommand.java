@@ -20,6 +20,7 @@ import seedu.algobase.commons.core.Messages;
 import seedu.algobase.commons.core.index.Index;
 import seedu.algobase.commons.util.CollectionUtil;
 import seedu.algobase.logic.commands.exceptions.CommandException;
+import seedu.algobase.model.Id;
 import seedu.algobase.model.Model;
 import seedu.algobase.model.problem.Author;
 import seedu.algobase.model.problem.Description;
@@ -56,9 +57,9 @@ public class EditCommand extends Command {
             + PREFIX_AUTHOR + "Tung Kam Chuen "
             + PREFIX_WEBLINK + "https://open.kattis.com/problems/sequences";
 
-    public static final String MESSAGE_EDIT_PROBLEM_SUCCESS = "Edited Problem: %1$s";
+    public static final String MESSAGE_EDIT_PROBLEM_SUCCESS = "Problem [%1$s] edited.";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_PROBLEM = "This Problem already exists in the algobase.";
+    public static final String MESSAGE_DUPLICATE_PROBLEM = "Problem [%1$s] already exists in AlgoBase.";
 
     private final Index index;
     private final EditProblemDescriptor editProblemDescriptor;
@@ -88,14 +89,14 @@ public class EditCommand extends Command {
         Problem editedProblem = createEditedProblem(problemToEdit, editProblemDescriptor);
 
         if (!problemToEdit.isSameProblem(editedProblem) && model.hasProblem(editedProblem)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PROBLEM);
+            throw new CommandException(String.format(MESSAGE_DUPLICATE_PROBLEM, problemToEdit.getName()));
         }
 
         model.setProblem(problemToEdit, editedProblem);
         model.addTags(editProblemDescriptor.tags);
 
         model.updateFilteredProblemList(PREDICATE_SHOW_ALL_PROBLEMS);
-        return new CommandResult(String.format(MESSAGE_EDIT_PROBLEM_SUCCESS, editedProblem));
+        return new CommandResult(String.format(MESSAGE_EDIT_PROBLEM_SUCCESS, editedProblem.getName()));
     }
 
     /**
@@ -105,7 +106,7 @@ public class EditCommand extends Command {
     private static Problem createEditedProblem(Problem problemToEdit, EditProblemDescriptor editProblemDescriptor) {
         assert problemToEdit != null;
 
-        long id = problemToEdit.getId();
+        Id id = problemToEdit.getId();
         Name updatedName = editProblemDescriptor.getName().orElse(problemToEdit.getName());
         Author updatedAuthor = editProblemDescriptor.getAuthor().orElse(problemToEdit.getAuthor());
         WebLink updatedWebLink = editProblemDescriptor.getWebLink().orElse(problemToEdit.getWebLink());

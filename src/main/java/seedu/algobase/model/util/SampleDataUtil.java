@@ -9,7 +9,10 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import seedu.algobase.model.AlgoBase;
+import seedu.algobase.model.Id;
+import seedu.algobase.model.ModelType;
 import seedu.algobase.model.ReadOnlyAlgoBase;
+import seedu.algobase.model.gui.TabData;
 import seedu.algobase.model.plan.Plan;
 import seedu.algobase.model.plan.PlanDescription;
 import seedu.algobase.model.plan.PlanName;
@@ -31,7 +34,7 @@ import seedu.algobase.model.task.Task;
 public class SampleDataUtil {
     public static Problem[] getSampleProblems() {
         return new Problem[] {
-            new Problem(100000000,
+            new Problem(Id.generateId(),
                     new Name("Sequences"), new Author("Tung Kam Chuen"),
                     new WebLink("https://open.kattis.com/problems/sequences"),
                     new Description("Find the sum of the number of inversions of the 2k sequences, "
@@ -40,7 +43,7 @@ public class SampleDataUtil {
                     Difficulty.DEFAULT_DIFFICULTY,
                     Remark.DEFAULT_REMARK,
                     new Source("Kattis")),
-            new Problem(100000001,
+            new Problem(Id.generateId(),
                     new Name("Two Sum"), Author.DEFAULT_AUTHOR,
                     new WebLink("https://leetcode.com/problems/two-sum/"),
                     new Description("Given an array of integers, "
@@ -50,7 +53,7 @@ public class SampleDataUtil {
                     new Remark("You may assume that each input would have exactly one solution, \n"
                             + "and you may not use the same element twice."),
                     new Source("LeetCode")),
-            new Problem(100000002,
+            new Problem(Id.generateId(),
                     new Name("Second Highest Salary"), new Author("LeetCode"),
                     new WebLink("https://leetcode.com/problems/second-highest-salary/"),
                     new Description("Write a SQL query to get the second highest salary from the Employee table."),
@@ -58,7 +61,7 @@ public class SampleDataUtil {
                     new Difficulty("2.0"),
                     Remark.DEFAULT_REMARK,
                     new Source("LeetCode")),
-            new Problem(100000003,
+            new Problem(Id.generateId(),
                     new Name("Sudoku Solver"), Author.DEFAULT_AUTHOR,
                     new WebLink("https://leetcode.com/problems/sudoku-solver/"),
                     Description.DEFAULT_DESCRIPTION,
@@ -66,7 +69,7 @@ public class SampleDataUtil {
                     new Difficulty("5.0"),
                     new Remark("You may assume that the given Sudoku puzzle will have a single unique solution."),
                     new Source("LeetCode")),
-            new Problem(100000004,
+            new Problem(Id.generateId(),
                     new Name("A Dawid and Bags of Candies"), Author.DEFAULT_AUTHOR,
                     new WebLink("https://codeforces.com/problemset/problem/1230/A"),
                     Description.DEFAULT_DESCRIPTION,
@@ -74,7 +77,7 @@ public class SampleDataUtil {
                     new Difficulty("4.0"),
                     new Remark("time limit per test1 second" + "memory limit per test256 megabytes"),
                     new Source("CodeForce")),
-            new Problem(100000005,
+            new Problem(Id.generateId(),
                     new Name("Factorial"), new Author("Wee Han"), WebLink.DEFAULT_WEBLINK,
                     new Description("define a function factorial that takes in a number n "
                             + "and returns the factorial of the number."),
@@ -121,6 +124,13 @@ public class SampleDataUtil {
             tasks
         );
         sampleAb.addPlan(samplePlan2);
+
+        sampleAb.getGuiState()
+            .getTabManager()
+            .addDetailsTabData(
+                new TabData(ModelType.PROBLEM, sampleAb.getProblemList().get(0).getId())
+            );
+
         return sampleAb;
     }
 

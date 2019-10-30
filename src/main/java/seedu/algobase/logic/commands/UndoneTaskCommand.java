@@ -34,7 +34,7 @@ public class UndoneTaskCommand extends Command {
             + PREFIX_PLAN + "1 "
             + PREFIX_TASK + "10";
 
-    public static final String MESSAGE_UNDONE_TASK_SUCCESS = "Task [%1$s] marked as undone in Plan [%2$s]";
+    public static final String MESSAGE_UNDONE_TASK_SUCCESS = "Task [%1$s] marked as undone in Plan [%2$s].";
 
     private final UndoneTaskDescriptor undoneTaskDescriptor;
 
@@ -83,9 +83,9 @@ public class UndoneTaskCommand extends Command {
         private Index planIndex;
         private Index taskIndex;
 
-        public UndoneTaskDescriptor(Index planIndex, Index problemIndex) {
+        public UndoneTaskDescriptor(Index planIndex, Index taskIndex) {
             this.planIndex = planIndex;
-            this.taskIndex = problemIndex;
+            this.taskIndex = taskIndex;
         }
 
         @Override

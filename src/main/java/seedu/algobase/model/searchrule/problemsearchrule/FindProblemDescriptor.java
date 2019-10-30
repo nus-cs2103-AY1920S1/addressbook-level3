@@ -49,7 +49,7 @@ public class FindProblemDescriptor {
     }
 
     /**
-     * Copy constructor.
+     * A defensive copy constructor.
      */
     public FindProblemDescriptor(FindProblemDescriptor toCopy) {
         setNamePredicate(toCopy.namePredicate);

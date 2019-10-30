@@ -45,7 +45,7 @@ public class ApplyCommand extends Command {
         ProblemSearchRule findRuleToApply = lastShownList.get(targetIndex.getZeroBased());
         Predicate<Problem> findProblemPredicate = findRuleToApply.getFindProblemPredicate();
         model.updateFilteredProblemList(findProblemPredicate);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, findRuleToApply));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, findRuleToApply.getName()));
     }
 
     @Override
