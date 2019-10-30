@@ -7,6 +7,9 @@ import java.util.List;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.result.CommandResult;
+import seedu.address.logic.commands.result.UiFocus;
+import seedu.address.logic.commands.util.HelpExplanation;
 import seedu.address.model.Model;
 import seedu.address.model.day.Day;
 
@@ -16,10 +19,13 @@ import seedu.address.model.day.Day;
 public class DeleteDayCommand extends DeleteCommand {
     public static final String SECOND_COMMAND_WORD = "day";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the day identified by the index number used in the displayed day list.\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
-            + "Example: " + DeleteCommand.COMMAND_WORD + " " + SECOND_COMMAND_WORD + " 1";
+    public static final HelpExplanation MESSAGE_USAGE = new HelpExplanation(
+            COMMAND_WORD + " " + SECOND_COMMAND_WORD,
+            "Deletes the day identified by the index "
+                    + "number used in the displayed day list.",
+            COMMAND_WORD + " " + SECOND_COMMAND_WORD + " INDEX(must be a positive integer)",
+            COMMAND_WORD + " " + SECOND_COMMAND_WORD + " 4"
+    );
 
     public static final String MESSAGE_DELETE_DAY_SUCCESS = "Deleted day: %1$d";
 
@@ -45,7 +51,10 @@ public class DeleteDayCommand extends DeleteCommand {
 
         Day dayToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deleteDay(dayToDelete);
-        return new CommandResult(String.format(MESSAGE_DELETE_DAY_SUCCESS, targetIndex.getOneBased()));
+        return new CommandResult(
+            String.format(MESSAGE_DELETE_DAY_SUCCESS, targetIndex.getOneBased()),
+            new UiFocus[] {UiFocus.AGENDA}
+        );
     }
 
     @Override

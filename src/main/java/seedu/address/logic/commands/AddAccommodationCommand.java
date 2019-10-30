@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.address.logic.commands.util.CommandUtil.findIndexOfAccommodation;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
@@ -9,6 +10,10 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.result.CommandResult;
+import seedu.address.logic.commands.result.ResultInformation;
+import seedu.address.logic.commands.result.UiFocus;
+import seedu.address.logic.commands.util.HelpExplanation;
 import seedu.address.model.Model;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.itineraryitem.accommodation.Accommodation;
@@ -19,17 +24,18 @@ import seedu.address.model.itineraryitem.accommodation.Accommodation;
 public class AddAccommodationCommand extends AddCommand {
     public static final String SECOND_COMMAND_WORD = "accommodation";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + " " + SECOND_COMMAND_WORD + " "
-            + ": Adds an Accommodation to the itinerary."
-            + "Parameters: "
-            + PREFIX_NAME + "NAME "
-            + PREFIX_ADDRESS + "ADDRESS "
-            + PREFIX_PHONE + "NUMBER "
-            + "[" + PREFIX_TAG + "TAG]...\n"
-            + "Example: add " + COMMAND_WORD + " "
-            + PREFIX_NAME + "Hotel 81 "
-            + PREFIX_ADDRESS + "Geylang "
-            + PREFIX_TAG + "cheap";
+    public static final HelpExplanation MESSAGE_USAGE = new HelpExplanation(
+            COMMAND_WORD + " " + SECOND_COMMAND_WORD,
+            "Adds an Accommodation to the itinerary.",
+            COMMAND_WORD + " " + SECOND_COMMAND_WORD + " " + PREFIX_NAME + "NAME "
+                    + PREFIX_ADDRESS + "ADDRESS "
+                    + PREFIX_PHONE + "NUMBER "
+                    + "[" + PREFIX_TAG + "TAG]...",
+            COMMAND_WORD + " " + SECOND_COMMAND_WORD + " "
+                    + PREFIX_NAME + "Hotel 81 "
+                    + PREFIX_ADDRESS + "Geylang "
+                    + PREFIX_TAG + "cheap"
+    );
 
     public static final String MESSAGE_SUCCESS = "New accommodation added: %1s";
     public static final String MESSAGE_DUPLICATE_ACCOMMODATION = "This accommodation already exists in the itinerary.";
@@ -72,8 +78,20 @@ public class AddAccommodationCommand extends AddCommand {
         if (toAdd.getContact().isPresent()) {
             if (model.hasPhone(toAdd.getContact().get().getPhone())) {
                 Contact contact = model.getContactByPhone(toAdd.getContact().get().getPhone()).get();
-                model.addAccommodation(new Accommodation(toAdd.getName(), toAdd.getAddress(), contact,
-                        toAdd.getTags()));
+                Accommodation linkedAccommodation = new Accommodation(toAdd.getName(), toAdd.getAddress(), contact,
+                        toAdd.getTags());
+                model.addAccommodation(linkedAccommodation);
+                return new CommandResult(
+                    String.format(MESSAGE_SUCCESS, linkedAccommodation),
+                    new ResultInformation[] {
+                        new ResultInformation(
+                                linkedAccommodation,
+                                findIndexOfAccommodation(model, linkedAccommodation),
+                                String.format(MESSAGE_SUCCESS, "")
+                        )
+                    },
+                    new UiFocus[]{UiFocus.ACCOMMODATION, UiFocus.INFO}
+                );
             } else {
                 if (index == null) {
                     model.addAccommodation(toAdd);
@@ -88,7 +106,17 @@ public class AddAccommodationCommand extends AddCommand {
                 model.addAccommodationAtIndex(index, toAdd);
             }
         }
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+        return new CommandResult(
+            String.format(MESSAGE_SUCCESS, toAdd),
+            new ResultInformation[]{
+                new ResultInformation(
+                        toAdd,
+                        findIndexOfAccommodation(model, toAdd),
+                        String.format(MESSAGE_SUCCESS, "")
+                )
+            },
+            new UiFocus[]{UiFocus.ACCOMMODATION, UiFocus.INFO}
+        );
     }
 
     @Override

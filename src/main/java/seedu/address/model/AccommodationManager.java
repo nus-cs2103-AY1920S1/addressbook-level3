@@ -3,6 +3,7 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
+import java.util.Optional;
 
 import javafx.collections.ObservableList;
 
@@ -60,11 +61,19 @@ public class AccommodationManager implements ReadOnlyAccommodation {
     //// accommodation-level operations
 
     /**
-     * Returns true if a contacts with the same identity as {@code contacts} exists in the address book.
+     * Returns true if an accommodation with the same identity as {@code accommodations} exists in plan2travel.
      */
     public boolean hasAccommodation(Accommodation accommodation) {
         requireNonNull(accommodation);
         return accommodations.contains(accommodation);
+    }
+
+    /**
+     * Return the optional index of accommodation to find in {@code accommodations}. Returns empty optional if
+     * not found.
+     */
+    public Optional<Index> findAccommodationIndex(Accommodation toFind) {
+        return accommodations.indexOf(toFind);
     }
 
     /**

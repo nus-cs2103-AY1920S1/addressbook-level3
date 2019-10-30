@@ -14,6 +14,9 @@ import java.util.Optional;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.result.CommandResult;
+import seedu.address.logic.commands.result.UiFocus;
+import seedu.address.logic.commands.util.HelpExplanation;
 import seedu.address.model.Model;
 import seedu.address.model.day.ActivityWithTime;
 import seedu.address.model.day.Day;
@@ -25,14 +28,15 @@ public class UnscheduleTimeCommand extends UnscheduleCommand {
 
     public static final String SECOND_COMMAND_WORD = "time";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + " " + SECOND_COMMAND_WORD + " "
-            + ": Unschedules an activity by a time occupied by the activity on a certain day. "
-            + "Parameters: TIME (in 24-hour clock format) "
-            + PREFIX_DAY + "DAY\n"
-            + "Example: " + COMMAND_WORD
-            + " " + SECOND_COMMAND_WORD
-            + " 0900 "
-            + PREFIX_DAY + "3";
+    public static final HelpExplanation MESSAGE_USAGE = new HelpExplanation(
+        COMMAND_WORD + " " + SECOND_COMMAND_WORD,
+        ": Unschedules all instances of an activity on a certain day.",
+        COMMAND_WORD + " " + SECOND_COMMAND_WORD + " "
+                + "TIME(in 24-hour clock format) "
+                + PREFIX_DAY + "NUMBER OF DAYS",
+        COMMAND_WORD + " " + SECOND_COMMAND_WORD + " 0900 "
+                + PREFIX_DAY + "3"
+    );
 
     public static final String MESSAGE_UNSCHEDULE_TIME_SUCCESS = "Activity unscheduled: %1$s";
     public static final String MESSAGE_ACTIVITY_DOES_NOT_EXIST = "Activity does not exist at given time.";
@@ -66,7 +70,8 @@ public class UnscheduleTimeCommand extends UnscheduleCommand {
 
         model.setDays(editedDays);
         model.updateFilteredItinerary(PREDICATE_SHOW_ALL_DAYS);
-        return new CommandResult(String.format(MESSAGE_UNSCHEDULE_TIME_SUCCESS, editedDay));
+        return new CommandResult(String.format(MESSAGE_UNSCHEDULE_TIME_SUCCESS, editedDay),
+                new UiFocus[]{UiFocus.AGENDA});
     }
 
     @Override

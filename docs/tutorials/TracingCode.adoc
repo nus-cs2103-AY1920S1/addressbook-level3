@@ -215,14 +215,14 @@ public JsonSerializablePlanner(ReadOnlyPlanner source) {
 . It appears that a `JsonAdaptedContact` is created for each `Contact` and then added to the
 `JsonSerializablePlanner`.
 . We can continue to step through until we return to `MainWindow#executeCommand()`.
-. Stepping into ``resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());``, we end up in:
+. Stepping into ``feedbackDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());``, we end up in:
 +
-.ResultDisplay#setFeedbackToUser()
+.FeedbackDisplay#setFeedbackToUser()
 [source, java]
 ----
 public void setFeedbackToUser(String feedbackToUser) {
     requireNonNull(feedbackToUser);
-    resultDisplay.setText(feedbackToUser);
+    feedbackDisplay.setText(feedbackToUser);
 }
 ----
 . Finally, we step through until we reach the end of `MainWindow#executeCommand()`.
