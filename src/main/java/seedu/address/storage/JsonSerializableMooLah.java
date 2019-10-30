@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
+import seedu.address.commons.exceptions.DataInconsistencyException;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.MooLah;
 import seedu.address.model.ReadOnlyMooLah;
@@ -61,7 +62,7 @@ class JsonSerializableMooLah {
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */
-    public MooLah toModelType() throws IllegalValueException {
+    public MooLah toModelType() throws IllegalValueException, DataInconsistencyException {
         MooLah mooLah = new MooLah();
         for (JsonAdaptedBudget jsonAdaptedBudget : budgets) {
             Budget budget = jsonAdaptedBudget.toModelType();

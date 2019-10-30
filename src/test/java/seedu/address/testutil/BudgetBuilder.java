@@ -1,13 +1,12 @@
 package seedu.address.testutil;
 
-import java.time.Period;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.budget.Budget;
+import seedu.address.model.budget.BudgetPeriod;
 import seedu.address.model.budget.Percentage;
 import seedu.address.model.expense.Description;
 import seedu.address.model.expense.Expense;
@@ -29,7 +28,7 @@ public class BudgetBuilder {
     private Price amount;
     private Timestamp startDate;
     private Timestamp endDate;
-    private Period period;
+    private BudgetPeriod period;
     private ObservableList<Expense> expenses;
     private boolean isPrimary;
     private Percentage proportionUsed;
@@ -41,7 +40,7 @@ public class BudgetBuilder {
             expenses = FXCollections.observableArrayList();
             startDate = Timestamp.createTimestampIfValid(DEFAULT_START_DATE).get();
             period = ParserUtil.parsePeriod(DEFAULT_PERIOD);
-            endDate = startDate.plus(period);
+            endDate = startDate.plus(period.getPeriod());
             isPrimary = false;
             proportionUsed = new Percentage(0);
         } catch (ParseException e) {

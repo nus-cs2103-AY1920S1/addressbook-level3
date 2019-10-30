@@ -248,6 +248,7 @@ public class ModelManager implements Model {
         updateFilteredExpenseList(PREDICATE_SHOW_ALL_EXPENSES);
     }
 
+
     @Override
     public void setExpense(Expense target, Expense editedExpense) {
         requireAllNonNull(target, editedExpense);

@@ -210,10 +210,12 @@ public class MainWindow extends UiPart<Stage> {
                 List.of(PREFIX_DESCRIPTION, PREFIX_PRICE, PREFIX_CATEGORY));
         commandBox.enableSyntaxHighlightingForCommand("alias",
                 List.of(PREFIX_ALIAS_ALIAS_NAME, PREFIX_ALIAS_ALIAS_INPUT));
-        commandBox.enableSyntaxHighlightingForCommand("budget",
+        commandBox.enableSyntaxHighlightingForCommand("addbudget",
                 List.of(PREFIX_DESCRIPTION, PREFIX_PRICE, PREFIX_START_DATE, PREFIX_PERIOD));
-        commandBox.enableSyntaxHighlightingForCommand("switch",
+        commandBox.enableSyntaxHighlightingForCommand("switchbudget",
                 List.of(PREFIX_DESCRIPTION));
+        commandBox.enableSyntaxHighlightingForCommand("pastperiod",
+                List.of(PREFIX_TIMESTAMP));
         commandBox.enableSyntaxHighlightingForCommand("event",
                 List.of(PREFIX_DESCRIPTION, PREFIX_PRICE, PREFIX_CATEGORY, PREFIX_TIMESTAMP));
         commandBox.enableSyntaxHighlightingForCommand("statscompare",
@@ -226,11 +228,15 @@ public class MainWindow extends UiPart<Stage> {
                 Collections.emptyList());
         commandBox.enableSyntaxHighlightingForCommand("deletebudget",
                 Collections.emptyList());
+        commandBox.enableSyntaxHighlightingForCommand("deletefrombudget",
+                Collections.emptyList());
         commandBox.enableSyntaxHighlightingForCommand("list",
                 Collections.emptyList());
         commandBox.enableSyntaxHighlightingForCommand("delete",
                 Collections.emptyList());
         commandBox.enableSyntaxHighlightingForCommand("edit",
+                Collections.emptyList());
+        commandBox.enableSyntaxHighlightingForCommand("editfrombudget",
                 Collections.emptyList());
         commandBox.enableSyntaxHighlightingForCommand("editbudget",
                 Collections.emptyList());

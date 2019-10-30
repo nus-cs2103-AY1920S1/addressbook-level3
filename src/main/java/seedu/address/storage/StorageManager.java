@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
+import seedu.address.commons.exceptions.DataInconsistencyException;
 import seedu.address.model.ReadOnlyMooLah;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
@@ -53,12 +54,14 @@ public class StorageManager implements Storage {
     }
 
     @Override
-    public Optional<ReadOnlyMooLah> readMooLah() throws DataConversionException, IOException {
+    public Optional<ReadOnlyMooLah> readMooLah() throws DataConversionException, IOException,
+            DataInconsistencyException {
         return readMooLah(mooLahStorage.getMooLahFilePath());
     }
 
     @Override
-    public Optional<ReadOnlyMooLah> readMooLah(Path filePath) throws DataConversionException, IOException {
+    public Optional<ReadOnlyMooLah> readMooLah(Path filePath) throws DataConversionException, IOException,
+            DataInconsistencyException {
         logger.fine("Attempting to read data from file: " + filePath);
         return mooLahStorage.readMooLah(filePath);
     }

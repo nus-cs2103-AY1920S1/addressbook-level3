@@ -9,6 +9,7 @@ import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
+import seedu.address.commons.exceptions.DataInconsistencyException;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.JsonUtil;
@@ -32,7 +33,7 @@ public class JsonMooLahStorage implements MooLahStorage {
     }
 
     @Override
-    public Optional<ReadOnlyMooLah> readMooLah() throws DataConversionException {
+    public Optional<ReadOnlyMooLah> readMooLah() throws DataConversionException, DataInconsistencyException {
         return readMooLah(filePath);
     }
 
@@ -42,7 +43,8 @@ public class JsonMooLahStorage implements MooLahStorage {
      * @param filePath location of the data. Cannot be null.
      * @throws DataConversionException if the file is not in the correct format.
      */
-    public Optional<ReadOnlyMooLah> readMooLah(Path filePath) throws DataConversionException {
+    public Optional<ReadOnlyMooLah> readMooLah(Path filePath) throws DataConversionException,
+            DataInconsistencyException {
         requireNonNull(filePath);
 
         Optional<JsonSerializableMooLah> jsonMooLah = JsonUtil.readJsonFile(

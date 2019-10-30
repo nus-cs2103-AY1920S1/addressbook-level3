@@ -11,6 +11,7 @@ import seedu.address.commons.core.Config;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.Version;
 import seedu.address.commons.exceptions.DataConversionException;
+import seedu.address.commons.exceptions.DataInconsistencyException;
 import seedu.address.commons.util.ConfigUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
@@ -89,6 +90,9 @@ public class MainApp extends Application {
             initialData = mooLahOptional.orElseGet(SampleDataUtil::getSampleMooLah);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty MooLah");
+            initialData = new MooLah();
+        } catch (DataInconsistencyException e) {
+            logger.warning("There are inconsistencies between expenses in expense list and in budgets.");
             initialData = new MooLah();
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty MooLah");

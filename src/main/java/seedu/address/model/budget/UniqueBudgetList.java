@@ -62,6 +62,7 @@ public class UniqueBudgetList implements Iterable<Budget> {
         if (contains(toAdd)) {
             throw new DuplicateBudgetException();
         }
+        toAdd.normalize(Timestamp.getCurrentTimestamp());
         internalList.add(toAdd);
         if (internalList.size() > 1) {
             getDefaultBudget().setToNotPrimary();
@@ -144,7 +145,7 @@ public class UniqueBudgetList implements Iterable<Budget> {
     }
 
     private Budget getDefaultBudget() {
-        return getBudgetWithName(new Description("default budget"));
+        return getBudgetWithName(Budget.DEFAULT_BUDGET_DESCRIPTION);
     }
 
     /**

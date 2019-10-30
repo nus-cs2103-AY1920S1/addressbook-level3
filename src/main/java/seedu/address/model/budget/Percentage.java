@@ -1,7 +1,6 @@
 package seedu.address.model.budget;
 
 import static seedu.address.commons.util.AppUtil.checkArgument;
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
 
@@ -10,7 +9,7 @@ import java.util.Objects;
  */
 public class Percentage {
     public static final String MESSAGE_CONSTRAINTS =
-            "Percentage should be a non-negative integer less than or equal to 100.";
+            "Percentage should be a non-negative integer, followed by a % sign.";
 
     private final int proportion;
 
@@ -47,12 +46,6 @@ public class Percentage {
      */
     public static boolean isValidPercentage(int input) {
         return input >= 0;
-    }
-
-    public static int getProportionFromString(String string) {
-        requireAllNonNull(string);
-        String proportionString = string.substring(0, string.length() - 1);
-        return Integer.parseInt(proportionString);
     }
 
     @Override
