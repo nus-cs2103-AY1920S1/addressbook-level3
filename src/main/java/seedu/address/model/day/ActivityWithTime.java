@@ -39,6 +39,10 @@ public class ActivityWithTime implements Comparable<ActivityWithTime> {
             return true;
         }
 
+        if (other instanceof Activity) {
+            return this.getActivity().equals(other);
+        }
+
         if (!(other instanceof ActivityWithTime)) {
             return false;
         }
