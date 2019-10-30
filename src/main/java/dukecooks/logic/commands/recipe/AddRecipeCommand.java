@@ -8,6 +8,7 @@ import static dukecooks.logic.parser.CliSyntax.PREFIX_NAME;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_PROTEIN;
 import static java.util.Objects.requireNonNull;
 
+import dukecooks.commons.core.Event;
 import dukecooks.logic.commands.AddCommand;
 import dukecooks.logic.commands.CommandResult;
 import dukecooks.logic.commands.exceptions.CommandException;
@@ -41,6 +42,8 @@ public class AddRecipeCommand extends AddCommand {
     public static final String MESSAGE_SUCCESS = "New recipe added: %1$s";
     public static final String MESSAGE_DUPLICATE_RECIPE = "This recipe already exists in Duke Cooks";
 
+    private static Event event;
+
     private final Recipe toAdd;
 
     /**
@@ -60,6 +63,10 @@ public class AddRecipeCommand extends AddCommand {
         }
 
         model.addRecipe(toAdd);
+
+        event = Event.getInstance();
+        event.set("recipe", "all");
+
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 

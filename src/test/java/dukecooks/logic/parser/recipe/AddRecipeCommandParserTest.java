@@ -45,15 +45,6 @@ public class AddRecipeCommandParserTest {
                 + CommandTestUtil.PROTEIN_DESC_BURGER, new AddRecipeCommand(expectedRecipeMultipleIngredients));
     }
 
-    //    Removed this test case as recipe has no optional fields.
-    //    @Test
-    //    public void parse_optionalFieldsMissing_success() {
-    //        // zero ingredientss
-    //        Recipe expectedRecipe = new RecipeBuilder(FISH).withIngredients().build();
-    //        assertParseSuccess(parser, NAME_DESC_FISH,
-    //                new AddRecipeCommand(expectedRecipe));
-    //    }
-
     @Test
     public void parse_compulsoryFieldMissing_failure() {
         String expectedMessage = String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, AddRecipeCommand.MESSAGE_USAGE);

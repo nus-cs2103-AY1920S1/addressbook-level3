@@ -28,17 +28,33 @@ public class CliSyntax {
     public static final Prefix PREFIX_CARBS = new Prefix("c/");
     public static final Prefix PREFIX_FATS = new Prefix("f/");
     public static final Prefix PREFIX_PROTEIN = new Prefix("p/");
-    public static final Prefix PREFIX_GENDER = new Prefix("g/");
-    public static final Prefix PREFIX_DOB = new Prefix("d/");
-    public static final Prefix PREFIX_BLOODTYPE = new Prefix("bt/");
-    public static final Prefix PREFIX_HEIGHT = new Prefix("h/");
-    public static final Prefix PREFIX_MEDICALHISTORY = new Prefix("m/");
+
+    /* Meal Plan Book */
+    public static final Prefix PREFIX_DAY1 = new Prefix("day1/");
+    public static final Prefix PREFIX_REMOVEDAY1 = new Prefix("day1-/");
+    public static final Prefix PREFIX_DAY2 = new Prefix("day2/");
+    public static final Prefix PREFIX_REMOVEDAY2 = new Prefix("day2-/");
+    public static final Prefix PREFIX_DAY3 = new Prefix("day3/");
+    public static final Prefix PREFIX_REMOVEDAY3 = new Prefix("day3-/");
+    public static final Prefix PREFIX_DAY4 = new Prefix("day4/");
+    public static final Prefix PREFIX_REMOVEDAY4 = new Prefix("day4-/");
+    public static final Prefix PREFIX_DAY5 = new Prefix("day5/");
+    public static final Prefix PREFIX_REMOVEDAY5 = new Prefix("day5-/");
+    public static final Prefix PREFIX_DAY6 = new Prefix("day6/");
+    public static final Prefix PREFIX_REMOVEDAY6 = new Prefix("day6-/");
+    public static final Prefix PREFIX_DAY7 = new Prefix("day7/");
+    public static final Prefix PREFIX_REMOVEDAY7 = new Prefix("day7-/");
 
     /* Health Records */
     public static final Prefix PREFIX_ID = new Prefix("id/");
     public static final Prefix PREFIX_TYPE = new Prefix("t/");
     public static final Prefix PREFIX_VALUE = new Prefix("val/");
     public static final Prefix PREFIX_DATETIME = new Prefix("dt/");
+    public static final Prefix PREFIX_GENDER = new Prefix("g/");
+    public static final Prefix PREFIX_DOB = new Prefix("d/");
+    public static final Prefix PREFIX_BLOODTYPE = new Prefix("bt/");
+    public static final Prefix PREFIX_HEIGHT = new Prefix("h/");
+    public static final Prefix PREFIX_MEDICALHISTORY = new Prefix("m/");
 
     /* Diary Records */
     public static final Prefix PREFIX_DIARY_NAME = new Prefix("n/");

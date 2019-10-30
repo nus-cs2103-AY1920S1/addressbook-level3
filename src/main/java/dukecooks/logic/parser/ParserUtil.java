@@ -2,8 +2,10 @@ package dukecooks.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import dukecooks.commons.core.index.Index;
@@ -19,6 +21,7 @@ import dukecooks.model.diary.components.Title;
 import dukecooks.model.health.components.Timestamp;
 import dukecooks.model.health.components.Type;
 import dukecooks.model.health.components.Value;
+import dukecooks.model.mealplan.components.MealPlanName;
 import dukecooks.model.profile.medical.MedicalHistory;
 import dukecooks.model.profile.person.BloodType;
 import dukecooks.model.profile.person.DoB;
@@ -100,6 +103,21 @@ public class ParserUtil {
             throw new ParseException(RecipeName.MESSAGE_CONSTRAINTS);
         }
         return new RecipeName(trimmedName);
+    }
+
+    /**
+     * Parses a {@code String name} into a {@code MealPlanName}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code name} is invalid.
+     */
+    public static MealPlanName parseMealPlanName(String name) throws ParseException {
+        requireNonNull(name);
+        String trimmedName = name.trim();
+        if (!MealPlanName.isValidName(trimmedName)) {
+            throw new ParseException(MealPlanName.MESSAGE_CONSTRAINTS);
+        }
+        return new MealPlanName(trimmedName);
     }
 
     /**
@@ -417,5 +435,33 @@ public class ParserUtil {
             throw new ParseException(Type.MESSAGE_CONSTRAINTS);
         }
         return new Type(trimmedType);
+    }
+
+    /**
+     * Parses a {@code String recipe} into a {@code RecipeName} for addition into a meal plan.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code recipe} is invalid.
+     */
+    public static RecipeName parseRecipe(String recipe) throws ParseException {
+        requireNonNull(recipe);
+        String trimmedRecipe = recipe.trim();
+        if (!RecipeName.isValidName(trimmedRecipe)) {
+            throw new ParseException(RecipeName.MESSAGE_CONSTRAINTS);
+        }
+
+        return new RecipeName(trimmedRecipe);
+    }
+
+    /**
+     * Parses {@code Collection<String> recipes} into a {@code List<RecipeName>}.
+     */
+    public static List<RecipeName> parseRecipes(Collection<String> recipes) throws ParseException {
+        requireNonNull(recipes);
+        final List<RecipeName> recipeList = new ArrayList<>();
+        for (String recipeName : recipes) {
+            recipeList.add(parseRecipe(recipeName));
+        }
+        return recipeList;
     }
 }

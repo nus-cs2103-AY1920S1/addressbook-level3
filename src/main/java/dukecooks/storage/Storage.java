@@ -10,6 +10,7 @@ import dukecooks.model.UserPrefs;
 import dukecooks.model.dashboard.ReadOnlyDashboard;
 import dukecooks.model.diary.ReadOnlyDiary;
 import dukecooks.model.health.ReadOnlyHealthRecords;
+import dukecooks.model.mealplan.ReadOnlyMealPlanBook;
 import dukecooks.model.profile.ReadOnlyUserProfile;
 import dukecooks.model.recipe.ReadOnlyRecipeBook;
 import dukecooks.model.workout.ReadOnlyWorkoutPlanner;
@@ -17,13 +18,14 @@ import dukecooks.storage.dashboard.DashboardStorage;
 import dukecooks.storage.diary.DiaryStorage;
 import dukecooks.storage.exercise.WorkoutPlannerStorage;
 import dukecooks.storage.health.HealthRecordsStorage;
+import dukecooks.storage.mealplan.MealPlanBookStorage;
 import dukecooks.storage.profile.UserProfileStorage;
 import dukecooks.storage.recipe.RecipeBookStorage;
 
 /**
  * API of the Storage component
  */
-public interface Storage extends RecipeBookStorage, UserPrefsStorage,
+public interface Storage extends RecipeBookStorage, MealPlanBookStorage, UserPrefsStorage,
         UserProfileStorage, WorkoutPlannerStorage, HealthRecordsStorage, DiaryStorage, DashboardStorage {
 
     // ================ UserPrefs methods ==============================
@@ -67,6 +69,17 @@ public interface Storage extends RecipeBookStorage, UserPrefsStorage,
     void saveDiary(ReadOnlyDiary diary) throws IOException;
 
     // ================ Recipe Book methods ==============================
+
+    @Override
+    Path getMealPlansFilePath();
+
+    Optional<ReadOnlyMealPlanBook> readMealPlanBook() throws DataConversionException, IOException;
+
+    void saveMealPlanBook(ReadOnlyMealPlanBook recipeBook) throws IOException;
+
+
+
+    // ================ Meal Plan Book methods ==============================
 
     @Override
     Path getRecipesFilePath();

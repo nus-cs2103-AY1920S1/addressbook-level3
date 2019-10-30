@@ -3,6 +3,13 @@ package dukecooks.logic.commands;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_BLOODTYPE;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_CALORIES;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_CARBS;
+import static dukecooks.logic.parser.CliSyntax.PREFIX_DAY1;
+import static dukecooks.logic.parser.CliSyntax.PREFIX_DAY2;
+import static dukecooks.logic.parser.CliSyntax.PREFIX_DAY3;
+import static dukecooks.logic.parser.CliSyntax.PREFIX_DAY4;
+import static dukecooks.logic.parser.CliSyntax.PREFIX_DAY5;
+import static dukecooks.logic.parser.CliSyntax.PREFIX_DAY6;
+import static dukecooks.logic.parser.CliSyntax.PREFIX_DAY7;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_DIARY_NAME;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_DOB;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_FATS;
@@ -14,6 +21,13 @@ import static dukecooks.logic.parser.CliSyntax.PREFIX_MEDICALHISTORY;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_NAME;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_PRIMARY_MUSCLE;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_PROTEIN;
+import static dukecooks.logic.parser.CliSyntax.PREFIX_REMOVEDAY1;
+import static dukecooks.logic.parser.CliSyntax.PREFIX_REMOVEDAY2;
+import static dukecooks.logic.parser.CliSyntax.PREFIX_REMOVEDAY3;
+import static dukecooks.logic.parser.CliSyntax.PREFIX_REMOVEDAY4;
+import static dukecooks.logic.parser.CliSyntax.PREFIX_REMOVEDAY5;
+import static dukecooks.logic.parser.CliSyntax.PREFIX_REMOVEDAY6;
+import static dukecooks.logic.parser.CliSyntax.PREFIX_REMOVEDAY7;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_REMOVEINGREDIENT;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_REPETITIONS;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_SETS;
@@ -31,6 +45,7 @@ import dukecooks.logic.commands.dashboard.EditTaskCommand;
 import dukecooks.logic.commands.diary.EditDiaryCommand;
 import dukecooks.logic.commands.exceptions.CommandException;
 import dukecooks.logic.commands.exercise.EditExerciseCommand;
+import dukecooks.logic.commands.mealplan.EditMealPlanCommand;
 import dukecooks.logic.commands.profile.EditProfileCommand;
 import dukecooks.logic.commands.recipe.EditRecipeCommand;
 import dukecooks.model.Model;
@@ -40,6 +55,9 @@ import dukecooks.model.dashboard.components.DashboardNameContainsKeywordsPredica
 import dukecooks.model.diary.DiaryRecords;
 import dukecooks.model.diary.components.Diary;
 import dukecooks.model.diary.components.DiaryNameContainsKeywordsPredicate;
+import dukecooks.model.mealplan.MealPlanBook;
+import dukecooks.model.mealplan.components.MealPlan;
+import dukecooks.model.mealplan.components.MealPlanNameContainsKeywordsPredicate;
 import dukecooks.model.profile.person.NameContainsKeywordsPredicate;
 import dukecooks.model.profile.person.Person;
 import dukecooks.model.recipe.RecipeBook;
@@ -54,6 +72,7 @@ import dukecooks.model.workout.exercise.components.MusclesTrained;
 import dukecooks.testutil.dashboard.EditDashboardDescriptorBuilder;
 import dukecooks.testutil.diary.EditDiaryDescriptorBuilder;
 import dukecooks.testutil.exercise.EditExerciseDescriptorBuilder;
+import dukecooks.testutil.mealplan.EditMealPlanDescriptorBuilder;
 import dukecooks.testutil.profile.EditPersonDescriptorBuilder;
 import dukecooks.testutil.recipe.EditRecipeDescriptorBuilder;
 
@@ -72,7 +91,6 @@ public class CommandTestUtil {
     public static final String VALID_TASKSTATUS_COMPLETE = "COMPLETE";
     public static final String VALID_TASKSTATUS_INCOMPLETE = "NOT COMPLETE";
 
-
     public static final String VALID_NAME_FISH = "Fish and Chips";
     public static final String VALID_NAME_BURGER = "Cheese Burger";
     public static final String VALID_INGREDIENT_FISH = "Dory Fish";
@@ -85,6 +103,10 @@ public class CommandTestUtil {
     public static final String VALID_FATS_BURGER = "31";
     public static final String VALID_PROTEIN_FISH = "35";
     public static final String VALID_PROTEIN_BURGER = "28";
+
+    public static final String VALID_NAME_FISH_MP = "Fish and Chips Plan";
+    public static final String VALID_NAME_BURGER_MP = "Cheese Burger Plan";
+
     public static final String VALID_NAME_AMY = "Amy Bee";
     public static final String VALID_NAME_BOB = "Bob Choo";
     public static final String VALID_NAME_AMY_DIARY = "Amy Diary";
@@ -119,6 +141,7 @@ public class CommandTestUtil {
     public static final String WEIGHT_DESC = " " + PREFIX_WEIGHT + VALID_WEIGHT;
     public static final String HISTORY_DESC_STROKE = " " + PREFIX_MEDICALHISTORY + VALID_HISTORY_STROKE;
     public static final String HISTORY_DESC_DENGUE = " " + PREFIX_MEDICALHISTORY + VALID_HISTORY_DENGUE;
+
     public static final String NAME_DESC_FISH = " " + PREFIX_NAME + VALID_NAME_FISH;
     public static final String NAME_DESC_BURGER = " " + PREFIX_NAME + VALID_NAME_BURGER;
     public static final String INGREDIENT_DESC_FISH = " " + PREFIX_INGREDIENT + VALID_INGREDIENT_FISH;
@@ -134,6 +157,37 @@ public class CommandTestUtil {
     public static final String PROTEIN_DESC_FISH = " " + PREFIX_PROTEIN + VALID_PROTEIN_FISH;
     public static final String PROTEIN_DESC_BURGER = " " + PREFIX_PROTEIN + VALID_PROTEIN_BURGER;
 
+    public static final String NAME_DESC_FISH_MP = " " + PREFIX_NAME + VALID_NAME_FISH_MP;
+    public static final String NAME_DESC_BURGER_MP = " " + PREFIX_NAME + VALID_NAME_BURGER_MP;
+    public static final String DAY1_DESC_FISH_MP = " " + PREFIX_DAY1 + VALID_NAME_FISH;
+    public static final String DAY1_DESC_BURGER_MP = " " + PREFIX_DAY1 + VALID_NAME_BURGER;
+    public static final String REMOVEDAY1_DESC_FISH_MP = " " + PREFIX_REMOVEDAY1 + VALID_NAME_FISH;
+    public static final String REMOVEDAY1_DESC_BURGER_MP = " " + PREFIX_REMOVEDAY1 + VALID_NAME_BURGER;
+    public static final String DAY2_DESC_FISH_MP = " " + PREFIX_DAY2 + VALID_NAME_FISH;
+    public static final String DAY2_DESC_BURGER_MP = " " + PREFIX_DAY2 + VALID_NAME_BURGER;
+    public static final String REMOVEDAY2_DESC_FISH_MP = " " + PREFIX_REMOVEDAY2 + VALID_NAME_FISH;
+    public static final String REMOVEDAY2_DESC_BURGER_MP = " " + PREFIX_REMOVEDAY2 + VALID_NAME_BURGER;
+    public static final String DAY3_DESC_FISH_MP = " " + PREFIX_DAY3 + VALID_NAME_FISH;
+    public static final String DAY3_DESC_BURGER_MP = " " + PREFIX_DAY3 + VALID_NAME_BURGER;
+    public static final String REMOVEDAY3_DESC_FISH_MP = " " + PREFIX_REMOVEDAY3 + VALID_NAME_FISH;
+    public static final String REMOVEDAY3_DESC_BURGER_MP = " " + PREFIX_REMOVEDAY3 + VALID_NAME_BURGER;
+    public static final String DAY4_DESC_FISH_MP = " " + PREFIX_DAY4 + VALID_NAME_FISH;
+    public static final String DAY4_DESC_BURGER_MP = " " + PREFIX_DAY4 + VALID_NAME_BURGER;
+    public static final String REMOVEDAY4_DESC_FISH_MP = " " + PREFIX_REMOVEDAY4 + VALID_NAME_FISH;
+    public static final String REMOVEDAY4_DESC_BURGER_MP = " " + PREFIX_REMOVEDAY4 + VALID_NAME_BURGER;
+    public static final String DAY5_DESC_FISH_MP = " " + PREFIX_DAY5 + VALID_NAME_FISH;
+    public static final String DAY5_DESC_BURGER_MP = " " + PREFIX_DAY5 + VALID_NAME_BURGER;
+    public static final String REMOVEDAY5_DESC_FISH_MP = " " + PREFIX_REMOVEDAY5 + VALID_NAME_FISH;
+    public static final String REMOVEDAY5_DESC_BURGER_MP = " " + PREFIX_REMOVEDAY5 + VALID_NAME_BURGER;
+    public static final String DAY6_DESC_FISH_MP = " " + PREFIX_DAY6 + VALID_NAME_FISH;
+    public static final String DAY6_DESC_BURGER_MP = " " + PREFIX_DAY6 + VALID_NAME_BURGER;
+    public static final String REMOVEDAY6_DESC_FISH_MP = " " + PREFIX_REMOVEDAY6 + VALID_NAME_FISH;
+    public static final String REMOVEDAY6_DESC_BURGER_MP = " " + PREFIX_REMOVEDAY6 + VALID_NAME_BURGER;
+    public static final String DAY7_DESC_FISH_MP = " " + PREFIX_DAY7 + VALID_NAME_FISH;
+    public static final String DAY7_DESC_BURGER_MP = " " + PREFIX_DAY7 + VALID_NAME_BURGER;
+    public static final String REMOVEDAY7_DESC_FISH_MP = " " + PREFIX_REMOVEDAY7 + VALID_NAME_FISH;
+    public static final String REMOVEDAY7_DESC_BURGER_MP = " " + PREFIX_REMOVEDAY7 + VALID_NAME_BURGER;
+
     public static final String NAME_DESC_PUSHUP = " " + PREFIX_NAME + VALID_NAME_PUSHUP;
     public static final String NAME_DESC_SITUP = " " + PREFIX_NAME + VALID_NAME_SITUP;
     public static final String MUSCLE_DESC_ABS = " " + PREFIX_PRIMARY_MUSCLE + VALID_MUSCLE_ABS;
@@ -148,6 +202,8 @@ public class CommandTestUtil {
     public static final String INVALID_FOOD_NAME_DESC = " " + PREFIX_NAME + "Fish & Chips"; // '&' not allowed in names
     public static final String INVALID_INGREDIENT_DESC = " " + PREFIX_INGREDIENT
             + "Cheese*Burger"; // '*' not allowed in ingredient names
+    public static final String INVALID_MEALPLAN_NAME_DESC = " " + PREFIX_NAME
+            + "Fish & Chips Plan"; // '&' not allowed in names
     public static final String INVALID_CALORIES_DESC = " " + PREFIX_CALORIES + "1a"; // 'a' not allowed in calories
     public static final String INVALID_CARBS_DESC = " " + PREFIX_CARBS + "1a"; // 'a' not allowed in carbs
     public static final String INVALID_FATS_DESC = " " + PREFIX_FATS + "1a"; // 'a' not allowed in fats
@@ -163,6 +219,8 @@ public class CommandTestUtil {
     public static final EditExerciseCommand.EditExerciseDescriptor DESC_SITUP;
     public static final EditRecipeCommand.EditRecipeDescriptor DESC_FISH;
     public static final EditRecipeCommand.EditRecipeDescriptor DESC_BURGER;
+    public static final EditMealPlanCommand.EditMealPlanDescriptor DESC_FISH_MP;
+    public static final EditMealPlanCommand.EditMealPlanDescriptor DESC_BURGER_MP;
     public static final EditProfileCommand.EditPersonDescriptor DESC_AMY;
     public static final EditProfileCommand.EditPersonDescriptor DESC_BOB;
     public static final EditDiaryCommand.EditDiaryDescriptor DESC_AMY_DIARY;
@@ -195,6 +253,14 @@ public class CommandTestUtil {
                 .withCalories(VALID_CALORIES_BURGER).withCarbs(VALID_CARBS_BURGER)
                 .withFats(VALID_FATS_BURGER).withProtein(VALID_PROTEIN_BURGER)
                 .build();
+        DESC_FISH_MP = new EditMealPlanDescriptorBuilder().withMealPlanName(VALID_NAME_FISH_MP)
+                .withDay1ToAdd(VALID_NAME_FISH).withDay2ToAdd(VALID_NAME_FISH).withDay3ToAdd(VALID_NAME_FISH)
+                .withDay4ToAdd(VALID_NAME_FISH).withDay5ToAdd(VALID_NAME_FISH).withDay6ToAdd(VALID_NAME_FISH)
+                .withDay7ToAdd(VALID_NAME_FISH).build();
+        DESC_BURGER_MP = new EditMealPlanDescriptorBuilder().withMealPlanName(VALID_NAME_BURGER_MP)
+                .withDay1ToAdd(VALID_NAME_BURGER).withDay2ToAdd(VALID_NAME_BURGER).withDay3ToAdd(VALID_NAME_BURGER)
+                .withDay4ToAdd(VALID_NAME_BURGER).withDay5ToAdd(VALID_NAME_BURGER).withDay6ToAdd(VALID_NAME_BURGER)
+                .withDay7ToAdd(VALID_NAME_BURGER).build();
     }
 
     /**
@@ -238,6 +304,23 @@ public class CommandTestUtil {
         assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel));
         assertEquals(expectedRecipeBook, actualModel.getRecipeBook());
         assertEquals(expectedFilteredList, actualModel.getFilteredRecipeList());
+    }
+
+    /**
+     * Executes the given {@code command}, confirms that <br>
+     * - a {@code CommandException} is thrown <br>
+     * - the CommandException message matches {@code expectedMessage} <br>
+     * - MealPlanBook, filtered recipe list and selected recipe in {@code actualModel} remain unchanged
+     */
+    public static void assertMealPlanCommandFailure(Command command, Model actualModel, String expectedMessage) {
+        // we are unable to defensively copy the model for comparison later, so we can
+        // only do so by copying its components.
+        MealPlanBook expectedMealPlanBook = new MealPlanBook(actualModel.getMealPlanBook());
+        List<MealPlan> expectedFilteredList = new ArrayList<>(actualModel.getFilteredMealPlanList());
+
+        assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel));
+        assertEquals(expectedMealPlanBook, actualModel.getMealPlanBook());
+        assertEquals(expectedFilteredList, actualModel.getFilteredMealPlanList());
     }
 
     /**
@@ -331,6 +414,20 @@ public class CommandTestUtil {
         model.updateFilteredRecipeList(new RecipeNameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
         assertEquals(1, model.getFilteredRecipeList().size());
+    }
+
+    /**
+     * Updates {@code model}'s filtered list to show only the recipe at the given {@code targetIndex} in the
+     * {@code model}'s MealPlanBook.
+     */
+    public static void showMealPlanAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredMealPlanList().size());
+
+        MealPlan recipe = model.getFilteredMealPlanList().get(targetIndex.getZeroBased());
+        final String[] splitName = recipe.getName().fullName.split("\\s+");
+        model.updateFilteredMealPlanList(new MealPlanNameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+
+        assertEquals(1, model.getFilteredMealPlanList().size());
     }
 
     /**

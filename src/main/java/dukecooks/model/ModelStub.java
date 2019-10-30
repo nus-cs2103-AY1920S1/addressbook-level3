@@ -11,6 +11,8 @@ import dukecooks.model.diary.ReadOnlyDiary;
 import dukecooks.model.diary.components.Diary;
 import dukecooks.model.health.ReadOnlyHealthRecords;
 import dukecooks.model.health.components.Record;
+import dukecooks.model.mealplan.ReadOnlyMealPlanBook;
+import dukecooks.model.mealplan.components.MealPlan;
 import dukecooks.model.profile.ReadOnlyUserProfile;
 import dukecooks.model.profile.person.Person;
 import dukecooks.model.recipe.ReadOnlyRecipeBook;
@@ -184,12 +186,68 @@ public class ModelStub implements Model {
     }
 
     @Override
+    public Recipe retrieveRecipe(Recipe recipe) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
     public ObservableList<Recipe> getFilteredRecipeList() {
         throw new AssertionError("This method should not be called.");
     }
 
     @Override
     public void updateFilteredRecipeList(Predicate<Recipe> predicate) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    // ======================================= Meal Plan Book ==============================================
+    @Override
+    public Path getMealPlansFilePath() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void setMealPlansFilePath(Path recipesFilePath) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void addMealPlan(MealPlan mealPlan) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void setMealPlanBook(ReadOnlyMealPlanBook mealPlanBook) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public ReadOnlyMealPlanBook getMealPlanBook() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public boolean hasMealPlan(MealPlan mealPlan) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void deleteMealPlan(MealPlan target) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void setMealPlan(MealPlan target, MealPlan editedMealPlan) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public ObservableList<MealPlan> getFilteredMealPlanList() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void updateFilteredMealPlanList(Predicate<MealPlan> predicate) {
         throw new AssertionError("This method should not be called.");
     }
 

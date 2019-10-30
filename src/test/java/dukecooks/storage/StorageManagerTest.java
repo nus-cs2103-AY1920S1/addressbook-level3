@@ -27,6 +27,7 @@ import dukecooks.storage.dashboard.JsonDashboardStorage;
 import dukecooks.storage.diary.JsonDiaryStorage;
 import dukecooks.storage.exercise.JsonWorkoutPlannerStorage;
 import dukecooks.storage.health.JsonHealthRecordsStorage;
+import dukecooks.storage.mealplan.JsonMealPlanBookStorage;
 import dukecooks.storage.profile.JsonUserProfileStorage;
 import dukecooks.storage.recipe.JsonRecipeBookStorage;
 
@@ -42,12 +43,14 @@ public class StorageManagerTest {
         JsonUserProfileStorage userProfileStorage = new JsonUserProfileStorage(getTempFilePath("ab"));
         JsonHealthRecordsStorage healthRecordsStorage = new JsonHealthRecordsStorage(getTempFilePath("hr"));
         JsonRecipeBookStorage recipeBookStorage = new JsonRecipeBookStorage(getTempFilePath("ab"));
+        JsonMealPlanBookStorage mealPlanBookStorage = new JsonMealPlanBookStorage(getTempFilePath("ab"));
         JsonWorkoutPlannerStorage workoutPlannerStorage = new JsonWorkoutPlannerStorage(getTempFilePath("ab"));
         JsonDiaryStorage diaryStorage = new JsonDiaryStorage(getTempFilePath("ab"));
         JsonDashboardStorage dashboardStorage = new JsonDashboardStorage(getTempFilePath("ab"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
         storageManager = new StorageManager(userProfileStorage, healthRecordsStorage,
-                recipeBookStorage, workoutPlannerStorage, diaryStorage, dashboardStorage, userPrefsStorage);
+                recipeBookStorage, mealPlanBookStorage, workoutPlannerStorage, diaryStorage,
+                dashboardStorage, userPrefsStorage);
     }
 
     private Path getTempFilePath(String fileName) {

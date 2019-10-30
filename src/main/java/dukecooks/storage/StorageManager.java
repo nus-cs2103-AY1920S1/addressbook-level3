@@ -12,6 +12,7 @@ import dukecooks.model.UserPrefs;
 import dukecooks.model.dashboard.ReadOnlyDashboard;
 import dukecooks.model.diary.ReadOnlyDiary;
 import dukecooks.model.health.ReadOnlyHealthRecords;
+import dukecooks.model.mealplan.ReadOnlyMealPlanBook;
 import dukecooks.model.profile.ReadOnlyUserProfile;
 import dukecooks.model.recipe.ReadOnlyRecipeBook;
 import dukecooks.model.workout.ReadOnlyWorkoutPlanner;
@@ -19,6 +20,7 @@ import dukecooks.storage.dashboard.DashboardStorage;
 import dukecooks.storage.diary.DiaryStorage;
 import dukecooks.storage.exercise.WorkoutPlannerStorage;
 import dukecooks.storage.health.HealthRecordsStorage;
+import dukecooks.storage.mealplan.MealPlanBookStorage;
 import dukecooks.storage.profile.UserProfileStorage;
 import dukecooks.storage.recipe.RecipeBookStorage;
 
@@ -31,6 +33,7 @@ public class StorageManager implements Storage {
     private UserProfileStorage userProfileStorage;
     private HealthRecordsStorage healthRecordsStorage;
     private RecipeBookStorage recipeBookStorage;
+    private MealPlanBookStorage mealPlanBookStorage;
     private WorkoutPlannerStorage workoutPlannerStorage;
     private DiaryStorage diaryStorage;
     private DashboardStorage dashboardStorage;
@@ -38,13 +41,15 @@ public class StorageManager implements Storage {
 
 
     public StorageManager(UserProfileStorage userProfileStorage, HealthRecordsStorage healthRecordsStorage,
-                          RecipeBookStorage recipeBookStorage, WorkoutPlannerStorage workoutPlannerStorage,
+                          RecipeBookStorage recipeBookStorage, MealPlanBookStorage mealPlanBookStorage,
+                          WorkoutPlannerStorage workoutPlannerStorage,
                           DiaryStorage diaryStorage, DashboardStorage dashboardStorage,
                           UserPrefsStorage userPrefsStorage) {
         super();
         this.userProfileStorage = userProfileStorage;
         this.healthRecordsStorage = healthRecordsStorage;
         this.recipeBookStorage = recipeBookStorage;
+        this.mealPlanBookStorage = mealPlanBookStorage;
         this.workoutPlannerStorage = workoutPlannerStorage;
         this.diaryStorage = diaryStorage;
         this.dashboardStorage = dashboardStorage;
@@ -155,6 +160,35 @@ public class StorageManager implements Storage {
     public void saveRecipeBook(ReadOnlyRecipeBook recipeBook, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
         recipeBookStorage.saveRecipeBook(recipeBook, filePath);
+    }
+
+    // ================ MealPlanBook methods ==============================
+
+    @Override
+    public Path getMealPlansFilePath() {
+        return mealPlanBookStorage.getMealPlansFilePath();
+    }
+
+    @Override
+    public Optional<ReadOnlyMealPlanBook> readMealPlanBook() throws DataConversionException, IOException {
+        return readMealPlanBook(mealPlanBookStorage.getMealPlansFilePath());
+    }
+
+    @Override
+    public Optional<ReadOnlyMealPlanBook> readMealPlanBook(Path filePath) throws DataConversionException, IOException {
+        logger.fine("Attempting to read data from file: " + filePath);
+        return mealPlanBookStorage.readMealPlanBook(filePath);
+    }
+
+    @Override
+    public void saveMealPlanBook(ReadOnlyMealPlanBook recipeBook) throws IOException {
+        saveMealPlanBook(recipeBook, mealPlanBookStorage.getMealPlansFilePath());
+    }
+
+    @Override
+    public void saveMealPlanBook(ReadOnlyMealPlanBook recipeBook, Path filePath) throws IOException {
+        logger.fine("Attempting to write to data file: " + filePath);
+        mealPlanBookStorage.saveMealPlanBook(recipeBook, filePath);
     }
 
     // ================ Workout Planner methods ==============================
