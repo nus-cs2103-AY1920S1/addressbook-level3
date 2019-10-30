@@ -70,11 +70,19 @@ public class ModuleCode {
             switch (code) {
             case "cs":
             case "ec":
-            case "ac":
+            case "acc":
             case "fn":
             case "fi":
             case "ar":
-            case "me":
+            case "ie":
+            case "ges":
+            case "ger":
+            case "geh":
+            case "geq":
+            case "get":
+            case "cfg":
+            case "asp":
+            case "as":
                 return true;
             default:
                 return false;
