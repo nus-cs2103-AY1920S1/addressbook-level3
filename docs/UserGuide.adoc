@@ -421,10 +421,18 @@ The table below summarises the commands only available for use in the main list.
 |===
 
 === List Summary
+
+The commands listed below are common to both lists.
+
 * *Help* : `help`
 * *View* : `view|<list>`
 * *Search* : `search|<keyword>[|<other keywords>]...` +
 e.g. `search|milk|tea|pearls`
+* *Clear* : `clear`
+* *Exit* : `exit`
+
+The commands listed below can only be used in the main list.
+
 * *Add* `add|<item name>|<expiry date>[|<quantity>]...` +
 e.g. `add|durian|30/9/2019`
 * *Delete* : `delete|<index>[|<tag> or <quantity>]` +
@@ -436,7 +444,3 @@ e.g. `set reminder|1|7`
 e.g. `check|20`
 * *Sort* : `sort|<key>` +
 e.g. `sort|date`
-* *Clear* : `clear`
-* *Exit* : `exit`
-
-
