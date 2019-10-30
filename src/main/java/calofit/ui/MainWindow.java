@@ -191,7 +191,9 @@ public class MainWindow extends UiPart<Stage> {
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();
-        reportWindow.hide();
+        if (reportWindow != null) {
+            reportWindow.hide();
+        }
     }
 
     @FXML
