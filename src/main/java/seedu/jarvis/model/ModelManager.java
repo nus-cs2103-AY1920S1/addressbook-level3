@@ -750,7 +750,11 @@ public class ModelManager implements Model {
         return planner.getFilteredTaskList();
     }
 
-    //TODO jdocs
+    /**
+     * Returns an unmodifiable view of the list of {@code Task} backed by the internal list of
+     * {@code Planner}
+     * @return a list of all the {@code Task} in the {@code Planner}
+     */
     @Override
     public ObservableList<Task> getUnfilteredTaskList() {
         return planner.getUnfilteredTaskList();

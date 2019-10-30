@@ -57,7 +57,6 @@ public class Deadline extends Task {
      * Retrieves the {@code TaskType} of the task
      * @return {@TaskType} of the task
      */
-    //TODO test
     @Override
     public TaskType getTaskType() {
         return TaskType.Deadline;
