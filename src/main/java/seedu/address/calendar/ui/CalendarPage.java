@@ -1,9 +1,10 @@
 package seedu.address.calendar.ui;
 
+import javafx.beans.property.ReadOnlyDoubleProperty;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
+import javafx.scene.shape.Circle;
 import seedu.address.calendar.logic.CalendarLogic;
 import seedu.address.calendar.model.Calendar;
 import seedu.address.calendar.model.date.ViewOnlyMonth;
@@ -32,8 +33,8 @@ public class CalendarPage extends UiPart<Scene> implements Page {
     private static final String FILE_OPS_ERROR_MESSAGE = "Unable to save calendar";
 
     private ResultDisplay resultDisplay;
-
     private CalendarLogic calendarLogic;
+    private ReadOnlyDoubleProperty monthViewWidth;
 
     @FXML
     StackPane commandBoxPlaceholder;
@@ -45,6 +46,8 @@ public class CalendarPage extends UiPart<Scene> implements Page {
     StackPane monthViewPlaceholder;
     @FXML
     VBox resultDisplayPlaceholder;
+    @FXML
+    GridPane weekHeader;
 
     public CalendarPage() {
         super(FXML);
@@ -62,6 +65,8 @@ public class CalendarPage extends UiPart<Scene> implements Page {
             System.out.println("Problem while reading from the file. Will be starting with an empty Calendar");
         }
         calendarLogic = new CalendarLogic(calendar, calendarStorage);
+        monthViewWidth = weekHeader.widthProperty();
+        monthViewWidth.addListener(((observable, oldValue, newValue) -> System.out.println(newValue)));
 
         fillInnerParts();
     }
@@ -77,6 +82,7 @@ public class CalendarPage extends UiPart<Scene> implements Page {
     /**
      * Sets up calendar page by laying out nodes.
      */
+
     private void fillInnerParts() {
         ViewOnlyMonth currentViewOnlyMonth = calendarLogic.getVisibleMonth();
         MonthOfYear monthOfYear = currentViewOnlyMonth.getMonthOfYear();
@@ -87,8 +93,7 @@ public class CalendarPage extends UiPart<Scene> implements Page {
         YearHeader yearHeader = new YearHeader(year);
         yearHeaderPlaceholder.getChildren().add(yearHeader.getRoot());
 
-        MonthView monthView = new MonthView(currentViewOnlyMonth);
-        monthViewPlaceholder.getChildren().add(monthView.generateMonthGrid());
+        monthViewPlaceholder.getChildren().add(MonthView.generateMonthGrid(currentViewOnlyMonth, monthViewWidth));
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -119,9 +124,8 @@ public class CalendarPage extends UiPart<Scene> implements Page {
     }
 
     private void updateMonthView(ViewOnlyMonth viewOnlyMonth) {
-        MonthView monthView = new MonthView(viewOnlyMonth);
         monthViewPlaceholder.getChildren().clear();
-        monthViewPlaceholder.getChildren().add(monthView.generateMonthGrid());
+        monthViewPlaceholder.getChildren().add(MonthView.generateMonthGrid(viewOnlyMonth, monthViewWidth));
     }
 
     private void handleExit() {
@@ -133,6 +137,7 @@ public class CalendarPage extends UiPart<Scene> implements Page {
      *
      * @see AddressBookLogic#execute(String)
      */
+
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
             CommandResult commandResult = calendarLogic.executeCommand(commandText);
