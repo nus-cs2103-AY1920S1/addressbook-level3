@@ -1,11 +1,15 @@
 package seedu.elisa.ui;
 
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
-import javafx.scene.layout.FlowPane;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.elisa.commons.core.item.Item;
+import seedu.elisa.commons.core.item.Reminder;
 
 /**
  * An UI component that displays information of a {@code Person}.
@@ -27,22 +31,58 @@ public class ReminderListCard extends UiPart<Region> {
     @FXML
     private HBox cardPane;
     @FXML
+    private Label date;
+    @FXML
     private Label description;
     @FXML
     private Label id;
     @FXML
-    private Label priority;
+    private Label priorityLabel;
     @FXML
-    private Label reminderdatetime;
+    private ImageView statusIcon;
     @FXML
-    private FlowPane tags;
+    private ImageView eventIcon;
 
     public ReminderListCard(Item item, int displayedIndex) {
         super(FXML);
         this.item = item;
         id.setText(displayedIndex + ". ");
         description.setText(item.getItemDescription().toString());
-        reminderdatetime.setText("Reminder: " + item.getReminder().get().toString());
+        eventIcon.setImage(new Image(TaskListCard.class.getResourceAsStream("/images/EventIcon.PNG")));
+        Reminder reminder = item.getReminder().get();
+        date.setText(String.valueOf(reminder.getDateTime().getDayOfMonth())
+                + " " + String.valueOf(reminder.getDateTime().getMonth()).substring(0, 3));
+        if (item.hasTask()) {
+            if (item.getTask().get().isComplete()) {
+                statusIcon.setImage(new Image(TaskListCard.class.getResourceAsStream("/images/Completed.PNG")));
+            } else {
+                statusIcon.setImage(new Image(TaskListCard.class.getResourceAsStream("/images/Uncompleted.PNG")));
+            }
+        }
+        String priority = item.getPriority().toString();
+        priorityLabel.setText(priority);
+        priorityLabel.setPadding(new Insets(5, 10, 5, 10));
+        priorityLabel.setAlignment(Pos.CENTER);
+        switch(priority) {
+        case "HIGH":
+            priorityLabel.setStyle("-fx-font-family: 'Arial Black'; "
+                    + "-fx-background-color: red; "
+                    + "-fx-background-radius: 15, 15, 15, 15");
+            break;
+        case "MEDIUM":
+            priorityLabel.setStyle("-fx-font-family: 'Arial Black'; "
+                    + "-fx-background-color: orange; "
+                    + "-fx-background-radius: 15, 15, 15, 15");
+            priorityLabel.setText("MED");
+            break;
+        case "LOW":
+            priorityLabel.setStyle("-fx-font-family: 'Arial Black'; "
+                    + "-fx-background-color: green; "
+                    + "-fx-background-radius: 15, 15, 15, 15");
+            break;
+        default:
+        }
+
     }
 
     @Override
