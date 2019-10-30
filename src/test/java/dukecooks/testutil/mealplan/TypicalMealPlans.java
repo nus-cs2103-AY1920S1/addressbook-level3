@@ -26,21 +26,21 @@ public class TypicalMealPlans {
     public static final MealPlan MAGGI_MP = new MealPlanBuilder().withName("Chicken Maggi Plan")
             .withDay1("Chicken Maggi").withDay2("Chicken Maggi").withDay3("Chicken Maggi").withDay4("Chicken Maggi")
             .withDay5("Chicken Maggi").withDay6("Chicken Maggi").withDay7("Chicken Maggi").build();
-    public static final MealPlan CHICKEN_MP = new MealPlanBuilder().withName("Fried Chicken Week")
+    public static final MealPlan CHICKEN_MP = new MealPlanBuilder().withName("Fried Chicken Plan")
             .withDay1("Fried Chicken").withDay2("Fried Chicken").withDay3("Fried Chicken").withDay4("Fried Chicken")
             .withDay5("Fried Chicken").withDay6("Fried Chicken").withDay7("Fried Chicken").build();
-    public static final MealPlan TEA_MP = new MealPlanBuilder().withName("Tea Week")
+    public static final MealPlan TEA_MP = new MealPlanBuilder().withName("Tea Plan")
             .withDay1("Tea").withDay2("Tea").withDay3("Tea").withDay4("Tea")
             .withDay5("Tea").withDay6("Tea").withDay7("Tea").build();
-    public static final MealPlan FRIES_MP = new MealPlanBuilder().withName("French Fries Week")
+    public static final MealPlan FRIES_MP = new MealPlanBuilder().withName("French Fries Plan")
             .withDay1("French Fries").withDay2("French Fries").withDay3("French Fries").withDay4("French Fries")
             .withDay5("French Fries").withDay6("French Fries").withDay7("French Fries").build();
 
     // Manually added
-    public static final MealPlan TAMAGO_MP = new MealPlanBuilder().withName("Tamago Maki Week")
+    public static final MealPlan TAMAGO_MP = new MealPlanBuilder().withName("Tamago Maki Plan")
             .withDay1("Tamago Maki").withDay2("Tamago Maki").withDay3("Tamago Maki").withDay4("Tamago Maki")
             .withDay5("Tamago Maki").withDay6("Tamago Maki").withDay7("Tamago Maki").build();
-    public static final MealPlan KAPPA_MP = new MealPlanBuilder().withName("Kappa Maki Week")
+    public static final MealPlan KAPPA_MP = new MealPlanBuilder().withName("Kappa Maki Plan")
             .withDay1("Kappa Maki").withDay2("Kappa Maki").withDay3("Kappa Maki").withDay4("Kappa Maki")
             .withDay5("Kappa Maki").withDay6("Kappa Maki").withDay7("Kappa Maki").build();
 

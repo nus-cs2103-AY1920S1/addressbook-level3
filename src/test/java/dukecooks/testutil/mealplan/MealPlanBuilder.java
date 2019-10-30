@@ -13,7 +13,7 @@ import dukecooks.model.util.SampleMealPlanDataUtil;
  */
 public class MealPlanBuilder {
 
-    public static final String DEFAULT_NAME = "Omelette Week";
+    public static final String DEFAULT_NAME = "Omelette Plan";
     public static final String DEFAULT_RECIPENAME = "Cheese Omelette";
 
     private MealPlanName name;
