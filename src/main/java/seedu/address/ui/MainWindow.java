@@ -5,6 +5,7 @@ import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
@@ -154,9 +155,7 @@ public class MainWindow extends UiPart<Stage> {
 
         BudgetPanel budgetsPanel = new BudgetPanel(logic.getFilteredBudgetList());
         budgetsPlaceHolder.getChildren().add(budgetsPanel.getRoot());
-
-        // TODO: add wish reminders to the panel as well
-        ReminderPanel reminderPanel = new ReminderPanel(logic.getFilteredExpenseReminderList());
+        ReminderPanel reminderPanel = new ReminderPanel(logic.getFilteredReminders());
         remindersPlaceHolder.getChildren().add(reminderPanel.getRoot());
     }
 
@@ -228,6 +227,25 @@ public class MainWindow extends UiPart<Stage> {
             break;
         }
         logger.info("Toggled " + panelName + " side panel");
+    }
+
+    /**
+     * Replaces the Reminder Panel with the Conditions Panel;
+     */
+    private void showConditionPanel() {
+        remindersPlaceHolder.getChildren().clear();
+        remindersPlaceHolder.getChildren().add(new Label("Conditions"));
+        ConditionPanel conditionPanel = new ConditionPanel(logic.getFilteredConditions());
+        remindersPlaceHolder.getChildren().add(conditionPanel.getRoot());
+    }
+    /**
+     * Replaces the Conditions Panel with the Reminder Panel;
+     */
+    private void showReminderPanel() {
+        remindersPlaceHolder.getChildren().clear();
+        remindersPlaceHolder.getChildren().add(new Label("Reminders"));
+        ReminderPanel reminderPanel = new ReminderPanel(logic.getFilteredReminders());
+        remindersPlaceHolder.getChildren().add(reminderPanel.getRoot());
     }
 
     /**
@@ -382,6 +400,14 @@ public class MainWindow extends UiPart<Stage> {
                 isStatsGraphicsWindow = !isStatsGraphicsWindow;
                 this.togglePlaceHolderForStats(true);
                 this.toggleStatsPanel();
+            }
+
+            if (commandResult.toShowConditionPanel()) {
+                showConditionPanel();
+            }
+
+            if (!(commandResult.toShowConditionPanel())) {
+                showReminderPanel();
             }
 
             return commandResult;
