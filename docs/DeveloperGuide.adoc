@@ -361,7 +361,7 @@ respectively.
 `Command#execute`. There is thus no need to
 modify the existing `Command` abstract class, which will require
 changes to every single existing `Command` sub-type (for very little benefit,
-since `HistoryCommand` is the only `Command` that acts on `CommandHistory`).
+since `HistoryCommand` is the only existing `Command` that acts on `CommandHistory`).
 *** `HistoryCommand` does not need to handle the formatting and display of
 `CommandHistory` in the history GUI window. This separates their responsibilities
 better as such display options should be left up to the GUI classes.
