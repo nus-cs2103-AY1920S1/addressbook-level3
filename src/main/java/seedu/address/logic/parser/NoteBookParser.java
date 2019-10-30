@@ -17,6 +17,7 @@ import seedu.address.logic.commands.GoToCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListNoteCommand;
 import seedu.address.logic.commands.ReadNoteCommand;
+import seedu.address.logic.commands.SortNoteCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 
@@ -78,7 +79,8 @@ public class NoteBookParser {
 
         case GoToCommand.COMMAND_WORD:
             return new GoToCommandParser().parse(arguments);
-
+        case SortNoteCommand.COMMAND_WORD:
+            return new SortNoteCommandParser().parse(arguments);
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }

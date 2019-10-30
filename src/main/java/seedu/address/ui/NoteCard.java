@@ -38,7 +38,14 @@ public class NoteCard extends UiPart<Region> {
     @FXML
     private Label id;
     @FXML
+    private Label numOfAccess;
+    @FXML
+    private Label dateModified;
+    @FXML
+    private Label dateAdded;
+    @FXML
     private FlowPane tags;
+
 
     public NoteCard(Note note, int displayedIndex) {
         super(FXML);
@@ -47,6 +54,9 @@ public class NoteCard extends UiPart<Region> {
         description.setText(note.getDescription().description);
         content.setText(note.getContent().content);
         id.setText(displayedIndex + ". ");
+        dateModified.setText("Date last modified: " + note.getDateModified().toString());
+        dateAdded.setText("Date added: " + note.getDateAdded().toString());
+        numOfAccess.setText("Number of access: " + note.getNumOfAccess().toString());
         note.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
