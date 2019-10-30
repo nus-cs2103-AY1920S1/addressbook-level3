@@ -11,7 +11,7 @@
 <?import javafx.scene.control.Button?>
 <GridPane fx:id="cardPane"
           xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-          alignment="center" >
+          alignment="CENTER_LEFT" >
     <columnConstraints>
         <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" percentWidth="50.0"/>
         <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" percentWidth="50.0"/>

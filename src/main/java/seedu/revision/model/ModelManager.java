@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.revision.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.Comparator;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -127,6 +128,14 @@ public class ModelManager implements Model {
     public void updateFilteredAnswerableList(Predicate<Answerable> predicate) {
         requireNonNull(predicate);
         filteredAnswerables.setPredicate(predicate);
+    }
+
+    @Override
+    public ObservableList<Answerable> getFilteredSortedAnswerableList(
+            Predicate<Answerable> predicate, Comparator<Answerable> comparator) {
+        requireNonNull(comparator);
+        filteredAnswerables.setPredicate(predicate);
+        return filteredAnswerables.sorted(comparator);
     }
 
     @Override

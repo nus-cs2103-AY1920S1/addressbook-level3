@@ -49,7 +49,7 @@ public class TrueFalse extends Answerable {
             logger.info("correct answer selected");
             return true;
         }
-        logger.info("WRONG answer selected");
+        logger.info("Wrong answer selected");
         return false;
     }
 

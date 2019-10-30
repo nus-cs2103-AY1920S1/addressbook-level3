@@ -59,7 +59,7 @@ public class AddCommand extends Command {
         }
 
         model.addAnswerable(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+        return new CommandResult().withFeedBack(String.format(MESSAGE_SUCCESS, toAdd)).build();
     }
 
     @Override

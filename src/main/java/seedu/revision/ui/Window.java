@@ -1,5 +1,7 @@
 package seedu.revision.ui;
 
+import java.io.IOException;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
@@ -8,15 +10,13 @@ import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+
 import seedu.revision.commons.core.GuiSettings;
 import seedu.revision.logic.MainLogic;
-import seedu.revision.logic.QuizLogic;
 import seedu.revision.logic.commands.exceptions.CommandException;
 import seedu.revision.logic.commands.main.CommandResult;
 import seedu.revision.logic.parser.exceptions.ParseException;
 import seedu.revision.ui.answerables.AnswerableListPanel;
-
-import java.io.IOException;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -28,7 +28,6 @@ public abstract class Window extends UiPart<Stage> {
 
     protected Stage primaryStage;
     protected MainLogic mainLogic;
-    protected QuizLogic quizLogic;
 
     // Independent Ui parts residing in this Ui container
     protected AnswerableListPanel answerableListPanel;
@@ -53,11 +52,10 @@ public abstract class Window extends UiPart<Stage> {
     @FXML
     protected StackPane scoreProgressAndTimerPlaceholder;
 
-    public Window(Stage primaryStage, MainLogic mainLogic, QuizLogic quizLogic) {
+    public Window(Stage primaryStage, MainLogic mainLogic) {
         super(FXML, primaryStage);
         this.primaryStage = primaryStage;
         this.mainLogic = mainLogic;
-        this.quizLogic = quizLogic;
         setAccelerators();
         helpWindow = new HelpWindow();
         setWindowDefaultSize(this.mainLogic.getGuiSettings());
@@ -69,10 +67,6 @@ public abstract class Window extends UiPart<Stage> {
 
     public MainLogic getMainLogic() {
         return mainLogic;
-    }
-
-    public QuizLogic getQuizLogic() {
-        return quizLogic;
     }
 
     private void setAccelerators() {
@@ -151,6 +145,7 @@ public abstract class Window extends UiPart<Stage> {
     /**
      * Executes the command and returns the result.
      */
-    protected abstract CommandResult executeCommand(String commandText) throws CommandException, ParseException, IOException;
+    protected abstract CommandResult executeCommand(String commandText)
+            throws CommandException, ParseException, IOException;
 
 }

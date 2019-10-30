@@ -54,7 +54,7 @@ public class Timer {
                 if (currentTime.get() <= 0) {
                     time.stop();
                     try {
-                        commandExecutor.execute("timer up");
+                        commandExecutor.execute("n");
                     } catch (CommandException | ParseException | IOException e) {
                         logger.severe("Timer failed to go next question");
                     }
@@ -72,6 +72,11 @@ public class Timer {
 
     private void syncProgress() {
         label.setText(((Integer) currentTime.get()).toString());
+    }
+
+    public void resetTimer() {
+        currentTime.set(startTime);
+        startTimer();
     }
     /**
      * Represents a function that can execute commands.
