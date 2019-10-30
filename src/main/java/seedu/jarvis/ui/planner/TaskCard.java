@@ -70,7 +70,7 @@ public class TaskCard extends UiPart<Region> {
             date.setText("Due: " + ((Deadline) task).getDueDate());
         } else if (task.getTaskType() == TaskType.EVENT) {
             Event e = (Event) task;
-            date.setText("From: " + e.getStartDate() + "to: " + e.getEndDate());
+            date.setText("From: " + e.getStartDate() + " to: " + e.getEndDate());
         }
 
 
