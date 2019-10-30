@@ -33,7 +33,12 @@ public class CalendarDetailPanel extends UiPart<Region> {
         super(FXML);
         this.date = date;
         this.model = model;
+        initialiseAttendanceData();
         initialisePerformanceData();
+    }
+
+    private void initialiseAttendanceData() {
+
     }
 
     /**
