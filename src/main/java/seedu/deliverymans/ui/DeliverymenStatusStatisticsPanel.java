@@ -11,6 +11,9 @@ import javafx.scene.layout.Region;
 import seedu.deliverymans.commons.core.LogsCenter;
 import seedu.deliverymans.model.deliveryman.Deliveryman;
 
+/**
+ * Panel containing the statistics of deliverymen statuses, using a pie chart to display data.
+ */
 public class DeliverymenStatusStatisticsPanel extends UiPart<Region> {
 
     private static final String FXML = "DeliverymenStatusStatisticsPanel.fxml";
@@ -49,6 +52,9 @@ public class DeliverymenStatusStatisticsPanel extends UiPart<Region> {
         initialiseLabels();
     }
 
+    /**
+     * Set up the texts of all the labels.
+     */
     private void initialiseLabels() {
         totalDeliverymenLabel.setText("TOTAL DELIVERYMEN:  " + totalListSize);
         availableDeliverymenLabel.setText("AVAILABLE      :  " + availableListSize + "  ");
@@ -57,10 +63,16 @@ public class DeliverymenStatusStatisticsPanel extends UiPart<Region> {
         fillPieChart();
     }
 
+    /**
+     * Computes total number of deliverymen in database.
+     */
     private int calculateTotalDeliverymen() {
         return availableListSize + unavailableListSize + deliveringListSize;
     }
 
+    /**
+     * Fills up the pie chart with data.
+     */
     @FXML
     private void fillPieChart() {
         ObservableList<PieChart.Data> pieChartData =
@@ -73,6 +85,9 @@ public class DeliverymenStatusStatisticsPanel extends UiPart<Region> {
         statusStatisticsPieChart.setData(pieChartData);
     }
 
+    /**
+     * Customise the colors of the pie chart nodes to green, red and yellow.
+     */
     private void applyCustomColorSequence(
             ObservableList<PieChart.Data> pieChartData,
             String... pieColors) {
