@@ -64,7 +64,7 @@ public class AddReminderCommand extends Command {
         }
 
         Bookmark bookmarkToOpen = lastShownList.get(index.getZeroBased());
-        Reminder reminderToAdd = new Reminder(bookmarkToOpen, time, note);
+        Reminder reminderToAdd = new Reminder(bookmarkToOpen.getUrl(), time, note);
 
         if (model.isBookmarkHasReminder(bookmarkToOpen)) {
             throw new CommandException(MESSAGE_DUPLICATE_REMINDER);

@@ -16,7 +16,9 @@ import seedu.mark.logic.commands.ClearCommand;
 import seedu.mark.logic.commands.Command;
 import seedu.mark.logic.commands.DeleteCacheCommand;
 import seedu.mark.logic.commands.DeleteCommand;
+import seedu.mark.logic.commands.DeleteReminderCommand;
 import seedu.mark.logic.commands.EditCommand;
+import seedu.mark.logic.commands.EditReminderCommand;
 import seedu.mark.logic.commands.ExitCommand;
 import seedu.mark.logic.commands.ExportCommand;
 import seedu.mark.logic.commands.FavoriteCommand;
@@ -106,6 +108,12 @@ public class MarkParser {
 
         case AddFolderCommand.COMMAND_WORD:
             return new AddFolderCommandParser().parse(arguments);
+
+        case EditReminderCommand.COMMAND_WORD:
+            return new EditReminderCommandParser().parse(arguments);
+
+        case DeleteReminderCommand.COMMAND_WORD:
+            return new DeleteReminderCommandParser().parse(arguments);
 
         case AddReminderCommand.COMMAND_WORD:
             return new AddReminderCommandParser().parse(arguments);

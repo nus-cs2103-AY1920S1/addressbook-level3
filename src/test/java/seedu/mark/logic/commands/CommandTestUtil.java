@@ -63,8 +63,8 @@ public class CommandTestUtil {
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
     public static final String NOTE_DESC_OPEN = " " + PREFIX_NOTE + VALID_NOTE_OPEN;
     public static final String NOTE_DESC_READ = " " + PREFIX_NOTE + VALID_NOTE_READ;
-    public static final String DATE_DESC_OPEN = " " + PREFIX_TIME + VALID_TIME_OPEN;
-    public static final String DATE_DESC_READ = " " + PREFIX_TIME + VALID_TIME_READ;
+    public static final String TIME_DESC_OPEN = " " + PREFIX_TIME + VALID_TIME_OPEN;
+    public static final String TIME_DESC_READ = " " + PREFIX_TIME + VALID_TIME_READ;
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "invalid&"; // '&' not allowed in names
     public static final String INVALID_URL_DESC = " " + PREFIX_URL + "invalid??url"; // double '?'
@@ -133,6 +133,7 @@ public class CommandTestUtil {
         assertEquals(expectedMark, actualModel.getMark());
         assertEquals(expectedFilteredList, actualModel.getFilteredBookmarkList());
     }
+
     /**
      * Updates {@code model}'s filtered list to show only the bookmark at the given {@code targetIndex} in the
      * {@code model}'s mark.

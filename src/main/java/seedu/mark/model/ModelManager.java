@@ -327,6 +327,13 @@ public class ModelManager implements Model {
     }
 
 
+    /**
+     * Sets the reminders in Mark.
+     */
+    public void setReminders() {
+        versionedMark.setReminders();
+    }
+
     //=========== Cache =================================================================================
     @Override
     public void updateCurrentDisplayedCache(Bookmark bookmarkToDisplayCache) {

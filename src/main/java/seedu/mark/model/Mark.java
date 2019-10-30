@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Objects;
 
 import javafx.collections.ObservableList;
-import javafx.collections.ObservableMap;
 
 import seedu.mark.model.autotag.AutotagController;
 import seedu.mark.model.autotag.BookmarkTagger;
@@ -32,13 +31,21 @@ public class Mark implements ReadOnlyMark {
 
     private final ReminderAssociation reminderAssociation;
 
+
+    private final ObservableList<Reminder> reminders;
+
     private final AutotagController autotagController;
+
 
     public Mark() {
         bookmarks = new UniqueBookmarkList();
         folderStructure = new FolderStructure(Folder.ROOT_FOLDER, new ArrayList<>());
         reminderAssociation = new ReminderAssociation();
+
+        reminders = reminderAssociation.getReminderList();
+
         autotagController = new AutotagController(new ArrayList<>());
+
     }
 
     /**
@@ -67,6 +74,9 @@ public class Mark implements ReadOnlyMark {
 
         setBookmarks(newData.getBookmarkList());
         setFolderStructure(newData.getFolderStructure().clone());
+
+        setReminderAssociation(newData.getReminderAssociation());
+
         setAutotagController(newData.getAutotagController());
     }
 
@@ -98,6 +108,8 @@ public class Mark implements ReadOnlyMark {
         requireNonNull(editedBookmark);
 
         bookmarks.setBookmark(target, editedBookmark);
+        reminderAssociation.editBookmark(target, editedBookmark);
+        setReminders();
     }
 
     /**
@@ -106,6 +118,8 @@ public class Mark implements ReadOnlyMark {
      */
     public void removeBookmark(Bookmark key) {
         bookmarks.remove(key);
+        reminderAssociation.removeBookmark(key);
+        setReminders();
     }
 
     //// folder operations
@@ -132,10 +146,12 @@ public class Mark implements ReadOnlyMark {
     /**
      * Replaces the association of reminder association with the specified {@code association}.
      *
-     * @param association the specified association that is used.
+     * @param reminderAssociation the specified association that is used.
      */
-    public void setReminderAssociation(ObservableMap<Bookmark, Reminder> association) {
-        this.reminderAssociation.setAssociation(association);
+    public void setReminderAssociation(ReminderAssociation reminderAssociation) {
+        this.reminderAssociation.setAssociation(reminderAssociation.getAssociation());
+        reminders.clear();
+        reminders.addAll(reminderAssociation.getReminderList());
     }
 
     /**
@@ -155,6 +171,7 @@ public class Mark implements ReadOnlyMark {
      */
     public void addReminder(Bookmark bookmark, Reminder reminder) {
         this.reminderAssociation.addReminder(bookmark, reminder);
+        setReminders();
     }
 
     /**
@@ -164,6 +181,7 @@ public class Mark implements ReadOnlyMark {
      */
     public void removeReminder(Reminder reminder) {
         this.reminderAssociation.deleteReminder(reminder);
+        setReminders();
     }
 
     /**
@@ -174,6 +192,15 @@ public class Mark implements ReadOnlyMark {
      */
     public void editReminder(Reminder targetReminder, Reminder replaceReminder) {
         this.reminderAssociation.setReminder(targetReminder, replaceReminder);
+        setReminders();
+    }
+
+    public void setReminders() {
+        reminders.clear();
+        ObservableList<Reminder> newReminders = reminderAssociation.getReminderList();
+        for (int i = 0; i < newReminders.size(); i++) {
+            reminders.add(newReminders.get(i));
+        }
     }
 
     //// autotag controller operations
@@ -259,9 +286,15 @@ public class Mark implements ReadOnlyMark {
     }
 
     @Override
+    public ObservableList<Reminder> getReminderList() {
+        return reminders;
+    }
+
+    @Override
     public AutotagController getAutotagController() {
         return autotagController;
     }
+
 
     public boolean hasFolder(Folder folder) {
         return getFolderStructure().hasFolder(folder);

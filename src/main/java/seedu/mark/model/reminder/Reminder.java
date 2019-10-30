@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
-import seedu.mark.model.bookmark.Bookmark;
+import seedu.mark.model.bookmark.Url;
 
 
 /**
@@ -18,7 +18,7 @@ public class Reminder {
     private static final String DATE_FORMATTER = "dd/MM/yyyy HHmm";
 
     //data fields
-    private Bookmark bookmark;
+    private Url url;
     private LocalDateTime remindTime;
 
     //identity field
@@ -27,19 +27,19 @@ public class Reminder {
     /**
      * Every field must be present and not null.
      *
-     * @param bookmark the bookmark the reminder should open.
+     * @param url the url the reminder should open.
      * @param time the reminding time.
      * @param note the note for reminder.
      */
-    public Reminder(Bookmark bookmark, LocalDateTime time, Note note) {
-        requireAllNonNull(bookmark, time, note);
-        this.bookmark = bookmark;
+    public Reminder(Url url, LocalDateTime time, Note note) {
+        requireAllNonNull(url, time, note);
+        this.url = url;
         this.remindTime = time;
         this.note = note;
     }
 
-    public Bookmark getBookmark() {
-        return bookmark;
+    public Url getUrl() {
+        return url;
     }
 
     public LocalDateTime getRemindTime() {
@@ -62,7 +62,7 @@ public class Reminder {
         return otherReminder != null
                 && otherReminder.getNote().equals(getNote())
                 && otherReminder.getFormattedTime().equals(getFormattedTime())
-                && otherReminder.getBookmark().equals(getBookmark());
+                && otherReminder.getUrl().equals(getUrl());
     }
 
     /**
@@ -81,13 +81,13 @@ public class Reminder {
         Reminder otherReminder = (Reminder) other;
         return otherReminder.getNote().equals(getNote())
                 && otherReminder.getFormattedTime().equals(getFormattedTime())
-                && otherReminder.getBookmark().equals(getBookmark());
+                && otherReminder.getUrl().equals(getUrl());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(bookmark, remindTime, note);
+        return Objects.hash(url, remindTime, note);
     }
 
     @Override
@@ -95,10 +95,10 @@ public class Reminder {
 
         final StringBuilder builder = new StringBuilder();
         builder.append(getNote())
-                .append(" Bookmark: ")
-                .append(getBookmark().getName())
                 .append(" Time: ")
-                .append(getFormattedTime());
+                .append(getFormattedTime())
+                .append(" URL: ")
+                .append(getUrl());
         return builder.toString();
     }
 
