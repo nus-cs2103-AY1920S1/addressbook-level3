@@ -89,10 +89,10 @@ public class InviteCommand extends Command {
             Person personToInvite;
             Integer idOfPersonToInvite;
 
-            Optional<Person> exactMatch = model.findPersonByName(name.trim());
+            Optional<Person> person = model.findPersonByName(name.trim());
 
-            if (exactMatch.isPresent()) {
-                personToInvite = exactMatch.get();
+            if (person.isPresent()) {
+                personToInvite = person.get();
                 idOfPersonToInvite = personToInvite.getPrimaryKey();
                 idsToInvite.add(idOfPersonToInvite);
                 successMessage.append(String.format(MESSAGE_SUCCESS_INVITE, personToInvite.getName()) + "\n");

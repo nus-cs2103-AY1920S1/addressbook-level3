@@ -7,6 +7,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PARTICIPANT;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -87,6 +88,27 @@ public class DisinviteCommand extends Command {
                 continue;
             }
 
+            Person personToDisinvite;
+            Integer idOfPersonToDisinvite;
+
+            Optional<Person> person = model.findPersonByName(name.trim());
+
+            if (person.isPresent()) {
+                personToDisinvite = person.get();
+                idOfPersonToDisinvite = personToDisinvite.getPrimaryKey();
+                // try to disinvite him/her from the activity
+                activityToDisinviteFrom.disinvite(idOfPersonToDisinvite);
+                if (activityToDisinviteFrom.hasPerson(idOfPersonToDisinvite)) {
+                    // failed to disinvite, is currently involved in expense
+                    String warning = String.format(MESSAGE_UNSUCCESSFUL_DISINVITE_HAS_EXPENSE, name);
+                    warningMessage.append(warning).append("\n");
+                } else { // successfully disinvited, not involved in any expense
+                    String success = String.format(MESSAGE_SUCCESS_DISINVITE, name);
+                    successMessage.append(success).append("\n");
+                }
+                continue;
+            }
+
             keywords = Arrays.asList(name.split(" "));
             NameContainsAllKeywordsPredicate predicate = new NameContainsAllKeywordsPredicate(keywords);
 
@@ -100,8 +122,8 @@ public class DisinviteCommand extends Command {
                 continue;
             }
 
-            Person personToDisinvite = findResult.get(0);
-            Integer idOfPersonToDisinvite = personToDisinvite.getPrimaryKey(); // id of person in the activity
+            personToDisinvite = findResult.get(0);
+            idOfPersonToDisinvite = personToDisinvite.getPrimaryKey(); // id of person in the activity
 
             if (idsToRemove.contains(idOfPersonToDisinvite)) { // repeated entry
                 continue;
