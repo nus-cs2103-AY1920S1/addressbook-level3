@@ -180,7 +180,14 @@ Format: `help`
 === Customer Commands
 Commands that work on customers in SML.
 
-==== Adding a customer : `add-c`
+==== Switch to Customer Tab Panel : `switch-c`
+
+Switches to Customer Tab Panel.
+
+[underline]#Format#: `switch-c`
+
+
+==== Add a customer : `add-c`
 
 Adds a Customer to the CustomerBook. +
 This can be done in any Tab Panel.
@@ -196,54 +203,241 @@ A customer can have any number of tags, including 0.
 * Adds a single customer
 . `add-c n/Steve Jobs c/12345678 e/stevejobs@apple.com [t/TAG]…`
 
-image::ug-command/ug-add-c.png[width="400"]
+image::ug-command/ug-add-c.png[width="900"]
 
 ==== Delete a customer : `delete-c`
-Deletes a customer in the address book. +
-Format: `delete-c INDEX`
+Deletes a customer in SML. +
+
+[underline]#Format#: `delete-c INDEX`
+
+
+****
+* Deletes the customer at the specified `INDEX`.
+* The index refers to the index number shown in the displayed customer list.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+[underline]#Examples#:
+
+* Delete the 2nd customer.
+. `list-c` +
+. `delete-c 2` +
+
+* Delete the 1st customer after performing a find customer command.
+. `find-c alice` +
+. `delete-c 1` +
 
 ==== Find a customer : `find-c`
-Finds customers whose names contain any of the given keywords. +
-Format: `find-c KEYWORD [MORE_KEYWORDS]`
+Finds customers whose fields contain any of the given keywords. +
+
+[underline]#Format#: `find KEYWORD [MORE_KEYWORDS]...`
+
+****
+* The search is case insensitive. e.g `hans` will match `Hans`
+* The search matches anywhere for name, contact number, email and tags.
+* Entries matching at least one field will be returned (i.e. `OR` search).
+** e.g. `find-c aaa bbb` will match a customer with name `Aaah` and a customer with tag `bbb`;
+****
+
+[underline]#Examples#:
+
+* Find customers with keyword `colleague` +
+. `find-c colleague` +
+
+image::ug-command/ug-find-c-1.png[width="800"]
+
+* Find customers with keywords `roy` `bernice` +
+. `find-c charlotte david` +
+
+image::ug-command/ug-find-c-2.png[width="800"]
+
 
 ==== List the customers : `list-c`
-List every single customer in SML. +
-Format: `list-c`
+
+List every customer in SML. Acts as a switch customer command as well. +
+
+[underline]#Format#: `list-c`
+
+- `list-c`
+
 
 ==== Edit a customer : `edit-c`
-Edits an existing customer. +
-Format: `edit-c INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…`
+Edits an existing customer in CustomerBook. +
+Format: `edit-c INDEX [n/NAME] [c/CONTACT_NUMBER] [e/EMAIL] [t/TAG]…`
 
-==== Copy customer field : `copy-c`
-Copies a customer field to clipboard. +
-Format: `copy-c <field>`
+
+****
+- Edits the customer at the specified `INDEX`. The index refers to the index number shown in the displayed customer list.
+The index *must be a positive integer* 1, 2, 3, ...
+- At least one of the optional fields must be provided.
+- Existing values will be updated to the input values.
+- When editing tags, the existing tags of the customer  will be removed i.e adding of tags is not cumulative.
+- You can remove all the customer's tags by typing `t/` without specifying any tags after it.
+****
+
+[underline]#Examples#:
+
+* Edit the contact number and email of the 1st customer.
+. `edit-c 1 c/98721928 e/happygolucky@gmail.com` +
+* Clear all existing tags from the 2nd customer.
+. `edit-c 2 t/` +
+
+==== Copy customer : `copy-c`
+Copies a customer in SML to clipboard +
+
+[underline]#Format#: `copy-c INDEX`
+
+
+****
+* Copies the customer at the specified `INDEX`.
+* The index refers to the index number shown in the displayed customer list.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+[underline]#Examples#: +
+
+* Copy the 1st customer
+. `copy-c 1`
+
+* Copy the 1st customer after performing find.
+. `find-c Lee`
+. `copy-c 1`
+
+
+
+
 
 === Phone Commands
-Commands that work on phones that you have in your inventory.
+Commands that work on phones that you have in SML.
+
+==== Switch to Phone Tab Panel : `switch-p`
+
+Switches to Phone Tab Panel.
+
+[underline]#Format#: `switch-p`
+
+
 
 ==== Add a phone : `add-p`
-Adds a phone or updates the inventory. +
-Format: `add-p n/NAME q/QUANTITY [p/PRICE] [t/TAG]…​`
+Adds a phone. Similar to add customer. +
+
+[underline]#Format#: `add-p i/IDENTITY NUMBER (IMEI) s/SERIAL NUMBER n/NAME b/BRAND cp/CAPACITY (in GB) cl/COLOUR $/COST [t/TAG]…​`
+
+[TIP]
+IMEI Number should be 15 digits long.
+[TIP]
+Capacity can be 8GB, 16GB, 32GB, 64GB, 128GB, 256GB, 512GB or 1024GB.
+[TIP]
+Cost must start with $ and can only have a maximum of 2 decimal place.
+[TIP]
+A customer can have any number of tags, including 0.
+
+[underline]#Examples#:
+
+* Adds a single phone
+. `add-p i/543407158585522 s/A123bcfe29 n/iPhone 11 b/Apple cp/128 cl/Purple $/$900 t/NEW t/Cool`
+
+image::ug-command/ug-add-p.png[width="800"]
 
 ==== Delete a phone : `delete-p`
-Deletes a phone from the inventory. +
-Format: `delete-p INDEX`
+Deletes a phone in SML. +
+
+[underline]#Format#: `delete-p INDEX`
+
+
+****
+* Deletes the phone at the specified `INDEX`.
+* The index refers to the index number shown in the displayed phone list.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+[underline]#Examples#:
+
+* Delete the 2nd phone.
+. `list-p` +
+. `delete-p 2` +
+
+* Delete the 1st phone after performing a find phone command.
+. `find-p alice` +
+. `delete-p 1` +
 
 ==== Find a phone : `find-p`
-Returns all the information pertaining to phone with matching name. +
-Format: `find-p p/PHONE`
+Finds phones whose fields contain any of the given keywords. +
+
+[underline]#Format#: `find KEYWORD [MORE_KEYWORDS]...`
+
+****
+* The search is case insensitive. e.g `hans` will match `Hans`
+* The search matches anywhere for name, contact number, email and tags.
+* Entries matching at least one field will be returned (i.e. `OR` search).
+** e.g. `find-c aaa bbb` will match a customer with name `Aaah` and a customer with tag `bbb`;
+****
+
+[underline]#Examples#:
+
+* Find phones with keyword `apple` +
+. `find-p apple` +
+
+image::ug-command/ug-find-p-1.png[width="800"]
+
+* Find phones with keywords `128` `iphone` +
+. `find-p 128 iphone` +
+
+image::ug-command/ug-find-p-2.png[width="800"]
+
 
 ==== List the phones : `list-p`
-List all the phones in lexicographical order. +
-Format: `list-p`
+List every phone in SML. Acts as a switch phone command as well. +
+
+[underline]#Format#: `list-p`
+
+- `list-p`
 
 ==== Edit a phone : `edit-p`
-Edits the appropriate fields of a phone. +
-Format: `edit-p n/NAME [p/PRICE] [q/QUANTITY] [t/TAG]...`
+Edits the data fields of a phone. +
+[underline]#Format#: `edit-p INDEX [i/IMEI] [s/SERIAL NUMBER] [n/NAME] [b/BRAND] [cp/CAPACITY] [cl/COLOUR] [$/COST] [t/TAG]…`
 
-==== Copy phone field : `copy-p`
-Copies a phone field to clipboard. +
-Format: `copy-p <field>`
+
+****
+- Edits the phone at the specified `INDEX`. The index refers to the index number shown in the displayed customer list.
+The index *must be a positive integer* 1, 2, 3, ...
+- At least one of the optional fields must be provided.
+- Existing values will be updated to the input values.
+- When editing tags, the existing tags of the phone  will be removed i.e adding of tags is not cumulative.
+- You can remove all the phones's tags by typing `t/` without specifying any tags after it.
+****
+
+[underline]#Examples#:
+
+* Edit the phone name and colour of the 1st phone.
+. `edit-c 1 n/iPhone 11 cl/Green` +
+* Clear all existing tags from the 2nd phone.
+. `edit-c 2 t/` +
+
+==== Copy phone : `copy-p`
+Copies a phone in SML to clipboard +
+
+[underline]#Format#: `copy-p INDEX`
+
+[underline]#Examples#: +
+
+****
+* Copies the phone at the specified `INDEX`.
+* The index refers to the index number shown in the displayed phone list.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+[underline]#Examples#:
+
+* Copy the 1st phone
+. `copy-p 1`
+
+* Copy the 1st phone after performing find.
+. `find-p apple`
+. `copy-p 1`
+
+
+
 
 === Order Commands
 Commands that work on orders that you have.
