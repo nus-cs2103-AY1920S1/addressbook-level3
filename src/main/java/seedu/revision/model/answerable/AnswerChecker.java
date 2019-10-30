@@ -12,15 +12,27 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 
+/**
+ * Used to check saq answers
+ */
 public class AnswerChecker {
 
     private static StanfordCoreNLP pipeline = Pipeline.getPipeline();
 
+    /**
+     * Used to search for keywords using parts of speech tagging
+     */
     static List<String> POSKeywords = List.of("CC", "CD", "NN", "NNS", "JJ");
 
-    public AnswerChecker() {
-    }
+//    public AnswerChecker() {
+//    }
 
+    /**
+     * Analyses the string of answer to determine keywords.
+     * It will return a list of keywords
+     * @param answer string of answer to analyse
+     * @return List of keywords in String
+     */
     private static List<String> analyseAnswerForKeywords(String answer) {
         List<String> keywords = new ArrayList<>();
         CoreDocument coreDocument = new CoreDocument(answer);
@@ -51,15 +63,28 @@ public class AnswerChecker {
         return keywords;
     }
 
+    /**
+     * Analyses the string of answer to determine sentiment.
+     * It will return sentiment value (Negative, Neutral, Positive) in String format
+     * @param answer string of answer to analyse
+     * @return String that contains sentiment value
+     */
     private static String analyseAnswerForSentiment(String answer) {
         CoreDocument coreDocument = new CoreDocument(answer);
         pipeline.annotate(coreDocument);
 
         List<CoreSentence> sentences = coreDocument.sentences();
-        
+
         return sentences.get(0).sentiment();
     }
 
+    /**
+     * Checks if user answer is correct or not.
+     * It will return true if answer is correct and false if answer is wrong
+     * @param userInput user's answer to the question
+     * @param correctAnswer the correct answer to the question
+     * @return true or false
+     */
     public static boolean check(String userInput, String correctAnswer) {
         HashSet<String> userInputKeywords = new HashSet<>(analyseAnswerForKeywords(userInput));
         HashSet<String> correctAnswerKeywords = new HashSet<>(analyseAnswerForKeywords(correctAnswer));
