@@ -8,7 +8,7 @@ import seedu.address.model.budget.Budget;
 import seedu.address.model.category.Category;
 
 /**
- * Represents a Expense in the MooLah.
+ * Represents a Expense in MooLah.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Expense {

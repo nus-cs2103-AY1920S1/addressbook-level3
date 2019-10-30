@@ -3,7 +3,9 @@ package seedu.address.logic.commands.budget;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_BUDGETS;
 
+import seedu.address.logic.commands.CommandGroup;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.GenericCommandWord;
 import seedu.address.logic.commands.UndoableCommand;
 import seedu.address.model.Model;
 import seedu.address.ui.budget.BudgetListPanel;
@@ -13,7 +15,7 @@ import seedu.address.ui.budget.BudgetListPanel;
  */
 public class ListBudgetCommand extends UndoableCommand {
 
-    public static final String COMMAND_WORD = "listbudgets";
+    public static final String COMMAND_WORD = GenericCommandWord.LIST + CommandGroup.BUDGET;
     public static final String COMMAND_DESCRIPTION = "List budgets";
     public static final String MESSAGE_SUCCESS = "Listed all budgets";
 

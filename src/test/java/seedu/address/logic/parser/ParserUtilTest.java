@@ -16,12 +16,11 @@ import seedu.address.model.expense.Price;
 public class ParserUtilTest {
     private static final String INVALID_DESCRIPTION = "J4()\\|\\\\|nyVV@1k3r";
     private static final String INVALID_PRICE = ",1234";
-    private static final String INVALID_TAG = "#friend";
+    private static final String INVALID_CATEGORY = "#friend";
 
     private static final String VALID_DESCRIPTION = "Johnny Walker";
     private static final String VALID_PRICE = "12.3456";
     private static final String VALID_CATEGORY_1 = "utilities";
-    //private static final String VALID_TAG_2 = "neighbour";
 
     private static final String WHITESPACE = " \t\r\n";
 
@@ -29,7 +28,9 @@ public class ParserUtilTest {
     private static final String VALID_ALIAS_INPUT_1 = "input";
     private static final String INVALID_ALIAS_NAME_1 = "";
     private static final String INVALID_ALIAS_NAME_2 = "@#*j";
-    //private static final String INVALID_ALIAS_INPUT_1 = "";
+
+    private static final String VALID_MODE = "category";
+    private static final String INVALID_MODE = "category budget";
 
     @Test
     public void parseIndex_invalidInput_throwsParseException() {
@@ -104,20 +105,20 @@ public class ParserUtilTest {
 
     @Test
     public void parseCategory_invalidValue_throwsParseException() {
-        assertThrows(ParseException.class, () -> ParserUtil.parseCategory(INVALID_TAG));
+        assertThrows(ParseException.class, () -> ParserUtil.parseCategory(INVALID_CATEGORY));
     }
 
     @Test
-    public void parseCategory_validValueWithoutWhitespace_returnsTag() throws Exception {
+    public void parseCategory_validValueWithoutWhitespace_returnsCategory() throws Exception {
         Category expectedCategory = new Category(VALID_CATEGORY_1);
         assertEquals(expectedCategory, ParserUtil.parseCategory(VALID_CATEGORY_1));
     }
 
     @Test
-    public void parseCategory_validValueWithWhitespace_returnsTrimmedTag() throws Exception {
-        String tagWithWhitespace = WHITESPACE + VALID_CATEGORY_1 + WHITESPACE;
+    public void parseCategory_validValueWithWhitespace_returnsTrimmedCategory() throws Exception {
+        String categoryWithWhitespace = WHITESPACE + VALID_CATEGORY_1 + WHITESPACE;
         Category expectedCategory = new Category(VALID_CATEGORY_1);
-        assertEquals(expectedCategory, ParserUtil.parseCategory(tagWithWhitespace));
+        assertEquals(expectedCategory, ParserUtil.parseCategory(categoryWithWhitespace));
     }
 
     @Test
@@ -152,5 +153,15 @@ public class ParserUtilTest {
                 INVALID_ALIAS_NAME_2,
                 WHITESPACE));
 
+    }
+
+    @Test
+    public void parseMode_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseMode(null));
+    }
+
+    @Test
+    public void parseMode_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseMode(INVALID_MODE));
     }
 }

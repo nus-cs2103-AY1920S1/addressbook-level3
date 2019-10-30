@@ -4,6 +4,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
@@ -20,6 +21,7 @@ import com.joestelmach.natty.DateGroup;
 import com.joestelmach.natty.Parser;
 
 import seedu.address.model.Timekeeper;
+import seedu.address.model.budget.BudgetPeriod;
 
 /**
  * Represents an Expense's timestamp in the MooLah.
@@ -35,8 +37,12 @@ public class Timestamp implements Comparable<Timestamp> {
     public static final String MESSAGE_CONSTRAINTS_DATE =
             "Timestamps must be in the format dd-MM[-yyyy]";
 
+    public static final Timestamp EARLIEST_TIMESTAMP = new Timestamp(
+            LocalDateTime.of(2000, 1, 1, 0, 0));
+
     private static final DateTimeFormatter FORMATTER_WITH_YEAR =
             DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM);
+
 
     private static final int MONTH_CHANGE = 1;
 
@@ -45,6 +51,8 @@ public class Timestamp implements Comparable<Timestamp> {
                     .appendPattern("dd-MM")
                     .parseDefaulting(ChronoField.YEAR, CURRENT_YEAR)
                     .toFormatter(Locale.ENGLISH);
+
+    private static final DateTimeFormatter FORMATTER_WITHOUT_TIME = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
     private static final Pattern DDMM_PATTERN =
             Pattern.compile("(?<=\\b)(?<dd>[0-9]{1,2})(?<div1>[\\\\\\-\\/])(?<mm>[0-9]{1,2})");
@@ -70,14 +78,12 @@ public class Timestamp implements Comparable<Timestamp> {
         if (m.find()) {
             rawTimestamp = m.replaceFirst("$3$2$1");
         }
-        System.out.println("after catching DDMM: " + rawTimestamp);
         try {
             Parser parser = new Parser();
             List<DateGroup> groups = parser.parse(rawTimestamp);
             DateGroup group = groups.get(0);
             Date datetime = group.getDates().get(0);
             LocalDateTime fullTimestamp = Timekeeper.convertToLocalDateTime(datetime);
-            System.out.println(fullTimestamp);
             return Optional.of(new Timestamp(fullTimestamp));
         } catch (IndexOutOfBoundsException e) {
             return Optional.empty();
@@ -118,6 +124,10 @@ public class Timestamp implements Comparable<Timestamp> {
         return new Timestamp(fullTimestamp.toLocalDate().atStartOfDay());
     }
 
+    public Timestamp toEndOfDay() {
+        return new Timestamp(fullTimestamp.toLocalDate().atTime(LocalTime.MAX));
+    }
+
     public boolean isBefore(Timestamp other) {
         return this.fullTimestamp.isBefore(other.fullTimestamp);
     }
@@ -126,13 +136,55 @@ public class Timestamp implements Comparable<Timestamp> {
         return this.fullTimestamp.isAfter(other.fullTimestamp);
     }
 
-    public Timestamp createBackwardTimestamp() {
-        return new Timestamp(this.fullTimestamp.minusMonths(MONTH_CHANGE));
+    public boolean dateIsAfter(Timestamp other) {
+        return this.fullTimestamp.toLocalDate().isAfter(other.fullTimestamp.toLocalDate());
     }
 
-    public Timestamp createForwardTimestamp() {
-        return new Timestamp(this.fullTimestamp.plusMonths(MONTH_CHANGE));
+    public boolean dateIsBefore(Timestamp other) {
+        return this.fullTimestamp.toLocalDate().isBefore(other.fullTimestamp.toLocalDate());
     }
+
+
+    public Timestamp createBackwardTimestamp(BudgetPeriod period) {
+        return new Timestamp(this.fullTimestamp.minus(period.getPeriod()));
+    }
+
+    /**
+     * Finds a time behind the current timestamp by a few iteration of periods
+     * @param period Period of an interval
+     * @param number Number of iterations
+     * @return A new timestamp
+     */
+    public Timestamp createBackwardTimestamp(BudgetPeriod period, int number) {
+        Timestamp result = this;
+        for (int i = 0; i < number; i++) {
+            result = result.createBackwardTimestamp(period);
+        }
+        return result;
+    }
+
+    public Timestamp createForwardTimestamp(BudgetPeriod period) {
+        return new Timestamp(this.fullTimestamp.plus(period.getPeriod()));
+    }
+
+
+    /**
+     * Finds a time ahead of the current timestamp by a few iteration of periods
+     * @param period Period of an interval
+     * @param number Number of iterations
+     * @return A new timestamp
+     */
+    public Timestamp createForwardTimestamp(BudgetPeriod period, int number) {
+        Timestamp result = this;
+        for (int i = 0; i < number; i++) {
+            result = result.createForwardTimestamp(period);
+        }
+        return result;
+    }
+
+
+
+
 
     public static Timestamp getCurrentTimestamp() {
         return new Timestamp(LocalDateTime.now());
@@ -193,4 +245,32 @@ public class Timestamp implements Comparable<Timestamp> {
         }
         return 0;
     }
+
+    /**
+     * Compare method that compares the Date without including time
+     * @param other Another timestamp
+     */
+    public int compareDateTo(Timestamp other) {
+        if (this.dateIsBefore(other)) {
+            return -1;
+        }
+        if (this.dateIsAfter(other)) {
+            return 1;
+        }
+        return 0;
+    }
+
+    /**
+     * Method to format a Timestamp object to show only date dd-MM-YYYY
+     * @return Date in correct format
+     */
+    public String showDate() {
+        LocalDate date = this.getDate();
+        return date.format(FORMATTER_WITHOUT_TIME);
+
+
+    }
+
+
+
 }

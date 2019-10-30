@@ -14,6 +14,8 @@ public class Price {
             "Prices should only contain numeric characters, which can be followed by at most"
             + " 1 period or comma followed by the numbers representing the cents";
     public static final String VALIDATION_REGEX = "\\d+([,.]\\d+)?";
+    public static final Price MAX_PRICE = new Price("999999999999999999999");
+
     public final String value;
 
     /**
@@ -34,7 +36,7 @@ public class Price {
         return test.matches(VALIDATION_REGEX);
     }
 
-    public double getAsDouble() {
+    public Double getAsDouble() {
         return Double.parseDouble(value);
     }
 

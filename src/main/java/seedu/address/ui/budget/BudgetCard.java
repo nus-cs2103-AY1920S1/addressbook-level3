@@ -20,7 +20,7 @@ public class BudgetCard extends UiPart<Region> {
 
     private static final String FXML = "BudgetCard.fxml";
     private static final String CURRENCY_SYMBOL = "$";
-    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -82,7 +82,7 @@ public class BudgetCard extends UiPart<Region> {
      * Updates the text displayed on the budget progress bar.
      */
     private void updateBudgetCardProgressBarText() {
-        updateBudgetCardTotalAmount(budget.getExpenseSum());
+        updateBudgetCardTotalAmount(budget.calculateExpenseSum());
         budgetAllocatedAmount.setText(String.format("%s%.2f", CURRENCY_SYMBOL, budget.getAmount().getAsDouble()));
         updateBudgetProportionUsed();
     }

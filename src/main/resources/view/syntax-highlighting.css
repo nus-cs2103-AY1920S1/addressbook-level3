@@ -3,17 +3,12 @@
     -fx-font-family: Monospaced;
 }
 
-#SyntaxBox .text-area {
-    -fx-opacity: 0;
-}
-
-#SyntaxBox .text-area .scroll-pane {
-    -fx-vbar-policy: Never;
-    -fx-hbar-policy: Never;
-}
-
-#SyntaxBox .text-area .scroll-pane .content {
+#SyntaxBox .text-field {
+    -fx-opacity: .3;
     -fx-padding: 0;
+    -fx-font-size: 20px;
+    -fx-font-family: Monospaced;
+    -fx-text-fill: none;
 }
 
 .error {
@@ -31,10 +26,11 @@
 }
 
 .placeholder {
-    -fx-fill: grey;
+    -fx-fill: black;
+    -rtfx-background-color: lightgrey;
 }
 
-.style1 {
+.prefix1 {
     -fx-font-weight: bold;
 
     -fx-fill: #004d71;
@@ -44,7 +40,7 @@
     -fx-fill: #004d71;
 }
 
-.style2 {
+.prefix2 {
     -fx-font-weight: bold;
 
     -fx-fill: #0c910b;
@@ -54,7 +50,7 @@
     -fx-fill: #0c910b;
 }
 
-.style3 {
+.prefix3 {
     -fx-font-weight: bold;
 
     -fx-fill: #a24400;
@@ -64,7 +60,7 @@
     -fx-fill: #a24400;
 }
 
-.style4 {
+.prefix4 {
     -fx-font-weight: bold;
 
     -fx-fill: #690700;
@@ -72,8 +68,4 @@
 
 .arg4 {
     -fx-fill: #690700;
-}
-
-.paragraph-box:has-caret {
-    /*-fx-background-color: #f2f9fc;*/
 }

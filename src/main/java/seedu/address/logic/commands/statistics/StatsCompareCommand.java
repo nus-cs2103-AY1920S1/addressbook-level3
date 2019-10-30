@@ -6,20 +6,20 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_FIRST_START_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PERIOD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SECOND_START_DATE;
 
-import java.time.Period;
-
 import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.CommandGroup;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.Model;
+import seedu.address.model.budget.BudgetPeriod;
 import seedu.address.model.expense.Timestamp;
-import seedu.address.model.statistics.Statistics;
-import seedu.address.ui.panel.PanelName;
+import seedu.address.ui.StatsPanel;
 
 /**
- * Calculates comparison statistics for Moolah
+ * Calculates comparison statistics for MooLah. Creates a table that shows
+ * the similarity of expenses in both periods and the difference of expenses in both periods
  */
 public class StatsCompareCommand extends Command {
-    public static final String COMMAND_WORD = "statscompare";
+    public static final String COMMAND_WORD = "statscompare" + CommandGroup.GENERAL;
 
     public static final String MESSAGE_SUCCESS = "Statistics Comparison Calculated!";
 
@@ -28,7 +28,7 @@ public class StatsCompareCommand extends Command {
             + "Parameters: "
             + "[" + PREFIX_FIRST_START_DATE + "START_DATE] "
             + "[" + PREFIX_SECOND_START_DATE + "END_DATE] "
-            + PREFIX_PERIOD + "month\n"
+            + PREFIX_PERIOD + "PERIOD\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_FIRST_START_DATE + "11-11-1111 "
             + PREFIX_SECOND_START_DATE + "12-12-1212 "
@@ -38,9 +38,9 @@ public class StatsCompareCommand extends Command {
 
     private final Timestamp secondStartDate;
 
-    private final Period period;
+    private final BudgetPeriod period;
 
-    public StatsCompareCommand(Timestamp date1, Timestamp date2, Period period) {
+    public StatsCompareCommand(Timestamp date1, Timestamp date2, BudgetPeriod period) {
         requireNonNull(date1);
         requireNonNull(date2);
         requireNonNull(period);
@@ -59,8 +59,8 @@ public class StatsCompareCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        Statistics statistics = model.calculateStatistics(COMMAND_WORD, firstStartDate , secondStartDate, period);
-        return new CommandResult(MESSAGE_SUCCESS, statistics, false, false, false, PanelName.CURRENT);
+        model.calculateStatistics(COMMAND_WORD, firstStartDate , secondStartDate, period, false);
+        return new CommandResult(MESSAGE_SUCCESS, false, false, StatsPanel.PANEL_NAME);
     }
 
     @Override

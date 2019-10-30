@@ -17,6 +17,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.budget.Budget;
+import seedu.address.model.budget.BudgetPeriod;
 import seedu.address.model.budget.Percentage;
 import seedu.address.model.expense.Description;
 import seedu.address.model.expense.Expense;
@@ -70,9 +71,9 @@ class JsonAdaptedBudget {
         requireNonNull(source);
         description = source.getDescription().fullDescription;
         amount = source.getAmount().value;
-        startDate = source.getStartDate().getFullTimestamp().toString();
-        endDate = source.getEndDate().getFullTimestamp().toString();
-        period = ParserUtil.formatPeriod(source.getPeriod());
+        startDate = source.getStartDate().toString();
+        endDate = source.getEndDate().toString();
+        period = source.getPeriod().toString();
         expenses.addAll(source.getExpenses().stream()
                 .map(JsonAdaptedExpense::new)
                 .collect(Collectors.toList()));
@@ -140,20 +141,20 @@ class JsonAdaptedBudget {
         } catch (ParseException e) {
             throw new IllegalValueException(Timestamp.MESSAGE_CONSTRAINTS_PERIOD);
         }
-        final Period modelPeriod = ParserUtil.parsePeriod(period);
+        final BudgetPeriod modelPeriod = ParserUtil.parsePeriod(period);
 
         if (proportionUsed == null) {
             throw new IllegalValueException(
                     String.format(MISSING_FIELD_MESSAGE_FORMAT, Percentage.class.getSimpleName()));
         }
-        int proportionValue = Percentage.getProportionFromString(proportionUsed);
-        if (!Percentage.isValidPercentage(proportionValue)) {
-            throw new IllegalValueException(Percentage.MESSAGE_CONSTRAINTS);
-        }
-        final Percentage proportionUsed = new Percentage(proportionValue);
+        //int proportionValue = ParserUtil.parsePercentage(proportionUsed);
+        //if (!Percentage.isValidPercentage(proportionValue)) {
+        //  throw new IllegalValueException(Percentage.MESSAGE_CONSTRAINTS);
+        //}
+        final Percentage modelProportionUsed = ParserUtil.parsePercentage(proportionUsed);
 
         Budget budget = new Budget(modelDescription, modelAmount, modelStartDate, modelEndDate,
-                modelPeriod, expenseList, isPrimary, proportionUsed);
+                modelPeriod, expenseList, isPrimary, modelProportionUsed);
 
         return budget;
     }

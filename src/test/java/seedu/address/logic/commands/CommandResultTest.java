@@ -17,7 +17,7 @@ public class CommandResultTest {
         // same values -> returns true
         assertTrue(commandResult.equals(new CommandResult("feedback")));
         assertTrue(commandResult.equals(new CommandResult("feedback",
-                false, false, false, PanelName.CURRENT)));
+                false, false, PanelName.CURRENT)));
 
         // same object -> returns true
         assertTrue(commandResult.equals(commandResult));
@@ -32,12 +32,13 @@ public class CommandResultTest {
         assertFalse(commandResult.equals(new CommandResult("different")));
 
         // different showHelp value -> returns false
-        assertFalse(commandResult.equals(new CommandResult("feedback", null,
-                true, false, false, PanelName.CURRENT)));
+        assertFalse(commandResult.equals(new CommandResult("feedback",
+                true, false, PanelName.CURRENT)));
+
 
         // different exit value -> returns false
-        assertFalse(commandResult.equals(new CommandResult("feedback", null,
-                false, true, false, PanelName.CURRENT)));
+        assertFalse(commandResult.equals(new CommandResult("feedback",
+                false, true, PanelName.CURRENT)));
 
     }
 
@@ -52,11 +53,11 @@ public class CommandResultTest {
         assertNotEquals(commandResult.hashCode(), new CommandResult("different").hashCode());
 
         // different showHelp value -> returns different hashcode
-        assertNotEquals(commandResult.hashCode(), new CommandResult("feedback", null,
-                true, false, false, PanelName.CURRENT).hashCode());
+        assertNotEquals(commandResult.hashCode(), new CommandResult("feedback",
+                true, false, PanelName.CURRENT).hashCode());
 
         // different exit value -> returns different hashcode
-        assertNotEquals(commandResult.hashCode(), new CommandResult("feedback", null,
-                false, true, false, PanelName.CURRENT).hashCode());
+        assertNotEquals(commandResult.hashCode(), new CommandResult("feedback",
+                false, true, PanelName.CURRENT).hashCode());
     }
 }

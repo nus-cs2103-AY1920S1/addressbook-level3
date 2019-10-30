@@ -1,7 +1,6 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
-import java.time.Period;
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -10,6 +9,7 @@ import seedu.address.commons.core.Alias;
 import seedu.address.commons.core.AliasMappings;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.budget.Budget;
+import seedu.address.model.budget.BudgetPeriod;
 import seedu.address.model.expense.Description;
 import seedu.address.model.expense.Event;
 import seedu.address.model.expense.Expense;
@@ -129,6 +129,13 @@ public interface Model {
      */
     void addUserAlias(Alias alias);
 
+    /**
+     * Removes an alias with the given name if it exists, and returns true, otherwise return false.
+     */
+    boolean removeAliasWithName(String aliasName);
+
+    boolean aliasWithNameExists(String aliasName);
+
     // ======== MOOLAH SETTINGS ===============
     /**
      * Returns the user prefs' MooLah file path.
@@ -226,15 +233,16 @@ public interface Model {
 
     boolean hasEvent(Event event);
 
-
     void addEvent(Event event);
 
     void deleteEvent(Event target);
 
-    Statistics calculateStatistics(String command, Timestamp date1, Timestamp date2, Period period);
+    void setEvent(Event eventToEdit, Event editedEvent);
 
-    boolean hasStatistic();
+    void calculateStatistics(String command, Timestamp date1, Timestamp date2, BudgetPeriod period, boolean isBudget);
 
-    StringBuilder getStatistic();
+    Statistics getStatistics();
+
+
 
 }

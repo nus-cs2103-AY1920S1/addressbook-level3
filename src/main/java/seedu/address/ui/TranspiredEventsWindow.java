@@ -2,11 +2,13 @@ package seedu.address.ui;
 
 import java.util.logging.Logger;
 
+import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -20,8 +22,9 @@ import seedu.address.model.expense.Event;
 public class TranspiredEventsWindow extends UiPart<Stage> {
 
     public static final String MESSAGE =
-            "This event was supposed to have happened %d days ago. Do you want to add it as an expense?\n%s";
-
+            "This event was supposed to have happened %s ago. Do you want to add it as an expense?\n%s";
+    public static final String ERROR_MESSAGE =
+            "There was an error adding the specified expense!";
     private static final Logger logger = LogsCenter.getLogger(HelpWindow.class);
     private static final String FXML = "TranspiredEventsWindow.fxml";
     private Event currentEvent;
@@ -79,7 +82,7 @@ public class TranspiredEventsWindow extends UiPart<Stage> {
                 currentEvent = event;
                 message.setText(
                         String.format(MESSAGE,
-                                Timekeeper.calculateDaysOutdated(event.getTimestamp()), event.toString()));
+                                Timekeeper.formatTimeOutdated(event.getTimestamp()), event.toString()));
                 getRoot().show();
                 getRoot().centerOnScreen();
             }
@@ -108,11 +111,20 @@ public class TranspiredEventsWindow extends UiPart<Stage> {
         getRoot().requestFocus();
     }
 
+    /**
+     * Adds the corresponding Expense from the transpired Event. Only triggers if the user presses 'Yes'.
+     */
     @FXML
-    private void addExpense() throws CommandException, ParseException {
-        String originalInput = currentEvent.getOriginalUserInput();
-        logic.execute(originalInput);
-        getRoot().close();
+    private void addExpenseFromEvent() {
+        try {
+            logic.addExpenseFromEvent(currentEvent);
+            getRoot().close();
+        } catch (CommandException | ParseException e) {
+            message.setText(ERROR_MESSAGE);
+            PauseTransition delay = new PauseTransition(Duration.seconds(1.5));
+            delay.setOnFinished(event -> getRoot().close());
+            delay.play();
+        }
     }
 
     @FXML

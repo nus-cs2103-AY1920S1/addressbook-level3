@@ -24,15 +24,14 @@ public class BudgetPanel extends Panel {
     private StackPane expenseListPanelPlaceholder;
     private ExpenseListPanel expenseListPanel;
 
-    private Budget budget;
     private BudgetCard budgetCard;
 
     public BudgetPanel(Budget budget) {
         super(FXML);
-        this.budget = budget;
-        expenseListPanel = new ExpenseListPanel(this.budget.getCurrentPeriodExpenses(), false);
+        expenseListPanel = new ExpenseListPanel(budget.getExpenses(), false);
         expenseListPanelPlaceholder.getChildren().add(expenseListPanel.getRoot());
-        budgetCardPlaceholder.getChildren().add(new BudgetCard(this.budget).getRoot());
+        budgetCard = new BudgetCard(budget);
+        budgetCardPlaceholder.getChildren().add(budgetCard.getRoot());
     }
 
     @Override

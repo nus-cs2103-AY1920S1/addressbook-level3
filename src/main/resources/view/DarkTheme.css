@@ -12,12 +12,13 @@
     /*-status-border-colour: derive(#1d1d1d, 30%);*/
     -status-border-colour: transparent;
     -text-colour1: white;
-    -font-lightweight: "Segoe UI Light";
+    -font-lightweight: "Droid Sans Mono";
     -font-dark: black;
-    -font-semibold: "Segoe UI Semibold";
+    -font-semibold: "Droid Sans Mono";
     -progress-bar-overbudget: #ac4e47;
     -progress-bar-nearbudget: #fda50f;
-    -progress-bar-inbudget: -colour-light
+    -progress-bar-inbudget: #42b883;
+    -fx-font-family: "Droid Sans Mono"
 }
 
 .text-field {
@@ -59,7 +60,7 @@
 
 .status-bar .label {
     -fx-font-family: -font-lightweight;
-    -fx-text-fill: -status-text-colour;
+    -fx-text-fill: -text-colour1;
     -fx-padding: 4px;
     -fx-pref-height: 30px;
 }
@@ -79,7 +80,7 @@
 }
 
 .context-menu .label {
-    -fx-text-fill: -status-text-colour;
+    -fx-text-fill: -text-colour1;
     -fx-font-size: 10px;
 }
 
@@ -90,7 +91,7 @@
 .menu-bar .label {
     -fx-font-size: 10pt;
     -fx-font-family: -font-lightweight;
-    -fx-text-fill: -status-text-colour;
+    -fx-text-fill: -text-colour1;
     -fx-opacity: 0.9;
 }
 
@@ -99,7 +100,7 @@
 }
 
 .placeholder .label{
-    -fx-font-family: -font-family-lightweight;
+    -fx-font-family: -font-lightweight;
     -fx-font-size: 20px;
 }
 
@@ -109,7 +110,7 @@
 
 #titlePlaceHolder .label {
     -fx-text-fill: -text-colour1;
-    -fx-font-family: -font-family-semibold;
+    -fx-font-family: -font-semibold;
     -fx-padding: 10;
 }
 
@@ -174,6 +175,33 @@
     -fx-padding: 0 5 0 0;
 }
 
+#eventCardPane {
+    -fx-background-color: #e6e6e6;
+    -fx-background-radius: 10;
+    -fx-border-width: 0;
+    -fx-effect: dropshadow(gaussian, rgba(31, 31, 31, 0.37), 10, .01, 1, 5)
+}
+
+#eventCardPane #clip {
+    -fx-fill: -colour-highlight;
+}
+
+#eventCardPane .label {
+    -fx-font-family: -font-semibold;
+    -fx-font-size: 16px;
+}
+
+#eventCardPane #index {
+    -fx-text-fill: -grey1;
+}
+
+#eventCardPane #price {
+    -fx-font-family: -font-semibold;
+    -fx-font-size: 18px;
+    -fx-text-fill: -moneyout;
+    -fx-padding: 0 5 0 0;
+}
+
 #commandTypeLabel {
     -fx-font-size: 11px;
     -fx-text-fill: #F70D1A;
@@ -186,7 +214,7 @@
     -fx-text-fill: -font-dark;
 }
 
-#filterField, #expenseListPanel, #expenseWebpage {
+#filterField, #expenseListPanel, #eventListPanel, #expenseWebpage, #eventWebpage {
     -fx-effect: innershadow(gaussian, black, 10, 0, 0, 0);
 }
 

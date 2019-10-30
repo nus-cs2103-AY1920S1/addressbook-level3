@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.shape.Circle?>
+
+<BorderPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <center>
+        <AnchorPane fx:id="eventCardPane">
+            <children>
+                <GridPane alignment="CENTER_LEFT" minWidth="400.0" AnchorPane.bottomAnchor="0.0"
+                          AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <columnConstraints>
+                        <ColumnConstraints fillWidth="false" halignment="CENTER" hgrow="NEVER" />
+                        <ColumnConstraints hgrow="ALWAYS" maxWidth="400.0" />
+                        <ColumnConstraints />
+                    </columnConstraints>
+                    <Circle fx:id="clip" fill="#a1d1ff" radius="30.0" stroke="BLACK" strokeType="INSIDE"
+                            strokeWidth="0.0" translateX="-20.0" translateY="-20.0" />
+                    <ImageView fx:id="icon" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true"
+                               translateX="-20.0" translateY="-20.0" />
+                    <Label fx:id="description" text="Label" GridPane.columnIndex="1" />
+                    <Label fx:id="price" alignment="CENTER_RIGHT" minWidth="-Infinity" text="\$price"
+                           textAlignment="RIGHT" wrapText="true" GridPane.columnIndex="2" GridPane.halignment="RIGHT"
+                           GridPane.hgrow="ALWAYS" GridPane.rowSpan="2147483647" />
+                    <Label fx:id="budgetName" alignment="CENTER_RIGHT" minWidth="-Infinity" text="\$Under budget: "
+                           textAlignment="RIGHT" wrapText="true" GridPane.columnIndex="2" GridPane.halignment="RIGHT"
+                           GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.rowSpan="2147483647" />
+                    <FlowPane fx:id="categories" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                    <HBox GridPane.columnIndex="1" GridPane.rowIndex="2">
+                        <children>
+                            <Label fx:id="date" text="placeholder" />
+                            <Label fx:id="time" text="placeholder" />
+                        </children>
+                    </HBox>
+                    <Label fx:id="index" text="index" GridPane.rowIndex="2" />
+                    <rowConstraints>
+                        <RowConstraints vgrow="ALWAYS" />
+                        <RowConstraints />
+                        <RowConstraints />
+                    </rowConstraints>
+                </GridPane>
+            </children>
+        </AnchorPane>
+    </center>
+    <top>
+        <Region prefHeight="20.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+    </top>
+    <left>
+        <Region prefWidth="20.0" BorderPane.alignment="CENTER" />
+    </left>
+</BorderPane>

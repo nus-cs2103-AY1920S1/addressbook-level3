@@ -6,12 +6,14 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PERIOD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_START_DATE;
 
-import java.time.Period;
+import java.util.Collections;
+import java.util.List;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.budget.AddBudgetCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.budget.Budget;
+import seedu.address.model.budget.BudgetPeriod;
 import seedu.address.model.expense.Description;
 import seedu.address.model.expense.Price;
 import seedu.address.model.expense.Timestamp;
@@ -20,6 +22,12 @@ import seedu.address.model.expense.Timestamp;
  * Parses input arguments and creates a new BudgetCommand object
  */
 public class AddBudgetCommandParser implements Parser<AddBudgetCommand> {
+
+    public static final List<Prefix> REQUIRED_PREFIXES = Collections.unmodifiableList(List.of(
+            PREFIX_DESCRIPTION, PREFIX_START_DATE, PREFIX_PERIOD, PREFIX_PRICE
+    ));
+
+    public static final List<Prefix> OPTIONAL_PREFIXES = Collections.unmodifiableList(List.of());
 
     /**
      * Parses the given {@code String} of arguments in the context of the BudgetCommand
@@ -38,7 +46,7 @@ public class AddBudgetCommandParser implements Parser<AddBudgetCommand> {
         Description description = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get());
         Price amount = ParserUtil.parsePrice(argMultimap.getValue(PREFIX_PRICE).get());
         Timestamp startDate = ParserUtil.parseTimestamp(argMultimap.getValue(PREFIX_START_DATE).get()).toStartOfDay();
-        Period period = ParserUtil.parsePeriod(argMultimap.getValue(PREFIX_PERIOD).get());
+        BudgetPeriod period = ParserUtil.parsePeriod(argMultimap.getValue(PREFIX_PERIOD).get());
 
         Budget budget = new Budget(description, amount, startDate, period);
 

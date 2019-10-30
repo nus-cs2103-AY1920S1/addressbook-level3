@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
-import java.time.Period;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -17,6 +16,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.RecursiveAliasException;
 import seedu.address.model.budget.Budget;
+import seedu.address.model.budget.BudgetPeriod;
 import seedu.address.model.expense.Description;
 import seedu.address.model.expense.Event;
 import seedu.address.model.expense.Expense;
@@ -35,7 +35,7 @@ public class ModelManager implements Model {
     private final FilteredList<Expense> filteredExpenses;
     private final FilteredList<Event> filteredEvents;
     private final FilteredList<Budget> filteredBudgets;
-    private StringBuilder statsBuilder;
+    private Statistics statistics;
 
     /**
      * Initializes a ModelManager with the given mooLah and userPrefs.
@@ -208,6 +208,15 @@ public class ModelManager implements Model {
         }
     }
 
+    public boolean aliasWithNameExists(String aliasName) {
+        return userPrefs.hasAlias(aliasName);
+    }
+
+    @Override
+    public boolean removeAliasWithName(String aliasName) {
+        return userPrefs.removeAliasWithName(aliasName);
+    }
+
     //=========== GuiSettings ===============================================================================
 
     @Override
@@ -328,24 +337,31 @@ public class ModelManager implements Model {
         updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
     }
 
+    @Override
+    public void setEvent(Event target, Event editedEvent) {
+        requireAllNonNull(target, editedEvent);
+
+        mooLah.setEvent(target, editedEvent);
+    }
 
 
     //=========== Statistics ================================================================================
 
     @Override
-    public Statistics calculateStatistics(String command, Timestamp date1, Timestamp date2, Period period) {
-        ObservableList<Expense> statsExpenses = getFilteredExpenseList();
-        return Statistics.calculateStats(statsExpenses, command, date1, date2, period);
+    public void calculateStatistics(String command, Timestamp date1, Timestamp date2,
+                                    BudgetPeriod period, boolean isBudgetMode) {
+        ObservableList<Expense> primaryBudgetExpenses = getPrimaryBudget().getExpenses();
+        Statistics statistics = Statistics.calculateStats(primaryBudgetExpenses, command, date1, date2,
+                period, isBudgetMode);
+        this.setStatistics(statistics);
     }
 
-    @Override
-    public boolean hasStatistic() {
-        return statsBuilder == null;
+    public Statistics getStatistics() {
+        return statistics;
     }
 
-    @Override
-    public StringBuilder getStatistic() {
-        return statsBuilder;
+    public void setStatistics(Statistics statistics) {
+        this.statistics = statistics;
     }
 
 

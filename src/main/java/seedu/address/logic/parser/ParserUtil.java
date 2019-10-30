@@ -1,18 +1,23 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
-import java.time.Period;
 import java.util.Optional;
+import java.util.regex.Matcher;
 
 import seedu.address.commons.core.Alias;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
+import seedu.address.logic.commands.general.HelpCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.budget.BudgetPeriod;
+import seedu.address.model.budget.Percentage;
 import seedu.address.model.category.Category;
 import seedu.address.model.expense.Description;
 import seedu.address.model.expense.Price;
 import seedu.address.model.expense.Timestamp;
+import seedu.address.model.statistics.Mode;
 
 
 /**
@@ -114,52 +119,84 @@ public class ParserUtil {
     }
 
     /**
-     * Parses {@code String period} into a {@code Period}.
+     * Parses a {@code String mode} into a {@code Mode}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code mode} is invalid.
+     */
+    public static Mode parseMode(String mode) throws ParseException {
+        requireNonNull(mode);
+        String trimmedMode = mode.trim();
+        if (!Mode.isValidMode(trimmedMode)) {
+            throw new ParseException(Mode.MESSAGE_CONSTRAINTS);
+        }
+        return new Mode(trimmedMode);
+    }
+
+
+
+
+
+    /**
+     * Dummy.
+     * @param percentage
+     * @return
+     * @throws ParseException
+     */
+    public static Percentage parsePercentage(String percentage) throws ParseException {
+        requireNonNull(percentage);
+        String trimmedPercentage = percentage.trim();
+        String proportionString = trimmedPercentage.substring(0, percentage.length() - 1);
+        try {
+            int proportion = Integer.parseInt(proportionString);
+            if (!Percentage.isValidPercentage(proportion)) {
+                throw new ParseException(Percentage.MESSAGE_CONSTRAINTS);
+            }
+            return new Percentage(proportion);
+        } catch (NumberFormatException e) {
+            throw new ParseException(Percentage.MESSAGE_CONSTRAINTS);
+        }
+    }
+
+    /**
+     * Parses {@code String period} into a {@code BudgetPeriod}.
      * Leading and trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code period} is invalid.
      */
-    public static Period parsePeriod(String period) throws ParseException {
+    public static BudgetPeriod parsePeriod(String period) throws ParseException {
         String trimmedPeriod = period.trim();
         switch (trimmedPeriod) {
         case "day":
-            return Period.ofDays(1);
+            return BudgetPeriod.DAY;
         case "week":
-            return Period.ofWeeks(1);
+            return BudgetPeriod.WEEK;
         case "month":
-            return Period.ofMonths(1);
+            return BudgetPeriod.MONTH;
         case "year":
-            return Period.ofYears(1);
+            return BudgetPeriod.YEAR;
         case "infinity":
-            return Period.ofYears(999);
+            return BudgetPeriod.INFINITY;
         default:
             throw new ParseException(Timestamp.MESSAGE_CONSTRAINTS_PERIOD);
         }
     }
 
-    /**
-     * Dummy.
-     * @param period
-     * @return dummy.
-     */
 
-    public static String formatPeriod(Period period) {
-        String periodString = period.toString();
-        switch (periodString) {
-        case "P1D":
-            return "day";
-        case "P7D":
-            //fallthrough
-        case "P1W":
-            return "week";
-        case "P1M":
-            return "month";
-        case "P1Y":
-            return "year";
-        case "P999Y":
-            return "infinity";
-        default:
-            return periodString;
+    /**
+     * Parses user input into Input with a command word and argument attributes.
+     * @param input the user input to parse
+     * @return The Input with the command word and arguments
+     * @throws ParseException if invalid format
+     */
+    public static Input parseInput(String input) throws ParseException {
+        final Matcher matcher = Input.BASIC_COMMAND_FORMAT.matcher(input.trim());
+        if (!matcher.matches()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
         }
+
+        final String commandWord = matcher.group("commandWord");
+        final String arguments = matcher.group("arguments");
+        return new Input(commandWord, arguments);
     }
 }

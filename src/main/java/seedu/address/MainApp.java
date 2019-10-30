@@ -7,10 +7,12 @@ import java.util.logging.Logger;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
+import seedu.address.commons.core.AliasMappings;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.Version;
 import seedu.address.commons.exceptions.DataConversionException;
+import seedu.address.commons.exceptions.DataInconsistencyException;
 import seedu.address.commons.util.ConfigUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
@@ -90,6 +92,9 @@ public class MainApp extends Application {
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty MooLah");
             initialData = new MooLah();
+        } catch (DataInconsistencyException e) {
+            logger.warning("There are inconsistencies between expenses in expense list and in budgets.");
+            initialData = new MooLah();
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty MooLah");
             initialData = new MooLah();
@@ -160,12 +165,22 @@ public class MainApp extends Application {
             initializedPrefs = new UserPrefs();
         }
 
-        //Update prefs file in case it was missing to begin with or there are new/unused fields
+        //ensure aliases are valid
+        try {
+            initializedPrefs.getAliasMappings().validate();
+        } catch (Exception e) {
+            logger.warning("Problem occurred while reading Aliases from the file. "
+                    + "Will be resetting alias mappings: " + e.getMessage());
+            initializedPrefs.setAliasMappings(new AliasMappings());
+        }
+
+        // Update prefs file in case it was missing to begin with or there are new/unused fields
         try {
             storage.saveUserPrefs(initializedPrefs);
         } catch (IOException e) {
             logger.warning("Failed to save config file : " + StringUtil.getDetails(e));
         }
+
 
         return initializedPrefs;
     }

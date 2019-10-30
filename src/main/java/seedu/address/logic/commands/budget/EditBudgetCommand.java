@@ -7,18 +7,19 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_START_DATE;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_BUDGETS;
 
-import java.time.Period;
 import java.util.List;
 import java.util.Optional;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
+import seedu.address.logic.commands.CommandGroup;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.UndoableCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.budget.Budget;
+import seedu.address.model.budget.BudgetPeriod;
 import seedu.address.model.expense.Description;
 import seedu.address.model.expense.Price;
 import seedu.address.model.expense.Timestamp;
@@ -28,7 +29,7 @@ import seedu.address.ui.budget.BudgetListPanel;
  * Edits the details of an existing budget in the MooLah.
  */
 public class EditBudgetCommand extends UndoableCommand {
-    public static final String COMMAND_WORD = "editbudget";
+    public static final String COMMAND_WORD = "edit" + CommandGroup.BUDGET;
     public static final String COMMAND_DESCRIPTION = "Edit budget on index %1$d";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the budget identified "
             + "by the index number used in the displayed expense list. "
@@ -109,7 +110,7 @@ public class EditBudgetCommand extends UndoableCommand {
         Description updatedDescription = editBudgetDescriptor.getDescription().orElse(budgetToEdit.getDescription());
         Price updatedAmount = editBudgetDescriptor.getAmount().orElse(budgetToEdit.getAmount());
         Timestamp updatedStartDate = editBudgetDescriptor.getStartDate().orElse(budgetToEdit.getStartDate());
-        Period updatedPeriod = editBudgetDescriptor.getPeriod().orElse(budgetToEdit.getPeriod());
+        BudgetPeriod updatedPeriod = editBudgetDescriptor.getPeriod().orElse(budgetToEdit.getPeriod());
 
         Budget newBudget = new Budget(updatedDescription, updatedAmount, updatedStartDate, updatedPeriod,
                 budgetToEdit.getExpenses());
@@ -146,7 +147,7 @@ public class EditBudgetCommand extends UndoableCommand {
         private Description description;
         private Price amount;
         private Timestamp startDate;
-        private Period period;
+        private BudgetPeriod period;
 
         public EditBudgetDescriptor() {}
 
@@ -167,36 +168,37 @@ public class EditBudgetCommand extends UndoableCommand {
             return CollectionUtil.isAnyNonNull(description, amount, startDate, period);
         }
 
-        public void setDescription(Description description) {
-            this.description = description;
-        }
-
         public Optional<Description> getDescription() {
             return Optional.ofNullable(description);
         }
 
-        public void setAmount(Price amount) {
-            this.amount = amount;
+        public void setDescription(Description description) {
+            this.description = description;
         }
 
         public Optional<Price> getAmount() {
             return Optional.ofNullable(amount);
         }
 
-        public void setStartDate(Timestamp startDate) {
-            this.startDate = startDate;
+
+        public void setAmount(Price amount) {
+            this.amount = amount;
         }
 
         public Optional<Timestamp> getStartDate() {
             return Optional.ofNullable(startDate);
         }
 
-        public void setPeriod(Period period) {
-            this.period = period;
+        public void setStartDate(Timestamp startDate) {
+            this.startDate = startDate;
         }
 
-        public Optional<Period> getPeriod() {
+        public Optional<BudgetPeriod> getPeriod() {
             return Optional.ofNullable(period);
+        }
+
+        public void setPeriod(BudgetPeriod period) {
+            this.period = period;
         }
 
         @Override
@@ -214,10 +216,10 @@ public class EditBudgetCommand extends UndoableCommand {
             // state check
             EditBudgetDescriptor e = (EditBudgetDescriptor) other;
 
-            return getDescription().equals(e.getDescription())
-                    && getAmount().equals(e.getAmount())
-                    && getStartDate().equals(e.getStartDate())
-                    && getPeriod().equals(e.getPeriod());
+            return description.equals(e.description)
+                    && amount.equals(e.amount)
+                    && startDate.equals(e.startDate)
+                    && period.equals(e.period);
         }
     }
 }

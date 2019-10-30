@@ -7,7 +7,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.nio.file.Path;
-import java.time.Period;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -28,6 +27,7 @@ import seedu.address.model.ReadOnlyModelHistory;
 import seedu.address.model.ReadOnlyMooLah;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.budget.Budget;
+import seedu.address.model.budget.BudgetPeriod;
 import seedu.address.model.expense.Description;
 import seedu.address.model.expense.Event;
 import seedu.address.model.expense.Expense;
@@ -218,6 +218,16 @@ public class AddExpenseCommandTest {
         }
 
         @Override
+        public boolean removeAliasWithName(String aliasName) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean aliasWithNameExists(String aliasName) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public Path getMooLahFilePath() {
             throw new AssertionError("This method should not be called.");
         }
@@ -324,6 +334,11 @@ public class AddExpenseCommandTest {
         }
 
         @Override
+        public void setEvent(Event eventToEdit, Event editedEvent) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ObservableList<Event> getFilteredEventList() {
             throw new AssertionError("This method should not be called.");
         }
@@ -339,18 +354,13 @@ public class AddExpenseCommandTest {
         }
 
         @Override
-
-        public Statistics calculateStatistics(String command, Timestamp date1, Timestamp date2, Period period) {
+        public void calculateStatistics(String command, Timestamp date1, Timestamp date2,
+                                        BudgetPeriod period, boolean isBudgetMode) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public boolean hasStatistic() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public StringBuilder getStatistic() {
+        public Statistics getStatistics() {
             throw new AssertionError("This method should not be called.");
         }
     }

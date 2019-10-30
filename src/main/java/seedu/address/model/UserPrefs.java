@@ -70,6 +70,10 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         this.aliasMappings = aliasMappings;
     }
 
+    public boolean removeAliasWithName(String name) {
+        return aliasMappings.removeAlias(name);
+    }
+
     /**
      * Add a user defined {@code Alias} to the user prefs' {@code AliasMappings}
      * @param alias
