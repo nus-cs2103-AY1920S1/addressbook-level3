@@ -20,8 +20,8 @@ public class AddLessonCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a lesson to the classroom. "
             + "Parameters: "
             + PREFIX_LESSONNAME + "NAME "
-            + PREFIX_STARTTIME + "START DATE "
-            + PREFIX_ENDTIME + "END DATE "
+            + PREFIX_STARTTIME + "START TIME "
+            + PREFIX_ENDTIME + "END TIME "
             + "[" + PREFIX_REPEAT + "repeat] "
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_LESSONNAME + "Math 4E7 "
@@ -31,6 +31,7 @@ public class AddLessonCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "New lesson added: %1$s";
     public static final String MESSAGE_DUPLICATE_LESSON = "This lesson already exists in the classroom";
+    public static final String MESSAGE_INVALID_END_TIME = "The end time should be after the start time";
 
     private final Lesson toAdd;
 
@@ -45,6 +46,8 @@ public class AddLessonCommand extends Command {
 
         if (model.hasLesson(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_LESSON);
+        } else if (!toAdd.endTimeIsAfterStartTime()) {
+            throw new CommandException(MESSAGE_INVALID_END_TIME);
         }
 
         model.addLesson(toAdd);

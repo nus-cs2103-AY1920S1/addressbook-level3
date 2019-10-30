@@ -14,8 +14,9 @@ public class CliSyntax {
     public static final Prefix PREFIX_MEDICALCONDITION = new Prefix("m/");
     public static final Prefix PREFIX_TAG = new Prefix("t/");
     public static final Prefix PREFIX_ASSIGNMENT = new Prefix("as/");
+    public static final Prefix PREFIX_DEADLINE = new Prefix("d/");
+    public static final Prefix PREFIX_STUDENT = new Prefix("s/");
     public static final Prefix PREFIX_MARKS = new Prefix("g/");
-    public static final Prefix PREFIX_GRADES = new Prefix("g/");
     public static final Prefix PREFIX_LESSONNAME = new Prefix("l/");
     public static final Prefix PREFIX_STARTTIME = new Prefix("st/");
     public static final Prefix PREFIX_ENDTIME = new Prefix("et/");

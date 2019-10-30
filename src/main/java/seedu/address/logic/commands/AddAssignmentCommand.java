@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ASSIGNMENT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DEADLINE;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -14,13 +15,15 @@ import seedu.address.model.assignment.Assignment;
  */
 public class AddAssignmentCommand extends Command {
 
-    public static final String COMMAND_WORD = "addassign";
+    public static final String COMMAND_WORD = "addassignment";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Assigns an assignment \n"
-                                                   + "Parameters: "
-                                                   + PREFIX_ASSIGNMENT + "ASSIGNMENTNAME "
-                                                   + "Example: " + COMMAND_WORD + " "
-                                                   + PREFIX_ASSIGNMENT + "Math Test ";
+                                                    + "Parameters: "
+                                                    + PREFIX_ASSIGNMENT + "ASSIGNMENTNAME "
+                                                    + PREFIX_DEADLINE + "DEADLINE "
+                                                    + "Example: " + COMMAND_WORD + " "
+                                                    + PREFIX_ASSIGNMENT + "Math Test "
+                                                    + PREFIX_DEADLINE + "29/10/2019 1400";
     public static final String MESSAGE_SUCCESS = "New assignment added: %1$s";
     public static final String MESSAGE_DUPLICATE_ASSIGNMENT = "This assignment already exists in the classroom";
 
@@ -51,7 +54,7 @@ public class AddAssignmentCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                   || (other instanceof AddCommand // instanceof handles nulls
+                   || (other instanceof AddStudentCommand // instanceof handles nulls
                            && toAdd.equals(((AddAssignmentCommand) other).toAdd));
     }
 }

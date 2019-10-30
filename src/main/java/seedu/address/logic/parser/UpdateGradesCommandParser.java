@@ -2,10 +2,13 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ASSIGNMENT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MARKS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_STUDENT;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.UpdateGradesCommand;
@@ -24,24 +27,41 @@ public class UpdateGradesCommandParser implements Parser<UpdateGradesCommand> {
     public UpdateGradesCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-            ArgumentTokenizer.tokenize(args, PREFIX_MARKS);
+            ArgumentTokenizer.tokenize(args, PREFIX_ASSIGNMENT, PREFIX_STUDENT, PREFIX_MARKS);
 
-        Index index;
+        Index assignment;
         List<String> marks = new ArrayList<>();
+        Index student = null;
+        String grade = null;
+        boolean updatingIndividualGrades = false;
 
-        try {
-            index = ParserUtil.parseIndex(argMultimap.getPreamble());
-        } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    UpdateGradesCommand.MESSAGE_USAGE), pe);
+        if (!arePrefixesPresent(argMultimap, PREFIX_ASSIGNMENT) || !argMultimap.getPreamble().isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UpdateGradesCommand.MESSAGE_USAGE));
         }
 
-        if (argMultimap.getValue(PREFIX_MARKS).isPresent()) {
+        assignment = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_ASSIGNMENT).get());
+
+        if (argMultimap.getValue(PREFIX_STUDENT).isPresent() && argMultimap.getValue(PREFIX_MARKS).isPresent()) {
+            student = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_STUDENT).get());
+            grade = ParserUtil.parseSingleAssignmentGrade(argMultimap.getValue(PREFIX_MARKS).get());
+            updatingIndividualGrades = true;
+        } else if (argMultimap.getValue(PREFIX_MARKS).isPresent()) {
             marks = ParserUtil.parseAssignmentGrades(argMultimap.getValue(PREFIX_MARKS).get());
         }
 
-        return new UpdateGradesCommand(index, marks);
+        if (updatingIndividualGrades) {
+            return new UpdateGradesCommand(assignment, student, grade);
+        } else {
+            return new UpdateGradesCommand(assignment, marks);
+        }
     }
 
+    /**
+     * Returns true if the prefix contains empty {@code Optional} values in the given
+     * {@code ArgumentMultimap}.
+     */
+    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
+        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
+    }
 
 }

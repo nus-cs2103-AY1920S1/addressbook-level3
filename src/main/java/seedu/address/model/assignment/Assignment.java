@@ -17,6 +17,7 @@ public class Assignment {
 
     public final AssignmentName assignmentName;
     public final AssignmentGrades assignmentGrades;
+    public final AssignmentDeadline assignmentDeadline;
     private boolean isCompleted;
 
     /**
@@ -24,15 +25,20 @@ public class Assignment {
      *
      * @param assignmentName A valid assignment name.
      */
-    public Assignment(AssignmentName assignmentName) {
+    public Assignment(AssignmentName assignmentName, AssignmentDeadline assignmentDeadline) {
         requireNonNull(assignmentName);
         this.assignmentName = assignmentName;
         this.assignmentGrades = new AssignmentGrades();
+        this.assignmentDeadline = assignmentDeadline;
         this.isCompleted = false;
     }
 
     public AssignmentName getAssignmentName() {
         return this.assignmentName;
+    }
+
+    public AssignmentDeadline getAssignmentDeadline() {
+        return this.assignmentDeadline;
     }
 
     public Map<String, String> getGrades() {
@@ -56,7 +62,7 @@ public class Assignment {
      */
     public Assignment addOneStudentGrade (String studentName) {
         assignmentGrades.addOneStudentGrade(studentName);
-        Assignment outputAssignment = new Assignment (this.assignmentName);
+        Assignment outputAssignment = new Assignment (this.assignmentName, this.assignmentDeadline);
         outputAssignment.setGrades(this.namesStringListFromGrades(), this.marksStringListFromGrades());
         return outputAssignment;
     }
@@ -67,7 +73,7 @@ public class Assignment {
      */
     public Assignment deleteOneStudentGrade (String studentName) {
         assignmentGrades.deleteOneStudentGrade(studentName);
-        Assignment outputAssignment = new Assignment (this.assignmentName);
+        Assignment outputAssignment = new Assignment (this.assignmentName, this.assignmentDeadline);
         outputAssignment.setGrades(this.namesStringListFromGrades(), this.marksStringListFromGrades());
         return outputAssignment;
     }
@@ -101,6 +107,8 @@ public class Assignment {
     public String toString() {
         String output = "";
         output += this.getAssignmentName();
+        output += "\n";
+        output += this.getAssignmentDeadline();
         if (this.isCompleted) {
             output += "\nCompleted: ";
         } else {

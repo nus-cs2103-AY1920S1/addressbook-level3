@@ -36,7 +36,7 @@ import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailur
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.AddStudentCommand;
 //import seedu.address.model.student.Address;
 //import seedu.address.model.student.Email;
 //import seedu.address.model.student.Name;
@@ -45,8 +45,8 @@ import seedu.address.logic.commands.AddCommand;
 //import seedu.address.model.tag.Tag;
 //import seedu.address.testutil.StudentBuilder;
 
-public class AddCommandParserTest {
-    private AddCommandParser parser = new AddCommandParser();
+public class AddStudentCommandParserTest {
+    private AddStudentCommandParser parser = new AddStudentCommandParser();
     /*
     @Test
     public void parse_allFieldsPresent_success() {
@@ -55,34 +55,34 @@ public class AddCommandParserTest {
         // whitespace only preamble
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
                 + PARENTPHONE_DESC_BOB + ADDRESS_DESC_BOB + MEDICALCONDITION_DESC_BOB + TAG_DESC_FRIEND,
-                new AddCommand(expectedStudent));
+                new AddStudentCommand(expectedStudent));
 
         // multiple names - last name accepted
         assertParseSuccess(parser, NAME_DESC_AMY + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
                 + PARENTPHONE_DESC_BOB + ADDRESS_DESC_BOB + MEDICALCONDITION_DESC_BOB + TAG_DESC_FRIEND,
-                new AddCommand(expectedStudent));
+                new AddStudentCommand(expectedStudent));
 
         // multiple phones - last phone accepted
         assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_AMY + PHONE_DESC_BOB + EMAIL_DESC_BOB
                 + PARENTPHONE_DESC_BOB + ADDRESS_DESC_BOB + MEDICALCONDITION_DESC_BOB + TAG_DESC_FRIEND,
-                new AddCommand(expectedStudent));
+                new AddStudentCommand(expectedStudent));
 
         // multiple emails - last email accepted
         assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_AMY + EMAIL_DESC_BOB
                 + PARENTPHONE_DESC_BOB + ADDRESS_DESC_BOB + MEDICALCONDITION_DESC_BOB + TAG_DESC_FRIEND,
-                new AddCommand(expectedStudent));
+                new AddStudentCommand(expectedStudent));
 
         // multiple addresses - last address accepted
         assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_AMY
                 + PARENTPHONE_DESC_BOB + ADDRESS_DESC_BOB + MEDICALCONDITION_DESC_BOB + TAG_DESC_FRIEND,
-                new AddCommand(expectedStudent));
+                new AddStudentCommand(expectedStudent));
 
         // multiple tags - all accepted
         Student expectedStudentMultipleTags = new StudentBuilder(BOB).withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
                 .build();
         assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + PARENTPHONE_DESC_BOB
                 + ADDRESS_DESC_BOB + MEDICALCONDITION_DESC_BOB + TAG_DESC_HUSBAND + TAG_DESC_FRIEND,
-                new AddCommand(expectedStudentMultipleTags));
+                new AddStudentCommand(expectedStudentMultipleTags));
     }
 
     @Test
@@ -90,12 +90,12 @@ public class AddCommandParserTest {
         // zero tags
         Student expectedStudent = new StudentBuilder(AMY).withTags().build();
         assertParseSuccess(parser, NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + PARENTPHONE_DESC_AMY
-                + ADDRESS_DESC_AMY + MEDICALCONDITION_DESC_AMY, new AddCommand(expectedStudent));
+                + ADDRESS_DESC_AMY + MEDICALCONDITION_DESC_AMY, new AddStudentCommand(expectedStudent));
     }
     */
     @Test
     public void parse_compulsoryFieldMissing_failure() {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddStudentCommand.MESSAGE_USAGE);
 
         // missing name prefix
         assertParseFailure(parser, VALID_NAME_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + PARENTPHONE_DESC_BOB
@@ -147,7 +147,7 @@ public class AddCommandParserTest {
         // non-empty preamble
         assertParseFailure(parser, PREAMBLE_NON_EMPTY + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
                 + ADDRESS_DESC_BOB + TAG_DESC_HUSBAND + TAG_DESC_FRIEND,
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddStudentCommand.MESSAGE_USAGE));
     }
     */
 }

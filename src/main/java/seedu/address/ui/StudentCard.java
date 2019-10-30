@@ -4,6 +4,8 @@ import java.util.Comparator;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
@@ -44,22 +46,33 @@ public class StudentCard extends UiPart<Region> {
     private Label medicalCondition;
     @FXML
     private FlowPane tags;
+    @FXML
+    private ImageView displayPicture;
 
     public StudentCard(Student student, int displayedIndex) {
         super(FXML);
         this.student = student;
         id.setText(displayedIndex + ". ");
         name.setText(student.getName().fullName);
-        phone.setText(student.getPhone().value);
-        parentPhone.setText(student.getParentPhone().value);
-        address.setText(student.getAddress().value);
-        email.setText(student.getEmail().value);
-        medicalCondition.setText(student.getMedicalCondition().value);
+        phone.setText("(P): " + student.getPhone().value);
+        parentPhone.setText("(PP): " + student.getParentPhone().value);
+        address.setText("(A): " + student.getAddress().value);
+        email.setText("(E): " + student.getEmail().value);
+        medicalCondition.setText("(M): " + student.getMedicalCondition().value);
         student.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+        Image img = new Image(student.getDisplayPicture());
+        displayPicture.setImage(img);
     }
 
+    /**
+     * method for reloading image when picture uploaded
+     */
+    public void reloadImage() {
+        Image img = new Image(student.getDisplayPicture());
+        displayPicture.setImage(img);
+    }
 
     @Override
     public boolean equals(Object other) {

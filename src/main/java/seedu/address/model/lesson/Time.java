@@ -2,13 +2,19 @@ package seedu.address.model.lesson;
 
 import static java.util.Objects.requireNonNull;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 /**
  * Represents a class time in the Classroom.
  */
 public class Time {
+
+    public static final String MESSAGE_CONSTRAINTS =
+            "There is no such date / time! Input should be in dd/MM/yyyy HHmm format.";
+
     private final Calendar time;
 
     public Time(Calendar time) {
@@ -18,6 +24,17 @@ public class Time {
 
     public Calendar getTime() {
         return this.time;
+    }
+
+    public Date getTimeToCompare() {
+        SimpleDateFormat formatter = new SimpleDateFormat("dd MMMM yyyy h:mm a");
+        Date date = null;
+        try {
+            date = formatter.parse(getStringTime());
+        } catch (ParseException e) {
+            e.getMessage();
+        }
+        return date;
     }
 
     public String getStringTime() {

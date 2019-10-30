@@ -52,6 +52,14 @@ public class Lesson {
                 && otherLesson.getName().equals(this.getName());
     }
 
+    /**
+     * Returns true if the end time is after the start time.
+     * @return
+     */
+    public boolean endTimeIsAfterStartTime() {
+        return endTime.getTime().after(startTime.getTime());
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
