@@ -54,6 +54,7 @@ public class ReminderCard extends UiPart<Region> {
             break;
         default:
             deadline.setText("Due " + reminder.getDueDateDescription());
+            break;
         }
         message.setText(reminder.getReminderMessage().value);
     }
