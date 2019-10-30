@@ -202,7 +202,9 @@ public class ModelManager implements Model {
     @Override
     public void addTags(Set<Tag> tags) {
         for (Tag tag : tags) {
-            addTag(tag);
+            if (!algoBase.hasTag(tag)) {
+                addTag(tag);
+            }
         }
     }
 
