@@ -29,6 +29,46 @@ import seedu.address.testutil.TypicalItem;
 
 public class CommandTest {
 
+    private Item getItemOfLowestQuantity(InventoryList inventoryList) {
+        int quantity = Integer.MAX_VALUE;
+        Item result = null;
+        for (int i = 0; i < inventoryList.size(); i++) {
+            if (inventoryList.get(i).getQuantity() < quantity) {
+                result = inventoryList.get(i);
+                quantity = result.getQuantity();
+            }
+        }
+        return result;
+    }
+
+    private Item getItemOfLowestDescriptionLexicographicalValue(InventoryList inventoryList) {
+        if (inventoryList.size() == 1) {
+            return inventoryList.get(0);
+        }
+        Item result = inventoryList.get(0);
+        for (int i = 1; i < inventoryList.size(); i++) {
+            Item nextItem = inventoryList.get(i);
+            if (!(nextItem.getDescription().compareTo(result.getDescription()) > 0)) {
+                result = nextItem;
+            }
+        }
+        return result;
+    }
+
+    private Item getItemOfLowestCategoryLexicographicalValue(InventoryList inventoryList) {
+        if (inventoryList.size() == 1) {
+            return inventoryList.get(0);
+        }
+        Item result = inventoryList.get(0);
+        for (int i = 1; i < inventoryList.size(); i++) {
+            Item nextItem = inventoryList.get(i);
+            if (!(nextItem.getCategory().compareTo(result.getDescription()) > 0)) {
+                result = nextItem;
+            }
+        }
+        return result;
+    }
+
     @Test
     public void execute_addCommandTest_successful() {
         Model inventoryModel = new ModelManager(new InventoryList());
@@ -143,7 +183,8 @@ public class CommandTest {
         assertEquals(new CommandResult(InventoryMessages.MESSAGE_SORTED_BY_DESCRIPTION),
                 sortDescriptionCommandResult);
 
-        assertEquals(TypicalItem.FISH_BURGER, sortDescriptionInventoryModel.getInventoryList().get(0));
+        assertEquals(getItemOfLowestDescriptionLexicographicalValue(inventoryList),
+                sortDescriptionInventoryModel.getInventoryList().get(0));
     }
 
     @Test
@@ -168,7 +209,8 @@ public class CommandTest {
         assertEquals(new CommandResult(InventoryMessages.MESSAGE_SORTED_BY_CATEGORY),
                 sortCategoryCommandResult);
 
-        assertEquals(TypicalItem.STORYBOOK, sortCategoryInventoryModel.getInventoryList().get(0));
+        assertEquals(getItemOfLowestCategoryLexicographicalValue(inventoryList),
+                sortCategoryInventoryModel.getInventoryList().get(0));
     }
 
     @Test
@@ -196,7 +238,7 @@ public class CommandTest {
         assertEquals(new CommandResult(InventoryMessages.MESSAGE_SORTED_BY_QUANTITY),
                 sortQuantityCommandResult);
 
-        assertEquals(TypicalItem.PHONE_CASE, sortQuantityInventoryModel.getInventoryList().get(0));
+        assertEquals(getItemOfLowestQuantity(inventoryList), sortQuantityInventoryModel.getInventoryList().get(0));
     }
 
     @Test
