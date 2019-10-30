@@ -1,8 +1,9 @@
+//@@author woon17
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_REFERENCEID;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_TIMING;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_END;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RECURSIVE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RECURSIVE_TIMES;
@@ -14,7 +15,6 @@ import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Stream;
 
-import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.AddAppCommand;
 import seedu.address.logic.commands.CancelAppCommand;
@@ -45,23 +45,22 @@ public class AddAppCommandParser implements Parser<ReversibleActionPairCommand> 
      */
     public ReversibleActionPairCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_ID, PREFIX_RECURSIVE, PREFIX_RECURSIVE_TIMES,
-                        PREFIX_START, PREFIX_END);
+                ArgumentTokenizer.tokenize(args, PREFIX_ID,
+                        PREFIX_START, PREFIX_RECURSIVE, PREFIX_RECURSIVE_TIMES);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_ID, PREFIX_START, PREFIX_END)) {
+        if (!arePrefixesPresent(argMultimap, PREFIX_ID, PREFIX_START)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     AddAppCommand.MESSAGE_USAGE_RECURSIVELY));
         }
 
         ReferenceId referenceId = ParserUtil.parsePatientReferenceId(argMultimap.getValue(PREFIX_ID).get());
         if (!model.hasPatient(referenceId)) {
-            throw new ParseException(String.format(Messages.MESSAGE_INVAILD_REFERENCE_ID, referenceId.toString()));
+            throw new ParseException(String.format(MESSAGE_INVALID_REFERENCEID, AddAppCommand.MESSAGE_USAGE));
         }
 
         String startString = argMultimap.getValue(PREFIX_START).get();
-        String endString = argMultimap.getValue(PREFIX_END).get();
 
-        Timing timing = ParserUtil.parseTiming(startString, endString);
+        Timing timing = ParserUtil.parseTiming(startString);
 
         if (!timing.isValidTimingFromCurrentTime(timing.getStartTime(), timing.getEndTime())) {
             throw new ParseException(String.format(MESSAGE_INVALID_TIMING, AddAppCommand.MESSAGE_USAGE));
@@ -85,6 +84,11 @@ public class AddAppCommandParser implements Parser<ReversibleActionPairCommand> 
             return new ReversibleActionPairCommand(new AddAppCommand(eventList),
                     new CancelAppCommand(eventList));
         } else {
+            if (!recursiveStringOptional.isPresent() && recursiveStringTimesOptional.isPresent()
+                    || recursiveStringOptional.isPresent() && !recursiveStringTimesOptional.isPresent()) {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                        AddAppCommand.MESSAGE_USAGE_RECURSIVELY));
+            }
             Appointment event = new Appointment(referenceId, timing, new Status());
             return new ReversibleActionPairCommand(new AddAppCommand(event),
                     new CancelAppCommand(event));
@@ -98,14 +102,14 @@ public class AddAppCommandParser implements Parser<ReversibleActionPairCommand> 
         Function<Timing, Timing> func = null;
 
         switch (recursiveString) {
+        case "d":
+            func = Timing::getOneDayLaterTiming;
+            break;
         case "w":
             func = Timing::getOneWeekLaterTiming;
             break;
         case "m":
             func = Timing::getOneMonthLaterTiming;
-            break;
-        case "d":
-            func = Timing::getOneDayLaterTiming;
             break;
         default:
             func = Timing::getOneYearLaterTiming;
