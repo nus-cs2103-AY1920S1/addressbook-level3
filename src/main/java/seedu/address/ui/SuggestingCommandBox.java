@@ -3,7 +3,6 @@ package seedu.address.ui;
 import java.util.EnumSet;
 import java.util.function.Consumer;
 
-import javafx.application.Platform;
 import javafx.beans.InvalidationListener;
 import javafx.beans.binding.BooleanExpression;
 import javafx.collections.ObservableList;
@@ -76,8 +75,15 @@ public class SuggestingCommandBox extends CommandBox {
                 return;
             }
 
+            final double cellHeight = listView.getFixedCellSize();
+            assert cellHeight > 0;
+            final int maxNumSuggestions = 5;
+            final int numSuggestionsToShow = Math.min(listView.getItems().size(), maxNumSuggestions);
+
+            final double popupHeight = numSuggestionsToShow * cellHeight;
+            listView.setMaxHeight(popupHeight);
+
             final double commandTextFieldHeight = commandTextField.getHeight();
-            final double popupHeight = popup.getHeight();
             final double fullHeight = commandTextFieldHeight + popupHeight;
 
             double verticalOffset;
@@ -102,15 +108,16 @@ public class SuggestingCommandBox extends CommandBox {
             window.xProperty().addListener(repositionPopup);
             window.yProperty().addListener(repositionPopup);
             window.heightProperty().addListener(repositionPopup);
-            popup.showingProperty().addListener((unused1, unused2, isShowing) -> {
-                // TODO: find a better way to force a popup reposition when it toggles from hidden to shown state
-                if (!isShowing) {
-                    return;
-                }
-                Platform.runLater(() -> {
-                    repositionPopup.invalidated(null);
-                });
+            listView.itemsProperty().addListener((unused, oldSuggestionsSource, newSuggestionsSource) -> {
+                // reposition the popup whenever the underlying items re-filters itself
+                oldSuggestionsSource.removeListener(repositionPopup);
+                newSuggestionsSource.addListener(repositionPopup);
+
+                // trigger a repositioning because the suggestions source has changed
+                repositionPopup.invalidated(null);
             });
+
+            popup.showingProperty().addListener(repositionPopup);
         };
 
         UiUtil.onWindowReady(commandTextField, setupBindings);
@@ -118,7 +125,7 @@ public class SuggestingCommandBox extends CommandBox {
 
     private void setupListView() {
         listView.setId("suggestions-list");
-        listView.setMaxHeight(100); // TODO: flexible height
+        listView.setFixedCellSize(17);
         listView.setFocusTraversable(false);
         listView.prefWidthProperty().bind(commandTextField.widthProperty());
         UiUtil.redirectKeyCodeEvents(commandTextField, listView, KeyCode.TAB);
