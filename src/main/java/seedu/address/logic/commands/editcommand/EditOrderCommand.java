@@ -17,9 +17,11 @@ import java.util.UUID;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
-import seedu.address.logic.commands.Command;
+import seedu.address.logic.CommandHistory;
+import seedu.address.logic.UndoRedoStack;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.UiChange;
+import seedu.address.logic.commands.UndoableCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.customer.Customer;
@@ -33,7 +35,7 @@ import seedu.address.model.tag.Tag;
 /**
  * Edits the details of an existing order in SML.
  */
-public class EditOrderCommand extends Command {
+public class EditOrderCommand extends UndoableCommand {
 
     public static final String COMMAND_WORD = "edit-o";
 
@@ -41,8 +43,8 @@ public class EditOrderCommand extends Command {
             + "by the index number used in the displayed order list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
-            + "[" + PREFIX_CUSTOMER + "CUSTOMER] "
-            + "[" + PREFIX_PHONE + "PHONE] "
+            + "[" + PREFIX_CUSTOMER + "CUSTOMER INDEX (must be a positive integer)] "
+            + "[" + PREFIX_PHONE + "PHONE INDEX (must be a positive integer)] "
             + "[" + PREFIX_PRICE + "PRICE] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
@@ -77,7 +79,8 @@ public class EditOrderCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult executeUndoableCommand(Model model, CommandHistory commandHistory,
+                                                UndoRedoStack undoRedoStack) throws CommandException {
         requireNonNull(model);
         List<Order> lastShownOrderList = model.getFilteredOrderList();
 

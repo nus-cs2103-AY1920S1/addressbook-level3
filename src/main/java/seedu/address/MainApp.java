@@ -23,6 +23,7 @@ import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.customer.Customer;
 import seedu.address.model.order.Order;
+import seedu.address.model.order.Status;
 import seedu.address.model.phone.Phone;
 import seedu.address.model.schedule.Schedule;
 import seedu.address.model.util.SampleDataUtil;
@@ -170,6 +171,7 @@ public class MainApp extends Application {
 
             initialOrderData = orderBookOptional.orElseGet(SampleDataUtil::getSampleOrderBook);
 
+
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty Order DataBook");
 
@@ -198,6 +200,22 @@ public class MainApp extends Application {
             logger.warning("Problem while reading from the file. Will be starting with an empty Order DataBook");
             initialArchivedOrderData = new DataBook<>();
         }
+
+
+        for (Order o: initialOrderData.getList()) {
+            if (o.getStatus().equals(Status.CANCELLED) || o.getStatus().equals(Status.COMPLETED)) {
+                initialOrderData.getList().remove(o);
+                initialArchivedOrderData.getList().add(o);
+            }
+        }
+
+        for (Order o: initialArchivedOrderData.getList()) {
+            if (!o.getStatus().equals(Status.CANCELLED) && !o.getStatus().equals(Status.COMPLETED)) {
+                initialArchivedOrderData.getList().remove(o);
+                initialOrderData.getList().add(o);
+            }
+        }
+
 
         return new ModelManager(initialCustomerData, initialPhoneData, initialOrderData, initialScheduleData,
                 initialArchivedOrderData, userPrefs);

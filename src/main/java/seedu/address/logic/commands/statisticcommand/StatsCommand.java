@@ -6,6 +6,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_STAT_TYPE;
 
 import java.util.Calendar;
 
+import seedu.address.logic.CommandHistory;
+import seedu.address.logic.UndoRedoStack;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.UiChange;
@@ -54,7 +56,8 @@ public class StatsCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model, CommandHistory commandHistory,
+                                 UndoRedoStack undoRedoStack) throws CommandException {
         StatsPayload payload = new StatsPayload(this.startingDate, this.endingDate, statisticType);
         return new CommandResult(MESSAGE_USAGE, payload, UiChange.STATS);
     }
