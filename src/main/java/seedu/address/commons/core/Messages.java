@@ -27,7 +27,8 @@ public class Messages {
 
     public static final String MESSAGE_TAG_LIMIT_EXCEEDED = "Sorry! A StudyBuddyItem can have no more than 10 tags.";
 
-    public static final String SPECIFY_MODE = "Please specify a mode to start with: Cheatsheet, Flashcard or Note";
+    public static final String SPECIFY_MODE = "Please specify a mode to start with: Cheatsheet, Flashcard or Note.\n"
+            + "Use 'switch' command to specify the mode.";
 
     public static final String ADD = "add";
     public static final String DELETE = "delete";

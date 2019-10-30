@@ -14,7 +14,7 @@ import seedu.address.model.Model;
 public class ListTagCommand extends Command {
     public static final String COMMAND_WORD = "list_tag";
 
-    public static final String MESSAGE_SUCCESS = "Listed all tags";
+    public static final String MESSAGE_SUCCESS = "Listing all tags";
 
 
     @Override
