@@ -54,6 +54,6 @@ public class QuizTagCommand extends Command {
         }
         model.setQuiz(taggedList);
         Flashcard firstCard = model.getQuiz().quizCard();
-        return new CommandResult(firstCard.toString());
+        return new CommandResult(MESSAGE_SUCCESS, true, firstCard.toString());
     }
 }

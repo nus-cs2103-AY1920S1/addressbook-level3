@@ -25,6 +25,7 @@ public class QuizCommand extends Command {
         + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_INVALID_FLASHCARD_INDEX = "The index you entered is invalid!";
+    public static final String MESSAGE_RESULT_SUCCESS = "Please answer the flashcard below with the flip command.";
     private final Index targetIndex;
 
     public QuizCommand(Index targetIndex) {
@@ -49,7 +50,7 @@ public class QuizCommand extends Command {
         List<Flashcard> quizList = new ArrayList<>();
         quizList.add(cardToView);
         model.setQuiz(quizList);
-        return new CommandResult(cardToView.toString());
+        return new CommandResult(MESSAGE_RESULT_SUCCESS, true, cardToView.toString());
     }
 
     @Override

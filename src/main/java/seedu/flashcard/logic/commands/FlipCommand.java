@@ -44,8 +44,9 @@ public class FlipCommand extends Command {
             Answer updatedAnswer = updateAnswer(quizCard);
             boolean isCorrect = quizCard.checkAnswer(updatedAnswer);
             model.getQuiz().discardFirstCard();
-            String resultString = buildResultString(updatedAnswer, isCorrect, quizCard, model.getQuiz());
-            return new CommandResult(resultString);
+            String resultString = buildResultString(updatedAnswer, isCorrect, quizCard);
+            String flashcardString = buildFlashcardString(model.getQuiz());
+            return new CommandResult(resultString, true, flashcardString);
         } catch (NumberFormatException e) {
             throw new CommandException(MESSAGE_MCQ_INDEX);
         }
@@ -77,10 +78,9 @@ public class FlipCommand extends Command {
      * @param updatedAnswer Parsed answer.
      * @param isCorrect If the answer was correct.
      * @param quizCard Card currently being quizzed.
-     * @param quiz Quiz object containing all quizable cards.
      * @return Resultant string for CommandResult
      */
-    private String buildResultString(Answer updatedAnswer, boolean isCorrect, Flashcard quizCard, Quiz quiz) {
+    private String buildResultString(Answer updatedAnswer, boolean isCorrect, Flashcard quizCard) {
         final StringBuilder builder = new StringBuilder();
         builder.append("Your answer: ").append(updatedAnswer.toString());
         if (isCorrect) {
@@ -90,13 +90,22 @@ public class FlipCommand extends Command {
                     .append("The correct answer is: ").append(quizCard.getAnswer()).append("\n");
         }
 
+        return builder.toString();
+    }
+
+    /**
+     * Builds the flashcard string to return if there are flashcards to quiz.
+     * @param quiz Quiz object containing all quizable cards.
+     * @return Resultant string for Flashcards
+     */
+    private String buildFlashcardString(Quiz quiz) {
+        final StringBuilder builder = new StringBuilder();
         if (!quiz.isEmpty()) {
             builder.append("This is your next card:\n").append(quiz.quizCard());
         } else {
             FlashcardListParser.setQuizMode(false);
             builder.append("This quiz has ended.");
         }
-
         return builder.toString();
     }
 

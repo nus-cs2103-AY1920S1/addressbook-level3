@@ -21,6 +21,11 @@ public class CommandResult {
     /**Tell the system to show stats screen*/
     private final boolean showStats;
 
+    /** Tell the system if it is a flip command.*/
+    private final boolean flip;
+
+    private final String flashcardToDisplay;
+
     /**
      * Construct a {@Code CommandResult} with all fields specified.
      */
@@ -29,6 +34,8 @@ public class CommandResult {
         this.showHelp = showHelp;
         this.exit = exit;
         this.showStats = false;
+        this.flip = false;
+        this.flashcardToDisplay = null;
     }
 
     /**
@@ -40,6 +47,21 @@ public class CommandResult {
         this.showHelp = showHelp;
         this.exit = exit;
         this.showStats = showStats;
+        this.flip = false;
+        this.flashcardToDisplay = null;
+    }
+
+    /**
+     *Construct a {@Code CommandResult} with all fields specified.
+     * to be merged with the above method
+     */
+    public CommandResult(String feedbackToUser, boolean flip, String flashcardToDisplay) {
+        this.feedbackToUser = requireNonNull(feedbackToUser);
+        this.showHelp = false;
+        this.exit = false;
+        this.showStats = false;
+        this.flip = flip;
+        this.flashcardToDisplay = flashcardToDisplay;
     }
 
     /**
@@ -54,6 +76,10 @@ public class CommandResult {
         return feedbackToUser;
     }
 
+    public String getFlashcardToDisplay() {
+        return flashcardToDisplay;
+    }
+
     public boolean isShowHelp() {
         return showHelp;
     }
@@ -64,6 +90,10 @@ public class CommandResult {
 
     public boolean isShowStats() {
         return showStats;
+    }
+
+    public boolean isFlip() {
+        return flip;
     }
 
 
