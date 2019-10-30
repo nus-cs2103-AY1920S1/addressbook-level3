@@ -125,6 +125,21 @@ public class DisinviteCommandTest {
 
         assertEquals(2, activity.getParticipantIds().size());
         assertEquals(ids, activity.getParticipantIds());
+
+        model.addPerson(CARL);
+        activity.invite(CARL);
+        Amount amt = new Amount(100);
+        // Benson paid for everyone in the activity, since no one else specified
+        Expense exp = new Expense(BENSON.getPrimaryKey(), amt, "dinner");
+        activity.addExpense(exp);
+        peopleToDisinvite.add(CARL.getName().fullName);
+        ids.add(CARL.getPrimaryKey());
+        disinviteCommand = new DisinviteCommand(peopleToDisinvite);
+        disinviteCommand.execute(model);
+
+        assertEquals(3, activity.getParticipantIds().size());
+        assertEquals(ids, activity.getParticipantIds());
+
     }
 
     @Test
