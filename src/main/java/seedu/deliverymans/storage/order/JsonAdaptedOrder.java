@@ -1,4 +1,4 @@
-package seedu.deliverymans.storage;
+package seedu.deliverymans.storage.order;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,8 +25,7 @@ public class JsonAdaptedOrder {
     private final String restaurant;
     private final String deliveryman;
     private final String isCompleted;
-    private final List<String> foodList = new ArrayList<>(); //implement food class
-    private final List<String> quantityList = new ArrayList<>();
+    private final List<JsonAdaptedFoodOrder> foodList = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonAdaptedOrder} with the given order details.
@@ -36,8 +35,7 @@ public class JsonAdaptedOrder {
                             @JsonProperty("customer") String customer,
                             @JsonProperty("restaurant") String restaurant,
                             @JsonProperty("deliveryman") String deliveryman,
-                            @JsonProperty("foodList") List<String> foodList,
-                            @JsonProperty("quantityList") List<String> quantityList,
+                            @JsonProperty("foodList") List<JsonAdaptedFoodOrder> foodList,
                             @JsonProperty("status") String isCompleted) {
         this.order = order;
         this.customer = customer;
@@ -46,9 +44,6 @@ public class JsonAdaptedOrder {
         this.isCompleted = isCompleted;
         if (foodList != null) {
             this.foodList.addAll(foodList);
-        }
-        if (quantityList != null) {
-            this.quantityList.addAll(quantityList);
         }
     }
 
@@ -61,10 +56,13 @@ public class JsonAdaptedOrder {
         restaurant = source.getRestaurant().fullName;
         deliveryman = source.getDeliveryman().fullName;
         isCompleted = String.valueOf(source.isCompleted());
-        foodList.addAll(source.getFood().keySet().stream().map(x-> x.fullName)
+        foodList.addAll(source.getFood().entrySet().stream()
+                .map(JsonAdaptedFoodOrder::new)
                 .collect(Collectors.toList()));
-        quantityList.addAll(source.getFood().values().stream().map(x -> x.toString())
-                .collect(Collectors.toList()));
+        // foodList.addAll(source.getFood().keySet().stream().map(x-> x.fullName)
+        //        .collect(Collectors.toList()));
+        //quantityList.addAll(source.getFood().values().stream().map(x -> x.toString())
+        //        .collect(Collectors.toList()));
     }
 
     /**
@@ -74,14 +72,20 @@ public class JsonAdaptedOrder {
      */
     public Order toModelType() throws IllegalValueException {
         final Map<Name, Integer> modelFoodMap = new HashMap<>();
-        for (int i = 0; i < foodList.size(); ++i) {
-            String tempFood = foodList.get(i);
-            String tempQuantity = quantityList.get(i);
-            if (!Name.isValidName(tempFood)) {
-                throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
-            }
-            modelFoodMap.put(new Name(tempFood), Integer.parseInt(tempQuantity));
+
+        for (JsonAdaptedFoodOrder food : foodList) {
+            Map.Entry<Name, Integer> entry = food.toModelType();
+            modelFoodMap.put(entry.getKey(), entry.getValue());
         }
+
+        //for (int i = 0; i < foodList.size(); ++i) {
+        //    String tempFood = foodList.get(i);
+        //    String tempQuantity = quantityList.get(i);
+        //   if (!Name.isValidName(tempFood)) {
+        //        throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
+        //    }
+        //    modelFoodMap.put(new Name(tempFood), Integer.parseInt(tempQuantity));
+        //}
 
         if (order == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
@@ -119,6 +123,7 @@ public class JsonAdaptedOrder {
         if (Boolean.parseBoolean(isCompleted)) {
             order.completeOrder();
         }
+
         return order;
     }
 }

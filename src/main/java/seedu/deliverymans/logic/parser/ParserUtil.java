@@ -3,7 +3,6 @@ package seedu.deliverymans.logic.parser;
 import static java.util.Objects.requireNonNull;
 
 import java.math.BigDecimal;
-import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
@@ -172,16 +171,16 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String duration} in seconds into a {@code Duration}.
+     * Parses a {@code String quantity} into an {@code int}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code duration} is invalid.
+     * @throws ParseException if the given {@code quantity} is invalid.
      */
-    public static Duration parseSeconds(String seconds) throws ParseException {
+    public static int parseQuantity(String seconds) throws ParseException {
         requireNonNull(seconds);
         String trimmedSeconds = seconds.trim();
         try {
-            return Duration.ofSeconds(Long.parseLong(trimmedSeconds));
+            return Integer.parseInt(trimmedSeconds);
         } catch (NumberFormatException e) {
             throw new ParseException(e.getMessage(), e);
         }

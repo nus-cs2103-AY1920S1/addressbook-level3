@@ -30,20 +30,19 @@ import seedu.deliverymans.model.restaurant.Restaurant;
 public class MainWindow extends UiPart<Stage> {
 
     private static final String FXML = "MainWindow.fxml";
+    private static Context currentContext = Context.GLOBAL;
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
     private Stage primaryStage;
     private Logic logic;
 
-    private Context currentContext;
-
     // Independent Ui parts residing in this Ui container
     private PersonListPanel personListPanel;
     private CustomerListPanel customerListPanel;
     private DeliverymanListPanel deliverymanListPanel;
-    private AvailableDeliverymenListPanel availableDeliverymenListPanel;
-    private UnavailableDeliverymenListPanel unavailableDeliverymenListPanel;
+    private DeliverymenStatusListPanel deliverymenStatusListPanel;
+    private DeliverymenStatusStatisticsPanel deliverymenStatusStatisticsPanel;
     private RestaurantListPanel restaurantListPanel;
     private OrderListPanel orderListPanel;
     private FoodListPanel foodListPanel;
@@ -79,7 +78,6 @@ public class MainWindow extends UiPart<Stage> {
         // Set dependencies
         this.primaryStage = primaryStage;
         this.logic = logic;
-        this.currentContext = null;
 
         // Configure the UI
         setWindowDefaultSize(logic.getGuiSettings());
@@ -144,7 +142,7 @@ public class MainWindow extends UiPart<Stage> {
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
-        availableDeliverymenListPanel = new AvailableDeliverymenListPanel(logic.getAvailableDeliverymenList(),
+        deliverymenStatusListPanel = new DeliverymenStatusListPanel(logic.getAvailableDeliverymenList(),
                 logic.getUnavailableDeliverymenList(), logic.getDeliveringDeliverymenList());
     }
 
@@ -191,7 +189,7 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Changes context of the system depending on {@code context}
      */
-    private void changeContext(Context context) {
+    private void changeDisplay(Context context) {
 
         editingRestaurantPlaceholder.setPrefHeight(0);
         editingRestaurantPlaceholder.setMinHeight(0);
@@ -218,7 +216,12 @@ public class MainWindow extends UiPart<Stage> {
         case DELIVERYMENSTATUS:
             deliverymanListPanel = new DeliverymanListPanel(logic.getFilteredDeliverymenList());
             listPanelPlaceholder.getChildren().add(deliverymanListPanel.getRoot());
-            statisticsPlaceholder.getChildren().add(availableDeliverymenListPanel.getRoot());
+            statisticsPlaceholder.getChildren().add(deliverymenStatusListPanel.getRoot());
+            break;
+        case DELIVERYMENSTATISTICS:
+            deliverymenStatusStatisticsPanel = new DeliverymenStatusStatisticsPanel(logic.getAvailableDeliverymenList(),
+                    logic.getUnavailableDeliverymenList(), logic.getDeliveringDeliverymenList());
+            statisticsPlaceholder.getChildren().add(deliverymenStatusStatisticsPanel.getRoot());
             break;
         case DELIVERYMANRECORD:
             DeliveryRecord record = new DeliveryRecord(new Name("Charles"));
@@ -265,8 +268,10 @@ public class MainWindow extends UiPart<Stage> {
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
             Context nextContext = commandResult.getContext();
-            if (nextContext != null && nextContext != currentContext) {
-                changeContext(nextContext);
+            boolean isNewContext = (nextContext != null && nextContext != currentContext);
+
+            if (isNewContext) {
+                changeDisplay(nextContext);
             }
 
             if (commandResult.isShowHelp()) {
@@ -283,6 +288,10 @@ public class MainWindow extends UiPart<Stage> {
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
         }
+    }
+
+    public static Context getContext() {
+        return currentContext;
     }
 
 }
