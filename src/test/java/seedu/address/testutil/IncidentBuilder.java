@@ -14,7 +14,11 @@ import seedu.address.model.person.Password;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Username;
-import seedu.address.model.vehicle.*;
+import seedu.address.model.vehicle.Availability;
+import seedu.address.model.vehicle.District;
+import seedu.address.model.vehicle.Vehicle;
+import seedu.address.model.vehicle.VehicleNumber;
+import seedu.address.model.vehicle.VehicleType;
 
 /**
  * A utility class to help with the building of Incident objects.
