@@ -121,19 +121,13 @@ Returns any items with names containing `milk` or `tea`, or with the tag `#Drink
 
 // tag::shift[]
 //TODO: update shift command
-=== Shifting an item from one list to another: `shift`
+==== Shifting an item from one list to another: `shift`
 
-==== Shifting an item from the main list to the replenish list
+===== Shifting an item from the main list to the replenish list
 
-==== Shifting an item from the replenish list to the main list
+===== Shifting an item from the replenish list to the main list
 // end::shift[]
 
-===== Sorting all items by their name
-Format: `sort|name`
-
-===== Sorting all items by their date
-Format: `sort|date`
-// end::sort[]
 
 // tag::clear[]
 ==== Clearing all entries : `clear`
@@ -149,7 +143,7 @@ Exits the program. +
 Format: `exit`
 // end::exit[]
 
-=== Saving the data
+==== Saving the data
 
 Items are saved in the hard disk automatically after any command that modifies the list. +
 There is no need to save manually.
@@ -321,6 +315,12 @@ Format: `sort|<key>`
 * Items can be sorted by either name or date.
 * For example, Apple will sort ahead of Banana, while 1/1/2000 will sort ahead of 1/1/2001.
 ****
+===== Sorting all items by their name
+Format: `sort|name`
+
+===== Sorting all items by their date
+Format: `sort|date`
+// end::sort[]
 
 // tag::dataencryption[]
 //=== Encrypting data files `[coming in v2.0]`
