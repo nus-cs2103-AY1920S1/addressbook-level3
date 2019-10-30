@@ -79,7 +79,8 @@ public class JsonExportPath extends ExportPath {
      * Helper method to get the JSON export file path from a given String.
      *
      * @param jsonExportPathString String representing the full path of a JSON export file
-     * @return JsonExportFilePath representing the path of the JSON export file, relative to its immediate parent directory
+     * @return JsonExportFilePath representing the path of the JSON export file,
+     * relative to its immediate parent directory
      */
     private static JsonExportFilePath extractJsonExportFilePath(String jsonExportPathString) {
         Path fullPath = Paths.get(jsonExportPathString);
