@@ -13,6 +13,7 @@ import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import seedu.ifridge.commons.core.GuiSettings;
 import seedu.ifridge.commons.core.IFridgeSettings;
 import seedu.ifridge.commons.core.LogsCenter;
@@ -506,6 +507,19 @@ public class ModelManager implements Model {
     public void addShoppingItem(ShoppingItem food) {
         shoppingList.addShoppingItem(food);
         updateFilteredShoppingList(PREDICATE_SHOW_ALL_SHOPPING_ITEMS);
+    }
+
+    @Override
+    public void urgentShoppingItem(ShoppingItem toMarkAsUrgent) {
+        shoppingList.urgentShoppingItem(toMarkAsUrgent);
+        updateFilteredShoppingList(PREDICATE_SHOW_ALL_SHOPPING_ITEMS);
+    }
+
+    @Override
+    public void sortShoppingItems() {
+        ObservableList<ShoppingItem> internalShoppingList = shoppingList.getShoppingList();
+        SortedList<ShoppingItem> sortedList = internalShoppingList.sorted(new UrgentComparator());
+        shoppingList.setShoppingItems(sortedList);
     }
 
     @Override

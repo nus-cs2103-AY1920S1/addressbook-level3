@@ -2,6 +2,7 @@ package seedu.ifridge.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.security.PublicKey;
 import java.util.List;
 
 import javafx.collections.ObservableList;
@@ -80,6 +81,14 @@ public class ShoppingList implements ReadOnlyShoppingList {
      */
     public void addShoppingItem(ShoppingItem p) {
         shoppingItems.add(p);
+    }
+
+    /**
+     * Marks the given shopping item in shopping list as urgent.
+     * @param toMarkAsUrgent
+     */
+    public void urgentShoppingItem(ShoppingItem toMarkAsUrgent) {
+        shoppingItems.markAsUrgent(toMarkAsUrgent);
     }
 
     /**

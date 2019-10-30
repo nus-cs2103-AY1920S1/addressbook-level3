@@ -72,8 +72,9 @@ public class BoughtShoppingCommand extends Command {
         GroceryItem boughtItem = shoppingItemToMarkAsBought.getBoughtItem(amount, expiryDate);
 
         model.setShoppingItem(shoppingItemToMarkAsBought, boughtShoppingItem);
-        model.updateFilteredShoppingList(PREDICATE_SHOW_ALL_SHOPPING_ITEMS);
         model.addBoughtItem(boughtItem);
+        model.sortShoppingItems();
+        model.updateFilteredShoppingList(PREDICATE_SHOW_ALL_SHOPPING_ITEMS);
         CommandResult commandResult = new CommandResult(String.format(MESSAGE_BOUGHT_SHOPPING_ITEM_SUCCESS,
                 boughtShoppingItem));
         commandResult.setShoppingListCommand();

@@ -58,6 +58,22 @@ public class UniqueShoppingList implements Iterable<ShoppingItem> {
     }
 
     /**
+     * Marks the shopping item in the list as urgent.
+     * @param toMarkAsUrgent shopping item to be marked as urgent
+     */
+    public void markAsUrgent(ShoppingItem toMarkAsUrgent) {
+        requireNonNull(toMarkAsUrgent);
+
+        int index = internalList.indexOf(toMarkAsUrgent);
+        if (index == -1) {
+            throw new FoodNotFoundException();
+        }
+
+        toMarkAsUrgent = toMarkAsUrgent.setUrgent(true);
+        internalList.set(index, toMarkAsUrgent);
+    }
+
+    /**
      * Replaces the person {@code target} in the list with {@code editedPerson}.
      * {@code target} must exist in the list.
      * The person identity of {@code editedPerson} must not be the same as another existing person in the list.

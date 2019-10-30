@@ -286,6 +286,17 @@ public interface Model {
     void addShoppingItem(ShoppingItem toAdd);
 
     /**
+     * Marks the given shopping item as urgent
+     * @param toMarkAsUrgent
+     */
+    void urgentShoppingItem(ShoppingItem toMarkAsUrgent);
+
+    /**
+     * Sorts the items in the shopping list with the urgent items at the start.
+     */
+    void sortShoppingItems();
+
+    /**
      * Replaces the given shoppingItem {@code target} with {@code editedShoppingItem}.
      * {@code target} must exist in the shopping list.
      * The template identity of {@code editedShoppingItem} must not be the same as another existing shopping item

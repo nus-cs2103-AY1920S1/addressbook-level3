@@ -4,31 +4,35 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.SortedList;
 import seedu.ifridge.commons.core.Messages;
 import seedu.ifridge.commons.core.index.Index;
 import seedu.ifridge.logic.commands.Command;
 import seedu.ifridge.logic.commands.CommandResult;
 import seedu.ifridge.logic.commands.exceptions.CommandException;
 import seedu.ifridge.model.Model;
+import seedu.ifridge.model.ShoppingList;
+import seedu.ifridge.model.UrgentComparator;
 import seedu.ifridge.model.food.ShoppingItem;
 
 /**
  * Deletes a person identified using it's displayed index from the address book.
  */
-public class DeleteShoppingCommand extends Command {
+public class UrgentShoppingCommand extends Command {
 
-    public static final String COMMAND_WORD = "delete";
+    public static final String COMMAND_WORD = "urgent";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the shopping item identified by the index number used in the displayed shopping list.\n"
+            + ": Marks the shopping item identified by the index used in the displayed shopping list as urgent.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_DELETE_SHOPPING_ITEM_SUCCESS = "Deleted ShoppingItem: %1$s";
+    public static final String MESSAGE_URGENT_SHOPPING_ITEM_SUCCESS = "ShoppingItem marked as urgent is: %1$s";
 
     private final Index targetIndex;
 
-    public DeleteShoppingCommand(Index targetIndex) {
+    public UrgentShoppingCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
     }
 
@@ -41,11 +45,12 @@ public class DeleteShoppingCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_SHOPPING_ITEM_DISPLAYED_INDEX);
         }
 
-        ShoppingItem shoppingItemToDelete = lastShownList.get(targetIndex.getZeroBased());
-        model.deleteShoppingItem(shoppingItemToDelete);
+        ShoppingItem shoppingItemToMarkAsUrgent = lastShownList.get(targetIndex.getZeroBased());
+        model.urgentShoppingItem(shoppingItemToMarkAsUrgent);
+        ShoppingItem shoppingItemToPrint = shoppingItemToMarkAsUrgent.setUrgent(true);
         model.sortShoppingItems();
         CommandResult commandResult =
-                new CommandResult(String.format(MESSAGE_DELETE_SHOPPING_ITEM_SUCCESS, shoppingItemToDelete));
+                new CommandResult(String.format(MESSAGE_URGENT_SHOPPING_ITEM_SUCCESS, shoppingItemToPrint));
         commandResult.setShoppingListCommand();
         return commandResult;
     }
@@ -53,8 +58,9 @@ public class DeleteShoppingCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof DeleteShoppingCommand // instanceof handles nulls
-                && targetIndex.equals(((DeleteShoppingCommand) other).targetIndex)); // state check
+                || (other instanceof UrgentShoppingCommand // instanceof handles nulls
+                && targetIndex.equals(((UrgentShoppingCommand) other).targetIndex)); // state check
     }
-}
 
+
+}

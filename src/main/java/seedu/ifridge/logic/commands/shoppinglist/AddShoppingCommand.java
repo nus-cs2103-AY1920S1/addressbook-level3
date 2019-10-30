@@ -4,10 +4,14 @@ import static java.util.Objects.requireNonNull;
 import static seedu.ifridge.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static seedu.ifridge.logic.parser.CliSyntax.PREFIX_NAME;
 
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.SortedList;
 import seedu.ifridge.logic.commands.Command;
 import seedu.ifridge.logic.commands.CommandResult;
 import seedu.ifridge.logic.commands.exceptions.CommandException;
 import seedu.ifridge.model.Model;
+import seedu.ifridge.model.ShoppingList;
+import seedu.ifridge.model.UrgentComparator;
 import seedu.ifridge.model.food.ShoppingItem;
 
 /**
@@ -47,6 +51,7 @@ public class AddShoppingCommand extends Command {
         }
 
         model.addShoppingItem(toAdd);
+        model.sortShoppingItems();
         CommandResult commandResult = new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         commandResult.setShoppingListCommand();
         return commandResult;
