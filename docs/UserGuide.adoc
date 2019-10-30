@@ -3,6 +3,7 @@
 :toc:
 :toc-title:
 :toc-placement: preamble
+:toclevels: 3
 :sectnums:
 :imagesDir: images
 :stylesDir: stylesheets
@@ -18,9 +19,22 @@ By: `AY1920S1-CS2103T-F13-1`      Since: `Sep 2019`      Licence: `MIT`
 
 == Introduction
 
-LiBerry is a desktop app for librarians to *quickly manage their community libraries!* LiBerry is optimized for librarians who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). You can type quickly and serve your long line of borrowers in a short amount of time. LiBerry can manage all your books and borrowers efficiently and meticulously. Jump to <<Quick Start>> to get started now! Enjoy!
+*LiBerry* is a desktop app for librarians to *quickly manage their community libraries!*
+LiBerry is optimized for librarians who prefer to work with a Command Line Interface (CLI) while still having the
+benefits of a Graphical User Interface (GUI).
+You can type quickly and serve your long line of borrowers in a short amount of time.
+
+LiBerry can manage all your books and borrowers efficiently and meticulously. You can easily add new books to your library
+records, register new borrowers, loan out books, track outstanding fines and more!
+
+This user guide will introduce to you the different features of LiBerry and how to use them!
+Jump to <<Quick Start>> to get started now! Enjoy!
+
+== Legend
 
 == Quick Start
+Dive into LiBerry with our simple set-up guide a quick tour of our user interface and features!
+// need to elaborate here, add more egs
 
 .  Ensure you have Java `11` or above installed in your Computer.
 .  Download the latest `LiBerry.jar` link:{repoURL}/releases[here].
@@ -37,6 +51,9 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 [[Features]]
 // tag::UGshiyao3[]
 == Features
+This section contains a detailed guide to every feature LiBerry supports, including how to use and the
+format of the commands to use the feature.
+The following table shows the format used to describe each command.
 
 ====
 *Command Format*
