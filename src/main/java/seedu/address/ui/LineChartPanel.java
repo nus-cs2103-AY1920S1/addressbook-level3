@@ -297,6 +297,11 @@ public class LineChartPanel extends UiPart<Region> {
         return yearList;
     }
 
+    /**
+     * Sets the new filter parameters supplied by the user to change the time frame of the line chart.
+     * @param newTimeFrame The time frame specified, which can be "default", "week", "month", or "year".
+     * @param newDate The date specified by the user to contain the time frame.
+     */
     public static void changeFilterParameters(String newTimeFrame, Date newDate) {
         setTimeFrame(newTimeFrame);
         setDate(newDate);
