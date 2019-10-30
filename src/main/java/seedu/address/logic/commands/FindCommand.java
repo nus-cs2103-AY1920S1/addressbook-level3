@@ -2,10 +2,13 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.List;
+import java.util.function.Predicate;
+
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
-import seedu.address.model.person.DescriptionContainsKeywordsPredicate;
+import seedu.address.model.person.Entry;
 
 /**
  * Finds and lists all persons in address book whose name contains any of the argument keywords.
@@ -20,16 +23,20 @@ public class FindCommand extends Command {
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
             + "Example: " + COMMAND_WORD + " mala fish food";
 
-    private final DescriptionContainsKeywordsPredicate predicate;
+    public static final String INSUFFICENT_ARGUMENTS = "Find by at least one property";
 
-    public FindCommand(DescriptionContainsKeywordsPredicate predicate) {
+    private final List<Predicate<Entry>> predicate;
+
+    public FindCommand(List<Predicate<Entry>> predicate) {
         this.predicate = predicate;
     }
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
-        model.updateFilteredEntryList(predicate);
+        Predicate<Entry> newPredicate = this.predicate.stream().reduce(t -> true, (tbefore, tafter) ->
+            tbefore.and(tafter));
+        model.updateFilteredEntryList(newPredicate);
         return new CommandResult(
                 String.format(Messages.MESSAGE_ENTRIES_LISTED_OVERVIEW, model.getFilteredEntryList().size()));
     }

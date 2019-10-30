@@ -77,11 +77,11 @@ public class EditBudgetCommand extends Command {
         Budget entryToEdit = lastShownList.get(index.getZeroBased());
         Budget editedEntry = createEditedBudget(entryToEdit, editEntryDescriptor);
 
-        if (!entryToEdit.isSameEntry(editedEntry) && model.hasEntry(editedEntry)) {
+        if (!entryToEdit.isSameEntry(editedEntry) && model.hasBudget(editedEntry)) {
             throw new CommandException(MESSAGE_DUPLICATE_ENTRY);
         }
 
-        model.setEntry(entryToEdit, editedEntry);
+        model.setBudget(entryToEdit, editedEntry);
         model.updateFilteredBudgets(PREDICATE_SHOW_ALL_BUDGETS);
         model.updateFilteredEntryList(PREDICATE_SHOW_ALL_ENTRIES);
         model.commitAddressBook();

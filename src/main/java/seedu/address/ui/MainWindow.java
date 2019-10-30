@@ -38,6 +38,11 @@ public class MainWindow extends UiPart<Stage> {
     private EntryListPanel entryListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private StatisticsWindow statsListPanel;
+    private StatisticsGraphics statsGraphics;
+
+    private boolean isStatsWindow;
+    private boolean isStatsGraphicsWindow;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -75,6 +80,9 @@ public class MainWindow extends UiPart<Stage> {
         // Set dependencies
         this.primaryStage = primaryStage;
         this.logic = logic;
+
+        this.isStatsGraphicsWindow = false;
+        this.isStatsWindow = false;
 
         // Configure the UI
         setWindowDefaultSize(logic.getGuiSettings());
@@ -126,7 +134,10 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        entryListPanel = new EntryListPanel(logic.getFilteredEntryList());
+        statsListPanel = new StatisticsWindow(logic);
+        statsGraphics = new StatisticsGraphics(logic.getListOfStatsForExpense(), logic.getListOfStatsForIncome());
+
+        entryListPanel = new EntryListPanel(logic.getFilteredExpenseAndIncomeList());
         entryListPanelPlaceholder.getChildren().add(entryListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
@@ -231,6 +242,20 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
+     * Toggles the isVisible and isManaged properties of the sidePanelsPlaceHolder.
+     */
+    private void togglePlaceHolderForStats(boolean isStatsWindow) {
+        if (isStatsWindow == true) {
+            sidePanelsPlaceHolder.setManaged(false);
+            sidePanelsPlaceHolder.setVisible(false);
+        } else {
+            sidePanelsPlaceHolder.setManaged(true);
+            sidePanelsPlaceHolder.setVisible(true);
+            toggleAllTrue();
+        }
+    }
+
+    /**
      * Sets both the isVisible and isManaged properties the side panel place holder to false if none of the side panels
      * are visible and managed.
      * Otherwise, both of those properties are set to true.
@@ -263,6 +288,46 @@ public class MainWindow extends UiPart<Stage> {
     private void handleChangeFont(String font) {
         String style = "-fx-font-family: " + font;
         window.setStyle(style);
+    }
+
+    /**
+     * Sets both the isVisible and isManaged properties of all the PlaceHolders in the sidepanelPlaceHolder to True.
+     * This occurs if the window is switched back to Entry Window.
+     */
+    private void toggleAllTrue() {
+        budgetsPlaceHolder.setVisible(true);
+        budgetsPlaceHolder.setManaged(true);
+        remindersPlaceHolder.setVisible(true);
+        remindersPlaceHolder.setManaged(true);
+        wishesPlaceHolder.setVisible(true);
+        wishesPlaceHolder.setManaged(true);
+    }
+
+    /**
+     * Fills the entryListPanel with either the StatisticsWindow or the EntryListPanel.
+     * entryListPanelPlaceholder.getChildren().add(statsListPanel.getRoot());
+     * @param isStatistics is the truthvalue of whether it is the statistics panel.
+     */
+    private void fillEntryListPanel(boolean isStatistics) {
+        entryListPanelPlaceholder.getChildren().clear();
+        if (isStatistics) {
+            entryListPanelPlaceholder.getChildren().add(statsListPanel.getRoot());
+        } else {
+            entryListPanelPlaceholder.getChildren().add(entryListPanel.getRoot());
+        }
+    }
+
+    /**
+     * Fills the entryListPanel with either the StatisticsWindow or the EntryListPanel.
+     * entryListPanelPlaceholder.getChildren().add(statsListPanel.getRoot());
+     */
+    private void toggleStatsPanel() {
+        entryListPanelPlaceholder.getChildren().clear();
+        if (isStatsGraphicsWindow) {
+            entryListPanelPlaceholder.getChildren().add(statsGraphics.getRoot());
+        } else {
+            entryListPanelPlaceholder.getChildren().add(statsListPanel.getRoot());
+        }
     }
 
     public EntryListPanel getEntryListPanel() {
@@ -304,6 +369,19 @@ public class MainWindow extends UiPart<Stage> {
             if (commandResult.isChangeFont()) {
                 String fontNameString = commandResult.getFontName().toString();
                 handleChangeFont(fontNameString);
+            }
+
+            if (commandResult.isToggleStats()) {
+                isStatsWindow = !isStatsWindow;
+                this.togglePlaceHolderForStats(isStatsWindow);
+                this.fillEntryListPanel(isStatsWindow);
+            }
+
+            if (commandResult.isToggleGraphics()) {
+                isStatsWindow = true;
+                isStatsGraphicsWindow = !isStatsGraphicsWindow;
+                this.togglePlaceHolderForStats(true);
+                this.toggleStatsPanel();
             }
 
             return commandResult;

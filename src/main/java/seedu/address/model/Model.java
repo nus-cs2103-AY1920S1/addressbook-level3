@@ -17,6 +17,7 @@ import seedu.address.model.person.SortSequence;
 import seedu.address.model.person.SortType;
 import seedu.address.model.person.Wish;
 import seedu.address.model.person.WishReminder;
+import seedu.address.model.statistics.StatisticsManager;
 
 /**
  * The API of the Model component.
@@ -30,6 +31,10 @@ public interface Model {
     Predicate<Budget> PREDICATE_SHOW_ALL_BUDGETS = unused -> true;
     Predicate<AutoExpense> PREDICATE_SHOW_ALL_AUTOEXPENSES = unused -> true;
     Predicate<ExpenseReminder> PREDICATE_SHOW_ALL_EXPENSE_REMINDERS = unused -> true;
+
+    void setStats(StatisticsManager stats);
+
+    StatisticsManager getStats();
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -80,6 +85,10 @@ public interface Model {
      * the address book.
      */
     boolean hasEntry(Entry entry);
+
+    boolean hasBudget(Budget budget);
+
+    boolean hasWish(Wish wish);
 
     boolean hasExpenseReminder(ExpenseReminder reminder);
 
@@ -150,6 +159,14 @@ public interface Model {
      * address book.
      */
     void setEntry(Entry target, Entry editedEntry);
+
+    void setIncome(Income target, Income editedEntry);
+
+    void setExpense(Expense target, Expense editedEntry);
+
+    void setWish(Wish target, Wish editedWish);
+
+    void setBudget(Budget target, Budget editedbudget);
 
     void setExpenseReminder(ExpenseReminder target, ExpenseReminder editedEntry);
 

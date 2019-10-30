@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
+import java.time.temporal.ChronoField;
 
 import seedu.address.model.util.Frequency;
 
@@ -30,13 +31,30 @@ public class Date {
             .appendOptional(DateTimeFormatter.ofPattern("yyyy.MM.dd"))
             .appendOptional(DateTimeFormatter.ofPattern("yyyy.MM.d"))
             .appendOptional(DateTimeFormatter.ofPattern("dd/MM/yyyy"))
+            .appendOptional(DateTimeFormatter.ofPattern("dd/M/yyyy"))
             .appendOptional(DateTimeFormatter.ofPattern("d/MM/yyyy"))
+            .appendOptional(DateTimeFormatter.ofPattern("d/M/yyyy"))
             .appendOptional(DateTimeFormatter.ofPattern("d-MM-yyyy"))
             .appendOptional(DateTimeFormatter.ofPattern("dd-MM-yyyy"))
             .appendOptional(DateTimeFormatter.ofPattern("dd.MM.yyyy"))
             .appendOptional(DateTimeFormatter.ofPattern("d.MM.yyyy")).toFormatter();
 
     private static final DateTimeFormatter OUTPUTFORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+    private static final DateTimeFormatter INPUTMONTHFORMATTER = new DateTimeFormatterBuilder()
+            .parseDefaulting(ChronoField.DAY_OF_MONTH, 1)
+            .appendOptional(DateTimeFormatter.ofPattern("MM/yyyy"))
+            .appendOptional(DateTimeFormatter.ofPattern("MM-yyyy"))
+            .appendOptional(DateTimeFormatter.ofPattern("MM/yy"))
+            .appendOptional(DateTimeFormatter.ofPattern("M/yyyy"))
+            .appendOptional(DateTimeFormatter.ofPattern("M-yyyy"))
+            .appendOptional(DateTimeFormatter.ofPattern("M/yy"))
+            .appendOptional(DateTimeFormatter.ofPattern("yy/MM"))
+            .appendOptional(DateTimeFormatter.ofPattern("yyyy/MM"))
+            .appendOptional(DateTimeFormatter.ofPattern("yyyy-MM"))
+            .toFormatter();
+
+
     private LocalDate date;
     private String fullTime;
 
@@ -51,6 +69,13 @@ public class Date {
         LocalDate ldt = LocalDate.parse(date, INPUTFORMATTER);
         this.date = ldt;
         parseDate();
+    }
+
+    public Date(String date, boolean isMonth) {
+        requireNonNull(date);
+        //checkArgument(isValidDescription(desc), MESSAGE_CONSTRAINTS);
+        LocalDate ldt = LocalDate.parse(date, INPUTMONTHFORMATTER);
+        this.date = ldt;
     }
 
     public Date(LocalDate date) {

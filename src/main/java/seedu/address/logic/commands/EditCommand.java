@@ -80,7 +80,7 @@ public class EditCommand extends Command {
         if (!entryToEdit.isSameEntry(editedEntry) && model.hasEntry(editedEntry)) {
             throw new CommandException(MESSAGE_DUPLICATE_ENTRY);
         }
-
+        //TODO is there a more elegant way
         model.setEntry(entryToEdit, editedEntry);
         model.updateFilteredEntryList(PREDICATE_SHOW_ALL_ENTRIES);
         model.commitAddressBook();
@@ -93,6 +93,11 @@ public class EditCommand extends Command {
      */
     private static Entry createEditedEntry(Entry entryToEdit, EditEntryDescriptor editEntryDescriptor) {
         assert entryToEdit != null;
+        if (editEntryDescriptor.getTempCategoryName().isPresent()) {
+            System.out.println(editEntryDescriptor.getTempCategoryName());
+            String changedCatName = editEntryDescriptor.getTempCategoryName().get();
+            editEntryDescriptor.setCategory(new Category(changedCatName, entryToEdit.getCategory().categoryType));
+        }
         Category updatedCategory = editEntryDescriptor.getCategory().orElse(entryToEdit.getCategory());
         Description updatedName = editEntryDescriptor.getDesc().orElse(entryToEdit.getDesc());
         Date updatedDate = editEntryDescriptor.getDate().orElse(entryToEdit.getDate());
@@ -126,6 +131,7 @@ public class EditCommand extends Command {
      */
     public static class EditEntryDescriptor {
         private Category category;
+        private String tempCategoryName;
         private Description desc;
         private Date time;
         private Amount amt;
@@ -139,6 +145,7 @@ public class EditCommand extends Command {
          */
         public EditEntryDescriptor(EditEntryDescriptor toCopy) {
             setCategory(toCopy.category);
+            setCategoryName(toCopy.tempCategoryName);
             setDesc(toCopy.desc);
             setAmount(toCopy.amt);
             setDate(toCopy.time);
@@ -149,7 +156,15 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(category, desc, time, amt, tags);
+            return CollectionUtil.isAnyNonNull(category, tempCategoryName, desc, time, amt, tags);
+        }
+
+        public void setCategoryName(String catName) {
+            this.tempCategoryName = catName;
+        }
+
+        public Optional<String> getTempCategoryName() {
+            return Optional.ofNullable(this.tempCategoryName);
         }
 
         public void setCategory(Category cat) {
