@@ -9,7 +9,6 @@ import seedu.address.model.Model;
 import seedu.address.model.incident.Incident;
 import seedu.address.model.person.Person;
 import seedu.address.model.vehicle.District;
-import seedu.address.model.vehicle.exceptions.VehicleNotFoundException;
 
 /**
  * Generates a new incident report.
@@ -54,7 +53,7 @@ public class NewCommand extends Command {
      * @param isAuto
      * @param model
      */
-    public void dispatchVehicle(Incident draft, boolean isAuto, Model model) throws CommandException, VehicleNotFoundException {
+    public void dispatchVehicle(Incident draft, boolean isAuto, Model model) throws CommandException {
         VehicleAssignmentCommand vehicleAssignmentCommand = new VehicleAssignmentCommand(draft, isAuto, indexOfV);
         vehicleAssignmentCommand.execute(model);
     }

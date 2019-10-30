@@ -24,8 +24,8 @@ public class Messages {
     public static final String MESSAGE_SINGLE_VEHICLE_LISTED = "1 vehicle listed!";
     public static final String MESSAGE_VEHICLES_LISTED_OVERVIEW = "%1$d vehicles listed!";
     public static final String MESSAGE_VEHICLE_ASSIGNMENT_PROMPT =
-            "Please include the index of the vehicle you would like to assign, with the district prefix! \n" +
-                    "eg new l/1 auto/n v/1";
+            "Please include the index of the vehicle you would like to assign, with the district prefix! \n"
+                    + "eg new l/1 auto/n v/1";
     public static final String MESSAGE_VEHICLE_OOB = "Vehicle out of bounds!";
     public static final String MESSAGE_NO_AVAILABLE_VEHICLE = "No vehicle available in this district!";
     public static final String MESSAGE_VEHICLE_BUSY = "Vehicle is busy!";

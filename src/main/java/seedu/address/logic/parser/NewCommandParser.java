@@ -1,10 +1,12 @@
 package seedu.address.logic.parser;
 
-import static seedu.address.commons.core.Messages.*;
-import static seedu.address.logic.parser.CliSyntax.*;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_NOT_ONE_DISTRICT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_AUTO;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DISTRICT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_VEHICLE;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.NewCommand;

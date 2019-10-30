@@ -1,7 +1,9 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.core.Messages.*;
+import static seedu.address.commons.core.Messages.MESSAGE_VEHICLE_ASSIGNMENT_PROMPT;
+import static seedu.address.commons.core.Messages.MESSAGE_VEHICLE_BUSY;
+import static seedu.address.commons.core.Messages.MESSAGE_VEHICLE_OOB;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -68,11 +70,9 @@ public class VehicleAssignmentCommand extends Command {
 
         if (indexOfV > 0) {
             ObservableList<Vehicle> nearbyVehicles = model.getFilteredVehicleList();
-            // ObservableList<Vehicle> availableVehicles = nearbyVehicles
-                    // .filtered(predicate);
 
             if (indexOfV <= nearbyVehicles.size()) {
-                Vehicle vehicle = nearbyVehicles.get(indexOfV-1);
+                Vehicle vehicle = nearbyVehicles.get(indexOfV - 1);
 
                 if (vehicle.isAvailable()) {
                     draft.addVehicle(vehicle);
