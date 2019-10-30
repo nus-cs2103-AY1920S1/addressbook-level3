@@ -9,7 +9,9 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+
 import org.junit.jupiter.api.Test;
+
 import seedu.mark.commons.core.index.Index;
 import seedu.mark.commons.exceptions.IllegalValueException;
 import seedu.mark.logic.commands.exceptions.CommandException;
@@ -30,7 +32,7 @@ import seedu.mark.storage.StorageStub;
 
 class DeleteAnnotationAllCommandTest {
 
-    //as AnnotationCommand#getRequiredDoc has already been tested in AddAnnotationCommandTest, it shall not be further tested
+    //as AnnotationCommand#getRequiredDoc has been tested in AddAnnotationCommandTest, it shall not be further tested
     @Test
     public void execute_invalidPid_throwsCommandException() {
         Bookmark validBookmark = new BookmarkBuilder().withUrl("http://anyurl")

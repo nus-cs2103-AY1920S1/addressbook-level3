@@ -10,6 +10,7 @@ import java.util.HashMap;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import seedu.mark.commons.core.index.Index;
 import seedu.mark.commons.exceptions.IllegalValueException;
 
@@ -99,7 +100,8 @@ class OfflineDocumentTest {
     public void addAnnotation_pidValid_addsAnnotation() throws Exception {
         assertEquals(null, cleandoc.getParagraph(pid).getAnnotation());
 
-        assertDoesNotThrow(() -> cleandoc.addAnnotation(pid, new Annotation(Highlight.GREEN, AnnotationNote.SAMPLE_NOTE)));
+        assertDoesNotThrow(() -> cleandoc.addAnnotation(pid,
+                new Annotation(Highlight.GREEN, AnnotationNote.SAMPLE_NOTE)));
 
         assertEquals(new Annotation(Highlight.GREEN, AnnotationNote.SAMPLE_NOTE),
                 cleandoc.getParagraph(pid).getAnnotation());

@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.mark.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
+
 import seedu.mark.logic.parser.exceptions.ParseException;
 
 class HighlightTest {

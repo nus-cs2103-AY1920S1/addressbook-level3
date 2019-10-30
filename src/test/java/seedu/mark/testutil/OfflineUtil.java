@@ -3,6 +3,9 @@ package seedu.mark.testutil;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
+/**
+ * Sample offline html and document for testing.
+ */
 public class OfflineUtil {
     public static final String OFFLINE_HTML_EXAMPLE =
             "<div id=\"readability-page-1\" class=\"page\">\n <div> \n  <div> \n   <div> \n    <div> \n     <div> \n"
