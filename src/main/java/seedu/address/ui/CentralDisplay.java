@@ -9,6 +9,7 @@ import javafx.scene.control.Skin;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TitledPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Region;
 import jfxtras.internal.scene.control.skin.agenda.AgendaWeekSkin;
 import jfxtras.scene.control.agenda.Agenda;
@@ -80,8 +81,7 @@ public class CentralDisplay extends UiPart<Region> {
             public Skin<?> createDefaultSkin() {
                 return new AgendaWeekSkin(this) {
                     @Override
-                    protected List<LocalDate> determineDisplayedLocalDates()
-                    {
+                    protected List<LocalDate> determineDisplayedLocalDates() {
                         // the result
                         List<LocalDate> lLocalDates = new ArrayList<>();
 
@@ -109,11 +109,13 @@ public class CentralDisplay extends UiPart<Region> {
         agenda.setAllowResize(false);
         // disables right click editing
         agenda.setEditAppointmentCallback((appointment) -> null);
-//        agenda.setBackground(new Background(new BackgroundFill(Color.rgb(40, 40, 40), CornerRadii.EMPTY, Insets.EMPTY)));
-        agendaTab.setContent(agenda);
+
         accommodationPane.setContent((new AccommodationListPanel(accommodationList)).getRoot());
         activityPane.setContent((new ActivityListPanel(activityList)).getRoot());
         contactPane.setContent((new ContactListPanel(contactList)).getRoot());
+        agendaTab.setContent(agenda);
+
+        tabDisplay.prefWidthProperty().bind(this.getRoot().prefWidthProperty());
 
         // set up listeners that will update the agenda
         dayList.addListener((ListChangeListener<? super Day>) c -> {

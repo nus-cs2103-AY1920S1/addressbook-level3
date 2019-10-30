@@ -85,11 +85,17 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     private void updateCentralDisplay() {
-        centralDisplay = new CentralDisplay(logic.getFilteredItinerary(), logic.getFilteredAccommodationList(),
-                logic.getFilteredActivityList(), logic.getFilteredContactList(),
+        centralDisplay = new CentralDisplay(
+                logic.getFilteredItinerary(),
+                logic.getFilteredAccommodationList(),
+                logic.getFilteredActivityList(),
+                logic.getFilteredContactList(),
                 logic.getItinerary().getStartDateProperty()
         );
         centralDisplayPlaceholder.getChildren().add(centralDisplay.getRoot());
+        centralDisplay.changeFocus(UiFocus.ACTIVITY);
+        centralDisplay.getRoot().prefHeightProperty().bind(centralDisplayPlaceholder.heightProperty());
+        centralDisplay.getRoot().prefWidthProperty().bind(centralDisplayPlaceholder.widthProperty());
     }
 
     private void updateResultDisplay() {
