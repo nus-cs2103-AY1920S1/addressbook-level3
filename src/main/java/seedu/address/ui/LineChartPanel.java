@@ -81,7 +81,7 @@ public class LineChartPanel extends UiPart<Region> {
     }
 
     public AreaChart getLineChart() throws ParseException {
-        makeLineChart(); // for dynamic update
+        makeLineChart();
         return lineChart;
     }
 
@@ -89,6 +89,9 @@ public class LineChartPanel extends UiPart<Region> {
      * Initialises the line chart with a title, axes labels, and a series.
      */
     private void initialiseLineChart() {
+        // clear old series
+        lineChart.getData().removeAll();
+
         //defining the axes
         if (timeFrame.equals("default") || timeFrame.equals("week")) {
             xAxis.setLabel("Day");
@@ -151,27 +154,28 @@ public class LineChartPanel extends UiPart<Region> {
     private void initialiseTreeMap() throws ParseException {
         // Fill in the missing dates
         freqByDate.clear();
+        Date ceilingDate;
         if (timeFrame.equals("week")) {
             List<Date> weekList = getWeekList(date);
             for (Date date: weekList) {
                 Date noTimeDate = formatDateNoTime(date);
                 freqByDate.putIfAbsent(noTimeDate, 0);
             }
-            addBodiesToMapBeforeDate(weekList.get(6));
+            ceilingDate = weekList.get(6);
         } else if (timeFrame.equals("month")) {
             List<Date> monthList = getMonthList(date);
             for (Date date: monthList) {
                 Date noTimeDate = formatDateNoTime(date);
                 freqByDate.putIfAbsent(noTimeDate, 0);
             }
-            addBodiesToMapBeforeDate(monthList.get(monthList.size() - 1));
+            ceilingDate = monthList.get(monthList.size() - 1);
         } else if (timeFrame.equals("year")) {
             List<Date> yearList = getYearList(date);
             for (Date date: yearList) {
                 Date noTimeDate = formatDateNoTime(date);
                 freqByDate.putIfAbsent(noTimeDate, 0);
             }
-            addBodiesToMapBeforeDate(yearList.get(yearList.size() - 1));
+            ceilingDate = yearList.get(yearList.size() - 1);
         } else {
             Date now = new Date();
             Date tenDaysAgo = new Date(now.getTime() - (10 * DAY_IN_MS));
@@ -179,26 +183,20 @@ public class LineChartPanel extends UiPart<Region> {
                 Date noTimeDate = formatDateNoTime(date);
                 freqByDate.putIfAbsent(noTimeDate, 0);
             }
-            addBodiesToMapBeforeDate(now);
+            ceilingDate = now;
         }
-    }
 
-    /**
-     * Adds bodies' dates of admission to the tree map and increment values by 1.
-     * @param date The ceiling cut off date. This is needed for the line chart.
-     * @throws ParseException if the supplied string cannot be parsed as a date object.
-     */
-    private void addBodiesToMapBeforeDate(Date date) throws ParseException {
         for (Body body: bodyList) {
-            Date oneDayAfter = new Date(date.getTime() - (10 * DAY_IN_MS));
             Date noTimeDate = formatDateNoTime(body.getDateOfAdmission());
             Number oldFreq = freqByDate.getOrDefault(noTimeDate, 0);
             int newFreq = oldFreq.intValue() + 1;
-            if (noTimeDate.before(oneDayAfter)) {
+            if (noTimeDate.before(ceilingDate)) {
                 freqByDate.put(noTimeDate, newFreq);
             }
         }
+
     }
+
     /**
      * Update the tree map upon a body being added - the frequency (value) associated with the date of admission (key)
      * will increase by one.
@@ -241,11 +239,6 @@ public class LineChartPanel extends UiPart<Region> {
             if (series.getData().size() > windowSize) {
                 series.getData().remove(0);
             }
-            // disable the x-axis as too many x-values cause the axis to take up too much vertical space
-            //if (timeFrame.equals("month") || timeFrame.equals("year")) {
-            //    lineChart.getXAxis().setTickLabelsVisible(false);
-            //    lineChart.getXAxis().setTickMarkVisible(false);
-            //}
         });
     }
 
@@ -322,6 +315,7 @@ public class LineChartPanel extends UiPart<Region> {
         case "default":
             windowSize = 10;
             break;
+
         case "week":
             windowSize = 7;
             break;
@@ -342,6 +336,7 @@ public class LineChartPanel extends UiPart<Region> {
     public static void reinitialiseChart() throws ParseException {
         getLineChartPanelInstance(staticBodyList).makeLineChart();
     }
+
     @Override
     public boolean equals(Object other) {
         // short circuit if same object
