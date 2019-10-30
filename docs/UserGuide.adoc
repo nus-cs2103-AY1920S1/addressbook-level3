@@ -706,5 +706,3 @@ Clear data:: `clear`
 Get help:: `help`
 Undo:: `undo`
 Redo:: `redo`
-
-
