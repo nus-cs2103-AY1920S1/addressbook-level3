@@ -3,7 +3,9 @@ package seedu.address.model.person.schedule;
 import java.util.ArrayList;
 
 import seedu.address.model.person.PersonId;
+import seedu.address.model.person.exceptions.DuplicateEventException;
 import seedu.address.model.person.exceptions.EventClashException;
+import seedu.address.model.person.exceptions.EventNotFoundException;
 
 /**
  * Schedule of a person.
@@ -28,12 +30,31 @@ public class Schedule {
      * @param event to be added
      * @throws EventClashException when there is a clash in the events
      */
-    public void addEvent(Event event) throws EventClashException {
+    public void addEvent(Event event) throws EventClashException, DuplicateEventException {
         if (isClash(event)) {
             throw new EventClashException(event);
+        } else if (isEventExist(event)) {
+            throw new DuplicateEventException();
         }
         this.events.add(event);
     }
+
+    /**
+     * Removes an event from the schedule.
+     *
+     * @param eventName to be deleted
+     * @throws EventNotFoundException
+     */
+    public void deleteEvent(String eventName) throws EventNotFoundException {
+        for (int i = 0; i < events.size(); i++) {
+            if (events.get(i).getEventName().equals(eventName)) {
+                events.remove(i);
+                return;
+            }
+        }
+        throw new EventNotFoundException();
+    }
+
 
     /**
      * Converts to String.
@@ -64,6 +85,21 @@ public class Schedule {
     public boolean isClash(Event event) {
         for (int i = 0; i < events.size(); i++) {
             if (event.isClash(events.get(i))) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Checks if the event already exists in the schedule.
+     *
+     * @param event
+     * @return
+     */
+    private boolean isEventExist(Event event) {
+        for (int i = 0; i < events.size(); i++) {
+            if (events.get(i).getEventName().equals(event.getEventName())) {
                 return true;
             }
         }

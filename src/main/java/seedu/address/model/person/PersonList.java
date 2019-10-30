@@ -4,8 +4,10 @@ import java.util.ArrayList;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.model.person.exceptions.DuplicateEventException;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.EventClashException;
+import seedu.address.model.person.exceptions.EventNotFoundException;
 import seedu.address.model.person.exceptions.NoPersonFieldsEditedException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.model.person.schedule.Event;
@@ -146,14 +148,29 @@ public class PersonList {
     /**
      * Adds an event into the schedule of a person.
      *
-     * @param name of the person to add the event to
+     * @param name  of the person to add the event to
      * @param event to be added
      * @throws PersonNotFoundException when person is not found
-     * @throws EventClashException when the is a clash with the existing schedule of the person
+     * @throws EventClashException     when the is a clash with the existing schedule of the person
      */
-    public void addEvent(Name name, Event event) throws PersonNotFoundException, EventClashException {
+    public void addEvent(Name name, Event event)
+            throws PersonNotFoundException, EventClashException, DuplicateEventException {
         Person person = findPerson(name);
         person.addEvent(event);
+    }
+
+    /**
+     * Deletes an event from the schedule of a person.
+     *
+     * @param name      of the person to delete the event from
+     * @param eventName to be deleted
+     * @throws PersonNotFoundException
+     * @throws EventNotFoundException
+     */
+    public void deleteEvent(Name name, String eventName)
+            throws PersonNotFoundException, EventNotFoundException {
+        Person person = findPerson(name);
+        person.deleteEvent(eventName);
     }
 
     /**

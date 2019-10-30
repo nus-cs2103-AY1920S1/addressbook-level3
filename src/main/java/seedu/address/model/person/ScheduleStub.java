@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import seedu.address.model.display.detailwindow.PersonTimeslot;
+import seedu.address.model.person.exceptions.DuplicateEventException;
 import seedu.address.model.person.exceptions.EventClashException;
 import seedu.address.model.person.schedule.Event;
 import seedu.address.model.person.schedule.Schedule;
@@ -51,8 +52,8 @@ public class ScheduleStub {
         Schedule result = new Schedule(new PersonId(-1));
         try {
             schedule.addEvent(event);
-        } catch (EventClashException e) {
-            e.printStackTrace();
+        } catch (EventClashException | DuplicateEventException e) {
+            return null;
         }
         return schedule;
     }
