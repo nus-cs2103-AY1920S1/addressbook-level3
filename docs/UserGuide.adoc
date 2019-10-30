@@ -144,24 +144,23 @@ Examples:
 * `set $/100 c/shopping`
 * `set $/50 c/food`
 
-=== Display View : `view`
+// tag::view[]
+=== Displaying View : `view`
 
-Shows all possible views (spending, projection and loan) +
-Format: `view KEYWORD [TIMEFRAME]`
+Shows all possible views +
+Format: `view KEYWORD`
 
 ****
-* `KEYWORD` input only accepts `spending`, `projection` and `loan`.
-* `[TIMEFRAME]` input defines the number of days prior to this command for the called projection. (default=30)
-* `view spending` shows a breakdown of your categories of spending
-* `view projection` shows a personal finance projection for a given period of time
-* `view loan` shows the amount of money owed and lent to others
+* `KEYWORD` input only accepts `transaction` and `budget` in v1.3.
+* `view transaction` shows a list of all your transactions.
+* `view budget` shows a list of all your budgets.
 ****
 
 Examples:
 
-* `view loan`
-* `view projection`
-* `view spending`
+* `view transaction`
+* `view budget`
+// end::view[]
 
 // tag::delete[]
 === Deleting Finance : `delete`
@@ -203,6 +202,7 @@ Examples:
 * `update b2 $/300`
 * `update t4 $/30 d/12102019`
 
+// tag::sort[]
 === Sorting Transactions : `sort`
 
 Sorts all transactions with given `PREDICATE` +
@@ -210,26 +210,32 @@ Format: `sort PREDICATE`
 
 ****
 * You are only able to `sort` by `date` and `amount` in v1.3.
+* Transactions will be sorted in ascending order.
 ****
 
 Examples:
 
 * `sort amount`
 * `sort date`
+// end::sort[]
 
+// tag::filter[]
 === Filtering Transactions : `filter`
 
 Shows all relevant transactions with given `CATEGORY` +
 Format: `filter CATEGORY...`
 
 ****
-* `CATEGORY` input accepts `CATEGORY` you have used in In or Out transactions before.
+* All transactions with at least one `CATEGORY` in the `CATEGORY...` input will be displayed.
+* Example: `filter transport allowance` will display transactions with `transport`, `allowance`, or
+`transport` and `allowance`.
 ****
 
 Examples:
 
 * `filter food`
 * `filter transport allowance`
+// end::filter[]
 
 === Projecting Balance : `project`
 
@@ -278,9 +284,6 @@ Format: `exit`
 
 PalPay data is saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
-
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
 
 == FAQ
 
