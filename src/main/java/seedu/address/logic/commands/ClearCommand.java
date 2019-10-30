@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import seedu.address.logic.commands.result.CommandResult;
 import seedu.address.model.AccommodationManager;
 import seedu.address.model.ActivityManager;
 import seedu.address.model.ContactManager;

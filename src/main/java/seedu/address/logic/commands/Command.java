@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.result.CommandResult;
 import seedu.address.model.Model;
 
 /**
