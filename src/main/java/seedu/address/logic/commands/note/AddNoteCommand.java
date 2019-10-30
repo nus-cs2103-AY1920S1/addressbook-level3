@@ -7,7 +7,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_IMAGE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
 
 import java.io.IOException;
-import java.net.URI;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
