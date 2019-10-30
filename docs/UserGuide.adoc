@@ -361,7 +361,7 @@ There is no need to save manually.
 
 == Command Summary
 
-* Add new flashcard - `add [q>QUESTION] [q>ANSWER] [c>CATEGORY]…​` +
+* Add new flashcard - `add [q>QUESTION] [a>ANSWER] [c>CATEGORY]…​` +
 e.g. `add q>1+1 a>2`
 * Set a flashcard as bad - `bad [INDEX]` +
 e.g.  `bad 2`
