@@ -21,8 +21,6 @@ public class CommandResult {
 
     private Context context;
 
-    private boolean changeDisplay = false;
-
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
@@ -49,11 +47,6 @@ public class CommandResult {
         this.context = context;
     }
 
-    public CommandResult(String feedbackToUser, boolean changeDisplay) {
-        this(feedbackToUser, false, false);
-        this.changeDisplay = changeDisplay;
-    }
-
     public String getFeedbackToUser() {
         return feedbackToUser;
     }
@@ -68,10 +61,6 @@ public class CommandResult {
 
     public Context getContext() {
         return context;
-    }
-
-    public boolean getChangeDisplay() {
-        return changeDisplay;
     }
 
     @Override

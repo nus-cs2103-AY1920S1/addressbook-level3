@@ -198,6 +198,11 @@ public class MainWindow extends UiPart<Stage> {
             customerListPanel = new CustomerListPanel(logic.getFilteredCustomerList());
             listPanelPlaceholder.getChildren().add(customerListPanel.getRoot());
             break;
+        case CUSTOMERLIST:
+            Customer customer = logic.getCustomerOrders();
+            orderListPanel = new OrderListPanel(customer.getOrders());
+            statisticsPlaceholder.getChildren().add(orderListPanel.getRoot());
+            break;
         case DELIVERYMEN:
             deliverymanListPanel = new DeliverymanListPanel(logic.getFilteredDeliverymenList());
             listPanelPlaceholder.getChildren().add(deliverymanListPanel.getRoot());
@@ -233,10 +238,6 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
-    private void changeRightPanel() {
-
-    }
-
     public PersonListPanel getPersonListPanel() {
         return personListPanel;
     }
@@ -254,12 +255,6 @@ public class MainWindow extends UiPart<Stage> {
             Context nextContext = commandResult.getContext();
             if (nextContext != null && nextContext != currentContext) {
                 changeContext(nextContext);
-            }
-
-            if (commandResult.getChangeDisplay()) {
-                Customer customer = logic.getCustomerOrders();
-                orderListPanel = new OrderListPanel(customer.getOrders());
-                statisticsPlaceholder.getChildren().add(orderListPanel.getRoot());
             }
 
             if (commandResult.isShowHelp()) {

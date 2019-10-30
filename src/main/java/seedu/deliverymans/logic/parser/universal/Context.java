@@ -6,6 +6,7 @@ package seedu.deliverymans.logic.parser.universal;
 public enum Context {
     GLOBAL,
     CUSTOMER,
+    CUSTOMERLIST,
     DELIVERYMEN,
     RESTAURANT,
     DELIVERYMENSTATUS,

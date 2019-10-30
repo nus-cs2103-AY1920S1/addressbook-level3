@@ -9,6 +9,7 @@ import seedu.deliverymans.commons.core.index.Index;
 import seedu.deliverymans.logic.commands.Command;
 import seedu.deliverymans.logic.commands.CommandResult;
 import seedu.deliverymans.logic.commands.exceptions.CommandException;
+import seedu.deliverymans.logic.parser.universal.Context;
 import seedu.deliverymans.model.Model;
 import seedu.deliverymans.model.customer.Customer;
 
@@ -42,7 +43,7 @@ public class ListOrderCommand extends Command {
 
         Customer customerToList = lastShownList.get(targetIndex.getZeroBased());
         model.setCustomerOrders(customerToList);
-        return new CommandResult(String.format(MESSAGE_LIST_ORDERS_SUCCESS, customerToList), true);
+        return new CommandResult(String.format(MESSAGE_LIST_ORDERS_SUCCESS, customerToList), Context.CUSTOMERLIST);
     }
 
     @Override
