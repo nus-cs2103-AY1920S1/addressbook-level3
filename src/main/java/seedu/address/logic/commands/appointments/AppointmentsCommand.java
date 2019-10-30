@@ -2,6 +2,7 @@
 package seedu.address.logic.commands.appointments;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_EVENTS;
 
 import java.util.function.Predicate;
 
@@ -12,6 +13,7 @@ import seedu.address.logic.commands.common.NonActionableCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.events.Event;
+import seedu.address.model.events.predicates.EventContainsKeywordPredicate;
 
 /**
  * Finds and lists all events in address book whose name contains any of the argument keywords.
@@ -30,6 +32,15 @@ public class AppointmentsCommand extends NonActionableCommand {
 
     public AppointmentsCommand(Predicate<Event> predicate) {
         this.predicate = predicate;
+    }
+
+    public AppointmentsCommand(String keyword) {
+        String trimmedArgs = keyword.trim();
+        if (trimmedArgs.isEmpty()) {
+            this.predicate = PREDICATE_SHOW_ALL_EVENTS;
+        } else {
+            this.predicate = new EventContainsKeywordPredicate(trimmedArgs.toUpperCase());
+        }
     }
 
     @Override

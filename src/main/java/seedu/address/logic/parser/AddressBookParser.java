@@ -6,10 +6,12 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import seedu.address.commons.core.OmniPanelTab;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.NextCommand;
 import seedu.address.logic.commands.RedoCommand;
+import seedu.address.logic.commands.SetFocusOnTabCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.appointments.AckAppCommand;
 import seedu.address.logic.commands.appointments.AddAppCommand;
@@ -190,6 +192,52 @@ public class AddressBookParser {
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+        }
+    }
+
+    /**
+     * Parses user input into command for execution eagerly.
+     *
+     * @param userInput full user input string
+     * @return the command based on the user input
+     */
+    public Command eagerEvaluateCommand(String userInput, Model model) {
+        final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
+        if (!matcher.matches()) {
+            return new SetFocusOnTabCommand(null);
+        }
+
+        final String commandWord = matcher.group("commandWord");
+        final String arguments = matcher.group("arguments");
+        switch (commandWord) {
+
+        case ListPatientCommand.COMMAND_WORD:
+            return new ListPatientCommand(arguments);
+
+        case ListStaffCommand.COMMAND_WORD:
+            return new ListStaffCommand(arguments);
+
+        case AppointmentsCommand.COMMAND_WORD:
+            return new AppointmentsCommand(arguments);
+
+        case RegisterPatientCommand.COMMAND_WORD:
+        case EditPatientDetailsCommand.COMMAND_WORD:
+            return new SetFocusOnTabCommand(OmniPanelTab.PATIENTS_TAB);
+
+        case RegisterStaffCommand.COMMAND_WORD:
+        case EditStaffDetailsCommand.COMMAND_WORD:
+            return new SetFocusOnTabCommand(OmniPanelTab.DOCTORS_TAB);
+
+        case AddAppCommand.COMMAND_WORD:
+        case AckAppCommand.COMMAND_WORD:
+        case CancelAppCommand.COMMAND_WORD:
+        case ChangeAppCommand.COMMAND_WORD:
+        case MissAppCommand.COMMAND_WORD:
+        case SettleAppCommand.COMMAND_WORD:
+            return new SetFocusOnTabCommand(OmniPanelTab.APPOINTMENTS_TAB);
+
+        default:
+            return new SetFocusOnTabCommand(null);
         }
     }
 

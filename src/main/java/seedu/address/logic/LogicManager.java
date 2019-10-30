@@ -56,13 +56,12 @@ public class LogicManager implements Logic {
         throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
-        CommandResult commandResult;
         Command command = addressBookParser.parseCommand(commandText, model);
         if (command instanceof ReversibleCommand) {
             throw new CommandException("Reversible Commands should be contained in a ReversibleActionPairCommand");
         }
 
-        commandResult = command.execute(model);
+        CommandResult commandResult = command.execute(model);
         if (command instanceof ReversibleActionPairCommand) {
             commandHistory.addToCommandHistory((ReversibleActionPairCommand) command);
         }
@@ -82,8 +81,17 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public CommandResult eagerEvaluate(String commandText) throws CommandException, ParseException {
-        return null;
+    public void eagerEvaluate(String commandText) {
+        Command command = addressBookParser.eagerEvaluateCommand(commandText, model);
+        if (!(command instanceof NonActionableCommand)) {
+            throw new RuntimeException("Only Non-actionable commands should be eagerly evaluated");
+        }
+
+        try {
+            command.execute(model);
+        } catch (CommandException ex) {
+            logger.info("Eager evaluation commands should throw any exception: " + ex.getMessage());
+        }
     }
 
     @Override
