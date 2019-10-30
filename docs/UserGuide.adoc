@@ -29,7 +29,7 @@ This program is targeted at clerks working in small clinics. It is designed for 
 +
 image::Ui.png[width="790"]
 +
-.  You may navigate through the entire UI with UP, DOWN, LEFT, RIGHT and TAB.
+.  You may navigate through the entire UI with kbd:[UP], kbd:[DOWN], kbd:[LEFT], kbd:[RIGHT] and kbd:[TAB].
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window. Alternatively, just press kbd:[F1].
 .  Some example commands you can try:
