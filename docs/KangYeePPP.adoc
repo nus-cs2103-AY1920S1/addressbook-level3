@@ -1,6 +1,6 @@
 = Lim Kang Yee – Project Portfolio for treasurerPro (tP)
 :site-section: ProjectPortfolio
-:toc:
+//:toc:
 :toc-title:
 :sectnums:
 :imagesDir: images
@@ -53,7 +53,7 @@ cashiering duties which helps to directly input sales into the system. The overv
 club or society's finances.
 
 This is what our application looks like when it is first opened. (graphical user interface for treasurerPro):
-image:Ui.png[]
+image:Ui.png[width="600"]
 
 == Summary of contributions
 My role was to design and write the codes for the features of the `Home Tab`. The following sections illustrate these
@@ -172,6 +172,202 @@ https://github.com/AY1920S1-CS2103T-T13-3/main/pull/19[pull request #19]
 
 == Contributions to the User Guide
 === Current enhancement
+(start of extract from User Guide)
+[very big]##5.1 Home Tab##
+
+This section will contain the details on all commands available to the Home tab.
+
+====
+*Summary of Features of the Home Tab*
+
+* Home tab shows the transaction history of each expenditure.
+* The columns will show the date of the transaction, description of the expenditure, category it is under, amount spent and the person who bought it.
+* At the side, our mascot lion 'Leo' will help to give replies to indicate successful addition, deletion, edits of the command line input.
+* Leo will also give you replies to guide you when there is a wrong input.
+* There is a function to sort the transactions by date so from latest to oldest, person so by alphabetical order of the person and amount so from most to least.
+* The amount should be inputted as positive if the transaction is considered revenue and adds to the club or society's reserves
+* The amount should be inputted as negative if the transaction is a spending to be reimbursed which will be shown in the Reimbursements tab.
+====
+
+[big]##5.1.1 Add a Transaction to the Table##
+
+This command helps to add a transaction record into the table and to be saved into the system.
+
+* Command format:
+[blue]`add dt/DATE d/DESCRIPTION c/CATEGORY a/AMOUNT p/PERSON`
+
+Examples:
+[blue]`add dt/24-Aug-2019, 07:00PM d/Printer ink c/Miscellaneous a/3.50 p/Janelle`
+
+[NOTE]
+The format of the date has to be in dd-MMM-yyyy format. (Eg. 24-Aug-2019 or 03-Sep-2019)
+
+* Steps:
+
+1. Type the command with all the parameters filled in as shown in the screenshot below:
+
+image::homeUG/HomeAddStep1.png[width="600"]
+[italic small red]*Figure 1. Screenshot of user input into command box for add command in Home tab*
+
+[start = 2]
+2. Enter the command.
+
+If the command is successfully added, there will be a response from Leo and the transaction record
+will be shown in the table. This is shown in the screenshot below:
+
+image::homeUG/HomeAddStep2.png[width="600"]
+[italic small red]*Figure 2. Screenshot of successful user input for add command in Home tab*
+
+[[NoSuchPerson]]
+If the person's name is not someone in the Members tab then there will be a response from Leo and the transaction
+record will not be added. This is shown in the screenshot below:
+
+image::homeUG/HomeAddUnsuccessfulStep2.png[width="600"]
+[italic small red]*Figure 3. Screenshot of unsuccessful user input for add command in Home tab due to invalid person's name input*
+
+If the added transaction has a negative amount which indicates a spending, it will be shown in the Reimbursement Tab as a pending reimbursement
+record for the member that spent it. If there is an existing reimbursement record for that member still pending, the amount
+of the newly added transaction will be added to the existing pending reimbursement amount. This is shown in the screenshot below:
+
+image::homeUG/HomeAddShowInR.png[width="600"]
+[italic small red]*Figure 4. Screenshot of Reimbursement tab after successfully adding transactions*
+
+=== Delete Transaction(s) from the Table
+This command helps to delete all transactions of a one person or a single transaction of a specific ID from the table.
+
+* Command Format:
+[blue]`delete ID` or [blue]`delete p/PERSON`
+
+* Examples:
+** [blue]`delete 1`
+** [blue]`delete p/Alex Yeo`
+
+* Steps for Deleting By ID:
+1. Type the command with the ID of the transaction to be deleted as shown in the screenshot below:
+
+image::homeUG/HomeDeleteStep1.png[width="600"]
+[italic small red]*Figure 5. Screenshot of user input into command box for delete by ID command in Home tab*
+[start = 2]
+2. Enter the command.
+
+Leo will respond with the successful deletion and the transaction will be removed from the table as shown below:
+
+image::homeUG/HomeDeleteStep2.png[width="600"]
+[italic small red]*Figure 6. Screenshot of successful user input for delete by ID command in Home tab*
+
+* Steps for Deleting By Person:
+1. Type the command with the person's name for all corresponding transactions related to that person to be deleted as shown in the screenshot below:
+
+image::homeUG/HomeDeletePStep1.png[width="600"]
+[italic small red]*Figure 7. Screenshot of user input into command box for delete by ID command in Home tab*
+
+[start = 2]
+2. Enter the command.
+
+Leo will respond with the successful deletion and the transactions will be removed from the table as shown below:
+
+image::homeUG/HomeDeletePStep2.png[width="600"]
+[italic small red]*Figure 8. Screenshot of successful user input for delete by person command in Home tab*
+
+If the person inputted does not have any transactions related to him or her, Leo will also respond to inform you.
+
+=== Edit a Transaction in the Table
+This command helps to edit an existing transaction record in a table with different parameters.
+
+* Command Format:
+[blue]`edit ID dt/DATE d/DESCRIPTION c/CATEGORY a/AMOUNT p/PERSON`
+
+[NOTE]
+The fields above can vary and be in different order. It is not compulsory to include all of them.
+
+* Examples:
+** [blue]`edit 1 p/Bernice Yu dt/23-Aug-2019`
+** [blue]`edit 3 a/12`
+
+* Steps:
+1. Type the command with the ID of the transaction to be edit with the new parameters to be changed to as shown in the screenshot below:
+
+image::homeUG/HomeEditStep1.png[width="600"]
+[italic small red]*Figure 9. Screenshot of user input into command box for edit command in Home tab*
+
+[start = 2]
+2. Enter the command.
+Leo will respond with the successfully edited transaction and the transactions will be shown in the table as shown below:
+
+image::homeUG/HomeEditStep2.png[width="600"]
+[italic small red]*Figure 10. Screenshot of successful user input for edit command in Home tab*
+
+If the person entered into the command is not found in the Members tab, Leo will respond to inform you which is similar to <<NoSuchPerson, Figure 3>>.
+
+=== Sort Transactions in the Table
+This command helps to sort the table of transactions into specific orders for viewing and for carrying out subsequent commands.
+
+* To sort:
+** By date (from oldest to most recent): [blue]`sort date`
+** By name (alphabetical order of name): [blue]`sort person`
+** By amount (from most to least in amount): [blue]`sort amount`
+** Undo sort: [blue]`sort reset`
+[NOTE]
+The undo sort command will allow the user to view the table of transactions in the order of when the current session of this application was just opened,
+not when the transactions was first entered.
+
+
+=== Find Transactions that Match Keywords:
+This command helps to find transactions that match the entered keywords for viewing and for subsequent commands to be inputted based
+on the filtered table of transactions shown.
+
+* Command Format:
+[blue]`find KEYWORDS`
+
+[NOTE]
+The keyword can be one or more words. An entire keyword must match a word in any of the parameters of the transaction intended to be found and shown in the table.
+If the keyword is just a part of the word in the transaction, the transaction will not be shown in the table after the
+command is inputted.
+
+* Examples:
+** [blue]`find Alex Yeoh`
+** [blue]`find Alex`
+
+* Steps:
+Shown below is the table of all transactions:
+
+image::homeUG/HomeFindCurr.png[width="600"]
+[italic small red]*Figure 11. Screenshot of all transactions in Home tab*
+
+1. Type the command with keyword(s) to find transactions as shown in the screenshot below:
+
+image::homeUG/HomeFindStep1.png[width="600"]
+[italic small red]*Figure 12. Screenshot of user input into command box for find command in Home tab*
+
+[start = 2]
+2. Enter the command.
+Leo will respond with the number of matching transactions to the keywords and the table will only show the filtered
+transactions matching the keywords. This is shown in the screenshot below:
+
+
+image::homeUG/HomeFindStep2.png[width="600"]
+[italic small red]*Figure 13. Screenshot of successful user input for find command in Home tab*
+
+[start = 3]
+3. Enter `back` to return to the table of all transactions or enter your next command to be executed. The edit command
+being inputted as the next command can be shown in the screenshot below:
+
+
+image::homeUG/HomeFindStep3.png[width="600"]
+[italic small red]*Figure 14. Screenshot of user input for edit command according to filtered table's ID in Home tab*
+
+The table will continue to show the filtered table with the transaction edited according to the command shown in the screenshot above.
+[NOTE]
+For the add command, the table will automatically show the full list of all transactions. The rest of the commands will
+require the user to input `back` to return to the full list of all transactions.
+
+The screenshot below shows the table after entering `back` which shows all the transactions in the table again:
+
+image::homeUG/HomeFindStep3Back.png[width="600"]
+[italic small red]*Figure 15. Screenshot of user input for back command after entering find command in Home tab*
+
+(end of extract)
+
 === Proposed enhancement for v2.0
 
 ==  Contributions to the Developer Guide
@@ -183,114 +379,103 @@ The following section shows my additions to the treasurerPro Developer Guide for
 [very big]##3.1 Home Tab##
 
 This tab will help to show records of individual transactions from miscellaneous spending, revenue from sales and
-cost of buying items to sell.
-
-Each transaction will require an input of its date, description, category, amount
+cost of buying items to sell. Each transaction will require an input of its date, description, category, amount
 and member that is accountable for it.
 
 Revenue from each cashier checkout will also be automatically inputted as
-a positive transaction in this tab with the person being the cashier. The inputted transactions that corresponds to
-a spending will be tabulated for each member in the reimbursement tab to keep track of reimbursements.
-
-
-This is the overall Class Diagram of this tab:
-
-image::HomeTabClassDiagram.png[]
-[italic small red]*Figure 9. Class Diagram of Home Tab (transaction package)*
+a transaction with positive amount in this tab with the person being the cashier. The inputted transactions that corresponds to
+a spending with a negative amount will be tabulated for each member in the reimbursement tab to keep track of reimbursements.
 
 [big]##3.1.1 Add Command feature##
 
-The Add Command is facilitated by the `VersionedtreasurerPro`. This feature requires access to the `Model` of the
+This feature requires access to the `Model` of the
 person package which the `AddressBook` implementation is contained in. All fields in the transactions are compulsory
 to be inputted by the user: date, description, category, amount, person full name. The person's name inputted
 has to match a name already existing in the `AddressBook` which is shown in our Members Tab.
 
-The following sequence diagram shows how the add command works:
+The following sequence diagram shows how the `AddCommand` works and is the reference from <<GeneralLogicSD, Interactions Inside the Logic Component for a Command>>:
 
-image::HomeTabAddCommandSequenceDiagram.png[]
+image::HomeAddCommandSD.png[]
 [italic small red]*Figure 10. Sequence Diagram of Add Command in Home Tab (transaction package)*
 
-The following activity diagram shows the steps needed to add a new transaction:
+In addition, the `resetPredicate()` method from `ModelManager` is called in the `AddCommand`. Thus, the UI table will immediately shows the full
+transaction list regardless of the list shown at the start of the activity diagram. If the prior command was a Find Command,
+then the list in the beginning of the activity diagram would be a filtered list but after the add command is executed,
+the full list of transactions would be shown.
 
-image::HomeTabActivityDiagramAddCommand.png[]
-[italic small red]*Figure 11. Activity Diagram of Add Command in Home Tab (transaction package)*
+After the command is executed, the `LogicManager` updates the in-app list of transactions via the `ModelManager` and updates
+the data file via the `StorageManager`. The following sequence diagram shows how the updating of the list of transactions in the app and
+in the data file:
+[[UpdateTL]]
 
-As shown, when a user does not input all the compulsory fields or input a name that does not match anyone in
-the `AddressBook`, a response to inform the user of the incorrect input is shown and when a successful addition is
-done, a response message is shown as well by our mascot, Leo.
+image::HomeAddCommandMMSM.png[]
+[italic small red]*Figure 11. Sequence Diagram of updating the transaction list in Home Tab (transaction package)*
 
-In addition, since the `resetPredicate()` method is called as shown, the UI table will immediately show the full
-transaction list regardless of the list at the start of the activity diagram showing the filtered list
-due to prior the inputted Find Command.
+[NOTE]
+This update of the list of transactions is done for every command that is executed successfully in the Home Tab.
 
-Since the reimbursement tab tabulates the amount to be reimbursed to a person, if the inputted amount is a negative
-amount to indicate a spending that needs to be reimbursed, the reimbursement tab will update and show this record.
+Finally, the `StorageManager` and `ModelManager` inside the Reimbursement package will be updated with the latest list of transactions
+to generate an updated list of reimbursements for the user to view in the Reimbursement Tab. The following sequence diagram shows how
+the Reimbursement Tab is updated from the `MainWindow`:
 
-[[update-reimbursement-ppp]]The following sequence diagram shows how the reimbursement `Model` and `Storage` is updated.
+[[update-reimbursement]]
 
-image::TransactionUpdatingReimbursement.png[]
-[italic small red]*Figure 12. Sequence Diagram of updating Reimbursement Tab (reimbursement package)*
+image::TUpdateRinMainWindow.png[]
+[italic small red]*Figure 12. Sequence Diagram of updating the reimbursement list in Reimbursement Tab (transaction package)*
 
-This is done for every feature in the `LogicManager`.
+[NOTE]
+This update of the Reimbursement Tab is done for every command after the list of transactions is updated (shown in <<UpdateTL, Sequence Diagram of updating the transaction list in Home Tab>>) when there is a command executed successfully in the Home Tab.
+
+To better illustrate the flow of events from the moment a user inputs a command till the completion of the command,
+the activity diagram for the Add Command is shown below:
+
+image::HomeTabActivityDiagramAddCommand.png[width="500"]
+[italic small red]*Figure 13. Activity Diagram of Add Command in Home Tab (transaction package)*
 
 [big]##3.1.2 Delete Feature##
 
-The Delete Command is facilitated by the `VersionedtreasurerPro`. This feature allows for 2 types of deletion, by
+This feature allows for 2 types of deletion, by
 the index shown in the table or by the person's name. Inputting the person's name will cause all transactions linked to
 that person to be deleted.
 
 The following sequence diagram shows how the delete by name command works:
 
-image::HomeTabDeleteByNameCommandSequenceDiagram.png[]
-[italic small red]*Figure 13. Sequence Diagram of Delete Command in Home Tab (transaction package)*
+image::HomeDeleteNameCommand.png[]
+[italic small red]*Figure 14. Sequence Diagram of Delete Command in Home Tab (transaction package)*
 
-After this, the reimbursement tab is updated as shown in <<update-reimbursement-ppp, Figure 12>>.
+In addition, the `resetPredicate()` method in `ModelManager` is not called in the `DeleteNameCommand`. Thus, the UI table will continue to show the
+filtered transaction list. If the prior input is a Find Command and the list at the start of the activity diagram shows
+a filtered list by the Find Command's keywords, it will continue to show the filtered list at the end of the command.
+To view the full transaction list, the user would be required to input the
+Back Command where `BackCommand` calls `resetPredicate()`. The sequence diagram for the `BackCommand` is shown in the
+following section <<BackCommandSD, 3.1.3 BackCommand>>
+
+After this, the list of transactions and reimbursement tab is updated as shown in <<updateTL, Figure 11>> and <<update-reimbursement,Figure 12>>
+respectively.
 The delete by index implementation would be similar but does not require interaction with the `Model` from the
 `AddressBook` in the person package.
-
 The following activity diagram shows the steps needed to delete a new transaction:
 
-image::HomeTabActivityDiagramDeleteCommand.png[]
-[italic small red]*Figure 14. Activity Diagram of Delete Command in Home Tab (transaction package)*
+image::HomeTabActivityDiagramDeleteCommand.png[width="500"]
+[italic small red]*Figure 15. Activity Diagram of Delete Command in Home Tab (transaction package)*
 
 The above activity diagram assumes the index to be within the bounds of the table but if it is not, a response will
 be shown about the incorrect input. Also, as shown above, response on other incorrect inputs will also be shown.
 When a successful deletion is done, a response message is shown as well.
 
-In addition, since the `resetPredicate()` method is not called as shown, the UI table will continue to show the
-filtered transaction list if the prior input is a Find Command and the list at the start of the activity diagram shows
-a filtered list by the Find Command's keywords. To view the full transaction list, the user would have to input the
-Back Command that calls `resetPredicate()`.
+[big]##3.1.3 Back Command Feature##
 
-The following sequence diagram shows how the back command works:
+[[BackCommandSD]]
+The `BackCommand` is not initialised by a specific command parser as shown in as shown in <<GeneralLogicSD, Interactions Inside the Logic Component for a Command>>
+but initialised by the `TransactionTabParser` instead.
+The following detailed sequence diagram shows how the back command works:
 
 image::HomeTabBackCommandSequenceDiagram.png[]
-[italic small red]*Figure 15. Sequence Diagram of Back Command in Home Tab (transaction package)*
-
-[big]##3.1.3 Sort Feature##
-
-The Sort Command is facilitated by the `VersionedtreasurerPro`. This feature allows for 3 types of sort, by name in
-alphabetical order, by amount (from most to least) and by date (from oldest to most recent).
-
-The following sequence diagram shows how the sort command works:
-
-
-image::HomeTabSortCommandSequenceDiagram.png[]
-[italic small red]*Figure 16. Sequence Diagram of Sort Command in Home Tab (transaction package)*
-
-When a user inputs the sort command, it is only checked that it is one of the 3 types or it will show a response about
-the incorrect user input. When it is successfully sorted, there will also be a response message shown.
-
-Similar to the Delete Command, since the `resetPredicate()` method is not called as shown, the UI table will
-continue to show the filtered transaction list if the prior input is a Find Command and the list at the start
-of the activity diagram shows a filtered list by the Find Command's keywords.
-To view the full transaction list, the user would have to input the
-Back Command that calls `resetPredicate()`.
+[italic small red]*Figure 16. Sequence Diagram of Back Command in Home Tab (transaction package)*
 
 (end of extract)
 
 === Proposed enhancement for v2.0
-
 
 [bibliography]
 === Glossary
