@@ -1,5 +1,7 @@
 package seedu.mark.logic.commands;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.mark.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.mark.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.mark.logic.commands.CommandTestUtil.deleteFirstBookmark;
@@ -76,5 +78,27 @@ public class RedoCommandTest {
         // No redoable Mark state
         String expectedMessage3 = String.format(RedoCommand.MESSAGE_FAILURE, 0);
         assertCommandFailure(new RedoCommand(1), model, storage, expectedMessage3);
+    }
+
+    @Test
+    public void equals() {
+        RedoCommand redoSingle = new RedoCommand(1);
+        RedoCommand redoMultiple = new RedoCommand(3);
+
+        // same object -> returns true
+        assertTrue(redoSingle.equals(redoSingle));
+
+        // same values -> returns true
+        RedoCommand redoSingleCopy = new RedoCommand(1);
+        assertTrue(redoSingle.equals(redoSingleCopy));
+
+        // different types -> returns false
+        assertFalse(redoSingle.equals(1));
+
+        // null -> returns false
+        assertFalse(redoSingle.equals(null));
+
+        // different steps -> returns false
+        assertFalse(redoSingle.equals(redoMultiple));
     }
 }

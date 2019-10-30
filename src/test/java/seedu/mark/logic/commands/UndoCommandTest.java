@@ -1,5 +1,7 @@
 package seedu.mark.logic.commands;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.mark.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.mark.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.mark.logic.commands.CommandTestUtil.deleteFirstBookmark;
@@ -70,5 +72,27 @@ public class UndoCommandTest {
         // No undoable Mark state
         String expectedMessage3 = String.format(UndoCommand.MESSAGE_FAILURE, 0);
         assertCommandFailure(new UndoCommand(1), model, storage, expectedMessage3);
+    }
+
+    @Test
+    public void equals() {
+        UndoCommand undoSingle = new UndoCommand(1);
+        UndoCommand undoMultiple = new UndoCommand(3);
+
+        // same object -> returns true
+        assertTrue(undoSingle.equals(undoSingle));
+
+        // same values -> returns true
+        UndoCommand undoSingleCopy = new UndoCommand(1);
+        assertTrue(undoSingle.equals(undoSingleCopy));
+
+        // different types -> returns false
+        assertFalse(undoSingle.equals(1));
+
+        // null -> returns false
+        assertFalse(undoSingle.equals(null));
+
+        // different steps -> returns false
+        assertFalse(undoSingle.equals(undoMultiple));
     }
 }

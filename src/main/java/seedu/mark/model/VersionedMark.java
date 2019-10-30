@@ -1,5 +1,7 @@
 package seedu.mark.model;
 
+import static seedu.mark.commons.util.CollectionUtil.requireAllNonNull;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -127,7 +129,7 @@ public class VersionedMark extends Mark {
     /**
      * Thrown when trying to {@code undo()} but can't.
      */
-    private static class CannotUndoMarkException extends RuntimeException {
+    public static class CannotUndoMarkException extends RuntimeException {
         private CannotUndoMarkException() {
             super("Current state pointer at start of markState list, unable to undo.");
         }
@@ -136,7 +138,7 @@ public class VersionedMark extends Mark {
     /**
      * Thrown when trying to {@code redo()} but can't.
      */
-    private static class CannotRedoMarkException extends RuntimeException {
+    public static class CannotRedoMarkException extends RuntimeException {
         private CannotRedoMarkException() {
             super("Current state pointer at end of markState list, unable to redo.");
         }
@@ -145,12 +147,14 @@ public class VersionedMark extends Mark {
     /**
      * Represents a state record for Mark.
      */
-    public class MarkStateRecord {
+    public static class MarkStateRecord {
         /** Record about which action leads to the state **/
         private String record;
         private ReadOnlyMark state;
 
         public MarkStateRecord(String record, ReadOnlyMark state) {
+            requireAllNonNull(record, state);
+
             this.record = record;
             this.state = state;
         }
