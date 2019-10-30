@@ -1,16 +1,18 @@
 //@@author LeowWB
-= Leow Wen Bin - Project Portfolio
+= Leow Wen Bin - Project Portfolio for KeyboardFlashCards
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-== PROJECT: KeyboardFlashCards
+== Introduction
+My team of 4 software engineering students and I were tasked with enhancing a basic CLI (command-line interface)
+desktop addressbook application for our Software Engineering project. We chose to morph it into a flashcard manager application,
+titled _KeyboardFlashCards_. This enhanced application is targeted at computing students (in particular, NUS School of Computing
+students), who will be able to use it to enhance their learning. It does this by simulating a real deck of flashcards, complete with the
+standard functionality that you'd expect from an actual, physical deck (including creation, editing, deletion, and revision of flashcards).
+This application has a GUI created with JavaFX. It is written in Java, and has roughly 16 KLoC. 
 
----
-
-== Overview
-
-KeyboardFlashCards is a desktop flashcard manager application. The user interacts with it using a CLI (command-line interface), and it has a GUI created with JavaFX. It is written in Java, and has roughly 16 KLoC.
+Here is a screenshot of our project:
 
 image::Ui.png[KeyboardFlashCards]
 
