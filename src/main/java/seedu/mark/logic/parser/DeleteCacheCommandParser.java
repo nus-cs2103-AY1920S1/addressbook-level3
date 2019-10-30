@@ -8,7 +8,7 @@ import seedu.mark.logic.commands.DeleteCacheCommand;
 import seedu.mark.logic.parser.exceptions.ParseException;
 
 /**
- * Parses input arguments and creates a new CacheCommand object
+ * Parses input arguments and creates a new DeleteCacheCommand object
  */
 public class DeleteCacheCommandParser implements Parser<DeleteCacheCommand> {
 

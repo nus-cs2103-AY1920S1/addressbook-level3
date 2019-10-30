@@ -31,7 +31,7 @@ public class DeleteCacheCommand extends Command {
     /**
      * Instantiates a new DeleteCache Command.
      *
-     * @param index the index to delete
+     * @param index the index of the bookmark whose offline copy should be deleted
      */
     public DeleteCacheCommand(Index index) {
         this.index = index;
