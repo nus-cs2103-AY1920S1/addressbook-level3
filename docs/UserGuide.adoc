@@ -148,12 +148,14 @@ Examples:
 
 Adds a new budget for expenditure with a certain tag, if applicable. Period: day/week/month
 
-Format: `addBudget --desc <description> --amt <budget> --period <period> [--tag <tag>]`
+Format: `addBudget cat/<category> n/<description> amt/<budget amount> d/<start date> p/<period> [tg/<tag>]` +
+Note: format for inputting period is <number><d/m/y> where d/m/y stands for days / months / years respectively
+e.g. for a period input of 10 days, use 10d
 
 Examples:
 
-* `addBudget --desc food budget --period day --amt 200 --tag food`
-* `addBudget --desc entertainment budget --amt 300`
+* `addBudget cat/Food n/Nov Budget amt/50.00 d/2019 09 09 p/1m tg/food`
+* `addBudget cat/Food n/Mala Budget amt/100.00 d/2019 09 10 p/50d`
 
 ==== Listing Budget : 'listBudget`
 
@@ -168,13 +170,13 @@ Examples:
 ==== Editing Budget : 'editBudget`
 Edits a current budget's description, amount or tag (if applicable) at the given index.
 
-Format: `editBudget --index <index> [--desc <description>] [--amt <budget>] [--tag <tag>]`
+Format: `editBudget <index> [n/<description>] [amt/<budget>] [tg/<tag>]`
 
 Examples:
 
-* `editBudget 1 --desc fooooood budget`
-* `editBudget 2 --desc lunch budget --amt 150`
-* `editBudget 2 --tag fun`
+* `editBudget 1 n/fooooood budget`
+* `editBudget 2 n/lunch budget amt/150`
+* `editBudget 2 tg/fun`
 
 ==== Deleting Budget : `deleteBudget`
 Deletes a current budget at the given index.
@@ -184,52 +186,6 @@ Format: `deleteBudget <index>`
 Examples:
 
 * `deleteBudget 2`
-
-==== Adding a Loan : `addLoan`
-Adds a new loan with the given description, amount and interest (in percentage) and calculates the total outstanding amount based on the interest.
-
-Format: `addLoan --desc <description> --amt <loan amount> --int <interest>`
-
-Examples:
-
-* `addLoan --desc student loan --amt 30000 --int 4.5`
-
-==== Listing a loan : `listLoan`
-Lists all the loans that the user has.
-
-Format: `listLoan`
-
-Example: `listLoan`
-
-==== Editing a loan : `editLoan`
-Edits a current loan's description, loan amount, or both.
-
-Format: `editLoan <index> [--desc <description>] [--amt <loan amount>] [--int <interest>]`
-
-Example:
-
-* `editLoan 1 --desc nus tuition loan T.T`
-* `editLoan 1 --amt 25000 --int 4.45%`
-
-==== Deleting a loan : `deleteLoan`
-
-Deletes a current loan at the given index.
-
-Format: `deleteLoan <index>`
-
-Example:
-
-* `deleteLoan 1`
-
-==== Paying a loan : `payLoan`
-
-Reduces the loan amount for the loan at the given index after user pays for part of the loan.
-
-Format: `payLoan <index> <amountPaid>`
-
-Example:
-
-* `payLoan 1 4000`
 
 === Statistics
 
@@ -507,6 +463,37 @@ Format: `purchase <index>`
 Examples:
 
 * `purchase 1`
+
+=== Undo/ Redo
+==== Undo previous command : `undo`
+Restores the finance tracker to the state before the previous undoable command was executed
+
+Format: `undo`
+
+Examples:
+
+* `delete 1` +
+`undo` (reverses the `delete 1` command)
+
+* `delete 1` +
+`delete 2` +
+`undo` (reverses the `delete 2` command) +
+`undo` (reverses the `delete 1` command)
+
+==== Redo previously undone command : `redo`
+Reverses the most recent undone command
+
+Format: `redo`
+
+Examples:
+
+* `delete 1` +
+`undo` (reverses the `delete 1` command)
+
+* `delete 1` +
+`delete 2` +
+`undo` (reverses the `delete 2` command) +
+`undo` (reverses the `delete 1` command)
 
 == FAQ
 
