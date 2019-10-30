@@ -1,0 +1,17 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+Model *-right-> "1" Session
+Session *-down-> "0..1" Person
+
+Person o-right-> "*" Tag
+
+Person *--> Name
+Person *--> Phone
+Person *--> Email
+Person *--> Username
+Person *--> Password
+@enduml
