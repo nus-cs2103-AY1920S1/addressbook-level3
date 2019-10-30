@@ -486,8 +486,8 @@ website. When you give this command, the UI will switch to the offline tab showi
 With this command, you can highlight a paragraph on the offline document and optionally attach a supplementary
 note to said paragraph. (Notes can be added to justify the highlight or as
 content-relevant notes for future reference to bookmark).
-You can also add a general note not pertaining to any specific paragraph to the _General notes section_
-located at the bottom of the document.
+//TODO: You can also add a general note not pertaining to any specific paragraph to the _General notes section_
+//TODO: located at the bottom of the document.
 
 Overwriting an existing note is possible with this command.
 
@@ -500,7 +500,9 @@ Format: `*annotate* INDEX p/PARA_NUM [n/NOTES] [h/HIGHLIGHT_COLOUR=yellow]`
  * `INDEX` is the bookmark that you want to annotate offline version of.
  If `INDEX` is invalid, a warning message will be displayed.
  * `PARA_NUM` is the numbered identifier of the paragraph to be marked.
- `PARA_NUM` must be `NULL` or it must begin with `P` or `S` (e.g. `P3`).
+ `PARA_NUM` must
+//TODO: be `NULL` or it must
+begin with `P` or `S` (e.g. `P3`).
  If `PARA_NUM` is invalid, a warning message will be displayed.
  * `NOTES` is the content of notes to add.
  * `HIGHLIGHT_COLOUR` is either `orange`, `pink`, `green` or `yellow`. This selects
@@ -526,9 +528,9 @@ in the offline copy of bookmark 1 if paragraph 2 had pre-existing note, and high
 colour remains the same. Otherwise, paragraph 2 will be highlighted yellow and
 a new note with content "change or add note content" will be added to the paragraph.
 
-* `*annotate* 1 n/adding a general note` +
-This adds a note with content "adding a general note" to the _General notes section_ in the
- offline copy of bookmark 1.
+//TODO: * `*annotate* 1 n/adding a general note` +
+//This adds a note with content "adding a general note" to the _General notes section_ in the
+// offline copy of bookmark 1.
 
 
 === Deleting annotations on an offline copy: *`annotate-delete`*
@@ -589,7 +591,7 @@ choose to move notes from a paragraph to another paragraph. This command also su
 <<phantom-paragraph, phantom paragraph>> back to the main text by specifying which true paragraph to move it to.
 
 //TODO lift this restriction in future version
-At v1.4, moving of notes to the  <<stray-notes, _General notes section_>> is not supported.
+At v1.3, moving of notes to the  <<stray-notes, _General notes section_>> is not supported.
 
 Format: `*annotate-edit* INDEX p/PARA_NUM [to/NEW_PARA_NUM] [n/NOTES] [h/HIGHLIGHT_COLOUR]`
 
@@ -907,8 +909,8 @@ displayed in the document).
 * *Cache (add)*: `*cache* INDEX`
 * *Cache (delete)*: `*cache-delete* INDEX`
 * *Annotate (add)*: `*annotate* INDEX p/P_NUM [n/NOTES] [h/HIGHLIGHT_COLOUR=yellow]`
-* *Annotate (delete)*: `*annotate delete* INDEX [p/P_NUM] [n/KEEP_NOTES=false] [h/KEEP_HIGHLIGHT=false]`
-* *Annotate (edit)*: `*annotate edit* INDEX p/P_NUM [to/NEW_P_NUM] [n/NOTES] [h/HIGHLIGHT_COLOUR]`
+* *Annotate (delete)*: `*annotate-delete* INDEX [p/P_NUM] [n/KEEP_NOTES=false] [h/KEEP_HIGHLIGHT=false]`
+* *Annotate (edit)*: `*annotate-edit* INDEX p/P_NUM [to/NEW_P_NUM] [n/NOTES] [h/HIGHLIGHT_COLOUR]`
 * *Offline*: `*offline* INDEX [v/VERSION=current]`
 * *Reminder*: `*reminder* INDEX t/TIME_DATE [n/NOTE=Open]`
 * *Reminder*: `*reminder edit* INDEX [t/TIME_DATE] [n/NOTE]`
