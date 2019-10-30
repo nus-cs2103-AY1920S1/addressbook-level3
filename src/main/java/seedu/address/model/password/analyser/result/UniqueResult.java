@@ -8,7 +8,7 @@ import seedu.address.model.password.analyser.match.UniqueMatch;
 /**
  * Represents a result produced from unique analyser.
  */
-public class UniqueResult extends BaseResult {
+public class UniqueResult extends Result {
     private List<UniqueMatch> matches;
 
     public UniqueResult(Password password, String description, List<UniqueMatch> matches) {

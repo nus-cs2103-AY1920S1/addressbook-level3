@@ -8,7 +8,7 @@ import seedu.address.model.password.analyser.match.SimilarityMatch;
 /**
  * Represents a result produced from similarity analyser.
  */
-public class SimilarityResult extends BaseResult {
+public class SimilarityResult extends Result {
 
     private List<SimilarityMatch> matches;
 

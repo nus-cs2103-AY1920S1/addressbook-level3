@@ -2,6 +2,7 @@ package seedu.address.model.password.analyser;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.model.password.Password;
@@ -15,13 +16,19 @@ import seedu.address.model.password.analyser.result.SimilarityResult;
 public class SimilarityAnalyser implements Analyser {
 
     private static final String MESSAGE_HEADER = "Analyzing password for similarity: \n";
+
     private ArrayList<SimilarityResult> results;
+
+    public ArrayList<SimilarityResult> getResults() {
+        return results;
+    }
+
 
     @Override
     public void analyse(List<Password> passwordList) {
         ArrayList<SimilarityResult> results = new ArrayList<>();
         for (Password acc : passwordList) {
-            List<SimilarityMatch> matches = findSimilarPasswords(acc, passwordList);
+            List<SimilarityMatch> matches = getAllMatches(acc, passwordList);
             if (!matches.isEmpty()) {
                 results.add(new SimilarityResult(acc, DESC_FAIL, matches));
             } else {
@@ -37,7 +44,7 @@ public class SimilarityAnalyser implements Analyser {
      * @param passwordList the list of passwords
      * @return
      */
-    private List<SimilarityMatch> findSimilarPasswords(Password toCheck, List<Password> passwordList) {
+    List<SimilarityMatch> getAllMatches(Password toCheck, List<Password> passwordList) {
         String s1 = toCheck.getPasswordValue().value;
         ArrayList<SimilarityMatch> matches = new ArrayList<>();
         for (Password acc : passwordList) {
@@ -46,8 +53,8 @@ public class SimilarityAnalyser implements Analyser {
             }
             String s2 = acc.getPasswordValue().value;
             double score = score(s1, s2);
-            if (score >= 0.75) {
-                matches.add(new SimilarityMatch(0, toCheck.getPasswordValue().value.length(),
+            if (score >= 0.70) {
+                matches.add(new SimilarityMatch(0, toCheck.getPasswordValue().value.length() - 1,
                         acc.getPasswordValue().value, acc, score));
             }
         }
@@ -124,5 +131,22 @@ public class SimilarityAnalyser implements Analyser {
         SimilarityResult target = results.get(index.getZeroBased());
         report.append(target.getGreaterDetail());
         return report.toString();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        SimilarityAnalyser that = (SimilarityAnalyser) o;
+        return results.equals(that.results);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(results);
     }
 }

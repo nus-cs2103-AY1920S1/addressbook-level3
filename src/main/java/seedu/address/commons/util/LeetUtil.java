@@ -38,6 +38,7 @@ public class LeetUtil {
 
     /**
      * Generates the possible list of translations given a password.
+     *
      * @param password the password string to unleet
      * @return the list of possible unleet passwords
      */
@@ -76,7 +77,7 @@ public class LeetUtil {
             password[currentIndex] = replacement;
             if (currentIndex.equals(replacements.lastKey())) {
                 finalPasswords.add(new String(password));
-            } else if (finalPasswords.size() > 100) {
+            } else if (finalPasswords.size() == 100) { //TODO: What is an appropriate length to stop at?
                 // Give up if we've already made 100 replacements
                 return;
             } else {

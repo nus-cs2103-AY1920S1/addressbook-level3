@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import seedu.address.commons.core.Dictionary;
+import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.exceptions.DictionaryException;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -34,6 +35,9 @@ public class AnalyseStrongPasswordCommand extends AnalysePasswordCommand {
     public CommandResult execute(Model model) throws CommandException, DictionaryException {
         requireNonNull(model);
         List<Password> passwordList = model.getFilteredPasswordList();
+        if (index.getZeroBased() >= passwordList.size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_PASSWORD_DISPLAYED_INDEX);
+        }
         Password passwordToAnalyse = passwordList.get(index.getZeroBased());
         List<Analyser> analyserList = getRequiredAnalysers();
         StringBuilder reportBuilder = new StringBuilder();

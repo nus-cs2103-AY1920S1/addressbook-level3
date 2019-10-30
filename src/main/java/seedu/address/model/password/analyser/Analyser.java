@@ -6,34 +6,39 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.model.password.Password;
 
 /**
- * Represents analyser object that analyses passwords in password book.
+ * Represents {@code Analyser} object that analyses individual passwords in password book to produce an {@code Result}.
+ * Interface for different analyser classes to implement analyse method.
  */
 public interface Analyser {
-    final String MESSAGE_COLUMNS = "------------------------------     :    ------------------------------     :   "
-            + " ------------------------------     :    ------------------------------\n"
-             + "Description                         :    Username                            "
-            + ":    Password                            :    Result\n"
-            + "------------------------------     :    ------------------------------     :    "
-            + "------------------------------     :    ------------------------------\n";
+    final String MESSAGE_UNDERSCORE = "------------------------------";
+    final String COLUMN1 = String.format("%-30s %-10s %-30s %-10s %-30s %-10s %-30s", MESSAGE_UNDERSCORE, ":",
+            MESSAGE_UNDERSCORE, ":", MESSAGE_UNDERSCORE, ":", MESSAGE_UNDERSCORE) + "\n";
+    final String COLUMN2 = String.format("%-30s %-10s %-30s %-10s %-30s %-10s %-30s", "Description", ":",
+            "Username", ":", "Password", ":", "Result") + "\n";
+    final String MESSAGE_COLUMNS = COLUMN1 + COLUMN2 + COLUMN1;
     final String MESSAGE_INIT = "----------------------------------------\n";
     final String DESC_FAIL = "failed";
     final String DESC_PASS = "passed";
+
     /**
-     * Creates a {@code List} of {@code Analysis} object from the password.
+     * Reviews specific aspect of every password in the password book to produce a list of {@code Result} objects
+     * containing information of the analysis.
      *
-     * @param passwordList .
+     * @param passwordList the list of the {@code Password} objects in the password book.
      */
     void analyse(List<Password> passwordList);
 
     /**
-     * returns the output of the analyser in summary report format.
-     * @return
+     * Provides summary information about analysis for all passwords.
+     *
+     * @return the summary information of all passwords in string format.
      */
     String outputSummaryReport();
 
     /**
-     * returns the output of the analyser in deatiled report format.
-     * @return
+     * Provides further in-depth information about a specific result.
+     *
+     * @return the specific details of a specific result in string format.
      */
     String outputDetailedReport(Index index);
 

@@ -21,24 +21,25 @@ public class AnalysePasswordCommandParser implements Parser {
      * @throws ParseException if the user input does not conform the expected format
      */
     public AnalysePasswordCommand parse(String userInput) throws ParseException {
+        if (userInput.equals("")) {
+            return new AnalysePasswordCommand();
+        }
+        ArgumentMultimap argMultimap =
+                ArgumentTokenizer.tokenize(userInput, PREFIX_STRONG);
+        if (!isPrefixPresent(argMultimap, PREFIX_STRONG)
+                || !argMultimap.getPreamble().isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                                                AnalysePasswordCommand.MESSAGE_USAGE));
+        }
         try {
-            if (userInput.equals("")) {
-                return new AnalysePasswordCommand();
-            }
-            ArgumentMultimap argMultimap =
-                    ArgumentTokenizer.tokenize(userInput, PREFIX_STRONG);
-            if (!isPrefixPresent(argMultimap, PREFIX_STRONG)
-                    || !argMultimap.getPreamble().isEmpty()) {
-                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                                                    AnalysePasswordCommand.MESSAGE_USAGE));
-            }
             Index index = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_STRONG).get());
 
             return new AnalyseStrongPasswordCommand(index);
-        } catch (ParseException e) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, AnalysePasswordCommand.MESSAGE_USAGE));
+        } catch (ParseException pe) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    AnalysePasswordCommand.MESSAGE_USAGE), pe);
         }
+
     }
 
     /**

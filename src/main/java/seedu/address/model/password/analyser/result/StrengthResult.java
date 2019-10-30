@@ -1,11 +1,13 @@
 package seedu.address.model.password.analyser.result;
 
+import java.util.Objects;
+
 import seedu.address.model.password.Password;
 
 /**
  * Represents a result produced from strength analyser.
  */
-public class StrengthResult extends BaseResult {
+public class StrengthResult extends Result {
 
     private boolean hasMinimumLength = false;
     private boolean hasLower = false;
@@ -43,4 +45,29 @@ public class StrengthResult extends BaseResult {
         }
         return report.toString();
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        if (!super.equals(o)) {
+            return false;
+        }
+        StrengthResult that = (StrengthResult) o;
+        return hasMinimumLength == that.hasMinimumLength
+                && hasLower == that.hasLower
+                && hasUpper == that.hasUpper
+                && hasNum == that.hasNum
+                && hasSpecial == that.hasSpecial;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(hasMinimumLength, hasLower, hasUpper, hasNum, hasSpecial);
+    }
+
 }
