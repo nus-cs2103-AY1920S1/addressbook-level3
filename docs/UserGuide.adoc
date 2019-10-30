@@ -200,6 +200,7 @@ Format: `quit`
 
 === Get statistics
 
+// tag::stats[]
 ==== Get statistics for subjects : `stats`
 
 Returns a panel containing a break down of the questions by its results.
@@ -207,25 +208,29 @@ You can choose to get the statistics for a difficulty level by adding `d/` or
 get the statistics of different subjects by adding `s/`.
 Typing any other non-statistics command will close this panel. +
 Format: `stats [d/DIFFICULTY] [s/SUBJECT1] [s/SUBJECT2]...`
-
+// end::stats[]
+// tag::question[]
 ==== Get questions with correct/incorrect answers: `question`
 Get a panel containing all questions that have been answered correctly/incorrectly by using `-c/-i` respectively.
 Either one of `-c` or `-i` must be used. You can also filter by subjects by adding `s/`.
 Typing any other non-statistics command will close this panel. +
 Format: `question [-c] [-i] [s/SUBJECT1] [s/SUBJECT2]...`
-
+// end::question[]
+// tag::report[]
 ==== Get a report for individual questions: `report`
 Returns a panel containing a report of how well you have answered a particular question,
 the number of times the question has been attempted and the past answers to the question.
 Typing any other non-statistics command will close this panel. +
 Format: `report INDEX`
-
+// end::report[]
+// tag::overview[]
 ==== Get overview of questions attempted: `overview`
 Get an overview of the types of questions that have been attempted overall.
 A panel containing a stacked bar graph, sorted by subjects will be returned.
 You can also add a `dt/` field to get questions that you have done within that time period.
 Typing any other non-statistics command will close this panel. +
 Format: `overview [dt/START_DATE] [dt/END_DATE]`
+// end::overview[]
 
 === Revision tasks
 
