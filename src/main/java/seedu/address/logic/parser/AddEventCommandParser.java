@@ -62,7 +62,7 @@ public class AddEventCommandParser implements Parser<AddEventCommand> {
         if (isTimestampPresent) {
             Timestamp timestamp = ParserUtil.parseTimestamp(argMultimap.getValue(PREFIX_TIMESTAMP).get());
             if (Timekeeper.isFutureTimestamp(timestamp)) {
-                Event event = new Event(description, price, category, timestamp, AddEventCommand.COMMAND_WORD + args);
+                Event event = new Event(description, price, category, timestamp, null);
                 return new seedu.address.logic.commands.event.AddEventCommand(event);
             } else {
                 throw new ParseException("Event must occur in the future");
