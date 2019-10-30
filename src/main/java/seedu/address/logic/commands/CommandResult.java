@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 import seedu.address.model.person.PanelName;
@@ -23,6 +24,8 @@ public class CommandResult {
     /** For toggling the panels. */
     private final PanelName panelName;
     private final boolean togglePanel;
+    private final boolean toggleStats;
+    private final boolean toggleGraphics;
 
     /** For changing the font. */
     private final FontName fontName;
@@ -38,6 +41,8 @@ public class CommandResult {
         this.exit = exit;
         this.panelName = null;
         this.togglePanel = false;
+        this.toggleStats = false;
+        this.toggleGraphics = false;
         this.fontName = null;
         this.listFonts = false;
         this.changeFont = false;
@@ -51,6 +56,20 @@ public class CommandResult {
         this(feedbackToUser, false, false);
     }
 
+    public CommandResult(String feedbackToUser, ArrayList<Boolean> toggleBooleans) {
+        this.feedbackToUser = requireNonNull(feedbackToUser);
+        this.showHelp = false;
+        this.exit = false;
+        this.togglePanel = false;
+        this.panelName = null;
+        this.toggleStats = toggleBooleans.get(0);
+        this.toggleGraphics = toggleBooleans.get(1);
+        this.fontName = null;
+        this.listFonts = false;
+        this.changeFont = false;
+    }
+
+
     /**
      * Constructs a {@code CommandResult} with the specified fields, and other fields are set to their default value.
      */
@@ -60,6 +79,8 @@ public class CommandResult {
         this.exit = false;
         this.panelName = panelName;
         this.togglePanel = togglePanel;
+        this.toggleStats = false;
+        this.toggleGraphics = false;
         this.fontName = null;
         this.listFonts = false;
         this.changeFont = false;
@@ -77,6 +98,8 @@ public class CommandResult {
         this.fontName = fontName;
         this.listFonts = listFonts;
         this.changeFont = changeFont;
+        this.toggleStats = false;
+        this.toggleGraphics = false;
     }
 
     public String getFeedbackToUser() {
@@ -93,6 +116,14 @@ public class CommandResult {
 
     public boolean isTogglePanel() {
         return togglePanel;
+    }
+
+    public boolean isToggleStats() {
+        return toggleStats;
+    }
+
+    public boolean isToggleGraphics() {
+        return toggleGraphics;
     }
 
     public PanelName getPanelName() {
