@@ -20,7 +20,6 @@ public class GuiSettings implements Serializable {
     private final Point windowCoordinates;
 
     public GuiSettings() {
-        System.out.println("default GUI setting");
         windowWidth = DEFAULT_WIDTH;
         windowHeight = DEFAULT_HEIGHT;
         styleSheet = DEFAULT_STYLESHEET;
@@ -30,7 +29,6 @@ public class GuiSettings implements Serializable {
     public GuiSettings(double windowWidth, double windowHeight,
                        int xPosition, int yPosition,
                        String styleSheet) {
-        System.out.println("custom");
         this.windowWidth = windowWidth;
         this.windowHeight = windowHeight;
         windowCoordinates = new Point(xPosition, yPosition);
@@ -39,7 +37,6 @@ public class GuiSettings implements Serializable {
 
     public GuiSettings(double windowWidth, double windowHeight,
                        int xPosition, int yPosition) {
-        System.out.println("custom");
         this.windowWidth = windowWidth;
         this.windowHeight = windowHeight;
         windowCoordinates = new Point(xPosition, yPosition);
