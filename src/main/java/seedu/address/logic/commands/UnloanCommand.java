@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import seedu.address.model.Model;
 import seedu.address.model.book.Book;
 import seedu.address.model.loan.Loan;
@@ -28,9 +29,7 @@ public class UnloanCommand extends Command {
      * @param loanToBeRemoved loan to be removed from {@code LoanRecords} and borrower's loans.
      */
     public UnloanCommand(Book bookToBeUnloaned, Book unloanedBook, Loan loanToBeRemoved) {
-        requireNonNull(bookToBeUnloaned);
-        requireNonNull(unloanedBook);
-        requireNonNull(loanToBeRemoved);
+        requireAllNonNull(bookToBeUnloaned, unloanedBook, loanToBeRemoved);
 
         this.bookToBeUnloaned = bookToBeUnloaned;
         this.unloanedBook = unloanedBook;

@@ -31,7 +31,6 @@ public class RegisterCommand extends Command implements ReversibleCommand {
     public static final String MESSAGE_SUCCESS = "New borrower added: %1$s";
 
     private final Borrower toAdd;
-    private final boolean isUndoRedo;
     private Command undoCommand;
     private Command redoCommand;
 
@@ -43,19 +42,6 @@ public class RegisterCommand extends Command implements ReversibleCommand {
     public RegisterCommand(Borrower borrower) {
         requireNonNull(borrower);
         toAdd = borrower;
-        this.isUndoRedo = false;
-    }
-
-    /**
-     * Creates a RegisterCommand to add the specified {@code Borrower}
-     *
-     * @param borrower to be registered.
-     * @param isUndoRedo used to check whether the RegisterCommand is an undo/redo command.
-     */
-    public RegisterCommand(Borrower borrower, boolean isUndoRedo) {
-        requireNonNull(borrower);
-        toAdd = borrower;
-        this.isUndoRedo = isUndoRedo;
     }
 
     @Override
@@ -68,8 +54,8 @@ public class RegisterCommand extends Command implements ReversibleCommand {
             throw new CommandException(MESSAGE_DUPLICATE_BORROWER);
         }
 
-        undoCommand = new UnregisterCommand(toAdd.getBorrowerId(), true);
-        redoCommand = new RegisterCommand(toAdd, true);
+        undoCommand = new UnregisterCommand(toAdd.getBorrowerId());
+        redoCommand = this;
 
         model.registerBorrower(toAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd.toFullString()));
@@ -86,16 +72,10 @@ public class RegisterCommand extends Command implements ReversibleCommand {
     }
 
     @Override
-    public boolean isUndoRedoCommand() {
-        return isUndoRedo;
-    }
-
-    @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof RegisterCommand // instanceof handles nulls
-                && toAdd.equals(((RegisterCommand) other).toAdd))
-                && isUndoRedo == ((RegisterCommand) other).isUndoRedo;
+                && toAdd.equals(((RegisterCommand) other).toAdd));
     }
 
 }

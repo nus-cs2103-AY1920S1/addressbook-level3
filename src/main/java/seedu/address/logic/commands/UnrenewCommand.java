@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.book.Book;
@@ -30,10 +31,7 @@ public class UnrenewCommand extends Command {
      * @param unrenewedLoan previous loan before renew.
      */
     public UnrenewCommand(Book bookToBeUnrenewed, Book unrenewedBook, Loan loanToBeUnrenewed, Loan unrenewedLoan) {
-        requireNonNull(bookToBeUnrenewed);
-        requireNonNull(unrenewedBook);
-        requireNonNull(loanToBeUnrenewed);
-        requireNonNull(unrenewedLoan);
+        requireAllNonNull(bookToBeUnrenewed, unrenewedBook, loanToBeUnrenewed, unrenewedLoan);
 
         this.bookToBeUnrenewed = bookToBeUnrenewed;
         this.unrenewedBook = unrenewedBook;
@@ -72,7 +70,7 @@ public class UnrenewCommand extends Command {
             return true;
         }
 
-        if (!(o instanceof RenewCommand)) {
+        if (!(o instanceof UnrenewCommand)) {
             return false;
         }
 

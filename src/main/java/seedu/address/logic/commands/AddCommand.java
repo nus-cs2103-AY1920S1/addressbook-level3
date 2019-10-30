@@ -33,8 +33,6 @@ public class AddCommand extends Command implements ReversibleCommand {
 
     public static final String MESSAGE_SUCCESS = "New book added: %1$s";
 
-    private final boolean isUndoRedo;
-
     private final Book toAdd;
     private Command undoCommand;
     private Command redoCommand;
@@ -47,19 +45,6 @@ public class AddCommand extends Command implements ReversibleCommand {
     public AddCommand(Book book) {
         requireNonNull(book);
         toAdd = book;
-        this.isUndoRedo = false;
-    }
-
-    /**
-     * Creates an AddCommand to add the specified {@code Book}
-     *
-     * @param book to be added into the catalog.
-     * @param isUndoRedo used to check whether the DoneCommand is an undo/redo command.
-     */
-    public AddCommand(Book book, boolean isUndoRedo) {
-        requireNonNull(book);
-        toAdd = book;
-        this.isUndoRedo = isUndoRedo;
     }
 
     @Override
@@ -71,8 +56,8 @@ public class AddCommand extends Command implements ReversibleCommand {
             throw new CommandException(MESSAGE_DUPLICATE_BOOK);
         }
 
-        undoCommand = new DeleteBySerialNumberCommand(toAdd.getSerialNumber(), true);
-        redoCommand = new AddCommand(toAdd, true);
+        undoCommand = new DeleteBySerialNumberCommand(toAdd.getSerialNumber());
+        redoCommand = this;
 
         model.addBook(toAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
@@ -89,16 +74,10 @@ public class AddCommand extends Command implements ReversibleCommand {
     }
 
     @Override
-    public boolean isUndoRedoCommand() {
-        return isUndoRedo;
-    }
-
-    @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AddCommand // instanceof handles nulls
-                && toAdd.equals(((AddCommand) other).toAdd))
-                && isUndoRedo == ((AddCommand) other).isUndoRedo;
+                && toAdd.equals(((AddCommand) other).toAdd));
     }
 
 }

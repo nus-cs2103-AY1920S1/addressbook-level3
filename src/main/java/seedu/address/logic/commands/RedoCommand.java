@@ -1,5 +1,8 @@
 package seedu.address.logic.commands;
 
+import static seedu.address.commons.core.Messages.MESSAGE_CANNOT_REDO_COMMAND;
+
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 
 public class RedoCommand extends Command {
@@ -15,8 +18,11 @@ public class RedoCommand extends Command {
      * @return feedback message of the operation result for display
      */
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(Model model) throws CommandException {
 
+        if (!model.canRedoCommand()) {
+            throw new CommandException(MESSAGE_CANNOT_REDO_COMMAND);
+        }
         model.redoCommand();
         return new CommandResult(MESSAGE_SUCCESS);
     }

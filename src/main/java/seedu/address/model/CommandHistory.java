@@ -64,7 +64,7 @@ public class CommandHistory {
         }
         currentCommandPointer++;
         try {
-            commandHistoryList.get(currentCommandPointer).getUndoCommand().execute(model);
+            commandHistoryList.get(currentCommandPointer).getRedoCommand().execute(model);
         } catch (CommandException e) {
             assert false;
         }

@@ -14,27 +14,8 @@ public class DoneCommand extends Command implements ReversibleCommand {
             + "Example: " + COMMAND_WORD;
     public static final String MESSAGE_SUCCESS = "Exited from Serve Mode. ";
 
-    private final boolean isUndoRedo;
-
     private Command undoCommand;
     private Command redoCommand;
-
-    /**
-     * Creates a DoneCommand to exit serve mode.
-     */
-    public DoneCommand() {
-        this.isUndoRedo = false;
-    }
-
-    /**
-     * Creates a DoneCommand to exit serve mode.
-     *
-     * @param isUndoRedo used to check whether the DoneCommand is an undo/redo command.
-     */
-    public DoneCommand(boolean isUndoRedo) {
-        this.isUndoRedo = isUndoRedo;
-    }
-
 
     /**
      * Executes the command and returns the result message.
@@ -49,8 +30,8 @@ public class DoneCommand extends Command implements ReversibleCommand {
         if (!model.isServeMode()) {
             throw new CommandException(MESSAGE_NOT_IN_SERVE_MODE);
         }
-        undoCommand = new ServeCommand(model.getServingBorrower().getBorrowerId(), true);
-        redoCommand = new DoneCommand(true);
+        undoCommand = new ServeCommand(model.getServingBorrower().getBorrowerId());
+        redoCommand = this;
         model.exitsServeMode();
         return new CommandResult(MESSAGE_SUCCESS, false, false, false, true);
     }
@@ -66,13 +47,7 @@ public class DoneCommand extends Command implements ReversibleCommand {
     }
 
     @Override
-    public boolean isUndoRedoCommand() {
-        return isUndoRedo;
-    }
-
-    @Override
     public boolean equals(Object other) {
-        return (other == this || other instanceof DoneCommand)
-                && isUndoRedo == ((DoneCommand) other).isUndoRedo;
+        return (other == this || other instanceof DoneCommand);
     }
 }

@@ -583,6 +583,16 @@ public class ModelManager implements Model {
     //=========== CommandHistory ===============================================================================
 
     @Override
+    public boolean canUndoCommand() {
+        return commandHistory.canUndo();
+    }
+
+    @Override
+    public boolean canRedoCommand() {
+        return commandHistory.canRedo();
+    }
+
+    @Override
     public void commitCommand(ReversibleCommand command) {
         commandHistory.commit(command);
     }

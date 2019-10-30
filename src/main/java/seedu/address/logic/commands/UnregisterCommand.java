@@ -24,7 +24,6 @@ public class UnregisterCommand extends Command implements ReversibleCommand {
     public static final String MESSAGE_SUCCESS = "Borrower unregistered: %1$s";
 
     private final BorrowerId id;
-    private final boolean isUndoRedo;
     private Command undoCommand;
     private Command redoCommand;
 
@@ -36,19 +35,6 @@ public class UnregisterCommand extends Command implements ReversibleCommand {
     public UnregisterCommand(BorrowerId id) {
         requireNonNull(id);
         this.id = id;
-        this.isUndoRedo = false;
-    }
-
-    /**
-     * Creates an UnregisterCommand to add the specified {@code Borrower}
-     *
-     * @param id of the {@code Borrower} to unregister.
-     * @param isUndoRedo used to check whether the DoneCommand is an undo/redo command.
-     */
-    public UnregisterCommand(BorrowerId id, boolean isUndoRedo) {
-        requireNonNull(id);
-        this.id = id;
-        this.isUndoRedo = isUndoRedo;
     }
 
     /**
@@ -66,8 +52,8 @@ public class UnregisterCommand extends Command implements ReversibleCommand {
         }
         Borrower toUnregister = model.getBorrowerFromId(id);
 
-        undoCommand = new RegisterCommand(toUnregister, true);
-        redoCommand = new UnregisterCommand(id, true);
+        undoCommand = new RegisterCommand(toUnregister);
+        redoCommand = this;
 
         model.unregisterBorrower(toUnregister);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toUnregister.toFullString()));
@@ -84,15 +70,9 @@ public class UnregisterCommand extends Command implements ReversibleCommand {
     }
 
     @Override
-    public boolean isUndoRedoCommand() {
-        return isUndoRedo;
-    }
-
-    @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof UnregisterCommand // instanceof handles nulls
-                && id.equals(((UnregisterCommand) other).id))
-                && isUndoRedo == ((UnregisterCommand) other).isUndoRedo;
+                && id.equals(((UnregisterCommand) other).id));
     }
 }

@@ -193,9 +193,32 @@ public interface Model {
 
     //=========== CommandHistory ===============================================================================
 
+    /**
+     * Checks whether there is {@code Command} to undo.
+     *
+     * @return true if there is {@code Command} to undo, else false.
+     */
+    boolean canUndoCommand();
+
+    /**
+     * Checks whether there is {@code Command} to redo.
+     *
+     * @return true if there is {@code Command} to redo, else false.
+     */
+    boolean canRedoCommand();
+
+    /**
+     * Commits {@code ReversibleCommand} to the {@code CommandHistory}.
+     */
     void commitCommand(ReversibleCommand command);
 
+    /**
+     * Undoes the most recent committed {@code ReversibleCommand}.
+     */
     void undoCommand();
 
+    /**
+     * Redoes the most recent undone {@code ReversibleCommand}.
+     */
     void redoCommand();
 }

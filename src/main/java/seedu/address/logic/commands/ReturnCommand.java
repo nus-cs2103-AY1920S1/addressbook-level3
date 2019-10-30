@@ -33,7 +33,6 @@ public class ReturnCommand extends Command implements ReversibleCommand {
     public static final String MESSAGE_SUCCESS = "Book: %1$s\nreturned by\nBorrower: %2$s\nFine incurred: %3$s";
 
     private final Index index;
-    private final boolean isUndoRedo;
     private Command undoCommand;
     private Command redoCommand;
 
@@ -45,19 +44,6 @@ public class ReturnCommand extends Command implements ReversibleCommand {
     public ReturnCommand(Index index) {
         requireNonNull(index);
         this.index = index;
-        this.isUndoRedo = false;
-    }
-
-    /**
-     * Creates an ReturnCommand to return the currently served Borrower's {@code Book}.
-     *
-     * @param index Index of book to be returned.
-     * @param isUndoRedo used to check whether the ReturnCommand is an undo/redo command.
-     */
-    public ReturnCommand(Index index, boolean isUndoRedo) {
-        requireNonNull(index);
-        this.index = index;
-        this.isUndoRedo = isUndoRedo;
     }
 
     /**
@@ -112,7 +98,7 @@ public class ReturnCommand extends Command implements ReversibleCommand {
         LoanSlipUtil.unmountSpecificLoan(loanToBeReturned, bookToBeReturned);
 
         undoCommand = new UnreturnCommand(returnedBook, bookToBeReturned, returnedLoan, loanToBeReturned);
-        redoCommand = new ReturnCommand(index, true);
+        redoCommand = this;
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, returnedBook, servingBorrower,
                 FineUtil.centsToDollarString(fineAmount)));
@@ -129,11 +115,6 @@ public class ReturnCommand extends Command implements ReversibleCommand {
     }
 
     @Override
-    public boolean isUndoRedoCommand() {
-        return isUndoRedo;
-    }
-
-    @Override
     public boolean equals(Object o) {
         if (o == this) {
             return true;
@@ -144,7 +125,6 @@ public class ReturnCommand extends Command implements ReversibleCommand {
         }
 
         ReturnCommand otherReturnCommand = (ReturnCommand) o;
-        return this.index.equals(otherReturnCommand.index)
-                && this.isUndoRedo == otherReturnCommand.isUndoRedo;
+        return this.index.equals(otherReturnCommand.index);
     }
 }

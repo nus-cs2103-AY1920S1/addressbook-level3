@@ -17,18 +17,11 @@ public class DeleteByIndexCommand extends DeleteCommand implements ReversibleCom
 
 
     private final Index targetIndex;
-    private final boolean isUndoRedo;
     private Command undoCommand;
     private Command redoCommand;
 
     public DeleteByIndexCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
-        this.isUndoRedo = false;
-    }
-
-    public DeleteByIndexCommand(Index targetIndex, boolean isUndoRedo) {
-        this.targetIndex = targetIndex;
-        this.isUndoRedo = isUndoRedo;
     }
 
     @Override
@@ -46,9 +39,11 @@ public class DeleteByIndexCommand extends DeleteCommand implements ReversibleCom
             super.markBookAsReturned(model, bookToDelete);
         }
 
-        undoCommand = new AddCommand(bookToDelete, true);
-        redoCommand = new DeleteBySerialNumberCommand(bookToDelete.getSerialNumber(), true);
+        undoCommand = new AddCommand(bookToDelete);
+        redoCommand = new DeleteBySerialNumberCommand(bookToDelete.getSerialNumber());
+
         model.deleteBook(bookToDelete);
+
         return new CommandResult(String.format(MESSAGE_DELETE_BOOK_SUCCESS, bookToDelete));
     }
 
@@ -63,15 +58,9 @@ public class DeleteByIndexCommand extends DeleteCommand implements ReversibleCom
     }
 
     @Override
-    public boolean isUndoRedoCommand() {
-        return isUndoRedo;
-    }
-
-    @Override
     public boolean equals(Object other) {
         return other == this
                 || (other instanceof DeleteByIndexCommand // instanceof handles nulls
-                && targetIndex.equals(((DeleteByIndexCommand) other).targetIndex)) //state
-                && isUndoRedo == ((DeleteByIndexCommand) other).isUndoRedo;
+                && targetIndex.equals(((DeleteByIndexCommand) other).targetIndex)); //state
     }
 }

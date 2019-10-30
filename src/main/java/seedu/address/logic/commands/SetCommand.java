@@ -39,7 +39,6 @@ public class SetCommand extends Command implements ReversibleCommand {
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
 
     private final SetUserSettingsDescriptor setUserSettingsDescriptor;
-    private final boolean isUndoRedo;
 
     private Command undoCommand;
     private Command redoCommand;
@@ -51,26 +50,8 @@ public class SetCommand extends Command implements ReversibleCommand {
      */
     public SetCommand(SetUserSettingsDescriptor setUserSettingsDescriptor) {
         requireNonNull(setUserSettingsDescriptor);
-        this.isUndoRedo = false;
 
         this.setUserSettingsDescriptor = new SetUserSettingsDescriptor(setUserSettingsDescriptor);
-    }
-
-    /**
-     * Creates a SetCommand to set the {@code LoanPeriod}, {@code RenewPeriod} and {@code FineIncrement}.
-     *
-     * @param setUserSettingsDescriptor details of the new user settings.
-     * @param isUndoRedo used to check whether the DoneCommand is an undo/redo command.
-     */
-    public SetCommand(SetUserSettingsDescriptor setUserSettingsDescriptor, boolean isUndoRedo) {
-        requireNonNull(setUserSettingsDescriptor);
-        this.isUndoRedo = isUndoRedo;
-
-        this.setUserSettingsDescriptor = new SetUserSettingsDescriptor(setUserSettingsDescriptor);
-    }
-
-    public SetUserSettingsDescriptor getSetUserSettingsDescriptor() {
-        return setUserSettingsDescriptor;
     }
 
     @Override
@@ -80,8 +61,8 @@ public class SetCommand extends Command implements ReversibleCommand {
         UserSettings userSettingsToEdit = model.getUserSettings();
         UserSettings editedUserSettings = createEditedUserSettings(userSettingsToEdit, setUserSettingsDescriptor);
 
-        undoCommand = new SetCommand(getSettingsDescriptor(userSettingsToEdit), true);
-        redoCommand = new SetCommand(getSetUserSettingsDescriptor(), true);
+        undoCommand = new SetCommand(getSettingsDescriptor(userSettingsToEdit));
+        redoCommand = this;
 
         model.setUserSettings(editedUserSettings);
 
@@ -97,11 +78,6 @@ public class SetCommand extends Command implements ReversibleCommand {
     @Override
     public Command getRedoCommand() {
         return redoCommand;
-    }
-
-    @Override
-    public boolean isUndoRedoCommand() {
-        return isUndoRedo;
     }
 
     /**
@@ -155,7 +131,7 @@ public class SetCommand extends Command implements ReversibleCommand {
 
         // state check
         SetCommand e = (SetCommand) other;
-        return setUserSettingsDescriptor.equals(e.getSetUserSettingsDescriptor());
+        return setUserSettingsDescriptor.equals(e.setUserSettingsDescriptor);
     }
 
     /**

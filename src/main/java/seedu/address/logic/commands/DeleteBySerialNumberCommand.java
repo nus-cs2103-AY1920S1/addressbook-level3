@@ -23,24 +23,18 @@ public class DeleteBySerialNumberCommand extends DeleteCommand implements Revers
     public static final String MESSAGE_DELETE_BOOK_SUCCESS = "Deleted Book: %1$s";
 
     private final SerialNumber targetSerialNumber;
-    private final boolean isUndoRedo;
     private Command undoCommand;
     private Command redoCommand;
 
 
     public DeleteBySerialNumberCommand(SerialNumber targetSerialNumber) {
         this.targetSerialNumber = targetSerialNumber;
-        this.isUndoRedo = false;
-    }
-
-    public DeleteBySerialNumberCommand(SerialNumber targetSerialNumber, boolean isUndoRedo) {
-        this.targetSerialNumber = targetSerialNumber;
-        this.isUndoRedo = isUndoRedo;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+
         // delete by serial number
         if (!modelContainsBook(model, targetSerialNumber)) {
             throw new CommandException(Messages.MESSAGE_NO_SUCH_BOOK);
@@ -51,9 +45,11 @@ public class DeleteBySerialNumberCommand extends DeleteCommand implements Revers
             super.markBookAsReturned(model, bookToDelete);
         }
 
-        undoCommand = new AddCommand(bookToDelete, true);
-        redoCommand = new DeleteBySerialNumberCommand(targetSerialNumber, true);
+        undoCommand = new AddCommand(bookToDelete);
+        redoCommand = this;
+
         model.deleteBook(bookToDelete);
+
         return new CommandResult(String.format(MESSAGE_DELETE_BOOK_SUCCESS, bookToDelete));
     }
 
@@ -65,11 +61,6 @@ public class DeleteBySerialNumberCommand extends DeleteCommand implements Revers
     @Override
     public Command getRedoCommand() {
         return redoCommand;
-    }
-
-    @Override
-    public boolean isUndoRedoCommand() {
-        return isUndoRedo;
     }
 
     /**
@@ -106,7 +97,6 @@ public class DeleteBySerialNumberCommand extends DeleteCommand implements Revers
     public boolean equals(Object other) {
         return other == this
                 || (other instanceof DeleteBySerialNumberCommand // instanceof handles nulls
-                && targetSerialNumber.equals(((DeleteBySerialNumberCommand) other).targetSerialNumber)) // state
-                && isUndoRedo == ((DeleteBySerialNumberCommand) other).isUndoRedo;
+                && targetSerialNumber.equals(((DeleteBySerialNumberCommand) other).targetSerialNumber)); // state
     }
 }

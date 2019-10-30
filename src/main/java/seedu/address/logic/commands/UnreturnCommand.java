@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.book.Book;
@@ -26,10 +27,7 @@ public class UnreturnCommand extends Command {
      * @param
      */
     public UnreturnCommand(Book bookToBeUnreturned, Book unreturnedBook, Loan loanToBeUnreturned, Loan unreturnedLoan) {
-        requireNonNull(bookToBeUnreturned);
-        requireNonNull(unreturnedBook);
-        requireNonNull(loanToBeUnreturned);
-        requireNonNull(unreturnedLoan);
+        requireAllNonNull(bookToBeUnreturned, unreturnedBook, loanToBeUnreturned, unreturnedLoan);
 
         this.bookToBeUnreturned = bookToBeUnreturned;
         this.unreturnedBook = unreturnedBook;
@@ -66,7 +64,7 @@ public class UnreturnCommand extends Command {
             return true;
         }
 
-        if (!(o instanceof ReturnCommand)) {
+        if (!(o instanceof UnreturnCommand)) {
             return false;
         }
 

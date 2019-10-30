@@ -12,6 +12,7 @@ import seedu.address.commons.exceptions.LoanSlipException;
 import seedu.address.commons.util.LoanSlipUtil;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.ReversibleCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.CatalogParser;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -45,6 +46,10 @@ public class LogicManager implements Logic {
         CommandResult commandResult;
         Command command = catalogParser.parseCommand(commandText);
         commandResult = command.execute(model);
+
+        if (command instanceof ReversibleCommand) {
+            model.commitCommand((ReversibleCommand) command);
+        }
 
         try {
             storage.saveLoanRecords(model.getLoanRecords());

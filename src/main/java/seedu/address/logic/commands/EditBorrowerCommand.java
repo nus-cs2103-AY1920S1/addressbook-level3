@@ -42,7 +42,6 @@ public class EditBorrowerCommand extends Command implements ReversibleCommand {
             + MESSAGE_USAGE;
 
     private final EditBorrowerDescriptor editBorrowerDescriptor;
-    private final boolean isUndoRedo;
     private Command undoCommand;
     private Command redoCommand;
 
@@ -51,19 +50,6 @@ public class EditBorrowerCommand extends Command implements ReversibleCommand {
      */
     public EditBorrowerCommand(EditBorrowerDescriptor editBorrowerDescriptor) throws CommandException {
         requireNonNull(editBorrowerDescriptor);
-        this.isUndoRedo = false;
-
-        this.editBorrowerDescriptor = new EditBorrowerDescriptor(editBorrowerDescriptor);
-    }
-
-    /**
-     * @param editBorrowerDescriptor details to edit the borrower with
-     * @param isUndoRedo used to check whether the EditBorrowerCommand is an undo/redo command.
-     */
-    public EditBorrowerCommand(EditBorrowerDescriptor editBorrowerDescriptor, boolean isUndoRedo)
-            throws CommandException {
-        requireNonNull(editBorrowerDescriptor);
-        this.isUndoRedo = isUndoRedo;
 
         this.editBorrowerDescriptor = new EditBorrowerDescriptor(editBorrowerDescriptor);
     }
@@ -86,8 +72,8 @@ public class EditBorrowerCommand extends Command implements ReversibleCommand {
         Borrower borrowerToEdit = model.getServingBorrower();
         Borrower editedBorrower = createEditedBorrower(borrowerToEdit, editBorrowerDescriptor);
         
-        undoCommand = new EditBorrowerCommand(getBorrowerDescriptor(borrowerToEdit), true);
-        redoCommand = new EditBorrowerCommand(editBorrowerDescriptor, true);
+        undoCommand = new EditBorrowerCommand(getBorrowerDescriptor(borrowerToEdit));
+        redoCommand = this;
 
         if (model.hasDuplicatedBorrower(editedBorrower)) {
             throw new CommandException(MESSAGE_DUPLICATE_BORROWER);
@@ -106,11 +92,6 @@ public class EditBorrowerCommand extends Command implements ReversibleCommand {
     @Override
     public Command getRedoCommand() {
         return redoCommand;
-    }
-
-    @Override
-    public boolean isUndoRedoCommand() {
-        return isUndoRedo;
     }
 
     /**
@@ -159,8 +140,7 @@ public class EditBorrowerCommand extends Command implements ReversibleCommand {
 
         // state check
         EditBorrowerCommand e = (EditBorrowerCommand) other;
-        return editBorrowerDescriptor.equals(e.editBorrowerDescriptor)
-                && isUndoRedo == e.isUndoRedo;
+        return editBorrowerDescriptor.equals(e.editBorrowerDescriptor);
     }
 
     /**

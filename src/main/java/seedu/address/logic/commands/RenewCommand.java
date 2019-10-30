@@ -33,7 +33,6 @@ public class RenewCommand extends Command implements ReversibleCommand {
     public static final String MESSAGE_SUCCESS = "Book: %1$s\nrenewed by\nBorrower: %2$s\nDue date: %3$s";
 
     private final Index index;
-    private final boolean isUndoRedo;
     private Command undoCommand;
     private Command redoCommand;
 
@@ -45,19 +44,6 @@ public class RenewCommand extends Command implements ReversibleCommand {
     public RenewCommand(Index index) {
         requireNonNull(index);
         this.index = index;
-        this.isUndoRedo = false;
-    }
-
-    /**
-     * Creates an RenewCommand to renew the currently served Borrower's {@code Book}.
-     *
-     * @param index Index of book to be renewed.
-     * @param isUndoRedo used to check whether the RenewCommand is an undo/redo command.
-     */
-    public RenewCommand(Index index, boolean isUndoRedo) {
-        requireNonNull(index);
-        this.index = index;
-        this.isUndoRedo = isUndoRedo;
     }
 
     /**
@@ -116,7 +102,7 @@ public class RenewCommand extends Command implements ReversibleCommand {
         model.updateLoan(loanToBeRenewed, renewedLoan);
 
         undoCommand = new UnrenewCommand(renewedBook, bookToBeRenewed, renewedLoan, loanToBeRenewed);
-        redoCommand = new RenewCommand(index, true);
+        redoCommand = this;
 
         return new CommandResult(
                 String.format(MESSAGE_SUCCESS, renewedBook, servingBorrower, extendedDueDate));
@@ -133,11 +119,6 @@ public class RenewCommand extends Command implements ReversibleCommand {
     }
 
     @Override
-    public boolean isUndoRedoCommand() {
-        return isUndoRedo;
-    }
-
-    @Override
     public boolean equals(Object o) {
         if (o == this) {
             return true;
@@ -148,7 +129,6 @@ public class RenewCommand extends Command implements ReversibleCommand {
         }
 
         RenewCommand otherRenewCommand = (RenewCommand) o;
-        return this.index.equals(otherRenewCommand.index)
-                && this.isUndoRedo == otherRenewCommand.isUndoRedo;
+        return this.index.equals(otherRenewCommand.index);
     }
 }
