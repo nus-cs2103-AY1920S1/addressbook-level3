@@ -224,6 +224,11 @@ public class ModelManager implements Model {
         return attendance.getTrainingOnDate(date);
     }
 
+    @Override
+    public HashMap<Person, Boolean> getTrainingAttendanceOnDate(AthletickDate date) {
+        return attendance.getTrainingAttendanceOnDate(date);
+    }
+
     //=========== Attendance =================================================================================
 
     @Override

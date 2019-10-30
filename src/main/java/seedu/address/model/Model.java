@@ -110,6 +110,7 @@ public interface Model {
     void addTraining(Training training);
 
     Training getTrainingOnDate(AthletickDate date);
+    HashMap<Person, Boolean> getTrainingAttendanceOnDate(AthletickDate date);
 
     Attendance getAttendance();
     boolean hasTraining(AthletickDate training);
