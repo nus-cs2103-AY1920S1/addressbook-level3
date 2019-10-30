@@ -80,6 +80,7 @@ class JsonSerializableSpendingBook {
             spendingBook.addCurrency(currency);
         }
 
+        // Ensure that the currency in use exists.
         if (currencyInUse == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "Currency"));
         }
