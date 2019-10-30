@@ -336,6 +336,7 @@ public class ModelManager implements Model {
             Income incomeToEdit = versionedAddressBook.getIncomeList().filtered(t -> t == target).get(0);
             Income toEditEntry = new Income(editedEntry.getCategory(), editedEntry.getDesc(), editedEntry.getDate(),
                     editedEntry.getAmount(), editedEntry.getTags());
+            versionedAddressBook.setEntry(incomeToEdit, toEditEntry);
             versionedAddressBook.setIncome(incomeToEdit, toEditEntry);
         }
         filteredReminders.filtered(PREDICATE_SHOW_ACTIVE_REMINDERS);
