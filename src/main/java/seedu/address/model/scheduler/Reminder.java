@@ -1,6 +1,5 @@
 package seedu.address.model.scheduler;
 
-import javafx.scene.control.Alert;
 import seedu.address.model.lesson.Lesson;
 
 /**
