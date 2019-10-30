@@ -30,7 +30,7 @@ public class JsonAdaptedBookmark {
     private final String remark;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
     private final String folder;
-    private final List<String> cachedCopies = new ArrayList<>();
+    private final List<JsonAdaptedCachedCopy> cachedCopies = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonAdaptedBookmark} with the given bookmark details.
@@ -39,7 +39,7 @@ public class JsonAdaptedBookmark {
     public JsonAdaptedBookmark(@JsonProperty("name") String name,
         @JsonProperty("url") String url, @JsonProperty("remark") String remark,
         @JsonProperty("folder") String folder, @JsonProperty("tagged") List<JsonAdaptedTag> tagged,
-        @JsonProperty("cachedCopies") List<String> cachedCopies) {
+        @JsonProperty("cachedCopies") List<JsonAdaptedCachedCopy> cachedCopies) {
         this.name = name;
         this.url = url;
         this.remark = remark;
@@ -64,7 +64,7 @@ public class JsonAdaptedBookmark {
                 .collect(Collectors.toList()));
         folder = source.getFolder().folderName;
         cachedCopies.addAll(source.getCachedCopies().stream()
-                .map(copy -> copy.html)
+                .map(JsonAdaptedCachedCopy::new)
                 .collect(Collectors.toList()));
     }
 
@@ -114,8 +114,8 @@ public class JsonAdaptedBookmark {
         final Folder modelFolder = new Folder(folder);
 
         final List<CachedCopy> modelCachedCopies = new ArrayList<>();
-        for (String cachedCopy: cachedCopies) {
-            modelCachedCopies.add(new CachedCopy(cachedCopy));
+        for (JsonAdaptedCachedCopy cachedCopy: cachedCopies) {
+            modelCachedCopies.add(cachedCopy.toModelType());
         }
 
         return new Bookmark(modelName, modelUrl, modelRemark, modelFolder, modelTags, modelCachedCopies);

@@ -11,10 +11,10 @@ import seedu.mark.commons.exceptions.IllegalValueException;
 class AnnotationNoteTest {
 
     @Test
-    public void makeNote_success() {
+    public void makeNote_validNoteContent_success() {
         try {
             AnnotationNote an = AnnotationNote.makeNote("legal note content");
-            assertEquals(new AnnotationNote("legal note content"), an);
+            assertEquals(an, AnnotationNote.makeNote("legal note content"));
             assertEquals(an.toString(), "legal note content");
         } catch (Exception e) {
             fail();
@@ -22,7 +22,7 @@ class AnnotationNoteTest {
     }
 
     @Test
-    public void makeNote_failure_throwsException() {
+    public void makeNote_invalidNoteContent_throwsException() {
         assertThrows(NullPointerException.class, () -> AnnotationNote.makeNote(null));
         assertThrows(IllegalValueException.class, () -> AnnotationNote.makeNote(""), AnnotationNote.MESSAGE_BLANK_NOTE);
         assertThrows(IllegalValueException.class, () -> AnnotationNote.makeNote("   "),

@@ -3,7 +3,6 @@ package seedu.mark.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
-
 import java.util.Objects;
 
 import seedu.mark.commons.core.Messages;
@@ -13,7 +12,6 @@ import seedu.mark.logic.commands.exceptions.CommandException;
 import seedu.mark.logic.commands.results.CommandResult;
 import seedu.mark.logic.commands.results.OfflineCommandResult;
 import seedu.mark.model.Model;
-import seedu.mark.model.annotation.OfflineDocument;
 import seedu.mark.model.bookmark.Bookmark;
 import seedu.mark.model.bookmark.CachedCopy;
 import seedu.mark.storage.Storage;
@@ -29,8 +27,8 @@ public class OfflineCommand extends Command {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_SUCCESS = "Opening cached Bookmark: %1$s";
     public static final String MESSAGE_INVALID_VERSION = "Could not find cached bookmark version %1$d";
+    public static final String MESSAGE_SUCCESS = "Opening cached Bookmark: %1$s";
     public static final String MESSAGE_NO_CACHED_COPIES =
             "There are no cached copies yet. Use the cache command to do so first.";
 
@@ -64,7 +62,7 @@ public class OfflineCommand extends Command {
         if (version >= cachedCopies.size()) {
             throw new CommandException(String.format(MESSAGE_INVALID_VERSION, version));
         }
-        model.updateDocument(new OfflineDocument(bookmarkToOpen.getCachedCopies().get(version).html));
+        model.updateDocument(bookmarkToOpen.getCachedCopies().get(version).getAnnotations());
 
         return new OfflineCommandResult(String.format(MESSAGE_SUCCESS, bookmarkToOpen));
     }

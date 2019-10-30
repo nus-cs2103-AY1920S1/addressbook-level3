@@ -28,8 +28,8 @@ public class JsonAdaptedBookmarkTest {
     private static final String VALID_URL = BENSON.getUrl().toString();
     private static final String VALID_REMARK = BENSON.getRemark().toString();
     private static final String VALID_FOLDER = BENSON.getFolder().toString();
-    private static final List<String> VALID_CACHED_COPIES = BENSON.getCachedCopies().stream()
-            .map(copy -> copy.html).collect(Collectors.toList());
+    private static final List<JsonAdaptedCachedCopy> VALID_CACHED_COPIES = BENSON.getCachedCopies().stream()
+            .map(copy -> new JsonAdaptedCachedCopy(copy)).collect(Collectors.toList());
     private static final List<JsonAdaptedTag> VALID_TAGS = BENSON.getTags().stream()
             .map(JsonAdaptedTag::new)
             .collect(Collectors.toList());

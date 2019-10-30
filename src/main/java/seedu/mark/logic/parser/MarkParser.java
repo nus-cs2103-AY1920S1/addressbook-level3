@@ -6,6 +6,7 @@ import static seedu.mark.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import seedu.mark.logic.commands.AddAnnotationCommand;
 import seedu.mark.logic.commands.AddCommand;
 import seedu.mark.logic.commands.AddFolderCommand;
 import seedu.mark.logic.commands.AddReminderCommand;
@@ -15,9 +16,11 @@ import seedu.mark.logic.commands.CacheCommand;
 import seedu.mark.logic.commands.ClearCommand;
 import seedu.mark.logic.commands.CollapseCommand;
 import seedu.mark.logic.commands.Command;
+import seedu.mark.logic.commands.DeleteAnnotationCommand;
 import seedu.mark.logic.commands.DeleteCacheCommand;
 import seedu.mark.logic.commands.DeleteCommand;
 import seedu.mark.logic.commands.DeleteReminderCommand;
+import seedu.mark.logic.commands.EditAnnotationCommand;
 import seedu.mark.logic.commands.EditCommand;
 import seedu.mark.logic.commands.EditReminderCommand;
 import seedu.mark.logic.commands.ExitCommand;
@@ -69,6 +72,7 @@ public class MarkParser {
             return new EditCommandParser().parse(arguments);
 
         case FavoriteCommand.COMMAND_WORD:
+            //Fallthrough
         case FavoriteCommand.COMMAND_ALIAS:
             return new FavoriteCommandParser().parse(arguments);
 
@@ -126,6 +130,9 @@ public class MarkParser {
         case AddReminderCommand.COMMAND_WORD:
             return new AddReminderCommandParser().parse(arguments);
 
+        case AddAnnotationCommand.COMMAND_WORD:
+            return new AddAnnotationCommandParser().parse(arguments);
+
         case AutotagDeleteCommand.COMMAND_WORD:
             return new AutotagDeleteCommandParser().parse(arguments);
 
@@ -140,6 +147,12 @@ public class MarkParser {
 
         case OfflineCommand.COMMAND_WORD:
             return new OfflineCommandParser().parse(arguments);
+
+        case DeleteAnnotationCommand.COMMAND_WORD:
+            return new DeleteAnnotationCommandParser().parse(arguments);
+
+        case EditAnnotationCommand.COMMAND_WORD:
+            return new EditAnnotationCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

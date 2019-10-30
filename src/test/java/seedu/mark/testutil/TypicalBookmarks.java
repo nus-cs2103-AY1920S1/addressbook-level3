@@ -16,7 +16,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import seedu.mark.model.Mark;
-import seedu.mark.model.annotation.OfflineDocument;
 import seedu.mark.model.bookmark.Bookmark;
 import seedu.mark.model.bookmark.CachedCopy;
 import seedu.mark.model.bookmark.Folder;
@@ -35,7 +34,7 @@ public class TypicalBookmarks {
     public static final Bookmark BENSON = new BookmarkBuilder().withName("Benson Meier")
             .withRemark("311, Clementi Ave 2, #02-25")
             .withUrl("https://johnd@example.com")
-            .withFolder("contacts").withCachedCopy(new CachedCopy(OfflineDocument.OFFLINE_HTML_EXAMPLE))
+            .withFolder("contacts").withCachedCopy(new CachedCopy(OfflineUtil.OFFLINE_HTML_EXAMPLE))
             .withTags("owesMoney", "friends").build();
     public static final Bookmark CARL = new BookmarkBuilder().withName("Carl Kurz")
             .withUrl("https://heinz@example.com").withRemark("wall street").withFolder("family").build();

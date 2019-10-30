@@ -11,7 +11,9 @@ import java.util.Set;
 
 import seedu.mark.commons.core.index.Index;
 import seedu.mark.commons.util.StringUtil;
+import seedu.mark.logic.commands.AnnotationCommand;
 import seedu.mark.logic.parser.exceptions.ParseException;
+import seedu.mark.model.annotation.ParagraphIdentifier;
 import seedu.mark.model.bookmark.Folder;
 import seedu.mark.model.bookmark.Name;
 import seedu.mark.model.bookmark.Remark;
@@ -25,6 +27,8 @@ import seedu.mark.model.tag.Tag;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
+    public static final String MESSAGE_INVALID_BOOL = "Boolean options should be spelt either true or false.";
+
     private static final String DATE_FORMATTER = "dd/MM/yyyy HHmm";
     protected static final String MESSAGE_INVALID_TIME_FORMAT =
             "Invalid time format! Please use the following format: " + DATE_FORMATTER;
@@ -182,4 +186,58 @@ public class ParserUtil {
         String formatTime = time.format(formatter);
         return formatTime;
     }
+
+    /**
+     * Parses an offline paragraph identifier string {@code pidString} into a {@code ParagraphIdentifier}.
+     * @param pidString String containing only the identifier
+     * @return The {@code ParagraphIdentifier}
+     * @throws ParseException if the given {@code pidString} is given in an incorrect format.
+     */
+    public static ParagraphIdentifier parseParagraphIdentifier(String pidString) throws ParseException {
+        requireNonNull(pidString);
+        if (pidString.trim().length() < 1) {
+            throw new ParseException(AnnotationCommand.MESSAGE_CONSTRAINTS);
+        }
+
+        ParagraphIdentifier.ParagraphType t;
+        switch (pidString.charAt(0)) {
+        case 's':
+            //fallthrough
+        case 'S':
+            t = ParagraphIdentifier.ParagraphType.STRAY;
+            break;
+        case 'p':
+            //fallthrough
+        case 'P':
+            t = ParagraphIdentifier.ParagraphType.EXIST;
+            break;
+        default:
+            throw new ParseException(AnnotationCommand.MESSAGE_CONSTRAINTS);
+        }
+
+        Index idx;
+        try {
+            idx = ParserUtil.parseIndex(pidString.substring(1));
+        } catch (ParseException pe) {
+            throw new ParseException(AnnotationCommand.MESSAGE_CONSTRAINTS);
+        }
+
+        return new ParagraphIdentifier(idx, t);
+    }
+
+    /**
+     * Converts a {@code String boolStr}containing only "true" or "false" into true and false respectively.
+     * @throws ParseException if {@code boolStr} is neither "true" nor "false" case-insensitively.
+     */
+    public static boolean strToBool(String boolStr) throws ParseException {
+        switch (boolStr.toLowerCase()) {
+        case "true":
+            return true;
+        case "false":
+            return false;
+        default:
+            throw new ParseException(MESSAGE_INVALID_BOOL);
+        }
+    }
+
 }

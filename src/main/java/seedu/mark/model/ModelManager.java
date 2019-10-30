@@ -38,6 +38,7 @@ public class ModelManager implements Model {
     private final ObservableList<Paragraph> annotatedDocument;
     private final SimpleObjectProperty<Bookmark> bookmarkToDisplayCache = new SimpleObjectProperty<>();
 
+
     /**
      * Initializes a ModelManager with the given mark and userPrefs.
      */
@@ -266,7 +267,6 @@ public class ModelManager implements Model {
     @Override
     public void updateDocument(OfflineDocument doc) {
         annotatedDocument.setAll(new SortedList<>(
-                //TODO: change this to link to proper offline document
                 FXCollections.observableArrayList(doc.getCollection()), (
                 Paragraph p1, Paragraph p2) -> {
             ParagraphIdentifier pid1 = p1.getId();
@@ -275,6 +275,7 @@ public class ModelManager implements Model {
         }
         ));
     }
+
 
     //=========== Reminder =================================================================================
 

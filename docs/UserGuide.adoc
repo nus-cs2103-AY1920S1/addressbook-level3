@@ -512,21 +512,27 @@ Manually save a new copy of the site.
 
 === Making annotations on an offline copy: *`annotate`*
 
-Adds new annotations on locally saved, offline version of the bookmarked
-website. When this command is given, the UI will switch to the offline tab showing the results of your command.
+This adds a new annotation on the offline copy of the given bookmarked
+website. When you give this command, the UI will switch to the offline tab showing the results of your command.
 With this command, you can highlight a paragraph on the offline document and optionally attach a supplementary
 note to said paragraph. (Notes can be added to justify the highlight or as
 content-relevant notes for future reference to bookmark).
+You can also add a general note not pertaining to any specific paragraph to the _General notes section_
+located at the bottom of the document.
 
 Overwriting an existing note is possible with this command.
 
-Format: `*annotate* INDEX p/P_NUM [n/NOTES] [h/HIGHLIGHT_COLOUR=yellow]`
+NOTE: Paragraphs are identified using a numbered identifier that starts with either `P` or `S`. You can refer to the
+numbered identifier in the leftmost column of the offline document to check out the respective identifier for each paragraph.
+
+Format: `*annotate* INDEX p/PARA_NUM [n/NOTES] [h/HIGHLIGHT_COLOUR=yellow]`
 
 ****
  * `INDEX` is the bookmark that you want to annotate offline version of.
  If `INDEX` is invalid, a warning message will be displayed.
- * `P_NUM` is the number of the paragraph to be marked.
- If `P_NUM` is invalid, a warning message will be displayed.
+ * `PARA_NUM` is the numbered identifier of the paragraph to be marked.
+ `PARA_NUM` must be `NULL` or it must begin with `P` or `S` (e.g. `P3`).
+ If `PARA_NUM` is invalid, a warning message will be displayed.
  * `NOTES` is the content of notes to add.
  * `HIGHLIGHT_COLOUR` is either `orange`, `pink`, `green` or `yellow`. This selects
 the highlight colour to mark out paragraphs. If no colour is specified,
@@ -536,119 +542,125 @@ If colour provided is invalid, a warning message will be displayed.
 
 Examples:
 
-* `*annotate* 1 p/2 n/summary of paragraph h/yellow` +
-In offline copy of bookmark 1, highlights paragraph 2 yellow and
-attaches note with content “summary of paragraph” to the paragraph.
+* `*annotate* 1 p/2 n/summary of paragraph h/orange` +
+This highlights paragraph 2 orange and attaches note with content “summary of paragraph” to the paragraph
+in the offline copy of bookmark 1.
+//TODO: add screenshots
 
 * `*annotate* 1 p/2 h/pink` +
-In offline copy of bookmark 1, overwrites any existing highlight and
-highlights paragraph 2 with pink. Any notes attached remain attached.
+This overwrites any existing highlight and highlights paragraph 2 with pink
+in the offline copy of bookmark 1. Any notes attached remain attached.
 
 * `*annotate* 1 p/2 n/change or add note content` +
-In offline copy of bookmark 1, if paragraph 2 had pre-existing note,
-changes note attached to paragraph 2 to note with content “change or add note content”. Highlight
+This changes the note attached to paragraph 2 to a note with content “change or add note content”
+in the offline copy of bookmark 1 if paragraph 2 had pre-existing note, and highlight
 colour remains the same. Otherwise, paragraph 2 will be highlighted yellow and
 a new note with content "change or add note content" will be added to the paragraph.
 
+* `*annotate* 1 n/adding a general note` +
+This adds a note with content "adding a general note" to the _General notes section_ in the
+ offline copy of bookmark 1.
 
-=== Deleting annotations on an offline copy: *`annotate delete`*
 
-Deletes selected highlights or notes from the offline copy of the given bookmarked website.
-When this command is given, the UI will switch to the offline tab showing the results of your command.
+=== Deleting annotations on an offline copy: *`annotate-delete`*
+
+This deletes selected highlights or notes from the offline copy of the given bookmarked website.
+When you give this command, the UI will switch to the offline tab showing the results of your command.
 You can choose to remove just the notes and/or highlight of a paragraph, or clear all annotations
-on an offline copy to revert it to clean slate. You can also choose to remove a note from the
-<<stray-notes,_Stray Notes Section_>>. If given paragraph does not have any notes to remove, nothing is performed.
+on the offline copy to revert it to a clean slate. You can also choose to remove a note from the
+<<stray-notes,_General notes section_>>. If the given paragraph does not have any annotations to remove, nothing is performed.
 
-Format: `*annotate delete* INDEX [p/P_NUM] [n/KEEP_NOTES=false] [h/KEEP_HIGHLIGHT=false]`
+NOTE: A general note is known to attach to a <<phantom-paragraph,_phantom paragraph_>>. As you can see in the offline
+copy, phantom paragraphs do not have any content displayed; they do not belong to the original web page. Phantom paragraphs are
+identified using numbered identifiers that begin with `S`, as opposed to <<true-paragraph,_true paragraphs_>>, whose identifiers begin with `P`.
+
+You are not allowed to remove only the highlight from a phantom paragraph since it does not display a highlight in the first place.
+
+Format: `*annotate-delete* INDEX p/PARA_NUM [n/KEEP_NOTES=false] [h/KEEP_HIGHLIGHT=false]`
 
 ****
 * `INDEX` is the bookmark that you want to remove annotations of.
  If `INDEX` is invalid, a warning message will be displayed.
-* `P_NUM` is the paragraph number or identifier of stray notes to remove. If `P_NUM` is not provided, all annotations
-will be cleared, reverting the offline document to a clean slate.
- In the event that an identifier to a stray note is given, the remaining optional fields will be ignored,
- i.e. that stray note will be deleted.
- If `P_NUM` is invalid, a warning message will be displayed.
-* `KEEP_NOTES` is either `true` or `false`. If `true`, the notes of the paragraph will not be deleted (but
-if the paragraph's highlight is removed, the notes will be moved to the <<stray-notes,_Stray Notes Section_>>). Otherwise,
+* `PARA_NUM` is the numbered identifier of the paragraph to remove annotation(s) from. `PARA_NUM` must be either `all` or begin with `P` or `S`.
+ If you entered `all` for this parameter, all annotations will be cleared regardless of other options, reverting the offline document to a clean slate.
+ If you specified a phantom paragraph instead, the phantom paragraph will be deleted if `n/KEEP_NOTES` parameter is set to `false`.
+ If `PARA_NUM` is invalid or there is no annotation to delete, a warning message will be displayed.
+* `KEEP_NOTES` is _boolean_ (either `true` or `false`). If `true`, the notes of the paragraph will not be deleted. Otherwise,
 the notes will be removed. `KEEP_NOTES` is `false` by default.
- If `KEEP_NOTES` is invalid, `KEEP_NOTES` will be set to `true`.
-* `KEEP_HIGHLIGHT` is either `true` or `false`. If `true`, the highlight of the paragraph will not be deleted
-(if the paragraph's note is not removed, the notes will be moved to the <<stray-notes,_Stray Notes Section_>>). Otherwise,
+ If `KEEP_NOTES` is invalid, a warning message will be displayed.
+* `KEEP_HIGHLIGHT` is _boolean_ (either `true` or `false`). If `true`, the highlight of the paragraph will not be deleted. Otherwise,
 the highlight will be removed. `KEEP_HIGHLIGHT` is `false` by default.
- If `KEEP_HIGHLIGHT`` is invalid, `KEEP_HIGHLIGHT` will be set to `true`.
+ If `KEEP_HIGHLIGHT`` is invalid, a warning message will be displayed.
 ****
 
 Examples:
 
-* `*annotate delete* 1 p/2` +
-In the offline copy of bookmark 1, removes both the note and highlight from paragraph 2.
+* `*annotate-delete* 1 p/2` +
+This removes both the note and highlight from paragraph 2 in the offline copy of bookmark 1.
 
-* `*annotate delete* 1 p/2 n/true` +
-In the offline copy of bookmark 1, removes the highlight of paragraph 2 and moves the note to _Stray Note Section_.
+* `*annotate-delete* 1 p/2 n/true` +
+This removes the highlight of paragraph 2 and moves the note to _General notes section_ in the offline copy of bookmark 1.
 
-* `*annotate delete* 1 p/2 h/true` +
-In the offline copy of bookmark 1, removes the note of paragraph 2, leaving the highlight untouched.
+* `*annotate-delete* 1 p/2 h/true` +
+This removes the note of paragraph 2 in the offline copy of bookmark 1, leaving the highlight untouched.
 
-* `*annotate delete* 1 p/2 n/true h/true` +
-Nothing happens as both the note and highlight are left alone.
+* `*annotate-delete* 2 p/S1` +
+This deletes the general note from phantom paragraph `S1` in the offline copy of bookmark 2.
 
-* `*annotate delete* 2 p/S1` +
-Deletes stray note S1 from the offline copy of bookmark 2.
-
-* `*annotate delete* 1` +
-Removes all annotations of the offline copy of bookmark 1.
+* `*annotate-delete* 1` +
+This removes all annotations of the offline copy of bookmark 1.
 
 
-=== Modifying annotations on an offline copy: *`annotate edit`*
+=== Modifying annotations on an offline copy: *`annotate-edit`*
 
-Modifies existing annotations on the offline version of the bookmarked
-website. When this command is given, the UI will switch to the offline tab showing the results of your command.
-With this command, you can choose to overwrite the existing notes to a particular paragraph with another note, or
-choose to move notes from a paragraph to another paragraph. This command also supports moving
-a stray note (see Glossary) back to the main text by specifying which paragraph to move it to.
+This modifies existing annotations on the offline copy of the given bookmarked
+website. When you give this command, the UI will switch to the offline tab showing the results of your command.
+With this command, you can choose to overwrite the existing notes to a particular paragraph with another note, change the highlight or
+choose to move notes from a paragraph to another paragraph. This command also supports moving notes of a
+<<phantom-paragraph, phantom paragraph>> back to the main text by specifying which true paragraph to move it to.
 
-Format: `*annotate edit* INDEX p/P_NUM [to/NEW_P_NUM] [n/NOTES] [h/HIGHLIGHT_COLOUR]`
+//TODO lift this restriction in future version
+At v1.4, moving of notes to the  <<stray-notes, _General notes section_>> is not supported.
+
+Format: `*annotate-edit* INDEX p/PARA_NUM [to/NEW_PARA_NUM] [n/NOTES] [h/HIGHLIGHT_COLOUR]`
 
 ****
  * `INDEX` is the bookmark that you want to annotate offline version of.
  If `INDEX` is invalid, a warning message will be displayed.
- * `P_NUM` is the number of the paragraph or stray note identifier whose annotation is to be edited.
- If `P_NUM` is invalid, a warning message will be displayed.
- * `NEW_P_NUM` is the number of the paragraph to move any annotation to.
- If `NEW_P_NUM` is invalid, a warning message will be displayed.
+ * `PARA_NUM` is the numbered identifier of the paragraph which you want to edit annotation of.
+ If `PARA_NUM` is invalid or the corresponding paragraph does not have existing annotations, a warning message will be displayed.
+ * `NEW_PARA_NUM` is the numbered identifier of the paragraph to move the annotation to.
+ If `NEW_PARA_NUM` is invalid, a warning message will be displayed.
  * `NOTES` is the content of notes to change to. Whenever notes is given, it
- replaces any pre-existing note to paragraph `P_NUM`, if applicable.
+ replaces any pre-existing note to paragraph `PARA_NUM`, if applicable.
  * `HIGHLIGHT_COLOUR` is either `orange`, `pink`, `green` or `yellow`. This selects
-the highlight colour to mark out paragraphs. When no colour is specified, if source paragraph is
-already highlighted, the highlight stays the same colour; otherwise the default colour yellow will be used.
+the highlight colour to mark out paragraphs. When no colour is specified, the higlihgt of the source paragraph is
+used.
 If colour provided is invalid, a warning message will be displayed.
-If `HIGHLIGHT_COLOUR` is specified with a stray note identifier, nothing happens.
 ****
 
 Examples:
 
-* `*annotate edit* 1 p/2 to/3` +
-In the offline copy of bookmark 1, moves both highlight and notes from paragraph 2 to paragraph 3. Highlight of paragraph 2
-will be removed.
+* `*annotate-edit* 1 p/2 to/3` +
+This moves both the highlight and notes from paragraph 2 to paragraph 3 in the offline copy of bookmark 1.
+The highlight of paragraph 2 is removed.
 
-* `*annotate edit* 1 p/2 to/3 h/orange` +
-In the offline copy of bookmark 1, moves note from paragraph 2 to paragraph 3. Highlight of paragraph 2
-will be removed and paragraph 3 will be highlighted with orange.
+* `*annotate-edit* 1 p/2 to/3 h/orange` +
+This moves the note from paragraph 2 to paragraph 3 in the offline copy of bookmark 1. The highlight of paragraph 2
+is removed and paragraph 3 is highlighted with orange.
 
-* `*annotate edit* 1 p/1 n/new notes` +
-In the offline copy of bookmark 1, replaces the content of the note for paragraph 1 with "new notes".
+* `*annotate-edit* 1 p/1 n/new notes` +
+This replaces the content of the note for paragraph 1 with "new notes" in the offline copy of bookmark 1.
 
-* `*annotate edit* 1 p/1 h/yellow` +
-In the offline copy of bookmark 1, changes the highlight colour to yellow for paragraph 1.
+* `*annotate-edit* 1 p/1 h/yellow` +
+This changes the highlight colour to yellow for paragraph 1 in the offline copy of bookmark 1.
 
-* `*annotate edit* 1 S2 p/1` +
-In the offline copy of bookmark 1, moves stray notes S2 to paragraph 1. If paragraph 1 had a highlight, highlight
-remains and overwrite any existing note with S2 note content. If not default highlight colour yellow is used.
+* `*annotate-edit* 1 S2 p/1` +
+This moves the general note of phantom paragraph `S2` to paragraph 1 in the offline copy of bookmark 1.
 
-* `*annotate edit* 1 p/2 to/3 n/changing and moving notes` +
-In the offline copy of bookmark 1, paragraph 3 is annotated with the highlight of paragraph 2 and
-note with content "changing and moving notes". Annotation on paragraph 2 is removed.
+* `*annotate-edit* 1 p/2 to/3 n/changing and moving notes` +
+This annotates paragraph 3 with the highlight of paragraph 2 and
+a note with content "changing and moving notes". The annotation on paragraph 2 is removed.
 
 
 === Viewing an annotated offline copy: *`offline`*
@@ -656,12 +668,12 @@ note with content "changing and moving notes". Annotation on paragraph 2 is remo
 Switches to offline tab and shows offline copy of a selected bookmark. The offline view tab will
 show the latest offline copy with annotations by default.
 
-Format: `*offline* INDEX [v/VERSION = current]`
+Format: `*offline* INDEX`
+//TODO: [v/VERSION = current]`
 
 ****
 * `INDEX` is the bookmark that you want to view notes of
- * `VERSION` is the version of the cached version to show. Default is the
-current version
+//TODO: * `VERSION` is the version of the cached version to show. Default is the current version
 ****
 
 Examples:
@@ -669,9 +681,9 @@ Examples:
 * `*offline* 1` +
 Shows annotated offline copy of bookmark 1.
 
-* `*offline* 1 v/2` +
-Shows the 2nd version of offline copy of bookmark 1. If it is annotated,
-then annotations are shown as well.
+//TODO: * `*offline* 1 v/2` +
+//Shows the 2nd version of offline copy of bookmark 1. If it is annotated,
+//then annotations are shown as well.
 
 
 === Adding a reminder: *`reminder`*
@@ -872,9 +884,19 @@ The structure of folders in Mark. This is displayed in the dashboard tab when th
 [[offline-copy]] Offline copy::
 An copy of a bookmarked website that is used for offline viewing. It is stored as a HTML file on the computer.
 
-[[stray-notes]] Stray notes::
-Annotated notes that are not attached to an existing paragraph are described as stray.
-Stray notes are found in the _Stray Notes Section_ at the bottom of the _Notes_ column on the offline, annotated copy.
+[[stray-notes]] General notes::
+Annotated notes that are not attached to an existing paragraph are described to be general.
+General notes are found in the _General notes section_ at the bottom of the rightmost column on the offline copy.
+
+[[phantom-paragraph]] Phantom paragraph::
+A phantom paragraph does not have any displayed content and does not show any highlights. It exists to present the general note you added to the document.
+Phantom paragraphs are identified using a numbered identifier that begins with a `S` (e.g. `S2` refers to the second
+phantom paragraph displayed in the document).
+
+[[true-paragraph]] True paragraph::
+A true paragraph contains content extracted from the original web page. Highlights and notes attached to it are displayed along with the content as well.
+True paragraphs are identified using a numbered identifier that begins with a `P` (e.g. `P2` refers to the third paragraph of the web page
+displayed in the document).
 
 //TODO: Check
 == Command Summary

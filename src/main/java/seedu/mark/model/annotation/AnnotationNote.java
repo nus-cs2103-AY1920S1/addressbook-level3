@@ -8,13 +8,14 @@ import seedu.mark.commons.exceptions.IllegalValueException;
  * Represents a note that is part of an annotation.
  */
 public class AnnotationNote {
+    public static final AnnotationNote SAMPLE_NOTE = new AnnotationNote("note");
 
     public static final String MESSAGE_BLANK_NOTE = "Annotation note content should not be blank.";
 
     /** Note content.*/
     private String content;
 
-    public AnnotationNote(String content) {
+    private AnnotationNote(String content) {
         this.content = content;
     }
 
@@ -34,6 +35,13 @@ public class AnnotationNote {
         return new AnnotationNote(content);
     }
 
+    /**
+     * Returns a copy of this {@code AnnotationNote}.
+     */
+    public AnnotationNote copy() {
+        return new AnnotationNote(content);
+    }
+
     @Override
     public String toString() {
         return content;
@@ -41,9 +49,19 @@ public class AnnotationNote {
 
     @Override
     public boolean equals(Object other) {
-        return other == this
-                || (other instanceof AnnotationNote
-                && ((AnnotationNote) other).content.equals(this.content));
+        if (other == this) {
+            return true;
+        }
+        if (!(other instanceof AnnotationNote)) {
+            return false;
+        }
+
+        return ((AnnotationNote) other).content.equals(this.content);
+    }
+
+    @Override
+    public int hashCode() {
+        return this.content.hashCode();
     }
 
 }

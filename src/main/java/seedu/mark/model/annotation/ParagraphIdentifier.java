@@ -21,18 +21,56 @@ public class ParagraphIdentifier implements Comparable<ParagraphIdentifier> {
         this.type = type;
     }
 
+    /**
+     * Returns a {@code ParagraphIdentifier} that identifies a {@code PhantomParagraph}.
+     * @param index The index to initialise tthe {@code ParagraphIdentifier}
+     */
+    public static ParagraphIdentifier makeStrayId(Index index) {
+        return new ParagraphIdentifier(index, ParagraphType.STRAY);
+    }
+
+    /**
+     * Returns a {@code ParagraphIdentifier} that identifies a {@code TrueParagraph}.
+     * @param index The index to initialise tthe {@code ParagraphIdentifier}
+     */
+    public static ParagraphIdentifier makeExistId(Index index) {
+        return new ParagraphIdentifier(index, ParagraphType.EXIST);
+    }
+
+    /**
+     * Returns true if this identifier identifies a phantom paragraph.
+     */
+    public boolean isStray() {
+        return type == ParagraphType.STRAY;
+    }
+
+    public Index getIndex() {
+        return index;
+    }
+
+    /**
+     * Returns a copy of this {@code ParagraphIdentifier}.
+     */
+    public ParagraphIdentifier copy() {
+        return new ParagraphIdentifier(Index.fromOneBased(this.index.getOneBased()), this.type);
+    }
+
     @Override
     public boolean equals(Object other) {
-        return other == this
-                || (other instanceof ParagraphIdentifier
-                && ((ParagraphIdentifier) other).index == this.index
-                && ((ParagraphIdentifier) other).type == this.type);
+        if (other == this) {
+            return true;
+        }
+        if (!(other instanceof ParagraphIdentifier)) {
+            return false;
+        }
+        return ((ParagraphIdentifier) other).index.equals(this.index)
+                && ((ParagraphIdentifier) other).type == this.type;
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(index, type);
+        return Objects.hash(index.getOneBased(), type);
     }
 
     @Override

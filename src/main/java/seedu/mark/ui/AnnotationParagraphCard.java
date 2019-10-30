@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import seedu.mark.model.annotation.Highlight;
 import seedu.mark.model.annotation.Paragraph;
 
 /**
@@ -26,6 +27,7 @@ public class AnnotationParagraphCard extends UiPart<Region> {
 
     public AnnotationParagraphCard(Paragraph paragraph) {
         super(FXML);
+        //cardPane.setStyle("-fx-background-color: grey");
         this.paragraph = paragraph;
 
         id.setText(paragraph.getId().toString());
@@ -34,6 +36,22 @@ public class AnnotationParagraphCard extends UiPart<Region> {
             note.setText(paragraph.getNote().toString());
         }
         //TODO: set para background colour
+        if (paragraph.hasAnnotation()) {
+            //para.setStyle(String.format("-fx-highlight-fill: %s;", paragraph.getHighlight()));
+            //para.selectAll();
+            String bkgrdHighlight = String.format("-fx-background-color: %s;", paragraph.getHighlight());
+            if (paragraph.getHighlight() == Highlight.YELLOW || paragraph.getHighlight() == Highlight.PINK) {
+                para.setStyle("-fx-text-fill: black;" + bkgrdHighlight);
+            } else {
+                para.setStyle("-fx-text-fill: white;" + bkgrdHighlight);
+            }
+            //para.setStyle(String.format("-fx-background-color: %s;", paragraph.getHighlight()));
+        }
+        /*
+        Text text = (Text) para.lookup(".text");
+        para.setPrefHeight(text.getBoundsInLocal().getHeight() + 1);
+
+         */
     }
 
     @Override
