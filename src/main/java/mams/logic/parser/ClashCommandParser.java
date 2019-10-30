@@ -7,7 +7,6 @@ import static mams.logic.parser.CliSyntax.PREFIX_STUDENT;
 
 import java.util.List;
 
-import mams.commons.util.StringUtil;
 import mams.logic.commands.ClashCommand;
 import mams.logic.parser.exceptions.ParseException;
 
