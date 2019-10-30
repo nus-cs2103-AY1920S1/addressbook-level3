@@ -2,17 +2,15 @@ package seedu.elisa.logic;
 
 import java.io.IOException;
 import java.nio.file.Path;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
 import javafx.beans.property.ListPropertyBase;
+import javafx.beans.property.SimpleBooleanProperty;
 import seedu.elisa.commons.core.GuiSettings;
 import seedu.elisa.commons.core.LogsCenter;
 import seedu.elisa.commons.core.item.Item;
-import seedu.elisa.commons.core.item.Reminder;
 import seedu.elisa.logic.commands.Command;
 import seedu.elisa.logic.commands.CommandResult;
 import seedu.elisa.logic.commands.exceptions.CommandException;
@@ -44,57 +42,11 @@ public class LogicManager implements Logic {
         autoRescheduleManager = AutoRescheduleManager.getInstance();
         autoRescheduleManager.initStorageEvents(model.getEventList(), model);
 
-        //Create new thread class to check
-        /*
-        class CheckerThread extends Thread {
-
-            ScheduledExecutorService
-            //Schedule a check on future list every 5 seconds
-            //If future.first.time <= now
-            // A new collection <- future.remove until future.first.time > now
-            // ActiveRemindersListProperty.add(A new collection)
-            //
-        }
-        */
-        //Spawn new thread
-        //new CheckerThread().start();
-        //Run checker
-        Runnable checkTask = new Runnable() {
-            public void run() {
-                System.out.println("running checkTask");
-                Reminder reminder;
-                ArrayList<Item> reminders = model.getFutureRemindersList();
-                ArrayList<Item> activeReminders = new ArrayList<Item>(0);
-                if (reminders.size() > 0) {
-                    System.out.println("There are pending reminders: " + reminders.toString());
-                    //TODO: Check if Optional is present before .get()
-                    reminder = reminders.get(0).getReminder().get();
-                    synchronized (reminders) {
-                        while (reminder != null && reminder.getDateTime().isBefore(LocalDateTime.now())) {
-                            System.out.println("Adding a new task to be reminded.");
-                            Item item = reminders.remove(0);
-                            activeReminders.add(item);
-                            if (reminders.size() > 0) {
-                                reminder = reminders.get(0).getReminder().get();
-                            } else {
-                                reminder = null;
-                            }
-                        }
-                    }
-                    System.out.println("Adding in model");
-                    model.getActiveReminderListProperty().addReminders(activeReminders);
-                }
-            }
-        };
-
+        Runnable checkTask = new CheckTaskRunnable(model);
         checker = new ScheduledThreadPoolExecutor(1);
-        //TODO: Think about initial delay in relation to time for app to start up
-        checker.scheduleAtFixedRate(checkTask, 0, 15, TimeUnit.SECONDS);
+        checker.scheduleAtFixedRate(checkTask, 0, 5, TimeUnit.SECONDS);
     }
 
-    /*
-     * Bryan Reminder
-     */
     public final ListPropertyBase<Item> getActiveRemindersListProperty() {
         return model.getActiveReminderListProperty();
     }
@@ -158,5 +110,13 @@ public class LogicManager implements Logic {
     @Override
     public void setGuiSettings(GuiSettings guiSettings) {
         model.setGuiSettings(guiSettings);
+    }
+
+    public SimpleBooleanProperty getPriorityMode() {
+        return model.getPriorityMode();
+    }
+
+    public boolean isSystemToggle() {
+        return model.isSystemToggle();
     }
 }

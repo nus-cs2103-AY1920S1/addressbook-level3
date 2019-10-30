@@ -78,6 +78,8 @@ public class CommandResult {
         return this.pane;
     }
 
-    public String getTheme() { return this.theme; }
+    public String getTheme() {
+        return this.theme;
+    }
 
 }

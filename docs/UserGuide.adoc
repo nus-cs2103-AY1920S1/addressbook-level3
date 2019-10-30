@@ -172,21 +172,86 @@ Deletes the 2nd reminder in the shown reminder list.
 === Undoing the latest modification(s) : `undo`
 
 Reverts the latest commands given on the ELISA. +
-Format: `undo [number of commands]`
+Format: `undo`
 
 ****
-* Omitting the number reverts the last one command
-* The number of commands must be *at most 20*
-* The number *must be a positive integer* 1, 2, 3, ...
+* `undo` can only be done if commands have been executed
 ****
 
 Examples:
 
 * `undo` +
 Undoes the last command
-* `undo 2` +
-Undoes the last 2 commands
 
+
+// tag::redo[]
+=== Redoing the latest undone command(s) : `redo`
+
+Re-executes the latest undone commands given on the ELISA. +
+Format: `redo`
+
+****
+* `redo` can only be done if undo has already been executed
+* After `undo`, if a new command is executed then `redo` cannot be executed
+****
+
+Examples:
+
+* `redo` +
+
+=== Sorting ELISA out: `sort`
+Is ELISA getting too cluttered and disorganized? Do you want to sort your task by their priority? Or the events by their start date?
+
+ELISA comes in-built with a sort feature that allows you to sort your items within the different panel. And the best part of it? YOU can decide how you want to sort it.
+
+The simple sort command on the different panel sorts the list differently (just another sign of how smart ELISA is) and they are as follows:
+
+* task panel - tasks are sorted from those that are incomplete to those that are completed. Within the two groups, they are sorted based on their priority, from high to medium and to low.
+* event panel - events are sorted based on their start date and time.
+* reminder - reminders are sorted based on their firing off date and time.
+
+But why stop there? You are also able to sort by priority and description within all the panels and even combine different sorting together! You are only limited by your imagination (and the items within your lists).
+
+Format: `sort` or `sort <criteria>`
+
+Examples:
+
+* `sort` - a simple sort that follows the criteria mentioned above for the different panel.
+* `sort priority` - sorts the item within the panel by their priority (from high to low).
+* `sort desc` - sorts the item within the panel by their description (lexicographic order)
+
+=== Finding a task: `find`
+Is your task list getting too long and you are not able to find what you are looking for? Introducing the `find` function which will allow you to find what you want within the specific panel. Just type `find` and the keyword that you want to search for within the command box and ELISA will find the relevant items for you.
+
+Format: `find <keyword>`
+
+Examples:
+
+* `find CS2101` - find all items that have CS2101 in their description within that panel
+
+* `find CS2101 CS2103` - find items that contains either CS2101 or CS2103 within their description.
+
+=== Entering priority mode: `priority`
+Feeling stress? Too much task on your task list? Enter priority mode, a mode which will help you narrow down the most pressing task to be done.
+
+By simply typing `priority` into the command box, you will be given one single task of the highest priority among your task list. This task is chosen by ELISA base on priority and the order in which the task was added to the list.
+
+Feeling less stress? You can type `priority` again to bring you out of the priority mode and back into the normal task view. Or even better, finish all your undone task and you will be automatically brought out of priority mode.
+
+Feeling lazy? You can also opt to turn off priority mode at a specific time by typing `priority dd/mm/yyyy hh:mm` and ELISA will turn it off at that specific time for you.
+
+Format: `priority` or `priority dd/mm/yyyy hh:mm`
+
+Examples:
+
+* `priority` - activates or deactivates the priority mode
+* `priority 30/10/2019 1200` - activates the priority mode and ask ELISA to turn it off on 30/10/2019 at noon
+* `priority 2.hours.later` - activates the priority mode and ask ELISA to turn it off 2 hours later
+
+****
+* Note that this command can only be called in the task panel.
+* Note that all command such as `edit`, `undo` and `redo` still works in priority mode.
+****
 
 === Exiting the program : `exit`
 

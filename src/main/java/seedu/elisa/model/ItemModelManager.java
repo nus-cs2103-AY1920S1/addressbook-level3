@@ -6,7 +6,6 @@ import java.nio.file.Path;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.PriorityQueue;
@@ -14,6 +13,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import javafx.application.Platform;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.ObservableList;
 import seedu.elisa.commons.core.GuiSettings;
 import seedu.elisa.commons.core.item.Item;
@@ -24,6 +24,7 @@ import seedu.elisa.model.exceptions.IllegalListException;
 import seedu.elisa.model.item.ActiveRemindersList;
 import seedu.elisa.model.item.CalendarList;
 import seedu.elisa.model.item.EventList;
+import seedu.elisa.model.item.FutureRemindersList;
 import seedu.elisa.model.item.ReminderList;
 import seedu.elisa.model.item.TaskList;
 import seedu.elisa.model.item.VisualizeList;
@@ -42,14 +43,15 @@ public class ItemModelManager implements ItemModel {
     private ItemStorage itemStorage;
     private final ElisaCommandHistory elisaCommandHistory;
     private final JokeList jokeList;
-    private boolean priorityMode = false;
+    private SimpleBooleanProperty priorityMode = new SimpleBooleanProperty(false);
+    private boolean systemToggle = false;
     private PriorityQueue<Item> sortedTask = null;
 
     //Bryan Reminder
     //These three lists must be synchronized
     private ReminderList pastReminders;
     private ActiveRemindersList activeReminders;
-    private ArrayList<Item> futureReminders;
+    private FutureRemindersList futureReminders;
 
     private Timer timer = null;
 
@@ -65,77 +67,11 @@ public class ItemModelManager implements ItemModel {
         this.userPrefs = new UserPrefs(userPrefs);
         this.elisaCommandHistory = elisaCommandHistory;
 
-        //Bryan Reminder
-        pastReminders = new ReminderList();
-
-        activeReminders = new ActiveRemindersList(new ReminderList());
-
         this.jokeList = new JokeList();
-        /*
-        activeReminders = new ListPropertyBase<Item>(new ReminderList()) {
-            @Override
-            public Object getBean() {
-                return null;
-            }
 
-            @Override
-            public String getName() {
-                return null;
-            }
-
-            public synchronized Item popReminder() {
-                if(!isEmpty()) {
-                    return remove(0);
-                } else {
-                    //Should have this throw an exception
-                    return null;
-                }
-            }
-
-            public synchronized void addReminders(Collection<Item> reminders) {
-                for (Item item:reminders) {
-                    add(0, item);
-                }
-            }
-        };
-        */
-
-        futureReminders = new ArrayList<Item>();
-
-        //Bryan Reminder
         pastReminders = new ReminderList();
-
         activeReminders = new ActiveRemindersList(new ReminderList());
-        /*
-        activeReminders = new ListPropertyBase<Item>(new ReminderList()) {
-            @Override
-            public Object getBean() {
-                return null;
-            }
-
-            @Override
-            public String getName() {
-                return null;
-            }
-
-            public synchronized Item popReminder() {
-                if(!isEmpty()) {
-                    return remove(0);
-                } else {
-                    //Should have this throw an exception
-                    return null;
-                }
-            }
-
-            public synchronized void addReminders(Collection<Item> reminders) {
-                for (Item item:reminders) {
-                    add(0, item);
-                }
-            }
-        };
-        */
-
-        futureReminders = new ArrayList<Item>();
+        futureReminders = new FutureRemindersList();
 
         updateLists();
     }
@@ -174,13 +110,13 @@ public class ItemModelManager implements ItemModel {
     }
 
     @Override
-    public final ArrayList<Item> getFutureRemindersList() {
+    public final FutureRemindersList getFutureRemindersList() {
         return futureReminders;
     }
 
     @Override
     public void updateCommandHistory(Command command) {
-        elisaCommandHistory.pushCommand(command);
+        elisaCommandHistory.pushUndo(command);
     }
 
     @Override
@@ -319,15 +255,28 @@ public class ItemModelManager implements ItemModel {
     public Item removeItem(Item item) {
         Item removedItem = visualList.removeItemFromList(item);
         if (visualList instanceof TaskList) {
-            taskList.removeItemFromList(item);
+            taskList.removeItemFromList(removedItem);
         } else if (visualList instanceof EventList) {
-            eventList.removeItemFromList(item);
+            eventList.removeItemFromList(removedItem);
         } else if (visualList instanceof ReminderList) {
-            reminderList.removeItemFromList(item);
+            reminderList.removeItemFromList(removedItem);
         } else {
             // never reached here as there are only three variants for the visualList
         }
         return removedItem;
+    }
+
+    /**
+     * Removes an item from a list. Used for edit command to remove the old item.
+     * @param item the item to be removed from the list
+     * @return the item that is removed.
+     */
+    private Item removeFromSeparateList(Item item) {
+        visualList.remove(item);
+        taskList.remove(item);
+        eventList.remove(item);
+        reminderList.remove(item);
+        return item;
     }
 
     /**
@@ -341,7 +290,7 @@ public class ItemModelManager implements ItemModel {
         taskList.remove(item);
         eventList.remove(item);
         reminderList.remove(item);
-        if (priorityMode) {
+        if (priorityMode.getValue()) {
             getNextTask();
         }
         return item;
@@ -358,7 +307,7 @@ public class ItemModelManager implements ItemModel {
         taskList.removeItemFromList(item);
         eventList.removeItemFromList(item);
         reminderList.removeItemFromList(item);
-        if (priorityMode) {
+        if (priorityMode.getValue()) {
             getNextTask();
         }
         return item;
@@ -381,7 +330,7 @@ public class ItemModelManager implements ItemModel {
     public void setVisualList(String listString) throws IllegalValueException {
         switch(listString) {
         case "T":
-            if (priorityMode) {
+            if (priorityMode.getValue()) {
                 setVisualList(getNextTask());
                 break;
             }
@@ -448,11 +397,23 @@ public class ItemModelManager implements ItemModel {
             }
         }
 
-        if (priorityMode) {
+        if (priorityMode.getValue()) {
             sortedTask.remove(item);
             sortedTask.offer(newItem);
             visualList = getNextTask();
         }
+    }
+
+    /**
+     * Edits an item with another item.
+     * @param oldItem the item to be edited
+     * @param newItem the edited item
+     * @return the edited item
+     */
+    public Item editItem(Item oldItem, Item newItem) {
+        replaceItem(oldItem, newItem);
+        addToSeparateList(newItem);
+        return newItem;
     }
 
     /**
@@ -524,12 +485,12 @@ public class ItemModelManager implements ItemModel {
             throw new IllegalListException();
         }
 
-        if (priorityMode) {
+        if (priorityMode.getValue()) {
             toggleOffPriorityMode();
         } else {
             toggleOnPriorityMode();
         }
-        return priorityMode;
+        return priorityMode.getValue();
     }
 
     /**
@@ -543,26 +504,18 @@ public class ItemModelManager implements ItemModel {
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
+                systemToggle = true;
                 toggleOffPriorityMode();
             }
         }, date);
-    }
-
-    /**
-     * Handles the turning off of priority mode when exiting the application.
-     */
-    public void forceOffPriorityMode() {
-        if (timer != null) {
-            timer.cancel();
-            timer = null;
-        }
     }
 
     private VisualizeList getNextTask() {
         TaskList result = new TaskList();
 
         if (sortedTask.peek().getTask().get().isComplete()) {
-            priorityMode = false;
+            systemToggle = true;
+            toggleOffPriorityMode();
             return taskList;
         }
 
@@ -598,15 +551,27 @@ public class ItemModelManager implements ItemModel {
                 }
             });
         }
-        this.priorityMode = false;
+        priorityMode.setValue(false);
     }
 
     /**
      * Turns on the priority mode.
      */
     private void toggleOnPriorityMode() {
-        this.priorityMode = true;
-        sortedTask = new PriorityQueue<>(TaskList.COMPARATOR);
+        systemToggle = false;
+        this.priorityMode.setValue(true);
+
+        sortedTask = new PriorityQueue<Item>((item1, item2) -> {
+            int result;
+            if ((result = TaskList.COMPARATOR.compare(item1, item2)) != 0) {
+                return result;
+            } else {
+                int index1 = taskList.indexOf(item1);
+                int index2 = taskList.indexOf(item2);
+                return index1 > index2 ? 1 : -1;
+            }
+        });
+
         for (int i = 0; i < taskList.size(); i++) {
             Item item = taskList.get(i);
             if (!item.getTask().get().isComplete()) {
@@ -614,7 +579,7 @@ public class ItemModelManager implements ItemModel {
             }
         }
         if (sortedTask.size() == 0) {
-            priorityMode = false;
+            priorityMode.setValue(false);
         } else {
             this.visualList = getNextTask();
         }
@@ -636,7 +601,7 @@ public class ItemModelManager implements ItemModel {
             Task task = item.getTask().get();
             Task newTask = task.markComplete();
             newItem = item.changeTask(newTask);
-            replaceItem(item, newItem);
+            editItem(item, newItem);
         }
         return newItem;
     }
@@ -655,7 +620,7 @@ public class ItemModelManager implements ItemModel {
             Task task = item.getTask().get();
             Task newTask = task.markIncomplete();
             newItem = item.changeTask(newTask);
-            replaceItem(item, newItem);
+            editItem(item, newItem);
         }
 
         return newItem;
@@ -667,5 +632,13 @@ public class ItemModelManager implements ItemModel {
 
     public Item getItem(int index) {
         return this.visualList.get(index);
+    }
+
+    public SimpleBooleanProperty getPriorityMode() {
+        return this.priorityMode;
+    }
+
+    public boolean isSystemToggle() {
+        return systemToggle;
     }
 }

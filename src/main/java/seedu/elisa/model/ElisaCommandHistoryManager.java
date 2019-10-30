@@ -12,41 +12,71 @@ import seedu.elisa.logic.commands.UndoableCommand;
 
 public class ElisaCommandHistoryManager implements ElisaCommandHistory {
     private Stack<UndoableCommand> undoStack;
+    private Stack<UndoableCommand> redoStack;
 
     public ElisaCommandHistoryManager() {
         undoStack = new Stack<>();
+        redoStack = new Stack<>();
     }
 
     /**
-     * push a command
+     * push a command into undo stack
      * */
     @Override
-    public void pushCommand(Command command) {
+    public void pushUndo(Command command) {
         if (command instanceof UndoableCommand) {
             undoStack.push((UndoableCommand) command);
+            redoStack.clear();
         }
     }
 
     /**
-     * pop last command
+     * pop last command from undo stack
      * */
     @Override
-    public UndoableCommand popCommand() {
-        return undoStack.pop();
+    public UndoableCommand popUndo() {
+        UndoableCommand command = undoStack.pop();
+        pushRedo(command);
+        return command;
     }
 
     /**
-     * peek last command
+     * peek last command from undo stack
      * */
     @Override
-    public UndoableCommand peekCommand() {
+    public UndoableCommand peekUndo() {
         return undoStack.peek();
     }
 
     /**
-     * return stack size
+     * return stack size of undo stack
      * */
-    public int size() {
+    @Override
+    public int sizeUndo() {
         return undoStack.size();
+    }
+
+    @Override
+    public void pushRedo(Command command) {
+        if (command instanceof UndoableCommand) {
+            redoStack.push((UndoableCommand) command);
+        }
+    }
+
+    @Override
+    public UndoableCommand popRedo() {
+        UndoableCommand command = redoStack.pop();
+        pushUndo(command);
+        return command;
+    }
+
+    @Override
+    public UndoableCommand peekRedo() {
+        return redoStack.peek();
+    }
+
+    @Override
+    public int sizeRedo() {
+        return redoStack.size();
     }
 }

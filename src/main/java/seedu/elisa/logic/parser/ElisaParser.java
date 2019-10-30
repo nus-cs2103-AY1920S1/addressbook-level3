@@ -7,6 +7,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.elisa.logic.commands.ClearCommand;
+import seedu.elisa.logic.commands.CloseCommand;
 import seedu.elisa.logic.commands.Command;
 import seedu.elisa.logic.commands.DeleteCommand;
 import seedu.elisa.logic.commands.DoneCommand;
@@ -15,7 +16,9 @@ import seedu.elisa.logic.commands.EditCommand;
 import seedu.elisa.logic.commands.ExitCommand;
 import seedu.elisa.logic.commands.FindCommand;
 import seedu.elisa.logic.commands.JokeCommand;
+import seedu.elisa.logic.commands.OpenCommand;
 import seedu.elisa.logic.commands.PriorityCommand;
+import seedu.elisa.logic.commands.RedoCommand;
 import seedu.elisa.logic.commands.ShowCommand;
 import seedu.elisa.logic.commands.SortCommand;
 import seedu.elisa.logic.commands.ThemeCommand;
@@ -86,6 +89,9 @@ public class ElisaParser {
         case UndoCommand.COMMAND_WORD:
             return new UndoCommand(elisaCommandHistory);
 
+        case RedoCommand.COMMAND_WORD:
+            return new RedoCommand(elisaCommandHistory);
+
         case ShowCommand.COMMAND_WORD:
             return new ShowCommandParser().parse(description, flags);
 
@@ -112,6 +118,12 @@ public class ElisaParser {
 
         case DownCommand.COMMAND_WORD:
             return new DownCommand(description);
+
+        case OpenCommand.COMMAND_WORD:
+            return new OpenCommandParser().parse(description, flags);
+
+        case CloseCommand.COMMAND_WORD:
+            return new CloseCommand();
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

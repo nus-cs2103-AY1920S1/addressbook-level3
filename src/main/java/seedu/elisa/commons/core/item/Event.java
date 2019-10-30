@@ -158,6 +158,14 @@ public class Event {
         String durationString = node.get("duration").asText();
         Duration duration = Duration.parse(durationString);
 
+        String periodString = node.get("period").toString(); // in the format of {"period": 60000}
+        if (!periodString.isEmpty() && !periodString.equals("null")) {
+            periodString = node.get("period").get("period").asText(); // get the long value
+            Long periodMillis = Long.valueOf(periodString);
+            AutoReschedulePeriod period = new AutoReschedulePeriod(periodMillis);
+            return new Event(startDateTime, duration, true, period);
+        }
+
         return new Event(startDateTime, duration);
     }
 

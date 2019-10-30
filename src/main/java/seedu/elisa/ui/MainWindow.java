@@ -10,16 +10,26 @@ import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.effect.GaussianBlur;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.scene.media.AudioClip;
+import javafx.scene.paint.Paint;
+import javafx.scene.text.Text;
+import javafx.stage.Popup;
 import javafx.stage.Stage;
 import seedu.elisa.commons.core.GuiSettings;
 import seedu.elisa.commons.core.LogsCenter;
 import seedu.elisa.commons.core.item.Item;
 import seedu.elisa.commons.exceptions.IllegalValueException;
 import seedu.elisa.logic.Logic;
+import seedu.elisa.logic.commands.CloseCommand;
+import seedu.elisa.logic.commands.CloseCommandResult;
 import seedu.elisa.logic.commands.CommandResult;
 import seedu.elisa.logic.commands.DownCommandResult;
+import seedu.elisa.logic.commands.OpenCommandResult;
+import seedu.elisa.logic.commands.PriorityCommand;
 import seedu.elisa.logic.commands.ThemeCommandResult;
 import seedu.elisa.logic.commands.UpCommandResult;
 import seedu.elisa.logic.commands.exceptions.CommandException;
@@ -42,6 +52,10 @@ public class MainWindow extends UiPart<Stage> {
     private static final String FXML = "MainWindow.fxml";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
+    private final Image redElisa = new Image(getClass().getClassLoader()
+            .getResource("images/FocusElisa.png").toString());
+    private final Image blueElisa = new Image(getClass().getClassLoader()
+            .getResource("images/ElisaImageWithoutWords.png").toString());
 
     private Stage primaryStage;
     private Logic logic;
@@ -52,6 +66,10 @@ public class MainWindow extends UiPart<Stage> {
     private ReminderListPanel reminderListPanel;
     private CalendarPanel calendarPanel;
     private ResultDisplay resultDisplay;
+    private Popup popup;
+
+    private String reminderAlarmUrl = getClass().getClassLoader().getResource("sounds/alertChime.mp3").toString();
+    private AudioClip reminderAlarm = new AudioClip(reminderAlarmUrl);
 
     @FXML
     private Scene scene;
@@ -78,7 +96,27 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane statusbarPlaceholder;
 
     @FXML
+    private StackPane openItemPlaceholder;
+
+    @FXML
     private TabPane viewsPlaceholder;
+
+    @FXML
+    private ImageView elisaImage;
+
+    @FXML
+    private Text elisaText;
+
+    @FXML
+    private Text elisaDescription;
+
+    @FXML
+    private Text elisaDescription2;
+
+    private final Paint elisaTextBlueColor = elisaText.getFill();
+    private final Paint elisaDescBlueColor = elisaDescription.getFill();
+    private final Paint elisaTextRedColor = Paint.valueOf("ff0000");
+    private final Paint elisaDescRedColor = Paint.valueOf("fe4949");
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -106,10 +144,38 @@ public class MainWindow extends UiPart<Stage> {
                     }
                 }
         );
+
+        logic.getPriorityMode().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                if (newValue) {
+                    elisaImage.setImage(redElisa);
+                    setTextRed();
+                } else {
+                    elisaImage.setImage(blueElisa);
+                    setTextDefault();
+                    if (logic.isSystemToggle()) {
+                        Platform.runLater(() -> resultDisplay.setFeedbackToUser(PriorityCommand.PRIORITY_MODE_OFF));
+                    }
+                }
+            }
+        });
     }
 
     public Stage getPrimaryStage() {
         return primaryStage;
+    }
+
+    private void setTextRed() {
+        elisaText.setFill(elisaTextRedColor);
+        elisaDescription.setFill(elisaDescRedColor);
+        elisaDescription2.setFill(elisaDescRedColor);
+    }
+
+    private void setTextDefault() {
+        elisaText.setFill(elisaTextBlueColor);
+        elisaDescription.setFill(elisaDescBlueColor);
+        elisaDescription2.setFill(elisaDescBlueColor);
     }
 
     /**
@@ -122,26 +188,29 @@ public class MainWindow extends UiPart<Stage> {
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
         //Get property.addListener
-        String reminderAlarmUrl = getClass().getClassLoader().getResource("sounds/alertChime.mp3").toString();
-        AudioClip reminderAlarm = new AudioClip(reminderAlarmUrl);
 
-        logic.getActiveRemindersListProperty().addListener(new ListChangeListener<Item>() {
+        //Create a ListChangeListener for activeReminders
+        ListChangeListener<Item> activeRemindersListener = new ListChangeListener<Item>() {
             @Override
             public void onChanged(Change<? extends Item> c) {
-                System.out.println("Change Detected");
                 while (c.next()) {
-                    for (Item newItem : c.getAddedSubList()) {
-                        Platform.runLater(() -> {
-                            resultDisplay.setFeedbackToUser(newItem.getReminderMessage());
-                            reminderAlarm.play(50);
-                        });
-                    }
+                    createReminders(c);
                 }
             }
-        });
-        //to listen for change in active
-        //while !active.isEmpty()
-        //resultDisplay.setFeedbackToUser(property.popReminder.getReminderMessage);
+
+            private void createReminders(Change<? extends Item> c) {
+                for (Item newItem : c.getAddedSubList()) {
+                    Platform.runLater(() -> {
+                        //Populate resultDisplay with reminder textbox
+                        resultDisplay.setFeedbackToUser(newItem.getReminderMessage());
+                    });
+                }
+            }
+        };
+
+
+        //Binds a ListChangeListener to activeRemindersList
+        logic.getActiveRemindersListProperty().addListener(activeRemindersListener);
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
@@ -231,6 +300,58 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
+     * Generates an appropriate popup with the given item, formatted accordingly
+     * @param item details to fill in the popup with
+     */
+    private void openUp(Item item) {
+        Popup popup = new Popup();
+        popup.getContent().add(new OpenItem(item).getRoot());
+        popup.setHeight(1000);
+        popup.setWidth(500);
+
+        this.popup = popup;
+        popup.show(primaryStage);
+    }
+
+    /**
+     * Carries out the operations to generate a popup which expands the view of the given item
+     * @param cr containing the item to open
+     * @return the result of executing this command
+     */
+    private CommandResult executeOpen(CommandResult cr) {
+        CommandResult commandResult = cr;
+        if (popup != null) {
+            // Previous popup still exists
+            commandResult = new CommandResult("Hey, close the previous one first!");
+        } else {
+            // Open new popup to show the item
+            OpenCommandResult result = (OpenCommandResult) commandResult;
+            openUp(result.getItem());
+            viewsPlaceholder.setEffect(new GaussianBlur());
+        }
+        return commandResult;
+    }
+
+    /**
+     * Carries out operations to close the current popup
+     * @param cr to carry out
+     * @return result of executing this command
+     */
+    private CommandResult executeClose(CommandResult cr) {
+        CommandResult commandResult = cr;
+        if (popup == null) {
+            // Nothing to close
+            commandResult = new CloseCommandResult(CloseCommand.MESSAGE_FAILURE);
+        } else {
+            popup.hide();
+            this.popup = null;
+            viewsPlaceholder.setEffect(null);
+        }
+        return commandResult;
+    }
+
+
+    /**
      * Updates the panels to display the correct list of item.
      */
     public void updatePanels() {
@@ -293,7 +414,10 @@ public class MainWindow extends UiPart<Stage> {
             resultDisplay.setMessageFromUser(commandText);
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
-            if (!(commandResult instanceof UpCommandResult) && !(commandResult instanceof DownCommandResult)) {
+
+            if (!(commandResult instanceof UpCommandResult) && !(commandResult instanceof DownCommandResult)
+                    && !(commandResult instanceof OpenCommandResult)
+                    && !(commandResult instanceof CloseCommandResult)) {
                 resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
             }
 
@@ -315,6 +439,19 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult instanceof ThemeCommandResult) {
                 changeTheme(commandResult.getTheme());
+                return commandResult;
+            }
+
+            if (commandResult instanceof OpenCommandResult) {
+                commandResult = executeOpen(commandResult);
+                resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+                return commandResult;
+            }
+
+            if (commandResult instanceof CloseCommandResult) {
+                commandResult = executeClose(commandResult);
+
+                resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
                 return commandResult;
             }
 
