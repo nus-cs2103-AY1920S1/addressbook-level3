@@ -7,6 +7,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SHARE;
 
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.SplitCommand;
@@ -43,6 +45,19 @@ public class SplitCommandParser implements Parser<SplitCommand> {
         Amount amount = ParserUtil.parseAmount(argMultimap.getValue(PREFIX_AMOUNT).get());
         Date date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).orElse(Date.now().toString()));
         List<Integer> shares = ParserUtil.parseShares(argMultimap.getAllValues(PREFIX_SHARE));
+
+        if (shares.size() == 0) {
+            shares = IntStream.rangeClosed(0, people.size()).map(i -> 1).boxed().collect(Collectors.toList());
+        }
+
+        boolean validSharesLength = shares.size() == people.size() || shares.size() == people.size() + 1;
+        if (!validSharesLength) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SplitCommand.SHARES_FORMAT));
+        }
+
+        if (shares.size() == people.size()) {
+            shares.add(0, 0);
+        }
 
         Split transaction = new Split(amount, date, description, shares, people);
         return new SplitCommand(transaction);

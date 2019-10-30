@@ -19,6 +19,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.transaction.BankAccountOperation;
 import seedu.address.model.transaction.Budget;
+import seedu.address.model.transaction.LedgerOperation;
 import seedu.address.ui.tab.Tab;
 
 /**
@@ -38,6 +39,7 @@ public class MainWindow extends UiPart<Stage> {
     private MainTabPanel mainTabPanel;
     private TransactionListPanel transactionListPanel;
     private BudgetListPanel budgetListPanel;
+    private LedgerListPanel ledgerListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
@@ -61,6 +63,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane budgetListPanelPlaceholder;
+
+    @FXML
+    private StackPane ledgerListPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -136,7 +141,10 @@ public class MainWindow extends UiPart<Stage> {
         ObservableList<Budget> budgetList = logic.getBudgetList();
         budgetListPanel = new BudgetListPanel(budgetList);
 
-        mainTabPanel = new MainTabPanel(transactionListPanel, budgetListPanel);
+        ObservableList<LedgerOperation> ledgerOperationsList = logic.getLedgerOperationsList();
+        ledgerListPanel = new LedgerListPanel(ledgerOperationsList);
+
+        mainTabPanel = new MainTabPanel(transactionListPanel, budgetListPanel, ledgerListPanel);
         mainTabPanelPlaceholder.getChildren().add(mainTabPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
@@ -203,6 +211,8 @@ public class MainWindow extends UiPart<Stage> {
         case BUDGET:
             showBudgetTab();
             break;
+        case LEDGER:
+            showLedgerTab();
         default:
             break;
 
@@ -256,6 +266,13 @@ public class MainWindow extends UiPart<Stage> {
      */
     private void showBudgetTab() {
         mainTabPanel.switchToBudgetTab();
+    }
+
+    /**
+     * Switch to ledger tab.
+     */
+    private void showLedgerTab() {
+        mainTabPanel.switchToLedgerTab();
     }
 
 }

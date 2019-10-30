@@ -21,4 +21,14 @@ public class LendMoneyTest {
         assertEquals(lendJoel100.handleBalance(Amount.of(100), list), Amount.zero());
         assertEquals(Amount.of(200), joel.getBalance());
     }
+
+    @Test
+    public void handleBalance_invalidPerson_throwsMismatchException() {
+
+    }
+
+    @Test
+    public void equalsTest() {
+
+    }
 }

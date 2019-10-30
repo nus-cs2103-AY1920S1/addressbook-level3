@@ -200,10 +200,13 @@ public class ParserUtil {
         final List<Integer> intShares = new ArrayList<>();
         for (String share : shares) {
             try {
+                int shareInt = Integer.parseInt(share.trim());
+                if (shareInt < 0) {
+                    throw new ParseException(Amount.SHARE_CONSTRAINTS);
+                }
                 intShares.add(Integer.parseInt(share.trim()));
             } catch (NumberFormatException ex) {
-                // TODO: CORRECT?
-                throw new ParseException(Amount.SHARE_CONSTRAINTS);
+                throw new ParseException(Amount.MESSAGE_CONSTRAINTS);
             }
 
         }
