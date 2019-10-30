@@ -668,6 +668,7 @@ image::casherUG/CheckoutCommand1.png[]
 image::casherUG/CheckoutCommand2.png[]
 
 If checkout is successful, Leo will respond with a response message. The table will be cleared and the cashier will be reset.
+The `Home Tab` will be updated with this transaction and the remaining stock in the `Inventory Tab` will also be updated.
 
 
 ==== Clears All the Sales Items in the Table
