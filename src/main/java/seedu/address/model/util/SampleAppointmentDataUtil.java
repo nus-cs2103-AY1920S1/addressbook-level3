@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyAppointmentBook;
 import seedu.address.model.ReferenceId;
 import seedu.address.model.events.AppointmentBook;
@@ -11,8 +12,7 @@ import seedu.address.model.events.Event;
 import seedu.address.model.events.parameters.DateTime;
 import seedu.address.model.events.parameters.Status;
 import seedu.address.model.events.parameters.Timing;
-import seedu.address.model.person.parameters.PatientReferenceId;
-import seedu.address.model.person.parameters.StaffReferenceId;
+import seedu.address.model.person.parameters.PersonReferenceId;
 
 /**
  * Contains utility methods for populating {@code AddressBook} with sample data.
@@ -68,34 +68,34 @@ public class SampleAppointmentDataUtil {
                 }
             }
             if (i % 10 == 0) {
-                listOfEvents[i] = new Event(new PatientReferenceId(String.format("%04d%s", i, "1A")),
+                listOfEvents[i] = new Event(patientRefId(String.format("%04d%s", i, "1A")),
                         new Timing(listOfStartTimes[j], listOfEndTimes[j]), new Status());
             } else if (i % 10 == 1) {
-                listOfEvents[i] = new Event(new PatientReferenceId(String.format("%04d%s", i, "2B")),
+                listOfEvents[i] = new Event(patientRefId(String.format("%04d%s", i, "2B")),
                         new Timing(listOfStartTimes[j], listOfEndTimes[j]), new Status());
             } else if (i % 10 == 2) {
-                listOfEvents[i] = new Event(new PatientReferenceId(String.format("%04d%s", i, "3C")),
+                listOfEvents[i] = new Event(patientRefId(String.format("%04d%s", i, "3C")),
                         new Timing(listOfStartTimes[j], listOfEndTimes[j]), new Status());
             } else if (i % 10 == 3) {
-                listOfEvents[i] = new Event(new PatientReferenceId(String.format("%04d%s", i, "4D")),
+                listOfEvents[i] = new Event(patientRefId(String.format("%04d%s", i, "4D")),
                         new Timing(listOfStartTimes[j], listOfEndTimes[j]), new Status());
             } else if (i % 10 == 4) {
-                listOfEvents[i] = new Event(new PatientReferenceId(String.format("%04d%s", i, "5E")),
+                listOfEvents[i] = new Event(patientRefId(String.format("%04d%s", i, "5E")),
                         new Timing(listOfStartTimes[j], listOfEndTimes[j]), new Status());
             } else if (i % 10 == 5) {
-                listOfEvents[i] = new Event(new PatientReferenceId(String.format("%04d%s", i, "6F")),
+                listOfEvents[i] = new Event(patientRefId(String.format("%04d%s", i, "6F")),
                         new Timing(listOfStartTimes[j], listOfEndTimes[j]), new Status());
             } else if (i % 10 == 6) {
-                listOfEvents[i] = new Event(new PatientReferenceId(String.format("%04d%s", i, "7G")),
+                listOfEvents[i] = new Event(patientRefId(String.format("%04d%s", i, "7G")),
                         new Timing(listOfStartTimes[j], listOfEndTimes[j]), new Status());
             } else if (i % 10 == 7) {
-                listOfEvents[i] = new Event(new PatientReferenceId(String.format("%04d%s", i, "8H")),
+                listOfEvents[i] = new Event(patientRefId(String.format("%04d%s", i, "8H")),
                         new Timing(listOfStartTimes[j], listOfEndTimes[j]), new Status());
             } else if (i % 10 == 8) {
-                listOfEvents[i] = new Event(new PatientReferenceId(String.format("%04d%s", i, "9I")),
+                listOfEvents[i] = new Event(patientRefId(String.format("%04d%s", i, "9I")),
                         new Timing(listOfStartTimes[j], listOfEndTimes[j]), new Status());
             } else if (i % 10 == 9) {
-                listOfEvents[i] = new Event(new PatientReferenceId(String.format("%04d%s", i, "0J")),
+                listOfEvents[i] = new Event(patientRefId(String.format("%04d%s", i, "0J")),
                         new Timing(listOfStartTimes[j], listOfEndTimes[j]), new Status());
             }
         }
@@ -124,34 +124,34 @@ public class SampleAppointmentDataUtil {
                 }
             }
             if (i % 10 == 0) {
-                listOfEvents[i] = new Event(new StaffReferenceId("S001A"),
+                listOfEvents[i] = new Event(staffRefId("S001A"),
                         new Timing(listOfStartTimes[j], listOfEndTimes[j]), new Status());
             } else if (i % 10 == 1) {
-                listOfEvents[i] = new Event(new StaffReferenceId("S002B"),
+                listOfEvents[i] = new Event(staffRefId("S002B"),
                         new Timing(listOfStartTimes[j], listOfEndTimes[j]), new Status());
             } else if (i % 10 == 2) {
-                listOfEvents[i] = new Event(new StaffReferenceId("S003C"),
+                listOfEvents[i] = new Event(staffRefId("S003C"),
                         new Timing(listOfStartTimes[j], listOfEndTimes[j]), new Status());
             } else if (i % 10 == 3) {
-                listOfEvents[i] = new Event(new StaffReferenceId("S004D"),
+                listOfEvents[i] = new Event(staffRefId("S004D"),
                         new Timing(listOfStartTimes[j], listOfEndTimes[j]), new Status());
             } else if (i % 10 == 4) {
-                listOfEvents[i] = new Event(new StaffReferenceId("S005E"),
+                listOfEvents[i] = new Event(staffRefId("S005E"),
                         new Timing(listOfStartTimes[j], listOfEndTimes[j]), new Status());
             } else if (i % 10 == 5) {
-                listOfEvents[i] = new Event(new StaffReferenceId("S006F"),
+                listOfEvents[i] = new Event(staffRefId("S006F"),
                         new Timing(listOfStartTimes[j], listOfEndTimes[j]), new Status());
             } else if (i % 10 == 6) {
-                listOfEvents[i] = new Event(new StaffReferenceId("S007G"),
+                listOfEvents[i] = new Event(staffRefId("S007G"),
                         new Timing(listOfStartTimes[j], listOfEndTimes[j]), new Status());
             } else if (i % 10 == 7) {
-                listOfEvents[i] = new Event(new StaffReferenceId("S008H"),
+                listOfEvents[i] = new Event(staffRefId("S008H"),
                         new Timing(listOfStartTimes[j], listOfEndTimes[j]), new Status());
             } else if (i % 10 == 8) {
-                listOfEvents[i] = new Event(new StaffReferenceId("S009I"),
+                listOfEvents[i] = new Event(staffRefId("S009I"),
                         new Timing(listOfStartTimes[j], listOfEndTimes[j]), new Status());
             } else if (i % 10 == 9) {
-                listOfEvents[i] = new Event(new StaffReferenceId("S000J"),
+                listOfEvents[i] = new Event(staffRefId("S000J"),
                         new Timing(listOfStartTimes[j], listOfEndTimes[j]), new Status());
             }
         }
