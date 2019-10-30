@@ -69,7 +69,7 @@ public class CollectionUtil {
     /**
      * Returns a list of r-element combinations possible for a given list of items.
      * @param r The number of elements for each combination.
-     * @return A {@code List} of size {@code r} {@code List}s of the given items.
+     * @return A {@code List} of size-{@code r} combinations of items from {@code items}.
      */
     public static <T> List<List<T>> generateCombinations(List<T> items, int r) {
         List<List<T>> results = new ArrayList<List<T>>();
