@@ -4,9 +4,11 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.ui.HelpCard;
@@ -27,8 +29,14 @@ public class CommandListPanel extends UiPart<Region> {
         super(FXML);
         commandListView.setItems(commandList);
         commandListView.setCellFactory(listView -> new CommandListViewCell());
-    }
+        commandListView.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
+            @Override
+            public void handle(MouseEvent event) {
+                System.out.println("clicked on " + commandListView.getSelectionModel().getSelectedItem());
+            }
+        });
+    }
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code Command} using a {@code HelpCard}.
      */

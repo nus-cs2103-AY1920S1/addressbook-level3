@@ -11,7 +11,6 @@ import seedu.address.ui.views.MemberStatisticsView;
 import seedu.address.ui.views.SettingsView;
 import seedu.address.ui.views.TaskListPanel;
 import seedu.address.ui.views.TaskStatisticsView;
-import seedu.address.commons.Keywords;
 
 /**
  * Utility class for controlling navigation between user views.
