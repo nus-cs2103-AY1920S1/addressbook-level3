@@ -50,9 +50,6 @@ public class CalendarGridDay extends UiPart<Region> {
     }
 
     public void setCurrentDate() {
-        // TODO: Bug found when changing the date color. Non-style change in color does not work as well.
-        //calendarDayCircle.setStyle("-fx-fill: " + "-currentDateColor");
-        //calendarDayCircle.setStyle("-fx-opacity: " + 0.75);
         Circle circle = new Circle();
         circle.setRadius(14);
         circle.setStyle("-fx-fill: " + "-currentDateColor");

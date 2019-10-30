@@ -28,10 +28,11 @@ import javafx.util.Duration;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.CalendarDate;
+import seedu.address.model.ModelLists;
 import seedu.address.model.events.EventDateComparator;
 import seedu.address.model.events.EventSource;
-import seedu.address.model.listeners.EventListListener;
-import seedu.address.ui.listeners.UserOutputListener;
+import seedu.address.model.tasks.TaskDateComparator;
+import seedu.address.model.tasks.TaskSource;
 import seedu.address.ui.panel.calendar.CalendarPanel;
 import seedu.address.ui.panel.list.ListPanel;
 import seedu.address.ui.panel.log.LogPanel;
@@ -40,7 +41,7 @@ import seedu.address.ui.panel.log.LogPanel;
  * The Main Window. Provides the basic application layout containing
  * a menu bar and space where other JavaFX elements can be placed.
  */
-public class MainWindow extends UiPart<Stage> implements UserOutputListener, EventListListener {
+public class MainWindow extends UiPart<Stage> {
 
     public static final Integer TIMING = 20;
     private static final String FXML = "MainWindow.fxml";
@@ -212,7 +213,7 @@ public class MainWindow extends UiPart<Stage> implements UserOutputListener, Eve
     /**
      * Creates a pop-up of the output using the same LogBox in the LogPanel and animates it.
      */
-    private void createOutputLogBox(String feedbackToUser, String color) {
+    private void createPopUpBox(String feedbackToUser, String color) {
         requireNonNull(feedbackToUser);
         popUpPanel.getChildren().clear();
         PopUpBox popUpBox = new PopUpBox(feedbackToUser, color);
@@ -324,23 +325,69 @@ public class MainWindow extends UiPart<Stage> implements UserOutputListener, Eve
         onUserOutput(new UserOutput(WELCOME_MESSAGE), ColorTheme.WELCOME);
     }
 
+    /**
+     * Returns a copy of the event list sorted by start date.
+     *
+     * @param events The given event list.
+     * @return A copy of the event list sorted by date.
+     */
     private List<EventSource> sortDateEventList(List<EventSource> events) {
         List<EventSource> sortedDateEventList = new ArrayList<EventSource>(events);
         sortedDateEventList.sort(new EventDateComparator());
         return sortedDateEventList;
     }
 
-    @Override
+    /**
+     * Returns a copy of the task list sorted by due date.
+     *
+     * @param tasks The given task list.
+     * @return A copy of the task list sorted by due date.
+     */
+    private List<TaskSource> sortDateTaskList(List<TaskSource> tasks) {
+        List<TaskSource> sortedDateTaskList = new ArrayList<>(tasks);
+        sortedDateTaskList.sort(new TaskDateComparator());
+        return sortedDateTaskList;
+
+    }
+
+    /**
+     * Changes the UI based on the new and changed event list.
+     *
+     * @param events The given event list.
+     */
     public void onEventListChange(List<EventSource> events) {
         List<EventSource> sortedDateEventList = sortDateEventList(events);
         this.listPanel.onEventListChange(sortedDateEventList);
-        this.calendarPanel.onEventListChange(sortedDateEventList);
     }
 
-    @Override
+    /**
+     * Changes the UI based on the new and changed task list.
+     *
+     * @param tasks The given task list.
+     */
+    public void onTaskListChange(List<TaskSource> tasks) {
+        List<TaskSource> sortedDateTaskList = sortDateTaskList(tasks);
+        this.listPanel.onTaskListChange(sortedDateTaskList);
+    }
+
+    /**
+     * Changes the UI based on the new and changed model lists.
+     *
+     * @param lists The given model list.
+     */
+    public void onModelListChange(ModelLists lists) {
+        this.calendarPanel.onModelListChange(lists);
+    }
+
+    /**
+     * Creates a log box as well as popup box to display to the user the output.
+     *
+     * @param output The given output to be displayed to the user.
+     * @param results The color theme which decides whether the command is a success or failure.
+     */
     public void onUserOutput(UserOutput output, ColorTheme results) {
         String color = getColor(results);
         this.logPanel.createLogBox(output.toString(), color);
-        createOutputLogBox(output.toString(), color);
+        createPopUpBox(output.toString(), color);
     }
 }

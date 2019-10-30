@@ -1,5 +1,7 @@
 package seedu.address.logic.notification;
 
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
 import java.util.ArrayList;
 
 import seedu.address.model.DateTime;
@@ -14,6 +16,7 @@ public class NotificationChecker {
     private ModelManager model;
 
     public NotificationChecker(ModelManager model) {
+        requireAllNonNull(model);
         this.model = model;
     }
 

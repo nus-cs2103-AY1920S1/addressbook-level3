@@ -8,6 +8,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 
 import seedu.address.model.events.EventSource;
+import seedu.address.model.tasks.TaskSource;
 import seedu.address.ui.UiPart;
 
 
@@ -44,5 +45,9 @@ public class ListPanel extends UiPart<Region> {
 
     public void onEventListChange(List<EventSource> events) {
         eventListPanel.onEventListChange(events);
+    }
+
+    public void onTaskListChange(List<TaskSource> tasks) {
+        taskListPanel.onTaskListChange(tasks);
     }
 }

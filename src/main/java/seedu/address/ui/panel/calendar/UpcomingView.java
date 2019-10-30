@@ -10,8 +10,10 @@ import javafx.scene.layout.VBox;
 
 import seedu.address.model.CalendarDate;
 import seedu.address.model.events.EventSource;
+import seedu.address.model.tasks.TaskSource;
 import seedu.address.ui.UiPart;
 import seedu.address.ui.card.UpcomingEventCard;
+import seedu.address.ui.card.UpcomingTaskCard;
 
 
 /**
@@ -31,36 +33,47 @@ public class UpcomingView extends UiPart<Region> {
     @FXML
     private VBox upcomingList;
 
-    public UpcomingView() {
+    public UpcomingView(List<Object> eventTaskList) {
         super(FXML);
         CalendarDate calendarDate = CalendarDate.now();
         upcomingViewTitle.setText("Upcoming in " + calendarDate.getEnglishMonth());
+        resizeUpcomingView(eventTaskList);
     }
 
     /**
-     * Updates the upcoming list to hold up to 4 of the upcoming events.
-     * @param events
+     * Updates the upcoming list to hold up to a certain amount of events or task.
+     *
+     * @param eventTaskList The given list of tasks and events.
      */
-    public void eventChange(List<EventSource> events) {
+    public void onChange(List<Object> eventTaskList) {
         int index = 0;
         upcomingList.getChildren().clear();
-        for (EventSource event : events) {
+
+        for (Object source : eventTaskList) {
             if (index >= totalDisplays) {
-                break;
+                return;
             }
-            UpcomingEventCard eventCard = new UpcomingEventCard(event);
-            upcomingList.getChildren().add(eventCard.getRoot());
-            index++;
+            if (source instanceof EventSource) {
+                EventSource event = (EventSource) source;
+                UpcomingEventCard eventCard = new UpcomingEventCard(event);
+                upcomingList.getChildren().add(eventCard.getRoot());
+                index++;
+            } else if (source instanceof TaskSource) {
+                TaskSource task = (TaskSource) source;
+                UpcomingTaskCard taskCard = new UpcomingTaskCard(task);
+                upcomingList.getChildren().add(taskCard.getRoot());
+                index++;
+            }
         }
     }
 
     /**
      * Re-sizes the upcoming to fit the amount of displays of the UpcomingEventCard.
      *
-     * @param events The list of events to change the upcoming view.
+     * @param eventTaskList The list of events and tasks to change the upcoming view.
      */
-    public void resizeUpcomingView(List<EventSource> events) {
+    public void resizeUpcomingView(List<Object> eventTaskList) {
         totalDisplays = (int) (upcomingViewBase.getHeight() / UpcomingEventCard.UPCOMING_CARD_HEIGHT) - 2;
-        eventChange(events);
+        onChange(eventTaskList);
     }
 }
