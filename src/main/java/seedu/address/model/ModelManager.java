@@ -714,14 +714,10 @@ public class ModelManager implements Model {
         return eventRecord.findMostSimilarVEvent(desiredEventName);
     }
 
-    ;
-
     @Override
     public String saveToIcsFile(String targetDir) throws IOException {
         return eventRecord.saveToIcsFile(targetDir);
     }
-
-    ;
     //endregion
 
     @Override
