@@ -349,8 +349,13 @@ Format: `theme light`
 
 Examples:
 
-* `theme light` +
-Switches to the light theme
+* Type `theme light` as shown below.
+
+image::theme-light-command.png[]
+
+* Hit the kbd:[Enter] key and +Work switches to the light theme!
+
+image::theme_light.png[]
 
 * `theme dark` +
 Switches to the dark theme
@@ -362,7 +367,7 @@ By default, the clock format is set to 24 hour.
 
 [NOTE]
 
-This does not affect the input format of deadlines for tasks. They still need to be entered in 24 hour format!.
+This does not affect the input format of deadlines for tasks, they still need to be entered in 24 hour format!.
 
 Format: `clock twenty_four`
 
