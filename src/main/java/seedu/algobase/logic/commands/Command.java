@@ -21,6 +21,7 @@ public abstract class Command {
         EditCommand.class,
         EditPlanCommand.class,
         EditTagCommand.class,
+        EditTagColorCommand.class,
         ExitCommand.class,
         FindCommand.class,
         FindPlanCommand.class,

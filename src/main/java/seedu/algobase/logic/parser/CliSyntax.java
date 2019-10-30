@@ -26,4 +26,5 @@ public class CliSyntax {
     public static final Prefix PREFIX_TAB_INDEX = new Prefix("i/");
     public static final Prefix PREFIX_MODEL_TYPE = new Prefix("m/");
     public static final Prefix PREFIX_MODEL_INDEX = new Prefix("i/");
+    public static final Prefix PREFIX_TAG_COLOR = new Prefix("c/");
 }

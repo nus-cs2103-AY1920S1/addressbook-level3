@@ -7,7 +7,9 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import javafx.scene.paint.Color;
 import seedu.algobase.model.problem.Problem;
+import seedu.algobase.model.tag.Tag;
 
 /**
  * An UI component that displays information of a {@code Problem}.
@@ -58,9 +60,13 @@ public class ProblemCard extends UiPart<Region> {
         difficulty.setText(problem.getDifficulty().toString());
         remark.setText(problem.getRemark().value);
         source.setText(problem.getSource().value);
-        problem.getTags().stream()
-                .sorted(Comparator.comparing(tag -> tag.tagName))
-                .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+
+        for(Tag tag : problem.getTags()) {
+            Label l = new Label(tag.getName());
+            String colorStyle = "-fx-background-color: " + tag.getColor();
+            l.setStyle(colorStyle);
+            tags.getChildren().add(l);
+        }
     }
 
     @Override
