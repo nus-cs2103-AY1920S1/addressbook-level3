@@ -122,7 +122,6 @@ public class Donor extends Person {
             for (int i = 0; i < taskString.length; i++) {
                 String currentTaskString = taskString[i];
                 if (!currentTaskString.isEmpty()) {
-                    currentTaskString = currentTaskString.substring(2);
                     String[] taskDes = currentTaskString.split("]");
                     Task toBeAddedTask = new Task(taskDes[1]);
                     if (taskDes[0].equals("[\u2713")) {
