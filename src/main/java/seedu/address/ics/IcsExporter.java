@@ -53,7 +53,8 @@ public class IcsExporter {
                 .append("\n").append("VERSION:").append(CALENDAR_VERSION)
                 .append("\n").append("PRODID:").append(PROD_ID);
         for (EventSource eventSource : eventList) {
-            stringBuilder.append("\n").append(eventSource.toIcsString());
+            String icsEventString = IcsConverter.convertEvent(eventSource);
+            stringBuilder.append("\n").append(icsEventString);
         }
         stringBuilder.append("\n").append("END:VCALENDAR");
         return stringBuilder.toString();
