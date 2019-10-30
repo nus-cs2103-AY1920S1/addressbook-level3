@@ -1,11 +1,12 @@
 package seedu.address.logic.quiz.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_SWITCH_INVALID;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.SwitchOperation;
+import seedu.address.logic.quiz.commands.exceptions.CommandException;
 import seedu.address.model.quiz.Model;
-
 
 /**
  * Switches to a new application component.
@@ -24,8 +25,12 @@ public class SwitchCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+
+        if (!args.equals("quiz") && !args.equals("calendar") && !args.equals("cap") && !args.equals("finance")) {
+            throw new CommandException(String.format(MESSAGE_SWITCH_INVALID));
+        }
 
         SwitchOperation swOperation = new SwitchOperation(args);
         swOperation.execute();

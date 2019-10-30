@@ -146,6 +146,8 @@ public class SwitchOperation {
             capUi = new UiCapManager(capLogic);
             Stage stages = MainApp.getPrimary();
             capUi.start(stages);
+        } else {
+
         }
     }
 

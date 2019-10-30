@@ -111,7 +111,8 @@ public class StringUtil {
             String lastLetter = Character.toString(preppedWord.charAt(preppedWord.length() - 1)).toLowerCase();
 
             if (Arrays.stream(wordsInPreppedSentence)
-                .anyMatch(text -> text.startsWith(firstLetter) && text.endsWith(lastLetter))) {
+                .anyMatch(text -> text.toLowerCase().startsWith(firstLetter)
+                        && text.toLowerCase().endsWith(lastLetter))) {
                 return true;
             }
         }
