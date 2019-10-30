@@ -315,7 +315,7 @@ public class ScheduleView extends UiPart<Region> {
         public Block(int duration) {
             this.duration = duration;
             int hours = duration / 60;
-            int minutes = duration % 60;
+            double minutes = duration % 60;
             this.heightOfTimeslot = hours * oneHourLength + (minutes / 60.0) * oneHourLength;
         }
 
@@ -361,6 +361,9 @@ public class ScheduleView extends UiPart<Region> {
             region.setId("freeTimeslotBlock");
             freeTimeslot.setId("freeTimeslot");
             freeTimeslot.getChildren().addAll(label, region);
+            if (heightOfTimeslot < 15) {
+                label.setStyle("-fx-font-size: " + (heightOfTimeslot - 5) + ";");
+            }
             return freeTimeslot;
         }
     }

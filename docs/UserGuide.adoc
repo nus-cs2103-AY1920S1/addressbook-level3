@@ -44,9 +44,9 @@ We have used the following symbols to help you better understand our application
 [width="80%",cols="^3, ^10",options="header"]
 |====
 | Symbol | What it means
-| impt | Important information that you may want to note.
-| tips | Shortcuts or hacks that would improve your experience using this application.
-| warn | Warning! Be careful if you encounter this symbol.
+| image:./icons/important.png[] | Important information that you may want to note.
+| image:./icons/lightbulb.png[] | Shortcuts or hacks that would improve your experience using this application.
+| image:./icons/warning.png[] | Warning! Be careful if you encounter this symbol.
 |====
 
 == Quick Start
@@ -93,6 +93,10 @@ You can play around with the commands in <<Command Summary>> to get yourself war
 ====
 
 === Navigation
+
+==== Home: `home`
+You can return back to the home page to see your upcoming schedule.
+Format: `home`
 
 ==== Switch tabs: `switch-tab`
 You can switch the tab of *Person* and *Group* using this command.
@@ -176,12 +180,20 @@ Format: `show n/NAME`
 
 Examples:
 
-* Type `show n/Tim` in the command line as shown below: +
+* Type `show n/Bobby` in the command line as shown below: +
 
 image::showpersoncommand.png[]
 Hit the kbd:[Enter] key and you should see details of the person! You should see a window similar to the one below.
 
 image::showpersonresult.png[]
+
+*****
+tips:
+
+* You can use the command `n` to help you scroll the schedule view without touching your mouse!
+* You can use the command `nw` to help you show next week's schedule!
+
+*****
 
 ==== Listing all persons: `list`
 
@@ -284,7 +296,7 @@ Format: `findgroup g/GROUP_NAME`
 ****
 
 ==== Show group: `show`
-Shows the details of a group. +
+Want to schedule your next group meeting? You can view a group's schedule up to 4 weeks in advance. +
 Format: `show g/GROUP_NAME`
 
 ****
@@ -293,7 +305,7 @@ Format: `show g/GROUP_NAME`
 
 Examples:
 
-* Type `show g/Team1` in the command line as shown below +
+* Type `show g/CS2103` in the command line as shown below +
 
 image::showgroupcommand.png[]
 
@@ -302,7 +314,11 @@ Hit the kbd:[Enter] key and you should see the details of this group in a simila
 image::showgroupresult.png[]
 
 *****
-tip: You can use the command `n` to help you navigate through the schedule view without touching your mouse!
+tips:
+
+* You can use the command `n` to help you scroll the schedule view without touching your mouse!
+* You can use the command `nw` to help you show next week's schedule!
+
 *****
 
 ==== Add Person to Group: `addtogroup`
@@ -336,7 +352,8 @@ Examples:
 
 This feature is currently work in progress!
 
-Exports a visualisation representation of the schedule (timetable) of a group or person(s) to a PNG file+
+Want to share your group's schedule with your friends? This command exports a visualisation representation of the
+schedule (timetable) of a group or person(s) to a PNG file! +
 Format:
 
 * `export-vr [n/NAME]` +
@@ -418,6 +435,12 @@ Examples:
 
 Clears all entries from the TimeBook. +
 Format: `clear`
+
+==== Upcoming schedule list.
+
+Unsure of what is your next event for the day? TimeBook's home page has a list that keeps track of your upcoming
+events for the day and would automatically tick off events that have past!
+Format: `home`
 
 === Saving the data
 
