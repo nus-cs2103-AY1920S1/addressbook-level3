@@ -79,8 +79,7 @@ public class DateUtil {
      */
     public static long getOffsetDays(LocalDate earlierDate, LocalDate laterDate) {
         requireAllNonNull(earlierDate, laterDate);
-        long offset = ChronoUnit.DAYS.between(earlierDate, laterDate);
-        return Math.max(offset, 0);
+        return ChronoUnit.DAYS.between(earlierDate, laterDate);
     }
 
     public static Optional<ReminderDate> getReminderDate(LocalDate laterDate, int offsetDays) {

@@ -4,23 +4,26 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<HBox fx:id="cardPane" prefHeight="82.0" prefWidth="150.0" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1">
-  <GridPane style="-fx-background-color: transparent;" HBox.hgrow="ALWAYS">
+<HBox fx:id="cardPane" minHeight="80.0" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+  <GridPane prefWidth="150.0" style="-fx-background-color: transparent;" HBox.hgrow="ALWAYS">
     <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150" />
     </columnConstraints>
-      <AnchorPane fx:id="box" minHeight="72.0" prefHeight="72.0" styleClass="card">
+      <HBox fx:id="box" alignment="CENTER_LEFT" minHeight="70.0" styleClass="card" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER">
+         <GridPane.margin>
+            <Insets bottom="5.0" top="5.0" />
+         </GridPane.margin>
          <children>
-          <VBox alignment="CENTER_LEFT">
+          <VBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
             <HBox alignment="CENTER_LEFT" spacing="5">
               <Label fx:id="id" styleClass="cell_big_label">
                 <minWidth>
@@ -33,7 +36,11 @@
                      <Insets top="2.0" />
                   </VBox.margin>
             </HBox>
-            <FlowPane fx:id="tags" />
+            <FlowPane fx:id="tags">
+                  <VBox.margin>
+                     <Insets />
+                  </VBox.margin>
+               </FlowPane>
                <HBox>
                   <children>
                   <Label fx:id="expiryDate" styleClass="cell_small_label" text="\$expiryDate">
@@ -54,10 +61,10 @@
                   </VBox.margin>
                </HBox>
                <padding>
-                  <Insets bottom="5.0" left="15.0" right="15.0" top="5.0" />
+                  <Insets bottom="5.0" left="15.0" right="5.0" top="5.0" />
                </padding>
           </VBox>
-         <Label fx:id="reminder" layoutX="62.0" layoutY="22.0" styleClass="cell_small_label" text="\$reminder" AnchorPane.bottomAnchor="22.5" AnchorPane.rightAnchor="140.0" AnchorPane.topAnchor="22.5">
+         <Label fx:id="reminder" minWidth="80.0" styleClass="cell_small_label" text="\$reminder">
                <graphic>
                   <ImageView fitHeight="13.0" fitWidth="13.0" pickOnBounds="true" preserveRatio="true" translateX="-5.0">
                      <image>
@@ -65,13 +72,26 @@
                      </image>
                   </ImageView>
                </graphic>
+               <HBox.margin>
+                  <Insets right="10.0" />
+               </HBox.margin>
             </Label>
-         <Label fx:id="quantity" contentDisplay="CENTER" layoutX="107.0" layoutY="22.0" styleClass="cell_small_label" text="\$quantity" AnchorPane.bottomAnchor="22.5" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="22.5" />
+         <Label fx:id="quantity" contentDisplay="CENTER" minWidth="60.0" styleClass="cell_small_label" text="\$quantity">
+               <HBox.margin>
+                  <Insets right="10.0" />
+               </HBox.margin>
+            </Label>
+            <StackPane fx:id="days" minWidth="60.0" prefWidth="60.0" styleClass="stack-pane-days" HBox.hgrow="NEVER">
+               <children>
+                  <Label fx:id="status" text="Label">
+                     <StackPane.margin>
+                        <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+                     </StackPane.margin>
+                  </Label>
+               </children>
+            </StackPane>
          </children>
-         <GridPane.margin>
-            <Insets bottom="5.0" top="5.0" />
-         </GridPane.margin>
-      </AnchorPane>
+      </HBox>
       <rowConstraints>
          <RowConstraints />
       </rowConstraints>
