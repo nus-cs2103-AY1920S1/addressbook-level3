@@ -288,6 +288,7 @@ For instance, if you have volunteered to tutor children from 2 to 5 December 201
 Now, TravEzy would know that the event is in fact a commitment!
 +
 {empty} +
+{empty} +
 Or is there an upcoming public holiday? Then, key it in with the type ``holiday``.
 +
 For example, to refer to the fact that 1 May 2020 is labour day (a public holiday), just enter:
@@ -297,6 +298,7 @@ For example, to refer to the fact that 1 May 2020 is labour day (a public holida
 +
 Now, TravEzy would recognise that day as a public holiday!
 +
+{empty} +
 {empty} +
 You might then be wondering, what if it is a school break? As you might have expected, TravEzy has got that covered too! Just indicate that the event is in fact a school break by keying in ``school_break``.
 + 
@@ -308,13 +310,15 @@ For instance, if you would like to refer to the fact that 8 Dec 2019 to 12 Jan 2
 Yeah! Now, TravEzy know that you are referring to a school break. 😉 
 +
 {empty} +
+{empty} +
 Last but not least, you can specify that you will be away for a trip (woo hoo!) by using the EVENT TYPE ``trip``.
 +
 For example, to refer to your Bali trip between 10 Dec 2019 to 13 Dec 2019, simply enter:
     
     trip n/Bali 3D2N d/10 m/Dec y/2019 D/13 M/Dec Y/2019
 
-+ Great! Now, TravEzy is aware that you are referring to a trip.
++ 
+Great! Now, TravEzy is aware that you are referring to a trip.
 
 === Add Command
 
