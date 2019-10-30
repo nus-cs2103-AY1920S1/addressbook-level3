@@ -265,60 +265,271 @@ Informs user of public holidays and adds them to the calendar without requiring 
 
 == Itinerary
 
-Helps you to plan how exactly you want to spend each hour of your trip. Each event will be numbered numerically in increasing order.
+It's always good to plan ahead for each day of your trip. Start planning your schedule with TravEzy Itinerary planner today and be amazed by
+the increase in your day's productivity!
 
-``addEvent [title]``   : add a new event to your day, title no more than 50 chars +
+Each entry in your Itinerary has 6 key sections:
 
-``listEvent``          : show all the events for that day +
+. Title
+. Date
+. Time
+. Location
+. Description
+. Tag
 
-``showEvent [index]``  : show all the events for that day +
+The title is the name of the event. This is followed by the date and time for the execution of that event.
+Lastly, the location and description are additional details of the event. Example of your events could include
+hiking Mt. Everest, visiting Tokyo Disneyland, or even doing CS2103T user guide! Be amazed with how much you can actually
+do within the 24 hours you are given everyday. Let's stop skiving and dive right into productivity.
 
-``updateEvent [index]``: update an event in your day based on the index +
+=== Parameter
 
-``sort [type]``        : sort events based on the type (time, tag) +
+Let's start off with understanding how each parameter work first!
 
-``checkTimeslot``      : checks current itinerary and shows empty time slots +
+When inputting an event into the Itinerary, every fields are *compulsory*. However, the *location* and
+*description* fields need not be specified. If you did not indicate the *location* and *description* field, the default
+value "-" will be used instead.
 
-``repeatEvent [index]``: repeat the event in your day based on the index +
+Below are the _PREFIX_ convention that TravEzy's Itinerary will be using.
 
-``doneEvent [index]``  : mark the event as done for the day +
+. Title: The _PREFIX_ is ``title/``. This is the crux of every event as it provides a name to the event that you
+intend to do. For example:
 
-``deleteEvent [index]``: delete an event in your day based on the index +
+    title/Do CS2103T developer guide
 
-``exitEvent   [index]``: exit the current event being chosen
+. Date: The _PREFIX_ is ``date/``. Note that the format TravEzy's Itinerary using is "ddMMyyyy". For example:
 
-{nbsp} +
+    date/30102019
 
-Customize within each event selected:
+. Time: The _PREFIX_ is ``time/``. Note that the format TravEzy's Itinerary is using is 24-Hour format. However,
+TravEzy Itinerary will reformat the time into 12 hour format when shown on the card. For example:
 
-``addTime``        : add the time for the event +
+    time/0000
 
-``addDescription`` : add a description for the event +
+. Location: The _PREFIX_ is ``l/``. This is the place where your event is happening at it could be a country or just
+a venue. For example:
 
-``addLocation``    : add the location of the event +
+    location/Singapore      or      location/Outer Space
 
-``addNotes``       : add additional notes / details for the event +
+. Description: The _PREFIX_ is ``d/``. You can type in just a word, phrase or sentence.
 
-``addTag``         : add a tag to the event for categorization purposes +
+    d/pen       or      d/pen pineapple apple pen
 
-``delete [field]`` : delete the specified field for that particular event
+. Tag: You can select from the dropdown menu to select the importance of each event is through the various priority tagging
+available. The default priority tagging is set to *Priority: None*. There is no prefix for the tagging field and you're
+not allowed to edit it :(
 
-The event itinerary feature also provides  certain extra extensions.  +
-_(Extensions the group may want to consider)_
+=== HelpCommand
 
-. *repeatEvent* +
-The program allows the user to repeat events such as tours or planned activities
+Unsure on how to navigate your way through the TravEzy Itinerary feature? Don't worry we got your back!
+
+Just call for ``help`` and the help window will come to the rescue!
+
+The _Command Word_ is help without further parameters.
+
+[TIP]
+You can click on the *copy* button beside each feature to copy onto your own clipboard the syntax for calling each feature
+in the TravEzy Itinerary page.
+
+Example:
+
+``help``
+
+=== AddCommand
+
+Plan to go Disneyland tomorrow? Add some rides that you plan to take then!
+
+*Add an entry to your Itinerary:* ``add``
+
+Adds an event to your itinerary, with the parameters: title, date, time, location, description.
+
+The _Command Word_ is ``add`` and the prefixes are ``title/`` for title, ``date/`` for date, ``time/`` for time,
+``l/`` for location and ``d/`` for description. Location ``l/`` and Description ``d/`` are optional.
+
+Format: ``add title/TITLE date/DATE time/TIME l/LOCATION d/DESCRIPTION``
+
+Example:
+
+``add title/awesome title date/30102019 time/2359 l/Singapore d/I love TravEzy!``
+
+=== DeleteCommand
+
+Added a wrong event? Don't worry you can always remove it from the list. Awesome Possum!
+
+*Delete an event*: ``delete``
+
+Deletes an event from your Itinerary with the only parameter being the index of the event you want to delete.
+The index must be an integer which is greater than 1 and corresponds to ID of the event you want to delete.
+
+The _Command Word_ is ``delete`` with an parameter index.
+Format: ``delete INDEX``
+
+Example: Delete the first event you saw on your event list.
 
 
-. *tag* +
-The program allows the user to tag and highlight events based on type, such as fun, educational, commute etc. This feature will also colour code the events so that the different types of events can be seen clearly on the calendar.
+``delete 1``
 
-. *archive* +
-The user can archive events that he/she is unsure of and wants to review later.
+=== EditCommand
 
-. *recommend* +
-The user can get recommended activities to fill in gaps in the itinerary. The database for these recommended activities will be derived from the archive function.
+Had a change in plans? Let's us edit our previous event then!
 
+*Edit an event:* ``edit``
+
+Edit an event in your Itinerary with the only parameter being the index of the event you want to edit.
+The index must be an integer which is greater than 1 and corresponds to ID of the event you want to edit.
+
+The _Command Word_ is ``edit`` with an parameter index.
+
+Format: ``edit index``
+
+Example: Edit the 3rd event you plan to do in your event list.
+
+``edit 3``
+
+=== DoneCommand
+
+Impressive! You have completed the event you have planned for the day. Let us check it for you!
+
+*Mark as done an event:* ``done``
+
+Mark as done an event in your Itinerary with the only parameter being the index of the event you want to check.
+The index must be an integer which is greater than 1 and corresponds to ID of the event you want to check.
+
+The _Command Word_ is ``done`` with an parameter index.
+
+Format: ``done index``
+
+Example: Check the 100th event that you have accomplished today.
+
+``done 100``
+
+=== ListCommand
+
+Awesome! You have planned your schedule, now we give you a way to list out all your events that you have planned out
+in a single list.
+
+*List all events in the Itinerary:* ``list``
+
+List out all the events that are currently in the event list. Good for organizing your schedule and have a broad overview
+of all the events that you have planned for yourself. Congratulations, you are one step closer to having a more productive day.
+Give yourself a pat on the back! :)
+
+The _Command Word_ is ``list``.
+
+Format: ``list``
+
+Example: Listing all the events that you planned
+
+``list``
+
+=== Clear
+
+Want a quick an easy way to wipe off all your events from the face of this Earth? Use the clear command to do so!
+
+*Clear all events in the Itinerary:* ``clear``
+
+Removes all the event in the list so as to reduce the hassle for users to continuously call the delete command multiple
+times in order to remove all events in the list.
+
+[WARNING]
+The clear function removes *ALL* the events that you have planned in your event itinerary. This action *CANNOT* be
+undone. Hence, only click on the *Proceed* button if you are sure that you want to clear the list.
+
+The _Command Word_ is ``clear``.
+
+Format: ``clear``
+
+Example: Clear all the events that you have planned in the event list.
+
+``clear``
+
+===  GreetCommand
+
+🌚🌚🌚 Greetings fellow traveller! 🌚🌚🌚
+
+*Greet the user with the current time and show the events they have for that day:* ``greet``
+
+TravEzy Itinerary will greet the user by providing them with the current time and the date today. We will also filter
+your event list to show only the events that you have for thee day.
+
+The _Command Word_ is ``greet``.
+
+Format: ``greet``
+
+Example: Greeting TravEzy for your daily event list
+
+``greet``
+
+=== HistoryCommand
+
+Curious on what inputs you have entered to the Itinerary page? We also help you keep track of that too in the Itinerary
+page!
+
+*History of the previous command will be shown:* ``history``
+
+TravEzy Itinerary will keep track of the previous inputs that you have called in the Itinerary page.
+
+The _Command Word_ is ``history``
+
+Format: ``history``
+
+[TIP]
+You can press the *↑* up and *↓* down arrow keys to toggle between the previous commands that you have called in the
+Itinerary page during that session.
+
+Example: Let's say you are curious on what are the previous commands that you have called.
+
+``history``
+
+=== SearchCommand
+
+Is your event list too cluttered up with events? Use the search command to zoom in to specific events that you are
+looking for.
+
+[TIP]
+If your event list is too cluttered up, try using the ``clear`` command instead to reset the whole event list
+
+*Search and filter out events that meets the search condition:* ``search``
+
+The search feature is especially useful when you want to filter out and zoom into specific events that you have in mind
+and want to check those out.
+
+The _Command Word_ is ``search``
+
+Format: ``search title/TITLE | date/DATE | time/TIME | l/LOCATION | tag/(Use the dropdown menu)``
+
+Example: If you want to search for events that are dated 10/10/1010 (Wedding theme song :D)
+
+``search date/10101010``
+
+
+
+=== SortCommand
+
+TravEzy Itinerary will help you sort out your life!
+
+*Sorts all the event in the event list based on the condition given:* ``sort``
+
+The sort feature is useful when you want to sort all your events out to a particular condition such as in chronological
+order or in order of importance of the event.
+
+The _Command Word_ is ``sort``
+
+Format: ``sort by/TITLE | LOCATION | CHRONOLOGICAL | COMPLETION | PRIORITY``
+
+Example: After a hard day's work, you wish to view all your completed tasks grouped together and admire your fruits
+of labour.
+
+``sort by/completion``
+
+=== UndoCommand
+*-> Coming up in v2.0*
+
+=== RedoCommand
+*-> Coming up in v2.0*
+
+=== WishCommand
+*-> Coming up in v2.0*
 
 
 == Address Book
