@@ -55,24 +55,17 @@
                                     <children>
                                        <VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="196.0" prefWidth="496.0">
                                           <children>
-                                             <ToolBar prefHeight="40.0" prefWidth="200.0">
-                                                <items>
-                                                   <Label text="summary: Give relevant statistics on financial tracker." />
-                                                   <Region prefHeight="20.0" prefWidth="94.0" />
-                                                   <Button fx:id="summaryCommand" mnemonicParsing="false" onAction="#copySummary" text="Copy" />
-                                                </items>
-                                             </ToolBar>
                                              <ToolBar prefHeight="40.0" prefWidth="232.0">
                                                 <items>
                                                    <Label text="help: Help window with the commands to use financial tracker feature" />
-                                                   <Region prefHeight="20.0" prefWidth="40.0" />
+                                                   <Region prefHeight="31.0" prefWidth="21.0" />
                                                    <Button fx:id="helpCommand" mnemonicParsing="false" onAction="#copyHelp" text="Copy" />
                                                 </items>
                                              </ToolBar>
                                              <ToolBar prefHeight="40.0" prefWidth="232.0">
                                                 <items>
-                                                   <Label text="goto [page]: Navigate to the desired page" />
-                                                   <Region prefHeight="20.0" prefWidth="162.0" />
+                                                   <Label text="goto PAGE: Navigate to the desired page" />
+                                                   <Region prefHeight="33.0" prefWidth="174.0" />
                                                    <Button fx:id="gotoCommand" mnemonicParsing="false" onAction="#copyGoto" text="Copy" />
                                                 </items>
                                              </ToolBar>
@@ -82,7 +75,7 @@
                                                       <font>
                                                          <Font name="System Font" size="13.0" />
                                                       </font></Text>
-                                                   <Region prefHeight="20.0" prefWidth="141.0" />
+                                                   <Region prefHeight="59.0" prefWidth="136.0" />
                                                    <Button fx:id="exitCommand" mnemonicParsing="false" onAction="#copyExit" text="Copy" />
                                                 </items>
                                              </ToolBar>
@@ -105,22 +98,22 @@
                                           <children>
                                              <ToolBar prefHeight="29.0" prefWidth="493.0">
                                                <items>
-                                                   <Label text="Add expense: add a/[amount] d/[description] (and select drop down menu)" />
-                                                   <Region prefHeight="20.0" prefWidth="11.0" />
+                                                   <Label prefHeight="54.0" prefWidth="382.0" text="Add expense: add a/AMOUNT d/DESCRIPTION t/TYPE [date/DATE] [time/TIME]" wrapText="true" />
+                                                   <Region prefHeight="13.0" prefWidth="14.0" />
                                                  <Button fx:id="addCommand" mnemonicParsing="false" onAction="#copyAdd" text="Copy" />
                                                </items>
                                              </ToolBar>
                                              <ToolBar prefHeight="40.0" prefWidth="200.0">
                                                <items>
-                                                   <Label text="Delete expense: delete [index]" />
-                                                   <Region prefHeight="20.0" prefWidth="249.0" />
+                                                   <Label text="Delete expense: delete INDEX" />
+                                                   <Region prefHeight="33.0" prefWidth="240.0" />
                                                  <Button fx:id="deleteCommand" mnemonicParsing="false" onAction="#copyDelete" text="Copy" />
                                                </items>
                                              </ToolBar>
                                              <ToolBar prefHeight="40.0" prefWidth="591.0">
                                                 <items>
-                                                   <Label prefHeight="18.0" prefWidth="328.0" text="Edit expense: edit [index] a/[amount] d/[description] t/[type]" wrapText="true" />
-                                                   <Region prefHeight="33.0" prefWidth="82.0" />
+                                                   <Label prefHeight="52.0" prefWidth="330.0" text="Edit expense: edit INDEX a/AMOUNT d/DESCRIPTION t/TYPE [date/DATE] [time/TIME]" wrapText="true" />
+                                                   <Region prefHeight="60.0" prefWidth="68.0" />
                                                    <Button fx:id="editCommand" mnemonicParsing="false" onAction="#copyEdit" text="Copy" />
                                                 </items>
                                              </ToolBar>

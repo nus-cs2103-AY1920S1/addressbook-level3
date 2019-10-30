@@ -7,7 +7,9 @@ import java.util.stream.Collectors;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
+import javafx.collections.ObservableMap;
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.financialtracker.model.ExpenseList;
 import seedu.address.financialtracker.model.FinancialTracker;
 import seedu.address.financialtracker.model.expense.Expense;
 
@@ -19,14 +21,14 @@ public class JsonSerializableFinancialTracker {
 
     public static final String MESSAGE_DUPLICATE_PERSON = "Expenses list contains duplicate expense(s).";
 
-    //private final List<JsonAdaptedExpense> expenses = new ArrayList<>();
+    private final List<JsonAdaptedExpense> expenses = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonSerializablFinancialTracker} with the given expenses.
+     * Constructs a {@code JsonSerializableAddressBook} with the given expenses.
      */
     @JsonCreator
     public JsonSerializableFinancialTracker(@JsonProperty("expenses") List<JsonAdaptedExpense> expenses) {
-        //this.expenses.addAll(expenses);
+        this.expenses.addAll(expenses);
     }
 
     /**
@@ -35,7 +37,13 @@ public class JsonSerializableFinancialTracker {
      * @param source future changes to this will not affect the created {@code JsonSerializablFinancialTracker}.
      */
     public JsonSerializableFinancialTracker(FinancialTracker source) {
-        //expenses.addAll(source.getExpenseList().stream().map(JsonAdaptedExpense::new).collect(Collectors.toList()));
+        ObservableMap<String, ExpenseList> sourceMap = source.getInternalUnmodifiableExpenseListMap();
+        for (String key : sourceMap.keySet()) {
+            if (!sourceMap.get(key).isEmpty()) {
+                expenses.addAll(sourceMap.get(key).asUnmodifiableObservableList().stream().map(JsonAdaptedExpense::new)
+                        .collect(Collectors.toList()));
+            }
+        }
     }
 
     /**
@@ -45,12 +53,10 @@ public class JsonSerializableFinancialTracker {
      */
     public FinancialTracker toModelType() throws IllegalValueException {
         FinancialTracker financialTracker = new FinancialTracker();
-        /*
         for (JsonAdaptedExpense jsonAdaptedExpense : expenses) {
             Expense expense = jsonAdaptedExpense.toModelType();
-            financialTracker.addExpense(expense);
+            financialTracker.addExpense(expense, expense.getCountry());
         }
-        */
         return financialTracker;
     }
 

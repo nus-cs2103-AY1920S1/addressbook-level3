@@ -1,5 +1,6 @@
 package seedu.address.financialtracker.ui;
 
+import java.nio.file.Paths;
 import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
@@ -11,8 +12,11 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import seedu.address.address.logic.AddressBookLogic;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.financialtracker.logic.FinancialTrackerLogic;
 import seedu.address.financialtracker.model.Model;
-import seedu.address.financialtracker.parser.FinancialTrackerParser;
+import seedu.address.financialtracker.logic.parser.FinancialTrackerParser;
+import seedu.address.financialtracker.storage.FinancialTrackerStorage;
+import seedu.address.financialtracker.storage.JsonFinancialTrackerStorage;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -36,8 +40,7 @@ public class FinancialTrackerPage extends UiPart<VBox> implements Page {
     private ResultDisplay resultDisplay;
     private ExpensePanel expensePanel;
     private final Logger logger = LogsCenter.getLogger(getClass());
-    private FinancialTrackerParser financialTrackerParser;
-    private Model model;
+    private FinancialTrackerLogic financialTrackerLogic;
     private CountriesDropdown countriesDropdown;
 
     @FXML
@@ -58,13 +61,12 @@ public class FinancialTrackerPage extends UiPart<VBox> implements Page {
     @FXML
     private StackPane resultDisplayPlaceholder;
 
-    @FXML
-    private StackPane statusbarPlaceholder;
-
     public FinancialTrackerPage() {
         super(FXML);
-        this.financialTrackerParser = new FinancialTrackerParser();
-        this.model = new Model();
+        Model model = new Model();
+        FinancialTrackerStorage financialTrackerStorage =
+                new JsonFinancialTrackerStorage(Paths.get("data", "financialtracker.json"));
+        this.financialTrackerLogic = new FinancialTrackerLogic(model, financialTrackerStorage);
         this.helpWindow = new FinancialTrackerHelpWindow();
         financialTrackerScene = new Scene(financialTrackerPane);
         fillInnerParts();
@@ -74,14 +76,14 @@ public class FinancialTrackerPage extends UiPart<VBox> implements Page {
      * Fills up all the placeholders of this window.
      */
     private void fillInnerParts() {
-        expensePanel = new ExpensePanel(model);
+        expensePanel = new ExpensePanel(financialTrackerLogic);
         expensePlaceholder.getChildren().add(expensePanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
-        countriesDropdown = new CountriesDropdown(model, expensePanel);
+        countriesDropdown = new CountriesDropdown(financialTrackerLogic, expensePanel);
         // ------------- defining HBox layout --------------
         HBox hBox = new HBox();
         hBox.getChildren().addAll(commandBox.getRoot(), countriesDropdown.getRoot());
@@ -98,8 +100,7 @@ public class FinancialTrackerPage extends UiPart<VBox> implements Page {
      */
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
-            Command command = financialTrackerParser.parseCommand(commandText);
-            CommandResult commandResult = command.execute(model);
+            CommandResult commandResult = financialTrackerLogic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 

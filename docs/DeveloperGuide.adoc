@@ -12,7 +12,7 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
-:repoURL: https://ay1920s1-cs2103t-t17-2.github.io/main/
+:repoURL: https://github.com/AY1920S1-CS2103T-T17-2/main/tree/master
 
 By: `Team T17-2`      Since: `Aug 2019`      Licence: `MIT`
 
@@ -509,25 +509,89 @@ The above activity shows how `edits` command works.
 
 === Address Book
 
-.Model Diagram of the AddressBook feature
-image::AddressModelClassDiagram.png[]
+==== Logic Component
 
-.Logic Diagram of the AddressBook feature
+[[fig-LogicClassDiagram]]
+.Structure of the Logic Component
 image::AddressLogicClassDiagram.png[]
 
-.Sequence Diagram for the `Delete 1` Command
+*API* :
+link:{repoURL}/src/main/java/seedu/address/address/logic/AddressBookLogic.java[`AddressBookLogic.java`]
+
+.  `AddressBookLogicManager` uses the `AddressBookParser` class to parse the user command.
+.  This results in a `Command` object which is executed by the `AddressBookLogicManager`.
+.  The command execution can affect the `AddressBookModel` (e.g. adding a person).
+.  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
+.  In addition, the `CommandResult` object can also instruct the `AddressBookPage` to perform certain actions, such as displaying help to the user.
+
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
+
+.Interactions Inside the Logic Component for the `delete 1` Command
 image::DeleteSequenceDiagram.png[]
+
+NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+[[Design-Model]]
+==== Model component
+
+.Structure of the Model Component
+image::AddressModelClassDiagram.png[]
+
+*API* : link:{repoURL}/src/main/java/seedu/address/address/model/AddressBookModel.java[`AddressBookModel.java`]
+
+The `Model`,
+
+* stores the `ReadOnlyAddressBook` data and `ReadOnlyUserPrefs`.
+* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* does not depend on any of the other three components.
+
+[NOTE]
+As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
+ +
+image:BetterAddressBookModelClassDiagram.png[]
 
 === Achievements
 
-.Model Diagram of the Achievements feature
-image::AchievementsModelClassDiagram.png[]
-
-.Logic Diagram of the Achievements feature
+==== Logic Component
+.AchievementsLogic Diagram of the Achievements feature
 image::AchievementsLogicClassDiagram.png[]
+
+*API* :
+link:{repoURL}/src/main/java/seedu/address/achievements/logic/AchievementsLogic.java[`AchievementsLogic.java`]
+
+The `AchievementsLogic` is responsible for generating statistics for the different components in Travezy
+
+.  `AchievementsLogicManager` uses the `Supplier<StatisticsModel>` to supply the `StatisticsModel`.
+. Getting the `StatisticsModel` from the `Supplier<StatisticsModel>` constructs a new `StatisticsModel` that gets the statistics data from a Model from another feature e.g. `AddressBookModel` that is visible within `ModelManager`
+. `AchievementsLogicManager` returns the resultant data from the `StatisticsModel` that is lazily created.
+
+The `AchievementsLogic` parses `Command` as well to enable navigation to other `Page` within Travezy.
+
+.  `AchievementsLogicManager` uses the `AchievementsParser` class to parse the user command.
+.  This results in a `Command` object which is executed by the `AchievementsLogicManager`.
+.  The command execution can affect the `Model` (e.g. adding a person).
+.  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
+.  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
+
+Given below is the sequence diagram for generating the `StatisticsModel` lazily:
 
 .Sequence Diagram of the Statistics Model
 image::AchievementsPage.png[]
+
+[NOTE]
+The `StatisticsModel` is lazily created. Hence, the statistics will only be retrieved from each model only when it is evaluated when loading the `AchievementsPage` scene.
+
+==== Model Component
+
+.StatisticsModel Diagram of the Achievements feature
+image::AchievementsModelClassDiagram.png[]
+
+The `StatisticsModel`,
+
+* is constructed from the statistics data from a model of another feature e.g. `AddressBookModel` during instantiation
+* contains the statistics data that is generated from a model from another feature e.g. `AddressBookModel`
+* does not depend on any of the models from other features / packages e.g. `AddressBookModel`
+
 
 == Documentation
 

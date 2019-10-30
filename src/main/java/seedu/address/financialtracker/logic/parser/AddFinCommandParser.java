@@ -1,15 +1,15 @@
-package seedu.address.financialtracker.parser;
+package seedu.address.financialtracker.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.financialtracker.parser.CliSyntax.PREFIX_AMOUNT;
-import static seedu.address.financialtracker.parser.CliSyntax.PREFIX_DATE;
-import static seedu.address.financialtracker.parser.CliSyntax.PREFIX_DESCRIPTION;
-import static seedu.address.financialtracker.parser.CliSyntax.PREFIX_TIME;
-import static seedu.address.financialtracker.parser.CliSyntax.PREFIX_TYPE;
+import static seedu.address.financialtracker.logic.parser.CliSyntax.PREFIX_AMOUNT;
+import static seedu.address.financialtracker.logic.parser.CliSyntax.PREFIX_DATE;
+import static seedu.address.financialtracker.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
+import static seedu.address.financialtracker.logic.parser.CliSyntax.PREFIX_TIME;
+import static seedu.address.financialtracker.logic.parser.CliSyntax.PREFIX_TYPE;
 
 import java.util.stream.Stream;
 
-import seedu.address.financialtracker.commands.AddFinCommand;
+import seedu.address.financialtracker.logic.commands.AddFinCommand;
 import seedu.address.financialtracker.model.expense.Amount;
 import seedu.address.financialtracker.model.expense.Date;
 import seedu.address.financialtracker.model.expense.Description;
