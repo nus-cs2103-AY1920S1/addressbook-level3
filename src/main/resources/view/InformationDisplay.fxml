@@ -11,22 +11,25 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:id="informationBox" minHeight="-Infinity" minWidth="-Infinity" prefHeight="390.0" prefWidth="621.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox fx:id="informationBox" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="390.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label fx:id="title" maxWidth="1.7976931348623157E308" prefHeight="39.0" style="-fx-background-color: #30336B;" text="Profile" textFill="WHITE">
          <font>
-            <Font name="Arial" size="34.0" />
+            <Font size="24.0" />
          </font>
+         <padding>
+            <Insets bottom="4.0" left="32.0" top="4.0" />
+         </padding>
       </Label>
-      <HBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="361.0" prefWidth="600.0" VBox.vgrow="ALWAYS">
+      <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS">
          <children>
-            <VBox fx:id="imageHolder" prefHeight="402.0" prefWidth="310.0" HBox.hgrow="ALWAYS">
+            <VBox fx:id="imageHolder" maxHeight="1.7976931348623157E308" HBox.hgrow="ALWAYS">
                <children>
                   <ImageView fx:id="photo" fitHeight="164.0" fitWidth="193.0" pickOnBounds="true" preserveRatio="true" VBox.vgrow="ALWAYS">
                      <VBox.margin>
                         <Insets top="10.0" />
                      </VBox.margin></ImageView>
-                  <FlowPane fx:id="tags" alignment="CENTER_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="10.0" prefWidth="234.0" prefWrapLength="500.0" VBox.vgrow="ALWAYS" />
+                  <FlowPane fx:id="tags" prefWrapLength="0.0" />
                </children>
             </VBox>
             <VBox HBox.hgrow="ALWAYS">
@@ -37,15 +40,18 @@
                      </VBox.margin>
                      <font>
                         <Font size="20.0" />
-                     </font></Label>
+                     </font>
+                     <padding>
+                        <Insets bottom="4.0" top="4.0" />
+                     </padding></Label>
                   <GridPane fx:id="informationBlock" hgap="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="225.0" vgap="10.0">
                     <columnConstraints>
-                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="148.99996617106285" minWidth="10.0" prefWidth="116.30439794241153" />
-                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="229.56522894702496" minWidth="10.0" prefWidth="227.8956122478062" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="148.99996617106285" minWidth="10.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" />
                     </columnConstraints>
                     <rowConstraints>
                       <RowConstraints maxHeight="242.10434981982522" minHeight="0.0" vgrow="SOMETIMES" />
-                      <RowConstraints maxHeight="242.10434981982522" minHeight="0.0"  vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="242.10434981982522" minHeight="0.0" vgrow="SOMETIMES" />
                         <RowConstraints maxHeight="316.97392209837284" minHeight="10.0" vgrow="SOMETIMES" />
                       <RowConstraints maxHeight="316.97392209837284" minHeight="10.0" vgrow="SOMETIMES" />
                         <RowConstraints maxHeight="316.97392209837284" minHeight="10.0" vgrow="SOMETIMES" />
@@ -57,7 +63,7 @@
                               <Font size="15.0" />
                            </font>
                         </Label>
-                        <Label fx:id="name" maxWidth="1.7976931348623157E308" text="\$name" wrapText="true" GridPane.columnIndex="1">
+                        <Label fx:id="name" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="\$name" wrapText="true" GridPane.columnIndex="1">
                            <font>
                               <Font size="13.0" />
                            </font>
@@ -67,7 +73,7 @@
                               <Font size="15.0" />
                            </font>
                         </Label>
-                        <Label fx:id="phone" text="\$phone" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                        <Label fx:id="phone" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="\$phone" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
                            <font>
                               <Font size="13.0" />
                            </font>
@@ -77,7 +83,7 @@
                               <Font size="15.0" />
                            </font>
                         </Label>
-                        <Label fx:id="email" maxWidth="1.7976931348623157E308" text="\$email" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                        <Label fx:id="email" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="\$email" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3">
                            <font>
                               <Font size="13.0" />
                            </font>
@@ -87,7 +93,7 @@
                               <Font size="15.0" />
                            </font>
                         </Label>
-                        <Label fx:id="address" maxWidth="1.7976931348623157E308" text="\$address" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS">
+                        <Label fx:id="address" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="\$address" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS">
                            <font>
                               <Font size="13.0" />
                            </font>
@@ -97,7 +103,7 @@
                               <Font size="15.0" />
                            </font>
                         </Label>
-                        <Label fx:id="attendanceRate" text="\$attendanceRate" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                        <Label fx:id="attendanceRate" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="\$attendanceRate" GridPane.columnIndex="1" GridPane.rowIndex="4">
                            <font>
                               <Font size="13.0" />
                            </font>
@@ -107,12 +113,15 @@
                               <Font size="15.0" />
                            </font>
                         </Label>
-                        <Label fx:id="performance" text="\$performance" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                        <Label fx:id="performance" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="\$performance" GridPane.columnIndex="1" GridPane.rowIndex="5">
                            <font>
                               <Font size="13.0" />
                            </font>
                         </Label>
                      </children>
+                     <VBox.margin>
+                        <Insets top="8.0" />
+                     </VBox.margin>
                   </GridPane>
                </children>
             </VBox>
