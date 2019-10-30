@@ -18,14 +18,16 @@ By: `SC09-F14-3`      Since: `Aug 2019`      Licence: `MIT`
 
 == Introduction
 
-Typee is a Command Line Interface (CLI) application for managing appointments. It is designed for secretaries and receptionists who prefer to work with a CLI while still enjoying the benefits of a Graphical User Interface (GUI). Head over to <<Quick Start>> to see how to get the application running!
+Typee is a Command Line Interface (CLI) application for managing engagements such as appointments, interviews and meetings.
+It is designed for secretaries and receptionists who prefer to work with a CLI while still enjoying the benefits of a
+Graphical User Interface (GUI). Head over to <<Quick Start>> to see how to get the application running!
 
 == Quick Start
 
 1. Ensure you have Java `11` or above installed in your Computer.
 2. Download the latest `typee.jar`.
 3. Copy the file to the folder that you want to use as the home folder for your Typee application.
-4. Enter the command `java -jar typee.jar` to start the app. The GUI should appear in a few seconds.
+4. Enter the command `java -jar typee.jar` on your terminal to start the app. The GUI should appear in a few seconds.
 5. Type a command in the text box and press `Enter` to execute it.
 +
 image::Ui.png[width="790"]
@@ -47,6 +49,32 @@ Refer to <<Features>> for details of each command.
 === Viewing help : `help`
 
 Format: `help`
+
+=== Switch to different windows (GUI): `tab MENU`
+
+Switches to a different menu in the application window. +
+Format: `tab [menu_name]`
+
+* Typee application has mainly 4 major features/menus. User needs to switch to respective windows to perform different commands and features of the system.
+** Engagement
+** TypingGame
+** Calendar
+** Report
+* `Engagement` window will be the default window upon start up of the application.
+
+.Engagement (default) window displayed on start-up of the application.
+image::tab_1_default.png[]
+
+Now, if the user wants to switch to different windows, simply enter the tab command
+with refer to the menu name listed on the left end of the application window. For example, user enters `tab calendar`
+switch to calendar view window.
+
+.input section with tab command entered `tab calendar`
+image::tab_2.png[]
+
+Below is the screenshot after entering the command.
+
+image::tab_3.png[]
 
 === Adding an appointment: `add`
 
