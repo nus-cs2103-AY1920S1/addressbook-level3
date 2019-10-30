@@ -13,9 +13,11 @@ import seedu.address.logic.commands.CopyPasswordCommand;
 import seedu.address.logic.commands.DeletePasswordCommand;
 import seedu.address.logic.commands.EditPasswordCommand;
 import seedu.address.logic.commands.ExitCommand;
+import seedu.address.logic.commands.FindPasswordCommand;
 import seedu.address.logic.commands.GeneratePasswordCommand;
 import seedu.address.logic.commands.GoToCommand;
 import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.ListPasswordCommand;
 import seedu.address.logic.commands.ReadPasswordCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -48,6 +50,10 @@ public class PasswordBookParser {
             return new ReadPasswordCommandParser().parse(arguments);
         case EditPasswordCommand.COMMAND_WORD:
             return new EditPasswordCommandParser().parse(arguments);
+        case ListPasswordCommand.COMMAND_WORD:
+            return new ListPasswordCommand();
+        case FindPasswordCommand.COMMAND_WORD:
+            return new FindPasswordCommandParser().parse(arguments);
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
         case HelpCommand.COMMAND_WORD:

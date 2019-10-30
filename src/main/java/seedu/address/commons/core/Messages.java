@@ -17,6 +17,6 @@ public class Messages {
     public static final String MESSAGE_NOTES_LISTED_OVERVIEW = "%1$d notes listed!";
 
 
-
+    public static final String MESSAGE_PASSWORD_LISTED_OVERVIEW = "%1$d password listed!";
     public static final String MESSAGE_INVALID_PASSWORD_DISPLAYED_INDEX = "The password index provided is invalid";
 }

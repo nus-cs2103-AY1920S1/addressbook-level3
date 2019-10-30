@@ -17,7 +17,7 @@ import seedu.address.model.password.Password;
 public class AddPasswordCommand extends Command {
     public static final String COMMAND_WORD = "add";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a password to the password book. "
-            + "Parameters: "
+            + "\nParameters: "
             + PREFIX_DESCRIPTION + "DESCRIPTION "
             + PREFIX_USERNAME + "USERNAME "
             + PREFIX_PASSWORDVALUE + "PASSWORD "
