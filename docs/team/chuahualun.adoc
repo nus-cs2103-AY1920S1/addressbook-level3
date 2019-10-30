@@ -29,6 +29,8 @@ The Dashboard in DukeCooks provides an overview of the list of tasks to be done.
 
 Initial works for the Dashboard include referencing the AB3  codebase. The add / delete / edit / list / find functions from AB3 was adapted and available in the Dashboard. As a comparison, the functions listed before was used in AB3 to create and manipulate a person's contact information. In DukeCook’s Dashboard, these functions are used to create and manipulate a task's information.
 
+image::thedashboard.png[width="790"]
+
 === Enhancement 1: Creating the `done` command
 
 The done command was created to complement the Dashboard. The user is able to use the command done, to mark a task as complete. Whenever a 'done' command is executed, the progress bar will refresh and update to display the latest information.
