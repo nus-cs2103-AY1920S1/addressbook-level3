@@ -65,12 +65,13 @@ public class CommandTestUtil {
     public static final String INVALID_CATEGORY_2 = " " + PREFIX_CATEGORY + "paper";
     public static final String INVALID_QUANTITY_1 = " " + PREFIX_QUANTITY + "hi";
     public static final String INVALID_QUANTITY_2 = " " + PREFIX_QUANTITY + "-4";
+    public static final String INVALID_QUANTITY_3 = " " + PREFIX_QUANTITY + "9999999";
     public static final String INVALID_INDEX_1 = " " + PREFIX_INDEX + "-5";
     public static final String INVALID_INDEX_2 = " " + PREFIX_INDEX + "900";
     public static final String INVALID_INDEX_3 = " " + PREFIX_INDEX + "hey";
     public static final String INVALID_INDEX_4 = " " + PREFIX_INDEX + 0;
     public static final String INVALID_PRICE_PAID_1 = " " + "-30";
-    public static final String INVALID_PRICE_PAID_2 = " " + "3";
+    public static final String INVALID_PRICE_PAID_2 = " " + "0.30";
     public static final String INVALID_PRICE_PAID_3 = " " + "hi hi";
 
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";

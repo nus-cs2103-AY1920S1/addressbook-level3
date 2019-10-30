@@ -12,8 +12,13 @@ import static seedu.address.cashier.logic.commands.CommandTestUtil.INVALID_INDEX
 import static seedu.address.cashier.logic.commands.CommandTestUtil.INVALID_INDEX_4;
 import static seedu.address.cashier.logic.commands.CommandTestUtil.INVALID_QUANTITY_1;
 import static seedu.address.cashier.logic.commands.CommandTestUtil.INVALID_QUANTITY_2;
+import static seedu.address.cashier.logic.commands.CommandTestUtil.INVALID_QUANTITY_3;
+import static seedu.address.cashier.logic.commands.CommandTestUtil.VALID_INDEX_1;
+import static seedu.address.cashier.logic.commands.CommandTestUtil.VALID_QUANTITY_2;
 import static seedu.address.cashier.logic.parser.CommandParserTestUtil.assertCommandParserFailure;
+import static seedu.address.cashier.logic.parser.CommandParserTestUtil.assertCommandParserSuccess;
 import static seedu.address.cashier.ui.CashierMessages.INDEX_NOT_A_NUMBER;
+import static seedu.address.cashier.ui.CashierMessages.MESSAGE_INSUFFICIENT_STOCK;
 import static seedu.address.cashier.ui.CashierMessages.MESSAGE_INVALID_EDITCOMMAND_FORMAT;
 import static seedu.address.cashier.ui.CashierMessages.NO_SUCH_INDEX_CASHIER;
 import static seedu.address.cashier.ui.CashierMessages.NO_SUCH_ITEM_TO_EDIT_CASHIER;
@@ -23,6 +28,7 @@ import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.cashier.logic.commands.EditCommand;
 import seedu.address.person.model.Model;
 import seedu.address.person.model.ModelManager;
 import seedu.address.person.model.UserPrefs;
@@ -100,6 +106,12 @@ public class EditCommandParserTest {
         assertCommandParserFailure(parser, DESC_INDEX_1 + INVALID_QUANTITY_2, QUANTITY_NOT_POSITIVE, model,
                 personModel);
 
+        // invalid negative quantity
+        String message1 = String.format(MESSAGE_INSUFFICIENT_STOCK, TypicalItem.FISH_BURGER.getQuantity(),
+                TypicalItem.FISH_BURGER.getDescription());
+        assertCommandParserFailure(parser, DESC_INDEX_1 + INVALID_QUANTITY_3, message1,
+                model, personModel);
+
         // invalid description of non-existing item
         assertCommandParserFailure(parser, INVALID_DESCRIPTION_1 + DESC_QUANTITY_1,
                 NO_SUCH_ITEM_TO_EDIT_CASHIER, model, personModel);
@@ -120,6 +132,7 @@ public class EditCommandParserTest {
 
     /*@Test
     public void parse_indexFieldsSpecified_success() {
+        model.clearSalesList();
         model.addItem(TypicalItem.STORYBOOK);
         String userInput = DESC_INDEX_1 + DESC_QUANTITY_2;
 
@@ -127,6 +140,17 @@ public class EditCommandParserTest {
         assertCommandParserSuccess(parser, userInput, expectedCommand, model, personModel);
         model.clearSalesList();
     }*/
+
+    @Test
+    public void parse_indexFieldsSpecified_success() {
+        model.clearSalesList();
+        model.addItem(TypicalItem.STORYBOOK);
+        String userInput = DESC_INDEX_1 + DESC_QUANTITY_2;
+
+        EditCommand expectedCommand = new EditCommand(VALID_INDEX_1, VALID_QUANTITY_2);
+        assertCommandParserSuccess(parser, userInput, expectedCommand, model, personModel);
+        model.clearSalesList();
+    }
 
     /*@Test
     public void parse_descriptionFieldsSpecified_success() {
