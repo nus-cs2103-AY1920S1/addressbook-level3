@@ -9,23 +9,6 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 
 class ClearEventCommandTest {
-    @Test
-    public void execute_emptyItinerary_success() {
-        Model itineraryModel = new Model();
-        Model expectedItineraryModel = new Model();
-
-        assertCommandSuccess(new ClearEventCommand(), itineraryModel, ClearEventCommand.MESSAGE_SUCCESS,
-                expectedItineraryModel);
-    }
-
-    @Test
-    public void execute_nonEmptyItinerary_success() {
-        Model model = new Model();
-        Model expectedModel = new Model();
-
-        assertCommandSuccess(new ClearEventCommand(), model, ClearEventCommand.MESSAGE_SUCCESS,
-                expectedModel);
-    }
 
     /**
      * Executes the given {@code command}, confirms that <br>

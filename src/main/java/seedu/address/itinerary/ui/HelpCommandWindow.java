@@ -42,7 +42,7 @@ public class HelpCommandWindow extends UiPart<Stage> {
     private static final String SORT_MESSAGE = "sort by/[title | location | chronological | completion | priority]";
     private static final String HISTORY_MESSAGE = "history";
     private static final String UNDO_MESSAGE = "This command box supports auto-completion!";
-    private static final String SEARCH_MESSAGE = "search by/[title | date | time | location] [keyword]";
+    private static final String SEARCH_MESSAGE = "search [title | date | time | location]/[keyword]";
 //    private static final String WISH_MESSAGE = "wish by/[activity | time] [details]";
     private static final String INSTA_URL = "https://www.instagram.com/zhaoming_boiboi/";
     private static final String GITHUB_URL = "https://github.com/ngzhaoming";

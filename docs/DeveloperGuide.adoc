@@ -341,7 +341,7 @@ The `text UI`, `logic` and `storage` all stem from the common package of the mai
 However, in the `parser` package of itinerary, it contains various parser objects for the different command.
 This is to ensure that each command in the itinerary have only one parser validating the command.
 
-=== Model Component
+==== Model Component
 
 The implementation of the model class in TravEzy is to be a generic. Hence, the model object being instantiated
 could be any of the following 5 features, `Calendar`, `Itinerary`, `Financial Tracker`, `Travel Diary`
@@ -350,15 +350,15 @@ and `Achievements`. Below is the model class diagram for the itinerary feature:
 .Model Diagram of the Itinerary feature
 image::ItineraryModelDiagram.png[]
 
-The Model,
+The Model, is the crux of the itinerary feature which serves several functions this include:
 
-stores the Itinerary data which includes the event list which keeps track of all the events that are
+* stores the Itinerary data which includes the event list which keeps track of all the events that are
 included by the user and stores it into the storage in a JSON file.
 
-exposes an unmodifiable ObservableList<Event> that can be 'observed' e.g. the UI can be bound to this list so that
+* exposes an unmodifiable ObservableList<Event> that can be 'observed' e.g. the UI can be bound to this list so that
 the UI automatically updates when the data in the list change.
 
-does not depend on any of the other three components, UI, logic and storage which are common through all the features
+* does not depend on any of the other three components, UI, logic and storage which are common through all the features
 throughout TravEzy.
 
 [IMPORTANT]
@@ -437,6 +437,27 @@ Running through all the events in the event list will ensure that all the events
 
 This sequential approach in implementing the `SearchCommand` will ensure that all the current events are being looked through
 based on the specific search condition and only the filtered list will be given as a result.
+
+==== Future Extensions
+
+As indicated in the user guide, there are several features which are yet to be implemented during v1.3 and even during
+v1.4. These feature include the undo, redo and wish command which are supposedly included during the v1.3 or v1.4
+of the TravEzy itinerary implementation. However, due to the sheer number of features that are already implemented
+in the Travezy itinerary during v1.3, these features will be postponed to the next version instead. While implementing
+the TravEzy, we have in mind to provide you with quality instead of quantity. Hence, after much consideration, these
+features are left to later versions instead.
+
+That being said, stay tuned for TravEzy v2.0 for these cool features such as undo-ing your previous action calls that
+you have made in TravEzy itinerary, and if you happen to undo the wrong command, fret not since the redo command will
+also be implement in compliment to the undo command so that you as a user can call redo and revert back the undo call
+too! Lastly, there is this awesome feature in the upcoming which is the wish command, what it does is that TravEzy will
+refer back to the user's storage and look through all the past events that the user has inputted in his itinerary list.
+Then based on these information provided, TravEzy will suggest 3 events that are suitable for the user to consider and
+add it into his current itinerary event list. These 3 events that TravEzy itinerary suggest will be something that the
+user will definitely enjoy doing or something that the user has to urgently do. Since it is personalized for each user
+and anaylzed carefully with the previous event entries.
+
+Hope that you are excited as I am in all these cool features that are coming up in v2.0.
 
 === Financial Tracker
 The Financial Tracker feature in TravEzy allows users to keep track of their financial expenses with appropriate categorized expenditure and country.

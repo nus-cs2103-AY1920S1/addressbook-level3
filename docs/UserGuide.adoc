@@ -506,11 +506,12 @@ that trip ever again :(
 
 
 
+== Future extensions
 
-
-
-
-
+We always strive to make your next trip more enjoyable and memorable than the previous one. We also
+hope to deliver you the best so that you can better capture your been there done there. Hence, here are some
+out of this world additional features that we are implementing in the upcoming TravEzy v2.0. So stay tuned for our next
+major update for TravEzy v2.0! 😁
 
 
 === TRIVAGO, Price comparison
@@ -602,8 +603,6 @@ New notifications will be used to alert the user. Notifications can be used to a
 * Upcoming trip
 * Upcoming event in the calendar
 
-{nbsp} +
-
 . *reminders* +
 The user can set a reminder on the calendar. When the reminder is due, there will be a new notification from the program.
 
@@ -628,7 +627,6 @@ Reminders and notifications can be displayed in the form of popup alert to alert
 . *snooze* +
 After setting the notification, the user can snooze the notification or reminder for the user to be reminded again.
 
-
 == FAQ
 
 *Q:* How do I backup my data onto cloud storage? +
@@ -638,7 +636,9 @@ After setting the notification, the user can snooze the notification or reminder
 *A:* Install The Traveller Diary in the other computer and overwrite the empty data file it creates with during start up with the file that contains the data of your previous TTD. Alternatively, you can store it in a cloud storage it first before retrieving it and transferring it into your new computer.
 
 *Q:* Can I change the theme of the application? I prefer to work with a night theme interface. +
-*A:* You can go to ``settings → themes → night mode`` to toggle between day and night mode.
+*A:* Stay tuned for TravEzy v2.0 for this features! The TravEzy theme also aims to provide user with a UI that they are
+comfortable with. Hence, we strongly believe giving users the option to personalize their theme is extremely useful
+and would greatly consider adding it for the upcoming major update on TravEzy! Stay tuned for that!
 
 *Q:* Who can view my travel posts in my TTD? +
 *A:* As TTD is a single user application, it is not opened to the public, and unable to be viewed by others. Hence, it is called “diary” for a reason, which stores discrete entries reporting events that happened throughout the day. Users can however, showcase their application in front of their friends to show off their overseas trips. +
@@ -649,16 +649,24 @@ After setting the notification, the user can snooze the notification or reminder
 *Q:* Is there any in-app purchase for this application? +
 *A:* NO there isn’t. TTD is created from a non-profit organization and we are not here to milk any of your gold coins! It is absolutely free! It cost nothing, zilch, nada, 零, nil, kosong. So what are you waiting for get TTD today!
 
-
 *Q:* I’m having difficulties uploading the pictures onto the travel diary. +
-*A:* The Traveller Diary only allow uploads of pictures that are in jpg or png. Unfortunately, we do not support gif. Do ensure that your pictures are below 25MB with the dimensions no bigger than 1920px x 1080px.
+*A:* At the moment, TravEzy does not have any feature where it allows the user to store their travel photos. However,
+this will definitely be implemented in v2.0. We intend for the pictures to be stored in the user's local drive and
+subsequently in a cloud database which is stored online. The Traveller Diary initial uploads will only allow uploads
+of pictures that are in jpg or png. Unfortunately, we do not support gif.
+Do ensure that your pictures are below 25MB with the dimensions no bigger than 1920px x 1080px.
 
 *Q:* Who can I contact should there be a bug or feedback that I would like to share? +
 *A:* Feel free to send an email to the developer team: mailto:thetravellerdiary@gmail.com[thetravellerdiary@gmail.com] and we will access to your queries within three working days. We also value your feedback and will use it to improve TTD. Thank you and looking forward to serving you better!
 
-
+*Q:* What are some of the cool features that are available in TravEzy currently? +
+*A:* TravEzy currently boast a plethora of features such as calendar, itinerary, address book, travelling diary,
+financial tracker and achievements page. All these features work in tandem with each other to give you the best and only
+the best travelling experience. Not only that, the TravEzy team also decided to spice things up and included some easter eggs scattered throughout the
+application for users to discuss and discover. Hope that you have fun finding these cool easter egg features! 🐰🐰🐰
 
 == Command Summary
+
 
 
 
@@ -720,18 +728,90 @@ Calendar (Event Planner): +
 
 ``suggestDate``         : suggests when you can travel for numDays
 
-Event Itinerary: +
-``addEvent``    : add a new event to your day +
 
-``updateEvent`` : update an event in your day +
+=== Itinerary planner: +
 
-``showEvent``   : show more information about your day +
 
-``deleteEvent`` : delete an event from your day +
 
-``compareEvent``: place multiple events in the same time slot for ease of comparison +
+.Itinerary Commands Summary
+|===
+|Command |Function |Syntax
 
-``showTrip``    : show your whole trip in a calendar view
+|``add``
+|Add an event entry to the itinerary
+|``add title/title date/date time/time [l/location] [d/description]``
+
+|``delete``
+|Delete a certain entry from the itinerary
+|``delete index``
+
+|``edit``
+|Edit a certain entry from the itinerary
+|``edit index title/title date/date time/time l/location d/description t/[tag]``
+
+|``done``
+|Mark an event as done from the itinerary
+|``done index``
+
+|``list``
+|List all the events that are currently in the itinerary
+|``list``
+
+|``clear``
+|Clears the whole event list in the itinerary
+|``clear``
+
+|``greet``
+|Give user the current time and date. Also shows the events for today
+|``greet``
+
+|``help``
+|Pops up the help window for the itinerary page
+|``help``
+
+|``history``
+|Gives a list of the past user input to the itinerary page for that session
+|``history``
+
+|``search``
+|Search the whole event list and filter out events which meets the search condition
+|``search [title \| date \| time \| location]/[keyword]``
+
+|``sort``
+|Sort the event list based on the sorting condition
+|``sort by/[title \| location \| chronological \| completion \| priority]``
+
+|===
+
+
+
+=== Travel Diary with pictures: +
+
+.Diary Commands Summary
+|===
+|Command |Function |Syntax
+
+|``add``
+|Add a diary entry to the diary
+|``add t/title d/date [p/place] [m/memory]``
+
+|``delete``
+|Delete a certain entry from the diary
+|``delete index``
+
+|===
+
+
+
+
+
+
+
+
+
+
+
+
 
 TRIVAGO, price comparison: +
 ``addData``     : add a new data to be used for price comparison +
@@ -767,19 +847,3 @@ NUS trips: +
 ``deleteSoc``   : delete certain societies +
 
 ``selectSoc``   : select a certain society to load trips
-
-Travel Diary with pictures: +
-
-.Diary Commands Summary
-|===
-|Command |Function |Syntax
-
-|``add``
-|Add a diary entry to the diary
-|``add t/title d/date [p/place] [m/memory]``
-
-|delete
-|Delete a certain entry from the diary
-|``delete index``
-
-|===
