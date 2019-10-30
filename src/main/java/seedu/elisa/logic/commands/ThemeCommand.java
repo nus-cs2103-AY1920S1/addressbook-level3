@@ -21,11 +21,11 @@ public class ThemeCommand extends Command {
     @Override
     public CommandResult execute(ItemModel model) throws CommandException {
         switch(theme.trim()) {
-            case "white":
-            case "black":
-                return new ThemeCommandResult(MESSAGE_SUCCESS, theme);
-            default:
-                throw new CommandException(MESSAGE_INVALID);
+        case "white":
+        case "black":
+            return new ThemeCommandResult(MESSAGE_SUCCESS, theme);
+        default:
+            throw new CommandException(MESSAGE_INVALID);
         }
     }
 }
