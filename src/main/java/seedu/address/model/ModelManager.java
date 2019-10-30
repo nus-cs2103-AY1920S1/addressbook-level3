@@ -3,6 +3,9 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.model.MotivationalQuotes.MOTIVATIONAL_QUOTES_LIST;
+import static seedu.address.model.achievements.AchievementState.ACHIEVED;
+import static seedu.address.model.achievements.AchievementState.PREVIOUSLY_ACHIEVED;
+import static seedu.address.model.achievements.AchievementState.YET_TO_ACHIEVE;
 import static seedu.address.model.achievements.AchievementsMap.ACHIEVEMENTS_MAP;
 
 import java.nio.file.Path;
@@ -59,6 +62,9 @@ public class ModelManager implements Model {
     private final List<String> motivationalQuotesList;
     private final Map<RecordType, List<Achievement>> achievementsMap;
 
+    private boolean achievementsHaveBeenAttained;
+    private boolean achievementsHaveBeenLost;
+
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
@@ -86,6 +92,8 @@ public class ModelManager implements Model {
         this.averageMap = new AverageMap();
         this.motivationalQuotesList = MOTIVATIONAL_QUOTES_LIST;
         this.achievementsMap = ACHIEVEMENTS_MAP;
+        this.achievementsHaveBeenAttained = false;
+        this.achievementsHaveBeenLost = false;
         getNewAchievementStates();
     }
 
@@ -392,11 +400,13 @@ public class ModelManager implements Model {
     @Override
     public void deleteRecord(Record record) {
         recordList.remove(record);
+        determineIfAchievementsHaveChanged();
     }
 
     @Override
     public void addRecord(Record record) {
         recordList.add(record);
+        determineIfAchievementsHaveChanged();
     }
 
     @Override
@@ -457,20 +467,49 @@ public class ModelManager implements Model {
 
     //=========== Achievements =============================================================
 
-
-    @Override
-    public Set<AchievementState> getNewAchievementStates() {
-        Set<AchievementState> newStatesSet = (new AchievementStateProcessor(this)).getNewAchievementStates();
-        getAchievementsMap().forEach((recordType, achievementsList) -> {
-            System.out.println(recordType + "\n");
-            achievementsList.forEach(achievement -> System.out.println(achievement + "\n"));
-        });
-        return newStatesSet;
-    }
-
     @Override
     public Map<RecordType, List<Achievement>> getAchievementsMap() {
         return achievementsMap;
+    }
+
+    @Override
+    public boolean newAchievementsHaveBeenAttained() {
+        return achievementsHaveBeenAttained;
+    }
+
+    @Override
+    public boolean existingAchievementsHaveBeenLost() {
+        return achievementsHaveBeenLost;
+    }
+
+    @Override
+    public void resetNewAchievementsState() {
+        achievementsHaveBeenLost = false;
+        achievementsHaveBeenAttained = false;
+    }
+
+    /**
+     * Sets whether there are achievements attained and / or lost after checking for changes.
+     */
+    private void determineIfAchievementsHaveChanged() {
+        Set<AchievementState> newStates = getNewAchievementStates();
+        if (!newStates.isEmpty()) {
+            if (newStates.contains(ACHIEVED)) {
+                achievementsHaveBeenAttained = true;
+            }
+            if (newStates.contains(PREVIOUSLY_ACHIEVED)) {
+                achievementsHaveBeenLost = true;
+            }
+            assert !newStates.contains(YET_TO_ACHIEVE) : "New state of achievement should never be yet to achieve as "
+                    + "user would have achieved the modified achievement before.";
+        }
+    }
+
+    /**
+     * Returns the set of changes made to the list of achievements stored in this program, if any.
+     */
+    private Set<AchievementState> getNewAchievementStates() {
+        return (new AchievementStateProcessor(this)).getNewAchievementStates();
     }
 
 

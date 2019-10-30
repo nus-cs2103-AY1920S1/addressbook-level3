@@ -8,7 +8,8 @@ import static seedu.address.model.achievements.DurationUnit.YEAR;
 import static seedu.address.model.statistics.AverageType.DAILY;
 
 import java.time.LocalDate;
-import java.util.Collection;
+import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -81,17 +82,17 @@ public class AchievementStateProcessor {
     private void setAchievementState(Achievement achievement, AchievementState achievementStateToSet) {
         if (achievement.getAchievementState() != achievementStateToSet) {
             newStatesSet.add(achievementStateToSet);
-            achievement.setAchievementState(ACHIEVED);
+            achievement.setAchievementState(achievementStateToSet);
         }
     }
 
     /**
      * Demotes an achievement to previously achieved, if it's current state is achieved.
      *
-     * @param achievement Achievement that is to have it's state demoted.
+     * @param achievement Achievement that is to have it's state demoted to previously achieved.
      */
     private void demote(Achievement achievement) {
-        if (achievement.getAchievementState() == ACHIEVED) {
+        if (achievement.isAchieved()) {
             setAchievementState(achievement, PREVIOUSLY_ACHIEVED);
         }
     }
@@ -99,35 +100,73 @@ public class AchievementStateProcessor {
     /**
      * Promotes an achievement to achieved, if it's current state is not already achieved.
      *
-     * @param achievement Achievement that is to have it's state promoted.
+     * @param achievement Achievement that is to have it's state promoted to achieved.
      */
     private void promote(Achievement achievement) {
-        if (achievement.getAchievementState() != ACHIEVED) {
+        if (!achievement.isAchieved()) {
             setAchievementState(achievement, ACHIEVED);
         }
     }
 
     /**
+     * Promotes an achievement that was previously achieved but no longer achieved, if it's current state is not
+     * yet achieved.
+     *
+     * @param achievement Achievement that is to have it's state promoted to previously achieved.
+     */
+    private void promotePrev(Achievement achievement) {
+        if (!achievement.isPreviouslyAchieved()) {
+            setAchievementState(achievement, PREVIOUSLY_ACHIEVED);
+        }
+    }
+
+
+    private boolean fulfillsRequirementsPreviously(Achievement achievement, int daysToIterate,
+                                                List<Map.Entry<LocalDate, Double>>
+                                                        averageAchievementKeyValueList) {
+        List<Map.Entry<LocalDate, Double>> subList = new ArrayList<>(List.copyOf(averageAchievementKeyValueList));
+        subList.remove(0);
+        for (int i = 1; i < averageAchievementKeyValueList.size() - daysToIterate; i++) {
+            if (requirementIsMet(achievement, daysToIterate, subList)) {
+                return true;
+            };
+            subList.remove(0);
+        }
+        return false;
+    }
+
+    /**
      * Returns whether or not the requirement for an achievement has already been met.
      *
-     * @param achievement                     Achievement which is to be assessed on whether or not its requirement
-     *                                        to achieve it has
-     *                                        been met.
-     * @param daysToIterate                   Duration in number of days to check on whether or not achievement has
-     *                                        met the requirement.
-     * @param averageAchievementValueIterator Iterator that returns average daily values for a particular record type.
+     * @param achievement Achievement which is to be assessed on whether or not its requirement
+     *                    to achieve it has
+     *                    been met.
+     * @param daysToIterate Duration in number of days to check on whether or not achievement has
+     *                      met the requirement.
+     * @param averageAchievementKeyValueList List containing map entries of local dates and average daily values for
+     *                                       a particular record type.
      * @return Whether or not the requirement for an achievement has already been met.
      */
     private boolean requirementIsMet(Achievement achievement, int daysToIterate,
-                                     Iterator<Double> averageAchievementValueIterator) {
+                                     List<Map.Entry<LocalDate, Double>> averageAchievementKeyValueList) {
         boolean fulfillsRequirements = true;
+        LocalDate moreRecentDate = null;
         for (int i = 0; i < daysToIterate; i++) {
-            Double averageAchievementValue = averageAchievementValueIterator.next();
-            if (averageAchievementValue > achievement.getMaximum()
-                    || averageAchievementValue < achievement.getMinimum()) {
+            Map.Entry<LocalDate, Double> averageAchievementKeyValue = averageAchievementKeyValueList.get(i);
+            LocalDate lessRecentDate = averageAchievementKeyValue.getKey();
+            Double averageDailyValue = averageAchievementKeyValue.getValue();
+            if (moreRecentDate != null) {
+                if (lessRecentDate.until(moreRecentDate, ChronoUnit.DAYS) > 1) {
+                    fulfillsRequirements = false;
+                    break;
+                }
+            }
+            if (averageDailyValue > achievement.getMaximum()
+                    || averageDailyValue < achievement.getMinimum()) {
                 fulfillsRequirements = false;
                 break;
             }
+            moreRecentDate = lessRecentDate;
         }
         return fulfillsRequirements;
     }
@@ -169,16 +208,23 @@ public class AchievementStateProcessor {
             }
 
             int daysToIterate = getDaysToIterate(achievement);
-            Collection<Double> averageRecordMapAverageValues = averageRecordMap.get(recordType).values();
+            Set<Map.Entry<LocalDate, Double>> averageRecordMapKeyValues =
+                    averageRecordMap.get(recordType).entrySet();
 
-            if (daysToIterate > averageRecordMapAverageValues.size()) {
+            if (daysToIterate > averageRecordMapKeyValues.size()) {
                 demote(achievement);
             } else {
-                Iterator<Double> averageAchievementValueIterator = averageRecordMapAverageValues.iterator();
+                Iterator<Map.Entry<LocalDate, Double>> averageAchievementKeyValueIterator =
+                        averageRecordMapKeyValues.iterator();
+                List<Map.Entry<LocalDate, Double>> averageAchievementKeyValueList = new ArrayList<>();
+                averageAchievementKeyValueIterator.forEachRemaining(averageAchievementKeyValueList::add);
                 boolean fulfillsRequirements = requirementIsMet(achievement, daysToIterate,
-                        averageAchievementValueIterator);
+                        averageAchievementKeyValueList);
                 if (fulfillsRequirements) {
                     promote(achievement);
+                } else if (fulfillsRequirementsPreviously(achievement, daysToIterate,
+                        averageAchievementKeyValueList)) {
+                    promotePrev(achievement);
                 } else {
                     demote(achievement);
                 }

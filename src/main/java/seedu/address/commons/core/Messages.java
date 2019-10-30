@@ -47,4 +47,12 @@ public class Messages {
             + "does not appear to match any known settings. Scroll to view usage details. \n%1$s";
     public static final String MESSAGE_INVALID_BACKGROUND_REPEAT = "Oops! The background repeat settings you entered "
             + "does not appear to match any known settings. Scroll to view usage details. \n%1$s";
+
+    public static final String MESSAGE_ACHIEVEMENTS_ATTAINED_AND_LOST = "You have attained new achievement(s) and "
+            + "lost one / some too! Key in the \'achvm\' command to view your updated list of achievements. :)";
+    public static final String MESSAGE_ACHIEVEMENTS_ATTAINED = "You have attained new achievement(s)! Key in "
+            + "the \'achvm\' command to view your updated list of achievements. :)";
+    public static final String MESSAGE_ACHIEVEMENTS_LOST = "Oh no, you have lost one / some achievement(s) :( Key in "
+            + "the \'achvm\' command to view your updated list of achievements.";
+
 }

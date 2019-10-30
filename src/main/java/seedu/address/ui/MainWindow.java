@@ -1,6 +1,9 @@
 package seedu.address.ui;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_ACHIEVEMENTS_ATTAINED;
+import static seedu.address.commons.core.Messages.MESSAGE_ACHIEVEMENTS_ATTAINED_AND_LOST;
+import static seedu.address.commons.core.Messages.MESSAGE_ACHIEVEMENTS_LOST;
 import static seedu.address.commons.core.Messages.MESSAGE_NO_BIO_FOUND;
 import static seedu.address.commons.core.Messages.MESSAGE_UNABLE_TO_LOAD_REFERENCES;
 
@@ -97,6 +100,7 @@ public class MainWindow extends UiPart<Stage> {
         setFontColour(logic.getGuiSettings());
         setBackground(logic.getGuiSettings());
         styleManager.setFontFamily("Futura");
+
     }
 
     /**
@@ -385,6 +389,25 @@ public class MainWindow extends UiPart<Stage> {
         styleManager.resetStyleSheets();
     }
 
+    private String getAchievementsNotification() {
+        if (logic.newAchievementsHaveBeenAttained()
+                && logic.existingAchievementsHaveBeenLost()) {
+            logic.resetNewAchievementsState();
+            return MESSAGE_ACHIEVEMENTS_ATTAINED_AND_LOST;
+        } else if (logic.newAchievementsHaveBeenAttained()) {
+            logic.resetNewAchievementsState();
+            return MESSAGE_ACHIEVEMENTS_ATTAINED;
+        } else if (logic.existingAchievementsHaveBeenLost()){
+            logic.resetNewAchievementsState();
+            return MESSAGE_ACHIEVEMENTS_LOST;
+        } else {
+            assert !logic.newAchievementsHaveBeenAttained()
+                    && !logic.existingAchievementsHaveBeenLost() : "There should no longer be new achievements at this "
+                    + "point but this was not as such.";
+            return "";
+        }
+    }
+
     /**
      * Executes the command and returns the result.
      *
@@ -394,6 +417,8 @@ public class MainWindow extends UiPart<Stage> {
         try {
 
             CommandResult commandResult = logic.execute(commandText);
+
+            String achievementsNotification = "\n" + getAchievementsNotification();
 
             logger.info("Result: " + commandResult.getFeedbackToUser());
 
@@ -414,11 +439,11 @@ public class MainWindow extends UiPart<Stage> {
                     } else {
                         switchToMainDisplayPane(logic.getDisplayPaneType(), logic.getNewPaneIsToBeCreated());
                     }
-                    logger.info("Result: " + commandResult.getFeedbackToUser());
-                    resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+                    logger.info("Result: " + commandResult.getFeedbackToUser() + achievementsNotification);
+                    resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser() + achievementsNotification);
                 } catch (NullPointerException e) {
                     String feedbackToUser = commandResult.getFeedbackToUser() + "\n" + MESSAGE_CANNOT_LOAD_WINDOW;
-                    resultDisplay.setFeedbackToUser(feedbackToUser);
+                    resultDisplay.setFeedbackToUser(feedbackToUser + achievementsNotification);
                     return new CommandResult(feedbackToUser);
                 }
             }
