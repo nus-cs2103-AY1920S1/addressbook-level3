@@ -9,8 +9,9 @@ import seedu.address.model.DateTime;
  * validated, immutable.
  */
 public class BloodSugar extends Record {
+
     public static final String MESSAGE_CONSTRAINTS = "BloodSugar can take any postitive values, "
-        + "and it should not be blank";
+            + "and it should not be blank";
 
     private final Concentration concentration;
 
@@ -28,8 +29,8 @@ public class BloodSugar extends Record {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append("Blood Sugar Record :")
-            .append(" Concentration: ")
-            .append(concentration);
+                .append(" Concentration: ")
+                .append(concentration);
         return builder.toString() + " " + super.toString();
     }
 }

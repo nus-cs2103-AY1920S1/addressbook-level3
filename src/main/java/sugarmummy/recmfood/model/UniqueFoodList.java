@@ -23,7 +23,7 @@ public class UniqueFoodList implements Iterable<Food>, ReadOnlyData {
 
     private final ObservableList<Food> internalList = FXCollections.observableArrayList();
     private final ObservableList<Food> internalUnmodifiableList =
-        FXCollections.unmodifiableObservableList(internalList);
+            FXCollections.unmodifiableObservableList(internalList);
 
     /**
      * Returns true if the list contains an equivalent food as the given argument.
@@ -105,8 +105,8 @@ public class UniqueFoodList implements Iterable<Food>, ReadOnlyData {
     @Override
     public boolean equals(Object other) {
         return other == this
-            || (other instanceof UniqueFoodList
-            && internalList.equals(((UniqueFoodList) other).internalList));
+                || (other instanceof UniqueFoodList
+                && internalList.equals(((UniqueFoodList) other).internalList));
     }
 
     @Override

@@ -37,10 +37,10 @@ public class AverageCommandParser implements Parser<AverageCommand> {
      */
     public AverageCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-            ArgumentTokenizer.tokenize(args, PREFIX_AVGTYPE, PREFIX_RECORDTYPE, PREFIX_COUNT);
+                ArgumentTokenizer.tokenize(args, PREFIX_AVGTYPE, PREFIX_RECORDTYPE, PREFIX_COUNT);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_AVGTYPE, PREFIX_RECORDTYPE)
-            || !argMultimap.getPreamble().isEmpty()) {
+                || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AverageCommand.MESSAGE_USAGE));
         }
 
@@ -57,7 +57,7 @@ public class AverageCommandParser implements Parser<AverageCommand> {
 
         if (!strCount.matches(COUNT_VALIDATION_REGEX)) {
             throw new ParseException(String.format(MESSAGE_INVALID_PARAMETER, AverageCommand.MESSAGE_USAGE,
-                AverageCommand.MESSAGE_INVALID_COUNT));
+                    AverageCommand.MESSAGE_INVALID_COUNT));
         }
 
         int count = Integer.parseInt(strCount);

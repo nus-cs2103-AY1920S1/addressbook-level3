@@ -10,7 +10,7 @@ import seedu.address.model.DateTime;
  */
 public class Bmi extends Record {
     public static final String MESSAGE_CONSTRAINTS = "Bmi can take any positive values,"
-        + " and it should not be blank";
+            + " and it should not be blank";
 
     private final Height height;
     private final Weight weight;
@@ -42,10 +42,10 @@ public class Bmi extends Record {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append("BMI record :")
-            .append(" Height: ")
-            .append(height)
-            .append(" Weight: ")
-            .append(weight);
+                .append(" Height: ")
+                .append(height)
+                .append(" Weight: ")
+                .append(weight);
         return builder.toString() + " " + super.toString();
     }
 }

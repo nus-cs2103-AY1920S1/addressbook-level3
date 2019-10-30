@@ -28,7 +28,7 @@ public class StyleManager {
     private static final String MY_STYLE_SHEET_NAME = "MyStyleSheet.css";
     private static final String STYLESHEET_DIRECTORY_NAME = "temp";
     private static final String STYLESHEET_DIRECTORY_PATH_NAME = System.getProperty("user.dir") + SEPARATOR
-        + STYLESHEET_DIRECTORY_NAME;
+            + STYLESHEET_DIRECTORY_NAME;
 
     private Scene scene;
     private VBox mainWindowPlaceholder;
@@ -191,8 +191,8 @@ public class StyleManager {
      */
     private void copyTempOutputToMyStyleSheet() throws IOException {
         if ((myStyleSheet != null && myStyleSheet.exists())
-            && tempOutputCss != null && tempOutputCss.exists()
-            && myStyleSheet.getPath() != tempOutputCss.getPath()) {
+                && tempOutputCss != null && tempOutputCss.exists()
+                && myStyleSheet.getPath() != tempOutputCss.getPath()) {
             bufferedReader = new BufferedReader(new FileReader(tempOutputCss));
             myStyleSheet.delete();
             myStyleSheet = getMyStyleSheet();
@@ -232,7 +232,7 @@ public class StyleManager {
                 ignoreTextToBeIgnored();
                 if (lineReadFromReader != null) {
                     linesToWriteViaWriter += getLineAfterReplacement(lineReadFromReader, "fx-font-family",
-                        fontFamily) + "\n";
+                            fontFamily) + "\n";
                 }
             }
             writeAndSave();
@@ -253,10 +253,10 @@ public class StyleManager {
                 ignoreTextToBeIgnored();
                 if (lineReadFromReader != null) {
                     String changedTextFill = getLineAfterReplacement(lineReadFromReader, "fx-text-fill",
-                        fontColour);
+                            fontColour);
                     String changedFill = getLineAfterReplacement(changedTextFill,
-                        "fx-fill",
-                        fontColour);
+                            "fx-fill",
+                            fontColour);
                     linesToWriteViaWriter += changedFill + "\n";
                 }
             }
@@ -289,16 +289,16 @@ public class StyleManager {
             initialiseOutputCssAndStreams();
             String backgroundColourForImages = "transparent";
             String backgroundColour = background.isBackgroundColour()
-                ? background.toString()
-                : backgroundColourForImages;
+                    ? background.toString()
+                    : backgroundColourForImages;
             while ((lineReadFromReader = bufferedReader.readLine()) != null) {
                 ignoreTextToBeIgnored();
                 if (lineReadFromReader != null) {
                     String changedBackgroundFields = getLineAfterReplacement(lineReadFromReader, "fx-background",
-                        backgroundColour);
+                            backgroundColour);
                     String changedBackgroundColourFields = getLineAfterReplacement(changedBackgroundFields,
-                        "fx-background-color",
-                        backgroundColour);
+                            "fx-background-color",
+                            backgroundColour);
                     linesToWriteViaWriter += changedBackgroundColourFields + "\n";
                 }
             }
@@ -326,9 +326,9 @@ public class StyleManager {
 
         if (this.background == null || !this.background.equals(background)) {
             mainWindowPlaceholder.setStyle("-fx-background-image: url('" + file.toURI().toString() + "'); "
-                + "-fx-background-position: center center; "
-                + "-fx-background-repeat: " + bgRepeat + ";"
-                + "-fx-background-size: " + bgSize + ";");
+                    + "-fx-background-position: center center; "
+                    + "-fx-background-repeat: " + bgRepeat + ";"
+                    + "-fx-background-size: " + bgSize + ";");
             this.background = background;
         }
     }
@@ -362,13 +362,13 @@ public class StyleManager {
             if (exclamationIndex == -1) {
                 int colonIndex = subText.indexOf(";");
                 toReplace = lineReadFromReader.substring(textFillIndex + semiColonIndex + 1, textFillIndex
-                    + colonIndex);
+                        + colonIndex);
                 lineReadFromReader = lineReadFromReader.replace(toReplace, " " + replacement);
             } else {
                 toReplace = lineReadFromReader.substring(textFillIndex + semiColonIndex + 1,
-                    textFillIndex + exclamationIndex);
+                        textFillIndex + exclamationIndex);
                 lineReadFromReader = lineReadFromReader.replace(toReplace, " " + replacement
-                    + " ");
+                        + " ");
             }
         }
         return lineReadFromReader;

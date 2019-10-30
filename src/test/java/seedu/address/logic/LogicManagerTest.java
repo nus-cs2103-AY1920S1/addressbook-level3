@@ -43,17 +43,17 @@ public class LogicManagerTest {
     @BeforeEach
     public void setUp() {
         JsonAddressBookStorage addressBookStorage =
-            new JsonAddressBookStorage(temporaryFolder.resolve("addressBook.json"));
+                new JsonAddressBookStorage(temporaryFolder.resolve("addressBook.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
         JsonUserListStorage userListStorage = new JsonUserListStorage(temporaryFolder.resolve("userList.json"));
         JsonFoodListStorage jsonFoodListStorage = new JsonFoodListStorage(temporaryFolder.resolve("foodList.json"));
         JsonRecordListStorage jsonRecordListStorage = new JsonRecordListStorage(
-            temporaryFolder.resolve("recordList.json")
+                temporaryFolder.resolve("recordList.json")
         );
         JsonCalendarStorage jsonCalendarStorage = new JsonCalendarStorage(temporaryFolder.resolve("eventlist.json"),
-            temporaryFolder.resolve("reminderlist.json"));
+                temporaryFolder.resolve("reminderlist.json"));
         StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage, userListStorage,
-            jsonFoodListStorage, jsonRecordListStorage, jsonCalendarStorage);
+                jsonFoodListStorage, jsonRecordListStorage, jsonCalendarStorage);
         logic = new LogicManager(model, storage);
     }
 
@@ -142,7 +142,7 @@ public class LogicManagerTest {
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
                                       String expectedMessage) {
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs(), model.getUserList(),
-            new UniqueFoodList(), new UniqueRecordList(), new Calendar());
+                new UniqueFoodList(), new UniqueRecordList(), new Calendar());
         assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel);
     }
 

@@ -115,7 +115,7 @@ public class EditBioCommandParser implements Parser<EditBioCommand> {
      * @throws ParseException if the tokens are of invalid size, or index cannot be parsed.
      */
     private static HashMap<Index, String> getValidatedIndexValueMap(String subArgs, Prefix prefix)
-        throws ParseException {
+            throws ParseException {
         String[] tokens = subArgs.split(SEPARATOR);
 
         if (tokens.length == 1) {
@@ -151,9 +151,9 @@ public class EditBioCommandParser implements Parser<EditBioCommand> {
     public EditBioCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-            ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_DP_PATH, PREFIX_PROFILE_DESC, PREFIX_NRIC,
-                PREFIX_GENDER, PREFIX_DATE_OF_BIRTH, PREFIX_CONTACT_NUMBER, PREFIX_EMERGENCY_CONTACT,
-                PREFIX_MEDICAL_CONDITION, PREFIX_ADDRESS, PREFIX_GOALS, PREFIX_OTHER_BIO_INFO);
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_DP_PATH, PREFIX_PROFILE_DESC, PREFIX_NRIC,
+                        PREFIX_GENDER, PREFIX_DATE_OF_BIRTH, PREFIX_CONTACT_NUMBER, PREFIX_EMERGENCY_CONTACT,
+                        PREFIX_MEDICAL_CONDITION, PREFIX_ADDRESS, PREFIX_GOALS, PREFIX_OTHER_BIO_INFO);
 
         if (!argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditBioCommand.MESSAGE_USAGE));
@@ -206,7 +206,7 @@ public class EditBioCommandParser implements Parser<EditBioCommand> {
                 addIndividualEdits(medicalConditionStringList, PREFIX_MEDICAL_CONDITION, editUserDescriptor);
             } else {
                 parseMedicalConditionsForEdit(medicalConditionStringList)
-                    .ifPresent(editUserDescriptor::setMedicalConditions);
+                        .ifPresent(editUserDescriptor::setMedicalConditions);
             }
         }
 
@@ -220,13 +220,13 @@ public class EditBioCommandParser implements Parser<EditBioCommand> {
                 addIndividualEdits(goalStringList, PREFIX_GOALS, editUserDescriptor);
             } else {
                 parseGoalsForEdit(goalStringList)
-                    .ifPresent(editUserDescriptor::setGoals);
+                        .ifPresent(editUserDescriptor::setGoals);
             }
         }
 
         if (argMultimap.getValue(PREFIX_OTHER_BIO_INFO).isPresent()) {
             editUserDescriptor.setOtherBioInfo(ParserUtil
-                .parseOtherBioInfo(argMultimap.getValue(PREFIX_OTHER_BIO_INFO)));
+                    .parseOtherBioInfo(argMultimap.getValue(PREFIX_OTHER_BIO_INFO)));
         }
 
         if (!editUserDescriptor.isAnyFieldEdited()) {
@@ -257,15 +257,15 @@ public class EditBioCommandParser implements Parser<EditBioCommand> {
      * it will be parsed into a {@code List<MedicalCondition>} containing zero medicalConditions.
      */
     private Optional<List<MedicalCondition>> parseMedicalConditionsForEdit(Collection<String> medicalConditions)
-        throws ParseException {
+            throws ParseException {
         assert medicalConditions != null;
 
         if (medicalConditions.isEmpty()) {
             return Optional.empty();
         }
         Collection<String> medicalConditionList = medicalConditions.size() == 1 && medicalConditions.contains("")
-            ? Collections.emptyList()
-            : medicalConditions;
+                ? Collections.emptyList()
+                : medicalConditions;
         return Optional.of(ParserUtil.parseMedicalConditions(medicalConditionList));
     }
 

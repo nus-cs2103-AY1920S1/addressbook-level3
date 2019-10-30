@@ -10,8 +10,8 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Background {
 
     public static final String MESSAGE_CONSTRAINTS =
-        "Background should either be a path or colour. "
-            + "Colour should be a valid background or a hexadecimal representation of a colour.";
+            "Background should either be a path or colour. "
+                    + "Colour should be a valid background or a hexadecimal representation of a colour.";
 
     public static final String VALIDATION_REGEX = "^$|[^\\s].*";
     private final boolean isBackgroundColour;
@@ -81,15 +81,15 @@ public class Background {
     public void merge(Background oldBackground) {
         if (!this.isBackgroundColour && !oldBackground.isBackgroundColour) {
             if ((this.backgroundPicPath == null || this.backgroundPicPath.equals(""))
-                && oldBackground.backgroundPicPath != null) {
+                    && oldBackground.backgroundPicPath != null) {
                 this.backgroundPicPath = oldBackground.backgroundPicPath;
             }
             if ((this.bgSize == null || this.bgSize.equals(""))
-                && oldBackground.bgSize != null) {
+                    && oldBackground.bgSize != null) {
                 this.bgSize = oldBackground.bgSize;
             }
             if ((this.bgRepeat == null || this.bgRepeat.equals(""))
-                && oldBackground.bgRepeat != null) {
+                    && oldBackground.bgRepeat != null) {
                 this.bgRepeat = oldBackground.bgRepeat;
             }
         } else if (!this.isBackgroundColour) {
@@ -124,7 +124,7 @@ public class Background {
 
     public boolean isEmpty() {
         return (backgroundColour == null || backgroundColour.isEmpty())
-            && (backgroundPicPath == null || backgroundPicPath.isEmpty());
+                && (backgroundPicPath == null || backgroundPicPath.isEmpty());
     }
 
     /**
@@ -157,24 +157,24 @@ public class Background {
             Background otherBackground = (Background) other;
 
             boolean sameBackgroundColour = this.backgroundColour == null
-                ? otherBackground.backgroundColour == null
-                : otherBackground.backgroundColour != null
-                && this.backgroundColour.equals(otherBackground.backgroundColour);
+                    ? otherBackground.backgroundColour == null
+                    : otherBackground.backgroundColour != null
+                            && this.backgroundColour.equals(otherBackground.backgroundColour);
 
             boolean sameBackgroundPicPath = this.backgroundPicPath == null
-                ? otherBackground.backgroundPicPath == null
-                : otherBackground.backgroundPicPath != null
-                && this.backgroundPicPath.equals(otherBackground.backgroundPicPath);
+                    ? otherBackground.backgroundPicPath == null
+                    : otherBackground.backgroundPicPath != null
+                            && this.backgroundPicPath.equals(otherBackground.backgroundPicPath);
 
             if (sameBackgroundPicPath && sameBackgroundColour) {
                 boolean sameBackgroundSize = this.bgSize == null
-                    ? otherBackground.bgSize == null
-                    : otherBackground.bgSize != null
-                    && this.bgSize.equals(otherBackground.bgSize);
+                        ? otherBackground.bgSize == null
+                        : otherBackground.bgSize != null
+                                && this.bgSize.equals(otherBackground.bgSize);
                 boolean sameBackgroundRepeat = this.bgRepeat == null
-                    ? otherBackground.bgRepeat == null
-                    : otherBackground.bgRepeat != null
-                    && this.bgRepeat.equals(otherBackground.bgRepeat);
+                        ? otherBackground.bgRepeat == null
+                        : otherBackground.bgRepeat != null
+                                && this.bgRepeat.equals(otherBackground.bgRepeat);
                 return sameBackgroundSize && sameBackgroundRepeat;
             } else {
                 return false;

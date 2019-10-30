@@ -60,6 +60,6 @@ public class BloodSugarRecordCard extends UiPart<Region> {
         // state check
         BloodSugarRecordCard card = (BloodSugarRecordCard) other;
         return id.getText().equals(card.id.getText())
-            && record.equals(card.record);
+                && record.equals(card.record);
     }
 }

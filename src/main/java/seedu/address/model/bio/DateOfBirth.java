@@ -10,9 +10,9 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class DateOfBirth {
 
     public static final String MESSAGE_CONSTRAINTS =
-        "Date should be in the format DD/MM/YYYY, should only contain numbers. "
-            + "Please also check that the number of days in a month (including those for leap years), "
-            + "and the number of months in a year are correct.";
+            "Date should be in the format DD/MM/YYYY, should only contain numbers. "
+                    + "Please also check that the number of days in a month (including those for leap years), "
+                    + "and the number of months in a year are correct.";
     public static final String VALIDATION_REGEX = "^$|^(3[01]|[12][0-9]|0[1-9])/(1[0-2]|0[1-9])/[0-9]{4}$";
     public final String dateOfBirth;
 
@@ -80,7 +80,7 @@ public class DateOfBirth {
             }
 
             if ((month <= 7 && month % 2 != 0)
-                || (month > 7 && month % 2 == 0)) {
+                    || (month > 7 && month % 2 == 0)) {
                 if (day > 31) {
                     return null;
                 }
@@ -113,8 +113,8 @@ public class DateOfBirth {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-            || (other instanceof DateOfBirth // instanceof handles nulls
-            && dateOfBirth.equals(((DateOfBirth) other).dateOfBirth)); // state check
+                || (other instanceof DateOfBirth // instanceof handles nulls
+                && dateOfBirth.equals(((DateOfBirth) other).dateOfBirth)); // state check
     }
 
     @Override

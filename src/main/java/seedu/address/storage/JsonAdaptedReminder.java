@@ -41,7 +41,7 @@ public class JsonAdaptedReminder extends JsonAdaptedCalendarEntry {
     public Reminder toModelType() throws IllegalValueException {
         if (description == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                Description.class.getSimpleName()));
+                    Description.class.getSimpleName()));
         }
         if (!Description.isValidDescription(description)) {
             throw new IllegalValueException(Description.MESSAGE_CONSTRAINTS);
@@ -50,7 +50,7 @@ public class JsonAdaptedReminder extends JsonAdaptedCalendarEntry {
 
         if (dateTime == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                DateTime.class.getSimpleName()));
+                    DateTime.class.getSimpleName()));
         }
         if (!DateTime.isValidDateTime(dateTime)) {
             throw new IllegalValueException(DateTime.MESSAGE_CONSTRAINTS);
@@ -59,7 +59,7 @@ public class JsonAdaptedReminder extends JsonAdaptedCalendarEntry {
 
         if (repetition == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                Repetition.class.getSimpleName()));
+                    Repetition.class.getSimpleName()));
         }
         if (!Repetition.isValidRepetition(repetition)) {
             throw new IllegalValueException(Description.MESSAGE_CONSTRAINTS);

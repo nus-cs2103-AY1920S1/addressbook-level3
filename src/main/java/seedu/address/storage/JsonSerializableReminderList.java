@@ -38,8 +38,8 @@ public class JsonSerializableReminderList {
      */
     public JsonSerializableReminderList(ReadOnlyCalendar source) {
         this.reminderList.addAll(source.getCalendarEntryList().stream()
-            .map(calendarEntry -> (Reminder) calendarEntry)
-            .map(JsonAdaptedReminder::new).collect(Collectors.toList()));
+                .map(calendarEntry -> (Reminder) calendarEntry)
+                .map(JsonAdaptedReminder::new).collect(Collectors.toList()));
     }
 
     /**

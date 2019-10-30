@@ -25,9 +25,9 @@ public class ListCommandTest {
     @BeforeEach
     public void setUp() {
         model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), new UserList(), new UniqueFoodList(),
-            new UniqueRecordList(), new Calendar());
+                new UniqueRecordList(), new Calendar());
         expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs(), new UserList(), new UniqueFoodList(),
-            new UniqueRecordList(), new Calendar());
+                new UniqueRecordList(), new Calendar());
     }
 
     @Test

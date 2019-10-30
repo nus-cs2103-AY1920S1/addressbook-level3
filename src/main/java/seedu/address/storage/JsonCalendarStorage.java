@@ -46,14 +46,14 @@ public class JsonCalendarStorage implements CalendarStorage {
 
     @Override
     public Optional<ReadOnlyCalendar> readCalendar(Path eventFilePath, Path reminderFilePath)
-        throws DataConversionException, IOException {
+            throws DataConversionException, IOException {
         requireAllNonNull(eventFilePath, reminderFilePath);
 
         Optional<JsonSerializableEventList> jsonEventList =
-            JsonUtil.readJsonFile(eventFilePath, JsonSerializableEventList.class);
+                JsonUtil.readJsonFile(eventFilePath, JsonSerializableEventList.class);
 
         Optional<JsonSerializableReminderList> jsonReminderList =
-            JsonUtil.readJsonFile(reminderFilePath, JsonSerializableReminderList.class);
+                JsonUtil.readJsonFile(reminderFilePath, JsonSerializableReminderList.class);
 
         if (jsonEventList.isEmpty() && jsonReminderList.isEmpty()) {
             return Optional.empty();
