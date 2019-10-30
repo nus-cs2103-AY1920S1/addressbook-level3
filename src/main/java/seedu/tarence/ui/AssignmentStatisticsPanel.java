@@ -28,11 +28,15 @@ import seedu.tarence.model.tutorial.Assignment;
  */
 public class AssignmentStatisticsPanel extends UiPart<Region> {
     private static final String FXML = "AssignmentStatisticsPanel.fxml";
+    private static final int NUM_OF_COLS = 5;
     private final Logger logger = LogsCenter.getLogger(AssignmentStatisticsPanel.class);
-    private Map<Student, Integer> resultInfo;
     private Assignment assignment;
     private List<Integer> scores;
     private HashMap<Integer, Integer> distribution;
+    private int[] histogramData;
+    private int columnRange;
+    private int lowestRange;
+    private int highestRange;
 
     @FXML
     private VBox cardPane;
@@ -55,7 +59,6 @@ public class AssignmentStatisticsPanel extends UiPart<Region> {
     public AssignmentStatisticsPanel(Map<Student, Integer> resultInfo, Assignment assignment) {
         super(FXML);
         requireAllNonNull(resultInfo, assignment);
-        this.resultInfo = resultInfo;
         this.assignment = assignment;
         scores = getScores(resultInfo);
         cardPane = new VBox();
@@ -74,12 +77,17 @@ public class AssignmentStatisticsPanel extends UiPart<Region> {
      */
     private void createHistogram() {
         groupData();
+        groupHistogramData();
         XYChart.Series series = new XYChart.Series();
 
-        Iterator it = distribution.entrySet().iterator();
-        while (it.hasNext()) {
-            Map.Entry pair = (Map.Entry) it.next();
-            series.getData().add(new XYChart.Data(String.valueOf(pair.getKey()), pair.getValue()));
+        for (int i = 1; i <= NUM_OF_COLS; i++) {
+            String range;
+            int upperBound = i * columnRange + lowestRange - 1;
+            if (upperBound > assignment.getMaxScore()) {
+                upperBound = assignment.getMaxScore();
+            }
+            range = (((i - 1) * columnRange) + lowestRange) + "-" + upperBound;
+            series.getData().add(new XYChart.Data(range, histogramData[i - 1]));
         }
 
         CategoryAxis xAxis = new CategoryAxis();
@@ -144,5 +152,45 @@ public class AssignmentStatisticsPanel extends UiPart<Region> {
     private Label getEmptyLabel() {
         String emptyListMessage = "Sorry :( there are no scores to display";
         return new Label(emptyListMessage);
+    }
+
+    /**
+     * Groups the frequency data into 5 columns for the histogram.
+     */
+    private void groupHistogramData() {
+        logger.info("Histogram range: " + columnRange);
+        histogramData = new int[5];
+
+        highestRange = Integer.MIN_VALUE;
+        lowestRange = Integer.MAX_VALUE;
+
+        // Set histogram range
+        Iterator it = distribution.entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry pair = (Map.Entry) it.next();
+            if ((int) pair.getKey() > highestRange) {
+                highestRange = (int) pair.getKey();
+            }
+            if ((int) pair.getKey() < lowestRange) {
+                lowestRange = (int) pair.getKey();
+            }
+        }
+
+        logger.info("Highest range: " + highestRange);
+        logger.info("Lowest range: " + lowestRange);
+
+        columnRange = (int) Math.ceil((double) (highestRange - lowestRange + 1) / (double) NUM_OF_COLS);
+
+        for (int i = 1; i <= NUM_OF_COLS; i++) {
+            it = distribution.entrySet().iterator();
+            while (it.hasNext()) {
+                int lowerRange = ((i - 1) * columnRange) + lowestRange;
+                int higherRange = columnRange + lowerRange - 1;
+                Map.Entry pair = (Map.Entry) it.next();
+                if (((int) pair.getKey() >= lowerRange) && ((int) pair.getKey() <= higherRange)) {
+                    histogramData[i - 1] += (int) pair.getValue();
+                }
+            }
+        }
     }
 }

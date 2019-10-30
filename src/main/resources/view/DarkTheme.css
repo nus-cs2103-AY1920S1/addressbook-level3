@@ -160,9 +160,36 @@
     -fx-text-fill: #F5F5F5;
 }
 
-.stats_label {
-    -fx-text-fill: #b6f2f6;
-    -fx-background-color: #5f5f5f;
+.stats_label_max {
+    -fx-text-fill: #FDD20EFF;
+    -fx-background-color: #606060FF;
+    -fx-padding: 1 1 1 1;
+    -fx-border-radius: 2;
+    -fx-background-radius: 2;
+    -fx-font-size: 16;
+}
+
+.stats_label_median {
+    -fx-text-fill: #ffa333;
+    -fx-background-color: #606060FF;
+    -fx-padding: 1 1 1 1;
+    -fx-border-radius: 2;
+    -fx-background-radius: 2;
+    -fx-font-size: 16;
+}
+
+.stats_label_upper {
+    -fx-text-fill: #2BAE66FF;
+    -fx-background-color: #606060FF;
+    -fx-padding: 1 1 1 1;
+    -fx-border-radius: 2;
+    -fx-background-radius: 2;
+    -fx-font-size: 16;
+}
+
+.stats_label_lower {
+    -fx-text-fill: #E94B3CFF;
+    -fx-background-color: #606060FF;
     -fx-padding: 1 1 1 1;
     -fx-border-radius: 2;
     -fx-background-radius: 2;

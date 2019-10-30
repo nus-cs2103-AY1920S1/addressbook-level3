@@ -11,7 +11,7 @@
 <ScrollPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <VBox fx:id="cardPane">
        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0">
-                <BarChart id="chartBar" fx:id="scoreBarChart">
+                <BarChart id="chartBar" fx:id="scoreBarChart" maxWidth="400">
                     <xAxis>
                         <CategoryAxis side="BOTTOM" />
                     </xAxis>
@@ -19,13 +19,13 @@
                         <NumberAxis side="LEFT" />
                     </yAxis>
                 </BarChart>
-                <Label fx:id="maxScore" lineSpacing="9.0" prefHeight="37.0" prefWidth="501.0" styleClass="stats_label" text="\$maxScore">
+                <Label fx:id="maxScore" lineSpacing="9.0" prefHeight="37.0" prefWidth="501.0" styleClass="stats_label_max" text="\$maxScore">
                 </Label>
-                <Label fx:id="median" lineSpacing="9.0" prefHeight="37.0" prefWidth="501.0" styleClass="stats_label" text="\$median">
+                <Label fx:id="median" lineSpacing="9.0" prefHeight="37.0" prefWidth="501.0" styleClass="stats_label_median" text="\$median">
                 </Label>
-                <Label fx:id="upperPercentile" lineSpacing="9.0" prefHeight="37.0" prefWidth="501.0" styleClass="stats_label" text="\$upperPercentile">
+                <Label fx:id="upperPercentile" lineSpacing="9.0" prefHeight="37.0" prefWidth="501.0" styleClass="stats_label_upper" text="\$upperPercentile">
                 </Label>
-                <Label fx:id="lowerPercentile" lineSpacing="9.0" prefHeight="37.0" prefWidth="501.0" styleClass="stats_label" text="\$lowerPercentile">
+                <Label fx:id="lowerPercentile" lineSpacing="9.0" prefHeight="37.0" prefWidth="501.0" styleClass="stats_label_lower" text="\$lowerPercentile">
                 </Label>
          </AnchorPane>
     </VBox>
