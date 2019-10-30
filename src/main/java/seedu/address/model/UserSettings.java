@@ -97,7 +97,7 @@ public class UserSettings implements ReadOnlyUserSettings {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("Current theme : " + theme.getDisplayName());
+        sb.append("Current theme : " + theme);
         sb.append("Current clockFormat : " + clockFormat.getDisplayName());
         sb.append("\nLocal data file location : " + userSettingsFilePath);
         return sb.toString();

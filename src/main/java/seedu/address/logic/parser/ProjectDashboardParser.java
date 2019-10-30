@@ -33,6 +33,7 @@ import seedu.address.logic.commands.ListInventoryCommand;
 import seedu.address.logic.commands.ListMemberCommand;
 import seedu.address.logic.commands.SetDeadlineCommand;
 import seedu.address.logic.commands.SetImageCommand;
+import seedu.address.logic.commands.SettingsCommand;
 import seedu.address.logic.commands.ThemeCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -144,6 +145,9 @@ public class ProjectDashboardParser {
         // UNIVERSAL
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
+
+        case SettingsCommand.COMMAND_WORD:
+            return new SettingsCommand();
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();

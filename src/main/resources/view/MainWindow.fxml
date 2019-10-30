@@ -16,12 +16,7 @@
     <Image url="@/images/address_book_32.png" />
   </icons>
   <scene>
-    <Scene>
-      <stylesheets>
-        <URL value="@DarkTheme.css" />
-        <URL value="@Extensions.css" />
-      </stylesheets>
-
+    <Scene fx:id="scene">
       <VBox>
         <MenuBar fx:id="menuBar" VBox.vgrow="NEVER">
           <Menu mnemonicParsing="false" text="File">

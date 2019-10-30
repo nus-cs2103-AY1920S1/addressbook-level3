@@ -2,30 +2,35 @@ package seedu.address.model.settings;
 
 /**
  * Represents the current theme selected by the user for +Work.
+ * Stores the required CSS Urls.
  */
 public enum Theme {
-    DARK("DARK"), LIGHT("LIGHT");
+    DARK(Theme.class.getClassLoader().getResource("view/DarkTheme.css").toExternalForm(),
+            Theme.class.getClassLoader().getResource("view/Extensions.css").toExternalForm()),
+    LIGHT(Theme.class.getClassLoader().getResource("view/LightTheme.css").toExternalForm(),
+            Theme.class.getClassLoader().getResource("view/ExtensionsLight.css").toExternalForm());
 
     public static final String MESSAGE_CONSTRAINTS =
             "Invalid theme code, please enter one of light or dark.";
 
-    private String displayName;
+    private String themeUrl;
+    private String extensionUrl;
 
     /**
-     * Enum constructor to give UI-friendly display names.
-     * Cannot be called by other components.
+     * Create a theme enum with the associated CSS files.
      *
-     * @param displayName an alternate name for the theme
+     * @param themeUrl an alternate name for the theme
      */
-    Theme(String displayName) {
-        this.displayName = displayName;
+    Theme(String themeUrl, String extensionUrl) {
+        this.themeUrl = themeUrl;
+        this.extensionUrl = extensionUrl;
     }
 
-    Theme() {
-        this.displayName = null;
+    public String getExtensionUrl() {
+        return extensionUrl;
     }
 
-    public String getDisplayName() {
-        return this.displayName;
+    public String getThemeUrl() {
+        return themeUrl;
     }
 }
