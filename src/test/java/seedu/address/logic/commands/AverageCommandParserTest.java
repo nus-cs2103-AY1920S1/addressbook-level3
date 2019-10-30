@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_PARAMETER;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_RECORD_TYPE;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
@@ -10,30 +11,37 @@ import org.junit.jupiter.api.Test;
 import seedu.address.logic.parser.AverageCommandParser;
 import seedu.address.model.record.RecordType;
 import seedu.address.model.statistics.AverageType;
+import seedu.address.model.statistics.RecordContainsRecordTypePredicate;
 
 public class AverageCommandParserTest {
     private AverageCommandParser parser = new AverageCommandParser();
+    private final RecordContainsRecordTypePredicate bloodSugarPredicate =
+            new RecordContainsRecordTypePredicate(RecordType.BLOODSUGAR);
+
+    private final RecordContainsRecordTypePredicate bmiPredicate =
+            new RecordContainsRecordTypePredicate(RecordType.BMI);
+
 
     @Test
     public void parse_allFieldsPresent_success() {
         assertParseSuccess(parser, " a/DAILY rt/BLOODSUGAR n/8",
-                new AverageCommand(AverageType.DAILY, RecordType.BLOODSUGAR, 8));
-        assertParseSuccess(parser, " a/weekly rt/BLOODSUGAR n/3",
-                new AverageCommand(AverageType.WEEKLY, RecordType.BLOODSUGAR, 3));
+                new AverageCommand(bloodSugarPredicate, AverageType.DAILY, RecordType.BLOODSUGAR, 8));
+        assertParseSuccess(parser, " a/weekly rt/BMI n/3",
+                new AverageCommand(bmiPredicate, AverageType.WEEKLY, RecordType.BMI, 3));
         assertParseSuccess(parser, " a/MONTHLY rt/BLOODSUGAR n/1",
-                new AverageCommand(AverageType.MONTHLY, RecordType.BLOODSUGAR, 1));
+                new AverageCommand(bloodSugarPredicate, AverageType.MONTHLY, RecordType.BLOODSUGAR, 1));
     }
 
     @Test
     public void parse_optionalFieldAbsent_success() {
 
         // missing count prefix
-        assertParseSuccess(parser, " a/DAILY rt/BLOODSUGAR",
-                new AverageCommand(AverageType.DAILY, RecordType.BLOODSUGAR, 5));
+        assertParseSuccess(parser, " a/DAILY rt/BMI",
+                new AverageCommand(bmiPredicate, AverageType.DAILY, RecordType.BMI, 5));
         assertParseSuccess(parser, " a/weekly rt/BLOODSUGAR",
-                new AverageCommand(AverageType.WEEKLY, RecordType.BLOODSUGAR, 5));
-        assertParseSuccess(parser, " a/MONTHLY rt/BLOODSUGAR",
-                new AverageCommand(AverageType.MONTHLY, RecordType.BLOODSUGAR, 5));
+                new AverageCommand(bloodSugarPredicate, AverageType.WEEKLY, RecordType.BLOODSUGAR, 5));
+        assertParseSuccess(parser, " a/MONTHLY rt/BMI",
+                new AverageCommand(bmiPredicate, AverageType.MONTHLY, RecordType.BMI, 5));
     }
 
     @Test
@@ -55,11 +63,10 @@ public class AverageCommandParserTest {
         // invalid average type
         assertParseFailure(parser, " a/YEARLY rt/BLOODSUGAR",
                 String.format(MESSAGE_INVALID_PARAMETER, AverageCommand.MESSAGE_USAGE,
-                        AverageCommand.MESSAGE_INVALID_AVGTYPE));
+                AverageCommand.MESSAGE_INVALID_AVGTYPE));
 
         // invalid record type
-        assertParseFailure(parser, " a/WEEKLY rt/ANYHOW",
-                "System does not accommodate such a record type.");
+        assertParseFailure(parser, " a/WEEKLY rt/ANYHOW", MESSAGE_INVALID_RECORD_TYPE);
 
         // invalid count type
         assertParseFailure(parser, " a/WEEKLY rt/BLOODSUGAR n/five",

@@ -209,6 +209,7 @@ public class ModelManager implements Model {
         return addressBook.equals(other.addressBook)
                 && userPrefs.equals(other.userPrefs)
                 && filteredPersons.equals(other.filteredPersons)
+                && filteredRecordList.equals(other.filteredRecordList)
                 && averageMap.equals(other.averageMap);
     }
 
@@ -452,7 +453,7 @@ public class ModelManager implements Model {
 
     @Override
     public void calculateAverageMap(AverageType averageType, RecordType recordType, int count) {
-        averageMap.calculateAverage(getRecordList(), averageType, recordType, count);
+        averageMap.calculateAverage(getFilterRecordList(), averageType, recordType, count);
     }
 
     @Override

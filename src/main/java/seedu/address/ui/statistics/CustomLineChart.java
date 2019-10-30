@@ -21,8 +21,12 @@ public class CustomLineChart<X, Y> extends LineChart<X, Y> {
 
     public CustomLineChart(Axis<X> xAxis, Axis<Y> yAxis) {
         super(xAxis, yAxis);
-        horizontalRangeMarkers = FXCollections.observableArrayList(data -> new Observable[]{data.XValueProperty()});
-        horizontalRangeMarkers = FXCollections.observableArrayList(data -> new Observable[]{data.YValueProperty()});
+        horizontalRangeMarkers = FXCollections.observableArrayList(data -> new Observable[]{
+                data.XValueProperty()
+        });
+        horizontalRangeMarkers = FXCollections.observableArrayList(data -> new Observable[]{
+                data.YValueProperty()
+        });
         horizontalRangeMarkers.addListener((InvalidationListener) observable -> layoutPlotChildren());
     }
 
@@ -31,8 +35,8 @@ public class CustomLineChart<X, Y> extends LineChart<X, Y> {
     /**
      * Adds two horizontal markers and color the area between them.
      *
-     * @param marker the y coordinates of the two horizontal markers.
-     * @param color  fill the region with {@code Color} object.
+     * @param marker the y coordinates (Y1,Y2) of the two horizontal markers, Y2 must be greater than Y1.
+     * @param color  fill the region within horizontal range marker with {@code Color} object.
      */
     public void addHorizontalRangeMarker(Data<Y, Y> marker, Color color) {
         requireNonNull(marker);
@@ -59,11 +63,6 @@ public class CustomLineChart<X, Y> extends LineChart<X, Y> {
         super.layoutPlotChildren();
         for (Data<Y, Y> horizontalRangeMarker : horizontalRangeMarkers) {
             Rectangle rectangle = (Rectangle) horizontalRangeMarker.getNode();
-
-            // Suppose y axis has range (a, b). The display position of y axis upper bound, b, is 0.
-            // If display position of c, where c is actual y coordinate, is negative, then c > b.
-            // This means c is not on y axis. We set the display position of second value
-            // of horizontalRangeMarker = 0 so that horizontalRangeMarker can be plotted on graph.
             Double upperYDisplayPos = Math.max(getYAxis().getDisplayPosition(horizontalRangeMarker.getYValue()), 0.0);
             rectangle.setY(upperYDisplayPos);
             rectangle.setHeight(getYAxis().getDisplayPosition(horizontalRangeMarker.getXValue())

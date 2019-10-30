@@ -1,5 +1,6 @@
 package seedu.address.ui.statistics;
 
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_RECORD_TYPE;
 import static seedu.address.ui.statistics.RangeMarkerColor.COLOR_BLUE;
 import static seedu.address.ui.statistics.RangeMarkerColor.COLOR_GREEN;
 import static seedu.address.ui.statistics.RangeMarkerColor.COLOR_RED;
@@ -101,8 +102,7 @@ public class LegendPane extends UiPart<Region> {
             }
             break;
         default:
-            // will not happen
-            assert false : "Record type is not supported.";
+            throw new IllegalArgumentException(MESSAGE_INVALID_RECORD_TYPE);
         }
     }
 
