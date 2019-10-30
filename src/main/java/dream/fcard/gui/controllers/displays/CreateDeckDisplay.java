@@ -14,12 +14,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 
 /**
  * This class is used for editing an existing deck as well as creating a new deck.
  */
-public class CreateDeckDisplay extends AnchorPane {
+public class CreateDeckDisplay extends VBox {
     @FXML
     private TextField deckNameInput;
     @FXML
