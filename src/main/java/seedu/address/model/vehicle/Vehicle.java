@@ -83,6 +83,12 @@ public class Vehicle {
         return Objects.hash(vehicleType, vehicleNumber, district, availability);
     }
 
+    public String toDisplayString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(getVehicleType())
+                .append(getVehicleNumber());
+        return sb.toString();
+    }
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();

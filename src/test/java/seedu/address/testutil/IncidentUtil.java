@@ -17,7 +17,7 @@ public class IncidentUtil {
      */
     public static String getEditIncidentDetails(EditIncidentCommand.EditIncident editor) {
         StringBuilder sb = new StringBuilder();
-        editor.getDistrict().ifPresent(district -> sb.append(PREFIX_DISTRICT).append(district.districtNum).append(" "));
+        editor.getDistrict().ifPresent(district -> sb.append(PREFIX_DISTRICT).append(district.getDistrictNum()).append(" "));
         editor.getDesc().ifPresent(desc -> sb.append(PREFIX_DESCRIPTION).append(desc.toString()).append(" "));
         editor.getDateTime().ifPresent(dateTime -> sb.append(PREFIX_DATETIME).append(dateTime.toString()).append(" "));
         editor.getCaller().ifPresent(caller -> sb.append(PREFIX_CALLER_NUMBER).append(caller.value).append(" "));

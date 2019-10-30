@@ -12,8 +12,7 @@ import seedu.address.model.person.Phone;
 import seedu.address.model.person.Username;
 
 import seedu.address.model.tag.Tag;
-import seedu.address.model.vehicle.District;
-import seedu.address.model.vehicle.Vehicle;
+import seedu.address.model.vehicle.*;
 
 
 /**
@@ -99,11 +98,37 @@ public class Incident {
         this.callerNumber = callerNumber;
         this.description = desc;
         this.id = id;
+        this.vehicle = new Vehicle(new VehicleType("dummy type"), new VehicleNumber("ABC1234D"),
+                new District(8), new Availability("BUSY"));
         // this.vehicle = TODO
     }
 
     /**
+     * Constructor that takes in all attributes of incident. Only called when loading data.
+     * @param operator
+     * @param location
+     * @param incidentDateTime
+     * @param incidentId
+     * @param callerNumber
+     * @param description
+     * @param status
+     * @param vehicle
+     */
+    public Incident(Person operator, District location, IncidentDateTime incidentDateTime, IncidentId incidentId,
+                    CallerNumber callerNumber, Description description, Status status, Vehicle vehicle) {
+        this.operator = operator;
+        this.location = location;
+        this.incidentDateTime = incidentDateTime;
+        this.id = incidentId;
+        this.callerNumber = callerNumber;
+        this.description = description;
+        this.status = status;
+        this.vehicle = vehicle;
+    }
+
+    /**
      * Constructor for generating an incident draft with all fields filled.
+     * Vehicle should have already been attached to incident when draft first created.
      * // TODO add vehicle field
      */
     public Incident(Person operator, District location, IncidentDateTime incidentDateTime, IncidentId incidentId,
@@ -115,7 +140,13 @@ public class Incident {
         this.callerNumber = callerNumber;
         this.description = description;
         this.status = status;
+        this.vehicle = new Vehicle(new VehicleType("dummy type"), new VehicleNumber("ABC1234D"),
+                new District(8), new Availability("BUSY"));
         // this.vehicle = TODO
+    }
+
+    public Vehicle getVehicle() {
+        return this.vehicle; // should never be null
     }
 
     public IncidentDateTime getDateTime() {
