@@ -1,6 +1,8 @@
 package seedu.ifridge.model;
 
 import java.nio.file.Path;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.function.Predicate;
@@ -8,11 +10,7 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.ifridge.commons.core.GuiSettings;
 import seedu.ifridge.commons.core.IFridgeSettings;
-import seedu.ifridge.model.food.GroceryItem;
-import seedu.ifridge.model.food.Name;
-import seedu.ifridge.model.food.ShoppingItem;
-import seedu.ifridge.model.food.TemplateItem;
-import seedu.ifridge.model.food.UniqueTemplateItems;
+import seedu.ifridge.model.food.*;
 import seedu.ifridge.model.waste.WasteMonth;
 import seedu.ifridge.model.waste.WasteReport;
 
@@ -56,6 +54,10 @@ public interface Model {
      * Sets the user prefs' GUI settings.
      */
     void setIFridgeSettings(IFridgeSettings iFridgeSettings);
+
+    //=========== UnitDictionary =============================================================================
+
+    UnitDictionary getUnitDictionary();
 
     //=========== GroceryList ==================================================================================
     /**
@@ -173,6 +175,8 @@ public interface Model {
     void updateFilteredTemplateList(Predicate<UniqueTemplateItems> predicate);
 
     void setShownTemplate(UniqueTemplateItems templateToBeShown);
+
+    boolean containsTemplateItemWithName(Food foodItem);
 
     ObservableList<TemplateItem> updateFilteredTemplateToBeShown();
 

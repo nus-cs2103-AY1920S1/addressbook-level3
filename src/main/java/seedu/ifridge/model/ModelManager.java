@@ -5,6 +5,8 @@ import static seedu.ifridge.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
 import java.time.LocalDate;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.function.Predicate;
@@ -15,6 +17,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.ifridge.commons.core.GuiSettings;
 import seedu.ifridge.commons.core.IFridgeSettings;
 import seedu.ifridge.commons.core.LogsCenter;
+import seedu.ifridge.model.food.Food;
 import seedu.ifridge.model.food.GroceryItem;
 import seedu.ifridge.model.food.Name;
 import seedu.ifridge.model.food.ShoppingItem;
@@ -45,13 +48,15 @@ public class ModelManager implements Model {
     private UniqueTemplateItems shownTemplate;
     private VersionedGroceryList versionedGroceryList;
     private VersionedWasteList versionedWasteList;
+    private UnitDictionary unitDictionary;
 
     /**
-     * Initializes a ModelManager with the given addressBook and userPrefs.
+     * Initializes a ModelManager with the given lists and userPrefs.
      */
     public ModelManager(ReadOnlyGroceryList groceryList, ReadOnlyUserPrefs userPrefs,
                         ReadOnlyTemplateList templateList, TreeMap<WasteMonth, WasteList> wasteArchive,
-                        ReadOnlyShoppingList shoppingList, ReadOnlyGroceryList boughtList) {
+                        ReadOnlyShoppingList shoppingList, ReadOnlyGroceryList boughtList,
+                        UnitDictionary unitDictionary) {
         super();
         requireAllNonNull(groceryList, userPrefs, templateList, shoppingList);
 
@@ -68,6 +73,7 @@ public class ModelManager implements Model {
         this.boughtList = new GroceryList(boughtList);
         this.userPrefs = new UserPrefs(userPrefs);
         this.shownTemplate = new UniqueTemplateItems(new Name("Displayed Template"));
+        this.unitDictionary = unitDictionary;
         filteredGroceryItems = new FilteredList<GroceryItem>(this.groceryList.getGroceryList());
         filteredTemplateList = new FilteredList<UniqueTemplateItems>(this.templateList.getTemplateList());
         filteredWasteItems = new FilteredList<GroceryItem>(this.wasteList.getWasteList());
@@ -173,6 +179,13 @@ public class ModelManager implements Model {
     public void setBoughtListFilePath(Path boughtListFilePath) {
         requireAllNonNull(boughtListFilePath);
         userPrefs.setBoughtListFilePath(boughtListFilePath);
+    }
+
+    //=========== UnitDictionary =============================================================================
+
+    @Override
+    public UnitDictionary getUnitDictionary() {
+        return this.unitDictionary;
     }
 
     //=========== GroceryList ================================================================================
@@ -304,6 +317,11 @@ public class ModelManager implements Model {
         UniqueTemplateItems editedTemplate = new UniqueTemplateItems(templateToBeShown.getName());
         editedTemplate.setTemplateItems(templateToBeShown);
         shownTemplate = editedTemplate;
+    }
+
+    @Override
+    public boolean containsTemplateItemWithName(Food foodItem) {
+        return templateList.containsTemplateItemWithName(foodItem);
     }
 
     //=========== Filtered Template List Accessors =============================================================
@@ -491,8 +509,6 @@ public class ModelManager implements Model {
         updateFilteredShoppingList(PREDICATE_SHOW_ALL_SHOPPING_ITEMS);
     }
 
-
-
     @Override
     public void setShoppingItem(ShoppingItem target, ShoppingItem editedShoppingItem) {
         requireAllNonNull(target, editedShoppingItem);
@@ -596,6 +612,7 @@ public class ModelManager implements Model {
                 && filteredTemplateList.equals(other.filteredTemplateList)
                 && filteredWasteItems.equals(other.filteredWasteItems)
                 && filteredShoppingItems.equals(other.filteredShoppingItems)
-                && filteredShownTemplate.equals(other.filteredShownTemplate);
+                && filteredShownTemplate.equals(other.filteredShownTemplate)
+                && unitDictionary.equals(other.unitDictionary);
     }
 }

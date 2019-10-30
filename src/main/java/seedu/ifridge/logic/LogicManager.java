@@ -57,6 +57,8 @@ public class LogicManager implements Logic {
             storage.saveShoppingList(model.getShoppingList());
             storage.saveWasteList(model.getWasteArchive());
             storage.saveBoughtList(model.getBoughtList());
+            storage.saveUnitDictionary(model.getUnitDictionary());
+
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }

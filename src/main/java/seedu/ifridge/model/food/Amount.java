@@ -92,6 +92,25 @@ public class Amount {
         return unit;
     }
 
+    public static String getUnitType(Amount amt) {
+        String unit = getUnit(amt);
+
+        switch(unit) {
+        case UNIT_POUND:
+        case UNIT_GRAM:
+        case UNIT_KILOGRAM:
+        case UNIT_OUNCE:
+            return "Weight";
+        case UNIT_LITRE:
+        case UNIT_MILLILITRE:
+            return "Volume";
+        case UNIT_QUANTITY:
+            return "Quantity";
+        default:
+            return "Wrong amount input";
+        }
+    }
+
     /**
      * Retrieves the weight of the Amount object.
      *

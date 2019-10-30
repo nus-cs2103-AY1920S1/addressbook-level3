@@ -13,6 +13,7 @@ import seedu.ifridge.logic.commands.Command;
 import seedu.ifridge.logic.commands.CommandResult;
 import seedu.ifridge.logic.commands.exceptions.CommandException;
 import seedu.ifridge.model.Model;
+import seedu.ifridge.model.UnitDictionary;
 import seedu.ifridge.model.food.TemplateItem;
 import seedu.ifridge.model.food.UniqueTemplateItems;
 
@@ -62,6 +63,9 @@ public class AddTemplateItemCommand extends Command {
         if (templateToEdit.contains(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_FOOD);
         }
+
+        UnitDictionary unitDictionary = model.getUnitDictionary(toAdd);
+        unitDictionary.checkUnitDictionary(toAdd, model);
 
         editedTemplate.add(toAdd);
 

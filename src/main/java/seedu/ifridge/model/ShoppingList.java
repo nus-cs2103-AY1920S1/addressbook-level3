@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
+import seedu.ifridge.model.food.Food;
 import seedu.ifridge.model.food.ShoppingItem;
 import seedu.ifridge.model.food.UniqueShoppingList;
 
@@ -125,4 +126,5 @@ public class ShoppingList implements ReadOnlyShoppingList {
     public int hashCode() {
         return shoppingItems.hashCode();
     }
+
 }
