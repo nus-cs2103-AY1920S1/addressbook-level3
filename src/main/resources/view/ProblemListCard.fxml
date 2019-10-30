@@ -27,12 +27,30 @@
         <Label fx:id="name" text="\$first" styleClass="cell_big_label" />
       </HBox>
       <FlowPane fx:id="tags" />
-      <Label fx:id="author" styleClass="cell_small_label" text="\$author" />
-      <Label fx:id="description" styleClass="cell_small_label" text="\$description" />
-      <Label fx:id="weblink" styleClass="cell_small_label" text="\$webLink" />
-      <Label fx:id="difficulty" styleClass="cell_small_label" text="\$difficulty" />
-      <Label fx:id="remark" styleClass="cell_small_label" text="\$remark" />
-      <Label fx:id="source" styleClass="cell_small_label" text="\$source" />
+      <HBox>
+        <Label wrapText="true" minWidth="80" styleClass="cell_small_label_prefix" text="Author:" />
+        <Label fx:id="author" styleClass="cell_small_label" text="\$author" />
+      </HBox>
+      <HBox>
+        <Label wrapText="true" minWidth="80" styleClass="cell_small_label_prefix" text="Description:" />
+        <Label fx:id="description" styleClass="cell_small_label" text="\$description" />
+      </HBox>
+      <HBox>
+        <Label wrapText="true" minWidth="80" styleClass="cell_small_label_prefix" text="Weblink:" />
+        <Label fx:id="weblink" styleClass="cell_small_label" text="\$webLink" />
+      </HBox>
+      <HBox>
+        <Label wrapText="true" minWidth="80" styleClass="cell_small_label_prefix" text="Difficulty:" />
+        <Label fx:id="difficulty" styleClass="cell_small_label" text="\$difficulty" />
+      </HBox>
+      <HBox>
+        <Label wrapText="true" minWidth="80" styleClass="cell_small_label_prefix" text="Remark:" />
+        <Label fx:id="remark" styleClass="cell_small_label" text="\$remark" />
+      </HBox>
+      <HBox>
+        <Label wrapText="true" minWidth="80" styleClass="cell_small_label_prefix" text="Source:" />
+        <Label fx:id="source" styleClass="cell_small_label" text="\$source" />
+      </HBox>
     </VBox>
   </GridPane>
 </HBox>
