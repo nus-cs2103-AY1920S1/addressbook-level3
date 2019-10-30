@@ -1,5 +1,6 @@
 package seedu.address.model.transaction;
 
+import static seedu.address.commons.util.AppUtil.checkArgument;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Iterator;
@@ -15,18 +16,25 @@ import seedu.address.model.util.Date;
  */
 public class Split extends Transaction implements UndoableAction, LedgerOperation {
 
+    public static final String SHARE_CONSTRAINTS = "number of shares must be one more than people involved";
+
     private final List<Amount> splitAmounts;
     private final UniquePersonList peopleInvolved;
 
     public Split(Amount amount, Date date, Description description, List<Integer> shares, UniquePersonList people) {
         super(amount, date, description);
         requireAllNonNull(amount, date, shares, people);
+        checkArgument(isValidSharesLength(shares, people), SHARE_CONSTRAINTS);
         this.peopleInvolved = people;
         int denominator = shares.stream().mapToInt(i -> i).sum();
         List<Amount> amounts = shares.stream()
                 .map(share -> amount.byShare((double) share / denominator))
                 .collect(Collectors.toList());
         splitAmounts = rebalanceAmounts(amount, amounts);
+    }
+
+    private boolean isValidSharesLength(List<Integer> shares, UniquePersonList people) {
+        return shares.size() == people.size() + 1;
     }
 
     /**
