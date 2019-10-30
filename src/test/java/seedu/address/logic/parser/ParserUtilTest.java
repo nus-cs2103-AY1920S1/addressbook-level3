@@ -40,17 +40,6 @@ public class ParserUtilTest {
 
     private static final String WHITESPACE = " \t\r\n";
 
-    private static final String VALID_TITLE = "Valid title";
-    private static final String VALID_CONTENT = "Valid content";
-    private static final String INVALID_NOTE_FRAGMENT = "Invalid note fragment";
-    private static final String VALID_NOTE_1 = "Valid /* TAG/test1 TAG/test2 C/note */ fragment";
-    private static final String VALID_NOTE_1_FRAGMENT_1 = "TAG/test1 TAG/test2 C/note";
-    private static final String VALID_NOTE_2 = "/* C/Valid TAG/test1 */ /* TAG/test2 TAG/test3 "
-            + "C/note */ /* " + "TAG/test4 C/fragment */";
-    private static final String VALID_NOTE_2_FRAGMENT_1 = "C/Valid TAG/test1";
-    private static final String VALID_NOTE_2_FRAGMENT_2 = "TAG/test2 TAG/test3 C/note";
-    private static final String VALID_NOTE_2_FRAGMENT_3 = "TAG/test4 C/fragment";
-
     @Test
     public void parseIndex_invalidInput_throwsParseException() {
         assertThrows(ParseException.class, () -> ParserUtil.parseIndex("10 a"));
@@ -207,57 +196,5 @@ public class ParserUtilTest {
         Set<Tag> expectedTagSet = new HashSet<Tag>(Arrays.asList(new Tag(VALID_TAG_1), new Tag(VALID_TAG_2)));
 
         assertEquals(expectedTagSet, actualTagSet);
-    }
-
-    @Test
-    public void parseNoteFragmentMatches_stringWithOneMatch_returnsListWithOneNoteFragment() throws Exception {
-        List<String> expectedList = List.of(VALID_NOTE_1_FRAGMENT_1);
-        assertEquals(expectedList, NoteFragmentFeatureUtil.parseNoteFragmentMatches(VALID_NOTE_1));
-    }
-
-    @Test
-    public void parseNoteFragmentMatches_stringWithMultipleMatches_returnsListWithMultipleStrings()
-            throws Exception {
-        List<String> expectedList = List.of(VALID_NOTE_2_FRAGMENT_1, VALID_NOTE_2_FRAGMENT_2, VALID_NOTE_2_FRAGMENT_3);
-        assertEquals(expectedList, NoteFragmentFeatureUtil.parseNoteFragmentMatches(VALID_NOTE_2));
-    }
-
-    @Test
-    public void parseNoteFragmentMatches_stringWithNoMatches_returnsEmptyList() throws Exception {
-        assertEquals(Collections.emptyList(), NoteFragmentFeatureUtil.parseNoteFragmentMatches(INVALID_NOTE_FRAGMENT));
-    }
-
-    /*@Test
-    public void parseNoteFragmentsFromString_listWithMultipleStrings_returnsListWithMultipleNoteFragments()
-            throws Exception {
-
-        NoteFragment frag1 = new NoteFragment(new Title(VALID_TITLE),
-                ParserUtil.parseContentFromNoteFragment(VALID_NOTE_2_FRAGMENT_1),
-                ParserUtil.parseTagsFromNoteFragment(VALID_NOTE_2_FRAGMENT_1));
-        NoteFragment frag2 = new NoteFragment(new Title(VALID_TITLE),
-                ParserUtil.parseContentFromNoteFragment(VALID_NOTE_2_FRAGMENT_2),
-                ParserUtil.parseTagsFromNoteFragment(VALID_NOTE_2_FRAGMENT_2));
-        NoteFragment frag3 = new NoteFragment(new Title(VALID_TITLE),
-                ParserUtil.parseContentFromNoteFragment(VALID_NOTE_2_FRAGMENT_3),
-                ParserUtil.parseTagsFromNoteFragment(VALID_NOTE_2_FRAGMENT_3));
-
-        List<NoteFragment> expectedList = List.of(frag1, frag2, frag3);
-
-        assertEquals(expectedList, ParserUtil.parseNoteFragmentsFromString(new Title(VALID_TITLE),
-                List.of(VALID_NOTE_2_FRAGMENT_1, VALID_NOTE_2_FRAGMENT_2, VALID_NOTE_2_FRAGMENT_3)));
-    }*/
-
-    @Test
-    public void parseNoteFragmentsFromString_emptyList_returnsEmptyList() throws Exception {
-        List<NoteFragment> expectedList = Collections.emptyList();
-        assertEquals(expectedList, NoteFragmentFeatureUtil.parseNoteFragmentsFromString(new Title(VALID_TITLE),
-                Collections.emptyList()));
-    }
-
-    @Test
-    public void parseNoteFragmentsFromString_listWithInvalidString_throwsParseException() {
-        List<String> actualList = List.of(INVALID_NOTE_FRAGMENT);
-        assertThrows(ParseException.class, () -> NoteFragmentFeatureUtil.parseNoteFragmentsFromString(new Title(VALID_TITLE),
-                actualList));
     }
 }
