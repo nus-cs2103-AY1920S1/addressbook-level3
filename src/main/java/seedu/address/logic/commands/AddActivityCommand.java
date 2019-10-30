@@ -89,7 +89,7 @@ public class AddActivityCommand extends AddCommand {
                 model.addActivityAtIndex(index, toAdd);
             }
         }
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), UiFocus.ACTIVITY);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), UiFocus.ACTIVITY, UiFocus.INFO);
     }
 
     @Override

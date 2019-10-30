@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
 import java.util.Optional;
@@ -35,7 +36,7 @@ public class CommandResult {
      * but with uiFocus in its default value of null.
      */
     public CommandResult(String feedbackToUser, boolean showHelp, boolean exit) {
-        this(feedbackToUser, showHelp, exit, null);
+        this(feedbackToUser, showHelp, exit, (UiFocus)null);
     }
 
     /**
@@ -43,7 +44,7 @@ public class CommandResult {
      * and other fields set to their default values.
      */
     public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, false, false, null);
+        this(feedbackToUser, false, false, (UiFocus)null);
     }
 
     /**
@@ -51,8 +52,19 @@ public class CommandResult {
      * and {@code uiFocus, while other fields are set to their default values.
      */
     public CommandResult(String feedbackToUser, UiFocus ...uiFocus) {
-        this(feedbackToUser, false, false, requireNonNull(uiFocus));
+        this(feedbackToUser, false, false, requireUiFocusNonNullAndReturn(uiFocus));
     }
+
+    private static UiFocus[] requireUiFocusNonNullAndReturn(UiFocus ...uiFocus) {
+        UiFocus[] nonNulls = new UiFocus[uiFocus.length];
+        int i = 0;
+        for (UiFocus u : uiFocus) {
+            nonNulls[i] = requireNonNull(u);
+            i++;
+        }
+        return nonNulls;
+    }
+
 
     public String getFeedbackToUser() {
         return feedbackToUser;
@@ -67,7 +79,11 @@ public class CommandResult {
     }
 
     public Optional<UiFocus[]> getUiFocus() {
-        return Optional.ofNullable(uiFocus);
+        if (uiFocus[0] == null) {
+            return Optional.empty();
+        } else {
+            return Optional.of(uiFocus);
+        }
     }
 
     @Override

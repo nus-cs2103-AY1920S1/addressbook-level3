@@ -173,7 +173,7 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Updates the UI and changes the focus to the relevant tab.
      */
-    private void applyUiFocusChange(UiFocus[] uiFocus) {
+    private void applyUiFocusChange(UiFocus ...uiFocus) {
         centralDisplay.changeFocus(uiFocus);
     }
 }

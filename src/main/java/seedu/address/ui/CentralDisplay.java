@@ -53,7 +53,10 @@ public class CentralDisplay extends UiPart<Region> {
     private Tab agendaTab;
 
     @FXML
-    private Tab testTab;
+    private Tab infoTab;
+
+    @FXML
+    private Tab helpTab;
 
     private SimpleObjectProperty<LocalDate> startDateProperty;
     private ObservableList<Day> dayList;
@@ -84,7 +87,6 @@ public class CentralDisplay extends UiPart<Region> {
                     protected List<LocalDate> determineDisplayedLocalDates() {
                         // the result
                         List<LocalDate> lLocalDates = new ArrayList<>();
-
                         LocalDate lStartLocalDate = startDateProperty.getValue();
                         if (dayList.size() == 0) {
                             lLocalDates.add(lStartLocalDate);
@@ -149,11 +151,17 @@ public class CentralDisplay extends UiPart<Region> {
         });
     }
 
-    public void changeFocus(UiFocus[] uiFocus) {
+    public void changeFocus(UiFocus ...uiFocus) {
         for (UiFocus u : uiFocus) {
             switch (u) {
             case AGENDA:
                 tabDisplay.getSelectionModel().select(agendaTab);
+                break;
+            case INFO:
+                tabDisplay.getSelectionModel().select(infoTab);
+                break;
+            case HELP:
+                tabDisplay.getSelectionModel().select(helpTab);
                 break;
             case ACCOMMODATION:
                 sideDisplay.setExpandedPane(accommodationPane);
