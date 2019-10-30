@@ -72,7 +72,6 @@ public class CommandTestUtil {
     public static final String VALID_TASKSTATUS_COMPLETE = "COMPLETE";
     public static final String VALID_TASKSTATUS_INCOMPLETE = "NOT COMPLETE";
 
-
     public static final String VALID_NAME_FISH = "Fish and Chips";
     public static final String VALID_NAME_BURGER = "Cheese Burger";
     public static final String VALID_INGREDIENT_FISH = "Dory Fish";
@@ -85,6 +84,10 @@ public class CommandTestUtil {
     public static final String VALID_FATS_BURGER = "31";
     public static final String VALID_PROTEIN_FISH = "35";
     public static final String VALID_PROTEIN_BURGER = "28";
+
+    public static final String VALID_NAME_FISHMP = "Fish and Chips Plan";
+    public static final String VALID_NAME_BURGERMP = "Cheese Burger Plan";
+
     public static final String VALID_NAME_AMY = "Amy Bee";
     public static final String VALID_NAME_BOB = "Bob Choo";
     public static final String VALID_NAME_AMY_DIARY = "Amy Diary";
@@ -119,6 +122,7 @@ public class CommandTestUtil {
     public static final String WEIGHT_DESC = " " + PREFIX_WEIGHT + VALID_WEIGHT;
     public static final String HISTORY_DESC_STROKE = " " + PREFIX_MEDICALHISTORY + VALID_HISTORY_STROKE;
     public static final String HISTORY_DESC_DENGUE = " " + PREFIX_MEDICALHISTORY + VALID_HISTORY_DENGUE;
+
     public static final String NAME_DESC_FISH = " " + PREFIX_NAME + VALID_NAME_FISH;
     public static final String NAME_DESC_BURGER = " " + PREFIX_NAME + VALID_NAME_BURGER;
     public static final String INGREDIENT_DESC_FISH = " " + PREFIX_INGREDIENT + VALID_INGREDIENT_FISH;
