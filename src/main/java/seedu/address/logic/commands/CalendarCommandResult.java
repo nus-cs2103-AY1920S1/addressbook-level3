@@ -2,8 +2,8 @@ package seedu.address.logic.commands;
 
 import java.util.Optional;
 
-import seedu.address.model.YearMonth;
-import seedu.address.model.calendar.YearMonthDay;
+import seedu.address.model.time.YearMonth;
+import seedu.address.model.time.YearMonthDay;
 
 /**
  * Represents the result of a calendar command execution.

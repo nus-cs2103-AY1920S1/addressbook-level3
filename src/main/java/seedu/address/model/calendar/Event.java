@@ -2,7 +2,7 @@ package seedu.address.model.calendar;
 
 import java.util.Optional;
 
-import seedu.address.model.DateTime;
+import seedu.address.model.time.DateTime;
 
 /**
  * Represents an Event in the calendar.

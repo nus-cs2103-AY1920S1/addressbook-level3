@@ -3,7 +3,7 @@ package seedu.address.model.calendar;
 import java.time.LocalDate;
 import java.util.Objects;
 
-import seedu.address.model.DateTime;
+import seedu.address.model.time.DateTime;
 
 /**
  * Represents a Reminder in the calendar.

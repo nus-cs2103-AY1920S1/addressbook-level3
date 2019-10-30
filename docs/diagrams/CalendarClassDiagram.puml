@@ -1,0 +1,48 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+Interface ReadOnlyCalendar <<interface>>
+
+Package time <<Rectangle>>{
+Class DateTime
+Class TimeDuration
+}
+Package calendar <<Rectangle>>{
+Class Calendar
+Class UniqueCalendarEntryList
+Abstract Class CalendarEntry
+Class Reminder
+Class Event
+Class Description
+Enum Repetition <<enumeration>>
+Class Scheduler
+}
+
+
+Class HiddenOutside #FFFFFF
+HiddenOutside ..> Model
+
+Calendar .up.|> ReadOnlyCalendar
+
+ModelManager .up.|> Model
+ModelManager o--> "1" Calendar
+
+Calendar *--> "2" UniqueCalendarEntryList
+Calendar *--> "1" Scheduler
+Scheduler .> "1" Calendar
+UniqueCalendarEntryList o--> "*" CalendarEntry
+Reminder --up|>CalendarEntry
+Event --up|>CalendarEntry
+Event *--up> "1" Description
+Event *--> "1..2" DateTime
+Event o--left> "0..1" Reminder
+Event .> "1" TimeDuration
+
+Reminder *--up> "1" Description
+Reminder *--> "1" DateTime
+Reminder *--left> "1" Repetition
+
+@enduml

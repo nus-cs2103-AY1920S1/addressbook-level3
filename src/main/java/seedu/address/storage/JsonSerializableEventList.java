@@ -9,8 +9,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.Calendar;
 import seedu.address.model.ReadOnlyCalendar;
+import seedu.address.model.calendar.Calendar;
 import seedu.address.model.calendar.Event;
 
 /**
