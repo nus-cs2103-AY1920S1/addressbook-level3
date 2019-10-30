@@ -58,6 +58,19 @@ public class EditActivityCommand extends EditCommand {
         this.editActivityDescriptor = editActivityDescriptor;
     }
 
+    public Index getIndex() {
+        return index;
+    }
+
+    public EditActivityDescriptor getEditActivityDescriptor() {
+        return editActivityDescriptor;
+    }
+
+    @Override
+    public String getSecondCommandWord() {
+        return SECOND_COMMAND_WORD;
+    }
+
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);

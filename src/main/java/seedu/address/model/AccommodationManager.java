@@ -6,6 +6,7 @@ import java.util.List;
 
 import javafx.collections.ObservableList;
 
+import seedu.address.commons.core.index.Index;
 import seedu.address.model.itineraryitem.accommodation.Accommodation;
 import seedu.address.model.itineraryitem.accommodation.UniqueAccommodationList;
 
@@ -72,6 +73,14 @@ public class AccommodationManager implements ReadOnlyAccommodation {
      */
     public void addAccommodation(Accommodation a) {
         accommodations.add(a);
+    }
+
+    /**
+     * Adds a contacts to the address book.
+     * The contacts must not already exist in the address book.
+     */
+    public void addAccommodationAtIndex(Index index, Accommodation a) {
+        accommodations.addAtIndex(index, a);
     }
 
     /**

@@ -10,6 +10,7 @@ import java.util.Optional;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.commons.core.index.Index;
 import seedu.address.model.contact.exceptions.ContactNotFoundException;
 import seedu.address.model.contact.exceptions.DuplicateContactException;
 
@@ -55,7 +56,7 @@ public class UniqueContactList implements Iterable<Contact> {
     }
 
     /**
-     * Adds a contacts to the list.
+     * Adds a contact to the list.
      * The contacts must not already exist in the list.
      */
     public void add(Contact toAdd) {
@@ -64,6 +65,18 @@ public class UniqueContactList implements Iterable<Contact> {
             throw new DuplicateContactException();
         }
         internalList.add(toAdd);
+    }
+
+    /**
+     * Adds a contact to the list at a specific index.
+     * The contact must not already exist in the list.
+     */
+    public void addAtIndex(Index index, Contact toAdd) {
+        requireAllNonNull(index, toAdd);
+        if (contains(toAdd)) {
+            throw new DuplicateContactException();
+        }
+        internalList.add(index.getZeroBased(), toAdd);
     }
 
     /**

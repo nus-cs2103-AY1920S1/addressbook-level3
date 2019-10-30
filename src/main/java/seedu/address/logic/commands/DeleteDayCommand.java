@@ -30,6 +30,11 @@ public class DeleteDayCommand extends DeleteCommand {
     }
 
     @Override
+    public String getSecondCommandWord() {
+        return SECOND_COMMAND_WORD;
+    }
+
+    @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         List<Day> lastShownList = model.getFilteredItinerary();

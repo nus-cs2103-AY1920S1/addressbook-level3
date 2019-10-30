@@ -65,6 +65,19 @@ public class EditContactCommand extends EditCommand {
         this.editContactDescriptor = new EditContactDescriptor(editContactDescriptor);
     }
 
+    public Index getIndex() {
+        return index;
+    }
+
+    public EditContactDescriptor getEditContactDescriptor() {
+        return editContactDescriptor;
+    }
+
+    @Override
+    public String getSecondCommandWord() {
+        return SECOND_COMMAND_WORD;
+    }
+
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);

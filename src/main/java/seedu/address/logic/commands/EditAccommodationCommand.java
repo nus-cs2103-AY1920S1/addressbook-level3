@@ -59,6 +59,19 @@ public class EditAccommodationCommand extends EditCommand {
         this.editAccommodationDescriptor = editAccommodationDescriptor;
     }
 
+    public Index getIndex() {
+        return index;
+    }
+
+    public EditAccommodationDescriptor getEditAccommodationDescriptor() {
+        return editAccommodationDescriptor;
+    }
+
+    @Override
+    public String getSecondCommandWord() {
+        return SECOND_COMMAND_WORD;
+    }
+
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);

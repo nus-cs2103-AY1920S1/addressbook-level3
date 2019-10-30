@@ -8,6 +8,7 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.commons.core.index.Index;
 import seedu.address.model.itineraryitem.accommodation.exceptions.AccommodationNotFoundException;
 import seedu.address.model.itineraryitem.accommodation.exceptions.DuplicateAccommodationException;
 
@@ -40,7 +41,7 @@ public class UniqueAccommodationList implements Iterable<Accommodation> {
     }
 
     /**
-     * Adds a contacts to the list.
+     * Adds an accommodation to the list.
      * The contacts must not already exist in the list.
      */
     public void add(Accommodation toAdd) {
@@ -49,6 +50,18 @@ public class UniqueAccommodationList implements Iterable<Accommodation> {
             throw new DuplicateAccommodationException();
         }
         internalList.add(toAdd);
+    }
+
+    /**
+     * Adds an accommodation to the list at a specific index.
+     * The accommodation must not already exist in the list.
+     */
+    public void addAtIndex(Index index, Accommodation toAdd) {
+        requireAllNonNull(index, toAdd);
+        if (contains(toAdd)) {
+            throw new DuplicateAccommodationException();
+        }
+        internalList.add(index.getZeroBased(), toAdd);
     }
 
     public void setAccommodations(UniqueAccommodationList replacement) {

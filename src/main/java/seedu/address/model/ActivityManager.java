@@ -6,6 +6,7 @@ import java.util.List;
 
 import javafx.collections.ObservableList;
 
+import seedu.address.commons.core.index.Index;
 import seedu.address.model.itineraryitem.activity.Activity;
 import seedu.address.model.itineraryitem.activity.UniqueActivityList;
 
@@ -74,6 +75,14 @@ public class ActivityManager implements ReadOnlyActivity {
      */
     public void addActivity(Activity a) {
         activities.add(a);
+    }
+
+    /**
+     * Adds a contacts to the address book.
+     * The contacts must not already exist in the address book.
+     */
+    public void addActivityAtIndex(Index index, Activity a) {
+        activities.addAtIndex(index, a);
     }
 
     /**

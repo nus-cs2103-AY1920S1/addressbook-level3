@@ -1,11 +1,13 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.contact.Contact;
@@ -32,14 +34,31 @@ public class AddAccommodationCommand extends AddCommand {
     public static final String MESSAGE_SUCCESS = "New accommodation added: %1s";
     public static final String MESSAGE_DUPLICATE_ACCOMMODATION = "This accommodation already exists in the itinerary.";
 
+    private final Index index;
     private final Accommodation toAdd;
 
     /**
-     * Creates an AddActivityCommand to add the specified {@Activity}
+     * Creates an AddAccommodationCommand to add the specified {@Accommodation}
      */
     public AddAccommodationCommand(Accommodation accommodation) {
         requireNonNull(accommodation);
         toAdd = accommodation;
+        index = null;
+    }
+
+    public AddAccommodationCommand(Index index, Accommodation accommodation) {
+        requireAllNonNull(index, accommodation);
+        toAdd = accommodation;
+        this.index = index;
+    }
+
+    public Accommodation getToAdd() {
+        return toAdd;
+    }
+
+    @Override
+    public String getSecondCommandWord() {
+        return SECOND_COMMAND_WORD;
     }
 
     @Override
@@ -56,10 +75,18 @@ public class AddAccommodationCommand extends AddCommand {
                 model.addAccommodation(new Accommodation(toAdd.getName(), toAdd.getAddress(), contact,
                         toAdd.getTags()));
             } else {
-                model.addAccommodation(toAdd);
+                if (index == null) {
+                    model.addAccommodation(toAdd);
+                } else {
+                    model.addAccommodationAtIndex(index, toAdd);
+                }
             }
         } else {
-            model.addAccommodation(toAdd);
+            if (index == null) {
+                model.addAccommodation(toAdd);
+            } else {
+                model.addAccommodationAtIndex(index, toAdd);
+            }
         }
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
