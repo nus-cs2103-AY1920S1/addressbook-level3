@@ -2,8 +2,11 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_THEME;
+import static seedu.address.logic.commands.SetThemeCommand.BLUETHEME;
 import static seedu.address.logic.commands.SetThemeCommand.DARKTHEME;
+import static seedu.address.logic.commands.SetThemeCommand.HACKERTHEME;
 import static seedu.address.logic.commands.SetThemeCommand.LIGHTTHEME;
+import static seedu.address.logic.commands.SetThemeCommand.NUSTHEME;
 import static seedu.address.logic.commands.SetThemeCommand.PINKTHEME;
 
 import seedu.address.logic.commands.SetThemeCommand;
@@ -19,12 +22,18 @@ public class SetThemeCommandParser implements Parser<SetThemeCommand> {
         String styleSheet = null;
         String color = null;
         String trimedInput = userInput.trim();
-        if (trimedInput.equals("light")) {
+        if (trimedInput.equalsIgnoreCase("light")) {
             styleSheet = LIGHTTHEME;
-        } else if (trimedInput.equals("dark")) {
+        } else if (trimedInput.equalsIgnoreCase("dark")) {
             styleSheet = DARKTHEME;
-        } else if (trimedInput.equals("pink")) {
+        } else if (trimedInput.equalsIgnoreCase("pink")) {
             styleSheet = PINKTHEME;
+        } else if (trimedInput.equalsIgnoreCase("blue")) {
+            styleSheet = BLUETHEME;
+        } else if (trimedInput.equalsIgnoreCase("hacker")) {
+            styleSheet = HACKERTHEME;
+        } else if (trimedInput.equalsIgnoreCase("nus")) {
+            styleSheet = NUSTHEME;
         }
         if (styleSheet == null) {
             throw new ParseException(String.format(MESSAGE_INVALID_THEME));
