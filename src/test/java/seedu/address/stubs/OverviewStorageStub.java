@@ -22,5 +22,6 @@ public class OverviewStorageStub implements Storage {
 
     @Override
     public void writeToFile(Model model) throws IOException {
+        //do nothing since this is a stub
     }
 }
