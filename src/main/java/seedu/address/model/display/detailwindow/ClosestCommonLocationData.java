@@ -1,18 +1,17 @@
 package seedu.address.model.display.detailwindow;
 
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.Reader;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.logging.Logger;
 
-import seedu.address.websocket.CacheFileNames;
+import seedu.address.commons.core.LogsCenter;
+import seedu.address.websocket.Cache;
 
 /**
  * Data for closest common location
  */
 public class ClosestCommonLocationData {
     private boolean isOk = false;
-    private String imagePath = null;
     private String firstClosest;
     private String secondClosest;
     private String thirdClosest;
@@ -20,9 +19,13 @@ public class ClosestCommonLocationData {
     private long secondAvg;
     private long thirdAvg;
     private ArrayList<String> invalidLocation;
+    private final Logger logger = LogsCenter.getLogger(this.getClass());
 
-    public String getImagePath() {
-        return imagePath;
+    public BufferedImage getImage() {
+        if (firstClosest.contains("NUS_")) {
+            logger.warning(firstClosest + " must not have NUS_ prefix");
+        }
+        return Cache.loadImage("NUS_" + firstClosest);
     }
 
     public String getFirstClosest() {
@@ -55,15 +58,6 @@ public class ClosestCommonLocationData {
 
     public boolean isOk() {
         return isOk;
-    }
-
-    public void setImagePath(String locationName) {
-        String tempPath = CacheFileNames.GMAPS_IMAGE_DIR + locationName + ".png";
-        try (Reader reader = new FileReader(tempPath)) {
-            imagePath = tempPath;
-        } catch (IOException e) {
-            System.out.println(locationName + " picture is not available");
-        }
     }
 
     public void setFirstClosest(String firstClosest) {

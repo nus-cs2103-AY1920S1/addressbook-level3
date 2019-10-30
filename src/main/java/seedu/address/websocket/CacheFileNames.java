@@ -5,7 +5,7 @@ package seedu.address.websocket;
  */
 public class CacheFileNames {
     /* Cache File Names */
-    public static final String CACHE_FOLDER_PATH = "src/main/resources/ApiResponseCache/";
+    public static final String CACHE_FOLDER_PATH = "/ApiResponseCache/";
     public static final String GMAPS_FOLDER_PATH = "GoogleMapsApi/";
     public static final String NUSMODS_FOLDER_PATH = "NusModsApi/";
 

@@ -1,14 +1,14 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_LESSON_NOS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_LESSON_TYPE_AND_NUM;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULE_CODE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.model.util.ModuleEventMappingUtil.mapModuleToEvent;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.Map;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.exceptions.ModuleToEventMappingException;
@@ -18,6 +18,7 @@ import seedu.address.model.display.sidepanel.SidePanelDisplayType;
 import seedu.address.model.module.AcadYear;
 import seedu.address.model.module.Holidays;
 import seedu.address.model.module.LessonNo;
+import seedu.address.model.module.LessonType;
 import seedu.address.model.module.Module;
 import seedu.address.model.module.ModuleCode;
 import seedu.address.model.module.ModuleId;
@@ -37,7 +38,7 @@ public class AddNusModCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + " " + PREFIX_NAME + "PERSON_NAME "
             + PREFIX_MODULE_CODE + "MODULE_CODE "
-            + "[" + PREFIX_LESSON_NOS + "CLASS_NUMBERS(comma-separated)]\n";
+            + "[" + PREFIX_LESSON_TYPE_AND_NUM + "CLASS_TYPE_1:CLASS_NUMBER_1,CLASS_TYPE_2:CLASS_NUMBER_2,]...\n";
 
     public static final String MESSAGE_SUCCESS = "Added module to person's schedule: \n\n";
     public static final String MESSAGE_PERSON_NOT_FOUND = "Unable to find person";
@@ -47,13 +48,13 @@ public class AddNusModCommand extends Command {
 
     private final Name name;
     private final ModuleCode moduleCode;
-    private final List<LessonNo> lessonNoList;
+    private final Map<LessonType, LessonNo> lessonTypeNumMap;
 
     public AddNusModCommand(Name name, ModuleCode moduleCode,
-                            List<LessonNo> lessonNos) {
+                            Map<LessonType, LessonNo> lessonTypeNumMap) {
         this.name = name;
         this.moduleCode = moduleCode;
-        this.lessonNoList = lessonNos;
+        this.lessonTypeNumMap = lessonTypeNumMap;
     }
 
     @Override
@@ -67,7 +68,6 @@ public class AddNusModCommand extends Command {
             return new CommandResult(MESSAGE_PERSON_NOT_FOUND);
         }
 
-
         AcadYear acadYear = model.getAcadYear();
         SemesterNo semesterNo = model.getSemesterNo();
         LocalDate startAcadSemDate = model.getAcadSemStartDate(acadYear, semesterNo);
@@ -79,7 +79,7 @@ public class AddNusModCommand extends Command {
         try {
             module = model.findModule(moduleId);
             event = mapModuleToEvent(module, startAcadSemDate, semesterNo,
-                    this.lessonNoList, holidays);
+                    this.lessonTypeNumMap, holidays);
         } catch (ModuleNotFoundException e) {
             return new CommandResult(MESSAGE_MODULE_NOT_FOUND);
         } catch (ModuleToEventMappingException e) {

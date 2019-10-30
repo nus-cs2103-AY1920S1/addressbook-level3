@@ -8,10 +8,10 @@ import java.util.Arrays;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.internal.gmaps.GmapsJsonUtils;
+import seedu.address.model.gmaps.Location;
 import seedu.address.model.module.AcadCalendar;
 import seedu.address.model.module.Holidays;
 import seedu.address.model.module.Module;
@@ -50,7 +50,7 @@ class CacheTest {
     @Test
     void loadModuleList() {
         ModuleList moduleList = Cache.loadModuleList().get();
-        assertEquals(moduleList.toString(), "AY2019/2020 CS2103T Software Engineering\n");
+        assertTrue(moduleList.toString().contains("AY2019/2020 CS2103T Software Engineering\n"));
     }
 
     @Test
@@ -69,19 +69,22 @@ class CacheTest {
     void loadPlaces() {
         JSONObject placeResponse1 = Cache.loadPlaces("NUS_LT17");
         assertEquals("OK", GmapsJsonUtils.getStatus(placeResponse1));
-        JSONObject placeResponse2 = Cache.loadPlaces("LT17");
+        JSONObject placeResponse2 = Cache.loadPlaces("FOOB");
         assertEquals("REQUEST_DENIED", GmapsJsonUtils.getStatus(placeResponse2));
     }
 
     @Test
     void loadDistanceMatrix() {
-        ArrayList<String> input = new ArrayList<String>(Arrays.asList("Foo", "Foo", "Foo"));
+        ArrayList<Location> input = new ArrayList<Location>(
+                Arrays.asList(new Location("Bar"), new Location("Bar"),
+                        new Location("Bar")));
         JSONObject distanceMatrixResponse = Cache.loadDistanceMatrix(input, input);
-        assertEquals("REQUEST_DENIED", GmapsJsonUtils.getStatus(distanceMatrixResponse));
+        assertEquals(distanceMatrixResponse, new JSONObject());
     }
 
-    @Disabled
-    void saveToJson() {
-        Cache.saveToJson("key", "value", placesJsonPath);
+    @Test
+    public void imagePath() {
+        String expectedPath = Cache.imagePath("NUS_foo");
+        assertTrue(expectedPath.contains("NUS_foo.png"));
     }
 }

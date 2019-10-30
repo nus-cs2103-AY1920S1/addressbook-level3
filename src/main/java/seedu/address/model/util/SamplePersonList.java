@@ -1,12 +1,14 @@
 package seedu.address.model.util;
 
-import static seedu.address.model.util.SampleEvents.LECTURE1;
-import static seedu.address.model.util.SampleEvents.LECTURE2;
-import static seedu.address.model.util.SampleEvents.LECTURE3;
-import static seedu.address.model.util.SampleEvents.LECTURE4;
+import static seedu.address.model.util.SampleEvents.EVENT1_1;
+import static seedu.address.model.util.SampleEvents.EVENT1_2;
+import static seedu.address.model.util.SampleEvents.EVENT2_1;
+import static seedu.address.model.util.SampleEvents.EVENT2_2;
+import static seedu.address.model.util.SampleEvents.EVENT3_1;
+import static seedu.address.model.util.SampleEvents.EVENT3_2;
+import static seedu.address.model.util.SampleEvents.EVENT4_1;
+import static seedu.address.model.util.SampleEvents.EVENT4_2;
 import static seedu.address.model.util.SampleEvents.LECTURE5;
-import static seedu.address.model.util.SampleEvents.LUNCH1;
-import static seedu.address.model.util.SampleEvents.LUNCH2;
 
 import java.util.Arrays;
 import java.util.Set;
@@ -57,7 +59,7 @@ public class SamplePersonList {
     );
 
     public static final PersonDescriptor DENISE = new PersonDescriptor(
-            new Name("DENISE"),
+            new Name("Denise"),
             new Phone("88642263"),
             new Email("denise@gmail.com"),
             new Address("Kovan road 77"),
@@ -81,24 +83,24 @@ public class SamplePersonList {
 
         try {
             User user = new User(ALICE);
-            user.addEvent(LUNCH1);
-            user.addEvent(LECTURE1);
+            user.addEvent(EVENT1_1);
+            user.addEvent(EVENT1_2);
 
             PersonList personList = new PersonList(user);
 
             Person bobby = new Person(BOBBY);
-            bobby.addEvent(LUNCH2);
-            bobby.addEvent(LECTURE2);
+            bobby.addEvent(EVENT2_1);
+            bobby.addEvent(EVENT2_2);
             personList.addPerson(bobby);
 
             Person charlie = new Person(CHARLIE);
-            charlie.addEvent(LUNCH2);
-            charlie.addEvent(LECTURE3);
+            charlie.addEvent(EVENT3_1);
+            charlie.addEvent(EVENT3_2);
             personList.addPerson(charlie);
 
             Person denise = new Person(DENISE);
-            denise.addEvent(LUNCH2);
-            denise.addEvent(LECTURE4);
+            denise.addEvent(EVENT4_1);
+            denise.addEvent(EVENT4_2);
             personList.addPerson(denise);
 
             Person emily = new Person(EMILY);
