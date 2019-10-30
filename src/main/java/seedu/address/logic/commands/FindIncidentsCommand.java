@@ -36,10 +36,12 @@ public class FindIncidentsCommand extends Command {
             + SEARCH_PREFIX_DESCRIPTION + "<KEYWORD [MORE_KEYWORDS]...> OR "
             + SEARCH_PREFIX_SELF + "\n"
             + "Example: " + COMMAND_WORD + " "
-            + SEARCH_PREFIX_OPERATOR + "alex";
+            + SEARCH_PREFIX_OPERATOR + "alex "
+            + SEARCH_PREFIX_DESCRIPTION + "district";
 
     private Predicate<Incident> predicate;
     private boolean isSelfSearch = false;
+    private Predicate<Incident> secondPredicate;
 
     public FindIncidentsCommand(DescriptionKeywordsPredicate descriptionPredicate) {
         this.predicate = descriptionPredicate;
@@ -53,6 +55,11 @@ public class FindIncidentsCommand extends Command {
         this.predicate = namePredicate;
     }
 
+    public FindIncidentsCommand(NameKeywordsPredicate namePredicate, DescriptionKeywordsPredicate descriptionPredicate) {
+        this.predicate = namePredicate;
+        this.secondPredicate = descriptionPredicate;
+    }
+
     public FindIncidentsCommand(Prefix prefix) {
         if (prefix == SEARCH_PREFIX_SELF) {
             this.isSelfSearch = true;
@@ -62,6 +69,9 @@ public class FindIncidentsCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
+        if(secondPredicate != null) {
+            predicate = predicate.and(secondPredicate);
+        }
         if (isSelfSearch) {
             // quick fix to allow searching using first name. when full name is allowed in search, change this
             Name operatorName = new Name(model.getLoggedInPerson().getName().fullName.split(" ", 2)[0]);

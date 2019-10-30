@@ -32,8 +32,15 @@ public class FindIncidentsCommandParser implements Parser<FindIncidentsCommand> 
         ArgumentMultimap argIdMap = ArgumentTokenizer.tokenize(args, SEARCH_PREFIX_ID);
         ArgumentMultimap argOpMap = ArgumentTokenizer.tokenize(args, SEARCH_PREFIX_OPERATOR);
         ArgumentMultimap argSelfMap = ArgumentTokenizer.tokenize(args, SEARCH_PREFIX_SELF);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, SEARCH_PREFIX_DESCRIPTION, SEARCH_PREFIX_ID, SEARCH_PREFIX_OPERATOR);
 
-        if (arePrefixesPresent(argDescMap, SEARCH_PREFIX_DESCRIPTION)) {
+        if ((arePrefixesPresent(argMultimap, SEARCH_PREFIX_OPERATOR))
+                && (arePrefixesPresent(argMultimap, SEARCH_PREFIX_DESCRIPTION))) {
+            Name nameKeywords = ParserUtil.parseName(argMultimap.getValue(SEARCH_PREFIX_OPERATOR).get());
+            Description descriptionKeywords = ParserUtil.parseDescription(argMultimap.getValue(SEARCH_PREFIX_DESCRIPTION).get());
+            return new FindIncidentsCommand(new NameKeywordsPredicate(nameKeywords),
+                    new DescriptionKeywordsPredicate(descriptionKeywords));
+        } else if (arePrefixesPresent(argDescMap, SEARCH_PREFIX_DESCRIPTION)) {
             Description descriptionKeywords = ParserUtil.parseDescription(argDescMap
                     .getValue(SEARCH_PREFIX_DESCRIPTION).get());
             return new FindIncidentsCommand(new DescriptionKeywordsPredicate(descriptionKeywords));
