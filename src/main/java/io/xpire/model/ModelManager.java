@@ -4,7 +4,6 @@ import static io.xpire.model.tag.Tag.EXPIRED_TAG;
 import static java.util.Objects.requireNonNull;
 
 import java.nio.file.Path;
-
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
@@ -22,9 +21,9 @@ import io.xpire.model.item.Name;
 import io.xpire.model.item.XpireItem;
 import io.xpire.model.item.exceptions.DuplicateItemException;
 import io.xpire.model.item.sort.XpireMethodOfSorting;
+import io.xpire.model.state.State;
 import io.xpire.model.tag.Tag;
 import io.xpire.model.tag.TagComparator;
-import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 
 /**
@@ -37,8 +36,8 @@ public class ModelManager implements Model {
     private final Xpire xpire;
     private final ReplenishList replenishList;
     private final UserPrefs userPrefs;
-    private final FilteredList<XpireItem> filteredXpireItems;
-    private final FilteredList<Item> filteredReplenishItems;
+    private FilteredList<XpireItem> filteredXpireItems;
+    private FilteredList<Item> filteredReplenishItems;
     private final FilteredList<XpireItem> previousXpireItems;
     private final FilteredList<Item> previousReplenishItems;
     private FilteredList<? extends Item> currentFilteredItems;
@@ -247,18 +246,17 @@ public class ModelManager implements Model {
      * {@code versionedXpire}
      */
     @Override
-    public ObservableList<XpireItem> getFilteredXpireItemList() {
+    public FilteredList<XpireItem> getFilteredXpireItemList() {
         return this.filteredXpireItems;
     }
 
     @Override
-    public ObservableList<Item> getFilteredReplenishItemList() {
+    public FilteredList<Item> getFilteredReplenishItemList() {
         return this.filteredReplenishItems;
     }
 
-
     @Override
-    public ObservableList<? extends Item> getCurrentFilteredItemList() {
+    public FilteredList<? extends Item> getCurrentFilteredItemList() {
         return this.currentFilteredItems;
     }
 
@@ -269,6 +267,21 @@ public class ModelManager implements Model {
         } else {
             this.currentFilteredItems = this.filteredReplenishItems;
         }
+    }
+
+    /**
+     * Overloaded method that sets current filtered item list.
+     */
+    public void setCurrentFilteredItemList(FilteredList<? extends Item> list) {
+        this.currentFilteredItems = list;
+    }
+
+    public void setFilteredXpireItems(FilteredList<XpireItem> list) {
+        this.filteredXpireItems = list;
+    }
+
+    public void setFilteredReplenishItems(FilteredList<Item> list) {
+        this.filteredReplenishItems = list;
     }
 
     @Override
@@ -347,5 +360,20 @@ public class ModelManager implements Model {
                     && this.userPrefs.equals(other.userPrefs)
                     && this.filteredXpireItems.equals(other.filteredXpireItems);
         }
+    }
+
+    // =========== Undo/Redo Methods =============================================================
+
+    /**
+     * Updates model back to supplied state.
+     */
+    public void update(State state) {
+        CloneModel clone = state.getCloneModel();
+        this.setUserPrefs(clone.getUserPrefs());
+        this.setXpire(clone.getXpire());
+        this.setReplenishList(clone.getReplenishList());
+        this.setCurrentFilteredItemList(clone.getCurrentFilteredItemList());
+        this.setFilteredReplenishItems(clone.getFilteredReplenishItemList());
+        this.setFilteredXpireItems(clone.getFilteredXpireItemList());
     }
 }

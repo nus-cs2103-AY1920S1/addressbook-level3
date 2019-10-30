@@ -15,6 +15,7 @@ import io.xpire.logic.parser.XpireParser;
 import io.xpire.logic.parser.exceptions.ParseException;
 import io.xpire.model.Model;
 import io.xpire.model.ReadOnlyListView;
+import io.xpire.model.StackManager;
 import io.xpire.model.item.Item;
 import io.xpire.storage.Storage;
 import javafx.collections.ObservableList;
@@ -31,6 +32,7 @@ public class LogicManager implements Logic {
     private Parser parser;
     private final XpireParser xpireParser = new XpireParser();
     private final ReplenishParser replenishParser = new ReplenishParser();
+    private final StackManager stackManager = new StackManager();
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
@@ -49,7 +51,7 @@ public class LogicManager implements Logic {
             this.parser = replenishParser;
         }
         Command command = this.parser.parse(commandText);
-        commandResult = command.execute(this.model);
+        commandResult = command.execute(this.model, this.stackManager);
 
         try {
             this.storage.saveList(this.model.getLists());

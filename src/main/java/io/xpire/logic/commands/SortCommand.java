@@ -2,7 +2,9 @@ package io.xpire.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import io.xpire.model.Model;
+import io.xpire.model.StackManager;
 import io.xpire.model.item.sort.XpireMethodOfSorting;
+import io.xpire.model.state.State;
 
 /**
  * Sorts the items in the displayed list.
@@ -26,8 +28,9 @@ public class SortCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(Model model, StackManager stackManager) {
         requireNonNull(model);
+        stackManager.saveState(new State(model));
         model.sortItemList(this.method);
         model.updateFilteredItemList(Model.PREDICATE_SORT_ALL_ITEMS);
         return new CommandResult(MESSAGE_SUCCESS + " by " + method);

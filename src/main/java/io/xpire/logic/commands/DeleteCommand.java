@@ -12,9 +12,11 @@ import io.xpire.commons.core.index.Index;
 import io.xpire.logic.commands.exceptions.CommandException;
 import io.xpire.logic.parser.exceptions.ParseException;
 import io.xpire.model.Model;
+import io.xpire.model.StackManager;
 import io.xpire.model.item.Name;
 import io.xpire.model.item.Quantity;
 import io.xpire.model.item.XpireItem;
+import io.xpire.model.state.State;
 import io.xpire.model.tag.Tag;
 import io.xpire.model.tag.TagComparator;
 
@@ -78,8 +80,9 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException, ParseException {
+    public CommandResult execute(Model model, StackManager stackManager) throws CommandException, ParseException {
         requireNonNull(model);
+        stackManager.saveState(new State(model));
         List<XpireItem> lastShownList = model.getFilteredXpireItemList();
 
         if (this.targetIndex.getZeroBased() >= lastShownList.size()) {
@@ -95,17 +98,17 @@ public class DeleteCommand extends Command {
             return new CommandResult(String.format(MESSAGE_DELETE_ITEM_SUCCESS, targetXpireItem));
         case TAGS:
             assert this.tagSet != null;
-            XpireItem newTaggedXpireItem = removeTagsFromItem(targetXpireItem, this.tagSet);
+            XpireItem newTaggedXpireItem = removeTagsFromItem(new XpireItem(targetXpireItem), this.tagSet);
             model.setItem(targetXpireItem, newTaggedXpireItem);
-            return new CommandResult(String.format(MESSAGE_DELETE_TAGS_SUCCESS, targetXpireItem));
+            return new CommandResult(String.format(MESSAGE_DELETE_TAGS_SUCCESS, newTaggedXpireItem));
         case QUANTITY:
             assert this.quantity != null;
-            XpireItem newQuantityXpireItem = reduceItemQuantity(targetXpireItem, quantity);
+            XpireItem newQuantityXpireItem = reduceItemQuantity(new XpireItem(targetXpireItem), this.quantity);
             Name itemName = newQuantityXpireItem.getName();
             model.setItem(targetXpireItem, newQuantityXpireItem);
             // transfer item to replenish list
             if (Quantity.quantityIsZero(newQuantityXpireItem.getQuantity())) {
-                model.shiftItemToReplenishList(targetXpireItem);
+                model.shiftItemToReplenishList(newQuantityXpireItem);
                 return new CommandResult(String.format(MESSAGE_REPLENISH_SHIFT_SUCCESS, itemName));
             }
             return new CommandResult(

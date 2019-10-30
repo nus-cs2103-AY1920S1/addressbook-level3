@@ -12,8 +12,10 @@ import io.xpire.commons.core.Messages;
 import io.xpire.commons.core.index.Index;
 import io.xpire.logic.commands.exceptions.CommandException;
 import io.xpire.model.Model;
+import io.xpire.model.StackManager;
 import io.xpire.model.item.Item;
 import io.xpire.model.item.XpireItem;
+import io.xpire.model.state.State;
 import io.xpire.model.tag.Tag;
 import io.xpire.model.tag.TagComparator;
 import io.xpire.model.tag.TagItemDescriptor;
@@ -72,12 +74,13 @@ public class TagCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model, StackManager stackManager) throws CommandException {
         requireNonNull(model);
         List<? extends Item> lastShownList = model.getCurrentFilteredItemList();
 
         switch (this.mode) {
         case TAG:
+            stackManager.saveState(new State(model));
             if (this.index.getZeroBased() >= lastShownList.size()) {
                 throw new CommandException(Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
             }

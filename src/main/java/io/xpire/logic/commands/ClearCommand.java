@@ -4,7 +4,9 @@ import static java.util.Objects.requireNonNull;
 
 import io.xpire.model.Model;
 import io.xpire.model.ReplenishList;
+import io.xpire.model.StackManager;
 import io.xpire.model.Xpire;
+import io.xpire.model.state.State;
 
 /**
  * Clears all items in the list.
@@ -20,8 +22,9 @@ public class ClearCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(Model model, StackManager stackManager) {
         requireNonNull(model);
+        stackManager.saveState(new State(model));
         switch (list) {
         case "main" :
             model.setXpire(new Xpire());

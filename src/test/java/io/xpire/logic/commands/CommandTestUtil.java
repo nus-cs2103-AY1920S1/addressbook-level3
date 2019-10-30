@@ -11,6 +11,7 @@ import io.xpire.commons.core.index.Index;
 import io.xpire.logic.commands.exceptions.CommandException;
 import io.xpire.logic.parser.exceptions.ParseException;
 import io.xpire.model.Model;
+import io.xpire.model.StackManager;
 import io.xpire.model.Xpire;
 import io.xpire.model.item.ContainsKeywordsPredicate;
 import io.xpire.model.item.XpireItem;
@@ -22,6 +23,7 @@ import io.xpire.testutil.Assert;
 public class CommandTestUtil {
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
+    private static StackManager stackManager = new StackManager();
 
     /**
      * Executes the given {@code command}, confirms that <br>
@@ -31,7 +33,7 @@ public class CommandTestUtil {
     public static void assertCommandSuccess(Command command, Model actualModel, CommandResult expectedCommandResult,
                                             Model expectedModel) {
         try {
-            CommandResult result = command.execute(actualModel);
+            CommandResult result = command.execute(actualModel, stackManager);
             System.out.println(result.getFeedbackToUser());
             System.out.println(expectedCommandResult.getFeedbackToUser());
             assertEquals(expectedCommandResult, result);
@@ -63,7 +65,7 @@ public class CommandTestUtil {
         Xpire expectedXpire = new Xpire(actualModel.getLists()[0]);
         List<XpireItem> expectedFilteredList = new ArrayList<>(actualModel.getFilteredXpireItemList());
 
-        Assert.assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel));
+        Assert.assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel, stackManager));
         assertEquals(expectedXpire, actualModel.getLists()[0]);
         assertEquals(expectedFilteredList, actualModel.getFilteredXpireItemList());
     }
