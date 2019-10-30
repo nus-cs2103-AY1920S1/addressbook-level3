@@ -14,6 +14,7 @@ import io.xpire.logic.commands.ExitCommand;
 import io.xpire.logic.commands.HelpCommand;
 import io.xpire.logic.commands.SearchCommand;
 import io.xpire.logic.commands.ShiftToMainCommand;
+import io.xpire.logic.commands.UndoCommand;
 import io.xpire.logic.commands.ViewCommand;
 import io.xpire.logic.parser.exceptions.ParseException;
 
@@ -62,6 +63,9 @@ public class ReplenishParser implements Parser {
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
+
+        case UndoCommand.COMMAND_WORD:
+            return new UndoCommand();
 
         case ShiftToMainCommand.COMMAND_WORD:
             return new ShiftToMainCommandParser().parse(arguments);

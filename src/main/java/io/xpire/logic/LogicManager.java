@@ -18,7 +18,7 @@ import io.xpire.model.ReadOnlyListView;
 import io.xpire.model.StackManager;
 import io.xpire.model.item.Item;
 import io.xpire.storage.Storage;
-import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 
 /**
  * The main LogicManager of the app.
@@ -53,6 +53,15 @@ public class LogicManager implements Logic {
         Command command = this.parser.parse(commandText);
         commandResult = command.execute(this.model, this.stackManager);
 
+        System.out.println("ALLITEMS");
+        this.model.getXpire().getItemList().forEach(System.out::println);
+        System.out.println("Xpireitem");
+        this.model.getFilteredXpireItemList().forEach(System.out::println);
+        System.out.println("currentitem");
+        this.model.getCurrentFilteredItemList().forEach(System.out::println);
+        System.out.println("replenishitem");
+        this.model.getFilteredReplenishItemList().forEach(System.out::println);
+
         try {
             this.storage.saveList(this.model.getLists());
         } catch (IOException ioe) {
@@ -68,7 +77,7 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ObservableList<? extends Item> getCurrentFilteredItemList() {
+    public FilteredList<? extends Item> getCurrentFilteredItemList() {
         return this.model.getCurrentFilteredItemList();
     }
 

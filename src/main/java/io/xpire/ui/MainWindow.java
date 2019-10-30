@@ -195,6 +195,8 @@ public class MainWindow extends UiPart<Stage> {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+            //System.out.println(logic.getCurrentFilteredItemList().size());
+            //logic.getCurrentFilteredItemList().forEach(System.out::println);
             cardListPanel.displayItem(logic.getCurrentFilteredItemList());
             cardListPanelPlaceholder.getChildren().remove(cardListPanel.getRoot());
             cardListPanelPlaceholder.getChildren().add(cardListPanel.getRoot());

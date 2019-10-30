@@ -26,9 +26,14 @@ public class CloneModel {
         this.xpire = new Xpire(xpire);
         this.replenishList = new ReplenishList(replenishList);
         this.userPrefs = new UserPrefs(userPrefs);
-        this.filteredXpireItemList = cloneFilteredXpireItemList(filteredXpireItemList);
-        this.filteredReplenishItemList = cloneFilteredReplenishItemList(filteredReplenishItemList);
+        this.filteredXpireItemList = new FilteredList<>(this.xpire.getItemList());
+        this.filteredXpireItemList.setPredicate(filteredXpireItemList.getPredicate());
+        this.filteredReplenishItemList = new FilteredList<>(this.replenishList.getItemList());
+        this.filteredReplenishItemList.setPredicate(filteredReplenishItemList.getPredicate());
+        //this.filteredXpireItemList = cloneFilteredXpireItemList(filteredXpireItemList);
+        //this.filteredReplenishItemList = cloneFilteredReplenishItemList(filteredReplenishItemList);
         this.currentFilteredItemList = checkListToView(listToView);
+        //this.currentFilteredItemList.forEach(System.out::println);
     }
 
     /**
@@ -48,10 +53,16 @@ public class CloneModel {
     private FilteredList<XpireItem> cloneFilteredXpireItemList(FilteredList<XpireItem> filteredXpireItemList) {
         SortedUniqueXpireItemList items = new SortedUniqueXpireItemList();
         for (XpireItem item: filteredXpireItemList) {
+            System.out.println("....");
+            System.out.println(item);
+            System.out.println("....");
             items.add(new XpireItem(item));
         }
         FilteredList<XpireItem> result = new FilteredList<>(items.asUnmodifiableObservableList());
         result.setPredicate(filteredXpireItemList.getPredicate());
+        System.out.println("GGGGG");
+        result.forEach(System.out::println);
+        System.out.println("GGGGG");
         return result;
     }
 
@@ -65,6 +76,7 @@ public class CloneModel {
         }
         FilteredList<Item> result = new FilteredList<>(items.asUnmodifiableObservableList());
         result.setPredicate(filteredReplenishItemList.getPredicate());
+        //result.forEach(System.out::println);
         return result;
     }
 

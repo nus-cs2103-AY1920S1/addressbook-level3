@@ -272,17 +272,17 @@ public class ModelManager implements Model {
         }
     }
 
-    /**
-     * Overloaded method that sets current filtered item list.
-     */
+    @Override
     public void setCurrentFilteredItemList(FilteredList<? extends Item> list) {
         this.currentFilteredItems = list;
     }
 
+    @Override
     public void setFilteredXpireItems(FilteredList<XpireItem> list) {
         this.filteredXpireItems = list;
     }
 
+    @Override
     public void setFilteredReplenishItems(FilteredList<Item> list) {
         this.filteredReplenishItems = list;
     }
@@ -367,22 +367,18 @@ public class ModelManager implements Model {
 
     // =========== Undo/Redo Methods =============================================================
 
-    /**
-     * Updates model back to supplied state.
-     */
+    @Override
     public void update(State state) {
         CloneModel clone = state.getCloneModel();
         this.setUserPrefs(clone.getUserPrefs());
         this.setXpire(clone.getXpire());
         this.setReplenishList(clone.getReplenishList());
-        this.setCurrentFilteredItemList(clone.getCurrentFilteredItemList());
-        this.setFilteredReplenishItems(clone.getFilteredReplenishItemList());
-        this.setFilteredXpireItems(clone.getFilteredXpireItemList());
+        //this.setFilteredReplenishItems(clone.getFilteredReplenishItemList());
+        //this.setFilteredXpireItems(clone.getFilteredXpireItemList());
+        //this.setCurrentFilteredItemList(clone.getCurrentFilteredItemList());
     }
 
-    /**
-     * Returns list to view.
-     */
+    @Override
     public ListToView getListToView() {
         return this.listToView;
     }

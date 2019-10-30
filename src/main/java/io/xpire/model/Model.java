@@ -187,7 +187,9 @@ public interface Model {
      */
     void setReplenishItem(Item target, Item editedItem);
 
+    void setFilteredXpireItems(FilteredList<XpireItem> list);
 
+    void setFilteredReplenishItems(FilteredList<Item> list);
 
     Set<Tag> getAllReplenishItemTags();
 
