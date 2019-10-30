@@ -48,7 +48,7 @@ public class CommandTest {
         Item result = inventoryList.get(0);
         for (int i = 1; i < inventoryList.size(); i++) {
             Item nextItem = inventoryList.get(i);
-            if (!(nextItem.getDescription().compareTo(result.getDescription()) > 0)) {
+            if (nextItem.getDescription().compareTo(result.getDescription()) <= 0) {
                 result = nextItem;
             }
         }
@@ -62,7 +62,7 @@ public class CommandTest {
         Item result = inventoryList.get(0);
         for (int i = 1; i < inventoryList.size(); i++) {
             Item nextItem = inventoryList.get(i);
-            if (!(nextItem.getCategory().compareTo(result.getCategory()) > 0)) {
+            if (nextItem.getCategory().compareTo(result.getCategory()) <= 0) {
                 result = nextItem;
             }
         }
