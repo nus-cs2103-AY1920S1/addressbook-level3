@@ -24,52 +24,62 @@ public class SamplePersonDataUtil {
         Person[] listOfPersons = new Person[count];
         for (int i = 0; i < count; i++) {
             if (i % 10 == 0) {
-                listOfPersons[i] = new Person(new PatientReferenceId(String.format("%06d%s", i, "1A")), new Name("Alex Yeoh"), new Phone("87438807"),
+                listOfPersons[i] = new Person(new PatientReferenceId(String.format("%06d%s", i, "1A")),
+                        new Name("Alex Yeoh"), new Phone("87438807"),
                         new Email("alexyeoh@example.com"),
                         new Address("Blk 30 Geylang Street 29, #06-40"),
                         getTagSet("friends"));
             } else if (i % 10 == 1) {
-                listOfPersons[i] = new Person(new PatientReferenceId(String.format("%06d%s", i, "2B")), new Name("Bernice Yu"), new Phone("99272758"),
+                listOfPersons[i] = new Person(new PatientReferenceId(String.format("%06d%s", i, "2B")),
+                        new Name("Bernice Yu"), new Phone("99272758"),
                         new Email("berniceyu@example.com"),
                         new Address("Blk 30 Lorong 3 Serangoon Gardens, #07-18"),
                         getTagSet("colleagues", "friends"));
             } else if (i % 10 == 2) {
-                listOfPersons[i] = new Person(new PatientReferenceId(String.format("%06d%s", i, "3C")), new Name("Charlotte Oliveiro"), new Phone("93210283"),
+                listOfPersons[i] = new Person(new PatientReferenceId(String.format("%06d%s", i, "3C")),
+                        new Name("Charlotte Oliveiro"), new Phone("93210283"),
                         new Email("charlotte@example.com"),
                         new Address("Blk 11 Ang Mo Kio Street 74, #11-04"),
                         getTagSet("neighbours"));
             } else if (i % 10 == 3) {
-                listOfPersons[i] = new Person(new PatientReferenceId(String.format("%06d%s", i, "4D")), new Name("David Li"), new Phone("91031282"),
+                listOfPersons[i] = new Person(new PatientReferenceId(String.format("%06d%s", i, "4D")),
+                        new Name("David Li"), new Phone("91031282"),
                         new Email("lidavid@example.com"),
                         new Address("Blk 436 Serangoon Gardens Street 26, #16-43"),
                         getTagSet("family"));
             } else if (i % 10 == 4) {
-                listOfPersons[i] = new Person(new PatientReferenceId(String.format("%06d%s", i, "5E")), new Name("Irfan Ibrahim"), new Phone("92492021"),
+                listOfPersons[i] = new Person(new PatientReferenceId(String.format("%06d%s", i, "5E")),
+                        new Name("Irfan Ibrahim"), new Phone("92492021"),
                         new Email("irfan@example.com"),
                         new Address("Blk 47 Tampines Street 20, #17-35"),
                         getTagSet("classmates"));
             } else if (i % 10 == 5) {
-                listOfPersons[i] = new Person(new PatientReferenceId(String.format("%06d%s", i, "6F")), new Name("Muthu Halim"), new Phone("92622356"),
+                listOfPersons[i] = new Person(new PatientReferenceId(String.format("%06d%s", i, "6F")),
+                        new Name("Muthu Halim"), new Phone("92622356"),
                         new Email("muthuhb@example.com"),
                         new Address("Blk 45 Aljunied Street 85, #11-31"),
                         getTagSet("colleagues"));
             } else if (i % 10 == 6) {
-                listOfPersons[i] = new Person(new PatientReferenceId(String.format("%06d%s", i, "7G")), new Name("John Tan"), new Phone("93741233"),
+                listOfPersons[i] = new Person(new PatientReferenceId(String.format("%06d%s", i, "7G")),
+                        new Name("John Tan"), new Phone("93741233"),
                         new Email("jtjt@example.com"),
                         new Address("Blk 11 Ang Mo Kio Street 74, #11-04"),
                         getTagSet("neighbours"));
             } else if (i % 10 == 7) {
-                listOfPersons[i] = new Person(new PatientReferenceId(String.format("%06d%s", i, "8H")), new Name("Peter Lim"), new Phone("91888892"),
+                listOfPersons[i] = new Person(new PatientReferenceId(String.format("%06d%s", i, "8H")),
+                        new Name("Peter Lim"), new Phone("91888892"),
                         new Email("limpeter@example.com"),
                         new Address("Blk 436 Serangoon Gardens Street 26, #16-43"),
                         getTagSet("family"));
             } else if (i % 10 == 8) {
-                listOfPersons[i] = new Person(new PatientReferenceId(String.format("%06d%s", i, "9I")), new Name("Sandy Ong"), new Phone("92555741"),
+                listOfPersons[i] = new Person(new PatientReferenceId(String.format("%06d%s", i, "9I")),
+                        new Name("Sandy Ong"), new Phone("92555741"),
                         new Email("sandyooo@example.com"),
                         new Address("Blk 47 Tampines Street 20, #17-35"),
                         getTagSet("classmates"));
             } else if (i % 10 == 9) {
-                listOfPersons[i] = new Person(new PatientReferenceId(String.format("%06d%s", i, "0J")), new Name("Dorris Wong"), new Phone("91948217"),
+                listOfPersons[i] = new Person(new PatientReferenceId(String.format("%06d%s", i, "0J")),
+                        new Name("Dorris Wong"), new Phone("91948217"),
                         new Email("dw@example.com"),
                         new Address("Blk 45 Aljunied Street 85, #11-31"),
                         getTagSet("colleagues"));
