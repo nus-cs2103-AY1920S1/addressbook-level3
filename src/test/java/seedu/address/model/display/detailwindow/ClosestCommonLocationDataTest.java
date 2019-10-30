@@ -1,5 +1,6 @@
 package seedu.address.model.display.detailwindow;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
@@ -7,10 +8,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-
-import seedu.address.websocket.CacheFileNames;
 
 class ClosestCommonLocationDataTest {
     private ClosestCommonLocationData closestCommonLocationData;
@@ -18,13 +16,10 @@ class ClosestCommonLocationDataTest {
     void init() {
         closestCommonLocationData = new ClosestCommonLocationData();
     }
-    @Disabled
-    void getImagePath() {
-        closestCommonLocationData.setImagePath("FOOOOOOO");
-        assertNull(closestCommonLocationData.getImagePath());
-        closestCommonLocationData.setImagePath("NUS_LT17");
-        assertEquals(CacheFileNames.GMAPS_IMAGE_DIR + "NUS_LT17.png",
-                closestCommonLocationData.getImagePath());
+    @Test
+    void getImage() {
+        closestCommonLocationData.setFirstClosest("LT17");
+        assertDoesNotThrow(()->closestCommonLocationData.getImage());
     }
 
     @Test
