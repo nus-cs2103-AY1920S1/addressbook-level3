@@ -8,7 +8,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_NOTES;
 
 import java.io.IOException;
-import java.net.URI;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -84,7 +83,7 @@ public class EditNoteCommand extends Command {
         Note replaced = editedNote;
         // Defensively copy images to data folder
         if (nonNull(editedNote.getImage())) {
-            Path sourcePath = Paths.get(URI.create(editedNote.getImageUrl()).getPath());
+            Path sourcePath = Paths.get(editedNote.getImageUrl().substring(5));
             Path destPath = model.getAppDataFilePath().getParent().resolve(sourcePath.getFileName().toString());
             try {
                 Files.copy(sourcePath, destPath, StandardCopyOption.REPLACE_EXISTING);
