@@ -2,7 +2,6 @@ package seedu.moneygowhere.ui;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
 import javafx.scene.chart.CategoryAxis;
@@ -12,7 +11,6 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
-import seedu.moneygowhere.commons.core.LogsCenter;
 
 /**
  * Tab containing the spending graph.
