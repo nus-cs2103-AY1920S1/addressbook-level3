@@ -16,6 +16,10 @@ public class DeleteFinCommand extends Command<Model> {
             + "e.g. delete [index]";
     private final Index index;
 
+    /**
+     * Creates a DeleteFinCommand to delete an expense at index.
+     * @param index of expense to delete
+     */
     public DeleteFinCommand(Index index) {
         this.index = index;
     }

@@ -1,5 +1,10 @@
 package seedu.address.financialtracker.model.expense;
 
+import static java.util.Objects.requireNonNull;
+
+/**
+ * An expense.
+ */
 public class Expense {
 
     private Date date;
@@ -57,7 +62,11 @@ public class Expense {
         return type;
     }
 
+    /**
+     * Allow financial tracker to set this country field to non-null value.
+     */
     public void setCountry(Country country) {
+        requireNonNull(country);
         this.country = country;
     }
 

@@ -15,6 +15,7 @@ public class SummaryCommand extends Command<Model> {
 
     @Override
     public CommandResult execute(Model model) {
+
         return new CommandResult(MESSAGE_FAIL, false, false);
     }
 }
