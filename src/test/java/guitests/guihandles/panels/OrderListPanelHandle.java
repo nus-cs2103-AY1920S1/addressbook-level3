@@ -5,6 +5,7 @@ import java.util.Optional;
 import java.util.Set;
 
 import guitests.guihandles.NodeHandle;
+import guitests.guihandles.cards.OrderCardHandle;
 import javafx.scene.Node;
 import javafx.scene.control.ListView;
 import seedu.address.model.order.Order;
@@ -70,6 +71,23 @@ public class OrderListPanelHandle extends NodeHandle<ListView<Order>> {
         });
         guiRobot.pauseForHuman();
     }
+
+
+    /**
+     * Returns the order card handle of a order associated with the {@code index} in the list.
+     * @throws IllegalStateException if the selected card is currently not in the scene graph.
+     */
+    public OrderCardHandle getOrderCardHandle(int index) {
+        System.out.println(getAllCardNodes().stream()
+                .map(OrderCardHandle::new).count());
+
+        return getAllCardNodes().stream()
+                .map(OrderCardHandle::new)
+                .filter(handle -> handle.equals(getOrder(index)))
+                .findFirst()
+                .orElseThrow(IllegalStateException::new);
+    }
+
 
     /**
      * Selects the {@code OrderCard} at {@code index} in the list.

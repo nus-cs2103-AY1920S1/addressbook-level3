@@ -28,6 +28,8 @@ import java.util.Calendar;
 import java.util.List;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.CommandHistory;
+import seedu.address.logic.UndoRedoStack;
 import seedu.address.logic.commands.editcommand.EditCommand;
 import seedu.address.logic.commands.editcommand.EditCustomerCommand.EditCustomerDescriptor;
 import seedu.address.logic.commands.editcommand.EditOrderCommand.EditOrderDescriptor;
@@ -285,9 +287,50 @@ public class CommandTestUtil {
     public static void assertCommandSuccess(Command command, Model actualModel, CommandResult expectedCommandResult,
             Model expectedModel) {
         try {
-            CommandResult result = command.execute(actualModel);
+            CommandResult result = command.execute(actualModel, new CommandHistory(), new UndoRedoStack());
+
+            System.out.println(result.getFeedbackToUser());
+            System.out.println(expectedCommandResult.getFeedbackToUser());
             assertEquals(expectedCommandResult, result);
             assertEquals(expectedModel, actualModel);
+        } catch (CommandException ce) {
+            throw new AssertionError("Execution of command should not fail.", ce);
+        }
+    }
+
+    /**
+     * Executes the given {@code command}, confirms that <br>
+     * - the returned {@link CommandResult} matches {@code expectedCommandResult} <br>
+     * - the {@code actualModel} matches {@code expectedModel}
+     */
+    public static void assertCommandSuccess(Command command, Model actualModel, CommandHistory actualCommandHistory,
+                                            CommandResult expectedCommandResult, Model expectedModel) {
+        CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
+        try {
+            CommandResult result = command.execute(actualModel, actualCommandHistory, new UndoRedoStack());
+
+            assertEquals(expectedCommandResult, result);
+            assertEquals(expectedModel, actualModel);
+            assertEquals(expectedCommandHistory, actualCommandHistory);
+        } catch (CommandException ce) {
+            throw new AssertionError("Execution of command should not fail.", ce);
+        }
+    }
+
+    /**
+     * Executes the given {@code command}, confirms that <br>
+     * - the returned {@link CommandResult} matches {@code expectedCommandResult} <br>
+     * - the {@code actualModel} matches {@code expectedModel}
+     */
+    public static void assertCommandSuccess(Command command, Model actualModel, UndoRedoStack actualUndoRedoStack,
+                                            CommandResult expectedCommandResult, Model expectedModel) {
+        UndoRedoStack expectedUndoRedoStack = new UndoRedoStack(actualUndoRedoStack);
+        try {
+            CommandResult result = command.execute(actualModel, new CommandHistory(), actualUndoRedoStack);
+
+            assertEquals(expectedCommandResult, result);
+            assertEquals(expectedModel, actualModel);
+            assertEquals(expectedUndoRedoStack, actualUndoRedoStack);
         } catch (CommandException ce) {
             throw new AssertionError("Execution of command should not fail.", ce);
         }
@@ -298,9 +341,29 @@ public class CommandTestUtil {
      * that takes a string {@code expectedMessage}.
      */
     public static void assertCommandSuccess(Command command, Model actualModel, String expectedMessage,
-            Model expectedModel) {
+                                            Model expectedModel) {
         CommandResult expectedCommandResult = new CommandResult(expectedMessage);
         assertCommandSuccess(command, actualModel, expectedCommandResult, expectedModel);
+    }
+
+    /**
+     * Convenience wrapper to {@link #assertCommandSuccess(Command, Model, CommandResult, Model)}
+     * that takes a string {@code expectedMessage}.
+     */
+    public static void assertCommandSuccess(Command command, Model actualModel, CommandHistory actualCommandHistory,
+                                            String expectedMessage, Model expectedModel) {
+        CommandResult expectedCommandResult = new CommandResult(expectedMessage);
+        assertCommandSuccess(command, actualModel, actualCommandHistory, expectedCommandResult, expectedModel);
+    }
+
+    /**
+     * Convenience wrapper to {@link #assertCommandSuccess(Command, Model, CommandResult, Model)}
+     * that takes a string {@code expectedMessage}.
+     */
+    public static void assertCommandSuccess(Command command, Model actualModel, UndoRedoStack actualUndoRedoStack,
+                                            String expectedMessage, Model expectedModel) {
+        CommandResult expectedCommandResult = new CommandResult(expectedMessage);
+        assertCommandSuccess(command, actualModel, actualUndoRedoStack, expectedCommandResult, expectedModel);
     }
 
     /**
@@ -315,7 +378,8 @@ public class CommandTestUtil {
         AddressBook expectedAddressBook = new AddressBook(actualModel.getAddressBook());
         List<Person> expectedFilteredList = new ArrayList<>(actualModel.getFilteredPersonList());
 
-        assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel));
+        assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel, new CommandHistory(),
+                new UndoRedoStack()));
         assertEquals(expectedAddressBook, actualModel.getAddressBook());
         assertEquals(expectedFilteredList, actualModel.getFilteredPersonList());
     }

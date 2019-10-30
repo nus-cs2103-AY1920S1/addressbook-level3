@@ -10,6 +10,9 @@ public enum Status {
     COMPLETED("Completed"),
     CANCELLED("Cancelled");
 
+    public static final String MESSAGE_CONSTRAINTS =
+            "status should only be unscheduled, scheduled, completed, cancelled ";
+
     private final String label;
 
     Status(String label) {

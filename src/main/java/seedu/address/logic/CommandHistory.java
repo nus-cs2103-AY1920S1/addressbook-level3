@@ -19,7 +19,7 @@ public class CommandHistory {
     private final ObservableList<String> unmodifiableHistoryList =
             FXCollections.unmodifiableObservableList(historyList);
 
-    private CommandHistory() {
+    public CommandHistory() {
 
     }
 
@@ -54,6 +54,10 @@ public class CommandHistory {
 
     public static CommandHistory getCommandHistory() {
         return commandHistory;
+    }
+
+    public void clear() {
+        setList(new CommandHistory());
     }
 
     /**

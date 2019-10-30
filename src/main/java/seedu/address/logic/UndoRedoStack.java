@@ -9,6 +9,9 @@ import seedu.address.logic.commands.UndoableCommand;
 
 /**
  * Undo-redo Stack
+ * @@author yamgent
+ * Reused from https://github.com/se-edu/addressbook-level4/pull/610/files with minor modifications
+ *
  */
 public class UndoRedoStack {
 
@@ -20,6 +23,11 @@ public class UndoRedoStack {
     public UndoRedoStack() {
         undoStack = new LinkedList<>();
         redoStack = new LinkedList<>();
+    }
+
+    public UndoRedoStack(UndoRedoStack otherUndoRedoStack) {
+        undoStack = otherUndoRedoStack.undoStack;
+        redoStack = otherUndoRedoStack.redoStack;
     }
 
     /**

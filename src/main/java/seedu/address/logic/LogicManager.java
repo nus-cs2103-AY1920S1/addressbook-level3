@@ -59,7 +59,7 @@ public class LogicManager implements Logic {
 
         try {
             Command command = addressBookParser.parseCommand(commandText);
-            commandResult = command.execute(model);
+            commandResult = command.execute(model, commandHistory, undoRedoStack);
             storage.saveCustomerBook(model.getCustomerBook());
             storage.savePhoneBook(model.getPhoneBook());
             storage.saveScheduleBook(model.getScheduleBook());

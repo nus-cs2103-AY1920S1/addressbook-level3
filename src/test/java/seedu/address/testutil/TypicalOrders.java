@@ -92,6 +92,11 @@ public class TypicalOrders {
             .withSchedule(Optional.of(FRIDAY_SCHEDULE))
             .withTags(DEFAULT_TAG_2).build();
 
+
+    public static final Order ORDER_JSON_TEST = new OrderBuilder().withId(UUID.randomUUID()).withCustomer(CUSTOMERONE)
+            .withPhone(IPHONEONE).withPrice(DEFAULT_PRICE_1).withStatus(Status.SCHEDULED)
+            .withSchedule(Optional.of(MONDAY_SCHEDULE)).withTags(DEFAULT_TAG_1).build();
+
     /**
      * Returns a {@code DataBook} with all the typical orders.
      */

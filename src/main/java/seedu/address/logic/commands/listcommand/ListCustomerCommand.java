@@ -3,6 +3,8 @@ package seedu.address.logic.commands.listcommand;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CUSTOMERS;
 
+import seedu.address.logic.CommandHistory;
+import seedu.address.logic.UndoRedoStack;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.UiChange;
@@ -20,7 +22,7 @@ public class ListCustomerCommand extends Command {
 
 
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(Model model, CommandHistory commandHistory, UndoRedoStack undoRedoStack) {
         requireNonNull(model);
         model.updateFilteredCustomerList(PREDICATE_SHOW_ALL_CUSTOMERS);
         return new CommandResult(MESSAGE_SUCCESS, UiChange.CUSTOMER);

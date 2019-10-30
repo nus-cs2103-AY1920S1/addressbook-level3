@@ -25,8 +25,7 @@ public class Messages {
 
     public static final String TIME_MESSAGE_CONSTRAINTS = "Time should only contain numbers in the format of HH.MM";
     public static final String DATE_MESSAGE_CONSTRAINTS =
-            "Date should only contain numbers in the format of YYYY.MM.DD , and it should not be blank "
-                    + "for profit,cost or revenue type";
+            "Date should only contain numbers in the format of YYYY.MM.DD";
     public static final String OPTIONAL_DATE_MESSAGE_CONSTRAINTS =
             "Date should have starting and ending in the format YYYY.MM.DD\n"
                     + "Example: d1/2018.10.05 d2/2019.04.12";

@@ -30,6 +30,8 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.CommandHistory;
+import seedu.address.logic.UndoRedoStack;
 import seedu.address.logic.commands.editcommand.EditScheduleCommand.EditScheduleDescriptor;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.DataBook;
@@ -78,7 +80,8 @@ public class EditScheduleCommandTest {
                 new DataBook<Order>(), new UserPrefs());
         expectedModel.setSchedule(model.getFilteredScheduleList().get(0), editedSchedule);
 
-        assertEquals(expectedMessage, editCommand.execute(expectedModel).getFeedbackToUser());
+        assertEquals(expectedMessage, editCommand.execute(expectedModel, new CommandHistory(),
+                new UndoRedoStack()).getFeedbackToUser());
     }
 
     @Test
@@ -92,7 +95,8 @@ public class EditScheduleCommandTest {
                 new DataBook<Order>(), new UserPrefs());
         expectedModel.setSchedule(model.getFilteredScheduleList().get(0), editedSchedule);
 
-        assertThrows(CommandException.class, () -> editCommand.execute(expectedModel));
+        assertThrows(CommandException.class, () -> editCommand.execute(expectedModel, new CommandHistory(),
+                new UndoRedoStack()));
     }
 
     @Test
@@ -106,7 +110,8 @@ public class EditScheduleCommandTest {
                 new DataBook<Order>(), new UserPrefs());
         expectedModel.setSchedule(model.getFilteredScheduleList().get(0), editedSchedule);
 
-        assertThrows(CommandException.class, () -> editCommand.execute(expectedModel));
+        assertThrows(CommandException.class, () -> editCommand.execute(expectedModel, new CommandHistory(),
+                new UndoRedoStack()));
     }
 
     @Test
@@ -126,7 +131,8 @@ public class EditScheduleCommandTest {
                 new DataBook<Order>(), new UserPrefs());
         expectedModel.setSchedule(model.getFilteredScheduleList().get(0), editedSchedule);
 
-        assertThrows(CommandException.class, () -> editCommand.execute(expectedModel));
+        assertThrows(CommandException.class, () -> editCommand.execute(expectedModel, new CommandHistory(),
+                new UndoRedoStack()));
     }
 
     @Test
@@ -142,7 +148,8 @@ public class EditScheduleCommandTest {
                 new DataBook<Order>(), new UserPrefs());
         expectedModel.setSchedule(model.getFilteredScheduleList().get(0), editedSchedule);
 
-        assertEquals(expectedMessage, editCommand.execute(expectedModel).getFeedbackToUser());
+        assertEquals(expectedMessage, editCommand.execute(expectedModel, new CommandHistory(),
+                new UndoRedoStack()).getFeedbackToUser());
     }
 
     @Test
@@ -166,7 +173,8 @@ public class EditScheduleCommandTest {
                 new DataBook<Order>(), new UserPrefs());
         expectedModel.setSchedule(lastSchedule, editedSchedule);
 
-        assertEquals(expectedMessage, editCommand.execute(expectedModel).getFeedbackToUser());
+        assertEquals(expectedMessage, editCommand.execute(expectedModel, new CommandHistory(),
+                new UndoRedoStack()).getFeedbackToUser());
     }
 
     @Test
