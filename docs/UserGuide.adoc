@@ -54,10 +54,16 @@ image::ug_legend.png[]
 
 [[Features]]
 == Features
+Now we'll be presenting what you've been waiting for... our features! +
+But hold on, to fully appreciate our features, you might want to go through some of the command guidelines first. +
+These are some mistakes that our users(and even us) would make initially, and they can be really unpleasant, so we hope that you won't have to go though them.
+For your viewing pleasure, we've collated it nicely into a quick starter pack below, let's start!
 
 image::ug_features.png[]
 
 ====
+This table shows the basic rules for the formatting the input:
+
 .Command Guidelines
 |===
 |Guidelines: |Description: |Correct usage:
@@ -68,14 +74,27 @@ image::ug_features.png[]
 |Flags must not be repeated in the same input | `task shower -p high -p low` is *incorrect* as -p appears twice | `task shower -p high`
 |===
 
+
+This is a quick summary of all our flags. +
+
+For *first time* users: +
+
+* You can choose to skip through this first as it may seem overwhelming now.
+* But as you go along the different sections and see new flags, it might be useful to refer to this as it can help you understand it's accepted parameters.
+
+For *more experienced* users: +
+
+* This can be your best buddy! We understand that sometimes it can be troublesome to look through the entire guide just to find the flag you want.
+
 .Flags Overview
 |===
 |Flag: |Parameter: |Parameter Format: |Possible Parameters: | Example Usage:
-|-d | DATETIME |yyyy-MM-ddTHHmm or dd/MM/yyyy HHmm or mm.min.later or HH.hour.later or dd.day.later |2019-09-25T19:34 or 25/09/2019 1934 or 10.min.later| -d 25/09/2019 1934
+|-d | DATETIME | yyyy-MM-ddTHHmm or dd/MM/yyyy HHmm or mm.min.later or HH.hour.later or dd.day.later |2019-09-25T19:34 or 25/09/2019 1934 or 10.min.later| -d 25/09/2019 1934
 |-r | REMINDER |yyyy-MM-ddTHHmm or dd/MM/yyyy HHmm or mm.min.later or HH.hour.later or dd.day.later |2019-09-25T19:34 or 25/09/2019 1934 or 10.min.later| -r 25/09/2019 1934
 |-p | PRIORITY |high, medium, low| HIGH, medium, LOW | -p high
 |-t | TAG |alphanumeric only | happy123 | -t happy123
 |-desc | DESCRIPTION | alphanumeric only | drink 5 litres of water | -desc
+|-auto| PERIOD | day or month or week or mm.min.later or HH.hour.later or dd.day.later | day or week or month or 10.min.later | -auto 10.min.later
 |--tk | _none_ | _none_ | _none_ | --tk
 |--e | _none_ | _none_ | _none_ | --e
 |--r | _none_ | _none_ | _none_ | --r
@@ -108,13 +127,14 @@ Examples:
 === Adding an event: `event`
 
 Adds an event to events list and calendar +
-Format: `event DESCRIPTION -d DATETIME [-r REMINDER] [-p PRIORITY] [-t TAG]`
+Format: `event DESCRIPTION -d DATETIME [-r REMINDER] [-p PRIORITY] [-t TAG] [-auto PERIOD]`
 
 Examples:
 
 * `event John’s Birthday -d 20/09/2019 1800`
 * `event John’s Birthday -d 20/09/2019 1800 -r 19/09/2019 1800`
 * `event John’s Birthday -d 3.day.later -r 2.day.later -p high -t friend`
+* `event CS2013T Quiz -d 11/11/2019 2359 -auto week`
 
 === Adding a reminder: `reminder`
 
