@@ -154,20 +154,6 @@ Format: `clear`
 
 To enter the Module section please enter the command: `cap`
 
-==== Sort the modules : `sort`
-Sorting allows users to view their historical grades based on a few different arrangements.
-The few order types are: sorting by grades, time, mc and title.
-
-Format: `sort ORDER_TYPE`
-e.g. `sort grade`
-
-==== Add all modules in the current calendar to record : `integrate'
-The user can add all existing modules in the calendar into the records by specifying the semester to add.
-After the modules are added to the records, the grades are left blank. The user can subsequently choose to add the grades and other details.
-
-Format: `integrate YEAR_AND_SEMESTER`
-e.g. `integrate 1920S1`
-
 ==== Manually add module to record : `add`
 The user can add new modules to the a specific semester, even for future semesters.
 
@@ -202,20 +188,6 @@ When the only single keyword `clear` is entered, Modulo would recognise it as a 
 
 Format: `clear [YEAR_AND_SEMESTER]`
 e.g. `clear 1920S2`
-
-==== Apply a certain grade to a specific module : `make`
-Applies a specified grade to a the specified module. This allows the user to experiment with future grades and set goals towards his/her graduation.
-This command allows the user to avoid the hustle of editing score through the edit command. This is a single command that changes the grade of a module instantaneously.
-It supports the Satisfactory / Unsatisfactory grades annotated as S and U respectively.
-
-Format: `make MODULE_CODE GRADE`
-e.g. `make CS1010S A`, `make CS2103 A`, `make CS2103 S`
-
-==== Change graduation requirement : `grad`
-The user can change the graduation by entering this command.
-
-Format: `grad`
-e.g. `grad`
 
 ==== Password protection [Coming in V2.0]
 Prevent unauthorised access to your grades.

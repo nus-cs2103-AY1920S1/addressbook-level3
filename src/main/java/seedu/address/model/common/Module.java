@@ -22,9 +22,6 @@ public class Module {
     private Description description;
     private Credit credit;
     private Faculty faculty;
-    private boolean isSu;
-    private String preclusion;
-    private String prerequisite;
     private Grade grade;
 
     /**
@@ -34,42 +31,22 @@ public class Module {
      * @param title The title for the module.
      * @param credit Module credits that provides the weight
      * @param faculty The faculty the module is held at.
-     * @param isSu Satisfactory and unsatisfactory option for grade
      */
     public Module(ModuleCode moduleCode, Title title, Semester semester, Description description,
-                  Credit credit, Faculty faculty,
-                  boolean isSu, String preclusion, String prerequisite, Grade grade) {
+                  Credit credit, Faculty faculty, Grade grade) {
         requireNonNull(moduleCode);
         requireNonNull(title);
         requireNonNull(semester);
         requireNonNull(credit);
         requireNonNull(faculty);
-        requireNonNull(isSu);
+        requireNonNull(grade);
         this.moduleCode = moduleCode;
         this.title = title;
         this.semester = semester;
         this.description = description;
         this.credit = credit;
         this.faculty = faculty;
-        this.isSu = isSu;
-        this.preclusion = preclusion;
-        this.prerequisite = prerequisite;
         this.grade = grade;
-    }
-
-    /**
-     * Constructs a new module.
-     * @param moduleCode
-     * @param title
-     * @param description
-     * @param credit
-     * @param faculty
-     * @param grade
-     */
-    public Module(ModuleCode moduleCode, Title title, Semester semester, Description description, Credit credit,
-        Faculty faculty, Grade grade) {
-            this(moduleCode, title, semester, description, credit,
-                faculty, true, "None", "None", grade);
     }
 
     public ModuleCode getModuleCode() {
