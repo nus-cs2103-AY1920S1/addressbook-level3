@@ -97,13 +97,12 @@ The schedule display is the main component that you will be looking at to look s
 image::scheduleDisplay.png[]
 
 === Tabs
-Tabs will contain your contacts and your groups. You can use it to see all your exisiting contacts and groups!
+Tabs will contain your contacts and your groups. You can use it to see all your existing contacts and groups!
 
 image::tabs.png[]
 
 === Result Display Box
-This box shows you whether your command executed is successful or unsuccessful. If you encounter an error message here, look at our
-errors meaning section to see what is the cause of error.
+This box shows you whether your command executed is successful or unsuccessful. If you encounter an error message here, look at our errors meaning section to see what is the cause of error.
 
 image:: resultDisplayBox.png[]
 
@@ -125,7 +124,7 @@ If you meant to type the `addevent` command, you can immediately select it by pr
 image::command-suggestions/user-guide-example-step2.png[width=50%]
 
 *****
-tip: You can type an abbreviated version of the command as long as the letters are in order! For example, instead of typing `addtogroup`, try `atg`.
+image:./icons/lightbulb.png[] You can type an abbreviated version of the command as long as the letters are in order! For example, instead of typing `addtogroup`, try `atg`.
 *****
 
 Remember how TimeBook can also suggest relevant values? Let's try that by specifying a person's name using the `n/` parameter like so:
@@ -261,11 +260,9 @@ Hit the kbd:[Enter] key and you should see details of the person! You should see
 image::showpersonresult.png[]
 
 *****
-image::./icons/lightbulb.png[]
+image:./icons/lightbulb.png[] You can use the command `n` to help you scroll the schedule view without touching your mouse!
 
-* You can use the command `n` to help you scroll the schedule view without touching your mouse!
-* You can use the command `nw` see next week's schedule!
-
+image:./icons/lightbulb.png[] You can use the command `nw` see next week's schedule!
 *****
 
 ==== Listing all persons: `list`
@@ -387,10 +384,9 @@ Hit the kbd:[Enter] key and you should see the details of this group in a simila
 image::showgroupresult.png[]
 
 *****
-image::./icons/lightbulb.png[]
+image:./icons/lightbulb.png[] You can use the command `n` to help you scroll the schedule view without touching your mouse!
 
-* You can use the command `n` to help you scroll the schedule view without touching your mouse!
-* You can use the command `nw` to help you show next week's schedule!
+image:./icons/lightbulb.png[] You can use the command `nw` to help you show next week's schedule!
 
 *****
 
