@@ -490,7 +490,7 @@ Format: `list-o`
 
 ==== Edit an order : `edit-o`
 Edits the data fields of an order. +
-[underline]#Format#: `edit-p INDEX [i/IMEI] [s/SERIAL NUMBER] [n/NAME] [b/BRAND] [cp/CAPACITY] [cl/COLOUR] [$/COST] [t/TAG]…`
+[underline]#Format#: `edit-o INDEX [c/CUSTOMER] [p/PHONE] [$/PRICE] [t/TAG]…`
 
 
 ****
@@ -498,26 +498,21 @@ Edits the data fields of an order. +
 The index *must be a positive integer* 1, 2, 3, ...
 - At least one of the optional fields must be provided.
 - Existing values will be updated to the input values.
-- When editing tags, the existing tags of the phone  will be removed i.e adding of tags is not cumulative.
-- You can remove all the phones's tags by typing `t/` without specifying any tags after it.
+- When editing tags, the existing tags of the order  will be removed i.e adding of tags is not cumulative.
+- You can remove all the order's tags by typing `t/` without specifying any tags after it.
 ****
 
 [underline]#Examples#:
 
-* Edit the phone name and colour of the 1st phone.
-. `edit-c 1 n/iPhone 11 cl/Green` +
-* Clear all existing tags from the 2nd phone.
-. `edit-c 2 t/` +
+* Edit the price of the 1st order.
+. `edit-o 1 $/$1000` +
+* Clear all existing tags from the 2nd order.
+. `edit-o 2 t/` +
 
 
 ==== Copy order field : `copy-o`
 Copies an order field to clipboard. +
 Format: `copy-o <field>`
-
-//==== Duplicate an order : `duplicate-o`
-//Duplicate an order of the specified index. +
-//Format: `duplicate-o INDEX`
-
 
 === Schedule Commands
 Commands that work on schedules you have.
