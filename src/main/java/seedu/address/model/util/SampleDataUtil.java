@@ -6,6 +6,9 @@ import java.util.stream.Collectors;
 
 import seedu.address.model.Classroom;
 import seedu.address.model.ReadOnlyClassroom;
+import seedu.address.model.assignment.Assignment;
+import seedu.address.model.assignment.AssignmentDeadline;
+import seedu.address.model.assignment.AssignmentName;
 import seedu.address.model.student.Address;
 import seedu.address.model.student.Email;
 import seedu.address.model.student.MedicalCondition;
@@ -19,6 +22,7 @@ import seedu.address.model.tag.Tag;
  * Contains utility methods for populating {@code Classroom} with sample data.
  */
 public class SampleDataUtil {
+
     public static Student[] getSampleStudents() {
         return new Student[] {
             new Student(new Name("Alex Yeoh"), new Phone("87438807"), new Email("alexyeoh@example.com"),
@@ -47,7 +51,19 @@ public class SampleDataUtil {
         for (Student sampleStudent : getSampleStudents()) {
             sampleAb.addStudent(sampleStudent);
         }
+        for (Assignment sampleAssignment : getSampleAssignments()) {
+            sampleAb.addAssignment(sampleAssignment);
+        }
         return sampleAb;
+    }
+
+    public static Assignment[] getSampleAssignments() {
+        return new Assignment[] {
+            new Assignment(new AssignmentName("Math Assignment 1"), new AssignmentDeadline("24/07/2019 1800")),
+            new Assignment(new AssignmentName("English Assignment 3"), new AssignmentDeadline("29/07/2019 2359")),
+            new Assignment(new AssignmentName("Math Tutorial 3"), new AssignmentDeadline("01/08/2019 1400")),
+            new Assignment(new AssignmentName("English Essay 1"), new AssignmentDeadline("02/08/2019 2359"))
+        };
     }
 
     /**
