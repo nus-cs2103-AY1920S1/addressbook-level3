@@ -209,6 +209,17 @@ public class Weme implements ReadOnlyWeme {
     }
 
     /**
+     * Replaces the given meme {@code target} in the list with {@code editedMeme}.
+     * {@code target} must exist in Weme.
+     * The meme identity of {@code editedMeme} must not be the same as another existing meme in Weme.
+     */
+    public void setImportedMeme(Meme target, Meme editedMeme) {
+        requireNonNull(editedMeme);
+
+        importList.setMeme(target, editedMeme);
+    }
+
+    /**
      * Replaces the given template {@code target} in the list with {@code editedTemplate}.
      * {@code target} must exist in Weme.
      * The template identity of {@code editedTemplate} must not be the same as another existing template in the
@@ -227,6 +238,15 @@ public class Weme implements ReadOnlyWeme {
     public void removeMeme(Meme key) {
         memes.remove(key);
     }
+
+    /**
+     * Removes {@code key} from this {@code Weme}.
+     * {@code key} must exist in Weme.
+     */
+    public void removeImportedMeme(Meme key) {
+        importList.remove(key);
+    }
+
 
     /**
      * Removes {@code key} from this {@code Weme}.

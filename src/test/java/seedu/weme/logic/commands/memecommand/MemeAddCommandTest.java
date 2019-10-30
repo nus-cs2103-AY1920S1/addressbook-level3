@@ -113,6 +113,21 @@ public class MemeAddCommandTest {
         }
 
         @Override
+        public void clearImportList() {
+            throw new AssertionError("This method should not be called");
+        }
+
+        @Override
+        public void setImportedMeme(Meme target, Meme editedMeme) {
+            throw new AssertionError("This method should not be called");
+        }
+
+        @Override
+        public void deleteImportedMeme(Meme target) {
+            throw new AssertionError("This method should not be called");
+        }
+
+        @Override
         public ObservableMap<String, String> getObservableUserPreferences() {
             throw new AssertionError("This method should not be called");
         }

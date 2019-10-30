@@ -5,6 +5,7 @@ import static seedu.weme.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import java.util.regex.Matcher;
 
 import seedu.weme.logic.commands.Command;
+import seedu.weme.logic.commands.exportcommand.ExportClearCommand;
 import seedu.weme.logic.commands.exportcommand.ExportCommand;
 import seedu.weme.logic.commands.exportcommand.UnstageCommand;
 import seedu.weme.logic.commands.generalcommand.HelpCommand;
@@ -40,6 +41,9 @@ public class ExportParser extends WemeParser {
 
         case ExportCommand.COMMAND_WORD:
             return new ExportCommandParser().parse(arguments);
+
+        case ExportClearCommand.COMMAND_WORD:
+            return new ExportClearCommand();
 
         default:
             return super.parseCommand(userInput);

@@ -1,4 +1,4 @@
-package seedu.weme.logic.commands.memecommand;
+package seedu.weme.logic.commands.exportcommand;
 
 import static java.util.Objects.requireNonNull;
 
@@ -7,21 +7,20 @@ import seedu.weme.logic.commands.CommandResult;
 import seedu.weme.model.Model;
 
 /**
- * Clears all the memes in Weme.
+ * Clears all the memes in Weme's export staging area.
  */
-public class MemeClearCommand extends Command {
+public class ExportClearCommand extends Command {
 
     public static final String COMMAND_WORD = "clear";
-    public static final String MESSAGE_SUCCESS = "Memes have been cleared!";
+    public static final String MESSAGE_SUCCESS = "Export staging area has been cleared!";
 
 
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
 
-        model.clearMemes();
+        model.clearExportList();
         CommandResult result = new CommandResult(MESSAGE_SUCCESS);
-        model.commitWeme(result.getFeedbackToUser());
 
         return result;
     }

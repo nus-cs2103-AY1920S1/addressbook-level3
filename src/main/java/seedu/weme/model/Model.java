@@ -130,6 +130,12 @@ public interface Model {
     void deleteMeme(Meme target);
 
     /**
+     * Deletes the given imported meme.
+     * The meme must exist in the imported list.
+     */
+    void deleteImportedMeme(Meme target);
+
+    /**
      * Adds the given meme.
      * {@code meme} must not already exist in Weme.
      */
@@ -158,6 +164,13 @@ public interface Model {
      * The meme identity of {@code editedMeme} must not be the same as another existing meme in Weme.
      */
     void setMeme(Meme target, Meme editedMeme);
+
+    /**
+     * Replaces the given meme {@code target} with {@code editedMeme}.
+     * {@code target} must exist in Weme.
+     * The meme identity of {@code editedMeme} must not be the same as another existing meme in Weme.
+     */
+    void setImportedMeme(Meme target, Meme editedMeme);
 
     /**
      * Returns true if a template with the same identity as {@code template} exists in Weme.
@@ -294,10 +307,14 @@ public interface Model {
     void clearMemeStats(Meme memeToDelete);
 
     /**
-     * Clears the list memes in export tab after exporting.
+     * Clears the list memes in export tab.
      */
     void clearExportList();
 
+    /**
+     * Clears the list memes in export tab.
+     */
+    void clearImportList();
 
     /**
      * Returns all past records of file paths.

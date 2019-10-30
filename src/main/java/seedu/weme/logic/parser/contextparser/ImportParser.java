@@ -6,8 +6,13 @@ import java.util.regex.Matcher;
 
 import seedu.weme.logic.commands.Command;
 import seedu.weme.logic.commands.generalcommand.HelpCommand;
+import seedu.weme.logic.commands.importcommand.ImportClearCommand;
 import seedu.weme.logic.commands.importcommand.ImportCommand;
+import seedu.weme.logic.commands.importcommand.ImportDeleteCommand;
+import seedu.weme.logic.commands.importcommand.ImportEditCommand;
 import seedu.weme.logic.commands.importcommand.LoadCommand;
+import seedu.weme.logic.parser.commandparser.importcommandparser.ImportDeleteCommandParser;
+import seedu.weme.logic.parser.commandparser.importcommandparser.ImportEditCommandParser;
 import seedu.weme.logic.parser.commandparser.importcommandparser.LoadCommandParser;
 import seedu.weme.logic.parser.exceptions.ParseException;
 
@@ -39,6 +44,15 @@ public class ImportParser extends WemeParser {
 
         case ImportCommand.COMMAND_WORD:
             return new ImportCommand();
+
+        case ImportClearCommand.COMMAND_WORD:
+            return new ImportClearCommand();
+
+        case ImportEditCommand.COMMAND_WORD:
+            return new ImportEditCommandParser().parse(arguments);
+
+        case ImportDeleteCommand.COMMAND_WORD:
+            return new ImportDeleteCommandParser().parse(arguments);
 
         default:
             return super.parseCommand(userInput);

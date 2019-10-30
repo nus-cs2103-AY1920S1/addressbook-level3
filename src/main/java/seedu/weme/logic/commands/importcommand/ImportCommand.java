@@ -27,6 +27,7 @@ public class ImportCommand extends Command {
 
         try {
             model.importMemes();
+            model.clearImportList();
         } catch (IOException e) {
             throw new CommandException(e.toString());
         }
