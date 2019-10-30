@@ -5,7 +5,6 @@ import static seedu.moneygowhere.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
 import java.util.Comparator;
-import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -15,8 +14,10 @@ import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import seedu.moneygowhere.commons.core.GuiSettings;
 import seedu.moneygowhere.commons.core.LogsCenter;
+import seedu.moneygowhere.logic.sorting.ReminderComparator;
 import seedu.moneygowhere.logic.sorting.SpendingComparator;
 import seedu.moneygowhere.model.budget.Budget;
+import seedu.moneygowhere.model.currency.Currency;
 import seedu.moneygowhere.model.reminder.Reminder;
 import seedu.moneygowhere.model.spending.Spending;
 
@@ -30,6 +31,7 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<Spending> filteredSpendings;
     private final SortedList<Spending> sortedSpendings;
+    private final SortedList<Reminder> sortedReminders;
 
     private Predicate<Spending> statsPredicate;
 
@@ -49,6 +51,9 @@ public class ModelManager implements Model {
         sortedSpendings.setComparator(new SpendingComparator());
 
         filteredSpendings = new FilteredList<>(sortedSpendings);
+
+        sortedReminders = new SortedList<>(this.spendingBook.getReminderList());
+        sortedReminders.setComparator(new ReminderComparator());
     }
 
     public ModelManager() {
@@ -143,6 +148,23 @@ public class ModelManager implements Model {
         spendingBook.clearBudgetSum();
     }
 
+    //=========== Currency functions =====================================================================
+
+    @Override
+    public ObservableList<Currency> getCurrencies() {
+        return spendingBook.getCurrencies();
+    }
+
+    @Override
+    public Currency getCurrencyInUse() {
+        return spendingBook.getCurrencyInUse();
+    }
+
+    @Override
+    public void setCurrencyInUse(Currency currency) {
+        spendingBook.setCurrencyInUse(currency);
+    }
+
     //=========== Reminder related functions =====================================================================
 
     @Override
@@ -161,9 +183,14 @@ public class ModelManager implements Model {
         return spendingBook.hasReminder(reminder);
     }
 
+    //=========== Sorted Reminder List Accessors =============================================================
+
+    /**
+     * Returns an sorted view of the list of {@code Reminder}
+     */
     @Override
-    public List<Reminder> getReminderList() {
-        return spendingBook.getReminderList();
+    public ObservableList<Reminder> getSortedReminderList() {
+        return sortedReminders;
     }
 
     //=========== Statistics related functions =====================================================================

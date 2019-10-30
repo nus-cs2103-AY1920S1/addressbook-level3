@@ -2,12 +2,12 @@ package seedu.moneygowhere.model;
 
 import java.nio.file.Path;
 import java.util.Comparator;
-import java.util.List;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.moneygowhere.commons.core.GuiSettings;
 import seedu.moneygowhere.model.budget.Budget;
+import seedu.moneygowhere.model.currency.Currency;
 import seedu.moneygowhere.model.reminder.Reminder;
 import seedu.moneygowhere.model.spending.Spending;
 
@@ -136,6 +136,9 @@ public interface Model {
      */
     boolean hasReminder(Reminder reminder);
 
+    /** Returns an unmodifiable view of the sorted Reminder list */
+    ObservableList<Reminder> getSortedReminderList();
+
     /**
      * Returns an unmodifiable view of the filtered Spending list
      */
@@ -147,8 +150,18 @@ public interface Model {
     void updateStatsPredicate(Predicate<Spending> statsPredicate);
 
     /**
-     * Returns an unmodifiable view of the filtered Spending list
+     * Gets the current currency in use.
      */
-    List<Reminder> getReminderList();
+    Currency getCurrencyInUse();
+
+    /**
+     * Gets the currency list.
+     */
+    ObservableList<Currency> getCurrencies();
+
+    /**
+     * Sets the currency in use.
+     */
+    void setCurrencyInUse(Currency currency);
 }
 

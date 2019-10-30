@@ -5,7 +5,7 @@ import static java.util.Objects.requireNonNull;
 /**
  * Represents a Reminder's message in the Reminder list. Guarantees: immutable; is always valid
  */
-public class ReminderMessage {
+public class ReminderMessage implements Comparable<ReminderMessage> {
 
     public final String value;
 
@@ -31,4 +31,8 @@ public class ReminderMessage {
         return value.hashCode();
     }
 
+    @Override
+    public int compareTo(ReminderMessage o) {
+        return value.compareTo(o.value);
+    }
 }

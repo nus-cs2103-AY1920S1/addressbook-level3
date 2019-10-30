@@ -410,11 +410,11 @@ The recorded reminders sorted with deadline in descending order, are displayed o
 
 This feature is implemented with the following operations:
 
-* Adding a reminder `reminder d/DATE m/MESSAGE` +
-e.g. `reminder d/30/08/2020 m/Pay school fee` - set reminder to pay school fee by 30th of August 2020
+* Adding a reminder `reminder add d/DATE m/MESSAGE` +
+e.g. `reminder add d/30/08/2020 m/Pay school fee` - set reminder to pay school fee by 30th of August 2020
 
-* Deleting a reminder `dreminder INDEX` +
-e.g. `dreminder 1` - delete the first reminder in the reminder list shown in UI.
+* Deleting a reminder `reminder delete INDEX` +
+e.g. `reminder delete 1` - delete the first reminder in the reminder list shown in UI.
 
 Below is the activity diagram describing the steps take by MoneyGoWhere when it receives `AddReminderCommand`.
 
@@ -1200,6 +1200,51 @@ Use case ends.
 ** 1a1. MoneyGoWhere shows an error message.
 +
 Use case ends.
+[none]
+
+
+'''
+[discrete]
+=== UC18 View exchange rates
+
+*MSS*
+
+1.  User requests to view exchange rates
+2.  MoneyGoWhere shows all exchange rates available for supported currencies.
++
+Use case ends.
+[none]
+
+
+'''
+[discrete]
+=== UC19 Set the existing currency
+
+*MSS*
+
+1.  User requests to set the existing currency
+2.  MoneyGoWhere shows all exchange rates available for supported currencies.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. There is no currency specified.
++
+[none]
+** 1a1. MoneyGoWhere shows the current currency used.
++
+Use case ends.
+
+[none]
+* 1b. The currency entered does not exist.
++
+[none]
+** 1b1. MoneyGoWhere shows an error message.
++
+Step 1b1 is repeated until the currency entered is correct. +
+Use case resumes from step 1.
 [none]
 
 [appendix]

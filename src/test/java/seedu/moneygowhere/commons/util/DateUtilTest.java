@@ -23,13 +23,19 @@ class DateUtilTest {
     @Test
     public void parseDate_validDate_correctResult() throws ParseException {
         LocalDate date = LocalDate.of(2019, Month.DECEMBER, 25);
-        // mm/dd/yyyy will not be supported.
-        assertEquals(date, DateUtil.parseDate("25/12/2019 midnight"));
+        assertEquals(date, DateUtil.parseDate("25/12/2019"));
 
         date = LocalDate.of(2019, Month.OCTOBER, 12);
 
-        assertEquals(date, DateUtil.parseDate("12/10/2019 midnight"));
-        assertEquals(date, DateUtil.parseDate("12-10-2019 midnight"));
+        assertEquals(date, DateUtil.parseDate("12/10/2019"));
+        assertEquals(date, DateUtil.parseDate("12-10-2019"));
+    }
+
+    @Test
+    public void parseDate_validDate_exceptionThrown() {
+        assertThrows(ParseException.class, () -> DateUtil.parseDate("12/25/2019"));
+        assertThrows(ParseException.class, () -> DateUtil.parseDate("12/10/2019 midnight"));
+        assertThrows(ParseException.class, () -> DateUtil.parseDate("12-10-2019 midnight"));
         assertThrows(ParseException.class, () -> DateUtil.parseDate("does not work"));
     }
 
@@ -38,13 +44,24 @@ class DateUtilTest {
         // Valid dates
         assertTrue(DateUtil.isValidDate("2/2"));
         assertTrue(DateUtil.isValidDate("2-2"));
+        assertTrue(DateUtil.isValidDate("yesterday"));
+        assertTrue(DateUtil.isValidDate("last month"));
+        assertTrue(DateUtil.isValidDate("The 31st of April in the year 2008"));
 
         // Invalid dates
         assertFalse(DateUtil.isValidDate("1"));
         assertFalse(DateUtil.isValidDate("2"));
+
         assertFalse(DateUtil.isValidDate("2/2/79"));
+        assertFalse(DateUtil.isValidDate("2/25/1995"));
+
         assertFalse(DateUtil.isValidDate("31/2/2019"));
         assertFalse(DateUtil.isValidDate("31-2-2019"));
+
+        assertFalse(DateUtil.isValidDate("11am"));
+        assertFalse(DateUtil.isValidDate("midnight"));
+
+        assertFalse(DateUtil.isValidDate("lol"));
     }
 
     @Test
@@ -56,6 +73,12 @@ class DateUtilTest {
     public void prettyFormatDate_correctResult() {
         assertEquals("Wed 25/12/2019", DateUtil.prettyFormatDate("25/12/2019"));
         assertEquals("", DateUtil.prettyFormatDate(" "));
+    }
+
+    @Test
+    public void twoDigitYearFormatDate_correctResult() {
+        assertEquals("25/12/19", DateUtil.twoDigitYearFormatDate("25/12/2019"));
+        assertEquals("", DateUtil.twoDigitYearFormatDate(" "));
     }
 
     @Test

@@ -7,6 +7,8 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.time.temporal.ChronoUnit;
+
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -25,6 +27,7 @@ import seedu.moneygowhere.logic.parser.exceptions.ParseException;
 public class DateUtil {
     private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     private static final DateTimeFormatter DATE_FORMAT_PRETTY = DateTimeFormatter.ofPattern("EE dd/MM/yyyy");
+    private static final DateTimeFormatter DATE_FORMAT_TWO_DIGIT_YEAR = DateTimeFormatter.ofPattern("dd/MM/yy");
 
     /** Date pattern which allows leading zeroes to be omitted. **/
     private static final Pattern DATE_PATTERN = Pattern.compile("([0-9]{1,2})(?:[/\\-])([0-9]{1,2})"
@@ -35,6 +38,7 @@ public class DateUtil {
 
     /**
      * Parses a given date in natural language, processes it and returns a formatted date.
+     * If there are multiple dates in the date input, return the first date found.
      *
      * @param date Input date
      * @return Formatted date as Date type
@@ -43,27 +47,13 @@ public class DateUtil {
     public static LocalDate parseDate(String date) throws ParseException {
         requireNonNull(date);
 
-        // Normalises this date input.
-        String normalisedDate = normaliseDate(date);
+        List<LocalDate> dates = parseDates(date);
 
-        List<DateGroup> dateGroups = PARSER.parse(normalisedDate);
-
-        if (dateGroups.isEmpty()) {
+        if (dates == null) {
             throw new ParseException("Invalid input date");
         }
 
-        List<Date> possibleDates = dateGroups.get(0).getDates();
-
-        if (possibleDates.isEmpty()) {
-            throw new ParseException("No possible dates from input date");
-        }
-
-        List<LocalDate> convertedDate = dateGroups.get(0).getDates()
-                .stream()
-                .map(d -> d.toInstant().atZone(ZoneId.systemDefault()).toLocalDate())
-                .collect(Collectors.toList());
-
-        return convertedDate.get(0);
+        return dates.get(0);
     }
 
     /**
@@ -75,7 +65,7 @@ public class DateUtil {
     public static List<LocalDate> parseDates(String date) {
         requireNonNull(date);
 
-        // Normalises this date input.
+        // Normalises this date input
         String normalisedDate = normaliseDate(date);
 
         List<DateGroup> dateGroups = PARSER.parse(normalisedDate);
@@ -84,8 +74,19 @@ public class DateUtil {
             return null;
         }
 
-        return dateGroups.get(0).getDates()
-                .stream()
+        DateGroup dateGroup = dateGroups.get(0);
+
+        // Disallow explicit time input
+        if (!dateGroup.isTimeInferred()) {
+            return null;
+        }
+
+        List<Date> dates = dateGroup.getDates();
+        if (dates.isEmpty()) {
+            return null;
+        }
+
+        return dates.stream()
                 .map(d -> d.toInstant().atZone(ZoneId.systemDefault()).toLocalDate())
                 .collect(Collectors.toList());
     }
@@ -99,17 +100,7 @@ public class DateUtil {
     public static boolean isValidDate(String date) {
         requireNonNull(date);
 
-        // Normalises this date input.
-        String normalisedDate = normaliseDate(date);
-
-        List<DateGroup> dateGroups = PARSER.parse(normalisedDate);
-
-        if (dateGroups.isEmpty()) {
-            return false;
-        }
-
-        List<Date> possibleDates = dateGroups.get(0).getDates();
-        return !possibleDates.isEmpty();
+        return parseDates(date) != null;
     }
 
     /**
@@ -211,7 +202,27 @@ public class DateUtil {
         }
     }
 
+    /**
+     * formats a date to a string with two-digit year.
+     * Example output: 25/12/19
+     *
+     * @param date Input date
+     * @return A formatted date string
+     */
+    public static String twoDigitYearFormatDate(String date) {
+        try {
+            LocalDate parsedDate = LocalDate.parse(date, DATE_FORMAT);
+            return DATE_FORMAT_TWO_DIGIT_YEAR.format(parsedDate);
+        } catch (DateTimeParseException e) {
+            return "";
+        }
+    }
+
     public static LocalDate getTodayDate() {
         return LocalDate.now();
+    }
+
+    public static long getDaysBetween(LocalDate d1, LocalDate d2) {
+        return ChronoUnit.DAYS.between(d1, d2);
     }
 }
