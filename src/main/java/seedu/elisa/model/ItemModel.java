@@ -123,4 +123,6 @@ public interface ItemModel {
     public EventList getEventList();
 
     public Item getItem(int index);
+
+    public Item editItem(Item oldItem, Item newItem);
 }
