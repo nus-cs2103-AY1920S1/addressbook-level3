@@ -82,7 +82,7 @@ public class BudgetCard extends UiPart<Region> {
      * Updates the text displayed on the budget progress bar.
      */
     private void updateBudgetCardProgressBarText() {
-        updateBudgetCardTotalAmount(budget.getExpenseSum());
+        updateBudgetCardTotalAmount(budget.calculateExpenseSum());
         budgetAllocatedAmount.setText(String.format("%s%.2f", CURRENCY_SYMBOL, budget.getAmount().getAsDouble()));
         updateBudgetProportionUsed();
     }
