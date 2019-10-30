@@ -155,6 +155,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void clearQuestions() {
+        appData.clearQuestions();
+    }
+
+    @Override
     public void addQuestion(Question question) {
         appData.addQuestion(question);
         updateFilteredQuestionList(PREDICATE_SHOW_ALL_QUESTIONS);
