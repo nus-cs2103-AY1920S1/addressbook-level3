@@ -33,7 +33,7 @@ class FetchEventCommandParserTest {
         Event eventToFetch = model.getFilteredEventList().get(INDEX_FIRST_EVENT.getZeroBased());
         FetchEventCommand fetchCommand = new FetchEventCommand(INDEX_FIRST_EVENT);
 
-        String expectedMessage = String.format(FetchEventCommand.MESSAGE_SUCCESS, eventToFetch);
+        String expectedMessage = String.format(FetchEventCommand.MESSAGE_SUCCESS, eventToFetch.getName());
 
         ModelManager expectedModel = new ModelManager(model.getAddressBook(),
                 model.getEventBook(), new UserPrefs());
@@ -52,7 +52,7 @@ class FetchEventCommandParserTest {
     public void execute_validIndexFilteredList_success() {
         Event eventToFetch = model.getFilteredEventList().get(INDEX_FIRST_EVENT.getZeroBased());
         FetchEventCommand fetchCommand = new FetchEventCommand(INDEX_FIRST_EVENT);
-        String expectedMessage = String.format(FetchEventCommand.MESSAGE_SUCCESS, eventToFetch);
+        String expectedMessage = String.format(FetchEventCommand.MESSAGE_SUCCESS, eventToFetch.getName());
 
         ModelManager expectedModel = new ModelManager(new AddressBook(model.getAddressBook()),
                 new EventBook(model.getEventBook()), new UserPrefs());

@@ -26,10 +26,10 @@ import seedu.address.model.event.Event;
 /**
  * Controller for a fetch page
  */
-public class FetchWindow extends UiPart<Stage> {
+public class FetchEventWindow extends UiPart<Stage> {
 
-    private static final Logger logger = LogsCenter.getLogger(FetchWindow.class);
-    private static final String FXML = "FetchWindow.fxml";
+    private static final Logger logger = LogsCenter.getLogger(FetchEventWindow.class);
+    private static final String FXML = "FetchEventWindow.fxml";
     private final Logic logic;
     private final int eventOneBasedIndex;
     private final Integer index;
@@ -63,17 +63,17 @@ public class FetchWindow extends UiPart<Stage> {
     private Button freeButton;
 
     /**
-     * Creates a new FetchWindow.
+     * Creates a new FetchEventWindow.
      *
-     * @param root Stage to use as the root of the FetchWindow.
+     * @param root Stage to use as the root of the FetchEventWindow.
      */
-    public FetchWindow(Stage root, Logic logic, Integer index) {
+    public FetchEventWindow(Stage root, Logic logic, Integer index) {
         super(FXML, root);
         this.logic = logic;
         this.index = index;
         this.eventOneBasedIndex = index + 1;
 
-        employeeList = logic.getFilteredEmployeeList();
+        employeeList = logic.getFullEmployeeList();
         filteredEventList = logic.getFilteredEventList();
         updateCards();
 
@@ -114,9 +114,9 @@ public class FetchWindow extends UiPart<Stage> {
     }
 
     /**
-     * Creates a new FetchWindow.
+     * Creates a new FetchEventWindow.
      */
-    public FetchWindow(Logic logic, Integer index) {
+    public FetchEventWindow(Logic logic, Integer index) {
         this(new Stage(), logic, index);
     }
 
@@ -179,10 +179,12 @@ public class FetchWindow extends UiPart<Stage> {
      * Custom {@code ListCell} that displays the graphics of a {@code Employee} using a {@code EmployeeCard}.
      */
     class AvailablePersonListViewCell extends ListCell<Employee> {
-        private FetchWindow fetchWindow;
-        AvailablePersonListViewCell(FetchWindow fetchWindow) {
+        private FetchEventWindow fetchWindow;
+
+        AvailablePersonListViewCell(FetchEventWindow fetchWindow) {
             this.fetchWindow = fetchWindow;
         }
+
         @Override
         protected void updateItem(Employee employee, boolean empty) {
             super.updateItem(employee, empty);
@@ -212,10 +214,12 @@ public class FetchWindow extends UiPart<Stage> {
      * Custom {@code ListCell} that displays the graphics of a {@code Employee} using a {@code EmployeeCard}.
      */
     class CurrentPersonListViewCell extends ListCell<Employee> {
-        private FetchWindow fetchWindow;
-        CurrentPersonListViewCell(FetchWindow fetchWindow) {
+        private FetchEventWindow fetchWindow;
+
+        CurrentPersonListViewCell(FetchEventWindow fetchWindow) {
             this.fetchWindow = fetchWindow;
         }
+
         @Override
         protected void updateItem(Employee employee, boolean empty) {
             super.updateItem(employee, empty);

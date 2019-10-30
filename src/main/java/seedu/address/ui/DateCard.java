@@ -2,11 +2,12 @@ package seedu.address.ui;
 
 import java.util.List;
 
-import javafx.event.EventHandler;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.HBox;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.model.distinctdate.DistinctDate;
 import seedu.address.model.event.Event;
@@ -23,12 +24,9 @@ public class DateCard extends UiPart<Region> {
     private Integer index;
 
     @FXML
-    private HBox cardPane;
-
-    @FXML
     private Label dateLabel;
     @FXML
-    private Label eventsLabel;
+    private ListView eventListView;
 
 
     public DateCard(DistinctDate distinctDate, int displayedIndex, MainWindow mainWindow) {
@@ -37,41 +35,32 @@ public class DateCard extends UiPart<Region> {
         this.mainWindow = mainWindow;
         this.index = displayedIndex - 1;
         dateLabel.setText(date.getDate().toString());
-        eventsLabel.setText(generateString(distinctDate));
-
-        EventHandler<MouseEvent> eventHandler = new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent e) {
-                mainWindow.handleFetch(index);
-            }
-        };
-        cardPane.addEventFilter(MouseEvent.MOUSE_CLICKED, eventHandler);
+        List<Event> listOfEvent = distinctDate.getListOfEvents();
+        ObservableList<Event> eventList = FXCollections.observableArrayList(listOfEvent);
+        eventListView.setItems(eventList);
+        eventListView.setCellFactory(listView -> new EventListViewCell(mainWindow));
     }
 
     /**
-     * Generates a string output based on the list of events inside the DistinctDate Object.
-     * @param date contains a list of events that i used to generate the string
-     * @return a string of the information of the events inside the object
+     * Custom {@code ListCell} that displays the graphics of a {@code Event} using a {@code EventCard}.
      */
-    private String generateString(DistinctDate date) {
-        List<Event> list = date.getListOfEvents();
-        String outputString = "";
-        for (int i = 0; i < list.size(); i++) {
-            Event currentEvent = list.get(i);
-            String eventDesc = "";
-            if (currentEvent.getManpowerAllocatedList().toString().length() < 1) {
-                String manpowerList = "No Allocated Staff";
-                eventDesc = (i + 1) + ") Event Name: " + currentEvent.getName().toString()
-                        + "  Venue: " + currentEvent.getVenue().toString() + "\n"
-                        + "Current Manpower List (ID) : " + manpowerList + "\n";
-            } else {
-                eventDesc = (i + 1) + ") Event Name: " + currentEvent.getName().toString()
-                        + "  Venue: " + currentEvent.getVenue().toString() + "\n"
-                        + "Current Manpower List (ID) : " + currentEvent.getManpowerAllocatedList().toString() + "\n";
-            }
-            outputString = outputString + eventDesc + "\n";
+    class EventListViewCell extends ListCell<Event> {
+        private MainWindow mainWindow;
+
+        EventListViewCell(MainWindow mainWindow) {
+            this.mainWindow = mainWindow;
         }
-        return outputString;
+        @Override
+        protected void updateItem(Event event, boolean empty) {
+            super.updateItem(event, empty);
+            if (empty || event == null) {
+                setGraphic(null);
+                setText(null);
+            } else {
+                EventCard eventCard = new EventCard(event, getIndex() + 1, mainWindow);
+                setGraphic(eventCard.getRoot());
+            }
+        }
     }
 
     @Override

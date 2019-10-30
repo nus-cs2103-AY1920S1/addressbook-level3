@@ -4,32 +4,31 @@
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 <?import javafx.stage.Stage?>
 
-<fx:root resizable="false" title="DateWindow" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root minHeight="450.0" minWidth="410.0" title="DateWindow" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <icons>
       <Image url="@/images/help_icon.png" />
    </icons>
    <scene>
       <Scene>
          <root>
-            <VBox prefHeight="485.0" prefWidth="478.0">
+            <AnchorPane>
                <children>
-                  <AnchorPane fx:id="leftAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="77.0" prefWidth="239.0">
+                  <AnchorPane fx:id="leftAnchorPane" layoutY="5.423828125" AnchorPane.bottomAnchor="400.00000076293946" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <Text fx:id="availableListHeader" fill="#131313" layoutX="13.0" layoutY="14.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Generated Schedule : Display every date that has an event" wrappingWidth="392.5368347167969">
+                        <Text fx:id="availableListHeader" fill="WHITE" layoutX="13.0" layoutY="14.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Generated Schedule : Display every date that has an event" wrappingWidth="392.5368347167969">
                            <font>
-                              <Font name="System Bold" size="12.0" />
+                              <Font name="System Bold" size="18.0" />
                            </font>
                         </Text>
                      </children>
                   </AnchorPane>
-                  <ListView fx:id="dateListView" prefHeight="509.0" prefWidth="239.0" />
+                  <ListView fx:id="dateListView" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                </children>
-            </VBox>
+            </AnchorPane>
          </root>
       </Scene>
    </scene>

@@ -22,6 +22,15 @@ public class EventDayTime {
         this.endTime = endTime;
     }
 
+    /**
+     * Default EventDayTime to be initalized. Represents 8am-6pm.
+     */
+    public static EventDayTime defaultEventDayTime() {
+        LocalTime startTime = LocalTime.of(8, 0);
+        LocalTime endTime = LocalTime.of(18, 0);
+        return new EventDayTime(startTime, endTime);
+    }
+
     public LocalTime getStartTime() {
         return startTime;
     }

@@ -31,10 +31,10 @@ The application primarily uses a Command Line Interface (CLI) and displays the r
 === Using this Developer Guide
 
 [TIP]
-*LightBulbs* indicate a _Tip_, somthing that is helpful to the reader
+*LightBulbs* indicate a _Tip_, something that is helpful to the reader
 
 [NOTE]
-*'I' Icon* indicate a _Note_ that supplements useful information
+*'i' Icon* indicate a _Note_ that supplements useful information
 
 Text in a link:[`blue font and grey`] background indicates a _hyperlink_
 
@@ -157,11 +157,13 @@ As a more OOP model, we can store a `Tag` list in both `Employee Book` and `Even
  +
 image:BetterModelClassDiagram.png[]
 
+// tag::storage[]
+
 [[Design-Storage]]
 === Storage component
 
 ._Structure of the Storage Component_
-image::StorageClassDiagram.png[]
+image::StorageClassDiagram.png[width = "500"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
 
@@ -169,6 +171,8 @@ The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
 * can save the App data in json format and read it back.
+
+// end::storage[]
 
 [[Design-Commons]]
 === Common classes
@@ -264,10 +268,6 @@ image::AutoAllocateSequenceDiagram.png[]
 NOTE: The lifeline for `AutoAllocateCommand` should end at the destroy marker (X) but due to a limitation of
 PlantUML, the lifeline reaches the end of diagram.
 
-The following activity diagram summarizes what happens *after* a user successfully executes an `AutoAllocateCommand`:
-
-._Activity Diagram of the AutoAllocate Command_
-image::AutoAllocateActivityDiagram.png[align="center"]
 
 ==== Design Considerations
 

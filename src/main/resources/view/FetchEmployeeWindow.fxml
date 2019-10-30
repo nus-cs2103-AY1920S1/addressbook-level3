@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.Scene?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.stage.Stage?>
+
+<fx:root resizable="false" title="Employee Details" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <icons>
+      <Image url="@/images/help_icon.png" />
+   </icons>
+   <scene>
+      <Scene>
+         <root>
+            <VBox prefHeight="485.0" prefWidth="478.0">
+               <children>
+                  <AnchorPane fx:id="EmployeeCard" minHeight="0.0" minWidth="0.0" prefHeight="155.0" prefWidth="478.0">
+                     <children>
+                        <ImageView fx:id="imgBox" fitHeight="124.0" fitWidth="166.0" layoutX="14.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true" />
+                        <VBox layoutX="202.0" layoutY="22.0" prefHeight="96.0" prefWidth="262.0">
+                           <children>
+                              <Label fx:id="name" text="\$name" />
+                              <FlowPane fx:id="tags" prefHeight="0.0" prefWidth="100.0" />
+                              <Label fx:id="phone" text="\$phone" />
+                              <Label fx:id="address" text="\$address" />
+                              <Label fx:id="email" text="\$email" />
+                           </children>
+                        </VBox>
+                     </children>
+                     <stylesheets>
+                        <URL value="@DarkTheme.css" />
+                        <URL value="@Extensions.css" />
+                     </stylesheets></AnchorPane>
+                  <VBox prefHeight="58.0" prefWidth="478.0">
+                     <children>
+                        <Label prefHeight="47.0" prefWidth="482.0" style="-fx-background-color: #1d1d1d;" text="         List of all dates and events that employee is working for :">
+                           <stylesheets>
+                              <URL value="@DarkTheme.css" />
+                              <URL value="@Extensions.css" />
+                           </stylesheets>
+                        </Label>
+                     </children>
+                     <stylesheets>
+                        <URL value="@DarkTheme.css" />
+                        <URL value="@Extensions.css" />
+                     </stylesheets>
+                  </VBox>
+                  <ListView fx:id="dateListView" prefHeight="319.0" prefWidth="478.0" />
+               </children>
+               <stylesheets>
+                  <URL value="@DarkTheme.css" />
+                  <URL value="@Extensions.css" />
+               </stylesheets>
+            </VBox>
+         </root>
+         <stylesheets>
+            <URL value="@DarkTheme.css" />
+            <URL value="@Extensions.css" />
+         </stylesheets>
+      </Scene>
+   </scene>
+</fx:root>

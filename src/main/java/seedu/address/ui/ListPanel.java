@@ -28,7 +28,7 @@ public class ListPanel extends UiPart<Region> {
     public ListPanel(ObservableList<Employee> employeeList, ObservableList<Event> eventList, MainWindow mainWindow) {
         super(FXML);
         personListView.setItems(employeeList);
-        personListView.setCellFactory(listView -> new PersonListViewCell());
+        personListView.setCellFactory(listView -> new EmployeeListViewCell(mainWindow));
         eventListView.setItems(eventList);
         eventListView.setCellFactory(listView -> new EventListViewCell(mainWindow));
     }
@@ -38,7 +38,13 @@ public class ListPanel extends UiPart<Region> {
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code Employee} using a {@code EmployeeCard}.
      */
-    class PersonListViewCell extends ListCell<Employee> {
+    class EmployeeListViewCell extends ListCell<Employee> {
+        private MainWindow mainWindow;
+
+        EmployeeListViewCell(MainWindow mainWindow) {
+            this.mainWindow = mainWindow;
+        }
+
         @Override
         protected void updateItem(Employee employee, boolean empty) {
             super.updateItem(employee, empty);
@@ -46,7 +52,7 @@ public class ListPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new EmployeeCard(employee, getIndex() + 1).getRoot());
+                setGraphic(new EmployeeCard(employee, getIndex() + 1, mainWindow).getRoot());
             }
         }
     }
