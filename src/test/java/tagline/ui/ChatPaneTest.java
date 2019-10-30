@@ -18,6 +18,7 @@ import org.testfx.framework.junit5.ApplicationExtension;
 import org.testfx.framework.junit5.Start;
 import org.testfx.framework.junit5.Stop;
 
+import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
@@ -98,7 +99,8 @@ public class ChatPaneTest {
      */
     private void enterCommand(FxRobot robot, String command) {
         typeCommand(robot, command);
-        robot.type(KeyCode.ENTER);
+        TextField textField = robot.lookup(".commandTextField").queryAs(TextField.class);
+        robot.interact(() -> textField.fireEvent(new ActionEvent()));
     }
 
     /**

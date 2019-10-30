@@ -417,6 +417,20 @@
     -fx-background-color: #666666;
 }
 
+.auto-complete-popup {
+    -fx-background-color: #FF0000;
+    -fx-control-inner-background: #202020;
+}
+
+.auto-complete-popup > .list-view > .virtual-flow > .clipped-container > .sheet > .list-cell:filled {
+    -fx-font-size: 11pt;
+    -fx-control-inner-background: #383838;
+}
+
+.auto-complete-popup > .list-view > .virtual-flow > .clipped-container > .sheet > .list-cell:filled:selected {
+    -fx-control-inner-background: #6890BC;
+}
+
 #groupSingleResultView .big_label {
     -fx-text-fill: white;
     -fx-font-size: 24px;

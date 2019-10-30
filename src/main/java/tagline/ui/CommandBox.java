@@ -1,5 +1,7 @@
 package tagline.ui;
 
+import org.controlsfx.control.textfield.TextFields;
+
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
@@ -7,6 +9,8 @@ import javafx.scene.layout.Region;
 import tagline.logic.commands.CommandResult;
 import tagline.logic.commands.exceptions.CommandException;
 import tagline.logic.parser.exceptions.ParseException;
+import tagline.ui.util.AutoCompleteNode;
+import tagline.ui.util.AutoCompleteUtil;
 
 /**
  * The UI component that is responsible for receiving user command inputs.
@@ -14,6 +18,8 @@ import tagline.logic.parser.exceptions.ParseException;
 public class CommandBox extends UiPart<Region> {
 
     public static final String ERROR_STYLE_CLASS = "error";
+    public static final int AUTO_COMPLETE_MAX_ROWS = 4;
+
     private static final String FXML = "CommandBox.fxml";
 
     private final CommandExecutor commandExecutor;
@@ -24,8 +30,22 @@ public class CommandBox extends UiPart<Region> {
     public CommandBox(CommandExecutor commandExecutor) {
         super(FXML);
         this.commandExecutor = commandExecutor;
+
+        initializeAutoComplete();
+
         // calls #setStyleToDefault() whenever there is a change to the text of the command box.
         commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
+    }
+
+    /**
+     * Initializes the auto-complete popup of the command box.
+     */
+    public void initializeAutoComplete() {
+        AutoCompleteNode autoCompleteMatcher = AutoCompleteUtil.getAutoCompleteRootNode();
+
+        TextFields.bindAutoCompletion(commandTextField,
+            input -> autoCompleteMatcher.findMatches(input.getUserText()))
+            .setVisibleRowCount(AUTO_COMPLETE_MAX_ROWS);
     }
 
     /**

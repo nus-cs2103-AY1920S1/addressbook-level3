@@ -15,7 +15,8 @@ import org.testfx.framework.junit5.ApplicationExtension;
 import org.testfx.framework.junit5.Start;
 import org.testfx.framework.junit5.Stop;
 
-import javafx.scene.input.KeyCode;
+import javafx.event.ActionEvent;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -100,7 +101,9 @@ public class ResultPaneTest {
     private void sendCommandWithResult(FxRobot robot, CommandResult commandResult) {
         logic.setCommandResult(commandResult);
         robot.clickOn(".commandTextField");
-        robot.type(KeyCode.ENTER);
+
+        TextField textField = robot.lookup(".commandTextField").queryAs(TextField.class);
+        robot.interact(() -> textField.fireEvent(new ActionEvent()));
     }
 
     @Test

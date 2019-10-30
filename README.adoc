@@ -34,6 +34,6 @@ Being a multi-purpose note-taking app, not only can you take notes from the comm
 == Acknowledgements
 
 * The original source of the code was created by SE-EDU initiative at https://se-education.org
-* Libraries used: https://openjfx.io/[JavaFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/junit-team/junit5[JUnit5]
+* Libraries used: https://openjfx.io/[JavaFX], https://github.com/controlsfx/controlsfx[ControlsFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/junit-team/junit5[JUnit5], https://github.com/TestFX/TestFX[TestFX]
 
 == Licence : link:LICENSE[MIT]
