@@ -5,14 +5,18 @@ start
 'Since the beta syntax does not support placing the condition outside the
 'diamond we place it as the true branch instead.
 
+:User adds text;
+
 repeat
 if () then ([User wants to add text])
     :User adds text;
+else if () then ([User wants to edit text])
+    :User edits text;
 else ([User wants to delete text])
     :User deletes text;
 endif
-repeat while () is ([more?])
+repeat while () is ([finished?])
 
-:Weme generates Meme based on text entered by user;
+:Weme generates new Meme, applying all text entered by the user;
 stop
 @enduml

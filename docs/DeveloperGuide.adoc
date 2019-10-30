@@ -295,16 +295,16 @@ A user can add, edit, delete, or find a template.
 .Partial class diagram showing only classes in `Model` that concern `Template`
 image::TemplateClassDiagram.png[]
 
-Templates are stored alongside `Memes` in `Weme` in a `UniqueTemplateList`.
-The `ModelManager` will store a `FilteredList<Template>` that only holds the `Templates` that satisfy the current filter predicate.
-The `Model` exposes this filtered list of `Templates` as an unmodifiable `ObservableList<Template>` that the UI can subscribe to.
-In order to display the effect of adding text to a template while in meme creation mode,
-`CommandResult` will be extended to store the user's actions and the UI will use this information to update itself accordingly.
+Templates are stored together with `Memes` in `Weme`. Refer to the model class diagram above for details.
 
-When the user requests to generate a meme using a template, Weme will enter meme creation mode.
-The user can then add any text to one or more places on the template image.
-When the user is done, Weme will create a new `Meme` with all the added text included.
-The user can then browse this `Meme` in the collection and export or share it as desired.
+When the user requests to generate a meme using a template, Weme will enter the "*Create*" tab.
+The user can then use commands to add text to the template image.
+Meme creation is supported internally by the `MemeCreation` class.
+A `MemeCreation` object represents a meme creation session (which can be empty when the user is not creating a meme).
+Once a session is activated, it will store a `BufferedImage` of the template used as the base and a list of `MemeText` objects, which represent text that will be added to the template.
+Every time the user adds text, the list of `MemeText` will be updated.
+When the UI requests for this image, `MemeCreation` will render it with all the `MemeText` applied.
+When the user is done, `MemeCreation` will create a new `Meme` with all the added text included and save it in the meme collection.
 
 Given below is an example usage scenario of meme creation using a template.
 
@@ -313,21 +313,22 @@ Step 1. The user launches the application and enters the *Templates* tab.
 Step 2. The user executes `find doge` command to find the _doge_ template.
 The `FilteredList<Template>` in `ModelManager` will be updated with a predicate that matches only templates whose names match _doge_.
 
-Step 3. Assuming the template that the user wants to use is displayed as the first template, the user executes `use 1` to enter meme creation mode.
-Weme will update the `ModelContext` to receive commands that are meant for template manipulation, and the UI will zoom into the template chosen.
+Step 3. Assuming the template that the user wants to use is displayed as the first template, the user executes `use 1` to start createing a meme using the templated identified by index 1.
+Weme will enter the "*Create*" tab and display the image of the template.
 
 Step 4. The user executes `add cs students be like x/0.3 y/0.5` command to add the text "cs students be like".
-The text will be placed 30% horizontally from the left border and 50% vertically from the top border.
-This is made possible because the execution of this command returns a `CommandResult` that stores the text and position information.
-UI will then use this information to render the text at the correct position.
-The newly added text will be labelled number *1* for future references.
+A new `MemeText` will be added to the current `MemeCreation` session.
+The UI requests `MemeCreation` to render the resultant image, and `MemeCreation` returns an image with the text "cs students be like"
+placed 30% horizontally from the left border and 50% vertically from the top border.
 
 Step 5. The user decides that there is a typo in the text because "cs" is not capitalized.
 The user executes the command `delete 1` to delete the text labelled *1*, which is the text that was just added.
+`MemeCreation` deletes this `MemeText` and renders a new image where the text is removed and the UI will display it.
 
 Step 6. The user then executes `add CS student be like x/0.3 y/0.5` to add the correct text.
+`MemeCreation` adds this newly created `MemeText` to its internal list.
 
-Step 7. The user executes `generate d/A meme about CS students t/funny t/CS` to complete the editing session.
+Step 7. The user executes `create d/A meme about CS students t/funny t/CS` to complete the editing session.
 Weme will create a new image with the text added and create a new `Meme` with that image.
 The `Meme` created will also have description "A meme about CS students" and tags "funny" and "CS".
 The description and tag arguments are similar to those for `Meme` add command.
@@ -339,26 +340,27 @@ The following activity diagram summarizes the meme creation process:
 
 image::MemeCreationActivityDiagram.png[]
 
-The following sequence diagram shows how `CommandResult` relays information about the text added to the UI.
+The following sequence diagram shows how the user adds a piece of text.
 
-image::TemplateCommandResultSequenceDiagram.png[]
+image::TextAddCommandSequenceDiagram.png[]
 
 ==== Design Considerations
 
-===== Aspect: How to update the UI while adding text to templates
+===== Aspect: How to store the image
 
-* **Alternative 1 (current choice):** Wrap the text and position information in `CommandResult`, let the UI decide what to do.
-** Pros: No additional coupling, clearer separation of concerns.
-** Cons: Additional layer of abstraction in `CommandResult`.
-* **Alternative 2:** Execution of the command updates the UI directly.
-** Pros: More direct, less abstraction
-** Cons: `Command` will have dependency on `UI`
+* **Alternative 1 (current choice):** Only store the initial image and a list of text to re-generated the image every time it is requsted by the UI
+** Pros: Can edit/delete text after they are added
+** Cons: Slower
+* **Alternative 2:** Always store the updated image. Update the image whenever a piece of text is added.
+** Pros: Less performance overhead, only render what is needed.
+** Cons: Cannot edit/delete text.
 
 ===== Aspect: How the user adds/deletes text
 
 * **Alternative 1 (current choice):** The user enters commands to add/delete text.
 ** Pros: Easier to implement.
 ** Cons: User might not be able to position the text accurately.
+** Mitigation measure: Provide rules as visual aid for the user.
 * **Alternative 2:** The user controls the UI through individual key strokes.
 For example, `a` to add a piece of text, arrow keys to adjust the position of the currently selected text,
 `1` to select text labelled *1* and `d` to delete the currently selected text.
@@ -588,7 +590,6 @@ image:MemesTabScreenshot.png[]
 
 * *Templates* tab
 ** Templates (showing all templates)
-** MemeCreation (creating a meme from a template)
 
 .Screenshot of Weme in the *Templates* tab
 image:TemplatesTabScreenshot.png[]
