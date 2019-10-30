@@ -90,7 +90,7 @@ attendance and performance.
 
 Type the athlete's particulars in the format given below.
 
-Format : `add n/NAME p/PHONE e/EMAIL a/ADDRESS [t/TAG]... i/IMAGE`
+Format : `add n/NAME p/PHONE e/EMAIL a/ADDRESS [t/TAG]... [i/IMAGE]`
 
 [IMPORTANT]
 Take note that if you want to add an image of John when you are adding him to Athletick, make sure that
