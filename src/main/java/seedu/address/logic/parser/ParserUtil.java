@@ -317,6 +317,9 @@ public class ParserUtil {
             String[] tokens = timeslot.split("-");
             LocalDateTime startTime = LocalDateTime.parse(tokens[0], DATE_TIME_FORMATTER);
             LocalDateTime endTime = LocalDateTime.parse(tokens[1], DATE_TIME_FORMATTER);
+            if (endTime.isBefore(startTime) || endTime.compareTo(startTime) == 0) {
+                return null;
+            }
             Venue venue = new Venue(tokens[2].trim());
             return new Timeslot(startTime, endTime, venue);
         } catch (DateTimeParseException e) {

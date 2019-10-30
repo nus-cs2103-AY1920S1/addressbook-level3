@@ -273,7 +273,8 @@ public class DisplayModelManager {
                 //Checks to see if the currentStartTime is within the upcoming 7 days.
                 if (now.toLocalDate().plusDays(7).isAfter(currentStartTime.toLocalDate())
                         && now.toLocalDate().minusDays(1).isBefore(currentStartTime.toLocalDate())
-                        && startTime.isBefore(currentStartTime.toLocalTime())
+                        && (startTime.isBefore(currentStartTime.toLocalTime())
+                        || startTime.compareTo(currentStartTime.toLocalTime()) == 0)
                         && endTime.isAfter(currentStartTime.toLocalTime())) {
 
                     PersonTimeslot timeslot = new PersonTimeslot(
