@@ -373,7 +373,7 @@ keyword parameter can contain multiple words. E.g. `n/Module W` will match names
 * `FOLDER` should be the exact name of a folder (case insensitive). E.g. `wiki` will match
 `Wiki` but not `Wikipedia`.
 * `NOT_NAME_KEYWORD`, `NOT_URL_KEYWORD`, and `NOT_FOLDER` are name keywords,
-URL keywords, or folders that bookmarks to be tagged should *not* match.
+URL keywords, or folder names that bookmarks to be tagged should *not* match.
 * The tag `TAG_NAME` is still a normal tag. E.g. if an autotag `YouTube` matches
 bookmarks with URLs containing `youtube.com`, other bookmarks can still be
 tagged with the tag `YouTube`.
