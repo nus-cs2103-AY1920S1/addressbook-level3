@@ -1,13 +1,15 @@
 package seedu.address.ui.panel.calendar;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
 
 import javafx.fxml.FXML;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
-import jdk.jfr.Event;
 import seedu.address.model.CalendarDate;
 import seedu.address.model.ModelLists;
 import seedu.address.model.events.EventSource;
@@ -117,6 +119,11 @@ public class CalendarPanel extends UiPart<Region> {
         timelinePlaceholder.getChildren().add(timelineView.getRoot());
     }
 
+    /**
+     * Changes the UI according to the given ModelLists.
+     *
+     * @param lists The given ModelLists.
+     */
     public void onModelListChange(ModelLists lists) {
         eventTaskList = combineList(lists.getEvents(), lists.getTasks());
         this.timelineView.onChange(eventTaskList);
@@ -124,6 +131,13 @@ public class CalendarPanel extends UiPart<Region> {
         this.upcomingView.onChange(eventTaskList);
     }
 
+    /**
+     * Returns a combined copy of list for event list and task list into an Object list to be used.
+     *
+     * @param events Represents the event list.
+     * @param tasks Represents the task list.
+     * @return A combined copy of list for event list and task list into an Object list to be used.
+     */
     private List<Object> combineList(List<EventSource> events, List<TaskSource> tasks) {
         List<Object> eventTaskList = new ArrayList<>();
         Queue<EventSource> tempEvents = new LinkedList<>();
@@ -132,31 +146,32 @@ public class CalendarPanel extends UiPart<Region> {
         tempTasks.addAll(tasks);
 
         // Events and Tasks are already sorted, so we need to zip them.
-        while(!tempEvents.isEmpty() || !tempTasks.isEmpty()) {
-            if(tempEvents.isEmpty()) {
+        while (!tempEvents.isEmpty() || !tempTasks.isEmpty()) {
+            if (tempEvents.isEmpty()) {
                 eventTaskList.addAll(tempTasks);
                 break;
             }
 
-            if(tempTasks.isEmpty()) {
+            if (tempTasks.isEmpty()) {
                 eventTaskList.addAll(tempEvents);
                 break;
             }
 
             EventSource event = tempEvents.peek();
             TaskSource task = tempTasks.peek();
-            if(task.isDone()) {
+            if (task.isDone() || task.getDueDate() == null) {
                 tempTasks.poll();
                 continue;
             }
+
             int dateCompare = event.getStartDateTime().compareTo(task.getDueDate());
-            if(dateCompare == 0) {
-                if(event.getDescription().compareTo(task.getDescription()) <= 0) {
+            if (dateCompare == 0) {
+                if (event.getDescription().compareTo(task.getDescription()) <= 0) {
                     eventTaskList.add(tempEvents.poll());
                 } else {
                     eventTaskList.add(tempTasks.poll());
                 }
-            } else if(dateCompare < 0) {
+            } else if (dateCompare < 0) {
                 System.out.println(dateCompare);
                 eventTaskList.add(tempEvents.poll());
             } else {

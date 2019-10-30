@@ -30,15 +30,15 @@
     -lineColor: #FF7597;        /** Some Redish Pink **/
     -calendarDayColor: #607080; /** Light Purple Blue Box **/
     -welcomeColor: #7FC9FD;     /** Light Sky Blue **/
-    -eventCardColor1: #FFAF5F;
-    -eventCardColor2: #4ACFAC;
-    -eventCardColor3: #7E8CE0;
-    -taskCardColor: #FFA48E;
+    -eventCardColor: #FFAF5F;
+    -taskCardColor: #b5e6d4;
+    -taskDoneCardColor: #e4fac3;
     -currentDateColor: #0D6B54;
     -eventTagColor: #7FC9FD;
-    -taskTagColor: #CFFFE1;
+    -taskTagColor: #E6BEB5;
+    -taskDoneTagColor: #99FFC0;
+    -secondaryColor: #FFFFFF;
     -white: #FFFFFF;
-    -black: #000000;
 }
 
 .background {
@@ -48,7 +48,7 @@
 
 .label {
     -fx-font-family: "Roboto Regular";
-    -fx-text-fill: -white;
+    -fx-text-fill: -secondaryColor;
     -fx-opacity: 0.9;
 }
 
@@ -79,12 +79,12 @@
 }
 
 .button:pressed, .button:default:hover:pressed {
-  -fx-background-color: white;
+  -fx-background-color: secondaryColor;
   -fx-text-fill: #1d1d1d;
 }
 
 .button:focused {
-    -fx-border-color: white, white;
+    -fx-border-color: -secondaryColor, -secondaryColor;
     -fx-border-width: 1, 1;
     -fx-border-style: solid, segments(1, 1);
     -fx-border-radius: 0, 0;
@@ -94,7 +94,7 @@
 .button:disabled, .button:default:disabled {
     -fx-opacity: 0.4;
     -fx-background-color: #1d1d1d;
-    -fx-text-fill: white;
+    -fx-text-fill: -secondaryColor;
 }
 
 .button:default {
@@ -150,7 +150,7 @@
     -fx-border-width: 1;
     -fx-font-family: -regularFont;
     -fx-font-size: 13pt;
-    -fx-text-fill: white;
+    -fx-text-fill: -secondaryColor;
 }
 /** For Main Window **/
 #viewTitlePane {
@@ -202,7 +202,7 @@
 #calendarDay {
     -fx-font-family: "Roboto Medium";
     -fx-font-size: 11pt;
-    -fx-text-fill: -white;
+    -fx-text-fill: -secondaryColor;
 }
 
 #calendarDayCircle {
@@ -272,13 +272,13 @@
 
 #eventListTitle, #taskListTitle {
     -fx-font-family: "Roboto Medium";
-    -fx-text-fill: -white;
+    -fx-text-fill: -secondaryColor;
     -fx-font-size: 14pt;
 }
 
 /** For Event Card **/
 #eventCardBase {
-    -fx-background-color: -eventCardColor1;
+    -fx-background-color: -eventCardColor;
     -fx-background-radius: 8;
     -fx-effect: dropshadow(three-pass-box, -backgroundColor, 8, 0.5, 0, 0);
 }
@@ -302,13 +302,13 @@
     -fx-effect: dropshadow(three-pass-box, -backgroundColor, 8, 0.5, 0, 0);
 }
 
-#taskCardName {
+#taskName {
     -fx-font-family: "Roboto Medium";
     -fx-text-fill: -primaryColor;
     -fx-font-size: 14pt;
 }
 
-#taskCardDate {
+#taskDueDate {
     -fx-font-family: "Roboto Regular";
     -fx-text-fill: -primaryColor;
     -fx-font-size: 10pt;
@@ -325,20 +325,20 @@
 
 /** For Upcoming Event Card **/
 #upcomingEventBase {
-    -fx-background-color: -eventCardColor3;
+    -fx-background-color: -eventCardColor;
     -fx-background-radius: 8;
     -fx-effect: dropshadow(three-pass-box, -backgroundColor, 8, 0.5, 0, 0);
 }
 
 #upcomingWeekDay {
     -fx-font-family: "Roboto Light";
-    -fx-text-fill: -white;
+    -fx-text-fill: -secondaryColor;
     -fx-font-size: 10pt;
 }
 
 #upcomingDay {
     -fx-font-family: "Roboto Medium";
-    -fx-text-fill: -white;
+    -fx-text-fill: -secondaryColor;
     -fx-font-size: 14pt;
 }
 
@@ -350,20 +350,20 @@
 
 /** For Upcoming Task Card **/
 #upcomingTaskBase {
-    -fx-background-color: -eventCardColor2;
+    -fx-background-color: -taskCardColor;
     -fx-background-radius: 8;
     -fx-effect: dropshadow(three-pass-box, -backgroundColor, 8, 0.5, 0, 0);
 }
 
 #upcomingWeekDay {
     -fx-font-family: "Roboto Light";
-    -fx-text-fill: -white;
+    -fx-text-fill: -secondaryColor;
     -fx-font-size: 10pt;
 }
 
 #upcomingDay {
     -fx-font-family: "Roboto Medium";
-    -fx-text-fill: -white;
+    -fx-text-fill: -secondaryColor;
     -fx-font-size: 14pt;
 }
 

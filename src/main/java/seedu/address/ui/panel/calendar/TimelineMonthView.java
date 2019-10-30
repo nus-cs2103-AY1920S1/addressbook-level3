@@ -67,12 +67,6 @@ public class TimelineMonthView extends TimelineView {
     }
 
     @Override
-    boolean isWithinTimeline(EventSource event) {
-        DateTime eventDateTime = event.getStartDateTime();
-        return calendarDate.sameMonthYear(eventDateTime.getMonth(), eventDateTime.getYear());
-    }
-
-    @Override
     void addTaskCard(TaskSource task) {
         // Gets the event Hour
         Integer taskDay = task.getDueDate().getDay();
@@ -84,6 +78,12 @@ public class TimelineMonthView extends TimelineView {
         // Set Constraints for the grid pane
         RowConstraints rowConstraints = getTimelineGrid().getRowConstraints().get(taskDay - 1);
         updateSizeDelay(rowConstraints, eventCardHolder);
+    }
+
+    @Override
+    boolean isWithinTimeline(EventSource event) {
+        DateTime eventDateTime = event.getStartDateTime();
+        return calendarDate.sameMonthYear(eventDateTime.getMonth(), eventDateTime.getYear());
     }
 
     @Override

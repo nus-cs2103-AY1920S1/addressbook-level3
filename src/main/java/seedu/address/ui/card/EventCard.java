@@ -1,5 +1,7 @@
 package seedu.address.ui.card;
 
+import java.util.Set;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
@@ -9,7 +11,6 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import seedu.address.model.events.EventSource;
 
-import java.util.Set;
 
 /**
  * An UI component that displays information of a {@code Event}.
@@ -53,25 +54,24 @@ public class EventCard extends Card {
     public EventCard(EventSource event) {
         super(FXML);
         eventName.setText(event.getDescription());
-        eventName.setMinHeight(Region.USE_PREF_SIZE);
         eventStartDate.setText("Start Date: " + event.getStartDateTime().toEnglishDateTime());
 
         // End Date Option
-        if(event.getEndDateTime() != null) {
+        if (event.getEndDateTime() != null) {
             eventEndDate.setText("End Date: " + event.getEndDateTime().toEnglishDateTime());
         } else {
             eventDetails.getChildren().remove(eventEndDateBase);
         }
 
         // Remind Date Option
-        if(event.getRemindDateTime() != null) {
+        if (event.getRemindDateTime() != null) {
             eventRemindDate.setText("Remind Date: " + event.getRemindDateTime().toEnglishDateTime());
         } else {
             eventDetails.getChildren().remove(eventRemindDateBase);
         }
 
         // Tags Option
-        if(event.getTags() != null) {
+        if (event.getTags() != null) {
             Set<String> tags = event.getTags();
             for (String tag : tags) {
                 CardTag cardTag = new CardTag(tag);
@@ -80,5 +80,8 @@ public class EventCard extends Card {
         } else {
             eventDetails.getChildren().remove(eventTagsBase);
         }
+
+        // Others
+        eventName.setMinHeight(Region.USE_PREF_SIZE);
     }
 }

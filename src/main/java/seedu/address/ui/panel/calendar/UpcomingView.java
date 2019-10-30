@@ -53,7 +53,7 @@ public class UpcomingView extends UiPart<Region> {
             if (index >= totalDisplays) {
                 return;
             }
-            if(source instanceof EventSource) {
+            if (source instanceof EventSource) {
                 EventSource event = (EventSource) source;
                 UpcomingEventCard eventCard = new UpcomingEventCard(event);
                 upcomingList.getChildren().add(eventCard.getRoot());

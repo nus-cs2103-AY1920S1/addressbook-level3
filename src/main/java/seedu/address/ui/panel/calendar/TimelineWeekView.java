@@ -109,6 +109,20 @@ public class TimelineWeekView extends TimelineView {
     }
 
     @Override
+    void addTaskCard(TaskSource task) {
+        // Creates and add the event card
+        int taskIndex = task.getDueDate().getWeek();
+
+        TaskCard taskCard = new TaskCard(task);
+        CardHolder eventCardHolder = getCardHolder().get(taskIndex - 1);
+        eventCardHolder.addCard(taskCard);
+
+        // Set Constraints for the grid pane
+        RowConstraints rowConstraints = getTimelineGrid().getRowConstraints().get(taskIndex - 1);
+        updateSizeDelay(rowConstraints, eventCardHolder);
+    }
+
+    @Override
     boolean isWithinTimeline(EventSource event) {
         DateTime eventDate = event.getStartDateTime();
         for (CalendarDate calendarDate : daysInWeek) {
@@ -123,19 +137,6 @@ public class TimelineWeekView extends TimelineView {
         return false;
     }
 
-    @Override
-    void addTaskCard(TaskSource task) {
-        // Creates and add the event card
-        int taskIndex = task.getDueDate().getWeek();
-
-        TaskCard taskCard = new TaskCard(task);
-        CardHolder eventCardHolder = getCardHolder().get(taskIndex - 1);
-        eventCardHolder.addCard(taskCard);
-
-        // Set Constraints for the grid pane
-        RowConstraints rowConstraints = getTimelineGrid().getRowConstraints().get(taskIndex - 1);
-        updateSizeDelay(rowConstraints, eventCardHolder);
-    }
 
     @Override
     boolean isWithinTimeline(TaskSource task) {

@@ -138,14 +138,14 @@ public abstract class TimelineView extends UiPart<Region> {
     void onChange(List<Object> eventTaskList) {
         resetTimeline();
         for (Object source : eventTaskList) {
-            if(source instanceof  EventSource) {
+            if (source instanceof EventSource) {
                 EventSource event = (EventSource) source;
                 if (isWithinTimeline(event)) {
                     addEventCard(event);
                 }
-            } else if(source instanceof TaskSource) {
+            } else if (source instanceof TaskSource) {
                 TaskSource task = (TaskSource) source;
-                if(isWithinTimeline(task)) {
+                if (isWithinTimeline(task)) {
                     addTaskCard(task);
                 }
             }

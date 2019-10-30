@@ -20,4 +20,12 @@ public class CardTag extends UiPart<Region> {
         super(FXML);
         cardTag.setText(tag);
     }
+
+    /**
+     * Change the color - used for tasks - both undone and done.
+     * @param color The given color.
+     */
+    public void changeColor(String color) {
+        cardTag.setStyle("-fx-background-color: " + color);
+    }
 }

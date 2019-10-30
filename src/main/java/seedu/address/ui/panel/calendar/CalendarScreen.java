@@ -91,7 +91,7 @@ public class CalendarScreen extends UiPart<Region> {
     private void changeColor(List<Object> eventTaskList) {
         // We do not want to change the color of next and previous month.
         for (Object source :eventTaskList) {
-            if (source instanceof  EventSource) {
+            if (source instanceof EventSource) {
                 EventSource event = (EventSource) source;
                 DateTime eventDateTime = event.getStartDateTime();
                 if (calendarDate.sameMonthYear(eventDateTime.getMonth(), eventDateTime.getYear())) {

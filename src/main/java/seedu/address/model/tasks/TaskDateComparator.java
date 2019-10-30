@@ -9,12 +9,17 @@ public class TaskDateComparator implements Comparator<TaskSource> {
 
     @Override
     public int compare(TaskSource task, TaskSource otherTask) {
-        if(task.isDone() == otherTask.isDone()) {
-            if (task.getDueDate().compareTo(otherTask.getDueDate()) == 0) {
-                return task.getDescription().compareTo(otherTask.getDescription());
+        if (task.isDone() == otherTask.isDone()) {
+            if (task.getDueDate() != null && otherTask.getDueDate() != null) {
+                if (task.getDueDate().compareTo(otherTask.getDueDate()) == 0) {
+                    return task.getDescription().compareTo(otherTask.getDescription());
+                } else {
+                    return task.getDueDate().compareTo(otherTask.getDueDate());
+                }
             } else {
-                return task.getDueDate().compareTo(otherTask.getDueDate());
+                return task.getDescription().compareTo(otherTask.getDescription());
             }
+
         } else {
             return Boolean.compare(task.isDone(), otherTask.isDone());
         }
