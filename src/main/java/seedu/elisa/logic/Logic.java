@@ -3,6 +3,7 @@ package seedu.elisa.logic;
 import java.nio.file.Path;
 
 import javafx.beans.property.ListPropertyBase;
+import javafx.beans.property.SimpleBooleanProperty;
 import seedu.elisa.commons.core.GuiSettings;
 import seedu.elisa.commons.core.item.Item;
 import seedu.elisa.logic.commands.CommandResult;
@@ -61,4 +62,8 @@ public interface Logic {
     void shutdown();
 
     ListPropertyBase<Item> getActiveRemindersListProperty();
+
+    SimpleBooleanProperty getPriorityMode();
+
+    boolean isSystemToggle();
 }
