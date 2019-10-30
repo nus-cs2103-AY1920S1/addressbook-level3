@@ -9,7 +9,7 @@ public class CliSyntax {
     public static final Prefix PREFIX_TASK_NAME = new Prefix("tn/");
     public static final Prefix PREFIX_TASK_INDEX = new Prefix("ti/");
     public static final Prefix PREFIX_TASK_STATUS = new Prefix("s/");
-    public static final Prefix PREFIX_TASK_TAG = new Prefix("t/");
+    public static final Prefix PREFIX_TASK_TAG = new Prefix("tt/");
     public static final Prefix PREFIX_DEADLINE = new Prefix("at/");
 
     /* Prefix definitions for Member */

@@ -73,9 +73,8 @@ dependencies {
 
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: jUnitVersion
 
-<<<<<<< HEAD
+
     compile 'com.itextpdf:itextpdf:5.5.13'       //NEWSTUFF
-=======
     compile 'com.itextpdf:itextpdf:5.5.4'       //NEWSTUFF
 
     // --------------------------------- Additional Dependencies for Calendar Functionality
@@ -94,7 +93,6 @@ dependencies {
     // https://mvnrepository.com/artifact/commons-logging/commons-logging
     compile group: 'commons-logging', name: 'commons-logging', version: '1.2'
 
->>>>>>> 9ffa6eff7f0dd870b12f5169cb4b97a09e1730a8
 }
 
 shadowJar {

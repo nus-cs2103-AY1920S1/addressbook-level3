@@ -9,14 +9,15 @@ import static seedu.address.testutil.Assert.assertThrows;
 import java.nio.file.Path;
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -376,6 +377,8 @@ public class AddMemberCommandTest {
      * A Model stub that contains a single task.
      */
     private class ModelStubWithMember extends ModelStub {
+        final ObservableList<Member> membersAdded = FXCollections.observableArrayList();
+        private final FilteredList<Member> filteredMembers = new FilteredList<Member>(membersAdded);
         private final Member member;
 
         ModelStubWithMember(Member member) {
@@ -388,24 +391,47 @@ public class AddMemberCommandTest {
             requireNonNull(member);
             return this.member.isSameMember(member);
         }
+
+        @Override
+        public ObservableList<Member> getFilteredMembersList() {
+            return filteredMembers;
+        }
+
+        @Override
+        public void updateFilteredMembersList(Predicate<Member> predicate) {
+            requireNonNull(predicate);
+            filteredMembers.setPredicate(predicate);
+        }
     }
 
     /**
      * A Model stub that always accept the task being added.
      */
     private class ModelStubAcceptingMemberAdded extends ModelStub {
-        final ArrayList<Member> membersAdded = new ArrayList<>();
+        final ObservableList<Member> membersAdded = FXCollections.observableArrayList();
+        private final FilteredList<Member> filteredMembers = new FilteredList<Member>(membersAdded);
 
         @Override
         public boolean hasMember(Member member) {
             requireNonNull(member);
-            return membersAdded.stream().anyMatch(member::isSameMember);
+            return filteredMembers.stream().anyMatch(member::isSameMember);
         }
 
         @Override
         public void addMember(Member member) {
             requireNonNull(member);
             membersAdded.add(member);
+        }
+
+        @Override
+        public ObservableList<Member> getFilteredMembersList() {
+            return filteredMembers;
+        }
+
+        @Override
+        public void updateFilteredMembersList(Predicate<Member> predicate) {
+            requireNonNull(predicate);
+            filteredMembers.setPredicate(predicate);
         }
 
         @Override

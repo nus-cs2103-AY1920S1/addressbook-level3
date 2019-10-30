@@ -94,7 +94,6 @@ public class Member {
         // TODO change the logic to check for the identity fields of status and member
         // basically the name cannot be the same, that's it
         return otherMember != null
-                && otherMember.getName().equals(getName())
                 && otherMember.getId().equals(getId());
     }
 

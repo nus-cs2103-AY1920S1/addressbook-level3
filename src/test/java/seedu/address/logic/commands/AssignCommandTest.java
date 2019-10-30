@@ -7,7 +7,10 @@ import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalTasksMembers.getTypicalProjectDashboard;
 
 import java.nio.file.Path;
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
@@ -25,9 +28,9 @@ import seedu.address.model.ReadOnlyProjectDashboard;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.UserSettings;
+import seedu.address.model.calendar.CalendarWrapper;
 import seedu.address.model.inventory.Inventory;
 import seedu.address.model.mapping.InvMemMapping;
-import seedu.address.model.mapping.InvTasMapping;
 import seedu.address.model.mapping.Mapping;
 import seedu.address.model.mapping.TasMemMapping;
 import seedu.address.model.member.Member;
@@ -293,49 +296,23 @@ public class AssignCommandTest {
         }
 
         @Override
-        public void addMapping(InvMemMapping mapping) {
+        public void addMapping(Mapping mapping) {
             throw new AssertionError("This method should not be called.");
+
         }
 
         @Override
-        public void addMapping(InvTasMapping mapping) {
+        public void deleteMapping(Mapping mapping) {
             throw new AssertionError("This method should not be called.");
+
         }
 
         @Override
-        public void addMapping(TasMemMapping mapping) {
+        public boolean hasMapping(Mapping mapping) {
             throw new AssertionError("This method should not be called.");
+
         }
 
-        @Override
-        public void deleteMapping(InvMemMapping mapping) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void deleteMapping(InvTasMapping mapping) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void deleteMapping(TasMemMapping mapping) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public boolean hasMapping(InvMemMapping mapping) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public boolean hasMapping(InvTasMapping mapping) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public boolean hasMapping(TasMemMapping mapping) {
-            throw new AssertionError("This method should not be called.");
-        }
         @Override
         public ObservableList<Mapping> getFilteredMappingsList() {
             throw new AssertionError("This method should not be called.");
@@ -357,12 +334,56 @@ public class AssignCommandTest {
         }
 
         @Override
+        public void addCalendar(CalendarWrapper calendar) {
+            throw new AssertionError("This method should not be called.");
+
+        }
+
+        @Override
+        public boolean hasCalendar(CalendarWrapper calendar) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public List<LocalDateTime> findMeetingTime(LocalDateTime startDate, LocalDateTime endDate, Duration meetingDurationggG) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public Statistics getStatistics() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public void setStatistics(Statistics newStats) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void undo() {
+            throw new AssertionError("This method should not be called.");
+
+        }
+
+        @Override
+        public void redo() {
+            throw new AssertionError("This method should not be called.");
+
+        }
+
+        @Override
+        public void saveDashboardState() {
+            throw new AssertionError("This method should not be called.");
+
+        }
+
+        @Override
+        public boolean canUndo() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean canRedo() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -409,9 +430,9 @@ public class AssignCommandTest {
         }
 
         @Override
-        public boolean hasMapping(TasMemMapping mapping) {
+        public boolean hasMapping(Mapping mapping) {
             requireNonNull(mapping);
-            return this.mapping.isSameMapping(mapping);
+            return this.mapping.isSameMapping((TasMemMapping) mapping);
         }
     }
 
@@ -426,15 +447,15 @@ public class AssignCommandTest {
         //final ObservableList<Task> taskList = new ArrayList<Task>().add(new Task(new Name("task"), TaskStatus.DOING));
 
         @Override
-        public boolean hasMapping(TasMemMapping mapping) {
+        public boolean hasMapping(Mapping mapping) {
             requireNonNull(mapping);
-            return mappingsAdded.stream().anyMatch(mapping::isSameMapping);
+            return mappingsAdded.stream().anyMatch(((TasMemMapping)mapping)::isSameMapping);
         }
 
         @Override
-        public void addMapping(TasMemMapping mapping) {
+        public void addMapping(Mapping mapping) {
             requireNonNull(mapping);
-            mappingsAdded.add(mapping);
+            mappingsAdded.add((TasMemMapping) mapping);
         }
 
         @Override

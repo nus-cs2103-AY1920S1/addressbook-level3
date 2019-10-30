@@ -43,8 +43,7 @@ public class AddInventoryCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "New inventory added: %1$s";
     public static final String MESSAGE_DUPLICATE_INVENTORY = "This inventory already exists in the address book";
-    public static final String MESSAGE_INDEX_EXCEEDED = "The index entered for tasks is invalid";
-    public static final String MESSAGE_MEMBERID_INVALID = "The member Id entered is invalid";
+
 
     private final Index taskId;
     private final InvName name;
@@ -77,7 +76,7 @@ public class AddInventoryCommand extends Command {
         List<Inventory> lastShownInvList = model.getFilteredInventoriesList();
 
         if (taskId.getOneBased() > tasksLength) {
-            throw new CommandException(MESSAGE_INDEX_EXCEEDED);
+            throw new CommandException(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
         boolean contains = false;
         Member memberToAdd = null;

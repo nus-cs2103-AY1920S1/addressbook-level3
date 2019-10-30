@@ -38,12 +38,9 @@ import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.ListInventoryCommand;
 import seedu.address.logic.commands.ListMemberCommand;
 import seedu.address.logic.commands.SetDeadlineCommand;
-<<<<<<< HEAD
 import seedu.address.logic.commands.SetImageCommand;
-=======
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.RedoCommand;
->>>>>>> 9ffa6eff7f0dd870b12f5169cb4b97a09e1730a8
 import seedu.address.logic.commands.SettingsCommand;
 import seedu.address.logic.commands.ThemeCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -169,10 +166,9 @@ public class ProjectDashboardParser {
         case HomeCommand.COMMAND_WORD:
             return new HomeCommand();
 
-<<<<<<< HEAD
         case SetImageCommand.COMMAND_WORD:
             return new SetImageCommandParser().parse(arguments);
-=======
+
         case UndoCommand.COMMAND_WORD:
             return new UndoCommand();
 
@@ -192,7 +188,6 @@ public class ProjectDashboardParser {
             LocalDateTime endDate = LocalDateTime.parse("2019-11-01T17:00:00");
             Duration meetingDuration = Duration.ofHours(4);
             return new FindMeetingTimeCommand(startDate, endDate, meetingDuration);
->>>>>>> 9ffa6eff7f0dd870b12f5169cb4b97a09e1730a8
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
