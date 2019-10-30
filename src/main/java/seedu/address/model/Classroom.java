@@ -174,7 +174,7 @@ public class Classroom implements ReadOnlyClassroom {
 
     @Override
     public String toString() {
-        return students.asUnmodifiableObservableList().size() + " students";
+        return classroomName;
         // TODO: refine later
     }
 

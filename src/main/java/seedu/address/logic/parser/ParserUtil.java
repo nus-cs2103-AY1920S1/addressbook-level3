@@ -14,6 +14,7 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.Classroom;
 import seedu.address.model.assignment.AssignmentDeadline;
 import seedu.address.model.assignment.AssignmentGrades;
 import seedu.address.model.assignment.AssignmentName;
@@ -277,5 +278,10 @@ public class ParserUtil {
             throw new ParseException(Time.MESSAGE_CONSTRAINTS);
         }
         return new Time(calendar);
+    }
+
+    public static String parseClassroomName(String classroomName) {
+        String trimmedName = classroomName.trim();
+        return trimmedName;
     }
 }

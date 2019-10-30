@@ -60,8 +60,8 @@ public class JsonNotebookStorage implements NotebookStorage {
     }
 
     @Override
-    public void saveNotebook(Notebook classroom) throws IOException {
-        saveNotebook(classroom, filePath);
+    public void saveNotebook(Notebook notebook) throws IOException {
+        saveNotebook(notebook, filePath);
     }
 
     /**

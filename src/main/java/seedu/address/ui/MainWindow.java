@@ -208,6 +208,7 @@ public class MainWindow extends UiPart<Stage> {
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
+            updateStudentsAndAssignments();
             /*
             if (logic.isDisplayStudents()) {
                 combinedListPanelPlaceholder.getChildren().clear();
@@ -233,5 +234,14 @@ public class MainWindow extends UiPart<Stage> {
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
         }
+    }
+
+    public void updateStudentsAndAssignments() {
+        studentListPanel = new StudentListPanel(logic.getFilteredStudentList());
+        assignmentListPanel = new AssignmentListPanel(logic.getFilteredAssignmentList());
+        combinedListPanelPlaceholder.getChildren().clear();
+        combinedListPanelPlaceholder.getChildren().add(studentListPanel.getRoot());
+        assignmentListPanelPlaceholder.getChildren().clear();
+        assignmentListPanelPlaceholder.getChildren().add(assignmentListPanel.getRoot());
     }
 }

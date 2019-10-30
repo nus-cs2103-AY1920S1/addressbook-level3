@@ -33,7 +33,7 @@ public class ModelManager implements Model {
         requireAllNonNull(notebook, userPrefs);
 
         logger.fine("Initializing with notebook: " + notebook + " and user prefs " + userPrefs);
-        this.notebook = new Notebook();
+        this.notebook = new Notebook(notebook);
         this.userPrefs = new UserPrefs(userPrefs);
     }
 
@@ -91,6 +91,21 @@ public class ModelManager implements Model {
     @Override
     public ReadOnlyClassroom getClassroom() {
         return notebook.getClassroom();
+    }
+
+    @Override
+    public boolean hasClassroom(Classroom classroom) {
+        return notebook.hasClassroom(classroom);
+    }
+
+    @Override
+    public void addClassroom(Classroom classroom) {
+        notebook.addClassroom(classroom);
+    }
+
+    @Override
+    public void setCurrentClassroom(Classroom classroom) {
+        notebook.setCurrentClassroom(classroom.getClassroomName());
     }
 
     @Override

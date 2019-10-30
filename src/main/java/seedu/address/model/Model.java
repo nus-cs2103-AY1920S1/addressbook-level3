@@ -161,4 +161,8 @@ public interface Model {
     void setLesson(Lesson target, Lesson editedLesson);
 
 
+    boolean hasClassroom(Classroom classroom);
+    void addClassroom(Classroom classroom);
+    void setCurrentClassroom(Classroom classroom);
+
 }

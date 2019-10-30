@@ -31,8 +31,8 @@ public class Notebook {
 
     private String currentClassroom;
     private Caretaker caretaker;
-    private final UniqueLessonList lessons;
-    private final UniqueReminderList reminders;
+    private UniqueLessonList lessons;
+    private UniqueReminderList reminders;
     private FilteredList<Student> filteredStudents;
     private FilteredList<Assignment> filteredAssignments;
     private FilteredList<Lesson> filteredLessons;
@@ -41,16 +41,7 @@ public class Notebook {
 
     {
         this.classrooms = new LinkedHashMap<>();
-        Classroom newClassroom = new Classroom();
-        classrooms.put(newClassroom.getClassroomName(),newClassroom);
-        setCurrentClassroom(newClassroom.getClassroomName());
         this.caretaker = new Caretaker(new Memento(currentClassroom()), this.currentClassroom());
-        lessons = new UniqueLessonList();
-        reminders = new UniqueReminderList();
-        filteredStudents = new FilteredList<>(getStudentList());
-        filteredAssignments = new FilteredList<>(getAssignmentList());
-        filteredLessons = new FilteredList<>(getLessonList());
-        filteredReminders = new FilteredList<>(getReminderList());
     }
 
     public Notebook() {}
@@ -82,6 +73,9 @@ public class Notebook {
     public void setClassrooms(List<Classroom> classrooms) {
         for (Classroom classroom: classrooms) {
             this.classrooms.put(classroom.getClassroomName(), classroom);
+            if (!classrooms.isEmpty()) {
+                setCurrentClassroom(getFirstClassroomName());
+            }
         }
     }
 
@@ -89,7 +83,18 @@ public class Notebook {
         requireNonNull(classroomName);
         if (hasClassroom(classroomName)) {
             this.currentClassroom = classrooms.get(classroomName).getClassroomName();
+            lessons = new UniqueLessonList();
+            reminders = new UniqueReminderList();
+            filteredStudents = new FilteredList<>(getStudentList());
+            filteredAssignments = new FilteredList<>(getAssignmentList());
+            filteredLessons = new FilteredList<>(getLessonList());
+            filteredReminders = new FilteredList<>(getReminderList());
         }
+    }
+
+    public String getFirstClassroomName() {
+        List<Classroom> classroomList = getClassroomList();
+        return classroomList.get(0).getClassroomName();
     }
 
     public void setClassroom(ReadOnlyClassroom classroom) {
