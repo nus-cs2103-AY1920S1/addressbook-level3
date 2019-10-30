@@ -217,6 +217,7 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
 
+//tag::sorting[]
 === Sorting feature
 The Sorting feature allows users to sort their food items based on certain `FIELD` and `DIRECTION`.
 
@@ -273,6 +274,7 @@ image::MakeSortActivityDiagram.png[align="center", width="500"]
 
 If fields are given, the original CustomSorter is overridden by a new CustomSorter with new fields. Else, the original
 CustomSorter is overridden by a new CustomSorter with no fields.
+//end::sorting[]
 
 === Savings feature
 The Savings feature allows users to save a specified amount of money from their wallet into their Savings Account using the `save AMOUNT` command, where `AMOUNT` is a user defined amount of money to deposit into the user's Savings Account.

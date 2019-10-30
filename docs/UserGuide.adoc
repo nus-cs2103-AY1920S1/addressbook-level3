@@ -254,6 +254,7 @@ Clears wallet, purchase history and food items in the application.
 *Format*: `clear`
 ****
 
+//tag::sorting[]
 === Sorting
 Allows the user to sort the food items based on his liking.
 This is done so that the user is able to get the food which is most relevant to his or her preferences.
@@ -309,6 +310,7 @@ Sorts the food items based on their default ordering, where it is based on ascen
 ****
 *Format*: `default`
 ****
+//end::sorting[]
 
 === Budgeting
 

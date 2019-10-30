@@ -1,0 +1,116 @@
+= *Sean Low - Project Portfolio for $aveNUS*
+:site-section: AboutUs
+:icons: font
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== Overview
+
+$aveNUS is a command line interface (CLI) financial planning application that my team and I designed for
+CS2103T (Software Engineering) module in School of Computing, National University of Singapore (NUS).
+
+In this project, we morphed the sample address book application into $aveNUS, an application that allows NUS students
+to track their financial spending with regards to food purchases. Additionally, the application provides them with
+the best food recommendations within their current budget as well as a savings feature to track their savings.
+
+The table below provides a quick summary of the symbols and formatting used in this portfolio.
+
+[width="70%",cols="^15%,85%"]
+|===
+a| `code` | Command that can be typed into the command box
+ifndef::env-github[]
+a| icon:check[role="green", size="2x"] | Success execution of command
+a| icon:lightbulb-o[role="icon-tip", size="2x"] | Tips that might be useful
+a| icon:info-circle[role="icon-note", size="2x"] | Additional information that is good to know
+a| icon:exclamation-circle[role="icon-important", size="2x"] | Important pointers to take note
+endif::[]
+|===
+
+== Summary of contributions
+
+This section provides a summary of the contributions that I have made to the team project.
+
+=== Major enhancement: Sorting Feature
+
+I have added a sorting feature to $aveNUS which allows users to sort the food items based on some specific criterion.
+
+==== What it does
+
+The sorting feature allows users to sort the list of food based on some criterion. This is done by taking into account
+specific fields given from the command line interface, or the preset comparator which the user has created.
+
+For example, if the user wishes to see the list of food items in order of ascending price, the list will be then sorted.
+As a result, the cheapest food item will be on the top of the food list, followed by the second cheapest food item. And
+finally, the most expensive food item will be on the bottom of the food list.
+
+Not only that, the user can turn autosorting on or off. As a result, when the user adds a new food item, the food list
+will be autosorted immediately.
+
+==== Justification
+
+NUS students would want to view food based on certain priority. They do not want to scroll through the entire list
+just to find the food that they prioritize.
+
+For example, if they want to view the cheapest food in
+the food list, they would want it readily available to them.
+
+==== Highlights
+
+While implementing this feature, I had to implement new commands such as `default`, `sort`, `makesort` `customsort` and
+`autosort`. `default` and `sort` forms the backbone of the sorting algorithm, where it sorts food items based on
+default or specified criterion respectively.
+
+`makesort`, `customsort` and `autosort` allow users to specifies their criterion to sort the food items. The application
+can then store the specified criterion and taken into account these criterion. As a result, the user will be able
+to see which food items most accurately match the criterion.
+
+Storage functionality for the user's criterion were also implemented. This means that the criterion are conveniently saved
+into their hard disk and persist even after the application is closed and restarted.
+
+In this way, the user benefits from the sorting algorithms which allows users to see the food that best matches the
+criterion at the top of the food list.
+
+=== Other contributions
+
+* Project Management:
+
+** Added user stories as issues on GitHub
+
+** Reviewed pull requests by team members [Examples: https://github.com/AY1920S1-CS2103T-F13-2/main/pull/80[#1],
+https://github.com/AY1920S1-CS2103T-F13-2/main/pull/99[#2]]
+
+** Organized mini project milestones [Examples: https://github.com/AY1920S1-CS2103T-F13-2/main/issues/158[#158]
+https://github.com/AY1920S1-CS2103T-F13-2/main/issues/194[#194]]
+
+** Fixed bugs after they were found [PR https://github.com/AY1920S1-CS2103T-F13-2/main/pull/172[#172]]
+
+* Documentation:
+
+** Updated the User Guide
+
+*** Updated README and badges [PR https://github.com/AY1920S1-CS2103T-F13-2/main/pull/116[#116]]
+
+*** Updated Sorting Section [PR https://github.com/AY1920S1-CS2103T-F13-2/main/pull/184[#184]]
+
+** Updated the Developer Guide
+
+*** Edited main UML Diagrams [PR https://github.com/AY1920S1-CS2103T-F13-2/main/pull/164[#164]
+https://github.com/AY1920S1-CS2103T-F13-2/main/pull/201[#201]
+]
+
+** Community:
+
+*** Reviewed the Developer Guide of other teams [Examples:
+https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/64#pullrequestreview-306987354[#1]]
+
+== Contributions to the User Guide
+
+This section shows the contributions that I have made to the recommendation feature of the User Guide.
+
+include::../UserGuide.adoc[tag=sorting]
+
+== Contributions to the Developer Guide
+
+This section shows the additions that I have made to the recommendation feature of the Developer Guide.
+
+include::../DeveloperGuide.adoc[tag=sorting]
