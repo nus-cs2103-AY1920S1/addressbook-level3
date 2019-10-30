@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
+import seedu.ifridge.model.food.Food;
 import seedu.ifridge.model.food.UniqueTemplateItems;
 import seedu.ifridge.model.food.UniqueTemplateList;
 
@@ -92,6 +93,13 @@ public class TemplateList implements ReadOnlyTemplateList {
      */
     public void removeTemplate(UniqueTemplateItems key) {
         templates.remove(key);
+    }
+
+    /**
+     * Checks if there are any items with the same name as the {@code foodItem} from this {@code TemplateList}
+     */
+    public boolean containsTemplateItemWithName(Food foodItem) {
+        return templates.containsTemplateItemWithName(foodItem);
     }
 
     //// util methods

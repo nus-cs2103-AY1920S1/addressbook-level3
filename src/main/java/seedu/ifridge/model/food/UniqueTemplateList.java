@@ -38,6 +38,20 @@ public class UniqueTemplateList implements Iterable<UniqueTemplateItems> {
     }
 
     /**
+     * Returns true if the food item exists in any of the templates in the template list
+     */
+    public boolean containsTemplateItemWithName(Food foodItem) {
+        requireNonNull(foodItem);
+        for (int i = 0; i < internalList.size(); i++) {
+            UniqueTemplateItems listN = internalList.get(i);
+            if (listN.contains(foodItem)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * Adds a template to the template list.
      * The template must not already exist in the list.
      */

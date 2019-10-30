@@ -16,10 +16,12 @@ import seedu.ifridge.logic.commands.Command;
 import seedu.ifridge.logic.commands.CommandResult;
 import seedu.ifridge.logic.commands.exceptions.CommandException;
 import seedu.ifridge.model.Model;
+import seedu.ifridge.model.UnitDictionary;
 import seedu.ifridge.model.food.Amount;
 import seedu.ifridge.model.food.Name;
 import seedu.ifridge.model.food.TemplateItem;
 import seedu.ifridge.model.food.UniqueTemplateItems;
+import seedu.ifridge.model.food.exceptions.InvalidUnitException;
 
 /**
  * Edits the details of an existing template item in the template list.
@@ -40,6 +42,8 @@ public class EditTemplateItemCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Food item %1$s edited to food item: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
+    public static final String MESSAGE_INCORRECT_UNIT = "This food item's unit conflicts with another food entry "
+            + "with the same name";
 
     private final Index targetTemplateIndex;
     private final Index targetItemIndex;
@@ -80,6 +84,13 @@ public class EditTemplateItemCommand extends Command {
         TemplateItem editedItem = createEditedItem(itemToEdit, editTemplateItemDescriptor);
         if (!editTemplateItemDescriptor.isAnyFieldEdited()) {
             throw new CommandException(MESSAGE_NOT_EDITED);
+        }
+
+        UnitDictionary unitDictionary = model.getUnitDictionary();
+        try {
+            unitDictionary.checkUnitDictionary(editedItem, model);
+        } catch (InvalidUnitException e) {
+            throw new CommandException(MESSAGE_INCORRECT_UNIT);
         }
 
         editedTemplate.setTemplateItem(itemToEdit, editedItem);

@@ -41,9 +41,9 @@ public class UniqueTemplateItems implements Iterable<TemplateItem>, Comparable<U
     /**
      * Returns true if the list contains an equivalent person as the given argument.
      */
-    public boolean contains(TemplateItem toCheck) {
+    public boolean contains(Food toCheck) {
         requireNonNull(toCheck);
-        return internalList.stream().anyMatch(toCheck::isSameFood);
+        return internalList.stream().anyMatch(toCheck::isSameName);
     }
 
     /**

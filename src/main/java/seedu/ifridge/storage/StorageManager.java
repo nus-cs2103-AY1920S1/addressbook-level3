@@ -12,11 +12,13 @@ import seedu.ifridge.model.ReadOnlyGroceryList;
 import seedu.ifridge.model.ReadOnlyShoppingList;
 import seedu.ifridge.model.ReadOnlyTemplateList;
 import seedu.ifridge.model.ReadOnlyUserPrefs;
+import seedu.ifridge.model.UnitDictionary;
 import seedu.ifridge.model.UserPrefs;
 import seedu.ifridge.model.WasteList;
 import seedu.ifridge.model.waste.WasteMonth;
 import seedu.ifridge.storage.shoppinglist.BoughtListStorage;
 import seedu.ifridge.storage.shoppinglist.ShoppingListStorage;
+import seedu.ifridge.storage.unitdictionary.UnitDictionaryStorage;
 import seedu.ifridge.storage.wastelist.WasteListStorage;
 
 
@@ -32,10 +34,12 @@ public class StorageManager implements Storage {
     private ShoppingListStorage shoppingListStorage;
     private BoughtListStorage boughtListStorage;
     private UserPrefsStorage userPrefsStorage;
+    private UnitDictionaryStorage unitDictionaryStorage;
 
     public StorageManager(GroceryListStorage groceryListStorage, UserPrefsStorage userPrefsStorage,
                           TemplateListStorage templateListStorage, WasteListStorage wasteListStorage,
-                          ShoppingListStorage shoppingListStorage, BoughtListStorage boughtListStorage) {
+                          ShoppingListStorage shoppingListStorage, BoughtListStorage boughtListStorage,
+                          UnitDictionaryStorage unitDictionaryStorage) {
         super();
         this.groceryListStorage = groceryListStorage;
         this.userPrefsStorage = userPrefsStorage;
@@ -43,6 +47,7 @@ public class StorageManager implements Storage {
         this.wasteListStorage = wasteListStorage;
         this.shoppingListStorage = shoppingListStorage;
         this.boughtListStorage = boughtListStorage;
+        this.unitDictionaryStorage = unitDictionaryStorage;
     }
 
     // ================ UserPrefs methods ==============================
@@ -62,6 +67,34 @@ public class StorageManager implements Storage {
         userPrefsStorage.saveUserPrefs(userPrefs);
     }
 
+    // ================ UnitDictionary methods ==============================
+
+    @Override
+    public Path getUnitDictionaryFilePath() {
+        return unitDictionaryStorage.getUnitDictionaryFilePath();
+    }
+
+    @Override
+    public Optional<UnitDictionary> readUnitDictionary() throws DataConversionException, IOException {
+        return readUnitDictionary(unitDictionaryStorage.getUnitDictionaryFilePath());
+    }
+
+    @Override
+    public Optional<UnitDictionary> readUnitDictionary(Path filePath) throws DataConversionException, IOException {
+        logger.fine("Attempting to read data from file: " + filePath);
+        return unitDictionaryStorage.readUnitDictionary(filePath);
+    }
+
+    @Override
+    public void saveUnitDictionary(UnitDictionary unitDictionary) throws IOException {
+        saveUnitDictionary(unitDictionary, unitDictionaryStorage.getUnitDictionaryFilePath());
+    }
+
+    @Override
+    public void saveUnitDictionary(UnitDictionary unitDictionary, Path filePath) throws IOException {
+        logger.fine("Attempting to write to data file: " + filePath);
+        unitDictionaryStorage.saveUnitDictionary(unitDictionary, filePath);
+    }
 
     // ================ GroceryList methods ==============================
 

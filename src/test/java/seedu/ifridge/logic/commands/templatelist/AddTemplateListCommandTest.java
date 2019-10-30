@@ -28,7 +28,9 @@ import seedu.ifridge.model.ReadOnlyTemplateList;
 import seedu.ifridge.model.ReadOnlyUserPrefs;
 import seedu.ifridge.model.ReadOnlyWasteList;
 import seedu.ifridge.model.TemplateList;
+import seedu.ifridge.model.UnitDictionary;
 import seedu.ifridge.model.WasteList;
+import seedu.ifridge.model.food.Food;
 import seedu.ifridge.model.food.GroceryItem;
 import seedu.ifridge.model.food.Name;
 import seedu.ifridge.model.food.ShoppingItem;
@@ -124,6 +126,11 @@ public class AddTemplateListCommandTest {
 
         @Override
         public void setGroceryListFilePath(Path groceryListFilePath) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public UnitDictionary getUnitDictionary() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -254,6 +261,11 @@ public class AddTemplateListCommandTest {
 
         @Override
         public ObservableList<TemplateItem> updateFilteredTemplateToBeShown() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean containsTemplateItemWithName(Food foodItem) {
             throw new AssertionError("This method should not be called.");
         }
 

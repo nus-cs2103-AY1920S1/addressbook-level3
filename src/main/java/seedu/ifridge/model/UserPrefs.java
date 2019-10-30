@@ -20,6 +20,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     private Path wasteArchiveFilePath = Paths.get("data", "wastearchive.json");
     private Path shoppingListFilePath = Paths.get("data", "shoppingList.json");
     private Path boughtListFilePath = Paths.get("data", "boughtList.json");
+    private Path unitDictionaryFilePath = Paths.get("data", "unitDictionary.json");
     private IFridgeSettings iFridgeSettings = new IFridgeSettings();
 
 
@@ -46,6 +47,8 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         setIFridgeSettings(newUserPrefs.getIFridgeSettings());
         setGroceryListFilePath(newUserPrefs.getGroceryListFilePath());
         setWasteArchiveFilePath(newUserPrefs.getWasteArchiveFilePath());
+        setTemplateListFilePath(newUserPrefs.getTemplateListFilePath());
+        setUnitDictionaryFilePath(newUserPrefs.getUnitDictionaryFilePath());
     }
 
     public GuiSettings getGuiSettings() {
@@ -73,6 +76,15 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     public void setGroceryListFilePath(Path groceryListFilePath) {
         requireNonNull(groceryListFilePath);
         this.groceryListFilePath = groceryListFilePath;
+    }
+
+    public Path getUnitDictionaryFilePath() {
+        return unitDictionaryFilePath;
+    }
+
+    public void setUnitDictionaryFilePath(Path unitDictionaryFilePath) {
+        requireNonNull(unitDictionaryFilePath);
+        this.unitDictionaryFilePath = unitDictionaryFilePath;
     }
 
     public Path getTemplateListFilePath() {
@@ -125,12 +137,13 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         return guiSettings.equals(o.guiSettings)
                 && groceryListFilePath.equals(o.groceryListFilePath)
                 && templateListFilePath.equals(o.templateListFilePath)
-                && wasteArchiveFilePath.equals(o.wasteArchiveFilePath);
+                && wasteArchiveFilePath.equals(o.wasteArchiveFilePath)
+                && unitDictionaryFilePath.equals(o.unitDictionaryFilePath);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(guiSettings, groceryListFilePath, templateListFilePath);
+        return Objects.hash(guiSettings, groceryListFilePath, templateListFilePath, unitDictionaryFilePath);
     }
 
     @Override
@@ -141,6 +154,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         sb.append("\nLocal data file location (GroceryList): " + groceryListFilePath);
         sb.append("\nLocal data file location (TemplateList): " + templateListFilePath);
         sb.append("\nLocal data file location (WasteList): " + wasteArchiveFilePath);
+        sb.append("\nLocal data file location (UnitDictionary): " + unitDictionaryFilePath);
         return sb.toString();
     }
 }

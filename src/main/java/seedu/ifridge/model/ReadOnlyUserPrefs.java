@@ -18,6 +18,10 @@ public interface ReadOnlyUserPrefs {
 
     Path getWasteArchiveFilePath();
 
+    Path getTemplateListFilePath();
+
+    Path getUnitDictionaryFilePath();
+
     Path getShoppingListFilePath();
 
     Path getBoughtListFilePath();

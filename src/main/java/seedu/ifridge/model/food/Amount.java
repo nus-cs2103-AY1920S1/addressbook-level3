@@ -19,11 +19,11 @@ public class Amount {
 
     public static final String VALUE_BEFORE_DECIMAL = "(\\d*)";
     public static final String VALUE_AFTER_DECIMAL = "(\\d+)";
-    public static final String UNIT_POUND = "lb";
+    public static final String UNIT_POUND = "lbs";
     public static final String UNIT_KILOGRAM = "kg";
     public static final String UNIT_GRAM = "g";
     public static final String UNIT_OUNCE = "oz";
-    public static final String UNIT_LITRE = "l";
+    public static final String UNIT_LITRE = "L";
     public static final String UNIT_MILLILITRE = "ml";
     public static final String UNIT_QUANTITY = "units";
     public static final String UNIT = "(lbs?|g|kg|oz?|L|ml|units?)+";
@@ -90,6 +90,25 @@ public class Amount {
         unit = m.group(3);
 
         return unit;
+    }
+
+    public static String getUnitType(Amount amt) {
+        String unit = getUnit(amt);
+
+        switch(unit) {
+        case UNIT_POUND:
+        case UNIT_GRAM:
+        case UNIT_KILOGRAM:
+        case UNIT_OUNCE:
+            return "Weight";
+        case UNIT_LITRE:
+        case UNIT_MILLILITRE:
+            return "Volume";
+        case UNIT_QUANTITY:
+            return "Quantity";
+        default:
+            return "Wrong amount input";
+        }
     }
 
     /**
