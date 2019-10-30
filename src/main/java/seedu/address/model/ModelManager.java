@@ -43,8 +43,10 @@ import seedu.address.model.person.PersonDescriptor;
 import seedu.address.model.person.PersonId;
 import seedu.address.model.person.PersonList;
 import seedu.address.model.person.User;
+import seedu.address.model.person.exceptions.DuplicateEventException;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.EventClashException;
+import seedu.address.model.person.exceptions.EventNotFoundException;
 import seedu.address.model.person.exceptions.NoPersonFieldsEditedException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.model.person.schedule.Event;
@@ -233,14 +235,29 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void addEvent(Name name, Event event) throws PersonNotFoundException, EventClashException {
+    public void addEvent(Name name, Event event)
+            throws PersonNotFoundException, EventClashException, DuplicateEventException {
         personList.addEvent(name, event);
     }
 
     @Override
-    public void addEvent(Event event) throws EventClashException {
+    public void addEvent(Event event)
+            throws EventClashException, DuplicateEventException {
         personList.getUser().addEvent(event);
     }
+
+    @Override
+    public void deleteEvent(Name name, String eventName)
+            throws EventNotFoundException, PersonNotFoundException {
+        personList.deleteEvent(name, eventName);
+    }
+
+    @Override
+    public void deleteEvent(String eventName)
+            throws EventNotFoundException {
+        personList.getUser().deleteEvent(eventName);
+    }
+
 
     @Override
     public Person editPerson(Name name, PersonDescriptor personDescriptor)

@@ -44,7 +44,8 @@ public class FreeTimeslot {
      */
     public String toString() {
         String s = "";
-        s += startTime.toString() + " - "
+        s += "id: " + id + " === "
+                + startTime.toString() + " - "
                 + endTime.toString() + " "
                 + venues + " "
                 + "closest location: " + closestCommonLocationData.getFirstClosest() + "\n";

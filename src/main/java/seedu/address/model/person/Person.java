@@ -7,7 +7,9 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import seedu.address.model.person.exceptions.DuplicateEventException;
 import seedu.address.model.person.exceptions.EventClashException;
+import seedu.address.model.person.exceptions.EventNotFoundException;
 import seedu.address.model.person.schedule.Event;
 import seedu.address.model.person.schedule.Schedule;
 import seedu.address.model.tag.Tag;
@@ -155,8 +157,12 @@ public class Person {
         this.tags.addAll(tags);
     }
 
-    public void addEvent(Event event) throws EventClashException {
+    public void addEvent(Event event) throws EventClashException, DuplicateEventException {
         this.schedule.addEvent(event);
+    }
+
+    public void deleteEvent(String eventName) throws EventNotFoundException {
+        this.schedule.deleteEvent(eventName);
     }
 
     public PersonId getPersonId() {
