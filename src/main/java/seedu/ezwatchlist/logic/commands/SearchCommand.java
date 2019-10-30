@@ -44,12 +44,14 @@ public class SearchCommand extends Command {
     private static final String KEY_NAME = "name";
     private static final String KEY_TYPE = "type";
     private static final String KEY_ACTOR = "actor";
+    private static final String KEY_GENRE = "genre";
     private static final String KEY_IS_WATCHED = "is_watched";
     private static final String KEY_IS_INTERNAL = "is_internal";
 
     private List<String> nameList;
     private List<String> typeList;
     private List<String> actorList;
+    private List<String> genreList;
     private List<String> isWatchedList;
     private List<String> isInternalList;
 
@@ -59,6 +61,7 @@ public class SearchCommand extends Command {
         nameList = searchShowsHashMap.get(KEY_NAME);
         typeList = searchShowsHashMap.get(KEY_TYPE);
         actorList = searchShowsHashMap.get(KEY_ACTOR); // unable to search online
+        genreList = searchShowsHashMap.get(KEY_GENRE); // unable to search at all
         isWatchedList = searchShowsHashMap.get(KEY_IS_WATCHED);
         isInternalList = searchShowsHashMap.get(KEY_IS_INTERNAL);
     }
