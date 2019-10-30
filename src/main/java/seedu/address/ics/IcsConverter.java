@@ -1,11 +1,14 @@
 package seedu.address.ics;
 
-import static seedu.address.commons.util.IcsUtil.generateUid;
+import java.time.Instant;
 
 import seedu.address.model.DateTime;
 import seedu.address.model.events.EventSource;
 import seedu.address.model.tasks.TaskSource;
 
+/**
+ * This is the class responsible for converting Events and Tasks into their relevant ICS strings.
+ */
 public class IcsConverter {
 
     /**
@@ -26,8 +29,8 @@ public class IcsConverter {
                 .append("\n").append("DTSTAMP:").append(dtStamp)
                 .append("\n").append("DTSTART:").append(start)
                 .append("\n").append("SUMMARY:").append(event.getDescription());
-        if (event.getEnd() != null) {
-            String end = event.getEnd().toIcsString();
+        if (event.getEndDateTime() != null) {
+            String end = event.getEndDateTime().toIcsString();
             icsStringBuilder
                     .append("\n").append("DTEND:").append(end);
         }
@@ -56,5 +59,15 @@ public class IcsConverter {
 
         icsStringBuilder.append("\n").append("END:VTODO");
         return icsStringBuilder.toString();
+    }
+
+    /**
+     * Generates a unique UID that complies with section RFC5545 of the iCalendar specification.
+     * This is achieved by using the Instant of the function call.
+     * @return A UID String.
+     */
+    public static String generateUid() {
+        Instant currentInstant = Instant.now();
+        return currentInstant + "@Horo";
     }
 }

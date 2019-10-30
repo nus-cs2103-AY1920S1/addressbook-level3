@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import java.text.DateFormatSymbols;
+import java.time.Duration;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.YearMonth;
@@ -140,6 +141,17 @@ public class DateTime implements Comparable<DateTime> {
 
     public String toIcsString() {
         return ICS_COMPOSER.compose(this.instant);
+    }
+
+    /**
+     * Adds a Duration to the current DateTime object to create a new DateTime object representing the
+     * Instant of which the Duration has passed.
+     * @param duration The Duration object to be added to the DateTime object.
+     * @return A DateTime object where the duration has passed.
+     */
+    public DateTime addDuration(Duration duration) {
+        Instant nextInstant = (Instant) duration.addTo(this.instant);
+        return new DateTime(nextInstant);
     }
 
     /**

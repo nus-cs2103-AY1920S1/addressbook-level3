@@ -1,7 +1,5 @@
 package seedu.address.model.events;
 
-import static seedu.address.commons.util.IcsUtil.generateUid;
-
 import java.util.Objects;
 import java.util.Set;
 
