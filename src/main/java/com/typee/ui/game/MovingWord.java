@@ -19,7 +19,7 @@ public class MovingWord extends UiPart<Pane> {
     private static final double LOWER_BOUND = 520;
     private static final int DECREMENT_VALUE = 20;
     private static final int SCORE_MULTIPLIER = 100;
-    private static final int WINDOW_BOUNDARY = 700;
+    private static final int WINDOW_BOUNDARY = 500;
     private Pane parent;
     private Player player;
     private double fallingRate = 4.0;
