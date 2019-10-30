@@ -10,7 +10,6 @@ import javafx.scene.control.TabPane;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import seedu.moneygowhere.commons.core.GuiSettings;
@@ -38,6 +37,9 @@ public class MainWindow extends UiPart<Stage> {
     private SpendingListPanel spendingListPanel;
     private ResultDisplay resultDisplay;
 
+    private GraphPanel graphPanel;
+    private StatsPanel statsPanel;
+
     @FXML
     private StackPane commandBoxPlaceholder;
 
@@ -54,20 +56,11 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane statusbarPlaceholder;
 
     @FXML
-    private AnchorPane graphPane;
 
-    @FXML
-    private AnchorPane statsPane;
+    private TabPane tabPanePlaceholder;
 
-    @FXML
-    private TabPane tabPane;
-
-    @FXML
     private Tab graphTab;
-
-    @FXML
     private Tab statsTab;
-
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -137,12 +130,15 @@ public class MainWindow extends UiPart<Stage> {
         CommandBox commandBox = new CommandBox(this::executeCommand, this::getPrevCommand, this::getNextCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
-        GraphChart graphChart = new GraphChart(logic.getGraphData());
-        graphPane.getChildren().add(graphChart.getRoot());
+        graphTab = new Tab("Graph");
+        graphPanel = new GraphPanel(logic.getGraphData());
+        graphTab.setContent(graphPanel.getRoot());
 
-        StatsChart statsChart = new StatsChart(logic.getStatsData());
-        statsPane.getChildren().add(statsChart.getRoot());
+        statsTab = new Tab("Statistics");
+        statsPanel = new StatsPanel(logic.getStatsData());
+        statsTab.setContent(statsPanel.getRoot());
 
+        tabPanePlaceholder.getTabs().addAll(graphTab, statsTab);
 
     }
 
@@ -201,17 +197,16 @@ public class MainWindow extends UiPart<Stage> {
             if (commandResult.isExit()) {
                 handleExit();
             }
-
             if (commandResult.isShowGraph()) {
-                GraphChart graphChart = new GraphChart(logic.getGraphData());
-                graphPane.getChildren().add(graphChart.getRoot());
-                tabPane.getSelectionModel().select(graphTab);
+                graphPanel = new GraphPanel(logic.getGraphData());
+                graphTab.setContent(graphPanel.getRoot());
+                tabPanePlaceholder.getSelectionModel().select(graphTab);
             }
 
             if (commandResult.isShowStats()) {
-                StatsChart statsChart = new StatsChart(logic.getStatsData());
-                statsPane.getChildren().add(statsChart.getRoot());
-                tabPane.getSelectionModel().select(statsTab);
+                statsPanel = new StatsPanel(logic.getStatsData());
+                statsTab.setContent(statsPanel.getRoot());
+                tabPanePlaceholder.getSelectionModel().select(graphTab);
             }
 
             return commandResult;
@@ -238,5 +233,4 @@ public class MainWindow extends UiPart<Stage> {
     private String getNextCommand() {
         return logic.getNextCommand();
     }
-
 }
