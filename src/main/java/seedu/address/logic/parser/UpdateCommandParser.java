@@ -179,7 +179,7 @@ public class UpdateCommandParser implements Parser<UpdateCommand> {
             bodyDescriptor.setNric(ParserUtil.parseNric(argMultimap.getValue(PREFIX_NRIC).get()));
         }
         if (!argMultimap.getValue(PREFIX_RELIGION).orElse("").isEmpty()) {
-            bodyDescriptor.setReligion(ParserUtil.parseReligion(argMultimap.getValue(PREFIX_RELIGION).get()));
+            bodyDescriptor.setReligion(ParserUtil.parseStringFields(argMultimap.getValue(PREFIX_RELIGION).get()));
         }
         if (!argMultimap.getValue(PREFIX_CAUSE_OF_DEATH).orElse("").isEmpty()) {
             bodyDescriptor.setCauseOfDeath(argMultimap.getValue(PREFIX_CAUSE_OF_DEATH).get());

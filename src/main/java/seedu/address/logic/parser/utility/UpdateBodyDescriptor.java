@@ -13,7 +13,6 @@ import seedu.address.model.entity.Sex;
 import seedu.address.model.entity.body.Body;
 import seedu.address.model.entity.body.BodyStatus;
 import seedu.address.model.entity.body.Nric;
-import seedu.address.model.entity.body.Religion;
 import seedu.address.model.person.Name;
 
 //@@author ambervoong
@@ -25,7 +24,7 @@ public class UpdateBodyDescriptor implements UpdateEntityDescriptor {
     private Name name;
     private Sex sex;
     private Nric nric;
-    private Religion religion;
+    private String religion;
 
     private String causeOfDeath;
     private List<String> organsForDonation;
@@ -140,11 +139,11 @@ public class UpdateBodyDescriptor implements UpdateEntityDescriptor {
         this.nric = nric;
     }
 
-    public Optional<Religion> getReligion() {
+    public Optional<String> getReligion() {
         return Optional.ofNullable(religion);
     }
 
-    public void setReligion(Religion religion) {
+    public void setReligion(String religion) {
         this.religion = religion;
     }
 

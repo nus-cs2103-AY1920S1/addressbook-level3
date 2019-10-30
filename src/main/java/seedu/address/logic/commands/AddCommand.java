@@ -66,10 +66,11 @@ public class AddCommand extends UndoableCommand {
             + PREFIX_FLAG + "b "
             + PREFIX_NAME + " NAME "
             + PREFIX_SEX + " SEX "
-            + PREFIX_DATE_OF_DEATH + " DATE OF DEATH "
             + PREFIX_DATE_OF_ADMISSION + " DATE OF ADMISSION\n"
             + "Optional Fields: "
-            + PREFIX_NRIC + " NRICE "
+            + PREFIX_DATE_OF_DEATH + " DATE OF DEATH "
+            + PREFIX_DATE_OF_BIRTH + " DATE OF BIRTH "
+            + PREFIX_NRIC + " NRIC "
             + PREFIX_RELIGION + " RELIGION "
             + PREFIX_NAME_NOK + " NAME OF NEXT OF KIN "
             + PREFIX_RELATIONSHIP + " RELATIONSHIP OF NEXT OF KIN"
@@ -100,7 +101,7 @@ public class AddCommand extends UndoableCommand {
         requireNonNull(model);
 
         if (model.hasEntity(toAdd)) {
-            toAdd.getIdNum().removeMapping();
+            toAdd.getIdNum().removeMapping(); // since toAdd should no longer be added, its mapping must be removed
             throw new CommandException(MESSAGE_DUPLICATE_ENTITY);
         }
 

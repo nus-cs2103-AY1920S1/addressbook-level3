@@ -14,7 +14,6 @@ import seedu.address.model.entity.Sex;
 import seedu.address.model.entity.body.Body;
 import seedu.address.model.entity.body.BodyStatus;
 import seedu.address.model.entity.body.Nric;
-import seedu.address.model.entity.body.Religion;
 import seedu.address.model.person.Name;
 
 //@@author ambervoong
@@ -28,7 +27,7 @@ public class BodyBuilder {
     public static final String DEFAULT_NAME = "John Doe";
     public static final Sex DEFAULT_SEX = Sex.MALE;
     public static final String DEFAULT_NRIC = "S8765432A";
-    public static final Religion DEFAULT_RELIGION = Religion.NONRELIGIOUS;
+    public static final String DEFAULT_RELIGION = "Non-religious";
     public static final String DEFAULT_CAUSE_OF_DEATH = "Heart Attack";
     public static final String DEFAULT_ORGANS_FOR_DONATION = "Liver Cornea Kidney";
     public static final BodyStatus DEFAULT_BODY_STATUS = BodyStatus.ARRIVED;
@@ -44,7 +43,7 @@ public class BodyBuilder {
     private Name name;
     private Sex sex;
     private Nric nric;
-    private Religion religion;
+    private String religion;
 
     private String causeOfDeath;
     private List<String> organsForDonation;
@@ -202,11 +201,7 @@ public class BodyBuilder {
      * Sets the {@code religion} of the {@code Body} that we are building.
      */
     public BodyBuilder withReligion(String religion) {
-        try {
-            this.religion = ParserUtil.parseReligion(religion);
-        } catch (ParseException e) {
-            System.out.println(e.getMessage() + MESSAGE_INVALID_TEST_PARAMETERS);
-        }
+        this.religion = ParserUtil.parseStringFields(religion);
         return this;
     }
 

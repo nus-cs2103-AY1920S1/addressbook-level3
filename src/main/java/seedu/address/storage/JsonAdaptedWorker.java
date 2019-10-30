@@ -137,7 +137,7 @@ class JsonAdaptedWorker {
             actualPhoneNumber = null;
         } else {
             if (!PhoneNumber.isValidPhoneNumber(phone)) {
-                throw new IllegalValueException(PhoneNumber.VALID_NUMBER);
+                throw new IllegalValueException(PhoneNumber.MESSAGE_CONSTRAINTS);
             }
             actualPhoneNumber = new PhoneNumber(phone);
         }
