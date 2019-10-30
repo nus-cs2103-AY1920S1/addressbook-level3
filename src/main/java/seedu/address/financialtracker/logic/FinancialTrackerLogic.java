@@ -60,18 +60,17 @@ public class FinancialTrackerLogic {
         return commandResult;
     }
 
-    public FinancialTracker getFinancialTracker() {
-        return financialTrackerModel.getFinancialTracker();
-    }
-
+    /**
+     * Returns an observe only expense list with current country specified in financial tracker.
+     */
     public ObservableList<Expense> getExpenseList() {
         return financialTrackerModel.getExpenseList();
     }
 
-    public Path getFinancialTrackerFilePath() {
-        return Paths.get("data" , "financialtracker.json");
-    }
-
+    /**
+     * Set the Financial Tracker's current country key.
+     * @param field country to be set
+     */
     public void setCountry(String field) {
         this.financialTrackerModel.setCountry(field);
     }

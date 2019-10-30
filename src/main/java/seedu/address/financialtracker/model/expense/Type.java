@@ -4,6 +4,9 @@ import static java.util.Objects.requireNonNull;
 
 import seedu.address.commons.util.AppUtil;
 
+/**
+ * Type of expenditure of an expense.
+ */
 public class Type {
 
     public static final String MESSAGE_CONSTRAINTS =

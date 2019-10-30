@@ -4,6 +4,9 @@ import static java.util.Objects.requireNonNull;
 
 import seedu.address.commons.util.AppUtil;
 
+/**
+ * Description of an expense.
+ */
 public class Description {
 
     public static final String MESSAGE_CONSTRAINTS =

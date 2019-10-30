@@ -490,9 +490,9 @@ Example:
 === AddCommand
 Adding what you've spent at the nice coffee shop you stopped by?
 
-*Add an entry to your financial tracker:* `add`
+*Add an entry to your Financial Tracker:* `add`
 
-Adds an expense to your diary, with the parameters: amount, description, type, date and time.
+Adds an expense to your Financial Tracker, with the parameters: amount, description, type, date and time.
 
 The _Command Word_ is ``add`` and the prefixes are ``a/`` for amount, ``d/``
 for description, ``t/`` for type of expenditure.
