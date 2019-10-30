@@ -1,3 +1,4 @@
+//@@author LeonardTay748
 package seedu.address.ui;
 
 import static java.util.Objects.requireNonNull;
@@ -15,7 +16,6 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.Model;
 import seedu.address.model.flashcard.RatingContainsKeywordPredicate;
 
-//@@author LeonardTay748
 /**
  * Displays Statistics as Bar Chart
  */
