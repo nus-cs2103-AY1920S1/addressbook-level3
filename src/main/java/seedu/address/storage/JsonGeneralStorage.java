@@ -87,7 +87,7 @@ public class JsonGeneralStorage<T, U extends JsonSerializableContent<T>> impleme
         try {
             JsonUtil.saveJsonFile(jsonClassType.getConstructor(itemClassType).newInstance(content), filePath);
         } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException
-            | InstantiationException e) {
+                | InstantiationException e) {
             assert false : "Incorrect implement of JsonSerializableItem class";
         }
     }

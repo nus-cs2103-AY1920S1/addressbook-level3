@@ -7,11 +7,11 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-import sugarmummy.recmfood.commands.RecmFoodCommand;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.exceptions.ParseException;
+import sugarmummy.recmfood.commands.RecmFoodCommand;
 import sugarmummy.recmfood.model.FoodNameContainsKeywordsPredicate;
 import sugarmummy.recmfood.model.FoodType;
 import sugarmummy.recmfood.model.FoodTypeIsWantedPredicate;
@@ -33,13 +33,13 @@ public class RecmFoodCommandParser implements Parser<RecmFoodCommand> {
 
         String[] foodKeywords = foodWords.get().trim().split("\\s+");
         return new RecmFoodCommand(new FoodTypeIsWantedPredicate(foodTypes),
-            new FoodNameContainsKeywordsPredicate(Arrays.asList(foodKeywords)));
+                new FoodNameContainsKeywordsPredicate(Arrays.asList(foodKeywords)));
     }
 
     /**
      * Returns a list of specified food types, or all food types if no specification.
      *
-     * @throws ParseException  if one or more food types are invalid.
+     * @throws ParseException if one or more food types are invalid.
      */
     private List<FoodType> getWantedFoodTypes(String preamble) throws ParseException {
 

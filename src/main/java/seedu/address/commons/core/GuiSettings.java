@@ -97,7 +97,7 @@ public class GuiSettings implements Serializable {
 
     public Background getBackground() {
         if (background == null
-            || background.isEmpty()) {
+                || background.isEmpty()) {
             setDefaultBackground();
             showDefaultBackground = true;
         } else if (!Colour.isValidColour(background)) {
@@ -114,7 +114,7 @@ public class GuiSettings implements Serializable {
         }
 
         if (!Background.isValidBackgroundSize(backgroundSize)
-            || !Background.isValidBackgroundRepeat(backgroundRepeat)) {
+                || !Background.isValidBackgroundRepeat(backgroundRepeat)) {
             setDefaultBackground();
             showDefaultBackground = true;
         }
@@ -157,8 +157,8 @@ public class GuiSettings implements Serializable {
         GuiSettings o = (GuiSettings) other;
 
         return windowWidth == o.windowWidth
-            && windowHeight == o.windowHeight
-            && Objects.equals(windowCoordinates, o.windowCoordinates);
+                && windowHeight == o.windowHeight
+                && Objects.equals(windowCoordinates, o.windowCoordinates);
     }
 
     /**

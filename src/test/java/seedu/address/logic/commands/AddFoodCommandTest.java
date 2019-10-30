@@ -67,7 +67,7 @@ class AddFoodCommandTest {
         AddFoodCommandTest.ModelStub modelStub = new AddFoodCommandTest.ModelStubWithFood(validFood);
 
         assertThrows(CommandException.class, AddFoodCommand.MESSAGE_DUPLICATE_FOOD, () ->
-            addFoodCommand.execute(modelStub));
+                addFoodCommand.execute(modelStub));
     }
 
     @Test

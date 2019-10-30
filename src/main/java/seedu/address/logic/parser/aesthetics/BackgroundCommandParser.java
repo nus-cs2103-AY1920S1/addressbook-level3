@@ -33,7 +33,7 @@ public class BackgroundCommandParser implements Parser<BackgroundCommand> {
             return new BackgroundCommand();
         }
         ArgumentMultimap argMultimap =
-            ArgumentTokenizer.tokenize(args, CliSyntax.PREFIX_BG_SIZE, CliSyntax.PREFIX_BG_REPEAT);
+                ArgumentTokenizer.tokenize(args, CliSyntax.PREFIX_BG_SIZE, CliSyntax.PREFIX_BG_REPEAT);
 
         String backgroundArg = argMultimap.getPreamble();
 
@@ -41,7 +41,7 @@ public class BackgroundCommandParser implements Parser<BackgroundCommand> {
 
         if (background.isBackgroundColour() && !argMultimap.isEmpty()) {
             throw new ParseException(String.format(MESSAGE_BACKGROUND_COLOUR_NO_ARGS_REQUIREMENT,
-                BackgroundCommand.MESSAGE_USAGE));
+                    BackgroundCommand.MESSAGE_USAGE));
         }
 
         Optional<String> bgSize;
@@ -50,7 +50,7 @@ public class BackgroundCommandParser implements Parser<BackgroundCommand> {
         if ((bgSize = argMultimap.getValue(CliSyntax.PREFIX_BG_SIZE)).isPresent()) {
             if (!Background.isValidBackgroundSize(bgSize.get())) {
                 throw new ParseException(String.format(MESSAGE_INVALID_BACKGROUND_SIZE,
-                    BackgroundCommand.MESSAGE_USAGE));
+                        BackgroundCommand.MESSAGE_USAGE));
             }
             bgSize = bgSize.get().equals("") ? Optional.of("auto") : bgSize;
         }
@@ -58,7 +58,7 @@ public class BackgroundCommandParser implements Parser<BackgroundCommand> {
         if ((bgRepeat = argMultimap.getValue(CliSyntax.PREFIX_BG_REPEAT)).isPresent()) {
             if (!Background.isValidBackgroundRepeat(bgRepeat.get())) {
                 throw new ParseException(String.format(MESSAGE_INVALID_BACKGROUND_REPEAT,
-                    BackgroundCommand.MESSAGE_USAGE));
+                        BackgroundCommand.MESSAGE_USAGE));
             }
             bgRepeat = bgRepeat.get().equals("") ? Optional.of("repeat") : bgRepeat;
         }

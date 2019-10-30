@@ -16,7 +16,7 @@ class BioCommandTest {
     @Test
     public void execute_bio_success() {
         CommandResult expectedCommandResult = new CommandResult(SHOWING_BIO_MESSAGE, false, true,
-            false, false);
+                false, false);
         assertCommandSuccess(new BioCommand(), model, expectedCommandResult, expectedModel);
     }
 }

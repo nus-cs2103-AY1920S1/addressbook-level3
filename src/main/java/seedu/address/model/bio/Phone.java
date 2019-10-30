@@ -10,7 +10,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Phone implements ListableField {
 
     public static final String MESSAGE_CONSTRAINTS =
-        "Phone numbers should only contain numbers, at least 3 digits long, and it should not be blank.";
+            "Phone numbers should only contain numbers, at least 3 digits long, and it should not be blank.";
     public static final String VALIDATION_REGEX = "\\d{3,}";
     public final String phoneNumber;
 
@@ -36,8 +36,8 @@ public class Phone implements ListableField {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-            || (other instanceof Phone // instanceof handles nulls
-            && phoneNumber.equals(((Phone) other).phoneNumber)); // state check
+                || (other instanceof Phone // instanceof handles nulls
+                && phoneNumber.equals(((Phone) other).phoneNumber)); // state check
     }
 
     @Override

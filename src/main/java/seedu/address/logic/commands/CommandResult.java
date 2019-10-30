@@ -92,10 +92,10 @@ public class CommandResult {
 
         CommandResult otherCommandResult = (CommandResult) other;
         return feedbackToUser.equals(otherCommandResult.feedbackToUser)
-            && showHelp == otherCommandResult.showHelp
-            && showBio == otherCommandResult.showBio
-            && showAchvm == otherCommandResult.showAchvm
-            && exit == otherCommandResult.exit;
+                && showHelp == otherCommandResult.showHelp
+                && showBio == otherCommandResult.showBio
+                && showAchvm == otherCommandResult.showAchvm
+                && exit == otherCommandResult.exit;
     }
 
     @Override

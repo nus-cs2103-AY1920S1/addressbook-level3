@@ -21,7 +21,7 @@ public interface CalendarStorage {
     Optional<ReadOnlyCalendar> readCalendar() throws DataConversionException, IOException;
 
     Optional<ReadOnlyCalendar> readCalendar(Path eventFilePath, Path reminderFilePath)
-        throws DataConversionException, IOException;
+            throws DataConversionException, IOException;
 
     /**
      * Saves the given {@link ReadOnlyCalendar} to the storage.

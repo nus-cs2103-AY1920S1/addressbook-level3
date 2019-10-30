@@ -1,8 +1,5 @@
 package seedu.address.logic.parser;
 
-import java.util.Arrays;
-import java.util.List;
-
 /**
  * Contains Command Line Interface (CLI) syntax definitions common to multiple commands
  */

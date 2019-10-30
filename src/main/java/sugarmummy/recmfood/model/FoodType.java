@@ -15,7 +15,7 @@ public enum FoodType {
     MEAL("Meal", "m");
 
     public static final String MESSAGE_CONSTRAINTS = "Food types should only be one of the following"
-        + getAllTypesInfo();
+            + getAllTypesInfo();
 
     private String typeName;
     private String abbr;

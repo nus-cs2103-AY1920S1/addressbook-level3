@@ -198,7 +198,7 @@ public class StorageManager implements Storage {
 
     @Override
     public Optional<ReadOnlyCalendar> readCalendar(Path eventFilePath, Path reminderFilePath)
-        throws DataConversionException, IOException {
+            throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + eventFilePath + " and " + reminderFilePath);
         return calendarStorage.readCalendar(eventFilePath, reminderFilePath);
     }

@@ -169,9 +169,9 @@ public class MainWindow extends UiPart<Stage> {
      */
     private void displayInvalidReferences(ResultDisplay resultDisplay) {
         List<Map<String, String>> listOfFieldsContainingInvalidReferences = logic
-            .getListOfFieldsContainingInvalidReferences();
+                .getListOfFieldsContainingInvalidReferences();
         Map<String, String> guiFieldsContainingInvalidReferences =
-            logic.getGuiSettings().getFieldsContainingInvalidReferences();
+                logic.getGuiSettings().getFieldsContainingInvalidReferences();
 
         StringBuilder sb = new StringBuilder();
 
@@ -198,10 +198,10 @@ public class MainWindow extends UiPart<Stage> {
         if (!logic.getFilteredUserList().isEmpty()) {
             String name = logic.getFilteredUserList().get(0).getName().toString();
             resultDisplay.appendFeedbackToUser("Hi " + name + "! How are you feeling, and how can SugarMummy "
-                + "assist you today?");
+                    + "assist you today?");
         } else {
             resultDisplay.appendFeedbackToUser("Hello there! How are you feeling, and how can SugarMummy "
-                + "assist you today?\n" + MESSAGE_NO_BIO_FOUND);
+                    + "assist you today?\n" + MESSAGE_NO_BIO_FOUND);
         }
     }
 
@@ -214,9 +214,9 @@ public class MainWindow extends UiPart<Stage> {
     private void showInitialBackground(StackPane mainDisplayPanePlaceholder, String imagePath) {
 
         mainDisplayPanePlaceholder.setStyle("-fx-background-image: url('" + imagePath + "'); "
-            + "-fx-background-position: center center; "
-            + "-fx-background-repeat: no-repeat;"
-            + "-fx-background-size: contain;");
+                + "-fx-background-position: center center; "
+                + "-fx-background-repeat: no-repeat;"
+                + "-fx-background-size: contain;");
     }
 
     /**
@@ -272,9 +272,9 @@ public class MainWindow extends UiPart<Stage> {
         if (background.showDefaultBackground()) {
             styleManager.setBackground(new Background("transparent"));
             mainWindowPlaceholder.setStyle("-fx-background-image: url('" + TEMPORARY_BACKGROUND_PATH + "'); "
-                + "-fx-background-position: center center; "
-                + "-fx-background-repeat: no-repeat;"
-                + "-fx-background-size: cover;");
+                    + "-fx-background-position: center center; "
+                    + "-fx-background-repeat: no-repeat;"
+                    + "-fx-background-size: cover;");
             styleManager.setFontColour("yellow");
         } else {
             styleManager.setBackground(guiSettings.getBackground());
@@ -342,12 +342,12 @@ public class MainWindow extends UiPart<Stage> {
                 return;
             }
             newPaneIsToBeCreated = ((displayPaneType == DisplayPaneType.COLOUR
-                || displayPaneType == DisplayPaneType.BACKGROUND)
-                && paneToDisplay == DisplayPaneType.BIO) || newPaneIsToBeCreated;
+                    || displayPaneType == DisplayPaneType.BACKGROUND)
+                    && paneToDisplay == DisplayPaneType.BIO) || newPaneIsToBeCreated;
             mainDisplayPanePlaceholder.setStyle(null);
             mainDisplayPanePlaceholder.getChildren().clear();
             mainDisplayPanePlaceholder.getChildren()
-                .add(requireNonNull(mainDisplayPane.get(paneToDisplay, newPaneIsToBeCreated).getRoot()));
+                    .add(requireNonNull(mainDisplayPane.get(paneToDisplay, newPaneIsToBeCreated).getRoot()));
         }
     }
 
@@ -368,8 +368,8 @@ public class MainWindow extends UiPart<Stage> {
             mainDisplayPanePlaceholder.setStyle(null);
             mainDisplayPanePlaceholder.getChildren().clear();
             mainDisplayPanePlaceholder.getChildren()
-                .add(requireNonNull(mainDisplayPane.get(paneToDisplay, newPaneIsToBeCreated,
-                    yearMonth, yearMonthDay, isShowingWeek).getRoot()));
+                    .add(requireNonNull(mainDisplayPane.get(paneToDisplay, newPaneIsToBeCreated,
+                            yearMonth, yearMonthDay, isShowingWeek).getRoot()));
         }
     }
 
@@ -383,7 +383,7 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private void handleExit() {
         GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
-            (int) primaryStage.getX(), (int) primaryStage.getY(), logic.getFontColour(), logic.getBackground());
+                (int) primaryStage.getX(), (int) primaryStage.getY(), logic.getFontColour(), logic.getBackground());
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();
@@ -414,8 +414,8 @@ public class MainWindow extends UiPart<Stage> {
                     if (commandResult.isCalendar()) {
                         CalendarCommandResult calendarCommandResult = (CalendarCommandResult) commandResult;
                         switchToMainDisplayPane(logic.getDisplayPaneType(), logic.getNewPaneIsToBeCreated(),
-                            calendarCommandResult.getYearMonth(), calendarCommandResult.getYearMonthDay(),
-                            calendarCommandResult.isShowingWeek());
+                                calendarCommandResult.getYearMonth(), calendarCommandResult.getYearMonthDay(),
+                                calendarCommandResult.isShowingWeek());
                     } else {
                         switchToMainDisplayPane(logic.getDisplayPaneType(), logic.getNewPaneIsToBeCreated());
                     }

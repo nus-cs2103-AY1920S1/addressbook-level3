@@ -4,7 +4,6 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 
 import java.util.stream.Stream;
 
-import sugarmummy.recmfood.commands.AddFoodCommand;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.CliSyntax;
@@ -12,6 +11,7 @@ import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
+import sugarmummy.recmfood.commands.AddFoodCommand;
 import sugarmummy.recmfood.exception.FoodNotSuitableException;
 import sugarmummy.recmfood.model.Calorie;
 import sugarmummy.recmfood.model.Fat;
@@ -56,12 +56,12 @@ public class AddFoodCommandParser implements Parser<AddFoodCommand> {
      */
     public AddFoodCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, CliSyntax.PREFIX_FOOD,
-            CliSyntax.PREFIX_FOOD_TYPE, CliSyntax.PREFIX_CALORIE,
-            CliSyntax.PREFIX_GI, CliSyntax.PREFIX_SUGAR, CliSyntax.PREFIX_FAT);
+                CliSyntax.PREFIX_FOOD_TYPE, CliSyntax.PREFIX_CALORIE,
+                CliSyntax.PREFIX_GI, CliSyntax.PREFIX_SUGAR, CliSyntax.PREFIX_FAT);
 
         if (!arePrefixesPresent(argMultimap, CliSyntax.PREFIX_FOOD, CliSyntax.PREFIX_FOOD_TYPE,
-            CliSyntax.PREFIX_CALORIE, CliSyntax.PREFIX_GI, CliSyntax.PREFIX_SUGAR,
-            CliSyntax.PREFIX_FAT) || !argMultimap.getPreamble().isEmpty()) {
+                CliSyntax.PREFIX_CALORIE, CliSyntax.PREFIX_GI, CliSyntax.PREFIX_SUGAR,
+                CliSyntax.PREFIX_FAT) || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddFoodCommand.MESSAGE_USAGE));
         }
 
