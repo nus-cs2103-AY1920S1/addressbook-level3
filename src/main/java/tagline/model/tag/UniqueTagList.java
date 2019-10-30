@@ -3,12 +3,8 @@ package tagline.model.tag;
 import static java.util.Objects.requireNonNull;
 import static tagline.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Optional;
-import java.util.OptionalLong;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -47,20 +43,6 @@ public class UniqueTagList implements Iterable<Tag> {
         internalList.setAll(tags);
     }
 
-    public OptionalLong findMaxValueOfTagId() {
-        return internalList.stream().mapToLong(tag -> tag.getTagId().value).max();
-    }
-
-    /**
-     * Returns true if the tag list contains a {@code Tag} with some ID.
-     *
-     * @param tagId The tag ID to find
-     * @return True if a matching tag was found
-     */
-    public boolean containsTag(TagId tagId) {
-        return internalList.stream().anyMatch(t -> (t.getTagId().equals(tagId)));
-    }
-
     /**
      * Returns true if the tag list contains a given {@code Tag}.
      *
@@ -70,73 +52,6 @@ public class UniqueTagList implements Iterable<Tag> {
     public boolean containsTag(Tag toCheck) {
         requireNonNull(toCheck);
         return internalList.stream().anyMatch(t -> t.equals(toCheck));
-    }
-
-    /**
-     * Returns true if the tag list contains a tag with the same content as the given {@code Tag}.
-     *
-     * @param tagType The type of tag to find
-     * @param content Content of the tag
-     * @return True if a matching tag was found
-     */
-    public boolean containsTag(TagType tagType, String content) {
-        requireNonNull(tagType);
-        requireNonNull(content);
-        return internalList.stream().anyMatch(t -> t.match(tagType, content));
-    }
-
-    /**
-     * Find id of a tag that matches the {@code tagType} and {@code content}.
-     *
-     * @param tagType The type of tag to find
-     * @param content Content of the tag
-     * @return {@code TagId} of a matching tag if found, {@code Optional.empty()} otherwise.
-     */
-    public Optional<TagId> findTagId(TagType tagType, String content) {
-        requireNonNull(tagType);
-        requireNonNull(content);
-        return internalList.stream()
-            .filter(tag -> tag.match(tagType, content))
-            .map(tag -> tag.getTagId())
-            .findFirst();
-    }
-
-    /**
-     * Returns a list of {@code Tag}s whose name fully matches a given String.
-     *
-     * @param tagName The String to match
-     * @return A list containing all matching tags
-     */
-    public List<Tag> findTag(String tagName) {
-        requireNonNull(tagName);
-
-        List<Tag> result = new ArrayList<>();
-        /*
-        for (Tag tag : tagList) {
-            if (tag.getTagName().equals(tagName)) {
-                result.add(tag);
-            }
-        }*/
-
-        return Collections.unmodifiableList(result);
-    }
-
-    /**
-     * Returns a list of {@code Tag}s whose ID matches a given value.
-     *
-     * @param tagId The ID to match
-     * @return A list containing all matching tags
-     */
-    public List<Tag> findTag(TagId tagId) {
-        List<Tag> result = new ArrayList<>();
-        for (Tag tag : internalList) {
-            if (tag.getTagId().equals(tagId)) {
-                result.add(tag);
-                return result; //tags are assumed to be unique
-            }
-        }
-
-        return Collections.unmodifiableList(result);
     }
 
     /**

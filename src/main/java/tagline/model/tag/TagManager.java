@@ -2,8 +2,6 @@ package tagline.model.tag;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.List;
-
 /**
  * Represents the in-memory model of all tag data.
  */
@@ -37,11 +35,5 @@ public class TagManager implements TagModel {
     public void addTag(Tag tag) {
         requireNonNull(tag);
         tagBook.addTag(tag);
-    }
-
-    @Override
-    public List<Tag> findTag(TagId tagId) {
-        requireNonNull(tagId);
-        return tagBook.findTag(tagId);
     }
 }

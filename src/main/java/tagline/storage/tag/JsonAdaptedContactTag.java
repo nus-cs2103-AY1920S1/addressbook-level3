@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import tagline.commons.exceptions.IllegalValueException;
 import tagline.model.contact.ContactId;
 import tagline.model.tag.ContactTag;
-import tagline.model.tag.TagId;
 
 /**
  * Jackson-friendly version of {@link ContactTag}.
@@ -17,18 +16,18 @@ public class JsonAdaptedContactTag extends JsonAdaptedTag {
     private String contactId;
 
     @JsonCreator
-    public JsonAdaptedContactTag(@JsonProperty("tagId") String tagId, @JsonProperty("contactId") String contactId) {
-        super(tagId);
+    public JsonAdaptedContactTag(@JsonProperty("contactId") String contactId) {
+        super();
         this.contactId = contactId;
     }
 
     public JsonAdaptedContactTag(ContactTag source) {
-        super(source.getTagId().value.toString());
+        super();
         this.contactId = source.getContactId().value.toString();
     }
 
     @Override
     public ContactTag toModelType() throws IllegalValueException {
-        return new ContactTag(new TagId(getTagId()), new ContactId(contactId));
+        return new ContactTag(new ContactId(contactId));
     }
 }
