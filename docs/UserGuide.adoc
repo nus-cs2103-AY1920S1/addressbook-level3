@@ -197,7 +197,7 @@ Format: `clear`
 
 ==== Undo the previous command : `undo`
 
-User can undo the previous command. Only commands that modify the data, e.g. `add` `edit` `delete` `clear`,
+User can undo the previous command. Only commands that modify the data, e.g. `add` `edit` `delete` `clear` etc,
 can be undone.
 
 Format: `undo`
