@@ -26,7 +26,7 @@ import seedu.moneygowhere.logic.parser.exceptions.ParseException;
  */
 public class MainWindow extends UiPart<Stage> {
 
-    private static final String FXML = "MainWindow2.fxml";
+    private static final String FXML = "MainWindow.fxml";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
@@ -56,8 +56,13 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane statusbarPlaceholder;
 
     @FXML
-
     private TabPane tabPanePlaceholder;
+
+    @FXML
+    private StackPane budgetPanelPlaceholder;
+
+    @FXML
+    private BudgetPanel budgetPanel;
 
     private Tab graphTab;
     private Tab statsTab;
@@ -130,6 +135,11 @@ public class MainWindow extends UiPart<Stage> {
         CommandBox commandBox = new CommandBox(this::executeCommand, this::getPrevCommand, this::getNextCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
+        BudgetPanel bp = new BudgetPanel(logic.getSpendingBook().getBudget().getValue(),
+                logic.getSpendingBook().getBudget().getSum());
+        budgetPanel = bp;
+        budgetPanelPlaceholder.getChildren().add(bp.getRoot());
+
         graphTab = new Tab("Graph");
         graphPanel = new GraphPanel(logic.getGraphData());
         graphTab.setContent(graphPanel.getRoot());
@@ -194,6 +204,9 @@ public class MainWindow extends UiPart<Stage> {
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
+            budgetPanel.update(logic.getSpendingBook().getBudget().getValue(),
+                    logic.getSpendingBook().getBudget().getSum());
+
             if (commandResult.isExit()) {
                 handleExit();
             }
@@ -208,6 +221,7 @@ public class MainWindow extends UiPart<Stage> {
                 statsTab.setContent(statsPanel.getRoot());
                 tabPanePlaceholder.getSelectionModel().select(graphTab);
             }
+
 
             return commandResult;
         } catch (CommandException | ParseException e) {

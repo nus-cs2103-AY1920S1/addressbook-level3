@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
+
+<StackPane id="panePlaceHolder" fx:id="panePlaceHolder" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="147.0" prefWidth="452.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ProgressBar fx:id="budgetProgressBar" prefHeight="23.0" prefWidth="285.0" progress="0.3" />
+      <Label fx:id="remainingBudget" alignment="BOTTOM_CENTER" contentDisplay="CENTER" prefHeight="85.0" prefWidth="311.0">
+         <font>
+            <Font size="24.0" />
+         </font>
+         <padding>
+            <Insets top="50.0" />
+         </padding>
+      </Label>
+      <Label fx:id="budgetAmount" alignment="TOP_CENTER" contentDisplay="CENTER" prefHeight="127.0" prefWidth="314.0" styleClass="cell_big_label" textAlignment="CENTER" textOverrun="CLIP">
+         <font>
+            <Font size="36.0" />
+         </font>
+         <padding>
+            <Insets bottom="60.0" />
+         </padding>
+      </Label>
+   </children>
+</StackPane>
