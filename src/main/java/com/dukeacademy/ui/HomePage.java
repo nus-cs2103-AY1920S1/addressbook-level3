@@ -81,6 +81,10 @@ public class HomePage extends UiPart<Region> {
         questions.addListener((ListChangeListener<Question>) c -> populateHomePage(new ArrayList<>(c.getList())));
     }
 
+    /**
+     * Helper method to populate the homepage with a new list of questions
+     * @param questions questions to populate the homepage with
+     */
     private void populateHomePage(List<Question> questions) {
         int done = computeNumDone(questions);
         int total = computeNumTotal(questions);

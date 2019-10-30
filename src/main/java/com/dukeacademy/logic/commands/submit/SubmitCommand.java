@@ -78,9 +78,6 @@ public class SubmitCommand implements Command {
         if (isSuccessful) {
             Question successfulQuestion = questionWithNewProgram.withNewStatus(Status.PASSED);
             this.questionsLogic.replaceQuestion(questionWithNewProgram, successfulQuestion);
-        } else {
-            Question failedQuestion = questionWithNewProgram.withNewStatus(Status.ATTEMPTED);
-            this.questionsLogic.replaceQuestion(questionWithNewProgram, failedQuestion);
         }
 
         // Give user feedback

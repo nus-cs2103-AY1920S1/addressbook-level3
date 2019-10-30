@@ -37,8 +37,6 @@ import com.dukeacademy.logic.question.QuestionsLogic;
 import com.dukeacademy.logic.question.QuestionsLogicManager;
 import com.dukeacademy.model.prefs.ReadOnlyUserPrefs;
 import com.dukeacademy.model.prefs.UserPrefs;
-import com.dukeacademy.model.question.QuestionBank;
-import com.dukeacademy.model.util.SampleDataUtil;
 import com.dukeacademy.storage.prefs.JsonUserPrefsStorage;
 import com.dukeacademy.storage.prefs.UserPrefsStorage;
 import com.dukeacademy.storage.question.JsonQuestionBankStorage;

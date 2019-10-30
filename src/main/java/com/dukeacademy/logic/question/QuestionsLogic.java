@@ -13,8 +13,15 @@ import javafx.collections.ObservableList;
  */
 public interface QuestionsLogic {
     /**
-     * Returns an observable list that represents all the questions in the application. The default list contains
-     * all the questions unless a filter was previously set. Note that this index of this list is 0-based.
+     * Returns an observable list that represents all the questions in the application.
+     *
+     * @return an observable list of questions
+     */
+    ObservableList<Question> getAllQuestionsList();
+
+    /**
+     * Returns a filtered observable list that represents all the questions in the application. The default list
+     * contains all the questions unless a filter was previously set. Note that this index of this list is 0-based.
      *
      * @return an observable list of questions
      */

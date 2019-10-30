@@ -14,7 +14,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.IntStream;
 
-import javafx.collections.ListChangeListener;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -75,6 +74,28 @@ class QuestionsLogicManagerTest {
         QuestionBankStorage storage = new JsonQuestionBankStorage(emptyQuestionBankPath);
         QuestionsLogicManager questionsLogicManager = new QuestionsLogicManager(storage);
         ObservableList<Question> questionsObservableList = questionsLogicManager.getFilteredQuestionsList();
+        assertEquals(0, questionsObservableList.size());
+
+        // Load typical questions
+        QuestionBankStorage storage1 = new JsonQuestionBankStorage(typicalQuestionBankPath);
+        QuestionsLogicManager questionsLogicManager1 = new QuestionsLogicManager(storage1);
+
+        ObservableList<Question> questionsObservableList1 = questionsLogicManager1.getFilteredQuestionsList();
+        assertTrue(this.matchListData(questionsObservableList1, TypicalQuestions.getTypicalQuestions()));
+
+        // Assert that the list returned is read-only
+        assertThrows(UnsupportedOperationException.class, () -> questionsObservableList
+                .add(this.getMockQuestion("Test5")));
+    }
+
+    @Test
+    void getAllQuestionsList() {
+        // Ensure that the list in the question bank always corresponds to the list in the logic manager
+
+        // Load empty question bank
+        QuestionBankStorage storage = new JsonQuestionBankStorage(emptyQuestionBankPath);
+        QuestionsLogicManager questionsLogicManager = new QuestionsLogicManager(storage);
+        ObservableList<Question> questionsObservableList = questionsLogicManager.getAllQuestionsList();
         assertEquals(0, questionsObservableList.size());
 
         // Load typical questions
