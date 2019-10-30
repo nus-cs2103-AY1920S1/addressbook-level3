@@ -9,10 +9,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Region;
-import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Logic;
 import seedu.address.model.card.Card;
-import seedu.address.model.password.Password;
 
 /**
  * A Ui for the displaying password that is displayed when read command is called.

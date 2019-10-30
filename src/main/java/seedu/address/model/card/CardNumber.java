@@ -3,10 +3,10 @@ package seedu.address.model.card;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
-import seedu.address.commons.util.StringUtil;
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import seedu.address.commons.util.StringUtil;
 
 /**
  * Represents a Cards's number in the card book.
@@ -39,6 +39,11 @@ public class CardNumber {
         return test.matches(VALIDATION_REGEX);
     }
 
+    /**
+     * Formats the card number to include dashes.
+     * @param cardNumber
+     * @return cardNumber with dashes.
+     */
     private static String reformatCardNumber(String cardNumber) {
         Pattern p = Pattern.compile(VALIDATION_REGEX);
         Matcher m = p.matcher(cardNumber);
