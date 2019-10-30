@@ -8,7 +8,7 @@ import seedu.address.commons.core.AliasMappings;
 import seedu.address.commons.exceptions.RecursiveAliasException;
 import seedu.address.logic.commands.alias.AddAliasCommand;
 import seedu.address.logic.commands.event.AddEventCommand;
-import seedu.address.logic.commands.expense.ClearExpenseCommand;
+import seedu.address.logic.commands.expense.ClearCommand;
 import seedu.address.logic.commands.expense.DeleteExpenseCommand;
 import seedu.address.logic.commands.expense.EditExpenseCommand;
 import seedu.address.logic.commands.expense.FindExpenseCommand;
@@ -37,7 +37,7 @@ public class AliasTestUtil {
     // for alias is reserved
     public static final Alias ALIAS_NAME_ADD = new Alias(AddEventCommand.COMMAND_WORD, IGNORED_VALUE);
     public static final Alias ALIAS_NAME_ALIAS = new Alias(AddAliasCommand.COMMAND_WORD, IGNORED_VALUE);
-    public static final Alias ALIAS_NAME_CLEAR = new Alias(ClearExpenseCommand.COMMAND_WORD, IGNORED_VALUE);
+    public static final Alias ALIAS_NAME_CLEAR = new Alias(ClearCommand.COMMAND_WORD, IGNORED_VALUE);
     public static final Alias ALIAS_NAME_DELETE = new Alias(DeleteExpenseCommand.COMMAND_WORD, IGNORED_VALUE);
     public static final Alias ALIAS_NAME_EDIT = new Alias(EditExpenseCommand.COMMAND_WORD, IGNORED_VALUE);
     public static final Alias ALIAS_NAME_EXIT = new Alias(ExitCommand.COMMAND_WORD, IGNORED_VALUE);

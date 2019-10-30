@@ -1,4 +1,4 @@
-package seedu.address.logic.parser;
+package seedu.address.logic.commands;
 
 /**
  * Contains Command Line Interface (CLI) Command Words common to multiple commands.

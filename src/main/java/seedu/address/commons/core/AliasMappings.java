@@ -19,7 +19,7 @@ import seedu.address.logic.commands.budget.SwitchBudgetCommand;
 import seedu.address.logic.commands.event.AddEventCommand;
 import seedu.address.logic.commands.event.ListEventsCommand;
 import seedu.address.logic.commands.expense.AddExpenseCommand;
-import seedu.address.logic.commands.expense.ClearExpenseCommand;
+import seedu.address.logic.commands.expense.ClearCommand;
 import seedu.address.logic.commands.expense.DeleteExpenseCommand;
 import seedu.address.logic.commands.expense.EditExpenseCommand;
 import seedu.address.logic.commands.expense.FindExpenseCommand;
@@ -48,7 +48,7 @@ public class AliasMappings implements Serializable {
             //expense
             AddExpenseCommand.COMMAND_WORD, DeleteExpenseCommand.COMMAND_WORD,
             ListExpenseCommand.COMMAND_WORD, FindExpenseCommand.COMMAND_WORD,
-            EditExpenseCommand.COMMAND_WORD, ClearExpenseCommand.COMMAND_WORD,
+            EditExpenseCommand.COMMAND_WORD, ClearCommand.COMMAND_WORD,
             // budget
             AddBudgetCommand.COMMAND_WORD, SwitchBudgetCommand.COMMAND_WORD,
             // alias
@@ -73,6 +73,19 @@ public class AliasMappings implements Serializable {
 
     public Alias getAlias(String aliasName) {
         return aliasNameToAliasMap.get(aliasName);
+    }
+
+    public List<Alias> getAliases() {
+        return List.copyOf(aliasNameToAliasMap.values());
+    }
+
+    public boolean removeAlias(String name) {
+        if (!aliasWithNameExists(name)) {
+            return false;
+        } else {
+            aliasNameToAliasMap.remove(name);
+            return true;
+        }
     }
 
     /**

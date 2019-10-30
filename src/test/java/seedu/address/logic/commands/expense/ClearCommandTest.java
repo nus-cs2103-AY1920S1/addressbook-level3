@@ -11,7 +11,7 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.MooLah;
 import seedu.address.model.UserPrefs;
 
-public class ClearExpenseCommandTest {
+public class ClearCommandTest {
 
     @Test
     public void run_emptyAddressBook_success() {
@@ -19,7 +19,7 @@ public class ClearExpenseCommandTest {
         Model expectedModel = new ModelManager();
         expectedModel.addToHistory();
 
-        assertCommandSuccess(new ClearExpenseCommand(), model, ClearExpenseCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new ClearCommand(), model, ClearCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     @Test
@@ -29,7 +29,7 @@ public class ClearExpenseCommandTest {
         expectedModel.addToHistory();
         expectedModel.setMooLah(new MooLah());
 
-        assertCommandSuccess(new ClearExpenseCommand(), model, ClearExpenseCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new ClearCommand(), model, ClearCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
 }

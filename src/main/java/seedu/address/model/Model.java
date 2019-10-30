@@ -121,6 +121,13 @@ public interface Model {
      */
     void addUserAlias(Alias alias);
 
+    /**
+     * Removes an alias with the given name if it exists, and returns true, otherwise return false.
+     */
+    boolean removeAliasWithName(String aliasName);
+
+    boolean aliasWithNameExists(String aliasName);
+
     // ======== MOOLAH SETTINGS ===============
     /**
      * Returns the user prefs' MooLah file path.

@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 
 import javafx.beans.value.ObservableObjectValue;
 import javafx.collections.ObservableList;
+import seedu.address.commons.core.AliasMappings;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
@@ -132,6 +133,16 @@ public class LogicManager implements Logic {
     @Override
     public GuiSettings getGuiSettings() {
         return model.getGuiSettings();
+    }
+
+    @Override
+    public AliasMappings getAliasMappings() {
+        return model.getAliasMappings();
+    }
+
+    @Override
+    public boolean deleteAliasWithName(String aliasName) {
+        return model.removeAliasWithName(aliasName);
     }
 
     @Override

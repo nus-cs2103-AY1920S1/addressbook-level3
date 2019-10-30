@@ -266,10 +266,10 @@ public class AutofillSuggestionMenu extends ContextMenu {
         TextFlow graphic = new TextFlow();
         graphic.setPadding(Insets.EMPTY);
         Label req = new Label("Optional:");
-        req.setTextFill(OPTIONAL_TEXT_COLOUR);
+//        req.setTextFill(OPTIONAL_TEXT_COLOUR);
         req.setPadding(Insets.EMPTY);
         req.setBackground(new Background(
-                new BackgroundFill(OPTIONAL_LABEL_BACKGROUND_COLOUR, CornerRadii.EMPTY, Insets.EMPTY)));
+                new BackgroundFill(MATCHING_TEXT_COLOUR, CornerRadii.EMPTY, Insets.EMPTY)));
         Text prefix = new Text(" " + p.getPrefix() + "<" + p.getDescriptionOfArgument() + ">");
         prefix.setFill(REQUIRED_TEXT_COLOUR);
         graphic.getChildren().addAll(req, prefix);

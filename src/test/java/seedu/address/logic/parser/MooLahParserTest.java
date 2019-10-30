@@ -19,7 +19,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.CommandTestUtil;
 import seedu.address.logic.commands.alias.AddAliasCommand;
-import seedu.address.logic.commands.expense.ClearExpenseCommand;
+import seedu.address.logic.commands.expense.ClearCommand;
 import seedu.address.logic.commands.expense.DeleteExpenseCommand;
 import seedu.address.logic.commands.expense.EditExpenseCommand;
 import seedu.address.logic.commands.expense.EditExpenseCommand.EditExpenseDescriptor;
@@ -63,8 +63,8 @@ public class MooLahParserTest {
 
     @Test
     public void parseCommand_clear() throws Exception {
-        assertTrue(parser.parseCommand(ClearExpenseCommand.COMMAND_WORD, "", readOnlyUserPrefs) instanceof ClearExpenseCommand);
-        assertTrue(parser.parseCommand(ClearExpenseCommand.COMMAND_WORD + " 3", "", readOnlyUserPrefs) instanceof ClearExpenseCommand);
+        assertTrue(parser.parseCommand(ClearCommand.COMMAND_WORD, "", readOnlyUserPrefs) instanceof ClearCommand);
+        assertTrue(parser.parseCommand(ClearCommand.COMMAND_WORD + " 3", "", readOnlyUserPrefs) instanceof ClearCommand);
     }
 
     @Test

@@ -9,19 +9,21 @@ import seedu.address.logic.commands.CommandGroup;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.UndoableCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.GenericCommandWord;
 import seedu.address.model.Model;
+import seedu.address.ui.expense.AliasPanel;
 
 /**
  * Create an alias for common user input.
  */
 public class AddAliasCommand extends UndoableCommand {
 
-    public static final String COMMAND_WORD = "add" + CommandGroup.ALIAS;
+    public static final String COMMAND_WORD = GenericCommandWord.ADD + CommandGroup.ALIAS;
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Create a shortcut for commonly used Commands.\n"
             + "Parameters: " + PREFIX_ALIAS_ALIAS_NAME
             + " <alias name>  " + PREFIX_ALIAS_ALIAS_INPUT + " <input string> \n"
-            + "Example: alias " + PREFIX_ALIAS_ALIAS_NAME
+            + "Example: addalias " + PREFIX_ALIAS_ALIAS_NAME
             + " findAnimal " + PREFIX_ALIAS_ALIAS_INPUT
             + " find rat rats mouse mice cow cows ox oxen tiger tigers";
 
@@ -66,7 +68,7 @@ public class AddAliasCommand extends UndoableCommand {
 
         model.addUserAlias(toAdd);
         return new CommandResult(
-                String.format(MESSAGE_SUCCESS, toAdd.getAliasName()));
+                String.format(MESSAGE_SUCCESS, toAdd.getAliasName()), AliasPanel.PANEL_NAME);
     }
 
     @Override

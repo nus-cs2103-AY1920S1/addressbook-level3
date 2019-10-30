@@ -12,10 +12,10 @@ import seedu.address.ui.expense.ExpenseListPanel;
 /**
  * Clears the MooLah.
  */
-public class ClearExpenseCommand extends UndoableCommand {
+public class ClearCommand extends UndoableCommand {
 
-    public static final String COMMAND_WORD = "clear" + CommandGroup.EXPENSE;;
-    public static final String MESSAGE_SUCCESS = "MooLah has been cleared!";
+    public static final String COMMAND_WORD = "clear" + CommandGroup.EXPENSE;
+    public static final String MESSAGE_SUCCESS = "All expenses in MooLah have been cleared!";
 
     @Override
     protected void validate(Model model) {

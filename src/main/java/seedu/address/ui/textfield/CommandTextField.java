@@ -110,6 +110,13 @@ public class CommandTextField extends Region {
         visibleTextArea = new StyleClassedTextArea();
         visibleTextArea.setId("styled");
         visibleTextArea.setDisable(true);
+        functionalTextField.focusedProperty().addListener((observableValue, aBoolean, t1) -> {
+            if (t1) {
+                visibleTextArea.setShowCaret(Caret.CaretVisibility.ON);
+            } else {
+                visibleTextArea.setShowCaret(Caret.CaretVisibility.OFF);
+            }
+        });
         visibleTextArea.setShowCaret(Caret.CaretVisibility.ON);
         functionalTextField.caretPositionProperty().addListener((unused1, unused2, position) -> {
             visibleTextArea.displaceCaret((int) position);
@@ -268,7 +275,7 @@ public class CommandTextField extends Region {
      * @param prefixes List of prefixes required in the command
      * @param optionalPrefixes
      */
-    public void createPattern(String command, List<Prefix> prefixes, List<Prefix> optionalPrefixes) {
+    public void addSupportFor(String command, List<Prefix> prefixes, List<Prefix> optionalPrefixes) {
         stringToSupportedCommands.put(command, new SyntaxHighlightingSupportedInput(command, prefixes, optionalPrefixes));
         autofillMenu.addCommand(command, prefixes, optionalPrefixes);
     }
@@ -278,7 +285,7 @@ public class CommandTextField extends Region {
      * Remove support for syntax highlighting and auto fill for the specified command.
      * @param command
      */
-    public void removePattern(String command) {
+    public void removeSupportFor(String command) {
         if (stringToSupportedCommands.containsKey(command)) {
             stringToSupportedCommands.remove(command);
             autofillMenu.removeCommand(command);

@@ -16,7 +16,7 @@ import seedu.address.model.expense.Description;
  */
 public class SwitchBudgetCommandParser implements Parser<SwitchBudgetCommand> {
 
-    public static final List<Prefix> REQUIRED_PREFIXES = Collections.unmodifiableList(List.of());
+    public static final List<Prefix> REQUIRED_PREFIXES = Collections.unmodifiableList(List.of(PREFIX_DESCRIPTION));
     public static final List<Prefix> OPTIONAL_PREFIXES = Collections.unmodifiableList(List.of());
 
     /**

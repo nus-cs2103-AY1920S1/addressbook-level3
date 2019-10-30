@@ -5,6 +5,8 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 
 import java.util.regex.Pattern;
 
+import seedu.address.logic.commands.GenericCommandWord;
+
 public class Input {
 
     private static String MESSAGE_CONSTRAINTS_COMMAND_WORD = "(\\S+)";

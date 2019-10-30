@@ -2,13 +2,13 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
-import java.util.regex.Pattern;
-
 import seedu.address.commons.core.Alias;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.alias.AddAliasCommand;
+import seedu.address.logic.commands.alias.DeleteAliasCommand;
+import seedu.address.logic.commands.alias.ListAliasCommand;
 import seedu.address.logic.commands.budget.AddBudgetCommand;
 import seedu.address.logic.commands.budget.DeleteBudgetCommand;
 import seedu.address.logic.commands.budget.EditBudgetCommand;
@@ -18,7 +18,7 @@ import seedu.address.logic.commands.budget.SwitchBudgetCommand;
 import seedu.address.logic.commands.event.AddEventCommand;
 import seedu.address.logic.commands.event.ListEventsCommand;
 import seedu.address.logic.commands.expense.AddExpenseCommand;
-import seedu.address.logic.commands.expense.ClearExpenseCommand;
+import seedu.address.logic.commands.expense.ClearCommand;
 import seedu.address.logic.commands.expense.DeleteExpenseCommand;
 import seedu.address.logic.commands.expense.EditExpenseCommand;
 import seedu.address.logic.commands.expense.FindExpenseCommand;
@@ -62,8 +62,14 @@ public class MooLahParser {
             return new AddEventCommandParser().parse(arguments);
         case AddExpenseCommand.COMMAND_WORD:
             return new AddExpenseCommandParser().parse(arguments);
+
         case AddAliasCommand.COMMAND_WORD:
-            return new AliasCommandParser().parse(arguments);
+            return new AddAliasCommandParser().parse(arguments);
+        case DeleteAliasCommand.COMMAND_WORD:
+            return new DeleteAliasCommandParser().parse(arguments);
+        case ListAliasCommand.COMMAND_WORD:
+            return new ListAliasCommand();
+
         case AddBudgetCommand.COMMAND_WORD:
             return new AddBudgetCommandParser().parse(arguments);
         case EditExpenseCommand.COMMAND_WORD:
@@ -72,8 +78,8 @@ public class MooLahParser {
             return new DeleteCommandParser().parse(arguments);
         case EditBudgetCommand.COMMAND_WORD:
             return new EditBudgetCommandParser().parse(arguments);
-        case ClearExpenseCommand.COMMAND_WORD:
-            return new ClearExpenseCommand();
+        case ClearCommand.COMMAND_WORD:
+            return new ClearCommand();
         case FindExpenseCommand.COMMAND_WORD:
             return new FindCommandParser().parse(arguments);
         case ListExpenseCommand.COMMAND_WORD:

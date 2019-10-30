@@ -3,4 +3,4 @@
 <?import javafx.scene.layout.StackPane?>
 
 <StackPane fx:id="commandInputAreaPlaceholder" styleClass="stack-pane"
-           xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" />
+           xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"/>

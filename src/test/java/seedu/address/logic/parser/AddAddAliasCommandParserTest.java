@@ -11,8 +11,8 @@ import org.junit.jupiter.api.Test;
 import seedu.address.commons.core.Alias;
 import seedu.address.logic.commands.alias.AddAliasCommand;
 
-public class AddAliasCommandParserTest {
-    private AliasCommandParser parser = new AliasCommandParser();
+public class AddAddAliasCommandParserTest {
+    private AddAliasCommandParser parser = new AddAliasCommandParser();
 
     @Test
     public void parse_compulsoryFieldMissing_failure() {

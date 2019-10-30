@@ -161,7 +161,7 @@ public class EditExpenseCommandTest {
         assertFalse(standardCommand.equals(null));
 
         // different types -> returns false
-        assertFalse(standardCommand.equals(new ClearExpenseCommand()));
+        assertFalse(standardCommand.equals(new ClearCommand()));
 
         // different index -> returns false
         assertFalse(standardCommand.equals(new EditExpenseCommand(INDEX_SECOND_EXPENSE, DESC_CHICKEN)));

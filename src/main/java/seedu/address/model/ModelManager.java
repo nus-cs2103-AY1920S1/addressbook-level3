@@ -206,6 +206,15 @@ public class ModelManager implements Model {
         }
     }
 
+    public boolean aliasWithNameExists(String aliasName) {
+        return userPrefs.hasAlias(aliasName);
+    }
+
+    @Override
+    public boolean removeAliasWithName(String aliasName) {
+        return userPrefs.removeAliasWithName(aliasName);
+    }
+
     //=========== GuiSettings ===============================================================================
 
     @Override

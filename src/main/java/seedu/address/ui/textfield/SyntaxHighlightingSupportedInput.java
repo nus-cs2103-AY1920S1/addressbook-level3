@@ -9,6 +9,7 @@ import seedu.address.logic.parser.Prefix;
 public class SyntaxHighlightingSupportedInput {
 
     static final String PLACEHOLDER_REGEX = "(?<placeholder><[^>]+>)";
+    // param1 commandword, param2 concat list of prefixes
     private static final String INPUT_PATTERN_TEMPLATE = "(?<COMMAND>%s)|" + PLACEHOLDER_REGEX + "|%s(?<arg>\\S+)";
 
     private String command;
