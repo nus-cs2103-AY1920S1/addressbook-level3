@@ -116,7 +116,7 @@ Searches for children mystery books that are not on loan and show the first 3 en
 
 ==== Viewing a book: `info`
 
-View more information about a book in the results list. +
+Views more information about a book in the results list. +
 Format: `info INDEX`
 
 ==== Clearing all entries : `clear`
@@ -188,12 +188,12 @@ Deletes the borrower with the borrower ID `id/K0001`
 
 ==== Undoing: `undo`
 
-Undo the previous command/action. +
+Undoes the previous command/action. +
 Format: `undo`
 
 ==== Redoing: redo
 
-Redo the most recent undo should there be no more commands/actions after the most recent undo. +
+Redoes the most recent undo should there be no more commands/actions after the most recent undo. +
 Format: `redo`
 
 
