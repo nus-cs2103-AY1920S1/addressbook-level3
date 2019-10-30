@@ -257,13 +257,15 @@ Format: `update -flag /id id (/attributeName attributeValue ...)`
 
 |===
 | :bulb: a|
-* When the `fridgeId` of a `body` is updated, changes to the fridges will be made as follows:
-** Previous fridge's status is set to `UNOCCUPIED` and is no longer assigned this `body`.
-** New fridge's status is set to `OCCUPIED` and is assigned this `body`.
+When the `fridgeId` of a `body` is updated, changes to the fridges will be made as follows:
 
-* When you update the `CONTACT_POLICE` status of a `body`, the associated `notif` will be automatically deleted.
+* Previous fridge's status is set to `UNOCCUPIED` and is no longer assigned this `body`.
 
-* When you update `bodyStatus` to `ARRIVED`, a `notif` pop-up will be shown after 10 seconds.
+* New fridge's status is set to `OCCUPIED` and is assigned this `body`.
+
+When you update the `CONTACT_POLICE` status of a `body`, the associated `notif` will be automatically deleted.
+
+When you update `bodyStatus` to `ARRIVED`, a `notif` pop-up will be shown after 10 seconds.
 
 |===
 
@@ -342,11 +344,15 @@ Format: `find (flag) (keyword)...`
 
 |===
 | :bulb: a|
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+The search is case insensitive. e.g `hans` will match `Hans`
+
+The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
+
+Only the name is searched.
+
+Only full words will be matched e.g. `Han` will not match `Hans`
+
+Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
 |===
 
 Examples:
@@ -368,9 +374,11 @@ Format: `delete -flag  id`
 
 |===
 | :bulb: a|
-* When you delete a body, its associated notifications will also be deleted.
-* If a fridge is occupied by a body, you cannot delete it.
-* You only need to specify the number portion of the ID, without leading zeroes. Mortago will automatically convert it
+When you delete a body, its associated notifications will also be deleted.
+
+If a fridge is occupied by a body, you cannot delete it.
+
+You only need to specify the number portion of the ID, without leading zeroes. Mortago will automatically convert it
 in the format `BXXXXXXXX`, `WXXXXX`, or `FXX` for a body, worker or fridge entry respectively.
 |===
 
