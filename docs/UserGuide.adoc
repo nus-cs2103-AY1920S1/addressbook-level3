@@ -416,7 +416,7 @@ Examples:
 
 ==== Clearing all entries: `clear`
 
-Clears all entries from the time book. +
+Clears all entries from the TimeBook. +
 Format: `clear`
 
 === Saving the data
