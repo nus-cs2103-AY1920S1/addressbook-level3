@@ -1,15 +1,15 @@
 package dukecooks.model.recipe;
 
+import static dukecooks.testutil.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static dukecooks.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
 import dukecooks.model.recipe.components.Calories;
 
 public class CaloriesTest {
-    
+
     @Test
     public void constructor_null_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new Calories(null));

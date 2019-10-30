@@ -203,7 +203,8 @@ public class UniqueMealPlanBookListTest {
 
     @Test
     public void setMealPlans_nullUniqueMealPlanList_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> uniqueMealPlanList.setMealPlans((UniqueMealPlanList) null));
+        Assert.assertThrows(NullPointerException.class, () -> uniqueMealPlanList
+                .setMealPlans((UniqueMealPlanList) null));
     }
 
     @Test

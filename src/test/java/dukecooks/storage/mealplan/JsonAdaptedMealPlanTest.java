@@ -48,7 +48,7 @@ public class JsonAdaptedMealPlanTest {
     @Test
     public void toModelType_invalidName_throwsIllegalValueException() {
         JsonAdaptedMealPlan mealPlan =
-                new JsonAdaptedMealPlan(INVALID_NAME, VALID_DAY1, VALID_DAY2, VALID_DAY3, VALID_DAY4, VALID_DAY5, 
+                new JsonAdaptedMealPlan(INVALID_NAME, VALID_DAY1, VALID_DAY2, VALID_DAY3, VALID_DAY4, VALID_DAY5,
                         VALID_DAY6, VALID_DAY7);
         String expectedMessage = MealPlanName.MESSAGE_CONSTRAINTS;
         Assert.assertThrows(IllegalValueException.class, expectedMessage, mealPlan::toModelType);
@@ -56,8 +56,8 @@ public class JsonAdaptedMealPlanTest {
 
     @Test
     public void toModelType_nullName_throwsIllegalValueException() {
-        JsonAdaptedMealPlan mealPlan = new JsonAdaptedMealPlan(null, VALID_DAY1, VALID_DAY2, VALID_DAY3, VALID_DAY4, VALID_DAY5,
-                VALID_DAY6, VALID_DAY7);
+        JsonAdaptedMealPlan mealPlan = new JsonAdaptedMealPlan(null, VALID_DAY1, VALID_DAY2, VALID_DAY3, VALID_DAY4,
+                VALID_DAY5, VALID_DAY6, VALID_DAY7);
         String expectedMessage = String.format(JsonAdaptedMealPlan.MISSING_FIELD_MESSAGE_FORMAT,
                 MealPlanName.class.getSimpleName());
         Assert.assertThrows(IllegalValueException.class, expectedMessage, mealPlan::toModelType);

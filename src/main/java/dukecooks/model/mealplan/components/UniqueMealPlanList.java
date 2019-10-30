@@ -8,7 +8,6 @@ import java.util.List;
 import dukecooks.commons.util.CollectionUtil;
 import dukecooks.model.mealplan.exceptions.DuplicateMealPlanException;
 import dukecooks.model.mealplan.exceptions.MealPlanNotFoundException;
-import dukecooks.model.recipe.components.UniqueRecipeList;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 

@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 import dukecooks.model.recipe.components.Protein;
 
 public class ProteinTest {
-    
+
     @Test
     public void constructor_null_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new Protein(null));

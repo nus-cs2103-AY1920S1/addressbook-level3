@@ -45,9 +45,9 @@ public class MealPlanBookTest {
     @Test
     public void resetData_withDuplicateMealPlans_throwsDuplicateMealPlanException() {
         // Two mealPlans with the same identity fields
-        MealPlan editedMiloMP = new MealPlanBuilder(MILO_MP).withDay1(CommandTestUtil.VALID_INGREDIENT_BURGER)
+        MealPlan editedMiloMealPlan = new MealPlanBuilder(MILO_MP).withDay1(CommandTestUtil.VALID_INGREDIENT_BURGER)
                 .build();
-        List<MealPlan> newMealPlans = Arrays.asList(MILO_MP, editedMiloMP);
+        List<MealPlan> newMealPlans = Arrays.asList(MILO_MP, editedMiloMealPlan);
         MealPlanBookStub newData = new MealPlanBookStub(newMealPlans);
 
         Assert.assertThrows(DuplicateMealPlanException.class, () -> mealPlanBook.resetData(newData));
