@@ -138,6 +138,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public void setStyleSheet(String string) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public Path getKeyboardFlashCardsFilePath() {
             throw new AssertionError("This method should not be called.");
         }

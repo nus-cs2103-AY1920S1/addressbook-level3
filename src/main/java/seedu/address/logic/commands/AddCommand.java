@@ -13,18 +13,18 @@ import seedu.address.model.flashcard.FlashCard;
 
 
 /**
- * Adds a flashCard to the address book.
+ * Adds a flashCard to the storage.
  */
 public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a flashCard to the address book. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a flashCard to the Application. "
             + "Parameters: "
             + PREFIX_QUESTION + "QUESTION "
             + PREFIX_ANSWER + "ANSWER "
             + PREFIX_RATING + "RATING "
-            + "[" + PREFIX_CATEGORY + "TAG]...\n"
+            + "[" + PREFIX_CATEGORY + "CATEGORY]...\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_QUESTION + "End-to-end delay "
             + PREFIX_ANSWER + "2L/R (assuming no other delay) "

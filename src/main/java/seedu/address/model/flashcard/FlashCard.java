@@ -97,12 +97,14 @@ public class FlashCard {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getQuestion())
+        builder.append("Question: ")
+                .append(getQuestion())
                 .append(" Answer: ")
-                .append(getAnswer())
-                .append(" Categories: ");
-        getCategories().forEach(builder::append);
+                .append(getAnswer());
+        if (!getCategories().isEmpty()) {
+            builder.append(" Categories: ");
+            getCategories().forEach(builder::append);
+        }
         return builder.toString();
     }
-
 }

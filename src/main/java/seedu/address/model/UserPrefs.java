@@ -47,6 +47,9 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         this.guiSettings = guiSettings;
     }
 
+    public void setStyleSheet(String styleSheet) {
+        guiSettings.setStyleSheet(styleSheet);
+    }
     public Path getKeyboardFlashCardsFilePath() {
         return keyboardFlashCardsFilePath;
     }

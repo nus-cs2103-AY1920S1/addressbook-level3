@@ -76,6 +76,10 @@ public class ModelManager implements Model {
         userPrefs.setGuiSettings(guiSettings);
     }
 
+    public void setStyleSheet(String styleSheet) {
+        userPrefs.setStyleSheet(styleSheet);
+    }
+
     @Override
     public Path getKeyboardFlashCardsFilePath() {
         return userPrefs.getKeyboardFlashCardsFilePath();
