@@ -1,7 +1,6 @@
 package seedu.deliverymans.storage.restaurant;
 
 import java.math.BigDecimal;
-import java.time.Duration;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -27,7 +26,7 @@ class JsonAdaptedFood {
 
     private final String name;
     private final String price;
-    private final long prepTime;
+    private final int quantity;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     /**
@@ -36,11 +35,11 @@ class JsonAdaptedFood {
     @JsonCreator
     public JsonAdaptedFood(@JsonProperty("name") String name,
                            @JsonProperty("price") String price,
-                           @JsonProperty("prep") long prepTime,
+                           @JsonProperty("quantity") int quantity,
                            @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.name = name;
         this.price = price;
-        this.prepTime = prepTime;
+        this.quantity = quantity;
         if (tagged != null) {
             this.tagged.addAll(tagged);
         }
@@ -52,7 +51,7 @@ class JsonAdaptedFood {
     public JsonAdaptedFood(Food source) {
         name = source.getName().fullName;
         price = source.getPrice().toPlainString();
-        prepTime = source.getPrepTime().getSeconds();
+        quantity = source.getQuantity();
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
@@ -85,12 +84,11 @@ class JsonAdaptedFood {
             throw new IllegalValueException(Food.PRICE_CONSTRAINTS);
         }
 
-        final Duration modelPrepTime = Duration.ofSeconds(prepTime);
-        if (!Food.isValidPrepTime(modelPrepTime)) {
-            throw new IllegalValueException(Food.PREP_CONSTRAINTS);
+        if (!Food.isValidQuantity(quantity)) {
+            throw new IllegalValueException(Food.QUANTITY_CONSTRAINTS);
         }
 
         final Set<Tag> modelTags = new HashSet<>(foodTags);
-        return new Food(modelName, modelPrice, modelPrepTime, modelTags);
+        return new Food(modelName, modelPrice, quantity, modelTags);
     }
 }

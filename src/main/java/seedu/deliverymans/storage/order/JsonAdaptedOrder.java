@@ -123,7 +123,7 @@ public class JsonAdaptedOrder {
         if (Boolean.parseBoolean(isCompleted)) {
             order.completeOrder();
         }
-        
+
         return order;
     }
 }

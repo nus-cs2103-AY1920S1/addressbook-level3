@@ -11,7 +11,7 @@ public class LocationMap {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Location should only be one of the following locations: "
-            + "Jurong, Tuas, Woodlands, Bishan, City, Marina, Changi";
+            + "Jurong, Tuas, Woodlands, Bishan, City, Marina, Changi, Punggol";
 
     private static List<Location> locations = new ArrayList<>(List.of(
             new Location("Jurong", 1, 1),
@@ -20,7 +20,8 @@ public class LocationMap {
             new Location("Bishan", 1, 1),
             new Location("City", 1, 1),
             new Location("Marina", 2, 0),
-            new Location("Changi", 3, 1)
+            new Location("Changi", 3, 1),
+            new Location("Punggol", 3, 1)
     ));
 
     public static Optional<Location> getLocation(String name) {

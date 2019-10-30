@@ -1,7 +1,6 @@
 package seedu.deliverymans.model.util;
 
 import java.math.BigDecimal;
-import java.time.Duration;
 import java.util.AbstractMap;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -70,48 +69,48 @@ public class SampleDataUtil {
         return new Restaurant[]{
             new Restaurant(new Name("KFC"), LocationMap.getLocation("Jurong").get(),
                         getTagSet("FastFood", "Western"),
-                        getMenu(new Food(new Name("Ginger Burger"), new BigDecimal(6.5), Duration.ofSeconds(60)),
-                                new Food(new Name("Shrooms Burger"), new BigDecimal(5), Duration.ofSeconds(60)),
-                                new Food(new Name("Fish Fillet Burger"), new BigDecimal(5.5), Duration.ofSeconds(60)),
-                                new Food(new Name("2 Piece Chicken"), new BigDecimal(7.95), Duration.ofSeconds(120)),
-                                new Food(new Name("3 Piece Chicken"), new BigDecimal(10.95), Duration.ofSeconds(120)),
-                                new Food(new Name("Chicken Nuggets"), new BigDecimal(3), Duration.ofSeconds(30)))),
+                        getMenu(new Food(new Name("Ginger Burger"), new BigDecimal(6.5), 60),
+                                new Food(new Name("Shrooms Burger"), new BigDecimal(5), 60),
+                                new Food(new Name("Fish Fillet Burger"), new BigDecimal(5.5), 60),
+                                new Food(new Name("2 Piece Chicken"), new BigDecimal(7.95), 120),
+                                new Food(new Name("3 Piece Chicken"), new BigDecimal(10.95), 120),
+                                new Food(new Name("Chicken Nuggets"), new BigDecimal(3), 30))),
 
             new Restaurant(new Name("Prata House"), LocationMap.getLocation("Bishan").get(),
                         getTagSet("Indian"),
-                        getMenu(new Food(new Name("Plain Prata"), new BigDecimal(0.7), Duration.ofSeconds(60)),
-                                new Food(new Name("Egg Prata"), new BigDecimal(1), Duration.ofSeconds(60)),
-                                new Food(new Name("Cheese Prata"), new BigDecimal(1.2), Duration.ofSeconds(60)),
-                                new Food(new Name("Prata Bomb"), new BigDecimal(2), Duration.ofSeconds(120)),
-                                new Food(new Name("Curry Fountain"), new BigDecimal(2), Duration.ofSeconds(120)),
-                                new Food(new Name("Curry Waterfall"), new BigDecimal(3), Duration.ofSeconds(120)))),
+                        getMenu(new Food(new Name("Plain Prata"), new BigDecimal(0.7), 60),
+                                new Food(new Name("Egg Prata"), new BigDecimal(1), 60),
+                                new Food(new Name("Cheese Prata"), new BigDecimal(1.2), 60),
+                                new Food(new Name("Prata Bomb"), new BigDecimal(2), 120),
+                                new Food(new Name("Curry Fountain"), new BigDecimal(2), 120),
+                                new Food(new Name("Curry Waterfall"), new BigDecimal(3), 120))),
 
             new Restaurant(new Name("SkyBar Bar and Restaurant"), LocationMap.getLocation("Marina").get(),
                         getTagSet("Bar"),
-                        getMenu(new Food(new Name("Duck Confit"), new BigDecimal(10), Duration.ofSeconds(300)),
-                                new Food(new Name("Foie gras"), new BigDecimal(15), Duration.ofSeconds(300)),
-                                new Food(new Name("Buffalo Wings"), new BigDecimal(15), Duration.ofSeconds(350)),
-                                new Food(new Name("Rhinoceros Pizza"), new BigDecimal(25), Duration.ofSeconds(600)),
-                                new Food(new Name("Hippo Teeth"), new BigDecimal(30.5), Duration.ofSeconds(120)),
-                                new Food(new Name("Rat with Caviar"), new BigDecimal(49.9), Duration.ofSeconds(120)))),
+                        getMenu(new Food(new Name("Duck Confit"), new BigDecimal(10), 300),
+                                new Food(new Name("Foie gras"), new BigDecimal(15), 300),
+                                new Food(new Name("Buffalo Wings"), new BigDecimal(15), 350),
+                                new Food(new Name("Rhinoceros Pizza"), new BigDecimal(25), 600),
+                                new Food(new Name("Hippo Teeth"), new BigDecimal(30.5), 120),
+                                new Food(new Name("Rat with Caviar"), new BigDecimal(49.9), 120))),
 
             new Restaurant(new Name("IchiNiSan Ramen"), LocationMap.getLocation("City").get(),
                         getTagSet("Japanese"),
-                        getMenu(new Food(new Name("Ramen A"), new BigDecimal(10), Duration.ofSeconds(300)),
-                                new Food(new Name("Ramen B"), new BigDecimal(10), Duration.ofSeconds(300)),
-                                new Food(new Name("Ramen C"), new BigDecimal(10), Duration.ofSeconds(300)),
-                                new Food(new Name("Ramen D"), new BigDecimal(15), Duration.ofSeconds(300)),
-                                new Food(new Name("Ramen E"), new BigDecimal(15), Duration.ofSeconds(300)),
-                                new Food(new Name("Ramen F"), new BigDecimal(15), Duration.ofSeconds(300)))),
+                        getMenu(new Food(new Name("Ramen A"), new BigDecimal(10), 300),
+                                new Food(new Name("Ramen B"), new BigDecimal(10), 300),
+                                new Food(new Name("Ramen C"), new BigDecimal(10), 300),
+                                new Food(new Name("Ramen D"), new BigDecimal(15), 300),
+                                new Food(new Name("Ramen E"), new BigDecimal(15), 300),
+                                new Food(new Name("Ramen F"), new BigDecimal(15), 300))),
 
             new Restaurant(new Name("Piggys Self Barbeque"), LocationMap.getLocation("Woodlands").get(),
                         getTagSet("Barbeque"),
-                        getMenu(new Food(new Name("BBQ Head"), new BigDecimal(10), Duration.ofSeconds(1000)),
-                                new Food(new Name("BBQ Shank"), new BigDecimal(15), Duration.ofSeconds(600)),
-                                new Food(new Name("BBQ Trotter"), new BigDecimal(15), Duration.ofSeconds(600)),
-                                new Food(new Name("BBQ Nails"), new BigDecimal(25), Duration.ofSeconds(300)),
-                                new Food(new Name("BBQ Butt"), new BigDecimal(30.5), Duration.ofSeconds(1200)),
-                                new Food(new Name("BBQ Tail"), new BigDecimal(49.9), Duration.ofSeconds(300))))
+                        getMenu(new Food(new Name("BBQ Head"), new BigDecimal(10), 1000),
+                                new Food(new Name("BBQ Shank"), new BigDecimal(15), 600),
+                                new Food(new Name("BBQ Trotter"), new BigDecimal(15), 600),
+                                new Food(new Name("BBQ Nails"), new BigDecimal(25), 300),
+                                new Food(new Name("BBQ Butt"), new BigDecimal(30.5), 1200),
+                                new Food(new Name("BBQ Tail"), new BigDecimal(49.9), 300)))
         };
     }
 

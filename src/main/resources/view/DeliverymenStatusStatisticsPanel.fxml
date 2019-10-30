@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.chart.PieChart?>
+<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+    <Label fx:id="totalDeliverymenLabel" />
+    <Label fx:id="availableDeliverymenLabel" />
+    <Label fx:id="unavailableDeliverymenLabel" />
+    <Label fx:id="deliveringDeliverymenLabel" />
+    <HBox >
+        <PieChart fx:id="statusStatisticsPieChart" />
+        <TextArea fx:id="resultDisplay" style="-fx-font-family: Consolas; -fx-highlight-fill: #00ff00;
+        -fx-highlight-text-fill: #000000; -fx-text-fill: #00ff00; -fx-background-color:#000000 " />
+    </HBox>
+</VBox>
