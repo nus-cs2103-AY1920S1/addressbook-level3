@@ -50,11 +50,8 @@ public class LogicManager implements Logic {
             writeInInventoryFile();
             Transaction transaction = model.getCheckoutTransaction();
             storage.appendToTransaction(transaction);
-            //System.out.println("was written into transac");
             transactionModel.addTransaction(transaction);
-            //System.out.println("was updated in trasns");
             inventoryModel.readInUpdatedList();
-            //System.out.println("was updated in inve");
         }
         return commandResult;
     }
