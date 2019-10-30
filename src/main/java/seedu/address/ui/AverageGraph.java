@@ -87,7 +87,7 @@ public class AverageGraph {
             }
         });
 
-        customLineChart.setId("customLineChart");
+        customLineChart.setId("lineChartCustom");
         customLineChart.setAnimated(false);
         customLineChart.setAxisSortingPolicy(LineChart.SortingPolicy.NONE);
 

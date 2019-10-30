@@ -14,14 +14,14 @@ public class LegendRow extends UiPart<Region> {
     private static final String FXML = "LegendRow.fxml";
 
     @FXML
-    private Rectangle symbol;
+    private Rectangle lineChartSymbol;
 
     @FXML
     private Label lineChartDescription;
 
     public LegendRow(Color color, String legendDescription) {
         super(FXML);
-        symbol.setFill(color);
+        lineChartSymbol.setFill(color);
         lineChartDescription.setText(legendDescription);
     }
 }

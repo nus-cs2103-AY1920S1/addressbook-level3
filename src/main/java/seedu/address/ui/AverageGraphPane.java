@@ -24,10 +24,10 @@ public class AverageGraphPane extends UiPart<Region> {
     private final Logger logger = LogsCenter.getLogger(AverageGraphPane.class);
 
     @FXML
-    private ScrollPane scrollPane;
+    private ScrollPane lineChartScrollPane;
 
     @FXML
-    private VBox vBox;
+    private VBox lineChartVBox;
 
     public AverageGraphPane(ObservableMap<LocalDate, Double> averageMap, SimpleStringProperty averageType,
                             SimpleStringProperty recordType) {
@@ -36,9 +36,9 @@ public class AverageGraphPane extends UiPart<Region> {
         this.averageGraph = new AverageGraph(averageMap, averageType, recordType);
         this.legendPane = new LegendPane(averageMap, recordType);
 
-        vBox.getChildren().add(averageGraph.getAverageGraph());
-        vBox.getChildren().add(legendPane.getRoot());
-        scrollPane.setContent(vBox);
+        lineChartVBox.getChildren().add(averageGraph.getAverageGraph());
+        lineChartVBox.getChildren().add(legendPane.getRoot());
+        lineChartScrollPane.setContent(lineChartVBox);
     }
 
 }
