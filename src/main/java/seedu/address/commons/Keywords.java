@@ -96,44 +96,44 @@ public class Keywords {
 
             case  AddMemberToTaskCommand.COMMAND_WORD:
                 return "assign-member ti/ mi/";
-                
+
             case  RemoveTaskFromMemberCommand.COMMAND_WORD:
                 return "fire-task ti/ mi/";
-            
+
             case  RemoveMemberFromTaskCommand.COMMAND_WORD:
                 return "fire-member ti/ mi/";
-            
+
             // INVENTORY
             // case ListInventoryCommand.COMMAND_WORD: default
-                
+
             case AddInventoryCommand.COMMAND_WORD:
                 return "add-inv i/ p/ ti/ mi/";
-                
+
             case EditInventoryCommand.COMMAND_WORD:
                 return "edit-inv i/ p/ ti/ mi/";
-                
+
             case DeleteInventoryCommand.COMMAND_WORD:
                 return "delete-inv {index}";
-            
+
             // case GeneratePDFCommand.COMMAND_WORD: default
-                
+
             // STATS
             // case  GetStatisticsCommand.COMMAND_WORD_MEMBER: default
             // case GetStatisticsCommand.COMMAND_WORD_TASK:
-        
+
             // SETTINGS
             case ThemeCommand.COMMAND_WORD:
                 return "theme {theme}";
-            
+
             // case ClockCommand.COMMAND_WORD:
-            
+
             // UNIVERSAL
-            
+
             // case ClearCommand.COMMAND_WORD:
             // case ExitCommand.COMMAND_WORD:
-            // case HelpCommand.COMMAND_WORD:            
+            // case HelpCommand.COMMAND_WORD:
             // case HomeCommand.COMMAND_WORD:
-            
+
             default:
                 return commandWord;
         }
