@@ -709,10 +709,10 @@ The reminder reminds you to read announcements.
 
 
 
-=== Editing a reminder: *`reminder edit`*
+=== Editing a reminder: *`reminder-edit`*
 Edits the reminder at the specified index. You can edit either the time or the note of the reminder.
 
-Format: `*reminder edit* INDEX [t/TIME_DATE] [n/NOTE]`
+Format: `*reminder-edit* INDEX [t/TIME_DATE] [n/NOTE]`
 
 ****
 * `INDEX` is the index of the reminder you want to edit on the dashboard.
@@ -721,25 +721,25 @@ Format: `*reminder edit* INDEX [t/TIME_DATE] [n/NOTE]`
 ****
 Examples:
 
-* `*reminder edit* 1 t/02/07/2019 2359` +
+* `*reminder-edit* 1 t/02/07/2019 2359` +
 Edits the reminder of index 1. Reset the time of the reminder to 23:59 of 02/07/2019.
 
-* `*reminder edit* 1 t/02/07/2019 2359 n/Check daily news` +
+* `*reminder-edit* 1 t/02/07/2019 2359 n/Check daily news` +
 Edits the reminder of index 1. Reset the time of the reminder to 23:59 of 02/07/2019.
 Reset the note to Check daily news.
 
-=== Deleting a reminder: *`reminder delete`*
+=== Deleting a reminder: *`reminder-delete`*
 
 Deletes the the reminder at the specified index.
 
-Format: `*reminder delete* INDEX`
+Format: `*reminder-delete* INDEX`
 
 ****
 * `INDEX` is the index of the reminder you want to delete on the dashboard.
 ****
 Examples:
 
-* `*reminder delete* 1` +
+* `*reminder-delete* 1` +
 Delete the reminder of index 1.
 
 === Expanding the folder hierarchy: *`expand`*
@@ -925,8 +925,8 @@ displayed in the document).
 * *Annotate (edit)*: `*annotate edit* INDEX p/P_NUM [to/NEW_P_NUM] [n/NOTES] [h/HIGHLIGHT_COLOUR]`
 * *Offline*: `*offline* INDEX [v/VERSION=current]`
 * *Reminder*: `*reminder* INDEX t/TIME_DATE [n/NOTE=Open]`
-* *Reminder*: `*reminder edit* INDEX [t/TIME_DATE] [n/NOTE]`
-* *Reminder*: `*reminder delete* INDEX`
+* *Reminder*: `*reminder-edit* INDEX [t/TIME_DATE] [n/NOTE]`
+* *Reminder*: `*reminder-delete* INDEX`
 * *Sort*: `*sort* [CRITERION]`
 * *Folder*: `*folder* FOLDER_NAME [p/PARENT_FOLDER=ROOT]`
 * *Expand*: `*expand* [LEVEL=1]`
