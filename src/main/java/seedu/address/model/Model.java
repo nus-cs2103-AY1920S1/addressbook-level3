@@ -171,4 +171,6 @@ public interface Model {
      * The budget must exist in the bank account.
      */
     void deleteBudget(Budget budgetToDelete);
+
+    ObservableList<LedgerOperation> getFilteredLedgerOperationsList();
 }

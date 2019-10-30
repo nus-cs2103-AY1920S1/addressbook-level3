@@ -11,6 +11,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyBankAccount;
 import seedu.address.model.transaction.BankAccountOperation;
 import seedu.address.model.transaction.Budget;
+import seedu.address.model.transaction.LedgerOperation;
 
 /**
  * API of the Logic component
@@ -58,4 +59,6 @@ public interface Logic {
     ObservableList<BankAccountOperation> getTransactionList();
 
     ObservableList<Budget> getBudgetList();
+
+    ObservableList<LedgerOperation> getLedgerOperationsList();
 }
