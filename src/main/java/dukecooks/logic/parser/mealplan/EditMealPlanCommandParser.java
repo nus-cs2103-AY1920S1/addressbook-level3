@@ -18,13 +18,10 @@ import static dukecooks.logic.parser.CliSyntax.PREFIX_REMOVEDAY6;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_REMOVEDAY7;
 import static java.util.Objects.requireNonNull;
 
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 import dukecooks.commons.core.index.Index;
 import dukecooks.logic.commands.mealplan.EditMealPlanCommand;
@@ -34,24 +31,12 @@ import dukecooks.logic.parser.ArgumentTokenizer;
 import dukecooks.logic.parser.Parser;
 import dukecooks.logic.parser.ParserUtil;
 import dukecooks.logic.parser.exceptions.ParseException;
-import dukecooks.model.recipe.components.Calories;
-import dukecooks.model.recipe.components.Carbs;
-import dukecooks.model.recipe.components.Fats;
-import dukecooks.model.recipe.components.Ingredient;
-import dukecooks.model.recipe.components.Protein;
 import dukecooks.model.recipe.components.RecipeName;
 
 /**
  * Parses input arguments and creates a new EditMealPlanCommand object
  */
 public class EditMealPlanCommandParser implements Parser<EditMealPlanCommand> {
-
-    private static final Set<Ingredient> DUMMY_INGREDIENTS = new HashSet<>(Arrays
-            .asList(new Ingredient("DUMMY")));
-    private static final Calories DUMMY_CALORIES = new Calories("0");
-    private static final Carbs DUMMY_CARBS = new Carbs("0");
-    private static final Fats DUMMY_FATS = new Fats("0");
-    private static final Protein DUMMY_PROTEIN = new Protein("0");
 
     /**
      * Parses the given {@code String} of arguments in the context of the EditMealPlanCommand
