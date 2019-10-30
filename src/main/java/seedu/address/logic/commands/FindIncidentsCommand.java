@@ -65,8 +65,12 @@ public class FindIncidentsCommand extends Command {
 
     public FindIncidentsCommand(List<Predicate> predicateArr) {
         this.predicateArr = predicateArr;
-        for (int i = 0; i < predicateArr.size() - 1; i++) {
-            this.predicate = predicateArr.get(i).and(predicateArr.get(i + 1));
+        if(predicateArr.size() != 1) {
+            for (int i = 0; i < predicateArr.size() - 1; i++) {
+                this.predicate = predicateArr.get(i).and(predicateArr.get(i + 1));
+            }
+        } else {
+            this.predicate = predicateArr.get(0);
         }
     }
 
