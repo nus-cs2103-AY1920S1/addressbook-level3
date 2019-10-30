@@ -28,6 +28,9 @@ import seedu.weme.model.imagePath.ImagePath;
 import seedu.weme.model.meme.Description;
 import seedu.weme.model.tag.Tag;
 import seedu.weme.model.template.Coordinates;
+import seedu.weme.model.template.MemeTextColor;
+import seedu.weme.model.template.MemeTextSize;
+import seedu.weme.model.template.MemeTextStyle;
 import seedu.weme.model.template.Name;
 
 /**
@@ -215,5 +218,45 @@ public class ParserUtil {
             tagSet.add(parseTag(tagName));
         }
         return tagSet;
+    }
+
+    /**
+     * Parses {@code color} into a {@code MemeTextColor}.
+     */
+    public static MemeTextColor parseMemeTextColor(String color) throws ParseException {
+        requireNonNull(color);
+        String trimmedColor = color.trim();
+        if (!MemeTextColor.isValidMemeTextColor(trimmedColor)) {
+            throw new ParseException(MemeTextColor.MESSAGE_CONSTRAINTS);
+        }
+        return new MemeTextColor(trimmedColor);
+    }
+
+    /**
+     * Parses {@code Collection<String> styles} into a {@code Set<MemeTextStyle>}.
+     */
+    public static Set<MemeTextStyle> parseMemeTextStyles(Collection<String> styles) throws ParseException {
+        requireNonNull(styles);
+        final Set<MemeTextStyle> styleSet = new HashSet<>();
+        for (String style : styles) {
+            String trimmedStyle = style.trim().toLowerCase();
+            if (!MemeTextStyle.isValidMemeTextStyle(trimmedStyle)) {
+                throw new ParseException(MemeTextStyle.MESSAGE_CONSTRAINTS);
+            }
+            styleSet.add(new MemeTextStyle(trimmedStyle));
+        }
+        return styleSet;
+    }
+
+    /**
+     * Parses {@code size} into a {@code MemeTextSize}.
+     */
+    public static MemeTextSize parseMemeTextSize(String size) throws ParseException {
+        requireNonNull(size);
+        String trimmedSize = size.trim();
+        if (!MemeTextSize.isValidMemeTextSize(trimmedSize)) {
+            throw new ParseException(MemeTextSize.MESSAGE_CONSTRAINTS);
+        }
+        return new MemeTextSize(trimmedSize);
     }
 }

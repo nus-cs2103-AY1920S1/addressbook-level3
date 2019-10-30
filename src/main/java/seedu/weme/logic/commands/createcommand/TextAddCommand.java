@@ -1,6 +1,9 @@
 package seedu.weme.logic.commands.createcommand;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.weme.logic.parser.util.CliSyntax.PREFIX_COLOR;
+import static seedu.weme.logic.parser.util.CliSyntax.PREFIX_SIZE;
+import static seedu.weme.logic.parser.util.CliSyntax.PREFIX_STYLE;
 import static seedu.weme.logic.parser.util.CliSyntax.PREFIX_X_COORDINATE;
 import static seedu.weme.logic.parser.util.CliSyntax.PREFIX_Y_COORDINATE;
 
@@ -24,11 +27,17 @@ public class TextAddCommand extends Command {
         + "Parameters: "
         + "TEXT "
         + PREFIX_X_COORDINATE + "X_COORDINATE "
-        + PREFIX_Y_COORDINATE + "Y_COORDINATE\n"
+        + PREFIX_Y_COORDINATE + "Y_COORDINATE "
+        + "[" + PREFIX_COLOR + "COLOR] "
+        + "[" + PREFIX_STYLE + "STYLE] "
+        + "[" + PREFIX_SIZE + "SIZE]\n"
         + "Example: " + COMMAND_WORD + " "
         + "CS students be like "
         + PREFIX_X_COORDINATE + "0.2 "
-        + PREFIX_Y_COORDINATE + "0.3";
+        + PREFIX_Y_COORDINATE + "0.3 "
+        + PREFIX_COLOR + "cyan "
+        + PREFIX_STYLE + "bold "
+        + PREFIX_SIZE + "3";
 
     public static final String MESSAGE_SUCCESS = "New text added at (%s, %s): %s";
     public static final String MESSAGE_TEXT_EXCEEDS_IMAGE_BOUNDARY = "Error: Text would exceed image boundary";
