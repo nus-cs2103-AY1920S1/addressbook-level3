@@ -4,7 +4,9 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Accordion;
+import javafx.scene.control.ListView;
 import javafx.scene.control.Skin;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
@@ -36,25 +38,20 @@ public class CentralDisplay extends UiPart<Region> {
 
     @FXML
     private Accordion sideDisplay;
-
     @FXML
     private TitledPane activityPane;
-
     @FXML
     private TitledPane contactPane;
-
     @FXML
     private TitledPane accommodationPane;
-
     @FXML
     private TabPane tabDisplay;
-
     @FXML
     private Tab agendaTab;
-
     @FXML
     private Tab infoTab;
-
+    @FXML
+    private ListView<Node> infoList;
     @FXML
     private Tab helpTab;
 
@@ -147,27 +144,34 @@ public class CentralDisplay extends UiPart<Region> {
         });
     }
 
+
     public void changeInfo(ResultInformation resultInformation) {
-        resultInformation.getAccommodation().ifPresent(accommodation -> changeAccommodationInfo(accommodation, resultInformation.getIndex()));
-        resultInformation.getActivity().ifPresent(activity -> changeActivityInfo(activity, resultInformation.getIndex()));
-        resultInformation.getContact().ifPresent(contact -> changeContactInfo(contact, resultInformation.getIndex()));
+        infoList.getItems().clear();
+        resultInformation.getAccommodation().ifPresent(accommodation ->
+                changeAccommodationInfo(accommodation, resultInformation.getIndex(), resultInformation.getDescription())
+        );
+        resultInformation.getActivity().ifPresent(activity ->
+                changeActivityInfo(activity, resultInformation.getIndex(), resultInformation.getDescription())
+        );
+        resultInformation.getContact().ifPresent(contact ->
+                changeContactInfo(contact, resultInformation.getIndex(), resultInformation.getDescription())
+        );
     }
 
-    private void changeAccommodationInfo(Accommodation accommodation, Index displayedIndex) {
-        infoTab.setContent(new AccommodationCardFull(accommodation, displayedIndex.getOneBased()).getRoot());
+    private void changeAccommodationInfo(Accommodation accommodation, Index displayedIndex, String description) {
+        infoList.getItems().add(
+                new AccommodationCardFull(accommodation, displayedIndex.getOneBased(), description).getRoot());
     }
 
-    private void changeContactInfo(Contact contact, Index displayedIndex) {
-        infoTab.setContent(new ContactCardFull(contact, displayedIndex.getOneBased()).getRoot());
+    private void changeContactInfo(Contact contact, Index displayedIndex, String description) {
+        infoList.getItems().add(
+                new ContactCardFull(contact, displayedIndex.getOneBased(), description).getRoot());
     }
 
-    private void changeActivityInfo(Activity activity, Index displayedIndex) {
-        infoTab.setContent(new ActivityCardFull(activity, displayedIndex.getOneBased()).getRoot());
+    private void changeActivityInfo(Activity activity, Index displayedIndex, String description) {
+        infoList.getItems().add(
+                new ActivityCardFull(activity, displayedIndex.getOneBased(), description).getRoot());
     }
-
-//    private void changeAccommodationInfo(Accommodation accommodation, Index displayedIndex) {
-//        infoTab.setContent(new AccommodationCardFull(accommodation, displayedIndex.getOneBased()).getRoot());
-//    }
 
     public void changeFocus(UiFocus ...uiFocus) {
         for (UiFocus u : uiFocus) {

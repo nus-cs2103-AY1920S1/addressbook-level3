@@ -37,6 +37,8 @@ public class AccommodationCardFull extends UiPart<Region> {
     @FXML
     private FlowPane tags;
     @FXML
+    private Label description;
+    @FXML
     private Label address;
     @FXML
     private Label contactName;
@@ -47,9 +49,10 @@ public class AccommodationCardFull extends UiPart<Region> {
     @FXML
     private Label contactEmail;
 
-    public AccommodationCardFull(Accommodation accommodation, int displayedIndex) {
+    public AccommodationCardFull(Accommodation accommodation, int displayedIndex, String description) {
         super(FXML);
         this.accommodation = accommodation;
+        this.description.setText(description);
         id.setText(displayedIndex + ". ");
         name.setText(accommodation.getName().toString());
         address.setText("Address: " + accommodation.getAddress());

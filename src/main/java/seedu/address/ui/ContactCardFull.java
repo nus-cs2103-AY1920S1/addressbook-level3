@@ -29,6 +29,8 @@ public class ContactCardFull extends UiPart<Region> {
     @FXML
     private HBox cardPane;
     @FXML
+    private Label description;
+    @FXML
     private Label name;
     @FXML
     private Label id;
@@ -41,9 +43,10 @@ public class ContactCardFull extends UiPart<Region> {
     @FXML
     private FlowPane tags;
 
-    public ContactCardFull(Contact contact, int displayedIndex) {
+    public ContactCardFull(Contact contact, int displayedIndex, String description) {
         super(FXML);
         this.contact = contact;
+        this.description.setText(description);
         id.setText(displayedIndex + ". ");
         name.setText(contact.getName().toString());
         phone.setText("Phone: "+ contact.getPhone().value);

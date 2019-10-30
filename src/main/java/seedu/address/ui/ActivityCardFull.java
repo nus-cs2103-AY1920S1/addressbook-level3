@@ -31,6 +31,8 @@ public class ActivityCardFull extends UiPart<Region> {
     @FXML
     private HBox cardPane;
     @FXML
+    private Label description;
+    @FXML
     private Label name;
     @FXML
     private Label id;
@@ -47,9 +49,10 @@ public class ActivityCardFull extends UiPart<Region> {
     @FXML
     private Label contactEmail;
 
-    public ActivityCardFull(Activity activity, int displayedIndex) {
+    public ActivityCardFull(Activity activity, int displayedIndex, String description) {
         super(FXML);
         this.activity = activity;
+        this.description.setText(description);
         id.setText(displayedIndex + ". ");
         name.setText(activity.getName().toString());
         address.setText("Address: " + activity.getAddress());
