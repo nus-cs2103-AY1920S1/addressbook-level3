@@ -72,7 +72,9 @@ public class LogicManager implements Logic {
         System.out.println("appending");
         storage.appendToTransaction(transaction);
         System.out.println("append finish");
-      
+    }
+
+    @Override
     public void updateTransactionFromReimbursement() throws IOException {
         storage.writeFile(model.getTransactionList());
 

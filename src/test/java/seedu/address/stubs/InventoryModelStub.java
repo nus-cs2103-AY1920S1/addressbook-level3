@@ -49,7 +49,7 @@ public class InventoryModelStub implements Model {
 
     @Override
     public ArrayList<Item> getInventoryListInArrayList() {
-              throw new AssertionError("This method should not be called.");
+        throw new AssertionError("This method should not be called.");
     }
 
     public void sortByQuantity() {

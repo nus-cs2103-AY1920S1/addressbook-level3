@@ -43,9 +43,9 @@ public class LogicManagerTest {
         File iFile;
         File tFile;
         File rFile;
-        //Model model;
+        seedu.address.person.model.Model personModel1;
         Storage storage;
-        seedu.address.person.model.Model personModel;
+        seedu.address.person.model.GetPersonByNameOnlyModel personModel;
         //seedu.address.person.model.Model personModel;
         seedu.address.transaction.model.Model transactionModel = null;
         seedu.address.inventory.model.Model inventoryModel;
@@ -60,6 +60,7 @@ public class LogicManagerTest {
         try {
             model = new ModelManager(TypicalItem.getTypicalInventoryList(),
                     TypicalTransactions.getTypicalTransactionList());
+            personModel1 = new seedu.address.person.model.ModelManager(getTypicalAddressBook(), new UserPrefs());
             personModel = new seedu.address.person.model.ModelManager(getTypicalAddressBook(), new UserPrefs());
             iFile = File.createTempFile("testing", "tempInventory.txt");
             tFile = File.createTempFile("testing", "tempTransaction.txt");
@@ -76,13 +77,11 @@ public class LogicManagerTest {
 
 
             transactionModel = new seedu.address.transaction.model.ModelManager(
-                    new seedu.address.transaction.storage.StorageManager(tFile, personModel).readTransactionList());
+                    TypicalTransactions.getTypicalTransactionList());
 
             //model.getTransactionList();
             transactionLogic = new seedu.address.transaction.logic.LogicManager(transactionModel,
-                    transactionStorage, personModel,
-                    (seedu.address.reimbursement.model.ModelManager) reimbursementModel,
-                    (seedu.address.reimbursement.storage.StorageManager) reimbursementManager);
+                    transactionStorage, personModel);
 
 
             inventoryModel =
@@ -97,7 +96,7 @@ public class LogicManagerTest {
             storage = new StorageManager(inventoryLogic, transactionLogic);
 
             logic =
-                    new LogicManager(model, storage, personModel, transactionModel, inventoryModel);
+                    new LogicManager(model, storage, personModel1, transactionModel, inventoryModel);
         } catch (IOException e) {
             throw new AssertionError("This method should not throw an exception.");
         }

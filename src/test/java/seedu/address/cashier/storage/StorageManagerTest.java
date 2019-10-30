@@ -43,7 +43,8 @@ public class StorageManagerTest {
             File tFile;
             File rFile;
             //Storage storage;
-            seedu.address.person.model.Model personModel;
+            seedu.address.person.model.Model personModel1;
+            seedu.address.person.model.GetPersonByNameOnlyModel personModel;
             seedu.address.transaction.model.Model transactionModel = null;
             seedu.address.inventory.model.Model inventoryModel;
             seedu.address.transaction.logic.Logic transactionLogic;
@@ -53,6 +54,7 @@ public class StorageManagerTest {
             model = new ModelManager(TypicalItem.getTypicalInventoryList(),
                     TypicalTransactions.getTypicalTransactionList());
             personModel = new seedu.address.person.model.ModelManager(getTypicalAddressBook(), new UserPrefs());
+            personModel1 = new seedu.address.person.model.ModelManager(getTypicalAddressBook(), new UserPrefs());
             iFile = File.createTempFile("testing", "tempInventory.txt");
             tFile = File.createTempFile("testing", "tempTransaction.txt");
             rFile = File.createTempFile("testing", "tempReimbursement.txt");
@@ -74,9 +76,7 @@ public class StorageManagerTest {
 
             //model.getTransactionList();
             transactionLogic = new seedu.address.transaction.logic.LogicManager(transactionModel,
-                    transactionStorage, personModel,
-                    (seedu.address.reimbursement.model.ModelManager) reimbursementModel,
-                    (seedu.address.reimbursement.storage.StorageManager) reimbursementManager);
+                    transactionStorage, personModel);
 
             inventoryModel =
                     new seedu.address.inventory.model.ModelManager(

@@ -88,8 +88,8 @@ public class LogicManagerTest {
                 new seedu.address.inventory.storage.StorageManager(new File(FILE_PATH_INVENTORY));
 
         seedu.address.transaction.logic.Logic transactionLogic =
-                new seedu.address.transaction.logic.LogicManager(transactionModel, transactionManager, personModel,
-                        reimbursementModel, reimbursementManager);
+                new seedu.address.transaction.logic.LogicManager(transactionModel, transactionManager,
+                        (GetPersonByNameOnlyModel) personModel);
         seedu.address.inventory.logic.Logic inventoryLogic =
                 new seedu.address.inventory.logic.LogicManager(
                         (seedu.address.inventory.model.ModelManager) inventoryModel,

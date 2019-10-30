@@ -95,7 +95,11 @@ public class InventoryList {
 
     public ArrayList<Item> getInventoryListInArrayList() {
         return this.iList;
+    }
 
+    /**
+     * Resets the list
+     */
     public void sortReset() {
         Collections.sort(iList, new ResetSort());
 

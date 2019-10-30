@@ -83,8 +83,7 @@ public class AddCommandTest {
                 new seedu.address.inventory.storage.StorageManager(new File(FILE_PATH_INVENTORY));
 
         Logic transactionLogic =
-                new LogicManager(transactionModel, transactionManager, personModel,
-                        reimbursementModel, reimbursementManager);
+                new LogicManager(transactionModel, transactionManager, (GetPersonByNameOnlyModel) personModel);
         seedu.address.inventory.logic.Logic inventoryLogic =
                 new seedu.address.inventory.logic.LogicManager(
                         (seedu.address.inventory.model.ModelManager) inventoryModel,
@@ -145,8 +144,7 @@ public class AddCommandTest {
                         new File(FILE_PATH_REIMBURSEMENT));
 
         Logic transactionLogic =
-                new LogicManager(transactionModel, transactionManager, personModel,
-                        reimbursementModel, reimbursementManager);
+                new LogicManager(transactionModel, transactionManager, (GetPersonByNameOnlyModel) personModel);
 
         //For Inventory Storage and Manager
         seedu.address.inventory.model.Model inventoryModel =
