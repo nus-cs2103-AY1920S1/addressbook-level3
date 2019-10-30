@@ -12,5 +12,4 @@ public interface ReadOnlyMealLog {
      * This list will not contain any duplicate meals.
      */
     ObservableList<Meal> getMealLog();
-
 }

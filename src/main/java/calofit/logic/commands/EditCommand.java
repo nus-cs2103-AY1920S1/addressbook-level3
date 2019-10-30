@@ -3,7 +3,7 @@ package calofit.logic.commands;
 import static calofit.logic.parser.CliSyntax.PREFIX_CALORIES;
 import static calofit.logic.parser.CliSyntax.PREFIX_NAME;
 import static calofit.logic.parser.CliSyntax.PREFIX_TAG;
-import static calofit.model.Model.PREDICATE_SHOW_ALL_DISHES;
+import static calofit.model.Model.PREDICATE_SHOW_DEFAULT;
 
 import static java.util.Objects.requireNonNull;
 
@@ -168,7 +168,7 @@ public class EditCommand extends Command {
         }
 
         model.getMealLog().setMeal(mealToEdit, editedMeal);
-        model.updateFilteredDishList(PREDICATE_SHOW_ALL_DISHES);
+        model.setDishFilterPredicate(PREDICATE_SHOW_DEFAULT);
         return new CommandResult(String.format(MESSAGE_EDIT_MEAL_SUCCESS, mealToEdit, editedMeal));
     }
 

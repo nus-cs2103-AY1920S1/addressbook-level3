@@ -41,7 +41,8 @@ public class AddCommand extends Command {
 
     public static final int DEFAULT_MEAL_CALORIE = 700;
 
-    private final Dish toAdd;
+    private Dish toAdd;
+    private int dishNumber;
 
     /**
      * Creates an AddCommand to add the specified {@code Dish}
@@ -51,54 +52,70 @@ public class AddCommand extends Command {
         toAdd = dish;
     }
 
+    public AddCommand(int dishNumber) {
+        requireNonNull(dishNumber);
+        this.dishNumber = dishNumber;
+    }
+
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        Dish wantToAdd = toAdd;
         MealLog mealLog = model.getMealLog();
 
-        if (model.hasDish(wantToAdd)) {
-            wantToAdd = model.getDishByName(toAdd.getName());
+        if (dishNumber != 0) {
+            Dish wantToAdd = model.getFilteredDishList().get(dishNumber - 1);
             Meal toAddMeal = new Meal(wantToAdd, new Timestamp(LocalDateTime.now()));
             mealLog.addMeal(toAddMeal);
 
             return new CommandResult(String.format(MESSAGE_SUCCESS, wantToAdd));
-            //throw new CommandException(MESSAGE_DUPLICATE_MEAL);
+
         } else {
-            if (model.hasDishName(wantToAdd.getName()) && !wantToAdd.getCalories().equals(Calorie.UNKNOWN_CALORIE)) {
-                model.addDish(wantToAdd);
-                Meal toAddMeal = new Meal(wantToAdd, new Timestamp(LocalDateTime.now()));
-                mealLog.addMeal(toAddMeal);
+            Dish wantToAdd = toAdd;
 
-            } else if (model.hasDishName(wantToAdd.getName())
-                    && wantToAdd.getCalories().equals(Calorie.UNKNOWN_CALORIE)) {
+            if (model.hasDish(wantToAdd)) {
                 wantToAdd = model.getDishByName(toAdd.getName());
-                try {
-                    model.addDish(wantToAdd);
-                } catch (DuplicateDishException e) {
-                    System.out.println("There is another Dish with the same name");
-                }
                 Meal toAddMeal = new Meal(wantToAdd, new Timestamp(LocalDateTime.now()));
                 mealLog.addMeal(toAddMeal);
-            } else if (!model.hasDishName(wantToAdd.getName())
-                    && wantToAdd.getCalories().equals(Calorie.UNKNOWN_CALORIE)) {
-                // If the meal is not in the dishDB and does not have a calorie tag,
-                // the dish will be added to the dishDB with a default calorie of 700
-                // and added to the meal log with a default value of 700 as well
-                Dish mealNonNegativeCal = new Dish(wantToAdd.getName(), new Calorie(700));
-                wantToAdd = mealNonNegativeCal;
-                model.addDish(mealNonNegativeCal);
-                Meal toAddMeal = new Meal(mealNonNegativeCal, new Timestamp(LocalDateTime.now()));
-                mealLog.addMeal(toAddMeal);
-            } else {
-                model.addDish(wantToAdd);
-                Meal toAddMeal = new Meal(wantToAdd, new Timestamp(LocalDateTime.now()));
-                mealLog.addMeal(toAddMeal);
-            }
-        }
 
-        //model.addDish(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, wantToAdd));
+                return new CommandResult(String.format(MESSAGE_SUCCESS, wantToAdd));
+                //throw new CommandException(MESSAGE_DUPLICATE_MEAL);
+            } else {
+                if (model.hasDishName(wantToAdd.getName())
+                        && !wantToAdd.getCalories().equals(Calorie.UNKNOWN_CALORIE)) {
+                    model.addDish(wantToAdd);
+                    Meal toAddMeal = new Meal(wantToAdd, new Timestamp(LocalDateTime.now()));
+                    mealLog.addMeal(toAddMeal);
+
+                } else if (model.hasDishName(wantToAdd.getName())
+                        && wantToAdd.getCalories().equals(Calorie.UNKNOWN_CALORIE)) {
+                    wantToAdd = model.getDishByName(toAdd.getName());
+                    try {
+                        model.addDish(wantToAdd);
+                    } catch (DuplicateDishException e) {
+                        System.out.println("There is another Dish with the same name");
+                    }
+                    Meal toAddMeal = new Meal(wantToAdd, new Timestamp(LocalDateTime.now()));
+                    mealLog.addMeal(toAddMeal);
+                } else if (!model.hasDishName(wantToAdd.getName())
+                        && wantToAdd.getCalories().equals(Calorie.UNKNOWN_CALORIE)) {
+                    // If the meal is not in the dishDB and does not have a calorie tag,
+                    // the dish will be added to the dishDB with a default calorie of 700
+                    // and added to the meal log with a default value of 700 as well
+                    Dish mealNonNegativeCal = new Dish(wantToAdd.getName(), new Calorie(DEFAULT_MEAL_CALORIE));
+                    wantToAdd = mealNonNegativeCal;
+                    model.addDish(mealNonNegativeCal);
+                    Meal toAddMeal = new Meal(mealNonNegativeCal, new Timestamp(LocalDateTime.now()));
+                    mealLog.addMeal(toAddMeal);
+                } else {
+                    model.addDish(wantToAdd);
+                    Meal toAddMeal = new Meal(wantToAdd, new Timestamp(LocalDateTime.now()));
+                    mealLog.addMeal(toAddMeal);
+                }
+            }
+
+            //model.addDish(toAdd);
+            return new CommandResult(String.format(MESSAGE_SUCCESS, wantToAdd));
+        }
     }
 
     @Override

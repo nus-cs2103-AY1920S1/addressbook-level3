@@ -6,10 +6,12 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import javafx.beans.binding.DoubleExpression;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import calofit.commons.util.CollectionUtil;
+import calofit.commons.util.ObservableListUtil;
 import calofit.model.dish.exceptions.DishNotFoundException;
 import calofit.model.meal.exceptions.DuplicateMealException;
 
@@ -24,6 +26,9 @@ public class MealLog implements ReadOnlyMealLog {
     private ObservableList<Meal> readOnlyMeals = FXCollections.unmodifiableObservableList(observableMeals);
     private ObservableList<Meal> todayMeals = observableMeals.filtered(MealLog::isMealToday);
     private ObservableList<Meal> currentMonthMeals = observableMeals.filtered(MealLog::isMealThisMonth);
+
+    private final DoubleExpression todayCalories = ObservableListUtil.sum(ObservableListUtil.lazyMap(todayMeals,
+        meal -> (double) meal.getDish().getCalories().getValue()));
 
     public MealLog() {}
 
@@ -161,4 +166,7 @@ public class MealLog implements ReadOnlyMealLog {
         return currentMonthMeals;
     }
 
+    public DoubleExpression getTodayCalories() {
+        return todayCalories;
+    }
 }
