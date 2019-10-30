@@ -3,7 +3,6 @@ package dukecooks.logic.commands.diary;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_DIARY_NAME;
 import static java.util.Objects.requireNonNull;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import dukecooks.commons.core.Messages;
@@ -15,6 +14,7 @@ import dukecooks.model.Model;
 import dukecooks.model.diary.components.Diary;
 import dukecooks.model.diary.components.DiaryName;
 import dukecooks.model.diary.components.Page;
+import javafx.collections.ObservableList;
 
 /**
  * Deletes a page from a specified diary, identified using it's displayed index and Diary DiaryName from Duke Cooks.
@@ -57,7 +57,7 @@ public class DeletePageCommand extends DeleteCommand {
         targetDiary = lastShownList.get(lastShownList.indexOf(targetDiary));
 
         // remove page from target diary's list of pages
-        ArrayList<Page> newPageList = targetDiary.getPages();
+        ObservableList<Page> newPageList = targetDiary.getPages();
 
         // check if index is out of bounds
         if (targetIndex.getZeroBased() >= newPageList.size()) {
@@ -68,7 +68,7 @@ public class DeletePageCommand extends DeleteCommand {
         newPageList.remove(pageToDelete);
 
         model.setDiary(targetDiary, new Diary(targetDiary.getDiaryName(), newPageList));
-        return new CommandResult(String.format(MESSAGE_DELETE_PAGE_SUCCESS, pageToDelete));
+        return new CommandResult(String.format(MESSAGE_DELETE_PAGE_SUCCESS, pageToDelete.getTitle()));
     }
 
     @Override

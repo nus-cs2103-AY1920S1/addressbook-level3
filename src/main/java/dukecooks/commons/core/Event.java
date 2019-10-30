@@ -53,7 +53,6 @@ public class Event {
             this.mode = mode;
             changes.firePropertyChange("event", false, true);
         }
-
     }
 
     @Override

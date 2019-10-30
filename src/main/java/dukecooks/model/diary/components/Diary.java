@@ -3,8 +3,10 @@ package dukecooks.model.diary.components;
 import static dukecooks.commons.util.CollectionUtil.requireAllNonNull;
 import static java.util.Objects.requireNonNull;
 
-import java.util.ArrayList;
 import java.util.Objects;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 /**
  * Represents a Diary in Duke Cooks.
@@ -16,7 +18,7 @@ public class Diary {
     private final DiaryName diaryName;
 
     // Data fields
-    private final ArrayList<Page> pages;
+    private final ObservableList<Page> pages;
 
     /**
      * Every field must be present and not null.
@@ -24,13 +26,13 @@ public class Diary {
     public Diary(DiaryName diaryName) {
         requireAllNonNull(diaryName);
         this.diaryName = diaryName;
-        this.pages = new ArrayList<>();
+        this.pages = FXCollections.observableArrayList();
     }
 
     /**
      * Overloaded constructor for custom list of pages.
      */
-    public Diary(DiaryName diaryName, ArrayList<Page> pages) {
+    public Diary(DiaryName diaryName, ObservableList<Page> pages) {
         requireAllNonNull(diaryName);
         this.diaryName = diaryName;
         this.pages = pages;
@@ -40,9 +42,10 @@ public class Diary {
         return diaryName;
     }
 
-    public ArrayList<Page> getPages() {
+    public ObservableList<Page> getPages() {
         return pages;
     }
+
 
     /**
      * Returns true if both persons of the same diaryName have at least one other identity field that is the same.

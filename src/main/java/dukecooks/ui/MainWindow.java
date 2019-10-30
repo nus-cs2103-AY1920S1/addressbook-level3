@@ -171,7 +171,7 @@ public class MainWindow extends UiPart<Stage> {
         recipeListPanel = new RecipeListPanel(logic.getFilteredRecipeList());
         recordListPanel = new RecordListPanel(logic.getFilteredRecordList());
         exerciseListPanel = new ExerciseListPanel(logic.getFilteredExerciseList());
-        diaryListPanel = new DiaryListPanel(logic.getFilteredDiaryList());
+        diaryListPanel = new DiaryListPanel(logic.getFilteredDiaryList(), 0);
     }
 
     /**
@@ -273,6 +273,7 @@ public class MainWindow extends UiPart<Stage> {
             versatilePanelPlaceholder.getChildren().add(diaryListPanel.getRoot());
             statusbarPlaceholder.getChildren().add(diaryPathStatus.getRoot());
             featureMode.setText("Diary");
+            diaryListPanel.handleSwitch(type);
             break;
         default:
             //TODO: PLEASE EDIT THIS ERROR MESSAGE TO SOMETHING USEFUL!
