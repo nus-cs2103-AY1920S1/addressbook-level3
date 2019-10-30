@@ -84,7 +84,7 @@ public class SetAssignmentScoreCommandParser implements Parser<SetAssignmentScor
      * else false.
      */
     public static boolean validateTutIndexFormat(ArgumentMultimap argMultimap) {
-        return (arePrefixesPresent(argMultimap, PREFIX_INDEX)
+        return (arePrefixesPresent(argMultimap, PREFIX_INDEX, PREFIX_SCORE)
                 && argMultimap.getAllValues(PREFIX_INDEX).size() == 3);
     }
 

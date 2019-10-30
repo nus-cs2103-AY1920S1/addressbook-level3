@@ -34,16 +34,16 @@ import seedu.tarence.model.tutorial.Week;
  */
 public class ExportAttendanceCommand extends Command {
     public static final String MESSAGE_EXPORT_ATTENDANCE_SUCCESS = "Attendance of %1$s exported successfully to /data";
-    public static final String COMMAND_WORD = "export";
+    public static final String COMMAND_WORD = "exportAttendance";
 
     private static final String EXPORT_PATH = "./data/%s.csv";
-    private static final String[] COMMAND_SYNONYMS = {COMMAND_WORD.toLowerCase()};
+    private static final String[] COMMAND_SYNONYMS = {COMMAND_WORD.toLowerCase(), "export", "exporta", "exportatt"};
 
     // TODO: Update the message to include index format
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Exports the attendance of a tutorial in a csv file.\n"
             + "Parameters: "
             + PREFIX_TUTORIAL_NAME + "TUTORIAL NAME "
-            + PREFIX_MODULE + "MODULE CODE "
+            + PREFIX_MODULE + "MODULE CODE\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_TUTORIAL_NAME + "Lab 1 "
             + PREFIX_MODULE + "CS1010 ";

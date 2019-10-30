@@ -22,7 +22,7 @@ import seedu.tarence.model.module.Module;
  */
 public class DeleteModuleCommand extends Command {
 
-    public static final String COMMAND_WORD = "deleteMod";
+    public static final String COMMAND_WORD = "deleteModule";
 
     public static final String MESSAGE_DELETE_MODULE_SUCCESS = "Deleted Module: %1$s";
     public static final String MESSAGE_CONFIRM_DELETE_NONEMPTY_MODULE = "WARNING: Module %1$s "
@@ -32,7 +32,7 @@ public class DeleteModuleCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the module identified by either the index number used in the displayed module list,\n"
             + "or the specified module code.\n"
-            + "Examples: " + COMMAND_WORD + " 1"
+            + "Examples: " + COMMAND_WORD + " 1\n"
             + COMMAND_WORD + " m/GER1000";
 
     private static final String[] COMMAND_SYNONYMS = {COMMAND_WORD.toLowerCase(),

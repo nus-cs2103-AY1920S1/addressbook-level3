@@ -21,6 +21,7 @@ import seedu.tarence.model.module.ModCode;
 import seedu.tarence.model.module.Module;
 import seedu.tarence.model.student.Student;
 import seedu.tarence.model.tutorial.exceptions.AssignmentNotFoundException;
+import seedu.tarence.model.tutorial.exceptions.DuplicateAssignmentException;
 import seedu.tarence.model.tutorial.exceptions.DuplicateEventException;
 import seedu.tarence.model.tutorial.exceptions.InvalidScoreException;
 import seedu.tarence.model.tutorial.exceptions.StudentNotFoundException;
@@ -204,7 +205,7 @@ public class Tutorial {
         attendance.addStudent(student);
         List<Assignment> assignments = getAssignments();
         for (Assignment assignment : assignments) {
-            getAssignmentScores(assignment).remove(student);
+            setScore(assignment, student, NOT_SUBMITTED);
         }
     }
 
@@ -228,7 +229,7 @@ public class Tutorial {
         attendance.deleteStudent(student);
         List<Assignment> assignments = getAssignments();
         for (Assignment assignment : assignments) {
-            setScore(assignment, student, NOT_SUBMITTED);
+            getAssignmentScores(assignment).remove(student);
         }
     }
 
@@ -243,6 +244,9 @@ public class Tutorial {
      * Adds an Assignment to a Tutorial.
      */
     public void addAssignment(Assignment assignment) {
+        if (assignments.containsKey(assignment)) {
+            throw new DuplicateAssignmentException();
+        }
         assignments.put(assignment, new HashMap<>());
         for (Student student : students) {
             getAssignmentScores(assignment).put(student, NOT_SUBMITTED);

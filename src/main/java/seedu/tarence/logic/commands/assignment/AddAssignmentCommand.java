@@ -21,6 +21,7 @@ import seedu.tarence.model.module.ModCode;
 import seedu.tarence.model.tutorial.Assignment;
 import seedu.tarence.model.tutorial.TutName;
 import seedu.tarence.model.tutorial.Tutorial;
+import seedu.tarence.model.tutorial.exceptions.DuplicateAssignmentException;
 
 /**
  * Adds Assignment to a Tutorial.
@@ -98,7 +99,7 @@ public class AddAssignmentCommand extends AssignmentCommand {
                 score.get(),
                 startDate.get(),
                 endDate.get()));
-        } catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException | DuplicateAssignmentException e) {
             throw new CommandException(e.getMessage());
         }
 

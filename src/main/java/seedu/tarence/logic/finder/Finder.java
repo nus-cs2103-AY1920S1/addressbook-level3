@@ -167,7 +167,7 @@ public class Finder {
         // for excluding all "Verified" commands as these are not standalone commands and have no command word
         Pattern verifiedCommandNamePattern = Pattern.compile("[a-zA-Z]+Verified");
         // list of other, non-standalone commands to not suggest to user
-        List<String> excludedCommands = Arrays.asList("ConfirmNo", "ConfirmYes", "SelectSuggestion");
+        List<String> excludedCommands = Arrays.asList("ConfirmNo", "ConfirmYes", "SelectSuggestion", "Display");
 
         Path path = Paths.get("src/main/java/seedu/tarence/logic/commands");
         try {

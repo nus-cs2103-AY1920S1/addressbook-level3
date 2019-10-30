@@ -14,7 +14,7 @@ public class ChangeTabCommand extends Command {
     public static final String COMMAND_WORD = "cd";
     public static final String MESSAGE_SUCCESS = "%1$s has been displayed";
 
-    private static final String[] COMMAND_SYNONYMS = {COMMAND_WORD.toLowerCase(), "changeTab"};
+    private static final String[] COMMAND_SYNONYMS = {COMMAND_WORD.toLowerCase(), "changetab"};
 
     private static final String[] modName = {"m", "mod", "mods", "module", "modules"};
     private static final String[] tutNames = {"t", "tut", "tuts", "tutorial", "tutorials"};

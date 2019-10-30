@@ -32,9 +32,9 @@ public class DeleteTutorialCommand extends Command {
             + ": Deletes the tutorial identified by the index number used in the displayed tutorial list.\n"
             + "or the specified tutorial name and module code.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " 1"
-            + COMMAND_WORD + "tn/tut1"
-            + COMMAND_WORD + "tn/Lab 1 m/PC1431";
+            + "Example: " + COMMAND_WORD + " 1\n"
+            + COMMAND_WORD + " tn/tut1\n"
+            + COMMAND_WORD + " tn/Lab 1 m/PC1431";
 
     private static final String[] COMMAND_SYNONYMS = {COMMAND_WORD.toLowerCase(),
         "deletetut", "deleteclass", "deltutorial", "deltut", "delclass"};
