@@ -132,6 +132,7 @@ public class MainWindow extends VBox {
     /**
      * Switches the display pane to an edit pane
      */
+    @FXML
     private void showCreateNewDeckForm() {
         displayContainer.getChildren().clear();
         displayContainer.getChildren().add(new CreateDeckDisplay());
