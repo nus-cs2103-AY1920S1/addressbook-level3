@@ -226,32 +226,125 @@ Expense no. 5 will now be deleted.
 
 ==== (Coming in v2.0) Converting any currency to preferred currency : `convert`
 
-=== Budgeting-Related Commands
-==== Creating new budgets : `budget`
-Creates a new expense budget.
+=== Let's Do Budgeting
 
-Format: `budget d/BUDGET_NAME p/BUDGET_AMOUNT sd/BUDGET_START_DATE pr/BUDGET_PERIOD`
+==== Create a new budget : `addbudget`
+Want your expenses tracked under a recurring budget? Simple enough with this command: `addbudget`
 
-E.g.
-`budget d/school p/300 sd/01-10-2019 pr/month`
-This will create a new budget “school” that is set to $300 per month, starting from 1st October 2019.
+The concrete format is:
+----
+addbudget d/DESCRIPTION p/AMOUNT sd/START_DATE pr/PERIOD
+----
 
-==== Switch current budget : `switch`
-Switches currently active budget (i.e. primary budget) to another budget.
+For example, after typing
+----
+addbudget d/school p/300 sd/01-10-2019 pr/month
+----
+You'll see that a new budget "school" is created, and set to $300, recurring monthly, starting from 1st October 2019.
 
-Format: `switch d/BUDGET_NAME`
+Tips:
 
-E.g.
-`switch d/outside school`
+* 4 types of budget periods are supported, namely `day`, `week`, `month`, and `year` (all in lower case).
+* The year in start date is optional, i.e. you can simply input `01-10` and the year will be automatically set
+to the current year.
+* The start date can be any time in the past or future, the budget period will automatically
+normalize to the current period.
+For example, if today is `23-10-2019`, when you type `sd/01-07 pr/month`, the resulting budget period
+will be `01-10-2019 to 31-10-2019`, since that's the period anchored by today's date.
+* All budgets are recurring. Continuing from the example above, at 1 Nov 2019, you'll see the budget's period refreshed
+to `01-11-2019 to 30-11-2019`, and all past expenses archived, giving you an empty budget panel to start with.
 
-=== (Coming in v2.0)Prediction : `predict`
-User can get a rough estimation of next month's total expense based on extrapolation from this month's expenditure.
-The prediction will take into account important dates that require extra spending in next month.
+==== Switch between budgets : `switchbudget`
+Now that you've successfully added a few different budgets, wonder how to toggle between them? Try this magical command:
+`switchbudget`, which switches the primary budget to any other budget in one shot!
 
-Format: `predict`
+The concrete format is:
+----
+switchbudget d/BUDGET_NAME`
+----
 
-Result:
-`We predict your next month's total expenditure to be ...`
+For example, suppose you're at primary budget `school` now.
+
+After typing:
+----
+switchbudget d/outside school
+----
+
+You will see that the primary budget panel is switched from `school` to `outside school`. Every expense you add
+from now on will be tracked under the "outside school" budget instead.
+
+==== List all budgets: `listbudgets`
+To get an overview of all the budgets at hand, simply type:
+
+----
+listbudgets
+----
+You'll see a list of all budgets in MooLah.
+
+Tips:
+
+* The primary budget is marked with a red border.
+* To go back to primary budget panel, type `view Primary Budget`.
+
+==== Edit a budget: `editbudget`
+A typo? On a second thought? No worries, you can easily modify your budget with `editbudget`.
+
+The concrete format is:
+----
+listbudgets (first go to list of budgets)
+editbudget INDEX d/DESCRIPTION p/AMOUNT sd/START DATE pr/PERIOD
+----
+
+For example, if the second budget shown in the list is "school", recurring monthly, amount set at $300,
+refreshed on the first day of each month, after typing:
+
+----
+listbudgets (first go to list of budgets)
+editbudget 2 d/school expenses p/400 sd/05-10
+----
+
+It will change to "school expenses", capped at $400, refreshed on the 5th of every month.
+
+Tips:
+
+* You can choose to edit any of these 4 attributes of a budget: `DESCRIPTION`, `AMOUNT`, `START DATE`
+and `PERIOD`, more than one at a time.
+
+==== Delete a budget: `deletebudget`
+Don't want it any more? Use `deletebudget` to say bye to your budget!
+
+The concrete format is:
+----
+listbudgets (first go to list of budgets)
+deletebudget INDEX
+----
+You'll see the corresponding budget disappear from the list.
+
+Tips:
+
+* Regretted? Type `undo` to get it back ;D
+
+==== View expenses in the past: `pastperiod`
+Wanna see your archived expenses in the past? The command `pastperiod` is the time machine you need.
+
+The concrete format is:
+----
+pastperiod t/DATE
+----
+
+For example, suppose you have a monthly budget "school", refreshed at the first day of each month; and
+suppose it is November now.
+After typing:
+----
+pastperiod t/01-05
+----
+You'll see all expenses tracked under "school" from 1 May to 31 May this year.
+
+Tips:
+
+* The time machine can only travel *back* in time! That is, if the date is in the current or future period, you'll need
+to input again.
+* Only expenses tracked under *this budget* are shown.
 
 === Creating an alias for your favourite commands : `alias`
 Assign a full paramaterized input to an alias.
@@ -346,12 +439,30 @@ the data of your previous MooLah folder.
 * *Add an expense* `add d/DESCRIPTION p/PRICE [t/time] [c/CATEGORY]...` +
 e.g. `add d/Chicken Rice p/2.50 t/15-09-2019 1230 c/Food`
 * *Clear all expenses* : `clear`
+
+---
+
+All About Budgeting:
+
+* *Create a new budget* : `budget d/DESCRIPTION p/AMOUNT sd/START_DATE pr/PERIOD` +
+e.g. `budget d/school p/300 sd/01-10-2019 pr/month`
+* *Switch between budgets* : `switchbudget d/DESCRIPTION` +
+e.g. `switchbudget d/outside school`
+* *List all budgets* : `listbudgets`
+* *Edit a budget* : `editbudget INDEX d/DESCRIPTION p/AMOUNT sd/START_DATE pr/PERIOD` +
+e.g. `editbudget 2 d/school expenses p/400 sd/05-10`
+* *Delete a budget* : `deletebudget INDEX` +
+e.g. `deletebudget 2`
+* *View expenses in the past* : `pastperiod` +
+e.g. `pastperiod t/01-05`
+
+---
+
+
 * *Compare statistics* : `statscompare start1/START_DATE_1 end1/END_DATE start2/START_DATE_2 end2/END_DATE_2` +
 e.g. `statscompare sd1/01-01-2019 sd2/01-02-2019 pr/week`
 * *Create alias* : `alias a/ALIAS_NAME c/COMMAND_WITH_PARAMETERS` +
 e.g. `alias a/chicken rice c/ add d/ Chicken Rice p/2.50 c/Food`
-* *Create new budget* : `budget d/BUDGET_NAME p/BUDGET_AMOUNT sd/BUDGET_START_DATE pr/BUDGET_PERIOD` +
-e.g. `budget d/school p/300 sd/01-10-2019 pr/month`
 * *Currency conversion* : `convert`
 * *Delete an expense* : `delete INDEX` +
 e.g. `delete 3`
@@ -372,6 +483,7 @@ e.g. `switch d/outside school`
 * *Undo* : `undo`
 * *View statistics* : `stats [start/START_DATE] [end/END_DATE]` +
 e.g. `stats sd/11-11-2018 ed/12-12-2018`
+
 
 
 
