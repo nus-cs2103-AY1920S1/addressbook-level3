@@ -60,7 +60,7 @@ https://www.oracle.com/technetwork/java/javase/downloads/jdk11-downloads-5066655
 
 .Dark Mode display for $aveNUS
 
-image::DarkMode.png[width="800"]
+image::DarkMode.png[width="1000"]
 
 .Light Mode display for $aveNUS. Note that the panels are at the same locations as in Figure 3.
 image::LightMode.png[width-"800"]
