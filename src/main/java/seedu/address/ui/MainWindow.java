@@ -150,7 +150,7 @@ public class MainWindow extends UiPart<Stage> {
         workerListPanel = new WorkerListPanel(logic.getFilteredWorkerList());
         workerListPanelPlaceholder.getChildren().add(workerListPanel.getRoot());
 
-        lineChartPanel = new LineChartPanel(logic.getAddressBook().getBodyList());
+        lineChartPanel = LineChartPanel.getLineChartPanelInstance(logic.getAddressBook().getBodyList());
         lineChartPanelPlaceholder.getChildren().add(lineChartPanel.getLineChart());
 
         resultDisplay = new ResultDisplay();
@@ -235,6 +235,9 @@ public class MainWindow extends UiPart<Stage> {
         });
     }
 
+    public LineChartPanel getLineChartPanel() {
+        return lineChartPanel;
+    }
     /**
      * Opens the help window or focuses on it if it's already opened.
      */

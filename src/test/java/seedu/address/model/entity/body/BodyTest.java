@@ -120,7 +120,7 @@ class BodyTest {
 
     @Test
     void getDateOfAdmission() throws ParseException {
-        assertEquals(ParserUtil.parseDate("01/01/1991"), ALICE.getDateOfAdmission());
+        assertEquals(ParserUtil.parseDate("20/10/2019"), ALICE.getDateOfAdmission());
     }
 
     @Test

@@ -33,6 +33,7 @@ import seedu.address.model.entity.worker.WorkerNameContainsKeywordsPredicate;
 public class FindCommandTest {
 
     private static final String BODY_FLAG = "b";
+
     private static final String WORKER_FLAG = "w";
 
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
