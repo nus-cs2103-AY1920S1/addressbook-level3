@@ -70,7 +70,7 @@ class JsonSerializableSpendingBook {
         SpendingBook spendingBook = new SpendingBook();
 
         Currency currencyInUse = null;
-        for (JsonAdaptedCurrency jsonAdaptedCurrency: currencies) {
+        for (JsonAdaptedCurrency jsonAdaptedCurrency : currencies) {
             Currency currency = jsonAdaptedCurrency.toModelType();
 
             if (currency.name.equals(this.currency)) {

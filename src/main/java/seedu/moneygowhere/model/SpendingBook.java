@@ -171,30 +171,16 @@ public class SpendingBook implements ReadOnlySpendingBook {
      * Sets the currency in use. It must be present in {@code currencies}.
      */
     public void setCurrencyInUse(Currency currency) {
-        this.currencyInUse.setValue(currency);
-    }
-
-    /**
-     * Returns true if a Currency with the same identity as {@code currency} exists in MoneyGoWhere.
-     */
-    public boolean hasCurrency(Currency currency) {
         requireNonNull(currency);
-        return currencies.contains(currency);
+        this.currencyInUse.setValue(currency);
     }
 
     /**
      * Adds a Currency to the currency list.
      */
     public void addCurrency(Currency c) {
+        requireNonNull(c);
         currencies.add(c);
-    }
-
-    /**
-     * Removes {@code key} from this {@code SpendingBook}.
-     * {@code key} must exist in the Currency list.
-     */
-    public void removeCurrency(Currency key) {
-        currencies.remove(key);
     }
 
     //// Budget related operations
