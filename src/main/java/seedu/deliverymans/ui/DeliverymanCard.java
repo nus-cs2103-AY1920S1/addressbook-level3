@@ -50,6 +50,9 @@ public class DeliverymanCard extends UiPart<Region> {
         handleStatusTag(strStatus);
     }
 
+    /**
+     * Edits the status tag according to the corresponding status as input.
+     */
     public void handleStatusTag(String strStatus) {
         if (strStatus.equals("AVAILABLE")) {
             statusText = new Text("AVAILABLE");

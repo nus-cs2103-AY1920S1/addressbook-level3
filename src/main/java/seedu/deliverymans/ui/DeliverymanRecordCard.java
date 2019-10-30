@@ -3,12 +3,9 @@ package seedu.deliverymans.ui;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
-import javafx.scene.control.TableView;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.deliverymans.model.deliveryman.deliverymanstatistics.DeliveryRecord;
-import seedu.deliverymans.model.deliveryman.deliverymanstatistics.RecordIndex;
 
 /**
  * An UI component that displays the delivery record of a {@code Deliveryman}.
@@ -23,7 +20,7 @@ public class DeliverymanRecordCard extends UiPart<Region> {
     @javafx.fxml.FXML
     private HBox cardPane;
     //@FXML
-   // private Label id;
+    // private Label id;
     @javafx.fxml.FXML
     private Label name;
     @FXML
@@ -35,8 +32,8 @@ public class DeliverymanRecordCard extends UiPart<Region> {
         super(FXML);
         //id.setText(recordID + ". ");
         name.setText("Name: " + record.getName());
-        durationOfService.setText("Duration of service: " );
-        noOrdersCompleted.setText("Orders completed: " );
+        durationOfService.setText("Duration of service: ");
+        noOrdersCompleted.setText("Orders completed: ");
     }
 
     /*

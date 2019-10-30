@@ -76,7 +76,7 @@ public class DeliverymenDatabase implements ReadOnlyDeliverymenDatabase {
     public void addDeliveryman(Deliveryman man) {
         deliverymen.add(man);
         RecordIndex recordIndex = statisticsManager.createNewRecord(man.getName());
-        man.setRecordID(recordIndex);
+        man.setRecordId(recordIndex);
         statusManager.addUnavailableMan(man);
     }
     /**
@@ -181,7 +181,7 @@ public class DeliverymenDatabase implements ReadOnlyDeliverymenDatabase {
      * Retrieves a record of a given deliveryman.
      */
     public DeliveryRecord getDeliverymanRecord(Deliveryman deliveryman) {
-        return statisticsManager.retrieveRecord(deliveryman.getRecordID());
+        return statisticsManager.retrieveRecord(deliveryman.getRecordId());
     }
 
 

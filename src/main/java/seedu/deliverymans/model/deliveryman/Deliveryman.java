@@ -67,11 +67,11 @@ public class Deliveryman {
         return status;
     }
 
-    public RecordIndex getRecordID() {
+    public RecordIndex getRecordId() {
         return recordIndex;
     }
 
-    public void setRecordID(RecordIndex recordIndex) {
+    public void setRecordId(RecordIndex recordIndex) {
         this.recordIndex = recordIndex;
     }
 

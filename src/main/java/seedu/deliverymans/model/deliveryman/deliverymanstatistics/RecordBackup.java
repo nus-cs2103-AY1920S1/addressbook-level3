@@ -22,7 +22,7 @@ public class RecordBackup {
     public RecordIndex createNewRecord(Name name) {
         RecordIndex newIndex = new RecordIndex(nextIndex++);
         DeliveryRecord newRecord = new DeliveryRecord(name);
-        records.put(newIndex, newRecord );
+        records.put(newIndex, newRecord);
 
         return newIndex;
     }

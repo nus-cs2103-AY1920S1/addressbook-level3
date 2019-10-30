@@ -54,7 +54,8 @@ public class StatusSwitchCommand extends Command {
             throw new InvalidStatusChangeException();
         }
 
-        return new CommandResult(String.format(MESSAGE_CHANGE_STATUS_SUCCESS, deliverymanToEdit), Context.DELIVERYMENSTATUS);
+        return new CommandResult(String.format(MESSAGE_CHANGE_STATUS_SUCCESS, deliverymanToEdit),
+                Context.DELIVERYMENSTATUS);
     }
 
     @Override

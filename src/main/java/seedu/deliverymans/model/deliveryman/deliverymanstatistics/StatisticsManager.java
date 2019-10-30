@@ -2,6 +2,9 @@ package seedu.deliverymans.model.deliveryman.deliverymanstatistics;
 
 import seedu.deliverymans.model.Name;
 
+/**
+ * To be added.
+ */
 public class StatisticsManager {
     private final Analyzer analyzer;
     private RecordBackup records;

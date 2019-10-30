@@ -1,14 +1,10 @@
 package seedu.deliverymans.ui;
 
-import static seedu.deliverymans.ui.MainWindow.*;
-
-import java.awt.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -27,17 +23,17 @@ public class AvailableDeliverymenListPanel extends UiPart<Region> implements Ini
     private final Logger logger = LogsCenter.getLogger(DeliverymanListPanel.class);
 
     @FXML
-    Label statusLabel;
+    private Button availableButton;
     @FXML
-    Button availableButton;
+    private Button unavailableButton;
     @FXML
-    Button unavailableButton;
+    private Button deliveringButton;
     @FXML
-    Button deliveringButton;
+    private Label statusLabel;
 
-    ObservableList<Deliveryman> availableList;
-    ObservableList<Deliveryman> unavailableList;
-    ObservableList<Deliveryman> deliveringList;
+    private ObservableList<Deliveryman> availableList;
+    private ObservableList<Deliveryman> unavailableList;
+    private ObservableList<Deliveryman> deliveringList;
 
     @javafx.fxml.FXML
     private ListView<Deliveryman> availableDeliverymanListView;
@@ -70,7 +66,9 @@ public class AvailableDeliverymenListPanel extends UiPart<Region> implements Ini
         }
     }
 
-    @FXML
+    /**
+     * Displays the corresponding status lists according to the button that is clicked.
+     */
     public void initialize(URL url, ResourceBundle resourceBundle) {
         availableButton.setOnAction(e -> {
             statusLabel.setText("AVAILABLE DELIVERYMEN");
@@ -79,7 +77,6 @@ public class AvailableDeliverymenListPanel extends UiPart<Region> implements Ini
         });
         unavailableButton.setOnAction(e -> {
             statusLabel.setText("UNAVAILABLE DELIVERYMEN");
-            //statusLabel.setTextFill(Color.web("#0076a3"));
             availableDeliverymanListView.setItems(unavailableList);
             availableDeliverymanListView.setCellFactory(listView -> new DeliverymanListViewCell());
         });

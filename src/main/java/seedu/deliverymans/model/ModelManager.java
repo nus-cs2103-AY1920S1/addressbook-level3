@@ -330,7 +330,7 @@ public class ModelManager implements Model {
 
     @Override
     public DeliveryRecord getDeliverymanRecord(Deliveryman deliveryman) {
-         return deliverymenDatabase.getDeliverymanRecord(deliveryman);
+        return deliverymenDatabase.getDeliverymanRecord(deliveryman);
     }
 
     @Override
