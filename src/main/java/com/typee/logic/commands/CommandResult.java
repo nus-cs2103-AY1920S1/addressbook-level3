@@ -77,6 +77,21 @@ public class CommandResult {
     }
 
     /**
+     * Constructs a {@code CommandResult} for a calendar command with the specified fields,
+     * excluding the date field.
+     */
+    public CommandResult(String feedbackToUser, boolean calendarCommand, String calendarCommandType) {
+        this.feedbackToUser = requireNonNull(feedbackToUser);
+        this.showHelp = false;
+        this.exit = false;
+        this.tabCommand = false;
+        this.tab = new Tab("calendar");
+        this.calendarCommand = calendarCommand;
+        this.calendarDate = null;
+        this.calendarCommandType = calendarCommandType;
+    }
+
+    /**
      * Constructs a {@code CommandResult} with the specified {@code feedbackToUser},
      * and other fields set to their default value.
      */

@@ -216,6 +216,12 @@ public class MainWindow extends UiPart<Stage> {
         case "display":
             calendarWindow.display(commandResult.getCalendarDate());
             break;
+        case "nextmonth":
+            calendarWindow.populateCalendarWithNextMonth();
+            break;
+        case "previousmonth":
+            calendarWindow.populateCalendarWithPreviousMonth();
+            break;
         default:
             throw new CommandException("Invalid calendar command.");
         }

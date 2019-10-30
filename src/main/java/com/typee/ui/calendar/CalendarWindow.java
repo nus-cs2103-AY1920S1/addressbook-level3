@@ -150,7 +150,7 @@ public class CalendarWindow extends UiPart<Region> {
      * Populates the calendar with information about the next month.
      */
     @FXML
-    private void populateCalendarWithNextMonth() {
+    public void populateCalendarWithNextMonth() {
         currentDisplayedYearMonth = currentDisplayedYearMonth.plusMonths(1);
         populateCalendar();
     }
@@ -159,7 +159,7 @@ public class CalendarWindow extends UiPart<Region> {
      * Populates the calendar with information about the previous month.
      */
     @FXML
-    private void populateCalendarWithPreviousMonth() {
+    public void populateCalendarWithPreviousMonth() {
         currentDisplayedYearMonth = currentDisplayedYearMonth.minusMonths(1);
         populateCalendar();
     }
