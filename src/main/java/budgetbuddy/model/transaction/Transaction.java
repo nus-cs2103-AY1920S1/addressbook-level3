@@ -53,7 +53,7 @@ public class Transaction {
     }
 
     public void setAccount(Account toSet) {
-        if (this.account != null){
+        if (this.account != null) {
             // we have to remove the association for the old account as well
             this.account.deleteTransaction(this);
         }
