@@ -20,7 +20,7 @@ public class TypicalMealPlans {
             .withDay1("Cheese Omelette").withDay2("Cheese Omelette").withDay3("Cheese Omelette")
             .withDay4("Cheese Omelette").withDay5("Cheese Omelette").withDay6("Cheese Omelette")
             .withDay7("Cheese Omelette").build();
-    public static final MealPlan TUNA = new MealPlanBuilder().withName("Tuna Sandwich Plan")
+    public static final MealPlan TUNA_MP = new MealPlanBuilder().withName("Tuna Sandwich Plan")
             .withDay1("Tuna Sandwich").withDay2("Tuna Sandwich").withDay3("Tuna Sandwich").withDay4("Tuna Sandwich")
             .withDay5("Tuna Sandwich").withDay6("Tuna Sandwich").withDay7("Tuna Sandwich").build();
     public static final MealPlan MAGGI_MP = new MealPlanBuilder().withName("Chicken Maggi Plan")
@@ -72,6 +72,6 @@ public class TypicalMealPlans {
     }
 
     public static List<MealPlan> getTypicalMealPlans() {
-        return new ArrayList<>(Arrays.asList(MILO_MP, OMELETTE_MP, TUNA, MAGGI_MP, CHICKEN_MP, TEA_MP, FRIES_MP));
+        return new ArrayList<>(Arrays.asList(MILO_MP, OMELETTE_MP, TUNA_MP, MAGGI_MP, CHICKEN_MP, TEA_MP, FRIES_MP));
     }
 }

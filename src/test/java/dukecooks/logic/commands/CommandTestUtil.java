@@ -45,6 +45,7 @@ import dukecooks.logic.commands.dashboard.EditTaskCommand;
 import dukecooks.logic.commands.diary.EditDiaryCommand;
 import dukecooks.logic.commands.exceptions.CommandException;
 import dukecooks.logic.commands.exercise.EditExerciseCommand;
+import dukecooks.logic.commands.mealplan.EditMealPlanCommand;
 import dukecooks.logic.commands.profile.EditProfileCommand;
 import dukecooks.logic.commands.recipe.EditRecipeCommand;
 import dukecooks.model.Model;
@@ -54,6 +55,9 @@ import dukecooks.model.dashboard.components.DashboardNameContainsKeywordsPredica
 import dukecooks.model.diary.DiaryRecords;
 import dukecooks.model.diary.components.Diary;
 import dukecooks.model.diary.components.DiaryNameContainsKeywordsPredicate;
+import dukecooks.model.mealplan.MealPlanBook;
+import dukecooks.model.mealplan.components.MealPlan;
+import dukecooks.model.mealplan.components.MealPlanNameContainsKeywordsPredicate;
 import dukecooks.model.profile.person.NameContainsKeywordsPredicate;
 import dukecooks.model.profile.person.Person;
 import dukecooks.model.recipe.RecipeBook;
@@ -68,6 +72,7 @@ import dukecooks.model.workout.exercise.components.MusclesTrained;
 import dukecooks.testutil.dashboard.EditDashboardDescriptorBuilder;
 import dukecooks.testutil.diary.EditDiaryDescriptorBuilder;
 import dukecooks.testutil.exercise.EditExerciseDescriptorBuilder;
+import dukecooks.testutil.mealplan.EditMealPlanDescriptorBuilder;
 import dukecooks.testutil.profile.EditPersonDescriptorBuilder;
 import dukecooks.testutil.recipe.EditRecipeDescriptorBuilder;
 
@@ -214,6 +219,8 @@ public class CommandTestUtil {
     public static final EditExerciseCommand.EditExerciseDescriptor DESC_SITUP;
     public static final EditRecipeCommand.EditRecipeDescriptor DESC_FISH;
     public static final EditRecipeCommand.EditRecipeDescriptor DESC_BURGER;
+    public static final EditMealPlanCommand.EditMealPlanDescriptor DESC_FISH_MP;
+    public static final EditMealPlanCommand.EditMealPlanDescriptor DESC_BURGER_MP;
     public static final EditProfileCommand.EditPersonDescriptor DESC_AMY;
     public static final EditProfileCommand.EditPersonDescriptor DESC_BOB;
     public static final EditDiaryCommand.EditDiaryDescriptor DESC_AMY_DIARY;
@@ -246,6 +253,14 @@ public class CommandTestUtil {
                 .withCalories(VALID_CALORIES_BURGER).withCarbs(VALID_CARBS_BURGER)
                 .withFats(VALID_FATS_BURGER).withProtein(VALID_PROTEIN_BURGER)
                 .build();
+        DESC_FISH_MP = new EditMealPlanDescriptorBuilder().withMealPlanName(VALID_NAME_FISH_MP)
+                .withDay1ToAdd(VALID_NAME_FISH).withDay2ToAdd(VALID_NAME_FISH).withDay3ToAdd(VALID_NAME_FISH)
+                .withDay4ToAdd(VALID_NAME_FISH).withDay5ToAdd(VALID_NAME_FISH).withDay6ToAdd(VALID_NAME_FISH)
+                .withDay7ToAdd(VALID_NAME_FISH).build();
+        DESC_BURGER_MP = new EditMealPlanDescriptorBuilder().withMealPlanName(VALID_NAME_BURGER_MP)
+                .withDay1ToAdd(VALID_NAME_BURGER).withDay2ToAdd(VALID_NAME_BURGER).withDay3ToAdd(VALID_NAME_BURGER)
+                .withDay4ToAdd(VALID_NAME_BURGER).withDay5ToAdd(VALID_NAME_BURGER).withDay6ToAdd(VALID_NAME_BURGER)
+                .withDay7ToAdd(VALID_NAME_BURGER).build();
     }
 
     /**
@@ -289,6 +304,23 @@ public class CommandTestUtil {
         assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel));
         assertEquals(expectedRecipeBook, actualModel.getRecipeBook());
         assertEquals(expectedFilteredList, actualModel.getFilteredRecipeList());
+    }
+
+    /**
+     * Executes the given {@code command}, confirms that <br>
+     * - a {@code CommandException} is thrown <br>
+     * - the CommandException message matches {@code expectedMessage} <br>
+     * - MealPlanBook, filtered recipe list and selected recipe in {@code actualModel} remain unchanged
+     */
+    public static void assertMealPlanCommandFailure(Command command, Model actualModel, String expectedMessage) {
+        // we are unable to defensively copy the model for comparison later, so we can
+        // only do so by copying its components.
+        MealPlanBook expectedMealPlanBook = new MealPlanBook(actualModel.getMealPlanBook());
+        List<MealPlan> expectedFilteredList = new ArrayList<>(actualModel.getFilteredMealPlanList());
+
+        assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel));
+        assertEquals(expectedMealPlanBook, actualModel.getMealPlanBook());
+        assertEquals(expectedFilteredList, actualModel.getFilteredMealPlanList());
     }
 
     /**
@@ -382,6 +414,20 @@ public class CommandTestUtil {
         model.updateFilteredRecipeList(new RecipeNameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
         assertEquals(1, model.getFilteredRecipeList().size());
+    }
+
+    /**
+     * Updates {@code model}'s filtered list to show only the recipe at the given {@code targetIndex} in the
+     * {@code model}'s MealPlanBook.
+     */
+    public static void showMealPlanAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredMealPlanList().size());
+
+        MealPlan recipe = model.getFilteredMealPlanList().get(targetIndex.getZeroBased());
+        final String[] splitName = recipe.getName().fullName.split("\\s+");
+        model.updateFilteredMealPlanList(new MealPlanNameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+
+        assertEquals(1, model.getFilteredMealPlanList().size());
     }
 
     /**
