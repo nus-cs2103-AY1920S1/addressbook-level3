@@ -558,7 +558,24 @@ If there are conflicts with the existing schedules, use the `-allow` flag to all
 
 ==== Undo : `undo`
 
-Undo the previous command. All commands except switch, find, list and history commands are undoable. +
+Undo the previous command. +
+Currently, the following commands are undoable and redoable. +
+
+. Add Customer
+. Edit Customer
+. Delete Customer
+. Clear Customer
+
+. Add Order
+. Edit Order
+. Complete Order
+. Cancel Order
+
+. Add Phone
+. Edit Phone
+. Delete Phone
+. Clear Phone
+
 
 [underline]#Format#: `undo`
 
@@ -571,7 +588,24 @@ Undo the previous command. All commands except switch, find, list and history co
 image::ug-command/ug-undo.png[width="800"]
 
 ==== Redo : `redo`
-Redo the previous undone command. Inverse of undo. All commands except switch, find, list and history commands are undoable. +
+Redo the previous undone command. Inverse of undo.  +
+
+Currently, the following commands are undoable and redoable. +
+
+. Add Customer
+. Edit Customer
+. Delete Customer
+. Clear Customer
+
+. Add Order
+. Edit Order
+. Complete Order
+. Cancel Order
+
+. Add Phone
+. Edit Phone
+. Delete Phone
+. Clear Phone
 
 [underline]#Format#: `undo`
 
