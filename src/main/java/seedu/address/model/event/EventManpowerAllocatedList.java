@@ -59,7 +59,7 @@ public class EventManpowerAllocatedList {
      * Boolean Method to check if an the allocated list contains an employee
      */
     public boolean containsEmployee(Employee employee) {
-        return manpowerList.contains(employee.getEmployeeId().id);
+        return manpowerList.contains(employee.getEmployeeId());
     }
 
     @Override

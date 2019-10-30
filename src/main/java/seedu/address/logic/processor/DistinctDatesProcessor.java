@@ -30,7 +30,7 @@ public class DistinctDatesProcessor {
      * Generate all DistinctDates from Events that are allocated to an Employee.
      */
     public static List<DistinctDate> generateEmployeesDistinctDateList(Model model, Employee employee) {
-        List<Event> eventList = model.getEventBook().getEventList();
+        List<Event> eventList = model.getFullListEvents();
         return generateEmployeesDistinctDateList(eventList, employee);
     }
 
@@ -63,7 +63,6 @@ public class DistinctDatesProcessor {
             DistinctDate date = new DistinctDate(currentDate, events);
             distinctDateList.add(date);
         }
-
         return distinctDateList;
     }
 
