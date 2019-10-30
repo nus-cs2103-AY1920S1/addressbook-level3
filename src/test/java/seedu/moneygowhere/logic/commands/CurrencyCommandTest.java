@@ -73,11 +73,11 @@ class CurrencyCommandTest {
     }
 
     @Test
-    void testEquals() {
+    public void testEquals() {
         CurrencyCommand currencyCommand = new CurrencyCommand("SGD");
 
         assertTrue(currencyCommand.equals(currencyCommand));
-        assertFalse(currencyCommand.equals(null));
+        assertFalse(currencyCommand == null);
 
         // ignore case
         assertTrue(currencyCommand.equals(new CurrencyCommand("sgd")));
