@@ -391,41 +391,36 @@ Format: `suggest s/basic`
 Suggests exercises matching specified tags.
 
 ===== Based on matching muscle tags
-Format: `suggest s/possible m/MUSCLE`
-
-Example:
-
-* `suggest s/possible m/chest`
-
-A list of exercises with chest muscle tag will be displayed.
-
-* `suggest s/possible m/chest m/tricep`
-
-A list of exercises tagged with chest or triceps will be displayed.
-
-===== Based on matching custom properties `[Coming in v2.0]`
-
-==== Suggest intensity
-Recommends an increased quantity for the indexed exercise/regime based on its past record.
-
-Format: `suggest intensity t/exercise i/INDEX`
-`suggest intensity t/regime i/INDEX`
+Format: `suggest s/possible o/OPERATION_TYPE [m/MUSCLE CUSTOM_PROPERTY_PREFIX_NAME/VALUE]`
 
 ****
-* Takes the exercise at the specified `INDEX`.
-* The index *must be a positive integer* 1, 2, 3, ...
-* i/ is for index of the scheduled regime
+* You must choose one of the following operation type: `and`, `or`.
+* You have to enter at least one property (muscle/custom property) to search for suggestions.
+
+* i.e commands such as
+`suggest s/possible o/and` and `suggest s/possible o/or` will both fail
+whereas `suggest s/possible o/or m/Chest` will not.
 ****
+===== Based on matching custom properties
+
+After creating <<customproperty, Custom Properties>> and tracking exercises,
+you can search for suggestions with those custom properties.
 
 Example:
+Suppose you have created a new Custom Property and have been tracking a few exercises with said custom property:
 
-* `suggest intensity t/exercise 1`
+`custom s/r f/Rating p/Number`
 
-Displays the recommended quantity for the indexed exercise.
+`add t/exercise n/Run d/01/11/2019 c/100 q/30 u/km m/Leg r/8`
 
-* `suggest intensity t/regime 1`
+`add t/exercise n/Bench Press d/01/11/2019 c/100 q/30 u/counts m/Chest r/8`
 
-Displays the recommended quantity for all the exercises in the indexed regime.
+
+Then, the following input will display a list of exercises which are tagged with "Chest" and have a rating of 8.
+
+`suggest s/possible o/and m/Chest r/8`
+
+Thus the command will display only the exercise named "Bench Press".
 
 === Exiting the program : `exit`
 
@@ -436,6 +431,8 @@ Format: `exit`
 
 ExerHealth data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
+
+=== Suggest intensity `[Coming in v2.0]`
 
 === Remind to do exercises `[coming in v2.0]`
 
