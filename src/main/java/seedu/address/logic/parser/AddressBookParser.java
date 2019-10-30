@@ -248,8 +248,8 @@ public class AddressBookParser {
             case DisplayCommand.COMMAND_WORD:
                 return new DisplayCommandParser().parse(arguments);
 
-                case EligiblePoliciesCommand.COMMAND_WORD:
-                    return new EligiblePoliciesCommandParser().parse(arguments);
+            case EligiblePoliciesCommand.COMMAND_WORD:
+                return new EligiblePoliciesCommandParser().parse(arguments);
 
             case ExpandPersonCommand.COMMAND_WORD:
                 return new ExpandPersonCommandParser().parse(arguments);
