@@ -121,6 +121,17 @@ public class AchievementStateProcessor {
     }
 
 
+    /**
+     * Returns whether or not the requirement for an achievement has previously been met.
+     *
+     * @param achievement Achievement which is to be assessed on whether or not its requirement
+     *                    to achieve it has previously been met.
+     * @param daysToIterate Duration in number of days to check on whether or not achievement has
+     *                      met the requirement previously.
+     * @param averageAchievementKeyValueList List containing map entries of local dates and average daily values for
+     *                                       a particular record type.
+     * @return Whether or not the requirement for an achievement has previously been met.
+     */
     private boolean fulfillsRequirementsPreviously(Achievement achievement, int daysToIterate,
                                                 List<Map.Entry<LocalDate, Double>>
                                                         averageAchievementKeyValueList) {
@@ -129,7 +140,7 @@ public class AchievementStateProcessor {
         for (int i = 1; i < averageAchievementKeyValueList.size() - daysToIterate; i++) {
             if (requirementIsMet(achievement, daysToIterate, subList)) {
                 return true;
-            };
+            }
             subList.remove(0);
         }
         return false;
@@ -139,8 +150,7 @@ public class AchievementStateProcessor {
      * Returns whether or not the requirement for an achievement has already been met.
      *
      * @param achievement Achievement which is to be assessed on whether or not its requirement
-     *                    to achieve it has
-     *                    been met.
+     *                    to achieve it has been met.
      * @param daysToIterate Duration in number of days to check on whether or not achievement has
      *                      met the requirement.
      * @param averageAchievementKeyValueList List containing map entries of local dates and average daily values for

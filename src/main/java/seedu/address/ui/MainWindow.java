@@ -389,6 +389,9 @@ public class MainWindow extends UiPart<Stage> {
         styleManager.resetStyleSheets();
     }
 
+    /**
+     * Returns an achievement notification to indicate change in user's achievement list if any.
+     */
     private String getAchievementsNotification() {
         if (logic.newAchievementsHaveBeenAttained()
                 && logic.existingAchievementsHaveBeenLost()) {
@@ -397,7 +400,7 @@ public class MainWindow extends UiPart<Stage> {
         } else if (logic.newAchievementsHaveBeenAttained()) {
             logic.resetNewAchievementsState();
             return MESSAGE_ACHIEVEMENTS_ATTAINED;
-        } else if (logic.existingAchievementsHaveBeenLost()){
+        } else if (logic.existingAchievementsHaveBeenLost()) {
             logic.resetNewAchievementsState();
             return MESSAGE_ACHIEVEMENTS_LOST;
         } else {
