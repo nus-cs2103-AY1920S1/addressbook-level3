@@ -42,7 +42,7 @@ public class Event {
      * @param records to be included in this event.
      */
     public Event(String name, HashMap<Person, List<Record>> records) {
-        this.name = name.toLowerCase();
+        this.name = name.trim().toLowerCase();
         this.records = records;
     }
 

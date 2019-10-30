@@ -9,6 +9,9 @@ import org.junit.jupiter.api.Test;
 
 public class EventTest {
 
+    private static final String INVALID_EVENT_NAME = " 50m breaststroke";
+    private static final String VALID_EVENT_NAME = "50m breaststroke";
+
     @Test
     public void isSameEvent() {
         // same object -> returns true
@@ -38,5 +41,14 @@ public class EventTest {
 
         // different event -> returns false
         assertFalse(EVENT_ONE.equals(EVENT_TWO));
+    }
+
+    @Test
+    public void isValidName() {
+        // no leading whitespace -> is valid
+        assertTrue(Event.isValidName(VALID_EVENT_NAME));
+
+        // leading whitespace -> is not valid
+        assertFalse(Event.isValidName(INVALID_EVENT_NAME));
     }
 }
