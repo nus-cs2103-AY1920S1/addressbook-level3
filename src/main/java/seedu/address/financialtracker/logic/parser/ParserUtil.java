@@ -1,4 +1,4 @@
-package seedu.address.financialtracker.parser;
+package seedu.address.financialtracker.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
@@ -10,7 +10,6 @@ import seedu.address.financialtracker.model.expense.Description;
 import seedu.address.financialtracker.model.expense.Time;
 import seedu.address.financialtracker.model.expense.Type;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.ui.PageType;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser

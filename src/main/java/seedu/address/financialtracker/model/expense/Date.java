@@ -1,5 +1,7 @@
 package seedu.address.financialtracker.model.expense;
 
+import static java.util.Objects.requireNonNull;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
@@ -20,13 +22,16 @@ public class Date {
     private static final SimpleDateFormat sdfDate = new SimpleDateFormat("ddMMyyyy");
     public final String value;
     public java.util.Date valueToCompare;
+    public final String storageDate;
 
     public Date(String date) {
+        requireNonNull(date);
         try {
             this.valueToCompare = sdfDate.parse(date);
         } catch (ParseException e) {
             assert false : "date format should be always correct";
         }
+        this.storageDate = date;
         this.value = formatDate(date);
     }
 
