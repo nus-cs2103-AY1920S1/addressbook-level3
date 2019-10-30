@@ -324,7 +324,7 @@ Great! Now, TravEzy is aware that you are referring to a trip.
 
 Whew! After reading so much, it is time to find out how you can add your event, be it your commitment, holiday, school break or trip, so that TravEzy can start suggesting when you can travel! 😊
 
-*Add an event to your calendar: ``add``
+*Add an event to your calendar: ``add``*
 
 Adds an event to your calendar. Are you unable to travel on a day or over a duration of time due to commitments during the public holidays/school vacation? Well, then add an event with the EVENT TYPE ``commitment``. Or is a public holiday coming up (i.e. a possibility to go for a short trip! 😃)? Add it to your calendar with the EVENT TYPE ``holiday``! Or... Is it your school break? Well, we have got that covered to! Just add it to your calendar with the EVENT TYPE ``school_break``. Hmm... Or may it is your long-coveted *trip*! Can you add that to your calendar too? You bet!
 
