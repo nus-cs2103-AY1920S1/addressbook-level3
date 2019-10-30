@@ -416,17 +416,34 @@ Examples:
 
 === Tabs
 
+image::gui/TabsOverview.png[width="70%"]
+_fig 3.7.1 – Types of Tabs highlighted in Orange_
+
+There are 2 types of tabs in AlgoBase: Display and Details tabs.
+
+* **Display tabs** give a high level overview of the contents of a list of items
+(e.g. a list of `problems`/`tags`/`plans`).
+* **Details tabs** give a more detailed description of an item in a display tab.
+
+In the example in fig 3.7.1, there is a problem called "Sequences" in the current display tab.
+The details for this problem can be seen in the details tab where the orange arrow is pointing to.
+
 ==== Switching Tabs: `switchtab`
 Switches between tabs in the GUI +
 Format: `switchtab t/TAB_TYPE i/TAB_INDEX`
+Format: `st t/TAB_TYPE i/TAB_INDEX`
 
 * Tab Type
 ** can be `display` or `details`
+** Alternatively, `display` and `details` can be replaced by `1` and `2` respectively
 
 Examples:
 
-* `switchtab t/display i/1`
-* `switchtab t/details i/2`
+* `switchtab t/display i/1` – Switches to the first display tab (i.e. `problems` tab)
+* `st t/1 i/1` – Same effects as the previous command but in a shorter format.
+* `switchtab t/details i/3` – Switches to the third details tab
+* `st t/2 i/3` – Same effects as the previous command but in a shorter format.
+
 
 ==== Opening Tabs: `opentab`
 Opens a new tab in the GUI +

@@ -523,10 +523,10 @@ These operations are exposed in the `TabManager` class respectively as:
 
 The following Activity Diagrams illustrate what happens when the user executes a `SwitchTabCommand` or `OpenTabCommand`
 
-image::gui/SwitchTabCommandActivityDiagram.png[]
+image::gui/SwitchTabCommandActivityDiagram.png[width="50%"]
 _Figure 1.1 Activity Diagram for the Execution of `switchtab` Command_
 
-image::gui/OpenTabCommandActivityDiagram.png[]
+image::gui/OpenTabCommandActivityDiagram.png[width="50%"]
 _Figure 1.2 Activity Diagram for the Execution of `opentab` Command_
 
 Given below is an example usage scenario and how the tag mechanism behaves at each step.
