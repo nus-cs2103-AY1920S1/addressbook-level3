@@ -1,8 +1,12 @@
 package seedu.algobase.logic.commands;
 
+import static seedu.algobase.commons.util.AppUtil.getClassStringField;
 import static seedu.algobase.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.algobase.testutil.Assert.assertThrows;
 import static seedu.algobase.testutil.TypicalProblems.getTypicalAlgoBase;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
@@ -12,12 +16,17 @@ import seedu.algobase.model.UserPrefs;
 
 class HelpCommandTest {
 
-    private static final String EXPECTED_COMMAND_LIST = "Available commands are: [add, addplan, addtag, "
-        + "clear, delete, deleteplan, deletetag, deletetask, donetask, edit, editplan, edittag, exit, "
-        + "find, findplan, help, list, listplan, listtag, sort, switchtab, undonetask]\n"
-        + "More information can be found in the popup window.";
     private Model model = new ModelManager(getTypicalAlgoBase(), new UserPrefs());
     private Model expectedModel = new ModelManager(getTypicalAlgoBase(), new UserPrefs());
+    private static String getExpectedCommandListString() {
+        List<String> commandWords = new ArrayList<>();
+        for (Class command : Command.COMMAND_LIST) {
+            commandWords.add(getClassStringField(command, "COMMAND_WORD"));
+        }
+        String commandPrompt = "Available commands are: " + commandWords.toString() + "\n"
+                + "More information can be found in the popup window.";
+        return commandPrompt;
+    }
 
     @Test
     void constructor_nullCommandClassWithoutListingAllCommands_throwsNullPointerException() {
@@ -28,7 +37,7 @@ class HelpCommandTest {
     void constructor_nullCommandClassWithListingAllCommands_success() {
         HelpCommand command = new HelpCommand(null, true);
         assertCommandSuccess(command, model,
-            new CommandResult(EXPECTED_COMMAND_LIST, true, false, false), expectedModel);
+            new CommandResult(getExpectedCommandListString(), true, false, false), expectedModel);
     }
 
     @Test
