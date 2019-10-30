@@ -81,7 +81,6 @@ import seedu.address.ui.alias.AliasPanel;
 import seedu.address.ui.budget.BudgetListPanel;
 import seedu.address.ui.budget.BudgetPanel;
 import seedu.address.ui.event.EventListPanel;
-import seedu.address.ui.alias.AliasPanel;
 import seedu.address.ui.expense.ExpenseListPanel;
 import seedu.address.ui.panel.PanelName;
 import seedu.address.ui.panel.PlaceholderPanel;
