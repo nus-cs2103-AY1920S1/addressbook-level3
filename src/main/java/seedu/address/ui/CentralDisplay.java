@@ -148,14 +148,14 @@ public class CentralDisplay extends UiPart<Region> {
     }
 
     public void changeInfo(ResultInformation resultInformation) {
-//        resultInformation.getAccommodation().ifPresent(accommodation -> changeAccommodationInfo(accommodation, resultInformation.getIndex()));
+        resultInformation.getAccommodation().ifPresent(accommodation -> changeAccommodationInfo(accommodation, resultInformation.getIndex()));
         resultInformation.getActivity().ifPresent(activity -> changeActivityInfo(activity, resultInformation.getIndex()));
         resultInformation.getContact().ifPresent(contact -> changeContactInfo(contact, resultInformation.getIndex()));
     }
 
-//    private void changeAccommodationInfo(Accommodation accommodation, Index displayedIndex) {
-//        infoTab.setContent(new );
-//    }
+    private void changeAccommodationInfo(Accommodation accommodation, Index displayedIndex) {
+        infoTab.setContent(new AccommodationCardFull(accommodation, displayedIndex.getOneBased()).getRoot());
+    }
 
     private void changeContactInfo(Contact contact, Index displayedIndex) {
         infoTab.setContent(new ContactCardFull(contact, displayedIndex.getOneBased()).getRoot());

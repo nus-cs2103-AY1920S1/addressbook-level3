@@ -100,7 +100,7 @@ public class AddAccommodationCommand extends AddCommand {
         }
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd),
                 new ResultInformation(toAdd, findIndexOfAccommodation(model, toAdd)),
-                UiFocus.ACCOMMODATION);
+                UiFocus.ACCOMMODATION, UiFocus.INFO);
     }
 
     /**
