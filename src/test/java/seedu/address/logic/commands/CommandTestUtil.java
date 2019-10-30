@@ -70,6 +70,18 @@ public class CommandTestUtil {
     public static final EditQuestionCommand.EditQuestionDescriptor DESC_ALGEBRA;
     public static final EditQuestionCommand.EditQuestionDescriptor DESC_CONCEPT;
 
+    // quiz result
+    public static final String CORRECT_ANSWER_ALGEBRA = "2";
+    public static final String INCORRECT_ANSWER_ALGEBRA = "3";
+
+    public static final String CORRECT_ANSWER_CONCEPT = "Coupling";
+    public static final String INCORRECT_ANSWER_CONCEPT = "Dependency";
+
+    public static final String FINISH_TIME_CONCEPT = "2019/10/30 1530";
+    public static final String FINISH_TIME_ALGEBRA = "2019/10/31 1300";
+    public static final String CORRECT_RESULT = "true";
+    public static final String INCORRECT_RESULT = "false";
+
     static {
         DESC_AMY = new EditNoteDescriptorBuilder().withTitle(VALID_TITLE_AMY).withContent(VALID_CONTENT_AMY).build();
         DESC_BOB = new EditNoteDescriptorBuilder().withTitle(VALID_TITLE_BOB).withContent(VALID_CONTENT_BOB).build();
