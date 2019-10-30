@@ -25,6 +25,7 @@ import seedu.address.model.person.SortSequence;
 import seedu.address.model.person.SortType;
 import seedu.address.model.person.Wish;
 import seedu.address.model.person.WishReminder;
+import seedu.address.model.statistics.StatisticsManager;
 import seedu.address.model.util.EntryComparator;
 
 /**
@@ -32,6 +33,7 @@ import seedu.address.model.util.EntryComparator;
  */
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
+    private StatisticsManager stats;
     private final SortType sortByTime = new SortType("time");
     private final SortSequence sortByAsc = new SortSequence("descending");
     private final UserPrefs userPrefs;
@@ -48,7 +50,6 @@ public class ModelManager implements Model {
     private final ExpenseTrackerManager expenseTrackers;
     private final VersionedAddressBook versionedAddressBook;
     private final FilteredList<WishReminder> filteredWishReminders;
-
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
@@ -83,6 +84,15 @@ public class ModelManager implements Model {
 
     // =========== UserPrefs
     // ==================================================================================
+    @Override
+    public void setStats(StatisticsManager stats) {
+        this.stats = stats;
+    }
+
+    @Override
+    public StatisticsManager getStats() {
+        return stats;
+    }
 
     @Override
     public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
@@ -142,6 +152,18 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean hasBudget(Budget budget) {
+        requireNonNull(budget);
+        return versionedAddressBook.hasBudget(budget);
+    }
+
+    @Override
+    public boolean hasWish(Wish wish) {
+        requireNonNull(wish);
+        return versionedAddressBook.hasWish(wish);
+    }
+
+    @Override
     public boolean hasExpenseReminder(ExpenseReminder reminder) {
         requireNonNull(reminder);
         return versionedAddressBook.hasExpenseReminder(reminder);
@@ -184,13 +206,11 @@ public class ModelManager implements Model {
 
     @Override
     public void deleteWish(Wish target) {
-        versionedAddressBook.removeEntry(target);
         versionedAddressBook.removeWish(target);
     }
 
     @Override
     public void deleteBudget(Budget target) {
-        versionedAddressBook.removeEntry(target);
         versionedAddressBook.removeBudget(target);
     }
 
@@ -217,6 +237,8 @@ public class ModelManager implements Model {
             versionedAddressBook.addWish((Wish) entry);
         } else if (entry instanceof Budget) {
             versionedAddressBook.addBudget((Budget) entry);
+        } else if (entry instanceof AutoExpense) {
+            versionedAddressBook.addAutoExpense((AutoExpense) entry);
         }
         sortFilteredEntry(sortByTime, sortByAsc);
         updateFilteredEntryList(PREDICATE_SHOW_ALL_ENTRIES);
@@ -278,18 +300,49 @@ public class ModelManager implements Model {
     @Override
     public void setEntry(Entry target, Entry editedEntry) {
         requireAllNonNull(target, editedEntry);
-        versionedAddressBook.setEntry(target, editedEntry);
         if (target instanceof Expense) {
-            versionedAddressBook.setExpense((Expense) target, (Expense) editedEntry);
+            //TODO
+            Expense toEditEntry = new Expense(editedEntry.getCategory(), editedEntry.getDesc(), editedEntry.getDate(),
+                     editedEntry.getAmount(), editedEntry.getTags());
+            Expense expenseToEdit = versionedAddressBook.getExpenseList().filtered(t -> t == target).get(0);
+            versionedAddressBook.setEntry(expenseToEdit, toEditEntry);
+            versionedAddressBook.setExpense(expenseToEdit, toEditEntry);
             expenseTrackers.track(filteredExpenses);
             versionedAddressBook.updateExpenseReminders();
-        } else if (target instanceof Income) {
-            versionedAddressBook.setIncome((Income) target, (Income) editedEntry);
-        } else if (target instanceof Wish) {
-            versionedAddressBook.setWish((Wish) target, (Wish) editedEntry);
-        } else if (target instanceof Budget) {
-            versionedAddressBook.setBudget((Budget) target, (Budget) editedEntry);
+        } else {
+            Income incomeToEdit = versionedAddressBook.getIncomeList().filtered(t -> t == target).get(0);
+            Income toEditEntry = new Income(editedEntry.getCategory(), editedEntry.getDesc(), editedEntry.getDate(),
+                    editedEntry.getAmount(), editedEntry.getTags());
+            versionedAddressBook.setIncome(incomeToEdit, toEditEntry);
         }
+    }
+
+    @Override
+    public void setExpense(Expense target, Expense editedEntry) {
+        requireAllNonNull(target, editedEntry);
+        versionedAddressBook.setEntry(target, editedEntry);
+        versionedAddressBook.setExpense(target, editedEntry);
+        expenseTrackers.track(filteredExpenses);
+        versionedAddressBook.updateExpenseReminders();
+    }
+
+    @Override
+    public void setIncome(Income target, Income editedEntry) {
+        requireAllNonNull(target, editedEntry);
+        versionedAddressBook.setEntry(target, editedEntry);
+        versionedAddressBook.setIncome(target, editedEntry);
+    }
+
+    @Override
+    public void setWish(Wish target, Wish editedWish) {
+        requireAllNonNull(target, editedWish);
+        versionedAddressBook.setWish(target, editedWish);
+    }
+
+    @Override
+    public void setBudget(Budget target, Budget editedBudget) {
+        requireAllNonNull(target, editedBudget);
+        versionedAddressBook.setBudget(target, editedBudget);
     }
 
     @Override
@@ -338,8 +391,7 @@ public class ModelManager implements Model {
 
     @Override
     public ObservableList<Entry> getFilteredExpensesAndIncomes() {
-        return new FilteredList<>(filteredEntries,
-            entry -> entry instanceof Expense || entry instanceof Income);
+        return new FilteredList<>(filteredEntries, entry -> entry instanceof Expense || entry instanceof Income);
     }
 
     @Override

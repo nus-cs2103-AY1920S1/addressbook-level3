@@ -49,6 +49,9 @@ public class EntryComparator implements Comparator<Entry> {
                     .collect(Collectors.joining());
             return firstEntryStringofTags.toLowerCase()
                     .compareToIgnoreCase(secondEntryStringofTags.toLowerCase()) * this.sequence.getSequence();
+        case "category":
+            return (e1.getCategory().getCategoryName().toLowerCase()).compareTo(e2.getCategory()
+                    .getCategoryName().toLowerCase());
         default:
             //TODO
             return 1;

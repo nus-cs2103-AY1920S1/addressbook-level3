@@ -19,6 +19,8 @@ import seedu.address.model.person.Budget;
 import seedu.address.model.person.Entry;
 import seedu.address.model.person.ExpenseReminder;
 import seedu.address.model.person.Wish;
+import seedu.address.model.statistics.CategoryStatistics;
+import seedu.address.model.statistics.Statistics;
 import seedu.address.storage.Storage;
 
 /**
@@ -29,13 +31,15 @@ public class LogicManager implements Logic {
     private final Logger logger = LogsCenter.getLogger(LogicManager.class);
 
     private final Model model;
+    private final Statistics stats;
     private final Storage storage;
     private final CommandHistory history;
     private final AddressBookParser addressBookParser;
     private boolean addressBookModified;
 
-    public LogicManager(Model model, Storage storage) {
+    public LogicManager(Model model, Statistics stats, Storage storage) {
         this.model = model;
+        this.stats = stats;
         this.storage = storage;
         history = new CommandHistory();
         addressBookParser = new AddressBookParser();
@@ -74,8 +78,13 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ObservableList<Entry> getFilteredEntryList() {
-        return model.getFilteredEntryList();
+    public ObservableList<CategoryStatistics> getListOfStatsForExpense() {
+        return stats.getListOfStatsForExpense();
+    }
+
+    @Override
+    public ObservableList<CategoryStatistics> getListOfStatsForIncome() {
+        return stats.getListOfStatsForIncome();
     }
 
     @Override

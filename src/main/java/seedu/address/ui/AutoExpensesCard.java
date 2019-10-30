@@ -12,7 +12,7 @@ import seedu.address.model.person.AutoExpense;
 /**
  * An UI component that displays information of a {@code Person}.
  */
-public class AutoExpenseCard extends UiPart<Region> {
+public class AutoExpensesCard extends UiPart<Region> {
 
     private static final String FXML = "AutoExpenseListCard.fxml";
 
@@ -41,7 +41,7 @@ public class AutoExpenseCard extends UiPart<Region> {
     @FXML
     private FlowPane tags;
 
-    public AutoExpenseCard(AutoExpense autoExpense, int displayedIndex) {
+    public AutoExpensesCard(AutoExpense autoExpense, int displayedIndex) {
         super(FXML);
         this.autoExpense = autoExpense;
         id.setText(displayedIndex + ". ");
@@ -67,12 +67,12 @@ public class AutoExpenseCard extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof AutoExpenseCard)) {
+        if (!(other instanceof AutoExpensesCard)) {
             return false;
         }
 
         // state check
-        AutoExpenseCard card = (AutoExpenseCard) other;
+        AutoExpensesCard card = (AutoExpensesCard) other;
         return id.getText().equals(card.id.getText())
                 && autoExpense.equals(card.autoExpense);
     }

@@ -9,7 +9,6 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.person.AutoExpense;
-import seedu.address.model.person.Budget;
 
 /**
  * Side panel for budgets.
@@ -40,7 +39,7 @@ public class AutoExpensesPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new AutoExpenseCard(entry, getIndex() + 1).getRoot());
+                setGraphic(new AutoExpensesCard(entry, getIndex() + 1).getRoot());
             }
         }
     }

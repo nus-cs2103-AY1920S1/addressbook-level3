@@ -38,11 +38,7 @@ public class PanelName {
         ArrayList<String> acceptedInputs = new ArrayList<>(Arrays.asList("wishlist", "wish", "wishes", "w", "budget",
                 "budgets", "b", "reminders", "reminder", "r", "autoexpenses", "autoexpense", "autoexp", "ae"));
 
-        if (acceptedInputs.contains(testLowerCase)) {
-            return true;
-        } else {
-            return false;
-        }
+        return acceptedInputs.contains(testLowerCase);
     }
 
     /**

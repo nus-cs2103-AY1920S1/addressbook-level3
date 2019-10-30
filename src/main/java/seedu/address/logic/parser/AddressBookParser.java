@@ -14,17 +14,17 @@ import seedu.address.logic.commands.BudgetListCommand;
 import seedu.address.logic.commands.ChangeFontCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.DeleteAutoExpenseCommand;
 import seedu.address.logic.commands.DeleteBudgetCommand;
 import seedu.address.logic.commands.DeleteCategoryCommand;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.DeleteExpenseReminderCommand;
 import seedu.address.logic.commands.DeleteWishCommand;
+import seedu.address.logic.commands.EditAutoExpenseCommand;
 import seedu.address.logic.commands.EditBudgetCommand;
 import seedu.address.logic.commands.EditCategoryCommand;
 import seedu.address.logic.commands.EditCommand;
-import seedu.address.logic.commands.EditExpenseCommand;
 import seedu.address.logic.commands.EditExpenseReminderCommand;
-import seedu.address.logic.commands.EditIncomeCommand;
 import seedu.address.logic.commands.EditWishCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindBudgetCommand;
@@ -38,6 +38,8 @@ import seedu.address.logic.commands.ListFontCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SortCommand;
 import seedu.address.logic.commands.StatisticsCommand;
+import seedu.address.logic.commands.SwitchCommand;
+import seedu.address.logic.commands.SwitchStatisticsCommand;
 import seedu.address.logic.commands.TogglePanelCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.WishListCommand;
@@ -56,9 +58,12 @@ public class AddressBookParser {
     /**
      * Parses user input into command for execution.
      *
-     * @param userInput full user input string
+     * @param userInput
+     *                      full user input string
      * @return the command based on the user input
-     * @throws ParseException if the user input does not conform the expected format
+     * @throws ParseException
+     *                            if the user input does not conform the expected
+     *                            format
      */
     public Command parseCommand(String userInput) throws ParseException, IllegalArgumentException {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
@@ -81,12 +86,6 @@ public class AddressBookParser {
 
         case EditCategoryCommand.COMMAND_WORD:
             return new EditCategoryCommandParser().parse(arguments);
-
-        case EditExpenseCommand.COMMAND_WORD:
-            return new EditExpenseCommandParser().parse(arguments);
-
-        case EditIncomeCommand.COMMAND_WORD:
-            return new EditIncomeCommandParser().parse(arguments);
 
         case EditWishCommand.COMMAND_WORD:
             return new EditWishCommandParser().parse(arguments);
@@ -139,6 +138,12 @@ public class AddressBookParser {
         case SortCommand.COMMAND_WORD:
             return new SortCommandParser().parse(arguments);
 
+        case SwitchCommand.COMMAND_WORD:
+            return new SwitchCommandParser().parse(arguments);
+
+        case SwitchStatisticsCommand.COMMAND_WORD:
+            return new SwitchStatisticsCommand();
+
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
 
@@ -153,6 +158,12 @@ public class AddressBookParser {
 
         case AddAutoExpenseCommand.COMMAND_WORD:
             return new AddAutoExpenseCommandParser().parse(arguments);
+
+        case EditAutoExpenseCommand.COMMAND_WORD:
+            return new EditAutoExpenseCommandParser().parse(arguments);
+
+        case DeleteAutoExpenseCommand.COMMAND_WORD:
+            return new DeleteAutoExpenseCommandParser().parse(arguments);
 
         case StatisticsCommand.COMMAND_WORD:
             return new StatisticsCommandParser().parse(arguments);
