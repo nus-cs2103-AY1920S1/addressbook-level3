@@ -1,11 +1,10 @@
 package seedu.address.ui;
 
-import static java.util.Objects.requireNonNull;
-
 import java.util.logging.Logger;
 
 import javafx.animation.Interpolator;
 import javafx.animation.TranslateTransition;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -16,7 +15,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.logic.Logic;
+import seedu.address.model.notif.Notif;
 
 //@@ author shaoyi1997
 /**
@@ -40,30 +39,21 @@ public class NotificationButton extends UiPart<Region> {
 
     private Label iconNumber;
 
-    private NotificationButton(Logic logic) {
+    private NotificationButton(ObservableList<Notif> filteredListNotif) {
         super(FXML);
         notifButton.setGraphic(buttonIcon);
         notifButton.setStyle("-fx-border-width: 0");
         initIconNumber();
-        initPopOver(logic);
+        initPopOver(filteredListNotif);
     }
 
     /**
      * Returns the single instance of the notification button.
      */
-    public static NotificationButton getInstanceOfNotifButton(Logic logic) {
+    public static NotificationButton getInstance(ObservableList<Notif> filteredListNotif) {
         if (notificationButton == null) {
-            notificationButton = new NotificationButton(logic);
+            notificationButton = new NotificationButton(filteredListNotif);
         }
-        return notificationButton;
-    }
-
-    /**
-     * Returns the single instantiated instance of the notification button.
-     * Precondition: {@code notificationButton} is already instantiated.
-     */
-    public static NotificationButton getInstantiatedNotifButton() {
-        requireNonNull(notificationButton);
         return notificationButton;
     }
 
@@ -88,8 +78,8 @@ public class NotificationButton extends UiPart<Region> {
     /**
      * Initialises the popover that contains a listview of notifications.
      */
-    private void initPopOver(Logic logic) {
-        notificationPopOver = new NotificationPopOver(logic.getFilteredNotifList());
+    private void initPopOver(ObservableList<Notif> filteredListNotif) {
+        notificationPopOver = new NotificationPopOver(filteredListNotif);
         notifButton.setOnMouseClicked(mouseEvent -> {
             //Show PopOver when button is clicked
             notificationPopOver.show(notifButton);

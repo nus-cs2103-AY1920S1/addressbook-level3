@@ -104,7 +104,8 @@ public class NotifCommand extends Command {
                     logger.info("Error updating the body and fridge ");
                 }
             }
-            NotificationButton.getInstantiatedNotifButton().updateNotifCount(model.getNumberOfNotifs());
+            NotificationButton.getInstance(model.getFilteredNotifList())
+                    .updateNotifCount(model.getNumberOfNotifs());
         });
 
         ses.schedule(changeUi, period, timeUnit);
