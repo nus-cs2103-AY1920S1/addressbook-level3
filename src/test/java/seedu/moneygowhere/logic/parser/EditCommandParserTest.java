@@ -23,6 +23,7 @@ import static seedu.moneygowhere.logic.commands.CommandTestUtil.VALID_REMARK_AMY
 import static seedu.moneygowhere.logic.commands.CommandTestUtil.VALID_REMARK_BOB;
 import static seedu.moneygowhere.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.moneygowhere.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.moneygowhere.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.moneygowhere.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.moneygowhere.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.moneygowhere.logic.parser.CommandParserTestUtil.assertParseSuccess;
@@ -53,7 +54,7 @@ public class EditCommandParserTest {
     @Test
     public void parse_missingParts_failure() {
         // no index specified
-        assertParseFailure(parser, VALID_NAME_AMY, MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, VALID_NAME_AMY, EditCommand.MESSAGE_INVALID_SPENDING_INDEX);
 
         // no field specified
         assertParseFailure(parser, "1", EditCommand.MESSAGE_NOT_EDITED);
@@ -65,16 +66,16 @@ public class EditCommandParserTest {
     @Test
     public void parse_invalidPreamble_failure() {
         // negative index
-        assertParseFailure(parser, "-5" + NAME_DESC_AMY, MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, "-5" + NAME_DESC_AMY, EditCommand.MESSAGE_INVALID_SPENDING_INDEX);
 
         // zero index
-        assertParseFailure(parser, "0" + NAME_DESC_AMY, MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, "0" + NAME_DESC_AMY, EditCommand.MESSAGE_INVALID_SPENDING_INDEX);
 
         // invalid arguments being parsed as preamble
-        assertParseFailure(parser, "1 some random string", MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, "1 some random string", EditCommand.MESSAGE_INVALID_SPENDING_INDEX);
 
         // invalid prefix being parsed as preamble
-        assertParseFailure(parser, "1 i/ string", MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, "1 i/ string", EditCommand.MESSAGE_INVALID_SPENDING_INDEX);
     }
 
     @Test
@@ -83,6 +84,9 @@ public class EditCommandParserTest {
         assertParseFailure(parser, "1" + INVALID_DATE_DESC, Date.MESSAGE_CONSTRAINTS); // invalid date
         assertParseFailure(parser, "1" + INVALID_COST_DESC, Cost.MESSAGE_CONSTRAINTS); // invalid address
         assertParseFailure(parser, "1" + INVALID_TAG_DESC, Tag.MESSAGE_CONSTRAINTS); // invalid tag
+
+        // date too far
+        assertParseFailure(parser, "1" + " " + PREFIX_DATE + "28/10/2100", ParserUtil.DATE_INVALID_TOO_FAR);
 
         // invalid date followed by valid remark
         assertParseFailure(parser, "1" + INVALID_DATE_DESC + REMARK_DESC_AMY, Date.MESSAGE_CONSTRAINTS);

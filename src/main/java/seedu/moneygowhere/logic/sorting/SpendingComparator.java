@@ -20,6 +20,7 @@ public class SpendingComparator implements Comparator<Spending> {
         fields = new LinkedHashSet<>();
         fields.add(new SortField(SortAttribute.DATE, SortOrder.DESCENDING));
         fields.add(new SortField(SortAttribute.COST, SortOrder.DESCENDING));
+        fields.add(new SortField(SortAttribute.NAME, SortOrder.ASCENDING));
     }
 
     /**
@@ -62,5 +63,18 @@ public class SpendingComparator implements Comparator<Spending> {
         }
 
         return rank;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+
+        sb.append("Sorting by: ");
+        for (SortField field : fields) {
+            sb.append(field);
+            sb.append(", ");
+        }
+
+        return sb.toString().substring(0, sb.lastIndexOf(","));
     }
 }

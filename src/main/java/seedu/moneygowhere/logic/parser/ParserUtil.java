@@ -30,6 +30,8 @@ import seedu.moneygowhere.model.tag.Tag;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
+    public static final String DATE_INVALID_TOO_FAR = "Date is 5 years too far from now.";
+    public static final int DATE_TOO_FAR_RANGE = 5;
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it.

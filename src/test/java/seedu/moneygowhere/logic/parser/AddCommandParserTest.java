@@ -23,6 +23,7 @@ import static seedu.moneygowhere.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.moneygowhere.logic.commands.CommandTestUtil.VALID_REMARK_BOB;
 import static seedu.moneygowhere.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.moneygowhere.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.moneygowhere.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.moneygowhere.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.moneygowhere.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.moneygowhere.testutil.TypicalSpendings.AMY;
@@ -128,6 +129,10 @@ public class AddCommandParserTest {
         // two invalid values, only first invalid value reported
         assertParseFailure(parser, INVALID_NAME_DESC + DATE_DESC_BOB + REMARK_DESC_BOB + INVALID_COST_DESC,
                 Name.MESSAGE_CONSTRAINTS);
+
+        // date too far
+        assertParseFailure(parser, NAME_DESC_BOB + " " + PREFIX_DATE + "28/10/2100" + REMARK_DESC_BOB
+                + COST_DESC_BOB, ParserUtil.DATE_INVALID_TOO_FAR);
 
         // non-empty preamble
         assertParseFailure(parser, PREAMBLE_NON_EMPTY + NAME_DESC_BOB + DATE_DESC_BOB + REMARK_DESC_BOB

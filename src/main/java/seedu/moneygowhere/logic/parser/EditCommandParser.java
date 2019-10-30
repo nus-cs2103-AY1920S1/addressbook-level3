@@ -7,7 +7,9 @@ import static seedu.moneygowhere.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.moneygowhere.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.moneygowhere.logic.parser.CliSyntax.PREFIX_REMARK;
 import static seedu.moneygowhere.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.moneygowhere.logic.parser.ParserUtil.DATE_INVALID_TOO_FAR;
 
+import java.time.LocalDate;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Optional;
@@ -17,6 +19,7 @@ import seedu.moneygowhere.commons.core.index.Index;
 import seedu.moneygowhere.logic.commands.EditCommand;
 import seedu.moneygowhere.logic.commands.EditCommand.EditSpendingDescriptor;
 import seedu.moneygowhere.logic.parser.exceptions.ParseException;
+import seedu.moneygowhere.model.spending.Date;
 import seedu.moneygowhere.model.tag.Tag;
 
 /**
@@ -34,12 +37,16 @@ public class EditCommandParser implements Parser<EditCommand> {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_DATE, PREFIX_REMARK, PREFIX_COST, PREFIX_TAG);
 
+        if (argMultimap.getPreamble().isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+        }
+
         Index index;
 
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE), pe);
+            throw new ParseException(EditCommand.MESSAGE_INVALID_SPENDING_INDEX, pe);
         }
 
         EditSpendingDescriptor editSpendingDescriptor = new EditSpendingDescriptor();
@@ -47,7 +54,14 @@ public class EditCommandParser implements Parser<EditCommand> {
             editSpendingDescriptor.setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
         }
         if (argMultimap.getValue(PREFIX_DATE).isPresent()) {
-            editSpendingDescriptor.setDate(ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get()));
+            Date date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get());
+
+            if (date.dateValue.isAfter(LocalDate.now())
+                    && date.dateValue.getYear() - LocalDate.now().getYear() > ParserUtil.DATE_TOO_FAR_RANGE) {
+                throw new ParseException(DATE_INVALID_TOO_FAR);
+            }
+
+            editSpendingDescriptor.setDate(date);
         }
         if (argMultimap.getValue(PREFIX_REMARK).isPresent()) {
             editSpendingDescriptor.setRemark(ParserUtil.parseRemark(argMultimap.getValue(PREFIX_REMARK).get()));
