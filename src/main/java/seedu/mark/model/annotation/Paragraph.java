@@ -24,4 +24,6 @@ public abstract class Paragraph {
     public abstract void updateId(ParagraphIdentifier newId);
     public abstract boolean isTrueParagraph();
 
+    public abstract Paragraph copy();
+
 }

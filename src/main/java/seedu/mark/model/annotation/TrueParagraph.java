@@ -27,6 +27,18 @@ public class TrueParagraph extends Paragraph {
         annotation = null;
     }
 
+    private TrueParagraph(ParagraphIdentifier id, ParagraphContent content, Annotation an) {
+        this.id = id;
+        this.content = content;
+        this.annotation = an;
+    }
+
+    private TrueParagraph(ParagraphIdentifier id, ParagraphContent content) {
+        this.id = id;
+        this.content = content;
+        this.annotation = null;
+    }
+
     /**
      * Adds an annotation.
      */
@@ -102,6 +114,17 @@ public class TrueParagraph extends Paragraph {
     @Override
     public boolean isTrueParagraph() {
         return true;
+    }
+
+    /**
+     * Returns a new reference to the copy of the current structure.
+     */
+    @Override
+    public Paragraph copy() {
+        if (annotation == null) {
+            return new TrueParagraph(id.copy(), content.copy());
+        }
+        return new TrueParagraph(id.copy(), content.copy(), annotation.copy());
     }
 
     @Override

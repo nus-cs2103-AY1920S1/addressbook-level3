@@ -35,6 +35,13 @@ public class AnnotationNote {
         return new AnnotationNote(content);
     }
 
+    /**
+     * Returns a copy of this {@code AnnotationNote}.
+     */
+    public AnnotationNote copy() {
+        return new AnnotationNote(content);
+    }
+
     @Override
     public String toString() {
         return content;

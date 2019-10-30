@@ -48,6 +48,13 @@ public class ParagraphIdentifier implements Comparable<ParagraphIdentifier> {
         return index;
     }
 
+    /**
+     * Returns a copy of this {@code ParagraphIdentifier}.
+     */
+    public ParagraphIdentifier copy() {
+        return new ParagraphIdentifier(Index.fromOneBased(this.index.getOneBased()), this.type);
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {

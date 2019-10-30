@@ -32,6 +32,11 @@ public class PhantomParagraph extends Paragraph {
         this.note = note;
     }
 
+    private PhantomParagraph(ParagraphIdentifier id, Annotation an) {
+        this.id = id;
+        this.note = an;
+    }
+
     @Override
     public void addAnnotation(Annotation an) {
         assert false : "This method should not be called for phantom paragraphs.";
@@ -103,6 +108,14 @@ public class PhantomParagraph extends Paragraph {
     @Override
     public boolean isTrueParagraph() {
         return false;
+    }
+
+    /**
+     * Returns a new reference to the copy of the current structure.
+     */
+    @Override
+    public Paragraph copy() {
+        return new PhantomParagraph(id.copy(), note.copy());
     }
 
     @Override

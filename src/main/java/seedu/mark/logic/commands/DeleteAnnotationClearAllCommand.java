@@ -22,8 +22,15 @@ public class DeleteAnnotationClearAllCommand extends DeleteAnnotationCommand {
 
     @Override
     public CommandResult execute(Model model, Storage storage) throws CommandException {
-        Bookmark bkmark = getRequiredBookmark(model);
-        bkmark.resetCachedCopy();
+        Bookmark oldBkmark = getRequiredBookmark(model);
+
+        Bookmark newBkmark = new Bookmark(oldBkmark.getName(),
+                oldBkmark.getUrl(), oldBkmark.getRemark(), oldBkmark.getFolder(),
+                oldBkmark.getTags(), oldBkmark.getCachedCopies());
+
+        newBkmark.resetCachedCopy();
+
+        model.setBookmark(oldBkmark, newBkmark);
 
         model.saveMark(MESSAGE_SUCCESS);
         return new OfflineCommandResult(MESSAGE_SUCCESS);

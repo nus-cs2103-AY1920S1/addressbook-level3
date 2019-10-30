@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -201,6 +202,12 @@ public class OfflineDocument {
         numStray++;
         Paragraph p = new PhantomParagraph(Index.fromOneBased(numStray), an);
         this.paragraphs.put(p.getId(), p);
+    }
+
+    public OfflineDocument copy() {
+        return new OfflineDocument(
+                new ArrayList<>(paragraphs.values()).stream().map(Paragraph::copy).collect(Collectors.toList()),
+                numStray);
     }
 
 

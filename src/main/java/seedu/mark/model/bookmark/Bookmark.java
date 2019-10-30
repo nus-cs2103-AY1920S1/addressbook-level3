@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
+import seedu.mark.model.annotation.OfflineDocument;
 import seedu.mark.model.tag.Tag;
 
 /**
@@ -68,10 +69,22 @@ public class Bookmark {
         return Collections.unmodifiableList(cachedCopies);
     }
 
+    /**
+     * Removes all annotations from the {@code CachedCopy}.
+     */
     public void resetCachedCopy() {
         String html = cachedCopies.get(0).html;
         cachedCopies.clear();
         cachedCopies.add(new CachedCopy(html));
+    }
+
+    /**
+     * Updates the annotations of the {@code CachedCopy}.
+     */
+    public void updateCachedCopy(OfflineDocument doc) {
+        String html = cachedCopies.get(0).html;
+        cachedCopies.clear();
+        cachedCopies.add(new CachedCopy(html, doc));
     }
 
     /**

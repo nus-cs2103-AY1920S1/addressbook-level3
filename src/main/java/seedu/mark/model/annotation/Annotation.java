@@ -59,6 +59,17 @@ public class Annotation {
         this.note = null;
     }
 
+    /**
+     * Returns a copy of this {@code Annotation}.
+     */
+    public Annotation copy() {
+        if (hasNote()) {
+            return new Annotation(colour, note.copy());
+        } else {
+            return new Annotation(colour);
+        }
+    }
+
     @Override
     public boolean equals(Object other) {
         if (this == other) {

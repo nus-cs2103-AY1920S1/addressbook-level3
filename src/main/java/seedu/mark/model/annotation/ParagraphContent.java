@@ -20,6 +20,13 @@ public class ParagraphContent {
         return content;
     }
 
+    /**
+     * Returns a copy of this {@code ParagraphContent}.
+     */
+    public ParagraphContent copy() {
+        return new ParagraphContent(content);
+    }
+
     @Override
     public String toString() {
         return content;
