@@ -10,17 +10,9 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 
 import seedu.jarvis.commons.exceptions.IllegalValueException;
 import seedu.jarvis.logic.commands.Command;
-import seedu.jarvis.logic.commands.address.AddAddressCommand;
-import seedu.jarvis.logic.commands.address.ClearAddressCommand;
-import seedu.jarvis.logic.commands.address.DeleteAddressCommand;
-import seedu.jarvis.logic.commands.address.EditAddressCommand;
 import seedu.jarvis.model.history.HistoryManager;
 import seedu.jarvis.storage.JsonAdapter;
 import seedu.jarvis.storage.history.commands.JsonAdaptedCommand;
-import seedu.jarvis.storage.history.commands.address.JsonAdaptedAddAddressCommand;
-import seedu.jarvis.storage.history.commands.address.JsonAdaptedClearAddressCommand;
-import seedu.jarvis.storage.history.commands.address.JsonAdaptedDeleteAddressCommand;
-import seedu.jarvis.storage.history.commands.address.JsonAdaptedEditAddressCommand;
 import seedu.jarvis.storage.history.commands.exceptions.InvalidCommandToJsonException;
 
 /**
@@ -81,37 +73,10 @@ public class JsonSerializableHistoryManager implements JsonAdapter<HistoryManage
         this.executedCommands.clear();
         this.inverselyExecutedCommands.clear();
         for (Command command : executedCommands) {
-            this.executedCommands.add(adaptToJsonAdaptedCommand(command));
+            this.executedCommands.add(command.adaptToJsonAdaptedCommand());
         }
         for (Command command : inverselyExecutedCommands) {
-            this.inverselyExecutedCommands.add(adaptToJsonAdaptedCommand(command));
-        }
-    }
-
-    /**
-     * Converts a given {@code Command} into a Jackson-Friendly object.
-     *
-     * @param command {@code Command} to be converted to Jackson-Friendly object.
-     * @return {@code JsonAdaptedCommand} Jackson-Friendly command object.
-     * @throws InvalidCommandToJsonException If there was an error in converting any commands into Jackson-Friendly
-     * objects.
-     */
-    private JsonAdaptedCommand adaptToJsonAdaptedCommand(Command command) throws InvalidCommandToJsonException {
-        try {
-            switch (command.getCommandWord()) {
-            case AddAddressCommand.COMMAND_WORD:
-                return new JsonAdaptedAddAddressCommand((AddAddressCommand) command);
-            case ClearAddressCommand.COMMAND_WORD:
-                return new JsonAdaptedClearAddressCommand((ClearAddressCommand) command);
-            case DeleteAddressCommand.COMMAND_WORD:
-                return new JsonAdaptedDeleteAddressCommand((DeleteAddressCommand) command);
-            case EditAddressCommand.COMMAND_WORD:
-                return new JsonAdaptedEditAddressCommand((EditAddressCommand) command);
-            default:
-                throw new InvalidCommandToJsonException(MESSAGE_INVALID_COMMAND);
-            }
-        } catch (ClassCastException cce) {
-            throw new InvalidCommandToJsonException(MESSAGE_COMMAND_MISMATCH);
+            this.inverselyExecutedCommands.add(command.adaptToJsonAdaptedCommand());
         }
     }
 
