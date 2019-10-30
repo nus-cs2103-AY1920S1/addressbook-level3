@@ -8,7 +8,6 @@ import static seedu.deliverymans.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import seedu.deliverymans.logic.parser.Context;
 import seedu.deliverymans.logic.commands.Command;
 import seedu.deliverymans.logic.commands.universal.AddOrderCommand;
 import seedu.deliverymans.logic.commands.universal.ContextCommand;

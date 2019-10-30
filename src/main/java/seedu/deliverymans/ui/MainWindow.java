@@ -17,7 +17,7 @@ import seedu.deliverymans.logic.Logic;
 import seedu.deliverymans.logic.commands.CommandResult;
 import seedu.deliverymans.logic.commands.exceptions.CommandException;
 import seedu.deliverymans.logic.parser.exceptions.ParseException;
-import seedu.deliverymans.logic.parser.Context;
+import seedu.deliverymans.logic.parser.universal.Context;
 import seedu.deliverymans.model.Name;
 import seedu.deliverymans.model.customer.Customer;
 import seedu.deliverymans.model.deliveryman.deliverymanstatistics.DeliveryRecord;

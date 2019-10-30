@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.Objects;
 
-import seedu.deliverymans.logic.parser.Context;
+import seedu.deliverymans.logic.parser.universal.Context;
 
 /**
  * Represents the result of a command execution.

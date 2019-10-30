@@ -13,7 +13,7 @@ import javafx.collections.transformation.FilteredList;
 
 import seedu.deliverymans.commons.core.GuiSettings;
 import seedu.deliverymans.commons.core.LogsCenter;
-import seedu.deliverymans.logic.parser.Context;
+import seedu.deliverymans.logic.parser.universal.Context;
 import seedu.deliverymans.model.addressbook.AddressBook;
 import seedu.deliverymans.model.addressbook.ReadOnlyAddressBook;
 import seedu.deliverymans.model.addressbook.person.Person;
