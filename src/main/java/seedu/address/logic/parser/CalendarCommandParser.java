@@ -8,7 +8,7 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.calendar.CalendarCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.YearMonth;
+import seedu.address.model.time.YearMonth;
 
 /**
  * Parses input arguments and creates a new CalendarCommand object

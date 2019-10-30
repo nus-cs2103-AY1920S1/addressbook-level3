@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.Calendar;
-import seedu.address.model.DateTime;
+import seedu.address.model.time.DateTime;
 
 /**
  * A class representing a scheduler.

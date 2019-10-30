@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 
 import seedu.address.model.AddressBook;
 import seedu.address.model.Calendar;
-import seedu.address.model.DateTime;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.calendar.CalendarEntry;
 import seedu.address.model.calendar.Description;
@@ -20,6 +19,7 @@ import seedu.address.model.record.BloodSugarBuilder;
 import seedu.address.model.record.BmiBuilder;
 import seedu.address.model.record.Record;
 import seedu.address.model.record.UniqueRecordList;
+import seedu.address.model.time.DateTime;
 
 /**
  * Contains utility methods for populating {@code AddressBook} with sample data.
