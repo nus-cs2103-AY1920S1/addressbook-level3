@@ -9,6 +9,7 @@ import seedu.tarence.logic.commands.exceptions.CommandException;
 import seedu.tarence.model.Model;
 import seedu.tarence.model.student.StudentsInTutorialPredicate;
 import seedu.tarence.model.tutorial.Tutorial;
+import seedu.tarence.storage.Storage;
 
 /**
  * Lists all persons in the application (or class) to the user.
@@ -51,6 +52,11 @@ public class ListCommand extends Command {
             model.updateFilteredStudentList(predicate);
         }
         return new CommandResult(MESSAGE_SUCCESS, TabNames.STUDENTS);
+    }
+
+    @Override
+    public CommandResult execute(Model model, Storage storage) throws CommandException {
+        return execute(model);
     }
 
     /**

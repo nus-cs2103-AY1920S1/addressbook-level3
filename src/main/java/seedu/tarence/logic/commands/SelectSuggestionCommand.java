@@ -5,6 +5,7 @@ import static seedu.tarence.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import seedu.tarence.commons.core.index.Index;
 import seedu.tarence.logic.commands.exceptions.CommandException;
 import seedu.tarence.model.Model;
+import seedu.tarence.storage.Storage;
 
 /**
  * Executes one of the stored suggested commands in the application.
@@ -57,6 +58,11 @@ public class SelectSuggestionCommand extends Command {
         Command commandToExecute = model.getSuggestedCommands().get(index.getZeroBased());
         model.deleteSuggestedCommands();
         return commandToExecute.execute(model);
+    }
+
+    @Override
+    public CommandResult execute(Model model, Storage storage) throws CommandException {
+        return execute(model);
     }
 
     @Override

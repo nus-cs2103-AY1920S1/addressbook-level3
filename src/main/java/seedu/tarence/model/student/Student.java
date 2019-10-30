@@ -100,6 +100,11 @@ public class Student extends Person {
         return Objects.hash(name, email, matricNum, nusnetId);
     }
 
+    /**
+     * Used for saving. Please don't touch.
+     *
+     * @return String representation of a Student object.
+     */
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();

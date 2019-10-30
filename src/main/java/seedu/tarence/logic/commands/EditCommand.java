@@ -20,6 +20,7 @@ import seedu.tarence.model.student.MatricNum;
 import seedu.tarence.model.student.NusnetId;
 import seedu.tarence.model.student.Student;
 import seedu.tarence.model.tutorial.TutName;
+import seedu.tarence.storage.Storage;
 
 /**
  * Edits the details of an existing person in the application.
@@ -77,6 +78,11 @@ public class EditCommand extends Command {
         model.setStudent(studentToEdit, editedStudent);
         model.updateFilteredStudentList(PREDICATE_SHOW_ALL_STUDENTS);
         return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedStudent));
+    }
+
+    @Override
+    public CommandResult execute(Model model, Storage storage) throws CommandException {
+        return execute(model);
     }
 
     /**

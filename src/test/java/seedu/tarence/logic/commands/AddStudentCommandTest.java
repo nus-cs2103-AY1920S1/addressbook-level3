@@ -437,6 +437,11 @@ public class AddStudentCommandTest {
         }
 
         @Override
+        public void setModel(ReadOnlyApplication application) {
+
+        }
+
+        @Override
         public void saveInput(String input) {};
 
         @Override

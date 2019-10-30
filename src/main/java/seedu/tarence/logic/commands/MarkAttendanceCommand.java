@@ -22,6 +22,7 @@ import seedu.tarence.model.student.Student;
 import seedu.tarence.model.tutorial.TutName;
 import seedu.tarence.model.tutorial.Tutorial;
 import seedu.tarence.model.tutorial.Week;
+import seedu.tarence.storage.Storage;
 
 /**
  * Marks attendance of student in a specified tutorial.
@@ -136,6 +137,11 @@ public class MarkAttendanceCommand extends Command {
         String isPresent = targetTutorial.getAttendance().isPresent(week, targetStudent) ? "present" : "absent";
         return new CommandResult(String.format(MESSAGE_MARK_ATTENDANCE_SUCCESS,
                 targetStudent.getName(), isPresent), targetTutorial);
+    }
+
+    @Override
+    public CommandResult execute(Model model, Storage storage) throws CommandException {
+        return execute(model);
     }
 
     /**

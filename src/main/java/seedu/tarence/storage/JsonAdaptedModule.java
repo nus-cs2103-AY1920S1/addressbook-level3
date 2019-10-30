@@ -31,6 +31,7 @@ public class JsonAdaptedModule {
     public static final String TUTORIAL_MODULE_CODE = "tutorialModuleCode";
     public static final String TUTORIAL_STUDENT_LIST = "tutorialStudentList";
     public static final String TUTORIAL_ATTENDANCE_LIST = "tutorialAttendanceList";
+    public static final String TUTORIAL_ASSIGNMENT_LIST = "tutorialAssignmentList";
 
     public static final String STUDENT_NAME = "studentName";
     public static final String STUDENT_EMAIL = "studentEmail";
@@ -39,6 +40,12 @@ public class JsonAdaptedModule {
     public static final String STUDENT_MODULE_CODE = "studentModuleCode";
     public static final String STUDENT_TUTORIAL_NAME = "studentTutorialName";
     public static final String STUDENT_ATTENDANCE_STATUS = "studentAttendance";
+    public static final String STUDENT_ASSIGNMENT_SCORE = "studentAssignmentScore";
+
+    public static final String ASSIGNMENT_NAME = "assignmentName";
+    public static final String ASSIGNMENT_MAX_SCORE = "assignmentMaxScore";
+    public static final String ASSIGNMENT_START_DATE = "assignmentStartDate";
+    public static final String ASSIGNMENT_END_DATE = "assignmentEndDate";
 
     // Error message Strings
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Tutorial's %s field is missing!";
@@ -47,20 +54,23 @@ public class JsonAdaptedModule {
     public static final String INVALID_FIELD = "Invalid field in %s";
 
     // Json fields
+    // Implemented LinkedHashMap to preserve ordering.
+    private LinkedHashMap<String, LinkedHashMap<String, String>> tutorialMap;
     private String moduleCode;
-    private LinkedHashMap<String, String> mapOfDifferentTutorials; // Implemented LinkedHashMap to preserve ordering.
+
 
     /**
      * Invoked during reading of the Json file.
      *
      * @param moduleName Json string representing the Module Name/Code.
-     * @param map Json string representing the Tutorial objects present in the Module.
+     * @param tutorialMap Json string representing the Tutorial objects present in the Module.
      */
     @JsonCreator
     public JsonAdaptedModule(@JsonProperty("moduleCode") String moduleName,
-                             @JsonProperty("tutorialMap") LinkedHashMap<String, String> map) {
+                             @JsonProperty("tutorialMap") LinkedHashMap<String,
+                                     LinkedHashMap<String, String>> tutorialMap) {
         this.moduleCode = moduleName;
-        this.mapOfDifferentTutorials = map;
+        this.tutorialMap = tutorialMap;
     }
 
     /**
@@ -70,7 +80,7 @@ public class JsonAdaptedModule {
      */
     public JsonAdaptedModule(Module source) {
         moduleCode = source.getModCode().toString();
-        mapOfDifferentTutorials = new LinkedHashMap<String, String>();
+        tutorialMap = new LinkedHashMap<String, LinkedHashMap<String, String>>();
 
         for (Tutorial t : source.getTutorials()) {
             LinkedHashMap<String, String> singleTutorialMap = new LinkedHashMap<String, String>();
@@ -95,7 +105,7 @@ public class JsonAdaptedModule {
             singleTutorialMap.put(TUTORIAL_ATTENDANCE_LIST, tutorialAttendanceString);
             singleTutorialMap.put(TUTORIAL_MODULE_CODE, tutorialModuleCode);
 
-            mapOfDifferentTutorials.put(tutorialName, singleTutorialMap.toString());
+            tutorialMap.put(tutorialName, singleTutorialMap);
         }
     }
 
@@ -109,16 +119,11 @@ public class JsonAdaptedModule {
     public Module toModelType() throws IllegalValueException {
         List<Tutorial> tutorials = new ArrayList<Tutorial>();
 
-        for (String tutorialName : mapOfDifferentTutorials.keySet()) {
-            // Parses the tutorialString into a LinkedHashMap of the Tutorial's components.
-            LinkedHashMap<String, String> mapOfSingleTutorial = JsonUtil
-                    .tutorialStringToMap(mapOfDifferentTutorials.get(tutorialName));
-
-            // Creates a Tutorial Object from the tutorialString
-            Tutorial tutorialFromJson = JsonUtil.tutorialMapToTutorial(mapOfSingleTutorial);
-
-            // Adds the Tutorial into the List.
-            tutorials.add(tutorialFromJson);
+        for (String tutorialName : tutorialMap.keySet()) {
+            LinkedHashMap<String, String> singleTutorialMap = tutorialMap.get(tutorialName);
+            // TODO: Check if singleTutorialMap is valid ie contains all the requires params
+            Tutorial tutorialFromJsonVersionTwo = JsonUtil.tutorialMapToTutorial(singleTutorialMap);
+            tutorials.add(tutorialFromJsonVersionTwo);
         }
 
         try {
@@ -127,6 +132,7 @@ public class JsonAdaptedModule {
         } catch (ParseException e) {
             throw new IllegalValueException(String.format(INVALID_FIELD, Module.class.getSimpleName()));
         }
+
     }
 
     /**
@@ -143,8 +149,8 @@ public class JsonAdaptedModule {
      *
      * @return Tutorial Linked HashMap.
      */
-    public LinkedHashMap<String, String> getMapOfDifferentTutorials() {
-        return mapOfDifferentTutorials;
+    public LinkedHashMap<String, LinkedHashMap<String, String>> getTutorialMap() {
+        return tutorialMap;
     }
 }
 

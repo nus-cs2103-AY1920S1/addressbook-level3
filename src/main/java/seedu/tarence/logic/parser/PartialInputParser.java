@@ -27,7 +27,7 @@ public class PartialInputParser {
 
         List<String> completions;
 
-        if (ArgumentTokenizer.isSingleWord(partialInputString)) {
+        if (ArgumentTokenizer.isSingleWordWithoutTrailingWhitespace(partialInputString)) {
             // try to autocomplete command word
             return new PartialInput(partialInputString, partialInputString,
                 finder.autocompleteCommandWord(partialInputString));

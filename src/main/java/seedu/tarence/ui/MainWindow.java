@@ -3,17 +3,9 @@ package seedu.tarence.ui;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_MODULE;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_TUTORIAL_NAME;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.logging.Logger;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
-import javafx.beans.property.ReadOnlyObjectWrapper;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -21,8 +13,6 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
@@ -37,9 +27,7 @@ import seedu.tarence.logic.commands.exceptions.CommandException;
 import seedu.tarence.logic.parser.exceptions.ParseException;
 import seedu.tarence.model.student.Student;
 import seedu.tarence.model.tutorial.Assignment;
-import seedu.tarence.model.tutorial.Attendance;
 import seedu.tarence.model.tutorial.Tutorial;
-import seedu.tarence.model.tutorial.Week;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -60,6 +48,7 @@ public class MainWindow extends UiPart<Stage> {
     private DefaultAssignmentPanel defaultAssignmentPanel;
     private AssignmentTablePanel assignmentTablePanel;
     private AssignmentStatisticsPanel assignmentStatisticsPanel;
+    private AttendancePanel attendancePanel;
     private StudentListPanel studentListPanel;
     private ModuleListPanel moduleListPanel;
     private ResultDisplay resultDisplay;
@@ -88,9 +77,6 @@ public class MainWindow extends UiPart<Stage> {
     private Tab assignmentTab;
 
     @FXML
-    private TableView attendancePlaceholder;
-
-    @FXML
     private StackPane commandBoxPlaceholder;
 
     @FXML
@@ -115,6 +101,9 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane assignmentPanelPlaceholder;
 
     @FXML
+    private StackPane attendancePanelPlaceholder;
+
+    @FXML
     private StackPane resultDisplayPlaceholder;
 
     @FXML
@@ -133,8 +122,6 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
-
-        attendancePlaceholder.setPlaceholder(getPlaceHolderLabel());
     }
 
     public Stage getPrimaryStage() {
@@ -181,9 +168,11 @@ public class MainWindow extends UiPart<Stage> {
     void fillInnerParts() {
         //personListPanel = new PersonListPanel(logic.getFilteredPersonList());
         //personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+
         // Set default stackpane
         defaultAssignmentPanel = new DefaultAssignmentPanel();
         assignmentPanelPlaceholder.getChildren().add(defaultAssignmentPanel.getPane());
+        attendancePanelPlaceholder.getChildren().add(new AttendancePanel().getPane());
 
         moduleListPanel = new ModuleListPanel(logic.getFilteredModuleList());
         moduleListPanelPlaceholder.getChildren().add(moduleListPanel.getRoot());
@@ -200,8 +189,8 @@ public class MainWindow extends UiPart<Stage> {
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getApplicationFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
-        commandBox = new CommandBox(this::executeCommand, this::executeAutocomplete, this::executeInputChanged,
-                this::getPastInput);
+        commandBox = new CommandBox(this::executeCommand, this::executeAutocomplete, this::executeNextSuggestion,
+                this::executeInputChanged, this::getPastInput);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
     }
 
@@ -215,79 +204,6 @@ public class MainWindow extends UiPart<Stage> {
             primaryStage.setX(guiSettings.getWindowCoordinates().getX());
             primaryStage.setY(guiSettings.getWindowCoordinates().getY());
         }
-    }
-
-    /**
-     * Displays the given attendance to the user
-     * @param tutorialAttendance
-     */
-    public void showAttendance(Tutorial tutorialAttendance) {
-        attendancePlaceholder.getItems().clear();
-        try {
-            ObservableList<String[]> observableAttendance = generateData(tutorialAttendance);
-            attendancePlaceholder.setItems(observableAttendance);
-            attendancePlaceholder.getColumns().setAll(createColumns());
-            logger.info("successfully displayed attendance:)");
-        } catch (NullPointerException e) {
-            attendancePlaceholder.getItems().clear();
-        }
-    }
-
-    /**
-     * Generates an observable list based on the given tutorial attendane
-     * Solution below adopted from:
-     * {https://stackoverflow.com/questions/41771098/how-to-plot-a-simple-double-matrix-into-tableview-in-javafx}
-     */
-    private ObservableList<String[]> generateData(Tutorial tutorialAttendance) {
-        ObservableList<String[]> list = FXCollections.observableArrayList();
-
-        String checkMark = Character.toString((char) 0x2713);
-        String uncheckedSlot = "";
-        int totalNumOfWeeks = 13;
-
-        Set<Week> weeks = tutorialAttendance.getTimeTable().getWeeks();
-        List<Student> students = tutorialAttendance.getStudents();
-        Attendance attendance = tutorialAttendance.getAttendance();
-
-        // TODO: to be refactored
-        for (Student student : students) {
-            List<String> attendanceList = new ArrayList<>();
-            attendanceList.add(student.getName().toString());
-            for (int i = 0; i < totalNumOfWeeks; i++) {
-                Week week = new Week(i + 1);
-                if (weeks.contains(week) && attendance.isPresent(week, student)) {
-                    attendanceList.add(checkMark);
-                } else {
-                    attendanceList.add(uncheckedSlot);
-                }
-            }
-            String[] arr = attendanceList.toArray(new String[0]);
-            list.add(arr);
-        }
-        return list;
-    }
-
-    private List<TableColumn<String[], String>> createColumns() {
-        return IntStream.range(0, 14)
-                .mapToObj(this::createColumn)
-                .collect(Collectors.toList());
-    }
-
-    /**
-     * Creates and returns a valid table column containing information from each column
-     * of the attendance
-     */
-    private TableColumn<String[], String> createColumn(int col) {
-        String header;
-        if (col == 0) {
-            header = "Name";
-        } else {
-            header = Integer.toString(col);
-        }
-        TableColumn<String[], String> column = new TableColumn<>(header);
-        column.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()[col]));
-
-        return column;
     }
 
     /**
@@ -382,7 +298,9 @@ public class MainWindow extends UiPart<Stage> {
             logger.info("Display Assignment: " + commandResult.isAssignmentDisplay());
             logger.info("display Tab " + commandResult.isChangeTabs());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
-            showAttendance(commandResult.getTutorialAttendance());
+            displayAttendance(commandResult.getTutorialAttendance());
+            assignmentPanelPlaceholder.getChildren().clear();
+            assignmentPanelPlaceholder.getChildren().add(defaultAssignmentPanel.getPane());
 
             if (commandResult.isShowHelp()) {
                 handleHelp();
@@ -428,9 +346,24 @@ public class MainWindow extends UiPart<Stage> {
     private CommandResult executeAutocomplete(String partialInput) {
         try {
             String autocompletedString = logic.autocomplete(partialInput);
-            commandBox.setInput(autocompletedString);
+            commandBox.setAutocompleteBox(autocompletedString);
+            commandBox.setFocus();
         } catch (IndexOutOfBoundsException | ParseException e) {
-            resultDisplay.setFeedbackToUser(e.getMessage());
+            commandBox.clearAutocompleteBox();
+            // resultDisplay.setFeedbackToUser(e.getMessage());
+            commandBox.setFocus();
+        }
+        return new CommandResult("");
+    }
+
+    /**
+     * Handles getting next autocomplete result.
+     */
+    private CommandResult executeNextSuggestion(String dummy) throws IndexOutOfBoundsException {
+        try {
+            commandBox.setAutocompleteBox(logic.getNextSuggestion());
+        } catch (ParseException e) {
+            commandBox.clearAutocompleteBox();
             commandBox.setFocus();
         }
         return new CommandResult("");
@@ -477,5 +410,19 @@ public class MainWindow extends UiPart<Stage> {
         if (!assignmentTab.isSelected()) {
             displayTabPane.getSelectionModel().select(assignmentTab);
         }
+    }
+
+    /**
+     * Displays attendance table if the given tutorial is non null. Else displays default panel
+     * @param tutorial - tutorial to display
+     */
+    private void displayAttendance(Tutorial tutorial) {
+        attendancePanelPlaceholder.getChildren().clear();
+        if (tutorial == null) {
+            attendancePanel = new AttendancePanel();
+        } else {
+            attendancePanel = new AttendancePanel(tutorial);
+        }
+        attendancePanelPlaceholder.getChildren().add(attendancePanel.getPane());
     }
 }

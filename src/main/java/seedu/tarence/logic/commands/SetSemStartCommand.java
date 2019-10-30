@@ -13,6 +13,7 @@ import seedu.tarence.model.Model;
 import seedu.tarence.model.module.Module;
 import seedu.tarence.model.tutorial.Event;
 import seedu.tarence.model.tutorial.Tutorial;
+import seedu.tarence.storage.Storage;
 
 /**
  * Sets start of semester.
@@ -56,6 +57,11 @@ public class SetSemStartCommand extends Command {
         return new CommandResult(
                 String.format(MESSAGE_SET_SEM_START_SUCCESS + "\n",
                 dateFormat.format(semStart)));
+    }
+
+    @Override
+    public CommandResult execute(Model model, Storage storage) throws CommandException {
+        return execute(model);
     }
 
     /**

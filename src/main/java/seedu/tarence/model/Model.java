@@ -310,4 +310,6 @@ public interface Model {
      * Checks whether the user's input has changed.
      */
     boolean hasInputChanged();
+
+    void setModel(ReadOnlyApplication application);
 }

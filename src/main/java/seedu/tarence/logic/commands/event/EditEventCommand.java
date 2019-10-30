@@ -21,6 +21,7 @@ import seedu.tarence.model.module.ModCode;
 import seedu.tarence.model.tutorial.Event;
 import seedu.tarence.model.tutorial.TutName;
 import seedu.tarence.model.tutorial.Tutorial;
+import seedu.tarence.storage.Storage;
 
 /**
  * Deletes assignment in a specified tutorial.
@@ -118,6 +119,11 @@ public class EditEventCommand extends EventCommand {
                     String.format(MESSAGE_DELETE_EVENT_SUCCESS, editedEvent.eventName));
     }
 
+    @Override
+    public CommandResult execute(Model model, Storage storage) throws CommandException {
+        return execute(model);
+    }
+
     /**
      * Returns true if user command matches command word or any defined synonyms, and false otherwise.
      *
@@ -139,4 +145,6 @@ public class EditEventCommand extends EventCommand {
                 || (other instanceof EditEventCommand // instanceof handles nulls
                 && super.equals(other)); // state check
     }
+
+
 }

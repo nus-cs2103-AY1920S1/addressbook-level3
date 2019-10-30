@@ -9,6 +9,7 @@ import seedu.tarence.logic.commands.exceptions.CommandException;
 import seedu.tarence.model.Model;
 import seedu.tarence.model.module.Module;
 import seedu.tarence.model.tutorial.Tutorial;
+import seedu.tarence.storage.Storage;
 
 /**
  * Marks attendance of student in a specified tutorial.
@@ -49,6 +50,11 @@ public class ImportCommand extends Command {
             model.addTutorialToModule(tutorial);
         }
         return new CommandResult(String.format(MESSAGE_IMPORT_SUCCESS));
+    }
+
+    @Override
+    public CommandResult execute(Model model, Storage storage) throws CommandException {
+        return execute(model);
     }
 
     /**

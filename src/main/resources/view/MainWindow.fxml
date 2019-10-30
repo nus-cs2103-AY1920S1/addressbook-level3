@@ -86,11 +86,10 @@
                         <Tab fx:id="attendanceTab" closable="false" text="Attendance">
                             <content>
                                 <VBox>
-                                    <TableView fx:id="attendancePlaceholder" prefWidth="500" minWidth="500" VBox.vgrow="ALWAYS" >
-                                        <padding>
-                                            <Insets top="10" right="10" bottom="10" left="10" />
-                                        </padding>
-                                    </TableView>
+                                    <StackPane fx:id="attendancePanelPlaceholder" VBox.vgrow="ALWAYS" />
+                                    <padding>
+                                        <Insets bottom="10" left="10" right="10" top="10" />
+                                    </padding>
                                 </VBox>
                             </content>
                     </Tab>

@@ -1,11 +1,17 @@
 package seedu.tarence.ui;
 
+import static javafx.geometry.Pos.BASELINE_RIGHT;
+
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Region;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
 import seedu.tarence.logic.commands.CommandResult;
 import seedu.tarence.logic.commands.exceptions.CommandException;
 import seedu.tarence.logic.parser.exceptions.ParseException;
@@ -20,27 +26,65 @@ public class CommandBox extends UiPart<Region> {
 
     private final CommandExecutor commandExecutor;
     private final CommandExecutor autocompleteExecutor;
+    private final CommandExecutor nextSuggestionExecutor;
     private final CommandExecutor inputChangedExecutor;
     private final CommandExecutor pastInputExecutor;
 
     @FXML
     private TextField commandTextField;
 
+    @FXML
+    private TextFlow commandTextFlow;
+
+    @FXML
+    private Text autocompleteTextBox;
+
     public CommandBox(CommandExecutor commandExecutor, CommandExecutor autocompleteExecutor,
+                      CommandExecutor nextSuggestionExecutor,
                       CommandExecutor inputChangedExecutor, CommandExecutor pastInputExecutor) {
         super(FXML);
         this.commandExecutor = commandExecutor;
         this.autocompleteExecutor = autocompleteExecutor;
+        this.nextSuggestionExecutor = nextSuggestionExecutor;
         this.inputChangedExecutor = inputChangedExecutor;
         this.pastInputExecutor = pastInputExecutor;
-        // calls #setStyleToDefault() whenever there is a change to the text of the command box.
-        commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
+
+        // actions to carry out whenever text field content changes
+        commandTextField.textProperty().addListener((unused1, unused2, unused3) -> {
+            setStyleToDefault();
+            try {
+                handleAutocomplete();
+            } catch (ParseException | CommandException e) {
+                e.printStackTrace();
+            }
+        });
+
+        commandTextField.prefColumnCountProperty().bind(commandTextField.textProperty().length());
+        commandTextField.setPadding(new Insets(5.0, 0.0, 5.0, 0.0));
+        commandTextField.setAlignment(BASELINE_RIGHT);
+        autocompleteTextBox.setFill(Color.WHITE);
+
+        commandTextFlow.getChildren().set(1, autocompleteTextBox);
     }
 
     public void setInput(String autocompletedString) {
         commandTextField.setText(autocompletedString);
         commandTextField.requestFocus();
         commandTextField.positionCaret(autocompletedString.length());
+    }
+
+    /**
+     * Sets the contents of the autocomplete box to the given autofill string.
+     */
+    public void setAutocompleteBox(String autocompletedString) {
+        autocompleteTextBox.setText(autocompletedString);
+    }
+
+    /**
+     * Clears the autocomplete box.
+     */
+    public void clearAutocompleteBox() {
+        autocompleteTextBox.setText("");
     }
 
     /**
@@ -73,6 +117,18 @@ public class CommandBox extends UiPart<Region> {
     }
 
     /**
+     * Handles the Control button pressed event.
+     */
+    @FXML
+    private void handleNextSuggestion() throws CommandException, ParseException {
+        try {
+            nextSuggestionExecutor.execute("");
+        } catch (IndexOutOfBoundsException e) {
+            setStyleToIndicateCommandFailure();
+        }
+    }
+
+    /**
      * Handles the Up button pressed event.
      * @param code
      * @param KeyCode
@@ -84,6 +140,21 @@ public class CommandBox extends UiPart<Region> {
         } else {
             pastInputExecutor.execute("down");
         }
+    }
+
+    /**
+     * Handles the Tab button pressed event.
+     */
+    @FXML
+    private void handleAutofillWithSuggestion() {
+        if (autocompleteTextBox.getText().equals("")) {
+            // Invalid autofill request
+            setStyleToIndicateCommandFailure();
+        }
+
+        setInput(commandTextField.getText() + autocompleteTextBox.getText());
+        clearAutocompleteBox();
+
     }
 
     /**
@@ -102,7 +173,9 @@ public class CommandBox extends UiPart<Region> {
         if (keyEvent.getCode().equals(KeyCode.ENTER)) {
             handleCommandEntered();
         } else if (keyEvent.getCode().equals(KeyCode.TAB)) {
-            handleAutocomplete();
+            handleAutofillWithSuggestion();
+        } else if (keyEvent.getCode().equals(KeyCode.CONTROL)) {
+            handleNextSuggestion();
         } else if (keyEvent.getCode().equals(KeyCode.UP) || keyEvent.getCode().equals(KeyCode.DOWN)) {
             handlePastInput(keyEvent.getCode());
         } else {

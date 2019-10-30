@@ -3,6 +3,7 @@ package seedu.tarence.logic.commands;
 import seedu.tarence.commons.core.Messages;
 import seedu.tarence.logic.commands.exceptions.CommandException;
 import seedu.tarence.model.Model;
+import seedu.tarence.storage.Storage;
 
 /**
  * Represent the user confirming a previously stored command.
@@ -26,6 +27,11 @@ public class ConfirmYesCommand extends Command {
             throw new CommandException(Messages.MESSAGE_UNKNOWN_COMMAND);
         }
         return model.getPendingCommand().execute(model);
+    }
+
+    @Override
+    public CommandResult execute(Model model, Storage storage) throws CommandException {
+        return execute(model);
     }
 
     /**

@@ -34,6 +34,11 @@ public interface Logic {
      */
     String autocomplete(String partialInput) throws ParseException;
 
+    /**
+     * Gets next suggestion from the autofill suggestions found earlier.
+     */
+    String getNextSuggestion() throws ParseException;
+
     String getPastInput(String arrowDirection);
 
     void markInputChanged();

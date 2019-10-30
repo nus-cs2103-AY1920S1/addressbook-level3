@@ -22,6 +22,7 @@ import seedu.tarence.model.tutorial.Assignment;
 import seedu.tarence.model.tutorial.TutName;
 import seedu.tarence.model.tutorial.Tutorial;
 import seedu.tarence.model.tutorial.exceptions.DuplicateAssignmentException;
+import seedu.tarence.storage.Storage;
 
 /**
  * Adds Assignment to a Tutorial.
@@ -105,6 +106,11 @@ public class AddAssignmentCommand extends AssignmentCommand {
 
         return new CommandResult(
                 String.format(MESSAGE_ADD_ASSIGNMENT_SUCCESS, assignName.get()));
+    }
+
+    @Override
+    public CommandResult execute(Model model, Storage storage) throws CommandException {
+        return execute(model);
     }
 
     /**

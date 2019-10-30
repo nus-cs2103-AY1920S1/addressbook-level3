@@ -20,6 +20,7 @@ import seedu.tarence.model.module.ModCode;
 import seedu.tarence.model.tutorial.Event;
 import seedu.tarence.model.tutorial.TutName;
 import seedu.tarence.model.tutorial.Tutorial;
+import seedu.tarence.storage.Storage;
 
 /**
  * Adds Event to a Tutorial.
@@ -102,6 +103,11 @@ public class AddEventCommand extends EventCommand {
                 String.format(MESSAGE_ADD_EVENT_SUCCESS, eventName.get()));
     }
 
+    @Override
+    public CommandResult execute(Model model, Storage storage) throws CommandException {
+        return execute(model);
+    }
+
     /**
      * Returns true if user command matches command word or any defined synonyms, and false otherwise.
      *
@@ -123,4 +129,6 @@ public class AddEventCommand extends EventCommand {
                 || (other instanceof AddEventCommand // instanceof handles nulls
                 && super.equals(other)); // state check
     }
+
+
 }

@@ -405,6 +405,11 @@ public class ExportAttendanceCommandTest {
         }
 
         @Override
+        public void setModel(ReadOnlyApplication application) {
+
+        }
+
+        @Override
         public void saveInput(String input) {};
 
         @Override

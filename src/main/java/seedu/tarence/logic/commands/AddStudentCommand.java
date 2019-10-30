@@ -20,6 +20,7 @@ import seedu.tarence.model.module.ModCode;
 import seedu.tarence.model.student.Student;
 import seedu.tarence.model.tutorial.TutName;
 import seedu.tarence.model.tutorial.Tutorial;
+import seedu.tarence.storage.Storage;
 
 /**
  * Adds a student into T.A.rence.
@@ -117,6 +118,11 @@ public class AddStudentCommand extends Command {
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 
+    @Override
+    public CommandResult execute(Model model, Storage storage) throws CommandException {
+        return execute(model);
+    }
+
     /**
      * Generates and stores {@code AddStudentCommand}s from a list of {@code ModCode}s.
      *
@@ -187,4 +193,6 @@ public class AddStudentCommand extends Command {
             throw new CommandException(String.format(MESSAGE_TUTORIAL_IDX_OUT_OF_BOUNDS, tutIdx + 1));
         }
     }
+
+
 }

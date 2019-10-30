@@ -3,8 +3,10 @@ package seedu.tarence.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import seedu.tarence.commons.core.Messages;
+import seedu.tarence.logic.commands.exceptions.CommandException;
 import seedu.tarence.model.Model;
 import seedu.tarence.model.person.NameContainsKeywordsPredicate;
+import seedu.tarence.storage.Storage;
 
 /**
  * Finds and lists all persons in a stated class slot whose name contains any of the argument keywords.
@@ -33,6 +35,11 @@ public class FindCommand extends Command {
         return new CommandResult(
                 String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, model.getFilteredStudentList().size()),
                 TabNames.STUDENTS);
+    }
+
+    @Override
+    public CommandResult execute(Model model, Storage storage) throws CommandException {
+        return execute(model);
     }
 
     /**

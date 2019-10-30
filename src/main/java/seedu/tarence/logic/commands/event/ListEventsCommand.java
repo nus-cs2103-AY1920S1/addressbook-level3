@@ -16,6 +16,7 @@ import seedu.tarence.model.module.ModCode;
 import seedu.tarence.model.tutorial.Event;
 import seedu.tarence.model.tutorial.TutName;
 import seedu.tarence.model.tutorial.Tutorial;
+import seedu.tarence.storage.Storage;
 
 /**
  * Lists Events in a Tutorial.
@@ -93,6 +94,11 @@ public class ListEventsCommand extends EventCommand {
                 targetTutorial.getModCode()));
     }
 
+    @Override
+    public CommandResult execute(Model model, Storage storage) throws CommandException {
+        return execute(model);
+    }
+
     /**
      * Returns true if user command matches command word or any defined synonyms, and false otherwise.
      *
@@ -114,4 +120,6 @@ public class ListEventsCommand extends EventCommand {
                 || (other instanceof ListEventsCommand // instanceof handles nulls
                 && super.equals(other)); // state check
     }
+
+
 }

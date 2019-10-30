@@ -51,7 +51,7 @@ public class EditEventCommandParser implements Parser<EditEventCommand> {
         if (validateModCodeTutNameFormat(argMultimap)) {
             modCode = ParserUtil.parseModCode(argMultimap.getValue(PREFIX_MODULE).get());
             tutName = ParserUtil.parseTutorialName(argMultimap.getValue(PREFIX_TUTORIAL_NAME).get());
-            eventIndex = ParserUtil.parseIndex(argMultimap.getAllValues(PREFIX_INDEX).get(1));
+            eventIndex = ParserUtil.parseIndex(argMultimap.getAllValues(PREFIX_INDEX).get(0));
         } else if (validateTutIndexFormat(argMultimap)) {
             tutIndex = ParserUtil.parseIndex(argMultimap.getAllValues(PREFIX_INDEX).get(0));
             eventIndex = ParserUtil.parseIndex(argMultimap.getAllValues(PREFIX_INDEX).get(0));

@@ -1,6 +1,8 @@
 package seedu.tarence.logic.commands;
 
+import seedu.tarence.logic.commands.exceptions.CommandException;
 import seedu.tarence.model.Model;
+import seedu.tarence.storage.Storage;
 
 /**
  * Terminates the program.
@@ -16,6 +18,11 @@ public class ExitCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         return new CommandResult(MESSAGE_EXIT_ACKNOWLEDGEMENT, false, true);
+    }
+
+    @Override
+    public CommandResult execute(Model model, Storage storage) throws CommandException {
+        return execute(model);
     }
 
     /**

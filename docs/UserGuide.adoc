@@ -32,15 +32,15 @@ If you can type fast, T.A.rence can get your contact management tasks done faste
 .  Copy the file to the folder you want to use as the home folder for your Address Book.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
-image::UiMock.png[width="790"]
+image::Ui.png[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`list`* : lists all contacts `[coming in v2.0]`
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com m/CS2100, tn/Tutorial-01` : adds a student named `John Doe` into the `Tutorial-01` class inside module `CS2100`.
-* **`delete`**`3` : deletes the student `[coming in v2.0]`
+* *`list`* : lists all students from a given tutorial.
+* **`addStudent`**`n/John Doe e/johnd@example.com m/CS2100, tn/Tutorial-01` : adds a student named `John Doe` into the `Tutorial-01` class inside module `CS2100`.
+* **`deleteStudent`**`3` : deletes the student in index 3
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
@@ -117,28 +117,79 @@ Optionally, the student's matriculation number and/or NUSNET ID can also be spec
 No prefixes are needed for these additional fields.
 ****
 
+=== Deleting a Module : `deleteModule`
+
+Deletes an existing module from T.A.rence, based on it's module list index. +
+Format: `deleteModule INDEX`
+
+****
+* Deletes the module at the specified `INDEX` (Based off the module list).
+* The index refers to the index number shown in the displayed module list.
+* The index *must be a positive integer* 1, 2, 3, ...
+* This will also remove the students and tutorials inside the module.
+****
+
+Examples:
+
+* `deleteModule 1`
+
+=== Deleting a Tutorial : `deleteTutorial`
+
+Deletes an existing tutorial from T.A.rence, based on it's tutorial list index. +
+Format: `deleteTutorial INDEX`
+
+****
+* Deletes the tutorial at the specified `INDEX` (Based off the tutorial list).
+* The index refers to the index number shown in the displayed tutorial list.
+* The index *must be a positive integer* 1, 2, 3, ...
+* This will also remove the tutorial from the existing module and students who are in the tutorial.
+****
+
+Examples:
+
+* `deleteTutorial 1`
+
+=== Deleting a Student : `deleteStudent`
+
+Deletes an existing student from T.A.rence, based on their student list index. +
+Format: `deleteStudent INDEX`
+
+****
+* Deletes the student at the specified `INDEX` (Based off the student list).
+* The index refers to the index number shown in the displayed student list.
+* The index *must be a positive integer* 1, 2, 3, ...
+* This will also remove the student from the existing tutorial/module.
+****
+
+Examples:
+
+* `list 2` +
+`deleteStudent 2` +
+Deletes the 2nd student in the 2nd tutorial.
+* `find Betsy` +
+`deleteStudent 1` +
+Deletes the 1st person in the results of the `find` command.
+
 === Adding an Assignment : `addAssignment` [coming in v2.0]
 
-=== Editing a Student : `editStudent` [coming in v2.0]
+=== Editing a Student : `edit`
 
 Allows user to edit an existing student information
 
-Format: `editStudent n/[ORIGINAL_STUDENT] n/[EDITED_STUDENT_NAME]`
+Format: `edit n/[ORIGINAL_STUDENT] n/[EDITED_STUDENT_NAME]`
 
 Example:
 
-* `editStudent n/Ben n/Ben Leong`
+* `edit n/Ben n/Ben Leong`
 
 //-
 //-****
 //-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-//-* At least one of the optional fields must be provided.
+//-* At least one of the optional fields must be provided: name/email/matric number/nusnetID
 //-* Existing values will be updated to the input values.
-//-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-//-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
 //-****
 
-=== Searching Student by Name: `find` [coming in v2.0]
+=== Searching Student by Name: `find`
 
 Searches and displays student particulars based on name. The search can be based on partial strings that match
 and need not be the full name of the student. +
@@ -159,37 +210,54 @@ Returns `john` and `John Doe`
 * `find Betsy Tim John` +
 Returns any person having names `Betsy`, `Tim`, or `John`
 
-// tag::delete[]
-=== Deleting a Student : `delete` [coming in v2.0]
+=== Display Tutorial Class' Test Results : `displayScore`
 
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
+Allows user to display overall results for an exam or assignment. This can be in the form of a graph or table,
 
-****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
+Format: `displayScore` i/TUTORIAL_INDEX n/ASSIGNMENT_NAME f/DISPLAY_FORMAT`
 
-Examples:
+Example:
 
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
+* `displayScore` i/1 n/Lab01 f/graph
+* `displayScore` i/1 n/Lab01 f/table
 
-// end::delete[]
+=== Display Tutorial Class' Attendance : `displayAttendance`
 
-=== Listing Students from a Tutorial : `list` [coming in v2.0]
+Allows user to display overall attendance for a class.
 
-Lists all students from a particular tutorial slot.
+Full Format: `displayAttendance m/MOD_CODE tn/TUTORIAL_NAME`
 
-Format: `list c/TUTORIAL_NAME`
+Shortcut Format: `displayAttendance i/TUTORIAL_INDEX`
+
+Example:
+
+* `displayAttendance` m/CS1010 tn/Lab Session
+* `displayAttendance` i/1
+
+=== Listing Students from a Tutorial : `list`
+
+Lists all students from a particular tutorial slot. If no index is given, all students will be listed.
+
+Format: `list` TUTORIAL_INDEX
+
+Example:
+
+* `list i/1 n/Lab01 f/graph`
+* `list`
+
+=== Changing the UI tab : `cd`
+
+Toggles the tab switching between tutorial(t), module(m) and student(s) list.
+
+Format: `cd` TAB_TO_SWITCH
+
+Example:
+
+* `cd t`
+* `cd m`
+* `cd s`
 
 === Undo Previously-entered Commands : `undo` [coming in v2.0]
-
 
 === Clearing all entries : `clear` [coming in v2.0]
 
@@ -208,12 +276,6 @@ Format: `classPart c/[TUTORIAL_NAME] n/[STUDENT_NAME]
 Allows user to add test results of a student of a particular tutorial slot
 
 Format: `addMarks c/[TUTORIAL_NAME] n/[STUDENT_NAME] marks/[MARK_OBTAINED]
-
-=== Display Tutorial Class' Test Results : `display` [coming in v2.0]
-
-Allows user to display overall results (graph) for an exam
-
-Format: `display c/[TUTORIAL_NAME]
 
 === Add Personal Notes to a Student : `note`  [coming in v2.0]
 

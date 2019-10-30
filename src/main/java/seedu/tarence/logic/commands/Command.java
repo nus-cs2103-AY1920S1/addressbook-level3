@@ -9,6 +9,7 @@ import seedu.tarence.model.Model;
 import seedu.tarence.model.module.ModCode;
 import seedu.tarence.model.person.Name;
 import seedu.tarence.model.tutorial.TutName;
+import seedu.tarence.storage.Storage;
 
 /**
  * Represents a command with hidden internal logic and the ability to be executed.
@@ -23,6 +24,17 @@ public abstract class Command {
      * @throws CommandException If an error occurs during command execution.
      */
     public abstract CommandResult execute(Model model) throws CommandException;
+
+    /**
+     * Meant for commands which require both the model and storage objects to function.
+     * Executes the command and returns the result message.
+     *
+     * @param model {@code Model} which the command should operate on.
+     * @param storage which the command should operate on.
+     * @return feedback message of the operation result for display
+     * @throws CommandException If an error occurs during command execution.
+     */
+    public abstract CommandResult execute(Model model, Storage storage) throws CommandException;
 
     /**
      * Returns true if command requires prior user input, else false.

@@ -24,29 +24,32 @@ public class AutocompleteHandler {
      * Main method for handling autocomplete requests from user.
      *
      * @param input Partial input string from user.
-     * @return Completed string to be filled into the input command box..
+     * @return Completed string to be filled into the autocomplete command box.
      * @throws ParseException if the users tries to autocomplete an invalid/unsupported field.
+     * @throws IndexOutOfBoundsException if no autocomplete data is found for the field
      */
     public String handle(String input) throws ParseException, IndexOutOfBoundsException {
         PartialInput partialInput;
         try {
-            if (model.hasInputChanged()) {
-                model.setInputChangedToFalse();
-                // find and display new suggested autocompletions
-                partialInput = PartialInputParser.parse(input, model);
-                model.storeSuggestedCompletions(partialInput);
-            } else {
-                // display next suggestion in stored list
-                partialInput = model.getSuggestedCompletions();
-                // simulate wraparound of completions list by removing first item and placing at back of list
-                partialInput.getCompletions().add(partialInput.getCompletions().remove(0));
-            }
-
-            return StringUtils.removeEnd(partialInput.getOriginalInput(),
-                    partialInput.getLastArgument()) + partialInput.getCompletions().get(0);
+            partialInput = PartialInputParser.parse(input, model);
+            model.storeSuggestedCompletions(partialInput);
+            return StringUtils.removeStart(partialInput.getCompletions().get(0).toLowerCase(),
+                    partialInput.getLastArgument().toLowerCase());
         } catch (IndexOutOfBoundsException e) {
-            throw new IndexOutOfBoundsException(ERROR_AUTOCOMPLETE_DATA_NOT_FOUND);
+            return "";
         }
+    }
+
+    public String getNextSuggestion() throws IndexOutOfBoundsException {
+        PartialInput partialInput = model.getSuggestedCompletions();
+        if (partialInput == null || partialInput.getCompletions().size() == 0) {
+            throw new IndexOutOfBoundsException("Dummy message.");
+        }
+
+        // simulate wraparound of completions list by removing first item and placing at back of list
+        partialInput.getCompletions().add(partialInput.getCompletions().remove(0));
+        return StringUtils.removeStart(partialInput.getCompletions().get(0).toLowerCase(),
+                partialInput.getLastArgument().toLowerCase());
     }
 
 }

@@ -23,6 +23,7 @@ import seedu.tarence.model.tutorial.Assignment;
 import seedu.tarence.model.tutorial.TutName;
 import seedu.tarence.model.tutorial.Tutorial;
 import seedu.tarence.model.tutorial.exceptions.InvalidScoreException;
+import seedu.tarence.storage.Storage;
 
 /**
  * Sets Student's score for a particular Assignment.
@@ -121,6 +122,11 @@ public class SetAssignmentScoreCommand extends AssignmentCommand {
                 scores, DisplayFormat.GRAPH);
     }
 
+    @Override
+    public CommandResult execute(Model model, Storage storage) throws CommandException {
+        return execute(model);
+    }
+
     /**
      * Returns true if user command matches command word or any defined synonyms, and false otherwise.
      *
@@ -142,4 +148,5 @@ public class SetAssignmentScoreCommand extends AssignmentCommand {
                 || (other instanceof SetAssignmentScoreCommand // instanceof handles nulls
                 && super.equals(other)); // state check
     }
+
 }
