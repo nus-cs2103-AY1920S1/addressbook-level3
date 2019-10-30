@@ -6,6 +6,7 @@ package seedu.address.model.attempt.exceptions;
 public class AttemptHasBeenAttemptedException extends RuntimeException {
 
     public AttemptHasBeenAttemptedException() {
-        super("An attempt cannot be updated twice.");
+        super("The attempt has already been updated and recorded.\n"
+                + "Enter 'next' to get the next attempt and lifter.");
     }
 }

@@ -217,6 +217,39 @@ Example:
 
 * `listComp`
 
+
+=== Participation Handling
+This feature creates an associated participation between an existing person and competition.
+Every participation will have a list of 9 attempts, which they are lifting for that particular competition they are taking part in.
+A person can participate in more than one competition, each with a different set of attempts.
+
+==== Add a new participation `addPart`
+Creates the associated participation between a person and a competition.
+To create participation, the athletes 9 attempts for the 3 lifts should also be submitted to prepare for the competition.
+
+S is abbreviated for squat, B for bench, and D for deadlift. The numbers 1,2,3 represents the attempt number for that lift.
+For example, S1 means squat attempt 1, and D3 means deadlift attempt 3.
+
+Format: `addPart n/ATHLETE_NAME c/COMP_NAME s/S1/S2/S3 b/B1/B2/B3 d/D1/D2/D3`
+
+Examples:
+
+* `addPart n/Farhanna Fahrid c/Asian Powerlifting Championships 2019 s/115/120/125 b/40/47.5/55 d/155/165/170`
+
+* `addPart n/Marcus Tay c/Test of Strength 2019 s/90/200/205 b/135/140/145 d/210/220/230`
+
+==== List participations `listPart`
+Lists all participations present in the address book, or those associated to an existing competition.
+
+Format: `listPart COMPETITION_NAME (optional)`
+
+Examples:
+
+* `listPart` to list all existing participations in the address book.
+
+* `listPart NUS Powerlifting Open 2019` to list all participations associated to the competition.
+
+
 === Session Handling
 This feature handles the entire flow of each session during Meet Day. It allows event
 organisers to submit an Athlete’s Squat, Bench, Deadlift attempts, as well as the
