@@ -22,7 +22,12 @@ import seedu.address.logic.commands.result.CommandResult;
 import seedu.address.logic.commands.ListContactCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.events.exceptions.EventException;
+import seedu.address.logic.commands.DeleteContactCommand;
+import seedu.address.logic.commands.ListContactCommand;
+import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.result.CommandResult;
 import seedu.address.logic.parser.exceptions.ParseException;
+
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAccommodation;
