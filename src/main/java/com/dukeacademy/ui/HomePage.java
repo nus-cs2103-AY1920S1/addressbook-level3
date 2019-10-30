@@ -16,6 +16,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
 /**
@@ -50,10 +51,10 @@ public class HomePage extends UiPart<Region> {
     private Text progressDescription;
 
     @FXML
-    private AnchorPane attempting;
+    private VBox attempting;
 
     @FXML
-    private AnchorPane bookmarked;
+    private VBox bookmarked;
 
     @FXML
     private Button userGuideButton;

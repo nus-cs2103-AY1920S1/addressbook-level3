@@ -173,43 +173,48 @@ class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        updateProgramEvaluationPanel();
+
+        CommandBox commandBox = new CommandBox(
+                this::executeCommand);
+        commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+        resultDisplay = new ResultDisplay();
+        resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
         homePage = new HomePage(questionsLogic.getFilteredQuestionsList());
         homePagePlaceholder.getChildren().add(homePage.getRoot());
 
-        questionListPanel = new QuestionListPanel(questionsLogic.getFilteredQuestionsList());
-        questionListPanelPlaceholder.getChildren().add(questionListPanel.getRoot());
-
-        resultDisplay = new ResultDisplay();
-        resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
-
-        StatusBarFooter statusBarFooter =
-                new StatusBarFooter(Path.of("hello"));
-        statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
-
-        CommandBox commandBox = new CommandBox(
-            commandText -> executeCommand(commandText));
-        commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
-
-        editorPanel = new Editor(programSubmissionLogic.getCurrentQuestionObservable());
-        editorPlaceholder.getChildren().add(editorPanel.getRoot());
-        programSubmissionLogic.setUserProgramSubmissionChannel(editorPanel::getUserProgram);
-
-        List<TestCaseResult> sampleTestCaseResults = new ArrayList<>();
-        sampleTestCaseResults.add(
-                TestCaseResult.getSuccessfulTestCaseResult("3", "Fizz"));
-        sampleTestCaseResults.add(
-                TestCaseResult.getFailedTestCaseResult("25", "Buzz", "FizzBuzz"));
-        sampleTestCaseResults.add(
-                TestCaseResult.getSuccessfulTestCaseResult("15", "FizzBuzz"));
-
-        codeResultPanel = new CodeResultPanel(programSubmissionLogic.getTestResultObservable());
-        codeResultPanelPlaceholder.getChildren().add(codeResultPanel.getRoot());
-
-        problemStatementPanel = new ProblemStatementPanel(
-            problemStatementLogic.getProblemStatementObservable());
-        problemStatementPlaceholder.getChildren().add(problemStatementPanel.getRoot());
+//        updateProgramEvaluationPanel();
+//
+//        homePage = new HomePage(questionsLogic.getFilteredQuestionsList());
+//        homePagePlaceholder.getChildren().add(homePage.getRoot());
+//
+//        questionListPanel = new QuestionListPanel(questionsLogic.getFilteredQuestionsList());
+//        questionListPanelPlaceholder.getChildren().add(questionListPanel.getRoot());
+//
+//
+//
+//        StatusBarFooter statusBarFooter =
+//                new StatusBarFooter(Path.of("hello"));
+//        statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
+//
+//        editorPanel = new Editor(programSubmissionLogic.getCurrentQuestionObservable());
+//        editorPlaceholder.getChildren().add(editorPanel.getRoot());
+//        programSubmissionLogic.setUserProgramSubmissionChannel(editorPanel::getUserProgram);
+//
+//        List<TestCaseResult> sampleTestCaseResults = new ArrayList<>();
+//        sampleTestCaseResults.add(
+//                TestCaseResult.getSuccessfulTestCaseResult("3", "Fizz"));
+//        sampleTestCaseResults.add(
+//                TestCaseResult.getFailedTestCaseResult("25", "Buzz", "FizzBuzz"));
+//        sampleTestCaseResults.add(
+//                TestCaseResult.getSuccessfulTestCaseResult("15", "FizzBuzz"));
+//
+//        codeResultPanel = new CodeResultPanel(programSubmissionLogic.getTestResultObservable());
+//        codeResultPanelPlaceholder.getChildren().add(codeResultPanel.getRoot());
+//
+//        problemStatementPanel = new ProblemStatementPanel(
+//            problemStatementLogic.getProblemStatementObservable());
+//        problemStatementPlaceholder.getChildren().add(problemStatementPanel.getRoot());
 
     }
 

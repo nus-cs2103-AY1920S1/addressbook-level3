@@ -12,65 +12,93 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.stage.Stage?>
 
-<fx:root minHeight="518.0" minWidth="792.0" onCloseRequest="#handleExit" title="DukeAcademy" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
-  <icons>
-    <Image url="@/images/dukeacademy-icon.png" />
-  </icons>
-  <scene>
-    <Scene stylesheets="@DukeAcademyStyle.css">
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.ScrollPane?>
+<fx:root minHeight="518.0" minWidth="792.0" onCloseRequest="#handleExit" title="DukeAcademy" type="javafx.stage.Stage"
+         xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <icons>
+        <Image url="@/images/dukeacademy-icon.png"/>
+    </icons>
+    <scene>
+        <Scene stylesheets="@DukeAcademyStyle.css">
+            <VBox>
+                <!-- Menu bar -->
+                <MenuBar fx:id="menuBar" VBox.vgrow="NEVER">
+                    <Menu mnemonicParsing="false" text="File">
+                        <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit"/>
+                    </Menu>
+                    <Menu mnemonicParsing="false" text="Help">
+                        <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help"/>
+                    </Menu>
+                </MenuBar>
 
-      <VBox>
-        <MenuBar fx:id="menuBar" VBox.vgrow="NEVER">
-          <Menu mnemonicParsing="false" text="File">
-            <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
-          </Menu>
-          <Menu mnemonicParsing="false" text="Help">
-            <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
-          </Menu>
-        </MenuBar>
-            <HBox spacing="15.0" style="-fx-border-color: #ff1e00;" VBox.vgrow="NEVER">
-               <children>
-              <StackPane fx:id="commandBoxPlaceholder" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="258.0" style="-fx-border-color: #000000;" HBox.hgrow="NEVER">
-                     <HBox.margin>
-                        <Insets bottom="15.0" left="15.0" top="15.0" />
-                     </HBox.margin>
-              </StackPane>
-              <StackPane fx:id="resultDisplayPlaceholder" maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.6" prefWidth="550.0" style="-fx-border-color: #000000;" HBox.hgrow="ALWAYS">
-                     <HBox.margin>
-                        <Insets bottom="15.0" right="15.0" top="15.0" />
-                     </HBox.margin>
-              </StackPane>
-               </children>
-            </HBox>
-            <HBox style="-fx-border-color: #ff1e00;" VBox.vgrow="ALWAYS">
-               <children>
-                  <HBox prefHeight="100.0" prefWidth="200.0">
-                     <children>
-                        <StackPane fx:id="questionListPanelPlaceholder" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="452.0" prefWidth="252.0" style="-fx-border-color: #000000;" HBox.hgrow="NEVER">
-                           <HBox.margin>
-                              <Insets />
-                           </HBox.margin>
-                        </StackPane>
-                        <StackPane fx:id="programEvaluationPanelPlaceholder" layoutX="10.0" layoutY="10.0" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="452.0" prefWidth="252.0" style="-fx-border-color: #000000;" />
-                     </children>
-                  </HBox>
-                  <StackPane fx:id="problemStatementPlaceholder" alignment="CENTER_LEFT" minHeight="-Infinity" minWidth="-Infinity" prefHeight="452.0" prefWidth="300.0" style="-fx-border-color: #000000;" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" HBox.hgrow="ALWAYS" />
-                  <VBox style="-fx-border-color: #ff1e00;">
-                     <children>
-                        <AnchorPane fx:id="editorPlaceholder" minHeight="-Infinity" minWidth="-Infinity" prefHeight="291.0" prefWidth="350.0" style="-fx-border-color: #000000;" VBox.vgrow="ALWAYS" />
-                        <AnchorPane fx:id="codeResultPanelPlaceholder" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="160.0" prefWidth="350.0" style="-fx-border-color: #000000;" VBox.vgrow="NEVER" />
-                     </children>
-                  </VBox>
-                  <VBox prefHeight="200.0" prefWidth="100.0" style="-fx-border-color: #ff1e00;">
-                     <children>
-                        <AnchorPane fx:id="homePagePlaceholder" prefHeight="200.0" prefWidth="200.0" />
-                     </children>
-                  </VBox>
-               </children>
-            </HBox>
+                <!-- Command box and command results display -->
+                <HBox spacing="15.0" style="-fx-border-color: #ff1e00;" VBox.vgrow="NEVER">
+                    <StackPane fx:id="commandBoxPlaceholder" maxHeight="-Infinity" maxWidth="-Infinity"
+                               minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="258.0"
+                               style="-fx-border-color: #000000;" HBox.hgrow="NEVER">
+                        <HBox.margin>
+                            <Insets bottom="15.0" left="15.0" top="15.0"/>
+                        </HBox.margin>
+                    </StackPane>
+                    <StackPane fx:id="resultDisplayPlaceholder" maxHeight="-Infinity" minHeight="-Infinity"
+                               minWidth="-Infinity" prefHeight="25.6" prefWidth="550.0"
+                               style="-fx-border-color: #000000;" HBox.hgrow="ALWAYS">
+                        <HBox.margin>
+                            <Insets bottom="15.0" right="15.0" top="15.0"/>
+                        </HBox.margin>
+                    </StackPane>
+                </HBox>
 
-        <StackPane fx:id="statusbarPlaceholder" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="21.6" prefWidth="879.2" style="-fx-border-color: #ff1e00;" VBox.vgrow="NEVER" />
-      </VBox>
-    </Scene>
-  </scene>
+                <TabPane VBox.vgrow="ALWAYS">
+                    <Tab text="Home">
+                        <AnchorPane fx:id="homePagePlaceholder"/>
+                    </Tab>
+                </TabPane>
+                <!--                <HBox style="-fx-border-color: #ff1e00;" VBox.vgrow="ALWAYS">-->
+                <!--                    <children>-->
+                <!--                        <HBox prefHeight="100.0" prefWidth="200.0">-->
+                <!--                            <children>-->
+                <!--                                <StackPane fx:id="questionListPanelPlaceholder" maxWidth="-Infinity"-->
+                <!--                                           minWidth="-Infinity" prefHeight="452.0" prefWidth="252.0"-->
+                <!--                                           style="-fx-border-color: #000000;" HBox.hgrow="NEVER">-->
+                <!--                                    <HBox.margin>-->
+                <!--                                        <Insets/>-->
+                <!--                                    </HBox.margin>-->
+                <!--                                </StackPane>-->
+                <!--                                <StackPane fx:id="programEvaluationPanelPlaceholder" layoutX="10.0" layoutY="10.0"-->
+                <!--                                           maxWidth="-Infinity" minWidth="-Infinity" prefHeight="452.0"-->
+                <!--                                           prefWidth="252.0" style="-fx-border-color: #000000;"/>-->
+                <!--                            </children>-->
+                <!--                        </HBox>-->
+                <!--                        <StackPane fx:id="problemStatementPlaceholder" alignment="CENTER_LEFT" minHeight="-Infinity"-->
+                <!--                                   minWidth="-Infinity" prefHeight="452.0" prefWidth="300.0"-->
+                <!--                                   style="-fx-border-color: #000000;" AnchorPane.bottomAnchor="50.0"-->
+                <!--                                   AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"-->
+                <!--                                   HBox.hgrow="ALWAYS"/>-->
+                <!--                        <VBox style="-fx-border-color: #ff1e00;">-->
+                <!--                            <children>-->
+                <!--                                <AnchorPane fx:id="editorPlaceholder" minHeight="-Infinity" minWidth="-Infinity"-->
+                <!--                                            prefHeight="291.0" prefWidth="350.0" style="-fx-border-color: #000000;"-->
+                <!--                                            VBox.vgrow="ALWAYS"/>-->
+                <!--                                <AnchorPane fx:id="codeResultPanelPlaceholder" maxHeight="-Infinity"-->
+                <!--                                            maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"-->
+                <!--                                            prefHeight="160.0" prefWidth="350.0" style="-fx-border-color: #000000;"-->
+                <!--                                            VBox.vgrow="NEVER"/>-->
+                <!--                            </children>-->
+                <!--                        </VBox>-->
+                <!--                        <VBox prefHeight="200.0" prefWidth="100.0" style="-fx-border-color: #ff1e00;">-->
+                <!--                            <children>-->
+                <!--                                <AnchorPane fx:id="homePagePlaceholder" prefHeight="200.0" prefWidth="200.0"/>-->
+                <!--                            </children>-->
+                <!--                        </VBox>-->
+                <!--                    </children>-->
+                <!--                </HBox>-->
+
+                <!--                <StackPane fx:id="statusbarPlaceholder" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="21.6"-->
+                <!--                           prefWidth="879.2" style="-fx-border-color: #ff1e00;" VBox.vgrow="NEVER"/>-->
+            </VBox>
+        </Scene>
+    </scene>
 </fx:root>
