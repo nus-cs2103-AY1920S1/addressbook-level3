@@ -59,6 +59,7 @@ public interface Logic {
     /** Returns an unmodifiable view of the filtered list of customers */
     ObservableList<Customer> getFilteredCustomerList();
 
+    Customer getCustomerOrders();
     /**
      * Returns the user prefs' customer database file path.
      */

@@ -91,6 +91,11 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public Customer getCustomerOrders() {
+        return model.getCustomerOrders();
+    }
+
+    @Override
     public Path getCustomerDatabaseFilePath() {
         return model.getCustomerDatabaseFilePath();
     }

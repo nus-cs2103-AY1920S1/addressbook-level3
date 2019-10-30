@@ -60,7 +60,7 @@ respectively.
 
 // tag::universalCommand[]
 
-{nbsp} + 
+{nbsp} +
 
 === Universal commands
 

@@ -90,6 +90,7 @@ public class ModelManager implements Model {
         filteredRestaurants = new FilteredList<>(this.restaurantDatabase.getRestaurantList());
         filteredOrders = new FilteredList<>(this.orderDatabase.getOrderList());
         editingRestaurant = new FilteredList<>(this.restaurantDatabase.getEditingRestaurantList());
+
         undoHistory = new UndoHistory<>(new Data(this));
 
         context = Context.GLOBAL;
@@ -232,6 +233,17 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedCustomer);
 
         customerDatabase.setCustomer(target, editedCustomer);
+    }
+
+    @Override
+    public void setCustomerOrders(Customer customer) {
+        requireAllNonNull(customer);
+        customerDatabase.setCustomerOrders(customer);
+    }
+
+    @Override
+    public Customer getCustomerOrders() {
+        return customerDatabase.getCustomerOrders();
     }
 
     //=========== Restaurant Methods =============================================================

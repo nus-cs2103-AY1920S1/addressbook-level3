@@ -244,8 +244,12 @@ public interface Model {
      */
     void setCustomer(Customer target, Customer editedCustomer);
 
+    void setCustomerOrders(Customer customer);
+
     /** Returns an unmodifiable view of the filtered customer list */
     ObservableList<Customer> getFilteredCustomerList();
+
+    Customer getCustomerOrders();
 
     /**
      * Updates the filter of the filtered customer list to filter by the given {@code predicate}.

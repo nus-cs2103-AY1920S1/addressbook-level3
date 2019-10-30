@@ -18,6 +18,7 @@ import seedu.deliverymans.logic.commands.CommandResult;
 import seedu.deliverymans.logic.commands.exceptions.CommandException;
 import seedu.deliverymans.logic.parser.exceptions.ParseException;
 import seedu.deliverymans.logic.parser.universal.Context;
+import seedu.deliverymans.model.customer.Customer;
 import seedu.deliverymans.model.restaurant.Restaurant;
 
 /**
@@ -232,6 +233,10 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    private void changeRightPanel() {
+
+    }
+
     public PersonListPanel getPersonListPanel() {
         return personListPanel;
     }
@@ -247,9 +252,14 @@ public class MainWindow extends UiPart<Stage> {
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
             Context nextContext = commandResult.getContext();
-
             if (nextContext != null && nextContext != currentContext) {
                 changeContext(nextContext);
+            }
+
+            if (commandResult.getChangeDisplay()) {
+                Customer customer = logic.getCustomerOrders();
+                orderListPanel = new OrderListPanel(customer.getOrders());
+                statisticsPlaceholder.getChildren().add(orderListPanel.getRoot());
             }
 
             if (commandResult.isShowHelp()) {

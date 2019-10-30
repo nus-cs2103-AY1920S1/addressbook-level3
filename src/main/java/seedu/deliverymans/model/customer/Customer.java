@@ -135,9 +135,7 @@ public class Customer {
                 .append(" Phone: ")
                 .append(getPhone().toString())
                 .append(" Tags: ")
-                .append(getTags().toString())
-                .append(" Orders: ")
-                .append(getOrders().toString());
+                .append(getTags().toString());
         getTags().forEach(builder::append);
         return builder.toString();
     }

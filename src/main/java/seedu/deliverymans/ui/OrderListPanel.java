@@ -20,9 +20,9 @@ public class OrderListPanel extends UiPart<Region> {
     @FXML
     private ListView<Order> orderListView;
 
-    public OrderListPanel(ObservableList<Order> personList) {
+    public OrderListPanel(ObservableList<Order> orderList) {
         super(FXML);
-        orderListView.setItems(personList);
+        orderListView.setItems(orderList);
         orderListView.setCellFactory(listView -> new OrderListViewCell());
     }
 

@@ -60,8 +60,8 @@ public class AddOrderCommand extends Command {
         Name restaurantName = toAdd.getRestaurant();
         Map<Name, Integer> foodList = toAdd.getFood();
         boolean customerFound = false;
-        for(Customer customer : model.getFilteredCustomerList()) {
-            if(customer.isSameCustomer(customerToAdd)) {
+        for (Customer customer : model.getFilteredCustomerList()) {
+            if (customer.isSameCustomer(customerToAdd)) {
                 customerFound = true;
                 customer.addOrder(toAdd);
             }
