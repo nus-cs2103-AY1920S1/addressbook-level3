@@ -129,7 +129,7 @@ identical entries will be added either daily, weekly, monthly, or yearly.
 
 ==== Edit a transaction: `txn edit`
 
-Edits the specified txn, setting the specified fields.
+Edits the specified transaction, setting the specified fields.
 If the ‘recurring’ field is modified, the app will ask if all previous recurring entries should be deleted.
 
 Format: `txn edit <id> out|in [x/<amount>] [d/<description>] [a/<account>] [c/<category>] [w/<date>] [r/<d|w|m|y>]`
