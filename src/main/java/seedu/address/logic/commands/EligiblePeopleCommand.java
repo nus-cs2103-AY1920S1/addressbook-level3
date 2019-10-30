@@ -2,14 +2,14 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.List;
+
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.policy.Policy;
 import seedu.address.model.person.PersonEligibleForPolicyPredicate;
-
-import java.util.List;
+import seedu.address.model.policy.Policy;
 
 /**
  * Finds and lists all persons in address book eligible for a given policy.
