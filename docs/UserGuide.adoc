@@ -279,11 +279,6 @@ Returns a list of spending with `food` or `leisure` tags.
 * `find d/yesterday d/today t/food t/leisure` +
 Returns a list of spending within `yesterday` and `today` that have `food` or `leisure` tags.
 
-=== Listing all tags : `ltags`
-Displays a list of all tags. +
-
-Format: `ltags`
-
 === Setting monthly budget : `budget`
 Sets a budget for the current month in Singapore dollars. +
 Format: `budget MONTHLY_BUDGET` +
@@ -401,7 +396,7 @@ Examples: +
 * `import p/C:\Users\User\Documents\importfile.csv`
 * `import p/~/data.csv`
 
-=== Exporting data : `export`
+=== Exporting data : `export` `[Coming in v2.0]`
 Exports data to a CSV file specified by file path. +
 
 Format: export `p/FILE_PATH` +
@@ -412,7 +407,7 @@ Examples: +
 * `export p/C:\data.csv`
 * `export p/~/data.csv`
 
-=== Undoing previous command : `undo`
+=== Undoing previous command : `undo` `[Coming in v2.0]`
 Restores the list of spending to the state before the previous undoable command was executed. +
 
 Format: `undo` +
@@ -435,7 +430,7 @@ Examples: +
 `undo` (reverses the add n/textbook c/100 command) +
 `undo` (reverses the delete 1 command)
 
-=== Redoing the previously undone command : `redo`
+=== Redoing the previously undone command : `redo` `[Coming in v2.0]`
 Reverses the most recent undo command. +
 
 Format: `redo` +
@@ -492,7 +487,6 @@ e.g. `delete 123`
 e.g. `sort d/DESC c/ASC` +
 | *Find* | `find [n/NAME] [c/COST_RANGE] [d/DATE_RANGE] [r/REMARK] [t/TAG]` +
 e.g. `find n/apple orange c/1.00-200.00 d/19/09/2019 - 20/09/2019 r/healthy food t/fruit food`
-| *List all tags*| `ltags` +
 | *Budget* | `budget MONTHLY_BUDGET` +
 e.g. `budget 18000`
 | *Show Budget* | `showbudget` +
