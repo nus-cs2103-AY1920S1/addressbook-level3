@@ -25,7 +25,12 @@
         <Region HBox.hgrow="ALWAYS"/>
         <Label fx:id="memberCount" text="\$members" styleClass="big_label" wrapText="true"/>
     </HBox>
-    <Label fx:id="description" text="\$description" styleClass="small_label" wrapText="true"/>
+    <Label fx:id="description" text="\$description" styleClass="small_label" wrapText="true">
+        <minHeight>
+            <!-- Ensures that the label text is never truncated -->
+            <Region fx:constant="USE_PREF_SIZE"/>
+        </minHeight>
+    </Label>
     <Separator minHeight="2.0"/>
     <StackPane fx:id="contactListPanelPlaceholder" VBox.vgrow="ALWAYS" />
 </VBox>

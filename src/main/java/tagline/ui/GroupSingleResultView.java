@@ -50,7 +50,7 @@ public class GroupSingleResultView extends ResultView {
     }
 
     /**
-     * Updates the inner labels of this component.
+     * Updates the inner labels of this component, and hides them when empty.
      */
     void updateLabels(Group group) {
         name.setText(group.getGroupName().value);
