@@ -9,7 +9,6 @@ import java.util.regex.Pattern;
 import seedu.address.logic.commands.CancelOrderCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CompleteOrderCommand;
-import seedu.address.logic.commands.copycommand.CopyCustomerCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.ExportCommand;
 import seedu.address.logic.commands.HelpCommand;
@@ -23,6 +22,9 @@ import seedu.address.logic.commands.addcommand.AddPhoneCommand;
 import seedu.address.logic.commands.addcommand.AddScheduleCommand;
 import seedu.address.logic.commands.clearcommand.ClearCustomerCommand;
 import seedu.address.logic.commands.clearcommand.ClearPhoneCommand;
+import seedu.address.logic.commands.copycommand.CopyCustomerCommand;
+import seedu.address.logic.commands.copycommand.CopyOrderCommand;
+import seedu.address.logic.commands.copycommand.CopyPhoneCommand;
 import seedu.address.logic.commands.deletecommand.DeleteCustomerCommand;
 import seedu.address.logic.commands.deletecommand.DeletePhoneCommand;
 import seedu.address.logic.commands.deletecommand.DeleteScheduleCommand;
@@ -48,6 +50,8 @@ import seedu.address.logic.parser.addcommandparser.AddOrderCommandParser;
 import seedu.address.logic.parser.addcommandparser.AddPhoneCommandParser;
 import seedu.address.logic.parser.addcommandparser.AddScheduleCommandParser;
 import seedu.address.logic.parser.copycommandparser.CopyCustomerCommandParser;
+import seedu.address.logic.parser.copycommandparser.CopyOrderCommandParser;
+import seedu.address.logic.parser.copycommandparser.CopyPhoneCommandParser;
 import seedu.address.logic.parser.deletecommandparser.DeleteCustomerCommandParser;
 import seedu.address.logic.parser.deletecommandparser.DeletePhoneCommandParser;
 import seedu.address.logic.parser.deletecommandparser.DeleteScheduleCommandParser;
@@ -161,8 +165,17 @@ public class AddressBookParser {
 
         case RedoCommand.COMMAND_WORD:
             return new RedoCommand();
+
         case CopyCustomerCommand.COMMAND_WORD:
             return new CopyCustomerCommandParser().parse(arguments);
+
+
+        case CopyPhoneCommand.COMMAND_WORD:
+            return new CopyPhoneCommandParser().parse(arguments);
+
+
+        case CopyOrderCommand.COMMAND_WORD:
+            return new CopyOrderCommandParser().parse(arguments);
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();

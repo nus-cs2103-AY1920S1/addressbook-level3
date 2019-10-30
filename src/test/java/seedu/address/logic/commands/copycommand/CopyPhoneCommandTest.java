@@ -17,6 +17,7 @@ import java.awt.Toolkit;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.UnsupportedFlavorException;
 import java.io.IOException;
+
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.Messages;
@@ -28,8 +29,8 @@ import seedu.address.model.DataBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.phone.Phone;
 import seedu.address.model.order.Order;
+import seedu.address.model.phone.Phone;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
