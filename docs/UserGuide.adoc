@@ -144,8 +144,8 @@ Action of copying an entry into clipboard.
 
 
 
-[[Tab Panels]]
 
+[[TabPanels]]
 == Tab Panels
 
 To ensure that users wouldn't suffer from information overload,
