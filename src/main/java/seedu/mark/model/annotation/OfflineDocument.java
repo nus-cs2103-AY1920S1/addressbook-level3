@@ -32,7 +32,7 @@ public class OfflineDocument {
             + "Unable to annotate nonexistent paragraph.";
     public static final String MESSAGE_ASSERT_NOT_PHANTOM = "Cannot add annotation to phantom paragraphs.";
     public static final String MESSAGE_ASSERT_PHANTOM_HAS_NOTE = "Annotation given does not have a note; "
-            + "no phantom paragraph can have no note";
+            + "phantom paragraphs must have a note to exist";
     public static final String MESSAGE_ASSERT_IS_PHANTOM = "Cannot delete a non phantom paragraph";
 
     public final Logger logger = LogsCenter.getLogger(OfflineDocument.class);

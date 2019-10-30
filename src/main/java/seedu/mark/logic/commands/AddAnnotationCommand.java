@@ -28,9 +28,9 @@ public class AddAnnotationCommand extends AnnotationCommand {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Annotates the cache of the bookmark identified by the index used in the displayed bookmark list.\n"
-            + "Parameters: INDEX (must be a positive integer)"
-            + PREFIX_PARAGRAPH + "P_ID"
-            + "[" + PREFIX_NOTE + "NOTE]"
+            + "Parameters: INDEX (must be a positive integer) "
+            + PREFIX_PARAGRAPH + "P_ID "
+            + "[" + PREFIX_NOTE + "NOTE] "
             + "[" + PREFIX_HIGHLIGHT + "HIGHLIGHT=yellow]"
             + "\n"
             + "Example: " + COMMAND_WORD + " 1 "

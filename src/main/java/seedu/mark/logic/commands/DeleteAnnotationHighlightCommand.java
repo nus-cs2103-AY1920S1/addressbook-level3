@@ -19,7 +19,7 @@ import seedu.mark.storage.Storage;
 public class DeleteAnnotationHighlightCommand extends DeleteAnnotationCommand {
 
     public static final String MESSAGE_SUCCESS =
-            "Note is successfully detached from paragraph and has become stray. Find it below to delete it.";
+            "This note has been successfully detached from its paragraph. Find it at the bottom of this document to delete it.";
     public static final String MESSAGE_PHANTOM = "You don't have to remove highlight from a phantom paragraph;\n"
             + "It's already absent :)";
 

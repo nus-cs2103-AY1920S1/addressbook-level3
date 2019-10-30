@@ -45,7 +45,7 @@ public class JsonAdaptedParagraph {
         this.pid = p.getId().toString();
         this.content = p.getParagraphContent().toString();
         if (!p.isTrueParagraph()) {
-            System.out.println(p.getAnnotation());
+            // System.out.println(p.getAnnotation());
         }
         this.annotation = new JsonAdaptedAnnotation(p.getAnnotation()); //note: can be totally null or note null
     }
@@ -70,7 +70,7 @@ public class JsonAdaptedParagraph {
                 throw new IllegalValueException("No annotation was found in storage for phantom paragraph;\n"
                         + "Phantom disappears.");
             } else if (!an.hasNote()) {
-                throw new IllegalValueException("No note was found in stoorage for phantom paragraph;\n"
+                throw new IllegalValueException("No note was found in storage for phantom paragraph;\n"
                         + "Phantom disappears.");
             }
             p = new PhantomParagraph(id.getIndex(), an);
