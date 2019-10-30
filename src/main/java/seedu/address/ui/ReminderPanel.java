@@ -8,7 +8,7 @@ import javafx.scene.layout.Region;
 import seedu.address.model.person.ExpenseReminder;
 
 /**
- * Side panel for budgets.
+ * Side panel for reminders.
  */
 public class ReminderPanel extends UiPart<Region> {
     private static final String FXML = "ReminderListPanel.fxml";

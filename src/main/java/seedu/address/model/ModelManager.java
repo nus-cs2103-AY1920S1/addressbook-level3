@@ -237,6 +237,8 @@ public class ModelManager implements Model {
             versionedAddressBook.addWish((Wish) entry);
         } else if (entry instanceof Budget) {
             versionedAddressBook.addBudget((Budget) entry);
+        } else if (entry instanceof AutoExpense) {
+            versionedAddressBook.addAutoExpense((AutoExpense) entry);
         }
         sortFilteredEntry(sortByTime, sortByAsc);
         updateFilteredEntryList(PREDICATE_SHOW_ALL_ENTRIES);
@@ -389,8 +391,7 @@ public class ModelManager implements Model {
 
     @Override
     public ObservableList<Entry> getFilteredExpensesAndIncomes() {
-        return new FilteredList<>(filteredEntries,
-            entry -> entry instanceof Expense || entry instanceof Income);
+        return new FilteredList<>(filteredEntries, entry -> entry instanceof Expense || entry instanceof Income);
     }
 
     @Override
