@@ -75,8 +75,8 @@ public class UniqueWordBankList implements Iterable<WordBank> {
     }
 
     /**
-     * Removes the equivalent card from the list.
-     * The card must exist in the list.
+     * Removes the equivalent wordBank from the list.
+     * The wordBank must exist in the list.
      */
     public void remove(WordBank toRemove) {
         requireNonNull(toRemove);
