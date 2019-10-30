@@ -21,6 +21,8 @@ By: `AY1920S1-CS2103T-W12-3`      Since: `SEPT 2019`      Licence: `MIT`
 PalPay is for those who *prefer to use a desktop app for managing personal finances*.
 More importantly, PalPay is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI).
 If you can type fast, PalPay can get your finance management tasks done faster than traditional GUI apps.
+This User Guide as written for the users of PalPay as an introductory document of the application.
+You are strongly encouraged to read this document before using the application top enjoy the full functionality of the application.
 Ready to start your journey to financial freedom?
 Jump to the <<Quick Start>> to get started.
 Enjoy!
@@ -77,7 +79,7 @@ Examples:
 
 === Settling Up with a Friend : `pay`
 
-Send money to 1 friend +
+Sends money to 1 friend +
 Format: `pay $/AMOUNT n/NAME1`
 
 Examples:
@@ -86,12 +88,12 @@ Examples:
 
 === Logging Expense : `out`
 
-Adds an expenditure of personal finance +
+Adds an expenditure of your personal finance +
 Format: `out $/AMOUNT n/ITEM d/DATE [c/CATEGORY]`
 
 ****
-* `AMOUNT` inputs the value of the expenditure
-* `ITEM` inputs the description of the expenditure
+* `AMOUNT` input accepts the value of the expenditure
+* `ITEM` input accepts the description of the expenditure
 * `DATE` accepts the date of this transaction
 * `CATEGORY` accepts the CATEGORY for this expenditure
 * `in` will update the Bank Account with a net **negative** amount (e.g. `out n/milk $/2 d/10102019` will **decrease** Bank Acount balance by $2)
@@ -104,40 +106,44 @@ Examples:
 
 === Logging Income : `in`
 
-Adds an income of personal finance +
+Adds an income of your personal finance +
 Format: `in $/AMOUNT n/ITEM d/DATE [c/CATEGORY]`
 
 ****
-* `AMOUNT` inputs the value of the income
-* `ITEM` inputs the description of the income
-* `DATE` accepts the date of this transaction
-* `CATEGORY` accepts the CATEGORY for this income
-* `in` will update the Bank Account with a net positive amount (e.g. `in n/work $/1000 d/10102019` will **increase** Bank Acount balance by $1000)
+* `AMOUNT` input accepts the value of the income
+* `ITEM` input accepts the description of the income
+* `DATE` input accepts accepts the date of this transaction
+* `CATEGORY` input accepts the CATEGORY for this income
+* `in` updates the Bank Account with a net positive amount (e.g. `in n/work $/1000 d/10102019` will **increase** Bank Acount balance by $1000)
 ****
 
 Examples:
+
 * `in $/100 n/errand c/work`
 * `in $/200 n/mom c/family`
 * `in $/120 n/work`
 
 === Setting a Budget : `set`
 
-Sets a budget for a particular category till the given deadline +
+Sets a budget for a particular category until a certain date +
+You cannot have duplicate budgets (bugets with the same `AMOUNT` and `DATE` and `CATEGORY`).
+If you attempt to do so, you will receive an erorr message: `This budget already exists in the bank account`. +
 Format: `set $/AMOUNT d/DATE c/CATEGORY`
 
 ****
-* `AMOUNT` accepts the new budget to be set.
-* `DATE` accepts the deadline to be set.
+* `AMOUNT` input accepts the new budget amount to be set.
+* `DATE` input accepts the deadline to be set.
 * `CATEGORY` accepts the CATEGORY for the budget
 ****
 
 Examples:
+
 * `set $/100 c/shopping`
 * `set $/50 c/food`
 
 === Display View : `view`
 
-Shows all possible views (spending, projection and loan). +
+Shows all possible views (spending, projection and loan) +
 Format: `view KEYWORD [TIMEFRAME]`
 
 ****
@@ -164,8 +170,8 @@ Format: `delete TYPE+INDEX`
 * `INDEX` refers to the target item number. (Items are sorted starting from the **latest** input added)
 * `TYPE` only accepts `t` (Transaction) or `b` (Budget). (e.g. `delete --b1` refers to deleting an *Budget* of index 1)
 * `TYPE+INDEX` requires the TYPE and INDEX to be placed in sequential order (e.g. `delete --b 1` or `delete --1` or `delete --1b` will not work)
-* Nothing will be deleted if the transaction or budget with `INDEX` does not exists.
-* example `delete --t1` will delete the first transaction from the list of transactions.
+* You can only delete an existing transaction or budget. Nothing will be deleted if the transaction or budget with `INDEX` does not exists.
+* Example: `delete --t1` will delete the first transaction from the list of transactions.
 ****
 
 Examples:
@@ -184,8 +190,8 @@ Format: `update TYPE+INDEX [$/AMOUNT] [d/date] [n/ITEM] [c/CATEGORY]`
 * `TYPE` only accepts `t` (Transaction) or `b` (Budget). (e.g. `update --b1 ...` refers to updating a *Budget* of index 1)
 * `TYPE+INDEX` requires the TYPE and INDEX to be placed in sequential order (e.g. `update --b 1 ..` or `update --1 ..` or `update --1b ..` will not work)
 * `update` requires at least one field to be updated but also allows more than one field to be updated (e.g. `update t1 $/20 d/10102019 n/milk` and `update t1 $/10` will both be accepted but `update t1` will not be accepted)
-* Nothing will be updated if the transaction or budget with `INDEX` does not exists.
-* example `update --t1 $/3000 d/10102019` will update the first transaction from the list of transactions by changing it's *Amount* to $1000 and *Date* to 10/10/2019.
+* You can only update an existing transaction or budget. Nothing will be updated if the transaction or budget with `INDEX` does not exists.
+* Example: `update --t1 $/3000 d/10102019` will update the first transaction from the list of transactions by changing it's *Amount* to $1000 and *Date* to 10/10/2019.
 ****
 
 Examples:
@@ -200,7 +206,7 @@ Sorts all transactions with given `PREDICATE` +
 Format: `sort PREDICATE`
 
 ****
-* Only able to `sort` by `date` and `amount` in v1.3.
+* You are only able to `sort` by `date` and `amount` in v1.3.
 ****
 
 Examples:
@@ -250,17 +256,17 @@ Format: `undo`
 
 === Clearing All Entries : `clear`
 
-Clears all entries from the Bank Account. +
+Clears all entries from your Bank Account. +
 Format: `clear`
 
 === Listing All Entries : `list`
 
-Lists all entries from the Bank Account. +
+Lists all entries from your Bank Account. +
 Format: `list`
 
 === Viewing Help : `help`
 
-Opens help page for list of usable commands +
+Opens help page for the list of usable commands +
 Format: `help`
 
 === Exiting the Application : `exit`
@@ -283,8 +289,8 @@ _{explain how the user can enable/disable data encryption}_
 
 == Command Summary
 
-* *Split* `split [FLAG] $/AMOUNT n/NAME1 [n/NAME2]...` +
-Example: `split $/1000 n/Amy n/Betty n/Catherine n/Dan`
+* *Split* `split [f/FLAG] $/AMOUNT n/NAME1 [n/NAME2]... [s/SHARE]` +
+Example: `split $/100 f/loan n/Albert n/Bernard n/Clement s/2 s/1 s/7`
 * *Out* : `out $/AMOUNT n/ITEM d/DATE [c/CATEGORY]` +
 Example: `out $/20 n/coke d/19112019 c/drink c/lunch`
 * *In* `in $/AMOUNT n/ITEM d/DATE [c/CATEGORY]` +
@@ -293,10 +299,10 @@ Example: `in $/100 n/allowance d/11112019 c/income`
 Example: `set $/100 d/10102019 c/food`
 * *View* : `view TAB` +
 Example: `view transaction`
-* *Delete* : `delete --TYPE AMOUNT n/ITEM [c/CATEGORY]` +
-Example: `delete --in $/200 n/waiter c/work`
-* *Update* : `update --TYPE AMOUNT1 AMOUNT2 n/ITEM [c/CATEGORY]` +
-Example: `update --out $/100 $/300 n/transport`
+* *Delete* : `delete TYPE+INDEX` +
+Example: `delete t1 $/200 n/waiter c/work`
+* *Update* : `update TYPE+INDEX [$/AMOUNT] [d/date] [n/ITEM] [c/CATEGORY]` +
+Example: `update b1 $/100 c/transport`
 * *Sort* : `sort PREDICATE` +
 Example: `sort amount`
 * *Filter* : `filter CATEGORY...` +
