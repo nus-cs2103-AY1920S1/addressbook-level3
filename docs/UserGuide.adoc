@@ -36,7 +36,7 @@ This guide is a explains how you can use *TimeBook* to the fullest extent to ass
 You can find the steps needed to start scheduling group activities with your friends or loved ones in the quick start and general
 *lifecycle* usage of our application. If you happen to stumble upon some difficulties, our *Frequently Asked Questions* (FAQ) is
 here to address that. If you are an experienced *Command Line Interface (CLI)* user, you can hope right into using the application by
-looking at our *Command Summary*. Otherwise, take a look at the *Unexperienced CLI user* section to obtain more information on how
+looking at our *Command Summary*. Otherwise, take a look at the *Inexperienced CLI user* section to obtain more information on how
 to use our application.
 
 We have used the following symbols to help you better understand our application usage. (For now we have not picked our symbols yet.)
@@ -71,7 +71,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 .  Refer to <<Features>> for details of each command.
 
-== Unexperienced CLI user
+== Inexperienced CLI user
 
 Unlike most applications, where you use your mouse to interact with the application such as scrolling and clicking, our application
 mostly use the *Command Line Interface*. Most of the time, you would be interacting with the application through typing commands in the
