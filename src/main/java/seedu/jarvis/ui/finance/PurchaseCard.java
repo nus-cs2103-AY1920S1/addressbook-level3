@@ -40,7 +40,7 @@ public class PurchaseCard extends UiPart<Region> {
         this.purchase = purchase;
         id.setText(Integer.toString(displayedIndex));
         description.setText(purchase.getDescription().getPurchaseDescription());
-        moneySpent.setText(Double.toString(purchase.getMoneySpent().getPurchaseAmount()));
+        moneySpent.setText("$" + purchase.getMoneySpent().toString());
         dateOfPurchase.setText(purchase.getDateOfPurchase().toString());
     }
 

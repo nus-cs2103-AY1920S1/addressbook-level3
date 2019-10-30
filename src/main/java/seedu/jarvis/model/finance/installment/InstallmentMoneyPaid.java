@@ -1,5 +1,7 @@
 package seedu.jarvis.model.finance.installment;
 
+import java.text.DecimalFormat;
+
 import static java.util.Objects.requireNonNull;
 import static seedu.jarvis.commons.util.AppUtil.checkArgument;
 
@@ -8,6 +10,8 @@ import static seedu.jarvis.commons.util.AppUtil.checkArgument;
  * Guarantees: immutable; is valid as declared in {@link #isValidAmount(String)}
  */
 public class InstallmentMoneyPaid {
+
+    private static DecimalFormat df2 = new DecimalFormat("#.00");
 
     public static final String MESSAGE_CONSTRAINTS =
             "Subscription fee of installments should Names should only contain alphanumeric characters and spaces, "
@@ -44,7 +48,7 @@ public class InstallmentMoneyPaid {
 
     @Override
     public String toString() {
-        return Double.toString(installmentMoneyPaid);
+        return df2.format(installmentMoneyPaid);
     }
 
     @Override

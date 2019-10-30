@@ -38,7 +38,7 @@ public class InstallmentCard extends UiPart<Region> {
         this.installment = installment;
         id.setText(Integer.toString(displayedIndex));
         description.setText(installment.getDescription().getInstallmentDescription());
-        subscriptionFee.setText(Double.toString(installment.getMoneySpentOnInstallment().getInstallmentMoneyPaid()));
+        subscriptionFee.setText("$" + installment.getMoneySpentOnInstallment().toString());
     }
 
     @Override

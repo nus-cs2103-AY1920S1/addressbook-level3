@@ -1,5 +1,7 @@
 package seedu.jarvis.model.finance.purchase;
 
+import java.text.DecimalFormat;
+
 import static java.util.Objects.requireNonNull;
 import static seedu.jarvis.commons.util.AppUtil.checkArgument;
 
@@ -8,6 +10,8 @@ import static seedu.jarvis.commons.util.AppUtil.checkArgument;
  * Guarantees: immutable; is valid as declared in {@link #isValidAmount(String)}
  */
 public class PurchaseMoneySpent {
+
+    private static DecimalFormat df2 = new DecimalFormat("#.00");
 
     public static final String MESSAGE_CONSTRAINTS =
             "Money spent on installments should be taken as doubles, "
@@ -44,7 +48,7 @@ public class PurchaseMoneySpent {
 
     @Override
     public String toString() {
-        return Double.toString(purchaseAmount);
+        return df2.format(purchaseAmount);
     }
 
     @Override
