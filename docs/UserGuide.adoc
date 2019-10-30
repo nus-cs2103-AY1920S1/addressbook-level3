@@ -59,11 +59,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 ** Example: In `add-member mn/MEMBER_NAME`, MEMBER_NAME is the input specified by the user, such as: add-member mn/Gabriel Seow
 
-<<<<<<< HEAD
 * The user specifies the type of parameter given through a prefix. The list of allowed prefixes can be found in the table below.
-=======
-* The user specifies the type of parameter given through a prefix. The list of allowed prefixes can be found in the table below:
->>>>>>> 9ffa6eff7f0dd870b12f5169cb4b97a09e1730a8
 
 ** Example: In `add-task tn/TASK_NAME s/TASK_STATUS`, the user inputs the name of the task after tn/ and inputs the status of the task after s/ , such as: `add task t/Finish Project Draft s/undone`
 
@@ -127,7 +123,6 @@ image::Settings.png[width=790]
 +
 
 ==== View help: `help` +
-<<<<<<< HEAD
 This command displays a list of possible commands that you can execute +
 
 Format: `help` +
@@ -140,7 +135,7 @@ image::Help.png[width=790]
 Displays a list of possible commands for the user +
 You can toggle through the command list (either through up down keys or mouse) and it will paste the correct syntax into the command line. +
 Format: `help`
->>>>>>> f9ce79b07f30daa6b563fe0437870a3216d6bc43
+
 
 '''
 
@@ -184,17 +179,14 @@ image::ListMembers.png[width="790"]
 To remove a member from the project, and subsequently remove him from associated tasks, use the `remove-member` command in the format below. +
 Format: `remove-member mi/MEMBER_ID` +
 
-<<<<<<< HEAD
+
 Example: `remove-member mi/GS` will result in the following:
 
 image::RemoveMember.png[width="790"]
 
-
 As seen from above, the member 'New Member' with member ID 'NM' has been removed from the project. 
 =======
 Example: 'remove-member mi/GS'
->>>>>>> 9ffa6eff7f0dd870b12f5169cb4b97a09e1730a8
-
 
 ==== Assign a task to a member: `assign` +
 To assign a task to a specific team member, use the `assign` command in the format below. +
@@ -206,16 +198,11 @@ Example: `assign ti/1 mi/GS` will result in the following:
 image::AssignTask.png[width="790"]
 +
 
-<<<<<<< HEAD
 This indicates that the task TASK NAME with task id 1 has been assigned to team member 'GABRIEL SEOW' with member id 'GS'. +
-=======
-Example: 'assign ti/1 mi/GS'
->>>>>>> 9ffa6eff7f0dd870b12f5169cb4b97a09e1730a8
 
 ==== Remove a task from a member: `fire` +
 To remove a task from a specific team member, use the 'fire' command in the format below. +
 
-<<<<<<< HEAD
 Format: `fire ti/TASK_ID mi/MEMBER_ID` +
 
 Example: `fire ti/1 mi/GS` will result in the following: 
@@ -225,9 +212,6 @@ image::FireTask.png[width="790"]
 
 
 This indicates that the task TASK NAME with task id 1 has been removed from its assignment to team member 'GABRIEL SEOW' with member id 'GS'. +
-=======
-Example: 'fire ti/1 mi/GS'
->>>>>>> 9ffa6eff7f0dd870b12f5169cb4b97a09e1730a8
 
 '''
 
