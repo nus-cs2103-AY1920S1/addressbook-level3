@@ -18,6 +18,8 @@ import seedu.address.logic.commands.budget.ListBudgetCommand;
 import seedu.address.logic.commands.budget.PastPeriodCommand;
 import seedu.address.logic.commands.budget.SwitchBudgetCommand;
 import seedu.address.logic.commands.event.AddEventCommand;
+import seedu.address.logic.commands.event.DeleteEventCommand;
+import seedu.address.logic.commands.event.EditEventCommand;
 import seedu.address.logic.commands.event.ListEventsCommand;
 import seedu.address.logic.commands.expense.AddExpenseCommand;
 import seedu.address.logic.commands.expense.ClearCommand;
@@ -73,18 +75,22 @@ public class MooLahParser {
             return new DeleteCommandParser().parse(arguments);
         case DeleteExpenseFromBudgetCommand.COMMAND_WORD:
             return new DeleteExpenseFromBudgetCommandParser().parse(arguments);
+        case ClearCommand.COMMAND_WORD:
+            return new ClearCommand();
         case FindExpenseCommand.COMMAND_WORD:
             return new FindCommandParser().parse(arguments);
         case ListExpenseCommand.COMMAND_WORD:
             return new ListExpenseCommand();
-        case ClearCommand.COMMAND_WORD:
-            return new ClearCommand();
 
         //event
         case AddEventCommand.COMMAND_WORD:
             return new AddEventCommandParser().parse(arguments);
         case ListEventsCommand.COMMAND_WORD:
             return new ListEventsCommand();
+        case EditEventCommand.COMMAND_WORD:
+            return new EditEventCommandParser().parse(arguments);
+        case DeleteEventCommand.COMMAND_WORD:
+            return new DeleteEventCommandParser().parse(arguments);
 
         //budget
         case AddBudgetCommand.COMMAND_WORD:

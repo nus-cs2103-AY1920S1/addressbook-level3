@@ -13,7 +13,9 @@ import java.util.Optional;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
+import seedu.address.logic.commands.CommandGroup;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.GenericCommandWord;
 import seedu.address.logic.commands.UndoableCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -29,7 +31,7 @@ import seedu.address.ui.event.EventListPanel;
  */
 public class EditEventCommand extends UndoableCommand {
 
-    public static final String COMMAND_WORD = "editevent";
+    public static final String COMMAND_WORD = GenericCommandWord.EDIT + CommandGroup.EVENT;
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the event identified "
             + "by the index number used in the displayed event list. "
