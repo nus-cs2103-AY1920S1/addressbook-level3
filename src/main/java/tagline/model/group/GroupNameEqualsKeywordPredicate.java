@@ -38,7 +38,7 @@ public class GroupNameEqualsKeywordPredicate implements Predicate<Group> {
         return GroupNameEqualsKeywordPredicate.generatePredicate(new GroupName(name));
     }
 
-    /**
+    /**-
      * Creates and returns a {@code GroupNameEqualsKeywordPredicate} with the details of {@code GroupName}
      * without any safeguards, only to be used when you are sure input is a valid GroupName and
      * not a user controlled variable, originally meant for testing.
@@ -57,5 +57,4 @@ public class GroupNameEqualsKeywordPredicate implements Predicate<Group> {
         GroupName[] groupNames = { group.getGroupName() };
         return new GroupNameEqualsKeywordPredicate(Arrays.asList(groupNames));
     }
-
 }

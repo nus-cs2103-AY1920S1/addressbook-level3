@@ -202,6 +202,11 @@ public class CreateGroupCommandTest {
         }
 
         @Override
+        public ObservableList<Contact> getFilteredContactListWithPredicate(Predicate<Contact> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void setAddressBook(ReadOnlyAddressBook newData) {
             throw new AssertionError("This method should not be called.");
         }
@@ -275,6 +280,11 @@ public class CreateGroupCommandTest {
         public void updateFilteredGroupList(Predicate<Group> predicate) {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public ObservableList<Group> getFilteredGroupListWithPredicate(Predicate<Group> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**
@@ -328,5 +338,23 @@ public class CreateGroupCommandTest {
             return new AddressBookBuilder().withContact(ALICE).withContact(BENSON).build().getContactList();
         }
 
+        @Override
+        public ObservableList<Contact> getFilteredContactListWithPredicate(Predicate<Contact> predicate) {
+            return new AddressBookBuilder().withContact(ALICE).withContact(BENSON).build().getContactList();
+        }
+
+        @Override
+        public void updateFilteredGroupList(Predicate<Group> predicate) {
+        }
+
+        @Override
+        public ObservableList<Group> getFilteredGroupList() {
+            return null;
+        }
+
+        @Override
+        public ObservableList<Group> getFilteredGroupListWithPredicate(Predicate<Group> predicate) {
+            return null;
+        }
     }
 }

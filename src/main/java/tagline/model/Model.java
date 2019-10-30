@@ -102,6 +102,11 @@ public interface Model {
     void updateFilteredContactList(Predicate<Contact> predicate);
 
     /**
+     * Returns an unmodifiable copy of the filtered contact list with a set predicate.
+     */
+    ObservableList<Contact> getFilteredContactListWithPredicate(Predicate<Contact> predicate);
+
+    /**
      * Returns the user prefs' note book file path.
      */
     Path getNoteBookFilePath();
@@ -218,4 +223,9 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredGroupList(Predicate<Group> predicate);
+
+    /**
+     * Returns an unmodifiable copy of the filtered group list with a set predicate.
+     */
+    ObservableList<Group> getFilteredGroupListWithPredicate(Predicate<Group> predicate);
 }

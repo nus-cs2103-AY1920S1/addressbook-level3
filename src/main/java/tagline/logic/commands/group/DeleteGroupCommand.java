@@ -21,9 +21,7 @@ public class DeleteGroupCommand extends GroupCommand {
     public static final String COMMAND_WORD = "delete";
 
     public static final String MESSAGE_KEYWORD_EMPTYLIST = "No groups matching keyword";
-    //public static final String MESSAGE_KEYWORD_EMPTYLIST = "No groups matching keyword: %1$s";
-    public static final String MESSAGE_UI = "UI: now displaying all Contacts in found group";
-    public static final String MESSAGE_KEYWORD_SUCCESS = "Success! Group deleted: %n%s%n" + MESSAGE_UI;
+    public static final String MESSAGE_KEYWORD_SUCCESS = "Success! Now showing all groups.";
 
     public static final String MESSAGE_USAGE = COMMAND_KEY + " " + COMMAND_WORD
             + ": Delete a group whose name matches"
@@ -46,12 +44,9 @@ public class DeleteGroupCommand extends GroupCommand {
 
         model.deleteGroup(targetGroup);
         model.updateFilteredContactList(PREDICATE_SHOW_ALL_CONTACTS);
-        // note, after deleting a group, all groups will be shown.
-        // this will suffice until a View for Group has been established, note the respective comment in test as well
         model.updateFilteredGroupList(PREDICATE_SHOW_ALL_GROUPS);
 
-        return new CommandResult(
-                String.format(MESSAGE_KEYWORD_SUCCESS, targetGroup.getGroupName().value), ViewType.CONTACT);
+        return new CommandResult(MESSAGE_KEYWORD_SUCCESS, ViewType.GROUP_LIST);
     }
 
     @Override

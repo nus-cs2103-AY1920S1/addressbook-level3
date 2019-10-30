@@ -116,7 +116,8 @@ public class MainWindow extends UiPart<Stage> {
      */
     private void initResultPane() {
         resultPane = new ResultPane();
-        resultPane.fillInnerParts(logic.getFilteredContactList(), logic.getFilteredNoteList());
+        resultPane.fillInnerParts(logic.getFilteredContactList(), logic.getFilteredNoteList(),
+                logic.getFilteredGroupList());
         resultPanePlaceholder.getChildren().add(resultPane.getRoot());
     }
 

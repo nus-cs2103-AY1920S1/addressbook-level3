@@ -18,14 +18,10 @@ public class FindGroupCommand extends GroupCommand {
 
     public static final String COMMAND_WORD = "find";
 
-    public static final String MESSAGE_KEYWORD_EMPTYLIST = "No groups matching keyword";
-    //public static final String MESSAGE_KEYWORD_EMPTYLIST = "No groups matching keyword: %1$s";
-    public static final String MESSAGE_UI = "UI: now displaying all Contacts in requested group";
-    public static final String MESSAGE_KEYWORD_SUCCESS = "Success! Displaying group: %n%s%n" + MESSAGE_UI;
+    public static final String MESSAGE_KEYWORD_SUCCESS = "Success! Displaying the group.";
 
     public static final String MESSAGE_USAGE = COMMAND_KEY + " " + COMMAND_WORD
-            + ": Shows all contacts whose is in Group matching exactly"
-            + "the specified keywords (case-insensitive) and displays them as a list.\n"
+            + ": Finds a Group matching exactly the specified keywords (case-insensitive).\n"
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
             + "Example: " + COMMAND_KEY + " " + COMMAND_WORD + " exo";
 
@@ -46,8 +42,10 @@ public class FindGroupCommand extends GroupCommand {
         Group verifiedGroup = GroupCommand.verifyGroupWithModel(model, targetGroup);
         model.setGroup(targetGroup, verifiedGroup);
 
-        return new CommandResult(
-                String.format(MESSAGE_KEYWORD_SUCCESS, verifiedGroup), ViewType.CONTACT);
+        model.updateFilteredContactList(GroupCommand.groupToContactIdPredicate(verifiedGroup));
+        model.updateFilteredGroupList(GroupNameEqualsKeywordPredicate.generatePredicate(verifiedGroup));
+
+        return new CommandResult(MESSAGE_KEYWORD_SUCCESS, ViewType.GROUP_SINGLE);
     }
 
     @Override

@@ -37,7 +37,7 @@ import tagline.testutil.GroupBuilder;
  */
 public class RemoveMemberFromGroupCommandTest {
 
-    private static final ViewType REMOVE_MEMBER_COMMAND_VIEW_TYPE = ViewType.CONTACT;
+    private static final ViewType REMOVE_MEMBER_COMMAND_VIEW_TYPE = ViewType.GROUP_SINGLE;
     private Model model = new ModelManager(getTypicalAddressBook(), new NoteBook(),
         getTypicalGroupBookExistingMembers(), new UserPrefs());
 
@@ -67,6 +67,7 @@ public class RemoveMemberFromGroupCommandTest {
 
         // ensured expectedModel ContactDisplay is same due to setting predicate
         expectedModel.updateFilteredContactList(GroupCommand.memberIdsToContactIdPredicate(editedGroup.getMemberIds()));
+        expectedModel.updateFilteredGroupList(GroupNameEqualsKeywordPredicate.generatePredicate(editedGroup));
 
         GroupCommandTestUtil.assertCommandSuccess(editGroupCommand, model, expectedMessage,
             REMOVE_MEMBER_COMMAND_VIEW_TYPE, expectedModel);
@@ -86,6 +87,7 @@ public class RemoveMemberFromGroupCommandTest {
 
         // ensured expectedModel ContactDisplay is same due to setting predicate
         expectedModel.updateFilteredContactList(GroupCommand.memberIdsToContactIdPredicate(editedGroup.getMemberIds()));
+        expectedModel.updateFilteredGroupList(GroupNameEqualsKeywordPredicate.generatePredicate(editedGroup));
 
         assertCommandSuccess(editGroupCommand, model, expectedMessage, REMOVE_MEMBER_COMMAND_VIEW_TYPE, expectedModel);
     }

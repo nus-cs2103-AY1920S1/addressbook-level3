@@ -52,7 +52,7 @@ public interface ContactModel {
     Optional<Contact> findContact(ContactId id);
 
     /**
-     * Returns an unmodifiable view of the filtered contact list
+     * Returns an unmodifiable view of the filtered contact list.
      */
     ObservableList<Contact> getFilteredContactList();
 
@@ -62,4 +62,9 @@ public interface ContactModel {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredContactList(Predicate<Contact> predicate);
+
+    /**
+     * Returns an unmodifiable copy of the filtered contact list with a set predicate.
+     */
+    ObservableList<Contact> getFilteredContactListWithPredicate(Predicate<Contact> predicate);
 }

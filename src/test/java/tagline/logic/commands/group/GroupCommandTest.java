@@ -1,16 +1,13 @@
 package tagline.logic.commands.group;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static tagline.commons.core.Messages.MESSAGE_CONTACTS_LISTED_OVERVIEW;
 import static tagline.testutil.TypicalContacts.getTypicalAddressBook;
 import static tagline.testutil.TypicalGroups.MYSTIC_ARTS;
-import static tagline.testutil.TypicalGroups.WAKANDAN_ROYAL;
 import static tagline.testutil.TypicalGroups.getTypicalGroupBook;
 
 import java.util.Arrays;
-import java.util.Collections;
 
 import org.junit.jupiter.api.Test;
 
@@ -41,8 +38,6 @@ public class GroupCommandTest {
         // empty predicate
         GroupNameEqualsKeywordPredicate predicate = prepareGroupPredicate(MYSTIC_ARTS.getGroupName().value);
         assertThrows(CommandException.class, () -> GroupCommand.findOneGroup(model, "BTS"));
-        expectedModel.updateFilteredGroupList(predicate);
-        assertEquals(Collections.emptyList(), model.getFilteredGroupList());
     }
 
     @Test
@@ -55,8 +50,6 @@ public class GroupCommandTest {
         GroupNameEqualsKeywordPredicate predicate = prepareGroupPredicate("BTS");
         //assertThrows(CommandException.class, () -> GroupCommand.findOneGroup(model,""));
         assertThrows(CommandException.class, () -> GroupCommand.findOneGroup(model, "BTS"));
-        expectedModel.updateFilteredGroupList(predicate);
-        assertEquals(Collections.emptyList(), model.getFilteredGroupList());
     }
 
     @Test
@@ -72,8 +65,6 @@ public class GroupCommandTest {
             // fails if it throws an exception
             assertTrue(false);
         }
-        expectedModel.updateFilteredGroupList(predicate);
-        assertEquals(Arrays.asList(WAKANDAN_ROYAL), model.getFilteredGroupList());
     }
 
     @Test

@@ -98,6 +98,15 @@ public class ContactManager implements ContactModel {
     }
 
     @Override
+    public ObservableList<Contact> getFilteredContactListWithPredicate(Predicate<Contact> predicate) {
+        requireNonNull(predicate);
+
+        FilteredList<Contact> filteredContactsCopy = new FilteredList<>(addressBook.getContactList());
+        filteredContactsCopy.setPredicate(predicate);
+        return filteredContactsCopy;
+    }
+
+    @Override
     public boolean equals(Object obj) {
         // short circuit if same object
         if (obj == this) {

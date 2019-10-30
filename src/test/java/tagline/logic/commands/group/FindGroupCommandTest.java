@@ -30,7 +30,7 @@ import tagline.model.note.NoteBook;
  */
 public class FindGroupCommandTest {
 
-    private static final ViewType FIND_CONTACT_COMMAND_VIEW_TYPE = ViewType.CONTACT;
+    private static final ViewType FIND_CONTACT_COMMAND_VIEW_TYPE = ViewType.GROUP_SINGLE;
     private Model model = new ModelManager(new AddressBook(), new NoteBook(),
         getTypicalGroupBook(), new UserPrefs());
     private Model expectedModel = new ModelManager(new AddressBook(), new NoteBook(),
@@ -64,14 +64,13 @@ public class FindGroupCommandTest {
     }
 
     @Test
-    public void execute_zeroKeywords_noGroupFound() {
+    public void execute_oneKeywords_noGroupFound() {
         String expectedMessage = String.format(MESSAGE_GROUP_NOT_FOUND);
         // MYSTIC_ARTS is not automatically added into TypicalGroupBook
         GroupNameEqualsKeywordPredicate predicate = preparePredicate(MYSTIC_ARTS.getGroupName().value);
         FindGroupCommand command = new FindGroupCommand(predicate);
-        expectedModel.updateFilteredGroupList(predicate);
+
         assertCommandFailure(command, model, expectedMessage, expectedModel);
-        assertEquals(Collections.emptyList(), model.getFilteredGroupList());
     }
 
     @Test
@@ -79,7 +78,10 @@ public class FindGroupCommandTest {
         String expectedMessage = String.format(MESSAGE_KEYWORD_SUCCESS, GUARDIANS);
         GroupNameEqualsKeywordPredicate predicate = preparePredicate(GUARDIANS.getGroupName().value);
         FindGroupCommand command = new FindGroupCommand(predicate);
+
+        expectedModel.updateFilteredContactList(GroupCommand.memberIdsToContactIdPredicate(GUARDIANS.getMemberIds()));
         expectedModel.updateFilteredGroupList(predicate);
+
         assertCommandSuccess(command, model, expectedMessage, FIND_CONTACT_COMMAND_VIEW_TYPE, expectedModel);
         assertEquals(Arrays.asList(GUARDIANS), model.getFilteredGroupList());
     }

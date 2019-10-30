@@ -177,6 +177,11 @@ public class ModelManager implements Model {
         contactManager.updateFilteredContactList(predicate);
     }
 
+    @Override
+    public ObservableList<Contact> getFilteredContactListWithPredicate(Predicate<Contact> predicate) {
+        return contactManager.getFilteredContactListWithPredicate(predicate);
+    }
+
     //=========== NoteBook ================================================================================
 
     @Override
@@ -231,7 +236,6 @@ public class ModelManager implements Model {
         noteManager.updateFilteredNoteList(predicate);
     }
 
-
     //=========== GroupBook ================================================================================
 
     @Override
@@ -279,6 +283,11 @@ public class ModelManager implements Model {
     @Override
     public void updateFilteredGroupList(Predicate<Group> predicate) {
         groupManager.updateFilteredGroupList(predicate);
+    }
+
+    @Override
+    public ObservableList<Group> getFilteredGroupListWithPredicate(Predicate<Group> predicate) {
+        return groupManager.getFilteredGroupListWithPredicate(predicate);
     }
 
 

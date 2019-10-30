@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+<HBox id="groupListCardPane" fx:id="groupListCardPane"
+      xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+    <GridPane HBox.hgrow="ALWAYS">
+        <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150"/>
+        </columnConstraints>
+        <VBox fx:id="groupListInternalPane" alignment="TOP_LEFT" minHeight="105"
+              GridPane.columnIndex="0" spacing="10" HBox.hgrow="ALWAYS">
+            <padding>
+                <Insets top="15" right="15" bottom="15" left="15"/>
+            </padding>
+            <Label fx:id="name" text="\$name" styleClass="cell_big_label"/>
+            <Label fx:id="description" styleClass="cell_small_label" text="\$description" wrapText="true"/>
+            <Separator minHeight="2.0"/>
+            <HBox fx:id="memberIdsContainer" alignment="CENTER_LEFT" spacing="5" HBox.hgrow="ALWAYS">
+                <Label fx:id="memberIdsLabel" styleClass="cell_small_label" text="Members:" wrapText="true">
+                    <minWidth>
+                        <!-- Ensures that the label text is never truncated -->
+                        <Region fx:constant="USE_PREF_SIZE"/>
+                    </minWidth>
+                </Label>
+                <FlowPane fx:id="memberIds"/>
+            </HBox>
+        </VBox>
+    </GridPane>
+</HBox>

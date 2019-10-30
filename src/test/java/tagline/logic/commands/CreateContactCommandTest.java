@@ -194,6 +194,11 @@ public class CreateContactCommandTest {
         }
 
         @Override
+        public ObservableList<Contact> getFilteredContactListWithPredicate(Predicate<Contact> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void setAddressBook(ReadOnlyAddressBook newData) {
             throw new AssertionError("This method should not be called.");
         }
@@ -265,6 +270,11 @@ public class CreateContactCommandTest {
 
         @Override
         public void updateFilteredGroupList(Predicate<Group> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Group> getFilteredGroupListWithPredicate(Predicate<Group> predicate) {
             throw new AssertionError("This method should not be called.");
         }
     }

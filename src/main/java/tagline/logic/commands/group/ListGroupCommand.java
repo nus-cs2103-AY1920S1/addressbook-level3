@@ -1,6 +1,7 @@
 package tagline.logic.commands.group;
 
 import static java.util.Objects.requireNonNull;
+import static tagline.model.contact.ContactModel.PREDICATE_SHOW_ALL_CONTACTS;
 import static tagline.model.group.GroupModel.PREDICATE_SHOW_ALL_GROUPS;
 
 import java.util.function.Predicate;
@@ -19,8 +20,7 @@ public class ListGroupCommand extends GroupCommand {
     public static final String COMMAND_WORD = "list";
 
     public static final String MESSAGE_SUCCESS = "Listed all groups";
-    public static final String MESSAGE_UI = "UI: now displaying all Contacts in AddressBook";
-    public static final String MESSAGE_KEYWORD_SUCCESS = "Success! Listing groups found:%n%s%n" + MESSAGE_UI;
+    public static final String MESSAGE_KEYWORD_SUCCESS = "Success! Listing groups found.";
     public static final String MESSAGE_KEYWORD_EMPTYLIST = "No groups matching keywords";
 
     public static final String MESSAGE_USAGE = COMMAND_KEY + " " + COMMAND_WORD + ": List all groups "
@@ -45,19 +45,14 @@ public class ListGroupCommand extends GroupCommand {
         requireNonNull(model);
         GroupCommand.syncGroupBook(model); // updates all Groups to ensure no outdated MemberIds
 
-        model.updateFilteredGroupList(PREDICATE_SHOW_ALL_GROUPS);
+        model.updateFilteredContactList(PREDICATE_SHOW_ALL_CONTACTS);
         model.updateFilteredGroupList(predicate);
 
         if (model.getFilteredGroupList().size() == 0) {
             throw new CommandException(String.format(MESSAGE_KEYWORD_EMPTYLIST));
         }
 
-        StringBuilder sb = new StringBuilder();
-        model.getFilteredGroupList().stream()
-            .map(Group::toShortString)
-            .forEach(sb::append);
-
-        return new CommandResult(String.format(MESSAGE_KEYWORD_SUCCESS, sb.toString()), ViewType.CONTACT);
+        return new CommandResult(MESSAGE_KEYWORD_SUCCESS, ViewType.GROUP_LIST);
     }
 
 }

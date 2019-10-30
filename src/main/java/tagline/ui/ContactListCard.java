@@ -2,13 +2,12 @@ package tagline.ui;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import tagline.model.contact.Contact;
 
 /**
- * An UI component that displays information of a {@code Contact}.
+ * A UI component that displays information of a {@code Contact}.
  */
 public class ContactListCard extends UiPart<Region> {
 
@@ -23,8 +22,6 @@ public class ContactListCard extends UiPart<Region> {
 
     public final Contact contact;
 
-    @FXML
-    private HBox contactListCardPane;
     @FXML
     private VBox contactListInternalPane;
     @FXML
@@ -79,7 +76,6 @@ public class ContactListCard extends UiPart<Region> {
 
         // state check
         ContactListCard card = (ContactListCard) other;
-        return id.getText().equals(card.id.getText())
-                && contact.equals(card.contact);
+        return contact.equals(card.contact);
     }
 }

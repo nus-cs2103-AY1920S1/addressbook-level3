@@ -10,6 +10,7 @@ import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
 import tagline.logic.commands.CommandResult.ViewType;
 import tagline.model.contact.Contact;
+import tagline.model.group.Group;
 import tagline.model.note.Note;
 
 /**
@@ -85,7 +86,9 @@ public class ResultPane extends UiPart<StackPane> {
     /**
      * Fills up all the placeholders of this window.
      */
-    public void fillInnerParts(ObservableList<Contact> filteredContactList, ObservableList<Note> filteredNoteList) {
+    public void fillInnerParts(ObservableList<Contact> filteredContactList,
+                               ObservableList<Note> filteredNoteList,
+                               ObservableList<Group> filteredGroupList) {
         resultViewMap = new HashMap<>();
 
         ContactResultView contactResultView = new ContactResultView();
@@ -95,6 +98,14 @@ public class ResultPane extends UiPart<StackPane> {
         NoteResultView noteResultView = new NoteResultView();
         noteResultView.fillInnerParts(filteredNoteList);
         resultViewMap.put(ViewType.NOTE, noteResultView);
+
+        GroupSingleResultView groupSingleResultView = new GroupSingleResultView();
+        groupSingleResultView.fillInnerParts(filteredGroupList, filteredContactList);
+        resultViewMap.put(ViewType.GROUP_SINGLE, groupSingleResultView);
+
+        GroupListResultView groupListResultView = new GroupListResultView();
+        groupListResultView.fillInnerParts(filteredGroupList);
+        resultViewMap.put(ViewType.GROUP_LIST, groupListResultView);
 
         //set to contact result view by default
         setCurrentViewType(ViewType.CONTACT);

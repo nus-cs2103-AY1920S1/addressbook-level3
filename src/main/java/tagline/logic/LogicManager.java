@@ -5,7 +5,6 @@ import java.nio.file.Path;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
-
 import tagline.commons.core.GuiSettings;
 import tagline.commons.core.LogsCenter;
 import tagline.logic.commands.Command;

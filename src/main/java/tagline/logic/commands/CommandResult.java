@@ -12,7 +12,7 @@ public class CommandResult {
      * Represents the preferred view to display the command result.
      */
     public enum ViewType {
-        NONE, CONTACT, NOTE
+        NONE, CONTACT, NOTE, GROUP_SINGLE, GROUP_LIST
     }
 
     private final String feedbackToUser;

@@ -1,13 +1,10 @@
 package tagline.ui;
 
-import java.util.logging.Logger;
-
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
-import tagline.commons.core.LogsCenter;
 import tagline.model.contact.Contact;
 
 /**
@@ -15,7 +12,6 @@ import tagline.model.contact.Contact;
  */
 public class ContactListPanel extends UiPart<Region> {
     private static final String FXML = "ContactListPanel.fxml";
-    private final Logger logger = LogsCenter.getLogger(ContactListPanel.class);
 
     @FXML
     private ListView<Contact> contactListView;
