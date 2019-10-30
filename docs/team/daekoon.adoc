@@ -1,0 +1,72 @@
+= Lim Daekoon - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: Splitwiser
+
+---
+
+== Overview
+
+Splitwiser is an application for simplifying payments made between groups of friends.
+It gurantees that each person does not need to make any unnecessary transfers to settle their debts.
+The user interacts with it using a CLI, and is targeted at users who prefer CLI utilities.
+It however has a nice JavaFX GUI to report details graphically and intuitvely.
+It has >10k LOC.
+
+== Summary of contributions
+=== Major Enhancements
+* *Activity Class*: I created the `Activity` class and all its dependencies.
+** What it is: Activity class stores all information for an activity, such as `Title`, `Participants`, and `Expenses`.
+** Justification: This feature is the foundation of our product. Activities contain all necessary information necessary to handle bill splitting.
+** Highlights: Activities stores the following information:
+*** Title: Title of the activity. Compulsory field.
+*** Participants: Contacts that took part in this activity.
+*** Expenses: Expenses incurred by this activity.
+
+* *Storage of Activity*: I created the infrastructure that allows local storage of Activities.
+** What it is: Activities can now be stored as a `ActivityBook.json` file locally, and loaded from there as well.
+** Justification: Similar to how Contacts are stored locally, Activities should also be saved, so that it can be loaded the next time SplitWiser is opened. Without it, the program is unusable.
+** Highlights: Activities are stored locally, and can be loaded anytime. Validations are executed on every load, preventing corrupted or invalid save files from being loaded.
+
+* *Create Activity*: I added the ability to create Activities.
+** What it does: The `Activity` command allows the user to create new activity.
+** Justification: This is the foundational feature of our product. Activities contain all necessary information needed to handle splitting of bills, and we need to provide users the ability to create activities to make use of our product.
+** Highlights: Activity command that allows users to create new activities. Users can specify the title of the activity, and can invite contacts into the activity as participants. In order to improve usability, contacts are first searched using exact-matching, and then keyword-based matching if no valid exact match is found.
+
+=== Other contributions
+
+* Project management:
+** Improved gradle configuration to show test results
+
+* Enhancements to existing features:
+** TBD
+
+* Documentations:
+** Added User guide for Activity Command
+** Added section on Activity feature for Developer Guide
+
+=== Code contributed 
+
+** https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=daekoon&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=daekoon&tabRepo=AY1920S1-CS2103T-W11-2%2Fmain%5Bmaster%5D[Contribution info].
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../UserGuide.adoc[tag=algorithm]
+
+---
+
+_{Optionally, you may include other projects in your portfolio.}_
