@@ -1,7 +1,10 @@
 package seedu.address.cashier.storage;
 
-import seedu.address.cashier.util.InventoryList;
+import java.io.IOException;
 
+import seedu.address.cashier.model.exception.NoSuchIndexException;
+import seedu.address.cashier.util.InventoryList;
+import seedu.address.inventory.model.Item;
 import seedu.address.transaction.model.TransactionList;
 import seedu.address.transaction.model.transaction.Transaction;
 
@@ -14,14 +17,16 @@ public interface Storage {
      * Reads in the inventory list from the specified text file in Storage.
      * @return Inventory List read.
      */
-    InventoryList getInventoryList() throws Exception;
+    public InventoryList getInventoryList() throws Exception;
 
-    void writeToInventoryFile(InventoryList inventoryList) throws Exception;
+    Item readInInventoryFileLine(String line);
+
+    void writeToInventoryFile(InventoryList inventoryList) throws IOException, NoSuchIndexException;
 
     TransactionList getTransactionList() throws Exception;
 
-    void appendToTransaction(Transaction transaction) throws Exception;
+    Transaction readInTransactionFileLine(String line, seedu.address.person.model.Model personModel);
 
-    //InventoryList getInventoryList(seedu.address.inventory.util.InventoryList inventoryList);
+    void appendToTransaction(Transaction transaction) throws Exception;
 
 }

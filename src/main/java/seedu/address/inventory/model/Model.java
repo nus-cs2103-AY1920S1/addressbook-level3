@@ -1,7 +1,5 @@
 package seedu.address.inventory.model;
 
-import java.util.ArrayList;
-
 import seedu.address.inventory.model.exception.NoSuchIndexException;
 import seedu.address.inventory.util.InventoryList;
 
@@ -24,10 +22,6 @@ public interface Model {
 
     void readInUpdatedList();
 
-    ArrayList<Item> getInventoryListInArrayList();
-
-    InventoryList getInventoryList();
-
     void sortByQuantity();
 
     void sortByDescription();
@@ -36,8 +30,7 @@ public interface Model {
 
     void sortReset();
 
-    //InventoryList getInventoryList();
+    InventoryList getInventoryList();
 
     boolean equals(Object obj);
-
 }

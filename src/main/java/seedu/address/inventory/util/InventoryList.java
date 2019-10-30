@@ -102,7 +102,6 @@ public class InventoryList {
      */
     public void sortReset() {
         Collections.sort(iList, new ResetSort());
-
     }
 
     /**
@@ -144,7 +143,6 @@ public class InventoryList {
         }
     }
 
-
     /**
      * Comparator to compare by trueId in Item.
      */
@@ -172,5 +170,4 @@ public class InventoryList {
                 || (other instanceof InventoryList // instanceof handles nulls
                 && iList.equals(((InventoryList) other).getiList()));
     }
-
 }

@@ -50,13 +50,5 @@ public interface Logic {
      */
     void addTransaction(Transaction transaction);
 
-
-    /**
-     * Appends a transaction to the storage.
-     * @param transaction Transaction to be appended.
-     */
-    public void appendToTransactionFile(Transaction transaction) throws Exception;
-
     void updateTransactionFromReimbursement() throws IOException;
-
 }
