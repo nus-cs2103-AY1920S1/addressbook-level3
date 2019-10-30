@@ -2,8 +2,11 @@ package seedu.ifridge.ui;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import seedu.ifridge.model.food.ShoppingItem;
 
 /**
@@ -31,6 +34,8 @@ public class ShoppingItemCard extends UiPart<Region> {
     private Label amount;
     @FXML
     private Label id;
+    @FXML
+    private FlowPane urgentTag;
 
     public ShoppingItemCard(ShoppingItem shoppingItem, int displayedIndex) {
         super(FXML);
@@ -38,6 +43,11 @@ public class ShoppingItemCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         name.setText(shoppingItem.getName().fullName);
         amount.setText(shoppingItem.getAmount().fullAmt);
+        Text text = new Text("urgent!");
+        text.setFill(Color.RED);
+        if (shoppingItem.isUrgent()) {
+            urgentTag.getChildren().add(text);
+        }
     }
 
     @Override
