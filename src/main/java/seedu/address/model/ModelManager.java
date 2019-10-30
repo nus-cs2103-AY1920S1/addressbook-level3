@@ -218,11 +218,22 @@ public class ModelManager implements Model {
                 && filteredPersons.equals(other.filteredPersons);
     }
 
+    //=========== Training =================================================================================
+    @Override
+    public Training getTrainingOnDate(AthletickDate date) {
+        return attendance.getTrainingOnDate(date);
+    }
+
     //=========== Attendance =================================================================================
 
     @Override
     public Attendance getAttendance() {
         return this.attendance;
+    }
+
+    @Override
+    public boolean hasTraining(AthletickDate date) {
+        return this.attendance.hasTraining(date);
     }
 
     @Override
