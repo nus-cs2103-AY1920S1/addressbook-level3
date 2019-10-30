@@ -26,6 +26,7 @@ import seedu.address.model.module.SemesterNo;
 import seedu.address.model.module.exceptions.ModuleNotFoundException;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.exceptions.DuplicateEventException;
 import seedu.address.model.person.exceptions.EventClashException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.model.person.schedule.Event;
@@ -45,6 +46,8 @@ public class AddNusModCommand extends Command {
     public static final String MESSAGE_MODULE_NOT_FOUND = "Unable to find module";
     public static final String MESSAGE_EVENTS_CLASH = "Unable to add module - there is a timing clash "
             + "between the module you're adding and the events in the person's schedule!";
+    public static final String MESSAGE_DUPLICATE_EVENT = "Unable to add module - "
+            + "module already exists in the schedule";
 
     private final Name name;
     private final ModuleCode moduleCode;
@@ -90,6 +93,8 @@ public class AddNusModCommand extends Command {
             person.addEvent(event);
         } catch (EventClashException e) {
             return new CommandResult(MESSAGE_EVENTS_CLASH);
+        } catch (DuplicateEventException e) {
+            return new CommandResult(MESSAGE_DUPLICATE_EVENT);
         }
         // updates UI
         model.updateScheduleWindowDisplay(name, LocalDateTime.now(), ScheduleWindowDisplayType.PERSON);

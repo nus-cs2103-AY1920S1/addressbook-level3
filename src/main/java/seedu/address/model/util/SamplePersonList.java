@@ -23,6 +23,7 @@ import seedu.address.model.person.PersonList;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Remark;
 import seedu.address.model.person.User;
+import seedu.address.model.person.exceptions.DuplicateEventException;
 import seedu.address.model.person.exceptions.EventClashException;
 import seedu.address.model.tag.Tag;
 
@@ -109,9 +110,8 @@ public class SamplePersonList {
 
             return personList;
 
-        } catch (EventClashException e) {
+        } catch (EventClashException | DuplicateEventException e) {
             e.printStackTrace();
-            System.out.println("NULL PERSONLIST");
             return null;
         }
 

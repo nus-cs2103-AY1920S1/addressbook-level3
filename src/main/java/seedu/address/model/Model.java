@@ -39,8 +39,10 @@ import seedu.address.model.person.PersonDescriptor;
 import seedu.address.model.person.PersonId;
 import seedu.address.model.person.PersonList;
 import seedu.address.model.person.User;
+import seedu.address.model.person.exceptions.DuplicateEventException;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.EventClashException;
+import seedu.address.model.person.exceptions.EventNotFoundException;
 import seedu.address.model.person.exceptions.NoPersonFieldsEditedException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.model.person.schedule.Event;
@@ -138,13 +140,22 @@ public interface Model {
     /**
      * Adds an Event to the schedule of a Person with the given Name.
      */
-    void addEvent(Name name, Event event) throws PersonNotFoundException, EventClashException;
+    void addEvent(Name name, Event event) throws PersonNotFoundException, EventClashException, DuplicateEventException;
 
     /**
      * Adds an Event to the schedule of the User.
      */
-    void addEvent(Event event) throws PersonNotFoundException, EventClashException;
+    void addEvent(Event event) throws PersonNotFoundException, EventClashException, DuplicateEventException;
 
+    /**
+     * Deletes an Event in the schedule of a Person.
+     */
+    void deleteEvent(Name name, String eventName) throws EventNotFoundException, PersonNotFoundException;
+
+    /**
+     * Deletes an Event in the schedule of the user.
+     */
+    void deleteEvent(String eventName) throws EventNotFoundException;
 
     /**
      * Edits the person with given Name with given PersonDescriptor.
