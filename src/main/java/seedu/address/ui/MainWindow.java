@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
@@ -62,8 +63,11 @@ public class MainWindow extends UiPart<Stage> implements Page {
     @FXML
     private MenuItem helpMenuItem;
 
+    //@FXML
+    //private StackPane personListPanelPlaceholder;
+
     @FXML
-    private StackPane personListPanelPlaceholder;
+    private ImageView imageView;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -148,8 +152,8 @@ public class MainWindow extends UiPart<Stage> implements Page {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        personListPanel = new PersonListPanel(logic.getAddressBookLogic().getFilteredPersonList());
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        //personListPanel = new PersonListPanel(logic.getAddressBookLogic().getFilteredPersonList());
+        //personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
