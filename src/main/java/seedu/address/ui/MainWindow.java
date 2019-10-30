@@ -21,6 +21,8 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.PanelName;
+import seedu.address.ui.stats.StatisticsGraphics;
+import seedu.address.ui.stats.StatisticsWindow;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -74,6 +76,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private VBox remindersPlaceHolder;
+
+    @FXML
+    private VBox autoExpensesPlaceHolder;
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -157,6 +162,9 @@ public class MainWindow extends UiPart<Stage> {
         budgetsPlaceHolder.getChildren().add(budgetsPanel.getRoot());
         ReminderPanel reminderPanel = new ReminderPanel(logic.getFilteredReminders());
         remindersPlaceHolder.getChildren().add(reminderPanel.getRoot());
+
+        AutoExpensesPanel autoExpensesPanel = new AutoExpensesPanel(logic.getFilteredAutoExpenseList());
+        autoExpensesPlaceHolder.getChildren().add(autoExpensesPanel.getRoot());
     }
 
     /**
@@ -223,6 +231,9 @@ public class MainWindow extends UiPart<Stage> {
         case "reminder":
             togglePlaceHolder(remindersPlaceHolder);
             break;
+        case "autoexpense":
+            togglePlaceHolder(autoExpensesPlaceHolder);
+            break;
         default:
             break;
         }
@@ -279,7 +290,8 @@ public class MainWindow extends UiPart<Stage> {
      * Otherwise, both of those properties are set to true.
      */
     private void toggleEntireSidePanelIfNecessary() {
-        if (!wishesPlaceHolder.isManaged() && !budgetsPlaceHolder.isManaged() && !remindersPlaceHolder.isManaged()) {
+        if (!wishesPlaceHolder.isManaged() && !budgetsPlaceHolder.isManaged() && !remindersPlaceHolder.isManaged()
+                && !autoExpensesPlaceHolder.isManaged()) {
             sidePanelsPlaceHolder.setManaged(false);
             sidePanelsPlaceHolder.setVisible(false);
         } else { // any one of the side panels are managed and visible
