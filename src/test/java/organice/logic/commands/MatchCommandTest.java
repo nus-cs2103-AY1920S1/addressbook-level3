@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static organice.logic.commands.CommandTestUtil.COMPATIBLE_TISSUE_TYPE_IRENE;
-import static organice.logic.commands.CommandTestUtil.VALID_NAME_PATIENT_IRENE;
 import static organice.logic.commands.CommandTestUtil.VALID_NRIC_PATIENT_BOB;
 import static organice.logic.commands.CommandTestUtil.VALID_NRIC_PATIENT_IRENE;
 import static organice.model.person.BloodType.BLOODTYPE_A;
@@ -18,6 +17,7 @@ import static organice.testutil.TypicalPersons.DONOR_IRENE_DONOR;
 import static organice.testutil.TypicalPersons.PATIENT_BOB;
 import static organice.testutil.TypicalPersons.PATIENT_IRENE;
 
+import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.function.Predicate;
 
@@ -25,9 +25,11 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
-
+import organice.commons.core.GuiSettings;
 import organice.model.AddressBook;
-import organice.model.ModelStub;
+import organice.model.Model;
+import organice.model.ReadOnlyAddressBook;
+import organice.model.ReadOnlyUserPrefs;
 import organice.model.person.Donor;
 import organice.model.person.MatchedDonor;
 import organice.model.person.Nric;
@@ -66,9 +68,7 @@ public class MatchCommandTest {
         CommandResult commandResult = new MatchCommand(validNric).execute(modelStub);
         ObservableList<Person> listOfDonors = modelStub.getMatchList();
 
-        String expectedMessage = String.format(MatchCommand.MESSAGE_SUCCESS_MATCH_PATIENT, listOfDonors.size(),
-                VALID_NAME_PATIENT_IRENE, VALID_NRIC_PATIENT_IRENE);
-        assertEquals(String.format(expectedMessage, validNric), commandResult.getFeedbackToUser());
+        assertEquals(String.format(MatchCommand.MESSAGE_SUCCESS, validNric), commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(DONOR_IRENE_DONOR), listOfDonors);
     }
 
@@ -80,9 +80,7 @@ public class MatchCommandTest {
         CommandResult commandResult = new MatchCommand(validNric).execute(modelStub);
         ObservableList<Person> listOfDonors = modelStub.getMatchList();
 
-        String expectedMessage = String.format(MatchCommand.MESSAGE_NO_MATCHES, VALID_NAME_PATIENT_IRENE,
-                VALID_NRIC_PATIENT_IRENE);
-        assertEquals(String.format(expectedMessage, validNric), commandResult.getFeedbackToUser());
+        assertEquals(String.format(MatchCommand.MESSAGE_SUCCESS, validNric), commandResult.getFeedbackToUser());
         assertEquals(listOfDonors.size(), 0); //assert that there is no donor
     }
 
@@ -182,6 +180,126 @@ public class MatchCommandTest {
     }
 
     /**
+     * A default model stub that have all of the methods failing.
+     */
+    private class ModelStub implements Model {
+        @Override
+        public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyUserPrefs getUserPrefs() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public GuiSettings getGuiSettings() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setGuiSettings(GuiSettings guiSettings) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Path getAddressBookFilePath() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setAddressBookFilePath(Path addressBookFilePath) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addPerson(Person person) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setAddressBook(ReadOnlyAddressBook newData) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyAddressBook getAddressBook() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasDoctor(Nric doctor) {
+            return true;
+        }
+
+        @Override
+        public boolean hasPatient(Nric patient) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasDonor(Nric donor) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Patient getPatient(Nric patientNric) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Donor getDonor(Nric donorNric) throws PersonNotFoundException {
+            return null;
+        }
+
+        @Override
+        public ObservableList<Person> getMatchList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void matchDonors(Patient patient) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void matchAllPatients() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void removeMatches() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasPerson(Person person) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deletePerson(Person target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setPerson(Person target, Person editedPerson) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Person> getFilteredPersonList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredPersonList(Predicate<Person> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+    }
+
+    /**
      * A Model stub that contains a matching donor.
      */
     private class ModelStubWithDonor extends ModelStub {
@@ -254,11 +372,6 @@ public class MatchCommandTest {
         @Override
         public void removeMatches() {
             listOfMatches = observableArrayList();
-        }
-
-        @Override
-        public int numberOfMatches() {
-            return listOfMatches.size();
         }
     }
 
@@ -335,11 +448,6 @@ public class MatchCommandTest {
         @Override
         public void removeMatches() {
             listOfMatches = observableArrayList();
-        }
-
-        @Override
-        public int numberOfMatches() {
-            return listOfMatches.size();
         }
     }
 }
