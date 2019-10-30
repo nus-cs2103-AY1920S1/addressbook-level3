@@ -11,7 +11,6 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 import seedu.moneygowhere.commons.exceptions.IllegalValueException;
 import seedu.moneygowhere.model.ReadOnlySpendingBook;
 import seedu.moneygowhere.model.SpendingBook;
-import seedu.moneygowhere.model.budget.Budget;
 import seedu.moneygowhere.model.reminder.Reminder;
 import seedu.moneygowhere.model.spending.Spending;
 
@@ -23,13 +22,13 @@ class JsonSerializableSpendingBook {
 
     private final List<JsonAdaptedSpending> spendings = new ArrayList<>();
     private final List<JsonAdaptedReminder> reminders = new ArrayList<>();
-    private String budget;
+    private JsonAdaptedBudget budget;
 
     /**
      * Constructs a {@code JsonSerializableSpendingBook} with the given spendings and reminders.
      */
     @JsonCreator
-    public JsonSerializableSpendingBook(@JsonProperty("budget") String budget,
+    public JsonSerializableSpendingBook(@JsonProperty("budget") JsonAdaptedBudget budget,
             @JsonProperty("spendings") List<JsonAdaptedSpending> spendings,
                                         @JsonProperty("reminders") List<JsonAdaptedReminder> reminders) {
         this.spendings.addAll(spendings);
@@ -45,7 +44,7 @@ class JsonSerializableSpendingBook {
     public JsonSerializableSpendingBook(ReadOnlySpendingBook source) {
         spendings.addAll(source.getSpendingList().stream().map(JsonAdaptedSpending::new).collect(Collectors.toList()));
         reminders.addAll(source.getReminderList().stream().map(JsonAdaptedReminder::new).collect(Collectors.toList()));
-        budget = "" + source.getBudget().getValue();
+        budget = new JsonAdaptedBudget(source.getBudget());
     }
 
     /**
@@ -65,7 +64,7 @@ class JsonSerializableSpendingBook {
             spendingBook.addReminder(reminder);
         }
 
-        spendingBook.setBudget(new Budget(budget));
+        spendingBook.setBudget(budget.toModelType());
 
         return spendingBook;
     }

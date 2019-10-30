@@ -2,6 +2,7 @@ package seedu.moneygowhere.model.spending;
 
 import static seedu.moneygowhere.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.time.LocalDate;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
@@ -42,6 +43,10 @@ public class Spending {
 
     public Date getDate() {
         return date;
+    }
+
+    public LocalDate getDateValue() {
+        return date.getDateValue();
     }
 
     public Remark getRemark() {
