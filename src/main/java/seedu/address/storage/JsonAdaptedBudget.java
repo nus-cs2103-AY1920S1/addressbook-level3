@@ -39,7 +39,6 @@ class JsonAdaptedBudget {
     private final String period;
     private final boolean isPrimary;
     private List<String> expenseIds = new ArrayList<>();
-    private final String proportionUsed;
 
     /**
      * Constructs a {@code JsonAdaptedBudget} with the given budget details.
@@ -51,8 +50,7 @@ class JsonAdaptedBudget {
                              @JsonProperty("endDate") String endDate,
                              @JsonProperty("period") String period,
                              @JsonProperty("expenses") List<String> expenseIds,
-                             @JsonProperty("isPrimary") boolean isPrimary,
-                             @JsonProperty("proportionUsed") String proportionUsed) {
+                             @JsonProperty("isPrimary") boolean isPrimary) {
         this.description = description;
         this.amount = amount;
         this.startDate = startDate;
@@ -62,7 +60,6 @@ class JsonAdaptedBudget {
             this.expenseIds.addAll(expenseIds);
         }
         this.isPrimary = isPrimary;
-        this.proportionUsed = proportionUsed;
     }
 
     /**
@@ -79,7 +76,6 @@ class JsonAdaptedBudget {
                 .map(e -> e.getUniqueIdentifier().value)
                 .collect(Collectors.toList()));
         isPrimary = source.isPrimary();
-        proportionUsed = source.getProportionUsed().toString();
     }
 
     /**
@@ -149,18 +145,20 @@ class JsonAdaptedBudget {
         }
         final BudgetPeriod modelPeriod = ParserUtil.parsePeriod(period);
 
+        /*
         if (proportionUsed == null) {
             throw new IllegalValueException(
                     String.format(MISSING_FIELD_MESSAGE_FORMAT, Percentage.class.getSimpleName()));
         }
-        //int proportionValue = ParserUtil.parsePercentage(proportionUsed);
-        //if (!Percentage.isValidPercentage(proportionValue)) {
-        //  throw new IllegalValueException(Percentage.MESSAGE_CONSTRAINTS);
-        //}
+        int proportionValue = ParserUtil.parsePercentage(proportionUsed);
+        if (!Percentage.isValidPercentage(proportionValue)) {
+            throw new IllegalValueException(Percentage.MESSAGE_CONSTRAINTS);
+        }
         final Percentage modelProportionUsed = ParserUtil.parsePercentage(proportionUsed);
+        */
 
-        Budget budget = new Budget(modelDescription, modelAmount, modelStartDate, modelEndDate,
-                modelPeriod, expenseList, isPrimary, modelProportionUsed);
+        Budget budget = new Budget(modelDescription, modelAmount, modelStartDate,
+                modelPeriod, expenseList, isPrimary);
 
         return budget;
     }
