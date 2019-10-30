@@ -6,6 +6,8 @@ import static seedu.algobase.logic.parser.CliSyntax.PREFIX_END_DATE;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_START_DATE;
 import static seedu.algobase.model.Model.PREDICATE_SHOW_ALL_PLANS;
+import static seedu.algobase.model.searchrule.plansearchrule.TimeRange.ORDER_CONSTRAINTS;
+import static seedu.algobase.model.searchrule.plansearchrule.TimeRange.isValidRange;
 
 import java.time.LocalDate;
 import java.util.Collections;
@@ -79,6 +81,10 @@ public class EditPlanCommand extends Command {
 
         Plan planToEdit = lastShownList.get(index.getZeroBased());
         Plan editedPlan = createEditedPlan(planToEdit, editPlanDescriptor);
+
+        if (!isValidRange(editedPlan.getStartDate(), editedPlan.getEndDate())) {
+            throw new CommandException(ORDER_CONSTRAINTS);
+        }
 
         if (!planToEdit.isSamePlan(editedPlan) && model.hasPlan(editedPlan)) {
             throw new CommandException(String.format(MESSAGE_DUPLICATE_PLAN, editedPlan.getPlanName()));

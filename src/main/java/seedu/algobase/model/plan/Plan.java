@@ -63,7 +63,6 @@ public class Plan {
      */
     public static Plan updateTasks(Plan planToUpdate, Set<Task> taskSet) {
         assert planToUpdate != null;
-
         Id id = planToUpdate.id;
         PlanName name = planToUpdate.planName;
         PlanDescription description = planToUpdate.planDescription;

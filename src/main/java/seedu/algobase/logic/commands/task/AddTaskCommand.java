@@ -5,6 +5,7 @@ import static seedu.algobase.logic.parser.CliSyntax.PREFIX_DUE_DATE;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_PLAN;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_PROBLEM;
 import static seedu.algobase.model.Model.PREDICATE_SHOW_ALL_PLANS;
+import static seedu.algobase.model.task.Task.MESSAGE_DATE_EXCEPTION;
 
 import java.time.LocalDate;
 import java.util.HashSet;
@@ -85,6 +86,11 @@ public class AddTaskCommand extends Command {
             task = new Task(problem, taskDate, false);
         } else {
             task = new Task(problem, planDate, false);
+        }
+
+        if (task.getTargetDate().isAfter(planToUpdate.getEndDate())
+                || task.getTargetDate().isBefore(planToUpdate.getStartDate())) {
+            throw new CommandException(MESSAGE_DATE_EXCEPTION);
         }
 
         Set<Task> taskSet = new HashSet<>(planToUpdate.getTasks());

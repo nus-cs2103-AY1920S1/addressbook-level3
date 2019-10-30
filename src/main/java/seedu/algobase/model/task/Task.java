@@ -23,6 +23,8 @@ import seedu.algobase.model.tag.Tag;
  */
 public class Task {
 
+    public static final String MESSAGE_DATE_EXCEPTION = "Task's due date should be within plan's time range.";
+
     private final Id id;
     private final Problem problem;
     private final Boolean isSolved;
