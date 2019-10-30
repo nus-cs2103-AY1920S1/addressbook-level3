@@ -1,4 +1,3 @@
-= ELISA - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -14,30 +13,44 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/ay1920s1-cs2103t-t10-3/main
 
-By: `AY1920S1-CS2103T-T10-3`      Since: `Sep 2019`      Licence: `NUS`
+= ELISA - User Guide
+
+image::ug_title.png[]
+
+By: `AY1920S1-CS2103T-T10-3`
+Since: `Sep 2019`
+Licence: `NUS`
 
 == Introduction
 
-Extremely Loud and Intelligent Student Assistant (ELISA) is for students who *wants to have an intelligent companion that keeps track of tasks and give friendly reminders on when to take breaks*. More importantly, ELISA is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, ELISA can get your tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+image::ug_introduction.png[]
+
+Hello, I am an Extremely Loud and Intelligent Student Assistant (ELISA)!
+
+I am here to be *your intelligent companion that keeps track of your tasks and remind you to take breaks*.
+
+Although I am *optimized for those who prefer to work with a Command Line Interface* (CLI), I also have a Graphical User Interface (GUI). If you can type fast, I can get your tasks done faster than traditional GUI apps.
+
+Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
 
-.  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `elisa.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for ELISA.
-.  Double-click the file to start the app. The GUI should appear in a few seconds.
+image::ug_quickstart.png[]
+
+.  Have you installed Java `11` ?
+.  Find me, `elisa.jar` link:{repoURL}/releases[here].
+.  Double-click me to start the app. See you in a few seconds.
 +
 image::MainWindow.png[width="790"]
 +
-.  Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-.  Some example commands you can try:
+.  Tell me what to do in the command box!
+.  Want to know more about me? A detailed explanation of me is at <<Features>>
 
-* *`list`* : lists all tasks
-* **`delete`**`3` : deletes the 3rd item shown in the current list
-* *`exit`* : exits the app
+== Legend
 
-.  Refer to <<Features>> for details of each command.
+image::ug_legend.png[]
+
+
 
 [[Features]]
 == Features
@@ -45,6 +58,8 @@ Now we'll be presenting what you've been waiting for... our features! +
 But hold on, to fully appreciate our features, you might want to go through some of the command guidelines first. +
 These are some mistakes that our users(and even us) would make initially, and they can be really unpleasant, so we hope that you won't have to go though them.
 For your viewing pleasure, we've collated it nicely into a quick starter pack below, let's start!
+
+image::ug_features.png[]
 
 ====
 This table shows the basic rules for the formatting the input:
