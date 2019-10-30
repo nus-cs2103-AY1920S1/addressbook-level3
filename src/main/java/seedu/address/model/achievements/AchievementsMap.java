@@ -5,6 +5,7 @@ import static seedu.address.model.record.RecordType.BLOODSUGAR;
 import static seedu.address.model.record.RecordType.BMI;
 
 import java.util.Collections;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -33,8 +34,8 @@ public class AchievementsMap {
             new BmiDiamond(), new BmiPlatinum(), new BmiGold(),
             new BmiSilver(), new BmiBronze()));
 
-    public static final Map<RecordType, List<Achievement>> ACHIEVEMENTS_MAP = Map.ofEntries(
-            entry(BLOODSUGAR, BLOOD_SUGAR_ACHIEVEMENTS_LIST),
-            entry(BMI, BMI_ACHIEVEMENTS_LIST)
-    );
+    public static final Map<RecordType, List<Achievement>> ACHIEVEMENTS_MAP = Collections
+            .unmodifiableMap(new LinkedHashMap<>(Map.ofEntries(
+                    entry(BLOODSUGAR, BLOOD_SUGAR_ACHIEVEMENTS_LIST),
+                    entry(BMI, BMI_ACHIEVEMENTS_LIST))));
 }
