@@ -40,7 +40,10 @@ public class AnalyseStrongPasswordCommand extends AnalysePasswordCommand {
             List<Result> results = analyser.analyse(passwordList);
             analysisReport.write(results.get(index.getZeroBased()));
         }
-        return new CommandResult("Results shown below", analysisReport, null);
+        return CommandResult.builder(MESSAGE_SUCCESS)
+                .read()
+                .setObject(analysisReport)
+                .build();
     }
 
 }

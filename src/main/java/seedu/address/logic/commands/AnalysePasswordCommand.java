@@ -24,7 +24,7 @@ import seedu.address.model.password.analyser.result.Result;
  * Analyses passwords in the password book.
  */
 public class AnalysePasswordCommand extends Command {
-
+    public static final String MESSAGE_SUCCESS = "Results are shown below";
     public static final String COMMAND_WORD = "analyse";
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Analyses security of the entire list of passwords.\n"
@@ -48,7 +48,10 @@ public class AnalysePasswordCommand extends Command {
             List<Result> results = analyser.analyse(passwordList);
             analysisReport.write(results);
         }
-        return new CommandResult("Results shown below", analysisReport, null);
+        return CommandResult.builder(MESSAGE_SUCCESS)
+                .read()
+                .setObject(analysisReport)
+                .build();
     }
 
     List<Analyser> getRequiredAnalysers() throws DictionaryException {
