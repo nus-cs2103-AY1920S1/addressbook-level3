@@ -1,4 +1,4 @@
-package seedu.address.report;
+package seedu.address.storage;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
