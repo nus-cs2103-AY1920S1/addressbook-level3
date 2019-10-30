@@ -266,12 +266,12 @@ Format: `unfinished`
 
 ==== View overdue revision tasks: `overdue`
 Displays the revision tasks that are yet to be done but having passed the deadline
-Format: `roverdue`
+Format: `overdue`
 
-==== Enable push notification: `notify -e`
+==== Enable push notification: `notify -e` `[coming in v2.0]`
 Format: `notify -e [-A] [INDEX]`
 
-==== Disable push notification: `notify -d`
+==== Disable push notification: `notify -d` `[coming in v2.0]`
 Format: `notify -d [-A] [INDEX]`
 
 === Auto-complete feature `[coming in v2.0]`
