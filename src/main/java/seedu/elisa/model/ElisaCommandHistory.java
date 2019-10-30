@@ -8,11 +8,19 @@ import seedu.elisa.logic.commands.UndoableCommand;
  */
 
 public interface ElisaCommandHistory {
-    public void pushCommand(Command command);
+    public void pushUndo(Command command);
 
-    public UndoableCommand popCommand();
+    public UndoableCommand popUndo();
 
-    public UndoableCommand peekCommand();
+    public UndoableCommand peekUndo();
 
-    public int size();
+    public int sizeUndo();
+
+    public void pushRedo(Command command);
+
+    public UndoableCommand popRedo();
+
+    public UndoableCommand peekRedo();
+
+    public int sizeRedo();
 }

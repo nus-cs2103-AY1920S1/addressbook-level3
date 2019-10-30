@@ -283,25 +283,29 @@ There are two variants to the priority mode, a normal priority mode that is cont
 
 ==== Example run of code
 
-In the following section, we will be showing a run of the priority mode and the behaviour of the mechanism at each step. In particular, we will be showing how the ```ScheduledPriorityMode``` works as it requires more step through the sequence diagram as compared to the ```PriorityMode```.
+In the following section, we will be showing a run of the priority mode and the behaviour of the mechanism at each step. In particular, we will be showing how the ```ScheduledPriorityMode``` works as it has a more complicated implementation than the normal ```PriorityMode```.
 
 Step 1. The user opens his ELISA software. The first screen that he observes will be the task screen which contains all the task of the user based on the time they were added into the list.
 
 Step 2. The user types ```priority 30.min.later``` into the command box of ELISA and hits enter. The list is instantly shrink to show only the most pressing task (i.e. the task with the highest priority). If two tasks have the same priority, either of the task will be shown as there is no other way for ELISA to compare between the two task.
 
-Step 3. ELISA will automatically disable the priority mode after 30 minutes and show *all* the task that the user have in his task list currently.
+Step 3. The user can type ```done 1``` when he is done with the current task to retrieve the next task. This will carry on until there is no more undone task left to do. This is shown in the activity diagram below.
 
-The figure below shows the sequence diagram on what happens from a simple execution of the ```priority 30.min.later``` command.
+image::PriorityModeActivityDiagram.png[]
+
+Step 4. ELISA will automatically disable the priority mode after 30 minutes and show *all* the task that the user have in his task list currently.
+
+==== Internal working of the command
+The figure below shows the sequence diagram on what happens from a simple execution of the ```priority 30.min.later``` command. We will be going through step by step the internal mechanism of the execution of the ```ScheduledPriorityCommand```.
 
 .Sequence diagram for priority mode
 image::PriorityMode.png[]
 
-==== Internal working of the command
-Referring to _Fig 3.2.2.a_, we will be going through step by step the internal mechanism of the execution of the ```ScheduledPriorityCommand```.
-
 Step 1. When the user types in the command, the ```LogicManager``` takes in the command as a string and pass it to the ```AddressBookParser```
 
-Step 2. The ```AddressBookParser``` parses the string and determine whether the command is that of a normal ```PriorityCommand``` or a ```ScheduledPriorityCommand```. In this case, the command is that of a ```ScheduledPriorityCommand``` and so a new ```ScheduledPriorityCommand``` is created. This ```ScheduledPriorityCommand``` is passed back to the ```LogicManager```. (Despite the fact that this is a ```ScheduledPriorityCommand```, the following steps marked with a * are also applicable to a normal ```PriorityCommand```).
+Step 2. The ```AddressBookParser``` parses the string and determine whether the command is that of a normal ```PriorityCommand``` or a ```ScheduledPriorityCommand```. In this case, the command is that of a ```ScheduledPriorityCommand``` and so a new ```ScheduledPriorityCommand``` is created. This ```ScheduledPriorityCommand``` is passed back to the ```LogicManager```.
+
+(Despite the fact that this is a ```ScheduledPriorityCommand```, the following steps marked with a * are also applicable to a normal ```PriorityCommand```).
 
 Step 3*. Within the ```LogicManager```, the ```ScheduledPriorityCommand#execute()``` method is called and the command is executed.
 
@@ -343,7 +347,7 @@ Alternative 2 was chosen as we believe that the functionality of the ```Schedule
 
 ==== Possible extension
 
-As of this moment, there is no way to display the status of the priority mode within the ```Ui``` other than through the list. One possible extension is turning have a label to signify that the user is in the priority mode.
+As of this moment, there is no way to display the status of the priority mode within the ```Ui``` other than through the visualization list. One possible extension is changing the colour of Elisa to signify that the user is in the priority mode.
 
 At the moment, there is also no way to inform the user that the priority mode is disabled when it is scheduled to be off. However, this can be solved if the above extension is implemented as it will trigger the message when the mode switches.
 

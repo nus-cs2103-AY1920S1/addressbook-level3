@@ -18,6 +18,7 @@ import seedu.elisa.logic.commands.FindCommand;
 import seedu.elisa.logic.commands.JokeCommand;
 import seedu.elisa.logic.commands.OpenCommand;
 import seedu.elisa.logic.commands.PriorityCommand;
+import seedu.elisa.logic.commands.RedoCommand;
 import seedu.elisa.logic.commands.ShowCommand;
 import seedu.elisa.logic.commands.SortCommand;
 import seedu.elisa.logic.commands.UndoCommand;
@@ -86,6 +87,9 @@ public class ElisaParser {
 
         case UndoCommand.COMMAND_WORD:
             return new UndoCommand(elisaCommandHistory);
+
+        case RedoCommand.COMMAND_WORD:
+            return new RedoCommand(elisaCommandHistory);
 
         case ShowCommand.COMMAND_WORD:
             return new ShowCommandParser().parse(description, flags);
