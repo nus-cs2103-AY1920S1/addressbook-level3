@@ -14,6 +14,7 @@ import seedu.mark.logic.commands.CacheCommand;
 import seedu.mark.logic.commands.ClearCommand;
 import seedu.mark.logic.commands.CollapseCommand;
 import seedu.mark.logic.commands.Command;
+import seedu.mark.logic.commands.DeleteCacheCommand;
 import seedu.mark.logic.commands.DeleteCommand;
 import seedu.mark.logic.commands.EditCommand;
 import seedu.mark.logic.commands.ExitCommand;
@@ -121,6 +122,9 @@ public class MarkParser {
 
         case CacheCommand.COMMAND_WORD:
             return new CacheCommandParser().parse(arguments);
+
+        case DeleteCacheCommand.COMMAND_WORD:
+            return new DeleteCacheCommandParser().parse(arguments);
 
         case OfflineCommand.COMMAND_WORD:
             return new OfflineCommandParser().parse(arguments);
