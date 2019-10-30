@@ -1,6 +1,8 @@
 package seedu.address.logic.quiz.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.quiz.commands.AddCommand.MESSAGE_STRING_LIMIT_EXCEEDED;
+import static seedu.address.logic.quiz.commands.AddCommand.MESSAGE_TOO_SHORT;
 import static seedu.address.logic.quiz.parser.CliSyntax.PREFIX_ANSWER;
 import static seedu.address.logic.quiz.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.address.logic.quiz.parser.CliSyntax.PREFIX_QUESTION;
@@ -34,7 +36,7 @@ public class AddCommandParser implements Parser<AddCommand> {
                 ArgumentTokenizer.tokenize(args, PREFIX_QUESTION, PREFIX_ANSWER,
                         PREFIX_CATEGORY, PREFIX_TYPE, PREFIX_TAG);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_QUESTION, PREFIX_ANSWER)
+        if (!arePrefixesPresent(argMultimap, PREFIX_QUESTION, PREFIX_ANSWER, PREFIX_CATEGORY)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
@@ -44,6 +46,14 @@ public class AddCommandParser implements Parser<AddCommand> {
         Category category = ParserUtil.parseCategory(argMultimap.getValue(PREFIX_CATEGORY).get());
         Type type = ParserUtil.parseType(argMultimap.getValue(PREFIX_TYPE).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
+
+        if (name.fullName.length() < 3) {
+            throw new ParseException(String.format(MESSAGE_TOO_SHORT));
+        }
+
+        if (name.fullName.length() > 200 || answer.value.length() > 125 || category.value.length() > 50) {
+            throw new ParseException(String.format(MESSAGE_STRING_LIMIT_EXCEEDED));
+        }
 
         Question question = new Question(name, null, answer, category, type, tagList);
 

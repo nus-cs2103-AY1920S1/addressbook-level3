@@ -151,13 +151,28 @@ The `Storage` component,
 Classes used by multiple components are in the `seedu.addressbook.commons` package.
 
 [[Implementation-Configuration]]
-=== Configuration
-
-Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
-
 == Implementation
 
 This section describes some noteworthy details on how certain features are implemented.
+
+=== Logging
+
+We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
+
+* The logging level can be controlled using the `logLevel` setting in the configuration file (See <<Implementation-Configuration>>)
+* The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to the specified logging level
+* Currently log messages are output through: `Console` and to a `.log` file.
+
+*Logging Levels*
+
+* `SEVERE` : Critical problem detected which may possibly cause the termination of the application
+* `WARNING` : Can continue, but with caution
+* `INFO` : Information showing the noteworthy actions by the App
+* `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
+
+=== Configuration
+
+Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
 
 === Calendar week change
 ==== Implementation
@@ -176,21 +191,120 @@ corresponding week number or is an instance of `ModuleTask`.
 ** Pros: Easy to clear data from a certain week.
 ** Cons: Need to switch storage file each time the user go to the next/previous week.
 
-=== Logging
+// tag::undoredo[]
+=== Quiz feature
+==== Create question feature
+===== Implementation
 
-We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
+To use this feature, the user will need to switch to the quiz mode and add the question they want with
+several requirements on the syntax stated in the UserGuide.
 
-* The logging level can be controlled using the `logLevel` setting in the configuration file (See <<Implementation-Configuration>>)
-* The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to the specified logging level
-* Currently log messages are output through: `Console` and to a `.log` file.
+Given below is an example usage scenario on how to add a question properly and the mechanism that behaves at each step.
 
-*Logging Levels*
+Step 1. The user launches the application and switch to the *quiz* mode by executing `switch quiz`.
 
-* `SEVERE` : Critical problem detected which may possibly cause the termination of the application
-* `WARNING` : Can continue, but with caution
-* `INFO` : Information showing the noteworthy actions by the App
-* `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
+Step 2. The user executes `*add <qns>* _What is always coming, but never arrives?_ *<ans>* _Today_ *<cat>* _CS2131_ *<type>* _high_`
+command to add a question with the question name: _What is always coming, but never arrives?_, answer: _Tomorrow_, category: CS2131 and type: _high_ in the quiz book.
+The `add` command calls `Model#addQuestion()`, causing the modified state of the quiz book, after the command executes, to be saved in the `quizBookStateList` and shown in the UI.
 
+Step 3. If the user realized that they have typed the wrong answer for a particular question, then the user can executes
+`*edit CS2131, 1 <ans>* _Tomorrow_` command to replace the previous answer with the new answer with the given category and index prepend behind. The `edit` command calls `Model#setQuestion()`,
+causing the modified state of the quiz book, after the command executes, to be saved in the `quizBookStateList` and updated in the UI.
+
+Step 4. [Addtional] The user can execute `*comment 1 <val>* _The explanation is in pg 194 textbook_` if he/she now decide to add a comment or explanation of a quiz question at index 1.
+The `comment` command calls `Model#setQuestion()` to parse in an additional parameter of comment into the entity of the question. It will then be saved in the
+`quizBookStateList` and shown in the UI.
+
+[NOTE]
+Users can also utilize the undo/redo command when they realize that they have execute a command that they shouldn't do (Will be explained in [3.5.2]).
+
+The following activity diagram summarizes the basic question creation process:
+
+image::QuizCreationActivityDiagram.png[]
+
+{empty} +
+
+==== Undo/Redo feature
+===== Implementation
+
+The undo/redo mechanism is facilitated by `VersionedQuizBook`.
+It extends `QuizBook` with an undo/redo history, stored internally as an `quizBookStateList` and `currentStatePointer`.
+Additionally, it implements the following operations:
+
+* `VersionedQuizBook#commit()` -- Saves the current quiz book state in its history.
+* `VersionedQuizBook#undo()` -- Restores the previous quiz book state from its history.
+* `VersionedQuizBook#redo()` -- Restores a previously undone quiz book state from its history.
+
+These operations are exposed in the `Model` interface as `Model#commitQuizBook()`, `Model#undoQuizBook()` and `Model#redoQuizBook()` respectively.
+
+Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
+
+Step 1. The user launches the application for the first time. The `VersionedQuizBook` will be initialized with the initial quiz book state, and the `currentStatePointer` pointing to that single quiz book state.
+
+image::UndoRedoState0.png[]
+
+Step 2. The user executes `delete 5` command to delete the 5th person in the quiz book. The `delete` command calls `Model#commitQuizBook()`, causing the modified state of the quiz book after the `delete 5` command executes to be saved in the `quizBookStateList`, and the `currentStatePointer` is shifted to the newly inserted quiz book state.
+
+image::UndoRedoState1.png[]
+
+Step 3. The user executes `comment 1 <val> NewComment` to add a new person. The `add` command also calls `Model#commitQuizBook()`, causing another modified quiz book state to be saved into the `quizBookStateList`.
+
+image::UndoRedoState2.png[]
+
+[NOTE]
+If a command fails its execution, it will not call `Model#commitQuizBook()`, so the quiz book state will not be saved into the `quizBookStateList`.
+
+Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoQuizBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous quiz book state, and restores the quiz book to that state.
+
+image::UndoRedoState3.png[]
+
+[NOTE]
+If the `currentStatePointer` is at index 0, pointing to the initial quiz book state, then there are no previous quiz book states to restore. The `undo` command uses `Model#canUndoQuizBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+
+The following sequence diagram shows how the undo operation works:
+
+image::UndoSequenceDiagram.png[]
+
+NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+The `redo` command does the opposite -- it calls `Model#redoQuizBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the quiz book to that state.
+
+[NOTE]
+If the `currentStatePointer` is at index `quizBookStateList.size() - 1`, pointing to the latest quiz book state, then there are no undone quiz book states to restore. The `redo` command uses `Model#canRedoQuizBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+
+Step 5. The user then decides to execute the command `list`. Commands that do not modify the quiz book, such as `list`, will usually not call `Model#commitQuizBook()`, `Model#undoQuizBook()` or `Model#redoQuizBook()`. Thus, the `quizBookStateList` remains unchanged.
+
+image::UndoRedoState4.png[]
+
+Step 6. The user executes `clear`, which calls `Model#commitQuizBook()`. Since the `currentStatePointer` is not pointing at the end of the `quizBookStateList`, all quiz book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
+
+image::UndoRedoState5.png[]
+
+The following activity diagram summarizes what happens when a user executes a new command:
+
+image::CommitActivityDiagram.png[]
+
+===== Design Considerations
+
+====== Aspect: How undo & redo executes
+
+* **Alternative 1 (current choice):** Saves the entire quiz book.
+** Pros: Easy to implement.
+** Cons: May have performance issues in terms of memory usage.
+* **Alternative 2:** Individual command knows how to undo/redo by itself.
+** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
+** Cons: We must ensure that the implementation of each individual command are correct.
+
+====== Aspect: Data structure to support the undo/redo commands
+
+* **Alternative 1 (current choice):** Use a list to store the history of quiz book states.
+** Pros: Easy for new developers to understand.
+** Cons: May suffer from performance issues on the memory (When a new command is executed, we must remember to update the list from `VersionedQuizBook`.)
+* **Alternative 2:** Use `HistoryManager` for undo/redo
+** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
+** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
+
+// end::undoredo[]
 
 == Documentation
 

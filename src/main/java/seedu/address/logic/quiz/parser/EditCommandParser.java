@@ -2,6 +2,7 @@ package seedu.address.logic.quiz.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.quiz.commands.EditCommand.MESSAGE_INVALID_EDIT_COMMAND;
 import static seedu.address.logic.quiz.parser.CliSyntax.PREFIX_ANSWER;
 import static seedu.address.logic.quiz.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.address.logic.quiz.parser.CliSyntax.PREFIX_QUESTION;
@@ -37,11 +38,11 @@ public class EditCommandParser implements Parser<EditCommand> {
 
         Index index;
         String editParameters = argMultimap.getPreamble();
-        String[] arrParameters = editParameters.split(" ");
+        String[] arrParameters = editParameters.split(",");
         String category = arrParameters[0];
 
         if (arrParameters.length != 2) {
-            throw new ParseException("Please specify the category and question index properly");
+            throw new ParseException(MESSAGE_INVALID_EDIT_COMMAND);
         } else {
             try {
                 index = ParserUtil.parseIndex(arrParameters[1]);
@@ -66,10 +67,10 @@ public class EditCommandParser implements Parser<EditCommand> {
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editQuestionDescriptor::setTags);
 
         if (!editQuestionDescriptor.isAnyFieldEdited()) {
-            throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);
+            throw new ParseException(EditCommand.MESSAGE_NOT_EDITED + "\n" + EditCommand.MESSAGE_USAGE);
         }
 
-        return new EditCommand(index, editQuestionDescriptor);
+        return new EditCommand(index, category, editQuestionDescriptor);
     }
 
     /**
