@@ -260,7 +260,8 @@ and is loaded upon the next startup
 
 ==== Cycling Through Previous Inputs
 The core of the cycle-command-history feature is implemented through three different classes:
- `CommandHistory`, `ListPointer`, and `InputOutput`.
+ `CommandHistory`, `ListPointer`, and `InputOutput`. In addition, the `CommandBox` was modified
+to accomodate the UX changes.
 
 * `InputOutput`: Class wrapper around two `String` objects representing the command input
 and command feedback output from MAMS. It is chiefly comprised of an input and an output, hence
@@ -479,11 +480,8 @@ fields present. As an example, the `ExpandedModuleCard` contains the following f
 
 When the GUI detects only one item in the List Panel to be displayed, it automatically defaults to using the Expanded Card
 for displaying the item, eg., performing a `find` command that returns only one module as the result will cause the GUI to display
-the single module using `ExpandedModuleCard`. In fact, it is the only case when an Expanded Card will be used.
+the single module using `ExpandedModuleCard`.
 
-This is because an Expanded Card is meant to take up the entire List Panel display when the user has decided to scrutinize a single item,
-and it is hence not useful for other cells to be hidden out of view below the visible screen. This also neatly enforces the GUI-Logic
-abstraction barrier by eliminating the need for MAMS Logic to control such GUI decisions.
 
 to be continued...
 
