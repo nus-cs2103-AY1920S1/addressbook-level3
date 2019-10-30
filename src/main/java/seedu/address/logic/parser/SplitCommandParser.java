@@ -44,6 +44,15 @@ public class SplitCommandParser implements Parser<SplitCommand> {
         Date date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).orElse(Date.now().toString()));
         List<Integer> shares = ParserUtil.parseShares(argMultimap.getAllValues(PREFIX_SHARE));
 
+        boolean validSharesLength = shares.size() == people.size() || shares.size() == people.size() + 1;
+        if (!validSharesLength) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SplitCommand.SHARES_FORMAT));
+        }
+
+        if (shares.size() == people.size()) {
+            shares.add(0, 0);
+        }
+
         Split transaction = new Split(amount, date, description, shares, people);
         return new SplitCommand(transaction);
 

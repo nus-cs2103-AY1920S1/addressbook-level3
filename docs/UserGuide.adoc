@@ -62,20 +62,23 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 === Splitting a Bill with Friends : `split`
 
 Split a bill with your friends +
-Format: `split [f/FLAG] $/AMOUNT n/NAME1 [n/NAME2]... [s/SHARE]`
+Format: `split $/AMOUNT n/NAME1 [n/NAME2]... [s/SHARE]...`
 
 
-* `[FLAG]` defines how the bill is split:
-** `dutch` user is included in the split (default)
-** `loan` user is not included in the split
 * `[SHARE]` defines portion of bill to be paid by each person
-*** number of rations must match number of names for `loan` splits
-*** number of rations must be 1 more than number of names for `dutch` splits
+** if no shares are given, `amount` will be split evenly across all people, including user
+** user is included in the bill if number of shares is *1* more than number of people
+*** user's share will be the first listed share
+** each person's share is assigned in order
+*** i.e. last person's share is the last share listed
+** shares cannot be negative numbers
 
 Examples:
 
 * `split $/1000 n/Amy n/Betty n/Catherine n/Dan`
-* `split $/100 f/loan n/Albert n/Bernard n/Clement s/2 s/1 s/7`
+** $1000 is split equally between Amy, Betty, Catherine, Dan and the user.
+* `split $/100 n/Albert n/Bernard n/Clement s/2 s/1 s/7`
+** $100 is split with Albert owing $20, Bernard owing $10 and Clement owing $70.
 
 === Settling Up with a Friend : `pay`
 

@@ -29,7 +29,12 @@ public class SplitCommand extends Command {
             + PREFIX_NAME + "John Moe "
             + PREFIX_SHARE + "1"
             + PREFIX_SHARE + "2"
-            + PREFIX_SHARE + "3";
+            + PREFIX_SHARE + "3"
+            + "If number of shares is one more than number of names listed, "
+            + "first share is taken to be user's share of the expenditure";
+    public static final String SHARES_FORMAT = "If number of shares is equal to number of names given," +
+            "user is assumed to be excluded from the expenditure.\n" +
+            "Else, first share is taken to be the user's share.";
 
     private final Split transaction;
 

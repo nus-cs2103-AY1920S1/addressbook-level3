@@ -30,6 +30,7 @@ public class Split extends Transaction implements UndoableAction, LedgerOperatio
         List<Amount> amounts = shares.stream()
                 .map(share -> amount.byShare((double) share / denominator))
                 .collect(Collectors.toList());
+        amounts.remove(0); // share to user no longer useful
         splitAmounts = rebalanceAmounts(amount, amounts);
     }
 
