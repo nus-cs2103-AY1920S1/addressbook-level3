@@ -9,6 +9,7 @@ import seedu.moneygowhere.logic.commands.CommandResult;
 import seedu.moneygowhere.logic.commands.exceptions.CommandException;
 import seedu.moneygowhere.logic.parser.exceptions.ParseException;
 import seedu.moneygowhere.model.ReadOnlySpendingBook;
+import seedu.moneygowhere.model.reminder.Reminder;
 import seedu.moneygowhere.model.spending.Spending;
 
 /**
@@ -31,8 +32,11 @@ public interface Logic {
      */
     ReadOnlySpendingBook getSpendingBook();
 
-    /** Returns an unmodifiable view of the filtered list of persons */
+    /** Returns an unmodifiable view of the filtered list of spending */
     ObservableList<Spending> getFilteredSpendingList();
+
+    /** Returns an unmodifiable view of the sorted list of reminders */
+    ObservableList<Reminder> getSortedReminderList();
 
     /**
      * Returns the user prefs' MoneyGoWhere file path.

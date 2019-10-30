@@ -2,7 +2,6 @@ package seedu.moneygowhere.model;
 
 import java.nio.file.Path;
 import java.util.Comparator;
-import java.util.List;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -136,6 +135,9 @@ public interface Model {
      */
     boolean hasReminder(Reminder reminder);
 
+    /** Returns an unmodifiable view of the sorted Reminder list */
+    ObservableList<Reminder> getSortedReminderList();
+
     /**
      * Returns an unmodifiable view of the filtered Spending list
      */
@@ -145,10 +147,5 @@ public interface Model {
      * Updates the statsPredicate
      */
     void updateStatsPredicate(Predicate<Spending> statsPredicate);
-
-    /**
-     * Returns an unmodifiable view of the filtered Spending list
-     */
-    List<Reminder> getReminderList();
 }
 

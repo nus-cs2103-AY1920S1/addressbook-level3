@@ -37,6 +37,7 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private SpendingListPanel spendingListPanel;
+    private ReminderListPanel reminderListPanel;
     private ResultDisplay resultDisplay;
 
     private GraphPanel graphPanel;
@@ -50,6 +51,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane spendingListPanelPlaceholder;
+
+    @FXML
+    private StackPane reminderListPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -75,7 +79,6 @@ public class MainWindow extends UiPart<Stage> {
         setWindowDefaultSize(logic.getGuiSettings());
 
         setAccelerators();
-
     }
 
     public Stage getPrimaryStage() {
@@ -123,6 +126,9 @@ public class MainWindow extends UiPart<Stage> {
         spendingListPanel = new SpendingListPanel(logic.getFilteredSpendingList());
         spendingListPanelPlaceholder.getChildren().add(spendingListPanel.getRoot());
 
+        reminderListPanel = new ReminderListPanel(logic.getSortedReminderList());
+        reminderListPanelPlaceholder.getChildren().add(reminderListPanel.getRoot());
+
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
@@ -141,13 +147,13 @@ public class MainWindow extends UiPart<Stage> {
         statsTab.setContent(statsPanel.getRoot());
 
         tabPanePlaceholder.getTabs().addAll(graphTab, statsTab);
-
     }
 
     /**
      * Sets the default size based on {@code guiSettings}.
      */
     private void setWindowDefaultSize(GuiSettings guiSettings) {
+
         primaryStage.setHeight(guiSettings.getWindowHeight());
         primaryStage.setWidth(guiSettings.getWindowWidth());
         if (guiSettings.getWindowCoordinates() != null) {
@@ -180,6 +186,10 @@ public class MainWindow extends UiPart<Stage> {
 
     public SpendingListPanel getSpendingListPanel() {
         return spendingListPanel;
+    }
+
+    public ReminderListPanel getReminderListPanel() {
+        return reminderListPanel;
     }
 
     /**

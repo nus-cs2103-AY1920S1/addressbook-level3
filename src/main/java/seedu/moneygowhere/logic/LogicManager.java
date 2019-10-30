@@ -16,6 +16,7 @@ import seedu.moneygowhere.logic.parser.SpendingBookParser;
 import seedu.moneygowhere.logic.parser.exceptions.ParseException;
 import seedu.moneygowhere.model.Model;
 import seedu.moneygowhere.model.ReadOnlySpendingBook;
+import seedu.moneygowhere.model.reminder.Reminder;
 import seedu.moneygowhere.model.spending.Spending;
 import seedu.moneygowhere.model.tag.Tag;
 import seedu.moneygowhere.storage.Storage;
@@ -109,6 +110,11 @@ public class LogicManager implements Logic {
     @Override
     public ObservableList<Spending> getFilteredSpendingList() {
         return model.getFilteredSpendingList();
+    }
+
+    @Override
+    public ObservableList<Reminder> getSortedReminderList() {
+        return model.getSortedReminderList();
     }
 
     @Override

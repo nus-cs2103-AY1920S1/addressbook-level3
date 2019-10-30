@@ -11,7 +11,7 @@ import seedu.moneygowhere.commons.core.LogsCenter;
 import seedu.moneygowhere.model.spending.Spending;
 
 /**
- * Panel containing the list of spendings.
+ * Panel containing the list of spending.
  */
 public class SpendingListPanel extends UiPart<Region> {
     private static final String FXML = "SpendingListPanel.fxml";
