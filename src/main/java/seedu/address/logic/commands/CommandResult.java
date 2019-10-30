@@ -26,6 +26,49 @@ public class CommandResult {
     private final Object object;
     private final Index index;
 
+    public static Builder builder(String feedbackToUser) {
+        return new Builder(feedbackToUser);
+    }
+
+    public static class Builder {
+
+        private String feedbackToUser;
+
+        /** Help information should be shown to the user. */
+        private boolean showHelp;
+
+        /** The application should exit. */
+        private boolean exit;
+
+        private boolean isGoTo;
+        private Mode modeToGoTo;
+        private boolean read;
+        private Object object;
+        private Index index;
+
+        public Builder (String feedbackToUser) {
+            this.feedbackToUser = feedbackToUser;
+        }
+
+        public Builder showHelp() {
+            this.showHelp = true;
+            return this;
+        }
+
+        public Builder read() {
+            this.read = true;
+            return this;
+        }
+
+        public Builder setObject(Object object) {
+            this.object = object;
+            return this;
+        }
+
+        public CommandResult build() {
+            return new CommandResult(feedbackToUser, showHelp, exit, isGoTo, modeToGoTo, read, object, index);
+        }
+    }
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */

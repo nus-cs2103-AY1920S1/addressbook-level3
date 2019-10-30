@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="282.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <Pane layoutY="1.0" prefHeight="400.0" prefWidth="282.0" style="-fx-background-color: #FFFFFF;">
+            <children>
+                <Label layoutX="21.0" layoutY="290.0" style="-fx-text-fill: #75878E;" text="Card Type:">
+                    <font>
+                        <Font name="Roboto Bold" size="14.0" />
+                    </font>
+                </Label>
+                <TextArea fx:id="cardType" editable="false" layoutX="14.0" layoutY="308.0" prefHeight="13.0" prefWidth="254.0" style="-fx-background-color: none;" />
+            </children>
+        </Pane>
+        <Pane prefHeight="87.0" prefWidth="282.0" style="-fx-background-color: #33A1FD;">
+            <children>
+                <Label fx:id="description" layoutX="20.0" layoutY="14.0" style="-fx-text-fill: #000000;" text="POSB Debit">
+                    <font>
+                        <Font size="25.0" />
+                    </font>
+                </Label>
+                <FlowPane fx:id="tags" layoutX="14.0" layoutY="42.0" prefHeight="24.0" prefWidth="413.0" />
+            </children>
+        </Pane>
+        <AnchorPane layoutX="14.0" layoutY="71.0" prefHeight="178.0" prefWidth="254.0" style="-fx-background-color: #FFFFFF;">
+            <children>
+                <Label layoutX="9.0" layoutY="15.0" style="-fx-text-fill: #75878E;" text="Card Number: ">
+                    <font>
+                        <Font name="Roboto Bold" size="14.0" />
+                    </font>
+                </Label>
+                <Label layoutX="8.0" layoutY="75.0" style="-fx-text-fill: #75878E;" text="CVC: ">
+                    <font>
+                        <Font name="Roboto Bold" size="14.0" />
+                    </font>
+                </Label>
+                <Label layoutX="8.0" layoutY="135.0" style="-fx-text-fill: #75878E;" text="Expiry: ">
+                    <font>
+                        <Font name="Roboto Bold" size="14.0" />
+                    </font>
+                </Label>
+                <TextArea fx:id="cardNumber" editable="false" layoutY="33.0" prefHeight="17.0" prefWidth="254.0" style="-fx-background-color: none;" text="2039-2039-5039-6049">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets></TextArea>
+                <TextArea fx:id="cvc" editable="false" layoutY="95.0" prefHeight="17.0" prefWidth="254.0" style="-fx-background-color: none;" />
+                <TextArea fx:id="expiryDate" editable="false" layoutY="155.0" prefHeight="17.0" prefWidth="254.0" style="-fx-background-color: none;" />
+            </children>
+            <effect>
+                <DropShadow />
+            </effect>
+        </AnchorPane>
+    </children>
+</AnchorPane>

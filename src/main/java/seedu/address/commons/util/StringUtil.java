@@ -125,8 +125,8 @@ public class StringUtil {
      * @return encrypted card number
      */
     public static String cardNumberToAsterix(String cardNumber) {
-        int len = 16;
-        return cardNumber.substring(0, 4) + asterix(12);
+        String asterisks = asterix(4) + "-" + asterix(4) + "-" + asterix(4) + "-";
+        return asterisks + cardNumber.substring(15, 19);
     }
 
     /**
