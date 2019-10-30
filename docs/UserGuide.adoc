@@ -105,7 +105,7 @@ Whenever a particular command requires a `DATE` field, you can choose either of 
 * *Formal Dates*
 ** 1978-01-28
 ** 1984/04/02
-** 1/02/1980
+** 1/02/1980 _(1st February 1980)_
 ** 26/2/2019
 * *Relaxed Dates*
 ** The 31st of April in the year 2008
@@ -136,7 +136,7 @@ Should you accidentally provide an invalid date such as 31/02/2019, it will be r
 
 === Adding a spending : `add`
 
-Adds a spending to the list when the user incurs a new spending. Key information such as it's name, cost, date, tags (if any) and remarks (if any) are stored. +
+Adds a spending to the list when the user incurs a new spending. Key information such as its name, cost, date, tags (if any) and remarks (if any) are stored. +
 
 Format: `add n/NAME c/COST d/DATE [t/TAG]... [r/REMARKS]`
 
@@ -156,7 +156,7 @@ Examples:
 
 === Editing a spending : `edit`
 
-Updates a spending in the specified index in the list. +
+Edits a spending at a specified index in the list. +
 
 Format: `edit i/INDEX [n/NAME] [c/COST] [d/DATE] [t/TAG]... [r/REMARKS]`
 
@@ -183,7 +183,7 @@ Overwrites existing tags of the tenth spending to `vegetable`.
 
 === Deleting a spending : `delete`
 
-Deletes a spending in the specified index from the list. +
+Deletes a spending at a specified index in the list. +
 
 Format: `delete INDEX`
 
@@ -212,15 +212,15 @@ This command is implicitly invoked upon application start up, and can be used to
 
 
 === Sorting spending entries : `sort`
-Sorts all spending based on a given order.
-Note that the input entered is order-sensitive. +
+Sorts all spending based on a given order. +
 
-Format: `sort [PREFIX/SORT_ORDER]`
+Format: `sort [PREFIX/SORT_ORDER]...`
 
 ****
 * Valid prefixes are: Cost (`c`), Date (`d`), Name (`n`), Remarks (`r`).
 * Valid sort orders are: `ASC`, `DESC`.
 * At least one of the optional fields must be provided.
+* If the given sort order is `c/ASC n/DESC`, Cost will be sorted in ascending order, followed by name in descending order.
 ****
 
 Examples:
@@ -233,7 +233,7 @@ Sorts current spending displayed by Name in descending order.
 
 === Finding a spending : `find`
 
-Searches for spending based on given keywords, cost range, date range, remarks or tags. +
+Searches for spending based on given keywords, cost range, date range, remarks or tags. You may refine the search results by entering more keywords. +
 
 
 Format: `find [n/NAME_KEYWORDS] [c/COST_MIN] [c/COST_MAX] [d/DATE_START] [d/DATE_END] [r/REMARK_KEYWORDS] [t/TAG]...`
@@ -244,8 +244,18 @@ Format: `find [n/NAME_KEYWORDS] [c/COST_MIN] [c/COST_MAX] [d/DATE_START] [d/DATE
 * The search is case-insensitive. For example, `apple` and `Apple` will output the same search results.
 * The order of the keywords do not matter for name and remarks. For example, `ticket concert` will match `concert ticket`.
 * Spending matching at least one keyword will be returned. For example, `Phone` will return `New Phone`, `Phone Bill`.
-* When searching for multiple tags, any tag listed will be matched.
+* When searching for multiple tags, any tag listed will be matched along with the previous criteria. For example, if there the search keyword was `d/yesterday d/today t/food t/entertainment`, spending entries within `yesterday` and `today` that have either tags `food` or `entertainment` will be matched.
 * Only full words will be matched. For example, `app` will not match `apple`.
+* Date range can only be input in the following ways:
+
+** `d/DATE_START d/DATE_END`
+** `d/DATE_START to DATE_END`
+** `d/DATE_START - DATE_END`
+
+* Cost range can only be input in the following ways:
+
+** `c/COST_MIN c/COST_MAX`
+** `c/COST_MIN-COST_MAX`
 ****
 
 [NOTE]
@@ -253,22 +263,6 @@ DATE_START must be earlier or the same as DATE_END.
 
 [NOTE]
 COST_MIN must be smaller or the same as COST_MAX.
-
-****
-* When searching for multiple tags, any tag specified will be matched.
-* Date range can be input in the following ways:
-
-** `d/DATE_START d/DATE_END`
-** `d/DATE_START to DATE_END`
-** `d/DATE_START - DATE_END`
-
-* Cost range can be input in the following ways:
-
-** `c/COST_MIN c/COST_MAX`
-** `c/COST_MIN-COST_MAX`
-
-
-****
 
 Examples:
 
@@ -282,6 +276,8 @@ Returns a list of spending with `apple` keyword within the cost range `1.00` to 
 Returns a list of spending with matching the keywords `breakfast` or `meal` in remarks.
 * `find t/food t/leisure` +
 Returns a list of spending with `food` or `leisure` tags.
+* `find d/yesterday d/today t/food t/leisure` +
+Returns a list of spending within `yesterday` and `today` that have `food` or `leisure` tags.
 
 === Listing all tags : `ltags`
 Displays a list of all tags. +
@@ -491,12 +487,11 @@ e.g. `add n/apple c/2.50 d/yesterday t/fruits r/expensive apple`
 e.g. `edit 1 n/apple c/2.50 d/yesterday t/fruits r/expensive apple` +
 | *Delete* | `delete INDEX` +
 e.g. `delete 123`
-| *List* | `list [r/DATE_RANGE] [t/TAG] [c/COST_RANGE] [o/SORT_ORDER]` +
-e.g. `list r/01/09/2019-30/09/2019 t/groceries c/20-100 o/ASC`
-| *Sort*| `sort [PREFIX/SORT_ORDER]` +
+| *List* | `list` +
+| *Sort*| `sort [PREFIX/SORT_ORDER]...` +
 e.g. `sort d/DESC c/ASC` +
 | *Find* | `find [n/NAME] [c/COST_RANGE] [d/DATE_RANGE] [r/REMARK] [t/TAG]` +
-e.g. `find n/apple orange c/1.00-200 d/19/09/2019 - 20/09/2019 r/healthy food t/fruit food`
+e.g. `find n/apple orange c/1.00-200.00 d/19/09/2019 - 20/09/2019 r/healthy food t/fruit food`
 | *List all tags*| `ltags` +
 | *Budget* | `budget MONTHLY_BUDGET` +
 e.g. `budget 18000`

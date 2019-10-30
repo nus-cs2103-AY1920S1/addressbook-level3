@@ -17,6 +17,7 @@ import java.util.List;
 
 import seedu.moneygowhere.model.SpendingBook;
 import seedu.moneygowhere.model.budget.Budget;
+import seedu.moneygowhere.model.budget.BudgetMonth;
 import seedu.moneygowhere.model.reminder.Reminder;
 import seedu.moneygowhere.model.spending.Spending;
 
@@ -80,6 +81,7 @@ public class TypicalSpendings {
     }
 
     public static Budget getTypicalBudget() {
-        return new Budget(10000);
+        BudgetMonth temp = BudgetMonth.now();
+        return new Budget(10000, 772.50, temp.toString());
     }
 }

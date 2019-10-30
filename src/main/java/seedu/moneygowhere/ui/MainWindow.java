@@ -26,7 +26,7 @@ import seedu.moneygowhere.logic.parser.exceptions.ParseException;
  */
 public class MainWindow extends UiPart<Stage> {
 
-    private static final String FXML = "MainWindow2.fxml";
+    private static final String FXML = "MainWindow.fxml";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
@@ -146,16 +146,12 @@ public class MainWindow extends UiPart<Stage> {
      * Sets the default size based on {@code guiSettings}.
      */
     private void setWindowDefaultSize(GuiSettings guiSettings) {
-        /*
         primaryStage.setHeight(guiSettings.getWindowHeight());
         primaryStage.setWidth(guiSettings.getWindowWidth());
         if (guiSettings.getWindowCoordinates() != null) {
             primaryStage.setX(guiSettings.getWindowCoordinates().getX());
             primaryStage.setY(guiSettings.getWindowCoordinates().getY());
         }
-         */
-        primaryStage.setMaximized(true);
-
     }
 
     @FXML
@@ -165,6 +161,8 @@ public class MainWindow extends UiPart<Stage> {
 
     void show() {
         primaryStage.show();
+        primaryStage.setMaximized(true);
+        primaryStage.setResizable(false);
     }
 
     /**
