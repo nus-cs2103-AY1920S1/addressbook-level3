@@ -12,8 +12,8 @@ import seedu.jarvis.logic.parser.exceptions.ParseException;
 import seedu.jarvis.model.Model;
 import seedu.jarvis.model.address.ReadOnlyAddressBook;
 import seedu.jarvis.model.address.person.Person;
-import seedu.jarvis.model.planner.tasks.Task;
 import seedu.jarvis.model.course.Course;
+import seedu.jarvis.model.planner.tasks.Task;
 
 /**
  * API of the Logic component
@@ -53,7 +53,7 @@ public interface Logic {
      */
     void setGuiSettings(GuiSettings guiSettings);
 
-        /**
+    /**
      * Returns a view of the executed commands.
      */
     ObservableList<Command> getExecutedCommandsList();

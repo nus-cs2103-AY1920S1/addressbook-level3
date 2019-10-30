@@ -22,9 +22,9 @@ import seedu.jarvis.model.Model;
 import seedu.jarvis.model.viewstatus.ViewType;
 import seedu.jarvis.ui.address.PersonListView;
 import seedu.jarvis.ui.cca.CcaListView;
-import seedu.jarvis.ui.planner.TaskListView;
 import seedu.jarvis.ui.course.CoursePlannerWindow;
 import seedu.jarvis.ui.finance.FinanceListView;
+import seedu.jarvis.ui.planner.TaskListView;
 import seedu.jarvis.ui.template.View;
 
 /**
@@ -245,7 +245,8 @@ public class MainWindow extends UiPart<Stage> {
         case LIST_PLANNER:
             newView = new TaskListView(this, logic, model);
             toUpdatePlaceHolder = plannerContentPlaceholder;
-            
+            break;
+
         case LIST_FINANCE:
             newView = new FinanceListView(this, logic, model);
             toUpdatePlaceHolder = financeContentPlaceholder;
