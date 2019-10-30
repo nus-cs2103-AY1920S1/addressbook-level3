@@ -15,7 +15,7 @@ import seedu.address.ui.alias.AliasPanel;
  */
 public class ListAliasCommand extends UndoableCommand {
 
-    public static final String COMMAND_WORD = GenericCommandWord.LIST + CommandGroup.ALIAS;
+    public static final String COMMAND_WORD = GenericCommandWord.LIST + CommandGroup.ALIAS + "es";
     public static final String COMMAND_DESCRIPTION = "List aliases";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": List all user defined alises.";
 
