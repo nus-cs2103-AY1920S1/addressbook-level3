@@ -3,11 +3,12 @@ package seedu.address.model.person.parameters;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+import java.util.HashMap;
+
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReferenceId;
 import seedu.address.model.exceptions.ReferenceIdIncorrectGroupClassificationException;
 
-import java.util.HashMap;
 
 /**
  * Represents a Reference ID for Person.
@@ -18,7 +19,7 @@ public class PersonReferenceId implements ReferenceId {
     public static final String MESSAGE_CONSTRAINTS =
         "Reference Id should only contain alphanumeric characters and it should be atleast 3 characters long";
 
-    public static final HashMap<String, ReferenceId> uniqueUniversalReferenceIdMap = new HashMap<>();
+    public static final HashMap<String, ReferenceId> UNIQUE_UNIVERSAL_REFERENCE_ID_MAP = new HashMap<>();
 
     /*
      * The reference ID should only contain alphanumeric characters.
@@ -46,17 +47,17 @@ public class PersonReferenceId implements ReferenceId {
      * @throws ParseException if the given {@code PersonReferenceId} is invalid or the {@code String refId}
      * has been grouped under a different classification.
      */
-    private static ReferenceId issueReferenceId(String RefId, boolean isStaff) throws ParseException {
-        requireNonNull(RefId);
-        String trimmedRefId = RefId.trim().toUpperCase();
+    private static ReferenceId issueReferenceId(String refId, boolean isStaff) throws ParseException {
+        requireNonNull(refId);
+        String trimmedRefId = refId.trim().toUpperCase();
         if (!PersonReferenceId.isValidId(trimmedRefId)) {
             throw new ParseException(PersonReferenceId.MESSAGE_CONSTRAINTS);
         }
-        ReferenceId storedRefId = uniqueUniversalReferenceIdMap.get(RefId);
+        ReferenceId storedRefId = UNIQUE_UNIVERSAL_REFERENCE_ID_MAP.get(refId);
 
         if (storedRefId == null) {
-            storedRefId = new PersonReferenceId(RefId, isStaff);
-            uniqueUniversalReferenceIdMap.put(RefId, storedRefId);
+            storedRefId = new PersonReferenceId(refId, isStaff);
+            UNIQUE_UNIVERSAL_REFERENCE_ID_MAP.put(refId, storedRefId);
         } else if (storedRefId.isStaffDoctor() != isStaff) {
             throw new ReferenceIdIncorrectGroupClassificationException(storedRefId);
         }

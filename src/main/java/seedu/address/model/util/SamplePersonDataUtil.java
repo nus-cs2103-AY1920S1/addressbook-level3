@@ -20,7 +20,7 @@ import seedu.address.model.person.parameters.Phone;
  * Contains utility methods for populating {@code AddressBook} with sample data.
  */
 public class SamplePersonDataUtil {
-    
+
     /**
      * Parses the {@refId} as a patient's {@code ReferenceId}.
      */

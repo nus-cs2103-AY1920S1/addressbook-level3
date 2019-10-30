@@ -80,8 +80,8 @@ class JsonAdaptedPerson {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                 ReferenceId.class.getSimpleName()));
         }
-        final ReferenceId modelReferenceId = isStaff ?
-                ParserUtil.parseStaffReferenceId(id)
+        final ReferenceId modelReferenceId = isStaff
+                ? ParserUtil.parseStaffReferenceId(id)
                 : ParserUtil.parsePatientReferenceId(id);
 
         if (name == null) {
