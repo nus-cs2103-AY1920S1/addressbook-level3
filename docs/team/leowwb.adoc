@@ -12,6 +12,8 @@
 
 KeyboardFlashCards is a desktop flashcard manager application. The user interacts with it using a CLI (command-line interface), and it has a GUI created with JavaFX. It is written in Java, and has roughly 16 KLoC.
 
+image::Ui.png[KeyboardFlashCards]
+
 == Summary of contributions
 
 * *Major enhancement*: Added *the ability to export flashcards*.
