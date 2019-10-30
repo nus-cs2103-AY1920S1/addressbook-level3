@@ -22,7 +22,7 @@ public class AddEventCommand extends Command {
 
     public static final String COMMAND_WORD = "add_ev";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a event to the event book. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an event to the event book. "
             + "Parameters: "
             + PREFIX_EVENT_NAME + "NAME "
             + PREFIX_EVENT_VENUE + "VENUE "
@@ -41,6 +41,7 @@ public class AddEventCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "New event added: %1$s";
     public static final String MESSAGE_DUPLICATE_EVENT = "This event already exists in the event book";
+    public static final String MESSAGE_INVALID_DATES = "Invalid start/end dates!";
 
     private final Event toAdd;
 
@@ -59,6 +60,10 @@ public class AddEventCommand extends Command {
 
         if (model.hasEvent(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_EVENT);
+        }
+
+        if (toAdd.getStartDate().compareTo(toAdd.getEndDate()) > 0) {
+            throw new CommandException(MESSAGE_INVALID_DATES);
         }
 
         model.addEvent(toAdd);
