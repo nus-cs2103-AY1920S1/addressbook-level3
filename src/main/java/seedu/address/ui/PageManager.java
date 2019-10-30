@@ -6,6 +6,8 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import javafx.animation.FadeTransition;
+import javafx.animation.PauseTransition;
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -64,5 +66,11 @@ public class PageManager {
         fadeInTransition.setFromValue(0.0);
         fadeInTransition.setToValue(1.0);
         fadeInTransition.play();
+    }
+
+    public static void closeWindows() {
+        PauseTransition delay = new PauseTransition(Duration.seconds(1));
+        delay.setOnFinished(event -> Platform.exit());
+        delay.play();
     }
 }
