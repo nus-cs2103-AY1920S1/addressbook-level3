@@ -19,7 +19,6 @@ import seedu.jarvis.storage.history.commands.JsonAdaptedCommand;
  * Jackson-friendly version of {@link ClearAddressCommand}.
  */
 public class JsonAdaptedClearAddressCommand extends JsonAdaptedCommand implements JsonAdapter<Command> {
-    public static final String MESSAGE_INVALID_COMMAND = "This command is not an ClearAddressCommand.";
     private final List<JsonAdaptedPerson> persons = new ArrayList<>();
 
     /**

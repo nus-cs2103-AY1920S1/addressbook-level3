@@ -5,6 +5,7 @@ import static seedu.jarvis.model.cca.CcaTrackerModel.PREDICATE_SHOW_ALL_CCAS;
 import static seedu.jarvis.model.viewstatus.ViewType.LIST_CCA;
 
 import java.util.Objects;
+import java.util.Optional;
 
 import seedu.jarvis.commons.core.Messages;
 import seedu.jarvis.commons.core.index.Index;
@@ -42,9 +43,16 @@ public class DeleteCcaCommand extends Command {
      * of the {@code Cca} to be deleted.
      *
      * @param targetIndex of the {@code Cca} to be deleted.
+     * @param deletedCca that was deleted.
      */
-    public DeleteCcaCommand(Index targetIndex) {
+    public DeleteCcaCommand(Index targetIndex, Cca deletedCca) {
+        requireNonNull(targetIndex);
         this.targetIndex = targetIndex;
+        this.deletedCca = deletedCca;
+    }
+
+    public DeleteCcaCommand(Index targetIndex) {
+        this(targetIndex, null);
     }
 
     /**
@@ -55,6 +63,24 @@ public class DeleteCcaCommand extends Command {
     @Override
     public String getCommandWord() {
         return COMMAND_WORD;
+    }
+
+    /**
+     * Gets the {@code Index} of the cca to be deleted.
+     *
+     * @return {@code Index} of the cca to be deleted.
+     */
+    public Index getTargetIndex() {
+        return targetIndex;
+    }
+
+    /**
+     * Gets the deleted {@code Cca} wrapped in an {@code Optional}.
+     *
+     * @return Deleted {@code Cca} wrapped in an {@code Optional}.
+     */
+    public Optional<Cca> getDeletedCca() {
+        return Optional.ofNullable(deletedCca);
     }
 
     @Override
