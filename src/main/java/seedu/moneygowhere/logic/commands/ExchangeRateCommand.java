@@ -21,7 +21,7 @@ public class ExchangeRateCommand extends Command {
             sb.append(currency);
             sb.append(", ");
         }
-
-        return new CommandResult(sb.substring(0, sb.lastIndexOf(",")));
+        String trimmedResult = sb.substring(0, sb.lastIndexOf(","));
+        return new CommandResult(trimmedResult);
     }
 }

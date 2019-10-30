@@ -45,8 +45,30 @@ public class CurrencyCommand extends Command {
         }
 
         Currency newCurrency = currencies.get(0);
+
+        if (newCurrency.isSameCurrency(model.getCurrencyInUse())) {
+            return new CommandResult("Currency already in " + newCurrency.name);
+        }
+
         model.setCurrencyInUse(newCurrency);
 
         return new CommandResult("Currency changed to " + newCurrency.name);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        // short circuit if same object
+        if (other == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(other instanceof CurrencyCommand)) {
+            return false;
+        }
+
+        // state check
+        CurrencyCommand c = (CurrencyCommand) other;
+        return currency.equalsIgnoreCase(c.currency);
     }
 }

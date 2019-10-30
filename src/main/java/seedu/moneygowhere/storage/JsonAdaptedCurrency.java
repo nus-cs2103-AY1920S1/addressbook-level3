@@ -54,8 +54,12 @@ class JsonAdaptedCurrency implements Comparable<JsonAdaptedCurrency> {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "Symbol"));
         }
 
-        if (rate < 0) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "Rate"));
+        if (!Currency.isValidCurrencySymbol(symbol)) {
+            throw new IllegalValueException(Currency.MESSAGE_CONSTRAINT_SYMBOL);
+        }
+
+        if (rate <= 0 || rate >= Double.MAX_VALUE) {
+            throw new IllegalValueException(Currency.MESSAGE_CONSTRAINT_RATE);
         }
 
         return new Currency(name, symbol, rate);

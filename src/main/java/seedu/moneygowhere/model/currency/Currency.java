@@ -11,7 +11,10 @@ import java.util.Objects;
 public class Currency implements Comparable<Currency> {
 
     public static final String MESSAGE_CONSTRAINTS = "Currency must be 3 letters";
+    public static final String MESSAGE_CONSTRAINT_SYMBOL = "Symbol cannot be empty and must be less than 16 characters";
+    public static final String MESSAGE_CONSTRAINT_RATE = "Rate must be non-negative";
     public static final String VALIDATION_REGEX = "\\p{Upper}{3}+";
+    public static final int MAX_SYMBOL_LENGTH = 16;
 
     public final String name;
     public final String symbol;
@@ -25,6 +28,7 @@ public class Currency implements Comparable<Currency> {
     public Currency(String name, String symbol, double rate) {
         requireNonNull(name);
         checkArgument(isValidCurrencyName(name), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidCurrencySymbol(symbol), MESSAGE_CONSTRAINT_SYMBOL);
         this.name = name;
         this.symbol = symbol;
         this.rate = rate;
@@ -35,6 +39,13 @@ public class Currency implements Comparable<Currency> {
      */
     public static boolean isValidCurrencyName(String test) {
         return test.matches(VALIDATION_REGEX);
+    }
+
+    /**
+     * Returns true if a given string is a valid currency symbol.
+     */
+    public static boolean isValidCurrencySymbol(String test) {
+        return test != null && test.trim().length() < MAX_SYMBOL_LENGTH;
     }
 
     @Override
