@@ -212,7 +212,6 @@ public class AddressBook implements ReadOnlyAddressBook {
         requireNonNull(entry);
         return wishes.contains(entry);
     }
-        
     /**
      * Returns true if a reminder with the same identity as {@code reminder} exists
      * in the address book.
