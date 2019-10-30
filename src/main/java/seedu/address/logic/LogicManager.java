@@ -13,6 +13,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.ClassroomParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
+import seedu.address.model.Notebook;
 import seedu.address.model.ReadOnlyClassroom;
 import seedu.address.model.assignment.Assignment;
 import seedu.address.model.lesson.Lesson;
@@ -45,7 +46,7 @@ public class LogicManager implements Logic {
         commandResult = command.execute(model);
 
         try {
-            storage.saveClassroom(model.getClassroom());
+            storage.saveNotebook(model.getNotebook());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
@@ -59,6 +60,11 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public Notebook getNotebook() {
+        return this.model.getNotebook();
+    }
+
+    @Override
     public ObservableList<Student> getFilteredStudentList() {
         return model.getFilteredStudentList();
     }
@@ -68,14 +74,15 @@ public class LogicManager implements Logic {
         return model.getFilteredLessonList();
     }
 
+
     @Override
     public ObservableList<Assignment> getFilteredAssignmentList() {
         return model.getFilteredAssignmentList();
     }
 
     @Override
-    public Path getClassroomFilePath() {
-        return model.getClassroomFilePath();
+    public Path getNotebookFilePath() {
+        return model.getNotebookFilePath();
     }
 
     @Override

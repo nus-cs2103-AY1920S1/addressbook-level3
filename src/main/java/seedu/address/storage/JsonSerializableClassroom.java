@@ -23,6 +23,7 @@ class JsonSerializableClassroom {
     public static final String MESSAGE_DUPLICATE_STUDENT = "Students list contains duplicate student(s).";
     public static final String MESSAGE_DUPLICATE_ASSIGNMENT = "Assignments list contains duplicate assignment(s).";
 
+    private String classroomName;
     private final List<JsonAdaptedStudent> students = new ArrayList<>();
     private final List<JsonAdaptedAssignment> assignments = new ArrayList<>();
 
@@ -30,8 +31,10 @@ class JsonSerializableClassroom {
      * Constructs a {@code JsonSerializableClassroom} with the given students.
      */
     @JsonCreator
-    public JsonSerializableClassroom(@JsonProperty("students") List<JsonAdaptedStudent> students,
-                                     @JsonProperty("assignments") List<JsonAdaptedAssignment> assignments) {
+    public JsonSerializableClassroom( @JsonProperty("classroomName") String classroomName,
+                                      @JsonProperty("students") List<JsonAdaptedStudent> students,
+                                      @JsonProperty("assignments") List<JsonAdaptedAssignment> assignments ) {
+        this.classroomName = classroomName;
         this.students.addAll(students);
         this.assignments.addAll(assignments);
     }
@@ -42,6 +45,7 @@ class JsonSerializableClassroom {
      * @param source future changes to this will not affect the created {@code JsonSerializableClassroom}.
      */
     public JsonSerializableClassroom(ReadOnlyClassroom source) {
+        classroomName = source.getClassroomName();
         students.addAll(source.getStudentList().stream().map(JsonAdaptedStudent::new).collect(Collectors.toList()));
         assignments.addAll(source.getAssignmentList().stream().map(JsonAdaptedAssignment::new).collect(Collectors
                 .toList()));
@@ -54,6 +58,7 @@ class JsonSerializableClassroom {
      */
     public Classroom toModelType() throws IllegalValueException {
         Classroom classroom = new Classroom();
+        classroom.setClassroomName(classroomName);
         for (JsonAdaptedStudent jsonAdaptedStudent : students) {
             Student student = jsonAdaptedStudent.toModelType();
             if (classroom.hasStudent(student)) {

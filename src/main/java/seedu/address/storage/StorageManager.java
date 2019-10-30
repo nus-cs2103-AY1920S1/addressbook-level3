@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
+import seedu.address.model.Notebook;
 import seedu.address.model.ReadOnlyClassroom;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
@@ -17,13 +18,13 @@ import seedu.address.model.UserPrefs;
 public class StorageManager implements Storage {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
-    private ClassroomStorage classroomStorage;
+    private NotebookStorage notebookStorage;
     private UserPrefsStorage userPrefsStorage;
 
 
-    public StorageManager(ClassroomStorage classroomStorage, UserPrefsStorage userPrefsStorage) {
+    public StorageManager(NotebookStorage notebookStorage, UserPrefsStorage userPrefsStorage) {
         super();
-        this.classroomStorage = classroomStorage;
+        this.notebookStorage = notebookStorage;
         this.userPrefsStorage = userPrefsStorage;
     }
 
@@ -45,33 +46,33 @@ public class StorageManager implements Storage {
     }
 
 
-    // ================ Classroom methods ==============================
+    // ================ Notebook methods ==============================
 
     @Override
-    public Path getClassroomFilePath() {
-        return classroomStorage.getClassroomFilePath();
+    public Path getNotebookFilePath() {
+        return notebookStorage.getNotebookFilePath();
     }
 
     @Override
-    public Optional<ReadOnlyClassroom> readClassroom() throws DataConversionException, IOException {
-        return readClassroom(classroomStorage.getClassroomFilePath());
+    public Optional<Notebook> readNotebook() throws DataConversionException, IOException {
+        return readNotebook(notebookStorage.getNotebookFilePath());
     }
 
     @Override
-    public Optional<ReadOnlyClassroom> readClassroom(Path filePath) throws DataConversionException, IOException {
+    public Optional<Notebook> readNotebook(Path filePath) throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
-        return classroomStorage.readClassroom(filePath);
+        return notebookStorage.readNotebook(filePath);
     }
 
     @Override
-    public void saveClassroom(ReadOnlyClassroom classroom) throws IOException {
-        saveClassroom(classroom, classroomStorage.getClassroomFilePath());
+    public void saveNotebook(Notebook notebook) throws IOException {
+        saveNotebook(notebook, notebookStorage.getNotebookFilePath());
     }
 
     @Override
-    public void saveClassroom(ReadOnlyClassroom classroom, Path filePath) throws IOException {
+    public void saveNotebook(Notebook notebook, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        classroomStorage.saveClassroom(classroom, filePath);
+        notebookStorage.saveNotebook(notebook, filePath);
     }
 
 }

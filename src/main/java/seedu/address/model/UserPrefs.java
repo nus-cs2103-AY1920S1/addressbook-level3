@@ -14,7 +14,7 @@ import seedu.address.commons.core.GuiSettings;
 public class UserPrefs implements ReadOnlyUserPrefs {
 
     private GuiSettings guiSettings = new GuiSettings();
-    private Path classroomFilePath = Paths.get("data" , "classroom.json");
+    private Path notebookFilePath = Paths.get("data" , "notebook.json");
 
     /**
      * Creates a {@code UserPrefs} with default values.
@@ -35,7 +35,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     public void resetData(ReadOnlyUserPrefs newUserPrefs) {
         requireNonNull(newUserPrefs);
         setGuiSettings(newUserPrefs.getGuiSettings());
-        setClassroomFilePath(newUserPrefs.getClassroomFilePath());
+        setNotebookFilePath(newUserPrefs.getNotebookFilePath());
     }
 
     public GuiSettings getGuiSettings() {
@@ -47,13 +47,13 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         this.guiSettings = guiSettings;
     }
 
-    public Path getClassroomFilePath() {
-        return classroomFilePath;
+    public Path getNotebookFilePath() {
+        return notebookFilePath;
     }
 
-    public void setClassroomFilePath(Path classroomFilePath) {
-        requireNonNull(classroomFilePath);
-        this.classroomFilePath = classroomFilePath;
+    public void setNotebookFilePath(Path notebookFilePath) {
+        requireNonNull(notebookFilePath);
+        this.notebookFilePath = notebookFilePath;
     }
 
     @Override
@@ -68,19 +68,19 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         UserPrefs o = (UserPrefs) other;
 
         return guiSettings.equals(o.guiSettings)
-                && classroomFilePath.equals(o.classroomFilePath);
+                && notebookFilePath.equals(o.notebookFilePath);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(guiSettings, classroomFilePath);
+        return Objects.hash(guiSettings, notebookFilePath);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Gui Settings : " + guiSettings);
-        sb.append("\nLocal data file location : " + classroomFilePath);
+        sb.append("\nLocal data file location : " + notebookFilePath);
         return sb.toString();
     }
 

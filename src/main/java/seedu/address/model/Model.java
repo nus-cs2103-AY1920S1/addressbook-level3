@@ -42,14 +42,14 @@ public interface Model {
     void setGuiSettings(GuiSettings guiSettings);
 
     /**
-     * Returns the user prefs' classroom file path.
+     * Returns the user prefs' notebook file path.
      */
-    Path getClassroomFilePath();
+    Path getNotebookFilePath();
 
     /**
      * Sets the user prefs' classroom file path.
      */
-    void setClassroomFilePath(Path classroomFilePath);
+    void setNotebookFilePath(Path classroomFilePath);
 
     /**
      * Replaces classroom data with the data in {@code classroom}.
@@ -58,6 +58,9 @@ public interface Model {
 
     /** Returns the Classroom */
     ReadOnlyClassroom getClassroom();
+
+    /** Returns the Notebook */
+    Notebook getNotebook();
 
     /**
      * Returns true if a student with the same identity as {@code student} exists in the classroom.
@@ -103,6 +106,8 @@ public interface Model {
     void updateFilteredAssignmentList(Predicate<Assignment> predicate);
 
     void updateFilteredLessonList(Predicate<Lesson> predicate);
+
+    ObservableList<Reminder> getFilteredReminderList(Predicate<Reminder> predicate);
 
     ReadOnlyClassroom undo();
 
@@ -155,9 +160,5 @@ public interface Model {
      */
     void setLesson(Lesson target, Lesson editedLesson);
 
-    /**
-     * returns an unmodifiable view of the filtered reminder list.
-     * @return Ob
-     */
-    ObservableList<Reminder> getFilteredReminderList();
+
 }
