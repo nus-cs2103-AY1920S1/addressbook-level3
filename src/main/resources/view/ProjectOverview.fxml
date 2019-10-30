@@ -23,8 +23,13 @@
                 </minWidth>
             </Label>
         </HBox>
-        <FlowPane fx:id="meetings"/>
         <Label fx:id="description" styleClass="cell_small_label" text="\$description"/>
+        <Label fx:id="meetingTitle" styleClass="cell_big_label" text="\$meetingTitle">
+            <padding>
+                <Insets top="5.0"/>
+            </padding>
+        </Label>
+        <FlowPane fx:id="meetings" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" orientation="vertical" prefWrapLength="55" />
         <Label fx:id="memberTitle" styleClass="cell_big_label" text="\$memberTitle">
             <padding>
                 <Insets top="5.0"/>
