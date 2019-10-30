@@ -49,7 +49,9 @@ public class DetailsTabPane extends UiPart<Region> {
         this.writeOnlyTabManager = logic.getGuiState().getTabManager();
 
         addTabsToTabPane(readOnlyTabManager.getTabsDataList());
-        selectTab(readOnlyTabManager.getDetailsTabPaneIndex().getValue().intValue());
+        if (!readOnlyTabManager.getTabsDataList().isEmpty()) {
+            selectTab(readOnlyTabManager.getDetailsTabPaneIndex().getValue().intValue());
+        }
 
         addListenerForTabChanges();
         addListenerForIndexChange(readOnlyTabManager.getDetailsTabPaneIndex());
