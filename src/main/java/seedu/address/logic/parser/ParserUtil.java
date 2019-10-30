@@ -145,7 +145,7 @@ public class ParserUtil {
      * @return
      * @throws ParseException
      */
-    public static District parseLocation(String district) throws ParseException {
+    public static District parseDistrict(String district) throws ParseException {
         requireNonNull(district);
         String trimmedDistrict = district.trim();
         try {
@@ -166,7 +166,7 @@ public class ParserUtil {
      *
      * throws ParseException if the given {@code district} is invalid.
      */
-    public static List<District> parseLocations(String district) throws ParseException {
+    public static List<District> parseDistricts(String district) throws ParseException {
         requireNonNull(district);
         try {
             List<String> splittedD = Arrays.asList(district.trim().split("\\s"));

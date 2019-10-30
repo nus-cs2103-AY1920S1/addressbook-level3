@@ -31,7 +31,7 @@ public class NewCommandParser implements Parser<NewCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, NewCommand.MESSAGE_USAGE));
         }
 
-        List<District> districts = ParserUtil.parseLocations(argMultimap.getValue(PREFIX_DISTRICT).get());
+        List<District> districts = ParserUtil.parseDistricts(argMultimap.getValue(PREFIX_DISTRICT).get());
 
         if (districts.size() != 1) {
             throw new ParseException("Please ensure there is one input for district number!");
