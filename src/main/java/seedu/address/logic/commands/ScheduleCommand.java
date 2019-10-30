@@ -23,7 +23,7 @@ public class ScheduleCommand extends Command {
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_DATE + "2019.10.18\n";
 
-    public static final String MESSAGE_SUCCESS = "Schedule view switched.";
+    public static final String MESSAGE_SUCCESS = "Schedule date switched.";
 
     private final Calendar calendarToShow;
 
