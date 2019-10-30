@@ -14,7 +14,6 @@ public class JavascriptCard extends FlashCard {
 
     protected String front; //question
     protected String back;
-    protected Statistics stats;
     protected String attempt;
 
 
@@ -27,8 +26,6 @@ public class JavascriptCard extends FlashCard {
         front = frontString;
         back = outputString;
         priority = LOW_PRIORITY;
-        stats = new Statistics();
-
     }
 
     /**

@@ -17,7 +17,6 @@ public class State {
     private boolean isCreateMode;
     private HashMap<String, Consumer> consumerHashMap;
 
-
     /**
      * Constructor to create a State object with existing Deck objects.
      *
@@ -26,11 +25,12 @@ public class State {
     public State(ArrayList<Deck> initialDecks) {
         decks = initialDecks;
     }
+    // todo: unused constructor - remove?
 
     /**
      * Constructor to create a State object with no Deck objects.
      */
-    public State() {
+    private State() {
         decks = StorageManager.loadDecks();
         consumerHashMap = new HashMap<>();
     }

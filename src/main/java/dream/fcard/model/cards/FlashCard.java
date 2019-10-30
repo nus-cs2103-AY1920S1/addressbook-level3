@@ -82,5 +82,4 @@ public abstract class FlashCard implements JsonInterface, Comparable<FlashCard> 
     }
 
     public abstract FlashCard duplicate();
-
 }

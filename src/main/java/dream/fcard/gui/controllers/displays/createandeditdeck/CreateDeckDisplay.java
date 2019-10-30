@@ -12,14 +12,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 
 /**
  * This class is used for editing an existing deck as well as creating a new deck.
  */
-public class CreateDeckDisplay extends AnchorPane {
+public class CreateDeckDisplay extends VBox {
     @FXML
     private TextField deckNameInput;
     @FXML
@@ -31,7 +30,7 @@ public class CreateDeckDisplay extends AnchorPane {
     @FXML
     private Label deckSize;
     @FXML
-    private ScrollPane cardCreatingPane;
+    private VBox cardCreatingPane;
 
     private int numCards = 0;
     private CardCreatingWindow editingWindow;
@@ -60,7 +59,7 @@ public class CreateDeckDisplay extends AnchorPane {
             fxmlLoader.setRoot(this);
             fxmlLoader.load();
             editingWindow = new CardCreatingWindow(incrementNumCards);
-            cardCreatingPane.setContent(editingWindow);
+            cardCreatingPane.getChildren().add(editingWindow);
             onSaveDeck.setOnAction(e -> onSaveDeck());
             cancelButton.setOnAction(e -> exitEditingMode.accept(true));
         } catch (IOException e) {

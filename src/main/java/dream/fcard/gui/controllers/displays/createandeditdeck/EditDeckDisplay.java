@@ -12,15 +12,14 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 
 /**
  * The pane for adding questions to a deck as well as changing the deck's name.
  */
-public class EditDeckDisplay extends AnchorPane {
+public class EditDeckDisplay extends VBox {
     @FXML
     private TextField deckNameInput;
     @FXML
@@ -32,7 +31,7 @@ public class EditDeckDisplay extends AnchorPane {
     @FXML
     private Label deckSize;
     @FXML
-    private ScrollPane cardCreatingPane;
+    private VBox cardCreatingPane;
 
     @SuppressWarnings("unchecked")
     private Consumer<String> displayMessage = State.getState().getConsumer(ConsumerSchema.DISPLAY_MESSAGE);
@@ -62,7 +61,7 @@ public class EditDeckDisplay extends AnchorPane {
             fxmlLoader.load();
             this.deck = deck;
             editingWindow = new CardCreatingWindow(incrementNumCards);
-            cardCreatingPane.setContent(editingWindow);
+            cardCreatingPane.getChildren().add((editingWindow));
             clearMessage.accept(true);
             deckNameInput.setText(deck.getName());
             numCards = deck.getCards().size();

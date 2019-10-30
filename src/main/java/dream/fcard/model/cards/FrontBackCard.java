@@ -14,7 +14,7 @@ import dream.fcard.util.json.jsontypes.JsonValue;
 public class FrontBackCard extends FlashCard {
     protected String back;
     protected String front;
-    protected Statistics stats;
+
     /**
      * Constructor to create a FrontBackCard.
      * Takes in 2 String, front text and back text.
@@ -39,9 +39,6 @@ public class FrontBackCard extends FlashCard {
     public FrontBackCard(String frontString, String backString, int priorityLevel) {
         back = backString;
         front = frontString;
-
-        priority = priorityLevel;
-        stats = new Statistics();
     }
 
     /**

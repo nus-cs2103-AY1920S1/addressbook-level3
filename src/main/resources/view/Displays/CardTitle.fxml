@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 
-<fx:root alignment="CENTER" prefHeight="50.0" prefWidth="552.0" spacing="5.0" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root alignment="CENTER" prefHeight="50.0" prefWidth="552.0" spacing="5.0" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <Label fx:id="questionLabel" prefHeight="52.0" prefWidth="268.0" style="-fx-label-padding: 10;" text="Question " />
         <Pane prefHeight="46.0" prefWidth="156.0" HBox.hgrow="ALWAYS" />
