@@ -16,11 +16,16 @@ Class BudgetPanel
 Class WishListPanel
 Class ReminderPanel
 Class EntryCard
+Class ExpenseCard
+Class IncomeCard
 Class BudgetCard
 Class WishListCard
-Class ReminderCard
+Class ExpenseReminderCard
+Class WishReminderCard
 Class StatusBarFooter
 Class CommandBox
+Class FontName
+Class FontManager
 }
 
 package Model <<Rectangle>> {
@@ -35,7 +40,7 @@ Class HiddenOutside #FFFFFF
 HiddenOutside ..> Ui
 
 UiManager .left.|> Ui
-UiManager -down-> MainWindow
+UiManager --> MainWindow
 MainWindow --> HelpWindow
 MainWindow *--> CommandBox
 MainWindow *--> ResultDisplay
@@ -44,16 +49,26 @@ MainWindow --> WishListPanel
 MainWindow --> BudgetPanel
 MainWindow --> ReminderPanel
 MainWindow *--> StatusBarFooter
+MainWindow --> FontManager
+MainWindow ..> FontName
 
-EntryListPanel -down-> EntryCard
+EntryListPanel -up-> EntryCard
 
-WishListPanel -down-> WishListCard
+EntryListPanel -right-> ExpenseCard
 
-BudgetPanel -down-> BudgetCard
+EntryListPanel -down-> IncomeCard
 
-ReminderPanel -down-> ReminderCard
+WishListPanel --> WishListCard
 
-MainWindow -right-|> UiPart
+BudgetPanel --> BudgetCard
+
+ReminderPanel --> ExpenseReminderCard
+
+ReminderPanel --> WishReminderCard
+
+FontManager --> FontName
+
+MainWindow --|> UiPart
 
 ResultDisplay --|> UiPart
 CommandBox --|> UiPart
@@ -64,23 +79,29 @@ ReminderPanel --|> UiPart
 EntryCard --|> UiPart
 WishListCard --|> UiPart
 BudgetCard --|> UiPart
-ReminderCard --|> UiPart
+ExpenseReminderCard --|> UiPart
+WishReminderCard --|> UiPart
 
-StatusBarFooter -right-|> UiPart
-HelpWindow -right-|> UiPart
+StatusBarFooter -down-|> UiPart
+HelpWindow -down-|> UiPart
 
 EntryCard .down.> Model
+ExpenseCard .down.> Model
+IncomeCard .down.> Model
 WishListCard .down.> Model
 BudgetCard .down.> Model
-ReminderCard .down.> Model
+ExpenseReminderCard .down.> Model
+WishReminderCard .down.> Model
 
 UiManager -right-> Logic
 MainWindow -left-> Logic
 
 EntryListPanel -[hidden]left- HelpWindow
+EntryListPanel -[hidden]left- ReminderPanel
 HelpWindow -[hidden]left- CommandBox
 CommandBox -[hidden]left- ResultDisplay
 ResultDisplay -[hidden]left- StatusBarFooter
+StatusBarFooter -[hidden]left- FontManager
 
 MainWindow -[hidden]-|> UiPart
 @enduml

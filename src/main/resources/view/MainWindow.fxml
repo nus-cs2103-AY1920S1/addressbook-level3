@@ -59,27 +59,24 @@
                     <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
                 </VBox>
                 <!-- to contain the side panels in vbox -->
-                <VBox fx:id="sidePanelsPlaceHolder" minWidth="300" prefWidth="300">
-                    <VBox fx:id="wishesPlaceHolder" minWidth="300" prefWidth="300" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
+                <VBox fx:id="sidePanelsPlaceHolder" minWidth="400" prefWidth="400">
+                    <VBox fx:id="wishesPlaceHolder" minWidth="400" prefWidth="400" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
                         <padding>
                             <Insets bottom="10" left="10" right="10" top="10" />
                         </padding>
                         <Label fx:id="wishlistTitle" styleClass="cell_big_label" text="Wishlist" />
-                        <!--<Label styleClass="cell_small_label" text="subtext" />-->
                     </VBox>
-                    <VBox fx:id="budgetsPlaceHolder" minWidth="300" prefWidth="300" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
+                    <VBox fx:id="budgetsPlaceHolder" minWidth="400" prefWidth="400" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
                         <padding>
                             <Insets bottom="10" left="10" right="10" top="10" />
                         </padding>
                         <Label fx:id="budgetTitle" styleClass="cell_big_label" text="Budgets" />
-                        <!--<Label styleClass="cell_small_label" text="subtext" />-->
                     </VBox>
-                    <VBox fx:id="remindersPlaceHolder" minWidth="300" prefWidth="300" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
+                    <VBox fx:id="remindersPlaceHolder" minWidth="400" prefWidth="400" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
                         <padding>
                             <Insets bottom="10" left="10" right="10" top="10" />
                         </padding>
                         <Label fx:id="remindersTitle" styleClass="cell_big_label" text="Reminders" />
-                        <!--<Label styleClass="cell_small_label" text="subtext" />-->
                     </VBox>
                 </VBox>
             </HBox>
