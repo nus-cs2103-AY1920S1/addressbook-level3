@@ -11,7 +11,9 @@ import seedu.address.logic.commands.alias.DeleteAliasCommand;
 import seedu.address.logic.commands.alias.ListAliasCommand;
 import seedu.address.logic.commands.budget.AddBudgetCommand;
 import seedu.address.logic.commands.budget.DeleteBudgetCommand;
+import seedu.address.logic.commands.budget.DeleteExpenseFromBudgetCommand;
 import seedu.address.logic.commands.budget.EditBudgetCommand;
+import seedu.address.logic.commands.budget.EditExpenseFromBudgetCommand;
 import seedu.address.logic.commands.budget.ListBudgetCommand;
 import seedu.address.logic.commands.budget.PastPeriodCommand;
 import seedu.address.logic.commands.budget.SwitchBudgetCommand;
@@ -59,11 +61,51 @@ public class MooLahParser {
         String arguments = input.getArguments();
 
         switch (commandWord) {
-        case AddEventCommand.COMMAND_WORD:
-            return new AddEventCommandParser().parse(arguments);
+        //expense
         case AddExpenseCommand.COMMAND_WORD:
             return new AddExpenseCommandParser().parse(arguments);
+        case EditExpenseCommand.COMMAND_WORD:
+            return new EditCommandParser().parse(arguments);
+        case EditExpenseFromBudgetCommand.COMMAND_WORD:
+            return new EditExpenseFromBudgetCommandParser().parse(arguments);
+        case DeleteExpenseCommand.COMMAND_WORD:
+            return new DeleteCommandParser().parse(arguments);
+        case DeleteExpenseFromBudgetCommand.COMMAND_WORD:
+            return new DeleteExpenseFromBudgetCommandParser().parse(arguments);
+        case FindExpenseCommand.COMMAND_WORD:
+            return new FindCommandParser().parse(arguments);
+        case ListExpenseCommand.COMMAND_WORD:
+            return new ListExpenseCommand();
+        case ClearCommand.COMMAND_WORD:
+            return new ClearCommand();
 
+        //event
+        case AddEventCommand.COMMAND_WORD:
+            return new AddEventCommandParser().parse(arguments);
+        case ListEventsCommand.COMMAND_WORD:
+            return new ListEventsCommand();
+
+        //budget
+        case AddBudgetCommand.COMMAND_WORD:
+            return new AddBudgetCommandParser().parse(arguments);
+        case EditBudgetCommand.COMMAND_WORD:
+            return new EditBudgetCommandParser().parse(arguments);
+        case SwitchBudgetCommand.COMMAND_WORD:
+            return new SwitchBudgetCommandParser().parse(arguments);
+        case ListBudgetCommand.COMMAND_WORD:
+            return new ListBudgetCommand();
+        case DeleteBudgetCommand.COMMAND_WORD:
+            return new DeleteBudgetCommandParser().parse(arguments);
+        case PastPeriodCommand.COMMAND_WORD:
+            return new PastPeriodCommandParser().parse(arguments);
+
+        //stats
+        case StatsCommand.COMMAND_WORD:
+            return new StatsCommandParser().parse(arguments);
+        case StatsCompareCommand.COMMAND_WORD:
+            return new StatsCompareCommandParser().parse(arguments);
+
+        //alias
         case AddAliasCommand.COMMAND_WORD:
             return new AddAliasCommandParser().parse(arguments);
         case DeleteAliasCommand.COMMAND_WORD:
@@ -71,44 +113,18 @@ public class MooLahParser {
         case ListAliasCommand.COMMAND_WORD:
             return new ListAliasCommand();
 
-        case AddBudgetCommand.COMMAND_WORD:
-            return new AddBudgetCommandParser().parse(arguments);
-        case EditExpenseCommand.COMMAND_WORD:
-            return new EditCommandParser().parse(arguments);
-        case DeleteExpenseCommand.COMMAND_WORD:
-            return new DeleteCommandParser().parse(arguments);
-        case EditBudgetCommand.COMMAND_WORD:
-            return new EditBudgetCommandParser().parse(arguments);
-        case ClearCommand.COMMAND_WORD:
-            return new ClearCommand();
-        case FindExpenseCommand.COMMAND_WORD:
-            return new FindCommandParser().parse(arguments);
-        case ListExpenseCommand.COMMAND_WORD:
-            return new ListExpenseCommand();
+        //general
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
-        case ListEventsCommand.COMMAND_WORD:
-            return new ListEventsCommand();
         case UndoCommand.COMMAND_WORD:
             return new UndoCommand();
         case RedoCommand.COMMAND_WORD:
             return new RedoCommand();
-        case StatsCommand.COMMAND_WORD:
-            return new StatsCommandParser().parse(arguments);
-        case StatsCompareCommand.COMMAND_WORD:
-            return new StatsCompareCommandParser().parse(arguments);
-        case SwitchBudgetCommand.COMMAND_WORD:
-            return new SwitchBudgetCommandParser().parse(arguments);
         case ViewPanelCommand.COMMAND_WORD:
             return new ViewPanelCommandParser().parse(arguments);
-        case ListBudgetCommand.COMMAND_WORD:
-            return new ListBudgetCommand();
-        case DeleteBudgetCommand.COMMAND_WORD:
-            return new DeleteBudgetCommandParser().parse(arguments);
-        case PastPeriodCommand.COMMAND_WORD:
-            return new PastPeriodCommandParser().parse(arguments);
+
         default:
             // check if alias exists
             if (readOnlyUserPrefs.hasAlias(commandWord)) {
