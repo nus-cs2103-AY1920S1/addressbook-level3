@@ -6,7 +6,9 @@ import seedu.jarvis.logic.commands.Command;
 import seedu.jarvis.logic.commands.CommandResult;
 import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.model.Model;
+import seedu.jarvis.model.planner.PlannerModel;
 import seedu.jarvis.model.planner.TaskDesContainsKeywordsPredicate;
+import seedu.jarvis.model.viewstatus.ViewType;
 
 /**
  * Finds and lists all tasks in the planner whose description contains any of the argument
@@ -68,8 +70,10 @@ public class FindTaskCommand extends Command {
         requireNonNull(model);
 
         model.updateFilteredTaskList(predicate);
+        model.setViewStatus(ViewType.LIST_PLANNER);
 
-        return new CommandResult(String.format(MESSAGE_TASKS_LISTED_OVERVIEW, model.getFilteredTaskList().size()));
+        return new CommandResult(String.format(MESSAGE_TASKS_LISTED_OVERVIEW, model.getFilteredTaskList().size()),
+                    true);
     }
 
     /**

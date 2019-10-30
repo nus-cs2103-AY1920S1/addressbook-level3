@@ -31,7 +31,7 @@ public class TaskListView extends View<AnchorPane> {
 
     @Override
     public void fillPage() {
-        taskListView.setItems(logic.getFilteredTaskList());
+        taskListView.setItems(model.getFilteredTaskList());
         taskListView.setCellFactory(listView -> new TaskListViewCell());
     }
 

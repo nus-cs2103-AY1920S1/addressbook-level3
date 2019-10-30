@@ -8,9 +8,11 @@ import seedu.jarvis.logic.commands.Command;
 import seedu.jarvis.logic.commands.CommandResult;
 import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.model.Model;
+import seedu.jarvis.model.planner.PlannerModel;
 import seedu.jarvis.model.planner.TaskList;
 import seedu.jarvis.model.planner.enums.Status;
 import seedu.jarvis.model.planner.tasks.Task;
+import seedu.jarvis.model.viewstatus.ViewType;
 
 /**
  * Updates a {@code Task} from incomplete to complete
@@ -88,8 +90,9 @@ public class DoneTaskCommand extends Command {
         }
 
         model.markTaskAsDone(targetIndex);
-
-        return new CommandResult(String.format(MESSAGE_SUCCESS, doneTask));
+        model.updateFilteredTaskList(PlannerModel.PREDICATE_SHOW_ALL_TASKS);
+        model.setViewStatus(ViewType.LIST_PLANNER);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, doneTask), true);
     }
 
     @Override

@@ -24,6 +24,8 @@ public class TaskCard extends UiPart<Region> {
     @FXML
     private Label taskDes;
     @FXML
+    private Label taskType;
+    @FXML
     private Label id;
     @FXML
     private Label priority;
@@ -39,6 +41,7 @@ public class TaskCard extends UiPart<Region> {
         this.task = task;
         id.setText(displayedIndex + ". ");
         taskDes.setText(task.getTaskDes());
+        taskType.setText(task.getTaskType().toString());
         status.setText(task.getStatus().toString());
         task.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
@@ -46,10 +49,14 @@ public class TaskCard extends UiPart<Region> {
 
         if (task.getPriority() != null) {
             priority.setText(task.getPriority().toString());
+        } else {
+            priority.setText("");
         }
 
         if (task.getFrequency() != null) {
             frequency.setText(task.getFrequency().toString());
+        } else {
+            frequency.setText("");
         }
     }
 
