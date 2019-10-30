@@ -7,6 +7,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.finance.commands.CommandResult;
 import seedu.address.logic.finance.commands.exceptions.CommandException;
 import seedu.address.logic.finance.parser.exceptions.ParseException;
+import seedu.address.model.finance.GraphicsData;
 import seedu.address.model.finance.ReadOnlyFinanceLog;
 import seedu.address.model.finance.logentry.LogEntry;
 
@@ -24,19 +25,22 @@ public interface Logic {
     CommandResult execute(String commandText) throws CommandException, ParseException;
 
     /**
-     * Returns the AddressBook.
+     * Returns the finance log
      *
      * @see seedu.address.model.finance.Model#getFinanceLog()
      */
-    ReadOnlyFinanceLog getAddressBook();
+    ReadOnlyFinanceLog getFinanceLog();
 
-    /** Returns an unmodifiable view of the filtered list of persons */
-    ObservableList<LogEntry> getFilteredPersonList();
+    /** Returns an unmodifiable view of the filtered list of log entries */
+    ObservableList<LogEntry> getFilteredLogEntryList();
+
+    /** Returns a {@code GraphicsData} object */
+    GraphicsData getGraphicsData();
 
     /**
-     * Returns the user prefs' address book file path.
+     * Returns the user prefs' finance log file path.
      */
-    Path getAddressBookFilePath();
+    Path getFinanceLogFilePath();
 
     /**
      * Returns the user prefs' GUI settings.

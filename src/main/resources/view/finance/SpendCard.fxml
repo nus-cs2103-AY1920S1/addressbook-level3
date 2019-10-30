@@ -15,7 +15,7 @@
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150" />
     </columnConstraints>
     <HBox alignment="CENTER_LEFT" minHeight="90" GridPane.columnIndex="0">
-      <VBox alignment="CENTER" id="entryTypeCol">
+      <VBox alignment="CENTER" id="incomeEntryTypeCol" minWidth="80">
         <Label text="spend" styleClass="entry_type_label" />
       </VBox>
       <VBox>
@@ -41,7 +41,7 @@
             <Insets top="5" right="15" bottom="5" left="5" />
         </padding>
         <Label fx:id="tMethod" styleClass="transaction_method_label" text="\$tMethod" />
-        <Label fx:id="amount" styleClass="cell_small_label" text="\$amount" />
+        <Label fx:id="amount" styleClass="cell_big_label" text="\$amount" />
     </HBox>
   </GridPane>
 </HBox>

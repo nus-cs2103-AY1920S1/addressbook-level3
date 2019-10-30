@@ -1,13 +1,20 @@
 package seedu.address.logic.finance.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.finance.parser.FinanceCliSyntax.PREFIX_AMOUNT;
+import static seedu.address.logic.finance.parser.FinanceCliSyntax.PREFIX_CATEGORY;
+import static seedu.address.logic.finance.parser.FinanceCliSyntax.PREFIX_KEYWORD;
+import static seedu.address.logic.finance.parser.FinanceCliSyntax.PREFIX_TYPE;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import seedu.address.logic.finance.commands.FindCommand;
 import seedu.address.logic.finance.parser.exceptions.ParseException;
-import seedu.address.model.finance.logentry.DescriptionContainsKeywordsPredicate;
-
+import seedu.address.model.finance.logentry.LogEntryContainsCategoriesPredicate;
+import seedu.address.model.finance.logentry.LogEntryContainsKeywordsPredicate;
+import seedu.address.model.finance.logentry.LogEntryMatchesAmountPredicate;
+import seedu.address.model.finance.logentry.LogEntryMatchesLogEntryTypesPredicate;
 
 /**
  * Parses input arguments and creates a new FindCommand object
@@ -20,15 +27,49 @@ public class FindCommandParser implements Parser<FindCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public FindCommand parse(String args) throws ParseException {
-        String trimmedArgs = args.trim();
-        if (trimmedArgs.isEmpty()) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+        ArgumentMultimap argMultimap =
+                ArgumentTokenizer.tokenize(args, PREFIX_AMOUNT, PREFIX_TYPE,
+                        PREFIX_KEYWORD, PREFIX_CATEGORY);
+
+        String[] amounts = null;
+        if (argMultimap.getValue(PREFIX_AMOUNT).isPresent()) {
+            amounts = argMultimap.getValue(PREFIX_AMOUNT).get().trim().split("\\s+");
         }
 
-        String[] nameKeywords = trimmedArgs.split("\\s+");
+        String[] logEntryTypesToFind = null;
+        if (argMultimap.getValue(PREFIX_TYPE).isPresent()) {
+            logEntryTypesToFind = argMultimap.getValue(PREFIX_TYPE).get().trim().split("\\s+");
+        }
 
-        return new FindCommand(new DescriptionContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
+        String[] catsToFind = null;
+        if (argMultimap.getValue(PREFIX_CATEGORY).isPresent()) {
+            catsToFind = argMultimap.getValue(PREFIX_CATEGORY).get().trim().split("\\s+");
+        }
+
+        String[] keywords = null;
+        if (argMultimap.getValue(PREFIX_KEYWORD).isPresent()) {
+            keywords = argMultimap.getValue(PREFIX_KEYWORD).get().trim().split("\\s+");
+        }
+
+        // At least one field present
+        boolean isAmountSpecified = amounts != null;
+        boolean isLogEntryTypeSpecified = logEntryTypesToFind != null;
+        boolean isCatsToFindSpecified = catsToFind != null;
+        boolean isKeywordFieldSpecified = keywords != null;
+        if (!isAmountSpecified && !isLogEntryTypeSpecified
+            && !isCatsToFindSpecified && !isKeywordFieldSpecified) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+        }
+
+        return new FindCommand(
+                new LogEntryMatchesAmountPredicate(
+                        amounts == null ? new ArrayList<String>() : Arrays.asList(amounts)),
+                new LogEntryMatchesLogEntryTypesPredicate(
+                        logEntryTypesToFind == null ? new ArrayList<String>() : Arrays.asList(logEntryTypesToFind)),
+                new LogEntryContainsKeywordsPredicate(
+                        keywords == null ? new ArrayList<String>() : Arrays.asList(keywords)),
+                new LogEntryContainsCategoriesPredicate(
+                        catsToFind == null ? new ArrayList<String>() : Arrays.asList(catsToFind)));
     }
 
 }

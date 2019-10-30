@@ -67,6 +67,7 @@ public abstract class LogEntry {
     }
 
     public abstract String getLogEntryType();
+    public abstract void markAsRepaid();
 
     /**
      * Returns true if both log entries have the same basic fields.

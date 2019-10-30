@@ -16,6 +16,14 @@ public class FinanceCliSyntax {
     public static final Prefix PREFIX_PLACE = new Prefix("<place>");
     public static final Prefix PREFIX_FROM = new Prefix("<from>");
     public static final Prefix PREFIX_TO = new Prefix("<to>");
-    public static final Prefix PREFIX_DEADLINE = new Prefix("<deadline>");
+
+    /* For find command */
+    public static final Prefix PREFIX_TYPE = new Prefix("<type>");
+    public static final Prefix PREFIX_KEYWORD = new Prefix("<keyword>");
+
+    /* For stats command */
+    public static final Prefix PREFIX_GROUP_BY = new Prefix("<groupby>");
+    public static final Prefix PREFIX_SUMMARISE = new Prefix("<summarise>");
+    public static final Prefix PREFIX_BETWEEN = new Prefix("<between>");
 
 }

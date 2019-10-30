@@ -8,7 +8,6 @@ import java.net.URL;
 import javafx.fxml.FXMLLoader;
 import seedu.address.MainApp;
 
-
 /**
  * Represents a distinct part of the UI. e.g. Windows, dialogs, panels, status bars, etc.
  * It contains a scene graph with a root node of type {@code T}.
