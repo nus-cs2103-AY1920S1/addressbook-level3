@@ -12,10 +12,10 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.events.exceptions.EventException;
 import seedu.address.logic.commands.result.CommandResult;
 import seedu.address.logic.commands.result.ResultInformation;
 import seedu.address.logic.commands.result.UiFocus;
+import seedu.address.logic.events.exceptions.EventException;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**

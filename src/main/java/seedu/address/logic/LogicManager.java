@@ -11,13 +11,11 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.UndoableCommand;
-import seedu.address.logic.commands.result.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.result.CommandResult;
 import seedu.address.logic.events.Event;
 import seedu.address.logic.events.EventFactory;
 import seedu.address.logic.events.exceptions.EventException;
-import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.commands.result.CommandResult;
 import seedu.address.logic.parser.PlannerParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 
