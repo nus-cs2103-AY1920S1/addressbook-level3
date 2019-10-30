@@ -197,16 +197,6 @@ public class FetchEventWindow extends UiPart<Stage> {
             }
         }
 
-        protected void updateItem1(Employee employee, boolean empty) {
-            super.updateItem(employee, empty);
-            if (empty || employee == null) {
-                setGraphic(null);
-                setText(null);
-            } else {
-                setGraphic(new EmployeeCard1(employee, getIndex() + 1, logic, event,
-                        eventOneBasedIndex, fetchWindow, true).getRoot());
-            }
-        }
     }
 
 
@@ -228,17 +218,6 @@ public class FetchEventWindow extends UiPart<Stage> {
                 setText(null);
             } else {
                 setGraphic(new EmployeeCard(employee, getIndex() + 1, logic, event,
-                        eventOneBasedIndex, fetchWindow, false).getRoot());
-            }
-
-        }
-        protected void updateItem1(Employee employee, boolean empty) {
-            super.updateItem(employee, empty);
-            if (empty || employee == null) {
-                setGraphic(null);
-                setText(null);
-            } else {
-                setGraphic(new EmployeeCard1(employee, getIndex() + 1, logic, event,
                         eventOneBasedIndex, fetchWindow, false).getRoot());
             }
 

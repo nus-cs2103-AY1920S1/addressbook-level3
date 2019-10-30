@@ -19,10 +19,6 @@ import seedu.address.logic.commands.allocate.DeallocateCommand;
 import seedu.address.logic.commands.allocate.ManualAllocateCommand;
 import seedu.address.model.employee.Employee;
 import seedu.address.model.event.Event;
-import seedu.address.ui.ErrorWindow;
-import seedu.address.ui.FetchEventWindow;
-import seedu.address.ui.MainWindow;
-import seedu.address.ui.UiPart;
 
 
 /**

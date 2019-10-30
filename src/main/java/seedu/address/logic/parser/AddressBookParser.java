@@ -16,7 +16,6 @@ import seedu.address.logic.commands.employee.DeleteCommand;
 import seedu.address.logic.commands.employee.EditCommand;
 import seedu.address.logic.commands.employee.FetchEmployeeCommand;
 import seedu.address.logic.commands.employee.FindCommand;
-import seedu.address.logic.commands.employee.ListCommand;
 import seedu.address.logic.commands.employee.ListEmployeeCommand;
 import seedu.address.logic.commands.event.AddEventCommand;
 import seedu.address.logic.commands.event.AssignDateCommand;
