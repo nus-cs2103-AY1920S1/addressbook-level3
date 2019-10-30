@@ -272,7 +272,20 @@ exporting to document files.
 
 === Get the full list of commands: `help`
 
+This command allow to you to view all the commands available in the application. +
 `help`
+
+. Type `help` and press **Enter** to execute it.
++
+image::HelpCommand.png[width="600"]
+
+. The result box will display the message:
++
+Opened help window.
+
+. A help window with all the commands will also be displayed:
++
+image::HelpWindow.png[width="600"]
 
 === Search flashcards: `search [keywords]`
 
