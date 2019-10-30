@@ -20,7 +20,7 @@ import seedu.address.testutil.AliasTestUtil;
 /**
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.
  */
-public class AliasCommandTest {
+public class AddAliasCommandTest {
 
     private Model model = new ModelManager(getTypicalMooLah(), new UserPrefs(), new ModelHistory());
     private Model expectedModel = new ModelManager(getTypicalMooLah(), new UserPrefs(), new ModelHistory());
@@ -28,14 +28,14 @@ public class AliasCommandTest {
     @Test
     public void equals() {
 
-        AliasCommand validAliasCommandOne = new AliasCommand(ALIAS_A_TO_B);
-        AliasCommand validAliasCommandTwo = new AliasCommand(ALIAS_B_TO_C);
+        AddAliasCommand validAliasCommandOne = new AddAliasCommand(ALIAS_A_TO_B);
+        AddAliasCommand validAddAliasCommandTwo = new AddAliasCommand(ALIAS_B_TO_C);
 
         // same object -> returns true
         assertTrue(validAliasCommandOne.equals(validAliasCommandOne));
 
         // same alias -> returns true
-        AliasCommand validAliasCommandOneCopy = new AliasCommand(ALIAS_A_TO_B);
+        AddAliasCommand validAliasCommandOneCopy = new AddAliasCommand(ALIAS_A_TO_B);
         assertTrue(validAliasCommandOne.equals(validAliasCommandOneCopy));
 
         // different types -> returns false
@@ -45,12 +45,12 @@ public class AliasCommandTest {
         assertFalse(validAliasCommandOne.equals(null));
 
         // different alias -> returns false
-        assertFalse(validAliasCommandOne.equals(validAliasCommandTwo));
+        assertFalse(validAliasCommandOne.equals(validAddAliasCommandTwo));
     }
 
     @Test
     public void run_aliasNameIsReservedCommandWord_throwsCommandException() {
-        AliasCommand command = new AliasCommand(AliasTestUtil.ALIAS_NAME_ADD);
+        AddAliasCommand command = new AddAliasCommand(AliasTestUtil.ALIAS_NAME_ADD);
         assertThrows(CommandException.class, () -> command.run(model));
     }
 
@@ -61,7 +61,7 @@ public class AliasCommandTest {
         expectedModel.addToHistory();
         expectedModel.addUserAlias(ALIAS_A_TO_B);
         assertCommandSuccess(
-                new AliasCommand(ALIAS_A_TO_B), model,
-                String.format(AliasCommand.MESSAGE_SUCCESS, ALIAS_A_TO_B.getAliasName()), expectedModel);
+                new AddAliasCommand(ALIAS_A_TO_B), model,
+                String.format(AddAliasCommand.MESSAGE_SUCCESS, ALIAS_A_TO_B.getAliasName()), expectedModel);
     }
 }

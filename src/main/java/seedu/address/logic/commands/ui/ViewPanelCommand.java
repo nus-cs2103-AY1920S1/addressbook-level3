@@ -1,6 +1,7 @@
 package seedu.address.logic.commands.ui;
 
 import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.CommandGroup;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -11,7 +12,7 @@ import seedu.address.ui.panel.PanelName;
  */
 public class ViewPanelCommand extends Command {
 
-    public static final String COMMAND_WORD = "view";
+    public static final String COMMAND_WORD = "view" + CommandGroup.GENERAL;
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Navigates to the specified GUI panel. \n"
             + "PARAMETERS: <Panel Name> \n"
             + "EXAMPLE: view Budget List \n";
@@ -44,7 +45,7 @@ public class ViewPanelCommand extends Command {
 
     @Override
     protected CommandResult execute(Model model) throws CommandException {
-        return new CommandResult("Now Showing: " + panelName.toString(), null, false, false, true, panelName);
+        return new CommandResult("Now Showing: " + panelName.toString(), null, false, false, panelName);
 
     }
 

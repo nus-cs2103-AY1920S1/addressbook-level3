@@ -6,13 +6,13 @@ import static seedu.address.logic.commands.CommandTestUtil.PRICE_DESC_CHICKEN;
 import seedu.address.commons.core.Alias;
 import seedu.address.commons.core.AliasMappings;
 import seedu.address.commons.exceptions.RecursiveAliasException;
-import seedu.address.logic.commands.AddCommand;
-import seedu.address.logic.commands.alias.AliasCommand;
+import seedu.address.logic.commands.alias.AddAliasCommand;
+import seedu.address.logic.commands.event.AddEventCommand;
 import seedu.address.logic.commands.expense.ClearCommand;
-import seedu.address.logic.commands.expense.DeleteCommand;
-import seedu.address.logic.commands.expense.EditCommand;
-import seedu.address.logic.commands.expense.FindCommand;
-import seedu.address.logic.commands.expense.ListCommand;
+import seedu.address.logic.commands.expense.DeleteExpenseCommand;
+import seedu.address.logic.commands.expense.EditExpenseCommand;
+import seedu.address.logic.commands.expense.FindExpenseCommand;
+import seedu.address.logic.commands.expense.ListExpenseCommand;
 import seedu.address.logic.commands.general.ExitCommand;
 import seedu.address.logic.commands.general.HelpCommand;
 
@@ -21,11 +21,11 @@ import seedu.address.logic.commands.general.HelpCommand;
  */
 public class AliasTestUtil {
 
-    public static final Alias ALIAS_LIST_SHORTCUT = new Alias("ls", ListCommand.COMMAND_WORD);
+    public static final Alias ALIAS_LIST_SHORTCUT = new Alias("ls", ListExpenseCommand.COMMAND_WORD);
     public static final Alias ALIAS_ADD_WITH_ARGUMENTS = new Alias(
             "addchicken",
-            FindCommand.COMMAND_WORD + DESCRIPTION_DESC_CHICKEN + PRICE_DESC_CHICKEN);
-    public static final Alias ALIAS_FIND_SHORTCUT_INCOMPLETE = new Alias ("f", FindCommand.COMMAND_WORD);
+            FindExpenseCommand.COMMAND_WORD + DESCRIPTION_DESC_CHICKEN + PRICE_DESC_CHICKEN);
+    public static final Alias ALIAS_FIND_SHORTCUT_INCOMPLETE = new Alias ("f", FindExpenseCommand.COMMAND_WORD);
     // for recursive
     public static final Alias ALIAS_A_TO_B = new Alias("a", "b");
     public static final Alias ALIAS_B_TO_C = new Alias("b", "c");
@@ -35,15 +35,15 @@ public class AliasTestUtil {
 
     private static final String IGNORED_VALUE = "ignored value";
     // for alias is reserved
-    public static final Alias ALIAS_NAME_ADD = new Alias(AddCommand.COMMAND_WORD, IGNORED_VALUE);
-    public static final Alias ALIAS_NAME_ALIAS = new Alias(AliasCommand.COMMAND_WORD, IGNORED_VALUE);
+    public static final Alias ALIAS_NAME_ADD = new Alias(AddEventCommand.COMMAND_WORD, IGNORED_VALUE);
+    public static final Alias ALIAS_NAME_ALIAS = new Alias(AddAliasCommand.COMMAND_WORD, IGNORED_VALUE);
     public static final Alias ALIAS_NAME_CLEAR = new Alias(ClearCommand.COMMAND_WORD, IGNORED_VALUE);
-    public static final Alias ALIAS_NAME_DELETE = new Alias(DeleteCommand.COMMAND_WORD, IGNORED_VALUE);
-    public static final Alias ALIAS_NAME_EDIT = new Alias(EditCommand.COMMAND_WORD, IGNORED_VALUE);
+    public static final Alias ALIAS_NAME_DELETE = new Alias(DeleteExpenseCommand.COMMAND_WORD, IGNORED_VALUE);
+    public static final Alias ALIAS_NAME_EDIT = new Alias(EditExpenseCommand.COMMAND_WORD, IGNORED_VALUE);
     public static final Alias ALIAS_NAME_EXIT = new Alias(ExitCommand.COMMAND_WORD, IGNORED_VALUE);
-    public static final Alias ALIAS_NAME_FIND = new Alias(FindCommand.COMMAND_WORD, IGNORED_VALUE);
+    public static final Alias ALIAS_NAME_FIND = new Alias(FindExpenseCommand.COMMAND_WORD, IGNORED_VALUE);
     public static final Alias ALIAS_NAME_HELP = new Alias(HelpCommand.COMMAND_WORD, IGNORED_VALUE);
-    public static final Alias ALIAS_NAME_LIST = new Alias(ListCommand.COMMAND_WORD, IGNORED_VALUE);
+    public static final Alias ALIAS_NAME_LIST = new Alias(ListExpenseCommand.COMMAND_WORD, IGNORED_VALUE);
 
     static {
         AliasMappings tempValidAliasMappings;

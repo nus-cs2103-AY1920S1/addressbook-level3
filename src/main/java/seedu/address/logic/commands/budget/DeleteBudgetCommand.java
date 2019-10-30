@@ -6,7 +6,9 @@ import java.util.List;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.CommandGroup;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.GenericCommandWord;
 import seedu.address.logic.commands.UndoableCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -17,7 +19,7 @@ import seedu.address.ui.budget.BudgetListPanel;
  * Deletes a budget identified using it's displayed index from the MooLah.
  */
 public class DeleteBudgetCommand extends UndoableCommand {
-    public static final String COMMAND_WORD = "deletebudget";
+    public static final String COMMAND_WORD = GenericCommandWord.DELETE + CommandGroup.BUDGET;
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the budget identified by the index number used in the displayed budget list.\n"

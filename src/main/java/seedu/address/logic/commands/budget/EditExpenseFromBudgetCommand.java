@@ -14,7 +14,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.UndoableCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.commands.expense.EditCommand.EditExpenseDescriptor;
+import seedu.address.logic.commands.expense.EditExpenseCommand;
 import seedu.address.model.Model;
 import seedu.address.model.category.Category;
 import seedu.address.model.expense.Description;
@@ -45,18 +45,18 @@ public class EditExpenseFromBudgetCommand extends UndoableCommand {
     public static final String MESSAGE_DUPLICATE_EXPENSE = "This expense already exists in the MooLah.";
 
     private final Index index;
-    private final EditExpenseDescriptor editExpenseDescriptor;
+    private final EditExpenseCommand.EditExpenseDescriptor editExpenseDescriptor;
 
     /**
      * @param index of the expense in the filtered expense list to edit
      * @param editExpenseDescriptor details to edit the expense with
      */
-    public EditExpenseFromBudgetCommand(Index index, EditExpenseDescriptor editExpenseDescriptor) {
+    public EditExpenseFromBudgetCommand(Index index, EditExpenseCommand.EditExpenseDescriptor editExpenseDescriptor) {
         requireNonNull(index);
         requireNonNull(editExpenseDescriptor);
 
         this.index = index;
-        this.editExpenseDescriptor = new EditExpenseDescriptor(editExpenseDescriptor);
+        this.editExpenseDescriptor = new EditExpenseCommand.EditExpenseDescriptor(editExpenseDescriptor);
     }
 
     @Override
@@ -93,7 +93,8 @@ public class EditExpenseFromBudgetCommand extends UndoableCommand {
      * Creates and returns a {@code Expense} with the details of {@code expenseToEdit}
      * edited with {@code editExpenseDescriptor}.
      */
-    private static Expense createEditedExpense(Expense expenseToEdit, EditExpenseDescriptor editExpenseDescriptor) {
+    private static Expense createEditedExpense(Expense expenseToEdit,
+                                               EditExpenseCommand.EditExpenseDescriptor editExpenseDescriptor) {
         assert expenseToEdit != null;
 
         Description updatedDescription = editExpenseDescriptor.getDescription().orElse(expenseToEdit.getDescription());

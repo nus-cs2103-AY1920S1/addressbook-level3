@@ -9,7 +9,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TIMESTAMP;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.budget.EditExpenseFromBudgetCommand;
-import seedu.address.logic.commands.expense.EditCommand.EditExpenseDescriptor;
+import seedu.address.logic.commands.expense.EditExpenseCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -35,7 +35,7 @@ public class EditExpenseFromBudgetCommandParser {
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditExpenseFromBudgetCommand.MESSAGE_USAGE), pe);
         }
 
-        EditExpenseDescriptor editExpenseDescriptor = new EditExpenseDescriptor();
+        EditExpenseCommand.EditExpenseDescriptor editExpenseDescriptor = new EditExpenseCommand.EditExpenseDescriptor();
         if (argMultimap.getValue(PREFIX_DESCRIPTION).isPresent()) {
             editExpenseDescriptor.setDescription(
                     ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get()));

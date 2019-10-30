@@ -221,6 +221,16 @@ public class AddBudgetCommandTest {
         }
 
         @Override
+        public boolean removeAliasWithName(String aliasName) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean aliasWithNameExists(String aliasName) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public Path getMooLahFilePath() {
             throw new AssertionError("This method should not be called.");
         }

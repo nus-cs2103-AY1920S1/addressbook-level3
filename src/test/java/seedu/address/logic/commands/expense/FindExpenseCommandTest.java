@@ -24,7 +24,7 @@ import seedu.address.model.expense.DescriptionContainsKeywordsPredicate;
 /**
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.
  */
-public class FindCommandTest {
+public class FindExpenseCommandTest {
     private Model model = new ModelManager(getTypicalMooLah(), new UserPrefs(), new ModelHistory());
     private Model expectedModel = new ModelManager(getTypicalMooLah(), new UserPrefs(), new ModelHistory());
 
@@ -35,14 +35,14 @@ public class FindCommandTest {
         DescriptionContainsKeywordsPredicate secondPredicate =
                 new DescriptionContainsKeywordsPredicate(Collections.singletonList("second"));
 
-        FindCommand findFirstCommand = new FindCommand(firstPredicate);
-        FindCommand findSecondCommand = new FindCommand(secondPredicate);
+        FindExpenseCommand findFirstCommand = new FindExpenseCommand(firstPredicate);
+        FindExpenseCommand findSecondCommand = new FindExpenseCommand(secondPredicate);
 
         // same object -> returns true
         assertTrue(findFirstCommand.equals(findFirstCommand));
 
         // same values -> returns true
-        FindCommand findFirstCommandCopy = new FindCommand(firstPredicate);
+        FindExpenseCommand findFirstCommandCopy = new FindExpenseCommand(firstPredicate);
         assertTrue(findFirstCommand.equals(findFirstCommandCopy));
 
         // different types -> returns false
@@ -59,7 +59,7 @@ public class FindCommandTest {
     public void run_zeroKeywords_noExpenseFound() {
         String expectedMessage = String.format(MESSAGE_EXPENSES_LISTED_OVERVIEW, 0);
         DescriptionContainsKeywordsPredicate predicate = preparePredicate(" ");
-        FindCommand command = new FindCommand(predicate);
+        FindExpenseCommand command = new FindExpenseCommand(predicate);
         expectedModel.addToHistory();
         expectedModel.updateFilteredExpenseList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
@@ -70,7 +70,7 @@ public class FindCommandTest {
     public void run_multipleKeywords_multipleExpensesFound() {
         String expectedMessage = String.format(MESSAGE_EXPENSES_LISTED_OVERVIEW, 3);
         DescriptionContainsKeywordsPredicate predicate = preparePredicate("the Chicken Movie");
-        FindCommand command = new FindCommand(predicate);
+        FindExpenseCommand command = new FindExpenseCommand(predicate);
         expectedModel.addToHistory();
         expectedModel.updateFilteredExpenseList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);

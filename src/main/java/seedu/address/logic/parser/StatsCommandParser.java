@@ -5,6 +5,8 @@ import static seedu.address.commons.core.Messages.MESSAGE_REPEATED_PREFIX_COMMAN
 import static seedu.address.logic.parser.CliSyntax.PREFIX_END_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_START_DATE;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.statistics.StatsCommand;
@@ -18,6 +20,12 @@ import seedu.address.model.statistics.Statistics;
  * Parses input arguments and creates a new StatsCommand object
  */
 public class StatsCommandParser implements Parser<StatsCommand> {
+
+
+    public static final List<Prefix> REQUIRED_PREFIXES = Collections.unmodifiableList(List.of(
+            PREFIX_START_DATE, PREFIX_END_DATE
+    ));
+    public static final List<Prefix> OPTIONAL_PREFIXES = Collections.unmodifiableList(List.of());
 
     /**
      * Parses the given {@code String} of arguments in the context of the StatsCommand

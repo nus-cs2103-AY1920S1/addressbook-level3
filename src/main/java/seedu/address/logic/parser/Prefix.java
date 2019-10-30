@@ -7,10 +7,12 @@ package seedu.address.logic.parser;
 public class Prefix {
     private final String prefix;
     private final String descriptionOfArgument;
+    private final boolean isMandatory;
 
     public Prefix(String prefix, String descriptionOfArgument) {
         this.prefix = prefix;
         this.descriptionOfArgument = descriptionOfArgument;
+        this.isMandatory = false;
     }
 
     public String getPrefix() {

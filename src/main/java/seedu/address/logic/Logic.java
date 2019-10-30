@@ -4,6 +4,7 @@ import java.nio.file.Path;
 import java.util.List;
 
 import javafx.collections.ObservableList;
+import seedu.address.commons.core.AliasMappings;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -21,11 +22,12 @@ public interface Logic {
     /**
      * Executes the command and returns the result.
      * @param commandText The command as entered by the user.
+     * @param commandGroup
      * @return the result of the command execution.
      * @throws CommandException If an error occurs during command execution.
      * @throws ParseException If an error occurs during parsing.
      */
-    CommandResult execute(String commandText) throws CommandException, ParseException;
+    CommandResult execute(String commandText, String commandGroup) throws CommandException, ParseException;
 
     boolean hasBudgetWithName(Description targetDescription);
 
@@ -64,7 +66,12 @@ public interface Logic {
      */
     void setGuiSettings(GuiSettings guiSettings);
 
+    AliasMappings getAliasMappings();
+
+    boolean deleteAliasWithName(String aliasName);
+
     void deleteTranspiredEvents(List<Event> eventsToBeRemoved);
 
     void addExpenseFromEvent(Event currentEvent) throws CommandException, ParseException;
+
 }

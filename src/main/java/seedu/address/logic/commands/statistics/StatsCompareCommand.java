@@ -9,6 +9,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_SECOND_START_DATE;
 import java.time.Period;
 
 import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.CommandGroup;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.Model;
 import seedu.address.model.expense.Timestamp;
@@ -19,7 +20,7 @@ import seedu.address.ui.panel.PanelName;
  * Calculates comparison statistics for Moolah
  */
 public class StatsCompareCommand extends Command {
-    public static final String COMMAND_WORD = "statscompare";
+    public static final String COMMAND_WORD = "statscompare" + CommandGroup.GENERAL;
 
     public static final String MESSAGE_SUCCESS = "Statistics Comparison Calculated!";
 
@@ -60,7 +61,7 @@ public class StatsCompareCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         Statistics statistics = model.calculateStatistics(COMMAND_WORD, firstStartDate , secondStartDate, period);
-        return new CommandResult(MESSAGE_SUCCESS, statistics, false, false, false, PanelName.CURRENT);
+        return new CommandResult(MESSAGE_SUCCESS, statistics, false, false, PanelName.CURRENT);
     }
 
     @Override

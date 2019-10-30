@@ -3,6 +3,7 @@ package seedu.address.logic.commands.budget;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 
+import seedu.address.logic.commands.CommandGroup;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.UndoableCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -14,7 +15,7 @@ import seedu.address.ui.budget.BudgetPanel;
  * Switches the primary budget to another budget.
  */
 public class SwitchBudgetCommand extends UndoableCommand {
-    public static final String COMMAND_WORD = "switchbudget";
+    public static final String COMMAND_WORD = "switch" + CommandGroup.BUDGET;
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Switches the primary budget to another budget.\n"
             + "Parameters: "

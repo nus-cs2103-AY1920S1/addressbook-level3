@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
+import seedu.address.commons.core.AliasMappings;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.Version;
@@ -164,12 +165,22 @@ public class MainApp extends Application {
             initializedPrefs = new UserPrefs();
         }
 
-        //Update prefs file in case it was missing to begin with or there are new/unused fields
+        //ensure aliases are valid
+        try {
+            initializedPrefs.getAliasMappings().validate();
+        } catch (Exception e) {
+            logger.warning("Problem occurred while reading Aliases from the file. "
+                    + "Will be resetting alias mappings: " + e.getMessage());
+            initializedPrefs.setAliasMappings(new AliasMappings());
+        }
+
+        // Update prefs file in case it was missing to begin with or there are new/unused fields
         try {
             storage.saveUserPrefs(initializedPrefs);
         } catch (IOException e) {
             logger.warning("Failed to save config file : " + StringUtil.getDetails(e));
         }
+
 
         return initializedPrefs;
     }

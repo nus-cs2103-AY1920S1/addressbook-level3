@@ -23,18 +23,18 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_EXPENSE;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.expense.EditCommand;
+import seedu.address.logic.commands.expense.EditExpenseCommand;
 import seedu.address.model.category.Category;
 import seedu.address.model.expense.Description;
 import seedu.address.model.expense.Price;
 import seedu.address.testutil.EditExpenseDescriptorBuilder;
 
-public class EditCommandParserTest {
+public class EditExpenseCommandParserTest {
 
     private static final String TAG_EMPTY = " " + PREFIX_CATEGORY;
 
     private static final String MESSAGE_INVALID_FORMAT =
-            String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE);
+            String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditExpenseCommand.MESSAGE_USAGE);
 
     private EditCommandParser parser = new EditCommandParser();
 
@@ -44,7 +44,7 @@ public class EditCommandParserTest {
         assertParseFailure(parser, VALID_DESCRIPTION_CHICKEN, MESSAGE_INVALID_FORMAT);
 
         // no field specified
-        assertParseFailure(parser, "1", EditCommand.MESSAGE_NOT_EDITED);
+        assertParseFailure(parser, "1", EditExpenseCommand.MESSAGE_NOT_EDITED);
 
         // no index and no field specified
         assertParseFailure(parser, "", MESSAGE_INVALID_FORMAT);
@@ -79,7 +79,8 @@ public class EditCommandParserTest {
 
         // valid price followed by invalid price. The test case for invalid price followed by valid price
         // is tested at {@code parse_invalidValueFollowedByValidValue_success()}
-        assertParseFailure(parser, "1" + PRICE_DESC_TRANSPORT + INVALID_PRICE_DESC, Price.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser,
+                "1" + PRICE_DESC_TRANSPORT + INVALID_PRICE_DESC, Price.MESSAGE_CONSTRAINTS);
 
         // while parsing {@code PREFIX_TAG} alone will reset the tags of the {@code Expense} being edited,
         // parsing it together with a valid category results in error
@@ -100,12 +101,12 @@ public class EditCommandParserTest {
         String userInput = targetIndex.getOneBased() + PRICE_DESC_TRANSPORT
                 + DESCRIPTION_DESC_CHICKEN + TAG_DESC_CLAIMABLE;
 
-        EditCommand.EditExpenseDescriptor descriptor = new EditExpenseDescriptorBuilder()
+        EditExpenseCommand.EditExpenseDescriptor descriptor = new EditExpenseDescriptorBuilder()
                 .withDescription(VALID_DESCRIPTION_CHICKEN)
                 .withPrice(VALID_PRICE_TRANSPORT)
                 .withCategory(VALID_CATEGORY_FOOD).build();
 
-        EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
+        EditExpenseCommand expectedCommand = new EditExpenseCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
     }
@@ -115,9 +116,9 @@ public class EditCommandParserTest {
         Index targetIndex = INDEX_FIRST_EXPENSE;
         String userInput = targetIndex.getOneBased() + PRICE_DESC_TRANSPORT;
 
-        EditCommand.EditExpenseDescriptor descriptor = new EditExpenseDescriptorBuilder()
+        EditExpenseCommand.EditExpenseDescriptor descriptor = new EditExpenseDescriptorBuilder()
                 .withPrice(VALID_PRICE_TRANSPORT).build();
-        EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
+        EditExpenseCommand expectedCommand = new EditExpenseCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
     }
@@ -127,21 +128,21 @@ public class EditCommandParserTest {
         // description
         Index targetIndex = INDEX_THIRD_EXPENSE;
         String userInput = targetIndex.getOneBased() + DESCRIPTION_DESC_CHICKEN;
-        EditCommand.EditExpenseDescriptor descriptor = new EditExpenseDescriptorBuilder()
+        EditExpenseCommand.EditExpenseDescriptor descriptor = new EditExpenseDescriptorBuilder()
                 .withDescription(VALID_DESCRIPTION_CHICKEN).build();
-        EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
+        EditExpenseCommand expectedCommand = new EditExpenseCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // price
         userInput = targetIndex.getOneBased() + PRICE_DESC_CHICKEN;
         descriptor = new EditExpenseDescriptorBuilder().withPrice(VALID_PRICE_CHICKEN).build();
-        expectedCommand = new EditCommand(targetIndex, descriptor);
+        expectedCommand = new EditExpenseCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // tags
         userInput = targetIndex.getOneBased() + TAG_DESC_CLAIMABLE;
         descriptor = new EditExpenseDescriptorBuilder().withCategory(VALID_CATEGORY_FOOD).build();
-        expectedCommand = new EditCommand(targetIndex, descriptor);
+        expectedCommand = new EditExpenseCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
     }
 
@@ -150,15 +151,15 @@ public class EditCommandParserTest {
         // no other valid values specified
         Index targetIndex = INDEX_FIRST_EXPENSE;
         String userInput = targetIndex.getOneBased() + INVALID_PRICE_DESC + PRICE_DESC_TRANSPORT;
-        EditCommand.EditExpenseDescriptor descriptor = new EditExpenseDescriptorBuilder()
+        EditExpenseCommand.EditExpenseDescriptor descriptor = new EditExpenseDescriptorBuilder()
                 .withPrice(VALID_PRICE_TRANSPORT).build();
-        EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
+        EditExpenseCommand expectedCommand = new EditExpenseCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // other valid values specified
         userInput = targetIndex.getOneBased() + INVALID_PRICE_DESC + PRICE_DESC_TRANSPORT;
         descriptor = new EditExpenseDescriptorBuilder().withPrice(VALID_PRICE_TRANSPORT).build();
-        expectedCommand = new EditCommand(targetIndex, descriptor);
+        expectedCommand = new EditExpenseCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
     }
 }

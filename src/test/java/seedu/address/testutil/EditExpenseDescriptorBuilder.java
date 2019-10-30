@@ -1,6 +1,6 @@
 package seedu.address.testutil;
 
-import seedu.address.logic.commands.expense.EditCommand;
+import seedu.address.logic.commands.expense.EditExpenseCommand;
 import seedu.address.model.category.Category;
 import seedu.address.model.expense.Description;
 import seedu.address.model.expense.Expense;
@@ -13,21 +13,21 @@ import seedu.address.model.expense.Timestamp;
  */
 public class EditExpenseDescriptorBuilder {
 
-    private EditCommand.EditExpenseDescriptor descriptor;
+    private EditExpenseCommand.EditExpenseDescriptor descriptor;
 
     public EditExpenseDescriptorBuilder() {
-        descriptor = new EditCommand.EditExpenseDescriptor();
+        descriptor = new EditExpenseCommand.EditExpenseDescriptor();
     }
 
-    public EditExpenseDescriptorBuilder(EditCommand.EditExpenseDescriptor descriptor) {
-        this.descriptor = new EditCommand.EditExpenseDescriptor(descriptor);
+    public EditExpenseDescriptorBuilder(EditExpenseCommand.EditExpenseDescriptor descriptor) {
+        this.descriptor = new EditExpenseCommand.EditExpenseDescriptor(descriptor);
     }
 
     /**
      * Returns an {@code EditExpenseDescriptor} with fields containing {@code expense}'s details
      */
     public EditExpenseDescriptorBuilder(Expense expense) {
-        descriptor = new EditCommand.EditExpenseDescriptor();
+        descriptor = new EditExpenseCommand.EditExpenseDescriptor();
         descriptor.setDescription(expense.getDescription());
         descriptor.setPrice(expense.getPrice());
         descriptor.setCategory(expense.getCategory());
@@ -66,7 +66,7 @@ public class EditExpenseDescriptorBuilder {
         return this;
     }
 
-    public EditCommand.EditExpenseDescriptor build() {
+    public EditExpenseCommand.EditExpenseDescriptor build() {
         return descriptor;
     }
 }

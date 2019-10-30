@@ -12,12 +12,13 @@
     /*-status-border-colour: derive(#1d1d1d, 30%);*/
     -status-border-colour: transparent;
     -text-colour1: white;
-    -font-lightweight: "Segoe UI Light";
+    -font-lightweight: "Droid Sans Mono";
     -font-dark: black;
-    -font-semibold: "Segoe UI Semibold";
+    -font-semibold: "Droid Sans Mono";
     -progress-bar-overbudget: #ac4e47;
     -progress-bar-nearbudget: #fda50f;
-    -progress-bar-inbudget: -colour-light
+    -progress-bar-inbudget: #42b883;
+    -fx-font-family: "Droid Sans Mono"
 }
 
 .text-field {
@@ -59,7 +60,7 @@
 
 .status-bar .label {
     -fx-font-family: -font-lightweight;
-    -fx-text-fill: -status-text-colour;
+    -fx-text-fill: -text-colour1;
     -fx-padding: 4px;
     -fx-pref-height: 30px;
 }
@@ -79,7 +80,7 @@
 }
 
 .context-menu .label {
-    -fx-text-fill: -status-text-colour;
+    -fx-text-fill: -text-colour1;
     -fx-font-size: 10px;
 }
 
@@ -90,7 +91,7 @@
 .menu-bar .label {
     -fx-font-size: 10pt;
     -fx-font-family: -font-lightweight;
-    -fx-text-fill: -status-text-colour;
+    -fx-text-fill: -text-colour1;
     -fx-opacity: 0.9;
 }
 
@@ -99,7 +100,7 @@
 }
 
 .placeholder .label{
-    -fx-font-family: -font-family-lightweight;
+    -fx-font-family: -font-lightweight;
     -fx-font-size: 20px;
 }
 
@@ -109,7 +110,7 @@
 
 #titlePlaceHolder .label {
     -fx-text-fill: -text-colour1;
-    -fx-font-family: -font-family-semibold;
+    -fx-font-family: -font-semibold;
     -fx-padding: 10;
 }
 

@@ -2,6 +2,7 @@ package seedu.address.logic.commands.expense;
 
 import static java.util.Objects.requireNonNull;
 
+import seedu.address.logic.commands.CommandGroup;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.UndoableCommand;
 import seedu.address.model.Model;
@@ -13,8 +14,8 @@ import seedu.address.ui.expense.ExpenseListPanel;
  */
 public class ClearCommand extends UndoableCommand {
 
-    public static final String COMMAND_WORD = "clear";
-    public static final String MESSAGE_SUCCESS = "MooLah has been cleared!";
+    public static final String COMMAND_WORD = "clear" + CommandGroup.EXPENSE;
+    public static final String MESSAGE_SUCCESS = "All expenses in MooLah have been cleared!";
 
     @Override
     protected void validate(Model model) {

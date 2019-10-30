@@ -21,7 +21,6 @@ public class ParserUtilTest {
     private static final String VALID_DESCRIPTION = "Johnny Walker";
     private static final String VALID_PRICE = "12.3456";
     private static final String VALID_CATEGORY_1 = "utilities";
-    //private static final String VALID_TAG_2 = "neighbour";
 
     private static final String WHITESPACE = " \t\r\n";
 
@@ -29,7 +28,6 @@ public class ParserUtilTest {
     private static final String VALID_ALIAS_INPUT_1 = "input";
     private static final String INVALID_ALIAS_NAME_1 = "";
     private static final String INVALID_ALIAS_NAME_2 = "@#*j";
-    //private static final String INVALID_ALIAS_INPUT_1 = "";
 
     @Test
     public void parseIndex_invalidInput_throwsParseException() {

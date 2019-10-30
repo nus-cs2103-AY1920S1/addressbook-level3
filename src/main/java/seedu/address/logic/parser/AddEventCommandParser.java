@@ -2,45 +2,52 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_REPEATED_PREFIX_COMMAND;
+import static seedu.address.logic.commands.event.AddEventCommand.MESSAGE_USAGE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TIMESTAMP;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.stream.Stream;
 
-import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.event.AddEventCommand;
-import seedu.address.logic.commands.expense.AddExpenseCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Timekeeper;
 import seedu.address.model.category.Category;
 import seedu.address.model.expense.Description;
 import seedu.address.model.expense.Event;
-import seedu.address.model.expense.Expense;
 import seedu.address.model.expense.Price;
 import seedu.address.model.expense.Timestamp;
-import seedu.address.model.expense.util.UniqueIdentifierGenerator;
-
 
 
 /**
  * Parses input arguments and creates a new AddExpenseCommand object
  */
-public class AddCommandParser implements Parser<AddCommand> {
+public class AddEventCommandParser implements Parser<AddEventCommand> {
+
+    public static final List<Prefix> REQUIRED_PREFIXES = Collections.unmodifiableList(List.of(
+            PREFIX_DESCRIPTION, PREFIX_PRICE, PREFIX_CATEGORY, PREFIX_TIMESTAMP
+    ));
+
+    public static final List<Prefix> OPTIONAL_PREFIXES = Collections.unmodifiableList(List.of());
+
 
     /**
      * Parses the given {@code String} of arguments in the context of the AddExpenseCommand
      * and returns an AddExpenseCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    public AddCommand parse(String args) throws ParseException {
+    public AddEventCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_DESCRIPTION, PREFIX_PRICE, PREFIX_CATEGORY, PREFIX_TIMESTAMP);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_DESCRIPTION, PREFIX_PRICE, PREFIX_CATEGORY)
                 || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddExpenseCommand.MESSAGE_USAGE));
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                            MESSAGE_USAGE));
         }
 
         if (hasRepeatedPrefixes(argMultimap, PREFIX_DESCRIPTION, PREFIX_PRICE, PREFIX_CATEGORY, PREFIX_TIMESTAMP)) {
@@ -55,17 +62,13 @@ public class AddCommandParser implements Parser<AddCommand> {
         if (isTimestampPresent) {
             Timestamp timestamp = ParserUtil.parseTimestamp(argMultimap.getValue(PREFIX_TIMESTAMP).get());
             if (Timekeeper.isFutureTimestamp(timestamp)) {
-                Event event = new Event(description, price, category, timestamp);
-                return new AddEventCommand(event);
+                Event event = new Event(description, price, category, timestamp, null);
+                return new seedu.address.logic.commands.event.AddEventCommand(event);
             } else {
-                Expense expense = new Expense(description, price, category, timestamp,
-                        UniqueIdentifierGenerator.generateRandomUniqueIdentifier());
-                return new AddExpenseCommand(expense);
+                throw new ParseException("Event must occur in the future");
             }
         } else {
-            Expense expense = new Expense(description, price, category,
-                    UniqueIdentifierGenerator.generateRandomUniqueIdentifier());
-            return new AddExpenseCommand(expense);
+            throw new ParseException("Event must occur in the future");
         }
     }
 

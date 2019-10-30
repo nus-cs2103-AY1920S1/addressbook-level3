@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
+import seedu.address.commons.core.AliasMappings;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
@@ -40,11 +41,11 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public CommandResult execute(String commandText) throws CommandException, ParseException {
+    public CommandResult execute(String commandText, String commandGroup) throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         CommandResult commandResult;
-        Command command = mooLahParser.parseCommand(commandText, model.getUserPrefs());
+        Command command = mooLahParser.parseCommand(commandText, commandGroup, model.getUserPrefs());
         commandResult = command.run(model);
 
         save();
@@ -131,6 +132,16 @@ public class LogicManager implements Logic {
     @Override
     public GuiSettings getGuiSettings() {
         return model.getGuiSettings();
+    }
+
+    @Override
+    public AliasMappings getAliasMappings() {
+        return model.getAliasMappings();
+    }
+
+    @Override
+    public boolean deleteAliasWithName(String aliasName) {
+        return model.removeAliasWithName(aliasName);
     }
 
     @Override

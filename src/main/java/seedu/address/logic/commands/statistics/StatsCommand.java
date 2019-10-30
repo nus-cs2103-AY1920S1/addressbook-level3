@@ -5,6 +5,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_END_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_START_DATE;
 
 import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.CommandGroup;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.Model;
 import seedu.address.model.expense.Timestamp;
@@ -16,7 +17,7 @@ import seedu.address.ui.panel.PanelName;
  */
 public class StatsCommand extends Command {
 
-    public static final String COMMAND_WORD = "stats";
+    public static final String COMMAND_WORD = "stats" + CommandGroup.GENERAL;
 
     public static final String MESSAGE_SUCCESS = "Pie Chart calculated!";
 
@@ -52,7 +53,7 @@ public class StatsCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         Statistics statistics = model.calculateStatistics(COMMAND_WORD, startDate, endDate, null);
-        return new CommandResult(MESSAGE_SUCCESS, statistics, false, false, false, PanelName.CURRENT);
+        return new CommandResult(MESSAGE_SUCCESS, statistics, false, false, PanelName.CURRENT);
     }
 
     @Override

@@ -9,14 +9,14 @@ import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSucces
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.Alias;
-import seedu.address.logic.commands.alias.AliasCommand;
+import seedu.address.logic.commands.alias.AddAliasCommand;
 
-public class AliasCommandParserTest {
-    private AliasCommandParser parser = new AliasCommandParser();
+public class AddAddAliasCommandParserTest {
+    private AddAliasCommandParser parser = new AddAliasCommandParser();
 
     @Test
     public void parse_compulsoryFieldMissing_failure() {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AliasCommand.MESSAGE_USAGE);
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddAliasCommand.MESSAGE_USAGE);
 
         // missing alias name and input
         assertParseFailure(parser,
@@ -51,10 +51,10 @@ public class AliasCommandParserTest {
         // valid alias name and input
         assertParseSuccess(parser,
                 String.format(" %s name %s input", PREFIX_ALIAS_ALIAS_NAME, PREFIX_ALIAS_ALIAS_INPUT),
-                new AliasCommand(new Alias("name", "input")));
+                new AddAliasCommand(new Alias("name", "input")));
         // valid alias name and multiple word input
         assertParseSuccess(parser,
                 String.format(" %s name %s input input", PREFIX_ALIAS_ALIAS_NAME, PREFIX_ALIAS_ALIAS_INPUT),
-                new AliasCommand(new Alias("name", "input input")));
+                new AddAliasCommand(new Alias("name", "input input")));
     }
 }
