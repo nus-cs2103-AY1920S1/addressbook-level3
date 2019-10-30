@@ -29,6 +29,11 @@ public class WorkerContainsAttributesKeywordsPredicate implements Predicate<Work
     public WorkerContainsAttributesKeywordsPredicate(ArgumentMultimap argumentMultimap) {
         this.argumentMultimap = argumentMultimap;
     }
+
+    /**
+     * Add the name of the worker to the map, if it exists. Otherwise, add an empty string.
+     * @param worker The body tested against.
+     */
     public void addNameToWorkerMap(Worker worker) {
         try {
             if (worker.getName().toString().equals("")) {
@@ -42,6 +47,10 @@ public class WorkerContainsAttributesKeywordsPredicate implements Predicate<Work
         }
     }
 
+    /**
+     * Add the sex of the worker to the map, if it exists. Otherwise, add an empty string.
+     * @param worker The body tested against.
+     */
     public void addSexToWorkerMap(Worker worker) {
         try {
             if (worker.getSex().toString().equals("")) {
@@ -55,6 +64,10 @@ public class WorkerContainsAttributesKeywordsPredicate implements Predicate<Work
         }
     }
 
+    /**
+     * Add the date of birth of the worker to the map, if it exists. Otherwise, add an empty string.
+     * @param worker The body tested against.
+     */
     public void addDobToWorkerMap(Worker worker) {
         try {
             if (worker.getDateOfBirth().isEmpty()) {
@@ -68,6 +81,10 @@ public class WorkerContainsAttributesKeywordsPredicate implements Predicate<Work
         }
     }
 
+    /**
+     * Add the phone number of the worker to the map, if it exists. Otherwise, add an empty string.
+     * @param worker The body tested against.
+     */
     public void addPhoneNumberToWorkerMap(Worker worker) {
         try {
             if (worker.getPhone() == null) {
@@ -81,6 +98,10 @@ public class WorkerContainsAttributesKeywordsPredicate implements Predicate<Work
         }
     }
 
+    /**
+     * Add the date joined of the worker to the map, if it exists. Otherwise, add an empty string.
+     * @param worker The body tested against.
+     */
     public void addDateJoinedToWorkerMap(Worker worker) {
         try {
             if (worker.getDateJoined() == null) {
@@ -94,7 +115,10 @@ public class WorkerContainsAttributesKeywordsPredicate implements Predicate<Work
         }
     }
 
-
+    /**
+     * Add the designation of the worker to the map, if it exists. Otherwise, add an empty string.
+     * @param worker The body tested against.
+     */
     public void addDesignationToWorkerMap(Worker worker) {
         try {
             if (worker.getDesignation().isEmpty()) {
@@ -108,7 +132,10 @@ public class WorkerContainsAttributesKeywordsPredicate implements Predicate<Work
         }
     }
 
-
+    /**
+     * Add the employment status of the worker to the map, if it exists. Otherwise, add an empty string.
+     * @param worker The body tested against.
+     */
     public void addEmploymentStatusToWorkerMap(Worker worker) {
         try {
             if (worker.getEmploymentStatus().isEmpty()) {
@@ -135,6 +162,10 @@ public class WorkerContainsAttributesKeywordsPredicate implements Predicate<Work
         return check();
     }
 
+    /**
+     * Checks the attributes supplied by the user against the worker with the worker map.
+     * @return True if all attributes supplied by the user is also contained in the worker. Otherwise, returns false.
+     */
     private boolean check() {
         boolean pass = true;
         try {
