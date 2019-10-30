@@ -20,7 +20,7 @@ import seedu.address.ui.panel.PanelName;
  * Calculates comparison statistics for Moolah
  */
 public class StatsCompareCommand extends Command {
-    public static final String COMMAND_WORD = "statscompare" + CommandGroup.GENERAL;;
+    public static final String COMMAND_WORD = "statscompare" + CommandGroup.GENERAL;
 
     public static final String MESSAGE_SUCCESS = "Statistics Comparison Calculated!";
 

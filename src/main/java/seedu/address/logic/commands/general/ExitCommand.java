@@ -11,7 +11,7 @@ import seedu.address.ui.panel.PanelName;
  */
 public class ExitCommand extends Command {
 
-    public static final String COMMAND_WORD = "exit" + CommandGroup.GENERAL;;
+    public static final String COMMAND_WORD = "exit" + CommandGroup.GENERAL;
 
     public static final String MESSAGE_EXIT_ACKNOWLEDGEMENT = "Exiting MooLah as requested ...";
 

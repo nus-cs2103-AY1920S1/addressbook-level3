@@ -17,6 +17,7 @@ import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.logic.commands.CommandGroup;
 import seedu.address.logic.commands.CommandTestUtil;
 import seedu.address.logic.commands.alias.AddAliasCommand;
 import seedu.address.logic.commands.expense.ClearCommand;
@@ -63,14 +64,18 @@ public class MooLahParserTest {
 
     @Test
     public void parseCommand_clear() throws Exception {
-        assertTrue(parser.parseCommand(ClearCommand.COMMAND_WORD, "", readOnlyUserPrefs) instanceof ClearCommand);
-        assertTrue(parser.parseCommand(ClearCommand.COMMAND_WORD + " 3", "", readOnlyUserPrefs) instanceof ClearCommand);
+        assertTrue(parser.parseCommand(
+                ClearCommand.COMMAND_WORD, "", readOnlyUserPrefs) instanceof ClearCommand);
+        assertTrue(
+                parser.parseCommand(
+                        ClearCommand.COMMAND_WORD + " 3", "", readOnlyUserPrefs) instanceof ClearCommand);
     }
 
     @Test
     public void parseCommand_delete() throws Exception {
         DeleteExpenseCommand command = (DeleteExpenseCommand) parser.parseCommand(
-                DeleteExpenseCommand.COMMAND_WORD + " " + INDEX_FIRST_EXPENSE.getOneBased(), "", readOnlyUserPrefs);
+                DeleteExpenseCommand.COMMAND_WORD + " " + INDEX_FIRST_EXPENSE.getOneBased(),
+                "", readOnlyUserPrefs);
         assertEquals(new DeleteExpenseCommand(INDEX_FIRST_EXPENSE), command);
     }
 
@@ -90,28 +95,38 @@ public class MooLahParserTest {
 
     @Test
     public void parseCommand_exit() throws Exception {
-        assertTrue(parser.parseCommand(ExitCommand.COMMAND_WORD, "", readOnlyUserPrefs) instanceof ExitCommand);
-        assertTrue(parser.parseCommand(ExitCommand.COMMAND_WORD + " 3", "", readOnlyUserPrefs) instanceof ExitCommand);
+        assertTrue(parser.parseCommand(
+                ExitCommand.COMMAND_WORD, "", readOnlyUserPrefs) instanceof ExitCommand);
+        assertTrue(parser.parseCommand(
+                ExitCommand.COMMAND_WORD + " 3", "", readOnlyUserPrefs) instanceof ExitCommand);
     }
 
     @Test
     public void parseCommand_find() throws Exception {
         List<String> keywords = Arrays.asList("foo", "bar", "baz");
         FindExpenseCommand command = (FindExpenseCommand) parser.parseCommand(
-                FindExpenseCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")), "", readOnlyUserPrefs);
+                FindExpenseCommand.COMMAND_WORD + " "
+                        + keywords.stream().collect(Collectors.joining(" ")),
+                "",
+                readOnlyUserPrefs);
         assertEquals(new FindExpenseCommand(new DescriptionContainsKeywordsPredicate(keywords)), command);
     }
 
     @Test
     public void parseCommand_help() throws Exception {
-        assertTrue(parser.parseCommand(HelpCommand.COMMAND_WORD, "", readOnlyUserPrefs) instanceof HelpCommand);
-        assertTrue(parser.parseCommand(HelpCommand.COMMAND_WORD + " 3", "", readOnlyUserPrefs) instanceof HelpCommand);
+        assertTrue(parser.parseCommand(
+                HelpCommand.COMMAND_WORD, "", readOnlyUserPrefs) instanceof HelpCommand);
+        assertTrue(parser.parseCommand(
+                HelpCommand.COMMAND_WORD + " 3", "", readOnlyUserPrefs) instanceof HelpCommand);
     }
 
     @Test
     public void parseCommand_list() throws Exception {
-        assertTrue(parser.parseCommand(ListExpenseCommand.COMMAND_WORD, "", readOnlyUserPrefs) instanceof ListExpenseCommand);
-        assertTrue(parser.parseCommand(ListExpenseCommand.COMMAND_WORD + " 3", "", readOnlyUserPrefs) instanceof ListExpenseCommand);
+        assertTrue(parser.parseCommand(
+                ListExpenseCommand.COMMAND_WORD, "", readOnlyUserPrefs) instanceof ListExpenseCommand);
+        assertTrue(parser.parseCommand(
+                ListExpenseCommand.COMMAND_WORD + " 3", "",
+                readOnlyUserPrefs) instanceof ListExpenseCommand);
     }
 
     @Test
@@ -133,7 +148,7 @@ public class MooLahParserTest {
                         StatsCommand.COMMAND_WORD,
                         PREFIX_START_DATE,
                         PREFIX_END_DATE),
-                "", readOnlyUserPrefs);
+                CommandGroup.STATISTIC, readOnlyUserPrefs);
         assertEquals(command, new StatsCommand(
                 CommandTestUtil.OCTOBER_FIRST,
                 CommandTestUtil.OCTOBER_LAST));

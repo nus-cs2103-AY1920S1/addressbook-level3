@@ -2,7 +2,6 @@ package seedu.address.ui.expense;
 
 import java.util.logging.Logger;
 
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
@@ -13,12 +12,10 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import seedu.address.commons.core.Alias;
 import seedu.address.commons.core.AliasMappings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.expense.Expense;
 import seedu.address.ui.panel.Panel;
 import seedu.address.ui.panel.PanelName;
 
@@ -74,7 +71,8 @@ public class AliasPanel extends Panel {
             } else {
                 int whiteSpaceCount = maxLength - alias.getAliasName().length();
                 Label aliasLabel = new Label(" ".repeat(whiteSpaceCount) + alias.getAliasName());
-                aliasLabel.setBackground(new Background(new BackgroundFill(Color.ORANGE, new CornerRadii(3), Insets.EMPTY)));
+                aliasLabel.setBackground(new Background(
+                        new BackgroundFill(Color.ORANGE, new CornerRadii(3), Insets.EMPTY)));
                 aliasLabel.setTextFill(Color.WHITE);
                 Label input = new Label("  " + alias.getInput());
                 TextFlow graphic = new TextFlow(aliasLabel, input);

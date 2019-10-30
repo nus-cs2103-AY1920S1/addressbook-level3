@@ -46,16 +46,17 @@ public class MooLahParser {
      * @return the command based on the user input
      * @throws ParseException if the user input does not conform the expected format
      */
-    public Command parseCommand(String userInput, String commandGroup, ReadOnlyUserPrefs readOnlyUserPrefs) throws ParseException {
+    public Command parseCommand(String userInput, String commandGroup, ReadOnlyUserPrefs readOnlyUserPrefs)
+            throws ParseException {
         Input input = ParserUtil.parseInput(userInput);
 
         String commandWord;
         if (input.isGeneric()) {
-            commandWord = input.commandWord + commandGroup;
+            commandWord = input.getCommandWord() + commandGroup;
         } else {
-            commandWord = input.commandWord;
+            commandWord = input.getCommandWord();
         }
-        String arguments = input.arguments;
+        String arguments = input.getArguments();
 
         switch (commandWord) {
         case AddEventCommand.COMMAND_WORD:

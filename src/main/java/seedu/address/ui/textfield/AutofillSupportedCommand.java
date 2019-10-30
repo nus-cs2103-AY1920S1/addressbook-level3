@@ -9,6 +9,9 @@ import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Prefix;
 
+/**
+ * A supported command input for autofill.
+ */
 public class AutofillSupportedCommand {
     private Map<Prefix, Boolean> requiredPrefixToIsPresentMapping;
     private Map<Prefix, Boolean> optionalPrefixToIsPresentMapping;
@@ -64,6 +67,6 @@ public class AutofillSupportedCommand {
                 missingOpt.add(p);
             }
         });
-        return (List<Prefix>[])new List[]{missingReq, missingOpt};
+        return (List<Prefix>[]) new List[]{missingReq, missingOpt};
     }
 }

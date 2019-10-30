@@ -31,6 +31,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandGroup;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.GenericCommandWord;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.alias.AddAliasCommand;
@@ -52,12 +53,11 @@ import seedu.address.logic.commands.general.HelpCommand;
 import seedu.address.logic.commands.statistics.StatsCommand;
 import seedu.address.logic.commands.statistics.StatsCompareCommand;
 import seedu.address.logic.commands.ui.ViewPanelCommand;
+import seedu.address.logic.parser.AddAliasCommandParser;
 import seedu.address.logic.parser.AddBudgetCommandParser;
 import seedu.address.logic.parser.AddEventCommandParser;
 import seedu.address.logic.parser.AddExpenseCommandParser;
-import seedu.address.logic.parser.AddAliasCommandParser;
 import seedu.address.logic.parser.EditCommandParser;
-import seedu.address.logic.commands.GenericCommandWord;
 import seedu.address.logic.parser.StatsCommandParser;
 import seedu.address.logic.parser.StatsCompareCommandParser;
 import seedu.address.logic.parser.SwitchBudgetCommandParser;
@@ -359,6 +359,9 @@ public class MainWindow extends UiPart<Stage> {
         singlePanelView.viewPanel(panelName);
     }
 
+    /**
+     * Configures the custom text field to highlight for syntax for generic commands depending on the current panel.
+     */
     private void configureGenericCommands(PanelName panelName) {
         commandBox.disableSuggestionsAndSyntaxHighlightingFor(GenericCommandWord.ADD);
         commandBox.disableSuggestionsAndSyntaxHighlightingFor(GenericCommandWord.DELETE);
@@ -518,6 +521,9 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    /**
+     * Decides what the command group should be based on the current panel name.
+     */
     private String decideCommandGroup() {
         if (BudgetPanel.PANEL_NAME.equals(singlePanelView.getCurrentPanelName())) {
             return CommandGroup.EXPENSE;

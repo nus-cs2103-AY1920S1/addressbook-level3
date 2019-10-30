@@ -3,7 +3,6 @@ package seedu.address.logic;
 import java.nio.file.Path;
 import java.util.List;
 
-import javafx.beans.value.ObservableObjectValue;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.AliasMappings;
 import seedu.address.commons.core.GuiSettings;

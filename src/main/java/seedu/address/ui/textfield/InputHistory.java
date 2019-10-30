@@ -4,6 +4,9 @@ import java.util.ListIterator;
 import java.util.NoSuchElementException;
 import java.util.Stack;
 
+/**
+ * History of inputted commands.
+ */
 public class InputHistory {
     private Stack<String> commandHistory;
     private ListIterator<String> iterator;
@@ -13,6 +16,10 @@ public class InputHistory {
         iterator = commandHistory.listIterator();
     }
 
+    /**
+     * Adds an input to the history and resets the iterator.
+     * @param string the input to push.
+     */
     public void push(String string) {
         commandHistory.push(string);
         // reset iterator

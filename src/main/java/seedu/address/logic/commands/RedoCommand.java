@@ -2,7 +2,6 @@ package seedu.address.logic.commands;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.ui.panel.PanelName;
 
 /**
  * Redoes a model-changing command, effectively migrating the model to a future state.

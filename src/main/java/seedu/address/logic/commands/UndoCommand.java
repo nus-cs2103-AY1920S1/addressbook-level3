@@ -2,7 +2,6 @@ package seedu.address.logic.commands;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.ui.panel.PanelName;
 
 /**
  * Undoes the previous model-changing command, effectively reverting the model to its previous state.

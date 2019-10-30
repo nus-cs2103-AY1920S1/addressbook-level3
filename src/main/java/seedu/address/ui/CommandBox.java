@@ -14,8 +14,8 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.ui.textfield.CommandTextField;
 import seedu.address.ui.panel.exceptions.UnmappedPanelException;
+import seedu.address.ui.textfield.CommandTextField;
 
 /**
  * The UI component that is responsible for receiving user command inputs.

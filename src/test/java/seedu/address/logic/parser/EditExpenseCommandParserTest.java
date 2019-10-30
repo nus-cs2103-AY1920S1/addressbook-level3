@@ -79,7 +79,8 @@ public class EditExpenseCommandParserTest {
 
         // valid price followed by invalid price. The test case for invalid price followed by valid price
         // is tested at {@code parse_invalidValueFollowedByValidValue_success()}
-        assertParseFailure(parser, "1" + PRICE_DESC_TRANSPORT + INVALID_PRICE_DESC, Price.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser,
+                "1" + PRICE_DESC_TRANSPORT + INVALID_PRICE_DESC, Price.MESSAGE_CONSTRAINTS);
 
         // while parsing {@code PREFIX_TAG} alone will reset the tags of the {@code Expense} being edited,
         // parsing it together with a valid category results in error

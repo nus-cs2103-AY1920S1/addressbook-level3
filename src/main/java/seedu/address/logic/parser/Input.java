@@ -7,21 +7,21 @@ import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.GenericCommandWord;
 
+/**
+ * Input to pass to parser.
+ */
 public class Input {
-
-    private static String MESSAGE_CONSTRAINTS_COMMAND_WORD = "(\\S+)";
 
     /**
      * Used for initial separation of command word and args.
      */
-    public static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
-
-
-    String commandWord;
-    String arguments;
+    static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
+    private static final String MESSAGE_CONSTRAINTS_COMMAND_WORD = "(\\S+)";
+    private String commandWord;
+    private String arguments;
 
     public Input(String commandWord, String arguments) {
-        requireNonNull(commandWord,arguments);
+        requireNonNull(commandWord, arguments);
         checkArgument(isValidCommandWord(commandWord));
         this.commandWord = commandWord;
         this.arguments = arguments;
@@ -29,6 +29,14 @@ public class Input {
 
     private static boolean isValidCommandWord(String commandWord) {
         return commandWord.matches(MESSAGE_CONSTRAINTS_COMMAND_WORD);
+    }
+
+    public String getCommandWord() {
+        return commandWord;
+    }
+
+    public String getArguments() {
+        return arguments;
     }
 
     public boolean isGeneric() {

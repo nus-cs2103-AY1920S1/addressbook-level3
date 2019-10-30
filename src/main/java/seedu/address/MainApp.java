@@ -169,7 +169,8 @@ public class MainApp extends Application {
         try {
             initializedPrefs.getAliasMappings().validate();
         } catch (Exception e) {
-            logger.warning("Problem occurred while reading Aliases from the file. Will be resetting alias mappings: " + e.getMessage());
+            logger.warning("Problem occurred while reading Aliases from the file. "
+                    + "Will be resetting alias mappings: " + e.getMessage());
             initializedPrefs.setAliasMappings(new AliasMappings());
         }
 

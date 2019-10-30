@@ -35,16 +35,6 @@ import seedu.address.logic.parser.Prefix;
  */
 public class AutofillSuggestionMenu extends ContextMenu {
 
-    private StringProperty currentCommand;
-    private FilteredList<AutofillSupportedCommand> autofillSupportedCommands;
-    private FilteredList<String> commandSuggestions;
-
-    private ObservableList<AutofillSupportedCommand> autofillSupportedCommandList;
-    private ObservableList<String> supportedCommandWords;
-
-    private TextInputControl textInputControl;
-    private SimpleStringProperty currentMatchingText;
-
     private static final Color MATCHING_TEXT_COLOUR = Color.ORANGE;
     private static final Color COMPLETION_TEXT_COLOUR = Color.WHITE;
     private static final Color OPTIONAL_LABEL_BACKGROUND_COLOUR = Color.LIGHTGRAY;
@@ -52,9 +42,18 @@ public class AutofillSuggestionMenu extends ContextMenu {
     private static final Color OPTIONAL_TEXT_COLOUR = Color.BLACK;
     private static final Color REQUIRED_TEXT_COLOUR = Color.WHITE;
 
+    private StringProperty currentCommand;
+    private FilteredList<AutofillSupportedCommand> autofillSupportedCommands;
+    private FilteredList<String> commandSuggestions;
+    private ObservableList<AutofillSupportedCommand> autofillSupportedCommandList;
+    private ObservableList<String> supportedCommandWords;
+    private TextInputControl textInputControl;
+    private SimpleStringProperty currentMatchingText;
+
     /**
      * Constructor for the {@code AutofillSuggestionMenu}.
-     * @param textInputControl The textInputControl which this autofill menu is bound to.
+     *
+     * @param textInputControl                 The textInputControl which this autofill menu is bound to.
      * @param currentCommandWordStringProperty The 'current matching command word' of the {@code textInputControl}.
      */
     public AutofillSuggestionMenu(TextInputControl textInputControl, StringProperty currentCommandWordStringProperty) {
@@ -100,7 +99,13 @@ public class AutofillSuggestionMenu extends ContextMenu {
         setOnAction(this::appendChosenCompletion);
     }
 
-     void addCommand(String command, List<Prefix> requiredPrefixes, List<Prefix> optionalPrefixes) {
+    /**
+     * Add support for a command with prefixes to be autocompleted and highlighted.
+     * @param command The command word
+     * @param requiredPrefixes The required prefixes
+     * @param optionalPrefixes The optional prefixes
+     */
+    void addCommand(String command, List<Prefix> requiredPrefixes, List<Prefix> optionalPrefixes) {
         supportedCommandWords.removeIf(commandName -> commandName.equals(command));
         supportedCommandWords.add(command);
 
@@ -109,7 +114,7 @@ public class AutofillSuggestionMenu extends ContextMenu {
         autofillSupportedCommandList.add(new AutofillSupportedCommand(command, requiredPrefixes, optionalPrefixes));
     }
 
-     void removeCommand(String command) {
+    void removeCommand(String command) {
         supportedCommandWords.removeIf(commandName -> commandName.equals(command));
         autofillSupportedCommandList.removeIf(supportedInput -> supportedInput.getCommand().equals(command));
     }
@@ -119,7 +124,7 @@ public class AutofillSuggestionMenu extends ContextMenu {
      */
     private void showSuggestions() {
         if (autofillSupportedCommands.size() > 0 || commandSuggestions.size() > 0) {
-            this.show(textInputControl, Side.LEFT, 0,20);
+            this.show(textInputControl, Side.LEFT, 0, 20);
         } else {
             hide();
         }
@@ -127,6 +132,7 @@ public class AutofillSuggestionMenu extends ContextMenu {
 
     /**
      * Replaces the text of the text area with the targeted suggestion.
+     *
      * @param event The event which targets the menu item containing the suggestion.
      */
     private void appendChosenCompletion(ActionEvent event) {
@@ -178,9 +184,10 @@ public class AutofillSuggestionMenu extends ContextMenu {
 
     /**
      * Populates the context menu with suggestions.
-     * @param m The context menu.
+     *
+     * @param m                   The context menu.
      * @param matchingSuggestions The list of suggestions.
-     * @param match The matching text.
+     * @param match               The matching text.
      */
     public void populateList(ContextMenu m, FilteredList<AutofillSupportedCommand> matchingSuggestions,
                              FilteredList<String> commandSuggestion, String match) {
@@ -231,7 +238,9 @@ public class AutofillSuggestionMenu extends ContextMenu {
     }
 
     /**
-     * Creates a TextFlow to represent the menu item being displayed with the matching text in the suggestion highlighted.
+     * Creates a TextFlow to represent the menu item being displayed with the matching text in the suggestion
+     * highlighted.
+     *
      * @param start The text before the match.
      * @param match The matching text.
      * @param after The text after the match.
@@ -248,6 +257,11 @@ public class AutofillSuggestionMenu extends ContextMenu {
         return graphic;
     }
 
+    /**
+     * Creates TextFlow used for AutoFillMenu graphics for required prefixs.
+     * @param p The prefix to generate a graphic for.
+     * @return The graphic {@code TextFlow}
+     */
     private TextFlow requiredPrefixGraphic(Prefix p) {
         TextFlow graphic = new TextFlow();
         graphic.setPadding(Insets.EMPTY);
@@ -262,11 +276,16 @@ public class AutofillSuggestionMenu extends ContextMenu {
         return graphic;
     }
 
+
+    /**
+     * Creates graphic for optional prefixes in the drop down menu.
+     * @param p The optional prefix
+     * @return The graphic {@code TextFlow}
+     */
     private TextFlow optionalPrefixGraphic(Prefix p) {
         TextFlow graphic = new TextFlow();
         graphic.setPadding(Insets.EMPTY);
         Label req = new Label("Optional:");
-//        req.setTextFill(OPTIONAL_TEXT_COLOUR);
         req.setPadding(Insets.EMPTY);
         req.setBackground(new Background(
                 new BackgroundFill(MATCHING_TEXT_COLOUR, CornerRadii.EMPTY, Insets.EMPTY)));

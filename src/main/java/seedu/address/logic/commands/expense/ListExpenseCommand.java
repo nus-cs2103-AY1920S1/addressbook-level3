@@ -5,6 +5,7 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_EXPENSES;
 
 import seedu.address.logic.commands.CommandGroup;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.GenericCommandWord;
 import seedu.address.logic.commands.UndoableCommand;
 import seedu.address.model.Model;
 import seedu.address.ui.expense.ExpenseListPanel;
@@ -14,7 +15,7 @@ import seedu.address.ui.expense.ExpenseListPanel;
  */
 public class ListExpenseCommand extends UndoableCommand {
 
-    public static final String COMMAND_WORD = "list" + CommandGroup.EXPENSE;
+    public static final String COMMAND_WORD = GenericCommandWord.LIST + CommandGroup.EXPENSE;
 
     public static final String MESSAGE_SUCCESS = "Listed all expenses";
 

@@ -1,5 +1,8 @@
 package seedu.address.logic.commands;
 
+/**
+ * Group names for MooLah's different feature's commands.
+ */
 public class CommandGroup {
     public static final String ALIAS = "alias";
     public static final String EXPENSE = "expense";

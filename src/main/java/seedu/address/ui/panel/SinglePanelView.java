@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import javafx.beans.value.ObservableObjectValue;
 import javafx.fxml.FXML;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
@@ -123,7 +122,7 @@ public class SinglePanelView extends UiPart<Region> implements PanelManager {
         }
 
         Panel p = panelNamePanelHashMap.get(panelName);
-        if (getCurrentPanel().equals(p)) {
+        if (p.equals(getCurrentPanel())) {
             currentPanel = new PlaceholderPanel();
         }
         p.hide();

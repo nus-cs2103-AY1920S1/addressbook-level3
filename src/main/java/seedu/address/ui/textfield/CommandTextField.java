@@ -52,18 +52,17 @@ import javafx.scene.layout.StackPane;
 import seedu.address.logic.parser.Prefix;
 
 /**
- * A single line text area utilising RichTextFX to support syntax highlighting of user input.
- * This has some code which is adapted from OverrideBehaviorDemo and JavaKeywordsDemo in RichTextFX.
+ * A single line text area utilising RichTextFX to support syntax highlighting of user input. This has some code which
+ * is adapted from OverrideBehaviorDemo and JavaKeywordsDemo in RichTextFX.
  */
 public class CommandTextField extends Region {
 
+    public static final String ERROR_STYLE_CLASS = "error";
     private static final String PREFIX_STYLE_PREFIX = "prefix";
     private static final String ARGUMENT_STYLE_PREFIX = "arg";
     private static final String COMMAND_WORD_STYLE = "command-word";
     private static final String PLACEHOLDER_STYLE = "placeholder";
     private static final String STRING_STYLE = "string";
-    public static final String ERROR_STYLE_CLASS = "error";
-
     private static final String CSS_FILE_PATH = "/view/syntax-highlighting.css";
 
     private static InputMap<Event> consumeCopyPasteEvent = InputMap.consume(EventPattern.anyOf(
@@ -86,7 +85,6 @@ public class CommandTextField extends Region {
             eventType(MouseEvent.MOUSE_DRAGGED),
             eventType(MouseEvent.DRAG_DETECTED),
             mousePressed().unless(e -> e.getClickCount() == 1 && !e.isShiftDown())));
-
 
 
     private TextField functionalTextField;
@@ -212,6 +210,10 @@ public class CommandTextField extends Region {
         clear();
     }
 
+    /**
+     * Inserts the previous input in command history character by character.
+     * @throws NoSuchElementException
+     */
     public void replaceWithPreviousInput() throws NoSuchElementException {
         String previous = inputHistory.getPreviousInput();
         // if no exception thrown
@@ -221,6 +223,10 @@ public class CommandTextField extends Region {
         }
     }
 
+    /**
+     * Inserts the next input in input history character by character.
+     * @throws NoSuchElementException
+     */
     public void replaceWithNextInput() throws NoSuchElementException {
         String next = inputHistory.getNextInput();
         // if no exception thrown
@@ -232,6 +238,7 @@ public class CommandTextField extends Region {
 
     /**
      * Filters placeholders from input before returning value.
+     *
      * @return The text property value of the text area with placeholders replaced with an empty String.
      */
     public String getText() {
@@ -248,7 +255,7 @@ public class CommandTextField extends Region {
     public void enableSyntaxHighlighting() {
         syntaxHighlightSubscription =
                 visibleTextArea.multiPlainChanges()
-                    .successionEnds(Duration.ofMillis(500))
+                        .successionEnds(Duration.ofMillis(500))
                         .subscribe(ignore -> {
                             visibleTextArea.setStyleSpans(
                                     0, computeHighlighting(visibleTextArea.getText()));
@@ -258,6 +265,7 @@ public class CommandTextField extends Region {
 
     /**
      * Sets the style class of all the text to the style class provided.
+     *
      * @param styleClass style class to apply to the text in the text area.
      */
     public void overrideStyle(String styleClass) {
@@ -282,18 +290,22 @@ public class CommandTextField extends Region {
 
     /**
      * Add support for syntax highlighting and auto fill for the specified command.
-     *  @param command The command word
-     * @param prefixes List of prefixes required in the command
+     *
+     * @param command          The command word
+     * @param prefixes         List of prefixes required in the command
      * @param optionalPrefixes
      */
     public void addSupportFor(String command, List<Prefix> prefixes, List<Prefix> optionalPrefixes) {
-        stringToSupportedCommands.put(command, new SyntaxHighlightingSupportedInput(command, prefixes, optionalPrefixes));
+        stringToSupportedCommands.put(
+                command,
+                new SyntaxHighlightingSupportedInput(command, prefixes, optionalPrefixes));
         autofillMenu.addCommand(command, prefixes, optionalPrefixes);
     }
 
 
     /**
      * Remove support for syntax highlighting and auto fill for the specified command.
+     *
      * @param command
      */
     public void removeSupportFor(String command) {
@@ -305,7 +317,7 @@ public class CommandTextField extends Region {
 
     /**
      * Returns the StyleSpans to apply rich text formatting to the text area.
-     *
+     * <p>
      * This method decides which pattern to use to highlight syntax.
      *
      * @param text The text to be formatted.
@@ -328,11 +340,11 @@ public class CommandTextField extends Region {
     }
 
     /**
-     * Returns the StyleSpans to apply rich text formatting to the text area, using a given pattern.
-     * (adapted from RichTextFX's JavaKeywordsDemo.java)
+     * Returns the StyleSpans to apply rich text formatting to the text area, using a given pattern. (adapted from
+     * RichTextFX's JavaKeywordsDemo.java)
      *
-     * @param text The text to be formatted (guaranteed that the input's command word matches this pattern).
-     * @param pattern The pattern used to apply formatting.
+     * @param text        The text to be formatted (guaranteed that the input's command word matches this pattern).
+     * @param pattern     The pattern used to apply formatting.
      * @param prefixcount The number of prefixes in the command.
      * @return the StyleSpans to apply rich text formatting to the text area.
      */
@@ -404,6 +416,7 @@ public class CommandTextField extends Region {
     /**
      * Take a {@code TextFormatter.Change} and returns a new {@code TextFormatter.Change} with appropriate modifcation
      * in order to handle auto fill and syntax suggestion.
+     *
      * @param change The original non-formatted changes.
      * @return The formatted changes.
      */
@@ -455,7 +468,7 @@ public class CommandTextField extends Region {
                 if ((change.isAdded()
                         && change.getControlCaretPosition() <= placeholder.end()
                         && change.getControlCaretPosition() >= placeholder.start())
-                || ((change.isDeleted()
+                        || ((change.isDeleted()
                         && change.getControlCaretPosition() <= placeholder.end()
                         && change.getControlCaretPosition() >= placeholder.start()))) {
 

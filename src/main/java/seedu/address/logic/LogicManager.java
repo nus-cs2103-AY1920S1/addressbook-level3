@@ -5,7 +5,6 @@ import java.nio.file.Path;
 import java.util.List;
 import java.util.logging.Logger;
 
-import javafx.beans.value.ObservableObjectValue;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.AliasMappings;
 import seedu.address.commons.core.GuiSettings;

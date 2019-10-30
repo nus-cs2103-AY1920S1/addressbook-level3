@@ -13,6 +13,7 @@ import java.util.Optional;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
+import seedu.address.logic.commands.CommandGroup;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.UndoableCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -28,7 +29,7 @@ import seedu.address.ui.budget.BudgetListPanel;
  * Edits the details of an existing budget in the MooLah.
  */
 public class EditBudgetCommand extends UndoableCommand {
-    public static final String COMMAND_WORD = "editbudget";
+    public static final String COMMAND_WORD = "edit" + CommandGroup.BUDGET;
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the budget identified "
             + "by the index number used in the displayed expense list. "

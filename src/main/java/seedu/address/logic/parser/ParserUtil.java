@@ -164,6 +164,12 @@ public class ParserUtil {
     }
 
 
+    /**
+     * Parses user input into Input with a command word and argument attributes.
+     * @param input the user input to parse
+     * @return The Input with the command word and arguments
+     * @throws ParseException if invalid format
+     */
     public static Input parseInput(String input) throws ParseException {
         final Matcher matcher = Input.BASIC_COMMAND_FORMAT.matcher(input.trim());
         if (!matcher.matches()) {

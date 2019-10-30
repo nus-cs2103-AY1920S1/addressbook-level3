@@ -16,14 +16,14 @@ import seedu.address.ui.UiPart;
 public class ExpenseCard extends UiPart<Region> {
 
     private static final String FXML = "ExpenseListCard.fxml";
-//    private static final String FOOD_ICON = "images/category/food.png";
-//    private static final String TRANSPORT_ICON = "images/category/transport.png";
-//    private static final String UTILITIES_ICON = "images/category/utilities.png";
-//    private static final String TRAVEL_ICON = "images/category/travel.png";
-//    private static final String EDUCATION_ICON = "images/category/education.png";
-//    private static final String ENTERTAINMENT_ICON = "images/category/entertainment.png";
-//    private static final String OTHERS_ICON = "images/category/others.png";
-//    private static final String HEALTHCARE_ICON = "images/category/healthcare.png";
+    //    private static final String FOOD_ICON = "images/category/food.png";
+    //    private static final String TRANSPORT_ICON = "images/category/transport.png";
+    //    private static final String UTILITIES_ICON = "images/category/utilities.png";
+    //    private static final String TRAVEL_ICON = "images/category/travel.png";
+    //    private static final String EDUCATION_ICON = "images/category/education.png";
+    //    private static final String ENTERTAINMENT_ICON = "images/category/entertainment.png";
+    //    private static final String OTHERS_ICON = "images/category/others.png";
+    //    private static final String HEALTHCARE_ICON = "images/category/healthcare.png";
 
 
     /**
@@ -50,10 +50,10 @@ public class ExpenseCard extends UiPart<Region> {
     private Label time;
     @FXML
     private FlowPane categories;
-//    @FXML
-//    private Circle clip;
-//    @FXML
-//    private ImageView icon;
+    //    @FXML
+    //    private Circle clip;
+    //    @FXML
+    //    private ImageView icon;
 
     public ExpenseCard(Expense expense, int displayedIndex) {
         super(FXML);
@@ -64,7 +64,7 @@ public class ExpenseCard extends UiPart<Region> {
         categories.getChildren().add(new Label(expense.getCategory().getCategoryName()));
         date.setText(expense.getTimestamp().fullTimestamp.format(DateTimeFormatter.ISO_DATE));
         time.setText(null);
-//        clip.setFill(new ImagePattern(getImage(expense.getCategory().getCategoryName())));
+        //clip.setFill(new ImagePattern(getImage(expense.getCategory().getCategoryName())));
     }
 
     @Override

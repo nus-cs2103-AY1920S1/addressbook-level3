@@ -30,7 +30,7 @@ import seedu.address.ui.expense.ExpenseListPanel;
  */
 public class EditExpenseCommand extends UndoableCommand {
 
-    public static final String COMMAND_WORD = "edit" + CommandGroup.EXPENSE;;
+    public static final String COMMAND_WORD = "edit" + CommandGroup.EXPENSE;
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the expense identified "
             + "by the index number used in the displayed expense list. "

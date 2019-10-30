@@ -6,6 +6,9 @@ import java.util.regex.Pattern;
 
 import seedu.address.logic.parser.Prefix;
 
+/**
+ * Represents a supported input for syntax highlighting.
+ */
 public class SyntaxHighlightingSupportedInput {
 
     static final String PLACEHOLDER_REGEX = "(?<placeholder><[^>]+>)";
@@ -16,7 +19,8 @@ public class SyntaxHighlightingSupportedInput {
     private List<Prefix> prefixes;
     private Pattern pattern;
 
-    public SyntaxHighlightingSupportedInput(String command, List<Prefix> requiredPrefixes, List<Prefix> optionalPrefixes) {
+    public SyntaxHighlightingSupportedInput(String command, List<Prefix> requiredPrefixes,
+                                            List<Prefix> optionalPrefixes) {
         this.command = command;
         this.prefixes = new ArrayList<>(requiredPrefixes);
         this.prefixes.addAll(optionalPrefixes);

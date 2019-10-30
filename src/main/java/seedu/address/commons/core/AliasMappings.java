@@ -79,6 +79,11 @@ public class AliasMappings implements Serializable {
         return List.copyOf(aliasNameToAliasMap.values());
     }
 
+    /**
+     * Removes an alias with the specified name if it exists
+     * @param name
+     * @return True if it existed and was deleted, false otherwise
+     */
     public boolean removeAlias(String name) {
         if (!aliasWithNameExists(name)) {
             return false;
@@ -128,6 +133,11 @@ public class AliasMappings implements Serializable {
         return aliasWithNameExists(commandWord);
     }
 
+    /**
+     * Checks if there are invalid Aliases in the AliasMappings.
+     * @throws IllegalValueException if there are invalid Aliases.
+     * @throws RecursiveAliasException if there are Aliases which cause recursion.
+     */
     public void validate() throws IllegalValueException, RecursiveAliasException {
         for (Map.Entry<String, Alias> entry : aliasNameToAliasMap.entrySet()) {
             Alias a = entry.getValue();
@@ -155,7 +165,11 @@ public class AliasMappings implements Serializable {
         checkIfRecursive();
     }
 
-    public void checkIfRecursive() throws RecursiveAliasException {
+    /**
+     * Checks if there is an alias in the mappings that may cause recursion when it's input is executed.
+     * @throws RecursiveAliasException if it may cause recursion.
+     */
+    private void checkIfRecursive() throws RecursiveAliasException {
         // ensure that all aliases that are chained do not chain to themselves.
         for (Alias a : aliasNameToAliasMap.values()) {
             Set<String> visited = new HashSet<>();

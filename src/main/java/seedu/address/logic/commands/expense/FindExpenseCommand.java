@@ -16,7 +16,7 @@ import seedu.address.ui.expense.ExpenseListPanel;
  */
 public class FindExpenseCommand extends UndoableCommand {
 
-    public static final String COMMAND_WORD = "find" + CommandGroup.EXPENSE;;
+    public static final String COMMAND_WORD = "find" + CommandGroup.EXPENSE;
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all expenses whose descriptions contain any of "
             + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"

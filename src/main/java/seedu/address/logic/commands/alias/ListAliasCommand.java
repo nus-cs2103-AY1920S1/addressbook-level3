@@ -4,9 +4,9 @@ import static java.util.Objects.requireNonNull;
 
 import seedu.address.logic.commands.CommandGroup;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.GenericCommandWord;
 import seedu.address.logic.commands.UndoableCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.commands.GenericCommandWord;
 import seedu.address.model.Model;
 import seedu.address.ui.expense.AliasPanel;
 

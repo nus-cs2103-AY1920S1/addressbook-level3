@@ -81,7 +81,8 @@ public class EditExpenseCommandTest {
 
     @Test
     public void run_noFieldSpecifiedUnfilteredList_success() {
-        EditExpenseCommand editExpenseCommand = new EditExpenseCommand(INDEX_FIRST_EXPENSE, new EditExpenseDescriptor());
+        EditExpenseCommand editExpenseCommand =
+                new EditExpenseCommand(INDEX_FIRST_EXPENSE, new EditExpenseDescriptor());
         Expense editedExpense = model.getFilteredExpenseList().get(INDEX_FIRST_EXPENSE.getZeroBased());
 
         String expectedMessage = String.format(EditExpenseCommand.MESSAGE_EDIT_EXPENSE_SUCCESS, editedExpense);
