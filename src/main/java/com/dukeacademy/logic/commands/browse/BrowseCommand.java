@@ -40,6 +40,6 @@ public class BrowseCommand implements Command {
             + " keywords as long as they appear in title, topics, description,"
             + " status or difficulty.";
         return new CommandResult(feedback, false, false, false, false, false,
-                false);
+                false, false);
     }
 }
