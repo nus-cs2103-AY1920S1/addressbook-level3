@@ -36,6 +36,7 @@ import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SortCommand;
 import seedu.address.logic.commands.StatisticsCommand;
 import seedu.address.logic.commands.SwitchCommand;
+import seedu.address.logic.commands.SwitchStatisticsCommand;
 import seedu.address.logic.commands.TogglePanelCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.WishListCommand;
@@ -136,6 +137,9 @@ public class AddressBookParser {
 
         case SwitchCommand.COMMAND_WORD:
             return new SwitchCommandParser().parse(arguments);
+
+        case SwitchStatisticsCommand.COMMAND_WORD:
+            return new SwitchStatisticsCommand();
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();

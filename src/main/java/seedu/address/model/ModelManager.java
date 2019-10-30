@@ -33,6 +33,7 @@ import seedu.address.model.util.EntryComparator;
  */
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
+    private StatisticsManager stats;
     private final SortType sortByTime = new SortType("time");
     private final SortSequence sortByAsc = new SortSequence("descending");
     private final UserPrefs userPrefs;
@@ -49,7 +50,6 @@ public class ModelManager implements Model {
     private final ExpenseTrackerManager expenseTrackers;
     private final VersionedAddressBook versionedAddressBook;
     private final FilteredList<WishReminder> filteredWishReminders;
-    public StatisticsManager stats;
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
@@ -90,7 +90,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public StatisticsManager getStats(){
+    public StatisticsManager getStats() {
         return stats;
     }
 

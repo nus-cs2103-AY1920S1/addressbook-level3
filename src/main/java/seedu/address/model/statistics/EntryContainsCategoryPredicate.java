@@ -4,8 +4,10 @@ import java.util.function.Predicate;
 
 import seedu.address.model.person.Category;
 import seedu.address.model.person.Entry;
-import seedu.address.model.person.Expense;
 
+/**
+ * Filters out the entries that have the same category as the specified category categoryFromUser.
+ */
 public class EntryContainsCategoryPredicate implements Predicate<Entry> {
 
     private Category categoryFromUser;

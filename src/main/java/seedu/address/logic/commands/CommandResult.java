@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 import seedu.address.model.person.PanelName;
@@ -22,6 +23,7 @@ public class CommandResult {
     private final PanelName panelName;
     private final boolean togglePanel;
     private final boolean toggleStats;
+    private final boolean toggleGraphics;
 
     /**
      * Constructs a {@code CommandResult} with the specified fields.
@@ -33,6 +35,7 @@ public class CommandResult {
         this.panelName = null;
         this.togglePanel = false;
         this.toggleStats = false;
+        this.toggleGraphics = false;
     }
 
     /**
@@ -43,13 +46,14 @@ public class CommandResult {
         this(feedbackToUser, false, false);
     }
 
-    public CommandResult(String feedbackToUser, boolean toggleStats) {
+    public CommandResult(String feedbackToUser, ArrayList<Boolean> toggleBooleans) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = false;
         this.exit = false;
         this.togglePanel = false;
         this.panelName = null;
-        this.toggleStats = toggleStats;
+        this.toggleStats = toggleBooleans.get(0);
+        this.toggleGraphics = toggleBooleans.get(1);
     }
 
     public CommandResult(String feedbackToUser, PanelName panelName, boolean togglePanel) {
@@ -59,6 +63,7 @@ public class CommandResult {
         this.panelName = panelName;
         this.togglePanel = togglePanel;
         this.toggleStats = false;
+        this.toggleGraphics = false;
     }
 
     public String getFeedbackToUser() {
@@ -79,6 +84,10 @@ public class CommandResult {
 
     public boolean isToggleStats() {
         return toggleStats;
+    }
+
+    public boolean isToggleGraphics() {
+        return toggleGraphics;
     }
 
     public PanelName getPanelName() {

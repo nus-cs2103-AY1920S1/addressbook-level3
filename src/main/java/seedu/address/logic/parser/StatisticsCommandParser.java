@@ -2,11 +2,6 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PERIOD;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TYPE;
-
-import java.util.ArrayList;
-import java.util.Optional;
-import java.util.stream.Stream;
 
 import seedu.address.logic.commands.StatisticsCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -37,10 +32,6 @@ public class StatisticsCommandParser implements Parser<StatisticsCommand> {
         }
 
         return new StatisticsCommand(dateToParse);
-    }
-
-    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 
 }

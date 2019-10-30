@@ -1,23 +1,15 @@
 package seedu.address.model.statistics;
 
-import java.time.DateTimeException;
-import java.time.LocalDate;
 import java.time.Month;
 import java.util.List;
-import java.util.logging.Filter;
 
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.model.person.Category;
 import seedu.address.model.person.CategoryList;
-import seedu.address.model.person.Entry;
 import seedu.address.model.person.Expense;
 import seedu.address.model.person.Income;
-import seedu.address.model.person.SortSequence;
-import seedu.address.model.person.SortType;
-import seedu.address.model.util.EntryComparator;
 
 /**
  * Contains the entries for the current Month in the idea.
@@ -53,6 +45,9 @@ public class MonthList {
         initRecords();
     }
 
+    /**
+     * Initiates the MonthList Record in guiltTrip.
+     */
     private void initRecords() {
         for (int i = 0; i < this.listOfExpenseCategories.size(); i++) {
             Category toFilterCategory = this.listOfExpenseCategories.get(i);
@@ -69,7 +64,11 @@ public class MonthList {
         }
     }
 
-
+    /**
+     * Calculates the stats for the particular category for the particular month.
+     * @param cat is the category to calculate the statistics for.
+     * @return calculatedTotal, the total amount spent for that particular category in the month.
+     */
     public Double updateListOfStats(Category cat) {
         double newTotal = 0.00;
         if (cat.categoryType.equalsIgnoreCase("Income")) {

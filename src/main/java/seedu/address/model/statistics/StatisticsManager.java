@@ -2,20 +2,15 @@ package seedu.address.model.statistics;
 
 import java.time.LocalDate;
 import java.time.Month;
-import java.time.Year;
-import java.util.Map;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
-import javafx.collections.MapChangeListener;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
 import seedu.address.model.person.Category;
 import seedu.address.model.person.CategoryList;
-import seedu.address.model.person.Entry;
 import seedu.address.model.person.Expense;
 import seedu.address.model.person.Income;
 
@@ -62,14 +57,17 @@ public class StatisticsManager implements Statistics {
                     Month.of(i), currentYear);
             monthlyRecord.put(i, monthToCompare);
         }
-        yearlyRecord.put(currentYear,monthlyRecord);
+        yearlyRecord.put(currentYear, monthlyRecord);
     }
 
+    /**
+     * Initiates the Statistics for the listsOfCategories, and adds Listeners for the relevant ObservableLists.
+     */
     private void initStats() {
-        listOfCategories.getInternalListForOtherEntries().stream().forEach(t -> listOfStatsForExpense.
-                add(new CategoryStatistics(t,0.00)));
-        listOfCategories.getInternalListForIncome().stream().forEach(t -> listOfStatsForIncome.
-                add(new CategoryStatistics(t,0.00)));
+        listOfCategories.getInternalListForOtherEntries().stream().forEach(t -> listOfStatsForExpense
+                .add(new CategoryStatistics(t, 0.00)));
+        listOfCategories.getInternalListForIncome().stream().forEach(t -> listOfStatsForIncome
+                .add(new CategoryStatistics(t, 0.00)));
         modelTotalFilteredExpenses.addListener(new ListChangeListener<Expense>() {
             @Override
             public void onChanged(Change<? extends Expense> change) {
@@ -95,6 +93,12 @@ public class StatisticsManager implements Statistics {
         countStats(currentMonthList, listOfStatsForIncome);
     }
 
+    /**
+     * Recalculates statistics for a specific period of time.
+     *
+     * @param month the month that needs to be recalculated.
+     * @param year the year that needs to be recalculated.
+     */
     public void updateListOfStats(Month month, int year) {
         if (!yearlyRecord.containsKey(year)) {
             initRecords(year);
@@ -114,6 +118,12 @@ public class StatisticsManager implements Statistics {
         return listOfStatsForIncome;
     }
 
+    /**
+     * Recalculates statistics for a specific period of time.
+     *
+     * @param currentMonthList the month that needs to be recalculated.
+     * @param typeOfCategory the list of categories that need to be recalculated whether it be income or expense.
+     */
     private void countStats(MonthList currentMonthList, ObservableList<CategoryStatistics> typeOfCategory) {
         for (int i = 0; i < typeOfCategory.size(); i++) {
             Category toVerifyCat = typeOfCategory.get(i).getCategory();
@@ -121,6 +131,7 @@ public class StatisticsManager implements Statistics {
             CategoryStatistics toCheck = new CategoryStatistics(toVerifyCat, amountVerified);
             if (!typeOfCategory.get(i).equals(toCheck)) {
                 typeOfCategory.set(i, toCheck);
+//                typeOfCategory.get(i).setAmountCalculated(amountVerified);
             }
         }
     }

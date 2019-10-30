@@ -22,8 +22,8 @@ public class EntryTimeContainsPredicate implements Predicate<Entry> {
 
     @Override
     public boolean test(Entry entry) {
-        return monthFromUser == (entry.getDate().getDate().getMonth().getValue()) &&
-                yearFromUser == (entry.getDate().getDate().getYear());
+        return monthFromUser == (entry.getDate().getDate().getMonth().getValue())
+                && yearFromUser == (entry.getDate().getDate().getYear());
     }
 
     @Override

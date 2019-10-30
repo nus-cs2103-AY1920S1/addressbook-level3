@@ -3,12 +3,14 @@ package seedu.address.ui;
 import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
-import javafx.scene.layout.VBox;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
 
-
+/**
+ * Displays the Statistics of the user's activities in Table form.
+ */
 public class StatisticsWindow extends UiPart<Region> {
 
     private static final String FXML = "Statistics.fxml";
@@ -22,10 +24,7 @@ public class StatisticsWindow extends UiPart<Region> {
     private StatisticsTable incomeStats;
 
     @FXML
-    private VBox expenseTablePlaceholder;
-
-    @FXML
-    private VBox incomeTablePlaceholder;
+    private GridPane gridPanePlaceHolder;
 
     public StatisticsWindow(Logic logic) {
         super(FXML);
@@ -41,9 +40,11 @@ public class StatisticsWindow extends UiPart<Region> {
     void fillInnerParts() {
         this.expenseStats = new StatisticsTable(logic.getListOfStatsForExpense());
         this.incomeStats = new StatisticsTable(logic.getListOfStatsForIncome());
-
-        expenseTablePlaceholder.getChildren().add(this.expenseStats.getRoot());
-        incomeTablePlaceholder.getChildren().add(this.incomeStats.getRoot());
+        GridPane.setRowIndex(expenseStats.getRoot(), 0);
+        GridPane.setColumnIndex(expenseStats.getRoot(), 0);
+        GridPane.setRowIndex(incomeStats.getRoot(), 0);
+        GridPane.setColumnIndex(incomeStats.getRoot(), 1);
+        gridPanePlaceHolder.getChildren().addAll(expenseStats.getRoot(), incomeStats.getRoot());
     }
 
 

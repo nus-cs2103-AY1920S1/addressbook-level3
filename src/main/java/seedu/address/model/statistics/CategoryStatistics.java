@@ -6,10 +6,13 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import seedu.address.model.person.Category;
 
+/**
+ * Contains the list of statistics by category in the categorylist.
+ */
 public class CategoryStatistics {
 
     private final Category nameOfCategory;
-    private final double amountCalculated;
+    private double amountCalculated;
 
     public CategoryStatistics(Category nameOfCategory, double amountCalculated) {
         this.nameOfCategory = nameOfCategory;
@@ -18,6 +21,10 @@ public class CategoryStatistics {
 
     public String getCategoryName() {
         return this.nameOfCategory.categoryName;
+    }
+
+    public void setAmountCalculated(double amountCalculated) {
+        this.amountCalculated = amountCalculated;
     }
 
     public StringProperty getCategoryNameProperty() {
