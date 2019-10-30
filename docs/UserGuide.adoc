@@ -30,8 +30,11 @@ records, register new borrowers, loan out books, track outstanding fines and mor
 This user guide will introduce to you the different features of LiBerry and how to use them!
 Jump to <<Quick Start>> to get started now! Enjoy!
 
+== Legend
+
 == Quick Start
 Dive into LiBerry with our simple set-up guide a quick tour of our user interface and features!
+// need to elaborate here, add more egs
 
 .  Ensure you have Java `11` or above installed in your Computer.
 .  Download the latest `LiBerry.jar` link:{repoURL}/releases[here].
