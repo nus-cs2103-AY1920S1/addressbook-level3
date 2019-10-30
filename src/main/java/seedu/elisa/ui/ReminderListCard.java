@@ -50,8 +50,8 @@ public class ReminderListCard extends UiPart<Region> {
         description.setText(item.getItemDescription().toString());
         eventIcon.setImage(new Image(TaskListCard.class.getResourceAsStream("/images/EventIcon.PNG")));
         Reminder reminder = item.getReminder().get();
-        date.setText(String.valueOf(reminder.getDateTime().getDayOfMonth())
-                + " " + String.valueOf(reminder.getDateTime().getMonth()).substring(0, 3));
+        date.setText(String.valueOf(reminder.getOccurrenceDateTime().getDayOfMonth())
+                + " " + String.valueOf(reminder.getOccurrenceDateTime().getMonth()).substring(0, 3));
         if (item.hasTask()) {
             if (item.getTask().get().isComplete()) {
                 statusIcon.setImage(new Image(TaskListCard.class.getResourceAsStream("/images/Completed.PNG")));

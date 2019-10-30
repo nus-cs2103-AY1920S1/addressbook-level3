@@ -3,6 +3,7 @@ package seedu.elisa.model;
 import java.nio.file.Path;
 import java.time.LocalDateTime;
 import java.util.Comparator;
+import java.util.NoSuchElementException;
 
 import javafx.beans.property.SimpleBooleanProperty;
 import seedu.elisa.commons.core.GuiSettings;
@@ -130,4 +131,6 @@ public interface ItemModel {
     boolean isSystemToggle();
 
     public Item editItem(Item oldItem, Item newItem);
+
+    Item getLatestOccurredReminder() throws NoSuchElementException;
 }

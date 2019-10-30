@@ -1,6 +1,7 @@
 package seedu.elisa.model.item;
 
 import java.util.Collection;
+import java.util.NoSuchElementException;
 
 import javafx.beans.property.ListPropertyBase;
 import seedu.elisa.commons.core.item.Item;
@@ -25,17 +26,6 @@ public class ActiveRemindersList extends ListPropertyBase<Item> {
         return null;
     }
 
-    /* TODO: Remove this method or find a use for it.
-    public synchronized Item popReminder() {
-        if(!isEmpty()) {
-            return remove(0);
-        } else {
-            //Should have this throw an exception
-            return null;
-        }
-    }
-    */
-
     /**
      * Adds a reminder to ActiveRemindersList
      *
@@ -44,9 +34,16 @@ public class ActiveRemindersList extends ListPropertyBase<Item> {
     public synchronized void addReminders(Collection<Item> reminders) {
         System.out.println("Starting to add.");
         for (Item item:reminders) {
-            add(0, item);
+            add(size(), item);
         }
         System.out.println("Finished adding.");
         return;
+    }
+
+    public Item getLatestOccurredReminder() throws NoSuchElementException {
+        if (size() <= 0) {
+            throw new NoSuchElementException("No reminders have occurred yet!");
+        }
+        return get(size() - 1);
     }
 }
