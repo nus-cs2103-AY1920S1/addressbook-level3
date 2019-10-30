@@ -1,0 +1,27 @@
+{
+  "inputOutputs" : [ {
+    "input" : "approve 2 rr/ok",
+    "output" : "Approved C000001\nRemoved module from : A0180001"
+  }, {
+    "input" : "view C000004",
+    "output" : "Invalid command format! \nview: Displays expanded view of items based on their indexes on the displayed lists. Specify up to three items (one from each type) in a single view command.\nParameters: KEYWORD  [a/INDEX]  [m/INDEX]  [s/INDEX]\nExample: view a/1 m/11 s/10"
+  }, {
+    "input" : "view a/4",
+    "output" : "Displayed items with ID: C000003"
+  }, {
+    "input" : "list",
+    "output" : "Listed all appeals\nListed all modules\nListed all students"
+  }, {
+    "input" : "approve 4 rr/watch your workload",
+    "output" : "Approved C000003\nAdded module to : A0180003"
+  }, {
+    "input" : "approve mass/ C0000005 C000006 C000002     C002190  Cdfsdfsf",
+    "output" : "Successfully approved: [C000006, C000002]\nInvalid appeal IDs: [C0000005, Cdfsdfsf]"
+  }, {
+    "input" : "reject 1 rr/student not suitable for high workload",
+    "output" : "Rejected C000000"
+  }, {
+    "input" : "reject mass/ C000004  C000005",
+    "output" : "Successfully approved: [C000004, C000005]"
+  } ]
+}
