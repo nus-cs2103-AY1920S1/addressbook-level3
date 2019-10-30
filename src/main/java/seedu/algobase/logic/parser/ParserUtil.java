@@ -20,8 +20,6 @@ import java.util.stream.Stream;
 import seedu.algobase.commons.core.index.Index;
 import seedu.algobase.commons.util.FileUtil.Format;
 import seedu.algobase.commons.util.StringUtil;
-import seedu.algobase.logic.commands.OpenTabCommand;
-import seedu.algobase.logic.commands.SwitchTabCommand;
 import seedu.algobase.logic.commands.problem.SortCommand;
 import seedu.algobase.logic.parser.exceptions.ParseException;
 import seedu.algobase.model.ModelType;

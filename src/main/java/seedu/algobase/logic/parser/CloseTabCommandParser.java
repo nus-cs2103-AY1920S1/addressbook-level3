@@ -6,7 +6,6 @@ import static seedu.algobase.logic.parser.ParserUtil.arePrefixesPresent;
 
 import seedu.algobase.commons.core.index.Index;
 import seedu.algobase.logic.commands.CloseTabCommand;
-import seedu.algobase.logic.commands.SwitchTabCommand;
 import seedu.algobase.logic.parser.exceptions.ParseException;
 
 /**
