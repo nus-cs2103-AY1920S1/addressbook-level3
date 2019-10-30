@@ -304,6 +304,22 @@
     -fx-background-color: derive(-fx-focus-color, 30%);
 }
 
+/*
+ * Custom Button Class for Profile Generation
+ */
+
+.profileButton {
+    -fx-padding: 4 10 4 10;
+    -fx-border-color: #e2e2e2;
+    -fx-border-width: 1;
+    -fx-background-radius: 0;
+    -fx-background-color: #1d1d1d;
+    -fx-font-family: "Gill Sans MT", Helvetica, Arial, sans-serif;
+    -fx-font-size: 7pt;
+    -fx-text-fill: #d8d8d8;
+    -fx-background-insets: 0 0 0 0, 0, 1, 2;
+}
+
 .dialog-pane {
     -fx-background-color: #1d1d1d;
 }
