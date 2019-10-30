@@ -23,7 +23,7 @@
       "criteria" : [ "public housing" ],
       "tagged" : [ "home insurance" ],
       "startAge" : "0",
-      "endAge" : "5"
+      "endAge" : "85"
     } ],
     "tagged" : [ "diabetic", "high blood pressure" ],
     "dateOfBirth" : "12.12.1992"
@@ -123,7 +123,7 @@
     "criteria" : [ "public housing" ],
     "tagged" : [ "home insurance" ],
     "startAge" : "0",
-    "endAge" : "5"
+    "endAge" : "85"
   } ],
   "binItems" : [ {
     "dateDeleted" : "22 Oct 2019 at 09:57 PM",

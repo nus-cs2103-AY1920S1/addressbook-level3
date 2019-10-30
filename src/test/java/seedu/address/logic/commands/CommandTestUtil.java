@@ -153,7 +153,7 @@ public class CommandTestUtil {
 
     public static final String VALID_END_AGE_HEALTH_INSURANCE = "75";
     public static final String VALID_END_AGE_LIFE_INSURANCE = "80";
-    public static final String VALID_END_AGE_FIRE_INSURANCE = "5";
+    public static final String VALID_END_AGE_FIRE_INSURANCE = "85";
     public static final String VALID_END_AGE_CAR_INSURANCE = "100";
 
     public static final String VALID_PRICE_HEALTH_INSURANCE = "$50000";
