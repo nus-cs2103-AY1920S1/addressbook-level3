@@ -7,7 +7,7 @@ import static seedu.address.commons.core.Messages.EXCEL_FILE_NOT_FOUND;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_ONE;
 
 import java.util.HashMap;
 
@@ -63,7 +63,7 @@ public class NjoyParserTest {
         fields.put("type", "mcq");
         QuestionEditCommand command = (QuestionEditCommand) parser
             .parseCommand(QuestionUtil.getEditCommand(question));
-        assertEquals(new QuestionEditCommand(INDEX_FIRST_PERSON, fields), command);
+        assertEquals(new QuestionEditCommand(INDEX_ONE, fields), command);
     }
 
     @Test

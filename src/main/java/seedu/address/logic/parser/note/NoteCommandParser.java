@@ -3,6 +3,7 @@ package seedu.address.logic.parser.note;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
+import java.util.Optional;
 import java.util.stream.Stream;
 
 import seedu.address.commons.core.index.Index;
@@ -61,12 +62,12 @@ public class NoteCommandParser implements Parser<NoteCommand> {
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, NoteEditCommand.MESSAGE_USAGE), pe);
         }
         EditNoteDescriptor editNoteDescriptor = new EditNoteDescriptor();
-        editNoteDescriptor.setNote(argMultimap.getValue(CliSyntax.PREFIX_NOTE).orElse(""));
-        editNoteDescriptor.setDescription(argMultimap.getValue(CliSyntax.PREFIX_DESCRIPTION).orElse(""));
-        String priority = argMultimap.getValue(CliSyntax.PREFIX_PRIORITY).orElse("");
-        if (!priority.isEmpty()) {
-            editNoteDescriptor.setPriority(Priority.getPriority(priority));
-        }
+        editNoteDescriptor.setNote(argMultimap.getValue(CliSyntax.PREFIX_NOTE));
+        editNoteDescriptor.setDescription(argMultimap.getValue(CliSyntax.PREFIX_DESCRIPTION));
+        Optional<Priority> priority = argMultimap.getValue(CliSyntax.PREFIX_PRIORITY).isPresent()
+                ? Optional.of(Priority.getPriority(argMultimap.getValue(CliSyntax.PREFIX_PRIORITY).get()))
+                : Optional.empty();
+        editNoteDescriptor.setPriority(priority);
         return new NoteEditCommand(index, editNoteDescriptor);
     }
 

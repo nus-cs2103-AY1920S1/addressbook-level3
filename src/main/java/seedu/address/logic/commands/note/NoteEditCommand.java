@@ -70,19 +70,17 @@ public class NoteEditCommand extends NoteCommand {
      * Creates and returns a {@code Note} with the details of {@code noteToEdit}
      * edited with {@code editNoteDescriptor}.
      */
-    private static Note createEditedNote(Note noteToEdit, EditNoteDescriptor editNoteDescriptor) {
+    private static Note createEditedNote(
+            Note noteToEdit, EditNoteDescriptor editNoteDescriptor) throws CommandException {
+
         assert noteToEdit != null;
 
-        String updatedNote = !editNoteDescriptor.getNote().get().equals("")
-                ? editNoteDescriptor.getNote().get()
-                : noteToEdit.getNote();
-        String updatedDescription = !editNoteDescriptor.getDescription().get().equals("")
-                ? editNoteDescriptor.getDescription().get()
-                : noteToEdit.getDescription();
-        Priority priority = editNoteDescriptor.getPriority().isPresent()
-                ? editNoteDescriptor.getPriority().get()
-                : noteToEdit.getPriority();
-
+        if (!editNoteDescriptor.isAnyFieldEdited()) {
+            throw new CommandException(MESSAGE_NOT_EDITED);
+        }
+        String updatedNote = editNoteDescriptor.getNote().orElse(noteToEdit.getNote());
+        String updatedDescription = editNoteDescriptor.getDescription().orElse(noteToEdit.getDescription());
+        Priority priority = editNoteDescriptor.getPriority().orElse(noteToEdit.getPriority());
         return new Note(updatedNote, updatedDescription, priority);
     }
 
@@ -109,11 +107,15 @@ public class NoteEditCommand extends NoteCommand {
      * corresponding field value of the note.
      */
     public static class EditNoteDescriptor {
-        private String note;
-        private String description;
-        private Priority priority;
+        private Optional<String> note;
+        private Optional<String> description;
+        private Optional<Priority> priority;
 
-        public EditNoteDescriptor() {}
+        public EditNoteDescriptor() {
+            note = Optional.empty();
+            description = Optional.empty();
+            priority = Optional.empty();
+        }
 
         /**
          * Creates object of details to edit a Note object.
@@ -128,31 +130,31 @@ public class NoteEditCommand extends NoteCommand {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(note, description);
+            return note.isPresent() || description.isPresent() || priority.isPresent();
         }
 
-        public void setNote(String note) {
+        public void setNote(Optional<String> note) {
             this.note = note;
         }
 
         public Optional<String> getNote() {
-            return Optional.ofNullable(note);
+            return note;
         }
 
-        public void setDescription(String description) {
+        public void setDescription(Optional<String> description) {
             this.description = description;
         }
 
         public Optional<String> getDescription() {
-            return Optional.ofNullable(description);
+            return description;
         }
 
-        public void setPriority(Priority priority) {
+        public void setPriority(Optional<Priority> priority) {
             this.priority = priority;
         }
 
         public Optional<Priority> getPriority() {
-            return Optional.ofNullable(priority);
+            return priority;
         }
 
         @Override
