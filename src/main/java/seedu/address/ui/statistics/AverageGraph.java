@@ -1,9 +1,9 @@
-package seedu.address.ui;
+package seedu.address.ui.statistics;
 
-import static seedu.address.ui.RangeMarkerColor.COLOR_BLUE;
-import static seedu.address.ui.RangeMarkerColor.COLOR_GREEN;
-import static seedu.address.ui.RangeMarkerColor.COLOR_RED;
-import static seedu.address.ui.RangeMarkerColor.COLOR_YELLOW;
+import static seedu.address.ui.statistics.RangeMarkerColor.COLOR_BLUE;
+import static seedu.address.ui.statistics.RangeMarkerColor.COLOR_GREEN;
+import static seedu.address.ui.statistics.RangeMarkerColor.COLOR_RED;
+import static seedu.address.ui.statistics.RangeMarkerColor.COLOR_YELLOW;
 
 import java.time.LocalDate;
 import java.util.Map;
@@ -22,7 +22,6 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import seedu.address.model.record.RecordType;
 import seedu.address.model.statistics.AverageType;
-import seedu.address.ui.statistics.CustomLineChart;
 
 /**
  * Represents ui of an average graph with no legend.
