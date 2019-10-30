@@ -8,7 +8,7 @@ start
 if () then ([command generates PDF])
     :Execute Report Generator;
     :Generate PDF Report;
-else ([else])
+else ([command does not generate PDF])
 endif
 stop
 @enduml

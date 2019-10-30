@@ -47,6 +47,7 @@ public class MainWindow extends UiPart<Stage> {
     private BodyMasterDetailPane bodyMasterDetailPane;
     private NotificationButton notificationButton;
     private CommandBox commandBox;
+    private FridgeGridView fridgeGridView;
 
     @FXML
     private MenuBar menuBar;
@@ -68,6 +69,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane workerListPanelPlaceholder;
+
+    @FXML
+    private StackPane fridgeListPlaceholder;
 
     @FXML
     private StackPane lineChartPanelPlaceholder;
@@ -163,10 +167,11 @@ public class MainWindow extends UiPart<Stage> {
                 new BodyCardSelected(logic.selectedBodyProperty()));
         bodyMasterListPlaceholder.getChildren().add(bodyMasterDetailPane.getRoot());
 
-        notificationButton = NotificationButton.getInstanceOfNotifButton();
+        notificationButton = NotificationButton.getInstance(logic.getFilteredNotifList());
         notificationButtonPlaceholder.getChildren().add(notificationButton.getRoot());
 
-
+        fridgeGridView = new FridgeGridView(logic.getFilteredFridgeList());
+        fridgeListPlaceholder.getChildren().add(fridgeGridView.getRoot());
     }
 
     private void setMenuBarHandlers() {

@@ -4,6 +4,7 @@ import java.util.logging.Logger;
 
 import javafx.animation.Interpolator;
 import javafx.animation.TranslateTransition;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -14,6 +15,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.notif.Notif;
 
 //@@ author shaoyi1997
 /**
@@ -22,6 +24,7 @@ import seedu.address.commons.core.LogsCenter;
 public class NotificationButton extends UiPart<Region> {
 
     private static NotificationButton notificationButton = null;
+    private static NotificationPopOver notificationPopOver;
     private static final Logger logger = LogsCenter.getLogger(NotificationButton.class);
     private static final String FXML = "NotificationButton.fxml";
 
@@ -36,25 +39,33 @@ public class NotificationButton extends UiPart<Region> {
 
     private Label iconNumber;
 
-    private NotificationButton() {
+    private NotificationButton(ObservableList<Notif> filteredListNotif) {
         super(FXML);
         notifButton.setGraphic(buttonIcon);
         notifButton.setStyle("-fx-border-width: 0");
         initIconNumber();
+        initPopOver(filteredListNotif);
     }
 
     /**
      * Returns the single instance of the notification button.
      */
-    public static NotificationButton getInstanceOfNotifButton() {
+    public static NotificationButton getInstance(ObservableList<Notif> filteredListNotif) {
         if (notificationButton == null) {
-            return new NotificationButton();
+            notificationButton = new NotificationButton(filteredListNotif);
         }
         return notificationButton;
     }
 
     /**
-     * Initializes the icon number.
+     * Displays the notification popover to the user.
+     */
+    public void showNotifications() {
+        notificationPopOver.show(notifButton);
+    }
+
+    /**
+     * Initializes the icon number which indicates the number of active notifications.
      */
     private void initIconNumber() {
         iconNumber = new Label();
@@ -62,6 +73,17 @@ public class NotificationButton extends UiPart<Region> {
         iconNumber.getStyleClass().add("notificationButtonLabel");
         addJumpingAnimation();
         bindIconNumberToStackPane();
+    }
+
+    /**
+     * Initialises the popover that contains a listview of notifications.
+     */
+    private void initPopOver(ObservableList<Notif> filteredListNotif) {
+        notificationPopOver = new NotificationPopOver(filteredListNotif);
+        notifButton.setOnMouseClicked(mouseEvent -> {
+            //Show PopOver when button is clicked
+            notificationPopOver.show(notifButton);
+        });
     }
 
     /**
@@ -79,11 +101,11 @@ public class NotificationButton extends UiPart<Region> {
 
     private void bindIconNumberToStackPane() {
         buttonPane.setAlignment(iconNumber, Pos.TOP_RIGHT);
-        buttonPane.setMargin(iconNumber, new Insets(6, 6, 0, 0));
+        buttonPane.setMargin(iconNumber, new Insets(6, 2, 0, 0));
         buttonPane.getChildren().addAll(iconNumber);
     }
 
-    public void setIconNumber(int num) {
+    public void updateNotifCount(int num) {
         iconNumber.setText(num + "");
     }
 }

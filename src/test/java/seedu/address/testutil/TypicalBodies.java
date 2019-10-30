@@ -83,6 +83,14 @@ public class TypicalBodies {
             .withStatus("ARRIVED")
             .build(2);
 
+    public static final Body CHARLES = new BodyBuilder()
+            .withDateOfAdmission("01/01/1991")
+            .withName("Charles Chachki")
+            .withNextOfKin("John Chachki")
+            .withRelationship("Father")
+            .withKinPhoneNumber("87120919")
+            .build();
+
     // Manually added - Bodies's details found in {@code CommandTestUtil}
     public static final Body JOHN = new BodyBuilder().withName(VALID_NAME_JOHN).withSex(VALID_SEX_JOHN)
             .withDateOfAdmission(VALID_DATE_OF_ADMISSION_JOHN).withDateOfDeath(VALID_DATE_OF_DEATH_JOHN)
@@ -100,6 +108,6 @@ public class TypicalBodies {
     }
 
     public static List<Body> getTypicalBodies() {
-        return new ArrayList<>(Arrays.asList(ALICE, BOB));
+        return new ArrayList<>(Arrays.asList(ALICE, BOB, CHARLES));
     }
 }

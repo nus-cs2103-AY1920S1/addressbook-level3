@@ -36,12 +36,12 @@ public class NotifCommand extends Command {
     private static ScheduledExecutorService ses = Executors.newScheduledThreadPool(1);
     private static Storage storageManager;
 
-    private Notif toAdd;
+    private Notif notif;
     private long period;
     private TimeUnit timeUnit;
 
     public NotifCommand(Notif notif, long period, TimeUnit timeUnit) {
-        this.toAdd = notif;
+        this.notif = notif;
         this.period = period;
         this.timeUnit = timeUnit;
     }
@@ -50,15 +50,15 @@ public class NotifCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        if (!model.hasNotif(toAdd)) {
+        if (!model.hasNotif(notif)) {
             // throw new CommandException(MESSAGE_DUPLICATE_NOTIF);
-            model.addNotif(toAdd);
+            model.addNotif(notif);
         }
 
         startSesChangeBodyStatus();
         startSesChangeBodyStatusUi(model);
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, notif));
     }
 
     //@@author ambervoong
@@ -70,8 +70,8 @@ public class NotifCommand extends Command {
     public void removeNotif(Model model) {
         requireNonNull(model);
 
-        if (model.hasNotif(toAdd)) {
-            model.deleteNotif(toAdd);
+        if (model.hasNotif(notif)) {
+            model.deleteNotif(notif);
         }
     }
 
@@ -82,10 +82,10 @@ public class NotifCommand extends Command {
      */
     public void addNotif(Model model) throws CommandException {
         requireNonNull(model);
-        if (model.hasNotif(toAdd)) {
+        if (model.hasNotif(notif)) {
             throw new CommandException(MESSAGE_DUPLICATE_NOTIF);
         } else {
-            model.addNotif(toAdd);
+            model.addNotif(notif);
         }
     }
     //@@author
@@ -94,7 +94,7 @@ public class NotifCommand extends Command {
      * Updates the BodyStatus after a specified time.
      */
     public void startSesChangeBodyStatus() {
-        ses.schedule(toAdd.getAlert(), period, timeUnit);
+        ses.schedule(notif.getAlert(), period, timeUnit);
     }
 
     /**
@@ -104,7 +104,7 @@ public class NotifCommand extends Command {
      */
     public void startSesChangeBodyStatusUi(Model model) throws CommandException {
 
-        Body body = toAdd.getBody();
+        Body body = notif.getBody();
         String notifContent = "Body Id: " + body.getIdNum()
                 + "\nName: " + body.getName()
                 + "\nNext of Kin has been uncontactable. Please contact the police";
@@ -120,13 +120,13 @@ public class NotifCommand extends Command {
                     notifWindow.setTitle("Contact Police!");
                     notifWindow.setContent(notifContent);
                     notifWindow.display();
-                    // ses.shutdown();
                     storageManager.saveAddressBook(model.getAddressBook());
                 } catch (CommandException | IOException e) {
                     logger.info("Error updating the body and fridge ");
                 }
             }
-            NotificationButton.getInstanceOfNotifButton().setIconNumber(model.getNumberOfNotifs());
+            NotificationButton.getInstance(model.getFilteredNotifList())
+                    .updateNotifCount(model.getNumberOfNotifs());
         });
         ses.schedule(changeUi, period, timeUnit);
     }
@@ -135,7 +135,7 @@ public class NotifCommand extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof NotifCommand
-                && toAdd.equals(((NotifCommand) other).toAdd));
+                && notif.equals(((NotifCommand) other).notif));
     }
 
     public ScheduledExecutorService getSes() {
