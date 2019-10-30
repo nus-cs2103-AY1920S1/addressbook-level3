@@ -48,7 +48,7 @@ public class EditFinCommand extends Command<Model> {
     private final EditExpenseDescriptor editExpenseDescriptor;
 
     /**
-     * @param index of the expense in the filtered expense list to edit
+     * @param index of the expense in the expense list to edit
      * @param editExpenseDescriptor details to edit the expense with
      */
     public EditFinCommand(Index index, EditExpenseDescriptor editExpenseDescriptor) {

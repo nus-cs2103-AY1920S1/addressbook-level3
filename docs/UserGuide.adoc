@@ -701,9 +701,9 @@ Example:
 === AddCommand
 Adding what you've spent at the nice coffee shop you stopped by?
 
-*Add an entry to your financial tracker:* `add`
+*Add an entry to your Financial Tracker:* `add`
 
-Adds an expense to your diary, with the parameters: amount, description, type, date and time.
+Adds an expense to your Financial Tracker, with the parameters: amount, description, type, date and time.
 
 The _Command Word_ is ``add`` and the prefixes are ``a/`` for amount, ``d/``
 for description, ``t/`` for type of expenditure.
@@ -935,64 +935,9 @@ application for users to discuss and discover. Hope that you have fun finding th
 
 == Command Summary
 
-
-
-
-
-
-
-
-
 Here is a summary for the list of features available:
 
-Financial Tracker: +
-``addFin``    : add a new expense +
-
-``updateFin`` : update an existing expense +
-
-``showFin``   : show all your expenses +
-
-``deleteFin`` : delete an expense +
-
-``calFin``    : calculate your total expense
-
-Address Book: +
-
-.Address Book Commands Summary
-|===
-|Command |Function |Syntax
-
-|``add``
-|Adds a person to the address book
-|``add n/NAME p/PHONE NUMBER e/EMAIL[t/TAG] [r/REMARK] [c/COUNTRY]``
-
-|``clear``
-|Clears all entries from the address book
-|``clear``
-
-|``edit``
-| Edits an existing person in the address book
-|``edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG] [r/REMARK] [c/COUNTRY]``
-
-|``delete``
-|Deletes the specified person from the address book
-|``delete INDEX``
-
-|``find``
-|Finds persons whose names contain any of the given keywords
-|``find KEYWORD [MORE_KEYWORDS]``
-
-|``list``
-|Shows a list of all persons in the address book.
-|``list``
-
-|``help``
-|View help
-|``help``
-
-|===
-
-Calendar (Event Planner): +
+=== Calendar
 ``addCommitment``      : adds commitment to indicate that you won’t be able to travel on a day or over a duration of time due to commitments during the public holidays/school vacation +
 
 ``addCommitments``     : similar to the above, but we can add multiple commitments at once +
@@ -1022,9 +967,7 @@ Calendar (Event Planner): +
 ``suggestDate``         : suggests when you can travel for numDays
 
 
-=== Itinerary planner: +
-
-
+=== Itinerary
 
 .Itinerary Commands Summary
 |===
@@ -1076,9 +1019,67 @@ Calendar (Event Planner): +
 
 |===
 
+=== Address Book
 
+.Address Book Commands Summary
+|===
+|Command |Function |Syntax
 
-=== Travel Diary with pictures: +
+|``add``
+|Adds a person to the address book
+|``add n/NAME p/PHONE NUMBER e/EMAIL[t/TAG] [r/REMARK] [c/COUNTRY]``
+
+|``clear``
+|Clears all entries from the address book
+|``clear``
+
+|``edit``
+| Edits an existing person in the address book
+|``edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG] [r/REMARK] [c/COUNTRY]``
+
+|``delete``
+|Deletes the specified person from the address book
+|``delete INDEX``
+
+|``find``
+|Finds persons whose names contain any of the given keywords
+|``find KEYWORD [MORE_KEYWORDS]``
+
+|``list``
+|Shows a list of all persons in the address book.
+|``list``
+
+|``help``
+|View help
+|``help``
+
+|===
+
+=== Financial Tracker
+
+.Financial Tracker Commands Summary
+|===
+|Command |Function |Syntax
+
+|``add``
+|Adds an expense to the Financial Tracker
+|``add a/AMOUNT d/DESCRIPTION t/TYPE_OF_EXPENDITURE [date/DATE] [time/TIME]``
+
+|``edit``
+| Edits an existing expense in the Financial Tracker
+|``edit INDEX [a/AMOUNT] [d/DESCRIPTION] [t/TYPE_OF_EXPENDITURE] [date/DATE] [time/TIME]``
+
+|``delete``
+|Deletes the specified expense from the Financial Tracker
+|``delete INDEX``
+
+|``help``
+|View Help
+|``help``
+
+|===
+
+=== Travel Diary
 
 .Diary Commands Summary
 |===
@@ -1095,18 +1096,7 @@ Calendar (Event Planner): +
 |===
 
 
-
-
-
-
-
-
-
-
-
-
-
-TRIVAGO, price comparison: +
+=== TRIVAGO (Coming in V2.0)
 ``addData``     : add a new data to be used for price comparison +
 
 ``showData``    : show the prices for a selected data +
