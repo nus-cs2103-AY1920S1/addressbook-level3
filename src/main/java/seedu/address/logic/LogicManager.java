@@ -207,7 +207,7 @@ public class LogicManager implements Logic {
     }
 
     /**
-     * Adds the command to the command history list of tjhe model.
+     * Adds the command to the command history list of the model.
      */
     private void addCommandToHistory(Command command, String commandText) throws ParseException {
         // to prevent adding invalid commands and adding to history during merging
