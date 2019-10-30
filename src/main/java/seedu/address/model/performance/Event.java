@@ -47,6 +47,9 @@ public class Event {
         this.records = records;
     }
 
+    /**
+     * Returns true if the event has the same name as this event.
+     */
     public boolean isSameEvent(Event otherEvent) {
         if (otherEvent == this) {
             return true;
