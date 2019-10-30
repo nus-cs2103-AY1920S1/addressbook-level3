@@ -21,6 +21,7 @@ import seedu.algobase.model.gui.exceptions.DuplicateTabDataException;
 public class OpenTabCommand extends Command {
 
     public static final String COMMAND_WORD = "opentab";
+    public static final String SHORT_COMMAND_WORD = "ot";
     public static final String MESSAGE_SUCCESS = "Tab [%1$s] opened.";
     public static final String MESSAGE_SWITCH_SUCCESS = "Switched to tab [%1$s].";
     public static final String MESSAGE_USAGE = COMMAND_WORD
