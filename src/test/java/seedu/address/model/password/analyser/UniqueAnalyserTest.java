@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.model.util.SampleDataUtil.getTagSet;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -12,8 +13,10 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.model.password.Description;
 import seedu.address.model.password.Password;
+import seedu.address.model.password.PasswordModifiedAt;
 import seedu.address.model.password.PasswordValue;
 import seedu.address.model.password.Username;
+import seedu.address.model.password.Website;
 import seedu.address.model.password.analyser.match.UniqueMatch;
 
 class UniqueAnalyserTest {
@@ -22,16 +25,20 @@ class UniqueAnalyserTest {
     void getAllMatches_listContainAllUniquePassword() {
 
         Password p1 = new Password(new Description("Gmail"), new Username("Randomguy"),
-                new PasswordValue("password"), getTagSet("SocialMedia"));
+                new PasswordValue("password"), new PasswordModifiedAt(new Date()),
+                new Website("NIL"), getTagSet("SocialMedia"));
 
         Password p2 = new Password(new Description("Gmail"), new Username("Randomguy"),
-                new PasswordValue("p@ssw0rd"), getTagSet("SocialMedia"));
+                new PasswordValue("p@ssw0rd"), new PasswordModifiedAt(new Date()),
+                new Website("NIL"), getTagSet("SocialMedia"));
 
         Password p3 = new Password(new Description("Gmail"), new Username("Randomguy"),
-                new PasswordValue("password123"), getTagSet("SocialMedia"));
+                new PasswordValue("password123"), new PasswordModifiedAt(new Date()),
+                new Website("NIL"), getTagSet("SocialMedia"));
 
         Password p4 = new Password(new Description("Gmail"), new Username("Randomguy"),
-                new PasswordValue("ppaassword"), getTagSet("SocialMedia"));
+                new PasswordValue("ppaassword"), new PasswordModifiedAt(new Date()),
+                new Website("NIL"), getTagSet("SocialMedia"));
 
         UniqueAnalyser a = new UniqueAnalyser();
         ArrayList<Password> list = new ArrayList<>();
@@ -50,16 +57,20 @@ class UniqueAnalyserTest {
     void getAllMatches_listContainNonUniquePassword() {
 
         Password p1 = new Password(new Description("Gmail"), new Username("Randomguy"),
-                new PasswordValue("password"), getTagSet("SocialMedia"));
+                new PasswordValue("password"), new PasswordModifiedAt(new Date()),
+                new Website("NIL"), getTagSet("SocialMedia"));
 
         Password p2 = new Password(new Description("Gmail"), new Username("Randomguy"),
-                new PasswordValue("password"), getTagSet("SocialMedia"));
+                new PasswordValue("password"), new PasswordModifiedAt(new Date()),
+                new Website("NIL"), getTagSet("SocialMedia"));
 
         Password p3 = new Password(new Description("Gmail"), new Username("Randomguy"),
-                new PasswordValue("password"), getTagSet("SocialMedia"));
+                new PasswordValue("password"), new PasswordModifiedAt(new Date()),
+                new Website("NIL"), getTagSet("SocialMedia"));
 
         Password p4 = new Password(new Description("Gmail"), new Username("Randomguy"),
-                new PasswordValue("password"), getTagSet("SocialMedia"));
+                new PasswordValue("password"), new PasswordModifiedAt(new Date()),
+                new Website("NIL"), getTagSet("SocialMedia"));
 
         UniqueAnalyser a = new UniqueAnalyser();
         ArrayList<Password> list = new ArrayList<>();
