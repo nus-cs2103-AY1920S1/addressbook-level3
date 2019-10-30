@@ -222,6 +222,10 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    private void handleFolderExpand(int levelsToExpand) {
+        dashboardPanel.folderStructureTreeView.expand(levelsToExpand);
+    }
+
     public Consumer<Url> getCurrentUrlChangeHandler() {
         return url -> {
             logic.setCurrentUrl(url);
@@ -266,6 +270,10 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.getTab() != null) {
                 handleTabSwitchRequestIfAny(commandResult.getTab());
+            }
+
+            if (commandResult.getLevelsToExpand() != 0) {
+                handleFolderExpand(commandResult.getLevelsToExpand());
             }
 
             return commandResult;

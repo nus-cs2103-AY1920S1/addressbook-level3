@@ -36,6 +36,10 @@ public class CommandResult {
         return null;
     }
 
+    public int getLevelsToExpand() {
+        return 0;
+    }
+
 
     @Override
     public boolean equals(Object other) {

@@ -14,6 +14,7 @@ import seedu.mark.logic.commands.AutotagCommand;
 import seedu.mark.logic.commands.AutotagDeleteCommand;
 import seedu.mark.logic.commands.CacheCommand;
 import seedu.mark.logic.commands.ClearCommand;
+import seedu.mark.logic.commands.CollapseCommand;
 import seedu.mark.logic.commands.Command;
 import seedu.mark.logic.commands.DeleteAnnotationCommand;
 import seedu.mark.logic.commands.DeleteCacheCommand;
@@ -23,6 +24,7 @@ import seedu.mark.logic.commands.EditAnnotationCommand;
 import seedu.mark.logic.commands.EditCommand;
 import seedu.mark.logic.commands.EditReminderCommand;
 import seedu.mark.logic.commands.ExitCommand;
+import seedu.mark.logic.commands.ExpandCommand;
 import seedu.mark.logic.commands.ExportCommand;
 import seedu.mark.logic.commands.FavoriteCommand;
 import seedu.mark.logic.commands.FindCommand;
@@ -112,6 +114,12 @@ public class MarkParser {
 
         case AddFolderCommand.COMMAND_WORD:
             return new AddFolderCommandParser().parse(arguments);
+
+        case ExpandCommand.COMMAND_WORD:
+            return new ExpandCommandParser().parse(arguments);
+
+        case CollapseCommand.COMMAND_WORD:
+            return new CollapseCommandParser().parse(arguments);
 
         case EditReminderCommand.COMMAND_WORD:
             return new EditReminderCommandParser().parse(arguments);

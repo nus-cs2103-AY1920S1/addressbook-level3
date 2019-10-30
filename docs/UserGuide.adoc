@@ -111,34 +111,19 @@ Bookmarks the given website, names it `IntelliJ Tips and Tricks`. The new bookma
 
 Creates a new folder for organizing bookmarks into.
 
-Format: `*folder* FOLDER_NAME [p/PARENT_FOLDER]`
+Format: `*folder* FOLDER_NAME [p/PARENT_FOLDER=ROOT]`
 
 ****
-* `FOLDER_NAME` must not already exist.
+* `ROOT` is the topmost folder already created by Mark, and all folders will be descendants of this folder.
+* `FOLDER_NAME` cannot be the name of an existing folder. (Note that it can't be `ROOT` also, since it already exists.)
 * `PARENT_FOLDER` must be an existing folder.
-* If `PARENT_FOLDER` is not specified, `FOLDER_NAME` will have no parent and will be placed at the root.
+* If `PARENT_FOLDER` is not specified, `PARENT_FOLDER` will default to `ROOT`.
 ****
 
 Examples:
 
 * `*folder* CS2103 p/NUS` +
 Creates a new folder named `CS2103` under the parent folder `NUS`.
-
-=== Deleting a folder: *`folder delete`*
-//TODO: What happens to the bookmarks under the folder?
-Deletes the specified folder and its subfolders.
-
-Format: `*folder delete* FOLDER_NAME`
-
-****
-* `FOLDER_NAME` must be an existing folder.
-* If `FOLDER_NAME` contains other folders, those folders will be deleted as well.
-****
-
-Examples:
-
-* `*folder delete* CS2103` +
-Deletes the folder named `CS2103` and all of its subfolders.
 
 === Listing all bookmarks: *`list`*
 
@@ -167,8 +152,8 @@ any tags after it.
 
 Examples:
 
-* `*edit* 1 n/CS2103T Website f/AY1920-S1` +
-Edits the name and folder of the 1st bookmark to be CS2103T Website and AY1920-S1 respectively.
+* `*edit* 1 n/CS2103T Website f/AY1920S1` +
+Edits the name and folder of the 1st bookmark to be CS2103T Website and AY1920S1 respectively.
 
 * `*edit* 2 t/` +
 Clears all existing tags from the 2nd bookmark.
@@ -241,24 +226,6 @@ Examples:
 * `*list*` +
 `*goto* 1` +
 Opens the first bookmark in the bookmark manager.
-
-//TODO: Not supported yet
-=== Opening a bookmark from a reminder: *`goto reminder`*
-
-Opens the related bookmark of the specified reminder from the bookmark manager.
-
-Format: `*goto reminder* INDEX`
-
-****
-* INDEX is the index of the reminder as viewed on the dashboard.
-* The index must be a positive integer `1`, `2`, `3`, …​
-****
-
-Examples:
-
-* `*goto reminder* 1` +
-If reminder 1 points to bookmark 5, this command is equivalent to
-`*goto* 5`. (i.e. opens the 5th bookmark in the bookmark manager.)
 
 === Adding a bookmark to Favorites: *`favorite|fav`*
 
@@ -336,7 +303,7 @@ Mark data are saved in the hard disk automatically after any command
 that changes the data.
 
 There is no need to save data manually. It is also possible to save
-specific bookmarks with a different file name using the command `*export*`
+Mark data with a different file name using the command `*export*`
 (see <<exporting-bookmarks>>).
 
 [[exporting-bookmarks]]
@@ -444,9 +411,9 @@ containing `luminus.nus.edu.sg` that are not in the folder `Miscellaneous`.
  the folder `NUS` or in the folder `Module`, and that do not contain any of the
 keywords `github` or `stackoverflow` in their URLs.
 
-=== Deleting an autotag: *`autotag-delete`*
+=== Deleting automatic tags: *`autotag-delete`*
 
-This command deletes an existing autotag from Mark. Tags that are already present will
+This command deletes a previously created <<autotag, autotag>> from Mark. Tags that are already present will
 not be removed, but no bookmarks will be tagged by this autotag after it is deleted.
 
 Format: `*autotag-delete* TAG_NAME`
@@ -455,22 +422,6 @@ Format: `*autotag-delete* TAG_NAME`
 * `TAG_NAME` should be the name of the autotag to be deleted, which is the same
 as the name of the tag which it applies. E.g. an autotag that adds the tag
 `ProgrammingHelp` to bookmarks is also named `ProgrammingHelp`.
-****
-
-Example:
-
-* `*autotag-delete* LumiNUS` +
-Deletes the autotag that would have tagged bookmarks that match its conditions with the
-tag `LumiNUS`. Bookmarks that already have the tag `LumiNUS` are not changed.
-
-=== Deleting automatic tags: *`autotag-delete`*
-
-Deletes a previously created <<autotag, autotag>>.
-
-Format: `*autotag-delete* TAG_NAME`
-
-****
-* `TAG_NAME` should be the name of an existing autotag.
 ****
 
 Example:
@@ -484,30 +435,31 @@ will no longer be automatically tagged with `Quiz`.
 
 Saves the bookmarked website locally for offline viewing.
 
-Format: `*cache* INDEX [s/SAVE_NOW] [u/AUTO_UPDATE] [d/VERSION]`
+Format: `*cache* INDEX`
 
 ****
-* `INDEX` is the bookmark that you want to save a local copy of
-* `SHOULD_AUTOUPDATE` (default false) if true, it will check daily for any
-updates. Any old versions will be archived and users will be able to see
-the different versions and delete them / name them
-* If `AUTO_UPDATE` is missing, will not auto update.
-* `VERSION` is the version number to be deleted.
+* `INDEX` is the bookmark that you want to save an offline copy of. If there is a previous version, it will be overwritten.
 ****
 
 Examples:
 
-* `*cache* 1 s/true u/true` +
-Saves the bookmark at index 1 locally, and updates it daily.
-
 * `*cache* 1` +
-Show the list of cached copies.
+Saves an offline copy of the first bookmark.
 
-* `*cache* 1 d/2` +
-Deletes the cached version at the second index.
+=== Deleting an offline copy: *`cache-delete`*
 
-* `*cache* 1 u/true` +
-Manually save a new copy of the site.
+Deletes an offline copy of a bookmark.
+
+Format: `*cache-delete* INDEX`
+
+****
+* `INDEX` is the bookmark that you want to delete the offline copy of. It must have an offline copy to delete.
+****
+
+Examples:
+
+* `*cache-delete* 2` +
+Deletes the offline copy of the second bookmark.
 
 === Making annotations on an offline copy: *`annotate`*
 
@@ -516,8 +468,8 @@ website. When you give this command, the UI will switch to the offline tab showi
 With this command, you can highlight a paragraph on the offline document and optionally attach a supplementary
 note to said paragraph. (Notes can be added to justify the highlight or as
 content-relevant notes for future reference to bookmark).
-You can also add a general note not pertaining to any specific paragraph to the _General notes section_
-located at the bottom of the document.
+//TODO: You can also add a general note not pertaining to any specific paragraph to the _General notes section_
+//TODO: located at the bottom of the document.
 
 Overwriting an existing note is possible with this command.
 
@@ -530,7 +482,9 @@ Format: `*annotate* INDEX p/PARA_NUM [n/NOTES] [h/HIGHLIGHT_COLOUR=yellow]`
  * `INDEX` is the bookmark that you want to annotate offline version of.
  If `INDEX` is invalid, a warning message will be displayed.
  * `PARA_NUM` is the numbered identifier of the paragraph to be marked.
- `PARA_NUM` must be `NULL` or it must begin with `P` or `S` (e.g. `P3`).
+ `PARA_NUM` must
+//TODO: be `NULL` or it must
+begin with `P` or `S` (e.g. `P3`).
  If `PARA_NUM` is invalid, a warning message will be displayed.
  * `NOTES` is the content of notes to add.
  * `HIGHLIGHT_COLOUR` is either `orange`, `pink`, `green` or `yellow`. This selects
@@ -556,9 +510,9 @@ in the offline copy of bookmark 1 if paragraph 2 had pre-existing note, and high
 colour remains the same. Otherwise, paragraph 2 will be highlighted yellow and
 a new note with content "change or add note content" will be added to the paragraph.
 
-* `*annotate* 1 n/adding a general note` +
-This adds a note with content "adding a general note" to the _General notes section_ in the
- offline copy of bookmark 1.
+//TODO: * `*annotate* 1 n/adding a general note` +
+//This adds a note with content "adding a general note" to the _General notes section_ in the
+// offline copy of bookmark 1.
 
 
 === Deleting annotations on an offline copy: *`annotate-delete`*
@@ -619,7 +573,7 @@ choose to move notes from a paragraph to another paragraph. This command also su
 <<phantom-paragraph, phantom paragraph>> back to the main text by specifying which true paragraph to move it to.
 
 //TODO lift this restriction in future version
-At v1.4, moving of notes to the  <<stray-notes, _General notes section_>> is not supported.
+At v1.3, moving of notes to the  <<stray-notes, _General notes section_>> is not supported.
 
 Format: `*annotate-edit* INDEX p/PARA_NUM [to/NEW_PARA_NUM] [n/NOTES] [h/HIGHLIGHT_COLOUR]`
 
@@ -708,10 +662,10 @@ The reminder reminds you to read announcements.
 
 
 
-=== Editing a reminder: *`reminder edit`*
+=== Editing a reminder: *`reminder-edit`*
 Edits the reminder at the specified index. You can edit either the time or the note of the reminder.
 
-Format: `*reminder edit* INDEX [t/TIME_DATE] [n/NOTE]`
+Format: `*reminder-edit* INDEX [t/TIME_DATE] [n/NOTE]`
 
 ****
 * `INDEX` is the index of the reminder you want to edit on the dashboard.
@@ -720,41 +674,37 @@ Format: `*reminder edit* INDEX [t/TIME_DATE] [n/NOTE]`
 ****
 Examples:
 
-* `*reminder edit* 1 t/02/07/2019 2359` +
+* `*reminder-edit* 1 t/02/07/2019 2359` +
 Edits the reminder of index 1. Reset the time of the reminder to 23:59 of 02/07/2019.
 
-* `*reminder edit* 1 t/02/07/2019 2359 n/Check daily news` +
+* `*reminder-edit* 1 t/02/07/2019 2359 n/Check daily news` +
 Edits the reminder of index 1. Reset the time of the reminder to 23:59 of 02/07/2019.
 Reset the note to Check daily news.
 
-=== Deleting a reminder: *`reminder delete`*
+=== Deleting a reminder: *`reminder-delete`*
 
 Deletes the the reminder at the specified index.
 
-Format: `*reminder delete* INDEX`
+Format: `*reminder-delete* INDEX`
 
 ****
 * `INDEX` is the index of the reminder you want to delete on the dashboard.
 ****
 Examples:
 
-* `*reminder delete* 1` +
+* `*reminder-delete* 1` +
 Delete the reminder of index 1.
 
 === Expanding the folder hierarchy: *`expand`*
 
 Expands the folder hierarchy by the specified number of levels.
 
-Format: `*expand* [LEVEL]`
+Format: `*expand* [LEVEL=1]`
 
 ****
-* `LEVEL` should be an integer. If it is more than zero, folder hierarchy
-will expand by `LEVEL` number of levels. If `LEVEL` is less than zero,
-folder hierarchy will collapse by the given number of levels. If `LEVEL`
-is zero, nothing happens.
-* Current level of display + `LEVEL` must be positive and less than or equal
-to the maximum number of levels.
-* If `LEVEL` is not specified, expand to the maximum number of levels.
+* `LEVEL` should be a positive integer.
+* If `LEVEL` is higher than the maximum possible level of folders to expand, it will simply expand all of them.
+* If `LEVEL` is not specified, expand by 1 level.
 ****
 
 Examples:
@@ -766,16 +716,12 @@ Expands the folder hierarchy by 3 levels.
 
 Collapses the folder hierarchy by the specified number of levels.
 
-Format: `*collapse* [LEVEL]`
+Format: `*collapse* [LEVEL=1]`
 
 ****
-* `LEVEL` should be an integer. If it is more than zero, folder hierarchy
-will collapse by `LEVEL` number of levels. If `LEVEL` is less than zero,
-folder hierarchy will expand by the given number of levels. If `LEVEL` is
-zero, nothing happens.
-* Current level of display + `LEVEL` must be positive and less than or equal
-to the maximum number of levels of the folder hierarchy.
-* If `LEVEL` is not specified, collapse to show only one level of folders.
+* `LEVEL` should be a positive integer.
+* If `LEVEL` is higher than the maximum possible level of folders to collapse, it will simply collapse all of them.
+* If `LEVEL` is not specified, collapse by 1 level.
 ****
 
 Examples:
@@ -808,6 +754,22 @@ Goes to the Online tab which is a web view.
 * `*tab* 3` +
 Goes to the Offline tab which shows the offline copy of bookmarks.
 
+=== Deleting a folder: *`folder-delete`* `[coming in v2.0]`
+//TODO: What happens to the bookmarks under the folder?
+Deletes the specified folder and its subfolders.
+
+Format: `*folder-delete* FOLDER_NAME`
+
+****
+* `FOLDER_NAME` must be an existing folder.
+* If `FOLDER_NAME` contains other folders, those folders will be deleted as well.
+****
+
+Examples:
+
+* `*folder delete* CS2103` +
+Deletes the folder named `CS2103` and all of its subfolders.
+
 === Sorting bookmarks: `[coming in v2.0]`
 
 Sorts the displayed bookmarks according to different criterion (name,
@@ -838,6 +800,23 @@ Automatically fills in partially typed commands if the command is unique.
 
 Shares your bookmarks and notes with your friends via Email or Telegram.
 
+=== Opening a bookmark from a reminder: *`goto reminder`* `[coming in v2.0]`
+
+Opens the related bookmark of the specified reminder from the bookmark manager.
+
+Format: `*goto reminder* INDEX`
+
+****
+* INDEX is the index of the reminder as viewed on the dashboard.
+* The index must be a positive integer `1`, `2`, `3`, …​
+****
+
+Examples:
+
+* `*goto reminder* 1` +
+If reminder 1 points to bookmark 5, this command is equivalent to
+`*goto* 5`. (i.e. opens the 5th bookmark in the bookmark manager.)
+
 == FAQ
 
 *How do I transfer my data to another Computer?*
@@ -853,15 +832,15 @@ Different user displays. There are three tabs: dashboard, online view
 ****
 [#imgId-dashboard]
 .Mark's Dashboard Tab View
-image::ui-screenshots/uimockup1_dashboard.png[@Dashboard Tab View, 600, 400]
+image::ui-screenshots/Ui_DashboardTab.png[@Dashboard Tab View, 600, 400]
 
 [#imgId-online]
 .Mark's Online Tab View
-image::ui-screenshots/uimockup1_online.png[@Online Tab View, 600, 400]
+image::ui-screenshots/Ui_OnlineTab.png[@Online Tab View, 600, 400]
 
 [#imgId-offline]
 .Mark's Offline Tab View
-image::ui-screenshots/uimockup1_offline.png[@Offline Tab View, 600, 400]
+image::ui-screenshots/Ui_OfflineTab.png[@Offline Tab View, 600, 400]
 ****
 
 _{ more coming soon }_
@@ -923,18 +902,19 @@ displayed in the document).
 * *Exit*: `*exit*`
 * *Export*: `*export* FILENAME`
 * *Import*: `*import* FILENAME`
-* *Autotag*: `*autotag* TAG_NAME [n/NAME_KEYWORD]... [u/URL_KEYWORD]... [f/FOLDER]...
+* *Autotag (add)*: `*autotag* TAG_NAME [n/NAME_KEYWORD]... [u/URL_KEYWORD]... [f/FOLDER]...
 [nn/NOT_NAME_KEYWORD]... [nu/NOT_URL_KEYWORD]... [nf/NOT_FOLDER]...`
 * *Autotag (delete)*: `*autotag-delete* TAG_NAME`
-* *Cache*: `*cache* INDEX [s/SAVE_NOW] [u/AUTO_UPDATE] [d/VERSION]`
+* *Cache (add)*: `*cache* INDEX`
+* *Cache (delete)*: `*cache-delete* INDEX`
 * *Annotate (add)*: `*annotate* INDEX p/P_NUM [n/NOTES] [h/HIGHLIGHT_COLOUR=yellow]`
-* *Annotate (delete)*: `*annotate delete* INDEX [p/P_NUM] [n/KEEP_NOTES=false] [h/KEEP_HIGHLIGHT=false]`
-* *Annotate (edit)*: `*annotate edit* INDEX p/P_NUM [to/NEW_P_NUM] [n/NOTES] [h/HIGHLIGHT_COLOUR]`
+* *Annotate (delete)*: `*annotate-delete* INDEX [p/P_NUM] [n/KEEP_NOTES=false] [h/KEEP_HIGHLIGHT=false]`
+* *Annotate (edit)*: `*annotate-edit* INDEX p/P_NUM [to/NEW_P_NUM] [n/NOTES] [h/HIGHLIGHT_COLOUR]`
 * *Offline*: `*offline* INDEX [v/VERSION=current]`
-* *Reminder*: `*reminder* INDEX t/TIME_DATE [n/NOTE=Open]`
-* *Reminder*: `*reminder edit* INDEX [t/TIME_DATE] [n/NOTE]`
-* *Reminder*: `*reminder delete* INDEX`
-* *Sort*: `*sort* [CRITERION]`
-* *Expand*: `*expand* [LEVEL]`
-* *Collapse*: `*collapse* [LEVEL]`
+* *Reminder (add)*: `*reminder* INDEX t/TIME_DATE [n/NOTE=Open]`
+* *Reminder (edit)*: `*reminder-edit* INDEX [t/TIME_DATE] [n/NOTE]`
+* *Reminder (delete)*: `*reminder-delete* INDEX`
+* *Folder*: `*folder* FOLDER_NAME [p/PARENT_FOLDER=ROOT]`
+* *Expand*: `*expand* [LEVEL=1]`
+* *Collapse*: `*collapse* [LEVEL=1]`
 * *Tab*: `*tab* INDEX`
