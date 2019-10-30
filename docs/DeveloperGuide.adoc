@@ -268,7 +268,8 @@ which passes this string (named commandText) to the Logic component by calling L
 The following activity diagram below summarizes how the save command works
 
 .Activity diagram for a sample save command
-image::MakeSortActivityDiagram.png[]
+
+image::MakeSortActivityDiagram.png[align="center", width="500"]
 
 If fields are given, the original CustomSorter is overridden by a new CustomSorter with new fields. Else, the original
 CustomSorter is overridden by a new CustomSorter with no fields.
@@ -299,7 +300,7 @@ Each `AccountMoney` object is unique because the `TimeStamp` will never be the s
 and a withdrawal at a single time.
 
 .Savings class diagram in Model component.
-image::SavingsAccountClassDiagram.png[width=500]
+image::SavingsAccountClassDiagram.png[align=center, alt=SavingsAccount, width=180]
 
 ==== *Adding to the Savings Account*
 
@@ -317,12 +318,12 @@ which passes this string (named commandText) to the Logic component by calling L
 The sequence diagram for interactions between the Logic, Model and Storage components when a user executes the `save` command is shown below.
 
 .Sequence diagram for sample save command
-image::SaveSequenceDiagram.png[]
+image::SaveSequenceDiagram.png[align="center"]
 
 The following activity diagram below summarizes how the save command works
 
 .Activity diagram for a sample save command
-image::SaveActivityDiagram.png[]
+image::SaveActivityDiagram.png[align="center", width="400"]
 
 === Budget Tracking feature
 
@@ -393,7 +394,7 @@ A user's purchase history is displayed in the UI, similar to the food menu, and 
 ==== Classes for Purchase Tracking feature in Model
 
 .Purchase-related class diagram in Model component.
-image::PurchaseHistoryClassDiagram.png[width=400]
+image::PurchaseHistoryClassDiagram.png[align="center", width=200]
 
 The Purchase Tracking feature was implemented with the following classes.
 
