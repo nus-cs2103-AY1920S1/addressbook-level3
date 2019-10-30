@@ -92,7 +92,12 @@ class JsonSerializableMark {
             reminderList.add(reminder);
         }
 
-        setReminderAssociation(mark, reminderList);
+        try {
+            setReminderAssociation(mark, reminderList);
+        } catch (IllegalValueException e) {
+            throw e;
+        }
+
         return mark;
     }
 

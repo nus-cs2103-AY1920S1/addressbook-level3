@@ -108,6 +108,8 @@ public class Mark implements ReadOnlyMark {
         requireNonNull(editedBookmark);
 
         bookmarks.setBookmark(target, editedBookmark);
+        reminderAssociation.editBookmark(target, editedBookmark);
+        setReminders();
     }
 
     /**
@@ -116,6 +118,8 @@ public class Mark implements ReadOnlyMark {
      */
     public void removeBookmark(Bookmark key) {
         bookmarks.remove(key);
+        reminderAssociation.removeBookmark(key);
+        setReminders();
     }
 
     //// folder operations

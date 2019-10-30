@@ -110,6 +110,35 @@ public class ReminderAssociation {
     }
 
     /**
+     * Delete a specified bookmark.
+     *
+     * @param bookmark the bookmark to delete.
+     */
+    public void removeBookmark(Bookmark bookmark) {
+        if (association.containsKey(bookmark)) {
+            Reminder reminder = association.get(bookmark);
+            association.remove(bookmark);
+            reminderMap.remove(reminder);
+        }
+    }
+
+    /**
+     * Edit a specified bookmark.
+     *
+     * @param targetBookmark the bookmark to be edited.
+     * @param newBookmark the edited bookmark.
+     */
+    public void editBookmark(Bookmark targetBookmark, Bookmark newBookmark) {
+        if (association.containsKey(targetBookmark)) {
+            Reminder reminder = association.get(targetBookmark);
+            Reminder newReminder =
+                    new Reminder(newBookmark.getUrl(), reminder.getRemindTime(), reminder.getNote());
+            deleteReminder(reminder);
+            addReminder(newBookmark, newReminder);
+        }
+    }
+
+    /**
      * Gets a list of reminders in ascending time order.
      *
      * @return a list of reminder sorted in time ascending order.
