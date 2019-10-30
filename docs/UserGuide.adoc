@@ -923,9 +923,9 @@ displayed in the document).
 * *Annotate (delete)*: `*annotate delete* INDEX [p/P_NUM] [n/KEEP_NOTES=false] [h/KEEP_HIGHLIGHT=false]`
 * *Annotate (edit)*: `*annotate edit* INDEX p/P_NUM [to/NEW_P_NUM] [n/NOTES] [h/HIGHLIGHT_COLOUR]`
 * *Offline*: `*offline* INDEX [v/VERSION=current]`
-* *Reminder(add)*: `*reminder* INDEX t/TIME_DATE [n/NOTE=Open]`
-* *Reminder(edit)*: `*reminder-edit* INDEX [t/TIME_DATE] [n/NOTE]`
-* *Reminder(delete)*: `*reminder-delete* INDEX`
+* *Reminder (add)*: `*reminder* INDEX t/TIME_DATE [n/NOTE=Open]`
+* *Reminder (edit)*: `*reminder-edit* INDEX [t/TIME_DATE] [n/NOTE]`
+* *Reminder (delete)*: `*reminder-delete* INDEX`
 * *Folder*: `*folder* FOLDER_NAME [p/PARENT_FOLDER=ROOT]`
 * *Expand*: `*expand* [LEVEL=1]`
 * *Collapse*: `*collapse* [LEVEL=1]`
