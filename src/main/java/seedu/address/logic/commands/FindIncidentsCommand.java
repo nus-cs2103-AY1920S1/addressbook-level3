@@ -100,7 +100,11 @@ public class FindIncidentsCommand extends Command {
         if (isSelfSearch) {
             // quick fix to allow searching using first name. when full name is allowed in search, change this
             Name operatorName = new Name(model.getLoggedInPerson().getName().fullName.split(" ", 2)[0]);
-            predicate = new NameKeywordsPredicate(operatorName);
+            if (predicate != null) {
+                predicate = predicate.and(new NameKeywordsPredicate(operatorName));
+            } else {
+                predicate = new NameKeywordsPredicate(operatorName);
+            }
         }
         model.updateFilteredIncidentList(predicate);
         if (model.getFilteredIncidentList().size() == 0) {
