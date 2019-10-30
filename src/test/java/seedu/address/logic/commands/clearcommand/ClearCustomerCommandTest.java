@@ -8,11 +8,13 @@ import static seedu.address.testutil.TypicalSchedules.getTypicalScheduleBook;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.logic.CommandHistory;
+import seedu.address.logic.UndoRedoStack;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.DataBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.customer.Customer;
 import seedu.address.model.order.Order;
 
 public class ClearCustomerCommandTest {
@@ -26,12 +28,13 @@ public class ClearCustomerCommandTest {
     }
 
     @Test
-    public void execute_nonEmptyCustomerBook_success() {
+    public void execute_nonEmptyCustomerBook_success() throws CommandException {
         Model model = new ModelManager(getTypicalCustomerBook(), getTypicalPhoneBook(),
                 getTypicalOrderBook(), getTypicalScheduleBook(), new DataBook<Order>(), new UserPrefs());
         Model expectedModel = new ModelManager(getTypicalCustomerBook(), getTypicalPhoneBook(),
                 getTypicalOrderBook(), getTypicalScheduleBook(), new DataBook<Order>(), new UserPrefs());
-        expectedModel.setCustomerBook(new DataBook<Customer>());
+
+        new ClearCustomerCommand().execute(expectedModel, new CommandHistory(), new UndoRedoStack());
 
         assertCommandSuccess(new ClearCustomerCommand(), model, ClearCustomerCommand.MESSAGE_SUCCESS, expectedModel);
     }
