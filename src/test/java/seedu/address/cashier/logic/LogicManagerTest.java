@@ -9,25 +9,18 @@ import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.address.cashier.logic.commands.ClearCommand;
 import seedu.address.cashier.logic.commands.CommandResult;
-import seedu.address.cashier.logic.commands.exception.NoCashierFoundException;
 import seedu.address.cashier.model.Model;
 import seedu.address.cashier.model.ModelManager;
 import seedu.address.cashier.storage.Storage;
 import seedu.address.cashier.storage.StorageManager;
-import seedu.address.inventory.model.Item;
 import seedu.address.person.model.UserPrefs;
-import seedu.address.person.model.person.Person;
-import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.TypicalItem;
 import seedu.address.testutil.TypicalTransactions;
-
-//import seedu.address.testutil.TypicalReimbursements.resetReimbursements
 
 public class LogicManagerTest {
 
@@ -102,8 +95,8 @@ public class LogicManagerTest {
         }
 
     }
-
-    @Test
+  
+      @Test
     public void getCashier_successful() throws NoCashierFoundException {
         //resetReimbursements();
         Person p = new PersonBuilder().build();
@@ -146,7 +139,7 @@ public class LogicManagerTest {
 
     @Test
     public void execute_commandExecutionError_throwsCommandException() {
-        String deleteCommand = "delete 4684";
+        String deleteCommand = "delete 44";
         assertCommandException(deleteCommand, NO_SUCH_INDEX_CASHIER);
     }
 
@@ -169,7 +162,6 @@ public class LogicManagerTest {
                                       Model expectedModel) {
         try {
             CommandResult result = logic.execute(inputCommand);
-            System.out.println(result.getFeedbackToUser());
             assertEquals(expectedMessage, result.getFeedbackToUser());
             assertEquals(expectedModel, model);
         } catch (Exception e) {

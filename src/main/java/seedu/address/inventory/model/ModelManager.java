@@ -1,7 +1,5 @@
 package seedu.address.inventory.model;
 
-import java.util.ArrayList;
-
 import seedu.address.inventory.model.exception.NoSuchIndexException;
 import seedu.address.inventory.model.exception.NoSuchItemException;
 import seedu.address.inventory.storage.StorageManager;
@@ -27,14 +25,8 @@ public class ModelManager implements Model {
         }
     }
 
-    @Override
     public InventoryList getInventoryList() {
         return this.inventoryList;
-    }
-
-    @Override
-    public ArrayList<Item> getInventoryListInArrayList() {
-        return this.inventoryList.getInventoryListInArrayList();
     }
 
     @Override
@@ -134,12 +126,10 @@ public class ModelManager implements Model {
         }
     }
 
-
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof ModelManager // instanceof handles nulls
                 && inventoryList.equals(((ModelManager) other).getInventoryList()));
     }
-
 }
