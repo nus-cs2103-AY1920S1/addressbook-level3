@@ -10,22 +10,22 @@ import static seedu.revision.logic.parser.CliSyntax.PREFIX_QUESTION_TYPE;
 import static seedu.revision.logic.parser.CliSyntax.PREFIX_WRONG;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import seedu.revision.logic.commands.exceptions.CommandException;
 import seedu.revision.logic.commands.main.AddCommand;
 import seedu.revision.logic.parser.ArgumentMultimap;
 import seedu.revision.logic.parser.ArgumentTokenizer;
 import seedu.revision.logic.parser.Parser;
 import seedu.revision.logic.parser.ParserUtil;
 import seedu.revision.logic.parser.Prefix;
-import seedu.revision.model.answerable.QuestionType;
 import seedu.revision.logic.parser.exceptions.ParseException;
 import seedu.revision.model.answerable.Answerable;
 import seedu.revision.model.answerable.Difficulty;
 import seedu.revision.model.answerable.Mcq;
 import seedu.revision.model.answerable.Question;
+import seedu.revision.model.answerable.QuestionType;
 import seedu.revision.model.answerable.Saq;
 import seedu.revision.model.answerable.TrueFalse;
 import seedu.revision.model.answerable.answer.Answer;
@@ -59,7 +59,6 @@ public class AddCommandParser implements Parser<AddCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
 
-        //assert validateQuestionType(questionType, argMultimap) : "question not valid according to type";
         validateQuestionType(questionType, argMultimap);
 
         this.question = ParserUtil.parseQuestion(argMultimap.getValue(PREFIX_QUESTION).get());
@@ -83,7 +82,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         }
 
         requireNonNull(answerable);
-        validateAnswerable(answerable);
+        validateAnswerableToAdd(answerable);
         return new AddCommand(answerable);
     }
 
@@ -95,7 +94,7 @@ public class AddCommandParser implements Parser<AddCommand> {
      * @throws ParseException if question is in the wrong format.
      */
     private boolean validateQuestionType(QuestionType questionType, ArgumentMultimap argMultimap) throws
-            ParseException{
+            ParseException {
         String type = questionType.getType();
         int numCorrect = argMultimap.getAllValues(PREFIX_CORRECT).size();
         int numWrong = argMultimap.getAllValues(PREFIX_WRONG).size();
@@ -114,6 +113,8 @@ public class AddCommandParser implements Parser<AddCommand> {
                 }
             case "tf":
                 if (numCorrect == 1 && numWrong <= 1) {
+                    this.correctAnswerList = new ArrayList<>(Arrays.asList(
+                            new Answer(this.correctAnswerList.get(0).answer.toLowerCase())));
                     return true;
                 } else {
                     throw new ParseException(TrueFalse.MESSAGE_CONSTRAINTS);
@@ -128,7 +129,13 @@ public class AddCommandParser implements Parser<AddCommand> {
         }
     }
 
-    private boolean validateAnswerable(Answerable answerableToAdd)
+    /**
+     * Validates the answerable by its type.
+     * @param answerableToAdd the answerable that is being added.
+     * @return a boolean to determine if answerable is valid. True if valid. False otherwise.
+     * @throws ParseException exception is thrown if answerable is not in the correct format.
+     */
+    private boolean validateAnswerableToAdd(Answerable answerableToAdd)
             throws ParseException {
         if (answerableToAdd instanceof Mcq) {
             if (!Mcq.isValidMcq((Mcq) answerableToAdd)) {

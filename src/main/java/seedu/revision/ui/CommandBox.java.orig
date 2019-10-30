@@ -8,13 +8,15 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Region;
+<<<<<<< HEAD
 import javafx.scene.layout.StackPane;
+=======
+
+>>>>>>> 309eabee7e9c423e3000564848cd09879b74354a
 import seedu.revision.logic.MainLogic;
 import seedu.revision.logic.commands.exceptions.CommandException;
 import seedu.revision.logic.commands.main.CommandResult;
 import seedu.revision.logic.parser.exceptions.ParseException;
-
-import java.io.IOException;
 
 /**
  * The UI component that is responsible for receiving user command inputs.

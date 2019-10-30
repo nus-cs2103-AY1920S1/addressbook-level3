@@ -33,7 +33,7 @@ public class QuestionType {
      * Returns true if a given string is a valid question.
      */
     public boolean isValidQuestionType(String test) {
-            return test.matches(VALIDATION_REGEX);
+        return test.matches(VALIDATION_REGEX);
     }
 
     public String getType() {

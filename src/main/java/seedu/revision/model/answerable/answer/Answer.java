@@ -3,10 +3,13 @@ package seedu.revision.model.answerable.answer;
 import static java.util.Objects.requireNonNull;
 import static seedu.revision.commons.util.AppUtil.checkArgument;
 
+/** Answer class used to create answers for {@code Answerable}s. **/
 public class Answer {
 
-    public static String MESSAGE_CONSTRAINTS = "Answers should not be repeated";
-//    String TYPE_NOT_FOUND = "Question types can only be tf, mcq, or saq";
+    /** Message to be shown if user-added answer is not is in the wrong format**/
+    public static final String MESSAGE_CONSTRAINTS = "Answers should be not be blank.";
+
+    /** Validation Regex for the Answer class used to validate user-added answers. **/
     public static final String VALIDATION_REGEX = "(.*\\n*.*)*";
 
     public final String answer;

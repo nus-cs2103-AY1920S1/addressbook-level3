@@ -6,10 +6,10 @@ import java.util.HashSet;
 import java.util.Set;
 
 import seedu.revision.model.answerable.Answerable;
-import seedu.revision.model.answerable.answer.Answer;
 import seedu.revision.model.answerable.Difficulty;
 import seedu.revision.model.answerable.Mcq;
 import seedu.revision.model.answerable.Question;
+import seedu.revision.model.answerable.answer.Answer;
 import seedu.revision.model.category.Category;
 import seedu.revision.model.util.SampleDataUtil;
 
@@ -58,8 +58,8 @@ public class AnswerableBuilder {
     /**
      * Sets the {@code Question} of the {@code Answerable} that we are building.
      */
-    public AnswerableBuilder withQuestion(String name) {
-        this.question = new Question(name);
+    public AnswerableBuilder withQuestion(String question) {
+        this.question = new Question(question);
         return this;
     }
 

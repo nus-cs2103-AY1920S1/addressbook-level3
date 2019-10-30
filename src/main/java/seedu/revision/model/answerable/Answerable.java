@@ -8,8 +8,6 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 import java.util.logging.Logger;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import seedu.revision.model.answerable.answer.Answer;
 import seedu.revision.model.category.Category;
@@ -20,14 +18,14 @@ import seedu.revision.model.category.Category;
  */
 public abstract class Answerable {
 
+    private static final Logger logger = Logger.getLogger(Answerable.class.getName());
+
     protected final Question question;
     protected final Difficulty difficulty;
     protected final ArrayList<Answer> correctAnswerList;
     protected final ArrayList<Answer> wrongAnswerList;
     protected final ArrayList<Answer> combinedAnswerList;
     protected final Set<Category> categories = new HashSet<>();
-
-    private final static Logger logger = Logger.getLogger(Answerable.class.getName());
 
     /**
      * Every field must be present and not null.
@@ -38,9 +36,11 @@ public abstract class Answerable {
         this.question = question;
         this.correctAnswerList = correctAnswerList;
         this.wrongAnswerList = wrongAnswerList;
-        this.combinedAnswerList = Stream.concat(
-                correctAnswerList.stream(), wrongAnswerList.stream())
-                .collect(Collectors.toCollection(ArrayList::new));
+        ArrayList<Answer> shuffledList = new ArrayList<>();
+        shuffledList.addAll(correctAnswerList);
+        shuffledList.addAll(wrongAnswerList);
+        Collections.shuffle(shuffledList);
+        this.combinedAnswerList = shuffledList;
         this.difficulty = difficulty;
         this.categories.addAll(categories);
     }

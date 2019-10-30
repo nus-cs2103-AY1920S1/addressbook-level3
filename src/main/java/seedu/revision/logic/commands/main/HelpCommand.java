@@ -17,6 +17,6 @@ public class HelpCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) {
-        return new CommandResult(SHOWING_HELP_MESSAGE, true, false);
+        return new CommandResult().withFeedBack(SHOWING_HELP_MESSAGE).withHelp(true).withExit(false).build();
     }
 }

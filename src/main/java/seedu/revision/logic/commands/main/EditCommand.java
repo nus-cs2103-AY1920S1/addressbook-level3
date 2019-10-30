@@ -2,9 +2,8 @@ package seedu.revision.logic.commands.main;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.revision.logic.parser.CliSyntax.PREFIX_CATEGORY;
-import static seedu.revision.logic.parser.CliSyntax.PREFIX_QUESTION;
 import static seedu.revision.logic.parser.CliSyntax.PREFIX_DIFFICULTY;
-import static seedu.revision.logic.parser.CliSyntax.PREFIX_QUESTION_TYPE;
+import static seedu.revision.logic.parser.CliSyntax.PREFIX_QUESTION;
 import static seedu.revision.model.Model.PREDICATE_SHOW_ALL_ANSWERABLE;
 
 import java.util.ArrayList;
@@ -80,7 +79,7 @@ public class EditCommand extends Command {
         Answerable answerableToEdit = lastShownList.get(index.getZeroBased());
         Answerable editedAnswerable = createEditedAnswerable(answerableToEdit, editAnswerableDescriptor);
 
-        validateEditCommand(answerableToEdit, editedAnswerable);
+        validateAnswerableToEdit(answerableToEdit, editedAnswerable);
 
         if (!answerableToEdit.isSameAnswerable(editedAnswerable) && model.hasAnswerable(editedAnswerable)) {
             throw new CommandException(MESSAGE_DUPLICATE_ANSWERABLE);
@@ -88,10 +87,17 @@ public class EditCommand extends Command {
 
         model.setAnswerable(answerableToEdit, editedAnswerable);
         model.updateFilteredAnswerableList(PREDICATE_SHOW_ALL_ANSWERABLE);
-        return new CommandResult(String.format(MESSAGE_EDIT_ANSWERABLE_SUCCESS, editedAnswerable));
+        return new CommandResult().withFeedBack(String.format(MESSAGE_EDIT_ANSWERABLE_SUCCESS,
+                editedAnswerable)).build();
     }
 
-    private boolean validateEditCommand(Answerable answerableToEdit, Answerable editedAnswerable)
+    /**
+     * Validates the {@code Answerable} used for the edit command by its type.
+     * @param answerableToEdit answerable that is to be edited.
+     * @param editedAnswerable answerable that has been edited
+     * @throws CommandException exception is thrown is edited answerable is not in the correct format according to type.
+     */
+    private void validateAnswerableToEdit(Answerable answerableToEdit, Answerable editedAnswerable)
             throws CommandException {
         if (answerableToEdit instanceof Mcq) {
             if (!Mcq.isValidMcq((Mcq) editedAnswerable)) {
@@ -108,8 +114,6 @@ public class EditCommand extends Command {
                 throw new CommandException(TrueFalse.MESSAGE_CONSTRAINTS);
             }
         }
-
-        return true;
     }
 
     /**
@@ -133,7 +137,7 @@ public class EditCommand extends Command {
         if (answerableToEdit instanceof Mcq) {
             return new Mcq(updatedQuestion, updatedCorrectAnswerList, updatedWrongAnswerList, updatedDifficulty,
                     updatedCategories);
-        } else if (answerableToEdit instanceof TrueFalse){
+        } else if (answerableToEdit instanceof TrueFalse) {
             return new TrueFalse(updatedQuestion, updatedCorrectAnswerList, updatedDifficulty, updatedCategories);
         } else {
             return new Saq(updatedQuestion, updatedCorrectAnswerList, updatedDifficulty, updatedCategories);
@@ -190,7 +194,8 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(questionType, question, correctAnswerList, wrongAnswerList, difficulty, categories);
+            return CollectionUtil.isAnyNonNull(questionType, question, correctAnswerList, wrongAnswerList,
+                    difficulty, categories);
         }
 
         public QuestionType getQuestionType() {

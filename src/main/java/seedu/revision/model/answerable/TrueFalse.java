@@ -1,23 +1,23 @@
 package seedu.revision.model.answerable;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 import java.util.logging.Logger;
-import java.util.stream.Collectors;
-
 
 import seedu.revision.model.answerable.answer.Answer;
 import seedu.revision.model.category.Category;
 
-import static java.util.Objects.requireNonNull;
-
+/** TrueFalse class used to create True and False answerables. **/
 public class TrueFalse extends Answerable {
+    /** Message to be shown if user-added True and False {@code Answerable}is not is in the wrong format**/
     public static final String MESSAGE_CONSTRAINTS = " T/F answer"
             + " should only be True/False (case insensitive)";
+    /** Validation Regex for the TrueFalse class used to validate user-added True and False {@code Answerable}. **/
     public static final String VALIDATION_REGEX = "(?i)(true|false)";
 
-    private final static Logger logger = Logger.getLogger(TrueFalse.class.getName());
+    private static final Logger logger = Logger.getLogger(TrueFalse.class.getName());
 
     /**
      * Every field must be present and not null.
@@ -33,16 +33,12 @@ public class TrueFalse extends Answerable {
      */
     public static boolean isValidTrueFalse(TrueFalse trueFalse) {
         requireNonNull(trueFalse);
-//        if (trueFalse.getCorrectAnswerList().size() != 1 || trueFalse.getWrongAnswerList().size() != 1) {
-//            return false;
-//        }
         if (trueFalse.getCorrectAnswerList().stream()
-                .anyMatch(a -> a.getAnswer().matches(VALIDATION_REGEX)) ||
-                trueFalse.getWrongAnswerList().stream()
+                .anyMatch(a -> a.getAnswer().matches(VALIDATION_REGEX))
+                || trueFalse.getWrongAnswerList().stream()
                 .anyMatch(a -> a.getAnswer().matches(VALIDATION_REGEX))) {
             return true;
         }
-
         return false;
     }
 
@@ -53,18 +49,13 @@ public class TrueFalse extends Answerable {
             logger.info("correct answer selected");
             return true;
         }
-        logger.info("WRONG answer selected");
+        logger.info("Wrong answer selected");
         return false;
     }
 
+    @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        List<Answer> wrongAnswerList =
-                this.combinedAnswerList
-                    .stream()
-                    .filter(ans -> !this.getCorrectAnswerList().contains(ans))
-                    .collect(Collectors.toList());
-
         builder.append("Type: T/F ")
                 .append("Question: ")
                 .append(getQuestion())

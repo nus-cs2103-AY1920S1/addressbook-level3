@@ -7,6 +7,7 @@ import seedu.revision.logic.parser.QuizParser;
 import seedu.revision.logic.parser.exceptions.ParseException;
 import seedu.revision.model.answerable.Answerable;
 
+/** TfInputCommandParser used to parse user inputs for True and False {@code Answerables}.**/
 public class TfInputCommandParser implements QuizParser<TfInputCommand> {
 
     /**

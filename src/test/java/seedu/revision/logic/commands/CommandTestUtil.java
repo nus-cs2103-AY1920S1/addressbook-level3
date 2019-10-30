@@ -21,9 +21,9 @@ import seedu.revision.logic.commands.main.EditCommand;
 import seedu.revision.logic.parser.exceptions.ParseException;
 import seedu.revision.model.AddressBook;
 import seedu.revision.model.Model;
+import seedu.revision.model.answerable.Answerable;
 import seedu.revision.model.answerable.answer.Answer;
 import seedu.revision.model.answerable.predicates.QuestionContainsKeywordsPredicate;
-import seedu.revision.model.answerable.Answerable;
 import seedu.revision.testutil.EditAnswerableDescriptorBuilder;
 
 /**
@@ -105,7 +105,7 @@ public class CommandTestUtil {
      */
     public static void assertCommandSuccess(Command command, Model actualModel, String expectedMessage,
             Model expectedModel) throws ParseException {
-        CommandResult expectedCommandResult = new CommandResult(expectedMessage);
+        CommandResult expectedCommandResult = new CommandResult().withFeedBack(expectedMessage).build();
         assertCommandSuccess(command, actualModel, expectedCommandResult, expectedModel);
     }
 

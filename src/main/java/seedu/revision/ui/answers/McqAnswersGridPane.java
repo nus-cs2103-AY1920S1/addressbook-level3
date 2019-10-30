@@ -9,7 +9,11 @@ import seedu.revision.commons.core.LogsCenter;
 import seedu.revision.model.answerable.Answerable;
 import seedu.revision.model.answerable.answer.Answer;
 
+/**
+ * McqAnswersGridPane class used to display Mcq Answers.
+ */
 public class McqAnswersGridPane extends AnswersGridPane {
+    private static final String MCQ_GRID_PANE_FXML = "McqAnswersGridPane.fxml";
     private final Logger logger = LogsCenter.getLogger(McqAnswersGridPane.class);
 
     @FXML
@@ -21,8 +25,9 @@ public class McqAnswersGridPane extends AnswersGridPane {
     @FXML
     private Button option4;
 
-    public McqAnswersGridPane(String fxml, Answerable answerable) {
-        super(fxml, answerable);
+    public McqAnswersGridPane(Answerable answerable) {
+        super(MCQ_GRID_PANE_FXML, answerable);
+
         ArrayList<Answer> answerList = answerable.getCombinedAnswerList();
         option1.setText(answerList.get(0).toString());
         option2.setText(answerList.get(1).toString());
@@ -31,6 +36,10 @@ public class McqAnswersGridPane extends AnswersGridPane {
         this.getRoot().getStyleClass().add("option-label");
     }
 
+    /**
+     * Updates the answers displayed during quiz mode.
+     * @param answerable answerable used to update answers.
+     */
     public void updateAnswers(Answerable answerable) {
         ArrayList<Answer> answerList = answerable.getCombinedAnswerList();
         option1.setText(answerList.get(0).toString());

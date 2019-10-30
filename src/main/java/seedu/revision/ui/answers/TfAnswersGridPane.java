@@ -1,6 +1,5 @@
 package seedu.revision.ui.answers;
 
-import java.util.ArrayList;
 import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
@@ -8,7 +7,11 @@ import javafx.scene.control.Button;
 import seedu.revision.commons.core.LogsCenter;
 import seedu.revision.model.answerable.Answerable;
 
+/**
+ * TfAnswersGridPane class used to display True and False answers.
+ */
 public class TfAnswersGridPane extends AnswersGridPane {
+    private static final String TF_GRID_PANE_FXML = "TfAnswersGridPane.fxml";
     private final Logger logger = LogsCenter.getLogger(TfAnswersGridPane.class);
 
     @FXML
@@ -16,13 +19,21 @@ public class TfAnswersGridPane extends AnswersGridPane {
     @FXML
     private Button option2;
 
-    public TfAnswersGridPane(String fxml, Answerable answerable) {
-        super(fxml, answerable);
+    /**
+     * Instantiates TfAnswersGridPane to display True and False answers.
+     * @param answerable answerable used to display answers.
+     */
+    public TfAnswersGridPane(Answerable answerable) {
+        super(TF_GRID_PANE_FXML, answerable);
         option1.setText("True");
         option2.setText("False");
         this.getRoot().getStyleClass().add("option-label");
     }
 
+    /**
+     * Updates the answers to true and false.
+     * @param answerable
+     */
     public void updateAnswers(Answerable answerable) {
         option1.setText("True");
         option2.setText("False");
