@@ -411,11 +411,10 @@ image::Reimbursement/ReimbursementSortDateCommandSuccess.png[]
 
 Adding an item requires the above attributes. However, price is optional. The attributes can also be inputted in any order.
 
-The quantity, cost and price must also all be in numerical form.
+The quantity, cost and price must also all be in numerical form and cannot exceed 2,147,483,647.
 
 [NOTE]
 Adding an item with the same description and category as an existing item is allowed.
-However, quantity cannot exceed 2,147,483,647.
 
 Examples:
 `add c/Food d/Cupcake q/100 co/0.70` -> adds an item of category 'food' and description 'Cupcake', with a quantity of '100' and a cost of '0.70'. It is, as of now, not for sale.
