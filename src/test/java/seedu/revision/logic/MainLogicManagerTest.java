@@ -33,7 +33,7 @@ import seedu.revision.storage.JsonUserPrefsStorage;
 import seedu.revision.storage.StorageManager;
 import seedu.revision.testutil.AnswerableBuilder;
 
-public class MainMainLogicManagerTest {
+public class MainLogicManagerTest {
     private static final IOException DUMMY_IO_EXCEPTION = new IOException("dummy exception");
 
     @TempDir

@@ -15,8 +15,6 @@ import seedu.revision.commons.util.ConfigUtil;
 import seedu.revision.commons.util.StringUtil;
 import seedu.revision.logic.MainLogic;
 import seedu.revision.logic.MainLogicManager;
-import seedu.revision.logic.QuizLogic;
-import seedu.revision.logic.QuizLogicManager;
 import seedu.revision.model.AddressBook;
 import seedu.revision.model.Model;
 import seedu.revision.model.ModelManager;
@@ -44,7 +42,6 @@ public class MainApp extends Application {
 
     protected Ui ui;
     protected MainLogic mainLogic;
-    protected QuizLogic quizLogic;
     protected Storage storage;
     protected Model model;
     protected Config config;
@@ -68,9 +65,7 @@ public class MainApp extends Application {
 
         mainLogic = new MainLogicManager(model, storage);
 
-        quizLogic = new QuizLogicManager(model, storage);
-
-        ui = new UiManager(mainLogic, quizLogic);
+        ui = new UiManager(mainLogic);
     }
 
     /**

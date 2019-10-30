@@ -3,6 +3,7 @@ package seedu.revision.logic;
 import seedu.revision.logic.commands.exceptions.CommandException;
 import seedu.revision.logic.commands.main.CommandResult;
 import seedu.revision.logic.parser.exceptions.ParseException;
+import seedu.revision.model.answerable.Answerable;
 
 /**
  * Inherits Logic interface. Added functionality to original Logic interface.
@@ -17,4 +18,5 @@ public interface MainLogic extends Logic {
      */
     CommandResult execute(String commandText) throws CommandException, ParseException;
 
+    CommandResult execute(String commandText, Answerable currentAnswerable) throws CommandException, ParseException;
 }

@@ -30,8 +30,9 @@ public class FindCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.updateFilteredAnswerableList(predicate);
-        return new CommandResult(
-                String.format(Messages.MESSAGE_ANSWERABLES_LISTED_OVERVIEW, model.getFilteredAnswerableList().size()));
+        return new CommandResult().withFeedBack(
+                String.format(Messages.MESSAGE_ANSWERABLES_LISTED_OVERVIEW, model.getFilteredAnswerableList().size()))
+                .build();
     }
 
     @Override

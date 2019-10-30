@@ -1,6 +1,5 @@
 package seedu.revision.logic.parser.quiz;
 
-import static seedu.revision.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.revision.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 import java.util.regex.Matcher;
@@ -18,7 +17,7 @@ import seedu.revision.model.answerable.TrueFalse;
 /**
  * In-charge of parsing commands during quiz session.
  */
-public class QuizParser {
+public class QuizCommandParser {
 
     /**
      * Used for initial separation of command word and args.
@@ -36,7 +35,7 @@ public class QuizParser {
     public Command parseCommand(String userInput, Answerable currentAnswerable) throws ParseException {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
+            throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
 
         final String commandWord = matcher.group("commandWord");

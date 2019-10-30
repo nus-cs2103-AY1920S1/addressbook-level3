@@ -11,7 +11,6 @@ import seedu.revision.MainApp;
 import seedu.revision.commons.core.LogsCenter;
 import seedu.revision.commons.util.StringUtil;
 import seedu.revision.logic.MainLogic;
-import seedu.revision.logic.QuizLogic;
 
 /**
  * The manager of the UI component.
@@ -25,12 +24,10 @@ public class UiManager implements Ui {
 
     private MainLogic mainLogic;
     private MainWindow mainWindow;
-    private QuizLogic quizLogic;
 
-    public UiManager(MainLogic mainLogic, QuizLogic quizLogic) {
+    public UiManager(MainLogic mainLogic) {
         super();
         this.mainLogic = mainLogic;
-        this.quizLogic = quizLogic;
     }
 
     @Override
@@ -41,7 +38,7 @@ public class UiManager implements Ui {
         primaryStage.getIcons().add(getImage(ICON_APPLICATION));
 
         try {
-            mainWindow = new MainWindow(primaryStage, mainLogic, quizLogic);
+            mainWindow = new MainWindow(primaryStage, mainLogic);
             mainWindow.show(); //This should be called before creating other UI parts
             mainWindow.fillInnerParts();
 

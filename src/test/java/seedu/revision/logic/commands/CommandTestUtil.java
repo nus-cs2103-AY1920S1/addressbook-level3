@@ -105,7 +105,7 @@ public class CommandTestUtil {
      */
     public static void assertCommandSuccess(Command command, Model actualModel, String expectedMessage,
             Model expectedModel) throws ParseException {
-        CommandResult expectedCommandResult = new CommandResult(expectedMessage);
+        CommandResult expectedCommandResult = new CommandResult().withFeedBack(expectedMessage).build();
         assertCommandSuccess(command, actualModel, expectedCommandResult, expectedModel);
     }
 

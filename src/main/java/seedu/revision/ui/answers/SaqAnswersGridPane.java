@@ -8,34 +8,34 @@ import seedu.revision.commons.core.LogsCenter;
 import seedu.revision.model.answerable.Answerable;
 
 /**
- * SaqAnswersGridPane class used to remove options used by Mcq and True False questions.
+ * SaqAnswersGridPane class used to update the answers pane to display nothing.
  */
 public class SaqAnswersGridPane extends AnswersGridPane {
+    private static final String SAQ_GRID_PANE_FXML = "SaqAnswersGridPane.fxml";
     private final Logger logger = LogsCenter.getLogger(SaqAnswersGridPane.class);
 
-    @FXML
-    private Button option1;
+//    @FXML
+//    private Button option1;
 //    @FXML
 //    private Button option2;
 
     /**
-     * Instantiates SaqAnswersGridPane.
-     * @param fxml the fxml used to display the SaqAnswersGridPane.
+     * Instantiates SaqAnswersGridPane to display nothing.
      * @param answerable answerable used to display answers.
      */
-    public SaqAnswersGridPane(String fxml, Answerable answerable) {
-        super(fxml, answerable);
-        option1.setText("True");
+    public SaqAnswersGridPane(Answerable answerable) {
+        super(SAQ_GRID_PANE_FXML, answerable);
+//        option1.setText("True");
 //        option2.setText("False");
         this.getRoot().getStyleClass().add("option-label");
     }
 
     /**
-     * Updates the panel to remove options.
+     * Updates the answer pane to display nothing
      * @param answerable
      */
     public void updateAnswers(Answerable answerable) {
-        option1.setText("True");
+//        option1.setText("True");
 //        option2.setText("False");
     }
 

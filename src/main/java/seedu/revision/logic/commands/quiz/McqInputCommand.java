@@ -2,8 +2,9 @@ package seedu.revision.logic.commands.quiz;
 
 import static java.util.Objects.requireNonNull;
 
-import seedu.revision.logic.commands.Command;
+import java.util.logging.Logger;
 
+import seedu.revision.logic.commands.Command;
 import seedu.revision.logic.commands.main.CommandResult;
 import seedu.revision.model.Model;
 import seedu.revision.model.answerable.Answerable;
@@ -15,6 +16,7 @@ import seedu.revision.model.answerable.answer.Answer;
 public class McqInputCommand extends Command {
 
     public static final String MESSAGE_USAGE = "Input can only be A, B, C, or D (case insensitive)";
+    private static final Logger logger = Logger.getLogger(McqInputCommand.class.getName());
     private final String mcqInput;
     private final Answerable currentAnswerable;
 
@@ -50,7 +52,7 @@ public class McqInputCommand extends Command {
         requireNonNull(selectedAnswer);
         String result = currentAnswerable.isCorrect(selectedAnswer) ? "correct" : "wrong";
 
-        return new CommandResult(result, false, false);
+        return new CommandResult().withFeedBack(result).withHelp(false).withExit(false).build();
     }
 
 

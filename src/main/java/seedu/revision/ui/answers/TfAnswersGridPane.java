@@ -11,6 +11,7 @@ import seedu.revision.model.answerable.Answerable;
  * TfAnswersGridPane class used to display True and False answers.
  */
 public class TfAnswersGridPane extends AnswersGridPane {
+    private static final String TF_GRID_PANE_FXML = "TfAnswersGridPane.fxml";
     private final Logger logger = LogsCenter.getLogger(TfAnswersGridPane.class);
 
     @FXML
@@ -20,11 +21,10 @@ public class TfAnswersGridPane extends AnswersGridPane {
 
     /**
      * Instantiates TfAnswersGridPane to display True and False answers.
-     * @param fxml the fxml used to display the TfAnswersGridPane.
      * @param answerable answerable used to display answers.
      */
-    public TfAnswersGridPane(String fxml, Answerable answerable) {
-        super(fxml, answerable);
+    public TfAnswersGridPane(Answerable answerable) {
+        super(TF_GRID_PANE_FXML, answerable);
         option1.setText("True");
         option2.setText("False");
         this.getRoot().getStyleClass().add("option-label");

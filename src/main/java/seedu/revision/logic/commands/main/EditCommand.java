@@ -87,7 +87,8 @@ public class EditCommand extends Command {
 
         model.setAnswerable(answerableToEdit, editedAnswerable);
         model.updateFilteredAnswerableList(PREDICATE_SHOW_ALL_ANSWERABLE);
-        return new CommandResult(String.format(MESSAGE_EDIT_ANSWERABLE_SUCCESS, editedAnswerable));
+        return new CommandResult().withFeedBack(String.format(MESSAGE_EDIT_ANSWERABLE_SUCCESS,
+                editedAnswerable)).build();
     }
 
     /**
