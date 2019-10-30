@@ -207,11 +207,51 @@ Deletes the 1st expense in the results of the find command.
 Deletes the second budget in the budget list in MYMorise.
 // end::delete[]
 
-=== Setting a default currency for MYMorise
-todo
+=== Automatic currency conversion for foreign currencies
+MyMorise is able to automatically display foreign currencies in the default currency set by the user. By default this is set
+to Singapore Dollars (SGD). The conversions are done in the following scenarios:
 
-=== Convert budgets or expenses to a different currency
-{Shows the current list of expenses in a certain currency}
+* When an expenses specifies a currency that is not the default currency
+* When an expense specifies a currency that is different from that budget it is associated to.
+
+This automatic conversion allows for the computation of budgets and expenses regardless of their underlying currencies to provide
+a cleaner experience when viewing budgets and expenses with multiple differing currencies.
+
+The latest Foreign Exchange data for a limited set of supported currencies are updated whenever the application is launched. The list of supported currencies are as follows:
+
+* CAD
+* HKD
+* ISK
+* PHP
+* DKK
+* HUF
+* CZK
+* GBP
+* RON
+* SEK
+* IDR
+* INR
+* BRL
+* RUB
+* HRK
+* JPY
+* THB
+* CHF
+* EUR
+* MYR
+* BGN
+* TRY
+* CNY
+* NOK
+* NZD
+* ZAR
+* USD
+* MXN
+* SGD
+* AUD
+* ILS
+* KRW
+* PLN
 
 === Autocomplete
 Equip with IDE-like autocomplete function for faster input and
