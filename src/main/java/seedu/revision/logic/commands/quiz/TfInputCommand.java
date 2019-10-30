@@ -10,7 +10,7 @@ import seedu.revision.model.answerable.answer.Answer;
 
 /** TfInputCommand class used to execute user inputs for True and False Answerables. **/
 public class TfInputCommand extends Command {
-    public static final String MESSAGE_USAGE = "Input can only be True(T) or False(F) (case insensitive)";
+    public static final String MESSAGE_USAGE = "Input can only be True(T) or False(F) or N(case insensitive)";
     private final String tfInput;
     private final Answerable currentAnswerable;
 
@@ -25,6 +25,7 @@ public class TfInputCommand extends Command {
         requireNonNull(model);
 
         Answer selectedAnswer;
+        String result;
 
         switch (tfInput.toLowerCase()) {
         case "true":
@@ -37,12 +38,15 @@ public class TfInputCommand extends Command {
         case "f":
             selectedAnswer = new Answer("false");
             break;
+        case "n":
+            result = "wrong";
+            return new CommandResult().withFeedBack(result).withHelp(false).withExit(false).build();
         default:
             selectedAnswer = null;
         }
 
         requireNonNull(selectedAnswer);
-        String result = currentAnswerable.isCorrect(selectedAnswer) ? "correct" : "wrong";
+        result = currentAnswerable.isCorrect(selectedAnswer) ? "correct" : "wrong";
 
         return new CommandResult().withFeedBack(result).withHelp(false).withExit(false).build();
     }

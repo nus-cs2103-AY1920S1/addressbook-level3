@@ -1,4 +1,4 @@
-package seedu.revision.ui;
+package seedu.revision.ui.bar;
 
 import javafx.beans.property.ReadOnlyDoubleProperty;
 import javafx.beans.value.ChangeListener;
@@ -8,6 +8,7 @@ import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
+import seedu.revision.ui.UiPart;
 
 /**
  * Shows a bar to the user to indicate current progress through quiz.
@@ -19,11 +20,9 @@ public class ProgressIndicatorBar extends UiPart<Region> {
     private final double totalWork;
 
     @FXML
-    private StackPane pane;
+    protected ProgressBar bar;
     @FXML
-    private ProgressBar bar;
-    @FXML
-    private Text text = new Text();
+    protected Text text = new Text();
     private final String labelFormatSpecifier;
 
 
@@ -43,8 +42,6 @@ public class ProgressIndicatorBar extends UiPart<Region> {
         });
 
         bar.setMaxWidth(Double.MAX_VALUE); // allows the progress bar to expand to fill available horizontal space.
-
-        pane.getChildren().setAll(bar, text);
     }
 
     /**

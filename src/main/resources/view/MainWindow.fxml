@@ -53,7 +53,7 @@
           <StackPane fx:id="answerableListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
         </VBox>
 
-        <StackPane VBox.vgrow="NEVER" fx:id="scoreProgressBar" styleClass="pane-with-border"
+        <StackPane VBox.vgrow="NEVER" fx:id="scoreProgressAndTimerPlaceholder" styleClass="pane-with-border"
                    minHeight="30" prefHeight="30" maxHeight="30">
           <padding>
             <Insets top="5" right="10" bottom="5" left="10" />
