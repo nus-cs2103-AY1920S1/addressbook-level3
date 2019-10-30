@@ -8,7 +8,6 @@ import static seedu.address.logic.commands.CommandTestUtil.assertListPolicyComma
 import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalPolicy.LIFE_INSURANCE;
 
-
 import java.util.Arrays;
 import java.util.Collections;
 
