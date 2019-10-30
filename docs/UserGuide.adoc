@@ -215,12 +215,12 @@ Sets the renew period to 10 days, fine increment to 5 cents per day, loan period
 Exits the program. +
 Format: `exit`
 
-==== Toggling night mode: `toggleui` ** - Coming in v2.0**
+==== Toggling night mode: `toggleui` - Coming in v2.0
 
 Toggles between day mode and night mode for the UI. +
 Format: `toggleui`
 
-==== Rate a book : `rate` ** - Coming in v2.0**
+==== Rate a book : `rate` - Coming in v2.0
 Gives a book a numerical rating. +
 Format: `rate INDEX r/RATING`
 
