@@ -91,4 +91,15 @@ public class ClosestCommonLocationData {
     public void setOk(boolean ok) {
         isOk = ok;
     }
+
+    /**
+     * Method to give the String representation of ClosestCommonLocationData.
+     */
+    public String toString() {
+        String result = "";
+        result += firstClosest + ": " + firstAvg + "\n";
+        result += secondClosest + ": " + secondAvg + "\n";
+        result += secondClosest + ": " + thirdAvg + "\n";
+        return result;
+    }
 }

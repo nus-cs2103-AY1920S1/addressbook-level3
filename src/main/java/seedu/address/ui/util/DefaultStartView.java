@@ -1,10 +1,14 @@
 package seedu.address.ui.util;
 
+import java.time.LocalDate;
+import java.util.List;
+
 import javafx.fxml.FXML;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+import javafx.scene.control.Label;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
+import seedu.address.model.display.detailwindow.PersonTimeslot;
 import seedu.address.ui.UiPart;
 
 /**
@@ -13,18 +17,25 @@ import seedu.address.ui.UiPart;
 public class DefaultStartView extends UiPart<Region> {
 
     private static final String FXML = "DefaultStartView.fxml";
-    private final Image logo = new Image(getClass().getResourceAsStream("/images/timebook_logo.png"));
-    @FXML
-    private ImageView logoView;
 
     @FXML
-    private StackPane defaultStartViewContainer;
+    private Label defaultTitle;
 
-    public DefaultStartView(double prefWidth, double prefHeight) {
+    @FXML
+    private GridPane defaultStartViewContainer;
+
+    @FXML
+    private StackPane calendarPlaceHolder;
+
+    @FXML
+    private StackPane noticeBoardPlaceHolder;
+
+    public DefaultStartView(List<PersonTimeslot> eventsToday) {
         super(FXML);
-        logoView.setImage(logo);
-        logoView.setFitHeight(prefHeight);
-        logoView.setFitWidth(prefWidth);
-        logoView.setPreserveRatio(true);
+        defaultTitle.setText("WELCOME TO TIMEBOOK!");
+        Calendar calendar = new Calendar(LocalDate.now());
+        calendarPlaceHolder.getChildren().add(calendar.getRoot());
+        UpcomingScheduleList upcomingScheduleList = new UpcomingScheduleList(LocalDate.now(), eventsToday);
+        noticeBoardPlaceHolder.getChildren().add(upcomingScheduleList.getRoot());
     }
 }

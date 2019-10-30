@@ -2,8 +2,8 @@ package seedu.address.logic.commands;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.display.detailwindow.DetailWindowDisplay;
-import seedu.address.model.display.detailwindow.DetailWindowDisplayType;
+import seedu.address.model.display.schedulewindow.ScheduleWindowDisplay;
+import seedu.address.model.display.schedulewindow.ScheduleWindowDisplayType;
 
 /**
  * Command to handle scrolling events using CLI.
@@ -18,7 +18,7 @@ public class ScrollCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        model.updateDetailWindowDisplay(new DetailWindowDisplay(DetailWindowDisplayType.NONE));
+        model.updateScheduleWindowDisplay(new ScheduleWindowDisplay(ScheduleWindowDisplayType.NONE));
         return new CommandResult(MESSAGE_SUCCESS, false, false, false, true);
     }
 

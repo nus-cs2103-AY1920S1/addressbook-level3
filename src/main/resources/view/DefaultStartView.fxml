@@ -7,8 +7,29 @@
 <?import javafx.scene.layout.*?>
 
 <?import javafx.scene.image.ImageView?>
-<StackPane xmlns="http://javafx.com/javafx"
-           xmlns:fx="http://javafx.com/fxml"
-           prefHeight="500.0" prefWidth="1000.0" fx:id="defaultStartViewContainer">
-    <ImageView fx:id="logoView"/>
-</StackPane>
+<?import javafx.geometry.Insets?>
+<GridPane xmlns="http://javafx.com/javafx"
+          xmlns:fx="http://javafx.com/fxml"
+          prefHeight="500.0" fx:id="defaultStartViewContainer">
+    <columnConstraints>
+        <ColumnConstraints percentWidth="50" />
+        <ColumnConstraints percentWidth="50" />
+    </columnConstraints>
+    <padding>
+        <Insets top="10"/>
+    </padding>
+    <Label fx:id="defaultTitle" prefWidth="1000.0" GridPane.rowIndex="0"
+           GridPane.columnIndex="0" GridPane.columnSpan="2" alignment="CENTER"/>
+    <VBox GridPane.rowIndex="1" GridPane.columnIndex="0" alignment="CENTER">
+        <padding>
+            <Insets top="10" left="10" bottom="10"/>
+        </padding>
+        <StackPane fx:id="calendarPlaceHolder" />
+    </VBox>
+    <VBox GridPane.rowIndex="1" GridPane.columnIndex="1" alignment="CENTER">
+        <padding>
+            <Insets top="10" left="10" bottom="10"/>
+        </padding>
+        <StackPane fx:id="noticeBoardPlaceHolder"/>
+    </VBox>
+</GridPane>

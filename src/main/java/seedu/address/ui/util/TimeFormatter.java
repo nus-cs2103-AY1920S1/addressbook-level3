@@ -1,5 +1,6 @@
 package seedu.address.ui.util;
 
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 /**
@@ -8,6 +9,14 @@ import java.time.LocalTime;
 public class TimeFormatter {
     public static int formatTimeToInt(LocalTime localTime) {
         return localTime.getHour() * 100 + localTime.getMinute();
+    }
+
+    public static int formatTimeToInt(LocalDateTime localDateTime) {
+        return localDateTime.getHour() * 100 + localDateTime.getMinute();
+    }
+
+    public static String formatTimeToString(LocalDateTime localDateTime) {
+        return localDateTime.toLocalTime().toString();
     }
 
     /**

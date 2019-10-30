@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.display.detailwindow.DetailWindowDisplayType;
+import seedu.address.model.display.schedulewindow.ScheduleWindowDisplayType;
 import seedu.address.model.display.sidepanel.SidePanelDisplayType;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.exceptions.EventClashException;
@@ -53,16 +53,18 @@ public class AddEventCommand extends Command {
 
                 if (name == null) {
                     model.addEvent(event);
-                    model.updateDetailWindowDisplay(LocalDateTime.now(), DetailWindowDisplayType.PERSON);
+                    model.updateScheduleWindowDisplay(LocalDateTime.now(), ScheduleWindowDisplayType.PERSON);
 
                 } else {
                     model.addEvent(name, event);
-                    model.updateDetailWindowDisplay(name, LocalDateTime.now(), DetailWindowDisplayType.PERSON);
+                    model.updateScheduleWindowDisplay(name, LocalDateTime.now(), ScheduleWindowDisplayType.PERSON);
                 }
 
+                // updates main window
+                model.updateScheduleWindowDisplay(name, LocalDateTime.now(), ScheduleWindowDisplayType.PERSON);
 
                 // updates side panel
-                model.updateSidePanelDisplay(SidePanelDisplayType.PERSONS);
+                model.updateSidePanelDisplay(SidePanelDisplayType.PERSON);
 
                 return new CommandResult(String.format(MESSAGE_SUCCESS, event.getEventName().trim()));
 

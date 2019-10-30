@@ -13,8 +13,8 @@ import seedu.address.commons.core.AppSettings;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.display.DisplayModelManager;
 import seedu.address.model.display.detailwindow.ClosestCommonLocationData;
-import seedu.address.model.display.detailwindow.DetailWindowDisplay;
-import seedu.address.model.display.detailwindow.DetailWindowDisplayType;
+import seedu.address.model.display.schedulewindow.ScheduleWindowDisplay;
+import seedu.address.model.display.schedulewindow.ScheduleWindowDisplayType;
 import seedu.address.model.display.sidepanel.SidePanelDisplay;
 import seedu.address.model.display.sidepanel.SidePanelDisplayType;
 import seedu.address.model.group.Group;
@@ -106,6 +106,7 @@ public class ModelManager implements Model {
         Group.setCounter(groupCounter + 1);
 
         this.userPrefs = new UserPrefs(userPrefs);
+        initialiseDefaultWindowDisplay();
     }
 
     public ModelManager(TimeBook timeBook) {
@@ -371,8 +372,8 @@ public class ModelManager implements Model {
     //=========== UI Model =============================================================
 
     @Override
-    public DetailWindowDisplay getDetailWindowDisplay() {
-        return displayModelManager.getDetailWindowDisplay();
+    public ScheduleWindowDisplay getScheduleWindowDisplay() {
+        return displayModelManager.getScheduleWindowDisplay();
     }
 
     @Override
@@ -381,23 +382,23 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void updateDetailWindowDisplay(DetailWindowDisplay detailWindowDisplay) {
-        displayModelManager.updateDetailWindowDisplay(detailWindowDisplay);
+    public void updateScheduleWindowDisplay(ScheduleWindowDisplay scheduleWindowDisplay) {
+        displayModelManager.updateScheduleWindowDisplay(scheduleWindowDisplay);
     }
 
     @Override
-    public void updateDetailWindowDisplay(Name name, LocalDateTime time, DetailWindowDisplayType type) {
-        displayModelManager.updateDetailWindowDisplay(name, time, type, timeBook);
+    public void updateScheduleWindowDisplay(Name name, LocalDateTime time, ScheduleWindowDisplayType type) {
+        displayModelManager.updateScheduleWindowDisplay(name, time, type, timeBook);
     }
 
     @Override
-    public void updateDetailWindowDisplay(LocalDateTime time, DetailWindowDisplayType type) {
-        displayModelManager.updateDetailWindowDisplay(time, type, timeBook);
+    public void updateScheduleWindowDisplay(LocalDateTime time, ScheduleWindowDisplayType type) {
+        displayModelManager.updateScheduleWindowDisplay(time, type, timeBook);
     }
 
     @Override
-    public void updateDetailWindowDisplay(GroupName groupName, LocalDateTime time, DetailWindowDisplayType type) {
-        displayModelManager.updateDetailWindowDisplay(groupName, time, type, timeBook);
+    public void updateScheduleWindowDisplay(GroupName groupName, LocalDateTime time, ScheduleWindowDisplayType type) {
+        displayModelManager.updateScheduleWindowDisplay(groupName, time, type, timeBook);
     }
 
     @Override
@@ -408,6 +409,16 @@ public class ModelManager implements Model {
     @Override
     public void updateSidePanelDisplay(SidePanelDisplayType type) {
         displayModelManager.updateSidePanelDisplay(type, timeBook);
+    }
+
+    @Override
+    public Person getUser() {
+        return personList.getUser();
+    }
+
+
+    public void initialiseDefaultWindowDisplay() {
+        displayModelManager.updateScheduleWindowDisplay(LocalDateTime.now(), ScheduleWindowDisplayType.HOME, timeBook);
     }
 
     //=========== Suggesters =============================================================
