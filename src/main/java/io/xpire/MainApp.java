@@ -15,17 +15,20 @@ import io.xpire.logic.Logic;
 import io.xpire.logic.LogicManager;
 import io.xpire.model.Model;
 import io.xpire.model.ModelManager;
+import io.xpire.model.ReadOnlyListView;
 import io.xpire.model.ReadOnlyUserPrefs;
-import io.xpire.model.ReadOnlyXpire;
+import io.xpire.model.ReplenishList;
 import io.xpire.model.UserPrefs;
 import io.xpire.model.Xpire;
+import io.xpire.model.item.Item;
+import io.xpire.model.item.XpireItem;
 import io.xpire.model.util.SampleDataUtil;
+import io.xpire.storage.JsonListStorage;
 import io.xpire.storage.JsonUserPrefsStorage;
-import io.xpire.storage.JsonXpireStorage;
+import io.xpire.storage.ListStorage;
 import io.xpire.storage.Storage;
 import io.xpire.storage.StorageManager;
 import io.xpire.storage.UserPrefsStorage;
-import io.xpire.storage.XpireStorage;
 import io.xpire.ui.Ui;
 import io.xpire.ui.UiManager;
 import javafx.application.Application;
@@ -45,6 +48,7 @@ public class MainApp extends Application {
     protected Storage storage;
     protected Model model;
     protected Config config;
+    protected ItemManager itemManager;
 
     @Override
     public void init() throws Exception {
@@ -56,10 +60,10 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
-        XpireStorage xpireStorage = new JsonXpireStorage(
-                userPrefs.getXpireFilePath()
+        ListStorage listStorage = new JsonListStorage(
+                userPrefs.getListFilePath()
         );
-        storage = new StorageManager(xpireStorage, userPrefsStorage);
+        storage = new StorageManager(listStorage, userPrefsStorage);
 
         initLogging(config);
 
@@ -67,7 +71,12 @@ public class MainApp extends Application {
 
         logic = new LogicManager(model, storage);
 
+        itemManager = new ItemManager(model, storage);
+
+        initItemManager();
+
         ui = new UiManager(logic);
+
     }
 
     /**
@@ -77,27 +86,40 @@ public class MainApp extends Application {
      * {@code storage}'s expiry date tracker.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-        Optional<ReadOnlyXpire> expiryDateTrackerOptional;
-        ReadOnlyXpire initialData;
+        Optional<ReadOnlyListView<? extends Item>>[] listArray;
+        ReadOnlyListView<XpireItem> initialTrackerData;
+        ReadOnlyListView<Item> initialReplenishData;
         try {
-            expiryDateTrackerOptional = storage.readXpire();
-            if (!expiryDateTrackerOptional.isPresent()) {
+            listArray = storage.readList();
+            if (!listArray[0].isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample Expiry Date Tracker");
             }
-            initialData = expiryDateTrackerOptional.orElseGet(SampleDataUtil::getSampleXpire);
+            if (!listArray[1].isPresent()) {
+                logger.info("Data file not found. Will be starting with a sample Replenish List");
+            }
+            initialTrackerData = (Xpire) listArray[0].orElseGet(SampleDataUtil::getSampleXpire);
+            initialReplenishData = (ReplenishList) listArray[1].orElseGet(
+                    SampleDataUtil::getSampleReplenishList
+            );
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty Expiry Date Tracker");
-            initialData = new Xpire();
+            initialTrackerData = new Xpire();
+            initialReplenishData = new ReplenishList();
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty Expiry Date Tracker");
-            initialData = new Xpire();
+            initialTrackerData = new Xpire();
+            initialReplenishData = new ReplenishList();
         }
 
-        return new ModelManager(initialData, userPrefs);
+        return new ModelManager(new ReadOnlyListView[]{initialTrackerData, initialReplenishData}, userPrefs);
     }
 
     private void initLogging(Config config) {
         LogsCenter.init(config);
+    }
+
+    private void initItemManager() {
+        itemManager.updateItemTags();
     }
 
     /**

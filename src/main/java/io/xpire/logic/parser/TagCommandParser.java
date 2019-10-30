@@ -9,6 +9,7 @@ import io.xpire.commons.core.index.Index;
 import io.xpire.logic.commands.TagCommand;
 import io.xpire.logic.parser.exceptions.ParseException;
 import io.xpire.model.tag.Tag;
+import io.xpire.model.tag.TagItemDescriptor;
 
 /**
  * Parses input arguments and creates a new TagCommand object.
@@ -35,7 +36,7 @@ public class TagCommandParser implements Parser<TagCommand> {
                     .format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, TagCommand.MESSAGE_USAGE), pe);
         }
         Set<Tag> set;
-        TagCommand.TagItemDescriptor tagItemDescriptor = new TagCommand.TagItemDescriptor();
+        TagItemDescriptor tagItemDescriptor = new TagItemDescriptor();
         if (hasTags(splitArgs)) {
             set = ParserUtil.parseTagsFromInput(splitArgs[1]);
         } else {

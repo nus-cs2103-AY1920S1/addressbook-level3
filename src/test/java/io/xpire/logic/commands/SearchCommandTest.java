@@ -6,7 +6,7 @@ import static io.xpire.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static io.xpire.testutil.TypicalItems.BANANA;
 import static io.xpire.testutil.TypicalItems.DUCK;
 import static io.xpire.testutil.TypicalItems.JELLY;
-import static io.xpire.testutil.TypicalItems.getTypicalExpiryDateTracker;
+import static io.xpire.testutil.TypicalItems.getTypicalLists;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -25,8 +25,8 @@ import io.xpire.model.item.ContainsKeywordsPredicate;
  * Contains integration tests (interaction with the Model) for {@code SearchCommand}.
  */
 public class SearchCommandTest {
-    private Model model = new ModelManager(getTypicalExpiryDateTracker(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalExpiryDateTracker(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalLists(), new UserPrefs());
+    private Model expectedModel = new ModelManager(getTypicalLists(), new UserPrefs());
 
     @Test
     public void equals() {
@@ -51,7 +51,7 @@ public class SearchCommandTest {
         // null -> returns false
         assertFalse(findFirstCommand.equals(null));
 
-        // different item -> returns false
+        // different xpireItem -> returns false
         assertFalse(findFirstCommand.equals(findSecondCommand));
     }
 
@@ -62,7 +62,7 @@ public class SearchCommandTest {
         SearchCommand command = new SearchCommand(predicate);
         expectedModel.updateFilteredItemList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Collections.emptyList(), model.getFilteredItemList());
+        assertEquals(Collections.emptyList(), model.getFilteredXpireItemList());
     }
 
     @Test
@@ -73,7 +73,7 @@ public class SearchCommandTest {
         SearchCommand command = new SearchCommand(predicate);
         expectedModel.updateFilteredItemList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Collections.emptyList(), model.getFilteredItemList());
+        assertEquals(Collections.emptyList(), model.getFilteredXpireItemList());
     }
 
     @Test
@@ -83,7 +83,7 @@ public class SearchCommandTest {
         SearchCommand command = new SearchCommand(predicate);
         expectedModel.updateFilteredItemList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(DUCK, JELLY), model.getFilteredItemList());
+        assertEquals(Arrays.asList(DUCK, JELLY), model.getFilteredXpireItemList());
     }
 
     @Test
@@ -95,7 +95,7 @@ public class SearchCommandTest {
         SearchCommand command = new SearchCommand(predicate);
         expectedModel.updateFilteredItemList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Collections.emptyList(), model.getFilteredItemList());
+        assertEquals(Collections.emptyList(), model.getFilteredXpireItemList());
     }
 
     @Test
@@ -105,7 +105,7 @@ public class SearchCommandTest {
         SearchCommand command = new SearchCommand(predicate);
         expectedModel.updateFilteredItemList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(BANANA, DUCK, JELLY), model.getFilteredItemList());
+        assertEquals(Arrays.asList(BANANA, DUCK, JELLY), model.getFilteredXpireItemList());
     }
 
     @Test
@@ -115,7 +115,7 @@ public class SearchCommandTest {
         SearchCommand command = new SearchCommand(predicate);
         expectedModel.updateFilteredItemList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(BANANA, DUCK), model.getFilteredItemList());
+        assertEquals(Arrays.asList(BANANA, DUCK), model.getFilteredXpireItemList());
     }
 
     /**

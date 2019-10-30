@@ -176,7 +176,7 @@ module Slim::Helpers
   # Constructs a HTML <a> tag representing a link in the navigation bar.
   #
   # @param section [String] Name of the site section represented by the link.
-  #   This is used to highlight the navigation item if the current document
+  #   This is used to highlight the navigation xpireItem if the current document
   #   sets its site-section attribute to this String, indicating that the
   #   reader is browsing this section of the site.
   # @param href [String] Path to the target page, relative to the site root.
@@ -278,19 +278,19 @@ module Slim::Helpers
       styles  << { href: [prettify_base, %(#{prettify_theme}.min.css)] }
     end
 
-    styles.each do |item|
-      if item.key?(:text)
-        tags << html_tag(:style, {}, item[:text])
+    styles.each do |xpireItem|
+      if xpireItem.key?(:text)
+        tags << html_tag(:style, {}, xpireItem[:text])
       else
-        tags << html_tag(:link, rel: 'stylesheet', href: urlize(*item[:href]))
+        tags << html_tag(:link, rel: 'stylesheet', href: urlize(*xpireItem[:href]))
       end
     end
 
-    scripts.each do |item|
-      if item.key? :text
-        tags << html_tag(:script, {type: item[:type]}, item[:text])
+    scripts.each do |xpireItem|
+      if xpireItem.key? :text
+        tags << html_tag(:script, {type: xpireItem[:type]}, xpireItem[:text])
       else
-        tags << html_tag(:script, type: item[:type], src: urlize(*item[:src]))
+        tags << html_tag(:script, type: xpireItem[:type], src: urlize(*xpireItem[:src]))
       end
     end
 

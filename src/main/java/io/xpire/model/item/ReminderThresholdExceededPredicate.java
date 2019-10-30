@@ -5,15 +5,15 @@ import java.util.function.Predicate;
 import io.xpire.commons.util.DateUtil;
 
 /**
- * Tests that a {@code Item}'s {@code ExpiryDate} falls within the date given.
+ * Tests that a {@code XpireItem}'s {@code ExpiryDate} falls within the date given.
  */
-public class ReminderThresholdExceededPredicate implements Predicate<Item> {
+public class ReminderThresholdExceededPredicate implements Predicate<XpireItem> {
 
     @Override
-    public boolean test(Item item) {
-        return DateUtil.isWithinRange(item.getReminderThreshold().getValue(),
+    public boolean test(XpireItem xpireItem) {
+        return DateUtil.isWithinRange(xpireItem.getReminderThreshold().getValue(),
                 DateUtil.getCurrentDate(),
-                item.getExpiryDate().getDate());
+                xpireItem.getExpiryDate().getDate());
     }
 
     @Override

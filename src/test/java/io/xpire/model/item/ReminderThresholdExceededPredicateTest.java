@@ -8,7 +8,7 @@ import java.time.LocalDate;
 import org.junit.jupiter.api.Test;
 
 import io.xpire.commons.util.DateUtil;
-import io.xpire.testutil.ItemBuilder;
+import io.xpire.testutil.XpireItemBuilder;
 
 public class ReminderThresholdExceededPredicateTest {
 
@@ -33,20 +33,24 @@ public class ReminderThresholdExceededPredicateTest {
     @Test
     public void test_nameReminderThresholdExceeded_returnsTrue() {
 
+
         ReminderThresholdExceededPredicate predicate = new ReminderThresholdExceededPredicate();
         LocalDate currentDate = LocalDate.now();
 
         // on the day of reminder
         String expiryDate1 = DateUtil.convertDateToString(currentDate.plusDays(1), DATE_FORMAT);
-        assertTrue(predicate.test(new ItemBuilder().withExpiryDate(expiryDate1).withReminderThreshold("1").build()));
+        assertTrue(predicate.test(new XpireItemBuilder().withExpiryDate(expiryDate1)
+                .withReminderThreshold("1").build()));
 
         // after the day of reminder
         String expiryDate2 = DateUtil.convertDateToString(currentDate.plusDays(1), DATE_FORMAT);
-        assertTrue(predicate.test(new ItemBuilder().withExpiryDate(expiryDate2).withReminderThreshold("2").build()));
+        assertTrue(predicate.test(new XpireItemBuilder().withExpiryDate(expiryDate2)
+                .withReminderThreshold("2").build()));
 
         // already expired
         String expiryDate3 = DateUtil.convertDateToString(currentDate.minusDays(1), DATE_FORMAT);
-        assertTrue(predicate.test(new ItemBuilder().withExpiryDate(expiryDate3).build()));
+        assertTrue(predicate.test(new XpireItemBuilder()
+                .withExpiryDate(expiryDate3).build()));
     }
 
     @Test
@@ -55,6 +59,7 @@ public class ReminderThresholdExceededPredicateTest {
         ReminderThresholdExceededPredicate predicate = new ReminderThresholdExceededPredicate();
         LocalDate currentDate = LocalDate.now();
         String expiryDate = DateUtil.convertDateToString(currentDate.plusDays(2), DATE_FORMAT);
-        assertFalse(predicate.test(new ItemBuilder().withExpiryDate(expiryDate).withReminderThreshold("1").build()));
+        assertFalse(predicate.test(new XpireItemBuilder().withExpiryDate(expiryDate)
+                .withReminderThreshold("1").build()));
     }
 }

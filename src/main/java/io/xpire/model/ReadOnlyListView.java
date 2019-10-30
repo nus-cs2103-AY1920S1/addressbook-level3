@@ -6,10 +6,10 @@ import javafx.collections.ObservableList;
 /**
  * Unmodifiable view of an xpire.
  */
-public interface ReadOnlyXpire {
+public interface ReadOnlyListView<T extends Item> {
     /**
-     * Returns an unmodifiable view of the item list.
+     * Returns an unmodifiable view of the xpireItem list.
      * This list will not contain any duplicate items.
      */
-    ObservableList<Item> getItemList();
+    ObservableList<T> getItemList();
 }

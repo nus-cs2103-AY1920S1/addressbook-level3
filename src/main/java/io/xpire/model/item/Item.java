@@ -1,8 +1,5 @@
 package io.xpire.model.item;
 
-import static io.xpire.model.item.Quantity.DEFAULT_QUANTITY;
-import static io.xpire.model.item.ReminderThreshold.DEFAULT_THRESHOLD;
-
 import java.util.Collections;
 import java.util.Objects;
 import java.util.Set;
@@ -13,92 +10,46 @@ import io.xpire.model.tag.Tag;
 import io.xpire.model.tag.TagComparator;
 
 /**
- * Represents a Item in Xpire.
+ * Represents an item in the replenish list.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Item {
-    // Identity fields
-    private final Name name;
-    private final ExpiryDate expiryDate;
 
-    // Data fields
-    private Quantity quantity = new Quantity(DEFAULT_QUANTITY);
+    //identity fields
+    final Name name;
+
+    //data fields
     private Set<Tag> tags = new TreeSet<>(new TagComparator());
-    private ReminderThreshold reminderThreshold = new ReminderThreshold(DEFAULT_THRESHOLD);
+
 
     /**
      * Every field must be present and not null.
-     * Only called in Tag and Edit commands.
      */
-    public Item(Name name, ExpiryDate expiryDate, Quantity quantity, Set<Tag> tags) {
-        CollectionUtil.requireAllNonNull(name, expiryDate, tags);
+    public Item(Name name, Set<Tag> tags) {
+        CollectionUtil.requireAllNonNull(name, tags);
         this.name = name;
-        this.expiryDate = expiryDate;
-        this.quantity = quantity;
         this.tags.addAll(tags);
     }
 
     /**
      * Every field must be present and not null.
-     * Tags are optional.
      */
-    public Item(Name name, ExpiryDate expiryDate, Quantity quantity) {
-        CollectionUtil.requireAllNonNull(name, expiryDate);
+    public Item(Name name) {
+        CollectionUtil.requireAllNonNull(name);
         this.name = name;
-        this.expiryDate = expiryDate;
-        this.quantity = quantity;
     }
 
     /**
      * Every field must be present and not null.
-     * Quantity is optional.
+     * Used for testing.
      */
-    public Item(Name name, ExpiryDate expiryDate) {
-        CollectionUtil.requireAllNonNull(name, expiryDate);
-        this.name = name;
-        this.expiryDate = expiryDate;
-    }
-
-    /**
-     * Constructor with all parameters for ItemBuilder class. (Used in testing)
-     */
-    public Item(Name name, ExpiryDate expiryDate, Quantity quantity, Set<Tag> tags,
-                ReminderThreshold reminderThreshold) {
-        CollectionUtil.requireAllNonNull(name, expiryDate, tags);
-        this.name = name;
-        this.expiryDate = expiryDate;
-        this.quantity = quantity;
-        this.tags.addAll(tags);
-        this.reminderThreshold = reminderThreshold;
-    }
-
     public Item(Item item) {
         this.name = item.getName();
-        this.expiryDate = item.getExpiryDate();
-        this.quantity = item.getQuantity();
         this.tags = item.getTags();
-        this.reminderThreshold = item.getReminderThreshold();
     }
 
     public Name getName() {
         return this.name;
-    }
-
-    public ExpiryDate getExpiryDate() {
-        return this.expiryDate;
-    }
-
-    public Quantity getQuantity() {
-        return this.quantity;
-    }
-
-    /**
-     * Sets and overrides the quantity.
-     *
-     * @param newQuantity Quantity to be updated.
-     */
-    public void setQuantity(Quantity newQuantity) {
-        this.quantity = newQuantity;
     }
 
     /**
@@ -119,25 +70,7 @@ public class Item {
     }
 
     /**
-     * Returns the reminder threshold.
-     *
-     * @return {@code ReminderThreshold} object.
-     */
-    public ReminderThreshold getReminderThreshold() {
-        return this.reminderThreshold;
-    }
-
-    /**
-     * Sets and overrides the reminder threshold.
-     *
-     * @param reminderThreshold reminder threshold.
-     */
-    public void setReminderThreshold(ReminderThreshold reminderThreshold) {
-        this.reminderThreshold = reminderThreshold;
-    }
-
-    /**
-     * Returns true if both items of the same name have at least one other identity field that is the same.
+     * Returns true if both items are of the same name.
      * This defines a weaker notion of equality between two items.
      */
     public boolean isSameItem(Item other) {
@@ -145,23 +78,8 @@ public class Item {
             return true;
         } else {
             return other != null
-                    && this.name.equals(other.name)
-                    && this.expiryDate.equals(other.expiryDate);
+                    && this.name.equals(other.name);
         }
-    }
-
-    /**
-     * Returns {@Code true} if the item has expired.
-     */
-    public boolean isExpired() {
-        return this.getExpiryDate().isExpired();
-    }
-
-    /**
-     * Returns {@Code true} if the item has a {@Code ReminderThreshold}.
-     */
-    public boolean hasReminderThreshold() {
-        return !this.reminderThreshold.equals(new ReminderThreshold(DEFAULT_THRESHOLD));
     }
 
     /**
@@ -177,25 +95,20 @@ public class Item {
         } else {
             Item other = (Item) obj;
             return this.name.equals(other.name)
-                    && this.expiryDate.equals(other.expiryDate)
-                    && this.tags.equals(other.tags)
-                    && this.quantity.equals(other.quantity)
-                    && this.reminderThreshold.equals(other.reminderThreshold);
+                    && this.tags.equals(other.tags);
         }
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(this.name, this.expiryDate, this.tags, this.quantity, this.reminderThreshold);
+        return Objects.hash(this.name, this.tags);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(this.name.toString() + "\n")
-                .append("Expiry date: " + this.expiryDate.toStringWithCountdown() + "\n")
-                .append("Quantity: " + this.quantity.toString());
+        builder.append(this.name.toString() + "\n");
         if (!this.getTags().isEmpty()) {
             builder.append("\nTags: ");
             this.getTags().forEach((builder::append));

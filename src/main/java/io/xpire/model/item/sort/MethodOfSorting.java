@@ -1,80 +1,21 @@
 package io.xpire.model.item.sort;
 
-import static java.util.Objects.requireNonNull;
-
 import java.util.Comparator;
 
-import io.xpire.commons.util.AppUtil;
 import io.xpire.model.item.Item;
 
 /**
- * Represents a MethodOfSorting in the expiry date tracker.
- * Guarantees: immutable; name is valid as declared in {@link #isValidMethodOfSorting(String)}
+ * The method of sorting.
+ * @param <T> The class item to be sorted.
  */
-public class MethodOfSorting {
+public interface MethodOfSorting<T extends Item> {
 
-    public static final String MESSAGE_CONSTRAINTS = "Sorting can only be done by 'name' or 'date'.";
-    public static final String SORT_NAME = "name";
-    public static final String SORT_DATE = "date";
-    private final Comparator<Item> nameSorter = Comparator.comparing(l->l.getName().toString(),
-            String.CASE_INSENSITIVE_ORDER);
-    private final Comparator<Item> dateSorter = Comparator.comparing(l->l.getExpiryDate().getDate(),
-            Comparator.nullsFirst(Comparator.naturalOrder()));
-    private final Comparator<Item>nameThenDateSorter = nameSorter.thenComparing(dateSorter);
-    private final String method;
+    String SORT_NAME = "name";
+    String SORT_DATE = "date";
 
-    /**
-     * Constructs a {@code MethodOfSorting}.
-     * @param method A valid method of sorting.
-     */
-    public MethodOfSorting(String method) {
-        requireNonNull(method);
-        AppUtil.checkArgument(isValidMethodOfSorting(method), MESSAGE_CONSTRAINTS);
-        this.method = method;
-    }
-
-    /**
-     * Returns true if a given string is a valid method of sorting.
-     */
-    public static boolean isValidMethodOfSorting(String test) {
+    static boolean isValidMethodOfSorting(String test) {
         return (test.equals(SORT_NAME) || test.equals(SORT_DATE));
     }
 
-    /**
-     * Returns a comparator for the given method of sorting.
-     */
-    public Comparator<Item> getComparator() {
-        switch (method) {
-        case "date":
-            return dateSorter;
-        default:
-            return nameThenDateSorter;
-        }
-    }
-
-    /**
-     * Returns the string value of the method of sorting.
-     * @return The string representation of the method of sorting.
-     */
-    @Override
-    public String toString() {
-        return this.method;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == this) {
-            return true;
-        } else if (!(obj instanceof MethodOfSorting)) {
-            return false;
-        } else {
-            MethodOfSorting other = (MethodOfSorting) obj;
-            return this.method.equals(other.method);
-        }
-    }
-
-    @Override
-    public int hashCode() {
-        return method.hashCode();
-    }
+    Comparator<T> getComparator();
 }

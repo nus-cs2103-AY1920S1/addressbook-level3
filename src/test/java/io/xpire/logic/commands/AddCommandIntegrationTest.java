@@ -9,9 +9,9 @@ import org.junit.jupiter.api.Test;
 import io.xpire.model.Model;
 import io.xpire.model.ModelManager;
 import io.xpire.model.UserPrefs;
-import io.xpire.model.item.Item;
-import io.xpire.testutil.ItemBuilder;
+import io.xpire.model.item.XpireItem;
 import io.xpire.testutil.TypicalItems;
+import io.xpire.testutil.XpireItemBuilder;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code AddCommand}.
@@ -22,24 +22,24 @@ public class AddCommandIntegrationTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(TypicalItems.getTypicalExpiryDateTracker(), new UserPrefs());
+        model = new ModelManager(TypicalItems.getTypicalLists(), new UserPrefs());
     }
 
     @Test
     public void execute_newItem_success() {
-        Item validItem = new ItemBuilder().build();
+        XpireItem validXpireItem = new XpireItemBuilder().build();
 
-        Model expectedModel = new ModelManager(model.getXpire(), new UserPrefs());
-        expectedModel.addItem(validItem);
+        Model expectedModel = new ModelManager(model.getLists(), new UserPrefs());
+        expectedModel.addItem(validXpireItem);
 
-        assertCommandSuccess(new AddCommand(validItem), model,
-                String.format(AddCommand.MESSAGE_SUCCESS, validItem), expectedModel);
+        assertCommandSuccess(new AddCommand(validXpireItem), model,
+                String.format(AddCommand.MESSAGE_SUCCESS, validXpireItem), expectedModel);
     }
 
     @Test
     public void execute_duplicateItem_throwsCommandException() {
-        Item itemInList = model.getXpire().getItemList().get(0);
-        assertCommandFailure(new AddCommand(itemInList), model, AddCommand.MESSAGE_DUPLICATE_ITEM);
+        XpireItem xpireItemInList = (XpireItem) model.getLists()[0].getItemList().get(0);
+        assertCommandFailure(new AddCommand(xpireItemInList), model, AddCommand.MESSAGE_DUPLICATE_ITEM);
     }
 
 }

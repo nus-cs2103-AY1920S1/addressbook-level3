@@ -1,0 +1,25 @@
+@startuml
+!include style.puml
+group sd set method of sorting as default
+box Model MODEL_COLOR_T1
+participant ":SortedUniqueItemList" as SortedUniqueItemList MODEL_COLOR
+participant ":ObservableList" as ObservableList MODEL_COLOR
+participant ":MethodOfSorting" as MethodOfSorting MODEL_COLOR
+end box
+
+
+activate SortedUniqueItemList
+SortedUniqueItemList -> ObservableList: add("Strawberry")
+activate ObservableList
+
+ObservableList -> SortedUniqueItemList
+deactivate ObservableList
+
+create MethodOfSorting
+SortedUniqueItemList -> MethodOfSorting : new MethodOfSorting("name")
+activate MethodOfSorting
+
+MethodOfSorting --> SortedUniqueItemList :
+deactivate MethodOfSorting
+end
+@enduml

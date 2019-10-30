@@ -220,7 +220,7 @@ public class StringUtilTest {
     //---------------- Tests for getSuggestions --------------------------------------
     @Test
     public void getSuggestions() {
-        Set<Name> allItems = TypicalItems.getTypicalItems()
+        Set<Name> allItems = TypicalItems.getTypicalXpireItems()
                                          .stream()
                                          .map(x-> x.getName())
                                          .collect(Collectors.toSet());
@@ -242,7 +242,7 @@ public class StringUtilTest {
     //---------------- Tests for findSimilar --------------------------------------
     @Test
     public void findSimilar() {
-        Set<Name> allItems = TypicalItems.getTypicalItems()
+        Set<Name> allItems = TypicalItems.getTypicalXpireItems()
                                          .stream()
                                          .map(x-> x.getName())
                                          .collect(Collectors.toSet());

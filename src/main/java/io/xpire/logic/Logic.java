@@ -7,7 +7,7 @@ import io.xpire.logic.commands.CommandResult;
 import io.xpire.logic.commands.exceptions.CommandException;
 import io.xpire.logic.parser.exceptions.ParseException;
 import io.xpire.model.Model;
-import io.xpire.model.ReadOnlyXpire;
+import io.xpire.model.ReadOnlyListView;
 import io.xpire.model.item.Item;
 import javafx.collections.ObservableList;
 
@@ -26,19 +26,20 @@ public interface Logic {
     CommandResult execute(String commandText) throws CommandException, ParseException;
 
     /**
-     * Returns an xpire object.
+     * Returns an array containing both a replenish list object and xpire object.
      *
-     * @see Model#getXpire()
+     * @see Model#getLists()
+     * @return array of ReadOnlyListView objects.
      */
-    ReadOnlyXpire getXpire();
+    ReadOnlyListView<? extends Item>[] getLists();
 
-    /** Returns an unmodifiable view of the filtered list of items */
-    ObservableList<Item> getFilteredItemList();
+    /** Returns an unmodifiable view of the current filtered list of items */
+    ObservableList<? extends Item> getCurrentFilteredItemList();
 
     /**
      * Returns the user prefs' xpire file path.
      */
-    Path getXpireFilePath();
+    Path getListFilePath();
 
     /**
      * Returns the user prefs' GUI settings.

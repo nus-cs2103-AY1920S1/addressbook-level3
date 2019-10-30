@@ -20,14 +20,17 @@ import org.junit.jupiter.api.Test;
 import io.xpire.commons.core.GuiSettings;
 import io.xpire.logic.commands.exceptions.CommandException;
 import io.xpire.model.Model;
+import io.xpire.model.ReadOnlyListView;
 import io.xpire.model.ReadOnlyUserPrefs;
-import io.xpire.model.ReadOnlyXpire;
+import io.xpire.model.ReplenishList;
 import io.xpire.model.Xpire;
 import io.xpire.model.item.Item;
+import io.xpire.model.item.ListToView;
 import io.xpire.model.item.Name;
-import io.xpire.model.item.sort.MethodOfSorting;
+import io.xpire.model.item.XpireItem;
+import io.xpire.model.item.sort.XpireMethodOfSorting;
 import io.xpire.model.tag.Tag;
-import io.xpire.testutil.ItemBuilder;
+import io.xpire.testutil.XpireItemBuilder;
 import javafx.collections.ObservableList;
 
 
@@ -41,7 +44,7 @@ public class AddCommandTest {
     @Test
     public void execute_itemAcceptedByModel_addSuccessful() throws Exception {
         ModelStubAcceptingItemAdded modelStub = new ModelStubAcceptingItemAdded();
-        Item kiwi = new ItemBuilder().withName(VALID_NAME_KIWI)
+        XpireItem kiwi = new XpireItemBuilder().withName(VALID_NAME_KIWI)
                                             .withExpiryDate(VALID_EXPIRY_DATE_KIWI)
                                             .withQuantity("1").build();
         CommandResult commandResult = new AddCommand(kiwi).execute(modelStub);
@@ -51,7 +54,7 @@ public class AddCommandTest {
 
     @Test
     public void execute_duplicateItem_throwsCommandException() {
-        Item kiwi = new ItemBuilder().withName(VALID_NAME_KIWI)
+        XpireItem kiwi = new XpireItemBuilder().withName(VALID_NAME_KIWI)
                 .withExpiryDate(VALID_EXPIRY_DATE_KIWI)
                 .withQuantity("1").build();
         AddCommand addCommand = new AddCommand(kiwi);
@@ -62,8 +65,8 @@ public class AddCommandTest {
 
     @Test
     public void equals() {
-        Item apple = new ItemBuilder().withName("Apple").build();
-        Item banana = new ItemBuilder().withName("Banana").build();
+        XpireItem apple = new XpireItemBuilder().withName("Apple").build();
+        XpireItem banana = new XpireItemBuilder().withName("Banana").build();
         AddCommand addAppleCommand = new AddCommand(apple);
         AddCommand addBananaCommand = new AddCommand(banana);
 
@@ -80,7 +83,7 @@ public class AddCommandTest {
         // null -> returns false
         assertFalse(addAppleCommand.equals(null));
 
-        // different item -> returns false
+        // different xpireItem -> returns false
         assertFalse(addAppleCommand.equals(addBananaCommand));
     }
 
@@ -109,42 +112,47 @@ public class AddCommandTest {
         }
 
         @Override
-        public Path getXpireFilePath() {
+        public Path getListFilePath() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setXpireFilePath(Path xpireFilePath) {
+        public void setListFilePath(Path listFilePath) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void addItem(Item item) {
+        public void addItem(XpireItem xpireItem) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setXpire(ReadOnlyXpire newData) {
+        public void setXpire(ReadOnlyListView<XpireItem> newData) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyXpire getXpire() {
+        public ReadOnlyListView<? extends Item>[] getLists() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public boolean hasItem(Item item) {
+        public ReadOnlyListView<XpireItem> getXpire() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void deleteItem(Item target) {
+        public boolean hasItem(XpireItem xpireItem) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setItem(Item target, Item editedItem) {
+        public void deleteItem(XpireItem target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setItem(XpireItem target, XpireItem editedXpireItem) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -159,65 +167,145 @@ public class AddCommandTest {
         }
 
         @Override
-        public void sortItemList(MethodOfSorting method) {
+        public void sortItemList(XpireMethodOfSorting method) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ObservableList<Item> getFilteredItemList() {
+        public ObservableList<XpireItem> getFilteredXpireItemList() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public List<Item> getAllItemList() {
+        public ObservableList<? extends Item> getCurrentFilteredItemList() {
+            return null;
+        }
+
+        @Override
+        public List<XpireItem> getAllItemList() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void updateFilteredItemList(Predicate<Item> predicate) {
+        public void updateFilteredItemList(Predicate<? extends Item> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredXpireItemList(Predicate<XpireItem> predicate) {
+
+        }
+
+        @Override
+        public void setCurrentFilteredItemList(ListToView list) {
+
+        }
+
+        @Override
+        public void setReplenishList(ReadOnlyListView<Item> replenishList) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyListView<Item> getReplenishList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasReplenishItem(Item item) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteReplenishItem(Item target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addReplenishItem(Item item) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setReplenishItem(Item target, Item editedItem) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Set<Tag> getAllReplenishItemTags() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Set<Name> getAllReplenishItemNames() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Item> getFilteredReplenishItemList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredReplenishItemList(Predicate<Item> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public List<Item> getReplenishItemList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateItemTags() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void shiftItemToReplenishList(XpireItem xpireItem) {
             throw new AssertionError("This method should not be called.");
         }
     }
 
     /**
-     * A Model stub that contains a single item.
+     * A Model stub that contains a single xpireItem.
      */
     private class ModelStubWithItem extends ModelStub {
-        private final Item item;
+        private final XpireItem xpireItem;
 
-        ModelStubWithItem(Item item) {
-            requireNonNull(item);
-            this.item = item;
+        ModelStubWithItem(XpireItem xpireItem) {
+            requireNonNull(xpireItem);
+            this.xpireItem = xpireItem;
         }
 
         @Override
-        public boolean hasItem(Item item) {
-            requireNonNull(item);
-            return this.item.isSameItem(item);
+        public boolean hasItem(XpireItem xpireItem) {
+            requireNonNull(xpireItem);
+            return this.xpireItem.isSameItem(xpireItem);
         }
     }
 
     /**
-     * A Model stub that always accept the item being added.
+     * A Model stub that always accept the xpireItem being added.
      */
     private class ModelStubAcceptingItemAdded extends ModelStub {
-        final ArrayList<Item> itemsAdded = new ArrayList<>();
+        final ArrayList<XpireItem> itemsAdded = new ArrayList<>();
 
         @Override
-        public boolean hasItem(Item item) {
-            requireNonNull(item);
-            return itemsAdded.stream().anyMatch(item::isSameItem);
+        public boolean hasItem(XpireItem xpireItem) {
+            requireNonNull(xpireItem);
+            return itemsAdded.stream().anyMatch(xpireItem::isSameItem);
         }
 
         @Override
-        public void addItem(Item item) {
-            requireNonNull(item);
-            itemsAdded.add(item);
+        public void addItem(XpireItem xpireItem) {
+            requireNonNull(xpireItem);
+            itemsAdded.add(xpireItem);
         }
 
         @Override
-        public ReadOnlyXpire getXpire() {
-            return new Xpire();
+        public ReadOnlyListView<? extends Item>[] getLists() {
+            return new ReadOnlyListView[]{new Xpire(), new ReplenishList()};
         }
     }
 
