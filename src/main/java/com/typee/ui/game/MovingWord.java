@@ -61,6 +61,10 @@ public class MovingWord extends UiPart<Pane> {
      * Updates the player's score and health according to player's input.
      */
     private void update() {
+        if (player.getGameOverProperty().get()) {
+            disappear();
+            return;
+        }
         getRoot().setLayoutY(getRoot().getLayoutY() + fallingRate);
         getRoot().getChildren().clear();
         getRoot().getChildren().add(TextHighlighter.convertToTextFlowUsing(player.getInputText(), word));
