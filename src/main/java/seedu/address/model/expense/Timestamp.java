@@ -4,6 +4,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
@@ -118,12 +119,24 @@ public class Timestamp implements Comparable<Timestamp> {
         return new Timestamp(fullTimestamp.toLocalDate().atStartOfDay());
     }
 
+    public Timestamp toEndOfDay() {
+        return new Timestamp(fullTimestamp.toLocalDate().atTime(LocalTime.MAX));
+    }
+
     public boolean isBefore(Timestamp other) {
         return this.fullTimestamp.isBefore(other.fullTimestamp);
     }
 
     public boolean isAfter(Timestamp other) {
         return this.fullTimestamp.isAfter(other.fullTimestamp);
+    }
+
+    public boolean dateIsAfter(Timestamp other) {
+        return this.fullTimestamp.toLocalDate().isAfter(other.fullTimestamp.toLocalDate());
+    }
+
+    public boolean dateIsBefore(Timestamp other) {
+        return this.fullTimestamp.toLocalDate().isBefore(other.fullTimestamp.toLocalDate());
     }
 
     public Timestamp createBackwardTimestamp() {

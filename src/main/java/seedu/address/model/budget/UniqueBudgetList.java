@@ -64,7 +64,7 @@ public class UniqueBudgetList implements Iterable<Budget> {
         }
         internalList.add(toAdd);
         if (internalList.size() > 1) {
-            getDefaultBudget().setNotPrimary();
+            getDefaultBudget().setToNotPrimary();
         }
     }
 
@@ -91,12 +91,12 @@ public class UniqueBudgetList implements Iterable<Budget> {
         for (Budget b : internalList) {
             if (b.isPrimary()) {
                 Budget b1 = Budget.deepCopy(b);
-                b1.setNotPrimary();
+                b1.setToNotPrimary();
                 setBudget(b, b1);
             }
         }
         Budget b1 = Budget.deepCopy(budget);
-        b1.setPrimary();
+        b1.setToPrimary();
         setBudget(budget, b1);
     }
 
@@ -118,7 +118,7 @@ public class UniqueBudgetList implements Iterable<Budget> {
     public void changePrimaryBudgetWindow(Timestamp pastDate) {
         requireAllNonNull(pastDate);
 
-        if (pastDate.getDate().isAfter(getPrimaryBudget().getStartDate().getDate().minusDays(1))) {
+        if (pastDate.dateIsAfter(getPrimaryBudget().getStartDate().minusDays(1))) {
             throw new NotPastPeriodException();
         }
         Budget copy = Budget.deepCopy(getPrimaryBudget());
