@@ -1,124 +1,108 @@
 package seedu.address.model.reminders.conditions;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.util.function.Predicate;
+import java.util.logging.Logger;
 
-import seedu.address.model.person.Description;
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.person.Entry;
 
 /**
  * Tells reminder when to activate. All types of conditions extend form this class.
+ * Functions as an observable.
  */
 public abstract class Condition {
-    private Description description;
-    private TrackerType trackerType = TrackerType.none;
+    private String conditionType;
     private Predicate<Entry> pred;
-    private long currSum;
-    private long trackerQuota;
-    private Status status = Status.unmet;
-    public Condition(Description desc) {
-        this.description = desc;
-        this.pred = pred;
+    private PropertyChangeSupport support = new PropertyChangeSupport(this);
+    private Entry beingAdded = null;
+    private Entry beingRemoved = null;
+    private final Logger logger = LogsCenter.getLogger(getClass());
+
+    public Condition(String conditionType) {
+        this.conditionType = conditionType;
     }
-    /**
-     * checks if condition is met.
-     * @param entry
-     */
-    public void update(Entry entry) {
-        if (trackerType == TrackerType.none) {
-            if (pred.test(entry)) {
-                status = Status.met;
-            }
-        } else if (trackerType == TrackerType.num) {
-            if (pred.test(entry)) {
-                currSum += 1;
-                if (currSum == trackerQuota) {
-                    status = Status.met;
-                } else if (currSum > trackerQuota) {
-                    status = Status.exceeded;
-                }
-            }
-        } else if (trackerType == TrackerType.amount) {
-            if (pred.test(entry)) {
-                currSum += entry.getAmount().value;
-                if (currSum == trackerQuota) {
-                    status = Status.met;
-                } else if (currSum > trackerQuota) {
-                    status = Status.exceeded;
-                }
-            }
-        }
+    public String getConditionType() {
+        return conditionType;
     }
-    public Description getDesc() {
-        return description;
-    }
-    public Status getStatus() {
-        return status;
+    protected Predicate<Entry> getPred() {
+        return pred;
     }
     protected void setPred(Predicate<Entry> pred) {
         this.pred = pred;
     }
-    public void setTracker(String trackerType, long quota) {
-        parseTracker(trackerType);
-        if (!trackerType.equals(TrackerType.none)) {
-            currSum = 0;
-            this.trackerQuota = quota;
-        }
+    protected Entry getBeingAdded() {
+        return beingAdded;
     }
-    public void setTracker(String trackerType, long currSum, long quota) {
-        parseTracker(trackerType);
-        if (!trackerType.equals(TrackerType.none)) {
-            this.currSum = currSum;
-            this.trackerQuota = quota;
-        }
+    protected Entry getBeingRemoved() {
+        return beingRemoved;
     }
-
-    public enum TrackerType {
-        none,
-        num,
-        amount;
-        @Override
-        public String toString() {
-            switch(this) {
-            case num:
-                return "num";
-            case amount:
-                return "amount";
-            default:
-                return "none";
-
-            }
+    /**
+     * checks if condition is met. Triggered when entry is added/ entry is replacing another entry.
+     * @param entry
+     */
+    public void addEntryUpdate(Entry entry) {
+        if (pred.test(entry)) {
+            support.firePropertyChange("beingAdded", beingAdded, entry);
+            logger.info("Entry added: condition met. Updating "
+                    + support.getPropertyChangeListeners().length + " reminder(s)");
+            beingAdded = entry;
         }
     }
     /**
-     * converts String to TrackerType.
-     * @param trackerType
+     * checks if condition is met. Triggered when entry is removed/ entry is being replaced by another entry.
+     * @param entry
      */
-    private void parseTracker(String trackerType) {
-        switch (trackerType) {
-        case "none":
-            this.trackerType = TrackerType.none;
-            break;
-        case "num":
-            this.trackerType = TrackerType.num;
-            break;
-        case "amount":
-            this.trackerType = TrackerType.amount;
-            break;
+    public void removeEntryUpdate(Entry entry) {
+        if (pred.test(entry)) {
+            support.firePropertyChange("beingRemoved", beingRemoved, entry);
+            beingRemoved = entry;
         }
     }
-
-    public TrackerType getTrackerType() {
-        return trackerType;
+    public PropertyChangeSupport getSupport() {
+        return support;
     }
-    public long getCurrSum() {
-        return currSum;
+    public void addPropertyChangeListener(PropertyChangeListener pcl) {
+        support.addPropertyChangeListener(pcl);
     }
-    public long getTrackerQuota() {
-        return trackerQuota;
+    public void removePropertyChangeListener(PropertyChangeListener pcl) {
+        support.removePropertyChangeListener(pcl);
     }
-    private enum Status {
-        unmet,
-        met,
-        exceeded
+    @Override
+    public boolean equals(Object other) {
+        if (this instanceof ClassCondition) {
+            if (other instanceof ClassCondition) {
+                return ((ClassCondition) this).equals((ClassCondition) other);
+            } else {
+                return false;
+            }
+        } else if (this instanceof DateCondition) {
+            if (other instanceof DateCondition) {
+                return ((DateCondition) this).equals((DateCondition) other);
+            } else {
+                return false;
+            }
+        } else if (this instanceof KeyWordsCondition) {
+            if (other instanceof KeyWordsCondition) {
+                return ((KeyWordsCondition) this).equals((KeyWordsCondition) other);
+            } else {
+                return false;
+            }
+        } else if (this instanceof QuotaCondition) {
+            if (other instanceof QuotaCondition) {
+                return ((QuotaCondition) this).equals((QuotaCondition) other);
+            } else {
+                return false;
+            }
+        } else if (this instanceof TagsCondition) {
+            if (other instanceof TagsCondition) {
+                return ((TagsCondition) this).equals((TagsCondition) other);
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
     }
 }

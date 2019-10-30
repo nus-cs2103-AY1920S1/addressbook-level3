@@ -3,7 +3,6 @@ package seedu.address.model.reminders.conditions;
 import java.util.List;
 import java.util.function.Predicate;
 
-import seedu.address.model.person.Description;
 import seedu.address.model.person.Entry;
 import seedu.address.model.tag.Tag;
 
@@ -19,8 +18,8 @@ public class TagsCondition extends Condition {
                     .anyMatch(tag -> entry.getTags().contains(tag));
         }
     };
-    public TagsCondition(Description desc, List<Tag> tags) {
-        super(desc);
+    public TagsCondition(List<Tag> tags) {
+        super("Tags Condition");
         this.tags = tags;
         super.setPred(hasTagsPredicate);
     }

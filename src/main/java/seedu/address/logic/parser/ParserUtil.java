@@ -6,7 +6,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
@@ -17,6 +19,7 @@ import seedu.address.model.person.Description;
 import seedu.address.model.person.PanelName;
 import seedu.address.model.person.SortSequence;
 import seedu.address.model.person.SortType;
+import seedu.address.model.reminders.Reminder;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -38,7 +41,29 @@ public class ParserUtil {
         }
         return Index.fromOneBased(Integer.parseInt(trimmedIndex));
     }
+    /**
+     * Parses {@code String indexes} into a {@code List<Index}.
+     */
+    public static List<Index> parseIndexes(String indexes) throws ParseException {
+        String[] indexArr = indexes.split(",");
+        List<Index> indexList = new ArrayList<>();
+        for (String indexString : indexArr) {
+            indexList.add(parseIndex(indexString));
+        }
+        return indexList;
+    }
 
+    /**
+     * Parses {@code Collection<String> tags} into a {@code List<Index>}.
+     */
+    public static List<Index> parseIndexes(Collection<String> indexes) throws ParseException {
+        requireNonNull(indexes);
+        final List<Index> indexList = new ArrayList<>();
+        for (String indexString : indexes) {
+            indexList.add(parseIndex(indexString));
+        }
+        return indexList;
+    }
     /**
      * Parses a {@code String name} into a {@code Name}.
      * Leading and trailing whitespaces will be trimmed.
@@ -143,6 +168,28 @@ public class ParserUtil {
     }
 
     /**
+     * Parses {@code String tags} into a {@code List<Tag>}.
+     */
+    public static List<Tag> parseTags(String tags) throws ParseException {
+        requireNonNull(tags);
+        final List<String> tagNames = Arrays.asList(tags.trim().split(","));
+        final List<Tag> tagList = new ArrayList();
+        for (String tagName : tagNames) {
+            tagList.add(parseTag(tagName));
+        }
+        return tagList;
+    }
+
+
+    /**
+     * Parses {@code String keywords} into a {@code List<String>}.
+     */
+    public static List<String> parseKeyWords(String keyWords) throws ParseException {
+        requireNonNull(keyWords);
+        final List<String> keyWordList = Arrays.asList(keyWords.trim().split(","));
+        return keyWordList;
+    }
+    /**
      * Parses {@code String panelNamee} into a {@code PanelName}.
      */
     public static PanelName parsePanelName(String panelName) throws ParseException {
@@ -171,4 +218,14 @@ public class ParserUtil {
         return new PanelName(trimmedPanelName);
     }
 
+    /**
+     * Parses {@code String trackerType} into {@code TrackerType}
+     * @param trackerType
+     * @return
+     * @throws ParseException
+     */
+    public static Reminder.TrackerType parseTrackerType(String trackerType) throws ParseException {
+        requireNonNull(trackerType);
+        return Reminder.TrackerType.parse(trackerType);
+    }
 }

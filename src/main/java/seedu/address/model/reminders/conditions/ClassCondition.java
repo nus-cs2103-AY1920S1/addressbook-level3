@@ -4,7 +4,6 @@ import java.util.function.Predicate;
 
 import seedu.address.model.person.AutoExpense;
 import seedu.address.model.person.Budget;
-import seedu.address.model.person.Description;
 import seedu.address.model.person.Entry;
 import seedu.address.model.person.Expense;
 import seedu.address.model.person.Income;
@@ -14,13 +13,34 @@ import seedu.address.model.person.Wish;
  * Condition is met when entry is of a specific class.
  */
 public class ClassCondition extends Condition {
-    private enum EntryType {
+    /**
+     * determines what type of entry will meet the condition.
+     */
+    public enum EntryType {
         ENTRY,
         EXPENSE,
         INCOME,
         WISH,
         AUTOEXPENSE,
-        BUDGET
+        BUDGET;
+
+        @Override
+        public String toString() {
+            switch (this) {
+            case EXPENSE:
+                return "expense";
+            case INCOME:
+                return "income";
+            case WISH:
+                return "wish";
+            case AUTOEXPENSE:
+                return "autoexpense";
+            case BUDGET:
+                return "budget";
+            default:
+                return "entry";
+            }
+        }
     }
     private EntryType entryType;
     private Predicate<Entry> classPredicate = new Predicate<>() {
@@ -43,8 +63,8 @@ public class ClassCondition extends Condition {
             }
         }
     };
-    public ClassCondition(Description desc, String entryType) {
-        super(desc);
+    public ClassCondition(String entryType) {
+        super("Class Condition");
         super.setPred(classPredicate);
         parseType(entryType);
     }
@@ -72,6 +92,8 @@ public class ClassCondition extends Condition {
         case "budget":
             this.entryType = EntryType.BUDGET;
             break;
+        default:
+            throw new IllegalArgumentException();
         }
     }
 
@@ -94,6 +116,24 @@ public class ClassCondition extends Condition {
         default:
             assert(entryType.equals(EntryType.ENTRY));
             return "entry";
+        }
+    }
+
+    public EntryType getEntryType() {
+        return entryType;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) {
+            return true;
+        } else {
+            if (!(other instanceof ClassCondition)) {
+                return false;
+            } else {
+                ClassCondition otherCondition = (ClassCondition) other;
+                return this.entryType.equals(((ClassCondition) other).entryType);
+            }
         }
     }
 }

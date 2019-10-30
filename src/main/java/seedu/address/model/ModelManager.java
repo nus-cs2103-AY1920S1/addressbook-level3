@@ -16,13 +16,12 @@ import seedu.address.model.person.AutoExpense;
 import seedu.address.model.person.Budget;
 import seedu.address.model.person.Entry;
 import seedu.address.model.person.Expense;
-import seedu.address.model.reminders.ExpenseReminder;
-import seedu.address.model.reminders.ExpenseTrackerManager;
 import seedu.address.model.person.Income;
 import seedu.address.model.person.SortSequence;
 import seedu.address.model.person.SortType;
 import seedu.address.model.person.Wish;
-import seedu.address.model.reminders.WishReminder;
+import seedu.address.model.reminders.Reminder;
+import seedu.address.model.reminders.conditions.Condition;
 import seedu.address.model.util.EntryComparator;
 
 /**
@@ -40,10 +39,9 @@ public class ModelManager implements Model {
     private final FilteredList<Budget> filteredBudgets;
     private final FilteredList<AutoExpense> filteredAutoExpenses;
     private final SortedList<Entry> sortedEntryList;
-    private final FilteredList<ExpenseReminder> filteredExpenseReminders;
-    private final ExpenseTrackerManager expenseTrackers;
+    private final FilteredList<Reminder> filteredReminders;
+    private final FilteredList<Condition> filteredConditions;
     private final VersionedAddressBook versionedAddressBook;
-    private final FilteredList<WishReminder> filteredWishReminders;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -64,11 +62,8 @@ public class ModelManager implements Model {
         sortedEntryList = new SortedList<>(versionedAddressBook.getEntryList());
         sortedEntryList.setComparator(new EntryComparator(sortByTime, sortByAsc));
         filteredEntries = new FilteredList<>(sortedEntryList);
-        filteredExpenseReminders = new FilteredList<>(versionedAddressBook.getExpenseReminderList());
-        filteredWishReminders = new FilteredList<>(versionedAddressBook.getWishReminderList());
-        expenseTrackers = new ExpenseTrackerManager(versionedAddressBook.getExpenseTrackerList());
-        expenseTrackers.track(filteredExpenses);
-        versionedAddressBook.updateExpenseReminders();
+        filteredReminders = new FilteredList<>(versionedAddressBook.getReminderList());
+        filteredConditions = new FilteredList<>(versionedAddressBook.getConditionList());
     }
 
     public ModelManager() {
@@ -131,9 +126,15 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean hasExpenseReminder(ExpenseReminder reminder) {
+    public boolean hasReminder(Reminder reminder) {
         requireNonNull(reminder);
-        return versionedAddressBook.hasExpenseReminder(reminder);
+        return versionedAddressBook.hasReminder(reminder);
+    }
+
+    @Override
+    public boolean hasCondition(Condition condition) {
+        requireNonNull(condition);
+        return versionedAddressBook.hasCondition(condition);
     }
 
     @Override
@@ -141,8 +142,6 @@ public class ModelManager implements Model {
         versionedAddressBook.removeEntry(target);
         if (target instanceof Expense) {
             versionedAddressBook.removeExpense((Expense) target);
-            expenseTrackers.track(filteredExpenses);
-            versionedAddressBook.updateExpenseReminders();
         } else if (target instanceof Income) {
             versionedAddressBook.removeIncome((Income) target);
         } else if (target instanceof Wish) {
@@ -150,42 +149,58 @@ public class ModelManager implements Model {
         } else if (target instanceof Budget) {
             versionedAddressBook.removeBudget((Budget) target);
         }
+        filteredReminders.filtered(PREDICATE_SHOW_ACTIVE_REMINDERS);
+        filteredReminders.filtered(PREDICATE_SHOW_ALL_REMINDERS);
     }
 
     @Override
     public void deleteExpense(Expense target) {
         versionedAddressBook.removeEntry(target);
         versionedAddressBook.removeExpense(target);
-        expenseTrackers.track(filteredExpenses);
-        versionedAddressBook.updateExpenseReminders();
+        filteredReminders.filtered(PREDICATE_SHOW_ACTIVE_REMINDERS);
+        filteredReminders.filtered(PREDICATE_SHOW_ALL_REMINDERS);
     }
 
     @Override
     public void deleteIncome(Income target) {
         versionedAddressBook.removeEntry(target);
         versionedAddressBook.removeIncome(target);
+        filteredReminders.filtered(PREDICATE_SHOW_ACTIVE_REMINDERS);
+        filteredReminders.filtered(PREDICATE_SHOW_ALL_REMINDERS);
     }
 
     @Override
     public void deleteWish(Wish target) {
         versionedAddressBook.removeEntry(target);
         versionedAddressBook.removeWish(target);
+        filteredReminders.filtered(PREDICATE_SHOW_ACTIVE_REMINDERS);
+        filteredReminders.filtered(PREDICATE_SHOW_ALL_REMINDERS);
     }
 
     @Override
     public void deleteBudget(Budget target) {
         versionedAddressBook.removeEntry(target);
         versionedAddressBook.removeBudget(target);
+        filteredReminders.filtered(PREDICATE_SHOW_ACTIVE_REMINDERS);
+        filteredReminders.filtered(PREDICATE_SHOW_ALL_REMINDERS);
     }
 
     @Override
     public void deleteAutoExpense(AutoExpense target) {
         versionedAddressBook.removeEntry(target);
         versionedAddressBook.removeAutoExpense(target);
+        filteredReminders.filtered(PREDICATE_SHOW_ACTIVE_REMINDERS);
+        filteredReminders.filtered(PREDICATE_SHOW_ALL_REMINDERS);
     }
 
-    public void deleteExpenseReminder(ExpenseReminder target) {
-        versionedAddressBook.removeExpenseReminder(target);
+    @Override
+    public void deleteReminder(Reminder target) {
+        versionedAddressBook.removeReminder(target);
+    }
+
+    @Override
+    public void deleteCondition(Condition target) {
+        versionedAddressBook.removeCondition(target);
     }
 
     @Override
@@ -193,8 +208,6 @@ public class ModelManager implements Model {
         versionedAddressBook.addEntry(entry);
         if (entry instanceof Expense) {
             versionedAddressBook.addExpense((Expense) entry);
-            expenseTrackers.track(filteredExpenses);
-            versionedAddressBook.updateExpenseReminders();
         } else if (entry instanceof Income) {
             versionedAddressBook.addIncome((Income) entry);
         } else if (entry instanceof Wish) {
@@ -203,7 +216,6 @@ public class ModelManager implements Model {
             versionedAddressBook.addBudget((Budget) entry);
         }
         sortFilteredEntry(sortByTime, sortByAsc);
-        updateFilteredEntryList(PREDICATE_SHOW_ALL_ENTRIES);
     }
 
     @Override
@@ -211,8 +223,6 @@ public class ModelManager implements Model {
         versionedAddressBook.addExpense(expense);
         sortFilteredEntry(sortByTime, sortByAsc);
         updateFilteredEntryList(PREDICATE_SHOW_ALL_ENTRIES);
-        expenseTrackers.track(filteredExpenses);
-        versionedAddressBook.updateExpenseReminders();
     }
 
     @Override
@@ -220,6 +230,8 @@ public class ModelManager implements Model {
         versionedAddressBook.addIncome(income);
         sortFilteredEntry(sortByTime, sortByAsc);
         updateFilteredEntryList(PREDICATE_SHOW_ALL_ENTRIES);
+        filteredReminders.filtered(PREDICATE_SHOW_ACTIVE_REMINDERS);
+        filteredReminders.filtered(PREDICATE_SHOW_ALL_REMINDERS);
     }
 
     @Override
@@ -227,25 +239,34 @@ public class ModelManager implements Model {
         versionedAddressBook.addWish(wish);
         sortFilteredEntry(sortByTime, sortByAsc);
         updateFilteredEntryList(PREDICATE_SHOW_ALL_ENTRIES);
+        filteredReminders.filtered(PREDICATE_SHOW_ACTIVE_REMINDERS);
+        filteredReminders.filtered(PREDICATE_SHOW_ALL_REMINDERS);
     }
 
     @Override
     public void addAutoExpense(AutoExpense autoExpense) {
         versionedAddressBook.addAutoExpense(autoExpense);
         updateFilteredEntryList(PREDICATE_SHOW_ALL_ENTRIES);
+        filteredReminders.filtered(PREDICATE_SHOW_ACTIVE_REMINDERS);
+        filteredReminders.filtered(PREDICATE_SHOW_ALL_REMINDERS);
     }
 
     @Override
     public void addBudget(Budget budget) {
         versionedAddressBook.addBudget(budget);
         updateFilteredEntryList(PREDICATE_SHOW_ALL_ENTRIES);
+        filteredReminders.filtered(PREDICATE_SHOW_ACTIVE_REMINDERS);
+        filteredReminders.filtered(PREDICATE_SHOW_ALL_REMINDERS);
     }
 
     @Override
-    public void addExpenseReminder(ExpenseReminder expenseReminder) {
-        versionedAddressBook.addExpenseReminder(expenseReminder);
-        expenseTrackers.track(filteredExpenses);
-        versionedAddressBook.updateExpenseReminders();
+    public void addReminder(Reminder reminder) {
+        versionedAddressBook.addReminder(reminder);
+    }
+
+    @Override
+    public void addCondition(Condition condition) {
+        versionedAddressBook.addCondition(condition);
     }
 
     @Override
@@ -254,8 +275,6 @@ public class ModelManager implements Model {
         versionedAddressBook.setEntry(target, editedEntry);
         if (target instanceof Expense) {
             versionedAddressBook.setExpense((Expense) target, (Expense) editedEntry);
-            expenseTrackers.track(filteredExpenses);
-            versionedAddressBook.updateExpenseReminders();
         } else if (target instanceof Income) {
             versionedAddressBook.setIncome((Income) target, (Income) editedEntry);
         } else if (target instanceof Wish) {
@@ -263,14 +282,20 @@ public class ModelManager implements Model {
         } else if (target instanceof Budget) {
             versionedAddressBook.setBudget((Budget) target, (Budget) editedEntry);
         }
+        filteredReminders.filtered(PREDICATE_SHOW_ACTIVE_REMINDERS);
+        filteredReminders.filtered(PREDICATE_SHOW_ALL_REMINDERS);
     }
 
     @Override
-    public void setExpenseReminder(ExpenseReminder target, ExpenseReminder editedEntry) {
-        requireAllNonNull(target, editedEntry);
-        versionedAddressBook.setExpenseReminder(target, editedEntry);
-        expenseTrackers.track(filteredExpenses);
-        versionedAddressBook.updateExpenseReminders();
+    public void setReminder(Reminder target, Reminder editedReminder) {
+        requireAllNonNull(target, editedReminder);
+        versionedAddressBook.setReminder(target, editedReminder);
+    }
+
+    @Override
+    public void setCondition(Condition target, Condition editedCondition) {
+        requireAllNonNull(target, editedCondition);
+        versionedAddressBook.setCondition(target, editedCondition);
     }
 
 
@@ -304,18 +329,19 @@ public class ModelManager implements Model {
     public ObservableList<Budget> getFilteredBudgets() {
         return filteredBudgets;
     }
+
     @Override
     public ObservableList<AutoExpense> getFilteredAutoExpenses() {
         return filteredAutoExpenses;
     }
 
-    public ObservableList<ExpenseReminder> getFilteredExpenseReminders() {
-        return filteredExpenseReminders;
+    @Override
+    public ObservableList<Reminder> getFilteredReminders() {
+        return filteredReminders;
     }
 
-
-    public ObservableList<WishReminder> getFiltereWishReminders() {
-        return filteredWishReminders;
+    public ObservableList<Condition> getFilteredConditions() {
+        return filteredConditions;
     }
 
     /**
@@ -356,6 +382,7 @@ public class ModelManager implements Model {
         filteredBudgets.setPredicate(predicate);
     }
 
+    @Override
     /**
      * return list of reminders matching this condition.
      * @param predicate condition to be matched.
@@ -365,13 +392,14 @@ public class ModelManager implements Model {
         filteredAutoExpenses.setPredicate(predicate);
     }
 
+    @Override
     /**
      * return list of reminders matching this condition.
      * @param predicate condition to be matched.
      */
-    public void updateFilteredExpenseReminders(Predicate<ExpenseReminder> predicate) {
+    public void updateFilteredReminders(Predicate<Reminder> predicate) {
         requireNonNull(predicate);
-        filteredExpenseReminders.setPredicate(predicate);
+        filteredReminders.setPredicate(predicate);
     }
 
     // =========== Undo/Redo =============================================================
@@ -402,12 +430,6 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void updateFilteredWishReminders(Predicate<WishReminder> predicate) {
-        requireNonNull(predicate);
-        filteredWishReminders.setPredicate(predicate);
-    }
-
-    @Override
     public boolean equals(Object obj) {
         // short circuit if same object
         if (obj == this) {
@@ -424,5 +446,4 @@ public class ModelManager implements Model {
         return versionedAddressBook.equals(other.versionedAddressBook) && userPrefs.equals(other.userPrefs)
                 && filteredEntries.equals(other.filteredEntries);
     }
-
 }

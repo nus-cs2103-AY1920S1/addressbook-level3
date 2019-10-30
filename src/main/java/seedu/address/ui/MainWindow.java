@@ -4,6 +4,7 @@ import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
@@ -149,7 +150,7 @@ public class MainWindow extends UiPart<Stage> {
         BudgetPanel budgetsPanel = new BudgetPanel(logic.getFilteredEntryList());
         budgetsPlaceHolder.getChildren().add(budgetsPanel.getRoot());
 
-        ReminderPanel reminderPanel = new ReminderPanel(logic.getFilteredEntryList());
+        ReminderPanel reminderPanel = new ReminderPanel(logic.getFilteredReminders());
         remindersPlaceHolder.getChildren().add(reminderPanel.getRoot());
     }
 
@@ -214,6 +215,25 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
+     * Replaces the Reminder Panel with the Conditions Panel;
+     */
+    private void showConditionPanel() {
+        remindersPlaceHolder.getChildren().clear();
+        remindersPlaceHolder.getChildren().add(new Label("Conditions"));
+        ConditionPanel conditionPanel = new ConditionPanel(logic.getFilteredConditions());
+        remindersPlaceHolder.getChildren().add(conditionPanel.getRoot());
+    }
+    /**
+     * Replaces the Conditions Panel with the Reminder Panel;
+     */
+    private void showReminderPanel() {
+        remindersPlaceHolder.getChildren().clear();
+        remindersPlaceHolder.getChildren().add(new Label("Reminders"));
+        ReminderPanel reminderPanel = new ReminderPanel(logic.getFilteredReminders());
+        remindersPlaceHolder.getChildren().add(reminderPanel.getRoot());
+    }
+
+    /**
      * Toggles the isVisible and isManaged properties of the specified place holder.
      * @param placeHolder specified place holder to be toggled.
      */
@@ -268,6 +288,14 @@ public class MainWindow extends UiPart<Stage> {
                 String panelNameString = panelName.getName();
                 togglePanel(panelNameString);
                 toggleEntireSidePanelIfNecessary();
+            }
+
+            if (commandResult.toShowConditionPanel()) {
+                showConditionPanel();
+            }
+
+            if (!(commandResult.toShowConditionPanel())) {
+                showReminderPanel();
             }
 
             return commandResult;

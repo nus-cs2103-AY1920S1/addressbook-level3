@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.function.Predicate;
 
 import seedu.address.commons.util.StringUtil;
-import seedu.address.model.person.Description;
 import seedu.address.model.person.Entry;
 
 /**
@@ -19,12 +18,22 @@ public class KeyWordsCondition extends Condition {
                     .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(entry.getDesc().fullDesc, keyword));
         }
     };
-    public KeyWordsCondition(Description desc, List<String> keywords) {
-        super(desc);
+    public KeyWordsCondition(List<String> keywords) {
+        super("Keyword Condition");
         this.keywords = keywords;
         super.setPred(hasKeyWordsPredicate);
     }
     public List<String> getKeywords() {
         return keywords;
+    }
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) {
+            return true;
+        } else if (!(other instanceof KeyWordsCondition)) {
+            return false;
+        } else {
+            return this.keywords.equals(((KeyWordsCondition) other).keywords);
+        }
     }
 }

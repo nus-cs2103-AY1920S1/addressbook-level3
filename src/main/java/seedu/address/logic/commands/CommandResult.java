@@ -22,6 +22,9 @@ public class CommandResult {
     private final PanelName panelName;
     private final boolean togglePanel;
 
+    private boolean toShowConditionPanel = false;
+
+
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
@@ -47,6 +50,14 @@ public class CommandResult {
         this.exit = false;
         this.panelName = panelName;
         this.togglePanel = togglePanel;
+    }
+
+    public void showConditionPanel() {
+        this.toShowConditionPanel = true;
+    }
+
+    public boolean toShowConditionPanel() {
+        return toShowConditionPanel;
     }
 
     public String getFeedbackToUser() {

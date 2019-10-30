@@ -38,7 +38,7 @@
 ////        descriptor.setPhone(person.getPhone());
 ////        descriptor.setEmail(person.getEmail());
 ////        descriptor.setAddress(person.getAddress());
-//        descriptor.setTags(entry.getTags());
+//        descriptor.setConditionIndices(entry.getTags());
 //    }
 //
 //    /**
@@ -84,7 +84,7 @@
 //     */
 //    public EditEntryDescriptorBuilder withTags(String... tags) {
 //        Set<Tag> tagSet = Stream.of(tags).map(Tag::new).collect(Collectors.toSet());
-//        descriptor.setTags(tagSet);
+//        descriptor.setConditionIndices(tagSet);
 //        return this;
 //    }
 //

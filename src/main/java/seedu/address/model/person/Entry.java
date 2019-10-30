@@ -5,8 +5,10 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 
+import seedu.address.model.reminders.conditions.EntrySpecificCondition;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -19,6 +21,7 @@ public class Entry {
     private final Description desc;
     private final Amount amt;
     private final Date date;
+    private EntrySpecificCondition entryTracker;
 
     // Data fields
     private final Set<Tag> tags = new HashSet<>();
@@ -57,6 +60,18 @@ public class Entry {
      */
     public Set<Tag> getTags() {
         return Collections.unmodifiableSet(tags);
+    }
+
+    public void setTracker(EntrySpecificCondition tracker) {
+        this.entryTracker = tracker;
+        tracker.setEntry(this);
+    }
+    public Optional<EntrySpecificCondition> getTracker() {
+        if (entryTracker == null) {
+            return Optional.empty();
+        } else {
+            return Optional.of(entryTracker);
+        }
     }
 
     /**

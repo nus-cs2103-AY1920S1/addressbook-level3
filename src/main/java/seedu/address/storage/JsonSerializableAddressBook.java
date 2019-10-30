@@ -13,11 +13,11 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.person.Budget;
 import seedu.address.model.person.Expense;
-import seedu.address.model.reminders.ExpenseReminder;
 import seedu.address.model.person.Income;
 import seedu.address.model.person.Wish;
-import seedu.address.model.reminders.WishReminder;
-
+import seedu.address.model.reminders.Reminder;
+import seedu.address.model.reminders.conditions.Condition;
+import seedu.address.storage.conditions.JsonAdaptedCondition;
 
 /**
  * An Immutable AddressBook that is serializable to JSON format.
@@ -31,8 +31,8 @@ class JsonSerializableAddressBook {
     private final List<JsonAdaptedIncome> incomes = new ArrayList<>();
     private final List<JsonAdaptedWish> wishes = new ArrayList<>();
     private final List<JsonAdaptedBudget> budgets = new ArrayList<>();
-    private final List<JsonAdaptedExpenseReminder> expenseReminders = new ArrayList<>();
-    private final List<JsonAdaptedWishReminder> wishReminders = new ArrayList<>();
+    private final List<JsonAdaptedReminder> reminders = new ArrayList<>();
+    private final List<JsonAdaptedCondition> conditions = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonSerializableAddressBook} with the given persons.
@@ -53,13 +53,9 @@ class JsonSerializableAddressBook {
         incomes.addAll(source.getIncomeList().stream().map(JsonAdaptedIncome::new).collect(Collectors.toList()));
         wishes.addAll(source.getWishList().stream().map(JsonAdaptedWish::new).collect(Collectors.toList()));
         budgets.addAll(source.getBudgetList().stream().map(JsonAdaptedBudget::new).collect(Collectors.toList()));
-        expenseReminders.addAll(source.getExpenseReminderList().stream().map(JsonAdaptedExpenseReminder::new)
-                .collect(Collectors.toList()));
-        expenseReminders.addAll(
-                source.getExpenseReminderList().stream().map(
-                        JsonAdaptedExpenseReminder::new).collect(Collectors.toList()));
-        wishReminders.addAll(
-                source.getWishReminderList().stream().map(JsonAdaptedWishReminder::new).collect(Collectors.toList()));
+        reminders.addAll(source.getReminderList().stream().map(JsonAdaptedReminder::new).collect(Collectors.toList()));
+        conditions.addAll
+            (source.getConditionList().stream().map(JsonAdaptedCondition::new).collect(Collectors.toList()));
     }
 
     /**
@@ -87,14 +83,13 @@ class JsonSerializableAddressBook {
             addressBook.addBudget(budget);
         }
 
-        for (JsonAdaptedExpenseReminder jsonAdaptedExpenseReminder : expenseReminders) {
-            ExpenseReminder reminder = jsonAdaptedExpenseReminder.toModelType();
-            addressBook.addExpenseReminder(reminder);
+        ReminderConditionMapper mapper = new ReminderConditionMapper(reminders, conditions);
+        for (Reminder reminder : mapper.getReminders()) {
+            addressBook.addReminder(reminder);
         }
 
-        for (JsonAdaptedWishReminder jsonAdaptedWishReminder : wishReminders) {
-            WishReminder reminder = jsonAdaptedWishReminder.toModelType();
-            addressBook.addWishReminder(reminder);
+        for (Condition condition : mapper.getConditions()) {
+            addressBook.addCondition(condition);
         }
 
         return addressBook;

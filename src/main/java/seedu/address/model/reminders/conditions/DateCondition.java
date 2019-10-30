@@ -1,10 +1,8 @@
 package seedu.address.model.reminders.conditions;
 
-import java.time.LocalDate;
 import java.util.function.Predicate;
 
 import seedu.address.model.person.Date;
-import seedu.address.model.person.Description;
 import seedu.address.model.person.Entry;
 
 /**
@@ -24,8 +22,8 @@ public class DateCondition extends Condition {
             return isAtBoundary || isWithinBoundary;
         }
     };
-    public DateCondition(Description desc, Date start, Date end) {
-        super(desc);
+    public DateCondition(Date start, Date end) {
+        super("Date Condition");
         this.start = start;
         this.end = end;
         setPred(datePredicate);
@@ -35,5 +33,16 @@ public class DateCondition extends Condition {
     }
     public Date getEnd() {
         return end;
+    }
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) {
+            return true;
+        } else if (!(other instanceof DateCondition)) {
+            return false;
+        } else {
+            return this.start.equals(((DateCondition) other).start)
+                    && this.end.equals(((DateCondition) other).end);
+        }
     }
 }

@@ -1,22 +1,26 @@
 package seedu.address.ui;
 
+import java.util.logging.Logger;
+
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
-import seedu.address.model.person.Entry;
+import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.reminders.Reminder;
 
 /**
  * Side panel for budgets.
  */
 public class ReminderPanel extends UiPart<Region> {
     private static final String FXML = "ReminderListPanel.fxml";
+    private final Logger logger = LogsCenter.getLogger(ReminderPanel.class);
 
     @FXML
-    private ListView<Entry> reminderListView;
+    private ListView<Reminder> reminderListView;
 
-    public ReminderPanel(ObservableList<Entry> remindersList) {
+    public ReminderPanel(ObservableList<Reminder> remindersList) {
         super(FXML);
         reminderListView.setItems(remindersList);
         reminderListView.setCellFactory(listView -> new ReminderListViewCell());
@@ -25,17 +29,16 @@ public class ReminderPanel extends UiPart<Region> {
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code Person} using a {@code PersonCard}.
      */
-    class ReminderListViewCell extends ListCell<Entry> {
+    class ReminderListViewCell extends ListCell<Reminder> {
         @Override
-        protected void updateItem(Entry entry, boolean empty) {
-            super.updateItem(entry, empty);
+        protected void updateItem(Reminder reminder, boolean empty) {
+            super.updateItem(reminder, empty);
 
-            if (empty || entry == null) {
-
+            if (empty || reminder == null) {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new EntryCard(entry, getIndex() + 1).getRoot());
+                setGraphic(new ReminderCard(reminder, getIndex() + 1).getRoot());
             }
         }
     }

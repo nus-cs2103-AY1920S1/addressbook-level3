@@ -9,12 +9,12 @@ import seedu.address.model.person.AutoExpense;
 import seedu.address.model.person.Budget;
 import seedu.address.model.person.Entry;
 import seedu.address.model.person.Expense;
-import seedu.address.model.reminders.ExpenseReminder;
 import seedu.address.model.person.Income;
 import seedu.address.model.person.SortSequence;
 import seedu.address.model.person.SortType;
 import seedu.address.model.person.Wish;
-import seedu.address.model.reminders.WishReminder;
+import seedu.address.model.reminders.Reminder;
+import seedu.address.model.reminders.conditions.Condition;
 
 /**
  * The API of the Model component.
@@ -27,7 +27,10 @@ public interface Model {
     Predicate<Wish> PREDICATE_SHOW_ALL_WISHES = unused -> true;
     Predicate<Budget> PREDICATE_SHOW_ALL_BUDGETS = unused -> true;
     Predicate<AutoExpense> PREDICATE_SHOW_ALL_AUTOEXPENSES = unused -> true;
-    Predicate<ExpenseReminder> PREDICATE_SHOW_ALL_EXPENSE_REMINDERS = unused -> true;
+    Predicate<Condition> PREDICATE_SHOW_ALL_CONDITIONS = unused -> true;
+    Predicate<Reminder> PREDICATE_SHOW_ACTIVE_REMINDERS =
+            x -> !x.getStatus().equals(Reminder.Status.unmet);
+    Predicate<Reminder> PREDICATE_SHOW_ALL_REMINDERS = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -73,7 +76,9 @@ public interface Model {
      */
     boolean hasEntry(Entry entry);
 
-    boolean hasExpenseReminder(ExpenseReminder reminder);
+    boolean hasReminder(Reminder reminder);
+
+    boolean hasCondition(Condition condition);
 
     /**
      * Deletes the given entry. The entry must exist in the address book.
@@ -95,7 +100,9 @@ public interface Model {
      */
     void deleteWish(Wish target);
 
-    void deleteExpenseReminder(ExpenseReminder target);
+    void deleteReminder(Reminder target);
+
+    void deleteCondition(Condition target);
 
     /**
      * Deletes the given budget.
@@ -124,7 +131,9 @@ public interface Model {
 
     void addAutoExpense(AutoExpense autoExpense);
 
-    void addExpenseReminder(ExpenseReminder expenseReminder);
+    void addReminder(Reminder reminder);
+
+    void addCondition(Condition condition);
 
     /**
      * Replaces the given entry {@code target} with {@code editedEntry}.
@@ -134,7 +143,9 @@ public interface Model {
      */
     void setEntry(Entry target, Entry editedEntry);
 
-    void setExpenseReminder(ExpenseReminder target, ExpenseReminder editedEntry);
+    void setReminder(Reminder target, Reminder editedEntry);
+
+    void setCondition(Condition target, Condition editedEntry);
 
     /** Returns an unmodifiable view of the filtered entry list */
     ObservableList<Entry> getFilteredEntryList();
@@ -154,10 +165,12 @@ public interface Model {
     /** Returns an unmodifiable view of the filtered expenditure list */
     ObservableList<AutoExpense> getFilteredAutoExpenses();
 
-    /** Returns an unmodifiable view of the filtered expense reminder list */
-    ObservableList<ExpenseReminder> getFilteredExpenseReminders();
+    /** Returns an unmodifiable view of the filtered reminder list */
+    ObservableList<Reminder> getFilteredReminders();
 
-    ObservableList<WishReminder> getFiltereWishReminders();
+    /** Returns an unmodifiable view of the filtered condition list */
+    ObservableList<Condition> getFilteredConditions();
+
     /**
      * Updates the filter of the filtered entry list to filter by the given
      * {@code predicate}.
@@ -173,6 +186,12 @@ public interface Model {
     void updateFilteredWishes(Predicate<Wish> predicate);
 
     void updateFilteredBudgets(Predicate<Budget> predicate);
+
+    void updateFilteredAutoExpenses(Predicate<AutoExpense> predicate);
+
+    void updateFilteredReminders(Predicate<Reminder> predicate);
+
+    void sortFilteredEntry(SortType comparator, SortSequence sequence);
 
     /**
      * Returns true if the model has previous finance tracker states to restore.
@@ -199,11 +218,4 @@ public interface Model {
      */
     void commitAddressBook();
 
-    void updateFilteredAutoExpenses(Predicate<AutoExpense> predicate);
-
-    void sortFilteredEntry(SortType comparator, SortSequence sequence);
-
-    void updateFilteredExpenseReminders(Predicate<ExpenseReminder> predicate);
-
-    void updateFilteredWishReminders(Predicate<WishReminder> predicate);
 }
