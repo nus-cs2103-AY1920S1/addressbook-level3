@@ -18,7 +18,7 @@ public enum Repetition {
     Weekly;
 
     public static final String MESSAGE_CONSTRAINTS = "Repetition can only take value 'once', 'daily' or 'weekly'"
-        + "(case insensitive)";
+            + "(case insensitive)";
 
     /**
      * Returns true if a given string is a valid repetition.

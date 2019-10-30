@@ -28,8 +28,8 @@ public abstract class Record {
         }
 
         return otherRecord != null
-            && otherRecord.dateTime.equals(dateTime)
-            && otherRecord.getClass().equals(this.getClass());
+                && otherRecord.dateTime.equals(dateTime)
+                && otherRecord.getClass().equals(this.getClass());
     }
 
     public DateTime getDateTime() {
@@ -48,7 +48,7 @@ public abstract class Record {
 
         Record otherRecord = (Record) other;
         return otherRecord.dateTime.equals(dateTime)
-            && otherRecord.getClass().equals(this.getClass());
+                && otherRecord.getClass().equals(this.getClass());
     }
 
     @Override
@@ -61,7 +61,7 @@ public abstract class Record {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append("at DateTime: ")
-            .append(dateTime);
+                .append(dateTime);
         return builder.toString();
     }
 }

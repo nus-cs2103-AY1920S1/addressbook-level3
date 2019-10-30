@@ -21,15 +21,15 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.food.UniqueFoodList;
 import seedu.address.model.record.UniqueRecordList;
+import seedu.address.storage.JsonAddressBookStorage;
+import seedu.address.storage.JsonCalendarStorage;
+import seedu.address.storage.JsonRecordListStorage;
+import seedu.address.storage.JsonUserPrefsStorage;
+import seedu.address.storage.StorageManager;
 import seedu.address.storage.bio.JsonUserListStorage;
-import sugarmummy.storage.JsonAddressBookStorage;
-import sugarmummy.storage.JsonCalendarStorage;
-import sugarmummy.storage.JsonFoodListStorage;
-import sugarmummy.storage.JsonRecordListStorage;
-import sugarmummy.storage.JsonUserPrefsStorage;
-import sugarmummy.storage.StorageManager;
+import sugarmummy.recmfood.model.UniqueFoodList;
+import sugarmummy.recmfood.storage.JsonFoodListStorage;
 
 public class LogicManagerTest {
     private static final IOException DUMMY_IO_EXCEPTION = new IOException("dummy exception");
@@ -43,17 +43,17 @@ public class LogicManagerTest {
     @BeforeEach
     public void setUp() {
         JsonAddressBookStorage addressBookStorage =
-            new JsonAddressBookStorage(temporaryFolder.resolve("addressBook.json"));
+                new JsonAddressBookStorage(temporaryFolder.resolve("addressBook.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
         JsonUserListStorage userListStorage = new JsonUserListStorage(temporaryFolder.resolve("userList.json"));
         JsonFoodListStorage jsonFoodListStorage = new JsonFoodListStorage(temporaryFolder.resolve("foodList.json"));
         JsonRecordListStorage jsonRecordListStorage = new JsonRecordListStorage(
-            temporaryFolder.resolve("recordList.json")
+                temporaryFolder.resolve("recordList.json")
         );
         JsonCalendarStorage jsonCalendarStorage = new JsonCalendarStorage(temporaryFolder.resolve("eventlist.json"),
-            temporaryFolder.resolve("reminderlist.json"));
+                temporaryFolder.resolve("reminderlist.json"));
         StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage, userListStorage,
-            jsonFoodListStorage, jsonRecordListStorage, jsonCalendarStorage);
+                jsonFoodListStorage, jsonRecordListStorage, jsonCalendarStorage);
         logic = new LogicManager(model, storage);
     }
 
@@ -142,7 +142,7 @@ public class LogicManagerTest {
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
                                       String expectedMessage) {
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs(), model.getUserList(),
-            new UniqueFoodList(), new UniqueRecordList(), new Calendar());
+                new UniqueFoodList(), new UniqueRecordList(), new Calendar());
         assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel);
     }
 

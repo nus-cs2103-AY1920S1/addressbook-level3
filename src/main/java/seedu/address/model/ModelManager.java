@@ -2,10 +2,17 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.address.model.MotivationalQuotes.MOTIVATIONAL_QUOTES_LIST;
+import static seedu.address.model.achievements.AchievementState.ACHIEVED;
+import static seedu.address.model.achievements.AchievementState.PREVIOUSLY_ACHIEVED;
+import static seedu.address.model.achievements.AchievementState.YET_TO_ACHIEVE;
+import static seedu.address.model.achievements.AchievementsMap.ACHIEVEMENTS_MAP;
 
 import java.nio.file.Path;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -15,20 +22,23 @@ import javafx.collections.ObservableMap;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.achievements.Achievement;
+import seedu.address.model.achievements.AchievementState;
+import seedu.address.model.achievements.AchievementStateProcessor;
 import seedu.address.model.aesthetics.Background;
 import seedu.address.model.aesthetics.Colour;
 import seedu.address.model.bio.User;
 import seedu.address.model.bio.UserList;
 import seedu.address.model.calendar.CalendarEntry;
 import seedu.address.model.calendar.Reminder;
-import seedu.address.model.food.Food;
-import seedu.address.model.food.UniqueFoodList;
 import seedu.address.model.person.Person;
 import seedu.address.model.record.Record;
 import seedu.address.model.record.RecordType;
 import seedu.address.model.record.UniqueRecordList;
 import seedu.address.model.statistics.AverageMap;
 import seedu.address.model.statistics.AverageType;
+import sugarmummy.recmfood.model.Food;
+import sugarmummy.recmfood.model.UniqueFoodList;
 
 /**
  * Represents the in-memory sugarmummy.recmfood.model of the address book data.
@@ -49,6 +59,11 @@ public class ModelManager implements Model {
     private final FilteredList<CalendarEntry> filteredCalenderEntryList;
     private final FilteredList<CalendarEntry> pastReminderList;
     private final AverageMap averageMap;
+    private final List<String> motivationalQuotesList;
+    private final Map<RecordType, List<Achievement>> achievementsMap;
+
+    private boolean achievementsHaveBeenAttained;
+    private boolean achievementsHaveBeenLost;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -60,7 +75,7 @@ public class ModelManager implements Model {
         requireAllNonNull(addressBook, userPrefs, foodList, userList, recordList, calendar);
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs
-            + " and food map: " + foodList + " and record list: " + recordList + " and calendar: " + calendar);
+                + " and food map: " + foodList + " and record list: " + recordList + " and calendar: " + calendar);
 
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
@@ -75,11 +90,16 @@ public class ModelManager implements Model {
         this.filteredCalenderEntryList = new FilteredList<>(this.calendar.getCalendarEntryList());
         this.pastReminderList = new FilteredList<>(this.calendar.getPastReminderList());
         this.averageMap = new AverageMap();
+        this.motivationalQuotesList = MOTIVATIONAL_QUOTES_LIST;
+        this.achievementsMap = ACHIEVEMENTS_MAP;
+        this.achievementsHaveBeenAttained = false;
+        this.achievementsHaveBeenLost = false;
+        getNewAchievementStates();
     }
 
     public ModelManager() {
         this(new AddressBook(), new UserPrefs(), new UserList(), new UniqueFoodList(), new UniqueRecordList(),
-            new Calendar());
+                new Calendar());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -172,7 +192,7 @@ public class ModelManager implements Model {
 
     @Override
     public boolean equals(
-        Object obj) {
+            Object obj) {
         // short circuit if same object
         if (obj == this) {
             return true;
@@ -186,8 +206,8 @@ public class ModelManager implements Model {
         // state check
         ModelManager other = (ModelManager) obj;
         return addressBook.equals(other.addressBook)
-            && userPrefs.equals(other.userPrefs)
-            && filteredPersons.equals(other.filteredPersons);
+                && userPrefs.equals(other.userPrefs)
+                && filteredPersons.equals(other.filteredPersons);
     }
 
     //=========== User List =============================================================
@@ -380,11 +400,13 @@ public class ModelManager implements Model {
     @Override
     public void deleteRecord(Record record) {
         recordList.remove(record);
+        determineIfAchievementsHaveChanged();
     }
 
     @Override
     public void addRecord(Record record) {
         recordList.add(record);
+        determineIfAchievementsHaveChanged();
     }
 
     @Override
@@ -435,5 +457,60 @@ public class ModelManager implements Model {
     public ObservableMap<LocalDate, Double> getAverageMap() {
         return averageMap.asUnmodifiableObservableMap();
     }
+
+    //=========== Motivational Quotes =============================================================
+
+    @Override
+    public List<String> getMotivationalQuotesList() {
+        return motivationalQuotesList;
+    }
+
+    //=========== Achievements =============================================================
+
+    @Override
+    public Map<RecordType, List<Achievement>> getAchievementsMap() {
+        return achievementsMap;
+    }
+
+    @Override
+    public boolean newAchievementsHaveBeenAttained() {
+        return achievementsHaveBeenAttained;
+    }
+
+    @Override
+    public boolean existingAchievementsHaveBeenLost() {
+        return achievementsHaveBeenLost;
+    }
+
+    @Override
+    public void resetNewAchievementsState() {
+        achievementsHaveBeenLost = false;
+        achievementsHaveBeenAttained = false;
+    }
+
+    /**
+     * Sets whether there are achievements attained and / or lost after checking for changes.
+     */
+    private void determineIfAchievementsHaveChanged() {
+        Set<AchievementState> newStates = getNewAchievementStates();
+        if (!newStates.isEmpty()) {
+            if (newStates.contains(ACHIEVED)) {
+                achievementsHaveBeenAttained = true;
+            }
+            if (newStates.contains(PREVIOUSLY_ACHIEVED)) {
+                achievementsHaveBeenLost = true;
+            }
+            assert !newStates.contains(YET_TO_ACHIEVE) : "New state of achievement should never be yet to achieve as "
+                    + "user would have achieved the modified achievement before.";
+        }
+    }
+
+    /**
+     * Returns the set of changes made to the list of achievements stored in this program, if any.
+     */
+    private Set<AchievementState> getNewAchievementStates() {
+        return (new AchievementStateProcessor(this)).getNewAchievementStates();
+    }
+
 
 }

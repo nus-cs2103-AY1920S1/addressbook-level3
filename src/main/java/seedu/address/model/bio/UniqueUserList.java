@@ -26,7 +26,7 @@ public class UniqueUserList implements Iterable<User> {
 
     private final ObservableList<User> internalList = FXCollections.observableArrayList();
     private final ObservableList<User> internalUnmodifiableList =
-        FXCollections.unmodifiableObservableList(internalList);
+            FXCollections.unmodifiableObservableList(internalList);
 
     /**
      * Returns true if the list contains an equivalent user as the given argument.
@@ -115,8 +115,8 @@ public class UniqueUserList implements Iterable<User> {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-            || (other instanceof UniqueUserList // instanceof handles nulls
-            && internalList.equals(((UniqueUserList) other).internalList));
+                || (other instanceof UniqueUserList // instanceof handles nulls
+                && internalList.equals(((UniqueUserList) other).internalList));
     }
 
     @Override

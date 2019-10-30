@@ -64,6 +64,6 @@ public class BmiRecordCard extends UiPart<Region> {
         // state check
         BmiRecordCard card = (BmiRecordCard) other;
         return id.getText().equals(card.id.getText())
-            && record.equals(card.record);
+                && record.equals(card.record);
     }
 }

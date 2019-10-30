@@ -51,15 +51,15 @@ public class Event extends CalendarEntry {
         }
 
         return otherEvent != null
-            && otherEvent.getDescription().equals(getDescription())
-            && otherEvent.getDateTime().equals(getDateTime());
+                && otherEvent.getDescription().equals(getDescription())
+                && otherEvent.getDateTime().equals(getDateTime());
     }
 
 
     @Override
     public boolean isSameCalendarEntry(CalendarEntry calendarEntry) {
         return calendarEntry instanceof Event
-            && isSameEvent((Event) calendarEntry);
+                && isSameEvent((Event) calendarEntry);
     }
 
     @Override
@@ -82,20 +82,19 @@ public class Event extends CalendarEntry {
 
         Event otherEvent = (Event) other;
         return otherEvent.getDescription().equals(getDescription())
-            && otherEvent.getDateTime().equals(getDateTime())
-            && otherEvent.getEndingDateTime().equals(getEndingDateTime())
-            && otherEvent.getAutoReminder().equals(getAutoReminder());
+                && otherEvent.getDateTime().equals(getDateTime())
+                && otherEvent.getEndingDateTime().equals(getEndingDateTime())
+                && otherEvent.getAutoReminder().equals(getAutoReminder());
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append("Event")
-            .append(" Description: ")
-            .append(getDescription())
-            .append(" From: ")
-            .append(getDateTime())
-            .append(getEndingTimeString());
+        builder.append("Event: ")
+                .append(getDescription())
+                .append(" From ")
+                .append(getDateTime())
+                .append(getEndingTimeString());
         return builder.toString();
     }
 

@@ -9,7 +9,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class OtherBioInfo {
 
     public static final String MESSAGE_CONSTRAINTS =
-        "Other Bio Info can take any values.";
+            "Other Bio Info can take any values.";
     public static final String VALIDATION_REGEX = "^$|[^\\\\s].*";
 
     public final String otherInfo;
@@ -35,8 +35,8 @@ public class OtherBioInfo {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-            || (other instanceof OtherBioInfo // instanceof handles nulls
-            && otherInfo.equals(((OtherBioInfo) other).otherInfo)); // state check
+                || (other instanceof OtherBioInfo // instanceof handles nulls
+                && otherInfo.equals(((OtherBioInfo) other).otherInfo)); // state check
     }
 
     @Override

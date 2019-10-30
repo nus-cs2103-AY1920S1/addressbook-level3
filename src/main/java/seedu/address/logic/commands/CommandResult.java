@@ -75,6 +75,10 @@ public class CommandResult {
         return exit;
     }
 
+    public boolean isCalendar() {
+        return false;
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -88,10 +92,10 @@ public class CommandResult {
 
         CommandResult otherCommandResult = (CommandResult) other;
         return feedbackToUser.equals(otherCommandResult.feedbackToUser)
-            && showHelp == otherCommandResult.showHelp
-            && showBio == otherCommandResult.showBio
-            && showAchvm == otherCommandResult.showAchvm
-            && exit == otherCommandResult.exit;
+                && showHelp == otherCommandResult.showHelp
+                && showBio == otherCommandResult.showBio
+                && showAchvm == otherCommandResult.showAchvm
+                && exit == otherCommandResult.exit;
     }
 
     @Override

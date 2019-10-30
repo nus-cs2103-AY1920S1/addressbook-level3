@@ -18,14 +18,14 @@ public class AddCommand extends Command {
     public static final String COMMAND_WORD = "add";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a new record to the record list. "
-        + "Parameters: "
-        + PREFIX_RECORDTYPE + "RECORDTYPE "
-        + PREFIX_DATETIME + "DATETIME "
-        + PREFIX_BLOODSUGAR_CONCENTRATION + "CONCENTRATION\n"
-        + "Example: " + COMMAND_WORD + " "
-        + PREFIX_RECORDTYPE + "BLOODSUGAR "
-        + PREFIX_DATETIME + "2019-09-09 12:12 "
-        + PREFIX_BLOODSUGAR_CONCENTRATION + "78.9";
+            + "Parameters: "
+            + PREFIX_RECORDTYPE + "RECORDTYPE "
+            + PREFIX_DATETIME + "DATETIME "
+            + PREFIX_BLOODSUGAR_CONCENTRATION + "CONCENTRATION\n"
+            + "Example: " + COMMAND_WORD + " "
+            + PREFIX_RECORDTYPE + "BLOODSUGAR "
+            + PREFIX_DATETIME + "2019-09-09 12:12 "
+            + PREFIX_BLOODSUGAR_CONCENTRATION + "78.9";
 
     public static final String MESSAGE_SUCCESS = "New record added: %1$s";
     public static final String MESSAGE_DUPLICATE_RECORD = "This record already exists in the record book";
@@ -60,7 +60,7 @@ public class AddCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-            || (other instanceof AddCommand // instanceof handles nulls
-            && toAdd.equals(((AddCommand) other).toAdd));
+                || (other instanceof AddCommand // instanceof handles nulls
+                && toAdd.equals(((AddCommand) other).toAdd));
     }
 }

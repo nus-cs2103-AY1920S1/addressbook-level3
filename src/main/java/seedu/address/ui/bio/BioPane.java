@@ -59,11 +59,11 @@ public class BioPane extends UiPart<Region> {
             String medicalCondition = listToString(user.getMedicalConditions());
             String address = user.getAddress().toString();
             String fontColourToString = background.showDefaultBackground()
-                ? "yellow"
-                : fontColour.toString();
+                    ? "yellow"
+                    : fontColour.toString();
             String bg = background.showDefaultBackground()
-                ? "Temporary Background"
-                : background.toString();
+                    ? "Temporary Background"
+                    : background.toString();
             String bgSize = background.getBgSize();
             String bgRepeat = background.getBgRepeat();
             String myGoals = listToString(user.getGoals());
@@ -87,7 +87,7 @@ public class BioPane extends UiPart<Region> {
             }
             profilePlaceholder.getChildren().add(profile.getRoot());
             bioTable = new BioTable(name, nric, gender, dob, hp, emergencyHp, medicalCondition, address, dpPath,
-                fontColourToString, bg, bgSize, bgRepeat, myGoals, otherBioInfo);
+                    fontColourToString, bg, bgSize, bgRepeat, myGoals, otherBioInfo);
         } else {
             img = new Image(MainApp.class.getResourceAsStream(DEFAULT_DP_PATH));
             this.img = img;

@@ -30,7 +30,7 @@ public class ClearBioCommand extends Command {
     }
 
     @Override
-    public boolean getnewPaneIsToBeCreated() {
+    public boolean getNewPaneIsToBeCreated() {
         return true;
     }
 }

@@ -17,11 +17,11 @@ public class AverageCommandParserTest {
     @Test
     public void parse_allFieldsPresent_success() {
         assertParseSuccess(parser, " a/DAILY rt/BLOODSUGAR n/8",
-            new AverageCommand(AverageType.DAILY, RecordType.BLOODSUGAR, 8));
+                new AverageCommand(AverageType.DAILY, RecordType.BLOODSUGAR, 8));
         assertParseSuccess(parser, " a/weekly rt/BLOODSUGAR n/3",
-            new AverageCommand(AverageType.WEEKLY, RecordType.BLOODSUGAR, 3));
+                new AverageCommand(AverageType.WEEKLY, RecordType.BLOODSUGAR, 3));
         assertParseSuccess(parser, " a/MONTHLY rt/BLOODSUGAR n/1",
-            new AverageCommand(AverageType.MONTHLY, RecordType.BLOODSUGAR, 1));
+                new AverageCommand(AverageType.MONTHLY, RecordType.BLOODSUGAR, 1));
     }
 
     @Test
@@ -29,11 +29,11 @@ public class AverageCommandParserTest {
 
         // missing count prefix
         assertParseSuccess(parser, " a/DAILY rt/BLOODSUGAR",
-            new AverageCommand(AverageType.DAILY, RecordType.BLOODSUGAR, 5));
+                new AverageCommand(AverageType.DAILY, RecordType.BLOODSUGAR, 5));
         assertParseSuccess(parser, " a/weekly rt/BLOODSUGAR",
-            new AverageCommand(AverageType.WEEKLY, RecordType.BLOODSUGAR, 5));
+                new AverageCommand(AverageType.WEEKLY, RecordType.BLOODSUGAR, 5));
         assertParseSuccess(parser, " a/MONTHLY rt/BLOODSUGAR",
-            new AverageCommand(AverageType.MONTHLY, RecordType.BLOODSUGAR, 5));
+                new AverageCommand(AverageType.MONTHLY, RecordType.BLOODSUGAR, 5));
     }
 
     @Test
@@ -54,17 +54,16 @@ public class AverageCommandParserTest {
     public void parse_invalidValue_failure() {
         // invalid average type
         assertParseFailure(parser, " a/YEARLY rt/BLOODSUGAR",
-            String.format(MESSAGE_INVALID_PARAMETER, AverageCommand.MESSAGE_USAGE,
-                AverageCommand.MESSAGE_INVALID_AVGTYPE));
+                String.format(MESSAGE_INVALID_PARAMETER, AverageCommand.MESSAGE_USAGE,
+                        AverageCommand.MESSAGE_INVALID_AVGTYPE));
 
         // invalid record type
         assertParseFailure(parser, " a/WEEKLY rt/ANYHOW",
-            String.format(MESSAGE_INVALID_PARAMETER, AverageCommand.MESSAGE_USAGE,
-                AverageCommand.MESSAGE_INVALID_RECORDTYPE));
+                "System does not accommodate such a record type.");
 
         // invalid count type
         assertParseFailure(parser, " a/WEEKLY rt/BLOODSUGAR n/five",
-            String.format(MESSAGE_INVALID_PARAMETER, AverageCommand.MESSAGE_USAGE,
-                AverageCommand.MESSAGE_INVALID_COUNT));
+                String.format(MESSAGE_INVALID_PARAMETER, AverageCommand.MESSAGE_USAGE,
+                        AverageCommand.MESSAGE_INVALID_COUNT));
     }
 }

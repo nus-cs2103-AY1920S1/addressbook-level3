@@ -9,8 +9,8 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.bio.UserList;
-import seedu.address.model.food.UniqueFoodList;
 import seedu.address.model.record.UniqueRecordList;
+import sugarmummy.recmfood.model.UniqueFoodList;
 
 
 /**
@@ -23,6 +23,6 @@ public class AddCommandIntegrationTest {
     @BeforeEach
     public void setUp() {
         model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), new UserList(), new UniqueFoodList(),
-            new UniqueRecordList(), new Calendar());
+                new UniqueRecordList(), new Calendar());
     }
 }

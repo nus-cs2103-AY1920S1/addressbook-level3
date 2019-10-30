@@ -7,7 +7,7 @@ import java.util.Objects;
  */
 public class TimeDuration {
     public static final String MESSAGE_CONSTRAINTS = "Time duration must be in the format: hh:mm and it should not be"
-        + "blank";
+            + "blank";
 
     public static final String VALIDATION_REGEX = "^\\d{2}:\\d{2}$";
 
@@ -42,9 +42,9 @@ public class TimeDuration {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-            || (other instanceof TimeDuration) // instanceof handles nulls
-            && this.hours == ((TimeDuration) other).hours
-            && this.minutes == ((TimeDuration) other).hours;
+                || (other instanceof TimeDuration) // instanceof handles nulls
+                && this.hours == ((TimeDuration) other).hours
+                && this.minutes == ((TimeDuration) other).hours;
     }
 
     @Override

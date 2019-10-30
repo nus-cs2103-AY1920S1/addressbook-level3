@@ -29,43 +29,43 @@ public class AddBioCommand extends Command {
     public static final String COMMAND_WORD = "addbio";
 
     public static final String MESSAGE_USAGE = "\n" + COMMAND_WORD + ": Adds the user's biography.\n"
-        + "Note that Name, contact number(s), emergency contact(s) and medical condition(s) cannot be empty.\n\n"
-        + "Parameters: "
-        + PREFIX_NAME + "NAME "
-        + "[" + PREFIX_DP_PATH + "DP PATH] "
-        + "[" + PREFIX_PROFILE_DESC + "PROFILE DESCRIPTION] "
-        + "[" + PREFIX_NRIC + "NRIC] "
-        + "[" + PREFIX_GENDER + "GENDER] "
-        + "[" + PREFIX_DATE_OF_BIRTH + "DATE OF BIRTH] "
-        + PREFIX_CONTACT_NUMBER + "CONTACT NUMBER... "
-        + PREFIX_EMERGENCY_CONTACT + "EMERGENCY CONTACT... "
-        + PREFIX_MEDICAL_CONDITION + "MEDICAL CONDITION... "
-        + "[" + PREFIX_ADDRESS + "ADDRESS] "
-        + "[" + PREFIX_GOALS + "GOAL]... "
-        + "[" + PREFIX_OTHER_BIO_INFO + "OTHER INFO]\n\n"
-        + "Example: " + COMMAND_WORD + " "
-        + PREFIX_NAME + "John Doe "
-        + PREFIX_DP_PATH + "/Users/John/Doge.jpg "
-        + PREFIX_PROFILE_DESC + "Sometimes I like to pretend that I'm a carrot. "
-        + PREFIX_NRIC + "S1234567A "
-        + PREFIX_GENDER + "Male "
-        + PREFIX_DATE_OF_BIRTH + "31/12/1900 "
-        + PREFIX_CONTACT_NUMBER + "91234567 "
-        + PREFIX_EMERGENCY_CONTACT + "98765432 "
-        + PREFIX_EMERGENCY_CONTACT + "81234567 "
-        + PREFIX_MEDICAL_CONDITION + "Type II Diabetes "
-        + PREFIX_MEDICAL_CONDITION + "High Blood Pressure "
-        + PREFIX_ADDRESS + "Blk 123 Example Rd #99-99 S(612345) "
-        + PREFIX_GOALS + "Lose 10kg by 19/12/2019 "
-        + PREFIX_OTHER_BIO_INFO + "Dislikes potatoes";
+            + "Note that Name, contact number(s), emergency contact(s) and medical condition(s) cannot be empty.\n\n"
+            + "Parameters: "
+            + PREFIX_NAME + "NAME "
+            + "[" + PREFIX_DP_PATH + "DP PATH] "
+            + "[" + PREFIX_PROFILE_DESC + "PROFILE DESCRIPTION] "
+            + "[" + PREFIX_NRIC + "NRIC] "
+            + "[" + PREFIX_GENDER + "GENDER] "
+            + "[" + PREFIX_DATE_OF_BIRTH + "DATE OF BIRTH] "
+            + PREFIX_CONTACT_NUMBER + "CONTACT NUMBER... "
+            + PREFIX_EMERGENCY_CONTACT + "EMERGENCY CONTACT... "
+            + PREFIX_MEDICAL_CONDITION + "MEDICAL CONDITION... "
+            + "[" + PREFIX_ADDRESS + "ADDRESS] "
+            + "[" + PREFIX_GOALS + "GOAL]... "
+            + "[" + PREFIX_OTHER_BIO_INFO + "OTHER INFO]\n\n"
+            + "Example: " + COMMAND_WORD + " "
+            + PREFIX_NAME + "John Doe "
+            + PREFIX_DP_PATH + "/Users/John/Doge.jpg "
+            + PREFIX_PROFILE_DESC + "Sometimes I like to pretend that I'm a carrot. "
+            + PREFIX_NRIC + "S1234567A "
+            + PREFIX_GENDER + "Male "
+            + PREFIX_DATE_OF_BIRTH + "31/12/1900 "
+            + PREFIX_CONTACT_NUMBER + "91234567 "
+            + PREFIX_EMERGENCY_CONTACT + "98765432 "
+            + PREFIX_EMERGENCY_CONTACT + "81234567 "
+            + PREFIX_MEDICAL_CONDITION + "Type II Diabetes "
+            + PREFIX_MEDICAL_CONDITION + "High Blood Pressure "
+            + PREFIX_ADDRESS + "Blk 123 Example Rd #99-99 S(612345) "
+            + PREFIX_GOALS + "Lose 10kg by 19/12/2019 "
+            + PREFIX_OTHER_BIO_INFO + "Dislikes potatoes";
 
     public static final String MESSAGE_SUCCESS = "I've successfully added your biography with the following "
-        + "information:\n\n%1$s";
+            + "information:\n\n%1$s";
     public static final String MESSAGE_BIO_ALREADY_EXISTS = "Oops! There is already an existing biography. "
-        + "Try using the ["
-        + ClearBioCommand.COMMAND_WORD + "] , ["
-        + EditBioCommand.COMMAND_WORD + "] or the ["
-        + BioCommand.COMMAND_WORD + "]  command to clear, edit or view existing biography respectively instead.";
+            + "Try using the ["
+            + ClearBioCommand.COMMAND_WORD + "] , ["
+            + EditBioCommand.COMMAND_WORD + "] or the ["
+            + BioCommand.COMMAND_WORD + "]  command to clear, edit or view existing biography respectively instead.";
 
     private final User toAdd;
 
@@ -91,7 +91,7 @@ public class AddBioCommand extends Command {
         toAdd.getFieldMap().forEach((key, value) -> {
             if (!value.isEmpty() && !value.equals("[]")) {
                 addedFields.append("- ").append(key).append(": ")
-                    .append(value).append("\n");
+                        .append(value).append("\n");
             }
         });
 
@@ -101,8 +101,8 @@ public class AddBioCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-            || (other instanceof AddBioCommand // instanceof handles nulls
-            && toAdd.equals(((AddBioCommand) other).toAdd));
+                || (other instanceof AddBioCommand // instanceof handles nulls
+                && toAdd.equals(((AddBioCommand) other).toAdd));
     }
 
     @Override
@@ -111,7 +111,7 @@ public class AddBioCommand extends Command {
     }
 
     @Override
-    public boolean getnewPaneIsToBeCreated() {
+    public boolean getNewPaneIsToBeCreated() {
         return true;
     }
 

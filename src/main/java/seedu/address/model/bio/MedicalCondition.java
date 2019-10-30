@@ -10,7 +10,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class MedicalCondition implements ListableField {
 
     public static final String MESSAGE_CONSTRAINTS =
-        "Medical conditions can take any values, and it should not be blank.";
+            "Medical conditions can take any values, and it should not be blank.";
 
     public static final String VALIDATION_REGEX = "\"^$|[^\\\\s].*";
 
@@ -38,8 +38,8 @@ public class MedicalCondition implements ListableField {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-            || (other instanceof MedicalCondition // instanceof handles nulls
-            && medicalCondition.equals(((MedicalCondition) other).medicalCondition)); // state check
+                || (other instanceof MedicalCondition // instanceof handles nulls
+                && medicalCondition.equals(((MedicalCondition) other).medicalCondition)); // state check
     }
 
     @Override

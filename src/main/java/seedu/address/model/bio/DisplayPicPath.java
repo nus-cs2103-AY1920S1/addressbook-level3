@@ -10,7 +10,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class DisplayPicPath {
 
     public static final String MESSAGE_CONSTRAINTS = "Display picture path can take any values that represents a valid "
-        + "path to an image.";
+            + "path to an image.";
 
     public static final String VALIDATION_REGEX = "^$|[^\\s].*";
 
@@ -42,8 +42,8 @@ public class DisplayPicPath {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-            || (other instanceof DisplayPicPath // instanceof handles nulls
-            && displayPicPath.equals(((DisplayPicPath) other).displayPicPath)); // state check
+                || (other instanceof DisplayPicPath // instanceof handles nulls
+                && displayPicPath.equals(((DisplayPicPath) other).displayPicPath)); // state check
     }
 
     @Override

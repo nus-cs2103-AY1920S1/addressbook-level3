@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import seedu.address.model.food.Food;
+import sugarmummy.recmfood.model.Food;
 
 /**
  * This is a utility class containing a list of {@code Food} objects to be used in tests.
@@ -30,7 +30,7 @@ public class TypicalFoods {
     public static final Food POTATO_CHIPS3 = new FoodBuilder().withFoodName("Potato chips3").withFoodType("s").build();
     public static final Food CHICKEN_RICE3 = new FoodBuilder().withFoodName("Chicken Rice3").withFoodType("m").build();
     public static final List<Food> FOODS = new ArrayList<>(Arrays.asList(BROCCOLI, POTATO, BANANA, CHICKEN,
-        POTATO_CHIPS, CHICKEN_RICE, BROCCOLI2, POTATO2, BANANA2, CHICKEN2, POTATO_CHIPS2, CHICKEN_RICE2, BROCCOLI3,
-        POTATO3, BANANA3, CHICKEN3, POTATO_CHIPS3, CHICKEN_RICE3));
+            POTATO_CHIPS, CHICKEN_RICE, BROCCOLI2, POTATO2, BANANA2, CHICKEN2, POTATO_CHIPS2, CHICKEN_RICE2, BROCCOLI3,
+            POTATO3, BANANA3, CHICKEN3, POTATO_CHIPS3, CHICKEN_RICE3));
 
 }

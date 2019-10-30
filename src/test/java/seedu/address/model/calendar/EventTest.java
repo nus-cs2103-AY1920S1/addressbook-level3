@@ -25,7 +25,7 @@ class EventTest {
 
         // different description and date, time -> returns false
         Event editedEvent = new EventBuilder(APPOINTMENT).withDescription("description")
-            .withDateTime(DATE_MAR22, TIME_MORN).build();
+                .withDateTime(DATE_MAR22, TIME_MORN).build();
         assertFalse(APPOINTMENT.isSameEvent(editedEvent));
 
         // different date and time -> returns false

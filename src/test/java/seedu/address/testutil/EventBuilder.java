@@ -19,7 +19,7 @@ public class EventBuilder {
     public static final LocalTime DEFAULT_TIME = LocalTime.of(14, 45);
     public static final LocalTime DEFAULT_ENDING_TIME = LocalTime.of(16, 0);
     public static final Reminder DEFAULT_AUTO_REMINDER = new Reminder(new Description("auto reminder"),
-        new DateTime(DEFAULT_DATE, LocalTime.of(13, 20)), Repetition.Once);
+            new DateTime(DEFAULT_DATE, LocalTime.of(13, 20)), Repetition.Once);
 
 
     private Description description;

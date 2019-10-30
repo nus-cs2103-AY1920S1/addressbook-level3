@@ -1,7 +1,5 @@
 package seedu.address;
 
-import static seedu.address.model.food.TypicalFoods.FOODS;
-
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
@@ -29,25 +27,25 @@ import seedu.address.model.ReadOnlyUserList;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.bio.UserList;
-import seedu.address.model.food.UniqueFoodList;
 import seedu.address.model.record.UniqueRecordList;
 import seedu.address.model.util.SampleCalendarDataUtil;
 import seedu.address.model.util.SampleFoodDataUtil;
 import seedu.address.model.util.SampleRecordDataUtil;
 import seedu.address.model.util.SampleUserDataUtil;
+import seedu.address.storage.AddressBookStorage;
+import seedu.address.storage.JsonAddressBookStorage;
+import seedu.address.storage.JsonCalendarStorage;
+import seedu.address.storage.JsonRecordListStorage;
+import seedu.address.storage.JsonUserPrefsStorage;
+import seedu.address.storage.Storage;
+import seedu.address.storage.StorageManager;
+import seedu.address.storage.UserListStorage;
+import seedu.address.storage.UserPrefsStorage;
 import seedu.address.storage.bio.JsonUserListStorage;
 import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager;
-import sugarmummy.storage.AddressBookStorage;
-import sugarmummy.storage.JsonAddressBookStorage;
-import sugarmummy.storage.JsonCalendarStorage;
-import sugarmummy.storage.JsonFoodListStorage;
-import sugarmummy.storage.JsonRecordListStorage;
-import sugarmummy.storage.JsonUserPrefsStorage;
-import sugarmummy.storage.Storage;
-import sugarmummy.storage.StorageManager;
-import sugarmummy.storage.UserListStorage;
-import sugarmummy.storage.UserPrefsStorage;
+import sugarmummy.recmfood.model.UniqueFoodList;
+import sugarmummy.recmfood.storage.JsonFoodListStorage;
 
 /**
  * Runs the application.
@@ -84,9 +82,9 @@ public class MainApp extends Application {
         JsonFoodListStorage jsonFoodListStorage = new JsonFoodListStorage(userPrefs.getFoodListFilePath());
         JsonRecordListStorage jsonRecordListStorage = new JsonRecordListStorage(userPrefs.getRecordListFilePath());
         JsonCalendarStorage jsonCalendarStorage = new JsonCalendarStorage(userPrefs.getEventListFilePath(),
-            userPrefs.getReminderListFilePath());
+                userPrefs.getReminderListFilePath());
         storage = new StorageManager(addressBookStorage, userPrefsStorage, userListStorage, jsonFoodListStorage,
-            jsonRecordListStorage, jsonCalendarStorage);
+                jsonRecordListStorage, jsonCalendarStorage);
 
         initLogging(config);
 
@@ -105,22 +103,22 @@ public class MainApp extends Application {
     private Model initModelManager(ReadOnlyUserPrefs userPrefs) {
         ReadOnlyAddressBook initialData = new AddressBook();
         ReadOnlyUserList initialUserData;
-        UniqueFoodList foodList = new UniqueFoodList();
-        foodList.setFoods(FOODS);
-        UniqueRecordList initialRecordListData;
         ReadOnlyCalendar initialCalendar;
+        UniqueFoodList initialFoodList;
+        UniqueRecordList initialRecordListData;
+
 
         initialUserData = (ReadOnlyUserList) getInitialData(LABEL_BIO_DATA_TYPE,
-            SampleUserDataUtil::getSampleUserList, UserList::new);
-        foodList = (UniqueFoodList) getInitialData(LABEL_FOOD_DATA_TYPE,
-            SampleFoodDataUtil::getSampleFoodList, UniqueFoodList::new);
+                SampleUserDataUtil::getSampleUserList, UserList::new);
+        initialFoodList = (UniqueFoodList) getInitialData(LABEL_FOOD_DATA_TYPE,
+                SampleFoodDataUtil::getSampleFoodList, UniqueFoodList::new);
         initialRecordListData = (UniqueRecordList) getInitialData(LABEL_RECORD_DATA_TYPE,
-            SampleRecordDataUtil::getSampleRecordList, UniqueRecordList::new);
+                SampleRecordDataUtil::getSampleRecordList, UniqueRecordList::new);
         initialCalendar = (ReadOnlyCalendar) getInitialData(LABEL_CALENDAR_DATA_TYPE,
-            SampleCalendarDataUtil::getSampleCalendar, Calendar::new);
+                SampleCalendarDataUtil::getSampleCalendar, Calendar::new);
 
-        return new ModelManager(initialData, userPrefs, initialUserData, foodList, initialRecordListData,
-            initialCalendar);
+        return new ModelManager(initialData, userPrefs, initialUserData, initialFoodList, initialRecordListData,
+                initialCalendar);
     }
 
     /**
@@ -132,7 +130,7 @@ public class MainApp extends Application {
      * @throws DataConversionException
      */
     private Optional<? extends ReadOnlyData> getOptionalData(String dataType) throws IOException,
-        DataConversionException {
+            DataConversionException {
         switch (dataType) {
         case LABEL_BIO_DATA_TYPE:
             return storage.readUserList();
@@ -162,14 +160,14 @@ public class MainApp extends Application {
             Optional<? extends ReadOnlyData> dataOptional = getOptionalData(dataType);
             if (!dataOptional.isPresent()) {
                 logger.info(capitaliseFirstLetter(dataType) + " data file not found. Will be starting a sample "
-                    + dataType + " data file");
+                        + dataType + " data file");
                 initialData = sampleDataSupplier.get();
             } else {
                 initialData = dataOptional.get();
             }
         } catch (DataConversionException | IOException e) {
             logger.warning(dataType + "data file not in the correct format. Will be starting with an empty "
-                + dataType + " data file");
+                    + dataType + " data file");
             initialData = dataObjectSupplier.get();
         }
         return initialData;
@@ -206,7 +204,7 @@ public class MainApp extends Application {
             initializedConfig = configOptional.orElse(new Config());
         } catch (DataConversionException e) {
             logger.warning("Config file at " + configFilePathUsed + " is not in the correct format. "
-                + "Using default config properties");
+                    + "Using default config properties");
             initializedConfig = new Config();
         }
 
@@ -233,7 +231,7 @@ public class MainApp extends Application {
             initializedPrefs = prefsOptional.orElse(new UserPrefs());
         } catch (DataConversionException e) {
             logger.warning("UserPrefs file at " + prefsFilePath + " is not in the correct format. "
-                + "Using default user prefs");
+                    + "Using default user prefs");
             initializedPrefs = new UserPrefs();
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");

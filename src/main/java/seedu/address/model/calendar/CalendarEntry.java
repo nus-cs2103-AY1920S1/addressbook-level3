@@ -9,7 +9,7 @@ import seedu.address.model.DateTime;
 /**
  * Represents a Calendar Entry in the calendar.
  */
-public abstract class CalendarEntry {
+public abstract class CalendarEntry implements Comparable<CalendarEntry> {
     private Description description;
     private DateTime dateTime;
 
@@ -62,11 +62,23 @@ public abstract class CalendarEntry {
     public abstract boolean isBetween(DateTime start, DateTime end);
 
     /**
+     * Returns true if the calendar entry is on the given date.
+     */
+    public boolean isOnDate(LocalDate date) {
+        return getDate().equals(date);
+    }
+
+    /**
      * Returns a String representation of the day of week of the date.
      *
      * @return a String representation of the day of week of the date.
      */
     public String getDayOfWeekString() {
         return dateTime.getDayOfWeekString();
+    }
+
+    @Override
+    public int compareTo(CalendarEntry calendarEntry) {
+        return this.getTime().compareTo(calendarEntry.getTime());
     }
 }

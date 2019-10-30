@@ -1,17 +1,17 @@
 package seedu.address.ui;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_ACHIEVEMENTS_ATTAINED;
+import static seedu.address.commons.core.Messages.MESSAGE_ACHIEVEMENTS_ATTAINED_AND_LOST;
+import static seedu.address.commons.core.Messages.MESSAGE_ACHIEVEMENTS_LOST;
 import static seedu.address.commons.core.Messages.MESSAGE_NO_BIO_FOUND;
-import static seedu.address.commons.core.Messages.MESSAGE_TEMP_BACKGROUND_IMAGE_LOADED;
 import static seedu.address.commons.core.Messages.MESSAGE_UNABLE_TO_LOAD_REFERENCES;
-import static seedu.address.ui.DisplayPaneType.BACKGROUND;
-import static seedu.address.ui.DisplayPaneType.BIO;
-import static seedu.address.ui.DisplayPaneType.COLOUR;
 
 import java.net.URISyntaxException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
@@ -28,21 +28,22 @@ import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
+import seedu.address.logic.commands.CalendarCommandResult;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.YearMonth;
 import seedu.address.model.aesthetics.Background;
+import seedu.address.model.calendar.YearMonthDay;
 import sugarmummy.recmfood.exception.FoodNotSuitableException;
 
 /**
- * The Main Window. Provides the basic application layout containing a menu bar and space where other JavaFX elements
- * can be placed.
+ * Provides the basic application layout containing a menu bar and space where other JavaFX elements can be placed.
  */
 public class MainWindow extends UiPart<Stage> {
 
     private static final String FXML = "MainWindow.fxml";
     private static final String MESSAGE_CANNOT_LOAD_WINDOW = "Unable to load window. :(";
-    private static final String TEMPORARY_BACKGROUND_PATH = "/images/SpaceModified.jpg";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
@@ -55,6 +56,7 @@ public class MainWindow extends UiPart<Stage> {
     private HelpWindow helpWindow;
     private MainDisplayPane mainDisplayPane;
     private ReminderListPanel reminderListPanel;
+    private MotivationalQuotesLabel motivationalQuotesLabel;
 
     @FXML
     private Scene scene;
@@ -77,6 +79,9 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private StackPane reminderListPlaceholder;
 
+    @FXML
+    private StackPane motivationalQuotesPlaceholder;
+
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
 
@@ -95,6 +100,7 @@ public class MainWindow extends UiPart<Stage> {
         setFontColour(logic.getGuiSettings());
         setBackground(logic.getGuiSettings());
         styleManager.setFontFamily("Futura");
+
     }
 
     /**
@@ -169,9 +175,9 @@ public class MainWindow extends UiPart<Stage> {
      */
     private void displayInvalidReferences(ResultDisplay resultDisplay) {
         List<Map<String, String>> listOfFieldsContainingInvalidReferences = logic
-            .getListOfFieldsContainingInvalidReferences();
+                .getListOfFieldsContainingInvalidReferences();
         Map<String, String> guiFieldsContainingInvalidReferences =
-            logic.getGuiSettings().getFieldsContainingInvalidReferences();
+                logic.getGuiSettings().getFieldsContainingInvalidReferences();
 
         StringBuilder sb = new StringBuilder();
 
@@ -198,10 +204,10 @@ public class MainWindow extends UiPart<Stage> {
         if (!logic.getFilteredUserList().isEmpty()) {
             String name = logic.getFilteredUserList().get(0).getName().toString();
             resultDisplay.appendFeedbackToUser("Hi " + name + "! How are you feeling, and how can SugarMummy "
-                + "assist you today?");
+                    + "assist you today?");
         } else {
             resultDisplay.appendFeedbackToUser("Hello there! How are you feeling, and how can SugarMummy "
-                + "assist you today?\n" + MESSAGE_NO_BIO_FOUND);
+                    + "assist you today?\n" + MESSAGE_NO_BIO_FOUND);
         }
     }
 
@@ -214,9 +220,9 @@ public class MainWindow extends UiPart<Stage> {
     private void showInitialBackground(StackPane mainDisplayPanePlaceholder, String imagePath) {
 
         mainDisplayPanePlaceholder.setStyle("-fx-background-image: url('" + imagePath + "'); "
-            + "-fx-background-position: center center; "
-            + "-fx-background-repeat: no-repeat;"
-            + "-fx-background-size: contain;");
+                + "-fx-background-position: center center; "
+                + "-fx-background-repeat: no-repeat;"
+                + "-fx-background-size: contain;");
     }
 
     /**
@@ -229,8 +235,7 @@ public class MainWindow extends UiPart<Stage> {
         displayWelcomeMessage(resultDisplay);
         displayInvalidReferences(resultDisplay);
         if (logic.getBackground().showDefaultBackground()) {
-            resultDisplay.appendNewLineInFeedBackToUser(2);
-            resultDisplay.appendFeedbackToUser(MESSAGE_TEMP_BACKGROUND_IMAGE_LOADED);
+            setFontColour(logic.getGuiSettings());
         }
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
         CommandBox commandBox = new CommandBox(this::executeCommand);
@@ -239,6 +244,9 @@ public class MainWindow extends UiPart<Stage> {
         reminderListPanel = new ReminderListPanel(logic.getPastReminderList());
         reminderListPlaceholder.getChildren().add(reminderListPanel.getRoot());
         logic.schedule();
+
+        motivationalQuotesLabel = new MotivationalQuotesLabel(logic.getMotivationalQuotesList(), primaryStage);
+        motivationalQuotesPlaceholder.getChildren().add(motivationalQuotesLabel.getRoot());
     }
 
     /**
@@ -269,16 +277,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     private void setBackground(GuiSettings guiSettings) {
         Background background = guiSettings.getBackground();
-        if (background.showDefaultBackground()) {
-            styleManager.setBackground(new Background("transparent"));
-            mainWindowPlaceholder.setStyle("-fx-background-image: url('" + TEMPORARY_BACKGROUND_PATH + "'); "
-                + "-fx-background-position: center center; "
-                + "-fx-background-repeat: no-repeat;"
-                + "-fx-background-size: cover;");
-            styleManager.setFontColour("yellow");
-        } else {
-            styleManager.setBackground(guiSettings.getBackground());
-        }
+        styleManager.setBackground(guiSettings.getBackground());
     }
 
     /**
@@ -303,8 +302,8 @@ public class MainWindow extends UiPart<Stage> {
      * @return
      */
     private DisplayPaneType getPaneToDisplay(DisplayPaneType displayPaneType, boolean guiIsModified) {
-        if (guiIsModified && mainDisplayPane.getCurrPaneType() == BIO) {
-            return BIO;
+        if (guiIsModified && mainDisplayPane.getCurrPaneType() == DisplayPaneType.BIO) {
+            return DisplayPaneType.BIO;
         } else if (guiIsModified) {
             return null;
         } else {
@@ -319,10 +318,10 @@ public class MainWindow extends UiPart<Stage> {
      * @return Boolean indicating whether the GUI has been modified.
      */
     private boolean guiIsModified(DisplayPaneType displayPaneType) {
-        if (displayPaneType == COLOUR) {
+        if (displayPaneType == DisplayPaneType.COLOUR) {
             setFontColour(logic.getGuiSettings());
             return true;
-        } else if (displayPaneType == BACKGROUND) {
+        } else if (displayPaneType == DisplayPaneType.BACKGROUND) {
             setBackground(logic.getGuiSettings());
             return true;
         } else {
@@ -341,12 +340,35 @@ public class MainWindow extends UiPart<Stage> {
             if (paneToDisplay == null) {
                 return;
             }
-            newPaneIsToBeCreated = ((displayPaneType == COLOUR || displayPaneType == BACKGROUND)
-                && paneToDisplay == BIO) || newPaneIsToBeCreated;
+            newPaneIsToBeCreated = ((displayPaneType == DisplayPaneType.COLOUR
+                    || displayPaneType == DisplayPaneType.BACKGROUND)
+                    && paneToDisplay == DisplayPaneType.BIO) || newPaneIsToBeCreated;
             mainDisplayPanePlaceholder.setStyle(null);
             mainDisplayPanePlaceholder.getChildren().clear();
             mainDisplayPanePlaceholder.getChildren()
-                .add(requireNonNull(mainDisplayPane.get(paneToDisplay, newPaneIsToBeCreated).getRoot()));
+                    .add(requireNonNull(mainDisplayPane.get(paneToDisplay, newPaneIsToBeCreated).getRoot()));
+        }
+    }
+
+    /**
+     * Switches the main display pane to the calendar pane.
+     */
+    public void switchToMainDisplayPane(DisplayPaneType displayPaneType, boolean newPaneIsToBeCreated,
+                                        YearMonth yearMonth, Optional<YearMonthDay> yearMonthDay,
+                                        boolean isShowingWeek) {
+        if (!Arrays.asList(DisplayPaneType.values()).contains(displayPaneType)) {
+            throw new NullPointerException();
+        } else if (displayPaneType != mainDisplayPane.getCurrPaneType() || newPaneIsToBeCreated) {
+            DisplayPaneType paneToDisplay = getPaneToDisplay(displayPaneType, guiIsModified(displayPaneType));
+            if (paneToDisplay == null) {
+                return;
+            }
+            newPaneIsToBeCreated = newPaneIsToBeCreated;
+            mainDisplayPanePlaceholder.setStyle(null);
+            mainDisplayPanePlaceholder.getChildren().clear();
+            mainDisplayPanePlaceholder.getChildren()
+                    .add(requireNonNull(mainDisplayPane.get(paneToDisplay, newPaneIsToBeCreated,
+                            yearMonth, yearMonthDay, isShowingWeek).getRoot()));
         }
     }
 
@@ -360,11 +382,33 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private void handleExit() {
         GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
-            (int) primaryStage.getX(), (int) primaryStage.getY(), logic.getFontColour(), logic.getBackground());
+                (int) primaryStage.getX(), (int) primaryStage.getY(), logic.getFontColour(), logic.getBackground());
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();
         styleManager.resetStyleSheets();
+    }
+
+    /**
+     * Returns an achievement notification to indicate change in user's achievement list if any.
+     */
+    private String getAchievementsNotification() {
+        if (logic.newAchievementsHaveBeenAttained()
+                && logic.existingAchievementsHaveBeenLost()) {
+            logic.resetNewAchievementsState();
+            return MESSAGE_ACHIEVEMENTS_ATTAINED_AND_LOST;
+        } else if (logic.newAchievementsHaveBeenAttained()) {
+            logic.resetNewAchievementsState();
+            return MESSAGE_ACHIEVEMENTS_ATTAINED;
+        } else if (logic.existingAchievementsHaveBeenLost()) {
+            logic.resetNewAchievementsState();
+            return MESSAGE_ACHIEVEMENTS_LOST;
+        } else {
+            assert !logic.newAchievementsHaveBeenAttained()
+                    && !logic.existingAchievementsHaveBeenLost() : "There should no longer be new achievements at this "
+                    + "point but this was not as such.";
+            return "";
+        }
     }
 
     /**
@@ -377,25 +421,32 @@ public class MainWindow extends UiPart<Stage> {
 
             CommandResult commandResult = logic.execute(commandText);
 
+            String achievementsNotification = "\n" + getAchievementsNotification();
+
             logger.info("Result: " + commandResult.getFeedbackToUser());
 
             if (commandResult.isShowHelp()) {
                 handleHelp();
                 return commandResult;
-            }
-
-            if (commandResult.isExit()) {
+            } else if (commandResult.isExit()) {
                 handleExit();
                 return commandResult;
-
             } else {
+                //TODO: change exception to assertion
                 try {
-                    switchToMainDisplayPane(logic.getDisplayPaneType(), logic.getnewPaneIsToBeCreated());
-                    logger.info("Result: " + commandResult.getFeedbackToUser());
-                    resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+                    if (commandResult.isCalendar()) {
+                        CalendarCommandResult calendarCommandResult = (CalendarCommandResult) commandResult;
+                        switchToMainDisplayPane(logic.getDisplayPaneType(), logic.getNewPaneIsToBeCreated(),
+                                calendarCommandResult.getYearMonth(), calendarCommandResult.getYearMonthDay(),
+                                calendarCommandResult.isShowingWeek());
+                    } else {
+                        switchToMainDisplayPane(logic.getDisplayPaneType(), logic.getNewPaneIsToBeCreated());
+                    }
+                    logger.info("Result: " + commandResult.getFeedbackToUser() + achievementsNotification);
+                    resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser() + achievementsNotification);
                 } catch (NullPointerException e) {
                     String feedbackToUser = commandResult.getFeedbackToUser() + "\n" + MESSAGE_CANNOT_LOAD_WINDOW;
-                    resultDisplay.setFeedbackToUser(feedbackToUser);
+                    resultDisplay.setFeedbackToUser(feedbackToUser + achievementsNotification);
                     return new CommandResult(feedbackToUser);
                 }
             }

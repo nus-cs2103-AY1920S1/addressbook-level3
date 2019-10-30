@@ -25,7 +25,7 @@ import seedu.address.model.calendar.exceptions.DuplicateCalendarEntryException;
 public class UniqueCalendarEntryList implements Iterable<CalendarEntry> {
     private final ObservableList<CalendarEntry> internalList = FXCollections.observableArrayList();
     private final ObservableList<CalendarEntry> internalUnmodifiableList =
-        FXCollections.unmodifiableObservableList(internalList);
+            FXCollections.unmodifiableObservableList(internalList);
 
     /**
      * Returns true if the list contains an equivalent calendar entry as the given argument.
@@ -51,7 +51,7 @@ public class UniqueCalendarEntryList implements Iterable<CalendarEntry> {
      */
     public void addAll(List<? extends CalendarEntry> toAdd) {
         internalList.addAll(toAdd.stream().filter(calendarEntry -> !contains(calendarEntry))
-            .collect(Collectors.toList()));
+                .collect(Collectors.toList()));
     }
 
     /**
@@ -117,8 +117,8 @@ public class UniqueCalendarEntryList implements Iterable<CalendarEntry> {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-            || (other instanceof UniqueCalendarEntryList // instanceof handles nulls
-            && internalList.equals(((UniqueCalendarEntryList) other).internalList));
+                || (other instanceof UniqueCalendarEntryList // instanceof handles nulls
+                && internalList.equals(((UniqueCalendarEntryList) other).internalList));
     }
 
     @Override

@@ -21,15 +21,17 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyCalendar;
 import seedu.address.model.ReadOnlyUserList;
+import seedu.address.model.achievements.Achievement;
 import seedu.address.model.aesthetics.Background;
 import seedu.address.model.aesthetics.Colour;
 import seedu.address.model.bio.User;
 import seedu.address.model.calendar.CalendarEntry;
-import seedu.address.model.food.Food;
 import seedu.address.model.person.Person;
 import seedu.address.model.record.Record;
+import seedu.address.model.record.RecordType;
+import seedu.address.storage.Storage;
 import seedu.address.ui.DisplayPaneType;
-import sugarmummy.storage.Storage;
+import sugarmummy.recmfood.model.Food;
 
 /**
  * The main LogicManager of the app.
@@ -57,7 +59,7 @@ public class LogicManager implements Logic {
         CommandResult commandResult;
         Command command = sugarMummyParser.parseCommand(commandText);
         displayPaneType = command.getDisplayPaneType();
-        newPaneIsToBeCreated = command.getnewPaneIsToBeCreated();
+        newPaneIsToBeCreated = command.getNewPaneIsToBeCreated();
         commandResult = command.execute(model);
 
         try {
@@ -79,7 +81,7 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public boolean getnewPaneIsToBeCreated() {
+    public boolean getNewPaneIsToBeCreated() {
         return newPaneIsToBeCreated;
     }
 
@@ -201,5 +203,36 @@ public class LogicManager implements Logic {
     public Background getBackground() {
         return model.getBackground();
     }
+
+    //=========== Motivational Quotes =============================================================
+
+    @Override
+    public List<String> getMotivationalQuotesList() {
+        return model.getMotivationalQuotesList();
+    }
+
+    //=========== Achievements =============================================================
+
+    @Override
+    public Map<RecordType, List<Achievement>> getAchievementsMap() {
+        return model.getAchievementsMap();
+    }
+
+    @Override
+    public boolean newAchievementsHaveBeenAttained() {
+        return model.newAchievementsHaveBeenAttained();
+    }
+
+    @Override
+    public boolean existingAchievementsHaveBeenLost() {
+        return model.existingAchievementsHaveBeenLost();
+    }
+
+    @Override
+    public void resetNewAchievementsState() {
+        model.resetNewAchievementsState();
+    }
+
+
 
 }

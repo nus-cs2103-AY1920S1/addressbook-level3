@@ -23,7 +23,7 @@ import seedu.address.model.DateTime;
  * A class representing a scheduler.
  */
 public class Scheduler {
-    private static int threads = 10;
+    private static int threads = 5;
     private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(threads);
     private LocalDateTime currentDeadline;
     private LocalDateTime currentStartingDateTime;
@@ -64,26 +64,26 @@ public class Scheduler {
         currentStartingDateTime = LocalDateTime.now();
         for (Map.Entry<LocalTime, List<Reminder>> entry : dateTimeMap.entrySet()) {
             scheduledFutures.add(scheduler.schedule(new ReminderAdder(entry.getValue(), calendar),
-                getDuration(entry.getKey()), TimeUnit.MILLISECONDS));
+                    getDuration(entry.getKey()), TimeUnit.MILLISECONDS));
         }
         scheduler.schedule(new Initializer(calendar),
-            getDuration(currentDeadline.plusMinutes(1)), TimeUnit.MILLISECONDS);
+                getDuration(currentDeadline.plusMinutes(1)), TimeUnit.MILLISECONDS);
     }
 
     /**
      * Returns a Map mapping from DateTime to a list of reminders at the certain date time;
      */
     private TreeMap<LocalTime, List<Reminder>> getDateTimeMapToReminders(
-        ObservableList<CalendarEntry> calendarEntries) {
+            ObservableList<CalendarEntry> calendarEntries) {
         currentStartingDateTime = LocalDateTime.now().withSecond(0).withNano(0);
 
         return calendarEntries
-            .stream()
-            .filter(calendarEntry -> calendarEntry instanceof Reminder)
-            .map(calendarEntry -> (Reminder) calendarEntry)
-            .filter(reminder -> reminder
-                .isBetween(new DateTime(currentStartingDateTime), new DateTime(currentDeadline)))
-            .collect(Collectors.groupingBy(Reminder::getTime, TreeMap::new, Collectors.toList()));
+                .stream()
+                .filter(calendarEntry -> calendarEntry instanceof Reminder)
+                .map(calendarEntry -> (Reminder) calendarEntry)
+                .filter(reminder -> reminder
+                        .isBetween(new DateTime(currentStartingDateTime), new DateTime(currentDeadline)))
+                .collect(Collectors.groupingBy(Reminder::getTime, TreeMap::new, Collectors.toList()));
     }
 
     /**

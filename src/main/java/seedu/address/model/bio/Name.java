@@ -10,7 +10,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Name {
 
     public static final String MESSAGE_CONSTRAINTS =
-        "Name should only contain alphabets and spaces, and it should not be blank.";
+            "Name should only contain alphabets and spaces, and it should not be blank.";
 
     public static final String VALIDATION_REGEX = "^[A-Za-z\\s]+";
 
@@ -43,8 +43,8 @@ public class Name {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-            || (other instanceof Name // instanceof handles nulls
-            && fullName.equals(((Name) other).fullName)); // state check
+                || (other instanceof Name // instanceof handles nulls
+                && fullName.equals(((Name) other).fullName)); // state check
     }
 
     @Override

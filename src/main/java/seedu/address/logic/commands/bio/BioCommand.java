@@ -13,7 +13,7 @@ public class BioCommand extends Command {
     public static final String COMMAND_WORD = "bio";
 
     public static final String SHOWING_BIO_MESSAGE = "Here's your biography information I've displayed on this "
-        + "window.\nPlease keep your data safe!";
+            + "window.\nPlease keep your data safe!";
 
     @Override
     public CommandResult execute(Model model) {

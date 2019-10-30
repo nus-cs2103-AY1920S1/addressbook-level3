@@ -1,14 +1,9 @@
 package seedu.address.logic.parser;
 
-import java.util.Arrays;
-import java.util.List;
-
 /**
  * Contains Command Line Interface (CLI) syntax definitions common to multiple commands
  */
 public class CliSyntax {
-
-    /* Prefix definitions */
 
     // Biography Prefixes
     public static final Prefix PREFIX_NAME = new Prefix("n/");
@@ -37,41 +32,23 @@ public class CliSyntax {
     public static final Prefix PREFIX_BMI_HEIGHT = new Prefix("h/");
     public static final Prefix PREFIX_BMI_WEIGHT = new Prefix("w/");
 
+    // Stats Prefixes
+    public static final Prefix PREFIX_AVGTYPE = new Prefix("a/");
+    public static final Prefix PREFIX_COUNT = new Prefix("n/");
+
     // Calendar Prefixes
     public static final Prefix PREFIX_CALENDAR_DESCRIPTION = new Prefix("d/");
     public static final Prefix PREFIX_CALENDAR_REPETITION = new Prefix("r/");
     public static final Prefix PREFIX_TIME_DURATION = new Prefix("td/");
+    public static final Prefix PREFIX_YEAR_MONTH = new Prefix("ym/");
+    public static final Prefix PREFIX_YEAR_MONTH_DAY = new Prefix("ymd/");
+    public static final Prefix PREFIX_YEAR_MONTH_WEEK = new Prefix("ymw/");
 
-    // Stats Prefixes
-    public static final Prefix PREFIX_TAG = new Prefix("t/");
+    // Food Prefixes
     public static final Prefix PREFIX_FOOD = new Prefix("fn/");
     public static final Prefix PREFIX_FOOD_TYPE = new Prefix("ft/");
-    public static final Prefix PREFIX_CALORIE = new Prefix("c/");
-    public static final Prefix PREFIX_GI = new Prefix("g/");
-    public static final Prefix PREFIX_SUGAR = new Prefix("s/");
-    public static final Prefix PREFIX_FAT = new Prefix("f/");
-
-    // Food Recommendation Prefixes
-    public static final String ABBR_NON_STARCHY_VEGETABLE = "nsv";
-    public static final String ABBR_STARCHY_VEGETABLE = "sv";
-    public static final String ABBR_FRUIT = "f";
-    public static final String ABBR_PROTEIN = "p";
-    public static final String ABBR_SNACK = "s";
-    public static final String ABBR_MEAL = "m";
-    public static final String FLAG_SIGNAL = "-";
-
-    public static final Flag FLAG_NSV = new Flag(FLAG_SIGNAL + ABBR_NON_STARCHY_VEGETABLE);
-    public static final Flag FLAG_SV = new Flag(FLAG_SIGNAL + ABBR_STARCHY_VEGETABLE);
-    public static final Flag FLAG_F = new Flag(FLAG_SIGNAL + ABBR_FRUIT);
-    public static final Flag FLAG_P = new Flag(FLAG_SIGNAL + ABBR_PROTEIN);
-    public static final Flag FLAG_S = new Flag(FLAG_SIGNAL + ABBR_SNACK);
-    public static final Flag FLAG_M = new Flag(FLAG_SIGNAL + ABBR_MEAL);
-    public static final List<Flag> FLAGS = Arrays.asList(FLAG_NSV, FLAG_SV, FLAG_F, FLAG_P, FLAG_S, FLAG_M);
-    public static final Prefix PREFIX_AVGTYPE = new Prefix("a/");
-    public static final Prefix PREFIX_COUNT = new Prefix("n/");
-
-    // @Todo to remove if not used.
-    public static final Prefix PREFIX_PHONE = new Prefix("p/");
-    public static final Prefix PREFIX_EMAIL = new Prefix("e/");
-
+    public static final Prefix PREFIX_CALORIE = new Prefix("ca/");
+    public static final Prefix PREFIX_GI = new Prefix("gi/");
+    public static final Prefix PREFIX_SUGAR = new Prefix("su/");
+    public static final Prefix PREFIX_FAT = new Prefix("fa/");
 }

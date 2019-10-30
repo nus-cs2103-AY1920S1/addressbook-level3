@@ -104,8 +104,8 @@ public class UserList implements ReadOnlyUserList {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-            || (other instanceof UserList // instanceof handles nulls
-            && users.equals(((UserList) other).users));
+                || (other instanceof UserList // instanceof handles nulls
+                && users.equals(((UserList) other).users));
     }
 
     @Override

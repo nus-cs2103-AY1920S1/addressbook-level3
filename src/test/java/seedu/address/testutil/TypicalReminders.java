@@ -23,21 +23,21 @@ public class TypicalReminders {
     public static final Repetition ONCE = Repetition.Once;
 
     public static final Reminder LUNCH_INSULIN_INJECTION = new ReminderBuilder()
-        .withDescription("Lunch insulin injection")
-        .withDateTime(DATE_DEC20, TIME_NOON).withRepetition(DAILY).build();
+            .withDescription("Lunch insulin injection")
+            .withDateTime(DATE_DEC20, TIME_NOON).withRepetition(DAILY).build();
     public static final Reminder DINNER_INSULIN_INJECTION = new ReminderBuilder()
-        .withDescription("Dinner insulin injection").withDateTime(DATE_DEC20, TIME_EVEN)
-        .withRepetition(DAILY).build();
+            .withDescription("Dinner insulin injection").withDateTime(DATE_DEC20, TIME_EVEN)
+            .withRepetition(DAILY).build();
     public static final Reminder BUY_INSULIN = new ReminderBuilder().withDescription("Buy insulin")
-        .withDateTime(DATE_JAN04, TIME_MORN).withRepetition(ONCE).build();
+            .withDateTime(DATE_JAN04, TIME_MORN).withRepetition(ONCE).build();
     public static final Reminder CHECK_WEEKLY_SUMMARY = new ReminderBuilder().withDescription("Check weekly summary")
-        .withDateTime(DATE_DEC20, TIME_EVEN).withRepetition(WEEKLY).build();
+            .withDateTime(DATE_DEC20, TIME_EVEN).withRepetition(WEEKLY).build();
 
     private TypicalReminders() {
     } // prevents instantiation
 
     public static List<Reminder> getTypicalReminders() {
         return new ArrayList<>(Arrays.asList(LUNCH_INSULIN_INJECTION, DINNER_INSULIN_INJECTION, BUY_INSULIN,
-            CHECK_WEEKLY_SUMMARY));
+                CHECK_WEEKLY_SUMMARY));
     }
 }

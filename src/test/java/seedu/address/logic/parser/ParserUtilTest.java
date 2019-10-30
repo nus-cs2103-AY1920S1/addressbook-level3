@@ -25,6 +25,7 @@ import seedu.address.model.bio.Nric;
 import seedu.address.model.bio.OtherBioInfo;
 import seedu.address.model.bio.Phone;
 import seedu.address.model.bio.ProfileDesc;
+import seedu.address.model.statistics.AverageType;
 
 public class ParserUtilTest {
     private static final String INVALID_NAME = "R@chel";
@@ -53,6 +54,13 @@ public class ParserUtilTest {
     private static final String VALID_GOAL_1 = "lose 5kg by 20/10/2019.";
     private static final String VALID_GOAL_2 = "run 10km this week.";
     private static final String VALID_OTHER_BIO_INFO = "dislikes potatoes.";
+
+    private static final String INVALID_AVERAGE_TYPE_1 = "yearly";
+    private static final String INVALID_AVERAGE_TYPE_2 = "23";
+
+    private static final String VALID_AVERAGE_TYPE_1 = "daily";
+    private static final String VALID_AVERAGE_TYPE_2 = "WEEKLY";
+    private static final String VALID_AVERAGE_TYPE_3 = "MoNtHlY";
 
 
     private static final String WHITESPACE = " \t\r\n";
@@ -155,6 +163,40 @@ public class ParserUtilTest {
     //        Concentration expectedConcentration = new Concentration(VALID_POSITIVEFLOAT);
     //        assertEquals(expectedConcentration, ParserUtil.parseConcentration(concentrationWithWhitespace));
     //    }
+
+    @Test
+    public void parseAverageType_invalid_throwsParseException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseAverageType(null));
+    }
+
+    @Test
+    public void parseAverageType_invalidValue_throwsParseException() {
+        // String
+        assertThrows(ParseException.class, () -> ParserUtil.parseAverageType(INVALID_AVERAGE_TYPE_1));
+        // int
+        assertThrows(ParseException.class, () -> ParserUtil.parseAverageType(INVALID_AVERAGE_TYPE_2));
+    }
+
+    @Test
+    public void parseAverageType_validValueInLowerCase_returnsAverageType() throws Exception {
+        assertEquals(AverageType.valueOf("DAILY"), ParserUtil.parseAverageType(VALID_AVERAGE_TYPE_1));
+    }
+
+    @Test
+    public void parseAverageType_validValueUpperCase_returnsAverageType() throws Exception {
+        assertEquals(AverageType.valueOf("WEEKLY"), ParserUtil.parseAverageType(VALID_AVERAGE_TYPE_2));
+    }
+
+    @Test
+    public void parseAverageType_validValueMixCase_returnsAverageType() throws Exception {
+        assertEquals(AverageType.valueOf("MONTHLY"), ParserUtil.parseAverageType(VALID_AVERAGE_TYPE_3));
+    }
+
+    @Test
+    public void parseAverageType_validValueWithWhiteSpace_returnsAverageType() throws Exception {
+        String actualInput = VALID_AVERAGE_TYPE_1 + WHITESPACE;
+        assertEquals(AverageType.valueOf("DAILY"), ParserUtil.parseAverageType(VALID_AVERAGE_TYPE_1));
+    }
 
     @Test
     public void parseName_null_throwsNullPointerException() {

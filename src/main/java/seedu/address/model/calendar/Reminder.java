@@ -1,5 +1,6 @@
 package seedu.address.model.calendar;
 
+import java.time.LocalDate;
 import java.util.Objects;
 
 import seedu.address.model.DateTime;
@@ -30,8 +31,8 @@ public class Reminder extends CalendarEntry {
         }
 
         return otherReminder != null
-            && otherReminder.getDescription().equals(getDescription())
-            && otherReminder.getDateTime().equals(getDateTime());
+                && otherReminder.getDescription().equals(getDescription())
+                && otherReminder.getDateTime().equals(getDateTime());
     }
 
     /**
@@ -48,10 +49,27 @@ public class Reminder extends CalendarEntry {
         case Once:
             return getDateTime().isBetweenDateTime(start, end);
         case Daily:
-            return getDateTime().isBeforeDateTime(end) && getDateTime().isBetweenTime(start, end);
+            return (getDateTime().isBeforeDateTime(end) || getDateTime().equals(end))
+                    && getDateTime().isBetweenTime(start, end);
         case Weekly:
-            return getDateTime().isBeforeDateTime(end) && getDayOfWeek().equals(end.getDayOfWeek())
-                && getDateTime().isBetweenTime(start, end);
+            return (getDateTime().isBeforeDateTime(end) || getDateTime().equals(end))
+                    && getDayOfWeek().equals(end.getDayOfWeek())
+                    && getDateTime().isBetweenTime(start, end);
+        default:
+            return false;
+        }
+    }
+
+    @Override
+    public boolean isOnDate(LocalDate date) {
+        switch (repetition) {
+        case Once:
+            return super.isOnDate(date);
+        case Daily:
+            return getDate().isBefore(date) || getDate().equals(date);
+        case Weekly:
+            return (getDate().isBefore(date) || getDate().equals(date))
+                    && getDayOfWeek().equals(date.getDayOfWeek());
         default:
             return false;
         }
@@ -72,8 +90,8 @@ public class Reminder extends CalendarEntry {
 
         Reminder otherReminder = (Reminder) other;
         return otherReminder.getDescription().equals(getDescription())
-            && otherReminder.getDateTime().equals(getDateTime())
-            && otherReminder.getRepetition().equals(getRepetition());
+                && otherReminder.getDateTime().equals(getDateTime())
+                && otherReminder.getRepetition().equals(getRepetition());
     }
 
     @Override
@@ -84,23 +102,24 @@ public class Reminder extends CalendarEntry {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append("Reminder")
-            .append(" Description: ")
-            .append(getDescription());
+        builder.append("Reminder: ")
+                .append(getDescription());
         if (repetition.equals(Repetition.Once)) {
-            builder.append(" on: ")
-                .append(getDateTime());
+            builder.append(" On ")
+                    .append(getDateTime());
         } else if (repetition.equals(Repetition.Daily)) {
-            builder.append(" at: ")
-                .append(getTime())
-                .append(" everyday")
-                .append(" from: ")
-                .append(getDate());
+            builder.append(" At ")
+                    .append(getTime())
+                    .append(" everyday")
+                    .append(" From ")
+                    .append(getDate());
         } else if (repetition.equals(Repetition.Weekly)) {
             builder.append(" at: ")
-                .append(getTime())
-                .append(" every ")
-                .append(getDayOfWeekString());
+                    .append(getTime())
+                    .append(" every ")
+                    .append(getDayOfWeekString())
+                    .append(" From ")
+                    .append(getDate());
         }
         return builder.toString();
     }
@@ -108,6 +127,6 @@ public class Reminder extends CalendarEntry {
     @Override
     public boolean isSameCalendarEntry(CalendarEntry calendarEntry) {
         return calendarEntry instanceof Reminder
-            && isSameReminder((Reminder) calendarEntry);
+                && isSameReminder((Reminder) calendarEntry);
     }
 }

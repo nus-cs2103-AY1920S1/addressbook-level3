@@ -23,8 +23,8 @@ public class GuiSettings implements Serializable {
 
     private static final double DEFAULT_HEIGHT = 600;
     private static final double DEFAULT_WIDTH = 740;
-    private static final String DEFAULT_FONT_COLOUR = "white";
-    private static final String DEFAULT_BACKGROUND = "gray";
+    private static final String DEFAULT_FONT_COLOUR = "#FFFF3A";
+    private static final String DEFAULT_BACKGROUND = "#000A34";
     private static final String DEFAULT_BACKGROUND_SIZE = "auto";
     private static final String DEFAULT_BACKGROUND_REPEAT = "repeat";
 
@@ -43,20 +43,14 @@ public class GuiSettings implements Serializable {
         windowWidth = DEFAULT_WIDTH;
         windowHeight = DEFAULT_HEIGHT;
         windowCoordinates = null; // null represent no coordinates
-        fontColour = DEFAULT_FONT_COLOUR;
-        background = DEFAULT_BACKGROUND;
-        backgroundSize = DEFAULT_BACKGROUND_SIZE;
-        backgroundRepeat = DEFAULT_BACKGROUND_REPEAT;
+        setDefaultAesthetics();
         showDefaultBackground = true;
     }
 
     public GuiSettings(double windowWidth, double windowHeight, int xPosition, int yPosition) {
         this.windowWidth = windowWidth;
         this.windowHeight = windowHeight;
-        this.fontColour = DEFAULT_FONT_COLOUR;
-        this.background = DEFAULT_BACKGROUND;
-        this.backgroundSize = DEFAULT_BACKGROUND_SIZE;
-        this.backgroundRepeat = DEFAULT_BACKGROUND_REPEAT;
+        setDefaultAesthetics();
         windowCoordinates = new Point(xPosition, yPosition);
         showDefaultBackground = true;
     }
@@ -86,7 +80,7 @@ public class GuiSettings implements Serializable {
 
     public String getFontColour() {
         if (!Colour.isValidColour(fontColour)) {
-            fontColour = DEFAULT_FONT_COLOUR;
+            this.fontColour = DEFAULT_FONT_COLOUR;
         }
         return fontColour;
     }
@@ -97,8 +91,8 @@ public class GuiSettings implements Serializable {
 
     public Background getBackground() {
         if (background == null
-            || background.isEmpty()) {
-            setDefaultBackground();
+                || background.isEmpty()) {
+            setDefaultAesthetics();
             showDefaultBackground = true;
         } else if (!Colour.isValidColour(background)) {
             try {
@@ -108,14 +102,14 @@ public class GuiSettings implements Serializable {
                 }
             } catch (IOException e) {
                 fieldsContainingInvalidReferences.put(LABEL_BACKGROUND, background);
-                setDefaultBackground();
+                setDefaultAesthetics();
                 showDefaultBackground = true;
             }
         }
 
         if (!Background.isValidBackgroundSize(backgroundSize)
-            || !Background.isValidBackgroundRepeat(backgroundRepeat)) {
-            setDefaultBackground();
+                || !Background.isValidBackgroundRepeat(backgroundRepeat)) {
+            setDefaultAesthetics();
             showDefaultBackground = true;
         }
 
@@ -139,8 +133,9 @@ public class GuiSettings implements Serializable {
         this.backgroundRepeat = background.getBgRepeat();
     }
 
-    public void setDefaultBackground() {
+    public void setDefaultAesthetics() {
         background = DEFAULT_BACKGROUND;
+        fontColour = DEFAULT_FONT_COLOUR;
         backgroundSize = "";
         backgroundRepeat = "";
     }
@@ -157,8 +152,8 @@ public class GuiSettings implements Serializable {
         GuiSettings o = (GuiSettings) other;
 
         return windowWidth == o.windowWidth
-            && windowHeight == o.windowHeight
-            && Objects.equals(windowCoordinates, o.windowCoordinates);
+                && windowHeight == o.windowHeight
+                && Objects.equals(windowCoordinates, o.windowCoordinates);
     }
 
     /**

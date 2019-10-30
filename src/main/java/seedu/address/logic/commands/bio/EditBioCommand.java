@@ -52,35 +52,35 @@ public class EditBioCommand extends Command {
     public static final String COMMAND_WORD = "editbio";
 
     public static final String MESSAGE_USAGE = "\n" + COMMAND_WORD + ": Edits the user's biography "
-        + "either by overwriting all existing values, OR by specifying positive indexes for individual values for "
-        + "fields that can hold multiple values. Fields that can hold multiple values are limited to "
-        + "contact numbers, emergency contacts, medical conditions and goals.\n"
-        + "Note that Name, contact number(s), emergency contact(s) and medical condition(s) cannot be empty.\n\n"
-        + "Parameters: "
-        + "[" + PREFIX_NAME + "NAME] "
-        + "[" + PREFIX_DP_PATH + "DP PATH] "
-        + "[" + PREFIX_PROFILE_DESC + "PROFILE DESCRIPTION] "
-        + "[" + PREFIX_NRIC + "NRIC] "
-        + "[" + PREFIX_GENDER + "GENDER] "
-        + "[" + PREFIX_DATE_OF_BIRTH + "DATE OF BIRTH] "
-        + "[" + PREFIX_CONTACT_NUMBER + "[INDEX/]CONTACT NUMBER]... "
-        + "[" + PREFIX_EMERGENCY_CONTACT + "[INDEX/]EMERGENCY CONTACT]... "
-        + "[" + PREFIX_MEDICAL_CONDITION + "[INDEX/]MEDICAL CONDITION]... "
-        + "[" + PREFIX_ADDRESS + "ADDRESS] "
-        + "[" + PREFIX_GOALS + "[INDEX/]GOALS]... "
-        + "[" + PREFIX_OTHER_BIO_INFO + "OTHER INFO]\n\n"
-        + "Example: " + COMMAND_WORD + PREFIX_PROFILE_DESC + "The world has changed, just like my "
-        + "profile description has. "
-        + PREFIX_CONTACT_NUMBER + "91234567 " + PREFIX_CONTACT_NUMBER + "98765432 "
-        + PREFIX_MEDICAL_CONDITION + "1/Type I diabetes " + PREFIX_MEDICAL_CONDITION + "2/High Blood Pressure";
+            + "either by overwriting all existing values, OR by specifying positive indexes for individual values for "
+            + "fields that can hold multiple values. Fields that can hold multiple values are limited to "
+            + "contact numbers, emergency contacts, medical conditions and goals.\n"
+            + "Note that Name, contact number(s), emergency contact(s) and medical condition(s) cannot be empty.\n\n"
+            + "Parameters: "
+            + "[" + PREFIX_NAME + "NAME] "
+            + "[" + PREFIX_DP_PATH + "DP PATH] "
+            + "[" + PREFIX_PROFILE_DESC + "PROFILE DESCRIPTION] "
+            + "[" + PREFIX_NRIC + "NRIC] "
+            + "[" + PREFIX_GENDER + "GENDER] "
+            + "[" + PREFIX_DATE_OF_BIRTH + "DATE OF BIRTH] "
+            + "[" + PREFIX_CONTACT_NUMBER + "[INDEX/]CONTACT NUMBER]... "
+            + "[" + PREFIX_EMERGENCY_CONTACT + "[INDEX/]EMERGENCY CONTACT]... "
+            + "[" + PREFIX_MEDICAL_CONDITION + "[INDEX/]MEDICAL CONDITION]... "
+            + "[" + PREFIX_ADDRESS + "ADDRESS] "
+            + "[" + PREFIX_GOALS + "[INDEX/]GOALS]... "
+            + "[" + PREFIX_OTHER_BIO_INFO + "OTHER INFO]\n\n"
+            + "Example: " + COMMAND_WORD + PREFIX_PROFILE_DESC + "The world has changed, just like my "
+            + "profile description has. "
+            + PREFIX_CONTACT_NUMBER + "91234567 " + PREFIX_CONTACT_NUMBER + "98765432 "
+            + PREFIX_MEDICAL_CONDITION + "1/Type I diabetes " + PREFIX_MEDICAL_CONDITION + "2/High Blood Pressure";
 
     public static final String MESSAGE_EDIT_USER_SUCCESS = "I've edited your bio successfully! %1$s";
     public static final String MESSAGE_CHANGES_MADE = "The following changes were made.\n\n%1$s";
     public static final String MESSAGE_NO_CHANGE = "The information that you've keyed in are no different from "
-        + "what already exists in your current biography! As such, there's nothing for me to update :)";
+            + "what already exists in your current biography! As such, there's nothing for me to update :)";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_BIOGRAPHY_DOES_NOT_EXIST = "Oops! Biography does not exist!"
-        + " Try using the [" + AddBioCommand.COMMAND_WORD + "] command to add a new biography.";
+            + " Try using the [" + AddBioCommand.COMMAND_WORD + "] command to add a new biography.";
     public static final String MESSAGE_DUPLICATE_USER = "his user already exists in the address book.";
 
     private final EditUserDescriptor editUserDescriptor;
@@ -98,7 +98,7 @@ public class EditBioCommand extends Command {
      * editUserDescriptor}.
      */
     private static User createEditedUser(User userToEdit, EditUserDescriptor editUserDescriptor)
-        throws CommandException {
+            throws CommandException {
         assert userToEdit != null;
 
         Name updatedName = editUserDescriptor.getName().orElse(userToEdit.getName());
@@ -110,29 +110,29 @@ public class EditBioCommand extends Command {
 
 
         List<Phone> updatedContactNumbers = updateListableFields(userToEdit.getContactNumbers(),
-            editUserDescriptor.getContactNumbers(), editUserDescriptor.getIndividualContactNumbersMap()).stream()
-            .map(Phone.class::cast).collect(Collectors.toList());
+                editUserDescriptor.getContactNumbers(), editUserDescriptor.getIndividualContactNumbersMap()).stream()
+                .map(Phone.class::cast).collect(Collectors.toList());
 
         List<Phone> updatedEmergencyContacts = updateListableFields(userToEdit.getEmergencyContacts(),
-            editUserDescriptor.getEmergencyContacts(),
-            editUserDescriptor.getIndividualEmergencyContactsMap()).stream()
-            .map(Phone.class::cast).collect(Collectors.toList());
+                editUserDescriptor.getEmergencyContacts(),
+                editUserDescriptor.getIndividualEmergencyContactsMap()).stream()
+                .map(Phone.class::cast).collect(Collectors.toList());
 
         List<Goal> updatedGoals = updateListableFields(userToEdit.getGoals(),
-            editUserDescriptor.getGoals(), editUserDescriptor.getIndividualGoalsMap()).stream()
-            .map(Goal.class::cast).collect(Collectors.toList());
+                editUserDescriptor.getGoals(), editUserDescriptor.getIndividualGoalsMap()).stream()
+                .map(Goal.class::cast).collect(Collectors.toList());
 
         Address updatedAddress = editUserDescriptor.getAddress().orElse(userToEdit.getAddress());
 
         List<MedicalCondition> updatedMedicalConditions = updateListableFields(userToEdit.getMedicalConditions(),
-            editUserDescriptor.getMedicalConditions(), editUserDescriptor.getIndividualMedicalConditionsMap())
-            .stream().map(MedicalCondition.class::cast).collect(Collectors.toList());
+                editUserDescriptor.getMedicalConditions(), editUserDescriptor.getIndividualMedicalConditionsMap())
+                .stream().map(MedicalCondition.class::cast).collect(Collectors.toList());
 
         OtherBioInfo updatedOtherBioInfo = editUserDescriptor.getOtherBioInfo().orElse(userToEdit.getOtherBioInfo());
 
         return new User(updatedName, udpatedDpPath, updatedProfileDesc, updatedNric, updatedGender, updatedDateOfBirth,
-            updatedContactNumbers, updatedEmergencyContacts, updatedMedicalConditions, updatedAddress,
-            updatedGoals, updatedOtherBioInfo);
+                updatedContactNumbers, updatedEmergencyContacts, updatedMedicalConditions, updatedAddress,
+                updatedGoals, updatedOtherBioInfo);
     }
 
     /**
@@ -146,15 +146,15 @@ public class EditBioCommand extends Command {
      * @throws CommandException If the given one-based index / indices is / are out of bounds.
      */
     private static List<? extends ListableField> updateListableFields(
-        List<? extends ListableField> userToEditListableFields,
-        Optional<? extends List<? extends ListableField>> listableFieldsOptional,
-        Optional<? extends List<? extends HashMap<Index, ? extends ListableField>>>
-            individualListableFieldsMapOptional) throws CommandException {
+            List<? extends ListableField> userToEditListableFields,
+            Optional<? extends List<? extends ListableField>> listableFieldsOptional,
+            Optional<? extends List<? extends HashMap<Index, ? extends ListableField>>>
+                    individualListableFieldsMapOptional) throws CommandException {
         List<? extends ListableField> updatedListableFields = listableFieldsOptional.orElse(null);
         if (updatedListableFields == null) {
             if (individualListableFieldsMapOptional.isPresent()) {
                 List<? extends HashMap<Index, ? extends ListableField>> individualListableFieldsMap =
-                    individualListableFieldsMapOptional.get();
+                        individualListableFieldsMapOptional.get();
                 List<ListableField> listableFieldsCopy = new ArrayList<>(userToEditListableFields);
                 for (HashMap<Index, ? extends ListableField> map : individualListableFieldsMap) {
                     Index index = map.keySet().iterator().next();
@@ -202,15 +202,15 @@ public class EditBioCommand extends Command {
                     editedFields.append("Deleted from ").append(key).append(": ").append(before);
                 } else {
                     editedFields.append("Modified ").append(key)
-                        .append(": from ").append(before).append(" to ").append(after);
+                            .append(": from ").append(before).append(" to ").append(after);
                 }
                 editedFields.append("\n");
             });
 
             return new CommandResult(changedDifferences.size() == 0
-                ? MESSAGE_NO_CHANGE
-                : String.format(MESSAGE_EDIT_USER_SUCCESS,
-                String.format(MESSAGE_CHANGES_MADE, editedFields.toString().trim())));
+                    ? MESSAGE_NO_CHANGE
+                    : String.format(MESSAGE_EDIT_USER_SUCCESS,
+                            String.format(MESSAGE_CHANGES_MADE, editedFields.toString().trim())));
         } else {
             throw new CommandException(MESSAGE_BIOGRAPHY_DOES_NOT_EXIST);
         }
@@ -240,7 +240,7 @@ public class EditBioCommand extends Command {
     }
 
     @Override
-    public boolean getnewPaneIsToBeCreated() {
+    public boolean getNewPaneIsToBeCreated() {
         return true;
     }
 
@@ -296,10 +296,10 @@ public class EditBioCommand extends Command {
          */
         public boolean isAnyFieldEdited() {
             return CollectionUtil.isAnyNonNull(name, dpPath, profileDesc, nric, gender, dateOfBirth,
-                contactNumbers, individualContactNumbersMap,
-                emergencyContacts, individualEmergencyContactsMap,
-                medicalConditions, individualMedicalConditionsMap,
-                address, goals, individualGoalsMap, otherBioInfo);
+                    contactNumbers, individualContactNumbersMap,
+                    emergencyContacts, individualEmergencyContactsMap,
+                    medicalConditions, individualMedicalConditionsMap,
+                    address, goals, individualGoalsMap, otherBioInfo);
         }
 
         public Optional<Name> getName() {
@@ -366,8 +366,8 @@ public class EditBioCommand extends Command {
          */
         public Optional<List<Phone>> getContactNumbers() {
             return (contactNumbers != null)
-                ? Optional.of(Collections.unmodifiableList(contactNumbers))
-                : Optional.empty();
+                    ? Optional.of(Collections.unmodifiableList(contactNumbers))
+                    : Optional.empty();
         }
 
         /**
@@ -385,8 +385,8 @@ public class EditBioCommand extends Command {
          */
         public Optional<List<HashMap<Index, Phone>>> getIndividualContactNumbersMap() {
             return (individualContactNumbersMap != null)
-                ? Optional.of(individualContactNumbersMap)
-                : Optional.empty();
+                    ? Optional.of(individualContactNumbersMap)
+                    : Optional.empty();
         }
 
         /**
@@ -395,8 +395,8 @@ public class EditBioCommand extends Command {
          */
         public void setIndividualContactNumbersMap(List<HashMap<Index, Phone>> individualContactNumbersMap) {
             this.individualContactNumbersMap = (individualContactNumbersMap != null)
-                ? new ArrayList<>(individualContactNumbersMap)
-                : null;
+                    ? new ArrayList<>(individualContactNumbersMap)
+                    : null;
         }
 
         /**
@@ -415,8 +415,8 @@ public class EditBioCommand extends Command {
          */
         public Optional<List<Phone>> getEmergencyContacts() {
             return (emergencyContacts != null)
-                ? Optional.of(Collections.unmodifiableList(emergencyContacts))
-                : Optional.empty();
+                    ? Optional.of(Collections.unmodifiableList(emergencyContacts))
+                    : Optional.empty();
         }
 
         /**
@@ -425,8 +425,8 @@ public class EditBioCommand extends Command {
          */
         public void setEmergencyContacts(List<Phone> emergencyContacts) {
             this.emergencyContacts = (emergencyContacts != null)
-                ? new ArrayList<>(emergencyContacts)
-                : null;
+                    ? new ArrayList<>(emergencyContacts)
+                    : null;
         }
 
         /**
@@ -436,7 +436,7 @@ public class EditBioCommand extends Command {
          */
         public Optional<List<HashMap<Index, Phone>>> getIndividualEmergencyContactsMap() {
             return (individualEmergencyContactsMap != null)
-                ? Optional.of(individualEmergencyContactsMap) : Optional.empty();
+                    ? Optional.of(individualEmergencyContactsMap) : Optional.empty();
         }
 
         /**
@@ -445,7 +445,7 @@ public class EditBioCommand extends Command {
          */
         public void setIndividualEmergencyContactsMap(List<HashMap<Index, Phone>> individualEmergencyContactsMap) {
             this.individualEmergencyContactsMap = (individualEmergencyContactsMap != null)
-                ? new ArrayList<>(individualEmergencyContactsMap) : null;
+                    ? new ArrayList<>(individualEmergencyContactsMap) : null;
         }
 
         /**
@@ -464,8 +464,8 @@ public class EditBioCommand extends Command {
          */
         public Optional<List<MedicalCondition>> getMedicalConditions() {
             return (medicalConditions != null)
-                ? Optional.of(Collections.unmodifiableList(medicalConditions))
-                : Optional.empty();
+                    ? Optional.of(Collections.unmodifiableList(medicalConditions))
+                    : Optional.empty();
         }
 
         /**
@@ -474,8 +474,8 @@ public class EditBioCommand extends Command {
          */
         public void setMedicalConditions(List<MedicalCondition> medicalConditions) {
             this.medicalConditions = (medicalConditions != null)
-                ? new ArrayList<>(medicalConditions)
-                : null;
+                    ? new ArrayList<>(medicalConditions)
+                    : null;
         }
 
         /**
@@ -485,8 +485,8 @@ public class EditBioCommand extends Command {
          */
         public Optional<List<HashMap<Index, MedicalCondition>>> getIndividualMedicalConditionsMap() {
             return (individualMedicalConditionsMap != null)
-                ? Optional.of(individualMedicalConditionsMap)
-                : Optional.empty();
+                    ? Optional.of(individualMedicalConditionsMap)
+                    : Optional.empty();
         }
 
         /**
@@ -494,10 +494,10 @@ public class EditBioCommand extends Command {
          * defensive copy of {@code individualMedicalConditionsMaps} is used internally.
          */
         public void setIndividualMedicalConditionsMap(List<HashMap<Index, MedicalCondition>>
-                                                          individualMedicalConditionsMap) {
+                                                              individualMedicalConditionsMap) {
             this.individualMedicalConditionsMap = (individualMedicalConditionsMap != null)
-                ? new ArrayList<>(individualMedicalConditionsMap)
-                : null;
+                    ? new ArrayList<>(individualMedicalConditionsMap)
+                    : null;
         }
 
         public Optional<Address> getAddress() {
@@ -539,8 +539,8 @@ public class EditBioCommand extends Command {
          */
         public Optional<List<HashMap<Index, Goal>>> getIndividualGoalsMap() {
             return (individualGoalsMap != null)
-                ? Optional.of(individualGoalsMap)
-                : Optional.empty();
+                    ? Optional.of(individualGoalsMap)
+                    : Optional.empty();
         }
 
         /**
@@ -549,8 +549,8 @@ public class EditBioCommand extends Command {
          */
         public void setIndividualGoalsMap(List<HashMap<Index, Goal>> individualGoalsMap) {
             this.individualGoalsMap = (individualGoalsMap != null)
-                ? new ArrayList<>(individualGoalsMap)
-                : null;
+                    ? new ArrayList<>(individualGoalsMap)
+                    : null;
         }
 
         public Optional<OtherBioInfo> getOtherBioInfo() {
@@ -577,17 +577,17 @@ public class EditBioCommand extends Command {
             EditUserDescriptor e = (EditUserDescriptor) other;
 
             return getName().equals(e.getName())
-                && getNric().equals(e.getNric())
-                && getDpPath().equals(e.getDpPath())
-                && getProfileDesc().equals(e.getProfileDesc())
-                && getGender().equals(e.getGender())
-                && getDateOfBirth().equals(e.getDateOfBirth())
-                && getContactNumbers().equals(e.getContactNumbers())
-                && getEmergencyContacts().equals(e.getEmergencyContacts())
-                && getMedicalConditions().equals(e.getMedicalConditions())
-                && getAddress().equals(e.getAddress())
-                && getGoals().equals(e.getGoals())
-                && getOtherBioInfo().equals(e.getOtherBioInfo());
+                    && getNric().equals(e.getNric())
+                    && getDpPath().equals(e.getDpPath())
+                    && getProfileDesc().equals(e.getProfileDesc())
+                    && getGender().equals(e.getGender())
+                    && getDateOfBirth().equals(e.getDateOfBirth())
+                    && getContactNumbers().equals(e.getContactNumbers())
+                    && getEmergencyContacts().equals(e.getEmergencyContacts())
+                    && getMedicalConditions().equals(e.getMedicalConditions())
+                    && getAddress().equals(e.getAddress())
+                    && getGoals().equals(e.getGoals())
+                    && getOtherBioInfo().equals(e.getOtherBioInfo());
         }
     }
 }

@@ -41,7 +41,7 @@ public class User {
                 List<MedicalCondition> medicalConditions, Address address, List<Goal> goals,
                 OtherBioInfo otherBioInfo) {
         requireAllNonNull(name, dpPath, profileDesc, nric, gender, dateOfBirth, contactNumbers, emergencyContacts,
-            medicalConditions, goals, otherBioInfo);
+                medicalConditions, goals, otherBioInfo);
         this.name = name;
         this.dpPath = dpPath;
         this.profileDesc = profileDesc;
@@ -129,8 +129,8 @@ public class User {
         }
 
         return otherUser != null
-            && otherUser.getName().equals(getName())
-            && (otherUser.getNric().equals(getNric()));
+                && otherUser.getName().equals(getName())
+                && (otherUser.getNric().equals(getNric()));
     }
 
     /**
@@ -193,41 +193,41 @@ public class User {
 
         User otherUser = (User) other;
         return otherUser.getName().equals(getName())
-            && otherUser.getDpPath().equals(getDpPath())
-            && otherUser.getProfileDesc().equals(getProfileDesc())
-            && otherUser.getNric().equals(getNric())
-            && otherUser.getGender().equals(getGender())
-            && otherUser.getDateOfBirth().equals(getDateOfBirth())
-            && otherUser.getContactNumbers().equals(getContactNumbers())
-            && otherUser.getEmergencyContacts().equals(getEmergencyContacts())
-            && otherUser.getMedicalConditions().equals(getMedicalConditions())
-            && otherUser.getAddress().equals(getAddress())
-            && otherUser.getGoals().equals(getGoals())
-            && otherUser.getOtherBioInfo().equals(getOtherBioInfo());
+                && otherUser.getDpPath().equals(getDpPath())
+                && otherUser.getProfileDesc().equals(getProfileDesc())
+                && otherUser.getNric().equals(getNric())
+                && otherUser.getGender().equals(getGender())
+                && otherUser.getDateOfBirth().equals(getDateOfBirth())
+                && otherUser.getContactNumbers().equals(getContactNumbers())
+                && otherUser.getEmergencyContacts().equals(getEmergencyContacts())
+                && otherUser.getMedicalConditions().equals(getMedicalConditions())
+                && otherUser.getAddress().equals(getAddress())
+                && otherUser.getGoals().equals(getGoals())
+                && otherUser.getOtherBioInfo().equals(getOtherBioInfo());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
         return Objects.hash(name, dpPath, profileDesc, nric, gender, dateOfBirth, contactNumbers, emergencyContacts,
-            medicalConditions, address, goals, otherBioInfo);
+                medicalConditions, address, goals, otherBioInfo);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-            .append(" DP Path: ")
-            .append(getDpPath())
-            .append(" Profile Desc: ")
-            .append(getProfileDesc())
-            .append(" NRIC: ")
-            .append(getNric())
-            .append(" Gender: ")
-            .append(getGender())
-            .append(" Date Of Birth: ")
-            .append(getDateOfBirth())
-            .append(" Contact Numbers: ");
+                .append(" DP Path: ")
+                .append(getDpPath())
+                .append(" Profile Desc: ")
+                .append(getProfileDesc())
+                .append(" NRIC: ")
+                .append(getNric())
+                .append(" Gender: ")
+                .append(getGender())
+                .append(" Date Of Birth: ")
+                .append(getDateOfBirth())
+                .append(" Contact Numbers: ");
         getContactNumbers().forEach(contactNumber -> builder.append(contactNumber).append("|"));
         builder.deleteCharAt(builder.length() - 1);
         builder.append(" Emergency Contacts: ");

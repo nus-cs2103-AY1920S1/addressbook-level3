@@ -3,7 +3,8 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.FlowPane?>
-<ScrollPane xmlns:fx="http://javafx.com/fxml/1" fx:id="mainScrollPanel" hbarPolicy="NEVER" vbarPolicy="AS_NEEDED" fitToWidth="true"
+<ScrollPane xmlns:fx="http://javafx.com/fxml/1" fx:id="mainScrollPanel" hbarPolicy="NEVER" vbarPolicy="AS_NEEDED"
+            fitToWidth="true"
             fitToHeight="true"
             style="-fx-background: #383838; -fx-background-color: #1d1d1d" xmlns="http://javafx.com/javafx/8">
     <FlowPane fx:id="flowPane" orientation="HORIZONTAL" hgap="10" vgap="10">

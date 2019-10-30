@@ -101,18 +101,18 @@ class JsonAdaptedUser {
         gender = source.getGender().gender;
         dateOfBirth = source.getDateOfBirth().dateOfBirth;
         contactNumbers.addAll(source.getContactNumbers().stream()
-            .map(JsonAdaptedContactNumbers::new)
-            .collect(Collectors.toList()));
+                .map(JsonAdaptedContactNumbers::new)
+                .collect(Collectors.toList()));
         emergencyContacts.addAll(source.getEmergencyContacts().stream()
-            .map(JsonAdaptedEmergencyContacts::new)
-            .collect(Collectors.toList()));
+                .map(JsonAdaptedEmergencyContacts::new)
+                .collect(Collectors.toList()));
         medicalConditions.addAll(source.getMedicalConditions().stream()
-            .map(JsonAdaptedMedicalConditions::new)
-            .collect(Collectors.toList()));
+                .map(JsonAdaptedMedicalConditions::new)
+                .collect(Collectors.toList()));
         address = source.getAddress().address;
         goals.addAll(source.getGoals().stream()
-            .map(JsonAdaptedGoals::new)
-            .collect(Collectors.toList()));
+                .map(JsonAdaptedGoals::new)
+                .collect(Collectors.toList()));
         otherInfo = source.getOtherBioInfo().otherInfo;
     }
 
@@ -143,7 +143,7 @@ class JsonAdaptedUser {
 
         if (dpPath == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                DisplayPicPath.class.getSimpleName()));
+                    DisplayPicPath.class.getSimpleName()));
         }
         if (!DisplayPicPath.isValidDisplayPicPath(dpPath)) {
             throw new IllegalValueException(DisplayPicPath.MESSAGE_CONSTRAINTS);
@@ -158,8 +158,8 @@ class JsonAdaptedUser {
             }
         }
         final DisplayPicPath modelDpPath = fieldsContainingInvalidReferences.containsKey(LABEL_DP_PATH)
-            ? new DisplayPicPath("")
-            : new DisplayPicPath(dpPath);
+                ? new DisplayPicPath("")
+                : new DisplayPicPath(dpPath);
 
         if (profileDesc == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, ProfileDesc.class.getName()));
@@ -187,7 +187,7 @@ class JsonAdaptedUser {
 
         if (dateOfBirth == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                DateOfBirth.class.getSimpleName()));
+                    DateOfBirth.class.getSimpleName()));
         }
         if (!DateOfBirth.isValidDateOfBirth(dateOfBirth)) {
             throw new IllegalValueException(DateOfBirth.MESSAGE_CONSTRAINTS);
@@ -223,7 +223,7 @@ class JsonAdaptedUser {
 
         if (address == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Address
-                .class.getSimpleName()));
+                    .class.getSimpleName()));
         }
         if (!Address.isValidAddress(address)) {
             throw new IllegalValueException(Address.MESSAGE_CONSTRAINTS);
@@ -242,8 +242,8 @@ class JsonAdaptedUser {
         final OtherBioInfo modelOtherBioInfo = new OtherBioInfo(otherInfo);
 
         return new User(modelName, modelDpPath, modelProfileDesc, modelNric, modelGender, modelDateOfBirth,
-            modelContactNumbers, modelEmergencyContacts, modelMedicalConditions, modelAddress, modelGoals,
-            modelOtherBioInfo);
+                modelContactNumbers, modelEmergencyContacts, modelMedicalConditions, modelAddress, modelGoals,
+                modelOtherBioInfo);
     }
 
 }

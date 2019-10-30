@@ -20,25 +20,25 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.bio.UserList;
-import seedu.address.model.food.UniqueFoodList;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.record.UniqueRecordList;
+import sugarmummy.recmfood.model.UniqueFoodList;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.
  */
 public class FindCommandTest {
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), new UserList(),
-        new UniqueFoodList(), new UniqueRecordList(), new Calendar());
+            new UniqueFoodList(), new UniqueRecordList(), new Calendar());
     private Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs(), new UserList(),
-        new UniqueFoodList(), new UniqueRecordList(), new Calendar());
+            new UniqueFoodList(), new UniqueRecordList(), new Calendar());
 
     @Test
     public void equals() {
         NameContainsKeywordsPredicate firstPredicate =
-            new NameContainsKeywordsPredicate(Collections.singletonList("first"));
+                new NameContainsKeywordsPredicate(Collections.singletonList("first"));
         NameContainsKeywordsPredicate secondPredicate =
-            new NameContainsKeywordsPredicate(Collections.singletonList("second"));
+                new NameContainsKeywordsPredicate(Collections.singletonList("second"));
 
         FindCommand findFirstCommand = new FindCommand(firstPredicate);
         FindCommand findSecondCommand = new FindCommand(secondPredicate);

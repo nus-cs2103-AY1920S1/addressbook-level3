@@ -66,7 +66,7 @@ class JsonSerializableUserList {
             }
 
             Map<String, String> fieldsContainingInvalidReferences = JsonAdaptedUser
-                .getFieldsContainingInvalidReferences();
+                    .getFieldsContainingInvalidReferences();
 
             if (!fieldsContainingInvalidReferences.isEmpty()) {
                 listOfFieldsContainingInvalidReferences.add(fieldsContainingInvalidReferences);

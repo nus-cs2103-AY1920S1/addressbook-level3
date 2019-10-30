@@ -10,7 +10,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Concentration {
 
     public static final String MESSAGE_CONSTRAINTS =
-        "Concentration should only contain a positive real number";
+            "Concentration should only contain a positive real number";
     public static final String VALIDATION_REGEX = "^+?\\d*\\.{0,1}\\d+$";
     private final double concentration;
 
@@ -31,8 +31,8 @@ public class Concentration {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-            || (other instanceof Concentration // instanceof handles nulls
-            && concentration == ((Concentration) other).concentration); // state check
+                || (other instanceof Concentration // instanceof handles nulls
+                && concentration == ((Concentration) other).concentration); // state check
     }
 
     @Override

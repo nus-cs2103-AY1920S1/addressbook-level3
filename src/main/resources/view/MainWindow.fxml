@@ -2,6 +2,7 @@
 
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Scene?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
@@ -10,57 +11,55 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.Scene?>
 <?import javafx.stage.Stage?>
-<fx:root xmlns:fx="http://javafx.com/fxml/1" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8"
-         title="SugarMummy App" minWidth="650" minHeight="550" onCloseRequest="#handleExit">
+
+<fx:root minHeight="550" minWidth="650" onCloseRequest="#handleExit" title="SugarMummy App" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
     <icons>
-        <Image url="@/images/address_book_32.png"/>
+        <Image url="@/images/sugar_mummy_logo.png"/>
     </icons>
     <scene>
         <Scene fx:id="scene">
             <stylesheets>
-                <URL value="@DarkTheme.css"/>
-                <URL value="@Extensions.css"/>
+                <URL value="@DarkTheme.css" />
+                <URL value="@Extensions.css" />
             </stylesheets>
 
             <VBox fx:id="mainWindowPlaceholder">
                 <MenuBar fx:id="menuBar" VBox.vgrow="NEVER">
                     <Menu mnemonicParsing="false" text="File">
-                        <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit"/>
+                        <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
                     </Menu>
                     <Menu mnemonicParsing="false" text="Help">
-                        <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help"/>
+                        <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
                     </Menu>
                 </MenuBar>
 
-                <StackPane VBox.vgrow="NEVER" fx:id="commandBoxPlaceholder" styleClass="pane-with-border">
+                <StackPane fx:id="commandBoxPlaceholder" styleClass="pane-with-border" VBox.vgrow="NEVER">
                     <padding>
-                        <Insets top="5" right="10" bottom="5" left="10"/>
+                        <Insets bottom="5" left="10" right="10" top="5" />
                     </padding>
                 </StackPane>
 
-                <HBox VBox.vgrow="never" fx:id="resultDisplayPlaceholder" styleClass="pane-with-border"
-                      minHeight="100" prefHeight="100" maxHeight="Infinity" alignment="TOP_LEFT">
+                <HBox fx:id="resultDisplayPlaceholder" alignment="TOP_LEFT" maxHeight="Infinity" minHeight="100" prefHeight="100" styleClass="pane-with-border" VBox.vgrow="never">
                     <padding>
-                        <Insets top="5" right="10" bottom="5" left="10"/>
+                        <Insets bottom="5" left="10" right="10" top="5" />
                     </padding>
                 </HBox>
 
-                <SplitPane VBox.vgrow="ALWAYS">
+                <SplitPane dividerPositions="0.5" VBox.vgrow="ALWAYS">
                     <items>
-                        <VBox styleClass="pane-with-border" minWidth="340" minHeight="270" prefHeight="270"
-                              VBox.vgrow="ALWAYS">
+                        <VBox minHeight="270" minWidth="340" prefHeight="270" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
                             <padding>
-                                <Insets top="10" right="10" bottom="10" left="10"/>
+                                <Insets bottom="10" left="10" right="10" top="10" />
                             </padding>
-                            <StackPane fx:id="mainDisplayPanePlaceholder" VBox.vgrow="ALWAYS"/>
+                            <StackPane fx:id="mainDisplayPanePlaceholder" VBox.vgrow="ALWAYS" />
                         </VBox>
 
-                        <StackPane fx:id="reminderListPlaceholder" minWidth="200" prefWidth="250" prefHeight="300"
-                                   styleClass="pane-with-border" VBox.vgrow="ALWAYS"/>
+                        <StackPane fx:id="reminderListPlaceholder" minWidth="200" prefHeight="300" styleClass="pane-with-border" VBox.vgrow="ALWAYS" />
                     </items>
                 </SplitPane>
+
+                <StackPane fx:id="motivationalQuotesPlaceholder" VBox.vgrow="SOMETIMES"/>
             </VBox>
         </Scene>
     </scene>

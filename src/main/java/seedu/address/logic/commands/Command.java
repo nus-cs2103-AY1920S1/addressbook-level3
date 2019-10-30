@@ -29,7 +29,7 @@ public abstract class Command {
         return null;
     }
 
-    public boolean getnewPaneIsToBeCreated() {
+    public boolean getNewPaneIsToBeCreated() {
         return false;
     }
 

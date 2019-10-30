@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.geometry.Insets?>
+
+<ScrollPane fx:id="calendarMonthScrollPane" fitToWidth="true" fitToHeight="false"
+            xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" minWidth="300">
+    <content>
+        <VBox spacing="2">
+            <padding>
+                <Insets top="2"></Insets>
+            </padding>
+            <Label fx:id="yearMonth" text="">
+                <padding>
+                    <Insets left="5"></Insets>
+                </padding>
+            </Label>
+            <GridPane fx:id="calendarMonthPanel">
+            </GridPane>
+
+            <VBox fx:id="monthlyCalendarEntries" spacing="2" VBox.vgrow="ALWAYS"></VBox>
+        </VBox>
+    </content>
+</ScrollPane>

@@ -27,7 +27,7 @@ public class UniqueRecordList implements Iterable<Record>, ReadOnlyData {
 
     private final ObservableList<Record> internalList = FXCollections.observableArrayList();
     private final ObservableList<Record> internalUnmodifiableList =
-        FXCollections.unmodifiableObservableList(internalList);
+            FXCollections.unmodifiableObservableList(internalList);
 
     /**
      * Returns true if the list contains an equivalent record as the given argument.
@@ -109,8 +109,8 @@ public class UniqueRecordList implements Iterable<Record>, ReadOnlyData {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-            || (other instanceof UniqueRecordList // instanceof handles nulls
-            && internalList.equals(((UniqueRecordList) other).internalList));
+                || (other instanceof UniqueRecordList // instanceof handles nulls
+                && internalList.equals(((UniqueRecordList) other).internalList));
     }
 
     @Override

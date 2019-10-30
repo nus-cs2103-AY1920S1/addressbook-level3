@@ -16,7 +16,7 @@ class AchvmCommandTest {
     @Test
     public void execute_achvm_success() {
         CommandResult expectedCommandResult = new CommandResult(SHOWING_ACHVM_MESSAGE, false, false,
-            true, false);
+                true, false);
         assertCommandSuccess(new AchvmCommand(), model, expectedCommandResult, expectedModel);
     }
 }

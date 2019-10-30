@@ -16,14 +16,16 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyCalendar;
 import seedu.address.model.ReadOnlyUserList;
+import seedu.address.model.achievements.Achievement;
 import seedu.address.model.aesthetics.Background;
 import seedu.address.model.aesthetics.Colour;
 import seedu.address.model.bio.User;
 import seedu.address.model.calendar.CalendarEntry;
-import seedu.address.model.food.Food;
 import seedu.address.model.person.Person;
 import seedu.address.model.record.Record;
+import seedu.address.model.record.RecordType;
 import seedu.address.ui.DisplayPaneType;
+import sugarmummy.recmfood.model.Food;
 
 /**
  * API of the Logic component
@@ -48,7 +50,7 @@ public interface Logic {
      * Returns a boolean indicating whether a new pane is to be created, regardless of whether an existing one already
      * exists.
      */
-    boolean getnewPaneIsToBeCreated();
+    boolean getNewPaneIsToBeCreated();
 
     /**
      * Returns the AddressBook.
@@ -176,5 +178,35 @@ public interface Logic {
      * Returns the background to be set for this app.
      */
     Background getBackground();
+
+    //=========== Motivational Quotes =============================================================
+
+    /**
+     * Returns an unmodifiable list of motivational quotes stored in this program.
+     */
+    List<String> getMotivationalQuotesList();
+
+    //=========== Achievements =============================================================
+
+    /**
+     * Returns an unmodifiable map of achievements stored in this program.
+     */
+    public Map<RecordType, List<Achievement>> getAchievementsMap();
+
+    /**
+     * Returns whether or not new achievements have been attained after a modification to the user's list of records.
+     */
+    public boolean newAchievementsHaveBeenAttained();
+
+    /**
+     * Returns whether or not existing achievements have been lost after a modification to the user's list of records.
+     */
+    public boolean existingAchievementsHaveBeenLost();
+
+    /**
+     * Resets whether there are modification to the user's list of records to false.
+     */
+    public void resetNewAchievementsState();
+
 
 }

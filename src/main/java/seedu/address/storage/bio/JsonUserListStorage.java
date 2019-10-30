@@ -16,7 +16,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.JsonUtil;
 import seedu.address.model.ReadOnlyUserList;
-import sugarmummy.storage.UserListStorage;
+import seedu.address.storage.UserListStorage;
 
 /**
  * A class to access UserList data stored as a json file on the hard disk.
@@ -51,13 +51,13 @@ public class JsonUserListStorage implements UserListStorage {
         requireNonNull(filePath);
 
         Optional<JsonSerializableUserList> jsonUserList = JsonUtil.readJsonFile(
-            filePath, JsonSerializableUserList.class);
+                filePath, JsonSerializableUserList.class);
         if (!jsonUserList.isPresent()) {
             return Optional.empty();
         }
 
         listOfFieldsContainingInvalidReferences = JsonSerializableUserList
-            .getListOfFieldsContainingInvalidReferences();
+                .getListOfFieldsContainingInvalidReferences();
 
         try {
             return Optional.of(jsonUserList.get().toModelType());
