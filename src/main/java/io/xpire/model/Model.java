@@ -1,16 +1,16 @@
 package io.xpire.model;
 
 import java.nio.file.Path;
-
 import java.util.List;
 import java.util.Set;
-
 import java.util.function.Predicate;
 
 import io.xpire.commons.core.GuiSettings;
 import io.xpire.model.item.Item;
+import io.xpire.model.item.ListToView;
 import io.xpire.model.item.Name;
-import io.xpire.model.item.sort.MethodOfSorting;
+import io.xpire.model.item.XpireItem;
+import io.xpire.model.item.sort.XpireMethodOfSorting;
 import io.xpire.model.tag.Tag;
 import javafx.collections.ObservableList;
 
@@ -19,10 +19,14 @@ import javafx.collections.ObservableList;
  */
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
-    Predicate<Item> PREDICATE_SHOW_ALL_ITEMS = unused -> true;
+    Predicate<? extends Item> PREDICATE_SORT_ALL_ITEMS = unused -> true;
 
     /** {@code Predicate} that always evaluate to true */
-    Predicate<Item> PREDICATE_SORT_ALL_ITEMS = unused -> true;
+    Predicate<? extends Item> PREDICATE_SHOW_ALL_ITEMS = unused -> true;
+
+    /** {@code Predicate} that always evaluate to true */
+    Predicate<Item> PREDICATE_SHOW_ALL_REPLENISH_ITEMS = unused -> true;
+
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -47,50 +51,58 @@ public interface Model {
     /**
      * Returns the user prefs' xpire file path.
      */
-    Path getXpireFilePath();
+    Path getListFilePath();
 
     /**
      * Sets the user prefs' xpire file path.
      */
-    void setXpireFilePath(Path xpireFilePath);
+    void setListFilePath(Path xpireFilePath);
+
+    /**
+     * Returns an array containing xpire and replenish list.
+     */
+    ReadOnlyListView<? extends Item>[] getLists();
 
     /**
      * Replaces xpire data with the data in {@code xpire}.
      */
-    void setXpire(ReadOnlyXpire xpire);
+    void setXpire(ReadOnlyListView<XpireItem> xpire);
 
-    /** Returns the xpire */
-    ReadOnlyXpire getXpire();
 
     /**
-     * Returns true if an item with the same identity as {@code item} exists in xpire.
+     * Returns an Xpire object.
      */
-    boolean hasItem(Item item);
+    ReadOnlyListView<XpireItem> getXpire();
 
     /**
-     * Deletes the given item.
-     * The item must exist in xpire.
+     * Returns true if an xpireItem with the same identity as {@code xpireItem} exists in xpire.
      */
-    void deleteItem(Item target);
+    boolean hasItem(XpireItem xpireItem);
 
     /**
-     * Adds the given item.
-     * {@code item} must not already exist in xpire.
+     * Deletes the given xpireItem.
+     * The xpireItem must exist in xpire.
      */
-    void addItem(Item item);
+    void deleteItem(XpireItem target);
 
     /**
-     * Replaces the given item {@code target} with {@code editedItem}.
+     * Adds the given xpireItem.
+     * {@code xpireItem} must not already exist in xpire.
+     */
+    void addItem(XpireItem xpireItem);
+
+    /**
+     * Replaces the given xpireItem {@code target} with {@code editedXpireItem}.
      * {@code target} must exist in xpire.
-     * The item identity of {@code editedItem} must not be the same as another existing item in xpire.
+     * The xpireItem identity of {@code editedXpireItem} must not be the same as another existing xpireItem in xpire.
      */
-    void setItem(Item target, Item editedItem);
+    void setItem(XpireItem target, XpireItem editedXpireItem);
 
     /**
-     * Sorts the filtered item list.
+     * Sorts the filtered xpireItem list.
      * @param method The method of sorting.
      */
-    void sortItemList(MethodOfSorting method);
+    void sortItemList(XpireMethodOfSorting method);
 
     /**
      * Returns a set containing all existing names of items in the list.
@@ -104,20 +116,87 @@ public interface Model {
      */
     Set<Tag> getAllItemTags();
 
-    /** Returns an unmodifiable view of the filtered item list */
-    ObservableList<Item> getFilteredItemList();
+    /** Returns an unmodifiable view of the filtered xpireItem list. */
+    ObservableList<XpireItem> getFilteredXpireItemList();
+
+    /** Returns an unmodifiable view of the current item list.*/
+    ObservableList<? extends Item> getCurrentFilteredItemList();
 
     /**
-     * Returns a list of all the items.
+     * Returns a list of all the xpire items.
      *
-     * @return List of all items.
+     * @return List of all xpire items.
      */
-    List<Item> getAllItemList();
+    List<XpireItem> getAllItemList();
 
     /**
-     * Updates the filter of the filtered item list to filter by the given {@code predicate}.
+     * Updates the filter of the filtered Item list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredItemList(Predicate<Item> predicate);
+    void updateFilteredItemList(Predicate<? extends Item> predicate);
+
+    /**
+     * Updates the filter of the filtered Item list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredXpireItemList(Predicate<XpireItem> predicate);
+
+    /**
+     * Sets current filtered list view to the specified list.
+     * @param list that user is viewing.
+     */
+    void setCurrentFilteredItemList(ListToView list);
+
+    /**
+     * Replaces replenish list data with the data in {@code replenishList}.
+     */
+    void setReplenishList(ReadOnlyListView<Item> replenishList);
+
+    /**
+     * Returns a ReplenishList object.
+     */
+    ReadOnlyListView<Item> getReplenishList();
+
+    /**
+     * Returns true if an item with the same identity as {@code Item} exists in replenish list.
+     */
+    boolean hasReplenishItem(Item item);
+
+    /**
+     * Deletes the given item.
+     * The item must exist in replenish list.
+     */
+    void deleteReplenishItem(Item target);
+
+    /**
+     * Adds the given item.
+     * {@code Item} must not already exist in replenish list.
+     */
+    void addReplenishItem(Item item);
+
+    /**
+     * Replaces the given item {@code target} with {@code editedItem}.
+     * {@code target} must exist in the replenish list.
+     * The Item identity of {@code Item} must not be the same as another existing Item in the replenish list.
+     */
+    void setReplenishItem(Item target, Item editedItem);
+
+    Set<Tag> getAllReplenishItemTags();
+
+    Set<Name> getAllReplenishItemNames();
+
+    ObservableList<Item> getFilteredReplenishItemList();
+
+    void updateFilteredReplenishItemList(Predicate<Item> predicate);
+
+    List<Item> getReplenishItemList();
+
+    /**
+     * Checks expiry date of XpireItem and updates the item's tags respectively.
+     */
+    void updateItemTags();
+
+    void shiftItemToReplenishList(XpireItem xpireItem);
+
 
 }

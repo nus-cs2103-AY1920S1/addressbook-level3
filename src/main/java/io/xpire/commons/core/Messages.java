@@ -13,7 +13,9 @@ public class Messages {
     public static final String MESSAGE_INVALID_TAGS = "Tags are not in the item specified!";
     public static final String MESSAGE_UNKNOWN_DELETE_MODE = "Unknown Delete mode.";
     public static final String MESSAGE_SUGGESTIONS = " Did you mean %s?";
+    public static final String MESSAGE_REPLENISH_SHIFT_SUCCESS = "%s is shifted into the replenish list.";
     public static final String MESSAGE_REMINDER_THRESHOLD_EXCEEDED =
             "The item has only %s day(s) left before expiring. \nReminder will start from today!";
     public static final String MESSAGE_THRESHOLD_ITEM_EXPIRED = "Cannot set reminder for expired item!";
+
 }

@@ -6,7 +6,7 @@ import static io.xpire.testutil.TypicalItems.EXPIRED_APPLE;
 import static io.xpire.testutil.TypicalItems.EXPIRED_MILK;
 import static io.xpire.testutil.TypicalItems.EXPIRED_ORANGE;
 import static io.xpire.testutil.TypicalItems.EXPIRING_FISH;
-import static io.xpire.testutil.TypicalItems.getTypicalExpiryDateTracker;
+import static io.xpire.testutil.TypicalItems.getTypicalLists;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -27,8 +27,8 @@ import io.xpire.model.item.ReminderThresholdExceededPredicate;
  */
 public class CheckCommandTest {
 
-    private Model model = new ModelManager(getTypicalExpiryDateTracker(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalExpiryDateTracker(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalLists(), new UserPrefs());
+    private Model expectedModel = new ModelManager(getTypicalLists(), new UserPrefs());
 
     @Test
     public void execute_checkReminder_success() {
@@ -38,7 +38,7 @@ public class CheckCommandTest {
         expectedModel.updateFilteredItemList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
         assertEquals(Arrays.asList(EXPIRED_APPLE, EXPIRING_FISH, EXPIRED_MILK, EXPIRED_ORANGE),
-                model.getFilteredItemList());
+                model.getFilteredXpireItemList());
     }
 
     @Test
@@ -48,7 +48,7 @@ public class CheckCommandTest {
         CheckCommand command = new CheckCommand(predicate);
         expectedModel.updateFilteredItemList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(EXPIRED_APPLE, EXPIRED_MILK, EXPIRED_ORANGE), model.getFilteredItemList());
+        assertEquals(Arrays.asList(EXPIRED_APPLE, EXPIRED_MILK, EXPIRED_ORANGE), model.getFilteredXpireItemList());
     }
 
     @Test
@@ -69,7 +69,7 @@ public class CheckCommandTest {
         // null -> returns false
         assertFalse(checkReminderCommand.equals(null));
 
-        // different item -> returns false
+        // different xpireItem -> returns false
         assertFalse(checkReminderCommand.equals(checkDaysCommand));
     }
 }

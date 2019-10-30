@@ -15,12 +15,12 @@ import org.junit.jupiter.api.Test;
 
 import io.xpire.model.item.exceptions.DuplicateItemException;
 import io.xpire.model.item.exceptions.ItemNotFoundException;
-import io.xpire.testutil.ItemBuilder;
 import io.xpire.testutil.TypicalItems;
+import io.xpire.testutil.XpireItemBuilder;
 
-public class SortedUniqueItemListTest {
+public class SortedUniqueXpireItemListTest {
 
-    private final SortedUniqueItemList uniqueItemList = new SortedUniqueItemList();
+    private final SortedUniqueXpireItemList uniqueItemList = new SortedUniqueXpireItemList();
 
     @Test
     public void contains_nullItem_throwsNullPointerException() {
@@ -41,7 +41,7 @@ public class SortedUniqueItemListTest {
     @Test
     public void contains_itemWithSameIdentityFieldsInList_returnsTrue() {
         uniqueItemList.add(TypicalItems.KIWI);
-        Item editedAlice = new ItemBuilder(TypicalItems.KIWI).withExpiryDate(VALID_EXPIRY_DATE_KIWI)
+        XpireItem editedAlice = new XpireItemBuilder(TypicalItems.KIWI).withExpiryDate(VALID_EXPIRY_DATE_KIWI)
                                                  .build();
         assertTrue(uniqueItemList.contains(editedAlice));
     }
@@ -63,7 +63,7 @@ public class SortedUniqueItemListTest {
         uniqueItemList.add(TypicalItems.BANANA);
         uniqueItemList.add(TypicalItems.DUCK);
         uniqueItemList.add(TypicalItems.JELLY);
-        SortedUniqueItemList expectedUniqueItemList = new SortedUniqueItemList();
+        SortedUniqueXpireItemList expectedUniqueItemList = new SortedUniqueXpireItemList();
         expectedUniqueItemList.add(TypicalItems.BANANA);
         expectedUniqueItemList.add(TypicalItems.DUCK);
         expectedUniqueItemList.add(TypicalItems.JELLY);
@@ -90,7 +90,7 @@ public class SortedUniqueItemListTest {
     public void setItem_editedItemIsSameItem_success() {
         uniqueItemList.add(TypicalItems.KIWI);
         uniqueItemList.setItem(TypicalItems.KIWI, TypicalItems.KIWI);
-        SortedUniqueItemList expectedUniqueItemList = new SortedUniqueItemList();
+        SortedUniqueXpireItemList expectedUniqueItemList = new SortedUniqueXpireItemList();
         expectedUniqueItemList.add(TypicalItems.KIWI);
         assertEquals(expectedUniqueItemList, uniqueItemList);
     }
@@ -98,12 +98,12 @@ public class SortedUniqueItemListTest {
     @Test
     public void setItem_editedItemHasSameIdentity_success() {
         uniqueItemList.add(TypicalItems.KIWI);
-        Item editedAlice = new ItemBuilder(TypicalItems.KIWI)
+        XpireItem editedAlice = new XpireItemBuilder(TypicalItems.KIWI)
                 .withExpiryDate(VALID_EXPIRY_DATE_KIWI)
                 .withTags(VALID_TAG_FRUIT)
                 .build();
         uniqueItemList.setItem(TypicalItems.KIWI, editedAlice);
-        SortedUniqueItemList expectedUniqueItemList = new SortedUniqueItemList();
+        SortedUniqueXpireItemList expectedUniqueItemList = new SortedUniqueXpireItemList();
         expectedUniqueItemList.add(editedAlice);
         assertEquals(expectedUniqueItemList, uniqueItemList);
     }
@@ -112,7 +112,7 @@ public class SortedUniqueItemListTest {
     public void setItem_editedItemHasDifferentIdentity_success() {
         uniqueItemList.add(TypicalItems.KIWI);
         uniqueItemList.setItem(TypicalItems.KIWI, TypicalItems.EXPIRED_APPLE);
-        SortedUniqueItemList expectedUniqueItemList = new SortedUniqueItemList();
+        SortedUniqueXpireItemList expectedUniqueItemList = new SortedUniqueXpireItemList();
         expectedUniqueItemList.add(TypicalItems.EXPIRED_APPLE);
         assertEquals(expectedUniqueItemList, uniqueItemList);
     }
@@ -139,19 +139,19 @@ public class SortedUniqueItemListTest {
     public void remove_existingItem_removesItem() {
         uniqueItemList.add(TypicalItems.KIWI);
         uniqueItemList.remove(TypicalItems.KIWI);
-        SortedUniqueItemList expectedUniqueItemList = new SortedUniqueItemList();
+        SortedUniqueXpireItemList expectedUniqueItemList = new SortedUniqueXpireItemList();
         assertEquals(expectedUniqueItemList, uniqueItemList);
     }
 
     @Test
     public void setItems_nullUniqueItemList_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> uniqueItemList.setItems((SortedUniqueItemList) null));
+        assertThrows(NullPointerException.class, () -> uniqueItemList.setItems((SortedUniqueXpireItemList) null));
     }
 
     @Test
     public void setItems_uniqueItemList_replacesOwnListWithProvidedUniqueItemList() {
         uniqueItemList.add(TypicalItems.KIWI);
-        SortedUniqueItemList expectedUniqueItemList = new SortedUniqueItemList();
+        SortedUniqueXpireItemList expectedUniqueItemList = new SortedUniqueXpireItemList();
         expectedUniqueItemList.add(TypicalItems.EXPIRED_APPLE);
         uniqueItemList.setItems(expectedUniqueItemList);
         assertEquals(expectedUniqueItemList, uniqueItemList);
@@ -159,23 +159,24 @@ public class SortedUniqueItemListTest {
 
     @Test
     public void setItems_nullList_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> uniqueItemList.setItems((List<Item>) null));
+        assertThrows(NullPointerException.class, () -> uniqueItemList.setItems((List<XpireItem>) null));
     }
 
     @Test
     public void setItems_list_replacesOwnListWithProvidedList() {
         uniqueItemList.add(TypicalItems.EXPIRED_APPLE);
-        List<Item> itemList = Collections.singletonList(TypicalItems.KIWI);
-        uniqueItemList.setItems(itemList);
-        SortedUniqueItemList expectedUniqueItemList = new SortedUniqueItemList();
+        List<XpireItem> xpireItemList = Collections.singletonList(TypicalItems.KIWI);
+        uniqueItemList.setItems(xpireItemList);
+        SortedUniqueXpireItemList expectedUniqueItemList = new SortedUniqueXpireItemList();
         expectedUniqueItemList.add(TypicalItems.KIWI);
         assertEquals(expectedUniqueItemList, uniqueItemList);
     }
 
     @Test
     public void setItems_listWithDuplicateItems_throwsDuplicateItemException() {
-        List<Item> listWithDuplicateItems = Arrays.asList(TypicalItems.EXPIRED_APPLE, TypicalItems.EXPIRED_APPLE);
-        assertThrows(DuplicateItemException.class, () -> uniqueItemList.setItems(listWithDuplicateItems));
+        List<XpireItem> listWithDuplicateXpireItems = Arrays.asList(TypicalItems.EXPIRED_APPLE,
+            TypicalItems.EXPIRED_APPLE);
+        assertThrows(DuplicateItemException.class, () -> uniqueItemList.setItems(listWithDuplicateXpireItems));
     }
 
     @Test

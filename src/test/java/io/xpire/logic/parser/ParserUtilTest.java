@@ -30,7 +30,7 @@ import io.xpire.model.item.ExpiryDate;
 import io.xpire.model.item.Name;
 import io.xpire.model.item.Quantity;
 import io.xpire.model.item.ReminderThreshold;
-import io.xpire.model.item.sort.MethodOfSorting;
+import io.xpire.model.item.sort.XpireMethodOfSorting;
 import io.xpire.model.tag.Tag;
 import io.xpire.model.tag.TagComparator;
 
@@ -230,14 +230,14 @@ public class ParserUtilTest {
 
     @Test
     public void parseMethodOfSorting_validValueWithoutWhitespace_returnsMethodOfSorting() throws Exception {
-        MethodOfSorting expectedMethodOfSorting = new MethodOfSorting(VALID_METHOD_OF_SORTING_NAME);
-        assertEquals(expectedMethodOfSorting, ParserUtil.parseMethodOfSorting(VALID_METHOD_OF_SORTING_NAME));
+        XpireMethodOfSorting expectedXpireMethodOfSorting = new XpireMethodOfSorting(VALID_METHOD_OF_SORTING_NAME);
+        assertEquals(expectedXpireMethodOfSorting, ParserUtil.parseMethodOfSorting(VALID_METHOD_OF_SORTING_NAME));
     }
 
     @Test
     public void parseMethodOfSorting_validValueWithWhitespace_returnsTrimmedMethodOfSorting() throws Exception {
         String methodOfSortingWithWhitespace = WHITESPACE + VALID_METHOD_OF_SORTING_DATE + WHITESPACE;
-        MethodOfSorting expectedMethodOfSorting = new MethodOfSorting(VALID_METHOD_OF_SORTING_DATE);
-        assertEquals(expectedMethodOfSorting, ParserUtil.parseMethodOfSorting(methodOfSortingWithWhitespace));
+        XpireMethodOfSorting expectedXpireMethodOfSorting = new XpireMethodOfSorting(VALID_METHOD_OF_SORTING_DATE);
+        assertEquals(expectedXpireMethodOfSorting, ParserUtil.parseMethodOfSorting(methodOfSortingWithWhitespace));
     }
 }

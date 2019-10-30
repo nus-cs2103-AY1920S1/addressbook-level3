@@ -5,9 +5,9 @@ import java.util.function.Predicate;
 import io.xpire.commons.util.DateUtil;
 
 /**
- * Tests that a {@code Item}'s {@code ExpiryDate} falls within the date given.
+ * Tests that a {@code XpireItem}'s {@code ExpiryDate} falls within the date given.
  */
-public class ExpiringSoonPredicate implements Predicate<Item> {
+public class ExpiringSoonPredicate implements Predicate<XpireItem> {
     private final int days;
 
     public ExpiringSoonPredicate(int days) {
@@ -15,8 +15,8 @@ public class ExpiringSoonPredicate implements Predicate<Item> {
     }
 
     @Override
-    public boolean test(Item item) {
-        return DateUtil.isWithinRange(this.days, DateUtil.getCurrentDate(), item.getExpiryDate().getDate());
+    public boolean test(XpireItem xpireItem) {
+        return DateUtil.isWithinRange(this.days, DateUtil.getCurrentDate(), xpireItem.getExpiryDate().getDate());
     }
 
     @Override

@@ -156,7 +156,7 @@ Examples:
 
 === Searching item by name: `search`
 
-Search items whose names or tag(s) contain any of the given keywords. +
+Searches for items whose names or tag(s) contain any of the given keywords. +
 Format: `search|<keyword>[|<other keywords>]...`
 
 ****

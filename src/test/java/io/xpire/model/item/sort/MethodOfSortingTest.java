@@ -9,15 +9,17 @@ import io.xpire.testutil.Assert;
 
 public class MethodOfSortingTest {
 
+    /* TODO: Transfer to XpireMethodOfSorting test */
     @Test
     public void constructor_null_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> new MethodOfSorting(null));
+        Assert.assertThrows(NullPointerException.class, () -> new XpireMethodOfSorting(null));
     }
 
+    /* TODO: Transfer to XpireMethodOfSorting test */
     @Test
     public void constructor_invalidMethodOfSorting_throwsIllegalArgumentException() {
         String invalidMethodOfSorting = "";
-        Assert.assertThrows(IllegalArgumentException.class, () -> new MethodOfSorting(invalidMethodOfSorting));
+        Assert.assertThrows(IllegalArgumentException.class, () -> new XpireMethodOfSorting(invalidMethodOfSorting));
     }
 
     @Test

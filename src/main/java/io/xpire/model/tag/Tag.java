@@ -10,6 +10,7 @@ import io.xpire.commons.util.AppUtil;
  */
 public class Tag {
     public static final String MESSAGE_CONSTRAINTS = "Tags names should be alphanumeric and start with #";
+    public static final String EXPIRED_TAG = "Expired";
     private static final String VALIDATION_REGEX = "\\p{Alnum}+";
 
     private final String tagName;

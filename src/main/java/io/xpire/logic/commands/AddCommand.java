@@ -4,38 +4,38 @@ import static java.util.Objects.requireNonNull;
 
 import io.xpire.logic.commands.exceptions.CommandException;
 import io.xpire.model.Model;
-import io.xpire.model.item.Item;
+import io.xpire.model.item.XpireItem;
 
 /**
- * Adds an item to the list.
+ * Adds an xpireItem to the list.
  */
 public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an item to the list.\n"
-            + "Format: add|<item name>|<expiry date>[|<quantity>]\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an xpireItem to the list.\n"
+            + "Format: add|<xpireItem name>|<expiry date>[|<quantity>]\n"
             + "Example: " + COMMAND_WORD + "|Strawberry|11/12/1999|2";
 
-    public static final String MESSAGE_SUCCESS = "New item added: %s";
+    public static final String MESSAGE_SUCCESS = "New item added to tracker: %s";
     public static final String MESSAGE_DUPLICATE_ITEM = "This item already exists";
 
-    private final Item toAdd;
+    private final XpireItem toAdd;
 
     /**
-     * Creates an AddCommand to add the specified {@code Item}
+     * Creates an AddCommand to add the specified {@code XpireItem}
      */
-    public AddCommand(Item item) {
-        requireNonNull(item);
-        this.toAdd = item;
+    public AddCommand(XpireItem xpireItem) {
+        requireNonNull(xpireItem);
+        this.toAdd = xpireItem;
     }
 
     /**
      * Executes {@code AddCommand}.
      *
      * @param model {@code Model} which the command should operate on.
-     * @return success message from {@code CommandResult} if item is successfully added.
-     * @throws CommandException if item added is a duplicate.
+     * @return success message from {@code CommandResult} if xpireItem is successfully added.
+     * @throws CommandException if xpireItem added is a duplicate.
      */
     @Override
     public CommandResult execute(Model model) throws CommandException {

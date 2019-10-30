@@ -1,5 +1,6 @@
 package io.xpire.logic.commands;
 
+import static io.xpire.commons.core.Messages.MESSAGE_REPLENISH_SHIFT_SUCCESS;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
@@ -11,18 +12,19 @@ import io.xpire.commons.core.index.Index;
 import io.xpire.logic.commands.exceptions.CommandException;
 import io.xpire.logic.parser.exceptions.ParseException;
 import io.xpire.model.Model;
-import io.xpire.model.item.Item;
+import io.xpire.model.item.Name;
 import io.xpire.model.item.Quantity;
+import io.xpire.model.item.XpireItem;
 import io.xpire.model.tag.Tag;
 import io.xpire.model.tag.TagComparator;
 
 /**
- * Deletes an item identified with its displayed index or tag(s) associated with the item.
+ * Deletes an xpireItem identified with its displayed index or tag(s) associated with the xpireItem.
  */
 public class DeleteCommand extends Command {
 
     /**
-     * Private enum to indicate whether command is deleting item, quantity or tags.
+     * Private enum to indicate whether command is deleting xpireItem, quantity or tags.
      */
     private enum DeleteMode { ITEM, QUANTITY, TAGS }
 
@@ -30,16 +32,16 @@ public class DeleteCommand extends Command {
 
     public static final String MESSAGE_USAGE =
             "Three formats available for " + COMMAND_WORD + ":\n"
-            + "1) Deletes the item identified by the index number.\n"
+            + "1) Deletes the xpireItem identified by the index number.\n"
             + "Format: delete|<index> (index must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + "|1" + "\n"
-            + "2) Deletes all tags in the item identified by the index number.\n"
+            + "2) Deletes all tags in the xpireItem identified by the index number.\n"
             + "Format: delete|<index>|<tag>[<other tags>]...\n"
             + "Example: " + COMMAND_WORD + "|1" + "|#Fruit #Food"
-            + "3) Reduces the quantity in the item identified by the index number. \n"
-            + "Format: delete|<index>|<quantity> (quantity must be positive and less than item's quantity.\n";
+            + "3) Reduces the quantity in the xpireItem identified by the index number. \n"
+            + "Format: delete|<index>|<quantity> (quantity must be positive and less than xpireItem's quantity.\n";
 
-    public static final String MESSAGE_DELETE_ITEM_SUCCESS = "Deleted Item: %s";
+    public static final String MESSAGE_DELETE_ITEM_SUCCESS = "Deleted item: %s";
     public static final String MESSAGE_DELETE_TAGS_SUCCESS = "Deleted tags from item: %s";
     public static final String MESSAGE_DELETE_TAGS_FAILURE = "Did not manage to delete any tags.\n"
             + "You have specified tag(s) that are not found in item: %s";
@@ -77,46 +79,48 @@ public class DeleteCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException, ParseException {
         requireNonNull(model);
-        List<Item> lastShownList = model.getFilteredItemList();
+        List<XpireItem> lastShownList = model.getFilteredXpireItemList();
 
         if (this.targetIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
         }
 
-        Item targetItem = lastShownList.get(this.targetIndex.getZeroBased());
+        XpireItem targetXpireItem = lastShownList.get(this.targetIndex.getZeroBased());
         switch(this.mode) {
         case ITEM:
-            model.deleteItem(targetItem);
-            return new CommandResult(String.format(MESSAGE_DELETE_ITEM_SUCCESS, targetItem));
+            model.deleteItem(targetXpireItem);
+            return new CommandResult(String.format(MESSAGE_DELETE_ITEM_SUCCESS, targetXpireItem));
         case TAGS:
             assert this.tagSet != null;
-            Item newTaggedItem = removeTagsFromItem(targetItem, this.tagSet);
-            model.setItem(targetItem, newTaggedItem);
-            return new CommandResult(String.format(MESSAGE_DELETE_TAGS_SUCCESS, targetItem));
+            XpireItem newTaggedXpireItem = removeTagsFromItem(targetXpireItem, this.tagSet);
+            model.setItem(targetXpireItem, newTaggedXpireItem);
+            return new CommandResult(String.format(MESSAGE_DELETE_TAGS_SUCCESS, targetXpireItem));
         case QUANTITY:
             assert this.quantity != null;
-            Item newQuantityItem = reduceItemQuantity(targetItem, quantity);
-            model.setItem(targetItem, newQuantityItem);
-            /* TODO: Transfer to To-Buy-List*/
-            if (Quantity.quantityIsZero(newQuantityItem.getQuantity())) {
-                model.deleteItem(targetItem);
+            XpireItem newQuantityXpireItem = reduceItemQuantity(targetXpireItem, quantity);
+            Name itemName = newQuantityXpireItem.getName();
+            model.setItem(targetXpireItem, newQuantityXpireItem);
+            // transfer item to replenish list
+            if (Quantity.quantityIsZero(newQuantityXpireItem.getQuantity())) {
+                model.shiftItemToReplenishList(targetXpireItem);
+                return new CommandResult(String.format(MESSAGE_REPLENISH_SHIFT_SUCCESS, itemName));
             }
             return new CommandResult(
-                    String.format(MESSAGE_DELETE_QUANTITY_SUCCESS, quantity.toString(), targetItem));
+                    String.format(MESSAGE_DELETE_QUANTITY_SUCCESS, quantity.toString(), targetXpireItem));
         default:
             throw new CommandException(Messages.MESSAGE_UNKNOWN_DELETE_MODE);
         }
     }
 
     /**
-     * Removes Tag(s) from target item.
+     * Removes Tag(s) from target xpireItem.
      *
-     * @param targetItem The specified item that tags are to be removed.
+     * @param targetXpireItem The specified xpireItem that tags are to be removed.
      * @param tagSet Set of tags to remove.
-     * @return Original item with removed tags.
+     * @return Original xpireItem with removed tags.
      */
-    private Item removeTagsFromItem(Item targetItem, Set<Tag> tagSet) throws CommandException {
-        Set<Tag> originalTags = targetItem.getTags();
+    private XpireItem removeTagsFromItem(XpireItem targetXpireItem, Set<Tag> tagSet) throws CommandException {
+        Set<Tag> originalTags = targetXpireItem.getTags();
         Set<Tag> newTags = new TreeSet<>(new TagComparator());
         if (!originalTags.containsAll(tagSet)) {
             throw new CommandException(Messages.MESSAGE_INVALID_TAGS);
@@ -126,27 +130,27 @@ public class DeleteCommand extends Command {
                 newTags.add(tag);
             }
         }
-        targetItem.setTags(newTags);
-        return targetItem;
+        targetXpireItem.setTags(newTags);
+        return targetXpireItem;
     }
 
     /**
-     * Reduces item's quantity by amount specified.
+     * Reduces xpireItem's quantity by amount specified.
      *
-     * @param targetItem Item which amount will be reduced.
+     * @param targetXpireItem XpireItem which amount will be reduced.
      * @param reduceByQuantity Quantity to be reduced.
      * @return
      * @throws ParseException
      */
-    private Item reduceItemQuantity(Item targetItem, Quantity reduceByQuantity) throws CommandException,
-                                                                                       ParseException {
-        Quantity originalQuantity = targetItem.getQuantity();
+    private XpireItem reduceItemQuantity(XpireItem targetXpireItem, Quantity reduceByQuantity) throws CommandException,
+                                                                                                      ParseException {
+        Quantity originalQuantity = targetXpireItem.getQuantity();
         if (originalQuantity.isLessThan(reduceByQuantity)) {
             throw new CommandException(MESSAGE_DELETE_QUANTITY_FAILURE);
         }
         Quantity updatedQuantity = originalQuantity.deductQuantity(reduceByQuantity);
-        targetItem.setQuantity(updatedQuantity);
-        return targetItem;
+        targetXpireItem.setQuantity(updatedQuantity);
+        return targetXpireItem;
     }
 
     @Override

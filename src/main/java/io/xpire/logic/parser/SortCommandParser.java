@@ -4,7 +4,7 @@ import static io.xpire.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import io.xpire.logic.commands.SortCommand;
 import io.xpire.logic.parser.exceptions.ParseException;
-import io.xpire.model.item.sort.MethodOfSorting;
+import io.xpire.model.item.sort.XpireMethodOfSorting;
 
 /**
  * Parses input arguments and creates a new SortCommand object
@@ -21,7 +21,7 @@ public class SortCommandParser implements Parser<SortCommand> {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE));
         }
-        MethodOfSorting method = ParserUtil.parseMethodOfSorting(trimmedArgs);
+        XpireMethodOfSorting method = ParserUtil.parseMethodOfSorting(trimmedArgs);
         return new SortCommand(method);
     }
 }

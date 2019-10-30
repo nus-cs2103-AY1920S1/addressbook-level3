@@ -8,7 +8,7 @@ import io.xpire.commons.util.AppUtil;
 import io.xpire.commons.util.DateUtil;
 
 /**
- * Represents an Item's expiry date in xpire.
+ * Represents an XpireItem's expiry date in xpire.
  * Guarantees: immutable; is valid as declared in {@link #isValidFormatExpiryDate(String)} (String)}
  */
 public class ExpiryDate {
@@ -47,6 +47,15 @@ public class ExpiryDate {
         return d.isAfter(DateUtil.getCurrentDate());
     }
 
+    /**
+     * Checks if an item is expired.
+     * @return true if item is expired; false otherwise.
+     */
+    public boolean isExpired() {
+        return Long.parseLong(getStatus()) <= 0;
+    }
+
+
     public String getStatus(LocalDate current) {
         long offset = DateUtil.getOffsetDays(current, this.date);
         return offset > 0 ? String.format(DAYS_LEFT, offset, offset == 1 ? "" : "s") : EXPIRED;
@@ -55,10 +64,6 @@ public class ExpiryDate {
     public String getStatus() {
         long offset = DateUtil.getOffsetDays(DateUtil.getCurrentDate(), this.date);
         return String.valueOf(offset);
-    }
-
-    public boolean isExpired() {
-        return Long.parseLong(getStatus()) <= 0;
     }
 
     public LocalDate getDate() {

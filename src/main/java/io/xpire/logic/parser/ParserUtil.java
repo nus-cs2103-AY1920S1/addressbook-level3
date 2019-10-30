@@ -11,10 +11,12 @@ import io.xpire.commons.core.index.Index;
 import io.xpire.commons.util.StringUtil;
 import io.xpire.logic.parser.exceptions.ParseException;
 import io.xpire.model.item.ExpiryDate;
+import io.xpire.model.item.ListToView;
 import io.xpire.model.item.Name;
 import io.xpire.model.item.Quantity;
 import io.xpire.model.item.ReminderThreshold;
 import io.xpire.model.item.sort.MethodOfSorting;
+import io.xpire.model.item.sort.XpireMethodOfSorting;
 import io.xpire.model.tag.Tag;
 import io.xpire.model.tag.TagComparator;
 
@@ -125,17 +127,20 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code key} is invalid.
      */
-    public static MethodOfSorting parseMethodOfSorting(String key) throws ParseException {
+    public static XpireMethodOfSorting parseMethodOfSorting(String key) throws ParseException {
         requireNonNull(key);
         String trimmedMethodOfSorting = key.trim();
         if (!MethodOfSorting.isValidMethodOfSorting(trimmedMethodOfSorting)) {
             Set<String> allowedArgs = new TreeSet<>(Arrays.asList(
-                    MethodOfSorting.SORT_NAME, MethodOfSorting.SORT_DATE));
+                    XpireMethodOfSorting.SORT_NAME, XpireMethodOfSorting.SORT_DATE));
             String output = StringUtil.findSimilar(key, allowedArgs, 1);
-            throw new ParseException(MethodOfSorting.MESSAGE_CONSTRAINTS + output);
+            throw new ParseException(XpireMethodOfSorting.MESSAGE_CONSTRAINTS + output);
         }
-        return new MethodOfSorting(trimmedMethodOfSorting);
+        return new XpireMethodOfSorting(trimmedMethodOfSorting);
     }
+
+    /**
+     * Parse
 
     /**
      * Parses a {@code String reminderThreshold} into an {@code }.
@@ -171,5 +176,23 @@ public class ParserUtil {
         }
         set = ParserUtil.parseTags(Arrays.asList(copiedTags));
         return set;
+    }
+
+    /**
+     * Parses a {@code String list} into a {@code ListToView}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code list} is invalid.
+     */
+    public static ListToView parseListToView(String list) throws ParseException {
+        requireNonNull(list);
+        String trimmedListToView = list.trim();
+        if (!ListToView.isValidListToView(trimmedListToView)) {
+            Set<String> allowedArgs = new TreeSet<>(Arrays.asList(
+                    ListToView.VIEW_MAIN, ListToView.VIEW_REPLENISH));
+            String output = StringUtil.findSimilar(list, allowedArgs, 1);
+            throw new ParseException(ListToView.MESSAGE_CONSTRAINTS + output);
+        }
+        return new ListToView(trimmedListToView);
     }
 }
