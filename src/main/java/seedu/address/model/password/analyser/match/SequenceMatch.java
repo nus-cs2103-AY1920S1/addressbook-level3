@@ -17,6 +17,11 @@ public class SequenceMatch extends BaseMatch {
     }
 
     @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj);
+    }
+
+    @Override
     public String toString() {
         return super.toString() + "Type : Sequence Match\n";
     }

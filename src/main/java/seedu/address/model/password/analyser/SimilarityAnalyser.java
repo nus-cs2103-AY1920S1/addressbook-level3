@@ -2,11 +2,10 @@ package seedu.address.model.password.analyser;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
-import seedu.address.commons.core.index.Index;
 import seedu.address.model.password.Password;
 import seedu.address.model.password.analyser.match.SimilarityMatch;
+import seedu.address.model.password.analyser.result.Result;
 import seedu.address.model.password.analyser.result.SimilarityResult;
 
 /**
@@ -17,16 +16,9 @@ public class SimilarityAnalyser implements Analyser {
 
     private static final String MESSAGE_HEADER = "Analyzing password for similarity: \n";
 
-    private ArrayList<SimilarityResult> results;
-
-    public ArrayList<SimilarityResult> getResults() {
-        return results;
-    }
-
-
     @Override
-    public void analyse(List<Password> passwordList) {
-        ArrayList<SimilarityResult> results = new ArrayList<>();
+    public List<Result> analyse(List<Password> passwordList) {
+        ArrayList<Result> results = new ArrayList<>();
         for (Password acc : passwordList) {
             List<SimilarityMatch> matches = getAllMatches(acc, passwordList);
             if (!matches.isEmpty()) {
@@ -35,7 +27,7 @@ public class SimilarityAnalyser implements Analyser {
                 results.add(new SimilarityResult(acc, DESC_PASS, matches));
             }
         }
-        this.results = results;
+        return results;
     }
 
     /**
@@ -113,40 +105,7 @@ public class SimilarityAnalyser implements Analyser {
     }
 
     @Override
-    public String outputSummaryReport() {
-        StringBuilder reportBuilder = new StringBuilder();
-        reportBuilder.append(MESSAGE_HEADER);
-        reportBuilder.append(MESSAGE_COLUMNS);
-        for (SimilarityResult o : results) {
-            reportBuilder.append(o);
-        }
-        return reportBuilder.toString();
-    }
-
-    @Override
-    public String outputDetailedReport(Index index) {
-        StringBuilder report = new StringBuilder();
-        report.append(MESSAGE_INIT);
-        report.append(MESSAGE_HEADER);
-        SimilarityResult target = results.get(index.getZeroBased());
-        report.append(target.getGreaterDetail());
-        return report.toString();
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        SimilarityAnalyser that = (SimilarityAnalyser) o;
-        return results.equals(that.results);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(results);
+    public String getHeader() {
+        return MESSAGE_HEADER;
     }
 }

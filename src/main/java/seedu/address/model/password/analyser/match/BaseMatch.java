@@ -3,6 +3,9 @@ package seedu.address.model.password.analyser.match;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+import java.util.Objects;
+
+
 /**
  * Represents a match found by an analyser which contains the start and end index as well as the match token.
  */
@@ -50,6 +53,25 @@ public abstract class BaseMatch implements Match {
                 + "Token: " + this.token + "\n"
                 + "Start Index: " + this.startIndex + "\n"
                 + "End Index: " + this.endIndex + "\n";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        BaseMatch baseMatch = (BaseMatch) o;
+        return startIndex == baseMatch.startIndex
+                && endIndex == baseMatch.endIndex
+                && Objects.equals(token, baseMatch.token);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(token, startIndex, endIndex);
     }
 
 }

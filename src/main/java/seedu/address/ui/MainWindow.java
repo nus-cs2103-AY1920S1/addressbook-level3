@@ -23,6 +23,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.card.Card;
 import seedu.address.model.note.Note;
 import seedu.address.model.password.Password;
+import seedu.address.model.password.analyser.report.AnalysisReport;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -49,6 +50,7 @@ public class MainWindow extends UiPart<Stage> {
     private ReadDisplayCard readDisplayCard;
     private ResultDisplay resultDisplay;
     private ExpiryDisplay expiryDisplay;
+    private ReadDisplayPasswordReport readDisplayPasswordReport;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -216,6 +218,14 @@ public class MainWindow extends UiPart<Stage> {
             readDisplayNote.setLogic(logic);
             readListPanelPlaceholder.getChildren().add(readDisplayNote.getRoot());
             readDisplayNote.setFeedbackToUser((Note) object, index);
+        } else if (object instanceof AnalysisReport) {
+            readList.setMinWidth(600);
+            readListPanelPlaceholder.setMinHeight(500);
+            readList.setMinHeight(500);
+            readDisplayPasswordReport = new ReadDisplayPasswordReport();
+            readListPanelPlaceholder.getChildren().add(readDisplayPasswordReport.getRoot());
+            //readListPanelPlaceholder.prefWidthProperty().bind(primaryStage.widthProperty().multiply(0.80));
+            readDisplayPasswordReport.setFeedbackToUser(object.toString());
         } else if (object instanceof Card) {
             readDisplayCard = new ReadDisplayCard();
             readDisplayCard.setLogic(logic);
@@ -357,7 +367,6 @@ public class MainWindow extends UiPart<Stage> {
                 logic.setMode(commandResult.getModeToGoTo());
                 handleModeChange();
             }
-
             if (commandResult.isRead()) {
                 readList.setVisible(true);
                 readListPanelPlaceholder.getChildren().clear();

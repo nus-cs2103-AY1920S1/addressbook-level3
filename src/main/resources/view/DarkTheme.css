@@ -148,8 +148,8 @@
 
 .result-display {
     -fx-background-color: transparent;
-    -fx-font-family: "Segoe UI Light";
-    -fx-font-size: 13pt;
+    -fx-font-family: "Courier";
+    -fx-font-size: 11pt;
     -fx-text-fill: white;
 }
 

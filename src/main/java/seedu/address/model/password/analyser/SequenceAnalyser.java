@@ -3,9 +3,9 @@ package seedu.address.model.password.analyser;
 import java.util.ArrayList;
 import java.util.List;
 
-import seedu.address.commons.core.index.Index;
 import seedu.address.model.password.Password;
 import seedu.address.model.password.analyser.match.SequenceMatch;
+import seedu.address.model.password.analyser.result.Result;
 import seedu.address.model.password.analyser.result.SequenceResult;
 
 /**
@@ -23,8 +23,8 @@ public class SequenceAnalyser implements Analyser {
 
 
     @Override
-    public void analyse(List<Password> passwordList) {
-        ArrayList<SequenceResult> results = new ArrayList<>();
+    public List<Result> analyse(List<Password> passwordList) {
+        ArrayList<Result> results = new ArrayList<>();
         for (Password acc : passwordList) {
             String password = acc.getPasswordValue().value;
             List<SequenceMatch> matches = getAllMatches(password);
@@ -34,10 +34,15 @@ public class SequenceAnalyser implements Analyser {
                 results.add(new SequenceResult(acc, DESC_FAIL, matches));
             }
         }
-        this.results = results;
+        return results;
     }
 
-    private List<SequenceMatch> getAllMatches(String password) {
+    @Override
+    public String getHeader() {
+        return MESSAGE_HEADER;
+    }
+
+    List<SequenceMatch> getAllMatches(String password) {
         ArrayList<SequenceMatch> matches = new ArrayList<>();
         getAllForwardSubseq(password, matches);
         getAllBackwardSubseq(password, matches);
@@ -120,27 +125,4 @@ public class SequenceAnalyser implements Analyser {
         }
     }
 
-    @Override
-    public String outputSummaryReport() {
-        StringBuilder reportBuilder = new StringBuilder();
-        reportBuilder.append(MESSAGE_HEADER);
-        reportBuilder.append(MESSAGE_COLUMNS);
-        //int count = 0;
-        for (SequenceResult o : results) {
-            //reportBuilder.append(String.valueOf(count) + ". " +  o);
-            //count++;
-            reportBuilder.append(o);
-        }
-        return reportBuilder.toString();
-    }
-
-    @Override
-    public String outputDetailedReport(Index index) {
-        StringBuilder report = new StringBuilder();
-        report.append(MESSAGE_INIT);
-        report.append(MESSAGE_HEADER);
-        SequenceResult target = results.get(index.getZeroBased());
-        report.append(target.getGreaterDetail());
-        return report.toString();
-    }
 }
