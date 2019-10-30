@@ -7,7 +7,6 @@ import static seedu.algobase.logic.parser.CliSyntax.PREFIX_TASK;
 import static seedu.algobase.model.Model.PREDICATE_SHOW_ALL_PLANS;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -61,7 +60,12 @@ public class EditTaskCommand extends Command {
         }
 
         Plan planToUpdate = lastShownPlanList.get(editTaskDescriptor.planIndex.getZeroBased());
-        List<Task> taskList = new ArrayList<>(planToUpdate.getTasks());
+        List<Task> taskList = planToUpdate.getTaskList();
+
+        if (editTaskDescriptor.taskIndex.getZeroBased() >= taskList.size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+        }
+
         Task taskToUpdate = taskList.get(editTaskDescriptor.taskIndex.getZeroBased());
         taskList.remove(editTaskDescriptor.taskIndex.getZeroBased());
         Set<Task> taskSet = new HashSet<>(taskList);

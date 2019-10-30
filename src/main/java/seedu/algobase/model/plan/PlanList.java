@@ -43,7 +43,7 @@ public class PlanList implements Iterable<Plan> {
         solvedCount.set(toAdd.getSolvedTaskCount());
         unsolvedCount.set(toAdd.getUnsolvedTaskCount());
         internalList.add(toAdd);
-        internalTaskList.setAll(toAdd.getTasks());
+        internalTaskList.setAll(toAdd.getTaskList());
     }
 
     /**
@@ -62,7 +62,7 @@ public class PlanList implements Iterable<Plan> {
         solvedCount.set(updatedPlan.getSolvedTaskCount());
         unsolvedCount.set(updatedPlan.getUnsolvedTaskCount());
         internalList.set(index, updatedPlan);
-        internalTaskList.setAll(updatedPlan.getTasks());
+        internalTaskList.setAll(updatedPlan.getTaskList());
     }
 
     /**
@@ -81,6 +81,15 @@ public class PlanList implements Iterable<Plan> {
     }
 
     /**
+     * Replaces the contents of this list with {@code replacement}.
+     */
+    public void setPlans(PlanList replacement) {
+        requireNonNull(replacement);
+        List<Plan> plans = replacement.internalList;
+        setPlans(plans);
+    }
+
+    /**
      * Replaces the contents of this list with {@code plans}.
      */
     public void setPlans(List<Plan> plans) {
@@ -93,17 +102,8 @@ public class PlanList implements Iterable<Plan> {
             currentPlan.set(plan.getPlanName().fullName);
             solvedCount.set(plan.getSolvedTaskCount());
             unsolvedCount.set(plan.getUnsolvedTaskCount());
-            internalTaskList.setAll(plan.getTasks());
+            internalTaskList.setAll(plan.getTaskList());
         }
-    }
-
-    /**
-     * Replaces the contents of this list with {@code replacement}.
-     */
-    public void setPlans(PlanList replacement) {
-        requireNonNull(replacement);
-        List<Plan> plans = replacement.internalList;
-        setPlans(plans);
     }
 
     /**
