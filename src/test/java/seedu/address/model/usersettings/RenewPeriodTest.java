@@ -19,7 +19,7 @@ public class RenewPeriodTest {
     @Test
     public void constructor_invalidRenewPeriod_throwsIllegalArgumentException() {
         String invalidRenewPeriod = "";
-        assertThrows(IllegalArgumentException.class, () -> new LoanPeriod(invalidRenewPeriod));
+        assertThrows(IllegalArgumentException.class, () -> new RenewPeriod(invalidRenewPeriod));
     }
 
     @Test
@@ -27,7 +27,7 @@ public class RenewPeriodTest {
         // null renewPeriod
         assertThrows(NullPointerException.class, () -> RenewPeriod.isValidRenewPeriod(null));
 
-        // invalid loanPeriod
+        // invalid renewPeriod
         assertFalse(RenewPeriod.isValidRenewPeriod("")); // empty string
         assertFalse(RenewPeriod.isValidRenewPeriod(" ")); // spaces only
         assertFalse(RenewPeriod.isValidRenewPeriod("^")); // only non-alphanumeric characters

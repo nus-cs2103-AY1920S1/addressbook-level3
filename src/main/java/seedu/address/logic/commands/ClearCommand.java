@@ -11,7 +11,7 @@ public class ClearCommand extends Command {
 
     public static final String COMMAND_WORD = "clear";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Resets filtered book list. ";
-    public static final String MESSAGE_SUCCESS = "Catalog has been cleared!";
+    public static final String MESSAGE_SUCCESS = "Catalog results have been cleared!";
 
 
     @Override

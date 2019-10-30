@@ -199,7 +199,7 @@ public class MainWindow extends UiPart<Stage> {
             }
 
             if (!commandResult.isDone()) {
-                updateBorrowerPanel();
+                updateBorrowerPanel(); // throws NotInServeModeException if command is not a serve mode command
             }
 
             return commandResult;

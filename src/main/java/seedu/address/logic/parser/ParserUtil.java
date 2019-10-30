@@ -19,6 +19,7 @@ import seedu.address.model.borrower.Phone;
 import seedu.address.model.genre.Genre;
 import seedu.address.model.usersettings.FineIncrement;
 import seedu.address.model.usersettings.LoanPeriod;
+import seedu.address.model.usersettings.MaxRenews;
 import seedu.address.model.usersettings.RenewPeriod;
 
 /**
@@ -230,6 +231,20 @@ public class ParserUtil {
             throw new ParseException(FineIncrement.MESSAGE_CONSTRAINTS);
         }
         return new FineIncrement(trimmedFineIncrement);
+    }
+
+    /**
+     * Parses {@code maxRenews} into an {@code RenewCount} and returns it. Leading and trailing whitespaces will
+     * be trimmed.
+     * @throws ParseException if the specified maxRenews is invalid (not non-zero unsigned integer).
+     */
+    public static MaxRenews parseMaxRenews(String maxRenews) throws ParseException {
+        requireNonNull(maxRenews);
+        String trimmedMaxRenews = maxRenews.trim();
+        if (!StringUtil.isNonZeroUnsignedInteger(trimmedMaxRenews)) {
+            throw new ParseException(MaxRenews.MESSAGE_CONSTRAINTS);
+        }
+        return new MaxRenews(trimmedMaxRenews);
     }
 
     /**

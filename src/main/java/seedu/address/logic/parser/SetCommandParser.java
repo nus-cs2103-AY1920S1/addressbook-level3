@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FINE_INCREMENT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LOAN_PERIOD;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MAX_RENEWS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RENEW_PERIOD;
 
 import seedu.address.logic.commands.SetCommand;
@@ -23,8 +24,8 @@ public class SetCommandParser implements Parser<SetCommand> {
      */
     public SetCommand parse(String args) throws ParseException {
         requireNonNull(args);
-        ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_LOAN_PERIOD, PREFIX_RENEW_PERIOD, PREFIX_FINE_INCREMENT);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_LOAN_PERIOD, PREFIX_RENEW_PERIOD,
+                PREFIX_FINE_INCREMENT, PREFIX_MAX_RENEWS);
 
         if (!argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SetCommand.MESSAGE_USAGE));
@@ -45,6 +46,11 @@ public class SetCommandParser implements Parser<SetCommand> {
         if (argMultimap.getValue(PREFIX_FINE_INCREMENT).isPresent()) {
             setUserSettingsDescriptor.setFineIncrement(ParserUtil
                     .parseFineIncrement(argMultimap.getValue(PREFIX_FINE_INCREMENT).get()));
+        }
+
+        if (argMultimap.getValue(PREFIX_MAX_RENEWS).isPresent()) {
+            setUserSettingsDescriptor.setMaxRenews(ParserUtil
+                    .parseMaxRenews(argMultimap.getValue(PREFIX_MAX_RENEWS).get()));
         }
 
         if (!setUserSettingsDescriptor.isAnyFieldEdited()) {

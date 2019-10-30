@@ -92,7 +92,7 @@ public class ModelManagerTest {
 
     @Test
     public void setUserSettings_validUserSettings_setsUserSettings() {
-        UserSettings userSettings = new UserSettings(10, 10, 10);
+        UserSettings userSettings = new UserSettings(10, 10, 10, 10);
         modelManager.setUserSettings(userSettings);
         assertEquals(userSettings, modelManager.getUserSettings());
     }
