@@ -14,6 +14,7 @@ import seedu.address.logic.commands.BudgetListCommand;
 import seedu.address.logic.commands.ChangeFontCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.DeleteAutoExpenseCommand;
 import seedu.address.logic.commands.DeleteBudgetCommand;
 import seedu.address.logic.commands.DeleteCategoryCommand;
 import seedu.address.logic.commands.DeleteCommand;
@@ -160,6 +161,9 @@ public class AddressBookParser {
 
         case EditAutoExpenseCommand.COMMAND_WORD:
             return new EditAutoExpenseCommandParser().parse(arguments);
+
+        case DeleteAutoExpenseCommand.COMMAND_WORD:
+            return new DeleteAutoExpenseCommandParser().parse(arguments);
 
         case StatisticsCommand.COMMAND_WORD:
             return new StatisticsCommandParser().parse(arguments);
