@@ -278,6 +278,8 @@ There is no need to save manually.
 
 == Command Summary
 
+Below is a summary of the available commands in Xpire:
+
 * *Help* : `help`
 * *Add* `add|<item name>|<expiry date>[|<quantity>]...` +
 e.g. `add|durian|30/9/2019`
@@ -295,4 +297,23 @@ e.g. `delete|3`
 * *Tag* : `tag|<index>|[<tag>]...`
 * *Clear* : `clear`
 * *Exit* : `exit`
+
+== Command Shorthands
+
+Commands also come with command shorthands which can be used in place of the full command word. For instance, `a|Strawberry|31/12/2019` is the same as `add|Strawberry|31/12/2019`.
+
+Below is a list of commands and their corresponding command shorthands:
+
+* `help` : `h`
+* `add` : `a`
+* `view` : `v`
+* `set reminder` : `sr`
+* `shift` : `sh`
+* `check` : `ch`
+* `sort` : `so`
+* `search` : `se`
+* `delete` : `d`
+* `tag` : `t`
+* `clear` : `cl`
+* `exit` : `x`
 
