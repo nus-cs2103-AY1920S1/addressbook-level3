@@ -1,8 +1,13 @@
 package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_EXISTING_ENTRIES_CATEGORY;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_CATEGORY;
+import static seedu.address.commons.core.Messages.MESSAGE_NONEXISTENT_CATEGORY;
+import static seedu.address.commons.util.AppUtil.checkArgument;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javafx.beans.InvalidationListener;
 import javafx.collections.ObservableList;
@@ -11,6 +16,8 @@ import seedu.address.model.person.AutoExpense;
 import seedu.address.model.person.AutoExpenseList;
 import seedu.address.model.person.Budget;
 import seedu.address.model.person.BudgetList;
+import seedu.address.model.person.Category;
+import seedu.address.model.person.CategoryList;
 import seedu.address.model.person.Entry;
 import seedu.address.model.person.Expense;
 import seedu.address.model.person.ExpenseList;
@@ -29,6 +36,7 @@ import seedu.address.model.reminders.conditions.ConditionsManager;
  * .isSamePerson comparison)
  */
 public class AddressBook implements ReadOnlyAddressBook {
+    private final CategoryList categoryList;
     private final UniqueEntryList entries;
     private final ExpenseList expenses;
     private final IncomeList incomes;
@@ -48,6 +56,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * ways to avoid duplication among constructors.
      */
     {
+        categoryList = new CategoryList();
         entries = new UniqueEntryList();
         expenses = new ExpenseList();
         incomes = new IncomeList();
@@ -57,8 +66,10 @@ public class AddressBook implements ReadOnlyAddressBook {
         reminders = new ReminderList();
         conditions = new ConditionsManager();
     }
+
     public AddressBook() {
     }
+
     /**
      * Creates an AddressBook using the Persons in the {@code toBeCopied}
      */
@@ -66,31 +77,42 @@ public class AddressBook implements ReadOnlyAddressBook {
         this();
         resetData(toBeCopied);
     }
+
     //// list overwrite operations
     /**
      * Replaces the contents of entries with {@code entry}. {@code entry} must not
      * contain duplicate entries.
      */
+    public void setCategories(List<Category> expenseCategories, List<Category> incomeCategories) {
+        this.categoryList.setEntries(expenseCategories, incomeCategories);
+        indicateModified();
+    }
+
     public void setEntries(List<Entry> entries) {
         this.entries.setEntries(entries);
         indicateModified();
     }
+
     public void setExpenses(List<Expense> expenses) {
         this.expenses.setEntries(expenses);
         indicateModified();
     }
+
     public void setIncomes(List<Income> incomes) {
         this.incomes.setEntries(incomes);
         indicateModified();
     }
+
     public void setWishes(List<Wish> wishes) {
         this.wishes.setEntries(wishes);
         indicateModified();
     }
+
     public void setAutoExpenses(List<AutoExpense> autoExpenses) {
         this.autoExpenses.setEntries(autoExpenses);
         indicateModified();
     }
+
     public void setReminders(List<Reminder> reminders) {
         this.reminders.setEntries(reminders);
         indicateModified();
@@ -105,6 +127,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         this.budgets.setEntries(budgets);
         indicateModified();
     }
+
     /**
      * When Wishes and WishReminders are read from list, new instances are created.
      * As such editing a wish after loading a file may result in EntrySpecificCondition not updating wish accordingly.
@@ -118,6 +141,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void resetData(ReadOnlyAddressBook newData) {
         requireNonNull(newData);
+        setCategories(newData.getExpenseCategoryList(), newData.getIncomeCategoryList());
         setEntries(newData.getEntryList());
         setExpenses(newData.getExpenseList());
         setIncomes(newData.getIncomeList());
@@ -127,7 +151,17 @@ public class AddressBook implements ReadOnlyAddressBook {
         setReminders(newData.getReminderList());
         setConditions(newData.getConditionList());
     }
+
     //// person-level operations
+    /**
+     * Returns true if a entry with the same identity as {@code entry} exists in the
+     * address book.
+     */
+    public boolean hasCategory(Category category) {
+        requireNonNull(category);
+        return categoryList.contains(category);
+    }
+
     /**
      * Returns true if a entry with the same identity as {@code entry} exists in the
      * address book.
@@ -135,6 +169,24 @@ public class AddressBook implements ReadOnlyAddressBook {
     public boolean hasEntry(Entry entry) {
         requireNonNull(entry);
         return entries.contains(entry);
+    }
+
+    /**
+     * Returns true if a budget with the same identity as {@code entry} exists in the
+     * address book.
+     */
+    public boolean hasBudget(Budget entry) {
+        requireNonNull(entry);
+        return budgets.contains(entry);
+    }
+
+    /**
+     * Returns true if a wish with the same identity as {@code entry} exists in the
+     * address book.
+     */
+    public boolean hasWish(Wish entry) {
+        requireNonNull(entry);
+        return wishes.contains(entry);
     }
     /**
      * Returns true if a reminder with the same identity as {@code reminder} exists
@@ -144,6 +196,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         requireNonNull(reminder);
         return reminders.contains(reminder);
     }
+
     /**
      * Returns true if a reminder with the same identity as {@code reminder} exists
      * in the address book.
@@ -151,6 +204,12 @@ public class AddressBook implements ReadOnlyAddressBook {
     public boolean hasCondition(Condition condition) {
         requireNonNull(condition);
         return conditions.contains(condition);
+    }
+
+    @Override
+    public void addCategory(Category category) {
+        categoryList.add(category);
+        indicateModified();
     }
 
     /**
@@ -169,6 +228,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * * @param expense the specified Expense to be added.
      */
     public void addExpense(Expense expense) {
+        checkArgument(hasCategory(expense.getCategory()), MESSAGE_INVALID_CATEGORY);
         entries.add(expense);
         expenses.add(expense);
         conditions.addEntryUpdate(expense);
@@ -176,11 +236,12 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Adds the specified Income to the finance app.
+     * Adds the specified Income to the finance app. Additional check for starting stage loading from data file.
      *
      * @param income the specified Income to be added.
      */
     public void addIncome(Income income) {
+        checkArgument(hasCategory(income.getCategory()), MESSAGE_INVALID_CATEGORY);
         entries.add(income);
         incomes.add(income);
         conditions.addEntryUpdate(income);
@@ -192,7 +253,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * @param budget the specified Income to be added.
      */
     public void addBudget(Budget budget) {
-        entries.add(budget);
+        checkArgument(hasCategory(budget.getCategory()), MESSAGE_INVALID_CATEGORY);
         budgets.add(budget);
         conditions.addEntryUpdate(budget);
         indicateModified();
@@ -200,10 +261,12 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     /**
      * Adds the specified Wish to the finance app.
+     * carries out check if category is valid here.
+     *
      * @param wish the specified Wish to be added.
      */
     public void addWish(Wish wish) {
-        entries.add(wish);
+        checkArgument(hasCategory(wish.getCategory()), MESSAGE_INVALID_CATEGORY);
         wishes.add(wish);
         conditions.addEntryUpdate(wish);
         indicateModified();
@@ -228,22 +291,56 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Adds the specified Reminder to the app.
-     * @param wishReminder the specified reminder to be added.
-     */
-    /*public void addWishReminder(EntrySpecificCondition wishReminder) {
-        wishReminders.add(wishReminder);
-    }*/
-
-    /**
      * Adds the specified AutoExpense to the finance app.
      *
      * @param autoExpense the specified AutoExpense to be added.
      */
     public void addAutoExpense(AutoExpense autoExpense) {
+        checkArgument(hasCategory(autoExpense.getCategory()), MESSAGE_INVALID_CATEGORY);
         entries.add(autoExpense);
         autoExpenses.add(autoExpense);
         conditions.addEntryUpdate(autoExpense);
+        indicateModified();
+    }
+
+    //TODO:(MC) Is there a better way about this? ALso update the rest
+
+    /**
+     *
+     * @param oldCategoryName is the original CategoryName which is about to be edited
+     * @param newCategoryName is the new CategoryName which is about to replace the original
+     * @param categoryType is the type of the Category
+     *
+     * Checks all the current entries for entries that have the same category and create an editedEntry.
+     */
+    public void editCategoryNamesToNewName(String oldCategoryName, String newCategoryName, String categoryType) {
+        if (categoryType.equalsIgnoreCase("Income")) {
+            ObservableList<Income> tocheckIncomeList = this.getIncomeList();
+            List<Income> filteredListOfIncome = tocheckIncomeList.stream()
+                    .filter(t -> t.getCategory().categoryName.equalsIgnoreCase(oldCategoryName))
+                    .collect(Collectors.toList());
+            filteredListOfIncome.stream().forEach(t -> setIncome(t, t.modifiedCategory(newCategoryName)));
+        } else {
+            ObservableList<Expense> toCheckExpenseList = this.getExpenseList();
+            List<Expense> filteredListOfExpense = toCheckExpenseList.stream()
+                    .filter(t -> t.getCategory().categoryName.equalsIgnoreCase(oldCategoryName))
+                    .collect(Collectors.toList());
+            filteredListOfExpense.stream().forEach(t -> setExpense(t, t.modifiedCategory(newCategoryName)));
+        }
+
+    }
+
+    /**
+     * Replaces the given category with the new editedCategory. Modifies all the categories in the list of entries
+     * that corresponds to changed category.
+     */
+    public void setCategory(Category target, Category editedCategory) {
+        requireNonNull(editedCategory);
+        String oldCategoryName = target.categoryName;
+        String newCategoryName = editedCategory.categoryName;
+        categoryList.setCategory(target, editedCategory);
+        String categoryType = target.categoryType;
+        editCategoryNamesToNewName(oldCategoryName, newCategoryName, categoryType);
         indicateModified();
     }
 
@@ -255,6 +352,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void setEntry(Entry target, Entry editedEntry) {
         requireNonNull(editedEntry);
+        checkArgument(hasCategory(editedEntry.getCategory()), MESSAGE_INVALID_CATEGORY);
         entries.setEntry(target, editedEntry);
         conditions.setEntryUpdate(target, editedEntry);
         indicateModified();
@@ -268,8 +366,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void setExpense(Expense target, Expense editedEntry) {
         requireNonNull(editedEntry);
-        expenses.setExpense(target, editedEntry);
-        entries.setEntry(target, editedEntry);
+        checkArgument(hasCategory(editedEntry.getCategory()), MESSAGE_INVALID_CATEGORY);
         conditions.setEntryUpdate(target, editedEntry);
         indicateModified();
     }
@@ -282,8 +379,8 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void setIncome(Income target, Income editedEntry) {
         requireNonNull(editedEntry);
+        checkArgument(hasCategory(editedEntry.getCategory()), MESSAGE_INVALID_CATEGORY);
         incomes.setIncome(target, editedEntry);
-        entries.setEntry(target, editedEntry);
         conditions.setEntryUpdate(target, editedEntry);
         indicateModified();
     }
@@ -296,8 +393,8 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void setWish(Wish target, Wish editedEntry) {
         requireNonNull(editedEntry);
+        checkArgument(hasCategory(editedEntry.getCategory()), MESSAGE_INVALID_CATEGORY);
         wishes.setWish(target, editedEntry);
-        entries.setEntry(target, editedEntry);
         conditions.setEntryUpdate(target, editedEntry);
         indicateModified();
     }
@@ -328,6 +425,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void setBudget(Budget target, Budget editedEntry) {
         requireNonNull(editedEntry);
+        checkArgument(hasCategory(editedEntry.getCategory()), MESSAGE_INVALID_CATEGORY);
         budgets.setBudget(target, editedEntry);
         conditions.setEntryUpdate(target, editedEntry);
         indicateModified();
@@ -344,8 +442,6 @@ public class AddressBook implements ReadOnlyAddressBook {
         wishReminders.setWishReminder(target, editedEntry);
     }*/
 
-
-
     /**
      * Replaces the given AutoExpense {@code target} in the list with
      * {@code editedIncome}. {@code target} must exist in the address book. The
@@ -354,9 +450,45 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void setAutoExpense(AutoExpense target, AutoExpense editedEntry) {
         requireNonNull(editedEntry);
+        checkArgument(hasCategory(editedEntry.getCategory()), MESSAGE_INVALID_CATEGORY);
         autoExpenses.setAutoExpense(target, editedEntry);
         entries.setEntry(target, editedEntry);
         conditions.setEntryUpdate(target, editedEntry);
+        indicateModified();
+    }
+
+    /**
+     * Returns the truth value for whether the Category has any entries that currently exist in guiltTrip.
+     */
+    public boolean categoryHasAnyEntries(Category category) {
+        if (category.categoryType.equalsIgnoreCase("Income")) {
+            ObservableList<Income> tocheckIncomeList = this.getIncomeList();
+            return tocheckIncomeList.stream()
+                    .anyMatch(t -> t.getCategory().categoryName.equalsIgnoreCase(category.categoryName));
+        } else {
+            ObservableList<Expense> toCheckExpenseList = this.getExpenseList();
+            boolean hasEntriesInExpenseList = toCheckExpenseList.stream()
+                    .anyMatch(t -> t.getCategory().categoryName.equalsIgnoreCase(category.categoryName));
+            ObservableList<Budget> tocheckBudgetList = this.getBudgetList();
+            boolean hasEntriesInBudgetList = tocheckBudgetList.stream()
+                    .anyMatch(t -> t.getCategory().categoryName.equalsIgnoreCase(category.categoryName));
+            ObservableList<Wish> toCheckWish = this.getWishList();
+            boolean hasEntriesInWishList = toCheckWish.stream()
+                    .anyMatch(t -> t.getCategory().categoryName.equalsIgnoreCase(category.categoryName));
+            ObservableList<AutoExpense> toCheckAutoExpense = this.getAutoExpenseList();
+            boolean hasEntriesInAutoList = toCheckAutoExpense.stream()
+                    .anyMatch(t -> t.getCategory().categoryName.equalsIgnoreCase(category.categoryName));
+            return hasEntriesInBudgetList || hasEntriesInExpenseList || hasEntriesInWishList || hasEntriesInAutoList;
+        }
+    }
+
+    /**
+     * Removes {@code key} from this {@code AddressBook}.
+     * {@code key} must exist in the address book.
+     */
+    public void removeCategory(Category category) {
+        checkArgument(!categoryHasAnyEntries(category), MESSAGE_EXISTING_ENTRIES_CATEGORY);
+        categoryList.remove(category);
         indicateModified();
     }
 
@@ -397,8 +529,8 @@ public class AddressBook implements ReadOnlyAddressBook {
      * address book.
      */
     public void removeWish(Wish key) {
+        checkArgument(hasCategory(key.getCategory()), MESSAGE_NONEXISTENT_CATEGORY);
         wishes.remove(key);
-        entries.remove(key);
         conditions.deleteEntryUpdate(key);
         indicateModified();
     }
@@ -409,7 +541,6 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void removeBudget(Budget key) {
         budgets.remove(key);
-        entries.remove(key);
         conditions.deleteEntryUpdate(key);
         indicateModified();
     }
@@ -443,9 +574,6 @@ public class AddressBook implements ReadOnlyAddressBook {
         reminders.remove(key);
         indicateModified();
     }
-    /*public void removeWishReminder(EntrySpecificCondition key) {
-        wishReminders.remove(key);
-    }*/
 
     @Override
     public void addListener(InvalidationListener listener) {
@@ -467,8 +595,23 @@ public class AddressBook implements ReadOnlyAddressBook {
     //// util methods
     @Override
     public String toString() {
-        return entries.asUnmodifiableObservableList().size() + " persons";
+        return entries.asUnmodifiableObservableList().size() + " entries";
         // TODO: refine later
+    }
+
+    @Override
+    public CategoryList getCategoryList() {
+        return categoryList;
+    }
+
+    @Override
+    public ObservableList<Category> getIncomeCategoryList() {
+        return categoryList.getInternalListForIncome();
+    }
+
+    @Override
+    public ObservableList<Category> getExpenseCategoryList() {
+        return categoryList.getInternalListForOtherEntries();
     }
 
     @Override

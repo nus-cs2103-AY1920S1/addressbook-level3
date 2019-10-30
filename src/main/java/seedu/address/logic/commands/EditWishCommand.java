@@ -21,6 +21,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Amount;
+import seedu.address.model.person.Category;
 import seedu.address.model.person.Date;
 import seedu.address.model.person.Description;
 import seedu.address.model.person.Wish;
@@ -70,17 +71,17 @@ public class EditWishCommand extends Command {
         List<Wish> lastShownList = model.getFilteredWishes();
 
         if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_ENTRY_DISPLAYED_INDEX);
         }
 
         Wish entryToEdit = lastShownList.get(index.getZeroBased());
         Wish editedEntry = createEditedWish(entryToEdit, editEntryDescriptor);
 
-        if (!entryToEdit.isSameEntry(editedEntry) && model.hasEntry(editedEntry)) {
+        if (!entryToEdit.isSameEntry(editedEntry) && model.hasWish(editedEntry)) {
             throw new CommandException(MESSAGE_DUPLICATE_ENTRY);
         }
 
-        model.setEntry(entryToEdit, editedEntry);
+        model.setWish(entryToEdit, editedEntry);
         model.updateFilteredWishes(PREDICATE_SHOW_ALL_WISHES);
         model.updateFilteredEntryList(PREDICATE_SHOW_ALL_ENTRIES);
         model.commitAddressBook();
@@ -93,11 +94,12 @@ public class EditWishCommand extends Command {
      */
     private static Wish createEditedWish(Wish wishToEdit, EditWishDescriptor editEntryDescriptor) {
         assert wishToEdit != null;
+        Category updatedCategory = editEntryDescriptor.getCategory().orElse(wishToEdit.getCategory());
         Description updatedName = editEntryDescriptor.getDesc().orElse(wishToEdit.getDesc());
         Date updatedTime = editEntryDescriptor.getDate().orElse(wishToEdit.getDate());
         Amount updatedAmount = editEntryDescriptor.getAmount().orElse(wishToEdit.getAmount());
         Set<Tag> updatedTags = editEntryDescriptor.getTags().orElse(wishToEdit.getTags());
-        return new Wish(updatedName, updatedTime, updatedAmount, updatedTags);
+        return new Wish(updatedCategory, updatedName, updatedTime, updatedAmount, updatedTags);
     }
 
     @Override
@@ -123,6 +125,7 @@ public class EditWishCommand extends Command {
      * corresponding field value of the person.
      */
     public static class EditWishDescriptor {
+        private Category category;
         private Description desc;
         private Date date;
         private Amount amt;
@@ -135,6 +138,7 @@ public class EditWishCommand extends Command {
          * A defensive copy of {@code tags} is used internally.
          */
         public EditWishDescriptor(EditWishDescriptor toCopy) {
+            setCategory(toCopy.category);
             setDesc(toCopy.desc);
             setDate(toCopy.date);
             setAmount(toCopy.amt);
@@ -145,7 +149,15 @@ public class EditWishCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(desc, amt, tags);
+            return CollectionUtil.isAnyNonNull(category, desc, date, amt, tags);
+        }
+
+        public void setCategory(Category cat) {
+            this.category = cat;
+        }
+
+        public Optional<Category> getCategory() {
+            return Optional.ofNullable(category);
         }
 
         public void setDesc(Description desc) {

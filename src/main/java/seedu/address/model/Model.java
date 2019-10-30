@@ -7,6 +7,8 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.person.AutoExpense;
 import seedu.address.model.person.Budget;
+import seedu.address.model.person.Category;
+import seedu.address.model.person.CategoryList;
 import seedu.address.model.person.Entry;
 import seedu.address.model.person.Expense;
 import seedu.address.model.person.Income;
@@ -15,6 +17,7 @@ import seedu.address.model.person.SortType;
 import seedu.address.model.person.Wish;
 import seedu.address.model.reminders.Reminder;
 import seedu.address.model.reminders.conditions.Condition;
+import seedu.address.model.statistics.StatisticsManager;
 
 /**
  * The API of the Model component.
@@ -29,8 +32,12 @@ public interface Model {
     Predicate<AutoExpense> PREDICATE_SHOW_ALL_AUTOEXPENSES = unused -> true;
     Predicate<Condition> PREDICATE_SHOW_ALL_CONDITIONS = unused -> true;
     Predicate<Reminder> PREDICATE_SHOW_ACTIVE_REMINDERS =
-            x -> !x.getStatus().equals(Reminder.Status.unmet);
+        x -> !x.getStatus().equals(Reminder.Status.unmet);
     Predicate<Reminder> PREDICATE_SHOW_ALL_REMINDERS = unused -> true;
+
+    void setStats(StatisticsManager stats);
+
+    StatisticsManager getStats();
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -74,11 +81,27 @@ public interface Model {
      * Returns true if a person with the same identity as {@code person} exists in
      * the address book.
      */
+    boolean hasCategory(Category category);
+
+    /**
+     * Returns true if a person with the same identity as {@code person} exists in
+     * the address book.
+     */
     boolean hasEntry(Entry entry);
+
 
     boolean hasReminder(Reminder reminder);
 
     boolean hasCondition(Condition condition);
+
+    boolean hasBudget(Budget budget);
+
+    boolean hasWish(Wish wish);
+
+    /**
+     * Deletes the given category. The category must exist in the address book.
+     */
+    void deleteCategory(Category target);
 
     /**
      * Deletes the given entry. The entry must exist in the address book.
@@ -121,6 +144,8 @@ public interface Model {
      */
     void addEntry(Entry entry);
 
+    void addCategory(Category category);
+
     void addExpense(Expense expense);
 
     void addIncome(Income income);
@@ -135,6 +160,8 @@ public interface Model {
 
     void addCondition(Condition condition);
 
+    void setCategory(Category target, Category editedCategory);
+
     /**
      * Replaces the given entry {@code target} with {@code editedEntry}.
      * {@code target} must exist in the address book. The entry identity of
@@ -143,9 +170,27 @@ public interface Model {
      */
     void setEntry(Entry target, Entry editedEntry);
 
+
     void setReminder(Reminder target, Reminder editedEntry);
 
     void setCondition(Condition target, Condition editedEntry);
+
+    void setIncome(Income target, Income editedEntry);
+
+    void setExpense(Expense target, Expense editedEntry);
+
+    void setWish(Wish target, Wish editedWish);
+
+    void setBudget(Budget target, Budget editedbudget);
+
+
+    CategoryList getCategoryList();
+
+    /** Returns an unmodifiable view of the income category list */
+    ObservableList<Category> getIncomeCategoryList();
+
+    /** Returns an unmodifiable view of the expense category list */
+    ObservableList<Category> getExpenseCategoryList();
 
     /** Returns an unmodifiable view of the filtered entry list */
     ObservableList<Entry> getFilteredEntryList();
@@ -155,6 +200,9 @@ public interface Model {
 
     /** Returns an unmodifiable view of the filtered entry list */
     ObservableList<Income> getFilteredIncomes();
+
+    /** Returns an unmodifiable view of filtered expense and income list */
+    ObservableList<Entry> getFilteredExpensesAndIncomes();
 
     /** Returns an unmodifiable view of the filtered entry list */
     ObservableList<Wish> getFilteredWishes();

@@ -12,13 +12,13 @@ import java.util.Arrays;
 public class SortType {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Sort Type should only be either amount, description, time or tags";
+            "Sort Type should only be either category, amount, description, time or tags";
 
     /*
      * The first character of the address must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String[] VALIDATIONLIST = new String[]{"amount", "description" , "time" , "tags"};
+    public static final String[] VALIDATIONLIST = new String[]{"category", "amount", "description" , "time" , "tags"};
 
     public final String fullType;
 

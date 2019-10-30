@@ -7,7 +7,6 @@ import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.stream.Stream;
 
-import seedu.address.logic.commands.conditioncommands.AddClassConditionCommand;
 import seedu.address.logic.commands.conditioncommands.AddDateConditionCommand;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ParserUtil;
@@ -26,7 +25,7 @@ public class AddDateConditionCommandParser {
      */
     public AddDateConditionCommand parse(String args) throws ParseException {
         try {
-            List<Date> dates = ParserUtil.parsePeriod(args.trim());
+            List<Date> dates = ParserUtil.parseStartAndEndDate(args.trim());
             if (dates.size() != 2) {
                 throw new ParseException(
                         String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddDateConditionCommand.MESSAGE_USAGE));

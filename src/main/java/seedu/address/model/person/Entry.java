@@ -18,6 +18,7 @@ import seedu.address.model.tag.Tag;
 public class Entry {
 
     // Identity fields
+    private final Category category;
     private final Description desc;
     private final Amount amt;
     private final Date date;
@@ -30,12 +31,17 @@ public class Entry {
      * Every field must be present and not null.
      */
 
-    public Entry(Description desc, Date date, Amount amount, Set<Tag> tags) {
+    public Entry(Category category, Description desc, Date date, Amount amount, Set<Tag> tags) {
         requireAllNonNull(desc, date, amount, tags);
+        this.category = category;
         this.desc = desc;
         this.amt = amount;
         this.date = date;
         this.tags.addAll(tags);
+    }
+
+    public Category getCategory() {
+        return category;
     }
 
     public Description getDesc() {
@@ -78,13 +84,22 @@ public class Entry {
      * Returns true if both entries of the same name have at least one other identity field that is the same.
      * This defines a weaker notion of equality between two entries.
      */
+    public Entry modifiedCategory(String newName) {
+        Category newCategory = new Category(newName, category.categoryType);
+        return new Entry(newCategory, this.desc, this.date, this.amt, this.tags);
+    }
 
+    /**
+     * Returns true if both entries of the same name have at least one other identity field that is the same.
+     * This defines a weaker notion of equality between two entries.
+     */
     public boolean isSameEntry(Entry otherEntry) {
         if (otherEntry == this) {
             return true;
         }
 
         return otherEntry != null
+                && otherEntry.getCategory().equals(getCategory())
                 && otherEntry.getDesc().equals(getDesc())
                 && otherEntry.getAmount().equals(getAmount())
                 && this.equals(otherEntry);
@@ -136,7 +151,7 @@ public class Entry {
 
     @Override
     public int hashCode() {
-        // use this method for custom fields hashing instead of implementing your own
+        // use this method ford custom fields hashing instead of implementing your own
         return Objects.hash(desc, amt, tags);
     }
 

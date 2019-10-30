@@ -1,6 +1,5 @@
 package seedu.address.model.person;
 
-import java.time.LocalDate;
 import java.util.Set;
 
 import seedu.address.model.tag.Tag;
@@ -12,12 +11,8 @@ public class Wish extends Entry {
 
     private static final String ENTRY_TYPE = "Wish";
 
-    public Wish(Description desc, Date date, Amount amount, Set<Tag> tags) {
-        super(desc, date, amount, tags);
-    }
-
-    public Wish(Description desc, LocalDate date, Amount amount, Set<Tag> tags) {
-        super(desc, new Date(date), amount, tags);
+    public Wish(Category cat, Description desc, Date date, Amount amount, Set<Tag> tags) {
+        super(cat, desc, date, amount, tags);
     }
 
     public String getType() {
@@ -35,14 +30,13 @@ public class Wish extends Entry {
             return true;
         }
 
-        if (!(other instanceof Expense)) {
-            return false;
-        } else if (!(other instanceof Income)) {
+        if (!(other instanceof Wish)) {
             return false;
         }
 
         Wish otherWish = (Wish) other;
-        return otherWish.getDesc().equals(getDesc())
+        return otherWish.getCategory().equals(getCategory())
+                && otherWish.getDesc().equals(getDesc())
                 && otherWish.getAmount().equals(getAmount())
                 && otherWish.getTags().equals(getTags())
                 && otherWish.getDate().equals(getDate());
@@ -52,12 +46,15 @@ public class Wish extends Entry {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(ENTRY_TYPE + ": ")
+                .append(" | Category: ")
+                .append(getCategory())
+                .append(" Description: ")
                 .append(getDesc())
                 .append(" Amount: ")
                 .append(getAmount())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
-        builder.append("(" + getDate() + ")");
+        builder.append(" (" + getDate() + ")");
         return builder.toString();
     }
 

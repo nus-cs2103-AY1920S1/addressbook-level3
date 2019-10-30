@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -21,18 +22,22 @@ import seedu.address.model.person.SortSequence;
 import seedu.address.model.person.SortType;
 import seedu.address.model.reminders.Reminder;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.util.Frequency;
+import seedu.address.ui.FontManager;
+import seedu.address.ui.FontName;
 
 /**
- * Contains utility methods used for parsing strings in the various *Parser classes.
+ * Contains utility methods used for parsing strings in the various *Parser
+ * classes.
  */
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
 
     /**
-     * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
-     * trimmed.
-     * @throws ParseException if the specified index is invalid (not non-zero unsigned integer).
+     * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading
+     * and trailing whitespaces will be trimmed. if the specified index is invalid
+     * (not non-zero unsigned integer).
      */
     public static Index parseIndex(String oneBasedIndex) throws ParseException {
         String trimmedIndex = oneBasedIndex.trim();
@@ -54,6 +59,7 @@ public class ParserUtil {
     }
 
     /**
+<<<<<<< HEAD
      * Parses {@code Collection<String> tags} into a {@code List<Index>}.
      */
     public static List<Index> parseIndexes(Collection<String> indexes) throws ParseException {
@@ -67,6 +73,10 @@ public class ParserUtil {
     /**
      * Parses a {@code String name} into a {@code Name}.
      * Leading and trailing whitespaces will be trimmed.
+=======
+     * Parses a {@code String name} into a {@code Name}. Leading and trailing
+     * whitespaces will be trimmed.
+>>>>>>> b2ec7d64249172d26ceccb183976364b8bb21fc9
      *
      * @throws ParseException if the given {@code name} is invalid.
      */
@@ -81,6 +91,7 @@ public class ParserUtil {
 
     /**
      * Parses a stringAmt into an Amount.
+     *
      * @param stringAmt the amount as a String.
      * @return an Amount.
      */
@@ -91,36 +102,64 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a time in String to Time.
+     * Parses a date in String to Date.
+     *
+     * @param date the date as a String.
+     * @return the specified date as Date.
+     */
+    public static Date parseDate(String date) {
+        requireNonNull(date);
+        return new Date(date);
+    }
+
+    /**
+     * Parses a time in {@code Optional}
+     *
      * @param time the time as a String.
      * @return the specified time as Time.
      */
-    public static Date parseTime(String time) {
+    public static Date parseTime(Optional<String> time) {
         requireNonNull(time);
-        return new Date(time);
+        return time.isPresent() ? new Date(time.get()) : Date.now();
     }
 
     /**
      * Parses a time in String to ArrayList.
+     *
      * @param period the time as a String.
      * @return the specified time as Date.
      */
-    public static ArrayList<Date> parsePeriod(String period) {
-        requireNonNull(period);
-        String[] splitStartAndEnd = period.split(",");
-        ArrayList<Date> listOfPeriods = new ArrayList<Date>();
-        if (splitStartAndEnd.length == 1) {
-            listOfPeriods.add(new Date(period));
-        } else if (splitStartAndEnd.length == 2) {
-            listOfPeriods.add(new Date(splitStartAndEnd[0]));
-            listOfPeriods.add(new Date(splitStartAndEnd[1]));
-        } else {
-            //TODO
-        }
-        return listOfPeriods;
+    public static Date parsePeriod(String period) {
+        Date dateToParse = new Date(period, true);
+        return dateToParse;
     }
+
+    /**
+     * Parses a string with 2 dates
+     * @param dates
+     * @return List of length 2.
+     */
+    public static List<Date> parseStartAndEndDate(String dates) {
+        String[] dateArr = dates.split(",");
+        List<Date> startAndEnd = Arrays
+                .stream(dateArr).map(dateString -> new Date(dateString.trim())).collect(Collectors.toList());
+        return startAndEnd;
+    }
+
+    /**
+     * Parses a frequency from String to Frequency.
+     *
+     * @param stringFreq the frequency as a String.
+     * @return the specified frequency as Frequency.
+     */
+    public static Frequency parseFrequency(String stringFreq) {
+        requireNonNull(stringFreq);
+        return Frequency.parse(stringFreq);
+    }
+
     /**
      * Parses a type of sorting in String to SortType.
+     *
      * @param type the time as a String.
      * @return the specified time as SortType.
      */
@@ -131,6 +170,7 @@ public class ParserUtil {
 
     /**
      * Parses a type of sequencesorting in String to SortSequence.
+     *
      * @param sequence the sequence of sorting as a String.
      * @return the specified time as SortSequence.
      */
@@ -139,10 +179,9 @@ public class ParserUtil {
         return new SortSequence(sequence);
     }
 
-
     /**
-     * Parses a {@code String tag} into a {@code Tag}.
-     * Leading and trailing whitespaces will be trimmed.
+     * Parses a {@code String tag} into a {@code Tag}. Leading and trailing
+     * whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code tag} is invalid.
      */
@@ -168,6 +207,7 @@ public class ParserUtil {
     }
 
     /**
+<<<<<<< HEAD
      * Parses {@code String tags} into a {@code List<Tag>}.
      */
     public static List<Tag> parseTags(String tags) throws ParseException {
@@ -191,6 +231,9 @@ public class ParserUtil {
     }
     /**
      * Parses {@code String panelNamee} into a {@code PanelName}.
+=======
+     * Parses {@code String panelName} into a {@code PanelName}.
+>>>>>>> b2ec7d64249172d26ceccb183976364b8bb21fc9
      */
     public static PanelName parsePanelName(String panelName) throws ParseException {
         requireNonNull(panelName);
@@ -199,6 +242,7 @@ public class ParserUtil {
             throw new ParseException(PanelName.MESSAGE_CONSTRAINTS);
         }
 
+        // TODO rewrite this
         // standardise panel names
         ArrayList<String> aliasesForWishlist = new ArrayList<>(Arrays.asList("wishlist", "wish", "wishes", "w"));
         if (aliasesForWishlist.contains(trimmedPanelName)) {
@@ -219,6 +263,7 @@ public class ParserUtil {
     }
 
     /**
+<<<<<<< HEAD
      * Parses {@code String trackerType} into {@code TrackerType}
      * @param trackerType
      * @return
@@ -227,5 +272,16 @@ public class ParserUtil {
     public static Reminder.TrackerType parseTrackerType(String trackerType) throws ParseException {
         requireNonNull(trackerType);
         return Reminder.TrackerType.parse(trackerType);
+    }
+    /**
+     * Parses {@code String fontName} into a {@code FontName}.
+     */
+    public static FontName parseFontName(String fontName) throws ParseException {
+        requireNonNull(fontName);
+        String trimmedFontName = fontName.trim();
+        if (!FontManager.isValidFontName(trimmedFontName)) {
+            throw new ParseException(FontManager.MESSAGE_CONSTRAINTS);
+        }
+        return new FontName(fontName);
     }
 }

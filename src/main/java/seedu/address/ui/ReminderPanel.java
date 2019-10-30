@@ -10,8 +10,9 @@ import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.reminders.Reminder;
 
+
 /**
- * Side panel for budgets.
+ * Side panel for reminders.
  */
 public class ReminderPanel extends UiPart<Region> {
     private static final String FXML = "ReminderListPanel.fxml";
@@ -33,7 +34,6 @@ public class ReminderPanel extends UiPart<Region> {
         @Override
         protected void updateItem(Reminder reminder, boolean empty) {
             super.updateItem(reminder, empty);
-
             if (empty || reminder == null) {
                 setGraphic(null);
                 setText(null);

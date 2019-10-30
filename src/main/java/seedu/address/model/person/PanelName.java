@@ -1,20 +1,23 @@
 package seedu.address.model.person;
 
-import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 /**
  * Represents a PanelName.
  */
 public class PanelName {
 
-    public static final String MESSAGE_CONSTRAINTS = "Panels names should be one of the following: wishlist, budget or "
+    public static final String MESSAGE_CONSTRAINTS = "Panel names should be one of the following: wishlist, budget or "
             + "reminder";
 
     public final String panelName;
 
+    /**
+     * Construct a {@code PanelName} with the specified field.
+     */
     public PanelName(String panelName) {
-        requireNonNull(panelName);
+        requireAllNonNull(panelName);
         checkArgument(isValidPanelName(panelName), MESSAGE_CONSTRAINTS);
         this.panelName = panelName;
     }
@@ -28,11 +31,6 @@ public class PanelName {
      */
     public static boolean isValidPanelName(String test) {
         String testLowerCase = test.toLowerCase();
-        /*if (testLowerCase.equals("wishlist") || testLowerCase.equals("budget") || testLowerCase.equals("reminder")) {
-            return true;
-        } else {
-            return false;
-        }*/
 
         switch (testLowerCase) {
         case "wishlist":
@@ -72,9 +70,7 @@ public class PanelName {
         return panelName.hashCode();
     }
 
-    /**
-     * Format state as text for viewing.
-     */
+    @Override
     public String toString() {
         return panelName;
     }

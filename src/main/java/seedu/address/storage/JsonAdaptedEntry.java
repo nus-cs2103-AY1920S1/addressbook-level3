@@ -11,6 +11,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.person.Amount;
+import seedu.address.model.person.Category;
 import seedu.address.model.person.Date;
 import seedu.address.model.person.Description;
 import seedu.address.model.person.Entry;
@@ -22,7 +23,7 @@ import seedu.address.model.tag.Tag;
 class JsonAdaptedEntry {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Entry's %s field is missing!";
-
+    private final String category;
     private final String desc;
     private final String time;
     private final double amt;
@@ -32,9 +33,10 @@ class JsonAdaptedEntry {
      * Constructs a {@code JsonAdaptedPerson} with the given person details.
      */
     @JsonCreator
-    public JsonAdaptedEntry(@JsonProperty("desc") String desc, @JsonProperty("amt") String time,
-                            @JsonProperty("amt") double amt,
+    public JsonAdaptedEntry(@JsonProperty("category") String category, @JsonProperty("desc") String desc,
+                            @JsonProperty("amt") double amt, @JsonProperty("time") String time,
                             @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+        this.category = category;
         this.desc = desc;
         this.amt = amt;
         this.time = time;
@@ -47,6 +49,7 @@ class JsonAdaptedEntry {
      * Converts a given {@code Person} into this class for Jackson use.
      */
     public JsonAdaptedEntry(Entry source) {
+        category = source.getCategory().categoryName;
         desc = source.getDesc().fullDesc;
         time = source.getDate().toString();
         amt = source.getAmount().value;
@@ -73,12 +76,13 @@ class JsonAdaptedEntry {
         if (!Description.isValidDescription(desc)) {
             throw new IllegalValueException(Description.MESSAGE_CONSTRAINTS);
         }
+        final Category modelCategory = new Category(category, "Expense");
         final Description modelDesc = new Description(desc);
         final Date modelTime = new Date(time);
         final Amount modelAmt = new Amount(amt);
 
         final Set<Tag> modelTags = new HashSet<>(entryTags);
-        return new Entry(modelDesc, modelTime, modelAmt, modelTags);
+        return new Entry(modelCategory, modelDesc, modelTime, modelAmt, modelTags);
     }
 
 }

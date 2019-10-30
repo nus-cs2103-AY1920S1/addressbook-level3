@@ -14,6 +14,8 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.person.AutoExpense;
 import seedu.address.model.person.Budget;
+import seedu.address.model.person.Category;
+import seedu.address.model.person.CategoryList;
 import seedu.address.model.person.Entry;
 import seedu.address.model.person.Expense;
 import seedu.address.model.person.Income;
@@ -22,6 +24,7 @@ import seedu.address.model.person.SortType;
 import seedu.address.model.person.Wish;
 import seedu.address.model.reminders.Reminder;
 import seedu.address.model.reminders.conditions.Condition;
+import seedu.address.model.statistics.StatisticsManager;
 import seedu.address.model.util.EntryComparator;
 
 /**
@@ -29,9 +32,12 @@ import seedu.address.model.util.EntryComparator;
  */
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
+    private StatisticsManager stats;
     private final SortType sortByTime = new SortType("time");
     private final SortSequence sortByAsc = new SortSequence("descending");
     private final UserPrefs userPrefs;
+    private final ObservableList<Category> incomeCategoryList;
+    private final ObservableList<Category> expenseCategoryList;
     private final FilteredList<Entry> filteredEntries;
     private final FilteredList<Expense> filteredExpenses;
     private final FilteredList<Income> filteredIncomes;
@@ -54,6 +60,8 @@ public class ModelManager implements Model {
 
         versionedAddressBook = new VersionedAddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
+        incomeCategoryList = versionedAddressBook.getIncomeCategoryList();
+        expenseCategoryList = versionedAddressBook.getExpenseCategoryList();
         filteredExpenses = new FilteredList<>(versionedAddressBook.getExpenseList());
         filteredIncomes = new FilteredList<>(versionedAddressBook.getIncomeList());
         filteredWishes = new FilteredList<>(versionedAddressBook.getWishList());
@@ -72,6 +80,15 @@ public class ModelManager implements Model {
 
     // =========== UserPrefs
     // ==================================================================================
+    @Override
+    public void setStats(StatisticsManager stats) {
+        this.stats = stats;
+    }
+
+    @Override
+    public StatisticsManager getStats() {
+        return stats;
+    }
 
     @Override
     public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
@@ -120,9 +137,26 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean hasCategory(Category category) {
+        return versionedAddressBook.hasCategory(category);
+    }
+
+    @Override
     public boolean hasEntry(Entry entry) {
         requireNonNull(entry);
         return versionedAddressBook.hasEntry(entry);
+    }
+
+    @Override
+    public boolean hasBudget(Budget budget) {
+        requireNonNull(budget);
+        return versionedAddressBook.hasBudget(budget);
+    }
+
+    @Override
+    public boolean hasWish(Wish wish) {
+        requireNonNull(wish);
+        return versionedAddressBook.hasWish(wish);
     }
 
     @Override
@@ -135,6 +169,11 @@ public class ModelManager implements Model {
     public boolean hasCondition(Condition condition) {
         requireNonNull(condition);
         return versionedAddressBook.hasCondition(condition);
+    }
+
+    @Override
+    public void deleteCategory(Category target) {
+        versionedAddressBook.removeCategory(target);
     }
 
     @Override
@@ -171,7 +210,6 @@ public class ModelManager implements Model {
 
     @Override
     public void deleteWish(Wish target) {
-        versionedAddressBook.removeEntry(target);
         versionedAddressBook.removeWish(target);
         filteredReminders.filtered(PREDICATE_SHOW_ACTIVE_REMINDERS);
         filteredReminders.filtered(PREDICATE_SHOW_ALL_REMINDERS);
@@ -179,7 +217,6 @@ public class ModelManager implements Model {
 
     @Override
     public void deleteBudget(Budget target) {
-        versionedAddressBook.removeEntry(target);
         versionedAddressBook.removeBudget(target);
         filteredReminders.filtered(PREDICATE_SHOW_ACTIVE_REMINDERS);
         filteredReminders.filtered(PREDICATE_SHOW_ALL_REMINDERS);
@@ -214,8 +251,15 @@ public class ModelManager implements Model {
             versionedAddressBook.addWish((Wish) entry);
         } else if (entry instanceof Budget) {
             versionedAddressBook.addBudget((Budget) entry);
+        } else if (entry instanceof AutoExpense) {
+            versionedAddressBook.addAutoExpense((AutoExpense) entry);
         }
         sortFilteredEntry(sortByTime, sortByAsc);
+    }
+
+    @Override
+    public void addCategory(Category category) {
+        versionedAddressBook.addCategory(category);
     }
 
     @Override
@@ -270,17 +314,26 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void setCategory(Category target, Category editedCategory) {
+        requireAllNonNull(target, editedCategory);
+        versionedAddressBook.setCategory(target, editedCategory);
+    }
+
+    @Override
     public void setEntry(Entry target, Entry editedEntry) {
         requireAllNonNull(target, editedEntry);
-        versionedAddressBook.setEntry(target, editedEntry);
         if (target instanceof Expense) {
-            versionedAddressBook.setExpense((Expense) target, (Expense) editedEntry);
-        } else if (target instanceof Income) {
-            versionedAddressBook.setIncome((Income) target, (Income) editedEntry);
-        } else if (target instanceof Wish) {
-            versionedAddressBook.setWish((Wish) target, (Wish) editedEntry);
-        } else if (target instanceof Budget) {
-            versionedAddressBook.setBudget((Budget) target, (Budget) editedEntry);
+            //TODO
+            Expense toEditEntry = new Expense(editedEntry.getCategory(), editedEntry.getDesc(), editedEntry.getDate(),
+                     editedEntry.getAmount(), editedEntry.getTags());
+            Expense expenseToEdit = versionedAddressBook.getExpenseList().filtered(t -> t == target).get(0);
+            versionedAddressBook.setEntry(expenseToEdit, toEditEntry);
+            versionedAddressBook.setExpense(expenseToEdit, toEditEntry);
+        } else {
+            Income incomeToEdit = versionedAddressBook.getIncomeList().filtered(t -> t == target).get(0);
+            Income toEditEntry = new Income(editedEntry.getCategory(), editedEntry.getDesc(), editedEntry.getDate(),
+                    editedEntry.getAmount(), editedEntry.getTags());
+            versionedAddressBook.setIncome(incomeToEdit, toEditEntry);
         }
         filteredReminders.filtered(PREDICATE_SHOW_ACTIVE_REMINDERS);
         filteredReminders.filtered(PREDICATE_SHOW_ALL_REMINDERS);
@@ -298,13 +351,52 @@ public class ModelManager implements Model {
         versionedAddressBook.setCondition(target, editedCondition);
     }
 
+    public void setExpense(Expense target, Expense editedEntry) {
+        requireAllNonNull(target, editedEntry);
+        versionedAddressBook.setEntry(target, editedEntry);
+        versionedAddressBook.setExpense(target, editedEntry);
+    }
 
+    @Override
+    public void setIncome(Income target, Income editedEntry) {
+        requireAllNonNull(target, editedEntry);
+        versionedAddressBook.setEntry(target, editedEntry);
+        versionedAddressBook.setIncome(target, editedEntry);
+    }
+
+    @Override
+    public void setWish(Wish target, Wish editedWish) {
+        requireAllNonNull(target, editedWish);
+        versionedAddressBook.setWish(target, editedWish);
+    }
+
+    @Override
+    public void setBudget(Budget target, Budget editedBudget) {
+        requireAllNonNull(target, editedBudget);
+        versionedAddressBook.setBudget(target, editedBudget);
+    }
+
+    @Override
+    public CategoryList getCategoryList() {
+        return versionedAddressBook.getCategoryList();
+    }
     // =========== Filtered Person List Accessors
 
     /**
      * Returns an unmodifiable view of the list of {@code Entry} backed by the
      * internal list of {@code versionedAddressBook}
      */
+
+    @Override
+    public ObservableList<Category> getExpenseCategoryList() {
+        return expenseCategoryList;
+    }
+
+    @Override
+    public ObservableList<Category> getIncomeCategoryList() {
+        return incomeCategoryList;
+    }
+
     @Override
     public ObservableList<Entry> getFilteredEntryList() {
         return filteredEntries;
@@ -318,6 +410,11 @@ public class ModelManager implements Model {
     @Override
     public ObservableList<Income> getFilteredIncomes() {
         return filteredIncomes;
+    }
+
+    @Override
+    public ObservableList<Entry> getFilteredExpensesAndIncomes() {
+        return new FilteredList<>(filteredEntries, entry -> entry instanceof Expense || entry instanceof Income);
     }
 
     @Override
@@ -336,6 +433,7 @@ public class ModelManager implements Model {
     }
 
     @Override
+
     public ObservableList<Reminder> getFilteredReminders() {
         return filteredReminders;
     }

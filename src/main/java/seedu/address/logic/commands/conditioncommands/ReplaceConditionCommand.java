@@ -52,7 +52,7 @@ public class ReplaceConditionCommand extends Command {
         List<Condition> lastShownList = model.getFilteredConditions();
         if (indexToReplace.getZeroBased() >= lastShownList.size()
                 || replacingIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_ENTRY_DISPLAYED_INDEX);
         }
         if (!indexToReplace.equals(replacingIndex)) {
             throw new CommandException(MESSAGE_DUPLICATE_ENTRY);

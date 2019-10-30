@@ -71,7 +71,7 @@ public class EditReminderCommand extends Command {
         List<Reminder> lastShownList = model.getFilteredReminders();
 
         if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_ENTRY_DISPLAYED_INDEX);
         }
 
         Reminder reminderToEdit = lastShownList.get(index.getZeroBased());

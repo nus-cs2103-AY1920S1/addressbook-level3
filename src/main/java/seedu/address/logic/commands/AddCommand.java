@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_AMOUNT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESC;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
@@ -17,26 +18,31 @@ import seedu.address.model.person.Income;
 import seedu.address.model.person.Wish;
 
 /**
- * Adds a person to the address book.
+ * Adds a entry to guiltTrip.
  */
 public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
+    public static final String MESSAGE_CATEGORY = "Call the command listCategories for the list of Categories.";
+
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a entry to the finance tracker. "
             + "Parameters: "
+            + PREFIX_CATEGORY + "CATEGORY "
             + PREFIX_TYPE + "TYPE "
             + PREFIX_DESC + "DESCRIPTION "
             + PREFIX_AMOUNT + "AMOUNT "
             + PREFIX_DATE + "TIME "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
+            + PREFIX_CATEGORY + "Food "
             + PREFIX_TYPE + "Expense "
             + PREFIX_DESC + "Mala "
             + PREFIX_AMOUNT + "5.50 "
             + PREFIX_DATE + "2019 09 09 "
             + PREFIX_TAG + "food "
-            + PREFIX_TAG + "indulgence";
+            + PREFIX_TAG + "indulgence.\n"
+            + MESSAGE_CATEGORY;
 
     public static final String MESSAGE_SUCCESS = "New entry added: %1$s";
 
@@ -70,7 +76,6 @@ public class AddCommand extends Command {
         default:
             throw new CommandException("command not found");
         }
-
         model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }

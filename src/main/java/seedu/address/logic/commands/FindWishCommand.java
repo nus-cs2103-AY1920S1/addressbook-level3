@@ -31,7 +31,7 @@ public class FindWishCommand extends Command {
         requireNonNull(model);
         model.updateFilteredWishes(predicate);
         return new CommandResult(
-                String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, model.getFilteredWishes().size()));
+                String.format(Messages.MESSAGE_ENTRIES_LISTED_OVERVIEW, model.getFilteredWishes().size()));
     }
 
     @Override

@@ -6,6 +6,8 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.Iterator;
 import java.util.List;
 
+import javafx.beans.Observable;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.person.exceptions.DuplicateEntryException;
@@ -23,7 +25,8 @@ import seedu.address.model.person.exceptions.EntryNotFoundException;
  */
 public class ExpenseList implements Iterable<Expense> {
 
-    private final ObservableList<Expense> internalList = FXCollections.observableArrayList();
+    private final ObservableList<Expense> internalList = FXCollections.observableArrayList(toobserve ->
+            new Observable[] {new SimpleStringProperty(toobserve.getCategory().categoryName)});
     private final ObservableList<Expense> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
     /**
