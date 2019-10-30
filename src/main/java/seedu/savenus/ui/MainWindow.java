@@ -111,15 +111,17 @@ public class MainWindow extends UiPart<Stage> {
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getMenuFilePath(),
-                logic.getPurchaseHistoryFilePath());
+        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getMenuFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
         // Bind remaining budget to displayed value
-        remainingBudgetPlaceholder.textProperty().bind(logic.getWallet().getRemainingBudgetProperty());
+        StringBinding remainingBudgetBinding = Bindings.createStringBinding(() ->
+                        String.format("$%s", logic.getWallet().getRemainingBudgetAmount().toString()),
+                logic.getWallet().getRemainingBudgetProperty());
+        remainingBudgetPlaceholder.textProperty().bind(remainingBudgetBinding);
 
         // Update number of days left
         logic.getWallet().updateDaysToExpire();
@@ -128,7 +130,7 @@ public class MainWindow extends UiPart<Stage> {
         StringBinding daysToExpireBinding = Bindings.createStringBinding(() -> logic.getWallet()
                         .getDaysToExpireProperty().get() == 0
                         ? ""
-                        : String.format("%d days left", logic.getWallet().getDaysToExpireProperty().get()),
+                        : String.format("%d days left", logic.getWallet().getNumberOfDaysToExpire()),
                 logic.getWallet().getDaysToExpireProperty());
         daysToExpirePlaceholder.textProperty().bind(daysToExpireBinding);
     }
@@ -273,15 +275,18 @@ public class MainWindow extends UiPart<Stage> {
                     || commandResult.getFeedbackToUser().equals(InfoCommand.BUDGET_INFO)
                     || commandResult.getFeedbackToUser().equals(InfoCommand.BUY_INFO)
                     || commandResult.getFeedbackToUser().equals(InfoCommand.CLEAR_INFO)
+                    || commandResult.getFeedbackToUser().equals(InfoCommand.COLLAPSE_INFO)
                     || commandResult.getFeedbackToUser().equals(InfoCommand.CUSTOM_SORT_INFO)
                     || commandResult.getFeedbackToUser().equals(InfoCommand.DEFAULT_INFO)
                     || commandResult.getFeedbackToUser().equals(InfoCommand.DELETE_INFO)
                     || commandResult.getFeedbackToUser().equals(InfoCommand.DISLIKE_INFO)
                     || commandResult.getFeedbackToUser().equals(InfoCommand.EDIT_INFO)
                     || commandResult.getFeedbackToUser().equals(InfoCommand.EXIT_INFO)
+                    || commandResult.getFeedbackToUser().equals(InfoCommand.EXPAND_INFO)
                     || commandResult.getFeedbackToUser().equals(InfoCommand.FILTER_INFO)
                     || commandResult.getFeedbackToUser().equals(InfoCommand.FIND_INFO)
                     || commandResult.getFeedbackToUser().equals(InfoCommand.HELP_INFO)
+                    || commandResult.getFeedbackToUser().equals(InfoCommand.HISTORY_INFO)
                     || commandResult.getFeedbackToUser().equals(InfoCommand.INFO_INFO)
                     || commandResult.getFeedbackToUser().equals(InfoCommand.LIKE_INFO)
                     || commandResult.getFeedbackToUser().equals(InfoCommand.LIST_INFO)
@@ -290,7 +295,8 @@ public class MainWindow extends UiPart<Stage> {
                     || commandResult.getFeedbackToUser().equals(InfoCommand.REMOVEDISLIKE_INFO)
                     || commandResult.getFeedbackToUser().equals(InfoCommand.REMOVELIKE_INFO)
                     || commandResult.getFeedbackToUser().equals(InfoCommand.SAVE_INFO)
-                    || commandResult.getFeedbackToUser().equals(InfoCommand.SORT_INFO)) {
+                    || commandResult.getFeedbackToUser().equals(InfoCommand.SORT_INFO)
+                    || commandResult.getFeedbackToUser().equals(InfoCommand.TOP_UP_INFO)) {
                 if (infoWindow.isShowing()) {
                     infoWindow.closeWindow();
                 }

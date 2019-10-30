@@ -8,12 +8,15 @@ import seedu.savenus.logic.commands.MakeSortCommand;
 public class MakeSortInfo {
     public static final String COMMAND_WORD = MakeSortCommand.COMMAND_WORD;
 
-    public static final String INFORMATION =
-            "Create your own custom comparator, which will "
-                    + "be stored within the storage of the application, using specific FIELD and DIRECTION.";
+    public static final String INFORMATION = "MakeSort command allows you to define your own custom comparator to be "
+            + "used during sorting.\n\n"
+            + "The sorting comparator depends on the following factors:\n"
+            + "The field such as PRICE\n"
+            + "The comparator\n\n";
+
     public static final String USAGE =
             "makesort PRICE ASC";
 
     public static final String OUTPUT =
-            "You have successfully overridden your own custom comparator!";
+            "When customsort is called, the comparator will be based on PRICE and the list will be in ascending order.";
 }

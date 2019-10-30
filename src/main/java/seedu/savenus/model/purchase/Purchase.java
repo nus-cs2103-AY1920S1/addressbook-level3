@@ -34,11 +34,11 @@ public class Purchase {
     }
 
     public long getTimeOfPurchaseInMillisSinceEpoch() {
-        return getTimeOfPurchase().getTimeOfPurchaseInMillisSinceEpoch();
+        return getTimeOfPurchase().getTimeStampInMillisSinceEpoch();
     }
 
     public LocalDateTime getTimeOfPurchaseInLocalDateTime() {
-        return getTimeOfPurchase().getTimeOfPurchaseInLocalDateTime();
+        return getTimeOfPurchase().getTimeStampInLocalDateTime();
     }
 
     /**

@@ -8,8 +8,8 @@
       "tagged" : [ "Noodle" ],
       "location" : "The Deck",
       "openingHours" : "0800 1700",
-      "restrictions" : "Contains dairy and pork",
-      "favoriteValue": "0"
+      "restrictions" : "Contains dairy and pork"
+
     },
     "timeOfPurchaseInMillisSinceEpochString" : "1570680000000"
   }, {
@@ -21,8 +21,8 @@
       "tagged" : [ "Expensive" , "Beef" , "Luxury" ],
       "location" : "Atas Place in NUS",
       "openingHours" : "1000 1700",
-      "restrictions" : "Expensive",
-      "favoriteValue": "0"
+      "restrictions" : "Expensive"
+
     },
     "timeOfPurchaseInMillisSinceEpochString" : "1570976664361"
   } ]

@@ -1,56 +1,25 @@
 package seedu.savenus.model.purchase;
 
-import static java.util.Objects.requireNonNull;
-
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
+import seedu.savenus.model.util.TimeStamp;
 
 /**
- * Factory class to create TimeOfPurchase.
+ * Class to create TimeOfPurchase.
  */
-public class TimeOfPurchase {
+public class TimeOfPurchase extends TimeStamp {
 
     public static final String MESSAGE_CONSTRAINTS =
             "TimeOfPurchase should be a long, and in milliseconds since epoch";
 
-    private String timeOfPurchaseInMillisSinceEpochString;
-
-    public TimeOfPurchase(String timeOfPurchaseInMillisSinceEpochString) {
-        requireNonNull(timeOfPurchaseInMillisSinceEpochString);
-        this.timeOfPurchaseInMillisSinceEpochString = timeOfPurchaseInMillisSinceEpochString;
-    }
-
-    public long getTimeOfPurchaseInMillisSinceEpoch() {
-        return Long.parseLong(timeOfPurchaseInMillisSinceEpochString);
-    }
-
-    public LocalDateTime getTimeOfPurchaseInLocalDateTime() {
-        return LocalDateTime.ofInstant(
-            Instant.ofEpochMilli(getTimeOfPurchaseInMillisSinceEpoch()), ZoneId.systemDefault());
-    }
-    /**
-     * Check whether test string is a valid {@code TimeOfPurchase}.
-     * @param testDateTimeInMillisSinceEpoch
-     */
-    public static boolean isValidTimeOfPurchase(String testDateTimeInMillisSinceEpoch) {
-        requireNonNull(testDateTimeInMillisSinceEpoch);
-        try {
-            LocalDateTime.ofInstant(Instant.ofEpochMilli(
-                    Long.parseLong(testDateTimeInMillisSinceEpoch)), ZoneId.systemDefault());;
-        } catch (NumberFormatException e) {
-            return false;
-        }
-        return true;
+    public TimeOfPurchase(String timeStamp) {
+        super(timeStamp);
     }
 
     /**
      * Generate a {$code TimeOfPurchase} instance based on the current time.
-     * @return
+     * @return the time of purchase of the food item.
      */
     public static TimeOfPurchase generate() {
-        return new TimeOfPurchase(
-                Long.toString(LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant().toEpochMilli()));
+        return new TimeOfPurchase(TimeStamp.generateCurrentTimeStamp());
     }
 
     @Override
@@ -64,6 +33,6 @@ public class TimeOfPurchase {
         }
 
         TimeOfPurchase otherTimeOfPurchase = (TimeOfPurchase) other;
-        return otherTimeOfPurchase.getTimeOfPurchaseInMillisSinceEpoch() == getTimeOfPurchaseInMillisSinceEpoch();
+        return otherTimeOfPurchase.getTimeStampInMillisSinceEpoch() == this.getTimeStampInMillisSinceEpoch();
     }
 }

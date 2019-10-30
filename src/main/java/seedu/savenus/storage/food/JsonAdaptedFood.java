@@ -12,7 +12,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import seedu.savenus.commons.exceptions.IllegalValueException;
 import seedu.savenus.model.food.Category;
 import seedu.savenus.model.food.Description;
-import seedu.savenus.model.food.FavoriteValue;
 import seedu.savenus.model.food.Food;
 import seedu.savenus.model.food.Location;
 import seedu.savenus.model.food.Name;
@@ -36,7 +35,6 @@ public class JsonAdaptedFood {
     private final String location;
     private final String openingHours;
     private final String restrictions;
-    private final String favouriteValue;
 
     /**
      * Constructs a {@code JsonAdaptedFood} with the given food details.
@@ -48,8 +46,7 @@ public class JsonAdaptedFood {
                            @JsonProperty("tagged") List<JsonAdaptedTag> tagged,
                            @JsonProperty("location") String location,
                            @JsonProperty("openingHours") String openingHours,
-                           @JsonProperty("restrictions") String restrictions,
-                           @JsonProperty("favoriteValue") String favouriteValue) {
+                           @JsonProperty("restrictions") String restrictions) {
         this.name = name;
         this.price = price;
         this.description = description;
@@ -60,7 +57,6 @@ public class JsonAdaptedFood {
         this.location = location;
         this.openingHours = openingHours;
         this.restrictions = restrictions;
-        this.favouriteValue = favouriteValue;
     }
 
     /**
@@ -79,7 +75,6 @@ public class JsonAdaptedFood {
         location = source.getLocation().location;
         openingHours = source.getOpeningHours().openingHours;
         restrictions = source.getRestrictions().restrictions;
-        favouriteValue = source.getFavoriteValue().getValue();
     }
 
     /**
@@ -156,13 +151,7 @@ public class JsonAdaptedFood {
 
         final Set<Tag> modelTags = new HashSet<>(foodTags);
 
-        if (!FavoriteValue.isValidValue(favouriteValue)) {
-            throw new IllegalValueException(FavoriteValue.MESSAGE_CONSTRAINTS);
-        }
-        final FavoriteValue favoriteValue = new FavoriteValue(favouriteValue);
-
         return new Food(modelName, modelPrice, modelDesciption, modelCategory, modelTags,
-                        modelLocation, modelOpeningHours, modelRestrictions,
-                        favoriteValue);
+                        modelLocation, modelOpeningHours, modelRestrictions);
     }
 }

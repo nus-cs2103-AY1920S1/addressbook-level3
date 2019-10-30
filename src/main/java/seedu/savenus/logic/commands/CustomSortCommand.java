@@ -6,6 +6,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.SortedList;
 import seedu.savenus.model.Model;
 import seedu.savenus.model.food.Food;
+import seedu.savenus.model.sort.CustomSorter;
 
 /**
  * An Extended Commmand to do Sorting based on user specified custom fields.
@@ -13,14 +14,16 @@ import seedu.savenus.model.food.Food;
 public class CustomSortCommand extends Command {
     public static final String COMMAND_WORD = "customsort";
 
-    public static final String MESSAGE_SUCCESS = "You have successfully sorted the food items!!";
+    public static final String MESSAGE_SUCCESS = "You have successfully sorted the food items! \n"
+            + "Current CustomSorter: %s";
 
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
         ObservableList<Food> foodList = model.getFilteredFoodList();
-        SortedList<Food> sortedList = foodList.sorted(model.getCustomSorter().getComparator());
+        CustomSorter sorter = model.getCustomSorter();
+        SortedList<Food> sortedList = foodList.sorted(sorter.getComparator());
         model.setFoods(sortedList);
-        return new CommandResult(MESSAGE_SUCCESS);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, sorter));
     }
 }

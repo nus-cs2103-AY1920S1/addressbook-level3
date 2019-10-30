@@ -56,20 +56,22 @@ You can download Java 11 from
 https://www.oracle.com/technetwork/java/javase/downloads/jdk11-downloads-5066655.html[here].
 .  Copy the file to the folder you want to use as the home folder for $aveNUS.
 .  Double-click the file to start the app. The Graphical User Interface (GUI) should appear in a few seconds.
+.  Dark Mode GUI of $aveNUS as shown in Figure 1 and Light Mode GUI shown in Figure 2
 
-.The GUI of $aveNUS
-image::Ui.png[width="790"]
+.Dark Mode display for $aveNUS
 
-.  Type the command in the command box and press kbd:[Enter] to execute it. +
+image::DarkMode.png[width="1000"]
+
+.Light Mode display for $aveNUS. Note that the panels are at the same locations as in Figure 3.
+image::LightMode.png[width-"800"]
+
+. Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
 * First, *add* a food item into the menu by typing `add n/Halal chicken rice p/3.00 d/chicken and rice c/Malay` and
 press kbd:[Enter]
-* You should see that a food item panel appear on the right of the window as shown below in Figure 1.2:
-
-.The food pane of $aveNUS
-image::Figure_1.2_mockup_add.png[width="790"]
+* Take a look at the food item panel appearing on the left of the window as shown below Figure 1 above.
 
 * Now, try typing `delete 1` and then click kbd:[Enter]. Now the card labelled "1. Halal chicken rice"
 should disappear.
@@ -252,6 +254,7 @@ Clears wallet, purchase history and food items in the application.
 *Format*: `clear`
 ****
 
+//tag::sorting[]
 === Sorting
 Allows the user to sort the food items based on his liking.
 This is done so that the user is able to get the food which is most relevant to his or her preferences.
@@ -307,6 +310,7 @@ Sorts the food items based on their default ordering, where it is based on ascen
 ****
 *Format*: `default`
 ****
+//end::sorting[]
 
 //tag::budgeting[]
 === Budgeting

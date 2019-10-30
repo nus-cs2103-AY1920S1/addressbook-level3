@@ -28,7 +28,6 @@ public class Food {
     private final Location location;
     private final OpeningHours openingHours;
     private final Restrictions restrictions;
-    private final FavoriteValue favoriteValue;
 
     // Data fields
     private final Set<Tag> tags = new HashSet<>();
@@ -47,25 +46,6 @@ public class Food {
         this.location = location;
         this.openingHours = openingHours;
         this.restrictions = restrictions;
-        this.favoriteValue = new FavoriteValue("0");
-    }
-
-    /**
-     * Overloaded constructor to take in favouriteValue.
-     */
-    public Food(Name name, Price price, Description description, Category category, Set<Tag> tags,
-                Location location, OpeningHours openingHours, Restrictions restrictions,
-                FavoriteValue favoriteValue) {
-        requireAllNonNull(name, price, description, category, tags, openingHours, restrictions);
-        this.name = name;
-        this.price = price;
-        this.description = description;
-        this.category = category;
-        this.tags.addAll(tags);
-        this.location = location;
-        this.openingHours = openingHours;
-        this.restrictions = restrictions;
-        this.favoriteValue = favoriteValue;
     }
 
     public Name getName() {
@@ -102,17 +82,6 @@ public class Food {
 
     public Restrictions getRestrictions() {
         return restrictions;
-    }
-
-    public FavoriteValue getFavoriteValue() {
-        return favoriteValue;
-    }
-
-    /**
-     * Simply reverses the favorite value.
-     */
-    public void reverseFavoriteValue() {
-        favoriteValue.reverseValue();;
     }
 
     public Field getField(String field) {
@@ -159,8 +128,7 @@ public class Food {
                 && otherFood.getCategory().equals(getCategory())
                 && otherFood.getLocation().equals(getLocation())
                 && otherFood.getOpeningHours().equals(getOpeningHours())
-                && otherFood.getRestrictions().equals(getRestrictions())
-                && otherFood.getFavoriteValue().equals(getFavoriteValue());
+                && otherFood.getRestrictions().equals(getRestrictions());
     }
 
     /**
@@ -185,8 +153,7 @@ public class Food {
                 && otherFood.getCategory().equals(getCategory())
                 && otherFood.getLocation().equals(getLocation())
                 && otherFood.getOpeningHours().equals(getOpeningHours())
-                && otherFood.getRestrictions().equals(getRestrictions())
-                && otherFood.getFavoriteValue().equals(getFavoriteValue());
+                && otherFood.getRestrictions().equals(getRestrictions());
     }
 
     @Override

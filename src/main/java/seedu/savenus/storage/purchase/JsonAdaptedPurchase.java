@@ -53,7 +53,7 @@ public class JsonAdaptedPurchase {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     TimeOfPurchase.class.getSimpleName()));
         }
-        if (!TimeOfPurchase.isValidTimeOfPurchase(timeOfPurchaseInMillisSinceEpochString)) {
+        if (!TimeOfPurchase.isValidTimeStamp(timeOfPurchaseInMillisSinceEpochString)) {
             throw new IllegalValueException(TimeOfPurchase.MESSAGE_CONSTRAINTS);
         }
         final TimeOfPurchase modelTimeOfPurchase = new TimeOfPurchase(timeOfPurchaseInMillisSinceEpochString);
