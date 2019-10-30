@@ -5,6 +5,7 @@ import static seedu.address.inventory.model.Item.DECIMAL_FORMAT;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 import seedu.address.cashier.logic.commands.exception.NoCashierFoundException;
 import seedu.address.cashier.model.exception.NoItemToCheckoutException;
@@ -31,12 +32,13 @@ public class ModelManager implements Model {
     private TransactionList transactionList;
     private Transaction checkoutTransaction;
 
-
-
     /**
      * Initializes a ModelManager with the given inventory list and transaction list.
      */
     public ModelManager(InventoryList inventoryList, TransactionList transactionList) {
+        System.out.println("got initialise");
+        System.out.println(inventoryList.size());
+        System.out.println(transactionList.size());
         this.inventoryList = inventoryList;
         this.transactionList = transactionList;
     }
@@ -354,10 +356,6 @@ public class ModelManager implements Model {
                 recommendedItems.add(item.getDescription());
                 continue;
             }
-            if (item.getDescription().toLowerCase().endsWith(description.toLowerCase())) {
-                recommendedItems.add(item.getDescription());
-                continue;
-            }
             if (description.length() >= 3) {
                 char[] arr = description.toCharArray();
                 ArrayList<String> combinations = getCombination(arr, arr.length);
@@ -370,7 +368,11 @@ public class ModelManager implements Model {
                 }
             }
         }
-        return recommendedItems;
+        ArrayList<String> newList = recommendedItems.stream()
+                .distinct()
+                .collect(Collectors
+                        .toCollection(ArrayList::new));
+        return newList;
     }
 
     /**
@@ -390,13 +392,16 @@ public class ModelManager implements Model {
                 for (int k = i; k <= j; k++) {
                     word += String.valueOf(arr[k]);
                 }
-                if (word.length() >= 3) {
-                    result.add(word);
-                }
+                //if (word.length() >= 3) {
+                result.add(word);
+                //}
             }
         }
-        //return result.stream().filter(str -> str.length() > 3).collect(Collectors.toList());
-        return result;
+        return result.stream()
+                .filter(str -> str.length() >= 3)
+                .collect(Collectors
+                        .toCollection(ArrayList::new));
+        //return result;
     }
 
     /**
@@ -457,6 +462,9 @@ public class ModelManager implements Model {
      */
     public boolean equalsSalesList(ArrayList<Item> list) {
         boolean result = true;
+        if (list.size() != this.getSalesList().size()) {
+            return false;
+        }
         for (int i = 0; i < list.size(); i++) {
             if (result && this.getSalesList().get(i).equals(list.get(i))) {
                 continue;

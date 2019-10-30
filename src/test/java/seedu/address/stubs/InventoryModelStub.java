@@ -1,5 +1,7 @@
 package seedu.address.stubs;
 
+import java.util.ArrayList;
+
 import seedu.address.inventory.model.Item;
 import seedu.address.inventory.model.Model;
 import seedu.address.inventory.model.exception.NoSuchIndexException;
@@ -46,11 +48,19 @@ public class InventoryModelStub implements Model {
     }
 
     @Override
+    public ArrayList<Item> getInventoryListInArrayList() {
+        throw new AssertionError("This method should not be called.");
+    }
+
     public void sortByQuantity() {
         throw new AssertionError("This method should not be called.");
     }
 
     @Override
+    public InventoryList getInventoryList() {
+        throw new AssertionError("This method should not be called.");
+    }
+
     public void sortByDescription() {
         throw new AssertionError("This method should not be called.");
     }
@@ -65,9 +75,10 @@ public class InventoryModelStub implements Model {
         throw new AssertionError("This method should not be called.");
     }
 
-    @Override
+    /*@Override
     public InventoryList getInventoryList() {
         return null;
-    }
+    }*/
+
 }
 
