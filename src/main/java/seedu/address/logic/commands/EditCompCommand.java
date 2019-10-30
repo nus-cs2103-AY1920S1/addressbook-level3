@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_START_END_DATES;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_END_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_START_DATE;
@@ -13,6 +14,7 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.competition.Competition;
 import seedu.address.model.person.CustomDate;
@@ -29,7 +31,7 @@ public class EditCompCommand extends Command {
             + "by the index number used in the displayed competition list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
-            + "[" + PREFIX_NAME + "NAME] "
+            + "[" + PREFIX_NAME + "COMPETITION NAME] "
             + "[" + PREFIX_START_DATE + "START DATE OF COMPETITION] "
             + "[" + PREFIX_END_DATE + "END DATE OF COMPETITION] "
             + "Example: " + COMMAND_WORD + " 1 "
@@ -57,7 +59,7 @@ public class EditCompCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model) throws CommandException, ParseException {
         requireNonNull(model);
         List<Competition> lastShownList = model.getFilteredCompetitionList();
 
@@ -82,12 +84,18 @@ public class EditCompCommand extends Command {
      * edited with {@code editPersonDescriptor}.
      */
     private static Competition createEditedComp(Competition compToEdit,
-                                              EditCompetitionDescriptor editCompetitionDescriptor) {
+                                              EditCompetitionDescriptor editCompetitionDescriptor)
+            throws ParseException {
         assert compToEdit != null;
 
         Name updatedName = editCompetitionDescriptor.getName().orElse(compToEdit.getName());
         CustomDate updatedStartDate = editCompetitionDescriptor.getStartDate().orElse(compToEdit.getStartDate());
         CustomDate updatedEndDate = editCompetitionDescriptor.getEndDate().orElse(compToEdit.getEndDate());
+        System.out.println(updatedStartDate.toString());
+        System.out.println(updatedEndDate.toString());
+        if (!updatedStartDate.before(updatedEndDate)) {
+            throw new ParseException(MESSAGE_INVALID_START_END_DATES);
+        }
         return new Competition(updatedName, updatedStartDate, updatedEndDate);
     }
 

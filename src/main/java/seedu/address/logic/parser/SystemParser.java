@@ -19,6 +19,7 @@ import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.ListCompCommand;
+import seedu.address.logic.commands.RankCommand;
 import seedu.address.logic.commands.participation.AddPartCommand;
 import seedu.address.logic.commands.participation.ListPartCommand;
 import seedu.address.logic.commands.session.AttemptLiftedCommand;
@@ -95,6 +96,9 @@ public class SystemParser {
 
         case ListPartCommand.COMMAND_WORD:
             return new ListPartCommandParser().parse(arguments);
+
+        case RankCommand.COMMAND_WORD:
+            return new RankCommandParser().parse(arguments);
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();

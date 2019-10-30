@@ -14,8 +14,8 @@ import seedu.address.model.competition.Competition;
  * Adds a Competition to the address book.
  */
 public class AddCompCommand extends Command {
-    public static final String COMMAND_WORD = "addComp";
 
+    public static final String COMMAND_WORD = "addComp";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a competition to the address book. "
             + "Parameters: "
             + PREFIX_NAME + "COMPETITION NAME "

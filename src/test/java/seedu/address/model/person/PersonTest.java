@@ -22,10 +22,10 @@ public class PersonTest {
         // null -> returns false
         assertFalse(ALICE.isSameElement(null));
 
-        // different DOB and gender -> returns false
+        // different DOB and gender, but same name -> returns true
         Person editedAlice = new PersonBuilder(ALICE).withDateOfBirth(VALID_DOB_BOB)
                 .withGender(VALID_GENDER_BOB).build();
-        assertFalse(ALICE.isSameElement(editedAlice));
+        assertTrue(ALICE.isSameElement(editedAlice));
 
         // different name -> returns false
         editedAlice = new PersonBuilder(ALICE).withName(VALID_NAME_BOB).build();

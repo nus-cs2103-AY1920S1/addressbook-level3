@@ -69,7 +69,6 @@ public class ListPartCommand extends Command {
             return new CommandResult(MESSAGE_COMPETITION_NOT_FOUND + competitionName);
         }
 
-
         Competition finalCompetition = competition;
         Predicate<Participation> filterByCompetition = p -> p.getCompetition().isSameElement(finalCompetition);
         model.updateFilteredParticipationList(filterByCompetition);

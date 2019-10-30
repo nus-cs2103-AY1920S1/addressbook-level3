@@ -55,9 +55,7 @@ public class Person extends UniqueElement {
         }
 
         return otherPerson != null
-                && otherPerson.getName().equals(getName())
-                && (otherPerson.getDateOfBirth().equals(getDateOfBirth())
-                || otherPerson.getGender().equals(getGender()));
+                && otherPerson.getName().equals(getName());
     }
 
     /**
