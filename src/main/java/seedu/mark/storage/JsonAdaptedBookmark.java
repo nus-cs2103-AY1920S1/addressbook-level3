@@ -21,7 +21,7 @@ import seedu.mark.model.tag.Tag;
 /**
  * Jackson-friendly version of {@link Bookmark}.
  */
-class JsonAdaptedBookmark {
+public class JsonAdaptedBookmark {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Bookmark's %s field is missing!";
 

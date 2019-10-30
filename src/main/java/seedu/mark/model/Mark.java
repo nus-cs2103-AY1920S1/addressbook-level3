@@ -216,14 +216,35 @@ public class Mark implements ReadOnlyMark {
         autotagController.getTaggers().forEach(this.autotagController::addTagger);
     }
 
+    /**
+     * Checks whether Mark contains the given tagger.
+     */
     public boolean hasTagger(SelectiveBookmarkTagger tagger) {
         return autotagController.hasTagger(tagger);
     }
 
+    /**
+     * Adds a {@link SelectiveBookmarkTagger} to Mark.
+     *
+     * @param tagger {@link SelectiveBookmarkTagger} to be added.
+     */
     public void addTagger(SelectiveBookmarkTagger tagger) {
         autotagController.addTagger(tagger);
     }
 
+    /**
+     * Removes the given tagger from Mark.
+     *
+     * @param taggerName name of the tagger to be removed.
+     * @return false if the tagger is not found.
+     */
+    public boolean removeTagger(String taggerName) {
+        return autotagController.removeTagger(taggerName);
+    }
+
+    /**
+     * Applies all {@link SelectiveBookmarkTagger}s to the bookmarks in Mark.
+     */
     public void applyAllTaggers() {
         setBookmarks(autotagController.applyTaggersToList(getBookmarkList()));
     }

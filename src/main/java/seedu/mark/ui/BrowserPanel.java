@@ -2,6 +2,9 @@ package seedu.mark.ui;
 
 import static java.util.Objects.requireNonNull;
 
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.logging.Logger;
 
@@ -72,7 +75,7 @@ public class BrowserPanel extends UiPart<Region> {
             if (newValue == null || newValue.value.equals(currentPageUrl.getValue())) {
                 return;
             }
-            loadPage(newValue.toString());
+            loadUncheckedPage(newValue.toString());
         });
 
         // Whenever currentPageUrl changes, update the currentBookmarkUrl
@@ -80,6 +83,10 @@ public class BrowserPanel extends UiPart<Region> {
             logger.info("Current page url changed to: " + newValue);
             if (!isConnected) {
                 currentBookmarkUrl.setValue(null);
+                return;
+            }
+            //if current page is not a valid Url thing, then cannot create model Url
+            if (!Url.isValidUrl(newValue)) {
                 return;
             }
             // Return if the change is due to the change of currentBookmarkUrl
@@ -141,13 +148,30 @@ public class BrowserPanel extends UiPart<Region> {
 
     /**
      * Loads page with url on the webview.
+     * Checks url is valid before loading page.
      *
-     * @param url valid url
+     * @param url Url to attempt to load
      */
-    public void loadPage(String url) {
-        assert isValidUrl(url) : "invalid url passed to webEngine";
+    public void loadUncheckedPage(String url) {
+        //assert isValidUrl(url) : "invalid url passed to webEngine";
+        String validUrl = makeValidUrl(url);
 
-        Platform.runLater(() -> webEngine.load(url));
+        if (validUrl == null) {
+            //load google, will succeed if there is internet connnection.
+            logger.info(url + "\t is not a valid Url. Please search in google instead.");
+            gotoGoogle();
+        }
+
+        Platform.runLater(() -> webEngine.load(validUrl));
+    }
+
+    /**
+     * Loads page with valid url on the webview.
+     *
+     * @param validUrl Url to load
+     */
+    public void loadPage(String validUrl) {
+        Platform.runLater(() -> webEngine.load(validUrl));
     }
 
     /**
@@ -179,27 +203,42 @@ public class BrowserPanel extends UiPart<Region> {
      */
     @FXML
     private void handleAddressBarInput() {
-        //TODO: link address bar to web engine
         //if address legit then load
         //if not legit h
         String input = addressBar.getText();
         logger.info("Reading address from address bar: " + input);
 
-        logger.info("Checking validity of input URL: " + isValidUrl(input));
+        //logger.info("Checking validity of input URL: " + isValidUrl(input));
+        loadUncheckedPage(input);
         //dunnid clear input
     }
 
     /**
      * Checks if given url is a valid url.
      *
-     * @param url suspected url
+     * @param input Suspected url
      * @return true if url is valid; else false.
      */
-    private boolean isValidUrl(String url) {
+    private boolean isValidUrl(String input) {
         //TODO: check Url.isValidUrl is appropriate for this (parse and check if the url is a valid url)
         //check if have protocol in front
         //if true then test out by creating a url and catching malinformedurlexception?
-        return Url.isValidUrl(url); //dummy code
+        //return Url.isValidUrl(url); //dummy code
+        try {
+            final URL url = new URL(input);
+
+            HttpURLConnection huc = (HttpURLConnection) url.openConnection();
+            huc.setRequestMethod("HEAD");
+            if (huc.getResponseCode() == 200) {
+                //SUCCESS
+                return true;
+            }
+        } catch (MalformedURLException e) {
+            return false;
+        } catch (IOException e) {
+            return false;
+        }
+        return false;
     }
 
     /**
@@ -213,7 +252,26 @@ public class BrowserPanel extends UiPart<Region> {
     private String makeValidUrl(String input) {
         //TODO: parse a non url into a valid url (either by adding protocol or doing google search)
         //if is url without protocol, add protocol http://
-        //else google search it... how?
-        return input; //dummy code
+
+        if (isValidUrl(input)) {
+            return input;
+        }
+        //whack with http://
+        String newurl = "http://" + input;
+        if (isValidUrl(newurl)) {
+            return newurl;
+        }
+        //whack with https://
+        newurl = "https://" + input;
+        if (isValidUrl(newurl)) {
+            return newurl;
+        }
+
+        //else ask users to google search it; give alert and redirect to google
+        return null; //dummy code
+    }
+
+    private void gotoGoogle() {
+        loadPage("https://google.com.sg");
     }
 }

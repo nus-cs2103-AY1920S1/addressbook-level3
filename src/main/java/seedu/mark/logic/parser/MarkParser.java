@@ -10,9 +10,11 @@ import seedu.mark.logic.commands.AddCommand;
 import seedu.mark.logic.commands.AddFolderCommand;
 import seedu.mark.logic.commands.AddReminderCommand;
 import seedu.mark.logic.commands.AutotagCommand;
+import seedu.mark.logic.commands.AutotagDeleteCommand;
 import seedu.mark.logic.commands.CacheCommand;
 import seedu.mark.logic.commands.ClearCommand;
 import seedu.mark.logic.commands.Command;
+import seedu.mark.logic.commands.DeleteCacheCommand;
 import seedu.mark.logic.commands.DeleteCommand;
 import seedu.mark.logic.commands.DeleteReminderCommand;
 import seedu.mark.logic.commands.EditCommand;
@@ -99,10 +101,10 @@ public class MarkParser {
             return new TabCommandParser().parse(arguments);
 
         case UndoCommand.COMMAND_WORD:
-            return new UndoCommand();
+            return new UndoCommandParser().parse(arguments);
 
         case RedoCommand.COMMAND_WORD:
-            return new RedoCommand();
+            return new RedoCommandParser().parse(arguments);
 
         case AddFolderCommand.COMMAND_WORD:
             return new AddFolderCommandParser().parse(arguments);
@@ -116,11 +118,17 @@ public class MarkParser {
         case AddReminderCommand.COMMAND_WORD:
             return new AddReminderCommandParser().parse(arguments);
 
+        case AutotagDeleteCommand.COMMAND_WORD:
+            return new AutotagDeleteCommandParser().parse(arguments);
+
         case AutotagCommand.COMMAND_WORD:
             return new AutotagCommandParser().parse(arguments);
 
         case CacheCommand.COMMAND_WORD:
             return new CacheCommandParser().parse(arguments);
+
+        case DeleteCacheCommand.COMMAND_WORD:
+            return new DeleteCacheCommandParser().parse(arguments);
 
         case OfflineCommand.COMMAND_WORD:
             return new OfflineCommandParser().parse(arguments);
