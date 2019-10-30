@@ -73,8 +73,6 @@ public class DiaryPage extends UiPart<Region> implements Page {
         diaryListPanel = new DiaryListPanel(model.getFilteredDiaryEntryList());
         diaryListPanelPlaceholder.getChildren().add(diaryListPanel.getRoot());
 
-
-
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 

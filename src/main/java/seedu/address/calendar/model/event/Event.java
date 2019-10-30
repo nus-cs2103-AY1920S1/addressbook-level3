@@ -32,6 +32,12 @@ public class Event extends Interval<Date, Event> {
         return new Event(name, eventQuery.getStart(), eventQuery.getEnd(), Optional.empty(), eventType);
     }
 
+    public static EventQuery asEventQuery(Event event) {
+        Date startDate = event.getStart();
+        Date endDate = event.getEnd();
+        return new EventQuery(startDate, endDate);
+    }
+
     public boolean isBusy() {
         return eventType.isBusy();
     }

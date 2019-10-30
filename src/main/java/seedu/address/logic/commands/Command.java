@@ -10,10 +10,9 @@ public abstract class Command<T> {
     /**
      * Executes the command and returns the result message.
      *
-     * @param mainModel {@code mainModel} which the command should operate on.
+     * @param model {@code model} which the command should operate on.
      * @return feedback message of the operation result for display
      * @throws CommandException If an error occurs during command execution.
      */
-    public abstract CommandResult execute(T mainModel) throws CommandException;
-
+    public abstract CommandResult execute(T model) throws CommandException;
 }

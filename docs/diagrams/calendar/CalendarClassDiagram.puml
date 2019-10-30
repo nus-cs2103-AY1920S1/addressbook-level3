@@ -27,7 +27,7 @@ package Date {
 }
 
 
-Calendar --down> "1" Month : currentMonth
+Calendar --down> "1" Month : currentViewOnlyMonth
 Calendar --> "*" Event : events
 Calendar ..|> ReadOnlyCalendar
 
@@ -37,7 +37,7 @@ Commitment --up|> Event
 SchoolBreak --up|> Event
 Holiday --up|> Event
 
-Month --> "28...31" Date : dates of month
+Month --> "28...31" Date : dates of viewOnlyMonth
 Date --> MonthOfYear
 Date --> Day
 Date --> Year

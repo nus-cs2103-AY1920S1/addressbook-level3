@@ -59,6 +59,17 @@ public class DiaryEntryList {
         }
     }
 
+    public String getEntriesAsString() {
+        StringBuilder curr = new StringBuilder();
+        int i = 0;
+        for(DiaryEntry temp: entries) {
+            curr.append("Diary Entry: " + i + "\n");
+            curr.append(temp.toString());
+            curr.append("\n");
+        }
+        return curr.toString();
+    }
+
     /**
      *
      */

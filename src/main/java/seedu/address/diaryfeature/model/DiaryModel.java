@@ -1,5 +1,8 @@
 package seedu.address.diaryfeature.model;
 
+import static java.util.Objects.requireNonNull;
+
+import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
@@ -12,6 +15,8 @@ import seedu.address.diaryfeature.model.diaryEntry.DiaryEntry;
  */
 public class DiaryModel {
     private static final Logger logger = LogsCenter.getLogger(DiaryModel.class);
+    public static final Predicate<DiaryEntry> PREDICATE_SHOW_ALL_EVENTS = unused -> true;
+
 
     private final DiaryBook diaryBook;
     private final FilteredList<DiaryEntry> filteredDiaryBook;
@@ -35,6 +40,10 @@ public class DiaryModel {
         return diaryBook.deleteDiaryEntry(target);
     }
 
+    public String getEntriesAsString() {
+        return diaryBook.getEntriesAsString();
+    }
+
     /**
      *
      * @param diaryEntry
@@ -56,6 +65,11 @@ public class DiaryModel {
         return filteredDiaryBook;
     }
 
+
+    public void updateFilteredDiaryList(Predicate<DiaryEntry> predicate) {
+        requireNonNull(predicate);
+        filteredDiaryBook.setPredicate(predicate);
+    }
 
     @Override
     public boolean equals(Object obj) {

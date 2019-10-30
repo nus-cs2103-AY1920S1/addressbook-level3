@@ -3,9 +3,10 @@ package seedu.address.calendar.commands;
 import seedu.address.calendar.model.Calendar;
 import seedu.address.calendar.model.event.EventQuery;
 import seedu.address.calendar.parser.CliSyntax;
+import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 
-public class CheckCommand extends Command {
+public class CheckCommand extends Command<Calendar> {
     public static final String COMMAND_WORD = "check";
     public static final String MESSAGE_AVAILABLE = "You are available.";
     public static final String MESSAGE_UNAVAILABLE = "You aren't available.";

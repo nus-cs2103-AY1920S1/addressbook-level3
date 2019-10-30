@@ -1,10 +1,10 @@
 package seedu.address.calendar.logic;
 
-import seedu.address.calendar.commands.Command;
 import seedu.address.calendar.model.Calendar;
-import seedu.address.calendar.model.Month;
+import seedu.address.calendar.model.date.ViewOnlyMonth;
 import seedu.address.calendar.parser.CalendarParser;
 import seedu.address.calendar.storage.CalendarStorage;
+import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -12,8 +12,8 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import java.io.IOException;
 
 public class CalendarLogic {
-    CalendarStorage calendarStorage;
-    Calendar calendar;
+    private CalendarStorage calendarStorage;
+    private Calendar calendar;
 
     public CalendarLogic(Calendar calendar, CalendarStorage calendarStorage) {
         this.calendarStorage = calendarStorage;
@@ -21,9 +21,8 @@ public class CalendarLogic {
     }
 
     public CommandResult executeCommand(String commandText) throws CommandException, ParseException, IOException {
-        Command command = new CalendarParser().parseCommand(commandText);
+        Command<Calendar> command = new CalendarParser().parseCommand(commandText);
         CommandResult commandResult = command.execute(calendar);
-        // todo: add in a flag --> don't always save calendar unnecessarily
         calendarStorage.saveCalendar(calendar.getCalendar());
         return commandResult;
     }
@@ -32,7 +31,7 @@ public class CalendarLogic {
         return calendar.hasVisibleUpdates();
     }
 
-    public Month getVisibleMonth() {
+    public ViewOnlyMonth getVisibleMonth() {
         return calendar.getMonth();
     }
 
