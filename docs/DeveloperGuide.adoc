@@ -3,6 +3,7 @@
 :toc:
 :toc-title:
 :toc-placement: preamble
+:toclevels: 3
 :sectnums:
 :imagesDir: images
 :stylesDir: stylesheets
@@ -156,7 +157,8 @@ This section describes some noteworthy details on how certain features are imple
 // tag:uniqueIdentificationNumber[]
 === Unique Identification Number
 
-* In Mortago, each entity is assigned a unique `IdentificationNumber`.
+In Mortago, each entity is assigned a unique `IdentificationNumber`.
+
 * `IdentificationNumbers` in Mortago consist of two parts: the `String typeOfEntity` referring to whether it is a worker, body or fridge, and `Integer idNum` referring to its unique ID number.
 * Each `IdentificationNumber` is automatically generated within the application, based on the next sequential ID number available.
 * The generation of unique `IdentificationNumbers` allows the user to identify different entities solely based on their `IdentificationNumber`, without relying on attributes such
@@ -170,7 +172,7 @@ The class diagram below illustrates the relation between `IdentificationNumber` 
 .Unique `IdentificationNumber` Class Diagram
 image::UniqueIdentificationNumberClassDiagram.png[]
 
-===== Determining the next free number
+===== The first consideration to examine is determining the next free number.
 
 Note that in the diagram above, `UniqueIdentificationNumberMaps` keeps three `HashMap`, one for each entity.
 In each `HashMap`, the `Integer` ID number serves as the key, which maps to the entity it is assigned to.
@@ -195,11 +197,11 @@ The code snippet below demonstrates how the next free number is determined.
 ----
 
 In the above `putWorker` method, the set of `keys` representing the existing ID numbers are generated and iterated through, based on the size of the `keySet`.
-This sequential iteration checks for any number that is not assigned to any worker due to the deletion of the latter, which removes the mapping of the ID number to the deleted worker.
+This sequential iteration checks for any number that is not assigned to any worker (i.e. gap) due to a prior deletion of its assigned worker, which removes the mapping of the ID number to the deleted worker.
 If there is an existing gap in the sequential iteration of numbers, this number is assigned to the newly added worker.
 If there is no gap available, the next highest number is assigned to the worker.
 
-===== Execution sequence of generating a unique `IdentificationNumber` for a worker:
+===== Hence, this leads us to forumulate the execution sequence of generating a unique `IdentificationNumber` for a worker:
 
 . The user executes `add -w /name Zach ...` to add a new worker to Mortago.
 . `AddCommandParser` parses the given input and calls the `Worker` constructor.
@@ -212,19 +214,27 @@ The figure below illustrates the sequence diagram of the aforementioned steps.
 .Generation of unique `IdentificationNumber` Sequence Diagram
 image::UniqueIdentificationNumberSequenceDiagram.png[]
 
-Note that the execution sequence is similar for the addition and generation of unique `IdentificationNumber` for fridges and bodies.
+Note that the execution sequence is similar for the generation of unique `IdentificationNumber` for fridges and bodies.
 
 ==== Design Considerations
 
+When designing this feature, it is important to keep in mind the scalability of the application.
+When the data set becomes large, the ID number can become arbitrarily large if gaps in the middle are not filled.
+
 *Aspect: Tracking of numbers and determination of next free number*
 
-* Alternative 1: Three counters that track the total number of each entity in the system.
-** Pros: Easy to implement.
-** Cons: Does not cater for deletion of entity as deletion creates a gap.
+* Alternative 1: Three counters that track the total number of each entity in the system and assigns the next highest number to the added entity.
+** Pros:
+*** Easy to implement.
+** Cons:
+*** Does not cater for deletion of entity as deletion creates a gap which will be left unfilled.
 * Alternative 2 (current choice): A `HashMap` keeping track of the ID numbers and their respective assigned entity.
-** Pros: Aside from tracking a unique `keySet` of ID numbers, `HashMap` caters for deletion of entities as the `keySet` can be iterated through to check for any gaps introduced during deletion.
-This also allows the assigned (mapped) entity to be accessible through the `HashMap` via the `IdentificationNumber#getMapping()` method.
-** Cons: Harder to implement, especially for unit testing since a unique `IdentificationNumber` cannot be duplicated usually.
+** Pros:
+*** `HashMap` allows its `keySet` to contain unique ID numbers.
+*** `HashMap` caters for deletion of entities as the `keySet` can be iterated through to check for any gaps introduced during deletion.
+*** `HashMap` also allows the assigned (mapped) entity to be made accessible via the O(1) `HashMap#get()` method.
+** Cons:
+*** Harder to implement, especially for unit testing since a unique `IdentificationNumber` cannot be duplicated usually.
 
 Alternative 2 is chosen due to the comprehensive benefits of utilizing `HashMap` in terms of:
 
@@ -233,7 +243,7 @@ Alternative 2 is chosen due to the comprehensive benefits of utilizing `HashMap`
 * Increasing the ease of accessibility of mapped entities
 
 The difficulty in testing can be circumvented by executing `UniqueIdentificationNumberMaps::clearAllEntries()`
-before each test to reset the `HashMaps`.
+before each unit test to reset the `HashMaps`. This resets the `HashMaps` and allows the newly added entities to start with the first ID number, simulating a fresh launch of the application.
 // end::uniqueIdentificationNumber[]
 
 // tag::undoredo[]
@@ -635,7 +645,7 @@ Each button was assigned its respective handler method, based on different event
 * The method for exiting the application has already been implemented in `handleExit()`. Thus, setting the handler for the exit button to this method within the `MainWindow.fxml` file is sufficient.
 
 . Minimise Button
-* Minimisation of the application is implemented such that when the user clicks on the  minimise button (`onMouseClicked` event), the following code is called which minimises the window.
+* Minimisation of the application is implemented such that when the user clicks on the  minimise button, it triggers an `onMouseClicked` event that calls the following code.
 ```
 primaryStage.setIconified(true)
 ```

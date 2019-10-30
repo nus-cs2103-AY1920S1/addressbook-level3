@@ -11,7 +11,7 @@
 :toclevels: 3
 :experimental:
 ifdef::env-github[]
-:tip-caption: :💡
+:tip-caption: 💡
 :note-caption: :information_source:
 endif::[]
 :repoURL: https://github.com/AY1920S1-CS2103T-T13-2/main
@@ -172,9 +172,9 @@ add -b +
 (/status status) +
 (/nric nricNumber) +
 (/religion religion) +
-(/nameNOK nameOfNextOfKin) +
+(/NOKname nameOfNextOfKin) +
 (/relationship relationshipOfNextOfKin) +
-(/phoneNOK phoneOfNextOfKin) +
+(/NOKphone phoneOfNextOfKin) +
 (/cod causeOfDeath) +
 (/organsForDonation organsForDonation) +
 (/fridgeId fridgeId)
@@ -237,14 +237,16 @@ add -b
 | Body added
 
 a|
-[source,java]
+```
 add -f
+```
+{nbsp} +
+
 
 
 | Fridge added
 
 |===
-
 // end::add[]
 
 // tag::update[]
@@ -260,7 +262,7 @@ You have to indicate the entity type you want to update with a flag, as describe
 
 You can specify one or more attributes to change, but at least one valid attribute must be provided.
 
-Format: `update -flag /id id [/attributeName attributeValue ...]`
+Format: `update -FLAG /id id [/attributeName attributeValue ...]`
 
 
 |===
@@ -295,9 +297,9 @@ Date of Death `/dod` +
 Date of Admission `/doa` +
 Status `/status` +
 Religion `/religion` +
-Name of Next-of-Kin `/nameNOK` +
+Name of Next-of-Kin `/NOKname` +
 Relationship `/relationship` +
-Phone Number of Next-of-Kin `/phoneNOK` +
+Phone Number of Next-of-Kin `/NOKphone` +
 Cause of Death `/cod` +
 Details `/details` +
 Organs For Donation `/organsForDonation` +
@@ -327,8 +329,7 @@ and her new designation. You see that her ID number is W00001.
 
 | Command | Expected Output
 
-|
-`update -w /id 1 /designation Senior Autopsy Technician`
+| `update -w /id 1 /designation Senior Autopsy Technician`
 
 | Designation of Jane Doe changed to Senior Autopsy Technician.
 
@@ -351,6 +352,7 @@ Format: `find (flag) (keyword)...`
 * Only the name is searched.
 * Only full words will be matched e.g. `Han` will not match `Hans`
 * Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+|===
 
 Format: `find -FLAG [keyword...]`
 
@@ -368,28 +370,16 @@ Returns any workers having names `Betsy`, `Tim`, or `John`
 
 ==== Deleting a person : `delete`
 
-You can delete a body, worker or fridge entry, using its id number. +
-Format: `delete -flag  id`
+You can delete a body, worker or fridge entry, using its Identification Number. +
+
+Format: `delete -FLAG  id`
 
 |===
-| :bulb: a|
-When you delete a body, its associated notifications will also be deleted.
-
-If a fridge is occupied by a body, you cannot delete it.
-
-You only need to specify the number portion of the ID, without leading zeroes. Mortago will automatically convert it
-in the format `BXXXXXXXX`, `WXXXXX`, or `FXX` for a body, worker or fridge entry respectively.
+| :bulb: a| When you delete a body, its associated notifications will also be deleted. If a fridge is occupied by a body, you cannot delete it.
 |===
 
-****
-* Deletes the body, worker or fridge entry with t
-he specified identification number.
 
-* The identification number is automatically generated when an entity is created and is in the format `BXXXXXXXX`, `WXXXXX`, or `FXX` for a
-body, worker or fridge entry respectively.
-X represents any digit.
-* You only need to specify the number portion of the ID, without leading zeroes.
-****
+* Deletes the body, worker or fridge entry with the specified identification number.
 
 Examples:
 
@@ -408,31 +398,12 @@ Format: `clear`
 
 // end::clear[]
 
-// tag::view[]
-
-====  View an entry: `view`
-View a single entry of a body, worker, fridge.
-
-Format: `view -flag /id id`
-
-|===
-| Flags | Usage
-| -b | View the body with the given ID.
-| -w | View the worker with the given ID.
-| -f | View the fridge with the given ID.
-|===
-
-Example: `view -b /id 91` +
-View a body with the ID B00000091.
-
-// end::view[]
-
 // tag::list[]
 
 ==== List all entries: `list`
 List all entries of bodies, workers, or fridges.
 
-Format: `list -flag`
+Format: `list -FLAG`
 
 |===
 | Flags | Usage
@@ -446,22 +417,24 @@ Lists all bodies currently in Mortago.
 
 // end::list[]
 
+// tag::select[]
+
+====  Selecting a body: `select`
+
+You can select a body and view its full details by entering a select command.
+
+Format: `select id`
+
+Example: `select 1` +
+View a body with the ID B00000001.
+
+// end::select[]
+
 === General
-
-// tag::dashboard[]
-
-==== Display dashboard: `dashboard`
-
-Brings up the dashboard to the front of the application. +
-The dashboard provides a compact view of all bodies, workers and fridges, as well as several important statistics that may be useful to you.
-
-Format: `dashboard`
-
-// end::dashboard[]
 
 // tag::notifs[]
 
-==== View notifs panel: `notifs`
+==== View notifs panel: `showNotifs`
 View all notifications.
 
 A `notif` is automatically created when you could not contact the next of kin within 24 hours from the time
@@ -471,7 +444,7 @@ A pop-up window to remind you to contact the police will be shown so that they c
 
 Once you change the `bodyStatus`, the `notif` will be be deleted.
 
-Format: `notifs`
+Format: `showNotifs`
 
 // end::notifs[]
 
@@ -633,8 +606,8 @@ Archive old or irrelevant entries. One entry can be archived at a time, or all e
 
 Format:
 
-* `archive -flag /id id`
-* `archive -flag /status status`
+* `archive -FLAG /id id`
+* `archive -FLAG /status status`
 
 Example:
 
@@ -646,7 +619,7 @@ Archives all entries of workers who are inactive
 ==== View archived entries: `archives` `[coming in v2.0]`
 Display all archived entries.
 
-Format: `archives -flag`
+Format: `archives -FLAG`
 
 Example:
 
@@ -694,7 +667,7 @@ Assigns worker with worker ID W00001 to body with ID B00000002 with a task descr
 ==== View all commands: `help` `[coming in v2.0]`
 View a summary of all available commands and their flags. Use the `-v` flag to view the detailed description of all commands and their flags.
 
-Format: `help -flag`
+Format: `help -FLAG`
 
 Example: `help -v` +
 Shows a link to the User Guide.
@@ -731,7 +704,7 @@ Lists emergency help hotlines.
     ** Add a new worker, body, or fridge with the
 `add -FLAG [/attributeName attributeValue...]`
 * *Update* an entry: `update`
-    ** Update the status of each worker, body, or fridge with the `update -flag (/attributeName attributeValue)`
+    ** Update the status of each worker, body, or fridge with the `update -FLAG (/attributeName attributeValue)`
 * *Find* : `find [keyword...]` +
     ** Find entries using a keyword. +
     Format: `find keyword`
@@ -739,13 +712,11 @@ Lists emergency help hotlines.
     ** Delete a body, worker or fridge entry, indicated by its id number. +
     Format: `delete -FLAG id`
 * *Clear* : `clear`
-* *View* : `view -FLAG /id id`
-* *List* : `list -flag`
+* *Select* : `select id`
+* *List* : `list -FLAG`
 
-* *View dashboard* : `dashboard`
-    ** Brings the dashboard to the front of the app.
-* *View notifs* : `notifs`
-    ** View all notifs brought up by the app.
+* *View notifs* : `showNotifs`
+    ** View all notifications brought up by the app.
 * *Sort* : `sort`
     ** Sort all displayed entries according to a given order. +
     Format: `sort /order order (/idOrder idOrder)`
@@ -772,10 +743,10 @@ Lists emergency help hotlines.
 
 * *Archive entries* : `archive` `[coming in v2.0]`
     ** Archive old or irrelevant entries.
-    Format: `archive -flag /id id`, `archive -flag /status status`
+    Format: `archive -FLAG /id id`, `archive -FLAG /status status`
 * *View archived entries* : `archives` `[coming in v2.0]`
     ** Display all archived entries.
-    Format: `archives -flag`
+    Format: `archives -FLAG`
 * *Give and view feedback* : `feedback` `[coming in v2.0]`
     * Give workers feedback and displays a history of all feedback entered.
     Format: `feedback /workerId workerId /notes notes`, feedback`
@@ -784,7 +755,7 @@ Lists emergency help hotlines.
     Format: `assign /bodyId bodyId /workerId workerId /task taskDescription`
 * *Help summary*: `help` `[coming in v2.0]`
     ** Get information about the commands
-    Format: `help -flag` `[coming in v2.0]`
+    Format: `help -FLAG` `[coming in v2.0]`
 * *Help for specific command* : `help command` `[coming in v2.0]`
 * *Help hotlines* : `hotlines` `[coming in v2.0]`
 
