@@ -18,7 +18,6 @@ import seedu.deliverymans.logic.commands.CommandResult;
 import seedu.deliverymans.logic.commands.exceptions.CommandException;
 import seedu.deliverymans.logic.parser.exceptions.ParseException;
 import seedu.deliverymans.logic.parser.universal.Context;
-import seedu.deliverymans.model.trie.TrieManager;
 import seedu.deliverymans.model.restaurant.Restaurant;
 
 /**
@@ -34,7 +33,7 @@ public class MainWindow extends UiPart<Stage> {
     private Stage primaryStage;
     private Logic logic;
 
-    private Context currentContext;
+    static Context currentContext = Context.GLOBAL;
 
     // Independent Ui parts residing in this Ui container
     private PersonListPanel personListPanel;
@@ -48,7 +47,6 @@ public class MainWindow extends UiPart<Stage> {
     private ResultDisplay resultDisplay;
     private StatisticsDisplay statisticsDisplay;
     private HelpWindow helpWindow;
-    private TrieManager trieManager;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -77,7 +75,6 @@ public class MainWindow extends UiPart<Stage> {
         // Set dependencies
         this.primaryStage = primaryStage;
         this.logic = logic;
-        this.currentContext = null;
 
         // Configure the UI
         setWindowDefaultSize(logic.getGuiSettings());
@@ -85,8 +82,6 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
-
-        initTrieManager();
     }
 
     public Stage getPrimaryStage() {
@@ -143,10 +138,6 @@ public class MainWindow extends UiPart<Stage> {
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
-    }
-
-    private void initTrieManager() {
-        trieManager = new TrieManager();
     }
 
     /**

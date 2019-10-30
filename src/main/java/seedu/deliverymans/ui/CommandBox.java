@@ -1,5 +1,7 @@
 package seedu.deliverymans.ui;
 
+import java.util.LinkedList;
+
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
@@ -7,6 +9,8 @@ import javafx.scene.layout.Region;
 import seedu.deliverymans.logic.commands.CommandResult;
 import seedu.deliverymans.logic.commands.exceptions.CommandException;
 import seedu.deliverymans.logic.parser.exceptions.ParseException;
+import seedu.deliverymans.logic.parser.universal.Context;
+import seedu.deliverymans.model.trie.TrieManager;
 
 /**
  * The UI component that is responsible for receiving user command inputs.
@@ -17,6 +21,7 @@ public class CommandBox extends UiPart<Region> {
     private static final String FXML = "CommandBox.fxml";
 
     private final CommandExecutor commandExecutor;
+    private final TrieManager trieManager;
 
     @FXML
     private TextField commandTextField;
@@ -26,6 +31,7 @@ public class CommandBox extends UiPart<Region> {
         this.commandExecutor = commandExecutor;
         // calls #setStyleToDefault() whenever there is a change to the text of the command box.
         commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
+        this.trieManager = new TrieManager();
     }
 
     /**
@@ -46,6 +52,13 @@ public class CommandBox extends UiPart<Region> {
      */
     @FXML
     private void handleKeyPressed() {
+        LinkedList<String> temp = trieManager.getAutoCompleteResults(commandTextField.getText(),
+                MainWindow.currentContext);
+        if (!temp.isEmpty()) {
+            for (String s : temp) {
+                System.out.println(s);
+            }
+        }
         System.out.println(commandTextField.getText());
     }
 
