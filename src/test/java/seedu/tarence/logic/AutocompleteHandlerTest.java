@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -54,47 +55,51 @@ class AutocompleteHandlerTest {
 
     @Test
     void handle_autocompleteName_suggestionsProvided() throws ParseException {
-        String input = "someCommand n/A";
-        assertEquals(autocompleteHandler.handle(input), "someCommand n/" + AMY.getName().toString());
-        assertEquals(autocompleteHandler.handle(input), "someCommand n/" + ALICE.getName().toString());
+        String incompleteField = "A";
+        String input = "someCommand n/" + incompleteField;
+        assertEquals(autocompleteHandler.handle(input),
+                StringUtils.removeStart(AMY.getName().toString().toLowerCase(), incompleteField.toLowerCase()));
+        assertEquals(autocompleteHandler.getNextSuggestion(),
+                StringUtils.removeStart(ALICE.getName().toString().toLowerCase(), incompleteField.toLowerCase()));
     }
 
     @Test
-    void handle_autocompleteInvalidName_noSuggestionsFound() {
+    void handle_autocompleteInvalidName_noSuggestionsFound() throws ParseException {
         String input = "someCommand n/C";
-        assertThrows(IndexOutOfBoundsException.class, () -> autocompleteHandler.handle(input));
+        assertEquals(autocompleteHandler.handle(input), "");
     }
 
     @Test
     void handle_autocompleteModule_suggestionsProvided() throws ParseException {
         String input = "someCommand m/";
-        assertEquals(autocompleteHandler.handle(input), "someCommand m/" + AMY.getModCode().toString());
-        assertEquals(autocompleteHandler.handle(input), "someCommand m/" + BOB.getModCode().toString());
+        assertEquals(autocompleteHandler.handle(input), AMY.getModCode().toString().toLowerCase());
+        assertEquals(autocompleteHandler.getNextSuggestion(), BOB.getModCode().toString().toLowerCase());
     }
 
     @Test
     void handle_autocompleteTutorial_suggestionsProvided() throws ParseException {
         String input = "someCommand tn/";
-        assertEquals(autocompleteHandler.handle(input), "someCommand tn/" + AMY.getTutName().toString());
-        assertEquals(autocompleteHandler.handle(input), "someCommand tn/" + BOB.getTutName().toString());
+        assertEquals(autocompleteHandler.handle(input), AMY.getTutName().toString().toLowerCase());
+        assertEquals(autocompleteHandler.getNextSuggestion(), BOB.getTutName().toString().toLowerCase());
     }
 
     @Test
     void handle_autocompleteEmail_suggestionsProvided() throws ParseException {
-        String input = "someCommand e/" + AMY.getEmail().toString().substring(0, 5);
-        assertEquals(autocompleteHandler.handle(input), "someCommand e/" + AMY.getEmail().toString());
+        String incompleteField = AMY.getEmail().toString().substring(0, 5);
+        String input = "someCommand e/" + incompleteField;
+        assertEquals(autocompleteHandler.handle(input),
+                StringUtils.removeStart(AMY.getEmail().toString().toLowerCase(),
+                        AMY.getEmail().toString().substring(0, 5).toLowerCase()));
     }
 
     @Test
     void handle_autocompleteCommand_suggestionsProvided() throws ParseException {
-        String input = "addS";
-        assertEquals(autocompleteHandler.handle(input), "addStudent");
+        assertEquals(autocompleteHandler.handle("addSt"), "udent");
     }
 
     @Test
-    void handle_autocompleteInvalidCommand_noSuggestionsProvided() {
-        String input = "someInvalidCommandWord";
-        assertThrows(IndexOutOfBoundsException.class, () -> autocompleteHandler.handle(input));
+    void handle_autocompleteInvalidCommand_noSuggestionsProvided() throws ParseException {
+        assertEquals(autocompleteHandler.handle("someInvalidCommandWord"), "");
     }
 
     @Test

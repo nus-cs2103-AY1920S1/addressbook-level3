@@ -144,8 +144,13 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public String autocomplete(String partialInput) throws ParseException {
+    public String autocomplete(String partialInput) throws ParseException, IndexOutOfBoundsException {
         return new AutocompleteHandler(model).handle(partialInput);
+    }
+
+    @Override
+    public String getNextSuggestion() throws ParseException {
+        return new AutocompleteHandler(model).getNextSuggestion();
     }
 
     @Override

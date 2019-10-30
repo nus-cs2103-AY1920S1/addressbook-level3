@@ -3,7 +3,12 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.StackPane?>
 
+<?import javafx.scene.text.TextFlow?>
+<?import javafx.scene.text.Text?>
 <StackPane styleClass="stack-pane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-  <TextField fx:id="commandTextField" onKeyPressed="#handleKeyPressed" promptText="Enter command here..."/>
+  <TextFlow fx:id="commandTextFlow">
+    <TextField fx:id="commandTextField" onKeyPressed="#handleKeyPressed" promptText="Enter command here..."/>
+    <Text fx:id="autocompleteTextBox"/>
+  </TextFlow>
 </StackPane>
 

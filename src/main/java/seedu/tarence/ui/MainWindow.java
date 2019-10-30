@@ -200,8 +200,8 @@ public class MainWindow extends UiPart<Stage> {
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getApplicationFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
-        commandBox = new CommandBox(this::executeCommand, this::executeAutocomplete, this::executeInputChanged,
-                this::getPastInput);
+        commandBox = new CommandBox(this::executeCommand, this::executeAutocomplete, this::executeNextSuggestion,
+                this::executeInputChanged, this::getPastInput);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
     }
 
@@ -234,7 +234,7 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Generates an observable list based on the given tutorial attendane
+     * Generates an observable list based on the given tutorial attendance
      * Solution below adopted from:
      * {https://stackoverflow.com/questions/41771098/how-to-plot-a-simple-double-matrix-into-tableview-in-javafx}
      */
@@ -428,9 +428,24 @@ public class MainWindow extends UiPart<Stage> {
     private CommandResult executeAutocomplete(String partialInput) {
         try {
             String autocompletedString = logic.autocomplete(partialInput);
-            commandBox.setInput(autocompletedString);
+            commandBox.setAutocompleteBox(autocompletedString);
+            commandBox.setFocus();
         } catch (IndexOutOfBoundsException | ParseException e) {
-            resultDisplay.setFeedbackToUser(e.getMessage());
+            commandBox.clearAutocompleteBox();
+            // resultDisplay.setFeedbackToUser(e.getMessage());
+            commandBox.setFocus();
+        }
+        return new CommandResult("");
+    }
+
+    /**
+     * Handles getting next autocomplete result.
+     */
+    private CommandResult executeNextSuggestion(String dummy) throws IndexOutOfBoundsException {
+        try {
+            commandBox.setAutocompleteBox(logic.getNextSuggestion());
+        } catch (ParseException e) {
+            commandBox.clearAutocompleteBox();
             commandBox.setFocus();
         }
         return new CommandResult("");

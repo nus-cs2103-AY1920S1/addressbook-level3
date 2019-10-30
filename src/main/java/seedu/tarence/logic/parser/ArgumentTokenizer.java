@@ -169,8 +169,9 @@ public class ArgumentTokenizer {
      * Checks whether the current input is a single word. Used for determining whether the user may be trying to
      * autofill a command word.
      */
-    static boolean isSingleWord(String argsString) {
-        return argsString.strip().split(" ").length == 1;
+    static boolean isSingleWordWithoutTrailingWhitespace(String argsString) {
+        return !argsString.substring(argsString.length() - 1).equals(" ")
+            && argsString.strip().split(" ").length == 1;
     }
 
     /**
