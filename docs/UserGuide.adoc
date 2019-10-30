@@ -146,6 +146,7 @@ Shows a list of all bookmarks in the bookmark manager.
 
 Format: `*list*`
 
+[[editing-bookmarks]]
 === Editing a bookmark: *`edit`*
 
 Edits an existing bookmark in the bookmark manager.
@@ -173,35 +174,33 @@ Edits the name and folder of the 1st bookmark to be CS2103T Website and AY1920-S
 Clears all existing tags from the 2nd bookmark.
 
 [[locating-bookmarks]]
-=== Locating bookmarks by name, URL, or tag: *`find`*
+=== Locating bookmarks by name, URL, tag or folder: *`find`*
 
 Finds bookmarks that contain any of the given keywords in their name or
 URL, or that are tagged with the given tag(s).
 
-Format: `*find* [KEYWORD]... [t/TAG]...`
+Format: `*find* [KEYWORD]... [t/TAG]... [f/FOLDER]...`
 
 ****
-* At least one keyword or tag must be provided.
+* At least one keyword, tag or folder must be provided.
 * Keyword search is case insensitive. e.g video will match Video.
 * The order of the keywords does not matter. e.g. `Website Video` will match `Video Website`.
 * Keywords are only searched in the URL and name.
-* Words will be partially matched e.g. `Video` will match `Videos`.
+* For keywords, words will be partially matched e.g. `Video` will match `Videos`.
+* For tags and folders, words will be fully matched.
 * Bookmarks matching at least one search criterion will be returned (i.e. OR search).
 ****
 
 Examples:
 
-* `*find* Website Video t/Fun will` +
-Returns CS2103T Website, Video Streaming, and all bookmarks tagged with Fun.
-
-* `*find* Luminus` +
-Returns luminus website and GER1000 LumiNUS
+* `*find* Website Video t/Fun` +
+Returns all the bookmarks with CS2103T or Video in its name or URL, and all bookmarks tagged with Fun.
 
 * `*find* CS2103T CS2101 CS2105` +
-Returns any bookmark with CS2103T, CS2101, or CS2105 in its name or in its url
+Returns any bookmark with CS2103T, CS2101, or CS2105 in its name or in its URL.
 
-* `*find* GitHub t/CS2103T` +
-Returns any bookmark with the tag CS2103T or that contains github in either name or URL.
+* `*find* GitHub t/School f/CS2103T` +
+Returns any bookmark with the tag School or folder CS2103T or that contains github in either name or URL.
 
 === Deleting a bookmark: *`delete`*
 
@@ -227,14 +226,14 @@ Deletes the 1st bookmark in the results of the find command.
 
 === Opening a bookmark: *`goto`*
 
-Opens the specified version of the bookmark from the bookmark manager.
+Opens the specified the bookmark from the bookmark manager.
 
-Format: `*goto* INDEX [v/VERSION]`
+Format: `*goto* INDEX`
 
 ****
-* If the flag `v/` is not present, go to the online version.
-* If `v/` is present but `VERSION`  is not specified:
-the most current version of the bookmark will be opened.
+* Opens the bookmark at the specified INDEX.
+* The index refers to the index number shown in the displayed bookmark list.
+* The index must be a positive integer `1`, `2`, `3`, …​
 ****
 
 Examples:
@@ -243,10 +242,7 @@ Examples:
 `*goto* 1` +
 Opens the first bookmark in the bookmark manager.
 
-* `*list*` +
-`*goto* 1 v/1` +
-Opens the first version of the first bookmark in the bookmark manager.
-
+//TODO: Not supported yet
 === Opening a bookmark from a reminder: *`goto reminder`*
 
 Opens the related bookmark of the specified reminder from the bookmark manager.
@@ -264,30 +260,69 @@ Examples:
 If reminder 1 points to bookmark 5, this command is equivalent to
 `*goto* 5`. (i.e. opens the 5th bookmark in the bookmark manager.)
 
+=== Adding a bookmark to Favorites: *`favorite|fav`*
+
+Adds a Favorite tag to the specified bookmark.
+
+Format: `*favorite|fav* INDEX`
+
+****
+* `fav` is an alias for `favorite`
+* Removing the Favorite tag is the same as removing a normal tag from a bookmark (see <<editing-bookmarks>>)
+* The index refers to the index number shown in the displayed bookmark list.
+* The index must be a positive integer `1`, `2`, `3`, …​
+****
+
+Examples:
+
+* `*favorite* 1` +
+Adds a Favorite tag to the first bookmark in the bookmark manager.
+
+* `*fav* 2` +
+Adds a Favorite tag to the second bookmark in the bookmark manager.
+
+
 === Clearing all entries: *`clear`*
 
 Clears all entries from the bookmark manager.
 
 Format: `*clear*`
 
-=== Undoing previous command: *`undo`*
+=== Undoing previous commands: *`undo`*
 
-Restores the list to the state before the previous undoable command was
+Restores the list to the state before the given number of previous undoable commands were
 executed.
 
-Format: `*undo*`
+Format: `*undo* [STEP=1]`
 
+//TODO:Check whether reminder supports undo/redo, include other
+//undoable commands as well
 ****
 * Undoable commands include commands that modify the bookmark list or
 reminders, which includes `add`, `edit`, `delete`, `clear`, `reminder`,
 `reminder edit`, `reminder delete`, etc).
+* The step must be a positive integer `1`, `2`, `3`, …​
 ****
 
-=== Redoing the previously undone command: *`redo`*
+Examples:
 
+* `*undo*` +
+Restores the list to the state before the previous undoable command was executed.
+
+=== Redoing previously undone commands: *`redo`*
+
+Reverses the given number of `*undo*` commands.
+
+Format: `*redo* [STEP=1]`
+
+****
+* The step must be a positive integer `1`, `2`, `3`, …​
+****
+
+Examples:
+
+* `*redo*` +
 Reverses the most recent `*undo*` command.
-
-Format: `*redo*`
 
 === Exiting the program: *`exit`*
 
@@ -651,27 +686,6 @@ Examples:
 * `*reminder delete* 1` +
 Delete the reminder of index 1.
 
-=== Sorting bookmarks: *`sort`*
-
-Sorts the displayed bookmarks according to different criterion (name,
-order added) and displays them as a list.
-
-Format: `*sort* [CRITERION]`
-
-****
-* `CRITERION` is the field you use to sort. Acceptable values of `CRITERION`
-are: *name* and *default*. *default* is sorting at the order when the bookmark is added.
- * `CRITERION` is case insensitive, e.g. both URL and url are acceptable
-criterion.
-****
-Examples:
-
-* `*sort* name` +
-Lists all the bookmarks based on name/alphabetical order.
-
-* `*sort* default` +
-Sort all the bookmarks based on the order they were added.
-
 === Expanding the folder hierarchy: *`expand`*
 
 Expands the folder hierarchy by the specified number of levels.
@@ -739,11 +753,34 @@ Goes to the Online tab which is a web view.
 * `*tab* 3` +
 Goes to the Offline tab which shows the offline copy of bookmarks.
 
+=== Sorting bookmarks: `[coming in v2.0]`
+
+Sorts the displayed bookmarks according to different criterion (name,
+order added) and displays them as a list.
+
+Format: `*sort* [CRITERION]`
+
+****
+* `CRITERION` is the field you use to sort. Acceptable values of `CRITERION`
+are: *name* and *default*. *default* is sorting at the order when the bookmark is added.
+* `CRITERION` is case insensitive, e.g. both URL and url are acceptable
+criterion.
+****
+
+Examples:
+
+* `*sort* name` +
+Lists all the bookmarks based on name/alphabetical order.
+
+* `*sort* default` +
+Sort all the bookmarks based on the order they were added.
 
 === Automatically completing partially typed commands `[coming in v2.0]`
+
 Automatically fills in partially typed commands if the command is unique.
 
 === Sharing bookmarks and notes via Email/ Telegram `[coming in v2.0]`
+
 Shares your bookmarks and notes with your friends via Email or Telegram.
 
 == FAQ
@@ -799,19 +836,21 @@ An copy of a bookmarked website that is used for offline viewing. It is stored a
 Annotated notes that are not attached to an existing paragraph are described as stray.
 Stray notes are found in the _Stray Notes Section_ at the bottom of the _Notes_ column on the offline, annotated copy.
 
+//TODO: Check
 == Command Summary
 
 * *Help*: `*help*`
 * *Add*: `*add* u/URL n/NAME [r/REMARK] [f/FOLDER] [t/TAG]…​`
 * *List*: `*list*`
-* *Edit*: `*edit* INDEX [u/URL] [n/NAME] [r/REMARK] [f/FOLDER] [t/TAG]…​`
-* *Find*: `*find* [KEYWORD]... [t/TAG]...`
+* *Edit*: `*edit* INDEX [u/URL] [n/NAME] [r/REMARK] [f/FOLDER] [t/TAG]...​`
+* *Find*: `*find* [KEYWORD]... [t/TAG]... [f/FOLDER]...`
 * *Delete*: `*delete* INDEX`
-* *Goto*: `*goto* INDEX [v/VERSION]`
+* *Goto*: `*goto* INDEX`
 * *Goto*: `*goto reminder* INDEX`
+* *Favorite*: `*favorite|fav* INDEX`
 * *Clear*: `*clear*`
-* *Undo*: `*undo*`
-* *Redo*: `*redo*`
+* *Undo*: `*undo* [STEP=1]`
+* *Redo*: `*redo* [STEP=1]`
 * *Exit*: `*exit*`
 * *Export*: `*export* [FILENAME]`
 * *Import*: `*import* FILENAME [MORE_FILENAMES]...`
