@@ -1,4 +1,4 @@
-package seedu.address.ui.expense;
+package seedu.address.ui.alias;
 
 import java.util.logging.Logger;
 
@@ -24,7 +24,7 @@ import seedu.address.ui.panel.PanelName;
  */
 public class AliasPanel extends Panel {
     public static final PanelName PANEL_NAME = new PanelName("Aliases");
-    private static final String FXML = "ListPanel.fxml";
+    private static final String FXML = "ExpenseListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(AliasPanel.class);
 
     @FXML

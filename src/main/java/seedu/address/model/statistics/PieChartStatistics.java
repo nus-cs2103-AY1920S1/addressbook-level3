@@ -13,7 +13,7 @@ import seedu.address.model.expense.Expense;
 import seedu.address.model.expense.Timestamp;
 
 /**
- * Represents the Statistics class that provides a PieChart as its Visual Representation method
+ * Represents the Statistics class that provides a pie chart as its Visual Representation method
  */
 public class PieChartStatistics extends Statistics {
 
@@ -22,7 +22,7 @@ public class PieChartStatistics extends Statistics {
 
     private List<Double> formattedPercentages;
 
-    private List<Category> usedCategories;
+    private List<Category> budgetCategories;
 
     private Timestamp startDate;
 
@@ -60,17 +60,17 @@ public class PieChartStatistics extends Statistics {
     private void generatePieChartData() {
         requireNonNull(startDate);
         requireNonNull(endDate);
-        this.usedCategories = collateUsedCategories(expenses);
 
+        this.budgetCategories = collateBudgetCategories(expenses);
 
         ArrayList<ArrayList<Expense>> expensesInCategories = extractRelevantExpenses(startDate, endDate);
-
-        String title = String.format("Statistics Summary from %s to %s\n", startDate, endDate);
+        String title = String.format("Statistics Summary from %s to %s\n", startDate.showDate(), endDate.showDate());
 
         ArrayList<Double> percentages = new ArrayList<>();
         ArrayList<Integer> numberOfEntries = new ArrayList<>();
         ArrayList<String> names = new ArrayList<>();
-        for (Category category : usedCategories) {
+
+        for (Category category : budgetCategories) {
             percentages.add(0.0);
             numberOfEntries.add(0);
             names.add(category.getCategoryName());
@@ -89,14 +89,14 @@ public class PieChartStatistics extends Statistics {
     private ArrayList<ArrayList<Expense>> extractRelevantExpenses(Timestamp startDate, Timestamp endDate) {
         ArrayList<ArrayList<Expense>> expensesInCategories = new ArrayList<>();
 
-        for (int i = 0; i < usedCategories.size(); i++) {
+        for (int i = 0; i < budgetCategories.size(); i++) {
             expensesInCategories.add(new ArrayList<>());
         }
 
         for (Expense expense : expenses) {
             Timestamp date = expense.getTimestamp();
-            if (date.compareTo(startDate) != -1 && date.compareTo(endDate) != 1) {
-                int index = usedCategories.indexOf(expense.getCategory());
+            if (date.compareDateTo(startDate) != -1 && date.compareDateTo(endDate) != 1) {
+                int index = budgetCategories.indexOf(expense.getCategory());
                 expensesInCategories.get(index).add(expense);
             }
         }
@@ -106,7 +106,7 @@ public class PieChartStatistics extends Statistics {
     /**
      * Returns a list of categories used among all expenses. Meant for PieChart usage
      */
-    private static List<Category> collateUsedCategories(ObservableList<Expense> expenses) {
+    private static List<Category> collateBudgetCategories(ObservableList<Expense> expenses) {
         Set<Category> categories = new HashSet<>();
         for (Expense expense: expenses) {
             categories.add(expense.getCategory());
@@ -127,9 +127,10 @@ public class PieChartStatistics extends Statistics {
     private void generatePercentages(ArrayList<ArrayList<Expense>> data, ArrayList<Double> percentages,
                                      ArrayList<Integer> numberOfEntries, ArrayList<String> names,
                                      String titleWithPeriod) {
+
         double totalAmount = 0.0;
 
-        for (int i = 0; i < usedCategories.size(); i++) {
+        for (int i = 0; i < percentages.size(); i++) {
             ArrayList<Expense> categoryStats = data.get(i);
             for (Expense expense : categoryStats) {
                 double oldCategoricalTotal = percentages.get(i);
@@ -142,22 +143,28 @@ public class PieChartStatistics extends Statistics {
         }
 
 
-        for (int i = 0; i < usedCategories.size(); i++) {
+        this.formattedCategories = new ArrayList<>();
+        this.formattedPercentages = new ArrayList<>();
+
+
+        for (int i = 0; i < percentages.size(); i++) {
             double categoricalTotal = percentages.get(i);
             double roundedResult = Math.round(categoricalTotal * 10000 / totalAmount) / 100.0;
-            percentages.set(i, roundedResult);
-            String oldName = names.get(i);
-            names.set(i, String.format("%s(%.2f%%)", oldName, roundedResult));
+            if (roundedResult != 0.00) {
+                String oldName = names.get(i);
+                formattedCategories.add(String.format("%s(%.2f%%)", oldName, roundedResult));
+                formattedPercentages.add(roundedResult);
+            }
         }
 
-        this.formattedCategories = names;
-        this.formattedPercentages = percentages;
         setTitle(String.format("%s\nTotal amount: $%.2f", titleWithPeriod, totalAmount));
+
+
+
     }
 
     /**
      * Returns the formatted validCategories to be used as labels for the PieChart
-     * @return
      */
     public List<String> getFormattedCategories() {
         return formattedCategories;
@@ -165,6 +172,10 @@ public class PieChartStatistics extends Statistics {
 
     public List<Double> getFormattedPercentages() {
         return formattedPercentages;
+    }
+
+    public String toString() {
+        return String.format("%s\n%s\n%s", getTitle(), getFormattedCategories(), getFormattedPercentages());
     }
 }
 

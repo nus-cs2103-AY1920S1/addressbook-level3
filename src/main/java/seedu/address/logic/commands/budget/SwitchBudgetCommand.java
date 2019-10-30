@@ -8,6 +8,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.UndoableCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.budget.Budget;
 import seedu.address.model.expense.Description;
 import seedu.address.ui.budget.BudgetPanel;
 
@@ -52,6 +53,10 @@ public class SwitchBudgetCommand extends UndoableCommand {
     protected CommandResult execute(Model model) {
         requireNonNull(model);
 
+        //Budget current = model.getPrimaryBudget();
+        //Budget edited = model.getMooLah().getBudgetWithName(targetDescription);
+        //model.setBudget(current, createEditedBudget(current, false));
+        //model.setBudget(edited, createEditedBudget(edited, true));
         model.switchBudgetTo(targetDescription);
         return new CommandResult(String.format(MESSAGE_SUCCESS, targetDescription), BudgetPanel.PANEL_NAME);
     }
@@ -61,5 +66,12 @@ public class SwitchBudgetCommand extends UndoableCommand {
         return other == this // short circuit if same object
                 || (other instanceof SwitchBudgetCommand // instanceof handles nulls
                 && targetDescription.equals(((SwitchBudgetCommand) other).targetDescription));
+    }
+
+
+    private Budget createEditedBudget(Budget budgetToEdit, boolean editedIsPrimary) {
+        return new Budget(budgetToEdit.getDescription(), budgetToEdit.getAmount(), budgetToEdit.getStartDate(),
+                budgetToEdit.getEndDate(), budgetToEdit.getPeriod(), budgetToEdit.getExpenses(), editedIsPrimary,
+                budgetToEdit.getProportionUsed());
     }
 }
