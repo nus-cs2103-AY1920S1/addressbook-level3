@@ -4,7 +4,7 @@ import seedu.address.model.Classroom;
 import seedu.address.model.student.Student;
 
 /**
- * A utility class to help with building Addressbook objects.
+ * A utility class to help with building Classroom objects.
  * Example usage: <br>
  *     {@code Classroom ab = new ClassroomBuilder().withStudent("John", "Doe").build();}
  */

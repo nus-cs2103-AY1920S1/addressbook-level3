@@ -15,7 +15,7 @@ import seedu.address.model.assignment.Assignment;
  */
 public class AddAssignmentCommand extends Command {
 
-    public static final String COMMAND_WORD = "addassign";
+    public static final String COMMAND_WORD = "addassignment";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Assigns an assignment \n"
                                                     + "Parameters: "
@@ -54,7 +54,7 @@ public class AddAssignmentCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                   || (other instanceof AddCommand // instanceof handles nulls
+                   || (other instanceof AddStudentCommand // instanceof handles nulls
                            && toAdd.equals(((AddAssignmentCommand) other).toAdd));
     }
 }

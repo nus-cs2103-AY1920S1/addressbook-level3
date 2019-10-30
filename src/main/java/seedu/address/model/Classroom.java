@@ -177,7 +177,7 @@ public class Classroom implements ReadOnlyClassroom {
 
     /**
      * Replaces the given lesson {@code target} in the list with {@code editedLesson}.
-     * {@code target} must exist in the address book.
+     * {@code target} must exist in the classroom.
      * The lesson identity of {@code editedLesson} must not be the same as another existing lesson in the address
      * book.
      */
@@ -188,8 +188,8 @@ public class Classroom implements ReadOnlyClassroom {
     }
 
     /**
-     * Removes {@code key} from this {@code AddressBook}.
-     * {@code key} must exist in the address book.
+     * Removes {@code key} from this {@code Classroom}.
+     * {@code key} must exist in the classroom.
      */
     public void removeLesson(Lesson key) {
         lessons.remove(key);

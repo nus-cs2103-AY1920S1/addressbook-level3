@@ -21,7 +21,7 @@ import seedu.address.model.lesson.Lesson;
 import seedu.address.model.lesson.Time;
 
 /**
- * Edits the details of an existing lesson in the address book.
+ * Edits the details of an existing lesson in the classroom.
  */
 public class EditLessonCommand extends Command {
 
@@ -42,7 +42,7 @@ public class EditLessonCommand extends Command {
 
     public static final String MESSAGE_EDIT_LESSON_SUCCESS = "Edited Lesson: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_LESSON = "This lesson already exists in the address book.";
+    public static final String MESSAGE_DUPLICATE_LESSON = "This lesson already exists in the classroom.";
 
     private final Index index;
     private final EditLessonDescriptor editLessonDescriptor;
@@ -105,7 +105,7 @@ public class EditLessonCommand extends Command {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof EditCommand)) {
+        if (!(other instanceof EditStudentCommand)) {
             return false;
         }
 

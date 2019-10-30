@@ -143,13 +143,13 @@ public interface Model {
 
     /**
      * Deletes the given lesson.
-     * The lesson must exist in the address book.
+     * The lesson must exist in the classroom.
      */
     void deleteLesson(Lesson target);
 
     /**
      * Replaces the given lesson {@code target} with {@code editedLesson}.
-     * {@code target} must exist in the address book.
+     * {@code target} must exist in the classroom.
      * The lesson identity of {@code editedLesson} must not be the same as another existing lesson in the address
      * book.
      */

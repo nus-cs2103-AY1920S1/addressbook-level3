@@ -19,7 +19,8 @@ public class EditStudentDescriptorTest {
     @Test
     public void equals() {
         // same values -> returns true
-        EditCommand.EditStudentDescriptor descriptorWithSameValues = new EditCommand.EditStudentDescriptor(DESC_AMY);
+        EditStudentCommand.EditStudentDescriptor descriptorWithSameValues = new EditStudentCommand
+                .EditStudentDescriptor(DESC_AMY);
         assertTrue(DESC_AMY.equals(descriptorWithSameValues));
 
         // same object -> returns true
@@ -35,7 +36,7 @@ public class EditStudentDescriptorTest {
         assertFalse(DESC_AMY.equals(DESC_BOB));
 
         // different name -> returns false
-        EditCommand.EditStudentDescriptor editedAmy = new EditStudentDescriptorBuilder(DESC_AMY)
+        EditStudentCommand.EditStudentDescriptor editedAmy = new EditStudentDescriptorBuilder(DESC_AMY)
                 .withName(VALID_NAME_BOB).build();
         assertFalse(DESC_AMY.equals(editedAmy));
 
