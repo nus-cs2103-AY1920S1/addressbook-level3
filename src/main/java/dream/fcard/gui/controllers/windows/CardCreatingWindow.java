@@ -130,6 +130,15 @@ public class CardCreatingWindow extends AnchorPane {
             String front = questionField.getText();
             String back = Integer.toString(mcqOptionsSetter.getIndexOfRightAnswer()); //already 1-indexed
             ArrayList<String> choices = mcqOptionsSetter.getChoices();
+
+            int numChoices = choices.size();
+            for (int i = 0; i < numChoices; i++) {
+                String curr = choices.remove(0);
+                if (!curr.equals("")) {
+                    choices.add(curr);
+                }
+            }
+
             MultipleChoiceCard mcqCard = new MultipleChoiceCard(front, back, choices);
             tempDeck.addNewCard(mcqCard);
         } else if (cardType.equals(frontBack)) {
@@ -232,11 +241,26 @@ public class CardCreatingWindow extends AnchorPane {
         this.frontBackTextArea.setText(s);
     }
 
+    /**
+     * Allows public access to the addCardToDeck method.
+     */
     public void publicAddCard() {
         try {
             addCardToDeck();
         } catch (DuplicateInChoicesException | IndexNotFoundException ex) {
             displayMessage.accept("You have duplicated options!");
         }
+    }
+
+    public void publicChangeInputBox(String type) {
+        changeInputBox(type);
+    }
+
+    public McqOptionsSetter getMcqOptionsSetter() {
+        return this.mcqOptionsSetter;
+    }
+
+    public String getCardType() {
+        return cardType;
     }
 }

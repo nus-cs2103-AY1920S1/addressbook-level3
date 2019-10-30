@@ -4,17 +4,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.function.Consumer;
 
-import dream.fcard.core.commons.core.LogsCenter;
 import dream.fcard.gui.controllers.windows.CardCreatingWindow;
 import dream.fcard.gui.controllers.windows.MainWindow;
 import dream.fcard.logic.respond.ConsumerSchema;
 import dream.fcard.model.Deck;
 import dream.fcard.model.State;
-import dream.fcard.model.cards.FrontBackCard;
-import dream.fcard.model.cards.MultipleChoiceCard;
-import dream.fcard.model.exceptions.DeckNotFoundException;
-import dream.fcard.model.exceptions.DuplicateInChoicesException;
-import dream.fcard.model.exceptions.IndexNotFoundException;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
@@ -51,6 +45,7 @@ public class CreateDeckDisplay extends AnchorPane {
     private boolean hasFront;
     private boolean hasBack;
     private boolean hasChoice;
+    private int correctIndex;
 
     private final String frontBack = "Front-back";
     private final String mcq = "MCQ";
@@ -91,6 +86,24 @@ public class CreateDeckDisplay extends AnchorPane {
         }
     }
 
+    public CreateDeckDisplay(String deckNameInput) {
+        try {
+            clearMessage.accept(true);
+            FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/Displays/"
+                    + "CreateDeckDisplay.fxml"));
+            fxmlLoader.setController(this);
+            fxmlLoader.setRoot(this);
+            fxmlLoader.load();
+            editingWindow = new CardCreatingWindow(incrementNumCards);
+            cardCreatingPane.setContent(editingWindow);
+            onSaveDeck.setOnAction(e -> onSaveDeck());
+            cancelButton.setOnAction(e -> exitEditingMode.accept(true));
+        } catch (IOException e) {
+            //TODO: replace or augment with a logger
+            e.printStackTrace();
+        }
+    }
+
     /**
      * Note that the temporary deck is inside CardCreatingWindow. This method pulls that Deck object out and saves it
      * to the State.
@@ -114,6 +127,11 @@ public class CreateDeckDisplay extends AnchorPane {
         }
     }
 
+    /**
+     * Takes in the CLI input and parses it. The next action depends on the type of card found.
+     *
+     * @param input The CLI input.
+     */
     public void processInput(String input) {
         hasFront = hasFront(input);
         hasBack = hasBack(input);
@@ -121,9 +139,9 @@ public class CreateDeckDisplay extends AnchorPane {
 
         boolean success;
         if (!hasChoice) {
-            success = parseInputOneShot(input);
+            success = parseFrontBack(input);
         } else {
-            success = parseInputWithChoice(input);
+            success = parseMcq(input);
         }
 
         if (!success) {
@@ -139,45 +157,58 @@ public class CreateDeckDisplay extends AnchorPane {
                 editingWindow.setAnswerFieldText(back);
                 editingWindow.publicAddCard();
             } else {
-                deck.addNewCard(new MultipleChoiceCard(front, back, choices));
+                editingWindow.setCardType(mcq);
+                editingWindow.publicChangeInputBox(mcq);
+
+                editingWindow.setQuestionFieldText(front);
+
+                McqOptionsSetter mcqSetter = editingWindow.getMcqOptionsSetter();
+                for (int i = 0; i < choices.size(); i++) {
+                    System.out.println(choices.get(i));
+                    if (i == correctIndex - 1) {
+                        mcqSetter.addNewRow(choices.get(i), true);
+                    } else {
+                        mcqSetter.addNewRow(choices.get(i), false);
+                    }
+                }
+
+                editingWindow.publicAddCard();
             }
 
             //LogsCenter.getLogger(CreateCommand.class).info("DECK_CREATE_REG_CARD: Card added to " + deckName);
-
-        } catch (DuplicateInChoicesException e) {
-            displayMessage.accept("Duplicate found in choices.");
-        } catch (IndexNotFoundException e) {
-            displayMessage.accept("Answer not valid.");
         } catch (NumberFormatException n) {
             displayMessage.accept("Answer not valid.");
         }
     }
 
     /**
+     * Used to parse an MCQ-type card.
      *
-     *
-     * @param commandInput
-     * @return
+     * @param input the CLI input.
+     * @return a boolean that represents if the input matches MCQ-type input.
      */
-    private boolean parseInputWithChoice(String commandInput) {
-        String userInput = commandInput.replaceFirst("create deck/", "");
+    private boolean parseMcq(String input) {
+        String userInput = input.replaceFirst("create deck/", "");
 
         String[] userCardFields;
-        if (hasBack && hasFront) {
-            String[] userInputFields = userInput.trim().split(" front/");
+        if (hasFront && hasChoice) {
+            userCardFields = userInput.trim().split("front/");
             //String newDeckName = userInputFields[0];
-            userCardFields = userInputFields[1].trim().split(" back/");
-            front = userCardFields[0];
+            userCardFields = userCardFields[1].trim().split("correctIndex/");
+            correctIndex = Integer.valueOf(userCardFields[1].strip());
 
-            userCardFields = userCardFields[1].trim().split(" choice/");
-            back = userCardFields[0];
+            userCardFields = userCardFields[0].trim().split("choice/");
+            front = userCardFields[0].strip();
+
         } else {
             return false;
         }
 
         choices = new ArrayList<>();
         for (int i = 1; i < userCardFields.length; i++) {
-            choices.add(userCardFields[i]);
+            if (!userCardFields[i].strip().equals("")) {
+                choices.add(userCardFields[i]);
+            }
         }
 
         if (choices.size() <= 1) {
@@ -188,18 +219,18 @@ public class CreateDeckDisplay extends AnchorPane {
         return true;
     }
 
-    private boolean parseInputOneShot(String commandInput) {
-        String userInput = commandInput.replaceFirst("create deck/", "");
+    /**
+     * Used to parse FrontBack-type cards.
+     *
+     * @param input the CLI input.
+     * @return a boolean that represents if the input matches FrontBack-type input.
+     */
+    private boolean parseFrontBack(String input) {
+        String userInput = input.replaceFirst("create deck/", "");
 
         if (hasBack && hasFront) {
-            //String[] userInputFields = userInput.trim().split("front/");
-
-            //deckName = userInputFields[0];
-
-            //String[] userCardFields = userInputFields[1].trim().split("back/");
-
-            front = commandInput.split("front/")[1].split("back/")[0].strip();
-            back = commandInput.split("back/")[1].split("front/")[0].strip();
+            front = input.split("front/")[1].split("back/")[0].strip();
+            back = input.split("back/")[1].split("front/")[0].strip();
             return true;
         } else {
             return false;
@@ -212,7 +243,7 @@ public class CreateDeckDisplay extends AnchorPane {
      * @return
      */
     private boolean hasFront(String input) {
-        return input.contains("front/");
+        return input.contains("front");
     }
 
     /**
@@ -221,7 +252,7 @@ public class CreateDeckDisplay extends AnchorPane {
      * @return
      */
     private boolean hasBack(String input) {
-        return input.contains("back/");
+        return input.contains("back");
     }
 
     /**
@@ -230,7 +261,7 @@ public class CreateDeckDisplay extends AnchorPane {
      * @return
      */
     private boolean hasChoice(String input) {
-        return input.contains("choice/");
+        return input.contains("choice");
     }
 
 }

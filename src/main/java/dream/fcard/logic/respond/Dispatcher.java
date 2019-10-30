@@ -1,11 +1,10 @@
 package dream.fcard.logic.respond;
 
-import dream.fcard.model.State;
-import dream.fcard.model.StateEnum;
-
 import java.util.HashMap;
 import java.util.Scanner;
 import java.util.function.Consumer;
+
+import dream.fcard.model.StateEnum;
 
 /**
  * Dispatches global consumers for CLI.
@@ -54,19 +53,26 @@ public class Dispatcher {
 
 
         case "CREATE":
-            if(input.startsWith("quit")) {
+            if (input.startsWith(ConsumerSchema.QUIT_PROGRAM)) {
                 consumers.get(ConsumerSchema.QUIT_PROGRAM).accept(true);
+            } else if (input.startsWith(ConsumerSchema.EXIT_CREATE)) {
+                consumers.get(ConsumerSchema.EXIT_CREATE).accept(true);
+            } else if (input.startsWith("test")) {
+
             } else if (validInput(input)) {
                 consumers.get(ConsumerSchema.PROCESS_INPUT).accept(input);
             } else {
 
             }
+            break;
+
+        default:
+            break;
         }
-
-
     }
 
     private static Boolean validInput(String input) {
-        return input.contains("front/") && input.contains("back/");
+        return (input.contains("front/") && input.contains("back/"))
+                | (input.contains("front/") && input.contains("choice/"));
     }
 }
