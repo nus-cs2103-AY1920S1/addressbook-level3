@@ -234,9 +234,9 @@ public class MainWindow extends UiPart<Stage> {
             foodListPanel = new FoodListPanel(editing.getMenu());
             listPanelPlaceholder.getChildren().add(foodListPanel.getRoot());
 
-            statisticsDisplay = new StatisticsDisplay();
-            statisticsPlaceholder.getChildren().add(statisticsDisplay.getRoot());
-            statisticsDisplay.setFeedbackToUser("THIS PART IS FOR STATISTICS");
+            //statisticsDisplay = new StatisticsDisplay();
+            //statisticsPlaceholder.getChildren().add(statisticsDisplay.getRoot());
+            //statisticsDisplay.setFeedbackToUser("THIS PART IS FOR STATISTICS\nWORK IN PROGRESS");
             break;
         default:
             orderListPanel = new OrderListPanel(logic.getFilteredOrderList());

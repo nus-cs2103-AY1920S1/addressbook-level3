@@ -10,7 +10,8 @@ import java.util.Optional;
 public class LocationMap {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Location should only be one of the following locations";
+            "Location should only be one of the following locations: "
+            + "Jurong, Tuas, Woodlands, Bishan, City, Marina, Changi";
 
     private static List<Location> locations = new ArrayList<>(List.of(
             new Location("Jurong", 1, 1),
