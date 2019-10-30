@@ -22,6 +22,7 @@ import seedu.address.ui.PageType;
 import seedu.address.ui.UiPart;
 
 import java.io.IOException;
+import java.nio.file.NoSuchFileException;
 import java.nio.file.Paths;
 import java.util.Optional;
 
@@ -52,13 +53,13 @@ public class CalendarPage extends UiPart<Scene> implements Page {
 
         try {
             Optional<ReadOnlyCalendar> calendarOptional = calendarStorage.readCalendar();
-            calendar.updateCalendar(calendarStorage.readCalendar().get());
+            calendar.updateCalendar(calendarOptional);
         } catch (DataConversionException e) {
             System.out.println("Data file not in the correct format. Will be starting with an empty Calendar");
-            // todo: what to do about data? JUST OVERWRITE
+        } catch (NoSuchFileException e) {
+            System.err.println(e);
         } catch (IOException e) {
             System.out.println("Problem while reading from the file. Will be starting with an empty Calendar");
-            // todo: what to do about data? JUST OVERWRITE
         }
         calendarLogic = new CalendarLogic(calendar, calendarStorage);
 

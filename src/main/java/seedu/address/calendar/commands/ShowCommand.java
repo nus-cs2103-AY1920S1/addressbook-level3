@@ -1,7 +1,6 @@
 package seedu.address.calendar.commands;
 
 import seedu.address.calendar.model.Calendar;
-import seedu.address.calendar.model.date.ViewOnlyMonth;
 import seedu.address.calendar.model.date.MonthOfYear;
 import seedu.address.calendar.model.date.Year;
 import seedu.address.calendar.parser.CliSyntax;
@@ -40,8 +39,7 @@ public class ShowCommand extends Command<Calendar> {
     }
 
     public CommandResult execute(Calendar calendar) {
-        ViewOnlyMonth requestedViewOnlyMonth = new ViewOnlyMonth(monthOfYear, year);
-        calendar.updateMonthShown(requestedViewOnlyMonth);
+        calendar.updateMonthView(monthOfYear, year);
         String formattedFeedback = String.format(MESSAGE_SHOWING_REQUESTED, monthOfYear.toString(), year.toString());
         return new CommandResult(formattedFeedback);
     }

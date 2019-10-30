@@ -34,6 +34,19 @@ public class DateUtil {
         return LocalDate.of(year, month, dayOfMonth);
     }
 
+    public static Date getFirstDateInMonth(MonthOfYear monthOfYear, Year year) {
+        Day firstDay = getDay(FIRST_DAY_OF_MONTH, monthOfYear, year);
+
+        return new Date(firstDay, monthOfYear, year);
+    }
+
+    public static Date getLastDateInMonth(MonthOfYear monthOfYear, Year year) {
+        int lastDayOfMonth = monthOfYear.getNumDaysInMonth(year);
+        Day lastDay = getDay(lastDayOfMonth, monthOfYear, year);
+
+        return new Date(lastDay, monthOfYear, year);
+    }
+
     public static Date getFirstDateInSameMonth(Date startDate) {
         MonthOfYear monthOfYear = startDate.getMonth();
         Year year = startDate.getYear();
