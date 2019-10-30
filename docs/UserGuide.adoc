@@ -125,22 +125,6 @@ Examples:
 * `*folder* CS2103 p/NUS` +
 Creates a new folder named `CS2103` under the parent folder `NUS`.
 
-=== Deleting a folder: *`folder delete`*
-//TODO: What happens to the bookmarks under the folder?
-Deletes the specified folder and its subfolders.
-
-Format: `*folder delete* FOLDER_NAME`
-
-****
-* `FOLDER_NAME` must be an existing folder.
-* If `FOLDER_NAME` contains other folders, those folders will be deleted as well.
-****
-
-Examples:
-
-* `*folder delete* CS2103` +
-Deletes the folder named `CS2103` and all of its subfolders.
-
 === Listing all bookmarks: *`list`*
 
 Shows a list of all bookmarks in the bookmark manager.
@@ -168,8 +152,8 @@ any tags after it.
 
 Examples:
 
-* `*edit* 1 n/CS2103T Website f/AY1920-S1` +
-Edits the name and folder of the 1st bookmark to be CS2103T Website and AY1920-S1 respectively.
+* `*edit* 1 n/CS2103T Website f/AY1920S1` +
+Edits the name and folder of the 1st bookmark to be CS2103T Website and AY1920S1 respectively.
 
 * `*edit* 2 t/` +
 Clears all existing tags from the 2nd bookmark.
@@ -485,30 +469,31 @@ will no longer be automatically tagged with `Quiz`.
 
 Saves the bookmarked website locally for offline viewing.
 
-Format: `*cache* INDEX [s/SAVE_NOW] [u/AUTO_UPDATE] [d/VERSION]`
+Format: `*cache* INDEX`
 
 ****
-* `INDEX` is the bookmark that you want to save a local copy of
-* `SHOULD_AUTOUPDATE` (default false) if true, it will check daily for any
-updates. Any old versions will be archived and users will be able to see
-the different versions and delete them / name them
-* If `AUTO_UPDATE` is missing, will not auto update.
-* `VERSION` is the version number to be deleted.
+* `INDEX` is the bookmark that you want to save an offline copy of. If there is a previous version, it will be overwritten.
 ****
 
 Examples:
 
-* `*cache* 1 s/true u/true` +
-Saves the bookmark at index 1 locally, and updates it daily.
-
 * `*cache* 1` +
-Show the list of cached copies.
+Saves an offline copy of the first bookmark.
 
-* `*cache* 1 d/2` +
-Deletes the cached version at the second index.
+=== Deleting an offline copy: *`cache-delete`*
 
-* `*cache* 1 u/true` +
-Manually save a new copy of the site.
+Deletes an offline copy of a bookmark.
+
+Format: `*cache-delete* INDEX`
+
+****
+* `INDEX` is the bookmark that you want to delete the offline copy of. It must have an offline copy to delete.
+****
+
+Examples:
+
+* `*cache-delete* 2` +
+Deletes the offline copy of the second bookmark.
 
 === Making annotations on an offline copy: *`annotate`*
 
@@ -801,6 +786,22 @@ Goes to the Online tab which is a web view.
 * `*tab* 3` +
 Goes to the Offline tab which shows the offline copy of bookmarks.
 
+=== Deleting a folder: *`folder-delete`* `[coming in v2.0]`
+//TODO: What happens to the bookmarks under the folder?
+Deletes the specified folder and its subfolders.
+
+Format: `*folder-delete* FOLDER_NAME`
+
+****
+* `FOLDER_NAME` must be an existing folder.
+* If `FOLDER_NAME` contains other folders, those folders will be deleted as well.
+****
+
+Examples:
+
+* `*folder delete* CS2103` +
+Deletes the folder named `CS2103` and all of its subfolders.
+
 === Sorting bookmarks: `[coming in v2.0]`
 
 Sorts the displayed bookmarks according to different criterion (name,
@@ -919,7 +920,8 @@ displayed in the document).
 * *Autotag*: `*autotag* TAG_NAME [n/NAME_KEYWORD]... [u/URL_KEYWORD]... [f/FOLDER]...
 [nn/NOT_NAME_KEYWORD]... [nu/NOT_URL_KEYWORD]... [nf/NOT_FOLDER]...`
 * *Autotag (delete)*: `*autotag-delete* TAG_NAME`
-* *Cache*: `*cache* INDEX [s/SAVE_NOW] [u/AUTO_UPDATE] [d/VERSION]`
+* *Cache (add)*: `*cache* INDEX`
+* *Cache (delete)*: `*cache-delete* INDEX`
 * *Annotate (add)*: `*annotate* INDEX p/P_NUM [n/NOTES] [h/HIGHLIGHT_COLOUR=yellow]`
 * *Annotate (delete)*: `*annotate delete* INDEX [p/P_NUM] [n/KEEP_NOTES=false] [h/KEEP_HIGHLIGHT=false]`
 * *Annotate (edit)*: `*annotate edit* INDEX p/P_NUM [to/NEW_P_NUM] [n/NOTES] [h/HIGHLIGHT_COLOUR]`
