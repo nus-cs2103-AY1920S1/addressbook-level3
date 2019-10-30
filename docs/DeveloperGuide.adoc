@@ -381,7 +381,7 @@ The following activity diagram summarizes what happens when a user executes an i
 
 image::InviteActivityDiagram.png[]
 
-NOTES: The activity diagram for the disinvite command is omitted as it is similar to the invite operation.
+NOTE: The activity diagram for the disinvite command is omitted as it is similar to the invite operation.
 
 ==== Design Considerations
 
