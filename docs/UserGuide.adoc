@@ -63,7 +63,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
 * *`list`* : lists all information in TimeBook.
-* *`addperson`* `n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the TimeBook.
+* *`addperson`* `n/John Doe p/98765432 em/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the TimeBook.
 * *`deleteperson`* `n/John Doe` : deletes the person named `John Doe` from the TimeBook.
 * *`addgroup`* `g/CS2103` : adds a new group called `CS2103` to the TimeBook.
 * *`addtogroup`* `n/John Doe` `g/CS2103` : Adds a person `John Doe` into the group `CS2103`.
