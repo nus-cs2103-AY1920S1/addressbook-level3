@@ -14,7 +14,6 @@ import java.util.stream.Stream;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Amount;
-import seedu.address.model.person.Budget;
 import seedu.address.model.person.Category;
 import seedu.address.model.person.Date;
 import seedu.address.model.person.Description;
@@ -28,7 +27,6 @@ import seedu.address.model.tag.Tag;
  * Parses input arguments and creates a new AddCommand object
  */
 public class AddCommandParser implements Parser<AddCommand> {
-
     /**
      * Parses the given {@code String} of arguments in the context of the AddCommand
      * and returns an AddCommand object for execution.
@@ -62,9 +60,6 @@ public class AddCommandParser implements Parser<AddCommand> {
             break;
         case "wish":
             entry = new Wish(new Category(categoryName, "Expense"), desc, date, amt, tagList);
-            break;
-        case "budget":
-            entry = new Budget(new Category(categoryName, "Expense"), desc, date, amt, tagList);
             break;
         default:
             throw new ParseException("Invalid command");

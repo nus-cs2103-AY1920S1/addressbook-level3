@@ -17,8 +17,9 @@ import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.person.AutoExpense;
 import seedu.address.model.person.Budget;
 import seedu.address.model.person.Entry;
-import seedu.address.model.person.ExpenseReminder;
 import seedu.address.model.person.Wish;
+import seedu.address.model.reminders.Reminder;
+import seedu.address.model.reminders.conditions.Condition;
 import seedu.address.model.statistics.CategoryStatistics;
 import seedu.address.model.statistics.Statistics;
 import seedu.address.storage.Storage;
@@ -103,13 +104,17 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ObservableList<Budget> getFilteredBudgetList() {
-        return model.getFilteredBudgets();
+    public ObservableList<Reminder> getFilteredReminders() {
+        return model.getFilteredReminders();
     }
 
     @Override
-    public ObservableList<ExpenseReminder> getFilteredExpenseReminderList() {
-        return model.getFilteredExpenseReminders();
+    public ObservableList<Condition> getFilteredConditions() {
+        return model.getFilteredConditions();
+    }
+
+    public ObservableList<Budget> getFilteredBudgetList() {
+        return model.getFilteredBudgets();
     }
 
     @Override

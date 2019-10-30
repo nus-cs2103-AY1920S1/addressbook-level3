@@ -11,8 +11,9 @@ import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.person.AutoExpense;
 import seedu.address.model.person.Budget;
 import seedu.address.model.person.Entry;
-import seedu.address.model.person.ExpenseReminder;
 import seedu.address.model.person.Wish;
+import seedu.address.model.reminders.Reminder;
+import seedu.address.model.reminders.conditions.Condition;
 import seedu.address.model.statistics.CategoryStatistics;
 
 /**
@@ -46,9 +47,11 @@ public interface Logic {
 
     ObservableList<Wish> getFilteredWishList();
 
-    ObservableList<Budget> getFilteredBudgetList();
+    ObservableList<Reminder> getFilteredReminders();
 
-    ObservableList<ExpenseReminder> getFilteredExpenseReminderList();
+    ObservableList<Condition> getFilteredConditions();
+
+    ObservableList<Budget> getFilteredBudgetList();
 
     /**
          * Returns an unmodifiable view of the list of commands entered by the user.
