@@ -72,18 +72,16 @@ public class ProfileWindow extends UiPart<Stage> {
     }
 
     /**
-     *
-     * @param name
-     * @return
+     * @param name Name attribute of the Person in called in setup
+     * @return a String representing the Person's Name attribute
      */
     private String stringifyName(Name name) {
         return name.fullName;
     }
 
     /**
-     *
-     * @param tagSet
-     * @return
+     * @param tagSet Set of Tag objects attributed to the Person instance called in setup
+     * @return a String representing all Tags in the Person's Tag attribute
      */
     private String stringifyTags(Set<Tag> tagSet) {
         StringBuilder sb = new StringBuilder();
@@ -99,27 +97,24 @@ public class ProfileWindow extends UiPart<Stage> {
     }
 
     /**
-     *
-     * @param phone
-     * @return
+     * @param phone Phone attribute of the Person in called in setup
+     * @return a String representing the Person's Phone attribute
      */
     private String stringifyPhone(Phone phone) {
         return phone.value;
     }
 
     /**
-     *
-     * @param email
-     * @return
+     * @param email Email attribute of the Person in called in setup
+     * @return a String representing the Person's Email attribute
      */
     private String stringifyEmail(Email email) {
         return email.value;
     }
 
     /**
-     *
-     * @param address
-     * @return
+     * @param address Phone attribute of the Person in called in setup
+     * @return a String representing the Person's Phone attribute
      */
     private String stringifyAddress(Address address) {
         return address.value;
