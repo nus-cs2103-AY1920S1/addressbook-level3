@@ -6,6 +6,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Optional;
@@ -112,8 +113,12 @@ public class ParserUtil {
     public static Date parseDate(String date) throws ParseException {
         requireNonNull(date);
         String trimmedDate = date.trim();
-        if (!Date.isValidDate(trimmedDate)) {
-            throw new ParseException(Date.MESSAGE_CONSTRAINTS);
+        try {
+            if (!Date.isValidDate(trimmedDate)) {
+                throw new ParseException(Date.MESSAGE_CONSTRAINTS);
+            }
+        } catch (DateTimeParseException e) {
+            throw new ParseException("Input date contains " + e.getCause().getMessage());
         }
         return new Date(trimmedDate);
     }
