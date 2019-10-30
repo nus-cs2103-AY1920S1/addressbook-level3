@@ -17,7 +17,6 @@ import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
 import seedu.savenus.commons.core.GuiSettings;
-import seedu.savenus.logic.commands.exceptions.CommandException;
 import seedu.savenus.model.food.NameContainsKeywordsPredicate;
 import seedu.savenus.model.menu.Menu;
 import seedu.savenus.model.purchase.PurchaseHistory;
@@ -28,6 +27,8 @@ import seedu.savenus.model.userprefs.UserPrefs;
 import seedu.savenus.model.wallet.DaysToExpire;
 import seedu.savenus.model.wallet.RemainingBudget;
 import seedu.savenus.model.wallet.Wallet;
+import seedu.savenus.model.wallet.exceptions.BudgetAmountOutOfBoundsException;
+import seedu.savenus.model.wallet.exceptions.BudgetDurationOutOfBoundsException;
 import seedu.savenus.testutil.MenuBuilder;
 
 public class ModelManagerTest {
@@ -132,9 +133,9 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void set_remainingBudget_throwsCommandException() {
-        assertThrows(CommandException.class, () -> modelManager
-                .setRemainingBudget(new RemainingBudget("1000000000")));
+    public void set_remainingBudget_throwBudgetAmountOutOfBoundsException() {
+        assertThrows(BudgetAmountOutOfBoundsException.class, () -> modelManager
+                .getWallet().setRemainingBudget(new RemainingBudget("1000000000")));
     }
 
     @Test
@@ -151,10 +152,9 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void set_daysToExpire_throwsCommandException() {
-        Wallet wallet = new Wallet();
-        assertThrows(CommandException.class, () -> modelManager
-                .setDaysToExpire(new DaysToExpire("1000")));
+    public void set_daysToExpire_throwBudgetDurationOutOfBoundsException() {
+        assertThrows(BudgetDurationOutOfBoundsException.class, () -> modelManager
+                .getWallet().setDaysToExpire(new DaysToExpire("1000")));
     }
 
     @Test

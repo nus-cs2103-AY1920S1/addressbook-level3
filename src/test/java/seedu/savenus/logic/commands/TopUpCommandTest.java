@@ -39,14 +39,15 @@ public class TopUpCommandTest {
         ModelManager expectedModel = new ModelManager(model.getMenu(), new UserPrefs(), new UserRecommendations(),
                 new PurchaseHistory(), new Wallet(), new CustomSorter(), new SavingsAccount());
         try {
-            expectedModel.setRemainingBudget(new RemainingBudget(expectedModel.getRemainingBudget()
-                    .getRemainingBudgetAmount().add(testTopUpAmount).toString()));
+            expectedModel.getWallet().setRemainingBudget(
+                    new RemainingBudget(expectedModel.getWallet().getRemainingBudget().getRemainingBudgetAmount()
+                            .add(testTopUpAmount).toString()));
         } catch (Exception e) {
             return;
         }
 
         String expectedMessage = String.format(TopUpCommand.MESSAGE_TOPUP_BUDGET_SUCCESS,
-                expectedModel.getRemainingBudget().toString());
+                expectedModel.getWallet().getRemainingBudget().toString());
 
         assertCommandSuccess(topUpCommand, model, expectedMessage, expectedModel);
     }

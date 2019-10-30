@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import seedu.savenus.logic.commands.exceptions.CommandException;
 import seedu.savenus.model.Model;
 import seedu.savenus.model.savings.Savings;
+import seedu.savenus.model.wallet.exceptions.InsufficientFundsException;
 
 //@@author fatclarence
 /**
@@ -33,7 +34,11 @@ public class SaveCommand extends Command {
         requireNonNull(model);
 
         // deduct from wallet in model
-        model.deductFromWallet(this.savingsAmount);
+        try {
+            model.deductFromWallet(this.savingsAmount);
+        } catch (InsufficientFundsException e) {
+            throw new CommandException(e.getMessage() + " to add to savings account!");
+        }
 
         // add to the savings account in the model.
         model.addToSavings(this.savingsAmount);

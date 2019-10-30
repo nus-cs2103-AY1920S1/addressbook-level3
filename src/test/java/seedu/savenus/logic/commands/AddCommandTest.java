@@ -23,6 +23,7 @@ import seedu.savenus.model.Model;
 import seedu.savenus.model.food.Category;
 import seedu.savenus.model.food.Food;
 import seedu.savenus.model.food.Location;
+import seedu.savenus.model.food.Price;
 import seedu.savenus.model.food.Tag;
 import seedu.savenus.model.menu.Menu;
 import seedu.savenus.model.menu.ReadOnlyMenu;
@@ -34,9 +35,8 @@ import seedu.savenus.model.savings.ReadOnlySavingsAccount;
 import seedu.savenus.model.savings.Savings;
 import seedu.savenus.model.sort.CustomSorter;
 import seedu.savenus.model.userprefs.ReadOnlyUserPrefs;
-import seedu.savenus.model.wallet.DaysToExpire;
-import seedu.savenus.model.wallet.RemainingBudget;
 import seedu.savenus.model.wallet.Wallet;
+import seedu.savenus.model.wallet.exceptions.InsufficientFundsException;
 import seedu.savenus.testutil.FoodBuilder;
 
 public class AddCommandTest {
@@ -145,6 +145,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public void setWallet(Wallet newWallet) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void addFood(Food food) {
             throw new AssertionError("This method should not be called.");
         }
@@ -220,24 +225,15 @@ public class AddCommandTest {
         }
 
         @Override
-        public RemainingBudget getRemainingBudget() {
+        public void deductFromWallet(Price price) throws InsufficientFundsException {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setRemainingBudget(RemainingBudget newRemainingBudget) {
+        public void deductFromWallet(Savings savings) throws InsufficientFundsException {
             throw new AssertionError("This method should not be called.");
         }
 
-        @Override
-        public int getDaysToExpire() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setDaysToExpire(DaysToExpire newDaysToExpire) {
-            throw new AssertionError("This method should not be called.");
-        }
 
         @Override
         public ObservableList<Food> getFilteredFoodList() {
@@ -312,11 +308,6 @@ public class AddCommandTest {
         @Override
         public void addToSavings(Savings savings) {
             throw new AssertionError("This method should not be called");
-        }
-
-        @Override
-        public void deductFromWallet(Savings savings) throws CommandException {
-            throw new AssertionError("This method should not be called.");
         }
 
         @Override

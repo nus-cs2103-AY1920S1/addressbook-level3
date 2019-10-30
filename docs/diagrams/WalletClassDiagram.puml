@@ -1,0 +1,15 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor UI_COLOR_T4
+skinparam classBackgroundColor UI_COLOR
+
+package Model <<Rectangle>> {
+    Class Wallet
+    Class RemainingBudget
+    Class DaysToExpire
+}
+Wallet *--> RemainingBudget
+Wallet *--> DaysToExpire
+
+@enduml

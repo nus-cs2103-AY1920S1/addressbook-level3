@@ -621,19 +621,19 @@ Unfortunately you are unable to change the app’s language
 | Command | Description | Example Usage
 | <<Add a food item: `add`, `add`>>
 | Add food item.
-| `add n/Chicken Rice d/Rice with Chicken p/2.50 c/Chinese l/NUS o/0800 2000 r/NIL`
+| ```add n/Chicken Rice d/Rice with Chicken p/2.50 c/Chinese l/NUS o/0800 2000 r/NIL```
 | <<Auto sorts list based on custom comparator: `autosort`, `autosort`>>
 | Allows the user to sort every time the food list is changed. This is based on a created custom comparator.
-| `autosort ON`
+| ```autosort ON```
 | <<Sets budget for a number of days: `budget`, `budget`>>
 | Allows the user to set a budget amount for food expenses for a certain number of days.
-| `budget 100.00 10`
+| ```budget 100.00 10```
 | <<Buy a food item: `buy`, `buy`>>
 | Allows users the log a food expense into the application.
-| `buy 1`
+| ```buy 1```
 | <<Clears wallet purchase history and food items: `clear`, `clear`>>
 | Clears wallet, purchase history and food items.
-| `clear`
+| ```clear```
 | <<Collapse the food card: `collapse`, `collapse`>>
 | Makes the Food Card more or less compact, depending on the user's preference.
 | `collapse`
@@ -645,56 +645,56 @@ Unfortunately you are unable to change the app’s language
 | `default`
 | <<Deletes a food item: `delete`, `delete`>>
 | Deletes a food items based on the given index.
-| `delete 2`
+| ```delete 2```
 | <<Adding likes and dislikes to the recommendation system: `like` or `dislike`, `dislike`>>
 | Specifies the user's disliked categories, tags and locations.
-| `dislike c/International t/Spicy l/The Deck l/The Terrace`
+| ```dislike c/International t/Spicy l/The Deck l/The Terrace```
 | <<Edit a food item: `edit`, `edit`>>
 | Edits a food item at a index based on a specific field or fields.
 | `edit 2 n/Fried Rice`
-| <<ExitExiting the application: `exit`, `exit`>>
+| <<Exiting the application: `exit`, `exit`>>
 | Exits the app.
-| `exit`
+| ```exit```
 | <<Filters food items based on criteria: `filter`, `filter`>>
 | Filters the food items based on the criteria specified.
 | `filter PRICE LESS_THAN 4.00 CATEGORY EQUALS_TO Halal`
 | <<Finds food items based on keywords: `find`, `find`>>
 | Finds food items based on specified fields.
-| `find n/Chicken d/Rice`
+| ```find n/Chicken d/Rice```
 | <<Viewing Help: `help`, `help`>>
 | Display possible uses of the application.
-| `help`
+| ```help```
 | <<Viewing History: `history`, `history`>>
 | Displays the list of commands that has been typed by the user.
-| `history`
+| ```history```
 | <<Viewing information about a Command: `info`, `info`>>
 | Displays the information of the command specified.
-| `info edit`
+| ```info edit```
 | <<Adding likes and dislikes to the recommendation system: `like` or `dislike`, `like`>>
 | Specifies the user's liked categories, tags and locations.
 | `like c/Chinese c/Western t/Healthy l/Univeristy Town`
 | <<List all food items: `list`, `list`>>
 | List all saved food items.
-| `list`
+| ```list```
 | <<Make your own custom comparator: `makesort`, `makesort`>>
 | Makes the custom comparator based on some specified fields and directions.
-| `makesort PRICE ASCENDING`
+| ```makesort PRICE ASCENDING```
 | <<Getting a list of recommended food items: `recommend`, `recommend`>>
 | Recommend a food item, based on the user's budget.
-| `recommend`
+| ```recommend```
 | <<Removing likes and dislikes from the recommendation system: `removelike` or `removedislike`, `removedislike`>>
 | Remove dislikes from the user's specified dislikes or clears the dislikes list.
-| `removedislike c/Chinese t/Cheap t/Healthy l/The Deck`
+| ```removedislike c/Chinese t/Cheap t/Healthy l/The Deck```
 | <<Removing likes and dislikes from the recommendation system: `removelike` or `removedislike`, `removelike`>>
 | Remove likes from the user's specified likes or clears the likes list.
-| `removelike c/Japanese t/Spicy t/Healthy l/The Tea Party`
+| ```removelike c/Japanese t/Spicy t/Healthy l/The Tea Party```
 | <<Sorts food items based on fields: `sort`, `sort`>>
 | Sort all the food items by some specified fields and directions.
-| `sort PRICE ASCENDING`
+| ```sort PRICE ASCENDING```
 | <<Saves money into savings account: `save`, `save`>>
 | Saves a specified amount of money from the user's wallet into his savings account.
-| `save 10`
+| ```save 10```
 | <<Top up money into wallet: `topup`, `topup`>>
 | Allows users to top up the money into their wallet.
-| `topup 10`
+| ```topup 10```
 |===

@@ -1,0 +1,113 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":SaveNusParser" as SaveNusParser LOGIC_COLOR
+participant ":BuyCommandParser" as BuyCommandParser LOGIC_COLOR
+participant ":BuyCommand" as BuyCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant ":Wallet" as Wallet MODEL_COLOR
+participant ":PurchaseHistory" as PurchaseHistory MODEL_COLOR
+end box
+
+box Storage STORAGE_COLOR_T1
+participant ":Storage" as Storage STORAGE_COLOR
+participant ":JsonPurchaseHistoryStorage" as JsonPurchaseHistoryStorage STORAGE_COLOR
+end box
+
+[-> LogicManager : execute("buy 1")
+activate LogicManager
+
+LogicManager -> SaveNusParser : parseCommand("buy 1")
+activate SaveNusParser
+
+create BuyCommandParser
+SaveNusParser -> BuyCommandParser
+activate BuyCommandParser
+
+BuyCommandParser --> SaveNusParser
+deactivate BuyCommandParser
+
+SaveNusParser -> BuyCommandParser : parse("1")
+activate BuyCommandParser
+
+create BuyCommand
+BuyCommandParser -> BuyCommand
+activate BuyCommand
+
+BuyCommand --> BuyCommandParser : : d
+deactivate BuyCommand
+
+BuyCommandParser --> SaveNusParser : : d
+deactivate BuyCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+BuyCommandParser -[hidden]-> SaveNusParser
+destroy BuyCommandParser
+
+SaveNusParser --> LogicManager : d
+deactivate SaveNusParser
+
+LogicManager -> BuyCommand : execute()
+activate BuyCommand
+
+BuyCommand -> Model : buyFood(Food foodToBuy)
+activate Model
+
+Model -> Model : deductFromWallet(Price foodPrice)
+activate Model
+
+Model -> Wallet : deductFromWallet(Price foodPrice)
+activate Wallet
+
+Wallet --> Model
+deactivate Wallet
+
+Model --> Model
+deactivate Model
+
+Model -> Model : addPurchase(Purchase purchase)
+activate Model
+
+Model -> PurchaseHistory : addPurchase(Purchase purchase)
+activate PurchaseHistory
+
+PurchaseHistory --> Model
+deactivate PurchaseHistory
+
+Model --> Model
+deactivate Model
+
+Model --> BuyCommand
+deactivate Model
+
+create CommandResult
+BuyCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> BuyCommand
+deactivate CommandResult
+
+BuyCommand --> LogicManager : result
+deactivate BuyCommand
+
+LogicManager -> Storage : savePurchaseHistory(PurchaseHistory purchaseHistory)
+activate Storage
+
+Storage -> JsonPurchaseHistoryStorage : savePurchaseHistory(PurchaseHistory purchaseHistory)
+activate JsonPurchaseHistoryStorage
+
+JsonPurchaseHistoryStorage --> Storage
+deactivate JsonPurchaseHistoryStorage
+
+Storage --> LogicManager
+deactivate Storage
+
+[<--LogicManager
+deactivate LogicManager
+
+@enduml

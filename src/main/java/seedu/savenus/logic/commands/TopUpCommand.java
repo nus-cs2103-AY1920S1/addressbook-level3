@@ -7,6 +7,7 @@ import java.math.BigDecimal;
 import seedu.savenus.logic.commands.exceptions.CommandException;
 import seedu.savenus.model.Model;
 import seedu.savenus.model.wallet.RemainingBudget;
+import seedu.savenus.model.wallet.exceptions.BudgetAmountOutOfBoundsException;
 
 /**
  * Command to top up a {@code Wallet} for the user.
@@ -32,12 +33,15 @@ public class TopUpCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        RemainingBudget newRemainingBudget = new RemainingBudget(model.getRemainingBudget()
+        RemainingBudget newRemainingBudget = new RemainingBudget(model.getWallet().getRemainingBudget()
                 .getRemainingBudgetAmount().add(topUpAmount).toString());
-        model.setRemainingBudget(newRemainingBudget);
-
+        try {
+            model.getWallet().setRemainingBudget(newRemainingBudget);
+        } catch (BudgetAmountOutOfBoundsException e) {
+            throw new CommandException(e.getMessage());
+        }
         return new CommandResult(String.format(MESSAGE_TOPUP_BUDGET_SUCCESS,
-                model.getRemainingBudget().toString()));
+                newRemainingBudget.toString()));
     }
 
     @Override
