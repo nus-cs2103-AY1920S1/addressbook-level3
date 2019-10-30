@@ -4,6 +4,8 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TIMESTAMP;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.budget.PastPeriodCommand;
@@ -14,6 +16,12 @@ import seedu.address.model.expense.Timestamp;
  * Parses input arguments and creates a new PastPeriodCommand object
  */
 public class PastPeriodCommandParser {
+
+    public static final List<Prefix> REQUIRED_PREFIXES = Collections.unmodifiableList(List.of(
+            PREFIX_TIMESTAMP
+    ));
+    public static final List<Prefix> OPTIONAL_PREFIXES = Collections.unmodifiableList(List.of());
+
     /**
      * Parses the given {@code String} of arguments in the context of the PastPeriodCommand
      * and returns a PastPeriodCommand object for execution.

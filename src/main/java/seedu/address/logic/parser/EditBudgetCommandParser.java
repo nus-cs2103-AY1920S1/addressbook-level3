@@ -7,6 +7,9 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PERIOD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_START_DATE;
 
+import java.util.Collections;
+import java.util.List;
+
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.budget.EditBudgetCommand;
 import seedu.address.logic.commands.budget.EditBudgetCommand.EditBudgetDescriptor;
@@ -16,6 +19,12 @@ import seedu.address.logic.parser.exceptions.ParseException;
  * Parses input arguments and creates a new EditBudgetCommand object
  */
 public class EditBudgetCommandParser {
+
+    public static final List<Prefix> REQUIRED_PREFIXES = Collections.unmodifiableList(List.of());
+    public static final List<Prefix> OPTIONAL_PREFIXES = Collections.unmodifiableList(List.of(
+            PREFIX_DESCRIPTION, PREFIX_PRICE, PREFIX_START_DATE, PREFIX_PERIOD
+    ));
+
     /**
      * Parses the given {@code String} of arguments in the context of the EditBudgetCommand
      * and returns an EditBudgetCommand object for execution.

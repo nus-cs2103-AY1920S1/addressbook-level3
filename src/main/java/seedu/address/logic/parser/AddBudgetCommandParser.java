@@ -24,7 +24,7 @@ import seedu.address.model.expense.Timestamp;
 public class AddBudgetCommandParser implements Parser<AddBudgetCommand> {
 
     public static final List<Prefix> REQUIRED_PREFIXES = Collections.unmodifiableList(List.of(
-            PREFIX_DESCRIPTION, PREFIX_START_DATE, PREFIX_PERIOD, PREFIX_PRICE
+            PREFIX_DESCRIPTION, PREFIX_PRICE, PREFIX_START_DATE, PREFIX_PERIOD
     ));
 
     public static final List<Prefix> OPTIONAL_PREFIXES = Collections.unmodifiableList(List.of());

@@ -37,8 +37,12 @@ import seedu.address.logic.commands.alias.AddAliasCommand;
 import seedu.address.logic.commands.alias.DeleteAliasCommand;
 import seedu.address.logic.commands.alias.ListAliasCommand;
 import seedu.address.logic.commands.budget.AddBudgetCommand;
+import seedu.address.logic.commands.budget.DeleteBudgetCommand;
 import seedu.address.logic.commands.budget.DeleteExpenseFromBudgetCommand;
+import seedu.address.logic.commands.budget.EditBudgetCommand;
 import seedu.address.logic.commands.budget.EditExpenseFromBudgetCommand;
+import seedu.address.logic.commands.budget.ListBudgetCommand;
+import seedu.address.logic.commands.budget.PastPeriodCommand;
 import seedu.address.logic.commands.budget.SwitchBudgetCommand;
 import seedu.address.logic.commands.event.AddEventCommand;
 import seedu.address.logic.commands.event.DeleteEventCommand;
@@ -61,9 +65,11 @@ import seedu.address.logic.parser.AddBudgetCommandParser;
 import seedu.address.logic.parser.AddEventCommandParser;
 import seedu.address.logic.parser.AddExpenseCommandParser;
 import seedu.address.logic.parser.DeleteExpenseFromBudgetCommandParser;
+import seedu.address.logic.parser.EditBudgetCommandParser;
 import seedu.address.logic.parser.EditCommandParser;
 import seedu.address.logic.parser.EditEventCommandParser;
 import seedu.address.logic.parser.EditExpenseFromBudgetCommandParser;
+import seedu.address.logic.parser.PastPeriodCommandParser;
 import seedu.address.logic.parser.StatsCommandParser;
 import seedu.address.logic.parser.StatsCompareCommandParser;
 import seedu.address.logic.parser.SwitchBudgetCommandParser;
@@ -311,6 +317,26 @@ public class MainWindow extends UiPart<Stage> {
                 SwitchBudgetCommand.COMMAND_WORD,
                 SwitchBudgetCommandParser.REQUIRED_PREFIXES,
                 SwitchBudgetCommandParser.OPTIONAL_PREFIXES);
+
+        commandBox.enableSuggestionAndSyntaxHighlightingFor(
+                ListBudgetCommand.COMMAND_WORD,
+                Collections.emptyList(),
+                Collections.emptyList());
+
+        commandBox.enableSuggestionAndSyntaxHighlightingFor(
+                DeleteBudgetCommand.COMMAND_WORD,
+                Collections.emptyList(),
+                Collections.emptyList());
+
+        commandBox.enableSuggestionAndSyntaxHighlightingFor(
+                EditBudgetCommand.COMMAND_WORD,
+                EditBudgetCommandParser.REQUIRED_PREFIXES,
+                EditBudgetCommandParser.OPTIONAL_PREFIXES);
+
+        commandBox.enableSuggestionAndSyntaxHighlightingFor(
+                PastPeriodCommand.COMMAND_WORD,
+                PastPeriodCommandParser.REQUIRED_PREFIXES,
+                PastPeriodCommandParser.OPTIONAL_PREFIXES);
 
         // alias commands
         commandBox.enableSuggestionAndSyntaxHighlightingFor(
