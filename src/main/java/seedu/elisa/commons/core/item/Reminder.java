@@ -49,7 +49,9 @@ public class Reminder {
         return defaultDateTime;
     }
 
-    public LocalDateTime getOccurrenceDateTime() { return occurrenceDateTime; }
+    public LocalDateTime getOccurrenceDateTime() {
+        return occurrenceDateTime;
+    }
 
     /**
      * Changes the dateTime that the reminder occurs. Removes the previous reminder so it does not occur.

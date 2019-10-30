@@ -20,7 +20,6 @@ import seedu.elisa.model.item.VisualizeList;
 public class SnoozeCommand extends UndoableCommand {
 
     public static final String COMMAND_WORD = "snooze";
-    public static final String SHOW_REMINDER_VIEW = "R";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Snoozes the reminder "
             + "by the index number used in the reminder list "
@@ -32,6 +31,8 @@ public class SnoozeCommand extends UndoableCommand {
 
     public static final String MESSAGE_SNOOZED_REMINDER_SUCCESS = "Snoozed Reminder: %1$s,"
             + " because someone is real lazy...";
+
+    private static final String SHOW_REMINDER_VIEW = "R";
 
     private final boolean hasIndex;
     private final Index index;

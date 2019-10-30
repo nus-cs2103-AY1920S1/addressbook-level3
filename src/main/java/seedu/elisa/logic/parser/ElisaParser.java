@@ -24,7 +24,6 @@ import seedu.elisa.logic.commands.SnoozeCommand;
 import seedu.elisa.logic.commands.SortCommand;
 import seedu.elisa.logic.commands.UndoCommand;
 import seedu.elisa.logic.commands.UpCommand;
-import seedu.elisa.logic.commands.SnoozeCommand;
 
 
 import seedu.elisa.logic.parser.exceptions.ParseException;
