@@ -1,9 +1,9 @@
 package organice.logic.parser;
 
+import static java.util.Objects.requireNonNull;
+
 import static organice.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static organice.logic.parser.CliSyntax.PREFIX_NRIC;
-
-import static java.util.Objects.requireNonNull;
 
 import organice.logic.commands.ProcessingCommand;
 import organice.logic.parser.exceptions.ParseException;

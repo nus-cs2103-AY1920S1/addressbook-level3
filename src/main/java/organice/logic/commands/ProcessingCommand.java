@@ -26,6 +26,8 @@ public class ProcessingCommand extends Command {
 
     public static final String MESSAGE_NOT_PROCESSED = "Donor or patient NRIC must be valid";
 
+    protected TaskList taskList;
+
     private String firstNricString;
     private String secondNricString;
 
@@ -35,10 +37,8 @@ public class ProcessingCommand extends Command {
     private Donor donor;
     private Patient patient;
 
-    private Nric patientNRIC;
-    private  Nric donorNRIC;
-
-    protected TaskList taskList;
+    private Nric patientNric;
+    private Nric donorNric;
 
     public ProcessingCommand(String firstNricString, String secondNricString) {
         requireNonNull(firstNricString, secondNricString);
@@ -55,20 +55,20 @@ public class ProcessingCommand extends Command {
      */
     public boolean isValidDonorPatientPair(Nric firstNric, Nric secondNric, Model model) {
         if (model.hasDonor(firstNric)) {
-            donorNRIC = firstNric;
-            donor = model.getDonor(donorNRIC);
+            donorNric = firstNric;
+            donor = model.getDonor(donorNric);
 
-            patientNRIC = secondNric;
-            patient = model.getPatient(patientNRIC);
+            patientNric = secondNric;
+            patient = model.getPatient(patientNric);
         } else {
-            patientNRIC = firstNric;
-            patient = model.getPatient(patientNRIC);
+            patientNric = firstNric;
+            patient = model.getPatient(patientNric);
 
-            donorNRIC = secondNric;
-            donor = model.getDonor(donorNRIC);
+            donorNric = secondNric;
+            donor = model.getDonor(donorNric);
         }
-        if (model.hasPatient(patientNRIC) && model.hasDonor(donorNRIC)
-                && match(donor, patient))  {
+        if (model.hasPatient(patientNric) && model.hasDonor(donorNric)
+                && match(donor, patient)) {
             return true;
         } else {
             return false;
@@ -82,7 +82,7 @@ public class ProcessingCommand extends Command {
         try {
             if (isValidDonorPatientPair(firstNric, secondNric, model)) {
                 model.getFilteredPersonList();
-                taskList = donor.getProcessingList(patientNRIC);
+                taskList = donor.getProcessingList(patientNric);
 
                 donor.setStatus("processing");
                 patient.setStatus("processing");

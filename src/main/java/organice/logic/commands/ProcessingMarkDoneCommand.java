@@ -71,7 +71,7 @@ public class ProcessingMarkDoneCommand extends Command {
             donor = model.getDonor(donorNric);
         }
         if (model.hasPatient(patientNric) && model.hasDonor(donorNric)
-                && match(donor,patient))  {
+                && match(donor, patient)) {
             return true;
         } else {
             return false;
@@ -85,8 +85,8 @@ public class ProcessingMarkDoneCommand extends Command {
         try {
             if (isValidDonorPatientPair(firstNric, secondNric, model)
                 && taskNumber < donor.getProcessingList(patientNric).size()) {
-                    model.getFilteredPersonList();
-                    donor.markTaskAsDone(taskNumber);
+                model.getFilteredPersonList();
+                donor.markTaskAsDone(taskNumber);
             }
             return new CommandResult(donor.getProcessingList(patientNric).display());
         } catch (PersonNotFoundException pne) {

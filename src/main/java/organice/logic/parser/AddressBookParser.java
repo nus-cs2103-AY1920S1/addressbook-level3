@@ -15,9 +15,8 @@ import organice.logic.commands.ExitCommand;
 import organice.logic.commands.FindCommand;
 import organice.logic.commands.HelpCommand;
 import organice.logic.commands.ListCommand;
-import organice.logic.commands.ProcessingCommand;
 import organice.logic.commands.MatchCommand;
-
+import organice.logic.commands.ProcessingCommand;
 import organice.logic.commands.ProcessingMarkDoneCommand;
 import organice.logic.commands.SortCommand;
 
