@@ -74,27 +74,55 @@ class GraphGenerator {
         this.model = model;
         graphs = new HashMap<>();
 
-        graphs.put("add-c", generateAddCustomerGraph());
-        graphs.put("add-p",  generateAddPhoneGraph());
-        graphs.put("add-o", generateAddOrderGraph());
-        graphs.put("add-s", generateAddScheduleGraph());
-        graphs.put("delete-c", null);
-        graphs.put("delete-p", null);
-        graphs.put("delete-s", null);
-        graphs.put("edit-c", null);
-        graphs.put("edit-p", null);
-        graphs.put("edit-o", null);
-        graphs.put("edit-s", null);
-        graphs.put("generate-s", generateStatisticsGraph());
+        buildGraphs();
+    }
+
+    private void buildGraphs() {
+        // Customer commands
         graphs.put("switch-c", Graph.emptyGraph());
+        graphs.put("add-c", generateAddCustomerGraph());
+        graphs.put("delete-c", Graph.emptyGraph());
+        graphs.put("find-c", Graph.emptyGraph());
+        graphs.put("list-c", Graph.emptyGraph());
+        graphs.put("clear-c", Graph.emptyGraph());
+        graphs.put("edit-c", Graph.emptyGraph());
+        graphs.put("copy-c", Graph.emptyGraph());
+
+        // Phone commands
         graphs.put("switch-p", Graph.emptyGraph());
+        graphs.put("add-p",  generateAddPhoneGraph());
+        graphs.put("delete-p", Graph.emptyGraph());
+        graphs.put("find-p", Graph.emptyGraph());
+        graphs.put("list-p", Graph.emptyGraph());
+        graphs.put("clear-p", Graph.emptyGraph());
+        graphs.put("edit-p", Graph.emptyGraph());
+        graphs.put("copy-p", Graph.emptyGraph());
+
+        // Order commands
         graphs.put("switch-o", Graph.emptyGraph());
+        graphs.put("add-o", generateAddOrderGraph());
+        graphs.put("find-o", Graph.emptyGraph());
+        graphs.put("complete", Graph.emptyGraph());
+        graphs.put("cancel", Graph.emptyGraph());
+        graphs.put("list-o", Graph.emptyGraph());
+        graphs.put("edit-o", Graph.emptyGraph());
+        graphs.put("copy-o", Graph.emptyGraph());
+
+        // Schedule commands
         graphs.put("switch-s", Graph.emptyGraph());
-        graphs.put("list", Graph.emptyGraph());
-        graphs.put("cancel", null);
+        graphs.put("schedule", Graph.emptyGraph());
+        graphs.put("add-s", generateAddScheduleGraph());
+        graphs.put("delete-s", Graph.emptyGraph());
+        graphs.put("edit-s", Graph.emptyGraph());
+
+        // General commands
+        graphs.put("undo", Graph.emptyGraph());
+        graphs.put("redo", Graph.emptyGraph());
+        graphs.put("history", Graph.emptyGraph());
+        graphs.put("generate-s", generateStatisticsGraph());
         graphs.put("exit", Graph.emptyGraph());
         graphs.put("help", Graph.emptyGraph());
-
+        graphs.put("export", Graph.emptyGraph());
     }
 
     private Optional<Graph> getGraph(String commandWord) {
