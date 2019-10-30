@@ -1,4 +1,4 @@
-= Flashback - User Guide
+= FlashMind - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:

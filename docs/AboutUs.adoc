@@ -24,7 +24,7 @@ image::jolynnn8d.png[width="150", align="left"]
 {empty}[https://github.com/jolynnn8D[github]]
 
 Role: Developer +
-Responsibilities: List command, edit command, flip command
+Responsibilities: List command, edit command, flip command, Quiz command, Quiztag command
 
 '''
 
@@ -33,7 +33,8 @@ image::oscar-b-liang.png[width="150", align="left"]
 {empty}[https://github.com/Oscar-B-Liang[github]]
 
 Role: Developer +
-Responsibilities: Time Command, find command, Integration
+Responsibilities: Edit Command, find command, Integration, general structure,
+updating docs.
 
 '''
 
@@ -42,6 +43,6 @@ image::lzw12345.png[width="150", align="left"]
 {empty}[https://github.com/lzw12345[github]]
 
 Role: Developer +
-Responsibilities: Tag Command, quiz command, progress command
+Responsibilities: Quiz command, stats command, user interface for progress graphs.
 
 '''

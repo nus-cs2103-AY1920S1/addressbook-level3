@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Set;
 
 import seedu.flashcard.logic.commands.exceptions.CommandException;
+import seedu.flashcard.logic.parser.FlashcardListParser;
 import seedu.flashcard.model.Model;
 import seedu.flashcard.model.flashcard.Flashcard;
 import seedu.flashcard.model.tag.Tag;
@@ -50,6 +51,7 @@ public class QuizTagCommand extends Command {
             taggedList.add(filteredList.get(i));
         }
         if (taggedList.isEmpty()) {
+            FlashcardListParser.setQuizMode(false);
             throw new CommandException(TAG_INVALID);
         }
         model.setQuiz(taggedList);

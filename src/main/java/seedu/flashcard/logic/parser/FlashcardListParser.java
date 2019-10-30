@@ -90,12 +90,14 @@ public class FlashcardListParser {
             return new DeleteTagCommandParser().parse(arguments);
 
         case QuizCommand.COMMAND_WORD:
+            Command nextQuizCommand = (new QuizCommandParser()).parse(arguments);
             quizMode = true;
-            return new QuizCommandParser().parse(arguments);
+            return nextQuizCommand;
 
         case QuizTagCommand.COMMAND_WORD:
+            Command nextQuizTagCommand = (new QuizTagCommandParser()).parse(arguments);
             quizMode = true;
-            return new QuizTagCommandParser().parse(arguments);
+            return nextQuizTagCommand;
 
         case FlipCommand.COMMAND_WORD:
             throw new ParseException(FlipCommand.MESSAGE_NULL_QUIZ_FLASHCARD);
