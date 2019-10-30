@@ -19,7 +19,7 @@ import seedu.address.model.quiz.person.Question;
 public class ModelQuizManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelQuizManager.class);
 
-    private final AddressQuizBook addressBook;
+    private final VersionedQuizBook versionedQuizBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Question> filteredQuestions;
     private int showQuestionNumber;
@@ -35,9 +35,9 @@ public class ModelQuizManager implements Model {
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
         this.showAnswer = true;
-        this.addressBook = new AddressQuizBook(addressBook);
+        versionedQuizBook = new VersionedQuizBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredQuestions = new FilteredList<>(this.addressBook.getQuestionList());
+        filteredQuestions = new FilteredList<>(versionedQuizBook.getQuestionList());
     }
 
     public ModelQuizManager() {
@@ -83,28 +83,28 @@ public class ModelQuizManager implements Model {
 
     @Override
     public void setAddressBook(ReadOnlyAddressBook addressBook) {
-        this.addressBook.resetData(addressBook);
+        this.versionedQuizBook.resetData(addressBook);
     }
 
     @Override
     public ReadOnlyAddressBook getAddressBook() {
-        return addressBook;
+        return versionedQuizBook;
     }
 
     @Override
     public boolean hasQuestion(Question question) {
         requireNonNull(question);
-        return addressBook.hasQuestion(question);
+        return versionedQuizBook.hasQuestion(question);
     }
 
     @Override
     public void deleteQuestion(Question target) {
-        addressBook.removeQuestion(target);
+        versionedQuizBook.removeQuestion(target);
     }
 
     @Override
     public void addQuestion(Question question) {
-        addressBook.addQuestion(question);
+        versionedQuizBook.addQuestion(question);
         updateFilteredQuestionList(PREDICATE_SHOW_ALL_QUESTIONS);
     }
 
@@ -112,12 +112,12 @@ public class ModelQuizManager implements Model {
     public void setQuestion(Question target, Question editedQuestion) {
         requireAllNonNull(target, editedQuestion);
 
-        addressBook.setQuestion(target, editedQuestion);
+        versionedQuizBook.setQuestion(target, editedQuestion);
     }
 
     @Override
     public void setShowQuestion(Question question) {
-        addressBook.setShowQuestion(question);
+        versionedQuizBook.setShowQuestion(question);
     }
 
     @Override
@@ -137,16 +137,43 @@ public class ModelQuizManager implements Model {
         return showAnswer;
     }
 
+    //=========== Undo/Redo =================================================================================
+
+    @Override
+    public boolean canUndoQuizBook() {
+        return versionedQuizBook.canUndo();
+    }
+
+    @Override
+    public boolean canRedoQuizBook() {
+        return versionedQuizBook.canRedo();
+    }
+
+    @Override
+    public void undoQuizBook() {
+        versionedQuizBook.undo();
+    }
+
+    @Override
+    public void redoQuizBook() {
+        versionedQuizBook.redo();
+    }
+
+    @Override
+    public void commitQuizBook() {
+        versionedQuizBook.commit();
+    }
+
     //=========== Filtered Question List Accessors =============================================================
 
     @Override
     public ObservableList<Question> getFilteredShowQuestionList() {
-        return addressBook.getShowQuestionList();
+        return versionedQuizBook.getShowQuestionList();
     }
 
     /**
      * Returns an unmodifiable view of the list of {@code Question} backed by the internal list of
-     * {@code versionedAddressBook}
+     * {@code versionedQuizBook}
      */
     @Override
     public ObservableList<Question> getFilteredQuestionList() {
@@ -173,7 +200,7 @@ public class ModelQuizManager implements Model {
 
         // state check
         ModelQuizManager other = (ModelQuizManager) obj;
-        return addressBook.equals(other.addressBook)
+        return versionedQuizBook.equals(other.versionedQuizBook)
                 && userPrefs.equals(other.userPrefs)
                 && filteredQuestions.equals(other.filteredQuestions);
     }

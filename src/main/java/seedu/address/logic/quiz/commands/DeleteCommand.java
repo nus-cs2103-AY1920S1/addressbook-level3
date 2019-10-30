@@ -43,6 +43,7 @@ public class DeleteCommand extends Command {
 
         Question questionToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deleteQuestion(questionToDelete);
+        model.commitQuizBook();
         return new CommandResult(String.format(MESSAGE_DELETE_QUESTION_SUCCESS, questionToDelete));
     }
 

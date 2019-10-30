@@ -1,5 +1,9 @@
 package seedu.address.ui.quiz;
 
+import static javafx.scene.paint.Color.GREENYELLOW;
+import static javafx.scene.paint.Color.ORANGE;
+import static javafx.scene.paint.Color.RED;
+
 import java.util.Comparator;
 
 import javafx.fxml.FXML;
@@ -7,9 +11,9 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import seedu.address.model.quiz.person.Question;
-
 
 /**
  * An UI component that displays information of a {@code Question}.
@@ -31,7 +35,7 @@ public class QuestionDetailCard extends UiPart<Region> {
     @FXML
     private HBox cardPane;
     @FXML
-    private Label name;
+    private Text name;
     @FXML
     private Label id;
     @FXML
@@ -43,6 +47,8 @@ public class QuestionDetailCard extends UiPart<Region> {
     @FXML
     private Text comment;
     @FXML
+    private Circle circleType;
+    @FXML
     private FlowPane tags;
 
     public QuestionDetailCard(Question question, int displayedIndex) {
@@ -50,8 +56,7 @@ public class QuestionDetailCard extends UiPart<Region> {
         this.question = question;
         id.setText("Filtered Question  #" + displayedIndex + "  ");
         name.setText(question.getName().fullName);
-
-        System.out.println("BABY SHARL" + question.getComment());
+        name.wrappingWidthProperty().set(800);
 
         if (question.getComment() == null) {
             comment.setText("No explanation yet");
@@ -61,7 +66,18 @@ public class QuestionDetailCard extends UiPart<Region> {
 
         comment.wrappingWidthProperty().set(500);
         answer.setText(question.getAnswer().value);
-        type.setText(question.getType().value);
+
+        String typeContent = question.getType().value;
+        type.setText(typeContent);
+
+        if (typeContent.equals("high")) {
+            circleType.setFill(RED);
+        } else if (typeContent.equals("normal")) {
+            circleType.setFill(ORANGE);
+        } else {
+            circleType.setFill(GREENYELLOW);
+        }
+
         category.setText(question.getCategory().value);
         question.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))

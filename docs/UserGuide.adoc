@@ -197,7 +197,7 @@ Prevent unauthorised access to your grades.
 
 To enter the Quiz section please enter the command: `switch quiz`
 
-==== Add the details of the quiz questions:
+==== Add the details of the quiz question:
 Users can add new quiz questions with the details in it. The details of the question should
 be added with the following requirements.
 
@@ -209,19 +209,19 @@ The keyword instructions of the question include: +
 - `<tag>` Indicate that the next several phrases will be the customized tag of the question.
 
 *The details instructions after the keyword of the question:* +
-- *`<qns>` are required. The word limit is 200.*
-- *`<ans>` are required. The word limit is 1500.* +
-- *`<cat>` are optional. The word limit is 10.* +
+- *`<qns>` are required. The word limit is 200. Minimum 3 letters.*
+- *`<ans>` are required. The word limit is 125.* +
+- *`<cat>` are required. The word limit is 50.* +
 - *`<type>` are optional. The format after this command should only be: `high`, `normal`, `low`.* +
-- *`<tag>` are optional. To add numerous tags, please include <tag> keyword to differentiate one tag from another.* +
+- *`<tag>` are optional. To add numerous tags, please prepend <tag> keyword to differentiate one tag from another.* +
 
 Format: `add *<qns>* _your_question_ *<ans>* _your_answer_ *<cat>* _your_category_ *<type>* _your_priority_
 *<tag>* _your_tag_`
 
-*Example 1:* +
-*add <qns>* _What is always coming, but never arrives?_ *<ans>* _Tomorrow_ *<type>* _high_ *<tag>* _lecture_ *<tag>* _tutorial_
+*Example 1*: +
+*add <qns>* _What is always coming, but never arrives?_ *<ans>* _Tomorrow_ *<cat>* _CS2131_ *<type>* _high_ *<tag>* _lecture_ *<tag>* _tutorial_
 
-*Example 2:* +
+*Example 2*: +
 *add <qns>* _What can one catch that is not thrown?_ *<type>* _normal_ *<ans>* _A cold_ *<cat>* CS2131
 
 *Remark (please avoid this):* +
@@ -234,21 +234,24 @@ _What is <qns>always comi<qns>ng, but never arrives?_ +
  _Tom<ans>orrow_ +
 {empty} +
 
-==== Delete module from record:
+==== Delete question from record:
 Delete a specific quiz question from the group questions.
 
 Format: `delete *[NUMBER]*` +
 Usage: *[NUMBER]* is the index/row from that category that you want to delete. +
 
 Example 1: +
-*delete* 1
+*delete* 1 +
 {empty} +
 
-==== Edit details of a module : `edit`
+==== Edit details of a question : `edit`
 Specify which question you want to edit and modify it from the question list.
 
+Format: `*edit [CATEGORY], [NUMBER] <qns>* _your_new_question_ *<ans>* _your_new_answer_ *<cat>* _your_new_category_
+*<type>* _your_new_priority_ *<tag>* _your_tag_` +
+
 Usage: +
-- *[CATEGORY]* is the category of the question that you want to edit, case-insensitive. For the question that is uncategorized category, put `uncategorized`. +
+- *[CATEGORY]* is the category of the question that you want to edit, case-insensitive. +
 - *[NUMBER]* is the index/row from that category that you want to edit. +
 
 The details/instructions of the new questions include: +
@@ -260,42 +263,108 @@ The details/instructions of the new questions include: +
 
 *Note that at least one of the following must be modified and replaced:* +
 - *`<qns>` word limit is 200.*
-- *`<ans>` word limit is 1500.* +
-- *`<cat>` word limit is 10.* +
+- *`<ans>` word limit is 125.* +
+- *`<cat>` word limit is 50.* +
 - *`<type>` format after this command should only be: `high`, `normal`, `low`.* +
-- *`<tag>` are optional. To add numerous tags, please include <tag> keyword to differentiate one tag from another.* +
-
-Format: `*edit *[CATEGORY] [NUMBER] [qns]* _your_new_question_ *[ans]* _your_new_answer_ *[cat]* _your_new_category_
-*[type]* _your_new_priority_ *<tag>* _your_tag_` +
+- *`<tag>` are optional. To add numerous tags, please prepend <tag> keyword to differentiate one tag from another.* +
 
 Example 1: +
-*edit CS2103 1 [qns]* _How many mammals are there in the universe?_ *[type]* low +
+*edit CS2103 1 <qns>* _How many mammals are there in the universe?_ *<type>* low +
 
-Remark: +
-*edit CS2103 1 [qns]* _What is [qns]always comi[qns]ng, but never arrives?_ *[ans]* _Tom[ans]orrow_ +
+Remark (Please avoid this): +
+*edit CS2103 1 <qns>* _What is <qns>always comi<qns>ng, but never arrives?_ *<ans>* _Tom<ans>orrow_ +
 
-Modulo will detect the new question as: _What is [qns]always comi[qns]ng, but never arrives?_ and the answer as: _Tom[ans]orrow_ +
+- Modulo will detect the new question as: _What is <qns>always comi<qns>ng, but never arrives?_ and the answer as: _Tom<ans>orrow_ +
+{empty} +
+
+==== List all the questions
+To list all the questions.
+
+Format: `list` +
 {empty} +
 
 ==== Find the quiz questions with keyword:
 Find the quiz questions from the list of questions.
 
-Format: `find [KEYWORDS]` +
-Format: `cancel`
+Format: `find [INSTRUCTION] <key>[KEYWORDS]` +
 
-==== Sort based on priority:
-Sorting based on priority will help users to identify which questions are deemed to be important
-to them for each category. Default: sort by time.
+The [KEYWORDS] is the list of keywords that I want to search.
 
-Format: `sort priority *[PRIORITY_TYPE]*` +
-Usage: *[PRIORITY_TYPE]* accepts keyword `high`, `normal`, `low` only +
-Example: *sort* priority high +
+The expected details/instructions for [INSTRUCTION] keyword are:  +
+- `question` Indicate that I want to include the name of the question in my search. +
+- `answer` Indicate that I want to include the answer to the question in my search. +
+- `category` Indicate that I want to include the category of the question in my search. +
+- `type` Indicate that I want to include the priority/importance level of the question in my search. +
+- `tag` Indicate that I want to include the customized tag of the question in my search.
+
+*Note:*
+
+- To search for everything, leave the [INSTRUCTION] field blank.
+
+- To include multiple instructions to be searchable or to search for multiple keywords, you can split it with a comma `,`
+
+- To enable friendlier syntax [KEYWORDS] when searching your desired questions, add `-i` after your find command.
+
+Example 1 (search for _CS2131_ and _lecture_ keyword from the whole question): +
+find <key> CS2131, lecture
+
+Example 2 (search from the category and answer portion of each question that matches keyword _Tomorrow_): +
+find category, answer <key> Tomorrow
+
+Example 3 (search from the answer portion of each question that matches keyword that is similar to _Tomrrow_): +
+find -i answer <key> Tomrrow +
+{empty} +
+
+==== Details of a selected question:
+Show the details of a selected question.
+
+Format: `detail [INDEX]` +
+Usage: *[INDEX]* is the index/row from the question that you want to see. +
+Example: detail 1 +
+{empty} +
+
+==== Add Comment of a question:
+Users can add a comment/explanation of a particular questions.
+
+Format: `comment [INDEX] <val> _your_comment_ +
+Usage: *[INDEX]* is the index/row from the question that you want to comment. +
+Example: comment 1 <val> The explanation is in pg 194 textbook. +
+{empty} +
+
+==== Hide answer of a question:
+Users can hide all question answers when they want to revise or for other purposes. It also
+provide the user the hint of the answer. By default the answer is shown.
+
+Format: `showAnswer [yes/no]
+Example: showAnswer no +
 {empty} +
 
 ==== Undo:
 Undo some of the previous action.
 
 Format: `undo` +
+{empty} +
+
+==== Redo:
+Redo some of the previous action.
+
+Format: `redo` +
+{empty} +
+
+==== Help:
+Format : `help` +
+{empty} +
+
+==== Clear all data:
+To remove all of the current data in quiz book.
+
+Format: `clear` +
+{empty} +
+
+==== Exit application:
+To exit application (Modulo).
+
+Format: `exit` +
 {empty} +
 
 === Finances
