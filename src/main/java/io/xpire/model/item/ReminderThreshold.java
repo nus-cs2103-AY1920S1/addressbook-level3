@@ -13,6 +13,7 @@ import io.xpire.commons.util.StringUtil;
 public class ReminderThreshold {
 
     public static final String MESSAGE_CONSTRAINTS = "Reminder threshold should be a non-negative integer.";
+    public static final String MESSAGE_QUANTITY_EXCEEDED = "Reminder threshold exceeds maximum input of 36500.";
     public static final String DEFAULT_THRESHOLD = "0";
 
     public static final int MAX_VALUE = 36500;
@@ -46,6 +47,13 @@ public class ReminderThreshold {
     public static boolean isValidReminderThreshold(String test) {
         return StringUtil.isNonNegativeInteger(test)
                 && (!StringUtil.isExceedingMaxValue(test, MAX_VALUE));
+    }
+
+    /**
+     * Returns true if a given input string is numeric but exceeds given range.
+     */
+    public static boolean isNumericButExceedQuantity(String test) {
+        return StringUtil.isNumeric(test) && test.length() > 5;
     }
 
     public int getValue() {

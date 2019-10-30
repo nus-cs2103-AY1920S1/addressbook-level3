@@ -10,7 +10,7 @@ import io.xpire.logic.parser.exceptions.ParseException;
  * Represents the quantity of an xpireItem.
  * Users are only allowed to key in positive integers.
  * Internally, there can be quantity of value 0.
- * Guarantees: immutable and valid in {@link #isValidInputQuantity(String test)}.
+ * Guarantees: immutable and valid.
  */
 public class Quantity {
 
@@ -32,7 +32,7 @@ public class Quantity {
     public Quantity(String quantity) {
         String trimmedQuantity = quantity.trim();
         requireNonNull(trimmedQuantity);
-        AppUtil.checkArgument(isValidInputQuantity(trimmedQuantity), MESSAGE_CONSTRAINTS);
+        AppUtil.checkArgument(isPositiveIntegerQuantity(trimmedQuantity), MESSAGE_CONSTRAINTS);
         AppUtil.checkArgument(isAcceptedRange(trimmedQuantity), MESSAGE_QUANTITY_LIMIT);
         this.quantity = Integer.parseInt(trimmedQuantity);
     }
@@ -63,7 +63,7 @@ public class Quantity {
      * Returns true if a given input string is a valid quantity.
      */
     public static boolean isValidQuantity(String test) {
-        return StringUtil.isNonNegativeInteger(test);
+        return StringUtil.isNonNegativeInteger(test) && Integer.parseInt(test) <= MAX_VALUE;
     }
 
     /**
@@ -77,9 +77,20 @@ public class Quantity {
     /**
      * Returns true if a given input string is a valid integer.
      */
-    public static boolean isValidInputQuantity(String test) {
+    public static boolean isPositiveIntegerQuantity(String test) {
         return StringUtil.isNonZeroUnsignedInteger(test);
     }
+
+    /**
+     * Returns true if a given input string is numeric but exceeds given range.
+     */
+    public static boolean isNumericButExceedQuantity(String test) {
+        return StringUtil.isNumeric(test) && test.length() > 6;
+    }
+
+    /**
+     * Returns true if a given input string is a valid input.
+     */
 
     /**
      * Returns true if quantity is zero.
