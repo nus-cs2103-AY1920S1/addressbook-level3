@@ -20,12 +20,15 @@ public class CommandResult {
     private final boolean exit;
 
     private final UiFocus[] uiFocus;
+    private final ResultInformation resultInformation;
 
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, UiFocus ...uiFocus) {
+    public CommandResult(String feedbackToUser, ResultInformation resultInformation,
+                         boolean showHelp, boolean exit, UiFocus ...uiFocus) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
+        this.resultInformation = resultInformation;
         this.showHelp = showHelp;
         this.exit = exit;
         this.uiFocus = uiFocus;
@@ -36,7 +39,7 @@ public class CommandResult {
      * but with uiFocus in its default value of null.
      */
     public CommandResult(String feedbackToUser, boolean showHelp, boolean exit) {
-        this(feedbackToUser, showHelp, exit, (UiFocus)null);
+        this(feedbackToUser, null, showHelp, exit, (UiFocus)null);
     }
 
     /**
@@ -44,7 +47,7 @@ public class CommandResult {
      * and other fields set to their default values.
      */
     public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, false, false, (UiFocus)null);
+        this(feedbackToUser, null, false, false, (UiFocus)null);
     }
 
     /**
@@ -52,7 +55,16 @@ public class CommandResult {
      * and {@code uiFocus, while other fields are set to their default values.
      */
     public CommandResult(String feedbackToUser, UiFocus ...uiFocus) {
-        this(feedbackToUser, false, false, requireUiFocusNonNullAndReturn(uiFocus));
+        this(feedbackToUser, null, false, false, requireUiFocusNonNullAndReturn(uiFocus));
+    }
+
+    /**
+     * Constructs a {@code CommandResult} with the specified {@code feedbackToUser}
+     * and {@code uiFocus, while other fields are set to their default values.
+     */
+    public CommandResult(String feedbackToUser, ResultInformation resultInformation, UiFocus ...uiFocus) {
+        this(feedbackToUser, requireNonNull(resultInformation), false,
+                false, requireUiFocusNonNullAndReturn(uiFocus));
     }
 
     private static UiFocus[] requireUiFocusNonNullAndReturn(UiFocus ...uiFocus) {
