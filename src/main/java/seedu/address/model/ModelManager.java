@@ -222,6 +222,18 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedVehicle);
         incidentManager.setVehicle(target, editedVehicle);
     }
+
+    @Override
+    public void addVehicle(Vehicle toAdd) {
+        requireNonNull(toAdd);
+        incidentManager.addVehicle(toAdd);
+    }
+
+    @Override
+    public void deleteVehicle(Vehicle toDelete) {
+        requireNonNull(toDelete);
+        incidentManager.deleteVehicle(toDelete);
+    }
     //=========== Filtered Vehicle List Accessors =============================================================
 
     /**
