@@ -220,6 +220,9 @@ public class MainWindow extends UiPart<Stage> {
         case "reminder":
             togglePlaceHolder(remindersPlaceHolder);
             break;
+        case "autoexpense":
+            togglePlaceHolder(autoExpensesPlaceHolder);
+            break;
         default:
             break;
         }
@@ -243,7 +246,8 @@ public class MainWindow extends UiPart<Stage> {
      * Otherwise, both of those properties are set to true.
      */
     private void toggleEntireSidePanelIfNecessary() {
-        if (!wishesPlaceHolder.isManaged() && !budgetsPlaceHolder.isManaged() && !remindersPlaceHolder.isManaged()) {
+        if (!wishesPlaceHolder.isManaged() && !budgetsPlaceHolder.isManaged() && !remindersPlaceHolder.isManaged()
+                && !autoExpensesPlaceHolder.isManaged()) {
             sidePanelsPlaceHolder.setManaged(false);
             sidePanelsPlaceHolder.setVisible(false);
         } else { // any one of the side panels are managed and visible
