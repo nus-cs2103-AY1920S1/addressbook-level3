@@ -43,7 +43,8 @@ public class EditAnnotationCommand extends AnnotationCommand {
             + PREFIX_NOTE + "edited note content "
             + PREFIX_HIGHLIGHT + "orange";
     public static final String MESSAGE_TARGET_NO_PHANTOM = "You cannot move an annotation to a phantom paragraph.";
-    public static final String MESSAGE_PHANTOM_CANNOT_HIGHLIGHT = "You cannot change the highlight of a phantom paragraph.";
+    public static final String MESSAGE_PHANTOM_CANNOT_HIGHLIGHT = "You cannot change the highlight "
+            + "of a phantom paragraph.";
     public static final String MESSAGE_NOTHING_TO_EDIT = "Paragraph %1$s has no annotations to edit.";
     public static final String MESSAGE_SUCCESS = "Annotation at paragraph %1$s successfully modified:\n%2$s";
     public static final String MESSAGE_MOVED_TO = "This has been moved to paragraph %s";

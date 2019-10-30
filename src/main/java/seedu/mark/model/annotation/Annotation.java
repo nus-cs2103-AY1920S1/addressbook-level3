@@ -25,7 +25,7 @@ public class Annotation {
 
     /**
      * Constructs an {@code Annotation} that has highlight {@code colour} and note {@code note}.
-     * 
+     *
      * @param colour Colour of highlight to be added. Must be non-null.
      * @param note An annotation note. Must be non-null.
      */
@@ -82,7 +82,8 @@ public class Annotation {
         }
         return this.getHighlight().equals(((Annotation) other).getHighlight())
                 && (this.getNote() == ((Annotation) other).getNote()
-                || this.getNote().equals(((Annotation) other).getNote()));
+                || (this.getNote() != null && ((Annotation) other).getNote() != null
+                && this.getNote().equals(((Annotation) other).getNote())));
     }
 
     @Override

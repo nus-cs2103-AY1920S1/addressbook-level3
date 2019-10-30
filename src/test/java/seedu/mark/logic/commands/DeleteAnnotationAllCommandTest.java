@@ -25,8 +25,8 @@ import seedu.mark.model.annotation.PhantomParagraph;
 import seedu.mark.model.annotation.TrueParagraph;
 import seedu.mark.model.bookmark.Bookmark;
 import seedu.mark.model.bookmark.CachedCopy;
+import seedu.mark.model.bookmark.util.BookmarkBuilder;
 import seedu.mark.storage.StorageStub;
-import seedu.mark.testutil.BookmarkBuilder;
 
 class DeleteAnnotationAllCommandTest {
 
