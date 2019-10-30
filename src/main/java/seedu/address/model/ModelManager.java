@@ -72,6 +72,7 @@ public class ModelManager implements Model {
         filteredEntries = new FilteredList<>(sortedEntryList);
         filteredReminders = new FilteredList<>(versionedAddressBook.getReminderList());
         filteredConditions = new FilteredList<>(versionedAddressBook.getConditionList());
+        createExpensesfromAutoExpenses();
     }
 
     public ModelManager() {
@@ -327,7 +328,7 @@ public class ModelManager implements Model {
         if (target instanceof Expense) {
             //TODO
             Expense toEditEntry = new Expense(editedEntry.getCategory(), editedEntry.getDesc(), editedEntry.getDate(),
-                     editedEntry.getAmount(), editedEntry.getTags());
+                    editedEntry.getAmount(), editedEntry.getTags());
             Expense expenseToEdit = versionedAddressBook.getExpenseList().filtered(t -> t == target).get(0);
             versionedAddressBook.setEntry(expenseToEdit, toEditEntry);
             versionedAddressBook.setExpense(expenseToEdit, toEditEntry);
@@ -530,6 +531,12 @@ public class ModelManager implements Model {
     @Override
     public void commitAddressBook() {
         versionedAddressBook.commit();
+    }
+
+    private void createExpensesfromAutoExpenses() {
+        for (AutoExpense autoExpense : filteredAutoExpenses) {
+            filteredExpenses.addAll(autoExpense.generateNewExpenses());
+        }
     }
 
     @Override
