@@ -39,7 +39,7 @@ public class EditCommand extends Command {
     public static final String COMMAND_WORD = "edit";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the bookmark identified "
-            + "by the index number used in the displayed bookmark list. "
+            + "by the index number used in the displayed bookmark list.\n"
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_NAME + "NAME] "
@@ -48,7 +48,8 @@ public class EditCommand extends Command {
             + "[" + PREFIX_FOLDER + "FOLDER] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_URL + "https://luminus.nus.edu.sg";
+            + PREFIX_URL + "https://luminus.nus.edu.sg "
+            + PREFIX_TAG + "NUS";
 
     public static final String MESSAGE_EDIT_BOOKMARK_SUCCESS = "Edited Bookmark: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";

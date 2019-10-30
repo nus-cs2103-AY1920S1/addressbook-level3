@@ -44,9 +44,10 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 Some example commands you can try:
 
 * *`list`* : lists all bookmarks
+* *`folder Tutorials`* : create a folder named `Tutorials`
 * *`add u/https://git-scm.com/book/en/v2 n/Pro Git f/Tutorials`* : adds a bookmark
 named `Pro Git` to Mark.
-* *`delete 3`* : deletes the 3rd bookmark shown in the current list
+* *`delete 3`* : deletes the 3rd bookmark shown in the current bookmark list
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
@@ -101,10 +102,10 @@ specified.
 * `*add* u/https://nus-cs2103-ay1920s1.github.io/website/ n/Module Website
 f/CS2103T r/Contains textbook & important deadlines` +
 Bookmarks the given website, names it `Module Website`, and adds it to the folder `CS2103T`.
-The new bookmark's remark is "Contains textbook & important deadlines".
+The new bookmark's remark is `Contains textbook & important deadlines`.
 * `*add* u/www.youtube.com/watch?v=9AMcN-wkspU n/IntelliJ Tips and Tricks t/video t/watch-later`
 Bookmarks the given website, names it `IntelliJ Tips and Tricks`. The new bookmark's tags include
-"video" and "watch-later".
+`video` and `watch-later`.
 
 [[folder]]
 === Adding a new folder: *`folder`*
@@ -767,10 +768,10 @@ Format: `*folder-delete* FOLDER_NAME`
 
 Examples:
 
-* `*folder delete* CS2103` +
+* `*folder-delete* CS2103` +
 Deletes the folder named `CS2103` and all of its subfolders.
 
-=== Sorting bookmarks: `[coming in v2.0]`
+=== Sorting bookmarks: *`sort`* `[coming in v2.0]`
 
 Sorts the displayed bookmarks according to different criterion (name,
 order added) and displays them as a list.
@@ -792,19 +793,11 @@ Lists all the bookmarks based on name/alphabetical order.
 * `*sort* default` +
 Sort all the bookmarks based on the order they were added.
 
-=== Automatically completing partially typed commands `[coming in v2.0]`
-
-Automatically fills in partially typed commands if the command is unique.
-
-=== Sharing bookmarks and notes via Email/ Telegram `[coming in v2.0]`
-
-Shares your bookmarks and notes with your friends via Email or Telegram.
-
-=== Opening a bookmark from a reminder: *`goto reminder`* `[coming in v2.0]`
+=== Opening a bookmark from a reminder: *`goto-reminder`* `[coming in v2.0]`
 
 Opens the related bookmark of the specified reminder from the bookmark manager.
 
-Format: `*goto reminder* INDEX`
+Format: `*goto-reminder* INDEX`
 
 ****
 * INDEX is the index of the reminder as viewed on the dashboard.
@@ -813,9 +806,17 @@ Format: `*goto reminder* INDEX`
 
 Examples:
 
-* `*goto reminder* 1` +
+* `*goto-reminder* 1` +
 If reminder 1 points to bookmark 5, this command is equivalent to
 `*goto* 5`. (i.e. opens the 5th bookmark in the bookmark manager.)
+
+=== Automatically completing partially typed commands `[coming in v2.0]`
+
+Automatically fills in partially typed commands if the command is unique.
+
+=== Sharing bookmarks and notes via Email/ Telegram `[coming in v2.0]`
+
+Shares your bookmarks and notes with your friends via Email or Telegram.
 
 == FAQ
 
@@ -894,7 +895,6 @@ displayed in the document).
 * *Find*: `*find* [KEYWORD]... [t/TAG]... [f/FOLDER]...`
 * *Delete*: `*delete* INDEX`
 * *Goto*: `*goto* INDEX`
-* *Goto*: `*goto reminder* INDEX`
 * *Favorite*: `*favorite|fav* INDEX`
 * *Clear*: `*clear*`
 * *Undo*: `*undo* [STEP=1]`
@@ -907,14 +907,14 @@ displayed in the document).
 * *Autotag (delete)*: `*autotag-delete* TAG_NAME`
 * *Cache (add)*: `*cache* INDEX`
 * *Cache (delete)*: `*cache-delete* INDEX`
+* *Offline*: `*offline* INDEX`
 * *Annotate (add)*: `*annotate* INDEX p/P_NUM [n/NOTES] [h/HIGHLIGHT_COLOUR=yellow]`
-* *Annotate (delete)*: `*annotate-delete* INDEX [p/P_NUM] [n/KEEP_NOTES=false] [h/KEEP_HIGHLIGHT=false]`
 * *Annotate (edit)*: `*annotate-edit* INDEX p/P_NUM [to/NEW_P_NUM] [n/NOTES] [h/HIGHLIGHT_COLOUR]`
-* *Offline*: `*offline* INDEX [v/VERSION=current]`
+* *Annotate (delete)*: `*annotate-delete* INDEX [p/P_NUM] [n/KEEP_NOTES=false] [h/KEEP_HIGHLIGHT=false]`
 * *Reminder (add)*: `*reminder* INDEX t/TIME_DATE [n/NOTE=Open]`
 * *Reminder (edit)*: `*reminder-edit* INDEX [t/TIME_DATE] [n/NOTE]`
 * *Reminder (delete)*: `*reminder-delete* INDEX`
-* *Folder*: `*folder* FOLDER_NAME [p/PARENT_FOLDER=ROOT]`
+* *Folder (add)*: `*folder* FOLDER_NAME [p/PARENT_FOLDER=ROOT]`
 * *Expand*: `*expand* [LEVEL=1]`
 * *Collapse*: `*collapse* [LEVEL=1]`
 * *Tab*: `*tab* INDEX`

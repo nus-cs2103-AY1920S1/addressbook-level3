@@ -26,7 +26,8 @@ public class CacheCommand extends Command {
 
     public static final String COMMAND_WORD = "cache";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Caches a bookmark's contents.\n"
-            + "Parameters: INDEX";
+            + "Parameters: INDEX (must be a positive integer)\n"
+            + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_SUCCESS = "Bookmark's contents successfully cached!";
     public static final String MESSAGE_OVERWRITTEN =

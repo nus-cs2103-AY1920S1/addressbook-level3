@@ -20,7 +20,8 @@ public class DeleteCacheCommand extends Command {
 
     public static final String COMMAND_WORD = "cache-delete";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Deletes the offline copy of a bookmark.\n"
-            + "Parameters: INDEX";
+            + "Parameters: INDEX (must be a positive integer)\n"
+            + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_SUCCESS = "Bookmark's offline copy successfully deleted!";
     public static final String MESSAGE_FAILURE =
