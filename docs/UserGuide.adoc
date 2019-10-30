@@ -496,9 +496,10 @@ Format: +
 `redo`
 {empty} +
 
-=== .ics Integration
+=== iCalendar (ICS) Integration
 
-Horo stores data in the .ics format. This allows for data to be imported to and exported from other calendar applications that also use the .ics format.
+Horo stores data in the ICS format. Files saved in this format have the extension `.ics`.
+This allows for data to be imported to and exported from other calendar applications that also use the `.ics` format.
 
 ==== Export current calendar : `export --directory ["DIRECTORY"]`
 
@@ -509,7 +510,8 @@ image::ExportCommandScreenShot.png[]
 image::ExportFileScreenShot.png[]
 
 {empty} +
-The `export` command exports your current calendar as a .ics file to the specified directory. If no directory is specified, the file will be created in the root folder of the application.
+The `export` command exports your current calendar as an ICS file to the specified directory.
+If no directory is specified, the file will be created in the same directory as Horo.
 {empty} +
 
 Format: +
@@ -530,7 +532,7 @@ image::ImportCommandScreenShot.png[]
 image::ImportFileScreenShot.png[]
 
 {empty} +
-The `import` command imports an .ics format file from the specified filepath.
+The `import` command imports an ICS file from the specified filepath.
 {empty} +
 
 Format: +
