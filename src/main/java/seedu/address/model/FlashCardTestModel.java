@@ -23,32 +23,20 @@ public class FlashCardTestModel {
         return testList.isEmpty();
     }
 
-    public String getQuestion(Model model) {
-        String rating;
+    public String getQuestion() {
 
         assert !testList.isEmpty();
         currentFlashCard = testList.remove(0);
-
-        //@@author LeonardTay748
-        rating = currentFlashCard.getRating().toString();
-
-        if (rating.equals("good")) {
-            model.editStats(0);
-        }
-        if (rating.equals("hard")) {
-            model.editStats(1);
-        }
-        if (rating.equals("easy")) {
-            model.editStats(2);
-        }
-
-        //@@author keiteo
         return currentFlashCard.getQuestion().toString();
     }
 
     public String getAnswer() {
         requireNonNull(currentFlashCard);
         return currentFlashCard.getAnswer().toString();
+    }
+
+    public FlashCard getCurrentFlashCard() {
+        return currentFlashCard;
     }
 
     @Override

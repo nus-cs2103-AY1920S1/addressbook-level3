@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_TEST_COMMAND;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_FLASHCARD;
 
@@ -18,6 +19,7 @@ import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditFlashCardDescriptor;
+import seedu.address.logic.commands.EndTestCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindAnswerCommand;
 import seedu.address.logic.commands.FindCategoryCommand;
@@ -25,12 +27,15 @@ import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.FindQuestionCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.RateQuestionCommand;
+import seedu.address.logic.commands.StartCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.category.CategoryContainsAnyKeywordsPredicate;
 import seedu.address.model.flashcard.AnswerContainsAnyKeywordsPredicate;
 import seedu.address.model.flashcard.FlashCard;
 import seedu.address.model.flashcard.QuestionContainsAnyKeywordsPredicate;
 import seedu.address.model.flashcard.QuestionOrAnswerContainsAnyKeywordsPredicate;
+import seedu.address.model.flashcard.Rating;
 import seedu.address.testutil.EditFlashCardDescriptorBuilder;
 import seedu.address.testutil.FlashCardBuilder;
 import seedu.address.testutil.FlashCardUtil;
@@ -132,5 +137,42 @@ public class KeyboardFlashCardsParserTest {
     @Test
     public void parseCommand_unknownCommand_throwsParseException() {
         assertThrows(ParseException.class, MESSAGE_UNKNOWN_COMMAND, () -> parser.parseCommand("unknownCommand"));
+    }
+
+    //@@author keiteo
+    @Test
+    public void parseCommand_startNoParameter_success() throws Exception {
+        StartCommand command = (StartCommand) parser.parseCommand("start");
+        assertEquals(new StartCommand(parser), command);
+    }
+
+    @Test
+    public void parseCommand_startAlreadyInTestMode_throwsParseException() {
+        parser.startTestMode();
+        assertThrows(ParseException.class, MESSAGE_UNKNOWN_TEST_COMMAND, () -> parser.parseCommand("start"));
+    }
+
+    @Test
+    public void parseCommand_rateQuestionInTestMode_success() throws Exception {
+        parser.startTestMode();
+        RateQuestionCommand command = (RateQuestionCommand) parser.parseCommand("rate good");
+        assertEquals(new RateQuestionCommand(parser, new Rating("good")), command);
+    }
+
+    @Test
+    public void parseCommand_rateQuestionNotInTestMode_throwsParseException() {
+        assertThrows(ParseException.class, MESSAGE_UNKNOWN_COMMAND, () -> parser.parseCommand("rate good"));
+    }
+
+    @Test
+    public void parseCommand_endInTestMode_throwsParseException() throws Exception {
+        parser.startTestMode();
+        EndTestCommand command = (EndTestCommand) parser.parseCommand("end");
+        assertEquals(new EndTestCommand(parser), command);
+    }
+
+    @Test
+    public void parseCommand_endNotInTestMode_throwsParseException() {
+        assertThrows(ParseException.class, MESSAGE_UNKNOWN_COMMAND, () -> parser.parseCommand("ans"));
     }
 }

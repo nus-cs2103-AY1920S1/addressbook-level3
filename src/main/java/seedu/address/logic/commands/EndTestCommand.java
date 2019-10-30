@@ -23,4 +23,11 @@ public class EndTestCommand extends Command {
         keyboardFlashCardsParser.endTestMode();
         return new CommandResult("Test ended");
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof EndTestCommand // instanceof handles nulls
+                && keyboardFlashCardsParser.equals(((EndTestCommand) other).keyboardFlashCardsParser));
+    }
 }

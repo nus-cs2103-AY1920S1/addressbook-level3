@@ -52,7 +52,7 @@ public class StartCommand extends Command {
             return new CommandResult(MESSAGE_NO_FLASHCARDS);
         }
         keyboardFlashCardsParser.startTestMode();
-        String question = model.getTestQuestion(model);
+        String question = model.getTestQuestion();
         keyboardFlashCardsParser.setAwaitingAnswer(true);
         return new CommandResult(String.format(MESSAGE_START_TEST_SUCCESS, question));
     }
