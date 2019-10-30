@@ -20,28 +20,28 @@ import seedu.address.model.tag.Tag;
 /**
  * Deletes a tag of an existing policy in the address book.
  */
-public class DeletePolicyTagCommand extends Command {
+public class DeleteCriteriaCommand extends Command {
 
-    public static final String COMMAND_WORD = "deletepolicytag";
+    public static final String COMMAND_WORD = "deletecriteria";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Deletes tag of the policy identified "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Deletes criteria of the policy identified "
             + "by the index number used in the last policy listing. "
             + "Parameters: INDEX (must be a positive integer) "
-            + "t/ TAG [MORE_TAGS]\n"
+            + "t/ CRITERIA [MORE_CRITERIA]\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + "t/life t/accident";
+            + "cr/life cr/accident";
 
-    private static final String MESSAGE_DELETE_TAG_SUCCESS = "Deleted tag of Policy: %1$s";
+    private static final String MESSAGE_DELETE_CRITERIA_SUCCESS = "Deleted criteria of Policy: %1$s";
 
-    private static final String MESSAGE_TAG_NOT_FOUND = "No matching tags found of Policy: %1$s";
+    private static final String MESSAGE_CRITERIA_NOT_FOUND = "No matching criteria found of Policy: %1$s";
 
     private final Index index;
-    private final String[] tags;
+    private final String[] criteria;
 
-    public DeletePolicyTagCommand(Index index, String... tags) {
-        requireAllNonNull(index, tags);
+    public DeleteCriteriaCommand(Index index, String... criteria) {
+        requireAllNonNull(index, criteria);
         this.index = index;
-        this.tags = tags;
+        this.criteria = criteria;
     }
 
     @Override
@@ -52,7 +52,7 @@ public class DeletePolicyTagCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_POLICY_DISPLAYED_INDEX);
         }
 
-        if (tags.length == 0) {
+        if (criteria.length == 0) {
             throw new CommandException(
                     String.format(
                             Messages.MESSAGE_INVALID_COMMAND_FORMAT,
@@ -61,8 +61,8 @@ public class DeletePolicyTagCommand extends Command {
             );
         }
 
-        for (String tag : tags) {
-            if ((tag.length() == 0) || (tag.matches("^.*[^a-zA-Z0-9 ].*$"))) {
+        for (String criterion : criteria) {
+            if ((criterion.length() == 0) || (criterion.matches("^.*[^a-zA-Z0-9 ].*$"))) {
                 throw new CommandException(
                         String.format(
                                 Messages.MESSAGE_INVALID_COMMAND_FORMAT,
@@ -73,28 +73,28 @@ public class DeletePolicyTagCommand extends Command {
         }
 
         Policy policyToEdit = lastShownList.get(index.getZeroBased());
-        List<Tag> removeTags = new ArrayList<>();
+        List<Tag> removeCriteria = new ArrayList<>();
 
-        for (String tag : tags) {
-            removeTags.add(new Tag(tag));
+        for (String criterion : criteria) {
+            removeCriteria.add(new Tag(criterion));
         }
 
-        boolean tagsRemoved = false;
+        boolean criteriaRemoved = false;
 
-        for (Tag removeTag : removeTags) {
-            for (Tag tag : policyToEdit.getTags()) {
-                if (removeTag.equals(tag)) {
-                    tagsRemoved = true;
+        for (Tag removeCriterion : removeCriteria) {
+            for (Tag criterion : policyToEdit.getCriteria()) {
+                if (removeCriterion.equals(criterion)) {
+                    criteriaRemoved = true;
                     break;
                 }
             }
-            if (tagsRemoved) {
+            if (criteriaRemoved) {
                 break;
             }
         }
 
         Policy editedPolicy = new PolicyBuilder(policyToEdit)
-                .removeTags(removeTags)
+                .removeCriteria(removeCriteria)
                 .build();
 
         model.setPolicy(policyToEdit, editedPolicy);
@@ -111,17 +111,17 @@ public class DeletePolicyTagCommand extends Command {
 
         // to maintain the model's state for undo/redo
         model.saveAddressBookState();
-        return new CommandResult(generateSuccessMessage(editedPolicy, tagsRemoved));
+        return new CommandResult(generateSuccessMessage(editedPolicy, criteriaRemoved));
     }
 
     /**
-     * Parses {@code personToEdit} and {@code tagsRemoved} and returns a {@code String}.
+     * Parses {@code personToEdit} and {@code criteriaRemoved} and returns a {@code String}.
      */
-    private String generateSuccessMessage(Policy policyToEdit, boolean tagsRemoved) {
-        if (tagsRemoved) {
-            return String.format(MESSAGE_DELETE_TAG_SUCCESS, policyToEdit);
+    private String generateSuccessMessage(Policy policyToEdit, boolean criteriaRemoved) {
+        if (criteriaRemoved) {
+            return String.format(MESSAGE_DELETE_CRITERIA_SUCCESS, policyToEdit);
         } else {
-            return String.format(MESSAGE_TAG_NOT_FOUND, policyToEdit);
+            return String.format(MESSAGE_CRITERIA_NOT_FOUND, policyToEdit);
         }
     }
 
@@ -131,11 +131,11 @@ public class DeletePolicyTagCommand extends Command {
             return true;
         }
 
-        if (!(other instanceof DeletePolicyTagCommand)) {
+        if (!(other instanceof DeleteCriteriaCommand)) {
             return false;
         }
 
-        DeletePolicyTagCommand e = (DeletePolicyTagCommand) other;
-        return index.equals(e.index) && Arrays.equals(tags, e.tags);
+        DeleteCriteriaCommand e = (DeleteCriteriaCommand) other;
+        return index.equals(e.index) && Arrays.equals(criteria, e.criteria);
     }
 }

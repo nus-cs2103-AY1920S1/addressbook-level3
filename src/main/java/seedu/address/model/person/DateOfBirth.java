@@ -51,6 +51,17 @@ public class DateOfBirth {
     }
 
     /**
+     * Returns a {@code LocalDate} to keep track of the date of birth with respect to the system clock.
+     * @return A new {@code LocalDate}.
+     */
+    public LocalDate toLocalDate() {
+        int day = extractDay(value);
+        int month = extractMonth(value);
+        int year = extractYear(value);
+        return LocalDate.of(year, month, day);
+    }
+
+    /**
      * Returns true if the input date is valid and matches the validation regex.
      * @param test Input date of birth.
      * @return Whether the date of birth is valid.

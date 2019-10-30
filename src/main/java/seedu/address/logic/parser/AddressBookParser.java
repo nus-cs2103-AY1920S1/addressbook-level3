@@ -11,6 +11,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.AddCriteriaCommand;
 import seedu.address.logic.commands.AddPolicyCommand;
 import seedu.address.logic.commands.AddPolicyTagCommand;
 import seedu.address.logic.commands.AddTagCommand;
@@ -18,12 +19,14 @@ import seedu.address.logic.commands.AssignPolicyCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.commands.DeleteCriteriaCommand;
 import seedu.address.logic.commands.DeletePolicyCommand;
 import seedu.address.logic.commands.DeletePolicyTagCommand;
 import seedu.address.logic.commands.DeleteTagCommand;
 import seedu.address.logic.commands.DisplayCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditPolicyCommand;
+import seedu.address.logic.commands.EligiblePoliciesCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.ExpandPersonCommand;
 import seedu.address.logic.commands.ExpandPolicyCommand;
@@ -163,11 +166,17 @@ public class AddressBookParser {
             case AddPolicyTagCommand.COMMAND_WORD:
                 return new AddPolicyTagCommandParser().parse(arguments);
 
+            case AddCriteriaCommand.COMMAND_WORD:
+                return new AddCriteriaCommandParser().parse(arguments);
+
             case DeleteTagCommand.COMMAND_WORD:
                 return new DeleteTagCommandParser().parse(arguments);
 
             case DeletePolicyTagCommand.COMMAND_WORD:
                 return new DeletePolicyTagCommandParser().parse(arguments);
+
+            case DeleteCriteriaCommand.COMMAND_WORD:
+                return new DeleteCriteriaCommandParser().parse(arguments);
 
             case ClearCommand.COMMAND_WORD:
                 return new ClearCommand();
@@ -238,6 +247,9 @@ public class AddressBookParser {
 
             case DisplayCommand.COMMAND_WORD:
                 return new DisplayCommandParser().parse(arguments);
+
+            case EligiblePoliciesCommand.COMMAND_WORD:
+                return new EligiblePoliciesCommandParser().parse(arguments);
 
             case ExpandPersonCommand.COMMAND_WORD:
                 return new ExpandPersonCommandParser().parse(arguments);

@@ -361,7 +361,7 @@
     -fx-hgap: 7;
     -fx-vgap: 3;
 }
-;
+
 #policies .label {
     -fx-text-fill: white;
     -fx-background-color: #edaf3b;
@@ -371,7 +371,12 @@
     -fx-font-size: 11;
 }
 
-#criteria.label {
+#criteria {
+    -fx-hgap: 7;
+    -fx-vgap: 3;
+}
+
+#criteria .label {
     -fx-text-fill: white;
     -fx-background-color: #edaf3b;
     -fx-padding: 1 3 1 3;

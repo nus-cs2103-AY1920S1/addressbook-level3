@@ -1,10 +1,12 @@
 package seedu.address.logic.parser;
 
 import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.AddCriteriaCommand;
 import seedu.address.logic.commands.AddPolicyCommand;
 import seedu.address.logic.commands.AddPolicyTagCommand;
 import seedu.address.logic.commands.AddTagCommand;
 import seedu.address.logic.commands.AssignPolicyCommand;
+import seedu.address.logic.commands.DeleteCriteriaCommand;
 import seedu.address.logic.commands.DeletePolicyTagCommand;
 import seedu.address.logic.commands.DeleteTagCommand;
 import seedu.address.logic.commands.DisplayCommand;
@@ -12,7 +14,6 @@ import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditPolicyCommand;
 import seedu.address.logic.commands.SuggestionSwitchCommand;
 import seedu.address.logic.commands.UnassignPolicyCommand;
-
 /**
  * Contains Command Line Interface (CLI) syntax definitions common to multiple commands
  */
@@ -59,7 +60,7 @@ public class CliSyntax {
     public static final Prefix PREFIX_END_AGE = new Prefix("ea/", AddPolicyCommand.COMMAND_WORD,
             EditPolicyCommand.COMMAND_WORD);
     public static final Prefix PREFIX_CRITERIA = new Prefix("cr/", AddPolicyCommand.COMMAND_WORD,
-            EditPolicyCommand.COMMAND_WORD);
+            EditPolicyCommand.COMMAND_WORD, AddCriteriaCommand.COMMAND_WORD, DeleteCriteriaCommand.COMMAND_WORD);
 
     // To be used internally for suggestion command
     public static final Prefix PREFIX_COMMAND_WORD = new Prefix("command/");

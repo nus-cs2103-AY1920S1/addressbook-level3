@@ -2,12 +2,14 @@ package seedu.address.model.policy;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
 import seedu.address.model.binitem.Binnable;
+import seedu.address.model.person.Person;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -142,6 +144,19 @@ public class Policy implements Binnable {
                 && otherPolicy.getEndAge().equals(getEndAge())
                 && otherPolicy.getCriteria().equals(getCriteria())
                 && otherPolicy.getTags().equals(getTags());
+    }
+
+    /**
+     * Returns true if the specified {@code Person} is eligible for the policy.
+     */
+    public boolean isEligible(Person person) {
+        int birthYear = person.getDateOfBirth().toLocalDate().getYear();
+        int currentYear = Calendar.getInstance().get(Calendar.YEAR);
+        int age = currentYear - birthYear;
+
+        return person.getTags().containsAll(criteria)
+                && age > Integer.parseInt(this.startAge.age)
+                && age < Integer.parseInt(this.endAge.age);
     }
 
     @Override
