@@ -23,6 +23,8 @@ import dukecooks.model.diary.DiaryRecords;
 import dukecooks.model.diary.ReadOnlyDiary;
 import dukecooks.model.health.HealthRecords;
 import dukecooks.model.health.ReadOnlyHealthRecords;
+import dukecooks.model.mealplan.MealPlanBook;
+import dukecooks.model.mealplan.ReadOnlyMealPlanBook;
 import dukecooks.model.profile.ReadOnlyUserProfile;
 import dukecooks.model.profile.UserProfile;
 import dukecooks.model.recipe.ReadOnlyRecipeBook;
@@ -30,6 +32,7 @@ import dukecooks.model.recipe.RecipeBook;
 import dukecooks.model.util.DashboardSampleDataUtil;
 import dukecooks.model.util.DiarySampleDataUtil;
 import dukecooks.model.util.SampleDataUtil;
+import dukecooks.model.util.SampleMealPlanDataUtil;
 import dukecooks.model.util.SampleRecipeDataUtil;
 import dukecooks.model.workout.ReadOnlyWorkoutPlanner;
 import dukecooks.model.workout.WorkoutPlanner;
@@ -45,6 +48,8 @@ import dukecooks.storage.exercise.JsonWorkoutPlannerStorage;
 import dukecooks.storage.exercise.WorkoutPlannerStorage;
 import dukecooks.storage.health.HealthRecordsStorage;
 import dukecooks.storage.health.JsonHealthRecordsStorage;
+import dukecooks.storage.mealplan.JsonMealPlanBookStorage;
+import dukecooks.storage.mealplan.MealPlanBookStorage;
 import dukecooks.storage.profile.JsonUserProfileStorage;
 import dukecooks.storage.profile.UserProfileStorage;
 import dukecooks.storage.recipe.JsonRecipeBookStorage;
@@ -80,12 +85,13 @@ public class MainApp extends Application {
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         RecipeBookStorage recipeBookStorage = new JsonRecipeBookStorage(userPrefs.getRecipesFilePath());
+        MealPlanBookStorage mealPlanBookStorage = new JsonMealPlanBookStorage(userPrefs.getMealPlansFilePath());
         UserProfileStorage userProfileStorage = new JsonUserProfileStorage(userPrefs.getUserProfileFilePath());
         HealthRecordsStorage healthRecordsStorage = new JsonHealthRecordsStorage(userPrefs.getHealthRecordsFilePath());
         WorkoutPlannerStorage workoutPlannerStorage = new JsonWorkoutPlannerStorage(userPrefs.getExercisesFilePath());
         DiaryStorage diaryStorage = new JsonDiaryStorage(userPrefs.getDiaryFilePath());
         DashboardStorage dashboardStorage = new JsonDashboardStorage(userPrefs.getDashboardFilePath());
-        storage = new StorageManager(userProfileStorage, healthRecordsStorage, recipeBookStorage,
+        storage = new StorageManager(userProfileStorage, healthRecordsStorage, recipeBookStorage, mealPlanBookStorage,
                 workoutPlannerStorage, diaryStorage, dashboardStorage, userPrefsStorage);
 
         initLogging(config);
@@ -109,6 +115,9 @@ public class MainApp extends Application {
         ReadOnlyRecipeBook initialRecipeBook;
         initialRecipeBook = initRecipeBook(storage);
 
+        ReadOnlyMealPlanBook initialMealPlanBook;
+        initialMealPlanBook = initMealPlanBook(storage);
+
         ReadOnlyHealthRecords initialHealthRecords;
         initialHealthRecords = initHealthRecords(storage);
 
@@ -122,7 +131,7 @@ public class MainApp extends Application {
         initialDashboard = initDashboard(storage);
 
         return new ModelManager(initialDukeCooks, initialDashboard, initialHealthRecords, initialRecipeBook,
-                initialWorkoutPlanner, initialDiary, userPrefs);
+                initialMealPlanBook, initialWorkoutPlanner, initialDiary, userPrefs);
     }
 
     /**
@@ -179,8 +188,8 @@ public class MainApp extends Application {
     }
 
     /**
-     * Returns a {@code ReadOnlyUserProfile} with the data from {@code storage}'s UserProfile. <br>
-     * The data from the sample UserProfile will be used instead if {@code storage}'s persons is not found,
+     * Returns a {@code ReadOnlyRecipeBook} with the data from {@code storage}'s UserProfile. <br>
+     * The data from the sample Recipe Book will be used instead if {@code storage}'s persons is not found,
      * or an empty RecipeBook will be used instead if errors occur when reading {@code storage}'s RecipeBook.
      */
     private ReadOnlyRecipeBook initRecipeBook(Storage storage) {
@@ -199,6 +208,32 @@ public class MainApp extends Application {
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty DukeCooks");
             initialData = new RecipeBook();
+        }
+
+        return initialData;
+    }
+
+    /**
+     * Returns a {@code ReadOnlyMealPlanBook} with the data from {@code storage}'s UserProfile. <br>
+     * The data from the sample MealPlanBook will be used instead if {@code storage}'s persons is not found,
+     * or an empty MealPlanBook will be used instead if errors occur when reading {@code storage}'s MealPlanBook.
+     */
+    private ReadOnlyMealPlanBook initMealPlanBook(Storage storage) {
+        Optional<ReadOnlyMealPlanBook> mealPlanBookOptional;
+        ReadOnlyMealPlanBook initialData;
+
+        try {
+            mealPlanBookOptional = storage.readMealPlanBook();
+            if (!mealPlanBookOptional.isPresent()) {
+                logger.info("Data file not found. Will be starting with sample MealPlanBook");
+            }
+            initialData = mealPlanBookOptional.orElseGet(SampleMealPlanDataUtil::getSampleMealPlanBook);
+        } catch (DataConversionException e) {
+            logger.warning("Data file not in the correct format. Will be starting with an empty DukeCooks");
+            initialData = new MealPlanBook();
+        } catch (IOException e) {
+            logger.warning("Problem while reading from the file. Will be starting with an empty DukeCooks");
+            initialData = new MealPlanBook();
         }
 
         return initialData;

@@ -19,6 +19,9 @@ import dukecooks.model.diary.components.Diary;
 import dukecooks.model.health.HealthRecords;
 import dukecooks.model.health.ReadOnlyHealthRecords;
 import dukecooks.model.health.components.Record;
+import dukecooks.model.mealplan.MealPlanBook;
+import dukecooks.model.mealplan.ReadOnlyMealPlanBook;
+import dukecooks.model.mealplan.components.MealPlan;
 import dukecooks.model.profile.ReadOnlyUserProfile;
 import dukecooks.model.profile.UserProfile;
 import dukecooks.model.profile.person.Person;
@@ -42,11 +45,13 @@ public class ModelManager implements Model {
     private final HealthRecords healthRecords;
     private final DiaryRecords diaryRecords;
     private final RecipeBook recipeBook;
+    private final MealPlanBook mealPlanBook;
     private final WorkoutPlanner workoutPlanner;
     private final DashboardRecords dashboard;
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<Record> filteredRecords;
     private final FilteredList<Recipe> filteredRecipes;
+    private final FilteredList<MealPlan> filteredMealPlans;
     private final FilteredList<Exercise> filteredExercises;
     private final FilteredList<Diary> filteredDiaries;
     private final FilteredList<Dashboard> filteredDashboard;
@@ -55,6 +60,7 @@ public class ModelManager implements Model {
     private final HealthRecords defaultHealthRecords = new HealthRecords();
     private final DiaryRecords defaultDiaryRecords = new DiaryRecords();
     private final RecipeBook defaultRecipeBook = new RecipeBook();
+    private final MealPlanBook defaultMealPlanBook = new MealPlanBook();
     private final WorkoutPlanner defaultWorkoutPlanner = new WorkoutPlanner();
     private final DashboardRecords defaultDashboardRecord = new DashboardRecords();
 
@@ -62,8 +68,8 @@ public class ModelManager implements Model {
      * Initializes a ModelManager with the given dukeCooks and userPrefs.
      */
     public ModelManager(ReadOnlyUserProfile dukeCooks, ReadOnlyDashboard dashboard, ReadOnlyHealthRecords healthRecords,
-                        ReadOnlyRecipeBook recipeBook, ReadOnlyWorkoutPlanner workoutPlanner, ReadOnlyDiary diary,
-                        ReadOnlyUserPrefs userPrefs) {
+                        ReadOnlyRecipeBook recipeBook, ReadOnlyMealPlanBook mealPlanBook,
+                        ReadOnlyWorkoutPlanner workoutPlanner, ReadOnlyDiary diary, ReadOnlyUserPrefs userPrefs) {
         super();
         CollectionUtil.requireAllNonNull(dukeCooks, dashboard, healthRecords, userPrefs, recipeBook);
 
@@ -78,6 +84,7 @@ public class ModelManager implements Model {
         this.userProfile = new UserProfile(dukeCooks);
         this.healthRecords = new HealthRecords(healthRecords);
         this.recipeBook = new RecipeBook(recipeBook);
+        this.mealPlanBook = new MealPlanBook(mealPlanBook);
         this.userPrefs = new UserPrefs(userPrefs);
         this.workoutPlanner = new WorkoutPlanner(workoutPlanner);
         this.diaryRecords = new DiaryRecords(diary);
@@ -85,12 +92,13 @@ public class ModelManager implements Model {
         filteredPersons = new FilteredList<>(this.userProfile.getUserProfileList());
         filteredRecords = new FilteredList<>(this.healthRecords.getHealthRecordsList());
         filteredRecipes = new FilteredList<>(this.recipeBook.getRecipeList());
+        filteredMealPlans = new FilteredList<>(this.mealPlanBook.getMealPlanList());
         filteredExercises = new FilteredList<>(this.workoutPlanner.getExerciseList());
         filteredDiaries = new FilteredList<>(this.diaryRecords.getDiaryList());
     }
 
     /**
-     * Initializes a RecipeModelManager with the given userProfile and userPrefs.
+     * Initializes a WorkoutModelManager with the given userProfile and userPrefs.
      */
     public ModelManager(ReadOnlyWorkoutPlanner workoutPlanner, ReadOnlyUserPrefs userPrefs) {
         super();
@@ -103,6 +111,7 @@ public class ModelManager implements Model {
         this.userProfile = defaultProfile;
         this.healthRecords = defaultHealthRecords;
         this.recipeBook = defaultRecipeBook;
+        this.mealPlanBook = defaultMealPlanBook;
         this.userPrefs = new UserPrefs(userPrefs);
         this.workoutPlanner = new WorkoutPlanner(workoutPlanner);
         this.diaryRecords = defaultDiaryRecords;
@@ -110,12 +119,13 @@ public class ModelManager implements Model {
         filteredPersons = new FilteredList<>(this.userProfile.getUserProfileList());
         filteredRecords = new FilteredList<>(this.healthRecords.getHealthRecordsList());
         filteredRecipes = new FilteredList<>(this.recipeBook.getRecipeList());
+        filteredMealPlans = new FilteredList<>(this.mealPlanBook.getMealPlanList());
         filteredExercises = new FilteredList<>(this.workoutPlanner.getExerciseList());
         filteredDiaries = new FilteredList<>(this.diaryRecords.getDiaryList());
     }
 
     public ModelManager() {
-        this(new UserProfile(), new DashboardRecords(), new HealthRecords(), new RecipeBook(),
+        this(new UserProfile(), new DashboardRecords(), new HealthRecords(), new RecipeBook(), new MealPlanBook(),
                 new WorkoutPlanner(), new DiaryRecords(), new UserPrefs());
     }
 
@@ -123,7 +133,7 @@ public class ModelManager implements Model {
         super();
         CollectionUtil.requireAllNonNull(recipeBook, userPrefs);
 
-        logger.fine("Initializing with Workout Planner: " + recipeBook
+        logger.fine("Initializing with Recipe Book: " + recipeBook
                 + "and user prefs " + userPrefs);
 
         this.dashboard = defaultDashboardRecord;
@@ -131,12 +141,38 @@ public class ModelManager implements Model {
         this.healthRecords = defaultHealthRecords;
         this.recipeBook = new RecipeBook(recipeBook);
         this.userPrefs = new UserPrefs(userPrefs);
+        this.mealPlanBook = defaultMealPlanBook;
         this.workoutPlanner = defaultWorkoutPlanner;
         this.diaryRecords = defaultDiaryRecords;
         filteredDashboard = new FilteredList<>(this.dashboard.getDashboardList());
         filteredPersons = new FilteredList<>(this.userProfile.getUserProfileList());
         filteredRecords = new FilteredList<>(this.healthRecords.getHealthRecordsList());
         filteredRecipes = new FilteredList<>(this.recipeBook.getRecipeList());
+        filteredMealPlans = new FilteredList<>(this.mealPlanBook.getMealPlanList());
+        filteredExercises = new FilteredList<>(this.workoutPlanner.getExerciseList());
+        filteredDiaries = new FilteredList<>(this.diaryRecords.getDiaryList());
+    }
+
+    public ModelManager(ReadOnlyMealPlanBook mealPlanBook, ReadOnlyUserPrefs userPrefs) {
+        super();
+        CollectionUtil.requireAllNonNull(mealPlanBook, userPrefs);
+
+        logger.fine("Initializing with Meal Plan Book: " + mealPlanBook
+                + "and user prefs " + userPrefs);
+
+        this.dashboard = defaultDashboardRecord;
+        this.userProfile = defaultProfile;
+        this.healthRecords = defaultHealthRecords;
+        this.recipeBook = defaultRecipeBook;
+        this.mealPlanBook = new MealPlanBook(mealPlanBook);
+        this.userPrefs = new UserPrefs(userPrefs);
+        this.workoutPlanner = defaultWorkoutPlanner;
+        this.diaryRecords = defaultDiaryRecords;
+        filteredDashboard = new FilteredList<>(this.dashboard.getDashboardList());
+        filteredPersons = new FilteredList<>(this.userProfile.getUserProfileList());
+        filteredRecords = new FilteredList<>(this.healthRecords.getHealthRecordsList());
+        filteredRecipes = new FilteredList<>(this.recipeBook.getRecipeList());
+        filteredMealPlans = new FilteredList<>(this.mealPlanBook.getMealPlanList());
         filteredExercises = new FilteredList<>(this.workoutPlanner.getExerciseList());
         filteredDiaries = new FilteredList<>(this.diaryRecords.getDiaryList());
     }
@@ -152,6 +188,7 @@ public class ModelManager implements Model {
         this.userProfile = defaultProfile;
         this.healthRecords = defaultHealthRecords;
         this.recipeBook = defaultRecipeBook;
+        this.mealPlanBook = defaultMealPlanBook;
         this.workoutPlanner = defaultWorkoutPlanner;
         this.diaryRecords = new DiaryRecords(diaryRecord);
         this.userPrefs = new UserPrefs(userPrefs);
@@ -159,6 +196,7 @@ public class ModelManager implements Model {
         filteredPersons = new FilteredList<>(this.userProfile.getUserProfileList());
         filteredRecords = new FilteredList<>(this.healthRecords.getHealthRecordsList());
         filteredRecipes = new FilteredList<>(this.recipeBook.getRecipeList());
+        filteredMealPlans = new FilteredList<>(this.mealPlanBook.getMealPlanList());
         filteredExercises = new FilteredList<>(this.workoutPlanner.getExerciseList());
         filteredDiaries = new FilteredList<>(this.diaryRecords.getDiaryList());
     }
@@ -174,6 +212,7 @@ public class ModelManager implements Model {
         this.userProfile = defaultProfile;
         this.healthRecords = defaultHealthRecords;
         this.recipeBook = defaultRecipeBook;
+        this.mealPlanBook = defaultMealPlanBook;
         this.workoutPlanner = defaultWorkoutPlanner;
         this.diaryRecords = defaultDiaryRecords;
         this.userPrefs = new UserPrefs(userPrefs);
@@ -181,6 +220,7 @@ public class ModelManager implements Model {
         filteredPersons = new FilteredList<>(this.userProfile.getUserProfileList());
         filteredRecords = new FilteredList<>(this.healthRecords.getHealthRecordsList());
         filteredRecipes = new FilteredList<>(this.recipeBook.getRecipeList());
+        filteredMealPlans = new FilteredList<>(this.mealPlanBook.getMealPlanList());
         filteredExercises = new FilteredList<>(this.workoutPlanner.getExerciseList());
         filteredDiaries = new FilteredList<>(this.diaryRecords.getDiaryList());
     }
@@ -239,6 +279,17 @@ public class ModelManager implements Model {
     public void setRecipesFilePath(Path recipesFilePath) {
         requireNonNull(recipesFilePath);
         userPrefs.setRecipesFilePath(recipesFilePath);
+    }
+
+    @Override
+    public Path getMealPlansFilePath() {
+        return userPrefs.getMealPlansFilePath();
+    }
+
+    @Override
+    public void setMealPlansFilePath(Path mealPlansFilePath) {
+        requireNonNull(mealPlansFilePath);
+        userPrefs.setMealPlansFilePath(mealPlansFilePath);
     }
 
     @Override
@@ -326,7 +377,6 @@ public class ModelManager implements Model {
     @Override
     public void addRecord(Record record) {
         healthRecords.addRecord(record);
-        updateFilteredRecordList(PREDICATE_SHOW_ALL_RECORDS);
     }
 
     @Override
@@ -369,6 +419,49 @@ public class ModelManager implements Model {
         CollectionUtil.requireAllNonNull(target, editedRecipe);
 
         recipeBook.setRecipe(target, editedRecipe);
+    }
+
+    @Override
+    public Recipe retrieveRecipe(Recipe recipe) {
+        requireNonNull(recipe);
+
+        return recipeBook.retrieveRecipe(recipe);
+    }
+
+    //=========== Meal Plan Book ================================================================================
+
+    @Override
+    public void setMealPlanBook(ReadOnlyMealPlanBook mealPlanBook) {
+        this.mealPlanBook.resetData(mealPlanBook);
+    }
+
+    @Override
+    public ReadOnlyMealPlanBook getMealPlanBook() {
+        return mealPlanBook;
+    }
+
+    @Override
+    public boolean hasMealPlan(MealPlan mealPlan) {
+        requireNonNull(mealPlan);
+        return mealPlanBook.hasMealPlan(mealPlan);
+    }
+
+    @Override
+    public void deleteMealPlan(MealPlan target) {
+        mealPlanBook.removeMealPlan(target);
+    }
+
+    @Override
+    public void addMealPlan(MealPlan mealPlan) {
+        mealPlanBook.addMealPlan(mealPlan);
+        updateFilteredMealPlanList(PREDICATE_SHOW_ALL_MEALPLANS);
+    }
+
+    @Override
+    public void setMealPlan(MealPlan target, MealPlan editedMealPlan) {
+        CollectionUtil.requireAllNonNull(target, editedMealPlan);
+
+        mealPlanBook.setMealPlan(target, editedMealPlan);
     }
 
     //=========== Workout Planner ================================================================================
@@ -537,6 +630,25 @@ public class ModelManager implements Model {
     public void updateFilteredRecipeList(Predicate<Recipe> predicate) {
         requireNonNull(predicate);
         filteredRecipes.setPredicate(predicate);
+    }
+
+
+
+    //=========== Filtered Meal Plan List Accessors =============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code MealPlan} backed by the internal list of
+     * {@code versionedMealPlanBook}
+     */
+    @Override
+    public ObservableList<MealPlan> getFilteredMealPlanList() {
+        return filteredMealPlans;
+    }
+
+    @Override
+    public void updateFilteredMealPlanList(Predicate<MealPlan> predicate) {
+        requireNonNull(predicate);
+        filteredMealPlans.setPredicate(predicate);
     }
 
     //=========== Filtered Exercise List Accessors =============================================================

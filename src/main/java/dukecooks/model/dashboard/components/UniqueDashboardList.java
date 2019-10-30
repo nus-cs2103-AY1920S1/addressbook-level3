@@ -31,6 +31,16 @@ public class UniqueDashboardList implements Iterable<Dashboard> {
     private final ObservableList<Dashboard> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
 
+    private final long taskLeft = internalList.stream()
+            .filter(i -> i.getTaskStatus().getDoneStatus() == false).count();
+
+    /**
+     * Get the number of task left in a String.
+     */
+    public String getTaskLeft() {
+        return Long.toString(taskLeft);
+    }
+
     /**
      * Sorts the list by date.
      */

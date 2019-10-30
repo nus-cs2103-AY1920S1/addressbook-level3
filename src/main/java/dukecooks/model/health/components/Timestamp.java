@@ -14,6 +14,8 @@ public class Timestamp {
                     + "and it should not be blank";
 
     public final String timestamp;
+    private String date;
+    private String time;
 
     /**
      * Constructs a {@code timestamp}.
@@ -24,6 +26,21 @@ public class Timestamp {
         requireNonNull(timestamp);
         AppUtil.checkArgument(isValidDateTime(timestamp), MESSAGE_CONSTRAINTS);
         this.timestamp = timestamp;
+        breakdown();
+    }
+
+    void breakdown() {
+        String[] dt = timestamp.split(" ");
+        this.date = dt[0];
+        this.time = dt[1];
+    }
+
+    public String getDate() {
+        return this.date;
+    }
+
+    public String getTime() {
+        return this.time;
     }
 
     /**

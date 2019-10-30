@@ -12,6 +12,8 @@ import dukecooks.model.dashboard.components.Dashboard;
 import dukecooks.model.diary.ReadOnlyDiary;
 import dukecooks.model.diary.components.Diary;
 import dukecooks.model.health.components.Record;
+import dukecooks.model.mealplan.ReadOnlyMealPlanBook;
+import dukecooks.model.mealplan.components.MealPlan;
 import dukecooks.model.profile.ReadOnlyUserProfile;
 import dukecooks.model.profile.person.Person;
 import dukecooks.model.recipe.ReadOnlyRecipeBook;
@@ -36,9 +38,16 @@ public interface Logic {
     /**
      * Returns RecipeBook.
      *
-     * @see RecipeModel#getRecipeBook()
+     * @see Model#getRecipeBook()
      */
     ReadOnlyRecipeBook getRecipeBook();
+
+    /**
+     * Returns MealPlanBook.
+     *
+     * @see Model#getMealPlanBook()
+     */
+    ReadOnlyMealPlanBook getMealPlanBook();
 
     /**
      * Returns TodoRecords.
@@ -71,6 +80,9 @@ public interface Logic {
     /** Returns an unmodifiable view of the filtered list of recipes */
     ObservableList<Recipe> getFilteredRecipeList();
 
+    /** Returns an unmodifiable view of the filtered list of meal plans */
+    ObservableList<MealPlan> getFilteredMealPlanList();
+
     /** Returns an unmodifiable view of the filtered list of diaries */
     ObservableList<Diary> getFilteredDiaryList();
 
@@ -90,6 +102,11 @@ public interface Logic {
      * Returns the user prefs' Recipe Book file path.
      */
     Path getRecipesFilePath();
+
+    /**
+     * Returns the user prefs' Meal Plan Book file path.
+     */
+    Path getMealPlansFilePath();
 
     /**
      * Returns the user prefs' User Profile file path.

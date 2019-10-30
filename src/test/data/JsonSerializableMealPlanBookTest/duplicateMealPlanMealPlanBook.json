@@ -1,0 +1,21 @@
+{
+  "mealPlans": [ {
+    "name": "Kappa Maki Plan",
+    "day1" : [ "Kappa Maki" ],
+    "day2" : [ "Kappa Maki" ],
+    "day3" : [ "Kappa Maki" ],
+    "day4" : [ "Kappa Maki" ],
+    "day5" : [ "Kappa Maki" ],
+    "day6" : [ "Kappa Maki" ],
+    "day7" : [ "Kappa Maki" ]
+  }, {
+    "name": "Kappa Maki Plan",
+    "day1" : [ "Kappa Maki" ],
+    "day2" : [ "Kappa Maki" ],
+    "day3" : [ "Kappa Maki" ],
+    "day4" : [ "Kappa Maki" ],
+    "day5" : [ "Kappa Maki" ],
+    "day6" : [ "Kappa Maki" ],
+    "day7" : [ "Kappa Maki" ]
+  } ]
+}

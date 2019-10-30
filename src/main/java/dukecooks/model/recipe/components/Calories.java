@@ -11,7 +11,7 @@ public class Calories {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Number of calories should only contain numbers, express in kcal, with units omitted.";
-    public static final String VALIDATION_REGEX = "\\d*";
+    public static final String VALIDATION_REGEX = "\\d+";
     public final String value;
     public final String cardValue;
 

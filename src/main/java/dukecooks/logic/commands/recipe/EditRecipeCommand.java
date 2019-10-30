@@ -8,12 +8,15 @@ import static dukecooks.logic.parser.CliSyntax.PREFIX_NAME;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_PROTEIN;
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.function.Predicate;
 
+import dukecooks.commons.core.Event;
 import dukecooks.commons.core.Messages;
 import dukecooks.commons.core.index.Index;
 import dukecooks.commons.util.CollectionUtil;
@@ -21,6 +24,8 @@ import dukecooks.logic.commands.CommandResult;
 import dukecooks.logic.commands.EditCommand;
 import dukecooks.logic.commands.exceptions.CommandException;
 import dukecooks.model.Model;
+import dukecooks.model.mealplan.components.MealPlan;
+import dukecooks.model.mealplan.components.MealPlanRecipesContainsKeywordsPredicate;
 import dukecooks.model.recipe.components.Calories;
 import dukecooks.model.recipe.components.Carbs;
 import dukecooks.model.recipe.components.Fats;
@@ -52,6 +57,8 @@ public class EditRecipeCommand extends EditCommand {
     public static final String MESSAGE_EDIT_RECIPE_SUCCESS = "Edited Recipe: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_RECIPE = "This recipe already exists in the Duke Cooks.";
+
+    private static Event event;
 
     private final Index index;
     private final EditRecipeDescriptor editRecipeDescriptor;
@@ -86,6 +93,19 @@ public class EditRecipeCommand extends EditCommand {
 
         model.setRecipe(recipeToEdit, editedRecipe);
         model.updateFilteredRecipeList(Model.PREDICATE_SHOW_ALL_RECIPES);
+
+        List<String> recipeNameKeyword = new ArrayList<>();
+        recipeNameKeyword.add(recipeToEdit.getName().fullName);
+        Predicate<MealPlan> recipeNamePredicate = new MealPlanRecipesContainsKeywordsPredicate(recipeNameKeyword);
+        //model.updateFilteredMealPlanList(recipeNamePredicate);
+        //TODO: This implementation is broken, should find a way to fix it to allow faster dynamic updates of recipes
+        for (MealPlan mealPlan : model.getFilteredMealPlanList()) {
+            mealPlan.replaceRecipe(recipeToEdit, editedRecipe);
+        }
+
+        event = Event.getInstance();
+        event.set("recipe", "all");
+
         return new CommandResult(String.format(MESSAGE_EDIT_RECIPE_SUCCESS, editedRecipe));
     }
 

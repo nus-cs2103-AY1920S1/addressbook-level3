@@ -3,35 +3,33 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <Label fx:id="title" maxHeight="-Infinity" minHeight="74.0" prefHeight="74.0" text="Overview" textFill="#797373" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <font>
-            <Font name="Devanagari Sangam MN" size="36.0" />
-         </font>
-         <padding>
-            <Insets bottom="5.0" left="5.0" top="5.0" />
-         </padding>
-      </Label>
-      <HBox layoutY="50.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
+
+<ScrollPane fitToHeight="true" fitToWidth="true" vbarPolicy="NEVER" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <content>
+      <VBox>
          <children>
-            <StackPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0">
+            <Label fx:id="title" alignment="TOP_LEFT" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="74.0" prefHeight="74.0" text="Overview" textFill="#797373">
+               <font>
+                  <Font name="Devanagari Sangam MN" size="36.0" />
+               </font>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" top="5.0" />
+               </padding>
+            </Label>
+            <HBox alignment="BOTTOM_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
                <children>
-                  <ListView fx:id="sideView" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefWidth="150.0" />
+                  <ListView fx:id="sideView" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefWidth="150.0" HBox.hgrow="ALWAYS" />
+                  <VBox fx:id="recordTypeView" prefWidth="400.0" HBox.hgrow="ALWAYS" />
+                  <FlowPane fx:id="flowPaneView" HBox.hgrow="ALWAYS" />
                </children>
-            </StackPane>
-            <StackPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
-               <children>
-                  <FlowPane fx:id="flowPaneView" prefHeight="200.0" prefWidth="200.0" />
-               </children>
-            </StackPane>
+            </HBox>
          </children>
-      </HBox>
-   </children>
-</AnchorPane>
+      </VBox>
+   </content>
+</ScrollPane>
