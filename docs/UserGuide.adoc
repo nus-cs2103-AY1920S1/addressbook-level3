@@ -266,6 +266,7 @@ Format: `add n/NAME [d/DESCRIPTION] [start/START_DATE] [end/END_DATE]`
 
 * Plans cannot have duplicate names.
 * `START_DATE` and `END_DATE` should be in the format of `yyyy-MM-dd`
+* `START_DATE` should be before or equal to `END_DATE`.
 
 Examples:
 
@@ -297,6 +298,7 @@ Format: `editplan INDEX [n/NAME] [d/DESCRIPTION] [start/START_DATE] [end/END_DAT
 * Edits the plan at the specified `INDEX`. The index refers to the index number shown in the displayed plan list. The index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
+* `START_DATE` should be before or equal to `END_DATE`.
 
 Examples:
 
@@ -328,6 +330,7 @@ Format: `findplan [n/NAME] [d/DESCRIPTION] [start/RANGE_START] [end/RANGE_END]`
 * Start and end range
 ** is considered a match when there exist overlaps in time. (e.g. a plan with start date of `2019-01-01` and end date of `2019-03-03` matches a plan with start date of `2019-02-02` and end date of `2019-04-04`)
 ** both `RANGE_START` and `RANGE_END` should be specified.
+** `RANGE_START` should be before or equal to `RANGE_END`.
 
 === Task Management
 
@@ -335,6 +338,8 @@ Format: `findplan [n/NAME] [d/DESCRIPTION] [start/RANGE_START] [end/RANGE_END]`
 
 Adds a task to a specified plan. +
 Format: `addtask plan/PLAN_INDEX prob/PROBLEM_INDEX [due/TARGET_DATE]`
+
+* `DUE_DATE` should be after or equal to plan's `START_DATE` and before or equal to plan's `END_DATE`.
 
 Examples:
 
@@ -344,6 +349,8 @@ Examples:
 
 Copies a specified task from one plan to another. +
 Format: `copytask task/TASK_INDEX from/PLAN_INDEX to/PLAN_INDEX`
+
+* `DUE_DATE` should be after or equal to plan's `START_DATE` and before or equal to plan's `END_DATE`.
 
 Examples:
 
@@ -372,6 +379,8 @@ Examples:
 Edits the due date of a specified task from a specified plan. +
 Format: `edittask plan/PLAN_INDEX task/TASK_INDEX due/DUE_DATE`
 
+* `DUE_DATE` should be after or equal to plan's `START_DATE` and before or equal to plan's `END_DATE`.
+
 Examples:
 
 * `edittask plan/1 task/1 due/2019-12-12`
@@ -389,6 +398,8 @@ Examples:
 
 Moves a specified task from a specified plan to another. +
 Format: `movetask task/TASK_INDEX from/PLAN_INDEX to/PLAN_INDEX`
+
+* `DUE_DATE` should be after or equal to plan's `START_DATE` and before or equal to plan's `END_DATE`.
 
 Examples:
 
