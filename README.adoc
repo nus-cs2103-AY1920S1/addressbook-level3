@@ -12,11 +12,20 @@ image::images/Ui.png[width="600"]
 endif::[]
 
 == AddMin+   -  All in One Administration App
-AddMin+ is an all in one administration desktop application, that is specially designed for ABC Company, which is a tech startup company with only 6 full-time employees. ABC Company is still a relatively small company and it could only afford to hire 1 full-time employee to deal with all administrative matters.
+*AddMin+* is an all in one administration desktop application, that is specially designed for any other events management
+start-up company with limited manpower and resources. These companies would usually only be able to afford to hire
+one admin staff to handle both the management of events and employees and this can be tough.
+The Admin+ Team understands the struggles that start-ups faces on a daily basis, and we are here to help!
+
+*AddMin+* is specially designed to ease the workload of the admin and allow
+him/her to effectively handle the administrative tasks of the company by providing the following functions: event
+creation and deletion, editing of event details after creation, manual and automatic manpower allocation for events
+and providing an overview of all the data via statistics. The purpose of this user guide is show the user how they can
+use our app to carry out their administrative tasks efficiently and also answer any questions they may have while using
+our app.
 
 * AddMin+ is specially designed to help ease the workload by offering a one-stop platform to help deal with the various administrative needs of the company.
 * AddMin+ uses a Command Line Interface(CLI) and displays the results through a Graphical User Interface(GUI) to assist the employee in their specific needs.
-
 
 == Site Map
 
