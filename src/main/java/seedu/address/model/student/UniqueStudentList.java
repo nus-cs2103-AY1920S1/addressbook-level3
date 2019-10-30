@@ -12,6 +12,7 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.index.Index;
 import seedu.address.model.student.exceptions.DuplicateStudentException;
 import seedu.address.model.student.exceptions.StudentNotFoundException;
+import seedu.address.model.tag.Tag;
 
 /**
  * A list of Students that enforces uniqueness between its elements and does not allow nulls.
@@ -176,9 +177,19 @@ public class UniqueStudentList implements Iterable<Student> {
     public String getStudentList() {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < internalList.size(); i++) {
+            Student student = internalList.get(i);
             sb.append(i + 1);
             sb.append(". ");
-            sb.append(internalList.get(i));
+            sb.append(student + " ");
+            if (student.getTags().size() != 0) {
+                sb.append("tags: ");
+            }
+            for (Tag tag : student.getTags()) {
+                sb.append(tag + " ");
+            }
+            if (student.getIsMarked()) {
+                sb.append("(MARKED)");
+            }
             sb.append("\n");
         }
         return sb.toString();

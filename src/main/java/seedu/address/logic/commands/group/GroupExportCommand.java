@@ -38,7 +38,7 @@ public class GroupExportCommand extends GroupCommand {
         if (!model.checkGroupExists(groupId)) {
             return new CommandResult(String.format(GROUP_DOES_NOT_EXIST, groupId)); //group doesn't exist
         }
-        //ListOfGroups.setCurrentlyQueriedGroup(groupId);
+        model.exportGroup(groupId);
         return new CommandResult(generateSuccessMessage());
     }
 
@@ -48,6 +48,6 @@ public class GroupExportCommand extends GroupCommand {
      * @return The String representation of a success message.
      */
     private String generateSuccessMessage() {
-        return "Exporting group to word document";
+        return "Successfully exported group to export/" + groupId + ".docx";
     }
 }
