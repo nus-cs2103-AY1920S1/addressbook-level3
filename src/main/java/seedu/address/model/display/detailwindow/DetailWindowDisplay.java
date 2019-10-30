@@ -67,7 +67,7 @@ public class DetailWindowDisplay {
     }
 
     public FreeTimeslot getFreeTimeslot(int id) {
-        if(freeSchedule == null) {
+        if (freeSchedule == null) {
             return null;
         } else {
             return freeSchedule.getFreeTimeslot(id);
