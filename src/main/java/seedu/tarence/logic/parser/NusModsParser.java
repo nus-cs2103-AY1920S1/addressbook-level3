@@ -8,6 +8,7 @@ import java.time.Duration;
 import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,13 +34,13 @@ import seedu.tarence.model.tutorial.Week;
  */
 public class NusModsParser {
     private static final String LESSONS_JSON_URL = "/nusmods/lessons.json";
-    private static Map<String, Map<String, Map<String, Tutorial>>> lessonMap = NusModsParser.load();
+    private static Map<String, Map<String, Map<String, Map<String, Tutorial>>>> lessonMap = NusModsParser.load();
 
     /**
-     * Loads lesson json data into a Map(moduleCode > lessonType > classNo).
+     * Loads lesson json data into a Map(moduleCode > semester > lessonType > classNo).
      */
-    public static Map<String, Map<String, Map<String, Tutorial>>> load() {
-        Map<String, Map<String, Map<String, Tutorial>>> lessonMap = new HashMap<>();
+    public static Map<String, Map<String, Map<String, Map<String, Tutorial>>>> load() {
+        Map<String, Map<String, Map<String, Map<String, Tutorial>>>> lessonMap = new HashMap<>();
         try (
             InputStream stream = MainApp.class.getResourceAsStream(LESSONS_JSON_URL);
             JsonReader reader = new JsonReader(new InputStreamReader(stream, "UTF-8"));
@@ -48,25 +49,12 @@ public class NusModsParser {
 
             reader.beginArray();
             while (reader.hasNext()) {
-                ModObject mod = gson.fromJson(reader, ModObject.class);
+                ModObject modObject = gson.fromJson(reader, ModObject.class);
 
-                if (!lessonMap.containsKey(mod.moduleCode)) {
-                    lessonMap.put(mod.moduleCode, new HashMap<>());
+                if (lessonMap.containsKey(modObject.moduleCode)) {
+                    System.out.println("Duplicate " + modObject.moduleCode);
                 }
-                for (LessonObject lesson : mod.lessons) {
-                    String lessonTypeCode = lesson.lessonType.substring(0, 3).toUpperCase();
-                    if (!lessonMap.get(mod.moduleCode).containsKey(lessonTypeCode)) {
-                        lessonMap.get(mod.moduleCode).put(lessonTypeCode, new HashMap<>());
-                    }
-                    try {
-                        Tutorial tutorial = lesson.toTutorial(mod.moduleCode);
-                        lessonMap.get(mod.moduleCode).get(lessonTypeCode).put(lesson.classNo,
-                            tutorial);
-                    } catch (ParseException | DateTimeParseException | IllegalArgumentException e) {
-                        System.out.println(mod.moduleCode);
-                        System.out.println(e);
-                    }
-                }
+                lessonMap.put(modObject.moduleCode, loadModObject(modObject));
             }
         } catch (IOException e) {
             System.out.println(e);
@@ -77,10 +65,40 @@ public class NusModsParser {
     }
 
     /**
+     * Loads ModObject data into a Map(semester > lessonType > classNo).
+     */
+    private static Map<String, Map<String, Map<String, Tutorial>>> loadModObject(ModObject modObject) {
+        Map<String, Map<String, Map<String, Tutorial>>> modMap = new HashMap<>();
+        for (SemesterObject semesterObject : modObject.semesters) {
+            modMap.put(semesterObject.semester, new HashMap<>());
+            for (LessonObject lesson : semesterObject.timetable) {
+                String lessonTypeCode = lesson.lessonType.substring(0, 3).toUpperCase();
+                if (!modMap.get(semesterObject.semester).containsKey(lessonTypeCode)) {
+                    modMap.get(semesterObject.semester).put(lessonTypeCode, new HashMap<>());
+                }
+                try {
+                    Tutorial tutorial = lesson.toTutorial(modObject.moduleCode);
+                    modMap.get(semesterObject.semester).get(lessonTypeCode).put(lesson.classNo,
+                        tutorial);
+                } catch (ParseException | DateTimeParseException | IllegalArgumentException e) {
+                    System.out.println(modObject.moduleCode);
+                    System.out.println(e);
+                }
+            }
+        }
+        return modMap;
+    }
+
+    /**
      * Parses the NUSMods url to return a List of Tutorials. Throws NullPointerException error
      * if the specified ModCode and ClassNo combination in the url can't be found in the lessonMap.
      */
-    public static List<Tutorial> urlToTutorials(String url) {
+    public static List<Tutorial> urlToTutorials(String url) throws ParseException {
+        Integer semesterIndex = "https://nusmods.com/timetable/sem-".length();
+        String semester = url.trim().charAt(semesterIndex) + "";
+        if (!Arrays.asList("1", "2", "3", "4").contains(semester)) {
+            throw new ParseException("Unable to find semester");
+        }
         List<Tutorial> tutorials = new ArrayList<>();
         String queryString = url.split("share\\?")[1];
         String[] modulesQuery = queryString.split("&");
@@ -95,7 +113,7 @@ public class NusModsParser {
                     }
                     String classNo = lessonQuery.split(":")[1];
                     try {
-                        tutorials.add(lessonMap.get(module).get(lessonType).get(classNo));
+                        tutorials.add(lessonMap.get(module).get(semester).get(lessonType).get(classNo));
                     } catch (NullPointerException e) {
                         System.out.println(lessonQuery + " could not be found.");
                     }
@@ -108,15 +126,28 @@ public class NusModsParser {
     }
 
     /**
-     * Intermediate object parsed from JSON. Contains LessonObjects.
+     * Intermediate object parsed from JSON. Contains SemesterObjects.
      */
     class ModObject {
-        final List<LessonObject> lessons;
+        final List<SemesterObject> semesters;
         final String moduleCode;
 
-        ModObject(List<LessonObject> lessons, String moduleCode) {
+        ModObject(List<SemesterObject> semesters, String moduleCode) {
             this.moduleCode = moduleCode;
-            this.lessons = lessons;
+            this.semesters = semesters;
+        }
+    }
+
+    /**
+     * Intermediate object parsed from JSON. Contains LessonObjects.
+     */
+    class SemesterObject {
+        final List<LessonObject> timetable;
+        final String semester;
+
+        SemesterObject(List<LessonObject> timetable, String semester) {
+            this.semester = semester;
+            this.timetable = timetable;
         }
     }
 
@@ -163,6 +194,4 @@ public class NusModsParser {
             return new Tutorial(tutName, day, startTime, weeks, duration, students, modCode);
         }
     }
-    // CHECKSTYLE.ON: ParameterName
-    // CHECKSTYLE.ON: MemberName
 }
