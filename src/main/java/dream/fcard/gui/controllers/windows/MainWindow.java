@@ -10,6 +10,7 @@ import dream.fcard.gui.controllers.displays.DeckDisplay;
 import dream.fcard.gui.controllers.displays.NoDecksDisplay;
 import dream.fcard.logic.respond.ConsumerSchema;
 import dream.fcard.logic.respond.Dispatcher;
+import dream.fcard.logic.stats.Stats;
 import dream.fcard.logic.storage.StorageManager;
 import dream.fcard.model.Deck;
 import dream.fcard.model.State;
@@ -79,6 +80,10 @@ public class MainWindow extends VBox {
         onCreateNewDeck.setOnAction(e -> showCreateNewDeckForm());
         registerConsumers();
         displayMessage.accept("Welcome to FlashCard Pro!");
+
+        // start a session
+        Stats.startCurrentSession();
+
         deckList.setOnMouseClicked(e -> {
             Deck d = deckList.getSelectionModel().getSelectedItem();
             displaySpecificDeck(d);
@@ -87,7 +92,10 @@ public class MainWindow extends VBox {
             // this extra flexibility - whether it's a flexibility or an annoyance depends on us.
         });
         quit.setOnAction(e -> {
-            //Save all files only exit
+            // end the current session
+            Stats.endCurrentSession();
+
+            // save all files only on exit
             StorageManager.saveAll(State.getState().getDecks());
             System.exit(0);
         });
@@ -214,13 +222,13 @@ public class MainWindow extends VBox {
      */
     @FXML
     public void openStatistics() {
-        System.out.println("Open statistics window");
+        // when Logger is implemented, log "Opening Statistics window..."
 
         Stage stage = new Stage();
         stage.initModality(Modality.APPLICATION_MODAL);
         Scene scene = new Scene(new StatisticsWindow());
         stage.setScene(scene);
-        stage.setTitle("Your Statistics");
+        stage.setTitle("My Statistics");
         stage.show();
     }
 }

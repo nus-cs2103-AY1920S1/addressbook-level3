@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.function.Consumer;
 
+import dream.fcard.logic.stats.Stats;
 import dream.fcard.logic.storage.StorageManager;
 import dream.fcard.model.exceptions.DeckNotFoundException;
 
@@ -17,6 +18,8 @@ public class State {
     private boolean isCreateMode;
     private HashMap<String, Consumer> consumerHashMap;
 
+    /** The one and only instance of Stats allowed. */
+    private static Stats userStats;
 
     /**
      * Constructor to create a State object with existing Deck objects.
@@ -26,11 +29,12 @@ public class State {
     public State(ArrayList<Deck> initialDecks) {
         decks = initialDecks;
     }
+    // todo: unused constructor - remove?
 
     /**
      * Constructor to create a State object with no Deck objects.
      */
-    public State() {
+    private State() {
         decks = StorageManager.loadDecks();
         consumerHashMap = new HashMap<>();
     }

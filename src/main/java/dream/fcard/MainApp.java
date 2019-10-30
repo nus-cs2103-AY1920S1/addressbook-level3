@@ -3,6 +3,7 @@ package dream.fcard;
 import java.io.IOException;
 
 import dream.fcard.core.Main;
+import dream.fcard.logic.stats.Stats;
 import dream.fcard.logic.storage.StorageManager;
 import dream.fcard.model.State;
 import javafx.application.Application;
@@ -29,7 +30,10 @@ public class MainApp extends Application {
             stage.getIcons().add(new Image(MainApp.class.getResourceAsStream("/images/address_book_32.png")));
             stage.show();
             // when the 'X' button is clicked.
-            stage.setOnCloseRequest(e -> StorageManager.saveAll(State.getState().getDecks()));
+            stage.setOnCloseRequest(e -> {
+                Stats.endCurrentSession();
+                StorageManager.saveAll(State.getState().getDecks());
+            });
         } catch (IOException e) {
             // TODO: Our yet-to-be-reinstated-logger will replace this rudimentary error printing
             System.err.println("Failed to load app");

@@ -226,6 +226,7 @@ public class StorageManager {
      * @return Stats object representing user's overall statistics
      */
     public static Stats getStats() {
+        // todo: this method is unused as of now, to be used when storage for Stats is implemented.
         resolveRoot();
         String path = FileReadWrite.resolve(root, statsPath);
 

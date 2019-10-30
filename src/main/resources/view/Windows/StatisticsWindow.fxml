@@ -7,7 +7,7 @@
   styleClass="main-content-window" stylesheets="@../defaultStyles.css"
   type="javafx.scene.layout.VBox" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label fx:id="windowTitle" styleClass="window-title" text="Your Statistics" />
+      <Label fx:id="windowTitle" styleClass="window-title" text="My Statistics" />
       <Label fx:id="totalSessions" text="Total sessions:" />
       <Label fx:id="sessionsThisWeek" text="Sessions this week:" />
    </children>

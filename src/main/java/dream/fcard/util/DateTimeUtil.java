@@ -3,6 +3,7 @@ package dream.fcard.util;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.function.Predicate;
 
 /**
  * Utilities related to LocalDateTime objects.
@@ -25,14 +26,26 @@ public class DateTimeUtil {
      * @param duration The duration to be represented as a String.
      * @return The String representation of the given Duration object.
      */
-    public static String durationToString(Duration duration) {
+    public static String getStringFromDuration(Duration duration) {
+        Predicate<String> equalsZero = (s -> s.equals("0"));
+
         StringBuilder sb = new StringBuilder();
-        sb.append(duration.toHoursPart());
-        sb.append(" hours, ");
-        sb.append(duration.toMinutesPart());
-        sb.append(" minutes, ");
-        sb.append(duration.toSecondsPart());
-        sb.append(" seconds");
+        String hours = Long.toString(duration.toHoursPart());
+        String minutes = Long.toString(duration.toMinutesPart());
+        String seconds = Long.toString(duration.toSecondsPart());
+
+        if (!equalsZero.test(hours))  {
+            sb.append(hours).append(" hours ");
+        }
+
+        if (!equalsZero.test(minutes)) {
+            sb.append(minutes).append(" minutes ");
+        }
+
+        if (!equalsZero.test(seconds)) {
+            sb.append(seconds).append(" seconds");
+        }
+
         return sb.toString();
     }
 

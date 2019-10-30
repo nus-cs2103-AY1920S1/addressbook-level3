@@ -13,10 +13,10 @@ import dream.fcard.util.DateTimeUtil;
 public class Session {
     // should implement JsonInterface, todo: @AHaliq can store LocalDateTime?
 
-    /** The start time of the session, in the local time zone. */
+    /** The start time of the session, in the user's local time zone. */
     private LocalDateTime sessionStart;
 
-    /** The end time of the session, in the local time zone. */
+    /** The end time of the session, in the user's local time zone. */
     private LocalDateTime sessionEnd;
 
     /** The duration of the session, as a Duration object. */
