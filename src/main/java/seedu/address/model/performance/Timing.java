@@ -41,10 +41,6 @@ public class Timing {
         return Double.toString(value);
     }
 
-    public double getValue() {
-        return value;
-    }
-
     @Override
     public String toString() {
         return value + " seconds";
