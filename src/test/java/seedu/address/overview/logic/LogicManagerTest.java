@@ -37,7 +37,7 @@ public class LogicManagerTest {
                 new TransactionLogicStubForOverview(TypicalTransactions.getTypicalTransactionList());
 
         seedu.address.inventory.logic.Logic inventoryLogicStub =
-                new InventoryLogicStubForOverview(TypicalItem.getTypicalInventoryListForInventoryUse());
+                new InventoryLogicStubForOverview(TypicalItem.getTypicalInventoryListForOverview());
 
         logicManager = new LogicManager(overviewModel, overviewStorage,
                 transactionLogicStub, inventoryLogicStub);

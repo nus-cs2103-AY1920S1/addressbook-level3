@@ -91,6 +91,10 @@ public class TypicalItem {
         return new seedu.address.inventory.util.InventoryList(getTypicalItems());
     }
 
+    public static seedu.address.inventory.util.InventoryList getTypicalInventoryListForOverview() {
+        return new seedu.address.inventory.util.InventoryList(getTypicalItems());
+    }
+
     public static ArrayList<Item> getTypicalItems() {
         return new ArrayList<>(Arrays.asList(FISH_BURGER, STORYBOOK, PHONE_CASE));
     }
