@@ -6,7 +6,10 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.person.Person;
 import seedu.address.model.policy.PolicyEligibleForPersonPredicate;
+
+import java.util.List;
 
 /**
  * Finds and lists all policies in address book a selected person is eligible for.
@@ -32,11 +35,14 @@ public class EligiblePoliciesCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
 
-        if (targetIndex.getZeroBased() >= model.getFilteredPersonList().size()) {
+        List<Person> lastShownList = model.getFilteredPersonList();
+
+
+        if (targetIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
-        predicate = new PolicyEligibleForPersonPredicate(model.getFilteredPersonList().get(targetIndex.getZeroBased()));
+        predicate = new PolicyEligibleForPersonPredicate(lastShownList.get(targetIndex.getZeroBased()));
         requireNonNull(model);
         model.updateFilteredPolicyList(predicate);
 
