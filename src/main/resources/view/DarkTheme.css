@@ -99,6 +99,8 @@
     -fx-background: derive(#1d1d1d, 20%);
 }
 
+/*for cards*/
+
 #cardPane {
     -fx-label-padding: 0 0 0 0;
     -fx-graphic-text-gap : 0;
@@ -166,6 +168,8 @@
     -fx-font-size: 11px;
     -fx-text-fill: #010504;
 }
+
+/*for commandBox*/
 
 .stack-pane {
      -fx-background-color: derive(#1d1d1d, 20%);
@@ -369,7 +373,7 @@
     -fx-color: white;
 }
 
-#filterField, #cardListPanel, #itemWebpage {
+#filterField, #itemWebpage {
     -fx-box-border: transparent;
     -fx-effect: innershadow(gaussian, black, 10, 0, 0, 0);
 }
