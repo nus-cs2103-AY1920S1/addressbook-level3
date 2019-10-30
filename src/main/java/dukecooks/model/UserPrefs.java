@@ -18,6 +18,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     private Path userProfileFilePath = Paths.get("data" , "userprofile.json");
     private Path healthRecordsFilePath = Paths.get("data", "healthrecords.json");
     private Path recipesFilePath = Paths.get("data" , "recipes.json");
+    private Path mealPlansFilePath = Paths.get("data" , "mealplans.json");
     private Path diaryFilePath = Paths.get("data" , "diary.json");
     private Path dashboardFilePath = Paths.get("data", "dashboard.json");
 
@@ -69,6 +70,10 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         return recipesFilePath;
     }
 
+    public Path getMealPlansFilePath() {
+        return mealPlansFilePath;
+    }
+
     public Path getDiaryFilePath() {
         return diaryFilePath;
     }
@@ -99,6 +104,16 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     public void setRecipesFilePath(Path recipesFilePath) {
         requireNonNull(recipesFilePath);
         this.recipesFilePath = recipesFilePath;
+    }
+
+    public void setMealPlanFilePath(Path mealPlansFilePath) {
+        requireNonNull(mealPlansFilePath);
+        this.mealPlansFilePath = mealPlansFilePath;
+    }
+
+    public void setMealPlansFilePath(Path mealPlansFilePath) {
+        requireNonNull(recipesFilePath);
+        this.mealPlansFilePath = mealPlansFilePath;
     }
 
     public void setDiaryFilePath(Path diaryFilePath) {

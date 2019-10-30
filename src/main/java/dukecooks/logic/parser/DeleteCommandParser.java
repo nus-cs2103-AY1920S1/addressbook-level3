@@ -11,6 +11,7 @@ import dukecooks.logic.commands.diary.DeleteDiaryCommand;
 import dukecooks.logic.commands.diary.DeletePageCommand;
 import dukecooks.logic.commands.exercise.DeleteExerciseCommand;
 import dukecooks.logic.commands.health.DeleteRecordCommand;
+import dukecooks.logic.commands.mealplan.DeleteMealPlanCommand;
 import dukecooks.logic.commands.recipe.DeleteRecipeCommand;
 import dukecooks.logic.parser.dashboard.DeleteTaskCommandParser;
 import dukecooks.logic.parser.diary.DeleteDiaryCommandParser;
@@ -18,6 +19,7 @@ import dukecooks.logic.parser.diary.DeletePageCommandParser;
 import dukecooks.logic.parser.exceptions.ParseException;
 import dukecooks.logic.parser.exercise.DeleteExerciseCommandParser;
 import dukecooks.logic.parser.health.DeleteRecordCommandParser;
+import dukecooks.logic.parser.mealplan.DeleteMealPlanCommandParser;
 import dukecooks.logic.parser.recipe.DeleteRecipeCommandParser;
 
 /**
@@ -51,6 +53,9 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
 
         case DeleteRecipeCommand.VARIANT_WORD:
             return new DeleteRecipeCommandParser().parse(arguments);
+
+        case DeleteMealPlanCommand.VARIANT_WORD:
+            return new DeleteMealPlanCommandParser().parse(arguments);
 
         case DeleteRecordCommand.VARIANT_WORD:
             return new DeleteRecordCommandParser().parse(arguments);

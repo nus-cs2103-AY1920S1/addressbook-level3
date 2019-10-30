@@ -73,8 +73,8 @@ public class EditRecipeCommandParserTest {
                 Ingredient.MESSAGE_CONSTRAINTS);
 
         // multiple invalid values, but only the first invalid value is captured
-        CommandParserTestUtil.assertParseFailure(parser, "1" + CommandTestUtil.INVALID_FOOD_NAME_DESC,
-                RecipeName.MESSAGE_CONSTRAINTS);
+        CommandParserTestUtil.assertParseFailure(parser, "1" + CommandTestUtil.INVALID_FOOD_NAME_DESC
+                + CommandTestUtil.INVALID_INGREDIENT_DESC, RecipeName.MESSAGE_CONSTRAINTS);
     }
 
     @Test

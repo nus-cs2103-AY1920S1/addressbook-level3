@@ -22,6 +22,9 @@ public class Messages {
     public static final String MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX = "The recipe index provided is invalid";
     public static final String MESSAGE_RECIPE_LISTED_OVERVIEW = "%1$d recipes listed!";
 
+    public static final String MESSAGE_INVALID_MEALPLAN_DISPLAYED_INDEX = "The meal plan index provided is invalid";
+    public static final String MESSAGE_MEALPLAN_LISTED_OVERVIEW = "%1$d meal plans listed!";
+
     public static final String MESSAGE_INVALID_DIARY_DISPLAYED_INDEX = "The diary index provided is invalid";
     public static final String MESSAGE_INVALID_PAGE_DISPLAYED_INDEX = "The page index provided is invalid";
     public static final String MESSAGE_DIARY_LISTED_OVERVIEW = "%1$d recipes listed!";

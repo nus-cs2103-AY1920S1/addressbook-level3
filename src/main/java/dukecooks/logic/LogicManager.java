@@ -17,6 +17,8 @@ import dukecooks.model.dashboard.components.Dashboard;
 import dukecooks.model.diary.ReadOnlyDiary;
 import dukecooks.model.diary.components.Diary;
 import dukecooks.model.health.components.Record;
+import dukecooks.model.mealplan.ReadOnlyMealPlanBook;
+import dukecooks.model.mealplan.components.MealPlan;
 import dukecooks.model.profile.ReadOnlyUserProfile;
 import dukecooks.model.profile.person.Person;
 import dukecooks.model.recipe.ReadOnlyRecipeBook;
@@ -56,6 +58,7 @@ public class LogicManager implements Logic {
             storage.saveWorkoutPlanner(model.getWorkoutPlanner());
             storage.saveUserProfile(model.getUserProfile());
             storage.saveRecipeBook(model.getRecipeBook());
+            storage.saveMealPlanBook(model.getMealPlanBook());
             storage.saveHealthRecords(model.getHealthRecords());
             storage.saveDiary(model.getDiaryRecords());
             storage.saveDashboard(model.getDashboardRecords());
@@ -74,6 +77,11 @@ public class LogicManager implements Logic {
     @Override
     public ReadOnlyRecipeBook getRecipeBook() {
         return model.getRecipeBook();
+    }
+
+    @Override
+    public ReadOnlyMealPlanBook getMealPlanBook() {
+        return model.getMealPlanBook();
     }
 
     @Override
@@ -99,6 +107,11 @@ public class LogicManager implements Logic {
     @Override
     public ObservableList<Recipe> getFilteredRecipeList() {
         return model.getFilteredRecipeList();
+    }
+
+    @Override
+    public ObservableList<MealPlan> getFilteredMealPlanList() {
+        return model.getFilteredMealPlanList();
     }
 
     @Override
@@ -134,6 +147,11 @@ public class LogicManager implements Logic {
     @Override
     public Path getRecipesFilePath() {
         return model.getRecipesFilePath();
+    }
+
+    @Override
+    public Path getMealPlansFilePath() {
+        return model.getMealPlansFilePath();
     }
 
     @Override

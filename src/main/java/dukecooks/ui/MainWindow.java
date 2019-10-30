@@ -38,6 +38,7 @@ public class MainWindow extends UiPart<Stage> {
     // Independent Ui parts residing in this Ui container
     private DashboardListPanel dashboardListPanel;
     private RecipeListPanel recipeListPanel;
+    private MealPlanListPanel mealPlanListPanel;
     private RecordListPanel recordListPanel;
     private PersonListPanel personListPanel;
     private ExerciseListPanel exerciseListPanel;
@@ -48,6 +49,7 @@ public class MainWindow extends UiPart<Stage> {
 
     private StatusBarFooter dashboardPathStatus;
     private StatusBarFooter recipePathStatus;
+    private StatusBarFooter mealPlanPathStatus;
     private StatusBarFooter recordPathStatus;
     private StatusBarFooter personPathStatus;
     private StatusBarFooter exercisePathStatus;
@@ -169,6 +171,7 @@ public class MainWindow extends UiPart<Stage> {
     void initializePanels() {
         dashboardListPanel = new DashboardListPanel(logic.getFilteredDashboardList(), new Rewards());
         recipeListPanel = new RecipeListPanel(logic.getFilteredRecipeList());
+        mealPlanListPanel = new MealPlanListPanel(logic.getFilteredMealPlanList());
         recordListPanel = new RecordListPanel(logic.getFilteredRecordList());
         exerciseListPanel = new ExerciseListPanel(logic.getFilteredExerciseList());
         diaryListPanel = new DiaryListPanel(logic.getFilteredDiaryList(), 0);
@@ -180,6 +183,7 @@ public class MainWindow extends UiPart<Stage> {
     void initializeFilePaths() {
         dashboardPathStatus = new StatusBarFooter(logic.getDashboardFilePath());
         recipePathStatus = new StatusBarFooter(logic.getRecipesFilePath());
+        mealPlanPathStatus = new StatusBarFooter(logic.getMealPlansFilePath());
         recordPathStatus = new StatusBarFooter(logic.getHealthRecordsFilePath());
         personPathStatus = new StatusBarFooter(logic.getUserProfileFilePath());
         //TODO EXERCISE: set up getExerciseFilePath() method in Logic class
@@ -252,7 +256,14 @@ public class MainWindow extends UiPart<Stage> {
             //TODO:
             versatilePanelPlaceholder.getChildren().add(recipeListPanel.getRoot());
             statusbarPlaceholder.getChildren().add(recipePathStatus.getRoot());
-            featureMode.setText("Recipe");
+            featureMode.setText("Recipe Book: Recipes");
+            recipeListPanel.handleSwitch(type);
+            break;
+        case "mealPlan":
+            versatilePanelPlaceholder.getChildren().add(mealPlanListPanel.getRoot());
+            statusbarPlaceholder.getChildren().add(mealPlanPathStatus.getRoot());
+            featureMode.setText("Recipe Book: Meal Plans");
+            mealPlanListPanel.handleSwitch(type);
             break;
         case "health":
             versatilePanelPlaceholder.getChildren().add(recordListPanel.getRoot());

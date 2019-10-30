@@ -93,6 +93,15 @@ public class RecipeBook implements ReadOnlyRecipeBook {
         recipes.remove(key);
     }
 
+    /**
+     * Returns a {@code Recipe} found within {@code RecipeBook} if
+     * it shares a name with the given {@code recipe}.
+     */
+    public Recipe retrieveRecipe(Recipe recipe) {
+        requireNonNull(recipe);
+        return recipes.retrieve(recipe);
+    }
+
     //// util methods
 
     @Override

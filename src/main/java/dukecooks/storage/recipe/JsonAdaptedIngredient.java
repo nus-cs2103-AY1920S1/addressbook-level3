@@ -11,6 +11,8 @@ import dukecooks.model.recipe.components.Ingredient;
  */
 class JsonAdaptedIngredient {
 
+    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Ingredient's %s field is missing!";
+
     private final String ingredientName;
 
     /**
