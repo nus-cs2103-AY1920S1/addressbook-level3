@@ -862,17 +862,37 @@ Example: I want to relive *EVERYTHING*
 all the details of your trips. That's why, this Diary allows you to *Find*
 
 
-*Find entries containing a certain text: ``list``*
+*Find entries containing a certain text: ``find``*
 
-Finds all entries which contain your input text. There
+Finds all entries which contain your input text. There is one parameter, which
+is the text that you want to find.
 
-The _Command Word_ is ``list``.
+The _Command Word_ is ``find``.
 
-Format: ``list``
+Format: ``list input``
 
-Example: I want to relive *EVERYTHING*
+Example: I want to find about my trip on 12/12/2019
 
-``list``
+``find 12/12/2019``
+
+
+=== Find Specific Command
+
+Let's narrow down your search!
+
+
+*Find entries containing a certain text in a specific field : ``findSpecific``*
+
+Finds all entries which contain your input text, in the highlighted field. There is one parameter, which
+is the text that you want to find, with the relevant _PREFIX_.
+
+The _Command Word_ is ``findSpecific``.
+
+Format: ``list input``
+
+Example: I want to find about my trip on 12/12/2019
+
+``find 12/12/2019``
 
 
 == Achievements
