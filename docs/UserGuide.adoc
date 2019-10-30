@@ -321,7 +321,7 @@ Mark data are saved in the hard disk automatically after any command
 that changes the data.
 
 There is no need to save data manually. It is also possible to save
-specific bookmarks with a different file name using the command `*export*`
+Mark data with a different file name using the command `*export*`
 (see <<exporting-bookmarks>>).
 
 [[exporting-bookmarks]]
@@ -429,9 +429,9 @@ containing `luminus.nus.edu.sg` that are not in the folder `Miscellaneous`.
  the folder `NUS` or in the folder `Module`, and that do not contain any of the
 keywords `github` or `stackoverflow` in their URLs.
 
-=== Deleting an autotag: *`autotag-delete`*
+=== Deleting automatic tags: *`autotag-delete`*
 
-This command deletes an existing autotag from Mark. Tags that are already present will
+This command deletes a previously created <<autotag, autotag>> from Mark. Tags that are already present will
 not be removed, but no bookmarks will be tagged by this autotag after it is deleted.
 
 Format: `*autotag-delete* TAG_NAME`
@@ -440,22 +440,6 @@ Format: `*autotag-delete* TAG_NAME`
 * `TAG_NAME` should be the name of the autotag to be deleted, which is the same
 as the name of the tag which it applies. E.g. an autotag that adds the tag
 `ProgrammingHelp` to bookmarks is also named `ProgrammingHelp`.
-****
-
-Example:
-
-* `*autotag-delete* LumiNUS` +
-Deletes the autotag that would have tagged bookmarks that match its conditions with the
-tag `LumiNUS`. Bookmarks that already have the tag `LumiNUS` are not changed.
-
-=== Deleting automatic tags: *`autotag-delete`*
-
-Deletes a previously created <<autotag, autotag>>.
-
-Format: `*autotag-delete* TAG_NAME`
-
-****
-* `TAG_NAME` should be the name of an existing autotag.
 ****
 
 Example:
