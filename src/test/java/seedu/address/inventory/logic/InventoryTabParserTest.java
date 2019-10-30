@@ -97,6 +97,17 @@ public class InventoryTabParserTest {
     }
 
     @Test
+    public void parser_deleteCommand_unsuccessful() {
+        Command command = null;
+
+        try {
+            command = parser.parseCommand("delete number", 1);
+        } catch (NotANumberException | ParseException | NoSuchSortException e) {
+            assertEquals(InventoryMessages.MESSAGE_NOT_A_NUMBER, e.getMessage());
+        }
+    }
+
+    @Test
     public void parser_sortCommand_successful() {
         Command command = null;
 

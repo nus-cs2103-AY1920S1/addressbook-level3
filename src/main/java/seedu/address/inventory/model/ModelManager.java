@@ -1,5 +1,6 @@
 package seedu.address.inventory.model;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import seedu.address.inventory.model.exception.NoSuchIndexException;
@@ -22,7 +23,7 @@ public class ModelManager implements Model {
         this.storage = storage;
         try {
             this.inventoryList = storage.getInventoryList();
-        } catch (Exception e) {
+        } catch (IOException e) {
             this.inventoryList = new InventoryList();
         }
     }
@@ -48,12 +49,8 @@ public class ModelManager implements Model {
     @Override
     public boolean hasItemInInventory(Item item) {
         for (int i = 0; i < inventoryList.size(); i++) {
-            try {
-                if (inventoryList.getItemByIndex(i).isSameItem(item)) {
-                    return true;
-                }
-            } catch (Exception e) {
-                return false;
+            if (inventoryList.get(i).isSameItem(item)) {
+                return true;
             }
         }
         return false;
