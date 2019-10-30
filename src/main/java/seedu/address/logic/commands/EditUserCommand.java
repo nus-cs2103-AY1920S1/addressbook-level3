@@ -25,12 +25,13 @@ public class EditUserCommand extends Command {
     public static final String COMMAND_WORD = "edituser";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + " "
-            + "[" + PREFIX_NAME + "NAME] "
-            + "[" + PREFIX_PHONE + "PHONE] "
-            + "[" + PREFIX_EMAIL + "EMAIL] "
-            + "[" + PREFIX_ADDRESS + "ADDRESS] "
-            + "[" + PREFIX_REMARK + "REMARK] "
-            + "[" + PREFIX_TAG + "TAG]...\n";
+            + "[" + PREFIX_NAME + "NAME]" + " "
+            + "[" + PREFIX_PHONE + "PHONE]" + " "
+            + "[" + PREFIX_EMAIL + "EMAIL]" + " "
+            + "[" + PREFIX_ADDRESS + "ADDRESS]" + " "
+            + "[" + PREFIX_REMARK + "REMARK]" + " "
+            + "[" + PREFIX_TAG + "TAG] ..."
+            + "\n" + "Note: At least one field must be edited";
 
     public static final String MESSAGE_SUCCESS = "Edit User success: %s edited";
     public static final String MESSAGE_FAILURE = "Unable to edit user: %s";

@@ -30,13 +30,15 @@ public class EditPersonCommand extends Command {
 
     public static final String COMMAND_WORD = "editperson";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + " " + PREFIX_EDIT + " PERSON_NAME "
-            + "[" + PREFIX_NAME + "NAME] "
-            + "[" + PREFIX_PHONE + "PHONE] "
-            + "[" + PREFIX_EMAIL + "EMAIL] "
-            + "[" + PREFIX_ADDRESS + "ADDRESS] "
-            + "[" + PREFIX_REMARK + "REMARK] "
-            + "[" + PREFIX_TAG + "TAG]...\n";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + " "
+            + PREFIX_EDIT + "PERSON_NAME" + " "
+            + "[" + PREFIX_NAME + "NAME]" + " "
+            + "[" + PREFIX_PHONE + "PHONE]" + " "
+            + "[" + PREFIX_EMAIL + "EMAIL]" + " "
+            + "[" + PREFIX_ADDRESS + "ADDRESS]" + " "
+            + "[" + PREFIX_REMARK + "REMARK]" + " "
+            + "[" + PREFIX_TAG + "TAG] ..."
+            + "\n" + "Note: At least one field must be edited";
 
     public static final String MESSAGE_SUCCESS = "Edit Person success: %s edited";
     public static final String MESSAGE_FAILURE = "Unable to edit person: %s";

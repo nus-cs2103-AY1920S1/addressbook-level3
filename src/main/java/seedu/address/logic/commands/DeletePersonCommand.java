@@ -18,7 +18,8 @@ import seedu.address.model.person.exceptions.PersonNotFoundException;
 public class DeletePersonCommand extends Command {
     public static final String COMMAND_WORD = "deleteperson";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + " " + PREFIX_NAME + " NAME";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + " "
+            + PREFIX_NAME + "NAME";
 
     public static final String MESSAGE_SUCCESS = "Delete person success: %s deleted";
     public static final String MESSAGE_FAILURE = "Unable to delete person: %s";

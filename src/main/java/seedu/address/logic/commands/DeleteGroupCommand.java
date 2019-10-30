@@ -18,7 +18,8 @@ import seedu.address.model.group.exceptions.GroupNotFoundException;
 public class DeleteGroupCommand extends Command {
     public static final String COMMAND_WORD = "deletegroup";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + " " + PREFIX_GROUPNAME + " GROUPNAME";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + " "
+            + PREFIX_GROUPNAME + "GROUP_NAME";
 
     public static final String MESSAGE_SUCCESS = "Delete group success: %s deleted";
     public static final String MESSAGE_FAILURE = "Unable to delete group: %s";

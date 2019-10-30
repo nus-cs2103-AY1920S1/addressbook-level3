@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GROUPNAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_REMARK;
 
 import java.time.LocalDateTime;
 
@@ -26,8 +27,10 @@ import seedu.address.model.person.exceptions.PersonNotFoundException;
 public class AddToGroupCommand extends Command {
     public static final String COMMAND_WORD = "addtogroup";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + " " + PREFIX_NAME + " NAME "
-            + PREFIX_GROUPNAME + " GROUPNAME";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + " "
+            + PREFIX_NAME + "NAME" + " "
+            + PREFIX_GROUPNAME + "GROUPNAME" + " "
+            + "[" + PREFIX_REMARK + "ROLE]";
 
     public static final String MESSAGE_SUCCESS = "Add to group success: %s";
     public static final String MESSAGE_FAILURE = "Unable to add person to group: %s";
