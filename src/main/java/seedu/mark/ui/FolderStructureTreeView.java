@@ -119,4 +119,70 @@ public class FolderStructureTreeView extends UiPart<Region> {
         }
     }
 
+    /**
+     * Expands/collapses the tree by a certain amount.
+     * @param levels expands by this much if positive, collapses by this much if negative.
+     */
+    public void expand(int levels) {
+        if (levels > 0) {
+            expand(root, levels);
+        } else {
+            collapse(root, -levels);
+            root.setExpanded(true); // make sure root is not collapsed.
+        }
+    }
+
+    /**
+     * Expands the node by a certain amount.
+     * @param node the node to expand
+     * @param levels the number of levels to expand
+     */
+    private void expand(TreeItem<String> node, int levels) {
+        if (levels <= 0) {
+            return;
+        }
+        if (node.isExpanded()) {
+            node.getChildren().forEach(child -> expand(child, levels));
+        } else {
+            node.expandedProperty().set(true); // we expand it
+            // make sure all children are not expanded
+            node.getChildren().forEach(child -> child.setExpanded(false));
+            expand(node, levels - 1);
+        }
+    }
+
+    /**
+     * Collapses the node by a certain amount.
+     * @param node the node to collapse
+     * @param levels the number of levels to collapse
+     * @return the number of times collapsed
+     */
+    private int collapse(TreeItem<String> node, int levels) {
+        if (levels <= 0 || node.getChildren().isEmpty()) {
+            return 0;
+        }
+        if (node.isExpanded() && node.getChildren().stream().noneMatch(TreeItem::isExpanded)) {
+            // if node is expanded, and all its children are not expanded and it's not the root, we collapse this node.
+            node.setExpanded(false);
+            return 1;
+        } else if (node.isExpanded()) {
+            /* if node is expanded but there are unexpanded children,
+             * we recursively expand each child and find out how many levels it collapsed.
+             * (the optional will never be empty, because if its empty the stream is empty and the previous
+             * condition will succeed).
+             *
+             * if the maximum that all the children collapse is still less than level, we can collapse this
+             * if not, we don't collapse it.
+             */
+            int max = node.getChildren().stream().mapToInt(child -> collapse(child, levels)).max().getAsInt();
+            if (max < levels) { // still can collapse
+                node.setExpanded(false);
+                return max + 1;
+            }
+            return max;
+        } else {
+            // if it's not expanded we got nothing to collapse.
+            return 0;
+        }
+    }
 }
