@@ -3,6 +3,7 @@
 :toc:
 :toc-title:
 :toc-placement: preamble
+:toclevels: 3
 :sectnums:
 :imagesDir: images
 :stylesDir: stylesheets
@@ -62,7 +63,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
 * *`list`* : lists all information in TimeBook.
-* *`addperson`* `n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the TimeBook.
+* *`addperson`* `n/John Doe p/98765432 em/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the TimeBook.
 * *`deleteperson`* `n/John Doe` : deletes the person named `John Doe` from the TimeBook.
 * *`addgroup`* `g/CS2103` : adds a new group called `CS2103` to the TimeBook.
 * *`addtogroup`* `n/John Doe` `g/CS2103` : Adds a person `John Doe` into the group `CS2103`.
@@ -76,11 +77,11 @@ Unlike most applications, where you use your mouse to interact with the applicat
 mostly use the *Command Line Interface*. Most of the time, you would be interacting with the application through typing commands in the
 command box of the application.
 
-You can play around with the commands in the *Command Summary* to get yourself warmed up.
+You can play around with the commands in <<Command Summary>> to get yourself warmed up.
 
 
 [[Features]]
-== Features
+== Commands
 
 ====
 *Command Format*
@@ -91,11 +92,24 @@ You can play around with the commands in the *Command Summary* to get yourself w
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 ====
 
-=== Viewing help : `help`
+=== Navigation
+
+==== Switch tabs: `switch-tab`
+You can switch the tab of *Person* and *Group* using this command.
+Format: `switch-tab`
+
+==== Viewing help: `help`
 
 Format: `help`
 
-=== Adding a person: `addperson`
+==== Exiting the program: `exit`
+
+Exits the program. +
+Format: `exit`
+
+=== Person Management
+
+==== Adding a person: `addperson`
 
 Adds a person to the TimeBook +
 Format: `addperson n/NAME [p/PHONE] [em/EMAIL] [a/ADDRESS] [r/REMARK] [tag/TAG]... [c/NUS_MOD_LINK]`
@@ -105,22 +119,7 @@ Examples:
 * `addperson n/Catherine em/catherineCanCook@imail.com`
 * `addperson n/John Doe em/JohnDoe@imail.com c/23F6B742CE`
 
-=== Adding a person: `addgroup`
-
-Adds a group to the TimeBook +
-Format: `addgroup g/GROUP_NAME [r/GROUP_REMARK]`
-
-Examples:
-
-* `addgroup g/CS2103 r/Project Group`
-* `addgroup g/Friends`
-
-=== Listing all persons : `list`
-
-Shows a list of all persons in the TimeBook. +
-Format: `list`
-
-=== Editing a person : `editperson`
+==== Editing a person: `editperson`
 
 Edits an existing person in the TimeBook. +
 Format: `editperson ed/PERSON_NAME [n/NAME] [p/PHONE] [em/EMAIL] [a/ADDRESS] [r/REMARK] [tag/TAG]...`
@@ -140,46 +139,8 @@ Edits the phone number and email address of the person with name 'John Doe' to b
 * `edit ed/Betsy n/Betsy Crower tag/` +
 Edits the person 'Betsy' to a new name 'Betsy Crower' and clears all existing tags.
 
-=== Editing a group : `editgroup`
-
-Edits an existing group in the TimeBook. +
-Format: `editgroup ed/GROUP_NAME [g/GROUP_NAME] [r/GROUP_REMARK]`
-
-****
-* Edits the group specified by `GROUP_NAME`.
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-****
-
-Examples:
-
-* `editgroup ed/CS2103 g/CS3203 r/Project Discussion Group` +
-Edits the group specified by group name 'CS2103' with a new group name 'CS3203' and group remark `Project Discussion Group` respectively.
-
-=== Locating persons by name: `findperson`
-
-Finds the person whose name contains the given keyword. +
-Format: `findperson n/NAME`
-
-****
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Shows the person in the tabs panel.
-****
-
-=== Locating group by name: `findgroup`
-
-Finds the group whose name contains the given keyword. +
-Format: `findgroup g/GROUP_NAME`
-
-****
-* Only the group name is searched.
-* Only full words will be matched
-* Shows the group in the tabs panel.
-****
-
 // tag::delete[]
-=== Deleting a person : `deleteperson`
+==== Deleting a person: `deleteperson`
 
 Deletes the specified person from the TimeBook. +
 Format: `deleteperson n/NAME`
@@ -194,23 +155,18 @@ Examples:
 * `deleteperson n/Benedict` +
 Deletes the person named `Benedict` from the TimeBook.
 
-=== Deleting a group : `deletegroup`
+==== Locating persons by name: `findperson`
 
-Deletes the specified group from the TimeBook. +
-Format: `deletegroup g/GROUP_NAME`
+Finds the person whose name contains the given keyword. +
+Format: `findperson n/NAME`
 
 ****
-* Deletes the group specified by 'GROUP_NAME'
-* The people who were in this group will not be deleted.
+* Only the name is searched.
+* Only full words will be matched e.g. `Han` will not match `Hans`
+* Shows the person in the tabs panel.
 ****
 
-Examples:
-
-* `deletegroup g/CS2103` +
-Deletes the 'CS2103' group from the TimeBook.
-
-=== Show: `show`
-==== Show person:
+==== Show person: `show`
 Shows details of a person. +
 Format: `show n/NAME`
 
@@ -227,7 +183,107 @@ Hit the kbd:[Enter] key and you should see details of the person! You should see
 
 image::showpersonresult.png[]
 
-==== Show group:
+==== Listing all persons: `list`
+
+Shows a list of all persons in the TimeBook. +
+Format: `list`
+
+==== Add Event to Schedule: `addevent`
+
+Adds an event into the schedule of a person in the TimeBook. Only schedules without clashes between time slots can be added to the TimeBook.
+Can be used to mark a person as unavailable either on one-off dates or on a particular day every week +
+Format:
+
+* `addevent n/NAME e/EVENT_NAME t/DATETIME` +
+* `addevent n/NAME c/NUS_MOD_LINK`
+
+Examples:
+
+* `addevent n/John e/Math Lecture t/26092019:1300-26092019:1400-LT25`
+* `addevent n/John c/23F6B742CE`
+
+==== Add Module to Schedule: `addmod`
+
+Adds an NUS module as an event to a person's schedule in TimeBook. It checks and ensures classes are available for the module in the academic year and semester before adding to the person's schedule. Default values for `ACADEMIC_YEAR` is 2019/2020 and `SEMESTER` is 1.
+
+Format:
+
+* `addmod n/NAME m/MODULE_CODE class/CLASS_NUMBERS(comma-separated) [ay/ACADEMIC_YEAR] [s/SEMESTER]` +
+
+Examples:
+
+* `addmod n/John m/CS2103T class/G01,T5`
+* `addmod n/John m/CS2103T class/G01,T5 ay/2018/2019`
+* `addmod n/John m/CS2103T class/G01,T5 ay/2019/2020 s/1`
+
+==== Add Modules via NUSMods Link: `addmods`
+
+Adds NUS modules given the NUSMods share link, as events to a person's schedule in TimeBook.
+
+Format:
+
+* `addmods n/NAME l/NUSMODS_SHARE_LINK` +
+
+Examples:
+
+* `addmods n/John l/https://nusmods.com/timetable/sem-1/share?CS2101=&CS2103T=LEC:G05&CS3230=LEC:1,TUT:08&CS3243=TUT:07,LEC:1&GEQ1000=TUT:D17`
+* `addmods n/Bob l/https://nusmods.com/timetable/sem-1/share?CS2101=&CS2103T=LEC:G05&CS3230=LEC:1,TUT:08&CS3243=TUT:07,LEC:1&GEQ1000=TUT:D17`
+
+=== Group Management
+
+==== Adding a group: `addgroup`
+
+Adds a group to the TimeBook +
+Format: `addgroup g/GROUP_NAME [r/GROUP_REMARK]`
+
+Examples:
+
+* `addgroup g/CS2103 r/Project Group`
+* `addgroup g/Friends`
+
+==== Editing a group: `editgroup`
+
+Edits an existing group in the TimeBook. +
+Format: `editgroup ed/GROUP_NAME [g/GROUP_NAME] [r/GROUP_REMARK]`
+
+****
+* Edits the group specified by `GROUP_NAME`.
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+****
+
+Examples:
+
+* `editgroup ed/CS2103 g/CS3203 r/Project Discussion Group` +
+Edits the group specified by group name 'CS2103' with a new group name 'CS3203' and group remark `Project Discussion Group` respectively.
+
+==== Deleting a group: `deletegroup`
+
+Deletes the specified group from the TimeBook. +
+Format: `deletegroup g/GROUP_NAME`
+
+****
+* Deletes the group specified by 'GROUP_NAME'
+* The people who were in this group will not be deleted.
+****
+
+Examples:
+
+* `deletegroup g/CS2103` +
+Deletes the 'CS2103' group from the TimeBook.
+
+==== Locating group by name: `findgroup`
+
+Finds the group whose name contains the given keyword. +
+Format: `findgroup g/GROUP_NAME`
+
+****
+* Only the group name is searched.
+* Only full words will be matched
+* Shows the group in the tabs panel.
+****
+
+==== Show group: `show`
 Shows the details of a group. +
 Format: `show g/GROUP_NAME`
 
@@ -249,29 +305,7 @@ image::showgroupresult.png[]
 tip: You can use the command `n` to help you navigate through the schedule view without touching your mouse!
 *****
 
-=== Switch tabs: `switch-tab`
-You can switch the tab of *Person* and *Group* using this command.
-Format: `switch-tab`
-
-// end::delete[]
-=== Clearing all entries : `clear`
-
-Clears all entries from the time book. +
-Format: `clear`
-
-=== Exiting the program : `exit`
-
-Exits the program. +
-Format: `exit`
-
-=== Saving the data
-
-TimeBook data are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
-
-== Advanced Features
-
-=== Add to Group: `addtogroup`
+==== Add Person to Group: `addtogroup`
 
 Adds a person specified by 'NAME' into a group specified by 'GROUP_NAME' in the TimeBook.
 Format:
@@ -282,48 +316,9 @@ Examples:
 
 * `addtogroup n/John g/CS2103`
 
-=== Add Schedule: `addevent`
+=== Advanced Features
 
-Adds an event into the schedule of a person in the TimeBook. Only schedules without clashes between time slots can be added to the TimeBook.
-Can be used to mark a person as unavailable either on one-off dates or on a particular day every week +
-Format:
-
-* `addevent n/NAME e/EVENT_NAME t/DATETIME` +
-* `addevent n/NAME c/NUS_MOD_LINK`
-
-Examples:
-
-* `addevent n/John e/Math Lecture t/26092019:1300-26092019:1400-LT25`
-* `addevent n/John c/23F6B742CE`
-
-=== Add Module: `addmod`
-
-Adds an NUS module as an event to a person's schedule in TimeBook. It checks and ensures classes are available for the module in the academic year and semester before adding to the person's schedule. Default values for `ACADEMIC_YEAR` is 2019/2020 and `SEMESTER` is 1.
-
-Format:
-
-* `addmod n/NAME m/MODULE_CODE class/CLASS_NUMBERS(comma-separated) [ay/ACADEMIC_YEAR] [s/SEMESTER]` +
-
-Examples:
-
-* `addmod n/John m/CS2103T class/G01,T5`
-* `addmod n/John m/CS2103T class/G01,T5 ay/2018/2019`
-* `addmod n/John m/CS2103T class/G01,T5 ay/2019/2020 s/1`
-
-=== Add Modules via Link: `addmods`
-
-Adds NUS modules given the NUSMods share link, as events to a person's schedule in TimeBook.
-
-Format:
-
-* `addmods n/NAME l/NUSMODS_SHARE_LINK` +
-
-Examples:
-
-* `addmods n/John l/https://nusmods.com/timetable/sem-1/share?CS2101=&CS2103T=LEC:G05&CS3230=LEC:1,TUT:08&CS3243=TUT:07,LEC:1&GEQ1000=TUT:D17`
-* `addmods n/Bob l/https://nusmods.com/timetable/sem-1/share?CS2101=&CS2103T=LEC:G05&CS3230=LEC:1,TUT:08&CS3243=TUT:07,LEC:1&GEQ1000=TUT:D17`
-
-=== Show Module: `showmod`
+==== Show Module: `showmod`
 
 Shows the schedule of available classes for the module in the academic year and semester. Default values for `ACADEMIC_YEAR` is 2019/2020 and `SEMESTER` is 1.
 
@@ -337,7 +332,7 @@ Examples:
 * `showmod m/GEQ1000 ay/2019/2020`
 * `showmod m/CS3230 ay/2019/2020 s/2`
 
-=== Export VR(Virtual Representation): `export-vr`
+==== Export VR (Visual Representation): `export-vr`
 
 This feature is currently work in progress!
 
@@ -374,7 +369,7 @@ Examples:
 //
 //* `Import-ics -t individual -n Catherine -p /data/timetable.ics`
 
-=== Get Closest Location: `closestlocation`
+==== Get Closest Location: `closestlocation`
 
 This command is used to get the closest common location among a list of locations you entered.
 
@@ -393,7 +388,7 @@ Examples:
 
 * `closestlocation l/LT16 LT15 AS5`
 
-=== Show Free Time slot `show-freetime`
+==== Show Free Time slot: `show-freetime`
 
 *Overview*
 When the command is executed a popup will appear that shows the closest common location for a particular free time slot in a group.
@@ -418,6 +413,17 @@ Format:
 Examples:
 
 * `show-freetime g/CS2103T id/2`
+
+==== Clearing all entries: `clear`
+
+Clears all entries from the TimeBook. +
+Format: `clear`
+
+=== Saving the data
+
+TimeBook data are saved in the hard disk automatically after any command that changes the data. +
+There is no need to save manually.
+
 
 == FAQ
 
