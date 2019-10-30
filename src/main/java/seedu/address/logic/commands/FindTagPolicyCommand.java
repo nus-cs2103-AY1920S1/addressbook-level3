@@ -13,7 +13,7 @@ import seedu.address.model.tag.Tag;
 
 /**
  * Finds and lists all persons in address book who possess all specified tags.
- * Keyword matching is case insensitive.
+ * Tag matching is case insensitive.
  */
 public class FindTagPolicyCommand extends Command {
 
