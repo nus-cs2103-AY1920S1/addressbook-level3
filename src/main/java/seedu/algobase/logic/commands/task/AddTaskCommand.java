@@ -88,11 +88,6 @@ public class AddTaskCommand extends Command {
             task = new Task(problem, planDate, false);
         }
 
-        if (task.getTargetDate().isAfter(planToUpdate.getEndDate())
-                || task.getTargetDate().isBefore(planToUpdate.getStartDate())) {
-            throw new CommandException(MESSAGE_DATE_EXCEPTION);
-        }
-
         Set<Task> taskSet = new HashSet<>(planToUpdate.getTasks());
         if (taskSet.contains(task)) {
             throw new CommandException(

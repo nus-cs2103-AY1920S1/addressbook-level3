@@ -350,6 +350,8 @@ Examples:
 Copies a specified task from one plan to another. +
 Format: `copytask task/TASK_INDEX from/PLAN_INDEX to/PLAN_INDEX`
 
+* `DUE_DATE` should be after or equal to plan's `START_DATE` and before or equal to plan's `END_DATE`.
+
 Examples:
 
 * `copytask task/1 from/1 to/2`
