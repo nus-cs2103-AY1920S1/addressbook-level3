@@ -82,12 +82,7 @@ public class MainWindow extends UiPart<Stage> {
 
         helpWindow = new HelpWindow();
     }
-    public String openFileChooser() {
-        FileChooser fileChooser = new FileChooser();
-        File file = fileChooser.showOpenDialog(primaryStage);
-        //TODO throw exception if user cancels file choosing
-        return file.toURI().toString();
-    }
+
     public Stage getPrimaryStage() {
         return primaryStage;
     }
@@ -204,6 +199,19 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
+     * opens filechooser and returns
+     * path of file, if cancelled, throws
+     * nullpointer exception
+     * @return String
+     * @throws NullPointerException
+     */
+    public String openFileChooser() throws NullPointerException {
+        FileChooser fileChooser = new FileChooser();
+        File file = fileChooser.showOpenDialog(primaryStage);
+        return file.toURI().toString();
+    }
+
+    /**
      * checks if upload command called,
      * then opens filechooser and
      * adds name of file to command
@@ -212,8 +220,7 @@ public class MainWindow extends UiPart<Stage> {
      * @return commandText
      */
     private String uploadCommandCheck(String commandText) {
-        if (commandText.length() > 7 &&
-                commandText.substring(0,6).equals("upload")) {
+        if (commandText.length() > 7 && commandText.substring(0, 6).equals("upload")) {
             commandText = commandText + " " + "f/" + openFileChooser();
         }
         return commandText;

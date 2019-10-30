@@ -88,6 +88,20 @@ Examples:
 
 // end::edit[]
 
+//tag:: upload[]
+=== Upload: upload
+
+=== Students' display picture
+
+Uploads a display picture for existing student in student list
+
+Format: upload INDEX
+
+Examples:
+* upload 2
+* upload 3
+
+
 // tag::update[]
 === Updating: update
 

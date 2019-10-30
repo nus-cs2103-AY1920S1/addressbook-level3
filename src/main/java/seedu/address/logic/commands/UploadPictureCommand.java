@@ -24,6 +24,7 @@ import seedu.address.model.tag.Tag;
  * acts like edit command
  */
 public class UploadPictureCommand extends Command {
+    //TODO save new filepath into storage somehow
     public static final String COMMAND_WORD = "upload";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": activates file chooser to upload "
@@ -76,6 +77,12 @@ public class UploadPictureCommand extends Command {
         return editedStudent;
     }
 
+    /**
+     * creates edited student with changed display photo
+     * @param model {@code Model} which the command should operate on.
+     * @return CommandResult
+     * @throws CommandException
+     */
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         List<Student> lastShownList = model.getFilteredStudentList();
@@ -85,11 +92,11 @@ public class UploadPictureCommand extends Command {
         }
 
         Student studentToEdit = lastShownList.get(index.getZeroBased());
-        Student editedStudent = createEditedStudent(studentToEdit,fileName);
+        Student editedStudent = createEditedStudent(studentToEdit, fileName);
         if (!studentToEdit.isSameStudent(editedStudent) && model.hasStudent(editedStudent)) {
             throw new CommandException(MESSAGE_DUPLICATE_STUDENT);
         }
-        String messageSuccess = "Uploaded" + " " + editedStudent.getName() + "'s photo successfully.";
+        String messageSuccess = "Uploaded " + editedStudent.getName() + "'s photo successfully.";
         model.setStudent(studentToEdit, editedStudent);
         model.updateFilteredStudentList(PREDICATE_SHOW_ALL_STUDENTS);
         model.saveState();

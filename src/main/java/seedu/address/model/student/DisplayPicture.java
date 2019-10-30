@@ -38,8 +38,8 @@ public class DisplayPicture {
         if (file.length() < 5) {
             return false;
         }
-        int start = file.length()-3;
-        boolean isFilePng = file.substring(start).equals("png")  || file.substring(start).equals("jpg");
+        int start = file.length() - 3;
+        boolean isFilePng = file.substring(start).equals("png") || file.substring(start).equals("jpg");
         return isFilePng;
     }
 

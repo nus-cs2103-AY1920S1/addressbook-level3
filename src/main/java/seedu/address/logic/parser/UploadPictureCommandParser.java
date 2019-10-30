@@ -10,6 +10,9 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.UploadPictureCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
+/**
+ * parses input arguments and return UploadPictureCommand
+ */
 public class UploadPictureCommandParser {
 
     /**
@@ -24,13 +27,15 @@ public class UploadPictureCommandParser {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_FILE);
         if (argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UploadPictureCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    UploadPictureCommand.MESSAGE_USAGE));
         }
 
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UploadPictureCommand.MESSAGE_USAGE), pe);
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    UploadPictureCommand.MESSAGE_USAGE), pe);
         }
         String displayPictureFileName = ParserUtil.parseDisplayPicture(argMultimap.getValue(PREFIX_FILE).get());
 
@@ -44,6 +49,4 @@ public class UploadPictureCommandParser {
     private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
         return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
-
-
 }
