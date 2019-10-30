@@ -128,6 +128,6 @@ public interface ItemModel {
     SimpleBooleanProperty getPriorityMode();
 
     boolean isSystemToggle();
-  
+    
     public Item editItem(Item oldItem, Item newItem);
 }
