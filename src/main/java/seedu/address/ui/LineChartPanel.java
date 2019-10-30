@@ -58,7 +58,6 @@ public class LineChartPanel extends UiPart<Region> {
         super(FXML);
         this.bodyList = bodyList;
         staticBodyList = bodyList;
-        makeLineChart(); // make line chart for the first time
     }
 
     // static method to create instance of Singleton class
@@ -81,7 +80,8 @@ public class LineChartPanel extends UiPart<Region> {
         updateUponChange();
     }
 
-    public AreaChart getLineChart() {
+    public AreaChart getLineChart() throws ParseException {
+        makeLineChart(); // for dynamic update
         return lineChart;
     }
 
@@ -296,6 +296,13 @@ public class LineChartPanel extends UiPart<Region> {
         }
         return yearList;
     }
+
+    public static void changeFilterParameters(String newTimeFrame, Date newDate) {
+        setTimeFrame(newTimeFrame);
+        setDate(newDate);
+        setWindowSize(newTimeFrame);
+    }
+
     public static void setTimeFrame(String newTimeFrame) {
         timeFrame = newTimeFrame;
     }

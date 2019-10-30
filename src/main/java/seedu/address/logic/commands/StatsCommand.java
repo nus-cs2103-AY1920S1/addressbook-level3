@@ -50,29 +50,21 @@ public class StatsCommand extends Command {
         requireNonNull(model);
         try {
             if (timeFrame.equals("default")) {
-                LineChartPanel.setTimeFrame(timeFrame);
-                LineChartPanel.setDate(new Date());
-                LineChartPanel.setWindowSize(timeFrame);
+                LineChartPanel.changeFilterParameters(timeFrame, new Date());
                 LineChartPanel.reinitialiseChart();
                 return new CommandResult(Messages.MESSAGE_STATS_DEFAULT + "\n\n" + MESSAGE_USAGE);
             } else if (timeFrame.equals("week")) {
-                LineChartPanel.setTimeFrame(timeFrame);
-                LineChartPanel.setDate(date);
-                LineChartPanel.setWindowSize(timeFrame);
+                LineChartPanel.changeFilterParameters(timeFrame, date);
                 LineChartPanel.reinitialiseChart();
                 return new CommandResult(
                         String.format(Messages.MESSAGE_STATS_WEEK, dateFormatter.format(date)));
             } else if (timeFrame.equals("month")) {
-                LineChartPanel.setTimeFrame(timeFrame);
-                LineChartPanel.setDate(date);
-                LineChartPanel.setWindowSize(timeFrame);
+                LineChartPanel.changeFilterParameters(timeFrame, date);
                 LineChartPanel.reinitialiseChart();
                 return new CommandResult(
                         String.format(Messages.MESSAGE_STATS_MONTH, dateFormatterMonth.format(date)));
             } else if (timeFrame.equals("year")) {
-                LineChartPanel.setTimeFrame(timeFrame);
-                LineChartPanel.setDate(date);
-                LineChartPanel.setWindowSize(timeFrame);
+                LineChartPanel.changeFilterParameters(timeFrame, date);
                 LineChartPanel.reinitialiseChart();
                 return new CommandResult(
                         String.format(Messages.MESSAGE_STATS_YEAR, dateFormatterYear.format(date)));
