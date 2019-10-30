@@ -52,38 +52,48 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 === Expenses and Income
 
-==== Adding a expense: `addExpense`
-Adds a new expenditure to your total/daily/weekly/monthly spending with current timestamp. Inputs can be arranged in a different order. Description and tag may be omitted from the expenditure record.
+==== Adding Expense: `add`
+Adds a new expenditure to your total/daily/weekly/monthly spending with current timestamp. Inputs can be arranged in a different order.Tag may be omitted from the expenditure record. Category must already exist in the list of category.
 
-Format: `addExpense [--desc <description>] [--tag <tag>] --amt <expenditure>`
-
-Examples:
-
-* `addExpense --desc deck mala --tag food --amt 5.60`
-* `addExpense --tag food --amt 5.60`
-* `addExpense --amt 5.60 --cat food`
-* `addExpense --amt 5.60`
-
-==== Editing a expense: `editExpense`
-
-Edits a current expenditure with the given index number
-
-Format: `editExpense <index> [--desc <description>] [--tag <tag>] [--amt <expenditure>]`
+Format: `add typ/Expense cat/<category> n/<description> amt/<expenditure> d/<date> [--tag <tag>]`
 
 Examples:
 
-* `editExpense 1 --desc deck mala with friends`
-* `editExpense 1 --tag mala --amt 5.33`
+* `add cat/Food typ/Expense n/Mala amt/5.50 d/2019 09 09 tg/food tg/indulgence`
+* `add cat/Travel typ/Expense n/Travel To Alaska amt/550000 d/2019 09 09`
 
-==== Deleting a expense: `deleteExpense`
+==== Adding Income : `add`
+Adds a new Income to your total/daily/weekly/monthly spending with current timestamp. Inputs can be arranged in a different order. Tag may be omitted from the expenditure record. . Category must already exist in the list of category.
+
+Format: `add typ/Income cat/<category> n/<description> amt/<expenditure> d/<date> [--tag <tag>]`
+
+Examples:
+
+* `add cat/Gifts typ/Income n/Durian amt/200.00 d/2019 09 09 tg/food`
+* `add cat/Business typ/Income n/business Trip To Mars amt/20000.00 d/2019 09 09`
+
+==== Editing a expense/income: `edit`
+
+Edits a current entry with the given index number. Category must already exist in the list of category.
+
+Format: `edit <index> [cat/<category>] [n/<description>] [d/<date>] [amt/ <expenditure>] [--tag <tag>]`
+
+Examples:
+
+* `edit 1 cat/Food n/deck mala with friends`
+* `edit 3 cat/Business n/Selling Coding Services amt/0.01`
+* `edit 5 tg/helpmykidneys`
+
+==== Deleting a expense/income: `delete`
 
 Deletes the recorded expenditure with the given index number.
 
-Format: `deleteExpense <index>`
+Format: `delete <index>`
 
 Examples:
 
-* `deleteExpense 2`
+* `delete 2`
+* `delete 4`
 
 ==== Adding AutoExpenditure : `addAutoExpenditure`
 
@@ -111,38 +121,6 @@ Examples:
 Deletes a current automatically recurring expenditure at the given index.
 
 Format: `deleteAutoExpenditure <index>`
-
-==== Adding Income : `addIncome`
-
-Adds the amount to your total income. Inputs can be arranged in a different order. Description may be omitted from the income record.
-
-Format: `addIncome [n/<description>] amt/<income amount>`
-
-Examples:
-
-* `addIncome amt/6000`
-* `addIncome amt/1000 n/year-end bonus!! :DD`
-
-==== Editing Income : `editIncome`
-
-Edits a current income record at the given index number.
-
-Format: `editIncome <index> [n/<description>] [amt/<income amount>] [t/<tag>]`
-
-Examples:
-
-* `editIncome 1 n/salary for feb`
-* `editIncome 1 n/february amt/650 t/salary`
-
-==== Deleting Income : `deleteIncome`
-
-Deletes the recorded income at the given index number.
-
-Format: `deleteIncome <index>`
-
-Examples:
-
-* `deleteIncome 3`
 
 ==== Adding Budget : 'addBudget`
 
@@ -184,6 +162,47 @@ Format: `deleteBudget <index>`
 Examples:
 
 * `deleteBudget 2`
+
+==== Adding Category : 'addCategory`
+
+Adds a new Category for either Income or Expense. The category added must not exist in the application.
+
+Format: `addCategory cat/<Category> n/<CategoryName>`
+
+Examples:
+
+* `addCategory cat/Expense n/Transport`
+* `addCategory cat/Income n/Lottery`
+
+==== Editing Category : 'editCategory`
+Edits a current category's description.
+
+Format: `editCategory typ/<CategoryType> cat/<OldNameOfCategory> n/<NewNameOfCategory>`
+
+Examples:
+
+* `editCategory typ/Income cat/Business n/HotelManagement`
+* `editCategory typ/Expense cat/Family n/Baby Planning`
+
+==== Listing Categories : 'listCategories`
+
+Lists all the current categories the user has.
+
+Format: `listCategories`
+
+Examples:
+
+* `listCategories`
+
+==== Deleting Category : `deleteCategory`
+Deletes a category from guiltTrip. The category that is deleted should not have any entries.
+
+Format: `deleteCategory cat/<CategoryType> n/<CategoryName>`
+
+Examples:
+
+* `deleteCategory cat/Income n/Business`
+* `deleteCategory cat/Expense n/Food`
 
 ==== Adding a Loan : `addLoan` [coming in v2.0]
 Adds a new loan with the given description, amount and interest (in percentage) and calculates the total outstanding amount based on the interest.
@@ -233,17 +252,33 @@ Example:
 
 === Statistics
 
-==== Viewing History : `viewHistory`
-View past expenditure/ income from startDate to endDate (if present). If startDate not present, lists from 1 month before endDate. If endDate not present, list to current time.
+==== Switching to Statistics View : `switch`
+Switches between the entry view and the statistics summary.
 
-Format: `viewHistory -- cat <category> [--period <startDate>, <endDate>]`
+Format: `switch`
 
 Example:
 
-* `viewHistory -- cat expenditure`
-* `viewHistory -- cat expenditure --period 11/9/2019, 21/9/2019`
-* `viewHistory -- cat income --period 11/9/2019`
-* `viewHistory -- cat expenditure --period ,2 21/9/2019`
+`switch`
+
+==== Switching to Statistics View : `switchStats`
+Switches between the statistics table view and the statistics graph view.
+
+Format: `switchStats`
+
+Example:
+
+`switchStats`
+
+==== Viewing Statistics : `viewStatistics`
+View past expenditure/ income by Month. If not present, will only show current Month.
+
+Format: `viewStatistics [p/<Date>]`
+
+Example:
+
+* `viewStatistics`
+* `viewStatistics p/2019-09`
 
 ==== Sorting : `sort`
 
@@ -257,20 +292,41 @@ Example:
 * `sort typ/amount s/ascending`
 * `sort typ/category s/descending`
 
-==== Search : `search`
+==== Search : `find`
 
-Search income/expenditure list/ wishlist for keyword/ tag.
+Search income/expenditure by Category,Description,Amount,Date or Tags. There must be at least one find parameter.
 
-Format: `Search [--cat <category>] --key <keyword> || --amt <(== || < || > || <= || >=) amount> || --tag <tag>`
+Format: `find [cat/<category>] [n/<description>] [amt/<expenditure>] [d/<date>] [--tag <tag>]`
 
 Example:
 
-* `search --cat expenditure --key book: lists each entry in expenditure with title containing keyword “book”.`
-* `search --cat wishlist --key monitor: lists each entry in expenditure with title containing keyword “monitor”`
-* `search --key book: search everything in database with keyword “book”.`
-* `search --cat expenditure --tag _CLOTHING: lists each entry in expenditure with tag _CLOTHING.`
-* `search --cat wishlist  --tag _BOOK: lists each entry in wishlist with tag _BOOK.`
-* `search --cat expenditure --amt >100: list each entry in expenditure over $100.`
+* `find cat/food n/mala: lists each entry in expenditure and income with title containing keyword “mala” and category of Food.`
+* `find cat/business d/2019-09-09: lists each entry in expenditure and income with date of "2019-09-09" and category of business.`
+* `find d/2019-09-09 tg/a tg/b: lists each entry in expenditure and income with date of "2019-09-09" and tags of a and b.`
+
+==== Search Wish: `findWish`
+
+Search Wish by Category,Description,Amount,Date or Tags. There must be at least one find parameter.
+
+Format: `findWish [cat/<category>] [n/<description>] [amt/<expenditure>] [d/<date>] [--tag <tag>]`
+
+Example:
+
+* `findWish cat/food n/mala: lists each entry in Wish with title containing keyword “mala” and category of Food.`
+* `findWish cat/business d/2019-09-09: lists each entry in Wish with date of "2019-09-09" and category of business.`
+* `findWish d/2019-09-09 tg/a tg/b: lists each entry in Wish with date of "2019-09-09" and tags of a and b.`
+
+==== Search Budget: `findBudget`
+
+Search Budget by Category,Description,Amount,Date or Tags. There must be at least one find parameter.
+
+Format: `findBudget [cat/<category>] [n/<description>] [amt/<expenditure>] [d/<date>] [--tag <tag>]`
+
+Example:
+
+* `findBudget cat/food n/mala: lists each entry in Budget with title containing keyword “mala” and category of Food.`
+* `findBudget cat/business d/2019-09-09: lists each entry in Budget with date of "2019-09-09" and category of business.`
+* `findBudget d/2019-09-09 tg/a tg/b: lists each entry in Budget with date of "2019-09-09" and tags of a and b.`
 
 === Organization
 

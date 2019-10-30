@@ -525,7 +525,6 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void removeExpense(Expense key) {
         expenses.remove(key);
-        entries.remove(key);
         indicateModified();
     }
 
@@ -535,7 +534,6 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void removeIncome(Income key) {
         incomes.remove(key);
-        entries.remove(key);
         indicateModified();
     }
 
@@ -545,7 +543,6 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void removeWish(Wish key) {
         checkArgument(hasCategory(key.getCategory()), MESSAGE_NONEXISTENT_CATEGORY);
-        wishes.remove(key);
         indicateModified();
     }
 
