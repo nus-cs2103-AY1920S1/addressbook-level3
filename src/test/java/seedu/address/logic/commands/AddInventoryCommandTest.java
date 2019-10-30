@@ -31,12 +31,8 @@ import seedu.address.model.mapping.Mapping;
 import seedu.address.model.mapping.TasMemMapping;
 import seedu.address.model.member.Member;
 import seedu.address.model.member.MemberId;
-<<<<<<< HEAD
-=======
-import seedu.address.model.member.MemberName;
 import seedu.address.model.settings.ClockFormat;
 import seedu.address.model.settings.Theme;
->>>>>>> 186d7a105fdd4a102a70baeacb35c0b8b29fd59b
 import seedu.address.model.statistics.Statistics;
 import seedu.address.model.task.Task;
 import seedu.address.testutil.InventoryBuilder;

@@ -11,12 +11,13 @@ import org.junit.jupiter.api.Test;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.UserSettings;
 import seedu.address.model.member.Member;
 import seedu.address.model.task.TaskStatus;
 
 public class StatisticsTest {
-    private Model model = new ModelManager(getTypicalProjectDashboard(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalProjectDashboard(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalProjectDashboard(), new UserPrefs(), new UserSettings());
+    private Model expectedModel = new ModelManager(getTypicalProjectDashboard(), new UserPrefs(), new UserSettings());
     @Test
     public void execute_correct_tasks_by_status_stats() {
         HashMap<TaskStatus, Integer> expectedResult = new HashMap<>();

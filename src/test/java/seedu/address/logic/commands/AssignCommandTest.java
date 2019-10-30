@@ -1,40 +1,96 @@
 package seedu.address.logic.commands;
 
+
+import static java.util.Objects.requireNonNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.address.testutil.TypicalTasksMembers.getTypicalProjectDashboard;
+
+import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.function.Predicate;
+
+import org.junit.jupiter.api.Test;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.core.Messages;
+import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.Model;
+import seedu.address.model.ModelManager;
+import seedu.address.model.ProjectDashboard;
+import seedu.address.model.ReadOnlyProjectDashboard;
+import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.UserPrefs;
+import seedu.address.model.UserSettings;
+import seedu.address.model.inventory.Inventory;
+import seedu.address.model.mapping.InvMemMapping;
+import seedu.address.model.mapping.InvTasMapping;
+import seedu.address.model.mapping.Mapping;
+import seedu.address.model.mapping.TasMemMapping;
+import seedu.address.model.member.Member;
+import seedu.address.model.member.MemberId;
+import seedu.address.model.settings.ClockFormat;
+import seedu.address.model.settings.Theme;
+import seedu.address.model.statistics.Statistics;
+import seedu.address.model.task.Task;
+import seedu.address.testutil.MappingBuilder;
+import seedu.address.testutil.MemberBuilder;
+import seedu.address.testutil.TaskBuilder;
+
 public class AssignCommandTest {
-    /*private Model model = new ModelManager(getTypicalProjectDashboard(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalProjectDashboard(), new UserPrefs(), new UserSettings());
 
     @Test
     public void execute_memberAndTaskValid_mappingSuccessful() throws Exception {
         ModelStubAcceptingTasMemMappingAdded modelStub = new ModelStubAcceptingTasMemMappingAdded();
+        Task newTask = new TaskBuilder().build();
+        Member newMember = new MemberBuilder().withId(new MemberId("test")).build();
+        modelStub.addMember(newMember);
+        modelStub.addTask(newTask);
 
         TasMemMapping validMapping = new MappingBuilder().withTask(0).withMember(0).tasMemMappingBuild();
         CommandResult commandResult = new AssignCommand(new Index(0), new MemberId("test")).execute(modelStub);
 
-        assertEquals(String.format(AssignCommand.MESSAGE_ASSIGN_SUCCESS, validMapping), commandResult.getFeedbackToUser());
-        assertEquals(Arrays.asList(validMapping), modelStub.mappingsAdded);
+        assertEquals(String.format(AssignCommand.MESSAGE_ASSIGN_SUCCESS), commandResult.getFeedbackToUser());
+        assertEquals(validMapping, modelStub.mappingsAdded.get(0));
     }
 
     @Test
     public void execute_duplicateMapping_throwsCommandException() {
-        Member validMember = new MemberBuilder().build();
-        AddMemberCommand addMemberCommand = new AddMemberCommand(validMember);
-        AddMemberCommandTest.ModelStub modelStub = new AddMemberCommandTest.ModelStubWithMember(validMember);
+        ModelStubAcceptingTasMemMappingAdded modelStub = new ModelStubAcceptingTasMemMappingAdded();
+        Task newTask = new TaskBuilder().build();
+        Member newMember = new MemberBuilder().withId(new MemberId("test")).build();
+        modelStub.addMember(newMember);
+        modelStub.addTask(newTask);
 
-        assertThrows(CommandException.class, addMemberCommand.MESSAGE_DUPLICATE_MEMBER, () ->
-                addMemberCommand.execute(modelStub));
+        TasMemMapping validMapping = new MappingBuilder().withTask(0).withMember(0).tasMemMappingBuild();
+        modelStub.addMapping(validMapping);
+        AssignCommand assignCommand = new AssignCommand(new Index(0), new MemberId("test"));
+
+        assertThrows(CommandException.class, AssignCommand.MESSAGE_DUPLICATE_MAPPING, () ->
+                assignCommand.execute(modelStub));
     }
 
     @Test
     public void execute_invalidMemberId_throwsCommandException() {
-        Member validMember = new MemberBuilder().build();
-        AddMemberCommand addMemberCommand = new AddMemberCommand(validMember);
-        AddMemberCommandTest.ModelStub modelStub = new AddMemberCommandTest.ModelStubWithMember(validMember);
+        ModelStubAcceptingTasMemMappingAdded modelStub = new ModelStubAcceptingTasMemMappingAdded();
+        Task newTask = new TaskBuilder().build();
+        Member newMember = new MemberBuilder().withId(new MemberId("test")).build();
+        modelStub.addMember(newMember);
+        modelStub.addTask(newTask);
 
-        assertThrows(CommandException.class, addMemberCommand.MESSAGE_DUPLICATE_MEMBER, () ->
-                addMemberCommand.execute(modelStub));
+        TasMemMapping validMapping = new MappingBuilder().withTask(0).withMember(0).tasMemMappingBuild();
+        modelStub.addMapping(validMapping);
+        AssignCommand assignCommand = new AssignCommand(new Index(0), new MemberId("testing"));
+
+        assertThrows(CommandException.class, Messages.MESSAGE_INVALID_MEMBER_ID, () ->
+                assignCommand.execute(modelStub));
     }
 
-    @Test
+    /*@Test
     public void execute_invalidTaskId_throwsCommandException() {
         Member validMember = new MemberBuilder().build();
         AddMemberCommand addMemberCommand = new AddMemberCommand(validMember);
@@ -66,7 +122,7 @@ public class AssignCommandTest {
 
         // different task -> returns false
         assertFalse(addAliceCommand.equals(addBobCommand));
-    }
+    }*/
 
     private class ModelStub implements Model {
 
@@ -309,12 +365,42 @@ public class AssignCommandTest {
         public void setStatistics(Statistics newStats) {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public UserSettings getUserSettings() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Path getUserSettingsFilePath() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Theme getCurrentTheme() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setCurrentTheme(Theme newTheme) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ClockFormat getCurrentClockFormat() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setClockFormat(ClockFormat newClockFormat) {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**
      * A Model stub that contains a single task.
      */
-    /*private class ModelStubWithTasMemMapping extends AssignCommandTest.ModelStub {
+    private class ModelStubWithTasMemMapping extends AssignCommandTest.ModelStub {
         private final TasMemMapping mapping;
 
         ModelStubWithTasMemMapping(TasMemMapping mapping) {
@@ -332,8 +418,11 @@ public class AssignCommandTest {
     /**
      * A Model stub that always accept the inventory being added.
      */
-    /*private class ModelStubAcceptingTasMemMappingAdded extends AssignCommandTest.ModelStub {
+    private class ModelStubAcceptingTasMemMappingAdded extends AssignCommandTest.ModelStub {
         final ArrayList<TasMemMapping> mappingsAdded = new ArrayList<>();
+        final ObservableList<Member> members = FXCollections.observableArrayList();
+        final ObservableList<Task> tasks = FXCollections.observableArrayList();
+
         //final ObservableList<Task> taskList = new ArrayList<Task>().add(new Task(new Name("task"), TaskStatus.DOING));
 
         @Override
@@ -350,17 +439,32 @@ public class AssignCommandTest {
 
         @Override
         public ObservableList<Task> getFilteredTasksList() {
-            return ;
+            return tasks;
         }
 
         @Override
         public ObservableList<Member> getFilteredMembersList() {
-            throw new AssertionError("This method should not be called.");
+            return members;
         }
 
         @Override
         public ReadOnlyProjectDashboard getProjectDashboard() {
             return new ProjectDashboard();
         }
-    }*/
+
+        @Override
+        public int getMembersLength() {
+            return members.size();
+        }
+
+        @Override
+        public void addMember(Member member) {
+            members.add(member);
+        }
+
+        @Override
+        public void addTask(Task task) {
+            tasks.add(task);
+        }
+    }
 }

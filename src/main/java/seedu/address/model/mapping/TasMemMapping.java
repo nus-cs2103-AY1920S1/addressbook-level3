@@ -75,7 +75,8 @@ public class TasMemMapping extends Mapping{
         final StringBuilder builder = new StringBuilder();
         builder.append("Mapping between task with index ");
         builder.append(taskIndex);
-        builder.append(" and member");
+        builder.append(" and member with index");
+        builder.append(memberIndex);
         return builder.toString();
     }
 }
