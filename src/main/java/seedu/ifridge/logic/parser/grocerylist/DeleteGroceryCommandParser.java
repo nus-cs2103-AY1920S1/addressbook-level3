@@ -23,8 +23,8 @@ public class DeleteGroceryCommandParser implements Parser<DeleteGroceryCommand> 
             Index index = ParserUtil.parseIndex(args);
             return new DeleteGroceryCommand(index);
         } catch (ParseException pe) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteGroceryCommand.MESSAGE_USAGE), pe);
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    DeleteGroceryCommand.MESSAGE_USAGE), pe);
         }
     }
 
