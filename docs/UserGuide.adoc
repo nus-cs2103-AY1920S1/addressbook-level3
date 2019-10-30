@@ -533,6 +533,17 @@ This behaviour is intentional and not a bug.
 ** Do not be alarmed if the window does not pop up immediately upon click. For larger data sets
 we estimate at least a few seconds before the window will be loaded.
 
+Coming in `V2.0`:
+
+* Average Statistics
+** More advanced commands like `average profit` etc
+
+* Different Charts
+** Instead of just being able to display via a line chart, users will be able to select the type of chart
+
+* Export Chart to PDF
+** User will be able to export their charts to pdf with a click of a button.
+
 
 
 ==== Check : `check`
