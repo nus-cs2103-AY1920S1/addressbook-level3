@@ -28,8 +28,6 @@ import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.TypicalItem;
 import seedu.address.testutil.TypicalTransactions;
 
-//import seedu.address.testutil.TypicalReimbursements.resetReimbursements
-
 public class LogicManagerTest {
 
     private Model model;
@@ -62,7 +60,6 @@ public class LogicManagerTest {
         try {
             model = new ModelManager(TypicalItem.getTypicalInventoryList(),
                     TypicalTransactions.getTypicalTransactionList());
-            //personModel1 = new seedu.address.person.model.ModelManager(getTypicalAddressBook(), new UserPrefs());
             personModel = new seedu.address.person.model.ModelManager(getTypicalAddressBook(), new UserPrefs());
             iFile = File.createTempFile("testing", "tempInventory.txt");
             tFile = File.createTempFile("testing", "tempTransaction.txt");
@@ -104,33 +101,8 @@ public class LogicManagerTest {
 
     }
 
-
-    /*@Test
-    public void execute_checkoutCommand_successful() throws Exception {
-        model.clearSalesList();
-        model.setCashier(new PersonBuilder().build());
-
-        model.getUpdatedLists(TypicalItem.getTypicalInventoryList(), TypicalTransactions.getTypicalTransactionList());
-        for (int i = 0; i < model.getInventoryList().size(); i++) {
-            System.out.println(model.getInventoryList().getItemByIndex(i));
-        }
-
-        System.out.println();
-        Item i = model.getInventoryList().getItemByIndex(0);
-        System.out.println("actual: " + i.getDescription());
-        model.addItem(i);
-
-        String command = "checkout 999999";
-        CheckoutCommand checkoutCommand = new CheckoutCommand(i.getSubtotal(),
-                999999 - i.getSubtotal());
-        assertEquals(checkoutCommand, logic.execute(command));
-        model.clearSalesList();
-        //assertParseException(invalidCommand, NO_SUCH_COMMAND);
-    }*/
-
     @Test
     public void getCashier_successful() throws NoCashierFoundException {
-        //resetReimbursements();
         Person p = new PersonBuilder().build();
         model.setCashier(p);
         assertEquals(String.valueOf(p.getName()), logic.getCashier());
@@ -138,28 +110,24 @@ public class LogicManagerTest {
 
     @Test
     public void getCashier_failure() throws NoCashierFoundException {
-        //resetReimbursements();
         model.resetCashier();
         assertEquals("", logic.getCashier());
     }
 
     @Test
     public void getAmount_successful() {
-        //resetReimbursements();
         double amount = model.getTotalAmount();
         assertEquals(String.valueOf(amount), logic.getAmount());
     }
 
     @Test
     public void getSalesList_successful() throws Exception {
-        //resetTransactionsForReimbursement();
         ArrayList<Item> list = model.getSalesList();
         assertEquals(list, logic.getSalesList());
     }
 
     @Test
     public void getInventoryList_successful() throws Exception {
-        //resetTransactionsForReimbursement();
         assertEquals(logic.getInventoryList(), model.getInventoryList());
     }
 
@@ -249,7 +217,6 @@ public class LogicManagerTest {
         assertThrows(expectedException, expectedMessage, () -> logic.execute(inputCommand));
         assertEquals(expectedModel.getInventoryList(), model.getInventoryList());
         assertEquals(expectedModel.getSalesList(), model.getSalesList());
-        //assertEquals(expectedModel, model);
     }
 
 

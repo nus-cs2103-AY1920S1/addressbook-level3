@@ -80,6 +80,8 @@ public class EditCommandParser implements Parser {
             }
         }
 
+
+
         String quantityString = argMultimap.getValue(PREFIX_QUANTITY).get();
         try {
             quantity = Integer.parseInt(quantityString);

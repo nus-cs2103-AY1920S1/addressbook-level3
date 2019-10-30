@@ -255,7 +255,14 @@ To be filled in :)
 *API for inventory package* : link:{repoURL}/src/main/java/seedu/address/inventory/model/Model.java[`Model.java`]
 
 ==== Details on the `Model` Implementation for Cashier Tab
-To be filled in :)
+* stores a `InventoryList` object that represents the list of all inventory data
+* stores a list of sales items present on the table of the Inventory Tab
+* accesses the `TransactionList` object from Transaction package that represents the list of all transactions data
+
+[NOTE]
+This `Inventory List` is different from the one in the `Model` of Inventory package. This is so that the `Inventory List` in
+the `Model` of cashier package cannot add or delete any items in the inventory. This means that `Inventory List` in cashier
+package access different set of methods which modifies only the quantity of the item.
 
 *API for cashier package* : link:{repoURL}/src/main/java/seedu/address/cashier/model/Model.java[`Model.java`]
 
@@ -308,7 +315,8 @@ To be filled in :)
 *API for inventory package* : link:{repoURL}/src/main/java/seedu/address/inventory/storage/Storage.java[`Storage.java`]
 
 ==== Details on the `Storage` Implementation for Cashier Tab
-To be filled in :)
+* accesses the `Transaction List` from Transaction package via `Logic` to append a transaction to the list
+* accesses the `Inventory List` from Inventory package via `Logic` to update the current stock
 
 *API for cashier package* : link:{repoURL}/src/main/java/seedu/address/cashier/storage/Storage.java[`Storage.java`]
 
@@ -638,11 +646,17 @@ the Table of the UI.
 
 
 === Cashier Tab
-This tab will act as a shopping cart to add and record sales items to be sold from the inventory.
+This tab will act as a shopping cart to add and record sales items that are to be sold from the inventory.
 
 Upon every successful checkout, all the sales items sold will recorded as one transaction, which will subsequently be
-appended to the list of transactions on the `Home tab`. +
-In addition, the stock remaining in the inventory will be updated accordingly in the `Inventory tab`.
+appended to the list of transactions on the `Home tab`. In addition, the stock remaining in the inventory will be updated
+accordingly in the `Inventory tab`.
+
+[NOTE]
+If the user key in a quantity where the total amount in table or subtotal of that row exceeds 2,147,483, 647, the range
+of an integer, an exception will be thrown. This is the intended behaviour as the view cannot accommodate such large integers.
+If it exceeds 2,147,483, 647, users are advised to key in a smaller quantity or checkout items separately.
+
 
 ==== Add Sales Item Feature
 This feature allows the addition of sales items to the cart.
@@ -653,8 +667,7 @@ system will prohibit any addition of such an item to the cart.
 Adding of a sales item to the cart will require an input of its description and quantity. An optional field for
 category is provided to guide the cashier to find the desired item. If the category field is input with other unspecified
 description and quantity fields, `Model` will search all the sales items in the `Inventory List`
-according to the specified category and suggestions would be shown by Leo, the assistant.
-
+according to the specified category and suggestions would be shown by Leo, the assistant. +
 If description and quantity field are both valid, the `ModelManager` will add the item into the sales list.
 
 The following sequence diagram shows how the `AddCommand` works and is the reference
@@ -673,7 +686,7 @@ There will also be checks to ensure that the item specified is available for sal
 After every add command, the quantity of items in the Inventory Tab will still remain the same. The remaining stock
 will only be updated after the Checkout Command.
 
-The following activity diagram shows the steps proceeding after the user input an Add Command:
+The following activity diagram shows the steps proceeding after the user input an add command:
 
 .Activity Diagram of Add Command (cashier package)
 
@@ -685,12 +698,11 @@ This feature allows an existing person in the `Address Book` to be set as a cash
 the name of an existing person.
 
 To set a cashier, the person's name inputted has to match an existing name in the `AddressBook` as shown on `Members Tab`.
-This means that SetCommandParser requires access to the `Model` of the person package where the `AddressBook` implementation is.
-
+This means that SetCommandParser requires access to the `Model` of the person package where the `AddressBook` implementation is. +
 If the person's name cannot be found in the `Model` of the person package, a response message will be shown by Leo,
 informing the user that there is no such person.
 
-The following sequence diagram shows how the SetCashierCommandParser checks for existing person:
+The following sequence diagram shows how the SetCashierCommandParser checks for an existing person:
 
 .Sequence Diagram of SetCashierCommandParser (cashier package)
 
@@ -698,7 +710,7 @@ image::SetCashierCommandSeq1.png[]
 
 If the specified name is valid, the `Model` of the cashier package will set the person as cashier.
 
-The following sequence diagram shows how the Set Cashier Command works and is the reference
+The following sequence diagram shows how the set cashier command works and is the reference
 from <<GeneralLogicSD, Interactions Inside the Logic Component for a Command>>:
 
 .Sequence Diagram of Set Cashier Command (cashier package)
@@ -707,34 +719,35 @@ image::SetCashierCommandSeq2.png[]
 
 If the inputted name is invalid, the user will be prompted to enter a valid name.
 
-The following activity diagram shows the steps after the user input a Set Cashier Command:
+The following activity diagram shows the steps after the user input a set cashier command:
 
 .Activity Diagram of Set Cashier Command (cashier package)
 
-image::SetCashierCommandCashierActivityDiag.png[]
+image::SetCashierCommandActivity.png[]
 
 ==== Checkout Feature
-This feature confirms all the sales items in the table as sold as one transaction under the `Sales` category.
+This feature confirms all the sales items in the table as one sales transaction under the `Sales` category.
 
 The `Home Tab` will be updated with the new transaction labelled as `Items sold`. The remaining stock of the sales items
 will also be updated on the `Inventory Tab`.
 
-During the execution of the command, `getCashier()` method will be called to create a `Transaction` object. If the
-cashier is null, the command cannot proceed and Leo will prompt the user to set a cashier. +
+During the execution of the command, `getCashier()` method will be called which will return a person. This person will
+be used to create a `Transaction` object. If the cashier is null, the command cannot proceed and Leo will
+prompt the user to set a cashier. +
 If the amount inputted is valid and cashier has been set, the `ModelManager` will create a new
 transaction of the sales made.
 
 [NOTE]
 After the execution of the above methods, a clear command will then be called to clear all the sales items on the tab.
 
-The following sequence diagram shows how the Checkout Command is executed:
+The following sequence diagram shows how the checkout command is executed:
 
 .Sequence Diagram of Checkout Command (cashier package)
 
 image::CheckoutCommandCashierSeq1.png[]
 
 The `Cashier Logic` will call relevant methods to update the inventory list and newly-generated transaction
-to the respective `txt file`. +
+to the respective `.txt file`. +
 To update the view on the `Inventory Tab` and `Transaction Tab`, transaction will be added to the transaction model and
 `readInUpdatedList()` method of inventory model will called to read in the entire inventory data file.
 
@@ -746,7 +759,7 @@ image::CheckoutCommandCashierSeq2.png[]
 
 If the amount inputted is less than the total amount of items, the user will be prompted to key in a valid value.
 
-The following activity diagram shows the steps after the user input a Checkout Command:
+The following activity diagram shows the steps after the user input a checkout command:
 
 .Activity Diagram of Checkout Command (cashier package)
 

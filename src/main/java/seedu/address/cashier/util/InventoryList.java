@@ -43,21 +43,6 @@ public class InventoryList {
     }*/
 
     /**
-     * Returns the item of given description.
-     * @param description of the item
-     * @return Item specified
-     * @throws NoSuchItemException if the description is invalid.
-     */
-    /*public int getIndex(String description) throws NoSuchItemException {
-        for (int i = 0; i < iArrayList.size(); i++) {
-            if (iArrayList.get(i).getDescription().equalsIgnoreCase(description)) {
-                return i;
-            }
-        }
-        throw new NoSuchItemException(CashierMessages.NO_SUCH_ITEM_CASHIER);
-    }*/
-
-    /**
      * Retrieve the original item in the inventory list according to the specified description.
      * Returns the original item if both items of the same description.
      * @param description of the item to find
