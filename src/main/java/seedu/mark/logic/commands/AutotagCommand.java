@@ -43,6 +43,7 @@ public class AutotagCommand extends Command {
         requireAllNonNull(model, storage);
 
         if (model.hasTagger(tagger)) {
+            // TODO: prompt user whether tagger conditions should be overwritten
             throw new CommandException(String.format(MESSAGE_AUTOTAG_EXISTS, tagger));
         }
 

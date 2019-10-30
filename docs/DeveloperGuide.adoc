@@ -322,10 +322,13 @@ Step 1. The user opens the application with an existing list of bookmarks and no
 
 image::AutotagState0.png[]
 
-Step 2. The user executes the command `autotag Help u/stackoverflow.com/questions` to add an autotag that tags all bookmarks
-from StackOverflow with the tag ProgrammingHelp. A `SelectiveBookmarkTagger` is created with a `UrlContainsKeywordsPredicate` and the tag
-`Help`. `b2`, which matches the `UrlContainsKeywordsPredicate`, is replaced by a copy of itself that also contains the tag
-`Help`.
+Step 2. The user executes the command `**autotag** Help u/stackoverflow.com/questions` to add an autotag that tags all
+bookmarks from **stackoverflow.com/questions** with the tag **Help**.
+
+* A `SelectiveBookmarkTagger` is created with a `UrlContainsKeywordsPredicate` and a `Tag` named **Help**.
+The predicate's keyword is **stackoverflow.com/questions**.
+* `b2`, which matches `UrlContainsKeywordsPredicate`, is replaced by a copy of itself that
+also contains the tag `Help`.
 
 image::AutotagState1.png[]
 
@@ -335,22 +338,31 @@ __(The sequence diagram will be improved in future versions of the Developer Gui
 // TODO: improve sequence diagram
 image::AutotagSequenceDiagram.png[]
 
-NOTE: The lifeline for `AutotagCommand` should end at the destroy marker (X), but due to a limitation of PlantUML, it reaches the end of this diagram.
+NOTE: The lifeline for `AutotagCommand` should end at the destroy marker (X), but due to a limitation of PlantUML, it
+reaches the end of this diagram.
 
-Now, autotags will be applied whenever a bookmark is added or modified.
+**Autotags will now be applied whenever a bookmark is added or modified.**
 
-Step 3. The user then executes the command `add n/JavaFX new scene u/https://stackoverflow.com/questions/29080759/` to bookmark
-a question on StackOverflow. This bookmark matches the conditions for the autotag `Help`, so it is tagged.
+Step 3. The user then executes the command `**add** n/JavaFX new scene u/https://stackoverflow.com/questions/29080759/`
+to bookmark a question on StackOverflow.
+
+* This bookmark matches the conditions for the previously added autotag, so it is tagged **Help**.
 
 image::AutotagState2.png[]
 
-The following activity diagram summarizes what happens when a user executes a `*autotag*` command:
+// TODO: Show how autotags are deleted (existing tags are not removed)
+// Step 4: The user deletes an autotag with the command `**autotag-delete** Help`.
 
-// TODO: make activity diagram
-.The activity diagram has not been created yet
+The following activity diagram (<<autotag-activity-diagram>>) summarizes what happens when an autotag is added.
+A similar mechanism is used to tag bookmarks when a bookmark is added or modified.
+
+[[autotag-activity-diagram]]
+.Activity diagram showing how an autotag is added
 image::AutotagActivityDiagram.png[]
 
 ==== Design Considerations
+
+// TODO: ===== Aspect: How autotags are represented
 
 ===== Aspect: How autotags are applied
 

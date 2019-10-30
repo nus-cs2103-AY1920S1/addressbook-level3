@@ -342,7 +342,9 @@ specific bookmarks with a different file name using the command `*export*`
 [[exporting-bookmarks]]
 === Exporting bookmarks: *`export`*
 
-Exports the currently displayed list of bookmarks to the hard disk.
+This command exports Mark data to a specified file on the hard disk. The saved file is
+identical in format to the data file `mark.json` and can be used to save back-up copies
+of Mark data.
 
 Format: `*export* [FILENAME]`
 
@@ -351,37 +353,25 @@ Format: `*export* [FILENAME]`
 +
 `FILENAME` should not include the file extension. E.g. `myBookmarks` and not
 `myBookmarks.json`
-* If no file name is specified, the default file name is the name of the
-first bookmark followed by “AndOtherBookmarks”. E.g.
-`CS2103TWebsiteAndOtherBookmarks.json`
-* The file `FILENAME` is overwritten if it already exists.
-* Bookmarks are exported to the folder `[applicationHome]/data/bookmarks/`.
+* The data file is saved at `[applicationHome]/data/bookmarks/FILENAME.json`.
+If the given file already exists, it is overwritten.
 ****
 
-Examples:
+Example:
 
-* `*list*` +
-`*export* myBookmarks` +
-Exports all bookmarks in the bookmark manager to a file named
-`myBookmarks.json`.
-
-* `*find* luminus` +
-`*export*` +
-Exports all bookmarks found using `*find*` (e.g. `cs2101Luminus`,
-`cs2103TLuminus`, `cs2105Luminus`) to a file named
-`cs2101LuminusAndOtherBookmarks.json`.
-
-* `*find* t/favorite` +
- `*export* favorites` +
-Exports all bookmarks tagged with `favorite` to a file named
-`favorites.json`.
+* `*export* myBookmarks` +
+Exports all bookmark manager data to a file named `mark/data/bookmarks/myBookmarks.json`
+(assuming `mark.jar` is stored in the folder `mark`). The content of `myBookmarks.json`
+is identical to the current content of `mark.json`.
 
 === Importing bookmarks: *`import`*
 
-Imports bookmarks from files on the hard disk. A bookmark is, by default, imported
+This command imports bookmarks from a file on the hard disk to Mark. A bookmark is, by default, imported
 into a folder with the same name as its original folder (even if the folder
 structure is different). If no such folder is found, the bookmark will be imported
 into the folder `ImportedBookmarks`.
+
+Bookmarks with the same name or URL as existing bookmarks are not imported.
 
 Format: `*import* FILENAME`
 
@@ -394,49 +384,84 @@ Format: `*import* FILENAME`
 to the JSON files produced by `*export*`.
 ****
 
-Examples:
+Example:
 
 * `*import* myBookmarks` +
 Assuming `mark.jar` is stored in the folder `mark`, imports bookmarks from the
-file `mark/data/bookmarks/myBookmarks.json`
+file `mark/data/bookmarks/myBookmarks.json`.
 
 [[Autotag-Command]]
 === Creating an automatic tag: *`autotag`*
 
-Creates a tag that will be automatically applied to bookmarks which match
+This command creates a tag that will be automatically applied to bookmarks which match
 the given conditions.
 
-Format: `*autotag* TAG_NAME [n/NAME_KEYWORD]... [nn/NOT_NAME_KEYWORD]...
-[u/URL_KEYWORD]... [nu/NOT_URL_KEYWORD]... [f/FOLDER]... [nf/NOT_FOLDER]...
-[t/TAG]... [nt/NOT_TAG]...`
+Format: `*autotag* TAG_NAME [n/NAME_KEYWORD]... [u/URL_KEYWORD]... [f/FOLDER]...
+[nn/NOT_NAME_KEYWORD]... [nu/NOT_URL_KEYWORD]... [nf/NOT_FOLDER]...`
 
 ****
-* At least one condition (`n/`, `nn/`, `u/`,
-`nu/`, `f/`, `nf/`, `t/`, or `nt/`) must be specified.
-* If an autotag with name `TAG_NAME` already exists, the user is asked
-whether conditions for `TAG_NAME` should be overwritten.
-* An autotag is applied when a bookmark matches all of its conditions.
-Hence, if conditions are contradictory, no bookmarks will be tagged by
-this autotag. E.g. no bookmarks will match the conditions `u/github.com/mark
-nu/github.com/mark`
-* `NAME_KEYWORD` and `URL_KEYWORD` are used to match bookmarks in the same way
-as the keywords in `*find*` (see <<locating-bookmarks>>). E.g. `.nus.edu.sg`.
-* `NOT_NAME_KEYWORD`, `NOT_URL_KEYWORD`, `NOT_FOLDER`, and `NOT_TAG` are name keywords,
-URL keywords, folders, or tags that bookmarks to be tagged should *not* match.
+* `TAG_NAME` should be a valid tag name. No existing autotag should have this tag name.
+* At least one condition (`n/`, `nn/`, `u/`, `nu/`, `f/`, or `nf/`) must be specified.
+* `NAME_KEYWORD` and `URL_KEYWORD` are used to match bookmarks in a similar way
+as the keywords in `*find*` (see <<locating-bookmarks>>). The only difference is that a single
+keyword parameter can contain multiple words. E.g. `n/Module W` will match names `CS2103T Module Website` and
+`module work to do` but not `Future modules`.
+* `FOLDER` should be the exact name of a folder (case insensitive). E.g. `wiki` will match
+`Wiki` but not `Wikipedia`.
+* `NOT_NAME_KEYWORD`, `NOT_URL_KEYWORD`, and `NOT_FOLDER` are name keywords,
+URL keywords, or folder names that bookmarks to be tagged should *not* match.
 * The tag `TAG_NAME` is still a normal tag. E.g. if an autotag `YouTube` matches
 bookmarks with URLs containing `youtube.com`, other bookmarks can still be
 tagged with the tag `YouTube`.
+
+* If multiple conditions are specified, bookmarks are matched in the following way:
+    ** For normal conditions (`n/`, `u/`, and `f/`), bookmarks that match at least one condition
+    within the same condition type are matched (i.e. OR search). E.g. `n/wiki n/comput` will match
+    names `WikiHow` and `Computer Science`.
+    ** For negative conditions (`nn/`, `nu/`, and `nf/`), bookmarks that match all of the conditions
+    within the same condition type are matched (i.e. AND search). E.g. `nf/Work nf/School` will
+    match bookmarks that are not in the folder `Work` and not in the folder `School`.
+    ** Bookmarks that match all conditions across different condition types are matched. E.g. `n/web
+    n/mod f/NUS` will match bookmarks with [names that match `web` and/or `mod`] AND [are in the
+    folder `NUS`].
+* Note that no bookmarks will be tagged if conditions contradict each other.
+E.g. `u/github.com/mark nu/github.com/`
 ****
 
 Examples:
 
-* `*autotag* Miscellaneous f/NUS nt/academic nt/admin` +
- Creates an autotag that adds the tag `Miscellaneous` to all bookmarks that are
-in the folder `NUS` but are not tagged with `academic` or `admin`.
+// TODO: add step-by-step screenshots of examples
+* `*autotag* NUS n/NUS n/School n/Uni` +
+ Creates an autotag that adds the tag `NUS` to all bookmarks that have names containing
+the keywords `NUS`, `School`, and/or `Uni`.
 
-* `*autotag* Luminus u/luminus` +
- Creates an autotag that adds the tag `Luminus` to all bookmarks with URLs
-containing `luminus`.
+* `*autotag* LumiNUS u/luminus.nus.edu.sg nf/Miscellaneous` +
+ Creates an autotag that adds the tag `LumiNUS` to all bookmarks with URLs
+containing `luminus.nus.edu.sg` that are not in the folder `Miscellaneous`.
+
+* `*autotag* Quiz f/NUS f/Module nu/github nu/stackoverflow` +
+ Creates an autotag that adds the tag `Quiz` to all bookmarks that are either in
+ the folder `NUS` or in the folder `Module`, and that do not contain any of the
+keywords `github` or `stackoverflow` in their URLs.
+
+=== Deleting an autotag: *`autotag-delete`*
+
+This command deletes an existing autotag from Mark. Tags that are already present will
+not be removed, but no bookmarks will be tagged by this autotag after it is deleted.
+
+Format: `*autotag-delete* TAG_NAME`
+
+****
+* `TAG_NAME` should be the name of the autotag to be deleted, which is the same
+as the name of the tag which it applies. E.g. an autotag that adds the tag
+`ProgrammingHelp` to bookmarks is also named `ProgrammingHelp`.
+****
+
+Example:
+
+* `*autotag-delete* LumiNUS` +
+Deletes the autotag that would have tagged bookmarks that match its conditions with the
+tag `LumiNUS`. Bookmarks that already have the tag `LumiNUS` are not changed.
 
 === Deleting automatic tags: *`autotag-delete`*
 
@@ -874,10 +899,11 @@ Stray notes are found in the _Stray Notes Section_ at the bottom of the _Notes_ 
 * *Undo*: `*undo* [STEP=1]`
 * *Redo*: `*redo* [STEP=1]`
 * *Exit*: `*exit*`
-* *Export*: `*export* [FILENAME]`
-* *Import*: `*import* FILENAME [MORE_FILENAMES]...`
-* *Autotag*: `*autotag* TAG_NAME [n/NAME_KEYWORD]... [nn/NOT_NAME_KEYWORD]... [u/URL_KEYWORD]...
-[nu/NOT_URL_KEYWORD]... [f/FOLDER]... [nf/NOT_FOLDER]... [t/TAG]... [nt/NOT_TAG]...`
+* *Export*: `*export* FILENAME`
+* *Import*: `*import* FILENAME`
+* *Autotag*: `*autotag* TAG_NAME [n/NAME_KEYWORD]... [u/URL_KEYWORD]... [f/FOLDER]...
+[nn/NOT_NAME_KEYWORD]... [nu/NOT_URL_KEYWORD]... [nf/NOT_FOLDER]...`
+* *Autotag (delete)*: `*autotag-delete* TAG_NAME`
 * *Cache*: `*cache* INDEX [s/SAVE_NOW] [u/AUTO_UPDATE] [d/VERSION]`
 * *Annotate (add)*: `*annotate* INDEX p/P_NUM [n/NOTES] [h/HIGHLIGHT_COLOUR=yellow]`
 * *Annotate (delete)*: `*annotate delete* INDEX [p/P_NUM] [n/KEEP_NOTES=false] [h/KEEP_HIGHLIGHT=false]`
