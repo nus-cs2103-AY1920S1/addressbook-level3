@@ -43,8 +43,7 @@ public class RegisterStaffCommandParser implements Parser<ReversibleActionPairCo
                 ArgumentTokenizer.tokenize(args, PREFIX_ID, PREFIX_NAME,
                         PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_ID, PREFIX_NAME, PREFIX_PHONE,
-                PREFIX_EMAIL, PREFIX_ADDRESS)
+        if (!arePrefixesPresent(argMultimap, PREFIX_ID, PREFIX_NAME)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                 RegisterStaffCommand.MESSAGE_USAGE));

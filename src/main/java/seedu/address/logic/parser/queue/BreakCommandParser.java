@@ -2,6 +2,8 @@ package seedu.address.logic.parser.queue;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
+import java.util.Optional;
+
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.NextCommand;
@@ -47,7 +49,7 @@ public class BreakCommandParser implements Parser<ReversibleActionPairCommand> {
             throw new ParseException(MESSAGE_INVALID_INDEX);
         }
         Room roomToEdit = filteredRoomList.get(index.getZeroBased());
-        Room editedRoom = new Room(roomToEdit.getDoctor(), roomToEdit.getCurrentPatient(), true);
+        Room editedRoom = new Room(roomToEdit.getDoctor(), Optional.empty(), true);
         return new ReversibleActionPairCommand(new BreakCommand(roomToEdit, editedRoom),
                 new ResumeCommand(editedRoom, roomToEdit));
     }

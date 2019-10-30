@@ -40,7 +40,6 @@ import seedu.address.logic.commands.patients.RegisterPatientCommand;
 import seedu.address.logic.commands.patients.UnregisterPatientCommand;
 import seedu.address.model.person.parameters.Tag;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.parameters.Address;
 import seedu.address.model.person.parameters.Email;
 import seedu.address.model.person.parameters.Name;
 import seedu.address.model.person.parameters.PersonReferenceId;
@@ -115,21 +114,6 @@ public class RegisterPatientCommandParserTest {
                 + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB,
                 expectedMessage);
 
-        // missing phone prefix
-        assertParseFailure(parser, ID_DESC_BOB + NAME_DESC_BOB
-                + VALID_PHONE_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB,
-                expectedMessage);
-
-        // missing email prefix
-        assertParseFailure(parser, ID_DESC_BOB + NAME_DESC_BOB
-                + PHONE_DESC_BOB + VALID_EMAIL_BOB + ADDRESS_DESC_BOB,
-                expectedMessage);
-
-        // missing address prefix
-        assertParseFailure(parser, ID_DESC_BOB + NAME_DESC_BOB
-                + PHONE_DESC_BOB + EMAIL_DESC_BOB + VALID_ADDRESS_BOB,
-                expectedMessage);
-
         // all prefixes missing
         assertParseFailure(parser, ID_DESC_BOB + VALID_NAME_BOB
                 + VALID_PHONE_BOB + VALID_EMAIL_BOB + VALID_ADDRESS_BOB,
@@ -158,11 +142,6 @@ public class RegisterPatientCommandParserTest {
         assertParseFailure(parser, ID_DESC_BOB + NAME_DESC_BOB + PHONE_DESC_BOB
             + INVALID_EMAIL_DESC + ADDRESS_DESC_BOB + TAG_DESC_HUSBAND + TAG_DESC_FRIEND,
             Email.MESSAGE_CONSTRAINTS);
-
-        // invalid address
-        assertParseFailure(parser, ID_DESC_BOB + NAME_DESC_BOB + PHONE_DESC_BOB
-            + EMAIL_DESC_BOB + INVALID_ADDRESS_DESC + TAG_DESC_HUSBAND + TAG_DESC_FRIEND,
-            Address.MESSAGE_CONSTRAINTS);
 
         // invalid tag
         assertParseFailure(parser, ID_DESC_BOB + NAME_DESC_BOB + PHONE_DESC_BOB

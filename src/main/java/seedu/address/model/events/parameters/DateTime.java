@@ -20,13 +20,17 @@ public class DateTime implements Comparable<DateTime> {
 
     private final LocalDateTime time;
 
-    private DateTime(LocalDateTime date) {
+    public DateTime(LocalDateTime date) {
         requireNonNull(date);
         time = date;
     }
 
     public LocalDateTime getTime() {
         return time;
+    }
+
+    public static DateTime now() {
+        return new DateTime(LocalDateTime.now());
     }
 
     /**

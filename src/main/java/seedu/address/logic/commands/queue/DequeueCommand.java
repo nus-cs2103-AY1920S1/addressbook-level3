@@ -23,7 +23,7 @@ public class DequeueCommand extends ReversibleCommand {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_DEQUEUE_SUCCESS = "Dequeued patient: %1$s";
+    public static final String MESSAGE_DEQUEUE_SUCCESS = "Dequeued patient: %s";
     public static final String MESSAGE_DEQUEUE_PERSON_NOT_FOUND =
             Messages.MESSAGE_INVAILD_REFERENCE_ID + ". '%1$s' patient has been removed from queue";
     public static final String MESSAGE_PERSON_NOT_IN_QUEUE = "This person '%1$s' is not in the queue";
@@ -45,7 +45,8 @@ public class DequeueCommand extends ReversibleCommand {
 
         model.removeFromQueue(patientReferenceId);
 
-        return new CommandResult(String.format(MESSAGE_DEQUEUE_SUCCESS, patientReferenceId));
+        return new CommandResult(String.format(MESSAGE_DEQUEUE_SUCCESS,
+                model.resolvePatient(patientReferenceId).getName()));
     }
 
     @Override

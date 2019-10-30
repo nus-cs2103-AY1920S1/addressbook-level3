@@ -28,7 +28,7 @@ public class ParserUtilTest {
     private static final String INVALID_ID2 = "STAFF";
     private static final String INVALID_NAME = "R@chel";
     private static final String INVALID_PHONE = "+651234";
-    private static final String INVALID_ADDRESS = " ";
+    private static final String INVALID_ADDRESS = " !";
     private static final String INVALID_EMAIL = "example.com";
     private static final String INVALID_TAG = "#friend";
 
@@ -110,13 +110,13 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parseAddress_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> ParserUtil.parseAddress((String) null));
+    public void parsePhone_whitespace_returnsEmptyPhone() throws Exception {
+        assertEquals(Phone.EMPTY_PHONE_DETAILS, ParserUtil.parsePhone(WHITESPACE));
     }
 
     @Test
-    public void parseAddress_invalidValue_throwsParseException() {
-        assertThrows(ParseException.class, () -> ParserUtil.parseAddress(INVALID_ADDRESS));
+    public void parseAddress_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseAddress((String) null));
     }
 
     @Test
@@ -130,6 +130,11 @@ public class ParserUtilTest {
         String addressWithWhitespace = WHITESPACE + VALID_ADDRESS + WHITESPACE;
         Address expectedAddress = new Address(VALID_ADDRESS);
         assertEquals(expectedAddress, ParserUtil.parseAddress(addressWithWhitespace));
+    }
+
+    @Test
+    public void parseAddress_whitespace_returnsEmptyAddress() throws Exception {
+        assertEquals(Address.EMPTY_ADDRESS_DETAILS, ParserUtil.parseAddress(WHITESPACE));
     }
 
     @Test
@@ -153,6 +158,11 @@ public class ParserUtilTest {
         String emailWithWhitespace = WHITESPACE + VALID_EMAIL + WHITESPACE;
         Email expectedEmail = new Email(VALID_EMAIL);
         assertEquals(expectedEmail, ParserUtil.parseEmail(emailWithWhitespace));
+    }
+
+    @Test
+    public void parseEmail_whitespace_returnsEmptyEmail() throws Exception {
+        assertEquals(Email.EMPTY_EMAIL_DETAILS, ParserUtil.parseEmail(WHITESPACE));
     }
 
     @Test
