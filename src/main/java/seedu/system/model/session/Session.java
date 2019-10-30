@@ -94,7 +94,7 @@ public class Session {
             throw new AttemptsSubmittedException(participation.getPerson());
         }
 
-        for (int i = 0; i < 9; i++) {
+        for (int i = 0; i < attempts.size(); i++) {
             Attempt attempt = attempts.get(i);
             if (!attempt.getHasAttempted()) {
                 // index param: 1,2,3 are squats attempts in order; 4,5,6 for bench; 7,8,9 deadlift

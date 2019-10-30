@@ -1,6 +1,7 @@
 package seedu.system.model;
 
 import java.nio.file.Path;
+import java.util.Comparator;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -91,6 +92,20 @@ public interface Model {
     void setPerson(Person target, Person editedPerson);
 
     /**
+     *
+     * @param person person that is being queried for their number of wins in the model
+     * @return number of wins the person has among all the competitions in the model.
+     */
+    int getTotalWins(Person person);
+
+    /**
+     *
+     * @param competition that is being queried for the winner
+     * @return athlete that won/ is winning the competition.
+     */
+    Person getWinner(Competition competition);
+
+    /**
      * Returns an unmodifiable view of the filtered person list
      */
     ObservableList<Person> getFilteredPersonList();
@@ -101,6 +116,13 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
+
+    /**
+     * Sorts the filtered person list to filter by the given {@code comparator}.
+     *
+     * @throws NullPointerException if {@code comparator} is null.
+     */
+    void sortFilteredPersonList(Comparator<Person> comparator);
 
     //=========== Competitions ================================================================================
 

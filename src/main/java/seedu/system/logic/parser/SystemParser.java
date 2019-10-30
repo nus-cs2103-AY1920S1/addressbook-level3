@@ -24,6 +24,7 @@ import seedu.system.logic.commands.outofsession.FindPersonCommand;
 import seedu.system.logic.commands.outofsession.ListCompetitionCommand;
 import seedu.system.logic.commands.outofsession.ListPersonCommand;
 import seedu.system.logic.commands.outofsession.OutOfSessionHelpCommand;
+import seedu.system.logic.commands.outofsession.OverallRankCommand;
 import seedu.system.logic.commands.outofsession.StartSessionCommand;
 import seedu.system.logic.parser.exceptions.ParseException;
 import seedu.system.logic.parser.insession.AddParticipationCommandParser;
@@ -120,6 +121,9 @@ public class SystemParser {
 
         case StartSessionCommand.COMMAND_WORD:
             return new NewSessionCommandParser().parse(arguments);
+
+        case OverallRankCommand.COMMAND_WORD:
+            return new OverallRankCommand();
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

@@ -5,6 +5,7 @@ import static seedu.system.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -133,6 +134,33 @@ public class ModelManager implements Model {
         persons.setElement(target, editedPerson);
     }
 
+    @Override
+    public int getTotalWins(Person person) {
+        int wins = 0;
+        for (Competition competition : this.competitions.getListOfElements()) {
+            if (person.equals(getWinner(competition))) {
+                wins++;
+            }
+        }
+        return wins;
+    }
+
+    @Override
+    public Person getWinner(Competition competition) {
+        Person winner = null;
+        int bestScore = -1;
+        for (Participation participation : this.participations.getListOfElements()) {
+            if (participation.getCompetition().equals(competition)) {
+                int participationTotalScore = participation.getTotalScore();
+                if (participationTotalScore > bestScore) {
+                    bestScore = participationTotalScore;
+                    winner = participation.getPerson();
+                }
+            }
+        }
+        return winner;
+    }
+
     //=========== Filtered Person List Accessors =============================================================
 
     /**
@@ -142,6 +170,11 @@ public class ModelManager implements Model {
     @Override
     public ObservableList<Person> getFilteredPersonList() {
         return filteredPersons;
+    }
+
+    @Override
+    public void sortFilteredPersonList(Comparator<Person> comparator) {
+        filteredPersons.sort(comparator);
     }
 
     @Override
