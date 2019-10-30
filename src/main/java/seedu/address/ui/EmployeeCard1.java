@@ -1,5 +1,9 @@
 package seedu.address.ui;
 
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EMPLOYEE_ID;
+
+import java.util.Comparator;
+
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -13,10 +17,6 @@ import seedu.address.logic.commands.allocate.DeallocateCommand;
 import seedu.address.logic.commands.allocate.ManualAllocateCommand;
 import seedu.address.model.employee.Employee;
 import seedu.address.model.event.Event;
-
-import java.util.Comparator;
-
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMPLOYEE_ID;
 
 
 /**
@@ -58,9 +58,9 @@ public class EmployeeCard1 extends UiPart<Region> {
         this.employee = employee;
         id.setText(displayedIndex + ". ");
         name.setText(employee.getEmployeeName().fullName);
-        phone.setText("Totally Paid : " + employee.getEmployeePay().value);
-        address.setText("Total Salary : " + employee.getEmployeeTotalsalary().value);
-        email.setText("Pending to Pay : " + employee.getEmployeePendingPay().value);
+        phone.setText("Totally Paid : $" + employee.getEmployeePay().value);
+        address.setText("Total Salary : $" + employee.getEmployeeTotalsalary().value);
+        email.setText("Pending to Pay : $" + employee.getEmployeePendingPay().value);
         employee.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
@@ -71,9 +71,9 @@ public class EmployeeCard1 extends UiPart<Region> {
         this.employee = employee;
         id.setText(displayedIndex + ". ");
         name.setText(employee.getEmployeeName().fullName + " ID: " + employee.getEmployeeId().id); //for debug
-        phone.setText("Totally Paid : " + employee.getEmployeePay().value);
-        address.setText("Total Salary : " + employee.getEmployeeTotalsalary().value);
-        email.setText("Pending to Pay : " + employee.getEmployeePendingPay().value);
+        phone.setText("Totally Paid : $" + employee.getEmployeePay().value);
+        address.setText("Total Salary $: " + employee.getEmployeeTotalsalary().value);
+        email.setText("Pending to Pay $: " + employee.getEmployeePendingPay().value);
         employee.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));

@@ -34,7 +34,8 @@ public class Employee {
      * Every field must be present and not null.
      */
     public Employee(EmployeeId employeeId, EmployeeName employeeName, EmployeeGender employeeGender,
-                    EmployeePay employeePay, EmployeePendingPay employeePendingPay, EmployeeTotalSalary employeeTotalSalary,
+                    EmployeePay employeePay, EmployeePendingPay employeePendingPay,
+                    EmployeeTotalSalary employeeTotalSalary,
                     EmployeePhone employeePhone, EmployeeEmail employeeEmail,
                     EmployeeAddress employeeAddress, EmployeeJoinDate employeeJoinDate, Set<Tag> tags) {
         this.employeeName = employeeName;
@@ -95,14 +96,6 @@ public class Employee {
     }
 
     public EmployeePendingPay getEmployeePendingPay() {
-//        String paid = employeePay.value;
-//        Double paidDouble = Double.parseDouble(paid);
-//        String tSalary = employeeTotalSalary.value;
-//        Double tsDouble = Double.parseDouble(tSalary);
-//        double amt = tsDouble - paidDouble;
-//        String output = (int) amt + "";
-//        EmployeePendingPay e = new EmployeePendingPay(employeePay.value);
-//        return e;
         return employeePendingPay;
     }
 

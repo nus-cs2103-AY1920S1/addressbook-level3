@@ -9,7 +9,17 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.EventBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyEventBook;
-import seedu.address.model.employee.*;
+import seedu.address.model.employee.Employee;
+import seedu.address.model.employee.EmployeeAddress;
+import seedu.address.model.employee.EmployeeEmail;
+import seedu.address.model.employee.EmployeeGender;
+import seedu.address.model.employee.EmployeeId;
+import seedu.address.model.employee.EmployeeJoinDate;
+import seedu.address.model.employee.EmployeeName;
+import seedu.address.model.employee.EmployeePay;
+import seedu.address.model.employee.EmployeePendingPay;
+import seedu.address.model.employee.EmployeePhone;
+import seedu.address.model.employee.EmployeeTotalSalary;
 import seedu.address.model.event.Event;
 import seedu.address.model.event.EventDate;
 import seedu.address.model.event.EventManpowerNeeded;
@@ -51,12 +61,12 @@ public class SampleDataUtil {
                     new EmployeeJoinDate(LocalDate.now()), getTagSet("friends")),
             new Employee(new EmployeeId(), new EmployeeName("Irfan Ibrahim"), new EmployeeGender("male"),
                     new EmployeePay("Manager"),
-                    new EmployeePendingPay("0"), new EmployeeTotalSalary("0"),new EmployeePhone("87438807"),
+                    new EmployeePendingPay("0"), new EmployeeTotalSalary("0"), new EmployeePhone("87438807"),
                     new EmployeeEmail("eee@example.com"),
                     new EmployeeAddress("Blk 30 EEE Street 29, #06-40"),
                     new EmployeeJoinDate(LocalDate.now()), getTagSet("friends")),
             new Employee(new EmployeeId(), new EmployeeName("Roy Balakrishnan"), new EmployeeGender("male"),
-                    new EmployeePay("Manager"),new EmployeePendingPay("0"), new EmployeeTotalSalary("0"),
+                    new EmployeePay("Manager"), new EmployeePendingPay("0"), new EmployeeTotalSalary("0"),
                     new EmployeePhone("87438807"),
                     new EmployeeEmail("fff@example.com"),
                     new EmployeeAddress("Blk 30 FFF Street 29, #06-40"),

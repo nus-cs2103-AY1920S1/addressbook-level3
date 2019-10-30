@@ -8,9 +8,9 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_JOIN_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PAY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PENDINGPAY;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TOTALSALARY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TOTALSALARY;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.Collections;
@@ -36,9 +36,10 @@ import seedu.address.model.employee.EmployeeJoinDate;
 import seedu.address.model.employee.EmployeeName;
 import seedu.address.model.employee.EmployeePay;
 import seedu.address.model.employee.EmployeePendingPay;
-import seedu.address.model.employee.EmployeeTotalSalary;
 import seedu.address.model.employee.EmployeePhone;
+import seedu.address.model.employee.EmployeeTotalSalary;
 import seedu.address.model.tag.Tag;
+
 
 
 /**

@@ -21,8 +21,8 @@ import seedu.address.model.employee.EmployeeJoinDate;
 import seedu.address.model.employee.EmployeeName;
 import seedu.address.model.employee.EmployeePay;
 import seedu.address.model.employee.EmployeePendingPay;
-import seedu.address.model.employee.EmployeeTotalSalary;
 import seedu.address.model.employee.EmployeePhone;
+import seedu.address.model.employee.EmployeeTotalSalary;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -52,7 +52,8 @@ class JsonAdaptedEmployee {
     public JsonAdaptedEmployee(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
                                @JsonProperty("email") String email, @JsonProperty("address") String address,
                                @JsonProperty("id") String id, @JsonProperty("Pay") String pay,
-                               @JsonProperty("PendingPay") String pendingpay, @JsonProperty("TotalSalary") String totalsalary,
+                               @JsonProperty("PendingPay") String pendingpay,
+                               @JsonProperty("TotalSalary") String totalsalary,
                                @JsonProperty("gender") String gender, @JsonProperty("joindate") String joindate,
                                @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.name = name;
@@ -199,7 +200,7 @@ class JsonAdaptedEmployee {
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
         return new Employee(modelEmployeeId, modelEmployeeName, modelEmployeeGender, modelEmployeePay,
-                modelEmployeePendingPay,modelEmployeeTotalSalary,
+                modelEmployeePendingPay, modelEmployeeTotalSalary,
                 modelEmployeePhone, modelEmployeeEmail, modelEmployeeAddress, modelEmployeeJoinDate, modelTags);
     }
 

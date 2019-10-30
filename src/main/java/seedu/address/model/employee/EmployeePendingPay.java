@@ -1,7 +1,5 @@
 package seedu.address.model.employee;
 
-import static java.util.Objects.requireNonNull;
-
 /**
  * Represents a Employee's Pay  in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidPay(String)}

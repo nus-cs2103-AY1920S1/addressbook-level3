@@ -8,9 +8,9 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_JOIN_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PAY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PENDINGPAY;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TOTALSALARY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TOTALSALARY;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.Collections;
@@ -27,8 +27,19 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.employee.*;
+import seedu.address.model.employee.Employee;
+import seedu.address.model.employee.EmployeeAddress;
+import seedu.address.model.employee.EmployeeEmail;
+import seedu.address.model.employee.EmployeeGender;
+import seedu.address.model.employee.EmployeeId;
+import seedu.address.model.employee.EmployeeJoinDate;
+import seedu.address.model.employee.EmployeeName;
+import seedu.address.model.employee.EmployeePay;
+import seedu.address.model.employee.EmployeePendingPay;
+import seedu.address.model.employee.EmployeePhone;
+import seedu.address.model.employee.EmployeeTotalSalary;
 import seedu.address.model.tag.Tag;
+
 
 /**
  * Edits the details of an existing employee in the employeeAddress book.

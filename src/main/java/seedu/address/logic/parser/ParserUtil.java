@@ -15,7 +15,16 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 
-import seedu.address.model.employee.*;
+import seedu.address.model.employee.EmployeeAddress;
+import seedu.address.model.employee.EmployeeEmail;
+import seedu.address.model.employee.EmployeeGender;
+import seedu.address.model.employee.EmployeeId;
+import seedu.address.model.employee.EmployeeJoinDate;
+import seedu.address.model.employee.EmployeeName;
+import seedu.address.model.employee.EmployeePay;
+import seedu.address.model.employee.EmployeePendingPay;
+import seedu.address.model.employee.EmployeePhone;
+import seedu.address.model.employee.EmployeeTotalSalary;
 import seedu.address.model.event.EventDate;
 import seedu.address.model.event.EventDateTimeMap;
 import seedu.address.model.event.EventDayTime;
