@@ -105,8 +105,6 @@ public interface ItemModel {
 
     public void offPriorityMode();
 
-    public void forceOffPriorityMode();
-
     public Item markComplete(int index) throws IllegalListException;
 
     public Item markIncomplete(int index) throws IllegalListException;
