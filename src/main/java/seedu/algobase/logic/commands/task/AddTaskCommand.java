@@ -5,7 +5,6 @@ import static seedu.algobase.logic.parser.CliSyntax.PREFIX_DUE_DATE;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_PLAN;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_PROBLEM;
 import static seedu.algobase.model.Model.PREDICATE_SHOW_ALL_PLANS;
-import static seedu.algobase.model.task.Task.MESSAGE_DATE_EXCEPTION;
 
 import java.time.LocalDate;
 import java.util.HashSet;
