@@ -6,6 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_POLICIES_LISTED_OVERVIEW;
 import static seedu.address.logic.commands.CommandTestUtil.assertListPolicyCommandSuccess;
 import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalPolicy.LIFE_INSURANCE;
+
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -62,13 +64,13 @@ public class FindPolicyCommandTest {
     }
 
     @Test
-    public void execute_multipleKeywords_multiplePoliciesFound() {
+    public void execute_singleKeyword_singlePolicyFound() {
         String expectedMessage = String.format(MESSAGE_POLICIES_LISTED_OVERVIEW, 1);
         PolicyNameContainsKeywordsPredicate predicate = preparePredicate("Life");
         FindPolicyCommand command = new FindPolicyCommand(predicate);
         expectedModel.updateFilteredPolicyList(predicate);
         assertListPolicyCommandSuccess(command, model, expectedMessage, expectedModel);
-        //assertEquals(Arrays.asList(CARL, ELLE, FIONA), model.getFilteredPolicyList());
+        assertEquals(Arrays.asList(LIFE_INSURANCE), model.getFilteredPolicyList());
     }
 
     /**
