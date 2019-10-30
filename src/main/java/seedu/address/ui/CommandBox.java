@@ -180,8 +180,7 @@ public class CommandBox extends UiPart<Region> {
      * @param text
      */
     public void setCommandText(String text) { 
-        this.commandTextField.setText(text);
-        getRoot().requestFocus();
+        commandTextField.setText(text);
     }
 
 }
