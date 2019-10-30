@@ -119,6 +119,45 @@ There is no need to save manually.
 
 === Transactions
 
+In the transactions tab, you can maintain a list of your transactions, adding, editing, deleting and filtering items
+as you like. The image below gives an overview of the GUI of the feature:
+
+[[transactionsScreenshot]]
+.Transaction tab
+image::TransactionsScreenshot.png[]
+
+Before we introduce the commands you can use, let us briefly run through the labelled components of our GUI.
+
+===== Transaction list / cell
+The transaction list comprises several transaction cells. Each transaction cell represents a single transaction.
+We give a further breakdown of the information each transaction cell displays in the following image:
+
+[[transactionCell]]
+.Information in a transaction cell
+image::TransactionCell.png[]
+
+[NOTE]
+We differentiate income items from expenditure items using the color of the text for the "Amount" field. A green
+amount indicates that the transaction is an income item; a red amount indicates that the transaction is an
+expenditure item. For example, the first transaction cell in <<transactionsScreenshot>> represents an income item,
+whereas the second cell represents an expenditure item.
+
+
+===== Filter title
+The filter title indicates which transactions are being shown. In <<transactionsScreenshot>>, the list
+shows only transactions that occur on October 2019, under the category "Food".
+
+The filter title changes along with the filter that is applied to the list. You can change the filter using
+the `filtertx` command in <<filtertx>>
+
+Minimally, the filter title contains the month and year of the filter applied. It can also display
+the category shown, as well as whether only expenditure/income items are shown.
+
+// tag::filtertx[]
+[[filtertx]]
+==== Filtering transactions: `filtertx`
+// end::filtertx[]
+
 ==== Creating transaction: `addtx`
 Creates a transaction. +
 Format: `addtx de/DESCRIPTION a/AMOUNT [c/CATEGORY] [d/DAY] [m/MONTH] [y/YEAR] [ty/TRANSACTION_TYPE]`
