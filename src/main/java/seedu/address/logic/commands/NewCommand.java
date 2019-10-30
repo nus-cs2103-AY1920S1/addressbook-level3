@@ -26,16 +26,16 @@ public class NewCommand extends Command {
     public static final String MESSAGE_DUPLICATE_REPORT = "This draft already exists in the incident "
             + "management system";
 
-    private final District location;
+    private final District district;
     private final boolean isAuto;
     private Incident draft;
 
     /**
      * Creates a NewCommand to generate a new {@code Incident}
      */
-    public NewCommand(District location, boolean isAuto) {
-        requireNonNull(location);
-        this.location = location;
+    public NewCommand(District district, boolean isAuto) {
+        requireNonNull(district);
+        this.district = district;
         this.isAuto = isAuto;
     }
 
@@ -61,7 +61,7 @@ public class NewCommand extends Command {
         requireNonNull(model);
 
         Person operator = model.getLoggedInPerson();
-        Incident draft = new Incident(operator, location);
+        Incident draft = new Incident(operator, district);
         this.draft = draft; // draft created here because need operator data from model
 
         if (model.hasIncident(draft)) {
@@ -79,7 +79,7 @@ public class NewCommand extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof NewCommand // instanceof handles nulls
-                && location.equals(((NewCommand) other).location))
+                && district.equals(((NewCommand) other).district))
                 && draft.equals(((NewCommand) other).draft);
     }
 }

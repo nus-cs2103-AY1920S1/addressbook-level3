@@ -16,7 +16,7 @@ public class IncidentCard extends UiPart<Region> {
     private static final String FXML = "IncidentListCard.fxml";
 
     /**
-     * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
+     * Note: Certain keywords such as "district" and "resources" are reserved keywords in JavaFX.
      * As a consequence, UI elements' variable names cannot be set to such keywords
      * or an exception will be thrown by JavaFX during runtime.
      */
@@ -28,7 +28,7 @@ public class IncidentCard extends UiPart<Region> {
     @FXML
     private Label operator;
     @FXML
-    private Label incidentLocation;
+    private Label incidentDistrict;
     @FXML
     private Label dateTime;
     @FXML
@@ -41,7 +41,8 @@ public class IncidentCard extends UiPart<Region> {
     private Label description;
     @FXML
     private Label status;
-
+    @FXML
+    private Label vehicle;
 
     public IncidentCard(Incident incident, int displayedIndex) {
         super(FXML);
@@ -51,7 +52,8 @@ public class IncidentCard extends UiPart<Region> {
         dateTime.setText("created on " + incident.getDateTime().toDisplayString()); // get the display format, not ISO
         operator.setText("Filed by: " + incident.getOperator().getName().toString() + " ("
                 + incident.getOperator().getUsername() + ")");
-        incidentLocation.setText("District: " + String.valueOf(incident.getDistrict().districtNum));
+        incidentDistrict.setText("District: " + incident.getDistrict().toString());
+        vehicle.setText("Vehicle: " + incident.getVehicle().toDisplayString());
 
         // fields not filled for draft
         CallerNumber incidentCallerNumber = incident.getCallerNumber();
