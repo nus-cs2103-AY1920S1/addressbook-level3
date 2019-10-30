@@ -121,7 +121,7 @@ public class UserViewNavigator {
      * Relays to controller to swap current user view with member list.
      * @param logic to access task data
      */
-    public void loadAssignFireView(Logic logic) {
+    public void loadAssignView(Logic logic) {
         List<TasMemMapping> tasMemMappings = logic.getProjectDashboard().getTasMemMappingList();
         List<Task> tasks = logic.getProjectDashboard().getTaskList();
         List<Member> members = logic.getProjectDashboard().getMemberList();
@@ -137,7 +137,8 @@ public class UserViewNavigator {
             }
         }
 
-        IndivMemberCard memberCard = new IndivMemberCard(specificMember, members.size(), specificTasks);
+        IndivMemberCard memberCard = new IndivMemberCard(specificMember,
+                mappingAdded.getMemberIndex() + 1, specificTasks);
         userViewController.setUserView(memberCard);
     }
 

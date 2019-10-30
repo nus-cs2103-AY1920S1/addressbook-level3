@@ -54,6 +54,8 @@ public class UserViewUpdate {
             break;
 
         case "add-member":
+            paneToRender.getChildren().add(userViewMain.loadSpecificMember());
+            break;
 
         case "set-image":
             paneToRender.getChildren().add(userViewMain.loadSetImage());
@@ -62,6 +64,14 @@ public class UserViewUpdate {
         case "find-member":
             paneToRender.getChildren().add(userViewMain.loadFoundMembers());
             break;
+
+        case "assign":
+            paneToRender.getChildren().add(userViewMain.loadAssign());
+            break;
+
+        case "fire":
+
+        case "edit-member":
 
         case "remove-member":
 
@@ -79,11 +89,7 @@ public class UserViewUpdate {
             paneToRender.getChildren().add(userViewMain.loadInventories());
             break;
 
-        case "assign":
 
-        case "fire":
-            paneToRender.getChildren().add(userViewMain.loadAssignFire());
-            break;
 
         case "member-stats":
            paneToRender.getChildren().add(userViewMain.loadMemberStats());

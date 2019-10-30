@@ -29,7 +29,7 @@ public class FireCommand extends Command {
             + PREFIX_TASK_INDEX + " 2 "
             + PREFIX_MEMBER_ID + " JD";
 
-    public static final String MESSAGE_REMOVE_TASK_SUCCESS = "Removes task for member: %1$s";
+    public static final String MESSAGE_REMOVE_TASK_SUCCESS = "Task removed from member";
     public static final String MESSAGE_INVALID_TASK_ID = "This task does not exist under member.";
 
     private final Index taskId;
@@ -81,8 +81,8 @@ public class FireCommand extends Command {
         } catch (MappingNotFoundException e) {
             throw new CommandException(MESSAGE_INVALID_TASK_ID);
         }
-
-        return new CommandResult(String.format(MESSAGE_REMOVE_TASK_SUCCESS, involvedTask));
+        
+        return new CommandResult(String.format(MESSAGE_REMOVE_TASK_SUCCESS));
     }
 
     /**

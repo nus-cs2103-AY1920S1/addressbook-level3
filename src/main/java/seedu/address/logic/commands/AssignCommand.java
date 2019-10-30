@@ -28,7 +28,7 @@ public class AssignCommand extends Command {
             + PREFIX_TASK_INDEX + " 2 "
             + PREFIX_MEMBER_ID + "JD";
 
-    public static final String MESSAGE_ASSIGN_SUCCESS = "Set task for member: %1$s";
+    public static final String MESSAGE_ASSIGN_SUCCESS = "Task set under member";
     public static final String MESSAGE_DUPLICATE_MAPPING = "This mapping already exists!";
 
     private final Index taskId;
@@ -80,7 +80,7 @@ public class AssignCommand extends Command {
         }
 
         model.addMapping(mappingToAdd);
-        return new CommandResult(String.format(MESSAGE_ASSIGN_SUCCESS, mappingToAdd));
+        return new CommandResult(String.format(MESSAGE_ASSIGN_SUCCESS));
     }
 
     /**

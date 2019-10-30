@@ -1,11 +1,6 @@
 package seedu.address.model.mapping;
 
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.Objects;
-import java.util.Set;
 
 public class TasMemMapping extends Mapping{
 
@@ -78,7 +73,9 @@ public class TasMemMapping extends Mapping{
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append("Placeholder string for Mapping toString method");
+        builder.append("Mapping between task with index ");
+        builder.append(taskIndex);
+        builder.append(" and member");
         return builder.toString();
     }
 }

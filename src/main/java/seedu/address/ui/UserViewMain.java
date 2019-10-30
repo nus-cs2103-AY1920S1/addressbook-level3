@@ -70,8 +70,8 @@ public class UserViewMain {
         return userViewController.getCurrentView();
     }
 
-    public Pane loadAssignFire() {
-        userViewNavigator.loadAssignFireView(logic);
+    public Pane loadAssign() {
+        userViewNavigator.loadAssignView(logic);
         return userViewController.getCurrentView();
     }
 

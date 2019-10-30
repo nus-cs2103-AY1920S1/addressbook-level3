@@ -44,7 +44,7 @@
                 </padding>
             </FlowPane>
             <VBox maxHeight="50.0" HBox.hgrow="ALWAYS">
-                <SplitPane  styleClass="split_pane_indiv">
+                <SplitPane>
                         <ImageView fx:id="imageView" layoutX="20" layoutY="20" />
                     <VBox>
                         <Label alignment="CENTER_LEFT" styleClass="cell_big_label" text="List of Tasks Assigned" />

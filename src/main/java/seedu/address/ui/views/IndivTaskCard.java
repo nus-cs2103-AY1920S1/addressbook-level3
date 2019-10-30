@@ -65,7 +65,7 @@ public class IndivTaskCard extends UiPart<Region> {
         String listOfMembers = "";
 
         for (int i = 0; i < memberList.size(); i++) {
-            listOfMembers += (i+1) + ". " + memberList.get(i).toString() + "\n";
+            listOfMembers += (i+1) + ". " + memberList.get(i).toStringOnlyId() + "\n";
         }
 
         members.setText(listOfMembers);

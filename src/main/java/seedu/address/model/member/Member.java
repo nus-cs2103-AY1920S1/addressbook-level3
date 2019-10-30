@@ -133,4 +133,8 @@ public class Member {
         getTags().forEach(builder::append);
         return builder.toString();
     }
+
+    public String toStringOnlyId() {
+        return id.getDisplayId();
+    }
 }
