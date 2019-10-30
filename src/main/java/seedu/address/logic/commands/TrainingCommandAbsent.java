@@ -88,6 +88,8 @@ public class TrainingCommandAbsent extends TrainingCommand {
 
         Training training = new Training(super.getDate(), trainingAttendance);
         model.addTraining(training);
-        return new CommandResult(TRAINING_ADD_SUCCESS);
+        AthletickDate date = super.getDate();
+        date.setType(2);
+        return new CommandResult(TRAINING_ADD_SUCCESS, date, model);
     }
 }

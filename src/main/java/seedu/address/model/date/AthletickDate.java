@@ -84,6 +84,8 @@ public class AthletickDate {
                 || (other instanceof AthletickDate
                 && day == ((AthletickDate) other).day
                 && month == ((AthletickDate) other).month
-                && year == ((AthletickDate) other).year);
+                && year == ((AthletickDate) other).year
+                && type == ((AthletickDate) other).type
+                && mth.equals(((AthletickDate) other).mth));
     }
 }
