@@ -473,6 +473,14 @@
     -fx-text-fill: white;
 }
 
+#locationsViewContainer {
+    -fx-background-color: #222831;
+}
+
+#locationsViewContainer .label {
+    -fx-text-fill: #FFFFFF;
+}
+
 #listHeaders .label {
     -fx-text-fill: #FFFFFF;
     -fx-opacity: 0.67;

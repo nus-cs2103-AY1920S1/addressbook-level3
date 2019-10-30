@@ -17,14 +17,22 @@ import seedu.address.ui.UiPart;
 public class LocationsView extends UiPart<Region> {
     private static final String FXML = "LocationsView.fxml";
 
-    private static String firstLocation = "First choice: ";
-    private static String secondLocation = "Second choice: ";
-    private static String thirdLocation = "Third choice: ";
-
     @FXML
     private StackPane locationMapPlaceholder;
     @FXML
     private VBox textContainer;
+    @FXML
+    private Label firstLocationLabel;
+    @FXML
+    private Label secondLocationLabel;
+    @FXML
+    private Label thirdLocationLabel;
+    @FXML
+    private Label firstAvg;
+    @FXML
+    private Label secondAvg;
+    @FXML
+    private Label thirdAvg;
     @FXML
     private StackPane locationsViewContainer;
 
@@ -35,9 +43,12 @@ public class LocationsView extends UiPart<Region> {
         imageView.setFitWidth(400.0);
         imageView.setFitHeight(400.0);
         locationMapPlaceholder.getChildren().add(imageView);
-        textContainer.getChildren().addAll(new Label(firstLocation + " " + data.getFirstClosest()),
-                new Label(secondLocation + " " + data.getSecondClosest()), new Label(thirdLocation
-                        + " " + data.getThirdClosest()));
+        firstLocationLabel.setText(data.getFirstClosest());
+        firstAvg.setText(data.getFirstAvg() + "");
+        secondLocationLabel.setText(data.getSecondClosest());
+        secondAvg.setText(data.getSecondAvg() + "");
+        thirdLocationLabel.setText(data.getThirdClosest());
+        thirdAvg.setText(data.getThirdAvg() + "");
     }
 
 }

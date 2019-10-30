@@ -22,6 +22,7 @@ public class LocationPopup {
         StackPane popupContainer = new StackPane();
         popupContainer.getChildren().add(details);
         Scene layout = new Scene(popupContainer);
+        layout.getStylesheets().add("/view/DarkTheme.css");
         layout.setOnKeyPressed(new EventHandler<KeyEvent>() {
             public void handle(KeyEvent ke) {
                 if (ke.getCode() == KeyCode.ESCAPE) {
