@@ -16,6 +16,18 @@ endif::[]
 
 By: `Team AY1920S1-CS2103T-F12-1`      Since: `Sept 2019`      Licence: `MIT`
 
+== Introduction
+
+=== About the Application
+*Horo* is a command-line interface scheduling application. It helps the user maintain a to-do list and a calendar, and posts timely reminders on their desktop.
+
+=== Purpose
+This guide specifies the architecture and software design decisions for Horo, and instructions for building upon the current codebase. This is done in hopes of ensuring extensibility and maintainability of Horo for both current and future developers.
+
+
+=== How to use this Guide
+todo
+
 == Setting up
 
 Refer to the guide <<SettingUp#, here>>.
@@ -753,6 +765,3 @@ These instructions only provide a starting point for testers to work on; testers
    Expected: The most recent window size and location is retained.
 
 _{ more test cases ... }_
-
-
-
