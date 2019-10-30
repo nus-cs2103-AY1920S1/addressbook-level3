@@ -10,6 +10,7 @@ import seedu.mark.logic.commands.AddCommand;
 import seedu.mark.logic.commands.AddFolderCommand;
 import seedu.mark.logic.commands.AddReminderCommand;
 import seedu.mark.logic.commands.AutotagCommand;
+import seedu.mark.logic.commands.AutotagDeleteCommand;
 import seedu.mark.logic.commands.CacheCommand;
 import seedu.mark.logic.commands.ClearCommand;
 import seedu.mark.logic.commands.Command;
@@ -108,6 +109,9 @@ public class MarkParser {
 
         case AddReminderCommand.COMMAND_WORD:
             return new AddReminderCommandParser().parse(arguments);
+
+        case AutotagDeleteCommand.COMMAND_WORD:
+            return new AutotagDeleteCommandParser().parse(arguments);
 
         case AutotagCommand.COMMAND_WORD:
             return new AutotagCommandParser().parse(arguments);

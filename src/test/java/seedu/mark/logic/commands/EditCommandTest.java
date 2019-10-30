@@ -167,6 +167,8 @@ public class EditCommandTest {
         assertCommandFailure(editCommand, model, new StorageStub(), Messages.MESSAGE_INVALID_BOOKMARK_DISPLAYED_INDEX);
     }
 
+    // TODO: bookmark gets tagged by autotagController
+
     @Test
     public void equals() {
         final EditCommand standardCommand = new EditCommand(INDEX_FIRST_BOOKMARK, DESC_AMY);

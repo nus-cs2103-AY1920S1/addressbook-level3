@@ -130,6 +130,14 @@ public interface Model {
     void addTagger(SelectiveBookmarkTagger tagger);
 
     /**
+     * Removes the tagger with the given {@code taggerName} from Mark.
+     *
+     * @param taggerName name of the tagger to be removed.
+     * @return false if the tagger is not found.
+     */
+    boolean removeTagger(String taggerName);
+
+    /**
      * Activates all taggers in Mark to apply tags to Mark's bookmarks based
      * on their respective conditions.
      */

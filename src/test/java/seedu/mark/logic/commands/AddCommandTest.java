@@ -66,6 +66,8 @@ public class AddCommandTest {
                 addCommand.execute(modelStub, new StorageStub()));
     }
 
+    // TODO: bookmark gets tagged by autotagController
+
     @Test
     public void equals() {
         Bookmark alice = new BookmarkBuilder().withName("Alice").build();

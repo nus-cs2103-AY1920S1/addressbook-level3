@@ -121,6 +121,11 @@ public class ModelStub implements Model {
     }
 
     @Override
+    public boolean removeTagger(String taggerName) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
     public void applyAllTaggers() {
         throw new AssertionError("This method should not be called.");
     }

@@ -22,6 +22,7 @@ import org.junit.jupiter.api.Test;
 import seedu.mark.logic.commands.AddCommand;
 import seedu.mark.logic.commands.AddFolderCommand;
 import seedu.mark.logic.commands.AutotagCommand;
+import seedu.mark.logic.commands.AutotagDeleteCommand;
 import seedu.mark.logic.commands.CacheCommand;
 import seedu.mark.logic.commands.ClearCommand;
 import seedu.mark.logic.commands.DeleteCacheCommand;
@@ -43,7 +44,7 @@ import seedu.mark.model.bookmark.Bookmark;
 import seedu.mark.model.bookmark.Folder;
 import seedu.mark.model.bookmark.util.BookmarkBuilder;
 import seedu.mark.model.predicates.BookmarkContainsKeywordsPredicate;
-import seedu.mark.model.predicates.NameContainsKeywordsPredicate;
+import seedu.mark.model.predicates.BookmarkPredicate;
 import seedu.mark.model.tag.Tag;
 import seedu.mark.testutil.BookmarkUtil;
 import seedu.mark.testutil.EditBookmarkDescriptorBuilder;
@@ -71,7 +72,15 @@ public class MarkParserTest {
         AutotagCommand command = (AutotagCommand) parser.parseCommand(
                 AutotagCommand.COMMAND_WORD + " " + VALID_TAG_FRIEND + NAME_DESC_AMY);
         AutotagCommand expectedCommand = new AutotagCommand(new SelectiveBookmarkTagger(new Tag(VALID_TAG_FRIEND),
-                new NameContainsKeywordsPredicate(Arrays.asList(VALID_NAME_AMY))));
+                new BookmarkPredicate().withNameKeywords(Arrays.asList(VALID_NAME_AMY))));
+        assertEquals(command, expectedCommand);
+    }
+
+    @Test
+    public void parseCommand_autotagDelete() throws Exception {
+        AutotagDeleteCommand command = (AutotagDeleteCommand) parser.parseCommand(
+                AutotagDeleteCommand.COMMAND_WORD + " myTag");
+        AutotagDeleteCommand expectedCommand = new AutotagDeleteCommand("myTag");
         assertEquals(command, expectedCommand);
     }
 
@@ -99,27 +108,6 @@ public class MarkParserTest {
     }
 
     @Test
-    public void parseCommand_favorite() throws Exception {
-        FavoriteCommand command = (FavoriteCommand) parser.parseCommand(
-                FavoriteCommand.COMMAND_WORD + " " + INDEX_FIRST_BOOKMARK.getOneBased());
-        assertEquals(new FavoriteCommand(INDEX_FIRST_BOOKMARK), command);
-    }
-
-    @Test
-    public void parseCommand_favoriteAlias() throws Exception {
-        FavoriteCommand command = (FavoriteCommand) parser.parseCommand(
-                FavoriteCommand.COMMAND_ALIAS + " " + INDEX_FIRST_BOOKMARK.getOneBased());
-        assertEquals(new FavoriteCommand(INDEX_FIRST_BOOKMARK), command);
-    }
-
-    @Test
-    public void parseCommand_goto() throws Exception {
-        GotoCommand command = (GotoCommand) parser.parseCommand(
-                GotoCommand.COMMAND_WORD + " " + INDEX_FIRST_BOOKMARK.getOneBased());
-        assertEquals(new GotoCommand(INDEX_FIRST_BOOKMARK), command);
-    }
-
-    @Test
     public void parseCommand_edit() throws Exception {
         Bookmark bookmark = new BookmarkBuilder().build();
         EditCommand.EditBookmarkDescriptor descriptor = new EditBookmarkDescriptorBuilder(bookmark).build();
@@ -144,11 +132,17 @@ public class MarkParserTest {
     }
 
     @Test
-    public void parseCommand_import() throws Exception {
-        // assumption: bookmarks are imported from the folder data/bookmarks/ (see ImportCommandParser)
-        String fileName = "myBookmarks";
-        ImportCommand command = (ImportCommand) parser.parseCommand(ImportCommand.COMMAND_WORD + " " + fileName);
-        assertEquals(new ImportCommand(Path.of("data", "bookmarks", fileName + ".json")), command);
+    public void parseCommand_favorite() throws Exception {
+        FavoriteCommand command = (FavoriteCommand) parser.parseCommand(
+                FavoriteCommand.COMMAND_WORD + " " + INDEX_FIRST_BOOKMARK.getOneBased());
+        assertEquals(new FavoriteCommand(INDEX_FIRST_BOOKMARK), command);
+    }
+
+    @Test
+    public void parseCommand_favoriteAlias() throws Exception {
+        FavoriteCommand command = (FavoriteCommand) parser.parseCommand(
+                FavoriteCommand.COMMAND_ALIAS + " " + INDEX_FIRST_BOOKMARK.getOneBased());
+        assertEquals(new FavoriteCommand(INDEX_FIRST_BOOKMARK), command);
     }
 
     @Test
@@ -162,9 +156,24 @@ public class MarkParserTest {
     }
 
     @Test
+    public void parseCommand_goto() throws Exception {
+        GotoCommand command = (GotoCommand) parser.parseCommand(
+                GotoCommand.COMMAND_WORD + " " + INDEX_FIRST_BOOKMARK.getOneBased());
+        assertEquals(new GotoCommand(INDEX_FIRST_BOOKMARK), command);
+    }
+
+    @Test
     public void parseCommand_help() throws Exception {
         assertTrue(parser.parseCommand(HelpCommand.COMMAND_WORD) instanceof HelpCommand);
         assertTrue(parser.parseCommand(HelpCommand.COMMAND_WORD + " 3") instanceof HelpCommand);
+    }
+
+    @Test
+    public void parseCommand_import() throws Exception {
+        // assumption: bookmarks are imported from the folder data/bookmarks/ (see ImportCommandParser)
+        String fileName = "myBookmarks";
+        ImportCommand command = (ImportCommand) parser.parseCommand(ImportCommand.COMMAND_WORD + " " + fileName);
+        assertEquals(new ImportCommand(Path.of("data", "bookmarks", fileName + ".json")), command);
     }
 
     @Test
@@ -174,15 +183,15 @@ public class MarkParserTest {
     }
 
     @Test
-    public void parseCommand_undo() throws Exception {
-        assertTrue(parser.parseCommand(UndoCommand.COMMAND_WORD) instanceof UndoCommand);
-        assertTrue(parser.parseCommand(UndoCommand.COMMAND_WORD + " 3") instanceof UndoCommand);
-    }
-
-    @Test
     public void parseCommand_redo() throws Exception {
         assertTrue(parser.parseCommand(RedoCommand.COMMAND_WORD) instanceof RedoCommand);
         assertTrue(parser.parseCommand(RedoCommand.COMMAND_WORD + " 3") instanceof RedoCommand);
+    }
+
+    @Test
+    public void parseCommand_undo() throws Exception {
+        assertTrue(parser.parseCommand(UndoCommand.COMMAND_WORD) instanceof UndoCommand);
+        assertTrue(parser.parseCommand(UndoCommand.COMMAND_WORD + " 3") instanceof UndoCommand);
     }
 
     @Test

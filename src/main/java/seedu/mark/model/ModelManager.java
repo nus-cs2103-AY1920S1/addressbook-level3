@@ -163,15 +163,19 @@ public class ModelManager implements Model {
     @Override
     public boolean hasTagger(SelectiveBookmarkTagger tagger) {
         requireNonNull(tagger);
-
         return versionedMark.hasTagger(tagger);
     }
 
     @Override
     public void addTagger(SelectiveBookmarkTagger tagger) {
         requireNonNull(tagger);
-
         versionedMark.addTagger(tagger);
+    }
+
+    @Override
+    public boolean removeTagger(String taggerName) {
+        requireNonNull(taggerName);
+        return versionedMark.removeTagger(taggerName);
     }
 
     @Override

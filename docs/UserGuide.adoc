@@ -400,6 +400,7 @@ Examples:
 Assuming `mark.jar` is stored in the folder `mark`, imports bookmarks from the
 file `mark/data/bookmarks/myBookmarks.json`
 
+[[Autotag-Command]]
 === Creating an automatic tag: *`autotag`*
 
 Creates a tag that will be automatically applied to bookmarks which match
@@ -436,6 +437,23 @@ in the folder `NUS` but are not tagged with `academic` or `admin`.
 * `*autotag* Luminus u/luminus` +
  Creates an autotag that adds the tag `Luminus` to all bookmarks with URLs
 containing `luminus`.
+
+=== Deleting automatic tags: *`autotag-delete`*
+
+Deletes a previously created <<autotag, autotag>>.
+
+Format: `*autotag-delete* TAG_NAME`
+
+****
+* `TAG_NAME` should be the name of an existing autotag.
+****
+
+Example:
+
+* `*autotag-delete* Quiz` +
+ Deletes the autotag that would have tagged bookmarks that match its conditions
+with the tag `Quiz`. No existing tags are removed, but new and edited bookmarks
+will no longer be automatically tagged with `Quiz`.
 
 === Saving an offline copy: *`cache`*
 
@@ -816,6 +834,10 @@ This glossary aims to provide a definition for the special vocabulary used in th
 
 [[annotation]] Annotation::
 A note or highlight that is made on an <<offline-copy, offline copy>> of a bookmark.
+
+[[autotag]] Autotag::
+A tag that is automatically applied to bookmarks based on certain conditions. These conditions
+are specified when the autotag is created. Refer to <<Autotag-Command>> for details about how to use autotags.
 
 [[bookmark]] Bookmark::
 A saved shortcut to a website. In Mark, a bookmark can contain other information besides the website URL,

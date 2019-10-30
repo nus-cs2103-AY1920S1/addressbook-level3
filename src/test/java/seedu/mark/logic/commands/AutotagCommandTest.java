@@ -21,7 +21,7 @@ import seedu.mark.model.UserPrefs;
 import seedu.mark.model.autotag.SelectiveBookmarkTagger;
 import seedu.mark.model.bookmark.Bookmark;
 import seedu.mark.model.bookmark.util.BookmarkBuilder;
-import seedu.mark.model.predicates.NameContainsKeywordsPredicate;
+import seedu.mark.model.predicates.BookmarkPredicate;
 import seedu.mark.model.tag.Tag;
 import seedu.mark.storage.Storage;
 import seedu.mark.storage.StorageStub;
@@ -62,7 +62,7 @@ public class AutotagCommandTest {
 
     @Test
     public void execute_taggerAlreadyExists_throwsException() {
-        NameContainsKeywordsPredicate predicate = prepareNamePredicate("zzz");
+        BookmarkPredicate predicate = prepareNamePredicate("zzz");
         SelectiveBookmarkTagger tagger = new SelectiveBookmarkTagger(new Tag("notTagged"), predicate);
         AutotagCommand command = new AutotagCommand(tagger);
 
@@ -78,7 +78,7 @@ public class AutotagCommandTest {
         // No bookmarks tagged
         Model model = new ModelManager(getTypicalMark(), new UserPrefs());
 
-        NameContainsKeywordsPredicate predicate = prepareNamePredicate("zzz");
+        BookmarkPredicate predicate = prepareNamePredicate("zzz");
         SelectiveBookmarkTagger tagger = new SelectiveBookmarkTagger(new Tag("notTagged"), predicate);
         AutotagCommand command = new AutotagCommand(tagger);
 
@@ -92,7 +92,7 @@ public class AutotagCommandTest {
     public void execute_newTaggerMatchesOneBookmark_successBookmarkTagged() {
         Model model = new ModelManager(getTypicalMark(), new UserPrefs());
 
-        NameContainsKeywordsPredicate predicate = prepareNamePredicate("Alice Pauline");
+        BookmarkPredicate predicate = prepareNamePredicate("Alice Pauline");
         SelectiveBookmarkTagger tagger = new SelectiveBookmarkTagger(new Tag("oneTagged"), predicate);
         AutotagCommand command = new AutotagCommand(tagger);
 
@@ -109,7 +109,7 @@ public class AutotagCommandTest {
     public void execute_newTaggerMatchesMultipleBookmarks_successBookmarksTagged() {
         Model model = new ModelManager(getTypicalMark(), new UserPrefs());
 
-        NameContainsKeywordsPredicate predicate = prepareNamePredicate("ku");
+        BookmarkPredicate predicate = prepareNamePredicate("ku");
         SelectiveBookmarkTagger tagger = new SelectiveBookmarkTagger(new Tag("namesContainKu"), predicate);
         AutotagCommand command = new AutotagCommand(tagger);
 
@@ -127,7 +127,7 @@ public class AutotagCommandTest {
     /**
      * Parses {@code userInput} into a {@code NameContainsKeywordsPredicate}.
      */
-    private NameContainsKeywordsPredicate prepareNamePredicate(String userInput) {
-        return new NameContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")));
+    private BookmarkPredicate prepareNamePredicate(String userInput) {
+        return new BookmarkPredicate().withNameKeywords(Arrays.asList(userInput.split("\\s+")));
     }
 }
