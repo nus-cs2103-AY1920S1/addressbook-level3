@@ -9,7 +9,7 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ObservableList;
 
 import seedu.address.model.day.Day;
-import seedu.address.model.day.UniqueDayList;
+import seedu.address.model.day.DayList;
 import seedu.address.model.field.Name;
 import seedu.address.model.itineraryitem.activity.Activity;
 
@@ -19,7 +19,7 @@ import seedu.address.model.itineraryitem.activity.Activity;
  * Duplicates are not allowed (by .isSameContact comparison)
  */
 public class Itinerary implements ReadOnlyItinerary {
-    private final UniqueDayList days;
+    private final DayList days;
     private Name name;
     private SimpleObjectProperty<LocalDate> startDateProperty;
 
@@ -31,7 +31,7 @@ public class Itinerary implements ReadOnlyItinerary {
      *   among constructors.
      */
     {
-        days = new UniqueDayList();
+        days = new DayList();
     }
 
     public Itinerary() {
