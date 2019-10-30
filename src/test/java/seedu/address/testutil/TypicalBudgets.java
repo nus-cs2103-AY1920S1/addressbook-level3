@@ -1,7 +1,6 @@
 package seedu.address.testutil;
 
 import seedu.address.model.budget.Budget;
-import seedu.address.model.budget.Percentage;
 
 /**
  * A utility class containing a list of {@code Budget} objects to be used in tests.
@@ -21,7 +20,6 @@ public class TypicalBudgets {
             .withPeriod("month")
             .withEndDate("14-12-2019 noon")
             .withIsPrimary(true)
-            .withProportionUsed(new Percentage(35))
             .build();
 
     public static final Budget OUTSIDE_SCHOOL = new BudgetBuilder()
@@ -31,7 +29,6 @@ public class TypicalBudgets {
             .withPeriod("month")
             .withEndDate("04-10-2019 noon")
             .withIsPrimary(false)
-            .withProportionUsed(new Percentage(50))
             .build();
 
     private TypicalBudgets() {}

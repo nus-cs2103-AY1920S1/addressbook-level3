@@ -15,6 +15,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.CommandGroup;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.GenericCommandWord;
 import seedu.address.logic.commands.UndoableCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -29,7 +30,7 @@ import seedu.address.ui.budget.BudgetListPanel;
  * Edits the details of an existing budget in the MooLah.
  */
 public class EditBudgetCommand extends UndoableCommand {
-    public static final String COMMAND_WORD = "edit" + CommandGroup.BUDGET;
+    public static final String COMMAND_WORD = GenericCommandWord.EDIT + CommandGroup.BUDGET;
     public static final String COMMAND_DESCRIPTION = "Edit budget on index %1$d";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the budget identified "
             + "by the index number used in the displayed expense list. "
@@ -113,10 +114,8 @@ public class EditBudgetCommand extends UndoableCommand {
         BudgetPeriod updatedPeriod = editBudgetDescriptor.getPeriod().orElse(budgetToEdit.getPeriod());
 
         Budget newBudget = new Budget(updatedDescription, updatedAmount, updatedStartDate, updatedPeriod,
-                budgetToEdit.getExpenses());
-        newBudget.setIsPrimary(budgetToEdit.isPrimary());
+                budgetToEdit.getExpenses(), budgetToEdit.isPrimary());
         newBudget.normalize(Timestamp.getCurrentTimestamp());
-        newBudget.updateProportionUsed();
 
         return newBudget;
     }
