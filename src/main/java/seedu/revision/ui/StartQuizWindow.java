@@ -254,9 +254,20 @@ public class StartQuizWindow extends Window {
                 handleExit();
             }
 
+            currentProgressIndex.set(getCurrentProgressIndex() + 1);
+
             previousAnswerable = currentAnswerable;
             currentAnswerable = answerableIterator.next();
 
+            if (previousAnswerable != null && answerableIterator.hasNext()) {
+                int previousLevel = Integer.parseInt(previousAnswerable.getDifficulty().value);
+                int currentLevel = Integer.parseInt(currentAnswerable.getDifficulty().value);
+                if (previousLevel < currentLevel) {
+                    handleNextLevel(currentAnswerable);
+                }  else {
+                    timer.resetTimer();
+                }
+            }
 
             if (currentAnswerable instanceof Mcq) {
                 answerableListPanelPlaceholder.getChildren().remove(answersGridPane.getRoot());
@@ -270,22 +281,12 @@ public class StartQuizWindow extends Window {
                 answerableListPanelPlaceholder.getChildren().add(answersGridPane.getRoot());
             }
 
-            currentProgressIndex.set(getCurrentProgressIndex() + 1);
+            questionDisplay.setFeedbackToUser(currentAnswerable.getQuestion().toString());
             //} else if (currentAnswerable instanceof Saq) {
             //    answersGridPane = new SaqAnswersGridPane(AnswersGridPane.SAQ_GRID_PANE_FXML, currentAnswerable);
             //}
             //answersGridPane.updateAnswers(currentAnswerable);
 
-            if (previousAnswerable != null && answerableIterator.hasNext()) {
-                int previousLevel = Integer.parseInt(previousAnswerable.getDifficulty().value);
-                int currentLevel = Integer.parseInt(currentAnswerable.getDifficulty().value);
-                if (previousLevel < currentLevel) {
-                    handleNextLevel(currentAnswerable);
-                } else {
-                    timer.resetTimer();
-                    questionDisplay.setFeedbackToUser(currentAnswerable.getQuestion().toString());
-                }
-            }
 
 
             return commandResult;
