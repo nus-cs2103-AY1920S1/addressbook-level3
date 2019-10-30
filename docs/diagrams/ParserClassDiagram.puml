@@ -1,0 +1,29 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor LOGIC_COLOR_T4
+skinparam classBackgroundColor LOGIC_COLOR
+
+package Logic {
+
+package Parser {
+Interface Parser <<interface>>
+Enum Context <<enumeration>>
+Class UniversalParser
+Class ContextParser
+}
+
+Interface Logic <<interface>>
+Class LogicManager
+}
+
+LogicManager .up.|> Logic
+LogicManager -->"1" UniversalParser
+UniversalParser .right.> ContextParser: creates >
+UniversalParser .left.> Context: contains >
+
+UniversalParser ..|> Parser
+ContextParser ..|> Parser
+note right of ContextParser: ContextParser = \nCustomerParser, \nRestaurantParser, \nDeliverymenParser or \nEditingParser
+
+@enduml
