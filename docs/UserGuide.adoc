@@ -849,8 +849,8 @@ Stray notes are found in the _Stray Notes Section_ at the bottom of the _Notes_ 
 * *Goto*: `*goto reminder* INDEX`
 * *Favorite*: `*favorite|fav* INDEX`
 * *Clear*: `*clear*`
-* *Undo*: `*undo [STEP=1]*`
-* *Redo*: `*redo [STEP=1]*`
+* *Undo*: `*undo* [STEP=1]`
+* *Redo*: `*redo* [STEP=1]`
 * *Exit*: `*exit*`
 * *Export*: `*export* [FILENAME]`
 * *Import*: `*import* FILENAME [MORE_FILENAMES]...`
