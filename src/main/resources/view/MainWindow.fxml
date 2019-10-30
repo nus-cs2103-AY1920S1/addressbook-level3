@@ -43,7 +43,7 @@
                     <Insets bottom="10" left="10" right="10" top="10" />
                 </padding>
                 <StackPane fx:id="bookListPanelPlaceholder" VBox.vgrow="ALWAYS" />
-                 <Pane fx:id="resultDisplayPlaceholder" maxHeight="90.0" minHeight="90.0" prefHeight="90.0">
+                 <Pane fx:id="resultDisplayPlaceholder" maxHeight="150.0" minHeight="150.0" prefHeight="120.0">
                      <padding>
                         <Insets left="20.0" />
                      </padding></Pane>

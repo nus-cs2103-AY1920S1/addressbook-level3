@@ -85,9 +85,9 @@ public class BorrowerTest {
     public void toString_borrower() {
         Borrower alice = new BorrowerBuilder(ALICE).build();
         String stringRep = alice.getName()
-                + " Phone: " + alice.getPhone()
-                + " Email: " + alice.getEmail()
-                + " Borrower Id: " + alice.getBorrowerId();
+                + ", Phone: " + alice.getPhone()
+                + ", Email: " + alice.getEmail()
+                + ", Borrower ID: " + alice.getBorrowerId();
 
         String temp = alice.toString();
         assertTrue(temp.equals(stringRep));

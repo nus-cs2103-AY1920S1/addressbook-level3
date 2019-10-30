@@ -205,12 +205,12 @@ public class Book {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getTitle())
-                .append(" Serial Number: ")
+                .append(", Serial Number: ")
                 .append(getSerialNumber())
-                .append(" Author: ")
+                .append(", Author: ")
                 .append(getAuthor());
         if (!getGenres().isEmpty()) {
-            builder.append(" Genres: ");
+            builder.append(", Genres: ");
             getGenres().forEach(genre -> builder.append(genre + " "));
         }
         return builder.toString();

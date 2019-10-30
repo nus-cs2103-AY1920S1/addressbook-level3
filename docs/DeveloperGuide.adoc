@@ -745,8 +745,9 @@ Refer to the guide <<Testing#, here>>.
 
 Refer to the guide <<DevOps#, here>>.
 
-[appendix]
-== Product Scope
+== Appendices
+
+=== Product Scope
 
 *Target user profile*:
 
@@ -761,8 +762,7 @@ Refer to the guide <<DevOps#, here>>.
 always a long queue in this small library and the librarian would have to type quickly to handle the long queue. LiBerry
 can manage a library system faster than a typical mouse/GUI driven app.
 
-[appendix]
-== User Stories
+=== User Stories
 
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
 
@@ -840,8 +840,7 @@ I submit a book title query
 |`*` |diligent librarian |search for user profiles by name |pull up his donate, borrowing, fine and payment history
 |=======================================================================
 
-[appendix]
-== Use Cases
+=== Use Cases
 
 The use case diagram below illustrates the main use cases of LiBerry.
 
@@ -852,7 +851,7 @@ image::UseCases.png[width="330"]
 (For all use cases below, the *System* is `LiBerry` and the *Actor* is the `user`, who is a librarian, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete book
+==== Use case: Delete book
 
 *MSS*
 
@@ -881,7 +880,7 @@ Use case resumes at step 2.
 
 
 [discrete]
-=== Use case: Add book
+==== Use case: Add book
 
 *MSS*
 
@@ -905,7 +904,7 @@ Use case ends.
 Use case resumes at step 2.
 
 [discrete]
-=== Use case: Loan book
+==== Use case: Loan book
 
 *MSS*
 
@@ -949,8 +948,7 @@ Use case resumes at the step preceding this.
 
 _{More to be added}_
 
-[appendix]
-== Non Functional Requirements
+=== Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
 .  Should be able to manage up to 20000 books, 5000 borrower records and 500000 loan records without a noticeable
@@ -960,8 +958,7 @@ able to accomplish most of the tasks faster using commands than using the mouse.
 
 _{More to be added}_
 
-[appendix]
-== Glossary
+=== Glossary
 
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
@@ -969,8 +966,7 @@ Windows, Linux, Unix, OS-X
 [[ui]] UI::
 User Interface
 
-[appendix]
-== Product Survey
+=== Product Survey
 
 *Product Name*
 
@@ -986,15 +982,14 @@ Cons:
 * ...
 * ...
 
-[appendix]
-== Instructions for Manual Testing
+=== Instructions for Manual Testing
 
 Given below are instructions to test the app manually.
 
 [NOTE]
 These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
 
-=== Launch and Shutdown
+==== Launch and Shutdown
 
 . Initial launch
 
@@ -1010,7 +1005,7 @@ These instructions only provide a starting point for testers to work on; testers
 
 _{ more test cases ... }_
 
-=== Deleting a book
+==== Deleting a book
 
 . Deleting a book while all books are listed
 
@@ -1024,7 +1019,7 @@ _{ more test cases ... }_
 
 _{ more test cases ... }_
 
-=== Saving data
+==== Saving data
 
 . Dealing with missing/corrupted data files
 
