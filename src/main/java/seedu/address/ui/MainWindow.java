@@ -155,7 +155,7 @@ public class MainWindow extends UiPart<Stage> {
             feedbackDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
             if (commandResult.isShowHelp()) {
-//                handleHelp();
+                centralDisplay.generateCommandHelpSummary();
             }
             if (commandResult.isExit()) {
                 handleExit();

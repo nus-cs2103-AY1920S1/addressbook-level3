@@ -15,6 +15,20 @@ import javafx.scene.layout.Region;
 import jfxtras.internal.scene.control.skin.agenda.AgendaWeekSkin;
 import jfxtras.scene.control.agenda.Agenda;
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.AddAccommodationCommand;
+import seedu.address.logic.commands.AddActivityCommand;
+import seedu.address.logic.commands.AddContactCommand;
+import seedu.address.logic.commands.AddDayCommand;
+import seedu.address.logic.commands.DeleteAccommodationCommand;
+import seedu.address.logic.commands.DeleteActivityCommand;
+import seedu.address.logic.commands.DeleteContactCommand;
+import seedu.address.logic.commands.DeleteDayCommand;
+import seedu.address.logic.commands.EditAccommodationCommand;
+import seedu.address.logic.commands.EditActivityCommand;
+import seedu.address.logic.commands.EditContactCommand;
+import seedu.address.logic.commands.ScheduleActivityCommand;
+import seedu.address.logic.commands.UnscheduleActivityCommand;
+import seedu.address.logic.commands.UnscheduleTimeCommand;
 import seedu.address.logic.commands.result.ResultInformation;
 import seedu.address.logic.commands.result.UiFocus;
 import seedu.address.model.contact.Contact;
@@ -54,6 +68,8 @@ public class CentralDisplay extends UiPart<Region> {
     private ListView<Node> infoList;
     @FXML
     private Tab helpTab;
+    @FXML
+    private ListView<Node> helpList;
 
     private SimpleObjectProperty<LocalDate> startDateProperty;
     private ObservableList<Day> dayList;
@@ -200,6 +216,25 @@ public class CentralDisplay extends UiPart<Region> {
                 throw new AssertionError(u.toString() + " is not handled in changeFocus.");
             }
         }
+    }
+
+    public void generateCommandHelpSummary() {
+        helpList.getItems().addAll(
+                new HelpCard(AddAccommodationCommand.MESSAGE_USAGE).getRoot(),
+                new HelpCard(AddActivityCommand.MESSAGE_USAGE).getRoot(),
+                new HelpCard(AddContactCommand.MESSAGE_USAGE).getRoot(),
+                new HelpCard(AddDayCommand.MESSAGE_USAGE).getRoot(),
+                new HelpCard(DeleteAccommodationCommand.MESSAGE_USAGE).getRoot(),
+                new HelpCard(DeleteActivityCommand.MESSAGE_USAGE).getRoot(),
+                new HelpCard(DeleteContactCommand.MESSAGE_USAGE).getRoot(),
+                new HelpCard(DeleteDayCommand.MESSAGE_USAGE).getRoot(),
+                new HelpCard(EditAccommodationCommand.MESSAGE_USAGE).getRoot(),
+                new HelpCard(EditActivityCommand.MESSAGE_USAGE).getRoot(),
+                new HelpCard(EditContactCommand.MESSAGE_USAGE).getRoot(),
+                new HelpCard(ScheduleActivityCommand.MESSAGE_USAGE).getRoot(),
+                new HelpCard(UnscheduleActivityCommand.MESSAGE_USAGE).getRoot(),
+                new HelpCard(UnscheduleTimeCommand.MESSAGE_USAGE).getRoot()
+        );
     }
 
     private void updateAgenda(Agenda agenda, ObservableList<Day> dayList) {

@@ -33,9 +33,10 @@ public class HelpCard extends UiPart<Region> {
     public HelpCard(HelpExplanation help) {
         super(FXML);
         this.help = help;
-        this.name.setText(help.getName());
-        this.syntax.setText(help.getSyntax());
-        this.example.setText(help.getExample());
+        this.name.setText(help.getName() + ":");
+        this.name.setStyle("-fx-font-weight:bold;");
+        this.syntax.setText("Syntax: " + help.getSyntax());
+        this.example.setText("Example: " + help.getExample());
     }
 
     @Override

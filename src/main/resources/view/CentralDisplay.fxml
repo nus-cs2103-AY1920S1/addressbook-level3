@@ -26,7 +26,11 @@
 					  <ListView fx:id="infoList" />
 				   </content>
 			   </Tab>
-                <Tab fx:id="helpTab" text="Help" />
+                <Tab fx:id="helpTab" text="Help">
+				   <content>
+					  <ListView fx:id="helpList" />
+				   </content>
+			   </Tab>
             </tabs>
         </TabPane>
     </right>
