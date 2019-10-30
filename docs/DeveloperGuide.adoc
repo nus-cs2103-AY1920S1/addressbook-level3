@@ -293,19 +293,30 @@ The following steps explain the activity diagram:
 
 ==== Design Considerations
 
+Listed in the table below are the design considerations for the `find` command.
+
+.Design considerations for `find` command
 [width="90%", cols="1,2,2", options="header",]
 |===
-|Aspect |Alternative 1 |Alternative 2
+|Aspect |Alternative 1 (current choice) |Alternative 2
 
 |How find is executed
 |Save all predicates to a list +
-Pros: Easy to implement +
-Cons: All fields require a predicate
-|Search the underlying list directly without using a predicate +
-Pros: Able to manipulate object easily +
-Cons: Poor abstraction
+Pros: +
+Easy to implement +
+Obeys Open-Closed Principle (OCP) +
 
+Cons: +
+All fields require a predicate
+|Search the underlying list directly without using a predicate +
+Pros: +
+Able to manipulate object easily +
+  +
+Cons: +
+Poor abstraction
 |===
+
+Alternative 1 was chosen as it was the easiest to implement and obeys the Open-Closed Principle (OCP) of the SOLID principles.
 
 [[Implementation-Sort]]
 === Sort feature
@@ -359,9 +370,10 @@ The following steps explain the activity diagram:
 
 ==== Design Considerations
 
+.Design considerations for `sort` command
 [width="90%", cols="1,2,2", options="header",]
 |===
-|Aspect |Alternative 1 |Alternative 2
+|Aspect |Alternative 1 (current choice) |Alternative 2
 
 |How sort is executed
 |Set a new comparator +
@@ -378,8 +390,9 @@ Cons: Minor structure changes
 |Create sorted list from filtered list +
 Pros: Able to test large sorting side effects +
 Cons: Large code structure changes
-
 |===
+
+Alternative 1 was chosen as it was the easiest to implement and it does not violate Single Responsibility Principle (SRP) of the SOLID framework. Manipulating the internal elements of the list directly is dangerous and can cause unintended side effects.
 
 // tag::reminder[]
 === Reminder feature
@@ -877,7 +890,7 @@ Use case ends.
 
 '''
 [discrete]
-=== UC02 Update a spending
+=== UC02 Edit a spending
 
 *MSS*
 
@@ -931,29 +944,40 @@ Use case resumes at step 2.
 
 '''
 [discrete]
-=== UC04 Find a spending
+=== UC04 List all spending
+
+*MSS*
+
+1.  User requests to list all spending.
+2.  MoneyGoWhere shows list of spending in the default order of date in descending order, followed by cost in descending order and name in ascending order.
++
+Use case ends.
+
+'''
+[discrete]
+=== UC05 Find a spending
 
 *MSS*
 
 1.  User requests to find all occurrences of entered keywords, optionally within the spending name, a cost range, date range, remark and tag in a spending.
-2.  MoneyGoWhere returns any spending found with the keywords contained within its cost range, date range, remark and tag specified.
+2.  MoneyGoWhere shows spending found with the keywords contained within its cost range, date range, remark and tag specified.
 +
 Use case ends.
 
 '''
 [discrete]
-=== UC05 Sort displayed spending
+=== UC06 Sort displayed spending
 
 *MSS*
 
 1.  User requests to sort based on optionally provided fields such as spending name, cost range, date range or remark, in ascending or descending order.
-2.  MoneyGoWhere returns spending entries using the given order.
+2.  MoneyGoWhere displays current spending entries with the given order.
 +
 Use case ends.
 
 '''
 [discrete]
-=== UC06 Set a monthly budget
+=== UC07 Set a monthly budget
 
 *MSS*
 
@@ -975,7 +999,7 @@ Use case resumes at step 1.
 
 '''
 [discrete]
-=== UC07 Generate statistics
+=== UC08 Generate statistics
 
 *MSS*
 
@@ -997,7 +1021,7 @@ Use case resumes at step 1.
 
 '''
 [discrete]
-=== UC08 List all tags
+=== UC09 List all tags
 
 *MSS*
 
@@ -1009,7 +1033,7 @@ Use case ends.
 
 '''
 [discrete]
-=== UC09 Add a reminder
+=== UC10 Add a reminder
 
 *MSS*
 
@@ -1021,7 +1045,7 @@ Use case ends.
 
 '''
 [discrete]
-=== UC10 Delete a reminder
+=== UC11 Delete a reminder
 
 *MSS*
 
@@ -1047,7 +1071,7 @@ Use case resumes at step 2.
 
 '''
 [discrete]
-=== UC11 Import external data from a CSV file
+=== UC12 Import external data from a CSV file
 
 *MSS*
 
@@ -1069,7 +1093,7 @@ Use case resumes at step 1.
 
 '''
 [discrete]
-=== UC12 Export data to a CSV file
+=== UC13 Export data to a CSV file
 
 *MSS*
 
@@ -1091,7 +1115,7 @@ Use case resumes at step 1.
 
 '''
 [discrete]
-=== UC13 Undo a command
+=== UC14 Undo a command
 
 *MSS*
 
@@ -1113,7 +1137,7 @@ Use case ends.
 
 '''
 [discrete]
-=== UC14 Redo a command
+=== UC15 Redo a command
 
 *MSS*
 
@@ -1135,7 +1159,7 @@ Use case ends.
 
 '''
 [discrete]
-=== UC15 Graphing the data
+=== UC16 Graphing the data
 
 *MSS*
 
@@ -1158,7 +1182,7 @@ Use case resumes at step 1.
 
 '''
 [discrete]
-=== UC16 Clear all spending
+=== UC17 Clear all spending
 
 *MSS*
 

@@ -34,8 +34,10 @@ public class SortCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        model.updateSortedSpendingList(new SpendingComparator(fields));
-        return new CommandResult(MESSAGE_SUCCESS);
+
+        SpendingComparator spendingComparator = new SpendingComparator(fields);
+        model.updateSortedSpendingList(spendingComparator);
+        return new CommandResult(MESSAGE_SUCCESS + "\n" + spendingComparator);
     }
 
     @Override

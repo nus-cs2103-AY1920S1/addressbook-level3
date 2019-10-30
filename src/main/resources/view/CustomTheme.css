@@ -6,7 +6,6 @@
 .label {
   -fx-font-size: 11pt;
   -fx-font-family: "Segoe UI Semibold";
-  /*-fx-text-fill: #555555;*/
   -fx-opacity: 0.9;
   -fx-padding: 2px;
 }
@@ -14,14 +13,12 @@
 .label-bright {
   -fx-font-size: 11pt;
   -fx-font-family: "Segoe UI Semibold";
-  /*-fx-text-fill: white;*/
   -fx-opacity: 1;
 }
 
 .label-header {
   -fx-font-size: 32pt;
   -fx-font-family: "Segoe UI Light";
-  /*-fx-text-fill: white;*/
   -fx-opacity: 1;
 }
 
@@ -49,10 +46,10 @@
 }
 
 .status-bar .label {
-  -fx-font-family: "Segoe UI Light";
-  -fx-padding: 4px;
-  -fx-pref-height: 30px;
-}
+   -fx-font-family: "Segoe UI Light";
+   -fx-padding: 4px;
+   -fx-pref-height: 30px;
+ }
 
 .status-bar-with-border {
   -fx-border-width: 1px;
@@ -61,17 +58,6 @@
 .status-bar-with-border .label {
   -fx-opacity: 0.6;
 }
-
-/*.menu-bar .label {*/
-/*  -fx-font-size: 14pt;*/
-/*  -fx-font-family: "Segoe UI Light";*/
-/*  !*-fx-text-fill: white;*!*/
-/*  -fx-opacity: 0.9;*/
-/*}*/
-
-/*.menu .left-container {*/
-/*  -fx-background-color: black;*/
-/*}*/
 
 .menu:hover, .menu:focused, .menu:pressed, .menu:showing {
   -fx-background-color: #23B35B;
@@ -90,21 +76,6 @@
   -fx-font-size: 11px;
   -fx-text-fill: #F70D1A;
 }
-
-/*#commandTextField {*/
-/*  !*-fx-background-color: transparent #383838 transparent #383838;*!*/
-/*  -fx-background-insets: 0;*/
-/*  !*-fx-border-color: #383838 #383838 #ffffff #383838;*!*/
-/*  -fx-border-insets: 0;*/
-/*  -fx-border-width: 1;*/
-/*  -fx-font-family: "Segoe UI Light";*/
-/*  -fx-font-size: 13pt;*/
-/*  -fx-text-fill: white;*/
-/*}*/
-
-/*#filterField, #spendingListPanel, #spendingWebpage {*/
-/*  -fx-effect: innershadow(gaussian, black, 10, 0, 0, 0);*/
-/*}*/
 
 #resultDisplay .content {
   -fx-background-radius: 0;
@@ -139,7 +110,7 @@
 
 .tab-content-area  {
   -fx-text-alignment: center;
-  -fx-alignment: center;
+  /*-fx-alignment: center;*/
 }
 
 .split-pane .split-pane-divider {
@@ -220,6 +191,24 @@
 .tab:selected .tab-label {
   -fx-alignment: CENTER;
   -fx-text-fill: white;
+}
+
+.tab-pane:top *.tab-header-area {
+  -fx-background-insets: 0, 0 0 1 0;
+  -fx-padding: 0.416667em 0.166667em 0.0em 0.0em; /* overridden as 5 2 0 0 */
+}
+
+#spendingListView {
+  -fx-selection-bar: #23B35B;
+  -fx-background-color: #AADFAA;
+}
+
+.list-cell:empty {
+  -fx-background-color: white;
+}
+
+.list-cell:focused {
+  -fx-background-color: #AADFAA;
 }
 
 .tab-pane:top *.tab-header-area {

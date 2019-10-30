@@ -60,6 +60,7 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane statusbarPlaceholder;
 
     @FXML
+
     private TabPane tabPanePlaceholder;
 
     private Tab graphTab;
@@ -204,7 +205,6 @@ public class MainWindow extends UiPart<Stage> {
             if (commandResult.isExit()) {
                 handleExit();
             }
-
             if (commandResult.isShowGraph()) {
                 graphPanel = new GraphPanel(logic.getGraphData());
                 graphTab.setContent(graphPanel.getRoot());
@@ -241,5 +241,4 @@ public class MainWindow extends UiPart<Stage> {
     private String getNextCommand() {
         return logic.getNextCommand();
     }
-
 }

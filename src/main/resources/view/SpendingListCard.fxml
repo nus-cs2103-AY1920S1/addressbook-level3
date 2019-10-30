@@ -52,9 +52,9 @@
                 <!-- Ensures that the label text is never truncated -->
                 <Region fx:constant="USE_PREF_SIZE" />
               </minWidth>
-              <VBox.margin>
-                <Insets top="10.0" />
-              </VBox.margin>
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
             </FlowPane>
           </children>
         </VBox>
