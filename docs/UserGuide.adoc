@@ -193,8 +193,8 @@ Format: `*find* [KEYWORD]... [t/TAG]... [f/FOLDER]...`
 
 Examples:
 
-* `*find* Website Video will t/Fun` +
-Returns CS2103T Website, Video Streaming, and all bookmarks tagged with Fun.
+* `*find* Website Video t/Fun` +
+Returns all the bookmarks with CS2103T or Video in its name or URL, and all bookmarks tagged with Fun.
 
 * `*find* CS2103T CS2101 CS2105` +
 Returns any bookmark with CS2103T, CS2101, or CS2105 in its name or in its URL.
@@ -307,7 +307,7 @@ reminders, which includes `add`, `edit`, `delete`, `clear`, `reminder`,
 Examples:
 
 * `*undo*` +
-Restores the list to the state before the previous undoable command was	executed.
+Restores the list to the state before the previous undoable command was executed.
 
 === Redoing previously undone commands: *`redo`*
 
