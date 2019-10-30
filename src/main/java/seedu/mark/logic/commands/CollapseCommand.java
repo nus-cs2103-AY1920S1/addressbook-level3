@@ -17,7 +17,7 @@ public class CollapseCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Collapses the folder hierarchy.\n"
             + "If not specified, the default level to collapse by is 1.\n"
-            + "Parameters: [LEVELS] (must be a positive integer)\n"
+            + "Parameters: [LEVEL] (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_COLLAPSE_FOLDER_ACKNOWLEDGEMENT = "Collapsing folders by %1$d level(s)";
