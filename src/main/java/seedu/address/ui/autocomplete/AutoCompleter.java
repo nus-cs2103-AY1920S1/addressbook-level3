@@ -37,7 +37,7 @@ import seedu.address.logic.commands.staff.RegisterStaffCommand;
  */
 public class AutoCompleter {
     private static final Map<String, Set<String>> SUPPORTED_ARGUMENTS = Map.ofEntries(
-            Map.entry("add", Set.of("-name", "-id", "-phone", "-address"))
+            //Map.entry("add", Set.of("-name", "-id", "-phone", "-address"))
     );
 
     private static final String[] SUPPORTED_COMMANDS = new String[]{
