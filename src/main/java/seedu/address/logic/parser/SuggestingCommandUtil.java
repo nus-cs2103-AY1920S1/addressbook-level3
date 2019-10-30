@@ -92,7 +92,7 @@ public class SuggestingCommandUtil {
     public static Predicate<String> createFuzzyMatcher(final String characterSequence) {
         requireNonNull(characterSequence);
 
-        final String anyPrintableCharacter = "\\w*";
+        final String anyPrintableCharacter = "\\S*";
         final String emptyString = "";
         final StringJoiner patternBuilder = new StringJoiner(anyPrintableCharacter, emptyString, anyPrintableCharacter);
 
