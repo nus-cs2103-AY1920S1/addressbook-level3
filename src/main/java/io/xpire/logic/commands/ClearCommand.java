@@ -12,6 +12,8 @@ import io.xpire.model.Xpire;
 public class ClearCommand extends Command {
 
     public static final String COMMAND_WORD = "clear";
+    public static final String COMMAND_SHORTHAND = "cl";
+
     public static final String MESSAGE_SUCCESS = "Item list has been cleared!";
     private String list;
 

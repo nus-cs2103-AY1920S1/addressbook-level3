@@ -30,6 +30,7 @@ public class TagCommand extends Command {
     enum TagMode { SHOW, TAG }
 
     public static final String COMMAND_WORD = "tag";
+    public static final String COMMAND_SHORTHAND = "t";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Tags the xpireItem identified by the index number used in the displayed xpireItem list.\n"
