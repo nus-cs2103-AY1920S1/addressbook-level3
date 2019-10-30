@@ -44,7 +44,7 @@ public class TfInputCommand extends Command {
         requireNonNull(selectedAnswer);
         String result = currentAnswerable.isCorrect(selectedAnswer) ? "correct" : "wrong";
 
-        return new CommandResult(result , false, false);
+        return new CommandResult().withFeedBack(result).withHelp(false).withExit(false).build();
     }
 
 

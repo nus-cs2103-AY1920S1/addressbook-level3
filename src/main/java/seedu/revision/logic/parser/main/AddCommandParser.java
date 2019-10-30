@@ -10,6 +10,7 @@ import static seedu.revision.logic.parser.CliSyntax.PREFIX_QUESTION_TYPE;
 import static seedu.revision.logic.parser.CliSyntax.PREFIX_WRONG;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Stream;
 
@@ -58,7 +59,6 @@ public class AddCommandParser implements Parser<AddCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
 
-        //assert validateQuestionType(questionType, argMultimap) : "question not valid according to type";
         validateQuestionType(questionType, argMultimap);
 
         this.question = ParserUtil.parseQuestion(argMultimap.getValue(PREFIX_QUESTION).get());
@@ -113,6 +113,8 @@ public class AddCommandParser implements Parser<AddCommand> {
                 }
             case "tf":
                 if (numCorrect == 1 && numWrong <= 1) {
+                    this.correctAnswerList = new ArrayList<>(Arrays.asList(
+                            new Answer(this.correctAnswerList.get(0).answer.toLowerCase())));
                     return true;
                 } else {
                     throw new ParseException(TrueFalse.MESSAGE_CONSTRAINTS);
