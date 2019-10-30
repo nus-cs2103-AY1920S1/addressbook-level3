@@ -39,7 +39,7 @@ public class EditCommandParser implements Parser<EditBorrowerCommand> {
         }
 
         if (!editBorrowerDescriptor.isAnyFieldEdited()) {
-            throw new ParseException(EditBorrowerCommand.MESSAGE_NOT_EDITED + "\n" + EditBorrowerCommand.MESSAGE_USAGE);
+            throw new ParseException(EditBorrowerCommand.MESSAGE_NOT_EDITED);
         }
 
         return new EditBorrowerCommand(editBorrowerDescriptor);
