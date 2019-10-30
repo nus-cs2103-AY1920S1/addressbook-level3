@@ -71,7 +71,8 @@ public class DeliverymenStatusStatisticsPanel extends UiPart<Region> {
      * Set up the text area and the inside text.
      */
     private void initialiseTextArea() {
-        resultDisplay.appendText("Utilisation level: 10000%");
+        resultDisplay.appendText("Utilisation level: 10000%\n\n");
+        resultDisplay.appendText("(Utilisation level signals the level of \nidle deliverymen.)\n");
     }
 
     /**

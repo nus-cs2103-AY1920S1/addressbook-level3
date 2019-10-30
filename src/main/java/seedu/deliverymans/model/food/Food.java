@@ -5,7 +5,6 @@ import static seedu.deliverymans.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.math.BigDecimal;
 import java.text.NumberFormat;
-import java.time.Duration;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Locale;
@@ -21,11 +20,11 @@ import seedu.deliverymans.model.Tag;
 public class Food {
 
     public static final String PRICE_CONSTRAINTS = "Price should not be negative";
-    public static final String PREP_CONSTRAINTS = "Preparation time should not be negative";
+    public static final String QUANTITY_CONSTRAINTS = "Quantity should not be negative";
 
     private final Name name;
     private final BigDecimal price;
-    private final Duration prepTime;
+    private final int quantity;
     private final Set<Tag> tags;
 
     /**
@@ -33,26 +32,26 @@ public class Food {
      *
      * @param name A valid food name.
      * @param price A non-negative price.
-     * @param prepTime A non-negative preparation time in seconds.
+     * @param quantity A non-negative preparation time in seconds.
      * @param tags Tags of the food.
      */
-    public Food(Name name, BigDecimal price, Duration prepTime, Set<Tag> tags) {
-        requireAllNonNull(name, price, prepTime);
+    public Food(Name name, BigDecimal price, int quantity, Set<Tag> tags) {
+        requireAllNonNull(name, price, quantity);
         checkArgument(isValidPrice(price), PRICE_CONSTRAINTS);
-        checkArgument(isValidPrepTime(prepTime), PREP_CONSTRAINTS);
+        checkArgument(isValidQuantity(quantity), QUANTITY_CONSTRAINTS);
         this.name = name;
         this.price = price;
-        this.prepTime = prepTime;
+        this.quantity = quantity;
         this.tags = Collections.unmodifiableSet(tags);
     }
 
-    public Food(Name name, BigDecimal price, Duration prepTime) {
-        requireAllNonNull(name, price, prepTime);
+    public Food(Name name, BigDecimal price, int quantity) {
+        requireAllNonNull(name, price, quantity);
         checkArgument(isValidPrice(price), PRICE_CONSTRAINTS);
-        checkArgument(isValidPrepTime(prepTime), PREP_CONSTRAINTS);
+        checkArgument(isValidQuantity(quantity), QUANTITY_CONSTRAINTS);
         this.name = name;
         this.price = price;
-        this.prepTime = prepTime;
+        this.quantity = quantity;
         this.tags = new HashSet<>();
     }
 
@@ -66,8 +65,8 @@ public class Food {
     /**
      * Returns true if a given duration is a valid preparation time.
      */
-    public static boolean isValidPrepTime(Duration prepTime) {
-        return !prepTime.isNegative();
+    public static boolean isValidQuantity(int quantity) {
+        return quantity >= 0;
     }
 
     public Name getName() {
@@ -78,8 +77,8 @@ public class Food {
         return price;
     }
 
-    public Duration getPrepTime() {
-        return prepTime;
+    public int getQuantity() {
+        return quantity;
     }
 
     public Set<Tag> getTags() {
@@ -88,11 +87,6 @@ public class Food {
 
     public String getDisplayPrice() {
         return NumberFormat.getCurrencyInstance(Locale.US).format(getPrice());
-    }
-
-    public String getDisplayPrepTime() {
-        long seconds = getPrepTime().getSeconds();
-        return seconds / 60 + "m " + seconds % 60 + "s";
     }
 
     /**
@@ -124,13 +118,13 @@ public class Food {
         Food other = (Food) obj;
         return name.equals(other.name)
                 && price.compareTo(other.price) == 0
-                && prepTime == other.prepTime
+                && quantity == other.quantity
                 && tags.equals(other.tags);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, price, prepTime, tags);
+        return Objects.hash(name, price, quantity, tags);
     }
 
     /**
@@ -141,8 +135,8 @@ public class Food {
         builder.append(getName())
                 .append(" Price: ")
                 .append(getDisplayPrice())
-                .append(" Preparation time: ")
-                .append(getDisplayPrepTime())
+                .append(" Quantity: ")
+                .append(getQuantity())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();

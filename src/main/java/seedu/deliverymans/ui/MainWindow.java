@@ -191,7 +191,7 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Changes context of the system depending on {@code context}
      */
-    private void changeContext(Context context) {
+    private void changeDisplay(Context context) {
 
         editingRestaurantPlaceholder.setPrefHeight(0);
         editingRestaurantPlaceholder.setMinHeight(0);
@@ -270,8 +270,10 @@ public class MainWindow extends UiPart<Stage> {
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
             Context nextContext = commandResult.getContext();
-            if (nextContext != null && nextContext != currentContext) {
-                changeContext(nextContext);
+            boolean isNewContext = (nextContext != null && nextContext != currentContext);
+
+            if (isNewContext) {
+                changeDisplay(nextContext);
             }
 
             if (commandResult.isShowHelp()) {

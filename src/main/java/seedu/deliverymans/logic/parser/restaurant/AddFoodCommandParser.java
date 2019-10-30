@@ -3,11 +3,10 @@ package seedu.deliverymans.logic.parser.restaurant;
 import static seedu.deliverymans.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_PRICE;
+import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_QUANTITY;
 import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_TIME;
 
 import java.math.BigDecimal;
-import java.time.Duration;
 import java.util.Set;
 import java.util.stream.Stream;
 
@@ -34,16 +33,16 @@ public class AddFoodCommandParser implements Parser<AddFoodCommand> {
      */
     public AddFoodCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PRICE, PREFIX_TIME, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PRICE, PREFIX_QUANTITY, PREFIX_TAG);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_PRICE, PREFIX_TIME, PREFIX_TAG)
+        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_PRICE, PREFIX_QUANTITY)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddFoodCommand.MESSAGE_USAGE));
         }
 
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
         BigDecimal price = ParserUtil.parsePrice(argMultimap.getValue(PREFIX_PRICE).get());
-        Duration duration = ParserUtil.parseSeconds(argMultimap.getValue(PREFIX_TIME).get());
+        int duration = ParserUtil.parseQuantity(argMultimap.getValue(PREFIX_QUANTITY).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
         Food food = new Food(name, price, duration, tagList);
