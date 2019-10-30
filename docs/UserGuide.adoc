@@ -17,19 +17,17 @@ By: `Team T14-4`      Since: `Sep 2019`      Licence: `MIT`
 
 == Introduction
 
-MYMorise -- Manage Your Money is a desktop application for those who *prefer tracking personal expenses on his
-computer*.
-More importantly, MYMorise is *optimized for those
-who prefer to work with a Command Line Interface (CLI)* while still having the benefits of a Graphical User Interface
-(GUI). If you can type fast, PEM can get your contact management tasks done faster than traditional GUI apps.
-Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+MYMorise -- Manage Your Money(MYM) is a desktop application for those who *prefer tracking personal expenses on their
+computers*. With MYMorise, you can easily see your daily expenses as well as a summary, along with other useful
+functionalities. More importantly, MYMorise is *optimized for those who prefer to work with Command Line Interface (CLI)* while still having the benefits of a *Graphical User Interface
+(GUI)*. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
 .  Download the latest `MYMorise.jar`.
-.  Copy the file to the folder you want to use as the home folder for your MYMorise.
-.  Double-click the file to start the app. The GUI should appear in a few seconds.
+.  Copy the jar file to the folder you want to use as the home folder for MYMorise.
+.  Double-click the jar to start the app. The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
 +
@@ -38,7 +36,8 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
 * *`list`* : lists all expenses
-* **`add`**`n/Textbook a/23.50 t/education t/school` : adds an expense named `Textbook` to MYMorise with the tags `education` and `school`.
+* **`add`**`n/Textbook a/23.50 t/education t/school` : adds an expense named `Textbook` to expenselist with the tags
+`education` and `school`.
 * **`delete`**`3` : deletes the 3rd expense shown in the current list
 * *`exit`* : exits the app
 
@@ -60,11 +59,11 @@ Displays all CLI commands available. +
 Format: `help`
 
 === Listing all expenses in the default expense list : `list`
-Shows a list of all expenses that do not fall into any budgets in MYMorise. +
+Shows a list of all expenses that do not fall into any budgets in expenseList. +
 Format: `list`
 
 === Listing all budgets in the budget list : `listbudgets`
-Shows a list of all budgets in MYMorise. +
+Shows a list of all budgets. +
 Format: `listbudgets`
 
 === Adding an expense: `add`
@@ -117,7 +116,9 @@ Edits an existing expense in the expense list. +
 Format: `edit INDEX [n/NAME] [a/AMOUNT] [c/CURRENCY] [t/TAG]…`
 
 ****
-* Edits the expense at the specified `INDEX`. The index refers to the index number shown in the displayed expense list. The index *must be a positive integer* 1, 2, 3, …​ The index is relative to what is displayed on the GUI rather than the actual index of the expense in MYMorise.
+* Edits the expense at the specified `INDEX`. The index refers to the index number shown in the displayed expense
+list. The index *must be a positive integer* 1, 2, 3, …​ The index is relative to what is displayed on the GUI rather
+than the actual index of the expense in expenseList.
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 * When editing tags, the existing tags of the expense will be removed i.e adding of tags is not cumulative.
@@ -157,7 +158,7 @@ Format: `find [n/NAME] [d/DATE] [t/TAG]`
 
 ****
 * Search by name and tag is case insensitive. e.g hans will match Hans
-* Search by date must use the date format `yyyyMMdd`
+* Search by date must use the date format `dd/MM/yyyy`
 * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
 * Only the fields provided are searched.
 * Only whole words will be matched e.g. `Han` will not match `Hans`
@@ -172,7 +173,7 @@ Returns any expense having names `Cheesecake`, eg: `Strawberry Cheesecake`, `Blu
 
 // tag::delete[]
 === Deleting an item : `delete`
-Deletes the item on the specified index from MYMorise.* +
+Deletes the item at the specified index.* +
 Format: `delete INDEX`
 
 ****
@@ -193,6 +194,8 @@ Examples:
 * `list` +
 `delete 2` +
 Deletes the second expense in the default expense list in MYMorise.
+Deletes the 2nd expense in expenseList.
+
 * `find n/Coffee` +
 `delete 1` +
 Deletes the 1st expense in the results of the find command.
@@ -207,11 +210,20 @@ Deletes the second budget in the budget list in MYMorise.
 === Setting a default currency for MYMorise
 todo
 
-=== Convert butgets or expenses to a different currency
+=== Convert budgets or expenses to a different currency
 {Shows the current list of expenses in a certain currency}
 
 === Autocomplete
-{Enables user to quickly fill in command arguments with an autocomplete suggestion by pressing tab on the selected suggestion.}
+Equip with IDE-like autocomplete function for faster input and
+enables user to quickly fill in command arguments with an
+autocomplete suggestion.
+
+Suggestions include commonly used words in MYMorise and user can customize the suggestion list by changing the
+`vocabulary.txt`
+
+When the user type, if there are suggestions for a certain input, user can press kbd:[tab] to autofill the first
+suggestion. Or press kbd:[DOWN] or kbd:[UP] to navigate between suggestions and then press kbd:[tab] or kbd:[enter]
+to autofill the selected item. You can also just kbd:[click] on an item to autofill.
 
 === Exiting the program : `exit`
 Exits the program. +
