@@ -19,12 +19,16 @@ By: `CS2103T W13-4`
 
 == Introduction
 
-Budget Buddy is for computing students who prefer to use a desktop app to manage their expenses.
-More importantly, Budget Buddy is *optimized for those who prefer to work with a Command Line Interface* (CLI)
-while still having the benefits of a Graphical User Interface (GUI).
-If you can type fast, Budget Buddy can get your expense management tasks done faster than traditional GUI apps.
+Budget Buddy is an all-in-one expense tracking application for computing students who prefer to use a desktop app
+to manage their expenses. More importantly, Budget Buddy is *optimized for those who prefer to work with a Command
+Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI).
+If you type fast, Budget Buddy can get your expense management tasks done faster than traditional GUI apps.
 Furthermore, Budget Buddy allows computing students to add their own functions through customized JavaScript files,
 as well as a set of rules to simplify expense tracking through automation.
+
+This user guide provides in-depth documentation of the current as well as upcoming features, including the setup
+process, as well as some commonly asked questions. For the hands-on person, check out the _Quick Start_ section right
+below.
 
 == Quick Start
 
@@ -57,6 +61,10 @@ If the application does not run, follow the instructions below based on your ope
 ** Navigate to the home folder where _{jarName}_ is, using the `cd` command, e.g. `cd Documents\BudgetBuddy`
 ** Execute the jar file using `java -jar budgetbuddy.jar`
 
+== Getting Started
+
+Welcome to the Budget Buddy User Guide! You can scroll down to start looking at the in-depth features of Budget Buddy,
+or select a topic from the _Table of Contents_ right above.
 
 [[Features]]
 == Features
@@ -440,6 +448,37 @@ Format: `script run <script name> [<argument>]`
 ****
 * The argument is the rest of the command line after the script name, and is passed to the script as a single string.
 ****
+
+=== Managing budgets *(Coming in v2.0)* : `budget`
+
+Displays or sets the budget for the specified period.
+
+==== View budgets: `budget list`
+
+Views the list of budgets currently stored.
+
+==== Add budgets: `budget add`
+
+This command sets a budget. Note that budgets cannot overlap.
+
+
+==== Remove budgets: `budget delete`
+
+This command removes a budget from the list.
+
+=== Goal setting *(Coming in v2.0)* : `goal`
+
+==== Add a goal: `goal add`
+
+Adds a goal on the specified account to reach the specified amount by the target date or at the end of the specified period.
+
+==== View goals: `goal list`
+
+List all goals.
+
+==== Delete goal(s): `goal delete`
+
+Deletes the goal with the specified goal ID.
 
 == FAQ
 
