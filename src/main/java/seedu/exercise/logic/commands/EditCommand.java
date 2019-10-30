@@ -9,6 +9,7 @@ import static seedu.exercise.logic.parser.CliSyntax.PREFIX_MUSCLE;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_QUANTITY;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_UNIT;
+import static seedu.exercise.logic.parser.predicate.PredicateUtil.PREDICATE_SHOW_ALL_EXERCISES;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -96,7 +97,7 @@ public class EditCommand extends Command implements UndoableCommand, PayloadCarr
         addToEventPayload(exerciseToEdit, editedExercise);
         model.setExercise(exerciseToEdit, editedExercise);
         EventHistory.getInstance().addCommandToUndoStack(this);
-        model.updateFilteredExerciseList(Model.PREDICATE_SHOW_ALL_EXERCISES);
+        model.updateFilteredExerciseList(PREDICATE_SHOW_ALL_EXERCISES);
         model.updateStatistic();
         return new CommandResult(String.format(MESSAGE_EDIT_EXERCISE_SUCCESS, editedExercise),
                 ListResourceType.EXERCISE);

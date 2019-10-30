@@ -1,11 +1,15 @@
 package seedu.exercise.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.exercise.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.exercise.commons.core.Messages.MESSAGE_INVALID_TYPE;
 import static seedu.exercise.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.exercise.logic.parser.AddCommandParser.ADD_CATEGORY_EXERCISE;
 import static seedu.exercise.logic.parser.AddCommandParser.ADD_CATEGORY_REGIME;
 import static seedu.exercise.logic.parser.SuggestCommandParser.SUGGEST_TYPE_BASIC;
 import static seedu.exercise.logic.parser.SuggestCommandParser.SUGGEST_TYPE_POSSIBLE;
+import static seedu.exercise.logic.parser.predicate.PredicateUtil.OPERATION_TYPE_AND;
+import static seedu.exercise.logic.parser.predicate.PredicateUtil.OPERATION_TYPE_OR;
 import static seedu.exercise.model.property.PropertyBook.getCustomProperties;
 
 import java.util.ArrayList;
@@ -15,11 +19,18 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
+import java.util.function.Predicate;
 
 import seedu.exercise.commons.core.index.Index;
 import seedu.exercise.commons.util.StringUtil;
+import seedu.exercise.logic.commands.SuggestCommand;
 import seedu.exercise.logic.commands.statistic.Statistic;
 import seedu.exercise.logic.parser.exceptions.ParseException;
+import seedu.exercise.logic.parser.predicate.BasePropertyPredicate;
+import seedu.exercise.logic.parser.predicate.ExerciseCustomPropertyPredicate;
+import seedu.exercise.logic.parser.predicate.ExerciseMusclePredicate;
+import seedu.exercise.logic.parser.predicate.ExercisePredicate;
+import seedu.exercise.logic.parser.predicate.PredicateUtil;
 import seedu.exercise.model.property.Calories;
 import seedu.exercise.model.property.CustomProperty;
 import seedu.exercise.model.property.Date;
@@ -28,6 +39,7 @@ import seedu.exercise.model.property.Name;
 import seedu.exercise.model.property.ParameterType;
 import seedu.exercise.model.property.Quantity;
 import seedu.exercise.model.property.Unit;
+import seedu.exercise.model.resource.Exercise;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -279,17 +291,70 @@ public class ParserUtil {
      * Parses a {@code String suggestType} into a String.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException
+     * @param suggestType the intended suggest type
+     * @return a trimmed suggest type of a suggest command
+     * @throws ParseException if the intended suggest type is invalid
      */
     public static String parseSuggestType(String suggestType) throws ParseException {
         requireNonNull(suggestType);
         String trimmedSuggestType = suggestType.trim();
         if (!trimmedSuggestType.equals(SUGGEST_TYPE_BASIC)
             && !trimmedSuggestType.equals(SUGGEST_TYPE_POSSIBLE)) {
-            throw new ParseException("Suggest type can only be \'" + SUGGEST_TYPE_BASIC + "\'"
-                + " or \'" + SUGGEST_TYPE_POSSIBLE + "\'");
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_TYPE, "Suggest type", SUGGEST_TYPE_BASIC, SUGGEST_TYPE_POSSIBLE));
         }
         return trimmedSuggestType;
+    }
+
+    /**
+     * Parses a {@code String operationType} into a boolean.
+     *
+     * @param operationType the intended operation type
+     * @return a {@code boolean} representing the whether the operation type is "and" or "or".
+     * @throws ParseException if the intended operation type is invalid
+     */
+    public static boolean parseOperationType(String operationType) throws ParseException {
+        requireNonNull(operationType);
+        String trimmedOperationType = operationType.trim();
+
+        if (trimmedOperationType.equals(OPERATION_TYPE_AND)) {
+            return true;
+        }
+
+        if (trimmedOperationType.equals(OPERATION_TYPE_OR)) {
+            return false;
+        }
+
+        throw new ParseException(PredicateUtil.OPERATION_TYPE_CONSTRAINTS);
+    }
+
+    /**
+     * Parses {@code Set<Muscle> muscles}, {@code Map<String, String> customProperties} and {@code boolean isStrict}
+     * into a {@code Predicate<Exercise>}.
+     */
+    public static Predicate<Exercise> parsePredicate(
+            Set<Muscle> muscles, Map<String, String> customProperties, boolean isStrict) throws ParseException {
+        requireNonNull(muscles);
+        requireNonNull(customProperties);
+
+        if (muscles.isEmpty() && customProperties.isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SuggestCommand.MESSAGE_USAGE));
+        }
+
+        BasePropertyPredicate musclePredicate = new ExerciseMusclePredicate(muscles, isStrict);
+        BasePropertyPredicate customPropertiesPredicate =
+            new ExerciseCustomPropertyPredicate(customProperties, isStrict);
+
+        if (muscles.isEmpty()) {
+            return new ExercisePredicate(isStrict, customPropertiesPredicate);
+        }
+
+        if (customProperties.isEmpty()) {
+            return new ExercisePredicate(isStrict, musclePredicate);
+        }
+
+        Predicate<Exercise> predicate = new ExercisePredicate(isStrict, musclePredicate, customPropertiesPredicate);
+        return predicate;
     }
 
     /**

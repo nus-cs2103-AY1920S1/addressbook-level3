@@ -5,13 +5,13 @@ package seedu.exercise.ui;
  */
 public class ChartTextUtil {
 
-    public static final String titleFormat = "%s (%s to %s)";
+    public static final String TITLE_FORMAT = "%s (%s to %s)";
 
     /**
      * Returns the formatted title of line chart and bar chart.
      */
     public static String lineAndBarChartTitleFormatter(String category, String startDate, String endDate) {
-        return changeFirstLetterToUpperCase(String.format(titleFormat, category, startDate, endDate));
+        return changeFirstLetterToUpperCase(String.format(TITLE_FORMAT, category, startDate, endDate));
     }
 
     /**
@@ -21,7 +21,7 @@ public class ChartTextUtil {
         if (category.equals("exercise")) {
             return changeFirstLetterToUpperCase(String.format("%s Frequency (%s to %s)", category, startDate, endDate));
         } else {
-            return changeFirstLetterToUpperCase(String.format(titleFormat, category, startDate, endDate));
+            return changeFirstLetterToUpperCase(String.format(TITLE_FORMAT, category, startDate, endDate));
         }
     }
 

@@ -31,6 +31,7 @@ public class CliSyntax {
 
     /* Prefix definition for suggest command */
     public static final Prefix PREFIX_SUGGEST_TYPE = new Prefix("s/");
+    public static final Prefix PREFIX_OPERATION_TYPE = new Prefix("o/");
 
     /* Prefix definition for statistic command */
     public static final Prefix PREFIX_CHART = new Prefix("h/");

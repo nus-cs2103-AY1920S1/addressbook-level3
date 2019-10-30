@@ -3,6 +3,7 @@ package seedu.exercise.logic.parser;
 import static seedu.exercise.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.exercise.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.exercise.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import static seedu.exercise.testutil.CommonTestData.DESC_SUGGEST_TYPE_BASIC;
 
 import org.junit.jupiter.api.Test;
 
@@ -14,7 +15,7 @@ public class SuggestBasicCommandParserTest {
 
     @Test
     public void parse_validArgs_returnsSuggestBasicCommand() {
-        assertParseSuccess(parser, " s/basic", new SuggestBasicCommand());
+        assertParseSuccess(parser, DESC_SUGGEST_TYPE_BASIC , new SuggestBasicCommand());
     }
 
     @Test

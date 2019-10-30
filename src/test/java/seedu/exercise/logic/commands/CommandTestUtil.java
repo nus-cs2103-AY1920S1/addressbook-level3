@@ -22,8 +22,6 @@ import seedu.exercise.model.resource.Schedule;
  */
 public class CommandTestUtil {
 
-
-
     /**
      * Executes the given {@code command}, confirms that <br>
      * - the returned {@link CommandResult} matches {@code expectedCommandResult} <br>

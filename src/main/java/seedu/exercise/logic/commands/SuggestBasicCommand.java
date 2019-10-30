@@ -23,7 +23,6 @@ public class SuggestBasicCommand extends SuggestCommand {
             + PREFIX_SUGGEST_TYPE + "basic";
 
     public static final String MESSAGE_SUCCESS = "Listed all suggested basic exercises.";
-    public static final String SUGGEST_TYPE = "basic";
 
     @Override
     public CommandResult execute(Model model) throws CommandException {

@@ -5,6 +5,7 @@ import static seedu.exercise.logic.commands.events.DeleteRegimeEvent.KEY_REGIME_
 import static seedu.exercise.logic.commands.events.EditRegimeEvent.KEY_EDITED_REGIME;
 import static seedu.exercise.logic.commands.events.EditRegimeEvent.KEY_IS_REGIME_EDITED;
 import static seedu.exercise.logic.commands.events.EditRegimeEvent.KEY_ORIGINAL_REGIME;
+import static seedu.exercise.logic.parser.predicate.PredicateUtil.PREDICATE_SHOW_ALL_REGIMES;
 
 import java.util.HashSet;
 import java.util.List;
@@ -96,7 +97,7 @@ public class DeleteRegimeCommand extends DeleteCommand implements PayloadCarrier
 
         addToEventPayloadForEditRegime(originalRegime, editedRegime);
         model.setRegime(originalRegime, editedRegime);
-        model.updateFilteredRegimeList(Model.PREDICATE_SHOW_ALL_REGIMES);
+        model.updateFilteredRegimeList(PREDICATE_SHOW_ALL_REGIMES);
         return new CommandResult(String.format(MESSAGE_DELETE_EXERCISE_IN_REGIME_SUCCESS, editedRegime),
                 ListResourceType.REGIME);
     }

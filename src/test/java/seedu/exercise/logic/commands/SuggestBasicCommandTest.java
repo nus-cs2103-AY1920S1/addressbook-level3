@@ -1,5 +1,7 @@
 package seedu.exercise.logic.commands;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.exercise.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.exercise.model.util.DefaultPropertyBookUtil.getDefaultPropertyBook;
 import static seedu.exercise.model.util.SampleDataUtil.getBasicExercises;
@@ -38,6 +40,25 @@ public class SuggestBasicCommandTest {
 
         CommandResult expectedCommandResult = new CommandResult(expectedMessage, ListResourceType.SUGGESTION);
         assertCommandSuccess(new SuggestBasicCommand(), model, expectedCommandResult, expectedModel);
+    }
+
+    @Test
+    public void equals() {
+        SuggestCommand suggestBasicCommand = new SuggestBasicCommand();
+
+        // same object -> returns true
+        assertTrue(suggestBasicCommand.equals(suggestBasicCommand));
+
+        // same class -> returns true
+        SuggestCommand suggestBasicCommandCopy = new SuggestBasicCommand();
+        assertTrue(suggestBasicCommand.equals(suggestBasicCommandCopy));
+
+        // different types -> returns false
+        assertFalse(suggestBasicCommand.equals(1));
+
+        // null -> returns false
+        assertFalse(suggestBasicCommand.equals(null));
+
     }
 
 }

@@ -11,9 +11,12 @@ import static seedu.exercise.logic.parser.CliSyntax.PREFIX_FULL_NAME;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_MUSCLE;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.exercise.logic.parser.CliSyntax.PREFIX_OPERATION_TYPE;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_PARAMETER_TYPE;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_QUANTITY;
+import static seedu.exercise.logic.parser.CliSyntax.PREFIX_REMOVE_CUSTOM;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_START_DATE;
+import static seedu.exercise.logic.parser.CliSyntax.PREFIX_SUGGEST_TYPE;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_UNIT;
 
 import seedu.exercise.logic.commands.EditCommand;
@@ -193,6 +196,16 @@ public class CommonTestData {
     public static final String VALID_PARAMETER_TYPE_END_DATE = "Date";
     public static final String PARAMETER_TYPE_DESC_END_DATE = " "
             + PREFIX_PARAMETER_TYPE + VALID_PARAMETER_TYPE_END_DATE;
+    public static final String VALID_VALUE_RATING = "1";
+    public static final String DESC_PREFIX_WITH_VALUE_RATING = " " + VALID_PREFIX_NAME_RATING + '/'
+            + VALID_VALUE_RATING;
+    public static final String VALID_VALUE_REMARK = "hi";
+    public static final String DESC_PREFIX_WITH_VALUE_REMARK = " " + VALID_PREFIX_NAME_REMARK + '/'
+            + VALID_VALUE_REMARK;
+    public static final String VALID_VALUE_ENDDATE = "24/12/2019";
+    public static final String DESC_PREFIX_WITH_VALUE_ENDDATE = " " + VALID_PREFIX_NAME_END_DATE + '/'
+            + VALID_VALUE_ENDDATE;
+    public static final String VALID_PREFIX_REMOVE_CUSTOM_PROPERTY = " " + PREFIX_REMOVE_CUSTOM;
 
     //=======================For invalid custom properties=============================
     public static final String INVALID_PREFIX_NAME_DESC = " "
@@ -201,6 +214,26 @@ public class CommonTestData {
             + PREFIX_FULL_NAME + "R3mark"; //'3' not allowed in full name
     public static final String INVALID_PARAMETER_TYPE_DESC = " "
             + PREFIX_PARAMETER_TYPE + "integer"; //integer not allowed in parameter type
+
+    //=======================For valid suggestions=============================
+    public static final String VALID_SUGGEST_TYPE_BASIC = "basic";
+    public static final String VALID_SUGGEST_TYPE_POSSIBLE = "possible";
+    public static final String DESC_SUGGEST_TYPE_BASIC = " " + PREFIX_SUGGEST_TYPE + VALID_SUGGEST_TYPE_BASIC;
+    public static final String DESC_SUGGEST_TYPE_POSSIBLE = " " + PREFIX_SUGGEST_TYPE + VALID_SUGGEST_TYPE_POSSIBLE;
+
+    //=======================For invalid suggestions=============================
+    public static final String INVALID_SUGGEST_TYPE = "basicallyimpossible";
+    public static final String INVALID_DESC_SUGGEST_TYPE = " " + PREFIX_SUGGEST_TYPE + INVALID_SUGGEST_TYPE;
+
+    //=======================For valid operation types=============================
+    public static final String VALID_OPERATION_TYPE_AND = "and";
+    public static final String VALID_OPERATION_TYPE_OR = "or";
+    public static final String DESC_OPERATION_TYPE_AND = " " + PREFIX_OPERATION_TYPE + VALID_OPERATION_TYPE_AND;
+    public static final String DESC_OPERATION_TYPE_OR = " " + PREFIX_OPERATION_TYPE + VALID_OPERATION_TYPE_OR;
+
+    //=======================For invalid operation types=============================
+    public static final String INVALID_OPERATION_TYPE = "notALogicalOperator";
+    public static final String INVALID_DESC_OPERATION_TYPE = " " + PREFIX_OPERATION_TYPE + INVALID_OPERATION_TYPE;
 
     //=======================For valid exercise toString============================
     public static final String VALID_BASKETBALL_STRING_WITH_CUSTOM_PROPERTY =

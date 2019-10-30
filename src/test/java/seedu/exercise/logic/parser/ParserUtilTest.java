@@ -11,12 +11,17 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.exercise.commons.core.index.Index;
 import seedu.exercise.logic.parser.exceptions.ParseException;
+import seedu.exercise.logic.parser.predicate.ExerciseCustomPropertyPredicate;
+import seedu.exercise.logic.parser.predicate.ExerciseMusclePredicate;
+import seedu.exercise.logic.parser.predicate.ExercisePredicate;
 import seedu.exercise.model.property.Calories;
 import seedu.exercise.model.property.Date;
 import seedu.exercise.model.property.Muscle;
@@ -44,6 +49,9 @@ public class ParserUtilTest {
     private static final String VALID_UNIT = "km";
     private static final String VALID_MUSCLE_1 = "Legs";
     private static final String VALID_MUSCLE_2 = "Arms";
+    private static final String VALID_CUSTOM_PROPERTY_PREFIX_NAME = "r";
+    private static final String VALID_CUSTOM_PROPERTY_FULL_NAME = "Rating";
+    private static final String VALID_CUSTOM_PROPERTY_VALUE = "1";
     private static final String VALID_END_DATE = "27/09/2019";
     private static final String VALID_CATEGORY = "regime";
     private static final String VALID_CHART = "linechart";
@@ -354,6 +362,59 @@ public class ParserUtilTest {
     @Test
     public void parseCustomProperties_withNull_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> ParserUtil.parseCustomProperties(null));
+    }
+
+    @Test
+    public void parseSuggestType_withNull_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseSuggestType(null));
+    }
+
+    @Test
+    public void parseOperationType_withOperationType_returnsIsStrict() throws Exception {
+        //String "and" -> true
+        assertEquals(true, ParserUtil.parseOperationType("and"));
+
+        //String "or" -> false
+        assertEquals(false, ParserUtil.parseOperationType("or"));
+    }
+
+    @Test
+    public void parseOperationType_withInvalidOperationType_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseOperationType("basicallyimpossible"));
+    }
+
+    @Test
+    public void parsePredicate_withNull_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () ->
+                ParserUtil.parsePredicate(null, new TreeMap<>(), true));
+        assertThrows(NullPointerException.class, () ->
+                ParserUtil.parsePredicate(new HashSet<>(), null, true));
+    }
+
+    @Test
+    public void parsePredicate_atLeastOnePredicate_returnExercisePredicate() throws Exception {
+        //only muscles, empty custom properties
+        Set<Muscle> muscles = new HashSet<>();
+        muscles.add(new Muscle(VALID_MUSCLE_1));
+        assertEquals(new ExercisePredicate(false, new ExerciseMusclePredicate(muscles, false)),
+                ParserUtil.parsePredicate(muscles, new TreeMap<>(), false));
+
+        //only custom properties, empty muscles
+        Map<String, String> customProperties = new TreeMap<>();
+        customProperties.put(VALID_CUSTOM_PROPERTY_FULL_NAME, VALID_CUSTOM_PROPERTY_VALUE);
+        assertEquals(new ExercisePredicate(true, new ExerciseCustomPropertyPredicate(customProperties, true)),
+                ParserUtil.parsePredicate(new HashSet<>(), customProperties, true));
+
+        //both muscles, and custom properties
+        assertEquals(new ExercisePredicate(true,
+            new ExerciseMusclePredicate(muscles, true),
+            new ExerciseCustomPropertyPredicate(customProperties, true)),
+            ParserUtil.parsePredicate(muscles, customProperties, true));
+    }
+
+    @Test
+    public void parsePredicate_twoEmptyPredicates_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parsePredicate(new HashSet<>(), new TreeMap<>(), true));
     }
 
     @Test
