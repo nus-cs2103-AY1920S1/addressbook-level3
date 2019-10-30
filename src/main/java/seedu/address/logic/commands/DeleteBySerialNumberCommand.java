@@ -37,6 +37,10 @@ public class DeleteBySerialNumberCommand extends DeleteCommand {
             throw new CommandException(Messages.MESSAGE_NO_SUCH_BOOK);
         }
         Book bookToDelete = retrieveBookFromCatalog(model, targetSerialNumber);
+        if (bookToDelete.isCurrentlyLoanedOut()) {
+            // mark book as returned
+            super.markBookAsReturned(model, bookToDelete);
+        }
         model.deleteBook(bookToDelete);
         return new CommandResult(String.format(MESSAGE_DELETE_BOOK_SUCCESS, bookToDelete));
     }

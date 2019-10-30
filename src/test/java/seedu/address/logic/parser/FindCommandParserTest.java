@@ -61,7 +61,7 @@ public class FindCommandParserTest {
     @Test
     public void parse_duplicateLoanState_throwsParseException() {
         assertParseFailure(parser, " -loaned -available",
-                Messages.MESSAGE_LOANSTATE_CONSTRAINTS);
+                Messages.MESSAGE_LOAN_STATE_CONSTRAINTS);
     }
 
 }

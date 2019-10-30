@@ -28,6 +28,7 @@ public class ResultDisplay extends UiPart<Region> {
     public void setFeedbackToUser(String feedbackToUser) {
         requireNonNull(feedbackToUser);
         resultDisplay.setTextFill(Color.web("#FFFFFF"));
+        resultDisplay.setWrapText(true);
         resultDisplay.setText(feedbackToUser);
     }
 

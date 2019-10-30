@@ -40,7 +40,6 @@ public class ModelManager implements Model {
     private final FilteredList<Book> filteredBooks;
 
     private Optional<Borrower> servingBorrower;
-    private Optional<List<Book>> borrowerBookList;
 
     /**
      * Initializes a ModelManager with the given catalog, loan records, borrower records and userPrefs.
@@ -370,7 +369,6 @@ public class ModelManager implements Model {
     @Override
     public void setServingBorrower(Borrower borrower) {
         this.servingBorrower = Optional.of(borrower);
-        this.borrowerBookList = Optional.of(getBorrowerBooks());
     }
 
     /**
