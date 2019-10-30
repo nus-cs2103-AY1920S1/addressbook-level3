@@ -174,6 +174,33 @@
     -fx-padding: 0 5 0 0;
 }
 
+#eventCardPane {
+    -fx-background-color: #e6e6e6;
+    -fx-background-radius: 10;
+    -fx-border-width: 0;
+    -fx-effect: dropshadow(gaussian, rgba(31, 31, 31, 0.37), 10, .01, 1, 5)
+}
+
+#eventCardPane #clip {
+    -fx-fill: -colour-highlight;
+}
+
+#eventCardPane .label {
+    -fx-font-family: -font-semibold;
+    -fx-font-size: 16px;
+}
+
+#eventCardPane #index {
+    -fx-text-fill: -grey1;
+}
+
+#eventCardPane #price {
+    -fx-font-family: -font-semibold;
+    -fx-font-size: 18px;
+    -fx-text-fill: -moneyout;
+    -fx-padding: 0 5 0 0;
+}
+
 #commandTypeLabel {
     -fx-font-size: 11px;
     -fx-text-fill: #F70D1A;
@@ -186,7 +213,7 @@
     -fx-text-fill: -font-dark;
 }
 
-#filterField, #expenseListPanel, #expenseWebpage {
+#filterField, #expenseListPanel, #eventListPanel, #expenseWebpage, #eventWebpage {
     -fx-effect: innershadow(gaussian, black, 10, 0, 0, 0);
 }
 

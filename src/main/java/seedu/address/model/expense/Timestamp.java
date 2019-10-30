@@ -74,14 +74,12 @@ public class Timestamp implements Comparable<Timestamp> {
         if (m.find()) {
             rawTimestamp = m.replaceFirst("$3$2$1");
         }
-        System.out.println("after catching DDMM: " + rawTimestamp);
         try {
             Parser parser = new Parser();
             List<DateGroup> groups = parser.parse(rawTimestamp);
             DateGroup group = groups.get(0);
             Date datetime = group.getDates().get(0);
             LocalDateTime fullTimestamp = Timekeeper.convertToLocalDateTime(datetime);
-            System.out.println(fullTimestamp);
             return Optional.of(new Timestamp(fullTimestamp));
         } catch (IndexOutOfBoundsException e) {
             return Optional.empty();

@@ -55,7 +55,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         if (isTimestampPresent) {
             Timestamp timestamp = ParserUtil.parseTimestamp(argMultimap.getValue(PREFIX_TIMESTAMP).get());
             if (Timekeeper.isFutureTimestamp(timestamp)) {
-                Event event = new Event(description, price, category, timestamp, "add" + args);
+                Event event = new Event(description, price, category, timestamp);
                 return new AddEventCommand(event);
             } else {
                 Expense expense = new Expense(description, price, category, timestamp,

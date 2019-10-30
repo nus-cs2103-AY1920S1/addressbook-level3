@@ -52,6 +52,7 @@ import seedu.address.model.statistics.Statistics;
 import seedu.address.model.statistics.TabularStatistics;
 import seedu.address.ui.budget.BudgetListPanel;
 import seedu.address.ui.budget.BudgetPanel;
+import seedu.address.ui.event.EventListPanel;
 import seedu.address.ui.expense.ExpenseListPanel;
 import seedu.address.ui.panel.PanelName;
 import seedu.address.ui.panel.PlaceholderPanel;
@@ -166,10 +167,12 @@ public class MainWindow extends UiPart<Stage> {
     void fillInnerParts() {
         ExpenseListPanel expenseListPanel;
         BudgetListPanel budgetListPanel;
+        EventListPanel eventListPanel;
 
         singlePanelView = new SinglePanelView();
         expenseListPanel = new ExpenseListPanel(logic.getFilteredExpenseList(), true);
         budgetListPanel = new BudgetListPanel(logic.getFilteredBudgetList());
+        eventListPanel = new EventListPanel(logic.getFilteredEventList(), true);
 
         if (logic.getPrimaryBudget() != null) {
             singlePanelView.setPanel(BudgetPanel.PANEL_NAME, new BudgetPanel(logic.getPrimaryBudget()));
@@ -180,8 +183,8 @@ public class MainWindow extends UiPart<Stage> {
         singlePanelView.setPanel(PanelName.ALIASES_PANEL, new PlaceholderPanel());
         singlePanelView.setPanel(BudgetListPanel.PANEL_NAME, budgetListPanel);
         singlePanelView.setPanel(ExpenseListPanel.PANEL_NAME, expenseListPanel);
+        singlePanelView.setPanel(EventListPanel.PANEL_NAME, eventListPanel);
 
-        singlePanelView.setPanel(PanelName.EVENTS_PANEL, new PlaceholderPanel());
         singlePanelView.setPanel(PanelName.STATISTICS_PANEL, new PlaceholderPanel());
         panelPlaceholder.getChildren().add(singlePanelView.getRoot());
         expenseListPanel.view();
@@ -225,6 +228,8 @@ public class MainWindow extends UiPart<Stage> {
         commandBox.enableSyntaxHighlightingForCommand("redo",
                 Collections.emptyList());
         commandBox.enableSyntaxHighlightingForCommand("listbudgets",
+                Collections.emptyList());
+        commandBox.enableSyntaxHighlightingForCommand("listevents",
                 Collections.emptyList());
         commandBox.enableSyntaxHighlightingForCommand("deletebudget",
                 Collections.emptyList());
