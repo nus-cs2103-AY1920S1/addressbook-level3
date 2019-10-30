@@ -87,36 +87,38 @@ Format: `exit`
 === Entity Management
 AddMin+ contains two main entities - Employees and Events with similar commands, especially in Create, Read, Update and Delete (CRUD) operations.
 
-==== List : `list_em | list_ev`
+==== List : `list | list_em | list_ev`
 
 Employee: Shows the list of all employees on the company’s roster. Full details are truncated.
 
 Event: Shows the list of all events on the company’s calendar. Full details are truncated.
 
+Both Employee and Event: `list`
+
 Employee Format: `list_em`
 
 Event Format: `list_ev`
 
-==== Adding: `add | add_ev`
+==== Adding: `add_em | add_ev`
 
 Employee: Adds an employee to the employee list
 
 Event: Adds an event that the company is organizing or hosting to the company’s calendar.
 
-Employee Format: `add n/NAME no/PHONE_NUMBER p/POSITION e/EMAIL a/ADDRESS [t/TAG]...`
+Employee Format: `add_em n/NAME g/GENDER p/POSITION no/PHONE e/EMAIL a/ADDRESS on/Join Date [t/TAG]...`
 
-Event Format: `add_ev n/EVENT_NAME m/MANPOWER_NEEDED on/DDMMYYYY till/DDMMYYYY at/LOCATION_NAME [t/TAG]...`
+Event Format: `add_ev n/NAME at/VENUE m/MANPOWER NEEDED on/START DATEtill/END DATE[t/TAG]...`
 
 [TIP]
 A employee can have any number of tags (including 0)
 
 Add Employee Examples:
-* `add n/John Doe no/98765432 p/cleaner e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/Enthusiastic p/CFO e/betsycrowe@example.com a/Newgate Prison no/1234567 t/criminal`
+* `add_em n/John Doe g/Male p/Manager no/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 on/12/12/2012 t/friends t/owesMoney`
+* `add_em n/Betsy Crowe g/Female p/CFO no/91909111 e/betsycrowe@example.com a/Newgate Prison on/10/12/2019 t/criminal`
 
 Add Event Examples:
-* `add_ev n/Music Festival m/10 on/15092019 till/20092019 at/NUS t/Music`
-* `add_ev n/Charity Run m/4 on/15092019 till/15092019 at/NUS`
+* `add_ev n/Free Coffee at/Utown Starbucks m/5 on/16/03/2019 till/17/03/2019 t/fun t/free`
+* `add_ev n/NUS RUN at/NUS Sports Hall m/5 on/19/10/2019 till/20/10/2019 t/running t/sports`
 
 ==== Editing details : `edit_em | edit_ev`
 
@@ -124,9 +126,9 @@ Employee: Edit an existing employee in the employee list.
 
 Event: Edits an existing event in the event list.
 
-Employee Format: `edit_em INDEX n/NAME no/PHONE_NUMBER p/POSITION e/EMAIL a/ADDRESS [t/TAG]...`
+Employee Format: `edit_em INDEX (must be a positive integer) [n/NAME] [g/GENDER] [p/POSITION] [no/PHONE] [e/EMAIL] [a/ADDRESS] [on/JOINDATE] [t/TAG]...`
 
-Event Format Format: `edit_ev INDEX n/EVENT_NAME m/MANPOWER_NEEDED on/DDMMYYYY till/DDMMYYYY at/LOCATION_NAME [t/TAG]...`
+Event Format Format: `edit_ev INDEX (must be a positive integer) [n/EVENT NAME] [at/VENUE] [m/MANPOWER NEEDED] [on/START DATE] [till/END DATE] [t/TAG]...`
 
 ****
 * Edits the entity at the specified `INDEX`. The index refers to the index number shown in the displayed entity list. The index *must be a positive integer* 1, 2, 3, ...
@@ -523,6 +525,7 @@ There is no need to save manually.
 
 * *Help* : `help`
 * *Search* : `search`
+* *List Both Employees and Event* : `list`
 * *List Employees* : `list_em`
 * *List Events* : `list_ev`
 * *Add Employee*: `add n/NAME no/PHONE_NUMBER p/POSITION e/EMAIL a/ADDRESS [t/TAG]...` +
