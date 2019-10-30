@@ -22,7 +22,7 @@ import seedu.address.model.loan.Loan;
 /**
  * Renews a Book with the given Index.
  */
-public class RenewCommand extends Command {
+public class RenewCommand extends Command implements ReversibleCommand {
     public static final String COMMAND_WORD = "renew";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Renews a book borrowed by a borrower.\n"
@@ -33,6 +33,9 @@ public class RenewCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Book: %1$s\nrenewed by\nBorrower: %2$s\nDue date: %3$s";
 
     private final Index index;
+    private final boolean isUndoRedo;
+    private Command undoCommand;
+    private Command redoCommand;
 
     /**
      * Creates an RenewCommand to renew the currently served Borrower's {@code Book}.
@@ -42,6 +45,19 @@ public class RenewCommand extends Command {
     public RenewCommand(Index index) {
         requireNonNull(index);
         this.index = index;
+        this.isUndoRedo = false;
+    }
+
+    /**
+     * Creates an RenewCommand to renew the currently served Borrower's {@code Book}.
+     *
+     * @param index Index of book to be renewed.
+     * @param isUndoRedo used to check whether the DoneCommand is an undo/redo command.
+     */
+    public RenewCommand(Index index, boolean isUndoRedo) {
+        requireNonNull(index);
+        this.index = index;
+        this.isUndoRedo = isUndoRedo;
     }
 
     /**
@@ -99,8 +115,26 @@ public class RenewCommand extends Command {
         // update Loan in LoanRecords with extended due date
         model.updateLoan(loanToBeRenewed, renewedLoan);
 
+        undoCommand = new UnrenewCommand(renewedBook, bookToBeRenewed, renewedLoan, loanToBeRenewed);
+        redoCommand = new RenewCommand(index, true);
+
         return new CommandResult(
                 String.format(MESSAGE_SUCCESS, renewedBook, servingBorrower, extendedDueDate));
+    }
+
+    @Override
+    public Command getUndoCommand() {
+        return undoCommand;
+    }
+
+    @Override
+    public Command getRedoCommand() {
+        return redoCommand;
+    }
+
+    @Override
+    public boolean isUndoRedoCommand() {
+        return isUndoRedo;
     }
 
     @Override
@@ -114,6 +148,7 @@ public class RenewCommand extends Command {
         }
 
         RenewCommand otherRenewCommand = (RenewCommand) o;
-        return this.index.equals(otherRenewCommand.index);
+        return this.index.equals(otherRenewCommand.index)
+                && this.isUndoRedo == otherRenewCommand.isUndoRedo;
     }
 }

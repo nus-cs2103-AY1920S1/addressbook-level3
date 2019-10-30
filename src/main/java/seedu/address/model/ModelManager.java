@@ -470,6 +470,33 @@ public class ModelManager implements Model {
         setServingBorrower(loanRenewedBorrower);
     }
 
+    /**
+     * Replaces the {@code loanToBeUnrenewed} in {@code servingBorrower}'s currentLoanList
+     * with {@code unrenewedLoan}.
+     * This method is called only when in Serve mode.
+     * {@code servingBorrower} should have the {@code loanToBeUnrenewed} object in its currentLoanList.
+     *
+     * @param loanToBeUnrenewed {@code Loan} object in servingBorrower's currentLoanList.
+     * @param unrenewedLoan updated {@code Loan} object with dueDate returned to previous state.
+     */
+    @Override
+    public void servingBorrowerUnrenewLoan(Loan loanToBeUnrenewed, Loan unrenewedLoan) {
+        if (!isServeMode()) {
+            throw new NotInServeModeException();
+        }
+
+        Borrower serving = servingBorrower.get();
+
+        assert serving.hasCurrentLoan(loanToBeUnrenewed) : "Borrower does not have the loan to be returned.";
+
+        Borrower loanRenewedBorrower = new Borrower(serving.getName(), serving.getPhone(), serving.getEmail(),
+                serving.getBorrowerId(), serving.getReplacedCurrentLoanList(loanToBeUnrenewed, unrenewedLoan),
+                serving.getReturnedLoanList());
+        borrowerRecords.setBorrower(serving, loanRenewedBorrower);
+
+        setServingBorrower(loanRenewedBorrower);
+    }
+
     @Override
     public boolean hasBorrowerId(BorrowerId borrowerId) {
         return borrowerRecords.checkIfBorrowerIdExists(borrowerId);
