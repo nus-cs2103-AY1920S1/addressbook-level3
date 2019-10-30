@@ -100,7 +100,7 @@ public class AddressBookParser {
 
         case GenReportSummaryCommand.COMMAND_WORD:
             return new GenReportSummaryCommand();
-       
+
         case StatsCommand.COMMAND_WORD:
             return new StatsCommandParser().parse(arguments);
 
