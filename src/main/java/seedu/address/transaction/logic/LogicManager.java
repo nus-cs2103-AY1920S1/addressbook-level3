@@ -68,11 +68,6 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public void appendToTransactionFile(Transaction transaction) throws Exception {
-        System.out.println("appending");
-        storage.appendToTransaction(transaction);
-        System.out.println("append finish");
-      
     public void updateTransactionFromReimbursement() throws IOException {
         storage.writeFile(model.getTransactionList());
 
