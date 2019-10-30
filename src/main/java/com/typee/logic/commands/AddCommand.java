@@ -14,7 +14,7 @@ import com.typee.model.Model;
 import com.typee.model.engagement.Engagement;
 
 /**
- * Adds an engagement to the address book.
+ * Adds an engagement to the engagement list.
  */
 public class AddCommand extends Command {
 

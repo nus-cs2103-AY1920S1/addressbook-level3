@@ -44,6 +44,7 @@ public class MainWindow extends UiPart<Stage> {
     //Tab related attributes.
     private TabPanel tabPanel;
     private ObservableList<Tab> tabList;
+    private Tab currentTab;
 
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
@@ -198,6 +199,26 @@ public class MainWindow extends UiPart<Stage> {
         mainWindow.getChildren().clear();
         mainWindow.getChildren().add(root);
         lblWindowTitle.setText(tabInput.getName() + " Window");
+        currentTab = tabInput;
+    }
+
+    /**
+     * Handles the calendar interaction represented by the specified {@code CommandResult}.
+     * @param commandResult The specified {@code CommandResult}.
+     */
+    private void handleCalendarInteraction(CommandResult commandResult) throws CommandException {
+        if (currentTab == null || !(currentTab.getController() instanceof CalendarWindow)) {
+            throw new CommandException("Calendar commands can only be used in the calendar window.");
+        }
+        CalendarWindow calendarWindow = (CalendarWindow) currentTab.getController();
+        String calendarCommandType = commandResult.getCalendarCommandType();
+        switch (calendarCommandType) {
+        case "display":
+            calendarWindow.display(commandResult.getCalendarDate());
+            break;
+        default:
+            throw new CommandException("Invalid calendar command.");
+        }
     }
 
     public EngagementListPanel getEngagementListPanel() {
@@ -212,8 +233,6 @@ public class MainWindow extends UiPart<Stage> {
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException, IOException {
         try {
             CommandResult commandResult = logic.execute(commandText);
-            logger.info("Result: " + commandResult.getFeedbackToUser());
-            resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
             if (commandResult.isShowHelp()) {
                 handleHelp();
@@ -227,6 +246,13 @@ public class MainWindow extends UiPart<Stage> {
                 Tab tab = commandResult.getTab();
                 handleTabSwitch(fetchTabInformation(tab.getName()));
             }
+
+            if (commandResult.isCalendarCommand()) {
+                handleCalendarInteraction(commandResult);
+            }
+
+            logger.info("Result: " + commandResult.getFeedbackToUser());
+            resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
             return commandResult;
         } catch (CommandException | ParseException | IOException e) {

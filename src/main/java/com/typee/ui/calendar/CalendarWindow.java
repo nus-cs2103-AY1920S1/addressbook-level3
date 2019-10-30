@@ -81,6 +81,7 @@ public class CalendarWindow extends UiPart<Region> {
             setDisplayDate(calendarDateCell, calendarDate);
             addAllEngagementsForDate(calendarDateCell, calendarDate);
             updateEngagementCountDisplay(calendarDateCell);
+            calendarDateCell.setDate(calendarDate);
             calendarDate = calendarDate.plusDays(1);
         }
         calendarTitle.setText(this.currentDisplayedYearMonth.getMonth().toString() + " "
@@ -161,6 +162,18 @@ public class CalendarWindow extends UiPart<Region> {
     private void populateCalendarWithPreviousMonth() {
         currentDisplayedYearMonth = currentDisplayedYearMonth.minusMonths(1);
         populateCalendar();
+    }
+
+    /**
+     * Opens a window which displays the engagements on the specified date.
+     * @param date The specified date.
+     */
+    public void display(LocalDate date) {
+        for (CalendarDateCell calendarDateCell : calendarDateCells) {
+            if (calendarDateCell.getDate().equals(date)) {
+                calendarDateCell.displayEngagements();
+            }
+        }
     }
 
 }

@@ -1,5 +1,6 @@
 package com.typee.ui.calendar;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 
@@ -23,6 +24,7 @@ public class CalendarDateCell extends UiPart<Region> {
     @FXML
     private StackPane calendarDatePane;
 
+    private LocalDate date;
     private ObservableList<Engagement> engagements;
     private SingleDayEngagementsDisplayWindow engagementsDisplayWindow;
     private final Logger logger = LogsCenter.getLogger(getClass());
@@ -67,11 +69,19 @@ public class CalendarDateCell extends UiPart<Region> {
         return engagements.size();
     }
 
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
+
+    public LocalDate getDate() {
+        return date;
+    }
+
     /**
      * Displays the engagements for the day represented by this {@code CalendarDateCell}.
      */
     @FXML
-    private void displayEngagements() {
+    public void displayEngagements() {
         if (!engagementsDisplayWindow.isShowing()) {
             engagementsDisplayWindow.show();
         } else {
