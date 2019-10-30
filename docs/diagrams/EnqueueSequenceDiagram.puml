@@ -4,11 +4,13 @@
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":CommandHistory" as CommandHistory LOGIC_COLOR
 participant ":EnqueueCommandParser" as EnqueueCommandParser LOGIC_COLOR
-participant ":ReversibleActionPair" as ReversibleActionPair LOGIC_COLOR
-participant "EnqueueCommand" as EnqueueCommand LOGIC_COLOR
-participant "DequeueCommand" as DequeueCommand LOGIC_COLOR
-participant ":CommandResult" as CommandResult LOGIC_COLOR
+participant "refId : ReferenceId" as ReferenceId LOGIC_COLOR
+participant "command : ReversibleActionPairCommand" as ReversibleActionPairCommand LOGIC_COLOR
+participant "addCmd : EnqueueCommand" as EnqueueCommand LOGIC_COLOR
+participant "deleteCmd : DequeueCommand" as DequeueCommand LOGIC_COLOR
+participant "result : CommandResult" as CommandResult LOGIC_COLOR
 end box
 
 box Model MODEL_COLOR_T1
@@ -31,37 +33,53 @@ deactivate EnqueueCommandParser
 AddressBookParser -> EnqueueCommandParser : parse("001A")
 activate EnqueueCommandParser
 
-EnqueueCommandParser -> ReversibleActionPair
-activate ReversibleActionPair
+create ReferenceId
+EnqueueCommandParser -> ReferenceId
+activate ReferenceId
+ReferenceId --> EnqueueCommandParser
+deactivate ReferenceId
 
-ReversibleActionPair -> EnqueueCommand : EnqueueCommand("001A")
+create EnqueueCommand
+EnqueueCommandParser -> EnqueueCommand : EnqueueCommand(refId)
 activate EnqueueCommand
-
-EnqueueCommand --> ReversibleActionPair
+EnqueueCommand --> EnqueueCommandParser
 deactivate EnqueueCommand
 
-ReversibleActionPair -> DequeueCommand : DequeueCommand("001A")
+create DequeueCommand
+EnqueueCommandParser -> DequeueCommand : DequeueCommand(refId)
 activate DequeueCommand
-
-DequeueCommand --> ReversibleActionPair
+DequeueCommand --> EnqueueCommandParser
 deactivate DequeueCommand
 
-ReversibleActionPair --> EnqueueCommandParser : ReversibleActionPair(EnqueueCommand, DequeueCommand)
-deactivate ReversibleActionPair
 
-EnqueueCommandParser --> AddressBookParser
+create ReversibleActionPairCommand
+EnqueueCommandParser -> ReversibleActionPairCommand : ReversibleActionPair(addCmd, deleteCmd)
+activate ReversibleActionPairCommand
+ReversibleActionPairCommand --> EnqueueCommandParser
+deactivate ReversibleActionPairCommand
+
+EnqueueCommandParser --> AddressBookParser : command
 deactivate EnqueueCommandParser
-'Hidden arrow to position the destroy marker below the end of the activation bar.
+
+AddressBookParser --> CommandHistory : addToCommandHistory(command)
+activate CommandHistory
+deactivate CommandHistory
+
+deactivate EnqueueCommandParser
 EnqueueCommandParser -[hidden]-> AddressBookParser
 destroy EnqueueCommandParser
 
-AddressBookParser --> LogicManager : e
+AddressBookParser --> LogicManager : command
 deactivate AddressBookParser
 
-LogicManager -> EnqueueCommand : execute()
+
+LogicManager -> ReversibleActionPairCommand : execute()
+activate ReversibleActionPairCommand
+
+ReversibleActionPairCommand -> EnqueueCommand : execute()
 activate EnqueueCommand
 
-EnqueueCommand -> Model : enqueuePatient("001A")
+EnqueueCommand -> Model : execute()
 activate Model
 
 Model --> EnqueueCommand
@@ -74,8 +92,11 @@ activate CommandResult
 CommandResult --> EnqueueCommand
 deactivate CommandResult
 
-EnqueueCommand --> LogicManager : result
+EnqueueCommand --> ReversibleActionPairCommand : result
 deactivate EnqueueCommand
+
+ReversibleActionPairCommand --> LogicManager : result
+deactivate ReversibleActionPairCommand
 
 [<--LogicManager
 deactivate LogicManager

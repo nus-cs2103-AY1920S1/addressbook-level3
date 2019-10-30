@@ -8,7 +8,7 @@ import seedu.address.logic.commands.DequeueCommand;
 import seedu.address.logic.commands.EnqueueCommand;
 import seedu.address.logic.commands.common.ReversibleActionPairCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.common.ReferenceId;
+import seedu.address.model.ReferenceId;
 
 
 /**

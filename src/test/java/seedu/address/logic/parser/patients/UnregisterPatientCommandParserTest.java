@@ -1,10 +1,10 @@
 package seedu.address.logic.parser.patients;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 
@@ -33,7 +33,7 @@ public class UnregisterPatientCommandParserTest {
 
     @Test
     public void parse_validArgs_returnsDeleteCommand() {
-        Person personToDelete = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        Person personToDelete = model.getFilteredPatientList().get(INDEX_FIRST_PERSON.getZeroBased());
         assertParseSuccess(parser, "1",
             new ReversibleActionPairCommand(
                 new UnregisterPatientCommand(personToDelete),
@@ -43,12 +43,12 @@ public class UnregisterPatientCommandParserTest {
     @Test
     public void parse_invalidArgs_throwsParseException() {
         assertParseFailure(parser, "a", String.format(
-            MESSAGE_INVALID_COMMAND_FORMAT, UnregisterPatientCommand.MESSAGE_USAGE));
+            MESSAGE_INVALID_INDEX, UnregisterPatientCommand.MESSAGE_USAGE));
     }
 
     @Test
     public void parse_invalidIndexUnfilteredList_throwsParseException() {
-        assertParseFailure(parser, String.valueOf(model.getFilteredPersonList().size() + 1),
+        assertParseFailure(parser, String.valueOf(model.getFilteredPatientList().size() + 1),
             Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
@@ -62,7 +62,7 @@ public class UnregisterPatientCommandParserTest {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
         Index outOfBoundIndex = INDEX_SECOND_PERSON;
         // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getPersonList().size());
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getPatientAddressBook().getPersonList().size());
 
         String userInput = String.valueOf(outOfBoundIndex.getOneBased());
 

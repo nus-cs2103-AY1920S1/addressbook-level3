@@ -1,3 +1,4 @@
+//@@author woon17
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_REFERENCEID;
@@ -8,11 +9,12 @@ import seedu.address.logic.commands.AckAppCommand;
 import seedu.address.logic.commands.common.ReversibleActionPairCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
-import seedu.address.model.common.ReferenceId;
+import seedu.address.model.ReferenceId;
 import seedu.address.model.events.Appointment;
 import seedu.address.model.events.Event;
-import seedu.address.model.events.Status;
-import seedu.address.model.events.Timing;
+import seedu.address.model.events.parameters.Status;
+import seedu.address.model.events.parameters.Timing;
+import seedu.address.model.events.predicates.EventContainsRefIdPredicate;
 
 /**
  * Parses input arguments and creates a new AddCommand object
@@ -42,7 +44,7 @@ public class AckAppCommandParser implements Parser<ReversibleActionPairCommand> 
         } else {
             ReferenceId referenceId = ParserUtil.parsePatientReferenceId(argMultimap.getPreamble());
 
-            if (!model.hasPerson(referenceId)) {
+            if (!model.hasPatient(referenceId)) {
                 throw new ParseException(MESSAGE_INVALID_REFERENCEID);
             }
 
@@ -65,7 +67,7 @@ public class AckAppCommandParser implements Parser<ReversibleActionPairCommand> 
     }
 
     private void updateToPatientList(ReferenceId referenceId) {
-        model.updateFilteredEventList(referenceId);
-        filterEventList = model.getFilteredEventList();
+        model.updateFilteredAppointmentList(new EventContainsRefIdPredicate(referenceId));
+        filterEventList = model.getFilteredAppointmentList();
     }
 }

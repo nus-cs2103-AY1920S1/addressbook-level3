@@ -1,3 +1,4 @@
+//@@author woon17
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
@@ -24,7 +25,7 @@ public class CancelAppCommandParser implements Parser<ReversibleActionPairComman
 
     public CancelAppCommandParser(Model model) {
         this.model = model;
-        this.lastShownList = model.getFilteredEventList();
+        this.lastShownList = model.getFilteredAppointmentList();
     }
 
     /**

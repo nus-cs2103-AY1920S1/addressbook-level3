@@ -1,3 +1,4 @@
+//@@author SakuraBlossom
 package seedu.address.model.common;
 
 import static java.util.Objects.requireNonNull;
@@ -6,6 +7,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -24,7 +26,8 @@ import seedu.address.model.exceptions.EntryNotFoundException;
  */
 public class UniqueElementList<T extends Identical> implements Iterable<T> {
 
-    protected final ObservableList<T> internalList = FXCollections.observableList(new UniqueTreeList<>());
+    protected final UniqueTreeList<T> internalUniqueTreeList = new UniqueTreeList<>();
+    protected final ObservableList<T> internalList = FXCollections.observableList(internalUniqueTreeList);
     protected final ObservableList<T> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
 
@@ -90,7 +93,19 @@ public class UniqueElementList<T extends Identical> implements Iterable<T> {
         }
     }
 
-    public void setAll(UniqueElementList replacement) {
+    public T get(int index) {
+        return internalList.get(index);
+    }
+
+    public int getUpperBound(Object o) {
+        return internalUniqueTreeList.indexOfUpperBound(o);
+    }
+
+    public int getLowerBound(Object o) {
+        return internalUniqueTreeList.indexOfLowerBound(o);
+    }
+
+    public void setAll(UniqueElementList<T> replacement) {
         requireNonNull(replacement);
         internalList.clear();
         internalList.addAll(replacement.internalList);
@@ -120,6 +135,14 @@ public class UniqueElementList<T extends Identical> implements Iterable<T> {
     @Override
     public Iterator<T> iterator() {
         return internalList.iterator();
+    }
+
+    public ListIterator<T> listIterator(int index) {
+        return internalUniqueTreeList.listIterator(index);
+    }
+
+    public ListIterator<T> listIterator(int index, int endIndex) {
+        return internalUniqueTreeList.listIterator(index, endIndex);
     }
 
     @Override

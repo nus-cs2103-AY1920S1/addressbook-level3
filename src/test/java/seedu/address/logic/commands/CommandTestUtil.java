@@ -11,7 +11,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import seedu.address.commons.core.index.Index;
@@ -19,8 +18,8 @@ import seedu.address.logic.commands.common.Command;
 import seedu.address.logic.commands.common.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.utils.EditPersonDescriptor;
-import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
+import seedu.address.model.person.AddressBook;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.predicates.ContainsKeywordsPredicate;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
@@ -113,12 +112,12 @@ public class CommandTestUtil {
     public static void assertCommandFailure(Command command, Model actualModel, String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
-        AddressBook expectedAddressBook = new AddressBook(actualModel.getAddressBook());
-        List<Person> expectedFilteredList = new ArrayList<>(actualModel.getFilteredPersonList());
+        AddressBook expectedAddressBook = new AddressBook(actualModel.getPatientAddressBook());
+        List<Person> expectedFilteredList = new ArrayList<>(actualModel.getFilteredPatientList());
 
         assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel));
-        assertEquals(expectedAddressBook, actualModel.getAddressBook());
-        assertEquals(expectedFilteredList, actualModel.getFilteredPersonList());
+        assertEquals(expectedAddressBook, actualModel.getPatientAddressBook());
+        assertEquals(expectedFilteredList, actualModel.getFilteredPatientList());
     }
 
     /**
@@ -126,11 +125,10 @@ public class CommandTestUtil {
      * {@code model}'s address book.
      */
     public static void showPersonAtIndex(Model model, Index targetIndex) {
-        assertTrue(targetIndex.getZeroBased() < model.getFilteredPersonList().size());
-        Person person = model.getFilteredPersonList().get(targetIndex.getZeroBased());
-        final String[] splitName = person.getName().fullName.split("\\s+");
-        model.updateFilteredPersonList(new ContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredPatientList().size());
+        Person person = model.getFilteredPatientList().get(targetIndex.getZeroBased());
+        model.updateFilteredPatientList(new ContainsKeywordsPredicate(person.getName().fullName));
 
-        assertEquals(1, model.getFilteredPersonList().size());
+        assertEquals(1, model.getFilteredPatientList().size());
     }
 }

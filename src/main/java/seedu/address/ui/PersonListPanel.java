@@ -20,7 +20,7 @@ import seedu.address.model.person.Person;
 public class PersonListPanel extends UiPart<Region> {
     private static final String FXML = "PersonListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(PersonListPanel.class);
-    private int lastSelectedIndex;
+    private int lastSelectedIndex = 0;
     @FXML
     private ListView<Person> personListView;
 
@@ -28,8 +28,7 @@ public class PersonListPanel extends UiPart<Region> {
         super(FXML);
         personListView.setItems(personList);
         personListView.setCellFactory(listView -> new PersonListViewCell());
-        this.dropSelector();
-        lastSelectedIndex = 0;
+
         personListView.addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
@@ -38,33 +37,21 @@ public class PersonListPanel extends UiPart<Region> {
                 int selectedIndex = msm.getSelectedIndex();
                 switch (event.getCode()) {
                 case DOWN:
-                    if (selectedIndex < size - 2) {
-                        break;
-                    }
-                    if (selectedIndex == size - 2) {
-                        event.consume();
-                        personListView.scrollTo(size - 1);
-                        msm.select(size - 1);
-                        break;
-                    }
-                    event.consume();
-                    personListView.scrollTo(0);
-                    msm.select(0);
+                    selectedIndex = (size + selectedIndex + 1) % size;
                     break;
                 case UP:
-                    if (selectedIndex > 0) {
-                        break;
-                    }
-                    event.consume();
-                    personListView.scrollTo(size - 1);
-                    msm.select(size - 1);
+                    selectedIndex = (size + selectedIndex - 1) % size;
                     break;
                 case TAB:
                 case LEFT:
                     dropSelector();
-                    break;
+                    return;
                 default:
+                    return;
                 }
+                msm.select(selectedIndex);
+                personListView.scrollTo(selectedIndex);
+                event.consume();
             }
         });
         Runnable dropSelectorDeferred = this::dropSelector;
@@ -105,5 +92,4 @@ public class PersonListPanel extends UiPart<Region> {
             }
         }
     }
-
 }

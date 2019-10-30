@@ -12,6 +12,8 @@ import java.util.Date;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import seedu.address.model.events.parameters.DateTime;
+
 class DateTimeTest {
 
     private DateTime sampleDate1;

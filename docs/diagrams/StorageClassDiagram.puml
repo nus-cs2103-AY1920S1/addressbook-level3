@@ -11,9 +11,12 @@ Class HiddenOutside2 #FFFFFF
 }
 
 Package Model <<Rectangle>>{
-Package UserPrefs <<Rectangle>>{
-Class HiddenOutside3 #FFFFFF
+
+Package UserPrefs {
+Class UserPrefs
+Class ReadOnlyUserPrefs
 }
+
 }
 
 Package Storage <<Rectangle>>{
@@ -52,15 +55,18 @@ JsonSerializableAppointmentBook .-> JsonAdaptedEvent
 Interface Storage <<Interface>>
 Class StorageManager
 
-StorageManager .up.|> Storage
-StorageManager o-up--> UserPrefs
-StorageManager .up.-> Logger
-StorageManager o-down--> "1" UserPrefsStorage : prefsStorage >
-StorageManager o-down-> "1" AddressBookStorage : patientDataStorage >
-StorageManager o-down--> "1" AddressBookStorage : staffDataStorage >
-StorageManager o-right-> "1" AppointmentBookStorage : AppointmentsInfoStorage >
-StorageManager o-right-> "1" AppointmentBookStorage : DutyRosterInfoStorage >
 }
+
+UserPrefs .up|> ReadOnlyUserPrefs
+
+StorageManager .up.|> Storage
+StorageManager -up--> UserPrefs
+StorageManager .up.-> Logger
+StorageManager -down--> "1" UserPrefsStorage : prefsStorage >
+StorageManager -down-> "1" AddressBookStorage : patientDataStorage >
+StorageManager -down--> "1" AddressBookStorage : staffDataStorage >
+StorageManager -right-> "1" AppointmentBookStorage : AppointmentsInfoStorage >
+StorageManager -right-> "1" AppointmentBookStorage : DutyRosterInfoStorage >
 
 Class HiddenOutside #FFFFFF
 Class HiddenOutside2 #FFFFFF
