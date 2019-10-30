@@ -245,10 +245,10 @@ Tab switch feature is a type of Command that allows users to switch to respectiv
 image::TabCommandClassDiagram.png[]
 
 1. `MainWindow` which contains necessary text input for `Command` inputs and output display for displaying the `CommandResult`
-1. Window component, which is a type of `VBox`, that acts as a container for other different UI windows.
-1. Tab Menu List, which displays the name of the tab/menus, which has respective separate UI windows. User has to use a specific `Command`; `TabCommand` in order to switch the window to another window.
+2. Window component, which is a type of `VBox`, that acts as a container for other different UI windows.
+3. Tab Menu List, which displays the name of the tab/menus, which has respective separate UI windows. User has to use a specific `Command`; `TabCommand` in order to switch the window to another window.
 * Upon first startup of the system, by system default, system will display the `EngagementList` window.
-1. New Ui Model class `Tab` is implemented to contain the respective fxml controller classes in a OOP manner. Below is the class diagram for `Tab` class
+4. New Ui Model class `Tab` is implemented to contain the respective fxml controller classes in a OOP manner. Below is the class diagram for `Tab` class
 
 [.text-center]
 .Tab Class Diagram
@@ -705,8 +705,8 @@ Use case ends.
 *MSS*
 
 1. User requests for generating PDF of an engagement for a selected engagement.
-1. System generates a PDF file in a specific external directory
-1. System shows successful message
+2. System generates a PDF file in a specific external directory
+3. System shows successful message
 +
 Use case ends.
 
