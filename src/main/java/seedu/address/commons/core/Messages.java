@@ -26,9 +26,6 @@ public class Messages {
     public static final String MESSAGE_INVALID_RECORD_DISPLAYED_INDEX = "The record index provided is invalid";
     public static final String MESSAGE_RECORDS_LISTED_OVERVIEW = "%1$d persons listed!";
 
-    //---FoodList---
-    public static final String MESSAGE_EMPTY_FOOD_LIST = "";
-
     //---Bio---
     public static final String MESSAGE_NO_BIO_FOUND = "It looks like you have not set your biography. :( "
             + "Your biography could be crucial information especially in times of an emergency. "

@@ -90,6 +90,8 @@ public class SugarMummyParser {
         case AverageCommand.COMMAND_WORD:
             return new AverageCommandParser().parse(arguments);
 
+        //=========== Recm Food ===========================================================
+
         case RecmFoodCommand.COMMAND_WORD:
             return new RecmFoodCommandParser().parse(arguments);
 

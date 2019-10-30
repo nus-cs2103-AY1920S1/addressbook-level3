@@ -1,9 +1,10 @@
-package seedu.address.testutil;
+package sugarmummy.recmfood.testutil;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import seedu.address.testutil.FoodBuilder;
 import sugarmummy.recmfood.model.Food;
 
 /**
@@ -11,8 +12,8 @@ import sugarmummy.recmfood.model.Food;
  */
 public class TypicalFoods {
 
-    public static final Food BROCCOLI = new FoodBuilder().build();
-    public static final Food POTATO = new FoodBuilder().withFoodName("Potatodfafadfafadf").withFoodType("sv").build();
+    public static final Food BROCCOLI = new FoodBuilder().withFoodName("Broccoli").withFoodType("nsv").build();
+    public static final Food POTATO = new FoodBuilder().withFoodName("Potato").withFoodType("sv").build();
     public static final Food BANANA = new FoodBuilder().withFoodName("Banana").withFoodType("f").build();
     public static final Food CHICKEN = new FoodBuilder().withFoodName("Chicken").withFoodType("p").build();
     public static final Food POTATO_CHIPS = new FoodBuilder().withFoodName("Potato chips").withFoodType("s").build();
