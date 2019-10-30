@@ -31,6 +31,7 @@ public class ModelManager implements Model {
     private final Xpire xpire;
     private final UserPrefs userPrefs;
     private final FilteredList<Item> filteredItems;
+    private FilteredList<Item> previousItems;
 
     /**
      * Initializes a ModelManager with the given xpire and userPrefs.
@@ -44,6 +45,7 @@ public class ModelManager implements Model {
         this.xpire = new Xpire(xpire);
         this.userPrefs = new UserPrefs(userPrefs);
         this.filteredItems = new FilteredList<>(this.xpire.getItemList());
+        this.previousItems = new FilteredList<>(this.xpire.getItemList());
     }
 
     public ModelManager() {
@@ -123,16 +125,14 @@ public class ModelManager implements Model {
     @Override
     public Set<Tag> getAllItemTags() {
         Set<Tag> tagSet = new TreeSet<>(new TagComparator());
-        List<Item> itemList = this.xpire.getItemList();
-        itemList.forEach(item -> tagSet.addAll(item.getTags()));
+        this.previousItems.forEach(item -> tagSet.addAll(item.getTags()));
         return tagSet;
     }
 
     @Override
     public Set<Name> getAllItemNames() {
         Set<Name> nameSet = new TreeSet<>(Comparator.comparing(Name::toString));
-        List<Item> itemList = this.xpire.getItemList();
-        itemList.forEach(item -> nameSet.add(item.getName()));
+        this.previousItems.forEach(item -> nameSet.add(item.getName()));
         return nameSet;
     }
 
@@ -160,6 +160,7 @@ public class ModelManager implements Model {
     public void updateFilteredItemList(Predicate<Item> predicate) {
         requireNonNull(predicate);
         Predicate<? super Item> p = this.filteredItems.getPredicate();
+        this.previousItems.setPredicate(p);
         if (predicate == PREDICATE_SHOW_ALL_ITEMS || p == null) {
             // a view command or first ever search command
             this.filteredItems.setPredicate(predicate);

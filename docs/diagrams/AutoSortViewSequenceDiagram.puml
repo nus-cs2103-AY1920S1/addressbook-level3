@@ -1,0 +1,60 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant "v:ViewCommand" as ViewCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant ":FilteredList" as FilteredList MODEL_COLOR
+participant ":Xpire" as Xpire MODEL_COLOR
+participant ":SortedUniqueItemList" as SortedUniqueItemList MODEL_COLOR
+end box
+
+[-> LogicManager : execute("view")
+activate LogicManager
+
+ref over LogicManager, ViewCommand : parsing of arguments
+
+LogicManager -> ViewCommand : execute()
+activate ViewCommand
+
+ViewCommand -> Model : updateFilteredItemList(Show all)
+
+activate Model
+
+
+
+Model -> FilteredList : setPredicate(Show all)
+activate FilteredList
+
+FilteredList -> Xpire : getItemList()
+activate Xpire
+
+ref over Xpire, SortedUniqueItemList : retrieve internal sorted list
+
+Xpire -> FilteredList : li
+deactivate Xpire
+
+FilteredList -> Model : li
+deactivate FilteredList
+
+Model --> ViewCommand
+deactivate Model
+
+create CommandResult
+ViewCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> ViewCommand
+deactivate CommandResult
+
+ViewCommand --> LogicManager : result
+deactivate ViewCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

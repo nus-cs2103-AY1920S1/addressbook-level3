@@ -1,0 +1,64 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":XpireParser" as XpireParser LOGIC_COLOR
+participant ":SortCommandParser" as SortCommandParser LOGIC_COLOR
+participant ":ParserUtil" as ParserUtil LOGIC_COLOR
+
+end box
+
+box Util #RosyBrown
+participant ":StringUtil" as StringUtil #SaddleBrown
+participant ":Util" as Util #SaddleBrown
+
+end box
+
+box Exception #LightGrey
+participant ":Exception" as Exception #Black
+participant "pe:ParseException" as ParseException #Black
+end box
+
+[-> LogicManager : execute("sort|dat")
+activate LogicManager
+
+LogicManager -> XpireParser : parseCommand("sort|dat")
+activate XpireParser
+
+create SortCommandParser
+XpireParser -> SortCommandParser
+activate SortCommandParser
+
+SortCommandParser --> XpireParser
+
+
+XpireParser -> SortCommandParser : parse("dat")
+
+
+SortCommandParser -> ParserUtil : parseMethodOfSorting("dat")
+activate ParserUtil
+
+
+ref over ParserUtil, StringUtil : findSimilar
+activate StringUtil
+
+create ParseException
+ParserUtil -> ParseException : throw new ParseException("do you mean date?")
+activate ParseException
+
+ParseException -> ParserUtil : pe
+deactivate ParseException
+
+ParserUtil -> SortCommandParser : pe
+deactivate ParserUtil
+
+SortCommandParser -> XpireParser : pe
+deactivate SortCommandParser
+
+XpireParser -> LogicManager : pe
+deactivate XpireParser
+
+[<--LogicManager : pe
+deactivate LogicManager
+@enduml

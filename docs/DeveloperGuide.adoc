@@ -206,11 +206,55 @@ The auto-sorting mechanism is facilitated by `SortedUniqueItemList` which replac
 
 In `SortedUniqueItemList`, items are stored in a `SortedList<Item>` and sorted based on the comparator specified.
 
-Given below is an example usage scenario and how the auto-sorting mechanism behaves at each step.
+The following sequence diagram shows how the items added are auto-sorted:
 
-The following sequence diagram shows how the auto-sorting mechanism works:
+image::AutoSortAddSequenceDiagram.png[]
 
-The following activity diagram summarizes what happens when a user executes a new command:
+[NOTE]
+Parsers are omitted from the diagram above to place greater emphasis on the sorting mechanism.
+
+image::AutoSortAddPartSequenceDiagram.png[]
+
+`this.methodOfSorting = new MethodOfSorting("name");`
+[NOTE]
+Everytime an item is added to the list, the method of sorting is reset to the default, which sorts
+the items by name then date.
+
+The following sequence diagram shows how the sort command changes the default order of how items are displayed:
+
+image::SortSequenceDiagram.png[]
+
+[NOTE]
+When sort is called, the method of sorting is redefined by the user.
+
+image::SortParserPartSequenceDiagram.png[]
+
+In the above example, the user has specified to sort items by their expiry date, thus a dateComparator is returned.
+
+`sortedInternalList = new SortedList<>(internalList, methodOfSorting.getComparator());`
+
+[NOTE]
+The SortedList changes accordingly based on the method of sorting specified.
+
+image::SortActivityDiagram.png[]
+
+The following sequence diagram shows how the view operation works to display items that are auto-sorted or sorted manually by name or date:
+
+image::AutoSortViewSequenceDiagram.png[]
+
+[NOTE]
+Parsers are omitted from the diagram above to place greater emphasis on the sorting mechanism.
+
+image::AutoSortViewPartSequenceDiagram.png[]
+
+[NOTE]
+Everytime view is called, the current method of sorting specified is retrieved. If it has not been explicitly specified,
+the default method of sorting is then retrieved.
+
+`this.internalUnmodifiableList = FXCollections.unmodifiableList(this.sortedInternalList);`
+
+[NOTE]
+The list returned is the sortedInternalList wrapped as an unmodifiable list.
 
 ==== Design Considerations
 
@@ -232,6 +276,7 @@ The following activity diagram summarizes what happens when a user executes a ne
 * **Alternative 2:** `TreeSet<Item>`.
 ** Pros: Disallows addition of identical items to the set.
 ** Cons: May not be as compatible with the internalList which is of type ObservableList.
+
 // end::autosort[]
 
 // tag:setreminder[]
@@ -258,6 +303,7 @@ The reminder is now set up and is reflected in the UI like this:
 The following sequence diagram shows how the operation works:
 
 .SetReminderSequenceDiagram
+
 image::SetReminderSequenceDiagram.png[]
 
 The following activity diagram summarizes what happens when a user executes a set reminder command:
@@ -396,18 +442,6 @@ Hard to do when we are applying stackable search/sort commands.
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
-=== Search
-
-This feature allows users to filter out specific items either by name or by tag(s) through providing the relevant keyword(s). Items which contain any of the keywords will be shown on the view panel. For search by name, partial words can be matched. For search by tag, only exact words will be matched.
-
-This implementation is under `Logic` and `Model` components.
-
-==== Implementation
-
-Below is the UML sequence diagram of an example usage scenario.
-
-image::SearchCommandSequenceDiagram.png[]
-
 // tag::dataencryption[]
 === [Proposed] Data Encryption
 
@@ -441,6 +475,20 @@ The following activity diagram summarizes what happens when a user executes a ne
 ** Cons:
 // end::dataencryption[]
 
+// tag::search[]
+=== Search
+
+This feature allows users to filter out specific items either by name or by tag(s) through providing the relevant keyword(s). Items which contain any of the keywords will be shown on the view panel. For search by name, partial words can be matched. For search by tag, only exact words will be matched.
+
+This implementation is under `Logic` and `Model` components.
+
+==== Implementation
+
+Below is the UML sequence diagram of an example usage scenario.
+
+image::SearchCommandSequenceDiagram.png[]
+// end::search[]
+
 // tag:recommendations[]
 === Spelling correction with alternative recommendations
 ==== Implementation
@@ -448,13 +496,42 @@ The spelling correction mechanism is based primarily on the Damerau–Levenshtei
 This distance is based on the number of substitutions, deletions, insertions or transpositions of characters, needed to convert the source string into the target string.
 Relevant functions supporting this operation are implemented in `StringUtil`.
 
-Given below is an example usage scenario and how the mechanism behaves at each step.
+The diagram below is a simplified illustration of how the feature works.
 
-The following sequence diagram shows how the sort operation works with recommendations:
+image::RecommendationsExample1.png[]
 
-The following sequence diagram shows how the search operation works with recommendations:
+[NOTE]
+The recommendations will be made solely based the list of items previously displayed rather than all items currently in the list.
+
+As shown in the diagram below, `Banana` was not recommended even though it exists in the original list. This is because it had been filtered from the previous list prior to when the second search command was executed.
+On the other hand, if `green` was misspelled as `gren`, the algorithm will be able to identify `green` as the closest match, as `Green Apple` is present in the previous list.
+
+image::RecommendationsExample2.png[]
+
+//Given below is an example usage scenario and how the mechanism behaves at each step.
+
+The following sequence diagram shows how the sort operation works with recommendations,
+in the case that "date" is misspelled as "dat":
+
+image::RecommendationsSortSequenceDiagram.png[]
+
+The following sequence diagram `findSimilar` illustrates the process omitted above.
+
+image::FindSimilarSequenceDiagram.png[]
 
 The following activity diagram summarizes what happens when a user executes an unknown command:
+
+image::RecommendationUnknownCommandActivityDiagram.png[]
+
+[NOTE]
+Only keywords with edit distance of less than 2 are recommended, to filter away less similar word recommendations.
+
+The following activity diagram summarizes what happens when a user executes a command with misspelled arguments:
+
+image::RecommendationsSearchSortActivityDiagram.png[]
+
+[NOTE]
+Only search and sort commands support this operation.
 
 ==== Design Considerations
 
