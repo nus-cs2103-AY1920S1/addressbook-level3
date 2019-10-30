@@ -49,7 +49,7 @@ public class ContactCardFull extends UiPart<Region> {
         this.description.setText(description);
         id.setText(displayedIndex + ". ");
         name.setText(contact.getName().toString());
-        phone.setText("Phone: "+ contact.getPhone().value);
+        phone.setText("Phone: " + contact.getPhone().value);
         address.setText("Address: " + (contact.getAddress().isPresent() ? contact.getAddress().get().value : ""));
         email.setText("Email: " + (contact.getEmail().isPresent() ? contact.getEmail().get().value : ""));
         contact.getTags().stream()

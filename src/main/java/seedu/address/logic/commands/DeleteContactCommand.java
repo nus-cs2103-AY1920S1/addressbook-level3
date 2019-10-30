@@ -11,6 +11,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.result.CommandResult;
 import seedu.address.logic.commands.result.ResultInformation;
 import seedu.address.logic.commands.result.UiFocus;
+import seedu.address.logic.commands.util.HelpExplanation;
 import seedu.address.model.Model;
 import seedu.address.model.contact.Contact;
 
@@ -70,15 +71,15 @@ public class DeleteContactCommand extends DeleteCommand {
         Index indexOfContact = findIndexOfContact(model, contactToDelete);
         model.deleteContact(contactToDelete);
         return new CommandResult(
-                String.format(MESSAGE_DELETE_CONTACT_SUCCESS, contactToDelete),
-                new ResultInformation[] {
-                        new ResultInformation(
-                                contactToDelete,
-                                indexOfContact,
-                                String.format(MESSAGE_DELETE_CONTACT_SUCCESS, "")
-                        )
-                },
-                new UiFocus[] { UiFocus.CONTACT, UiFocus.INFO }
+            String.format(MESSAGE_DELETE_CONTACT_SUCCESS, contactToDelete),
+            new ResultInformation[] {
+                new ResultInformation(
+                        contactToDelete,
+                        indexOfContact,
+                        String.format(MESSAGE_DELETE_CONTACT_SUCCESS, "")
+                )
+            },
+            new UiFocus[] { UiFocus.CONTACT, UiFocus.INFO }
         );
     }
 

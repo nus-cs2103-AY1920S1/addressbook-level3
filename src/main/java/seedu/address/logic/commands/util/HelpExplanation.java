@@ -1,9 +1,12 @@
-package seedu.address.logic.commands;
-
-import java.util.Objects;
+package seedu.address.logic.commands.util;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Objects;
+
+/**
+ * Explains how to use a command.
+ */
 public class HelpExplanation {
     private final String name;
     private final String explanation;
@@ -36,7 +39,7 @@ public class HelpExplanation {
 
     @Override
     public String toString() {
-        return name + ": " + explanation + " Syntax: " + syntax + " \n" + "Example:"  + example;
+        return name + ": " + explanation + " Syntax: " + syntax + " \n" + "Example:" + example;
     }
 
     @Override

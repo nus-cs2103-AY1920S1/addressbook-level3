@@ -9,11 +9,11 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
-import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.result.CommandResult;
 import seedu.address.logic.commands.result.ResultInformation;
 import seedu.address.logic.commands.result.UiFocus;
+import seedu.address.logic.commands.util.HelpExplanation;
 import seedu.address.model.Model;
 import seedu.address.model.contact.Contact;
 
@@ -85,15 +85,15 @@ public class AddContactCommand extends AddCommand {
             model.addContactAtIndex(index, toAdd);
         }
         return new CommandResult(
-                String.format(MESSAGE_SUCCESS, toAdd),
-                new ResultInformation[] {
-                        new ResultInformation(
-                                toAdd,
-                                findIndexOfContact(model, toAdd),
-                                String.format(MESSAGE_SUCCESS, "")
-                        )
-                },
-                new UiFocus[]{ UiFocus.CONTACT, UiFocus.INFO }
+            String.format(MESSAGE_SUCCESS, toAdd),
+            new ResultInformation[] {
+                new ResultInformation(
+                        toAdd,
+                        findIndexOfContact(model, toAdd),
+                        String.format(MESSAGE_SUCCESS, "")
+                )
+            },
+            new UiFocus[]{ UiFocus.CONTACT, UiFocus.INFO }
         );
     }
 

@@ -14,6 +14,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.result.CommandResult;
 import seedu.address.logic.commands.result.UiFocus;
+import seedu.address.logic.commands.util.HelpExplanation;
 import seedu.address.model.Model;
 import seedu.address.model.day.ActivityWithTime;
 import seedu.address.model.day.Day;
@@ -27,13 +28,13 @@ public class UnscheduleActivityCommand extends UnscheduleCommand {
     public static final String SECOND_COMMAND_WORD = "activity";
 
     public static final HelpExplanation MESSAGE_USAGE = new HelpExplanation(
-            COMMAND_WORD + " " + SECOND_COMMAND_WORD,
-            ": Unschedules all instances of an activity on a certain day.",
-            COMMAND_WORD + " " + SECOND_COMMAND_WORD + " "
-                    + "INDEX(must be a positive integer) "
-                    + PREFIX_DAY + "NUMBER OF DAYS",
-            COMMAND_WORD + " " + SECOND_COMMAND_WORD + " 2 "
-                    + PREFIX_DAY + "2"
+        COMMAND_WORD + " " + SECOND_COMMAND_WORD,
+        ": Unschedules all instances of an activity on a certain day.",
+        COMMAND_WORD + " " + SECOND_COMMAND_WORD + " "
+                + "INDEX(must be a positive integer) "
+                + PREFIX_DAY + "NUMBER OF DAYS",
+        COMMAND_WORD + " " + SECOND_COMMAND_WORD + " 2 "
+                + PREFIX_DAY + "2"
     );
 
     public static final String MESSAGE_UNSCHEDULE_TIME_SUCCESS = "Activity %d unscheduled from Day %d";

@@ -22,6 +22,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.result.CommandResult;
 import seedu.address.logic.commands.result.ResultInformation;
 import seedu.address.logic.commands.result.UiFocus;
+import seedu.address.logic.commands.util.HelpExplanation;
 import seedu.address.model.Model;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.Email;
@@ -107,20 +108,20 @@ public class EditContactCommand extends EditCommand {
         model.updateFilteredContactList(PREDICATE_SHOW_ALL_CONTACTS);
         Index editedContactIndex = findIndexOfContact(model, editedContact);
         return new CommandResult(
-                String.format(MESSAGE_EDIT_CONTACT_SUCCESS, editedContact),
-                new ResultInformation[] {
-                        new ResultInformation(
-                                contactToEdit,
-                                contactToEditIndex,
-                                "Edited Contact from:"
-                        ),
-                        new ResultInformation(
-                                editedContact,
-                                editedContactIndex,
-                                "To:"
-                        )
-                },
-                new UiFocus[] {UiFocus.CONTACT, UiFocus.INFO}
+            String.format(MESSAGE_EDIT_CONTACT_SUCCESS, editedContact),
+            new ResultInformation[] {
+                new ResultInformation(
+                    contactToEdit,
+                    contactToEditIndex,
+                    "Edited Contact from:"
+                ),
+                new ResultInformation(
+                    editedContact,
+                    editedContactIndex,
+                    "To:"
+                )
+            },
+            new UiFocus[] {UiFocus.CONTACT, UiFocus.INFO}
         );
     }
 

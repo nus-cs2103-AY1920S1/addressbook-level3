@@ -11,8 +11,6 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.Phone;
 import seedu.address.model.contact.UniqueContactList;
-import seedu.address.model.itineraryitem.accommodation.Accommodation;
-
 
 /**
  * Wraps all data at the address-book level

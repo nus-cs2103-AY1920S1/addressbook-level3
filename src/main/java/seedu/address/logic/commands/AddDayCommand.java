@@ -5,7 +5,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DAY;
 
 import seedu.address.logic.commands.result.CommandResult;
 import seedu.address.logic.commands.result.UiFocus;
-import seedu.address.logic.parser.Prefix;
+import seedu.address.logic.commands.util.HelpExplanation;
 import seedu.address.model.Model;
 
 /**
@@ -50,8 +50,8 @@ public class AddDayCommand extends AddCommand {
         requireNonNull(model);
         model.addDays(toAdd);
         return new CommandResult(
-                String.format(MESSAGE_SUCCESS, toAdd),
-                new UiFocus[] {UiFocus.AGENDA}
+            String.format(MESSAGE_SUCCESS, toAdd),
+            new UiFocus[] {UiFocus.AGENDA}
         );
     }
 

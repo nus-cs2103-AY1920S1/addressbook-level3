@@ -1,5 +1,10 @@
 package seedu.address.ui;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -12,8 +17,10 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.Region;
+
 import jfxtras.internal.scene.control.skin.agenda.AgendaWeekSkin;
 import jfxtras.scene.control.agenda.Agenda;
+
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.AddAccommodationCommand;
 import seedu.address.logic.commands.AddActivityCommand;
@@ -37,11 +44,6 @@ import seedu.address.model.day.Day;
 import seedu.address.model.itineraryitem.accommodation.Accommodation;
 import seedu.address.model.itineraryitem.activity.Activity;
 import seedu.address.model.tag.Tag;
-
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * A ui for the split window that is displayed at the center of the application.
@@ -84,8 +86,7 @@ public class CentralDisplay extends UiPart<Region> {
         // initialising agenda
         Agenda agenda = new Agenda() {
             @Override
-            public String getUserAgentStylesheet()
-            {
+            public String getUserAgentStylesheet() {
                 return Agenda.class.getResource("/view/" + Agenda.class.getSimpleName() + ".css")
                         .toExternalForm();
             }
@@ -139,6 +140,9 @@ public class CentralDisplay extends UiPart<Region> {
         });
     }
 
+    /**
+     * Refreshes the skin and redetermine the number of dates to display.
+     */
     private void updateSkin(Agenda agenda) {
         agenda.setSkin(new AgendaWeekSkin(agenda) {
             @Override
@@ -160,7 +164,9 @@ public class CentralDisplay extends UiPart<Region> {
         });
     }
 
-
+    /**
+     * Displays the relevant information in infoList from command executed.
+     */
     public void changeInfo(ResultInformation[] resultInformation) {
         infoList.getItems().clear();
         for (ResultInformation i : resultInformation) {
@@ -191,6 +197,9 @@ public class CentralDisplay extends UiPart<Region> {
                 new ActivityCardFull(activity, displayedIndex.getOneBased(), description).getRoot());
     }
 
+    /**
+     * Expands tabs according to the provided {@code uiFocus}.
+     */
     public void changeFocus(UiFocus[] uiFocus) {
         for (UiFocus u : uiFocus) {
             switch (u) {
@@ -218,6 +227,9 @@ public class CentralDisplay extends UiPart<Region> {
         }
     }
 
+    /**
+     * Generates a complete summary of all commands available in plan2travel.
+     */
     public void generateCommandHelpSummary() {
         helpList.getItems().addAll(
                 new HelpCard(AddAccommodationCommand.MESSAGE_USAGE).getRoot(),
@@ -237,6 +249,11 @@ public class CentralDisplay extends UiPart<Region> {
         );
     }
 
+    /**
+     * Updates the agenda with activities in every day of {@code dayList}.
+     * @param agenda the agenda that is updated
+     * @param dayList the latest dayList from model
+     */
     private void updateAgenda(Agenda agenda, ObservableList<Day> dayList) {
         agenda.appointments().clear();
         int currDayNum = 1;
@@ -246,6 +263,12 @@ public class CentralDisplay extends UiPart<Region> {
         }
     }
 
+    /**
+     * Adds all activities in a day to the agenda.
+     * @param agenda the agenda to add to
+     * @param day the day to search for activities
+     * @param dayIndex the nth day of the itinerary
+     */
     private void addAppointmentsWithDay(Agenda agenda, Day day, Index dayIndex) {
         LocalDate currDate = this.startDateProperty.getValue().plusDays(dayIndex.getZeroBased());
         for (ActivityWithTime activityWithTime : day.getListOfActivityWithTime()) {
@@ -259,6 +282,9 @@ public class CentralDisplay extends UiPart<Region> {
         }
     }
 
+    /**
+     * Returns a string with the name and tags of the {@code activity}.
+     */
     private String createSummaryOfAppointment(Activity activity) {
         StringBuilder textToDisplay = new StringBuilder(activity.getName().toString())
                 .append("\n\nTags: ");

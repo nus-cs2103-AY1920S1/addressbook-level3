@@ -4,9 +4,10 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Region;
-import seedu.address.logic.commands.result.CommandResult;
+
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.events.exceptions.EventException;
+import seedu.address.logic.commands.result.CommandResult;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**

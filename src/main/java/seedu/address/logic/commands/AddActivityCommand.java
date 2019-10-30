@@ -8,11 +8,11 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DURATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
-import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.result.CommandResult;
 import seedu.address.logic.commands.result.ResultInformation;
 import seedu.address.logic.commands.result.UiFocus;
+import seedu.address.logic.commands.util.HelpExplanation;
 import seedu.address.model.Model;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.itineraryitem.activity.Activity;
@@ -83,15 +83,15 @@ public class AddActivityCommand extends AddCommand {
                         toAdd.getTags(), toAdd.getDuration(), toAdd.getPriority());
                 model.addActivity(linkedActivity);
                 return new CommandResult(
-                        String.format(MESSAGE_SUCCESS, linkedActivity),
-                        new ResultInformation[]{
-                                new ResultInformation(
-                                        linkedActivity,
-                                        findIndexOfActivity(model, linkedActivity),
-                                        String.format(MESSAGE_SUCCESS, "")
-                                )
-                        },
-                        new UiFocus[]{UiFocus.ACTIVITY, UiFocus.INFO}
+                    String.format(MESSAGE_SUCCESS, linkedActivity),
+                    new ResultInformation[]{
+                        new ResultInformation(
+                                linkedActivity,
+                                findIndexOfActivity(model, linkedActivity),
+                                String.format(MESSAGE_SUCCESS, "")
+                        )
+                    },
+                    new UiFocus[]{UiFocus.ACTIVITY, UiFocus.INFO}
                 );
             } else {
                 if (index == null) {
@@ -108,15 +108,15 @@ public class AddActivityCommand extends AddCommand {
             }
         }
         return new CommandResult(
-                String.format(MESSAGE_SUCCESS, toAdd),
-                new ResultInformation[]{
-                        new ResultInformation(
-                                toAdd,
-                                findIndexOfActivity(model, toAdd),
-                                String.format(MESSAGE_SUCCESS, "")
-                        )
-                },
-                new UiFocus[]{UiFocus.ACTIVITY, UiFocus.INFO}
+            String.format(MESSAGE_SUCCESS, toAdd),
+            new ResultInformation[]{
+                new ResultInformation(
+                        toAdd,
+                        findIndexOfActivity(model, toAdd),
+                        String.format(MESSAGE_SUCCESS, "")
+                )
+            },
+            new UiFocus[]{UiFocus.ACTIVITY, UiFocus.INFO}
         );
     }
 

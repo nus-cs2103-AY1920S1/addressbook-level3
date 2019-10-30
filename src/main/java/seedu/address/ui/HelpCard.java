@@ -3,8 +3,7 @@ package seedu.address.ui;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
-import seedu.address.logic.commands.HelpExplanation;
-import seedu.address.model.itineraryitem.accommodation.Accommodation;
+import seedu.address.logic.commands.util.HelpExplanation;
 
 
 /**

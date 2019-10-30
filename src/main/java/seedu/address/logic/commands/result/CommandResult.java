@@ -60,7 +60,7 @@ public class CommandResult {
 
     /**
      * Constructs a {@code CommandResult} with the specified {@code feedbackToUser}
-     * and {@code uiFocus, while other fields are set to their default values.
+     * and {@code uiFocus}, while other fields are set to their default values.
      */
     public CommandResult(String feedbackToUser, UiFocus[] uiFocus) {
         this(feedbackToUser, null, false, false, requireAllNonNullAndReturn(uiFocus));
@@ -68,13 +68,16 @@ public class CommandResult {
 
     /**
      * Constructs a {@code CommandResult} with the specified {@code feedbackToUser}
-     * and {@code uiFocus, while other fields are set to their default values.
+     * and {@code uiFocus}, while other fields are set to their default values.
      */
     public CommandResult(String feedbackToUser, ResultInformation[] resultInformation, UiFocus[] uiFocus) {
         this(feedbackToUser, requireAllNonNullAndReturn(resultInformation),
                 false, false, requireAllNonNullAndReturn(uiFocus));
     }
 
+    /**
+     * Ensures that the array is non-null and that all elements are also non-null.
+     */
     private static <E> E[] requireAllNonNullAndReturn(E[] elements) {
         requireNonNull(elements);
         for (E e : elements) {

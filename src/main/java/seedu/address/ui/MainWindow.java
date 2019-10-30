@@ -7,12 +7,13 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
-import seedu.address.logic.commands.result.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.events.exceptions.EventException;
+import seedu.address.logic.commands.result.CommandResult;
 import seedu.address.logic.commands.result.ResultInformation;
 import seedu.address.logic.commands.result.UiFocus;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -34,7 +35,6 @@ public class MainWindow extends UiPart<Stage> {
     // private SplitDisplay splitDisplay;
     private CentralDisplay centralDisplay;
     private FeedbackDisplay feedbackDisplay;
-//    private HelpWindow helpWindow;
 
     @FXML
     private BorderPane centralDisplayPlaceholder;
@@ -58,8 +58,6 @@ public class MainWindow extends UiPart<Stage> {
 
         // Configure the UI
         setWindowDefaultSize(logic.getGuiSettings());
-
-//        helpWindow = new HelpWindow();
     }
 
     public Stage getPrimaryStage() {
@@ -74,8 +72,8 @@ public class MainWindow extends UiPart<Stage> {
                 logic.getFilteredContactList());
         splitDisplayPanelPlaceholder.getChildren().add(splitDisplay.getRoot()); */
 
-        updateCentralDisplay();
-        updateFeedbackDisplay();
+        initCentralDisplay();
+        initFeedbackDisplay();
 
         //StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getPlannerFilePath());
         //statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
@@ -84,7 +82,10 @@ public class MainWindow extends UiPart<Stage> {
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
     }
 
-    private void updateCentralDisplay() {
+    /**
+     * Initialises the {@code CentralDisplay} of the UI.
+     */
+    private void initCentralDisplay() {
         centralDisplay = new CentralDisplay(
                 logic.getFilteredItinerary(),
                 logic.getFilteredAccommodationList(),
@@ -93,12 +94,12 @@ public class MainWindow extends UiPart<Stage> {
                 logic.getItinerary().getStartDateProperty()
         );
         centralDisplayPlaceholder.getChildren().add(centralDisplay.getRoot());
-        centralDisplay.changeFocus(new UiFocus[]{UiFocus.ACTIVITY});
+        centralDisplay.changeFocus(new UiFocus[] { UiFocus.ACTIVITY });
         centralDisplay.getRoot().prefHeightProperty().bind(centralDisplayPlaceholder.heightProperty());
         centralDisplay.getRoot().prefWidthProperty().bind(centralDisplayPlaceholder.widthProperty());
     }
 
-    private void updateFeedbackDisplay() {
+    private void initFeedbackDisplay() {
         feedbackDisplay = new FeedbackDisplay();
         feedbackDisplayPlaceholder.getChildren().add(feedbackDisplay.getRoot());
     }
@@ -115,18 +116,6 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
-//    /**
-//     * Opens the help window or focuses on it if it's already opened.
-//     */
-//    @FXML
-//    public void handleHelp() {
-//        if (!helpWindow.isShowing()) {
-//            helpWindow.show();
-//        } else {
-//            helpWindow.focus();
-//        }
-//    }
-
     void show() {
         primaryStage.show();
     }
@@ -139,7 +128,6 @@ public class MainWindow extends UiPart<Stage> {
         GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
                 (int) primaryStage.getX(), (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
-//        helpWindow.hide();
         primaryStage.hide();
     }
 

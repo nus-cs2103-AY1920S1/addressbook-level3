@@ -11,6 +11,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.result.CommandResult;
 import seedu.address.logic.commands.result.ResultInformation;
 import seedu.address.logic.commands.result.UiFocus;
+import seedu.address.logic.commands.util.HelpExplanation;
 import seedu.address.model.Model;
 import seedu.address.model.itineraryitem.accommodation.Accommodation;
 
@@ -69,15 +70,15 @@ public class DeleteAccommodationCommand extends DeleteCommand {
         Index indexOfAccommodation = findIndexOfAccommodation(model, accommodationToDelete);
         model.deleteAccommodation(accommodationToDelete);
         return new CommandResult(
-                String.format(MESSAGE_DELETE_ACCOMMODATION_SUCCESS, accommodationToDelete),
-                new ResultInformation[]{
-                        new ResultInformation(
-                                accommodationToDelete,
-                                indexOfAccommodation,
-                                String.format(MESSAGE_DELETE_ACCOMMODATION_SUCCESS, "")
-                        )
-                },
-                new UiFocus[] { UiFocus.ACCOMMODATION, UiFocus.INFO }
+            String.format(MESSAGE_DELETE_ACCOMMODATION_SUCCESS, accommodationToDelete),
+            new ResultInformation[]{
+                new ResultInformation(
+                        accommodationToDelete,
+                        indexOfAccommodation,
+                        String.format(MESSAGE_DELETE_ACCOMMODATION_SUCCESS, "")
+                )
+            },
+            new UiFocus[] { UiFocus.ACCOMMODATION, UiFocus.INFO }
         );
     }
 

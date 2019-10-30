@@ -1,17 +1,17 @@
 package seedu.address.logic.commands.util;
 
+import java.util.Optional;
+
 import seedu.address.commons.core.index.Index;
 import seedu.address.model.Model;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.itineraryitem.accommodation.Accommodation;
 import seedu.address.model.itineraryitem.activity.Activity;
 
-import java.util.Optional;
-
+/**
+ * Helper functions for commands.
+ */
 public class CommandUtil {
-
-
-
     /**
      * Returns the index of activity in the model.
      * Precondition: the {@code activity} must have been added before this.

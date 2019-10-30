@@ -139,6 +139,11 @@ public class AddContactCommandTest {
         }
 
         @Override
+        public Optional<Index> getAccommodationIndex(Accommodation accommodation) {
+            throw new AssertionError("This method should not be called.");
+        };
+
+        @Override
         public void deleteAccommodation(Accommodation target) {
             throw new AssertionError("This method should not be called.");
         }
@@ -195,6 +200,11 @@ public class AddContactCommandTest {
         }
 
         @Override
+        public Optional<Index> getActivityIndex(Activity activity) {
+            throw new AssertionError("This method should not be called.");
+        };
+
+        @Override
         public void deleteActivity(Activity target) {
             throw new AssertionError("This method should not be called.");
         }
@@ -239,6 +249,11 @@ public class AddContactCommandTest {
         public boolean hasContact(Contact contact) {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public Optional<Index> getContactIndex(Contact contact) {
+            throw new AssertionError("This method should not be called.");
+        };
 
         @Override
         public boolean hasPhone(Phone phone) {
@@ -384,6 +399,12 @@ public class AddContactCommandTest {
         public boolean hasContact(Contact contact) {
             requireNonNull(contact);
             return contactsAdded.stream().anyMatch(contact::isSameContact);
+        }
+
+        @Override
+        public Optional<Index> getContactIndex(Contact contact) {
+            requireNonNull(contact);
+            return Optional.of(Index.fromZeroBased(contactsAdded.indexOf(contact)));
         }
 
         @Override

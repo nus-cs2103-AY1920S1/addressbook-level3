@@ -22,6 +22,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.result.CommandResult;
 import seedu.address.logic.commands.result.ResultInformation;
 import seedu.address.logic.commands.result.UiFocus;
+import seedu.address.logic.commands.util.HelpExplanation;
 import seedu.address.model.Model;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.Phone;
@@ -105,20 +106,20 @@ public class EditActivityCommand extends EditCommand {
         model.updateFilteredActivityList(PREDICATE_SHOW_ALL_ACTIVITIES);
         Index editedActivityIndex = findIndexOfActivity(model, editedActivity);
         return new CommandResult(
-                String.format(MESSAGE_EDIT_ACTIVITY_SUCCESS, editedActivity),
-                new ResultInformation[] {
-                        new ResultInformation(
-                                activityToEdit,
-                                activityToEditIndex,
-                                "Edited Activity from:"
-                        ),
-                        new ResultInformation(
-                                editedActivity,
-                                editedActivityIndex,
-                                "To:"
-                        )
-                },
-                new UiFocus[] { UiFocus.ACTIVITY, UiFocus.INFO }
+            String.format(MESSAGE_EDIT_ACTIVITY_SUCCESS, editedActivity),
+            new ResultInformation[] {
+                new ResultInformation(
+                    activityToEdit,
+                    activityToEditIndex,
+                    "Edited Activity from:"
+                ),
+                new ResultInformation(
+                    editedActivity,
+                    editedActivityIndex,
+                    "To:"
+                )
+            },
+            new UiFocus[] { UiFocus.ACTIVITY, UiFocus.INFO }
         );
     }
 

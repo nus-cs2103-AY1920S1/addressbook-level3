@@ -13,6 +13,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.result.CommandResult;
 import seedu.address.logic.commands.result.ResultInformation;
 import seedu.address.logic.commands.result.UiFocus;
+import seedu.address.logic.commands.util.HelpExplanation;
 import seedu.address.model.Model;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.itineraryitem.accommodation.Accommodation;
@@ -81,15 +82,15 @@ public class AddAccommodationCommand extends AddCommand {
                         toAdd.getTags());
                 model.addAccommodation(linkedAccommodation);
                 return new CommandResult(
-                        String.format(MESSAGE_SUCCESS, linkedAccommodation),
-                        new ResultInformation[]{
-                                new ResultInformation(
-                                        linkedAccommodation,
-                                        findIndexOfAccommodation(model, linkedAccommodation),
-                                        String.format(MESSAGE_SUCCESS, "")
-                                )
-                        },
-                        new UiFocus[]{UiFocus.ACCOMMODATION, UiFocus.INFO}
+                    String.format(MESSAGE_SUCCESS, linkedAccommodation),
+                    new ResultInformation[] {
+                        new ResultInformation(
+                                linkedAccommodation,
+                                findIndexOfAccommodation(model, linkedAccommodation),
+                                String.format(MESSAGE_SUCCESS, "")
+                        )
+                    },
+                    new UiFocus[]{UiFocus.ACCOMMODATION, UiFocus.INFO}
                 );
             } else {
                 if (index == null) {
@@ -106,15 +107,15 @@ public class AddAccommodationCommand extends AddCommand {
             }
         }
         return new CommandResult(
-                String.format(MESSAGE_SUCCESS, toAdd),
-                new ResultInformation[]{
-                        new ResultInformation(
-                                toAdd,
-                                findIndexOfAccommodation(model, toAdd),
-                                String.format(MESSAGE_SUCCESS, "")
-                        )
-                },
-                new UiFocus[]{UiFocus.ACCOMMODATION, UiFocus.INFO}
+            String.format(MESSAGE_SUCCESS, toAdd),
+            new ResultInformation[]{
+                new ResultInformation(
+                        toAdd,
+                        findIndexOfAccommodation(model, toAdd),
+                        String.format(MESSAGE_SUCCESS, "")
+                )
+            },
+            new UiFocus[]{UiFocus.ACCOMMODATION, UiFocus.INFO}
         );
     }
 

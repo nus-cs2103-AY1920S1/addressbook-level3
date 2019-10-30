@@ -21,6 +21,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.result.CommandResult;
 import seedu.address.logic.commands.result.ResultInformation;
 import seedu.address.logic.commands.result.UiFocus;
+import seedu.address.logic.commands.util.HelpExplanation;
 import seedu.address.model.Model;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.Phone;
@@ -102,20 +103,20 @@ public class EditAccommodationCommand extends EditCommand {
         model.updateFilteredAccommodationList(PREDICATE_SHOW_ALL_ACCOMMODATIONS);
         Index editedAccommodationIndex = findIndexOfAccommodation(model, editedAccommodation);
         return new CommandResult(
-                String.format(MESSAGE_EDIT_ACCOMMODATION_SUCCESS, editedAccommodation),
-                new ResultInformation[]{
-                        new ResultInformation(
-                                accommodationToEdit,
-                                accommodationToEditIndex,
-                                "Edited Accommodation from:"
-                        ),
-                        new ResultInformation(
-                                editedAccommodation,
-                                editedAccommodationIndex,
-                                "To:"
-                        )
-                },
-                new UiFocus[] { UiFocus.ACCOMMODATION, UiFocus.INFO });
+            String.format(MESSAGE_EDIT_ACCOMMODATION_SUCCESS, editedAccommodation),
+            new ResultInformation[]{
+                new ResultInformation(
+                    accommodationToEdit,
+                    accommodationToEditIndex,
+                    "Edited Accommodation from:"
+                ),
+                new ResultInformation(
+                    editedAccommodation,
+                    editedAccommodationIndex,
+                    "To:"
+                )
+            },
+            new UiFocus[] { UiFocus.ACCOMMODATION, UiFocus.INFO });
     }
 
     /**

@@ -11,6 +11,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.result.CommandResult;
 import seedu.address.logic.commands.result.ResultInformation;
 import seedu.address.logic.commands.result.UiFocus;
+import seedu.address.logic.commands.util.HelpExplanation;
 import seedu.address.model.Model;
 import seedu.address.model.itineraryitem.activity.Activity;
 
@@ -69,15 +70,15 @@ public class DeleteActivityCommand extends DeleteCommand {
         Index indexOfActivity = findIndexOfActivity(model, activityToDelete);
         model.deleteActivity(activityToDelete);
         return new CommandResult(
-                String.format(MESSAGE_DELETE_ACTIVITY_SUCCESS, activityToDelete),
-                new ResultInformation[] {
-                        new ResultInformation(
-                                activityToDelete,
-                                indexOfActivity,
-                                String.format(MESSAGE_DELETE_ACTIVITY_SUCCESS, "")
-                        )
-                },
-                new UiFocus[] { UiFocus.ACTIVITY, UiFocus.INFO }
+            String.format(MESSAGE_DELETE_ACTIVITY_SUCCESS, activityToDelete),
+            new ResultInformation[] {
+                new ResultInformation(
+                        activityToDelete,
+                        indexOfActivity,
+                        String.format(MESSAGE_DELETE_ACTIVITY_SUCCESS, "")
+                )
+            },
+            new UiFocus[] { UiFocus.ACTIVITY, UiFocus.INFO }
         );
     }
 
