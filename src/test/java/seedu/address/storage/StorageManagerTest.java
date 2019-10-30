@@ -48,9 +48,12 @@ public class StorageManagerTest {
         UserPrefs original = new UserPrefs();
         original.setGuiSettings(new GuiSettings(300, 600, 4, 6));
         storageManager.saveUserPrefs(original);
-        UserPrefs retrieved = storageManager.readUserPrefs().get();
+        UserPrefs retrieved = storageManager.readUserPrefs().isPresent()
+                ? storageManager.readUserPrefs().get()
+                : new UserPrefs();
         assertEquals(original, retrieved);
     }
+
     /*
     @Test
     public void contactReadSave() throws Exception {
@@ -59,12 +62,15 @@ public class StorageManagerTest {
          * {@link JsonPlannerStorage} class.
          * More extensive testing of UserPref saving/reading is done in {@link JsonPlannerStorageTest} class.
          *
-        ContactManager original = getTypicalPlanner();
+        ContactManager original = TypicalContacts.getTypicalContactManager();
         storageManager.saveContact(original);
-        ReadOnlyContact retrieved = storageManager.readContact().get();
-        assertEquals(original, new ContactManager(retrieved));
+        ReadOnlyContact retrieved = storageManager.readContact().isPresent()
+                ? storageManager.readContact().get()
+                : new ContactManager();
+        assertEquals(original, retrieved);
     }
     */
+
     @Test
     public void getAccommodationFilePath() {
         assertNotNull(storageManager.getAccommodationFilePath());

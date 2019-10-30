@@ -1,4 +1,4 @@
-package seedu.address.testutil;
+package seedu.address.testutil.contact;
 
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;

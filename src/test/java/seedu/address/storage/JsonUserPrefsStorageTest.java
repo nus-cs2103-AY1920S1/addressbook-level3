@@ -1,4 +1,3 @@
-/*
 package seedu.address.storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -74,7 +73,10 @@ public class JsonUserPrefsStorageTest {
     private UserPrefs getTypicalUserPrefs() {
         UserPrefs userPrefs = new UserPrefs();
         userPrefs.setGuiSettings(new GuiSettings(1000, 500, 300, 100));
-        userPrefs.setPlannerFilePath(Paths.get("planner.json"));
+        userPrefs.setAccommodationFilePath(Paths.get("accommodation.json"));
+        userPrefs.setActivityFilePath(Paths.get("activity.json"));
+        userPrefs.setContactFilePath(Paths.get("contact.json"));
+        userPrefs.setItineraryFilePath(Paths.get("itinerary.json"));
         return userPrefs;
     }
 
@@ -90,7 +92,7 @@ public class JsonUserPrefsStorageTest {
 
     /**
      * Saves {@code userPrefs} at the specified {@code prefsFileInTestDataFolder} filepath.
-     *
+     */
     private void saveUserPrefs(UserPrefs userPrefs, String prefsFileInTestDataFolder) {
         try {
             new JsonUserPrefsStorage(addToTestDataPathIfNotNull(prefsFileInTestDataFolder))
@@ -123,4 +125,3 @@ public class JsonUserPrefsStorageTest {
 
 }
 
- */

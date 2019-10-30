@@ -32,12 +32,12 @@ import seedu.address.model.day.Day;
 import seedu.address.model.field.Name;
 import seedu.address.model.itineraryitem.accommodation.Accommodation;
 import seedu.address.model.itineraryitem.activity.Activity;
-import seedu.address.testutil.ContactBuilder;
+import seedu.address.testutil.contact.ContactBuilder;
 
 public class AddContactCommandTest {
 
     @Test
-    public void constructor_nullPerson_throwsNullPointerException() {
+    public void constructor_nullContact_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new AddContactCommand((Contact) null));
     }
 

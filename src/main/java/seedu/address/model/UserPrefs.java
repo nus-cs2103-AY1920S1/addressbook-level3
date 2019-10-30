@@ -38,6 +38,9 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         requireNonNull(newUserPrefs);
         setGuiSettings(newUserPrefs.getGuiSettings());
         setAccommodationFilePath(newUserPrefs.getAccommodationFilePath());
+        setActivityFilePath(newUserPrefs.getActivityFilePath());
+        setContactFilePath(newUserPrefs.getContactFilePath());
+        setItineraryFilePath(newUserPrefs.getItineraryFilePath());
     }
 
     public GuiSettings getGuiSettings() {

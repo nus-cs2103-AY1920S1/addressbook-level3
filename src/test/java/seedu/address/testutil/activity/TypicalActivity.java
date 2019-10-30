@@ -35,7 +35,7 @@ public class TypicalActivity {
                     "92007122",
                     "sam1997@gmail.com",
                     "Nantan, Kyoto 601-0776, Japan",
-                    "tour guide")
+                    "tourguide")
             .withTags("sightseeing").build();
     public static final Activity ACTIVITYTWO = new ActivityBuilder().withName("Visit Mount Fuji")
             .withAddress("Tokyo")
@@ -43,7 +43,7 @@ public class TypicalActivity {
                     "82337121",
                     "matsafushi@gmail.com",
                     "150-2345 Tokyo-to, Shibuya-ku, Hommachi 2 choume, 4-7, Sunny Mansion 203",
-                    "tour guide")
+                    "tourguide")
             .withTags("sightseeing").build();
     public static final Activity ACTIVITYTHREE = new ActivityBuilder().withName("sushi making")
             .withAddress("Kodaira, Tokyo")
@@ -57,7 +57,7 @@ public class TypicalActivity {
                     "94523656",
                     "Himari@hotmail.com",
                     "5 Chome Josai, Nishi Ward, Nagoya, Aichi 451-0031",
-                    "tour guide").build();
+                    "tourguide").build();
     public static final Activity ACTIVITYFIVE = new ActivityBuilder().withName("Shop at Dontobori")
             .withAddress("Tokyo")
             .withContact("kosuke",
@@ -71,7 +71,7 @@ public class TypicalActivity {
                     "95131415",
                     "kakashi@yahoo.com",
                     "Aioi Inuyama, Aichi 484-0081",
-                    "tour guide", "experienced")
+                    "tourguide", "experienced")
             .withTags("sightseeing").build();
     public static final Activity ACTIVITYSEVEN = new ActivityBuilder().withName("Walk through Bamboo Forest")
             .withAddress("Kyoto")
@@ -79,8 +79,8 @@ public class TypicalActivity {
                     "95123444",
                     "Maylin@yahoo.com",
                     "Kita Ward, Kyoto, 603-8477",
-                    "Japan friend")
-            .withTags("must do", "sightseeing").build();
+                    "Japanfriend")
+            .withTags("MUSTdo", "sightseeing").build();
 
     // Manually added
     public static final Activity ACTIVITYEIGHT = new ActivityBuilder().withName("Visit Ramen Museum")
@@ -115,7 +115,7 @@ public class TypicalActivity {
     /**
      * Returns an {@code Planner} with all the typical activities.
      */
-    public static ActivityManager getTypicalPlanner() {
+    public static ActivityManager getTypicalActivityManager() {
         ActivityManager am = new ActivityManager();
         for (Activity activity : getTypicalActivities()) {
             am.addActivity(activity);

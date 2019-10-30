@@ -6,7 +6,6 @@ import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AccommodationManager;
 import seedu.address.model.ActivityManager;
 import seedu.address.model.ContactManager;
@@ -112,7 +111,7 @@ public class SampleDataUtil {
     }
 
     // Need to add more samples
-    public static Day[] getSampleDays() throws CommandException {
+    public static Day[] getSampleDays() {
         ArrayList<ActivityWithTime> sampleActivities = new ArrayList<>();
         Activity a = new Activity(new Name("Go Ocean Park"), new Address("Tokyo"), null, getTagSet("epic"));
         sampleActivities.add(new ActivityWithTime(a, LocalTime.of(10, 30), LocalTime.of(12, 30)));
@@ -124,13 +123,9 @@ public class SampleDataUtil {
     }
 
     public static ReadOnlyItinerary getSampleItinerary() {
-        try {
-            Itinerary sampleItinerary = new Itinerary();
-            sampleItinerary.setDays(Arrays.asList(getSampleDays()));
-            return sampleItinerary;
-        } catch (CommandException ce) {
-            return new Itinerary();
-        }
+        Itinerary sampleItinerary = new Itinerary();
+        sampleItinerary.setDays(Arrays.asList(getSampleDays()));
+        return sampleItinerary;
     }
 
     /**

@@ -20,8 +20,14 @@ public class Day {
         this.timetable = new Timetable();
     }
 
-    public Day(List<ActivityWithTime> activitiesForDay) throws CommandException {
-        this.timetable = new Timetable(activitiesForDay);
+    public Day(List<ActivityWithTime> activitiesForDay) {
+        Timetable timetable1;
+        try {
+            timetable1 = new Timetable(activitiesForDay);
+        } catch (CommandException ce) {
+            timetable1 = new Timetable();
+        }
+        this.timetable = timetable1;
     }
 
     /**
