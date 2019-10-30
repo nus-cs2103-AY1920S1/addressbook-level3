@@ -17,6 +17,9 @@ import seedu.address.commons.util.FileUtil;
 import seedu.address.model.gmaps.Location;
 import seedu.address.websocket.Cache;
 
+/**
+ * This class is used to test the ProcessVenuesTest class
+ */
 class ProcessVenuesTest {
     private ProcessVenues processVenues;
     @BeforeEach
