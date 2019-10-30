@@ -17,4 +17,5 @@ public interface ReadOnlyUserPrefs {
 
     Path getGroupBookFilePath();
 
+    Path getTagBookFilePath();
 }

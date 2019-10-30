@@ -71,7 +71,7 @@ public class ContactManager implements ContactModel {
      */
     private ContactId generateUniqueId() {
         // If the number of contacts has started to fill up the current digit.
-        if (addressBook.size() >= Math.pow(10, ContactId.getDigit()) / 2) {
+        while (addressBook.size() >= Math.pow(10, ContactId.getDigit()) / 2) {
             ContactId.incrementDigit();
         }
 

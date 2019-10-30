@@ -11,7 +11,7 @@ public class ContactId {
 
     private static int contactIdDigits = 5;
 
-    private final int id;
+    public final Long value;
 
     /**
      * Construct a contact Id from String.
@@ -19,37 +19,38 @@ public class ContactId {
      * @param id
      */
     public ContactId(String id) {
-        this(Integer.valueOf(id));
+        this(Long.valueOf(id));
     }
 
     /**
      * Constructs a contact Id from an integer.
      */
-    public ContactId(int id) {
+    public ContactId(long id) {
         if (id >= Math.pow(10, contactIdDigits)) {
             throw new InvalidIdException("Id too large");
         }
         if (id < 0) {
             throw new InvalidIdException("Id has to be a positive number");
         }
-        this.id = id;
+        this.value = id;
     }
 
     /**
      * Returns true if {@code id} is valid.
      */
     public static boolean isValidId(String id) {
-        int value;
+        Long value;
 
         try {
-            value = Integer.valueOf(id);
+            value = Long.valueOf(id);
         } catch (NumberFormatException ex) {
             return false;
         }
 
-        if (0 <= value && value < (int) Math.pow(10, contactIdDigits)) {
+        if (0 <= value && value < Math.pow(10, contactIdDigits)) {
             return true;
         }
+
         return false;
     }
 
@@ -64,13 +65,9 @@ public class ContactId {
         return contactIdDigits;
     }
 
-    public Integer toInteger() {
-        return id;
-    }
-
     @Override
     public String toString() {
-        String idString = ((Integer) id).toString();
+        String idString = value.toString();
         while (idString.length() < contactIdDigits) {
             idString = "0" + idString;
         }
@@ -87,11 +84,11 @@ public class ContactId {
             return false;
         }
 
-        return id == ((ContactId) obj).id;
+        return value.equals(((ContactId) obj).value);
     }
 
     @Override
     public int hashCode() {
-        return ((Integer) id).hashCode();
+        return value.hashCode();
     }
 }

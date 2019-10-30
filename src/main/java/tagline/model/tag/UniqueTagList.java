@@ -7,9 +7,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
+import java.util.OptionalLong;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+
 import tagline.model.tag.exceptions.DuplicateTagException;
 
 /**
@@ -18,7 +21,7 @@ import tagline.model.tag.exceptions.DuplicateTagException;
 public class UniqueTagList implements Iterable<Tag> {
     private final ObservableList<Tag> internalList = FXCollections.observableArrayList();
     private final ObservableList<Tag> internalUnmodifiableList =
-            FXCollections.unmodifiableObservableList(internalList);
+        FXCollections.unmodifiableObservableList(internalList);
 
     /**
      * Replaces the contents of the tag list with {@code replacement}.
@@ -44,6 +47,10 @@ public class UniqueTagList implements Iterable<Tag> {
         internalList.setAll(tags);
     }
 
+    public OptionalLong findMaxValueOfTagId() {
+        return internalList.stream().mapToLong(tag -> tag.getTagId().value).max();
+    }
+
     /**
      * Returns true if the tag list contains a {@code Tag} with some ID.
      *
@@ -51,7 +58,7 @@ public class UniqueTagList implements Iterable<Tag> {
      * @return True if a matching tag was found
      */
     public boolean containsTag(TagId tagId) {
-        return internalList.stream().anyMatch(t -> (t.tagId.equals(tagId)));
+        return internalList.stream().anyMatch(t -> (t.getTagId().equals(tagId)));
     }
 
     /**
@@ -63,6 +70,35 @@ public class UniqueTagList implements Iterable<Tag> {
     public boolean containsTag(Tag toCheck) {
         requireNonNull(toCheck);
         return internalList.stream().anyMatch(t -> t.equals(toCheck));
+    }
+
+    /**
+     * Returns true if the tag list contains a tag with the same content as the given {@code Tag}.
+     *
+     * @param tagType The type of tag to find
+     * @param content Content of the tag
+     * @return True if a matching tag was found
+     */
+    public boolean containsTag(TagType tagType, String content) {
+        requireNonNull(tagType);
+        requireNonNull(content);
+        return internalList.stream().anyMatch(t -> t.match(tagType, content));
+    }
+
+    /**
+     * Find id of a tag that matches the {@code tagType} and {@code content}.
+     *
+     * @param tagType The type of tag to find
+     * @param content Content of the tag
+     * @return {@code TagId} of a matching tag if found, {@code Optional.empty()} otherwise.
+     */
+    public Optional<TagId> findTagId(TagType tagType, String content) {
+        requireNonNull(tagType);
+        requireNonNull(content);
+        return internalList.stream()
+            .filter(tag -> tag.match(tagType, content))
+            .map(tag -> tag.getTagId())
+            .findFirst();
     }
 
     /**
@@ -94,7 +130,7 @@ public class UniqueTagList implements Iterable<Tag> {
     public List<Tag> findTag(TagId tagId) {
         List<Tag> result = new ArrayList<>();
         for (Tag tag : internalList) {
-            if (tag.tagId.equals(tagId)) {
+            if (tag.getTagId().equals(tagId)) {
                 result.add(tag);
                 return result; //tags are assumed to be unique
             }

@@ -34,6 +34,7 @@ import tagline.storage.StorageManager;
 import tagline.storage.contact.JsonAddressBookStorage;
 import tagline.storage.group.JsonGroupBookStorage;
 import tagline.storage.note.JsonNoteBookStorage;
+import tagline.storage.tag.JsonTagBookStorage;
 
 public class LogicManagerTest {
     private static final IOException DUMMY_IO_EXCEPTION = new IOException("dummy exception");
@@ -52,9 +53,11 @@ public class LogicManagerTest {
             new JsonNoteBookStorage(temporaryFolder.resolve("noteBook.json"));
         JsonGroupBookStorage groupBookStorage =
             new JsonGroupBookStorage(temporaryFolder.resolve("groupBook.json"));
+        JsonTagBookStorage tagBookStorage =
+            new JsonTagBookStorage(temporaryFolder.resolve("tagbook.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
         StorageManager storage = new StorageManager(addressBookStorage, noteBookStorage,
-            groupBookStorage, userPrefsStorage);
+            groupBookStorage, tagBookStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
     }
 
@@ -85,10 +88,12 @@ public class LogicManagerTest {
             new JsonNoteBookStorage(temporaryFolder.resolve("ioExceptionNoteBook.json"));
         JsonGroupBookStorage groupBookStorage =
             new JsonGroupBookStorage(temporaryFolder.resolve("ioExceptionGroupBook.json"));
+        JsonTagBookStorage tagBookStorage =
+            new JsonTagBookStorage(temporaryFolder.resolve("ioExceptionTagBook.json"));
         JsonUserPrefsStorage userPrefsStorage =
             new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
         StorageManager storage = new StorageManager(addressBookStorage, noteBookStorage,
-            groupBookStorage, userPrefsStorage);
+            groupBookStorage, tagBookStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
 
         // Execute add command

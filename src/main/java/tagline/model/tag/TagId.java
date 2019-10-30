@@ -9,11 +9,9 @@ import static tagline.commons.util.AppUtil.checkArgument;
  */
 public class TagId {
 
-    public static final String MESSAGE_CONSTRAINTS = "TagId numbers should only contain numbers";
+    public static final String MESSAGE_CONSTRAINTS = "TagId should only contain numbers";
 
     public static final String VALIDATION_REGEX = "\\d+";
-
-    private static long lastId = 0; // temporary generator for tag id.
 
     public final Long value;
 
@@ -36,10 +34,6 @@ public class TagId {
         requireNonNull(tagId);
         checkArgument(isValidTagId(tagId), MESSAGE_CONSTRAINTS);
         value = Long.valueOf(tagId);
-    }
-
-    public TagId() {
-        value = lastId++;
     }
 
     /**

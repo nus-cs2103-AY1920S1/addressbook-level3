@@ -6,11 +6,14 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import tagline.commons.core.LogsCenter;
 import tagline.commons.exceptions.IllegalValueException;
 import tagline.model.note.Content;
 import tagline.model.note.Date;
@@ -20,7 +23,9 @@ import tagline.model.note.NoteIdCounter;
 import tagline.model.note.TimeCreated;
 import tagline.model.note.TimeLastEdited;
 import tagline.model.note.Title;
+import tagline.model.tag.ContactTag;
 import tagline.model.tag.Tag;
+import tagline.storage.tag.JsonAdaptedContactTag;
 import tagline.storage.tag.JsonAdaptedTag;
 
 /**
@@ -29,6 +34,7 @@ import tagline.storage.tag.JsonAdaptedTag;
 public class JsonAdaptedNote {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Note's %s field is missing!";
+    private static final Logger logger = LogsCenter.getLogger(JsonAdaptedNote.class);
 
     private final String content;
     private final String timeCreated;
@@ -70,7 +76,14 @@ public class JsonAdaptedNote {
         timeLastEdited = source.getTimeLastEdited().getTime().getStorageString();
         noteIdCount = NoteIdCounter.getStorageString();
         tagged.addAll(source.getTags().stream()
-            .map(JsonAdaptedTag::new)
+            .flatMap(tag -> {
+                if (tag instanceof ContactTag) {
+                    return Stream.of(new JsonAdaptedContactTag((ContactTag) tag));
+                } else {
+                    logger.warning("Unknown type of tag: " + tag.toString());
+                    return Stream.empty();
+                }
+            })
             .collect(Collectors.toList()));
     }
 

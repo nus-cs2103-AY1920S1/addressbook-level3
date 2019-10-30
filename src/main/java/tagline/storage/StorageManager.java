@@ -12,9 +12,11 @@ import tagline.model.UserPrefs;
 import tagline.model.contact.ReadOnlyAddressBook;
 import tagline.model.group.ReadOnlyGroupBook;
 import tagline.model.note.ReadOnlyNoteBook;
+import tagline.model.tag.ReadOnlyTagBook;
 import tagline.storage.contact.AddressBookStorage;
 import tagline.storage.group.GroupBookStorage;
 import tagline.storage.note.NoteBookStorage;
+import tagline.storage.tag.TagBookStorage;
 
 /**
  * Manages storage of AddressBook data in local storage.
@@ -25,15 +27,17 @@ public class StorageManager implements Storage {
     private AddressBookStorage addressBookStorage;
     private NoteBookStorage noteBookStorage;
     private GroupBookStorage groupBookStorage;
+    private TagBookStorage tagBookStorage;
     private UserPrefsStorage userPrefsStorage;
 
-
     public StorageManager(AddressBookStorage addressBookStorage, NoteBookStorage noteBookStorage,
-                          GroupBookStorage groupBookStorage, UserPrefsStorage userPrefsStorage) {
+                          GroupBookStorage groupBookStorage, TagBookStorage tagBookStorage,
+                          UserPrefsStorage userPrefsStorage) {
         super();
         this.addressBookStorage = addressBookStorage;
         this.noteBookStorage = noteBookStorage;
         this.groupBookStorage = groupBookStorage;
+        this.tagBookStorage = tagBookStorage;
         this.userPrefsStorage = userPrefsStorage;
     }
 
@@ -139,5 +143,34 @@ public class StorageManager implements Storage {
     public void saveGroupBook(ReadOnlyGroupBook groupBook, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
         groupBookStorage.saveGroupBook(groupBook, filePath);
+    }
+
+    // ================ TagBook methods ==============================
+
+    @Override
+    public Path getTagBookFilePath() {
+        return tagBookStorage.getTagBookFilePath();
+    }
+
+    @Override
+    public Optional<ReadOnlyTagBook> readTagBook() throws DataConversionException, IOException {
+        return readTagBook(tagBookStorage.getTagBookFilePath());
+    }
+
+    @Override
+    public Optional<ReadOnlyTagBook> readTagBook(Path filePath) throws DataConversionException, IOException {
+        logger.fine("Attempting to read data from file: " + filePath);
+        return tagBookStorage.readTagBook(filePath);
+    }
+
+    @Override
+    public void saveTagBook(ReadOnlyTagBook tagBook) throws IOException {
+        saveTagBook(tagBook, tagBookStorage.getTagBookFilePath());
+    }
+
+    @Override
+    public void saveTagBook(ReadOnlyTagBook tagBook, Path filePath) throws IOException {
+        logger.fine("Attempting to write to data file: " + filePath);
+        tagBookStorage.saveTagBook(tagBook, filePath);
     }
 }

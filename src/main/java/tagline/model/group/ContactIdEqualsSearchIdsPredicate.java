@@ -23,7 +23,7 @@ public class ContactIdEqualsSearchIdsPredicate implements Predicate<Contact> {
     @Override
     public boolean test(Contact contact) {
         return keywords.stream()
-                .anyMatch(keyword -> keyword.equals(contact.getContactId().toInteger().toString()));
+                .anyMatch(keyword -> keyword.equals(contact.getContactId().value.toString()));
         //.anyMatch(keyword -> StringUtil.containsWordIgnoreCase(contact.getName().fullName, keyword));
     }
 

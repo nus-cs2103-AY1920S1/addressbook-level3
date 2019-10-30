@@ -43,7 +43,7 @@ public class EditContactCommandTest {
     @Test
     public void execute_allFieldsSpecified_success() {
         Contact originalContact = model.getAddressBook().getContactList().get(INDEX_FIRST.getZeroBased());
-        Contact editedContact = new ContactBuilder().withId(originalContact.getContactId().toInteger()).build();
+        Contact editedContact = new ContactBuilder().withId(originalContact.getContactId().value).build();
 
         EditContactDescriptor descriptor = new EditContactDescriptorBuilder(editedContact).build();
         EditContactCommand editContactCommand = new EditContactCommand(originalContact.getContactId(), descriptor);

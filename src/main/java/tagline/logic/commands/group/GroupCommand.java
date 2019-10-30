@@ -15,7 +15,6 @@ import tagline.logic.commands.Command;
 import tagline.logic.commands.exceptions.CommandException;
 import tagline.model.Model;
 import tagline.model.contact.Contact;
-import tagline.model.contact.ContactId;
 import tagline.model.group.ContactIdEqualsSearchIdsPredicate;
 import tagline.model.group.Group;
 import tagline.model.group.GroupDescription;
@@ -37,10 +36,9 @@ public abstract class GroupCommand extends Command {
      */
     private static boolean modelContainsContactId(Model model, String contactId) {
         return model.getFilteredContactListWithPredicate(PREDICATE_SHOW_ALL_CONTACTS).stream()
-           .map(Contact::getContactId)
-           .map(ContactId::toInteger)
-           .map(String::valueOf)
-           .anyMatch(contact -> contact.equalsIgnoreCase(contactId));
+            .map(Contact::getContactId)
+            .map(id -> id.value.toString())
+            .anyMatch(contact -> contact.equalsIgnoreCase(contactId));
     }
 
     /**
@@ -48,7 +46,7 @@ public abstract class GroupCommand extends Command {
      * from {@code Model}.
      */
     public static Set<MemberId> memberIdDoesntExistInContactModel(Model model, Collection<MemberId> members)
-            throws CommandException {
+        throws CommandException {
         return members.stream()
             .filter(member -> !modelContainsContactId(model, member.value))
             .collect(Collectors.toSet());
@@ -113,21 +111,21 @@ public abstract class GroupCommand extends Command {
     }
 
     /**
-      * Checks and returns a {@code Set<MemberId>} with the MemberId of {@code targetGroup}
-      * that can be found as {@code ContactId} in {@code Model}.
-      */
+     * Checks and returns a {@code Set<MemberId>} with the MemberId of {@code targetGroup}
+     * that can be found as {@code ContactId} in {@code Model}.
+     */
     private static Set<MemberId> verifyMemberIdWithModel(Model model, Group targetGroup) {
         List<Contact> filteredContactList = model.getFilteredContactListWithPredicate(
-                memberIdsToContactIdPredicate(targetGroup.getMemberIds()));
+            memberIdsToContactIdPredicate(targetGroup.getMemberIds()));
 
         // this bit to ensure groupmembers are as updated in case of storage error
         // done by getting all the MemberIds in the group, AddressBook
         // for those contacts, then make them into MemberIds
         Set<MemberId> updatedGroupMemberIds = filteredContactList
-                .stream()
-                .map(contact -> contact.getContactId().toInteger().toString())
-                .map(member -> new MemberId(member))
-                .collect(Collectors.toSet());
+            .stream()
+            .map(contact -> contact.getContactId().value.toString())
+            .map(member -> new MemberId(member))
+            .collect(Collectors.toSet());
 
         return updatedGroupMemberIds;
     }
@@ -144,7 +142,7 @@ public abstract class GroupCommand extends Command {
 
         // this Group should only have contactId of contacts found in ContactList after calling setGroup
         Group verifiedGroup = new Group(editedGroupName, editedGroupDescription,
-                verifiedGroupMemberIds);
+            verifiedGroupMemberIds);
         return verifiedGroup;
     }
 
@@ -164,9 +162,9 @@ public abstract class GroupCommand extends Command {
     public static void syncGroupBook(Model model) {
         // makes a copy to prevent mutating Model state while iterating through Model(Group) state
         List<Group> allGroups = model.getFilteredGroupListWithPredicate(PREDICATE_SHOW_ALL_GROUPS)
-                .stream().collect(Collectors.toList());
+            .stream().collect(Collectors.toList());
         allGroups.stream()
-                .forEach(group -> verifyGroupWithModelAndSet(model, group));
+            .forEach(group -> verifyGroupWithModelAndSet(model, group));
     }
 
     /**
@@ -175,9 +173,9 @@ public abstract class GroupCommand extends Command {
      */
     public static ContactIdEqualsSearchIdsPredicate memberIdsToContactIdPredicate(Collection<MemberId> members) {
         List<String> membersString = members
-                .stream()
-                .map(member -> member.value)
-                .collect(Collectors.toList());
+            .stream()
+            .map(member -> member.value)
+            .collect(Collectors.toList());
 
         // to display all contacts which are Group members
         return new ContactIdEqualsSearchIdsPredicate(membersString);

@@ -17,6 +17,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     private Path addressBookFilePath = Paths.get("data" , "addressbook.json");
     private Path noteBookFilePath = Paths.get("data", "notebook.json");
     private Path groupBookFilePath = Paths.get("data", "groupbook.json");
+    private Path tagBookFilePath = Paths.get("data", "tagbook.json");
 
     /**
      * Creates a {@code UserPrefs} with default values.
@@ -40,6 +41,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         setAddressBookFilePath(newUserPrefs.getAddressBookFilePath());
         setNoteBookFilePath(newUserPrefs.getNoteBookFilePath());
         setGroupBookFilePath(newUserPrefs.getGroupBookFilePath());
+        setTagBookFilePath(newUserPrefs.getTagBookFilePath());
     }
 
     public GuiSettings getGuiSettings() {
@@ -78,6 +80,15 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         this.groupBookFilePath = groupBookFilePath;
     }
 
+    public Path getTagBookFilePath() {
+        return tagBookFilePath;
+    }
+
+    public void setTagBookFilePath(Path tagBookFilePath) {
+        requireNonNull(tagBookFilePath);
+        this.tagBookFilePath = tagBookFilePath;
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -92,12 +103,14 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         return guiSettings.equals(o.guiSettings)
                 && addressBookFilePath.equals(o.addressBookFilePath)
                 && noteBookFilePath.equals(o.noteBookFilePath)
-                && groupBookFilePath.equals(o.groupBookFilePath);
+                && groupBookFilePath.equals(o.groupBookFilePath)
+                && tagBookFilePath.equals(o.tagBookFilePath);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(guiSettings, addressBookFilePath, noteBookFilePath, groupBookFilePath);
+        return Objects.hash(guiSettings, addressBookFilePath,
+            noteBookFilePath, groupBookFilePath, tagBookFilePath);
     }
 
     @Override
@@ -107,6 +120,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         sb.append("\nLocal data addressbook file location : " + addressBookFilePath);
         sb.append("\nLocal data notebook file location : " + noteBookFilePath);
         sb.append("\nLocal data groupbook file location : " + groupBookFilePath);
+        sb.append("\nLocal data tagbook file location : " + tagBookFilePath);
         return sb.toString();
     }
 

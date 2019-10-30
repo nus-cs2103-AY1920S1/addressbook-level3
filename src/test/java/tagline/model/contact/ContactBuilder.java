@@ -83,7 +83,7 @@ public class ContactBuilder {
     /**
      * Sets the {@code ContactId} of the {@code Contact} that we are building.
      */
-    public ContactBuilder withId(int id) {
+    public ContactBuilder withId(long id) {
         this.contactId = new ContactId(id);
         return this;
     }

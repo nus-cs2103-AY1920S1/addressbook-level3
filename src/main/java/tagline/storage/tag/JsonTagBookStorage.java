@@ -13,14 +13,13 @@ import tagline.commons.exceptions.IllegalValueException;
 import tagline.commons.util.FileUtil;
 import tagline.commons.util.JsonUtil;
 import tagline.model.tag.ReadOnlyTagBook;
-import tagline.storage.note.JsonNoteBookStorage;
 
 /**
  * A class to access UniqueTagBook data stored as a json file on the hard disk.
  */
 public class JsonTagBookStorage implements TagBookStorage {
 
-    private static final Logger logger = LogsCenter.getLogger(JsonNoteBookStorage.class);
+    private static final Logger logger = LogsCenter.getLogger(JsonTagBookStorage.class);
 
     private Path filePath;
 
@@ -48,7 +47,7 @@ public class JsonTagBookStorage implements TagBookStorage {
 
         Optional<JsonSerializableTagBook> jsonTagBook = JsonUtil.readJsonFile(
             filePath, JsonSerializableTagBook.class);
-        if (!jsonTagBook.isPresent()) {
+        if (jsonTagBook.isEmpty()) {
             return Optional.empty();
         }
 

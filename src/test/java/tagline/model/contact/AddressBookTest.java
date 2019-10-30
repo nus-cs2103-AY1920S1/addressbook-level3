@@ -91,7 +91,7 @@ public class AddressBookTest {
     @Test
     public void addContact_contactWithDuplicateId_throwsAssertionError() {
         addressBook.addContact(ALICE);
-        Contact contact = (new ContactBuilder()).withId(ALICE.getContactId().toInteger()).build();
+        Contact contact = (new ContactBuilder()).withId(ALICE.getContactId().value).build();
 
         assertThrows(AssertionError.class, () -> addressBook.addContact(contact));
     }
@@ -99,7 +99,7 @@ public class AddressBookTest {
     @Test
     public void editContact_editContactId_throwsAssertionError() {
         addressBook.addContact(ALICE);
-        Contact newAlice = (new ContactBuilder(ALICE)).withId(ALICE.getContactId().toInteger() + 1).build();
+        Contact newAlice = (new ContactBuilder(ALICE)).withId(ALICE.getContactId().value + 1).build();
         assertThrows(AssertionError.class, () -> addressBook.setContact(ALICE, newAlice));
     }
 

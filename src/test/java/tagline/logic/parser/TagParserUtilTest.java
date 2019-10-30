@@ -32,14 +32,14 @@ public class TagParserUtilTest {
     @Test
     public void parseTag_validValueWithoutWhitespace_returnsTag() throws Exception {
         Tag expectedTag = new ContactTag(new ContactId(VALID_TAG_1.substring(1)));
-        assertTrue(expectedTag.isSameContent(TagParserUtil.parseTag(VALID_TAG_1)));
+        assertTrue(expectedTag.equals(TagParserUtil.parseTag(VALID_TAG_1)));
     }
 
     @Test
     public void parseTag_validValueWithWhitespace_returnsTrimmedTag() throws Exception {
         String tagWithWhitespace = WHITESPACE + VALID_TAG_1 + WHITESPACE;
         Tag expectedTag = new ContactTag(new ContactId(VALID_TAG_1.substring(1)));
-        assertTrue(expectedTag.isSameContent(TagParserUtil.parseTag(tagWithWhitespace)));
+        assertTrue(expectedTag.equals(TagParserUtil.parseTag(tagWithWhitespace)));
     }
 
     @Test

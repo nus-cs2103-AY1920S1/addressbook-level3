@@ -8,6 +8,7 @@ import static tagline.testutil.TypicalNotes.ULTRON;
 
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.junit.jupiter.api.Test;
 
@@ -18,7 +19,9 @@ import tagline.model.note.NoteIdCounter;
 import tagline.model.note.TimeCreated;
 import tagline.model.note.TimeLastEdited;
 import tagline.model.note.Title;
+import tagline.model.tag.ContactTag;
 import tagline.storage.note.JsonAdaptedNote;
+import tagline.storage.tag.JsonAdaptedContactTag;
 import tagline.storage.tag.JsonAdaptedTag;
 
 public class JsonAdaptedNoteTest {
@@ -39,8 +42,14 @@ public class JsonAdaptedNoteTest {
     private static final String VALID_TIMELASTUPDATED = ULTRON.getTimeLastEdited().getTime().getStorageString();
     private static final String VALID_NOTEIDCOUNT = "78";
     private static final List<JsonAdaptedTag> VALID_TAGS = ULTRON.getTags().stream()
-            .map(JsonAdaptedTag::new)
-            .collect(Collectors.toList());
+        .flatMap(tag -> {
+            if (tag instanceof ContactTag) {
+                return Stream.of(new JsonAdaptedContactTag((ContactTag) tag));
+            } else {
+                return Stream.empty();
+            }
+        })
+        .collect(Collectors.toList());
 
     @Test
     public void toModelType_validNoteDetails_returnsNote() throws Exception {
@@ -66,8 +75,8 @@ public class JsonAdaptedNoteTest {
     public void toModelType_invalidNoteId_throwsIllegalValueException() {
 
         JsonAdaptedNote note =
-                new JsonAdaptedNote(INVALID_NOTEID, VALID_TITLE, VALID_CONTENT, VALID_TIMECREATED,
-                        VALID_TIMELASTUPDATED, VALID_NOTEIDCOUNT, VALID_TAGS);
+            new JsonAdaptedNote(INVALID_NOTEID, VALID_TITLE, VALID_CONTENT, VALID_TIMECREATED,
+                VALID_TIMELASTUPDATED, VALID_NOTEIDCOUNT, VALID_TAGS);
         String expectedMessage = NoteId.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, note::toModelType);
 
@@ -77,8 +86,8 @@ public class JsonAdaptedNoteTest {
     public void toModelType_nullNoteId_throwsIllegalValueException() {
 
         JsonAdaptedNote note =
-                new JsonAdaptedNote(null, VALID_TITLE, VALID_CONTENT, VALID_TIMECREATED,
-                        VALID_TIMELASTUPDATED, VALID_NOTEIDCOUNT, VALID_TAGS);
+            new JsonAdaptedNote(null, VALID_TITLE, VALID_CONTENT, VALID_TIMECREATED,
+                VALID_TIMELASTUPDATED, VALID_NOTEIDCOUNT, VALID_TAGS);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, NoteId.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, note::toModelType);
 
@@ -93,8 +102,8 @@ public class JsonAdaptedNoteTest {
     public void toModelType_nullTitle_throwsIllegalValueException() {
 
         JsonAdaptedNote note =
-                new JsonAdaptedNote(VALID_NOTEID, null, VALID_CONTENT, VALID_TIMECREATED,
-                        VALID_TIMELASTUPDATED, VALID_NOTEIDCOUNT, VALID_TAGS);
+            new JsonAdaptedNote(VALID_NOTEID, null, VALID_CONTENT, VALID_TIMECREATED,
+                VALID_TIMELASTUPDATED, VALID_NOTEIDCOUNT, VALID_TAGS);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Title.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, note::toModelType);
 
@@ -109,8 +118,8 @@ public class JsonAdaptedNoteTest {
     public void toModelType_nullContent_throwsIllegalValueException() {
 
         JsonAdaptedNote note =
-                new JsonAdaptedNote(VALID_NOTEID, VALID_TITLE, null, VALID_TIMECREATED,
-                        VALID_TIMELASTUPDATED, VALID_NOTEIDCOUNT, VALID_TAGS);
+            new JsonAdaptedNote(VALID_NOTEID, VALID_TITLE, null, VALID_TIMECREATED,
+                VALID_TIMELASTUPDATED, VALID_NOTEIDCOUNT, VALID_TAGS);
 
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Content.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, note::toModelType);
@@ -127,8 +136,8 @@ public class JsonAdaptedNoteTest {
     public void toModelType_nullTimeCreated_throwsIllegalValueException() {
 
         JsonAdaptedNote note =
-                new JsonAdaptedNote(VALID_NOTEID, VALID_TITLE, VALID_CONTENT, null,
-                        VALID_TIMELASTUPDATED, VALID_NOTEIDCOUNT, VALID_TAGS);
+            new JsonAdaptedNote(VALID_NOTEID, VALID_TITLE, VALID_CONTENT, null,
+                VALID_TIMELASTUPDATED, VALID_NOTEIDCOUNT, VALID_TAGS);
         NoteIdCounter.setZero(); //simulates reset of counter after closing app
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, TimeCreated.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, note::toModelType);
@@ -144,8 +153,8 @@ public class JsonAdaptedNoteTest {
     public void toModelType_nullTimeLastUpdated_throwsIllegalValueException() {
 
         JsonAdaptedNote note =
-                new JsonAdaptedNote(VALID_NOTEID, VALID_TITLE, VALID_CONTENT, VALID_TIMECREATED,
-                        null, VALID_NOTEIDCOUNT, VALID_TAGS);
+            new JsonAdaptedNote(VALID_NOTEID, VALID_TITLE, VALID_CONTENT, VALID_TIMECREATED,
+                null, VALID_NOTEIDCOUNT, VALID_TAGS);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, TimeLastEdited.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, note::toModelType);
 
@@ -155,8 +164,8 @@ public class JsonAdaptedNoteTest {
     public void toModelType_invalidNoteIdCount_throwsIllegalValueException() {
 
         JsonAdaptedNote note =
-                new JsonAdaptedNote(VALID_NOTEID, VALID_TITLE, VALID_CONTENT, INVALID_TIMECREATED,
-                        VALID_TIMELASTUPDATED, INVALID_NOTEIDCOUNT, VALID_TAGS);
+            new JsonAdaptedNote(VALID_NOTEID, VALID_TITLE, VALID_CONTENT, INVALID_TIMECREATED,
+                VALID_TIMELASTUPDATED, INVALID_NOTEIDCOUNT, VALID_TAGS);
         String expectedMessage = NoteIdCounter.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, note::toModelType);
 
@@ -166,8 +175,8 @@ public class JsonAdaptedNoteTest {
     public void toModelType_nullNoteIdCount_throwsIllegalValueException() {
 
         JsonAdaptedNote note =
-                new JsonAdaptedNote(VALID_NOTEID, VALID_TITLE, VALID_CONTENT, VALID_TIMECREATED,
-                        VALID_TIMELASTUPDATED, null, VALID_TAGS);
+            new JsonAdaptedNote(VALID_NOTEID, VALID_TITLE, VALID_CONTENT, VALID_TIMECREATED,
+                VALID_TIMELASTUPDATED, null, VALID_TAGS);
 
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, NoteIdCounter.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, note::toModelType);
