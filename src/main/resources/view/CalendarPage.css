@@ -44,6 +44,10 @@
     -fx-background-color: transparent;
 }
 
+#separator {
+    -fx-padding: 0 20;
+}
+
 .week {
     -fx-alignment: center;
     -fx-text-alignment: center;

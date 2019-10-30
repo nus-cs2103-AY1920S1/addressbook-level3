@@ -1,5 +1,7 @@
 package seedu.address.calendar.model;
 
+import seedu.address.calendar.model.event.Event;
+
 import java.util.List;
 
 public class ReadOnlyCalendar {

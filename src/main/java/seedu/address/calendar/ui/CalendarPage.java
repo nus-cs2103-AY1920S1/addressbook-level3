@@ -4,12 +4,15 @@ import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import seedu.address.calendar.commands.Command;
+import seedu.address.calendar.logic.CalendarLogic;
 import seedu.address.calendar.model.Calendar;
-import seedu.address.calendar.model.Month;
-import seedu.address.calendar.model.MonthOfYear;
-import seedu.address.calendar.model.Year;
-import seedu.address.calendar.parser.CalendarParser;
+import seedu.address.calendar.model.date.ViewOnlyMonth;
+import seedu.address.calendar.model.ReadOnlyCalendar;
+import seedu.address.calendar.model.date.MonthOfYear;
+import seedu.address.calendar.model.date.Year;
+import seedu.address.calendar.storage.CalendarStorage;
+import seedu.address.calendar.storage.JsonCalendarStorage;
+import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.address.logic.AddressBookLogic;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -18,11 +21,19 @@ import seedu.address.ui.Page;
 import seedu.address.ui.PageType;
 import seedu.address.ui.UiPart;
 
+import java.io.IOException;
+import java.nio.file.NoSuchFileException;
+import java.nio.file.Paths;
+import java.util.Optional;
+
 public class CalendarPage extends UiPart<Scene> implements Page {
     private static final String FXML = "CalendarPage.fxml";
     private static final PageType pageType = PageType.CALENDAR;
+    private static final String FILE_OPS_ERROR_MESSAGE = "Unable to save calendar";
 
     private ResultDisplay resultDisplay;
+
+    private CalendarLogic calendarLogic;
 
     @FXML
     StackPane commandBoxPlaceholder;
@@ -35,11 +46,23 @@ public class CalendarPage extends UiPart<Scene> implements Page {
     @FXML
     VBox resultDisplayPlaceholder;
 
-    private Calendar calendar;
-
     public CalendarPage() {
         super(FXML);
-        calendar = new Calendar();
+        Calendar calendar = new Calendar();
+        CalendarStorage calendarStorage = new JsonCalendarStorage(Paths.get("data" , "calendar.json"));
+
+        try {
+            Optional<ReadOnlyCalendar> calendarOptional = calendarStorage.readCalendar();
+            calendar.updateCalendar(calendarOptional);
+        } catch (DataConversionException e) {
+            System.out.println("Data file not in the correct format. Will be starting with an empty Calendar");
+        } catch (NoSuchFileException e) {
+            System.err.println(e);
+        } catch (IOException e) {
+            System.out.println("Problem while reading from the file. Will be starting with an empty Calendar");
+        }
+        calendarLogic = new CalendarLogic(calendar, calendarStorage);
+
         fillInnerParts();
     }
 
@@ -55,16 +78,16 @@ public class CalendarPage extends UiPart<Scene> implements Page {
      * Sets up calendar page by laying out nodes.
      */
     private void fillInnerParts() {
-        Month currentMonth = calendar.getMonth();
-        MonthOfYear monthOfYear = currentMonth.getMonthOfYear();
+        ViewOnlyMonth currentViewOnlyMonth = calendarLogic.getVisibleMonth();
+        MonthOfYear monthOfYear = currentViewOnlyMonth.getMonthOfYear();
         MonthHeader monthHeader = new MonthHeader(monthOfYear);
         monthHeaderPlaceholder.getChildren().add(monthHeader.getRoot());
 
-        Year year = currentMonth.getYear();
+        Year year = currentViewOnlyMonth.getYear();
         YearHeader yearHeader = new YearHeader(year);
         yearHeaderPlaceholder.getChildren().add(yearHeader.getRoot());
 
-        MonthView monthView = new MonthView(currentMonth);
+        MonthView monthView = new MonthView(currentViewOnlyMonth);
         monthViewPlaceholder.getChildren().add(monthView.generateMonthGrid());
 
         resultDisplay = new ResultDisplay();
@@ -74,13 +97,13 @@ public class CalendarPage extends UiPart<Scene> implements Page {
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
     }
 
-    private void updateCalendarPage(Month updatedMonth) {
-        Year year = updatedMonth.getYear();
-        MonthOfYear monthOfYear = updatedMonth.getMonthOfYear();
+    private void updateCalendarPage(ViewOnlyMonth updatedViewOnlyMonth) {
+        Year year = updatedViewOnlyMonth.getYear();
+        MonthOfYear monthOfYear = updatedViewOnlyMonth.getMonthOfYear();
 
         updateYearHeader(year);
         updateMonthHeader(monthOfYear);
-        updateMonthView(updatedMonth);
+        updateMonthView(updatedViewOnlyMonth);
     }
 
     private void updateYearHeader(Year year) {
@@ -95,10 +118,14 @@ public class CalendarPage extends UiPart<Scene> implements Page {
         monthHeaderPlaceholder.getChildren().add(monthHeader.getRoot());
     }
 
-    private void updateMonthView(Month month) {
-        MonthView monthView = new MonthView(month);
+    private void updateMonthView(ViewOnlyMonth viewOnlyMonth) {
+        MonthView monthView = new MonthView(viewOnlyMonth);
         monthViewPlaceholder.getChildren().clear();
         monthViewPlaceholder.getChildren().add(monthView.generateMonthGrid());
+    }
+
+    private void handleExit() {
+        // todo: add exit handler
     }
 
     /**
@@ -108,20 +135,25 @@ public class CalendarPage extends UiPart<Scene> implements Page {
      */
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
-            Command command = (new CalendarParser()).parseCommand(commandText);
-            CommandResult commandResult = command.execute(calendar);
+            CommandResult commandResult = calendarLogic.executeCommand(commandText);
 
-            if (calendar.hasVisibleUpdates()) {
-                Month updatedMonth = calendar.getMonth();
-                updateCalendarPage(updatedMonth);
-                calendar.completeVisibleUpdates();
+            if (calendarLogic.hasVisibleUpdates()) {
+                ViewOnlyMonth updatedViewOnlyMonth = calendarLogic.getVisibleMonth();
+                updateCalendarPage(updatedViewOnlyMonth);
+                calendarLogic.completeVisibleUpdates();
+            }
+
+            if (commandResult.isExit()) {
+                handleExit();
             }
 
             resultDisplay.setDisplayText(commandResult.getFeedbackToUser());
             return commandResult;
-        } catch (ParseException e) {
+        } catch (ParseException | CommandException e) {
             resultDisplay.setDisplayText(e.getMessage());
             throw e;
+        } catch (IOException ioe) {
+            throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
     }
 }

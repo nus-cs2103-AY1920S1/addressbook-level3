@@ -42,6 +42,10 @@ public class DiaryBook {
         return entries.deleteDiaryEntry(x);
     }
 
+    public String getEntriesAsString() {
+        return entries.getEntriesAsString();
+    }
+
     //// util methods
 
     @Override

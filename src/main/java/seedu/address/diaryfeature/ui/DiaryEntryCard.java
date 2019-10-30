@@ -31,6 +31,10 @@ public class DiaryEntryCard extends UiPart<Region> {
     private Label date;
     @FXML
     private Label id;
+    @FXML
+    private Label place;
+    @FXML
+    private Label memory;
 
     //Image credited to: Icon made by Icongeek26 from Flaticon
 
@@ -40,6 +44,9 @@ public class DiaryEntryCard extends UiPart<Region> {
         id.setText("DIARY ENTRY NO:" + displayedIndex + ". ");
         title.setText("TITLE: " + entry.getTitle().toString());
         date.setText("DATE: " + entry.getDate().toString());
+        System.out.println(entry.getPlace());
+        place.setText("PLACE: " + entry.getPlace());
+        memory.setText("MEMORY: " + entry.getMemory());
     }
 
     @Override

@@ -1,16 +1,15 @@
 package seedu.address.calendar.parser;
 
 import seedu.address.calendar.commands.ShowCommand;
-import seedu.address.calendar.model.Month;
-import seedu.address.calendar.model.MonthOfYear;
-import seedu.address.calendar.model.Year;
+import seedu.address.calendar.model.date.MonthOfYear;
+import seedu.address.calendar.model.date.Year;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 import java.util.Optional;
 
-public class ShowParser {
+public class ShowCommandParser {
     private static final String MESSAGE_INVALID_COMMAND_FORMAT = "Incorrect month/year format. %s";
 
     ShowCommand parse(String args) throws ParseException {
