@@ -5,15 +5,8 @@
 if () then ([command is universal command])
     :Return universal command;
 else ([else])
-    if () then ([current context is customer])
-        :CustomerParser parses command;
-    else ([current context is editing])
-        split
-            :hi;
-        split again
-            :do;
-        end split
-    endif
+    :ContextParser parses command;
+    :Return context command;
 endif
 
 :Executes command;
