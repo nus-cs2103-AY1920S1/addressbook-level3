@@ -227,24 +227,6 @@ Examples:
 `*goto* 1` +
 Opens the first bookmark in the bookmark manager.
 
-//TODO: Not supported yet
-=== Opening a bookmark from a reminder: *`goto reminder`*
-
-Opens the related bookmark of the specified reminder from the bookmark manager.
-
-Format: `*goto reminder* INDEX`
-
-****
-* INDEX is the index of the reminder as viewed on the dashboard.
-* The index must be a positive integer `1`, `2`, `3`, …​
-****
-
-Examples:
-
-* `*goto reminder* 1` +
-If reminder 1 points to bookmark 5, this command is equivalent to
-`*goto* 5`. (i.e. opens the 5th bookmark in the bookmark manager.)
-
 === Adding a bookmark to Favorites: *`favorite|fav`*
 
 Adds a Favorite tag to the specified bookmark.
@@ -680,10 +662,10 @@ The reminder reminds you to read announcements.
 
 
 
-=== Editing a reminder: *`reminder edit`*
+=== Editing a reminder: *`reminder-edit`*
 Edits the reminder at the specified index. You can edit either the time or the note of the reminder.
 
-Format: `*reminder edit* INDEX [t/TIME_DATE] [n/NOTE]`
+Format: `*reminder-edit* INDEX [t/TIME_DATE] [n/NOTE]`
 
 ****
 * `INDEX` is the index of the reminder you want to edit on the dashboard.
@@ -692,25 +674,25 @@ Format: `*reminder edit* INDEX [t/TIME_DATE] [n/NOTE]`
 ****
 Examples:
 
-* `*reminder edit* 1 t/02/07/2019 2359` +
+* `*reminder-edit* 1 t/02/07/2019 2359` +
 Edits the reminder of index 1. Reset the time of the reminder to 23:59 of 02/07/2019.
 
-* `*reminder edit* 1 t/02/07/2019 2359 n/Check daily news` +
+* `*reminder-edit* 1 t/02/07/2019 2359 n/Check daily news` +
 Edits the reminder of index 1. Reset the time of the reminder to 23:59 of 02/07/2019.
 Reset the note to Check daily news.
 
-=== Deleting a reminder: *`reminder delete`*
+=== Deleting a reminder: *`reminder-delete`*
 
 Deletes the the reminder at the specified index.
 
-Format: `*reminder delete* INDEX`
+Format: `*reminder-delete* INDEX`
 
 ****
 * `INDEX` is the index of the reminder you want to delete on the dashboard.
 ****
 Examples:
 
-* `*reminder delete* 1` +
+* `*reminder-delete* 1` +
 Delete the reminder of index 1.
 
 === Expanding the folder hierarchy: *`expand`*
@@ -818,6 +800,23 @@ Automatically fills in partially typed commands if the command is unique.
 
 Shares your bookmarks and notes with your friends via Email or Telegram.
 
+=== Opening a bookmark from a reminder: *`goto reminder`* `[coming in v2.0]`
+
+Opens the related bookmark of the specified reminder from the bookmark manager.
+
+Format: `*goto reminder* INDEX`
+
+****
+* INDEX is the index of the reminder as viewed on the dashboard.
+* The index must be a positive integer `1`, `2`, `3`, …​
+****
+
+Examples:
+
+* `*goto reminder* 1` +
+If reminder 1 points to bookmark 5, this command is equivalent to
+`*goto* 5`. (i.e. opens the 5th bookmark in the bookmark manager.)
+
 == FAQ
 
 *How do I transfer my data to another Computer?*
@@ -912,10 +911,9 @@ displayed in the document).
 * *Annotate (delete)*: `*annotate-delete* INDEX [p/P_NUM] [n/KEEP_NOTES=false] [h/KEEP_HIGHLIGHT=false]`
 * *Annotate (edit)*: `*annotate-edit* INDEX p/P_NUM [to/NEW_P_NUM] [n/NOTES] [h/HIGHLIGHT_COLOUR]`
 * *Offline*: `*offline* INDEX [v/VERSION=current]`
-* *Reminder*: `*reminder* INDEX t/TIME_DATE [n/NOTE=Open]`
-* *Reminder*: `*reminder edit* INDEX [t/TIME_DATE] [n/NOTE]`
-* *Reminder*: `*reminder delete* INDEX`
-* *Sort*: `*sort* [CRITERION]`
+* *Reminder (add)*: `*reminder* INDEX t/TIME_DATE [n/NOTE=Open]`
+* *Reminder (edit)*: `*reminder-edit* INDEX [t/TIME_DATE] [n/NOTE]`
+* *Reminder (delete)*: `*reminder-delete* INDEX`
 * *Folder*: `*folder* FOLDER_NAME [p/PARENT_FOLDER=ROOT]`
 * *Expand*: `*expand* [LEVEL=1]`
 * *Collapse*: `*collapse* [LEVEL=1]`
