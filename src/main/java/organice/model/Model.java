@@ -142,6 +142,12 @@ public interface Model {
     ObservableList<Person> getMatchList();
 
     /**
+
+     * Returns the number of {@code MatchedDonors} that matches a specific {@code Patient}.
+     */
+    int numberOfMatches();
+
+    /**
      * Retrieves the sort list.
      */
     SortedList<Person> getSortList();
