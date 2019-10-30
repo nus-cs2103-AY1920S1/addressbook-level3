@@ -2,7 +2,6 @@ package seedu.elisa.model;
 
 import java.nio.file.Path;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.Comparator;
 
 import seedu.elisa.commons.core.GuiSettings;
@@ -12,6 +11,7 @@ import seedu.elisa.logic.commands.Command;
 import seedu.elisa.model.exceptions.IllegalListException;
 import seedu.elisa.model.item.ActiveRemindersList;
 import seedu.elisa.model.item.EventList;
+import seedu.elisa.model.item.FutureRemindersList;
 import seedu.elisa.model.item.VisualizeList;
 
 /**
@@ -105,8 +105,6 @@ public interface ItemModel {
 
     public void offPriorityMode();
 
-    public void forceOffPriorityMode();
-
     public Item markComplete(int index) throws IllegalListException;
 
     public Item markIncomplete(int index) throws IllegalListException;
@@ -118,7 +116,7 @@ public interface ItemModel {
     //Bryan Reminder
     ActiveRemindersList getActiveReminderListProperty();
 
-    ArrayList<Item> getFutureRemindersList();
+    FutureRemindersList getFutureRemindersList();
 
     void updateCommandHistory(Command command);
 
