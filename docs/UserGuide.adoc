@@ -126,10 +126,6 @@ Format: `addq q/QUESTION a/ANSWER s/SUBJECT d/DIFFICULTY`
 Shows a list of questions. +
 Format: `listq`
 
-==== Listing all questions with answers: `listq -all`
-
-Shows a list of questions and their corresponding answers. +
-Format: `listq -all`
 
 ==== Editing a question: `editq`
 
@@ -162,7 +158,7 @@ Format: `deleteq INDEX`
 ==== Find difficulty: `difficulty`
 
 Views the list of all questions with a specific difficulty. +
-Format: `difficulty d/DIFFICULTY`
+Format: `difficulty DIFFICULTY`
 
 ==== Find difficulty within a subject: `difficulty -s`
 
