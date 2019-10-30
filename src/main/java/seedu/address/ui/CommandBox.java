@@ -1,5 +1,8 @@
 package seedu.address.ui;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.layout.Region;
@@ -10,8 +13,6 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.ui.exception.EnumNotPresentException;
 
-import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * The UI component that is responsible for receiving user command inputs.
@@ -35,6 +36,9 @@ public class CommandBox extends UiPart<Region> {
         addListener();
     }
 
+    /**
+     * Adds a listener to extract the input text on change for autocomplete.
+     */
     private void addListener() {
         commandTextField.textProperty().addListener((observable, oldValue, newValue) -> {
             // calls #setStyleToDefault() whenever there is a change to the text of the command box.

@@ -1,5 +1,12 @@
 package seedu.address.ui;
 
+import static seedu.address.ui.CommandBox.ERROR_STYLE_CLASS;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.SortedSet;
+import java.util.TreeSet;
+
 import javafx.event.Event;
 import javafx.event.EventType;
 import javafx.geometry.Side;
@@ -12,13 +19,6 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.SortedSet;
-import java.util.TreeSet;
-
-import static seedu.address.ui.CommandBox.ERROR_STYLE_CLASS;
 
 //@@author uberSaiyan-reused
 //StackOverflow answer on writing an autocomplete text field from
@@ -104,12 +104,22 @@ public class AutoCompleteTextField extends TextField {
         this.getStyleClass().remove(ERROR_STYLE_CLASS);
     }
 
+    /**
+     * Compares {@code firstMatch} and {@code secondMatch} with {@code text} to determine which is more similar.
+     * @param firstMatch A string containing {@code text}.
+     * @param secondMatch A string containing {@code text}.
+     * @param text A string.
+     * @return 0 if equally similar, negative int if firstMatch more similar, positive int if secondMatch more similar.
+     */
     public int compareEntries(String firstMatch, String secondMatch, String text) {
         int firstIndex = firstMatch.indexOf(text);
         int secondIndex = secondMatch.indexOf(text);
         return firstIndex - secondIndex;
     }
 
+    /**
+     * Hides and shows the dropdown.
+     */
     public void refreshDropdown() {
         entriesPopup.hide();
         entriesPopup.show(AutoCompleteTextField.this, Side.BOTTOM, 0, 0);

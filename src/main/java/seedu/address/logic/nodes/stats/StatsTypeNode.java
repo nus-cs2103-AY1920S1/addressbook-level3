@@ -1,12 +1,15 @@
 package seedu.address.logic.nodes.stats;
 
-import seedu.address.logic.commands.statisticcommand.StatisticType;
-import seedu.address.logic.Node;
-
 import java.util.List;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
+import seedu.address.logic.Node;
+import seedu.address.logic.commands.statisticcommand.StatisticType;
+
+/**
+ * Represents a {@code Node} tracking {@code StatisticType} objects for autocompletion.
+ */
 public class StatsTypeNode extends Node<StatisticType> {
 
     public StatsTypeNode(List<StatisticType> backingList) {
