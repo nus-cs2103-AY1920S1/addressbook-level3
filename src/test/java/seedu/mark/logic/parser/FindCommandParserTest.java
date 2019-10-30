@@ -12,7 +12,6 @@ import java.util.Collections;
 import org.junit.jupiter.api.Test;
 
 import seedu.mark.logic.commands.FindCommand;
-import seedu.mark.logic.parser.exceptions.ParseException;
 import seedu.mark.model.predicates.BookmarkContainsKeywordsPredicate;
 
 public class FindCommandParserTest {
@@ -37,7 +36,7 @@ public class FindCommandParserTest {
     }
 
     @Test
-    public void parse_validTagKeywords_returnsFindCommand() throws ParseException {
+    public void parse_validTagKeywords_returnsFindCommand() {
         BookmarkContainsKeywordsPredicate predicate = new BookmarkContainsKeywordsPredicate(Collections.emptyList(),
                 Arrays.asList("coding", "algorithm"), Collections.emptyList());
 
