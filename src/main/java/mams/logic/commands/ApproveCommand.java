@@ -63,7 +63,6 @@ public class ApproveCommand extends Approve {
             Module editedModule;
             String feedback = "";
             String target = "";
-            String change = "";
             String moduleCode;
 
             List<Student> lastShownStudentList = model.getFilteredStudentList();
