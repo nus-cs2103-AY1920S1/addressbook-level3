@@ -88,6 +88,14 @@ public class FinanceLog implements ReadOnlyFinanceLog {
         logEntries.remove(key);
     }
 
+    /**
+     * Set a log entry as repaid
+     * @param logEntry should be of type either borrow or lend
+     */
+    public void markLogEntryAsRepaid(LogEntry logEntry) {
+        logEntries.markAsRepaid(logEntry);
+    }
+
     //// util methods
 
     @Override

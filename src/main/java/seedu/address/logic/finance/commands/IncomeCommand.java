@@ -20,7 +20,7 @@ public class IncomeCommand extends Command {
 
     public static final String COMMAND_WORD = "income";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an entry of income to the finance log. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an entry of income to the finance log. \n"
             + "Parameters: "
             + PREFIX_AMOUNT + "AMOUNT "
             + PREFIX_DAY + "TRANSACTION_DATE "

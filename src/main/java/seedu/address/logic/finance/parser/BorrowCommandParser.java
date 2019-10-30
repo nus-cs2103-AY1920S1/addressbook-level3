@@ -4,7 +4,6 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.address.logic.finance.parser.FinanceCliSyntax.PREFIX_AMOUNT;
 import static seedu.address.logic.finance.parser.FinanceCliSyntax.PREFIX_CATEGORY;
 import static seedu.address.logic.finance.parser.FinanceCliSyntax.PREFIX_DAY;
-import static seedu.address.logic.finance.parser.FinanceCliSyntax.PREFIX_DEADLINE;
 import static seedu.address.logic.finance.parser.FinanceCliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.finance.parser.FinanceCliSyntax.PREFIX_FROM;
 import static seedu.address.logic.finance.parser.FinanceCliSyntax.PREFIX_TRANSACTION_METHOD;
@@ -16,7 +15,6 @@ import seedu.address.logic.finance.commands.BorrowCommand;
 import seedu.address.logic.finance.parser.exceptions.ParseException;
 import seedu.address.model.finance.attributes.Amount;
 import seedu.address.model.finance.attributes.Category;
-import seedu.address.model.finance.attributes.Deadline;
 import seedu.address.model.finance.attributes.Description;
 import seedu.address.model.finance.attributes.Person;
 import seedu.address.model.finance.attributes.TransactionDate;
@@ -36,11 +34,11 @@ public class BorrowCommandParser implements Parser<BorrowCommand> {
     public BorrowCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_AMOUNT, PREFIX_DAY, PREFIX_DESCRIPTION,
-                        PREFIX_TRANSACTION_METHOD, PREFIX_CATEGORY, PREFIX_FROM, PREFIX_DEADLINE);
+                        PREFIX_TRANSACTION_METHOD, PREFIX_CATEGORY, PREFIX_FROM);
 
         // If compulsory fields are empty
         if (!arePrefixesPresent(argMultimap, PREFIX_AMOUNT, PREFIX_DAY, PREFIX_DESCRIPTION,
-                PREFIX_TRANSACTION_METHOD, PREFIX_FROM, PREFIX_DEADLINE)
+                PREFIX_TRANSACTION_METHOD, PREFIX_FROM)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, BorrowCommand.MESSAGE_USAGE));
         }
@@ -52,10 +50,9 @@ public class BorrowCommandParser implements Parser<BorrowCommand> {
                 argMultimap.getValue(PREFIX_TRANSACTION_METHOD).get());
         Set<Category> categoryList = ParserUtil.parseCategories(argMultimap.getAllValues(PREFIX_CATEGORY));
         Person from = ParserUtil.parsePerson(argMultimap.getValue(PREFIX_FROM).get());
-        Deadline deadline = ParserUtil.parseDeadline(argMultimap.getValue(PREFIX_DEADLINE).get());
 
         BorrowLogEntry logEntry = new BorrowLogEntry(amount, tDate, description, tMethod,
-                categoryList, from, deadline);
+                categoryList, from);
 
         return new BorrowCommand(logEntry);
     }

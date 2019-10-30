@@ -39,7 +39,7 @@ The following class plays an important role at the architecture level:
 
 * `LogsCenter` : Used by many classes to write log messages to the App's log file.
 
-The rest of the App consists of four components.
+The rest of the App covers the four features in _Modulo_ (Calendar, Cap, Quiz, Finance). All the features have the very similar structure, each consisting of four components.
 
 * <<Design-Ui,*`UI`*>>: The UI of the App.
 * <<Design-Logic,*`Logic`*>>: The command executor.
@@ -53,13 +53,13 @@ Each of the four components
 
 For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
 
-.Class Diagram of the Logic Component
+.Class Diagram of the Logic Component for the feature Cap
 image::LogicClassDiagram.png[]
 
 [discrete]
 ==== How the architecture components interact with each other
 
-The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
+The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1` when in the feature _Module_.
 
 .Component interactions for `delete 1` command
 image::ArchitectureSequenceDiagram.png[]
@@ -72,9 +72,9 @@ The sections below give more details of each component.
 .Structure of the UI Component
 image::UiClassDiagram.png[]
 
-*API* : link:https://github.com/AY1920S1-CS2103-T16-2/main/blob/master/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
+*API* : link:https://github.com/AY1920S1-CS2103-T16-2/main/blob/master/src/main/java/seedu/address/ui/calendar/Ui.java[`Ui.java` (calendar)], link:https://github.com/AY1920S1-CS2103-T16-2/main/blob/master/src/main/java/seedu/address/ui/cap/Ui.java[`Ui.java` (cap)], link:https://github.com/AY1920S1-CS2103-T16-2/main/blob/master/src/main/java/seedu/address/ui/quiz/Ui.java[`Ui.java` (quiz)], link:https://github.com/AY1920S1-CS2103-T16-2/main/blob/master/src/main/java/seedu/address/ui/finance/Ui.java[`Ui.java` (finance)]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `XYZListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class. Each feature in _Modulo_ (represented generically in the class diagram with `XYZ`) has their own UI component, largely with the same structure but mainly differing in classes `XYZPanel` and `XYZCard` to better present the information associated with the feature.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:https://github.com/AY1920S1-CS2103-T16-2/main/blob/master/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:https://github.com/AY1920S1-CS2103-T16-2/main/blob/master/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
@@ -87,21 +87,26 @@ The `UI` component,
 === Logic component
 
 [[fig-LogicClassDiagram]]
-.Structure of the Logic Component
+.Structure of the Logic Component for the feature _Cap_
 image::LogicClassDiagram.png[]
 
 *API* :
-link:https://github.com/AY1920S1-CS2103-T16-2/main/blob/master/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
+link:https://github.com/AY1920S1-CS2103-T16-2/main/blob/master/src/main/java/seedu/address/logic/calendar/Logic.java[`Logic.java` (calendar)],
+link:https://github.com/AY1920S1-CS2103-T16-2/main/blob/master/src/main/java/seedu/address/logic/cap/Logic.java[`Logic.java` (cap)],
+link:https://github.com/AY1920S1-CS2103-T16-2/main/blob/master/src/main/java/seedu/address/logic/quiz/Logic.java[`Logic.java` (quiz)],
+link:https://github.com/AY1920S1-CS2103-T16-2/main/blob/master/src/main/java/seedu/address/logic/finance/Logic.java[`Logic.java` (finance)]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
+The example below is in the context of the feature _Cap_ but all four  features in _Modulo_ have the same structure for their Logic components.
+
+.  `Logic` uses the `CapLogParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
 .  The command execution can affect the `Model` (e.g. adding a person).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call, in the context of another feature of the APP, _Calendar_.
 
-.Interactions Inside the Logic Component for the `sort title` Command
+.Interactions Inside the Logic Component for the `sort title` Command for the feature Calendar
 image::CalendarSequenceDiagram.png[]
 
 NOTE: The lifeline for `SortCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
@@ -112,48 +117,43 @@ NOTE: The lifeline for `SortCommandParser` should end at the destroy marker (X) 
 .Structure of the Cap Model Component
 image::CapModelClassDiagram.png[]
 
-*API* : link:https://github.com/AY1920S1-CS2103-T16-2/main/blob/master/src/main/java/seedu/address/model/Model.java[`Model.java`]
+.Structure of the Model Component for the feature Finance
+image::FinanceModelClassDiagram.png[]
+
+*API* : link:https://github.com/AY1920S1-CS2103-T16-2/main/blob/master/src/main/java/seedu/address/model/calendar/CalendarModel.java[`CalendarModel.java` (calendar)], link:https://github.com/AY1920S1-CS2103-T16-2/main/blob/master/src/main/java/seedu/address/model/cap/Model.java[`Model.java` (cap)],
+link:https://github.com/AY1920S1-CS2103-T16-2/main/blob/master/src/main/java/seedu/address/model/quiz/Model.java[`Model.java` (quiz)], link:https://github.com/AY1920S1-CS2103-T16-2/main/blob/master/src/main/java/seedu/address/model/finance/Model.java[`Model.java` (finance)]
+
+Due to the different nature and behaviour of each feature in _Modulo_ dealing with different kinds of information (e.g. tasks, modules, quiz questions, finance logs etc), `Model` components between the feature can look very different. However, they do share some similar structures as mentioned below.
 
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores the data for the feature (e.g. Calendar Data, Cap Module Log, Quiz book, Finance Log).
+* exposes an unmodifiable `ObservableList<{Object used in Feature}>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
-
-[NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
- +
-image:BetterModelClassDiagram.png[]
 
 [[Design-Storage]]
 === Storage component
 
-.Structure of the Storage Component
-image::StorageClassDiagram.png[]
+.Structure of the Storage Component for the feature _Finance_
+image::FinanceStorageClassDiagram.png[]
 
-*API* : link:https://github.com/AY1920S1-CS2103-T16-2/main/blob/master/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
+*API* : link:https://github.com/AY1920S1-CS2103-T16-2/main/blob/master/src/main/java/seedu/address/storage/calendar/Storage.java[`Storage.java` (calendar)], https://github.com/AY1920S1-CS2103-T16-2/main/blob/master/src/main/java/seedu/address/storage/cap/Storage.java[`Storage.java` (cap)], https://github.com/AY1920S1-CS2103-T16-2/main/blob/master/src/main/java/seedu/address/storage/quiz/Storage.java[`Storage.java` (quiz)], https://github.com/AY1920S1-CS2103-T16-2/main/blob/master/src/main/java/seedu/address/storage/finance/Storage.java[`Storage.java` (finance)]
 
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in json format and read it back.
+* can save the data used in each feature in json format and read it back.
 
 [[Design-Commons]]
 === Common classes
 
 Classes used by multiple components are in the `seedu.addressbook.commons` package.
 
+[[Implementation-Configuration]]
 == Implementation
 
 This section describes some noteworthy details on how certain features are implemented.
-
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
-
-_{Explain here how the data encryption feature will be implemented}_
-
-// end::dataencryption[]
 
 === Logging
 
@@ -170,7 +170,6 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 * `INFO` : Information showing the noteworthy actions by the App
 * `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
 
-[[Implementation-Configuration]]
 === Configuration
 
 Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
@@ -463,12 +462,12 @@ Given below are instructions to test the app manually.
 .. Download the jar file and copy into an empty folder
 .. Double-click the jar file +
    Expected: Shows the GUI with an initial setup page.
-.. User types in `bye` +
+.. User types in `exit` +
    Expected: Closes the app and GUI
 
 . Subsequent launches
 .. Double-click the jar file +
    Expected: Shows the GUI with the timetable displayed.
-.. User types in `bye` +
+.. User types in `exit` +
    Expected: Closes the app and GUI
 

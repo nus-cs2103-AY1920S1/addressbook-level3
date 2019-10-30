@@ -54,6 +54,14 @@ public class Amount {
         return strAmount;
     }
 
+    /**
+     * Returns if amount is bigger, smaller or equal to another amount
+     */
+    public int compareTo(Amount other) {
+        double difference = amount - other.amount;
+        return difference > 1 ? 1 : (difference < 0 ? -1 : 0);
+    }
+
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object

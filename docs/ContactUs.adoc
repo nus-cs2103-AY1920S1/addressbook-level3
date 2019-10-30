@@ -7,7 +7,7 @@
 * *Creative ideas* : We also welcome creative ideas to improve our product. Please email your creative ideas to us.
 * *Email us* : You can also reach us at `tuandingwei@u.nus.edu`.
 
-=== Team Developers: +
+== Team Developers: +
 Tuan Ding Wei: tuandingwei@u.nus.edu +
 Joanna: e0313546@u.nus.edu +
 Victor: e0313575@u.nus.edu +

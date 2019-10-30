@@ -11,7 +11,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.finance.attributes.Amount;
 import seedu.address.model.finance.attributes.Category;
-import seedu.address.model.finance.attributes.Deadline;
 import seedu.address.model.finance.attributes.Description;
 import seedu.address.model.finance.attributes.Person;
 import seedu.address.model.finance.attributes.TransactionDate;
@@ -26,8 +25,8 @@ class JsonAdaptedBorrowLogEntry extends JsonAdaptedLogEntry {
 
     private final String logEntryType;
     private final String from;
-    private final String deadline;
     private final String isRepaid;
+    private final String repaidDate;
 
     /**
      * Constructs a {@code JsonAdaptedBorrowLogEntry} with the given log entry details.
@@ -40,13 +39,13 @@ class JsonAdaptedBorrowLogEntry extends JsonAdaptedLogEntry {
                                      @JsonProperty("categories") List<JsonAdaptedCategory> categories,
                                      @JsonProperty("logEntryType") String logEntryType,
                                      @JsonProperty("from") String from,
-                                     @JsonProperty("deadline") String deadline,
-                                     @JsonProperty("isRepaid") String isRepaid) {
+                                     @JsonProperty("isRepaid") String isRepaid,
+                                     @JsonProperty("repaidDate") String repaidDate) {
         super(amount, tDate, desc, tMethod, categories);
         this.logEntryType = logEntryType;
         this.from = from;
-        this.deadline = deadline;
         this.isRepaid = isRepaid;
+        this.repaidDate = repaidDate;
     }
 
     /**
@@ -56,8 +55,8 @@ class JsonAdaptedBorrowLogEntry extends JsonAdaptedLogEntry {
         super(source);
         logEntryType = source.getLogEntryType();
         from = source.getFrom().name;
-        deadline = source.getDeadline().value;
         isRepaid = Boolean.toString(source.isRepaid());
+        repaidDate = source.getRepaidDate().value;
     }
 
     /**
@@ -119,25 +118,17 @@ class JsonAdaptedBorrowLogEntry extends JsonAdaptedLogEntry {
         }
         final Person modelPerson = new Person(from);
 
-        if (deadline == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                    Deadline.class.getSimpleName()));
-        }
-        if (!Deadline.isValidDeadline(deadline)) {
-            throw new IllegalValueException(Deadline.MESSAGE_CONSTRAINTS);
-        }
-        final Deadline modelDeadline = new Deadline(deadline);
-
         BorrowLogEntry newLogEntry = new BorrowLogEntry(modelAmount, modelTransactionDate,
-                modelDescription, modelTransactionMethod, modelLogEntryCategories, modelPerson,
-                modelDeadline);
+                modelDescription, modelTransactionMethod, modelLogEntryCategories, modelPerson);
 
         if (!isRepaid.equals("true") && !isRepaid.equals("false")) {
             throw new IllegalValueException("Field 'isValid' is in wrong format, should either be true or false!");
         }
         if (isRepaid.equals("true")) {
-            newLogEntry.setAsRepaid();
+            newLogEntry.markAsRepaid();
+            newLogEntry.setRepaidDate(repaidDate, tDate);
         }
+
         return newLogEntry;
     }
 

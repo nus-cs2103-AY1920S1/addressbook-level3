@@ -5,7 +5,9 @@ import static seedu.address.logic.finance.parser.FinanceCliSyntax.PREFIX_AMOUNT;
 import static seedu.address.logic.finance.parser.FinanceCliSyntax.PREFIX_CATEGORY;
 import static seedu.address.logic.finance.parser.FinanceCliSyntax.PREFIX_DAY;
 import static seedu.address.logic.finance.parser.FinanceCliSyntax.PREFIX_DESCRIPTION;
+import static seedu.address.logic.finance.parser.FinanceCliSyntax.PREFIX_FROM;
 import static seedu.address.logic.finance.parser.FinanceCliSyntax.PREFIX_PLACE;
+import static seedu.address.logic.finance.parser.FinanceCliSyntax.PREFIX_TO;
 import static seedu.address.logic.finance.parser.FinanceCliSyntax.PREFIX_TRANSACTION_METHOD;
 import static seedu.address.model.finance.Model.PREDICATE_SHOW_ALL_LOG_ENTRIES;
 
@@ -23,9 +25,14 @@ import seedu.address.model.finance.Model;
 import seedu.address.model.finance.attributes.Amount;
 import seedu.address.model.finance.attributes.Category;
 import seedu.address.model.finance.attributes.Description;
+import seedu.address.model.finance.attributes.Person;
 import seedu.address.model.finance.attributes.Place;
+import seedu.address.model.finance.attributes.RepaidDate;
 import seedu.address.model.finance.attributes.TransactionDate;
 import seedu.address.model.finance.attributes.TransactionMethod;
+import seedu.address.model.finance.logentry.BorrowLogEntry;
+import seedu.address.model.finance.logentry.IncomeLogEntry;
+import seedu.address.model.finance.logentry.LendLogEntry;
 import seedu.address.model.finance.logentry.LogEntry;
 import seedu.address.model.finance.logentry.SpendLogEntry;
 
@@ -37,7 +44,7 @@ public class EditCommand extends Command {
     public static final String COMMAND_WORD = "edit";
 
     public static final String MESSAGE_EDIT_LOG_ENTRY_SUCCESS = "Edited log entry: %1$s";
-    public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
+    public static final String MESSAGE_NOT_EDITED = "At least one relevant field to edit must be provided.";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the log entry identified "
             + "by the index number used in the displayed list of log entries. "
             + "Existing values will be overwritten by the input values.\n"
@@ -46,8 +53,10 @@ public class EditCommand extends Command {
             + "[" + PREFIX_DAY + "DAY] "
             + "[" + PREFIX_DESCRIPTION + "DESCRIPTION] "
             + "[" + PREFIX_TRANSACTION_METHOD + "TRANSACTION_METHOD] "
-            + "[" + PREFIX_CATEGORY + "CATEGORY]..."
-            + "[" + PREFIX_PLACE + "PLACE]\n"
+            + "[" + PREFIX_CATEGORY + "CATEGORY]... "
+            + "[" + PREFIX_PLACE + "PLACE] (only for Spend) "
+            + "[" + PREFIX_FROM + "SOURCE/PERSON_BORROWED_FROM] (only for Income, Borrow) "
+            + "[" + PREFIX_TO + "PERSON_LENT_TO] (only for Lend)\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_DAY + "12-02-2019 "
             + PREFIX_CATEGORY + "Gift";
@@ -81,14 +90,7 @@ public class EditCommand extends Command {
         // Depending on log entry type, create appropriate edited log entry
         String logEntryToEditType = logEntryToEdit.getLogEntryType();
         LogEntry editedLogEntry;
-
-        switch (logEntryToEditType) {
-        case SpendLogEntry.LOG_ENTRY_TYPE:
-            editedLogEntry = createEditedSpendLogEntry(logEntryToEdit, editLogEntryDescriptor);
-            break;
-        default:
-            throw new CommandException("Error occurred in editing log entry!");
-        }
+        editedLogEntry = createEditedLogEntry(logEntryToEdit, editLogEntryDescriptor, logEntryToEditType);
 
         model.setLogEntry(logEntryToEdit, editedLogEntry);
         model.updateFilteredLogEntryList(PREDICATE_SHOW_ALL_LOG_ENTRIES);
@@ -99,10 +101,12 @@ public class EditCommand extends Command {
      * Creates and returns a {@code LogEntry} with the details of {@code logEntryToEdit}
      * edited with {@code editLogEntryDescriptor}.
      */
-    private LogEntry createEditedSpendLogEntry(LogEntry logEntryToEdit, EditLogEntryDescriptor editLogEntryDescriptor) {
+    private LogEntry createEditedLogEntry(LogEntry logEntryToEdit,
+                                          EditLogEntryDescriptor editLogEntryDescriptor,
+                                          String logEntryToEditType) throws CommandException {
         assert logEntryToEdit != null;
 
-        SpendLogEntry currLogEntryToEdit = (SpendLogEntry) logEntryToEdit;
+        LogEntry currLogEntryToEdit = logEntryToEdit;
         Amount updatedAmount = editLogEntryDescriptor.getAmount().orElse(currLogEntryToEdit.getAmount());
         TransactionDate updatedTransactionDate = editLogEntryDescriptor.getTransactionDate()
                 .orElse(currLogEntryToEdit.getTransactionDate());
@@ -111,10 +115,60 @@ public class EditCommand extends Command {
                 .orElse(currLogEntryToEdit.getTransactionMethod());
         Set<Category> updatedCategories = editLogEntryDescriptor.getCategories()
                 .orElse(currLogEntryToEdit.getCategories());
-        Place updatedPlace = editLogEntryDescriptor.getPlace().orElse(currLogEntryToEdit.getPlace());
 
-        return new SpendLogEntry(updatedAmount, updatedTransactionDate, updatedDescription,
+        switch (logEntryToEditType) {
+        case SpendLogEntry.LOG_ENTRY_TYPE:
+            SpendLogEntry currSpendLogEntry = (SpendLogEntry) currLogEntryToEdit;
+            Place updatedPlace = editLogEntryDescriptor.getPlace().orElse(currSpendLogEntry.getPlace());
+            return new SpendLogEntry(updatedAmount, updatedTransactionDate, updatedDescription,
                     updatedTransactionMethod, updatedCategories, updatedPlace);
+        case IncomeLogEntry.LOG_ENTRY_TYPE:
+            IncomeLogEntry currIncomeLogEntry = (IncomeLogEntry) currLogEntryToEdit;
+            Person updatedFrom = editLogEntryDescriptor.getFrom().orElse(currIncomeLogEntry.getFrom());
+            return new IncomeLogEntry(updatedAmount, updatedTransactionDate, updatedDescription,
+                    updatedTransactionMethod, updatedCategories, updatedFrom);
+        case BorrowLogEntry.LOG_ENTRY_TYPE:
+            BorrowLogEntry currBorrowLogEntry = (BorrowLogEntry) currLogEntryToEdit;
+            updatedFrom = editLogEntryDescriptor.getFrom().orElse(currBorrowLogEntry.getFrom());
+            boolean isRepaid = currBorrowLogEntry.isRepaid();
+            // Cannot edit transaction date if is repaid
+            BorrowLogEntry updatedBorrowLogEntry;
+            if (isRepaid) {
+                TransactionDate transactionDate = currBorrowLogEntry.getTransactionDate();
+                RepaidDate repaidDate = currBorrowLogEntry.getRepaidDate();
+                updatedBorrowLogEntry = new BorrowLogEntry(
+                        updatedAmount, transactionDate, updatedDescription,
+                        updatedTransactionMethod, updatedCategories, updatedFrom);
+                updatedBorrowLogEntry.markAsRepaid();
+                updatedBorrowLogEntry.setRepaidDate(repaidDate.value, transactionDate.value);
+            } else {
+                updatedBorrowLogEntry = new BorrowLogEntry(
+                        updatedAmount, updatedTransactionDate, updatedDescription,
+                        updatedTransactionMethod, updatedCategories, updatedFrom);
+            }
+            return updatedBorrowLogEntry;
+        case LendLogEntry.LOG_ENTRY_TYPE:
+            LendLogEntry currLendLogEntry = (LendLogEntry) currLogEntryToEdit;
+            Person updatedTo = editLogEntryDescriptor.getTo().orElse(currLendLogEntry.getTo());
+            isRepaid = currLendLogEntry.isRepaid();
+            LendLogEntry updatedLendLogEntry;
+            if (isRepaid) {
+                TransactionDate transactionDate = currLendLogEntry.getTransactionDate();
+                RepaidDate repaidDate = currLendLogEntry.getRepaidDate();
+                updatedLendLogEntry = new LendLogEntry(
+                        updatedAmount, transactionDate, updatedDescription,
+                        updatedTransactionMethod, updatedCategories, updatedTo);
+                updatedLendLogEntry.markAsRepaid();
+                updatedLendLogEntry.setRepaidDate(repaidDate.value, transactionDate.value);
+            } else {
+                updatedLendLogEntry = new LendLogEntry(
+                        updatedAmount, updatedTransactionDate, updatedDescription,
+                        updatedTransactionMethod, updatedCategories, updatedTo);
+            }
+            return updatedLendLogEntry;
+        default:
+            throw new CommandException("Error in editing log entry!");
+        }
     }
 
     @Override
@@ -146,6 +200,8 @@ public class EditCommand extends Command {
         private TransactionMethod tMethod;
         private Set<Category> cats;
         private Place place;
+        private Person from;
+        private Person to;
 
         public EditLogEntryDescriptor() {}
 
@@ -160,13 +216,16 @@ public class EditCommand extends Command {
             setTMethod(toCopy.tMethod);
             setCategories(toCopy.cats);
             setPlace(toCopy.place);
+            setFrom(toCopy.from);
+            setTo(toCopy.to);
         }
 
         /**
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(amount, tDate, desc);
+            return CollectionUtil.isAnyNonNull(amount, tDate, desc, tMethod,
+                    cats, place, from, to);
         }
 
         public void setAmount(Amount amount) {
@@ -205,8 +264,8 @@ public class EditCommand extends Command {
          * Sets {@code cats} to this object's {@code cats}.
          * A defensive copy of {@code cats} is used internally.
          */
-        public void setCategories(Set<Category> taskTags) {
-            this.cats = (taskTags != null) ? new HashSet<>(taskTags) : null;
+        public void setCategories(Set<Category> cats) {
+            this.cats = (cats != null) ? new HashSet<>(cats) : null;
         }
 
         /**
@@ -224,6 +283,22 @@ public class EditCommand extends Command {
 
         public Optional<Place> getPlace() {
             return Optional.ofNullable(place);
+        }
+
+        public void setFrom(Person from) {
+            this.from = from;
+        }
+
+        public Optional<Person> getFrom() {
+            return Optional.ofNullable(from);
+        }
+
+        public void setTo(Person to) {
+            this.to = to;
+        }
+
+        public Optional<Person> getTo() {
+            return Optional.ofNullable(to);
         }
 
         @Override
@@ -246,7 +321,9 @@ public class EditCommand extends Command {
                     && getDesc().equals(e.getDesc())
                     && getTransactionMethod().equals(e.getTransactionMethod())
                     && getCategories().equals(e.getCategories())
-                    && getPlace().equals(e.getPlace());
+                    && getPlace().equals(e.getPlace())
+                    && getFrom().equals(e.getFrom())
+                    && getTo().equals(e.getTo());
         }
     }
 }

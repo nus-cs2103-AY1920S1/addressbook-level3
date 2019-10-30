@@ -25,16 +25,22 @@ public class TransactionDate {
      * @param transactionDate A valid transaction date.
      */
     public TransactionDate(String transactionDate) {
+        SimpleDateFormat monthFormat = new SimpleDateFormat("MM");
         requireNonNull(transactionDate);
         checkArgument(isValidTransactionDate(transactionDate), MESSAGE_CONSTRAINTS);
         value = transactionDate;
+    }
+
+    public TransactionDate() {
+        SimpleDateFormat validFormat = new SimpleDateFormat("dd-MM-yyyy");
+        value = validFormat.format(new Date());
     }
 
     /**
      * Returns true if a given string is a valid transaction date.
      */
     public static boolean isValidTransactionDate(String test) {
-        SimpleDateFormat validFormat = new SimpleDateFormat("dd-MM-yyyy");
+        SimpleDateFormat validFormat = new SimpleDateFormat("dd-MM-yyyy");;
         validFormat.setLenient(false); // date has to exist in calendar (i.e. not 31 Feb)
         Date currentDate = new Date();
         try {
@@ -50,6 +56,22 @@ public class TransactionDate {
     @Override
     public String toString() {
         return value;
+    }
+
+    /**
+     * Returns whether date is earlier, later or same to another date
+     * Sorts such that later dates come first.
+     */
+    public int compareTo(TransactionDate other) {
+        SimpleDateFormat validFormat = new SimpleDateFormat("dd-MM-yyyy");
+        try {
+            Date otherDate = validFormat.parse(other.value);
+            Date thisDate = validFormat.parse(value);
+            return -thisDate.compareTo(otherDate);
+        } catch (ParseException e) {
+            // Don't sort
+            return 0;
+        }
     }
 
     @Override
