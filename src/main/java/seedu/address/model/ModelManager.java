@@ -517,7 +517,7 @@ public class ModelManager implements Model {
         return calendarDate;
     }
 
-    //=========== Order DataBook ================================================================================
+    //=========== Archived Order DataBook ======================================================================
 
     @Override
     public void setArchivedOrderBook(ReadOnlyDataBook<Order> archivedOrderBook) {
