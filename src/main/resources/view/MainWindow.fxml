@@ -57,7 +57,11 @@
                     </Tab>
 
                     <Tab text="Questions">
-                        <AnchorPane fx:id="questionsPagePlaceHolder"/>
+                        <AnchorPane fx:id="questionsPagePlaceholder"/>
+                    </Tab>
+
+                    <Tab text="Workspace">
+                        <AnchorPane fx:id="workspacePlaceholder"/>
                     </Tab>
                 </TabPane>
                 <!--                <HBox style="-fx-border-color: #ff1e00;" VBox.vgrow="ALWAYS">-->

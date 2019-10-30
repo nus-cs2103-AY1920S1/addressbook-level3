@@ -1,10 +1,5 @@
 package com.dukeacademy.ui;
 
-import java.nio.file.Path;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import java.util.logging.Logger;
 
 import com.dukeacademy.commons.core.LogsCenter;
@@ -16,7 +11,6 @@ import com.dukeacademy.logic.commands.exceptions.InvalidCommandKeywordException;
 import com.dukeacademy.logic.problemstatement.ProblemStatementLogic;
 import com.dukeacademy.logic.program.ProgramSubmissionLogic;
 import com.dukeacademy.logic.question.QuestionsLogic;
-import com.dukeacademy.model.program.TestCaseResult;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -25,7 +19,6 @@ import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
@@ -46,51 +39,34 @@ class MainWindow extends UiPart<Stage> {
     private final ProblemStatementLogic problemStatementLogic;
 
     // Independent Ui parts residing in this Ui container
-    private ProgramEvaluationPanel programEvaluationPanel;
-    private QuestionListPanel questionListPanel;
     private ResultDisplay resultDisplay;
-    private final HelpWindow helpWindow;
-    private Editor editorPanel;
-    private CodeResultPanel codeResultPanel;
-    private ProblemStatementPanel problemStatementPanel;
     private HomePage homePage;
     private QuestionsPage questionsPage;
+    private Workspace workspace;
 
-    @FXML
-    private StackPane problemStatementPlaceholder;
+    private HelpWindow helpWindow;
 
     @FXML
     private StackPane commandBoxPlaceholder;
 
     @FXML
-    private MenuItem helpMenuItem;
-
-    @FXML
-    private StackPane programEvaluationPanelPlaceholder;
-
-    @FXML
-    private StackPane questionListPanelPlaceholder;
-
-    @FXML
     private StackPane resultDisplayPlaceholder;
-
-    @FXML
-    private StackPane statusbarPlaceholder;
-
-    @FXML
-    private AnchorPane editorPlaceholder;
-
-    @FXML
-    private AnchorPane codeResultPanelPlaceholder;
-
-    @FXML
-    private HBox activityWindowPlaceholder;
 
     @FXML
     private AnchorPane homePagePlaceholder;
 
     @FXML
-    private AnchorPane questionsPagePlaceHolder;
+    private AnchorPane questionsPagePlaceholder;
+
+    @FXML
+    private AnchorPane workspacePlaceholder;
+
+    @FXML
+    private MenuItem helpMenuItem;
+
+    @FXML
+    private StackPane statusbarPlaceholder;
+
 
     /**
      * Instantiates a new Main window.
@@ -165,19 +141,11 @@ class MainWindow extends UiPart<Stage> {
         });
     }
 
-    /**
-     * Updates the homepage placeholder residing in this main window.
-     */
-    private void updateProgramEvaluationPanel() {
-        programEvaluationPanel = new ProgramEvaluationPanel(programSubmissionLogic.getTestResultObservable());
-        programEvaluationPanelPlaceholder.getChildren().add(programEvaluationPanel.getRoot());
-    }
 
     /**
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-
         CommandBox commandBox = new CommandBox(
                 this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
@@ -189,40 +157,12 @@ class MainWindow extends UiPart<Stage> {
 
         questionsPage = new QuestionsPage(questionsLogic.getFilteredQuestionsList(),
                 questionsLogic.getSelectedQuestion());
-        questionsPagePlaceHolder.getChildren().add(questionsPage.getRoot());
-//        updateProgramEvaluationPanel();
-//
-//        homePage = new HomePage(questionsLogic.getFilteredQuestionsList());
-//        homePagePlaceholder.getChildren().add(homePage.getRoot());
-//
-//        questionListPanel = new QuestionListPanel(questionsLogic.getFilteredQuestionsList());
-//        questionListPanelPlaceholder.getChildren().add(questionListPanel.getRoot());
-//
-//
-//
-//        StatusBarFooter statusBarFooter =
-//                new StatusBarFooter(Path.of("hello"));
-//        statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
-//
-//        editorPanel = new Editor(programSubmissionLogic.getCurrentQuestionObservable());
-//        editorPlaceholder.getChildren().add(editorPanel.getRoot());
-//        programSubmissionLogic.setUserProgramSubmissionChannel(editorPanel::getUserProgram);
-//
-//        List<TestCaseResult> sampleTestCaseResults = new ArrayList<>();
-//        sampleTestCaseResults.add(
-//                TestCaseResult.getSuccessfulTestCaseResult("3", "Fizz"));
-//        sampleTestCaseResults.add(
-//                TestCaseResult.getFailedTestCaseResult("25", "Buzz", "FizzBuzz"));
-//        sampleTestCaseResults.add(
-//                TestCaseResult.getSuccessfulTestCaseResult("15", "FizzBuzz"));
-//
-//        codeResultPanel = new CodeResultPanel(programSubmissionLogic.getTestResultObservable());
-//        codeResultPanelPlaceholder.getChildren().add(codeResultPanel.getRoot());
-//
-//        problemStatementPanel = new ProblemStatementPanel(
-//            problemStatementLogic.getProblemStatementObservable());
-//        problemStatementPlaceholder.getChildren().add(problemStatementPanel.getRoot());
+        questionsPagePlaceholder.getChildren().add(questionsPage.getRoot());
 
+        workspace = new Workspace(programSubmissionLogic.getCurrentQuestionObservable(),
+                programSubmissionLogic.getTestResultObservable());
+        workspacePlaceholder.getChildren().add(workspace.getRoot());
+        programSubmissionLogic.setUserProgramSubmissionChannel(workspace.getUserProgramChannel());
     }
 
     /**
@@ -258,55 +198,11 @@ class MainWindow extends UiPart<Stage> {
         helpWindow.hide();
         primaryStage.hide();
     }
-    /**
-     * Gets program evaluation panel.
-     *
-     * @return the program evaluation panel
-     */
-    public ProgramEvaluationPanel getProgramEvaluationPanel() {
-        return programEvaluationPanel;
-    }
-
-    /**
-     * Gets person list panel.
-     *
-     * @return the person list panel
-     */
-    public QuestionListPanel getPersonListPanel() {
-        return questionListPanel;
-    }
-
-    /**
-     * Gets editor panel.
-     *
-     * @return the editor panel
-     */
-    public Editor getEditorPanel() {
-        return editorPanel;
-    }
-
-    /**
-     * Gets run code result panel.
-     *
-     * @return the run code result panel
-     */
-    public CodeResultPanel getRunCodeResultPanel() {
-        return codeResultPanel;
-    }
-
-    /**
-     * Gets home page.
-     *
-     * @return the home page
-     */
-    public HomePage getHomePage() {
-        return homePage;
-    }
 
     /**
      * Executes the command and returns the result.
      */
-    private CommandResult executeCommand(String commandText) throws CommandException, InvalidCommandKeywordException,
+    private void executeCommand(String commandText) throws CommandException, InvalidCommandKeywordException,
             InvalidCommandArgumentsException {
         try {
             CommandResult commandResult = commandLogic.executeCommand(commandText);
@@ -321,7 +217,6 @@ class MainWindow extends UiPart<Stage> {
                 handleExit();
             }
 
-            return commandResult;
         } catch (CommandException | InvalidCommandArgumentsException | InvalidCommandKeywordException e) {
             logger.info("Invalid command: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());

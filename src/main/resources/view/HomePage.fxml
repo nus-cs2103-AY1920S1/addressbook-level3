@@ -113,77 +113,90 @@
 
             <GridPane VBox.vgrow="ALWAYS">
 
-                <VBox GridPane.columnIndex="0" GridPane.rowIndex="0" VBox.vgrow="ALWAYS" spacing="30.0"
-                      alignment="CENTER">
+                <VBox GridPane.columnIndex="0" GridPane.rowIndex="0" VBox.vgrow="ALWAYS">
 
-                    <ProgressIndicator fx:id="indicator" minHeight="250.0" minWidth="250.0" progress="0.22"/>
-
-                    <TextFlow textAlignment="CENTER">
-                        <Text fx:id="numDone" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="22">
-                            <font>
-                                <Font name="Century Gothic Italic" size="22.0"/>
-                            </font>
-                        </Text>
-                        <Text fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="  /  ">
-                            <font>
-                                <Font name="Century Gothic Italic" size="22.0"/>
-                            </font>
-                        </Text>
-                        <Text fx:id="numTotal" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0"
-                              text="100">
-                            <font>
-                                <Font name="Century Gothic Italic" size="22.0"/>
-                            </font>
-                        </Text>
-                        <Text fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text=" COMPLETED">
-                            <font>
-                                <Font name="Century Gothic Italic" size="22.0"/>
-                            </font>
-                        </Text>
-
-                         <padding>
-                            <Insets left="15.0" right="15.0"/>
-                        </padding>
-                    </TextFlow>
-
-                    <TextFlow textAlignment="CENTER">
-                        <Text fx:id="numToNextTier" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0"
-                              text="8">
-                            <font>
-                                <Font name="Century Gothic" size="15.0"/>
-                            </font>
-                        </Text>
-                        <Text fx:id="progressDescription" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0"
-                              text=" more completed questions to reach ">
-                            <font>
-                                <Font name="Century Gothic" size="15.0"/>
-                            </font>
-                        </Text>
-                        <Text fx:id="nextTier" strokeType="OUTSIDE" strokeWidth="0.0" text="Apprentice">
-                            <font>
-                                <Font name="Century Gothic" size="15.0"/>
-                            </font>
-                        </Text>
+                    <Label textFill="#63075d" text="Your progress:">
+                        <font>
+                            <Font name="Century Gothic" size="16.0"/>
+                        </font>
 
                         <padding>
-                            <Insets left="15.0" right="15.0"/>
+                            <Insets bottom="15.0"/>
                         </padding>
-                    </TextFlow>
+                    </Label>
 
-                    <TextFlow textAlignment="CENTER">
-                        <Text fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Skill Tier: ">
-                            <font>
-                                <Font name="Century Gothic" size="15.0"/>
-                            </font>
-                        </Text>
-                        <Text fx:id="currentTier" fill="#63075d" fontSmoothingType="LCD" strokeType="OUTSIDE"
-                              strokeWidth="0.0"
-                              text="Novice">
-                            <font>
-                                <Font name="Century Gothic" size="24.0"/>
-                            </font>
-                        </Text>
-                    </TextFlow>
+                    <VBox style="-fx-border-color: lightgrey" VBox.vgrow="ALWAYS" alignment="CENTER" spacing="30.0">
+                        <ProgressIndicator fx:id="indicator" minHeight="250.0" minWidth="250.0" progress="0.22"/>
+
+                        <TextFlow textAlignment="CENTER">
+                            <Text fx:id="numDone" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0"
+                                  text="22">
+                                <font>
+                                    <Font name="Century Gothic Italic" size="22.0"/>
+                                </font>
+                            </Text>
+                            <Text fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="  /  ">
+                                <font>
+                                    <Font name="Century Gothic Italic" size="22.0"/>
+                                </font>
+                            </Text>
+                            <Text fx:id="numTotal" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0"
+                                  text="100">
+                                <font>
+                                    <Font name="Century Gothic Italic" size="22.0"/>
+                                </font>
+                            </Text>
+                            <Text fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text=" COMPLETED">
+                                <font>
+                                    <Font name="Century Gothic Italic" size="22.0"/>
+                                </font>
+                            </Text>
+
+                            <padding>
+                                <Insets left="15.0" right="15.0"/>
+                            </padding>
+                        </TextFlow>
+
+                        <TextFlow textAlignment="CENTER">
+                            <Text fx:id="numToNextTier" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0"
+                                  text="8">
+                                <font>
+                                    <Font name="Century Gothic" size="15.0"/>
+                                </font>
+                            </Text>
+                            <Text fx:id="progressDescription" fontSmoothingType="LCD" strokeType="OUTSIDE"
+                                  strokeWidth="0.0"
+                                  text=" more completed questions to reach ">
+                                <font>
+                                    <Font name="Century Gothic" size="15.0"/>
+                                </font>
+                            </Text>
+                            <Text fx:id="nextTier" strokeType="OUTSIDE" strokeWidth="0.0" text="Apprentice">
+                                <font>
+                                    <Font name="Century Gothic" size="15.0"/>
+                                </font>
+                            </Text>
+
+                            <padding>
+                                <Insets left="15.0" right="15.0"/>
+                            </padding>
+                        </TextFlow>
+
+                        <TextFlow textAlignment="CENTER">
+                            <Text fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Skill Tier: ">
+                                <font>
+                                    <Font name="Century Gothic" size="15.0"/>
+                                </font>
+                            </Text>
+                            <Text fx:id="currentTier" fill="#63075d" fontSmoothingType="LCD" strokeType="OUTSIDE"
+                                  strokeWidth="0.0"
+                                  text="Novice">
+                                <font>
+                                    <Font name="Century Gothic" size="24.0"/>
+                                </font>
+                            </Text>
+                        </TextFlow>
+                    </VBox>
 
                     <padding>
                         <Insets left="15.0" right="15.0"/>
