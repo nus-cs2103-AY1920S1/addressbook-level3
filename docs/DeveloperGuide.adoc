@@ -204,8 +204,8 @@ if the user wants to toggle a specified panel. If so, it toggles the `isVisible`
 holder for that panel.
 
 
-The following sequence diagram shows how the toggle panel command works:
-    
+The following sequence diagram shows how the toggle panel command work:
+
 image::ToggleSequenceDiagram.png[]
 
 The following activity diagram summarizes what happens when a user executes a new command:
