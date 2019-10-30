@@ -28,4 +28,3 @@ public class DifficultyContainsKeywordsPredicate implements Predicate<Question> 
                 && keywords.equals(((DifficultyContainsKeywordsPredicate) other).keywords)); // state check
     }
 }
-
