@@ -9,6 +9,7 @@ import seedu.elisa.model.ItemModel;
 public class ThemeCommand extends Command {
 
     public static final String COMMAND_WORD = "theme";
+    public static final String MESSAGE_INVALID = "Oh dumb dumb, choose only 'theme white' or 'theme black'";
     public static final String MESSAGE_SUCCESS = "Oh you don't like the color? Lets switch it up!";
 
     private String theme;
@@ -19,6 +20,12 @@ public class ThemeCommand extends Command {
 
     @Override
     public CommandResult execute(ItemModel model) throws CommandException {
-        return new ThemeCommandResult(MESSAGE_SUCCESS, theme);
+        switch(theme.trim()) {
+            case "white":
+            case "black":
+                return new ThemeCommandResult(MESSAGE_SUCCESS, theme);
+            default:
+                throw new CommandException(MESSAGE_INVALID);
+        }
     }
 }
