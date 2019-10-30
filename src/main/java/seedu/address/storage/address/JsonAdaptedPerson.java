@@ -57,9 +57,9 @@ class JsonAdaptedPerson {
     public JsonAdaptedPerson(Person source) {
         id = source.getReferenceId().toString();
         name = source.getName().fullName;
-        phone = source.getPhone().value;
-        email = source.getEmail().value;
-        address = source.getAddress().value;
+        phone = source.getPhone().toString();
+        email = source.getEmail().toString();
+        address = source.getAddress().toString();
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
@@ -95,26 +95,41 @@ class JsonAdaptedPerson {
         if (phone == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Phone.class.getSimpleName()));
         }
-        if (!Phone.isValidPhone(phone)) {
+
+        Phone modelPhone;
+        if (phone.isEmpty()) {
+            modelPhone = Phone.EMPTY_PHONE_DETAILS;
+        } else if (Phone.isValidPhone(phone)) {
+            modelPhone = new Phone(phone);
+        } else {
             throw new IllegalValueException(Phone.MESSAGE_CONSTRAINTS);
         }
-        final Phone modelPhone = new Phone(phone);
 
         if (email == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Email.class.getSimpleName()));
         }
-        if (!Email.isValidEmail(email)) {
+
+        Email modelEmail;
+        if (email.isEmpty()) {
+            modelEmail = Email.EMPTY_EMAIL_DETAILS;
+        } else if (Email.isValidEmail(email)) {
+            modelEmail = new Email(email);
+        } else {
             throw new IllegalValueException(Email.MESSAGE_CONSTRAINTS);
         }
-        final Email modelEmail = new Email(email);
 
         if (address == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName()));
         }
-        if (!Address.isValidAddress(address)) {
+
+        Address modelAddress;
+        if (address.isEmpty()) {
+            modelAddress = Address.EMPTY_ADDRESS_DETAILS;
+        } else if (Address.isValidAddress(address)) {
+            modelAddress = new Address(address);
+        } else {
             throw new IllegalValueException(Address.MESSAGE_CONSTRAINTS);
         }
-        final Address modelAddress = new Address(address);
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
         return new Person(modelReferenceId, modelName, modelPhone, modelEmail, modelAddress, modelTags);
