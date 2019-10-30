@@ -57,8 +57,8 @@ https://www.oracle.com/technetwork/java/javase/downloads/jdk11-downloads-5066655
 .  Copy the file to the folder you want to use as the home folder for $aveNUS.
 .  Double-click the file to start the app. The Graphical User Interface (GUI) should appear in a few seconds.
 
-.The GUI of $aveNUS
-image::Ui.png[width="790"]
+. Dark Mode GUI of $aveNUS
+image::Darkmode.png [width="790"]
 
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
