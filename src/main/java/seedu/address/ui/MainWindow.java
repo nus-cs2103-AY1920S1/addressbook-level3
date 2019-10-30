@@ -1,7 +1,6 @@
 package seedu.address.ui;
 
-import static java.util.Objects.requireNonNull;
-
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Timer;
@@ -69,13 +68,16 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Timekeeper;
 import seedu.address.model.budget.Budget;
 import seedu.address.model.expense.Event;
+import seedu.address.model.expense.Timestamp;
+import seedu.address.model.statistics.FiveElementTableEntry;
 import seedu.address.model.statistics.PieChartStatistics;
 import seedu.address.model.statistics.Statistics;
 import seedu.address.model.statistics.TabularStatistics;
+import seedu.address.model.statistics.TrendStatistics;
+import seedu.address.ui.alias.AliasPanel;
 import seedu.address.ui.budget.BudgetListPanel;
 import seedu.address.ui.budget.BudgetPanel;
 import seedu.address.ui.event.EventListPanel;
-import seedu.address.ui.expense.AliasPanel;
 import seedu.address.ui.expense.ExpenseListPanel;
 import seedu.address.ui.panel.PanelName;
 import seedu.address.ui.panel.PlaceholderPanel;
@@ -114,7 +116,6 @@ public class MainWindow extends UiPart<Stage> {
 
     // Popup windows
     private HelpWindow helpWindow;
-    private StatsWindow statsWindow;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -146,7 +147,6 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
-
     }
 
     public Stage getPrimaryStage() {
@@ -363,7 +363,6 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
-
     /**
      * Changes the currently viewed Panel in the MainWindow.
      * @param panelName The Panel Name of assigned to the Panel.
@@ -371,8 +370,49 @@ public class MainWindow extends UiPart<Stage> {
      */
     private void changePanel(PanelName panelName) throws UnmappedPanelException {
         configureGenericCommands(panelName);
+
+        if (panelName.equals(StatsPanel.PANEL_NAME)) {
+            populateStatisticsPanel();
+
+        }
         singlePanelView.viewPanel(panelName);
     }
+
+    /**
+     * Changes the currently viewed Panel in the MainWindow to the Statistics Panel
+     */
+    private void populateStatisticsPanel() {
+        Statistics statistics = logic.getStatistics();
+        String title = statistics.getTitle();
+
+        if (statistics instanceof PieChartStatistics) {
+            PieChartStatistics pieChartStatistics = (PieChartStatistics) statistics;
+            List<String> names = pieChartStatistics.getFormattedCategories();
+            List<Double> percentages = pieChartStatistics.getFormattedPercentages();
+            singlePanelView.setPanel(StatsPanel.PANEL_NAME, new StatsPanel(names, percentages, title));
+        } else if (statistics instanceof TabularStatistics) {
+            TabularStatistics tabularStatistics = (TabularStatistics) statistics;
+            List<FiveElementTableEntry> unionDifferenceTable = tabularStatistics.getUnionDifferenceTable();
+            singlePanelView.setPanel(StatsPanel.PANEL_NAME, new StatsPanel(unionDifferenceTable, title));
+        } else if (statistics instanceof TrendStatistics) {
+            TrendStatistics trendStatistics = (TrendStatistics) statistics;
+            List<Timestamp> dates = trendStatistics.getDates();
+            if (trendStatistics.isBudgetLimitMode()) {
+                List<Double> periodicTotalExpenses = trendStatistics.getPeriodicTotalExpenditure();
+                List<Double> periodicBudgetLimits = trendStatistics.getPeriodicBudgetLimits();
+                singlePanelView.setPanel(StatsPanel.PANEL_NAME, new StatsPanel(dates, periodicTotalExpenses,
+                        periodicBudgetLimits, title));
+            } else {
+                List<ArrayList<Double>> periodicCategoricalExpenses = trendStatistics.getPeriodicCategoricalExpenses();
+                singlePanelView.setPanel(StatsPanel.PANEL_NAME,
+                        new StatsPanel(title, dates, periodicCategoricalExpenses));
+            }
+
+        }
+    }
+
+
+
 
     /**
      * Configures the custom text field to highlight for syntax for generic commands depending on the current panel.
@@ -452,27 +492,6 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
-    /**
-     * Opens the stats window or focuses on it if it's already opened.
-     */
-    @FXML
-    private void displayStats(CommandResult commandResult) {
-        Statistics currentStats = commandResult.getStatistics();
-        if (currentStats instanceof PieChartStatistics) {
-            this.statsWindow = new StatsWindow(commandResult.getNames(),
-                    commandResult.getPercentages(), commandResult.getTitle());
-        } else if (currentStats instanceof TabularStatistics) {
-            this.statsWindow = new StatsWindow(commandResult.getTitle(), commandResult.getDifferenceTable());
-        }
-        requireNonNull(statsWindow);
-        if (!statsWindow.isShowing()) {
-            statsWindow.show();
-        } else {
-            statsWindow.focus();
-        }
-    }
-
-
     void show() {
         primaryStage.show();
     }
@@ -499,7 +518,6 @@ public class MainWindow extends UiPart<Stage> {
      */
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException,
             UnmappedPanelException {
-
         try {
             Budget primaryBudget = logic.getPrimaryBudget();
             boolean initialIsNear = primaryBudget.isNear();
@@ -510,7 +528,7 @@ public class MainWindow extends UiPart<Stage> {
 
             singlePanelView.setPanel(AliasPanel.PANEL_NAME, new AliasPanel(logic.getAliasMappings()));
             singlePanelView.setPanel(BudgetPanel.PANEL_NAME, new BudgetPanel(logic.getPrimaryBudget()));
-            changePanel(commandResult.viewrequest());
+            changePanel(commandResult.viewRequest());
 
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
@@ -523,9 +541,8 @@ public class MainWindow extends UiPart<Stage> {
                 handleExit();
             }
 
-            if (commandResult.isStatistic()) {
-                displayStats(commandResult);
-            }
+
+
 
             boolean finalIsNear = primaryBudget.isNear();
             boolean finalIsExceeded = primaryBudget.isExceeded();

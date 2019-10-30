@@ -2,11 +2,13 @@ package seedu.address.model.statistics;
 
 import static java.util.Objects.requireNonNull;
 
-import java.time.Period;
-
 import java.util.List;
 
 import javafx.collections.ObservableList;
+import seedu.address.logic.commands.statistics.StatsCommand;
+import seedu.address.logic.commands.statistics.StatsCompareCommand;
+import seedu.address.logic.commands.statistics.StatsTrendCommand;
+import seedu.address.model.budget.BudgetPeriod;
 import seedu.address.model.category.Category;
 import seedu.address.model.expense.Expense;
 import seedu.address.model.expense.Timestamp;
@@ -41,9 +43,6 @@ public class Statistics {
         this.categorySize = validCategories.size();
     }
 
-
-    //====getters to be used by CommandResult ========
-
     /**
      * Returns the lists of all expenses in the current budget
      */
@@ -63,8 +62,6 @@ public class Statistics {
         return categorySize;
     }
 
-    //=====Command word parser ==============
-
     /**
      * The main handler method of the Statistics model object to identify what kind of Statistics has to be done
      * with each command word
@@ -75,20 +72,23 @@ public class Statistics {
      * @param period Period of time that may be relevant to the operation
      */
     public static Statistics calculateStats(ObservableList<Expense> expenses, String command,
-                                            Timestamp date1, Timestamp date2, Period period) {
+                                            Timestamp date1, Timestamp date2,
+                                            BudgetPeriod period, boolean isBudgetMode) {
         requireNonNull(expenses);
         List<Category> validCategories = Category.getValidCategories();
         switch (command) {
-        case "stats":
+        case StatsCommand.COMMAND_WORD:
             return PieChartStatistics.run(expenses, validCategories, date1, date2);
-        case "statscompare":
+        case StatsCompareCommand.COMMAND_WORD:
             return TabularStatistics.run(expenses, validCategories, date1, date2, period);
+        case StatsTrendCommand.COMMAND_WORD:
+            return TrendStatistics.run(expenses, validCategories, date1, date2, period, isBudgetMode);
         default:
             return null;
         }
     }
 
-    public void setTitle(String title) {
+    void setTitle(String title) {
         this.title = title;
     }
 

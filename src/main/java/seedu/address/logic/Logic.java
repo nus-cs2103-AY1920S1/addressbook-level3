@@ -14,6 +14,7 @@ import seedu.address.model.budget.Budget;
 import seedu.address.model.expense.Description;
 import seedu.address.model.expense.Event;
 import seedu.address.model.expense.Expense;
+import seedu.address.model.statistics.Statistics;
 
 /**
  * API of the Logic component
@@ -31,7 +32,8 @@ public interface Logic {
 
     boolean hasBudgetWithName(Description targetDescription);
 
-    StringBuilder getBasicStatistics();
+    Statistics getStatistics();
+
 
     /**
      * Returns the MooLah.
@@ -73,5 +75,6 @@ public interface Logic {
     void deleteTranspiredEvents(List<Event> eventsToBeRemoved);
 
     void addExpenseFromEvent(Event currentEvent) throws CommandException, ParseException;
+
 
 }

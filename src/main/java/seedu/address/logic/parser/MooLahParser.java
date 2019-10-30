@@ -29,6 +29,7 @@ import seedu.address.logic.commands.general.ExitCommand;
 import seedu.address.logic.commands.general.HelpCommand;
 import seedu.address.logic.commands.statistics.StatsCommand;
 import seedu.address.logic.commands.statistics.StatsCompareCommand;
+import seedu.address.logic.commands.statistics.StatsTrendCommand;
 import seedu.address.logic.commands.ui.ViewPanelCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyUserPrefs;
@@ -104,6 +105,8 @@ public class MooLahParser {
             return new StatsCommandParser().parse(arguments);
         case StatsCompareCommand.COMMAND_WORD:
             return new StatsCompareCommandParser().parse(arguments);
+        case StatsTrendCommand.COMMAND_WORD:
+            return new StatsTrendCommandParser().parse(arguments);
 
         //alias
         case AddAliasCommand.COMMAND_WORD:

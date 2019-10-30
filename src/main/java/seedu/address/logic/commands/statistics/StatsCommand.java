@@ -9,8 +9,7 @@ import seedu.address.logic.commands.CommandGroup;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.Model;
 import seedu.address.model.expense.Timestamp;
-import seedu.address.model.statistics.Statistics;
-import seedu.address.ui.panel.PanelName;
+import seedu.address.ui.StatsPanel;
 
 /**
  * Calculates statistics for Moolah
@@ -52,8 +51,8 @@ public class StatsCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        Statistics statistics = model.calculateStatistics(COMMAND_WORD, startDate, endDate, null);
-        return new CommandResult(MESSAGE_SUCCESS, statistics, false, false, PanelName.CURRENT);
+        model.calculateStatistics(COMMAND_WORD, startDate, endDate, null, false);
+        return new CommandResult(MESSAGE_SUCCESS, false, false, StatsPanel.PANEL_NAME);
     }
 
     @Override

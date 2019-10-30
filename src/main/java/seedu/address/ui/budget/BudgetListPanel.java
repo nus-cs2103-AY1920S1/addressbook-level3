@@ -19,12 +19,13 @@ import seedu.address.model.budget.Budget;
 import seedu.address.ui.panel.Panel;
 import seedu.address.ui.panel.PanelName;
 
+
 /**
  * Panel containing the list of budgets.
  */
 public class BudgetListPanel extends Panel {
     public static final PanelName PANEL_NAME = new PanelName("Budget List");
-    private static final String FXML = "ListPanel.fxml";
+    private static final String FXML = "ExpenseListPanel.fxml";
     private static final Border PRIMARY_BUDGET_BORDER = new Border(new BorderStroke(Color.RED,
             BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT));
 

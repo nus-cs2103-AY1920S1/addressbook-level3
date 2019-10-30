@@ -18,6 +18,11 @@ By: `CS2103T-T11-1`      Since: `Aug 2019`      Licence: `MIT`
 
 == Introduction
 
+
+
+
+
+
 === Purpose & Scope
 This document specifies architecture and software design decisions for the app MooLah.
 The intended audience of this document is the developers, designers, and software testers of MooLah.

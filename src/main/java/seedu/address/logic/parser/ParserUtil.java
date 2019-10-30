@@ -17,6 +17,7 @@ import seedu.address.model.category.Category;
 import seedu.address.model.expense.Description;
 import seedu.address.model.expense.Price;
 import seedu.address.model.expense.Timestamp;
+import seedu.address.model.statistics.Mode;
 
 
 /**
@@ -116,6 +117,25 @@ public class ParserUtil {
             throw new ParseException(Timestamp.MESSAGE_CONSTRAINTS_DATE);
         }
     }
+
+    /**
+     * Parses a {@code String mode} into a {@code Mode}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code mode} is invalid.
+     */
+    public static Mode parseMode(String mode) throws ParseException {
+        requireNonNull(mode);
+        String trimmedMode = mode.trim();
+        if (!Mode.isValidMode(trimmedMode)) {
+            throw new ParseException(Mode.MESSAGE_CONSTRAINTS);
+        }
+        return new Mode(trimmedMode);
+    }
+
+
+
+
 
     /**
      * Dummy.

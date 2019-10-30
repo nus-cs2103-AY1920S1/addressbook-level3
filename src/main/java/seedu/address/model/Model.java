@@ -1,7 +1,6 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
-import java.time.Period;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
@@ -11,6 +10,7 @@ import seedu.address.commons.core.Alias;
 import seedu.address.commons.core.AliasMappings;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.budget.Budget;
+import seedu.address.model.budget.BudgetPeriod;
 import seedu.address.model.expense.Description;
 import seedu.address.model.expense.Event;
 import seedu.address.model.expense.Expense;
@@ -230,9 +230,10 @@ public interface Model {
 
     void setEvent(Event eventToEdit, Event editedEvent);
 
-    Statistics calculateStatistics(String command, Timestamp date1, Timestamp date2, Period period);
+    void calculateStatistics(String command, Timestamp date1, Timestamp date2, BudgetPeriod period, boolean isBudget);
 
-    boolean hasStatistic();
+    Statistics getStatistics();
 
-    StringBuilder getStatistic();
+
+
 }

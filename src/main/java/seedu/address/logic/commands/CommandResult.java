@@ -2,13 +2,8 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.List;
 import java.util.Objects;
 
-import seedu.address.model.statistics.PieChartStatistics;
-import seedu.address.model.statistics.Statistics;
-import seedu.address.model.statistics.TableEntry;
-import seedu.address.model.statistics.TabularStatistics;
 import seedu.address.ui.panel.PanelName;
 
 /**
@@ -27,57 +22,23 @@ public class CommandResult {
     /** The panel to show the in the application. */
     private PanelName panelName;
 
-    private Statistics statistics;
 
-    private List<String> names;
-
-    private List<Double> percentages;
 
     private String title;
 
-    private List<TableEntry> differenceTable;
 
-    public CommandResult(String feedbackToUser, Statistics statistics, boolean showHelp, boolean exit,
-                         PanelName panelName) {
-
-        requireNonNull(feedbackToUser);
-
-        this.feedbackToUser = feedbackToUser;
-        this.statistics = statistics;
-        this.showHelp = showHelp;
-        this.exit = exit;
-        this.panelName = panelName;
-
-        if (statistics == null) {
-            return;
-        } else if (statistics instanceof PieChartStatistics) {
-            PieChartStatistics pieChart = (PieChartStatistics) statistics;
-            this.names = pieChart.getFormattedCategories();
-            this.percentages = pieChart.getFormattedPercentages();
-        } else if (statistics instanceof TabularStatistics) {
-            TabularStatistics table = (TabularStatistics) statistics;
-            this.differenceTable = table.getDifferenceTable();
-        }
-        this.title = statistics.getTitle();
-
-
-    }
 
 
     /**
      * Constructs a {@code CommandResult} with the specified fields. Meant for statsCommand
      */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit,
-                         PanelName panelName) {
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, PanelName panelName) {
         requireNonNull(feedbackToUser);
 
         this.feedbackToUser = feedbackToUser;
         this.showHelp = showHelp;
         this.exit = exit;
         this.panelName = panelName;
-        this.names = null;
-        this.percentages = null;
-        this.title = null;
     }
 
 
@@ -117,31 +78,14 @@ public class CommandResult {
         return exit;
     }
 
-    public boolean isStatistic() {
-        return statistics != null;
-    }
 
-    public Statistics getStatistics() {
-        return statistics;
-    }
-
-    public List<String> getNames() {
-        return names;
-    }
-
-    public List<Double> getPercentages() {
-        return percentages;
-    }
 
     public String getTitle() {
         return title;
     }
 
-    public List<TableEntry> getDifferenceTable() {
-        return differenceTable;
-    }
 
-    public PanelName viewrequest() {
+    public PanelName viewRequest() {
         return panelName;
     }
 
@@ -167,4 +111,6 @@ public class CommandResult {
         return Objects.hash(feedbackToUser, showHelp, exit);
     }
 
+
 }
+

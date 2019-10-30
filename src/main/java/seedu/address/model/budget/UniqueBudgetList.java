@@ -29,6 +29,14 @@ import seedu.address.model.expense.Timestamp;
  */
 public class UniqueBudgetList implements Iterable<Budget> {
 
+    //to fetch data from a singleton class that utilises setters with empty constructors
+    private static boolean empty = false;
+
+    private static BudgetPeriod period;
+    //to fetch data from a singleton class that utilises setters with empty constructors
+
+
+
     private final ObservableList<Budget> internalList = FXCollections.observableArrayList();
     private final ObservableList<Budget> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
@@ -53,6 +61,9 @@ public class UniqueBudgetList implements Iterable<Budget> {
         toAdd.normalize(Timestamp.getCurrentTimestamp());
         internalList.add(toAdd);
         setPrimary(toAdd);
+        //addition
+        empty = internalList.isEmpty();
+        //addition
     }
 
     /**
@@ -99,6 +110,7 @@ public class UniqueBudgetList implements Iterable<Budget> {
         Budget b1 = Budget.deepCopy(budget);
         b1.setToPrimary();
         setBudget(budget, b1);
+
     }
 
     public Budget getPrimaryBudget() {
@@ -162,11 +174,19 @@ public class UniqueBudgetList implements Iterable<Budget> {
         if (toRemove.isPrimary()) {
             setPrimary(getDefaultBudget());
         }
+
+        empty = internalList.isEmpty();
     }
 
     public boolean isEmpty() {
         return internalList.size() == 0;
     }
+
+    public static boolean staticIsEmpty() {
+        return empty;
+    }
+
+
 
     public ObservableList<Budget> asUnmodifiableObservableList() {
         return internalUnmodifiableList;
@@ -213,6 +233,33 @@ public class UniqueBudgetList implements Iterable<Budget> {
         if (!target.isSameBudget(editedBudget) && contains(editedBudget)) {
             throw new DuplicateBudgetException();
         }
+
+        //addition
+        if (target.isPrimary()) {
+            period = editedBudget.getPeriod();
+            if (period == null) {
+                period = target.getPeriod();
+            }
+        }
+        //addition
+
         internalList.set(index, editedBudget);
+    }
+
+
+    /**
+     * Currently a static method to temporary solve the Singleton class implementation
+     * and the dependency of the parsers(Logic) on the BudgetList(Model)
+     * to prevent components from knowing too much, but a default budget only added when expense is added
+     * to startup screen, so should you allow stats to be run without a default budget?
+     * have to ensure that this is undoable too, i.e not initialised state is tracked by the model
+     * The singleton method bug
+     */
+    public static BudgetPeriod getPrimaryBudgetPeriod() {
+        //return period;
+        if (period == null) {
+            return BudgetPeriod.WEEK;
+        }
+        return period;
     }
 }

@@ -21,6 +21,7 @@ import seedu.address.model.budget.Budget;
 import seedu.address.model.expense.Description;
 import seedu.address.model.expense.Event;
 import seedu.address.model.expense.Expense;
+import seedu.address.model.statistics.Statistics;
 import seedu.address.storage.Storage;
 
 /**
@@ -72,8 +73,8 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public StringBuilder getBasicStatistics() {
-        return model.getStatistic();
+    public Statistics getStatistics() {
+        return model.getStatistics();
     }
 
     @Override

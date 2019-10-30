@@ -32,11 +32,12 @@ public class CommandResultTest {
         assertFalse(commandResult.equals(new CommandResult("different")));
 
         // different showHelp value -> returns false
-        assertFalse(commandResult.equals(new CommandResult("feedback", null,
+        assertFalse(commandResult.equals(new CommandResult("feedback",
                 true, false, PanelName.CURRENT)));
 
+
         // different exit value -> returns false
-        assertFalse(commandResult.equals(new CommandResult("feedback", null,
+        assertFalse(commandResult.equals(new CommandResult("feedback",
                 false, true, PanelName.CURRENT)));
 
     }
@@ -52,11 +53,11 @@ public class CommandResultTest {
         assertNotEquals(commandResult.hashCode(), new CommandResult("different").hashCode());
 
         // different showHelp value -> returns different hashcode
-        assertNotEquals(commandResult.hashCode(), new CommandResult("feedback", null,
+        assertNotEquals(commandResult.hashCode(), new CommandResult("feedback",
                 true, false, PanelName.CURRENT).hashCode());
 
         // different exit value -> returns different hashcode
-        assertNotEquals(commandResult.hashCode(), new CommandResult("feedback", null,
+        assertNotEquals(commandResult.hashCode(), new CommandResult("feedback",
                 false, true, PanelName.CURRENT).hashCode());
     }
 }
