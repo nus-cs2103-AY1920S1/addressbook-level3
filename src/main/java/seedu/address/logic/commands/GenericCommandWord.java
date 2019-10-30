@@ -10,6 +10,11 @@ public class GenericCommandWord {
     public static final String DELETE = "delete";
     public static final String EDIT = "edit";
 
+    /**
+     * Dummy.
+     * @param commandWord
+     * @return
+     */
     public static boolean isGeneric(String commandWord) {
         return commandWord.equals(ADD) || commandWord.equals(LIST) || commandWord.equals(DELETE)
                 || commandWord.equals(EDIT);
