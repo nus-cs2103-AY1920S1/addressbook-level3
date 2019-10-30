@@ -198,4 +198,8 @@ public class DateUtil {
             return "";
         }
     }
+
+    public static LocalDate getTodayDate() {
+        return LocalDate.now();
+    }
 }

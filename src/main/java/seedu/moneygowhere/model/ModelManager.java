@@ -126,7 +126,7 @@ public class ModelManager implements Model {
         spendingBook.setSpending(target, editedSpending);
     }
 
-    //=========== Budget related things =====================================================================
+    //=========== Budget related functions =====================================================================
 
     @Override
     public void setBudget(Budget budget) {
@@ -136,6 +136,11 @@ public class ModelManager implements Model {
     @Override
     public Budget getBudget() {
         return spendingBook.getBudget();
+    }
+
+    @Override
+    public void clearBudgetSum() {
+        spendingBook.clearBudgetSum();
     }
 
     //=========== Reminder related functions =====================================================================
