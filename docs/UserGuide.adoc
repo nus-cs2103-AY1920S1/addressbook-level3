@@ -251,8 +251,13 @@ add -f
 
 [[update]]
 ==== Updating an entity: `update`
-This command allows you to update the attributes of a `body` or `worker`.
+
+This command allows you to update the attributes of a body or worker.
+
 You have to indicate the entity type you want to update with a flag, as described in <<Features>>.
+[TIP]
+`-f` is not a valid flag for this command. Fridges will be automatically updated when bodies are assigned or removed.
+
 You can specify one or more attributes to change, but at least one valid attribute must be provided.
 
 Format: `update -flag /id id [/attributeName attributeValue ...]`
@@ -260,13 +265,15 @@ Format: `update -flag /id id [/attributeName attributeValue ...]`
 
 |===
 | :bulb: a|
-* When the `fridgeId` of a `body` is updated, changes to the fridges will be made as follows:
-** Previous fridge's status is set to `UNOCCUPIED` and is no longer assigned this `body`.
-** New fridge's status is set to `OCCUPIED` and is assigned this `body`.
+When the `fridgeId` of a `body` is updated, changes to the fridges will be made as follows:
 
-* When you update the `CONTACT_POLICE` status of a `body`, the associated `notif` will be automatically deleted.
+* Previous fridge's status is set to `UNOCCUPIED` and is no longer assigned this `body`.
 
-* When you update `bodyStatus` to `ARRIVED`, a `notif` pop-up will be shown after 10 seconds.
+* New fridge's status is set to `OCCUPIED` and is assigned this `body`.
+
+When you update the `CONTACT_POLICE` status of a `body`, the associated `notif` will be automatically deleted.
+
+When you update `bodyStatus` to `ARRIVED`, a `notif` pop-up will be shown after 10 seconds.
 
 |===
 
@@ -279,48 +286,42 @@ the list of valid attributes and their command prefixes can be found below:
 | Body
 
 a|
-[source,java]
-Name (/name)
-Sex (/sex)
-NRIC (/nric)
-Date of Birth (/dob)
-Date of Death (/dod)
-Date of Admission (/doa)
-Status (/status)
-Religion (/religion)
-Name of Next-of-Kin (/nameNOK)
-Relationship (/relationship)
-Phone Number of Next-of-Kin (/phoneNOK)
-Cause of Death (/cod)
-Details (/details)
-Organs For Donation (/organsForDonation)
-Fridge ID (/fridgeId)
 
-[TIP]
-When you change the `fridgeId`, make sure a `fridge` with this id exists.
-
----
+Name `/name` +
+Sex `/sex` +
+NRIC `/nric` +
+Date of Birth `/dob` +
+Date of Death `/dod` +
+Date of Admission `/doa` +
+Status `/status` +
+Religion `/religion` +
+Name of Next-of-Kin `/nameNOK` +
+Relationship `/relationship` +
+Phone Number of Next-of-Kin `/phoneNOK` +
+Cause of Death `/cod` +
+Details `/details` +
+Organs For Donation `/organsForDonation` +
+Fridge ID `/fridgeId` +
 
 | Worker
 a|
-[source,java]
-Phone Number (/phoneNo)
-Sex (/sex)
-Date of Birth (/dob)
-Date Joined (/dateJoined)
-Designation (/designation)
-Employment Status (/status)
-
----
+Phone Number `/phoneNo` +
+Sex `/sex` +
+Date of Birth `/dob` +
+Date Joined `/dateJoined` +
+Designation `/designation` +
+Employment Status `/status` +
+Photo `/photo`
 
 |===
-
+[TIP]
+Make sure you key in dates in the format DD/MM/YYYY.
 
 Example: +
 Imagine that someone (Jane Doe) just got promoted! You have to change her designation in Mortago.
 
 Instead of typing out all the irrelevant attributes a Worker has, you just have to input her ID number
-and her new designation.
+and her new designation. You see that her ID number is W00001.
 
 |===
 
@@ -329,7 +330,7 @@ and her new designation.
 |
 `update -w /id 1 /designation Senior Autopsy Technician`
 
-| Status of worker 1 changed
+| Designation of Jane Doe changed to Senior Autopsy Technician.
 
 |===
 
@@ -372,13 +373,28 @@ Format: `delete -flag  id`
 
 |===
 | :bulb: a|
-* When you delete a body, its associated notifications will also be deleted.
-* If a fridge is occupied by a body, you cannot delete it.
-* You only need to specify the number portion of the ID, without leading zeroes. Mortago will automatically convert it
+When you delete a body, its associated notifications will also be deleted.
+
+If a fridge is occupied by a body, you cannot delete it.
+
+You only need to specify the number portion of the ID, without leading zeroes. Mortago will automatically convert it
 in the format `BXXXXXXXX`, `WXXXXX`, or `FXX` for a body, worker or fridge entry respectively.
 |===
 
-Example: `delete -w 1` +
+****
+* Deletes the body, worker or fridge entry with t
+he specified identification number.
+
+* The identification number is automatically generated when an entity is created and is in the format `BXXXXXXXX`, `WXXXXX`, or `FXX` for a
+body, worker or fridge entry respectively.
+X represents any digit.
+* You only need to specify the number portion of the ID, without leading zeroes.
+****
+
+Examples:
+
+* `delete -w 1` +
+
 The worker with the identification number `W00001` will be deleted.
 
 // end::delete
@@ -482,17 +498,19 @@ All entries will be sorted and grouped according to their statuses.
 * `sort /order id asc` +
 All entries will be sorted according to their id number in ascending order.
 
-==== Filter body entries: `filter` `[coming in v2.0]`
-Filter all entries according to the given keyword in any of an entry’s attribute. All entries with matching keyword will be displayed. Keyword is case-insensitive.
+==== Filter all entries: `filter`
+This command allows you to filter all entries according to the given keywords in any of an entry’s attributes. All entries with matching keywords will be displayed. Keyword is case-insensitive.
 
-All attributes of a body entry can be filtered. Please refer to <<Section 3.1.1>> for the different fields available to be filtered.
+All attributes of a body or worker entry can be filtered. If more than one attribute is specified, the entries displayed must fulfill all attributes. Please refer to <<Section 3.1.1>> for the different fields available to be filtered.
 
-Format: `filter [/attributeName attributeValue...]`
+Format: `filter -FLAG [/attributeName attributeValue ...]`
 
 Example:
-`filter /cod Car Accident`
-All body entries with car accident as the cause of death will be displayed.
+* `filter -w /sex female` +
+All female worker entries will be displayed.
 
+* `filter -b /cod Car Accident /sex male` +
+All body entries with car accident as the cause of death and those that are male will be displayed.
 // end::sortfilter[]
 
 // tag::undoredo[]
@@ -502,15 +520,17 @@ The commands are undone starting from the most recent to the least recent.
 
 Format: `undo` or `u`
 
-[TIP]
+|===
+|:bulb: a|
 Only commands that change Mortago's data can be undone. For example, `add`, `update`, `clear`, and `delete` can be undone while
 `list` or `find` cannot be undone.
-[TIP]
-You can `undo` a `clear` command, but note that you cannot redo any past undone commands after that.
-[TIP]
-Other events that occur due to a command will also be undone if the command is undone. For example, if an `add` command
-automatically generates an `notif`, the `notif` will be removed if `add` was undone.
 
+You can `undo` a `clear` command, but note that you cannot redo any past undone commands after that.
+
+Automated commands can be undone after they are executed as well.
+
+
+|===
 
 Example: +
 Imagine that you've accidentally deleted the wrong Body (John Doe) from Mortago. You can easily reverse that mistake with the `undo` command instead of adding John Doe all over again!
@@ -519,7 +539,7 @@ To undo:
 
 1. Type `undo` or `u` into the command box.
 2. Press `Enter` to execute the command.
-3. Notice that the result box displays "Undid deleting this entity: <Text>" and John Doe is now back in the list of bodies.
+3. Notice that the result box displays "Undid deleting this entity: <long descriptor of the body>" and John Doe is now back in the list of bodies.
 
 
 ==== Redoing a command: `redo`
@@ -541,7 +561,7 @@ To redo:
 
 1. Type `redo` or `r` into the command box.
 2. Press `Enter` to execute the command.
-3. Notice that the result box displays "Deleted this entity: <Text>" and John Doe is now absent from the list of bodies.
+3. Notice that the result box displays "Deleted this entity: <long descriptor of the body>" and John Doe is now absent from the list of bodies.
 
 // end::undoredo[]
 
@@ -589,11 +609,24 @@ Format: `genReportSummary`
 // end::genReportSummary[]
 
 === Administrative
-==== View admission statistics
-View a line-chart of the number of bodies admitted to the morgue over the past 10 days.
+==== View admission statistics: `stats`
+This command allows you to view a the statistics of the number of bodies admitted to the morgue over the past 10 days, a specific week, a specific month, or a specific year.
 
-The line-chart is on the main page of the application and is automatically updated when a body is added or deleted.
-No user command is needed to display it.
+The statistics appear in graphical form as a line-chart on the main page of the application. The line chart is initialised automatically and you do not need to enter a command to see it. By default, the line-chart displayed shows the number of bodies admitted over the past 10 days and is automatically updated when a body is added or deleted. You can change the time frame with the commands.
+
+The following is the correct format for typing in stats commands, with example usage:
+
+* To display the last 10 days: `stats` +
+The line chart will display statistics over the last 10 days.
+
+* To display a specific week: `stats /week 12/10/2019` +
+The line chart will display statistics for the week which contains the specified day. In this case, it is the date 12/10/2019.
+
+* To display a specific month: `stats /month 5/2019` +
+The line chart will display statistics or the month specified. In this case, it is May 2019.
+
+* To display a specific year: `stats /year 2019` +
+The line chart will display statistics for the year specified. In this case is it 2019.
 
 ==== Archive entries: `archive` `[coming in v2.0]`
 Archive old or irrelevant entries. One entry can be archived at a time, or all entries of a certain specification can be archived at once.
@@ -757,6 +790,8 @@ Lists emergency help hotlines.
 
 == Glossary
 *Attribute* : In Mortago, an attribute is the property of a body, fridge or worker. +
+
+*Automated Command* : In Mortago, an automated command is a command that is not explicitly inputted by the user.
 
 *Body* : a corpse +
 
