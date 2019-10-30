@@ -81,6 +81,7 @@ image::tip.png[width = "20", float = "left"]
 * Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* All index specified must be a positive number 1,2,3...
 ====
 
 === Password
@@ -90,17 +91,40 @@ You can access the password directory using this command : `goto password`
 
 Too many passwords to remember? You can add a password to the application.
 
-Format: `add d/<desc> u/<username> p/<password> t/<tag>`
+Format: `add d/DESCRIPTION u/USERNAME p/PASSWORD [w/WEBSITE] [t/TAG]...`
 
-Example: `add d/Gmail u/user1 p/password1 t/work`
+Example: `add d/Gmail u/user1 p/password1 w/www.gmail.com/signin t/work`
 
 ==== Accessing a password : `read`
 
-You can copy the password for the specified index directly to clipboard.
+You can open and view the password for the specified index.
 
-Format: `read <index>`
+Format: `read INDEX`
 
-Example: `open 1`
+Example: `read 1`
+
+==== Copying a field in a password : `copy`
+====
+--
+image::tip.png[width = "20", float = "left"]
+--
+*Tip*
+
+* You can type cp for copy, p for password, u for username and w for website.
+* You can only copy one field at a time
+====
+
+You can copy the password value, website or username for the specific index.
+
+Format: `copy password INDEX`
+
+Example: `copy password 1`
+
+Example: `cp p 1`
+
+Example: `cp username 2`
+
+Example: `cp w 2`
 
 ==== Updating a password : `edit`
 
@@ -110,14 +134,14 @@ image::tip.png[width = "20", float = "left"]
 --
 *Tip*
 
-* You do not need not type the description, username, password again.
+* You do not need not type all the fields of the password again.
 
-* You can just type the fields that you want to change in the order specified.
+* You can just type the fields that you want to change.
 ====
 
-Added a wrong password? No worries, you can update the password.
+Added a wrong password? No worries, you can edit the password.
 
-Format: `edit <index> d/<desc> u/<username> p/<password> t/<tag>`
+Format: `edit INDEX [d/DESCRIPTION] [u/USERNAME] [p/PASSWORD] [w/WEBSITE] [t/TAG]`
 
 Example: `edit 1 u/NewUsername`
 
@@ -138,7 +162,7 @@ image::warning.png[width = "20", float = "left"]
 
 No longer use the user account? You can delete the password as specified by the user.
 
-Format: `delete <index>`
+Format: `delete INDEX`
 
 Example: `delete 2`
 
@@ -152,12 +176,12 @@ image::tip.png[width = "20", float = "left"]
 * The search is case insensitive. e.g `gmail` will match `Gmail`
 * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
 * Only the description is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
+* Incomplete-words will be matched e.g. `Han` will match `Hans`
 ====
 
 Too many passwords? You can find the password description as specified by the user.
 
-Format: `find <desc>`
+Format: `find DESCRIPTION`
 
 Example: `find Gmail`
 
@@ -451,11 +475,12 @@ There is no need to save manually.
 
 Accessing Password directory: `goto password`
 
-- `add d/<desc> u/<username> p/<password> t/<tag>` : Adds a password to the app.
-- `read <index>`:  Shows the username and password for the specified password index provided by you.
-- `edit <index> d/<desc> u/<username> p/<password> t/<tag>`: Edits a password as specified by you.
-- `delete <index>`: Deletes a password as specified by the user.
-- `find <desc>`: Finds a password description as specified by the user.
+- `add d/DESCRIPTION u/USERNAME p/PASSWORD [w/WEBSITE] [t/TAG]...` : Adds a password to the app.
+- `read INDEX`:  Shows the username and password for the specified index provided by you.
+- `edit INDEX [d/DESCRIPTION] [u/USERNAME] [p/PASSWORD] [w/WEBSITE] [t/TAG]`: Edits a password as specified by you.
+- `copy password INDEX`: Copies the password value, website or username for the specific index
+- `delete INDEX`: Deletes a password as specified by the user.
+- `find DESCRIPTION`: Finds a password description as specified by the user.
 - `generate lower/<true/false> upper/<true/false> num/<true/false> special/<true/false>`: Generates a new random password based on user preference input and copies generated password into user clipboard.
 - `analyse`: Analyses all passwords currently stored and produces a security summary report.
 - `analyse strong/<index>`: Analyses in detail a specified password based on the user specified index.
