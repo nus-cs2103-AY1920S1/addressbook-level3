@@ -223,7 +223,7 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     private void handleFolderExpand(int levelsToExpand) {
-
+        dashboardPanel.folderStructureTreeView.expand(levelsToExpand);
     }
 
     public Consumer<Url> getCurrentUrlChangeHandler() {
@@ -273,7 +273,7 @@ public class MainWindow extends UiPart<Stage> {
             }
 
             if (commandResult.getLevelsToExpand() != 0) {
-                dashboardPanel.folderStructureTreeView.expand(commandResult.getLevelsToExpand());
+                handleFolderExpand(commandResult.getLevelsToExpand());
             }
 
             return commandResult;
