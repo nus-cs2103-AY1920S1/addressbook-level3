@@ -63,6 +63,16 @@ public class ExpiryDate {
         return expiryDate;
     }
 
+    /**
+     * Convert the string format of date to a Date object.
+     * @return Returns a Date formatted object.
+     * @throws ParseException if format is invalid.
+     */
+    public Date toDateFormat() throws ParseException {
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        return format.parse(expiryDate);
+    }
+
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object

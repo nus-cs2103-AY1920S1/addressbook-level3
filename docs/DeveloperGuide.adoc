@@ -459,11 +459,11 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user |add groceries |keep track of all the groceries bought
 
-|`* * *` |user |see the expiry dates of my groceries |know when they expire.
+|`* * *` |user |see the expiry dates of my groceries |manage my usage accordingly.
 
 |`* * *` |user |update my grocery list |keep track of the amount of groceries I have
 
-|`* *` |user |find a specific grocery |know more information about that grocery
+|`* *` |user |find a specific grocery |be more efficient in finding a specific item
 
 |`* * *` |user |view all groceries |know what to buy more of
 
@@ -471,15 +471,13 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`*` |user with many persons in the address book |sort persons by name |locate a person easily
 
-|`* * *` |user |get reminders on expiring food items |prevent food wastage
+|`* * *` |forgetful user |get reminders on expiring food items |prevent food wastage
 
 |`* * *` |user |set default reminder settings |get reminders of expiring food within the specified number of days every time I launch the app
 
-|`* * *` |user |sort food items |view grocery list with the specified sorting method
+|`* * *` |organised user |sort food items |view grocery list with the specified sorting method
 
 |`* * *` |user |set default sort settings |view grocery list with the specified sorting method every time I display the grocery list
-
-|`* * *` |user |merge food items with same name and expiry date when viewing grocery list |view grocery list in a more organized manner
 |=======================================================================
 
 [appendix]
@@ -494,7 +492,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 1.  User requests to list grocery items
 2.  iFridge shows the list of grocery items
-3.  User requests to edit a specific grocery item's name/amount/expiry date
+3.  User requests to edit a specific grocery item's name/expiry date/tag
 4.  iFridge performs the specified edit on the specified grocery item
 +
 Use case ends.
@@ -514,10 +512,22 @@ Use case ends.
 *Extensions*
 
 [none]
+* 3a. The given input is invalid
++
+[none]
+** 3a1. iFridge shows an error message.
++
+Use case ends.
++
+
+*Extensions*
+
+[none]
 * 2a. The list is empty.
 +
 Use case ends.
 
+[none]
 * 3a. The given input is invalid
 +
 [none]
