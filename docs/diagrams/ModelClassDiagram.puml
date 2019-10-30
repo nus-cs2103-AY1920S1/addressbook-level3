@@ -40,6 +40,13 @@ Class UniqueAssignmentList
 }
 }
 
+Package Lesson {
+Class Lesson
+Class ClassName
+Class Time
+Class UniqueLessonList
+}
+
 Class HiddenOutside #FFFFFF
 HiddenOutside ..> Model
 
@@ -67,6 +74,10 @@ UniqueAssignmentList o--> "*" Assignment
 Assignment *--> AssignmentName
 Assignment *--> AssignmentGrades
 Assignment *--> AssignmentDeadline
+
+UniqueLessonList o--> "*" Lesson
+Lesson *--> ClassName
+Lesson *--> Time
 
 Name -[hidden]right-> Phone
 Phone -[hidden]right-> Address
