@@ -18,7 +18,7 @@ public class FolderContainsKeywordsPredicate implements Predicate<Bookmark> {
     @Override
     public boolean test(Bookmark bookmark) {
         return keywords.stream()
-                .anyMatch(keyword -> bookmark.getFolder().folderName.equals(keyword));
+                .anyMatch(keyword -> bookmark.getFolder().folderName.equalsIgnoreCase(keyword));
     }
 
     @Override
