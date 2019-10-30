@@ -81,6 +81,7 @@ import seedu.address.ui.alias.AliasPanel;
 import seedu.address.ui.budget.BudgetListPanel;
 import seedu.address.ui.budget.BudgetPanel;
 import seedu.address.ui.event.EventListPanel;
+import seedu.address.ui.alias.AliasPanel;
 import seedu.address.ui.expense.ExpenseListPanel;
 import seedu.address.ui.panel.PanelName;
 import seedu.address.ui.panel.PlaceholderPanel;
@@ -150,6 +151,7 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
+
     }
 
     public Stage getPrimaryStage() {
@@ -377,6 +379,7 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+
     /**
      * Changes the currently viewed Panel in the MainWindow.
      * @param panelName The Panel Name of assigned to the Panel.
@@ -544,6 +547,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException,
             UnmappedPanelException {
+
         try {
             Budget primaryBudget = logic.getPrimaryBudget();
             boolean initialIsNear = primaryBudget.isNear();

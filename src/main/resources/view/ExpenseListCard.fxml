@@ -30,7 +30,7 @@
                     <Label fx:id="description" text="Label" GridPane.columnIndex="1"/>
                     <Label fx:id="price" alignment="CENTER_RIGHT" minWidth="-Infinity" text="\$price"
                            textAlignment="RIGHT" wrapText="true" GridPane.columnIndex="2" GridPane.halignment="RIGHT"
-                           GridPane.hgrow="ALWAYS" GridPane.rowSpan="2147483647"/>
+                           GridPane.hgrow="SOMETIMES" GridPane.rowSpan="2147483647"/>
                     <FlowPane fx:id="categories" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                     <HBox GridPane.columnIndex="1" GridPane.rowIndex="2">
                         <children>
