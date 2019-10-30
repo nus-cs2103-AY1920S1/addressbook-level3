@@ -6,6 +6,8 @@ import static seedu.address.logic.parser.CliSyntax.SEARCH_PREFIX_ID;
 import static seedu.address.logic.parser.CliSyntax.SEARCH_PREFIX_OPERATOR;
 import static seedu.address.logic.parser.CliSyntax.SEARCH_PREFIX_SELF;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Predicate;
 
 import seedu.address.commons.core.Messages;
@@ -42,6 +44,7 @@ public class FindIncidentsCommand extends Command {
     private Predicate<Incident> predicate;
     private boolean isSelfSearch = false;
     private Predicate<Incident> secondPredicate;
+    private List<Predicate> predicateArr = new ArrayList<>();
 
     public FindIncidentsCommand(DescriptionKeywordsPredicate descriptionPredicate) {
         this.predicate = descriptionPredicate;
@@ -58,6 +61,13 @@ public class FindIncidentsCommand extends Command {
     public FindIncidentsCommand(NameKeywordsPredicate namePredicate, DescriptionKeywordsPredicate descriptionPredicate) {
         this.predicate = namePredicate;
         this.secondPredicate = descriptionPredicate;
+    }
+
+    public FindIncidentsCommand(List<Predicate> predicateArr) {
+        this.predicateArr = predicateArr;
+        for (int i = 0; i < predicateArr.size() - 1; i++) {
+            this.predicate = predicateArr.get(i).and(predicateArr.get(i + 1));
+        }
     }
 
     public FindIncidentsCommand(Prefix prefix) {
