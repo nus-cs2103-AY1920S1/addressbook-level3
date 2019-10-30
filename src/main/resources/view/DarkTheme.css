@@ -194,6 +194,26 @@
     -fx-text-fill: black !important;
 }
 
+/*for all items list*/
+
+.tree-view .tree-cell {
+    -fx-background-color: transparent;
+    -fx-font-family: "Segoe UI";
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+}
+
+.tree-cell > .tree-disclosure-node > .arrow  {
+    -fx-background-color: #2c868d;
+}
+.tree-cell:expanded > .tree-disclosure-node > .arrow {
+    -fx-background-color: #35a4b0;
+}
+
+.tree-view {
+    -fx-background-color: #383838;
+}
+
 .status-bar .label {
     -fx-font-family: "Segoe UI Light";
     -fx-text-fill: white;

@@ -35,6 +35,7 @@ public class MainWindow extends UiPart<Stage> {
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private ViewPanel viewPanel;
+    private AllItemsPanel allItemsPanel;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -44,6 +45,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane viewPanelPlaceholder;
+
+    @FXML
+    private StackPane allItemsPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -64,7 +68,6 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
-        resultWindow = new ResultWindow();
     }
 
     public Stage getPrimaryStage() {
@@ -113,6 +116,9 @@ public class MainWindow extends UiPart<Stage> {
         viewPanel = new ViewPanel(logic.getCurrentFilteredItemList());
         viewPanelPlaceholder.getChildren().add(viewPanel.getRoot());
 
+        allItemsPanel = new AllItemsPanel(logic.getXpireItemList(), logic.getReplenishItemList());
+        allItemsPanelPlaceholder.getChildren().add(allItemsPanel.getRoot());
+
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
@@ -160,7 +166,6 @@ public class MainWindow extends UiPart<Stage> {
                 (int) primaryStage.getX(), (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
-        resultWindow.hide();
         primaryStage.hide();
     }
 
@@ -178,9 +183,12 @@ public class MainWindow extends UiPart<Stage> {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
-            viewPanel.displayItem(logic.getCurrentFilteredItemList());
+            viewPanel.displayItems(logic.getCurrentFilteredItemList());
             viewPanelPlaceholder.getChildren().remove(viewPanel.getRoot());
             viewPanelPlaceholder.getChildren().add(viewPanel.getRoot());
+            allItemsPanel.displayItems(logic.getXpireItemList(), logic.getReplenishItemList());
+            allItemsPanelPlaceholder.getChildren().remove(allItemsPanel.getRoot());
+            allItemsPanelPlaceholder.getChildren().add(allItemsPanel.getRoot());
 
             if (commandResult.isShowHelp()) {
                 handleHelp();
