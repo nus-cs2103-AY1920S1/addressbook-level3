@@ -30,11 +30,15 @@ public class Schedule {
      * @param event to be added
      * @throws EventClashException when there is a clash in the events
      */
-    public void addEvent(Event event) throws EventClashException, DuplicateEventException {
+    public void addEvent(Event event) throws EventClashException {
         if (isClash(event)) {
             throw new EventClashException(event);
         } else if (isEventExist(event)) {
-            throw new DuplicateEventException();
+
+            Event currentEvent = findEvent(event.getEventName());
+            if (currentEvent != null) {
+                currentEvent.addTimeslot(event.getTimeslots());
+            }
         }
         this.events.add(event);
     }
@@ -95,7 +99,7 @@ public class Schedule {
      * Checks if the event already exists in the schedule.
      *
      * @param event
-     * @return
+     * @return boolean
      */
     private boolean isEventExist(Event event) {
         for (int i = 0; i < events.size(); i++) {
@@ -104,6 +108,21 @@ public class Schedule {
             }
         }
         return false;
+    }
+
+    /**
+     * Returns the event in the schedule of the specified name.
+     *
+     * @param eventName of event to be found
+     * @return Event
+     */
+    private Event findEvent(String eventName) {
+        for (int i = 0; i < events.size(); i++) {
+            if (events.get(i).getEventName().equals(eventName)) {
+                return events.get(i);
+            }
+        }
+        return null;
     }
 
     public ArrayList<Event> getEvents() {

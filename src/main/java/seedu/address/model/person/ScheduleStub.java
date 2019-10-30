@@ -52,7 +52,7 @@ public class ScheduleStub {
         Schedule result = new Schedule(new PersonId(-1));
         try {
             schedule.addEvent(event);
-        } catch (EventClashException | DuplicateEventException e) {
+        } catch (EventClashException e) {
             return null;
         }
         return schedule;
