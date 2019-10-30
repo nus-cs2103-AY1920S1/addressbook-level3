@@ -8,9 +8,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 
 import com.google.gson.Gson;
+
 import seedu.address.model.Model;
 import seedu.address.model.flashcard.Question;
-import seedu.address.storage.JsonBadDeadlines;
 
 /**
  * BadQuestions class.
@@ -21,10 +21,10 @@ import seedu.address.storage.JsonBadDeadlines;
 public class BadQuestions {
 
     private HashMap<String, String> internalMap = new HashMap<String, String>();
-    private JsonBadDeadlines jsonBadDeadlines;
+    //private JsonBadDeadlines jsonBadDeadlines;
 
     public BadQuestions() {
-//        internalMap = new HashMap<String, String>();
+    //TODO: add initialisation of bad deadline list - load json
     }
 
     public HashMap<String, String> getBadQuestionsList() {
@@ -40,7 +40,7 @@ public class BadQuestions {
     }
 
     public void loadBadQuestions() throws FileNotFoundException {
-        internalMap = jsonBadDeadlines.loadJsonBadDeadlines();
+        //internalMap = jsonBadDeadlines.loadJsonBadDeadlines();
     }
 
     public static DueDate getBadDeadline() {

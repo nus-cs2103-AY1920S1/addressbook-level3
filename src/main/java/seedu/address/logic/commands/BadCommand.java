@@ -18,8 +18,6 @@ import seedu.address.model.deadline.Task;
 import seedu.address.model.deadline.exceptions.DuplicateDeadlineException;
 import seedu.address.model.flashcard.FlashCard;
 import seedu.address.model.flashcard.Question;
-import seedu.address.storage.JsonBadDeadlines;
-
 
 /**
  * Set certain FlashCards as 'Bad'
@@ -40,8 +38,6 @@ public class BadCommand extends Command {
     public static final String DUPLICATE_DEADLINE = "Flashcard has been added into an existing deadline!";
 
     private final Index index;
-
-//    private static JsonBadDeadlines jsonBadDeadlines;
 
     public BadCommand(Index index) {
         requireNonNull(index);
