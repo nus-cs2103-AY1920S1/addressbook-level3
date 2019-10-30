@@ -62,11 +62,14 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Optional parameters with `…`​ after them can be used multiple times including zero times e.g. `tag|<index>|[<tag>]...` can be used as `tag|1|#Fruit #Frozen #Cold`, `tag|1`, or `tag|1|#Fruit`.
 ====
 
+// tag::help[]
 === Opening the help window: `help`
 
 Displays the help window. +
 Format: `help`
+// end::help[]
 
+// tag::view[]
 === Viewing all items : `view`
 
 ==== Viewing all items in the current list
@@ -86,7 +89,9 @@ Displays all items in the main list.
 
 * `view|replenish` +
 Displays all items in the replenish list.
+// end::view[]
 
+// tag::search[]
 === Searching for item(s) by their name and/or tag: `search`
 Searches for items whose names or tag(s) contain any of the given keywords. +
 Format: `search|<keyword>[|<other keywords>]...`
@@ -109,7 +114,9 @@ Returns `Chicken Kebab` and `kebab`
 Returns `Chicken Ham`
 * `search|milk|tea|#Drink` +
 Returns any items with names containing `milk` or `tea`, or with the tag `#Drink`.
+// end::search[]
 
+// tag::add[]
 === Adding an item: `add` (Only permitted in the main list)
 Adds an item to your tracker. +
 Upon addition of the item, the updated list sorted by name then date in chronological order, will be displayed. +
@@ -130,14 +137,18 @@ Adds the item `ice cream` with expiry date `18/8/2019` with quantity `2`
 
 [TIP]
 For items with single quantity, you can save time by keying in only the item name and expiry date.
+// end::add[]
 
+// tag::shift[]
 //TODO: update shift command
 === Shifting an item from one list to another: `shift`
 
 ==== Shifting an item from the main list to the replenish list
 
 ==== Shifting an item from the replenish list to the main list
+// end::shift[]
 
+// tag::delete[]
 === Deleting variable(s): `delete` (Only permitted in the main list)
 
 ==== Deleting an item
@@ -180,6 +191,7 @@ Deletes the tags `#Fruit` and `#Food` from the 3rd item in the list.
 Reduces the quantity from the 4th item by 1.
 // end::delete[]
 
+// tag::tag[]
 === Tagging an item : `tag` (Only permitted in the main list)
 
 [TIP]
@@ -209,9 +221,9 @@ Tags the 2nd item in the list with `#Nestle` and `#Caffeine`.
 
 * `tag` +
 Shows all tags created.
+// end::tag[]
 
-// tag::delete[]
-
+// tag::set reminder[]
 === Setting reminder for an item: `set reminder` (Only permitted in the main list)
 
 ==== Setting the number of days before an item's expiry date to start reminding you
@@ -241,7 +253,9 @@ Examples:
 
 * `set reminder|1|0` +
 Removes the reminder for the first item in the list.
+// end::set reminder[]
 
+// tag::check[]
 === Listing expiring items: `check` (Only permitted in the main list)
 
 ==== Listing all expiring items with activated reminders
@@ -263,7 +277,9 @@ Examples:
 
 * `check|20` +
 Lists items expiring in the next 20 days.
+// end::check[]
 
+// tag::sort[]
 === Sorting all items : `sort` (Only permitted in the main list)
 Sorts all items in your list by their name or date. +
 Format: `sort|<key>`
@@ -278,16 +294,21 @@ Format: `sort|name`
 
 ==== Sorting all items by their date
 Format: `sort|date`
+// end::sort[]
 
+// tag::clear[]
 === Clearing all entries : `clear`
 
 Clears all entries from the current list that is displayed. +
 Format: `clear`
+// end::clear[]
 
+// tag::exit[]
 === Exiting the program : `exit`
 
 Exits the program. +
 Format: `exit`
+// end::exit[]
 
 === Saving the data
 

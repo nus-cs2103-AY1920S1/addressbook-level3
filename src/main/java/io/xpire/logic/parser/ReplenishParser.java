@@ -1,13 +1,27 @@
 package io.xpire.logic.parser;
 
-import static io.xpire.commons.core.Messages.*;
+import static io.xpire.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static io.xpire.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static io.xpire.commons.core.Messages.MESSAGE_XPIRE_COMMAND_ONLY;
 
 import java.util.Arrays;
 import java.util.Set;
 import java.util.TreeSet;
 
 import io.xpire.commons.util.StringUtil;
-import io.xpire.logic.commands.*;
+import io.xpire.logic.commands.AddCommand;
+import io.xpire.logic.commands.CheckCommand;
+import io.xpire.logic.commands.ClearCommand;
+import io.xpire.logic.commands.Command;
+import io.xpire.logic.commands.DeleteCommand;
+import io.xpire.logic.commands.ExitCommand;
+import io.xpire.logic.commands.HelpCommand;
+import io.xpire.logic.commands.SearchCommand;
+import io.xpire.logic.commands.SetReminderCommand;
+import io.xpire.logic.commands.ShiftToMainCommand;
+import io.xpire.logic.commands.SortCommand;
+import io.xpire.logic.commands.TagCommand;
+import io.xpire.logic.commands.ViewCommand;
 import io.xpire.logic.parser.exceptions.ParseException;
 
 /**
