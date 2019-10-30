@@ -390,7 +390,7 @@ Format: `clear` +
 {empty} +
 
 ==== Exit application:
-To exit application (Modulo)
+To exit application (Modulo).
 
 Format: `exit` +
 {empty} +
