@@ -45,7 +45,7 @@ public class Todo extends Task {
      */
     @Override
     public TaskType getTaskType() {
-        return TaskType.Todo;
+        return TaskType.TODO;
     }
 
     /**

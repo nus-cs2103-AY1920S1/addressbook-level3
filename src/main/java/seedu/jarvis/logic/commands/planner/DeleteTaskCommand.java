@@ -34,7 +34,7 @@ public class DeleteTaskCommand extends Command {
     public static final String MESSAGE_INVERSE_SUCCESS_ADD = "New task added task: %1$s";
     public static final String MESSAGE_INVERSE_TASK_TO_ADD_ALREADY_EXIST = "Task already added: %1$s";
 
-    public static final boolean HAS_INVERSE = false;
+    public static final boolean HAS_INVERSE = true;
 
     private final Index targetIndex;
     private Task deletedTask;

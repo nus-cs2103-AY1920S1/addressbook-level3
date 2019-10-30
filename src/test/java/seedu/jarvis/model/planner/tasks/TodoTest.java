@@ -127,7 +127,7 @@ class TodoTest {
     void getTaskType() {
         Todo t = new Todo("homework");
 
-        TaskType expected = TaskType.Todo;
+        TaskType expected = TaskType.TODO;
         assertEquals(expected, t.getTaskType());
     }
 }

@@ -59,7 +59,7 @@ public class Deadline extends Task {
      */
     @Override
     public TaskType getTaskType() {
-        return TaskType.Deadline;
+        return TaskType.DEADLINE;
     }
 
     /**

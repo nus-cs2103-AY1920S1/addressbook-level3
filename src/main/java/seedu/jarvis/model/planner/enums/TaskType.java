@@ -7,7 +7,7 @@ public enum TaskType {
     /**
      * Values that TaskType can take
      */
-    Todo,
-    Event,
-    Deadline
+    TODO,
+    EVENT,
+    DEADLINE
 }

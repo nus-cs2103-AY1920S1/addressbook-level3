@@ -31,13 +31,13 @@ public class DoneTaskCommand extends Command {
             + "INDEX"
             + "\nExample: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_SUCCESS = "%1$s marked as done.";
+    public static final String MESSAGE_SUCCESS = "%1$s\nmarked as done.";
     public static final String MESSAGE_TASK_ALREADY_DONE = "This task has already been marked as completed.";
 
-    public static final String MESSAGE_INVERSE_SUCCESS_UNDONE = "%1$s marked as undone.";
+    public static final String MESSAGE_INVERSE_SUCCESS_UNDONE = "%1$s\nmarked as undone.";
     public static final String MESSAGE_INVERSE_TASK_ALREADY_UNDONE = "Task has already been marked as undone";
 
-    public static final boolean HAS_INVERSE = false;
+    public static final boolean HAS_INVERSE = true;
 
     private final Index targetIndex;
     private Task doneTask;
@@ -113,6 +113,7 @@ public class DoneTaskCommand extends Command {
         }
 
         model.markTaskAsDone(targetIndex);
+        doneTask = model.getTask(targetIndex);
         model.updateFilteredTaskList(PlannerModel.PREDICATE_SHOW_ALL_TASKS);
         model.setViewStatus(ViewType.LIST_PLANNER);
         return new CommandResult(String.format(MESSAGE_SUCCESS, doneTask), true);

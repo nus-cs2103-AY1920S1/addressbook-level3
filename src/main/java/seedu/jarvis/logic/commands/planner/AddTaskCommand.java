@@ -49,7 +49,7 @@ public class AddTaskCommand extends Command {
     public static final String MESSAGE_INVERSE_SUCCESS_DELETE = "Deleted task: %1$s";
     public static final String MESSAGE_INVERSE_TASK_NOT_FOUND = "Task already deleted: %1$s";
 
-    public static final boolean HAS_INVERSE = false;
+    public static final boolean HAS_INVERSE = true;
 
     private final Task toAdd;
 
