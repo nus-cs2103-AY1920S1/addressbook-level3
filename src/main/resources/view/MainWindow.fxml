@@ -40,7 +40,7 @@
                      <children>
                           <StackPane fx:id="commandBoxPlaceholder" alignment="TOP_CENTER" minHeight="100.0" prefHeight="100.0" style="-fx-background-color: #95AFC0;" styleClass="pane-with-border" VBox.vgrow="NEVER" />
                     <StackPane fx:id="resultDisplayPlaceholder" maxHeight="100" minHeight="50.0" prefHeight="50.0" style="-fx-background-color: #FFFFFF;" styleClass="pane-with-border" VBox.vgrow="NEVER" />
-                        <StackPane fx:id="featureBoxPlaceholder" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="pane-with-border" VBox.vgrow="ALWAYS" />
+                        <StackPane fx:id="featureBoxPlaceholder" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: #ffffff;" styleClass="pane-with-border" VBox.vgrow="ALWAYS" />
                      </children>
                   </VBox>
                </children>

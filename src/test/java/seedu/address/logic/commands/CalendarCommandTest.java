@@ -34,7 +34,7 @@ public class CalendarCommandTest {
 
         CommandResult commandResult = new CalendarCommand(validDate).execute(model);
 
-        assertEquals(CalendarCommand.MESSAGE_SUCCESS_1 + "1 January 2019",
+        assertEquals(CalendarCommand.MESSAGE_SUCCESS_1 + "1st January 2019",
                 commandResult.getFeedbackToUser());
     }
 

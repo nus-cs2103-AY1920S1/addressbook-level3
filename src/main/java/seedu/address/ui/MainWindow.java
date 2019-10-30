@@ -203,6 +203,7 @@ public class MainWindow extends UiPart<Stage> {
                     break;
                 }
             }
+
             if (!(commandResult.getPerson() == null)) {
                 InformationDisplay informationDisplay = new InformationDisplay(logic.getPerson(),
                                                                                logic.getPersonAttendance());
