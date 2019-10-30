@@ -498,7 +498,6 @@ Format: `display_schedule for/MM/yyyy`
 Want to have an overview of all the dates that has an event?
 Use the `generate_schedule` command to do so.
 The `generate_schedule` command looks through the entire list of events and generates a new list of all the dates which has an event and also display all the events that happens on that date.
->>>>>>> e097b68b5332ff2472d74fdfa6fea5d9526b153e
 
 Format: `generate_schedule`
 
@@ -638,4 +637,3 @@ e.g. `clear_ev_dt 2`
 | *Exit* | `exit`| `exit`
 
 |===
->>>>>>> master
