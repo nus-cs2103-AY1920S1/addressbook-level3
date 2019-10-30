@@ -14,18 +14,18 @@ import seedu.address.inventory.util.InventoryList;
  * Manages storage of inventory data in local storage.
  */
 public class StorageManager implements Storage {
-    private File file;
+    private String filepath;
 
-    public StorageManager(File file) {
-        this.file = file;
+    public StorageManager(String filepath) {
+        this.filepath = filepath;
     }
 
-    public InventoryList getInventoryList() throws IOException {
+    public InventoryList getInventoryList() throws Exception {
         ArrayList<Item> inventoryArrayList = new ArrayList<>();
-        //File f = new File(filepath);
-        file.getAbsoluteFile().getParentFile().mkdirs();
-        file.createNewFile();
-        BufferedReader bfr = new BufferedReader(new FileReader(file));
+        File f = new File(filepath);
+        f.getParentFile().mkdirs();
+        f.createNewFile();
+        BufferedReader bfr = new BufferedReader(new FileReader(f));
         String line = null;
         while ((line = bfr.readLine()) != null) {
             Item t = this.readInFileLine(line);
@@ -61,7 +61,7 @@ public class StorageManager implements Storage {
      */
     public void writeFile(InventoryList inventoryList) throws IOException,
             seedu.address.inventory.model.exception.NoSuchIndexException {
-        FileWriter fw = new FileWriter(file);
+        FileWriter fw = new FileWriter(this.filepath);
         String textFileMsg = "";
         for (int i = 0; i < inventoryList.size(); i++) {
             if (i == 0) {

@@ -20,7 +20,8 @@ public abstract class Command {
      */
     //public abstract CommandResult execute(Model model) throws CommandException;
     public abstract CommandResult execute(Model model, seedu.address.transaction.logic.Logic transactionLogic,
-                                          seedu.address.reimbursement.logic.Logic reimbursementLogic)
+                                          seedu.address.reimbursement.logic.Logic reimbursementLogic,
+                                          seedu.address.cashier.logic.Logic cashierLogic)
             throws CommandException, IOException;
 
 }

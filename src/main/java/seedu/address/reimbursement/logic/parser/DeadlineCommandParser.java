@@ -18,7 +18,7 @@ import seedu.address.util.Prefix;
 /**
  * Parser for deadline command.
  */
-public class DeadlineCommandParser implements CommandParserWithPersonModel<DeadlineCommand> {
+public class DeadlineCommandParser implements GeneralParser<DeadlineCommand> {
     private static boolean arePrefixesPresent(ArgumentMultimap argMultimap, Prefix... prefixes) {
         return Stream.of(prefixes).allMatch(prefix -> argMultimap.getValue(prefix).isPresent());
     }

@@ -11,7 +11,9 @@ import seedu.address.person.logic.commands.ClearCommand;
 import seedu.address.person.logic.commands.Command;
 import seedu.address.person.logic.commands.DeleteCommand;
 import seedu.address.person.logic.commands.EditCommand;
+import seedu.address.person.logic.commands.ExitCommand;
 import seedu.address.person.logic.commands.FindCommand;
+import seedu.address.person.logic.commands.HelpCommand;
 import seedu.address.person.logic.commands.ListCommand;
 import seedu.address.person.logic.parser.exceptions.ParseException;
 
@@ -35,8 +37,9 @@ public class AddressBookParser {
     public Command parseCommand(String userInput) throws ParseException {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
         }
+
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
@@ -58,6 +61,12 @@ public class AddressBookParser {
 
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
+
+        case ExitCommand.COMMAND_WORD:
+            return new ExitCommand();
+
+        case HelpCommand.COMMAND_WORD:
+            return new HelpCommand();
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

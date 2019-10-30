@@ -5,10 +5,10 @@ import static seedu.address.inventory.ui.InventoryMessages.MESSAGE_EDITED_ITEM;
 
 import java.util.Optional;
 
-import seedu.address.inventory.logic.commands.exception.CommandException;
 import seedu.address.inventory.model.Item;
-import seedu.address.inventory.model.Model;
+import seedu.address.inventory.model.ModelManager;
 import seedu.address.person.commons.util.CollectionUtil;
+import seedu.address.person.logic.commands.exceptions.CommandException;
 
 /**
  * Edits an item to the inventory list.
@@ -29,12 +29,8 @@ public class EditCommand extends Command {
         this.editItemDescriptor = new EditItemDescriptor(editItemDescriptor);
     }
 
-    public EditItemDescriptor getEditItemDescriptor() {
-        return editItemDescriptor;
-    }
-
     @Override
-    public CommandResult execute(Model model)
+    public CommandResult execute(ModelManager model)
             throws Exception {
         Item itemToEdit = model.findItemByIndex(index);
         Item editedItem = createdEditedItem(itemToEdit, editItemDescriptor);
@@ -57,14 +53,6 @@ public class EditCommand extends Command {
         Double updatedPrice = editItemDescriptor.getPrice().orElse(itemToEdit.getPrice());
         return new Item(updatedDescription, updatedCategory, updatedQuantity, updatedCost,
                 updatedPrice, id);
-    }
-
-    @Override
-    public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof EditCommand // instanceof handles nulls
-                && index == (((EditCommand) other).index))
-                && editItemDescriptor.equals(((EditCommand) other).getEditItemDescriptor());
     }
 
     /**
@@ -161,4 +149,5 @@ public class EditCommand extends Command {
                     && getPrice().equals(e.getPrice());
         }
     }
+
 }

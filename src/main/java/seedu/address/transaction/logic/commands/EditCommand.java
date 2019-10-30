@@ -1,6 +1,5 @@
 package seedu.address.transaction.logic.commands;
 
-import static java.util.Objects.requireNonNull;
 import static seedu.address.transaction.ui.TransactionMessages.MESSAGE_NO_SUCH_TRANSACTION;
 import static seedu.address.transaction.ui.TransactionMessages.MESSAGE_TRANSACTION_EDITED;
 
@@ -13,9 +12,9 @@ import seedu.address.person.logic.commands.exceptions.CommandException;
 import seedu.address.person.model.person.Person;
 import seedu.address.transaction.logic.parser.exception.ParseException;
 import seedu.address.transaction.model.Model;
+import seedu.address.transaction.model.Transaction;
 import seedu.address.transaction.model.exception.NoSuchIndexException;
 import seedu.address.transaction.model.exception.NoSuchPersonException;
-import seedu.address.transaction.model.transaction.Transaction;
 
 /**
  * Edits a transaction in the transaction list.
@@ -37,11 +36,9 @@ public class EditCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model, seedu.address.person.model.GetPersonByNameOnlyModel personModel)
+    public CommandResult execute(Model model, seedu.address.person.model.Model personModel)
             throws NoSuchIndexException, CommandException, NoSuchPersonException, ParseException {
         Transaction transactionToEdit;
-        requireNonNull(model);
-        requireNonNull(personModel);
         try {
             transactionToEdit = model.findTransactionInFilteredListByIndex(index);
         } catch (IndexOutOfBoundsException e) {
@@ -68,8 +65,7 @@ public class EditCommand extends Command {
      */
     private static Transaction createdEditedTransaction(Transaction transactionToEdit,
                                                         EditTransactionDescriptor editTransactionDescriptor,
-                                                        seedu.address.person.model.GetPersonByNameOnlyModel
-                                                                personModel) {
+                                                        seedu.address.person.model.Model personModel) {
 
         String updatedDate = editTransactionDescriptor.getDate().orElse(transactionToEdit.getDate());
         String updatedDescription =
@@ -77,8 +73,13 @@ public class EditCommand extends Command {
         String updatedCategory = editTransactionDescriptor.getCategory().orElse(transactionToEdit.getCategory());
         double updatedAmount = editTransactionDescriptor.getAmount().orElse(transactionToEdit.getAmount());
         Person updatedPerson = personModel
-                .getPersonByName(editTransactionDescriptor.getName().orElse(transactionToEdit.getName()));
-
+                .getPersonByName(editTransactionDescriptor.getName().orElse(transactionToEdit.getName()));;
+        /*try {
+            updatedPerson = personModel
+                    .getPersonByName(editTransactionDescriptor.getName().orElse(transactionToEdit.getName()));
+        } catch (PersonNotFoundException e) {
+            throw new NoSuchPersonException(MESSAGE_NO_SUCH_PERSON);
+        }*/
         boolean updatedIsReimbursed =
                 editTransactionDescriptor.getIsReimbursed().orElse(transactionToEdit.getIsReimbursed());
         return new Transaction(updatedDate, updatedDescription, updatedCategory, updatedAmount,
@@ -91,11 +92,6 @@ public class EditCommand extends Command {
                 || (other instanceof EditCommand // instanceof handles nulls
                 && index == (((EditCommand) other).index))
                 && editTransactionDescriptor.equals(((EditCommand) other).editTransactionDescriptor);
-    }
-
-    @Override
-    public String toString() {
-        return COMMAND_WORD;
     }
 
     /**

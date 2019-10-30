@@ -6,12 +6,11 @@ import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 import static seedu.address.transaction.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.transaction.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.transaction.logic.commands.CommandTestUtil.showTransactionsOfPerson;
-import static seedu.address.transaction.ui.TransactionMessages.MESSAGE_NO_SUCH_TRANSACTION;
 import static seedu.address.transaction.ui.TransactionMessages.MESSAGE_TRANSACTION_EDITED;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.person.model.GetPersonByNameOnlyModel;
+import seedu.address.person.model.Model;
 import seedu.address.person.model.UserPrefs;
 import seedu.address.person.model.person.Person;
 import seedu.address.testutil.EditTransactionDescriptorBuilder;
@@ -19,12 +18,12 @@ import seedu.address.testutil.TransactionBuilder;
 import seedu.address.testutil.TypicalPersons;
 import seedu.address.testutil.TypicalTransactions;
 import seedu.address.transaction.model.ModelManager;
-import seedu.address.transaction.model.transaction.Transaction;
+import seedu.address.transaction.model.Transaction;
+import seedu.address.transaction.ui.TransactionMessages;
 
 class EditCommandTest {
     private ModelManager model = new ModelManager(TypicalTransactions.getTypicalTransactionList());
-    private GetPersonByNameOnlyModel personModel =
-            new seedu.address.person.model.ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model personModel = new seedu.address.person.model.ModelManager(getTypicalAddressBook(), new UserPrefs());
 
     @Test
     void execute_allFieldsSpecifiedUnfilteredList_success() {
@@ -128,6 +127,29 @@ class EditCommandTest {
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel, personModel);
     }
 
+    /*@Test
+    public void execute_duplicateTransactionUnfilteredList_failure() {
+        Transaction firstTransaction = model.getFilteredList().get(0);
+        System.out.println(firstTransaction.toString());
+        EditCommand.EditTransactionDescriptor descriptor = new
+                EditTransactionDescriptorBuilder(firstTransaction).build();
+
+        EditCommand editCommand = new EditCommand(1, descriptor);
+        assertCommandFailure(editCommand, model, TransactionMessages.MESSAGE_DUPLICATE_TRANSACTION, personModel);
+    }
+
+    @Test
+    public void execute_duplicateTransactionFilteredList_failure() {
+        showTransactionsOfPerson(model, TypicalPersons.BENSON.getName().toString());
+
+        // edit person in filtered list into a duplicate in transaction list
+        Transaction transactionInList = model.getTransactionList().get(1);
+        EditCommand editCommand = new EditCommand(1,
+                new EditTransactionDescriptorBuilder(transactionInList).build());
+
+        assertCommandFailure(editCommand, model, TransactionMessages.MESSAGE_DUPLICATE_TRANSACTION, personModel);
+    }*/
+
     @Test
     public void execute_invalidIndexUnfilteredList_failure() {
         int outOfBoundIndex = model.getFilteredList().size() + 1;
@@ -135,7 +157,7 @@ class EditCommandTest {
                 .withAmount(99.0).build();
         EditCommand editCommand = new EditCommand(outOfBoundIndex, descriptor);
 
-        assertCommandFailure(editCommand, model, MESSAGE_NO_SUCH_TRANSACTION, personModel);
+        assertCommandFailure(editCommand, model, TransactionMessages.MESSAGE_NO_SUCH_TRANSACTION, personModel);
     }
 
     /**
@@ -152,7 +174,7 @@ class EditCommandTest {
         EditCommand editCommand = new EditCommand(outOfBoundIndex,
                 new EditTransactionDescriptorBuilder().withAmount(88.0).build());
 
-        assertCommandFailure(editCommand, model, MESSAGE_NO_SUCH_TRANSACTION, personModel);
+        assertCommandFailure(editCommand, model, TransactionMessages.MESSAGE_NO_SUCH_TRANSACTION, personModel);
     }
 
     @Test
@@ -182,4 +204,26 @@ class EditCommandTest {
         // different descriptor -> returns false
         assertFalse(standardCommand.equals(new EditCommand(1, anotherDescriptor)));
     }
+
+    /*@Test
+    public void execute_noSuchMemberUnfilteredList_failure() {
+        Person invalidPerson = TypicalPersons.AMY;
+        EditCommand.EditTransactionDescriptor descriptor = new EditTransactionDescriptorBuilder()
+                .withName(invalidPerson.getName().toString()).build();
+        EditCommand editCommand = new EditCommand(1, descriptor);
+        assertCommandFailure(editCommand, model, TransactionMessages.MESSAGE_NO_SUCH_PERSON, personModel);
+    }
+
+    @Test
+    public void execute_noSuchMemberFilteredList_failure() {
+        showTransactionsOfPerson(model, TypicalPersons.BENSON.getName().toString());
+        int inBoundIndex = 1;
+        // ensures that outOfBoundIndex is in bounds of filtered list
+        assertTrue(inBoundIndex <= model.getFilteredList().size());
+        Person invalidPerson = TypicalPersons.AMY;
+        EditCommand editCommand = new EditCommand(inBoundIndex,
+                new EditTransactionDescriptorBuilder().withName(invalidPerson.getName().toString()).build());
+
+        assertCommandFailure(editCommand, model, TransactionMessages.MESSAGE_NO_SUCH_PERSON, personModel);
+    }*/
 }

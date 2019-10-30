@@ -13,11 +13,6 @@ public abstract class DeleteCommand extends Command {
     public static final String COMMAND_WORD = "delete";
 
     @Override
-    public abstract CommandResult execute(Model model, seedu.address.person.model.GetPersonByNameOnlyModel personModel)
+    public abstract CommandResult execute(Model model, seedu.address.person.model.Model personModel)
             throws NoSuchIndexException, CommandException, NoSuchPersonException, ParseException;
-
-    @Override
-    public String toString() {
-        return COMMAND_WORD;
-    }
 }

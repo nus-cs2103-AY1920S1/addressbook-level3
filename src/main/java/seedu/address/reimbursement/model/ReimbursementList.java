@@ -3,15 +3,14 @@ package seedu.address.reimbursement.model;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashSet;
 
 import seedu.address.person.model.person.Person;
 import seedu.address.reimbursement.model.comparators.SortByAmount;
 import seedu.address.reimbursement.model.comparators.SortByDeadline;
 import seedu.address.reimbursement.model.comparators.SortByName;
 import seedu.address.reimbursement.model.exception.NoSuchPersonReimbursementException;
-import seedu.address.transaction.model.TransactionList;
-import seedu.address.transaction.model.transaction.Transaction;
+import seedu.address.transaction.model.Transaction;
+import seedu.address.transaction.util.TransactionList;
 
 /**
  * Reimbursement List class: Stores a list of reimbursements, allows accessing of their details and provides
@@ -22,43 +21,21 @@ public class ReimbursementList {
     private ArrayList<Reimbursement> list;
 
     public ReimbursementList() {
-        list = new ArrayList<>();
+        list = new ArrayList<Reimbursement>();
     }
 
     public ReimbursementList(TransactionList transList) {
         list = new ArrayList<>();
         ArrayList<Transaction> pendingList = checkStatus(transList);
         for (Transaction trans : pendingList) {
-            if (trans.getAmount() < 0) {
-                Reimbursement newRecord = new Reimbursement(trans);
-                merge(newRecord);
-            }
-
+            Reimbursement newRecord = new Reimbursement(trans);
+            merge(newRecord);
         }
     }
+
 
     public ReimbursementList(ArrayList<Reimbursement> reimbursementList) {
-        assert checkNoSamePerson(reimbursementList) == true : "The reimbursements can't contain the same person.";
         list = reimbursementList;
-    }
-
-    /**
-     * Checks whether the arraylist of reimbursements contain the same person to fulfill the requirement for using
-     * constructor.
-     *
-     * @param reimbursementArrayList list of reimbursements.
-     * @return returns true if the list doesn't contain the same person. Otherwise, false.
-     */
-    private boolean checkNoSamePerson(ArrayList<Reimbursement> reimbursementArrayList) {
-        HashSet<Person> set = new HashSet<>();
-        for (Reimbursement rmb : reimbursementArrayList) {
-            if (!set.contains(rmb.getPerson())) {
-                set.add(rmb.getPerson());
-            } else {
-                return false;
-            }
-        }
-        return true;
     }
 
 
@@ -188,11 +165,7 @@ public class ReimbursementList {
         String output = "";
         for (int i = 0; i < list.size(); i++) {
             Reimbursement reimbursement = list.get(i);
-            if (i != 0) {
-                output = output + System.lineSeparator();
-            }
             output = output + reimbursement.toString();
-
         }
         return output;
     }

@@ -13,7 +13,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Region;
 import seedu.address.person.commons.core.LogsCenter;
 import seedu.address.transaction.logic.Logic;
-import seedu.address.transaction.model.transaction.Transaction;
+import seedu.address.transaction.model.Transaction;
 
 /**
  * The Home Tab Pane. Provides the basic application layout containing

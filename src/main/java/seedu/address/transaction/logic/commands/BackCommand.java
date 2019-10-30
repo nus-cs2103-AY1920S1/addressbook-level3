@@ -9,13 +9,8 @@ public class BackCommand extends Command {
     public static final String COMMAND_WORD = "back";
 
     @Override
-    public CommandResult execute(Model model, seedu.address.person.model.GetPersonByNameOnlyModel personModel) {
+    public CommandResult execute(Model model, seedu.address.person.model.Model personModel) {
         model.resetPredicate();
         return new CommandResult("");
-    }
-
-    @Override
-    public String toString() {
-        return COMMAND_WORD;
     }
 }

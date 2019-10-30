@@ -2,30 +2,27 @@ package seedu.address.transaction.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 import static seedu.address.transaction.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.transaction.logic.commands.CommandTestUtil.showTransactionsOfPerson;
 import static seedu.address.transaction.ui.TransactionMessages.MESSAGE_SORTED_BY_AMOUNT;
 
+import java.util.logging.Logger;
+
 import org.junit.jupiter.api.Test;
 
-import seedu.address.person.model.GetPersonByNameOnlyModel;
+import seedu.address.person.commons.core.LogsCenter;
+import seedu.address.person.model.Model;
 import seedu.address.person.model.UserPrefs;
 import seedu.address.testutil.TypicalPersons;
 import seedu.address.testutil.TypicalTransactions;
 import seedu.address.transaction.model.ModelManager;
 
 class SortAmountCommandTest {
+    private final Logger logger = LogsCenter.getLogger(getClass());
     private seedu.address.transaction.model.Model model =
             new ModelManager(TypicalTransactions.getTypicalTransactionList());
-    private GetPersonByNameOnlyModel personModel =
-            new seedu.address.person.model.ModelManager(getTypicalAddressBook(), new UserPrefs());
-
-    @Test
-    public void execute_nullPerson_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new SortAmountCommand().execute(null, null));
-    }
+    private Model personModel = new seedu.address.person.model.ModelManager(getTypicalAddressBook(), new UserPrefs());
 
     @Test
     void execute_filteredList_success() {
@@ -36,8 +33,8 @@ class SortAmountCommandTest {
         assertEquals(sortAmountCommand.execute(model, personModel).getFeedbackToUser(), message);
         assertNotEquals(model.getTransactionList().getOriginal(),
                 TypicalTransactions.getAmountSortedTransactionList().getOriginal());
-        assertEquals(model.getTransactionList().getTarrList(),
-                TypicalTransactions.getAmountSortedTransactionList().getTarrList());
+        assertEquals(model.getTransactionList().gettArrList(),
+                TypicalTransactions.getAmountSortedTransactionList().gettArrList());
     }
 
     @Test
@@ -58,7 +55,7 @@ class SortAmountCommandTest {
         assertEquals(sortAmountCommand.execute(model, personModel).getFeedbackToUser(), message);
         assertNotEquals(model.getTransactionList().getOriginal(),
                 TypicalTransactions.getAmountSortedTransactionList().getOriginal());
-        assertEquals(model.getTransactionList().getTarrList(),
-                TypicalTransactions.getAmountSortedTransactionList().getTarrList());
+        assertEquals(model.getTransactionList().gettArrList(),
+                TypicalTransactions.getAmountSortedTransactionList().gettArrList());
     }
 }

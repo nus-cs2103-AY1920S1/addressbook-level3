@@ -12,7 +12,7 @@ import java.util.HashMap;
 
 import seedu.address.reimbursement.model.Reimbursement;
 import seedu.address.reimbursement.model.ReimbursementList;
-import seedu.address.transaction.model.TransactionList;
+import seedu.address.transaction.util.TransactionList;
 
 /**
  * Storage manager. Allows reimbursements to be stored and loaded from file.
@@ -20,10 +20,10 @@ import seedu.address.transaction.model.TransactionList;
 public class StorageManager implements Storage {
     private static final String VBSPLIT = " [|] ";
     private static final String DOTSPLIT = "[.] ";
-    private final File fileReimbursement;
+    private final String filepathReimbursement;
 
-    public StorageManager(File fileReimbursement) {
-        this.fileReimbursement = fileReimbursement;
+    public StorageManager(String filepathReimbursement) {
+        this.filepathReimbursement = filepathReimbursement;
     }
 
     /**
@@ -54,9 +54,10 @@ public class StorageManager implements Storage {
     private HashMap<String, LocalDate> readReimbursementFile() {
         try {
             HashMap<String, LocalDate> map = new HashMap<>();
-            fileReimbursement.getAbsoluteFile().getParentFile().mkdirs();
-            fileReimbursement.createNewFile();
-            BufferedReader bfr = new BufferedReader(new FileReader(fileReimbursement));
+            File f = new File(filepathReimbursement);
+            f.getParentFile().mkdirs();
+            f.createNewFile();
+            BufferedReader bfr = new BufferedReader(new FileReader(f));
             String line = null;
             while ((line = bfr.readLine()) != null) {
                 this.readInFileLine(map, line);
@@ -97,7 +98,7 @@ public class StorageManager implements Storage {
 
     @Override
     public void writeFile(ReimbursementList reimbursementList) throws IOException {
-        FileWriter fw = new FileWriter(this.fileReimbursement);
+        FileWriter fw = new FileWriter(this.filepathReimbursement);
         String textFileMsg = "";
         for (int i = 0; i < reimbursementList.size(); i++) {
             if (i == 0) {

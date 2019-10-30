@@ -1,7 +1,7 @@
 package seedu.address.testutil;
 
 import seedu.address.transaction.logic.commands.EditCommand;
-import seedu.address.transaction.model.transaction.Transaction;
+import seedu.address.transaction.model.Transaction;
 
 /**
  * Builds a edit transaction descriptor.

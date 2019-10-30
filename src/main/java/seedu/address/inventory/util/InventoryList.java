@@ -33,10 +33,6 @@ public class InventoryList {
         }
     }
 
-    public ArrayList<Item> getiList() {
-        return iList;
-    }
-
     public int getIndex(String description) throws NoSuchItemException {
         for (int i = 0; i < iList.size(); i++) {
             if (iList.get(i).getDescription().equalsIgnoreCase(description)) {
@@ -50,6 +46,15 @@ public class InventoryList {
             seedu.address.inventory.model.exception.NoSuchItemException {
         for (int i = 0; i < iList.size(); i++) {
             if (iList.get(i).getDescription().equalsIgnoreCase(description)) {
+                return iList.get(i);
+            }
+        }
+        throw new seedu.address.inventory.model.exception.NoSuchItemException(InventoryMessages.NO_SUCH_ITEM_INVENTORY);
+    }
+
+    public static Item getOriginalItem(Item item) throws seedu.address.inventory.model.exception.NoSuchItemException {
+        for (int i = 0; i < iList.size(); i++) {
+            if (iList.get(i).isSameItem(item)) {
                 return iList.get(i);
             }
         }
@@ -92,20 +97,8 @@ public class InventoryList {
         return iList.get(i);
     }
 
-
-    public ArrayList<Item> getInventoryListInArrayList() {
-        return this.iList;
-    }
-
     /**
-     * Resets the list
-     */
-    public void sortReset() {
-        Collections.sort(iList, new ResetSort());
-    }
-
-    /**
-     * Comparator to compare by the description in Item.
+     * Comparator to compare by the name in transaction.
      */
     class SortByDescription implements Comparator<Item> {
         // Used for sorting in ascending order
@@ -116,10 +109,10 @@ public class InventoryList {
     }
 
     /**
-     * Comparator to compare by quantity in Item.
+     * Comparator to compare by amount in transaction.
      */
     class SortByQuantity implements Comparator<Item> {
-        // Used for sorting in ascending order
+        // Used for sorting in descending order
         @Override
         public int compare(Item a, Item b) {
             if (a.getQuantity() < b.getQuantity()) {
@@ -133,7 +126,7 @@ public class InventoryList {
     }
 
     /**
-     * Comparator to compare by quantity in Item.
+     * Comparator to compare by date in transaction.
      */
     class SortByCategory implements Comparator<Item> {
         // Used for sorting in ascending order
@@ -141,33 +134,5 @@ public class InventoryList {
         public int compare(Item a, Item b) {
             return a.getCategory().compareTo(b.getCategory());
         }
-    }
-
-    /**
-     * Comparator to compare by trueId in Item.
-     */
-    class ResetSort implements Comparator<Item> {
-        @Override
-        public int compare(Item a, Item b) {
-            if (a.getTrueId() < b.getTrueId()) {
-                return -1;
-            } else if (a.getTrueId() == b.getTrueId()) {
-                return 0;
-            } else {
-                return 1;
-            }
-        }
-    }
-
-    @Override
-    public boolean equals(Object other) {
-        for (int i = 0; i < iList.size(); i++) {
-            if (!iList.get(i).equals(((InventoryList) other).getiList().get(i))) {
-                return false;
-            }
-        }
-        return other == this // short circuit if same object
-                || (other instanceof InventoryList // instanceof handles nulls
-                && iList.equals(((InventoryList) other).getiList()));
     }
 }

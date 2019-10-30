@@ -14,16 +14,12 @@ public class CashierMessages {
     public static final String NO_CASHIER = "Sorry! Please enter the cashier's name before proceeding:\n "
             + " cashier NAME\n";
 
-    public static final String NO_ITEM_TO_CHECKOUT = "Sorry! There is no item to checkout! "
-            + "To add an item to the table, please type \"add d/DESCRIPTION\n q/QUANTITY\"";
-
     public static final String NO_SUCH_COMMAND = "Sorry! There is no such command.";
 
     public static final String NO_SUCH_DESCRIPTION_CASHIER = "There is no such item with "
             + "the specified description in the sales list.";
 
-    public static final String NO_SUCH_INDEX_CASHIER = "There is no item at the inputted index. Please "
-            + "input a positive integer that is within the table size.";
+    public static final String NO_SUCH_INDEX_CASHIER = "There is no item at the inputted index.";
 
     public static final String NO_SUCH_ITEM_FOR_SALE_CASHIER = "Sorry! This item is not available for sale!";
 
@@ -39,7 +35,7 @@ public class CashierMessages {
     public static final String MESSAGE_INVALID_EDITCOMMAND_FORMAT = "Sorry! Please type \"edit"
             + " i/INDEX q/QUANTITY\" \n OR \n \"edit d/DESCRIPTION\n q/QUANTITY\" \n ";
 
-    public static final String INDEX_NOT_A_NUMBER = "Please input the row index of the item "
+    public static final String INDEX_NOT_A_NUMBER = "Please input the row index of the item to be deleted "
             + "according to the table.";
 
     public static final String QUANTITY_NOT_A_NUMBER = "Please input an integer for the quantity of item to be sold.";
@@ -52,7 +48,7 @@ public class CashierMessages {
     public static final String MESSAGE_CHECKOUT_SUCCESS = "Total amount is %s.\nThe change is %s.\n"
             + "Checkout successful.";
 
-    public static final String MESSAGE_EDIT_SUCCESS = "Item: %s, quantity: %s\nEdited successfully.";
+    public static final String MESSAGE_EDIT_SUCCESS = "%s: %s\nEdited successfully.";
 
     public static final String MESSAGE_INSUFFICIENT_AMOUNT = "The total price is %s. The amount is insufficient.\n"
             + "Please input an amount of at least %s.";
@@ -60,9 +56,9 @@ public class CashierMessages {
     public static final String MESSAGE_INSUFFICIENT_STOCK = "There is insufficient stock. Only %s %s left."
             + "Please input a valid quantity.";
 
-    public static final String MESSAGE_ADDED_ITEM = "Added item: %s %s";
+    public static final String MESSAGE_ADDED_ITEM = "Added item:\n%s";
 
-    public static final String MESSAGE_DELETED_ITEM = "Deleted item: %s\n Deleted successfully.";
+    public static final String MESSAGE_DELETED_ITEM = "Deleted item:\n%s";
 
     /**
      * Returns a message containing all the items description according to the category.

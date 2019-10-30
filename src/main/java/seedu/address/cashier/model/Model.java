@@ -8,8 +8,8 @@ import seedu.address.cashier.model.exception.NoSuchItemException;
 import seedu.address.cashier.util.InventoryList;
 import seedu.address.inventory.model.Item;
 import seedu.address.person.model.person.Person;
-import seedu.address.transaction.model.TransactionList;
-import seedu.address.transaction.model.transaction.Transaction;
+import seedu.address.transaction.model.Transaction;
+import seedu.address.transaction.util.TransactionList;
 
 /**
  * The API of the Model component.
@@ -19,6 +19,8 @@ public interface Model {
     InventoryList getInventoryList();
 
     TransactionList getTransactionList();
+
+    void readInUpdatedList();
 
     boolean hasSufficientQuantityToAdd(String description, int quantity) throws NoSuchItemException;
 
@@ -38,6 +40,8 @@ public interface Model {
 
     void setItem(int i, Item editedItem) throws Exception;
 
+    void writeInInventoryFile() throws Exception;
+
     void setCashier(Person p);
 
     Person getCashier() throws NoCashierFoundException, NoCashierFoundException;
@@ -45,8 +49,6 @@ public interface Model {
     ArrayList<Item> getSalesList();
 
     void clearSalesList();
-
-    void resetCashier();
 
     Item editItem(int index, int qty) throws NoSuchIndexException;
 
@@ -58,7 +60,8 @@ public interface Model {
 
     ArrayList<String> getRecommendedItems(String description) throws NoSuchIndexException;
 
-    Transaction checkoutAsTransaction(double amount, Person person) throws Exception;
+    Transaction checkoutAsTransaction(double amount, Person person,
+                                      seedu.address.transaction.model.Model transactionModel) throws Exception;
 
     void updateInventoryList() throws Exception;
 
@@ -67,10 +70,6 @@ public interface Model {
     int findIndexByDescription(String description) throws NoSuchItemException;
 
     boolean hasSufficientQuantityToEdit(int index, int quantity) throws NoSuchItemException;
-
-    void getUpdatedLists(InventoryList inventoryList, TransactionList transactionList);
-
-    Transaction getCheckoutTransaction();
 
 
 }

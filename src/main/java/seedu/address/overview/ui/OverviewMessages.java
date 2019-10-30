@@ -43,11 +43,4 @@ public class OverviewMessages {
 
     public static final String INVENTORY_PIE_CHART_TITLE = "Inventory by category";
 
-    public static final String EXCEEDED_BUDGET_TARGET = "You have exceeded your budget target of %s%%.";
-
-    public static final String EXCEEDED_EXPENSE_TARGET = "You have exceeded your expense target of %s%%";
-
-    public static final String ACHIEVED_SALES_TARGET = "You have achieved your sales target of %s%%";
-
-
 }

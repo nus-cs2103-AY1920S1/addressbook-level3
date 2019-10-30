@@ -19,13 +19,40 @@ import seedu.address.person.model.UserPrefs;
 import seedu.address.testutil.TypicalTransactions;
 import seedu.address.transaction.model.Model;
 import seedu.address.transaction.model.ModelManager;
-import seedu.address.transaction.model.transaction.TransactionContainsKeywordsPredicate;
+import seedu.address.transaction.model.TransactionContainsKeywordsPredicate;
 
 class FindCommandTest {
     private Model model = new ModelManager(TypicalTransactions.getTypicalTransactionList());
     private Model expectedModel = new ModelManager(TypicalTransactions.getTypicalTransactionList());
-    private seedu.address.person.model.GetPersonByNameOnlyModel personModel = new
+    private seedu.address.person.model.Model personModel = new
             seedu.address.person.model.ModelManager(getTypicalAddressBook(), new UserPrefs());
+
+    /*@Test
+    public void equals() {
+        TransactionContainsKeywordsPredicate firstPredicate =
+                new TransactionContainsKeywordsPredicate(Collections.singletonList("first"));
+        TransactionContainsKeywordsPredicate secondPredicate =
+                new TransactionContainsKeywordsPredicate(Collections.singletonList("second"));
+
+        FindCommand findFirstCommand = new FindCommand(firstPredicate);
+        FindCommand findSecondCommand = new FindCommand(secondPredicate);
+
+        // same object -> returns true
+        assertTrue(findFirstCommand.equals(findFirstCommand));
+
+        // same values -> returns true
+        FindCommand findFirstCommandCopy = new FindCommand(firstPredicate);
+        assertTrue(findFirstCommand.equals(findFirstCommandCopy));
+
+        // different types -> returns false
+        assertFalse(findFirstCommand.equals(1));
+
+        // null -> returns false
+        assertFalse(findFirstCommand.equals(null));
+
+        // different person -> returns false
+        assertFalse(findFirstCommand.equals(findSecondCommand));
+    }*/
 
     @Test
     public void execute_zeroKeywords_noPersonFound() {
@@ -35,7 +62,7 @@ class FindCommandTest {
         expectedModel.updatePredicate(predicate);
         expectedModel.getFilteredList();
         assertCommandSuccess(command, model, expectedMessage, expectedModel, personModel);
-        assertEquals(Collections.emptyList(), model.getFilteredList().getTarrList());
+        assertEquals(Collections.emptyList(), model.getFilteredList().gettArrList());
     }
 
     @Test
@@ -48,7 +75,7 @@ class FindCommandTest {
         expectedModel.getFilteredList();
         assertCommandSuccess(command, model, expectedMessage, expectedModel, personModel);
         assertEquals(Arrays.asList(ALICE_TRANSACTION_1, ALICE_TRANSACTION_3, ALICE_TRANSACTION_4),
-                model.getFilteredList().getTarrList());
+                model.getFilteredList().gettArrList());
     }
 
     @Test
@@ -74,7 +101,7 @@ class FindCommandTest {
         // null -> returns false
         assertFalse(findFirstCommand.equals(null));
 
-        // different find command -> returns false
+        // different person -> returns false
         assertFalse(findFirstCommand.equals(findSecondCommand));
     }
 

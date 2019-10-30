@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 
-import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
@@ -14,7 +13,6 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.inventory.util.InventoryList;
 import seedu.address.person.logic.commands.exceptions.CommandException;
-import seedu.address.person.model.GetPersonByNameOnlyModel;
 import seedu.address.person.model.person.Person;
 import seedu.address.person.storage.AddressBookStorage;
 import seedu.address.person.storage.JsonAddressBookStorage;
@@ -27,10 +25,9 @@ import seedu.address.stubs.PersonModelStubWithPerson;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.transaction.logic.Logic;
 import seedu.address.transaction.logic.LogicManager;
-import seedu.address.transaction.model.Model;
 import seedu.address.transaction.model.ModelManager;
-import seedu.address.transaction.model.TransactionList;
 import seedu.address.transaction.storage.StorageManager;
+import seedu.address.transaction.util.TransactionList;
 
 public class AddCommandTest {
     private static final String FILE_PATH_REIMBURSEMENT = "data/reimbursementInformation.txt";
@@ -51,7 +48,7 @@ public class AddCommandTest {
         TransactionList transactionList = new TransactionList();
         ReimbursementList reimbursementList = new ReimbursementList();
         InventoryList inventoryList = new InventoryList();
-        seedu.address.cashier.util.InventoryList cashierInventoryList = new seedu.address.cashier.util.InventoryList();
+        seedu.address.cashier.util.InventoryList cashierList = new seedu.address.cashier.util.InventoryList();
 
         Path userPrefPath = Paths.get("data/test/userPrefs.txt");
         Path addressPath = Paths.get("data/test/address.txt");
@@ -65,52 +62,48 @@ public class AddCommandTest {
                 new seedu.address.person.storage.StorageManager(addressBookStorage, userPrefsStorage);
 
         //For Transaction Storage and Manager
-        Model transactionModel = new ModelManager(transactionList);
+        seedu.address.transaction.model.Model transactionModel = new ModelManager(transactionList);
         seedu.address.transaction.storage.StorageManager transactionManager =
-                new StorageManager(new File(FILE_PATH_TRANSACTION), (GetPersonByNameOnlyModel) personModel);
+                new StorageManager(FILE_PATH_TRANSACTION, personModel);
 
         //For Reimbursement Storage and Manager
         seedu.address.reimbursement.model.Model reimbursementModel =
                 new seedu.address.reimbursement.model.ModelManager(reimbursementList);
         seedu.address.reimbursement.storage.StorageManager reimbursementManager =
                 new seedu.address.reimbursement.storage.StorageManager(
-                        new File(FILE_PATH_REIMBURSEMENT));
+                        FILE_PATH_REIMBURSEMENT);
+
+        //For Cashier Storage and Manager
+        seedu.address.cashier.model.ModelManager cashierModel =
+                new seedu.address.cashier.model.ModelManager(cashierList);
+        seedu.address.cashier.storage.StorageManager cashierManager =
+                new seedu.address.cashier.storage.StorageManager(FILE_PATH_INVENTORY,
+                        FILE_PATH_TRANSACTION, personModel);
 
         //For Inventory Storage and Manager
         seedu.address.inventory.model.Model inventoryModel =
                 new seedu.address.inventory.model.ModelManager(inventoryList);
         seedu.address.inventory.storage.StorageManager inventoryManager =
-                new seedu.address.inventory.storage.StorageManager(new File(FILE_PATH_INVENTORY));
-
-        Logic transactionLogic =
-                new LogicManager(transactionModel, transactionManager, (GetPersonByNameOnlyModel) personModel);
-        seedu.address.inventory.logic.Logic inventoryLogic =
-                new seedu.address.inventory.logic.LogicManager(
-                        (seedu.address.inventory.model.ModelManager) inventoryModel,
-                        inventoryManager);
-
-        //For Cashier Storage and Manager
-        seedu.address.cashier.model.ModelManager cashierModel =
-                new seedu.address.cashier.model.ModelManager(cashierInventoryList, transactionList);
-        seedu.address.cashier.storage.StorageManager cashierManager =
-                new seedu.address.cashier.storage.StorageManager(inventoryLogic, transactionLogic);
-
-
+                new seedu.address.inventory.storage.StorageManager(FILE_PATH_INVENTORY);
 
         //All related logics
-        Logic logic = new LogicManager(transactionModel, transactionManager, (GetPersonByNameOnlyModel) personModel);
+        Logic logic = new LogicManager(transactionModel, transactionManager, personModel, personManager,
+                reimbursementModel, reimbursementManager);
         seedu.address.reimbursement.logic.Logic reimbursementLogic =
                 new seedu.address.reimbursement.logic.LogicManager(reimbursementModel, reimbursementManager,
-                        personModel);
+                        transactionModel, transactionManager, personModel);
+        seedu.address.cashier.logic.Logic cashierLogic =
+                new seedu.address.cashier.logic.LogicManager(cashierModel, cashierManager, personModel,
+                        transactionModel, transactionManager, inventoryModel, inventoryManager);
         CommandResult commandResult =
-                new AddCommand(validPerson).execute(modelStub, logic, reimbursementLogic);
+                new AddCommand(validPerson).execute(modelStub, logic, reimbursementLogic, cashierLogic);
 
         assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validPerson), commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(validPerson), modelStub.getPersonAdded());
     }
 
     @Test
-    public void execute_duplicatePerson_throwsCommandException() throws Exception {
+    public void execute_duplicatePerson_throwsCommandException() {
         Person validPerson = new PersonBuilder().build();
         AddCommand addCommand = new AddCommand(validPerson);
         PersonModelStub personModelStub = new PersonModelStubWithPerson(validPerson);
@@ -118,7 +111,7 @@ public class AddCommandTest {
         TransactionList transactionList = new TransactionList();
         ReimbursementList reimbursementList = new ReimbursementList();
         InventoryList inventoryList = new InventoryList();
-        seedu.address.cashier.util.InventoryList cashierInventoryList = new seedu.address.cashier.util.InventoryList();
+        seedu.address.cashier.util.InventoryList cashierList = new seedu.address.cashier.util.InventoryList();
 
         Path userPrefPath = Paths.get("data/test/userPrefs.txt");
         Path addressPath = Paths.get("data/test/address.txt");
@@ -132,46 +125,42 @@ public class AddCommandTest {
                 new seedu.address.person.storage.StorageManager(addressBookStorage, userPrefsStorage);
 
         //For Transaction Storage and Manager
-        Model transactionModel = new ModelManager(transactionList);
+        seedu.address.transaction.model.Model transactionModel = new ModelManager(transactionList);
         seedu.address.transaction.storage.StorageManager transactionManager =
-                new StorageManager(new File(FILE_PATH_TRANSACTION), (GetPersonByNameOnlyModel) personModel);
+                new StorageManager(FILE_PATH_TRANSACTION, personModel);
 
         //For Reimbursement Storage and Manager
         seedu.address.reimbursement.model.Model reimbursementModel =
                 new seedu.address.reimbursement.model.ModelManager(reimbursementList);
         seedu.address.reimbursement.storage.StorageManager reimbursementManager =
                 new seedu.address.reimbursement.storage.StorageManager(
-                        new File(FILE_PATH_REIMBURSEMENT));
+                        FILE_PATH_REIMBURSEMENT);
 
-        Logic transactionLogic =
-                new LogicManager(transactionModel, transactionManager, (GetPersonByNameOnlyModel) personModel);
+        //For Cashier Storage and Manager
+        seedu.address.cashier.model.ModelManager cashierModel =
+                new seedu.address.cashier.model.ModelManager(cashierList);
+        seedu.address.cashier.storage.StorageManager cashierManager =
+                new seedu.address.cashier.storage.StorageManager(FILE_PATH_INVENTORY,
+                        FILE_PATH_TRANSACTION, personModel);
 
         //For Inventory Storage and Manager
         seedu.address.inventory.model.Model inventoryModel =
                 new seedu.address.inventory.model.ModelManager(inventoryList);
         seedu.address.inventory.storage.StorageManager inventoryManager =
-                new seedu.address.inventory.storage.StorageManager(new File(FILE_PATH_INVENTORY));
-
-        seedu.address.inventory.logic.Logic inventoryLogic =
-                new seedu.address.inventory.logic.LogicManager(
-                        (seedu.address.inventory.model.ModelManager) inventoryModel,
-                        inventoryManager);
-
-        //For Cashier Storage and Manager
-        seedu.address.cashier.model.ModelManager cashierModel =
-                new seedu.address.cashier.model.ModelManager(cashierInventoryList, transactionList);
-        seedu.address.cashier.storage.StorageManager cashierManager =
-                new seedu.address.cashier.storage.StorageManager(inventoryLogic, transactionLogic);
-
+                new seedu.address.inventory.storage.StorageManager(FILE_PATH_INVENTORY);
 
         //All related logics
-        Logic logic = new LogicManager(transactionModel, transactionManager, (GetPersonByNameOnlyModel) personModel);
+        Logic logic = new LogicManager(transactionModel, transactionManager, personModel, personManager,
+                reimbursementModel, reimbursementManager);
         seedu.address.reimbursement.logic.Logic reimbursementLogic =
                 new seedu.address.reimbursement.logic.LogicManager(reimbursementModel, reimbursementManager,
-                        personModel);
+                        transactionModel, transactionManager, personModel);
+        seedu.address.cashier.logic.Logic cashierLogic =
+                new seedu.address.cashier.logic.LogicManager(cashierModel, cashierManager, personModel,
+                        transactionModel, transactionManager, inventoryModel, inventoryManager);
 
         assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_PERSON, () ->
-                addCommand.execute(personModelStub, logic, reimbursementLogic));
+                addCommand.execute(personModelStub, logic, reimbursementLogic, cashierLogic));
     }
 
     @Test
@@ -198,4 +187,3 @@ public class AddCommandTest {
         assertFalse(addAliceCommand.equals(addBobCommand));
     }
 }
-

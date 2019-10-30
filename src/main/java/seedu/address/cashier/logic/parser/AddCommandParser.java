@@ -11,18 +11,16 @@ import static seedu.address.util.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.util.CliSyntax.PREFIX_QUANTITY;
 
 import java.util.ArrayList;
-import java.util.logging.Logger;
 import java.util.stream.Stream;
 
 import seedu.address.cashier.logic.commands.AddCommand;
 import seedu.address.cashier.logic.commands.exception.InsufficientAmountException;
-import seedu.address.cashier.logic.commands.exception.NegativeQuantityException;
 import seedu.address.cashier.logic.commands.exception.NotANumberException;
+import seedu.address.cashier.logic.commands.exception.NegativeQuantityException;
 import seedu.address.cashier.logic.parser.exception.ParseException;
 import seedu.address.cashier.model.Model;
 import seedu.address.cashier.model.exception.NoSuchItemException;
 import seedu.address.cashier.ui.CashierMessages;
-import seedu.address.person.commons.core.LogsCenter;
 import seedu.address.util.ArgumentMultimap;
 import seedu.address.util.ArgumentTokenizer;
 import seedu.address.util.Prefix;
@@ -30,21 +28,18 @@ import seedu.address.util.Prefix;
 /**
  * Parses input arguments and creates a new AddCommand object.
  */
-public class AddCommandParser implements Parser {
+public class AddCommandParser {
 
     private static ArgumentMultimap argMultimap;
-    private final Logger logger = LogsCenter.getLogger(getClass());
 
     /**
      * Parses the given {@code String} of arguments in the context of the AddCommand
      * and returns an AddCommand object for execution.
      * @param args to be passed in
      * @param modelManager which the command operates on
-     * @param personModel to set a valid cashier
      * @throws Exception if the user input does not conform the expected format
      */
-    public AddCommand parse(String args, Model modelManager,
-                                   seedu.address.person.model.Model personModel) throws Exception {
+    public static AddCommand parse(String args, Model modelManager) throws Exception {
         if (!args.contains(" c/")) {
             argMultimap =
                     ArgumentTokenizer.tokenize(args, PREFIX_DESCRIPTION, PREFIX_QUANTITY);
@@ -72,20 +67,18 @@ public class AddCommandParser implements Parser {
         try {
             quantity = Integer.parseInt(quantityString);
         } catch (Exception e) {
-            logger.info("Quantity inputted is not an integer.");
             throw new NotANumberException(QUANTITY_NOT_A_NUMBER);
         }
 
+        modelManager.readInUpdatedList();
         // if the item with the specified description is not present
         if (!modelManager.hasItemInInventory(description)) {
             ArrayList<String> recommendedItems = modelManager.getRecommendedItems(description);
-            logger.info("The inventory do not have the item with the specified description.");
             throw new NoSuchItemException(noSuchItemRecommendation(recommendedItems));
         }
 
         // if the item with the specified description is not available for sale
         if (!modelManager.isSellable(description)) {
-            logger.info("The specified item is not available for sale.");
             throw new NoSuchItemException(NO_SUCH_ITEM_FOR_SALE_CASHIER);
         }
 

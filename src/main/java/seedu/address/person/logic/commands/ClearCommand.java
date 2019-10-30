@@ -16,7 +16,8 @@ public class ClearCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, seedu.address.transaction.logic.Logic transactionLogic,
-                                 seedu.address.reimbursement.logic.Logic reimbursementLogic) {
+                                 seedu.address.reimbursement.logic.Logic reimbursementLogic,
+                                 seedu.address.cashier.logic.Logic cashierLogic) {
         requireNonNull(model);
         model.setAddressBook(new AddressBook());
         return new CommandResult(MESSAGE_SUCCESS);

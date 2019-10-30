@@ -3,9 +3,10 @@ package seedu.address.person.model;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
-
+import seedu.address.person.commons.core.LogsCenter;
 import seedu.address.person.model.person.Person;
 import seedu.address.person.model.person.UniquePersonList;
 import seedu.address.person.model.person.exceptions.PersonNotFoundException;
@@ -17,6 +18,8 @@ import seedu.address.person.model.person.exceptions.PersonNotFoundException;
 public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniquePersonList persons;
+    private final Logger logger = LogsCenter.getLogger(getClass());
+
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
      * between constructors. See https://docs.oracle.com/javase/tutorial/java/javaOO/initial.html

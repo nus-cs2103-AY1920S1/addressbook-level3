@@ -1,10 +1,9 @@
 package seedu.address.transaction.logic.commands;
 
-import static java.util.Objects.requireNonNull;
 import static seedu.address.transaction.ui.TransactionMessages.MESSAGE_FIND_COMMAND;
 
 import seedu.address.transaction.model.Model;
-import seedu.address.transaction.model.transaction.TransactionContainsKeywordsPredicate;
+import seedu.address.transaction.model.TransactionContainsKeywordsPredicate;
 
 /**
  * Finds a transaction in the transaction list.
@@ -21,9 +20,7 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model, seedu.address.person.model.GetPersonByNameOnlyModel personModel) {
-        requireNonNull(model);
-        requireNonNull(personModel);
+    public CommandResult execute(Model model, seedu.address.person.model.Model personModel) {
         model.updatePredicate(this.predicate);
         return new CommandResult(String.format(MESSAGE_FIND_COMMAND, model.getFilteredList().size()));
     }
@@ -33,10 +30,5 @@ public class FindCommand extends Command {
         return other == this // short circuit if same object
                 || (other instanceof FindCommand // instanceof handles nulls
                 && predicate.equals(((FindCommand) other).predicate));
-    }
-
-    @Override
-    public String toString() {
-        return COMMAND_WORD;
     }
 }

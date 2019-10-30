@@ -1,11 +1,10 @@
 package seedu.address.transaction.logic.commands;
 
-import static java.util.Objects.requireNonNull;
 import static seedu.address.transaction.ui.TransactionMessages.MESSAGE_DELETE_TRANSACTION;
 
 import seedu.address.transaction.logic.parser.exception.ParseException;
 import seedu.address.transaction.model.Model;
-import seedu.address.transaction.model.transaction.Transaction;
+import seedu.address.transaction.model.Transaction;
 import seedu.address.transaction.ui.TransactionMessages;
 
 /**
@@ -22,11 +21,7 @@ public class DeleteIndexCommand extends DeleteCommand {
     }
 
     @Override
-    public CommandResult execute(Model model,
-                                 seedu.address.person.model.GetPersonByNameOnlyModel personModel)
-            throws ParseException {
-        requireNonNull(model);
-        requireNonNull(personModel);
+    public CommandResult execute(Model model, seedu.address.person.model.Model personModel) throws ParseException {
         Transaction transaction;
         try {
             transaction = model.findTransactionInFilteredListByIndex(index);

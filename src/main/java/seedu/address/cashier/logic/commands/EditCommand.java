@@ -3,13 +3,10 @@ package seedu.address.cashier.logic.commands;
 import static seedu.address.cashier.ui.CashierMessages.MESSAGE_EDIT_SUCCESS;
 import static seedu.address.cashier.ui.CashierMessages.MESSAGE_INSUFFICIENT_STOCK;
 
-import java.util.logging.Logger;
-
 import seedu.address.cashier.logic.commands.exception.InsufficientAmountException;
-import seedu.address.cashier.model.exception.NoSuchIndexException;
+import seedu.address.cashier.logic.parser.exception.ParseException;
 import seedu.address.cashier.ui.CashierMessages;
 import seedu.address.inventory.model.Item;
-import seedu.address.person.commons.core.LogsCenter;
 import seedu.address.person.model.Model;
 
 /**
@@ -18,9 +15,8 @@ import seedu.address.person.model.Model;
 public class EditCommand extends Command {
 
     public static final String COMMAND_WORD = "edit";
-    private final int index;
-    private final int quantity;
-    private final Logger logger = LogsCenter.getLogger(getClass());
+    private static int index;
+    private static int quantity;
 
     /**
      * Creates an EditCommand to add an item
@@ -31,20 +27,22 @@ public class EditCommand extends Command {
         assert index > 0 : "Index must be a positive integer.";
         assert quantity >= 0 : "Quantity cannot be negative.";
 
-        logger.info("index of item edited: " + index);
-        logger.info("quantity of item edited: " + quantity);
+        //logger.info("index of item edited: " + index);
+        //logger.info("quantity of item edited: " + quantity);
 
         this.index = index;
         this.quantity = quantity;
     }
 
     @Override
-    public CommandResult execute(seedu.address.cashier.model.Model model, Model personModel) throws Exception {
+    public CommandResult execute(seedu.address.cashier.model.Model model, Model personModel,
+                                 seedu.address.transaction.model.Model transactionModel,
+                                 seedu.address.inventory.model.Model inventoryModel) throws Exception {
         Item i;
         try {
             i = model.findItemByIndex(index);
         } catch (IndexOutOfBoundsException e) {
-            throw new NoSuchIndexException(CashierMessages.NO_SUCH_INDEX_CASHIER);
+            throw new ParseException(CashierMessages.NO_SUCH_INDEX_CASHIER);
         }
         if (!model.hasSufficientQuantityToEdit(index, quantity)) {
             String description = model.findItemByIndex(index).getDescription();
@@ -52,15 +50,7 @@ public class EditCommand extends Command {
             throw new InsufficientAmountException(String.format(MESSAGE_INSUFFICIENT_STOCK, quantityLeft, description));
         }
         i = model.editItem(index, quantity);
-        logger.info("Edited item: " + i.toString());
+        //logger.info("Edited item: " + i.toString());
         return new CommandResult(String.format(MESSAGE_EDIT_SUCCESS, i.getDescription(), i.getQuantity()));
-    }
-
-    @Override
-    public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof EditCommand // instanceof handles nulls
-                && index == (((EditCommand) other).index)
-                && quantity == ((EditCommand) other).quantity);
     }
 }

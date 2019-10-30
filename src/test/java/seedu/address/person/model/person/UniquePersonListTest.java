@@ -40,11 +40,11 @@ public class UniquePersonListTest {
     }
 
     @Test
-    public void contains_personWithSomeDifferentFieldsInList_returnsFalse() {
+    public void contains_personWithSameIdentityFieldsInList_returnsTrue() {
         uniquePersonList.add(ALICE);
         Person editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
-        assertFalse(uniquePersonList.contains(editedAlice));
+        assertTrue(uniquePersonList.contains(editedAlice));
     }
 
     @Test

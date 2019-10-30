@@ -9,8 +9,8 @@ import seedu.address.cashier.model.exception.NoSuchItemException;
 import seedu.address.cashier.util.InventoryList;
 import seedu.address.inventory.model.Item;
 import seedu.address.person.model.person.Person;
-import seedu.address.transaction.model.TransactionList;
-import seedu.address.transaction.model.transaction.Transaction;
+import seedu.address.transaction.model.Transaction;
+import seedu.address.transaction.util.TransactionList;
 
 /**
  * Represents a Cashier tab's Model stub.
@@ -38,6 +38,11 @@ public class CashierModelStub implements Model {
     }
 
     @Override
+    public void writeInInventoryFile() throws Exception {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
     public void setCashier(Person p) {
         throw new AssertionError("This method should not be called.");
     }
@@ -54,11 +59,6 @@ public class CashierModelStub implements Model {
 
     @Override
     public void clearSalesList() {
-        throw new AssertionError("This method should not be called.");
-    }
-
-    @Override
-    public void resetCashier() {
         throw new AssertionError("This method should not be called.");
     }
 
@@ -88,7 +88,9 @@ public class CashierModelStub implements Model {
     }
 
     @Override
-    public Transaction checkoutAsTransaction(double amount, Person person) {
+    public Transaction checkoutAsTransaction(double amount,
+                                             Person person, seedu.address.transaction.model.Model transactionModel)
+            throws Exception {
         throw new AssertionError("This method should not be called.");
     }
 
@@ -109,16 +111,6 @@ public class CashierModelStub implements Model {
 
     @Override
     public boolean hasSufficientQuantityToEdit(int index, int quantity) throws NoSuchItemException {
-        throw new AssertionError("This method should not be called.");
-    }
-
-    @Override
-    public void getUpdatedLists(InventoryList inventoryList, TransactionList transactionList) {
-        throw new AssertionError("This method should not be called.");
-    }
-
-    @Override
-    public Transaction getCheckoutTransaction() {
         throw new AssertionError("This method should not be called.");
     }
 
@@ -147,6 +139,10 @@ public class CashierModelStub implements Model {
         throw new AssertionError("This method should not be called.");
     }
 
+    @Override
+    public void readInUpdatedList() {
+        throw new AssertionError("This method should not be called.");
+    }
 
     @Override
     public boolean hasSufficientQuantityToAdd(String description, int quantity) throws NoSuchItemException {

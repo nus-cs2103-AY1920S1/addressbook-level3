@@ -9,6 +9,7 @@ import static seedu.address.overview.ui.OverviewMessages.SALES_SUMMARY_TEXT;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javafx.collections.FXCollections;
@@ -19,7 +20,6 @@ import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.PieChart;
-import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
 import seedu.address.overview.logic.Logic;
@@ -50,7 +50,7 @@ public class Overview extends UiPart<Region> {
     private PieChart inventoryPieChart;
 
     @FXML
-    private BarChart<String, Double> salesBarChart;
+    private BarChart salesBarChart;
 
     @FXML
     private CategoryAxis salesXAxis;
@@ -59,27 +59,24 @@ public class Overview extends UiPart<Region> {
     private NumberAxis salesYAxis;
 
     @FXML
-    private LineChart<String, Double> budgetBarChart;
-
-    private Logic overviewLogic;
+    private LineChart budgetBarChart;
 
     public Overview(Logic overviewLogic) {
         super(FXML);
 
-        this.overviewLogic = overviewLogic;
-
-        initialiseLabels();
-        initialiseExpensePieChart();
-        initialiseInventoryPieChart();
-        initialiseSalesBarChart();
-        initialiseBudgetLineChart();
+        initialiseLabels(overviewLogic);
+        initialiseExpensePieChart(overviewLogic);
+        initialiseInventoryPieChart(overviewLogic);
+        initialiseSalesBarChart(overviewLogic);
+        initialiseBudgetBarChart(overviewLogic);
 
     }
 
     /**
      * Initialises the Labels in the Overview tab.
+     * @param overviewLogic the logic for the overview tab.
      */
-    void initialiseLabels() {
+    void initialiseLabels(Logic overviewLogic) {
         totalExpenseValue.setText(String.format(EXPENSE_SUMMARY_TEXT, overviewLogic.getTotalExpenses(),
                 overviewLogic.getExpenseTarget()));
         totalInventoryValue.setText(String.format(INVENTORY_SUMMARY_TEXT, overviewLogic.getTotalInventory()));
@@ -91,8 +88,9 @@ public class Overview extends UiPart<Region> {
 
     /**
      * Initialises the Pie Chart for expenses in the Overview tab.
+     * @param overviewLogic the logic for the overview tab.
      */
-    void initialiseExpensePieChart() {
+    void initialiseExpensePieChart(Logic overviewLogic) {
         List<PieChart.Data> pieChartData = new ArrayList<>();
         List<String> categoryList = overviewLogic.getTransactionCategories();
 
@@ -109,15 +107,14 @@ public class Overview extends UiPart<Region> {
         expensePieChart.setLabelLineLength(20);
         expensePieChart.setLabelsVisible(true);
         expensePieChart.setStartAngle(180);
-        //expensePieChart.setLegendVisible(true);
-        //expensePieChart.setLegendSide(Side.LEFT);
 
     }
 
     /**
      * Initialises the Pie Chart for inventory in the Overview tab.
+     * @param overviewLogic the logic for the overview tab.
      */
-    void initialiseInventoryPieChart() {
+    void initialiseInventoryPieChart(Logic overviewLogic) {
         List<PieChart.Data> pieChartData = new ArrayList<>();
         List<String> categoryList = overviewLogic.getInventoryCategories();
 
@@ -134,45 +131,33 @@ public class Overview extends UiPart<Region> {
         inventoryPieChart.setLabelLineLength(20);
         inventoryPieChart.setLabelsVisible(true);
         inventoryPieChart.setStartAngle(180);
-        //inventoryPieChart.setLegendVisible(true);
-        //inventoryPieChart.setLegendSide(Side.LEFT);
-
     }
 
     /**
      * Initialises the Bar CHart for Sales in the Overview tab.
+     * @param overviewLogic the logic for the overview tab.
      */
-    void initialiseSalesBarChart() {
+    void initialiseSalesBarChart(Logic overviewLogic) {
         LocalDate currentDate = LocalDate.now();
+        List<String> months = new ArrayList<>();
 
-        XYChart.Series<String, Double> dataSeries = new XYChart.Series<>();
-        dataSeries.getData().add(new XYChart.Data<String, Double>(currentDate.minusMonths(2).getMonth().toString(),
-                overviewLogic.getSalesTotalByMonth(currentDate.minusMonths(2))));
-        dataSeries.getData().add(new XYChart.Data<String, Double>(currentDate.minusMonths(1).getMonth().toString(),
-                overviewLogic.getSalesTotalByMonth(currentDate.minusMonths(1))));
-        dataSeries.getData().add(new XYChart.Data<String, Double>(currentDate.getMonth().toString(),
-                overviewLogic.getSalesTotalByMonth(currentDate)));
+        for (int i = 0; i < 3; i++) {
+            months.add(currentDate.getMonth().toString());
+            currentDate = currentDate.minusMonths(1);
+        }
 
-        salesBarChart.getData().add(dataSeries);
+        Collections.reverse(months);
+
+        salesXAxis.setCategories(FXCollections.observableList(months));
+
+        salesYAxis.setLabel("Amount");
+
+        //XYChart.Series<String, Number>
 
     }
 
-    /**
-     * Initialises the Line Chart for Sales in the Overview tab.
-     */
-    void initialiseBudgetLineChart() {
-        LocalDate currentDate = LocalDate.now();
+    void initialiseBudgetBarChart(Logic overviewLogic) {
 
-        XYChart.Series<String, Double> dataSeries = new XYChart.Series<>();
-        dataSeries.getData().add(new XYChart.Data<String, Double>(currentDate.minusMonths(2).getMonth().toString(),
-                overviewLogic.getBudgetLeftByMonth(currentDate.minusMonths(2))));
-        dataSeries.getData().add(new XYChart.Data<String, Double>(currentDate.minusMonths(1).getMonth().toString(),
-                overviewLogic.getBudgetLeftByMonth(currentDate.minusMonths(1))));
-        dataSeries.getData().add(new XYChart.Data<String, Double>(currentDate.getMonth().toString(),
-                overviewLogic.getBudgetLeftByMonth(currentDate)));
-
-        budgetBarChart.getData().add(dataSeries);
     }
-
 
 }
