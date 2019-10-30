@@ -213,8 +213,16 @@ public interface Model {
      */
     ObservableList<Question> getFilteredQuizQuestionList();
 
+    /**
+     * Filters the quiz result list with {@code QuizResultFilter}.
+     * @param quizResultFilter The filter to be applied.
+     */
     void filterQuizResult(QuizResultFilter quizResultFilter);
 
+    /**
+     * Updates the existing {@code QuizResultFilter}.
+     * @param quizResultFilter The filter to update with.
+     */
     void updateQuizResultFilter(QuizResultFilter quizResultFilter);
 
     /**
@@ -227,6 +235,10 @@ public interface Model {
      */
     boolean checkQuizAnswer(Answer answer);
 
+    /**
+     * Adds the quiz result to the quiz result list.
+     * @param quizResult The quiz result to be added.
+     */
     void addQuizResult(QuizResult quizResult);
 
     /**
@@ -253,13 +265,29 @@ public interface Model {
      */
     ObservableList<PieChart.Data> getStatsPieChartData();
 
+    /**
+     * Returns an unmodifiable view of the quiz result list.
+     */
     ObservableList<QuizResult> getQuizResultList();
 
+    /**
+     * Filters the quiz result list by the question.
+     * @param question The question to filter by.
+     */
     void generateQnsReport(Question question);
 
+    /**
+     * Returns an unmodifiable view of a list of unique subjects.
+     */
     ObservableList<Subject> getUniqueSubjectList();
 
+    /**
+     * Returns an unmodifiable view of the series list of a bar chart.
+     */
     ObservableList<StackBarChartModel> getStackBarChartData();
 
+    /**
+     * Returns an unmodifiable view of the data list for a pie chart.
+     */
     ObservableList<PieChart.Data> getQnsPieChartData();
 }

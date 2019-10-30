@@ -8,7 +8,7 @@ import seedu.address.model.quiz.QuizResult;
 import seedu.address.ui.panels.PanelComponent;
 
 /**
- * An UI component that displays information of a {@code Question}.
+ * An UI component that displays information of a {@code QuizResult}.
  */
 public class StatsQnsListCard extends PanelComponent<Region> {
     private static final String FXML = "StatsQnsListCard.fxml";

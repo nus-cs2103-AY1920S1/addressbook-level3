@@ -15,7 +15,7 @@ import seedu.address.model.question.Question;
 import seedu.address.model.quiz.exceptions.EmptyQuizResultListException;
 
 /**
- * Returns a report for questions.
+ * Returns a report for the questions done.
  */
 public class GetReportCommand extends Command {
     public static final String COMMAND_WORD = "report";
@@ -32,6 +32,12 @@ public class GetReportCommand extends Command {
 
     private final Index index;
 
+
+    /**
+     * Creates a GetReportCommand to get the specified {@code QuizResult}
+     * for a question.
+     * @param index The index of the question.
+     */
     public GetReportCommand(Index index) {
         requireNonNull(index);
         this.index = index;
@@ -53,5 +59,12 @@ public class GetReportCommand extends Command {
         CommandResult c = new CommandResult(MESSAGE_SUCCESS, 8);
         c.setType(REPORT);
         return c;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof GetReportCommand // instanceof handles nulls
+                && index.equals(((GetReportCommand) other).index)); // state check
     }
 }

@@ -16,13 +16,13 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.quiz.QuizResultFilter;
 
 /**
- * Parses input arguments and creates a new GetStatisticsCommand object.
+ * Parses input arguments and creates a new GetOverviewCommand object.
  */
 public class GetOverviewCommandParser implements Parser<GetOverviewCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the GetStatisticsCommand
-     * and returns an GetStatisticsCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the GetOverviewCommand
+     * and returns a GetOverviewCommand object for execution.
      *
      * @throws ParseException if the user input does not conform to the expected format
      */
