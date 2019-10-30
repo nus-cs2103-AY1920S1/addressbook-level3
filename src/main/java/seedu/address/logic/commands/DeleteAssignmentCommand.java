@@ -15,7 +15,7 @@ import seedu.address.model.assignment.Assignment;
  */
 public class DeleteAssignmentCommand extends Command {
 
-    public static final String COMMAND_WORD = "delassign";
+    public static final String COMMAND_WORD = "deleteassignment";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
                                                    + ": Deletes the student identified by the index number "
@@ -49,7 +49,7 @@ public class DeleteAssignmentCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                   || (other instanceof DeleteCommand // instanceof handles nulls
+                   || (other instanceof DeleteStudentCommand // instanceof handles nulls
                            && targetIndex.equals(((DeleteAssignmentCommand) other).targetIndex)); // state check
     }
 }

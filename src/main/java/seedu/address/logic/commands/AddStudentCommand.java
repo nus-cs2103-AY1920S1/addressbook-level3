@@ -20,9 +20,9 @@ import seedu.address.model.student.Student;
 /**
  * Adds a student to the classroom.
  */
-public class AddCommand extends Command {
+public class AddStudentCommand extends Command {
 
-    public static final String COMMAND_WORD = "add";
+    public static final String COMMAND_WORD = "addstudent";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a student to the classroom. "
             + "Parameters: "
@@ -49,10 +49,10 @@ public class AddCommand extends Command {
     private final Student toAdd;
 
     /**
-     * Creates an AddCommand to add the specified {@code Student}
+     * Creates an AddStudentCommand to add the specified {@code Student}
      */
 
-    public AddCommand(Student student) {
+    public AddStudentCommand(Student student) {
         requireNonNull(student);
         toAdd = student;
     }
@@ -69,7 +69,8 @@ public class AddCommand extends Command {
         model.updateFilteredAssignmentList(PREDICATE_SHOW_ALL_ASSIGNMENTS);
         List<Assignment> assignmentList = model.getFilteredAssignmentList();
         for (Assignment assignment: assignmentList) {
-            Assignment editedAssignment = new Assignment(assignment.getAssignmentName());
+            Assignment editedAssignment = new Assignment(assignment.getAssignmentName(),
+                    assignment.getAssignmentDeadline());
             editedAssignment.setGrades(assignment.namesStringListFromGrades(), assignment.marksStringListFromGrades());
             editedAssignment.addOneStudentGrade(toAdd.getName().fullName);
             model.setAssignment(assignment, editedAssignment);
@@ -81,7 +82,7 @@ public class AddCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AddCommand // instanceof handles nulls
-                && toAdd.equals(((AddCommand) other).toAdd));
+                || (other instanceof AddStudentCommand // instanceof handles nulls
+                && toAdd.equals(((AddStudentCommand) other).toAdd));
     }
 }
