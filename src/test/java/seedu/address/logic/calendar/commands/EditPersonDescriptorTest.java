@@ -12,7 +12,7 @@
 //
 //import org.junit.jupiter.api.Test;
 //
-//import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
+//import seedu.address.logic.commands.EditCommand.EditTaskDescriptor;
 //import seedu.address.testutil.EditPersonDescriptorBuilder;
 //
 //
@@ -22,7 +22,7 @@
 //    @Test
 //    public void equals() {
 //        // same values -> returns true
-//        EditPersonDescriptor descriptorWithSameValues = new EditPersonDescriptor(DESC_AMY);
+//        EditTaskDescriptor descriptorWithSameValues = new EditTaskDescriptor(DESC_AMY);
 //        assertTrue(DESC_AMY.equals(descriptorWithSameValues));
 //
 //        // same object -> returns true
@@ -38,7 +38,7 @@
 //        assertFalse(DESC_AMY.equals(DESC_BOB));
 //
 //        // different name -> returns false
-//        EditPersonDescriptor editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withName(VALID_NAME_BOB).build();
+//        EditTaskDescriptor editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withName(VALID_NAME_BOB).build();
 //        assertFalse(DESC_AMY.equals(editedAmy));
 //
 //        // different phone -> returns false
