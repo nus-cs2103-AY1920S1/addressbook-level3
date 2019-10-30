@@ -137,7 +137,7 @@ Creates a new activity with title 'Breakfast'. If the contact named 'Bernice Yu'
 
 Adds a contact in the contact list to the currently viewed activity. Multiple contacts can also be added at once.
 If there is no current viewed activity, then the contact cannot be added and there will be an error.
-If the specified contact does not exist in the contact list, then the contact will not be added and a warning message indicating non-unique search result will be shown instead.
+If the specified contact does not exist in the contact list, then the contact cannot be added and a warning message indicating non-unique search result will be shown instead.
 
 Format: `invite p/PERSON ...`
 
