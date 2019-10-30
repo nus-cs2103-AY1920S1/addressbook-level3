@@ -198,7 +198,7 @@ Example: Let's say I have to exit the calendar page -
 Gives you an overview of when you will be free to travel and recommends when will be a suitable time to travel.
 
 *Adding a commitment: ``addCommitment``* +
-Adds commitment to indicate that you won’t be able to travel on a day or over a period of time due to commitments during the public holidays/school vacation. +
+Adds commitment to indicate that you won’t be able to travel on a day or over a duration of time due to commitments during the public holidays/school vacation. +
 Format: ``addCommitment [date] [name] <details of commitment>``
 
 *Adding a public holiday: ``addHoliday``* +
@@ -214,7 +214,7 @@ Adds your trip to the calendar. Now, you can keep track of your trip with ease. 
 Format: ``addTrip [date] [name of trip]`` or ``addSchoolBreak [start date] [end date] [name of trip]``
 
 *Checking your availability for a trip: ``check``* +
-Checks whether you would be able to travel on a specified date/for a specified period of time. +
+Checks whether you would be able to travel on a specified date/for a specified duration of time. +
 Format: ``check [date]`` or ``check [start date] [end date]``
 
 *Clearing all commitments for a particular date: ``clearAll``* +
@@ -243,9 +243,9 @@ Format: ``removeHoliday [date] [name]``
 
 *Showing a monthly view of your calendar: ``show``* +
 Shows a monthly view of your calendar. If year is not specified, the current year will be used. +
-Format: ``show [month] <year>``
+Format: ``show [viewOnlyMonth] <year>``
 
-*Suggesting a period of time to travel: ``suggest``* +
+*Suggesting a duration of time to travel: ``suggest``* +
 Suggests when you can travel for a specified number of days within a time frame (as determined by the start and end dates). +
 Format: ``suggest [start date] [end date] [number of days]``
 
@@ -253,7 +253,7 @@ The event planner feature also provides  certain extra extensions.  +
 _(Extensions the group may want to consider)_
 
 . *advice* +
-This command suggests whether travelling at the stated period of time is a good idea. For instance, when exams or external commitments are around the corner, the user will be reminded of his/her responsibilities and will be asked whether he/she is sure that he/she wants to go ahead with the travelling plans.
+This command suggests whether travelling at the stated duration of time is a good idea. For instance, when exams or external commitments are around the corner, the user will be reminded of his/her responsibilities and will be asked whether he/she is sure that he/she wants to go ahead with the travelling plans.
 
 . *automaticHolidayDetector* +
 Informs user of public holidays and adds them to the calendar without requiring the user to specify it.
@@ -692,7 +692,7 @@ Friend Contact List: +
 ``listCont``   : list all friends in the contact list
 
 Calendar (Event Planner): +
-``addCommitment``      : adds commitment to indicate that you won’t be able to travel on a day or over a period of time due to commitments during the public holidays/school vacation +
+``addCommitment``      : adds commitment to indicate that you won’t be able to travel on a day or over a duration of time due to commitments during the public holidays/school vacation +
 
 ``addCommitments``     : similar to the above, but we can add multiple commitments at once +
 
@@ -702,9 +702,9 @@ Calendar (Event Planner): +
 
 ``addTrip``             :  adds your trip to the calendar +
 
-``checkAvailability``   :  checks whether you are available for the stated period of time +
+``checkAvailability``   :  checks whether you are available for the stated duration of time +
 
-``clearCommitments``    :  clears all commitments for the stated period of time +
+``clearCommitments``    :  clears all commitments for the stated duration of time +
 
 ``deleteCommitment``    :  deletes commitment from your calendar +
 
@@ -716,7 +716,7 @@ Calendar (Event Planner): +
 
 ``editCommitment``      : edits the duration of your commitment +
 
-``showAvailability``    : shows you when you have 3 or more “free” days in the given period of time which you have specified +
+``showAvailability``    : shows you when you have 3 or more “free” days in the given duration of time which you have specified +
 
 ``suggestDate``         : suggests when you can travel for numDays
 

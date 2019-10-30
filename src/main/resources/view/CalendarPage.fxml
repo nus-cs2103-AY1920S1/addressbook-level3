@@ -2,6 +2,7 @@
 
 <?import javafx.scene.Scene?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -28,8 +29,12 @@
                                 </rowConstraints>
                                 <children>
                                     <StackPane fx:id="monthHeaderPlaceholder" prefHeight="200.0" prefWidth="200.0" />
-                                    <Label alignment="TOP_CENTER" prefHeight="24.0" prefWidth="170.0" styleClass="header-text" text="------------------" textAlignment="CENTER" GridPane.rowIndex="1" />
                                     <StackPane fx:id="yearHeaderPlaceholder" prefHeight="150.0" prefWidth="200.0" GridPane.rowIndex="2" />
+                           <StackPane id="separator" prefHeight="150.0" prefWidth="200.0" GridPane.rowIndex="1">
+                              <children>
+                                 <Separator prefHeight="14.0" prefWidth="115.0" />
+                              </children>
+                           </StackPane>
                                 </children>
                             </GridPane>
                         </children></VBox>

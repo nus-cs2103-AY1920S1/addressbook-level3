@@ -35,12 +35,8 @@ public class Day implements Comparable<Day> {
         return dayOfMonth;
     }
 
-    /**
-     * Returns day of week as a meaningful numerical value that is one-based.
-     * @return day of week as a meaningful numerical value that is one-based
-     */
-    public int getDayOfWeekZeroIndex() {
-        return DateUtil.getNumericalVal(dayOfWeek);
+    public DayOfWeek getDayOfWeek() {
+        return dayOfWeek;
     }
 
     Day copy() {
