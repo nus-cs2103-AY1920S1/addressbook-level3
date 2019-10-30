@@ -7,8 +7,6 @@ import static seedu.address.commons.core.Messages.MESSAGE_ORDERS_LISTED_OVERVIEW
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalCustomers.getTypicalCustomerBook;
 import static seedu.address.testutil.TypicalOrders.ORDERONE;
-import static seedu.address.testutil.TypicalOrders.ORDERTHREE;
-import static seedu.address.testutil.TypicalOrders.ORDERTWO;
 import static seedu.address.testutil.TypicalOrders.getTypicalOrderBook;
 import static seedu.address.testutil.TypicalPhones.getTypicalPhoneBook;
 import static seedu.address.testutil.TypicalSchedules.getTypicalScheduleBook;
@@ -65,7 +63,7 @@ public class FindOrderCommandTest {
     }
 
     @Test
-    public void execute_zeroKeywords_noPersonFound() {
+    public void execute_zeroKeywords_noOrderFound() {
         String expectedMessage = String.format(MESSAGE_ORDERS_LISTED_OVERVIEW, 0);
         OrderContainsKeywordsPredicate predicate = preparePredicate(" ");
         FindOrderCommand command = new FindOrderCommand(predicate);
@@ -75,13 +73,13 @@ public class FindOrderCommandTest {
     }
 
     @Test
-    public void execute_multipleKeywords_multiplePersonsFound() {
-        String expectedMessage = String.format(MESSAGE_ORDERS_LISTED_OVERVIEW, 3);
-        OrderContainsKeywordsPredicate predicate = preparePredicate("$1231.12 $909 $500");
+    public void execute_multipleKeywords_multipleOrdersFound() {
+        String expectedMessage = String.format(MESSAGE_ORDERS_LISTED_OVERVIEW, 1);
+        OrderContainsKeywordsPredicate predicate = preparePredicate("$1231.12 iphone");
         FindOrderCommand command = new FindOrderCommand(predicate);
         expectedModel.updateFilteredOrderList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(ORDERONE, ORDERTWO, ORDERTHREE), model.getFilteredOrderList());
+        assertEquals(Arrays.asList(ORDERONE), model.getFilteredOrderList());
     }
 
     /**

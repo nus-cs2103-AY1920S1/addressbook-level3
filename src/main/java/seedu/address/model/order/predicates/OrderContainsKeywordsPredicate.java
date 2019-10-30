@@ -18,8 +18,13 @@ public class OrderContainsKeywordsPredicate implements Predicate<Order> {
 
     @Override
     public boolean test(Order order) {
+
+        if (keywords.isEmpty()) {
+            return false;
+        }
+
         return keywords.stream()
-                .anyMatch(keyword ->
+                .allMatch(keyword ->
                         StringUtil.containsWordIgnoreCase(order.getCustomer().getCustomerName().toString(), keyword)
                         || StringUtil.containsWordIgnoreCase(
                                 order.getCustomer().getContactNumber().toString(), keyword)
