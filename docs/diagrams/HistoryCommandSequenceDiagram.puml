@@ -6,7 +6,7 @@ participant ":MainWindow" as MainWindow UI_COLOR
 participant ":HistoryWindow" as HistoryWindow UI_COLOR
 end box
 
-box LOGIC LOGIC_COLOR_T1
+box Logic LOGIC_COLOR_T1
 participant ":Logic" as Logic LOGIC_COLOR
 participant ":HistoryCommandParser" as HistoryCommandParser LOGIC_COLOR
 participant "command : HistoryCommand" as HistoryCommand LOGIC_COLOR
