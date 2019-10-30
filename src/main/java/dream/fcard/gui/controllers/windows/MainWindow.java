@@ -15,6 +15,7 @@ import dream.fcard.model.Deck;
 import dream.fcard.model.State;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.MenuItem;
@@ -22,6 +23,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 /**
@@ -212,7 +214,13 @@ public class MainWindow extends VBox {
      */
     @FXML
     public void openStatistics() {
-        // todo
         System.out.println("Open statistics window");
+
+        Stage stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
+        Scene scene = new Scene(new StatisticsWindow());
+        stage.setScene(scene);
+        stage.setTitle("Your Statistics");
+        stage.show();
     }
 }
