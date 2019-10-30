@@ -39,8 +39,9 @@ public class TaskManagementPane extends UiPart<Region> {
         taskListView.setCellFactory(listView -> new TaskListViewCell());
         taskProgressChart.setData(getChartData((int) solvedCount.getValue(), (int) unsolvedCount.getValue()));
         taskProgressChart.setClockwise(true);
-        taskProgressChart.setLabelsVisible(false);
-        taskProgressChart.setLegendVisible(true);
+        taskProgressChart.setLabelsVisible(true);
+        taskProgressChart.setLegendVisible(false);
+        taskProgressChart.setStartAngle(90);
         addListenerForPlanName(plan);
         addListenerForPieChart(solvedCount, unsolvedCount);
     }
