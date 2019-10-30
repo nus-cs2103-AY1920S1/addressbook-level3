@@ -1,17 +1,15 @@
 package seedu.address.diaryfeature.logic.parser;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.diaryfeature.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.diaryfeature.logic.parser.CliSyntax.PREFIX_MEMORY;
 import static seedu.address.diaryfeature.logic.parser.CliSyntax.PREFIX_PLACE;
 import static seedu.address.diaryfeature.logic.parser.CliSyntax.PREFIX_TITLE;
 
-import java.util.Date;
+
+import java.util.Optional;
 
 import seedu.address.diaryfeature.logic.commands.FindSpecificCommand;
-import seedu.address.diaryfeature.model.diaryEntry.Memory;
-import seedu.address.diaryfeature.model.diaryEntry.Place;
-import seedu.address.diaryfeature.model.diaryEntry.Title;
+import seedu.address.diaryfeature.logic.predicates.FindSpecificPredicate;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
@@ -24,6 +22,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 */
 
 public class FindSpecificCommandParser implements Parser<Command> {
+    ArgumentMultimap argMultimap;
 
     /**
      * Parses the given {@code String} of arguments in the context of the AddCommand
@@ -33,31 +32,43 @@ public class FindSpecificCommandParser implements Parser<Command> {
      */
 
     public Command parse(String args) throws ParseException {
-        ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_TITLE, PREFIX_DATE, PREFIX_PLACE, PREFIX_MEMORY);
+        argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_TITLE, PREFIX_DATE, PREFIX_PLACE, PREFIX_MEMORY);
+        return new FindSpecificCommand(new FindSpecificPredicate(getPresentValue()));
+    }
 
 
-        Title title;
-        Date date;
-        Place place;
-        Memory memory;
-        try {
-            title = ParserUtil.parseTitle(argMultimap.getValue(PREFIX_TITLE).get());
-            date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get());
-            place = ParserUtil.parsePlace(argMultimap.getValue(PREFIX_PLACE).get());
-            memory = ParserUtil.parseMemory(argMultimap.getValue(PREFIX_MEMORY).get());
 
+    private String[] getPresentValue() {
+        Optional<String> title = argMultimap.getValue(PREFIX_TITLE);
+        Optional<String> date = argMultimap.getValue(PREFIX_DATE);
+        Optional<String> place = argMultimap.getValue(PREFIX_PLACE);
+        Optional<String> memory = argMultimap.getValue(PREFIX_MEMORY);
 
-        } catch (TitleException | java.text.ParseException ex) {
-            return new ErrorCommand(ex);
+        String[] myAnswer = new String[2];
+        if (title.isPresent()) {
+            myAnswer[0] = "title";
+            setValues(myAnswer, title);
+        } else if (date.isPresent()) {
+            myAnswer[0] = "date";
+            setValues(myAnswer, date);
+        } else if (place.isPresent()) {
+            myAnswer[0] = "place";
+            setValues(myAnswer, place);
+        } else if (memory.isPresent()) {
+            myAnswer[0] = "memory";
+            setValues(myAnswer, memory);
         }
+        return myAnswer;
+    }
 
 
-        DiaryEntry entry = new DiaryEntry(title, date, place, memory);
-
-        return new FindSpecificCommand();
+    private void setValues(String[] input, Optional<String> myValue) {
+        input[1] = myValue.get();
     }
 }
+
+
+
 
 
 

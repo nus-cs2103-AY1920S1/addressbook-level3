@@ -18,28 +18,25 @@ public class FindSpecificPredicate implements Predicate<DiaryEntry> {
 
     @Override
     public boolean test(DiaryEntry diaryEntry) {
+        boolean answer = false;
 
         switch (this.category) {
             case TITLE:
-                return  ;
-
+                answer =  diaryEntry.getTitle().toString().contains(userIsLookingFor);
+                 break;
             case DATE:
-                return;
-
+                answer =  diaryEntry.getDateAsStringtoStore().contains(userIsLookingFor);
+                break;
             case PLACE:
-                return;
-
+                answer =  diaryEntry.getPlace().toString().contains(userIsLookingFor);
+                break;
             case MEMORY:
-                return;
-
-
-        for(String curr:myHolder) {
-            if (curr.contains(userIsLookingFor)) {
-                return true;
-            }
+                answer =  diaryEntry.getMemory().toString().contains(userIsLookingFor);
+                break;
         }
-
+            return answer;
     }
+}
 
 
 

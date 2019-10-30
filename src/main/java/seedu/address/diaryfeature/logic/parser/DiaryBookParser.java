@@ -9,6 +9,7 @@ import seedu.address.diaryfeature.logic.commands.AddCommand;
 import seedu.address.diaryfeature.logic.commands.DeleteCommand;
 import seedu.address.diaryfeature.logic.commands.ExitCommand;
 import seedu.address.diaryfeature.logic.commands.FindCommand;
+import seedu.address.diaryfeature.logic.commands.FindSpecificCommand;
 import seedu.address.diaryfeature.logic.commands.ListCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.GoToCommand;
@@ -61,6 +62,8 @@ public class DiaryBookParser {
         case FindCommand.COMMAND_WORD:
             return new FindCommandParser().parse(arguments);
 
+        case FindSpecificCommand.COMMAND_WORD:
+            return new FindSpecificCommandParser().parse(arguments);
 
 
         default:
