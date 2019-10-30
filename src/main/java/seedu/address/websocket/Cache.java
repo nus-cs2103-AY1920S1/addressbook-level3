@@ -3,7 +3,6 @@ package seedu.address.websocket;
 import static java.util.Objects.requireNonNull;
 
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -396,7 +395,7 @@ public class Cache {
      * @return the path of the image
      */
     public static String imagePath(String validLocation) {
-        return writablePath + CacheFileNames.GMAPS_IMAGE_DIR + validLocation + ".png";
+        return CacheFileNames.GMAPS_IMAGE_DIR + validLocation + ".png";
     }
 
     /**
@@ -406,9 +405,10 @@ public class Cache {
      */
     public static BufferedImage loadImage(String validLocation) {
         String path = imagePath(validLocation);
+        final InputStream resourceStream = Cache.class.getResourceAsStream(path);
         BufferedImage img = null;
         try {
-            img = ImageIO.read(new File(path));
+            img = ImageIO.read(resourceStream);
             logger.info("Successfully loaded image for " + validLocation);
         } catch (IOException e) {
             logger.warning("Error reading from image file " + path + ": " + e);
