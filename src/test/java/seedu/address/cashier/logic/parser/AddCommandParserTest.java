@@ -11,6 +11,7 @@ import static seedu.address.cashier.logic.commands.CommandTestUtil.INVALID_DESCR
 import static seedu.address.cashier.logic.commands.CommandTestUtil.INVALID_DESCRIPTION_2;
 import static seedu.address.cashier.logic.commands.CommandTestUtil.INVALID_QUANTITY_1;
 import static seedu.address.cashier.logic.commands.CommandTestUtil.INVALID_QUANTITY_2;
+import static seedu.address.cashier.logic.commands.CommandTestUtil.INVALID_QUANTITY_3;
 import static seedu.address.cashier.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
 import static seedu.address.cashier.logic.commands.CommandTestUtil.VALID_CATEGORY_1;
 import static seedu.address.cashier.logic.commands.CommandTestUtil.VALID_DESCRIPTION_FISH_BURGER;
@@ -18,6 +19,7 @@ import static seedu.address.cashier.logic.commands.CommandTestUtil.VALID_QUANTIT
 import static seedu.address.cashier.logic.commands.CommandTestUtil.VALID_QUANTITY_2;
 import static seedu.address.cashier.logic.parser.CommandParserTestUtil.assertCommandParserFailure;
 import static seedu.address.cashier.logic.parser.CommandParserTestUtil.assertCommandParserSuccess;
+import static seedu.address.cashier.ui.CashierMessages.MESSAGE_INSUFFICIENT_STOCK;
 import static seedu.address.cashier.ui.CashierMessages.NO_SUCH_ITEM_FOR_SALE_CASHIER;
 import static seedu.address.cashier.ui.CashierMessages.QUANTITY_NOT_A_NUMBER;
 import static seedu.address.cashier.ui.CashierMessages.QUANTITY_NOT_POSITIVE;
@@ -41,7 +43,6 @@ import seedu.address.testutil.TypicalTransactions;
 
 public class AddCommandParserTest {
 
-    //private static final String VALID_DESCRIPTION_STORYBOOK = ;
     private AddCommandParser parser = new AddCommandParser();
     private ModelManager model = new ModelManager(TypicalItem.getTypicalInventoryList(),
             TypicalTransactions.getTypicalTransactionList());
@@ -148,6 +149,12 @@ public class AddCommandParserTest {
         // non-empty preamble
         assertCommandParserFailure(parser, PREAMBLE_NON_EMPTY + DESC_DESCRIPTION_STORYBOOK + DESC_QUANTITY_1,
                 CashierMessages.MESSAGE_INVALID_ADDCOMMAND_FORMAT, model, personModel);
+
+        setInventoryList();
+        // insufficient qty to add
+        String message1 = String.format(MESSAGE_INSUFFICIENT_STOCK, CHIPS.getQuantity(), CHIPS.getDescription());
+        assertCommandParserFailure(parser, DESC_DESCRIPTION_CHIPS + INVALID_QUANTITY_3,
+                message1, model, personModel);
 
     }
 
