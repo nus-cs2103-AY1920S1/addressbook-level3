@@ -559,12 +559,11 @@ Format: `clear`
 Exits the program. +
 Format: `exit`
 
-=== Import/export data : `import / export`
-Import csv file into the application. +
-Export application data into csv file. +
-Export application stats. +
-Format: `import <flag> <file name>` / `export <flag> <file name>` +
-Possible flag: `-p` for phone, `-c` for customer, `-o` for order.
+=== Export data : `export`
+Exports application data into csv file. +
+If csv file of the input file name exists, the application data will be exported to the existing file. +
+If csv file of the input file name does not exist, the application data will be exported into a new file.
+Format: `export <file name>` +
 
 === Saving the data
 SML data are saved in the hard disk automatically after any command that changes the data. +
@@ -622,10 +621,7 @@ Export any of the data in SML to PDF format.
 
 * *Exit* : `exit`
 
-* *Export* +
-** customer : `export-c`
-** phone : `export-p`
-** order : `export-o`
+* *Export* : `export <file name>`
 
 * *Find* +
 ** customer : `find-c KEYWORD [MORE_KEYWORDS]`
@@ -633,11 +629,6 @@ Export any of the data in SML to PDF format.
 ** order : `find-o INDEX`
 
 * *Generate* : `generate -s s/STAT -d d/ -t t/TYPE`
-
-* *Import* +
-** customer : `import-c`
-** phone : `import-p`
-** order : `import-o`
 
 * *List* +
 ** customer : `list-c`
