@@ -7,6 +7,7 @@
 :sectnums:
 :imagesDir: images
 :stylesDir: stylesheets
+:icons: font
 :xrefstyle: full
 ifdef::env-github[]
 :tip-caption: :bulb:
@@ -17,9 +18,36 @@ endif::[]
 
 By: `Team-F13-2`      Since: `Sep 2019`      Licence: `MIT`
 
+== Introduction
+
+$aveNUS is a desktop financial planning app that allows *NUS students* to *plan their meals according
+to the amount of budget they set aside per meal* in NUS. With $aveNUS, you can more effectively manage your expenses,
+save your favourite meal options within NUS, edit meal options, and even receive recommendations
+for meals that suit your budget.
+
+This Developer Guide allows other developers to understand the design principles as well as implementation decisions
+behind $aveNUS. With this guide, developers can understand and  contribute to $aveNUS easily.
+
+The table below provides a quick summary of the symbols and formatting used in the guide.
+
+[width="70%",cols="^15%,85%"]
+|===
+a| `code` | Command that can be typed into the command box
+ifndef::env-github[]
+a| icon:check[role="green", size="2x"] | Success execution of command
+a| icon:lightbulb-o[role="icon-tip", size="2x"] | Tips that might be useful
+a| icon:info-circle[role="icon-note", size="2x"] | Additional information that is good to know
+a| icon:exclamation-circle[role="icon-important", size="2x"] | Important pointers to take note
+endif::[]
+|===
+
 == Setting up
 
-Refer to the guide <<SettingUp#, here>>.
+:leveloffset: +1
+
+include::SettingUp.adoc[tag=settingup]
+
+:leveloffset: -1
 
 == Design
 
@@ -337,7 +365,7 @@ Due to development constraints, we have decided to only update the budget durati
 .Wallet-related class diagram in Model component.
 image::WalletClassDiagram.png[width=400]
 
-==== *Setting a Budget*
+==== Setting a Budget
 
 A budget can be set using the `budget` command which takes a budget amount, and an optional budget duration.
 
@@ -400,7 +428,7 @@ the purchase history data of the user while maintaining data integrity.
 `TimeOfPurchase` stores the time the `Purchase` was made by the user.
 ****
 
-==== *Buying a Food Item*
+==== Buying a Food Item
 
 The user may want to buy a food item and record the purchase. This can be done with the `buy` command.
 
@@ -419,7 +447,7 @@ The following activity diagram below summarizes how `buy` commands works
 .Activity diagram for a `buy` command
 image::BuyActivityDiagram.png[]
 
-
+//tag::recommendations[]
 === Recommendation feature
 
 The recommendation feature allows users to generate a list of personalized recommendations using the `recommend` command.
@@ -442,6 +470,16 @@ Additionally, the `RecommendationSystem` class also contains a class `UserRecomm
 dislikes of the user. The functionality of `UserRecommendations` is specified by the `Recommendations` interface,
 encompassing the ability to add and remove likes and dislikes, among other features.
 
+.Design decisions for `RecommendationSystem`
+****
+`RecommendationSystem` was chosen to be a singleton because of the fact that it exists as a global class, encapsulating
+many seemingly unrelated classes such as `Budget`, `PurchaseHistory` and `UserRecommendations` in order to produce the
+required recommendation value.
+
+Furthermore, there should only be one unique `RecommendationSystem` and `UserRecommendations` in the application.
+To ensure the above requirements are met, we have decided to implement `RecommendationSystem` as a singleton class.
+****
+
 The `UserRecommendations` object contain 6 sets, namely:
 
 ****
@@ -459,7 +497,7 @@ comparison can be done more easily.
 The class diagram below illustrates the relationship between the classes.
 
 .Recommendation class diagram in Model component
-image::RecommendationClassDiagram.png[width=500]
+image::RecommendationClassDiagram.png[width=400, align="center"]
 
 ==== Adding likes and dislikes
 
@@ -472,12 +510,12 @@ Furthermore, the user's likes and dislikes are integrated with `Storage` for the
 The sequence diagram below shows how a sample `like` command is executed:
 
 .Sequence diagram for a sample like command
-image::LikeSequenceDiagram.png[]
+image::LikeSequenceDiagram.png[align="center"]
 
 The following activity diagram below summarizes how the `like` command works:
 
 .Activity diagram for a sample like command
-image::LikeActivityDiagram.png[width=450]
+image::LikeActivityDiagram.png[width=450, align="center"]
 
 A similar execution sequence is performed for a dislike command by replacing instances of like with dislike and vice versa.
 
@@ -497,22 +535,21 @@ include::UserGuide.adoc[tag=recommendationpenalty]
 The activity diagram below shows how a sample Food is passed into `RecommendationSystem` to output a
 recommendation value:
 
-.Activity diagram for `calculateRecommendation`
-image::RecValueActivityDiagram.png[width=600]
+.Activity diagram for `RecommendationSystem#calculateRecommendation`
+image::RecValueActivityDiagram.png[width=650, align="center"]
 
 The calculated recommendation values are used to sort the food items when the `recommend` command
 is executed. Food with similar recommendation values are sorted based on their price.
 
 ===== Design Considerations
-Detailed below are the design considerations taken into account when engineering the `calculateRecommendation()` function.
+Detailed below are the design considerations taken into account when engineering the
+ `RecommendationSystem#calculateRecommendation()` function.
 
-.Design considerations of the calculateRecommendation() function
-[cols="20,40,40"]
+.Design considerations of the `RecommendationSystem#calculateRecommendation()` function
+[cols="50,50"]
 |===
-|Aspect |Alternative 1 |Alternative 2
+|Alternative 1 (Chosen Implementation) |Alternative 2
 
-|Design of +
-calculateRecommendation
 a|Declare a static method `calculateRecommendation` to calculate the recommendation value of each `Food`
 before sorting them.
 
@@ -523,13 +560,6 @@ before sorting them.
 * Cons:
 ** Sorting by recommendation value may be less efficient as the recommendation system has to calculate the
 recommendation value of each `Food` item when the comparator is called
-
-We chose this design because of its simplicity of implementation. Adding a hidden `recommendationValue`
-field for each `Food` might not be the best solution in the design of our application. A `recommendationValue` might
-not make sense in the context of a `Food` object and thus it may not be justifiable to force a connection between the
-two for the sake of efficiency.
-
-Furthermore, we do not have to manually update the recommendation of each `Food` item before every command with this design.
 
 a|Have a field (e.g. `recommendationValue`) for each `Food` item
 
@@ -542,6 +572,15 @@ be stored in each item
 the recommendation value
 ** An extra field `recommendationValue` has to be added to each `Food`
 |===
+
+We chose alternative 1 because of its simplicity of implementation. Adding a hidden `recommendationValue`
+field for each `Food` might not be the best solution in the design of our application. A `recommendationValue` might
+not make sense in the context of a `Food` object and thus it may not be justifiable to force a connection between the
+two for the sake of efficiency.
+
+Furthermore, we do not have to manually update the recommendation of each `Food` item before every command with this
+design.
+//end::recommendations[]
 
 == Documentation
 
