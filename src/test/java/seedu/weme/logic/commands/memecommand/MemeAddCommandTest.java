@@ -102,6 +102,11 @@ public class MemeAddCommandTest {
         }
 
         @Override
+        public Path getDefaultExportPath() {
+            throw new AssertionError("This method should not be called");
+        }
+
+        @Override
         public void clearExportList() {
             throw new AssertionError("This method should not be called");
         }

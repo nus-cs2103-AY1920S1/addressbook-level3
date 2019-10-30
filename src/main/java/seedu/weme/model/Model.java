@@ -52,6 +52,11 @@ public interface Model {
     void setGuiSettings(GuiSettings guiSettings);
 
     /**
+     * Returns the default export path in preferences.json.
+     */
+    Path getDefaultExportPath();
+
+    /**
      * Returns the user prefs' data file path.
      */
     Path getDataFilePath();

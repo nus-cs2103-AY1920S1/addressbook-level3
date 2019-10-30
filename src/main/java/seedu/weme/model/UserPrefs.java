@@ -70,6 +70,10 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         this.dataFilePath = dataFilePath;
     }
 
+    public Path getDefaultExportPath() {
+        return exportFilePath;
+    }
+
     @Override
     public Path getMemeImagePath() {
         return memeImagePath;

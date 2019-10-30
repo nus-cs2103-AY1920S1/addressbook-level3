@@ -15,7 +15,7 @@ import seedu.weme.model.DirectoryPath;
  */
 public class ExportCommandParser implements Parser<ExportCommand> {
 
-    public static final String MESSAGE_MISSING_PATH = "Please provide a directory path for export.";
+    private static final String DEFAULT_DIRECTORY = "[d]";
 
     /**
      * Parses the given {@code String} of arguments in the context of the ExportCommand
@@ -23,16 +23,27 @@ public class ExportCommandParser implements Parser<ExportCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public ExportCommand parse(String args) throws ParseException {
+        boolean isApplicationExportPath;
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_FILEPATH);
 
         if (argMultimap.getValue(PREFIX_FILEPATH).isEmpty()) {
-            throw new ParseException(MESSAGE_MISSING_PATH);
+            isApplicationExportPath = true;
+            return new ExportCommand(isApplicationExportPath);
         }
 
-        DirectoryPath path = ParserUtil.parseDirectoryPath(argMultimap.getValue(PREFIX_FILEPATH).get());
-
-        return new ExportCommand(path);
+        String directoryPath = argMultimap.getValue(PREFIX_FILEPATH).get();
+        ExportCommand command;
+        switch (directoryPath) {
+        case DEFAULT_DIRECTORY:
+            isApplicationExportPath = false;
+            command = new ExportCommand(isApplicationExportPath);
+            break;
+        default:
+            DirectoryPath path = ParserUtil.parseDirectoryPath(directoryPath);
+            command = new ExportCommand(path);
+        }
+        return command;
     }
 
 }

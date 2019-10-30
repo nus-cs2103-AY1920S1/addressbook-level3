@@ -33,7 +33,7 @@ public class DirectoryPath {
     /**
      * Returns true if the given string is a valid Path.
      */
-    public static boolean isValidDirectoryPath(String test) {
+    private boolean isValidDirectoryPath(String test) {
         // Paths.get() throws InvalidPathException when the path is a invalid.
         // It is caught and becomes return false.
         return FileUtil.isValidDirectoryPath(test);

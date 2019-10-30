@@ -14,6 +14,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import seedu.weme.commons.core.index.Index;
+import seedu.weme.commons.util.FileUtil;
 import seedu.weme.commons.util.StringUtil;
 import seedu.weme.logic.parser.contextparser.CreateParser;
 import seedu.weme.logic.parser.contextparser.ExportParser;
@@ -157,7 +158,7 @@ public class ParserUtil {
     public static DirectoryPath parseDirectoryPath(String input) throws ParseException {
         requireNonNull(input);
         String trimmedPath = input.trim();
-        if (!DirectoryPath.isValidDirectoryPath(trimmedPath)) {
+        if (!FileUtil.isValidDirectoryPath(trimmedPath)) {
             throw new ParseException(MESSAGE_INVALID_DIRECTORYPATH);
         }
         return new DirectoryPath(trimmedPath);

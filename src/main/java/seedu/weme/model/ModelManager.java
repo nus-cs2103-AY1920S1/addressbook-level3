@@ -124,6 +124,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public Path getDefaultExportPath() {
+        return userPrefs.getDefaultExportPath();
+    }
+
+    @Override
     public void setDataFilePath(Path dataFilePath) {
         requireNonNull(dataFilePath);
         userPrefs.setDataFilePath(dataFilePath);

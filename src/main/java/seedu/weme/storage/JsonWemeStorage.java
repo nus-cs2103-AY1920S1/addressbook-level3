@@ -73,7 +73,7 @@ public class JsonWemeStorage implements WemeStorage {
         requireNonNull(weme);
         requireNonNull(filePath);
 
-        FileUtil.createIfMissing(filePath);
+        FileUtil.createFileIfMissing(filePath);
         JsonUtil.saveJsonFile(new JsonSerializableWeme(weme), filePath);
     }
 

@@ -145,11 +145,22 @@ public class FileUtil {
 
     /**
      * Creates a file if it does not exist along with its missing parent directories.
-     * @throws IOException if the file or directory cannot be created.
+     * @throws IOException if the file cannot be created.
      */
-    public static void createIfMissing(Path file) throws IOException {
+    public static void createFileIfMissing(Path file) throws IOException {
         if (!isFileExists(file)) {
             createFile(file);
+        }
+    }
+
+    /**
+     * Creates a directory if it is missing.
+     *
+     * @throws IOException if the directory cannot be created.
+     */
+    public static void createDirectoryIfMissing(Path directoryPath) throws IOException {
+        if (!isFileExists(directoryPath)) {
+            Files.createDirectories(directoryPath);
         }
     }
 
@@ -180,6 +191,16 @@ public class FileUtil {
      */
     public static String readFromFile(Path file) throws IOException {
         return new String(Files.readAllBytes(file), CHARSET);
+    }
+
+    /**
+     * Gets the canonical path of the folder where the application is.
+     */
+    public static Path getApplicationFolderPath(String folderName) throws IOException {
+        String canonicalPath = new File(".").getCanonicalPath();
+        Path folderDirectoryPath = Paths.get(canonicalPath, folderName);
+        createDirectoryIfMissing(folderDirectoryPath);
+        return folderDirectoryPath;
     }
 
     /**
