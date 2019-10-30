@@ -26,6 +26,7 @@ import seedu.address.logic.commands.DeleteTagCommand;
 import seedu.address.logic.commands.DisplayCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditPolicyCommand;
+import seedu.address.logic.commands.EligiblePoliciesCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.ExpandPersonCommand;
 import seedu.address.logic.commands.ExpandPolicyCommand;
@@ -246,6 +247,9 @@ public class AddressBookParser {
 
             case DisplayCommand.COMMAND_WORD:
                 return new DisplayCommandParser().parse(arguments);
+
+                case EligiblePoliciesCommand.COMMAND_WORD:
+                    return new EligiblePoliciesCommandParser().parse(arguments);
 
             case ExpandPersonCommand.COMMAND_WORD:
                 return new ExpandPersonCommandParser().parse(arguments);

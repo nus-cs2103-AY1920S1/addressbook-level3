@@ -2,6 +2,7 @@ package seedu.address.model.policy;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
@@ -149,10 +150,13 @@ public class Policy implements Binnable {
      * Returns true if the specified {@code Person} is eligible for the policy.
      */
     public boolean isEligible(Person person) {
-        int year = person.getDateOfBirth().toLocalDate().getYear();
+        int birthYear = person.getDateOfBirth().toLocalDate().getYear();
+        int currentYear = Calendar.getInstance().get(Calendar.YEAR);
+        int age = currentYear - birthYear;
+
         return person.getTags().containsAll(criteria)
-                && year > Integer.parseInt(this.startAge.age)
-                && year < Integer.parseInt(this.endAge.age);
+                && age > Integer.parseInt(this.startAge.age)
+                && age < Integer.parseInt(this.endAge.age);
     }
 
     @Override
