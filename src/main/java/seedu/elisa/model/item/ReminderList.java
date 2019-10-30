@@ -20,8 +20,8 @@ public class ReminderList extends VisualizeList {
         for (Item i : list) {
             rl.add(i);
         }
-        rl.list.sort((item1, item2) -> item1.getReminder().get().getDateTime()
-                .compareTo(item2.getReminder().get().getDateTime()));
+        rl.list.sort((item1, item2) -> item1.getReminder().get().getDefaultDateTime()
+                .compareTo(item2.getReminder().get().getDefaultDateTime()));
         return rl;
     }
 

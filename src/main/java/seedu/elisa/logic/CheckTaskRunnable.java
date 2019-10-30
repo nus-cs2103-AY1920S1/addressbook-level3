@@ -26,7 +26,7 @@ public class CheckTaskRunnable implements Runnable {
         futureReminders = model.getFutureRemindersList();
 
         while (futureReminders.size() > 0
-                && futureReminders.get(0).getReminder().get().getDateTime().isBefore(LocalDateTime.now())) {
+                && futureReminders.get(0).getReminder().get().getOccurrenceDateTime().isBefore(LocalDateTime.now())) {
             futureReminders.remove(0);
         }
 
@@ -43,7 +43,7 @@ public class CheckTaskRunnable implements Runnable {
 
         if (futureReminders.size() > 0) {
             reminder = futureReminders.get(0).getReminder().get();
-            while (reminder != null && reminder.getDateTime().isBefore(LocalDateTime.now())) {
+            while (reminder != null && reminder.getOccurrenceDateTime().isBefore(LocalDateTime.now())) {
                 logger.info("----------------[LOGIC MANAGER]["
                         + "Transferring reminder from futureReminders to activeReminders" + "]");
 
@@ -58,5 +58,6 @@ public class CheckTaskRunnable implements Runnable {
 
             model.getActiveReminderListProperty().addReminders(activeReminders);
         }
+        activeReminders.clear();
     }
 }
