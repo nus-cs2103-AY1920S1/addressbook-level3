@@ -3,6 +3,9 @@ package seedu.address.model.card;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import seedu.address.commons.util.StringUtil;
 
 /**
@@ -12,9 +15,9 @@ import seedu.address.commons.util.StringUtil;
 public class CardNumber {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Card numbers should only contain 16 numeric characters, and it should not be blank";
+            "Card number provided is not a valid VISA or MasterCard number.";
 
-    public static final String VALIDATION_REGEX = "\\d{4}-?\\d{4}-?\\d{4}-?\\d{4}";
+    public static final String VALIDATION_REGEX = "(4\\d{3}|5[1-5]\\d{2})-?(\\d{4})-?(\\d{4})-?(\\d{4})";
 
     public final String value;
 
@@ -26,7 +29,7 @@ public class CardNumber {
     public CardNumber(String cardNumber) {
         requireNonNull(cardNumber);
         checkArgument(isValidCardNumber(cardNumber), MESSAGE_CONSTRAINTS);
-        this.value = cardNumber;
+        this.value = reformatCardNumber(cardNumber);
     }
 
     /**
@@ -34,6 +37,27 @@ public class CardNumber {
      */
     public static boolean isValidCardNumber(String test) {
         return test.matches(VALIDATION_REGEX);
+    }
+
+    /**
+     * Formats the card number to include dashes.
+     * @param cardNumber
+     * @return cardNumber with dashes.
+     */
+    private static String reformatCardNumber(String cardNumber) {
+        Pattern p = Pattern.compile(VALIDATION_REGEX);
+        Matcher m = p.matcher(cardNumber);
+        if (m.find()) {
+            StringBuilder sb = new StringBuilder();
+            for (int i = 1; i <= 4; i++) {
+                sb.append(m.group(i));
+                if (i < 4) {
+                    sb.append("-");
+                }
+            }
+            return sb.toString();
+        }
+        return null;
     }
 
     public String getEncryptedCardNumber() {

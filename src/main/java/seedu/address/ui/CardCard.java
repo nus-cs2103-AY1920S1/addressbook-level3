@@ -27,10 +27,6 @@ public class CardCard extends UiPart<Region> {
     @FXML
     private Label cardNumber;
     @FXML
-    private Label cvc;
-    @FXML
-    private Label expiryDate;
-    @FXML
     private FlowPane tags;
 
     public CardCard(Card card, int displayedIndex) {
@@ -39,8 +35,6 @@ public class CardCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         description.setText(card.getDescription().value);
         cardNumber.setText(card.getCardNumber().toString());
-        cvc.setText(card.getCvc().toString());
-        expiryDate.setText(card.getExpiryDate().value);
         c.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));

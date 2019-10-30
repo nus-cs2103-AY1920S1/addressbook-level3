@@ -16,6 +16,7 @@ public class ExpiringCardCard extends CardCard {
     public ExpiringCardCard(ExpiringCard card, int displayedIndex) {
         super(card, displayedIndex);
         this.detailsContainer.getChildren().add(
-                new Label("Expires in " + Integer.toString(card.getMonthToExp()) + " months"));
+                new Label("Expires in " + Integer.toString(card.getMonthToExp())
+                        + (card.getMonthToExp() > 1 ? " months" : " month")));
     }
 }
