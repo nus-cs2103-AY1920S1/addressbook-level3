@@ -96,7 +96,10 @@ public class ReplenishParser implements Parser {
         String[] allCommandWords = new String[]{
             ClearCommand.COMMAND_WORD, SearchCommand.COMMAND_WORD,
             ViewCommand.COMMAND_WORD, ExitCommand.COMMAND_WORD,
-            HelpCommand.COMMAND_WORD, ShiftToMainCommand.COMMAND_WORD
+            HelpCommand.COMMAND_WORD, ShiftToMainCommand.COMMAND_WORD,
+            ClearCommand.COMMAND_SHORTHAND, SearchCommand.COMMAND_SHORTHAND,
+            ViewCommand.COMMAND_SHORTHAND, ExitCommand.COMMAND_SHORTHAND,
+            HelpCommand.COMMAND_SHORTHAND, ShiftToMainCommand.COMMAND_SHORTHAND
         };
         Set<String> allCommandsSet = new TreeSet<>(Arrays.asList(allCommandWords));
         sb.append(StringUtil.findSimilar(command, allCommandsSet, 1));
