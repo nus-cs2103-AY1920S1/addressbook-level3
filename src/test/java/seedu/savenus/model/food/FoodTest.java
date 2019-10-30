@@ -60,12 +60,6 @@ public class FoodTest {
         // same name, same price, same description, different tags -> returns true
         editedAlice = new FoodBuilder(CARBONARA).withTags(VALID_TAG_CHICKEN).build();
         assertTrue(CARBONARA.isSameFood(editedAlice));
-
-        // reversed favorite value twice
-        editedAlice = new FoodBuilder(CARBONARA).build();
-        editedAlice.reverseFavoriteValue();;
-        editedAlice.reverseFavoriteValue();
-        assertTrue(CARBONARA.isSameFood(editedAlice));
     }
 
     @Test
