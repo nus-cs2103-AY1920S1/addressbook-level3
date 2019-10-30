@@ -10,14 +10,18 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.algobase.logic.CommandHistory;
 import seedu.algobase.model.Model;
 import seedu.algobase.model.ModelManager;
 import seedu.algobase.model.UserPrefs;
 
 class HelpCommandTest {
+    private static final CommandHistory EMPTY_COMMAND_HISTORY = new CommandHistory();
 
     private Model model = new ModelManager(getTypicalAlgoBase(), new UserPrefs());
     private Model expectedModel = new ModelManager(getTypicalAlgoBase(), new UserPrefs());
+    private CommandHistory commandHistory = new CommandHistory();
+
     private static String getExpectedCommandListString() {
         List<String> commandWords = new ArrayList<>();
         for (Class command : Command.COMMAND_LIST) {
@@ -36,13 +40,13 @@ class HelpCommandTest {
     @Test
     void constructor_nullCommandClassWithListingAllCommands_success() {
         HelpCommand command = new HelpCommand(null, true);
-        assertCommandSuccess(command, model,
-            new CommandResult(getExpectedCommandListString(), true, false, false), expectedModel);
+        assertCommandSuccess(command, model, commandHistory,
+            new CommandResult(getExpectedCommandListString(), true, false), expectedModel);
     }
 
     @Test
     void execute_correctCommandWord_showsMessageUsage() {
         HelpCommand command = new HelpCommand(AddCommand.class, false);
-        assertCommandSuccess(command, model, AddCommand.MESSAGE_USAGE, expectedModel);
+        assertCommandSuccess(command, model, commandHistory, AddCommand.MESSAGE_USAGE, expectedModel);
     }
 }

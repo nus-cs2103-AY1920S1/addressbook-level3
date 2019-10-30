@@ -11,6 +11,7 @@ import static seedu.algobase.logic.parser.CliSyntax.PREFIX_TAG;
 import java.util.function.Predicate;
 
 import seedu.algobase.commons.core.Messages;
+import seedu.algobase.logic.CommandHistory;
 import seedu.algobase.model.Model;
 import seedu.algobase.model.problem.Problem;
 import seedu.algobase.model.searchrule.problemsearchrule.FindProblemDescriptor;
@@ -48,7 +49,7 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
         model.updateFilteredProblemList(predicate);
         return new CommandResult(

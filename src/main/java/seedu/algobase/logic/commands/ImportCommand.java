@@ -13,6 +13,7 @@ import seedu.algobase.commons.exceptions.DataConversionException;
 import seedu.algobase.commons.exceptions.IllegalValueException;
 import seedu.algobase.commons.util.FileUtil.Format;
 import seedu.algobase.commons.util.JsonUtil;
+import seedu.algobase.logic.CommandHistory;
 import seedu.algobase.logic.commands.exceptions.CommandException;
 import seedu.algobase.model.Model;
 import seedu.algobase.storage.JsonSerializableAlgoBase;
@@ -45,7 +46,7 @@ public class ImportCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
         Path filePath = Paths.get(path);
 

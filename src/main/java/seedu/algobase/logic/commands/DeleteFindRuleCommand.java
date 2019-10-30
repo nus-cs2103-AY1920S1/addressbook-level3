@@ -6,6 +6,7 @@ import java.util.List;
 
 import seedu.algobase.commons.core.Messages;
 import seedu.algobase.commons.core.index.Index;
+import seedu.algobase.logic.CommandHistory;
 import seedu.algobase.logic.commands.exceptions.CommandException;
 import seedu.algobase.model.Model;
 import seedu.algobase.model.searchrule.problemsearchrule.ProblemSearchRule;
@@ -32,7 +33,7 @@ public class DeleteFindRuleCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
         List<ProblemSearchRule> lastShownList = model.getFilteredFindRuleList();
 

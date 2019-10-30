@@ -6,6 +6,7 @@ import static seedu.algobase.logic.parser.CliSyntax.PREFIX_MODEL_INDEX;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_MODEL_TYPE;
 
 import seedu.algobase.commons.core.index.Index;
+import seedu.algobase.logic.CommandHistory;
 import seedu.algobase.logic.commands.exceptions.CommandException;
 import seedu.algobase.model.Id;
 import seedu.algobase.model.Model;
@@ -78,7 +79,7 @@ public class OpenTabCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         TabManager tabManager = model.getGuiState().getTabManager();
         try {
             Id modelId = retrieveId(model, modelType, modelIndex);

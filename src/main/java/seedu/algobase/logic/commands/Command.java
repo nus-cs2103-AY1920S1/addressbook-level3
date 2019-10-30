@@ -1,5 +1,6 @@
 package seedu.algobase.logic.commands;
 
+import seedu.algobase.logic.CommandHistory;
 import seedu.algobase.logic.commands.exceptions.CommandException;
 import seedu.algobase.model.Model;
 
@@ -30,7 +31,6 @@ public abstract class Command {
         ExportCommand.class,
         ImportCommand.class,
         MoveTaskCommand.class,
-        RewindCommand.class,
         OpenTabCommand.class,
         ExitCommand.class,
         FindCommand.class,
@@ -51,6 +51,6 @@ public abstract class Command {
      * @return feedback message of the operation result for display
      * @throws CommandException If an error occurs during command execution.
      */
-    public abstract CommandResult execute(Model model) throws CommandException;
+    public abstract CommandResult execute(Model model, CommandHistory history) throws CommandException;
 
 }

@@ -8,6 +8,7 @@ import static seedu.algobase.logic.parser.CliSyntax.PREFIX_START_DATE;
 import java.util.function.Predicate;
 
 import seedu.algobase.commons.core.Messages;
+import seedu.algobase.logic.CommandHistory;
 import seedu.algobase.model.Model;
 import seedu.algobase.model.plan.Plan;
 import seedu.algobase.model.searchrule.plansearchrule.FindPlanDescriptor;
@@ -46,7 +47,7 @@ public class FindPlanCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
         model.updateFilteredPlanList(predicate);
         return new CommandResult(

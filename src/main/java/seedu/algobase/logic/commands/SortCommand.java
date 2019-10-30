@@ -7,6 +7,7 @@ import static seedu.algobase.logic.parser.CliSyntax.PREFIX_SORTING_ORDER;
 
 import java.util.Comparator;
 
+import seedu.algobase.logic.CommandHistory;
 import seedu.algobase.logic.commands.exceptions.CommandException;
 import seedu.algobase.model.Model;
 import seedu.algobase.model.problem.Problem;
@@ -129,13 +130,10 @@ public class SortCommand extends Command {
 
     /**
      * Executes the command and returns the result message.
-     *
-     * @param model {@code Model} which the command should operate on.
-     * @return feedback message of the operation result for display
      * @throws CommandException If an error occurs during command execution.
      */
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
         switch (this.method) {
         case byName:

@@ -19,6 +19,4 @@ public class Messages {
     public static final String MESSAGE_INVALID_DIFFICULTY_RANGE = "Invalid difficulty range! \n%1$s";
     public static final String MESSAGE_INVALID_KEYWORD_FORMAT = "Invalid keyword format! \n%1$s";
     public static final String MESSAGE_INVALID_NAME_FORMAT = "Invalid name format! \n%1$s";
-    public static final String MESSAGE_INVALID_REWIND_NUMBER = "Invalid rewind number! (Is it larger than the "
-        + "number of all successfully executed commands in this launch of AlgoBase?)";
 }

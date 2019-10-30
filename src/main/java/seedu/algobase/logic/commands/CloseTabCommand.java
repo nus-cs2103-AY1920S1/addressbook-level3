@@ -4,6 +4,7 @@ import static seedu.algobase.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_TAB_INDEX;
 
 import seedu.algobase.commons.core.index.Index;
+import seedu.algobase.logic.CommandHistory;
 import seedu.algobase.logic.commands.exceptions.CommandException;
 import seedu.algobase.model.Model;
 import seedu.algobase.model.gui.TabManager;
@@ -33,7 +34,7 @@ public class CloseTabCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         try {
             TabManager tabManager = model.getGuiState().getTabManager();
             tabManager.removeDetailsTabData(index);

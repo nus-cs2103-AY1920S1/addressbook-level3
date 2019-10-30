@@ -460,20 +460,6 @@ Shows all possible commands.
 * `help add`
 Shows command usage for `add` command.
 
-==== Rewinding command: `rewind`
-
-Rewind back to a previous successfully executed command. +
-Format: `rewind INDEX`
-
-kbd:[Ctrl + ↑] is shortcut for `rewind 1`
-
-[NOTE]
-Since kbd:[Ctrl + ↑] is equivalent to executing `rewind 1`, you should not expect to rewind multiple commands back if you press the shortcut multiple times - it will always show you the last successfully executed command, if any. if you want to rewind several commands back, please use `rewind INDEX` instead.
-
-* `find n/Sequences` +
-`rewind 1` +
-Execute `find` command first, then `rewind` back to the `find` command (now the content in the command box should be `find n/Sequences`)
-
 ==== Clearing all entries : `clear`
 
 Clears all entries from AlgoBase. +
@@ -483,6 +469,10 @@ Format: `clear`
 
 Exits the program. +
 Format: `exit`
+
+==== Navigating the command history
+
+You can press kbd:[↑] to navigate back or kbd:[↓] to navigate forward in the command history.
 
 ==== Saving the data
 
@@ -551,9 +541,6 @@ e.g. `movetask task/1 from/1 to/2`
 e.g. `export format/json path/.`
 * *Importing data* : `import format/FORMAT path/FILE_PATH` +
 e.g. `import format/json path/./steven_halim_secret.json`
-
-* *Rewind Command History* : `rewind INDEX` +
-e.g. `rewind 1`
 
 * *Help* : `help`
 * *Clear* : `clear`
