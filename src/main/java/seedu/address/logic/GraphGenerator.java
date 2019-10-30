@@ -1,6 +1,11 @@
 package seedu.address.logic;
 
 import seedu.address.logic.commands.statisticcommand.StatisticType;
+import seedu.address.logic.nodes.schedule.AddScheduleStartNode;
+import seedu.address.logic.nodes.schedule.ScheduleDateNode;
+import seedu.address.logic.nodes.schedule.ScheduleTagNode;
+import seedu.address.logic.nodes.schedule.ScheduleTimeNode;
+import seedu.address.logic.nodes.schedule.ScheduleVenueNode;
 import seedu.address.model.Model;
 import seedu.address.model.customer.Customer;
 import seedu.address.logic.nodes.stats.StatsDateNode;
@@ -45,6 +50,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_COLOUR;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CONTACT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COST;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CUSTOMER;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ENDING_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_IDENTITY_NUM;
@@ -56,6 +62,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_SERIAL_NUM;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STARTING_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STAT_TYPE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_VENUE;
 
 class GraphGenerator {
 
@@ -175,7 +183,19 @@ class GraphGenerator {
     }
 
     private Graph generateAddScheduleGraph() {
-        return null;
+        List<Schedule> scheduleList = model.getScheduleBook().getList();
+        Node<Schedule> addScheduleStartNode = new AddScheduleStartNode(scheduleList);
+        Node<Schedule> scheduleDateNode = new ScheduleDateNode(scheduleList);
+        Node<Schedule> scheduleTimeNode = new ScheduleTimeNode(scheduleList);
+        Node<Schedule> scheduleVenueNode = new ScheduleVenueNode(scheduleList);
+        Node<Schedule> scheduleTagNode = new ScheduleTagNode(scheduleList);
+        return new Graph(addScheduleStartNode, Arrays.asList(
+                new Edge(PREFIX_DATE, addScheduleStartNode, scheduleDateNode),
+                new Edge(PREFIX_TIME, scheduleDateNode, scheduleTimeNode),
+                new Edge(PREFIX_VENUE, scheduleTimeNode, scheduleVenueNode),
+                new Edge(PREFIX_TAG, scheduleVenueNode, scheduleTagNode),
+                new Edge(PREFIX_TAG, scheduleTagNode, scheduleTagNode)
+        ));
     }
 
     private Graph generateStatisticsGraph() {

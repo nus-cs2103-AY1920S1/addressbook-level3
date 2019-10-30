@@ -37,16 +37,15 @@ class Graph {
             }
             stringToCompare = input.substring(matcher.end());
         }
-        if (input.endsWith(" ")) {
-            // prefixes
+        if (input.endsWith("/")) { // fill with possible arguments
+            values.addAll(currentNode.getValues());
+        } else { // fill with possible prefixes
             for (Edge edge : edges) {
                 if (edge.getSource().equals(currentNode)) {
                     values.add(edge.getWeight().toString());
                 }
             }
-            stringToCompare = "";
-        } else {
-            values.addAll(currentNode.getValues());
+            stringToCompare = stringToCompare.substring(stringToCompare.lastIndexOf(" ") + 1);
         }
         return new AutoCompleteResult(values, stringToCompare);
     }
