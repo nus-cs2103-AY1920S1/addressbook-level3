@@ -23,9 +23,12 @@ import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.typee.commons.core.LogsCenter;
+import com.typee.model.engagement.Appointment;
 import com.typee.model.engagement.AttendeeList;
 import com.typee.model.engagement.Engagement;
+import com.typee.model.engagement.Interview;
 import com.typee.model.engagement.Location;
+import com.typee.model.engagement.Meeting;
 import com.typee.model.engagement.TimeSlot;
 import com.typee.model.person.Person;
 import com.typee.model.report.Report;
@@ -49,7 +52,7 @@ public class PdfUtil {
         Document document = initDoc(engagement, report.getTo());
         TimeSlot timeSlot = engagement.getTimeSlot();
 
-        document = addIntroductionPar(document);
+        document = addIntroductionPar(document, engagement);
         document.add(createAttendeesTable(engagement.getDescription(), engagement.getLocation(),
                 engagement.getAttendees(), timeSlot.getStartTime(), timeSlot.getEndTime()));
         addConclusion(document, report.getFrom());
@@ -120,8 +123,16 @@ public class PdfUtil {
     /**
      * Adds first introduction paragraph of the document.
      */
-    private static Document addIntroductionPar(Document doc) throws DocumentException {
-        Paragraph par = new Paragraph(docProp.getProperty("appointment.introduction"));
+    private static Document addIntroductionPar(Document doc, Engagement engagement) throws DocumentException {
+        String introduction = "";
+        if (engagement instanceof Appointment) {
+            introduction = docProp.getProperty("appointment.introduction");
+        } else if (engagement instanceof Interview) {
+            introduction = docProp.getProperty("interview.introduction");
+        } else if (engagement instanceof Meeting) {
+            introduction = docProp.getProperty("meeting.introduction");
+        }
+        Paragraph par = new Paragraph(introduction);
         par.setSpacingAfter(10);
         doc.add(par);
         return doc;
