@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
 import seedu.address.model.person.Person;
 import seedu.address.ui.UiPart;
 
@@ -18,6 +19,8 @@ public class RoomCard extends UiPart<Region> {
     private final Person doctor;
     private final Optional<Person> patient;
 
+    @FXML
+    private VBox roomCard;
     @FXML
     private HBox cardPane;
     @FXML
@@ -35,10 +38,12 @@ public class RoomCard extends UiPart<Region> {
             doctorName.setText(doctor.getName().fullName);
             doctorName.setStyle("-fx-text-fill: white;");
             doctorPane.setStyle("-fx-background-color: #34495e;");
+            roomCard.setStyle("-fx-background-color: #1abc9c;");
         } else {
             doctorName.setText(doctor.getName().fullName + " [BREAK]");
             doctorName.setStyle("-fx-text-fill: white;");
             doctorPane.setStyle("-fx-background-color: #c0392b;");
+            roomCard.setStyle("-fx-background-color: #1abc9c;");
         }
 
         patientName.setText(patient.map(p -> p.getName().toString()).orElse("Not serving any patients"));
