@@ -32,7 +32,7 @@ public class ReminderCard extends UiPart<Region> implements PropertyChangeListen
     @FXML
     private Label id;
 
-    Reminder.Status status;
+    private Reminder.Status status;
 
     public ReminderCard(Reminder reminder, int displayedIndex) {
         super(FXML);
