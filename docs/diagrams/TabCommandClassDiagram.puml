@@ -23,8 +23,8 @@ package logic.commands {
 UiPart <|-- Tab
 UiPart <|-- TabPanel
 UiPart <|-- MainWindow
-MainWindow *-- Tab
-MainWindow *-- TabPanel
+MainWindow *--> Tab
+MainWindow *--> TabPanel
 Parser <|.. TabCommandParser
 Parser <|.. TypeeParser
 TypeeParser ..> TabCommandParser
