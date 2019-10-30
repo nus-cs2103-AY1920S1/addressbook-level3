@@ -1,35 +1,40 @@
 package seedu.jarvis.ui.history;
 
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import javafx.scene.layout.Region;
+import javafx.scene.layout.AnchorPane;
 
+import seedu.jarvis.logic.Logic;
 import seedu.jarvis.logic.commands.Command;
-import seedu.jarvis.ui.UiPart;
-
+import seedu.jarvis.model.Model;
+import seedu.jarvis.ui.MainWindow;
+import seedu.jarvis.ui.template.View;
 
 
 /**
  * Panel containing the list of actions.
  */
-public class ActionListPanel extends UiPart<Region> {
+public class ActionListPanel extends View<AnchorPane> {
     private static final String FXML = "ActionListPanel.fxml";
 
     @FXML
     private ListView<Command> commandListView;
 
-    public ActionListPanel(ObservableList<Command> commands) {
-        super(FXML);
-        commandListView.setItems(commands);
-        commandListView.setCellFactory(listView -> new ActionListViewCell());
+    public ActionListPanel(MainWindow mainWindow, Logic logic, Model model) {
+        super(FXML, mainWindow, logic, model);
+    }
+
+    @Override
+    public void fillPage() {
+        commandListView.setItems(model.getExecutedCommandsList());
+        commandListView.setCellFactory(listView -> new CommandListViewCell());
     }
 
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code Command} using a {@code ActionCard}.
      */
-    class ActionListViewCell extends ListCell<Command> {
+    class CommandListViewCell extends ListCell<Command> {
         @Override
         protected void updateItem(Command command, boolean empty) {
             super.updateItem(command, empty);

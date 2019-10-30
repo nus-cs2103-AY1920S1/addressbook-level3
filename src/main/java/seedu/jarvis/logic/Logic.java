@@ -4,6 +4,7 @@ import java.nio.file.Path;
 
 import javafx.collections.ObservableList;
 import seedu.jarvis.commons.core.GuiSettings;
+import seedu.jarvis.logic.commands.Command;
 import seedu.jarvis.logic.commands.CommandResult;
 import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.logic.parser.exceptions.ParseException;
@@ -48,4 +49,14 @@ public interface Logic {
      * Set the user prefs' GUI settings.
      */
     void setGuiSettings(GuiSettings guiSettings);
+
+    /**
+     * Returns a view of the executed commands.
+     */
+    ObservableList<Command> getExecutedCommandsList();
+
+    /**
+     * Returns a view of the inversely executed commands.
+     */
+    ObservableList<Command> getInverselyExecutedCommandsList();
 }
