@@ -92,7 +92,8 @@ public class TypicalItem {
     }
 
     public static seedu.address.inventory.util.InventoryList getTypicalInventoryListForOverview() {
-        return new seedu.address.inventory.util.InventoryList(getTypicalItems());
+        return new seedu.address.inventory.util.InventoryList(
+                new ArrayList<>(Arrays.asList(WATER, CHIPS, BURGER_AND_CHIPS)));
     }
 
     public static ArrayList<Item> getTypicalItems() {

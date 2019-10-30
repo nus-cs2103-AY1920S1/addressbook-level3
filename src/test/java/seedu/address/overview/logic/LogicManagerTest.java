@@ -105,7 +105,7 @@ public class LogicManagerTest {
 
     @Test
     public void correctValue_getTotalInventory_success() {
-        assertEquals(544500.0, logicManager.getTotalInventory());
+        assertEquals(868.7, logicManager.getTotalInventory());
     }
 
     @Test
@@ -151,8 +151,6 @@ public class LogicManagerTest {
     public void correctValue_getInventoryCategories_success() {
         List<String> list = new ArrayList<>();
         list.add("food");
-        list.add("Book");
-        list.add("accessory");
 
         assertTrue(list.equals(logicManager.getInventoryCategories()));
     }
@@ -164,7 +162,7 @@ public class LogicManagerTest {
 
     @Test
     public void correctValue_getInventoryTotalByCategory_success() {
-        assertEquals(517770.0, logicManager.getInventoryTotalByCategory("food"));
+        assertEquals(1078.65, logicManager.getInventoryTotalByCategory("food"));
     }
 
     @Test
