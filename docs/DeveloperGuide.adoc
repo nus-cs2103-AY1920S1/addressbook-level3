@@ -6,6 +6,7 @@
 :sectnums:
 :imagesDir: images
 :stylesDir: stylesheets
+:icons-cdn: https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css
 :xrefstyle: full
 ifdef::env-github[]
 :tip-caption: :bulb:
@@ -355,10 +356,19 @@ At the moment, there is also no way to inform the user that the priority mode is
 // tag::dataencryption[]
 
 === Add Task/Event feature
-Task, Events and Reminders are all Items and can be added using the same command. Adding of Items is facilitated by ItemModel#add(Item). +
+Task, Events and Reminders are all Items and can be added using the *same* command. Adding of Items is facilitated by ItemModel#add(Item). +
 
-A Task with a deadline will also be considered an Event. As such, adding of a task and event will be demonstrated with the use of a single command. +
+==== Implementation
+A Task with a deadline flag `-d` will be considered an Event. A Task with a reminder flag `-r` will be considered a Reminder. +
+The following activity diagram shows the how a task can be added, depending on the flags present:
 
+.Activity Diagram of adding a Task
+image::AddTaskActivity.png[]
+
+This shows how we can easily add Task, Event and Reminder with a _single_ command.
+However, in this section, we will only show how Task and Event is added. Adding of Reminders is shown in a separate section as it includes other steps.
+
+==== Internal workings of the command
 Given below is an example usage scenario of how add behaves at each step: +
 
 Step 1. The user enters the command `"task shower -d 1.hour.later"`. +
@@ -370,14 +380,81 @@ Step 6. Upon the successful execution of AddCommand, a CommandResult is returned
 
 The figures below shows the sequence diagram on what happens from a simple execution of `task shower -d 1.min.later` user command: +
 
+.Calling execute in LogicManager
 image::AddCommandPart_1.png[]
-_Fig 3.4.1a Calling execute in LogicManager_
 
+This diagram shows how `execute` is carried out in the `Logic` component.
+The following diagram shows how the same command is continued onto the `Model` component:
+
+.LogicManager executing the command and returns CommandResult
 image::AddCommandPart_2.png[]
-_Fig 3.4.1b LogicManager executing the command and returns CommandResult_
 
-Figure 3.4.1b is a continuation of Figure 3.4.1a of the same AddCommand sequence.
+This shows how `execute(model)` affects the `Model` component. It then returns a `CommandResult` r, which is the result of calling LogicManager#execute("task shower -d 1.hour.later").
 
+==== Design considerations
+The design considerations for the classes are shown below:
+|===
+|Alternatives: |Pros: |Cons:
+|1. Placing all fields into an Item object and retrieving the specific fields when needed. | Easy to implement. Reduce dependencies between classes as everything is in one class. Editing can be done all in one object.| Does not separate out the different functionalities of Task, Event and Reminder.
+|2. Having separate classes for Task, Event, Reminder | Reduce dependencies as well as having functionalities separated. | Some attributes and methods overlap. Repetition of code for same functionality. Have to add all three objects individually. Editing of an item would require searching, obtaining and individually editing all 3 objects.
+|3. *(Current)* Having a general Item class which comprise of `Optional<>` fields Task, Event, Reminder | Similar fields such as description and priority can be placed in Item. This makes adding an Item more convenient. Related task/event/reminder can have access to each other. | Increase coupling and dependency amongst Task, Event, Reminder classes.
+|===
+As of now, these are the considered designs and the current design seems to work well for our purpose. However, there could be better designs which are unexplored that could mitigate our cons and we welcome them. +
+
+This is end of the section of adding a Task and Event. As mentioned above, adding of Reminder will be shown in a separate section due it having extra features. Do look out for it if you're interested.
+
+=== Rescheduling of recurring Events automatically
+This section talks about how the `autoReschedule` function is implemented. This feature aims to provide users with greater convenience when scheduling events that occur periodically (eg. weekly deadlines, monthly appointments).
+
+==== Implementation
+To reschedule a task, we need a deadline as we need to be able to calculate the next date. Recall that any Task with a deadline is considered an Event. As such, *only Events can be rescheduled.*
+
+To automatically reschedule an Event, when creating the Event, include the `-auto` flag along with its reschedule period (eg `-auto day` for daily rescheduling) +
+The accepted parameters for `-auto` is `day`, `week`, `month` and the format of `10.min.later`.
+
+The following diagram shows the process of adding an Event with -auto flag:
+
+.Activity diagram of adding an Event with -auto flag
+image::AutoRescheduleActivity.png[]
+
+In the diagram, when we add the Event initially, we would check the start time of the Event and update it accordingly.
+However, this is not the only place where rescheduling occurs.
+
+*3 places where rescheduling can occur:* +
+
+. When the event is created, as shown in the diagram above.
+. While the app is running, the Event's start time will be continuously updated when it has passed. +
+This is done using `Timer` and `TimerTask`, using `Timer#scheduleAtFixedRate()`.
+. When the app is started and Events are loaded from the storage. The stored Event time might already be over, as such the time has to be updated to the latest upcoming one.
+
+To illustrate how they work, first we need to know what classes are involved before we can understand the sequence of actions carried out. +
+The classes involved in the above rescheduling are: +
+
+* `AutoReschedulePeriod` -- Represents the period of every reschedule (eg day/week/month)
+* `RescheduleTask` -- Represents the action to perform when rescheduling its associated event.
+* `AutoRescheduleManager` -- Manages all the rescheduling tasks. There is only one of such manager.
+
+To better understand its underlying structure, we can look at the class diagram below:
+_{insert class diagram here}_
+
+==== Internal workings of the command
+Now we are ready to look at the sequence of actions. Given below is an example usage scenario of how add behaves at each step: +
+
+Step 1. The user enters the command `event CS2103T Quiz -d 23/09/2019 2359 -auto week`. +
+Step 2. The Event is created, following the sequence of steps in the section _Adding Task/Event_. However there are now some extra steps from Step 3 onwards that occur concurrently from the object creation of Event. +
+Step 3. ... _{work in progress}_
+
+_{insert sequence diagram here}_ +
+_explain the above diagram_ +
+
+
+==== Design considerations
+The design considerations for the classes are shown below:
+|===
+|Alternatives: |Pros: |Cons:
+|Creating a AutoRescheduleManager for every RescheduleTask | Easy for the Timer in AutoRescheduleManager to keep track of its TimerTask. | There could potentially be many Timer threads.
+|*(Current)* Singleton pattern for AutoRescheduleManager |Ensure that only one instance can be instantiated as there should only be one manager for all the RescheduleTask. If there are multiple managers, it would be hard to keep track of all of them and it would be difficult to coordinate all the tasks. | Difficult to create tests for AutoResheduleManager. Could have many hidden dependencies, which makes code harder to maintain.
+|===
 
 
 === [Proposed] Data Encryption
