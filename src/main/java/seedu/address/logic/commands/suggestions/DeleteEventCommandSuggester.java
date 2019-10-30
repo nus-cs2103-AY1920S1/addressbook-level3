@@ -14,6 +14,9 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.model.person.schedule.Event;
 
+/**
+ * Provides suggestions for the {@link Prefix}es of the {@link seedu.address.logic.commands.DeleteEventCommand}.
+ */
 public class DeleteEventCommandSuggester extends Suggester {
     public static final List<Prefix> SUPPORTED_PREFIXES = List.of(
             CliSyntax.PREFIX_NAME,
