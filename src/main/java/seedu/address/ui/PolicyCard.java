@@ -81,22 +81,22 @@ public class PolicyCard extends UiPart<Region> {
         this.policy = policy;
         id.setText(displayedIndex + ". ");
         name.setText(policy.getName().toString());
-        description.setText(policy.getDescription().toString());
-        coverage.setText(policy.getCoverage().toString());
-        price.setText(policy.getPrice().toString());
+        description.setText("Description: " + policy.getDescription().toString());
+        coverage.setText("Coverage: " + policy.getCoverage().toReadableString());
+        price.setText("Price: " + policy.getPrice().toString());
         if (!policy.getStartAge().age.equals("0")) {
-            startAge.setText(policy.getStartAge().age);
+            startAge.setText("Minimum age: " + policy.getStartAge().age);
         } else {
-            startAge.setText(StartAge.AGE_ZERO);
+            startAge.setText("No minimum age");
         }
         if (!policy.getEndAge().age.equals(EndAge.AGE_INFINITY)) {
-            endAge.setText(policy.getEndAge().age);
+            endAge.setText("Maximum age: " + policy.getEndAge().age);
         } else {
-            endAge.setText(EndAge.AGE_INFINITY);
+            endAge.setText("No maximum age");
         }
         policy.getCriteria().stream()
             .sorted(Comparator.comparing(tag -> tag.tagName))
-            .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+            .forEach(tag -> criteria.getChildren().add(new Label(tag.tagName)));
         policy.getTags().stream()
             .sorted(Comparator.comparing(tag -> tag.tagName))
             .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));

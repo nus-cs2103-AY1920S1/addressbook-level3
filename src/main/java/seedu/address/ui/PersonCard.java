@@ -76,12 +76,12 @@ public class PersonCard extends UiPart<Region> {
         this.person = person;
         id.setText(displayedIndex + ". ");
         name.setText(person.getName().fullName);
-        nric.setText(person.getNric().nric);
-        phone.setText(person.getPhone().value);
-        address.setText(person.getAddress().value);
-        dateOfBirth.setText(person.getDateOfBirth().value);
-        gender.setText(person.getGender().gender);
-        email.setText(person.getEmail().value);
+        nric.setText("NRIC: " + person.getNric().nric);
+        phone.setText("Phone Number: " + person.getPhone().value);
+        address.setText("Address: " + person.getAddress().value);
+        dateOfBirth.setText("DOB: " + person.getDateOfBirth().value);
+        gender.setText("Gender: " + person.getGender().gender);
+        email.setText("Email: " + person.getEmail().value);
         person.getPolicies().stream()
             .sorted(Comparator.comparing(policy -> policy.getName().policyName))
             .forEach(policy -> policies.getChildren().add(new Label(policy.getName().policyName)));
