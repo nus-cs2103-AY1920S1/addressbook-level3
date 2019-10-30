@@ -1,5 +1,6 @@
-package seedu.deliverymans.model.deliveryman;
+package seedu.deliverymans.model.deliveryman.deliverymanstatistics;
 
+import java.sql.Time;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -10,15 +11,21 @@ import seedu.deliverymans.model.Name;
  */
 public class DeliveryRecord {
 
+    // unanalyzed data
     private Name name;
     private LocalDateTime timeJoined;
     private int noOrdersCompleted;
     private int noOrdersUncompleted;
 
+    // analyzed data
+    private double deliveryRate;
+    private Time timeInDatabase;
+
     public DeliveryRecord(Name name) {
         this.name = name;
         timeJoined = LocalDateTime.now();
         noOrdersCompleted = 0;
+        noOrdersUncompleted = 0;
     }
 
     public Name getName() {
@@ -35,6 +42,16 @@ public class DeliveryRecord {
 
     public int getNoOrdersUncompleted() {
         return noOrdersUncompleted;
+    }
+
+    // ========== Methods for Analyzer to edit ===================================================================
+
+    public void setDeliveryRate(double deliveryRate) {
+        this.deliveryRate = deliveryRate;
+    }
+
+    public void setTimeInDatabase(Time duration) {
+        this.timeInDatabase = duration;
     }
 
     /**
@@ -63,7 +80,7 @@ public class DeliveryRecord {
         final StringBuilder builder = new StringBuilder();
         builder.append(" Name: ")
                 .append(getName() + "\n")
-                .append(" Time Joined")
+                .append(" Time Joined: ")
                 .append(getTimeJoined() + "\n")
                 .append(" No.completed orders: ")
                 .append(getNoOrdersCompleted());
