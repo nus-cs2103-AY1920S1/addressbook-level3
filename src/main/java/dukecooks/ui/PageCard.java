@@ -1,5 +1,7 @@
 package dukecooks.ui;
 
+import java.io.File;
+
 import dukecooks.model.diary.components.Page;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -9,7 +11,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.text.Text;
 
-import java.io.File;
 
 /**
  * An UI component that displays information of a {@code Diary}.
@@ -46,7 +47,7 @@ public class PageCard extends UiPart<Region> {
         this.page = page;
 
         // Set page title
-        pageTitle.setText(displayedIndex + ". " + page.getTitle().toString());
+        pageTitle.setText(page.getTitle().toString());
 
         // Set page description
         pageDescription.setText(page.getDescription().fullPageDescription);
@@ -60,7 +61,6 @@ public class PageCard extends UiPart<Region> {
             Image image = new Image(page.getImage().getFilePath());
             pageImage.setImage(image);
         }
-
     }
 
     @Override

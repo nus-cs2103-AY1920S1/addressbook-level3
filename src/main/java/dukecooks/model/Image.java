@@ -1,7 +1,7 @@
 package dukecooks.model;
 
-import static java.util.Objects.requireNonNull;
 import static dukecooks.commons.util.AppUtil.checkArgument;
+import static java.util.Objects.requireNonNull;
 
 import java.io.File;
 import java.io.IOException;

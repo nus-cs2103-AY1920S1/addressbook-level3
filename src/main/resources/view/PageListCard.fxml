@@ -4,46 +4,41 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<HBox id="cardPane" fx:id="cardPane" prefHeight="400.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
-  <GridPane HBox.hgrow="ALWAYS">
-    <columnConstraints>
-      <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150" />
-    </columnConstraints>
-    <VBox alignment="CENTER_LEFT" minHeight="200.0" prefHeight="401.0" prefWidth="300.0" GridPane.columnIndex="0">
-      <padding>
-        <Insets bottom="5" left="15" right="5" top="5" />
-      </padding>
-      <HBox prefHeight="20.0" prefWidth="271.0" spacing="5" translateX="-5.0" translateY="-30.0">
-            <VBox.margin>
-               <Insets />
-            </VBox.margin>
-            <children>
-               <Label fx:id="pageTitle" text="\$first">
-                  <padding>
-                     <Insets left="15.0" />
-                  </padding></Label>
-            </children>
-      </HBox>
-         <ImageView fx:id="pageImage" fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" translateX="-5.0" translateY="-20.0">
-            <image>
-               <Image url="@../images/man_cook.png" />
-            </image>
-         </ImageView>
-         <HBox prefHeight="73.0" prefWidth="297.0" translateX="-5.0">
-            <children>
-               <Text fx:id="pageDescription" strokeType="OUTSIDE" strokeWidth="0.0" text="This is just a placeholder for text, I'm not sure what the limit is. This is just a placeholder for text, I'm not sure what the limit is. This is just a placeholder for text, I'm not sure what the limit is. I think can handle one more sentence. What about somemore?" translateX="-5.0" wrappingWidth="296.5366668701172" />
-            </children>
-         </HBox>
-    </VBox>
-      <rowConstraints>
-         <RowConstraints />
-      </rowConstraints>
-  </GridPane>
+
+<HBox fx:id="cardPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="334.0" prefWidth="600.0" style="-fx-border-radius: 5; -fx-background-color: beige;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ImageView fx:id="pageImage" fitHeight="300.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+         <HBox.margin>
+            <Insets left="25.0" top="20.0" />
+         </HBox.margin>
+         <image>
+            <Image url="@../images/man_cook.png" />
+         </image>
+      </ImageView>
+      <VBox prefHeight="334.0" prefWidth="378.0">
+         <children>
+            <Label fx:id="pageTitle" prefHeight="64.0" prefWidth="382.0" stylesheets="@DarkTheme.css" text="Page Title">
+               <VBox.margin>
+                  <Insets left="25.0" />
+               </VBox.margin>
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <Text id="pageDescription" fx:id="pageDescription" strokeType="OUTSIDE" strokeWidth="0.0" text="This is just a placeholder for a lot of text and it should eventually fill up to a maximum of 280 ish wordsadasjfakdhjakdjsahdjkahdjkahdjkahdka dkajdkljsakdjsakdjkaldasjkdjljdakljdklajkdjaljdkasjdklajdkjaldjakljdklajdklajdlkjad sadjkhajdhsakdhsajkhdjkahdkahdjkhjdhakdjhsajkdhajkhdakjshdjkahdjahkjdhsajkdhsahkjdhskjhdjakhdkhasjdhskahdjkadhksahdjsakdjshkjdhjsakhdjahdkjhajdhksdhjahdkahdjkasdhjkhkasKHSJKhsjhkWHKWHJKEHKJHEKQJEHQKJWEQW" wrappingWidth="317.82427978515625">
+               <VBox.margin>
+                  <Insets left="25.0" />
+               </VBox.margin>
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Text>
+         </children>
+      </VBox>
+   </children>
 </HBox>

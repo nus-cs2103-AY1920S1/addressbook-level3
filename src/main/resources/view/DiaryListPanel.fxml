@@ -1,64 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="463.0" prefWidth="792.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <HBox layoutY="1.0" prefHeight="461.0" prefWidth="350.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <HBox layoutY="1.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="650.0" prefWidth="900.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
                 <StackPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0">
                     <children>
                         <ListView fx:id="diaryListView" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefWidth="250.0" />
                     </children>
                 </StackPane>
-                <StackPane fx:id="pageInputPanel" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
+            <StackPane fx:id="pageViewPanel" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="600.0" prefWidth="695.0">
                <children>
-                  <AnchorPane prefHeight="642.0" prefWidth="0.0">
+                  <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="658.0" prefWidth="680.0">
                      <children>
-                        <Label id="pageHeader" fx:id="pageHeader" layoutX="14.0" layoutY="14.0" prefHeight="54.0" prefWidth="274.0" styleClass="pageInputPanel" stylesheets="@DarkTheme.css" text="Page Input Form" AnchorPane.bottomAnchor="576.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="255.0" AnchorPane.topAnchor="0.0">
-                           <font>
-                              <Font size="36.0" />
-                           </font>
-                        </Label>
-                        <Label id="pageSubHeader" styleClass="pageInputPanel" stylesheets="@DarkTheme.css" text="Page Title" AnchorPane.bottomAnchor="500.0" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="100.0">
-                           <font>
-                              <Font size="20.0" />
-                           </font>
-                        </Label>
-                        <TextField prefWidth="150.0" promptText="Please enter page title ..." stylesheets="@DarkTheme.css" AnchorPane.bottomAnchor="464.79999999999995" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="140.0" />
-                        <Label id="errorMessage" layoutX="14.0" layoutY="185.0" prefWidth="200.0" styleClass="pageInputPanel" stylesheets="@DarkTheme.css" text="placeholder for error" AnchorPane.bottomAnchor="440.0" AnchorPane.leftAnchor="24.0" AnchorPane.rightAnchor="355.6" AnchorPane.topAnchor="185.0" />
-                        <Label id="pageSubHeader" layoutX="24.0" layoutY="110.0" prefHeight="30.0" prefWidth="159.0" styleClass="pageInputPanel" stylesheets="@DarkTheme.css" text="Page Description" AnchorPane.bottomAnchor="382.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="383.0" AnchorPane.topAnchor="230.0">
-                           <font>
-                              <Font size="20.0" />
-                           </font>
-                        </Label>
-                        <TextField layoutX="24.0" layoutY="150.0" prefWidth="250.0" promptText="Please enter page description ..." stylesheets="@DarkTheme.css" AnchorPane.bottomAnchor="300.0" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="265.0" />
-                        <Label id="errorMessage" layoutX="24.0" layoutY="350.0" prefHeight="17.0" prefWidth="198.0" styleClass="PageInputPanel" stylesheets="@DarkTheme.css" text="placeholder for error" AnchorPane.bottomAnchor="275.0" AnchorPane.leftAnchor="24.0" AnchorPane.rightAnchor="340.0" AnchorPane.topAnchor="350.0" />
-                        <Button id="confirmButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="35.0" prefWidth="115.0" styleClass="pageInputPanel" stylesheets="@DarkTheme.css" text="CONFIRM" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="20.0" />
-                        <Button id="cancelButton" mnemonicParsing="false" prefHeight="35.0" prefWidth="115.0" styleClass="pageInputPanel" stylesheets="@DarkTheme.css" text="CANCEL" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="150.0" />
-                     </children>
-                  </AnchorPane>
-               </children>
-                </StackPane>
-            <StackPane fx:id="pageViewPanel" prefHeight="642.0" prefWidth="599.0">
-               <children>
-                  <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefHeight="642.0" prefWidth="536.0">
-                     <children>
-                        <Label id="diaryHeader" layoutX="3.0" maxWidth="1.7976931348623157E308" prefHeight="60.0" prefWidth="536.0" styleClass="pageViewPanel" stylesheets="@DarkTheme.css" text="Diary Name" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                           <padding>
-                              <Insets left="15.0" />
-                           </padding>
-                        </Label>
-                        <FlowPane fx:id="pageFlowPane" layoutY="60.0" prefHeight="582.0" prefWidth="536.0" AnchorPane.topAnchor="60.0" />
+                        <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="658.0" prefWidth="681.0">
+                           <children>
+                              <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="115.0" prefWidth="700.0" styleClass="diaryHeader" stylesheets="@DarkTheme.css" text="Diary Name">
+                                 <padding>
+                                    <Insets left="25.0" />
+                                 </padding>
+                              </Label>
+                              <ListView id="pageListView" fx:id="pageListView" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="536.0" prefWidth="682.0" stylesheets="@DarkTheme.css" />
+                           </children>
+                        </VBox>
                      </children>
                   </AnchorPane>
                </children>
