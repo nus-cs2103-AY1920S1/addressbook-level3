@@ -243,24 +243,6 @@ Examples:
 `*goto* 1` +
 Opens the first bookmark in the bookmark manager.
 
-//TODO: Not supported yet
-=== Opening a bookmark from a reminder: *`goto reminder`*
-
-Opens the related bookmark of the specified reminder from the bookmark manager.
-
-Format: `*goto reminder* INDEX`
-
-****
-* INDEX is the index of the reminder as viewed on the dashboard.
-* The index must be a positive integer `1`, `2`, `3`, …​
-****
-
-Examples:
-
-* `*goto reminder* 1` +
-If reminder 1 points to bookmark 5, this command is equivalent to
-`*goto* 5`. (i.e. opens the 5th bookmark in the bookmark manager.)
-
 === Adding a bookmark to Favorites: *`favorite|fav`*
 
 Adds a Favorite tag to the specified bookmark.
@@ -830,6 +812,23 @@ Automatically fills in partially typed commands if the command is unique.
 === Sharing bookmarks and notes via Email/ Telegram `[coming in v2.0]`
 
 Shares your bookmarks and notes with your friends via Email or Telegram.
+
+=== Opening a bookmark from a reminder: *`goto reminder`* `[coming in v2.0]`
+
+Opens the related bookmark of the specified reminder from the bookmark manager.
+
+Format: `*goto reminder* INDEX`
+
+****
+* INDEX is the index of the reminder as viewed on the dashboard.
+* The index must be a positive integer `1`, `2`, `3`, …​
+****
+
+Examples:
+
+* `*goto reminder* 1` +
+If reminder 1 points to bookmark 5, this command is equivalent to
+`*goto* 5`. (i.e. opens the 5th bookmark in the bookmark manager.)
 
 == FAQ
 
