@@ -7,8 +7,8 @@
     "tagged": [ "Noodle" ],
     "location": "The Deck",
     "openingHours": "0800 2100",
-    "restrictions": "Epic",
-    "favoriteValue": "0"
+    "restrictions": "Epic"
+
   }, {
     "name": "Spaghetti",
     "price": "7.99",
@@ -17,8 +17,8 @@
     "tagged": [ "Noodle" ],
     "location": "The Deck",
     "openingHours": "0800 2100",
-    "restrictions": "Epic",
-    "favoriteValue": "0"
+    "restrictions": "Epic"
+
   } ],
   "wallet" : {
     "remainingBudget" : "100",
