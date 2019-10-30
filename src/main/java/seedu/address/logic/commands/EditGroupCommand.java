@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EDIT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_REMARK;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ROLE;
 
 import java.time.LocalDateTime;
 
@@ -29,6 +30,7 @@ public class EditGroupCommand extends Command {
             + PREFIX_EDIT + "GROUP_NAME" + " "
             + "[" + PREFIX_REMARK + "REMARK]" + " "
             + "[" + PREFIX_DESCRIPTION + "DESCRIPTION]" + " "
+            + "[" + PREFIX_ROLE + "USER_ROLE]"
             + "\n" + "Note: At least on field must be edited";
 
     public static final String MESSAGE_SUCCESS = "Edit Group success: %s edited";

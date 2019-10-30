@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 import seedu.address.model.group.exceptions.DuplicateGroupException;
 import seedu.address.model.group.exceptions.GroupNotFoundException;
 import seedu.address.model.group.exceptions.NoGroupFieldsEditedException;
+import seedu.address.model.mapping.Role;
 
 /**
  * List of Groups.
@@ -89,6 +90,10 @@ public class GroupList {
 
         if (!groupDescriptor.getGroupDescription().equals(GroupDescription.emptyDescription())) {
             toEdit.setGroupDescription(groupDescriptor.getGroupDescription());
+        }
+
+        if (!groupDescriptor.getUserRole().equals(Role.emptyRole())) {
+            toEdit.setUserRole(groupDescriptor.getUserRole());
         }
 
         return toEdit;

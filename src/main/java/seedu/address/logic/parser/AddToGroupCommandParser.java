@@ -3,7 +3,7 @@ package seedu.address.logic.parser;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GROUPNAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_REMARK;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ROLE;
 
 import java.util.stream.Stream;
 
@@ -24,7 +24,7 @@ public class AddToGroupCommandParser implements Parser<AddToGroupCommand> {
     @Override
     public AddToGroupCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_GROUPNAME, PREFIX_REMARK);
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_GROUPNAME, PREFIX_ROLE);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_GROUPNAME)
                 || !argMultimap.getPreamble().isEmpty()) {
@@ -35,8 +35,8 @@ public class AddToGroupCommandParser implements Parser<AddToGroupCommand> {
         GroupName groupName = new GroupName(argMultimap.getValue(PREFIX_GROUPNAME).get().trim());
         Role role = Role.emptyRole();
 
-        if (argMultimap.getValue(PREFIX_REMARK).isPresent()) {
-            role = ParserUtil.parseRole(argMultimap.getValue(PREFIX_REMARK).get());
+        if (argMultimap.getValue(PREFIX_ROLE).isPresent()) {
+            role = ParserUtil.parseRole(argMultimap.getValue(PREFIX_ROLE).get());
         }
 
         return new AddToGroupCommand(name, groupName, role);

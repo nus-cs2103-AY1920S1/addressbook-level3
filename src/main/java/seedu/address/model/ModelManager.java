@@ -28,6 +28,7 @@ import seedu.address.model.group.exceptions.NoGroupFieldsEditedException;
 import seedu.address.model.mapping.PersonToGroupMapping;
 import seedu.address.model.mapping.PersonToGroupMappingList;
 import seedu.address.model.mapping.Role;
+import seedu.address.model.mapping.exceptions.AlreadyInGroupException;
 import seedu.address.model.mapping.exceptions.DuplicateMappingException;
 import seedu.address.model.mapping.exceptions.MappingNotFoundException;
 import seedu.address.model.module.AcadYear;
@@ -360,7 +361,8 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void addPersonToGroupMapping(PersonToGroupMapping mapping) throws DuplicateMappingException {
+    public void addPersonToGroupMapping(PersonToGroupMapping mapping)
+            throws DuplicateMappingException, AlreadyInGroupException {
         personToGroupMappingList.addPersonToGroupMapping(mapping);
     }
 

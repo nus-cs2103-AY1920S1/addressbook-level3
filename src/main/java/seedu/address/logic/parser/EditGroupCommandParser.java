@@ -5,6 +5,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EDIT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GROUPNAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_REMARK;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ROLE;
 
 import java.util.stream.Stream;
 
@@ -25,7 +26,8 @@ public class EditGroupCommandParser implements Parser<EditGroupCommand> {
     public EditGroupCommand parse(String args) throws ParseException {
 
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_EDIT, PREFIX_GROUPNAME, PREFIX_REMARK, PREFIX_DESCRIPTION);
+                ArgumentTokenizer.tokenize(args, PREFIX_EDIT, PREFIX_GROUPNAME,
+                        PREFIX_REMARK, PREFIX_DESCRIPTION, PREFIX_ROLE);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_EDIT)
                 || !argMultimap.getPreamble().isEmpty()) {
@@ -48,6 +50,11 @@ public class EditGroupCommandParser implements Parser<EditGroupCommand> {
         if (argMultimap.getValue(PREFIX_DESCRIPTION).isPresent()) {
             groupDescriptor.setGroupDescription(ParserUtil.parseGroupDescription(
                     argMultimap.getValue(PREFIX_DESCRIPTION).get()));
+        }
+
+        if (argMultimap.getValue(PREFIX_ROLE).isPresent()) {
+            groupDescriptor.setUserRole(ParserUtil.parseRole(
+                    argMultimap.getValue(PREFIX_ROLE).get()));
         }
 
         return new EditGroupCommand(groupName, groupDescriptor);

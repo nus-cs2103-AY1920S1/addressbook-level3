@@ -25,6 +25,7 @@ import seedu.address.model.group.exceptions.NoGroupFieldsEditedException;
 import seedu.address.model.mapping.PersonToGroupMapping;
 import seedu.address.model.mapping.PersonToGroupMappingList;
 import seedu.address.model.mapping.Role;
+import seedu.address.model.mapping.exceptions.AlreadyInGroupException;
 import seedu.address.model.mapping.exceptions.DuplicateMappingException;
 import seedu.address.model.mapping.exceptions.MappingNotFoundException;
 import seedu.address.model.module.AcadYear;
@@ -251,7 +252,8 @@ public interface Model {
     /**
      * Adds a person to group mapping to the list of mappings.
      */
-    void addPersonToGroupMapping(PersonToGroupMapping mapping) throws DuplicateMappingException;
+    void addPersonToGroupMapping(PersonToGroupMapping mapping)
+            throws DuplicateMappingException, AlreadyInGroupException;
 
     /**
      * Returns a mapping with given PersonId and GroupId.
