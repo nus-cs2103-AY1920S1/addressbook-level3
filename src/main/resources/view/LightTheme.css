@@ -1,6 +1,6 @@
 .background {
     -fx-background-color: #848484;
-    background-color: #c1c1c1; /* Used in the default.html file */
+    background-color: #ffffff; /* Used in the default.html file */
 }
 
 .label {
@@ -335,6 +335,7 @@
     -fx-font-family: "Segoe UI Light";
     -fx-font-size: 13pt;
     -fx-text-fill: #000000;
+    -fx-prompt-text-fill: #000000;
 }
 
 #filterField, #taskListPanel, #taskWebpage {

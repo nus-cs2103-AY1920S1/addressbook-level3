@@ -333,7 +333,13 @@
     -fx-font-family: "Segoe UI Light";
     -fx-font-size: 13pt;
     -fx-text-fill: white;
+    -fx-prompt-text-fill: white;
 }
+
+
+/*#commandTextField:empty .text {*/
+/*    -fx-text-fill: #ffffff;*/
+/*}*/
 
 #filterField, #taskListPanel, #taskWebpage {
     -fx-effect: innershadow(gaussian, black, 10, 0, 0, 0);
