@@ -2,9 +2,11 @@ package seedu.address.cashier.logic.parser;
 
 import static seedu.address.cashier.logic.commands.CommandTestUtil.DESC_DESCRIPTION_FISH_BURGER;
 import static seedu.address.cashier.logic.commands.CommandTestUtil.DESC_PRICE_PAID;
+import static seedu.address.cashier.logic.commands.CommandTestUtil.INVALID_PRICE_PAID_3;
 import static seedu.address.cashier.logic.commands.CommandTestUtil.VALID_PRICE_PAID;
 import static seedu.address.cashier.logic.parser.CommandParserTestUtil.assertCommandParserFailure;
 import static seedu.address.cashier.logic.parser.CommandParserTestUtil.assertCommandParserSuccess;
+import static seedu.address.cashier.ui.CashierMessages.AMOUNT_NOT_A_NUMBER;
 import static seedu.address.cashier.ui.CashierMessages.NO_CASHIER;
 import static seedu.address.testutil.TypicalItem.FISH_BURGER;
 import static seedu.address.testutil.TypicalItem.STORYBOOK;
@@ -46,23 +48,33 @@ public class CheckoutCommandParserTest {
         model.clearSalesList();
     }
 
-    /*@Test
-    public void parse_invalidAmountPresent_failure() {
+    @Test
+    public void parse_invalidNotANumberAmountPresent_failure() {
         model.clearSalesList();
         model.setCashier(new PersonBuilder().build());
-
-        with no sales item, negative price paid
-        double totalAmount = 0;
-        String message = String.format(MESSAGE_INSUFFICIENT_AMOUNT, totalAmount, totalAmount);
-        assertCommandParserFailure(parser, INVALID_PRICE_PAID_1, message, model, personModel);
-
-        with sales item added, insufficient price paid
-        model.addItem(FISH_BURGER);
         model.addItem(STORYBOOK);
-        double totalAmount = FISH_BURGER.getSubtotal() + STORYBOOK.getSubtotal();
-        String message = String.format(MESSAGE_INSUFFICIENT_AMOUNT, totalAmount, totalAmount);
-        assertCommandParserFailure(parser, INVALID_PRICE_PAID_2, message, model, personModel);
+        //double totalAmount = STORYBOOK.getSubtotal();
+        assertCommandParserFailure(parser, INVALID_PRICE_PAID_3, AMOUNT_NOT_A_NUMBER, model, personModel);
         model.clearSalesList();
+    }
+
+    /*@Test
+    public void parse_invalidAmountPresent_failure() {
+    model.clearSalesList();
+    model.setCashier(new PersonBuilder().build());*/
+
+    /*with no sales item, negative price paid
+    double totalAmount = 0;
+    String message = String.format(MESSAGE_INSUFFICIENT_AMOUNT, totalAmount, totalAmount);
+    assertCommandParserFailure(parser, INVALID_PRICE_PAID_1, message, model, personModel);*/
+
+    //with sales item added, insufficient price paid
+    //model.addItem(FISH_BURGER);
+    /*model.addItem(STORYBOOK);
+    double totalAmount = STORYBOOK.getSubtotal();
+    String message = String.format(MESSAGE_INSUFFICIENT_AMOUNT, totalAmount, totalAmount);
+    assertCommandParserFailure(parser, INVALID_PRICE_PAID_2, message, model, personModel);
+    model.clearSalesList();
     }*/
 
     @Test

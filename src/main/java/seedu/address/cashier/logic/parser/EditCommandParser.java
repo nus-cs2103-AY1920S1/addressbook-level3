@@ -94,7 +94,6 @@ public class EditCommandParser implements Parser {
             int quantityLeft = modelManager.getStockLeft(description);
             throw new InsufficientAmountException(String.format(MESSAGE_INSUFFICIENT_STOCK, quantityLeft, description));
         }
-
         return new EditCommand(index, quantity);
     }
 

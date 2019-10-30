@@ -14,8 +14,8 @@ import seedu.address.cashier.util.InventoryList;
 import seedu.address.person.model.UserPrefs;
 import seedu.address.testutil.TypicalItem;
 import seedu.address.testutil.TypicalTransactions;
-
-
+import seedu.address.transaction.model.TransactionList;
+import seedu.address.transaction.model.transaction.Transaction;
 
 public class StorageManagerTest {
     //private File iFile;
@@ -30,9 +30,9 @@ public class StorageManagerTest {
     private seedu.address.transaction.model.Model transactionModel = null;
     private seedu.address.inventory.model.Model inventoryModel;
     private seedu.address.transaction.logic.Logic transactionLogic;
-    private seedu.address.inventory.logic.Logic inventoryLogic;
+    private seedu.address.inventory.logic.Logic inventoryLogic;*/
     private seedu.address.transaction.storage.Storage transactionStorage;
-    private seedu.address.inventory.storage.Storage inventoryStorage;*/
+    /*private seedu.address.inventory.storage.Storage inventoryStorage;*/
     //private seedu.address.reimbursement.logic.Logic reimbursementLogic = null;
     //private seedu.address.reimbursement.storage.Storage reimbursementStorage = null;
     //private Model model;
@@ -50,7 +50,7 @@ public class StorageManagerTest {
             seedu.address.inventory.model.Model inventoryModel;
             seedu.address.transaction.logic.Logic transactionLogic;
             seedu.address.inventory.logic.Logic inventoryLogic;
-            seedu.address.transaction.storage.Storage transactionStorage;
+            //seedu.address.transaction.storage.Storage transactionStorage;
             seedu.address.inventory.storage.Storage inventoryStorage;
             model = new ModelManager(TypicalItem.getTypicalInventoryList(),
                     TypicalTransactions.getTypicalTransactionList());
@@ -116,21 +116,21 @@ public class StorageManagerTest {
         assertEquals(original, retrieved);
     }
 
-    //@Test
-    //public void fileReadSaveForTransaction() throws Exception {
-    /*
-     * Note: This is an integration test that verifies the StorageManager is properly writing and reading to the
-     * text file.
-     */
-    //resetTransactionsForReimbursement();
-    /*TransactionList transactionList = TypicalTransactions.getTypicalTransactionList();
-    transactionStorage.writeFile(transactionList);
-    Transaction original = TypicalTransactions.GEORGE_TRANSACTION_7;
-    storage.appendToTransaction(original);
-    System.out.println(storage.getTransactionList().size());
-    TransactionList retrieved = storage.getTransactionList();
-    assertEquals(original, retrieved.get(0));
-    }*/
+    @Test
+    public void fileReadSaveForTransaction() throws Exception {
+        /*
+         * Note: This is an integration test that verifies the StorageManager is properly writing and reading to the
+         * text file.
+         */
+        //resetTransactionsForReimbursement();
+        TransactionList transactionList = TypicalTransactions.getTypicalTransactionList();
+        transactionStorage.writeFile(transactionList);
+        Transaction original = TypicalTransactions.GEORGE_TRANSACTION_7;
+        storage.appendToTransaction(original);
+        System.out.println(transactionStorage.readTransactionList().size());
+        TransactionList retrieved = transactionStorage.readTransactionList();
+        assertEquals(original, retrieved.get(retrieved.size() - 1));
+    }
 }
 
 

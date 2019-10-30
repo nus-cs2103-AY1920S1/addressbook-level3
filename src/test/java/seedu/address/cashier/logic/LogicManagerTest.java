@@ -138,6 +138,18 @@ public class LogicManagerTest {
         assertEquals(logic.getInventoryList(), model.getInventoryList());
     }
 
+    /*@Test
+    public void execute_checkoutCommand_successful() throws Exception {
+        model.addItem(STORYBOOK);
+        model.setCashier(new PersonBuilder().build());
+
+        String command = "checkout 999999";
+        CheckoutCommand checkoutCommand = new CheckoutCommand(STORYBOOK.getSubtotal(),
+                999999 - STORYBOOK.getSubtotal());
+        assertEquals(checkoutCommand, logic.execute(command));
+        //assertParseException(invalidCommand, NO_SUCH_COMMAND);
+    }*/
+
     @Test
     public void execute_invalidCommandFormat_throwsParseException() {
         String invalidCommand = "yufkvghkk";
