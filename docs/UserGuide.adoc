@@ -1,4 +1,4 @@
-= image:address_book_32.png[width="30"] Dukemon - User Guide  image:address_book_32.png[width="30"]
+= image:address_book_32.png[icon, 39, 36] Dukemon - User Guide  image:address_book_32.png[icon, 39, 36]
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -133,7 +133,7 @@ specified.
 * Parameters can be in any order e.g. if the command specifies `w/WORD m/MEANING`, `m/MEANING w/WORD` is also acceptable.
 ====
 
-=== Load commands image:load_mode_icon.png[width="30"]
+=== Load commands image:load_mode_icon.png[load, 22]
 ==== To enter loading page : `load`
 Changes the app mode to load, so that the user can perform load commands.
 
@@ -183,7 +183,7 @@ Examples:
 * `bank CS2040`
 * `bank Biology`
 
-=== Flash card commands
+=== FlashCard commands image:card_commands_icon.png[width="29.5"]
 
 ==== Help : `help`
 Shows help
@@ -340,7 +340,7 @@ Format: `stop`
 - Forcibly terminates the current active _Game_ session (*all progress will be lost, and no _Statistics_ will
 be reported.*)
 
-=== Settings Mode & Commands image:settings_mode_icon.png[width="30"]
+=== Settings Mode & Commands image:settings_mode_icon.png[width="27"]
 
 Goes into the settings menu. +
 Format: `settings`
