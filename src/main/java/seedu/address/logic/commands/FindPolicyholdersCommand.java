@@ -36,7 +36,7 @@ public class FindPolicyholdersCommand extends Command {
         List<Policy> lastShownList = model.getFilteredPolicyList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_POLICY_DISPLAYED_INDEX);
         }
 
         Policy policy = lastShownList.get(index.getZeroBased());
