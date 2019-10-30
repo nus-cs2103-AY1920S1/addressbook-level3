@@ -11,6 +11,7 @@ import static seedu.address.testutil.TypicalPersons.BOB;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.logic.commands.queue.DequeueCommand;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReferenceId;
@@ -32,7 +33,8 @@ public class DequeueCommandTest {
         ReferenceId personToDelete = model.getQueueList().get(INDEX_FIRST_PERSON.getZeroBased());
         DequeueCommand dequeueCommand = new DequeueCommand(personToDelete);
 
-        String expectedMessage = String.format(DequeueCommand.MESSAGE_DEQUEUE_SUCCESS, personToDelete);
+        String expectedMessage = String.format(DequeueCommand.MESSAGE_DEQUEUE_SUCCESS,
+                model.resolvePatient(personToDelete).getName());
 
         ModelManager expectedModel = new ModelManager();
         expectedModel.addPatient(ALICE);
