@@ -1,0 +1,18 @@
+@startuml
+
+box "Box 1"
+    participant "Participant 1" as p1
+    participant "Participant 2" as p2
+end box
+box "Box 2"
+    participant "Participant 3" as p3
+end box
+
+p1->p2: Message1
+    alt Condition 1
+        p2->p3: Message 2
+    else Condition 2
+        p2->p2: Message 3
+    end
+
+@enduml

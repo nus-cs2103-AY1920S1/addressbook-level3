@@ -1,0 +1,86 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AddMinParser" as AddMinParser LOGIC_COLOR
+participant ":AssignDateCommandParser" as AssignDateCommandParser LOGIC_COLOR
+participant "a:AssignDateCommand" as AssignDateCommand LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant "model:Model" as Model MODEL_COLOR
+participant "event:Event" as Event MODEL_COLOR
+end box
+
+[-> LogicManager : execute()
+activate LogicManager
+
+
+LogicManager -> AddMinParser : parseCommand()
+activate AddMinParser
+
+AddMinParser -> AssignDateCommandParser
+activate AssignDateCommandParser
+
+create AssignDateCommand
+AssignDateCommandParser -> AssignDateCommand
+activate AssignDateCommand
+
+AssignDateCommand --> AssignDateCommandParser
+deactivate AssignDateCommand
+
+AssignDateCommandParser --> AddMinParser : a
+deactivate AssignDateCommandParser
+
+AddMinParser --> LogicManager : a
+deactivate AddMinParser
+
+LogicManager -> AssignDateCommand : execute()
+activate AssignDateCommand
+
+AssignDateCommand -> Model : getFilteredEventList()
+activate Model
+
+Model -> AssignDateCommand :
+deactivate Model
+
+AssignDateCommand -> AssignDateCommand: getEventToAssign
+    alt Target EventDate Stated
+    AssignDateCommand -> Event: assignDateTime(targetDate, eventDayTime)
+    activate Event
+
+    Event --> AssignDateCommand:
+    deactivate Event
+
+    else No Target EventDate Stated
+        AssignDateCommand -> Event: getStartDate()
+        activate Event
+
+        Event --> AssignDateCommand: startDate
+        deactivate
+
+        AssignDateCommand -> Event: getEndDate()
+        activate Event
+
+        Event --> AssignDateCommand: endDate
+        deactivate
+
+        loop Start till End EventDate
+        AssignDateCommand -> Event: assignDateTime(eventDay, eventDayTime)
+        activate Event
+
+        Event --> AssignDateCommand:
+        deactivate
+
+        end
+    end
+
+AssignDateCommand --> LogicManager : result
+deactivate AssignDateCommand
+AssignDateCommand -[hidden]-> LogicManager : result
+destroy AssignDateCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

@@ -351,6 +351,13 @@ Given below is an example usage scenario of the program functionality when a use
 [NOTE]
 If the command execution fails, a `ParseException` (from Step 2) or a `CommandException` (from Step 3) will be thrown, specifiying the reason of the error.
 
+The following sequence diagram shows how the `AssignDateCommand`  works:
+
+._Sequence Diagram for AssignDateCommand Command_
+image::SetDateTimeSequenceDiagram.png[]
+
+NOTE: The lifeline for `AssignDateCommand` ends at the destroy marker (X).
+
 The following activity diagram shows how the Setting of Date&Time to Event work:
 
 ._Activity Diagram of the SettingEventDate Command_
