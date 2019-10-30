@@ -117,7 +117,8 @@ public class AverageMap {
      *
      * @param averageType the average type.
      * @param recordList  list of records.
-     * @return returns a {@code Map} object that maps a time period to the respective records found in that time period.
+     * @return returns a {@code Map} object that maps a time period to the respective records found in that time
+     *         period.
      */
     private Map<LocalDate, List<Record>> groupByAverageType(AverageType averageType,
                                                             ObservableList<Record> recordList) {
@@ -133,7 +134,7 @@ public class AverageMap {
      * @param recordMap  a {@code Map} object that maps a time period to the respective records found in that time
      *                   period.
      * @return returns a {@code Map} object that maps a time period to the respective average values of records found in
-     * that time period.
+     *         that time period.
      */
     private Map<LocalDate, Double> getAverage(RecordType recordType, Map<LocalDate, List<Record>> recordMap) {
         switch (recordType) {

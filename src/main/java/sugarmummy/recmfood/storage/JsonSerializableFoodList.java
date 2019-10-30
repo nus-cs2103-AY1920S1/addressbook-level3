@@ -38,7 +38,7 @@ public class JsonSerializableFoodList implements JsonSerializableContent<UniqueF
      */
     public JsonSerializableFoodList(UniqueFoodList source) {
         foods.addAll(source.asUnmodifiableObservableList().stream().map(JsonAdaptedFood::new)
-            .collect(Collectors.toList()));
+                .collect(Collectors.toList()));
     }
 
     /**

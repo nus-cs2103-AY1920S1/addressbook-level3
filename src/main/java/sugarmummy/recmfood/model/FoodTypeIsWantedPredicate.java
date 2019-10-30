@@ -16,13 +16,13 @@ public class FoodTypeIsWantedPredicate implements Predicate<Food> {
     @Override
     public boolean test(Food food) {
         return foodTypes.stream()
-            .anyMatch(foodType -> food.getFoodType().equals(foodType));
+                .anyMatch(foodType -> food.getFoodType().equals(foodType));
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this
-            || (other instanceof FoodTypeIsWantedPredicate
-            && foodTypes.equals(((FoodTypeIsWantedPredicate) other).foodTypes));
+                || (other instanceof FoodTypeIsWantedPredicate
+                && foodTypes.equals(((FoodTypeIsWantedPredicate) other).foodTypes));
     }
 }

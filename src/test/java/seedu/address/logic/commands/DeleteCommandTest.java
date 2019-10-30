@@ -26,7 +26,7 @@ import sugarmummy.recmfood.model.UniqueFoodList;
 public class DeleteCommandTest {
 
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), new UserList(),
-        new UniqueFoodList(), new UniqueRecordList(), new Calendar());
+            new UniqueFoodList(), new UniqueRecordList(), new Calendar());
 
     //    @Test
     //    public void execute_validIndexUnfilteredList_success() {
