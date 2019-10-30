@@ -109,6 +109,16 @@ public class Borrower {
     }
 
     /**
+     * Removes a returned Loan object to a new copy of the returnedLoanList.
+     *
+     * @param returnedLoan {@code Loan} object to be removed to returnedLoanList.
+     * @return A new copy of currentLoanList with returned Loan object removed it.
+     */
+    public LoanList getRemovedReturnedLoanList(Loan returnedLoan) {
+        return returnedLoanList.removeFromNewCopy(returnedLoan);
+    }
+
+    /**
      * Returns true if Borrower currently loans a Book represented by the given Loan object.
      */
     public boolean hasCurrentLoan(Loan loan) {

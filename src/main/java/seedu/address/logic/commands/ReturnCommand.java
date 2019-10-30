@@ -22,7 +22,7 @@ import seedu.address.model.loan.Loan;
 /**
  * Returns a Book with the given Index.
  */
-public class ReturnCommand extends Command {
+public class ReturnCommand extends Command implements ReversibleCommand {
     public static final String COMMAND_WORD = "return";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Returns a book borrowed by a borrower.\n"
@@ -33,6 +33,9 @@ public class ReturnCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Book: %1$s\nreturned by\nBorrower: %2$s\nFine incurred: %3$s";
 
     private final Index index;
+    private final boolean isUndoRedo;
+    private Command undoCommand;
+    private Command redoCommand;
 
     /**
      * Creates an ReturnCommand to return the currently served Borrower's {@code Book}.
@@ -42,6 +45,19 @@ public class ReturnCommand extends Command {
     public ReturnCommand(Index index) {
         requireNonNull(index);
         this.index = index;
+        this.isUndoRedo = false;
+    }
+
+    /**
+     * Creates an ReturnCommand to return the currently served Borrower's {@code Book}.
+     *
+     * @param index Index of book to be returned.
+     * @param isUndoRedo used to check whether the ReturnCommand is an undo/redo command.
+     */
+    public ReturnCommand(Index index, boolean isUndoRedo) {
+        requireNonNull(index);
+        this.index = index;
+        this.isUndoRedo = isUndoRedo;
     }
 
     /**
@@ -95,8 +111,26 @@ public class ReturnCommand extends Command {
         // unmount this book in LoanSlipUtil if it is mounted
         LoanSlipUtil.unmountSpecificLoan(loanToBeReturned, bookToBeReturned);
 
+        undoCommand = new UnreturnCommand(returnedBook, bookToBeReturned, returnedLoan, loanToBeReturned);
+        redoCommand = new ReturnCommand(index, true);
+
         return new CommandResult(String.format(MESSAGE_SUCCESS, returnedBook, servingBorrower,
                 FineUtil.centsToDollarString(fineAmount)));
+    }
+
+    @Override
+    public Command getUndoCommand() {
+        return undoCommand;
+    }
+
+    @Override
+    public Command getRedoCommand() {
+        return redoCommand;
+    }
+
+    @Override
+    public boolean isUndoRedoCommand() {
+        return isUndoRedo;
     }
 
     @Override
@@ -110,6 +144,7 @@ public class ReturnCommand extends Command {
         }
 
         ReturnCommand otherReturnCommand = (ReturnCommand) o;
-        return this.index.equals(otherReturnCommand.index);
+        return this.index.equals(otherReturnCommand.index)
+                && this.isUndoRedo == otherReturnCommand.isUndoRedo;
     }
 }

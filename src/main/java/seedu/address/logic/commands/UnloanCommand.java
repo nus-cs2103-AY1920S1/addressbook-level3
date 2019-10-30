@@ -7,7 +7,7 @@ import seedu.address.model.book.Book;
 import seedu.address.model.loan.Loan;
 
 /**
- * Unloans a {@code Book} with the given {@code SerialNumber} to a {@code Borrower}.
+ * Unloans a {@code Book}.
  * This class is meant to be the reverse of {@code LoanCommand} and is used only for the purpose of
  * a undo/redo Command.
  */

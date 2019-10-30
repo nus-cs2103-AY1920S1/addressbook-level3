@@ -444,6 +444,33 @@ public class ModelManager implements Model {
     }
 
     /**
+     * Adds {@code loanToBeUnreturned} to {@code servingBorrower}'s currentLoanList and
+     * removes {@code unreturnedLoan} to its returnedLoanList.
+     * This method is called only when in Serve mode.
+     * {@code servingBorrower} should have the {@code loanToBeUnreturned} object in its currentLoanList.
+     *
+     * @param loanToBeUnreturned {@code Loan} object in servingBorrower's currentLoanList.
+     * @param unreturnedLoan Updated {@code Loan} object to be removed to servingBorrower's returnedLoanList.
+     */
+    @Override
+    public void servingBorrowerUnreturnLoan(Loan loanToBeUnreturned, Loan unreturnedLoan) {
+        if (!isServeMode()) {
+            throw new NotInServeModeException();
+        }
+
+        Borrower serving = servingBorrower.get();
+
+        assert !serving.hasCurrentLoan(unreturnedLoan) : "Borrower has the loan to be unreturned.";
+
+        Borrower loanUnreturnedBorrower = new Borrower(serving.getName(), serving.getPhone(), serving.getEmail(),
+                serving.getBorrowerId(), serving.getAddedCurrentLoanList(unreturnedLoan),
+                serving.getRemovedReturnedLoanList(loanToBeUnreturned));
+        borrowerRecords.setBorrower(serving, loanUnreturnedBorrower);
+
+        setServingBorrower(loanUnreturnedBorrower);
+    }
+
+    /**
      * Replaces the {@code loanToBeRenewed} in {@code servingBorrower}'s currentLoanList
      * with {@code renewedLoan}.
      * This method is called only when in Serve mode.

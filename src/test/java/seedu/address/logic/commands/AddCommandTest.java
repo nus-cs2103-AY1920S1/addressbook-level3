@@ -214,6 +214,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public void removeLoan(Loan loan) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void updateLoan(Loan existingLoan, Loan returnedLoan) {
             throw new AssertionError("This method should not be called.");
         }
@@ -284,12 +289,27 @@ public class AddCommandTest {
         }
 
         @Override
+        public void servingBorrowerRemoveLoan(Loan removeLoan) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void servingBorrowerReturnLoan(Loan loanToBeReturned, Loan returnedLoan) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
+        public void servingBorrowerUnreturnLoan(Loan loanToBeReturned, Loan returnedLoan) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void servingBorrowerRenewLoan(Loan loanToBeRenewed, Loan renewedLoan) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void servingBorrowerUnrenewLoan(Loan loanToBeUnrenewed, Loan unrenewedLoan) {
             throw new AssertionError("This method should not be called.");
         }
 

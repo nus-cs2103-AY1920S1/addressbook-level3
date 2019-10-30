@@ -52,7 +52,7 @@ public class RenewCommand extends Command implements ReversibleCommand {
      * Creates an RenewCommand to renew the currently served Borrower's {@code Book}.
      *
      * @param index Index of book to be renewed.
-     * @param isUndoRedo used to check whether the DoneCommand is an undo/redo command.
+     * @param isUndoRedo used to check whether the RenewCommand is an undo/redo command.
      */
     public RenewCommand(Index index, boolean isUndoRedo) {
         requireNonNull(index);

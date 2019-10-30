@@ -9,6 +9,8 @@ import seedu.address.model.loan.Loan;
 
 /**
  * Unrenews a {@code Book}.
+ * This class is meant to be the reverse of {@code RenewCommand} and is used only for the purpose of
+ * a undo/redo Command.
  */
 public class UnrenewCommand extends Command {
 

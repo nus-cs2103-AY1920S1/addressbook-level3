@@ -170,6 +170,8 @@ public interface Model {
 
     void servingBorrowerReturnLoan(Loan loanToBeReturned, Loan returnedLoan);
 
+    void servingBorrowerUnreturnLoan(Loan loanToBeUnreturned, Loan unturnedLoan);
+
     void servingBorrowerRenewLoan(Loan loanToBeRenewed, Loan renewedLoan);
 
     void servingBorrowerUnrenewLoan(Loan loanToBeUnrenewed, Loan unrenewLoan);
