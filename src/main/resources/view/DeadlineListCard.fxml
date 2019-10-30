@@ -10,6 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 
 <?import javafx.scene.control.Separator?>
+<?import javafx.scene.text.TextFlow?>
 <HBox id="deadlineCardPane" fx:id="deadlineCardPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
     <GridPane HBox.hgrow="ALWAYS">
         <columnConstraints>
@@ -26,7 +27,7 @@
                         <Region fx:constant="USE_PREF_SIZE" />
                     </minWidth>
                 </Label>
-                <Label fx:id="task" text="\$first" styleClass="cell_big_label" textOverrun="CLIP" />
+                <TextFlow fx:id="task" styleClass="cell_big_label" />
             </HBox>
             <Separator></Separator>
             <Label fx:id="dueDate" styleClass="cell_small_label" text="\$answer" />

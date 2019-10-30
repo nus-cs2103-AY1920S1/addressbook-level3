@@ -15,16 +15,18 @@ public class SetThemeCommand extends Command {
 
     public static final String COMMAND_WORD = "theme";
 
+    public static final String DARKTHEME ="view/DarkTheme.css";
+    public static final String LIGHTTHEME = "view/LightTheme.css";
+    public static final String PINKTHEME = "view/PinkTheme.css";
+
     public static final String MESSAGE_SUCCESS = "Theme changed to %s";
 
     private String styleSheet;
-    private String color;
     /**
      * Creates a SetThemeCommand to change the theme of the gui
      */
-    public SetThemeCommand(String styleSheet, String color) {
+    public SetThemeCommand(String styleSheet) {
         this.styleSheet = styleSheet;
-        this.color = color;
     }
 
     @Override
@@ -52,7 +54,6 @@ public class SetThemeCommand extends Command {
         */
         requireNonNull(model);
         MainWindow.setStylesheet(styleSheet);
-        ResultDisplay.setColor(color);
         model.setStyleSheet(styleSheet);
         return new CommandResult(String.format(MESSAGE_SUCCESS, styleSheet));
     }

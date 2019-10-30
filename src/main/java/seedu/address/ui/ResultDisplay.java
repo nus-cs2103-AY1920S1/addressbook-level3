@@ -14,7 +14,6 @@ import javafx.scene.text.TextFlow;
 public class ResultDisplay extends UiPart<Region> {
 
     private static final String FXML = "ResultDisplay.fxml";
-    private static String color = "white";
     @FXML
     private TextFlow resultDisplay;
 
@@ -22,14 +21,11 @@ public class ResultDisplay extends UiPart<Region> {
         super(FXML);
     }
 
-    public static void setColor(String newColor) {
-        color = newColor;
-    }
 
     public void setFeedbackToUser(String feedbackToUser) {
         requireNonNull(feedbackToUser);
         Text text = new Text(feedbackToUser);
-        text.setFill(Paint.valueOf(color));
+        text.setId("resulttext");
         resultDisplay.getChildren().clear();
         resultDisplay.getChildren().add(text);
     }

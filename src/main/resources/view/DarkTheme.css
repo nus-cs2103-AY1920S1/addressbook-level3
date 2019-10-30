@@ -353,6 +353,14 @@
     -fx-font-size: 13;
 }
 
+#resulttext {
+    -fx-fill: white;
+}
+
+#deadlinetext {
+    -fx-fill:white;
+}
+
 #rating {
     -fx-hgap: 7;
     -fx-vgap: 3;

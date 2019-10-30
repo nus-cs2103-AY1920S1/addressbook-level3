@@ -4,6 +4,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
 import seedu.address.model.deadline.Deadline;
 
 //@@author dalsontws
@@ -19,7 +23,7 @@ public class DeadlinePanel extends UiPart<Region> {
     @FXML
     private HBox deadlineCardPane;
     @FXML
-    private Label task;
+    private TextFlow task;
     @FXML
     private Label id;
     @FXML
@@ -29,8 +33,14 @@ public class DeadlinePanel extends UiPart<Region> {
         super(FXML);
         this.deadline = deadline;
         id.setText(displayedIndex + ". ");
-        task.setText(deadline.getTask().toString());
+        Text deadlineText = new Text (deadline.getTask().toString());
+        deadlineText.setId("deadlinetext");
+        task.getChildren().add(deadlineText);
         dueDate.setText("Due Date: " + deadline.getDueDate().toString());
+        if(false) {
+            deadlineText.setFill(Paint.valueOf("red"));
+        }
+
     }
 
     @Override

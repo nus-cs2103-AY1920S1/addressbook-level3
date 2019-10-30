@@ -2,6 +2,9 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_THEME;
+import static seedu.address.logic.commands.SetThemeCommand.DARKTHEME;
+import static seedu.address.logic.commands.SetThemeCommand.LIGHTTHEME;
+import static seedu.address.logic.commands.SetThemeCommand.PINKTHEME;
 
 import seedu.address.logic.commands.SetThemeCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -17,16 +20,16 @@ public class SetThemeCommandParser implements Parser<SetThemeCommand> {
         String color = null;
         String trimedInput = userInput.trim();
         if (trimedInput.equals("light")) {
-            color = "black";
-            styleSheet = "view/LightTheme.css";
+            styleSheet = LIGHTTHEME;
         } else if (trimedInput.equals("dark")) {
-            color = "white";
-            styleSheet = "view/DarkTheme.css";
+            styleSheet = DARKTHEME;
+        } else if (trimedInput.equals("pink")) {
+            styleSheet = PINKTHEME;
         }
-        if (styleSheet.isEmpty()) {
+        if (styleSheet == null) {
             throw new ParseException(String.format(MESSAGE_INVALID_THEME));
         }
 
-        return new SetThemeCommand(styleSheet, color);
+        return new SetThemeCommand(styleSheet);
     }
 }
