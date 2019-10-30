@@ -39,12 +39,12 @@ public class CurrencyTest {
         Currency four = new Currency("SGD", "$", 1.05);
 
         // same
-        assertTrue(one == one);
+        assertTrue(one.equals(one));
 
         // null
         assertFalse(one == null);
 
-        assertFalse(one.equals("Apple"));
+        assertFalse(("Apple").equals(one));
 
         // same name but different symbol
         assertFalse(one.equals(two));
