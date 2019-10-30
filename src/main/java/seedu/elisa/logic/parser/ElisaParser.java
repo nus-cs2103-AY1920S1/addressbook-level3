@@ -20,10 +20,10 @@ import seedu.elisa.logic.commands.OpenCommand;
 import seedu.elisa.logic.commands.PriorityCommand;
 import seedu.elisa.logic.commands.RedoCommand;
 import seedu.elisa.logic.commands.ShowCommand;
+import seedu.elisa.logic.commands.SnoozeCommand;
 import seedu.elisa.logic.commands.SortCommand;
 import seedu.elisa.logic.commands.UndoCommand;
 import seedu.elisa.logic.commands.UpCommand;
-import seedu.elisa.logic.commands.SnoozeCommand;
 
 import seedu.elisa.logic.parser.exceptions.ParseException;
 

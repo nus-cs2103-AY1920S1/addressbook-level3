@@ -1,30 +1,20 @@
 package seedu.elisa.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.elisa.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.elisa.logic.parser.CliSyntax.PREFIX_SNOOZE;
+
+import java.time.LocalDateTime;
+import java.util.NoSuchElementException;
+
 import seedu.elisa.commons.core.Messages;
 import seedu.elisa.commons.core.index.Index;
-import seedu.elisa.commons.core.item.Event;
 import seedu.elisa.commons.core.item.Item;
-import seedu.elisa.commons.core.item.Item.ItemBuilder;
-import seedu.elisa.commons.core.item.ItemDescription;
-import seedu.elisa.commons.core.item.Priority;
-import seedu.elisa.commons.core.item.Reminder;
-import seedu.elisa.commons.core.item.Task;
-import seedu.elisa.commons.util.CollectionUtil;
 import seedu.elisa.logic.commands.exceptions.CommandException;
 import seedu.elisa.model.ItemModel;
 import seedu.elisa.model.item.VisualizeList;
-import seedu.elisa.model.tag.Tag;
 
-import java.time.LocalDateTime;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.NoSuchElementException;
-import java.util.Optional;
-import java.util.Set;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.elisa.commons.util.CollectionUtil.requireAllNonNull;
-import static seedu.elisa.logic.parser.CliSyntax.*;
 
 /**
  * Edits the details of an existing item in the item list.
@@ -32,7 +22,6 @@ import static seedu.elisa.logic.parser.CliSyntax.*;
 public class SnoozeCommand extends UndoableCommand {
 
     public static final String COMMAND_WORD = "snooze";
-    public static final String SHOW_REMINDER_VIEW = "R";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Snoozes the reminder "
             + "by the index number used in the reminder list "
@@ -44,6 +33,8 @@ public class SnoozeCommand extends UndoableCommand {
 
     public static final String MESSAGE_SNOOZED_REMINDER_SUCCESS = "Snoozed Reminder: %1$s,"
             + " because someone is real lazy...";
+
+    private static final String SHOW_REMINDER_VIEW = "R";
 
     private final boolean hasIndex;
     private final Index index;

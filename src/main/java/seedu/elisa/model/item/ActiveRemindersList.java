@@ -40,7 +40,7 @@ public class ActiveRemindersList extends ListPropertyBase<Item> {
         return;
     }
 
-    public Item getLatestOccurredReminder() throws NoSuchElementException{
+    public Item getLatestOccurredReminder() throws NoSuchElementException {
         if (size() <= 0) {
             throw new NoSuchElementException("No reminders have occurred yet!");
         }
