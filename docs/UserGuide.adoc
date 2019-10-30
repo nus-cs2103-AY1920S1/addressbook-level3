@@ -31,18 +31,17 @@ Happy working!
 .  Copy the file to the folder you want to use as the home folder for your +Work.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
-image::Ui.png[width="790"]
+image::QuickStart.png[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* **`add-member mn/Abhinav Ramnath`** : Adds a member with name "Abhinav Ramnath" to the project.
-* **`add-task tn/Finish up milestone setting`** : Adds a task with name "Finish up milestone" to the project.
-* **`assign ti/5 mi/SL`** : Assigns the project member "Seah Lynn" (With member id "SL"), to the fifth task.
-* **`doing-task ti/3`** : Changes status of task three to `doing`:
 
-.  Refer to <<Features>> for details of each command.
+* **`add-member mn/Adam Smith mi/AS`** : Adds a member with name "Adam Smith" to the project.
+* **`add-task tn/Finish up milestone setting`** : Adds a task with name "Finish up milestone" to the project.
+* **`assign-member ti/1 mi/AS`** : Assigns the project member "Adam Smith" (With member id "AS"), to the task "Finish up milestone setting".
+* **`doing-task ti/1`** : Changes status of task "Finish up milestone setting"  to `doing`:
 
 [[Features]]
 == Features
@@ -57,9 +56,9 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 * The words in UPPER_CASE corresponds to the parameters given by the user
 
-** Example: In `add-member mn/MEMBER_NAME`, MEMBER_NAME is the input specified by the user, such as: add-member mn/Gabriel Seow
+** Example: In `add-member mn/MEMBER_NAME`, MEMBER_NAME is the input specified by the user, such as: `add-member mn/Gabriel Seow`
 
-* The user specifies the type of parameter given through a prefix. The list of allowed prefixes can be found in the table below.
+* You can specify the type of parameter given through a prefix. The list of allowed prefixes can be found in the table below:
 
 ** Example: In `add-task tn/TASK_NAME s/TASK_STATUS`, the user inputs the name of the task after tn/ and inputs the status of the task after s/ , such as: `add task t/Finish Project Draft s/undone`
 
@@ -86,7 +85,6 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 * Date and Time is specified in the format `dd-mm-yyyy hh:mm`
 
-====
 
 '''
 
@@ -131,7 +129,13 @@ Calling the `help` command will bring you to the following page:
 +
 image::Help.png[width=790]
 +
-=======
+
+==== Accessing settings page: `settings` +
+This brings you to the settings page  +
+Format: `settings`
+
+==== Viewing help: `help` +
+
 Displays a list of possible commands for the user +
 You can toggle through the command list (either through up down keys or mouse) and it will paste the correct syntax into the command line. +
 Format: `help`
@@ -141,9 +145,10 @@ Format: `help`
 
 === Member-related Commands
 
-==== Add a member: `add-member` +
-To add a member to the list of team members in +Work, use the command `add-member` following the format below. +
-Format: `add-member mn/MEMBER_NAME mi/MEMBER_ID mt/TAGS` +
+==== Adding a member: `add-member` +
+To add a member to the list of team members in +Work, use the command 'add-member' following the format below. +
+Format: `add-member mn/MEMBER_NAME mi/MEMBER_ID mt/TAGS`
+
 
 Example: `add-member mn/New Member mi/NM mt/UG` will result in the following: 
 
@@ -166,6 +171,7 @@ image::SetImage.png[width="790"]
 [NOTE]
 Image URL refers to the folder path of the image stored in your computer, and should end with .png
 
+
 ==== List existing members: `list-members` +
 To get a list of all members added to +Work, used the command `list-members` following the format below. +
 Format: `list-members` +
@@ -175,9 +181,9 @@ Example: `list-members` will result in the following:
 image::ListMembers.png[width="790"]
 
 
-==== Remove a member: `remove-member` +
-To remove a member from the project, and subsequently remove him from associated tasks, use the `remove-member` command in the format below. +
-Format: `remove-member mi/MEMBER_ID` +
+==== Removing a member: `remove-member` +
+To remove a member from the project, and subsequently remove him from associated tasks, use the 'remove-member' command in the format below. +
+Format: `remove-member [mi/MEMBER_ID]`
 
 
 Example: `remove-member mi/GS` will result in the following:
@@ -200,7 +206,7 @@ image::AssignTask.png[width="790"]
 
 This indicates that the task TASK NAME with task id 1 has been assigned to team member 'GABRIEL SEOW' with member id 'GS'. +
 
-==== Remove a task from a member: `fire` +
+==== Removing a task from a member: `fire` +
 To remove a task from a specific team member, use the 'fire' command in the format below. +
 
 Format: `fire ti/TASK_ID mi/MEMBER_ID` +
@@ -217,48 +223,18 @@ This indicates that the task TASK NAME with task id 1 has been removed from its 
 
 === Task-related Commands
 
-==== Add a task: `add task`
+==== Adding a task: `add task`
 
 To add a task to the project, use the 'add-task' command in the format below. +
-Format: `add-task [t/TASK_NAME]  [m/MEMBER_NAME]` +
+Format: `add-task [t/TASK_NAME]` +
 Optional Parameters: `[s/STATUS]` `[t/TAG]`
 
 Example:
 
-* `add task t/Finish up milestone setting m/Gabriel Seow` +
+* `add task t/Finish up milestone setting` +
 A new task will be added to the project dashboard
 
-==== Set a task status to ‘Doing’: `doing`
-
-Updates task status to ‘Doing’
-
-Format: `doing-task [ti/TASK_ID]`
-
-Example: `doing-task ti/1`
-
-* `doing-task ti/3` +
-Marks the status of task 3 as doing
-
-==== Set a task status to ‘Done’: done
-
-Updates task status to ‘Done’
-
-Format: `done-task [ti/TASK_ID]`
-
-Example:
-
-* `done-task ti/2`
-
-Marks the status of task 2 as done.
-
-==== List the existing tasks: `list-tasks`
-
-List all the tasks on the dashboard
-
-Format: 'list-tasks'
-
-
-==== Remove a task: remove-task
+==== Removing a task: remove-task
 
 Removes a task from the dashboard
 
@@ -269,19 +245,79 @@ Example:
 * `remove-task 2` +
 Removes the 2nd task in the dashboard
 
-==== Set deadline for a task: `deadline-task`
+==== Listing all existing tasks: `list-tasks`
 
-Sets deadline for existing tasks on dashboard
-
-Format: `deadline-task [ti/TASK_ID] [at/DEADLINE] [at/ dd-mm-yy hh:mm]`
-
-[TIP]
-Remember to input using the 24 hour time format
+To list all the tasks created for the project, use the `list-tasks` command in the format below. +
+Format: 'list-tasks'
 
 Example:
 
-* `deadline-task ti/21 at/21-09-19 15:00`  +
-Deadline for task 21 will be specified as `21-09-19 15:00`
+* Type `list-tasks` in the command box.
+* Hit the kbd:[Enter] key and you will see all your tasks! You should see a window similar to the one below.
+
+image::list-tasks.png[]
+
+
+==== Setting a task's status to `done`: `done-task`
+
+To update the task status to `done`, use the `done-task` command in the format below. +
+Format: `done-task [ti/TASK_ID]`
+
+Example:
+
+* After finishing the task "Shirts for Freshman Open Day" shown below, you would want to mark it as completed. To do so, first navigate to task list view using `list-tasks`.
+
+image::done-tasks-dashboard-command.png[]
+
+* Type `done-task ti/5` into the command box as shown below.
+
+image::done-task-list-command.png[]
+
+* Hit the kbd:[Enter] key and you will see that the task has been marked as `done`! You should see a window similar to the one below when you navigate back to `home`.
+
+image::done-task-result-dashboard.png[]
+
+==== Setting a task's status to `doing`: `doing-task`
+
+To update the task status to `doing`, use the `doing-task` command in the format below. +
+Format: `doing-task [ti/TASK_ID]`
+
+Example: `doing-task ti/1`
+
+* `doing-task ti/3` +
+This sets the status of task 3 to `doing`.
+
+[TIP]
+Usage of this command is very similar to setting a task status to `doing` as explained above.
+
+
+==== Setting a deadline for a task: `deadline-task`
+
+Sets deadline for existing tasks on dashboard
+
+Format: `deadline-task [ti/TASK_ID] [at/DEADLINE] [at/dd/mm/yy hh:mm]`
+
+[TIP]
+Remember to input using the 24 hour time format of dd/mm/yy hh:mm
+
+Example:
+
+* To set a deadline for the task "Shirts for Freshman Open Day" shown below first navigate to task list view using `list-tasks`.
+
+image::QuickStart.png[]
+
+* Assuming the deadline is on the 10th of November 2019, type `deadline-task ti/5 at/10-11-19 18:00` into the command box.
+
+* Hit the kbd:[Enter] key and you will see that a deadline has been set! You should see a window similar to the one below.
+
+image::set-deadline-list-result.png[]
+
+Now, navigate to the dashboard by entering `home`. Hit the kbd:[Enter] key and you will see that the deadline can be seen! You should see a window similar to the one below.
+
+image::set-deadline-res-dashboard.png[]
+
+[TIP]
+The "Upcoming deadlines" sidebar (right side of above picture) helps you keep track of tasks which are due in less than two weeks.
 
 '''
 
@@ -309,7 +345,7 @@ Suggested steps for you to follow
 
 ****
 
-==== Add a members calendar: `import-calendar`
+==== Adding a members calendar: `import-calendar`
 
 Format: `import-calendar [mi/MEMBER_ID] [c/PATH_TO_ICS]`
 
@@ -320,7 +356,7 @@ You can add your project's member John Doe's `ics` file like this,
 * `import-calendar mi/JD c/data/john_ics_file` +
 Adds a calendar to John's profile
 
-==== Generate free time across all calendars uploaded: `generate-timings`
+==== Generating time across all calendars uploaded: `generate-timings`
 
 Format: `generate-timings`
 
@@ -329,7 +365,7 @@ Example:
 * `generate-timings` +
 Generates a grid showing the number of people who can make it for a particular time slot during the week (mock-up needed)
 
-==== Add a meeting: `add meeting`
+==== Adding a meeting: `add meeting`
 
 Format: `add-meeting [at/ dd-mm-yyyy hh:mm]  [l/LOCATION]`
 
@@ -430,8 +466,13 @@ Format: `theme light`
 
 Examples:
 
-* `theme light` +
-Switches to the light theme
+* Type `theme light` as shown below.
+
+image::theme-light-command.png[]
+
+* Hit the kbd:[Enter] key and +Work switches to the light theme!
+
+image::theme_light.png[]
 
 * `theme dark` +
 Switches to the dark theme
@@ -443,7 +484,7 @@ By default, the clock format is set to 24 hour.
 
 [NOTE]
 
-This does not affect the input format of deadlines for tasks. They still need to be entered in 24 hour format!.
+This does not affect the input format of deadlines for tasks, they still need to be entered in 24 hour format!.
 
 Format: `clock twenty_four`
 
@@ -454,42 +495,6 @@ Switches to the 12 hour clock
 
 * `clock twenty_four` +
 Switches to the 24 hour clock
-
-////
-=== Deleting a person : `delete`
-
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
-
-****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
-
-Examples:
-
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
-
-// end::delete[]
-=== Clearing all entries : `clear`
-
-Clears all entries from the address book. +
-Format: `clear`
-
-
-
-=== Exiting the program : `exit`
-
-Exits the program. +
-Format: `exit`
-
-////
 
 '''
 
@@ -538,54 +543,54 @@ _{explain how the user can enable/disable data encryption}_
 
 == Command Summary
 
-* `add-inventory [i/NAME] [p/PRICE] [ti/TASKID] [mi/MEMBER_ID]`: *Add an inventory*
+* `add-inventory [i/NAME] [p/PRICE] [ti/TASKID] [mi/MEMBER_ID]`: *Adds an inventory*
 
-* `add-meeting [at/ dd-mm-yyyy hh:mm - hh:mm]  [l/LOCATION]`: (Coming in v1.3) *Add a meeting*
+* `add-meeting [at/ dd/mm/yyyy hh:mm - hh:mm] [l/LOCATION]`: *Adds a meeting*
 
-* `add-member [mn/MEMBER_NAME] [mi/MEMBER_ID] [mt/MEMBER_TAG]`: *Add a member*
+* `add-member [mn/MEMBER_NAME] [mi/MEMBER_ID] [mt/MEMBER_TAG]`: *Adds a member*
 
-* `add-task [t/TASK_NAME]  [m/MEMBER_NAME]`: *Add a task*
+* `add-task [t/TASK_NAME]  [m/MEMBER_NAME]`: *Adds a task*
 
-* `assign [ti/TASK_ID] [mi/MEMBER_ID]`: *Add a task to a member*
+* `assign [ti/TASK_ID] [mi/MEMBER_ID]`: *Adds a task to a member*
 
-* `calendar`: *Switch to the time management page*
+* `calendar`: *Switches to the time management page*
 
-* `clock twelve`: (Coming in v1.3) *Switch to the 12 hour clock*
+* `clock twelve`: *Switches deadline display to the 12 hour clock format*
 
-* `clock twenty_four`: (Coming in v1.3) *Switch to the 24 hour clock*
+* `clock twenty_four`: *Switches deadline display to the 24 hour clock format*
 
-* `deadline-task [ti/TASK_ID] [at/ dd-mm-yy hh:mm]`: *Assign a deadline to a task*
+* `deadline-task [ti/TASK_ID] [at/dd/mm/yy hh:mm]`: *Assigns a deadline to a task*
 
-* `delete-inventory [ii/ITEM_ID]`: *Delete an inventory*
+* `delete-inventory [ii/ITEM_ID]`: *Deletes an inventory*
 
-* `doing-task [ti/TASK_ID]`: *Mark a task as `doing`*
+* `doing-task [ti/TASK_ID]`: *Marks a task as `doing`*
 
-* `done-task [ti/TASK_ID]`: *Mark a task as `done`*
+* `done-task [ti/TASK_ID]`: *Marks a task as `done`*
 
-* `fire-member [ti/TASK_ID] [mi/MEMBER_ID]`: *Remove a task from a member*
+* `fire-member [ti/TASK_ID] [mi/MEMBER_ID]`: *Removes a task from a member*
 
-* `generate-inventory /task`: *Generate report of inventory by task*
+* `generate-inventory /task`: *Generates report of inventory by task*
 
-* `generate-inventory /person`: *Generate report of inventory by person*
+* `generate-inventory /person`: *Generates report of inventory by person*
 
-* `generate-timings`: (Coming in v1.3) *Generate free times among members*
+* `generate-timings`: *Generates free times among members*
 
-* `home`: *Switch to the project dashboard*
+* `home`: *Switches to the project dashboard*
 
-* `help`: *Access the help window*
+* `help`: *Accesses the help window*
 
-* `import-calendar [mi/MEMBER_ID] [c/PATH_TO_ICS]`: (Coming in v1.3) *Import a calendar*
+* `import-calendar [mi/MEMBER_ID] [c/PATH_TO_ICS]`: (Coming in v1.3) *Imports a calendar*
 
-* `list-members`: *List all members*
+* `list-members`: *Lists all members*
 
-* `list-tasks`: *List all tasks*
+* `list-tasks`: *Lists all tasks*
 
-* `remove-member [mi/MEMBER_ID]`: *Remove a member*
+* `remove-member [mi/MEMBER_ID]`: *Removes a member*
 
-* `remove-task [ti/TASK_ID]`: *Remove a task*
+* `remove-task [ti/TASK_ID]`: *Removes a task*
 
-* `settings`: *Switch to the settings configuration page*
+* `settings`: *Switches to the settings configuration page*
 
-* `theme dark`: (Coming in v1.3) *Switch to the dark theme*
+* `theme dark`: *Switches to the dark theme*
 
-* `theme light`: (Coming in v1.3) *Switch to the light theme*
+* `theme light`: *Switches to the light theme*
