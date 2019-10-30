@@ -298,6 +298,22 @@ Sets a budget of `$500,000` for this month
 Returns the current monthly budget. +
 Format: `showbudget`
 
+=== Setting the currency : `currency`
+Sets the currency used to display spending entries. +
+Format: `currency [CURRENCYCODE]`
+
+****
+* If CURRENCYCODE is not specified, the current currency used is displayed.
+* CURRENCYCODE can be `SGD`, `USD`, `EUR`, `IDR`, `MYR`, `INR`, `MMK`.
+****
+
+=== Viewing exchange rates : `exchangerate`
+Displays the current exchange rates available. +
+Format: `exchangerate`
+
+[NOTE]
+Only supported currencies (SGD, USD, EUR, IDR, MYR, INR, MMK) are shown.
+
 === Generating statistics : `stats`
 Returns an overview of the spending in the form of a pie chart, with each sector representing a tag as shown in Figure 3.
 Each sector is labelled with the name and total expenditure for the tag, allowing you to better analyze your spending habits.
