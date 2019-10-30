@@ -2,88 +2,117 @@ package organice.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static organice.logic.parser.CliSyntax.PREFIX_NAME;
-import static organice.logic.parser.CliSyntax.PREFIX_NRIC;
 import static organice.logic.parser.CliSyntax.PREFIX_PHONE;
-import static organice.logic.parser.CliSyntax.PREFIX_TYPE;
 import static organice.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
-import organice.commons.core.Messages;
-import organice.commons.core.index.Index;
 import organice.commons.util.CollectionUtil;
 import organice.logic.commands.exceptions.CommandException;
 import organice.model.Model;
+import organice.model.person.Age;
+import organice.model.person.BloodType;
+import organice.model.person.Doctor;
+import organice.model.person.DoctorInCharge;
+import organice.model.person.Donor;
 import organice.model.person.Name;
 import organice.model.person.Nric;
+import organice.model.person.Organ;
+import organice.model.person.OrganExpiryDate;
+import organice.model.person.Patient;
 import organice.model.person.Person;
 import organice.model.person.Phone;
+import organice.model.person.Priority;
+import organice.model.person.Status;
+import organice.model.person.TissueType;
 import organice.model.person.Type;
+import organice.model.person.exceptions.PersonNotFoundException;
 
 /**
- * Edits the details of an existing person in the address book.
+ * Edits the details of an existing person in ORGANice.
  */
 public class EditCommand extends Command {
 
     public static final String COMMAND_WORD = "edit";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the person identified "
-            + "by the index number used in the displayed person list. "
+            + "by their NRIC in ORGANice. "
             + "Existing values will be overwritten by the input values.\n"
-            + "Parameters: INDEX (must be a positive integer) "
-            + "[" + PREFIX_TYPE + "PERSON TYPE] "
-            + "[" + PREFIX_NRIC + "NRIC] "
+            + "Parameters: NRIC (must be a valid NRIC in ORGANice) "
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_PHONE + "PHONE] "
-            + "Example: " + COMMAND_WORD + " 1 "
+            + "Example: " + COMMAND_WORD + " "
+            + "S9912345A "
             + PREFIX_PHONE + "91234567 ";
 
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
+    public static final String MESSAGE_PERSON_NOT_FOUND = "The person with Nric %1$s cannot be found in ORGANice!";
 
-    private final Index index;
+    private final Nric nric;
     private final EditPersonDescriptor editPersonDescriptor;
 
     /**
-     * @param index of the person in the filtered person list to edit
+     * @param nric of the person in the filtered person list to edit
      * @param editPersonDescriptor details to edit the person with
      */
-    public EditCommand(Index index, EditPersonDescriptor editPersonDescriptor) {
-        requireNonNull(index);
+    public EditCommand(Nric nric, EditPersonDescriptor editPersonDescriptor) {
+        requireNonNull(nric);
         requireNonNull(editPersonDescriptor);
 
-        this.index = index;
+        this.nric = nric;
         this.editPersonDescriptor = new EditPersonDescriptor(editPersonDescriptor);
     }
 
+
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        requireNonNull(model);
-        List<Person> lastShownList = model.getFilteredPersonList();
+        try {
+            requireNonNull(model);
+            List<Person> lastShownList = model.getFilteredPersonList();
 
-        if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            Person personToEdit = nricToPerson(nric, lastShownList);
+            Person editedPerson = createEditedPerson(personToEdit, editPersonDescriptor);
+
+            if (!personToEdit.isSamePerson(editedPerson) && model.hasPerson(editedPerson)) {
+                throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+            }
+
+            model.setPerson(personToEdit, editedPerson);
+            model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+            return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedPerson));
+        } catch (PersonNotFoundException e) {
+            throw new CommandException(String.format(MESSAGE_PERSON_NOT_FOUND, nric));
         }
+    }
 
-        Person personToEdit = lastShownList.get(index.getZeroBased());
-        Person editedPerson = createEditedPerson(personToEdit, editPersonDescriptor);
-
-        if (!personToEdit.isSamePerson(editedPerson) && model.hasPerson(editedPerson)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+    /**
+     * Returns a person that has the same NRIC with the NRIC specified.
+     *
+     * @param nric NRIC of the person to be searched.
+     * @param lastShownList List of persons.
+     */
+    private Person nricToPerson(Nric nric, List<Person> lastShownList) throws PersonNotFoundException {
+        Iterator<Person> iterator = lastShownList.iterator();
+        while (iterator.hasNext()) {
+            Person person = iterator.next();
+            if (person.getNric().equals(nric)) {
+                return person;
+            }
         }
-
-        model.setPerson(personToEdit, editedPerson);
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedPerson));
+        throw new PersonNotFoundException();
     }
 
     /**
      * Creates and returns a {@code Person} with the details of {@code personToEdit}
      * edited with {@code editPersonDescriptor}.
      */
-    private static Person createEditedPerson(Person personToEdit, EditPersonDescriptor editPersonDescriptor) {
+    private static Person createEditedPerson(Person personToEdit, EditPersonDescriptor editPersonDescriptor)
+            throws CommandException {
+
         assert personToEdit != null;
 
         Type updatedType = editPersonDescriptor.getType().orElse(personToEdit.getType());
@@ -91,7 +120,30 @@ public class EditCommand extends Command {
         Name updatedName = editPersonDescriptor.getName().orElse(personToEdit.getName());
         Phone updatedPhone = editPersonDescriptor.getPhone().orElse(personToEdit.getPhone());
 
-        return new Person(updatedType, updatedNric, updatedName, updatedPhone);
+        assert Type.isValidType(updatedType.toString());
+        if (updatedType.isPatient()) {
+            Age updatedAge = ((Patient) personToEdit).getAge();
+            BloodType updatedBloodType = ((Patient) personToEdit).getBloodType();
+            TissueType updatedTissueType = ((Patient) personToEdit).getTissueType();
+            Organ updatedOrgan = ((Patient) personToEdit).getOrgan();
+            Priority updatedPriority = ((Patient) personToEdit).getPriority();
+            DoctorInCharge updatedDoctorInCharge = ((Patient) personToEdit).getDoctorInCharge();
+            Status updatedStatus = ((Patient) personToEdit).getStatus();
+            return new Patient(updatedType, updatedNric, updatedName, updatedPhone, updatedAge, updatedPriority,
+                    updatedBloodType, updatedTissueType, updatedOrgan, updatedDoctorInCharge, updatedStatus);
+        } else if (updatedType.isDonor()) {
+            Age updatedAge = ((Donor) personToEdit).getAge();
+            BloodType updatedBloodType = ((Donor) personToEdit).getBloodType();
+            TissueType updatedTissueType = ((Donor) personToEdit).getTissueType();
+            Organ updatedOrgan = ((Donor) personToEdit).getOrgan();
+            OrganExpiryDate updatedOrganExpiryDate = ((Donor) personToEdit).getOrganExpiryDate();
+            Status updatedStatus = ((Donor) personToEdit).getStatus();
+            return new Donor(updatedType, updatedNric, updatedName, updatedPhone, updatedAge,
+                updatedBloodType, updatedTissueType, updatedOrgan, updatedOrganExpiryDate, updatedStatus);
+        } else if (updatedType.isDoctor()) {
+            return new Doctor(updatedType, updatedNric, updatedName, updatedPhone);
+        }
+        throw new CommandException(EditCommand.MESSAGE_USAGE);
     }
 
     @Override
@@ -108,7 +160,7 @@ public class EditCommand extends Command {
 
         // state check
         EditCommand e = (EditCommand) other;
-        return index.equals(e.index)
+        return nric.equals(e.nric)
                 && editPersonDescriptor.equals(e.editPersonDescriptor);
     }
 

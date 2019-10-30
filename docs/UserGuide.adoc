@@ -323,30 +323,46 @@ Edits the phone number of the specified patient to be `91234567`.
 * `edit ic/S8732457G n/Betsy Crower b/A` +
 Edits the name and blood type of the specified donor to be `Betsy Crower` and `A` respectively.
 
-=== Locating persons by name: `find`
+// tag::find[]
+=== Finding persons by attributes: `find`
 
-Finds persons whose attributes contain any of the given keywords.
-A list of patient/donor/doctor's information whose attributes partially match the keywords
-will be displayed. +
+You can use the `find` command to search for persons whose attributes match your input keywords. Matching persons will
+be displayed in a list. +
 
-Format: `find`
+Format: `find __PREFIX__/__KEYWORD__`
 
-Optional parameters: any parameter from <<List of Attributes>>
+Optional parameters: Multiple `keywords` per `prefix`, multiple `prefixes` in the same find command.
 
+The find command performs case insensitive `OR` matching within a prefix and `AND` matching between prefixes. The
+following example illustrates this concept:
 
-****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* Persons matching at least one attribute will be returned. +
-e.g. `a/28 n/Hans Bo` will return people whose attributes are `n/Hans Gruber`, `n/Bo Yang`,
-`a/28 n/Jane`
+.Find command with multiple prefixes and multiple keywords per prefix.
+image::findByPrefix.png[width="790"]
 
-****
+As seen from Figure 12, `find n/Alice Carl Elle t/doctor donor` displays both `Alice Pauline` and `Elle Meyer`.
+This is due to the fact that Alice's name matches either of 'Alice' `OR` 'Carl', `AND` she is also either a 'doctor'
+`OR` 'donor'. The same is true for Elle.
 
-Examples:
+You may wish to reference the following section: <<List of Attributes>>; to view the list of available prefixes to
+search by.
 
-* `find t/patient n/Lim` +
-Returns any patient whose name contains 'Lim'
+Here are some examples and pointers showcasing the use of `find`:
 
+__Use case with single prefix and keyword__ +
+* `find n/Alice` +
+Displays all persons whose name contains 'Alice'
+
+__Use case demonstrating keyword case insensitivity__ +
+* `find n/aLiCe` +
+Displays the same result as the preceding example.
+
+__Use case with multiple keywords per prefix__ +
+* `find n/Alice Benson b/A B O` +
+Displays all persons whose name contains either 'Alice' or 'Benson' and whose blood type is either 'A', 'B' or 'O'.
+
+__Use case demonstrating prefix order insensitivity__ +
+* `find b/A B O n/Alice Benson` +
+Displays the same result as the preceding example.
 
 // tag::delete[]
 === Deleting a person : `delete`

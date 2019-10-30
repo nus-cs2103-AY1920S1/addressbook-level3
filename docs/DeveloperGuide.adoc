@@ -17,9 +17,15 @@ endif::[]
 By: `CS2103T-T13-1`      Since: `Sep 2019`      Licence: `MIT`
 
 == Introduction
-Welcome to ORGANice! This is an organ matching desktop application that is specifically designed for fast typing
-hospital administration staff. This developer guide is meant for developers who would like to understand the
-design and structure of ORGANice.
+Welcome to ORGANice! ORGANice is an organ transplant manager desktop application
+specifically designed for hospital administration staff who prefer typing.
+
+=== Purpose
+This guide documents the software design and considerations
+made during the development of ORGANice.
+
+=== Intended audience
+This guide is meant for developers who would like to further develop ORGANice.
 
 == Setting up
 
@@ -232,6 +238,37 @@ shows the if-else block:
 selects the `listOfMatches` list to display, while the `handleNonMatches()` method selects the
 `filteredPersons` list to display.
 
+All lists are displayed in a `PersonListPanel`. This is a custom UI component that inherits the `UiPart<Region>` class.
+The constructor of `PersonListPanel` takes in an `ObservableList<Person>` object and creates
+ a list of `PersonListViewCell` objects to be displayed.
+
+The `updateItem(Person person, boolean empty)` method displays the `MatchedDonor` and
+`MatchedPatient` objects available in the `ObservableList<Person>` object. The following is the code snippet for
+`#updateItem()`:
+```
+protected void updateItem(Person person, boolean empty) {
+    super.updateItem(person, empty);
+    if (empty || person == null) {
+        setGraphic(null);
+        setText(null);
+    } else {
+        if (person instanceof Doctor) {
+            setGraphic(new DoctorCard((Doctor) person, getIndex() + 1).getRoot());
+        } else if (person instanceof MatchedDonor) {
+            setGraphic(new MatchCard((Donor) person, getIndex() + 1).getRoot());
+        } else if (person instanceof Donor) {
+            setGraphic(new DonorCard((Donor) person, getIndex() + 1).getRoot());
+        } else if (person instanceof MatchedPatient) {
+            setGraphic(new NumberOfMatches((MatchedPatient) person, getIndex() + 1).getRoot());
+        } else if (person instanceof Patient) {
+            setGraphic(new PatientCard((Patient) person, getIndex() + 1).getRoot());
+        } else {
+            setGraphic(new PersonCard(person, getIndex() + 1).getRoot());
+        }
+    }
+}
+```
+
 ==== Model of Matching
 This section will discuss aspects of the match feature that interacts with the `Model` component.
 
@@ -241,7 +278,7 @@ the match command is invoked, previous `MatchedDonor` and `MatchedPatient` objec
 will be removed from the list.
 
 `MatchedDonor` and `MatchedPatient` objects only exist in-memory and will not be saved to the hard disk.
-This means that data stored in `MatchedDonor` and `MatchedPatient` objects will not be assessible
+This means that data stored in `MatchedDonor` and `MatchedPatient` objects will not be accessible
 in the next app launch.
 
 ==== Design considerations
@@ -263,7 +300,7 @@ identified. {Link to bug report}
 This section explains why the match results are not stored.
 
 One reason is to ensure that all objects in the `listOfMatches` ObservableList are different after
-executing a match command. This ensures that the `updateCell()` method would be called to
+executing a match command. This ensures that the `updateItem()` method would be called to
 update the `PersonListPanel` display.
 
 Another reason is to override previous match results with new results from the latest match command.
