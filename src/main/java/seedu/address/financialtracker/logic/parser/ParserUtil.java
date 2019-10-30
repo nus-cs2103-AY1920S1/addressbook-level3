@@ -12,8 +12,7 @@ import seedu.address.financialtracker.model.expense.Type;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
- * Contains utility methods used for parsing strings in the various *Parser
- * classes.
+ * Contains utility methods used for parsing strings in the various *Parser classes.
  */
 public class ParserUtil {
 

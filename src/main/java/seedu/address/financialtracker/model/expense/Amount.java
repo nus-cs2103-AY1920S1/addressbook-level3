@@ -3,7 +3,7 @@ package seedu.address.financialtracker.model.expense;
 import static java.util.Objects.requireNonNull;
 
 /**
- * A finance expense.
+ * An expense amount.
  */
 public class Amount {
 

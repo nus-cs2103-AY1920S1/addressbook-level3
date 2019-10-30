@@ -3,8 +3,8 @@ package seedu.address.financialtracker.logic.parser;
 import seedu.address.logic.parser.Prefix;
 
 /**
- * Contains Command Line Interface (CLI) syntax definitions common to multiple
- * commands
+ * Contains Command Line Interface (CLI) syntax definitions common to multiple commands.
+ * Specific for Financial Tracker feature.
  */
 public class CliSyntax {
 

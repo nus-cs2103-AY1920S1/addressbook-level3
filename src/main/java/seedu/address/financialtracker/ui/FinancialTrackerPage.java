@@ -23,6 +23,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.ui.CommandBox;
 import seedu.address.ui.Page;
+import seedu.address.ui.PageManager;
 import seedu.address.ui.PageType;
 import seedu.address.ui.ResultDisplay;
 import seedu.address.ui.UiPart;
@@ -137,7 +138,7 @@ public class FinancialTrackerPage extends UiPart<VBox> implements Page {
      */
     @FXML
     private void handleExit() {
-        this.financialTrackerScene.getWindow().hide();
+        PageManager.closeWindows();
     }
 
     @Override

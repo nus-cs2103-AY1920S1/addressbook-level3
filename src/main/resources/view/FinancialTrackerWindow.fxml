@@ -16,6 +16,7 @@
             <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
         </Menu>
     </MenuBar>
+   <HBox fx:id="header1" prefHeight="10.0" prefWidth="440.0" />
    <HBox id="header" alignment="CENTER" prefHeight="62.0" prefWidth="460.0">
       <children>
          <VBox alignment="CENTER">
@@ -27,7 +28,7 @@
          </VBox>
       </children>
    </HBox>
-   <HBox id="border" fx:id="header" prefHeight="10.0" prefWidth="440.0" />
+   <HBox id="border" fx:id="header" prefHeight="10.0" prefWidth="440.0" VBox.vgrow="NEVER" />
 
     <VBox fx:id="expenseList" minWidth="340" prefWidth="340" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
         <padding>
