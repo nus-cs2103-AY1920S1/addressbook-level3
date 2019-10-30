@@ -28,9 +28,9 @@
                 <Label fx:id="taskDes" text="\$first" styleClass="cell_big_label" />
             </HBox>
             <FlowPane fx:id="tags" />
-            <Label fx:id="priority" styleClass="cell_small_label" text="\priority" />
-            <Label fx:id="frequency" styleClass="cell_small_label" text="\frequency" />
-            <Label fx:id="status" styleClass="cell_small_label" text="\status" />
+            <Label fx:id="priority" styleClass="cell_small_label" text="\$priority" />
+            <Label fx:id="frequency" styleClass="cell_small_label" text="\$frequency" />
+            <Label fx:id="status" styleClass="cell_small_label" text="\$status" />
         </VBox>
     </GridPane>
 </HBox>

@@ -38,7 +38,6 @@ public class TaskCard extends UiPart<Region> {
         super(FXML);
         this.task = task;
         id.setText(displayedIndex + ". ");
-        System.out.println("task des: " + task.getTaskDes());
         taskDes.setText(task.getTaskDes());
         priority.setText(task.getPriority().toString());
         frequency.setText(task.getFrequency().toString());
