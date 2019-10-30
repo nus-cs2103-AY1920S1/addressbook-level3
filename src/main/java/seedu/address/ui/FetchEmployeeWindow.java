@@ -1,15 +1,20 @@
 package seedu.address.ui;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.logging.Logger;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.FlowPane;
 import javafx.stage.Stage;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
@@ -33,6 +38,18 @@ public class FetchEmployeeWindow extends UiPart<Stage> {
 
     @FXML
     private AnchorPane employeeCard;
+    @FXML
+    private Label name;
+    @FXML
+    private Label phone;
+    @FXML
+    private Label address;
+    @FXML
+    private Label email;
+    @FXML
+    private FlowPane tags;
+    @FXML
+    private ImageView imgBox;
 
     /**
      * Creates a new FetchEmployeeWindow.
@@ -42,8 +59,22 @@ public class FetchEmployeeWindow extends UiPart<Stage> {
     private FetchEmployeeWindow(Stage root, Logic logic, Integer index) {
         super(FXML, root);
         Employee employee = logic.getFilteredEmployeeList().get(index);
+        if (employee.getEmployeeGender().gender.equals("male")) {
+            Image image = new Image("/images/maleEmployee.png");
+            imgBox.setImage(image);
+        } else {
+            Image image = new Image("/images/femaleEmployee.png");
+            imgBox.setImage(image);
+        }
         ObservableList<Event> eventDateList = logic.getFullEventList();
         updateCards(employee, eventDateList);
+        name.setText(employee.getEmployeeName().fullName + " ID: " + employee.getEmployeeId().id); //for debug
+        phone.setText(employee.getEmployeePhone().value);
+        address.setText(employee.getEmployeeAddress().value);
+        email.setText(employee.getEmployeeEmail().value);
+        employee.getTags().stream()
+                .sorted(Comparator.comparing(tag -> tag.tagName))
+                .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }
 
     /**
