@@ -21,7 +21,7 @@ public class AutotagCommand extends Command {
             + ": Creates an automatic tagger that tags bookmarks which match the given conditions. At least one "
             + "condition must be specified.\n"
             + "Parameters: TAG_NAME [n/NAME_KEYWORD]... [u/URL_KEYWORD]... "
-            + "[f/FOLDER]... [nn/NOT_NAME_KEYWORD]... [nu/NOT_URL_KEYWORD]... [nf/NOT_FOLDER]\n"
+            + "[f/FOLDER]... [nn/NOT_NAME_KEYWORD]... [nu/NOT_URL_KEYWORD]... [nf/NOT_FOLDER]...\n"
             + "Example: " + COMMAND_WORD + " Quiz u/luminus.nus.edu.sg u/quiz nu/attempt f/AY1920";
 
     public static final String MESSAGE_AUTOTAG_ADDED = "An autotag was added successfully: %1$s";
