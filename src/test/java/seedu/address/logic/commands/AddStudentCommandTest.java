@@ -29,47 +29,48 @@ import seedu.address.model.scheduler.Reminder;
 import seedu.address.model.student.Student;
 import seedu.address.testutil.StudentBuilder;
 
-public class AddCommandTest {
+public class AddStudentCommandTest {
 
     @Test
-    public void constructor_nullPerson_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new AddCommand(null));
+    public void constructor_nullStudent_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> new AddStudentCommand(null));
     }
 
     /*
     @Test
-    public void execute_personAcceptedByModel_addSuccessful() throws Exception {
-        ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
+    public void execute_studentAcceptedByModel_addSuccessful() throws Exception {
+        ModelStubAcceptingStudentAdded modelStub = new ModelStubAcceptingStudentAdded();
         Student validStudent = new StudentBuilder().build();
 
-        CommandResult commandResult = new AddCommand(validStudent).execute(modelStub);
+        CommandResult commandResult = new AddStudentCommand(validStudent).execute(modelStub);
 
-        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validStudent), commandResult.getFeedbackToUser());
-        assertEquals(Arrays.asList(validStudent), modelStub.personsAdded);
+        assertEquals(String.format(AddStudentCommand.MESSAGE_SUCCESS, validStudent), commandResult.getFeedbackToUser());
+        assertEquals(Arrays.asList(validStudent), modelStub.studentsAdded);
     }
     */
 
     @Test
-    public void execute_duplicatePerson_throwsCommandException() {
+    public void execute_duplicateStudent_throwsCommandException() {
         Student validStudent = new StudentBuilder().build();
-        AddCommand addCommand = new AddCommand(validStudent);
-        ModelStub modelStub = new ModelStubWithPerson(validStudent);
+        AddStudentCommand addStudentCommand = new AddStudentCommand(validStudent);
+        ModelStub modelStub = new ModelStubWithStudent(validStudent);
 
-        assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_STUDENT, () -> addCommand.execute(modelStub));
+        assertThrows(CommandException.class, AddStudentCommand.MESSAGE_DUPLICATE_STUDENT, (
+            ) -> addStudentCommand.execute(modelStub));
     }
 
     @Test
     public void equals() {
         Student alice = new StudentBuilder().withName("Alice").build();
         Student bob = new StudentBuilder().withName("Bob").build();
-        AddCommand addAliceCommand = new AddCommand(alice);
-        AddCommand addBobCommand = new AddCommand(bob);
+        AddStudentCommand addAliceCommand = new AddStudentCommand(alice);
+        AddStudentCommand addBobCommand = new AddStudentCommand(bob);
 
         // same object -> returns true
         assertTrue(addAliceCommand.equals(addAliceCommand));
 
         // same values -> returns true
-        AddCommand addAliceCommandCopy = new AddCommand(alice);
+        AddStudentCommand addAliceCommandCopy = new AddStudentCommand(alice);
         assertTrue(addAliceCommand.equals(addAliceCommandCopy));
 
         // different types -> returns false
@@ -266,10 +267,10 @@ public class AddCommandTest {
     /**
      * A Model stub that contains a single student.
      */
-    private class ModelStubWithPerson extends ModelStub {
+    private class ModelStubWithStudent extends ModelStub {
         private final Student student;
 
-        ModelStubWithPerson(Student student) {
+        ModelStubWithStudent(Student student) {
             requireNonNull(student);
             this.student = student;
         }
@@ -284,20 +285,20 @@ public class AddCommandTest {
     /**
      * A Model stub that always accept the student being added.
      */
-    private class ModelStubAcceptingPersonAdded extends ModelStub {
-        final ArrayList<Student> personsAdded = new ArrayList<>();
+    private class ModelStubAcceptingStudentAdded extends ModelStub {
+        final ArrayList<Student> studentsAdded = new ArrayList<>();
         final UniqueAssignmentList assignments = new UniqueAssignmentList();
 
         @Override
         public boolean hasStudent(Student student) {
             requireNonNull(student);
-            return personsAdded.stream().anyMatch(student::isSameStudent);
+            return studentsAdded.stream().anyMatch(student::isSameStudent);
         }
 
         @Override
         public void addStudent(Student student) {
             requireNonNull(student);
-            personsAdded.add(student);
+            studentsAdded.add(student);
         }
 
         @Override

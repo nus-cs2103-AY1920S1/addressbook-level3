@@ -35,6 +35,7 @@ Package Assignment {
 Class Assignment
 Class AssignmentGrades
 Class AssignmentName
+Class AssignmentDeadline
 Class UniqueAssignmentList
 }
 }
@@ -65,12 +66,14 @@ Classroom *--> "1" UniqueAssignmentList
 UniqueAssignmentList o--> "*" Assignment
 Assignment *--> AssignmentName
 Assignment *--> AssignmentGrades
+Assignment *--> AssignmentDeadline
 
 Name -[hidden]right-> Phone
 Phone -[hidden]right-> Address
 Address -[hidden]right-> Email
 Email -[hidden]right-> ParentPhone
 ParentPhone -[hidden]right-> MedicalCondition
+MedicalCondition -[hidden]right-> DisplayPicture
 
 ModelManager -->"1" Classroom : filtered list
 @enduml
