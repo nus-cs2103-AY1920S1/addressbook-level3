@@ -14,8 +14,8 @@ import seedu.address.logic.parser.exceptions.ParseException;
  */
 public class EditVisitCommandParser implements Parser<EditVisitCommand> {
     /**
-     * Parses the given {@code String} of arguments in the context of the {@code DeleteVisitCommand}
-     * and returns a {@code DeleteVisitCommand} object for execution.
+     * Parses the given {@code String} of arguments in the context of the {@code EditVisitCommandParser}
+     * and returns a {@code EditVisitCommandParser} object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
     public EditVisitCommand parse(String args) throws ParseException {

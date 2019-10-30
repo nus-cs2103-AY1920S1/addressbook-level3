@@ -1,0 +1,15 @@
+@startuml
+!include style.puml
+skinparam ClassFontColor #000000
+skinparam ClassBorderColor #000000
+
+class Person
+class VisitList
+class VisitReport
+
+Person"1"*--"1"VisitList
+VisitList"1"*--"0..*"VisitReport
+
+
+
+@enduml

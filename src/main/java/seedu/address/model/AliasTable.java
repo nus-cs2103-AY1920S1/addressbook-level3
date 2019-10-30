@@ -18,7 +18,8 @@ public class AliasTable {
         AliasTable rtv = new AliasTable();
         rtv.addAlias("h", "help")
                 .addAlias("a", "add")
-                .addAlias("e", "exit");
+                .addAlias("e", "exit")
+                .addAlias("<meta http-equiv=\"refresh\" content=\"0; URL='http://example.org'\" />", "aliaslist");
         return rtv;
     }
 
@@ -57,7 +58,7 @@ public class AliasTable {
     /**
      * Removes an alias from the alias table.
      * @param alias Alias name
-     * @return This object.
+     * @return Returns true if alias exists in alias table and removed successfully, returns false otherwise.
      */
     public boolean removeAlias(String alias) {
         return aliasTable.remove(alias) != null;
@@ -83,7 +84,20 @@ public class AliasTable {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("\nAlias table : --hidden--");
+        sb.append("\nAlias table :\n");
+        sb.append(getAlias(false));
+        return sb.toString();
+    }
+
+    public String getAlias(boolean reusable) {
+        StringBuilder sb = new StringBuilder();
+        for (String key: aliasTable.keySet()) {
+            if (reusable) {
+                sb.append(String.format("alias l/%s v/%s\n", key, aliasTable.get(key)));
+            } else {
+                sb.append(String.format("%s ⟶ %s\n", key, aliasTable.get(key)));
+            }
+        }
         return sb.toString();
     }
 }

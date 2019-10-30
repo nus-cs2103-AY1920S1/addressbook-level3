@@ -9,6 +9,7 @@ import java.util.regex.Pattern;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.AddVisitCommand;
 import seedu.address.logic.commands.AliasCommand;
+import seedu.address.logic.commands.AliasListCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
@@ -17,6 +18,7 @@ import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditVisitCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
+import seedu.address.logic.commands.FollowUpCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.ProfileCommand;
@@ -89,6 +91,9 @@ public class AddressBookParser {
         case ProfileCommand.COMMAND_WORD:
             return new ProfileCommandParser().parse(arguments);
 
+        case FollowUpCommand.COMMAND_WORD:
+            return new FollowUpCommandParser().parse(arguments);
+
         case ReminderCommand.COMMAND_WORD:
             return new ReminderCommandParser().parse(arguments);
 
@@ -100,6 +105,9 @@ public class AddressBookParser {
 
         case ShowCommand.COMMAND_WORD:
             return new ShowCommand();
+
+        case AliasListCommand.COMMAND_WORD:
+            return new AliasListCommand();
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

@@ -12,7 +12,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.person.VisitReport;
 
 /**
- * Panel containing the list of persons.
+ * Panel containing the list of Visit Reports.
  */
 public class VisitListPanel extends UiPart<Stage> {
     private static final String FXML = "VisitListPanel.fxml";
@@ -27,7 +27,7 @@ public class VisitListPanel extends UiPart<Stage> {
     }
 
     /**
-     * Creates a new HelpWindow.
+     * Creates a new panel.
      */
     public VisitListPanel() {
         this(new Stage());

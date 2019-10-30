@@ -6,6 +6,7 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.person.Person;
+import seedu.address.model.reminder.ReminderStub;
 
 /**
  * The API of the Model component.
@@ -13,6 +14,9 @@ import seedu.address.model.person.Person;
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+
+    /** {@code Predicate} that always evaluate to true */
+    Predicate<ReminderStub> PREDICATE_SHOW_ALL_REMINDERS = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -79,6 +83,9 @@ public interface Model {
     /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Person> getFilteredPersonList();
 
+    /** Returns an unmodifiable view of the filtered person list */
+    ObservableList<ReminderStub> getFilteredReminderList();
+
     /**
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
@@ -86,7 +93,49 @@ public interface Model {
     void updateFilteredPersonList(Predicate<Person> predicate);
 
     /**
-     * Adds the given reminder.
+     * Updates the filter of the filtered person list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
      */
-    void addReminder(Reminder reminder);
+    void updateFilteredReminderList(Predicate<ReminderStub> predicate);
+
+    /**
+     * Adds the given reminder.
+     * @param type Type of reminder - 0 for reminder and 1 for follow-up
+     * @param days Number of days for the reminder
+     */
+    void addReminder(int type, String description, int days);
+
+    /**
+     * Creates a String with all reminders and follow-ups for easy display.
+     */
+    String outputReminders();
+
+    /**
+     * Adds a given alias into the alias table.
+     * @param alias Alias name
+     * @param aliasTo Alias value
+     */
+    void addAlias(String alias, String aliasTo);
+
+    /**
+     * Removes a given alias from the alias table.
+     * @param alias Alias name
+     * @return Returns true if alias exists in alias table and removed successfully, returns false otherwise.
+     */
+    boolean removeAlias(String alias);
+
+    /**
+     * Apply a suitable alias to the input command text. A suitable alias is an alias that matches the regex
+     * "{alias}($|\\s).*".
+     * If multiple matches exists, this method chooses the longest matching alias.
+     * @param commandText Command for alias to be applied to.
+     * @return Command that alias has been applied to.
+     */
+    String applyAlias(String commandText);
+
+    /**
+     * Gets a list of existing user-defined aliases in either a user-friendly or reusable form.
+     * @return list of existing user-defined aliases.
+     */
+    String getAliases(boolean reusable);
 }

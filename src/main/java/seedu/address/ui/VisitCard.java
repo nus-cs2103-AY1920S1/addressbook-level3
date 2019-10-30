@@ -2,13 +2,12 @@ package seedu.address.ui;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.person.VisitReport;
 
 /**
- * An UI component that displays information of a {@code Person}.
+ * An UI component that displays information of a {@code VisitList}.
  */
 public class VisitCard extends UiPart<Region> {
 
@@ -34,16 +33,18 @@ public class VisitCard extends UiPart<Region> {
     private Label date;
     @FXML
     private Label remarks;
-    @FXML
-    private FlowPane tags;
 
     public VisitCard(VisitReport report, int displayedIndex) {
         super(FXML);
         this.report = report;
         id.setText(displayedIndex + ". ");
         name.setText(report.getName());
-        date.setText(report.date);
-        remarks.setText(report.getRemarks());
+        date.setText("Visit Date: " + report.date);
+        if (report.getRemarks() == null || report.getRemarks().isEmpty()) {
+            remarks.setText("Remarks:\nnone");
+        } else {
+            remarks.setText("Remarks:\n" + report.getRemarks());
+        }
     }
 
     @Override

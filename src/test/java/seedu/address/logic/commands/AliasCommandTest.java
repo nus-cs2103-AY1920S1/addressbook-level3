@@ -16,9 +16,9 @@ import seedu.address.model.AliasTable;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
-import seedu.address.model.Reminder;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Person;
+import seedu.address.model.reminder.ReminderStub;
 
 public class AliasCommandTest {
     @Test
@@ -56,11 +56,16 @@ public class AliasCommandTest {
     }
 
     private class ModelStubWithAliasTable extends ModelStub {
-        final ReadOnlyUserPrefs userPrefs = new UserPrefs();
+        final UserPrefs userPrefs = new UserPrefs();
 
         @Override
         public ReadOnlyUserPrefs getUserPrefs() {
             return userPrefs;
+        }
+
+        @Override
+        public void addAlias(String alias, String aliasTo) {
+            userPrefs.addAlias(alias, aliasTo);
         }
     }
 
@@ -104,7 +109,32 @@ public class AliasCommandTest {
         }
 
         @Override
-        public void addReminder(Reminder reminder) {
+        public void addReminder(int type, String description, int days) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public String outputReminders() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addAlias(String alias, String aliasTo) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean removeAlias(String alias) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public String applyAlias(String commandText) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public String getAliases(boolean reusable) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -139,7 +169,17 @@ public class AliasCommandTest {
         }
 
         @Override
+        public ObservableList<ReminderStub> getFilteredReminderList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void updateFilteredPersonList(Predicate<Person> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredReminderList(Predicate<ReminderStub> predicate) {
             throw new AssertionError("This method should not be called.");
         }
     }

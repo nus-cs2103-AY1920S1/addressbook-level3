@@ -15,7 +15,7 @@ import seedu.address.model.person.VisitReport;
  * Saves new record to Visit List.
  */
 public class SaveVisitCommand extends Command {
-    public static final String MESSAGE_SAVE_VISIT_SUCCESS = "Saved visit to Person: %1$s";
+    public static final String MESSAGE_SAVE_VISIT_SUCCESS = "Saved visit report to Person: %1$s";
     private static final int INVALID_REPORT_INDEX = -1;
 
     private final Index index;

@@ -1,7 +1,6 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_UNALIAS_NAME;
 
 import java.util.stream.Stream;
 
@@ -16,16 +15,18 @@ public class UnaliasCommandParser implements Parser<UnaliasCommand> {
     @Override
     public UnaliasCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_UNALIAS_NAME);
+                ArgumentTokenizer.tokenize(args);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_UNALIAS_NAME)
-                || !argMultimap.getPreamble().isEmpty()) {
+        String unaliasName;
+
+        unaliasName = argMultimap.getPreamble();
+
+        if (unaliasName.equalsIgnoreCase("")) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UnaliasCommand.MESSAGE_USAGE));
         }
 
-        String name = argMultimap.getValue(PREFIX_UNALIAS_NAME).get();
 
-        return new UnaliasCommand(name);
+        return new UnaliasCommand(unaliasName);
     }
 
     /**

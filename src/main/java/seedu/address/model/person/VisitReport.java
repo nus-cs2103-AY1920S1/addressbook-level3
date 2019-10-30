@@ -68,13 +68,22 @@ public class VisitReport implements Comparable<VisitReport> {
 
     @Override
     public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof VisitReport // instanceof handles nulls
-                && date.equals(((VisitReport) other).date))
-                && medication.equals(((VisitReport) other).medication)
-                && diagnosis.equals(((VisitReport) other).diagnosis)
-                && remarks.equals(((VisitReport) other).remarks); // state check
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof VisitReport)) {
+            return false;
+        }
+
+        VisitReport otherReport = (VisitReport) other;
+        return date.equals(otherReport.date)
+                && name.equals(otherReport.name)
+                && medication.equals(otherReport.medication)
+                && diagnosis.equals(otherReport.diagnosis)
+                && remarks.equals(otherReport.remarks);
     }
+
     @Override
     public int compareTo(VisitReport otherReport) {
         String[] reportDate = this.date.split("/");

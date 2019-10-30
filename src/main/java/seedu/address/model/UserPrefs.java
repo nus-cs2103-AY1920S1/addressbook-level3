@@ -4,6 +4,8 @@ import static java.util.Objects.requireNonNull;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.Objects;
 
 import seedu.address.commons.core.GuiSettings;
@@ -15,6 +17,8 @@ public class UserPrefs implements ReadOnlyUserPrefs {
 
     private GuiSettings guiSettings = new GuiSettings();
     private AliasTable aliasTable;
+    private Reminder reminders;
+    private LocalDate lastUpdate;
     private Path addressBookFilePath = Paths.get("data" , "addressbook.json");
 
     /**
@@ -22,6 +26,8 @@ public class UserPrefs implements ReadOnlyUserPrefs {
      */
     public UserPrefs() {
         aliasTable = AliasTable.getDefaultAliasTable();
+        reminders = Reminder.getDefaultReminders();
+        lastUpdate = LocalDate.now();
     }
 
     /**
@@ -40,6 +46,8 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         setGuiSettings(newUserPrefs.getGuiSettings());
         setAddressBookFilePath(newUserPrefs.getAddressBookFilePath());
         setAliasTable(newUserPrefs.getAliasTable());
+        lastUpdate = newUserPrefs.getLastUpdate();
+        setReminders(newUserPrefs.getReminders());
     }
 
     public AliasTable getAliasTable() {
@@ -49,6 +57,20 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     public void setAliasTable(AliasTable aliasTable) {
         requireNonNull(aliasTable);
         this.aliasTable = aliasTable;
+    }
+
+    public Reminder getReminders() {
+        return reminders;
+    }
+
+    public void setReminders(Reminder reminders) {
+        requireNonNull(reminders);
+        this.reminders = reminders;
+        int dateDiff = Period.between(LocalDate.now(), lastUpdate).getDays();
+        if (dateDiff < 0) {
+            this.reminders.cascadeDay(Math.abs(dateDiff));
+        }
+        lastUpdate = LocalDate.now();
     }
 
     public GuiSettings getGuiSettings() {
@@ -82,12 +104,14 @@ public class UserPrefs implements ReadOnlyUserPrefs {
 
         return guiSettings.equals(o.guiSettings)
                 && addressBookFilePath.equals(o.addressBookFilePath)
-                && aliasTable.equals(o.aliasTable);
+                && aliasTable.equals(o.aliasTable)
+                && reminders.equals(o.reminders)
+                && lastUpdate.equals(o.lastUpdate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(guiSettings, addressBookFilePath, aliasTable);
+        return Objects.hash(guiSettings, addressBookFilePath, aliasTable, reminders, lastUpdate);
     }
 
     @Override
@@ -96,7 +120,36 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         sb.append("Gui Settings : " + guiSettings);
         sb.append("\nLocal data file location : " + addressBookFilePath);
         sb.append("\nAlias table : " + aliasTable);
+        sb.append("\nReminders table : " + reminders);
+        sb.append("\nLast update : " + lastUpdate);
         return sb.toString();
     }
 
+    public boolean removeAlias(String alias) {
+        return aliasTable.removeAlias(alias);
+    }
+
+    public void addAlias(String alias, String aliasTo) {
+        aliasTable.addAlias(alias, aliasTo);
+    }
+
+    public String applyAlias(String commandText) {
+        return aliasTable.applyAlias(commandText);
+    }
+
+    public String getAliases(boolean reusable) {
+        return aliasTable.getAlias(reusable);
+    }
+
+    public void addReminder(int type, String description, int days) {
+        reminders.addReminder(type, description, days);
+    }
+
+    public String outputReminders() {
+        return reminders.outputReminders();
+    }
+
+    public LocalDate getLastUpdate() {
+        return lastUpdate;
+    }
 }

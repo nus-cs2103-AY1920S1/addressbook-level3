@@ -1,0 +1,94 @@
+@startuml
+!include style.puml
+box UI UI_COLOR_T1
+participant ":MainWindow" as MainWindow UI_COLOR
+participant ":VisitRecordWindow" as VisitRecordWindow UI_COLOR
+end box
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant "e:EditVisitCommand" as EditCommand LOGIC_COLOR
+participant "s:SaveVisitCommand" as SaveVisitCommand LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as model MODEL_COLOR
+end box
+
+MainWindow -> LogicManager : execute(editivisit)
+activate LogicManager
+
+LogicManager -> AddressBookParser : parseCommand(editivisit)
+activate AddressBookParser
+
+create EditCommand
+AddressBookParser -> EditCommand
+activate EditCommand
+
+opt illegal person index
+    LogicManager <-- AddressBookParser : throw ParseException
+    MainWindow <-- LogicManager : throw ParseException
+    [<-- MainWindow : throw ParseException
+end
+opt non integer report index
+    LogicManager <-- AddressBookParser : throw ParseException
+    MainWindow <-- LogicManager : throw ParseException
+    [<-- MainWindow : throw ParseException
+end
+opt out of bound report index
+    AddressBookParser <-- EditCommand : throw CommandException
+    LogicManager <-- AddressBookParser : throw CommandException
+    MainWindow <-- LogicManager : throw CommandException
+    [<-- MainWindow : throw CommandException
+end
+
+EditCommand --> AddressBookParser : e
+deactivate EditCommand
+
+AddressBookParser --> LogicManager : e
+deactivate AddressBookParser
+
+LogicManager -> EditCommand : execute()
+activate EditCommand
+
+EditCommand --> LogicManager : result
+
+deactivate EditCommand
+
+EditCommand -[hidden]-> LogicManager : result
+destroy EditCommand
+
+LogicManager --> MainWindow : result
+deactivate LogicManager
+
+activate MainWindow
+alt isShowList
+    [<-MainWindow : display list of reports
+else else
+
+    MainWindow -> VisitRecordWindow : display form
+    activate VisitRecordWindow
+    VisitRecordWindow -> SaveVisitCommand ** : user saves
+    activate SaveVisitCommand
+    SaveVisitCommand --> VisitRecordWindow : s
+    deactivate SaveVisitCommand
+    VisitRecordWindow -> LogicManager
+    activate LogicManager
+    LogicManager -> SaveVisitCommand : execute(s)
+    activate SaveVisitCommand
+    SaveVisitCommand -> model : saves changes
+    activate model
+    model --> SaveVisitCommand
+    deactivate model
+    SaveVisitCommand --> LogicManager : result
+    deactivate SaveVisitCommand
+    SaveVisitCommand -[hidden]-> LogicManager : result
+    destroy SaveVisitCommand
+    LogicManager --> VisitRecordWindow : result
+    deactivate LogicManager
+    VisitRecordWindow --> MainWindow : result
+    deactivate VisitRecordWindow
+
+end
+@enduml

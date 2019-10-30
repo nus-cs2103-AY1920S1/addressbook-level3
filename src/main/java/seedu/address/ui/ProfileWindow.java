@@ -9,7 +9,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -21,8 +20,8 @@ import seedu.address.model.tag.Tag;
  * Panel containing detailed information of the specified Person including
  * the usual details on PersonCard, and also associated Visit information.
  */
-public class ProfilePanel extends UiPart<Stage> {
-    private static final String FXML = "ProfilePanel.fxml";
+public class ProfileWindow extends UiPart<Stage> {
+    private static final String FXML = "ProfileWindow.fxml";
 
     private int target;
 
@@ -45,16 +44,19 @@ public class ProfilePanel extends UiPart<Stage> {
     private TextArea visitField;
 
 
-    public ProfilePanel(Stage root) {
+    public ProfileWindow(Stage root) {
         super(FXML, root);
     }
 
     /**
      * Creates a new ProfilePanel.
      */
-    public ProfilePanel() {
+    public ProfileWindow() {
         this(new Stage());
+        /*
+         * Using default window instead.
         this.getRoot().initStyle(StageStyle.UTILITY);
+         */
     }
 
     /**

@@ -3,6 +3,7 @@ package seedu.address.ui;
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -10,8 +11,10 @@ import javafx.scene.control.TextArea;
 import javafx.scene.input.KeyCombination;
 import javafx.stage.Stage;
 
+import javafx.stage.WindowEvent;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
+import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.SaveVisitCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.person.VisitReport;
@@ -42,6 +45,7 @@ public class VisitRecordWindow extends UiPart<Stage> {
     private int index;
     private int reportIdx;
     private String date;
+    private String msg = "";
     private Logic logic;
 
 
@@ -51,20 +55,21 @@ public class VisitRecordWindow extends UiPart<Stage> {
      * @param root Stage to use as the root of the VisitRecordWindow.
      */
 
-    public VisitRecordWindow(Stage root) {
+    public VisitRecordWindow(Stage root, EventHandler<WindowEvent> e) {
         super(FXML, root);
+        root.setOnHidden(e);
         setup();
     }
 
     /**
      * Creates a new VisitRecordWindow.
      */
-    public VisitRecordWindow() {
-        this(new Stage());
+    public VisitRecordWindow(EventHandler<WindowEvent> e) {
+        this(new Stage(), e);
     }
 
     /**
-     * Shows the help window.
+     * Shows the window.
      * @throws IllegalStateException
      * <ul>
      *     <li>
@@ -82,27 +87,27 @@ public class VisitRecordWindow extends UiPart<Stage> {
      * </ul>
      */
     public void show() {
-        logger.fine("Showing report form.");
+        logger.fine("Showing Visit Record Window.");
         getRoot().show();
         getRoot().centerOnScreen();
     }
 
     /**
-     * Returns true if the help window is currently being shown.
+     * Returns true if the window is currently being shown.
      */
     public boolean isShowing() {
         return getRoot().isShowing();
     }
 
     /**
-     * Hides the help window.
+     * Hides the window.
      */
     public void hide() {
         getRoot().hide();
     }
 
     /**
-     * Focuses on the help window.
+     * Focuses on the window.
      */
     public void focus() {
         getRoot().requestFocus();
@@ -117,7 +122,8 @@ public class VisitRecordWindow extends UiPart<Stage> {
         SaveVisitCommand save = new SaveVisitCommand(index, reportIdx, date, medicine.getText(),
                     diagnosis.getText(), remarks.getText());
 
-        logic.execute(save);
+        CommandResult commandResult = logic.execute(save);
+        this.msg = commandResult.getFeedbackToUser();
         medicine.clear();
         diagnosis.clear();
         remarks.clear();
@@ -162,11 +168,14 @@ public class VisitRecordWindow extends UiPart<Stage> {
                 KeyCombination.valueOf("F2"),
                 new Runnable() {
                     @FXML public void run() {
-
                         button.fire();
                     }
                 }
         );
+    }
+
+    public String getMessage() {
+        return this.msg;
     }
 
 

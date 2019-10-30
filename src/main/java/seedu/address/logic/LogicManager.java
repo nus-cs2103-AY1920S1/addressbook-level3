@@ -15,6 +15,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.person.Person;
+import seedu.address.model.reminder.ReminderStub;
 import seedu.address.storage.Storage;
 
 /**
@@ -38,7 +39,7 @@ public class LogicManager implements Logic {
     public CommandResult execute(String commandText) throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
-        String aliasedCommandText = model.getUserPrefs().getAliasTable().applyAlias(commandText);
+        String aliasedCommandText = model.applyAlias(commandText);
 
         CommandResult commandResult;
         Command command = addressBookParser.parseCommand(aliasedCommandText);
@@ -80,6 +81,11 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public ObservableList<ReminderStub> getFilteredReminderList() {
+        return model.getFilteredReminderList();
+    }
+
+    @Override
     public Path getAddressBookFilePath() {
         return model.getAddressBookFilePath();
     }
@@ -92,5 +98,10 @@ public class LogicManager implements Logic {
     @Override
     public void setGuiSettings(GuiSettings guiSettings) {
         model.setGuiSettings(guiSettings);
+    }
+
+    @Override
+    public String outputReminders() {
+        return model.outputReminders();
     }
 }

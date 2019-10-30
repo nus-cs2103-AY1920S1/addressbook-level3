@@ -22,11 +22,11 @@ public class AddVisitCommand extends Command {
             + "by the index number used in the last person listing. "
             + "Calls window popup for user to fill in details.\n"
             + "Parameters: INDEX (must be a positive integer) "
-            + PREFIX_VISIT + "[DATE]\n"
+            + PREFIX_VISIT + "[DATE i.e. DD/MM/YYYY]\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_VISIT + "01/01/2019";
 
-    public static final String MESSAGE_ADD_VISIT_SUCCESS = "Added visit to Person: %1$s";
+    public static final String MESSAGE_ADD_VISIT_PROMPT = "Please fill in the form";
 
     private final Index index;
     private final String date;
@@ -53,7 +53,7 @@ public class AddVisitCommand extends Command {
         Person personToEdit = lastShownList.get(index.getZeroBased());
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
 
-        return new CommandResult(String.format(MESSAGE_ADD_VISIT_SUCCESS, personToEdit), index.getOneBased(), date);
+        return new CommandResult(String.format(MESSAGE_ADD_VISIT_PROMPT, personToEdit), index.getOneBased(), date);
     }
 
 
