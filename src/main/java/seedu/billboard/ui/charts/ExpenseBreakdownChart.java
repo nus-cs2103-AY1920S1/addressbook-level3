@@ -2,12 +2,13 @@ package seedu.billboard.ui.charts;
 
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.scene.chart.PieChart;
 import seedu.billboard.model.expense.Amount;
@@ -50,11 +51,10 @@ public class ExpenseBreakdownChart extends ExpenseChart {
      * timeline accordingly.
      */
     private void initChart() {
-        CompletableFuture<ExpenseBreakdown> expenseBreakdownFuture = breakdownGenerator.generateAsync(expenses);
-        expenseBreakdownFuture.thenAccept(expenseBreakdown -> {
-            dataList.setAll(breakdownValuesToList(expenseBreakdown.getTagBreakdownValues()));
-            pieChart.setData(dataList);
-        });
+        ExpenseBreakdown expenseBreakdown = breakdownGenerator.generate(expenses);
+
+        dataList.setAll(breakdownValuesToList(expenseBreakdown.getTagBreakdownValues()));
+        pieChart.setData(dataList);
 
         expenses.addListener((ListChangeListener<Expense>) c ->
                 onDataChange(breakdownGenerator.generateAsync(c.getList())));
@@ -63,9 +63,11 @@ public class ExpenseBreakdownChart extends ExpenseChart {
     /**
      * Helper method called when the displayed list of expenses change.
      */
-    private void onDataChange(CompletableFuture<ExpenseBreakdown> newDataFuture) {
-        newDataFuture.thenAccept(newData ->
-                dataList.setAll(breakdownValuesToList(newData.getTagBreakdownValues())));
+    private void onDataChange(Task<ExpenseBreakdown> newDataTask) {
+        newDataTask.setOnSucceeded(event -> {
+            ExpenseBreakdown newData = newDataTask.getValue();
+            Platform.runLater(() -> dataList.setAll(breakdownValuesToList(newData.getTagBreakdownValues())));
+        });
     }
 
     /**

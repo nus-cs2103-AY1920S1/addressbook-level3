@@ -1,12 +1,13 @@
 package seedu.billboard.model.statistics.generators;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import javafx.concurrent.Task;
 import seedu.billboard.model.expense.Expense;
 import seedu.billboard.model.statistics.formats.ExpenseBreakdown;
 import seedu.billboard.model.statistics.formats.FilledExpenseBreakdown;
@@ -27,8 +28,18 @@ public class BreakdownGenerator implements StatisticsGenerator<ExpenseBreakdown>
     }
 
     @Override
-    public CompletableFuture<ExpenseBreakdown> generateAsync(List<? extends Expense> expenses) {
-        return CompletableFuture.supplyAsync(() -> generate(expenses));
+    public Task<ExpenseBreakdown> generateAsync(List<? extends Expense> expenses) {
+        Task<ExpenseBreakdown> expenseBreakdownTask = new Task<>() {
+            @Override
+            protected ExpenseBreakdown call() {
+                List<? extends Expense> copy = new ArrayList<>(expenses);
+                return generate(copy);
+            }
+        };
+        Thread thread = new Thread(expenseBreakdownTask);
+        thread.setDaemon(true);
+        thread.start();
+        return expenseBreakdownTask;
     }
 
     /**

@@ -5,11 +5,12 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.EnumMap;
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
+import javafx.application.Platform;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
@@ -48,8 +49,9 @@ public class ExpenseTimelineChart extends ExpenseChart {
 
     /**
      * Returns a new {@code ExpenseTimelineChart} with the specified parameters.
-     * @param expenses An observable wrapper of the currently displayed expenses.
-     * @param interval An observable wrapper of the selected date interval to display.
+     *
+     * @param expenses          An observable wrapper of the currently displayed expenses.
+     * @param interval          An observable wrapper of the selected date interval to display.
      * @param timelineGenerator Instance of a class that generates the timeline to be viewed.
      */
     public ExpenseTimelineChart(ObservableList<? extends Expense> expenses, ObservableData<DateInterval> interval,
@@ -83,13 +85,10 @@ public class ExpenseTimelineChart extends ExpenseChart {
      * timeline accordingly.
      */
     private void initChart() {
-        CompletableFuture<ExpenseTimeline> expenseTimelineFuture =
-                timelineGenerator.generateAsync(expenses, interval.getValue());
+        ExpenseTimeline expenseTimeline = timelineGenerator.generate(expenses, interval.getValue());
 
-        expenseTimelineFuture.thenAccept(expenseTimeline -> {
-            series.getData().setAll(mapToData(expenseTimeline.getTimelineValues(), expenseTimeline.getDateInterval()));
-            timelineChart.getData().add(series);
-        });
+        series.getData().setAll(mapToData(expenseTimeline.getTimelineValues(), expenseTimeline.getDateInterval()));
+        timelineChart.getData().add(series);
 
         expenses.addListener((ListChangeListener<Expense>) c ->
                 onDataChange(timelineGenerator.generateAsync(c.getList(), interval.getValue())));
@@ -99,11 +98,14 @@ public class ExpenseTimelineChart extends ExpenseChart {
     /**
      * Helper method called when the displayed list of expenses change.
      */
-    private void onDataChange(CompletableFuture<ExpenseTimeline> newDataFuture) {
-        newDataFuture.thenAccept(newData -> {
-            List<Pair<DateRange, Amount>> timeline = newData.getTimelineValues();
-            List<XYChart.Data<String, BigDecimal>> data = mapToData(timeline, newData.getDateInterval());
-            series.getData().setAll(data);
+    private void onDataChange(Task<ExpenseTimeline> newDataTask) {
+        newDataTask.setOnSucceeded(event -> {
+            ExpenseTimeline newData = newDataTask.getValue();
+            Platform.runLater(() -> {
+                List<Pair<DateRange, Amount>> timeline = newData.getTimelineValues();
+                List<XYChart.Data<String, BigDecimal>> data = mapToData(timeline, newData.getDateInterval());
+                series.getData().setAll(data);
+            });
         });
     }
 
