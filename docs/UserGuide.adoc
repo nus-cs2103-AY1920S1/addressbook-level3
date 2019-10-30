@@ -136,7 +136,7 @@ of the newly added transaction will be added to the existing pending reimburseme
 .Screenshot of Reimbursement tab after successfully adding transactions
 image::homeUG/HomeAddShowInR.png[]
 
-=== Delete Transaction(s) from the Table
+==== Delete Transaction(s) from the Table
 This command helps to delete all transactions of a one person or a single transaction of a specific ID from the table.
 
 * Command Format:
@@ -176,7 +176,7 @@ image::homeUG/HomeDeletePStep2.png[]
 
 If the person inputted does not have any transactions related to him or her, Leo will also respond to inform you.
 
-=== Edit a Transaction in the Table
+==== Edit a Transaction in the Table
 This command helps to edit an existing transaction record in a table with different parameters.
 
 * Command Format:
@@ -204,7 +204,7 @@ image::homeUG/HomeEditStep2.png[]
 
 If the person entered into the command is not found in the Members tab, Leo will respond to inform you which is similar to <<NoSuchPerson, Figure 3>>.
 
-=== Sort Transactions in the Table
+==== Sort Transactions in the Table
 This command helps to sort the table of transactions into specific orders for viewing and for carrying out subsequent commands.
 
 * To sort:
@@ -217,7 +217,7 @@ The undo sort command will allow the user to view the table of transactions in t
 not when the transactions was first entered.
 
 
-=== Find Transactions that Match Keywords:
+==== Find Transactions that Match Keywords:
 This command helps to find transactions that match the entered keywords for viewing and for subsequent commands to be inputted based
 on the filtered table of transactions shown.
 

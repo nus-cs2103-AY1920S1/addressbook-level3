@@ -31,6 +31,8 @@ public class OverviewMessages {
     public static final String MESSAGE_NO_SUCH_COMMAND = "Sorry! There's no such command here. You can try the "
             + "following: 'set' or 'notify";
 
+    public static final String MESSAGE_INVALID_NUMBER_FORMAT = "Please check that your input contains only numbers.";
+
     public static final String EXPENSE_SUMMARY_TEXT = "Total spent: $%s/%s";
 
     public static final String INVENTORY_SUMMARY_TEXT = "Inventory value: $%s";
