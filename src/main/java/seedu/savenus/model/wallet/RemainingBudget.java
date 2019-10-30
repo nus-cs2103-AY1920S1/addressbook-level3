@@ -5,8 +5,11 @@ import static seedu.savenus.commons.util.AppUtil.checkArgument;
 
 import java.math.BigDecimal;
 
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import seedu.savenus.model.util.Money;
 
 /**
  * Represents a {@code Wallet}'s {@code RemainingBudget} amount in the application.
@@ -20,7 +23,7 @@ public class RemainingBudget {
             + "this application will not accept Budget Amounts higher than 1 million dollars";
     public static final String VALIDATION_REGEX = "(0|(0(\\.\\d{2,2}))|[1-9]+(\\d*(\\.\\d{2,2})?))";
 
-    private final StringProperty remainingBudgetProperty;
+    private final ObjectProperty<Money> remainingBudgetProperty;
 
     /**
      * Constructs a {@code RemainingBudget}.
@@ -30,10 +33,7 @@ public class RemainingBudget {
     public RemainingBudget(String newRemainingBudgetString) {
         requireNonNull(newRemainingBudgetString);
         checkArgument(isValidRemainingBudget(newRemainingBudgetString), MESSAGE_CONSTRAINTS);
-        if (!newRemainingBudgetString.contains(".")) {
-            newRemainingBudgetString += ".00";
-        }
-        remainingBudgetProperty = new SimpleStringProperty("$" + newRemainingBudgetString);
+        remainingBudgetProperty = new SimpleObjectProperty<>(new Money(newRemainingBudgetString));
     }
 
     /**
@@ -53,22 +53,22 @@ public class RemainingBudget {
     /**
      * Returns the {@code StringProperty} of this instance.
      */
-    public StringProperty getRemainingBudgetProperty() {
+    public ObjectProperty<Money> getRemainingBudgetProperty() {
         return remainingBudgetProperty;
     }
 
     /**
-     * Returns the {@code double} value of this instance.
+     * Returns the {@code Money} value of this instance.
      */
     public BigDecimal getRemainingBudgetAmount() {
-        return new BigDecimal(remainingBudgetProperty.get().substring(1));
+        return remainingBudgetProperty.get().getAmount();
     }
 
     /**
      * Set new user's {@code RemainingBudget}.
      */
     public void setRemainingBudget(RemainingBudget newRemainingBudget) {
-        remainingBudgetProperty.setValue("$" + newRemainingBudget.getRemainingBudgetAmount().toString());
+        remainingBudgetProperty.setValue(new Money(newRemainingBudget.getRemainingBudgetAmount()));
     }
 
     @Override

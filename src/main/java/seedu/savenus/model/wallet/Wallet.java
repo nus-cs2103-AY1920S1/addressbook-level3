@@ -3,7 +3,7 @@ package seedu.savenus.model.wallet;
 import java.math.BigDecimal;
 
 import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.StringProperty;
+import javafx.beans.property.ObjectProperty;
 
 import seedu.savenus.logic.commands.exceptions.CommandException;
 import seedu.savenus.model.food.Price;
@@ -11,6 +11,7 @@ import seedu.savenus.model.savings.Savings;
 import seedu.savenus.model.wallet.exceptions.BudgetAmountOutOfBoundsException;
 import seedu.savenus.model.wallet.exceptions.BudgetDurationOutOfBoundsException;
 import seedu.savenus.model.wallet.exceptions.InsufficientFundsException;
+import seedu.savenus.model.util.Money;
 
 
 /**
@@ -47,28 +48,28 @@ public class Wallet {
     }
 
     /**
-     * Returns {@code remainingBudget}'s {@code StringProperty}.
+     * Returns {@code remainingBudget}'s {@code ObjectProperty}.
      */
-    public StringProperty getRemainingBudgetProperty() {
+    public ObjectProperty<Money> getRemainingBudgetProperty() {
         return remainingBudget.getRemainingBudgetProperty();
     }
 
     /**
-     * Returns the {@code wallet}'s {@code remainingBudget}.
+     * Returns the {@code Wallet}'s {@code RemainingBudget}.
      */
     public RemainingBudget getRemainingBudget() {
         return remainingBudget;
     }
 
     /**
-     * Returns {@code remainingBudget}'s {@code double} value.
+     * Returns {@code RemainingBudget}'s {@code Money} value.
      */
     public BigDecimal getRemainingBudgetAmount() {
         return remainingBudget.getRemainingBudgetAmount();
     }
 
     /**
-     * Set {@code remainingBudget} with user's input.
+     * Set {@code RemainingBudget} with user's input.
      * @param newRemainingBudget New {@code RemainingBudget} created from user's input
      */
     public void setRemainingBudget(RemainingBudget newRemainingBudget) throws BudgetAmountOutOfBoundsException {
