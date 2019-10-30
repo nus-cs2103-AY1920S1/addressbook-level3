@@ -186,6 +186,11 @@ Sample Output:
 
 image::FindDemoSingleKeyword.png[width="790"]
 
+* `find a/add drop`
+
+Sample Output:
+
+image::FindDemoMultipleKeywords.png[width="790"]
 
 === Show clashes: `clash`
 

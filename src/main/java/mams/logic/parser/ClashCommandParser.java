@@ -7,6 +7,7 @@ import static mams.logic.parser.CliSyntax.PREFIX_STUDENT;
 
 import java.util.List;
 
+import mams.commons.core.Messages;
 import mams.logic.commands.ClashCommand;
 import mams.logic.parser.exceptions.ParseException;
 
@@ -24,7 +25,8 @@ public class ClashCommandParser implements Parser<ClashCommand> {
 
         if (argMultimap.areAllPrefixesAbsent(PREFIX_APPEAL, PREFIX_MODULE, PREFIX_STUDENT)
                 || !hasOnlyOneField(argMultimap)) {
-            throw new ParseException(ClashCommand.MESSAGE_USAGE);
+            throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
+                    ClashCommand.MESSAGE_USAGE));
         }
 
         if (argMultimap.getValue(PREFIX_APPEAL).isPresent() && argMultimap.getValueSize(PREFIX_APPEAL) == 1) {
@@ -40,7 +42,8 @@ public class ClashCommandParser implements Parser<ClashCommand> {
         } else if (argMultimap.getValue(PREFIX_STUDENT).isPresent() && argMultimap.getValueSize(PREFIX_STUDENT) == 1) {
             parameters.setStudentIndex(ParserUtil.parseIndex(argMultimap.getValue(PREFIX_STUDENT).get()));
         } else {
-            throw new ParseException(ClashCommand.MESSAGE_USAGE);
+            throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
+                    ClashCommand.MESSAGE_USAGE));
         }
 
         return new ClashCommand(parameters);
