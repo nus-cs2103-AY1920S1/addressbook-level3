@@ -37,8 +37,8 @@ public class JsonSerializableEventList {
      */
     public JsonSerializableEventList(ReadOnlyCalendar source) {
         this.eventList.addAll(source.getCalendarEntryList().stream()
-            .map(calendarEntry -> (Event) calendarEntry)
-            .map(JsonAdaptedEvent::new).collect(Collectors.toList()));
+                .map(calendarEntry -> (Event) calendarEntry)
+                .map(JsonAdaptedEvent::new).collect(Collectors.toList()));
     }
 
     /**

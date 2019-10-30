@@ -37,7 +37,7 @@ public class JsonSerializableRecordList implements JsonSerializableContent<Uniqu
      */
     public JsonSerializableRecordList(UniqueRecordList source) {
         records.addAll(source.asUnmodifiableObservableList().stream().map(JsonAdaptedRecord::new)
-            .collect(Collectors.toList()));
+                .collect(Collectors.toList()));
     }
 
     /**

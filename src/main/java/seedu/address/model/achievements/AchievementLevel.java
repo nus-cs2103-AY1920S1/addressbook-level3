@@ -8,5 +8,5 @@ public enum AchievementLevel {
     SILVER,
     GOLD,
     PLATINUM,
-    DIAMOND;
+    DIAMOND
 }

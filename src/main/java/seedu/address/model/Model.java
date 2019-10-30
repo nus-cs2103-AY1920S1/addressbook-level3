@@ -350,18 +350,18 @@ public interface Model {
     /**
      * Returns an unmodifiable list of motivational quotes stored in this program.
      */
-    public List<String> getMotivationalQuotesList();
+    List<String> getMotivationalQuotesList();
 
     //=========== Achievements =============================================================
 
     /**
      * Returns the set of changes made to the list of achievements stored in this program, if any.
      */
-    public Set<AchievementState> getNewAchievementStates();
+    Set<AchievementState> getNewAchievementStates();
 
     /**
      * Returns an unmodifiable map of achievements stored in this program.
      */
-    public Map<RecordType, List<Achievement>> getAchievementsMap();
+    Map<RecordType, List<Achievement>> getAchievementsMap();
 
 }

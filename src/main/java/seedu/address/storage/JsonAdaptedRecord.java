@@ -65,7 +65,7 @@ class JsonAdaptedRecord {
     public Record toModelType() throws IllegalValueException {
         if (dateTime == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                DateTime.class.getSimpleName()));
+                    DateTime.class.getSimpleName()));
         }
         if (!DateTime.isValidDateTime(dateTime)) {
             throw new IllegalValueException(DateTime.MESSAGE_CONSTRAINTS);
@@ -74,14 +74,14 @@ class JsonAdaptedRecord {
 
         if (recordType == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                RecordType.class.getSimpleName()));
+                    RecordType.class.getSimpleName()));
         }
 
         if (recordType.equals("Bmi")) {
 
             if (concentration == null) {
                 throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                    Concentration.class.getSimpleName()));
+                        Concentration.class.getSimpleName()));
             }
             if (!Concentration.isValidConcentration(concentration)) {
                 throw new IllegalValueException(Concentration.MESSAGE_CONSTRAINTS);
@@ -93,7 +93,7 @@ class JsonAdaptedRecord {
         } else if (recordType.equals("Bmi")) {
             if (height == null) {
                 throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                    Height.class.getSimpleName()));
+                        Height.class.getSimpleName()));
             }
             if (!Height.isValidHeight(height)) {
                 throw new IllegalValueException(Height.MESSAGE_CONSTRAINTS);
@@ -102,7 +102,7 @@ class JsonAdaptedRecord {
 
             if (weight == null) {
                 throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                    Weight.class.getSimpleName()));
+                        Weight.class.getSimpleName()));
             }
             if (!Weight.isValidWeight(weight)) {
                 throw new IllegalValueException(Weight.MESSAGE_CONSTRAINTS);

@@ -26,14 +26,6 @@ public abstract class Achievement {
     }
 
     /**
-     * Sets the state of the achievement to the given achievement state.
-     * @param achievementState Achievement state for this achievement to be set to.
-     */
-    public void setAchievementState(AchievementState achievementState) {
-        this.achievementState = achievementState;
-    }
-
-    /**
      * Returns the name of the image file representing this achievement.
      */
     public String getImageName() {
@@ -58,6 +50,15 @@ public abstract class Achievement {
 
     public AchievementState getAchievementState() {
         return achievementState;
+    }
+
+    /**
+     * Sets the state of the achievement to the given achievement state.
+     *
+     * @param achievementState Achievement state for this achievement to be set to.
+     */
+    public void setAchievementState(AchievementState achievementState) {
+        this.achievementState = achievementState;
     }
 
     /**

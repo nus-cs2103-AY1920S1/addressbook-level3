@@ -60,7 +60,7 @@ public class AchievementStateProcessor {
      * Initialises a map that contains average daily records listed in descending order of date.
      */
     private void initialiseAverageRecordMap() {
-        for (RecordType recordType: recordTypeSet) {
+        for (RecordType recordType : recordTypeSet) {
             model.calculateAverageMap(DAILY, recordType, model.getRecordList().size());
 
             // Sort by descending date
@@ -74,7 +74,8 @@ public class AchievementStateProcessor {
     /**
      * Sets the state of an achievement in this class and adds the new state to the set of new states stored by this
      * processor object.
-     * @param achievement Achievement with state to be changed.
+     *
+     * @param achievement           Achievement with state to be changed.
      * @param achievementStateToSet New achievement state of an achievement that is to be changed to.
      */
     private void setAchievementState(Achievement achievement, AchievementState achievementStateToSet) {
@@ -86,6 +87,7 @@ public class AchievementStateProcessor {
 
     /**
      * Demotes an achievement to previously achieved, if it's current state is achieved.
+     *
      * @param achievement Achievement that is to have it's state demoted.
      */
     private void demote(Achievement achievement) {
@@ -96,6 +98,7 @@ public class AchievementStateProcessor {
 
     /**
      * Promotes an achievement to achieved, if it's current state is not already achieved.
+     *
      * @param achievement Achievement that is to have it's state promoted.
      */
     private void promote(Achievement achievement) {
@@ -106,14 +109,17 @@ public class AchievementStateProcessor {
 
     /**
      * Returns whether or not the requirement for an achievement has already been met.
-     * @param achievement Achievement which is to be assessed on whether or not its requirement to achieve it has
-     *                    been met.
-     * @param daysToIterate Duration in number of days to check on whether or not achievement has met the requirement.
+     *
+     * @param achievement                     Achievement which is to be assessed on whether or not its requirement
+     *                                        to achieve it has
+     *                                        been met.
+     * @param daysToIterate                   Duration in number of days to check on whether or not achievement has
+     *                                        met the requirement.
      * @param averageAchievementValueIterator Iterator that returns average daily values for a particular record type.
      * @return Whether or not the requirement for an achievement has already been met.
      */
     private boolean requirementIsMet(Achievement achievement, int daysToIterate,
-                                            Iterator<Double> averageAchievementValueIterator) {
+                                     Iterator<Double> averageAchievementValueIterator) {
         boolean fulfillsRequirements = true;
         for (int i = 0; i < daysToIterate; i++) {
             Double averageAchievementValue = averageAchievementValueIterator.next();
@@ -128,9 +134,10 @@ public class AchievementStateProcessor {
 
     /**
      * Returns duration in number of days required to potentially meet the given achievement.
+     *
      * @param achievement Achievement for which duration required to assess on whether or not it has been achieved is
-     *                   to be determined.
-     * @return  Duration in number of days required to potentially meet the given achievement.
+     *                    to be determined.
+     * @return Duration in number of days required to potentially meet the given achievement.
      */
     private int getDaysToIterate(Achievement achievement) {
         return (int) achievement.getDurationValue() * (achievement.getDurationUnits() == WEEK
@@ -144,8 +151,9 @@ public class AchievementStateProcessor {
 
     /**
      * Processes a list of achievements for a given record type.
+     *
      * @param achievementList List of achievements to be processed.
-     * @param recordType Record type of achievements to be processed.
+     * @param recordType      Record type of achievements to be processed.
      */
     private void processAchievements(List<Achievement> achievementList, RecordType recordType) {
         boolean achievementIsAttained = false;

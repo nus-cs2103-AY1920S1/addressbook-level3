@@ -11,14 +11,14 @@ import seedu.address.model.record.RecordType;
  */
 public interface BloodSugar {
 
-    static final RecordType RECORD_TYPE = BLOODSUGAR;
-    static final double MINIMUM = 4.0;
-    static final double MAXIMUM = 7.8;
-    static final String CONSTRAINT_UNITS = "mmol/L";
-    static final DurationUnit DURATION_UNITS = DAY;
+    RecordType RECORD_TYPE = BLOODSUGAR;
+    double MINIMUM = 4.0;
+    double MAXIMUM = 7.8;
+    String CONSTRAINT_UNITS = "mmol/L";
+    DurationUnit DURATION_UNITS = DAY;
 
     /**
      * Returns the type of record of this achievement;
      */
-    public RecordType getRecordType();
+    RecordType getRecordType();
 }

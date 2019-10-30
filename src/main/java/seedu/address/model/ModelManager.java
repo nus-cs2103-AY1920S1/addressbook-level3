@@ -69,7 +69,7 @@ public class ModelManager implements Model {
         requireAllNonNull(addressBook, userPrefs, foodList, userList, recordList, calendar);
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs
-            + " and food map: " + foodList + " and record list: " + recordList + " and calendar: " + calendar);
+                + " and food map: " + foodList + " and record list: " + recordList + " and calendar: " + calendar);
 
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
@@ -91,7 +91,7 @@ public class ModelManager implements Model {
 
     public ModelManager() {
         this(new AddressBook(), new UserPrefs(), new UserList(), new UniqueFoodList(), new UniqueRecordList(),
-            new Calendar());
+                new Calendar());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -184,7 +184,7 @@ public class ModelManager implements Model {
 
     @Override
     public boolean equals(
-        Object obj) {
+            Object obj) {
         // short circuit if same object
         if (obj == this) {
             return true;
@@ -198,8 +198,8 @@ public class ModelManager implements Model {
         // state check
         ModelManager other = (ModelManager) obj;
         return addressBook.equals(other.addressBook)
-            && userPrefs.equals(other.userPrefs)
-            && filteredPersons.equals(other.filteredPersons);
+                && userPrefs.equals(other.userPrefs)
+                && filteredPersons.equals(other.filteredPersons);
     }
 
     //=========== User List =============================================================

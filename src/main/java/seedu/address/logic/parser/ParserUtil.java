@@ -85,7 +85,7 @@ public class ParserUtil {
             return AverageType.valueOf(trimmedAverageType);
         } catch (IllegalArgumentException e) {
             throw new ParseException(String.format(MESSAGE_INVALID_PARAMETER, AverageCommand.MESSAGE_USAGE,
-                AverageCommand.MESSAGE_INVALID_AVGTYPE));
+                    AverageCommand.MESSAGE_INVALID_AVGTYPE));
         }
     }
 
@@ -270,7 +270,7 @@ public class ParserUtil {
      * Parses {@code Collection<String> medicalConditions} into a {@code List<MedicalCondition>}.
      */
     public static List<MedicalCondition> parseMedicalConditions(Collection<String> medicalConditions)
-        throws ParseException {
+            throws ParseException {
         requireNonNull(medicalConditions);
         if (medicalConditions.isEmpty()) {
             throw new ParseException(MedicalCondition.MESSAGE_CONSTRAINTS);

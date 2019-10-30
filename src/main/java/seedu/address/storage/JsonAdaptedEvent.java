@@ -57,7 +57,7 @@ public class JsonAdaptedEvent extends JsonAdaptedCalendarEntry {
     public CalendarEntry toModelType() throws IllegalValueException {
         if (description == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                Description.class.getSimpleName()));
+                    Description.class.getSimpleName()));
         }
         if (!Description.isValidDescription(description)) {
             throw new IllegalValueException(Description.MESSAGE_CONSTRAINTS);
@@ -66,7 +66,7 @@ public class JsonAdaptedEvent extends JsonAdaptedCalendarEntry {
 
         if (dateTime == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                DateTime.class.getSimpleName()));
+                    DateTime.class.getSimpleName()));
         }
         if (!DateTime.isValidDateTime(dateTime)) {
             throw new IllegalValueException(DateTime.MESSAGE_CONSTRAINTS);
@@ -76,13 +76,13 @@ public class JsonAdaptedEvent extends JsonAdaptedCalendarEntry {
 
         if (endingDateTime == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                DateTime.class.getSimpleName()));
+                    DateTime.class.getSimpleName()));
         }
         final DateTime modelEndingDateTime;
         if (endingDateTime.isPresent()) {
             if (!DateTime.isValidDateTime(endingDateTime.get())) {
                 throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                    DateTime.class.getSimpleName()));
+                        DateTime.class.getSimpleName()));
             }
             modelEvent.setEndingDateTime(new DateTime(endingDateTime.get()));
         }

@@ -10,7 +10,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Weight {
 
     public static final String MESSAGE_CONSTRAINTS =
-        "Weight should only contain a positive real number";
+            "Weight should only contain a positive real number";
     public static final String VALIDATION_REGEX = "^+?\\d*\\.{0,1}\\d+$";
     private final double weight;
 
@@ -31,8 +31,8 @@ public class Weight {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-            || (other instanceof Weight // instanceof handles nulls
-            && weight == ((Weight) other).weight); // state check
+                || (other instanceof Weight // instanceof handles nulls
+                && weight == ((Weight) other).weight); // state check
     }
 
     @Override

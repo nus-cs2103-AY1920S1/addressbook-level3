@@ -18,14 +18,14 @@ public class ReminderCommand extends Command {
     public static final String COMMAND_WORD = "reminder";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a reminder to the calendar. "
-        + "Parameters: "
-        + PREFIX_CALENDAR_DESCRIPTION + "DESCRIPTION "
-        + PREFIX_DATETIME + "DATETIME "
-        + "[" + PREFIX_CALENDAR_REPETITION + "REPETITION]\n"
-        + "Example: " + COMMAND_WORD + " "
-        + PREFIX_CALENDAR_DESCRIPTION + "Insulin injection "
-        + PREFIX_DATETIME + "2020-05-31 16:00 "
-        + PREFIX_CALENDAR_REPETITION + "daily";
+            + "Parameters: "
+            + PREFIX_CALENDAR_DESCRIPTION + "DESCRIPTION "
+            + PREFIX_DATETIME + "DATETIME "
+            + "[" + PREFIX_CALENDAR_REPETITION + "REPETITION]\n"
+            + "Example: " + COMMAND_WORD + " "
+            + PREFIX_CALENDAR_DESCRIPTION + "Insulin injection "
+            + PREFIX_DATETIME + "2020-05-31 16:00 "
+            + PREFIX_CALENDAR_REPETITION + "daily";
 
     public static final String MESSAGE_SUCCESS = "New reminder added: %1$s";
     public static final String MESSAGE_DUPLICATE_REMINDER = "This reminder already exists in the calendar";
@@ -56,7 +56,7 @@ public class ReminderCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-            || (other instanceof ReminderCommand // instanceof handles nulls
-            && toAdd.equals(((ReminderCommand) other).toAdd));
+                || (other instanceof ReminderCommand // instanceof handles nulls
+                && toAdd.equals(((ReminderCommand) other).toAdd));
     }
 }

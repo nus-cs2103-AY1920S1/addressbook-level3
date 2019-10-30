@@ -11,15 +11,15 @@ import seedu.address.model.record.RecordType;
  */
 public interface Bmi {
 
-    static final RecordType RECORD_TYPE = BMI;
-    static final double MINIMUM = 18.5;
-    static final double MAXIMUM = 25;
-    static final String CONSTRAINT_UNITS = "";
-    static final DurationUnit DURATION_UNITS = DAY;
+    RecordType RECORD_TYPE = BMI;
+    double MINIMUM = 18.5;
+    double MAXIMUM = 25;
+    String CONSTRAINT_UNITS = "";
+    DurationUnit DURATION_UNITS = DAY;
 
     /**
      * Returns the type of record of this achievement;
      */
-    public RecordType getRecordType();
+    RecordType getRecordType();
 
 }

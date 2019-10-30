@@ -182,6 +182,6 @@ public interface Logic {
     /**
      * Returns an unmodifiable list of motivational quotes stored in this program.
      */
-    public List<String> getMotivationalQuotesList();
+    List<String> getMotivationalQuotesList();
 
 }

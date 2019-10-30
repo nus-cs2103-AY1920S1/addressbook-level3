@@ -36,5 +36,5 @@ public class AchievementsMap {
     public static final Map<RecordType, List<Achievement>> ACHIEVEMENTS_MAP = Map.ofEntries(
             entry(BLOODSUGAR, BLOOD_SUGAR_ACHIEVEMENTS_LIST),
             entry(BMI, BMI_ACHIEVEMENTS_LIST)
-            );
+    );
 }

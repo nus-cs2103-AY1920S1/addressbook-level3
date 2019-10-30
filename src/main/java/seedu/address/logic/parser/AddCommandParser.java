@@ -41,11 +41,11 @@ public class AddCommandParser implements Parser<AddCommand> {
      */
     public AddCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-            ArgumentTokenizer.tokenize(args, PREFIX_RECORDTYPE, PREFIX_DATETIME, PREFIX_BLOODSUGAR_CONCENTRATION,
-                PREFIX_BMI_HEIGHT, PREFIX_BMI_WEIGHT);
+                ArgumentTokenizer.tokenize(args, PREFIX_RECORDTYPE, PREFIX_DATETIME, PREFIX_BLOODSUGAR_CONCENTRATION,
+                        PREFIX_BMI_HEIGHT, PREFIX_BMI_WEIGHT);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_RECORDTYPE, PREFIX_DATETIME)
-            || !argMultimap.getPreamble().isEmpty()) {
+                || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
 
@@ -55,18 +55,18 @@ public class AddCommandParser implements Parser<AddCommand> {
         switch (rt) {
         case BLOODSUGAR:
             if (!arePrefixesPresent(argMultimap, PREFIX_BLOODSUGAR_CONCENTRATION)
-                || !argMultimap.getPreamble().isEmpty()) {
+                    || !argMultimap.getPreamble().isEmpty()) {
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
             }
             Concentration concentration = ParserUtil.parseConcentration(
-                argMultimap.getValue(PREFIX_BLOODSUGAR_CONCENTRATION).get()
+                    argMultimap.getValue(PREFIX_BLOODSUGAR_CONCENTRATION).get()
             );
             BloodSugar bloodSugar = new BloodSugar(concentration, dateTime);
             return new AddCommand(bloodSugar);
 
         case BMI:
             if (!arePrefixesPresent(argMultimap, PREFIX_BMI_HEIGHT, PREFIX_BMI_WEIGHT)
-                || !argMultimap.getPreamble().isEmpty()) {
+                    || !argMultimap.getPreamble().isEmpty()) {
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
             }
             Height height = ParserUtil.parseHeight(argMultimap.getValue(PREFIX_BMI_HEIGHT).get());
