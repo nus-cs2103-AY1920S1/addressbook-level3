@@ -72,7 +72,7 @@ dependencies {
 }
 
 shadowJar {
-    archiveName = 'addressbook.jar'
+    archiveName = 'moolah.jar'
 
     destinationDir = file("${buildDir}/jar/")
 }
